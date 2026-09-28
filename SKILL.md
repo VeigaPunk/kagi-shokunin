@@ -22,7 +22,7 @@ corpus entry). Handle hygiene *evidence* and *flows*, not secret material.
 |---|---|---|---|
 | Ask the handler anything | `echo '…' \| the-janitor request` (stdin only) | args, tmux send-keys, port probing | text reply on stdout; empty-text reply still exits 0 |
 | Check handler state | `the-janitor status` | reading `session-id` to infer auth | prints `state`, `health`, `authorization process_memory_only` |
-| Check 1Password authorization | `request` → handler calls `janitor_auth` → `AUTH_OK`/`AUTH_REQUIRED` | `op whoami` against handler auth | caller-side check is `the-janitor whoami` (own env) |
+| Check 1Password authorization | `request` → handler calls `janitor_auth` → `AUTH_OK`/`AUTH_REQUIRED` | `op whoami` against handler auth | caller-side check is `the-janitor whoami` — exit 1 (`account is not signed in`) predicts `request` will die in readiness |
 | One-shot command with vault env | `the-janitor run -- <cmd>` | assuming handler auth; it uses caller's `op` | needs `~/.config/the-janitor/op.env` present |
 | Inventory env keys | `the-janitor refs` | `cat op.env` (skips redaction); pasting output into artifacts | `KEY=op://…` verbatim / `KEY=<redacted-non-op-value>` |
 | Start / stop handler | `the-janitor start` / `stop` | `kill` on the tmux pane | `stop` discards in-memory authorization; next `start` requires re-approval |
@@ -30,7 +30,7 @@ corpus entry). Handle hygiene *evidence* and *flows*, not secret material.
 | First custody registration | `the-janitor tac-register` | running twice expecting refresh — O_EXCL, never replaces | writes `~/.local/state/the-janitor/tac-daybreak-blue.json` 0600 |
 | 1Password in musketeer Chrome | `cdp-bridge ensure` then `status` | `open-popup` (hard refusal, exit 2); scraping vault DOM | manifest at `$MUSKETEER_CHROME_PROFILE/NativeMessagingHosts/` |
 | Vault UI / unlock popup | operator + agent-browser, not janitor | automating the unlock flow | boundary is explicit in code |
-| Secret read/write/delete | do NOT execute; emit redacted plan + `JANITOR_ACTION_REQUIRED` | synthesizing `op` commands | explicit operator intent + trusted CLI only |
+| Verify model endpoint is real | `curl -fsS <endpoint-minus-/v1>/health` → `{"status":"ok"}` | trusting `status`'s `endpoint` line — it prints config, never probes | port 8080 was a Jitsi videobridge on 2026-09-28 while llama-server served the model on 34113 |
 
 ## Failure table (exact texts, exits)
 
@@ -40,7 +40,7 @@ corpus entry). Handle hygiene *evidence* and *flows*, not secret material.
 | `missing executable client: …/client.py` | client.py not +x | 2 |
 | `missing model overlay: …/opencode.json` | overlay unreadable | 2 |
 | `port 40961 already has an OpenCode server outside tmux session janitor` | foreign server squatting the port | 1 |
-| `handler exited before becoming ready` | app not unlocked / CLI integration off — enable 1Password → Developer → "Integrate with 1Password CLI" | 1 |
+| `handler exited before becoming ready` | app not unlocked / CLI integration off — **or** `op signin` died non-interactively (caller signed out; check `the-janitor whoami` first) | 1 |
 | `handler is waiting for 1Password authorization` | 60 s readiness loop expired — unlock app, approve prompt, `tmux attach -t janitor` if terminal input requested | 1 |
 | `request text must be supplied on stdin, not as arguments` | args passed to `request` | 2 |
 | `read an empty request from stdin` | empty stdin (client.py) | 2 |
@@ -91,7 +91,8 @@ Handler operation:
 - `cat ~/.config/the-janitor/op.env` or committing it — file holds live `op://` refs at 0600; use `refs` for key names only.
 - Retrying `janitor_auth` inside a request — contract is one call, emit result, stop.
 - `kill`ing the OpenCode server PID instead of `the-janitor stop` — leaves tmux + stale `session-id`.
-- Treating `status`/`tac-check` OK as "vault is unlocked" or "TAC is live" — both are metadata/offline checks.
+- Treating `status`/`tac-check` OK as "vault is unlocked" or "TAC is live" — both are metadata/offline checks. Same for `endpoint`/`model`/`fallback disabled`: configured values, not probed capabilities (endpoint check lives in the decision table).
+- Assuming a failed `request` left junk — a readiness death leaves no tmux session and no `session-id`; `the-janitor stop` is idempotent cleanup regardless (`already stopped`, exit 0).
 - Silent re-registration of a checksum after tamper — `O_EXCL` prevents it; if register "should" refresh a record, the design assumption is wrong.
 - Mapping vault/item structure into durable artifacts — ref paths are exfil-shaped; record that refs *exist*, not where they point.
 - Absorbing cross-domain surfaces (CDP lease, musketeer profile) into this repo — report to integrator.
@@ -100,6 +101,10 @@ Handler operation:
 
 - `the-janitor --help`, `the-janitor status`, `the-janitor cdp-bridge status`,
   `the-janitor tac-check` reproduce every claimed surface (verified 2026-09-28).
+  Round-3 additions: `the-janitor whoami` (exit + text reveal caller auth),
+  `the-janitor stop` on stopped state (`already stopped`, exit 0, still
+  removes `session-id`), endpoint `/health` curl (drift check),
+  `corpus/knowledge/op-cli-surface.md` for the auth matrix + drift evidence.
 - `corpus/knowledge/janitor-command-surface.md` carries line refs + runnable
   probes; script line numbers date to the 2026-09-28 read — re-grep before
   citing.

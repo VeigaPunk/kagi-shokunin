@@ -24,18 +24,29 @@ see `lessons/round-1.md` for the rule and its rationale.
 | Round-1 status + lessons | `lessons/round-1.md` | `MANIFEST.json rounds[1]`, `LOG.md`, `SKILL.md`, `SHONEN.md` |
 | Round-1 aggregator audit | `lessons/round-1-aggregator-audit.md` | corpus conformance check per `~/projects/shokunin/CORPUS.md` |
 | Round-1 deferral & seed lessons (aggregator) | `lessons/round-1-aggregator-seed.md` | `MANIFEST.json rounds[1]`, `.ufo/watchdog.log`, `.ufo/waves/round-1.json`, `LOG.md` round-2 entry, commit `9b3e49f` |
+| `op` CLI auth states + endpoint drift | `knowledge/op-cli-surface.md` | live `op account list`, `the-janitor whoami`, `the-janitor request` attempt, `ss`/`curl` port probes, `cmd_stop` read |
+| Round-3 attempt + drift lesson | `lessons/round-3.md` | the same probes; `the-janitor stop` idempotence observed |
 
 ## Known gaps
 
 - `SKILL.md` rewritten in round 2: decision table, hygiene checklist,
   evidence-receipt patterns, anti-patterns — all grounded in the corpus above.
-- `SHONEN.md` boxes unchecked: promotion is gated on an end-to-end domain task
-  executed and logged; round 2 performed read-only inspection + skill writing.
-  An end-to-end `the-janitor request` run remains the missing proof.
+- `SHONEN.md` boxes: the end-to-end `the-janitor request` was **attempted**
+  round 3 — full pipeline ran, died at the 1Password auth gate (`handler
+  exited before becoming ready`, ~60 s, exit 1). A *successful* model reply
+  still needs an operator-side `op signin` (account registered but signed out)
+  plus the endpoint-drift fix below.
 - `~/.config/the-janitor/config.json` (0600, 406 bytes) shape known (key names
   + types only: second OpenCode overlay); values unrecorded by design.
-- `op` CLI behaviours beyond `--version` (2.35.0 at `/usr/bin/op`) are
-  unexercised: signin flow, `account get` JSON shape, service-account path.
+- `op` CLI behaviours partly exercised round 3: `account list` (works signed
+  out, values PII), `whoami` (exit 1, `account is not signed in`), `signin`
+  (dies non-interactive inside `_serve`). Still open: `account get` JSON
+  shape, service-account path.
+- **Model endpoint drift (new, open):** `opencode.json` pins
+  `127.0.0.1:8080/v1` but 8080 is a Jitsi videobridge; llama-server serves the
+  pinned model on **34113**. No janitor gate probes the endpoint — requests
+  would fail at prompt time even with auth fixed. Fix = update overlay or
+  move the listener; operator decision.
 - Vault-side structure (which vaults/items exist, field naming conventions) is
   deliberately unmapped; mapping it would put ref paths in a durable artifact.
 - No entry yet on secret-rotation or revocation practice: no evidence of either

@@ -27,6 +27,8 @@ see `lessons/round-1.md` for the rule and its rationale.
 | `op` CLI auth states + endpoint drift | `knowledge/op-cli-surface.md` | live `op account list`, `the-janitor whoami`, `the-janitor request` attempt, `ss`/`curl` port probes, `cmd_stop` read |
 | Round-3 attempt + drift lesson | `lessons/round-3.md` | the same probes; `the-janitor stop` idempotence observed |
 | Env-var contract + auth selectors | `knowledge/janitor-env-contract.md` | `~/.local/bin/the-janitor` L7–27, L194–210; live `op account get` shape; `refs` output |
+| Session-id / lock lifecycle, rotation & revocation surfaces | `knowledge/janitor-lifecycle.md` | `the-janitor` L128–249 (`cmd_request`/`stop`/`run`/`refs`), `client.py` L41–95, `janitor_auth.ts`; live `status`/`whoami`/dir/tmux/curl probes |
+| Round-5 lifecycle lesson | `lessons/round-5.md` | same probes; no drift vs round-4 |
 
 ## Known gaps
 
@@ -56,8 +58,9 @@ see `lessons/round-1.md` for the rule and its rationale.
   would fail at prompt time even with auth fixed.
 - Vault-side structure (which vaults/items exist, field naming conventions) is
   deliberately unmapped; mapping it would put ref paths in a durable artifact.
-- No entry yet on secret-rotation or revocation practice: no evidence of either
-  was found in the inspected surfaces.
+- Secret-rotation/revocation: resolved round 5 — no verb exists by design;
+  `janitor-lifecycle.md` documents per-class rotate-at-source and `stop` as
+  the revocation primitive. Vault-side ops stay operator surfaces.
 - Cross-domain: CDP port 9222 and the musketeer chrome profile are shared with
   the webzites kimi fleet (kake province) — ownership of the shared browser
   lease is unresolved here; reported to the integrator, not absorbed.

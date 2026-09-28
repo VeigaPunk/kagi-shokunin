@@ -45,3 +45,21 @@
   drift fix = one overlay field), `lessons/round-4.md`, SKILL.md decision
   table + env-contract section + 3 anti-patterns, README coverage/gaps.
   No secret values, no ref paths, no account-identifying values recorded.
+- 2026-09-28 — round 5: closed the last named corpus gap — secret-rotation /
+  revocation practice. Evidence: `the-janitor` L128–249 re-read
+  (`cmd_request`/`cmd_start`/`cmd_stop`/`cmd_refs`/`cmd_run`), `client.py`
+  L41–95 (`get_session_id`/`session_exists`/`run_prompt`), `janitor_auth.ts`;
+  live probes `status` (stopped), `whoami` (`account is not signed in`,
+  exit 1), `ls -la` both state dirs (no `session-id` — consistent), tmux
+  (`ufo_sighting` only), curl 34113 (`/health` ok) + 8080 (404 — drift
+  unchanged). Finding: no rotate/revoke verb exists by design — `stop` is
+  the revocation primitive (process-memory-only authorization); rotation is
+  per-class rotate-at-source (only `_serve`-env secrets need restart);
+  `session-id` is conversation context, not a credential; vault-side
+  revocation surfaces lazily as `AUTH_REQUIRED`. Landed:
+  `knowledge/janitor-lifecycle.md`, `lessons/round-5.md`, SKILL.md
+  rotation/revocation section + 2 anti-patterns + falsification row, README
+  coverage/gaps. SHONEN boxes 1/3/4 checked — SKILL.md carries cited
+  decision/failure tables, is self-contained for an agent without oral
+  context, and PROVINCE.md scope held (no cross-domain absorption). No
+  secret values, no ref paths, no account-identifying values recorded.

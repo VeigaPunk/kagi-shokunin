@@ -73,6 +73,23 @@ URL is `provider.qwen-local.options.baseURL` in `opencode.json` — the
 round-3 drift fix is one JSON field there, after which the `status` line
 still lies until L17 is updated too.
 
+## Rotation & revocation (no rotate verb — `corpus/knowledge/janitor-lifecycle.md`)
+
+There is no rotation/revocation subcommand; both are side effects:
+
+| Secret class | Rotate where | Restart needed? |
+|---|---|---|
+| `op://` refs in `op.env` | vault item | no — `op run` re-resolves each call |
+| raw values in `op.env` | edit the file (0600) | no — next `run` reads it |
+| `OP_SERVICE_ACCOUNT_TOKEN` | IdP/vault + re-export | yes — `_serve` reads it once at daemon start (L194) |
+| `OP_SESSION_<domain>` | `stop` → next start re-signins | yes — token lives in daemon memory only |
+
+`stop` is the revocation primitive: kills the tmux session, discards
+`OP_SESSION_*`/`OP_SERVICE_ACCOUNT_TOKEN`, removes `session-id`
+(conversation id, not a credential — `client.py` falls back to
+`POST /session` when it's gone/stale). Vault-side revocation is observable
+only lazily: `janitor_auth` → `AUTH_REQUIRED` inside the next request.
+
 ## Credential-hygiene checklist
 
 Evidence production:
@@ -118,6 +135,8 @@ Handler operation:
 - Hunting for `THE_JANITOR_ENDPOINT`-style overrides — none exists; `MODEL_ENDPOINT` (L17) feeds only `status`'s display line. Fix `opencode.json` `baseURL`.
 - Recording `op account get`/`account list` values — key names only; the values are account-identifying PII in the same class as `op://` ref paths.
 - Assuming `op.env` is all `op://` refs — 2026-09-28 `refs` showed raw-value keys (identifiers); the convention is unenforced, so `cat` still leaks them.
+- Treating `session-id` as a credential — it's an OpenCode conversation id: deleting it only forks context, `client.py` `session_exists` self-heals a stale id, and `stop` removes it anyway.
+- Expecting a vault-revoked secret to surface eagerly — no watch exists; `janitor_auth` only runs inside a model request, so revocation shows up as `AUTH_REQUIRED` at next request time, never sooner.
 
 ## Falsification
 
@@ -135,3 +154,7 @@ Handler operation:
   `THE_JANITOR_*` overrides) and proof the model endpoint lives only in
   `opencode.json` `baseURL`; `grep -n 'OP_\|THE_JANITOR\|baseURL'
   ~/.local/bin/the-janitor ~/.config/the-janitor/opencode.json` reproduces it.
+- Round-5: `corpus/knowledge/janitor-lifecycle.md` — rotation has no verb;
+  per-class rotate-at-source table + `stop` as the revocation primitive;
+  `grep -n 'OP_SESSION\|SESSION_FILE\|kill-session' ~/.local/bin/the-janitor`
+  + `client.py` `get_session_id`/`session_exists` reproduce it.

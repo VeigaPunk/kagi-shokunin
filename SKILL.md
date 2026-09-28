@@ -73,6 +73,25 @@ URL is `provider.qwen-local.options.baseURL` in `opencode.json` — the
 round-3 drift fix is one JSON field there, after which the `status` line
 still lies until L17 is updated too.
 
+## Config layering (`corpus/knowledge/config-layering.md`, verified via `debug`)
+
+`OPENCODE_CONFIG` **adds** a layer; it does not replace the global one. The
+handler resolves: global `~/.config/opencode/opencode.json` (always) →
+`$CONFIG_DIR/opencode.json` overlay → project discovery from cwd (none today,
+**not disabled** — `OPENCODE_DISABLE_PROJECT_CONFIG=1` is unset) →
+`agents/janitor.md` frontmatter, which wins `agent.janitor` wholesale
+(`steps: 4` resolved, even though dead `$CONFIG_DIR/config.json` claims 8 —
+`config.json` is not a discovered filename; inert decoy, edits do nothing).
+
+Resolved-state facts (`opencode debug agent janitor` / `debug config` under
+the `_serve` env): 9 provider defs load but `enabled_providers` gates to
+`qwen-local`; 23 agents + global `fnm-nudge.js` plugin are **loaded into the
+process**; 56 permission rules evaluate last-match-wins with janitor's
+`{"*": deny, janitor_auth: allow}` as ceiling — `tools` shows only
+`janitor_auth: true`. Isolation = the permission ceiling + the L214–219
+credential unset, **not** a config boundary. A hostile or sloppy edit to the
+*global* opencode config or a new global plugin reaches the handler.
+
 ## Rotation & revocation (no rotate verb — `corpus/knowledge/janitor-lifecycle.md`)
 
 There is no rotation/revocation subcommand; both are side effects:
@@ -93,7 +112,7 @@ only lazily: `janitor_auth` → `AUTH_REQUIRED` inside the next request.
 ## Credential-hygiene checklist
 
 Evidence production:
-- [ ] Record mechanism and metadata: paths, modes (`op.env` 0600, state dir 0700, `client.lock`/`session-id`/`config.json` 0600), verb names, exit codes, field names.
+- [ ] Record mechanism and metadata: paths, modes (`op.env`/`config.json`/`opencode.json`/`client.py` 0600–0755 in `$CONFIG_DIR`; state dir 0700; `client.lock`/`session-id` 0600 in `$STATE_DIR`), verb names, exit codes, field names. `corpus/drift-pins.sh` fingerprints every cited host file — run it first, re-read what changed.
 - [ ] Quote command output only when it is metadata-only (`status`, `cdp-bridge status`, `tac-check` block).
 - [ ] `refs` output: key names OK for internal use; ref paths stay out of artifacts.
 - [ ] Receipts/checksums bind *bytes*: state scope explicitly ("local receipt integrity only"), never imply provider attestation or live access.
@@ -102,7 +121,7 @@ Evidence production:
 Handler operation:
 - [ ] One request at a time — `client.lock` flock serializes machine-wide; queue instead of racing.
 - [ ] After `stop`, expect `AUTH_REQUIRED` on next request until the operator re-approves.
-- [ ] Keep `config_overlay` (`opencode.json`) intact: `enabled_providers: ["qwen-local"]`, `share: disabled`, `autoupdate: false` — the isolation is the config.
+- [ ] Keep `config_overlay` (`opencode.json`) intact: `enabled_providers: ["qwen-local"]`, `share: disabled`, `autoupdate: false` — the gate is post-merge, so the *global* `~/.config/opencode/opencode.json` also reaches the handler (providers/agents/plugins load; janitor deny + `enabled_providers` contain them). Global-config edits are an attack/drift surface on janitor.
 - [ ] Never widen `janitor` agent permissions (`{"*": deny, janitor_auth: allow}`) — `janitor_auth` ignores all `op` output for a reason.
 - [ ] CDP port 9222 + musketeer profile are shared with the kake fleet: report lease conflicts, don't absorb them.
 
@@ -137,6 +156,8 @@ Handler operation:
 - Assuming `op.env` is all `op://` refs — 2026-09-28 `refs` showed raw-value keys (identifiers); the convention is unenforced, so `cat` still leaks them.
 - Treating `session-id` as a credential — it's an OpenCode conversation id: deleting it only forks context, `client.py` `session_exists` self-heals a stale id, and `stop` removes it anyway.
 - Expecting a vault-revoked secret to surface eagerly — no watch exists; `janitor_auth` only runs inside a model request, so revocation shows up as `AUTH_REQUIRED` at next request time, never sooner.
+- Editing `~/.config/the-janitor/config.json` to change the handler — it is inert: `config.json` is not an opencode-discovered filename and nothing references it. Its `steps: 8` disagrees with the real `steps: 4` (resolved proof in `config-layering.md`); treat it as a decoy, never a knob.
+- Assuming `OPENCODE_CONFIG` isolates the handler from the user's global opencode config — verified additive merge: 9 providers, 23 agents, global plugin `fnm-nudge.js` all load into the process. Containment is `enabled_providers` + last-match deny + the `_serve` env unset, not the layer boundary. Check `opencode debug agent janitor` after any global config change.
 
 ## Falsification
 
@@ -158,3 +179,9 @@ Handler operation:
   per-class rotate-at-source table + `stop` as the revocation primitive;
   `grep -n 'OP_SESSION\|SESSION_FILE\|kill-session' ~/.local/bin/the-janitor`
   + `client.py` `get_session_id`/`session_exists` reproduce it.
+- Round-6: `corpus/knowledge/config-layering.md` — resolved layering proven by
+  `opencode debug agent janitor` + `opencode debug config` run under the
+  `_serve` env (cwd `$CONFIG_DIR`, `OPENCODE_CONFIG`, throwaway XDG dirs);
+  `config.json` inertness proven by resolved `steps: 4` ≠ its `steps: 8` and
+  zero script references. `corpus/drift-pins.sh` pins sha256+lines of every
+  cited host file — run it before trusting any line ref.

@@ -29,6 +29,9 @@ see `lessons/round-1.md` for the rule and its rationale.
 | Env-var contract + auth selectors | `knowledge/janitor-env-contract.md` | `~/.local/bin/the-janitor` L7–27, L194–210; live `op account get` shape; `refs` output |
 | Session-id / lock lifecycle, rotation & revocation surfaces | `knowledge/janitor-lifecycle.md` | `the-janitor` L128–249 (`cmd_request`/`stop`/`run`/`refs`), `client.py` L41–95, `janitor_auth.ts`; live `status`/`whoami`/dir/tmux/curl probes |
 | Round-5 lifecycle lesson | `lessons/round-5.md` | same probes; no drift vs round-4 |
+| Opencode config layering + inert `config.json` | `knowledge/config-layering.md` | `opencode debug config`/`debug agent janitor` under the `_serve` env (resolved dump: 9 providers, 23 agents, global plugin loaded; `steps: 4`); `the-janitor` `cmd_serve`; binary `customize-opencode` doc |
+| Host-file drift pins | `corpus/drift-pins.sh` | sha256/mode/line-count of every cited file, pinned 2026-09-28 |
+| Round-6 layering lesson | `lessons/round-6.md` | same probes |
 
 ## Known gaps
 
@@ -39,8 +42,13 @@ see `lessons/round-1.md` for the rule and its rationale.
   exited before becoming ready`, ~60 s, exit 1). A *successful* model reply
   still needs an operator-side `op signin` (account registered but signed out)
   plus the endpoint-drift fix below.
-- `~/.config/the-janitor/config.json` (0600, 406 bytes) shape known (key names
-  + types only: second OpenCode overlay); values unrecorded by design.
+- `~/.config/the-janitor/config.json` (0600, 406 bytes) — **resolved round 6:
+  inert.** `config.json` is not an opencode-discovered filename (discovery =
+  `opencode.json`/`opencode.jsonc`/`.opencode/`, plus `OPENCODE_CONFIG`
+  overlay and global `~/.config/opencode/`); zero references in `the-janitor`.
+  Its `agent.janitor.steps: 8` loses to `janitor.md` `steps: 4` (proven by
+  `opencode debug agent janitor`). Dead config, keep out of the live model;
+  see `knowledge/config-layering.md`.
 - `op` CLI behaviours exercised through round 4: `account list` and
   `account get` both work signed out (values PII — shape only recorded),
   `whoami` exit 1 `account is not signed in`, `signin` dies non-interactive
@@ -49,6 +57,15 @@ see `lessons/round-1.md` for the rule and its rationale.
   service-account path (`OP_SERVICE_ACCOUNT_TOKEN` skips the interactive
   chain entirely; `OP_ACCOUNT` selects accounts). Still open: nothing named —
   `op run` internals and item-level reads stay deliberately unexercised.
+- **Global-layer leak (open, operator decision):** round 6 proved
+  `OPENCODE_CONFIG` is additive — the handler merges global
+  `~/.config/opencode/opencode.json`, loads all 23 agents and global plugin
+  `fnm-nudge.js`, and would pick up a project `opencode.json` dropped into
+  `$CONFIG_DIR` (discovery not disabled). Containment holds via
+  `enabled_providers` + last-match permission deny + `_serve` env scrub
+  (`config-layering.md`). Hardening options (not ours to apply):
+  `OPENCODE_DISABLE_PROJECT_CONFIG=1`, a dedicated XDG_CONFIG_HOME, or
+  `--pure`.
 - **Model endpoint drift (open, operator decision):** `opencode.json`
   `baseURL` pins `127.0.0.1:8080/v1` but 8080 is a Jitsi videobridge;
   llama-server serves the pinned model on **34113** (re-verified 2026-09-28

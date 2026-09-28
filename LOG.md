@@ -63,3 +63,23 @@
   decision/failure tables, is self-contained for an agent without oral
   context, and PROVINCE.md scope held (no cross-domain absorption). No
   secret values, no ref paths, no account-identifying values recorded.
+- 2026-09-28 — round 6: closed the config-layering gap and corrected three
+  stale corpus claims. Evidence: `opencode debug agent janitor` + `opencode
+  debug config` run under the exact `_serve` env (cwd `$CONFIG_DIR`,
+  `OPENCODE_CONFIG`, throwaway XDG dirs — janitor state untouched);
+  `customize-opencode` doc extracted from the opencode 1.18.31 binary;
+  sha256/wc pins of 13 cited host files. Findings: `OPENCODE_CONFIG` is
+  **additive** — global `~/.config/opencode/opencode.json` merges underneath
+  (9 providers loaded, gated to `qwen-local` by `enabled_providers`; 23
+  agents + global plugin `fnm-nudge.js` load into the process; 56-entry
+  permission list resolves last-match-wins with janitor's deny as ceiling —
+  `tools` map = only `janitor_auth`). `~/.config/the-janitor/config.json`
+  is **inert** (not a discovered filename; resolved `steps: 4` beats its
+  `steps: 8`) — README gap resolved to "dead config". Project-config
+  discovery under `$CONFIG_DIR` is live but unused; hardening knobs named
+  (`OPENCODE_DISABLE_PROJECT_CONFIG`, dedicated XDG_CONFIG_HOME, `--pure`)
+  — operator decision, not applied. Landed: `knowledge/config-layering.md`,
+  `corpus/drift-pins.sh` (host-file fingerprints), `lessons/round-6.md`,
+  SKILL.md layering section + checklist/anti-pattern/falsification updates,
+  README rows + gap resolution. No vault access, no secret values, no ref
+  paths recorded.

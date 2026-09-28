@@ -139,3 +139,78 @@
   (17 claims, 15 verified, 2 corrections applied: 5 distinct WARN sessions,
   truncation introduced round-7 not round-4), sentinel coverage pass.
   No vault access, no secret values, no ref paths, no row contents recorded.
+- 2026-09-28 — round 9 (freshness axis-move): made drift detection real.
+  Before: `drift-pins.sh` was a printer with no stored expectations —
+  `git show HEAD:corpus/drift-pins.sh | grep -c baseline` → 0 — so no fresh
+  process could detect drift; `PROTOCOL.md` §Evidence standard cited this repo
+  ("pins verifiable for only 2 of 13 files") and `SHONEN.md` violated the
+  protocol's mark form. Landed: `corpus/drift-pins.sh` v2 (451 lines, sha256
+  `c138d34c…0feb`) = gate with exit 0/1/2; `corpus/drift-baseline.tsv`
+  (15 rows `$HOME`-relative path/mode/lines/sha256); `corpus/drift-symbols.tsv`
+  (19 claim pins: value pins on both endpoint declarations, key-presence pins,
+  `#10`+`shape` on `op.env`, two `#1` count pins on the published handoff field
+  names); `corpus/knowledge/drift-gate.md` (schemas, verdict table, hash policy,
+  `--pin` refusals, bounds, reproduction); `corpus/lessons/round-9.md`;
+  `SCORECARD.md` (first ever — the AXES contract was unmet) with pre/post scores
+  and evidence per cell; `SHONEN.md` regenerated verbatim from the PROTOCOL
+  template with per-box evidence lines; `PROVINCE.md` surface + refusal census.
+  Evidence: verify `DRIFT_PINS: CLEAN (files=15 symbols=19)` exit 0; `--selftest`
+  `DRIFT_SELFTEST: PASS (13 cases)` exit 0; `--baseline` with no arg → exit 2;
+  falsified-baseline copy → `DRIFT … sha deadbeef0b7e->2408b0c90b7e` + exit 1;
+  `op.env` baseline row carrying a hash → `POLICY …` + exit 1 (policy enforced
+  before any read, so no secret-derived digest is ever printed); patched-endpoint
+  copies → `GONE` ×2 + exit 1; forced count pin → refusal, exit 2; hardlinked
+  twin → `LINK … nlink 2`, exit 1; `--pin` emitted three `REPIN` lines on a
+  falsified baseline (audit path proven live). Hash policy: 6 private 0600 files
+  pinned by mode+lines only (`op.env`, `config.json`, `~/.agents/AGENTS.md`,
+  `handoff-status.json`, both TAC receipt/custody records) — a committed sha256 of
+  a low-entropy private file is an offline confirmation oracle (L2 sentinel
+  demonstrated recovery with zero host contact); the cost is stated in the corpus
+  and sentinel's refinement ("only `op.env` strictly requires it") is recorded
+  next to the decision. Overclaim sweep: `SKILL.md:205`/`:304` and
+  `corpus/README.md:33` said "every cited host file" while 4 cited files were
+  unpinned — corrected; 2 moved into `FILES` (15 total), the two `xdg-data`
+  artifacts named as deliberate exclusions. README index completed (4 lesson
+  files that existed on disk were unindexed). L2: 10 lanes in one batch (planner,
+  connector, scout, executor, scribe, reviewer, critic, sentinel, labrat,
+  distiller); their defects fixed and attributed — `REPIN` never fired (old-row
+  map keyed literally), a missing option argument exited 1 instead of 2, an
+  empty/missing symbols file could be wiped by `--pin`, symbol scan followed
+  symlinks, hardlinks undetected, the count pin had no shape assertion, temp
+  files could linger in the corpus dir. Reported to the integrator (adjacency,
+  not absorbed): `~/.agents/AGENTS.md` is also audited by kotoba, and the pinned
+  musketeer NativeMessagingHosts manifest sits inside kake's leased chrome
+  profile — both monitored here, ownership unchanged; also the round-5 aggregator
+  lesson's `drift-pins.sh:19` citation is now dead (v2 stores `$HOME`-relative
+  paths) and is left for the integrator per the append-only rule. No vault
+  access; no secret values, ref paths, account values, private-file hashes, or
+  private-file line layouts in any artifact.
+- 2026-09-28 — round 9 (same round, re-verification wave): the round-8
+  transcript gate was wrong on first contact. `transcript-scan.sh` reported
+  `HITS=3` on a DB whose row census is unchanged since round 8 (7 sessions/39
+  messages/55 parts/238 events) — root cause: SQL `LIKE` treats `_` as "any
+  single character", so the `gsk_` pattern matched `gsk` + any 4 alnum chars in
+  7 event rows (literal `gsk\_` with `ESCAPE '\'` = 0 rows; run-length after
+  literal `gsk` = 4 chars in all 7 → not key-shaped). Fixed: `like_lit()` escapes
+  `\`/`%`/`_` and every query carries `ESCAPE '\'`. The remaining 2 HITs are the
+  `xai-` prefix colliding with provider *prose* (5-char lowercase word, no
+  key-shaped run) — new `--classify` mode answers this mechanically, with no
+  content: `CLASSIFY part.data pattern=xai- rows=1 key_shaped=0 prose=1`.
+  Baseline corrected: round 8 recorded "0 HIT, 270 cells × 25+5 patterns", but
+  the revision it committed carries 888 cells × 32+5 patterns — the measurement
+  predates the last edits ("uncommitted on fleet pause"), so the corpus was
+  claiming a clean baseline for a gate that was not on disk. Round-9 baseline
+  (script sha256 `2d60981b…3a23`, 282 lines): `TRANSCRIPT_SCAN: HITS=2
+  (cells=888 patterns=32+5 warns=2 schema-absent=0)`, exit 1, all 5 credential
+  tripwires empty, `--selftest` OK (seeded + wal-resident detection);
+  `--classify` key_shaped=0 for both. Also corrected: the entry claimed the
+  read path is `?immutable=1` while the shipped gate snapshots db+wal into
+  `mktemp` (which is what closes the wal blind window). No purge/rotation
+  action taken — no material found; the DB's at-rest request text is an
+  operator decision (appended to `.ufo/l0-questions.md`). Landed:
+  `knowledge/transcript-hygiene.md` corrections, `lessons/round-9.md` §11–14,
+  README rows + gap bullet, `transcript-scan.sh` header/baseline/classify.
+  Process note recorded: the L2 reviewer caught an in-flight (18:02–18:10)
+  revision of `drift-pins.sh` that was broken mid-edit (bash parse error, exit
+  2) — the committed 445-line revision is green; gate-before-cite ordering
+  stands.

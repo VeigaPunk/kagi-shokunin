@@ -34,6 +34,7 @@ corpus entry). Handle hygiene *evidence* and *flows*, not secret material.
 | Diagnose a wedged handler | `grep`/`tail` `$STATE_DIR/xdg-data/opencode/log/opencode.log` + `tmux capture-pane -t janitor -p` | expecting stderr in `status` output | ERROR-level log is the durable diagnostic: `stream error Cannot connect to API` = dead model endpoint (round-3 drift shape; ≈58 s retry window, exponential backoff 2→5→9→19→30 s); `failed to load plugin` recurs every start, non-fatal. Or run `the-janitor _serve` in a foreground terminal for live stderr (hidden verb, not in `help`) |
 | Verify model endpoint is real | `curl -fsS <endpoint-minus-/v1>/health` → `{"status":"ok"}` | trusting `status`'s `endpoint` line — it prints config, never probes | port 8080 was a Jitsi videobridge on 2026-09-28 while llama-server served the model on 34113 |
 | Audit transcript for leaked secrets | `corpus/transcript-scan.sh` (immutable, counts-only) | printing matched text; `sqlite3` without `file:…?immutable=1` (mutates `-wal`/`-shm` in the live dir) | exit 0 `TRANSCRIPT_SCAN: CLEAN` (WARN cells = credential-language text — expected, not a finding); exit 1 = secret-shaped material or populated credential table; `--selftest` checks the gate itself |
+| Trust a cited line ref / catch host-file drift | `bash corpus/drift-pins.sh` (compares the live host against the committed `corpus/drift-baseline.tsv` + `corpus/drift-symbols.tsv`) | the round-6 fingerprint printer (no stored baseline ⇒ it cannot detect drift); editing a TSV to go green; re-pinning to silence red | exit 0 `DRIFT_PINS: CLEAN (files=N symbols=M)`; 1 `DRIFT_PINS: DRIFT (…)` preceded by `DRIFT`/`MISSING`/`LINK`/`UNPINNED`/`EXTRA`/`DUP`/`POLICY`/`EMPTY` and symbol `MOVED`/`GONE`/`AMBIG`/`COUNT`/`SHAPE` lines naming file + line; 2 usage/setup, nothing written; `--pin` only after inspection |
 
 ## Control-plane trust boundary (`corpus/knowledge/handler-trust-boundary.md`)
 
@@ -50,7 +51,8 @@ Consequences:
 - Any local process can `POST /session/{id}/shell` `{"agent","command"}` —
   direct execution, **no model call** (verified: 51 ms, `id -un` = vgpnk) —
   or `POST /session/{id}/message`, where the body's `agent` field picks any
-  of the 26 loaded agents and a `"tools":{"bash":true}` map re-enables denied
+  of the 26 loaded agents (round-7 scratch `GET /agent`; 23 resolve offline via
+  `opencode debug config` — different measurement surfaces) and a `"tools":{"bash":true}` map re-enables denied
   tools even under `agent:"janitor"` (verified). These don't bypass a
   boundary — the `{"*": deny}` ceiling was **never socket-scoped**: it is
   agent frontmatter applying per-request, while the socket accepts any agent
@@ -102,15 +104,75 @@ false through 120 probes (each up to 2 s + 0.5 s sleep → 60–300 s) →
 misleading `waiting for 1Password authorization` text.
 
 Transcript hygiene gate: `corpus/transcript-scan.sh` scans all text-bearing
-columns (`part`/`message`/`event`.data, `session.title`, `session_input.prompt`,
-`session_message.data`, `session_context_epoch.baseline`/`.snapshot`,
-`todo.content`) plus row-count tripwires on credential-bearing tables
+columns in 11 tables (`part`/`message`/`event`.data, `session.title`/`slug`/`path`/`share_url`/`summary_diffs`/`metadata`/`permission`,
+`session_input.prompt`, `session_message.data`, `session_context_epoch.baseline`/`.snapshot`,
+`todo.content`, `project.name`/`worktree`/`commands`/`sandboxes`, `workspace.name`/`directory`/`extra`,
+`permission.action`/`resource`) plus row-count tripwires on credential-bearing tables
 (`account`, `account_state`, `control_account`, `credential`, `session_share` —
 schema has NOT NULL `access_token`/`refresh_token`/`value`/`secret` columns; all
 empty at baseline). Baseline 2026-09-28: 0 HIT / 4 WARN (request text *naming*
 credential concepts, e.g. "retrieve the … API keys" — signal that stdin carries
 credential intent, not leaked material). Detail + tiers:
 `corpus/knowledge/transcript-hygiene.md`.
+
+## Freshness gate — drift pins (`corpus/drift-baseline.tsv`, `corpus/drift-symbols.tsv`)
+
+Every line ref and content claim below points at a host file that drifts
+outside lane control. Run the gate before trusting any of them:
+
+    bash corpus/drift-pins.sh             # verify vs the committed baselines
+    bash corpus/drift-pins.sh --selftest  # scratch-tree proof that the gate fires (13 cases)
+
+- **Baselines are committed, not printed.** `corpus/drift-baseline.tsv` holds
+  one row per cited host file — `$HOME-relative path<TAB>mode<TAB>lines<TAB>sha256`
+  (15 files as of round 9) — and `corpus/drift-symbols.tsv` holds the content
+  claims themselves: `path<TAB>line<TAB>ERE[<TAB>shape]`, 19 rows. The two
+  endpoint rows are **value** pins (`the-janitor:19`
+  `^MODEL_ENDPOINT="http://127\.0\.0\.1:8080/v1"$`, `opencode.json:16` the same
+  literal) because the actionable claim is that both declarations still pin the
+  dead 8080 endpoint — remediation must red-line the gate. The rest are
+  key-presence (`the-janitor:194` `OP_SERVICE_ACCOUNT_TOKEN`,
+  `agents/janitor.md:6` `^steps: 4`, `janitor_auth.ts:12` …) or count pins
+  (`op.env` `#10` + `shape`; two `handoff-status.json` field names as `#1`).
+  A fingerprint *printer* with no stored
+  baseline is not a pin (`PROTOCOL.md` §Evidence standard) — the round-8
+  audit found v1's pins verifiable for only 2 of 13 files, because only 2 had
+  expected values in the repo.
+- **Verdicts.** Files: `OK | DRIFT | MISSING | LINK`, plus `UNPINNED` /
+  `EXTRA` / `DUP` (membership closed both ways, duplicates rejected) and
+  `POLICY` (a baseline row asking for a hash of a no-hash path — refused before
+  the file is read) and `EMPTY` (a pin file with no rows). Symbols:
+  `OK | MOVED <pin>-><actual> | GONE | AMBIG <n> | COUNT | SHAPE`. `DRIFT`
+  prints which field moved (`mode`/`lines`/`sha`); the symbol row is what catches
+  the round-4→8 stale-ref class (`MODEL_ENDPOINT` L17→L19) — a sha diff alone
+  does not tell you the citation broke.
+- **Exit** 0 `DRIFT_PINS: CLEAN (files=N symbols=M)` · 1 `DRIFT_PINS: DRIFT
+  (files_ok=… files_bad=… symbols_ok=… symbols_bad=…)` · 2 usage/setup with
+  **nothing written** (`baseline not readable: … (run --pin once)`; a missing
+  option argument also exits 2).
+- **`--pin` records, it does not repair.** It rewrites the file rows (each
+  change prints `REPIN <path> (<old> -> <mode>/<lines>/<sha12>)`) and moves a
+  symbol's recorded line only while its ERE still matches exactly once
+  (printing `MOVED <path>:<pin>-><actual>`). A **count change is refused** —
+  `count pin changed (…:#10->#11), refusing to pin` — because that is a claim
+  change (a key appeared/disappeared), not a location move; hand-edit the count
+  after checking. `GONE`, ambiguous, missing/linked/hardlinked, unreadable or
+  empty symbol sources and baseline rows outside `FILES` all abort with exit 2
+  and write nothing. Re-pin only after inspecting what changed — never to
+  silence a red run.
+- **Hash policy (6 of 15 files).** `op.env` (values + refs), plus
+  `config.json`, `~/.agents/AGENTS.md`, `handoff-status.json` and the two TAC
+  receipt/custody files are pinned by **mode + line count only** — sha column
+  `-` — because a committed sha256 of a low-entropy private file is an offline
+  confirmation oracle. `op.env` adds a count pin (`#10` on
+  `^[A-Z][A-Z0-9_]*=`) and a `shape` assertion; the handoff field names are
+  pinned by count, not by line. Cost: for those files content drift is invisible.
+  Detail + the L2 sentinel review: `corpus/knowledge/drift-gate.md` §Hash policy.
+- **Scope.** Deliberate exclusions: `$STATE_DIR/xdg-data/…/opencode.log` and
+  `opencode.db` mutate legitimately (the DB has its own gate,
+  `corpus/transcript-scan.sh`); package-managed host binaries (`/usr/bin/op`,
+  `~/.opencode/bin/opencode`) are not lane-owned bytes; vault-side structure
+  stays unmapped.
 
 ## Failure table (exact texts, exits)
 
@@ -202,7 +264,8 @@ only lazily: `janitor_auth` → `AUTH_REQUIRED` inside the next request.
 ## Credential-hygiene checklist
 
 Evidence production:
-- [ ] Record mechanism and metadata: paths, modes (`op.env`/`config.json`/`opencode.json`/`client.py` 0600–0755 in `$CONFIG_DIR`; state dir 0700; `client.lock`/`session-id` 0600 in `$STATE_DIR`), verb names, exit codes, field names. `corpus/drift-pins.sh` fingerprints every cited host file — run it first, re-read what changed.
+- [ ] Record mechanism and metadata: paths, modes (`op.env`/`config.json`/`opencode.json`/`client.py` 0600–0755 in `$CONFIG_DIR`; state dir 0700; `client.lock`/`session-id` 0600 in `$STATE_DIR`), verb names, exit codes, field names. `bash corpus/drift-pins.sh` first: exit 0 = every pinned host file and symbol pin still matches the committed baseline (15 files / 19 pins as of round 9); non-zero = re-read the named file before citing it. New cited file ⇒ add it to the script's `FILES` and `--pin` once.
+- [ ] After any intentional host-file change (endpoint fix, config edit), run `--pin` **once** and report the `REPIN`/`MOVED` lines you accepted — that is the durability of every line ref in this corpus. Never re-pin inside the same round that discovers the drift.
 - [ ] Quote command output only when it is metadata-only (`status`, `cdp-bridge status`, `tac-check` block).
 - [ ] `refs` output: key names OK for internal use; ref paths stay out of artifacts.
 - [ ] Receipts/checksums bind *bytes*: state scope explicitly ("local receipt integrity only"), never imply provider attestation or live access.
@@ -276,6 +339,20 @@ Handler operation:
 - Treating scan WARN cells as a leak — `api_key`/`access_token` match request
   text that *discusses* credentials (4 baseline WARN rows are exactly that);
   HIT patterns are the material shapes. Don't invert the tiers.
+- Trusting a host-file line ref because the file "hasn't changed in months" —
+  drift is detected only against the committed baseline: `bash
+  corpus/drift-pins.sh`, and on `DRIFT`/`MOVED` re-read the named line before
+  citing it. v1's printer-plus-no-baseline shape is the counterexample: it
+  exited 0 through four rounds of stale `L17` refs.
+- Re-pinning (`--pin`) to clear a red gate, or hand-editing
+  `corpus/drift-baseline.tsv`/`drift-symbols.tsv` to match a changed host
+  file. `--pin` records what changed and is a deliberate, reported act; a
+  baseline edited to silence `DRIFT` destroys the corpus's only drift signal.
+  If a symbol's ERE no longer matches, the *claim* broke — fix the claim.
+- Putting a secret-bearing file's content hash in the baseline — `op.env` is
+  pinned by mode + line count + a `#10` count pin precisely because a sha256
+  of a file holding raw values is an offline guessing oracle. Same rule for
+  any future file that holds material rather than metadata.
 
 ## Falsification
 
@@ -301,8 +378,9 @@ Handler operation:
   `opencode debug agent janitor` + `opencode debug config` run under the
   `_serve` env (cwd `$CONFIG_DIR`, `OPENCODE_CONFIG`, throwaway XDG dirs);
   `config.json` inertness proven by resolved `steps: 4` ≠ its `steps: 8` and
-  zero script references. `corpus/drift-pins.sh` pins sha256+lines of every
-  cited host file — run it before trusting any line ref.
+  zero script references. `corpus/drift-pins.sh` pins mode+lines+sha256 of the
+  cited host files — run it before trusting any line ref (round-9 carried the
+  baseline into the repo; see the round-9 bullet).
 - Round-7: `corpus/knowledge/handler-trust-boundary.md` +
   `handler-on-disk-state.md` — control plane unauthenticated (scratch repro:
   no-auth `POST /session` 200; `OPENCODE_SERVER_PASSWORD` set ⇒ 401/Basic
@@ -320,3 +398,14 @@ Handler operation:
   `sqlite3 "file:$SD/xdg-data/opencode/opencode.db?immutable=1"
   "select count(*) from credential"` ⇒ 0. The immutable URI is load-bearing:
   plain opens mutate `-wal`/`-shm` (re-verified 2026-09-28).
+- Round-9: `corpus/drift-pins.sh` v2 + `corpus/drift-baseline.tsv` +
+  `corpus/drift-symbols.tsv` — the drift gate has a stored baseline and exits
+  non-zero. Repro: `bash corpus/drift-pins.sh` ⇒ `DRIFT_PINS: CLEAN
+  (files=15 symbols=19)`, exit 0; `--selftest` ⇒ `DRIFT_SELFTEST: PASS
+  (13 cases)`; falsify the baseline in a temp copy
+  (`sed 's/^\(\$HOME\/.local\/bin\/the-janitor\).*/\1\t755\t333\tdeadbeef/'`)
+  and pass it with `--baseline` ⇒ `DRIFT … sha deadbeef0b7e->2408b0c90b7e`
+  + exit 1 — i.e. the committed file, not the printer, is load-bearing.
+  `--pin` on a host file that grew a symbol ⇒ `MOVED <path>:<pin>-><actual>`.
+  A baseline row carrying a hash for a no-hash path ⇒ `POLICY …` + exit 1
+  (checked *before* the file is read). Missing option argument ⇒ exit 2.

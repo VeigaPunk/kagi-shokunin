@@ -62,7 +62,7 @@ Consequence for the round-3 drift (real server on 34113, Jitsi on 8080):
 
 ## Leak-surface notes
 
-- `_serve` unsets ~19 model/API credential vars (L214–219) but **not**
+- `_serve` unsets 20 model/API credential vars (L214–219) but **not**
   `OP_SESSION_*`, `OP_ACCOUNT`, or `OP_SERVICE_ACCOUNT_TOKEN` — the first two
   are the auth mechanism, the last is expected (it *is* the auth). A stray
   caller-side `OP_SESSION_<other-domain>` would survive into the handler env.

@@ -13,7 +13,7 @@ All read 2026-09-28.
   The session token never touches a file; `the-janitor stop` kills the tmux session
   and the authorization dies with the process (`status` prints
   `authorization process_memory_only`, L170).
-- Before `exec opencode serve`, `cmd_serve` unsets ~19 model/API credential
+- Before `exec opencode serve`, `cmd_serve` unsets 20 model/API credential
   variables (ANTHROPIC_*, OPENAI_API_KEY, GEMINI_API_KEY, GROQ/XAI/OPENROUTER/
   MISTRAL/ZAI/MINIMAX/CURSOR/AWS/GOOGLE…, L214–219). Comment at L212–213:
   "Keep every model credential out of the handler environment … OpenCode fails

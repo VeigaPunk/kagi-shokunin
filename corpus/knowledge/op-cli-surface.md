@@ -58,7 +58,7 @@ curl -fsS --max-time 2 "$(the-janitor status | awk '/^endpoint/{print $2}' \
 Observed: a `session-id` file left over from a previous crash (present since
 Sep 21, tmux session long gone) was removed by `the-janitor stop` even though
 it printed `the-janitor: already stopped` and exited 0 — `rm -f
-"$SESSION_FILE"` runs unconditionally at L184. After the failed `request`
+"$SESSION_FILE"` runs unconditionally at L183. After the failed `request`
 attempt (handler died in readiness), **no janitor tmux session and no
 session-id remained**; `stop` was still safe to run as cleanup.
 

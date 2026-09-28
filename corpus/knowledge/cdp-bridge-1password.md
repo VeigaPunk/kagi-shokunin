@@ -1,7 +1,7 @@
 # 1Password ↔ Chrome CDP bridge
 
 Source: `~/.local/bin/the-janitor` `cmd_cdp_ensure` (L251–271),
-`cmd_cdp_status` (L273–291), profile/port vars (L23–26); observed host state
+`cmd_cdp_status` (L273–291), profile/port vars (L22–26); observed host state
 2026-09-28 (`ls`, `op --version`, `tmux ls`). No browser was launched and no
 vault UI was touched while writing this entry.
 

@@ -1,6 +1,6 @@
 # janitor lifecycle — session-id, lock, rotation & revocation surfaces
 
-Source basis: `~/.local/bin/the-janitor` (`cmd_request` L128–135, `cmd_start`
+Source basis: `~/.local/bin/the-janitor` (`cmd_request` L121–135, `cmd_start`
 L138–143, `cmd_stop` L173–184, `cmd_run` L237–249), `client.py` L41–95,
 `~/.config/opencode/tools/janitor_auth.ts`, live probes 2026-09-28
 (`status`, `whoami`, `ls -la` on both state dirs, tmux, curl 34113/8080).

@@ -10,13 +10,18 @@
 #
 #   exit 0  clean-or-warn   exit 1  hits found   exit 2  usage/db/schema error
 #
-# Usage: transcript-scan.sh [--db PATH] [--selftest] [-h|--help]
+# Usage: transcript-scan.sh [--db PATH] [--selftest] [--classify] [-h|--help]
 #   --db PATH    override DB (default: $THE_JANITOR_STATE_DIR or
 #                ~/.local/state/the-janitor)/xdg-data/opencode/opencode.db
 #   --selftest   build scratch DBs in mktemp: seeded op:// row, a populated
 #                credential tripwire, and a WAL-resident row (un-checkpointed
 #                wal) — asserts the gate fires on each. No contact with the
 #                real state dir.
+#   --classify   bounded triage of HIT rows, no content: per firing pattern
+#                prints rows / key_shaped / prose (key_shaped = the 32 chars
+#                after the literal prefix are all key characters). Use it before
+#                treating a HIT as material — round 9 found a HIT that was
+#                provider prose, and a HIT class that was a LIKE-wildcard bug.
 #
 # Read design (sentinel round-8): the source db is NEVER opened — not even
 # `file:…?immutable=1`, which silently misses rows committed to an
@@ -29,11 +34,13 @@ set -euo pipefail
 SD="${THE_JANITOR_STATE_DIR:-$HOME/.local/state/the-janitor}"
 DB="$SD/xdg-data/opencode/opencode.db"
 SELFTEST=0
-usage() { echo "usage: transcript-scan.sh [--db PATH] [--selftest]" >&2; exit 2; }
+CLASSIFY=0
+usage() { echo "usage: transcript-scan.sh [--db PATH] [--selftest] [--classify]" >&2; exit 2; }
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --db) [[ $# -ge 2 ]] || usage; DB="$2"; shift 2 ;;
     --selftest) SELFTEST=1; shift ;;
+    --classify) CLASSIFY=1; shift ;;
     -h|--help) sed -n '1,24p' "$0"; exit 0 ;;
     *) usage ;;
   esac
@@ -58,13 +65,20 @@ SCAN_COLS[permission]="action resource";         SID_COL[permission]="id"
 # quarantine DB (finding, same severity as a pattern hit)
 TRIPWIRE_TABLES="account account_state control_account credential session_share"
 
-# Secret-shaped patterns. SQL LIKE (ASCII case-insensitive); `_` acts as
-# any-single-char, acceptable for these prefix families.
+# Secret-shaped patterns. SQL LIKE (ASCII case-insensitive). LIKE METACHARACTERS
+# ARE ESCAPED (like_lit + ESCAPE '\'): `_` in a pattern is a literal underscore,
+# never "any single char". Round 9 found the unescaped form matching 7 rows of
+# "gsk" + any char — a false-positive class that would train operators to ignore
+# the HIT tier (see lessons/round-9.md §11).
 # HIT tier = material that should NEVER rest in the transcript (exit 1).
 # WARN tier = credential-language field names — request text discussing keys
 # matches these legitimately; reported, exit unaffected.
-# Baseline 2026-09-28: 0 HIT; 4 WARN cells across 5 sessions (request text
-# naming credential concepts). Prefix set informed by the daemon's own
+# Baseline 2026-09-28 (THIS shipped revision, 32+5 patterns, 888 cells):
+# HITS=2 (both `xai-` prefix collisions with provider prose, key_shaped=0 by
+# --classify), warns=2, all 5 tripwires empty. The 0-HIT figure recorded in
+# round 8 describes a narrower revision (25+5 patterns, 270 cells) measured
+# before the last edits landed — see lessons/round-9.md §12.
+# Prefix set informed by the daemon's own
 # env-scrub inventory (credential-isolation.md L214-219).
 PATTERNS_HIT=(
   'op://'                 # vault ref paths — must never rest in the transcript
@@ -85,8 +99,37 @@ hits=0; warns=0; cells=0; absent=0
 
 sql() { sqlite3 "$SCAN_DB" "$1"; }
 
+# Escape LIKE metacharacters so a pattern means its literal bytes: `_` is an
+# underscore, `%` a percent sign (backslash itself is escaped first).
+like_lit() { local s=${1//\\/\\\\}; s=${s//%/\\%}; s=${s//_/\\_}; printf '%s' "$s"; }
+
 table_exists() {
   [[ $(sql "SELECT count(*) FROM sqlite_master WHERE type='table' AND name='$1'") -eq 1 ]]
+}
+
+# Bounded triage of HIT rows WITHOUT printing content: for every pattern that
+# fires, count the rows whose 32 characters after the literal prefix are all key
+# characters (key-shaped) versus the rest (prose/placeholder). A long key-shaped
+# run is material; a short run is a prefix collision — e.g. the `xai-` HIT at the
+# round-9 baseline is a five-letter provider word, while a real xAI key is a long
+# alnum run (lessons/round-9.md §11-12). Case note: LIKE is case-insensitive,
+# instr() is exact, so this is triage, never a verdict.
+classify_hits() {
+  local t c p n shaped
+  for t in "${!SCAN_COLS[@]}"; do
+    table_exists "$t" || continue
+    for c in ${SCAN_COLS[$t]}; do
+      for p in "${PATTERNS_HIT[@]}"; do
+        n=$(sql "SELECT count(*) FROM $t WHERE $c LIKE '%$(like_lit "$p")%' ESCAPE '\\'") \
+          || { echo "transcript-scan: query error on $t.$c" >&2; exit 2; }
+        (( n > 0 )) || continue
+        shaped=$(sql "SELECT count(*) FROM $t WHERE $c LIKE '%$(like_lit "$p")%' ESCAPE '\\' AND instr($c,'$p') > 0 AND substr($c, instr($c,'$p') + length('$p'), 32) NOT GLOB '*[^A-Za-z0-9_-]*'") \
+          || { echo "transcript-scan: query error on $t.$c" >&2; exit 2; }
+        printf 'CLASSIFY %s.%s pattern=%s rows=%s key_shaped=%s prose=%s\n' \
+          "$t" "$c" "$p" "$n" "$shaped" "$(( n - shaped ))"
+      done
+    done
+  done
 }
 
 run_scan() {
@@ -99,10 +142,10 @@ run_scan() {
     for c in ${SCAN_COLS[$t]}; do
       for p in "${PATTERNS_HIT[@]}"; do
         cells=$((cells+1))
-        n=$(sql "SELECT count(*) FROM $t WHERE $c LIKE '%$p%'") \
+        n=$(sql "SELECT count(*) FROM $t WHERE $c LIKE '%$(like_lit "$p")%' ESCAPE '\'") \
           || { echo "transcript-scan: query error on $t.$c" >&2; exit 2; }
         if [[ $n -gt 0 ]]; then
-          s=$(sql "SELECT count(DISTINCT ${SID_COL[$t]}) FROM $t WHERE $c LIKE '%$p%'") \
+          s=$(sql "SELECT count(DISTINCT ${SID_COL[$t]}) FROM $t WHERE $c LIKE '%$(like_lit "$p")%' ESCAPE '\'") \
             || { echo "transcript-scan: query error on $t.$c" >&2; exit 2; }
           printf 'HIT   %s.%s pattern=%s rows=%s distinct_%s=%s\n' \
             "$t" "$c" "$p" "$n" "${SID_COL[$t]}" "$s"
@@ -111,10 +154,10 @@ run_scan() {
       done
       for p in "${PATTERNS_WARN[@]}"; do
         cells=$((cells+1))
-        n=$(sql "SELECT count(*) FROM $t WHERE $c LIKE '%$p%'") \
+        n=$(sql "SELECT count(*) FROM $t WHERE $c LIKE '%$(like_lit "$p")%' ESCAPE '\'") \
           || { echo "transcript-scan: query error on $t.$c" >&2; exit 2; }
         if [[ $n -gt 0 ]]; then
-          s=$(sql "SELECT count(DISTINCT ${SID_COL[$t]}) FROM $t WHERE $c LIKE '%$p%'") \
+          s=$(sql "SELECT count(DISTINCT ${SID_COL[$t]}) FROM $t WHERE $c LIKE '%$(like_lit "$p")%' ESCAPE '\'") \
             || { echo "transcript-scan: query error on $t.$c" >&2; exit 2; }
           printf 'WARN  %s.%s pattern=%s rows=%s distinct_%s=%s\n' \
             "$t" "$c" "$p" "$n" "${SID_COL[$t]}" "$s"
@@ -230,6 +273,7 @@ done
 sqlite3 "$SCAN_DB" 'SELECT count(*) FROM sqlite_master' >/dev/null \
   || { echo "transcript-scan: cannot open snapshot of $DB" >&2; exit 2; }
 
+if [[ $CLASSIFY -eq 1 ]]; then classify_hits; exit 0; fi
 run_scan
 printf 'TRANSCRIPT_SCAN: %s (cells=%d patterns=%d+%d warns=%d schema-absent=%d) db=%s\n' \
   "$([[ $hits -eq 0 ]] && echo CLEAN || echo "HITS=$hits")" \

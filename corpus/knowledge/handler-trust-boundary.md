@@ -3,7 +3,7 @@
 Source basis: `~/.local/bin/the-janitor` (sha256 `2408b0c9…57edd`, 333 lines)
 `cmd_serve` L186–226, `server_healthy` L72–75, `ensure_started` L77–120,
 lock sites L130/139/175; `~/.config/the-janitor/client.py` (sha256
-`8179b241…ce51`, 117 lines) L20–33, L41–95; `~/.config/opencode/agents/janitor.md`;
+`8179b241…ce51`, 117 lines) L22–38, L41–95; `~/.config/opencode/agents/janitor.md`;
 `~/.config/opencode/tools/janitor_auth.ts`; `~/.config/opencode/plugin/fnm-nudge.js`;
 opencode 1.18.31 binary `~/.opencode/bin/opencode` (`@opencode/ServerAuthConfig`
 service + plugin-loader literal). Probe results **verified 2026-09-28** on scratch
@@ -171,7 +171,7 @@ Both halves are required:
 1. Export a non-empty password before `exec opencode serve` (L225), e.g. from a
    0600 file under `$STATE_DIR` (`openssl rand -hex 32` written once), so server
    and client share one source of truth. `OPENCODE_SERVER_USERNAME` optional.
-2. `client.py` `request()` (L20–33) must send `Authorization: Basic
+2. `client.py` `request()` (L22–38) must send `Authorization: Basic
    base64(user:pass)`; its header dict (L24–28) is the only place, and urllib adds
    none.
 

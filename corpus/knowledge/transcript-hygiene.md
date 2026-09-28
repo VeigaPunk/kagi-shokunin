@@ -23,10 +23,14 @@ and prints only counts — never matched text.
 
 ## Schema facts the scan encodes (verified 2026-09-28)
 
-Text-bearing columns scanned (`SCAN_COLS` map): `part.data`, `message.data`,
-`event.data`, `session.title`, `session_input.prompt`,
-`session_message.data`, `session_context_epoch.baseline`/`.snapshot`,
-`todo.content`. `event` rows are keyed by `aggregate_id` = session id (used for
+Text-bearing columns scanned (`SCAN_COLS` map, 11 tables): `part.data`,
+`message.data`, `event.data`, `session.title`/`slug`/`path`/`share_url`/`summary_diffs`/`metadata`/`permission`,
+`session_input.prompt`, `session_message.data`,
+`session_context_epoch.baseline`/`.snapshot`, `todo.content`, and the newer
+`project.name`/`worktree`/`commands`/`sandboxes`,
+`workspace.name`/`directory`/`extra`, `permission.action`/`resource` (this last
+group is what makes the shipped revision 888 cells rather than round-8's 270).
+`event` rows are keyed by `aggregate_id` = session id (used for
 triage). DB is a *projection* over the `event` log — scanning `part` alone
 under-counts, which is why `event.data` is in the set.
 
@@ -55,15 +59,40 @@ is the same class (share links have bearer secrets).
   credential intent — keep stdin clean", not violations. Never copy WARN-row
   contents into artifacts; triage is `distinct_<sid>` counts, not text.
 
-Baseline (round 8): **0 HIT, 4 WARN, all 5 tripwires empty**, 270 cells ×
-30 patterns. Prior rounds' `op://`-in-`part` spot check (0) is subsumed.
+Baseline (round 8, *earlier revision of the script*): 0 HIT, 4 WARN, all 5
+tripwires empty, 270 cells × 30 patterns — this measurement describes a narrower
+revision than the one committed that round (the gate was still being edited when
+"fleet pause" landed it), so treat it as historical, not as the current gate's
+baseline.
+
+Baseline (round 9, shipped revision, re-verified 2026-09-28):
+**HITS=2, warns=2, 888 cells × 32+5 patterns, all 5 tripwires empty.** Both HITs
+are the `xai-` prefix colliding with provider *prose* in a text part — the
+matched run is a 5-character lowercase word, not a key — confirmed with the new
+content-free triage mode: `transcript-scan.sh --classify` →
+`CLASSIFY part.data pattern=xai- rows=1 key_shaped=0 prose=1` (same for the one
+`event.data` row). No key-shaped material is present. A third HIT class that
+appeared on first contact, `gsk_` rows=7, was a **code defect, now fixed**: SQL
+`LIKE` treats `_` as "any single character", so the unescaped pattern matched
+`gsk` + any 4 alnum chars. Patterns are now escaped (`like_lit` + `ESCAPE '\'`)
+and the same rows report literal `gsk\_` = 0. Root cause, class taxonomy and
+process lessons: `lessons/round-9.md` §11-12.
 
 ## Operational notes
 
-- Open mode is `file:…?immutable=1` — a plain `sqlite3 <db>` (even
-  `-readonly`) creates/updates the 0600 `-wal`/`-shm` siblings in the live
-  state dir. Verified 2026-09-28: `--readonly` reads mutated `-shm`/`-wal`
-  mtimes; `?immutable=1` did not.
+- Open mode is a **snapshot**: the gate copies the db plus its `-wal`/`-shm`
+  siblings into `mktemp` and scans the copy, so it never opens the live state
+  dir (a plain `sqlite3 <db>`, even `-readonly`, creates/updates the 0600
+  `-wal`/`-shm` siblings — verified 2026-09-28) and it *does* see
+  wal-resident rows (`--selftest` includes a wal-resident case). Ad-hoc probes
+  should still use `file:…?immutable=1`, which has a committed-rows blind
+  window on a populated `-wal` but cannot mutate anything.
+- `--classify` (round 9) is the bounded triage path: for every pattern that
+  fires it prints `rows`, `key_shaped` (the 32 characters after the literal
+  prefix are all key characters) and `prose`. It never prints matched text, so
+  "is this material or a prefix collision?" is answered mechanically instead of
+  by peeking. Case note: `LIKE` is case-insensitive while `instr()` is exact,
+  so the split is triage, not a verdict.
 - `NOTE … ABSENT` = a scanned table is missing (schema drift): re-check
   coverage rather than assuming the surface shrank.
 - `--selftest` builds a scratch DB in `mktemp`, seeds a fake `op://` row plus
@@ -88,6 +117,16 @@ Baseline (round 8): **0 HIT, 4 WARN, all 5 tripwires empty**, 270 cells ×
 - LIKE-scanning catches *shapes it is told about*, not arbitrary secrets — a
   high-entropy string with no known prefix passes. HIT patterns are the
   minimum prefix set; extend, never silently shrink.
+- **A pattern set that grows re-fires on old rows.** Round 8 measured 25 HIT
+  patterns; the shipped revision carries 32, so the round-9 run flagged rows
+  that had been sitting in the DB since before round 8 (row census unchanged:
+  7 sessions / 39 messages / 55 parts / 238 events). Any baseline number must
+  name the *shipped revision* it describes — pattern count, cell count and the
+  script's hash — or it is not a baseline.
+- **Pattern escaping is load-bearing.** `LIKE` wildcards inside a pattern make
+  the gate fire on near-misses (`gsk_` → `gsk` + any char, 7 rows). Patterns are
+  escaped now; when adding a pattern, put the literal bytes in the array and let
+  `like_lit` handle escaping.
 - `session_input`/`session_message`/`session_context_epoch`/`todo` are
   scanned but empty at baseline — future opencode versions or other writers
   may populate them; the ABSENT/0-row states are part of the baseline.
@@ -99,7 +138,8 @@ Baseline (round 8): **0 HIT, 4 WARN, all 5 tripwires empty**, 270 cells ×
 ```sh
 SD=${THE_JANITOR_STATE_DIR:-$HOME/.local/state/the-janitor}
 bash corpus/transcript-scan.sh                # CLEAN / HITS=n, exit 0|1|2
-bash corpus/transcript-scan.sh --selftest     # scratch-db gate check
+bash corpus/transcript-scan.sh --classify     # key_shaped vs prose per firing pattern (no text)
+bash corpus/transcript-scan.sh --selftest     # scratch-db gate check (incl. wal-resident case)
 DB="file:$SD/xdg-data/opencode/opencode.db?immutable=1"
 sqlite3 "$DB" "select count(*) from part where data like '%op://%';"   # 0
 sqlite3 "$DB" "select count(*) from credential;"                       # 0

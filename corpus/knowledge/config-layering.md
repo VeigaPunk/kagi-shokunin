@@ -31,7 +31,7 @@ a **merge of layers**, not a single file:
   posts `agent:"janitor"`; siblings are unreachable via that fixed field but
   they are *loaded* into the process.
 - **`permission`**: 56-entry ordered ruleset = global rules + overlay +
-  janitor.md's `{"*": deny, janitor_auth: allow}` appended last, evaluated
+  janitor.md's `{"*": deny, janitor_auth: allow}` appended at the end, evaluated
   last-match-wins. The janitor deny is the effective ceiling — `tools` map
   shows every built-in `False`, only `janitor_auth: True`.
 - **`plugin`**: global `plugin/fnm-nudge.js` (`plugin_origins` scope `global`)
@@ -68,7 +68,7 @@ values (unneeded — the file is inert).
 Prior corpus wording — "the isolation is the config" — needs the sharpened
 form: **global layers leak into the janitor process; containment comes from
 `enabled_providers` + the last-match permission deny + `tools` map, all of
-which were verified post-merge**. The `_serve` env unsets 18 cloud-key vars
+which were verified post-merge**. The `_serve` env unsets 20 cloud-key vars
 (L214–219) so leaked provider defs have no credentials anyway — the env
 scrub is the second wall.
 

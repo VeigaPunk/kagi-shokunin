@@ -259,3 +259,55 @@
   `knowledge/surface-census.md` rather than resolved. No vault read, no handler
   start, no Chrome launch, no real profile/state write (scratch roots only; the
   custody record's sha/mtime byte-identical after the `tac-register` re-run).
+- 2026-09-28 — round 11 (**calibration** 7 → 8; axis-move: a claim becomes a
+  command row, a revision becomes a hash, a citation becomes a resolver
+  result). Dispatched 9 L2 lanes in one batched call against a **frozen
+  revision** (`corpus/claim-ledger.sh` `d63c60b0…` 436 lines + 8 more artifacts;
+  three lanes hash-verified it independently). Landed `corpus/claim-ledger.sh`
+  (verify/stamp/citations/--selftest), `corpus/claim-ledger.tsv` (11 rows),
+  `corpus/stamps.tsv` (28 in-repo artifacts), `corpus/knowledge/claim-ledger.md`
+  (contract: 3 schemas, verdict table, 15 bounds, falsifiers),
+  `corpus/lessons/round-11.md`. Evidence (shipped revision):
+  `bash corpus/claim-ledger.sh verify` ⇒ `CLAIM_LEDGER: CLEAN (claims=11
+  stamped=28)` exit 0; `citations` ⇒ `CITATION_GATE: CLEAN (cites≈505 docs=39
+  unresolved=0 ephemeral=0 labeled=13)` exit 0; `--selftest` ⇒ `SELFTEST: PASS
+  (39 cases)`. Siblings unchanged: `DRIFT_PINS: CLEAN (files=15 symbols=19)` +
+  `DRIFT_SELFTEST: PASS (13 cases)`; `SURFACE_CENSUS: CLEAN (assets=20
+  runtime=15 scanned=4 ok=34 absent=2 skipped=0)` + `--verbs CLEAN (pass=7
+  skip=3)` + `SELFTEST: PASS (16 cases)`, now fail-closed when zero probes pass
+  (`SURFACE_CENSUS_VERBS: DEGRADED` + exit 1, critic CE1); `TRANSCRIPT_SCAN:
+  HITS=2` exit 1 by design. **First contact found four real defects in committed
+  docs** — two dead session-scoped scratch URIs (`SCORECARD.md:54`,
+  `corpus/lessons/round-10.md:50`), kotoba's file cited under this repo's anchor
+  (`corpus/README.md:61`), a bare host filename (`corpus/README.md:157`) — plus
+  **three stale numbers** in my own docs (`state-shape.tsv` 20/21 → 22 rows;
+  "14-case" census selftest → 16), all fixed and now pinned by ledger rows
+  `R11-03`/`R11-10`/`R11-11`. **The wave then broke the gate six times and it
+  was fixed each time**: unanchored verdict EREs passed a degraded summary
+  (expectations anchored; the census verbs path fails closed); the `bytes`
+  stamp column was dead data (now compared); the citation scan checked only the
+  first token of a span (now every token on the line, normalized through
+  backticks/quotes/parens/`:N`/`#anchor`/`?query`/`=value`/`'s` — 62 → 0
+  unresolved); `IFS=$'\t' read` collapsed empty fields (tab-preserving
+  `split_tab` + exact field counts); `tmo=0` disabled `timeout`; `..` traversal
+  let the committed default root hash a private host file's digest (refused, plus
+  canonical containment); `stamp corpus/stamps.tsv` bypassed the self-stamp
+  guard with the default `--out` (guard runs before the write, either argument
+  order). Refusals narrowed: allowlist 7 → 5 commands, `bash -c`/backslash/empty
+  quote pairs refused, deny words matched on a quote-stripped copy
+  (`g''it`/`o"p"` no longer slip through). `die` no longer echoes file content.
+  Accepted as bounded (recorded in `knowledge/claim-ledger.md` §Bounds): the
+  ledger is a reviewed command file, not a sandbox; a self-test cannot prove its
+  own honesty; the marker rule is line-granular; a stamp is a point check with no
+  mode; claims are host-state dependent as a class; a citation of a generated
+  file is order-dependent. Process lesson recorded: I quoted
+  `CLEAN (claims=9 stamped=16)` in docs before `stamps.tsv` existed — the scout
+  re-ran and caught it, and the rule is now "quote a number with the stamped
+  revision it was measured at; make the measurement the last byte-touching
+  step". Adjacency (reported, not absorbed): four sibling lanes ship overlapping
+  verifiers (kumitate `scripts/cite-check.mjs`, kotoba `verifiers/*.py`, kengaku
+  `grader.py`, kasegi `ops/claim-check.mjs`); the fleet-wide dead-pointer class
+  (protocol D-19) and a possible shared verifier contract go to the integrator.
+  No vault access, no handler start/stop, no Chrome launch, no secret values,
+  ref paths or private-file hashes in any artifact; `OP_*` values in probes were
+  fabricated; all L2 execution was scratch-only.

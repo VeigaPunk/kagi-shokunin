@@ -38,6 +38,7 @@ corpus entry). Handle hygiene *evidence* and *flows*, not secret material.
 | Verify model endpoint is real | `curl -fsS <endpoint-minus-/v1>/health` → `{"status":"ok"}` | trusting `status`'s `endpoint` line — it prints config, never probes | port 8080 was a Jitsi videobridge on 2026-09-28 while llama-server served the model on 34113 |
 | Audit transcript for leaked secrets | `corpus/transcript-scan.sh` (immutable, counts-only) | printing matched text; `sqlite3` without `file:…?immutable=1` (mutates `-wal`/`-shm` in the live dir) | exit 0 `TRANSCRIPT_SCAN: CLEAN` (WARN cells = credential-language text — expected, not a finding); exit 1 = secret-shaped material or populated credential table; `--selftest` checks the gate itself |
 | Trust a cited line ref / catch host-file drift | `bash corpus/drift-pins.sh` (compares the live host against the committed `corpus/drift-baseline.tsv` + `corpus/drift-symbols.tsv`) | the round-6 fingerprint printer (no stored baseline ⇒ it cannot detect drift); editing a TSV to go green; re-pinning to silence red | exit 0 `DRIFT_PINS: CLEAN (files=N symbols=M)`; 1 `DRIFT_PINS: DRIFT (…)` preceded by `DRIFT`/`MISSING`/`LINK`/`UNPINNED`/`EXTRA`/`DUP`/`POLICY`/`EMPTY` and symbol `MOVED`/`GONE`/`AMBIG`/`COUNT`/`SHAPE` lines naming file + line; 2 usage/setup, nothing written; `--pin` only after inspection |
+| Re-run a claim this corpus makes / name the revision you read / cite an artifact | `bash corpus/claim-ledger.sh verify` (stamps + claims) before citing; `… stamp PATH…` after landing edits; `… citations` before adding a path reference to a doc | citing a file you have not stamped; editing a claim row's `expect` to go green; treating a `STALE` stamp as a defect — it is a question ("was the edit intended?") | `CLAIM_LEDGER: CLEAN (claims=11 stamped=N)` exit 0; 1 = `STALE`/`MISSING`/`FAIL` lines (claim id + reason); 2 = `POLICY` (a row that is not one simple command) — `citations` ⇒ `CITATION_GATE: CLEAN (cites=… docs=37 unresolved=0 ephemeral=0 labeled=N)`; `UNRESOLVED`/`EPHEMERAL` lines name doc:line + token; a dead token passes only when its own line says so (`scratch\|relocat\|formerly\|…` → `labeled`) |
 
 ## Control-plane trust boundary (`corpus/knowledge/handler-trust-boundary.md`)
 
@@ -223,6 +224,48 @@ outside lane control. Run the gate before trusting any of them:
   `~/.opencode/bin/opencode`) are not lane-owned bytes; vault-side structure
   stays unmapped.
 
+## Claim ledger — revisions, claims, citations (`corpus/claim-ledger.tsv`, `corpus/stamps.tsv`)
+
+Every claim this corpus makes should be re-runnable, and every artifact it
+cites should be the revision a reader can name. Run the ledger before you cite:
+
+    bash corpus/claim-ledger.sh verify     # stamps + claims; exit 0 CLEAN, 1 FAIL/STALE, 2 POLICY/setup
+    bash corpus/claim-ledger.sh citations  # committed docs must cite durable evidence
+    bash corpus/claim-ledger.sh --selftest # 39 scratch cases (stamps, claims, policy, citations, brace sets)
+    bash corpus/claim-ledger.sh stamp corpus/claim-ledger.sh …   # re-pin after landing edits (reviewed commit)
+
+- **Claim rows** (`corpus/claim-ledger.tsv`): `id<TAB>command<TAB>expect<TAB>
+  exit<TAB>timeout<TAB>note`. A row passes only when the exit code equals the
+  expected one **and** the `expect` ERE matches the **last non-empty output
+  line** — a verdict is a summary line, so a command that prints `CLEAN` early
+  and dies later cannot pass (`reason=verdict-not-final`). Row failures print
+  id + reason + exit; the gate never echoes a claim's output. 11 rows as of
+  round 11 (three sibling gates across 9 modes with case counts pinned, the
+  transcript baseline whose expected exit is **1**, and two count rows that
+  exist because docs carried stale numbers for them).
+- **Revision stamps** (`corpus/stamps.tsv`): `path<TAB>sha256<TAB>lines<TAB>
+  bytes`. `verify` recomputes; `STALE`/`MISSING`/`NOT-A-FILE` lines + exit 1.
+  Regeneration is a reviewed `stamp` commit — **no auto-re-pin**: a stale row is
+  a question ("was the edit intended?"), and the answer belongs in the report.
+  `stamp` refuses absolute paths, whitespace/TAB paths and the output file.
+- **Citation classes** (checked by token shape): `corpus/…` + root docs;
+  `knowledge/…`/`lessons/…` (corpus shorthands); `<lane>-shokunin/…` (sibling
+  repo); `ufo/…`/`.ufo/…` (main-repo `.ufo`); `{a,b}` brace sets (every
+  alternative). Anything else — bare filenames, `~`-host paths, `xdg-*`
+  fragments, API routes, `$VAR/…` — is a *reference*, not a path, and is not
+  checked. `UNRESOLVED`/`EPHEMERAL` fail the run **unless the citing line
+  labels the token** (`scratch|ephemeral|relocat|formerly|no longer|removed|
+  renamed|historical` → counted as `labeled`). Round 11's first contact fixed
+  four committed defects: two `local://` scratch URIs, one kotoba path wearing
+  this repo's anchor, one bare host filename.
+- **Command safety.** A claim must be one simple command: allowlisted first
+  token (`bash|grep|sha256sum|wc|test|sqlite3|timeout`), no shell
+  metacharacters, no denied verb (`op`, `the-janitor`, `git`, `rm`, `curl`,
+  `sudo`, `tmux`, …). `POLICY` refuses **without running** (exit 2). This is a
+  text guard, not a sandbox — review of the committed file is the control.
+- Detail, bounds and falsifiers: `corpus/knowledge/claim-ledger.md`;
+  round-11 narrative and the four gate defects: `corpus/lessons/round-11.md`.
+
 ## Failure table (exact texts, exits)
 
 | Symptom | Cause | Exit |
@@ -313,7 +356,7 @@ only lazily: `janitor_auth` → `AUTH_REQUIRED` inside the next request.
 ## Credential-hygiene checklist
 
 Evidence production:
-- [ ] Record mechanism and metadata: paths, modes (`op.env`/`config.json`/`opencode.json`/`client.py` 0600–0755 in `$CONFIG_DIR`; state dir 0700; `client.lock`/`session-id` 0600 in `$STATE_DIR`), verb names, exit codes, field names. **`bash corpus/surface-census.sh` first** (round 10): exit 0 = every declared path still has its declared kind/mode, no undeclared child sits in the 4 enumerable dirs, and every runtime shape floor holds. Then `bash corpus/drift-pins.sh`: exit 0 = every pinned host file and symbol pin still matches the committed baseline (15 files / 19 pins as of round 9). Non-zero on either = re-read the named path before citing it. New cited file ⇒ census row (reviewed commit; there is no `--pin`) **and** a drift-pins `--pin` once.
+- [ ] Record mechanism and metadata: paths, modes (`op.env`/`config.json`/`opencode.json`/`client.py` 0600–0755 in `$CONFIG_DIR`; state dir 0700; `client.lock`/`session-id` 0600 in `$STATE_DIR`), verb names, exit codes, field names. **`bash corpus/surface-census.sh` first** (round 10): exit 0 = every declared path still has its declared kind/mode, no undeclared child sits in the 4 enumerable dirs, and every runtime shape floor holds. Then `bash corpus/drift-pins.sh`: exit 0 = every pinned host file and symbol pin still matches the committed baseline (15 files / 19 pins as of round 9). Non-zero on either = re-read the named path before citing it. New cited file ⇒ census row (reviewed commit; there is no `--pin`) **and** a drift-pins `--pin` once. In-repo artifacts: run `bash corpus/claim-ledger.sh verify` first and cite the stamped revision (`corpus/stamps.tsv`); after landing edits, re-`stamp` (reviewed commit) — a `STALE` row means the artifact moved under the citation.
 - [ ] After any intentional host-file change (endpoint fix, config edit), run `--pin` **once** and report the `REPIN`/`MOVED` lines you accepted — that is the durability of every line ref in this corpus. Never re-pin inside the same round that discovers the drift.
 - [ ] Quote command output only when it is metadata-only (`status`, `cdp-bridge status`, `tac-check` block).
 - [ ] `refs` output: key names OK for internal use; ref paths stay out of artifacts.
@@ -394,7 +437,7 @@ Handler operation:
   citing it. v1's printer-plus-no-baseline shape is the counterexample: it
   exited 0 through four rounds of stale `L17` refs.
 - Re-pinning (`--pin`) to clear a red gate, or hand-editing
-  `corpus/drift-baseline.tsv`/`drift-symbols.tsv` to match a changed host
+  `corpus/drift-baseline.tsv` + `corpus/drift-symbols.tsv` to match a changed host
   file. `--pin` records what changed and is a deliberate, reported act; a
   baseline edited to silence `DRIFT` destroys the corpus's only drift signal.
   If a symbol's ERE no longer matches, the *claim* broke — fix the claim.
@@ -495,3 +538,16 @@ Handler operation:
   `SQLite format 3X` (16 bytes, no NUL) ⇒ `SHAPE (magic mismatch)` (case 9).
   Depth of the DB read: `stat -c %y` on `opencode.db-shm` before/after a
   `?mode=ro` read moves; through the gate's snapshot copy it does not.
+- Round-11: `corpus/claim-ledger.sh` + `corpus/claim-ledger.tsv` +
+  `corpus/stamps.tsv` — calibration gate: claims carry commands, revisions
+  carry hashes, citations must resolve. Repro: `bash corpus/claim-ledger.sh
+  verify` ⇒ `CLAIM_LEDGER: CLEAN (claims=11 stamped=28)`, exit 0; `citations` ⇒
+  `CITATION_GATE: CLEAN (cites≈505 docs=39 unresolved=0 ephemeral=0 labeled=13)` (counts are revision-bound — they move with every doc edit; the verdict is the claim);
+  `--selftest` ⇒ `SELFTEST: PASS (39 cases)`. Falsify: append a line to a
+  stamped file ⇒ `STALE <path> sha=…->…` + exit 1; a claim row with `;` in the
+  command ⇒ `POLICY <id> reason=metachar` + exit 2 and the command is **not
+  run** (case 5 proves it with a marker file); a doc citing a scratch token
+  (`local://x`) with no marker word ⇒ `EPHEMERAL …` + exit 1 (case 14); the same token on a line
+  that says "scratch" ⇒ `labeled=` + exit 0 (case 15); a command that prints
+  the expected verdict then a trailer ⇒ `reason=verdict-not-final` + exit 1
+  (case 16).

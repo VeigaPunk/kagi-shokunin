@@ -36,7 +36,7 @@ see `lessons/round-1.md` for the rule and its rationale.
 | Drift-gate contract (entry) | `knowledge/drift-gate.md` | schemas, verdict table, hash policy + sentinel dissent, `--pin` refusals, bounds, reproduction; 13-case selftest evidence |
 | Declared-surface census (gate) | `corpus/surface-census.sh` | kind/exact-mode per declared path, `UNLISTED` children of the 4 enumerable dirs, runtime shape pins, write-side verb probes; exit 0/1/2; `--verbs`, `--verbs --deep`, `--selftest` (16 cases) |
 | Surface declaration (data) | `corpus/surface-census.tsv` | 35 rows (20 asset / 15 runtime) over the-janitor config/state, the opencode layer that reaches the handler, evidence/custody, network-adjacent paths; 4 `# scan` directives; one `mode = -` row (the contested chrome-profile dir) |
-| Runtime shape pins (data) | `corpus/state-shape.tsv` | 20 rows: sqlite magic (16-byte, NUL-exact), modes, table/row floors at 1/3 of observed, log size floor, JSON key **names**; no content, no hashes |
+| Runtime shape pins (data) | `corpus/state-shape.tsv` | 22 rows (count pinned by ledger row `R11-10`): sqlite magic (16-byte, NUL-exact), modes, table/row floors at 1/3 of observed, log size floor, JSON key **names**; no content, no hashes |
 | Surface-census contract (entry) | `knowledge/surface-census.md` | schemas column by column, verdict+exit table, shape-pin policy (floors, snapshot reads, two-pass sqlite), cross-check invariant, 10 probes + safety overrides, round-10 findings (refs prefix-match leak, `run` non-determinism, NMH dir on refusal), bounds, reproduction, 11 falsifiers |
 | Round-6 layering lesson | `lessons/round-6.md` | same probes |
 | Handler on-disk state: transcript DB, error log, lock topology, wedge recovery | `knowledge/handler-on-disk-state.md` | `xdg-data/opencode/opencode.db` sqlite introspection (row counts, `$.type` shapes only), `opencode.log` forensics (8 runs since 2026-08-29), `the-janitor` lock pairs L130–131/139–140/175–176, measured wedge timings |
@@ -52,134 +52,16 @@ see `lessons/round-1.md` for the rule and its rationale.
 | Round-5 aggregator mirror/bare-path defect | `lessons/round-5-aggregator-mirror-bare-path-and-unclosed-prereq.md` | aggregator finding: `handoff-status.json` cited bare in SKILL.md; the absolute path existed only in corpus files |
 | Round-9 lesson | `lessons/round-9.md` | baselines-not-printers (a printer with no stored values has no verdict); `UNPINNED` fired during landing and is the designed signal; per-symbol pins vs per-file hashes; overclaim sweep |
 | Round-10 lesson | `lessons/round-10.md` | declared surfaces are prose until a gate reads them; the undeclared-child class (round-6 vector) and the two xdg-data artifacts get verdicts; selftest caught two real gate defects (dropped-table ⇒ SKIP false clean; scan-scope fixture); `--deep` split for probes with real-world effect; ref-literal hygiene via runtime-assembled prefix |
+| Claim ledger + revision stamps + citation gate (gate) | `corpus/claim-ledger.sh` | `verify` = stamps (`STALE`/`MISSING`/`NOT-A-FILE`, every stamped column compared) + claims (exit equality AND last-non-empty-line ERE, both `expect` and `timeout` guarded against bare-anchor/unbounded forms); `stamp PATH… [--out F]` rewrites the revision file (a reviewed commit; refuses absolute/whitespace paths and the output file, in either argument order); `citations` checks five citation classes + brace sets over every token in a code span and fails `UNRESOLVED`/`EPHEMERAL` unless the citing line labels the token (`scratch|ephemeral|relocat|formerly|no longer|removed|renamed|historical` → printed as `LABELED` and counted); `--selftest` 39 cases; POLICY refuses non-simple commands without running (exit 2) |
+| Ledger rows (data) | `corpus/claim-ledger.tsv` | 11 rows: 9 covering the three sibling gates end-to-end (each mode's case count and summary counts pinned non-zero, every expectation anchored), the transcript baseline with its expected exit 1, plus two count rows (`R11-10` state-shape 22 rows, `R11-11` census 35 rows) that exist because three docs carried stale versions of those numbers |
+| Revision stamps (data) | `corpus/stamps.tsv` | 28 rows: every in-repo artifact the round report cites (`path sha256 lines bytes`; all four columns verified); `verify` recomputes; regenerating is a reviewed `stamp` commit; no auto-re-pin |
+| Claim-ledger contract (entry) | `knowledge/claim-ledger.md` | why the gate exists (the round-10 hand-adjudication), all three schemas column by column, the last-line rule and why, the citation class table + marker rule, before→after, reproduction, bounds, falsifiers |
+| Round-11 lesson | `lessons/round-11.md` | a claim without a command is not a claim; four real doc defects found on first contact; the four gate defects and which run caught each; the L2 wave's counterexamples and what happened to each; design calls (last-line rule, no auto-re-pin, marker rule, shape-based classes) |
 
 Two of the 15 pinned files are **contested scope**, monitored here but owned
 elsewhere — reported, not ruled (see `PROVINCE.md`):
 
 | Overlap | Other lane | Status |
 |---|---|---|
-| `$HOME/.agents/AGENTS.md` | kotoba (`corpus/knowledge/alwayson-checklist-round7.md:25-33`) audits the same file as an always-on checklist surface | kagi pins its bytes; kotoba owns the checklist/shape reading — no adjudication needed, both are read-only |
+| `$HOME/.agents/AGENTS.md` | kotoba (`kotoba-shokunin/corpus/knowledge/alwayson-checklist-round7.md:25-33`) audits the same file as an always-on checklist surface | kagi pins its bytes; kotoba owns the checklist/shape reading — no adjudication needed, both are read-only |
 | `$HOME/.local/share/the-musketeer/chrome-profile/NativeMessagingHosts/com.1password.1password.json` | kake leases the musketeer chrome profile machine-wide (`kake-shokunin/SKILL.md:104-107`; ownership unresolved per kake round-9) | kagi pins the 1Password native-messaging manifest only; profile/lease ownership stays with kake/integrator |
-
-## Known gaps
-
-- `SKILL.md` rewritten in round 2: decision table, hygiene checklist,
-  evidence-receipt patterns, anti-patterns — all grounded in the corpus above.
-- `SHONEN.md` boxes: the end-to-end `the-janitor request` was **attempted**
-  round 3 — full pipeline ran, died at the 1Password auth gate (`handler
-  exited before becoming ready`, ~60 s, exit 1). A *successful* model reply
-  still needs an operator-side `op signin` (account registered but signed out)
-  plus the endpoint-drift fix below.
-- `~/.config/the-janitor/config.json` (0600, 406 bytes) — **resolved round 6:
-  inert.** `config.json` is not an opencode-discovered filename (discovery =
-  `opencode.json`/`opencode.jsonc`/`.opencode/`, plus `OPENCODE_CONFIG`
-  overlay and global `~/.config/opencode/`); zero references in `the-janitor`.
-  Its `agent.janitor.steps: 8` loses to `janitor.md` `steps: 4` (proven by
-  `opencode debug agent janitor`). Dead config, keep out of the live model;
-  see `knowledge/config-layering.md`.
-- `op` CLI behaviours exercised through round 4: `account list` and
-  `account get` both work signed out (values PII — shape only recorded),
-  `whoami` exit 1 `account is not signed in`, `signin` dies non-interactive
-  inside `_serve`. Round-4 resolved the two open items: `account get` JSON
-  shape (fields incl. `domain`, consumed by `_serve` L203) and the
-  service-account path (`OP_SERVICE_ACCOUNT_TOKEN` skips the interactive
-  chain entirely; `OP_ACCOUNT` selects accounts). Still open: nothing named —
-  `op run` internals and item-level reads stay deliberately unexercised.
-- **Global-layer leak (open, operator decision):** round 6 proved
-  `OPENCODE_CONFIG` is additive — the handler merges global
-  `~/.config/opencode/opencode.json`, loads all 23 agents and global plugin
-  `fnm-nudge.js`, and would pick up a project `opencode.json` dropped into
-  `$CONFIG_DIR` (discovery not disabled). Containment holds via
-  `enabled_providers` + last-match permission deny + `_serve` env scrub
-  (`config-layering.md`). Hardening options (not ours to apply):
-  `OPENCODE_DISABLE_PROJECT_CONFIG=1`, a dedicated XDG_CONFIG_HOME, or
-  `--pure`.
-- **Model endpoint drift (open, operator decision):** `opencode.json`
-  `baseURL` pins `127.0.0.1:8080/v1` but 8080 is a Jitsi videobridge;
-  llama-server serves the pinned model on **34113** (re-verified 2026-09-28
-  `/health` ok). Round-4 sharpened the fix: `MODEL_ENDPOINT` (script L19)
-  is cosmetic `status` output only; the one load-bearing field is
-  `provider.qwen-local.options.baseURL`. No env override exists — requests
-  keep hitting the dead endpoint (exponential `stream error` retries in
-  `opencode.log`) until the overlay field is corrected.
-- **Unauthenticated control plane (open, operator decision):** round 7 proved
-  `opencode serve` on 40961 takes requests with no auth
-  (`OPENCODE_SERVER_PASSWORD` unset — server warns `server is unsecured`).
-  The message `agent` field picks the permission set, so the janitor deny
-  ceiling is bypassable by any local process, and tool subprocesses inherit
-  the daemon env (`OP_SESSION_*`/`OP_SERVICE_ACCOUNT_TOKEN`). Fix = password
-  + `client.py` Authorization header, sequenced in
-  `control-plane-hardening.md`.
-- **Transcript persistence (open, and re-verified round 9):** request text is
-  durable in `xdg-data/opencode/opencode.db` (0600) past `stop`; no purge verb.
-  Treat request stdin as at-rest data; reset = stop + `rm -rf xdg-data`. Round 8
-  added the gate (`corpus/transcript-scan.sh` + `knowledge/transcript-hygiene.md`);
-  round 9 **corrected its recorded baseline** (the 0-HIT figure describes a
-  narrower revision than the one shipped; the shipped gate reports
-  `HITS=2, warns=2`, 888 cells × 32+5 patterns, row census unchanged) and fixed
-  a LIKE-wildcard defect that had produced 7 false `gsk_` hits. Both remaining
-  HITs classify as `key_shaped=0, prose=1` (`xai-` colliding with provider
-  naming) via the new `--classify` triage — **no secret material is present**,
-  and all 5 credential tripwire tables are empty.
-- **Surface census (landed round 10, with named residuals):** `corpus/surface-census.sh`
-  now verifies `PROVINCE.md` §Surfaces rather than restating it —
-  `SURFACE_CENSUS: CLEAN (assets=20 runtime=15 scanned=4 ok=34 absent=2 skipped=0)`
-  on 2026-09-28, plus 10 write-side verb probes (`--verbs`, `--deep`) and a
-  14-case selftest. What it still does **not** do, all stated in
-  `knowledge/surface-census.md` §Bounds: nothing schedules it; enumeration is
-  one level deep over 4 dirs (`~/.config/opencode` with 20 children, `~/.local/bin`,
-  `~/.agents` and the chrome-profile subtree are deliberately not enumerated);
-  row/table floors sit at one third of the observed value, so a shrink above
-  that stays green; a hardlink is indistinguishable from the file itself;
-  `SKIP` (unreadable DB) is exit-neutral; and the three `--deep` probes are
-  operator-present because they exec `op` or read real custody evidence.
-- **`refs` redaction is weaker than the decision table implied (open defect,
-  found round 10):** `cmd_refs` (L228–235) echoes any value whose first five
-  bytes are `op://` in full — plaintext tail included — and silently omits
-  `KEY=value` lines whose key is lowercase or whose line carries leading
-  whitespace/`export`. So `refs` is an inventory aid, not a redactor:
-  an operator who pastes its output can leak, and an inventory taken from it can
-  be incomplete without any error. Handler-side fix is an operator decision;
-  pinned meanwhile by `surface-census.sh --verbs`
-  (`refs-shape-table`, `refs-redaction-prefix-only`).
-- **`run`/`request` under a signed-out account can block silently (round 10):**
-  with an `op://` ref present, `op run` either fails in ~4 s (exit 1, vault-name
-  error) or produces **no output at all** until a bound kills it (exit 124 at
-  25 s; round 3 saw ~60 s on the `_serve` signin path). Bound every scripted
-  `the-janitor run`/`request`; `op whoami` exit 1 remains the cheapest
-  predictor. Recorded in `knowledge/op-cli-surface.md`.
-- **Cross-lane adjacency reported, not absorbed (round 10):** the census
-  declares only paths that reach the handler. Named overlaps handed to the
-  integrator: the shared global `~/.config/opencode/opencode.json` (kagi declares
-  the 4 janitor-reaching paths and cross-checks its mode; the connector lane
-  asks for an ownership-boundary ruling on treating the whole file as
-  kagi-pinned), `~/.agents/AGENTS.md` (kotoba owns the always-on checklist
-  reading; an undeclared sibling `AGENTS.md.bak-20260908` exists and is *not*
-  kagi's), the musketeer chrome-profile lease (kake; kagi's census keeps that
-  dir presence-only, `mode = -`, and pins only the NMH manifest), and
-  `~/.config/opencode/skills/` symlinks (fleet).
-- **Freshness gate (resolved round 9, with named residuals):** drift detection
-  is now real — `corpus/drift-pins.sh` compares the host against
-  `corpus/drift-baseline.tsv` (15 files) and `corpus/drift-symbols.tsv`
-  (19 claim pins), exits 0/1/2, and proves itself on 13 scratch cases. What it
-  still does **not** do, all stated in `knowledge/drift-gate.md` §Bounds:
-  nothing runs it on a schedule; coverage = the enumerated claims; 6 private
-  0600 files are pinned by mode+lines only (content drift invisible — the
-  deliberate cost of not publishing hashes of private files); count pins are
-  blind to a value swap at constant count; the 2 `xdg-data` artifacts carry
-  **no sha256** in `drift-baseline.tsv` (since round 10 they are pinned by
-  *shape* instead — `corpus/state-shape.tsv`: magic, mode, table/row floors,
-  log size floor), and package-managed host binaries (`/usr/bin/op`,
-  `~/.opencode/bin/opencode`) stay out of both; a stale baseline
-  reports `DRIFT` until someone re-pins and reports the accepted
-  `REPIN`/`MOVED` lines.
-- `SHONEN.md` mark form: the protocol template requires one evidence line per
-  box and `[x]` only with a named non-author verifier. Regenerated in round 9;
-  the four boxes are marked from the round-9 reviewer lane's verdicts, not from
-  self-assertion.
-- Secret-rotation/revocation: resolved round 5 — no verb exists by design;
-  `janitor-lifecycle.md` documents per-class rotate-at-source and `stop` as
-  the revocation primitive. Vault-side ops stay operator surfaces.
-- Cross-domain: CDP port 9222 and the musketeer chrome profile are shared with
-  the webzites kimi fleet (kake province) — ownership of the shared browser
-  lease is unresolved here; reported to the integrator, not absorbed.

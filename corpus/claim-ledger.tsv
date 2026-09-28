@@ -1,0 +1,25 @@
+# claim-ledger.tsv — one row per durable claim: id <TAB> command <TAB> expect <TAB> exit <TAB> timeout <TAB> note
+# `expect` is an ERE matched against the LAST non-empty line of the command's
+# combined stdout+stderr; the exit code must equal the fifth column. Both must
+# hold. Rows are reviewed, committed, and refused (POLICY, exit 2) if they are
+# not a single simple command (allowlisted first token, no metacharacters, no
+# denied verb) — see corpus/claim-ledger.sh header §Command safety.
+# R11-06 carries exit 1 on purpose: the recorded baseline of the transcript
+# gate IS a firing gate (2 `xai-` prose-collision HITs, credential tripwires
+# empty). A change in that line is a host-state event to re-baseline, not a
+# gate defect.
+# Count rows (R11-10/11, and the `(N cases)` expectations) exist because three
+# committed docs carried stale numbers for these same quantities (README said
+# 20 state-shape rows and a 14-case census selftest; PROVINCE said 21 rows) —
+# a number a doc cites is a claim, so it belongs here.
+R11-01	bash corpus/surface-census.sh	^SURFACE_CENSUS: CLEAN \(assets=[1-9][0-9]* runtime=[1-9][0-9]* scanned=[0-9]+ ok=[1-9][0-9]*	0	300	declared surfaces + runtime shapes (round 10)
+R11-02	bash corpus/surface-census.sh --verbs	^SURFACE_CENSUS_VERBS: CLEAN \(pass=[1-9][0-9]* skip=[0-9]+\)	0	300	write-side verb probes, scratch overrides only, no op exec
+R11-03	bash corpus/surface-census.sh --selftest	^SELFTEST: PASS \(16 cases\)	0	300	census selftest, case count pinned
+R11-04	bash corpus/drift-pins.sh	^DRIFT_PINS: CLEAN \(files=[1-9][0-9]* symbols=[1-9][0-9]*\)	0	120	host-file + symbol drift vs committed baselines (round 9)
+R11-05	bash corpus/drift-pins.sh --selftest	^DRIFT_SELFTEST: PASS \(13 cases\)	0	300	drift selftest, case count pinned
+R11-06	bash corpus/transcript-scan.sh	^TRANSCRIPT_SCAN: HITS=2 \(cells=[1-9][0-9]*	1	300	known baseline 2026-09-28: 2 prose collisions, 5 credential tripwires empty
+R11-07	bash corpus/transcript-scan.sh --selftest	^SELFTEST OK	0	300	seeded-hit + wal-resident detection on scratch DBs
+R11-08	bash corpus/claim-ledger.sh citations	^CITATION_GATE: CLEAN \(cites=[1-9][0-9]* docs=[1-9][0-9]* unresolved=0 ephemeral=0	0	300	committed docs cite durable evidence (no session-scoped URIs)
+R11-09	bash corpus/claim-ledger.sh --selftest	^SELFTEST: PASS \(39 cases\)	0	300	ledger selftest, case count pinned
+R11-10	grep -cv '^#' corpus/state-shape.tsv	^22$	0	30	state-shape.tsv declares 22 rows and has no blank lines (so '^#' is an exact row count) (README/PROVINCE cited 20/21 before round 11)
+R11-11	grep -cv '^#' corpus/surface-census.tsv	^35$	0	30	surface-census.tsv declares 35 rows (20 asset / 15 runtime)

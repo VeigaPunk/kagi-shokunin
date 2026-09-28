@@ -47,10 +47,14 @@ verdict tokens, not either alone.
 
 ## The L2 critic's blockers, and what happened to each
 
-The critic lane (`local://round-10/critic.md`) attacked a stale snapshot of the
-script plus the scout's frozen draft data, so four of its clauses described
+The critic lane attacked a stale snapshot of the script plus the scout's
+frozen draft data, so four of its clauses described
 things the landed file never did (no `# scan` directives; a 17-character magic
-value; `MALFORMED` advertised; `session-id` given lock semantics). Two clauses
+value; `MALFORMED` advertised; `session-id` given lock semantics). Its own
+output was session-scoped scratch and is not retained — the durable residue is
+the verdict list below. Round 11's citation gate flagged the raw URI that stood
+here: a committed doc citing scratch is a citation no fresh session can resolve
+(the class the protocol lane logged for kumitate, D-19). Two clauses
 were **real** and are fixed here, one was **fixed while it was writing**, and
 the rest are recorded as accepted boundaries:
 

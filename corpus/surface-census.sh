@@ -859,8 +859,17 @@ case "$MODE" in
     ;;
   verbs)
     verbs
-    if [[ $PROBE_FAILS -eq 0 ]]; then
+    if [[ $PROBE_FAILS -eq 0 && $PROBE_PASSES -gt 0 ]]; then
       printf 'SURFACE_CENSUS_VERBS: CLEAN (pass=%s skip=%s)\n' "$PROBE_PASSES" "$PROBE_SKIPS"; exit 0
+    fi
+    if [[ $PROBE_FAILS -eq 0 ]]; then
+      # fail closed: a summary that passes zero probes is not evidence. The
+      # shapes path already states this doctrine (a required read that cannot
+      # happen is `UNVERIFIED`, not `SKIP`); round-11 critic CE1 proved the
+      # verbs path could print `CLEAN (pass=0 skip=10)` with exit 0, which a
+      # claim row could then accept.
+      printf 'SURFACE_CENSUS_VERBS: DEGRADED (pass=0 skip=%s)\n' "$PROBE_SKIPS"
+      exit 1
     fi
     printf 'SURFACE_CENSUS_VERBS: FAILURES (fail=%s pass=%s skip=%s)\n' "$PROBE_FAILS" "$PROBE_PASSES" "$PROBE_SKIPS"
     exit 1

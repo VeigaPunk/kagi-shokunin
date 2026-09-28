@@ -47,7 +47,7 @@ observed on fabricated env files:
 
 So the defensible claim is "keys and ref-shaped values are echoed; other values
 are replaced by `<redacted-non-op-value>`" — **not** "`refs` output is safe to
-paste". `corpus/surface-census.sh --verbs` pins both behaviours
+paste". `bash corpus/surface-census.sh --verbs` pins both behaviours
 (`refs-shape-table`, `refs-redaction-prefix-only`).
 
 ## The auth matrix this implies

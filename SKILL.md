@@ -33,6 +33,7 @@ corpus entry). Handle hygiene *evidence* and *flows*, not secret material.
 | 1Password in musketeer Chrome | `cdp-bridge ensure` then `status` | `open-popup` (hard refusal, exit 2); scraping vault DOM | manifest at `$MUSKETEER_CHROME_PROFILE/NativeMessagingHosts/` |
 | Diagnose a wedged handler | `grep`/`tail` `$STATE_DIR/xdg-data/opencode/log/opencode.log` + `tmux capture-pane -t janitor -p` | expecting stderr in `status` output | ERROR-level log is the durable diagnostic: `stream error Cannot connect to API` = dead model endpoint (round-3 drift shape; ≈58 s retry window, exponential backoff 2→5→9→19→30 s); `failed to load plugin` recurs every start, non-fatal. Or run `the-janitor _serve` in a foreground terminal for live stderr (hidden verb, not in `help`) |
 | Verify model endpoint is real | `curl -fsS <endpoint-minus-/v1>/health` → `{"status":"ok"}` | trusting `status`'s `endpoint` line — it prints config, never probes | port 8080 was a Jitsi videobridge on 2026-09-28 while llama-server served the model on 34113 |
+| Audit transcript for leaked secrets | `corpus/transcript-scan.sh` (immutable, counts-only) | printing matched text; `sqlite3` without `file:…?immutable=1` (mutates `-wal`/`-shm` in the live dir) | exit 0 `TRANSCRIPT_SCAN: CLEAN` (WARN cells = credential-language text — expected, not a finding); exit 1 = secret-shaped material or populated credential table; `--selftest` checks the gate itself |
 
 ## Control-plane trust boundary (`corpus/knowledge/handler-trust-boundary.md`)
 
@@ -100,6 +101,17 @@ healthy server + no tmux → exit 1 foreign-server text; tmux alive + health
 false through 120 probes (each up to 2 s + 0.5 s sleep → 60–300 s) →
 misleading `waiting for 1Password authorization` text.
 
+Transcript hygiene gate: `corpus/transcript-scan.sh` scans all text-bearing
+columns (`part`/`message`/`event`.data, `session.title`, `session_input.prompt`,
+`session_message.data`, `session_context_epoch.baseline`/`.snapshot`,
+`todo.content`) plus row-count tripwires on credential-bearing tables
+(`account`, `account_state`, `control_account`, `credential`, `session_share` —
+schema has NOT NULL `access_token`/`refresh_token`/`value`/`secret` columns; all
+empty at baseline). Baseline 2026-09-28: 0 HIT / 4 WARN (request text *naming*
+credential concepts, e.g. "retrieve the … API keys" — signal that stdin carries
+credential intent, not leaked material). Detail + tiers:
+`corpus/knowledge/transcript-hygiene.md`.
+
 ## Failure table (exact texts, exits)
 
 | Symptom | Cause | Exit |
@@ -143,11 +155,11 @@ itself, or via `tmux set-environment -g` / a 0600 env file. Symptom of the
 trap: the app-auth path runs instead — signin hangs →
 `handler exited before becoming ready`.
 
-The model endpoint is **not** a knob: `MODEL_ENDPOINT` (L17) is a hardcoded
+The model endpoint is **not** a knob: `MODEL_ENDPOINT` (L19) is a hardcoded
 literal that only feeds `status`'s cosmetic `endpoint` line. The load-bearing
 URL is `provider.qwen-local.options.baseURL` in `opencode.json` — the
 round-3 drift fix is one JSON field there, after which the `status` line
-still lies until L17 is updated too.
+still lies until L19 is updated too.
 
 ## Config layering (`corpus/knowledge/config-layering.md`, verified via `debug`)
 
@@ -205,6 +217,10 @@ Handler operation:
 - [ ] Never put secret-adjacent text into a request expecting memory-only
   handling — transcripts persist in `xdg-data/opencode/opencode.db` past
   `stop`; purge = stop + `rm -rf xdg-data` (no verb).
+- [ ] Run `corpus/transcript-scan.sh` after any request that carried
+  credential-shaped stdin, before/after operator-signin experiments, and
+  alongside `drift-pins.sh` — exit 0 `CLEAN` (WARN cells allowed), exit 1 =
+  finding: report `HIT` lines + counts only, never the matched rows.
 - [ ] Treat `127.0.0.1:40961` as unauthenticated handler access: no local
   process should POST to it, and enabling `OPENCODE_SERVER_PASSWORD` without
   a `client.py` Authorization header breaks `request` (server_healthy 401 →
@@ -236,7 +252,7 @@ Handler operation:
 - Silent re-registration of a checksum after tamper — `O_EXCL` prevents it; if register "should" refresh a record, the design assumption is wrong.
 - Mapping vault/item structure into durable artifacts — ref paths are exfil-shaped; record that refs *exist*, not where they point.
 - Absorbing cross-domain surfaces (CDP lease, musketeer profile) into this repo — report to integrator.
-- Hunting for `THE_JANITOR_ENDPOINT`-style overrides — none exists; `MODEL_ENDPOINT` (L17) feeds only `status`'s display line. Fix `opencode.json` `baseURL`.
+- Hunting for `THE_JANITOR_ENDPOINT`-style overrides — none exists; `MODEL_ENDPOINT` (L19; L17 is `MODEL_ID`) feeds only `status`'s display line. Fix `opencode.json` `baseURL`.
 - Recording `op account get`/`account list` values — key names only; the values are account-identifying PII in the same class as `op://` ref paths.
 - Assuming `op.env` is all `op://` refs — 2026-09-28 `refs` showed raw-value keys (identifiers); the convention is unenforced, so `cat` still leaks them.
 - Treating `session-id` as a credential — it's an OpenCode conversation id: deleting it only forks context, `client.py` `session_exists` self-heals a stale id, and `stop` removes it anyway.
@@ -250,6 +266,16 @@ Handler operation:
   the janitor agent; the message body's `agent` field picks the permission
   set, and the unauthenticated port lets any local process name a permissive
   one (round-7 probe: cross-agent tool execution in the daemon env).
+- Querying the transcript DB with plain `sqlite3 <db>` or `-readonly` — it
+  creates/updates 0600 `-wal`/`-shm` siblings in the live state dir; use the
+  `file:…?immutable=1` URI (or a `/tmp` copy). `transcript-scan.sh` does this.
+- Classifying a `transcript-scan` hit by dumping matched rows — WARN/HIT
+  counts + `distinct_<sid>` bound the finding; if classification is needed,
+  look at `$.type`/`$.tool`/`length()` and a short prefix once, never copy
+  the text into an artifact.
+- Treating scan WARN cells as a leak — `api_key`/`access_token` match request
+  text that *discusses* credentials (4 baseline WARN rows are exactly that);
+  HIT patterns are the material shapes. Don't invert the tiers.
 
 ## Falsification
 
@@ -287,3 +313,10 @@ Handler operation:
   3600 s → `tmux kill-session -t janitor` unblocks). Repro:
   `grep -n 'flock\|XDG_' ~/.local/bin/the-janitor`; sqlite3 row counts on the
   db; `tail` the log.
+- Round-8: `corpus/transcript-scan.sh` + `knowledge/transcript-hygiene.md` —
+  transcript-leak gate over the durable DB. Repro:
+  `bash corpus/transcript-scan.sh` (CLEAN/HITS, exit 0|1|2),
+  `--selftest` (scratch-db seeded-hit check, never touches real state),
+  `sqlite3 "file:$SD/xdg-data/opencode/opencode.db?immutable=1"
+  "select count(*) from credential"` ⇒ 0. The immutable URI is load-bearing:
+  plain opens mutate `-wal`/`-shm` (re-verified 2026-09-28).

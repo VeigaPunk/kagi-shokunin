@@ -28,7 +28,7 @@ probed live surfaces to confirm nothing drifted since round 3.
 
 ## What failed / newly discovered
 
-- **Two endpoint strings, one is cosmetic.** `MODEL_ENDPOINT` (L17) is a
+- **Two endpoint strings, one is cosmetic.** `MODEL_ENDPOINT` (L19; L17 is `MODEL_ID`) is a
   hardcoded literal feeding only `status`'s display line. The real request
   path URL is `provider.qwen-local.options.baseURL` in `opencode.json`. So
   the round-3 drift fix is one JSON field, but `status` will keep printing

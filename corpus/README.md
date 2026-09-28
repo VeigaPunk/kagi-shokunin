@@ -36,6 +36,9 @@ see `lessons/round-1.md` for the rule and its rationale.
 | Control-plane trust boundary: unauthenticated port 40961, `/session/{id}/shell` direct exec, agent/`tools`-map ceiling scope, daemon-env inheritance, squat-phish surface | `knowledge/handler-trust-boundary.md` | scratch `opencode serve` repros (no-auth 200 vs `OPENCODE_SERVER_PASSWORD` 401/Basic-only; `/doc` 162 routes; shell route 51 ms no-model; `tools` override under `agent:"janitor"`; fake `OP_*` env echo; clean-shell `op` negative control), `client.py` header audit, `ServerAuthConfig` + plugin-loader strings in binary, tmux 3.7b env-passthrough test |
 | Control-plane hardening handoff (operator recipe) | `knowledge/control-plane-hardening.md` | the same probes; `client.py` Authorization gap; sequencing analysis |
 | Round-7 boundary lesson | `lessons/round-7.md` | same probes + L2 verification wave |
+| Transcript hygiene gate (script) | `transcript-scan.sh` | immutable-URI sqlite3 over `xdg-data/opencode/opencode.db`; 270 cells × 30 patterns (25 HIT + 5 WARN) + 5 credential-table tripwires; `--selftest` seeded-hit check |
+| Transcript hygiene (entry) | `knowledge/transcript-hygiene.md` | schema census (text columns + credential tripwires), two-tier semantics, baseline 0 HIT / 4 WARN, read-side immutability re-verified |
+| Round-8 lesson | `lessons/round-8.md` | false-positive taxonomy on first contact; WARN-as-hygiene-metric; README rot fix |
 
 ## Known gaps
 
@@ -73,9 +76,11 @@ see `lessons/round-1.md` for the rule and its rationale.
 - **Model endpoint drift (open, operator decision):** `opencode.json`
   `baseURL` pins `127.0.0.1:8080/v1` but 8080 is a Jitsi videobridge;
   llama-server serves the pinned model on **34113** (re-verified 2026-09-28
-  `/health` ok). Round-4 sharpened the fix: `MODEL_ENDPOINT` (script L17)
+  `/health` ok). Round-4 sharpened the fix: `MODEL_ENDPOINT` (script L19)
   is cosmetic `status` output only; the one load-bearing field is
   `provider.qwen-local.options.baseURL`. No env override exists — requests
+  keep hitting the dead endpoint (exponential `stream error` retries in
+  `opencode.log`) until the overlay field is corrected.
 - **Unauthenticated control plane (open, operator decision):** round 7 proved
   `opencode serve` on 40961 takes requests with no auth
   (`OPENCODE_SERVER_PASSWORD` unset — server warns `server is unsecured`).
@@ -87,6 +92,9 @@ see `lessons/round-1.md` for the rule and its rationale.
 - **Transcript persistence (open):** request text is durable in
   `xdg-data/opencode/opencode.db` (0600) past `stop`; no purge verb. Treat
   request stdin as at-rest data; reset = stop + `rm -rf xdg-data`.
+  Round 8 added the gate: `corpus/transcript-scan.sh` + `knowledge/
+  transcript-hygiene.md` — baseline 0 HIT / 4 WARN cells (credential-language
+  request text, no material), credential-bearing tables all empty.
 - Vault-side structure (which vaults/items exist, field naming conventions) is
   deliberately unmapped; mapping it would put ref paths in a durable artifact.
 - Secret-rotation/revocation: resolved round 5 — no verb exists by design;

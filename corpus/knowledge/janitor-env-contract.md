@@ -50,7 +50,7 @@ else:
 
 ## The endpoint is *not* a knob
 
-`MODEL_ENDPOINT="http://127.0.0.1:8080/v1"` (L17) is a hardcoded literal used
+`MODEL_ENDPOINT="http://127.0.0.1:8080/v1"` (L19; L17 is `MODEL_ID`) is a hardcoded literal used
 **only** by `cmd_status` to print the `endpoint` line — it is never exported
 and never reaches OpenCode. The request path's real endpoint is
 `provider.qwen-local.options.baseURL` inside `opencode.json` (the overlay).
@@ -58,7 +58,7 @@ Consequence for the round-3 drift (real server on 34113, Jitsi on 8080):
 
 - fix = edit `opencode.json` `baseURL` (one field), no env override exists;
 - `status`'s `endpoint` line will then disagree with the fixed overlay until
-  L17 is updated too — the status line is cosmetic, the overlay is truth.
+  L19 is updated too — the status line is cosmetic, the overlay is truth.
 
 ## Leak-surface notes
 

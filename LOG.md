@@ -119,3 +119,23 @@
   not an ACL — same loopback-is-not-a-boundary question applies (kake).
   No vault access; `OP_*` values in probes were fake placeholders; no
   secret values, ref paths, or account values in any artifact.
+- 2026-09-28 — round 8: shipped the transcript-leak gate. Evidence:
+  `drift-pins.sh` clean (13/13 unchanged); full schema census of
+  `xdg-data/opencode/opencode.db` via immutable-URI sqlite3 — credential-bearing
+  tables (`account`/`account_state`/`control_account`/`credential`/
+  `session_share`, NOT NULL token/secret columns) all empty; text columns
+  enumerated (`part`/`message`/`event`.data, `session.title`,
+  `session_input.prompt`, `session_message.data`,
+  `session_context_epoch.baseline`/`.snapshot`, `todo.content`); 30-pattern
+  LIKE sweep → 0 material hits, 4 credential-language cells across 5 sessions.
+  Read-side gotcha re-verified live: `-readonly` mutated `-wal`/`-shm` mtimes,
+  `file:…?immutable=1` did not. Landed: `corpus/transcript-scan.sh`
+  (counts-only, exit 0/1/2, HIT/WARN tiers, `--selftest` seeded-hit check),
+  `knowledge/transcript-hygiene.md`, `lessons/round-8.md`, SKILL.md decision
+  row + gate section + checklist + 3 anti-patterns + falsification. Fixed
+  corpus rot: README `Model endpoint drift` bullet truncated mid-sentence
+  since round 7 (completed); `MODEL_ENDPOINT` stale ref L17→L19 across
+  SKILL.md/README/env-contract/round-4 lesson. L2 lanes: reviewer fact-check
+  (17 claims, 15 verified, 2 corrections applied: 5 distinct WARN sessions,
+  truncation introduced round-7 not round-4), sentinel coverage pass.
+  No vault access, no secret values, no ref paths, no row contents recorded.

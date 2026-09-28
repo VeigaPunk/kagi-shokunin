@@ -15,6 +15,41 @@ treat its *values* like `refs` output: internal, never pasted into artifacts.
 | `the-janitor whoami` (= caller-side `op whoami`) | `[ERROR] … account is not signed in` | 1 | yes — fails fast, **does not block or prompt** |
 | `op signin --raw` inside `cmd_serve` | killed the handler: `handler exited before becoming ready` after ~60 s | 1 (wrapper) | yes — dies non-interactively when the account is signed out and no desktop approval is pending |
 
+| `op run --env-file=<plain-only env> -- <cmd>` (round 10) | value passed through, no `op://` ref to resolve | 0, ~0.02 s | **no** — no vault contact, no prompt |
+| `op run --env-file=<env with an op:// ref>` (round 10, signed out) | either `[ERROR] … "<Vault>" isn't a vault in this account…` after ~4 s, **or** nothing at all for the whole bound (25 s, stdout+stderr empty) | 1 / 124 | yes — non-deterministic: fast-fail or silent block on the desktop approval prompt (round 3's `_serve` path blocked ~60 s) |
+
+## `cmd_run` inherits that non-determinism (round 10)
+
+`the-janitor run -- <cmd>` execs `op run` with the real env file, so with any
+`op://` ref present and the account signed out it either dies fast or **hangs
+silently** — round-10 probes observed both within one session (4 s/exit 1 and
+25 s/exit 124 with empty streams). Bound it (`timeout 30 …`) before using it in
+any scripted path; a plain-values-only env file is the one shape that returns
+promptly with no vault contact. The argument guards fire before `op` is
+reached: missing command ⇒ exit 2 `the-janitor run: missing command`; missing
+env file ⇒ exit 2 `the-janitor: missing <path>`.
+
+## `cmd_refs` redaction is a prefix match, not a validator (round 10)
+
+The `awk` at L228–235 prints `KEY=<value>` verbatim when
+`v ~ /^op:\/\//`, else `KEY=<redacted-non-op-value>`. Consequences, both
+observed on fabricated env files:
+
+- **Leak:** a value whose first five bytes are the ref scheme is echoed whole —
+  anything after them rides out unredacted.
+- **Silent omission:** `export K=v`, ` K=v` (leading whitespace) and
+  `lower_case=v` never match `^[A-Z][A-Z0-9_]*=`, so those keys are absent from
+  the output entirely. An inventory taken through `refs` can be incomplete
+  without any error.
+- Correctly redacted: an empty value, `a=b`, a plain value embedding a ref
+  later in the string, and a plain value preceded by whitespace *after* a
+  matched key.
+
+So the defensible claim is "keys and ref-shaped values are echoed; other values
+are replaced by `<redacted-non-op-value>`" — **not** "`refs` output is safe to
+paste". `corpus/surface-census.sh --verbs` pins both behaviours
+(`refs-shape-table`, `refs-redaction-prefix-only`).
+
 ## The auth matrix this implies
 
 `cmd_serve` offers exactly two auth paths (credential-isolation.md §1):
@@ -71,3 +106,10 @@ session-id remained**; `stop` was still safe to run as cleanup.
 - `ss -tlnp | grep 8080` + `curl 127.0.0.1:8080/metrics` → Jetty/`jitsi_jvb_*`
   while the drift persists; `curl 127.0.0.1:34113/health` → ok.
 - `the-janitor stop` twice → second run prints `already stopped`, exit 0.
+- Round-10 additions — the `op` claims in *this entry* reproduced by
+  `bash corpus/surface-census.sh --verbs` (default set covers `refs` shapes and
+  the argument guards; `--deep` covers the `op run` pair and the
+  `tac-register` no-replace re-run): a fabricated plain-only env file ⇒ exit 0
+  with the value passed; a fabricated ref env file signed out ⇒ exit 1 or exit
+  124 within the bound, never 0; a value beginning `op://` ⇒ echoed whole; a
+  `lower_case=`/`export`/leading-space line ⇒ absent from the output.

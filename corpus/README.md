@@ -34,6 +34,10 @@ see `lessons/round-1.md` for the rule and its rationale.
 | Drift baseline (data) | `corpus/drift-baseline.tsv` | 15 cited host files, `$HOME`-relative path + mode + lines + sha256 (v1 was a printer with no stored values); 6 private 0600 files carry `-` (hash withheld: offline oracle — L2 sentinel review) |
 | Drift symbol pins (data) | `corpus/drift-symbols.tsv` | 19 content claims the corpus makes (`path<TAB>line<TAB>ERE[<TAB>shape]`): value pins on the two endpoint declarations, key-presence pins, `#10`+`shape` on `op.env`; `--pin` moves a line only while the ERE still matches exactly once and refuses count/claim changes |
 | Drift-gate contract (entry) | `knowledge/drift-gate.md` | schemas, verdict table, hash policy + sentinel dissent, `--pin` refusals, bounds, reproduction; 13-case selftest evidence |
+| Declared-surface census (gate) | `corpus/surface-census.sh` | kind/exact-mode per declared path, `UNLISTED` children of the 4 enumerable dirs, runtime shape pins, write-side verb probes; exit 0/1/2; `--verbs`, `--verbs --deep`, `--selftest` (16 cases) |
+| Surface declaration (data) | `corpus/surface-census.tsv` | 35 rows (20 asset / 15 runtime) over the-janitor config/state, the opencode layer that reaches the handler, evidence/custody, network-adjacent paths; 4 `# scan` directives; one `mode = -` row (the contested chrome-profile dir) |
+| Runtime shape pins (data) | `corpus/state-shape.tsv` | 20 rows: sqlite magic (16-byte, NUL-exact), modes, table/row floors at 1/3 of observed, log size floor, JSON key **names**; no content, no hashes |
+| Surface-census contract (entry) | `knowledge/surface-census.md` | schemas column by column, verdict+exit table, shape-pin policy (floors, snapshot reads, two-pass sqlite), cross-check invariant, 10 probes + safety overrides, round-10 findings (refs prefix-match leak, `run` non-determinism, NMH dir on refusal), bounds, reproduction, 11 falsifiers |
 | Round-6 layering lesson | `lessons/round-6.md` | same probes |
 | Handler on-disk state: transcript DB, error log, lock topology, wedge recovery | `knowledge/handler-on-disk-state.md` | `xdg-data/opencode/opencode.db` sqlite introspection (row counts, `$.type` shapes only), `opencode.log` forensics (8 runs since 2026-08-29), `the-janitor` lock pairs L130–131/139–140/175–176, measured wedge timings |
 | Control-plane trust boundary: unauthenticated port 40961, `/session/{id}/shell` direct exec, agent/`tools`-map ceiling scope, daemon-env inheritance, squat-phish surface | `knowledge/handler-trust-boundary.md` | scratch `opencode serve` repros (no-auth 200 vs `OPENCODE_SERVER_PASSWORD` 401/Basic-only; `/doc` 162 routes; shell route 51 ms no-model; `tools` override under `agent:"janitor"`; fake `OP_*` env echo; clean-shell `op` negative control), `client.py` header audit, `ServerAuthConfig` + plugin-loader strings in binary, tmux 3.7b env-passthrough test |
@@ -47,6 +51,7 @@ see `lessons/round-1.md` for the rule and its rationale.
 | Round-5 aggregator audit | `lessons/round-5-aggregator-audit.md` | aggregator pass at round 5 |
 | Round-5 aggregator mirror/bare-path defect | `lessons/round-5-aggregator-mirror-bare-path-and-unclosed-prereq.md` | aggregator finding: `handoff-status.json` cited bare in SKILL.md; the absolute path existed only in corpus files |
 | Round-9 lesson | `lessons/round-9.md` | baselines-not-printers (a printer with no stored values has no verdict); `UNPINNED` fired during landing and is the designed signal; per-symbol pins vs per-file hashes; overclaim sweep |
+| Round-10 lesson | `lessons/round-10.md` | declared surfaces are prose until a gate reads them; the undeclared-child class (round-6 vector) and the two xdg-data artifacts get verdicts; selftest caught two real gate defects (dropped-table ⇒ SKIP false clean; scan-scope fixture); `--deep` split for probes with real-world effect; ref-literal hygiene via runtime-assembled prefix |
 
 Two of the 15 pinned files are **contested scope**, monitored here but owned
 elsewhere — reported, not ruled (see `PROVINCE.md`):
@@ -116,6 +121,43 @@ elsewhere — reported, not ruled (see `PROVINCE.md`):
   HITs classify as `key_shaped=0, prose=1` (`xai-` colliding with provider
   naming) via the new `--classify` triage — **no secret material is present**,
   and all 5 credential tripwire tables are empty.
+- **Surface census (landed round 10, with named residuals):** `corpus/surface-census.sh`
+  now verifies `PROVINCE.md` §Surfaces rather than restating it —
+  `SURFACE_CENSUS: CLEAN (assets=20 runtime=15 scanned=4 ok=34 absent=2 skipped=0)`
+  on 2026-09-28, plus 10 write-side verb probes (`--verbs`, `--deep`) and a
+  14-case selftest. What it still does **not** do, all stated in
+  `knowledge/surface-census.md` §Bounds: nothing schedules it; enumeration is
+  one level deep over 4 dirs (`~/.config/opencode` with 20 children, `~/.local/bin`,
+  `~/.agents` and the chrome-profile subtree are deliberately not enumerated);
+  row/table floors sit at one third of the observed value, so a shrink above
+  that stays green; a hardlink is indistinguishable from the file itself;
+  `SKIP` (unreadable DB) is exit-neutral; and the three `--deep` probes are
+  operator-present because they exec `op` or read real custody evidence.
+- **`refs` redaction is weaker than the decision table implied (open defect,
+  found round 10):** `cmd_refs` (L228–235) echoes any value whose first five
+  bytes are `op://` in full — plaintext tail included — and silently omits
+  `KEY=value` lines whose key is lowercase or whose line carries leading
+  whitespace/`export`. So `refs` is an inventory aid, not a redactor:
+  an operator who pastes its output can leak, and an inventory taken from it can
+  be incomplete without any error. Handler-side fix is an operator decision;
+  pinned meanwhile by `surface-census.sh --verbs`
+  (`refs-shape-table`, `refs-redaction-prefix-only`).
+- **`run`/`request` under a signed-out account can block silently (round 10):**
+  with an `op://` ref present, `op run` either fails in ~4 s (exit 1, vault-name
+  error) or produces **no output at all** until a bound kills it (exit 124 at
+  25 s; round 3 saw ~60 s on the `_serve` signin path). Bound every scripted
+  `the-janitor run`/`request`; `op whoami` exit 1 remains the cheapest
+  predictor. Recorded in `knowledge/op-cli-surface.md`.
+- **Cross-lane adjacency reported, not absorbed (round 10):** the census
+  declares only paths that reach the handler. Named overlaps handed to the
+  integrator: the shared global `~/.config/opencode/opencode.json` (kagi declares
+  the 4 janitor-reaching paths and cross-checks its mode; the connector lane
+  asks for an ownership-boundary ruling on treating the whole file as
+  kagi-pinned), `~/.agents/AGENTS.md` (kotoba owns the always-on checklist
+  reading; an undeclared sibling `AGENTS.md.bak-20260908` exists and is *not*
+  kagi's), the musketeer chrome-profile lease (kake; kagi's census keeps that
+  dir presence-only, `mode = -`, and pins only the NMH manifest), and
+  `~/.config/opencode/skills/` symlinks (fleet).
 - **Freshness gate (resolved round 9, with named residuals):** drift detection
   is now real — `corpus/drift-pins.sh` compares the host against
   `corpus/drift-baseline.tsv` (15 files) and `corpus/drift-symbols.tsv`
@@ -124,8 +166,11 @@ elsewhere — reported, not ruled (see `PROVINCE.md`):
   nothing runs it on a schedule; coverage = the enumerated claims; 6 private
   0600 files are pinned by mode+lines only (content drift invisible — the
   deliberate cost of not publishing hashes of private files); count pins are
-  blind to a value swap at constant count; the 2 `xdg-data` artifacts and
-  package-managed host binaries are deliberately unpinned; a stale baseline
+  blind to a value swap at constant count; the 2 `xdg-data` artifacts carry
+  **no sha256** in `drift-baseline.tsv` (since round 10 they are pinned by
+  *shape* instead — `corpus/state-shape.tsv`: magic, mode, table/row floors,
+  log size floor), and package-managed host binaries (`/usr/bin/op`,
+  `~/.opencode/bin/opencode`) stay out of both; a stale baseline
   reports `DRIFT` until someone re-pins and reports the accepted
   `REPIN`/`MOVED` lines.
 - `SHONEN.md` mark form: the protocol template requires one evidence line per

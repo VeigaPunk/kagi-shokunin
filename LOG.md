@@ -214,3 +214,48 @@
   revision of `drift-pins.sh` that was broken mid-edit (bash parse error, exit
   2) — the committed 445-line revision is green; gate-before-cite ordering
   stands.
+
+- 2026-09-28 — round 10 (**coverage** 6 → 8; axis-move: surfaces + runtime
+  state become falsifiable). Dispatched 9 L2 lanes in one batched call
+  (planner, 2 scouts, 3 executors, critic, sentinel, connector, reviewer routes
+  per MISSION). Landed `corpus/surface-census.sh` v1 + `corpus/surface-census.tsv`
+  (35 rows: 20 asset / 15 runtime) + `corpus/state-shape.tsv` (22 rows) +
+  `corpus/knowledge/surface-census.md` + `corpus/lessons/round-10.md`.
+  Evidence: `bash corpus/surface-census.sh` → `SURFACE_CENSUS: CLEAN
+  (assets=20 runtime=15 scanned=4 ok=34 absent=2 skipped=0)` exit 0; `--verbs` →
+  `CLEAN (pass=7 skip=3)` (no `op` exec, scratch overrides only); `--verbs
+  --deep` → `CLEAN (pass=10 skip=0)`; `--selftest` → `SELFTEST: PASS (16 cases)`;
+  siblings unchanged: `DRIFT_PINS: CLEAN (files=15 symbols=19)` +
+  `DRIFT_SELFTEST: PASS (13 cases)`, `TRANSCRIPT_SCAN: HITS=2 warns=2 cells=888`
+  (known `xai-` prose collision, no secret material). New verdicts: `UNLISTED`
+  over 4 enumerable dirs (16/16 children declared → `UNLISTED=0`; detection path
+  for the round-6 config-drop), `DIVERGED`/`GONE`/`LINK`/`CROSSCHECK` over the
+  declared set, `SHAPE`/`UNVERIFIED`/`SKIP` over the runtime shape pins.
+  Findings landed as corpus claims: (a) `cmd_refs` redaction is a **prefix
+  match** — a ref-shaped value is echoed whole with any plaintext tail, and
+  `export`/leading-space/lowercase keys are silently omitted (SKILL decision
+  table + anti-pattern, `op-cli-surface.md`); (b) `run` over a ref while signed
+  out is non-deterministic — exit 1 in ~4 s or silent block, exit 124 at a 25 s
+  bound (observed both, this round, in `--deep`); (c) a refused `cdp-bridge
+  ensure` still creates the NMH *directory* (`mkdir -p` precedes the `-x`
+  guard); (d) the DB is read through a `mktemp` snapshot because a `?mode=ro`
+  open still advances `-shm`.
+  L2 value, recorded: the selftest caught two gate defects before landing (a
+  dropped required table read as `SKIP` → false clean; a fixture that did not
+  scan the dir the case mutated), and the scouts/sentinel caught a third in a
+  **shipped data file** (a fused row swallowed the `daybreak-blue-access.json
+  mode 600` assertion while the summary still said `CLEAN`) — fixed by splitting
+  the row and adding a >5-field guard + selftest case 14. Critic CE3 (SKIP
+  fail-open) and CE5 (digest print) were real and are fixed (`UNVERIFIED` fails
+  the run; digest-free custody comparison); four of its clauses described a
+  stale snapshot and are recorded as such. Reviewer: 49 VERIFIED / 9 STALE /
+  0 WRONG / 4 UNCHECKABLE; 5 stale prose items corrected in-repo — the
+  `handler-on-disk-state.md` DB bound now separates *content* staleness
+  (`max(session.time_updated)` 2026-09-21T04:57:08Z, rows 7/39/55/238 unchanged)
+  from *file-mtime* freshness (2026-09-28T19:59Z, a reader effect), "deliberately
+  unpinned" reworded in `drift-gate.md` + `corpus/README.md`, and the
+  `PROVINCE.md` census caption re-attributed to the new gate. Sentinel verdict:
+  ship-with-changes; its `SKIP`-neutrality dissent is recorded in
+  `knowledge/surface-census.md` rather than resolved. No vault read, no handler
+  start, no Chrome launch, no real profile/state write (scratch roots only; the
+  custody record's sha/mtime byte-identical after the `tac-register` re-run).

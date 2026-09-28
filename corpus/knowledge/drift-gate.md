@@ -147,9 +147,12 @@ counts only, never file content or matched text.
 - **Value pins red-line on intended remediation** (the two endpoint rows), and
   the correct response is to re-read the citing text and `--pin`, not to loosen
   the ERE.
-- **Two cited paths are deliberately unpinned**:
-  `$STATE_DIR/xdg-data/…/opencode.log` and `opencode.db` mutate legitimately (the
-  DB's hygiene has its own gate, `corpus/transcript-scan.sh`). "Every cited file
+- **Two cited paths are deliberately unpinned by this gate's file-hash
+  baseline**: `$STATE_DIR/xdg-data/…/opencode.log` and `opencode.db` mutate
+  legitimately (the DB's hygiene has its own gate, `corpus/transcript-scan.sh`;
+  since round 10 both are pinned by *shape* in `corpus/state-shape.tsv` —
+  magic, mode, table/row floors, log size floor — so "unpinned" here means
+  "no sha256 in `drift-baseline.tsv`", not "unverified"). "Every cited file
   is pinned" is therefore the wrong claim; the correct claim is the explicit
   15-row list. Package-managed host binaries cited in the corpus
   (`/usr/bin/op`, `/opt/1Password/1Password-BrowserSupport`,

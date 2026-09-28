@@ -26,7 +26,10 @@ corpus entry). Handle hygiene *evidence* and *flows*, not secret material.
 | Check handler state | `the-janitor status` | reading `session-id` to infer auth | prints `state`, `health`, `authorization process_memory_only` |
 | Check 1Password authorization | `request` → handler calls `janitor_auth` → `AUTH_OK`/`AUTH_REQUIRED` | `op whoami` against handler auth | caller-side check is `the-janitor whoami` — exit 1 (`account is not signed in`) predicts `request` will die in readiness |
 | One-shot command with vault env | `the-janitor run -- <cmd>` | assuming handler auth; it uses caller's `op` | needs `~/.config/the-janitor/op.env` present |
-| Inventory env keys | `the-janitor refs` | `cat op.env` (skips redaction); pasting output into artifacts | `KEY=op://…` verbatim / `KEY=<redacted-non-op-value>` |
+| Inventory env keys | `the-janitor refs` | `cat op.env` (skips redaction); pasting output into artifacts; **trusting it as a redactor** | `KEY=op://…` verbatim / `KEY=<redacted-non-op-value>` — but the guard is a *prefix match*: any value whose first 5 bytes are `op://` is echoed whole, plaintext tail included (round-10 probe `refs-redaction-prefix-only`), and `export K=v`, ` K=v`, `lower_case=v` lines are silently **omitted** from the inventory |
+| One-shot command with vault env (auth state unknown) | `timeout 30 the-janitor run -- <cmd>` | running it bare while signed out — an `op://` ref makes it block silently (round-10: exit 1 after 4 s *or* exit 124 with both streams empty at a 25 s bound) | plain-value env files pass through with exit 0 and no vault access; any ref makes the exit depend on live auth |
+| Verify the declared surfaces / catch an undeclared config drop | `bash corpus/surface-census.sh` (compares the host against `corpus/surface-census.tsv` + `corpus/state-shape.tsv`) | editing a TSV to go green; declaring another lane's paths; assuming prose in `PROVINCE.md` verifies anything | exit 0 `SURFACE_CENSUS: CLEAN (assets=… runtime=… scanned=… ok=… absent=… skipped=…)`; 1 `DRIFT (…)` preceded by `DIVERGED`/`GONE`/`LINK`/`UNLISTED`/`CROSSCHECK` and `SHAPE`/`UNVERIFIED` lines naming path + assertion; `UNLISTED` = an undeclared child of one of the 4 enumerable dirs (the round-6 config-drop vector); `ABSENT` and `SKIP`(locked DB) are informational; `UNVERIFIED` (shape class unreadable) is **not** — it fails the run; 2 usage/setup |
+| Exercise the handler's write-side verbs safely | `bash corpus/surface-census.sh --verbs` (scratch overrides; execs no `op`); add `--deep` only with the operator present | running `--deep` unattended — it can raise the 1Password desktop prompt and reads the real custody record | default: `PASS|SKIP` per probe, `SURFACE_CENSUS_VERBS: CLEAN (pass=N skip=M)`; `--deep` = 10 probes / 0 skips; `--selftest` proves 16 cases |
 | Start / stop handler | `the-janitor start` / `stop` | `kill` on the tmux pane | `stop` discards in-memory authorization; next `start` requires re-approval |
 | Verify TAC receipt | `the-janitor tac-check` | treating it as live access or authorization | offline SHA-256 + field check; exit 0 = bytes intact only |
 | First custody registration | `the-janitor tac-register` | running twice expecting refresh — O_EXCL, never replaces | writes `~/.local/state/the-janitor/tac-daybreak-blue.json` 0600 |
@@ -114,6 +117,52 @@ empty at baseline). Baseline 2026-09-28: 0 HIT / 4 WARN (request text *naming*
 credential concepts, e.g. "retrieve the … API keys" — signal that stdin carries
 credential intent, not leaked material). Detail + tiers:
 `corpus/knowledge/transcript-hygiene.md`.
+
+## Surface census — declared surfaces + runtime shape (`corpus/surface-census.tsv`, `corpus/state-shape.tsv`)
+
+`PROVINCE.md` §Surfaces is prose; the census is its falsifiable form. Run it
+before asserting that any path in this domain still exists in the shape the
+corpus claims:
+
+    bash corpus/surface-census.sh                  # surfaces + runtime shapes
+    bash corpus/surface-census.sh --verbs          # write-side verbs, scratch only, no op exec
+    bash corpus/surface-census.sh --verbs --deep   # + op run (plain/ref) + tac-register no-replace; operator present
+    bash corpus/surface-census.sh --selftest       # scratch-tree proof that both fire (16 cases)
+
+- **Declared vs undeclared.** 35 rows (`asset` = must exist; `runtime` = may be
+  ABSENT). Four dirs are enumerated one level deep — `$HOME/.config/the-janitor`,
+  `$STATE`, `$STATE/xdg-data/opencode`, `~/.local/state/tac` — and any child not
+  in the file is `UNLISTED` + exit 1. That is the detection path for the round-6
+  vector: a dropped `$CONFIG_DIR` file is loaded by the handler because
+  discovery is not disabled.
+- **Runtime state is pinned by shape, never content.** `opencode.db`: magic
+  header byte-exact (16 bytes incl. NUL), mode, table floor 12/observed 20,
+  required tables, row floors at one third of observed (`session:2`,
+  `message:13`, `part:18`, `event:79`); `opencode.log`: mode + size floor;
+  custody/handoff JSON: mode + top-level key **names**. Floors fire on a reset
+  (`stop` + `rm -rf xdg-data`) or >3× truncation, not on growth — and a reset
+  legitimately invalidates the row census recorded in
+  `handler-on-disk-state.md`.
+- **Read path.** The DB is opened through a `mktemp` copy of `db`+`-wal`+`-shm`,
+  never in place: a read-only open of the live file still touches `-shm`
+  (round-10 measurement: its mtime advanced during a `?mode=ro` read; the
+  `transcript-scan.sh` sections use `?immutable=1` for the same reason).
+- **One fact, one owner.** Where the census and `drift-baseline.tsv` both declare
+  a mode, they must agree (`CROSSCHECK`); hashes stay in the baseline, and the
+  6 private 0600 files keep `-` there. No `--pin` here: editing a declaration is
+  a scope decision, so it is a reviewed commit.
+- **Verb probes.** Default set (7 probes) runs `cdp-bridge ensure` against a
+  scratch `MUSKETEER_CHROME_PROFILE`, `refs` against a fabricated env file, the
+  `run`/`refs` argument guards, and `status` — exit-2/exit-0 assertion pairs
+  with no `op` exec and no write outside scratch. `--deep` adds `op run`
+  (plain pass-through; ref → exit 1 *or* blocked at the bound) and the
+  `tac-register` no-replace re-run (sha/mtime compared; refuses to create a
+  record). Findings: `refs` redaction is a prefix match (a value starting
+  `op://` is echoed whole, and 3 odd key shapes are silently omitted); a refused
+  `cdp-bridge ensure` still creates the NMH *directory* (`mkdir -p` precedes the
+  guard), so assert the manifest file, not the tree.
+- Detail, verdict table, bounds and 11 falsifiers:
+  `corpus/knowledge/surface-census.md`.
 
 ## Freshness gate — drift pins (`corpus/drift-baseline.tsv`, `corpus/drift-symbols.tsv`)
 
@@ -264,7 +313,7 @@ only lazily: `janitor_auth` → `AUTH_REQUIRED` inside the next request.
 ## Credential-hygiene checklist
 
 Evidence production:
-- [ ] Record mechanism and metadata: paths, modes (`op.env`/`config.json`/`opencode.json`/`client.py` 0600–0755 in `$CONFIG_DIR`; state dir 0700; `client.lock`/`session-id` 0600 in `$STATE_DIR`), verb names, exit codes, field names. `bash corpus/drift-pins.sh` first: exit 0 = every pinned host file and symbol pin still matches the committed baseline (15 files / 19 pins as of round 9); non-zero = re-read the named file before citing it. New cited file ⇒ add it to the script's `FILES` and `--pin` once.
+- [ ] Record mechanism and metadata: paths, modes (`op.env`/`config.json`/`opencode.json`/`client.py` 0600–0755 in `$CONFIG_DIR`; state dir 0700; `client.lock`/`session-id` 0600 in `$STATE_DIR`), verb names, exit codes, field names. **`bash corpus/surface-census.sh` first** (round 10): exit 0 = every declared path still has its declared kind/mode, no undeclared child sits in the 4 enumerable dirs, and every runtime shape floor holds. Then `bash corpus/drift-pins.sh`: exit 0 = every pinned host file and symbol pin still matches the committed baseline (15 files / 19 pins as of round 9). Non-zero on either = re-read the named path before citing it. New cited file ⇒ census row (reviewed commit; there is no `--pin`) **and** a drift-pins `--pin` once.
 - [ ] After any intentional host-file change (endpoint fix, config edit), run `--pin` **once** and report the `REPIN`/`MOVED` lines you accepted — that is the durability of every line ref in this corpus. Never re-pin inside the same round that discovers the drift.
 - [ ] Quote command output only when it is metadata-only (`status`, `cdp-bridge status`, `tac-check` block).
 - [ ] `refs` output: key names OK for internal use; ref paths stay out of artifacts.
@@ -354,6 +403,32 @@ Handler operation:
   of a file holding raw values is an offline guessing oracle. Same rule for
   any future file that holds material rather than metadata.
 
+- Treating `the-janitor refs` as a redactor you can paste. The guard is
+  `awk`'s `v ~ /^op:\/\//` — a *prefix match*: a value beginning with the ref
+  scheme is echoed whole, plaintext tail included, and `export K=v`, ` K=v`,
+  `lower_case=v` lines never appear in the output at all (so the inventory can
+  be *incomplete*, not just unredacted). Round-10 probe
+  `refs-redaction-prefix-only` pins this; a fix should flip that probe to FAIL
+  and update the decision table in the same commit.
+- Reading the live transcript DB with `?mode=ro` "because read-only is safe" —
+  it still touches `opencode.db-shm` in the live directory. Use `?immutable=1`
+  or a `mktemp` copy of db+wal+shm (what `surface-census.sh` and
+  `transcript-scan.sh` do).
+- Editing `corpus/surface-census.tsv` (or `drift-baseline.tsv`) to clear a red
+  gate. The declaration *is* the claim: a `DIVERGED`/`GONE`/`UNLISTED` line
+  means the host moved, and the fix is to read the path, record what changed
+  and then decide. Both files are reviewed commits by design — there is
+  deliberately no `--pin` for the census.
+- Declaring another lane's paths in the census to "cover" them, or adding a
+  `# scan` directive over a shared dir (`~/.config/opencode`, `~/.local/bin`,
+  `~/.agents`, the chrome profile below the NMH dir). Those surfaces are
+  reported, not ruled: the census declares only paths that reach the handler,
+  and a `UNLISTED` verdict over a sibling lane's file is an ownership claim
+  this repo must not make.
+- Assuming `PROVINCE.md` §Surfaces verifies itself. It is prose; nothing fires
+  when a path disappears, changes mode, or when a file is *added* next to it.
+  Run `surface-census.sh` before asserting a surface still exists as described.
+
 ## Falsification
 
 - `the-janitor --help`, `the-janitor status`, `the-janitor cdp-bridge status`,
@@ -409,3 +484,14 @@ Handler operation:
   `--pin` on a host file that grew a symbol ⇒ `MOVED <path>:<pin>-><actual>`.
   A baseline row carrying a hash for a no-hash path ⇒ `POLICY …` + exit 1
   (checked *before* the file is read). Missing option argument ⇒ exit 2.
+- Round-10: `corpus/surface-census.sh` + `corpus/surface-census.tsv` +
+  `corpus/state-shape.tsv` — the declared-surface and runtime-shape gate.
+  Repro: `bash corpus/surface-census.sh` ⇒ `SURFACE_CENSUS: CLEAN (assets=20
+  runtime=15 scanned=4 ok=34 absent=2 skipped=0)`, exit 0; `--verbs` ⇒
+  `CLEAN (pass=7 skip=3)`; `--selftest` ⇒ `SELFTEST: PASS (16 cases)`. Falsify on
+  a copy or a scratch tree: `touch ~/.config/the-janitor/notes.md` ⇒ `UNLISTED`
+  + exit 1 (scratch proof: selftest case 5); `drop table part` on a DB copy ⇒
+  `SHAPE (missing tables)` — deliberately *not* `SKIP` (case 11);
+  `SQLite format 3X` (16 bytes, no NUL) ⇒ `SHAPE (magic mismatch)` (case 9).
+  Depth of the DB read: `stat -c %y` on `opencode.db-shm` before/after a
+  `?mode=ro` read moves; through the gate's snapshot copy it does not.

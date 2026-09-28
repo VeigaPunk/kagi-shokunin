@@ -176,9 +176,14 @@ swallowed. Amplifying the pane: `tmux attach -t janitor`.
 
 ## Anti-claims (bounds)
 
-- Nothing here proves the daemon ran after 2026-09-21; the last DB write and the
-  last log line are both 2026-09-21T04:57–04:58Z, and no `session-id` existed
-  when this was read (`state stopped`).
+- Nothing here proves the daemon ran after 2026-09-21. The durable bound is
+  **content**: the last log line is 2026-09-21T04:58:13Z, `max(session.time_updated)`
+  = 2026-09-21T04:57:08Z (ms epoch 1789966628471) and the row census is
+  7/39/55/238 — all unchanged rounds 6→10. The DB *file* mtime is **not** part
+  of that bound: it reads 2026-09-28T19:59:02Z (re-observed round 10), because
+  any SQLite open — including a read-only one — can advance it, and round 10's
+  own read side did. `corpus/state-shape.tsv` therefore pins magic/mode/**row
+  floors**, never mtime. No `session-id` existed at either read (`state stopped`).
 - The DB is a *projection* of the event log (`event` rows) — reading `part`
   alone under-counts; reading `event` alone gives types but not text.
 - `agent=janitor` on all 7 sessions bounds what this daemon did; it is **not** a

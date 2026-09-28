@@ -83,3 +83,39 @@
   SKILL.md layering section + checklist/anti-pattern/falsification updates,
   README rows + gap resolution. No vault access, no secret values, no ref
   paths recorded.
+- 2026-09-28 — round 7: audited the control plane and the disk — the two
+  surfaces every prior round assumed rather than read. Evidence:
+  `drift-pins.sh` clean (13/13 pinned files unchanged); scratch
+  `opencode serve` replicas under /tmp (ports 41994–41999, 45981–45983,
+  46231–46233 — all killed, dirs removed): no-auth `POST /session` 200,
+  `POST /session/{id}/shell` executes a command in the daemon env in 51 ms
+  with no model call, `agent` selects any of 26 loaded agents (enumerable
+  via unauth `GET /agent` + `GET /config`), body `tools` map re-enables
+  denied tools under `agent:"janitor"`; password set ⇒ 401 Basic-only
+  (`opencode:<pw>` 200; Bearer/wrong-user/wrong-pw 401; all endpoints incl.
+  `/global/health` gated); `OPENCODE_SERVER_USERNAME` honored. No
+  project-trust, Origin/Host, or per-UID check; a clean shell has no ambient
+  `op` session (25 s hang → timeout) — daemon env is the sole credential
+  source. Disk: `xdg-data/opencode/opencode.db` (0600 via wrapper umask 077;
+  7 sessions/39 messages/55 parts, plaintext `$.text`) + `opencode.log`
+  (8 recorded starts; plugin failure every start; endpoint `stream error`
+  ≈58 s exponential backoff) persist past `stop`, which rm's only
+  `session-id`. Lock topology measured: `request` holds `client.lock`
+  through the 3600 s round-trip and wedges `stop`/`start`; only
+  `tmux kill-session` unblocks. tmux 3.7b env passthrough verified broken
+  for pre-existing servers (headless `OP_SERVICE_ACCOUNT_TOKEN` export
+  silently drops → falls to interactive signin). 9 L2 lanes dispatched;
+  verifier corrections applied (flock lines, probe-loop timing, stdout vs
+  stderr warning, plugin-failure recurrence, `open` agent nonexistent →
+  `tools`-map arm). Landed: `knowledge/handler-trust-boundary.md`,
+  `knowledge/handler-on-disk-state.md`,
+  `knowledge/control-plane-hardening.md` (operator handoff), corrections to
+  `credential-isolation.md`/`config-layering.md`/`janitor-lifecycle.md`
+  (ceiling = per-agent request policy, transcripts durable),
+  `lessons/round-7.md`, SKILL.md trust-boundary + disk/wedge sections,
+  decision-table diagnose row, failure-table wedge causes, env-trap,
+  checklist/anti-pattern/falsification rows, README coverage + two open
+  operator gaps. Reported to integrator: CDP-9222 lease is serialization,
+  not an ACL — same loopback-is-not-a-boundary question applies (kake).
+  No vault access; `OP_*` values in probes were fake placeholders; no
+  secret values, ref paths, or account values in any artifact.

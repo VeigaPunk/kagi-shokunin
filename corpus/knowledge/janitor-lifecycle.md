@@ -11,7 +11,7 @@ practice". Finding: **no rotation verb exists by design** — the architecture
 makes revocation a side effect of process lifetime, and rotation a side effect
 of editing the source-of-truth secret.
 
-## The four state objects and what revoking them means
+## The state objects and what revoking them means
 
 | Object | Nature | Lifetime | Kill semantics |
 |---|---|---|---|
@@ -19,6 +19,7 @@ of editing the source-of-truth secret.
 | `STATE_DIR/session-id` (0600) | OpenCode **conversation id**, written by `client.py` `get_session_id` (L57–63) after `POST /session` | persists across requests while the server runs | **context, not credential.** Deleting it just forks a new conversation — `get_session_id` falls back to `POST /session` if the file is missing or `GET /session/<id>` 404s (L41–46). `stop` removes it (L183); `ensure_started` also removes it when a foreign server squats the port is ruled out and tmux session is absent (L92–97) |
 | `OP_SESSION_<domain>` env | live 1Password session token | daemon-process memory only (`authorization process_memory_only` — `status` L170) | `stop` kills the tmux session → token dies with the process. **This is the entire revocation surface for handler auth.** |
 | `OP_SERVICE_ACCOUNT_TOKEN` env | caller-provided SA token, read once by `_serve` (L194) | daemon-process memory only | same — dies at `stop`. Changing it requires `stop` + re-export + next `request`/`start` |
+| `STATE_DIR/xdg-data/opencode/opencode.db` + `…/log/opencode.log` (0600) | opencode transcript DB (plaintext request/reply text, tool parts) and ERROR log | **persistent** — created under `_serve`'s `XDG_DATA_HOME`, written every request | `stop` does **not** purge either; no verb does. Transcript reset = `stop` + `rm -rf $STATE_DIR/xdg-data` (round-7 finding — see `handler-on-disk-state.md`) |
 
 ## Rotation, per secret class
 
@@ -62,8 +63,11 @@ tmux has-session -t janitor   # handler process liveness (exit 1 if absent)
 ```
 
 `session-id` is a plain UUID-shaped string; it authorizes nothing by itself —
-it only lets a client *continue* a conversation on the localhost server, which
-itself holds no vault access beyond `janitor_auth`'s `op vault list` probe.
+it only lets a client *continue* a conversation on the localhost server. But
+round 7 showed the server itself is vault-capable when running (daemon env
+carries `OP_SESSION_*`/`OP_SERVICE_ACCOUNT_TOKEN`) and the port is
+unauthenticated — see `handler-trust-boundary.md`; the ceiling binds the
+`agent` field, not the socket.
 
 ## Anti-claims (bounds)
 

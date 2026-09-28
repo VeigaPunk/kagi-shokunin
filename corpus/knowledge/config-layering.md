@@ -72,6 +72,12 @@ which were verified post-merge**. The `_serve` env unsets 18 cloud-key vars
 (L214–219) so leaked provider defs have no credentials anyway — the env
 scrub is the second wall.
 
+Round-7 qualifier: the ceiling binds the **agent named in the request**, not
+the socket. `client.py` pins `"agent": "janitor"`, but port 40961 has no auth
+— a local process posting `"agent": "<permissive-global>"` runs tools in the
+daemon env. The two walls above hold only for requests routed to the janitor
+agent; see `handler-trust-boundary.md`.
+
 ## Reproduce (deterministic, no vault)
 
 ```bash

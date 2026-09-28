@@ -50,6 +50,15 @@ per request and emit its result verbatim; never execute secret reads/writes —
 return a redacted plan naming vault/item/field *labels* and end with
 `JANITOR_ACTION_REQUIRED`; no spawning agents, no unrelated work.
 
+## Caveat: the ceiling binds the *agent*, not the port (round 7)
+
+`client.py` requests pin `"agent": "janitor"`, so the deny-all above governs
+the *intended* path only. The HTTP control plane on `127.0.0.1:40961` is
+unauthenticated and the message body's `agent` field selects the permission
+set — a local process naming a permissive global agent executes tools in the
+same daemon env (OP_SESSION_* / OP_SERVICE_ACCOUNT_TOKEN present). See
+`handler-trust-boundary.md`; the fix recipe is `control-plane-hardening.md`.
+
 ## The `steps: 4` cap is load-bearing
 
 `~/.local/state/tac/handoff-status.json` `janitor_provenance` records a real

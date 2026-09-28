@@ -32,6 +32,10 @@ see `lessons/round-1.md` for the rule and its rationale.
 | Opencode config layering + inert `config.json` | `knowledge/config-layering.md` | `opencode debug config`/`debug agent janitor` under the `_serve` env (resolved dump: 9 providers, 23 agents, global plugin loaded; `steps: 4`); `the-janitor` `cmd_serve`; binary `customize-opencode` doc |
 | Host-file drift pins | `corpus/drift-pins.sh` | sha256/mode/line-count of every cited file, pinned 2026-09-28 |
 | Round-6 layering lesson | `lessons/round-6.md` | same probes |
+| Handler on-disk state: transcript DB, error log, lock topology, wedge recovery | `knowledge/handler-on-disk-state.md` | `xdg-data/opencode/opencode.db` sqlite introspection (row counts, `$.type` shapes only), `opencode.log` forensics (8 runs since 2026-08-29), `the-janitor` lock pairs L130–131/139–140/175–176, measured wedge timings |
+| Control-plane trust boundary: unauthenticated port 40961, `/session/{id}/shell` direct exec, agent/`tools`-map ceiling scope, daemon-env inheritance, squat-phish surface | `knowledge/handler-trust-boundary.md` | scratch `opencode serve` repros (no-auth 200 vs `OPENCODE_SERVER_PASSWORD` 401/Basic-only; `/doc` 162 routes; shell route 51 ms no-model; `tools` override under `agent:"janitor"`; fake `OP_*` env echo; clean-shell `op` negative control), `client.py` header audit, `ServerAuthConfig` + plugin-loader strings in binary, tmux 3.7b env-passthrough test |
+| Control-plane hardening handoff (operator recipe) | `knowledge/control-plane-hardening.md` | the same probes; `client.py` Authorization gap; sequencing analysis |
+| Round-7 boundary lesson | `lessons/round-7.md` | same probes + L2 verification wave |
 
 ## Known gaps
 
@@ -72,7 +76,17 @@ see `lessons/round-1.md` for the rule and its rationale.
   `/health` ok). Round-4 sharpened the fix: `MODEL_ENDPOINT` (script L17)
   is cosmetic `status` output only; the one load-bearing field is
   `provider.qwen-local.options.baseURL`. No env override exists — requests
-  would fail at prompt time even with auth fixed.
+- **Unauthenticated control plane (open, operator decision):** round 7 proved
+  `opencode serve` on 40961 takes requests with no auth
+  (`OPENCODE_SERVER_PASSWORD` unset — server warns `server is unsecured`).
+  The message `agent` field picks the permission set, so the janitor deny
+  ceiling is bypassable by any local process, and tool subprocesses inherit
+  the daemon env (`OP_SESSION_*`/`OP_SERVICE_ACCOUNT_TOKEN`). Fix = password
+  + `client.py` Authorization header, sequenced in
+  `control-plane-hardening.md`.
+- **Transcript persistence (open):** request text is durable in
+  `xdg-data/opencode/opencode.db` (0600) past `stop`; no purge verb. Treat
+  request stdin as at-rest data; reset = stop + `rm -rf xdg-data`.
 - Vault-side structure (which vaults/items exist, field naming conventions) is
   deliberately unmapped; mapping it would put ref paths in a durable artifact.
 - Secret-rotation/revocation: resolved round 5 — no verb exists by design;

@@ -32,3 +32,16 @@
   idempotence), README coverage/gaps update, SHONEN box 2 checked as
   executed-with-negative-result. No secret values, no ref paths, no
   account-identifying values recorded.
+- 2026-09-28 — round 4: closed the env-var/service-account gap. Evidence:
+  `~/.local/bin/the-janitor` L1–27 (path/port knobs) + `cmd_serve` L186–226
+  re-read (sha256 2408b0c9…57edd, unchanged since round-2 read);
+  `opencode.json` `baseURL` read (endpoint truth confirmed);
+  live probes: `the-janitor status`/`whoami`/`refs`/`run` (missing-env and
+  missing-command exits both 2), `op account get` (works signed out; shape
+  recorded, values are PII — withheld), `curl` on 8080 (Jetty 404 — drift
+  persists) and 34113 (`{"status":"ok"}`), CDP 9222 down. Landed:
+  `knowledge/janitor-env-contract.md` (full knob table; auth selectors
+  `OP_SERVICE_ACCOUNT_TOKEN`/`OP_ACCOUNT`; `MODEL_ENDPOINT` is cosmetic —
+  drift fix = one overlay field), `lessons/round-4.md`, SKILL.md decision
+  table + env-contract section + 3 anti-patterns, README coverage/gaps.
+  No secret values, no ref paths, no account-identifying values recorded.

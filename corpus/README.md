@@ -26,6 +26,7 @@ see `lessons/round-1.md` for the rule and its rationale.
 | Round-1 deferral & seed lessons (aggregator) | `lessons/round-1-aggregator-seed.md` | `MANIFEST.json rounds[1]`, `.ufo/watchdog.log`, `.ufo/waves/round-1.json`, `LOG.md` round-2 entry, commit `9b3e49f` |
 | `op` CLI auth states + endpoint drift | `knowledge/op-cli-surface.md` | live `op account list`, `the-janitor whoami`, `the-janitor request` attempt, `ss`/`curl` port probes, `cmd_stop` read |
 | Round-3 attempt + drift lesson | `lessons/round-3.md` | the same probes; `the-janitor stop` idempotence observed |
+| Env-var contract + auth selectors | `knowledge/janitor-env-contract.md` | `~/.local/bin/the-janitor` L7–27, L194–210; live `op account get` shape; `refs` output |
 
 ## Known gaps
 
@@ -38,15 +39,21 @@ see `lessons/round-1.md` for the rule and its rationale.
   plus the endpoint-drift fix below.
 - `~/.config/the-janitor/config.json` (0600, 406 bytes) shape known (key names
   + types only: second OpenCode overlay); values unrecorded by design.
-- `op` CLI behaviours partly exercised round 3: `account list` (works signed
-  out, values PII), `whoami` (exit 1, `account is not signed in`), `signin`
-  (dies non-interactive inside `_serve`). Still open: `account get` JSON
-  shape, service-account path.
-- **Model endpoint drift (new, open):** `opencode.json` pins
-  `127.0.0.1:8080/v1` but 8080 is a Jitsi videobridge; llama-server serves the
-  pinned model on **34113**. No janitor gate probes the endpoint — requests
-  would fail at prompt time even with auth fixed. Fix = update overlay or
-  move the listener; operator decision.
+- `op` CLI behaviours exercised through round 4: `account list` and
+  `account get` both work signed out (values PII — shape only recorded),
+  `whoami` exit 1 `account is not signed in`, `signin` dies non-interactive
+  inside `_serve`. Round-4 resolved the two open items: `account get` JSON
+  shape (fields incl. `domain`, consumed by `_serve` L203) and the
+  service-account path (`OP_SERVICE_ACCOUNT_TOKEN` skips the interactive
+  chain entirely; `OP_ACCOUNT` selects accounts). Still open: nothing named —
+  `op run` internals and item-level reads stay deliberately unexercised.
+- **Model endpoint drift (open, operator decision):** `opencode.json`
+  `baseURL` pins `127.0.0.1:8080/v1` but 8080 is a Jitsi videobridge;
+  llama-server serves the pinned model on **34113** (re-verified 2026-09-28
+  `/health` ok). Round-4 sharpened the fix: `MODEL_ENDPOINT` (script L17)
+  is cosmetic `status` output only; the one load-bearing field is
+  `provider.qwen-local.options.baseURL`. No env override exists — requests
+  would fail at prompt time even with auth fixed.
 - Vault-side structure (which vaults/items exist, field naming conventions) is
   deliberately unmapped; mapping it would put ref paths in a durable artifact.
 - No entry yet on secret-rotation or revocation practice: no evidence of either

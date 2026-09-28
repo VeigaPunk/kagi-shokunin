@@ -21,6 +21,8 @@ corpus entry). Handle hygiene *evidence* and *flows*, not secret material.
 | Intent | Correct surface | Never | Notes / expected output |
 |---|---|---|---|
 | Ask the handler anything | `echo '…' \| the-janitor request` (stdin only) | args, tmux send-keys, port probing | text reply on stdout; empty-text reply still exits 0 |
+| Run handler headless | export `OP_SERVICE_ACCOUNT_TOKEN` before `request`/`start` | assuming signin is the only path; putting the token in artifacts | skips `account get`/`signin`/`whoami` in `_serve` entirely (L194); token must reach `_serve`'s env |
+| Select among registered accounts | export `OP_ACCOUNT=<acct>` before `request`/`start` | `--account` flags are not accepted by any verb | expands to `--account` on `account get`/`signin`/`whoami` (L196) |
 | Check handler state | `the-janitor status` | reading `session-id` to infer auth | prints `state`, `health`, `authorization process_memory_only` |
 | Check 1Password authorization | `request` → handler calls `janitor_auth` → `AUTH_OK`/`AUTH_REQUIRED` | `op whoami` against handler auth | caller-side check is `the-janitor whoami` — exit 1 (`account is not signed in`) predicts `request` will die in readiness |
 | One-shot command with vault env | `the-janitor run -- <cmd>` | assuming handler auth; it uses caller's `op` | needs `~/.config/the-janitor/op.env` present |
@@ -53,6 +55,23 @@ Model cap: `steps: 4` on the janitor agent. Requests needing >4 steps die at
 max-steps with no artifact (observed precedent in `handoff-status.json`
 `janitor_provenance`) — keep requests atomic; deterministic work belongs in
 `the-janitor` subcommands, not the model path.
+
+## Env-var contract (full knob list — `corpus/knowledge/janitor-env-contract.md`)
+
+Path/port overrides: `THE_JANITOR_ENV`, `THE_JANITOR_CONFIG_DIR`,
+`THE_JANITOR_STATE_DIR`, `THE_JANITOR_PORT`, `THE_JANITOR_REQUEST_TIMEOUT`
+(client.py, default 3600 s), `MUSKETEER_CHROME_PROFILE`,
+`ONEPASSWORD_BROWSER_SUPPORT`, `MUSKETEER_CDP_PORT`.
+
+Auth selectors (read by `_serve`, L194–210): `OP_SERVICE_ACCOUNT_TOKEN`
+(present ⇒ skip `account get`/`signin`/`whoami` — the headless path) and
+`OP_ACCOUNT` (⇒ `--account` passthrough). Neither is in `usage()`.
+
+The model endpoint is **not** a knob: `MODEL_ENDPOINT` (L17) is a hardcoded
+literal that only feeds `status`'s cosmetic `endpoint` line. The load-bearing
+URL is `provider.qwen-local.options.baseURL` in `opencode.json` — the
+round-3 drift fix is one JSON field there, after which the `status` line
+still lies until L17 is updated too.
 
 ## Credential-hygiene checklist
 
@@ -96,6 +115,9 @@ Handler operation:
 - Silent re-registration of a checksum after tamper — `O_EXCL` prevents it; if register "should" refresh a record, the design assumption is wrong.
 - Mapping vault/item structure into durable artifacts — ref paths are exfil-shaped; record that refs *exist*, not where they point.
 - Absorbing cross-domain surfaces (CDP lease, musketeer profile) into this repo — report to integrator.
+- Hunting for `THE_JANITOR_ENDPOINT`-style overrides — none exists; `MODEL_ENDPOINT` (L17) feeds only `status`'s display line. Fix `opencode.json` `baseURL`.
+- Recording `op account get`/`account list` values — key names only; the values are account-identifying PII in the same class as `op://` ref paths.
+- Assuming `op.env` is all `op://` refs — 2026-09-28 `refs` showed raw-value keys (identifiers); the convention is unenforced, so `cat` still leaks them.
 
 ## Falsification
 
@@ -108,3 +130,8 @@ Handler operation:
 - `corpus/knowledge/janitor-command-surface.md` carries line refs + runnable
   probes; script line numbers date to the 2026-09-28 read — re-grep before
   citing.
+- Round-4: `corpus/knowledge/janitor-env-contract.md` carries the full
+  env-var table (auth selectors `OP_SERVICE_ACCOUNT_TOKEN`/`OP_ACCOUNT`,
+  `THE_JANITOR_*` overrides) and proof the model endpoint lives only in
+  `opencode.json` `baseURL`; `grep -n 'OP_\|THE_JANITOR\|baseURL'
+  ~/.local/bin/the-janitor ~/.config/the-janitor/opencode.json` reproduces it.

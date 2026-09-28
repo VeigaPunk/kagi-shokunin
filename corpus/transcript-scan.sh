@@ -8,75 +8,82 @@
 # counts in every credential-bearing table. It NEVER prints row contents or
 # matched text — counts, session-id triage, and exit codes only.
 #
-#   exit 0  clean          exit 1  hits found          exit 2  usage/db error
+#   exit 0  clean-or-warn   exit 1  hits found   exit 2  usage/db/schema error
 #
 # Usage: transcript-scan.sh [--db PATH] [--selftest] [-h|--help]
 #   --db PATH    override DB (default: $THE_JANITOR_STATE_DIR or
 #                ~/.local/state/the-janitor)/xdg-data/opencode/opencode.db
-#   --selftest   build a scratch DB in mktemp, seed a fake op:// row, verify
-#                the gate fires (exit 1) and a clean db passes (exit 0). No
-#                contact with the real state dir.
+#   --selftest   build scratch DBs in mktemp: seeded op:// row, a populated
+#                credential tripwire, and a WAL-resident row (un-checkpointed
+#                wal) — asserts the gate fires on each. No contact with the
+#                real state dir.
 #
-# Open mode: sqlite3 URI `file:...?immutable=1` — the read does not create the
-# 0600 -wal/-shm siblings a plain open would (documented gotcha in
-# knowledge/handler-on-disk-state.md "Read-side gotcha").
+# Read design (sentinel round-8): the source db is NEVER opened — not even
+# `file:…?immutable=1`, which silently misses rows committed to an
+# un-checkpointed -wal (the blind-window hole), and not `-readonly`, which
+# creates/mutates the 0600 -wal/-shm siblings in the live dir. Instead the
+# db + -wal/-shm are copied to mktemp and the COPY is opened; sqlite replays
+# the wal on open, so committed-but-uncheckpointed rows are scanned too.
 set -euo pipefail
 
 SD="${THE_JANITOR_STATE_DIR:-$HOME/.local/state/the-janitor}"
 DB="$SD/xdg-data/opencode/opencode.db"
 SELFTEST=0
+usage() { echo "usage: transcript-scan.sh [--db PATH] [--selftest]" >&2; exit 2; }
 while [[ $# -gt 0 ]]; do
   case "$1" in
-    --db) DB="${2:?--db needs a path}"; shift 2 ;;
+    --db) [[ $# -ge 2 ]] || usage; DB="$2"; shift 2 ;;
     --selftest) SELFTEST=1; shift ;;
-    -h|--help) sed -n '1,20p' "$0"; exit 0 ;;
-    *) echo "usage: transcript-scan.sh [--db PATH] [--selftest]" >&2; exit 2 ;;
+    -h|--help) sed -n '1,24p' "$0"; exit 0 ;;
+    *) usage ;;
   esac
 done
 
 # --- scan surface ------------------------------------------------------------
-# table -> "col1 col2 ..." text columns that can hold request/response text,
-# plus the column used for session-id triage (sid_map below).
+# table -> text columns that can hold request/response text or handler-shaped
+# strings; SID_COL = the column used for distinct-session triage.
 declare -A SCAN_COLS SID_COL
 SCAN_COLS[part]="data";                          SID_COL[part]="session_id"
 SCAN_COLS[message]="data";                       SID_COL[message]="session_id"
 SCAN_COLS[event]="data";                         SID_COL[event]="aggregate_id"
-SCAN_COLS[session]="title";                      SID_COL[session]="id"
+SCAN_COLS[session]="title slug path share_url summary_diffs metadata permission"; SID_COL[session]="id"
 SCAN_COLS[session_input]="prompt";               SID_COL[session_input]="session_id"
 SCAN_COLS[session_message]="data";               SID_COL[session_message]="session_id"
 SCAN_COLS[session_context_epoch]="baseline snapshot"; SID_COL[session_context_epoch]="session_id"
 SCAN_COLS[todo]="content";                       SID_COL[todo]="session_id"
+SCAN_COLS[project]="name worktree commands sandboxes"; SID_COL[project]="id"
+SCAN_COLS[workspace]="name directory extra";     SID_COL[workspace]="id"
+SCAN_COLS[permission]="action resource";         SID_COL[permission]="id"
 # tables that must stay EMPTY — populated = account/oauth material in the
 # quarantine DB (finding, same severity as a pattern hit)
 TRIPWIRE_TABLES="account account_state control_account credential session_share"
 
-# Secret-shaped patterns. SQL LIKE (ASCII case-insensitive); `_` in a pattern
-# acts as any-single-char, which is acceptable for these prefix families.
-# Deliberately prefix-shaped; generic strings ("password", "sk-") are too noisy.
+# Secret-shaped patterns. SQL LIKE (ASCII case-insensitive); `_` acts as
+# any-single-char, acceptable for these prefix families.
 # HIT tier = material that should NEVER rest in the transcript (exit 1).
 # WARN tier = credential-language field names — request text discussing keys
-# ("retrieve the … API keys") matches these legitimately; reported, exit stays.
-# Baseline verified 2026-09-28: 0 HIT; WARN rows exist because past requests
-# name key/credential concepts (see knowledge/transcript-hygiene.md).
+# matches these legitimately; reported, exit unaffected.
+# Baseline 2026-09-28: 0 HIT; 4 WARN cells across 5 sessions (request text
+# naming credential concepts). Prefix set informed by the daemon's own
+# env-scrub inventory (credential-isolation.md L214-219).
 PATTERNS_HIT=(
   'op://'                 # vault ref paths — must never rest in the transcript
   '-----BEGIN'            # PEM blocks: PRIVATE KEY, OPENSSH, PGP, certs
   'AKIA' 'ASIA'           # AWS access key id prefixes
   'ghp_' 'gho_' 'ghu_' 'ghs_' 'ghr_' 'github_pat_'   # GitHub tokens
-  'xoxb-' 'xoxp-' 'xoxs-' 'xoxa-' 'xoxr-'            # Slack tokens
-  'sk-ant-' 'sk-proj-' 'sk_live' 'sk_test'           # Anthropic/OpenAI/Stripe
+  'xoxb-' 'xoxp-' 'xoxs-' 'xoxa-' 'xoxr-' 'xoxc-' 'xapp-'  # Slack tokens
+  'sk-ant-' 'sk-proj-' 'sk-or-v1-' 'sk_live' 'sk_test'     # Anthropic/OpenRouter/Stripe
+  'gsk_' 'xai-' 'csk-'    # Groq / xAI / Cohere key prefixes
+  'glpat-' 'npm_'         # GitLab PAT / npm token
   'AIza' 'ya29.'          # Google API key / OAuth access token prefixes
-  'eyJhbGci' 'eyJhbG'     # JWT header ({"alg":...)
+  'eyJhbG'                # JWT header ({"alg":...)
   'OP_SESSION_' 'OP_SERVICE_ACCOUNT_TOKEN'           # daemon-env credential vars
 )
 PATTERNS_WARN=('access_token' 'refresh_token' 'api_key' 'secret_key' 'apikey')
 
 hits=0; warns=0; cells=0; absent=0
 
-
-sql() { sqlite3 "file:$DB?immutable=1" "$1"; }
-# Known limit: --db paths containing '?' or '#' break the URI form and are
-# rejected by the open probe below (exit 2) — point it at real paths only.
+sql() { sqlite3 "$SCAN_DB" "$1"; }
 
 table_exists() {
   [[ $(sql "SELECT count(*) FROM sqlite_master WHERE type='table' AND name='$1'") -eq 1 ]]
@@ -138,11 +145,14 @@ if [[ $SELFTEST -eq 1 ]]; then
 CREATE TABLE part(id text, message_id text, session_id text, data text);
 CREATE TABLE message(id text, session_id text, data text);
 CREATE TABLE event(id text, aggregate_id text, data text);
-CREATE TABLE session(id text, title text);
+CREATE TABLE session(id text, title text, slug text, path text, share_url text, summary_diffs text, metadata text, permission text);
 CREATE TABLE session_input(id text, session_id text, prompt text);
 CREATE TABLE session_message(id text, session_id text, data text);
 CREATE TABLE session_context_epoch(session_id text, baseline text, snapshot text);
 CREATE TABLE todo(session_id text, content text);
+CREATE TABLE project(id text, name text, worktree text, commands text, sandboxes text);
+CREATE TABLE workspace(id text, name text, directory text, extra text);
+CREATE TABLE permission(id text, action text, resource text);
 CREATE TABLE account(id text); CREATE TABLE account_state(id integer);
 CREATE TABLE control_account(email text); CREATE TABLE credential(id text);
 CREATE TABLE session_share(session_id text);
@@ -153,26 +163,76 @@ SQL
   sqlite3 "$T/clean.db" < "$T/mk.sql"
   sqlite3 "$T/clean.db" "DELETE FROM part; DELETE FROM credential;"
   echo "-- selftest: seeded db (expect exit 1, 2 hits) --"
-  if DB="$T/hit.db" bash "$0" --db "$T/hit.db"; then
+  if bash "$0" --db "$T/hit.db"; then
     echo "SELFTEST FAILED: seeded hit not detected" >&2; exit 2
   else
     [[ $? -eq 1 ]] || { echo "SELFTEST FAILED: unexpected exit" >&2; exit 2; }
   fi
   echo "-- selftest: clean db (expect exit 0) --"
-  DB="$T/clean.db" bash "$0" --db "$T/clean.db" \
+  bash "$0" --db "$T/clean.db" \
     || { echo "SELFTEST FAILED: clean db flagged" >&2; exit 2; }
-  echo "SELFTEST OK (seeded hit detected; clean db passed)"
+  if command -v python3 >/dev/null; then
+    # WAL-resident row: commit then hard-exit without close → wal un-checkpointed.
+    # Regression test for the immutable-mode blind window: the gate must see
+    # rows that live only in -wal.
+    python3 - "$T/wal.db" <<'PY'
+import sqlite3, sys, os
+c = sqlite3.connect(sys.argv[1])
+c.execute("PRAGMA journal_mode=WAL")
+c.executescript("""
+CREATE TABLE part(id text, message_id text, session_id text, data text);
+CREATE TABLE message(id text, session_id text, data text);
+CREATE TABLE event(id text, aggregate_id text, data text);
+CREATE TABLE session(id text, title text, slug text, path text, share_url text, summary_diffs text, metadata text, permission text);
+CREATE TABLE session_input(id text, session_id text, prompt text);
+CREATE TABLE session_message(id text, session_id text, data text);
+CREATE TABLE session_context_epoch(session_id text, baseline text, snapshot text);
+CREATE TABLE todo(session_id text, content text);
+CREATE TABLE project(id text, name text, worktree text, commands text, sandboxes text);
+CREATE TABLE workspace(id text, name text, directory text, extra text);
+CREATE TABLE permission(id text, action text, resource text);
+CREATE TABLE account(id text); CREATE TABLE account_state(id integer);
+CREATE TABLE control_account(email text); CREATE TABLE credential(id text);
+CREATE TABLE session_share(session_id text);
+""")
+c.commit()
+c.execute("INSERT INTO part VALUES('p','m','s','fake op://wal/resident marker')")
+c.commit()
+os._exit(0)
+PY
+    [[ -s $T/wal.db-wal ]] || { echo "SELFTEST FAILED: could not stage wal file" >&2; exit 2; }
+    echo "-- selftest: wal-resident db (expect exit 1, 1 hit) --"
+    if bash "$0" --db "$T/wal.db"; then
+      echo "SELFTEST FAILED: wal-resident hit missed" >&2; exit 2
+    else
+      [[ $? -eq 1 ]] || { echo "SELFTEST FAILED: unexpected exit" >&2; exit 2; }
+    fi
+  else
+    echo "-- selftest: python3 absent, wal-resident case skipped --"
+  fi
+  echo "SELFTEST OK (seeded hit + wal-resident hit detected; clean db passed)"
   exit 0
 fi
 
 command -v sqlite3 >/dev/null || { echo "transcript-scan: sqlite3 not found" >&2; exit 2; }
 [[ -f $DB ]] || { echo "transcript-scan: db not found: $DB" >&2; exit 2; }
-# immutable URI = no -wal/-shm side effect on the live state dir
-sqlite3 "file:$DB?immutable=1" 'SELECT 1' >/dev/null \
-  || { echo "transcript-scan: cannot open $DB read-only" >&2; exit 2; }
+
+# Snapshot the db + wal siblings into mktemp; scan the copy. Never opens the
+# source: immutable mode has a committed-rows blind window on a populated -wal,
+# and -readonly/plain opens create or mutate -wal/-shm in the live dir.
+SNAP=$(mktemp -d); trap 'rm -rf "$SNAP"' EXIT
+SCAN_DB="$SNAP/scan.db"
+cp -p -- "$DB" "$SCAN_DB" 2>/dev/null \
+  || { echo "transcript-scan: cannot copy $DB" >&2; exit 2; }
+for sib in -wal -shm; do
+  [[ -f $DB$sib ]] && cp -p -- "$DB$sib" "$SCAN_DB$sib" 2>/dev/null || true
+done
+sqlite3 "$SCAN_DB" 'SELECT count(*) FROM sqlite_master' >/dev/null \
+  || { echo "transcript-scan: cannot open snapshot of $DB" >&2; exit 2; }
 
 run_scan
 printf 'TRANSCRIPT_SCAN: %s (cells=%d patterns=%d+%d warns=%d schema-absent=%d) db=%s\n' \
   "$([[ $hits -eq 0 ]] && echo CLEAN || echo "HITS=$hits")" \
   "$cells" "${#PATTERNS_HIT[@]}" "${#PATTERNS_WARN[@]}" "$warns" "$absent" "$DB"
-[[ $hits -eq 0 ]]
+# schema drift is fail-closed: absent scanned tables mean unknown coverage
+[[ $hits -eq 0 && $absent -eq 0 ]] || exit $(( hits > 0 ? 1 : 2 ))

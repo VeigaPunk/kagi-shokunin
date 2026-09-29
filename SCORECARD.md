@@ -13,7 +13,7 @@ high score is the calibration failure this file exists to prevent.
 
 | Axis | Score | Evidence pointer | Last change |
 |---|---|---|---|
-| depth | 7 | `SKILL.md` carries a 16-row decision table, a 13-row failure table with exact texts + exits, the env-knob contract, a 15-item hygiene checklist, 25 anti-pattern bullets and a per-round falsification list; each `corpus/knowledge/*` entry opens with a `Source basis:` line (`corpus/knowledge/drift-gate.md`). Ceiling = deliberate scope: vault-side structure is unmapped, so item/field questions are unanswerable by design. | round 9 |
+| depth | 7 | `SKILL.md` carries a 16-row decision table, a 13-row failure table with exact texts + exits, the env-knob contract, a 13-item hygiene checklist (the count `ea77bf0` actually held — this cell said 15 until round 15 corrected it; the list holds 16 now), 25 anti-pattern bullets and a per-round falsification list; each `corpus/knowledge/*` entry opens with a `Source basis:` line (`corpus/knowledge/drift-gate.md`). Ceiling = deliberate scope: vault-side structure is unmapped, so item/field questions are unanswerable by design. | round 9 |
 | coverage | 5 | `PROVINCE.md` was 6 lines and enumerated **no** surfaces (AXES names "PROVINCE.md lists every surface" as the signal); the real list lived in the `corpus/README.md` coverage map's coverage map. At HEAD the pin list held 13 paths and 4 cited host files were outside it, all present on host (`~/.agents/AGENTS.md`, the musketeer NativeMessagingHosts manifest, `xdg-data/…/opencode.log`, `opencode.db`). Round 9: `PROVINCE.md` now lists surfaces + refusals; pin list 13→15; the two `xdg-data` artifacts stay unpinned deliberately (state, and the DB has its own gate). | round 9 |
 | operability | 5 | At HEAD `corpus/transcript-scan.sh` was a real gate (exit 0/1/2, counts-only, `--selftest`), while `corpus/drift-pins.sh` was a printer that exited 0 unconditionally — so the checklist item "run it first, re-read what changed" produced no verdict. Round 9 makes both gates runnable-with-verdicts (see freshness). | round 9 |
 | freshness | **2** | **The drift mechanism could not detect drift.** (a) `drift-pins.sh` at HEAD stored nothing: `git show HEAD:corpus/drift-pins.sh \| grep -c baseline` → 0. (b) Only **2 of 13** pinned files had expected values in-repo (`the-janitor` `2408b0c9…57edd`, `client.py` `8179b241…ce51`), matching `PROTOCOL.md:292-298` ("pins verifiable for only 2 of 13 files"). (c) Real drift went undetected: `MODEL_ENDPOINT` L17→L19 stayed stale in 4 corpus files rounds 4→8; a README bullet stayed truncated a full round (`lessons/round-8.md` §5). (d) Overclaim on top: `SKILL.md:205`, `SKILL.md:304`, `corpus/README.md:33` said "every cited host file" while 4 cited files were unpinned. Above 0 only because rounds 7–8 re-ran live probes by hand. | round 6 (mechanism) / round 8 (last manual re-verification) |
@@ -37,7 +37,7 @@ high score is the calibration failure this file exists to prevent.
 |---|---|---|---|
 | depth | 7 | Unchanged from round 9: decision table, failure table, env contract, hygiene checklist, anti-patterns, falsification list; ceiling is deliberate scope (vault-side structure unmapped). Pointer: the tables live in the stamped `SKILL.md`, the refusal in the stamped `PROVINCE.md` — no command counts them. | round 9 |
 | coverage | **6** | `PROVINCE.md` listed surfaces but nothing verified them: no command fired on a path disappearing, changing mode, or — the round-6 vector — an *undeclared* file appearing in `$CONFIG_DIR`; the two `xdg-data` artifacts were named "mutates legitimately; not pinned". | round 9 |
-| operability | 7 | Two runnable verdict gates (drift, transcript) + 12 checklist items that are still operator judgement. Pinned by `R11-04` (drift verify) + `R11-07` (transcript selftest). | round 9 |
+| operability | 7 | Two runnable verdict gates (drift, transcript) + the checklist's judgement items then unmeasured (this cell said 12; at that revision the list held 14 items and ≥3 of them already named a live gate — corrected in round 15). Pinned by `R11-04` (drift verify) + `R11-07` (transcript selftest). | round 9 |
 | freshness | 7 | Drift detection real for 15 files/19 pins; surfaces and runtime state had no re-verification mechanism at all. Pinned by `R11-04` (drift) + `R11-01` (the surface re-verification this cell says was missing). | round 9 |
 | calibration | 6 | SCORECARD exists; SHONEN carries named verifiers. Overclaims remained: SKILL's decision table implied `refs` output was redacted; `PROVINCE.md:8` attributed live census numbers to a prose pass. | rounds 5–9 |
 | adjacency | 8 | Contested scope documented with owners (`~/.agents/AGENTS.md` ↔ kotoba; musketeer profile ↔ kake). Pointer: the overlap table is in the stamped `corpus/README.md` + `PROVINCE.md` (the host file itself is not a repo artifact). | round 9 |
@@ -59,7 +59,7 @@ high score is the calibration failure this file exists to prevent.
 |---|---|---|---|
 | depth | 7 | Unchanged from round 10: decision table, failure table, env contract, hygiene checklist, anti-patterns, falsification list; ceiling is deliberate scope (vault-side structure unmapped). Pointer: stamped `SKILL.md` + `PROVINCE.md`, no counting command. | round 9 |
 | coverage | 8 | 35 declared surface rows + 22 runtime shape pins + 10 verb probes, all with verdicts; ceilings named in `knowledge/surface-census.md` §Bounds. (This cell said 21 shape pins when written — the pin count was already 22, per `R11-10`; corrected in round 13.) Pinned by `R11-01`, `R11-10`, `R11-11`. | round 10 |
-| operability | 8 | Three runnable gates (`surface-census.sh`, `drift-pins.sh`, `transcript-scan.sh`) with verdicts + selftests; 12 checklist items still operator judgement. Pinned by `R11-04`, `R11-06`, `R11-07`. | round 10 |
+| operability | 8 | Three runnable gates (`surface-census.sh`, `drift-pins.sh`, `transcript-scan.sh`) with verdicts + selftests; the checklist's judgement items still unmeasured (this cell said 12 — corrected in round 15). Pinned by `R11-04`, `R11-06`, `R11-07`. | round 10 |
 | freshness | 8 | Host-file/symbol drift real for 15 files/19 pins; surfaces and runtime state re-verified mechanically. Pinned by `R11-04`. | round 10 |
 | calibration | **7** | Round 10's 62 report claims were adjudicated **by hand** (the L2 reviewer stated 9 STALE / 4 UNCHECKABLE); two committed citations name session-scoped scratch (`SCORECARD.md:54`, `corpus/lessons/round-10.md:50`) and resolve for nobody; score cells are self-scored with prose pointers, so a reader re-derives the evidence instead of re-running it. | rounds 5–10 |
 | adjacency | 8 | Contested scope documented with owners (`~/.agents/AGENTS.md` ↔ kotoba; musketeer profile ↔ kake); the round-10 connector output was session-scoped scratch and is now cited only through the README gap bullet. Pointer: stamped `corpus/README.md` + `PROVINCE.md`. | round 10 |
@@ -81,7 +81,7 @@ high score is the calibration failure this file exists to prevent.
 |---|---|---|---|
 | depth | **7** | Unchanged from round 11: decision table, failure table, env contract, hygiene checklist, anti-patterns, falsification list. The recorded ceiling was "vault-side structure stays unmapped — a deliberate scope refusal". **That reading was wrong, and this round falsified it** (see post-move): the unmapped surface was not vault-side structure but the *other half of `op.env` consumption* — the dotenv parser `cmd_run` execs, its divergence from `cmd_refs`'s awk, and the true scope of `op run`'s masking. All reachable with zero vault contact. Pointer: stamped `SKILL.md` + `PROVINCE.md` (no command counts the tables). | round 9 |
 | coverage | 8 | 35 declared surface rows + 22 runtime shape pins + 10 verb probes; ceilings named in `knowledge/surface-census.md` §Bounds. Nothing in this round moves a *path* surface. Pinned by `R11-01`, `R11-10`, `R11-11`. | round 10 |
-| operability | 8 | Three runnable gates with verdicts + selftests; 12 checklist items still operator judgement; nothing schedules them. Pinned by `R11-01`, `R11-04`, `R11-06`. | round 10 |
+| operability | 8 | Three runnable gates with verdicts + selftests; the checklist's judgement items still unmeasured (this cell said 12 — corrected in round 15); nothing schedules them. Pinned by `R11-01`, `R11-04`, `R11-06`. | round 10 |
 | freshness | 8 | Host-file/symbol drift real for 15 files/19 pins; surfaces and runtime state re-verified mechanically. Pinned by `R11-04`. | round 10 |
 | calibration | **8** | Round 11's gate is green, but round 11's own plan (each score cell names the claim ids it rests on) was not landed, and the depth ceiling sentence in this file was a self-assessment error — a scope refusal where the truth was "not measured yet". Two committed numbers were also stale on contact (`symbols=19`, `claims=11`). Pointer: counts re-pinned by `R12-03` and `R13-02`. | round 11 |
 | adjacency | 8 | Contested scope documented with owners (`~/.agents/AGENTS.md` ↔ kotoba; musketeer profile ↔ kake). Pointer: stamped `corpus/README.md` + `PROVINCE.md` overlap tables. | round 10 |
@@ -168,6 +168,13 @@ Ceilings are named so they are not mistaken for saturations:
   capped by refusal, not by exhaustion — round 12 showed that this exact sentence
   is worth re-measuring before trusting it.
 
+**Round-15 note (added at the round-15 close):** this block's target — push
+`by_hand` down from 3 to ≤1 and move `DOC_AUDIT_RATIO` — was **not taken** in
+round 15, because the lane rule is "pick the lowest-scoring axis" and freshness
+stood at 9 while operability stood at 8 with a lane-reachable ceiling. The
+target stays open and unclaimed; `DOC_AUDIT_RATIO: … by_hand=3` is its number
+today (row `R14-01`). See §Round 15 for the move that was taken and the reason.
+
 ## Round 14 — pre-move (repo `HEAD` `4b8c018`, round-13 close)
 
 | Axis | Score | Evidence pointer | Last change |
@@ -189,6 +196,70 @@ Ceilings are named so they are not mistaken for saturations:
 | depth | 8 → 8 | §Class 6 adds detail inside existing scope (grammar by form, the closed class set, the floor expression, membership-vs-freshness split, seven bounds). | `corpus/knowledge/claim-ledger.md` |
 | coverage | 8 → 8 | The round moves a *documents* surface, not a path surface: the census declaration is untouched and nothing new is claimed about which files exist. What it adds is that the 17 entries are now counted at all. | `R11-01`, `R11-11` |
 | adjacency | 8 → 8 | Sibling overlap reported, not absorbed: kotoba's `verify_skill_checklist.py` links checklist boxes to dispositions, kumitate `proxy-check.mjs` computes a documentation-coverage score, kasegi `anchorcheck.py` resolves `path:line` anchors — all *adjacent* (different unit, no claim-row binding); the shared-contract question stays with the integrator. | `corpus/README.md`; `corpus/lessons/round-14.md` |
+
+## Round 15 — pre-move (repo `HEAD` `2486643`, round-14 close)
+
+| Axis | Score | Evidence pointer | Last change |
+|---|---|---|---|
+| depth | 8 | Unchanged from round 12: the `op.env` two-parser contract, masking scope and hard-failure class measured with verdicts; ceiling unchanged (masking of *ref-resolved* values needs a resolved reference, i.e. the vault). | `R12-01` |
+| coverage | 8 | 35 declared surface rows + 22 runtime shape pins + 10 verb probes, all with verdicts; ceilings named in `knowledge/surface-census.md` §Bounds. | `R11-01`, `R11-11` |
+| operability | **8** | **The checklist was prose and its judgement count was an assertion.** At `2486643`: 16 `- [ ]` items in `SKILL.md` §Credential-hygiene checklist and **0** verdicts (`ls corpus/checklist*` ⇒ nothing; `grep -rl 'hygiene checklist' corpus/*.sh` ⇒ nothing); 5 items named a command, none produced an outcome; the "12 items are still operator judgement" figure in this file (rounds 9–11 cells) was wrong at every revision it appears in (the list held 14 items then, and ≥3 items already named a live gate). Reproduced by two lanes (item census; `bash corpus/checklist-run.sh` did not exist). | `corpus/lessons/round-15.md` (stamped) |
+| freshness | 9 | Every knowledge entry declares its re-verification and is revision-pinned; the round-14 link cannot silently disappear (`docs` mode inside `verify`). | `R14-01` |
+| calibration | 9 | The scorecard audit is green and every checked cell points at something that still holds; the `verify` summary itself remains unpinnable (stated bound). | `R13-03` |
+| adjacency | 8 | Contested scope documented with owners (`~/.agents/AGENTS.md` ↔ kotoba; musketeer profile ↔ kake). | `corpus/README.md` (stamped) |
+
+## Round 15 — post-move (operability axis-move landed, commit `round-15`)
+
+| Axis | Score | What moved | Evidence |
+|---|---|---|---|
+| operability | 8 → **9** | The checklist became an executed declaration: 16 rows (9 runnable / 7 by-hand), a gate-enforced `lead` bijection over the items, a `by-hand` class with a unique reason, a ratio line split into `delegated`/`direct`, a policy deny-list, and 34 selftest cases. The "run the checklist" instruction now produces a verdict, and adding an item without a row fails closed. | `R15-01` (`CHECKLIST_RUN: CLEAN (items=16 runnable=9 by_hand=7 failed=0)`), `R15-02` (34 cases), `R15-03` (`rows=16 runnable=9 by_hand=7`), `R15-04` (16 declaration rows vs the 16 items), `R15-05` (`runnable=9/16 floor=8 by_hand=7 delegated=3 direct=6`); `corpus/knowledge/checklist-execution.md`. Ceilings, named in the same cell: **nothing schedules this gate or any other** (`systemctl --user list-timers`, `crontab -l`, cron dirs/spools: no entry for any `corpus/*.sh` — labrat lane, read-only), and 7 duties stay by-hand (4 authoring-duty, 1 each runtime-behavior, manual-change, cross-lane). The increment claimed is "each item produces a verdict or a declared gap", not scheduling. |
+| calibration | 9 → 9 (increment recorded, not re-scored) | Three stale or wrong figures in this file were corrected with measurement (`SCORECARD.md:16` said "15-item" where `ea77bf0` held 13 and the list holds 16; the three rounds-9–11 operability cells' "12 items are still operator judgement"), and the round's claims entered the ledger as five rows rather than prose. The wave's counterexamples are recorded rather than smoothed: a 16-row constant-`printf` TSV passes `CLEAN (runnable=16/16)` (so the ratio measures declaration shape, not semantic strength — bound 11), a `check` grepping an unanchored pattern can be satisfied by a comment (H1 is now line-anchored), `E5`'s delegated probe execs `op run` (declared on the row; the stricter reading is `8/8`, exactly the floor), and the planner lane's duty-vs-premise criterion yields `3/13`. Not raised because a pointer's *relevance* stays unverifiable and the `note` column that makes the 9 honest is not gate-enforceable. | `R13-03`; `R15-01`; `corpus/lessons/round-15.md` §3–§4. |
+| depth | 8 → 8 | The new entry adds detail inside existing scope (8-column schema, verdict/exit table, delegation map, 12 bounds, 10 falsifiers) — detail, not new scope. | `corpus/knowledge/checklist-execution.md` |
+| coverage | 8 → 8 | The round moves a *documents/behaviour* surface, not a path surface: the census declaration is untouched and nothing new is claimed about which host files exist. What it adds is that the checklist's own items are counted and executed. | `R11-01`, `R11-11` |
+| freshness | 9 → 9 | A drift-detectable surface for the checklist's premises now exists (16 rows re-run on demand, with pinned verdict lines and counts), and the gate spent that budget on first contact: 5 placeholder literals found, 2 host facts unpinned, 1 false-defect class fixed. Not re-scored: the lane's freshness *measurement* (host-file drift, surfaces, runtime shape) is unchanged and `DRIFT_PINS: CLEAN (files=15 symbols=20)` still holds. | `R11-04`; `R15-01` |
+| adjacency | 8 → 8 | Sibling verifiers mapped and reported, not absorbed: kotoba's `verify_skill_checklist.py` (checklist box → disposition, predicates inspect the file rather than execute the item's command), kumitate's doc-coverage score, kasegi's `anchorcheck.py` (prints findings but exits 0). None implements an item → command → verdict contract, so this is adjacent; the shared shape (a stable-ID outcome ledger) is reported to the integrator. | `corpus/README.md` (stamped); `corpus/lessons/round-15.md` §4 |
+
+## Planned (round-15 target recorded — not taken, and why)
+
+This file's previous plan (round 14) set the next falsifiable target as
+"push `by_hand` down from 3 to ≤1 ... and the `DOC_AUDIT_RATIO` line is the
+number that has to move". **Round 15 did not take it.** The lane rule is
+"pick the lowest-scoring axis", and at the round-14 close freshness and
+calibration both stood at 9 while operability, depth, coverage and adjacency
+stood at 8 — and operability's named ceiling had a lane-reachable half: the
+prose checklist. `DOC_AUDIT_RATIO` still reads `by_hand=3` today (row
+`R14-01`), so that target **stays open** and unclaimed.
+
+## Planned (next axis-move — round 15 close)
+
+Round 15 leaves the honest next target inside the same axis, because the
+counterexample that limits this round is specific: the gate measures whether a
+row is *well-formed and executes*, not whether its assertion is *meaningful*.
+A 16-row TSV of constant `printf`s passes `CLEAN (runnable=16/16)`.
+
+Falsifiable target for the next round:
+
+- add a mutation mode (`--mutate`) in which every runnable row declares a
+  negative fixture — a perturbation of the surface it reads — that MUST make the
+  row fail; the number that has to move is a new `MUTATION: caught=K/K` line,
+  and a row whose declared mutation still passes is a defect. If a row has no
+  cheap perturbation, it must say so in the row (a `mutation: by-hand` cell with
+  a reason), which is the same declared-gap pattern the by-hand class uses.
+
+Ceilings are named so they are not mistaken for saturations:
+
+- **operability** — nothing schedules the seven gates (labrat lane re-confirmed
+  no cron/systemd entry touches any `corpus/*.sh`); scheduling touches host
+  state, i.e. operator scope. The 7 by-hand rows are the other half, and for
+  `H2`/`E6`/`H6` the contract *forbids* the only mechanisation.
+- **calibration** — a pointer's relevance is not machine-checkable, and neither
+  is the semantic strength of a `check` (bound 11). The `note` column carries
+  the honest half and is review-only.
+- **freshness** — `E4`'s ref-path sweep exempts three placeholder vault names by
+  name (counted and pinned as `excluded=5 raw=5`), and `H7` accepts exactly two
+  states, one of which is "the DB is legitimately gone".
+- **depth** — still capped by refusal (masking of *ref-resolved* values, the
+  mask token, `op inject`/`op read` execution each need a resolved reference).
 
 ## Planned (falsified in round 14 — kept as the record)
 

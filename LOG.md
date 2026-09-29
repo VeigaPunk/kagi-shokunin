@@ -499,3 +499,93 @@
   claim row); the shared-contract question stays with the integrator. No vault
   access, no handler start/stop, no Chrome launch; no secret value, ref path or
   account value in any artifact; all L2 execution was scratch-only.
+- 2026-09-28 — round 15 (**operability 8 → 9**; axis-move: the last large prose
+  surface in this repo becomes executable — each of the 16 credential-hygiene
+  checklist items is now a row in a data file, tied back to its item text by a
+  gate-enforced bijection, and every mechanisable one prints a verdict from one
+  command). Dispatch: 14 L2 lanes in one batched call (planner, connector,
+  2 scouts, scribe, 2 executors, reviewer, critic, sentinel, labrat,
+  mutation-tester, simplifier, distiller). **The finding**: at `2486643` the
+  checklist had **16** `- [ ]` items and **zero** verdicts — `ls corpus/checklist*`
+  ⇒ nothing, `grep -rl 'hygiene checklist' corpus/*.sh` ⇒ nothing; 5 items named
+  a command and none produced an outcome. The prose it replaces was wrong twice
+  over: `SCORECARD.md:16` said "a 15-item hygiene checklist" (the revision it was
+  measured at, `ea77bf0`, held 13; no revision in the count history 10→12→13→14→16
+  ever held 15), and the three rounds-9–11 operability cells said "12 checklist
+  items are still operator judgement" — unmeasured, and wrong at every revision
+  they appear in (the list held 14 items then and ≥3 already named a live gate).
+  Two committed notes also filed the lock under the wrong file (`PROVINCE.md:12`,
+  `corpus/surface-census.tsv:22`: `grep -nic lock client.py` ⇒ 0; `flock 9` lives
+  in `the-janitor` L131/140/176 under `exec 9>"$LOCK_FILE"` L130/139/175). All
+  four figures/notes are corrected in place this round. Landed:
+  `corpus/checklist.tsv` (16 rows; 8 columns `id class lead check expect_exit
+  expect_last reason note`) + `corpus/checklist-run.sh` (`verify` / `--ratio` /
+  `--list` / `--only ID` / `--selftest`), with three teeth beyond "run 16
+  commands": (a) the `lead` ERE must match exactly one item and each item exactly
+  one row — `UNMATCHED-ITEM`/`DUPLICATE-ITEM`/`UNMATCHED-LEAD`/`DUPLICATE-LEAD`/
+  `UNDECLARED`/`EXTRA` all exit 1, so adding a bullet to SKILL.md without a row
+  fails closed; (b) `by-hand` rows must carry a closed class plus a unique
+  ≥24-char reason, the floor is `ceil(items/2)`, and the ratio line splits
+  `delegated` (rows calling an existing gate) from `direct` (new assertions);
+  (c) a `check` naming a denied surface (`op.env`, `op run|read|inject`, handler
+  start/stop/run, `claim-ledger.sh`) is refused before execution, and the
+  reference-path sweep prints counts only, because printing the matched line
+  would be the leak the item forbids. Docs: `SKILL.md` (executable header +
+  decision-table row), `PROVINCE.md` (gate registered, lock note corrected),
+  `corpus/README.md` (coverage map), new `corpus/knowledge/checklist-execution.md`
+  (`Reverify: R15-01, R15-02, R15-03, R15-04, R15-05`; 8-column schema, verdict
+  table, delegation map, premise-vs-duty rule, 12 bounds, 10 falsifiers),
+  `corpus/lessons/round-15.md`, five ledger rows `R15-01..05`, and four
+  historical score-card corrections. Evidence (shipped revision):
+  `bash corpus/checklist-run.sh` ⇒ `CHECKLIST_RATIO: runnable=9/16 floor=8
+  by_hand=7 delegated=3 direct=6` + `CHECKLIST_RUN: CLEAN (items=16 runnable=9
+  by_hand=7 failed=0)` exit 0, ~2.3 s (pre-move: the file did not exist);
+  `--ratio` ⇒ the same ratio line in 0.2 s with no row executed; `--list` ⇒
+  `CHECKLIST_LIST: rows=16 runnable=9 by_hand=7`; `--selftest` ⇒
+  `CHECKLIST_SELFTEST: PASS (34 cases)`; and it runs from a foreign cwd
+  (`/`, `/tmp`, relative path) after `$SELF` replaced `"$0"`. Siblings unchanged
+  by this round: `DRIFT_PINS: CLEAN (files=15 symbols=20)`; `SURFACE_CENSUS:
+  CLEAN (assets=20 runtime=15 scanned=4 ok=34 absent=2 skipped=0)`; transcript
+  baseline `HITS=2` exit 1 by design (now pinned *inside* the checklist as row
+  H7). **Nine defects were found by execution before commit — eight by lanes,
+  one by the gate's own selftest — and each is a class this corpus has been
+  bitten by before**: (1)+(2) two silent-death sites — `dup_reasons=$(… | sort |
+  uniq -d)` died under `set -euo pipefail` because the loop's last iteration and
+  `uniq -d` both return 1, and the last-line extractor died on a row that printed
+  nothing — a `bash -x` trace ending at `+ dup_reasons=` was the only clue (scribe
+  + executor lanes, independently); (3) H4 read the front matter with
+  `(?:[ \t]+.*\n)+` against a body whose last line has no trailing newline ⇒
+  `JANITOR_PERMS: DEFECT (entries=1)` **on a correct host file**; (4) E4's sweep
+  found three undeclared reference-shaped literals on first contact
+  (`op-env-refs.md:14`, `round-5-aggregator-audit.md:19`, `transcript-scan.sh:202`
+  — all the documented `vault` placeholder form), which is now a *visible*
+  allowlist (`hits/excluded/raw` printed and both counts pinned, `excluded=5
+  raw=5`); (5) the first rewrite of that row wrapped its own `printf`/`test`
+  inside `n=$(…)` and swallowed the verdict (scribe lane, verbatim re-run); (6) H8
+  accepted a **wildcard** listener on 40961 — a scout lane branch-proved it on
+  scratch ports and the row now asserts `non_loopback=0`; (7) H1 was satisfiable
+  by comment text (critic lane, fake-`HOME` fixture) and is now line-anchored;
+  (8) H7 declared `0|1` while the DB-absent state the item above it *prescribes*
+  exits 2 — a legitimate `stop + rm -rf xdg-data` false-defected; (9) the selftest
+  re-invoked itself as `"$0"` ⇒ exit 127 from a foreign cwd (labrat lane). The
+  selftest grew 0 → 34 cases and every fixture is now rebuilt from scratch instead
+  of mutated by `sed`. **The competing readings are recorded, not smoothed**: the
+  planner lane applied a strict duty-vs-premise criterion and got `runnable=3
+  by_hand=13` (below the floor) and flagged E5 because the delegated probe execs
+  `op run` — declared on the row, and the stricter reading there is `8/8`, exactly
+  the floor; the simplifier argued E1 should be deleted and proposed a minimal
+  honest set of 6 runnable rows (kept as dissent: the row is count-pinned and
+  produces the item's verdict); the critic produced the round's ceiling — a
+  16-row TSV of constant `printf`s passes `CLEAN (runnable=16/16)`, i.e. the gate
+  measures well-formedness and execution, not the semantic strength of an
+  assertion, and the `note` column that makes the 9 honest is not gate-enforceable
+  (recorded as bound 11 + the round-16 target: a `--mutate` mode with declared
+  negative fixtures). Adjacency (reported, not absorbed): the connector lane
+  mapped sibling verifiers — kotoba `verify_skill_checklist.py` (checklist box →
+  disposition; its predicates inspect the file, they do not execute the item's
+  command), kumitate's doc-coverage score, kasegi `anchorcheck.py` (prints
+  findings but exits 0) — none implements an item → command → verdict contract,
+  so this is adjacent; the shared shape (a stable-ID outcome ledger) is reported
+  to the integrator. No vault access, no handler start/stop, no Chrome launch; no
+  secret value, ref path or account value in any artifact; all L2 execution was
+  scratch-only.

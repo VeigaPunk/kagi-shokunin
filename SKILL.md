@@ -37,6 +37,7 @@ corpus entry). Handle hygiene *evidence* and *flows*, not secret material.
 | Verify TAC receipt | `the-janitor tac-check` | treating it as live access or authorization | offline SHA-256 + field check; exit 0 = bytes intact only |
 | First custody registration | `the-janitor tac-register` | running twice expecting refresh — O_EXCL, never replaces | writes `~/.local/state/the-janitor/tac-daybreak-blue.json` 0600 |
 | 1Password in musketeer Chrome | `cdp-bridge ensure` then `status` | `open-popup` (hard refusal, exit 2); scraping vault DOM | manifest at `$MUSKETEER_CHROME_PROFILE/NativeMessagingHosts/` |
+| Run the credential-hygiene checklist | `bash corpus/checklist-run.sh` (one row per item in `corpus/checklist.tsv`; `--list` maps them, `--only ID` runs one) | reading the checklist as prose and calling the machine-checkable half "done"; trusting a by-hand row as verified — it is a declared gap | exit 0 `CHECKLIST_RUN: CLEAN (items=16 runnable=9 by_hand=7 failed=0)` + `CHECKLIST_RATIO: runnable=9/16 floor=8 by_hand=7`; 1 `ITEM-FAIL`/`ITEM-LASTLINE` (named id + exit/last line) or `UNDECLARED`/`EXTRA`/`UNMATCHED-ITEM`/`DUPLICATE-ITEM`/`UNMATCHED-LEAD`/`DUPLICATE-LEAD`/`DUPLICATE-REASON`/`RATIO`; 2 `POLICY`/`SETUP`. A `lead` ERE binds each row to the item it declares, so an item with no row fails as `UNMATCHED-ITEM` |
 | Diagnose a wedged handler | `grep`/`tail` `$STATE_DIR/xdg-data/opencode/log/opencode.log` + `tmux capture-pane -t janitor -p` | expecting stderr in `status` output | ERROR-level log is the durable diagnostic: `stream error Cannot connect to API` = dead model endpoint (round-3 drift shape; ≈58 s retry window, exponential backoff 2→5→9→19→30 s); `failed to load plugin` recurs every start, non-fatal. Or run `the-janitor _serve` in a foreground terminal for live stderr (hidden verb, not in `help`) |
 | Verify model endpoint is real | `curl -fsS <endpoint-minus-/v1>/health` → `{"status":"ok"}` | trusting `status`'s `endpoint` line — it prints config, never probes | port 8080 was a Jitsi videobridge on 2026-09-28 while llama-server served the model on 34113 |
 | Audit transcript for leaked secrets | `corpus/transcript-scan.sh` (immutable, counts-only) | printing matched text; `sqlite3` without `file:…?immutable=1` (mutates `-wal`/`-shm` in the live dir) | exit 0 `TRANSCRIPT_SCAN: CLEAN` (WARN cells = credential-language text — expected, not a finding); exit 1 = secret-shaped material or populated credential table; `--selftest` checks the gate itself |
@@ -417,6 +418,14 @@ There is no rotation/revocation subcommand; both are side effects:
 only lazily: `janitor_auth` → `AUTH_REQUIRED` inside the next request.
 
 ## Credential-hygiene checklist
+
+**Executable since round 15.** Every item below is one row of
+`corpus/checklist.tsv`, run by `bash corpus/checklist-run.sh`: 9 items carry a
+runnable check (expected exit + expected last output line), 7 declare a
+`by-hand` class with a unique reason because no command shape exists. The row's
+`note` says what its check covers and what stays with the operator; the `lead`
+ERE binds row to item, so editing this list without adding a row fails as
+`UNMATCHED-ITEM`.
 
 Evidence production:
 - [ ] Record mechanism and metadata: paths, modes (`op.env`/`config.json`/`opencode.json`/`client.py` 0600–0755 in `$CONFIG_DIR`; state dir 0700; `client.lock`/`session-id` 0600 in `$STATE_DIR`), verb names, exit codes, field names. **`bash corpus/surface-census.sh` first** (round 10): exit 0 = every declared path still has its declared kind/mode, no undeclared child sits in the 4 enumerable dirs, and every runtime shape floor holds. Then `bash corpus/drift-pins.sh`: exit 0 = every pinned host file and symbol pin still matches the committed baseline (15 files / 20 pins as of round 12; 19 before it). Non-zero on either = re-read the named path before citing it. New cited file ⇒ census row (reviewed commit; there is no `--pin`) **and** a drift-pins `--pin` once. In-repo artifacts: run `bash corpus/claim-ledger.sh verify` first and cite the stamped revision (`corpus/stamps.tsv`); after landing edits, re-`stamp` (reviewed commit) — a `STALE` row means the artifact moved under the citation.

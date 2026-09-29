@@ -19,7 +19,7 @@
 # scan	$HOME/.local/state/the-janitor/xdg-data/opencode
 # scan	$HOME/.local/state/tac
 $HOME/.config/the-janitor	asset	dir	700	the-janitor config dir (CONFIG_DIR)
-$HOME/.config/the-janitor/client.py	asset	exec	755	HTTP client: lock, session-id, request timeout
+$HOME/.config/the-janitor/client.py	asset	exec	755	HTTP client: session-id, request timeout (the flock is in the CLI)
 $HOME/.config/the-janitor/opencode.json	asset	file	644	model overlay: enabled_providers, share disabled, baseURL
 $HOME/.config/the-janitor/op.env	asset	file	600	env-ref file; values never read into an artifact
 $HOME/.config/the-janitor/config.json	asset	file	600	inert decoy — not an opencode-discovered filename (round 6)

@@ -1,18 +1,22 @@
 # adjacency scope — the ownership partition, as a checked claim
 
-Source basis: `corpus/scope-gate.sh` (v1, round 16; landed revision) +
+Source basis: `corpus/scope-gate.sh` (v2, round 17) +
 `corpus/adjacency.tsv` (5 `# own` prefixes, 4 group rows covering the 8 census
-rows outside them, 4 `# owner` / 4 `# status` / 2 `# claim` / 8 `# no-enumerate`
-directives) + `corpus/surface-census.tsv` (35 rows, 4 `# scan`, `mode` column),
-all read-only on 2026-09-28. Prose replaced: `corpus/README.md`'s overlap table,
-`PROVINCE.md:34` and `:44` (the CDP refusal), and the one `mode = -` census row
-(the musketeer profile dir). Gates observed this round: `ADJACENCY_SCOPE: CLEAN
+rows outside them, 4 `# owner` / 4 `# status` / 2 `# claim` / 8
+`# no-enumerate` / 4 `# breadth` directives) +
+`corpus/surface-census.tsv` (35 rows, 4 `# scan`, `mode` column), all read-only
+on 2026-09-29. Prose replaced in round 16: `corpus/README.md`'s overlap table,
+`PROVINCE.md`'s CDP refusal, and the one `mode = -` census row. Round 17 extends
+the same gate with checked breadth; its detailed contract is
+`corpus/knowledge/adjacency-breadth.md`. Current gates: `ADJACENCY_SCOPE: CLEAN
 (census=35 owned=27 shared=8 groups=4 owners=4 unresolved=1 contested=1
 escapes=0 inbound=0 foreign=0 orphans=0 stale_basis=0 basis_escape=0
-own_unlisted=0)` exit 0; `SCOPE_SELFTEST: PASS (43 cases)`;
-`SCOPE_FALSIFY: PASS (caught=9/9 failed=0)`.
+own_unlisted=0 breadth_required=4 breadth_pins=4 breadth_checked=4 breadth_ok=4
+breadth_missing=0 breadth_invalid=0 breadth_drift=0 breadth_exceeds=0
+breadth_unverified=0)`; `SCOPE_SELFTEST: PASS (61 cases)`;
+`SCOPE_FALSIFY: PASS (caught=18/18 failed=0)`.
 
-Reverify: R16-01, R16-02, R16-03, R16-04, R16-05, R16-06
+Reverify: R16-01, R16-02, R16-03, R16-04, R16-05, R16-06, R17-01, R17-02, R17-03
 
 ## Why this gate exists
 
@@ -70,8 +74,8 @@ that *writes* while the enclosing profile dir stays `owner=kake, contested,
 presence-only`; and an `unresolved` row's `owner` (`integrator`) names the lane
 that owes the **ruling**, not a found owner — no fleet artifact names a single
 owner of `$HOME/.config/opencode` (kotoba, kama, kengaku and kumitate all have
-artifacts in it; the fleet ledger entry D-96 asks for "a routed owner or an
-explicit operator disposition").
+artifacts in it). Round 17 corrected the prior `D-96` attribution: that ledger
+row concerns sibling `SKILL.md` discovery roots, not this ownership question.
 
 ## Schemas
 
@@ -92,8 +96,9 @@ explicit operator disposition").
 Directives: `# own <prefix>`; `# owner`/`# status`/`# claim` declare the three
 closed vocabularies (which the script also holds as literals, so a directive
 cannot *create* a new value); `# no-enumerate <dir>` records a directory
-deliberately **not** scanned. There is deliberately no `--pin`: an `# own` or
-`# owner` edit is a scope decision and must be a reviewed commit.
+deliberately **not** scanned; `# breadth <dir> children=N declared=M` measures
+the four derived leaf boundaries. There is deliberately no `--pin`: scope and
+breadth edits are reviewed commits.
 
 ### `corpus/surface-census.tsv` — read, not owned here
 
@@ -121,8 +126,10 @@ is runnable.
 | R7 | `claim ↔ mode` is biconditional | `OVERCLAIM` | (a) give the presence-only profile row `claim=declared`; (b) give a `declared` row a census row whose mode is `-` — either direction, exit 1 |
 | R8 | every `# scan` dir lies inside an `# own` prefix | `FOREIGN-SCAN` | move a `# scan` onto `$HOME/.config/opencode` → exit 1 |
 | R9 | resolution containment, **both** directions, through anchor identity | `ESCAPE`, `INBOUND`, `UNVERIFIED` | symlink an owned path out → `ESCAPE`; symlink a shared path into an owned prefix → `INBOUND`; dangling symlink or unresolvable path → `UNVERIFIED`, exit 1 |
-| R10 | `# no-enumerate` names a census row or an ancestor, is not a `# scan` dir, and is not inside an `# own` prefix | `ENUM-CLASH` | `# no-enumerate $HOME/elsewhere`; a scan dir; `# own $HOME/.local/bin` while the dir is declared unscanned (the creep class) |
+| R10 | `# no-enumerate` names a census row or ancestor, is neither `$HOME` nor a `# scan` dir, and is not inside an `# own` prefix | `ENUM-CLASH` | unrelated path; scan dir; whole HOME; or `# own $HOME/.local/bin` while the dir is declared unscanned |
 | R11 | an `# own` prefix must be a declared census surface, and a directory prefix must be a `# scan` dir | `OWN-UNLISTED` | `# own $HOME/projects` (the whole fleet checkout, undeclared) → exit 1 |
+| R12 | exact breadth schema + one pin for each derived leaf no-enumerate dir; no aggregate/scan/foreign targets | `BAD-ROW`, `BREADTH-MISSING`, `BREADTH-NOENUM`, `BREADTH-SCAN`, `BREADTH-SCOPE`, `BREADTH-INVALID` | delete all pins; add a pin on `$HOME/.config`; reorder count fields |
+| R13 | root is a real enumerable dir inside HOME and live children/declared counts equal pins | `BREADTH-HOST-MISSING`, `BREADTH-NOT-DIR`, `BREADTH-UNVERIFIED`, `BREADTH-CHILDREN-DRIFT`, `BREADTH-DECLARED-DRIFT`, `BREADTH-EXCEEDS` | remove/symlink a root; change a pin; add a census row below an already-live direct child |
 
 Measured before the gate ran: all 4 `# scan` dirs are owned (4/4); all 35
 declared paths `realpath` to themselves (0 symlinks under the 3 host scan roots);
@@ -136,16 +143,16 @@ ancestor of ≥1 row, and none is a scan dir or inside an owned prefix.
 
 | line | exit | meaning |
 |---|---|---|
-| `ADJACENCY_SCOPE: CLEAN (census=… owned=… shared=… groups=… owners=… unresolved=… contested=… escapes=… inbound=… foreign=… orphans=… stale_basis=… basis_escape=… own_unlisted=…)` | 0 | the partition is complete and self-consistent. `stale_basis` counts **both** `NOT-A-FILE` and `STALE-BASIS` (basis defects); the round-16 report's broadcast contract stopped at `stale_basis` and the landed line carries the two later fields — the fields, not the text, are the contract |
-| `SCOPE <TOKEN> …` (one line per defect, **above** the summary) | 1 | a defect; the token is from the R-table |
+| `ADJACENCY_SCOPE: CLEAN (census=… owned=… shared=… breadth_required=… breadth_pins=… breadth_checked=… breadth_ok=… breadth_*=0)` | 0 | partition and breadth are complete and self-consistent |
+| `BREADTH_AUDIT: CLEAN (required=4 pins=4 checked=4 ok=4 children=182 declared=8 undeclared=174 …)` | 0 | live count-only breadth result; terminal line of `--breadth` |
+| `ADJACENCY_BREADTH: dir=… children=N declared=M undeclared=K` | — | per-leaf measured counts; no child names |
+| `SCOPE <TOKEN> …` (one line per defect, above the summary) | 1 | a defect; the token is from the R-table |
 | `ADJACENCY_SCOPE: DEFECT (…)` | 1 | always printed when defects exist — no silent death |
-| `ADJACENCY_ABSTAIN: rows=N` | — | exit-neutral: a `runtime` census row legitimately absent abstains from R9 (today: `session-id`, handler stopped) |
-| `ADJACENCY_ASSET_ABSENT: rows=N` | — | exit-neutral **but named**: an `asset` row that is missing is the census's `GONE` claim (`surface-census.sh`), never silently abstained |
+| `ADJACENCY_ABSTAIN: rows=N` | — | exit-neutral: a `runtime` census row legitimately absent abstains from R9 |
+| `ADJACENCY_ASSET_ABSENT: rows=N` | — | named asset absence; breadth may independently turn it into drift |
 | `SCOPE_MAP: <path>\t owned\|shared \t <prefix>\t[<owner>]` | — | `--map` prints the partition, then verifies |
-| `ADJACENCY_SCOPE: SETUP (…)` | 2 | a missing input file — a terminal line, not a bare death |
-| `scope-gate: <msg>` | 2 | usage error |
-| `SCOPE_SELFTEST: PASS (N)` / `FAIL (k/N)` | 0 / 1 | the scratch-tree proof (43 cases) |
-| `SCOPE_FALSIFY: PASS (caught=9/9 failed=0)` | 0 / 1 | the mutation set against the **shipped** data + census |
+| `ADJACENCY_SCOPE: SETUP (…)` / `scope-gate: <msg>` | 2 | setup or usage error |
+| `SCOPE_SELFTEST: PASS (61 cases)` / `SCOPE_FALSIFY: PASS (caught=18/18 failed=0)` | 0 | scratch proof / shipped-data mutations |
 
 ## The decisions that make it honest
 
@@ -194,9 +201,11 @@ ancestor of ≥1 row, and none is a scan dir or inside an owned prefix.
    owned=27 shared=9`, CLEAN) — the adjudication stays with the integrator.
 2. **The openness of a shared dir cannot be verified here.** `status` is a label
    the data carries, not an observation.
-3. **The census is the universe.** A host surface no census row names is
-   invisible to every rule; coverage is exactly the census's.
-4. **`# no-enumerate` is a declaration, not an enforcement.** Another gate or
+3. **The census is the declared universe, but breadth sees its cardinality
+   boundary.** A host child no census row names remains unidentified; net child
+   count changes now fire, while a same-cardinality name swap remains invisible
+   by design (name manifests are refused for privacy).
+4. **`# no-enumerate` is a local declaration, not fleet enforcement.** Another
    lane scanning that dir is not detectable here.
 5. **Longest-match is textual.** Coverage is a string prefix, not a filesystem
    walk. R11 closed the *prefix* over-breadth class; an over-broad **census
@@ -237,30 +246,28 @@ ancestor of ≥1 row, and none is a scan dir or inside an owned prefix.
     from the census lowers `census=` and stays CLEAN — the row count is pinned
     outside by `R11-11` (35) and by the census gate itself.
 
-## Reproduction (2026-09-28)
+## Reproduction (2026-09-29)
 
 ```bash
-cd ~/projects/shokunin/kagi-shokunin
-bash corpus/scope-gate.sh            # CLEAN (… owners=4 …) exit 0, + ADJACENCY_ABSTAIN: rows=1
-bash corpus/scope-gate.sh --map      # 35 SCOPE_MAP: lines, then the same summary
-bash corpus/scope-gate.sh --selftest # SCOPE_SELFTEST: PASS (43 cases)
-bash corpus/scope-gate.sh --falsify  # SCOPE_FALSIFY: PASS (caught=9/9 failed=0)
-# runtime: 5 repeats 0.48–0.52 s for 35 rows + 4 groups (labrat round 16);
-# ≈2.9 s extrapolated to 200 rows — sub-second at this size only.
+cd ~/Projects/shokunin/kagi-shokunin
+bash corpus/scope-gate.sh            # CLEAN partition + breadth, exit 0
+bash corpus/scope-gate.sh --breadth  # 4 rows; 182/8/174; CLEAN, exit 0
+bash corpus/scope-gate.sh --map      # 35 SCOPE_MAP lines, then CLEAN
+bash corpus/scope-gate.sh --selftest # SCOPE_SELFTEST: PASS (61 cases)
+bash corpus/scope-gate.sh --falsify  # SCOPE_FALSIFY: PASS (caught=18/18 failed=0)
 
-# the independent counts, no gate involved:
-grep -vc '^#' corpus/surface-census.tsv                        # 35
-grep -c '^# scan' corpus/surface-census.tsv                    # 4
-awk -F'\t' '!/^#/&&$4=="-"' corpus/surface-census.tsv | wc -l  # 1 (the profile dir)
-grep -c '^# own' corpus/adjacency.tsv                          # 5
-grep -cE '^[^#[:space:]]' corpus/adjacency.tsv                 # 4 group rows
-grep -c '^# no-enumerate' corpus/adjacency.tsv                 # 8
+# independent declaration counts:
+grep -vc '^#' corpus/surface-census.tsv                           # 35
+grep -cE '^# own[[:space:]]+.HOME/' corpus/adjacency.tsv          # 5
+grep -cE '^[^#[:space:]]' corpus/adjacency.tsv                    # 4 groups
+grep -cE '^# no-enumerate[[:space:]]+.HOME/' corpus/adjacency.tsv # 8
+grep -cE '^# breadth[[:space:]]+.HOME/' corpus/adjacency.tsv      # 4
 ```
 
 ## Falsification
 
-Every item turns the gate red; `--falsify` runs nine of them against the shipped
-data (scratch copies, the repo is never written):
+Every listed defect turns the gate red; `--falsify` runs 18 mutations against
+the shipped data+census (scratch copies, repo and host unchanged):
 
 1. Add a census row under a shared tree with no covering group row → `FOREIGN`.
 2. Add a group row for a path with no census row under it → `ORPHAN`.
@@ -276,18 +283,20 @@ data (scratch copies, the repo is never written):
 8. Symlink an owned path out (or `# own $HOME/.local/bin` while it is declared
    unscanned) → `ESCAPE` / `ENUM-CLASH` (mutations 5 and 6).
 9. Append `# own $HOME/projects` → `OWN-UNLISTED` (mutation 7).
-10. Give a row an 8th column, or duplicate a census row → `BAD-ROW`.
-11. Absent `session-id` while the handler is stopped → `ADJACENCY_ABSTAIN: rows=1`
-    and exit 0 (a *named* abstention, not a silent skip).
+10. Give a row an 8th column, duplicate a census row, or add a field to a
+    directive → `BAD-ROW`.
+11. Remove/change a breadth pin, target an exempt/foreign dir, widen to HOME,
+    or add a census-linked direct child → one of the R12/R13 breadth tokens.
+12. Absent `session-id` while the handler is stopped → `ADJACENCY_ABSTAIN:
+    rows=1` and exit 0 (named abstention, not a silent skip).
 
 ## Evidence
 
-- `bash corpus/scope-gate.sh` ⇒ `ADJACENCY_ABSTAIN: rows=1` then
-  `ADJACENCY_SCOPE: CLEAN (census=35 owned=27 shared=8 groups=4 owners=4
-  unresolved=1 contested=1 escapes=0 inbound=0 foreign=0 orphans=0
-  stale_basis=0 basis_escape=0 own_unlisted=0)`, exit 0.
-- `--selftest` ⇒ `SCOPE_SELFTEST: PASS (43 cases)`; `--falsify` ⇒
-  `SCOPE_FALSIFY: PASS (caught=9/9 failed=0)`.
+- `bash corpus/scope-gate.sh` ⇒ `BREADTH_AUDIT: CLEAN (required=4 pins=4
+  checked=4 ok=4 children=182 declared=8 undeclared=174 missing=0 invalid=0
+  drift=0 exceeds=0 unverified=0)` then `ADJACENCY_SCOPE: CLEAN (...)`, exit 0.
+- `--selftest` ⇒ `SCOPE_SELFTEST: PASS (61 cases)`; `--falsify` ⇒
+  `SCOPE_FALSIFY: PASS (caught=18/18 failed=0)`.
 - Independent partition re-derivation (executor lane, own harness) ⇒
   `census_rows 35 owned 27 shared 8`; groups cover `4 / 1 / 2 / 1`;
   `orphan_rows []`, `uncovered_shared []`; and the landed gate on that

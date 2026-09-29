@@ -283,6 +283,43 @@ Ceilings are named so they are not mistaken for saturations:
 - **depth / coverage** — as above; neither is exhausted, they are simply the
   cells that have not moved since round 12 / round 10.
 
+## Round 17 — pre-move (repo `HEAD` `8a6ec16`, round-16 close)
+
+| Axis | Score | Evidence pointer | Last change |
+|---|---|---|---|
+| depth | 8 | The `op.env` two-parser contract, masking scope and hard-failure class have executable evidence; ref-resolved masking and item-level reads remain deliberately unmeasured. | `R12-01` |
+| coverage | **8** | The 35 census rows are partitioned, but four shared leaf directories contain 182 direct children while only 8 are represented by census rows. The observed ratios `20/4`, `105/2`, `4/1`, `53/1` exist only in round-16 prose: deleting an unknown child or adding one leaves every gate green. | round-16 plan; `R11-11` |
+| operability | 9 | Eight gates run on demand; none is scheduled and seven checklist duties remain by-hand. | `R15-01`, `R15-05` |
+| freshness | 9 | Host files, surfaces, runtime shape, claims, docs and ownership citations have drift verdicts; unknown shared-directory children do not. | `R11-04`, `R14-01`, `R16-01` |
+| calibration | 9 | Score cells are audited and gaps are explicit; pointer relevance and score assignment remain review judgments. | `R13-03` |
+| adjacency | 9 | Every census row has an owned/shared role with closed vocabularies and resolving evidence; the gate checks consistency, not truth. | `R16-01`, `corpus/knowledge/adjacency-scope.md` |
+
+## Round 17 — post-move (coverage axis-move landed, commit `round-17`)
+
+| Axis | Score | What moved | Evidence |
+|---|---|---|---|
+| coverage | 8 → **9** | Four count-only `# breadth` declarations now cover every derived leaf `# no-enumerate` boundary. The gate independently derives the required set, counts direct children without emitting names, derives declared children from the census, and fails on missing/extra/aggregate/out-of-scope pins, malformed counts, live or declared drift, declared > children, unreadable dirs, whole-HOME widening, or a newly declared child beyond the pin. Live result: `required=4 pins=4 checked=4 ok=4 children=182 declared=8 undeclared=174`. | `R17-01`, `R17-02`, `R17-03`; `corpus/knowledge/adjacency-breadth.md` |
+| operability | 9 → 9 | `--breadth` is a ninth runnable gate mode; selftest grew 43 → 61 and falsification 9 → 18. Not raised: nothing schedules the gates and seven checklist rows remain by-hand. | `R16-02`, `R16-03`; `corpus/lessons/round-17.md` |
+| freshness | 9 → 9 | Unknown-child cardinality now has a drift verdict, and the four live ratios were re-measured on 2026-09-29. Not raised: count-only pins cannot detect a same-cardinality identity swap. | `R17-01`; `corpus/knowledge/adjacency-breadth.md` §Bounds |
+| calibration | 9 → 9 | The pre-state counterexample is closed without claiming identity coverage: the durable contract states that 174 children are undeclared/unnamed and that ownership truth, recursion, contents and same-cardinality swaps remain outside the measurement. | `corpus/knowledge/adjacency-breadth.md`; `corpus/lessons/round-17.md` |
+| adjacency | 9 → 9 | Breadth strengthens the ownership map but does not adjudicate `$HOME/.config/opencode` ownership or prove a foreign owner's claim. The prior D-96 attribution was false: that ledger row concerns sibling skill discovery roots. | `corpus/knowledge/adjacency-scope.md` §The partition |
+| depth | 8 → 8 | A new contract records the derivation, verdicts, privacy tradeoff, 13 bounds and 18 mutation classes. This is detail about the coverage mechanism, not a deeper vault behavior. | `corpus/knowledge/adjacency-breadth.md` |
+
+## Planned (next axis-move — round 17 close)
+
+Depth is now the sole lowest cell at 8; every other axis stands at 9. Re-measure
+the standing vault-refusal ceiling without touching the vault: find one
+`op.env` consumption behavior that a generated plain-value fixture or
+error-classification probe can decide and that
+`corpus/knowledge/op-ref-consumption.md` does not already cover. If no such
+behavior exists, record the exact probe and unchanged ceiling rather than
+claiming an increment. Ref-resolved masking, `op read`, `op inject`, item paths
+and secret values remain refused.
+
+Coverage's new ceiling is specific: count-only pins detect cardinality drift but
+not same-cardinality swaps; naming all 174 foreign children would violate the
+privacy posture, and recursive subtree coverage is intentionally not claimed.
+
 ## Planned (round-15 target recorded — not taken, and why)
 
 This file's previous plan (round 14) set the next falsifiable target as

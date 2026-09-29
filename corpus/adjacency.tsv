@@ -29,16 +29,20 @@
 #
 # Directives:
 #   # own <prefix>          this domain owns the prefix (and everything under it)
-#   # owner | # status | # claim | # no-enumerate <value>  the closed vocabularies
+#   # owner | # status | # claim | # no-enumerate <value>  closed vocabularies
+#   # breadth <dir> <TAB> children=<N> <TAB> declared=<M>
 # `# no-enumerate <dir>` records a directory deliberately NOT scanned: it must be
 # a census row or an ancestor of one, and must not be a `# scan` directory.
+# A breadth pin is required on every leaf no-enumerate dir (one with no strict
+# descendant no-enumerate or scan dir). `children` counts direct dirents;
+# `declared` counts distinct direct children equal to, or containing, census
+# rows. Aggregate ancestors are deliberately exempt from pins.
 #
-# Count the directives with `grep -cE '^# own[[:space:]]+.HOME/'` — the prose
-# lines in this header also begin with `# own` / `# owner`, so a naive
-# `grep -c '^# own'` overcounts (9 rather than 5; ledger row R16-04 pins it).
+# Count the directives with anchored patterns: header prose also begins with
+# directive words. Ledger rows R16-04/R16-06 and R17-03 pin the real rows.
 #
-# Verify: corpus/scope-gate.sh   Re-partition after inspection: an `# own` or
-# `# owner` edit is a scope decision, so there is deliberately no `--pin`.
+# Verify: corpus/scope-gate.sh   Re-partition after inspection: an `# own`,
+# `# owner`, or `# breadth` edit is a reviewed scope decision.
 # Rows: 4 groups covering the 8 census rows outside the 5 owned prefixes.
 
 # own	$HOME/.config/the-janitor
@@ -68,8 +72,13 @@
 # no-enumerate	$HOME/.local/state
 # no-enumerate	$HOME/.local/share
 # no-enumerate	$HOME/.local/share/the-musketeer
+# breadth	$HOME/.config/opencode	children=20	declared=4
+# breadth	$HOME/.local/bin	children=105	declared=2
+# breadth	$HOME/.agents	children=4	declared=1
+# breadth	$HOME/.local/share/the-musketeer/chrome-profile	children=53	declared=1
 
-$HOME/.config/opencode	integrator	unresolved	declared	SCORECARD.md:54	opencode	global opencode config is merged UNDER the lane overlay (additive, round 6); 4 of its 20 children reach this domain's handler. No fleet artifact names a single owner: kotoba owns the instruction/agent surface and the provider declaration is operator-owned (lane:kama/corpus/knowledge/cross-lane-scope.md:12-13,29), kama owns the endpoint identity, kengaku wrote a temporary provider into it and restored it byte-identical — this domain owns only credential/request hygiene on those children. Owners found by search: kotoba 24 files, kama 14, kengaku 9, kumitate 2 (kake/kasegi 0). Ruling owed to the integrator (fleet ledger D-96).
+
+$HOME/.config/opencode	integrator	unresolved	declared	SCORECARD.md:54	opencode	global opencode config is merged UNDER the lane overlay (additive, round 6); 4 of its 20 children reach this domain's handler. No fleet artifact names a single owner: kotoba owns the instruction/agent surface and the provider declaration is operator-owned (lane:kama/corpus/knowledge/cross-lane-scope.md:12-13,29), kama owns the endpoint identity, kengaku wrote a temporary provider into it and restored it byte-identical — this domain owns only credential/request hygiene on those children. Owners found by search: kotoba 24 files, kama 14, kengaku 9, kumitate 2 (kake/kasegi 0). Ruling still owed to the integrator; no fleet-ledger row currently governs this ownership question.
 $HOME/.local/share/the-musketeer/chrome-profile	kake	contested	presence-only	lane:kake/SKILL.md:161	musketeer	kake leases the shared burner chrome machine-wide; both lanes claim it in writing (kake side: lane:kake/corpus/lessons/round-1-aggregator-audit.md:72-75), so the profile dir itself is presence-only here (mode `-`), never pinned by this domain
 $HOME/.local/share/the-musketeer/chrome-profile/NativeMessagingHosts	kagi	writer	declared	corpus/lessons/round-8-aggregator-box3-coldrun.md:64	NativeMessagingHosts	the NMH dir + 1Password manifest are written by this domain's `cdp-bridge ensure` inside kake's leased profile; the writer lane owns the row, and kagi declares exactly these two paths and nothing else in the subtree
 $HOME/.agents/AGENTS.md	kotoba	shared-read	declared	lane:kotoba/corpus/knowledge/alwayson-checklist-round7.md:30	AGENTS\.md	byte-pinned here; kotoba is the sole fleet claimant of the file's checklist/shape reading (read-only for both lanes)

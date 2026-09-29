@@ -655,3 +655,66 @@
   (kotoba/kama/kengaku/kumitate all have artifacts there; fleet ledger D-96). No
   vault access, no handler start/stop, no `op.env` bytes read, no Chrome launch;
   all L2 execution was scratch-only in `/tmp/kagi-r16/`.
+
+- 2026-09-29 — round 17 (**coverage 8 → 9**; axis-move: shared-directory
+  breadth becomes a verdict). At the round-16 close depth and coverage were
+  tied at 8. Coverage had the concrete vault-free counterexample: the census
+  named 8 direct children across four deliberately non-enumerated shared leaf
+  dirs, but 174 other direct children were invisible; adding or deleting one
+  left every shipped gate green. Landed four count-only `# breadth` rows in
+  `corpus/adjacency.tsv` and R12/R13 in `corpus/scope-gate.sh`: required pin
+  membership is derived from leaf `# no-enumerate` rows (aggregate ancestors
+  are forbidden), live direct-child cardinality is compared with the pin, and
+  the declared count is independently derived from census membership. Default
+  verify now emits `BREADTH_AUDIT: CLEAN (required=4 pins=4 checked=4 ok=4
+  children=182 declared=8 undeclared=174 missing=0 invalid=0 drift=0 exceeds=0
+  unverified=0)` before the unchanged partition verdict; `--breadth` emits the
+  four count-only ratios (`20/4`, `105/2`, `4/1`, `53/1`) without child names.
+  Added `SCOPE BREADTH-MISSING`, `BREADTH-INVALID`,
+  `BREADTH-CHILDREN-DRIFT`, `BREADTH-DECLARED-DRIFT`, `BREADTH-EXCEEDS`,
+  `BREADTH-UNVERIFIED`, and `BREADTH-SCOPE`; `--selftest` grew 43 → 61 cases
+  and `--falsify` 9 → 18 mutations. The mutation set also proves aggregate
+  pins, out-of-scope pins, extra fields, whole-HOME widening and a newly
+  declared child fail. Added ledger rows `R17-01..03`,
+  `corpus/knowledge/adjacency-breadth.md`, and
+  `corpus/lessons/round-17.md`; updated the scope entry, corpus index,
+  decision table, province gate registry and this scorecard. Evidence:
+  `bash corpus/scope-gate.sh` exit 0 with the 182/8/174 summary;
+  `bash corpus/scope-gate.sh --breadth` exit 0 with four detail rows;
+  `bash corpus/scope-gate.sh --selftest` ⇒ `SCOPE_SELFTEST: PASS (61 cases)`;
+  `bash corpus/scope-gate.sh --falsify` ⇒
+  `SCOPE_FALSIFY: PASS (caught=18/18 failed=0)`. Privacy bound: only counts
+  persist; same-cardinality name swaps remain invisible, contents and
+  recursion are not inspected, and no claim is made that the 174 foreign
+  children are defects.
+
+  L2 wave: one planner plus an 8-task batch (scout, critic, sentinel,
+  mutation-tester, connector, executor, reviewer, scribe). Adopted the
+  planner's derived-leaf completeness rule, sentinel's count-only privacy
+  posture, critic's explicit count-vs-identity bound, reviewer's aggregate and
+  whole-HOME counterexamples, mutation-tester's count-direction/schema cases,
+  connector's correction that D-96 concerns sibling skill discovery roots—not
+  `$HOME/.config/opencode` ownership—executor's parser/test skeleton, and
+  scribe's evidence structure. Two implementation defects found while exercising the
+  path were fixed before landing: old selftest fixtures lacked newly required
+  pins, and the asset-absent fixture retained stale breadth counts. The host
+  enumeration probe itself timed out twice when composed with a per-child
+  text search; isolated `find -maxdepth 1 -printf` completed in ~0.01 s, so the
+  shipped gate performs only counting and census-array comparisons.
+
+  Fallback audit: effective config maps `m_swe` to `devin/swe-2:max`;
+  `retry.fallbackChains.m_swe` is null, so the requested Daybreak hop is not
+  visible. No genuine `m_swe` capacity failure occurred; no fallback
+  advancement was observed. No config, mission contract, vault, handler,
+  Chrome, secret bytes or host state changed. Round-16 recovery was committed
+  separately as `8a6ec16` after correcting the nonexistent lowercase
+  `~/projects/shokunin` default to a script-derived lane root.
+
+  Landing audit caught two stale exact-count declarations introduced by the
+  round itself: `R12-03` still expected 52 stamps after the two new artifacts,
+  and `R14-01` still expected 19 knowledge entries / 16 row-linked. Corrected
+  them to 54 and 20/17; `docs` then returned `DOC_AUDIT: CLEAN (entries=20
+  row_linked=17 by_hand=3 undeclared=0 missing_ids=0 unpinned=0
+  duplicate_reasons=0)` and the score-cell audit returned `CELL_AUDIT: CLEAN
+  (cells=108 row_pointed=64 stamp_pointed=64 uncited=0 missing_ids=0
+  rows_run=28 row_failures=0 stale_pointers=0 self_skipped=4 orphans=0)`.

@@ -15,9 +15,14 @@
 # `corpus/adjacency.tsv` that names the lane that owns it, its status, the claim
 # this domain makes on it, and a resolving citation for that lane's claim).
 #
+# v2 measures the four leaf directories deliberately excluded from full
+# enumeration. Count-only breadth pins expose how much of each shared directory
+# the census actually declares without committing private child-name manifests.
+#
 #   corpus/adjacency.tsv
 #     # own <prefix> | # owner <lane> | # status <v> | # claim <v>
 #     # no-enumerate <dir>
+#     # breadth <dir> <TAB> children=<N> <TAB> declared=<M>
 #     path <TAB> owner <TAB> status <TAB> claim <TAB> basis <TAB> token <TAB> note
 #
 # Rules
@@ -33,11 +38,12 @@
 #   R7  claim ↔ mode is biconditional                OVERCLAIM
 #   R8  every `# scan` dir is inside an `# own`      FOREIGN-SCAN
 #   R9  resolution containment, both directions      ESCAPE | INBOUND | UNVERIFIED
-#   R11 an `# own` prefix must be a declared census
-#       surface (dir prefixes must be `# scan` dirs)  OWN-UNLISTED
 #   R10 `# no-enumerate` names a census row or an
-#       ancestor, and is not a `# scan` dir          ENUM-CLASH
-#
+#       ancestor, is not `$HOME`, and is not a scan    ENUM-CLASH
+#   R11 an `# own` prefix must be a declared census
+#       surface (dir prefixes must be `# scan` dirs)   OWN-UNLISTED
+#   R12 breadth schema + exact leaf membership        BAD-ROW | BREADTH-*
+#   R13 live child/declared counts equal their pins   BREADTH-*-DRIFT
 # Verdicts  CLEAN | DEFECT on the summary line; one `SCOPE <token> …` line per
 # defect above it. A missing/empty input file is a setup error (`die`, exit 2).
 # Exit      0 clean · 1 any defect · 2 usage/setup error (a missing input prints
@@ -55,17 +61,18 @@
 # are matched with `sed -n` against the cited line only.
 #
 # Usage:
-#   scope-gate.sh                          verify the partition (default)
+#   scope-gate.sh                          verify partition + breadth (default)
 #   scope-gate.sh --map                    print the partition, then verify
+#   scope-gate.sh --breadth                print each breadth measurement
 #   scope-gate.sh --selftest               scratch-tree proof that every rule fires
+#   scope-gate.sh --falsify                mutate shipped data in scratch
 #   scope-gate.sh --data F --census F --root D --basis-root D --lane-root D
 #                                          alternate inputs (selftest harness)
 #   scope-gate.sh --help
 # Env: REALPATH_BIN=<path>  realpath resolver (default `readlink -f`); the
 #                           selftest proves the fail-closed path with a binary
 #                           that cannot resolve
-# There is deliberately no `--pin`: an `# own` or `# owner` edit is a scope
-# decision and must be a reviewed commit.
+# There is deliberately no `--pin`: scope and breadth pins are reviewed data.
 set -euo pipefail
 
 # Bootstrap failures must not be readable as "drift found": exit 1 means a
@@ -98,6 +105,7 @@ while [[ $# -gt 0 ]]; do
   case "$1" in
     verify|--verify) MODE="verify"; shift ;;
     --map) MODE="map"; shift ;;
+    --breadth) MODE="breadth"; shift ;;
     --selftest) MODE="selftest"; shift ;;
     --falsify) MODE="falsify"; shift ;;
     --data) [[ $# -ge 2 ]] || die "--data needs a file"; DATA="$2"; shift 2 ;;
@@ -105,7 +113,7 @@ while [[ $# -gt 0 ]]; do
     --root) [[ $# -ge 2 ]] || die "--root needs a dir"; ROOT="$2"; shift 2 ;;
     --basis-root) [[ $# -ge 2 ]] || die "--basis-root needs a dir"; BASIS_ROOT="$2"; shift 2 ;;
     --lane-root) [[ $# -ge 2 ]] || die "--lane-root needs a dir"; LANE_ROOT="$2"; shift 2 ;;
-    -h|--help) sed -n '2,60p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//'; exit 0 ;;
+    -h|--help) sed -n '2,68p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//'; exit 0 ;;
     *) die "unknown argument: $1" ;;
   esac
 done
@@ -157,14 +165,18 @@ token_hits() { # file first-line last-line-or-empty ere  → 0 if any cited line
 # --- the gate --------------------------------------------------------------
 
 gate() {
-  local -a own=() owners=() statuses=() claims=() noenum=()
+  local -a own=() owners=() statuses=() claims=() noenum=() scans=()
   local -a c_path=() c_class=() c_kind=() c_mode=()
   local -a g_path=() g_owner=() g_status=() g_claim=() g_basis=() g_token=()
+  local -a b_dir=() b_children=() b_declared=() breadth_required_dirs=()
   local -i census=0 owned=0 shared=0 groups=0 unresolved=0 contested=0
   local -i escapes=0 inbound=0 foreign=0 orphans=0 stale_basis=0 abstained=0 asset_absent=0 unverified=0
-  local -i basis_escape=0 own_unlisted=0
-  local -i defects=0
-  local f1 f2 f3 f4 f5 f6 f7 nf line i j pre cur best best_i rp rpre
+  local -i basis_escape=0 own_unlisted=0 defects=0
+  local -i breadth_pins=0 breadth_required=0 breadth_checked=0 breadth_ok=0
+  local -i breadth_missing=0 breadth_invalid=0 breadth_drift=0 breadth_exceeds=0 breadth_unverified=0
+  local -i breadth_children_total=0 breadth_declared_total=0
+  local f1 f2 f3 f4 f5 f6 f7 nf line i j k pre cur best best_i rp rpre
+  local bd live_children live_declared row_bad child list_file breadth_set breadth_verdict breadth_line
   local -a covered=() prefix_of=() group_of=()
   local basis_file basis_a basis_b basis_root basis_root_for_row rb rroot
 
@@ -179,15 +191,34 @@ gate() {
   while IFS=$'\t' read -r f1 f2 f3 f4 f5 f6 f7 || [[ -n "${f1:-}" ]]; do
     [[ -z "${f1:-}" ]] && continue
     if [[ "$f1" == '#'* ]]; then
-      # a directive is a `# key` field with at least one more field; a header
-      # comment is prose in the first field only
+      # A directive is exact-arity tab-separated data; prose comments occupy
+      # the first field only. Extra fields are never ignored.
       if [[ -z "${f2:-}" ]]; then continue; fi
+      if [[ "$f1" != '# breadth' && -n "${f3:-}${f4:-}${f5:-}${f6:-}${f7:-}" ]]; then
+        printf 'SCOPE BAD-ROW %s (directive wants exactly 2 fields)\n' "$f1"
+        defects=$((defects+1)); continue
+      fi
       case "$f1" in
         '# own')        if is_dup own "$f2"; then printf 'SCOPE BAD-ROW duplicate # own: %s\n' "$f2"; defects=$((defects+1)); else own+=("$f2"); fi ;;
         '# owner')      if is_dup owners "$f2"; then printf 'SCOPE BAD-ROW duplicate # owner: %s\n' "$f2"; defects=$((defects+1)); else owners+=("$f2"); fi ;;
         '# status')     if is_dup statuses "$f2"; then printf 'SCOPE BAD-ROW duplicate # status: %s\n' "$f2"; defects=$((defects+1)); else statuses+=("$f2"); fi ;;
         '# claim')      if is_dup claims "$f2"; then printf 'SCOPE BAD-ROW duplicate # claim: %s\n' "$f2"; defects=$((defects+1)); else claims+=("$f2"); fi ;;
         '# no-enumerate') if is_dup noenum "$f2"; then printf 'SCOPE BAD-ROW duplicate # no-enumerate: %s\n' "$f2"; defects=$((defects+1)); else noenum+=("$f2"); fi ;;
+        '# breadth')
+          if [[ ! "$f3" =~ ^children=(0|[1-9][0-9]*)$ || ! "$f4" =~ ^declared=(0|[1-9][0-9]*)$ || -n "${f5:-}${f6:-}${f7:-}" ]]; then
+            printf 'SCOPE BAD-ROW %s (breadth wants dir, children=<N>, declared=<M>)\n' "${f2:-<missing>}"
+            breadth_invalid=$((breadth_invalid+1)); defects=$((defects+1)); continue
+          fi
+          local bch="${f3#children=}" bde="${f4#declared=}"
+          if [[ ${#bch} -gt 10 || ${#bde} -gt 10 ]] || (( 10#$bch > 2147483647 || 10#$bde > 2147483647 )); then
+            printf 'SCOPE BREADTH-INVALID %s count outside 0..2147483647\n' "$f2"
+            breadth_invalid=$((breadth_invalid+1)); defects=$((defects+1)); continue
+          fi
+          if is_dup b_dir "$f2"; then
+            printf 'SCOPE BAD-ROW duplicate # breadth: %s\n' "$f2"
+            breadth_invalid=$((breadth_invalid+1)); defects=$((defects+1)); continue
+          fi
+          b_dir+=("$f2"); b_children+=("$((10#$bch))"); b_declared+=("$((10#$bde))") ;;
         *) printf 'SCOPE BAD-ROW unknown directive: %s\n' "$f1"; defects=$((defects+1)) ;;
       esac
       continue
@@ -207,6 +238,16 @@ gate() {
   # ---- parse the census ---------------------------------------------------
   while IFS=$'\t' read -r f1 f2 f3 f4 f5 || [[ -n "${f1:-}" ]]; do
     [[ -z "${f1:-}" ]] && continue
+    if [[ "$f1" == '# scan' ]]; then
+      if [[ -z "${f2:-}" || -n "${f3:-}${f4:-}${f5:-}" ]]; then
+        printf 'SCOPE BAD-ROW census # scan wants exactly 2 fields\n'; defects=$((defects+1))
+      elif is_dup scans "$f2"; then
+        printf 'SCOPE BAD-ROW duplicate census # scan: %s\n' "$f2"; defects=$((defects+1))
+      else
+        scans+=("$f2")
+      fi
+      continue
+    fi
     [[ "$f1" == '#'* ]] && continue
     if [[ -z "${f5:-}" ]]; then
       printf 'SCOPE BAD-ROW census row (want 5 columns path class kind mode note): %s\n' "$f1"; defects=$((defects+1)); continue
@@ -428,20 +469,22 @@ gate() {
   # ---- R10: no-enumerate directives are meaningful ------------------------
   for ((i = 0; i < ${#noenum[@]}; i++)); do
     cur="$(expand "${noenum[$i]}")"; local is_scan=0 is_row=0 is_owned=0
-    while IFS=$'\t' read -r f1 f2 || [[ -n "${f1:-}" ]]; do
-      [[ "${f1:-}" == '# scan' && -n "${f2:-}" ]] || continue
-      [[ "$(expand "$f2")" == "$cur" ]] && is_scan=1
-    done <"$CENSUS"
+    for ((j = 0; j < ${#scans[@]}; j++)); do
+      [[ "$(expand "${scans[$j]}")" == "$cur" ]] && is_scan=1
+    done
     for ((j = 0; j < census; j++)); do
       if under "$(expand "${c_path[$j]}")" "$cur"; then is_row=1; break; fi
     done
-    # a directory declared "deliberately not scanned" must not also be claimed
+    # A directory declared "deliberately not scanned" must not also be claimed
     # outright: `# own` over it would cover every foreign child the census never
-    # enumerates (reviewer D2: `# own $HOME/.local/bin` + 103 unclaimed children)
+    # enumerates.
     for ((j = 0; j < ${#own[@]}; j++)); do
       if under "$cur" "$(expand "${own[$j]}")"; then is_owned=1; break; fi
     done
-    if [[ "$is_scan" -eq 1 ]]; then
+    if [[ "$cur" == "$ROOT" ]]; then
+      printf 'SCOPE ENUM-CLASH %s is the whole HOME root\n' "${noenum[$i]}"
+      defects=$((defects+1))
+    elif [[ "$is_scan" -eq 1 ]]; then
       printf 'SCOPE ENUM-CLASH %s is a # scan directory\n' "${noenum[$i]}"
       defects=$((defects+1))
     elif [[ "$is_owned" -eq 1 ]]; then
@@ -452,6 +495,128 @@ gate() {
       defects=$((defects+1))
     fi
   done
+
+  # ---- R12/R13: breadth of the deliberately unenumerated leaf dirs --------
+  # Aggregate ancestors churn for unrelated reasons. Required membership is
+  # derived, not self-declared: a # no-enumerate dir is a leaf when it has no
+  # strict descendant # no-enumerate or # scan dir. Deleting all breadth pins
+  # therefore fails closed, while .config/.local aggregate churn stays exempt.
+  for ((i = 0; i < ${#noenum[@]}; i++)); do
+    local leaf=1
+    for ((j = 0; j < ${#noenum[@]}; j++)); do
+      [[ "$i" == "$j" ]] && continue
+      [[ "${noenum[$j]}" == "${noenum[$i]}"/* ]] && { leaf=0; break; }
+    done
+    if [[ "$leaf" -eq 1 ]]; then
+      for ((j = 0; j < ${#scans[@]}; j++)); do
+        [[ "${scans[$j]}" == "${noenum[$i]}"/* ]] && { leaf=0; break; }
+      done
+    fi
+    [[ "$leaf" -eq 1 ]] && breadth_required_dirs+=("${noenum[$i]}")
+  done
+  breadth_required=${#breadth_required_dirs[@]}
+  breadth_pins=${#b_dir[@]}
+
+  for ((i = 0; i < breadth_required; i++)); do
+    if ! is_dup b_dir "${breadth_required_dirs[$i]}"; then
+      printf 'SCOPE BREADTH-MISSING %s has no # breadth pin\n' "${breadth_required_dirs[$i]}"
+      breadth_missing=$((breadth_missing+1)); defects=$((defects+1))
+    fi
+  done
+
+  for ((i = 0; i < breadth_pins; i++)); do
+    bd="${b_dir[$i]}"; row_bad=0
+    if ! is_dup noenum "$bd"; then
+      printf 'SCOPE BREADTH-NOENUM %s is not a # no-enumerate dir\n' "$bd"
+      breadth_invalid=$((breadth_invalid+1)); defects=$((defects+1)); row_bad=1
+    elif is_dup scans "$bd"; then
+      printf 'SCOPE BREADTH-SCAN %s is already a # scan dir\n' "$bd"
+      breadth_invalid=$((breadth_invalid+1)); defects=$((defects+1)); row_bad=1
+    elif ! is_dup breadth_required_dirs "$bd"; then
+      printf 'SCOPE BREADTH-SCOPE %s is an aggregate ancestor, not a required leaf\n' "$bd"
+      breadth_invalid=$((breadth_invalid+1)); defects=$((defects+1)); row_bad=1
+    fi
+    if (( ${b_declared[$i]} > ${b_children[$i]} )); then
+      printf 'SCOPE BREADTH-INVALID %s declared=%s exceeds children=%s\n' \
+        "$bd" "${b_declared[$i]}" "${b_children[$i]}"
+      breadth_invalid=$((breadth_invalid+1)); defects=$((defects+1)); row_bad=1
+    fi
+    [[ "$row_bad" -eq 1 ]] && continue
+
+    cur="$(expand "$bd")"
+    if [[ -L "$cur" ]]; then
+      printf 'SCOPE BREADTH-UNVERIFIED %s root is a symlink\n' "$bd"
+      breadth_unverified=$((breadth_unverified+1)); defects=$((defects+1)); continue
+    elif [[ ! -e "$cur" ]]; then
+      printf 'SCOPE BREADTH-HOST-MISSING %s\n' "$bd"
+      breadth_unverified=$((breadth_unverified+1)); defects=$((defects+1)); continue
+    elif [[ ! -d "$cur" ]]; then
+      printf 'SCOPE BREADTH-NOT-DIR %s\n' "$bd"
+      breadth_unverified=$((breadth_unverified+1)); defects=$((defects+1)); continue
+    fi
+    rb="$(resolve_real "$cur")" || rb=""
+    rroot="$(resolve_real "$ROOT")" || rroot=""
+    if [[ -z "$rb" || -z "$rroot" ]] || ! under "$rb" "$rroot"; then
+      printf 'SCOPE BREADTH-UNVERIFIED %s cannot be resolved inside HOME\n' "$bd"
+      breadth_unverified=$((breadth_unverified+1)); defects=$((defects+1)); continue
+    fi
+
+    if ! list_file="$(mktemp)"; then
+      printf 'ADJACENCY_SCOPE: SETUP (cannot create breadth scratch file)\n'; exit 2
+    fi
+    chmod 600 "$list_file"
+    if ! find -P "$cur" -mindepth 1 -maxdepth 1 -print0 >"$list_file" 2>/dev/null; then
+      rm -f "$list_file"
+      printf 'SCOPE BREADTH-UNVERIFIED %s directory enumeration failed\n' "$bd"
+      breadth_unverified=$((breadth_unverified+1)); defects=$((defects+1)); continue
+    fi
+    live_children=0; live_declared=0
+    while IFS= read -r -d '' child; do
+      live_children=$((live_children+1))
+      for ((j = 0; j < census; j++)); do
+        cur="$(expand "${c_path[$j]}")"
+        if [[ "$cur" == "$child" || "$cur" == "$child"/* ]]; then
+          live_declared=$((live_declared+1)); break
+        fi
+      done
+    done <"$list_file"
+    rm -f "$list_file"
+    breadth_checked=$((breadth_checked+1))
+    breadth_children_total=$((breadth_children_total+live_children))
+    breadth_declared_total=$((breadth_declared_total+live_declared))
+    row_bad=0
+    if [[ "$live_children" != "${b_children[$i]}" ]]; then
+      printf 'SCOPE BREADTH-CHILDREN-DRIFT %s pinned=%s live=%s\n' \
+        "$bd" "${b_children[$i]}" "$live_children"
+      breadth_drift=$((breadth_drift+1)); defects=$((defects+1)); row_bad=1
+    fi
+    if (( live_declared > ${b_declared[$i]} )); then
+      printf 'SCOPE BREADTH-EXCEEDS %s pinned=%s live=%s\n' \
+        "$bd" "${b_declared[$i]}" "$live_declared"
+      breadth_exceeds=$((breadth_exceeds+1)); defects=$((defects+1)); row_bad=1
+    elif (( live_declared < ${b_declared[$i]} )); then
+      printf 'SCOPE BREADTH-DECLARED-DRIFT %s pinned=%s live=%s\n' \
+        "$bd" "${b_declared[$i]}" "$live_declared"
+      breadth_drift=$((breadth_drift+1)); defects=$((defects+1)); row_bad=1
+    fi
+    [[ "$row_bad" -eq 0 ]] && breadth_ok=$((breadth_ok+1))
+    if [[ "$MODE" == "breadth" ]]; then
+      printf 'ADJACENCY_BREADTH: dir=%s children=%s declared=%s undeclared=%s\n' \
+        "$bd" "$live_children" "$live_declared" "$((live_children-live_declared))"
+    fi
+  done
+
+  breadth_set="$(printf '%s\n' "${breadth_required_dirs[@]}" | LC_ALL=C sort | paste -sd, -)"
+  breadth_verdict="CLEAN"
+  if (( breadth_missing + breadth_invalid + breadth_drift + breadth_exceeds + breadth_unverified > 0 )); then
+    breadth_verdict="DEFECT"
+  fi
+  printf -v breadth_line \
+    'BREADTH_AUDIT: %s (required=%s pins=%s checked=%s ok=%s children=%s declared=%s undeclared=%s missing=%s invalid=%s drift=%s exceeds=%s unverified=%s)' \
+    "$breadth_verdict" "$breadth_required" "$breadth_pins" "$breadth_checked" "$breadth_ok" \
+    "$breadth_children_total" "$breadth_declared_total" "$((breadth_children_total-breadth_declared_total))" \
+    "$breadth_missing" "$breadth_invalid" "$breadth_drift" "$breadth_exceeds" "$breadth_unverified"
+  [[ "$MODE" != "breadth" ]] && printf '%s\n' "$breadth_line"
 
   # ---- map view -----------------------------------------------------------
   if [[ "$MODE" == "map" ]]; then
@@ -478,29 +643,38 @@ gate() {
     "owners=${#owners[@]}" "unresolved=$unresolved" "contested=$contested"
     "escapes=$escapes" "inbound=$inbound" "foreign=$foreign"
     "orphans=$orphans" "stale_basis=$stale_basis" "basis_escape=$basis_escape" "own_unlisted=$own_unlisted"
+    "breadth_required=$breadth_required" "breadth_pins=$breadth_pins"
+    "breadth_checked=$breadth_checked" "breadth_ok=$breadth_ok"
+    "breadth_missing=$breadth_missing" "breadth_invalid=$breadth_invalid"
+    "breadth_drift=$breadth_drift" "breadth_exceeds=$breadth_exceeds"
+    "breadth_unverified=$breadth_unverified"
   )
-  local joined="" f
+  local joined="" f; local -i scope_rc=0
   for f in "${fields[@]}"; do
     if [[ -z "$joined" ]]; then joined="$f"; else joined="$joined $f"; fi
   done
   if [[ "$defects" -eq 0 ]]; then
     printf 'ADJACENCY_SCOPE: CLEAN (%s)\n' "$joined"
-    return 0
+  else
+    printf 'ADJACENCY_SCOPE: DEFECT (%s)\n' "$joined"
+    scope_rc=1
   fi
-  printf 'ADJACENCY_SCOPE: DEFECT (%s)\n' "$joined"
-  return 1
+  if [[ "$MODE" == "breadth" ]]; then
+    printf 'ADJACENCY_BREADTH_SET: dirs=%s\n' "$breadth_set"
+    printf '%s\n' "$breadth_line"
+  fi
+  return "$scope_rc"
 }
 
 # --- falsify ---------------------------------------------------------------
-# Mutation set run against the SHIPPED data + census (not a synthetic tree):
-# four mutations the gate must catch, plus one it must NOT catch because the
-# bound is real. Every fixture is a mktemp copy — the repo is never written.
+# Mutation set runs against the SHIPPED data + census. Every fixture is a
+# mktemp copy; no host bytes or repo files are changed.
 
 falsify() {
   FALSIFY_R="$(mktemp -d)"
   trap 'rm -rf "${FALSIFY_R:-}"' EXIT
   local R="$FALSIFY_R"
-  local -i caught=0; local -i failed=0; local -i total=9
+  local -i caught=0; local -i failed=0; local -i total=18
   local out rc name
 
   mutate_case() { # name data census want_exit token
@@ -591,6 +765,42 @@ falsify() {
     failed=$((failed+1)); printf 'FALSIFY FAIL basis-escape-on-resolved-lane-root (exit %s)\n%s\n' "$rc" "$out"
   fi
 
+  # 10–18. Breadth mutations: membership, both count directions, schema,
+  # aggregate-scope refusal, and a newly declared direct child.
+  sed '/^# breadth\t\$HOME\/.agents\t/d' "$DATA" >"$R/breadth-missing.tsv"
+  mutate_case breadth-missing "$R/breadth-missing.tsv" "$CENSUS" 1 'SCOPE BREADTH-MISSING'
+
+  sed 's|# breadth\t$HOME/.local/bin\tchildren=105\tdeclared=2|# breadth\t$HOME/.local/bin\tchildren=104\tdeclared=2|' \
+    "$DATA" >"$R/breadth-children.tsv"
+  mutate_case breadth-children-drift "$R/breadth-children.tsv" "$CENSUS" 1 'SCOPE BREADTH-CHILDREN-DRIFT'
+
+  sed 's|# breadth\t$HOME/.config/opencode\tchildren=20\tdeclared=4|# breadth\t$HOME/.config/opencode\tchildren=20\tdeclared=3|' \
+    "$DATA" >"$R/breadth-exceeds.tsv"
+  mutate_case breadth-exceeds "$R/breadth-exceeds.tsv" "$CENSUS" 1 'SCOPE BREADTH-EXCEEDS'
+
+  sed 's|# breadth\t$HOME/.config/opencode\tchildren=20\tdeclared=4|# breadth\t$HOME/.config/opencode\tchildren=20\tdeclared=5|' \
+    "$DATA" >"$R/breadth-declared.tsv"
+  mutate_case breadth-declared-drift "$R/breadth-declared.tsv" "$CENSUS" 1 'SCOPE BREADTH-DECLARED-DRIFT'
+
+  cp -- "$DATA" "$R/breadth-aggregate.tsv"
+  append_row "$R/breadth-aggregate.tsv" '# breadth\t$HOME/.config\tchildren=94\tdeclared=2'
+  mutate_case breadth-aggregate "$R/breadth-aggregate.tsv" "$CENSUS" 1 'SCOPE BREADTH-SCOPE'
+
+  cp -- "$DATA" "$R/breadth-noenum.tsv"
+  append_row "$R/breadth-noenum.tsv" '# breadth\t$HOME/other\tchildren=0\tdeclared=0'
+  mutate_case breadth-noenum "$R/breadth-noenum.tsv" "$CENSUS" 1 'SCOPE BREADTH-NOENUM'
+
+  sed '0,/^# breadth\t/{s/$/\textra/}' "$DATA" >"$R/breadth-extra.tsv"
+  mutate_case breadth-extra-field "$R/breadth-extra.tsv" "$CENSUS" 1 'SCOPE BAD-ROW'
+
+  cp -- "$DATA" "$R/noenum-home.tsv"
+  append_row "$R/noenum-home.tsv" '# no-enumerate\t$HOME'
+  mutate_case noenum-whole-home "$R/noenum-home.tsv" "$CENSUS" 1 'is the whole HOME root'
+
+  cp -- "$CENSUS" "$R/breadth-exceeds-census.tsv"
+  append_row "$R/breadth-exceeds-census.tsv" '$HOME/.config/opencode/command/breadth-probe.md\tasset\tfile\t644\tdeclared child mutation'
+  mutate_case breadth-new-declared-child "$DATA" "$R/breadth-exceeds-census.tsv" 1 'SCOPE BREADTH-EXCEEDS'
+
   if [[ "$caught" == "$total" && "$failed" == 0 ]]; then
     printf 'SCOPE_FALSIFY: PASS (caught=%s/%s failed=0)\n' "$caught" "$total"
     return 0
@@ -649,6 +859,9 @@ EOF
 # no-enumerate	$HOME/.config/opencode
 # no-enumerate	$HOME/.agents
 # no-enumerate	$HOME/.local/share/the-musketeer/chrome-profile
+# breadth	$HOME/.config/opencode	children=1	declared=1
+# breadth	$HOME/.agents	children=1	declared=1
+# breadth	$HOME/.local/share/the-musketeer/chrome-profile	children=1	declared=1
 $HOME/.config/opencode	integrator	unresolved	declared	basis.md:3	beta	shared config
 $HOME/.agents/AGENTS.md	kotoba	shared-read	declared	basis.md	beta	shared rule file
 $HOME/.local/share/the-musketeer/chrome-profile	kake	contested	presence-only	basis.md	beta	contested profile
@@ -679,6 +892,71 @@ EOF
   run_case clean 0 'ADJACENCY_SCOPE: CLEAN'
   run_case clean-counts 0 'census=7 owned=3 shared=4 groups=4'
   run_case clean-unresolved 0 'unresolved=1 contested=1'
+  run_case clean-breadth 0 'BREADTH_AUDIT: CLEAN (required=3 pins=3 checked=3 ok=3 children=3 declared=3 undeclared=0'
+
+  build_all
+  set +e
+  out="$("$SELF" --breadth --data "$R/adjacency.tsv" --census "$R/census.tsv" --root "$R/host" \
+    --basis-root "$R" --lane-root "$R/lanes")"; rc=$?
+  set -e
+  cases=$((cases+1))
+  if [[ "$rc" != 0 || "$out" != *'ADJACENCY_BREADTH_SET: dirs=$HOME/.agents,$HOME/.config/opencode,$HOME/.local/share/the-musketeer/chrome-profile'* || "$out" != *'BREADTH_AUDIT: CLEAN'* ]]; then
+    failures=$((failures+1)); printf 'SELFTEST FAIL breadth-mode\n%s\n' "$out"
+  fi
+
+  build_all; sed -i '/^# breadth/d' "$R/adjacency.tsv"
+  run_case breadth-missing 1 'SCOPE BREADTH-MISSING'
+
+  build_all; sed -i $'s/children=1\\tdeclared=1/declared=1\\tchildren=1/' "$R/adjacency.tsv"
+  run_case breadth-fixed-order 1 'SCOPE BAD-ROW'
+
+  build_all; printf '# breadth\t$HOME/.agents\tchildren=1\tdeclared=1\n' >>"$R/adjacency.tsv"
+  run_case breadth-duplicate 1 'SCOPE BAD-ROW duplicate # breadth'
+
+  build_all
+  printf '# no-enumerate\t$HOME/.config\n# breadth\t$HOME/.config\tchildren=2\tdeclared=2\n' >>"$R/adjacency.tsv"
+  run_case breadth-aggregate-refused 1 'SCOPE BREADTH-SCOPE'
+
+  build_all; printf '# breadth\t$HOME/other\tchildren=0\tdeclared=0\n' >>"$R/adjacency.tsv"
+  run_case breadth-noenum 1 'SCOPE BREADTH-NOENUM'
+
+  build_all
+  printf '# no-enumerate\t$HOME/.config/the-janitor\n# breadth\t$HOME/.config/the-janitor\tchildren=1\tdeclared=1\n' >>"$R/adjacency.tsv"
+  run_case breadth-scan-refused 1 'SCOPE BREADTH-SCAN'
+
+  build_all; sed -i 's|# breadth\t$HOME/.agents\tchildren=1\tdeclared=1|# breadth\t$HOME/.agents\tchildren=0\tdeclared=1|' "$R/adjacency.tsv"
+  run_case breadth-invalid-arithmetic 1 'SCOPE BREADTH-INVALID'
+
+  build_all; sed -i 's|# breadth\t$HOME/.agents\tchildren=1\tdeclared=1|# breadth\t$HOME/.agents\tchildren=2\tdeclared=1|' "$R/adjacency.tsv"
+  run_case breadth-children-drift 1 'SCOPE BREADTH-CHILDREN-DRIFT'
+
+  build_all; sed -i 's|# breadth\t$HOME/.agents\tchildren=1\tdeclared=1|# breadth\t$HOME/.agents\tchildren=1\tdeclared=0|' "$R/adjacency.tsv"
+  run_case breadth-exceeds 1 'SCOPE BREADTH-EXCEEDS'
+
+  build_all; printf 'x\n' >"$R/host/.agents/extra"
+  sed -i 's|# breadth\t$HOME/.agents\tchildren=1\tdeclared=1|# breadth\t$HOME/.agents\tchildren=2\tdeclared=2|' "$R/adjacency.tsv"
+  run_case breadth-declared-drift 1 'SCOPE BREADTH-DECLARED-DRIFT'
+
+  build_all; rm -rf "$R/host/.agents"
+  run_case breadth-host-missing 1 'SCOPE BREADTH-HOST-MISSING'
+
+  build_all; rm -rf "$R/host/.agents"; ln -s "$R/host/.config/opencode" "$R/host/.agents"
+  run_case breadth-root-symlink 1 'SCOPE BREADTH-UNVERIFIED'
+
+  build_all; rm -rf "$R/host/.agents"; printf 'x\n' >"$R/host/.agents"
+  run_case breadth-not-dir 1 'SCOPE BREADTH-NOT-DIR'
+
+  build_all
+  printf 'x\n' >"$R/host/.agents/"$'line\nbreak'
+  printf 'x\n' >"$R/host/.agents/"$'tab\tname'
+  sed -i 's|# breadth\t$HOME/.agents\tchildren=1\tdeclared=1|# breadth\t$HOME/.agents\tchildren=3\tdeclared=1|' "$R/adjacency.tsv"
+  run_case breadth-hostile-names 0 'BREADTH_AUDIT: CLEAN'
+
+  build_all; printf '# no-enumerate\t$HOME/.agents\textra\n' >>"$R/adjacency.tsv"
+  run_case directive-extra-field 1 'directive wants exactly 2 fields'
+
+  build_all; printf '# no-enumerate\t$HOME\n' >>"$R/adjacency.tsv"
+  run_case noenum-whole-home-refused 1 'is the whole HOME root'
 
   build_all; printf '$HOME/.local/share/other-lane/cfg.json\tasset\tfile\t644\tuncovered\n' >>"$R/census.tsv"
   run_case foreign 1 'SCOPE FOREIGN $HOME/.local/share/other-lane/cfg.json'
@@ -779,7 +1057,7 @@ EOF
   run_case own-dir-not-scan 1 'SCOPE OWN-UNLISTED'
 
   build_all; rm -f "$R/host/.config/opencode/opencode.json"
-  run_case asset-absent-named 0 'ADJACENCY_ASSET_ABSENT: rows=1'
+  run_case asset-absent-breadth-drift 1 'ADJACENCY_ASSET_ABSENT: rows=1'
 
   build_all; printf '$HOME/.config/the-janitor/session-id\truntime\tfile\t600\tmarker\n' >>"$R/census.tsv"
   rm -f "$R/host/.config/the-janitor/session-id"

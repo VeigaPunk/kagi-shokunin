@@ -9,6 +9,8 @@ copied from a draft: every verdict string in this entry was produced by a
 command in the round-11 evidence set; the round-13 classes (`Class 4`, `Class 5`)
 carry their own measured before→after table below.
 
+Reverify: R11-08, R11-09, R13-03, R14-01
+
 ## Why this gate exists (the measured calibration failure)
 
 Calibration was the lane's lowest cell after round 10. Three facts set the
@@ -199,6 +201,65 @@ this mode enforces, and it is deliberately narrower than the plan's wording:
   counts, so the line itself shows how many scores rest on a re-run command
   rather than on a frozen document.
 
+## Class 6 — knowledge entries (`docs`)
+
+Class 5 checks the *score* surface. This one checks the *knowledge* surface,
+because before round 14 nothing linked the two: at `4b8c018`, `grep -lE
+'R[0-9]+-[0-9]+' corpus/knowledge/*.md` matched **1 of 17** entries, **0 of 17**
+declared any re-verification, and **10 of 17** were not in `corpus/stamps.tsv`
+at all — so an entry could carry any host-fact base and no command could tell.
+
+- **Declaration.** Exactly one line per entry, starting at column 1, in one of
+  two strict forms. Every line that *begins* `Reverify` but is not a
+  `Reverify: ` declaration (a missing space, a detached colon) is a setup error
+  (exit 2) rather than an invisible miss — otherwise a typo would read as
+  `UNDECLARED` and the reader would fix the wrong thing (round-14 planner).
+  - `Reverify: R11-04, R11-05` — comma-separated ids (optional space), each of
+    which must be a row id in `corpus/claim-ledger.tsv` (`MISSING-ID`, exit 1);
+  - `Reverify: by-hand: <class> — <reason>` — the explicit unverifiable set.
+- **Semantics (narrow on purpose).** The declaration names the commands that
+  re-verify the entry's **host-fact base**; it is not a claim that every
+  sentence is machine-checked, and a row can be irrelevant to the entry beside
+  it — the same relevance ceiling Class 5 carries, inherited rather than solved.
+- **By-hand classes** (four, closed): `control-plane-scratch` (needs a scratch
+  `serve` replica), `opencode-internal` (needs `opencode debug …` under the
+  `_serve` env), `interactive-only`, `vault-refusal`. The reason must be ≥24
+  characters and **unique** across entries (compared case-folded with runs of
+  whitespace collapsed): identical reasons are the cheapest rubber stamp and are
+  `DUPLICATE-REASON`, exit 1. An unknown class or a short reason is exit 2.
+- **Revision pin.** Every entry must be a row in `corpus/stamps.tsv`
+  (`UNPINNED`, exit 1), by-hand ones included: a by-hand measurement recorded at
+  an unknown revision is the round-9 failure class.
+- **Ratio floor.** `row_linked*2 >= entries` (floor = `ceil(entries/2)`), so the
+  by-hand class cannot swallow the rule. This is a **coverage** claim, not a
+  relevance claim: the labrat lane's cheapest CLEAN path (nine entries declaring
+  one unrelated row, eight unique by-hand reasons, all stamp members) satisfies
+  it. `DOC_AUDIT_RATIO:` prints numerator, denominator, floor and the by-hand
+  count so the reader sees the shape, not only the verdict.
+- **Membership, not freshness, is what `docs` checks.** It reads the stamps file
+  for the entry's *presence*; the hash comparison belongs to `verify`/`cells`
+  (`STALE`/`STALE-POINTER`). A fabricated stamps row passes `docs` and fails
+  `verify` — the two modes are deliberately split this way.
+- **Self-reference.** `corpus/knowledge/claim-ledger.md` declares `R14-01`, whose
+  command is this mode. `verify` runs it; `cells` skips it (`SKIP-SELF`), which
+  is the same bound Class 5 uses rather than a special case.
+- **Summary.** Per-entry detail lines (`ENTRY <path> row_linked=<n>
+  by_hand=<class|->`), then `DOC_AUDIT_RATIO: row_linked=R/N floor=F by_hand=B
+  duplicate_reasons=D`, then the verdict `DOC_AUDIT: CLEAN (entries=N row_linked=R
+  by_hand=B undeclared=0 missing_ids=0 unpinned=0 duplicate_reasons=0)` — the
+  verdict is the last line, so the ordinary last-line rule applies.
+
+## Round-14 before → after (same file, measured both ways)
+
+|Claim|Before (round-13 close)|After|
+|---|---|---|
+|an entry that declares nothing|invisible: no mode read the entries|`UNDECLARED corpus/knowledge/cdp-bridge-1password.md`, 17 of 17 entries, `DOC_AUDIT: BROKEN … undeclared=17 unpinned=10`, exit 1|
+|an entry with no revision pin|invisible|`UNPINNED <entry>`, 10 of 17, exit 1|
+|an entry declaring an id no row defines|not expressible|`MISSING-ID <entry> R9-99` (an illustrative fabricated id), exit 1 — selftest `docs-missing-id`|
+|every entry claiming the same by-hand reason|not expressible|`DUPLICATE-REASON <entry>`, exit 1 (selftest `docs-duplicate-reason`)|
+|a corpus where the escape swallows the rule|not expressible|`DOC_AUDIT: BROKEN … row_linked=1 … floor=2`, exit 1 (selftest `docs-ratio-floor`)|
+|a malformed declaration spelling|not expressible|`… are not 'Reverify: ' declarations`, exit 2 (selftest `docs-malformed-line`)|
+
 ## Round-13 before → after (same file, measured both ways)
 
 | Claim | Before (round-12 close) | After |
@@ -316,31 +377,68 @@ bash corpus/claim-ledger.sh stamp corpus/claim-ledger.sh …    # re-pin (review
     `R12-03` (non-blank-line count, not `^#`-inverted); four selftest cases cover
     the guard (`stamp-shrink-refused`, `stamp-prune-allowed`,
     `stamp-swap-refused`, `stamps-blank-row`).
+17. **A declaration is a pointer, not relevance** (Class 6). Every row in the
+    entry set resolves and is re-run by `verify`, but whether a declared row
+    actually supports the entry beside it is a reader judgement — the same
+    ceiling the round-13 critic demonstrated for score cells, inherited here
+    instead of re-solved. What `docs` adds is that the *absence* of any
+    declaration, and the *absence* of a revision pin, are now loud. **Coverage is
+    partial by construction**: a row re-runs the part it measures, and the
+    round-14 entry review named the sentences no row touches — `cdp-bridge`'s
+    open-popup/`op --version` lines, `op-cli-surface`'s version/signed-out state
+    and port story, `janitor-command-surface`'s dispatcher/flock facts,
+    `credential-isolation`'s "20 vars" count, `handler-on-disk-state`'s row counts
+    (re-printed by `R11-01`, not pinned by it), `transcript-hygiene`'s
+    `--classify` triage.
+18. **The by-hand class is an explicit unverifiable set, not proof of effort.**
+    Four classes and a ≥24-char reason floor are shape rules. The uniqueness
+    check rejects the cheapest rubber stamp (one identical reason for every
+    entry — the round-14 critic's executed fixture); it cannot reject a
+    thoughtful-looking reason attached to a measurement nobody ever ran.
+19. **The ratio floor is coverage, not evidence.** `row_linked*2 >= entries`
+    counts entries that name *some* row; nine entries naming one irrelevant row
+    satisfies it (round-14 labrat lane, measured). The floor exists to stop the
+    by-hand class swallowing the rule, and it is stated as a floor for exactly
+    that reason.
+20. **`docs` checks membership; `verify` checks freshness.** The entry set's
+    revision pins are compared by `verify`/`cells` (`STALE`, `STALE-POINTER`).
+    A fabricated stamps row therefore passes `docs` — measured by the labrat
+    lane — and fails `verify`. Reading `docs`' verdict as "the entries are
+    no longer stale" would be wrong; the two modes are split on purpose.
+21. **The reason-length floor (24) is arbitrary and stated as such.** It stops a
+    one-word reason; it does not measure reasoning.
+22. **The entry set is the `*.md` glob.** A hidden entry is refused loudly (it
+    would otherwise be silently outside the audit, round-14 mutation lane); a
+    non-Markdown file in the same directory is outside the class by
+    construction, and nothing counts it.
+23. **The audit cannot see a by-hand measurement that was never performed.** It
+    can see that the class is named, the reason is unique and long enough, and
+    the entry is revision-pinned. Those are the only claims it makes.
 
-17. **An id audit is a liveness check, not a semantic one.** A document can cite
+24. **An id audit is a liveness check, not a semantic one.** A document can cite
     the correct id beside the wrong sentence; the audit says "this id exists",
     not "this id supports that claim". The reviewer lane is the control.
-18. **A cell pointer can be irrelevant to the score it sits next to.** The
+25. **A cell pointer can be irrelevant to the score it sits next to.** The
     critic's executed counterexample: a `calibration | 9 | R11-10` cell is
     `CLEAN` while `R11-10`'s command only counts rows in `state-shape.tsv`. The
     rule raises a cell from *token existence* to *a currently passing
     measurement or a hash-pinned revision*; it does not establish relevance.
     `row_pointed` vs `stamp_pointed` is printed so the reader sees which kind of
     support each score has.
-19. **The ledger cannot pin its own `verify` summary.** A row running `verify`
+26. **The ledger cannot pin its own `verify` summary.** A row running `verify`
     from inside `verify` recurses; `verify` refuses a nested self-audit
     (selftest `nested-audit-refused`). `cells` may be pinned because the cell
     audit skips the rows that re-invoke the gate (`self_skipped`).
-20. **`STALE-POINTER` is a question, not a verdict.** A moved pinned revision
+27. **`STALE-POINTER` is a question, not a verdict.** A moved pinned revision
     means either the edit was intended (re-stamp, a reviewed commit) or the cell
     points at the wrong artifact (re-point it).
-21. **The six-axis completeness rule is a shape rule.** A section can carry all
+28. **The six-axis completeness rule is a shape rule.** A section can carry all
     six axes and still score nonsense; and a *sub-axis* name (a split, e.g.
     `freshness (host)`) is not recognised — splitting an axis therefore requires
     keeping the parent row, which is stated here so a future split is not
     discovered as a surprise setup error.
 
-22. **Stamp rows are read under the same containment rule they are written
+29. **Stamp rows are read under the same containment rule they are written
     under.** `stamp` has refused absolute paths and `..` since round 11; the
     *reader* did not, and the round-13 sentinel demonstrated the asymmetry end to
     end — a hand-edited row naming `../outside.txt` made `verify` hash a file
@@ -350,7 +448,7 @@ bash corpus/claim-ledger.sh stamp corpus/claim-ledger.sh …    # re-pin (review
     the row, not a canonical-path check, so a row naming a path that *reaches*
     outside through a symlinked directory is refused on the write side (which
     resolves the canonical path) but not re-checked on the read side.
-23. **`verify --docs <one doc with no ids>` is CLEAN with `cited=0`.** An
+30. **`verify --docs <one doc with no ids>` is CLEAN with `cited=0`.** An
     explicitly narrowed doc set can legitimately contain no claim ids; the
     count in the summary is the signal, and the non-vacuity guards live in
     `cells` (zero cells, zero row-pointed cells, empty id universe) rather than

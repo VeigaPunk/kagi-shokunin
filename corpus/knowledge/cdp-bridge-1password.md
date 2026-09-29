@@ -5,6 +5,8 @@ Source: `~/.local/bin/the-janitor` `cmd_cdp_ensure` (L251–271),
 2026-09-28 (`ls`, `op --version`, `tmux ls`). No browser was launched and no
 vault UI was touched while writing this entry.
 
+Reverify: R11-01, R11-02
+
 ## Why the bridge exists
 
 1Password's browser extension unlocks the CLI integration through a Chrome

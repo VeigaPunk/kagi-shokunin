@@ -5,6 +5,8 @@ Source: `~/.local/bin/the-janitor` (333 lines, bash, `set -euo pipefail`,
 2026-09-28. Line numbers below refer to those files as read that day; re-grep
 before trusting a number.
 
+Reverify: R11-02, R11-04
+
 ## Verb table (from `usage()` + the `case "${1:-help}"` dispatcher, L293–333)
 
 | Verb | What it does | Authority |

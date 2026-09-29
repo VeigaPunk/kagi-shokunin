@@ -13,6 +13,8 @@ Companions: `janitor-lifecycle.md` (state objects/rotation),
 `verified 2026-09-28`. Everything below is metadata: no secret values, no
 `op://` refs, no account values, no session ids.
 
+Reverify: R11-01, R11-04
+
 ## 1. XDG layout — three roots, all under `$STATE_DIR`
 
 `cmd_serve` builds the quarantine itself, **before** any auth attempt

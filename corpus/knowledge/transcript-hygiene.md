@@ -9,6 +9,8 @@ durable at all), `handler-trust-boundary.md` (who can write to it).
 `verified 2026-09-28`. Everything below is metadata: no secret values, no
 `op://` ref paths, no session ids, no matched text.
 
+Reverify: R11-06, R11-07
+
 ## Why this exists
 
 Round 7 established: `part.data` holds full request/response text in plaintext,

@@ -20,6 +20,8 @@ Re-run everything in §Reproduction. The machine-checkable half of this entry is
 `bash corpus/op-ref-probe.sh` (live) and `--selftest` (comparator); the one-offs
 that cannot be mechanised are named in §Bounds with the reason.
 
+Reverify: R11-01, R12-01, R12-02
+
 ## 1. The two consumers are not the same parser
 
 | Consumer | What it is | What it answers |

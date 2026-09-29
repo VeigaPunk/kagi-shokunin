@@ -11,6 +11,8 @@ practice". Finding: **no rotation verb exists by design** — the architecture
 makes revocation a side effect of process lifetime, and rotation a side effect
 of editing the source-of-truth secret.
 
+Reverify: R11-01, R11-04
+
 ## The state objects and what revoking them means
 
 | Object | Nature | Lifetime | Kill semantics |

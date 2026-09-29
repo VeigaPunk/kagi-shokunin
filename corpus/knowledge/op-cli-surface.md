@@ -6,6 +6,8 @@ emails, or UUIDs are recorded here — key names and exit codes only.** `op
 account list` output is account-identifying PII even though it is metadata;
 treat its *values* like `refs` output: internal, never pasted into artifacts.
 
+Reverify: R11-02, R12-01
+
 ## Observed command surface
 
 | Command | Observed 2026-09-28 | Exit | Auth needed? |

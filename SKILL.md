@@ -235,7 +235,8 @@ cites should be the revision a reader can name. Run the ledger before you cite:
     bash corpus/claim-ledger.sh verify     # stamps + claims + claim ids; exit 0 CLEAN, 1 FAIL/STALE/MISSING-ID, 2 POLICY/setup
     bash corpus/claim-ledger.sh citations  # committed docs must cite durable evidence
     bash corpus/claim-ledger.sh cells      # every scorecard cell must carry a pointer that still holds
-    bash corpus/claim-ledger.sh --selftest # 72 scratch cases (stamps, claims, policy, citations, claim ids, cell audit, the `stamp` row-set guard)
+    bash corpus/claim-ledger.sh docs       # every knowledge entry declares its re-verification and is revision-pinned
+    bash corpus/claim-ledger.sh --selftest # 94 scratch cases (stamps, claims, policy, citations, claim ids, cell audit, entry declarations, the `stamp` row-set guard)
     bash corpus/claim-ledger.sh stamp corpus/claim-ledger.sh …   # re-pin after landing edits (reviewed commit)
 
 - **Claim rows** (`corpus/claim-ledger.tsv`): `id<TAB>command<TAB>expect<TAB>
@@ -243,10 +244,22 @@ cites should be the revision a reader can name. Run the ledger before you cite:
   expected one **and** the `expect` ERE matches the **last non-empty output
   line** — a verdict is a summary line, so a command that prints `CLEAN` early
   and dies later cannot pass (`reason=verdict-not-final`). Row failures print
-  id + reason + exit; the gate never echoes a claim's output. 17 rows as of
-  round 13 (three sibling gates across 9 modes, the round-12 `op.env` rows, the
-  transcript baseline whose expected exit is **1**, and five count rows that
-  exist because docs carried stale numbers for them).
+  id + reason + exit; the gate never echoes a claim's output. 18 rows as of
+  round 14 (three sibling gates across 9 modes, the round-12 `op.env` rows, the
+  transcript baseline whose expected exit is **1**, this gate's own `cells` and
+  `docs` verdicts, and five count rows that exist because docs carried stale
+  numbers for them).
+- **Knowledge entries** (`docs`): every `corpus/knowledge/*.md` entry must carry
+  exactly one declaration — `Reverify: R11-04, R11-05` (ids that must resolve)
+  or `Reverify: by-hand: <class> — <reason>` with a closed class set
+  (`control-plane-scratch|opencode-internal|interactive-only|vault-refusal`) and
+  a unique ≥24-char reason — and must be a row in `corpus/stamps.tsv`.
+  `UNDECLARED`/`MISSING-ID`/`UNPINNED`/`DUPLICATE-REASON` and a corpus where
+  `row_linked*2 < entries` (floor `ceil(n/2)`) are exit 1; a second declaration,
+  a malformed `Reverify` line, an unknown class, a short reason, a hidden entry
+  or an empty entries dir are exit 2. The declaration names the entry's
+  **host-fact base**, not every sentence; a row can be irrelevant to the entry
+  beside it (bounds 17–23 in `corpus/knowledge/claim-ledger.md`).
 - **Claim ids** (`verify`): every `R<digits>-<digits>` **whole word** in the
   checked docs must be a row id, so a doc citing an id that no row defines fails
   (`MISSING-ID doc:line id`, exit 1) — the ledger used to be iterated forward
@@ -529,6 +542,11 @@ Handler operation:
 
 ## Falsification
 
+Each bullet below is the measurement **at that round's revision** — the numbers
+in a round bullet are history (that is what a round bullet is for); re-run the
+command for the current figures, and take the live numbers from the gate's own
+verdict line rather than from a narrative.
+
 - `the-janitor --help`, `the-janitor status`, `the-janitor cdp-bridge status`,
   `the-janitor tac-check` reproduce every claimed surface (verified 2026-09-28).
   Round-3 additions: `the-janitor whoami` (exit + text reveal caller auth),
@@ -616,3 +634,20 @@ Handler operation:
   a stale `--evaluate` fixture with one value changed ⇒ `FAIL oprun-value` +
   exit 1; `grep -n 'exec op run' ~/.local/bin/the-janitor` ⇒ L248 with no
   `--no-masking` (the masking premise).
+- Round-14: `corpus/claim-ledger.sh docs` + the `Reverify:` declaration in each
+    of the 17 `corpus/knowledge/*.md` entries — the knowledge surface's
+    re-verification link. Repro: `bash corpus/claim-ledger.sh docs` ⇒
+    `DOC_AUDIT: CLEAN (entries=17 row_linked=14 by_hand=3 undeclared=0
+    missing_ids=0 unpinned=0 duplicate_reasons=0)`, exit 0, with
+    `DOC_AUDIT_RATIO: row_linked=14/17 floor=9 by_hand=3 duplicate_reasons=0`
+    above it. Falsify: delete one `Reverify:` line from a copy of an entry and
+    point `--root` at the copy ⇒ `UNDECLARED <entry>` + exit 1 (case
+    `docs-undeclared`); declare a fabricated id ⇒ `MISSING-ID <entry> R9-99`
+    (case `docs-missing-id`); give two entries the same by-hand reason ⇒
+    `DUPLICATE-REASON` (case `docs-duplicate-reason`); three entries with one row
+    and two by-hand ⇒ `BROKEN … floor=2` (case `docs-ratio-floor`); write
+    `Reverify:` with no space ⇒ shape error, exit 2 (case `docs-malformed-line`).
+    The three by-hand entries (`config-layering`, `control-plane-hardening`,
+    `handler-trust-boundary`) are the explicit unverifiable set and are
+    revision-pinned; `docs` checks stamp *membership*, `verify` checks the hash —
+    a fabricated stamps row passes this mode and fails `verify`.

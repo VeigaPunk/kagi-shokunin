@@ -46,10 +46,10 @@ high score is the calibration failure this file exists to prevent.
 
 | Axis | Score | What moved | Evidence |
 |---|---|---|---|
-| coverage | 6 → **8** | The surface claim became a gate: 35 declared rows (20 asset / 15 runtime) over the handler's config/state, the opencode layer that reaches it, evidence/custody and network-adjacent paths; 4 enumerable dirs whose undeclared children are `UNLISTED`; 21 runtime shape pins for the two `xdg-data` artifacts and the rest of the state; 10 write-side verb probes. | `bash corpus/surface-census.sh` ⇒ `SURFACE_CENSUS: CLEAN (assets=20 runtime=15 scanned=4 ok=34 absent=2 skipped=0)` exit 0; `corpus/surface-census.tsv`; `corpus/state-shape.tsv`; `corpus/knowledge/surface-census.md`. Ceilings named in that entry's §Bounds: nothing schedules the gates, enumeration is one level deep over 4 dirs, `~/.config/opencode` (20 children) / `~/.local/bin` / `~/.agents` / the chrome-profile subtree are deliberately not enumerated, and 3 of the 10 probes are `--deep` (operator present). |
+| coverage | 6 → **8** | The surface claim became a gate: 35 declared rows (20 asset / 15 runtime) over the handler's config/state, the opencode layer that reaches it, evidence/custody and network-adjacent paths; 4 enumerable dirs whose undeclared children are `UNLISTED`; 21 runtime shape pins for the two `xdg-data` artifacts and the rest of the state; 10 write-side verb probes. | `bash corpus/surface-census.sh` ⇒ `SURFACE_CENSUS: CLEAN (assets=20 runtime=15 scanned=4 ok=34 absent=2 skipped=0)` exit 0; `corpus/surface-census.tsv`; `corpus/state-shape.tsv`; `corpus/knowledge/surface-census.md`. Ceilings named in that entry's §Bounds: nothing schedules the gates, enumeration is one level deep over 4 dirs, `~/.config/opencode` (20 children) / `~/.local/bin` / `~/.agents` / the chrome-profile subtree are deliberately not enumerated, and 3 of the 10 probes are `--deep` (operator present). Cell pointer added in round 14: `R11-01`, the row that re-runs the command this cell already quotes. |
 | operability | 7 → **8** | A third gate with verdicts + exit codes, and the handler's write-side verbs became runnable probes instead of prose: `cdp-bridge ensure` (write + refusal path), `refs` (redaction + shape table), `run`/`refs` argument guards, `status` contract, plus `--deep` for `op run` and the `tac-register` no-replace re-run. | `--verbs` ⇒ `CLEAN (pass=7 skip=3)` exit 0, no `op` exec; `--verbs --deep` ⇒ `CLEAN (pass=10 skip=0)`, ≤25 s; `--selftest` ⇒ `SELFTEST: PASS (16 cases)`. Remaining manual: scheduling, and the 3 `--deep` probes. Pinned by `R11-02` + `R11-03`. |
 | freshness | 7 → **8** | Surfaces and runtime state are now re-verified mechanically, and the round *spent* that budget: 9 stale items the L2 reviewer found are recorded, 5 corrected in-repo (the DB-mtime bound in `handler-on-disk-state.md`, "deliberately unpinned" in `drift-gate.md` + `corpus/README.md`, the `PROVINCE.md` census caption, and this file's own coverage row). | `corpus/knowledge/handler-on-disk-state.md` §Anti-claims (content bound = log last line 2026-09-21T04:58:13Z, `max(session.time_updated)` = 2026-09-21T04:57:08Z, rows 7/39/55/238 — unchanged; file mtime 2026-09-28 is a reader effect, so shape pins use rows, not mtime); `drift-gate.md` §Bounds; `PROVINCE.md:8`. |
-| calibration | 6 → **7** | Overclaims corrected and L2 attack accepted rather than absorbed: the `refs`-is-a-redactor implication became an explicit prefix-match limitation; the L2 critic's `SKIP`-fail-open (CE3) and digest-print (CE5) counterexamples were real and are fixed (`UNVERIFIED` fails the run; digest-free custody comparison); its four stale-snapshot clauses are recorded as stale with the reason; the draft data files it read are not what shipped. | `SKILL.md` decision table + anti-patterns; `corpus/lessons/round-10.md` §"The L2 critic's blockers, and what happened to each"; `SHAPE UNVERIFIED` path pinned by selftest case 10. Ceiling: the 8 cells are self-scored against third-party-published pointers, not independently scored. |
+| calibration | 6 → **7** | Overclaims corrected and L2 attack accepted rather than absorbed: the `refs`-is-a-redactor implication became an explicit prefix-match limitation; the L2 critic's `SKIP`-fail-open (CE3) and digest-print (CE5) counterexamples were real and are fixed (`UNVERIFIED` fails the run; digest-free custody comparison); its four stale-snapshot clauses are recorded as stale with the reason; the draft data files it read are not what shipped. | `SKILL.md` decision table + anti-patterns; `corpus/lessons/round-10.md` §"The L2 critic's blockers, and what happened to each"; `SHAPE UNVERIFIED` path pinned by selftest case 10. Ceiling: the 8 cells are self-scored against third-party-published pointers, not independently scored. Cell pointer added in round 14: `R11-03`, the case-count row for the selftest that contains case 10. |
 | depth | 7 → 7 | The new entry adds detail inside existing scope (schema-by-schema contract, two-pass sqlite rationale, floor policy, verdict/exit table, 11 falsifiers). | `corpus/knowledge/surface-census.md`; `corpus/knowledge/op-cli-surface.md` gains the `op run` rows and the `refs` guard analysis. |
 | adjacency | 8 → 8 | The census declares only handler-reaching paths and *reports* the rest: the global `~/.config/opencode/opencode.json` ownership boundary (connector: needs an integrator ruling), `~/.agents/AGENTS.md` + its undeclared `.bak` sibling (kotoba/fleet), the musketeer profile (kake — kept presence-only, `mode = -`). | `corpus/README.md` §Known gaps (round-10 adjacency bullet); `PROVINCE.md` (the round-10 connector output was session-scoped scratch, not retained; round 11 replaced the dead citation). |
 
@@ -92,9 +92,9 @@ high score is the calibration failure this file exists to prevent.
 |---|---|---|---|
 | depth | 7 → **8** | The `op.env` contract became measured: two parsers over one file (`cmd_refs` awk vs the dotenv parser inside `op run --env-file`, which is what `cmd_run` L248 execs), the masking scope, dotenv edge semantics, precedence/union, the hard-failure class (a malformed line makes the resolver refuse the whole file while `refs` clears it) and six named error signatures — all with verdicts, zero vault contact. | `bash corpus/op-ref-probe.sh` ⇒ `OP_REF_PROBE: CLEAN (checks=44 oprun=12 refs=7 divergent=5 edge=10 sig=6)` exit 0 (`R12-01`); `--selftest` ⇒ `OP_REF_SELFTEST: PASS (29 cases)` (`R12-02`); `corpus/knowledge/op-ref-consumption.md` (divergence table line-shape by line-shape, §2b hard failures, masking table, §Bounds with the unmeasurable rows named); `SKILL.md` gains 3 decision rows, 3 failure rows, 4 anti-patterns, 2 checklist items and a §`op.env` consumption; the v2 revision (hard-failure class) landed after the wave's first four lanes read v1 — recorded in the report's §L2 wave. Ceiling: the vault-side refusal is *unchanged and still deliberate*; what the round proves is that it was not the binding constraint on this axis. |
 | calibration | 8 → **8** (increment recorded, not re-scored) | An author self-assessment error was caught and corrected with evidence (the "depth is scope-capped" reading); four stale numbers were swept in live docs (`symbols=19→20`, `claims=11→13/14`, `stamped=28→31`, claim-ledger selftest `39→41`, genericized `docs=37`); the round's claims entered the ledger as rows (`R12-01..03`) rather than prose, per the round-11 rule. Not raised because round 11's stated next step — *every* cell naming the claim ids it rests on — is still only partially landed (this file cites `R12-*` in the depth row only). | `SCORECARD.md` §Round 12 pre-move (the wrong ceiling, quoted); `corpus/claim-ledger.tsv` (14 rows); `bash corpus/claim-ledger.sh verify` ⇒ `CLAIM_LEDGER: CLEAN (claims=14 stamped=31)` exit 0. |
-| operability | 8 → 8 | A fourth gate landed (`op-ref-probe.sh` with `--evaluate`/`--fixture`/`--selftest`), and `claim-ledger.sh` gained a real guard (`stamp` shrink refused unless `--prune`, +4 selftest cases: 43). Not re-scored: the named ceilings are unchanged — nothing schedules any gate and the checklist's judgement items remain judgement. | `bash corpus/claim-ledger.sh stamp corpus/op-ref-probe.sh` ⇒ `refusing to shrink … 'corpus/op-ref-probe.sh' is pinned and would be dropped`, exit 2 (live); `--selftest` ⇒ `PASS (43 cases)`. |
-| freshness | 8 → 8 | One new symbol pin (`$HOME/.local/bin/the-janitor` L248 `exec op run --env-file="$ENV_FILE" -- "$@"`) monitors the masking premise, and the probe turns the whole `op`-behaviour contract into a drift verdict. Not re-scored: the round's freshness *measurement* (host-file drift, surfaces, runtime shape) is unchanged and no new drift was found. | `bash corpus/drift-pins.sh` ⇒ `DRIFT_PINS: CLEAN (files=15 symbols=20)` exit 0. |
-| coverage | 8 → 8 | The entry maps a *behaviour* surface (parse classes, error paths), not a path surface; the census declaration is untouched and nothing new is claimed about which files exist. | `bash corpus/surface-census.sh` ⇒ `CLEAN (assets=20 runtime=15 scanned=4 ok=34 absent=2 skipped=0)` exit 0. |
+| operability | 8 → 8 | A fourth gate landed (`op-ref-probe.sh` with `--evaluate`/`--fixture`/`--selftest`), and `claim-ledger.sh` gained a real guard (`stamp` shrink refused unless `--prune`, +4 selftest cases: 43). Not re-scored: the named ceilings are unchanged — nothing schedules any gate and the checklist's judgement items remain judgement. | `bash corpus/claim-ledger.sh stamp corpus/op-ref-probe.sh` ⇒ `refusing to shrink … 'corpus/op-ref-probe.sh' is pinned and would be dropped`, exit 2 (live); `--selftest` ⇒ `PASS (43 cases)`. Cell pointer added in round 14: `R11-09`, the row that re-runs the selftest carrying the shrink-refusal cases. |
+| freshness | 8 → 8 | One new symbol pin (`$HOME/.local/bin/the-janitor` L248 `exec op run --env-file="$ENV_FILE" -- "$@"`) monitors the masking premise, and the probe turns the whole `op`-behaviour contract into a drift verdict. Not re-scored: the round's freshness *measurement* (host-file drift, surfaces, runtime shape) is unchanged and no new drift was found. | `bash corpus/drift-pins.sh` ⇒ `DRIFT_PINS: CLEAN (files=15 symbols=20)` exit 0. Cell pointer added in round 14: `R11-04`. |
+| coverage | 8 → 8 | The entry maps a *behaviour* surface (parse classes, error paths), not a path surface; the census declaration is untouched and nothing new is claimed about which files exist. | `bash corpus/surface-census.sh` ⇒ `CLEAN (assets=20 runtime=15 scanned=4 ok=34 absent=2 skipped=0)` exit 0. Cell pointer added in round 14: `R11-01`. |
 | adjacency | 8 → 8 | The `op`-surface overlap question is reported, not absorbed: the connector lane maps sibling verifiers (kumitate `cite-check.mjs`, kotoba `verifiers/*.py`, kengaku `grader.py`, kasegi `ops/claim-check.mjs`) and the shared-contract question stays with the integrator. | round-12 report §Adjacency; `corpus/README.md` overlap table unchanged. |
 
 ## Round 13 — pre-move (repo `HEAD` `4391b3b` + the uncommitted round-12 set; script stamped `1efb8b6d…`)
@@ -120,6 +120,77 @@ high score is the calibration failure this file exists to prevent.
 | adjacency | 8 → 8 | Sibling verifiers mapped and reported: kumitate `round-gate.mjs` and kotoba `verify_corpus_integrity.py` resolve **commit** ids, kengaku `grader.py` scores predictions in a table, kasegi's checker source lives outside the sibling checkout. None implements an `R…-…` row-id or score-cell contract, so nothing is duplicated; the shared-contract question stays with the integrator. | `corpus/lessons/round-13.md`; `corpus/README.md` overlap table |
 
 ## Planned (next axis-move)
+
+**Round-14 outcome: the target was split into its reachable and its refused half, and both were handled.**
+Round 13 asked for `row_pointed` ≥ half the checked cells by adding rows for the
+quantities the historical cells assert. The measurements: the critic found **0 of
+the 35 row-less cells** where a *newly written* row would honestly support the
+score beside it, and the pre-state scout's own census split them H/N/R =
+11/19/5 (+2 borderline) — a `pre-move` cell is a snapshot of a past revision
+whose only honest evidence is a revision stamp, and a narrative or ownership cell
+has no command shape at all. **But 5 of those cells already quoted a live command
+in their own Evidence column** at `4b8c018` (the round-10 coverage/calibration/
+operability cells and two round-12 cells), so the *ratio* half was reachable
+exactly at the boundary: citing the matching row ids lifts `row_pointed` 25 → 30
+of 60. Round 14 cited them — `R11-01`, `R11-03`, `R11-09`, `R11-04`, `R11-01` —
+and `cells` re-runs those rows now. The other half — writing rows that re-derive
+*historical* numbers — stays refused as pointer inventory. That is the whole
+difference between the two lane readings: 0 rows **writable**, 5 rows **already
+written**. The plan's replacement floor sits where the distance is real: the
+**knowledge-entry surface** (`docs`), where "declared" vs "undeclared" is 0 → 17.
+
+Falsifiable target for the next round:
+
+- push `by_hand` down from 3 to ≤1 without weakening the class rule — i.e. find a
+  row-shaped re-verification for one of `config-layering`, `control-plane-hardening`
+  or `handler-trust-boundary` (a committed script for the `opencode debug`
+  resolver, or a scratch-serve matrix that exits with a verdict), and the
+  `DOC_AUDIT_RATIO` line is the number that has to move.
+
+Ceilings are named so they are not mistaken for saturations:
+
+- **calibration** — a pointer's *relevance* to the score beside it is not
+  machine-checkable (round-13 critic, executed). Round 14 extends the same
+  ceiling to entries: `Reverify:` proves a link exists and the row is live, not
+  that the row measures the sentences beside it, and the by-hand class is an
+  explicit unverifiable set rather than proof of effort.
+- **freshness** — the entry declarations are shape-checked: 17 entries carry
+  exactly one valid declaration, 14 name a live row, the 3 by-hand entries carry
+  a class, a unique ≥24-char reason and a revision pin. It does **not** follow
+  that every sentence in an entry is re-computed — most sentences still rest on
+  numbers no command re-derives, and the floor counts entries, not evidence.
+- **operability** — nothing schedules the six gates; the checklist still holds
+  judgement items. Reachable, but it needs a scheduling decision that touches
+  host state (systemd/cron), i.e. operator scope, so it is not a lane-only move.
+- **depth** — the remaining increments are the ones the entry's §Bounds refuses
+  (masking of *ref-resolved* values, the mask token, `op inject`/`op read`
+  execution), each of which needs a resolved reference, i.e. the vault. Depth is
+  capped by refusal, not by exhaustion — round 12 showed that this exact sentence
+  is worth re-measuring before trusting it.
+
+## Round 14 — pre-move (repo `HEAD` `4b8c018`, round-13 close)
+
+| Axis | Score | Evidence pointer | Last change |
+|---|---|---|---|
+| depth | 8 | The `op.env` two-parser contract, masking scope and hard-failure class measured with verdicts; ceiling unchanged (masking of *ref-resolved* values is unmeasurable without a resolved reference, i.e. the vault). | `R12-01` |
+| coverage | 8 | 35 declared surface rows + 22 runtime shape pins + 10 verb probes, all with verdicts; ceilings named in `knowledge/surface-census.md` §Bounds. | `R11-01`, `R11-11` |
+| operability | 8 | Five modes with verdicts + selftests; nothing schedules them, and the checklist's judgement items remain judgement. | `R11-04`, `R11-06` |
+| freshness | **8** | **The knowledge surface had no re-verification link.** At `4b8c018`: 1 of 17 `corpus/knowledge/*.md` entries named any claim row (`claim-ledger.md`), **0 declared one**, and **10 of 17 were not in `corpus/stamps.tsv`** — an entry could carry any host-fact base and no command could tell. Reproduced three ways at the frozen revision (L1 census; the pre-state scout's python census; the drafter's `grep -c '^Reverify:'` ⇒ 0). | `corpus/lessons/round-14.md` |
+| calibration | 9 | The round-13 plan (`row_pointed` ≥ half the cells) was the declared next move and was never measured; the pre-state summary is `cells=60 row_pointed=25 stamp_pointed=41 uncited=0`. | `R13-03` |
+| adjacency | 8 | Contested scope documented with owners (`~/.agents/AGENTS.md` ↔ kotoba; musketeer profile ↔ kake); the connector lane maps sibling doc-linkage verifiers (kotoba checklist + corpus index, kumitate `proxy-check.mjs` coverage score, kasegi `anchorcheck.py` anchors) as *adjacent*, none duplicate. | `corpus/README.md` |
+
+## Round 14 — post-move (freshness axis-move landed, commit `round-14`)
+
+| Axis | Score | What moved | Evidence |
+|---|---|---|---|
+| freshness | 8 → **9** | Every knowledge entry declares how its host-fact base is re-verified, and every one is revision-pinned: **14 row-linked / 3 by-hand / 17 pinned** (from 0 declared / 1 naming any row / 7 pinned), audited by a sixth mode that `verify` runs, so the link cannot silently disappear. The 3 by-hand entries are the explicit unverifiable set (`control-plane-scratch` ×2, `opencode-internal` ×1) with unique ≥24-char reasons. | `R14-01`; `R11-09` (94 cases); `corpus/knowledge/claim-ledger.md` §Class 6, bounds 17–23 |
+| calibration | 9 → 9 (increment recorded, not re-scored) | The round-13 target was **split by measurement**: the ratio half was boundary-reachable — 5 row-less cells already quoted a live command in their own Evidence, so citing the matching row ids (landed here) lifts `row_pointed` 25 → 30 of 60 — while the half that asked for rows re-deriving *historical* numbers stays refused (critic: 0 writable; scout census: 11 H / 19 N / 5 R + 2 borderline = pointer inventory). The replacement floor landed on the entry surface, where the gap is real (0 → 17 declared; floor `ceil(17/2)=9`). Three of my draft entry→row links were **rejected with evidence** and replaced rather than shipped. Not raised because pointer *relevance* remains unverifiable — the same ceiling round 13 named. | `R14-01`; the H/N/R census, the five cited cells and the rejected links in `corpus/lessons/round-14.md` |
+| operability | 8 → 8 | A sixth mode (`docs`) with verdicts, exit codes and 22 more selftest cases (72 → 94); the ceilings are unchanged — nothing schedules any gate and the checklist's judgement items remain judgement. The increment is claimed under freshness, not double-counted here. | `R11-09` |
+| depth | 8 → 8 | §Class 6 adds detail inside existing scope (grammar by form, the closed class set, the floor expression, membership-vs-freshness split, seven bounds). | `corpus/knowledge/claim-ledger.md` |
+| coverage | 8 → 8 | The round moves a *documents* surface, not a path surface: the census declaration is untouched and nothing new is claimed about which files exist. What it adds is that the 17 entries are now counted at all. | `R11-01`, `R11-11` |
+| adjacency | 8 → 8 | Sibling overlap reported, not absorbed: kotoba's `verify_skill_checklist.py` links checklist boxes to dispositions, kumitate `proxy-check.mjs` computes a documentation-coverage score, kasegi `anchorcheck.py` resolves `path:line` anchors — all *adjacent* (different unit, no claim-row binding); the shared-contract question stays with the integrator. | `corpus/README.md`; `corpus/lessons/round-14.md` |
+
+## Planned (falsified in round 14 — kept as the record)
 
 Round 13 leaves calibration at 9 — the highest cell in this file, and the move is
 what makes the *other* cells auditable rather than prose. The round-11/12 target

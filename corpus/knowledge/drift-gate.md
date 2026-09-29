@@ -6,6 +6,8 @@ live runs 2026-09-28; v1 read at HEAD `ea77bf0`; `PROTOCOL.md` §Evidence standa
 L292–298; `corpus/lessons/round-8.md` §5; round-9 L2 review (planner, sentinel,
 critic, scout, labrat, distiller).
 
+Reverify: R11-04, R11-05
+
 ## Why v1 was not a gate
 
 v1 printed `mode+size / sha16 / lines` for 13 host files and exited 0

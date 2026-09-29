@@ -8,6 +8,8 @@ inspection of `~/.local/state/the-janitor/xdg-data/opencode/opencode.db`;
 and OpenCode 1.18.31 scratch-server auth / alternate-agent repros. Advisory
 operator handoff only: no configuration or service changes are applied here.
 
+Reverify: by-hand: control-plane-scratch — the auth wall was measured with scratch `serve` replicas on throwaway ports; starting a service is not a claim-shaped command, though the retention block is re-measured by R11-01
+
 ## Finding — loopback is not a process boundary
 
 `_serve` binds OpenCode to `127.0.0.1` and does not set

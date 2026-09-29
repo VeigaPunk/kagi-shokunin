@@ -14,6 +14,8 @@ The ceiling `{"*": deny, janitor_auth: allow}` in `janitor.md` binds the **agent
 field of a message body**, not the socket. The socket is the real boundary, and
 `_serve` starts it with no authentication.
 
+Reverify: by-hand: control-plane-scratch — the unauthenticated socket claims were measured against scratch `serve` replicas, never against the live handler
+
 ## 1. `_serve` starts an unauthenticated localhost HTTP server
 
 Binary service semantics:

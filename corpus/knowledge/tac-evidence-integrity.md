@@ -4,6 +4,8 @@ Source: `~/.local/bin/tac-check` (88 lines, read 2026-09-28),
 `~/.local/state/tac/handoff-status.json`, `~/.local/state/the-janitor/tac-daybreak-blue.json`
 (existence/mode only), host `~/.agents/AGENTS.md` janitor section.
 
+Reverify: R11-01, R11-04
+
 ## What the check is — and is not
 
 `tac-check` / `the-janitor tac-check` is a deterministic, offline integrity

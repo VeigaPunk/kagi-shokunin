@@ -429,3 +429,73 @@
   the reviewer caught a `lineno: unbound variable` crash in a mid-edit revision
   (never shipped). No vault access; no secret value, ref path or account value in
   any artifact; all L2 execution was scratch-only.
+- 2026-09-28 — round 14 (**freshness 8 → 9**; axis-move: the knowledge surface
+  gets a re-verification link, and round 13's scorecard plan is split into the
+  half that was reachable and the half that stays refused). Dispatch: 14 L2 lanes
+  in one batched call (planner, connector, 2 scouts, scribe, 2 executors,
+  reviewer, critic, sentinel, labrat, mutation-tester, simplifier, distiller; the
+  distiller's first pass found no artifacts, said so instead of inventing a
+  synthesis, and was revived after the wave). **The finding**: at `4b8c018` the
+  knowledge surface had no link to any re-verification — 17 `corpus/knowledge/*.md`
+  entries, **1** naming any claim row, **0** declaring one, **7 of 17** in
+  `corpus/stamps.tsv` (reproduced three ways: L1 census, a scout python census on
+  the frozen blobs *and* the live tree, a drafter `grep -c '^Reverify:'` ⇒ 0).
+  Landed: a sixth mode `corpus/claim-ledger.sh docs` (one `Reverify:` line per
+  entry — resolving row ids, or `by-hand: <class> — <reason>` with a closed
+  4-class set and a unique ≥24-char reason — plus a mandatory revision pin, a
+  `row_linked*2 >= entries` floor, and `UNDECLARED`/`MISSING-ID`/`UNPINNED`/
+  `DUPLICATE-REASON`/`RATIO` as exit-1 defects with shape errors exit 2);
+  `Reverify:` declarations in all **17** entries (**14 row-linked / 3 by-hand**:
+  `config-layering` `opencode-internal`, `control-plane-hardening` and
+  `handler-trust-boundary` `control-plane-scratch`); all 17 entries stamped
+  (pin set 33 → 44 rows); ledger row `R14-01` plus four re-pinned count rows
+  (`R11-09` 72 → 94 cases, `R12-03` 33 → 44 stamps, `R13-01` 10 → 12 sections,
+  `R13-02` 17 → 18 rows); and **five score-card cells** now cite the rows that
+  re-run the commands their own Evidence already quoted (`R11-01`, `R11-03`,
+  `R11-09`, `R11-04`, `R11-01`). Evidence (shipped revision):
+  `bash corpus/claim-ledger.sh docs` ⇒ `DOC_AUDIT: CLEAN (entries=17
+  row_linked=14 by_hand=3 undeclared=0 missing_ids=0 unpinned=0
+  duplicate_reasons=0)` exit 0, with `DOC_AUDIT_RATIO: row_linked=14/17 floor=9
+  by_hand=3 duplicate_reasons=0` (pre-move, same corpus: `BROKEN (undeclared=17
+  unpinned=10)` exit 1); `--selftest` ⇒ `SELFTEST: PASS (94 cases)`;
+  `verify` ⇒ `CLAIM_LEDGER: CLEAN (claims=18 stamped=44 ids=18 …)`;
+  `cells` ⇒ `CELL_AUDIT: CLEAN (cells=72 row_pointed=38 stamp_pointed=47
+  uncited=0 …)` (`row_pointed` 25 → 38; the round-13 half-floor is met, not
+  argued); `citations` ⇒ `CITATION_GATE: CLEAN (cites=734 docs=45 unresolved=0
+  ephemeral=0 labeled=13)`. Siblings unchanged: `DRIFT_PINS: CLEAN (files=15
+  symbols=20)` + 13 cases; `SURFACE_CENSUS: CLEAN (assets=20 runtime=15
+  scanned=4 ok=34 absent=2 skipped=0)` + `--verbs CLEAN (pass=7 skip=3)` + 16
+  cases; `TRANSCRIPT_SCAN: HITS=2` exit 1 by design; `OP_REF_PROBE: CLEAN
+  (checks=44 oprun=12 refs=7 divergent=5 edge=10 sig=6)` + 29 cases (the ledger's
+  own `verify`/`cells` runs execute this gate: it execs `op run` over
+  **generated fabricated plain values** and refuses any op-side ref token before
+  exec, so the round's no-op-execution rule held for every lane and the gate is
+  unchanged since round 12). **An author claim was falsified by a lane**: I wrote
+  that round 13's `row_pointed ≥ half` target was unreachable; the pre-state scout
+  independent census (H/N/R = 11/19/5 + 2 borderline) showed that **5 cells already
+  quoted a live command in their own Evidence**, so the ratio half was reachable
+  exactly at the boundary (25 → 30 of 60) — the five pointers landed; the half
+  that would re-derive *historical* numbers stays refused (critic: 0 writable
+  rows). **Defects found in my own implementation, each by execution**: an
+  unbound `nrows` on the `UNDECLARED` path that the old case passed anyway (fixed,
+  and the case upgraded to `tcase_last` on the exact summary); a directory of only
+  hidden entries reporting "no entries" (ordering fixed); a fabricated id counted
+  in `row_linked` (now counts only resolving ids); a 24-space by-hand reason
+  passing the floor (trimmed first); a `Reverify`-prefixed non-declaration reading
+  as `UNDECLARED` (planner lane; now exit 2); and 17 identical by-hand reasons
+  satisfying the rule (critic lane's executed fixture; now `DUPLICATE-REASON`).
+  Three of my draft entry→row links were rejected with evidence and replaced
+  (both `R11-10` uses — a pin-file row count is not a host fact — and
+  `handler-on-disk-state`'s `R11-06`), and four additions adopted from the same
+  review (`R11-08`, `R11-01`, `R11-02`, `R11-10`+`R11-11` on `surface-census`).
+  Also recorded: two of my own `edit` calls deleted a section heading in three
+  entries by anchoring on a heading; caught by a heading census and repaired.
+  Adjacency (reported, not absorbed): the connector lane maps sibling
+  documentation-coverage verifiers — kotoba `verify_skill_checklist.py` (checklist
+  box → disposition) and `verify_corpus_independent.py` (README index), kumitate
+  `proxy-check.mjs` (doc-coverage score inside a composite), kasegi
+  `anchorcheck.py` (mirror `path:line`), kengaku `grader.py` (replayed report
+  tables) — all *adjacent* (different unit; none binds an entry to a re-runnable
+  claim row); the shared-contract question stays with the integrator. No vault
+  access, no handler start/stop, no Chrome launch; no secret value, ref path or
+  account value in any artifact; all L2 execution was scratch-only.

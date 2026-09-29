@@ -5,6 +5,8 @@ Source: `~/.local/bin/the-janitor` `cmd_refs` (L228–235) and `cmd_run`
 The file's *contents* were not read — this entry describes the mechanism, not
 the keys.
 
+Reverify: R11-02, R11-04, R12-01
+
 ## The pattern
 
 `op.env` is the single env file consumed by `op run`. Convention enforced by

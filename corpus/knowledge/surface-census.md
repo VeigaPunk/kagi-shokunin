@@ -11,6 +11,8 @@ scanned=4 ok=34 absent=2 skipped=0)` exit 0; `SURFACE_CENSUS_VERBS: CLEAN
 (pass=7 skip=3)`; `--deep` → `(pass=10 skip=0)`; `SELFTEST: PASS (16 cases)`.
 No vault read, no `op` exec in the default probe set, no handler start.
 
+Reverify: R11-01, R11-02, R11-03, R11-10, R11-11
+
 ## Why this gate exists
 
 Rounds 1–9 governed the *contents* claim of this domain and left the *surface*

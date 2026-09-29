@@ -5,6 +5,8 @@ Source: `~/.local/bin/the-janitor` read 2026-09-28 (sha256
 L7–27 (path/port knobs) and `cmd_serve` L194–210 (auth selectors). No knob
 list exists in `usage()` — this table is the only complete inventory.
 
+Reverify: R11-02, R11-04
+
 ## Knob table
 
 | Variable | Default | Read at | Effect |

@@ -50,6 +50,19 @@
 #              id that never existed passed every gate, and rows cited nowhere
 #              went unnoticed (five at round 12). Uncited rows are ORPHANs:
 #              counted, informational, listed with `--orphans`.
+#   entry    — `docs` audits the knowledge surface: every
+#              `corpus/knowledge/*.md` entry must declare how its host-fact
+#              base is re-verified, on ONE line, in one of two strict forms:
+#                `Reverify: R11-04, R11-05`  (claim rows, re-run by `verify`)
+#                `Reverify: by-hand: <class> — <reason ≥24 chars>`
+#              and must be a row in `corpus/stamps.tsv` (a revision pin). The
+#              four by-hand classes (control-plane-scratch | opencode-internal |
+#              interactive-only | vault-refusal) are the explicit, countable
+#              unverifiable set, not a bin: the mode fails when fewer than half
+#              the entries carry a row, so the escape cannot swallow the rule.
+#              The declaration is a POINTER, not relevance — a row can be
+#              irrelevant to the entry beside it (round-13 critic's executed
+#              counterexample, still open; see §Bounds).
 #   cell     — `cells` audits `SCORECARD.md`'s own score card: every table row
 #              inside a `## Round <N> — pre-move|post-move` section whose first
 #              cell is one of the six axis names must carry a POINTER — a
@@ -65,7 +78,8 @@
 #           citations: CLEAN | BROKEN (UNRESOLVED / EPHEMERAL lines)
 #           idref:    OK (silent) | MISSING-ID doc:line id | ORPHAN (--orphans)
 #           cells:    OK (silent) | MISSING-ID file:line id | UNCITED file:line axis
-# Exit      0 clean · 1 drift/claim/id/cell failure · 2 policy/setup error
+#           entry:    OK (silent) | UNDECLARED | MISSING-ID | UNPINNED | RATIO
+# Exit      0 clean · 1 drift/claim/id/cell/entry failure · 2 policy/setup error
 #
 # Secret hygiene: the gate prints paths, hashes of repo files, claim ids,
 # exit codes and counts. It NEVER echoes a claim's output (a claim could read
@@ -155,7 +169,7 @@ policy_check() {
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
-    verify|citations|cells) MODE="$1"; shift ;;
+    verify|citations|cells|docs) MODE="$1"; shift ;;
     --selftest) MODE="selftest"; shift ;;
     stamp) MODE="stamp"; shift ;;
     --stamps) [[ $# -ge 2 ]] || die "--stamps needs a file"; STAMPS="$2"; shift 2 ;;
@@ -778,6 +792,126 @@ cells_evidence() {
   return 0
 }
 
+# --- knowledge entries -------------------------------------------------------
+# A knowledge entry is the lane's primary product: prose whose host-fact base
+# must be re-runnable. Before round 14 nothing linked the two: 16 of 17 entries
+# named no claim row, 10 of 17 were not revision-pinned, and no command could
+# tell a reader whether that had changed. `docs` makes the link a declaration
+# and the gap countable.
+#
+# Two forms, parsed strictly (a third form is a setup error, not a third class):
+#   `Reverify: R11-04, R11-05`                      ids, comma+space separated
+#   `Reverify: by-hand: <class> — <reason ≥24>`     the explicit unverifiable set
+# Exit 2 = shape (no entries, ≥2 declarations, malformed value, unknown class,
+# short reason); exit 1 = defect (UNDECLARED, MISSING-ID, UNPINNED, RATIO).
+BYHAND_CLASSES='control-plane-scratch|opencode-internal|interactive-only|vault-refusal'
+DA_N=0 DA_ROWS=0 DA_BYHAND=0 DA_UNDECLARED=0 DA_MISSING=0 DA_UNPINNED=0
+DA_DUPLICATE=0
+DA_FLOOR=0
+doc_audit() {
+  local dir=${1:-corpus/knowledge} rel f line val ids_re class reason id
+  local nrows byhand n key near
+  local -a FILES=() DECLS=() REASONS=()
+  DA_N=0 DA_ROWS=0 DA_BYHAND=0 DA_UNDECLARED=0 DA_MISSING=0 DA_UNPINNED=0
+  DA_DUPLICATE=0 DA_FLOOR=0
+  [[ $dir == /* ]] && die "entries dir must be relative to --root, got an absolute path: $dir"
+  [[ $dir == *..* ]] && die "entries dir contains '..': $dir"
+  [[ -d $ROOT/$dir ]] || die "entries dir not found: $ROOT/$dir"
+  ids_re='^R[0-9]+-[0-9]+(, ?R[0-9]+-[0-9]+)*$'
+  # a directory with no entries would report CLEAN over an empty surface — the
+  # vacuity class this gate has refused since round 11
+  shopt -s nullglob
+  FILES=("$ROOT/$dir"/*.md)
+  # `*.md` does not match a dotfile, so a hidden entry would be invisible rather
+  # than wrong (round-14 mutation lane): refuse it loudly instead. Checked
+  # BEFORE the empty-surface refusal, so a dir of only hidden entries reports
+  # the hidden file rather than "no entries".
+  local -a HIDDEN=("$ROOT/$dir"/.[!.]*.md)
+  [[ ${#HIDDEN[@]} -eq 0 ]] ||
+    die "hidden entry under $dir: ${HIDDEN[0]#"$ROOT/"} (dotfiles are not audited by the *.md glob; remove it or rename it)"
+  [[ ${#FILES[@]} -gt 0 ]] || die "no knowledge entries under $dir (refusing a clean run over an empty surface)"
+  load_ids
+  load_stamps
+  for f in "${FILES[@]}"; do
+    rel=${f#"$ROOT/"}
+    DA_N=$((DA_N + 1))
+    DECLS=()
+    # `grep -n` so a second declaration can be named with its line
+    while IFS= read -r line; do [[ -n $line ]] && DECLS+=("$line"); done \
+      < <(grep -nE '^Reverify: ' "$f" || true)
+    n=${#DECLS[@]}
+    # a malformed spelling (`Reverify:`, `Reverify :`, a detached colon) would
+    # otherwise be invisible and read as UNDECLARED; every line that STARTS with
+    # `Reverify` must be a declaration (round-14 planner finding)
+    near=$(grep -cE '^Reverify' "$f" || true)
+    [[ $near -eq $n ]] ||
+      die "entry $rel: $((near - n)) line(s) start with 'Reverify' but are not 'Reverify: ' declarations"
+    nrows=0; byhand="-"
+    if [[ $n -eq 0 ]]; then
+      printf 'UNDECLARED %s (no Reverify line)\n' "$rel"
+      DA_UNDECLARED=$((DA_UNDECLARED + 1))
+    elif [[ $n -gt 1 ]]; then
+      die "entry $rel carries $n Reverify lines (exactly one required)"
+    else
+      val=${DECLS[0]#*:}; val=${val#Reverify: }
+      if [[ $val =~ $ids_re ]]; then
+        # `tr` splits the id list; the strict form already refused anything else
+        for id in $(printf '%s' "$val" | tr ',' ' '); do
+          [[ -n $id ]] || continue
+          # `row_linked` counts entries naming at least one RESOLVING row: a
+          # fabricated id must not raise the ratio while the run is BROKEN
+          if is_row "$id"; then
+            nrows=$((nrows + 1))
+          else
+            printf 'MISSING-ID %s %s (declared id is not a claim row)\n' "$rel" "$id"
+            DA_MISSING=$((DA_MISSING + 1))
+          fi
+        done
+      elif [[ $val == 'by-hand: '* ]]; then
+        reason=${val#'by-hand: '}
+        [[ $reason == *' — '* ]] ||
+          die "entry $rel: by-hand declaration needs the ' — ' separator: $val"
+        class=${reason%% — *}
+        reason=${reason#* — }
+        [[ $class =~ ^($BYHAND_CLASSES)$ ]] ||
+          die "entry $rel: unknown by-hand class '$class' (allowed: ${BYHAND_CLASSES//|/, })"
+        # trim surrounding whitespace: padding must not reach the 24-char floor
+        # (round-14 mutation lane: an empty reason padded to 24 spaces)
+        reason=${reason#"${reason%%[![:space:]]*}"}
+        reason=${reason%"${reason##*[![:space:]]}"}
+        [[ ${#reason} -ge 24 ]] ||
+          die "entry $rel: by-hand reason is ${#reason} chars (the stated floor is 24): $reason"
+        byhand=$class
+        DA_BYHAND=$((DA_BYHAND + 1))
+        # N identical reasons mean the class was not reasoned per entry — the
+        # cheapest rubber stamp (round-14 critic's executed fixture). Compared
+        # case-folded and whitespace-collapsed.
+        key=$(printf '%s' "$reason" | tr '[:upper:]' '[:lower:]' | tr -s '[:space:]' ' ')
+        if [[ " ${REASONS[*]-} " == *" $key "* ]]; then
+          printf 'DUPLICATE-REASON %s (identical by-hand reason already used)\n' "$rel"
+          DA_DUPLICATE=$((DA_DUPLICATE + 1))
+        else
+          REASONS+=("$key")
+        fi
+      else
+        die "entry $rel: Reverify value matches neither form: $val"
+      fi
+    fi
+    # a revision pin, for every entry: a by-hand measurement recorded at an
+    # unknown revision is the round-9 failure (a claim nothing can re-check)
+    if ! stamp_index "$rel" >/dev/null; then
+      printf 'UNPINNED %s (knowledge entry is not a row in the stamps file)\n' "$rel"
+      DA_UNPINNED=$((DA_UNPINNED + 1))
+    fi
+    DA_ROWS=$((DA_ROWS + (nrows > 0 ? 1 : 0)))
+    printf 'ENTRY %s row_linked=%d by_hand=%s\n' "$rel" "$nrows" "$byhand"
+  done
+  DA_FLOOR=$(((DA_N + 1) / 2))
+  printf 'DOC_AUDIT_RATIO: row_linked=%d/%d floor=%d by_hand=%d duplicate_reasons=%d\n' \
+    "$DA_ROWS" "$DA_N" "$DA_FLOOR" "$DA_BYHAND" "$DA_DUPLICATE"
+  return 0
+}
+
 case "$MODE" in
   stamp)
     stamp
@@ -797,6 +931,16 @@ case "$MODE" in
     fi
     printf 'CLAIM_LEDGER: CLEAN (claims=%d stamped=%d ids=%d cited=%d labeled_ids=%d orphans=%d)\n' \
       "$C_N" "$V_ROWS" "$LID_N" "$IDX_CITED" "$IDX_LABELED" "$IDX_ORPHANS"
+    ;;
+  docs)
+    doc_audit "${POS[0]:-corpus/knowledge}"
+    if [[ $DA_UNDECLARED -gt 0 || $DA_MISSING -gt 0 || $DA_UNPINNED -gt 0 || $DA_DUPLICATE -gt 0 || $((DA_ROWS * 2)) -lt $DA_N ]]; then
+      printf 'DOC_AUDIT: BROKEN (entries=%d row_linked=%d by_hand=%d undeclared=%d missing_ids=%d unpinned=%d duplicate_reasons=%d floor=%d)\n' \
+        "$DA_N" "$DA_ROWS" "$DA_BYHAND" "$DA_UNDECLARED" "$DA_MISSING" "$DA_UNPINNED" "$DA_DUPLICATE" "$DA_FLOOR"
+      exit 1
+    fi
+    printf 'DOC_AUDIT: CLEAN (entries=%d row_linked=%d by_hand=%d undeclared=0 missing_ids=0 unpinned=0 duplicate_reasons=0)\n' \
+      "$DA_N" "$DA_ROWS" "$DA_BYHAND"
     ;;
   cells)
     # the id audit runs first: it is what resolves the ids a cell cites, and its
@@ -948,6 +1092,57 @@ if [[ ${SELFTEST:-0} -eq 1 ]]; then
   printf 'session URI labelled as scratch: `local://round-11/x.md` here\n' >"$R/corpus/docs/labeled-line.md"
   printf 'doc cites `corpus/ok.txt:1,2,3` and `corpus/ok.txt:4-6` here\n' >"$R/corpus/docs/multiref.md"
 
+  # --- round 14: knowledge-entry declarations (`docs`) ------------------------
+  # `entry` writes a minimal entry; `estamp` pins one; the pinned set is
+  # everything except the unpinned fixture, which is the point of that case.
+  entry() { # relpath [declaration-line]
+    local p="$R/$1"
+    mkdir -p "${p%/*}"
+    printf 'Source basis: selftest fixture.\n' >"$p"
+    [[ -n ${2:-} ]] && printf '%s\n' "$2" >>"$p"
+    return 0
+  }
+  estamp() { # relpath
+    local f="$R/$1" s
+    s=$(sha256sum -- "$f"); s=${s%% *}
+    printf '%s\t%s\t%s\t%s\n' "$1" "$s" \
+      "$(wc -l <"$f" | tr -d '[:space:]')" "$(wc -c <"$f" | tr -d '[:space:]')"
+  }
+  entry entries-ok/a.md 'Reverify: R1-01'
+  entry entries-ok/b.md 'Reverify: R1-01, R1-01'
+  entry entries-undeclared/a.md
+  entry entries-missing-id/a.md 'Reverify: R9-99'
+  entry entries-two-decl/a.md 'Reverify: R1-01'
+  printf 'Reverify: R1-01\n' >>"$R/entries-two-decl/a.md"
+  entry entries-bad-class/a.md 'Reverify: by-hand: made-up — a reason long enough to pass the floor'
+  entry entries-short-reason/a.md 'Reverify: by-hand: vault-refusal — short'
+  entry entries-no-sep/a.md 'Reverify: by-hand: vault-refusal reason with no dash separator here'
+  entry entries-garbage/a.md 'Reverify: R1-01 and some trailing prose'
+  entry entries-suffixed/a.md 'Reverify: R1-01a'
+  entry entries-unpinned/a.md 'Reverify: R1-01'
+  entry entries-dup/a.md 'Reverify: by-hand: control-plane-scratch — one identical reason for every entry'
+  entry entries-dup/b.md 'Reverify: by-hand: control-plane-scratch — one identical reason for every entry'
+  entry entries-floor/a.md 'Reverify: R1-01'
+  entry entries-floor/b.md 'Reverify: by-hand: interactive-only — needs a human at the keyboard for this one'
+  entry entries-floor/c.md 'Reverify: by-hand: vault-refusal — would put a ref path in a durable artifact'
+  entry entries-boundary/a.md 'Reverify: R1-01'
+  entry entries-boundary/b.md 'Reverify: by-hand: vault-refusal — would put a ref path in a durable artifact'
+  mkdir -p "$R/entries-empty"
+  entry entries-hidden/.hidden.md 'Reverify: R1-01'
+  entry entries-malformed/a.md 'Reverify:'
+  mkdir -p "$R/entries-pad"
+  printf 'Source basis: selftest fixture.\nReverify: by-hand: vault-refusal —%*s\n' 30 '' \
+    >"$R/entries-pad/a.md"
+  : >"$R/stamps-entries.tsv"
+  for p in entries-ok/a.md entries-ok/b.md entries-undeclared/a.md entries-missing-id/a.md \
+           entries-two-decl/a.md entries-bad-class/a.md entries-short-reason/a.md \
+           entries-no-sep/a.md entries-garbage/a.md entries-suffixed/a.md \
+           entries-dup/a.md entries-dup/b.md entries-floor/a.md entries-floor/b.md \
+           entries-floor/c.md entries-boundary/a.md entries-boundary/b.md \
+           entries-malformed/a.md; do
+    estamp "$p" >>"$R/stamps-entries.tsv"
+  done
+
   cases=0; failures=0
   tcase() { # name want_rc want_substr argv...
     local name=$1 want_rc=$2 want_out=$3; shift 3
@@ -955,6 +1150,24 @@ if [[ ${SELFTEST:-0} -eq 1 ]]; then
     local out rc
     rc=0; out=$("$@" 2>&1) || rc=$?
     if [[ $rc -eq $want_rc && $out == *"$want_out"* ]]; then
+      printf 'ok-case  %-2d %-34s exit=%d\n' "$cases" "$name" "$rc"
+    else
+      printf 'FAIL-case %-34s exit=%d want=%d\n' "$name" "$rc" "$want_rc"
+      printf '%s\n' "$out" | sed 's/^/    | /'
+      failures=$((failures + 1))
+    fi
+  }
+
+  #   tcase_last asserts the LAST non-empty line exactly — the ledger's own
+  #   last-line rule applies to a summary, so a mode that prints its verdict and
+  #   then more detail must fail this (round-14 mutation lane)
+  tcase_last() { # name want_rc want_lastline argv...
+    local name=$1 want_rc=$2 want_line=$3; shift 3
+    cases=$((cases + 1))
+    local out rc last
+    rc=0; out=$("$@" 2>&1) || rc=$?
+    last=$(printf '%s\n' "$out" | grep -v '^[[:space:]]*$' | tail -n 1 || true)
+    if [[ $rc -eq $want_rc && $last == "$want_line" ]]; then
       printf 'ok-case  %-2d %-34s exit=%d\n' "$cases" "$name" "$rc"
     else
       printf 'FAIL-case %-34s exit=%d want=%d\n' "$name" "$rc" "$want_rc"
@@ -1046,6 +1259,30 @@ if [[ ${SELFTEST:-0} -eq 1 ]]; then
   tcase stamps-dotdot-row      2 "stamps row names a path with '..'" "$0" verify --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps-dotdot.tsv" --docs "$R/corpus/docs/id-known.md"
   tcase stamps-absolute-row    2 'stamps row names an absolute path' "$0" verify --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps-abs.tsv" --docs "$R/corpus/docs/id-known.md"
   tcase cells-bad-round-heading 2 'unrecognised round heading' "$0" cells --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-bad-heading.md" --docs "$R/sc-bad-heading.md"
+  # --- round 14: knowledge-entry declarations ---------------------------------
+  DA=(--root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps-entries.tsv")
+  tcase_last docs-clean       0 'DOC_AUDIT: CLEAN (entries=2 row_linked=2 by_hand=0 undeclared=0 missing_ids=0 unpinned=0 duplicate_reasons=0)' "$0" docs "${DA[@]}" entries-ok
+  tcase docs-undeclared       1 'UNDECLARED entries-undeclared/a.md' "$0" docs "${DA[@]}" entries-undeclared
+  tcase_last docs-undeclared-summary 1 'DOC_AUDIT: BROKEN (entries=1 row_linked=0 by_hand=0 undeclared=1 missing_ids=0 unpinned=0 duplicate_reasons=0 floor=1)' "$0" docs "${DA[@]}" entries-undeclared
+  tcase docs-missing-id       1 'MISSING-ID entries-missing-id/a.md R9-99' "$0" docs "${DA[@]}" entries-missing-id
+  tcase_last docs-missing-id-summary 1 'DOC_AUDIT: BROKEN (entries=1 row_linked=0 by_hand=0 undeclared=0 missing_ids=1 unpinned=0 duplicate_reasons=0 floor=1)' "$0" docs "${DA[@]}" entries-missing-id
+  tcase docs-padded-reason    2 'reason is 0 chars' "$0" docs "${DA[@]}" entries-pad
+  tcase docs-two-declarations 2 'carries 2 Reverify lines' "$0" docs "${DA[@]}" entries-two-decl
+  tcase docs-unknown-class    2 "unknown by-hand class 'made-up'" "$0" docs "${DA[@]}" entries-bad-class
+  tcase docs-short-reason     2 'reason is 5 chars' "$0" docs "${DA[@]}" entries-short-reason
+  tcase docs-no-separator     2 "needs the ' — ' separator" "$0" docs "${DA[@]}" entries-no-sep
+  tcase docs-trailing-garbage 2 'matches neither form' "$0" docs "${DA[@]}" entries-garbage
+  tcase docs-id-suffixed      2 'matches neither form' "$0" docs "${DA[@]}" entries-suffixed
+  tcase docs-unpinned         1 'UNPINNED entries-unpinned/a.md' "$0" docs "${DA[@]}" entries-unpinned
+  tcase docs-duplicate-reason 1 'DUPLICATE-REASON entries-dup/b.md' "$0" docs "${DA[@]}" entries-dup
+  tcase docs-ratio-floor      1 'DOC_AUDIT: BROKEN (entries=3 row_linked=1 by_hand=2 undeclared=0 missing_ids=0 unpinned=0 duplicate_reasons=0 floor=2)' "$0" docs "${DA[@]}" entries-floor
+  tcase docs-ratio-boundary   0 'DOC_AUDIT: CLEAN (entries=2 row_linked=1 by_hand=1 undeclared=0 missing_ids=0 unpinned=0 duplicate_reasons=0)' "$0" docs "${DA[@]}" entries-boundary
+  tcase docs-zero-entries     2 'no knowledge entries' "$0" docs "${DA[@]}" entries-empty
+  tcase docs-hidden-entry     2 'hidden entry' "$0" docs "${DA[@]}" entries-hidden
+  tcase docs-dir-dotdot       2 "entries dir contains '..'" "$0" docs "${DA[@]}" entries-ok/../entries-ok
+  tcase docs-dir-absolute     2 'must be relative to --root' "$0" docs "${DA[@]}" /etc
+  tcase docs-dir-missing      2 'entries dir not found' "$0" docs "${DA[@]}" entries-nope
+  tcase docs-malformed-line   2 "are not 'Reverify: ' declarations" "$0" docs "${DA[@]}" entries-malformed
 
   if [[ $failures -eq 0 ]]; then printf 'SELFTEST: PASS (%d cases)\n' "$cases"; exit 0; fi
   printf 'SELFTEST: FAIL (%d/%d cases)\n' "$failures" "$cases"; exit 1

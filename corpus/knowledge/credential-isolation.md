@@ -4,6 +4,8 @@ Source: `~/.local/bin/the-janitor` `cmd_serve` (L186–226), `~/.config/the-jani
 `~/.config/opencode/agents/janitor.md`, `~/.config/opencode/tools/janitor_auth.ts`.
 All read 2026-09-28.
 
+Reverify: R11-01, R11-04
+
 ## Authorization lives in one process
 
 - `_serve` runs inside detached tmux session `janitor`. Two auth paths (L194–210):

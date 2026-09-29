@@ -9,6 +9,8 @@ inside the opencode binary. No model call, no vault access — all deterministic
 `OPENCODE_CONFIG=$CONFIG_DIR/opencode.json`. What the handler actually loads is
 a **merge of layers**, not a single file:
 
+Reverify: by-hand: opencode-internal — the merge order and the resolved `steps` were measured with `opencode debug config` under the `_serve` env; no allowlisted row command can run opencode, so only the layer files' revisions are pinned (R11-04)
+
 ## The layers
 
 | Layer | Source | Discovered how | In the resolved janitor? |

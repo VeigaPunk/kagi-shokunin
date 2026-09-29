@@ -35,9 +35,12 @@ authorization fails inside `op`, not in the wrapper — expect `op`'s own error.
 
 ## Discipline checklist implied by the code
 
-1. New keys go in `op.env` as `KEY=op://…` — a raw value would be flagged by
-   `refs` as `<redacted-non-op-value>` and sits at 0600 in a file other tools
-   may read.
+1. New keys go in `op.env` as `KEY=op://…` — a raw value is flagged by `refs`
+   as `<redacted-non-op-value>` **only if the line matches
+   `^[A-Z][A-Z0-9_]*=`**; on an `export K=v`, spaced, indented or lowercase line
+   the line (value included) never appears in the inventory at all
+   (`knowledge/op-ref-consumption.md`) — and it sits at 0600 in a file other
+   tools may read.
 2. `run` is for one-shot caller-side use; anything persistent goes through
    `the-janitor request` (stdin), which carries handler authorization.
 3. Never diff/copy `op.env` into artifacts; the *shape* (`KEY=op://` lines,

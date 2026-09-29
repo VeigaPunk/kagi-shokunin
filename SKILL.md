@@ -26,8 +26,11 @@ corpus entry). Handle hygiene *evidence* and *flows*, not secret material.
 | Check handler state | `the-janitor status` | reading `session-id` to infer auth | prints `state`, `health`, `authorization process_memory_only` |
 | Check 1Password authorization | `request` → handler calls `janitor_auth` → `AUTH_OK`/`AUTH_REQUIRED` | `op whoami` against handler auth | caller-side check is `the-janitor whoami` — exit 1 (`account is not signed in`) predicts `request` will die in readiness |
 | One-shot command with vault env | `the-janitor run -- <cmd>` | assuming handler auth; it uses caller's `op` | needs `~/.config/the-janitor/op.env` present |
-| Inventory env keys | `the-janitor refs` | `cat op.env` (skips redaction); pasting output into artifacts; **trusting it as a redactor** | `KEY=op://…` verbatim / `KEY=<redacted-non-op-value>` — but the guard is a *prefix match*: any value whose first 5 bytes are `op://` is echoed whole, plaintext tail included (round-10 probe `refs-redaction-prefix-only`), and `export K=v`, ` K=v`, `lower_case=v` lines are silently **omitted** from the inventory |
+| Inventory env keys | `the-janitor refs` | `cat op.env` (skips redaction); pasting output into artifacts; **trusting it as a redactor** | `KEY=op://…` verbatim / `KEY=<redacted-non-op-value>` — but the guard is a *prefix match*: any value whose first 5 bytes are `op://` is echoed whole, plaintext tail included (round-10 probe `refs-redaction-prefix-only`), and `export K=v`, ` K=v`, `lower_case=v` lines are silently **omitted** from the inventory; a **quoted** `"op://…"` value is reported as non-ref although `op run` resolves it; duplicate keys are listed once per *line* (round 12, `corpus/knowledge/op-ref-consumption.md`) |
 | One-shot command with vault env (auth state unknown) | `timeout 30 the-janitor run -- <cmd>` | running it bare while signed out — an `op://` ref makes it block silently (round-10: exit 1 after 4 s *or* exit 124 with both streams empty at a 25 s bound) | plain-value env files pass through with exit 0 and no vault access; any ref makes the exit depend on live auth |
+| Know what an env file **actually loads** | `bash corpus/op-ref-probe.sh` (contract verdict) and, for a specific file, `op run --env-file=<file> -- printenv <KEY>` per key | trusting `refs` as the loader's view — it misses `export K=v` / `K = v` / lowercase keys, lists duplicate keys once per line, and reports a **quoted** `"op://…"` as a non-ref while `op run` resolves it | `op` 2.35.0 fixture: `op run` injects 12 keys, `refs` lists 7, `divergent=5`; expansion, `#`-truncation, quote-stripping, dedup and whole-file parse aborts (BOM, bare key, `-` in a key) are all invisible to `refs` (`corpus/knowledge/op-ref-consumption.md`) |
+| Know whether `run` output is masked | assume **not masked** for any plain-valued key; only `op://`-resolved values are concealed by default (`--no-masking` turns that off, and does nothing to plain values) | passing `--no-masking` to "see clear text" of a *ref*; writing a plain secret into `op.env` and then pasting `the-janitor run` output | measured 2026-09-28: `printenv`, subshell `echo`, substring and shell-env shapes all print the plain value verbatim; `cmd_run` (L248) passes no masking flag, so this is the default path |
+| Verify an env file's shape before trusting it | `bash corpus/op-ref-probe.sh --fixture <dir>` (refused if any op-side file carries a ref token — POLICY exit 2) | pointing the probe at `$CONFIG_DIR/op.env` — it holds real refs and the guard will (correctly) refuse | exit 0 `OP_REF_PROBE: CLEAN (checks=44 oprun=12 refs=7 divergent=5 edge=10 sig=6)`; 1 `DRIFT` + `FAIL` lines; 2 `SETUP`/`POLICY` |
 | Verify the declared surfaces / catch an undeclared config drop | `bash corpus/surface-census.sh` (compares the host against `corpus/surface-census.tsv` + `corpus/state-shape.tsv`) | editing a TSV to go green; declaring another lane's paths; assuming prose in `PROVINCE.md` verifies anything | exit 0 `SURFACE_CENSUS: CLEAN (assets=… runtime=… scanned=… ok=… absent=… skipped=…)`; 1 `DRIFT (…)` preceded by `DIVERGED`/`GONE`/`LINK`/`UNLISTED`/`CROSSCHECK` and `SHAPE`/`UNVERIFIED` lines naming path + assertion; `UNLISTED` = an undeclared child of one of the 4 enumerable dirs (the round-6 config-drop vector); `ABSENT` and `SKIP`(locked DB) are informational; `UNVERIFIED` (shape class unreadable) is **not** — it fails the run; 2 usage/setup |
 | Exercise the handler's write-side verbs safely | `bash corpus/surface-census.sh --verbs` (scratch overrides; execs no `op`); add `--deep` only with the operator present | running `--deep` unattended — it can raise the 1Password desktop prompt and reads the real custody record | default: `PASS|SKIP` per probe, `SURFACE_CENSUS_VERBS: CLEAN (pass=N skip=M)`; `--deep` = 10 probes / 0 skips; `--selftest` proves 16 cases |
 | Start / stop handler | `the-janitor start` / `stop` | `kill` on the tmux pane | `stop` discards in-memory authorization; next `start` requires re-approval |
@@ -38,7 +41,7 @@ corpus entry). Handle hygiene *evidence* and *flows*, not secret material.
 | Verify model endpoint is real | `curl -fsS <endpoint-minus-/v1>/health` → `{"status":"ok"}` | trusting `status`'s `endpoint` line — it prints config, never probes | port 8080 was a Jitsi videobridge on 2026-09-28 while llama-server served the model on 34113 |
 | Audit transcript for leaked secrets | `corpus/transcript-scan.sh` (immutable, counts-only) | printing matched text; `sqlite3` without `file:…?immutable=1` (mutates `-wal`/`-shm` in the live dir) | exit 0 `TRANSCRIPT_SCAN: CLEAN` (WARN cells = credential-language text — expected, not a finding); exit 1 = secret-shaped material or populated credential table; `--selftest` checks the gate itself |
 | Trust a cited line ref / catch host-file drift | `bash corpus/drift-pins.sh` (compares the live host against the committed `corpus/drift-baseline.tsv` + `corpus/drift-symbols.tsv`) | the round-6 fingerprint printer (no stored baseline ⇒ it cannot detect drift); editing a TSV to go green; re-pinning to silence red | exit 0 `DRIFT_PINS: CLEAN (files=N symbols=M)`; 1 `DRIFT_PINS: DRIFT (…)` preceded by `DRIFT`/`MISSING`/`LINK`/`UNPINNED`/`EXTRA`/`DUP`/`POLICY`/`EMPTY` and symbol `MOVED`/`GONE`/`AMBIG`/`COUNT`/`SHAPE` lines naming file + line; 2 usage/setup, nothing written; `--pin` only after inspection |
-| Re-run a claim this corpus makes / name the revision you read / cite an artifact | `bash corpus/claim-ledger.sh verify` (stamps + claims) before citing; `… stamp PATH…` after landing edits; `… citations` before adding a path reference to a doc | citing a file you have not stamped; editing a claim row's `expect` to go green; treating a `STALE` stamp as a defect — it is a question ("was the edit intended?") | `CLAIM_LEDGER: CLEAN (claims=11 stamped=N)` exit 0; 1 = `STALE`/`MISSING`/`FAIL` lines (claim id + reason); 2 = `POLICY` (a row that is not one simple command) — `citations` ⇒ `CITATION_GATE: CLEAN (cites=… docs=37 unresolved=0 ephemeral=0 labeled=N)`; `UNRESOLVED`/`EPHEMERAL` lines name doc:line + token; a dead token passes only when its own line says so (`scratch\|relocat\|formerly\|…` → `labeled`) |
+| Re-run a claim this corpus makes / name the revision you read / cite an artifact / audit a score | `bash corpus/claim-ledger.sh verify` (stamps + claims + claim ids) before citing; `… cells` over `SCORECARD.md`; `… stamp PATH…` after landing edits; `… citations` before adding a path reference to a doc | citing a file you have not stamped; editing a claim row's `expect` to go green; treating a `STALE` stamp as a defect — it is a question ("was the edit intended?"); citing an id a row does not define; a scorecard cell whose pointer is a path that has moved | `CLAIM_LEDGER: CLEAN (claims=17 stamped=N ids=N cited=N labeled_ids=N orphans=N)` exit 0; 1 = `STALE`/`MISSING`/`MISSING-ID`/`FAIL` lines (claim id + reason); 2 = `POLICY` (a row that is not one simple command) — `citations` ⇒ `CITATION_GATE: CLEAN (cites=… docs=… unresolved=0 ephemeral=0 labeled=N)`; `cells` ⇒ `CELL_AUDIT: CLEAN (cells=N row_pointed=R stamp_pointed=S uncited=0 missing_ids=0 rows_run=R row_failures=0 stale_pointers=0 self_skipped=K orphans=O)` with `UNCITED`/`MISSING-ID`/`STALE-POINTER` lines naming file:line; a cell pointing at nothing, or no cell pointing at a row, is exit 2 |
 
 ## Control-plane trust boundary (`corpus/knowledge/handler-trust-boundary.md`)
 
@@ -176,7 +179,7 @@ outside lane control. Run the gate before trusting any of them:
 - **Baselines are committed, not printed.** `corpus/drift-baseline.tsv` holds
   one row per cited host file — `$HOME-relative path<TAB>mode<TAB>lines<TAB>sha256`
   (15 files as of round 9) — and `corpus/drift-symbols.tsv` holds the content
-  claims themselves: `path<TAB>line<TAB>ERE[<TAB>shape]`, 19 rows. The two
+  claims themselves: `path<TAB>line<TAB>ERE[<TAB>shape]`, 20 rows. The two
   endpoint rows are **value** pins (`the-janitor:19`
   `^MODEL_ENDPOINT="http://127\.0\.0\.1:8080/v1"$`, `opencode.json:16` the same
   literal) because the actionable claim is that both declarations still pin the
@@ -229,9 +232,10 @@ outside lane control. Run the gate before trusting any of them:
 Every claim this corpus makes should be re-runnable, and every artifact it
 cites should be the revision a reader can name. Run the ledger before you cite:
 
-    bash corpus/claim-ledger.sh verify     # stamps + claims; exit 0 CLEAN, 1 FAIL/STALE, 2 POLICY/setup
+    bash corpus/claim-ledger.sh verify     # stamps + claims + claim ids; exit 0 CLEAN, 1 FAIL/STALE/MISSING-ID, 2 POLICY/setup
     bash corpus/claim-ledger.sh citations  # committed docs must cite durable evidence
-    bash corpus/claim-ledger.sh --selftest # 39 scratch cases (stamps, claims, policy, citations, brace sets)
+    bash corpus/claim-ledger.sh cells      # every scorecard cell must carry a pointer that still holds
+    bash corpus/claim-ledger.sh --selftest # 72 scratch cases (stamps, claims, policy, citations, claim ids, cell audit, the `stamp` row-set guard)
     bash corpus/claim-ledger.sh stamp corpus/claim-ledger.sh …   # re-pin after landing edits (reviewed commit)
 
 - **Claim rows** (`corpus/claim-ledger.tsv`): `id<TAB>command<TAB>expect<TAB>
@@ -239,10 +243,25 @@ cites should be the revision a reader can name. Run the ledger before you cite:
   expected one **and** the `expect` ERE matches the **last non-empty output
   line** — a verdict is a summary line, so a command that prints `CLEAN` early
   and dies later cannot pass (`reason=verdict-not-final`). Row failures print
-  id + reason + exit; the gate never echoes a claim's output. 11 rows as of
-  round 11 (three sibling gates across 9 modes with case counts pinned, the
-  transcript baseline whose expected exit is **1**, and two count rows that
+  id + reason + exit; the gate never echoes a claim's output. 17 rows as of
+  round 13 (three sibling gates across 9 modes, the round-12 `op.env` rows, the
+  transcript baseline whose expected exit is **1**, and five count rows that
   exist because docs carried stale numbers for them).
+- **Claim ids** (`verify`): every `R<digits>-<digits>` **whole word** in the
+  checked docs must be a row id, so a doc citing an id that no row defines fails
+  (`MISSING-ID doc:line id`, exit 1) — the ledger used to be iterated forward
+  only. Rows cited nowhere are `ORPHAN`s: counted, listed with `--orphans`.
+  Bound: the vocabulary is upper-case `R`, and a range (`R12-01..03`) validates
+  its head only.
+- **Scorecard cells** (`cells`): every table row inside a
+  `## Round <N> — pre-move|post-move` section whose first cell is an axis name
+  must carry a **pointer** — and a pointer counts only if it holds: the cited
+  rows are re-run through the ordinary claims machinery (`row_failures`), the
+  cited pinned artifacts are re-compared (`STALE-POINTER`), and a section that
+  has lost an axis is a setup error (`all six axes exactly once`). `UNCITED`
+  cell, missing id, failing cited row or moved pinned revision ⇒ exit 1;
+  zero cells, an empty id universe, or a scorecard outside `--docs` ⇒ exit 2.
+  A cell with no row pointer at all is a setup error (nothing to re-run).
 - **Revision stamps** (`corpus/stamps.tsv`): `path<TAB>sha256<TAB>lines<TAB>
   bytes`. `verify` recomputes; `STALE`/`MISSING`/`NOT-A-FILE` lines + exit 1.
   Regeneration is a reviewed `stamp` commit — **no auto-re-pin**: a stale row is
@@ -280,6 +299,9 @@ cites should be the revision a reader can name. Run the ledger before you cite:
 | `read an empty request from stdin` | empty stdin (client.py) | 2 |
 | `Janitor server is unavailable` / `HTTP <code>` / `invalid response` | transport-layer client errors | 1 |
 | `request completed without a text response` | well-formed reply, no text parts — **not a failure**, exits 0 | 0 |
+| `[ERROR] <ts> open <path>: no such file or directory` | `op run --env-file` over a missing file (direct `op` path; `cmd_run` refuses earlier with exit 2) | 1 |
+| `[ERROR] <ts> expected at least 1 arguments but got 0 instead` | `op run` with no command (direct `op`; `cmd_run` refuses earlier with `missing command`, exit 2) | 1 |
+| `[ERROR] <ts> "<vault>" isn't a vault in this account. Specify the vault with its ID or name.` | an `op://` value whose vault does not resolve — the fast-fail branch of the round-10 non-determinism (the other branch blocks silently) | 1, ~2 s |
 | `LOCAL_EVIDENCE_CHECK: FAILED (<reason>)` | receipt bytes/schema/fields diverge from custody record | 1 |
 | `JANITOR_ACTION_REQUIRED` in reply | handler correctly refusing to execute; operator action needed | — |
 
@@ -314,6 +336,34 @@ literal that only feeds `status`'s cosmetic `endpoint` line. The load-bearing
 URL is `provider.qwen-local.options.baseURL` in `opencode.json` — the
 round-3 drift fix is one JSON field there, after which the `status` line
 still lies until L19 is updated too.
+
+## `op.env` consumption — two parsers (`corpus/knowledge/op-ref-consumption.md`)
+
+`the-janitor refs` (`cmd_refs` L234, an `awk -F= '/^[A-Z][A-Z0-9_]*=/'`) and
+`the-janitor run` (`cmd_run` L248, `exec op run --env-file="$ENV_FILE" -- "$@"`)
+are **different parsers over the same file**, and they disagree on eight of the
+line shapes a real env file contains (measured, `op` 2.35.0; verdict gate
+`corpus/op-ref-probe.sh`):
+
+- `refs` **omits** keys the resolver injects — `export K=v`, `K = v` (spaces
+  around `=`), `k=v` (lowercase first char). An inventory is not a load list.
+- `refs` calls a **quoted** `K="op://…"` a non-ref; the dotenv parser strips the
+  quotes and resolves it — an audit false negative on a live credential.
+- `refs` lists every duplicate line; the resolver keeps the **last** one.
+- `op run` performs dotenv expansion (`$K`, `${K}`, file-local then process env,
+  unset → empty), strips surrounding quotes, and **treats `#` as a comment
+  anywhere in an unquoted value** (`K=ab#cd` → `ab`, silently). `refs` sees none
+  of that — it just redacts.
+- Precedence is the inverse of the common dotenv default: **env files beat the
+  shell environment**, and the last `--env-file` beats earlier ones.
+- Masking is narrower than its help text reads: only **reference-resolved**
+  values are concealed on stdout/stderr; plain values pass through, with or
+  without `--no-masking`.
+
+Wrapper guards fire before `op` (exit 2: `missing <path>`, `run: missing
+command`); `op`'s own argument/file errors are exit 1. Verify a file's shape
+without touching the vault: `bash corpus/op-ref-probe.sh` (POLICY refuses any
+op-side file carrying a ref token, so the probe cannot resolve a reference).
 
 ## Config layering (`corpus/knowledge/config-layering.md`, verified via `debug`)
 
@@ -356,10 +406,12 @@ only lazily: `janitor_auth` → `AUTH_REQUIRED` inside the next request.
 ## Credential-hygiene checklist
 
 Evidence production:
-- [ ] Record mechanism and metadata: paths, modes (`op.env`/`config.json`/`opencode.json`/`client.py` 0600–0755 in `$CONFIG_DIR`; state dir 0700; `client.lock`/`session-id` 0600 in `$STATE_DIR`), verb names, exit codes, field names. **`bash corpus/surface-census.sh` first** (round 10): exit 0 = every declared path still has its declared kind/mode, no undeclared child sits in the 4 enumerable dirs, and every runtime shape floor holds. Then `bash corpus/drift-pins.sh`: exit 0 = every pinned host file and symbol pin still matches the committed baseline (15 files / 19 pins as of round 9). Non-zero on either = re-read the named path before citing it. New cited file ⇒ census row (reviewed commit; there is no `--pin`) **and** a drift-pins `--pin` once. In-repo artifacts: run `bash corpus/claim-ledger.sh verify` first and cite the stamped revision (`corpus/stamps.tsv`); after landing edits, re-`stamp` (reviewed commit) — a `STALE` row means the artifact moved under the citation.
+- [ ] Record mechanism and metadata: paths, modes (`op.env`/`config.json`/`opencode.json`/`client.py` 0600–0755 in `$CONFIG_DIR`; state dir 0700; `client.lock`/`session-id` 0600 in `$STATE_DIR`), verb names, exit codes, field names. **`bash corpus/surface-census.sh` first** (round 10): exit 0 = every declared path still has its declared kind/mode, no undeclared child sits in the 4 enumerable dirs, and every runtime shape floor holds. Then `bash corpus/drift-pins.sh`: exit 0 = every pinned host file and symbol pin still matches the committed baseline (15 files / 20 pins as of round 12; 19 before it). Non-zero on either = re-read the named path before citing it. New cited file ⇒ census row (reviewed commit; there is no `--pin`) **and** a drift-pins `--pin` once. In-repo artifacts: run `bash corpus/claim-ledger.sh verify` first and cite the stamped revision (`corpus/stamps.tsv`); after landing edits, re-`stamp` (reviewed commit) — a `STALE` row means the artifact moved under the citation.
 - [ ] After any intentional host-file change (endpoint fix, config edit), run `--pin` **once** and report the `REPIN`/`MOVED` lines you accepted — that is the durability of every line ref in this corpus. Never re-pin inside the same round that discovers the drift.
 - [ ] Quote command output only when it is metadata-only (`status`, `cdp-bridge status`, `tac-check` block).
 - [ ] `refs` output: key names OK for internal use; ref paths stay out of artifacts.
+- [ ] Before relying on a key inventory, run `bash corpus/op-ref-probe.sh` (exit 0 = the `op.env` contract still holds on this host) and remember what it pins: `refs` answers about *lines*, `op run` answers about *loaded variables*. For a specific file, list keys with `op run --env-file=<file> -- printenv <KEY>`; `export`/spaced/lowercase/quoted-ref lines are where the two diverge.
+- [ ] Never paste `the-janitor run` output: plain-valued keys are **not** masked (only resolved refs are). Check a value's class before quoting it, and never write a plain secret into `op.env` expecting masking.
 - [ ] Receipts/checksums bind *bytes*: state scope explicitly ("local receipt integrity only"), never imply provider attestation or live access.
 - [ ] Handoffs carry context + receipt *path*; `handoff-status.json` `boundaries` is the vocabulary: `credentials_in_evidence: false`, `target_authority_conferred: false`.
 
@@ -410,6 +462,9 @@ Handler operation:
 - Hunting for `THE_JANITOR_ENDPOINT`-style overrides — none exists; `MODEL_ENDPOINT` (L19; L17 is `MODEL_ID`) feeds only `status`'s display line. Fix `opencode.json` `baseURL`.
 - Recording `op account get`/`account list` values — key names only; the values are account-identifying PII in the same class as `op://` ref paths.
 - Assuming `op.env` is all `op://` refs — 2026-09-28 `refs` showed raw-value keys (identifiers); the convention is unenforced, so `cat` still leaks them.
+- Treating `the-janitor refs` as the loader's view of `op.env` — it misses `export K=v`, `K = v` and lowercase keys that `op run` injects, and reports a quoted `"op://…"` as a non-ref that `op run` resolves. Two parsers, one file.
+- Reading masking as a general guarantee — `op run` conceals only **reference-resolved** values on stdout/stderr; plain keys print verbatim (`cmd_run` passes no `--no-masking`, so this is the default path, not an opt-out).
+- Writing a plain secret into an env file whose value can contain `#` or quotes — the dotenv parser truncates an unquoted value at `#` (`K=ab#cd` → `ab`) with no error, and strips surrounding quotes; the file looks right and the child gets something else.
 - Treating `session-id` as a credential — it's an OpenCode conversation id: deleting it only forks context, `client.py` `session_exists` self-heals a stale id, and `stop` removes it anyway.
 - Expecting a vault-revoked secret to surface eagerly — no watch exists; `janitor_auth` only runs inside a model request, so revocation shows up as `AUTH_REQUIRED` at next request time, never sooner.
 - Editing `~/.config/the-janitor/config.json` to change the handler — it is inert: `config.json` is not an opencode-discovered filename and nothing references it. Its `steps: 8` disagrees with the real `steps: 4` (resolved proof in `config-layering.md`); treat it as a decoy, never a knob.
@@ -551,3 +606,13 @@ Handler operation:
   that says "scratch" ⇒ `labeled=` + exit 0 (case 15); a command that prints
   the expected verdict then a trailer ⇒ `reason=verdict-not-final` + exit 1
   (case 16).
+- Round-12: `corpus/op-ref-probe.sh` + `knowledge/op-ref-consumption.md` — the
+  `op.env` contract (two parsers) and the masking scope. Repro:
+  `bash corpus/op-ref-probe.sh` ⇒ `OP_REF_PROBE: CLEAN (checks=44 oprun=12
+  refs=7 divergent=5 edge=10 sig=6)`, exit 0; `--selftest` ⇒
+  `OP_REF_SELFTEST: PASS (29 cases)`. Falsify: append `KAGI12_POISON=op://…` to
+  a copy's `oprun.env` and run with `OP_REF_OP_BIN` pointed at a logger stub ⇒
+  `POLICY` exit 2 **and an empty stub log** (selftest case `policy-ref-token`);
+  a stale `--evaluate` fixture with one value changed ⇒ `FAIL oprun-value` +
+  exit 1; `grep -n 'exec op run' ~/.local/bin/the-janitor` ⇒ L248 with no
+  `--no-masking` (the masking premise).

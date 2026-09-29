@@ -5,7 +5,7 @@
 **Owns:** the domain knowledge, playbooks, error patterns, and checklists above.
 **Refuses:** anything outside this domain; report cross-domain evidence back to the orchestrator rather than absorbing it.
 
-## Surfaces (each path resolves on this host 2026-09-28; this list is the declaration `corpus/surface-census.sh` enforces — round-10 census: 20 asset / 15 runtime rows, `scanned=4`, all absent=0, symlinks=0, `UNLISTED=0`)
+## Surfaces (each path resolves on this host 2026-09-28; this list is the declaration `corpus/surface-census.sh` enforces — round-10 census: 20 asset / 15 runtime rows, `scanned=4`, `absent=2` (both runtime, informational — `session-id` while stopped + its shape row), symlinks=0, `UNLISTED=0`)
 
 Handler:
 - `~/.local/bin/the-janitor` (755, 333 lines) — the CLI: `status`/`start`/`stop`/`request`/`run`/`refs`/`whoami`/`cdp-bridge`/`tac-check`/`tac-register`/`_serve` (hidden)
@@ -35,7 +35,9 @@ Network surfaces:
 
 Gates in this repo:
 - `corpus/surface-census.sh` — the declaration gate over the surface list above. `verify` (default): kind/exact mode per declared path, `UNLISTED` children of the 4 enumerable dirs, and the runtime shape pins; `--verbs` exercises the local write-side verbs on scratch overrides (no `op` exec); `--verbs --deep` adds the three probes with a real-world effect (`op run` plain / ref, `tac-register` no-replace) and is operator-present; `--selftest` proves 16 cases on a scratch tree. Exit 0/1/2; `UNVERIFIED` (a shape class that cannot be read) fails the run, `SKIP` (DB locked by a live serve) does not. Data: `corpus/surface-census.tsv` (35 rows, pinned by ledger row `R11-11`), `corpus/state-shape.tsv` (22 rows, pinned by `R11-10`; this said 21 until round 11). Round 10: `CLEAN (assets=20 runtime=15 scanned=4 ok=34 absent=2 skipped=0)`.
-- `corpus/drift-pins.sh` + `corpus/drift-baseline.tsv` (15 files) + `corpus/drift-symbols.tsv` (19 claims) — byte/line/symbol drift; modes cross-checked against the census
+- `corpus/drift-pins.sh` + `corpus/drift-baseline.tsv` (15 files) + `corpus/drift-symbols.tsv` (20 claims — 20 since round 12 added the `cmd_run` L248 `exec op run` row, the masking premise) — byte/line/symbol drift; modes cross-checked against the census
 - `corpus/transcript-scan.sh` — transcript-leak gate over the durable DB
+- `corpus/op-ref-probe.sh` — the `op.env` contract gate: `refs` (`cmd_refs` awk) vs `op run --env-file` (what `cmd_run` execs) over generated plain-value fixtures, plus the dotenv edge classes, precedence, four error signatures and the masking scope. `--selftest` proves 29 cases (comparator, POLICY-before-exec for a ref token / symlink / FIFO / premise break, SETUP, the hard-failure class); POLICY refuses any op-side fixture carrying a ref token, so the gate never resolves a reference. Exit 0/1/2. Data: the contract arrays in the script (there is no TSV — the fixtures are generated from the contract).
+- `corpus/claim-ledger.sh` — the calibration gate: `verify` (revision stamps + claim rows + every `R…-…` id a checked doc cites), `citations` (durable evidence), `cells` (every `SCORECARD.md` round cell must carry a pointer that resolves *and still holds*: cited rows are re-run, cited pinned artifacts re-compared, a section missing an axis is a setup error), `stamp` (reviewed re-pin). Data: `corpus/claim-ledger.tsv` (17 rows), `corpus/stamps.tsv` (33 rows). Exit 0/1/2; `--selftest` proves 72 cases on scratch trees.
 
 **Deliberate refusals:** vault-side structure (which vaults/items/fields exist) stays unmapped — mapping it would put ref paths in a durable artifact; `op` item-level reads stay unexercised; the CDP lease/profile ownership question is reported to the integrator, never adjudicated here.

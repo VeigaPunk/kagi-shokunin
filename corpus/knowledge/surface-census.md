@@ -252,7 +252,7 @@ bash corpus/surface-census.sh --selftest       # SELFTEST: PASS (16 cases), exit
 sed 's|^$HOME/.config/the-janitor/op.env\tasset\tfile\t600|&|' corpus/surface-census.tsv >/dev/null
 ```
 
-Selftest cases (verbose output names each; 15 total): clean 0 · mode drift `DIVERGED` ·
+Selftest cases (verbose output names each; 16 total): clean 0 · mode drift `DIVERGED` · fused-row refusal (`exit=2 fused-row refused`) ·
 asset gone `GONE` · runtime absent `ABSENT` still 0 · undeclared child
 `UNLISTED` · baseline mode disagreement `CROSSCHECK` · symlink swap `LINK` ·
 non-database `SHAPE` · SQLite prefix without NUL `SHAPE` · dropped required

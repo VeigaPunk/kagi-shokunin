@@ -16,6 +16,11 @@
 #              reports STALE / MISSING, so a reviewer can state which revision
 #              was read and prove the shipped revision is the stamped one.
 #              Regenerating is a reviewed commit, not an automatic re-pin.
+#              `stamp PATH…` regenerates the WHOLE row set from the paths given
+#              (it replaces the file, it does not merge), so a run that names
+#              fewer paths than the file holds is refused unless `--prune` is
+#              passed — round 12 lost 18 rows to an in-flight `stamp` of 10
+#              paths before this guard existed.
 #   claim    — `corpus/claim-ledger.tsv`: id <TAB> command <TAB> expect
 #              <TAB> exit <TAB> timeout <TAB> note. `verify` runs each command
 #              under a timeout and passes it only when BOTH hold: the exit code
@@ -39,11 +44,28 @@
 #              historical). A labelled stale token is counted, not failed: the
 #              rule is "a dead citation must be labelled dead where it is
 #              cited", not "no dead citations ever".
+#   idref    — every claim-id token (`R<digits>-<digits>`) in the same doc set
+#              must be a row id in `corpus/claim-ledger.tsv`. The ledger was
+#              only ever iterated FORWARD (rows → commands), so a doc citing an
+#              id that never existed passed every gate, and rows cited nowhere
+#              went unnoticed (five at round 12). Uncited rows are ORPHANs:
+#              counted, informational, listed with `--orphans`.
+#   cell     — `cells` audits `SCORECARD.md`'s own score card: every table row
+#              inside a `## Round <N> — pre-move|post-move` section whose first
+#              cell is one of the six axis names must carry a POINTER — a
+#              resolving row id, or a path listed in `corpus/stamps.tsv` (the
+#              stamp is the revision-pinned artifact that records the number).
+#              This is round 11's recorded next step ("each score cell names the
+#              claim ids it rests on"); 20 of 48 cells had no resolving pointer
+#              when it landed. ZERO checked cells is a setup error (exit 2),
+#              never a clean run.
 #
 # Verdicts  stamps:   OK (silent) | STALE | MISSING | NOT-A-FILE
 #           claims:   OK (silent) | FAIL(reason) | POLICY(reason)
 #           citations: CLEAN | BROKEN (UNRESOLVED / EPHEMERAL lines)
-# Exit      0 clean · 1 drift/claim failure · 2 policy/setup error
+#           idref:    OK (silent) | MISSING-ID doc:line id | ORPHAN (--orphans)
+#           cells:    OK (silent) | MISSING-ID file:line id | UNCITED file:line axis
+# Exit      0 clean · 1 drift/claim/id/cell failure · 2 policy/setup error
 #
 # Secret hygiene: the gate prints paths, hashes of repo files, claim ids,
 # exit codes and counts. It NEVER echoes a claim's output (a claim could read
@@ -65,10 +87,13 @@ SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
 ROOT=$({ cd -- "$SCRIPT_DIR/.." && pwd; })
 STAMPS="$SCRIPT_DIR/stamps.tsv"
 CLAIMS="$SCRIPT_DIR/claim-ledger.tsv"
+SCORECARD=""
 DOCS_ARG=""
 OUT=""
 MODE="verify"
 POS=()
+PRUNE=0
+ORPHANS=0
 
 die() { printf 'claim-ledger: %s\n' "$1" >&2; exit 2; }
 
@@ -130,28 +155,74 @@ policy_check() {
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
-    verify|citations) MODE="$1"; shift ;;
+    verify|citations|cells) MODE="$1"; shift ;;
     --selftest) MODE="selftest"; shift ;;
     stamp) MODE="stamp"; shift ;;
     --stamps) [[ $# -ge 2 ]] || die "--stamps needs a file"; STAMPS="$2"; shift 2 ;;
     --claims) [[ $# -ge 2 ]] || die "--claims needs a file"; CLAIMS="$2"; shift 2 ;;
+    --scorecard) [[ $# -ge 2 ]] || die "--scorecard needs a file"; SCORECARD="$2"; shift 2 ;;
     --docs) [[ $# -ge 2 ]] || die "--docs needs paths"; DOCS_ARG="$2"; shift 2 ;;
     --root) [[ $# -ge 2 ]] || die "--root needs a dir"; ROOT="$2"; shift 2 ;;
     --out) [[ $# -ge 2 ]] || die "--out needs a file"; OUT="$2"; shift 2 ;;
-    -h|--help) sed -n '2,74p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//'; exit 0 ;;
+    --prune) PRUNE=1; shift ;;
+    --orphans) ORPHANS=1; shift ;;
+    # the range tracks the header's end marker, so extending the contract above
+    # cannot silently truncate its own help (round 13; the old fixed `2,74p`
+    # range had already drifted into the assignments below the header)
+    -h|--help) sed -n '2,/^set -euo pipefail$/p' "${BASH_SOURCE[0]}" | sed '$d' | sed 's/^# \{0,1\}//'; exit 0 ;;
     -*) die "unknown argument: $1" ;;
     *) POS+=("$1"); shift ;;
   esac
 done
 [[ -d $ROOT ]] || die "root is not a dir: $ROOT"
+# A claim row may invoke this gate's `--selftest` (scratch-only and bounded —
+# R11-09 does exactly that), but a nested AUDIT recurses: `verify` runs every
+# row, and rows can run gates. `verify` is therefore refused when it is already
+# inside a ledger run (exit 2, deterministic, no hang). The consequence is a
+# stated bound: the ledger cannot pin its own `verify` summary. `cells` is NOT
+# refused — it re-runs only the rows its scorecard cites and skips the rows that
+# re-invoke this gate (see cells_evidence), so one nesting level stays bounded.
+if [[ ${CLAIM_LEDGER_DEPTH:-0} -gt 0 && $MODE == verify ]]; then
+  die "refusing a nested self-audit (CLAIM_LEDGER_DEPTH=${CLAIM_LEDGER_DEPTH}; a claim row cannot run $MODE from inside a ledger run)"
+fi
+# resolved after --root so a scratch --root gets a scratch scorecard by default
+[[ -n $SCORECARD ]] || SCORECARD="$ROOT/SCORECARD.md"
 
 # --- stamps ------------------------------------------------------------------
 stamp() {
-  local out=${OUT:-$SCRIPT_DIR/stamps.tsv} p f sha lines bytes
+  local out=${OUT:-$SCRIPT_DIR/stamps.tsv} p f sha lines bytes existing=0
   local -a STAMP_SEEN=()
   [[ ${#POS[@]} -gt 0 ]] || die "stamp needs at least one path"
   [[ $out == /* ]] || out="$PWD/$out"
   [[ -e $out && ! -f $out ]] && die "--out exists and is not a regular file: $out"
+  # a symlinked --out would be REPLACED by `mv` (the link, not its target),
+  # leaving two diverged copies (round-12 critic F4)
+  [[ -L $out ]] && die "--out is a symlink, refusing to replace it: $out"
+  if [[ -f $out ]]; then
+    existing=$(grep -c '[^[:space:]]' "$out"); existing=${existing//[[:space:]]/}
+  fi
+  # `stamp` replaces the row set; every path already pinned must be named again.
+  # A per-path check (round-12 mutation lane: an equal-count path swap and a
+  # missing-final-newline off-by-one both slipped past the earlier row-count
+  # rule) — the file's *membership* is the invariant, not its length.
+  local q
+  for q in "${POS[@]}"; do
+    [[ $q == "$out" || $q == "${out#"$ROOT/"}" ]] && die "refusing to stamp the output file itself: $q"
+  done
+  if [[ $PRUNE -eq 0 && -f $out ]]; then
+    local old
+    # `read` drops a final row that has no trailing newline; `|| [[ -n $old ]]`
+    # keeps it (round-12 critic F1: a 4-path stamp over a 5-row file whose last
+    # row was unterminated silently dropped that artifact). Comment lines are not
+    # paths and are skipped.
+    while IFS= read -r old || [[ -n ${old:-} ]]; do
+      [[ -n ${old:-} ]] || continue
+      [[ ${old:0:1} == '#' ]] && continue
+      old=${old%%$'\t'*}
+      [[ " ${POS[*]} " == *" $old "* ]] ||
+        die "refusing to shrink $out: '$old' is pinned and would be dropped (existing $existing rows, new ${#POS[@]}; pass --prune to accept)"
+    done <"$out"
+  fi
   STAMP_TMP=$(mktemp) || die "mktemp failed"
   for p in "${POS[@]}"; do
     [[ $p == /* ]] && die "absolute path refused: $p"
@@ -183,42 +254,103 @@ stamp() {
 # Counters are globals: the detail lines go to stdout and the caller must not
 # have to parse them out of a command substitution (round-11 selftest case 1
 # caught exactly that: `read` consumed a FAIL line as if it were the summary).
-V_ROWS=0 V_STALE=0 V_MISSING=0
-verify_stamps() {
-  local line p sha lines bytes f osha olines obytes
-  V_ROWS=0 V_STALE=0 V_MISSING=0
+# Rows are loaded ONCE into parallel arrays: the first read is what fixes the
+# schema errors (blank row, wrong field count), and both consumers need random
+# access — `verify` iterates, the cell audit looks a single path up by exact
+# first-field equality. A substring match on the raw line is NOT a lookup: the
+# score columns of a scorecard cell contain bare digits, and `grep -F "7<TAB>"`
+# happily matched the end of a sha256 hex string, which made every cell look
+# credentialled to a stamped artifact (round-13 probe, before it shipped).
+SPATH=(); SSHA=(); SLINES=(); SBYTES=(); S_N=0
+load_stamps() {
+  local line
+  SPATH=(); SSHA=(); SLINES=(); SBYTES=(); S_N=0
   [[ -f $STAMPS ]] || die "stamps file not found: $STAMPS"
   grep -qv '^[[:space:]]*\(#\|$\)' "$STAMPS" \
     || die "no stamp rows in $STAMPS (refusing to report coverage with an empty stamp set)"
-  while IFS= read -r line; do
-    [[ -z ${line:-} || ${line:0:1} == '#' ]] && continue
+  while IFS= read -r line || [[ -n ${line:-} ]]; do
+    [[ ${line:0:1} == '#' ]] && continue
+    # a blank line is NOT a comment: it would silently reduce coverage while a
+    # `grep -c` count row still sees a row (round-12 mutation lane finding)
+    [[ -n ${line:-} ]] || die "malformed stamps row (blank line)"
     split_tab "$line"
     [[ $TF_N -eq 4 ]] || die "malformed stamps row (fields=$TF_N)"
-    p=${TF[0]} sha=${TF[1]} lines=${TF[2]} bytes=${TF[3]}
-    [[ -n $p && -n $sha && -n $lines && -n $bytes ]] || die "malformed stamps row (empty field)"
-    V_ROWS=$((V_ROWS + 1))
-    f="$ROOT/$p"
-    if [[ ! -e $f ]]; then printf 'MISSING %s\n' "$p"; V_MISSING=$((V_MISSING + 1)); continue; fi
-    if [[ -L $f || ! -f $f ]]; then printf 'NOT-A-FILE %s\n' "$p"; V_MISSING=$((V_MISSING + 1)); continue; fi
-    osha=$(sha256sum -- "$f"); osha=${osha%% *}
-    olines=$(wc -l <"$f"); olines=${olines//[[:space:]]/}
-    obytes=$(wc -c <"$f"); obytes=${obytes//[[:space:]]/}
-    if [[ $osha != "$sha" || $olines -ne $lines || $obytes -ne $bytes ]]; then
-      # every stamped column is compared: round-11 critic CE2 proved the bytes
-      # column was dead data (a tampered value re-verified CLEAN)
-      printf 'STALE %s sha=%s->%s lines=%s->%s bytes=%s->%s\n' \
-        "$p" "${sha:0:12}" "${osha:0:12}" "$lines" "$olines" "$bytes" "$obytes"
-      V_STALE=$((V_STALE + 1))
-    fi
+    [[ -n ${TF[0]} && -n ${TF[1]} && -n ${TF[2]} && -n ${TF[3]} ]] || die "malformed stamps row (empty field)"
+    # READ-side containment, symmetric with what `stamp` refuses to WRITE: a row
+    # naming an absolute path or one containing `..` would make `verify` hash a
+    # file outside `--root` (a hash oracle) and let a scorecard cell point at one.
+    # `stamp` has refused both since round 11; the reader did not, and the round-13
+    # sentinel demonstrated the asymmetry end to end (both in `verify` and `cells`).
+    [[ ${TF[0]} != /* ]] || die "stamps row names an absolute path: ${TF[0]}"
+    [[ ${TF[0]} != *..* ]] || die "stamps row names a path with '..': ${TF[0]}"
+    SPATH+=("${TF[0]}"); SSHA+=("${TF[1]}"); SLINES+=("${TF[2]}"); SBYTES+=("${TF[3]}")
+    S_N=$((S_N + 1))
   done <"$STAMPS"
 }
 
+# Index of a pinned path, or 1 when it is not pinned. Exact first-field match.
+stamp_index() {
+  local i
+  for ((i = 0; i < S_N; i++)); do [[ ${SPATH[i]} == "$1" ]] && { printf '%s' "$i"; return 0; }; done
+  return 1
+}
+
+# Compare one pinned path against its row. 0 fresh · 1 stale · 2 absent or not a
+# regular file · 3 not pinned. Details land in CMP_* for the caller to print, so
+# the two consumers can label the same fact differently.
+CMP_OSHA="" CMP_NSHA="" CMP_OL=0 CMP_NL=0 CMP_OB=0 CMP_NB=0
+stamp_cmp() {
+  local i f osha olines obytes
+  CMP_OSHA=""; CMP_NSHA=""; CMP_OL=0; CMP_NL=0; CMP_OB=0; CMP_NB=0
+  i=$(stamp_index "$1") || return 3
+  CMP_OSHA=${SSHA[i]}; CMP_OL=${SLINES[i]}; CMP_OB=${SBYTES[i]}
+  f="$ROOT/$1"
+  [[ -e $f && ! -L $f && -f $f ]] || return 2
+  osha=$(sha256sum -- "$f"); CMP_NSHA=${osha%% *}
+  olines=$(wc -l <"$f"); CMP_NL=${olines//[[:space:]]/}
+  obytes=$(wc -c <"$f"); CMP_NB=${obytes//[[:space:]]/}
+  [[ $CMP_NSHA == "$CMP_OSHA" && $CMP_NL -eq $CMP_OL && $CMP_NB -eq $CMP_OB ]] || return 1
+  return 0
+}
+
+# Counters are globals: the detail lines go to stdout and the caller must not
+# have to parse them out of a command substitution (round-11 selftest case 1
+# caught exactly that: `read` consumed a FAIL line as if it were the summary).
+V_ROWS=0 V_STALE=0 V_MISSING=0
+verify_stamps() {
+  local i rc f
+  V_ROWS=0 V_STALE=0 V_MISSING=0
+  load_stamps
+  V_ROWS=$S_N
+  for ((i = 0; i < S_N; i++)); do
+    rc=0; stamp_cmp "${SPATH[i]}" || rc=$?
+    case $rc in
+      0) ;;
+      1)
+        # every stamped column is compared: round-11 critic CE2 proved the bytes
+        # column was dead data (a tampered value re-verified CLEAN)
+        printf 'STALE %s sha=%s->%s lines=%s->%s bytes=%s->%s\n' \
+          "${SPATH[i]}" "${CMP_OSHA:0:12}" "${CMP_NSHA:0:12}" "$CMP_OL" "$CMP_NL" "$CMP_OB" "$CMP_NB"
+        V_STALE=$((V_STALE + 1))
+        ;;
+      2)
+        f="$ROOT/${SPATH[i]}"
+        if [[ -e $f ]]; then printf 'NOT-A-FILE %s\n' "${SPATH[i]}"; else printf 'MISSING %s\n' "${SPATH[i]}"; fi
+        V_MISSING=$((V_MISSING + 1))
+        ;;
+    esac
+  done
+}
+
 C_N=0 C_FAILED=0 C_POLICY=0
+# the nesting depth this run was started with: every claim command this gate
+# spawns sees depth+1, which is what lets a nested audit detect itself
+CLAIM_LEDGER_DEPTH_IN=${CLAIM_LEDGER_DEPTH:-0}
 verify_claims() {
   local line id cmd expect want tmo note pc out last rc
   C_N=0 C_FAILED=0 C_POLICY=0
   [[ -f $CLAIMS ]] || die "claims file not found: $CLAIMS"
-  while IFS= read -r line; do
+  while IFS= read -r line || [[ -n ${line:-} ]]; do
     [[ -z ${line:-} || ${line:0:1} == '#' ]] && continue
     split_tab "$line"
     [[ $TF_N -ge 5 && $TF_N -le 6 ]] || die "malformed claims row (fields=$TF_N)"
@@ -236,7 +368,8 @@ verify_claims() {
       continue
     fi
     rc=0
-    out=$(cd "$ROOT" && timeout -k 5 "$tmo" bash -o pipefail -c "$cmd" 2>&1) || rc=$?
+    out=$(cd "$ROOT" && CLAIM_LEDGER_DEPTH=$((CLAIM_LEDGER_DEPTH_IN + 1)) \
+      timeout -k 5 "$tmo" bash -o pipefail -c "$cmd" 2>&1) || rc=$?
     if [[ $rc -eq 124 || $rc -eq 137 ]]; then
       printf 'FAIL %s reason=timeout exit=%s tmo=%s\n' "$id" "$rc" "$tmo"
       C_FAILED=$((C_FAILED + 1)); continue
@@ -323,19 +456,29 @@ norm_tok() {
   NTOK=$t
 }
 
+# The checked doc set: explicit `--docs`, else every live doc that carries
+# evidence pointers. ONE definition for two consumers (citations, idref): a
+# second copy is exactly how two scans over "the docs" silently diverge.
+DOCS_LIST=()
+default_docs() {
+  DOCS_LIST=()
+  if [[ -n $DOCS_ARG ]]; then
+    # shellcheck disable=SC2206
+    DOCS_LIST=($DOCS_ARG)
+  else
+    shopt -s nullglob
+    DOCS_LIST=("$ROOT/AGENTS.md" "$ROOT/LOG.md" "$ROOT/PROVINCE.md" "$ROOT/SCORECARD.md" "$ROOT/SHONEN.md" "$ROOT/SKILL.md" "$ROOT/corpus/README.md")
+    DOCS_LIST+=("$ROOT"/corpus/knowledge/*.md "$ROOT"/corpus/lessons/*.md)
+  fi
+}
+
 CIT_CITES=0 CIT_DOCS=0 CIT_UNRESOLVED=0 CIT_EPHEMERAL=0 CIT_MARKED=0
 citations() {
   local doc l lineno content t tok cls marked pre rest post grp ok alt
   local -a DOCS=()
   CIT_CITES=0 CIT_DOCS=0 CIT_UNRESOLVED=0 CIT_EPHEMERAL=0 CIT_MARKED=0
-  if [[ -n $DOCS_ARG ]]; then
-    # shellcheck disable=SC2206
-    DOCS=($DOCS_ARG)
-  else
-    shopt -s nullglob
-    DOCS=("$ROOT/AGENTS.md" "$ROOT/LOG.md" "$ROOT/PROVINCE.md" "$ROOT/SCORECARD.md" "$ROOT/SHONEN.md" "$ROOT/SKILL.md" "$ROOT/corpus/README.md")
-    DOCS+=("$ROOT"/corpus/knowledge/*.md "$ROOT"/corpus/lessons/*.md)
-  fi
+  default_docs
+  DOCS=("${DOCS_LIST[@]}")
   for doc in "${DOCS[@]}"; do
     [[ -f $doc ]] || die "doc not found: $doc"
     CIT_DOCS=$((CIT_DOCS + 1))
@@ -399,6 +542,242 @@ citations() {
   done
 }
 
+# --- id references -----------------------------------------------------------
+# `R<digits>-<digits>` is this corpus's claim-id vocabulary. A cited id must be
+# a ROW (a comment line naming an id does not create one) and the id universe
+# must be non-empty — an empty ledger would turn every citation into a
+# MISSING-ID and the whole gate into a false failure, so it is a setup error.
+LID=(); LID_N=0
+load_ids() {
+  local line
+  LID=(); LID_N=0
+  [[ -f $CLAIMS ]] || die "claims file not found: $CLAIMS"
+  while IFS= read -r line || [[ -n ${line:-} ]]; do
+    [[ -z ${line:-} || ${line:0:1} == '#' ]] && continue
+    split_tab "$line"
+    [[ -n ${TF[0]:-} ]] || continue
+    LID+=("${TF[0]}"); LID_N=$((LID_N + 1))
+  done <"$CLAIMS"
+  [[ $LID_N -gt 0 ]] || die "no claim rows in $CLAIMS (refusing to resolve ids against an empty ledger)"
+}
+
+is_row() {
+  local k
+  for k in "${LID[@]}"; do [[ $k == "$1" ]] && return 0; done
+  return 1
+}
+
+# An id is a WHOLE WORD in the id vocabulary. Extracting bare `R[0-9]+-[0-9]+`
+# substrings let `R12-03a`, `xR12-01` and any other suffixed/prefixed form pass
+# as their prefix (round-13 mutation lane M5, demonstrated by substituting an
+# id-shaped word whose prefix row existed), so the word is what gets resolved.
+# Bound, stated: the vocabulary is upper-case `R`; a lower-case `r13-99` is not
+# an id token and is not scanned for.
+IDWORD_RE='[A-Za-z0-9_-]*R[0-9]+-[0-9]+[A-Za-z0-9_-]*'
+line_ids() { printf '%s' "$1" | grep -oE "$IDWORD_RE" || true; }
+
+# A document may quote a fabricated id to explain the check itself; the citation
+# scan's rule ("a dead pointer must be labelled dead where it is cited") applies
+# here too, with the same line-granular bound, plus `fabricated|illustrative|
+# example` because that is how a doc says "this token is an example". A labelled
+# id is COUNTED (`labeled_ids`), never silently tolerated: this gate's own
+# contract document and lesson cite the fabricated ids that were used as
+# before-evidence, and the first run of the audit failed on them.
+ID_MARK_RE="$MARK_RE|fabricated|illustrative|example"
+
+IDX_TOKENS=0 IDX_MISSING=0 IDX_CITED=0 IDX_ORPHANS=0 IDX_LABELED=0
+idref_audit() {
+  local doc l lineno content id marked
+  local -a DOCS=() CITED=()
+  IDX_TOKENS=0 IDX_MISSING=0 IDX_CITED=0 IDX_ORPHANS=0 IDX_LABELED=0
+  load_ids
+  default_docs
+  DOCS=("${DOCS_LIST[@]}")
+  for doc in "${DOCS[@]}"; do
+    [[ -f $doc ]] || die "doc not found: $doc"
+    while IFS= read -r l; do
+      lineno=${l%%:*}; content=${l#*:}
+      if [[ ${content,,} =~ $ID_MARK_RE ]]; then marked=1; else marked=0; fi
+      while IFS= read -r id; do
+        [[ -n $id ]] || continue
+        IDX_TOKENS=$((IDX_TOKENS + 1))
+        if is_row "$id"; then
+          [[ " ${CITED[*]-} " == *" $id "* ]] || CITED+=("$id")
+        elif [[ $marked -eq 1 ]]; then
+          printf 'LABELED-ID %s:%s %s (labelled on its line)\n' "${doc#"$ROOT/"}" "$lineno" "$id"
+          IDX_LABELED=$((IDX_LABELED + 1))
+        else
+          printf 'MISSING-ID %s:%s %s\n' "${doc#"$ROOT/"}" "$lineno" "$id"
+          IDX_MISSING=$((IDX_MISSING + 1))
+        fi
+      done < <(line_ids "$content")
+    done < <(grep -nE 'R[0-9]+-[0-9]+' "$doc" || true)
+  done
+  IDX_CITED=${#CITED[@]}
+  for id in "${LID[@]}"; do
+    if [[ " ${CITED[*]-} " != *" $id "* ]]; then
+      IDX_ORPHANS=$((IDX_ORPHANS + 1))
+      [[ $ORPHANS -eq 1 ]] && printf 'ORPHAN %s (row cited by no document in the checked set)\n' "$id"
+    fi
+  done
+  return 0
+}
+
+# --- scorecard cells ---------------------------------------------------------
+# A cell is POINTED when it names an artifact a reader can re-check: a resolving
+# claim row (a re-runnable command) or a path in `stamps.tsv` (the hash-pinned
+# revision that recorded the number). `row_pointed` and `stamp_pointed` are
+# independent counts, so the summary shows how many scores rest on a live
+# command rather than on a frozen document — the distinction round 11 asked for.
+# Checked cells are ROUND tables only: the `Retired` table and any other section
+# are prose, and the six axis names are the vocabulary of a score card.
+AXES_RE='^(depth|coverage|operability|freshness|calibration|adjacency)$'
+SEC_RE='^## Round [0-9]+ — (pre|post)-move'
+CL_CELLS=0 CL_ROWS=0 CL_STAMPS=0 CL_UNCITED=0
+CL_STALE=0 CL_ROWS_RUN=0
+CEL_IDS=(); CEL_PATHS=()
+SEC_SEEN=()
+
+# Every recognised round section must carry all six axes, once each. A section
+# that has lost or mis-spelled a row (a bolded `**Depth**`, a split, a deleted
+# row) would silently shrink the checked set, and the global non-zero count can
+# never see one section losing rows while another keeps it positive (round-13
+# planner T2-1/T2-2). This is what makes a formatting miss loud instead of green.
+section_check() { # SECTION-HEADING
+  local ax missing="" n=${#SEC_SEEN[@]}
+  for ax in depth coverage operability freshness calibration adjacency; do
+    [[ " ${SEC_SEEN[*]-} " == *" $ax "* ]] || missing="$missing $ax"
+  done
+  [[ -z $missing && $n -eq 6 ]] ||
+    die "scorecard section '$1' does not carry all six axes exactly once (found=$n missing=${missing# })"
+  return 0
+}
+
+cells() {
+  local l lineno content rest f1 tok d in_docs=0 in_set=0 has_row has_stamp sec_head=""
+  local -a F=()
+  CL_CELLS=0 CL_ROWS=0 CL_STAMPS=0 CL_UNCITED=0
+  CEL_IDS=(); CEL_PATHS=(); SEC_SEEN=()
+  [[ -f $SCORECARD ]] || die "scorecard not found: $SCORECARD"
+  load_stamps
+  # the scorecard's own ids are resolved by the id audit, so the scorecard must
+  # be inside the doc set it scanned: otherwise a bogus id in a cell could pass
+  for d in "${DOCS_LIST[@]}"; do [[ $d == "$SCORECARD" ]] && in_docs=1; done
+  [[ $in_docs -eq 1 ]] ||
+    die "scorecard is not in the checked doc set: $SCORECARD (its ids must be resolved against $CLAIMS; pass --docs including it)"
+  while IFS= read -r l; do
+    lineno=${l%%:*}; content=${l#*:}
+    if [[ $content == '## '* ]]; then
+      # section gate: only Round <N> pre/post-move tables are score cards. The
+      # `Retired` table and every other section are prose, not scores. A ROUND
+      # heading that does not match the expected shape is a setup error, not a
+      # section to skip: a typo (`## Round 13 pre-move`, a colon, an en-dash)
+      # would silently drop six cells while the global count stayed positive.
+      [[ $in_set -eq 1 ]] && section_check "$sec_head"
+      SEC_SEEN=()
+      if [[ $content == '## Round '* && ! $content =~ $SEC_RE ]]; then
+        die "unrecognised round heading in $SCORECARD: '$content' (expected '## Round <N> — pre-move|post-move')"
+      fi
+      if [[ $content =~ $SEC_RE ]]; then in_set=1; sec_head=$content; else in_set=0; sec_head=""; fi
+      continue
+    fi
+    [[ $in_set -eq 1 && $content == '|'* ]] || continue
+    rest=${content#|}; rest=${rest%|}
+    IFS='|' read -r -a F <<<"$rest"
+    f1=${F[0]:-}
+    f1=${f1//[[:space:]]/}; f1=${f1//\*/}
+    [[ $f1 =~ $AXES_RE ]] || continue
+    CL_CELLS=$((CL_CELLS + 1))
+    SEC_SEEN+=("$f1")
+    has_row=0; has_stamp=0
+    while IFS= read -r tok; do
+      [[ -n $tok ]] || continue
+      if is_row "$tok"; then
+        has_row=1
+        [[ " ${CEL_IDS[*]-} " == *" $tok "* ]] || CEL_IDS+=("$tok")
+      fi
+    done < <(line_ids "$content")
+    while IFS= read -r tok; do
+      [[ -n $tok ]] || continue
+      norm_tok "$tok"; tok=$NTOK
+      # ellipsis/placeholder tokens are shapes, not artifacts (same skip as the
+      # citation scan, which treats them as references rather than paths)
+      [[ $tok == *'…'* || $tok == *'...'* || $tok == *'*'* ]] && continue
+      if stamp_index "$tok" >/dev/null; then
+        has_stamp=1
+        [[ " ${CEL_PATHS[*]-} " == *" $tok "* ]] || CEL_PATHS+=("$tok")
+      fi
+    done < <(printf '%s' "$content" | tr ' ' '\n' | tr '\t' '\n' || true)
+    [[ $has_row -eq 1 ]] && CL_ROWS=$((CL_ROWS + 1))
+    [[ $has_stamp -eq 1 ]] && CL_STAMPS=$((CL_STAMPS + 1))
+    if [[ $has_row -eq 0 && $has_stamp -eq 0 ]]; then
+      printf 'UNCITED %s:%s %s (no resolving row id and no pinned artifact)\n' \
+        "${SCORECARD#"$ROOT/"}" "$lineno" "$f1"
+      CL_UNCITED=$((CL_UNCITED + 1))
+    fi
+  done < <(grep -nE '.' "$SCORECARD" || true)
+  [[ $in_set -eq 1 ]] && section_check "$sec_head"
+  [[ $CL_CELLS -gt 0 ]] ||
+    die "no scored cells found in $SCORECARD (refusing to report coverage over a scorecard with no round tables)"
+  # Non-vacuity: if NO cell cites a claim row, the strongest tooth (a re-run of
+  # the cited measurements) has nothing to bite and a green run would mean only
+  # "some pointers resolve" — the tautology this audit exists to avoid.
+  [[ $CL_ROWS -gt 0 ]] ||
+    die "no cell in $SCORECARD cites a claim row (nothing to re-run; the audit would be vacuous)"
+  return 0
+}
+
+# The teeth: a pointer is only evidence if the thing it points at still holds.
+# (a) re-run the cited claim rows through the ordinary claims machinery — the
+# same exit-equality + last-line rule, so a cell cannot rest on a row that fails
+# today; (b) re-compare the cited pinned artifacts against their rows, so a cell
+# cannot rest on a revision that has since moved. Membership alone was the
+# round-13 critic's executed counterexample: a poisoned stamps row (deadbeef/0/0)
+# and a cell citing an unrelated row both passed a membership-only audit.
+CL_STALE=0 CL_ROWS_RUN=0 CL_SELF_SKIP=0
+cells_evidence() {
+  local line p rc saved
+  CL_STALE=0 CL_ROWS_RUN=0 CL_SELF_SKIP=0
+  if [[ ${#CEL_IDS[@]} -gt 0 ]]; then
+    STAMP_TMP=$(mktemp) || die "mktemp failed"
+    while IFS= read -r line || [[ -n ${line:-} ]]; do
+      [[ -z ${line:-} || ${line:0:1} == '#' ]] && continue
+      split_tab "$line"
+      [[ " ${CEL_IDS[*]} " == *" ${TF[0]:-} "* ]] || continue
+      # a row that re-invokes this gate is NOT re-run here: `cells` is reachable
+      # from a claim row, so re-running it from inside `cells` is how a bounded
+      # audit would become an unbounded one. Reported, never silent. The test is
+      # the SCRIPT (`claim-ledger.sh`), not the stem: a row that merely greps
+      # `corpus/claim-ledger.tsv` is a reader, not a re-invocation.
+      if [[ ${TF[1]:-} == *claim-ledger.sh* ]]; then
+        printf 'SKIP-SELF %s (row invokes this gate; not re-run from inside the cell audit)\n' "${TF[0]}"
+        CL_SELF_SKIP=$((CL_SELF_SKIP + 1))
+        continue
+      fi
+      printf '%s\n' "$line" >>"$STAMP_TMP"
+    done <"$CLAIMS"
+    saved=$CLAIMS
+    CLAIMS=$STAMP_TMP
+    verify_claims
+    CLAIMS=$saved
+    rm -f -- "$STAMP_TMP"; STAMP_TMP=""
+    CL_ROWS_RUN=$C_N
+  fi
+  for p in "${CEL_PATHS[@]}"; do
+    rc=0; stamp_cmp "$p" || rc=$?
+    case $rc in
+      0) ;;
+      1)
+        printf 'STALE-POINTER %s sha=%s->%s lines=%s->%s bytes=%s->%s\n' \
+          "$p" "${CMP_OSHA:0:12}" "${CMP_NSHA:0:12}" "$CMP_OL" "$CMP_NL" "$CMP_OB" "$CMP_NB"
+        CL_STALE=$((CL_STALE + 1))
+        ;;
+      2) printf 'MISSING-POINTER %s\n' "$p"; CL_STALE=$((CL_STALE + 1)) ;;
+    esac
+  done
+  return 0
+}
+
 case "$MODE" in
   stamp)
     stamp
@@ -406,16 +785,37 @@ case "$MODE" in
   verify)
     verify_stamps
     verify_claims
+    idref_audit
     if [[ $C_POLICY -gt 0 ]]; then
       printf 'CLAIM_LEDGER: POLICY (claims=%d policy=%d stamped=%d)\n' "$C_N" "$C_POLICY" "$V_ROWS"
       exit 2
     fi
-    if [[ $C_FAILED -gt 0 || $V_STALE -gt 0 || $V_MISSING -gt 0 ]]; then
-      printf 'CLAIM_LEDGER: FAIL (claims=%d failed=%d stamped=%d stale=%d missing=%d)\n' \
-        "$C_N" "$C_FAILED" "$V_ROWS" "$V_STALE" "$V_MISSING"
+    if [[ $C_FAILED -gt 0 || $V_STALE -gt 0 || $V_MISSING -gt 0 || $IDX_MISSING -gt 0 ]]; then
+      printf 'CLAIM_LEDGER: FAIL (claims=%d failed=%d stamped=%d stale=%d missing=%d unresolved_ids=%d labeled_ids=%d)\n' \
+        "$C_N" "$C_FAILED" "$V_ROWS" "$V_STALE" "$V_MISSING" "$IDX_MISSING" "$IDX_LABELED"
       exit 1
     fi
-    printf 'CLAIM_LEDGER: CLEAN (claims=%d stamped=%d)\n' "$C_N" "$V_ROWS"
+    printf 'CLAIM_LEDGER: CLEAN (claims=%d stamped=%d ids=%d cited=%d labeled_ids=%d orphans=%d)\n' \
+      "$C_N" "$V_ROWS" "$LID_N" "$IDX_CITED" "$IDX_LABELED" "$IDX_ORPHANS"
+    ;;
+  cells)
+    # the id audit runs first: it is what resolves the ids a cell cites, and its
+    # doc set must therefore contain the scorecard (cells refuses otherwise)
+    idref_audit
+    cells
+    cells_evidence
+    if [[ $C_POLICY -gt 0 ]]; then
+      printf 'CELL_AUDIT: POLICY (cells=%d row_pointed=%d stamp_pointed=%d policy=%d)\n' \
+        "$CL_CELLS" "$CL_ROWS" "$CL_STAMPS" "$C_POLICY"
+      exit 2
+    fi
+    if [[ $CL_UNCITED -gt 0 || $IDX_MISSING -gt 0 || $C_FAILED -gt 0 || $CL_STALE -gt 0 ]]; then
+      printf 'CELL_AUDIT: BROKEN (cells=%d row_pointed=%d stamp_pointed=%d uncited=%d missing_ids=%d rows_run=%d row_failures=%d stale_pointers=%d self_skipped=%d orphans=%d)\n' \
+        "$CL_CELLS" "$CL_ROWS" "$CL_STAMPS" "$CL_UNCITED" "$IDX_MISSING" "$CL_ROWS_RUN" "$C_FAILED" "$CL_STALE" "$CL_SELF_SKIP" "$IDX_ORPHANS"
+      exit 1
+    fi
+    printf 'CELL_AUDIT: CLEAN (cells=%d row_pointed=%d stamp_pointed=%d uncited=0 missing_ids=0 rows_run=%d row_failures=0 stale_pointers=0 self_skipped=%d orphans=%d)\n' \
+      "$CL_CELLS" "$CL_ROWS" "$CL_STAMPS" "$CL_ROWS_RUN" "$CL_SELF_SKIP" "$IDX_ORPHANS"
     ;;
   citations)
     citations
@@ -435,6 +835,13 @@ esac
 # --- selftest ----------------------------------------------------------------
 if [[ ${SELFTEST:-0} -eq 1 ]]; then
   S=$(mktemp -d); trap 'rm -rf -- "$S"' EXIT
+  # The selftest's cases invoke this script's `verify` against a SCRATCH root and
+  # scratch claims — the one nested audit that cannot recurse into the real
+  # ledger — so the nesting marker is cleared here. A *claim row* cannot do this:
+  # the refusal is what makes the bound explicit, and R11-09 (this very selftest,
+  # run as a claim row) is the regression test for the interaction.
+  unset CLAIM_LEDGER_DEPTH
+  CLAIM_LEDGER_DEPTH_IN=0
   R="$S/inner"
   mkdir -p "$R/corpus/docs" "$R/corpus/knowledge" "$R/corpus/lessons" "$S/kagi-selftest" "$S/.ufo/reports"
   printf 'EXPECTED\n' >"$R/corpus/ok.txt"
@@ -446,8 +853,69 @@ if [[ ${SELFTEST:-0} -eq 1 ]]; then
   printf 'corpus/ok.txt\t%s\t99\t9\n' "$SHA_OK" >"$R/stamps-stale.tsv"
   printf 'corpus/ok.txt\t%s\t1\t999\n' "$SHA_OK" >"$R/stamps-bytes.tsv"
   printf 'corpus/ok.txt\t%s\t1\t9\ncorpus/absent.txt\tdeadbeefdeadbeef\t1\t1\n' "$SHA_OK" >"$R/stamps-missing.tsv"
+  # the id audit scans the DEFAULT doc set (root docs + knowledge + lessons), so
+  # those files must exist in the scratch root; the old fixtures never needed
+  # them because verify touched no documents
+  for f in AGENTS.md LOG.md PROVINCE.md SCORECARD.md SHONEN.md SKILL.md; do
+    printf 'EXPECTED\n' >"$R/$f"
+  done
+  printf 'EXPECTED\n' >"$R/corpus/README.md"
+  printf 'R1-01\tgrep -c EXPECTED corpus/ok.txt\t^1$\t0\t5\tselftest\n' >"$R/claims-r.tsv"
+  printf 'R2-01\tgrep -c EXPECTED corpus/absent.txt\t^1$\t1\t5\tselftest\n' >"$R/claims-r2.tsv"
+  # a scorecard fixture is only checkable when it carries all six axes, so the
+  # fixtures are generated: six FILE "depth-pointer" "coverage-pointer" …
+  six() {
+    local f=$1; shift
+    local -a P=("$@")
+    local i=0 ax
+    { printf '## Round 1 — pre-move\n\n| Axis | Score | Evidence |\n|---|---|---|\n'
+      for ax in depth coverage operability freshness calibration adjacency; do
+        printf '| %s | 7 | %s |\n' "$ax" "${P[i]}"
+        i=$((i + 1))
+      done
+    } >"$f"
+  }
+  # fenced block AND prose, both carrying an unknown id (the id scan is
+  # line-oriented over every byte: no cell/fence filtering, planner T1-1)
+  printf 'doc prose cites `R9-99` here\n\n```\nfence cites R9-98 too\n```\n' >"$R/corpus/docs/id-missing.md"
+  printf 'doc cites row `R1-01` here\n' >"$R/corpus/docs/id-known.md"
+  six "$R/sc-ok.md" '`corpus/ok.txt`' '`R1-01`' '`R1-01`' '`R1-01`' '`R1-01`' '`R1-01`'
+  six "$R/sc-uncited.md" '`R1-01`' 'self-scored, nothing to re-run' '`R1-01`' '`R1-01`' '`R1-01`' '`R1-01`'
+  six "$R/sc-missing-id.md" '`R1-01`' '`R9-99`' '`R1-01`' '`R1-01`' '`R1-01`' '`R1-01`'
+  six "$R/sc-row-fails.md" '`R2-01`' '`R2-01`' '`R2-01`' '`R2-01`' '`R2-01`' '`R2-01`'
+  six "$R/sc-stale-pointer.md" '`R1-01` and `corpus/ok.txt`' '`R1-01`' '`R1-01`' '`R1-01`' '`R1-01`' '`R1-01`'
+  six "$R/sc-numeric.md" '`R1-01`' '`R1-01`' '`R1-01`' '`R1-01`' '`R1-01`' '`R1-01`'
+  six "$R/sc-vacuous.md" '`corpus/ok.txt`' '`corpus/ok.txt`' '`corpus/ok.txt`' '`corpus/ok.txt`' '`corpus/ok.txt`' '`corpus/ok.txt`'
+  six "$R/sc-retired.md" '`R1-01`' '`R1-01`' '`R1-01`' '`R1-01`' '`R1-01`' '`R1-01`'
+  printf '\n## Retired\n\n| Axis | Why |\n|---|---|\n| depth | saturated |\n' >>"$R/sc-retired.md"
+  printf '# scorecard with no round tables at all\n' >"$R/sc-empty.md"
+  # bolded and padded first cells are accepted; a five-axis section is not
+  printf '## Round 1 — pre-move\n\n| Axis | Score | Evidence |\n|---|---|---|\n| **depth** | 7 | `R1-01` |\n|  coverage  | 6 | `R1-01` |\n| operability | 5 | `R1-01` |\n| freshness | 4 | `R1-01` |\n| calibration | 3 | `R1-01` |\n| adjacency | 2 | `R1-01` |\n' >"$R/sc-bold.md"
+  printf '## Round 1 — pre-move\n\n| Axis | Score | Evidence |\n|---|---|---|\n| depth | 7 | `R1-01` |\n| coverage | 6 | `R1-01` |\n| operability | 5 | `R1-01` |\n| freshness | 4 | `R1-01` |\n| calibration | 3 | `R1-01` |\n' >"$R/sc-five.md"
+  ln -sfn "$R/corpus/ok.txt" "$R/corpus/link.txt"
+  printf 'corpus/link.txt\t%s\t1\t9\n' "$SHA_OK" >"$R/stamps-linkrow.tsv"
+  # the score column itself carries digits that a stamps field also ends with
+  # (`9<TAB>` occurred inside the lines column), which is how an unanchored
+  # lookup made all 48 real cells look pinned to an artifact (round-13 probe)
+  printf 'corpus/ok.txt\t%s\t9\t9\n' "$SHA_OK" >"$R/stamps-numeric.tsv"
+  printf '## Round 1 — pre-move\n\n| Axis | Score | Evidence |\n|---|---|---|\n| depth | 9 | `R1-01` |\n| coverage | 9 | `R1-01` |\n| operability | 9 | `R1-01` |\n| freshness | 9 | `R1-01` |\n| calibration | 9 | `R1-01` |\n| adjacency | 9 | `R1-01` |\n' >"$R/sc-numeric.md"
   printf 'c1\tgrep -c EXPECTED corpus/ok.txt\t^1$\t0\t5\tselftest\n' >"$R/claims-pass.tsv"
   printf 'c1\tgrep -c EXPECTED corpus/ok.txt\t^9$\t0\t5\tselftest\n' >"$R/claims-verdict.tsv"
+  # an id named only in a ledger COMMENT is not a row (mutation lane M8), and an
+  # id-shaped word with a prefix/suffix is not the id it starts with (M5)
+  printf '# R5-05 is named only in this comment\nR1-01\tgrep -c EXPECTED corpus/ok.txt\t^1$\t0\t5\tselftest\n' >"$R/claims-comment.tsv"
+  printf 'R3-01\tbash corpus/claim-ledger.sh --selftest\t^SELFTEST: PASS\t0\t300\tselftest\nR1-01\tgrep -c EXPECTED corpus/ok.txt\t^1$\t0\t5\tselftest\n' >"$R/claims-r3.tsv"
+  printf 'doc cites R5-05, which exists only in a ledger comment\n' >"$R/corpus/docs/id-comment.md"
+  printf 'doc cites R1-01a here\n' >"$R/corpus/docs/id-suffixed.md"
+  printf 'doc cites xR1-01 here\n' >"$R/corpus/docs/id-prefixed.md"
+  printf 'doc cites the range R1-01..99 here\n' >"$R/corpus/docs/id-range.md"
+  printf 'this illustrative line quotes a fabricated id R7-07 on purpose\n' >"$R/corpus/docs/id-labeled.md"
+  six "$R/sc-selfrow.md" '`R3-01`' '`R1-01`' '`R1-01`' '`R1-01`' '`R1-01`' '`R1-01`'
+  # sentinel round 13: a stamps row that escapes the root (read side), and a round
+  # heading that does not match the expected shape (silently dropped six cells)
+  printf '../outside.txt\tdeadbeefdeadbeef\t1\t1\n' >"$R/stamps-dotdot.tsv"
+  printf '/etc/hostname\tdeadbeefdeadbeef\t1\t1\n' >"$R/stamps-abs.tsv"
+  printf '## Round 1 pre-move\n\n| Axis | Score | Evidence |\n|---|---|---|\n| depth | 7 | `R1-01` |\n' >"$R/sc-bad-heading.md"
   printf 'c1\tgrep -c EXPECTED corpus/ok.txt\t^1$\t3\t5\tselftest\n' >"$R/claims-exit.tsv"
   printf 'c1\tbash corpus/sleep.sh\tDONE\t0\t1\tselftest\n' >"$R/claims-timeout.tsv"
   printf 'c1\tbash corpus/ok.txt; true\tEXPECTED\t0\t5\tselftest\n' >"$R/claims-meta.tsv"
@@ -495,7 +963,7 @@ if [[ ${SELFTEST:-0} -eq 1 ]]; then
     fi
   }
 
-  tcase claims-pass            0 'CLAIM_LEDGER: CLEAN (claims=1 stamped=1)' "$0" verify --root "$R" --claims "$R/claims-pass.tsv" --stamps "$R/stamps.tsv"
+  tcase claims-pass            0 'CLAIM_LEDGER: CLEAN (claims=1 stamped=1 ids=1 cited=0 labeled_ids=0 orphans=1)' "$0" verify --root "$R" --claims "$R/claims-pass.tsv" --stamps "$R/stamps.tsv"
   tcase claim-verdict-missing  1 'reason=verdict-not-final' "$0" verify --root "$R" --claims "$R/claims-verdict.tsv" --stamps "$R/stamps.tsv"
   tcase claim-exit-mismatch    1 'reason=exit-mismatch'      "$0" verify --root "$R" --claims "$R/claims-exit.tsv" --stamps "$R/stamps.tsv"
   tcase claim-timeout          1 'reason=timeout'            "$0" verify --root "$R" --claims "$R/claims-timeout.tsv" --stamps "$R/stamps.tsv"
@@ -522,7 +990,7 @@ if [[ ${SELFTEST:-0} -eq 1 ]]; then
   tcase cite-labeled-line-ok   0 'labeled=1'                 "$0" citations --root "$R" --docs "$R/corpus/docs/labeled-line.md"
   tcase stamp-bytes-tampered   1 'STALE corpus/ok.txt'       "$0" verify --root "$R" --claims "$R/claims-pass.tsv" --stamps "$R/stamps-bytes.tsv"
   tcase stamp-write            0 'STAMPED: n=1'              "$0" stamp --root "$R" --out "$R/stamps-new.tsv" corpus/ok.txt
-  tcase stamp-verify-fresh     0 'CLAIM_LEDGER: CLEAN (claims=1 stamped=1)' "$0" verify --root "$R" --claims "$R/claims-pass.tsv" --stamps "$R/stamps-new.tsv"
+  tcase stamp-verify-fresh     0 'CLAIM_LEDGER: CLEAN (claims=1 stamped=1 ids=1 cited=0 labeled_ids=0 orphans=1)' "$0" verify --root "$R" --claims "$R/claims-pass.tsv" --stamps "$R/stamps-new.tsv"
   tcase stamp-refuse-absolute  2 'absolute path refused'     "$0" stamp --root "$R" --out "$R/x.tsv" /etc/hostname
   tcase stamp-refuse-self      2 'refusing to stamp the output file itself' "$0" stamp --root "$R" --out "$R/stamps-new.tsv" stamps-new.tsv
   tcase stamp-out-after-args   0 'STAMPED: n=1'              "$0" stamp --root "$R" corpus/ok.txt --out "$R/stamps-late.tsv"
@@ -534,6 +1002,50 @@ if [[ ${SELFTEST:-0} -eq 1 ]]; then
   tcase claims-no-output       1 'reason=no-output'          "$0" verify --root "$R" --claims "$R/claims-noout.tsv" --stamps "$R/stamps.tsv"
   tcase stamp-duplicate        2 'duplicate path in one stamp invocation' "$0" stamp --root "$R" --out "$R/dup.tsv" corpus/ok.txt corpus/ok.txt
   tcase stamps-empty-file      2 'no stamp rows'             "$0" verify --root "$R" --claims "$R/claims-pass.tsv" --stamps "$R/stamps-empty.tsv"
+  printf 'corpus/ok.txt\t0\t1\t1\ncorpus/echo-two.sh\t0\t1\t1\ncorpus/absent.txt\t0\t1\t1\n' >"$R/stamps-3row.tsv"
+  tcase stamp-shrink-refused   2 'refusing to shrink'        "$0" stamp --root "$R" --out "$R/stamps-3row.tsv" corpus/ok.txt
+  tcase stamp-prune-allowed    0 'STAMPED: n=1'              "$0" stamp --root "$R" --out "$R/stamps-3row.tsv" corpus/ok.txt --prune
+  # equal-count PATH SWAP: the dropped path must be named again (mutation lane)
+  printf 'corpus/ok.txt\t0\t1\t1\ncorpus/echo-two.sh\t0\t1\t1\n' >"$R/stamps-swap.tsv"
+  tcase stamp-swap-refused     2 'is pinned and would be dropped' "$0" stamp --root "$R" --out "$R/stamps-swap.tsv" corpus/ok.txt corpus/x.txt
+  # a blank line inside the stamps file is a setup error, not silent shrinkage
+  printf 'corpus/ok.txt\t0\t1\t1\n\n' >"$R/stamps-blank.tsv"
+  tcase stamps-blank-row       2 'malformed stamps row (blank line)' "$0" verify --root "$R" --claims "$R/claims-pass.tsv" --stamps "$R/stamps-blank.tsv"
+  # a final row with NO trailing newline must still be a pinned path (critic F1)
+  printf 'corpus/ok.txt\t0\t1\t1\ncorpus/echo-two.sh\t0\t1\t1' >"$R/stamps-nonl.tsv"
+  tcase stamp-unterminated-row 2 'is pinned and would be dropped' "$0" stamp --root "$R" --out "$R/stamps-nonl.tsv" corpus/ok.txt
+  # a symlinked --out would be replaced by mv, leaving diverged copies (critic F4)
+  ln -sf "$R/stamps-new.tsv" "$R/stamps-link.tsv"
+  tcase stamp-symlink-out      2 '--out is a symlink' "$0" stamp --root "$R" --out "$R/stamps-link.tsv" corpus/ok.txt
+  # --- round 13: id resolution (verify) + scorecard cell pointers (cells) -----
+  tcase verify-id-missing      1 'unresolved_ids=2' "$0" verify --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --docs "$R/corpus/docs/id-missing.md"
+  tcase verify-id-known        0 'CLAIM_LEDGER: CLEAN (claims=1 stamped=1 ids=1 cited=1 labeled_ids=0 orphans=0)' "$0" verify --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --docs "$R/corpus/docs/id-known.md"
+  tcase verify-orphan-listed   0 'ORPHAN R1-01' "$0" verify --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --docs "$R/corpus/docs/clean.md" --orphans
+  tcase verify-empty-ledger    2 'no claim rows' "$0" verify --root "$R" --claims "$R/stamps-empty.tsv" --stamps "$R/stamps.tsv" --docs "$R/corpus/docs/clean.md"
+  tcase cells-clean            0 'CELL_AUDIT: CLEAN (cells=6 row_pointed=5 stamp_pointed=1 uncited=0 missing_ids=0 rows_run=1 row_failures=0 stale_pointers=0' "$0" cells --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-ok.md" --docs "$R/sc-ok.md"
+  tcase cells-uncited          1 'UNCITED' "$0" cells --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-uncited.md" --docs "$R/sc-uncited.md"
+  tcase cells-missing-id       1 'MISSING-ID' "$0" cells --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-missing-id.md" --docs "$R/sc-missing-id.md"
+  tcase cells-retired-exempt   0 'CELL_AUDIT: CLEAN (cells=6 row_pointed=6 stamp_pointed=0 uncited=0 missing_ids=0 rows_run=1 row_failures=0 stale_pointers=0' "$0" cells --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-retired.md" --docs "$R/sc-retired.md"
+  tcase cells-empty-scorecard  2 'no scored cells found' "$0" cells --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-empty.md" --docs "$R/sc-empty.md"
+  tcase cells-not-in-docset    2 'not in the checked doc set' "$0" cells --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-ok.md" --docs "$R/corpus/docs/clean.md"
+  # --- round 13 hardening cases (mutation lane M5/M8, planner T1-1/T2-1) -----
+  tcase verify-comment-id      1 'MISSING-ID' "$0" verify --root "$R" --claims "$R/claims-comment.tsv" --stamps "$R/stamps.tsv" --docs "$R/corpus/docs/id-comment.md"
+  tcase verify-suffixed-id     1 'MISSING-ID' "$0" verify --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --docs "$R/corpus/docs/id-suffixed.md"
+  tcase verify-prefixed-id     1 'MISSING-ID' "$0" verify --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --docs "$R/corpus/docs/id-prefixed.md"
+  tcase verify-range-head-only 0 'CLAIM_LEDGER: CLEAN' "$0" verify --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --docs "$R/corpus/docs/id-range.md"
+  tcase verify-labeled-id      0 'labeled_ids=1' "$0" verify --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --docs "$R/corpus/docs/id-labeled.md"
+  tcase nested-audit-refused   2 'refusing a nested self-audit' env CLAIM_LEDGER_DEPTH=1 "$0" verify --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --docs "$R/corpus/docs/id-known.md"
+  tcase cells-self-row-skip    0 'SKIP-SELF R3-01' "$0" cells --root "$R" --claims "$R/claims-r3.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-selfrow.md" --docs "$R/sc-selfrow.md"
+  tcase cells-six-axis-guard   2 'all six axes' "$0" cells --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-five.md" --docs "$R/sc-five.md"
+  tcase cells-bold-axes        0 'CELL_AUDIT: CLEAN (cells=6 row_pointed=6' "$0" cells --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-bold.md" --docs "$R/sc-bold.md"
+  tcase cells-row-fails        1 'row_failures=1' "$0" cells --root "$R" --claims "$R/claims-r2.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-row-fails.md" --docs "$R/sc-row-fails.md"
+  tcase cells-stale-pointer    1 'stale_pointers=1' "$0" cells --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps-stale.tsv" --scorecard "$R/sc-stale-pointer.md" --docs "$R/sc-stale-pointer.md"
+  tcase cells-vacuous-guard    2 'nothing to re-run' "$0" cells --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-vacuous.md" --docs "$R/sc-vacuous.md"
+  tcase cells-numeric-anchored 0 'stamp_pointed=0' "$0" cells --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps-numeric.tsv" --scorecard "$R/sc-numeric.md" --docs "$R/sc-numeric.md"
+  tcase stamps-symlink-row     1 'NOT-A-FILE corpus/link.txt' "$0" verify --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps-linkrow.tsv" --docs "$R/corpus/docs/id-known.md"
+  tcase stamps-dotdot-row      2 "stamps row names a path with '..'" "$0" verify --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps-dotdot.tsv" --docs "$R/corpus/docs/id-known.md"
+  tcase stamps-absolute-row    2 'stamps row names an absolute path' "$0" verify --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps-abs.tsv" --docs "$R/corpus/docs/id-known.md"
+  tcase cells-bad-round-heading 2 'unrecognised round heading' "$0" cells --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-bad-heading.md" --docs "$R/sc-bad-heading.md"
 
   if [[ $failures -eq 0 ]]; then printf 'SELFTEST: PASS (%d cases)\n' "$cases"; exit 0; fi
   printf 'SELFTEST: FAIL (%d/%d cases)\n' "$failures" "$cases"; exit 1

@@ -1,11 +1,13 @@
-# Claim ledger, revision stamps, citation durability
+# Claim ledger, revision stamps, citation durability, claim ids, scorecard cells
 
 Source basis: written 2026-09-28 (round 11) from the shipped gate itself —
 `corpus/claim-ledger.sh` (436 lines at the frozen wave revision, sha256
 `d63c60b0821b5388…`; the shipped revision is stamped in `corpus/stamps.tsv`),
-`corpus/claim-ledger.tsv` (9 rows), and the runs quoted below. Nothing here is
+`corpus/claim-ledger.tsv` (9 rows at that revision; 14 at round-12 close, 17 at
+round-13 close), and the runs quoted below. Nothing here is
 copied from a draft: every verdict string in this entry was produced by a
-command in the round-11 evidence set.
+command in the round-11 evidence set; the round-13 classes (`Class 4`, `Class 5`)
+carry their own measured before→after table below.
 
 ## Why this gate exists (the measured calibration failure)
 
@@ -131,6 +133,82 @@ that already says so — labelled, resolved, kept.
 Both counter kinds mean the same thing mechanically, which is why they are one
 class: the reader's question is "can I open this?".
 
+## Class 4 — claim ids (`verify`)
+
+Round 11 built a ledger that could only be iterated **forward** (rows →
+commands). A document citing an id that no row defines was therefore invisible:
+at the round-12 close, a doc citing the fabricated `R13-99` produced `CITATION_GATE: CLEAN`,
+exit 0. `verify` now resolves the other direction:
+
+- **Vocabulary.** `R<digits>-<digits>`, matched as a **whole word**
+  (`[A-Za-z0-9_-]*R[0-9]+-[0-9]+[A-Za-z0-9_-]*`). The *word* is what must be a
+  row id, so the illustrative `R12-03a` and `xR12-01` are `MISSING-ID` rather than resolving as
+  their prefix, and a range notation (`R12-01..03`, which this corpus uses)
+  validates its head only — the tail is prose, not a claim. Bound: the
+  vocabulary is upper-case `R`; a lower-case `r13-99` is not scanned for.
+- **Rows come from row lines.** An id named in a *comment* in
+  `corpus/claim-ledger.tsv` creates no row, so the header comments' `R11-06`
+  and `R11-10/11` mentions are harmless only because real rows also exist
+  (pinned by selftest `verify-comment-id`).
+- **Failure.** `MISSING-ID <doc>:<line> <id>` per occurrence, the count in the
+  summary (`unresolved_ids=`), exit 1. Rows cited **nowhere** are `ORPHAN`s:
+  counted, informational, listed with `--orphans`. At the round-12 close five
+  rows were orphans (`R11-01/02/04/05/07`) and nothing in the repo could say so.
+- **Empty id universe is a setup error.** Zero rows ⇒ exit 2.
+
+## Class 5 — scorecard cells (`cells`)
+
+The round-11 plan ("each score cell names the claim ids it rests on") is what
+this mode enforces, and it is deliberately narrower than the plan's wording:
+
+- **Checked set.** A table row inside a `## Round <N> — pre-move|post-move`
+  section whose first cell — whitespace and `*` stripped — is exactly one of
+  `depth coverage operability freshness calibration adjacency`. The `Retired`
+  table and every other section are prose. Every recognised section must carry
+  **all six axes exactly once**; a missing or re-spelled row is a setup error
+  (exit 2), because the global count cannot see one section losing rows while
+  another keeps the total positive (round-13 planner T2-1/T2-2; the mutation
+  lane showed a partial rename shrinking 12 cells to 11 in silence). A heading
+  that starts `## Round` but does not match the expected shape (`## Round 13
+  pre-move`, a colon, an en-dash) is refused outright — silently skipping it
+  would drop six cells while the count stayed positive (round-13 sentinel).
+- **Pointer.** A resolving claim-row id, or a path listed in
+  `corpus/stamps.tsv`. Membership is an **exact first-field match** — the first
+  implementation used an unanchored substring search and every score digit
+  (`7`, `9`) matched a sha256/line field followed by a TAB, so all 48 real
+  cells looked pointed (see the lesson; pinned by selftest
+  `cells-numeric-anchored`).
+- **The teeth.** A pointer counts only if it still holds. The cited rows are
+  re-run through the ordinary claims machinery (exit equality + last-line
+  verdict ⇒ a cell cannot rest on a failing row: `row_failures`), and the cited
+  pinned artifacts are re-compared against their stamp rows (`STALE-POINTER`,
+  `MISSING-POINTER`). Membership alone was the round-13 critic's executed
+  counterexample: a poisoned stamp row (`deadbeef/0/0`) and a cell citing an
+  unrelated row both passed a membership-only audit.
+- **Non-vacuity.** Zero checked cells, a scorecard outside the id audit's doc
+  set, or a scorecard whose cells cite no row at all are each exit 2 — a green
+  run must never mean "there was nothing to check".
+- **Nesting.** `cells` is reachable from a claim row, so a row that re-invokes
+  this gate is **skipped** inside the cell audit (`SKIP-SELF`, counted as
+  `self_skipped`) and a nested `verify` is refused outright (exit 2): the audit
+  re-runs the rows a scorecard cites, and a scorecard may cite the audit.
+  Bounded by construction, not by luck (scribe lane F3).
+- **Summary.** `CELL_AUDIT: CLEAN (cells=N row_pointed=R stamp_pointed=S
+  uncited=0 missing_ids=0 rows_run=R row_failures=0 stale_pointers=0
+  self_skipped=K orphans=O)`. `row_pointed`/`stamp_pointed` are independent
+  counts, so the line itself shows how many scores rest on a re-run command
+  rather than on a frozen document.
+
+## Round-13 before → after (same file, measured both ways)
+
+| Claim | Before (round-12 close) | After |
+|---|---|---|
+| an id a doc cites that no row defines | invisible: `citations --docs <doc citing the fabricated R13-99>` ⇒ `CLEAN`, exit 0 | `MISSING-ID <doc>:1 R13-99` + `CLAIM_LEDGER: FAIL … unresolved_ids=2 labeled_ids=0`, exit 1 |
+| a scorecard cell with no pointer | invisible: no mode read the file | `UNCITED SCORECARD.md:38 depth`, 20 of 48 cells, `CELL_AUDIT: BROKEN … uncited=20`, exit 1 |
+| a cell citing a row that fails today | not expressible | `row_failures=1`, exit 1 (selftest `cells-row-fails`) |
+| a cell citing a pin that has moved | not expressible | `STALE-POINTER corpus/claim-ledger.sh`, `stale_pointers=1`, exit 1 |
+| a section missing an axis | not expressible | `scorecard section '## Round …' does not carry all six axes exactly once`, exit 2 |
+
 ## Round-11 before → after (same defects, measured both ways)
 
 | Scan | Result |
@@ -153,15 +231,16 @@ whenever any scanned doc changes — including the LOG entry that quotes them. S
 this corpus quotes those figures with `≈` and lets the *verdict* and the count
 *shape* (non-zero, `unresolved=0`, `ephemeral=0`) be the claims; the exact tuple
 is measured once, last, and quoted in the round report (which is outside the
-scanned set). Measured this way in round 11: `CITATION_GATE: CLEAN (cites=515
+scanned set). Measured this way in round 11: `CITATION_GATE: CLEAN (cites=517
 docs=39 unresolved=0 ephemeral=0 labeled=13)`.
 
 ## Reproduction
 
 ```
-bash corpus/claim-ledger.sh verify      # stamps + claims     → CLAIM_LEDGER: CLEAN (claims=11 stamped=28)
-bash corpus/claim-ledger.sh citations   # citation durability → CITATION_GATE: CLEAN (cites≈505 docs=39 …) at the end-of-round revision
-bash corpus/claim-ledger.sh --selftest  # 39 scratch cases    → SELFTEST: PASS (39 cases)
+bash corpus/claim-ledger.sh verify      # stamps + claims + claim ids → CLAIM_LEDGER: CLEAN (claims=17 stamped=33 ids=17 cited=17 labeled_ids=13 orphans=0)
+bash corpus/claim-ledger.sh citations   # citation durability → CITATION_GATE: CLEAN (cites=700 docs=43 unresolved=0 ephemeral=0 labeled=13)
+bash corpus/claim-ledger.sh cells       # scorecard audit    → CELL_AUDIT: CLEAN (cells=60 row_pointed=25 stamp_pointed=41 uncited=0 missing_ids=0 rows_run=14 row_failures=0 stale_pointers=0 self_skipped=3 orphans=0)
+bash corpus/claim-ledger.sh --selftest  # 72 scratch cases   → SELFTEST: PASS (72 cases)
 bash corpus/claim-ledger.sh stamp corpus/claim-ledger.sh …    # re-pin (reviewed commit)
 ```
 
@@ -194,7 +273,12 @@ bash corpus/claim-ledger.sh stamp corpus/claim-ledger.sh …    # re-pin (review
 8. **One root.** `--root` defaults to this repo; the sibling/`.ufo` classes
    assume the checkout layout (`…/shokunin/<lane>-shokunin`, `…/shokunin/.ufo`)
    — a relocated checkout turns those rows UNRESOLVED, which is a real signal
-   about the reader's tree, not about the cited file.
+   about the reader's tree, not about the cited file. Observed end-to-end in
+   round 11 on a `git clone` of this repo into `/tmp`: `--selftest` is
+   `PASS (39 cases)` and `verify` is `FAIL R11-08 reason=exit-mismatch exit=1
+   want=0` (the `citations` scan cannot resolve the sibling/`.ufo` citations
+   without the fleet present). That is the bound working, not a gate bug — and
+   it is why `R11-08`'s note names the layout requirement.
 9. **Claims are not scheduled.** Nothing runs `verify` on a timer; the round
    discipline is "run it before you cite it".
 10. **`POLICY` rows are not run at all** — a policy refusal is a failure of the
@@ -218,6 +302,59 @@ bash corpus/claim-ledger.sh stamp corpus/claim-ledger.sh …    # re-pin (review
 15. **A citation of a generated file is order-dependent.** `corpus/stamps.tsv`
     is cited in this corpus and does not exist before the first `stamp` — the
     citation is `UNRESOLVED` until then (reviewer addendum, observed live).
+16. **`stamp` replaces the row set; it does not merge.** Any invocation that
+    would drop a path already pinned is refused (exit 2) unless `--prune` is
+    passed — round 12 lost 18 rows to an in-flight 10-path `stamp` before the
+    guard existed, and `verify` cannot report the loss (it iterates the file's
+    rows, so a shrunken file is silently smaller coverage). The round-12
+    mutation lane then showed the first rule (new rows < existing rows) was a
+    *length* rule: an equal-count **path swap** and a missing-final-newline
+    off-by-one both slipped through, so the guard is now per-path membership and
+    counts non-blank lines. A **blank line** inside the file is a setup error
+    (`malformed stamps row (blank line)`), because a blank row reduced coverage
+    while a `grep -c` count still saw a row. Row count is pinned by claim row
+    `R12-03` (non-blank-line count, not `^#`-inverted); four selftest cases cover
+    the guard (`stamp-shrink-refused`, `stamp-prune-allowed`,
+    `stamp-swap-refused`, `stamps-blank-row`).
+
+17. **An id audit is a liveness check, not a semantic one.** A document can cite
+    the correct id beside the wrong sentence; the audit says "this id exists",
+    not "this id supports that claim". The reviewer lane is the control.
+18. **A cell pointer can be irrelevant to the score it sits next to.** The
+    critic's executed counterexample: a `calibration | 9 | R11-10` cell is
+    `CLEAN` while `R11-10`'s command only counts rows in `state-shape.tsv`. The
+    rule raises a cell from *token existence* to *a currently passing
+    measurement or a hash-pinned revision*; it does not establish relevance.
+    `row_pointed` vs `stamp_pointed` is printed so the reader sees which kind of
+    support each score has.
+19. **The ledger cannot pin its own `verify` summary.** A row running `verify`
+    from inside `verify` recurses; `verify` refuses a nested self-audit
+    (selftest `nested-audit-refused`). `cells` may be pinned because the cell
+    audit skips the rows that re-invoke the gate (`self_skipped`).
+20. **`STALE-POINTER` is a question, not a verdict.** A moved pinned revision
+    means either the edit was intended (re-stamp, a reviewed commit) or the cell
+    points at the wrong artifact (re-point it).
+21. **The six-axis completeness rule is a shape rule.** A section can carry all
+    six axes and still score nonsense; and a *sub-axis* name (a split, e.g.
+    `freshness (host)`) is not recognised — splitting an axis therefore requires
+    keeping the parent row, which is stated here so a future split is not
+    discovered as a surprise setup error.
+
+22. **Stamp rows are read under the same containment rule they are written
+    under.** `stamp` has refused absolute paths and `..` since round 11; the
+    *reader* did not, and the round-13 sentinel demonstrated the asymmetry end to
+    end — a hand-edited row naming `../outside.txt` made `verify` hash a file
+    outside `--root` (a hash oracle) and let a scorecard cell point at it. Both
+    sides now refuse (exit 2, selftest `stamps-dotdot-row` /
+    `stamps-absolute-row`). The bound that remains: this is a **text** check on
+    the row, not a canonical-path check, so a row naming a path that *reaches*
+    outside through a symlinked directory is refused on the write side (which
+    resolves the canonical path) but not re-checked on the read side.
+23. **`verify --docs <one doc with no ids>` is CLEAN with `cited=0`.** An
+    explicitly narrowed doc set can legitimately contain no claim ids; the
+    count in the summary is the signal, and the non-vacuity guards live in
+    `cells` (zero cells, zero row-pointed cells, empty id universe) rather than
+    in the id audit.
 
 ## Falsifiers (each must break something, or the claim behind it is wrong)
 
@@ -229,4 +366,9 @@ bash -c 'bash corpus/claim-ledger.sh stamp --out corpus/stamps.tsv corpus/stamps
 bash -c 'bash corpus/claim-ledger.sh citations --root /tmp'                              # die: doc not found (setup error, exit 2)
 bash -c 'bash corpus/claim-ledger.sh verify --stamps /dev/null'                          # EMPTY stamp set → is that CLEAN? (size bound)
 bash -c 'bash corpus/claim-ledger.sh verify --claims <(printf "c1\tbash x\tY\t0\t5\n")'  # process substitution as a claims file
+# --- round 13 -----------------------------------------------------------------
+printf 'doc cites R13-99\n' >>/tmp/f.md; bash corpus/claim-ledger.sh verify --docs /tmp/f.md  # fabricated id → MISSING-ID, exit 1 (before: CLEAN); add the word 'illustrative' to the line and it becomes LABELED-ID, counted as labeled_ids
+bash -c 'cp SCORECARD.md /tmp/sc.md; printf "| calibration | 9 | nothing |\n" >>/tmp/sc.md; bash corpus/claim-ledger.sh cells --scorecard /tmp/sc.md --docs /tmp/sc.md'  # UNCITED (section may also fail the six-axis rule)
+bash -c 'cp corpus/stamps.tsv /tmp/s.tsv; sed -i "s/^corpus\/claim-ledger.sh\t[0-9a-f]*/corpus\/claim-ledger.sh\tdeadbeef/" /tmp/s.tsv; printf "| depth | 7 | \`corpus/claim-ledger.sh\` |\n" >>/tmp/sc2.md'  # STALE-POINTER once the audit re-compares it
+CLAIM_LEDGER_DEPTH=1 bash corpus/claim-ledger.sh verify   # refusing a nested self-audit, exit 2
 ```

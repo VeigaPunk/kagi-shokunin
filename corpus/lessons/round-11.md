@@ -189,6 +189,24 @@ final measure happens after the last edit.
   contract, and whether verdict-only output satisfies PROTOCOL's output
   standard.
 
+## Clone smoke test (the committed revision, standalone)
+
+`git clone` of the round-11 commit into `/tmp` (no sibling lane repos, no
+`.ufo`):
+
+```
+bash corpus/claim-ledger.sh --selftest  → SELFTEST: PASS (39 cases)          exit 0
+bash corpus/claim-ledger.sh verify      → FAIL R11-08 reason=exit-mismatch   exit 1
+```
+
+The selftest is layout-independent (scratch tree, absolute paths). `verify`
+fails on exactly one row — `R11-08` (`citations`) — because the sibling
+(`kotoba-shokunin/…`) and main-repo (`.ufo/…`) citations cannot resolve without
+the fleet checkout. That is the documented bound (entry §Bounds item 8) doing its
+job; the row's note now states the layout requirement. Worth keeping as
+fail-closed: a gate that silently shrugged when its citations lost their
+resolution root would be the false-clean class this round is about.
+
 ## Axis note
 
 Calibration moved to 8, not higher: the *claims* are now machine-checkable, but

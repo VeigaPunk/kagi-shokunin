@@ -1,7 +1,7 @@
 # Drift gate — baselines, symbol pins, and what it cannot see
 
 Sources: `corpus/drift-pins.sh` (round-9 v2, 451 lines, sha256 `c138d34c…0feb`),
-`corpus/drift-baseline.tsv` (15 rows), `corpus/drift-symbols.tsv` (19 rows);
+`corpus/drift-baseline.tsv` (15 rows), `corpus/drift-symbols.tsv` (20 rows);
 live runs 2026-09-28; v1 read at HEAD `ea77bf0`; `PROTOCOL.md` §Evidence standard
 L292–298; `corpus/lessons/round-8.md` §5; round-9 L2 review (planner, sentinel,
 critic, scout, labrat, distiller).
@@ -164,14 +164,14 @@ counts only, never file content or matched text.
 
 ## Reproduction (2026-09-28)
 
-    bash corpus/drift-pins.sh            # DRIFT_PINS: CLEAN (files=15 symbols=19), exit 0
+    bash corpus/drift-pins.sh            # DRIFT_PINS: CLEAN (files=15 symbols=20), exit 0
     bash corpus/drift-pins.sh --selftest # DRIFT_SELFTEST: PASS (13 cases), exit 0
     bash corpus/drift-pins.sh --baseline; echo $?   # → 2 (missing argument)
     sed 's/^\(\$HOME\/.local\/bin\/the-janitor\).*/\1\t755\t333\tdeadbeef/' \
       corpus/drift-baseline.tsv > /tmp/mut.tsv
     bash corpus/drift-pins.sh --baseline /tmp/mut.tsv --symbols corpus/drift-symbols.tsv
     # DRIFT   $HOME/.local/bin/the-janitor sha deadbeef0b7e->2408b0c90b7e      (paths print expanded at runtime)
-    # DRIFT_PINS: DRIFT (files_ok=14 files_bad=1 symbols_ok=19 symbols_bad=0), exit 1
+    # DRIFT_PINS: DRIFT (files_ok=14 files_bad=1 symbols_ok=20 symbols_bad=0), exit 1
 
     # policy: a baseline row that asks for a hash of a no-hash path
     sed 's/^\(\$HOME\/.config\/the-janitor\/op.env\t600\t17\t\)-$/\1deadbeef/' \

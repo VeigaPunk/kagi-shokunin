@@ -311,3 +311,121 @@
   No vault access, no handler start/stop, no Chrome launch, no secret values,
   ref paths or private-file hashes in any artifact; `OP_*` values in probes were
   fabricated; all L2 execution was scratch-only.
+- 2026-09-28 — round 12 (**depth 7 → 8**; axis-move: the `op.env` two-parser
+  contract, the hard-failure class, and the true scope of `op run` masking).
+  Dispatch: 12 L2 lanes in one batched call (planner, connector, 2 executors,
+  2 scouts, reviewer, critic, sentinel, labrat, mutation-tester, distiller).
+  Landed `corpus/op-ref-probe.sh` (verify/`--evaluate`/`--fixture`/`--selftest`,
+  fixture-generated contract, single `op_exec` chokepoint with a per-path
+  guard), `corpus/knowledge/op-ref-consumption.md` (divergence table, §2b
+  hard failures, masking table with evidence grading, 13 bounds),
+  `corpus/claim-ledger.tsv` rows `R12-01..03`, one `drift-symbols.tsv` pin
+  (`the-janitor` L248 — the masking premise, 19 → 20), `SKILL.md` decision/
+  failure/anti-pattern/checklist rows + a `## op.env consumption` section,
+  `corpus/lessons/round-12.md`, and 16 stale live-doc rows corrected (scout
+  lane) plus every number this round moved. Evidence (shipped revision):
+  `bash corpus/op-ref-probe.sh` ⇒ `OP_REF_PROBE: CLEAN (checks=44 oprun=12
+  refs=7 divergent=5 edge=10 sig=6)` exit 0; `--selftest` ⇒
+  `OP_REF_SELFTEST: PASS (29 cases)`; `bash corpus/claim-ledger.sh verify` ⇒
+  `CLAIM_LEDGER: CLEAN (claims=14 stamped=32)` exit 0; `citations` ⇒
+  `CITATION_GATE: CLEAN (cites≈629 docs=42 unresolved=0 ephemeral=0 labeled=16)`
+  exit 0; `--selftest` ⇒ `SELFTEST: PASS (43 cases)`; siblings unchanged
+  (`DRIFT_PINS: CLEAN (files=15 symbols=20)`; `SURFACE_CENSUS: CLEAN
+  (assets=20 runtime=15 scanned=4 ok=34 absent=2 skipped=0)`; `TRANSCRIPT_SCAN:
+  HITS=2` exit 1 by design). **The finding**: `refs` (`cmd_refs` awk L234) and
+  `run` (`cmd_run` ⇒ `exec op run --env-file` L248) are different parsers over
+  one file — `op run` injects 12 keys where `refs` lists 7; `#` truncates an
+  unquoted value silently; `$K`/`${K}`/`${K:-default}` expand (single quotes
+  suppress it); quotes/CRLF/whitespace/duplicates/inherited values are rewritten;
+  `--env-file` files **merge** (union, per-key last-wins, files beat the shell);
+  and a malformed line (BOM, bare key, lone `=`, `-` in a key) aborts the whole
+  parse with zero keys injected **while `refs` exits 0 with a healthy
+  inventory** — an audit that trusts `refs` says fine while the load delivers
+  nothing. Masking is narrower than its help text: only reference-resolved values
+  are concealed; plain values pass through verbatim in every measured shape and
+  `--no-masking` is a no-op for them (four shapes + stderr + full-`env`
+  multiset, two independent lanes), so "the handler masks its output" is false
+  for plain-valued keys. **Five defects found in flight, each reproduced**: the
+  `stamp` guard was a *length* rule (equal-count path swap, missing-final-newline
+  off-by-one and a blank-line substitution all slipped; now per-path membership,
+  non-blank-line counting, blank row = setup error, 4 selftest cases); two CRIT
+  guard bypasses in my own probe (sentinel F1/F2/F3: `--fixture` could supply a
+  ref-bearing `absent.env`, a *file* named `adir`, a symlink or a FIFO — closed
+  by the per-path `op_exec` chokepoint, re-verified by hand: four poison trees ⇒
+  `POLICY` exit 2 with an **empty stub log**); a header claim that "every
+  invocation goes through `op_run()`" was false (reviewer, WRONG) and is now
+  true; a `trap`+`local` cleanup bug under `set -u`; and two stale numbers in my
+  own first draft (3 → 5 divergences; masking rows graded as 2 mechanised + 3
+  one-off). **Process finding (mine)**: the declared wave freeze was stale on
+  arrival — I kept editing the probe (v1 → v4) while the lanes ran; four lanes
+  recorded the movement independently, the reviewer's verbatim receipt is *"the
+  freeze was stale on arrival"*, and the lesson is recorded in
+  `corpus/lessons/round-12.md` §L2 wave rather than smoothed over.
+  **Unexpected repo change (not mine, adapted)**: three commits landed in this
+  repo mid-round (`e0a04d8`, `7c3377c`, `4391b3b` — the aggregator lane's box-3
+  cold-run lesson); it cites `.ufo/reports/round-8/aggregator.md`, which resolves
+  nowhere in the main repo's history (`git log --all` empty, and the round-8
+  report directory has no `aggregator.md`). The three dead tokens are labelled
+  where they are cited (the repo's own marker rule) and the pointer is reported
+  for the aggregator/integrator to fix; the file is stamped because this round's
+  report cites it. No vault access; no secret value, ref path or account value
+  in any artifact; the only vault-API contact was one bounded
+  nonexistent-vault probe (`op run` over a fabricated ref, exit 1 in ~2 s),
+  labelled as a one-off in the entry.
+- 2026-09-28 — round 13 (**calibration 8 → 9**; axis-move: a citation becomes a
+  resolvable object and a score becomes a re-verified pointer). Dispatch: 12 L2
+  lanes in two batched calls (the first payload was malformed and yielded two
+  lanes; planner, connector, 2 scouts, 3 executors, reviewer, critic, sentinel,
+  mutation-tester, labrat, scribe). Landed `corpus/claim-ledger.sh` (four modes:
+  `verify`/`citations`/`cells`/`stamp`; 72-case selftest),
+  `corpus/knowledge/claim-ledger.md` §Class 4 (claim ids) + §Class 5 (scorecard
+  cells) + 6 new bounds, `corpus/lessons/round-13.md`, `SCORECARD.md` round-13
+  pre/post tables + pointers on the 20 uncited cells + a corrected historical
+  number, `corpus/claim-ledger.tsv` rows `R13-01..03` (and `R11-09`/`R12-03`
+  re-pinned), plus `PROVINCE.md`/`corpus/README.md`/`SKILL.md` current-shape
+  updates. Evidence (shipped revision): `bash corpus/claim-ledger.sh cells` ⇒
+  `CELL_AUDIT: CLEAN (cells=60 row_pointed=25 stamp_pointed=41 uncited=0
+  missing_ids=0 rows_run=14 row_failures=0 stale_pointers=0 self_skipped=3
+  orphans=0)` exit 0 (pre-move, same command: `BROKEN (cells=48 row_pointed=3
+  stamp_pointed=28 uncited=20)` exit 1 — reproduced independently by a scribe
+  replica, a scout python census and an executor re-implementation);
+  `verify` ⇒ `CLAIM_LEDGER: CLEAN (claims=17 stamped=33 ids=17 cited=17
+  labeled_ids=13 orphans=0)` exit 0; `citations` ⇒ `CITATION_GATE: CLEAN
+  (cites=700 docs=43 unresolved=0 ephemeral=0 labeled=13)` exit 0; `--selftest`
+  ⇒ `SELFTEST: PASS (72 cases)`. Siblings unchanged: `DRIFT_PINS: CLEAN
+  (files=15 symbols=20)` + 13 cases; `SURFACE_CENSUS: CLEAN (assets=20
+  runtime=15 scanned=4 ok=34 absent=2 skipped=0)` + `--verbs CLEAN (pass=7
+  skip=3)` + 16 cases; `TRANSCRIPT_SCAN: HITS=2` exit 1 by design. **The
+  finding**: the gate round 11 shipped had a hole at each end — it iterated rows
+  forward only (a doc citing an id no row defines passed: `citations --docs <doc
+  citing the fabricated R13-99>` ⇒ CLEAN, exit 0) and nothing read
+  `SCORECARD.md` (20 of 48 cells pointed at nothing). Both directions now fail
+  closed, and a pointer counts only if it still holds: cited rows are re-run
+  through the claims machinery, cited pins are re-compared (`STALE-POINTER`), a
+  section missing or misspelling an axis is exit 2, and an unrecognised `##
+  Round` heading is exit 2 rather than six silently-dropped cells. **Defect found
+  in my own first implementation**: the pointer test was an unanchored
+  `grep -F "token<TAB>"`, and every score digit (`7`, `9`) matched inside a
+  sha256/line field — `CELL_AUDIT: CLEAN … stamp_pointed=48` against a scorecard
+  with 20 unpointed cells, i.e. a false clean of the round-11 CE1 class; caught
+  by a token probe (`HIT [7]`, `HIT [9]`) against the scribe lane's independent
+  replica (28), fixed by array-loaded exact first-field membership, pinned by
+  selftest `cells-numeric-anchored`. **Recursion closed**: a claim row may run
+  this gate, so `verify` now refuses a nested self-audit (exit 2) and `cells`
+  skips rows that re-invoke the gate (`SKIP-SELF`, counted) — which is why the
+  ledger cannot pin its own `verify` summary and `R13-03` pins the `cells`
+  summary instead. **Id vocabulary**: whole-word matching (the illustrative `R12-03a` /
+  the illustrative `xR12-01` are `MISSING-ID`, a comment-only id creates no row, a range
+  validates its head only), and the citation scan's marker rule applies to ids
+  too (`labeled_ids=13` — the fabricated ids that are this round's own
+  before-evidence), because the audit's first run failed on its own docs.
+  **Sentinel-driven fixes**: stamp rows are now read under the same containment
+  rule they are written under (`..`/absolute refused on both sides) and round
+  headings must match the expected shape. **The L2 wave**: the critic's executed
+  counterexample (a cell citing a row irrelevant to its score) forced the two
+  teeth and is recorded as the axis ceiling, not smoothed over; the mutation lane
+  proved the prefix/suffix/comment escapes; the scribe found both the `in_set`
+  variable clash that killed all five `cells-*` cases and the recursion;
+  the reviewer caught a `lineno: unbound variable` crash in a mid-edit revision
+  (never shipped). No vault access; no secret value, ref path or account value in
+  any artifact; all L2 execution was scratch-only.

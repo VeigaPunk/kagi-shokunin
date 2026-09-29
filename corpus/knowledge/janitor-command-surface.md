@@ -14,7 +14,7 @@ before trusting a number.
 | `status` | metadata-only: session, model, endpoint, health, authorization lifetime | `cmd_status` L145–171 |
 | `stop` | kills the tmux session and removes `session-id` (discards in-memory authorization) | `cmd_stop` L173–184 |
 | `whoami` | `op whoami` **in the caller's env** — does not use handler authorization | L311–314 |
-| `refs` | lists env keys + `op://` refs from the env file, redacting non-ref values | `cmd_refs` L228–235 |
+| `refs` | lists the `^[A-Z][A-Z0-9_]*=` lines + `op://` refs from the env file, redacting non-ref values — an **incomplete** inventory: `export K=v`/spaced/lowercase/indented/digit-leading lines are omitted, duplicate keys are listed once per line, a quoted `"op://…"` is reported as a non-ref, and a file the resolver rejects still prints clean (`knowledge/op-ref-consumption.md`) | `cmd_refs` L228–235 |
 | `run [--] <cmd>` | one-shot `op run --env-file=…` | `cmd_run` L237–249 |
 | `tac-register` | execs `~/.local/bin/tac-check --register` | L295–298 |
 | `tac-check` | execs `~/.local/bin/tac-check` | L299–302 |

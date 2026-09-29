@@ -219,6 +219,70 @@ today (row `R14-01`). See §Round 15 for the move that was taken and the reason.
 | freshness | 9 → 9 | A drift-detectable surface for the checklist's premises now exists (16 rows re-run on demand, with pinned verdict lines and counts), and the gate spent that budget on first contact: 5 placeholder literals found, 2 host facts unpinned, 1 false-defect class fixed. Not re-scored: the lane's freshness *measurement* (host-file drift, surfaces, runtime shape) is unchanged and `DRIFT_PINS: CLEAN (files=15 symbols=20)` still holds. | `R11-04`; `R15-01` |
 | adjacency | 8 → 8 | Sibling verifiers mapped and reported, not absorbed: kotoba's `verify_skill_checklist.py` (checklist box → disposition, predicates inspect the file rather than execute the item's command), kumitate's doc-coverage score, kasegi's `anchorcheck.py` (prints findings but exits 0). None implements an item → command → verdict contract, so this is adjacent; the shared shape (a stable-ID outcome ledger) is reported to the integrator. | `corpus/README.md` (stamped); `corpus/lessons/round-15.md` §4 |
 
+## Round 16 — pre-move (repo `HEAD` `587fda0`, round-15 close)
+
+| Axis | Score | Evidence pointer | Last change |
+|---|---|---|---|
+| depth | 8 | Unchanged from round 12: the `op.env` two-parser contract, masking scope and hard-failure class measured with verdicts; ceiling unchanged (masking of *ref-resolved* values needs a resolved reference, i.e. the vault). | `R12-01` |
+| coverage | 8 | 35 declared surface rows + 22 runtime shape pins + 10 verb probes, all with verdicts; ceilings named in `knowledge/surface-census.md` §Bounds. | `R11-01`, `R11-11` |
+| operability | 9 | The checklist is an executed declaration (16 rows, 9 runnable / 7 by-hand, bijection over the items); nothing schedules any gate and the 7 by-hand duties remain by-hand. | `R15-01`, `R15-05` |
+| freshness | 9 | Every knowledge entry declares its re-verification and is revision-pinned; the round-14 link cannot silently disappear (`docs` mode inside `verify`). | `R14-01` |
+| calibration | 9 | The scorecard audit is green and every checked cell points at something that still holds; the `verify` summary itself remains unpinnable (stated bound). One committed mechanism claim was wrong and is corrected this round. | `R13-03` |
+| adjacency | **8** | **Ownership was prose.** Three places only — the `corpus/README.md` overlap table, `PROVINCE.md:34`/`:44`, one `mode = -` census row — and nothing could falsify any of them: no gate read an owner, a claim or a basis. One of the three was **stale on the live host**: `README.md:76` cited `kake-shokunin/SKILL.md:104-107` for the musketeer lease, and that slice matches `musketeer` 0 times (the claim is at `:161`). Adjacency was also the only 8 with **no** mechanical support — every other axis has a gate. | round 10 |
+
+## Round 16 — post-move (adjacency axis-move landed, commit `round-16`)
+
+| Axis | Score | What moved | Evidence |
+|---|---|---|---|
+| adjacency | 8 → **9** | The census got an ownership partition with a gate: 5 `# own` prefixes (27 of 35 rows), 4 group rows covering the other 8 with owner / status / claim / basis+token, 8 `# no-enumerate` declarations — and R1–R11 fail closed on an uncovered shared row, a group covering nothing, a vocabulary outside the **literal** sets, an owner/basis lane mismatch, a basis that does not resolve, escapes its root or matches no token (the `README.md:76` decay, now a verdict), a contested row drifted to a mode claim, a `# scan` outside the ownership, an owned row resolving out of the set, a shared row resolving in, an unresolvable path, a meaningless `# no-enumerate`, and an `# own` prefix that names no declared surface. The prose places are now rows a command re-reads. | `R16-01` (`ADJACENCY_SCOPE: CLEAN (census=35 owned=27 shared=8 groups=4 owners=4 unresolved=1 contested=1 escapes=0 inbound=0 foreign=0 orphans=0 stale_basis=0 basis_escape=0 own_unlisted=0)`, exit 0, ~0.5 s), `R16-02` (43 selftest cases), `R16-03` (9/9 mutations on the shipped pair), `R16-04`/`R16-05`/`R16-06` (outside counts: 5 prefixes, 4 groups, 8 no-enumerate); `corpus/knowledge/adjacency-scope.md`. Ceilings, named in the same entry's §Bounds: ownership truth is a governance fact (an *invented* foreign row + group with a token-matching basis still passes — critic CE-A1), `token` is a floor not a relevance proof (the NMH row's first basis matched a launcher line), the grammar cannot cite the integrator tree, the `note` column is checked by nobody, and nothing schedules any gate |
+| calibration | 9 → 9 (increment recorded, not re-scored) | A committed **mechanism** claim from round 15 was falsified and corrected in place (`uniq -d` on empty input exits 0 on this host, not 1 — the round-15 lesson's attribution pointed a future fix at the wrong line), and the round's claims entered the ledger as six rows rather than prose. Not raised because pointer *relevance* remains unverifiable (round-13 ceiling) and every cell here is still self-scored | `corpus/lessons/round-15.md` §Corrigendum; `corpus/lessons/round-16.md` §6; `corpus/claim-ledger.tsv` (29 rows) |
+| depth | 8 → 8 | The new entry adds detail inside existing scope (7-column schema, the 11-rule table with a failing input each, verdict/exit table, 14 bounds, reproduction, 11 falsifiers) — detail, not new scope. | `corpus/knowledge/adjacency-scope.md` |
+| coverage | 8 → 8 | The round moves a *documents/ownership* surface, not a path surface: the census declaration is untouched and nothing new is claimed about which host files exist. What it adds is that every census row now has a declared role. The row count stays pinned by `R11-11`. | `R11-01`, `R11-11` |
+| operability | 9 → 9 | An eighth gate with four modes (`verify`/`--map`/`--selftest`/`--falsify`) and 43 selftest cases, but the ceilings are unchanged — nothing schedules any gate and the by-hand duties remain by-hand; the increment is claimed under adjacency, not double-counted here. | `R16-01`, `R16-02`, `R16-03` |
+| freshness | 9 → 9 | The ownership declarations are now re-verified mechanically (every basis resolves *and* matches its token; a stale one is a verdict), which is a freshness mechanism for the overlap table. Not re-scored: the lane's freshness *measurement* (host-file drift, surfaces, runtime shape) is unchanged, and `DRIFT_PINS: CLEAN (files=15 symbols=20)` still holds. | `R11-04`, `R16-01` |
+
+## Planned (next axis-move — round 16 close)
+
+The round-16 close leaves **depth 8** and **coverage 8** as the lowest cells
+(operability 9, freshness 9, calibration 9, adjacency 9). The lane rule is "pick
+the lowest-scoring axis", so the next round chooses between the two — and the
+tie should be broken by measurement, not preference, exactly as this round's was:
+
+- **coverage candidate — the shared surfaces' breadth, counted.** The census
+  declares 4 of `~/.config/opencode`'s 20 children, 2 of `~/.local/bin`'s 105, 1
+  of `~/.agents`'s 4; the profile subtree's 53 children are declared only as a
+  presence-only dir. Those ratios are *measured in prose* (round-16 wave) and
+  nothing re-checks them. Falsifiable target: a per-group breadth declaration in
+  `corpus/adjacency.tsv` re-checked on demand, printing
+  `ADJACENCY_BREADTH: children=N declared=M undeclared=K` per group, with the
+  four ratios pinned in a ledger row; the number that has to move is `declared`
+  where a surface genuinely reaches this domain's handler, and `undeclared` must
+  stay a declared, counted number rather than an assumption.
+- **depth candidate — re-measure the refusal, as round 12 taught.** The standing
+  sentence is "masking of *ref-resolved* values, the mask token, `op
+  inject`/`op read` execution each need a resolved reference". Falsifiable
+  target: find one `op.env` consumption behaviour that is measurable with **zero**
+  vault contact and is not yet in `knowledge/op-ref-consumption.md` (the
+  candidates are the resolver's behaviour on a *property-path-shaped* value and
+  its treatment of a value that is a ref to a non-existent item — the former may
+  be decidable from `op run`'s error taxonomy alone), or record the sentence as
+  re-measured and unchanged with the specific probe that failed to move it.
+
+Ceilings are named so they are not mistaken for saturations:
+
+- **adjacency** — the gate checks that an ownership claim is *declared,
+  consistent and cited*, never that it is *true* (an invented foreign row plus an
+  invented group row with a token-matching basis passes: critic CE-A1); `token`
+  is a floor, not a relevance proof (the first NMH basis matched a launcher
+  line); the `note` column is checked by nobody; the basis grammar cannot cite
+  the integrator tree (`.ufo/reports/…`); and nothing schedules the gate.
+- **calibration** — pointer relevance is not machine-checkable, and both new
+  scorecard sections are self-scored against third-party-runnable pointers.
+- **operability / freshness** — unchanged ceilings (no scheduling; the
+  freshness measurement set is the same).
+- **depth / coverage** — as above; neither is exhausted, they are simply the
+  cells that have not moved since round 12 / round 10.
+
 ## Planned (round-15 target recorded — not taken, and why)
 
 This file's previous plan (round 14) set the next falsifiable target as

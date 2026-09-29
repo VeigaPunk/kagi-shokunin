@@ -1,0 +1,75 @@
+# kagi-shokunin ownership partition — v1 (round 16)
+#
+# Declares which host surfaces this domain OWNS and which it only READS, so
+# "cross-domain awareness" is a checked claim instead of prose. `# own` prefixes
+# are the surfaces this domain owns outright; every census row outside them must
+# be covered by a row below, which names the lane that owns it and the citation
+# that establishes that lane's claim.
+#
+# Columns (row lines): path <TAB> owner <TAB> status <TAB> claim <TAB> basis <TAB> token <TAB> note
+#   path   a surface root ($HOME/... or absolute); the longest matching prefix covers a census row
+#   owner  a lane id declared by an `# owner` directive. On an `unresolved` row
+#          it names the lane that owes the ruling (the arbiter), not a found
+#          owner — a single-owner reading of that group is a misreading.
+#   status contested | shared-read | writer | unresolved
+#   claim  presence-only  => every covered census row must carry mode `-`
+#          declared       => every covered census row must carry an exact mode
+#   basis  a citation that must resolve and whose cited line(s) must match `token`:
+#          a repo-relative path[:N|N-M], or `lane:<lane>/<path>[:N|N-M]` resolved
+#          under ~/projects/shokunin/<lane>-shokunin/
+#   token  ERE that AT LEAST ONE line of the cited range must match (a `:N-M`
+#          citation is satisfied by any matching line in the range; a citation
+#          with no `:N` is checked against the whole file). Stated because
+#          'every cited line' would be a stricter rule than the one implemented
+#          (round-16 planner). ERE the cited line(s) must match, so a basis cannot decay into a
+#          pointer at unrelated text (the corpus/README.md:76 class). A token is
+#          a floor, not a relevance proof: a line that mentions the surface
+#          without asserting a claim still passes (bound 6).
+#   note   free text; no secret value, no vault ref path, no account identifier
+#
+# Directives:
+#   # own <prefix>          this domain owns the prefix (and everything under it)
+#   # owner | # status | # claim | # no-enumerate <value>  the closed vocabularies
+# `# no-enumerate <dir>` records a directory deliberately NOT scanned: it must be
+# a census row or an ancestor of one, and must not be a `# scan` directory.
+#
+# Count the directives with `grep -cE '^# own[[:space:]]+.HOME/'` — the prose
+# lines in this header also begin with `# own` / `# owner`, so a naive
+# `grep -c '^# own'` overcounts (9 rather than 5; ledger row R16-04 pins it).
+#
+# Verify: corpus/scope-gate.sh   Re-partition after inspection: an `# own` or
+# `# owner` edit is a scope decision, so there is deliberately no `--pin`.
+# Rows: 4 groups covering the 8 census rows outside the 5 owned prefixes.
+
+# own	$HOME/.config/the-janitor
+# own	$HOME/.local/bin/the-janitor
+# own	$HOME/.local/bin/tac-check
+# own	$HOME/.local/state/the-janitor
+# own	$HOME/.local/state/tac
+
+# owner	integrator
+# owner	kagi
+# owner	kake
+# owner	kotoba
+
+# status	contested
+# status	shared-read
+# status	unresolved
+# status	writer
+
+# claim	declared
+# claim	presence-only
+
+# no-enumerate	$HOME/.local/bin
+# no-enumerate	$HOME/.config/opencode
+# no-enumerate	$HOME/.agents
+# no-enumerate	$HOME/.local/share/the-musketeer/chrome-profile
+# no-enumerate	$HOME/.config
+# no-enumerate	$HOME/.local/state
+# no-enumerate	$HOME/.local/share
+# no-enumerate	$HOME/.local/share/the-musketeer
+
+$HOME/.config/opencode	integrator	unresolved	declared	SCORECARD.md:54	opencode	global opencode config is merged UNDER the lane overlay (additive, round 6); 4 of its 20 children reach this domain's handler. No fleet artifact names a single owner: kotoba owns the instruction/agent surface and the provider declaration is operator-owned (lane:kama/corpus/knowledge/cross-lane-scope.md:12-13,29), kama owns the endpoint identity, kengaku wrote a temporary provider into it and restored it byte-identical — this domain owns only credential/request hygiene on those children. Owners found by search: kotoba 24 files, kama 14, kengaku 9, kumitate 2 (kake/kasegi 0). Ruling owed to the integrator (fleet ledger D-96).
+$HOME/.local/share/the-musketeer/chrome-profile	kake	contested	presence-only	lane:kake/SKILL.md:161	musketeer	kake leases the shared burner chrome machine-wide; both lanes claim it in writing (kake side: lane:kake/corpus/lessons/round-1-aggregator-audit.md:72-75), so the profile dir itself is presence-only here (mode `-`), never pinned by this domain
+$HOME/.local/share/the-musketeer/chrome-profile/NativeMessagingHosts	kagi	writer	declared	corpus/lessons/round-8-aggregator-box3-coldrun.md:64	NativeMessagingHosts	the NMH dir + 1Password manifest are written by this domain's `cdp-bridge ensure` inside kake's leased profile; the writer lane owns the row, and kagi declares exactly these two paths and nothing else in the subtree
+$HOME/.agents/AGENTS.md	kotoba	shared-read	declared	lane:kotoba/corpus/knowledge/alwayson-checklist-round7.md:30	AGENTS\.md	byte-pinned here; kotoba is the sole fleet claimant of the file's checklist/shape reading (read-only for both lanes)

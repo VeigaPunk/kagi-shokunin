@@ -108,3 +108,16 @@ item's machine-checkable **premise**, not the operator's duty — the `note`
 column carries that admission and is not gate-enforceable; and nothing schedules
 the gate, so the remaining operability increment (scheduling, and the 7 by-hand
 duties) is explicitly not claimed.
+
+## Corrigendum (round 16, measured)
+
+Defect 1 above attributes the first silent death partly to "`uniq -d` exits 1 on
+an empty result". Measured on this host (GNU coreutils 9.x, and the uutils
+builtin) in round 16: `printf '' | sort | uniq -d` ⇒ exit **0**, and
+`printf 'a\nb\n' | uniq -d` ⇒ exit 0 — `uniq -d` does **not** fail on an empty
+result here. The silent-death class is real and the guards landed for it are
+correct, but the attribution was wrong: the killers are the loop's final
+iteration status and `grep -v … | tail -1` under `pipefail` (`printf 'x\n' |
+grep -v ''` ⇒ exit 1 when every line is filtered). The body above is left as the
+round-15 record; this note exists so a future fix is not aimed at the wrong line.
+Evidence: round-16 report §Corrigendum; `corpus/lessons/round-16.md` §6.

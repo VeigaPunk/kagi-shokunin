@@ -40,6 +40,9 @@ see `lessons/round-1.md` for the rule and its rationale.
 | Declared-surface census (gate) | `corpus/surface-census.sh` | kind/exact-mode per declared path, `UNLISTED` children of the 4 enumerable dirs, runtime shape pins, write-side verb probes; exit 0/1/2; `--verbs`, `--verbs --deep`, `--selftest` (16 cases) |
 | Surface declaration (data) | `corpus/surface-census.tsv` | 35 rows (20 asset / 15 runtime) over the-janitor config/state, the opencode layer that reaches the handler, evidence/custody, network-adjacent paths; 4 `# scan` directives; one `mode = -` row (the contested chrome-profile dir) |
 | Runtime shape pins (data) | `corpus/state-shape.tsv` | 22 rows (count pinned by ledger row `R11-10`): sqlite magic (16-byte, NUL-exact), modes, table/row floors at 1/3 of observed, log size floor, JSON key **names**; no content, no hashes |
+| Ownership partition (gate) | `corpus/scope-gate.sh` | the census partition: `FOREIGN`/`ORPHAN`/`UNKNOWN-OWNER`/`BAD-VALUE`/`BAD-ROW`/`OVERCLAIM`/`NOT-A-FILE`/`STALE-BASIS`/`FOREIGN-SCAN`/`ESCAPE`/`INBOUND`/`UNVERIFIED`/`ENUM-CLASH`; `unresolved` + `contested` are declared classes; exit 0/1/2; `--map`, `--selftest` (29 cases) |
+| Ownership partition (data) | `corpus/adjacency.tsv` | 5 `# own` prefixes (27 of the 35 census rows), 4 group rows covering the other 8, 4 `# no-enumerate` directives; columns `path owner status claim basis token note`; a row's `basis` must resolve **and** match its `token` on the cited line(s) |
+| Round-16 lesson | `lessons/round-16.md` | adjacency axis-move: prose ownership becomes an enforced partition; the stale `README.md:76` kake citation as the motivating defect; the token-decay counterexample (a `musketeer` token matching a launcher line); what each L2 lane broke and what happened to it |
 | Surface-census contract (entry) | `knowledge/surface-census.md` | schemas column by column, verdict+exit table, shape-pin policy (floors, snapshot reads, two-pass sqlite), cross-check invariant, 10 probes + safety overrides, round-10 findings (refs prefix-match leak, `run` non-determinism, NMH dir on refusal), bounds, reproduction, 11 falsifiers |
 | Round-6 layering lesson | `lessons/round-6.md` | same probes |
 | Handler on-disk state: transcript DB, error log, lock topology, wedge recovery | `knowledge/handler-on-disk-state.md` | `xdg-data/opencode/opencode.db` sqlite introspection (row counts, `$.type` shapes only), `opencode.log` forensics (8 runs since 2026-08-29), `the-janitor` lock pairs L130–131/139–140/175–176, measured wedge timings |
@@ -67,10 +70,14 @@ see `lessons/round-1.md` for the rule and its rationale.
 | Round-12 lesson | `lessons/round-12.md` | depth axis-move: a reachable ceiling was narrower than the scorecard claimed; what the L2 wave broke in the probe and what happened to each item |
 | Round-11 lesson | `lessons/round-11.md` | a claim without a command is not a claim; four real doc defects found on first contact; the four gate defects and which run caught each; the L2 wave's counterexamples and what happened to each; design calls (last-line rule, no auto-re-pin, marker rule, shape-based classes) |
 
-Two of the 15 pinned files are **contested scope**, monitored here but owned
-elsewhere — reported, not ruled (see `PROVINCE.md`):
+The **overlap table is machine-checked** since round 16: each row is a group in
+`corpus/adjacency.tsv`, its owner and the citation proving that lane's claim are
+verified by `corpus/scope-gate.sh`, and the `owner=integrator` row names the
+arbiter of a pending ruling, not a found owner. Contested scope is monitored
+here, owned elsewhere — reported, not ruled (see `PROVINCE.md`):
 
 | Overlap | Other lane | Status |
 |---|---|---|
-| `$HOME/.agents/AGENTS.md` | kotoba (`kotoba-shokunin/corpus/knowledge/alwayson-checklist-round7.md:25-33`) audits the same file as an always-on checklist surface | kagi pins its bytes; kotoba owns the checklist/shape reading — no adjudication needed, both are read-only |
-| `$HOME/.local/share/the-musketeer/chrome-profile/NativeMessagingHosts/com.1password.1password.json` | kake leases the musketeer chrome profile machine-wide (`kake-shokunin/SKILL.md:104-107`; ownership unresolved per kake round-9) | kagi pins the 1Password native-messaging manifest only; profile/lease ownership stays with kake/integrator |
+| `$HOME/.config/opencode` (+ the 4 children that reach the handler) | multi-claimed: kotoba owns the instruction/agent surface and the provider declaration is operator-owned (`kama-shokunin/corpus/knowledge/cross-lane-scope.md:12-13,29`), kama the endpoint identity, kengaku wrote a temporary provider and restored it byte-identical | **`unresolved`** — no fleet artifact names a single owner (24/14/9/2 files in kotoba/kama/kengaku/kumitate); kagi claims credential/request hygiene on those children only; ruling owed to the integrator |
+| `$HOME/.agents/AGENTS.md` | kotoba (`kotoba-shokunin/corpus/knowledge/alwayson-checklist-round7.md:30`) audits the same file as an always-on checklist surface — sole fleet claimant | kagi pins its bytes; kotoba owns the checklist/shape reading — no adjudication needed, both are read-only |
+| `$HOME/.local/share/the-musketeer/chrome-profile` (+ the NMH dir below it) | kake leases the musketeer chrome profile machine-wide (`kake-shokunin/SKILL.md:161` — *not* `:104-107`, which is webzites/probe material and was cited here until round 16); kake names kagi as the rival claimant (`kake-shokunin/corpus/lessons/round-1-aggregator-audit.md:72-75`) | profile dir: **contested**, presence-only here (`mode = -`); kagi owns only the NMH dir + manifest it writes via `cdp-bridge ensure` (`lessons/round-8-aggregator-box3-coldrun.md:64`); the lease stays with kake/integrator |

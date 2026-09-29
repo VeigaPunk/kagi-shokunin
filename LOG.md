@@ -589,3 +589,69 @@
   to the integrator. No vault access, no handler start/stop, no Chrome launch; no
   secret value, ref path or account value in any artifact; all L2 execution was
   scratch-only.
+
+- 2026-09-28 — round 16 (**adjacency 8 → 9**; axis-move: the ownership partition
+  becomes a gate). At the round-15 close three axes stood at 8 (depth, coverage,
+  adjacency) and adjacency was the only one with **no** mechanical support: it
+  lived in the `corpus/README.md` overlap table, two `PROVINCE.md` refusals and
+  one `mode = -` census row, and one of those three was stale on the live host
+  (`README.md:76` cited `kake-shokunin/SKILL.md:104-107` for the musketeer lease;
+  that slice matches `musketeer` 0 times, the claim is at `:161`). Landed:
+  `corpus/adjacency.tsv` (5 `# own` prefixes owning 27 of the 35 census rows, 4
+  group rows covering the other 8 with `owner / status / claim / basis / token`,
+  4 owner + 4 status + 2 claim + 8 no-enumerate directives), `corpus/scope-gate.sh`
+  (`verify` / `--map` / `--selftest` / `--falsify`; R1–R11; verdicts `BAD-ROW`,
+  `FOREIGN`, `ORPHAN`, `UNKNOWN-OWNER`, `BAD-VALUE`, `OWNER-MISMATCH`,
+  `NOT-A-FILE`, `STALE-BASIS`, `BASIS-ESCAPE`, `OVERCLAIM`, `FOREIGN-SCAN`,
+  `ESCAPE`, `INBOUND`, `UNVERIFIED`, `ENUM-CLASH`, `OWN-UNLISTED`; exit 0/1/2),
+  new `corpus/knowledge/adjacency-scope.md` (`Reverify: R16-01..06`; 7-column
+  schema, the rule table with a failing input each, verdict/exit table, 14 bounds,
+  11 falsifiers), `corpus/lessons/round-16.md`, six ledger rows `R16-01..06`, the
+  README overlap table + coverage map (machine-checked now, stale citation
+  corrected), `PROVINCE.md` (gate registered, CDP row points at the partition),
+  a SKILL.md decision-table row, and the two round-16 scorecard sections.
+  Evidence (shipped revision): `bash corpus/scope-gate.sh` ⇒
+  `ADJACENCY_ABSTAIN: rows=1` + `ADJACENCY_SCOPE: CLEAN (census=35 owned=27
+  shared=8 groups=4 owners=4 unresolved=1 contested=1 escapes=0 inbound=0
+  foreign=0 orphans=0 stale_basis=0 basis_escape=0 own_unlisted=0)` exit 0,
+  ~0.5 s (pre-move: the file did not exist); `--selftest` ⇒
+  `SCOPE_SELFTEST: PASS (43 cases)`; `--falsify` ⇒ `SCOPE_FALSIFY: PASS
+  (caught=9/9 failed=0)` on scratch copies of the shipped data; `--map` ⇒ 35 rows
+  (27 owned / 8 shared). Siblings unchanged: `DRIFT_PINS: CLEAN (files=15
+  symbols=20)`; `SURFACE_CENSUS: CLEAN (assets=20 runtime=15 scanned=4 ok=34
+  absent=2 skipped=0)`; `CHECKLIST_RUN: CLEAN (items=16 runnable=9 by_hand=7
+  failed=0)`. **The wave found seven real holes in my own implementation, each by
+  execution**: (1) `--falsify` was defined and never wired (scribe, exit 2);
+  (2) run 1 of `--falsify` — both data files end WITHOUT a trailing newline, so
+  three appended mutations merged into the last row and silently no-opped;
+  (3) run 2 — `mutate_case` counted successes but not failures, so the summary
+  printed `PASS (caught=7/7)` above a `FALSIFY FAIL` line (the repo's own
+  swallowed-verdict class, inside the verifier); (4) `# own $HOME/.local/bin`
+  produced a byte-identical CLEAN summary while claiming 105 foreign children
+  (reviewer D2, sentinel S2, mutation M13 independently) ⇒ R10's own-vs-no-enumerate
+  clause + R11 (`# own` must name a declared, enumerated surface); (5) `basis` had
+  no containment check, so `lane:kake/../../priv/secret.env:1` (or
+  `../../.config/the-janitor/op.env` from the repo root) was `sed`-read and turned
+  the verdict into a boolean oracle over private bytes (sentinel S1) ⇒
+  `BASIS-ESCAPE`, with the root compared through `resolve_anchor` so a symlinked
+  lane checkout cannot move with the file; (6) the closed vocabularies were
+  self-declared by directives (mutation M19) ⇒ literal sets in the script;
+  (7) an owner/basis lane mismatch passed (M20) ⇒ `OWNER-MISMATCH`. Also fixed
+  from the wave: an 8th column or a fused line was absorbed into `note` (M03),
+  absent `asset` rows were silently exit-neutral (planner) ⇒
+  `ADJACENCY_ASSET_ABSENT`, a missing data file died with no terminal line (M12)
+  ⇒ `ADJACENCY_SCOPE: SETUP`, and two selftest-fixture defects of my own (a
+  function-local `R` in the EXIT trap; three fixtures whose sed patterns could
+  not fire). **Corrigendum, measured**: round-15's lesson attributes a silent
+  death partly to "`uniq -d` exits 1 on an empty result" — on this host `printf ''
+  | sort | uniq -d` ⇒ exit 0; the real killers are the loop's final status and
+  `grep -v … | tail -1` under `pipefail`. Corrected in `lessons/round-15.md` with
+  a pointer. Adjacency (reported, not absorbed): no sibling lane implements a
+  host-path ownership map with a fail-closed foreign-claim gate (connector);
+  kake's `~/.local/bin/musketeer-chrome` launcher symlink sits inside the shared
+  bin dir and the contested profile subtree carries a `SingletonSocket` symlink
+  that leaves `$HOME` — both invisible to a census-row-scoped rule, reported to
+  the integrator; the `$HOME/.config/opencode` ownership ruling is still owed
+  (kotoba/kama/kengaku/kumitate all have artifacts there; fleet ledger D-96). No
+  vault access, no handler start/stop, no `op.env` bytes read, no Chrome launch;
+  all L2 execution was scratch-only in `/tmp/kagi-r16/`.

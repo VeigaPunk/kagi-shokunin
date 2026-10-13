@@ -718,10 +718,3 @@
   duplicate_reasons=0)` and the score-cell audit returned `CELL_AUDIT: CLEAN
   (cells=108 row_pointed=64 stamp_pointed=64 uncited=0 missing_ids=0
   rows_run=28 row_failures=0 stale_pointers=0 self_skipped=4 orphans=0)`.
-
-## 2026-10-13 — HOURS.md ledger opened
-
-- Operator seed per PROTOCOL.md §Craft-hours: shonen→shokunin now requires
-  ≥10,000 verified craft-hours AND the SHONEN gate. Ledger starts at 0;
-  instrumented rounds accrue collective in-domain lane-minutes.
-- Evidence: fleet commit; PROTOCOL.md §Craft-hours.

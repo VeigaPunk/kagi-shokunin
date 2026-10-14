@@ -5,7 +5,16 @@
 **Owns:** the domain knowledge, playbooks, error patterns, and checklists above.
 **Refuses:** anything outside this domain; report cross-domain evidence back to the orchestrator rather than absorbing it.
 
-## Surfaces (each path resolves on this host 2026-09-29; `corpus/surface-census.sh` enforces 20 asset / 15 runtime rows, `scanned=4`, `absent=2` runtime rows, symlinks=0, `UNLISTED=0`)
+## Surfaces (each path resolved on this host 2026-09-29; `corpus/surface-census.sh` enforces 20 asset / 15 runtime rows, `scanned=4`, `absent=2` runtime rows, symlinks=0, `UNLISTED=0`)
+
+**Round-18 erratum (2026-10-14):** the surfaces below are HISTORICAL — the
+janitor substrate was measured absent on this host (no `the-janitor`, no
+`~/.config/the-janitor`, no `~/.local/state/the-janitor`, no `tac-check`, no
+musketeer profile). The declaration is preserved verbatim as the record of
+what the substrate was; live gates correctly fail `DRIFT`/`SETUP`/`DEFECT`
+while it is gone, and `claim-ledger` defers the substrate-tagged rows
+(`knowledge/substrate-deferral.md`). Unblock: reinstall the substrate, at
+which point every pin below is re-verifiable in one run.
 
 Handler:
 - `~/.local/bin/the-janitor` (755, 333 lines) — the CLI: `status`/`start`/`stop`/`request`/`run`/`refs`/`whoami`/`cdp-bridge`/`tac-check`/`tac-register`/`_serve` (hidden)
@@ -40,6 +49,6 @@ Gates in this repo:
 - `corpus/op-ref-probe.sh` — the `op.env` contract gate: `refs` (`cmd_refs` awk) vs `op run --env-file` (what `cmd_run` execs) over generated plain-value fixtures, plus the dotenv edge classes, precedence, four error signatures and the masking scope. `--selftest` proves 29 cases (comparator, POLICY-before-exec for a ref token / symlink / FIFO / premise break, SETUP, the hard-failure class); POLICY refuses any op-side fixture carrying a ref token, so the gate never resolves a reference. Exit 0/1/2. Data: the contract arrays in the script (there is no TSV — the fixtures are generated from the contract).
 - `corpus/checklist-run.sh` — the credential-hygiene checklist as executable rows: `corpus/checklist.tsv` holds one row per SKILL.md checklist item (8 columns: `id class lead check expect_exit expect_last reason note`), each either `runnable` (a command + expected exit + expected last output line) or `by-hand` (a closed class + a unique ≥24-char reason). The `lead` ERE is a bijection over the 16 items, so an item with no row, a row with no item, a duplicated lead/item, a below-floor runnable ratio (`ceil(items/2)`) and a repeated by-hand reason are all defects. A `check` naming a denied surface (`op.env`, `op run|read|inject`, handler start/stop/run, `claim-ledger.sh`) is `POLICY`, exit 2 — the gate never reads `$CONFIG_DIR/op.env`, never resolves a reference and never starts the handler. `--list` prints the map, `--only ID` runs one row, `--selftest` proves 28 cases on scratch fixtures. Round-15 baseline: `CHECKLIST_RUN: CLEAN (items=16 runnable=9 by_hand=7 failed=0)` + `CHECKLIST_RATIO: runnable=9/16 floor=8 by_hand=7`, exit 0. Data: `corpus/checklist.tsv` (16 rows).
 - `corpus/scope-gate.sh` — ownership partition + shared-directory breadth. `corpus/adjacency.tsv` declares 5 owned prefixes (27 census rows), 4 shared groups (8 rows), 8 no-enumerate boundaries and 4 derived leaf breadth pins. Default verify fails closed on partition/citation/path defects and on missing/invalid/drifted breadth; `--map` prints all 35 row assignments; `--breadth` prints count-only per-leaf measurements (20/4, 105/2, 4/1, 53/1; total 182 children / 8 declared / 174 undeclared); `--selftest` proves 61 cases; `--falsify` catches 18/18 mutations. No child names or bytes are emitted.
-- `corpus/claim-ledger.sh` — calibration gate: `verify` (54 revision stamps + 32 claim rows), `citations` (durable evidence), `cells` (every scorecard cell points at live evidence), `docs` (every knowledge entry declares re-verification), and reviewed `stamp`. Exit 0/1/2; `--selftest` proves 94 cases.
+- `corpus/claim-ledger.sh` — calibration gate: `verify` (56 revision stamps + 35 claim rows; `substrate`-tagged rows DEFER when the handler is absent — round 18), `citations` (durable evidence), `cells` (every scorecard cell points at live evidence), `docs` (every knowledge entry declares re-verification), and reviewed `stamp`. Exit 0/1/2; `--selftest` proves 97 cases.
 
 **Deliberate refusals:** vault-side structure (which vaults/items/fields exist) stays unmapped — mapping it would put ref paths in a durable artifact; `op` item-level reads stay unexercised; the CDP lease/profile ownership question is reported to the integrator, never adjudicated here.

@@ -304,6 +304,43 @@ Ceilings are named so they are not mistaken for saturations:
 | calibration | 9 → 9 | The pre-state counterexample is closed without claiming identity coverage: the durable contract states that 174 children are undeclared/unnamed and that ownership truth, recursion, contents and same-cardinality swaps remain outside the measurement. | `corpus/knowledge/adjacency-breadth.md`; `corpus/lessons/round-17.md` |
 | adjacency | 9 → 9 | Breadth strengthens the ownership map but does not adjudicate `$HOME/.config/opencode` ownership or prove a foreign owner's claim. The prior D-96 attribution was false: that ledger row concerns sibling skill discovery roots. | `corpus/knowledge/adjacency-scope.md` §The partition |
 | depth | 8 → 8 | A new contract records the derivation, verdicts, privacy tradeoff, 13 bounds and 18 mutation classes. This is detail about the coverage mechanism, not a deeper vault behavior. | `corpus/knowledge/adjacency-breadth.md` |
+## Round 18 — pre-move (repo `HEAD` `4e48b77`, round-17 close + HOURS.md revert)
+
+| Axis | Score | Evidence pointer | Last change |
+|---|---|---|---|
+| depth | 8 | Unchanged from round 12: the `op.env` two-parser contract, masking scope and hard-failure class have executable evidence; ref-resolved masking and item-level reads remain deliberately unmeasured — and are now unmeasurable, the substrate being absent. | `R12-01` |
+| coverage | 9 | The four breadth pins cover every derived leaf `# no-enumerate` boundary; count-only semantics are unchanged — but on the round-18 host three of the four pinned dirs are absent and the fourth (`~/.config/opencode`) shrank 20→3 children, so the live claim is carried debt, not current evidence. | `R17-01`, `R17-02` |
+| operability | 9 | Eight gates run on demand; none is scheduled, seven checklist duties remain by-hand. All seven gates still execute and exit with verdicts — but six verdicts are fail-closed readings of an absent substrate, and the census selftest's verb cases could not prove themselves hermetically. | `R15-01`, `R15-05` |
+| freshness | **9** | **Host-fact drift detection works — and fired correctly everywhere — but the ledger could not tell "claim failed" from "claim unmeasurable".** 11 claim rows FAILed `exit-mismatch` with zero lane-defect behind them; the census selftest failed 2/16 on a substrate-absent host despite advertising scratch-tree proof. The OMP/ufo-fsd re-census order also verified: **zero** `origin-work`/`ufo-fsd` citations exist anywhere in this repo — the stale-`--src` and deleted-file classes that block sibling lanes are vacuous here. | `corpus/lessons/round-18.md` |
+| calibration | 9 | Score cells audited; the audit itself was polluted by the unmeasurable-claim class (CELL_AUDIT BROKEN row_failures=10, all substrate). | `R13-03` |
+| adjacency | 9 | Partition and vocabularies still check out (the gate logic passes its 61-case selftest); the live partition verdict DEFECTs on missing surfaces and a 6-fold breadth drift — correct behavior, carried as debt. | `R16-01`, `corpus/knowledge/adjacency-scope.md` |
+
+## Round 18 — post-move (re-census landed; substrate-deferral mechanism, commit `round-18`)
+
+| Axis | Score | What moved | Evidence |
+|---|---|---|---|
+| freshness | 9 → 9 (mechanism landed, axis held) | An unmeasurable claim became a first-class verdict rather than a disguised failure: `substrate`-tagged claim rows `DEFER … reason=substrate-absent` (counted, never run) when `substrate_present()` fails, the summaries carry `deferred=`/`row_deferred=`, and `KAGI_SUBSTRATE=` forces either arm so the selftest proves both (cases 95–97). The census selftest's two handler-executing cases print `skip-case` instead of `bad-case`. Not raised: deferral records absence, it does not re-verify a single pinned fact — 10 rows are *carried*, not *passed*. | `knowledge/substrate-deferral.md` (entry, `Reverify: R18-01, R11-09`); `R18-01` (absence pin: `sha256sum` on the handler path, exit 1 "No such file"); `R18-02` (tag surface count); `R11-09` re-pinned 94→97 cases |
+| calibration | 9 → 9 | The ledger's failure taxonomy gained a third honest outcome (deferred) so `CLAIM_LEDGER: CLEAN (claims=35 deferred=11 …)` now distinguishes "every checkable claim holds" from "10 claims are parked on an absent substrate". Superseded-revision claims keep their verbatim quotes with the round-18 errata (PROVINCE.md surfaces caption, lessons/round-18.md) — describe-don't-pin satisfied: no content hash of a missing file is asserted anywhere, the handler's last *measured* sha lives only in `drift-baseline.tsv` as the preserved record. | `R13-03`; `corpus/claim-ledger.tsv` (35 rows) |
+| operability | 9 → 9 | All seven gates run bare and exit 0/1/2 with verdicts; the two hermeticity defects found by the re-census were fixed. Not raised: six live verdicts are fail-closed readings of the absent substrate, and nothing schedules any gate. | `R11-03`, `R18-03` |
+| coverage | 9 → 9 | The re-census itself was the coverage act: every repo surface re-scanned for origin-tree references (zero found — a negative result that had to be measured, not assumed). The live breadth pins' substrate dependence is now declared in the ledger rather than implicit. | `R17-02`; `corpus/lessons/round-18.md` |
+| adjacency | 9 → 9 | The `$HOME/.config/opencode` breadth drift (20→3 children) is measured and reported, not adjudicated; the contested surfaces' absence makes the unresolved rulings moot until substrate return. | `corpus/README.md` overlap table; `corpus/lessons/round-18.md` |
+| depth | 8 → 8 | `corpus/knowledge/substrate-deferral.md` adds a named, bounded contract inside existing scope (tag grammar, detection predicate, bounds 1–5, falsifiers). | `corpus/knowledge/substrate-deferral.md` |
+
+## Carried debt (round 18 — named, each with its unblock action)
+
+- **Substrate absence (the debt).** Every `substrate`-tagged row
+  (`R11-01/02/03/04/06`, `R12-01`, `R13-03`, `R15-01`, `R16-01/03`, `R17-01` —
+  11 rows) is DEFERred, not verified. Unblock: reinstall the-janitor handler
+  and its state/config tree; `substrate_present()` then un-defers all rows in
+  one `verify` run and every baseline re-derives against the live surface.
+- **Live-gate verdicts.** `SURFACE_CENSUS: DRIFT`, `DRIFT_PINS: DRIFT`,
+  `CHECKLIST_RUN: BROKEN`, `ADJACENCY_SCOPE: DEFECT`, `transcript-scan` and
+  `op-ref-probe` SETUP are *correct outputs on this host* — recorded as the
+  re-census measurement, not repaired (re-pinning baselines to an empty host
+  would falsify the preserved record of what the substrate was).
+- **Breadth pin `~/.config/opencode` 20→3.** The one surviving shared dir
+  shrank; the pin is substrate-adjacent host state. Unblock: same as above, or
+  a reviewed re-pin if the shrink proves permanent.
 
 ## Planned (next axis-move — round 17 close)
 

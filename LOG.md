@@ -718,3 +718,45 @@
   duplicate_reasons=0)` and the score-cell audit returned `CELL_AUDIT: CLEAN
   (cells=108 row_pointed=64 stamp_pointed=64 uncited=0 missing_ids=0
   rows_run=28 row_failures=0 stale_pointers=0 self_skipped=4 orphans=0)`.
+
+- 2026-10-14 — round 18 (**freshness mechanism landed, axes held**; OMP/ufo-fsd
+  re-census). The fleet substrate `ufo-fsd-alpha` relocated and restructured
+  2026-10-12; the re-census order re-verified every frozen claim. kagi's drift
+  class differs from its siblings': `grep -r 'origin-work|ufo-fsd'` over the
+  whole repo is EMPTY — the lane censes the the-janitor host surface, so the
+  stale-`--src` (a) and deleted-file-citation (b/c) classes are vacuous here.
+  The actual blocker is total substrate loss measured live: `the-janitor`,
+  `~/.config/the-janitor`, `~/.local/state/the-janitor`, `tac-check`,
+  `~/.config/opencode/agents/janitor.md`, `~/.local/state/tac/` and the
+  musketeer profile are all absent; `~/.config/opencode` shrank 20 → 3
+  children. Pre-move verdicts (all correct fail-closed outputs):
+  `SURFACE_CENSUS: DRIFT (diverged=1 gone=23 … absent=37)` exit 1;
+  `DRIFT_PINS: DRIFT (files_ok=0 files_bad=15 symbols_ok=0 symbols_bad=20)`
+  exit 1; `transcript-scan: db not found` exit 2; `OP_REF_PROBE: SETUP` exit 2;
+  `CHECKLIST_RUN: BROKEN (… failed=6)` exit 1;
+  `ADJACENCY_SCOPE: DEFECT (… breadth_drift=6)` exit 1;
+  `CLAIM_LEDGER: FAIL (claims=32 failed=11 …)` exit 1 — all 11
+  `reason=exit-mismatch`, every one substrate-caused.
+
+  Two genuine lane defects found and repaired (class d): (1)
+  `surface-census.sh --selftest` failed 2/16 on any handler-absent host because
+  the two verb cases exec the REAL handler while the selftest advertises
+  scratch-tree proof — now `skip-case … substrate-absent` (count still 16);
+  (2) the ledger could not distinguish claim-failure from claim-unmeasurable —
+  fixed by the substrate-deferral mechanism in `claim-ledger.sh`: a note-tagged
+  `substrate` row DEFERs (`deferred=N`, `row_deferred=N`; never executed),
+  `KAGI_SUBSTRATE=present|absent` forces either arm, and selftest cases 95–97
+  prove both. New `knowledge/substrate-deferral.md` (`Reverify: R18-01,
+  R11-09`), ledger rows `R18-01..03` (absence pin, tag-surface count, selftest
+  re-pin), 10 substrate rows tagged, R13-01/02, R14-01, R11-09 re-pinned,
+  PROVINCE erratum marking the surface list historical, README map rows,
+  `corpus/lessons/round-18.md`. Evidence after repair:
+  `CLAIM_LEDGER: CLEAN (claims=35 deferred=11 …)` exit 0; all six selftests
+  PASS (16 / 13 / seeded-hit / 29 / 34 / 61 / 97 cases);
+  `DOC_AUDIT: CLEAN (entries=21 row_linked=18 by_hand=3 …)`;
+  `CELL_AUDIT: CLEAN (… row_deferred=10 row_failures=0 …)`;
+  `CITATION_GATE: CLEAN (cites=891 docs=53 unresolved=0 ephemeral=0 labeled=13)`.
+  Carried debt: the 11 deferred rows and the six fail-closed live verdicts —
+  unblock = reinstall the substrate, un-defer in one run. Superseded-revision
+  claims stay verbatim under the errata (describe-don't-pin). Citations
+  measured `cites=912 docs=53` (the count moves with every doc edit).

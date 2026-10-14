@@ -125,6 +125,24 @@ split_tab() {
     [[ -n $rest ]] || break
   done
 }
+# --- substrate presence ------------------------------------------------------
+# Round 18: the host substrate this lane censes (the-janitor handler at
+# $HOME/.local/bin/the-janitor) may be absent entirely — a host-state fact, not
+# a claim failure. A claims row whose NOTE field contains the literal tag
+# `[substrate]` declares that dependence; when the substrate is absent such a
+# row is DEFERred (counted, never run) rather than FAILed, and the verify/cells
+# summary carries `deferred=N`/`row_deferred=N`. Deferral is not forgiveness:
+# untagged rows still fail, and a tagged row runs normally while the substrate
+# is present. KAGI_SUBSTRATE=present|absent overrides detection for the
+# selftest, which must prove both paths on any host.
+substrate_present() {
+  case "${KAGI_SUBSTRATE:-}" in
+    present) return 0 ;;
+    absent)  return 1 ;;
+  esac
+  [[ -x "$HOME/.local/bin/the-janitor" ]]
+}
+
 
 # stamp's temp file is cleaned by an EXIT trap: a `local` tmp would be out of
 # scope (and unbound, under set -u) by the time the trap runs — found by the
@@ -356,13 +374,13 @@ verify_stamps() {
   done
 }
 
-C_N=0 C_FAILED=0 C_POLICY=0
+C_N=0 C_FAILED=0 C_POLICY=0 C_DEFER=0
 # the nesting depth this run was started with: every claim command this gate
 # spawns sees depth+1, which is what lets a nested audit detect itself
 CLAIM_LEDGER_DEPTH_IN=${CLAIM_LEDGER_DEPTH:-0}
 verify_claims() {
   local line id cmd expect want tmo note pc out last rc
-  C_N=0 C_FAILED=0 C_POLICY=0
+  C_N=0 C_FAILED=0 C_POLICY=0 C_DEFER=0
   [[ -f $CLAIMS ]] || die "claims file not found: $CLAIMS"
   while IFS= read -r line || [[ -n ${line:-} ]]; do
     [[ -z ${line:-} || ${line:0:1} == '#' ]] && continue
@@ -376,6 +394,10 @@ verify_claims() {
     # whose command printed nothing (round-11 planner, observed)
     [[ $expect =~ [^\^\$] ]] || die "claims row $id: expect must assert a literal, not just anchors"
     C_N=$((C_N + 1))
+    if [[ $note == *'[substrate]'* ]] && ! substrate_present; then
+      printf 'DEFER %s reason=substrate-absent\n' "$id"
+      C_DEFER=$((C_DEFER + 1)); continue
+    fi
     if ! pc=$(policy_check "$cmd"); then
       printf 'POLICY %s reason=%s\n' "$id" "$pc"
       C_POLICY=$((C_POLICY + 1))
@@ -925,12 +947,12 @@ case "$MODE" in
       exit 2
     fi
     if [[ $C_FAILED -gt 0 || $V_STALE -gt 0 || $V_MISSING -gt 0 || $IDX_MISSING -gt 0 ]]; then
-      printf 'CLAIM_LEDGER: FAIL (claims=%d failed=%d stamped=%d stale=%d missing=%d unresolved_ids=%d labeled_ids=%d)\n' \
-        "$C_N" "$C_FAILED" "$V_ROWS" "$V_STALE" "$V_MISSING" "$IDX_MISSING" "$IDX_LABELED"
+      printf 'CLAIM_LEDGER: FAIL (claims=%d failed=%d deferred=%d stamped=%d stale=%d missing=%d unresolved_ids=%d labeled_ids=%d)\n' \
+        "$C_N" "$C_FAILED" "$C_DEFER" "$V_ROWS" "$V_STALE" "$V_MISSING" "$IDX_MISSING" "$IDX_LABELED"
       exit 1
     fi
-    printf 'CLAIM_LEDGER: CLEAN (claims=%d stamped=%d ids=%d cited=%d labeled_ids=%d orphans=%d)\n' \
-      "$C_N" "$V_ROWS" "$LID_N" "$IDX_CITED" "$IDX_LABELED" "$IDX_ORPHANS"
+    printf 'CLAIM_LEDGER: CLEAN (claims=%d deferred=%d stamped=%d ids=%d cited=%d labeled_ids=%d orphans=%d)\n' \
+      "$C_N" "$C_DEFER" "$V_ROWS" "$LID_N" "$IDX_CITED" "$IDX_LABELED" "$IDX_ORPHANS"
     ;;
   docs)
     doc_audit "${POS[0]:-corpus/knowledge}"
@@ -954,12 +976,12 @@ case "$MODE" in
       exit 2
     fi
     if [[ $CL_UNCITED -gt 0 || $IDX_MISSING -gt 0 || $C_FAILED -gt 0 || $CL_STALE -gt 0 ]]; then
-      printf 'CELL_AUDIT: BROKEN (cells=%d row_pointed=%d stamp_pointed=%d uncited=%d missing_ids=%d rows_run=%d row_failures=%d stale_pointers=%d self_skipped=%d orphans=%d)\n' \
-        "$CL_CELLS" "$CL_ROWS" "$CL_STAMPS" "$CL_UNCITED" "$IDX_MISSING" "$CL_ROWS_RUN" "$C_FAILED" "$CL_STALE" "$CL_SELF_SKIP" "$IDX_ORPHANS"
+      printf 'CELL_AUDIT: BROKEN (cells=%d row_pointed=%d stamp_pointed=%d uncited=%d missing_ids=%d rows_run=%d row_deferred=%d row_failures=%d stale_pointers=%d self_skipped=%d orphans=%d)\n' \
+        "$CL_CELLS" "$CL_ROWS" "$CL_STAMPS" "$CL_UNCITED" "$IDX_MISSING" "$CL_ROWS_RUN" "$C_DEFER" "$C_FAILED" "$CL_STALE" "$CL_SELF_SKIP" "$IDX_ORPHANS"
       exit 1
     fi
-    printf 'CELL_AUDIT: CLEAN (cells=%d row_pointed=%d stamp_pointed=%d uncited=0 missing_ids=0 rows_run=%d row_failures=0 stale_pointers=0 self_skipped=%d orphans=%d)\n' \
-      "$CL_CELLS" "$CL_ROWS" "$CL_STAMPS" "$CL_ROWS_RUN" "$CL_SELF_SKIP" "$IDX_ORPHANS"
+    printf 'CELL_AUDIT: CLEAN (cells=%d row_pointed=%d stamp_pointed=%d uncited=0 missing_ids=0 rows_run=%d row_deferred=%d row_failures=0 stale_pointers=0 self_skipped=%d orphans=%d)\n' \
+      "$CL_CELLS" "$CL_ROWS" "$CL_STAMPS" "$CL_ROWS_RUN" "$C_DEFER" "$CL_SELF_SKIP" "$IDX_ORPHANS"
     ;;
   citations)
     citations
@@ -1091,6 +1113,11 @@ if [[ ${SELFTEST:-0} -eq 1 ]]; then
   printf 'brace set with a space: `lessons/round-{4, 5}.md` here\n' >"$R/corpus/docs/brace-space.md"
   printf 'session URI labelled as scratch: `local://round-11/x.md` here\n' >"$R/corpus/docs/labeled-line.md"
   printf 'doc cites `corpus/ok.txt:1,2,3` and `corpus/ok.txt:4-6` here\n' >"$R/corpus/docs/multiref.md"
+  # --- round 18: substrate-absent deferral ------------------------------------
+  # a row tagged `substrate` in note must defer (not run) when the handler is
+  # absent, and run normally when forced present. KAGI_SUBSTRATE overrides host
+  # detection so both arms are provable on any host.
+  printf 'c1\tgrep -c EXPECTED corpus/absent.txt\t^1$\t1\t5\tneeds the handler [substrate]\n' >"$R/claims-defer.tsv"
 
   # --- round 14: knowledge-entry declarations (`docs`) ------------------------
   # `entry` writes a minimal entry; `estamp` pins one; the pinned set is
@@ -1176,7 +1203,7 @@ if [[ ${SELFTEST:-0} -eq 1 ]]; then
     fi
   }
 
-  tcase claims-pass            0 'CLAIM_LEDGER: CLEAN (claims=1 stamped=1 ids=1 cited=0 labeled_ids=0 orphans=1)' "$0" verify --root "$R" --claims "$R/claims-pass.tsv" --stamps "$R/stamps.tsv"
+  tcase claims-pass            0 'CLAIM_LEDGER: CLEAN (claims=1 deferred=0 stamped=1 ids=1 cited=0 labeled_ids=0 orphans=1)' "$0" verify --root "$R" --claims "$R/claims-pass.tsv" --stamps "$R/stamps.tsv"
   tcase claim-verdict-missing  1 'reason=verdict-not-final' "$0" verify --root "$R" --claims "$R/claims-verdict.tsv" --stamps "$R/stamps.tsv"
   tcase claim-exit-mismatch    1 'reason=exit-mismatch'      "$0" verify --root "$R" --claims "$R/claims-exit.tsv" --stamps "$R/stamps.tsv"
   tcase claim-timeout          1 'reason=timeout'            "$0" verify --root "$R" --claims "$R/claims-timeout.tsv" --stamps "$R/stamps.tsv"
@@ -1203,7 +1230,7 @@ if [[ ${SELFTEST:-0} -eq 1 ]]; then
   tcase cite-labeled-line-ok   0 'labeled=1'                 "$0" citations --root "$R" --docs "$R/corpus/docs/labeled-line.md"
   tcase stamp-bytes-tampered   1 'STALE corpus/ok.txt'       "$0" verify --root "$R" --claims "$R/claims-pass.tsv" --stamps "$R/stamps-bytes.tsv"
   tcase stamp-write            0 'STAMPED: n=1'              "$0" stamp --root "$R" --out "$R/stamps-new.tsv" corpus/ok.txt
-  tcase stamp-verify-fresh     0 'CLAIM_LEDGER: CLEAN (claims=1 stamped=1 ids=1 cited=0 labeled_ids=0 orphans=1)' "$0" verify --root "$R" --claims "$R/claims-pass.tsv" --stamps "$R/stamps-new.tsv"
+  tcase stamp-verify-fresh     0 'CLAIM_LEDGER: CLEAN (claims=1 deferred=0 stamped=1 ids=1 cited=0 labeled_ids=0 orphans=1)' "$0" verify --root "$R" --claims "$R/claims-pass.tsv" --stamps "$R/stamps-new.tsv"
   tcase stamp-refuse-absolute  2 'absolute path refused'     "$0" stamp --root "$R" --out "$R/x.tsv" /etc/hostname
   tcase stamp-refuse-self      2 'refusing to stamp the output file itself' "$0" stamp --root "$R" --out "$R/stamps-new.tsv" stamps-new.tsv
   tcase stamp-out-after-args   0 'STAMPED: n=1'              "$0" stamp --root "$R" corpus/ok.txt --out "$R/stamps-late.tsv"
@@ -1232,13 +1259,13 @@ if [[ ${SELFTEST:-0} -eq 1 ]]; then
   tcase stamp-symlink-out      2 '--out is a symlink' "$0" stamp --root "$R" --out "$R/stamps-link.tsv" corpus/ok.txt
   # --- round 13: id resolution (verify) + scorecard cell pointers (cells) -----
   tcase verify-id-missing      1 'unresolved_ids=2' "$0" verify --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --docs "$R/corpus/docs/id-missing.md"
-  tcase verify-id-known        0 'CLAIM_LEDGER: CLEAN (claims=1 stamped=1 ids=1 cited=1 labeled_ids=0 orphans=0)' "$0" verify --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --docs "$R/corpus/docs/id-known.md"
+  tcase verify-id-known        0 'CLAIM_LEDGER: CLEAN (claims=1 deferred=0 stamped=1 ids=1 cited=1 labeled_ids=0 orphans=0)' "$0" verify --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --docs "$R/corpus/docs/id-known.md"
   tcase verify-orphan-listed   0 'ORPHAN R1-01' "$0" verify --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --docs "$R/corpus/docs/clean.md" --orphans
   tcase verify-empty-ledger    2 'no claim rows' "$0" verify --root "$R" --claims "$R/stamps-empty.tsv" --stamps "$R/stamps.tsv" --docs "$R/corpus/docs/clean.md"
-  tcase cells-clean            0 'CELL_AUDIT: CLEAN (cells=6 row_pointed=5 stamp_pointed=1 uncited=0 missing_ids=0 rows_run=1 row_failures=0 stale_pointers=0' "$0" cells --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-ok.md" --docs "$R/sc-ok.md"
+  tcase cells-clean            0 'CELL_AUDIT: CLEAN (cells=6 row_pointed=5 stamp_pointed=1 uncited=0 missing_ids=0 rows_run=1 row_deferred=0 row_failures=0 stale_pointers=0' "$0" cells --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-ok.md" --docs "$R/sc-ok.md"
   tcase cells-uncited          1 'UNCITED' "$0" cells --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-uncited.md" --docs "$R/sc-uncited.md"
   tcase cells-missing-id       1 'MISSING-ID' "$0" cells --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-missing-id.md" --docs "$R/sc-missing-id.md"
-  tcase cells-retired-exempt   0 'CELL_AUDIT: CLEAN (cells=6 row_pointed=6 stamp_pointed=0 uncited=0 missing_ids=0 rows_run=1 row_failures=0 stale_pointers=0' "$0" cells --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-retired.md" --docs "$R/sc-retired.md"
+  tcase cells-retired-exempt   0 'CELL_AUDIT: CLEAN (cells=6 row_pointed=6 stamp_pointed=0 uncited=0 missing_ids=0 rows_run=1 row_deferred=0 row_failures=0 stale_pointers=0' "$0" cells --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-retired.md" --docs "$R/sc-retired.md"
   tcase cells-empty-scorecard  2 'no scored cells found' "$0" cells --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-empty.md" --docs "$R/sc-empty.md"
   tcase cells-not-in-docset    2 'not in the checked doc set' "$0" cells --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-ok.md" --docs "$R/corpus/docs/clean.md"
   # --- round 13 hardening cases (mutation lane M5/M8, planner T1-1/T2-1) -----
@@ -1283,6 +1310,9 @@ if [[ ${SELFTEST:-0} -eq 1 ]]; then
   tcase docs-dir-absolute     2 'must be relative to --root' "$0" docs "${DA[@]}" /etc
   tcase docs-dir-missing      2 'entries dir not found' "$0" docs "${DA[@]}" entries-nope
   tcase docs-malformed-line   2 "are not 'Reverify: ' declarations" "$0" docs "${DA[@]}" entries-malformed
+  tcase defer-substrate-absent  0 'CLAIM_LEDGER: CLEAN (claims=1 deferred=1' env KAGI_SUBSTRATE=absent "$0" verify --root "$R" --claims "$R/claims-defer.tsv" --stamps "$R/stamps.tsv"
+  tcase defer-substrate-present 1 'reason=exit-mismatch'      env KAGI_SUBSTRATE=present "$0" verify --root "$R" --claims "$R/claims-defer.tsv" --stamps "$R/stamps.tsv"
+  tcase defer-substrate-line    0 'DEFER c1 reason=substrate-absent' env KAGI_SUBSTRATE=absent "$0" verify --root "$R" --claims "$R/claims-defer.tsv" --stamps "$R/stamps.tsv"
 
   if [[ $failures -eq 0 ]]; then printf 'SELFTEST: PASS (%d cases)\n' "$cases"; exit 0; fi
   printf 'SELFTEST: FAIL (%d/%d cases)\n' "$failures" "$cases"; exit 1

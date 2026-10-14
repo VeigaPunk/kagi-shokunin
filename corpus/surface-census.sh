@@ -814,6 +814,14 @@ open(p,'w').write('\n'.join(lines)+'\n')
 
   printf 'SELFTEST verbs\n'
   cases=$((cases + 1))
+  if ! command -v "$JANITOR" >/dev/null 2>&1; then
+    # the two verb cases execute the REAL handler (the probes' whole point is
+    # the handler's own behavior, not scratch fixtures); when the substrate is
+    # absent the case is recorded as skipped, not failed — a host-state fact
+    printf 'skip-case %02d %-34s substrate-absent (handler not on PATH)\n' "$cases" "verbs-sandboxed"
+    cases=$((cases + 1))
+    printf 'skip-case %02d %-34s substrate-absent (handler not on PATH)\n' "$cases" "verbs-break-injection"
+  else
   set +e
   out="$(bash "${BASH_SOURCE[0]}" --verbs --verb-root "$R/verbs" 2>&1)"; rc=$?
   set -e
@@ -832,6 +840,7 @@ open(p,'w').write('\n'.join(lines)+'\n')
   else
     failures=$((failures + 1))
     printf 'bad-case %02d %-34s exit=%s\n' "$cases" "verbs-break-injection" "$rc"
+  fi
   fi
 
   if [[ $failures -eq 0 ]]; then printf 'SELFTEST: PASS (%s cases)\n' "$cases"; exit 0; fi

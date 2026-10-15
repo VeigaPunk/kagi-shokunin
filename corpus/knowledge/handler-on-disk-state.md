@@ -246,3 +246,33 @@ env -u TMUX TMUX_TMPDIR=$S tmux capture-pane -t janitor -p
 env -u TMUX TMUX_TMPDIR=$S tmux kill-server
 rm -rf $SHIM $S $T $W
 ```
+
+## Historical-source erratum — round-16 re-dispatch (2026-10-15)
+
+Source-status: historical — this entry's source-derived state and behavior
+claims remain observations from 2026-09-28, not current handler guarantees.
+
+This qualifies original lines 3-9 (handler/client source basis), 13-14
+(verification marker), and all source-dependent measurements and recipes
+through line 248, including the XDG layout, database census, lock/wedge
+behavior and reproduction block. The historical abbreviated hash, line
+counts, modes and database measurements are preserved, not re-verified.
+
+Metadata probes on this host on 2026-10-15 returned `ENOENT` for
+`~/.local/bin/the-janitor`, `~/.config/the-janitor/client.py`,
+`~/.config/the-janitor/config.json` and the janitor config/state directories.
+The scout's `stat -c '%F %a %s'` exited 1; Node `lstatSync` likewise reported
+`ENOENT`, not permission denial. Evidence: `SCORECARD.md:454-466` names the
+debt; `SCORECARD.md:496-506` records the three-path count and its boundary.
+Absence at these paths does not prove transcript deletion everywhere or
+explain who removed the substrate.
+
+No source bytes, `op.env`, database contents or service behavior were read
+or exercised. No current hash, handler behavior, security posture or
+successful domain task is claimed; the old reproduction block was not run.
+
+Re-verification requires operator-authorized substrate restoration followed
+by a source/revision review and separately authorized re-measurement of the
+relevant state/behavior claims. Restoration or an abbreviated-prefix match
+alone is not proof. The missing-source rows remain deferred; this dated
+erratum does not discharge them or authorize reading secret/session data.

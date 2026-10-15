@@ -88,3 +88,26 @@ Consequence for the round-3 drift (real server on 34113, Jitsi on 8080):
 - `THE_JANITOR_ENV=/nonexistent the-janitor run -- true` →
   `the-janitor: missing /nonexistent`, exit 2 (env-file check precedes the
   missing-command check; `run` with no args → `missing command`, exit 2).
+
+## Historical-source erratum — round-16 re-dispatch (2026-10-15)
+
+Source-status: historical — this entry's source-derived contract and recipes
+remain observations from 2026-09-28, not current handler guarantees.
+
+This qualifies original lines 3-6 (source basis), 10-23 (knob table),
+25-51 (auth selectors), 53-63 (endpoint conclusions), 65-77 (leak surfaces),
+and 79-90 (falsification/reproduction commands). The original abbreviated
+hash and source line count are preserved, not re-asserted as current.
+
+Path-presence metadata on this host on 2026-10-15 found
+`~/.local/bin/the-janitor`, `~/.config/the-janitor/client.py` and
+`~/.config/the-janitor/config.json` absent at their cited paths.
+Evidence: `SCORECARD.md:454-466` and the command/result at
+`SCORECARD.md:496-506`. No source bytes, `op.env`, credentials or account
+data were consulted; no current hash, line count, env/auth behavior,
+endpoint value, handler behavior or successful domain task is claimed.
+
+Re-verification requires restored authorized reads of the handler and
+`client.py` plus relevant freshness-gate results before current-tense reuse.
+Restoration alone is not a pass. These prerequisites do not authorize
+executing the retained recipes or reading secret material in this round.

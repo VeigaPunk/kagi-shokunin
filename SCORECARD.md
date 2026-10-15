@@ -464,3 +464,43 @@ that as written: `corpus/knowledge/config-layering.md:58` still states
 `corpus/drift-baseline.tsv`; the defect is the *current-voice assertion* in the
 notes, not a leaked full hash. Named debt, owner kagi, unblock: mark those lines
 historical in an append-only erratum (do not expand `af8873ca…`).
+
+## Current baseline — round-16 re-dispatch (2026-10-15)
+
+The driver requested round 16 after this checkout already recorded rounds
+17–19. Those records are preserved; this is a new, explicitly dated execution
+of the requested round, not a renumbering of their history.
+
+The last freshness score of 9 overstates the current corpus: the round-19
+correction above identifies four knowledge entries whose absent janitor
+sources still lack entry-local historical status. Baseline freshness is
+therefore **8**, tied with depth. Choose freshness: qualifying these four
+entries is directly falsifiable without vault access; depth's remaining
+ref-resolved behavior is deliberately refused.
+
+| Axis | Current score | Evidence | Last change |
+|---|---|---|---|
+| depth | 8 | `corpus/knowledge/op-ref-consumption.md`; ref-resolved behavior remains refused, not newly measured. | round 12 |
+| coverage | 9 | `corpus/knowledge/adjacency-breadth.md`; historical breadth evidence, not a current host-coverage pass. | round 17 |
+| operability | 9 | `corpus/knowledge/checklist-execution.md`; no scheduling or live-handler success claimed. | round 15 |
+| freshness | **8** | `corpus/knowledge/config-layering.md:58`, `corpus/knowledge/handler-on-disk-state.md:3`, `corpus/knowledge/handler-trust-boundary.md:3-6`, `corpus/knowledge/janitor-env-contract.md:3-4`: four unqualified historical source entries; counting command below. | round-16 re-dispatch baseline |
+| calibration | 9 | `corpus/knowledge/claim-ledger.md`; pointer relevance and author-assigned scores remain review judgments. | round 13 |
+| adjacency | 9 | `corpus/knowledge/adjacency-scope.md`; contested ownership remains unresolved. | round 16 historical |
+
+**One planned move:** append scoped historical-source errata to those four
+entries, preserving their original observations and abbreviated hashes.
+Target: `unqualified=4 → 0`, `historical=0 → 4`, while absent sources remain
+`3/3`. This flags stale claims; it does not re-verify the missing substrate.
+No axis is retired or split.
+
+Before measurement: commit `15ea78c767ec1730ff19144e5cf62c9adf54e483`,
+2026-10-15; the pre-existing working-tree edit to `corpus/op-ref-probe.sh`
+does not participate in this command or this move.
+
+```bash
+node -e 'const fs=require("node:fs"),os=require("node:os"),p=require("node:path");const files=["config-layering","handler-on-disk-state","handler-trust-boundary","janitor-env-contract"];const sources=[".local/bin/the-janitor",".config/the-janitor/client.py",".config/the-janitor/config.json"];const missing=sources.filter(f=>!fs.existsSync(p.join(os.homedir(),f))).length;let historical=0;for(const f of files){const text=fs.readFileSync("corpus/knowledge/"+f+".md","utf8");const qualified=/^Source-status: historical — /m.test(text);historical+=Number(qualified);console.log(f+"="+(qualified?"historical":"unqualified"));}console.log("SOURCE_FRESHNESS: entries="+files.length+" historical="+historical+" unqualified="+(files.length-historical)+" absent_sources="+missing+"/"+sources.length);'
+```
+
+Observed: `SOURCE_FRESHNESS: entries=4 historical=0 unqualified=4 absent_sources=3/3`.
+The count checks explicit qualification, not the truth of the old hashes or
+every sentence in the entries; scoped errata require human review as well.

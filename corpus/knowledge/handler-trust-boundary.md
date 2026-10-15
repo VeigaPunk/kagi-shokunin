@@ -284,3 +284,34 @@ JT_PROBE_ENV=x tmux new-session -d -s t 'echo $JT_PROBE_ENV >/tmp/e'; sleep 1; c
 - Enabling the password is an access-control improvement, not isolation: same-uid
   processes retain `$STATE_DIR` read and route A stays exposed to authenticated
   callers.
+
+## Historical-source erratum — round-16 re-dispatch (2026-10-15)
+
+Source-status: historical — this entry's source-derived security conclusions
+and scratch probes remain observations from 2026-09-28, not current posture.
+
+This qualifies original lines 3-11 (handler/client and opencode source
+basis), the verification marker at 9-10, the by-hand declaration at 17,
+and all source-dependent conclusions and recipes through line 286. The
+abbreviated hashes, old opencode version, auth matrix, routes and fix recipe
+are preserved as historical evidence; the fix was not applied here.
+
+Metadata probes on this host on 2026-10-15 returned `ENOENT` for
+`~/.local/bin/the-janitor`, `~/.config/the-janitor/client.py` and
+`~/.config/the-janitor/config.json`. The cited janitor agent, auth tool and
+plugin paths under `~/.config/opencode` were also absent; the opencode
+binary path was present, but no version or source bytes were inspected.
+The scout's `stat -c '%F %a %s'` exited 1 for missing paths; Node `lstatSync`
+reported `ENOENT`, not permission denial. Evidence:
+`SCORECARD.md:454-466` and `SCORECARD.md:496-506`.
+
+No `op.env`, database contents, ports or services were read or exercised.
+Handler absence proves neither an exposed socket nor a secured one.
+No current hash, behavior, successful domain task or security posture is
+claimed, and no retained reproduction recipe was executed.
+
+Re-verification requires operator-authorized restoration, a source/revision
+review and separately authorized fresh scratch replicas for the security
+claims. Restoration or an abbreviated-prefix match alone is not proof;
+the same-uid isolation limit at original lines 284-286 remains a historical
+bound to reconsider, not a new current-host result.

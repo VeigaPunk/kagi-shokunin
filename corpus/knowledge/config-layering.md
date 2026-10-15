@@ -107,3 +107,30 @@ files, not the live server.
   re-order precedence — re-run the probe before citing.
 - `enabled_providers` narrows *selection*, it does not prevent a misconfigured
   global provider from breaking config parse for the whole merge.
+
+## Historical-source erratum — round-16 re-dispatch (2026-10-15)
+
+Source-status: historical — this entry's source-derived claims and recipes
+remain observations from 2026-09-28, not current handler guarantees.
+
+This qualifies original lines 3-6 (source basis), 8-22 (merge and layers),
+24-46 (resolved dump), 48-54 (`steps`), 56-66 (decoy hash, mode, size and
+inertness), 68-81 (permission ceiling), and 83-101 (reproduction recipe).
+The original text and abbreviated hash are preserved, not re-asserted as
+current properties.
+
+Path-presence metadata on this host on 2026-10-15 found the handler,
+`~/.config/the-janitor/client.py` and `~/.config/the-janitor/config.json`
+absent at their cited paths; no source bytes or resolver output were read.
+Evidence: `SCORECARD.md:454-466` names the debt and
+`SCORECARD.md:496-506` records the local counting command and its boundary.
+The historical recipe was not executed; no current hash, mode, size,
+inertness, merge order, `steps`, behavior or successful domain task is claimed.
+
+Original lines 39-44 also have an existing historical correction:
+`corpus/knowledge/handler-trust-boundary.md:152-160` records plugin load
+failure, not execution. This pointer does not verify either claim currently.
+
+Re-verification requires restored authorized sources plus an authorized
+source/resolver review under the exact `_serve` environment. Restoration
+alone is not a pass; current-tense reuse remains blocked until that review.

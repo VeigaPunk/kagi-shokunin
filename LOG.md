@@ -767,3 +767,54 @@
 
 Full round detail: `corpus/lessons/round-19-recensus.md`. Advisory inventories:
 `../.ufo/waves/shokunin12h-20261014-p1-repair/members/`.
+
+- 2026-10-15 — round-16 re-dispatch, freshness baseline. The requested round
+  number already has historical records and this checkout contains rounds
+  17–19; preserve them and append this dated execution. Motivating evidence:
+  `SCORECARD.md:454–466` names four remaining current-voice source assertions;
+  the same four entries have no entry-local historical-source status.
+  Before commit: `15ea78c767ec1730ff19144e5cf62c9adf54e483`. The counting
+  command in `SCORECARD.md` under "Current baseline — round-16 re-dispatch"
+  produced `SOURCE_FRESHNESS: entries=4 historical=0 unqualified=4
+  absent_sources=3/3`. It checks path existence only; no missing-file bytes,
+  vault values, references, account data, or handler execution were read.
+  Freshness is rebaselined 9 → 8 on that evidence, tied with depth at 8;
+  choose the more falsifiable four-entry freshness correction. The one move
+  is append-only historical-source qualification, not substrate restoration.
+  Leave the inherited `corpus/op-ref-probe.sh` edit untouched and uncommitted
+  by this execution.
+
+- 2026-10-15 — round-16 re-dispatch, one freshness correction implemented.
+  Motivating evidence is the baseline entry above and the round-19 debt at
+  `SCORECARD.md:454-466`. Appended scoped historical-source errata to
+  `corpus/knowledge/config-layering.md:111-136`,
+  `corpus/knowledge/handler-on-disk-state.md:250-278`,
+  `corpus/knowledge/handler-trust-boundary.md:288-317` and
+  `corpus/knowledge/janitor-env-contract.md:92-113`. They qualify the original
+  source basis, derived behavior and retained recipes; no old observation or
+  abbreviated hash is rewritten. Config layering points to the already-existing
+  plugin-load correction at `corpus/knowledge/handler-trust-boundary.md:152-160`.
+  A byte-prefix comparison against
+  `15ea78c767ec1730ff19144e5cf62c9adf54e483` observed
+  `SOURCE_PRESERVATION: preserved=4/4`, exit 0.
+
+  One host-routed `task` call dispatched nine L2 seats: Kagi16Planner
+  (planner), Kagi16Connector (connector), Kagi16Config / Kagi16StateTrust /
+  Kagi16Env (executors), Kagi16Scribe (scribe), Kagi16Surface (scout),
+  Kagi16Review (reviewer), Kagi16Critic (critic). No per-model selector,
+  routing change, UFO mission, sibling mutation or domain-source mutation.
+  This is the MISSION-required planner-inclusive craft batch, not a claimed
+  validated generic UFO wave.
+
+  Scout Kagi16Surface observed `ENOENT` for all three canonical source paths
+  via `stat -c '%F %a %s'` (exit 1) and Node `lstatSync`, with no permission
+  denial, during 2026-10-15 01:54:22-01:54:56 -03:00. Only metadata was read.
+  Absence is host/account/time-bound, not proof of source identity, transcript
+  deletion everywhere, exposed/secured sockets, or removal cause. Restoring
+  paths or matching abbreviated prefixes does not verify the old claims.
+
+  The critic's marker-only counterexample is accepted: the count proves
+  qualification coverage, not semantic truth; scoped content was reviewed.
+  New promotion attestations are refused: dispatched seats remain the lane.
+  The L0 round-namespace/dispatch question is appended under kagi | round-16
+  in the fleet `.ufo/l0-questions.md`; no answer is required for this correction.

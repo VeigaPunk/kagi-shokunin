@@ -1,0 +1,44 @@
+{
+  "observedAt": "2026-10-15T05:12:12.457594+00:00",
+  "sourceRevision": "f4a8dd92674e95231c50f361e8c69eb00c7e713b",
+  "inheritedProbeWorkingTreeSha256": "0f1945e8d8a8fc56aaee256180cd7badde466bc8ac91503aa1e1853e79044f4c",
+  "checks": [
+    {
+      "label": "route-admission",
+      "command": [
+        "node",
+        ".ufo/round-20/route-admission.mjs"
+      ],
+      "exitCode": 2,
+      "stdout": "ROUTE_MISMATCH role=connector actual=@m_mid required=@m_antigravity\nROUTE_MISMATCH role=critic actual=@m_strong required=@m_grok\nROUTE_MISMATCH role=executor actual=@m_mid required=@m_composer\nROUTE_MISMATCH role=revenger actual=@m_mid required=@m_grok\nROUTE_MISMATCH role=reviewer actual=@m_mid required=@m_grok\nROUTE_MISMATCH role=scribe actual=@m_fast required=@m_composer\nROUTE_MISMATCH role=sentinel actual=@m_mid required=@m_grok\nROUTE_MISMATCH fallback=m_antigravity actual=missing required=@m_zfl\nGLOBAL_CONFIG_SHA256: 08788ddcbbb48180b987e6f54b517af294c85cacceb07bdd594843a53e668dcc\nKAGI_ROUTE_ADMISSION: BLOCKED (roles=7 mismatched=7 missing_aliases=0 connector_fallback=missing dispatched=0)\n",
+      "stderr": ""
+    },
+    {
+      "label": "inherited-probe-selftest",
+      "command": [
+        "bash",
+        "corpus/op-ref-probe.sh",
+        "--selftest"
+      ],
+      "exitCode": 0,
+      "stdout": "OP_REF_SELFTEST: PASS (36 cases)\n",
+      "stderr": ""
+    },
+    {
+      "label": "trailing-lf-shell-boundary",
+      "command": [
+        "bash",
+        "-c",
+        "value=$(printf \"alpha\\n\\n\"); printf \"%s\" \"$value\" | od -An -v -tx1"
+      ],
+      "exitCode": 0,
+      "stdout": " 61 6c 70 68 61\n",
+      "stderr": ""
+    }
+  ],
+  "limits": [
+    "No specialist dispatched: authorized route prerequisite failed.",
+    "Inherited uncommitted probe is observed, not authored or admitted by this session.",
+    "No real op.env, native session body, vault/auth/ref resolution or external target is used."
+  ]
+}

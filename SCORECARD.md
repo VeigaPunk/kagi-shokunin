@@ -504,3 +504,60 @@ node -e 'const fs=require("node:fs"),os=require("node:os"),p=require("node:path"
 Observed: `SOURCE_FRESHNESS: entries=4 historical=0 unqualified=4 absent_sources=3/3`.
 The count checks explicit qualification, not the truth of the old hashes or
 every sentence in the entries; scoped errata require human review as well.
+
+## Round 20 — interactive attempt; blocked, not completed (2026-10-15)
+
+The lowest LIVE axis is **depth (8)**, from the immediately preceding
+dated outcome; all other axes remain 9. Choose its vault-free byte frontier,
+not a repeated four-entry historical-source correction. The interrupted
+launch counter 16 is not a verified-round count. Existing rounds and the
+inherited round-16 outcome remain records, not renumbered executions.
+
+Claim proposed, not admitted: byte-faithful observations can separate
+trailing/newline-only/escaped/literal/multiline dotenv values that the old
+line-oriented collector cannot faithfully represent. Parent ran the inherited
+dirty probe against generated plain-value fixtures with op 2.40.0:
+`OP_DOTENV_BYTES: CLEAN (checks=6 failed=0)`, exit 0; comparator/safety selftest
+`OP_REF_SELFTEST: PASS (36 cases)`, exit 0. A separate shell substitution
+of `alpha` followed by two LFs emitted only hex `61 6c 70 68 61`, exit 0.
+These are bounded investigation measurements, not authorship of the inherited
+implementation, live-handler evidence or a completed craft round.
+
+Measurement base: `f4a8dd92674e95231c50f361e8c69eb00c7e713b` plus the inherited
+uncommitted probe SHA-256
+`0f1945e8d8a8fc56aaee256180cd7badde466bc8ac91503aa1e1853e79044f4c`.
+Exact commands and full outputs:
+`kagi-shokunin/.ufo/round-20/inspection.json`,
+`kagi-shokunin/.ufo/round-20/local-checks.json`.
+The probe is intentionally excluded from this attempt's commits.
+
+Canonical shape validation: 32 distinct scopes, spawn=32/resume=0,
+exit 0; rendered but **not submitted**. Route gate:
+`KAGI_ROUTE_ADMISSION: BLOCKED (roles=7 mismatched=7 missing_aliases=0 connector_fallback=missing dispatched=0)`,
+exit 2. The effective global roles still select mid/fast/strong, not the
+required composer/grok/antigravity aliases; the antigravity fallback is empty.
+No route mutation, per-task model selector, shortened batch or substitute
+dispatch is allowed. Saved plan: `kagi-shokunin/plans/wwkd-round-20-interactive.md`.
+
+| Axis | Before → after | Verdict | Observable / limit |
+|---|---|---|---|
+| depth | 8 → 8 | unchanged | Byte observations retained, but authorized specialist wave unavailable; no new knowledge or implementation admitted. |
+| coverage | 9 → 9 | unchanged | No new host/vault surface mapped or restored. |
+| operability | 9 → 9 | unchanged | Inherited probe not landed; no handler or scheduling change. |
+| freshness | 9 → 9 | unchanged | No existing host claim re-verified; no stale fact silently upgraded. |
+| calibration | 9 → 9 | unchanged | Shape validation is not authorized dispatch, native judgment, promotion or completion. |
+| adjacency | 9 → 9 | unchanged | No ownership ruling or sibling/source edit. |
+
+| Learning trend | Verdict | Evidence / limit |
+|---|---|---|
+| expansion | unchanged | No knowledge entry admitted. |
+| quality | unchanged | Bounded investigation only; prior missing-substrate and stamp debt retained. |
+| discernment | unchanged | No non-author admit/reject spot-check; no agreement fabricated. |
+
+No axis is retired or split. Verified-round increment: **0**. Prior verified
+total is not reconstructed from driver launches or historical report count.
+One blocked attempt does not establish three consecutive blocked rounds.
+Next action is operator/integrator restoration of the required effective
+role bindings and connector fallback; a fresh authorized session must recheck
+them before any 32-seat submission. Missing authentic receipt bindings also
+remain a blocker; Sighting completion and automatic continuation are not claimed.

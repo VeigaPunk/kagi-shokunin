@@ -818,3 +818,92 @@ Full round detail: `corpus/lessons/round-19-recensus.md`. Advisory inventories:
   New promotion attestations are refused: dispatched seats remain the lane.
   The L0 round-namespace/dispatch question is appended under kagi | round-16
   in the fleet `.ufo/l0-questions.md`; no answer is required for this correction.
+
+## 20 — interactive attempt blocked before specialist dispatch (2026-10-15)
+
+One depth-axis attempt, not a completed craft round. Motivating evidence:
+the current scorecard leaves depth at 8; the effective route bindings read
+from `cfg://task/agentModelOverrides` still use the global mid/fast/strong
+buckets. The earlier fleet report says its composer/grok/connector overrides
+were session-only and not saved. This session does not recreate them.
+WWKD plan: `kagi-shokunin/plans/wwkd-round-20-interactive.md`.
+
+Interrupted-work reconciliation: retain the prior round-16 re-dispatch and
+rounds 17–19 verbatim. Its source correction is already landed at
+`f4a8dd92674e95231c50f361e8c69eb00c7e713b`; the inherited outcome appends
+above and in the scorecard are preserved as prior-session records, not newly
+executed measurements. Its recorded nine-seat batch is not this operator's
+required 32-seat wave. The inherited last sentence about a new lesson/index
+and revision stamps is unsupported by that commit's six-file stat or this
+session's initial dirty-path inventory: those artifacts were not landed by
+the interrupted outcome. That sentence is superseded by this correction;
+no lesson/index/stamp completion is inferred. The inherited probe change
+remains uncommitted and untouched, not adopted as authored work.
+
+Canonical wave validation used the read-only `plan --spec … --route-families`
+surface of `ufo-swarm-wave.mjs`, exit 0: spawn=32, resume=0, total=32.
+Names and prompts are pairwise distinct; all 32 rendered tasks begin with
+the renderer's Godspeed invocation. Plan, exact rendered payload and
+validation output are lane-local under
+`kagi-shokunin/.ufo/round-20/wave/`. No `run` command, registry persistence
+in the UFO checkout, native task call, agent assignment or specialist work
+occurred. Shape validation is not route approval or native judgment.
+
+Local route gate:
+`KAGI_ROUTE_ADMISSION: BLOCKED (roles=7 mismatched=7 missing_aliases=0 connector_fallback=missing dispatched=0)`,
+exit 2. Required bindings: executor/scribe → @m_composer;
+critic/revenger/reviewer/sentinel → @m_grok; connector → @m_antigravity,
+with the requested @m_zfl fallback. The named aliases exist, but none of
+these seven role bindings matches; the connector fallback is empty. The
+operator-required scout binding is also currently @m_fast, not @m_grok.
+Unblock belongs to the operator/integrator: provide the authorized effective
+bindings, then a fresh session rechecks them before submitting any batch.
+Global-config hash at validation and gate:
+`08788ddcbbb48180b987e6f54b517af294c85cacceb07bdd594843a53e668dcc`.
+
+Parent-only bounded checks are evidence, not an admitted feature:
+`op --version` → `2.40.0`, exit 0;
+inherited probe `--dotenv-bytes` →
+`OP_DOTENV_BYTES: CLEAN (checks=6 failed=0)`, exit 0;
+its `--selftest` → `OP_REF_SELFTEST: PASS (36 cases)`, exit 0;
+`claim-ledger.sh docs` →
+`DOC_AUDIT: CLEAN (entries=21 row_linked=18 by_hand=3 undeclared=0 missing_ids=0 unpinned=0 duplicate_reasons=0)`,
+exit 0. A generated `alpha` plus two-LF shell-substitution probe emitted
+only `61 6c 70 68 61`, exit 0: the old collector's representation cannot
+retain trailing LFs. Full commands, verdicts, exits and the inherited
+working-tree probe hash are in
+`kagi-shokunin/.ufo/round-20/inspection.json` and
+`kagi-shokunin/.ufo/round-20/local-checks.json`.
+No real env-file, native transcript body, vault account/auth/ref operation
+or external target was read or exercised; unsafe live gates were not run.
+
+Execution erratum: a JS helper incorrectly used `process.execPath` as a
+Bun CLI; it resolved to omp and the call timed out. The exact two-argument
+PID was stopped after checking its argv; pre-stop ancestry was not captured.
+The original interactive mission remained live: independent pane-tree
+metadata identifies omp PID 2844375, kagi cwd, @m_sol, stdin/stdout on
+/dev/pts/9 and no headless flag. See
+`kagi-shokunin/.ufo/round-20/pane-attestation.json` and the incident in
+`kagi-shokunin/.ufo/round-20/inspection.json`. Do not use that failed
+helper pattern again or count it as a specialist dispatch.
+
+All six axes and all three learning trends are unchanged; no corpus
+knowledge candidate is admitted, no outside spot-check is claimed, and
+verified-round increment is zero. QUALITY.md and MINT.md are absent process
+debt; old substrate/stamp/ownership debt is not erased or re-pinned. The
+Sighting manifest and launch metadata supply no authentic taskKey,
+result/receipt path or prompt/config acceptance digests. No applicable
+receipt is minted, no receipt validation is claimed, and Sighting remains
+uncompleted. Supply authentic dispatch bindings before receipt minting.
+This is one blocked attempt, not saturation or three consecutive blocks.
+
+Documentary closure for this blocked attempt: added
+`corpus/lessons/round-20.md` with explicit admit/reject limits and indexed it
+in `corpus/README.md`. Final scoped citation check over that lesson and the
+WWKD plan returned
+`CITATION_GATE: CLEAN (cites=11 docs=2 unresolved=0 ephemeral=0 labeled=0)`,
+exit 0; exact input digests and output are in
+`kagi-shokunin/.ufo/round-20/citation-check-final.json`.
+Only this session's new round-20 LOG/SCORECARD sections are selected for
+commit; the inherited round-16 outcome appends remain dirty along with the
+probe. No whole-file staging of either append-only record is authorized.

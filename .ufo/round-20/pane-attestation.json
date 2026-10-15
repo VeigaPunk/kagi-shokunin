@@ -1,0 +1,79 @@
+{
+  "pane": {
+    "id": "%9",
+    "pid": 2844352,
+    "tty": "/dev/pts/9",
+    "dead": "0",
+    "foregroundCommand": "node",
+    "shellCwd": "/home/vgpnk/Projects/ufo-fsd-alpha"
+  },
+  "processes": [
+    {
+      "pid": 2844352,
+      "ppid": 937995,
+      "comm": "MainThread",
+      "executable": "/home/vgpnk/.local/share/fnm/node-versions/v24.21.0/installation/bin/node",
+      "entrypoint": "/home/vgpnk/Projects/ufo-fsd-alpha/scripts/ufo-sighting.mjs",
+      "cwd": "/home/vgpnk/Projects/ufo-fsd-alpha",
+      "selectedFlags": {},
+      "headlessFlagPresent": false,
+      "stdin": "/dev/pts/9",
+      "stdout": "/dev/pts/9"
+    },
+    {
+      "pid": 2844375,
+      "ppid": 2844352,
+      "comm": "omp",
+      "executable": "omp",
+      "entrypoint": null,
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin",
+      "selectedFlags": {
+        "--cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin",
+        "--model": "@m_sol",
+        "--session-dir": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/interactive-sessions/20261015T050057Z"
+      },
+      "headlessFlagPresent": false,
+      "stdin": "/dev/pts/9",
+      "stdout": "/dev/pts/9"
+    },
+    {
+      "pid": 2845013,
+      "ppid": 2844375,
+      "comm": "npm exec rea-ag",
+      "executable": "npm exec rea-agents@6.5.0 mcp",
+      "entrypoint": null,
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin",
+      "selectedFlags": {},
+      "headlessFlagPresent": false,
+      "stdin": "socket:[43942544]",
+      "stdout": "socket:[43942547]"
+    },
+    {
+      "pid": 2845306,
+      "ppid": 2845013,
+      "comm": "MainThread",
+      "executable": "node",
+      "entrypoint": null,
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin",
+      "selectedFlags": {},
+      "headlessFlagPresent": false,
+      "stdin": "socket:[43942544]",
+      "stdout": "socket:[43942547]"
+    },
+    {
+      "pid": 2856566,
+      "ppid": 2844375,
+      "comm": "python",
+      "executable": "/usr/bin/python",
+      "entrypoint": null,
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin",
+      "selectedFlags": {},
+      "headlessFlagPresent": false,
+      "stdin": "/dev/null",
+      "stdout": "pipe:[44837148]"
+    }
+  ],
+  "kagiInteractiveMatches": [
+    2844375
+  ]
+}

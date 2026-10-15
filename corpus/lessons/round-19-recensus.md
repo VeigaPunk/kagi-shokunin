@@ -1,7 +1,7 @@
 # round-19 re-census — OMP-era freshness, measured unchanged
 
 2026-10-14. Steered round 19. Advisory inventories: fleet-root
-`.ufo/waves/shokunin12h-20261014-p1-repair/members/Kagi*.md`.
+`../.ufo/waves/shokunin12h-20261014-p1-repair/members/Kagi*.md`.
 
 ## Verdict lines (measured, full lines retained in the wave receipts)
 

@@ -450,3 +450,17 @@ not what was binding. Retirement still would be wrong — a capped axis with a
 | Round | Axis | Before | After | Evidence |
 |---|---|---|---|---|
 | 19 | freshness | measured at HEAD (see lesson) | verdicts recorded per gate, no scalar | `corpus/lessons/round-19-recensus.md` |
+
+## Round-19 correction (appended 2026-10-14) — the describe-don't-pin claim was too strong
+
+The round-18 sentence above (":323" region) states that no content hash of a
+missing file is asserted anywhere. The round-19 independent audit falsifies
+that as written: `corpus/knowledge/config-layering.md:58` still states
+`af8873ca…` as a current property of the absent `~/.config/the-janitor/config.json`
+(the baseline deliberately withholds that hash), and the source-basis lines of
+`handler-on-disk-state.md:3`, `handler-trust-boundary.md:3-6` and
+`janitor-env-contract.md:3-4` still name the handler/`client.py` prefixes
+`2408b0c9…` / `8179b241…`. Full 64-char hashes remain confined to
+`corpus/drift-baseline.tsv`; the defect is the *current-voice assertion* in the
+notes, not a leaked full hash. Named debt, owner kagi, unblock: mark those lines
+historical in an append-only erratum (do not expand `af8873ca…`).

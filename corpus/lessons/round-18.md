@@ -71,3 +71,10 @@ with this erratum; no claim was deleted or rewritten.
 - substrate-absent verdicts carried as named debt: the 6 live-gate verdicts and
   10 deferred ledger rows, unblock action = restore/reinstall the-janitor
   substrate, whereupon `substrate_present()` un-defers every row in one run.
+
+## Round-19 erratum (appended 2026-10-14)
+
+The sentence naming `2eb86e1f…` as the handler's last stamped sha is wrong:
+that prefix belongs to `corpus/surface-census.sh` at `301b9ec`. The pin-list
+handler hash is `2408b0c9…` (`corpus/drift-baseline.tsv`). Append-only: the
+original sentence stands; this entry supersedes it for readers.

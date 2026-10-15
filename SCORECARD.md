@@ -444,3 +444,9 @@ refusal", but the axis was actually held at 7 by an unmeasured, vault-free
 surface (`op.env` consumption). The refusal is real and unchanged; it was simply
 not what was binding. Retirement still would be wrong — a capped axis with a
 *specific, falsifiable* cap is the honest record.
+
+## Move log
+
+| Round | Axis | Before | After | Evidence |
+|---|---|---|---|---|
+| 19 | freshness | measured at HEAD (see lesson) | verdicts recorded per gate, no scalar | `corpus/lessons/round-19-recensus.md` |

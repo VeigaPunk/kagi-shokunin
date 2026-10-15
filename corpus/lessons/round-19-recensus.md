@@ -39,3 +39,7 @@ or read `opencode.db` session text or `op.env`. Recorded by the wave sentinel.
   resolver is script-derived (`scope-gate.sh:91`).
 - `corpus/lessons/round-13.md:9` `<FILL ON STAMP>` was never filled; the
   round-13 blob is described, never re-pinned as HEAD.
+
+## Independent audit erratum (appended 2026-10-14)
+
+Independent audit (`.ufo/waves/shokunin12h-20261014-p1-audit/members/Kagi*.md`): all seven safe gates re-ran green (97/13/16/61/29/34-case selftests + transcript seeded-hit); identity, pathspec and record conformance confirmed. No operator-identity commit on the round object. Carried debt unchanged: substrate absence, superseded SKILL counts, missing-file hash prefixes, lowercase-root strings, `<FILL ON STAMP>`.

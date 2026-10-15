@@ -907,3 +907,21 @@ exit 0; exact input digests and output are in
 Only this session's new round-20 LOG/SCORECARD sections are selected for
 commit; the inherited round-16 outcome appends remain dirty along with the
 probe. No whole-file staging of either append-only record is authorized.
+
+### Round-20 local publication (2026-10-15)
+
+Work landed at `93ab9a50605915f9af4192c46cdaf367153b8177`, under the
+required kagi identity, with inherited record hunks/probe and native sessions
+excluded by index-only selection. The local report is
+`kagi-shokunin/.ufo/reports/round-20/kagi.md`; fresh-session handoff and
+receipt-prerequisite status are
+`kagi-shokunin/.ufo/round-20/continuation.json` and
+`kagi-shokunin/.ufo/round-20/receipt-status.json`.
+Parent metadata checks returned
+`BLOCKED_HANDOFF_CHECK: PASS (planned=32 submitted=0 verified_increment=0 receipt_minted=no receipt_validated=no)`,
+exit 0; evidence:
+`kagi-shokunin/.ufo/round-20/handoff-validation.json`.
+This is local artifact consistency, not a task receipt, fleet acceptance,
+native judgment, completed round or automatic successor release. Missing
+authentic bindings and authorized role routes remain external blockers;
+Sighting is intentionally not completed. No push.

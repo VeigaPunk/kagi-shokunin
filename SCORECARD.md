@@ -505,6 +505,52 @@ Observed: `SOURCE_FRESHNESS: entries=4 historical=0 unqualified=4 absent_sources
 The count checks explicit qualification, not the truth of the old hashes or
 every sentence in the entries; scoped errata require human review as well.
 
+## Outcome — round-16 re-dispatch (2026-10-15)
+
+Measured revision: `f4a8dd92674e95231c50f361e8c69eb00c7e713b`
+(`round-16: qualify historical janitor source claims`). The exact counting
+command at line 501 was run unchanged before and after:
+
+| Revision | Observed counting output | Exit |
+|---|---|---|
+| `15ea78c767ec1730ff19144e5cf62c9adf54e483` | `SOURCE_FRESHNESS: entries=4 historical=0 unqualified=4 absent_sources=3/3` | 0 |
+| `f4a8dd92674e95231c50f361e8c69eb00c7e713b` | `SOURCE_FRESHNESS: entries=4 historical=4 unqualified=0 absent_sources=3/3` | 0 |
+
+| Axis | Before → after | Verdict | Evidence / ceiling |
+|---|---|---|---|
+| freshness | **8 → 9** | improved | Four stale source entries now explicitly qualify original source lines, derived behavior and recipes: `corpus/knowledge/config-layering.md:111-136`, `corpus/knowledge/handler-on-disk-state.md:250-278`, `corpus/knowledge/handler-trust-boundary.md:288-317`, `corpus/knowledge/janitor-env-contract.md:92-113`. Count above plus semantic review; no missing source was re-verified. |
+| depth | 8 → 8 | unchanged | No new domain behavior measured; original source bytes in all four entries are preserved. |
+| coverage | 9 → 9 | unchanged | Same four existing entries; no new host/vault surface mapped. |
+| operability | 9 → 9 | unchanged | No executable path or host state changed; old recipes are historical, not newly run. |
+| calibration | 9 → 9 | unchanged | Scores remain author-assigned; marker coverage is not semantic truth or external promotion evidence. |
+| adjacency | 9 → 9 | unchanged | No ownership ruling or sibling change; `PROVINCE.md` refusals remain in force. |
+
+The numeric restoration to 9 is an author judgment about the corrected
+four-entry debt, not a formula derived from four markers and not a claim
+of corpus-wide currentness. The stronger claim is refused: three sources
+remain absent, abbreviated prefixes prove no identity, and an excerpt that
+omits the appended erratum can still present the old wording without its
+qualification. Restoration requires authorized source/revision review and
+separate re-measurement before any current-tense reuse.
+
+Checks at the measured revision (all exit 0):
+
+- Original byte-prefix comparison against the before revision:
+  `SOURCE_PRESERVATION: preserved=4/4`.
+- `bash corpus/claim-ledger.sh citations --docs 'corpus/knowledge/config-layering.md corpus/knowledge/handler-on-disk-state.md corpus/knowledge/handler-trust-boundary.md corpus/knowledge/janitor-env-contract.md'`
+  → `CITATION_GATE: CLEAN (cites=10 docs=4 unresolved=0 ephemeral=0 labeled=0)`.
+- `bash corpus/claim-ledger.sh docs`
+  → `DOC_AUDIT: CLEAN (entries=21 row_linked=18 by_hand=3 undeclared=0 missing_ids=0 unpinned=0 duplicate_reasons=0)`.
+
+No live private-file gate, handler, account, vault, resolver or service was
+exercised. Whole-ledger cleanliness is not claimed: inherited stamp debt
+for `corpus/lessons/round-18.md` and the user-owned `corpus/op-ref-probe.sh`
+edit is left untouched, not re-pinned to manufacture a clean run.
+
+**Planned next move:** depth remains the lowest score at 8. Revisit its
+standing vault-free falsifier only under a fresh steer; this round does not
+absorb the inherited probe edit. No axis is retired or split.
+
 ## Round 20 — interactive attempt; blocked, not completed (2026-10-15)
 
 The lowest LIVE axis is **depth (8)**, from the immediately preceding

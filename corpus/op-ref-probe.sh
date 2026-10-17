@@ -49,6 +49,8 @@
 #   bash corpus/op-ref-probe.sh --evaluate F    # pure comparison of F (no exec)
 #   bash corpus/op-ref-probe.sh --fixture DIR   # use DIR's env files
 #   bash corpus/op-ref-probe.sh --selftest      # prove the comparator on canned data
+#   bash corpus/op-ref-probe.sh --dotenv-bytes # op-only newline contract, isolated HOME/env
+#   bash corpus/op-ref-probe.sh --dotenv-bytes --evaluate F # compare encoded byte observations
 #
 # Contract data lives below as shell arrays; the fixtures are generated from it
 # (so a fixture cannot silently drift from the expectation) under a `mktemp -d`
@@ -63,6 +65,7 @@ VERSION=v4
 MODE=verify
 FIXTURE_DIR=
 EVAL_FILE=
+DOTENV_BYTES=0
 OP_BIN=${OP_REF_OP_BIN:-op}
 JAN_BIN=${OP_REF_JANITOR_BIN:-$HOME/.local/bin/the-janitor}
 REDACTED='<redacted-non-op-value>'
@@ -126,6 +129,17 @@ UNION_CONTRACT=$'KAGI12_P9\tonlyfirst'
 INHERITED_CONTRACT=$'KAGI12_T\tspaced'
 MALFORMED_REFS_CONTRACT=(KAGI12_GOOD)
 MASK_CONTRACT=$'KAGI12_A\talpha-value'
+
+# Separate from the line-oriented v4 observations: hex preserves trailing LFs.
+# Expectations are literal measured bytes, not decoded from the input fixtures.
+DOTENV_BYTE_CONTRACT=(
+  $'escaped-lf\t616c7068610a62657461'
+  $'trailing-lf\t616c7068610a0a'
+  $'newline-only\t0a'
+  $'single-literal\t616c7068615c6e62657461'
+  $'double-multiline\t616c7068610a62657461'
+  $'single-multiline\t616c7068610a62657461'
+)
 
 # ------------------------------------------------------------------ output ---
 WORK= OBS=
@@ -241,7 +255,14 @@ op_exec() { # op-args... (e.g. run --env-file=F -- printenv KEY)
         guard_op_file "$f" || return 2 ;;
     esac
   done
-  "$OP_BIN" "$@"
+  if ((DOTENV_BYTES)); then
+    env -i PATH=/usr/bin:/bin HOME="$WORK/home" \
+      XDG_CONFIG_HOME="$WORK/config" XDG_CACHE_HOME="$WORK/cache" XDG_DATA_HOME="$WORK/data" \
+      OP_BIOMETRIC_UNLOCK_ENABLED=false OP_CACHE=false \
+      timeout 10 "$OP_BIN" "$@"
+  else
+    "$OP_BIN" "$@"
+  fi
 }
 
 op_run() { # f args...  — convenience wrapper for the common `run --env-file=F -- args`
@@ -468,6 +489,68 @@ verify() {
   evaluate "$OBS"
 }
 
+# The op-only arm never consumes --fixture, the real op.env, or inherited values.
+evaluate_bytes() {
+  local f=$1 id rc hex extra line want i=0 failed=0
+  while IFS=$'\t' read -r id rc hex extra || [[ -n $id ]]; do
+    [[ $i -lt ${#DOTENV_BYTE_CONTRACT[@]} ]] ||
+      die "OP_DOTENV_BYTES: SETUP (extra observation row)" 2
+    line=${DOTENV_BYTE_CONTRACT[i]}
+    [[ $id == "${line%%$'\t'*}" && $rc =~ ^[0-9]+$ &&
+       $hex =~ ^([0-9a-f][0-9a-f])*$ && -z $extra ]] ||
+      die "OP_DOTENV_BYTES: SETUP (observation schema or order)" 2
+    want=${line#*$'\t'}
+    if [[ $rc == 0 && $hex == "$want" ]]; then
+      printf 'DOTENV_BYTES_CASE id=%s status=PASS\n' "$id"
+    else
+      printf 'DOTENV_BYTES_CASE id=%s status=FAIL reason=exit-or-bytes\n' "$id"
+      failed=$((failed + 1))
+    fi
+    i=$((i + 1))
+  done <"$f"
+  failed=$((failed + ${#DOTENV_BYTE_CONTRACT[@]} - i))
+  if ((failed)); then
+    printf 'OP_DOTENV_BYTES: DRIFT (checks=%d failed=%d)\n' "$i" "$failed"
+    return 1
+  fi
+  printf 'OP_DOTENV_BYTES: CLEAN (checks=%d failed=0)\n' "$i"
+}
+
+dotenv_bytes() {
+  local tool line id rc hex
+  for tool in env timeout od tr mktemp mkdir sh; do
+    command -v "$tool" >/dev/null 2>&1 ||
+      die "OP_DOTENV_BYTES: SETUP (missing tool: $tool)" 2
+  done
+  OP_BIN=$(command -v "$OP_BIN") ||
+    die "OP_DOTENV_BYTES: SETUP (op binary not found)" 2
+  umask 077
+  WORK=$(mktemp -d) || die "OP_DOTENV_BYTES: SETUP (scratch directory)" 2
+  mkdir -p "$WORK/home" "$WORK/config" "$WORK/cache" "$WORK/data" ||
+    die "OP_DOTENV_BYTES: SETUP (isolated directories)" 2
+  : >"$WORK/bytes.tsv"
+  for line in "${DOTENV_BYTE_CONTRACT[@]}"; do
+    id=${line%%$'\t'*}
+    case $id in
+      escaped-lf) printf '%s\n' 'KAGI16_VALUE="alpha\nbeta"' ;;
+      trailing-lf) printf '%s\n' 'KAGI16_VALUE="alpha\n\n"' ;;
+      newline-only) printf '%s\n' 'KAGI16_VALUE="\n"' ;;
+      single-literal) printf '%s\n' "KAGI16_VALUE='alpha\\nbeta'" ;;
+      double-multiline) printf 'KAGI16_VALUE="alpha\nbeta"\n' ;;
+      single-multiline) printf "KAGI16_VALUE='alpha\nbeta'\n" ;;
+    esac >"$WORK/plain.env"
+    op_exec run --env-file="$WORK/plain.env" -- /bin/sh -c \
+      'printf %s "${KAGI16_VALUE?missing generated key}"' \
+      >"$WORK/actual" 2>"$WORK/stderr"
+    rc=$?
+    # Only the hex representation enters command substitution, never raw bytes.
+    hex=$(od -An -v -tx1 "$WORK/actual" | tr -d ' \n') ||
+      die "OP_DOTENV_BYTES: SETUP (byte encoding failed)" 2
+    printf '%s\t%d\t%s\n' "$id" "$rc" "$hex" >>"$WORK/bytes.tsv"
+  done
+  evaluate_bytes "$WORK/bytes.tsv"
+}
+
 # ---------------------------------------------------------------- selftest ---
 S_N=0 S_FAIL=0
 tcase() { # id want_rc pattern cmd...
@@ -627,6 +710,38 @@ selftest() {
   policy_case env-symlink poison_symlink
   policy_case env-fifo poison_fifo
 
+
+  # Independent byte observations: catch consumer-visible newline loss, not
+  # whether a mocked op repeats the contract it was handed.
+  printf '%s\n' \
+    $'escaped-lf\t0\t616c7068610a62657461' \
+    $'trailing-lf\t0\t616c7068610a0a' \
+    $'newline-only\t0\t0a' \
+    $'single-literal\t0\t616c7068615c6e62657461' \
+    $'double-multiline\t0\t616c7068610a62657461' \
+    $'single-multiline\t0\t616c7068610a62657461' >"$c/bytes.tsv"
+  tcase bytes-faithful 0 '^OP_DOTENV_BYTES: CLEAN \(checks=6 failed=0\)$' \
+    bash "$SELF" --dotenv-bytes --evaluate "$c/bytes.tsv"
+  awk -F'\t' 'BEGIN{OFS="\t"} $1=="trailing-lf"{$3="616c706861"} {print}' \
+    "$c/bytes.tsv" >"$c/bytes-stripped.tsv"
+  tcase bytes-trailing-lost 1 'id=trailing-lf status=FAIL' \
+    bash "$SELF" --dotenv-bytes --evaluate "$c/bytes-stripped.tsv"
+  awk -F'\t' 'BEGIN{OFS="\t"} $1=="newline-only"{$3=""} {print}' \
+    "$c/bytes.tsv" >"$c/bytes-empty.tsv"
+  tcase bytes-newline-lost 1 'id=newline-only status=FAIL' \
+    bash "$SELF" --dotenv-bytes --evaluate "$c/bytes-empty.tsv"
+  awk -F'\t' 'BEGIN{OFS="\t"} $1=="escaped-lf"{$2="1"} {print}' \
+    "$c/bytes.tsv" >"$c/bytes-exit.tsv"
+  tcase bytes-exit-mismatch 1 'id=escaped-lf status=FAIL' \
+    bash "$SELF" --dotenv-bytes --evaluate "$c/bytes-exit.tsv"
+  awk -F'\t' '$1!="single-multiline"' "$c/bytes.tsv" >"$c/bytes-missing.tsv"
+  tcase bytes-missing 1 '^OP_DOTENV_BYTES: DRIFT \(checks=5 failed=1\)$' \
+    bash "$SELF" --dotenv-bytes --evaluate "$c/bytes-missing.tsv"
+  { cat "$c/bytes.tsv"; printf 'single-multiline\t0\t616c7068610a62657461\n'; } >"$c/bytes-extra.tsv"
+  tcase bytes-extra 2 '^OP_DOTENV_BYTES: SETUP \(extra observation row\)$' \
+    bash "$SELF" --dotenv-bytes --evaluate "$c/bytes-extra.tsv"
+  tcase bytes-no-fixture 2 'OP_DOTENV_BYTES: POLICY' \
+    bash "$SELF" --dotenv-bytes --fixture "$c"
   if [[ $S_FAIL -gt 0 ]]; then
     printf 'OP_REF_SELFTEST: FAIL (%d cases, %d failed)\n' "$S_N" "$S_FAIL"
     return 1
@@ -639,6 +754,7 @@ selftest() {
 while (($#)); do
   case $1 in
     --selftest) MODE=selftest ;;
+    --dotenv-bytes) DOTENV_BYTES=1 ;;
     --evaluate) MODE=evaluate; EVAL_FILE=${2:?--evaluate needs a file}; shift ;;
     --fixture) FIXTURE_DIR=${2:?--fixture needs a dir}; shift ;;
     -h|--help) usage; exit 0 ;;
@@ -646,6 +762,18 @@ while (($#)); do
   esac
   shift
 done
+
+if ((DOTENV_BYTES)); then
+  [[ -z $FIXTURE_DIR && $MODE != selftest ]] ||
+    die "OP_DOTENV_BYTES: POLICY (byte mode accepts generated fixtures or --evaluate only)" 2
+  if [[ $MODE == evaluate ]]; then
+    [[ -f $EVAL_FILE ]] || die "OP_DOTENV_BYTES: SETUP (observation file not found)" 2
+    evaluate_bytes "$EVAL_FILE"
+  else
+    dotenv_bytes
+  fi
+  exit $?
+fi
 
 # The guard runs in the main shell for every mode, so a poisoned fixture tree is
 # refused before anything executes (including --evaluate, which is how the

@@ -819,6 +819,31 @@ Full round detail: `corpus/lessons/round-19-recensus.md`. Advisory inventories:
   The L0 round-namespace/dispatch question is appended under kagi | round-16
   in the fleet `.ufo/l0-questions.md`; no answer is required for this correction.
 
+- 2026-10-15 — round-16 re-dispatch, committed measurement and bounded verdict.
+  The source correction is carried by
+  `f4a8dd92674e95231c50f361e8c69eb00c7e713b`.
+  The unchanged counting command at `SCORECARD.md:501` measured
+  `entries=4 historical=0 unqualified=4 absent_sources=3/3` before at
+  `15ea78c767ec1730ff19144e5cf62c9adf54e483`, and
+  `entries=4 historical=4 unqualified=0 absent_sources=3/3` after at
+  `f4a8dd92674e95231c50f361e8c69eb00c7e713b`, both exit 0.
+  Freshness 8 → 9, author-assigned and limited to flagging these stale
+  entries; every other axis unchanged, none harmed. No live source fact,
+  domain-task success or external promotion is inferred from that count.
+
+  Smoke on the committed corrected entries: byte-prefix preservation 4/4;
+  `bash corpus/claim-ledger.sh citations --docs` with the four explicit
+  paths → `CITATION_GATE: CLEAN (cites=10 docs=4 unresolved=0 ephemeral=0
+  labeled=0)`, exit 0; `bash corpus/claim-ledger.sh docs` →
+  `DOC_AUDIT: CLEAN (entries=21 row_linked=18 by_hand=3 undeclared=0
+  missing_ids=0 unpinned=0 duplicate_reasons=0)`, exit 0. These are
+  declaration/citation checks, not re-executed host-behavior claims.
+  Score, exact command, measured commits, limits and next move are appended
+  in `SCORECARD.md` under "Outcome — round-16 re-dispatch".
+  The round lesson/index and revision stamps for changed lane-owned
+  documents record the same correction; unrelated inherited stamp debt
+  and `corpus/op-ref-probe.sh` are intentionally not refreshed.
+
 ## 20 — interactive attempt blocked before specialist dispatch (2026-10-15)
 
 One depth-axis attempt, not a completed craft round. Motivating evidence:

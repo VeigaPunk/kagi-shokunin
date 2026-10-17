@@ -961,3 +961,10 @@ and `## Retired`. Added at the end of `SCORECARD.md`: `## Capabilities`
 left to the lane's next round per `AXES.md` §The stagnation nudge). No round was
 run, nothing else changed, and the pre-existing uncommitted edits in this repo
 were left exactly as they were.
+
+## 2026-10-17 — repository README
+
+- **Trigger.** The repository root had no `README.md`.
+- **Evidence.** Domain and the round-18 substrate-absent erratum are `PROVINCE.md` (domain line, the 2026-10-14 erratum, the deliberate refusals). The hard rule against recording secret values is the opening of `SKILL.md`. Deferral note path `corpus/knowledge/substrate-deferral.md` exists.
+- **Action.** Added `README.md`. Corpus indexes were not edited. No Devin wiki URL was present.
+- **Outcome.** No axis claim; no score moved. The page tells a reader the live census is expected to fail closed while the substrate is absent.

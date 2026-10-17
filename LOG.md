@@ -961,3 +961,18 @@ and `## Retired`. Added at the end of `SCORECARD.md`: `## Capabilities`
 left to the lane's next round per `AXES.md` §The stagnation nudge). No round was
 run, nothing else changed, and the pre-existing uncommitted edits in this repo
 were left exactly as they were.
+
+## 2026-10-17 — readable front door
+
+Root README was absent. Claims are taken from PROVINCE.md (including the round-18 janitor-substrate ABSENT erratum and `bash corpus/surface-census.sh`), SKILL.md (secret-value hard rule; Rank: shonen), and SHONEN.md (`[x]` with named reviewers, file still a promotion checklist). No vault path or secret-handling recipe was copied into the README.
+
+Corpus index: `corpus/README.md` is line-cited. The only edit is a final newline (not sha256-pinned; `corpus/stamps.tsv` does not pin this file). No row was inserted. PROVINCE.md and SHONEN.md missing newlines were left because `corpus/stamps.tsv` pins those bytes. `corpus/knowledge/`, `corpus/lessons/`, evidence, fixtures, and earlier LOG entries were not rewrapped.
+
+Lint fixes (line counts of existing content unchanged):
+- corpus/README.md (final newline; content line numbers unchanged; not sha256-pinned)
+
+Lint left in place:
+- PROVINCE.md: missing final newline; sha256 pinned in corpus/stamps.tsv
+- SHONEN.md: missing final newline; sha256 pinned in corpus/stamps.tsv
+
+Devin: a search for `devin.ai` in this repo found no URL to edit. No wiki URL was added.

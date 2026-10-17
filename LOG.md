@@ -961,3 +961,12 @@ and `## Retired`. Added at the end of `SCORECARD.md`: `## Capabilities`
 left to the lane's next round per `AXES.md` §The stagnation nudge). No round was
 run, nothing else changed, and the pre-existing uncommitted edits in this repo
 were left exactly as they were.
+
+## 2026-10-17 — root README
+
+Motivating evidence: no root `README.md` on the repo (`ls`). The new page
+indexes `PROVINCE.md` (surfaces, round-18 substrate absence, deliberate
+refusals), `SKILL.md` (never print a secret), `SHONEN.md` (four `[x]` boxes
+with named reviewers), and the seven `corpus/*.sh` gates named in
+`PROVINCE.md`. Counts stay in the province, stamped to the round that
+measured them. No Devin wiki URL exists here; none was added.

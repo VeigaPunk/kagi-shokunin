@@ -961,3 +961,8 @@ and `## Retired`. Added at the end of `SCORECARD.md`: `## Capabilities`
 left to the lane's next round per `AXES.md` §The stagnation nudge). No round was
 run, nothing else changed, and the pre-existing uncommitted edits in this repo
 were left exactly as they were.
+## 2026-10-17 — root README added
+
+- **Trigger.** Operator request for a repository front door. This checkout had no root `README.md`.
+- **Action.** Added `README.md` from `PROVINCE.md` (domain, gate list, round-18 substrate-absent erratum, deliberate refusals) and the script headers under `corpus/` (`surface-census.sh`, `drift-pins.sh`, `transcript-scan.sh`, `op-ref-probe.sh`, `checklist-run.sh`, `scope-gate.sh`, `claim-ledger.sh`), each of which documents `--selftest`. Rank line cites `SHONEN.md` still present and the fleet roster row dated 2026-09-28 in `MANIFEST.json`.
+- **Non-claims.** No Devin wiki URL existed here and none was added. No axis claim, no score change, no gate edit. Not a craft round.

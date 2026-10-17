@@ -561,3 +561,15 @@ Next action is operator/integrator restoration of the required effective
 role bindings and connector fallback; a fresh authorized session must recheck
 them before any 32-seat submission. Missing authentic receipt bindings also
 remain a blocker; Sighting completion and automatic continuation are not claimed.
+
+## Capabilities
+
+| Capability | What it can now do | Evidence pointer | First-working round |
+|---|---|---|---|
+| — none yet — | | | |
+
+Rows enter only through a round that demonstrates the capability running (`AXES.md` §Capabilities); none enter through this rollout.
+
+## Saturation
+
+The lane's saturation line + stagnation window N are to be declared by the lane on its next round per `AXES.md` §The stagnation nudge; not asserted by this conformance change.

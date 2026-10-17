@@ -925,3 +925,14 @@ This is local artifact consistency, not a task receipt, fleet acceptance,
 native judgment, completed round or automatic successor release. Missing
 authentic bindings and authorized role routes remain external blockers;
 Sighting is intentionally not completed. No push.
+
+## 2026-10-16 — protocol conformance: SCORECARD contract fields
+
+Append-only operator rollout per the 2026-10-16 fleet amendment (fleet-root
+`84bade0`); no axis claim was made and no score moved. Already present as real
+recordable sections: the per-round axes score tables, six `## Planned` sections
+and `## Retired`. Added at the end of `SCORECARD.md`: `## Capabilities`
+(empty repertoire table plus its entry rule) and `## Saturation` (declaration
+left to the lane's next round per `AXES.md` §The stagnation nudge). No round was
+run, nothing else changed, and the pre-existing uncommitted edits in this repo
+were left exactly as they were.

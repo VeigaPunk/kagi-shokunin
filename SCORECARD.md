@@ -450,6 +450,10 @@ not what was binding. Retirement still would be wrong — a capped axis with a
 | Round | Axis | Before | After | Evidence |
 |---|---|---|---|---|
 | 19 | freshness | measured at HEAD (see lesson) | verdicts recorded per gate, no scalar | `corpus/lessons/round-19-recensus.md` |
+| 20 | depth (attempt) | 8 | 8 — blocked, increment 0 | `corpus/lessons/round-20.md` |
+| 21 | depth (C1) | 8 | 9 | `R21-01`; `SCORECARD.md` §Round 21 — post-move |
+| 21 | calibration (C2) | 9 | 9 — mistakes→criteria, author `[x]` 4→0 | `corpus/lessons/round-21.md` §Mistakes |
+| 21 | coverage + capability (C3) | 9 | 9 — 3 entries, source-registry capability | `R21-02` |
 
 ## Round-19 correction (appended 2026-10-14) — the describe-don't-pin claim was too strong
 
@@ -608,14 +612,69 @@ role bindings and connector fallback; a fresh authorized session must recheck
 them before any 32-seat submission. Missing authentic receipt bindings also
 remain a blocker; Sighting completion and automatic continuation are not claimed.
 
+## Round 21 — pre-move (repo `HEAD` `aea7a43`, round-20 attempt close)
+
+| Axis | Score | Evidence pointer | Last change |
+|---|---|---|---|
+| depth | 8 | The byte arm landed unclaimed in `aea7a43`: no ledger row (`grep -c 'DOTENV_BYTES' corpus/claim-ledger.tsv` → 0), `R12-02` pinned 29 cases while the probe printed 36, no observation id in the entry (`grep -c 'DOTENV_OBS' corpus/knowledge/op-ref-consumption.md` → 0). | `R12-01`, `R12-02` |
+| coverage | 9 | 21 knowledge entries (`ls corpus/knowledge/*.md` lists 21), no source registry (`test -e corpus/SOURCES.md` → 1), no `## Frontier` in the index (`grep -c '^## Frontier' corpus/README.md` → 0). | `R17-01` |
+| operability | 9 | Seven gate scripts under `corpus/`, none for sources; the capabilities table held only its header and a placeholder row. | `R15-01`, `R15-05` |
+| freshness | 9 | `op --version` → 2.41.0 while the only byte evidence was op 2.40.0; 0 of 21 entries carry `recheck:`. | `R11-04`, `R14-01` |
+| calibration | 9 | No `corpus/QUALITY.md` (`test -e` → 1); 0 mistake classes captured by a criterion; `SHONEN.md` carried 4 author-attested `[x]` (`grep -c '^- \[x\]' SHONEN.md` → 4); `cells` refuses the scorecard since `93ab9a5`. | `R13-03` |
+| adjacency | 9 | Ownership partition gated; no sibling sweep for vault-ops ground outside the host surfaces. | `R16-01` |
+
+Declared claims (1–3, distinct axes; plan `plans/round-21.md`): **C1 depth**
+(lowest of the six scores, 8; also the declared open claim of the round-20
+attempt), **C2 calibration** (owned axis; freshness and calibration tie at 9,
+so C2 carries the lowest-owned-axis duty), **C3 capability + coverage**.
+`corpus/QUALITY.md` §Admission bar is a prerequisite contract repair written
+before dispatch, not a claim: C2 appends below it and C3 reads only it.
+
+## Round 21 — post-move (three claims, commit `round-21`)
+
+Before numbers at `aea7a43`; after numbers at the round-21 lane commit (its
+hash is cited in `LOG.md` §Round 21 close and the fleet report, since a commit
+cannot carry its own hash).
+
+| Axis | Before → after | What moved | Evidence |
+|---|---|---|---|
+| depth | 8 → **9** | C1. Byte fidelity of `op run --env-file` admitted: re-measured on op 2.41.0, `OP_DOTENV_BYTES: CLEAN (checks=6 failed=0)`, exit 0; six `DOTENV_OBS` ids (0 → 6) with the downstream command-substitution loss measured and a decision row; `R12-02` re-pinned 29 → 36; probe stamp re-pinned to its bytes. Not 10: masking of resolved values, item reads and the absent handler stay unmeasured; reviewer limits on the instrument are carried in the entry. | `R21-01`, `R12-02`; `corpus/knowledge/op-ref-consumption.md` §11 |
+| calibration | 9 → 9 | C2. Twelve own mistakes mined (M1–M12), 11 uncaptured classes each now captured by a criterion citing its lesson (captured-by `none` 12 → 1, the honest stop); admission bar QA1–QA8 created; `SHONEN.md` regenerated canonical, author `[x]` 4 → 0. Score held: these are audit facts; the outside admit/reject spot-check is pending, so discernment is not yet shown from outside. | `R14-01`; `corpus/lessons/round-21.md` §Mistakes; `corpus/QUALITY.md` |
+| coverage | 9 → 9 | C3. Three entries on ground no coverage-map row held (machine-credential custody, SOPS/age rotation, Vault/OpenBao clocks; 21 → 24 entries), each citing `mined` rows; README `## Frontier` 0 → 1 and `## Known gaps` 0 → 1. Score held: documented vendor knowledge, not governed host surfaces. | `R21-02`, `R14-01`; `corpus/README.md` §Coverage map |
+| operability | 9 → 9 | Capability (C3): `corpus/sources-census.sh` runs clean with a 40-case selftest. Not booked as an axis move (counted once, under C3). | `R21-02`, `R21-03` |
+| freshness | 9 → 9 | The byte contract re-verified on the new op release; new entries carry `verified-at:`/`recheck:`. Not claimed: 21 legacy entries still have no `recheck:` (census `legacy=21`). | `R21-01`, `R21-02` |
+| adjacency | 9 → 9 | Connector sweep over every sibling lane found no claim on the new ground; `PROVINCE.md` §Core / Frontier / Adjacent appended. Not claimed. | `R16-01`; `PROVINCE.md` |
+
+Counting commands (run from the lane root; before at `aea7a43`, after at the round-21 commit):
+
+- C1: `grep -c 'DOTENV_OBS' corpus/knowledge/op-ref-consumption.md` (0 → 6); `bash corpus/op-ref-probe.sh --dotenv-bytes` (last line `OP_DOTENV_BYTES: CLEAN (checks=6 failed=0)`, exit 0, op 2.41.0); `awk -F'\t' '$1=="R12-02"{print $3}' corpus/claim-ledger.tsv` (29 → 36 cases).
+- C2: `awk -F'|' '/^\| M[0-9]/ && $6 ~ /QM/' corpus/lessons/round-21.md | wc -l` (0 → 11); `awk -F'|' '/^\| Q[AM][0-9]/' corpus/QUALITY.md | wc -l` (0 → 19); `grep -c '^- \[x\]' SHONEN.md` (4 → 0).
+- C3: `bash corpus/sources-census.sh` (absent → `SOURCES_CENSUS: CLEAN (rows=16 A=14 B=0 C=2 queued=1 mined=14 rejected=1 entries_sourced=3 legacy=21)`); `ls corpus/knowledge/*.md | wc -l` (21 → 24); capability rows below 0 → 2 (the source registry under C3; the byte probe enters with C1's admission).
+
+Trend verdicts (self-assessed, pending non-author spot-check): expansion
+**improved** (three admitted entries on uncovered ground, a capability
+admitted); quality **improved** (a stale count pin and an unclaimed landing
+re-verified and pinned; no admitted entry failed a re-check); discernment
+**unchanged** pending the outside admit/reject spot-check (criteria were added
+with lessons behind each, but agreement is not self-certifiable).
+
+No axis is retired or split.
+
+## Planned (next — round 21 close)
+
+1. **freshness** — give the 21 legacy entries a re-verification clock as appended header lines (`source:` naming the lane's own evidence as `own-work` rows, `verified-at:`, `recheck:`). Before: `bash corpus/sources-census.sh` → `legacy=21`. After: `legacy=0`, census CLEAN.
+2. **calibration** — make `cells` evaluate the scorecard again (the round-20 attempt heading stops it with exit 2 since `93ab9a5`) without rewriting a filed heading; then run the outside admit/reject spot-check record into the round lesson. Before: `bash corpus/claim-ledger.sh cells` → exit 2.
+3. **operability** — the probe's byte arm reports op-side failure as `SETUP` exit 2, not `DRIFT`, and prints observed hex for failing rows (round-21 reviewer M1/M2). Before: a stub op exiting 1 yields `OP_DOTENV_BYTES: DRIFT (checks=6 failed=6)`, exit 1.
+
 ## Capabilities
 
 | Capability | What it can now do | Evidence pointer | First-working round |
 |---|---|---|---|
-| — none yet — | | | |
+| op-only dotenv byte probe | run six generated plain-value dotenv classes through `op run --env-file` under `env -i` with scratch HOME/XDG and compare the child's bytes (hex) to literal expectations; no ref, account or handler involved | `bash corpus/op-ref-probe.sh --dotenv-bytes` (ledger `R21-01`; `knowledge/op-ref-consumption.md` §11) | 21 (first run in the round-20 attempt, unadmitted there) |
+| source registry + census gate | curate opened, scope-tiered sources with anchors, rejections and study paths, and machine-check the registry plus the entry ↔ source citation chain both ways | `bash corpus/sources-census.sh` (ledger `R21-02`), `--selftest` 40 cases (`R21-03`); `corpus/SOURCES.md` | 21 |
 
-Rows enter only through a round that demonstrates the capability running (`AXES.md` §Capabilities); none enter through this rollout.
+Rows enter only through a round that demonstrates the capability running (`AXES.md` §Capabilities); both rows entered with the round-21 runs quoted above. The 2026-10-16 rollout added none.
 
 ## Saturation
 
-The lane's saturation line + stagnation window N are to be declared by the lane on its next round per `AXES.md` §The stagnation nudge; not asserted by this conformance change.
+Declared round 21: **saturation line 9, stagnation window N = 3 completed rounds** (a blocked attempt such as round 20 does not count as a completed round). The owned axes (freshness 9, calibration 9) sit at the line, so the nudge fires only when no capability has entered in the last three completed rounds; two entered in round 21, so the earliest round it can fire is round 25 (after rounds 22–24 with none). Justification: the move log shows single-point moves through round 17, a re-census with no scalar move in round 19, and a blocked attempt in round 20 — a shorter window would read one blocked attempt as stagnation.

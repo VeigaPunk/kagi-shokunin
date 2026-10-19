@@ -961,3 +961,71 @@ and `## Retired`. Added at the end of `SCORECARD.md`: `## Capabilities`
 left to the lane's next round per `AXES.md` §The stagnation nudge). No round was
 run, nothing else changed, and the pre-existing uncommitted edits in this repo
 were left exactly as they were.
+
+## 21 — depth + calibration + source-registry capability (kaika campaign, 2026-10-19)
+
+Steered round 21 (kaika steer table, kagi row: max label 20, blocked,
+increment 0, plus one). Collision check before work: no
+kagi report in the round-21 reports directory of the fleet root or of the
+fleet-ledger worktree (`ls` listed only `kotodama.md`), and no round-21 entry in this log.
+Worktree `.tower/worktrees/kaika/kagi-shokunin`, branch `kaika/round`, base
+`aea7a43`. Re-read fleet `PROTOCOL.md` + `PROTOCOL-APPENDIX.md`, `MISSION.md`,
+`AXES.md`, `CORPUS.md`, `LEARNING.md` and the SOURCES contract v1. Inputs: the
+W1 STATE and ART dossiers in the fleet-ledger worktree (`kaika-w1/kagi-state.md`,
+`kaika-w1/kagi-art.md`). Plan committed as `plans/round-21.md`.
+
+**Re-verification result (freshness duty).** `op --version` → `2.41.0`
+(round 20 measured 2.40.0). `bash corpus/op-ref-probe.sh --dotenv-bytes` →
+`OP_DOTENV_BYTES: CLEAN (checks=6 failed=0)`, exit 0; `--selftest` →
+`OP_REF_SELFTEST: PASS (36 cases)`, exit 0;
+`v=$(printf 'alpha\n\n'); printf %s "$v" | od -An -tx1` → ` 61 6c 70 68 61`.
+The round-20 byte observations hold on the new release. Stamp drift at
+`aea7a43`: 9 rows mismatched (`sha256sum --check` over `corpus/stamps.tsv`,
+round-21 scout); the 5 not touched this round stay unpinned as named debt.
+
+- **C1 depth 8 → 9.** Trigger: the arm landed unclaimed in `aea7a43` (M5).
+  Action: ledger `R21-01` added, `R12-02` re-pinned 29 → 36,
+  `knowledge/op-ref-consumption.md` §11 appended (six `DOTENV_OBS` ids, the
+  measured command-substitution loss, a decision row, reviewer limits), the
+  probe re-stamped, `PROVINCE.md` count corrected. Outcome:
+  `grep -c 'DOTENV_OBS' corpus/knowledge/op-ref-consumption.md` 0 → 6.
+  Reviewer L2 verdict on the instrument: `admit-with-limits` (op-side failure
+  reads DRIFT; failing rows print no hex; byte selftest proves the comparator).
+- **C2 calibration 9 → 9 (measured sub-moves).** `corpus/QUALITY.md` created
+  (prerequisite contract repair: §Admission bar QA1–QA8 before dispatch; lesson
+  pointers repaired after the L2 critic found QA1/QA4/QA6 under-supported), then
+  `corpus/lessons/round-21.md` §Mistakes M1–M12 mined with pointers re-opened,
+  §Criteria from mistakes QM1–QM11 appended, `SHONEN.md` regenerated canonical
+  (`[x]` 4 → 0, all `[~]` with one pointer). Counting:
+  `awk -F'|' '/^\| M[0-9]/ && $6 ~ /QM/' corpus/lessons/round-21.md | wc -l` 0 → 11.
+- **C3 capability + coverage 9 → 9.** `corpus/SOURCES.md` (16 rows opened
+  2026-10-19: A=14, C=2; mined 14, queued 1, rejected 1 — S008, the SOPS README
+  now a pointer stub), with every row's fetch sha256 recorded in its own
+  `teaches` cell (`curl -sL --max-time 30 <url> | sha256sum`); `## Paths`,
+  `## Search log` (29 identified, 16 opened), `## Leads (unopened)`.
+  `corpus/sources-census.sh` gate (contract census verbatim + citation
+  handshake + header + credential checks; `--selftest` 40 cases). Three
+  entries admitted on uncovered ground: `knowledge/onepassword-machine-credentials.md`,
+  `knowledge/sops-age-key-rotation.md`, `knowledge/vault-openbao-token-lease-lifecycle.md`;
+  README coverage rows, `## Frontier`, `## Known gaps`, four unindexed files
+  indexed; `PROVINCE.md` §Core / Frontier / Adjacent appended. Ledger
+  `R21-02`/`R21-03`/`R21-04`; `R14-01` (24/21), `R12-03` (63), `R13-01` (23)
+  re-pinned. `SKILL.md`: two decision rows plus counts corrected (no other prose).
+
+Named debt found: `claim-ledger.sh cells` exits 2 on the round-20 attempt
+heading since `93ab9a5`; `R13-01` had been left at 20 by round 20. Not
+fixed by rewriting the filed heading (`corpus/lessons/round-21.md` §Named debt).
+`claim-ledger.sh verify` is not run on this host (its `R18-01` row reads host
+files through `drift-pins.sh`); rows were re-run individually at the commit.
+
+L2 swarm (one batched call of 11, taxonomy roles, no model passed):
+`W2RoundKagi.Planner-3`, `Connector-3`, `Scout-3`, `ExecDepth-3`,
+`ExecSources-3`, `ExecEntries-3`, `ExecGate-3`, `Scribe-3`, `Reviewer-3`,
+`Critic-3`, `Sentinel-3`. The batch was refused twice (`Background job limit
+reached (100)`); all four executors then died on provider rate limits and were
+re-dispatched (`-4`, then `ExecEntries-5`/`ExecGate-5`); the ExecDepth slice was
+finished by the L1. Credential sweep before commit printed nothing. No push
+(the standing operator rule overrides `MISSION.md`'s commit-then-push;
+`PROTOCOL.md` §Fleet-2 conventions names the precedence).
+
+Falsifiable next iteration: `SCORECARD.md` §Planned (next — round 21 close).

@@ -20,7 +20,7 @@ Re-run everything in §Reproduction. The machine-checkable half of this entry is
 `bash corpus/op-ref-probe.sh` (live) and `--selftest` (comparator); the one-offs
 that cannot be mechanised are named in §Bounds with the reason.
 
-Reverify: R11-01, R12-01, R12-02
+Reverify: R11-01, R12-01, R12-02, R21-01
 
 ## 1. The two consumers are not the same parser
 
@@ -306,3 +306,68 @@ deliberately never created — it is the missing-file signature probe.
   `--no-masking` (the masking finding's premise).
 - `THE_JANITOR_ENV=<missing> the-janitor refs` → `the-janitor: missing …`, exit 2
   (signature row `janitor-refs-missing`).
+
+## 11. Byte fidelity of `op run --env-file` (round 21, op 2.41.0)
+
+§4 compares *key sets*; it is line-oriented and cannot see a value's trailing
+LFs. This section pins what `op run --env-file` hands the child process **byte
+for byte**, because `the-janitor run -- <cmd>` (`cmd_run` L248) is exactly
+that exec. Measured 2026-10-19 on op `2.41.0` (`op --version`), repeating the
+round-20 op `2.40.0` result unchanged (`corpus/lessons/round-20.md` §Byte
+frontier). Command: `bash corpus/op-ref-probe.sh --dotenv-bytes` → six
+`DOTENV_BYTES_CASE id=<id> status=PASS` lines, then
+`OP_DOTENV_BYTES: CLEAN (checks=6 failed=0)`, exit 0 (ledger `R21-01`).
+Each fixture is one generated plain-value line for key `KAGI16_VALUE`
+(`dotenv_bytes()` in `corpus/op-ref-probe.sh`); the child prints the value with
+`printf %s`, and only its `od -tx1` hex leaves the scratch tree.
+
+- `DOTENV_OBS-escaped-lf` — double-quoted value with a backslash-n escape
+  between `alpha` and `beta` → `616c7068610a62657461` = `alpha` LF `beta`. The
+  parser expands `\n` inside double quotes: a consumer receives a real newline,
+  not the two characters.
+- `DOTENV_OBS-trailing-lf` — double-quoted value ending in two backslash-n
+  escapes → `616c7068610a0a` = `alpha` LF LF. Trailing newlines survive the
+  parser and the exec; any loss happens later, in the consumer (see below).
+- `DOTENV_OBS-newline-only` — double-quoted value that is a single backslash-n
+  escape → `0a`. A newline-only value is delivered as one byte, not as empty
+  and not as unset.
+- `DOTENV_OBS-single-literal` — single-quoted value with a backslash-n between
+  `alpha` and `beta` → `616c7068615c6e62657461` = `alpha` `\` `n` `beta`. Single
+  quotes are literal: no escape processing, so the same text means different
+  bytes depending on the quote character.
+- `DOTENV_OBS-double-multiline` — double-quoted value spanning two physical
+  lines → `616c7068610a62657461` = `alpha` LF `beta`. A literal LF inside
+  double quotes is kept.
+- `DOTENV_OBS-single-multiline` — single-quoted value spanning two physical
+  lines → `616c7068610a62657461` = `alpha` LF `beta`. Same bytes as the
+  double-quoted form: a physical LF is kept under either quote.
+
+**The loss is downstream, measured.** `v=$(printf 'alpha\n\n'); printf %s "$v" | od -An -tx1`
+→ ` 61 6c 70 68 61` on this host: shell command substitution strips every
+trailing LF. A wrapper that captures a delivered value with `$(...)` (or a
+`read` loop) therefore loses the bytes `op` delivered faithfully; a script
+that needs them reads the variable directly or the file, never a substitution.
+
+**Decision row.** Multi-line or trailing-newline values in an env file → write
+them double-quoted with explicit escapes (the `escaped-lf`/`trailing-lf` bytes
+above are what arrives), and never rely on single quotes to expand an escape.
+
+**Does not establish.** No handler behaviour (the handler is absent from this
+host; nothing ran through `the-janitor`), no masking of resolved values
+(§3 stays the masking contract), no vault or account fact — every value is a
+generated plain string under `env -i` with scratch HOME/XDG, so no reference
+was resolved. Scoped to op 2.40.0 and 2.41.0. Round-21 reviewer limits on the
+instrument itself: the seven `--selftest` byte cases prove the comparator
+only (their "faithful" fixture is a hand copy of the contract array, not an
+independent observation); an op-side failure (sign-in prompt, timeout,
+missing binary) is reported as `DRIFT` exit 1, not `SETUP`, so a red `R21-01`
+is not by itself evidence of a byte change; and failing rows print no observed
+hex. Those are named debt for the probe, not facts about `op`.
+
+**Falsifier.** Any `DOTENV_BYTES_CASE … status=FAIL` with op exiting 0 on a
+new op release falsifies the corresponding bullet for that release.
+`recheck: on-release of op` — rerun `R21-01` after every op upgrade.
+
+**Correction note.** §9's comment `OP_REF_SELFTEST: PASS (29 cases)` is
+superseded: the selftest now proves 36 cases (ledger `R12-02`, re-pinned this
+round after the byte arm added seven); §9 is left as written.

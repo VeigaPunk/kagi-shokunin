@@ -66,13 +66,24 @@ see `lessons/round-1.md` for the rule and its rationale.
 | Claim-ledger contract (entry) | `knowledge/claim-ledger.md` | why the gate exists (the round-10 hand-adjudication), the six classes column by column (stamps, claims, citations, ids, scorecard cells, knowledge entries), the last-line rule and why, the citation class table + marker rule, the three audit teeth (re-run the cited rows, re-compare the cited pins, re-resolve the declared entry ids), before→after, reproduction, 30 bounds, falsifiers |
 | Knowledge-entry declarations (data) | `corpus/knowledge/*.md` + `claim-ledger.sh docs` | one `Reverify:` line per entry: 18 row-linked / 3 by-hand / 21 pinned after round 18 (20/17/3 at round 17); the floor is `ceil(21/2) = 11`, by-hand reasons are unique, and every entry is revision-stamped |
 | Round-14 lesson | `lessons/round-14.md` | freshness axis-move: the knowledge surface gets a re-verification link; the round-13 `row_pointed ≥ half` plan falsified by measurement (35 stamp-only cells, at most 5–7 honestly reachable); the wave's counterexamples and what happened to each |
-| `op.env` contract probe (gate) | `corpus/op-ref-probe.sh` | the two-parser contract + masking scope as a verdict: fixture-generated plain-value env files, `op run` vs `the-janitor refs` key sets, dotenv edge classes (`#`/quote/CRLF/duplicate/`${:-}`/single-quote), two-file precedence **and union**, the hard-failure class (malformed line / BOM / directory — resolver refuses, inventory clears), six error signatures; `--evaluate` (pure comparison), `--fixture`, `--selftest` (29 cases incl. the four POLICY-bypass cases the round-12 sentinel found and the hard-failure class); POLICY refuses any op-side file carrying a ref token, so the gate has no vault contact by construction |
+| `op.env` contract probe (gate) | `corpus/op-ref-probe.sh` | the two-parser contract + masking scope as a verdict: fixture-generated plain-value env files, `op run` vs `the-janitor refs` key sets, dotenv edge classes (`#`/quote/CRLF/duplicate/`${:-}`/single-quote), two-file precedence **and union**, the hard-failure class (malformed line / BOM / directory — resolver refuses, inventory clears), six error signatures; `--evaluate` (pure comparison), `--fixture`, `--selftest` (36 cases incl. the four POLICY-bypass cases the round-12 sentinel found and the hard-failure class); POLICY refuses any op-side file carrying a ref token, so the gate has no vault contact by construction |
 | `op.env` consumption (entry) | `knowledge/op-ref-consumption.md` | the divergence table line shape by line shape, the masking contract (refs masked, plain values not), dotenv semantics `refs` cannot see, the three ref-consuming verbs (`run`/`inject`/`read`), decision table, bounds (mask token unmeasured), reproduction, falsifiers |
 | Round-13 lesson | `lessons/round-13.md` | calibration axis-move: a citation becomes a resolvable object and a score becomes a re-verified pointer; the unanchored-lookup defect that made all 48 cells look pointed; the recursion the audit would have had; what the L2 wave broke and what happened to each item |
 | Round-12 lesson | `lessons/round-12.md` | depth axis-move: a reachable ceiling was narrower than the scorecard claimed; what the L2 wave broke in the probe and what happened to each item |
 | Round-11 lesson | `lessons/round-11.md` | a claim without a command is not a claim; four real doc defects found on first contact; the four gate defects and which run caught each; the L2 wave's counterexamples and what happened to each; design calls (last-line rule, no auto-re-pin, marker rule, shape-based classes) |
 | Substrate-deferral contract (entry) | `knowledge/substrate-deferral.md` | why a claim row that measures an absent substrate must defer rather than fail: the `substrate` note tag, `substrate_present()`, `DEFER`/`deferred=N`/`row_deferred=N`, `KAGI_SUBSTRATE` override, census selftest skip-cases, 5 bounds, reproduction, falsifiers |
 | Round-18 lesson | `lessons/round-18.md` | OMP/ufo-fsd re-census: zero origin-tree references in-lane (vacuous `--src` repair); the real drift class is total substrate loss — measured host state, the two genuine lane defects found and fixed, superseded-revision erratum, carried debt |
+| Machine credential custody boundaries | `knowledge/onepassword-machine-credentials.md` | 1Password CLI process delivery, Service Account scope, Connect tokens, and Broker preview key custody (SOURCES.md S001–S007; read 2026-10-19) |
+| SOPS age recipient and data-key rotation | `knowledge/sops-age-key-rotation.md` | recipient access, multi-key recovery, data-key rotation, and compromise order (SOURCES.md S009–S011; read 2026-10-19) |
+| Vault/OpenBao auth, token, and lease lifecycle | `knowledge/vault-openbao-token-lease-lifecycle.md` | distinct authentication, token, dynamic-secret lease, and KV boundaries (SOURCES.md S012–S016; read 2026-10-19) |
+| Round-19 re-census lesson | `lessons/round-19-recensus.md` | re-census verdicts, historical-marking audit, and named path/substrate debt |
+| Round-6 aggregator audit | `lessons/round-6-aggregator-audit.md` | nonconformance verdict and re-executed citation/count findings |
+| Round-9 aggregator corpus verdict | `lessons/round-9-aggregator-corpus-verdict.md` | corpus literal-text, count, and gate review verdict |
+| Adjacency scope contract | `knowledge/adjacency-scope.md` | checked ownership partition and shared-directory breadth boundaries |
+| Source registry | `corpus/SOURCES.md` | contract-v1 registry, study paths, bounded search record, and unopened leads |
+| Admission quality bar | `corpus/QUALITY.md` | knowledge-entry admission bar and criteria from mistakes |
+| Source registry census gate | `corpus/sources-census.sh` | read-only registry and citation consistency gate with selftest |
+| Round-21 lesson | `lessons/round-21.md` | round mistakes, evidence pointers, and corresponding quality criteria |
 
 The **overlap table is machine-checked** since round 16: each row is a group in
 `corpus/adjacency.tsv`, its owner and the citation proving that lane's claim are
@@ -91,3 +102,17 @@ here, owned elsewhere — reported, not ruled (see `PROVINCE.md`):
 | Attempt | Entry | Evidence and admission status |
 |---|---|---|
 | Round 20, depth; blocked before specialist submission | `lessons/round-20.md` | Canonical 32-scope plan validated but undispatched; effective role bindings and connector fallback do not meet the operator contract. Bounded op 2.40.0 byte observations on the inherited dirty probe are retained as investigation evidence, not an admitted feature, knowledge entry or verified completed round. |
+
+## Frontier
+
+Areas being explored, not held as lane knowledge:
+
+- **OIDC workload federation trust policy** — issuer, audience, identity-claim binding, and resulting permissions; see `SOURCES.md` §Leads (unopened), GitHub/Google Cloud/AWS federation.
+- **Secret scanning: detection versus verification** — adjacent to the hygiene tripwires in chousa, kasegi, and kumitate; see `SOURCES.md` §Leads (unopened), Gitleaks/Betterleaks and TruffleHog.
+- **NIST key-management draft status** — distinguish final guidance from IPDs before adopting controls; see `SOURCES.md` §Leads (unopened), SP 800-57 Rev. 5/Rev. 6 and SP 800-133 Rev. 3.
+
+## Known gaps
+
+- **Legacy entry headers:** 21 existing knowledge entries lack `source:`, `verified-at:`, and `recheck:`; `grep -L '^source:' corpus/knowledge/*.md | wc -l` → 21 after E1–E3 land (the command counts missing `source:`; the other field gaps are recorded in the W1 STATE dossier §3).
+- **The-janitor substrate:** the last recorded host observation says it was absent; see `PROVINCE.md` §Surfaces, Round-18 erratum. Recheck on substrate return rather than treating the historical path list as current.
+- **Vault-side structure:** deliberately unmapped per `PROVINCE.md` §Deliberate refusals; this corpus does not inventory which vaults, items, or fields exist.

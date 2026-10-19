@@ -1029,3 +1029,15 @@ finished by the L1. Credential sweep before commit printed nothing. No push
 `PROTOCOL.md` §Fleet-2 conventions names the precedence).
 
 Falsifiable next iteration: `SCORECARD.md` §Planned (next — round 21 close).
+
+### Round 21 correction — post-landing review of `c41af82` (2026-10-19)
+
+Trigger: the round's post-landing L2s (`W2RoundKagi.PostReviewer`,
+`W2RoundKagi.PostCritic`) re-opened `c41af82`. Supersedes, in the entry above:
+"`--selftest` 40 cases" (now 47) and the implied clean admission of all three
+new entries. Action → outcome → pointer:
+
+- Census gate fail-open paths (off-shape row ids, a second `source:` line, absolute/`../` used-by paths, tier-C sole support) closed by `W2RoundKagi.ExecGateFix`; `bash corpus/sources-census.sh --selftest` → `SOURCES_CENSUS_SELFTEST: PASS (47 cases)`; real tree unchanged: `SOURCES_CENSUS: CLEAN (rows=16 A=14 B=0 C=2 queued=1 mined=14 rejected=1 entries_sourced=3 legacy=21)`. Ledger `R21-03` re-pinned 40 → 47.
+- E1 and E3 failed a re-read of their own sources on scope; errata appended to E1, E2, E3 (text above them unchanged); S006 eligibility quote reproduced by the L1 (`curl -sL`, tags stripped); the critic's "public beta" report for S007 not reproduced (0 matches), recorded as unverified. `corpus/QUALITY.md` QA9 and QM12 appended; QM5 recorded as unmet at `c41af82`.
+- Counts refreshed: `corpus/README.md` ledger/stamp/declaration rows, `SKILL.md` and `PROVINCE.md` census selftest count; `SKILL.md` token-TTL row narrowed to OpenBao.
+- Lesson: `corpus/lessons/round-21.md` §Post-landing review. Scorecard: §Round-21 correction.

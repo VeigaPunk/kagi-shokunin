@@ -39,3 +39,5 @@ Question: which primary sources support the allocated machine-credential and enc
 - NIST SP 800-57 Rev. 5 final and Rev. 6 IPD publication status — leads only, not evidence.
 - NIST SP 800-133 Rev. 3 IPD — lead only, not evidence.
 - The age encryption specification — lead only, not evidence.
+- Vault KV v2 API (version deletion settings) and the Vault KV overview (delete/destroy operations) — surfaced by the round-21 post-landing critic; not opened by the row author, lead only, not evidence.
+- 1Password Credential Broker custom-OIDC workflow sub-page (per-workflow release status) — lead only; the round-21 critic's "public beta" report was not reproduced on the opened guide page.

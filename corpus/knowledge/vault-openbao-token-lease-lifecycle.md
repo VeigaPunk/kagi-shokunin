@@ -99,3 +99,13 @@ A current Vault page issuing leases for KV reads or dropping the 1.17 audience
 rule; an OpenBao 2.x page saying JWT auth consults TokenReview, that batch tokens
 are manually revocable, or that tokens may be revoked before their returned TTL
 without operator action.
+
+## Erratum (round 21, post-landing critic; appended, text above unchanged)
+
+The four-clocks table merged products and paths beyond what its sources state. Superseding readings, by row:
+
+- **external JWT validity** — S015 covers only OpenBao's **Kubernetes** JWT-provider path: that path does not call TokenReview, so Kubernetes-revoked service-account tokens stay valid to OpenBao until expiry. Nothing here covers other IdPs.
+- **token TTL** — OpenBao only (S016). Vault token TTL was not sourced this round; the "Vault/OpenBao" label is withdrawn.
+- **lease on a dynamic secret** — Vault: S013 (leases on dynamic secrets and service tokens; revoking a token revokes its leases). OpenBao: S016 (an expiring token is revoked with "its associated leases"). Two sources, two products, not one fact.
+- **static value in KV** — S013 establishes only that Vault's KV backend "does not issue leases". It does not establish that a KV value "never expires" or changes only by a write; KV version deletion settings and delete/destroy operations were not opened this round (lead: Vault KV v2 API, `corpus/SOURCES.md` §Leads). §Does not establish, first bullet, reads accordingly: a KV read carries no lease.
+- §How kagi uses this: the sweep covers corpus mentions only, not host runtime use (as in the SOPS entry's erratum).

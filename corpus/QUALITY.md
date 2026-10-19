@@ -47,3 +47,19 @@ each lesson cell points at the round's row and the original evidence lesson.
 | QM9 | Every mode named in help or docs is reachable in the parser and dispatch and proven by a case; a mutation that cannot fire is a setup error, not a pass. | `unknown argument` for a documented flag; a mutation count that never inspects the mutated bytes | `corpus/lessons/round-21.md` §Mistakes M10; `corpus/lessons/round-16.md` §Defects found while landing, items 6–7 |
 | QM10 | An absence claim is re-run on the tree that contains the claiming sentence, with a needle that excludes it; a sweep whose pattern matches its own text is not evidence of emptiness. Distinct from QA6: carrying a sweep is not a sweep that can return the claiming line. | a "`grep …` is empty" sentence whose pattern occurs in the swept tree; an "unreachable" reading with no counting command | `corpus/lessons/round-21.md` §Mistakes M11; `corpus/lessons/round-14.md` (line 139); `corpus/lessons/round-19-recensus.md` §Audit detail (line 49) |
 | QM11 | A citation to another artifact names that record's actual subject; an attribution the cited row does not carry is removed and the underlying question is reported unassigned. | the cited row resolves but is about a different surface; "ownership ruling remains honestly unassigned" | `corpus/lessons/round-21.md` §Mistakes M12; `corpus/lessons/round-17.md` §4 (lines 100-103) |
+
+## Criteria from the round-21 post-landing review
+
+The round's own critic failed two admitted entries on scope after `c41af82`
+landed (`corpus/lessons/round-21.md` §Post-landing review). The bar above did
+not catch it; these rows are what it lacked. Rows above are unchanged.
+
+| id | criterion | weak signal | lesson |
+|---|---|---|---|
+| QA9 | Every qualifier on the source sentence travels with the claim: product, code path (e.g. the Kubernetes JWT provider, not "any IdP"), plan/eligibility and per-feature release status. A table row or sentence that spans two products or two paths cites a source for each part; a part with no source is withdrawn, not generalised. | a "Vault/OpenBao" or "IdP, Kubernetes" label resting on one product's page; a guide-level "preview" applied to every workflow; "never expires" where the page only says "issues no lease" | `corpus/lessons/round-21.md` §Post-landing review (E1, E3 findings) |
+| QM12 | Supersedes QM5's "`verify` is run before the commit" clause for hosts where `claim-ledger.sh verify` would read host-private surfaces: the substitute is every ledger row whose command touches no host-private surface re-run individually against the commit tree (exit + last line), the stamp file checked with `sha256sum --check`, and the skipped rows listed by id with the reason. A landing that does neither fails. | "rows were re-run" with no row list; `verify` claimed on a host where it was not run | `corpus/lessons/round-21.md` §Post-landing review (QM5 unmet as written); §Named debt (`R18-01` reads host files) |
+
+Locator note: QM1 and QM6 cite `SCORECARD.md` lines 454 and 468; the round-21
+move-log rows moved those sections by four lines. Their section names
+(§Round-19 correction, §Current baseline — round-16 re-dispatch) are the
+anchors.

@@ -92,3 +92,8 @@ encrypted config; never describe one with the other's revocation story.
 A current SOPS page or release in which `updatekeys` regenerates the data key,
 `rotate` stops re-encrypting values, the default threshold differs from the
 number of key groups, or the compromise section reorders or drops its three steps.
+
+## Erratum (round 21, post-landing critic; appended, text above unchanged)
+
+- §Key groups and the threshold, last bullet: "independent custodians" is superseded by "independent key groups". S010 describes key groups and a threshold of groups; it says nothing about how many people hold them.
+- §How kagi uses this: the sweep supports only that no *other corpus knowledge entry* mentions SOPS, OpenBao or HashiCorp; it is not a sweep of host runtime use. Read "kagi does not run SOPS today" as "no kagi corpus entry documents SOPS use".

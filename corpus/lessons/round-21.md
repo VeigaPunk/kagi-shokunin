@@ -89,3 +89,33 @@ No `agree`/`disagree` is recorded here, and none is inferred.
 ## Provider exhaustion (recorded, not a lane defect)
 
 The first batched L2 dispatch (11 members) was refused twice with `Background job limit reached (100)` and spawned on the third identical call. Once it ran, all four executor seats died on `resource_exhausted` (free model rate limit); of their re-dispatch, three died on `turn_rate_limit_exceeded` and one (ExecSources) landed. Recovery: the ExecDepth slice was finished by the L1; E2/E3 and the census gate were re-dispatched once more and landed. No claim was shrunk to dodge it.
+
+## Post-landing review (`c41af82`; appended — sections above unchanged)
+
+Two lane L2s re-opened the landed commit: a reviewer (gate, ledger, stamps) and
+a critic (re-opened S001–S004, S006–S007, S009–S016). Both are still the lane;
+this is not the outside spot-check. Dispositions:
+
+| finding | source | disposition |
+|---|---|---|
+| census gate passes rows whose id is off-shape (leading space, `S17`, `s017`) | reviewer | **agree** — fixed: `SC_MALFORMED` over every `## Registry` table line; selftest cases added |
+| only the first column-1 `source:` line is read | reviewer | **agree** — fixed: a second one is `SC_ENTRY_HEADER` |
+| absolute or `../` `used-by` paths skip the handshake | reviewer | **agree** — fixed: `SC_USEDBY_MISSING` unless the path is a repo-relative corpus knowledge or lessons markdown file |
+| tier-C sole support not enforced | reviewer | **agree** — fixed: `SC_ENTRY_CITE` when no cited row is tier A/B |
+| legacy entries (no `source:`) escape every check, incl. the credential scan | reviewer | **agree, kept as a stated bound** — legacy entries already carry ref-scheme prose, so scanning them would fail by construction; documented in the gate's usage; planned round-22 freshness claim moves them under the census |
+| E3's clock table merged products and paths (Kubernetes path generalised to "IdP"; OpenBao TTL labelled "Vault/OpenBao"; KV "nothing expires") | critic | **agree** — erratum appended to the entry; the gate (QA1/QA8) let it through, so QA9 added |
+| E1 omitted Broker eligibility (EPM Business) | critic | **agree** — reproduced on S006 (`available for all Enterprise Password Manager Business customers`); erratum appended |
+| S007 marks the custom-OIDC workflow "public beta" | critic | **disagree (not reproduced)** — the opened guide page contains no "public beta" string; recorded as unverified in the E1 erratum and as a SOURCES lead |
+| QM5 ("`verify` before commit") not met: `verify` was not run on this host | critic | **agree** — QM5 was unmet as written for `c41af82`; QM12 appended as the documented substitute (individual safe rows + stamp check + skipped-row list) |
+| E2 "independent custodians"; E2/E3 absence sweeps cover corpus mentions only | critic | **agree** — errata appended |
+| stale counts: README ledger/stamp/declaration rows; `SKILL.md` §Falsification `29 cases`; QM1/QM6 line locators | critic | README rows refreshed; QUALITY locator note appended; the `SKILL.md` line stays (its rewrite would put the ref-scheme token into the diff) |
+
+**Lesson.** The admission bar checked that a claim had a tier-A anchor and a
+status, not that every qualifier on the source sentence (product, path,
+eligibility, per-feature status) survived into the entry. Two of three entries
+passed the bar on first landing and failed a re-read of their own sources —
+the bar, not the entries alone, was the defect. Criterion added:
+`corpus/QUALITY.md` QA9. The gate's fail-open paths were found the same way: a
+selftest that proves each finding fires does not prove nothing can pass
+unseen; mutations that *should* fail but did not are the missing half (QM3's
+class, recurring in a gate written this round).

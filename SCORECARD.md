@@ -641,7 +641,7 @@ cannot carry its own hash).
 | depth | 8 → **9** | C1. Byte fidelity of `op run --env-file` admitted: re-measured on op 2.41.0, `OP_DOTENV_BYTES: CLEAN (checks=6 failed=0)`, exit 0; six `DOTENV_OBS` ids (0 → 6) with the downstream command-substitution loss measured and a decision row; `R12-02` re-pinned 29 → 36; probe stamp re-pinned to its bytes. Not 10: masking of resolved values, item reads and the absent handler stay unmeasured; reviewer limits on the instrument are carried in the entry. | `R21-01`, `R12-02`; `corpus/knowledge/op-ref-consumption.md` §11 |
 | calibration | 9 → 9 | C2. Twelve own mistakes mined (M1–M12), 11 uncaptured classes each now captured by a criterion citing its lesson (captured-by `none` 12 → 1, the honest stop); admission bar QA1–QA8 created; `SHONEN.md` regenerated canonical, author `[x]` 4 → 0. Score held: these are audit facts; the outside admit/reject spot-check is pending, so discernment is not yet shown from outside. | `R14-01`; `corpus/lessons/round-21.md` §Mistakes; `corpus/QUALITY.md` |
 | coverage | 9 → 9 | C3. Three entries on ground no coverage-map row held (machine-credential custody, SOPS/age rotation, Vault/OpenBao clocks; 21 → 24 entries), each citing `mined` rows; README `## Frontier` 0 → 1 and `## Known gaps` 0 → 1. Score held: documented vendor knowledge, not governed host surfaces. | `R21-02`, `R14-01`; `corpus/README.md` §Coverage map |
-| operability | 9 → 9 | Capability (C3): `corpus/sources-census.sh` runs clean with a 40-case selftest. Not booked as an axis move (counted once, under C3). | `R21-02`, `R21-03` |
+| operability | 9 → 9 | Capability (C3): `corpus/sources-census.sh` runs clean with a 47-case selftest (40 at `c41af82`; seven fail-open cases closed after the post-landing review). Not booked as an axis move (counted once, under C3). | `R21-02`, `R21-03` |
 | freshness | 9 → 9 | The byte contract re-verified on the new op release; new entries carry `verified-at:`/`recheck:`. Not claimed: 21 legacy entries still have no `recheck:` (census `legacy=21`). | `R21-01`, `R21-02` |
 | adjacency | 9 → 9 | Connector sweep over every sibling lane found no claim on the new ground; `PROVINCE.md` §Core / Frontier / Adjacent appended. Not claimed. | `R16-01`; `PROVINCE.md` |
 
@@ -660,6 +660,17 @@ with lessons behind each, but agreement is not self-certifiable).
 
 No axis is retired or split.
 
+## Round-21 correction (post-landing review of `c41af82`)
+
+The round's reviewer and critic L2s re-opened the landed commit
+(`corpus/lessons/round-21.md` §Post-landing review). Effects on the rows above,
+landed in the round-21 correction commit (cited in `LOG.md`):
+
+- **C3**: two of the three entries (machine-credential custody; Vault/OpenBao clocks) failed a re-read of their own sources on scope (eligibility omitted; product/path merged; KV "nothing expires"), and the census gate had four fail-open paths. Errata appended to all three entries; gate fixed (selftest 40 → 47, ledger `R21-03`); criterion QA9 added. The coverage verdict stands only with the errata: read the entries with them.
+- **C2**: QM5 ("`verify` before commit") was unmet as written at `c41af82`; QM12 appended as the documented substitute. The C2 counting command `awk -F'|' '/^\| Q[AM][0-9]/' corpus/QUALITY.md | wc -l` reads 21 after the correction (19 at `c41af82`).
+- **C1**: unchanged (reviewer and critic both `holds` / `holds-with-limits`).
+- The critic's report that S007 marks custom OIDC as "public beta" was not reproduced; recorded as unverified, not adopted.
+
 ## Planned (next — round 21 close)
 
 1. **freshness** — give the 21 legacy entries a re-verification clock as appended header lines (`source:` naming the lane's own evidence as `own-work` rows, `verified-at:`, `recheck:`). Before: `bash corpus/sources-census.sh` → `legacy=21`. After: `legacy=0`, census CLEAN.
@@ -671,7 +682,7 @@ No axis is retired or split.
 | Capability | What it can now do | Evidence pointer | First-working round |
 |---|---|---|---|
 | op-only dotenv byte probe | run six generated plain-value dotenv classes through `op run --env-file` under `env -i` with scratch HOME/XDG and compare the child's bytes (hex) to literal expectations; no ref, account or handler involved | `bash corpus/op-ref-probe.sh --dotenv-bytes` (ledger `R21-01`; `knowledge/op-ref-consumption.md` §11) | 21 (first run in the round-20 attempt, unadmitted there) |
-| source registry + census gate | curate opened, scope-tiered sources with anchors, rejections and study paths, and machine-check the registry plus the entry ↔ source citation chain both ways | `bash corpus/sources-census.sh` (ledger `R21-02`), `--selftest` 40 cases (`R21-03`); `corpus/SOURCES.md` | 21 |
+| source registry + census gate | curate opened, scope-tiered sources with anchors, rejections and study paths, and machine-check the registry plus the entry ↔ source citation chain both ways | `bash corpus/sources-census.sh` (ledger `R21-02`), `--selftest` 47 cases (`R21-03`); `corpus/SOURCES.md` | 21 |
 
 Rows enter only through a round that demonstrates the capability running (`AXES.md` §Capabilities); both rows entered with the round-21 runs quoted above. The 2026-10-16 rollout added none.
 

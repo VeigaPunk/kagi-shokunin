@@ -28,3 +28,8 @@ The-janitor's `run` path execs `op run --env-file` [existing lane entry `corpus/
 ## Falsifier
 
 This entry is falsified if the current CLI documentation no longer scopes provisioned Environment variables to the subprocess duration; if the Service Account documentation changes its vault-scope or token rotation/revocation statements; if the Connect setup no longer separates deployment credentials from application API tokens; or if the Broker pages change public-preview status, claim matching, workflow-duration access, or the GitHub integration-key requirement. Reopen the cited S001–S004 and S006–S007 sections on those changes or at the stated cadence.
+
+## Erratum (round 21, post-landing critic; appended, text above unchanged)
+
+- §Four custody boundaries item 4 omitted eligibility. S006 (introduction and §Try 1Password Credential Broker today) says the public preview is "available for all Enterprise Password Manager Business customers", and S007's guide sets integrations up "in 1Password Business". Read item 4 as scoped to those plans (QA2).
+- The critic also reported that S007 marks the custom-OIDC workflow "public beta". Not reproduced: the guide page as fetched 2026-10-19 (`curl -sL`, tags stripped) contains no "public beta" string and labels the guide and its navigation "(public preview)"; the custom-workflow sub-page was not opened separately. The per-workflow release status of the custom-OIDC path is therefore **unverified**; item 4's "public preview" is the guide's own label, not a per-workflow status.

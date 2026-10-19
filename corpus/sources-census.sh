@@ -22,11 +22,20 @@
 # FINDINGS (one `FINDING <ID> <detail>` line each, stdout, before the verdict):
 #   contract v1 census (verbatim awk):
 #     SC_ZERO            no registry rows
-#     SC_MALFORMED       a row whose 11-column shape is broken (NF!=13)
+#     SC_MALFORMED       a row whose 11-column shape is broken (NF!=13); and
+#                        (this gate) any `|` line in `## Registry` — up to the
+#                        next `## ` heading — that is not the header row (first
+#                        cell `id`), not the `|---|` separator, and not a row
+#                        whose id cell matches the contract pattern at column 1
+#                        (a leading space, `S17`, `s017` are all malformed, not
+#                        silently uncounted)
 #     SC_DUP             an id used by more than one row
 #     SC_ENUM            tier/status/kind outside the contract enums
 #     SC_INFLATION       tier A on a `community` row
-#     SC_USEDBY_MISSING  a mined row's used-by path does not exist
+#     SC_USEDBY_MISSING  a mined row's used-by path does not exist; and (this
+#                        gate) a used-by path that is not exactly
+#                        `corpus/(knowledge|lessons)/<name>.md` — absolute and
+#                        `../` paths fail even when they exist
 #   cross-file (this gate):
 #     SC_USEDBY_NOCITE   a mined row's used-by file does not carry the row id on
 #                        its `source:` line (or the path is not a regular file)
@@ -35,20 +44,25 @@
 #                        `REJECTED:` or lacks `flip:`
 #     SC_SECTIONS        a missing `## Registry`, `## Paths`, `## Search log` or
 #                        `## Leads (unopened)` heading (exact line)
-#     SC_ENTRY_HEADER    a sourced entry missing `verified-at:` or `recheck:`
+#     SC_ENTRY_HEADER    a sourced entry missing `verified-at:` or `recheck:`, or
+#                        carrying more than one column-1 `source:` line
 #     SC_ENTRY_CITE      a sourced entry whose `source:` line carries no S id, or
 #                        an S id that is not a well-formed registry row, not
-#                        `mined`, or whose used-by does not list that entry
+#                        `mined`, or whose used-by does not list that entry; or
+#                        whose cited ids include no tier A or B row (contract:
+#                        tier C is a lead, never sole support)
 #     SC_CREDENTIAL      credential-shaped text in SOURCES.md or a sourced entry;
 #                        prints `file:line` only, never the matched bytes
 #
 # ENTRIES. An entry is SOURCED when a line starts with `source:` (lower case,
-# column 1). Its source field is that first `source:` line plus any directly
-# following lines that start with whitespace (wrapped continuation). Entries
-# with no `source:` line are LEGACY (the pre-registry `Source:`/`Source basis:`
-# prose): counted as `legacy=N`, never failed, never credential-scanned — the
-# lane's own transcript/claim gates own those. Used-by paths are matched as the
-# exact repo-relative path `corpus/knowledge/<name>.md`.
+# column 1); exactly one such line is allowed. Its source field is that
+# `source:` line plus any directly following lines that start with whitespace
+# (wrapped continuation). Entries with no column-1 `source:` line are LEGACY
+# (the pre-registry `Source:`/`Source basis:` prose): counted as `legacy=N`.
+# STATED BOUND: legacy entries are outside every check of this gate — header,
+# cite, tier and the credential scan included — until they gain a column-1
+# `source:` line; the lane's own transcript/claim gates own them. Used-by paths
+# are matched as the exact repo-relative path `corpus/knowledge/<name>.md`.
 #
 # CREDENTIAL needles (assembled from fragments below so this file never carries
 # a literal the fleet pre-commit sweep matches): the 1Password secret-reference
@@ -65,10 +79,11 @@
 # `skipped=` count to carry (QUALITY.md QM3).
 #
 # The selftest builds a fixture tree under `mktemp -d` (removed by an EXIT trap),
-# runs `verify --root` on one mutation per finding id (plus SETUP, a clean case
-# and two scope cases), and asserts the exit code, the finding id, the findings
-# count and — for the clean cases — the whole verdict line. Expectations are
-# literals in the case table, not recomputed from the gate's own logic.
+# runs `verify --root` on one or more mutations per finding id (plus SETUP, a
+# clean case and two scope cases), and asserts the exit code, the finding id,
+# the findings count and — for the clean cases — the whole verdict line.
+# Expectations are literals in the case table, not recomputed from the gate's
+# own logic.
 set -uo pipefail
 export LC_ALL=C
 
@@ -160,12 +175,17 @@ verify() {
   for h in '## Registry' '## Paths' '## Search log' '## Leads (unopened)'; do
     awk -v h="$h" '{sub(/\r$/,""); sub(/[[:space:]]+$/,"")} $0==h {f=1} END{exit !f}' "$src" || finding SC_SECTIONS "missing=$h"
   done
+  # every `|` line inside `## Registry` must be the header, the separator, or a
+  # row the contract awk above actually sees (id cell shape at column 1)
+  out=$(awk '{sub(/\r$/,"")} /^## /{x=$0; sub(/[[:space:]]+$/,"",x); f=(x=="## Registry"); next} f && /^[[:space:]]*\|/ && $0 !~ /^\|[[:space:]]*S[0-9][0-9][0-9]+[[:space:]]*\|/ && $0 !~ /^\|[[:space:]]*id[[:space:]]*\|/ && $0 !~ /^\|([[:space:]]*:?-+:?[[:space:]]*\|)+[[:space:]]*$/ {print NR}' "$src") || setup "registry row-shape scan failed"
+  while IFS= read -r line; do [[ -n $line ]] && finding SC_MALFORMED "line=$line: row id not in contract shape"; done <<<"$out"
 
-  declare -A ST=() UB=()
-  local t u s p parts field
-  while IFS=$'\x1f' read -r id s t u; do
+  declare -A ST=() UB=() TI=()
+  local t u s p parts field tier
+  local usedby_re='^corpus/(knowledge|lessons)/[A-Za-z0-9._-]+\.md$'
+  while IFS=$'\x1f' read -r id s tier t u; do
     [[ -n $id ]] || continue
-    ST[$id]=$s; UB[$id]=$u
+    ST[$id]=$s; UB[$id]=$u; TI[$id]=$tier
     if [[ $s == rejected ]]; then
       [[ $t == REJECTED:* && $t == *flip:* ]] || finding SC_REJECT_SHAPE "id=$id"
     elif [[ $s == mined ]]; then
@@ -174,17 +194,18 @@ verify() {
       for p in "${parts[@]}"; do
         p=$(trim "$p")
         [[ -n $p && $p != '—' ]] || continue
-        [[ -e $ROOT/$p ]] || continue # SC_USEDBY_MISSING above
+        if [[ ! $p =~ $usedby_re ]]; then finding SC_USEDBY_MISSING "$id: $p not a repo corpus path"; continue; fi
+        [[ -e $ROOT/$p ]] || continue # nonexistent in-shape path: contract SC_USEDBY_MISSING above
         if [[ ! -f $ROOT/$p ]]; then finding SC_USEDBY_NOCITE "id=$id path=$p not-a-regular-file"; continue; fi
         field=$(src_field "$ROOT/$p")
         [[ $field =~ (^|[^A-Za-z0-9_])$id([^0-9]|$) ]] || finding SC_USEDBY_NOCITE "id=$id path=$p"
       done
     fi
-  done < <(awk -F'|' '/^\|[[:space:]]*S[0-9][0-9][0-9]+[[:space:]]*\|/ && NF==13 {i=$2; s=$9; gsub(/[[:space:]]/,"",i); gsub(/[[:space:]]/,"",s); t=$8; u=$12; sub(/^[[:space:]]+/,"",t); sub(/[[:space:]]+$/,"",t); sub(/^[[:space:]]+/,"",u); sub(/[[:space:]]+$/,"",u); printf "%s\037%s\037%s\037%s\n", i, s, t, u}' "$src")
+  done < <(awk -F'|' '/^\|[[:space:]]*S[0-9][0-9][0-9]+[[:space:]]*\|/ && NF==13 {i=$2; s=$9; r=$5; gsub(/[[:space:]]/,"",i); gsub(/[[:space:]]/,"",s); gsub(/[[:space:]]/,"",r); t=$8; u=$12; sub(/^[[:space:]]+/,"",t); sub(/[[:space:]]+$/,"",t); sub(/^[[:space:]]+/,"",u); sub(/[[:space:]]+$/,"",u); printf "%s\037%s\037%s\037%s\037%s\n", i, s, r, t, u}' "$src")
 
   cred_scan "$src" "corpus/SOURCES.md"
 
-  local f rel sourced=0 legacy=0 ids listed_here
+  local f rel sourced=0 legacy=0 ids listed_here nsrc supported
   shopt -s nullglob
   for f in "$kdir"/*.md; do
     rel="corpus/knowledge/${f##*/}"
@@ -192,10 +213,14 @@ verify() {
     sourced=$((sourced + 1))
     grep -q '^verified-at:' "$f" || finding SC_ENTRY_HEADER "entry=$rel missing=verified-at"
     grep -q '^recheck:' "$f" || finding SC_ENTRY_HEADER "entry=$rel missing=recheck"
+    nsrc=$(grep -c '^source:' "$f")
+    [[ $nsrc -le 1 ]] || finding SC_ENTRY_HEADER "$rel: multiple source: lines"
     field=$(src_field "$f")
     ids=$(grep -oE '\bS[0-9]{3,}\b' <<<"$field" | sort -u)
     [[ -n $ids ]] || finding SC_ENTRY_CITE "entry=$rel no-registry-id"
+    supported=0
     for id in $ids; do
+      case ${TI[$id]-} in A|B) supported=1 ;; esac
       if [[ ! -v ST[$id] ]]; then finding SC_ENTRY_CITE "entry=$rel id=$id not-a-registry-row"; continue; fi
       if [[ ${ST[$id]} != mined ]]; then finding SC_ENTRY_CITE "entry=$rel id=$id status=${ST[$id]}"; continue; fi
       listed_here=0
@@ -203,6 +228,7 @@ verify() {
       for p in "${parts[@]}"; do [[ $(trim "$p") == "$rel" ]] && listed_here=1; done
       [[ $listed_here -eq 1 ]] || finding SC_ENTRY_CITE "entry=$rel id=$id used-by-omits-entry"
     done
+    [[ -z $ids || $supported -eq 1 ]] || finding SC_ENTRY_CITE "$rel: no tier A/B support (tier C is a lead only)"
     cred_scan "$f" "$rel"
   done
   shopt -u nullglob
@@ -275,18 +301,24 @@ needle() { # k → a credential-shaped string built at runtime
 SRC_F() { printf '%s/corpus/SOURCES.md' "$1"; }
 E1_F() { printf '%s/corpus/knowledge/e1.md' "$1"; }
 ROW5='| S005 | Doc five — https://example.invalid/five | docs | B | topic five | §5, 2026-04-04 | teaches five | mined | 2026-10-19 | 90d | USEDBY |'
+ROW5C='| S005 | Forum five — https://example.invalid/five | community | C | topic five | thread 5, 2026-04-04 | lead five | mined | 2026-10-19 | 90d | corpus/knowledge/e2.md |'
 
 # mutations: each takes the fixture dir; may set ARGS / NEEDLE
 m_clean() { :; }
 m_continuation() { sed -i 's/^\(source: S001 ([^)]*);\) \(S002 .*\)$/\1\n  \2/' "$(E1_F "$1")"; }
 m_zero() { sed -i '/^| S0/d' "$(SRC_F "$1")"; rm -f -- "$(E1_F "$1")"; }
 m_malformed() { sed -i '/^| S003 /s/| — |$/| — | extra |/' "$(SRC_F "$1")"; }
+m_row_lead_space() { sed -i 's/^| S003 / | S003 /' "$(SRC_F "$1")"; }
+m_row_two_digit() { sed -i 's/^| S003 /| S03 /' "$(SRC_F "$1")"; }
+m_row_lower() { sed -i 's/^| S003 /| s003 /' "$(SRC_F "$1")"; }
 m_dup() { sed -i '/^| S003 /p' "$(SRC_F "$1")"; }
 m_enum_tier() { sed -i '/^| S003 /s/| community | C |/| community | D |/' "$(SRC_F "$1")"; }
 m_enum_status() { sed -i '/^| S003 /s/| queued |/| pending |/' "$(SRC_F "$1")"; }
 m_enum_kind() { sed -i '/^| S003 /s/| community |/| blog |/' "$(SRC_F "$1")"; }
 m_inflation() { sed -i '/^| S003 /s/| C |/| A |/' "$(SRC_F "$1")"; }
 m_usedby_missing() { sed -i '/^| S002 /s#| corpus/knowledge/e1.md |$#| corpus/knowledge/e1.md, corpus/knowledge/ghost.md |#' "$(SRC_F "$1")"; }
+m_usedby_abs() { sed -i "/^| S002 /s#| corpus/knowledge/e1.md |\$#| corpus/knowledge/e1.md, $1/corpus/knowledge/e1.md |#" "$(SRC_F "$1")"; }
+m_usedby_dotdot() { sed -i '/^| S002 /s#| corpus/knowledge/e1.md |$#| corpus/knowledge/e1.md, ../base/corpus/knowledge/e1.md |#' "$(SRC_F "$1")"; }
 m_usedby_nocite() {
   printf '# lesson\n\nno source line.\n' >"$1/corpus/lessons/l1.md"
   sed -i '/^| S002 /s#| corpus/knowledge/e1.md |$#| corpus/knowledge/e1.md, corpus/lessons/l1.md |#' "$(SRC_F "$1")"
@@ -301,6 +333,7 @@ m_sec_search() { sed -i '/^## Search log$/d' "$(SRC_F "$1")"; }
 m_sec_leads() { sed -i '/^## Leads (unopened)$/d' "$(SRC_F "$1")"; }
 m_hdr_verified() { sed -i '/^verified-at:/d' "$(E1_F "$1")"; }
 m_hdr_recheck() { sed -i '/^recheck:/d' "$(E1_F "$1")"; }
+m_hdr_two_source() { printf 'source: S099 (https://example.invalid/x, §9, 2026-05-05)\n' >>"$(E1_F "$1")"; }
 m_cite_unknown() { sed -i '/^source:/s#$#; S009 (https://example.invalid/nine, §9, 2026-05-05)#' "$(E1_F "$1")"; }
 m_cite_queued() { sed -i '/^source:/s#$#; S003 (https://example.invalid/three, thread 3, 2026-02-02)#' "$(E1_F "$1")"; }
 m_cite_usedby() {
@@ -308,6 +341,10 @@ m_cite_usedby() {
   sed -i '/^| S001 /s#| corpus/knowledge/e1.md |$#| corpus/lessons/l1.md |#' "$(SRC_F "$1")"
 }
 m_cite_noid() { sed -i 's#^source:.*$#source: https://example.invalid/one (§1, rev 1)#' "$(E1_F "$1")"; }
+m_cite_tier_c() {
+  sed -i "/^| S004 /a $ROW5C" "$(SRC_F "$1")"
+  printf '# entry two\nsource: S005 (https://example.invalid/five, thread 5, 2026-04-04)\nverified-at: 2026-10-19\nrecheck: 90d\n' >"$1/corpus/knowledge/e2.md"
+}
 m_cred_src() { NEEDLE=$(needle "$2"); printf -- '- note %s\n' "$NEEDLE" >>"$(SRC_F "$1")"; }
 m_cred_entry() { NEEDLE=$(needle 2); printf 'body %s\n' "$NEEDLE" >>"$(E1_F "$1")"; }
 m_cred_legacy() { NEEDLE=$(needle 3); printf 'body %s\n' "$NEEDLE" >>"$1/corpus/knowledge/legacy.md"; }
@@ -330,12 +367,17 @@ selftest() {
     "legacy-not-scanned|m_cred_legacy||0|CLEAN|0"
     "zero|m_zero||1|SC_ZERO|1"
     "malformed|m_malformed||1|SC_MALFORMED|1"
+    "row-leading-space|m_row_lead_space||1|SC_MALFORMED|1"
+    "row-two-digit-id|m_row_two_digit||1|SC_MALFORMED|1"
+    "row-lowercase-id|m_row_lower||1|SC_MALFORMED|1"
     "dup|m_dup||1|SC_DUP|1"
     "enum-tier|m_enum_tier||1|SC_ENUM|1"
     "enum-status|m_enum_status||1|SC_ENUM|1"
     "enum-kind|m_enum_kind||1|SC_ENUM|1"
     "inflation|m_inflation||1|SC_INFLATION|1"
     "usedby-missing|m_usedby_missing||1|SC_USEDBY_MISSING|1"
+    "usedby-absolute|m_usedby_abs||1|SC_USEDBY_MISSING|1"
+    "usedby-dotdot|m_usedby_dotdot||1|SC_USEDBY_MISSING|1"
     "usedby-nocite|m_usedby_nocite||1|SC_USEDBY_NOCITE|1"
     "mined-unused-dash|m_unused_dash||1|SC_MINED_UNUSED|1"
     "mined-unused-empty|m_unused_empty||1|SC_MINED_UNUSED|1"
@@ -347,10 +389,12 @@ selftest() {
     "sections-leads|m_sec_leads||1|SC_SECTIONS|1"
     "entry-verified-at|m_hdr_verified||1|SC_ENTRY_HEADER|1"
     "entry-recheck|m_hdr_recheck||1|SC_ENTRY_HEADER|1"
+    "entry-two-source|m_hdr_two_source||1|SC_ENTRY_HEADER|1"
     "cite-unknown|m_cite_unknown||1|SC_ENTRY_CITE|1"
     "cite-not-mined|m_cite_queued||1|SC_ENTRY_CITE|1"
     "cite-usedby-omits|m_cite_usedby||1|SC_ENTRY_CITE|1"
     "cite-no-id|m_cite_noid||1|SC_ENTRY_CITE|3"
+    "cite-tier-c-sole|m_cite_tier_c||1|SC_ENTRY_CITE|1"
     "cred-scheme|m_cred_src|0|1|SC_CREDENTIAL|1"
     "cred-pem|m_cred_src|1|1|SC_CREDENTIAL|1"
     "cred-gh|m_cred_src|2|1|SC_CREDENTIAL|1"

@@ -276,3 +276,13 @@ by a source/revision review and separately authorized re-measurement of the
 relevant state/behavior claims. Restoration or an abbreviated-prefix match
 alone is not proof. The missing-source rows remain deferred; this dated
 erratum does not discharge them or authorize reading secret/session data.
+
+### Round-22 locator note
+
+The preceding erratum's numeric SCORECARD line spans belong to its filed
+round-16 revision. Use the named **Round-19 correction** and
+**Outcome — round-16 re-dispatch** sections in the current scorecard
+instead of carrying those mutable numbers forward. The original bytes and
+the unavailable-source qualification remain intact; refreshing this
+document's revision pin does not discharge a deferred host measurement.
+Audit: `kagi-shokunin/.ufo/waves/round-22/build/Entry10.md`.

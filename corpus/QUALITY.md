@@ -63,3 +63,17 @@ Locator note: QM1 and QM6 cite `SCORECARD.md` lines 454 and 468; the round-21
 move-log rows moved those sections by four lines. Their section names
 (§Round-19 correction, §Current baseline — round-16 re-dispatch) are the
 anchors.
+
+## Criteria from the outside round-21 admit disagreement (round 22)
+
+| id | criterion | weak signal | lesson |
+|---|---|---|---|
+| QA10 | Supplements QA9: follow and open each feature-specific status link before admitting a release-status claim. Record the feature, eligible plan/deployment, status and scope-specific source for each product independently. A guide-level label, unopened link, missing eligibility, or one product's page for another fails admission; preserve the rejected reading and append the correction. | calling both Broker workflows public preview; omitting Business eligibility; supporting OpenBao claims only with Vault documentation | `corpus/lessons/round-22.md` §Mistakes M22-1 and §Gate; outside `corpus/lessons/round-21-verifier-spotcheck.md` §Adjudication |
+| QM13 | An authored count of criteria, rows or headers is not calibration. A calibration claim names decisions, independent source-grounded expected outcomes, misses and false admissions, and must fail a known bad admit while retaining a bounded valid control. A typed-record gate checks only its declared representation, not arbitrary prose or vendor truth; outside agreement remains a non-author duty. | more rows declared as a discernment move; selftests or L2 consensus claimed as outside agreement | `corpus/lessons/round-22.md` §Mistakes M22-2; outside `corpus/lessons/round-21-verifier-spotcheck.md` §Adjudication |
+| QM14 | Revision-pin and expectation changes preserve the previous state in a committed migration record with old/new values, motivating correction and observed checks. Restore dropped stamp membership or explicitly justify each removal; a fresh hash does not make historical source facts current. | restamping to hide stale knowledge; silent deletion of stamp rows; expectation rewrites with no old-value evidence | `corpus/lessons/round-22.md` §Mistakes M22-3 and §Revision accounting |
+
+QA10 application: a status occurrence in shared navigation, CSS, a sidebar
+or a related product does not satisfy the feature's own status anchor.
+Bind the status to its own title/H1 or explicitly named status region and
+keep a same-page status-swap rejection beside a valid control. This is the
+concrete counterexample in the round-22 lesson, not a new countable criterion.

@@ -61,3 +61,20 @@ Appended to the declaration above (`LEARNING.md` §Province is a frontier); the 
 - **Core — documented knowledge, not host surfaces:** 1Password machine-credential custody boundaries (`knowledge/onepassword-machine-credentials.md`), SOPS/age recipient vs data-key vs value rotation (`knowledge/sops-age-key-rotation.md`), Vault/OpenBao token, lease and KV clocks (`knowledge/vault-openbao-token-lease-lifecycle.md`). Each is vendor documentation opened 2026-10-19 (`corpus/SOURCES.md`); none is deployed or probed on this host.
 - **Frontier — explored, not held:** OIDC workload-federation trust policy; secret-scanning detection vs verification; NIST key-management draft status (`corpus/README.md` §Frontier; leads in `corpus/SOURCES.md` §Leads (unopened)).
 - **Adjacent — report, don't absorb:** chousa owns the research method (`SOURCES.md` restates neither method nor admission bar); chousa, kasegi and kumitate run their own secret-shaped tripwires over their outputs (hygiene filters, not vault ops); kama refuses to hold credentials for authenticated health checks and would route that need here through L0; kaidoku reads 1Password binaries statically and tsukuroi tracks the 1Password packages — kagi owns runtime auth and credential custody; kake holds the musketeer profile lease (contested, above). Sweep: round-21 connector over every `*-shokunin` `PROVINCE.md`/`SKILL.md`/corpus — no sibling claims SOPS, OpenBao/Vault, Credential Broker or workload-identity ground.
+
+## Round-22 correction — active documented scope
+
+The round-21 core list is historical admission evidence, not a claim that
+its rejected merged rows passed their bar. The corrected active Broker
+status/eligibility and product-bound token review lives in
+`corpus/knowledge/feature-bound-credential-review.md`: Actions public
+preview and custom-OIDC public beta are separate paths with Business
+eligibility; OpenBao 2.7.x token evidence supplies no Vault-token or KV
+retention parity. E1/E3 original bodies remain history with named errata.
+No deployment or live account/vault was probed.
+
+Local typed-review and revision-accounting fixtures do not absorb research
+method, secret-scanner ownership, browser leases or authenticated endpoint
+operations from siblings. Frontier and operator-owned terminal actions
+remain unchanged. The source census checks citations, not vendor truth;
+revision pins check bytes, not currentness of historical host facts.

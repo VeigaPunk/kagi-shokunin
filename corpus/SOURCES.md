@@ -20,12 +20,18 @@
 | S014 | JWT/OIDC auth method — https://openbao.org/docs/auth/jwt/ | docs | A | OpenBao JWT/OIDC authentication and role claim validation | §JWT/OIDC auth method and §JWT verification; OpenBao 2.7.x | OpenBao 2.7.x supports OIDC and direct-JWT authentication with configured signature verification and claim handling. Quote: “The JWT auth method can be used to authenticate with OpenBao using OIDC” (§JWT/OIDC auth method). Fetch sha256: `e94723241fbcbdd0b2741c569f6ce51befe39e526cd736cebe4023fbca1cb0b1`. | mined | 2026-10-19 | on-release | corpus/knowledge/vault-openbao-token-lease-lifecycle.md |
 | S015 | Kubernetes JWT provider — https://openbao.org/docs/auth/jwt/oidc-providers/kubernetes/ | docs | A | OpenBao Kubernetes JWT signature verification versus TokenReview revocation behavior | §Kubernetes, TokenReview note; OpenBao 2.7.x | OpenBao JWT verification does not consult Kubernetes TokenReview, so Kubernetes revocation is not immediate through this path. Quote: “The JWT auth engine does not use Kubernetes' `TokenReview` API during authentication” (§Kubernetes note). Fetch sha256: `a0a2b227a7a91b7af0033a9fc665d319776d2d03aa09341620f9abee2f195fd4`. | mined | 2026-10-19 | on-release | corpus/knowledge/vault-openbao-token-lease-lifecycle.md |
 | S016 | Tokens — https://openbao.org/docs/concepts/tokens/ | docs | A | OpenBao token policies, TTL, renewal, and revocation lifecycle | §Tokens and §Token Time-To-Live, periodic tokens, and explicit max TTLs; OpenBao 2.7.x | OpenBao documents token policy and TTL/renewal behavior, including revocation of a token's child tokens and associated leases. Quote: “When a parent token is revoked, all of its child tokens -- and all of their leases -- are revoked as well.” (§Token hierarchies and orphan tokens). Fetch sha256: `c083fdca8645f6248a3c42a8c0b912b356de281dc2da0099668a7850ba348380`. | mined | 2026-10-19 | on-release | corpus/knowledge/vault-openbao-token-lease-lifecycle.md |
+| S017 | Credential Broker GitHub Actions runtime — https://www.1password.dev/brokered-access/github-actions/ | docs | A | GitHub Actions feature-specific status and Business-account connection prerequisite | Page title and introduction, unversioned live docs opened 2026-10-20 | GitHub Actions is public preview; an administrator first connects the organization to a 1Password Business account. | mined | 2026-10-20 | on-release | corpus/lessons/round-22.md, corpus/knowledge/feature-bound-credential-review.md |
+| S018 | Credential Broker custom workflows runtime — https://www.1password.dev/brokered-access/custom-workflow/ | docs | A | Custom OIDC feature-specific status, Business-account prerequisite, beta app and supported SDK | Page title, introduction, Step 1, Step 3 note; unversioned live docs opened 2026-10-20 | Custom workflows are public beta, require a connected OIDC provider in Business and the beta desktop app; only JavaScript SDK supported. | mined | 2026-10-20 | on-release | corpus/lessons/round-22.md, corpus/knowledge/feature-bound-credential-review.md |
+| S019 | Credential Broker integration eligibility — https://www.1password.dev/brokered-access | docs | A | Business-account integration setup and GitHub deployment restrictions, not uniform per-feature release status | Introduction and Add an integration, GitHub Actions requirements; unversioned live docs opened 2026-10-20 | supersedes S007 — the guide-level preview label does not determine custom-workflow status; Business setup and GitHub.com/private-repository requirements remain separate qualifiers. | mined | 2026-10-20 | on-release | corpus/lessons/round-22.md, corpus/knowledge/feature-bound-credential-review.md |
+| S020 | Credential Broker public-preview announcement, feature split — https://1password.com/blog/1password-credential-broker-public-preview | docs | A | EPM Business eligibility and announcement-time Actions preview versus custom-OIDC beta | Introduction; New in this release: Custom OIDC workflows; published 2026-07-28, reopened 2026-10-20 | supersedes S006 — EPM Business eligibility applies; the announcement explicitly distinguishes Actions public preview from custom-OIDC beta rollout. | mined | 2026-10-20 | on-release | corpus/lessons/round-22.md, corpus/knowledge/feature-bound-credential-review.md |
+| S021 | OpenBao token lifecycle, product-bound review — https://openbao.org/docs/concepts/tokens/ | docs | A | OpenBao service-token TTL and associated leases; no Vault-token or KV-retention claim | Token Time-To-Live, periodic tokens, and explicit max TTLs; Token type comparison; Version 2.7.x, opened 2026-10-20 | OpenBao non-root token TTL and service-versus-batch limits require OpenBao evidence; neither Vault token behavior nor KV retention follows from this page. | mined | 2026-10-20 | on-release | corpus/lessons/round-22.md, corpus/knowledge/feature-bound-credential-review.md |
 
 ## Paths
 
 - **Machine credential custody boundaries** — S001 → S004 → S002 → S003 → S006 → S007: distinguish process-scoped delivery, Service Account permission/token controls, Connect server deployment credentials versus caller tokens, and Broker preview identity/key custody.
 - **Encrypted-file key lifecycle** — S009 → S010 → S011: configure age recipients, understand multi-group recovery, then distinguish recipient synchronization from data-key rotation and the documented compromise order.
 - **Vault and OpenBao authentication/lifecycle** — S012 → S013 → S014 → S015 → S016: bind JWT audiences, separate dynamic-secret leases from static KV, compare OpenBao auth behavior and its Kubernetes revocation limit, then follow OpenBao token TTL and revocation behavior.
+- **Corrected active feature review (round 22)** — S019 → S017 → S018 → S020 → S021: establish eligible setup first, check each Broker feature's own status separately, retain the announcement's dated context, then separate OpenBao token evidence from other products.
 
 ## Search log
 
@@ -41,3 +47,40 @@ Question: which primary sources support the allocated machine-credential and enc
 - The age encryption specification — lead only, not evidence.
 - Vault KV v2 API (version deletion settings) and the Vault KV overview (delete/destroy operations) — surfaced by the round-21 post-landing critic; not opened by the row author, lead only, not evidence.
 - 1Password Credential Broker custom-OIDC workflow sub-page (per-workflow release status) — lead only; the round-21 critic's "public beta" report was not reproduced on the opened guide page.
+
+Round-22 lead disposition (2026-10-20): the custom-workflow lead immediately
+above is now opened and mined as S018; its public-beta title and the separate
+Actions page S017 settle feature status independently. S019/S020 supersede
+the incomplete qualifier coverage of S007/S006 without rewriting their rows.
+No existing status/recheck/used-by field changed in this operation.
+
+## Search-log erratum (round 22)
+
+The round-21 Search log's space-sensitive counting expression is withdrawn:
+the outside review `.ufo/waves/kaika-w3/kagi-review.md` D8 and
+`kagi-critic.md` C2 found it returned zero on the dossier's compact rows.
+The rejected S008 is **inside** the sixteen opened sources, not an extra
+item added to that set. Its rejection stays recorded. The historical
+twenty-nine-lead count is not newly remeasured here and is not round-22
+evidence. This round's bounded search is separately recorded in
+`corpus/lessons/round-22.md` §Gate: four opened pages, four included,
+zero excluded; no inference is drawn from unvisited old leads.
+
+Supersession scope (round 22): S019 replaces **only** the uniform-status and
+eligibility reading of S007, not its still-supported integration-key,
+configured-claim-matching or workflow-duration mechanisms. S020 adds the
+announcement's explicit feature split/eligibility to the incomplete S006
+scope; it does not turn that dated announcement into a live status oracle.
+Use each feature page's own title/H1, not a status word in shared navigation
+or CSS. Original Fetch hashes remain historical point observations with
+undocumented representation; this round does not call a changed raw HTML
+hash proof of semantic drift or bless it as the expected value.
+
+Inherited source-locator caveats from this round's reopens: S012/S013's
+old version/date descriptions are not current release pins; the public
+reopen reports `Source12.md` and `Source13.md` under the round-22 build
+evidence record their displayed Vault v2.x/metadata observations. S014's
+uppercased JWT quote is normalized text, not a case-literal excerpt.
+These original rows remain historical curation records; no current
+cross-product or release inference is drawn from those locator fields.
+The active review uses S017–S021's explicit feature/product anchors.

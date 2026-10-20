@@ -663,3 +663,54 @@ verdict line rather than from a narrative.
     `handler-trust-boundary`) are the explicit unverifiable set and are
     revision-pinned; `docs` checks stamp *membership*, `verify` checks the hash —
     a fabricated stamps row passes this mode and fails `verify`.
+
+## Round-22 active reading and execution boundary
+
+The handler-era version, paths, command outcomes, line citations and host
+counts earlier in this file are **historical** observations at their named
+revisions. The round-18 substrate-absence record still bounds them:
+`corpus/knowledge/substrate-deferral.md`. A row that DEFERs or a description
+whose hash matches is not a live behavior check. Do not execute handler,
+signin/account, private transcript, service, browser/CDP or receipt recipes
+unattended merely because the historical table calls them safe.
+
+For current documented credential-review decisions use
+`corpus/knowledge/feature-bound-credential-review.md`, not the old merged
+E1/E3 rows: Actions public preview and custom-OIDC public beta have distinct
+feature pages and Business prerequisites; OpenBao token evidence does not
+establish Vault-token or KV-retention parity. QUALITY QA10 requires the
+feature page's own status anchor, not shared navigation/CSS.
+
+Revision-pointer repair and source adjudication are separate evidence:
+the former preserves and compares local bytes; the latter opens public
+feature/product sources. Neither proves live credential access, and local
+typed review never substitutes for non-author admission closure. The
+round-22 parser excludes the explicitly blocked round-20 attempt while
+retaining actual scored-section completeness/vacuity guards; old sample
+case counts are history, not the current executed selftest tally.
+
+## Gate registry — round-22 changed contracts
+
+| name | kind | entry command | verdict map | selftest | pinned values | write scope | owner |
+|---|---|---|---|---|---|---|---|
+| feature-bound credential review | gate | `python3 corpus/feature-claims.py --phase after`; `--input <root-confined JSON>` adjudicates one unlabeled typed claim | 0 clean/admit; 1 failed/reject; 2 could-not-evaluate | `python3 corpus/feature-claims.py --selftest` | `corpus/feature-claims.json`; code-held source/catalog/control digests in `corpus/feature-claims.py` | read-only owned-root regular files; selftest writes only an isolated temporary fixture | kagi |
+| revision-pointer audit | gate | `python3 corpus/revision-audit.py --history c2cab35bc92e57e39e5489bac3386db078345b3f` | 0 clean; 1 failed (stale/missing/dropped); 2 could-not-evaluate (unsafe/malformed/unavailable) | `python3 corpus/revision-audit.py --selftest` | `corpus/stamps.tsv`; immutable history commit; before input digests in `kagi-shokunin/.ufo/waves/round-22/frozen/before/expected.json` | read-only owned tree and Git objects, locks/lazy fetch/replacement objects disabled; selftest writes isolated temporary Git/filesystem fixtures only | kagi |
+| claim ledger and cell parser | gate | `bash corpus/claim-ledger.sh docs`; other documented modes retain their scopes | 0 clean; 1 failed; 2 could-not-evaluate/setup/policy | `bash corpus/claim-ledger.sh --selftest` | `corpus/claim-ledger.tsv`, `corpus/stamps.tsv` | reads declared surfaces; reviewed `stamp` replaces only the owned TSV; selftest isolated | kagi |
+| source registry/citation census | gate | `bash corpus/sources-census.sh` | 0 clean; 1 failed; 2 could-not-evaluate/setup | `bash corpus/sources-census.sh --selftest` | `corpus/SOURCES.md` and literal selftest expectations | read-only owned corpus; selftest isolated temporary files, no network | kagi |
+
+The feature reviewer checks a fixed, reviewed source/anchor vocabulary, not
+vendor truth. `--phase before` deliberately refuses known bad records;
+`--phase boundary` returns 2 for unjudgeable controls rather than counting
+free correct rejects. `--input` has no supplied expected label or authority:
+use it for independent held-out qualifier/attribution attacks. Plan,
+requirement, exclusion, runtime and evidence lists are unordered conjunctions;
+duplicates and unknown/malformed values are refused.
+
+The earlier shell-command allowlist example is historical. Its current
+Python extension permits **only** the exact owned feature-review and
+revision-audit script path tokens; inline/module/stdin Python and other
+script names remain refused, with existing metachar/deny rules unchanged.
+Do not run whole `verify` or current `cells` when their transitively cited
+host-private commands are outside authorization. Use QM12's explicit
+safe-row and skipped-row accounting; a scratch fixture is not a live-host
+pass. Existing unrelated gate registry debt is not claimed repaired here.

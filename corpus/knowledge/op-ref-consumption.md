@@ -371,3 +371,15 @@ new op release falsifies the corresponding bullet for that release.
 **Correction note.** §9's comment `OP_REF_SELFTEST: PASS (29 cases)` is
 superseded: the selftest now proves 36 cases (ledger `R12-02`, re-pinned this
 round after the byte arm added seven); §9 is left as written.
+
+## Erratum (round 22 — comparator history)
+
+The §10 “21 cases” comparator sentence is an intermediate historical count,
+not the current selftest contract. The existing §11 correction to “36”
+also supersedes that §10 count, not just §9. Run the current selftest and
+compare its executed output to R12-02; reading the expected regex is not a
+measurement. The surface-census pointer in this entry is not evidence for
+dotenv semantics. Handler-derived observations retain their original
+version/date and unavailable-substrate limits; the account-free byte arm
+does not reverify the missing handler or reference-resolved masking.
+Audit: `kagi-shokunin/.ufo/waves/round-22/build/Entry18.md`.

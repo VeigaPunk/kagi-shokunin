@@ -200,3 +200,17 @@ argument (exit 2). Then mutate any single host file **copy** and confirm the
 verdict names that file and field. `bash corpus/drift-pins.sh --help` prints the
 contract; `grep -n 'NOHASH\|is_nohash\|_p()' corpus/drift-pins.sh` shows the
 policy hooks.
+
+## Erratum (round 22 — class labels and historical locators)
+
+The “everything else, mode 644/755” class is overbroad: the committed
+baseline also hashes the metadata-only native-messaging manifest at mode
+600. Content-hash eligibility follows the no-secret-material policy, not a
+mode-only rule; no secret-bearing file is newly hashed.
+
+The opening PROTOCOL line range belongs to the historical fleet revision
+identified in `kagi-shokunin/.ufo/waves/round-22/build/Entry09.md`, not mutable current
+line numbers. The printer-era `git show HEAD` count must be read at
+`ea77bf0`, not an arbitrary present checkout. Historical host CLEAN results
+remain measurements at their recorded dates; no private host file was read
+and no live drift gate was run in round 22.

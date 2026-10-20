@@ -286,3 +286,21 @@ Each of these should turn the gate red; run it on a copy, never on the host:
     (but the temp NMH dir *is* created — assert the file, not the tree).
 11. Break any default probe (`CENSUS_BREAK=cdp-ensure-scratch`) → `FAIL`,
     exit 1.
+
+## Erratum (round 22 — static declarations versus historical host results)
+
+Source-status: historical — the original host CLEAN summaries, child counts,
+file modes/lines and runtime observations above were not remeasured here.
+Substrate deferral is an explicit unavailable check, not a current pass.
+The state-shape introduction's JSON subtotal, old symbol-pin total and
+"16 published hashes" phrase are superseded by the actual committed TSVs;
+the first subtotal was internally inconsistent and the hash phrase unsupported.
+The blanket "one third" floor policy is withdrawn: per-row declared floors
+are authoritative and some table/size floors use different bounds.
+
+The verbs interface also has DEGRADED (exit 1); its absent-substrate
+selftest branches explicitly skip the unavailable verb cases. The
+dropped-required-table falsifier is the named required-table case, not the
+unavailable-SQLite case. Do not use a helper ordinal as its contract.
+Static findings and commands: `kagi-shokunin/.ufo/waves/round-22/build/Entry21.md`.
+No live census or private-state read occurred in this round.

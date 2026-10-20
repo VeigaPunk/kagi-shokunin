@@ -86,3 +86,15 @@ this province; filed to the integrator rather than claimed here.
 `the-janitor cdp-bridge status` reproduces every field above from live state;
 `the-janitor cdp-bridge open-popup` exits 2 with the quoted refusal. Neither
 command touches vault data, so both are safe to run as a smoke check.
+
+## Erratum (round 22 — historical source boundary)
+
+Source-status: historical — the handler, old profile/manifest, version,
+line ranges and behavior above are the original observations, not a current
+smoke-test authorization. The substrate-absence record in
+`corpus/knowledge/substrate-deferral.md` prevents reproducing them here.
+The source-range disagreement between the opening attribution and the
+port-variable table remains unverified until the handler source returns;
+do not resolve it by guessing. No replacement browser profile is adopted.
+Recheck on authorized source/substrate restoration; a deferred row is not a
+pass. Scoped audit: `kagi-shokunin/.ufo/waves/round-22/build/Entry03.md`.

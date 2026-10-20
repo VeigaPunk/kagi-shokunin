@@ -1,0 +1,66 @@
+{
+  "repairs": [
+    "unasserted-status carries no evidence obligation",
+    "git root prefix trims newline"
+  ],
+  "checks": [
+    {
+      "argv": [
+        "python3",
+        "corpus/feature-claims.py",
+        "--selftest"
+      ],
+      "expected_exit": 0,
+      "exit": 0,
+      "stdout": "FEATURE_CLAIMS_SELFTEST: PASS cases=10\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "python3",
+        "corpus/feature-claims.py",
+        "--phase",
+        "before"
+      ],
+      "expected_exit": 1,
+      "exit": 1,
+      "stdout": "DECISION id=BEFORE-CUSTOM-NO-BETA-APP authority=construction-rule class=beta-app-condition expected=reject:bar-fail actual=reject:bar-fail finding=FC-RUNTIME-CONSTRAINT\nDECISION id=BEFORE-CUSTOM-NO-JS-SDK authority=construction-rule class=sdk-scope-omission expected=reject:bar-fail actual=reject:bar-fail finding=FC-RUNTIME-CONSTRAINT\nDECISION id=BEFORE-CUSTOM-UNDERCITED authority=construction-rule class=true-but-under-cited expected=reject:bar-fail actual=reject:bar-fail finding=FC-EVIDENCE-ANCHOR\nDECISION id=BEFORE-E1-ELIGIBILITY authority=construction-rule class=eligibility-omission expected=reject:bar-fail actual=reject:bar-fail finding=FC-ELIGIBILITY-QUALIFIER\nDECISION id=BEFORE-E1-STATUS authority=outside-verifier class=status-conflation expected=reject:false-claim actual=reject:false-claim finding=FC-STATUS-MISMATCH\nDECISION id=BEFORE-E3-VAULT-ONLY authority=outside-verifier class=cross-product-source expected=reject:bar-fail actual=reject:bar-fail finding=FC-CROSS-PRODUCT\nDECISION id=BEFORE-GITHUB-EXCLUSIONS authority=construction-rule class=deployment-eligibility-omission expected=reject:bar-fail actual=reject:bar-fail finding=FC-ELIGIBILITY-QUALIFIER\nDECISION id=BEFORE-SAME-PAGE-PREVIEW authority=construction-rule class=same-page-status-anchor expected=reject:false-claim actual=reject:false-claim finding=FC-STATUS-MISMATCH\nDECISION id=BEFORE-VAULT-GA-UNPINNED authority=construction-rule class=unstated-release-status expected=reject:bar-fail actual=reject:bar-fail finding=FC-STATUS-UNSUPPORTED\nDECISION id=BEFORE-VAULT-OPENBAO-SOURCE authority=construction-rule class=reverse-cross-product-source expected=reject:bar-fail actual=reject:bar-fail finding=FC-CROSS-PRODUCT\nCELL authority=construction-rule defect=beta-app-condition target=reject:bar-fail matches=1 false_admissions=0 misses=0 misclassified=0 unjudgeable=0\nCELL authority=construction-rule defect=deployment-eligibility-omission target=reject:bar-fail matches=1 false_admissions=0 misses=0 misclassified=0 unjudgeable=0\nCELL authority=construction-rule defect=eligibility-omission target=reject:bar-fail matches=1 false_admissions=0 misses=0 misclassified=0 unjudgeable=0\nCELL authority=construction-rule defect=reverse-cross-product-source target=reject:bar-fail matches=1 false_admissions=0 misses=0 misclassified=0 unjudgeable=0\nCELL authority=construction-rule defect=same-page-status-anchor target=reject:false-claim matches=1 false_admissions=0 misses=0 misclassified=0 unjudgeable=0\nCELL authority=construction-rule defect=sdk-scope-omission target=reject:bar-fail matches=1 false_admissions=0 misses=0 misclassified=0 unjudgeable=0\nCELL authority=construction-rule defect=true-but-under-cited target=reject:bar-fail matches=1 false_admissions=0 misses=0 misclassified=0 unjudgeable=0\nCELL authority=construction-rule defect=unstated-release-status target=reject:bar-fail matches=1 false_admissions=0 misses=0 misclassified=0 unjudgeable=0\nCELL authority=outside-verifier defect=cross-product-source target=reject:bar-fail matches=1 false_admissions=0 misses=0 misclassified=0 unjudgeable=0\nCELL authority=outside-verifier defect=status-conflation target=reject:false-claim matches=1 false_admissions=0 misses=0 misclassified=0 unjudgeable=0\nFEATURE_CLAIMS: FAILED phase=before false_claims=2 bar_failures=8 false_admissions=0 misses=0 finding=FC-RUNTIME-CONSTRAINT\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "python3",
+        "corpus/feature-claims.py",
+        "--phase",
+        "after"
+      ],
+      "expected_exit": 0,
+      "exit": 0,
+      "stdout": "DECISION id=AFTER-CUSTOM-BETA-BOUNDED authority=verbatim-pin class=bounded-control expected=admit actual=admit finding=FC-ADMITTED\nDECISION id=AFTER-GITHUB-BOUNDED authority=verbatim-pin class=bounded-control expected=admit actual=admit finding=FC-ADMITTED\nDECISION id=AFTER-OPENBAO-TTL authority=verbatim-pin class=bounded-control expected=admit actual=admit finding=FC-ADMITTED\nDECISION id=AFTER-VAULT-LEASE authority=verbatim-pin class=bounded-control expected=admit actual=admit finding=FC-ADMITTED\nCELL authority=verbatim-pin defect=bounded-control target=admit matches=4 false_admissions=0 misses=0 misclassified=0 unjudgeable=0\nFEATURE_CLAIMS: CLEAN phase=after admitted=4 false_claims=0 bar_failures=0 false_admissions=0 misses=0 unjudgeable=0\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "python3",
+        "corpus/feature-claims.py",
+        "--phase",
+        "boundary"
+      ],
+      "expected_exit": 2,
+      "exit": 2,
+      "stdout": "BOUNDARY id=OUT-OF-SCOPE-VAULT-JWT actual=cannot-evaluate finding=FC-UNKNOWN-FEATURE scored=no\nBOUNDARY id=UNKNOWN-FIELD actual=cannot-evaluate finding=FC-UNKNOWN-FIELD scored=no\nBOUNDARY id=UNKNOWN-SOURCE actual=cannot-evaluate finding=FC-UNKNOWN-SOURCE scored=no\nFEATURE_CLAIMS: CANNOT_EVALUATE phase=boundary unjudgeable=3 finding=FC-UNKNOWN-FEATURE\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "python3",
+        "corpus/revision-audit.py",
+        "--selftest"
+      ],
+      "expected_exit": 0,
+      "exit": 0,
+      "stdout": "SELFTEST_CASE: PASS (name=clean-control exit=0 finding=NONE)\nSELFTEST_CASE: PASS (name=duplicate-history-id exit=2 finding=HISTORY-DUPLICATE corpus/keep.txt)\nSELFTEST_CASE: PASS (name=dropped-member exit=1 finding=DROPPED corpus/drop.txt)\nSELFTEST_CASE: PASS (name=modified-worktree-stale exit=1 finding=STALE corpus/keep.txt)\nSELFTEST_CASE: PASS (name=missing-file exit=1 finding=MISSING corpus/keep.txt)\nSELFTEST_CASE: PASS (name=malformed-current-row exit=2 finding=MALFORMED-LINE 1)\nSELFTEST_CASE: PASS (name=duplicate-current-id exit=2 finding=DUPLICATE corpus/drop.txt)\nSELFTEST_CASE: PASS (name=path-traversal exit=2 finding=PATH-ESCAPE 1)\nSELFTEST_CASE: PASS (name=parent-symlink exit=2 finding=PATH-ESCAPE corpus/linked/sentinel.txt)\nSELFTEST_CASE: PASS (name=fifo-not-file exit=2 finding=NOT-FILE corpus/fifo)\nSELFTEST_CASE: PASS (name=option-history exit=2 finding=HISTORY-INVALID)\nREVISION_AUDIT_SELFTEST: PASS (cases=11 failed=0)\n",
+      "stderr": ""
+    }
+  ]
+}

@@ -180,3 +180,21 @@ for path, method, body in checks:
         print(f"{path} {label}={status}")
 PY
 ```
+
+## Historical-source erratum (round 22)
+
+Source-status: historical — host inspection, OpenCode version, handler and
+client line citations, retention quantities and scratch-server outcomes
+above are original dated evidence, not reverified current behavior.
+The substrate-absence record prevents reproducing those host measurements
+here; neither a byte pin nor a deferred R11-01 checks the exact retention
+counts. The by-hand recheck declaration remains an explicit unavailable
+measurement, not a pass.
+
+The credential-isolation citation's old numeric span shifted after its
+reverification declaration was inserted; use its **Agent permissions**
+heading instead. The stop/non-purge attribution also spans more lines than
+the old helper range alone. Reopen authorized source before any operational
+rollout; no server or account action was performed in this round.
+Audits: `kagi-shokunin/.ufo/waves/round-22/build/Entry07.md` and
+`kagi-shokunin/.ufo/waves/round-22/build/Entry08.md`.

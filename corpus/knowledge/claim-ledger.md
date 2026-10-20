@@ -470,3 +470,19 @@ bash -c 'cp SCORECARD.md /tmp/sc.md; printf "| calibration | 9 | nothing |\n" >>
 bash -c 'cp corpus/stamps.tsv /tmp/s.tsv; sed -i "s/^corpus\/claim-ledger.sh\t[0-9a-f]*/corpus\/claim-ledger.sh\tdeadbeef/" /tmp/s.tsv; printf "| depth | 7 | \`corpus/claim-ledger.sh\` |\n" >>/tmp/sc2.md'  # STALE-POINTER once the audit re-compares it
 CLAIM_LEDGER_DEPTH=1 bash corpus/claim-ledger.sh verify   # refusing a nested self-audit, exit 2
 ```
+
+## Erratum (round 22 — current snapshot versus reproduction history)
+
+The unqualified reproduction summaries above are historical round-13
+outputs, not current claim/stamp/selftest/cell totals. Read current totals
+from the executed gate, never from those sample verdicts. Since round 18,
+substrate-tagged claim rows can print DEFER and summaries expose deferred
+counts; deferral records unavailable evidence, not a verified claim.
+
+The blocked round-20 interactive-attempt heading is preserved as history
+and excluded from scored sections by the round-22 parser correction.
+Actual pre/post sections retain all-axis completeness and vacuity checks.
+The active TSV files are unique-ID/unique-path **current snapshots**;
+append-only old/new migration evidence belongs in the round lesson and
+journal. Duplicate active rows are not a valid way to preserve history.
+Audit: `kagi-shokunin/.ufo/waves/round-22/build/Entry05.md`.

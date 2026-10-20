@@ -109,3 +109,50 @@ The four-clocks table merged products and paths beyond what its sources state. S
 - **lease on a dynamic secret** — Vault: S013 (leases on dynamic secrets and service tokens; revoking a token revokes its leases). OpenBao: S016 (an expiring token is revoked with "its associated leases"). Two sources, two products, not one fact.
 - **static value in KV** — S013 establishes only that Vault's KV backend "does not issue leases". It does not establish that a KV value "never expires" or changes only by a write; KV version deletion settings and delete/destroy operations were not opened this round (lead: Vault KV v2 API, `corpus/SOURCES.md` §Leads). §Does not establish, first bullet, reads accordingly: a KV read carries no lease.
 - §How kagi uses this: the sweep covers corpus mentions only, not host runtime use (as in the SOPS entry's erratum).
+
+## Erratum (round 22 — outside admit disagreement retained)
+
+The outside verifier rejected E3 **as landed**; the round-21 erratum did not
+retroactively make that admission pass. The original four-clocks table and
+§Does not establish first bullet are historical defective readings, not an
+operational table. The product-separated round-21 erratum is authoritative.
+
+Reopened S016 on 2026-10-20: OpenBao docs identify Version 2.7.x.
+§Token Time-To-Live states: “After the current TTL is up, the token will no
+longer function”. Its following sentence includes associated leases.
+§Token type comparison distinguishes service-token renewal/manual revocation
+from batch-token limits. This supports **OpenBao token** claims only; it
+does not supply the missing Vault-token evidence, and Vault's S013 does not
+supply OpenBao KV evidence.
+
+The inherited S015/S016 inference that issuer revocation means “an operator
+must revoke it” is not a universal lifecycle rule: tokens can also expire
+and parent/service-token lifecycle rules apply. No issuer revocation path
+for other providers, no cross-product TTL parity and no KV value-retention
+guarantee is admitted here. A missing product-specific source means
+**unverified/withdrawn**, never implicit parity.
+
+On release, reopen each named product's own page and token type separately.
+These are public-document corrections, not a deployed Vault/OpenBao probe;
+no vault or account was contacted. The admission lesson and criterion are
+`corpus/lessons/round-22.md` and QUALITY QA10.
+
+### Further product/path precision (round 22)
+
+The active corrected status/token reading is
+`corpus/knowledge/feature-bound-credential-review.md`. The older text is
+not an operational cross-product table. Reopened S014 §Claims as metadata
+on 2026-10-20: copying requires configured `claim_mappings`; JSON-pointer
+mapped claims must exist, while non-pointer mappings are optional. This
+does not require every mapping to use JSON-pointer syntax. Bound-claim
+validation, Identity aliases and configured metadata copying are separate.
+
+Reopened S016 §The general case: mount max TTL can override the system
+maximum longer or shorter. Periodic-token continuation requires timely
+successful renewal and remains capped by any explicit max TTL. The phrase
+“periodic tokens renew indefinitely” is therefore withdrawn unless those
+qualifiers travel with it. S016's token/associated-lease statements do not
+independently establish all dynamic-secret engine or KV behavior; service
+and batch-token paths must remain distinct. No new deployed behavior was
+measured. Source review: `kagi-shokunin/.ufo/waves/round-22/build/Source14.md` and
+`kagi-shokunin/.ufo/waves/round-22/build/Source16.md`.

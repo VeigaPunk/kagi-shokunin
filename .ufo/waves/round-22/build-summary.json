@@ -1,0 +1,34 @@
+{
+  "wave": "build",
+  "seats": 64,
+  "roles": {
+    "scout": 40,
+    "executor": 3,
+    "scribe": 4,
+    "reviewer": 7,
+    "critic": 4,
+    "connector": 4,
+    "sentinel": 2
+  },
+  "planner": "L1 KagiR22 holds canonical planner; no rejected planner swarm role",
+  "completed_reports": 60,
+  "dead_seats": {
+    "DraftE1": "anthropic/claude-haiku-5-5: 429 rate_limit_error retry-after-ms=8211000 (DraftE3 8212000)",
+    "DraftE3": "anthropic/claude-haiku-5-5: 429 rate_limit_error retry-after-ms=8211000 (DraftE3 8212000)",
+    "DraftCriteria": "anthropic/claude-haiku-5-5: 429 rate_limit_error retry-after-ms=8211000 (DraftE3 8212000)",
+    "DraftHistory": "anthropic/claude-haiku-5-5: 429 rate_limit_error retry-after-ms=8211000 (DraftE3 8212000)"
+  },
+  "missing_reports": [
+    "DraftE1",
+    "DraftE3",
+    "DraftCriteria",
+    "DraftHistory"
+  ],
+  "replacement_seats": 0,
+  "private_writers": [
+    "BuildQualifierGate",
+    "FixCellParser",
+    "AuditPinHistory"
+  ],
+  "integration_owner": "KagiR22"
+}

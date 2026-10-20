@@ -147,3 +147,20 @@ sqlite3 "$DB" "select count(*) from part where data like '%op://%';"   # 0
 sqlite3 "$DB" "select count(*) from credential;"                       # 0
 ls -la $SD/xdg-data/opencode/   # -wal/-shm mtimes unchanged by immutable scan
 ```
+
+## Erratum (round 22 — baseline and implementation boundaries)
+
+Source-status: historical — all live database row counts, findings and WARN
+figures above are original observations, not a new database read. The prose
+pattern list is illustrative, not the shipped array inventory; its old
+longer JWT prefix is not a current independent pattern. Baseline changes
+included both column and pattern changes, not columns alone. The early WARN
+figure is not a current summary; no cause for its difference is established.
+
+The stated question-mark/hash database-path limitation belongs to the old
+URI design: the shipped scanner copies a literal path into its scratch
+snapshot. Exit 2 also includes missing schema coverage with no HIT, not just
+usage/database-open errors. The inherited example commands are historical
+recipes, not permission to open this host's private transcript database.
+Exact shipped-script hash and code-derived correction evidence:
+`kagi-shokunin/.ufo/waves/round-22/build/Entry23.md`; no live scan was run.

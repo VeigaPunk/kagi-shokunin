@@ -87,9 +87,11 @@
 #
 # Command safety: a committed runnable-command file is an execution surface, so
 # claims are refused (POLICY, exit 2, never run) unless they are a single simple
-# command: first token in a five-entry allowlist (bash|grep|sha256sum|wc|test),
-# no shell metacharacters (; & | < > $ backtick), no backslash, no empty quote
-# pair, no `bash -c`, and no denied verb — the deny words are matched on a
+# command: first token in an allowlist (bash|grep|sha256sum|wc|test|python3),
+# with python3 limited to these exact path tokens: `corpus/feature-claims.py`
+# and `corpus/revision-audit.py` (a word boundary follows `.py`). No shell
+# metacharacters (; & | < > $ backtick), no backslash, no empty quote pair,
+# no `bash -c`, and no denied verb. Denied names are matched on a
 # QUOTE-STRIPPED copy of the text, so `g''it` / `g\it` / `o"p"` cannot walk past
 # a name-based guard (round-11 executor A03/A04 + sentinel F2). `--selftest`
 # proves each refusal path on scratch data; selftest never runs `verify` against
@@ -155,7 +157,8 @@ trap cleanup_tmp EXIT
 # --- policy ------------------------------------------------------------------
 # First token must be one of these; the allowlist is deliberately tiny — a
 # claim is a verdict-producing command, not a pipeline.
-ALLOWED_RE='^(bash|grep|sha256sum|wc|test)$'
+ALLOWED_RE='^(bash|grep|sha256sum|wc|test|python3)$'
+PYTHON_SCRIPT_RE='^python3[[:space:]]+corpus/(feature-claims|revision-audit)\.py([[:space:]]|$)'
 # No shell metacharacters at all: one simple command, no composition.
 META_RE='[;&|<>$`]'
 # Verbs that touch the handler, the vault, the repo, or the network. Word
@@ -168,6 +171,9 @@ policy_check() {
   local c=$1 w
   w=${c%%[[:space:]]*}
   [[ $w =~ $ALLOWED_RE ]] || { printf 'first-token:%s' "$w"; return 1; }
+  if [[ $w == python3 && ! $c =~ $PYTHON_SCRIPT_RE ]]; then
+    printf 'python-script'; return 1
+  fi
   [[ $c =~ $META_RE ]] && { printf 'metachar'; return 1; }
   # `bash -c <inline>` is the whole execution surface in one argument; no row
   # needs it (round-11 sentinel F1: policy-clean rows mutated state)
@@ -669,6 +675,9 @@ idref_audit() {
 # are prose, and the six axis names are the vocabulary of a score card.
 AXES_RE='^(depth|coverage|operability|freshness|calibration|adjacency)$'
 SEC_RE='^## Round [0-9]+ — (pre|post)-move'
+# The filed round-20 interactive attempt is explicitly blocked, not a scored
+# section. Exempt only that exact heading; other malformed Round headings fail.
+BLOCKED_ATTEMPT_RE='^## Round 20 — interactive attempt; blocked, not completed \(2026-10-15\)$'
 CL_CELLS=0 CL_ROWS=0 CL_STAMPS=0 CL_UNCITED=0
 CL_STALE=0 CL_ROWS_RUN=0
 CEL_IDS=(); CEL_PATHS=()
@@ -706,12 +715,11 @@ cells() {
     if [[ $content == '## '* ]]; then
       # section gate: only Round <N> pre/post-move tables are score cards. The
       # `Retired` table and every other section are prose, not scores. A ROUND
-      # heading that does not match the expected shape is a setup error, not a
-      # section to skip: a typo (`## Round 13 pre-move`, a colon, an en-dash)
-      # would silently drop six cells while the global count stayed positive.
+      # heading that does not match the expected shape is a setup error, except for
+      # the exact explicitly blocked round-20 interactive attempt.
       [[ $in_set -eq 1 ]] && section_check "$sec_head"
       SEC_SEEN=()
-      if [[ $content == '## Round '* && ! $content =~ $SEC_RE ]]; then
+      if [[ $content == '## Round '* && ! $content =~ $SEC_RE && ! $content =~ $BLOCKED_ATTEMPT_RE ]]; then
         die "unrecognised round heading in $SCORECARD: '$content' (expected '## Round <N> — pre-move|post-move')"
       fi
       if [[ $content =~ $SEC_RE ]]; then in_set=1; sec_head=$content; else in_set=0; sec_head=""; fi
@@ -1041,11 +1049,28 @@ if [[ ${SELFTEST:-0} -eq 1 ]]; then
       done
     } >"$f"
   }
+  blocked_prepost() {
+    local f=$1; shift
+    local -a P=("$@")
+    local ax i section
+    {
+      printf '## Round 20 — interactive attempt; blocked, not completed (2026-10-15)\n\n| Axis | Score | Evidence |\n|---|---|---|\n| depth | 8 | blocked attempt, not a scored result |\n'
+      for section in pre-move post-move; do
+        printf '\n## Round 21 — %s\n\n| Axis | Score | Evidence |\n|---|---|---|\n' "$section"
+        i=0
+        for ax in depth coverage operability freshness calibration adjacency; do
+          printf '| %s | 7 | %s |\n' "$ax" "${P[i]}"
+          i=$((i + 1))
+        done
+      done
+    } >"$f"
+  }
   # fenced block AND prose, both carrying an unknown id (the id scan is
   # line-oriented over every byte: no cell/fence filtering, planner T1-1)
   printf 'doc prose cites `R9-99` here\n\n```\nfence cites R9-98 too\n```\n' >"$R/corpus/docs/id-missing.md"
   printf 'doc cites row `R1-01` here\n' >"$R/corpus/docs/id-known.md"
   six "$R/sc-ok.md" '`corpus/ok.txt`' '`R1-01`' '`R1-01`' '`R1-01`' '`R1-01`' '`R1-01`'
+  blocked_prepost "$R/sc-blocked-attempt.md" '`R1-01`' '`R1-01`' '`R1-01`' '`R1-01`' '`R1-01`' '`R1-01`'
   six "$R/sc-uncited.md" '`R1-01`' 'self-scored, nothing to re-run' '`R1-01`' '`R1-01`' '`R1-01`' '`R1-01`'
   six "$R/sc-missing-id.md" '`R1-01`' '`R9-99`' '`R1-01`' '`R1-01`' '`R1-01`' '`R1-01`'
   six "$R/sc-row-fails.md" '`R2-01`' '`R2-01`' '`R2-01`' '`R2-01`' '`R2-01`' '`R2-01`'
@@ -1082,6 +1107,7 @@ if [[ ${SELFTEST:-0} -eq 1 ]]; then
   printf '../outside.txt\tdeadbeefdeadbeef\t1\t1\n' >"$R/stamps-dotdot.tsv"
   printf '/etc/hostname\tdeadbeefdeadbeef\t1\t1\n' >"$R/stamps-abs.tsv"
   printf '## Round 1 pre-move\n\n| Axis | Score | Evidence |\n|---|---|---|\n| depth | 7 | `R1-01` |\n' >"$R/sc-bad-heading.md"
+  printf '## Round 20 — interactive attempt; blocked, not completed (2026-10-15)\n\n| Axis | Score | Evidence |\n|---|---|---|\n| depth | 8 | blocked attempt, not a scored result |\n\n## Round 21 — pre-move\n\n| Axis | Score | Evidence |\n|---|---|---|\n| depth | 7 | `R1-01` |\n| coverage | 7 | `R1-01` |\n| operability | 7 | `R1-01` |\n| freshness | 7 | `R1-01` |\n| calibration | 7 | `R1-01` |\n' >"$R/sc-blocked-five.md"
   printf 'c1\tgrep -c EXPECTED corpus/ok.txt\t^1$\t3\t5\tselftest\n' >"$R/claims-exit.tsv"
   printf 'c1\tbash corpus/sleep.sh\tDONE\t0\t1\tselftest\n' >"$R/claims-timeout.tsv"
   printf 'c1\tbash corpus/ok.txt; true\tEXPECTED\t0\t5\tselftest\n' >"$R/claims-meta.tsv"
@@ -1093,6 +1119,21 @@ if [[ ${SELFTEST:-0} -eq 1 ]]; then
   printf 'c1\t\tEXPECTED\t0\t5\tselftest\n' >"$R/claims-emptycmd.tsv"
   printf 'c1\tgrep -c EXPECTED corpus/ok.txt\t^1$\t0\t5\tselftest\textra\tfused\n' >"$R/claims-fused.tsv"
   printf 'c1\tbash -c "o""p --version"\tX\t0\t5\tselftest\n' >"$R/claims-split.tsv"
+  printf 'print("EXPECTED")\n' >"$R/corpus/feature-claims.py"
+  printf 'print("EXPECTED")\n' >"$R/corpus/revision-audit.py"
+  python_claim() {
+    local name=$1 cmd=$2
+    printf 'c1\t%s\t^EXPECTED$\t0\t5\tselftest\n' "$cmd" >"$R/claims-python-$name.tsv"
+  }
+  python_claim feature 'python3 corpus/feature-claims.py'
+  python_claim revision 'python3 corpus/revision-audit.py'
+  python_claim inline 'python3 -c pass'
+  python_claim module 'python3 -m platform'
+  python_claim stdin 'python3 -'
+  python_claim unregistered 'python3 corpus/unregistered.py'
+  python_claim suffix 'python3 corpus/feature-claims.py.bak'
+  python_claim metachar 'python3 corpus/feature-claims.py ; true'
+  python_claim denied 'python3 corpus/feature-claims.py rm'
   printf 'c1\ttest -e corpus/absent.txt\t.*\t1\t5\tselftest\n' >"$R/claims-noout.tsv"
   printf 'c1\tgrep -c EXPECTED corpus/ok.txt\t^1$\t0\t0\tselftest\n' >"$R/claims-tmo0.tsv"
   printf 'EXPECTED\n' >"$R/corpus/knowledge/ok.md"
@@ -1210,6 +1251,15 @@ if [[ ${SELFTEST:-0} -eq 1 ]]; then
   tcase policy-metachar        2 'POLICY c1 reason=metachar' "$0" verify --root "$R" --claims "$R/claims-meta.tsv" --stamps "$R/stamps.tsv"
   tcase policy-first-token     2 'reason=first-token:op'     "$0" verify --root "$R" --claims "$R/claims-op.tsv" --stamps "$R/stamps.tsv"
   tcase policy-denied-verb     2 'reason=denied-verb:op'     "$0" verify --root "$R" --claims "$R/claims-denied.tsv" --stamps "$R/stamps.tsv"
+  tcase policy-python-feature-allowed  0 'CLAIM_LEDGER: CLEAN' "$0" verify --root "$R" --claims "$R/claims-python-feature.tsv" --stamps "$R/stamps.tsv"
+  tcase policy-python-revision-allowed 0 'CLAIM_LEDGER: CLEAN' "$0" verify --root "$R" --claims "$R/claims-python-revision.tsv" --stamps "$R/stamps.tsv"
+  tcase policy-python-inline-refused   2 'POLICY c1 reason=python-script' "$0" verify --root "$R" --claims "$R/claims-python-inline.tsv" --stamps "$R/stamps.tsv"
+  tcase policy-python-module-refused   2 'POLICY c1 reason=python-script' "$0" verify --root "$R" --claims "$R/claims-python-module.tsv" --stamps "$R/stamps.tsv"
+  tcase policy-python-stdin-refused    2 'POLICY c1 reason=python-script' "$0" verify --root "$R" --claims "$R/claims-python-stdin.tsv" --stamps "$R/stamps.tsv"
+  tcase policy-python-other-refused    2 'POLICY c1 reason=python-script' "$0" verify --root "$R" --claims "$R/claims-python-unregistered.tsv" --stamps "$R/stamps.tsv"
+  tcase policy-python-boundary-refused 2 'POLICY c1 reason=python-script' "$0" verify --root "$R" --claims "$R/claims-python-suffix.tsv" --stamps "$R/stamps.tsv"
+  tcase policy-python-metachar-refused 2 'POLICY c1 reason=metachar' "$0" verify --root "$R" --claims "$R/claims-python-metachar.tsv" --stamps "$R/stamps.tsv"
+  tcase policy-python-denied-refused   2 'POLICY c1 reason=denied-verb:rm' "$0" verify --root "$R" --claims "$R/claims-python-denied.tsv" --stamps "$R/stamps.tsv"
   tcase claims-malformed       2 'malformed claims row (fields=2)' "$0" verify --root "$R" --claims "$R/claims-malformed.tsv" --stamps "$R/stamps.tsv"
   tcase claims-file-missing    2 'claims file not found'     "$0" verify --root "$R" --claims "$S/nope.tsv" --stamps "$R/stamps.tsv"
   tcase stamp-stale            1 'STALE corpus/ok.txt'       "$0" verify --root "$R" --claims "$R/claims-pass.tsv" --stamps "$R/stamps-stale.tsv"
@@ -1286,6 +1336,8 @@ if [[ ${SELFTEST:-0} -eq 1 ]]; then
   tcase stamps-dotdot-row      2 "stamps row names a path with '..'" "$0" verify --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps-dotdot.tsv" --docs "$R/corpus/docs/id-known.md"
   tcase stamps-absolute-row    2 'stamps row names an absolute path' "$0" verify --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps-abs.tsv" --docs "$R/corpus/docs/id-known.md"
   tcase cells-bad-round-heading 2 'unrecognised round heading' "$0" cells --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-bad-heading.md" --docs "$R/sc-bad-heading.md"
+  tcase cells-blocked-attempt-excluded 0 'CELL_AUDIT: CLEAN (cells=12 row_pointed=12' "$0" cells --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-blocked-attempt.md" --docs "$R/sc-blocked-attempt.md"
+  tcase cells-malformed-score-after-blocked 2 'all six axes exactly once' "$0" cells --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-blocked-five.md" --docs "$R/sc-blocked-five.md"
   # --- round 14: knowledge-entry declarations ---------------------------------
   DA=(--root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps-entries.tsv")
   tcase_last docs-clean       0 'DOC_AUDIT: CLEAN (entries=2 row_linked=2 by_hand=0 undeclared=0 missing_ids=0 unpinned=0 duplicate_reasons=0)' "$0" docs "${DA[@]}" entries-ok

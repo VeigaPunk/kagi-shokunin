@@ -311,3 +311,16 @@ the shipped data+census (scratch copies, repo and host unchanged):
 - `tail -c 1 corpus/{surface-census,adjacency}.tsv | od -c` ⇒ neither file ends
   in a newline — the guard every reader needs, and the class `--falsify`'s first
   run tripped over.
+
+## Erratum (round 22 — historical host counts and resolver)
+
+Source-status: historical — the CLEAN output and host child counts above
+describe the recorded 2026-09-29 observation, not this host now. Substrate
+deferral is not a new pass. The current gate resolves sibling lanes from
+its script-derived fleet parent, not lowercase `~/projects/shokunin`.
+Historical README line anchors are not current locators; use its named
+overlap sections. The selftest's helper-call count is not its entire case
+count. Static findings and exact provenance:
+`kagi-shokunin/.ufo/waves/round-22/build/Entry02.md`.
+On substrate return recheck the ownership basis and breadth pins before
+using any old host count; this round performed no live scope-gate run.

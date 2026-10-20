@@ -97,3 +97,16 @@ number of key groups, or the compromise section reorders or drops its three step
 
 - §Key groups and the threshold, last bullet: "independent custodians" is superseded by "independent key groups". S010 describes key groups and a threshold of groups; it says nothing about how many people hold them.
 - §How kagi uses this: the sweep supports only that no *other corpus knowledge entry* mentions SOPS, OpenBao or HashiCorp; it is not a sweep of host runtime use. Read "kagi does not run SOPS today" as "no kagi corpus entry documents SOPS use".
+
+## Clarification (round 22 — command-specific recipient changes)
+
+The recipient/data-key/value table describes **separate operations**, not
+a promise that every command changing recipients leaves the data key
+unchanged. S011's rotate operation can combine recipient additions/removals
+with creation of a new data key and re-encryption; updatekeys alone is the
+recipient-synchronization operation. Generic key-group examples do not
+establish independent human custodians or behavior of an existing file's
+threshold without its actual configuration. The footer commit is a docs
+repository revision, not a measured SOPS release/runtime version.
+Reviews: `kagi-shokunin/.ufo/waves/round-22/build/Source10.md` and
+`kagi-shokunin/.ufo/waves/round-22/build/Source11.md`. No SOPS execution occurred.

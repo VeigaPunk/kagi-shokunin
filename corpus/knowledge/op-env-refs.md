@@ -53,3 +53,17 @@ authorization fails inside `op`, not in the wrapper — expect `op`'s own error.
 - `the-janitor refs` output format matches the awk line at L234.
 - `stat -c '%a' ~/.config/the-janitor/op.env` → `600`.
 - `the-janitor run` with no args → `missing command`, exit 2.
+
+## Erratum (round 22 — observation is not enforcement)
+
+Source-status: historical — original file size/mode, line references,
+version and handler outcomes above are not remeasured current facts while
+the substrate is unavailable. The “only pointers” composition statement and
+“convention enforced” attribution are withdrawn: the recorded sibling
+evidence already distinguished reference-valued keys from plain identifier
+values, and an inventory filter does not enforce a writing policy. This
+does not assert that a secret leaked. The handler line-range disagreement
+remains unverified until authorized source restoration.
+Recheck trigger: restored handler source and a CLI release change, using
+generated account-free fixtures rather than a real environment file.
+Audit: `kagi-shokunin/.ufo/waves/round-22/build/Entry17.md`.

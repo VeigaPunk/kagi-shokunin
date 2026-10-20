@@ -91,3 +91,18 @@ bash corpus/claim-ledger.sh --selftest   # cases 95-97 prove both arms
 - a non-tagged row reporting DEFER;
 - `deferred` absent from the summary while a DEFER line printed;
 - the census selftest failing the two verb cases on a host without the handler.
+
+## Erratum (round 22 — dated counters and detection limits)
+
+The original host-gate figures above are the round-18 observations, not
+current counters. Local shared-path presence/modes can change individual
+drift counts without restoring the handler; no host gate was run in this
+round. The recheck rows do not measure every quoted historical counter.
+
+`substrate_present` uses an executable-bit predicate, not a regular-file
+type proof; a searchable directory is not excluded by that predicate alone.
+The old “zero code changes could make them pass” claim is overbroad:
+isolated selftest skip handling can change legitimately while live substrate
+checks remain unavailable. Current selftest totals are read from executed
+output and their migrated ledger pins, not the old sample count.
+Audit: `kagi-shokunin/.ufo/waves/round-22/build/Entry20.md`.

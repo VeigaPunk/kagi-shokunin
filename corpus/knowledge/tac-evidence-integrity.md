@@ -78,3 +78,15 @@ check's own LIMIT lines):
 - `the-janitor tac-check` → the 9-line output block above, exit 0.
 - Flip one byte in a copy of the receipt under a temp `HOME` → FAILED, exit 1.
 - `the-janitor tac-register` twice → second run cannot overwrite (O_EXCL).
+
+## Erratum (round 22 — historical custody evidence)
+
+Source-status: historical — receipt fields, custody paths, checker output
+and handler behavior above belong to their original measurement, not current
+authorization or integrity. Missing substrate sources cannot be reverified
+by refreshing this document's byte pin; deferred rows are not passes.
+The cited always-on instruction no longer supplies the quoted janitor
+sentence in the audit's read tree, so that source attribution is withdrawn
+as a current locator. Recheck authorized source and receipt mechanisms on
+restoration without recording receipt values.
+Audit: `kagi-shokunin/.ufo/waves/round-22/build/Entry22.md`.

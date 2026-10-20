@@ -33,3 +33,48 @@ This entry is falsified if the current CLI documentation no longer scopes provis
 
 - §Four custody boundaries item 4 omitted eligibility. S006 (introduction and §Try 1Password Credential Broker today) says the public preview is "available for all Enterprise Password Manager Business customers", and S007's guide sets integrations up "in 1Password Business". Read item 4 as scoped to those plans (QA2).
 - The critic also reported that S007 marks the custom-OIDC workflow "public beta". Not reproduced: the guide page as fetched 2026-10-19 (`curl -sL`, tags stripped) contains no "public beta" string and labels the guide and its navigation "(public preview)"; the custom-workflow sub-page was not opened separately. The per-workflow release status of the custom-OIDC path is therefore **unverified**; item 4's "public preview" is the guide's own label, not a per-workflow status.
+
+## Erratum (round 22 — feature-specific status and eligibility)
+
+This correction supersedes item 4's unqualified feature status and the
+round-21 erratum's unresolved custom-OIDC status, not the preserved historical
+bytes. Opened 2026-10-20: S017 (GitHub Actions feature page, title and
+introduction), S018 (custom-workflow feature page, title and Steps 1/3), S019
+(setup guide, introduction and GitHub requirements), S020 (announcement,
+introduction and §New in this release). Their source-registry consumption is
+recorded in `corpus/lessons/round-22.md` `source:` and `## Gate`.
+
+- **GitHub Actions — public preview**, not the status of every Broker path
+  [S017]. An administrator connects a **1Password Business** account to a
+  GitHub.com organization [S019]. Enterprise Server and Enterprise Cloud
+  with data residency are unsupported; GitHub Free organizations cannot
+  use this integration for private-repository workflows [S019].
+- **Custom OIDC workflows — public beta**, not public preview [S018].
+  An administrator connects an OIDC provider to the Business account;
+  Step 1 requires the latest **beta** desktop app and Step 3 currently
+  supports only the **JavaScript SDK** [S018].
+- The announcement's eligible population is **Enterprise Password Manager
+  Business customers**; its custom-OIDC section explicitly separates beta
+  rollout from Actions public preview [S020]. The previous failure to find
+  that qualifier did not rebut the outside reviewer: the feature page was
+  not opened, and even the announcement has a feature-specific beta section.
+- The integration key is still required. Workflow-duration delivery is not
+  expiry of a Service Account token, nor removal of all CI-held credentials
+  [S019, S020]. No account, workflow, SDK or vault was exercised.
+
+Recheck trigger: reopen the **two feature pages separately**, their setup
+eligibility requirements and announcement context on release; a changed
+feature status, account prerequisite, supported deployment or SDK support
+falsifies this appended reading. A guide title alone cannot settle it.
+
+### Additional source-attribution bounds (round 22)
+
+The new active table is `corpus/knowledge/feature-bound-credential-review.md`;
+the older combined-status sentence is preserved history, not the current
+admitted reading. Item 3's “different custody boundaries” conclusion is
+[INFERENCE]: S003 documents different artifact roles and recommends a new
+token per application, not enforced per-application isolation or a named
+custody-boundary property. The original fetched-page hashes are historical
+point observations without a recorded representation; current raw-page
+mismatches do not by themselves prove mechanism drift. Public-beta status
+comes from the feature page's own title, not shared navigation labels.

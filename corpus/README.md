@@ -116,3 +116,21 @@ Areas being explored, not held as lane knowledge:
 - **Legacy entry headers:** 21 existing knowledge entries lack `source:`, `verified-at:`, and `recheck:`; `grep -L '^source:' corpus/knowledge/*.md | wc -l` → 21 after E1–E3 land (the command counts missing `source:`; the other field gaps are recorded in the W1 STATE dossier §3).
 - **The-janitor substrate:** the last recorded host observation says it was absent; see `PROVINCE.md` §Surfaces, Round-18 erratum. Recheck on substrate return rather than treating the historical path list as current.
 - **Vault-side structure:** deliberately unmapped per `PROVINCE.md` §Deliberate refusals; this corpus does not inventory which vaults, items, or fields exist.
+
+## Round-22 active corrections and evidence
+
+| Item | Active path | Scope |
+|---|---|---|
+| Feature-bound credential review | `knowledge/feature-bound-credential-review.md` | Replaces defective active readings of E1/E3 status/eligibility and product-bound token rows on already-held ground; not new coverage |
+| Round-22 learning record | `lessons/round-22.md` | Outside admit disagreement, source opening quotes, old/new revision accounting and bounded claim verdict evidence |
+| Historical pin migration record | `kagi-shokunin/.ufo/waves/round-22/round21-migrations.json` | Nine replaced diff lines, zero lost stamp members, old/new expectation values |
+
+Correction to the old adjacency-breadth index wording: its numbered
+**Bounds** list is not the failure-token inventory. Use the entry's named
+Bounds and failure sections rather than the old “13 bounds” count
+(`kagi-shokunin/.ufo/waves/round-22/build/Entry01.md`).
+All old index totals retain their recorded-round context; current totals
+come from the executed gates. Legacy-header migration remains intentionally
+unclaimed, and absent host sources are not restored by adding headers or
+restamping their descriptions. Expansion is unchanged: these are
+corrections to already-held ground.

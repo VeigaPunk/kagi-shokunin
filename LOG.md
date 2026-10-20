@@ -1048,3 +1048,55 @@ new entries. Action → outcome → pointer:
 - Change: `README.md` created (lane-header convention) with a `**Wiki:**` link to https://app.devin.ai/org/veigapunk/wiki/VeigaPunk/kagi-shokunin?branch=master.
 - Evidence: the org's Devin wiki index lists this repo's generated wiki; sibling lane READMEs carry the same `**Wiki:**` header.
 - Documentation-only change; no round run, no axis moved, no verdict changed.
+
+## 22 — feature-bound review capability and revision accounting (2026-10-20)
+
+Motivation: outside `corpus/lessons/round-21-verifier-spotcheck.md` rejected
+the prior round honestly. E1 omitted eligibility and conflated feature
+status; E3 borrowed product scope; C2 counted authored rows rather than
+demonstrated calibration. These historical verdicts are not changed.
+Declared claims and frozen base are `plans/round-22.md`
+(`c2cab35bc92e57e39e5489bac3386db078345b3f`).
+
+- **C1, calibration capability:** open each Broker feature page separately,
+  append E1/E3 corrections, add the active bounded reading
+  `corpus/knowledge/feature-bound-credential-review.md`, and learn the
+  outside disagreement in QUALITY QA10/QM13. A typed-record adjudicator is
+  a bounded executable review capability, never arbitrary-prose truth or a
+  substitute for independent non-author closure.
+- **C2, freshness:** preserve the exact old/new stamp and expectation records
+  in `kagi-shokunin/.ufo/waves/round-22/round21-migrations.json`,
+  `historical-correction-pins.json` and `historical-migrations.json`.
+  The named nine deleted diff lines are replacements for the same members,
+  not missing coverage: zero lost members in that range. Before measurement
+  `kagi-shokunin/.ufo/waves/round-22/before.json` finds the five earlier stale pins plus
+  this LOG's later stale pin, six total. The four source-erratum entries
+  remain historical; a fresh hash is not a fresh host verification.
+- **Source frontier:** S017–S021 opened and mined; status/eligibility and
+  product-bound sources are recorded with located quotes in
+  `corpus/lessons/round-22.md` §Gate. Correct old Search-log arithmetic and
+  method-specific hash overreach by append, not silent history replacement.
+- **Static audit corrections:** dated errata qualify unavailable host
+  observations and superseded local descriptions; the exact per-entry
+  findings are under `kagi-shokunin/.ufo/waves/round-22/build/`. The state-shape
+  file's blanket one-third comment is qualified without changing assertions.
+  No legacy-header count or restored source marker is called a depth move.
+- **Parser/command contract:** the blocked round-20 attempt remains filed;
+  actual pre/post cell completeness and vacuity guards remain. Python
+  ledger commands are limited to the two owned tool paths, not arbitrary
+  inline Python/modules. Implementation evidence:
+  `kagi-shokunin/.ufo/waves/round-22/build/FixCellParser.md`.
+
+The build wave had 64 seats; four scribe seats died on Haiku HTTP 429 and
+remain uncredited, never respawned under new identities. L1 retains the
+planner seat. Final wave accounting, exercised checks, exact pin migrations
+and measured landing are recorded in the round-22 lesson/evidence and the
+fleet report; an unrun check is not a pass.
+
+Safety incidents retained: FixCellParser's first tar extraction targeted
+`/tmp/kagi-shokunin`, whose previous contents/effect were unobserved; that
+directory was preserved, and the same identity continued only in its assigned
+clone. Entry07's unnecessary launcher version probe triggered mise's
+`node@26.12.0` installation and npx resolution of opencode-ai; no reversal,
+pacman transaction, service restart or claimed host recovery was performed.
+The report names these bounds; no vault/account secrets were accessed.

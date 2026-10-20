@@ -86,3 +86,14 @@ handler process memory and dies with `stop`.
 - `the-janitor request "x"` exits 2 with the stdin-not-arguments text.
 - `THE_JANITOR_PORT=1 the-janitor status` reports `state stopped`/health
   starting_or_authorizing rather than hanging (health timeout 2 s).
+
+## Erratum (round 22 — historical source boundary)
+
+Source-status: historical — all handler/client line citations, failure
+texts, modes and behavior above retain their original observation date.
+The substrate has been recorded absent since round 18
+(`corpus/knowledge/substrate-deferral.md`); this round did not execute the
+handler or revalidate those facts. The existing substrate-tagged recheck
+rows declare deferred work, never current verification. Restore and inspect
+the authorized source revision before running recipes or quoting current
+behavior. Audit: `kagi-shokunin/.ufo/waves/round-22/build/Entry12.md`.

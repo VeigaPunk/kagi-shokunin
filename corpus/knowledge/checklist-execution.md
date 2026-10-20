@@ -189,3 +189,19 @@ check for H6 would have to read the request text the item forbids persisting).
    both caught by lanes before commit).
 9. Strip the checklist section from SKILL.md → `SETUP`, exit 2.
 10. `rm corpus/checklist.tsv` → `SETUP checklist.tsv not readable`, exit 2.
+
+## Erratum (round 22 — historical execution and locator scope)
+
+Source-status: historical — the round-15 CLEAN checklist baseline and
+handler-dependent row outcomes above are not current executions on an
+absent-substrate host. A passing file-absence condition is not proof that
+the intended host file was inspected. Deferred live rows stay unverified.
+Use the named SKILL checklist section rather than the old numeric span;
+its heading and item endpoints do not share one range.
+
+The modes description also includes `--ratio` (declared by R15-05), which
+does not execute checklist rows. The hygiene allowlist provenance includes
+a synthetic selftest fixture, not only documented prose examples. The old
+scorecard phrase's historical revision attribution is narrowed in
+`kagi-shokunin/.ufo/waves/round-22/build/Entry04.md`.
+No checklist or host gate was executed for this static correction.

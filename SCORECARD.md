@@ -683,9 +683,89 @@ landed in the round-21 correction commit (cited in `LOG.md`):
 |---|---|---|---|
 | op-only dotenv byte probe | run six generated plain-value dotenv classes through `op run --env-file` under `env -i` with scratch HOME/XDG and compare the child's bytes (hex) to literal expectations; no ref, account or handler involved | `bash corpus/op-ref-probe.sh --dotenv-bytes` (ledger `R21-01`; `knowledge/op-ref-consumption.md` §11) | 21 (first run in the round-20 attempt, unadmitted there) |
 | source registry + census gate | curate opened, scope-tiered sources with anchors, rejections and study paths, and machine-check the registry plus the entry ↔ source citation chain both ways | `bash corpus/sources-census.sh` (ledger `R21-02`), `--selftest` 47 cases (`R21-03`); `corpus/SOURCES.md` | 21 |
+| feature-bound typed credential review | adjudicate one caller-supplied typed claim against pinned product/feature/status/eligibility/anchor evidence; reject known false/bar-failing claims, keep unjudgeable inputs separate, accept bounded controls | `python3 corpus/feature-claims.py --selftest` → PASS cases=10; `--phase before` refuses 10 bad records, `--phase after` admits 4; R22-01/R22-02; `kagi-shokunin/.ufo/waves/round-22/repaired-checks.json` | 22 |
 
 Rows enter only through a round that demonstrates the capability running (`AXES.md` §Capabilities); both rows entered with the round-21 runs quoted above. The 2026-10-16 rollout added none.
 
 ## Saturation
 
 Declared round 21: **saturation line 9, stagnation window N = 3 completed rounds** (a blocked attempt such as round 20 does not count as a completed round). The owned axes (freshness 9, calibration 9) sit at the line, so the nudge fires only when no capability has entered in the last three completed rounds; two entered in round 21, so the earliest round it can fire is round 25 (after rounds 22–24 with none). Justification: the move log shows single-point moves through round 17, a re-census with no scalar move in round 19, and a blocked attempt in round 20 — a shorter window would read one blocked attempt as stagnation.
+
+## Round 22 — pre-move (master `c2cab35bc92e57e39e5489bac3386db078345b3f`)
+
+The prior round remains REJECTED-HONEST-STOP. Its verified depth move and
+source-census capability are retained; its authored-row C2 claim is not
+rebranded as calibration. All latest scalar scores are 9; freshness and
+calibration tie for lowest owned axis, and both are worked. No depth move,
+retirement or stagnation waiver is claimed.
+
+| Axis | Score | Before evidence / limit |
+|---|---|---|
+| depth | 9 | R21-01's admitted account-free byte behavior remains the verified depth evidence; no new domain-byte contract is proposed. |
+| coverage | 9 | R11-11 still declares the same host-surface set; the active feature review corrects already-held ground, not new coverage. |
+| operability | 9 | R15-05's declared checklist ratio is unchanged; no unavailable handler behavior is made runnable by prose. |
+| freshness | 9 | `corpus/lessons/round-22.md` records the frozen-base six stale stamps (the previous five plus later LOG drift), zero missing files and the distinct nine historical row replacements; no host currentness inferred. |
+| calibration | 9 | `corpus/lessons/round-21-verifier-spotcheck.md` rejects prior E1/E3 admits and authored-row calibration; executable feature-bound adjudication capability absent at base. Scalar is held, not a current outside agreement score. |
+| adjacency | 9 | `PROVINCE.md` retains sibling ownership and operator terminal-action boundaries; no browser lease, research-method or secret-scanner ownership is acquired. |
+
+Declared claims (frozen `plans/round-22.md`): **C1 calibration capability**
+(typed, feature-bound review with bad-admit and bounded-control executions,
+not author-written-row accuracy); **C2 freshness** (current revision
+pointers reconciled with explicit old/new migration evidence). The previous
+plan's legacy-header migration and dotenv SETUP-classification change are
+not absorbed: header counting is not re-verification, and this round's
+selected, causally separate pin-repair work addresses the outside debt.
+
+Historical-locator corrections: the old “13 bounds” index claim refers to
+failure tokens, not the adjacency-breadth Bounds list (Entry01 audit).
+The earliest PROTOCOL line-range citation and printer-era `HEAD` command
+belong to the named historical revisions in the Entry09 audit, not mutable
+current line numbers. These old score cells remain filed history.
+
+## Round 22 — post-move (integration candidate; execution evidence follows)
+
+This table freezes the scope and pointer contract for falsification, not
+an unrun pass. Scalar scores remain held. Claim verdicts and the measured
+commit are recorded in the appended execution outcome after the tools run.
+
+| Axis | Score | Candidate evidence / limit |
+|---|---|---|
+| depth | 9 → 9 | R21-01 unchanged; no header count, pointer repair or historical marker is booked as depth. |
+| coverage | 9 → 9 | `corpus/knowledge/feature-bound-credential-review.md` corrects already-held ground; no new governed host/vault surface. |
+| operability | 9 → 9 | R15-05's checklist ratio unchanged; parser and Python dispatch changes are supporting contracts, not a second claim. |
+| freshness | 9 → 9 | C2 candidate: R22-03 and `corpus/lessons/round-22.md` must show six inherited stamp mismatches reconciled, all original members retained and every changed tuple journaled; no host currentness claim. |
+| calibration | 9 → 9 | C1 candidate capability: R22-01/R22-02 must demonstrate false-admit refusal and bounded-control acceptance. Arbitrary typed input uses trusted source bindings; authored labels and schema checks are not outside agreement. |
+| adjacency | 9 → 9 | `PROVINCE.md` keeps neighboring ownership, operator-only terminal actions and local fixture scope. |
+
+The capability table gains no row until a working demonstration is
+recorded. C1's adjudication command is independent of stamp state; C2's
+revision comparison never adjudicates vendor claims. Their bookkeeping is
+integrated atomically, since the ledger/stamp snapshot must track every
+changed artifact whether or not that artifact is an independent claim.
+
+### Executed build evidence (round 22, before falsification)
+
+`kagi-shokunin/.ufo/waves/round-22/initial-checks.json` preserves the real
+first red invocations: feature-catalog setup failed and the revision
+selftest failed. `repaired-checks.json` in the same evidence directory
+records the scoped repairs: unasserted status carries no source-evidence
+obligation; the Git-root prefix check accepts its normal trailing newline.
+Only failed gate paths were re-run. Observed results:
+
+- feature selftest PASS, 10 self-invocations; before phase rejects ten bad
+  records (two false-claim, eight bar-fail), after admits four controls;
+  three unjudgeable boundary records return 2 and are not scored;
+- revision selftest PASS, 11 cases; `before-runnable.json` executes the new
+  auditor over the frozen-base clone and finds six stale pointers, zero
+  missing/dropped/added/invalid;
+- `pin-only-ablation.json` changes only the isolated base's stamp snapshot
+  and returns zero stale, zero dropped, zero added. No C1 source correction
+  was copied into that clone; C1 itself ran while live pins were still stale.
+- ledger selftest PASS (108 cases); sources census CLEAN (21 rows, 4 sourced
+  entries, 21 legacy); source selftest PASS (47 cases).
+
+The new capability row records a working execution, not the count of prose
+criteria. Its scope is the closed reviewed source vocabulary and typed
+records, not arbitrary prose, vendor truth or outside agreement. Final
+falsification findings, measured revision and lane verdict are appended
+before filing the fleet report.

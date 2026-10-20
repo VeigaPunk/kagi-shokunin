@@ -115,3 +115,15 @@ session-id remained**; `stop` was still safe to run as cleanup.
   with the value passed; a fabricated ref env file signed out ⇒ exit 1 or exit
   124 within the bound, never 0; a value beginning `op://` ⇒ echoed whole; a
   `lower_case=`/`export`/leading-space line ⇒ absent from the output.
+
+## Erratum (round 22 — version and substrate boundary)
+
+Source-status: historical — the original CLI version, host authorization
+states, caller/handler comparisons and timing observations above are dated
+measurements. They are not behavior remeasured on a newer CLI, nor proof of
+no network/vault contact from timing or absence of a prompt. The handler is
+unavailable under the round-18 substrate-deferral record; relevant deferred
+rows are not passes. Account/signin/whoami and reference-resolution recipes
+were not exercised here. Recheck only after authorized source restoration
+and a separately scoped account-free fixture run.
+Audit: `kagi-shokunin/.ufo/waves/round-22/build/Entry16.md`.

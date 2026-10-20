@@ -212,6 +212,19 @@ while [[ $# -gt 0 ]]; do
     *) POS+=("$1"); shift ;;
   esac
 done
+case "$MODE" in
+  stamp)
+    ;;
+  docs)
+    [[ ${#POS[@]} -le 1 ]] ||
+      die "docs accepts at most one entry directory (got ${#POS[@]} positional arguments)"
+    ;;
+  verify|citations|cells|selftest)
+    [[ ${#POS[@]} -eq 0 ]] ||
+      die "unexpected positional argument for $MODE"
+    ;;
+  *) die "unknown mode: $MODE" ;;
+esac
 [[ -d $ROOT ]] || die "root is not a dir: $ROOT"
 # A claim row may invoke this gate's `--selftest` (scratch-only and bounded —
 # R11-09 does exactly that), but a nested AUDIT recurses: `verify` runs every
@@ -674,9 +687,10 @@ idref_audit() {
 # Checked cells are ROUND tables only: the `Retired` table and any other section
 # are prose, and the six axis names are the vocabulary of a score card.
 AXES_RE='^(depth|coverage|operability|freshness|calibration|adjacency)$'
-SEC_RE='^## Round [0-9]+ — (pre|post)-move'
-# The filed round-20 interactive attempt is explicitly blocked, not a scored
-# section. Exempt only that exact heading; other malformed Round headings fail.
+SEC_RE='^ {0,3}##[[:blank:]]+Round [0-9]+ — (pre|post)-move([[:blank:]]|$)'
+SECTION_RE='^ {0,3}##[[:blank:]]+'
+ROUND_RE='^ {0,3}##[[:blank:]]*[Rr][Oo][Uu][Nn][Dd]([[:blank:]]|$)'
+# Only this exact filed Round 20 attempt is blocked and excluded from scoring.
 BLOCKED_ATTEMPT_RE='^## Round 20 — interactive attempt; blocked, not completed \(2026-10-15\)$'
 CL_CELLS=0 CL_ROWS=0 CL_STAMPS=0 CL_UNCITED=0
 CL_STALE=0 CL_ROWS_RUN=0
@@ -712,17 +726,23 @@ cells() {
     die "scorecard is not in the checked doc set: $SCORECARD (its ids must be resolved against $CLAIMS; pass --docs including it)"
   while IFS= read -r l; do
     lineno=${l%%:*}; content=${l#*:}
-    if [[ $content == '## '* ]]; then
-      # section gate: only Round <N> pre/post-move tables are score cards. The
-      # `Retired` table and every other section are prose, not scores. A ROUND
-      # heading that does not match the expected shape is a setup error, except for
-      # the exact explicitly blocked round-20 interactive attempt.
+    if [[ $content =~ $SECTION_RE || $content =~ $ROUND_RE ]]; then
+      # CommonMark H2 headings allow up to three leading spaces and a blank
+      # separator after ##. Round-like titles are still checked when bare or
+      # separated from ## by a tab, so malformed score sections cannot vanish.
       [[ $in_set -eq 1 ]] && section_check "$sec_head"
       SEC_SEEN=()
-      if [[ $content == '## Round '* && ! $content =~ $SEC_RE && ! $content =~ $BLOCKED_ATTEMPT_RE ]]; then
-        die "unrecognised round heading in $SCORECARD: '$content' (expected '## Round <N> — pre-move|post-move')"
+      if [[ $content =~ $ROUND_RE ]]; then
+        if [[ $content =~ $SEC_RE ]]; then
+          in_set=1; sec_head=$content
+        elif [[ $content =~ $BLOCKED_ATTEMPT_RE ]]; then
+          in_set=0; sec_head=""
+        else
+          die "unrecognised round heading in $SCORECARD: '$content' (expected '## Round <N> — pre-move|post-move')"
+        fi
+      else
+        in_set=0; sec_head=""
       fi
-      if [[ $content =~ $SEC_RE ]]; then in_set=1; sec_head=$content; else in_set=0; sec_head=""; fi
       continue
     fi
     [[ $in_set -eq 1 && $content == '|'* ]] || continue
@@ -1065,6 +1085,19 @@ if [[ ${SELFTEST:-0} -eq 1 ]]; then
       done
     } >"$f"
   }
+  round_pair() { # FILE HEADING POINTER
+    local f=$1 heading=$2 pointer=$3 ax
+    {
+      printf '## Round 22 — pre-move\n\n| Axis | Score | Evidence |\n|---|---|---|\n'
+      for ax in depth coverage operability freshness calibration adjacency; do
+        printf '| %s | 7 | `R1-01` |\n' "$ax"
+      done
+      printf '\n%s\n\n| Axis | Score | Evidence |\n|---|---|---|\n' "$heading"
+      for ax in depth coverage operability freshness calibration adjacency; do
+        printf '| %s | 8 | %s |\n' "$ax" "$pointer"
+      done
+    } >"$f"
+  }
   # fenced block AND prose, both carrying an unknown id (the id scan is
   # line-oriented over every byte: no cell/fence filtering, planner T1-1)
   printf 'doc prose cites `R9-99` here\n\n```\nfence cites R9-98 too\n```\n' >"$R/corpus/docs/id-missing.md"
@@ -1108,6 +1141,17 @@ if [[ ${SELFTEST:-0} -eq 1 ]]; then
   printf '/etc/hostname\tdeadbeefdeadbeef\t1\t1\n' >"$R/stamps-abs.tsv"
   printf '## Round 1 pre-move\n\n| Axis | Score | Evidence |\n|---|---|---|\n| depth | 7 | `R1-01` |\n' >"$R/sc-bad-heading.md"
   printf '## Round 20 — interactive attempt; blocked, not completed (2026-10-15)\n\n| Axis | Score | Evidence |\n|---|---|---|\n| depth | 8 | blocked attempt, not a scored result |\n\n## Round 21 — pre-move\n\n| Axis | Score | Evidence |\n|---|---|---|\n| depth | 7 | `R1-01` |\n| coverage | 7 | `R1-01` |\n| operability | 7 | `R1-01` |\n| freshness | 7 | `R1-01` |\n| calibration | 7 | `R1-01` |\n' >"$R/sc-blocked-five.md"
+  round_pair "$R/sc-round-tab.md" $'## Round\t23 — post-move' 'NO-POINTER'
+  round_pair "$R/sc-bare-round.md" '## Round' 'NO-POINTER'
+  round_pair "$R/sc-tab-after-hashes-scored.md" $'##\tRound 23 — post-move' 'NO-POINTER'
+  round_pair "$R/sc-tab-after-hashes-attempt.md" $'##\tRound 20 — interactive attempt; completed (2026-10-15)' 'NO-POINTER'
+  round_pair "$R/sc-three-spaces-scored.md" '   ## Round 23 — post-move' 'NO-POINTER'
+  round_pair "$R/sc-three-spaces-attempt.md" '   ## Round 20 — interactive attempt; completed (2026-10-15)' 'NO-POINTER'
+  round_pair "$R/sc-commonmark-tab-control.md" $'##\tRound 23 — post-move' '`R1-01`'
+  round_pair "$R/sc-exact-blocked-control.md" '## Round 20 — interactive attempt; blocked, not completed (2026-10-15)' 'NO-POINTER'
+  round_pair "$R/sc-uppercase-round.md" '## ROUND 23 — post-move' 'NO-POINTER'
+  round_pair "$R/sc-lowercase-round.md" '## round 23 — post-move' 'NO-POINTER'
+  round_pair "$R/sc-pre-movement.md" '## Round 23 — pre-movement' 'NO-POINTER'
   printf 'c1\tgrep -c EXPECTED corpus/ok.txt\t^1$\t3\t5\tselftest\n' >"$R/claims-exit.tsv"
   printf 'c1\tbash corpus/sleep.sh\tDONE\t0\t1\tselftest\n' >"$R/claims-timeout.tsv"
   printf 'c1\tbash corpus/ok.txt; true\tEXPECTED\t0\t5\tselftest\n' >"$R/claims-meta.tsv"
@@ -1245,6 +1289,8 @@ if [[ ${SELFTEST:-0} -eq 1 ]]; then
   }
 
   tcase claims-pass            0 'CLAIM_LEDGER: CLEAN (claims=1 deferred=0 stamped=1 ids=1 cited=0 labeled_ids=0 orphans=1)' "$0" verify --root "$R" --claims "$R/claims-pass.tsv" --stamps "$R/stamps.tsv"
+  tcase mode-unknown-revision 2 'unexpected positional argument for verify' "$0" revision --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv"
+  tcase verify-extra-positional 2 'unexpected positional argument for verify' "$0" verify extra --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv"
   tcase claim-verdict-missing  1 'reason=verdict-not-final' "$0" verify --root "$R" --claims "$R/claims-verdict.tsv" --stamps "$R/stamps.tsv"
   tcase claim-exit-mismatch    1 'reason=exit-mismatch'      "$0" verify --root "$R" --claims "$R/claims-exit.tsv" --stamps "$R/stamps.tsv"
   tcase claim-timeout          1 'reason=timeout'            "$0" verify --root "$R" --claims "$R/claims-timeout.tsv" --stamps "$R/stamps.tsv"
@@ -1338,6 +1384,17 @@ if [[ ${SELFTEST:-0} -eq 1 ]]; then
   tcase cells-bad-round-heading 2 'unrecognised round heading' "$0" cells --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-bad-heading.md" --docs "$R/sc-bad-heading.md"
   tcase cells-blocked-attempt-excluded 0 'CELL_AUDIT: CLEAN (cells=12 row_pointed=12' "$0" cells --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-blocked-attempt.md" --docs "$R/sc-blocked-attempt.md"
   tcase cells-malformed-score-after-blocked 2 'all six axes exactly once' "$0" cells --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-blocked-five.md" --docs "$R/sc-blocked-five.md"
+  tcase cells-round-tab-refused 2 'unrecognised round heading' "$0" cells --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-round-tab.md" --docs "$R/sc-round-tab.md"
+  tcase cells-bare-round-refused 2 'unrecognised round heading' "$0" cells --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-bare-round.md" --docs "$R/sc-bare-round.md"
+  tcase cells-tab-hashes-scored-visible 1 'CELL_AUDIT: BROKEN (cells=12' "$0" cells --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-tab-after-hashes-scored.md" --docs "$R/sc-tab-after-hashes-scored.md"
+  tcase cells-tab-hashes-attempt-refused 2 'unrecognised round heading' "$0" cells --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-tab-after-hashes-attempt.md" --docs "$R/sc-tab-after-hashes-attempt.md"
+  tcase cells-three-spaces-scored-visible 1 'CELL_AUDIT: BROKEN (cells=12' "$0" cells --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-three-spaces-scored.md" --docs "$R/sc-three-spaces-scored.md"
+  tcase cells-three-spaces-attempt-refused 2 'unrecognised round heading' "$0" cells --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-three-spaces-attempt.md" --docs "$R/sc-three-spaces-attempt.md"
+  tcase cells-commonmark-tab-control 0 'CELL_AUDIT: CLEAN (cells=12 row_pointed=12' "$0" cells --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-commonmark-tab-control.md" --docs "$R/sc-commonmark-tab-control.md"
+  tcase cells-exact-blocked-control 0 'CELL_AUDIT: CLEAN (cells=6 row_pointed=6' "$0" cells --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-exact-blocked-control.md" --docs "$R/sc-exact-blocked-control.md"
+  tcase cells-uppercase-round-refused 2 'unrecognised round heading' "$0" cells --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-uppercase-round.md" --docs "$R/sc-uppercase-round.md"
+  tcase cells-lowercase-round-refused 2 'unrecognised round heading' "$0" cells --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-lowercase-round.md" --docs "$R/sc-lowercase-round.md"
+  tcase cells-pre-movement-refused 2 'unrecognised round heading' "$0" cells --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-pre-movement.md" --docs "$R/sc-pre-movement.md"
   # --- round 14: knowledge-entry declarations ---------------------------------
   DA=(--root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps-entries.tsv")
   tcase_last docs-clean       0 'DOC_AUDIT: CLEAN (entries=2 row_linked=2 by_hand=0 undeclared=0 missing_ids=0 unpinned=0 duplicate_reasons=0)' "$0" docs "${DA[@]}" entries-ok

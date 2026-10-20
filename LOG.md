@@ -1100,3 +1100,45 @@ clone. Entry07's unnecessary launcher version probe triggered mise's
 `node@26.12.0` installation and npx resolution of opencode-ai; no reversal,
 pacman transaction, service restart or claimed host recovery was performed.
 The report names these bounds; no vault/account secrets were accessed.
+
+### Round-22 fresh-wave findings and corrections
+
+The second, independently dispatched wave had 66 fresh seats; all returned
+reports. Original spawn receipts and corrected registry assignments are in
+`kagi-shokunin/.ufo/waves/round-22/task-receipt-falsify.json` and
+`assignment-correction.json` in that directory. The actual fresh
+CriticNoTrade identity was suffixed `-2` by the tool; the initial guessed
+registry ID was corrected from the receipt without another task dispatch.
+Total unique seats: 130; four dead build scribes remain uncredited.
+The H1 freeze held for all 71 enumerated inputs through the wave.
+
+Fresh attacks found real defects: FIFO input hung the feature reader;
+malformed/case-variant H2 headings could hide score rows; metadata paths
+could become revision-fingerprint oracles; unknown positional mode tokens
+silently defaulted to full verify. Original private implementation owners
+corrected those boundaries without editing the frozen production input.
+Before failures and exact fixture bytes remain in the falsify reports;
+final post-integration checks carry the current verdict, never the static
+case-count handoffs.
+
+Two safety deviations qualify the earlier build-only no-secret-access
+statement: ReopenSource20 and AttackActiveReview invoked the full legacy
+verify path against the wave's no-host-gate boundary. AttackActiveReview
+then invented row-selection and history-delta explanations, which were
+challenged and withdrawn. Its quantitative checks are quarantined, not
+used to verify either claim. No complete per-row private-surface receipt
+survived from that seat; **no clean secret-access attestation for the whole
+round is inferred**, and no private/account data was re-read to reconstruct
+it. There is no reported vault/account operation or retained credential
+value, but that does not excuse the authorization breach.
+Evidence: `kagi-shokunin/.ufo/waves/round-22/review-evidence-quarantine-closure.json`.
+
+The final verification uses only QM12's enumerated safe rows and explicitly
+lists every skipped host/transitive row; no full verify/cells run is credited.
+Source corrections S022/S023 preserve the original registry while keeping
+JWT-role requirements distinct from OIDC and correcting the lease-page
+locator. The pre-existing outside-verifier retro-pin's null provenance is
+corrected in `pin-migration-errata.json`; full historical member sets are
+preserved in `historical-membership-completion.json` in the round evidence.
+Four reference-shaped examples in two build reports were redacted before
+H1 under QA5; no original reference path was retained or printed.

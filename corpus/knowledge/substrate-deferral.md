@@ -106,3 +106,10 @@ isolated selftest skip handling can change legitimately while live substrate
 checks remain unavailable. Current selftest totals are read from executed
 output and their migrated ledger pins, not the old sample count.
 Audit: `kagi-shokunin/.ufo/waves/round-22/build/Entry20.md`.
+
+Final clarification (round 22): every original census/checklist/drift
+summary and the “cases 95–97” ordinals above are explicitly **historical
+round-18** readings. Use named `defer-substrate-*` cases and executed
+current selftest output rather than carrying old ordinals forward.
+The old present-tense “every live gate” phrasing is not a current run;
+deferral and the `-x` predicate limits remain unchanged.

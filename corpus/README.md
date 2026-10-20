@@ -134,3 +134,8 @@ come from the executed gates. Legacy-header migration remains intentionally
 unclaimed, and absent host sources are not restored by adding headers or
 restamping their descriptions. Expansion is unchanged: these are
 corrections to already-held ground.
+
+Final round-22 qualifier: the earlier “live leaf ratios” wording names the
+historical 2026-09-29 observation, not a new host probe. Late Vault
+role/locator corrections are in `lessons/round-22-source-errata.md`
+(S022/S023); the active Broker/token review remains the same held ground.

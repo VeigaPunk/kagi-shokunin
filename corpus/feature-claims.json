@@ -10,7 +10,12 @@
       "Admission means required qualifiers and pinned quote bindings match this review artifact; it does not prove source truth or deployed behavior.",
       "URLs are inert metadata; the gate never fetches them. A digest identifies captured bytes but is not semantic verification.",
       "Vault lease evidence and OpenBao token evidence are product-separated. Vault token behavior and OpenBao KV retention are out of scope.",
-      "The label authority field records provenance; author/construction labels are not outside-verifier agreement or a calibration scalar."
+      "The label authority field records provenance; author/construction labels are not outside-verifier agreement or a calibration scalar.",
+      "The singleton exact-catalog projection may bar-fail valid alternate, superset, or conservative typed claims not represented by its pinned values.",
+      "eligibility.scope is review-policy metadata, not a vendor fact.",
+      "The dated EPM Business announcement qualifier and feature-page Business-account prerequisites are distinct; no tier-identity mapping is proved.",
+      "SHA-256 values attest captured response bytes, not live drift pins. S020 was response-variable; W2 reproduced S017, S018, S019, S013, and S021.",
+      "runtime_constraints records selected profile-covered qualifiers, not a complete workflow setup/prerequisite inventory; Actions desktop-app setup and id-token permissions are outside this profile and require direct source review. An empty list does not imply no prerequisites."
     ]
   },
   "sources": [
@@ -24,7 +29,7 @@
       "quotes": [
         {"id": "S006-title", "anchor": "page-title-H1", "text": "1Password Credential Broker is now in public preview"},
         {"id": "S006-preview", "anchor": "§Try 1Password Credential Broker today", "text": "is in public preview"},
-        {"id": "S006-eligible", "anchor": "§Try 1Password Credential Broker today", "text": "available for all Enterprise Password Manager Business customers"}
+        {"id": "S006-eligible", "anchor": "introduction", "text": "available for all Enterprise Password Manager Business customers"}
       ],
       "bindings": [
         {"feature": "op_cb_github_actions", "field": "product", "value": "1password", "quote_id": "S006-title"},
@@ -142,6 +147,7 @@
       "product": "1password",
       "url": "https://www.1password.dev/brokered-access",
       "sha256": "896c780b243ebd1659dea22d6e46a1d4b2b74639adfde7ed22d8b362fc3b4a9f",
+      "prior_registry_sha256": "e4aef238bb5c93080bc0e1cc2156d0f8d19c9291dbbee60193bd42485686f818",
       "digest_observed_at": "2026-10-20",
       "title": "Set up 1Password Credential Broker to allow your team to access secrets in their workflows (public preview)",
       "quotes": [
@@ -154,12 +160,9 @@
         {"feature": "op_cb_github_actions", "field": "product", "value": "1password", "quote_id": "S019-business"},
         {"feature": "op_cb_custom_oidc", "field": "product", "value": "1password", "quote_id": "S019-business"},
         {"feature": "op_cb_github_actions", "field": "feature", "value": "op_cb_github_actions", "quote_id": "S019-github-com"},
-        {"feature": "op_cb_custom_oidc", "field": "feature", "value": "op_cb_custom_oidc", "quote_id": "S019-business"},
         {"feature": "op_cb_github_actions", "field": "path", "value": "brokered-access/github-actions", "quote_id": "S019-github-com"},
-        {"feature": "op_cb_custom_oidc", "field": "path", "value": "brokered-access/custom-workflow", "quote_id": "S019-business"},
         {"feature": "op_cb_github_actions", "field": "eligibility.requirements", "value": "business_account_connected", "quote_id": "S019-business"},
         {"feature": "op_cb_custom_oidc", "field": "eligibility.requirements", "value": "business_account_connected", "quote_id": "S019-business"},
-        {"feature": "op_cb_custom_oidc", "field": "eligibility.requirements", "value": "oidc_provider_connected", "quote_id": "S019-business"},
         {"feature": "op_cb_github_actions", "field": "eligibility.requirements", "value": "github_com_org", "quote_id": "S019-github-com"},
         {"feature": "op_cb_github_actions", "field": "eligibility.documented_exclusions", "value": "github_enterprise_server", "quote_id": "S019-enterprise-host"},
         {"feature": "op_cb_github_actions", "field": "eligibility.documented_exclusions", "value": "github_enterprise_cloud_data_residency", "quote_id": "S019-enterprise-host"},
@@ -171,6 +174,7 @@
       "product": "1password",
       "url": "https://1password.com/blog/1password-credential-broker-public-preview",
       "sha256": "55bf23fe6e56375aef3daab62aa90d7c60f753b6f1aba631a1cfffdaebfe3eda",
+      "prior_registry_sha256": "39a869df8807696009d98bd6d0a86bc27524af65f94f235d37e6dd5a6e514c1f",
       "digest_observed_at": "2026-10-20",
       "title": "1Password Credential Broker is now in public preview",
       "quotes": [
@@ -202,7 +206,8 @@
         {"id": "S021-title", "anchor": "page-heading", "text": "Tokens"},
         {"id": "S021-version", "anchor": "version-label", "text": "Version: Version 2.7.x"},
         {"id": "S021-service-scope", "anchor": "§Token types", "text": "The features in the following sections all apply to service tokens, and their applicability to batch tokens is discussed later."},
-        {"id": "S021-ttl", "anchor": "§Token Time-To-Live, periodic tokens, and explicit max TTLs", "text": "After the current TTL is up, the token will no longer function -- it, and its associated leases, are revoked."}
+        {"id": "S021-ttl", "anchor": "§Token Time-To-Live, periodic tokens, and explicit max TTLs", "text": "After the current TTL is up, the token will no longer function -- it, and its associated leases, are revoked."},
+        {"id": "S021-nonroot-ttl", "anchor": "Token Time-To-Live", "text": "Every non-root token has a time-to-live (TTL) associated with it"}
       ],
       "bindings": [
         {"feature": "openbao_token_ttl", "field": "product", "value": "openbao", "quote_id": "S021-title"},
@@ -747,8 +752,8 @@
       "defect_class": "bounded-control",
       "expected_decision": "admit",
       "reference": {
-        "path": "corpus/knowledge/feature-bound-credential-review.md",
-        "anchor": "Vault dynamic-secret lease row"
+        "path": "corpus/SOURCES.md",
+        "anchor": "Registry S013: Vault dynamic-secret lease scope and quote"
       },
       "claim": {
         "product": "hashicorp_vault",

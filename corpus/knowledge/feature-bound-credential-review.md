@@ -41,3 +41,20 @@ app channel or deployment restrictions; an OpenBao version changing the cited
 token-type/TTL rules; or a cited page failing to carry its claimed qualifier
 invalidates the corresponding admitted row. Reject the changed row until its
 source is reopened and a new correction is recorded.
+
+## Projection and wording limits (round-22 falsification)
+
+The Actions hosting exclusions mean **currently unsupported as documented
+on 2026-10-20**, not an everlasting product guarantee. The EPM Business
+sentence is the **2026-07-28 product announcement's** eligibility statement;
+the feature pages separately require a connected **1Password Business
+account**. These are recorded as distinct conditions, not proof that the
+two commercial labels are identical or that a particular customer has
+feature entitlement.
+
+The typed gate accepts the exact reviewed evidence projection. A valid
+alternate/superset or more-conservative claim can fail that representation;
+its rejection is not proof the source claim is false. Selected
+`runtime_constraints` are not a complete workflow-prerequisite inventory.
+Unrepresented setup permissions/app prerequisites require direct page
+review, and no admitted typed record authorizes a real credential action.

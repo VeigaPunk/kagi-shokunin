@@ -156,3 +156,21 @@ independently establish all dynamic-secret engine or KV behavior; service
 and batch-token paths must remain distinct. No new deployed behavior was
 measured. Source review: `kagi-shokunin/.ufo/waves/round-22/build/Source14.md` and
 `kagi-shokunin/.ufo/waves/round-22/build/Source16.md`.
+
+### Final round-22 role and locator correction
+
+For the Vault audience rule, the mandatory bound-audience match applies
+from Vault 1.17 to **JWT roles** when the presented JWT has an audience
+claim. The same page says `bound_audiences` is optional for **OIDC roles**
+and typically not required; do not generalize the mandatory setting across
+role types. S022 records that correction to S012. S023 corrects S013's
+categorical no-displayed-version locator while preserving its valid Vault
+lease/KV mechanism; the observed v2.x Edit-source route proves no deployed
+binary version. Located quotes and their source-consumption handshake are
+in `corpus/lessons/round-22-source-errata.md`, not a rewritten old header.
+
+The OpenBao reopen mentioned above is registered as S021; S016 retains its
+earlier capture. Associated-lease revocation is a continuation of the same
+TTL sentence after the dash, not a separate following sentence. **No lease
+does not imply no deletion or guaranteed retention.** No Vault or OpenBao
+runtime, account or token operation was performed for these corrections.

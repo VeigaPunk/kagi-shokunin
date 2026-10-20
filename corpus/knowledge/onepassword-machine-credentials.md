@@ -78,3 +78,14 @@ custody-boundary property. The original fetched-page hashes are historical
 point observations without a recorded representation; current raw-page
 mismatches do not by themselves prove mechanism drift. Public-beta status
 comes from the feature page's own title, not shared navigation labels.
+
+### Final round-22 clause attribution
+
+In item 3, S003 alone carries deployment-credential setup and the
+per-application-token recommendation; S002 supplies the application
+access-token/REST boundary via its diagram caption. The old joint bracket
+does not make every clause a teaching of both pages. Item 4's explanation
+that a valid OIDC identity is “needed to decrypt” is [INFERENCE] combining
+S006's access condition with S007's integration-key decryption requirement,
+not a vendor statement about a cryptographic algorithm. The active review
+does not assert that algorithm or a live entitlement.

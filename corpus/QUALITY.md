@@ -77,3 +77,11 @@ or a related product does not satisfy the feature's own status anchor.
 Bind the status to its own title/H1 or explicitly named status region and
 keep a same-page status-swap rejection beside a valid control. This is the
 concrete counterexample in the round-22 lesson, not a new countable criterion.
+
+QM13 application from round-22 falsification: a CLEAN summary does not
+establish the claimed command selection or authorization scope. If a
+secrets/vault gate receipt contradicts its argument parser or membership
+arithmetic, retain exact argv/cwd/stdout or quarantine the claim; never
+invent missing semantics. In particular, legacy `verify` positional IDs
+were not row selectors. Its unauthorized host-gate results are not a
+substitute for QM12's explicit safe-row accounting.

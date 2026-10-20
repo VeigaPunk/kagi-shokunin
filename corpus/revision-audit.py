@@ -65,13 +65,14 @@ def git_read(root: Path, args: list[str]) -> bytes | None:
 
 
 def parse_path(path: str) -> str | None:
-    """Return PATH-ESCAPE for traversal forms, otherwise MALFORMED for invalid names."""
+    """Return PATH-ESCAPE for administrative/traversal forms, else MALFORMED."""
     if (
         path.startswith("/")
         or path.startswith("\\")
         or "\\" in path
         or re.match(r"[A-Za-z]:", path)
         or any(part in (".", "..") for part in path.split("/"))
+        or any(part in (".git", ".jj") for part in path.split("/"))
     ):
         return "PATH-ESCAPE"
     if not path or not SAFE_PATH.fullmatch(path):
@@ -140,7 +141,7 @@ def parse_stamps(data: bytes, history: bool = False) -> tuple[dict[str, tuple[st
 
 
 def open_regular_at(root_fd: int, path: str, root_device: int) -> int:
-    """Open a worktree path without following symlink components or crossing devices."""
+    """Open a worktree path without following symlinks or crossing devices."""
     parts = path.split("/")
     directory_fd = os.dup(root_fd)
     try:
@@ -196,7 +197,7 @@ def open_regular_at(root_fd: int, path: str, root_device: int) -> int:
         if not stat.S_ISREG(info.st_mode):
             os.close(file_fd)
             raise ReadFailure("NOT-FILE")
-        if info.st_dev != root_device:
+        if info.st_nlink != 1 or info.st_dev != root_device:
             os.close(file_fd)
             raise ReadFailure("PATH-ESCAPE")
         return file_fd
@@ -258,6 +259,15 @@ def parse_history(root: Path, history_arg: str) -> tuple[bytes | None, set[bytes
     oid = history_arg.lower()
     if git_read(root, ["cat-file", "-t", oid]) != b"commit\n":
         return None, None, "HISTORY-UNAVAILABLE"
+    resolved = git_read(root, ["rev-parse", "--verify", "--end-of-options", oid])
+    if resolved is None:
+        return None, None, "HISTORY-INVALID"
+    try:
+        canonical_oid = resolved.decode("ascii").strip()
+    except UnicodeDecodeError:
+        return None, None, "HISTORY-INVALID"
+    if canonical_oid != oid:
+        return None, None, "HISTORY-INVALID"
     history_files, tree_error = history_tree(root, oid)
     if tree_error is not None or history_files is None:
         return None, None, tree_error or "HISTORY-UNAVAILABLE"
@@ -514,8 +524,58 @@ def selftest() -> int:
         os.mkfifo(root / "corpus" / "fifo")
         (root / STAMP_PATH).write_bytes(stamp_line("corpus/fifo", b"fixture-only\n"))
         check("fifo-not-file", 2, "NOT-FILE corpus/fifo", audit(root, history))
+        (root / STAMP_PATH).write_bytes(stamp_line(".git/config", b"fixture-only\n"))
+        check("git-admin-path", 2, "PATH-ESCAPE 1", audit(root, history))
+
+        (root / ".jj").mkdir()
+        (root / ".jj" / "metadata").write_bytes(b"fixture-only\n")
+        (root / STAMP_PATH).write_bytes(stamp_line(".jj/metadata", b"fixture-only\n"))
+        check("jj-admin-path", 2, "PATH-ESCAPE 1", audit(root, history))
+
+        hardlink_target = base / "hardlink-target"
+        hardlink_target.write_bytes(b"fixture-only\n")
+        os.link(hardlink_target, root / "corpus" / "hardlink.txt")
+        (root / STAMP_PATH).write_bytes(stamp_line("corpus/hardlink.txt", b"fixture-only\n"))
+        check("hardlink-path", 2, "PATH-ESCAPE corpus/hardlink.txt", audit(root, history))
+
+        gitignore = b"fixture-pattern\n"
+        (root / ".gitignore").write_bytes(gitignore)
+        (root / "corpus" / "keep.txt").write_bytes(keep)
+        (root / STAMP_PATH).write_bytes(original_stamps + stamp_line(".gitignore", gitignore))
+        check("gitignore-valid", 0, "ADDED .gitignore", audit(root, history))
 
         check("option-history", 2, "HISTORY-INVALID", audit(root, "--output=fixture"))
+        sha256_root = base / "sha256-repo"
+        sha256_root.mkdir()
+        (sha256_root / "corpus").mkdir()
+        sha256_data = b"sha256 fixture\n"
+        (sha256_root / "corpus" / "item.txt").write_bytes(sha256_data)
+        (sha256_root / STAMP_PATH).write_bytes(stamp_line("corpus/item.txt", sha256_data))
+        if fixture_git(sha256_root, "init", "--object-format=sha256", "-q") is None:
+            print(f"REVISION_AUDIT_SELFTEST: FAIL (cases={cases} failed=1)")
+            return 1
+        if fixture_git(sha256_root, "add", "--", STAMP_PATH, "corpus/item.txt") is None:
+            print(f"REVISION_AUDIT_SELFTEST: FAIL (cases={cases} failed=1)")
+            return 1
+        if fixture_git(
+            sha256_root,
+            "-c", "core.hooksPath=/dev/null",
+            "-c", "user.name=revision-audit-fixture",
+            "-c", "user.email=revision-audit-fixture@example.invalid",
+            "commit", "-q", "-m", "sha256-fixture",
+        ) is None:
+            print(f"REVISION_AUDIT_SELFTEST: FAIL (cases={cases} failed=1)")
+            return 1
+        sha256_history_bytes = fixture_git(sha256_root, "rev-parse", "HEAD")
+        if sha256_history_bytes is None:
+            print(f"REVISION_AUDIT_SELFTEST: FAIL (cases={cases} failed=1)")
+            return 1
+        sha256_history = sha256_history_bytes.decode("ascii").strip()
+        if len(sha256_history) != 64:
+            print(f"REVISION_AUDIT_SELFTEST: FAIL (cases={cases} failed=1)")
+            return 1
+        check("sha256-full-id", 0, None, audit(sha256_root, sha256_history))
+        check("sha256-truncated-id", 2, "HISTORY-INVALID", audit(sha256_root, sha256_history[:40]))
 
     verdict = "PASS" if failed == 0 else "FAIL"
     print(f"REVISION_AUDIT_SELFTEST: {verdict} (cases={cases} failed={failed})")

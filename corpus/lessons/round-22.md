@@ -190,3 +190,47 @@ bookkeeping. Restamping proves pointer integrity only, never currentness.
 The original SCORECARD “both rows” capability note refers to the two
 round-21 rows. The new feature-review row first worked in round 22 and is
 supported by execution, not inserted as a promise.
+
+### Fresh-wave closure and corrections
+
+The genuine second wave returned all 66 reports after reading helper-landed
+H1 `8ada17a50a25a75e6fc4a8cf880c87a85c67c8a3`. All 71 manifest inputs stayed
+byte-identical through the wave. The four independent typed-input mutants
+(eligibility omission, status swap, cross-product attribution and missing
+authority) were killed while paired valid controls remained admitted.
+Those are bounded semantic/bar decisions, not manifest-tamper refusals.
+The two waves contain 130 unique seats; all four dead Haiku scribes remain
+uncredited. Resumed original identities implement corrections, not new seats.
+
+| class | evidence pointer | captured-by | disposition |
+|---|---|---|---|
+| FIFO blocked before regular-file check | `kagi-shokunin/.ufo/waves/round-22/falsify/SentinelClaimInput.md` | QM3/QM9 | nonblocking same-descriptor open, explicit FIFO self-invocation refusals; a watchdog timeout never counts as pass |
+| malformed/case-variant H2 scores disappeared while other cells kept CLEAN | `kagi-shokunin/.ufo/waves/round-22/falsify/RunCellsMalformed.md` | QM9 and all-axis/vacuity contract | CommonMark H2 recognition, reserved Round-word guard and complete pre/post token; exact blocked attempt remains the only exception |
+| administrative metadata/hardlink fingerprint boundary; long SHA256 abbreviation accepted | `kagi-shokunin/.ufo/waves/round-22/falsify/SentinelHistoryInput.md` | QA5/QM9 | admin/hardlink refusal and canonical full-ID equality; old false-clean fixture results preserved |
+| ignored positional mode invoked full verify; summary contradicted parser/membership arithmetic | `kagi-shokunin/.ufo/waves/round-22/review-evidence-quarantine-closure.json` | QM2/QM13 | pre-surface argument rejection; unsupported review checks withdrawn and uncredited, no rerun used to invent missing receipts |
+| reference metadata copied into build reports | `kagi-shokunin/.ufo/waves/round-22/privacy-redactions.json` | QA5 | four spans removed before H1; counts-only red-before/repaired evidence retains no original reference path |
+| pre-existing non-author verifier looked like newly authored content in migration journal | `kagi-shokunin/.ufo/waves/round-22/pin-migration-errata.json` | QM14 | old stamp remains null, but base-observed digest/disposition restored in a separate correction record |
+
+Safety is **not** certified clean: two fresh seats acknowledged full-verify
+invocations against the no-host-gate boundary, including untagged R18-01.
+No complete per-row private-surface receipt survives from the unreliable
+review seat, and no clean whole-round secret-access attestation is inferred.
+No private/account data was re-read to resolve that uncertainty. Main's
+final checks use only explicitly safe rows; the unauthorized checks are
+not credited. The indirect Node installation and scratch-clone collision
+also remain disclosed. Admission belongs to the parent's independent
+non-author closure, not this lane's engineering verdict.
+
+The original CriticNoTrade name collided across waves; the actual task
+tool created fresh `KagiR22.CriticNoTrade-2`. Registry correction uses the
+original spawn receipt, never a replacement/respawn task. A registry-only
+rerender reset the mistaken assignment and was **not dispatched**.
+`task-receipt-build.json`, `task-receipt-falsify.json` and
+`assignment-correction.json` in the round evidence preserve the distinction.
+
+Late S022/S023 source corrections are consumed by
+`corpus/lessons/round-22-source-errata.md`; the original rows stay immutable.
+The same fresh source identities compared the final rows with their
+already-opened primary pages. Counts remain 10 bad / 4 bounded / 3 boundary
+records in C1; JWT login remains out of profile. Catalog limitations and
+inert reference/quote-binding corrections are explicit, not new metrics.

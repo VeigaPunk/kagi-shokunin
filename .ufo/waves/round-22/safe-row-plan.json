@@ -1,0 +1,322 @@
+{
+  "integration_landing": "8ada17a50a25a75e6fc4a8cf880c87a85c67c8a3",
+  "status": "plan, not an exercised pass; execute after fresh wave and any integration fixes",
+  "safe_rows": [
+    {
+      "id": "R11-05",
+      "command": "bash corpus/drift-pins.sh --selftest",
+      "expected_last_ere": "^DRIFT_SELFTEST: PASS \\(13 cases\\)",
+      "expected_exit": 0,
+      "timeout": 300
+    },
+    {
+      "id": "R11-07",
+      "command": "bash corpus/transcript-scan.sh --selftest",
+      "expected_last_ere": "^SELFTEST OK",
+      "expected_exit": 0,
+      "timeout": 300
+    },
+    {
+      "id": "R11-08",
+      "command": "bash corpus/claim-ledger.sh citations",
+      "expected_last_ere": "^CITATION_GATE: CLEAN \\(cites=[1-9][0-9]* docs=[1-9][0-9]* unresolved=0 ephemeral=0",
+      "expected_exit": 0,
+      "timeout": 300
+    },
+    {
+      "id": "R11-09",
+      "command": "bash corpus/claim-ledger.sh --selftest",
+      "expected_last_ere": "^SELFTEST: PASS \\(108 cases\\)",
+      "expected_exit": 0,
+      "timeout": 300
+    },
+    {
+      "id": "R11-10",
+      "command": "grep -cv '^#' corpus/state-shape.tsv",
+      "expected_last_ere": "^22$",
+      "expected_exit": 0,
+      "timeout": 30
+    },
+    {
+      "id": "R11-11",
+      "command": "grep -cv '^#' corpus/surface-census.tsv",
+      "expected_last_ere": "^35$",
+      "expected_exit": 0,
+      "timeout": 30
+    },
+    {
+      "id": "R12-02",
+      "command": "bash corpus/op-ref-probe.sh --selftest",
+      "expected_last_ere": "^OP_REF_SELFTEST: PASS \\(36 cases\\)",
+      "expected_exit": 0,
+      "timeout": 300
+    },
+    {
+      "id": "R12-03",
+      "command": "grep -c '[^[:space:]]' corpus/stamps.tsv",
+      "expected_last_ere": "^69$",
+      "expected_exit": 0,
+      "timeout": 30
+    },
+    {
+      "id": "R13-01",
+      "command": "grep -c '^## Round ' SCORECARD.md",
+      "expected_last_ere": "^25$",
+      "expected_exit": 0,
+      "timeout": 30
+    },
+    {
+      "id": "R13-02",
+      "command": "grep -c '^R1' corpus/claim-ledger.tsv",
+      "expected_last_ere": "^35$",
+      "expected_exit": 0,
+      "timeout": 30
+    },
+    {
+      "id": "R14-01",
+      "command": "bash corpus/claim-ledger.sh docs",
+      "expected_last_ere": "^DOC_AUDIT: CLEAN \\(entries=25 row_linked=22 by_hand=3 undeclared=0 missing_ids=0 unpinned=0",
+      "expected_exit": 0,
+      "timeout": 300
+    },
+    {
+      "id": "R15-02",
+      "command": "bash corpus/checklist-run.sh --selftest",
+      "expected_last_ere": "^CHECKLIST_SELFTEST: PASS \\(34 cases\\)$",
+      "expected_exit": 0,
+      "timeout": 300
+    },
+    {
+      "id": "R15-03",
+      "command": "bash corpus/checklist-run.sh --list",
+      "expected_last_ere": "^CHECKLIST_LIST: rows=16 runnable=9 by_hand=7$",
+      "expected_exit": 0,
+      "timeout": 60
+    },
+    {
+      "id": "R15-04",
+      "command": "grep -cE '^[EH][0-9]+[[:space:]]' corpus/checklist.tsv",
+      "expected_last_ere": "^16$",
+      "expected_exit": 0,
+      "timeout": 30
+    },
+    {
+      "id": "R15-05",
+      "command": "bash corpus/checklist-run.sh --ratio",
+      "expected_last_ere": "^CHECKLIST_RATIO: runnable=9/16 floor=8 by_hand=7 delegated=3 direct=6$",
+      "expected_exit": 0,
+      "timeout": 30
+    },
+    {
+      "id": "R16-02",
+      "command": "bash corpus/scope-gate.sh --selftest",
+      "expected_last_ere": "^SCOPE_SELFTEST: PASS \\(61 cases\\)$",
+      "expected_exit": 0,
+      "timeout": 300
+    },
+    {
+      "id": "R16-04",
+      "command": "grep -cE '^# own[[:space:]]+.HOME/' corpus/adjacency.tsv",
+      "expected_last_ere": "^5$",
+      "expected_exit": 0,
+      "timeout": 30
+    },
+    {
+      "id": "R16-05",
+      "command": "grep -cE '^[^#[:space:]]' corpus/adjacency.tsv",
+      "expected_last_ere": "^4$",
+      "expected_exit": 0,
+      "timeout": 30
+    },
+    {
+      "id": "R16-06",
+      "command": "grep -cE '^# no-enumerate[[:space:]]+.HOME/' corpus/adjacency.tsv",
+      "expected_last_ere": "^8$",
+      "expected_exit": 0,
+      "timeout": 30
+    },
+    {
+      "id": "R17-02",
+      "command": "grep -cE '^# breadth[[:space:]]+.HOME/' corpus/adjacency.tsv",
+      "expected_last_ere": "^4$",
+      "expected_exit": 0,
+      "timeout": 30
+    },
+    {
+      "id": "R17-03",
+      "command": "grep -cE '^# no-enumerate[[:space:]]+.HOME/' corpus/adjacency.tsv",
+      "expected_last_ere": "^8$",
+      "expected_exit": 0,
+      "timeout": 30
+    },
+    {
+      "id": "R18-02",
+      "command": "grep -cE '\\[substrate\\]' corpus/claim-ledger.tsv",
+      "expected_last_ere": "^11$",
+      "expected_exit": 0,
+      "timeout": 30
+    },
+    {
+      "id": "R18-03",
+      "command": "bash corpus/claim-ledger.sh --selftest",
+      "expected_last_ere": "^SELFTEST: PASS \\(108 cases\\)$",
+      "expected_exit": 0,
+      "timeout": 300
+    },
+    {
+      "id": "R21-01",
+      "command": "bash corpus/op-ref-probe.sh --dotenv-bytes",
+      "expected_last_ere": "^OP_DOTENV_BYTES: CLEAN \\(checks=6 failed=0\\)$",
+      "expected_exit": 0,
+      "timeout": 120
+    },
+    {
+      "id": "R21-02",
+      "command": "bash corpus/sources-census.sh",
+      "expected_last_ere": "^SOURCES_CENSUS: CLEAN \\(rows=21 A=19 B=0 C=2 queued=1 mined=19 rejected=1 entries_sourced=4 legacy=21\\)$",
+      "expected_exit": 0,
+      "timeout": 60
+    },
+    {
+      "id": "R21-03",
+      "command": "bash corpus/sources-census.sh --selftest",
+      "expected_last_ere": "^SOURCES_CENSUS_SELFTEST: PASS \\(47 cases\\)$",
+      "expected_exit": 0,
+      "timeout": 120
+    },
+    {
+      "id": "R21-04",
+      "command": "grep -cE '^R[0-9]+-[0-9]+' corpus/claim-ledger.tsv",
+      "expected_last_ere": "^43$",
+      "expected_exit": 0,
+      "timeout": 30
+    },
+    {
+      "id": "R22-01",
+      "command": "python3 corpus/feature-claims.py --phase after",
+      "expected_last_ere": "^FEATURE_CLAIMS: CLEAN phase=after admitted=4 false_claims=0 bar_failures=0 false_admissions=0 misses=0 unjudgeable=0$",
+      "expected_exit": 0,
+      "timeout": 60
+    },
+    {
+      "id": "R22-02",
+      "command": "python3 corpus/feature-claims.py --selftest",
+      "expected_last_ere": "^FEATURE_CLAIMS_SELFTEST: PASS cases=10$",
+      "expected_exit": 0,
+      "timeout": 120
+    },
+    {
+      "id": "R22-03",
+      "command": "python3 corpus/revision-audit.py --history c2cab35bc92e57e39e5489bac3386db078345b3f",
+      "expected_last_ere": "^REVISION_AUDIT: CLEAN \\(stale=0 missing=0 dropped=0 added=6 invalid=0\\)$",
+      "expected_exit": 0,
+      "timeout": 120
+    },
+    {
+      "id": "R22-04",
+      "command": "python3 corpus/revision-audit.py --selftest",
+      "expected_last_ere": "^REVISION_AUDIT_SELFTEST: PASS \\(cases=11 failed=0\\)$",
+      "expected_exit": 0,
+      "timeout": 120
+    }
+  ],
+  "skipped_rows": [
+    {
+      "id": "R11-01",
+      "command": "bash corpus/surface-census.sh",
+      "expected_last_ere": "^SURFACE_CENSUS: CLEAN \\(assets=[1-9][0-9]* runtime=[1-9][0-9]* scanned=[0-9]+ ok=[1-9][0-9]*",
+      "expected_exit": 0,
+      "timeout": 300,
+      "reason": "Host/substrate-dependent or transitively host-private command; not authorized in this round. Fixture coverage is separate from live verification."
+    },
+    {
+      "id": "R11-02",
+      "command": "bash corpus/surface-census.sh --verbs",
+      "expected_last_ere": "^SURFACE_CENSUS_VERBS: CLEAN \\(pass=[1-9][0-9]* skip=[0-9]+\\)",
+      "expected_exit": 0,
+      "timeout": 300,
+      "reason": "Host/substrate-dependent or transitively host-private command; not authorized in this round. Fixture coverage is separate from live verification."
+    },
+    {
+      "id": "R11-03",
+      "command": "bash corpus/surface-census.sh --selftest",
+      "expected_last_ere": "^SELFTEST: PASS \\(16 cases\\)",
+      "expected_exit": 0,
+      "timeout": 300,
+      "reason": "Host/substrate-dependent or transitively host-private command; not authorized in this round. Fixture coverage is separate from live verification."
+    },
+    {
+      "id": "R11-04",
+      "command": "bash corpus/drift-pins.sh",
+      "expected_last_ere": "^DRIFT_PINS: CLEAN \\(files=[1-9][0-9]* symbols=[1-9][0-9]*\\)",
+      "expected_exit": 0,
+      "timeout": 120,
+      "reason": "Host/substrate-dependent or transitively host-private command; not authorized in this round. Fixture coverage is separate from live verification."
+    },
+    {
+      "id": "R11-06",
+      "command": "bash corpus/transcript-scan.sh",
+      "expected_last_ere": "^TRANSCRIPT_SCAN: HITS=2 \\(cells=[1-9][0-9]*",
+      "expected_exit": 1,
+      "timeout": 300,
+      "reason": "Host/substrate-dependent or transitively host-private command; not authorized in this round. Fixture coverage is separate from live verification."
+    },
+    {
+      "id": "R12-01",
+      "command": "bash corpus/op-ref-probe.sh",
+      "expected_last_ere": "^OP_REF_PROBE: CLEAN \\(checks=[1-9][0-9]* oprun=[1-9][0-9]* refs=[1-9][0-9]* divergent=[1-9][0-9]*",
+      "expected_exit": 0,
+      "timeout": 300,
+      "reason": "Host/substrate-dependent or transitively host-private command; not authorized in this round. Fixture coverage is separate from live verification."
+    },
+    {
+      "id": "R15-01",
+      "command": "bash corpus/checklist-run.sh",
+      "expected_last_ere": "^CHECKLIST_RUN: CLEAN \\(items=16 runnable=9 by_hand=7 failed=0\\)$",
+      "expected_exit": 0,
+      "timeout": 300,
+      "reason": "Host/substrate-dependent or transitively host-private command; not authorized in this round. Fixture coverage is separate from live verification."
+    },
+    {
+      "id": "R13-03",
+      "command": "bash corpus/claim-ledger.sh cells",
+      "expected_last_ere": "^CELL_AUDIT: CLEAN \\(cells=[0-9]+ row_pointed=[0-9]+ stamp_pointed=[0-9]+ uncited=0 missing_ids=0 rows_run=[0-9]+ row_deferred=[0-9]+ row_failures=0 stale_pointers=0 self_skipped=[0-9]+ orphans=[0-9]+\\)$",
+      "expected_exit": 0,
+      "timeout": 300,
+      "reason": "Host/substrate-dependent or transitively host-private command; not authorized in this round. Fixture coverage is separate from live verification."
+    },
+    {
+      "id": "R16-01",
+      "command": "bash corpus/scope-gate.sh",
+      "expected_last_ere": "^ADJACENCY_SCOPE: CLEAN \\(census=35 owned=27 shared=8 groups=4 owners=4 unresolved=1 contested=1 escapes=0 inbound=0 foreign=0 orphans=0 stale_basis=0 basis_escape=0 own_unlisted=0 breadth_required=4 breadth_pins=4 breadth_checked=4 breadth_ok=4 breadth_missing=0 breadth_invalid=0 breadth_drift=0 breadth_exceeds=0 breadth_unverified=0\\)$",
+      "expected_exit": 0,
+      "timeout": 300,
+      "reason": "Host/substrate-dependent or transitively host-private command; not authorized in this round. Fixture coverage is separate from live verification."
+    },
+    {
+      "id": "R16-03",
+      "command": "bash corpus/scope-gate.sh --falsify",
+      "expected_last_ere": "^SCOPE_FALSIFY: PASS \\(caught=18/18 failed=0\\)$",
+      "expected_exit": 0,
+      "timeout": 300,
+      "reason": "Host/substrate-dependent or transitively host-private command; not authorized in this round. Fixture coverage is separate from live verification."
+    },
+    {
+      "id": "R17-01",
+      "command": "bash corpus/scope-gate.sh --breadth",
+      "expected_last_ere": "^BREADTH_AUDIT: CLEAN \\(required=4 pins=4 checked=4 ok=4 children=182 declared=8 undeclared=174 missing=0 invalid=0 drift=0 exceeds=0 unverified=0\\)$",
+      "expected_exit": 0,
+      "timeout": 300,
+      "reason": "Host/substrate-dependent or transitively host-private command; not authorized in this round. Fixture coverage is separate from live verification."
+    },
+    {
+      "id": "R18-01",
+      "command": "bash corpus/drift-pins.sh",
+      "expected_last_ere": "^DRIFT_PINS: DRIFT \\(files_ok=0 files_bad=15 symbols_ok=0 symbols_bad=20\\)$",
+      "expected_exit": 1,
+      "timeout": 120,
+      "reason": "Explicit untagged drift-pins command reads host-private surfaces; not authorized."
+    }
+  ],
+  "policy": "No full verify/cells invocation, because transitive host-private rows are outside authorization. Each safe row will be invoked and checked by exit and last line."
+}

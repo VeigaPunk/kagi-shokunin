@@ -111,3 +111,12 @@ Re-verification requires restored authorized reads of the handler and
 `client.py` plus relevant freshness-gate results before current-tense reuse.
 Restoration alone is not a pass. These prerequisites do not authorize
 executing the retained recipes or reading secret material in this round.
+
+### Round-22 locator note
+
+The preceding erratum's numeric SCORECARD spans identify its historical
+revision, not current line addresses. Use the named **Round-19 correction**
+and **Outcome — round-16 re-dispatch** sections; the latter's Observed
+result is part of the evidence, not excluded by an old endpoint.
+No source-derived byte, mode, variable value or behavior was reverified.
+Review: `kagi-shokunin/.ufo/waves/round-22/falsify/AttackEntry13.md`.

@@ -1,0 +1,12 @@
+{
+  "agent": "KagiR22.AttackActiveReview",
+  "report": "falsify/AttackActiveReview.md",
+  "disposition": "Quantitative check claims uncredited pending valid retained receipts; no new seat spawned.",
+  "contradictions": [
+    "Claimed --history H1 gives added=6 despite acknowledging both current and H1 stamp membership are 69. The auditor computes current_members minus historical_members; that is zero for identical sets. BASE comparison gives six.",
+    "Claimed verify R12-03 R21-04 selects two rows and did not execute R18-01. H1 parser stores those tokens in POS[] and verify_claims has no positional selection; a claims=43/deferred=11 receipt is not proof of a two-row fixture."
+  ],
+  "grounding": "Frozen H1 8ada17a50a25a75e6fc4a8cf880c87a85c67c8a3 source: revision-audit.py membership difference; claim-ledger.sh argument parser and verify_claims loop. Independent ReopenSource07 correctly reports added=0 against H1.",
+  "limits": "No claim that this seat actually accessed private bytes; its reported command would run the full ledger. No rerun was used to confirm a known contradiction. Other independent source reopen/mutation results and main executions carry the round claims.",
+  "related_actual_incident": "ReopenSource20 corrected its mode attribution and acknowledged running an ignored revision token that defaulted to full verify. Post-parse rejection is being corrected in the original private implementation seat."
+}

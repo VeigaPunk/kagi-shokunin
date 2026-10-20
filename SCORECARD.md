@@ -683,9 +683,9 @@ landed in the round-21 correction commit (cited in `LOG.md`):
 |---|---|---|---|
 | op-only dotenv byte probe | run six generated plain-value dotenv classes through `op run --env-file` under `env -i` with scratch HOME/XDG and compare the child's bytes (hex) to literal expectations; no ref, account or handler involved | `bash corpus/op-ref-probe.sh --dotenv-bytes` (ledger `R21-01`; `knowledge/op-ref-consumption.md` §11) | 21 (first run in the round-20 attempt, unadmitted there) |
 | source registry + census gate | curate opened, scope-tiered sources with anchors, rejections and study paths, and machine-check the registry plus the entry ↔ source citation chain both ways | `bash corpus/sources-census.sh` (ledger `R21-02`), `--selftest` 47 cases (`R21-03`); `corpus/SOURCES.md` | 21 |
-| feature-bound typed credential review | adjudicate one caller-supplied typed claim against pinned product/feature/status/eligibility/anchor evidence; reject known false/bar-failing claims, keep unjudgeable inputs separate, accept bounded controls | `python3 corpus/feature-claims.py --selftest` → PASS cases=10; `--phase before` refuses 10 bad records, `--phase after` admits 4; R22-01/R22-02; `kagi-shokunin/.ufo/waves/round-22/repaired-checks.json` | 22 |
+| feature-bound typed credential review | adjudicate one caller-supplied typed claim against pinned product/feature/status/eligibility/anchor evidence; reject known false/bar-failing claims, keep unjudgeable inputs separate, accept bounded controls | first demonstration at helper-landed `8ada17a50a25a75e6fc4a8cf880c87a85c67c8a3`: selftest PASS cases=10, before rejects10/after admits4; current hardened counts are pinned by R22-01/R22-02; `kagi-shokunin/.ufo/waves/round-22/repaired-checks.json` | 22 |
 
-Rows enter only through a round that demonstrates the capability running (`AXES.md` §Capabilities); both rows entered with the round-21 runs quoted above. The 2026-10-16 rollout added none.
+Rows enter only through demonstrated execution (`AXES.md` §Capabilities): the two round-21 capabilities entered through that round's runs; feature-bound typed credential review first worked in round 22 through R22-01/R22-02. The 2026-10-16 rollout added none.
 
 ## Saturation
 
@@ -769,3 +769,18 @@ criteria. Its scope is the closed reviewed source vocabulary and typed
 records, not arbitrary prose, vendor truth or outside agreement. Final
 falsification findings, measured revision and lane verdict are appended
 before filing the fleet report.
+
+### Current saturation and next intended claims
+
+The round-21 “earliest round 25” note was conditional on no later
+capability. The new round-22 capability resets that condition: saturation
+line 9 and window N=3 stay unchanged, with no stagnation waiver applied
+this round. No axis is retired or split.
+
+Planned, not executed here: (1) freshness — give legacy entries a truthful
+recheck clock without weakening the credential detector or calling headers
+depth; (2) calibration — consume the independent closure's admit/reject
+decisions and scope-breach ruling rather than self-certifying agreement;
+(3) operability — revisit the byte probe's documented op-failure
+SETUP-versus-DRIFT classification under plain local fixtures. Only the
+operator's next steer chooses a future round; this assignment remains r22.

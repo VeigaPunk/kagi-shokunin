@@ -25,6 +25,8 @@
 | S019 | Credential Broker integration eligibility — https://www.1password.dev/brokered-access | docs | A | Business-account integration setup and GitHub deployment restrictions, not uniform per-feature release status | Introduction and Add an integration, GitHub Actions requirements; unversioned live docs opened 2026-10-20 | supersedes S007 — the guide-level preview label does not determine custom-workflow status; Business setup and GitHub.com/private-repository requirements remain separate qualifiers. | mined | 2026-10-20 | on-release | corpus/lessons/round-22.md, corpus/knowledge/feature-bound-credential-review.md |
 | S020 | Credential Broker public-preview announcement, feature split — https://1password.com/blog/1password-credential-broker-public-preview | docs | A | EPM Business eligibility and announcement-time Actions preview versus custom-OIDC beta | Introduction; New in this release: Custom OIDC workflows; published 2026-07-28, reopened 2026-10-20 | supersedes S006 — EPM Business eligibility applies; the announcement explicitly distinguishes Actions public preview from custom-OIDC beta rollout. | mined | 2026-10-20 | on-release | corpus/lessons/round-22.md, corpus/knowledge/feature-bound-credential-review.md |
 | S021 | OpenBao token lifecycle, product-bound review — https://openbao.org/docs/concepts/tokens/ | docs | A | OpenBao service-token TTL and associated leases; no Vault-token or KV-retention claim | Token Time-To-Live, periodic tokens, and explicit max TTLs; Token type comparison; Version 2.7.x, opened 2026-10-20 | OpenBao non-root token TTL and service-versus-batch limits require OpenBao evidence; neither Vault token behavior nor KV retention follows from this page. | mined | 2026-10-20 | on-release | corpus/lessons/round-22.md, corpus/knowledge/feature-bound-credential-review.md |
+| S022 | Vault JWT-role audience qualifier — https://developer.hashicorp.com/vault/docs/auth/jwt | docs | A | Vault JWT roles from 1.17: audience match when aud is present; separate OIDC-role optional setting | Introduction Vault 1.17 note; OIDC configuration troubleshooting; served page opened 2026-10-20 | supersedes S012 — exact bound-audience matching is the JWT-role path, not a mandatory bound_audiences setting for OIDC roles; OIDC keeps its documented optional qualifier. | mined | 2026-10-20 | on-release | corpus/lessons/round-22-source-errata.md |
+| S023 | Vault lease/KV scoped locator — https://developer.hashicorp.com/vault/docs/concepts/lease | docs | A | Vault dynamic-secret/service-token leases and static KV no-lease note; served version-route locator only | H1 Lease, renew, and revoke; KV note; Edit this page link to content/vault/v2.x/content/docs/concepts/lease.mdx; opened 2026-10-20 | supersedes S013 — retain the valid Vault lease/KV mechanism, withdraw the categorical no-displayed-version locator; a served v2.x source route is not deployment proof or a KV retention guarantee. | mined | 2026-10-20 | on-release | corpus/lessons/round-22-source-errata.md |
 
 ## Paths
 
@@ -32,6 +34,7 @@
 - **Encrypted-file key lifecycle** — S009 → S010 → S011: configure age recipients, understand multi-group recovery, then distinguish recipient synchronization from data-key rotation and the documented compromise order.
 - **Vault and OpenBao authentication/lifecycle** — S012 → S013 → S014 → S015 → S016: bind JWT audiences, separate dynamic-secret leases from static KV, compare OpenBao auth behavior and its Kubernetes revocation limit, then follow OpenBao token TTL and revocation behavior.
 - **Corrected active feature review (round 22)** — S019 → S017 → S018 → S020 → S021: establish eligible setup first, check each Broker feature's own status separately, retain the announcement's dated context, then separate OpenBao token evidence from other products.
+- **Role and lease qualifier correction (round 22)** — S022 → S023: separate JWT-role audience validation from OIDC-role configuration, then keep Vault lease issuance distinct from KV retention and served-source version locators.
 
 ## Search log
 
@@ -84,3 +87,26 @@ uppercased JWT quote is normalized text, not a case-literal excerpt.
 These original rows remain historical curation records; no current
 cross-product or release inference is drawn from those locator fields.
 The active review uses S017–S021's explicit feature/product anchors.
+
+Final source accounting (round 22): S017–S023 are seven opened correction/
+feature rows, **not seven new websites/pages**. Only the Actions and custom
+workflow URLs are new relative to the starting registry; the other new
+identifiers reopen registered URLs for corrected scope/locators. Source
+rows become 23 over 18 distinct URLs. S022/S023 were opened by the author
+and recorded with located quotes in `corpus/lessons/round-22-source-errata.md`.
+The earlier caveats remain history; S013's no-version-display wording is
+specifically superseded, while S012's latest/non-latest version-label
+taxonomy is not conflated.
+
+Capture precision: fresh-wave raw-HTML GETs reproduced the S017/S018/S019,
+S013 and S021 catalog captures. The S020 blog varies a per-response
+Cloudflare email-protection fragment; its capture digest is a point
+attestation, never a content-drift signal. Other old captures with
+undocumented representation are unverified, not universally declared
+non-reproducible. Quotes/anchors and named scope are the content check.
+
+S022 interpretation: it distinguishes the **mandatory exact-match
+requirement** for JWT roles from the optional OIDC-role setting. It does
+not assert different matching semantics if an OIDC role is configured
+with an optional bound-audience value. S019's private-repository restriction
+remains conditional on GitHub Free for organizations, not universal.

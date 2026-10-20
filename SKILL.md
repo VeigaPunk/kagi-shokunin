@@ -714,3 +714,29 @@ Do not run whole `verify` or current `cells` when their transitively cited
 host-private commands are outside authorization. Use QM12's explicit
 safe-row and skipped-row accounting; a scratch fixture is not a live-host
 pass. Existing unrelated gate registry debt is not claimed repaired here.
+
+### Post-falsification contract clarifications (round 22)
+
+- `verify R12-03 R21-04` is **not** a row selector. Unknown/extra positional
+  arguments now fail setup before surface reads; `docs` accepts at most one
+  entry directory and `stamp` retains its documented path list. No-argument
+  full verify still has host-bound scope and is not authorized by this round.
+  QM12's safe-row plan names actual commands and skipped IDs explicitly.
+- The cell scanner handles CommonMark H2 prefix spacing/tabs, keeps the
+  Round word reserved across letter case, and requires a complete pre/post
+  token. Only the exact filed blocked attempt is excluded; malformed
+  attempts cannot disappear as prose while other cells keep a run positive.
+- Feature `--claims` and `--input` readers open nonblocking, then reject
+  non-regular descriptors. A FIFO timeout is not a successful refusal.
+- Revision data paths exclude Git/JJ administrative components and
+  hardlinks. History input must equal Git's canonical full commit ID,
+  including in SHA-256 repositories; a long abbreviation is still an
+  abbreviation. The selected root/stamp table are trusted owned-artifact
+  inputs, not authorization to fingerprint secret-bearing worktree files.
+- Exact catalog reference sets are a projection, not all valid evidence:
+  alternates/supersets may bar-fail. Eligibility scope is policy metadata;
+  product-announcement EPM wording and feature-page Business prerequisites
+  do not establish commercial-tier identity or live entitlement.
+- S022/S023 refine the manual Vault role/locator reading in
+  `corpus/lessons/round-22-source-errata.md`. JWT login stays outside the
+  typed gate's closed profile; this correction does not inflate C1 counts.

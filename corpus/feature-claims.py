@@ -58,10 +58,10 @@ AUTHORITY_CLASSES = {
 
 # These are review-artifact pins, not vendor truth claims. Update them only with
 # an intentionally reviewed source/control change and a corresponding report.
-PINNED_REVIEW_SHA256 = "8b711167dac383c3a5b46ffa8e0b284f071008084cab315114cbc6a344abf258"
-PINNED_SOURCES_SHA256 = "be4f9522be2f286b17597eb9e75194c90f46ff4b400868032b126e6e3f89f65d"
+PINNED_REVIEW_SHA256 = "d1824e332779b134602d14c225d72f1d29fa1036778a2b728a1ec812636ce111"
+PINNED_SOURCES_SHA256 = "4bae6cb65a1607705d488bd1748cd0fba50c9eca0cd8119cc2081364dbbfeae0"
 PINNED_FEATURES_SHA256 = "154997ffac6e834bc841716dd4d835d9abc9f5f2787c69054e9f57111b7b5555"
-PINNED_RECORDS_SHA256 = "79982b437a199b029e70699e29b246ba7469c691b12cc8d9ca4ec57ca41bc7e6"
+PINNED_RECORDS_SHA256 = "efe5039dec14fe403bcbd4d8ace15fb38d538777d7ded0cfc1788a92cc84acb8"
 PINNED_TRANSITIONS_SHA256 = "cba061a51b926b088ecb61b98c52308a2548e82e2a7aee7129c390724ca9f953"
 PINNED_BOUNDARY_SHA256 = "c4ef738a184077d19cdb50fe71b7cfec972af6631dc887b3b0970964347e4616"
 
@@ -248,7 +248,7 @@ def _relative_claims_path(root: Path, raw_claims: str | None) -> tuple[str, ...]
 
 
 def _read_beneath(root: Path, relative: tuple[str, ...]) -> bytes:
-    if not hasattr(os, "O_NOFOLLOW") or not hasattr(os, "O_DIRECTORY"):
+    if not all(hasattr(os, flag) for flag in ("O_NOFOLLOW", "O_DIRECTORY", "O_NONBLOCK")):
         raise GateError("FC-SAFE-OPEN")
     base_flags = os.O_RDONLY | getattr(os, "O_CLOEXEC", 0)
     directory_flags = base_flags | os.O_DIRECTORY | os.O_NOFOLLOW
@@ -260,7 +260,7 @@ def _read_beneath(root: Path, relative: tuple[str, ...]) -> bytes:
             next_fd = os.open(component, directory_flags, dir_fd=current_fd)
             os.close(current_fd)
             current_fd = next_fd
-        file_fd = os.open(relative[-1], base_flags | os.O_NOFOLLOW, dir_fd=current_fd)
+        file_fd = os.open(relative[-1], base_flags | os.O_NOFOLLOW | os.O_NONBLOCK, dir_fd=current_fd)
         before = os.fstat(file_fd)
         if not stat.S_ISREG(before.st_mode) or before.st_size > MAX_INPUT_BYTES:
             raise GateError("FC-CLAIMS-FILE")
@@ -860,7 +860,12 @@ def _run_input(data: bytes, feature_index: dict[str, dict[str, Any]], source_ind
 
 
 
-def _invoke(script: Path, root: Path, *args: str) -> subprocess.CompletedProcess[str]:
+def _invoke(
+    script: Path,
+    root: Path,
+    *args: str,
+    timeout_seconds: float = 20.0,
+) -> subprocess.CompletedProcess[str]:
     try:
         return subprocess.run(
             [sys.executable, str(script), "--root", str(root), *args],
@@ -868,7 +873,7 @@ def _invoke(script: Path, root: Path, *args: str) -> subprocess.CompletedProcess
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
             text=True,
-            timeout=20,
+            timeout=timeout_seconds,
             check=False,
             close_fds=True,
         )
@@ -904,6 +909,10 @@ def _selftest(root: Path, claims_arg: str | None) -> int:
 
         input_dir = fixture_root / "corpus" / "inputs"
         input_dir.mkdir(parents=True)
+        fifo_claims = input_dir / "claims-fifo"
+        fifo_input = input_dir / "input-fifo"
+        os.mkfifo(fifo_claims)
+        os.mkfifo(fifo_input)
         input_cases = [
             ("input-valid", valid_claim, 0, ("FEATURE_CLAIMS: ADMIT",)),
             ("input-eligibility-omission", eligibility_omission, 1, ("FC-ELIGIBILITY-QUALIFIER",)),
@@ -917,6 +926,8 @@ def _selftest(root: Path, claims_arg: str | None) -> int:
             ("before", ("--claims", "corpus/feature-claims.json", "--phase", "before"), 1, ("FC-STATUS-MISMATCH", "FC-ELIGIBILITY-QUALIFIER", "FC-CROSS-PRODUCT", "FC-EVIDENCE-ANCHOR")),
             ("boundary", ("--claims", "corpus/feature-claims.json", "--phase", "boundary"), 2, ("FC-UNKNOWN-FEATURE", "FC-UNKNOWN-FIELD", "FC-UNKNOWN-SOURCE")),
             ("input-path-escape", ("--input", "../outside.json"), 2, ("FC-CLAIMS-PATH",)),
+            ("claims-fifo", ("--claims", "corpus/inputs/claims-fifo"), 2, ("FC-CLAIMS-FILE",)),
+            ("input-fifo", ("--input", "corpus/inputs/input-fifo"), 2, ("FC-CLAIMS-FILE",)),
         ]
         for case_id, claim, expected_exit, markers in input_cases:
             input_path = input_dir / f"{case_id}.json"
@@ -931,7 +942,8 @@ def _selftest(root: Path, claims_arg: str | None) -> int:
                 )
             )
         for case_id, arguments, expected_exit, markers in invocations:
-            result = _invoke(script, fixture_root, *arguments)
+            timeout_seconds = 1.0 if case_id in ("claims-fifo", "input-fifo") else 20.0
+            result = _invoke(script, fixture_root, *arguments, timeout_seconds=timeout_seconds)
             cases += 1
             if result.returncode != expected_exit or any(marker not in result.stdout for marker in markers):
                 failures += 1

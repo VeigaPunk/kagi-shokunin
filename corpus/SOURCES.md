@@ -110,3 +110,9 @@ requirement** for JWT roles from the optional OIDC-role setting. It does
 not assert different matching semantics if an OIDC role is configured
 with an optional bound-audience value. S019's private-repository restriction
 remains conditional on GitHub Free for organizations, not universal.
+
+Counting commands for the round-22 cardinalities: run
+`bash corpus/sources-census.sh` for rows/tier/status/entry conformance;
+the exact executable `counting_argv` and before/after exit0 outputs for
+distinct URLs are committed in
+`kagi-shokunin/.ufo/waves/round-22/registry-census-details.json`.

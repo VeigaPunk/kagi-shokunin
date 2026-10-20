@@ -1142,3 +1142,37 @@ corrected in `pin-migration-errata.json`; full historical member sets are
 preserved in `historical-membership-completion.json` in the round evidence.
 Four reference-shaped examples in two build reports were redacted before
 H1 under QA5; no original reference path was retained or printed.
+
+### Round-22 measured closure (engineering; admission not self-certified)
+
+Verified code/data landed through the helper as
+`4be5da3cac11a1db64c3e0a77246fd7f2bdee413`; initial integration was
+`8ada17a50a25a75e6fc4a8cf880c87a85c67c8a3`.
+`kagi-shokunin/.ufo/waves/round-22/final-verification.json` records
+31/31 individually executed safe rows and the exact 12 skipped IDs,
+commands, expected exits/last lines and observed output. Ledger121,
+feature12, revision17 and sources47 selftests pass; inherited safe rows
+including op-only bytes (six plain generated classes) pass. No full
+verify/cells run is credited by the integrator.
+
+C1 capability absent at BASE → demonstrated typed reviewer: ten bad
+controls refused, four bounded controls admitted, three unjudgeable
+boundaries excluded, paired independent input mutations killed. C2 stale
+pins six → zero, zero missing/dropped, original63 retained and seven
+reviewed pin additions. The same retained heading inputs now satisfy
+17/17 expected outcomes; evidence is `heading-regressions-final.json` in
+the round directory. These are bounded operational measures, not a
+statistical calibration gain or restored host currentness.
+
+The source registry actually measures 16→23 rows, A14→A21, C2 unchanged,
+mined14→21, queued/rejected1 each unchanged, and 16→18 distinct URLs.
+Seven new IDs are correction/reopen rows; only two URLs are new.
+`registry-census-details.json` in the round directory carries the
+executable counter and both exit0 outputs; lane/fleet conformance exit0.
+All original source rows are byte-identical.
+
+No rank/depth increase, source-header migration or deployed credential
+workflow is claimed. Safety deviations and withdrawn evidence are
+preserved for independent closure. Outcome/provenance metadata and their
+reviewed pin refresh follow this measured commit; the fleet report lands
+last and cites only a helper-confirmed pushed lane hash.

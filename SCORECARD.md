@@ -683,7 +683,7 @@ landed in the round-21 correction commit (cited in `LOG.md`):
 |---|---|---|---|
 | op-only dotenv byte probe | run six generated plain-value dotenv classes through `op run --env-file` under `env -i` with scratch HOME/XDG and compare the child's bytes (hex) to literal expectations; no ref, account or handler involved | `bash corpus/op-ref-probe.sh --dotenv-bytes` (ledger `R21-01`; `knowledge/op-ref-consumption.md` §11) | 21 (first run in the round-20 attempt, unadmitted there) |
 | source registry + census gate | curate opened, scope-tiered sources with anchors, rejections and study paths, and machine-check the registry plus the entry ↔ source citation chain both ways | `bash corpus/sources-census.sh` (ledger `R21-02`), `--selftest` 47 cases (`R21-03`); `corpus/SOURCES.md` | 21 |
-| feature-bound typed credential review | adjudicate one caller-supplied typed claim against pinned product/feature/status/eligibility/anchor evidence; reject known false/bar-failing claims, keep unjudgeable inputs separate, accept bounded controls | first demonstration at helper-landed `8ada17a50a25a75e6fc4a8cf880c87a85c67c8a3`: selftest PASS cases=10, before rejects10/after admits4; current hardened counts are pinned by R22-01/R22-02; `kagi-shokunin/.ufo/waves/round-22/repaired-checks.json` | 22 |
+| feature-bound typed credential review | adjudicate one caller-supplied typed claim against pinned product/feature/status/eligibility/anchor evidence; reject known false/bar-failing claims, keep unjudgeable inputs separate, accept bounded controls | measured code/data landing `4be5da3cac11a1db64c3e0a77246fd7f2bdee413`: selftest PASS cases=12, before rejects10/after admits4/boundary3 excluded; R22-01/R22-02; `kagi-shokunin/.ufo/waves/round-22/final-verification.json` (initial H1 demonstration retained separately) | 22 |
 
 Rows enter only through demonstrated execution (`AXES.md` §Capabilities): the two round-21 capabilities entered through that round's runs; feature-bound typed credential review first worked in round 22 through R22-01/R22-02. The 2026-10-16 rollout added none.
 
@@ -784,3 +784,39 @@ decisions and scope-breach ruling rather than self-certifying agreement;
 (3) operability — revisit the byte probe's documented op-failure
 SETUP-versus-DRIFT classification under plain local fixtures. Only the
 operator's next steer chooses a future round; this assignment remains r22.
+
+### Final measured outcome — round 22
+
+Measured code/data commit:
+`4be5da3cac11a1db64c3e0a77246fd7f2bdee413` (helper `landed` line, pushed).
+The tested input hashes are in
+`kagi-shokunin/.ufo/waves/round-22/final-verification-inputs.json`;
+actual commands/stdout/exit values are in
+`kagi-shokunin/.ufo/waves/round-22/final-verification.json`.
+Only outcome/provenance metadata and their pins follow this measured state.
+
+| Claim | Axis/type and score delta | Falsifiable before → after | Engineering verdict / counting command |
+|---|---|---|---|
+| C1 | calibration capability; **9 → 9**, no statistical calibration score claim | missing executable reviewer at BASE → one demonstrated capability; ten known-bad records refused, four bounded controls admitted, three unjudgeable boundaries excluded | **demonstrated** — `test -f corpus/feature-claims.py` on the before/current trees; `python3 corpus/feature-claims.py --selftest` (12 cases); `--phase before`, `--phase after`, `--phase boundary`; independent `--input` mutations and positive controls |
+| C2 | freshness/pointer integrity; **9 → 9**, no host-currentness claim | six stale BASE pins → zero stale/missing/dropped; original63 retained, seven reviewed pin additions (70 total) | **demonstrated** — `python3 corpus/revision-audit.py --history c2cab35bc92e57e39e5489bac3386db078345b3f` on exact before/current states; after `CLEAN (stale=0 missing=0 dropped=0 added=7 invalid=0)`, exit0 |
+
+Final authorized verification: **31/31 safe ledger rows pass**, with **12
+host/transitive rows explicitly skipped by ID**. No full verify/cells
+invocation is credited. Selftests actually report ledger121,
+feature12, revision17, source47 (plus the unchanged hermetic gate rows).
+The identical retained heading fixtures now match **17/17** expected
+outcomes; the nine former silent-clean attacks no longer pass silently.
+The exact blocked control and completeness/vacuity controls remain valid.
+
+Source conformance: before `rows=16 A=14 C=2 mined=14 queued=1 rejected=1`,
+after `rows=23 A=21 C=2 mined=21 queued=1 rejected=1`; both lane and fleet
+census checks exit0. Only two distinct URLs are newly registered; the other
+new IDs correct/reopen registered pages. Counts and executable counter:
+`kagi-shokunin/.ufo/waves/round-22/registry-census-details.json`.
+
+All remaining axis scores stay9 with their prior ceilings. No depth move,
+promotion, retirement, deployed workflow or vault/account capability is
+claimed. **This lane does not admit the round:** disclosed scope breaches,
+withdrawn review claims, indirect installation and scratch collision remain
+for the parent's independent non-author closure; a clean whole-round
+secret-access/conformance attestation is unavailable.

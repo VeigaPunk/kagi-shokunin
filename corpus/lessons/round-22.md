@@ -234,3 +234,37 @@ The same fresh source identities compared the final rows with their
 already-opened primary pages. Counts remain 10 bad / 4 bounded / 3 boundary
 records in C1; JWT login remains out of profile. Catalog limitations and
 inert reference/quote-binding corrections are explicit, not new metrics.
+
+### Measured engineering outcome
+
+Code/data revision `4be5da3cac11a1db64c3e0a77246fd7f2bdee413` is the
+helper-confirmed measured landing. `final-verification.json` under
+`kagi-shokunin/.ufo/waves/round-22/` records **31/31 safe rows passing**;
+the exact 12 skipped host/transitive rows are listed, not silently counted.
+Actually executed selftests report ledger121, feature12, revision17,
+source47, plus unchanged hermetic rows. C1 before10/after4/boundary3
+outcomes preserve their distinction; no overall accuracy scalar or new
+outside agreement is inferred.
+
+C2's exact before tree is red with six stale pointers, exit1. Current
+measurement is CLEAN with zero stale/missing/dropped and seven reviewed
+pin additions, exit0; total pins70. The new lesson is the seventh pin,
+not a restored fictional stamp. Historical member completion and retro-pin
+erratum preserve every correction without rewriting filed journals.
+`heading-regressions-final.json` in the same evidence directory replays
+identical retained inputs: **17/17** expectations now match and all nine
+former silent-clean attacks fail or expose the unpointed cells.
+
+Both source census implementations exit0 on the final registry. The
+executed row/URL counter in `registry-census-details.json` reports
+16→23 rows / 16→18 distinct URLs; original rows unchanged, seven A/mined
+IDs added. S022/S023 final-row source checks agree with their located
+primary quotes. This remains source/documentation evidence, not a live
+Vault/OpenBao/1Password deployment or an account operation.
+
+The declared claims are **demonstrated as bounded engineering changes**;
+scalar scores stay9 and no depth move is booked. Whole-round admission and
+safety/no-harm disposition are **not self-certified**: two unauthorized
+legacy verify paths, unretained private-surface detail, the indirect
+installation, scratch collision and uncredited review claims remain in
+the record for the parent's non-author closure.

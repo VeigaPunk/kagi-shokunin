@@ -139,3 +139,9 @@ Final round-22 qualifier: the earlier “live leaf ratios” wording names the
 historical 2026-09-29 observation, not a new host probe. Late Vault
 role/locator corrections are in `lessons/round-22-source-errata.md`
 (S022/S023); the active Broker/token review remains the same held ground.
+
+Trend precision: the earlier round-22 index statement “Expansion is
+unchanged” describes **knowledge-coverage ground only**. The repertoire
+does gain one demonstrated typed-review capability (SCORECARD, first
+working round22); final trend judgment separates that executable expansion
+from the unchanged coverage map. Neither is independent round admission.

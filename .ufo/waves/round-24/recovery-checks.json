@@ -158,5 +158,41 @@
     "exit": 0,
     "stdout": "kagi\tW04\tS019 duplicate url www.1password.dev/brokered-access across scopes\nkagi\tW04\tS020 duplicate url 1password.com/blog/1password-credential-broker-public-preview across scopes\nkagi\tW04\tS021 duplicate url openbao.org/docs/concepts/tokens across scopes\nkagi\tW04\tS022 duplicate url developer.hashicorp.com/vault/docs/auth/jwt across scopes\nkagi\tW04\tS023 duplicate url developer.hashicorp.com/vault/docs/concepts/lease across scopes\nkagi\tW04\tS025 duplicate url openbao.org/docs/auth/jwt across scopes\nkagi\tW04\tS026 duplicate url openbao.org/docs/concepts/tokens across scopes\nkagi\tW04\tS032 duplicate url www.1password.dev/brokered-access across scopes\nkagi\tok\t/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/SOURCES.md\n",
     "stderr": ""
+  },
+  {
+    "command": [
+      "python3",
+      ".ufo/waves/round-24/tools/claim-separability.py",
+      "c1-only"
+    ],
+    "measured_commit": "e6210511a25ddd98ce54be346367f991ce9ff3ed",
+    "input_manifest": ".ufo/waves/round-24/separability/c1-only/expected.json",
+    "exit": 0,
+    "stdout": "CLAIM_SEPARABILITY: c1-only exit=0 HOST_TRIPWIRE: label=separable-c1-only rev=4f94b52a3cdf verify_absent=0 verify_present=0 cells_absent=0 cells_present=0 total=0 complete=4/4 host_skip_lines=48\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "python3",
+      ".ufo/waves/round-24/tools/claim-separability.py",
+      "c2-only"
+    ],
+    "measured_commit": "e6210511a25ddd98ce54be346367f991ce9ff3ed",
+    "input_manifest": ".ufo/waves/round-24/separability/c2-only/expected.json",
+    "exit": 0,
+    "stdout": "CLAIM_SEPARABILITY: c2-only exit=0 SOURCES_CENSUS: CLEAN (rows=32 A=30 B=0 C=2 queued=1 mined=29 rejected=2 entries_sourced=4 legacy=21 captures=32 inrow=16 inrow_only=0 inrow_nonreproducing=12)\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "python3",
+      ".ufo/waves/round-24/tools/claim-separability.py",
+      "c3-only"
+    ],
+    "measured_commit": "e6210511a25ddd98ce54be346367f991ce9ff3ed",
+    "input_manifest": ".ufo/waves/round-24/separability/c3-only/expected.json",
+    "exit": 0,
+    "stdout": "CLAIM_SEPARABILITY: c3-only exit=0 IDENTITY_SWAP: label=separable-c3-only rev=4f94b52a3cdf population=15 survived=0 killed=15 invalid=0\n",
+    "stderr": ""
   }
 ]

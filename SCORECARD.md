@@ -924,3 +924,16 @@ round23; saturation9/window3 and the tied-lowest-axis reasoning are unchanged.
 This append supersedes the inherited candidate's31-row current count and
 its incomplete cells HOST-SKIP/whole-process-control implications; filed
 historical measurements remain intact.
+
+Separability was also executed, not assumed. At frozen input commit
+`e6210511a25ddd98ce54be346367f991ce9ff3ed`, run
+`python3 .ufo/waves/round-24/tools/claim-separability.py c1-only`
+(then c2-only and c3-only). Each overlay applies to the original BASE and
+checks every input digest first: C1 alone records zero host executions
+with four complete cases and 48 skip lines; C2 alone returns CLEAN with
+32 captures and inrow_only=0; C3 alone kills the same 15 projected-identity
+mutants with zero survivors/invalids and clean controls. C3's isolated
+bookkeeping is baseline-shaped (80 pins / 59 rows), not the combined tree's
+83 / 61. Receipts: `.ufo/waves/round-24/separability/c1-only-run.json`,
+`.ufo/waves/round-24/separability/c2-only-run.json` and
+`.ufo/waves/round-24/separability/c3-only-run.json`; all outer exits are 0.

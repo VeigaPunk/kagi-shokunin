@@ -1,0 +1,24 @@
+{
+  "manifest": {
+    "base": "4f94b52a3cdfaa289d779bd8a2afcd0b1fcd9105",
+    "source_commit": "017cc4c5eb87f7942fa41ff8893e8737fd14cfb4",
+    "claim": "c1-only",
+    "inputs": {
+      "corpus/claim-ledger.sh": "27e4e158b64074d1211301b4cd5813371bc8f558953c5c4648f2566f63bb01ce",
+      "corpus/claim-ledger.tsv": "1ff92dcbd92c91ec1613023077f15b483c55bb12ccf241e276976d7445a4c499"
+    },
+    "expected": "host executions0 complete4/4 skips12/12"
+  },
+  "command": [
+    "bash",
+    "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-24/tools/host-tripwire.sh",
+    "separable-c1-only",
+    "4f94b52a3cdfaa289d779bd8a2afcd0b1fcd9105",
+    "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-24/separability/c1-only",
+    "corpus/claim-ledger.sh",
+    "corpus/claim-ledger.tsv"
+  ],
+  "exit": 0,
+  "stdout": "RUN verify substrate=absent exit=2 host_rows_executed=0 host_skip_lines=12 population_skipped=12/12 last=CLAIM_LEDGER: POLICY (claims=45 policy=1 stamped=79)\nRUN verify substrate=present exit=2 host_rows_executed=0 host_skip_lines=12 population_skipped=12/12 last=CLAIM_LEDGER: POLICY (claims=45 policy=1 stamped=79)\nRUN cells substrate=absent exit=2 host_rows_executed=0 host_skip_lines=12 population_skipped=12/12 last=CELL_AUDIT: POLICY (cells=156 row_pointed=104 stamp_pointed=87 policy=1)\nRUN cells substrate=present exit=2 host_rows_executed=0 host_skip_lines=12 population_skipped=12/12 last=CELL_AUDIT: POLICY (cells=156 row_pointed=104 stamp_pointed=87 policy=1)\nHOST_TRIPWIRE: label=separable-c1-only rev=4f94b52a3cdf verify_absent=0 verify_present=0 cells_absent=0 cells_present=0 total=0 complete=4/4 host_skip_lines=48\n",
+  "stderr": ""
+}

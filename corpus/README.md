@@ -145,3 +145,22 @@ unchanged” describes **knowledge-coverage ground only**. The repertoire
 does gain one demonstrated typed-review capability (SCORECARD, first
 working round22); final trend judgment separates that executable expansion
 from the unchanged coverage map. Neither is independent round admission.
+
+## Round-24 active contracts
+
+The current gate/helper inventory is `SKILL.md` §Gate registry —
+round-23/24 contracts and `PROVINCE.md` §Gates and supporting helpers.
+Historical case totals above retain their recorded-round context; current
+expectations are R11-09/R18-03 (ledger) and R24-01 (normalizer).
+
+Host-tagged ledger rows default to HOST-SKIP in both verify and cells;
+static policy runs before recursion skips. This is a reviewed-row boundary,
+not a hostile-script sandbox. `corpus/rendered-text-v1.py` declares a
+regex normalization, not browser parsing; `corpus/row-identity.sh` binds
+named projections, not all row semantics. S032 corrects only S007's
+case-sensitive integration-key quotation.
+
+`lessons/round-24.md` records the fresh falsifiers, rejected broader
+readings, learned criteria and measured repairs; `SCORECARD.md`'s recovery
+append links the executable counters. The knowledge coverage map and the
+OIDC/scanning/NIST frontier list above are intentionally unchanged.

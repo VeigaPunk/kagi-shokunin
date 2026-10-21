@@ -1318,3 +1318,20 @@ artifacts, and C3 only the reader plus baseline-adapted ledger/stamp
 bookkeeping; original fifteen trial IDs are retained. The recorder
 `.ufo/waves/round-24/tools/claim-separability.py` checks input digests and
 records command output, not an admission verdict.
+
+Separability inputs landed in
+`e6210511a25ddd98ce54be346367f991ce9ff3ed` and were then executed via
+`python3 .ufo/waves/round-24/tools/claim-separability.py <claim-only>`.
+Actual outer exits0 for all three: C1 zero host executions /four complete
+cases; C2 CLEAN32 captures /inrow_only0; C3 all15 original projected
+mutants killed /zero survivors or invalids, with clean controls. Each
+input digest is checked before use, and C1/C2 core changes are absent
+from the C3-only BASE overlay. Records are under
+`.ufo/waves/round-24/separability`. The corpus index now points at the
+active contracts without reclassifying historical totals as current.
+
+The public-byte recorder
+`.ufo/waves/round-24/tools/normalizer-replay.py` imports the one v1
+declaration and compares the ten original capture rows against a step-5-only
+WHATWG ASCII-whitespace alternative. It records fetch/digest observations,
+keeps no page bodies in the lane and issues no admission verdict.

@@ -282,3 +282,15 @@ the expected S032 duplicate-URL warning. The original late start census
 (M24-4) remains a timing defect, not retroactively repaired. No old source
 status/recheck/used-by cell changed. No outside spot-check or promotion was
 self-certified.
+
+The causal-separation experiments also completed: the recorder
+`python3 .ufo/waves/round-24/tools/claim-separability.py` ran c1-only,
+c2-only and c3-only over BASE plus committed digest-pinned inputs
+(`e6210511a25ddd98ce54be346367f991ce9ff3ed`). All three processes exit0.
+C1 alone has host executions0/complete4/4; C2 alone has CLEAN32 captures
+and inrow_only0; C3 alone kills all15 unchanged projected-identity trials,
+survivors0/invalid0, with clean controls. Its only new executable is the
+row reader: the old gate and old source artifacts remain BASE bytes.
+Baseline-adapted bookkeeping (80 pins /59 rows) is explicit in the
+committed C3-only snapshot. Full records and every input digest live in
+`.ufo/waves/round-24/separability`; no absent-phase result is inferred.

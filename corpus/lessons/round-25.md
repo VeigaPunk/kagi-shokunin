@@ -257,3 +257,22 @@ The receipt worker proposed overwrite during recapture; L1 rejected that
 regression and restored exclusive, no-overwrite receipt creation. New captures
 choose a new path. Explicit receipts require their SHA256; the default
 committed receipt's actual bytes are pinned, not a hand-transcribed hash.
+
+## Final immutable measurements
+
+Measured commit `9b755f5b44ace949fc4d71c9d6d8f125a560e9cf` (pushed):
+`.ufo/waves/round-25/final-verification.json`, all15 checks pass, exact
+commands/exits/stdout retained; SCORECARD's final round25 outcome gives each
+before→after and its counting command. The common C1 population34 is identical
+on BASE and after (8 stale→0, no unlocated or policy receipts); full after
+population38 CLEAN. C2 lone unresolved88→0/fleet_absent48 (exit3), fleet
+CLEAN in both, local/self/owned-nested misses remain red. C3 bound0→28,
+observed28, receipt-mutation red; selftests170/48/67 and full ledger CLEAN
+65/88/host_skipped12. Three claim-only overlays execute independently over
+BASE (`separability-final.json`), without claiming full-ledger cleanliness.
+
+Source accounting:32→38 rows,6 new tierA (5 mined,1 rejected), no existing
+status/recheck/used-by edits. Both required fleet census invocations exit0;
+full outputs are `census-start.txt` / `census-end.txt` in the wave directory.
+Outside admit/reject spot-check: pending parent closure; no dispatched child
+is called non-author. All four SHONEN boxes intentionally remain [~].

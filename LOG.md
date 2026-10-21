@@ -1405,3 +1405,14 @@ The new source count38 supersedes the initial five-feed/37-total candidate;
 one rejected feed was registered (S038). Exact final measurements, revisions
 and commands are retained in `final-verification.json` under the round25 wave
 directory; failures remain there as failures, not rerolled verdicts.
+
+Final executed revision `9b755f5b44ace949fc4d71c9d6d8f125a560e9cf`:
+15/15 recorder checks pass (`.ufo/waves/round-25/final-verification.json`).
+C1 identical common34 stale8→0; full after38 CLEAN; one-digit mutation red.
+C2 lone unresolved88→0/absent48 INCOMPLETE exit3 (never CLEAN); fleet CLEAN
+in both; all lane-local negative controls red. C3 bound0→28, observations28,
+S012 fired; retained-receipt contradiction red. Selftests ledger170 /
+self-count48 / clock67; safe full ledger CLEAN65 claims/88 stamps with12
+HOST-SKIPs. Three claim-only BASE overlays also execute independently
+(`separability-final.json`); constructed trees, not complete ledger commits.
+All author-side verdicts are bounded; non-author admission remains Main's.

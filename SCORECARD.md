@@ -978,3 +978,38 @@ body or semantic-drift guarantee is inferred.
 Saturation line 9 and window N=3 unchanged; a capability entered this round, so
 the nudge cannot fire before round 28. No axis is retired or split. Claim
 verdicts, the measured commit and the falsify wave are appended below once run.
+
+### Final executed outcome — round 25
+
+Measured code/data commit: `9b755f5b44ace949fc4d71c9d6d8f125a560e9cf`
+(helper landed, pushed). Exact argv/stdout/exits and pinned revisions:
+`.ufo/waves/round-25/final-verification.json` (15/15 checks pass). All axes
+remain9; no scalar inflation, retirement or promotion.
+
+| Claim | Score delta and bounded verdict | Counting command and before → after |
+|---|---|---|
+| C1 calibration | 9 → 9, measured doc-to-source agreement (not a statistical accuracy/completeness score) | `bash .ufo/waves/round-25/tools/c1-measure.sh --common 9b755f5b <docs-rev> <label>`: IDENTICAL34 before-existing bindings, BASE8 STALE → after0 (before exit1, unlocated0/ambiguous0; after exit0). Full after38 CLEAN. `--mutate SC-SKILL-STAMPS` returns STALE/exit1. Selftest48 passes. |
+| C2 operability | 9 → 9, explicit incomplete layout, never false CLEAN | `bash .ufo/waves/round-25/tools/c2-measure.sh <rev> <label>`: lone BASE BROKEN unresolved88/exit1 → after INCOMPLETE unresolved0/fleet_absent48/exit3. Fleet CLEAN in both (1371→1639 citations). All after local/self/nested-owned negative controls UNRESOLVED exit1; legacy/mixed controls and ledger selftest170 pass. |
+| C3 freshness | 9 → 9, dated observation/capability, not continuous vendor truth | `python3 .ufo/waves/round-25/tools/c3-measure.py <rev>`: on_release28 bound0/unbound28 → bound28/unbound0/observed28/fired1, orphan0. Receipt-bound offline gate CLEAN; clock selftest67 passes; retained-receipt contradiction on S008 yields RECEIPT-MISMATCH/exit1. |
+
+Full safe ledger (empty HOME, default host exclusion) at measured commit:
+`CLAIM_LEDGER: CLEAN (claims=65 deferred=0 stamped=88 ids=65 cited=55 labeled_ids=20 orphans=10 host_skipped=12)` exit0. No host row credited.
+Source census38 rows/captures38, fleet source census exit0 (start32/end38,
+receipts `census-start.txt` / `census-end.txt` in the wave directory).
+
+Executed causal separability: `.ufo/waves/round-25/separability-final.json`.
+Each constructed overlay starts on BASE and extracts code/data from the
+measured revision, with SHA256 per overlaid blob: C1-only common34 is CLEAN
+with BASE membership83/61 and selftest151 (C2/C3 code absent); C2-only gives
+INCOMPLETE/absent48/unresolved0 (C1/C3 code absent); C3-only gives CLEAN28
+and uses its byte-pinned receipt (C1/C2 code absent). These are constructed
+claim-only trees, NOT asserted full-ledger-clean commits.
+
+Trends (author engineering assessment; independent closure still required):
+expansion improved by demonstrated release-clock observation capability;
+quality improved by bound self-descriptions, classified layout limits and
+observed sources; discernment unchanged pending the non-author admit/reject
+spot-check. All original source rows, stamp paths and ledger IDs retained.
+
+Planned next (not executed): work the named knowledge-entry numeric drift and
+multi-claim quote coverage; no next-round claim or driver action here.

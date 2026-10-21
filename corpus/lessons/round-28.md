@@ -1,4 +1,4 @@
-source: S044, S045, S046, S047, S048, S049
+source: S044, S045, S046, S047, S048, S049, S050, S051
 verified-at: 2026-10-21 — six pages fetched by the L1 at 17:27Z with the declared curl profile; quotes located under rendered-text-v1; no vault/account/handler/CDP contact
 recheck: 90d — re-open the six pages; re-run `.ufo/waves/round-28/tools/c1-measure.py` and `c2-measure.py` and the release-clock selftest after any change to `corpus/release-clock.py`
 
@@ -105,3 +105,83 @@ derived rows bind at BASE and at every historical revision
   `c1-measure.py` substitutes `request_body` in-process, as the selftest does.
 - Unchanged inherited limits: equal-to-floor observations, unorderable
   anchors, branch-scoped rows (round 27).
+
+
+## FALSIFY dispositions and corrections (append-only)
+
+Candidate `62a33b1bd15217ed729df2ca40c8a30aba3076c0` was attacked by a validated
+64-seat fresh wave (`.ufo/waves/round-28/falsify/`). Corrections below supersede
+candidate-time descriptions above, not the frozen counting commands.
+
+- **Accepted / fixed:** FFeedOlder/FRssZero/FEnv640 showed C1's frozen text
+  covers EVERY stable-shaped feed token. Ignoring lower non-canonical entries
+  was a narrowing, not an allowable limit. The observer now refuses any such
+  token; its old ignored-entry selftest is changed to assert a typed refusal.
+  QM27 is corrected. No command/fixture population changed.
+- **Accepted / fixed:** FDeriveTwo's sentence-final punctuation hid a second
+  token (`v3.12.9.`) or refused a truthful single token. The stable-token right
+  boundary now permits a sentence period but excludes a dotted numeric suffix.
+  Two selftest cases (positive/negative) cover it.
+- **Accepted / fixed:** MutDeriveGE survived all 106 selftests. Added raised-
+  anchor refusal; also truthful fired-derived, 18-digit accepted, major-zero,
+  mixed bad-observation/derived-mismatch and malformed receipt cases. Selftest
+  106 → 114. CritSeparability's observation must not mask an independently
+  wrong derived anchor: only a non-canonical ANCHOR suppresses DERIVATION.
+- **Accepted / fixed:** FReceiptToken: a string-valued malformed parsed_version
+  is now NON-CANONICAL; oversized JSON numeric parsing is caught as an invalid
+  receipt (typed receipt mismatch), never an unhandled ValueError.
+- **Accepted / corrected by successor rows:** S050 supersedes S047's missing
+  GitHub.com/GHES qualifier; S051 supersedes S049's unsupported latest-final /
+  adoption claim. Existing rows remain immutable. Gate additions:
+
+| Candidate | Decision and basis | URL, access date, located quote |
+|---|---|---|
+| S050 OIDC GitHub.com qualifier | ADMIT tier A docs, 90d; corrects S047, not a new mechanism | https://docs.github.com/en/actions/concepts/security/openid-connect ; 2026-10-21; “the cloud provider checks if the OIDC token's subject and other claims are a match for the conditions that were preconfigured” (same capture, located once); immutable-subject default is “not available on GitHub Enterprise Server” |
+| S051 Rev. 6 IPD status only | ADMIT tier A spec, 90d; corrects S049's latest-final/adoption overclaim | https://csrc.nist.gov/pubs/sp/800/57/pt1/r6/ipd ; 2026-10-21; “The initial draft of NIST SP 800-57 Part 1 Revision 6 is available for comment through February 5, 2026.” (same capture, located once) |
+
+Existing registry status/recheck/used-by cells still unchanged; final sources
+43 → 51 (eight tier A). Old rows S047/S049 are qualified by S050/S051, not
+silently rewritten. The cpython issue Gate omission is corrected here:
+https://github.com/python/cpython/issues/95778 (2026-10-21), NOT REGISTERED for
+the limit value (absent); quote “A huge integer will always consume a
+near-quadratic amount of CPU time in conversion to or from a base 10 (decimal)
+string” (22 words, SrcCve202010735). Flip: need conversion-complexity guidance.
+The NVD quote above came from https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2020-10735,
+not the HTML URL that answered 403; that URL attribution is withdrawn.
+Exclusion flips missing above: Go/node-semver → adopt a compatibility parser;
+GitHub REST/git-ref rules → acquire a tag-policy capability; NVD → need
+complexity rather than limit evidence; five unchanged feeds → an observed
+stable-identity change. No new registry row is claimed for those routes.
+
+**Instrument defects / frozen targets:** CritFrozenC1 found the classifier
+splits `NOT OBSERVED` as `NOT`, and empty feed-url matching can count a wrong
+row. CritFrozenC2 found any non-BASE category could count DERIVATION. Tools
+are frozen at the candidate, NOT repaired mid-round. Final raw outputs are
+independently audited for exact category+id (NON-CANONICAL S040 and DERIVATION
+for each group's exact ids); corrected strict counts agree with the frozen
+ones. Synthetic mutants that fool the instruments are retained as named debt.
+
+**Conformance honesty:** CritPlanFirst/ScoutClosureRouting regard receipt
+mirroring as a real fixture change, not a clarification. The literal frozen
+TSV-only construction at BASE already fails via RECEIPT-MISMATCH (C2 accepted
+0/4), while the pre-tool correction yields 4/4 accepted → 0/4. Both readings
+are reported; operator admission decides. Commands and frozen text remain
+byte-identical; no claim that the original fixtures were fully conformant.
+The earlier BUILD receipt XC1Measure-base-c1.json (4/4 mishandled) is a DRAFT
+instrument result (it mirrored F4 into the table); it is superseded by the
+pinned committed tool's BASE3/4, OTHER1/4 receipt in final/c1-before.json.
+F4 already fails generically in the BASE observer, not a new before-state
+traceback. M28-2 captured-by is `none` (QM25 ordered values but did not catch
+the defect). M28-4's “measured by the conformance check” is withdrawn: that
+checker does not measure semantic corrections. QM29 is a policy, not a
+complete mechanically enforced guarantee; first-plan purity and census order
+are its bounded executable subset. Frozen-line checks alone do not stop scope
+widening, tool edits or work performed before commits (CritConformance).
+
+**Separability:** one freshness claim, so independent-axis admission is not
+credited. CritSeparability-8 built exact split trees: BASE79, C1-only97,
+C2-only88, combined106, controls CLEAN30; C1-only still accepts G1–G4 and
+C2-only still mishandles F1–F3. XSeparability's hunk-only instrument cannot
+separate fused selftest hunks; its partial-overlay failures are retained,
+not called PASS. The final token-totality/attribution corrections do not turn
+those hunk failures into an independent proof.

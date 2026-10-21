@@ -2,7 +2,7 @@
  "format": "kagi-expectation-migrations-v1",
  "round": 28,
  "base": "3553d499577084a6c98d7078906017840bbf7b28",
- "motivation": "round-28 C1/C2 selftest growth (79->106), six registry rows S044-S049, lesson round-28 stamped, one SCORECARD heading",
+ "motivation": "round-28 C1/C2 selftest growth (79->106), six registry rows S044-S049, lesson round-28 stamped, one SCORECARD heading; FALSIFY repairs: selftest114, S050/S051 scope corrections ->51",
  "ledger_rows": [
   {
    "id": "R12-03",
@@ -17,7 +17,7 @@
   {
    "id": "R21-02",
    "old": "R21-02\tbash corpus/sources-census.sh\t^SOURCES_CENSUS: CLEAN \\(rows=43 A=41 B=0 C=2 queued=1 mined=39 rejected=3 entries_sourced=4 legacy=21 captures=43 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$\t0\t60\tcurrent registry snapshot: round25 had38; S039-S041 are three tierA mined corrections on held Python feed/documentation ground. S039 inventory recheck90d; S040/S041 retain on-release cadence and are rearmed at named3.15.1 anchors. No old source/status/recheck/used-by changes. Historical in-row classification and knowledge-entry population unchanged; metadata/citation consistency only. Migration in .ufo/waves/round-26/expectation-migrations.json. Round 27: S042/S043 ordering specs (tier A, mined, 180d) with captures -> 43.",
-   "new": "R21-02\tbash corpus/sources-census.sh\t^SOURCES_CENSUS: CLEAN \\(rows=49 A=47 B=0 C=2 queued=1 mined=45 rejected=3 entries_sourced=4 legacy=21 captures=49 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$\t0\t60\tcurrent registry snapshot: round25 had38; S039-S041 are three tierA mined corrections on held Python feed/documentation ground. S039 inventory recheck90d; S040/S041 retain on-release cadence and are rearmed at named3.15.1 anchors. No old source/status/recheck/used-by changes. Historical in-row classification and knowledge-entry population unchanged; metadata/citation consistency only. Migration in .ufo/waves/round-26/expectation-migrations.json. Round 27: S042/S043 ordering specs (tier A, mined, 180d) with captures -> 43. Round 28: S044-S049 (tier A, mined, 180d/90d) with captures -> 49."
+   "new": "R21-02\tbash corpus/sources-census.sh\t^SOURCES_CENSUS: CLEAN \\(rows=51 A=49 B=0 C=2 queued=1 mined=47 rejected=3 entries_sourced=4 legacy=21 captures=51 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$\t0\t60\tcurrent registry snapshot: round25 had38; S039-S041 are three tierA mined corrections on held Python feed/documentation ground. S039 inventory recheck90d; S040/S041 retain on-release cadence and are rearmed at named3.15.1 anchors. No old source/status/recheck/used-by changes. Historical in-row classification and knowledge-entry population unchanged; metadata/citation consistency only. Migration in .ufo/waves/round-26/expectation-migrations.json. Round 27: S042/S043 ordering specs (tier A, mined, 180d) with captures -> 43. Round 28: S044-S049 (tier A, mined, 180d/90d) with captures -> 49."
   },
   {
    "id": "R22-03",
@@ -42,7 +42,7 @@
   {
    "id": "R25-03",
    "old": "R25-03\tpython3 corpus/release-clock.py --selftest\t^RELEASE_CLOCK_SELFTEST: PASS \\(79 cases\\)$\t0\t120\tround 25 C3: offline synthetic cases (binding, feed, derived-anchor, quote, parser, URL and receipt safety); no network Round 27 (C2): + twelve REGRESSED/feed-floor/strictness cases -> 79 (76 at the candidate, +3 from residual falsifiers).",
-   "new": "R25-03\tpython3 corpus/release-clock.py --selftest\t^RELEASE_CLOCK_SELFTEST: PASS \\(106 cases\\)$\t0\t120\tround 25 C3: offline synthetic cases (binding, feed, derived-anchor, quote, parser, URL and receipt safety); no network Round 27 (C2): + twelve REGRESSED/feed-floor/strictness cases -> 79 (76 at the candidate, +3 from residual falsifiers). Round 28: + eighteen NON-CANONICAL token/feed cases (C1) and nine DERIVATION cases (C2) -> 106; three round-25 derived cases keep their expectations with a feed-row anchor that names their version (migration .ufo/waves/round-28/expectation-migrations.json)."
+   "new": "R25-03\tpython3 corpus/release-clock.py --selftest\t^RELEASE_CLOCK_SELFTEST: PASS \\(114 cases\\)$\t0\t120\tround 25 C3: offline synthetic cases (binding, feed, derived-anchor, quote, parser, URL and receipt safety); no network Round 27 (C2): + twelve REGRESSED/feed-floor/strictness cases -> 79 (76 at the candidate, +3 from residual falsifiers). Round 28: + eighteen NON-CANONICAL token/feed cases (C1) and nine DERIVATION cases (C2) -> 106; three round-25 derived cases keep their expectations with a feed-row anchor that names their version (migration .ufo/waves/round-28/expectation-migrations.json)."
   }
  ],
  "stamp_membership": {

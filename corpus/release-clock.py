@@ -342,7 +342,7 @@ def version_is_named(anchor, version):
     return re.search(pattern, anchor, re.IGNORECASE) is not None
 
 
-STABLE_TOKEN_RE = re.compile(r"(?<![A-Za-z0-9.])v?([0-9]+\.[0-9]+\.[0-9]+)(?![A-Za-z0-9.+-])",
+STABLE_TOKEN_RE = re.compile(r"(?<![A-Za-z0-9.])v?([0-9]+\.[0-9]+\.[0-9]+)(?![A-Za-z0-9+-]|\.[0-9])",
                              re.IGNORECASE)
 
 
@@ -521,7 +521,7 @@ def load_receipt_bundle(path, expected_sha256=None):
             return bundle
     try:
         document = json.loads(raw.decode("utf-8"))
-    except (UnicodeError, json.JSONDecodeError):
+    except (UnicodeError, ValueError):
         bundle["invalid"] = True
         return bundle
     if (not isinstance(document, dict)
@@ -615,7 +615,7 @@ def evaluate(sources, rows, captures=None, receipt_bundle=None):
             is_derived = values["note"].startswith("derived:")
             anchor_ok = is_derived or version_is_named(sources[source_id]["anchor"], anchored)
             non_canonical = non_canonical_version(anchored) or non_canonical_version(observed_version)
-            if (is_derived and not non_canonical and feed_source is not None
+            if (is_derived and not non_canonical_version(anchored) and feed_source is not None
                     and not derived_anchor_bound(feed_source["anchor"], anchored)):
                 # round-28 C2: an author-declared derived anchor holds only while
                 # its feed row's located anchor cell (S033-S037) names exactly
@@ -676,7 +676,9 @@ def evaluate(sources, rows, captures=None, receipt_bundle=None):
         elif receipt is None:
             errors.add(("NOT OBSERVED", source_id))
             row_valid = False
-        elif str(receipt.get("error", "")).startswith(NON_CANONICAL_PREFIX):
+        elif (str(receipt.get("error", "")).startswith(NON_CANONICAL_PREFIX)
+              or (isinstance(receipt.get("parsed_version"), str)
+                  and non_canonical_version(receipt["parsed_version"]))):
             errors.add(("NON-CANONICAL", source_id))
             row_valid = False
         elif not receipt_matches(source_id, sources[source_id], values, receipt):
@@ -782,20 +784,10 @@ TEXT_VERSION_RE = re.compile(r"^Version:[ \t]*v?([0-9]+\.[0-9]+\.[0-9]+)[ \t]*$"
 
 
 def newest_stable(tokens):
-    """Newest canonical stable X.Y.Z token; a non-canonical token is never named.
-
-    A non-canonical token (leading zero or over-bound component) that orders below
-    the newest canonical token cannot be the newest release and is ignored. At or
-    above that token the feed cannot name its newest release, so the feed fails.
-    """
-    canonical = [token for token in tokens if not non_canonical_version(token)]
-    if not canonical:
-        raise ValueError(NON_CANONICAL_PREFIX + "feed has no canonical stable X.Y.Z entry")
-    newest = max(canonical, key=version_order)
-    if any(version_order(token) >= version_order(newest)
-           for token in tokens if non_canonical_version(token)):
-        raise ValueError(NON_CANONICAL_PREFIX + "feed newest stable entry")
-    return newest
+    """Newest stable X.Y.Z, after every candidate token passes canonicality."""
+    if any(non_canonical_version(token) for token in tokens):
+        raise ValueError(NON_CANONICAL_PREFIX + "feed stable entry")
+    return max(tokens, key=version_order)
 
 
 def parse_latest_version(body):
@@ -1273,6 +1265,40 @@ def selftest():
              extra_sources=[fixture_source("S004", "Successor", "docs", "Version 1.2.4",
                                            "Successor.", "on-release",
                                            "https://example.test/successor")])
+    run_case("leading-zero major component refused", fixture_row(
+             observed="01.2.3", verdict="fired") + "\n",
+             [("NON-CANONICAL", "S001")], {"observed": 0})
+    run_case("eighteen-digit component accepted", fixture_row(
+             observed="1.2.999999999999999999", verdict="fired") + "\n",
+             [], {"observed": 1, "fired": 1})
+    run_case("derived raised anchor refused", fixture_row(
+             anchored="1.2.4", observed="1.2.4",
+             note="derived: synthetic raised anchor") + "\n",
+             [("DERIVATION", "S001")], {"observed": 0},
+             feed_anchor="Latest release v1.2.3")
+    run_case("derived fired anchor remains bound", fixture_row(
+             anchored="1.2.3", observed="1.3.0", verdict="fired",
+             note="derived: synthetic fired anchor") + "\n",
+             [], {"observed": 1, "fired": 1, "derived": 1},
+             feed_anchor="Latest release v1.2.3")
+    run_case("derived token with sentence punctuation binds", fixture_row(
+             anchored="1.2.3", observed="1.2.3",
+             note="derived: punctuation control") + "\n",
+             [], {"observed": 1, "derived": 1},
+             feed_anchor="Latest release v1.2.3.")
+    run_case("second sentence-final version unbinds", fixture_row(
+             anchored="1.2.3", observed="1.2.3",
+             note="derived: punctuation counterexample") + "\n",
+             [("DERIVATION", "S001")], {"observed": 0},
+             feed_anchor="Latest release v1.2.3; previous stable v1.2.0.")
+    run_case("bad observation does not hide derived mismatch", fixture_row(
+             anchored="1.2.0", observed="1.2.01", verdict="fired",
+             note="derived: independent findings") + "\n",
+             [("DERIVATION", "S001"), ("NON-CANONICAL", "S001")],
+             {"observed": 0}, feed_anchor="Latest release v1.2.3")
+    run_case("receipt leading-zero token typed", fixture_row() + "\n",
+             [("NON-CANONICAL", "S001")],
+             receipt_action=mutate_receipt("parsed_version", "1.2.03"))
 
     run_case("missing receipt", fixture_row() + "\n",
              [("NOT OBSERVED", "S001")], {"observed": 0},
@@ -1380,12 +1406,12 @@ def selftest():
                 failures.append("version parser %s: untyped refusal %s" % (label, exc))
     cases += 1
     try:
-        older_oversize = parse_latest_version(atom % (
+        parse_latest_version(atom % (
             entry(b"v3.15.0", b"v3.15.0") + entry(b"v3.14." + b"1" * 4301, b"v3.14.1")))
+        failures.append("older non-canonical feed entry accepted")
     except ValueError as exc:
-        older_oversize = "ValueError: %s" % exc
-    if older_oversize != "3.15.0":
-        failures.append("older oversize entry was not ignored: %r" % (older_oversize,))
+        if not str(exc).startswith(NON_CANONICAL_PREFIX):
+            failures.append("older non-canonical feed entry refused without a type")
 
     cases += 1
     try:

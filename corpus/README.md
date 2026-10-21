@@ -233,7 +233,7 @@ S029/S031 locator qualifiers and knowledge-number debt remain named gaps.
   (QUALITY QM27; S045 SemVer §2, S044 CPython int-string limit, S046 int()):
   a leading-zero or over-18-digit component is `NON-CANONICAL` (exit 1),
   never fired, ordered or a traceback; `--observe` refuses a non-canonical
-  newest feed entry. Closes round27's named leading-zero and >4300-digit debt.
+  stable-shaped feed entry. Closes round27's named leading-zero and >4300-digit debt.
 - A `derived:` clock anchor must be the one stable version its feed row's
   anchor cell names (QM28), else `DERIVATION` (exit 1) — round27's
   CritFinalC2 #1 flip. Consistency between committed files, not tamper

@@ -1,0 +1,16 @@
+diff --git 1/a/corpus/release-clock.py 2/c2only/corpus/release-clock.py
+index e5fbbd2..1fe3c05 100644
+--- 1/a/corpus/release-clock.py
++++ 2/c2only/corpus/release-clock.py
+@@ -563,7 +563,10 @@ def evaluate(sources, rows, captures=None, receipt_bundle=None):
+                 errors.add(("BADFEED", source_id))
+                 row_valid = False
+             is_derived = values["note"].startswith("derived:")
+-            anchor_ok = is_derived or version_is_named(sources[source_id]["anchor"], anchored)
++            derived_ok = True  # synthetic round-28 C2 demo: bind derived anchor to its feed row
++            if is_derived:
++                derived_ok = bool(feed_source) and version_is_named(feed_source["anchor"], anchored)
++            anchor_ok = (is_derived or version_is_named(sources[source_id]["anchor"], anchored)) and derived_ok
+             if (is_regression(anchored, observed_version)
+                     or is_regression(floors.get(feed_url, ""), observed_version)):
+                 # S042 §11.2 numeric order: the feed's newest stable release is

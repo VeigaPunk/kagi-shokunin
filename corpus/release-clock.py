@@ -27,10 +27,6 @@ HEADER = (
 )
 DEFAULT_RECEIPT_SHA256 = "13b8540c78b9de07bc184894583a368472fd1f2f04a898220bf7c29d2648a169"
 SOURCE_ID_RE = re.compile(r"S[0-9]{3}")
-VERSION_RE = re.compile(
-    r"(?<![A-Za-z0-9.])v?([0-9]+\.[0-9]+(?:\.[0-9]+)*(?:[-+][0-9A-Za-z.-]+)?)(?![A-Za-z0-9.])",
-    re.IGNORECASE,
-)
 QUOTE_RE = re.compile(r"“([^”]+)”|(?<!\\)\"([^\"\n]+)\"")
 USER_AGENT = "kagi-shokunin-round25/1.0 (documentation verification)"
 MAX_BODY_BYTES = 8 * 1024 * 1024
@@ -346,6 +342,27 @@ def version_is_named(anchor, version):
     return re.search(pattern, anchor, re.IGNORECASE) is not None
 
 
+STABLE_TOKEN_RE = re.compile(r"(?<![A-Za-z0-9.])v?([0-9]+\.[0-9]+\.[0-9]+)(?![A-Za-z0-9.+-])",
+                             re.IGNORECASE)
+
+
+def derived_anchor_bound(feed_anchor, anchored):
+    """True when the feed row's anchor cell binds the derived anchor `anchored`.
+
+    Round 28 C2. Reads only the anchor cell (never `teaches`, which can name a
+    development label such as curl 8.23.1). A strict X.Y.Z anchor must be the ONE
+    stable X.Y.Z the cell names: a prerelease/build sibling (`v2.2.0-rc1`) or a
+    longer component (`3.13.30`) is not the same token, and a cell naming two
+    different versions binds none. A non-numeric series anchor (`1.2.x`) must be
+    named by the cell (version_is_named).
+    """
+    if not anchored or anchored == "-":
+        return False
+    if not NUMERIC_VERSION_RE.fullmatch(norm_version(anchored)):
+        return version_is_named(feed_anchor or "", anchored)
+    return set(STABLE_TOKEN_RE.findall(feed_anchor or "")) == {norm_version(anchored)}
+
+
 def extract_quotes(teaches):
     quotes = []
     for match in QUOTE_RE.finditer(teaches):
@@ -363,21 +380,54 @@ def norm_version(value):
     return value[1:] if value[:1].lower() == "v" else value
 
 
+# SemVer 2.0.0 §2 (S045): a numeric identifier MUST NOT contain leading zeroes.
+# Each component is also capped at VERSION_COMPONENT_MAX_DIGITS: 18 digits keep a
+# canonical component inside a signed 64-bit integer, 4282 digits below CPython's
+# int-string conversion limit (sys.get_int_max_str_digits(), 4300 by default), and
+# no release counter approaches 10**18. Ordering never calls int().
+VERSION_COMPONENT_MAX_DIGITS = 18
+# A non-canonical token's receipt error and ValueError text start with this prefix, so
+# evaluate types that receipt NON-CANONICAL instead of a generic RECEIPT-MISMATCH.
+NON_CANONICAL_PREFIX = "non-canonical version token: "
 NUMERIC_VERSION_RE = re.compile(r"[0-9]+\.[0-9]+\.[0-9]+")
 
 
-def numeric_version(value):
-    """Strict X.Y.Z (optional leading v) as an int tuple, else None.
+def non_canonical_version(value):
+    """True for a strict X.Y.Z token (optional leading v) that is not canonical.
 
-    SemVer 2.0.0 §11.2 (S042) / PyPA release segments (S043): cores compare
-    numerically. Non-numeric anchors (e.g. `v1.21.x`), two-component or series
-    anchors and prerelease/build suffixes are not ordered here; alone they keep
-    the inequality rule, a declared limit (corpus/lessons/round-27.md §C2).
+    Canonical: each component is `0`, or has no leading zero and at most
+    VERSION_COMPONENT_MAX_DIGITS digits. Non-strict text (`1.2`, `v1.21.x`) is not
+    a version token here and is never flagged; it keeps its inequality limit.
     """
     value = norm_version(value or "")
     if not NUMERIC_VERSION_RE.fullmatch(value):
+        return False
+    return any(part != "0" and (part[0] == "0" or len(part) > VERSION_COMPONENT_MAX_DIGITS)
+               for part in value.split("."))
+
+
+def version_order(value):
+    """Order of an unprefixed X.Y.Z token as (length, digits) per component.
+
+    Equal to integer order for canonical components; exact for any digit count, so
+    a non-canonical token is compared by its value (leading zeros change nothing).
+    """
+    return tuple((len(part.lstrip("0")), part.lstrip("0")) for part in value.split("."))
+
+
+def numeric_version(value):
+    """Canonical strict X.Y.Z (optional leading v) in numeric order, else None.
+
+    SemVer 2.0.0 §11.2 (S042) / PyPA release segments (S043): cores compare
+    numerically. Non-canonical tokens have no order here (non_canonical_version).
+    Non-numeric anchors (e.g. `v1.21.x`), two-component or series anchors and
+    prerelease/build suffixes are not ordered here; alone they keep the
+    inequality rule, a declared limit (corpus/lessons/round-27.md §C2).
+    """
+    value = norm_version(value or "")
+    if not NUMERIC_VERSION_RE.fullmatch(value) or non_canonical_version(value):
         return None
-    return tuple(int(part) for part in value.split("."))
+    return version_order(value)
 
 
 def is_regression(floor, observed):
@@ -564,7 +614,23 @@ def evaluate(sources, rows, captures=None, receipt_bundle=None):
                 row_valid = False
             is_derived = values["note"].startswith("derived:")
             anchor_ok = is_derived or version_is_named(sources[source_id]["anchor"], anchored)
-            if (is_regression(anchored, observed_version)
+            non_canonical = non_canonical_version(anchored) or non_canonical_version(observed_version)
+            if (is_derived and not non_canonical and feed_source is not None
+                    and not derived_anchor_bound(feed_source["anchor"], anchored)):
+                # round-28 C2: an author-declared derived anchor holds only while
+                # its feed row's located anchor cell (S033-S037) names exactly
+                # that one stable X.Y.Z. Lowering a whole feed group, a second
+                # version in the cell or a prerelease sibling is a typed
+                # DERIVATION finding, never a silent not-fired clock.
+                errors.add(("DERIVATION", source_id))
+                row_valid = False
+            if non_canonical:
+                # SemVer 2.0.0 §2 (S045): a leading zero or an over-bound component
+                # (S044) names no release identity, so it is never ordered, compared
+                # or fired.
+                errors.add(("NON-CANONICAL", source_id))
+                row_valid = False
+            elif (is_regression(anchored, observed_version)
                     or is_regression(floors.get(feed_url, ""), observed_version)):
                 # S042 §11.2 numeric order: the feed's newest stable release is
                 # older than this row's anchor or than another numeric anchor
@@ -609,6 +675,9 @@ def evaluate(sources, rows, captures=None, receipt_bundle=None):
             row_valid = False
         elif receipt is None:
             errors.add(("NOT OBSERVED", source_id))
+            row_valid = False
+        elif str(receipt.get("error", "")).startswith(NON_CANONICAL_PREFIX):
+            errors.add(("NON-CANONICAL", source_id))
             row_valid = False
         elif not receipt_matches(source_id, sources[source_id], values, receipt):
             errors.add(("RECEIPT-MISMATCH", source_id))
@@ -712,8 +781,25 @@ STABLE_TAG_HREF_RE = re.compile(r"/releases/tag/v?([0-9]+\.[0-9]+\.[0-9]+)$")
 TEXT_VERSION_RE = re.compile(r"^Version:[ \t]*v?([0-9]+\.[0-9]+\.[0-9]+)[ \t]*$", re.MULTILINE)
 
 
+def newest_stable(tokens):
+    """Newest canonical stable X.Y.Z token; a non-canonical token is never named.
+
+    A non-canonical token (leading zero or over-bound component) that orders below
+    the newest canonical token cannot be the newest release and is ignored. At or
+    above that token the feed cannot name its newest release, so the feed fails.
+    """
+    canonical = [token for token in tokens if not non_canonical_version(token)]
+    if not canonical:
+        raise ValueError(NON_CANONICAL_PREFIX + "feed has no canonical stable X.Y.Z entry")
+    newest = max(canonical, key=version_order)
+    if any(version_order(token) >= version_order(newest)
+           for token in tokens if non_canonical_version(token)):
+        raise ValueError(NON_CANONICAL_PREFIX + "feed newest stable entry")
+    return newest
+
+
 def parse_latest_version(body):
-    """Newest STABLE release in a feed: the max X.Y.Z over every entry.
+    """Newest STABLE release in a feed: the newest canonical X.Y.Z over every entry.
 
     Entry order is not trusted (GitHub Atom orders by update time and mixes
     module tags such as `sdk/v0.26.0` and prereleases such as `v2.2.0-rc1`);
@@ -726,6 +812,8 @@ def parse_latest_version(body):
     if not body.lstrip().startswith(b"<"):
         match = TEXT_VERSION_RE.search(body.decode("utf-8"))
         if match:
+            if non_canonical_version(match.group(1)):
+                raise ValueError(NON_CANONICAL_PREFIX + "text release version")
             return match.group(1)
         raise ValueError("text release file has no Version: X.Y.Z line")
     if re.search(br"<!\s*(?:DOCTYPE|ENTITY)\b", body, re.IGNORECASE):
@@ -757,7 +845,7 @@ def parse_latest_version(body):
                 stable.append(match.group(1))
     if not stable:
         raise ValueError("feed has no stable X.Y.Z release entry")
-    return max(stable, key=lambda v: tuple(int(part) for part in v.split(".")))
+    return newest_stable(stable)
 
 
 def utc_timestamp():
@@ -779,6 +867,9 @@ def observe_one(source, values, normalizer, opener=None, resolver=None, capture=
         "observed_at": None,
     }
     try:
+        if clock == "feed" and (non_canonical_version(values["anchored_version"])
+                                or non_canonical_version(values.get("observed_version", ""))):
+            raise ValueError(NON_CANONICAL_PREFIX + "row anchor or observation; no verdict written")
         status, body, error = request_body(url, opener=opener, resolver=resolver)
         receipt["http_status"] = status
         if body is not None:
@@ -971,7 +1062,8 @@ def selftest():
         bundle["records"].pop("S001", None)
 
     def run_case(name, rows_text, expected_errors, expected_counts=None,
-                 captures_text=default_capture, receipt_action=None, extra_sources=()):
+                 captures_text=default_capture, receipt_action=None, extra_sources=(),
+                 feed_anchor="Latest release 1.2.0; series 1.2.x"):
         nonlocal cases
         cases += 1
         with tempfile.TemporaryDirectory(prefix="release-clock-") as temp:
@@ -984,7 +1076,7 @@ def selftest():
                 fixture_source("S001", "Document", "docs", "Version 1.2.3",
                                "Quote: “the exact example.”", "on-release",
                                "https://example.test/doc"),
-                fixture_source("S002", "Release feed", "code", "Latest release",
+                fixture_source("S002", "Release feed", "code", feed_anchor,
                                "Release Atom feed.", "90d",
                                "https://example.test/releases.atom"),
                 fixture_source("S003", "Stable doc", "spec", "Page title",
@@ -1002,7 +1094,11 @@ def selftest():
             receipts = synthetic_receipt_bundle(sources, rows)
             if receipt_action:
                 receipt_action(receipts)
-            result = evaluate(sources, rows, captures, receipts)
+            try:
+                result = evaluate(sources, rows, captures, receipts)
+            except ValueError as exc:
+                failures.append("%s: raised %s" % (name, exc))
+                return
             actual_errors = set(result["errors"])
             expected = set(expected_errors)
             if actual_errors != expected:
@@ -1074,6 +1170,54 @@ def selftest():
              anchored="1.2.x", observed="1.3.0", verdict="fired",
              note="derived: series anchor, not orderable") + "\n", [],
              {"observed": 1, "fired": 1, "derived": 1})
+    # round 28 C2: a derived anchor is bound to the version its feed row's
+    # anchor names. Red-before: every case below is accepted CLEAN at BASE,
+    # where `is_derived` skipped the anchor check entirely.
+    run_case("derived anchor must name feed anchor", fixture_row(
+             anchored="1.2.0", observed="1.2.0",
+             note="derived: newest stable release on the feed when the row was opened") + "\n",
+             [("DERIVATION", "S001")], {"observed": 0, "derived": 0},
+             feed_anchor="Latest release v1.2.9")
+    run_case("derived anchor rejects suffix sibling", fixture_row(
+             anchored="1.2.3", observed="1.2.3",
+             note="derived: newest stable release on the feed when the row was opened") + "\n",
+             [("DERIVATION", "S001")], {"observed": 0, "derived": 0},
+             feed_anchor="Latest release 1.2.30")
+    run_case("derived anchor needs a named version", fixture_row(
+             anchored="1.2.0", observed="1.2.0",
+             note="derived: newest stable release on the feed when the row was opened") + "\n",
+             [("DERIVATION", "S001")], {"observed": 0, "derived": 0},
+             feed_anchor="Latest release")
+    run_case("derived fired anchor bound to feed", fixture_row(
+             anchored="1.2.0", observed="1.3.0", verdict="fired",
+             note="derived: series anchor, not orderable") + "\n",
+             [("DERIVATION", "S001")], {"observed": 0, "fired": 0, "derived": 0},
+             feed_anchor="Latest release v1.2.9")
+    run_case("derived group named exactly", fixture_row(
+             anchored="1.2.0", observed="1.2.0",
+             note="derived: newest stable release on the feed when the row was opened") + "\n" + fixture_row(
+             "S004", anchored="1.2.0", observed="1.2.0",
+             note="derived: newest stable release on the feed when the row was opened") + "\n",
+             [("DERIVATION", "S001"), ("DERIVATION", "S004")], {"observed": 0, "derived": 0},
+             extra_sources=[fixture_source("S004", "Successor", "docs", "Version 1.2.0",
+                                           "Successor.", "on-release",
+                                           "https://example.test/successor")],
+             feed_anchor="Latest release v1.2.9")
+    run_case("derived anchor rejects prerelease sibling", fixture_row(
+             anchored="1.2.3", observed="1.2.3",
+             note="derived: newest stable release on the feed when the row was opened") + "\n",
+             [("DERIVATION", "S001")], {"observed": 0, "derived": 0},
+             feed_anchor="Entry titled v1.2.3-rc1, tag link /releases/tag/v1.2.3-rc1")
+    run_case("derived anchor needs one version in cell", fixture_row(
+             anchored="1.2.0", observed="1.2.0",
+             note="derived: newest stable release on the feed when the row was opened") + "\n",
+             [("DERIVATION", "S001")], {"observed": 0, "derived": 0},
+             feed_anchor="Entry titled v1.2.9; prior stable v1.2.0")
+    run_case("derived anchor bound to its one feed token", fixture_row(
+             anchored="1.2.9", observed="1.2.9",
+             note="derived: newest stable release on the feed when the row was opened") + "\n",
+             [], {"observed": 1, "derived": 1},
+             feed_anchor="Entry titled v1.2.9, tag link /releases/tag/v1.2.9, updated 2026-10-15T18:50:14Z")
     run_case("feed floor catches un-fire", fixture_row(
              anchored="1.2.3", observed="1.2.3", verdict="not-fired") + "\n" + fixture_row(
              "S004", anchored="1.2.4", observed="1.2.4", verdict="not-fired") + "\n",
@@ -1097,6 +1241,38 @@ def selftest():
              [("REGRESSED", "S001")], {"observed": 0})
     run_case("non-strict observation refused", fixture_row(observed="1.3", verdict="fired") + "\n",
              [("INCONSISTENT", "S001")], {"observed": 0})
+
+    # round 28 C1: a leading zero or an over-bound component names no release
+    # identity (SemVer 2.0.0 §2, S045): typed NON-CANONICAL, never ordered or fired.
+    run_case("leading-zero observation refused", fixture_row(
+             observed="1.2.04", verdict="fired") + "\n",
+             [("NON-CANONICAL", "S001")], {"observed": 0, "fired": 0})
+    run_case("leading-zero anchor refused", fixture_row(
+             anchored="1.2.03", observed="1.2.03") + "\n",
+             [("NON-CANONICAL", "S001")], {"observed": 0})
+    run_case("derived leading-zero anchor refused", fixture_row(
+             anchored="1.2.03", observed="1.2.03",
+             note="derived: leading-zero anchor, not a release identity") + "\n",
+             [("NON-CANONICAL", "S001")], {"observed": 0})
+    run_case("zero-padded middle component refused", fixture_row(
+             observed="1.00.0", verdict="fired") + "\n",
+             [("NON-CANONICAL", "S001")], {"observed": 0, "fired": 0})
+    run_case("nineteen-digit component refused", fixture_row(
+             observed="1.2.9999999999999999999", verdict="fired") + "\n",
+             [("NON-CANONICAL", "S001")], {"observed": 0, "fired": 0})
+    run_case("oversize observation refused", fixture_row(
+             observed="1.2." + "1" * 4301, verdict="fired") + "\n",
+             [("NON-CANONICAL", "S001")], {"observed": 0, "fired": 0})
+    run_case("oversize anchor refused", fixture_row(
+             anchored="1.2." + "1" * 4301, observed="1.2." + "1" * 4301) + "\n",
+             [("NON-CANONICAL", "S001")], {"observed": 0})
+    run_case("non-canonical anchor is no feed floor", fixture_row(
+             anchored="1.2.3", observed="1.2.3", verdict="not-fired") + "\n" + fixture_row(
+             "S004", anchored="1.2.04", observed="1.2.04", verdict="not-fired") + "\n",
+             [("NON-CANONICAL", "S004")], {"observed": 1},
+             extra_sources=[fixture_source("S004", "Successor", "docs", "Version 1.2.4",
+                                           "Successor.", "on-release",
+                                           "https://example.test/successor")])
 
     run_case("missing receipt", fixture_row() + "\n",
              [("NOT OBSERVED", "S001")], {"observed": 0},
@@ -1182,6 +1358,34 @@ def selftest():
             failures.append("version parser %s: accepted" % label)
         except ValueError:
             pass
+
+    # round 28 C1: a non-canonical stable token is never named the release; a feed
+    # whose newest stable entry cannot be named fails with a canonical-rule message
+    # (never an accepted leading-zero tag, never an untyped int() ValueError).
+    for label, feed_body in (
+            ("leading-zero newest refused", atom % entry(b"v3.15.01", b"v3.15.01")),
+            ("leading-zero tie with canonical refused", atom % b"".join((
+                entry(b"v3.15.1", b"v3.15.1"), entry(b"v3.15.01", b"v3.15.01")))),
+            ("oversize newest refused", atom % entry(b"v3.15." + b"1" * 4301, b"v3.15.1")),
+            ("rss leading-zero above canonical refused",
+             b"<rss><channel><item><title>Python 3.15.01</title></item>"
+             b"<item><title>Python 3.15.0</title></item></channel></rss>"),
+            ("text leading-zero refused", b"Version: 8.23.01\nDate: 2026-10-14\n")):
+        cases += 1
+        try:
+            failures.append("version parser %s: accepted %r" % (
+                label, parse_latest_version(feed_body)))
+        except ValueError as exc:
+            if "canonical" not in str(exc):
+                failures.append("version parser %s: untyped refusal %s" % (label, exc))
+    cases += 1
+    try:
+        older_oversize = parse_latest_version(atom % (
+            entry(b"v3.15.0", b"v3.15.0") + entry(b"v3.14." + b"1" * 4301, b"v3.14.1")))
+    except ValueError as exc:
+        older_oversize = "ValueError: %s" % exc
+    if older_oversize != "3.15.0":
+        failures.append("older oversize entry was not ignored: %r" % (older_oversize,))
 
     cases += 1
     try:
@@ -1477,6 +1681,41 @@ def selftest():
     if sibling_floor_observation["verdict"] != "regressed" or "error" in sibling_floor_observation:
         failures.append("observation below a sibling anchor on the same feed was not regressed")
 
+    # round 28 C1: --observe never writes a verdict from a non-canonical token. A
+    # newest stable entry that cannot be named, or a non-canonical row anchor, leaves
+    # an error receipt with no parsed_version and no verdict.
+    for label, observation in (
+            ("leading-zero newest entry", observe_one(
+                {"url": "https://example.test/doc", "teaches": "test"},
+                {"id": "S001", "clock": "feed",
+                 "feed_url": "https://feed.example.test/releases.atom",
+                 "anchored_version": "1.2.3", "observed_version": "1.2.3"},
+                None,
+                opener=StaticOpener(b'<feed><entry><title>v1.2.03</title></entry></feed>'),
+                resolver=fake_public_resolver)),
+            ("oversize newest entry", observe_one(
+                {"url": "https://example.test/doc", "teaches": "test"},
+                {"id": "S001", "clock": "feed",
+                 "feed_url": "https://feed.example.test/releases.atom",
+                 "anchored_version": "1.2.3", "observed_version": "1.2.3"},
+                None,
+                opener=StaticOpener(b'<feed><entry><title>v1.2.' + b"1" * 4301
+                                    + b'</title></entry></feed>'),
+                resolver=fake_public_resolver)),
+            ("non-canonical row anchor", observe_one(
+                {"url": "https://example.test/doc", "teaches": "test"},
+                {"id": "S001", "clock": "feed",
+                 "feed_url": "https://feed.example.test/releases.atom",
+                 "anchored_version": "1.2.03", "observed_version": "1.2.03"},
+                None,
+                opener=StaticOpener(b'<feed><entry><title>v1.2.3</title></entry></feed>'),
+                resolver=fake_public_resolver))):
+        cases += 1
+        if (observation.get("verdict") is not None
+                or observation.get("parsed_version") is not None
+                or "canonical" not in observation.get("error", "")):
+            failures.append("observe %s was not typed non-canonical" % label)
+
     normalizer = load_normalizer(Path(__file__).resolve().parent.parent)
     quote_source = {
         "url": "https://docs.example.test/page",
@@ -1696,6 +1935,90 @@ def selftest():
                 or ("RECEIPT-MISMATCH", "S001") not in result["errors"]
                 or tsv_path.read_bytes() != tsv_before):
             failures.append("quote-missing fired receipt or TSV immutability")
+
+    with tempfile.TemporaryDirectory(prefix="release-clock-leading-zero-") as temp:
+        root = Path(temp)
+        corpus = root / "corpus"
+        corpus.mkdir()
+        source_lines = [
+            "| id | source | kind | tier | scope | anchor | teaches | status | opened | recheck | used-by |",
+            "|---|---|---|---|---|---|---|---|---|---|---|",
+            fixture_source("S001", "Document", "docs", "Version 1.2.3",
+                           "Quote: “the exact example.”", "on-release",
+                           "https://example.test/doc"),
+            fixture_source("S002", "Release feed", "code", "Latest release",
+                           "Release Atom feed.", "90d",
+                           "https://example.test/releases.atom"),
+        ]
+        (corpus / "SOURCES.md").write_text("\n".join(source_lines) + "\n", encoding="utf-8")
+        (corpus / "release-clocks.tsv").write_text(
+            "\t".join(HEADER) + "\n" + fixture_row() + "\n", encoding="utf-8")
+        root_sources = parse_sources(root)
+        root_rows = parse_bindings(root)
+        output_path = root / "receipt.json"
+        original_request_body = request_body
+        original_utc_timestamp = utc_timestamp
+        request_body = lambda url, **kwargs: (
+            200, b'<feed><entry><title>v1.2.03</title></entry></feed>', None)
+        utc_timestamp = lambda: "2026-10-21T00:00:00Z"
+        summary = io.StringIO()
+        try:
+            with contextlib.redirect_stdout(summary):
+                observe_failures = run_observe(root, root_sources, root_rows, output_path)
+        finally:
+            request_body = original_request_body
+            utc_timestamp = original_utc_timestamp
+        leading_zero_receipt = load_receipt_bundle(output_path)["records"].get("S001", {})
+        leading_zero_result = evaluate(root_sources, root_rows, {}, load_receipt_bundle(output_path))
+        cases += 1
+        if (observe_failures != 1
+                or "failed=1 fired=0" not in summary.getvalue()
+                or leading_zero_receipt.get("verdict") is not None
+                or "canonical" not in leading_zero_receipt.get("error", "")
+                or ("NON-CANONICAL", "S001") not in leading_zero_result["errors"]
+                or ("RECEIPT-MISMATCH", "S001") in leading_zero_result["errors"]):
+            failures.append("leading-zero feed observation was not typed NON-CANONICAL")
+
+    # round 28 C2: the --observe CLI path shares evaluate with verify and
+    # --receipt, so a derived anchor unbound from its feed row's anchor fails
+    # the observation run too (exit 1, typed finding, offline static body).
+    with tempfile.TemporaryDirectory(prefix="release-clock-observe-derived-") as temp:
+        root = Path(temp)
+        corpus = root / "corpus"
+        corpus.mkdir()
+        source_lines = [
+            "| id | source | kind | tier | scope | anchor | teaches | status | opened | recheck | used-by |",
+            "|---|---|---|---|---|---|---|---|---|---|---|",
+            fixture_source("S001", "Document", "docs", "Version 1.2.0",
+                           "Doc.", "on-release", "https://example.test/doc"),
+            fixture_source("S002", "Release feed", "code", "Latest release v1.2.9",
+                           "Release Atom feed.", "90d",
+                           "https://example.test/releases.atom"),
+        ]
+        (corpus / "SOURCES.md").write_text("\n".join(source_lines) + "\n", encoding="utf-8")
+        (corpus / "release-clocks.tsv").write_text("\t".join(HEADER) + "\n" + fixture_row(
+            anchored="1.2.0", observed="1.3.0", verdict="fired",
+            note="derived: newest stable release on the feed when the row was opened") + "\n",
+            encoding="utf-8")
+        original_request_body = request_body
+        original_utc_timestamp = utc_timestamp
+        request_body = lambda url, **kwargs: (
+            200, b'<feed xmlns="http://www.w3.org/2005/Atom">'
+                 b"<entry><title>v1.3.0</title></entry></feed>", None)
+        utc_timestamp = lambda: "2026-10-21T00:00:00Z"
+        observe_stdout = io.StringIO()
+        try:
+            with contextlib.redirect_stdout(observe_stdout):
+                observe_exit = main(["--root", str(root), "--observe",
+                                     str(root / "derived-observe.json")])
+        finally:
+            request_body = original_request_body
+            utc_timestamp = original_utc_timestamp
+        cases += 1
+        if (observe_exit != 1
+                or "DERIVATION S001" not in observe_stdout.getvalue()
+                or "RELEASE_CLOCK: FAILED" not in observe_stdout.getvalue()):
+            failures.append("observe path accepted an unbound derived anchor")
     if failures:
         for failure in failures:
             print("RELEASE_CLOCK_SELFTEST: FAIL %s" % failure)

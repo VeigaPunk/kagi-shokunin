@@ -1,0 +1,61 @@
+--- a/corpus/release-clock.py
++++ b/corpus/release-clock.py
+@@ -782,24 +782,18 @@
+ 
+ 
+ def newest_stable(tokens):
+-    """Newest canonical stable X.Y.Z token; a non-canonical token is never named.
+-
+-    A non-canonical token (leading zero or over-bound component) that orders below
+-    the newest canonical token cannot be the newest release and is ignored. At or
+-    above that token the feed cannot name its newest release, so the feed fails.
++    """Newest stable X.Y.Z token. Every stable entry must be canonical (SemVer 2.0.0 §2).
++
++    A non-canonical entry (leading zero or over-bound component) fails the feed typed,
++    wherever it sits in the feed, so none is ordered around or silently skipped.
+     """
+-    canonical = [token for token in tokens if not non_canonical_version(token)]
+-    if not canonical:
+-        raise ValueError(NON_CANONICAL_PREFIX + "feed has no canonical stable X.Y.Z entry")
+-    newest = max(canonical, key=version_order)
+-    if any(version_order(token) >= version_order(newest)
+-           for token in tokens if non_canonical_version(token)):
+-        raise ValueError(NON_CANONICAL_PREFIX + "feed newest stable entry")
+-    return newest
++    if any(non_canonical_version(token) for token in tokens):
++        raise ValueError(NON_CANONICAL_PREFIX + "feed stable entry")
++    return max(tokens, key=version_order)
+ 
+ 
+ def parse_latest_version(body):
+-    """Newest STABLE release in a feed: the newest canonical X.Y.Z over every entry.
++    """Newest STABLE release in a feed: the max X.Y.Z over every entry; all must be canonical.
+ 
+     Entry order is not trusted (GitHub Atom orders by update time and mixes
+     module tags such as `sdk/v0.26.0` and prereleases such as `v2.2.0-rc1`);
+@@ -1367,6 +1361,8 @@
+             ("leading-zero tie with canonical refused", atom % b"".join((
+                 entry(b"v3.15.1", b"v3.15.1"), entry(b"v3.15.01", b"v3.15.01")))),
+             ("oversize newest refused", atom % entry(b"v3.15." + b"1" * 4301, b"v3.15.1")),
++            ("older leading-zero refused", atom % b"".join((
++                entry(b"v3.15.1", b"v3.15.1"), entry(b"v3.14.01", b"v3.14.01")))),
+             ("rss leading-zero above canonical refused",
+              b"<rss><channel><item><title>Python 3.15.01</title></item>"
+              b"<item><title>Python 3.15.0</title></item></channel></rss>"),
+@@ -1380,12 +1376,12 @@
+                 failures.append("version parser %s: untyped refusal %s" % (label, exc))
+     cases += 1
+     try:
+-        older_oversize = parse_latest_version(atom % (
++        parse_latest_version(atom % (
+             entry(b"v3.15.0", b"v3.15.0") + entry(b"v3.14." + b"1" * 4301, b"v3.14.1")))
++        failures.append("older oversize entry was accepted")
+     except ValueError as exc:
+-        older_oversize = "ValueError: %s" % exc
+-    if older_oversize != "3.15.0":
+-        failures.append("older oversize entry was not ignored: %r" % (older_oversize,))
++        if "canonical" not in str(exc):
++            failures.append("older oversize entry had untyped refusal: %s" % exc)
+ 
+     cases += 1
+     try:

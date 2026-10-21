@@ -1526,3 +1526,22 @@ anchor` reads any older observation as a fired release).
   zero equality stay named limits (`lessons/round-27.md`).
 - Measured revision `3fb77271eeee797047c37871038b1db1247fa236`; final Gate receipts `.ufo/waves/round-27/final/`
   (C1 stale 4 → 0, C2 accepted 4/4 → 0/4, ledger CLEAN in fleet layout).
+
+## Round 28 — canonical version tokens; derived anchors bound (2026-10-21)
+
+BASE `3553d499577084a6c98d7078906017840bbf7b28`; claims file `plans/round-28.md` and START census
+committed alone first (`bdf90f58e43fdcae6291224197afe17812a16b55`), closing round27's conformance
+debt. Motivation: round27's named debts (leading-zero equality, >4300-digit
+ValueError, CritFinalC2 #1 derived-anchor forgery).
+
+- C1: `NON-CANONICAL` for leading-zero or over-18-digit version components in
+  anchors, observations and newest feed entries (QM27; S044/S045/S046);
+  ordering compares `(length, digits)` without int(); dead `VERSION_RE` removed.
+- C2: `DERIVATION` when a `derived:` anchor is not the one stable version its
+  feed row's anchor cell names (QM28). CritC2Axis re-booked C2 as freshness:
+  one claim, two frozen commands.
+- Frontier: S044–S049 (three claim rows, three frontier-lead rows); mistakes
+  M28-1..M28-4 (QM29 conformance check, `.ufo/waves/round-28/tools/round-conformance.py`).
+- BUILD wave 73 seats (validated, one taskCall; job cap refused 6 times,
+  dispatched on try 7). Selftest 79 → 106. Measured revision and receipts are
+  recorded in the lesson and SCORECARD after landing.

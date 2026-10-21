@@ -1,0 +1,835 @@
+{
+  "base": "3553d499577084a6c98d7078906017840bbf7b28",
+  "base_blob_sha256": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+  "candidate": {
+    "blob_sha256": "90552356869cb1e02694b277d040ad13dd5b6f003a2ec87f388d651cc9bccff3",
+    "c1_hunks": 3,
+    "c1_other_files": [],
+    "c1_patch": "build/XSeparability-synthetic-c1.patch",
+    "c2_hunks": 1,
+    "c2_other_files": [],
+    "c2_patch": "build/XSeparability-synthetic-c2.patch",
+    "candidate_apply": [
+      {
+        "at": 579,
+        "hunk": 1,
+        "shifted_by": 16
+      }
+    ],
+    "manifest": {
+      "c1": [
+        1,
+        2,
+        3
+      ],
+      "c2": [
+        1
+      ],
+      "mode": "from-patches",
+      "note": "patch hunks are per-claim by construction; overlays are BASE+each patch directly"
+    },
+    "mode": "from-patches"
+  },
+  "format": "kagi-round28-separability-v1",
+  "host_python": "3.14.8",
+  "label": "synthetic-from-patches",
+  "overlays": {
+    "c1_only": {
+      "blob_sha256": "525dc978da3581964e3923c0fb30743e08bcef77ed5adab4697f1b3fbe348bf7",
+      "clock_selftest": {
+        "argv": [
+          "python3",
+          "-I",
+          "-B",
+          "corpus/release-clock.py",
+          "--selftest"
+        ],
+        "clean_exit0": false,
+        "clock_summary": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)",
+        "exit": 0,
+        "findings": [],
+        "last_line": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)",
+        "named_ids": [],
+        "stderr": "",
+        "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n",
+        "traceback": false
+      },
+      "fixtures": {
+        "F1_table_lie": {
+          "argv": [
+            "python3",
+            "-I",
+            "-B",
+            "/fast/scratch/kagi-r28-sep-8vqhp6jj/c1/kagi-shokunin/corpus/release-clock.py",
+            "--root",
+            "/fast/scratch/kagi-r28-sep-8vqhp6jj/fixture-F1",
+            "--receipt",
+            "/fast/scratch/kagi-r28-sep-8vqhp6jj/fixture-F1/receipt.json",
+            "--receipt-sha",
+            "a93cfb9819591e4c4ddc01291bf8854abe86bf43a6c8790714c9aa73bd2e2465"
+          ],
+          "changed_rows": [
+            "S040"
+          ],
+          "class": "typed",
+          "clean_exit0": false,
+          "clock_summary": "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)",
+          "edits": {
+            "S040": [
+              "3.15.01",
+              "fired"
+            ]
+          },
+          "exit": 1,
+          "findings": [
+            "INCONSISTENT S040",
+            "RECEIPT-MISMATCH S040"
+          ],
+          "kind": "table",
+          "last_line": "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)",
+          "named_ids": [
+            "S040"
+          ],
+          "receipt_sha256": "a93cfb9819591e4c4ddc01291bf8854abe86bf43a6c8790714c9aa73bd2e2465",
+          "stderr": "",
+          "stdout": "INCONSISTENT S040\nRECEIPT-MISMATCH S040\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)\n",
+          "table_sha256": "544d2339e2d1ade08d45348556dc5c702a19e5e02f3fb0a2438030c96b57b705",
+          "traceback": false
+        },
+        "F2_table_oversize": {
+          "argv": [
+            "python3",
+            "-I",
+            "-B",
+            "/fast/scratch/kagi-r28-sep-8vqhp6jj/c1/kagi-shokunin/corpus/release-clock.py",
+            "--root",
+            "/fast/scratch/kagi-r28-sep-8vqhp6jj/fixture-F2",
+            "--receipt",
+            "/fast/scratch/kagi-r28-sep-8vqhp6jj/fixture-F2/receipt.json",
+            "--receipt-sha",
+            "59b75e47de2642a767be3ed77a9209ee8009fb3be01d834b76d2fe052870dae2"
+          ],
+          "changed_rows": [
+            "S040"
+          ],
+          "class": "typed",
+          "clean_exit0": false,
+          "clock_summary": "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)",
+          "edits": {
+            "S040": [
+              "3.15.11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+              "fired"
+            ]
+          },
+          "exit": 1,
+          "findings": [
+            "INCONSISTENT S040",
+            "RECEIPT-MISMATCH S040"
+          ],
+          "kind": "table",
+          "last_line": "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)",
+          "named_ids": [
+            "S040"
+          ],
+          "receipt_sha256": "59b75e47de2642a767be3ed77a9209ee8009fb3be01d834b76d2fe052870dae2",
+          "stderr": "",
+          "stdout": "INCONSISTENT S040\nRECEIPT-MISMATCH S040\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)\n",
+          "table_sha256": "b4062612c86600deee222ea61e3bd567edb2271f8bbccfb41afaf0b8b213fcd2",
+          "traceback": false
+        },
+        "F3_observe_leading_zero": {
+          "argv": [
+            "python3",
+            "-I",
+            "-B",
+            "/fast/scratch/kagi-r28-sep-8vqhp6jj/observe-driver-F3.py",
+            "/fast/scratch/kagi-r28-sep-8vqhp6jj/c1/kagi-shokunin/corpus/release-clock.py",
+            "/fast/scratch/kagi-r28-sep-8vqhp6jj/fixture-F3/python-feed.rss",
+            "/fast/scratch/kagi-r28-sep-8vqhp6jj/fixture-F3",
+            "/fast/scratch/kagi-r28-sep-8vqhp6jj/fixture-F3/observe-out.json"
+          ],
+          "class": "typed",
+          "clean_exit0": false,
+          "clock_summary": "RELEASE_CLOCK: FAILED (on_release=4 bound=4 unbound=0 observed=0 fired=0 derived=0)",
+          "exit": 1,
+          "feed": "https://www.python.org/downloads/feed.rss",
+          "feed_sha256": "63cba8ae8004e21a61739aa34a54e006775591027e4d2dc229f9fa8694fae623",
+          "findings": [
+            "RECEIPT-MISMATCH S027",
+            "RECEIPT-MISMATCH S028",
+            "RECEIPT-MISMATCH S040",
+            "RECEIPT-MISMATCH S041"
+          ],
+          "kind": "observe",
+          "last_line": "RELEASE_CLOCK: FAILED (on_release=4 bound=4 unbound=0 observed=0 fired=0 derived=0)",
+          "named_ids": [
+            "S027",
+            "S028",
+            "S040",
+            "S041"
+          ],
+          "receipt": [
+            {
+              "error": "synthetic C1 demo: non-canonical or oversized release token '3.15.01'",
+              "id": "S027",
+              "verdict": null
+            },
+            {
+              "error": "synthetic C1 demo: non-canonical or oversized release token '3.15.01'",
+              "id": "S028",
+              "verdict": null
+            },
+            {
+              "error": "synthetic C1 demo: non-canonical or oversized release token '3.15.01'",
+              "id": "S040",
+              "verdict": null
+            },
+            {
+              "error": "synthetic C1 demo: non-canonical or oversized release token '3.15.01'",
+              "id": "S041",
+              "verdict": null
+            }
+          ],
+          "scope": "python.org feed rows only (offline via request_body seam)",
+          "stderr": "",
+          "stdout": "RELEASE_CLOCK_OBSERVE: wrote 4 observations (failed=4 fired=0 regressed=0) to /fast/scratch/kagi-r28-sep-8vqhp6jj/fixture-F3/observe-out.json\nRECEIPT-MISMATCH S027\nRECEIPT-MISMATCH S028\nRECEIPT-MISMATCH S040\nRECEIPT-MISMATCH S041\nRELEASE_CLOCK: FAILED (on_release=4 bound=4 unbound=0 observed=0 fired=0 derived=0)\n",
+          "traceback": false,
+          "written_fired_ids": []
+        },
+        "F4_observe_oversize": {
+          "argv": [
+            "python3",
+            "-I",
+            "-B",
+            "/fast/scratch/kagi-r28-sep-8vqhp6jj/observe-driver-F4.py",
+            "/fast/scratch/kagi-r28-sep-8vqhp6jj/c1/kagi-shokunin/corpus/release-clock.py",
+            "/fast/scratch/kagi-r28-sep-8vqhp6jj/fixture-F4/python-feed.rss",
+            "/fast/scratch/kagi-r28-sep-8vqhp6jj/fixture-F4",
+            "/fast/scratch/kagi-r28-sep-8vqhp6jj/fixture-F4/observe-out.json"
+          ],
+          "class": "typed",
+          "clean_exit0": false,
+          "clock_summary": "RELEASE_CLOCK: FAILED (on_release=4 bound=4 unbound=0 observed=0 fired=0 derived=0)",
+          "exit": 1,
+          "feed": "https://www.python.org/downloads/feed.rss",
+          "feed_sha256": "15d319f8615ef12106843d19b391193ff6cfa0feef6632d72a2236259474f08f",
+          "findings": [
+            "RECEIPT-MISMATCH S027",
+            "RECEIPT-MISMATCH S028",
+            "RECEIPT-MISMATCH S040",
+            "RECEIPT-MISMATCH S041"
+          ],
+          "kind": "observe",
+          "last_line": "RELEASE_CLOCK: FAILED (on_release=4 bound=4 unbound=0 observed=0 fired=0 derived=0)",
+          "named_ids": [
+            "S027",
+            "S028",
+            "S040",
+            "S041"
+          ],
+          "receipt": [
+            {
+              "error": "Exceeds the limit (4300 digits) for integer string conversion: value has 4301 digits; use sys.set_int_max_str_digits() to increase the limit",
+              "id": "S027",
+              "verdict": null
+            },
+            {
+              "error": "Exceeds the limit (4300 digits) for integer string conversion: value has 4301 digits; use sys.set_int_max_str_digits() to increase the limit",
+              "id": "S028",
+              "verdict": null
+            },
+            {
+              "error": "Exceeds the limit (4300 digits) for integer string conversion: value has 4301 digits; use sys.set_int_max_str_digits() to increase the limit",
+              "id": "S040",
+              "verdict": null
+            },
+            {
+              "error": "Exceeds the limit (4300 digits) for integer string conversion: value has 4301 digits; use sys.set_int_max_str_digits() to increase the limit",
+              "id": "S041",
+              "verdict": null
+            }
+          ],
+          "scope": "python.org feed rows only (offline via request_body seam)",
+          "stderr": "",
+          "stdout": "RELEASE_CLOCK_OBSERVE: wrote 4 observations (failed=4 fired=0 regressed=0) to /fast/scratch/kagi-r28-sep-8vqhp6jj/fixture-F4/observe-out.json\nRECEIPT-MISMATCH S027\nRECEIPT-MISMATCH S028\nRECEIPT-MISMATCH S040\nRECEIPT-MISMATCH S041\nRELEASE_CLOCK: FAILED (on_release=4 bound=4 unbound=0 observed=0 fired=0 derived=0)\n",
+          "traceback": false,
+          "written_fired_ids": []
+        },
+        "control_default": {
+          "argv": [
+            "python3",
+            "-I",
+            "-B",
+            "corpus/release-clock.py"
+          ],
+          "class": "clean",
+          "clean_exit0": true,
+          "clock_summary": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)",
+          "exit": 0,
+          "findings": [],
+          "kind": "default-run",
+          "last_line": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)",
+          "named_ids": [],
+          "stderr": "",
+          "stdout": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)\n",
+          "traceback": false
+        }
+      },
+      "hunks_applied": [
+        {
+          "at": 117,
+          "hunk": 1,
+          "shifted_by": 0
+        },
+        {
+          "at": 391,
+          "hunk": 2,
+          "shifted_by": 4
+        },
+        {
+          "at": 803,
+          "hunk": 3,
+          "shifted_by": 16
+        }
+      ],
+      "self_counts": {
+        "argv": [
+          "python3",
+          "-I",
+          "-B",
+          "corpus/self-counts.py"
+        ],
+        "clean_exit0": false,
+        "clock_summary": "",
+        "exit": 0,
+        "finding_kinds": [],
+        "findings": [
+          "OK SC-SKILL-STAMPS SKILL.md:46 claimed=90 live=90",
+          "OK SC-SKILL-CLAIMS SKILL.md:46 claimed=65 live=65",
+          "OK SC-SCOPE-ROWS SKILL.md:35 claimed=35 live=35",
+          "OK SC-SCOPE-SELFTEST SKILL.md:35 claimed=61 live=61",
+          "OK SC-CENSUS-SELFTEST SKILL.md:36 claimed=16 pinned=16",
+          "OK SC-SOURCES-SELFTEST SKILL.md:49 claimed=70 live=70",
+          "OK SC-SELFCOUNTS-SELFTEST SKILL.md:47 claimed=48 live=48",
+          "OK SC-CLOCK-SELFTEST SKILL.md:48 claimed=79 live=79",
+          "OK SC-LEDGER-SELFTEST SKILL.md:245 claimed=170 live=170",
+          "OK SC-CLOSURE-SELFTEST SKILL.md:751 claimed=14 live=14",
+          "OK SC-RENDERED-SELFTEST SKILL.md:752 claimed=22 live=22",
+          "OK PV-SURFACE-SELFTEST PROVINCE.md:46 claimed=16 pinned=16",
+          "OK PV-CENSUS-ROWS PROVINCE.md:46 claimed=35 live=35",
+          "OK PV-STATE-ROWS PROVINCE.md:46 claimed=22 live=22",
+          "OK PV-DRIFT-FILES PROVINCE.md:47 claimed=15 live=15",
+          "OK PV-DRIFT-SYMBOLS PROVINCE.md:47 claimed=20 live=20",
+          "OK PV-OPREF-SELFTEST PROVINCE.md:49 claimed=36 pinned=36",
+          "OK PV-CHECKLIST-SELFTEST PROVINCE.md:50 claimed=34 live=34",
+          "OK PV-SCOPE-SELFTEST PROVINCE.md:51 claimed=61 live=61",
+          "OK PV-STAMPS PROVINCE.md:52 claimed=90 live=90",
+          "OK PV-CLAIMS PROVINCE.md:52 claimed=65 live=65",
+          "OK PV-LEDGER-SELFTEST PROVINCE.md:52 claimed=170 live=170",
+          "OK PV-SELFCOUNTS-SELFTEST PROVINCE.md:53 claimed=48 live=48",
+          "OK PV-CLOCK-SELFTEST PROVINCE.md:54 claimed=79 live=79",
+          "OK PV-SOURCES-SELFTEST PROVINCE.md:55 claimed=70 live=70",
+          "OK PV-RENDERED-SELFTEST PROVINCE.md:56 claimed=22 live=22",
+          "OK PV-CLOSURE-SELFTEST PROVINCE.md:57 claimed=14 live=14",
+          "OK RD-CENSUS-ROWS corpus/README.md:41 claimed=35 live=35",
+          "OK RD-STATE-ROWS corpus/README.md:42 claimed=22 live=22",
+          "OK RD-SCOPE-SELFTEST corpus/README.md:43 claimed=61 live=61",
+          "OK RD-LEDGER-SELFTEST corpus/README.md:63 claimed=170 live=170",
+          "OK RD-LEDGER-ROWS corpus/README.md:64 claimed=65 live=65",
+          "OK RD-STAMPS corpus/README.md:65 claimed=90 live=90",
+          "OK RD-DOCS-ROWLINKED corpus/README.md:67 claimed=22 live=22",
+          "OK RD-DOCS-BYHAND corpus/README.md:67 claimed=3 live=3",
+          "OK RD-DOCS-ENTRIES corpus/README.md:67 claimed=25 live=25",
+          "OK RD-OPREF-SELFTEST corpus/README.md:69 claimed=36 pinned=36",
+          "OK RD-CHECKLIST-SELFTEST corpus/README.md:33 claimed=34 live=34",
+          "OK KN-BREADTH-SCOPE-SELFTEST corpus/knowledge/adjacency-breadth.md:152 claimed=61 live=61",
+          "OK KN-BREADTH-FALSIFY corpus/knowledge/adjacency-breadth.md:155 claimed=18 pinned=18",
+          "OK KN-SCOPE-CURRENT-SELFTEST corpus/knowledge/adjacency-scope.md:16 claimed=61 live=61",
+          "OK KN-SCOPE-CURRENT-FALSIFY corpus/knowledge/adjacency-scope.md:17 claimed=18 pinned=18",
+          "OK KN-SCOPE-TABLE-SELFTEST corpus/knowledge/adjacency-scope.md:155 claimed=61 live=61",
+          "OK KN-SCOPE-TABLE-FALSIFY corpus/knowledge/adjacency-scope.md:155 claimed=18 pinned=18",
+          "OK KN-SCOPE-MUTATIONS corpus/knowledge/adjacency-scope.md:269 claimed=18 pinned=18",
+          "OK KN-CHECKLIST-SELFTEST corpus/knowledge/checklist-execution.md:63 claimed=34 live=34",
+          "OK KN-CHECKLIST-FALSIFY-ROWS corpus/knowledge/checklist-execution.md:173 claimed=16 live=16",
+          "OK KN-CHECKLIST-FALSIFY-ITEMS corpus/knowledge/checklist-execution.md:179 claimed=16 live=16",
+          "OK KN-LEDGER-REPRO-SELFTEST corpus/knowledge/claim-ledger.md:304 claimed=170 live=170",
+          "OK KN-DRIFT-BOUND-FILES corpus/knowledge/drift-gate.md:143 claimed=15 live=15",
+          "OK KN-OPREF-REPRO-SELFTEST corpus/knowledge/op-ref-consumption.md:276 claimed=36 pinned=36",
+          "OK KN-OPREF-CORRECTION-SELFTEST corpus/knowledge/op-ref-consumption.md:374 claimed=36 pinned=36",
+          "OK KN-CENSUS-DRIFT-FILES corpus/knowledge/surface-census.md:32 claimed=15 live=15",
+          "OK KN-CENSUS-DRIFT-SYMBOLS corpus/knowledge/surface-census.md:32 claimed=20 live=20",
+          "OK KN-BREADTH-LINES corpus/knowledge/adjacency-breadth.md:148 claimed=4 live=4",
+          "OK KN-BREADTH-FALSIFIERS corpus/knowledge/adjacency-breadth.md:158 claimed=18 pinned=18",
+          "OK KN-SUBSTRATE-CENSUS-SELFTEST corpus/knowledge/substrate-deferral.md:44 claimed=16 pinned=16",
+          "OK KN-SUBSTRATE-ABSENCE-FILES corpus/knowledge/substrate-deferral.md:50 claimed=15 pinned=15",
+          "OK KN-CHECKLIST-FALSIFY-FLOOR corpus/knowledge/checklist-execution.md:179 claimed=8 live=8",
+          "OK KN-OPREF-FALSIFY-SELFTEST corpus/knowledge/op-ref-consumption.md:296 claimed=36 pinned=36",
+          "SELF_COUNTS: CLEAN (claims=60 stale=0)"
+        ],
+        "last_line": "SELF_COUNTS: CLEAN (claims=60 stale=0)",
+        "named_ids": [],
+        "stderr": "",
+        "stdout": "OK SC-SKILL-STAMPS SKILL.md:46 claimed=90 live=90\nOK SC-SKILL-CLAIMS SKILL.md:46 claimed=65 live=65\nOK SC-SCOPE-ROWS SKILL.md:35 claimed=35 live=35\nOK SC-SCOPE-SELFTEST SKILL.md:35 claimed=61 live=61\nOK SC-CENSUS-SELFTEST SKILL.md:36 claimed=16 pinned=16\nOK SC-SOURCES-SELFTEST SKILL.md:49 claimed=70 live=70\nOK SC-SELFCOUNTS-SELFTEST SKILL.md:47 claimed=48 live=48\nOK SC-CLOCK-SELFTEST SKILL.md:48 claimed=79 live=79\nOK SC-LEDGER-SELFTEST SKILL.md:245 claimed=170 live=170\nOK SC-CLOSURE-SELFTEST SKILL.md:751 claimed=14 live=14\nOK SC-RENDERED-SELFTEST SKILL.md:752 claimed=22 live=22\nOK PV-SURFACE-SELFTEST PROVINCE.md:46 claimed=16 pinned=16\nOK PV-CENSUS-ROWS PROVINCE.md:46 claimed=35 live=35\nOK PV-STATE-ROWS PROVINCE.md:46 claimed=22 live=22\nOK PV-DRIFT-FILES PROVINCE.md:47 claimed=15 live=15\nOK PV-DRIFT-SYMBOLS PROVINCE.md:47 claimed=20 live=20\nOK PV-OPREF-SELFTEST PROVINCE.md:49 claimed=36 pinned=36\nOK PV-CHECKLIST-SELFTEST PROVINCE.md:50 claimed=34 live=34\nOK PV-SCOPE-SELFTEST PROVINCE.md:51 claimed=61 live=61\nOK PV-STAMPS PROVINCE.md:52 claimed=90 live=90\nOK PV-CLAIMS PROVINCE.md:52 claimed=65 live=65\nOK PV-LEDGER-SELFTEST PROVINCE.md:52 claimed=170 live=170\nOK PV-SELFCOUNTS-SELFTEST PROVINCE.md:53 claimed=48 live=48\nOK PV-CLOCK-SELFTEST PROVINCE.md:54 claimed=79 live=79\nOK PV-SOURCES-SELFTEST PROVINCE.md:55 claimed=70 live=70\nOK PV-RENDERED-SELFTEST PROVINCE.md:56 claimed=22 live=22\nOK PV-CLOSURE-SELFTEST PROVINCE.md:57 claimed=14 live=14\nOK RD-CENSUS-ROWS corpus/README.md:41 claimed=35 live=35\nOK RD-STATE-ROWS corpus/README.md:42 claimed=22 live=22\nOK RD-SCOPE-SELFTEST corpus/README.md:43 claimed=61 live=61\nOK RD-LEDGER-SELFTEST corpus/README.md:63 claimed=170 live=170\nOK RD-LEDGER-ROWS corpus/README.md:64 claimed=65 live=65\nOK RD-STAMPS corpus/README.md:65 claimed=90 live=90\nOK RD-DOCS-ROWLINKED corpus/README.md:67 claimed=22 live=22\nOK RD-DOCS-BYHAND corpus/README.md:67 claimed=3 live=3\nOK RD-DOCS-ENTRIES corpus/README.md:67 claimed=25 live=25\nOK RD-OPREF-SELFTEST corpus/README.md:69 claimed=36 pinned=36\nOK RD-CHECKLIST-SELFTEST corpus/README.md:33 claimed=34 live=34\nOK KN-BREADTH-SCOPE-SELFTEST corpus/knowledge/adjacency-breadth.md:152 claimed=61 live=61\nOK KN-BREADTH-FALSIFY corpus/knowledge/adjacency-breadth.md:155 claimed=18 pinned=18\nOK KN-SCOPE-CURRENT-SELFTEST corpus/knowledge/adjacency-scope.md:16 claimed=61 live=61\nOK KN-SCOPE-CURRENT-FALSIFY corpus/knowledge/adjacency-scope.md:17 claimed=18 pinned=18\nOK KN-SCOPE-TABLE-SELFTEST corpus/knowledge/adjacency-scope.md:155 claimed=61 live=61\nOK KN-SCOPE-TABLE-FALSIFY corpus/knowledge/adjacency-scope.md:155 claimed=18 pinned=18\nOK KN-SCOPE-MUTATIONS corpus/knowledge/adjacency-scope.md:269 claimed=18 pinned=18\nOK KN-CHECKLIST-SELFTEST corpus/knowledge/checklist-execution.md:63 claimed=34 live=34\nOK KN-CHECKLIST-FALSIFY-ROWS corpus/knowledge/checklist-execution.md:173 claimed=16 live=16\nOK KN-CHECKLIST-FALSIFY-ITEMS corpus/knowledge/checklist-execution.md:179 claimed=16 live=16\nOK KN-LEDGER-REPRO-SELFTEST corpus/knowledge/claim-ledger.md:304 claimed=170 live=170\nOK KN-DRIFT-BOUND-FILES corpus/knowledge/drift-gate.md:143 claimed=15 live=15\nOK KN-OPREF-REPRO-SELFTEST corpus/knowledge/op-ref-consumption.md:276 claimed=36 pinned=36\nOK KN-OPREF-CORRECTION-SELFTEST corpus/knowledge/op-ref-consumption.md:374 claimed=36 pinned=36\nOK KN-CENSUS-DRIFT-FILES corpus/knowledge/surface-census.md:32 claimed=15 live=15\nOK KN-CENSUS-DRIFT-SYMBOLS corpus/knowledge/surface-census.md:32 claimed=20 live=20\nOK KN-BREADTH-LINES corpus/knowledge/adjacency-breadth.md:148 claimed=4 live=4\nOK KN-BREADTH-FALSIFIERS corpus/knowledge/adjacency-breadth.md:158 claimed=18 pinned=18\nOK KN-SUBSTRATE-CENSUS-SELFTEST corpus/knowledge/substrate-deferral.md:44 claimed=16 pinned=16\nOK KN-SUBSTRATE-ABSENCE-FILES corpus/knowledge/substrate-deferral.md:50 claimed=15 pinned=15\nOK KN-CHECKLIST-FALSIFY-FLOOR corpus/knowledge/checklist-execution.md:179 claimed=8 live=8\nOK KN-OPREF-FALSIFY-SELFTEST corpus/knowledge/op-ref-consumption.md:296 claimed=36 pinned=36\nSELF_COUNTS: CLEAN (claims=60 stale=0)\n",
+        "traceback": false
+      },
+      "selftest_cases": 79
+    },
+    "c2_only": {
+      "blob_sha256": "a5ffdff56b792bd5de6ddad087f42e9caa4f8b5046ee46912f62cbd0fda80b75",
+      "clock_selftest": {
+        "argv": [
+          "python3",
+          "-I",
+          "-B",
+          "corpus/release-clock.py",
+          "--selftest"
+        ],
+        "clean_exit0": false,
+        "clock_summary": "RELEASE_CLOCK_SELFTEST: FAIL non-numeric anchor keeps inequality: passed=False",
+        "exit": 1,
+        "findings": [],
+        "last_line": "RELEASE_CLOCK_SELFTEST: FAIL non-numeric anchor keeps inequality: passed=False",
+        "named_ids": [],
+        "stderr": "",
+        "stdout": "RELEASE_CLOCK_SELFTEST: FAIL derived anchor counted: errors {('INCONSISTENT', 'S001')} != set()\nRELEASE_CLOCK_SELFTEST: FAIL derived anchor counted: observed=0 != 1\nRELEASE_CLOCK_SELFTEST: FAIL derived anchor counted: derived=0 != 1\nRELEASE_CLOCK_SELFTEST: FAIL derived anchor counted: passed=False\nRELEASE_CLOCK_SELFTEST: FAIL non-numeric anchor keeps inequality: errors {('INCONSISTENT', 'S001')} != set()\nRELEASE_CLOCK_SELFTEST: FAIL non-numeric anchor keeps inequality: observed=0 != 1\nRELEASE_CLOCK_SELFTEST: FAIL non-numeric anchor keeps inequality: fired=0 != 1\nRELEASE_CLOCK_SELFTEST: FAIL non-numeric anchor keeps inequality: derived=0 != 1\nRELEASE_CLOCK_SELFTEST: FAIL non-numeric anchor keeps inequality: passed=False\n",
+        "traceback": false
+      },
+      "fixtures": {
+        "G1_sops": {
+          "accepted_clean": false,
+          "argv": [
+            "python3",
+            "-I",
+            "-B",
+            "/fast/scratch/kagi-r28-sep-8vqhp6jj/c2/kagi-shokunin/corpus/release-clock.py",
+            "--root",
+            "/fast/scratch/kagi-r28-sep-8vqhp6jj/fixture-G1_sops",
+            "--receipt",
+            "/fast/scratch/kagi-r28-sep-8vqhp6jj/fixture-G1_sops/receipt.json",
+            "--receipt-sha",
+            "471fbbbde3309e8ccc643c8546c4ae9042781227cecd9c2d87dccd72f19a5996"
+          ],
+          "changed_rows": [
+            "S008",
+            "S009",
+            "S010",
+            "S011"
+          ],
+          "class": "typed-exact",
+          "clean_exit0": false,
+          "clock_summary": "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=26 fired=3 derived=11)",
+          "edits": {
+            "S008": [
+              "3.13.2",
+              "3.13.2",
+              "not-fired"
+            ],
+            "S009": [
+              "3.13.2",
+              "3.13.2",
+              "not-fired"
+            ],
+            "S010": [
+              "3.13.2",
+              "3.13.2",
+              "not-fired"
+            ],
+            "S011": [
+              "3.13.2",
+              "3.13.2",
+              "not-fired"
+            ]
+          },
+          "exact": true,
+          "exit": 1,
+          "findings": [
+            "INCONSISTENT S008",
+            "INCONSISTENT S009",
+            "INCONSISTENT S010",
+            "INCONSISTENT S011"
+          ],
+          "group_ids": [
+            "S008",
+            "S009",
+            "S010",
+            "S011"
+          ],
+          "kind": "table",
+          "last_line": "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=26 fired=3 derived=11)",
+          "lowered_to": "3.13.2",
+          "named_ids": [
+            "S008",
+            "S009",
+            "S010",
+            "S011"
+          ],
+          "receipt_sha256": "471fbbbde3309e8ccc643c8546c4ae9042781227cecd9c2d87dccd72f19a5996",
+          "stderr": "",
+          "stdout": "INCONSISTENT S008\nINCONSISTENT S009\nINCONSISTENT S010\nINCONSISTENT S011\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=26 fired=3 derived=11)\n",
+          "table_sha256": "7f1f8373efbd9443e927cd424517de5559d92a66f335496a530e2ee0234525df",
+          "traceback": false
+        },
+        "G2_vault": {
+          "accepted_clean": false,
+          "argv": [
+            "python3",
+            "-I",
+            "-B",
+            "/fast/scratch/kagi-r28-sep-8vqhp6jj/c2/kagi-shokunin/corpus/release-clock.py",
+            "--root",
+            "/fast/scratch/kagi-r28-sep-8vqhp6jj/fixture-G2_vault",
+            "--receipt",
+            "/fast/scratch/kagi-r28-sep-8vqhp6jj/fixture-G2_vault/receipt.json",
+            "--receipt-sha",
+            "6015243d0ded8cc90853c01e09adf4bcba3f0483f882311497dfe316d01ee17b"
+          ],
+          "changed_rows": [
+            "S013",
+            "S022",
+            "S023",
+            "S024"
+          ],
+          "class": "typed-exact",
+          "clean_exit0": false,
+          "clock_summary": "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=26 fired=3 derived=11)",
+          "edits": {
+            "S013": [
+              "2.1.0",
+              "2.1.0",
+              "not-fired"
+            ],
+            "S022": [
+              "2.1.0",
+              "2.1.0",
+              "not-fired"
+            ],
+            "S023": [
+              "2.1.0",
+              "2.1.0",
+              "not-fired"
+            ],
+            "S024": [
+              "2.1.0",
+              "2.1.0",
+              "not-fired"
+            ]
+          },
+          "exact": true,
+          "exit": 1,
+          "findings": [
+            "INCONSISTENT S013",
+            "INCONSISTENT S022",
+            "INCONSISTENT S023",
+            "INCONSISTENT S024"
+          ],
+          "group_ids": [
+            "S013",
+            "S022",
+            "S023",
+            "S024"
+          ],
+          "kind": "table",
+          "last_line": "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=26 fired=3 derived=11)",
+          "lowered_to": "2.1.0",
+          "named_ids": [
+            "S013",
+            "S022",
+            "S023",
+            "S024"
+          ],
+          "receipt_sha256": "6015243d0ded8cc90853c01e09adf4bcba3f0483f882311497dfe316d01ee17b",
+          "stderr": "",
+          "stdout": "INCONSISTENT S013\nINCONSISTENT S022\nINCONSISTENT S023\nINCONSISTENT S024\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=26 fired=3 derived=11)\n",
+          "table_sha256": "81a98851f510940441d01595f3f2c81dace8ce97617bfa3b11cc6831e5061bdf",
+          "traceback": false
+        },
+        "G3_openbao": {
+          "accepted_clean": false,
+          "argv": [
+            "python3",
+            "-I",
+            "-B",
+            "/fast/scratch/kagi-r28-sep-8vqhp6jj/c2/kagi-shokunin/corpus/release-clock.py",
+            "--root",
+            "/fast/scratch/kagi-r28-sep-8vqhp6jj/fixture-G3_openbao",
+            "--receipt",
+            "/fast/scratch/kagi-r28-sep-8vqhp6jj/fixture-G3_openbao/receipt.json",
+            "--receipt-sha",
+            "d1923edc120bc70746dc2745d616d1d1a5f2a535de9505bdddc174ec8edc5adb"
+          ],
+          "changed_rows": [
+            "S014",
+            "S015",
+            "S016",
+            "S021",
+            "S025",
+            "S026"
+          ],
+          "class": "typed-exact",
+          "clean_exit0": false,
+          "clock_summary": "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=24 fired=3 derived=9)",
+          "edits": {
+            "S014": [
+              "2.7.0",
+              "2.7.0",
+              "not-fired"
+            ],
+            "S015": [
+              "2.7.0",
+              "2.7.0",
+              "not-fired"
+            ],
+            "S016": [
+              "2.7.0",
+              "2.7.0",
+              "not-fired"
+            ],
+            "S021": [
+              "2.7.0",
+              "2.7.0",
+              "not-fired"
+            ],
+            "S025": [
+              "2.7.0",
+              "2.7.0",
+              "not-fired"
+            ],
+            "S026": [
+              "2.7.0",
+              "2.7.0",
+              "not-fired"
+            ]
+          },
+          "exact": true,
+          "exit": 1,
+          "findings": [
+            "INCONSISTENT S014",
+            "INCONSISTENT S015",
+            "INCONSISTENT S016",
+            "INCONSISTENT S021",
+            "INCONSISTENT S025",
+            "INCONSISTENT S026"
+          ],
+          "group_ids": [
+            "S014",
+            "S015",
+            "S016",
+            "S021",
+            "S025",
+            "S026"
+          ],
+          "kind": "table",
+          "last_line": "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=24 fired=3 derived=9)",
+          "lowered_to": "2.7.0",
+          "named_ids": [
+            "S014",
+            "S015",
+            "S016",
+            "S021",
+            "S025",
+            "S026"
+          ],
+          "receipt_sha256": "d1923edc120bc70746dc2745d616d1d1a5f2a535de9505bdddc174ec8edc5adb",
+          "stderr": "",
+          "stdout": "INCONSISTENT S014\nINCONSISTENT S015\nINCONSISTENT S016\nINCONSISTENT S021\nINCONSISTENT S025\nINCONSISTENT S026\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=24 fired=3 derived=9)\n",
+          "table_sha256": "69f2a41196e9596831f531a5c441f6e923c3e55e45172949ae1e41e86213c7fc",
+          "traceback": false
+        },
+        "G4_curl": {
+          "accepted_clean": false,
+          "argv": [
+            "python3",
+            "-I",
+            "-B",
+            "/fast/scratch/kagi-r28-sep-8vqhp6jj/c2/kagi-shokunin/corpus/release-clock.py",
+            "--root",
+            "/fast/scratch/kagi-r28-sep-8vqhp6jj/fixture-G4_curl",
+            "--receipt",
+            "/fast/scratch/kagi-r28-sep-8vqhp6jj/fixture-G4_curl/receipt.json",
+            "--receipt-sha",
+            "3431d955890f7cf4f373310738b869538ef8852501635610cd2159ae2f64265d"
+          ],
+          "changed_rows": [
+            "S029"
+          ],
+          "class": "typed-exact",
+          "clean_exit0": false,
+          "clock_summary": "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)",
+          "edits": {
+            "S029": [
+              "8.22.0",
+              "8.22.0",
+              "not-fired"
+            ]
+          },
+          "exact": true,
+          "exit": 1,
+          "findings": [
+            "INCONSISTENT S029"
+          ],
+          "group_ids": [
+            "S029"
+          ],
+          "kind": "table",
+          "last_line": "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)",
+          "lowered_to": "8.22.0",
+          "named_ids": [
+            "S029"
+          ],
+          "receipt_sha256": "3431d955890f7cf4f373310738b869538ef8852501635610cd2159ae2f64265d",
+          "stderr": "",
+          "stdout": "INCONSISTENT S029\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)\n",
+          "table_sha256": "e910a13653b04861dd857a78d1562fad1780ad56947a4132b940971eef6aedd1",
+          "traceback": false
+        },
+        "control_default": {
+          "argv": [
+            "python3",
+            "-I",
+            "-B",
+            "corpus/release-clock.py"
+          ],
+          "class": "clean",
+          "clean_exit0": true,
+          "clock_summary": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)",
+          "exit": 0,
+          "findings": [],
+          "kind": "default-run",
+          "last_line": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)",
+          "named_ids": [],
+          "stderr": "",
+          "stdout": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)\n",
+          "traceback": false
+        }
+      },
+      "hunks_applied": [
+        {
+          "at": 563,
+          "hunk": 1,
+          "shifted_by": 0
+        }
+      ],
+      "self_counts": {
+        "argv": [
+          "python3",
+          "-I",
+          "-B",
+          "corpus/self-counts.py"
+        ],
+        "clean_exit0": false,
+        "clock_summary": "",
+        "exit": 2,
+        "finding_kinds": [
+          "SETUP"
+        ],
+        "findings": [
+          "OK SC-SKILL-STAMPS SKILL.md:46 claimed=90 live=90",
+          "OK SC-SKILL-CLAIMS SKILL.md:46 claimed=65 live=65",
+          "OK SC-SCOPE-ROWS SKILL.md:35 claimed=35 live=35",
+          "OK SC-SCOPE-SELFTEST SKILL.md:35 claimed=61 live=61",
+          "OK SC-CENSUS-SELFTEST SKILL.md:36 claimed=16 pinned=16",
+          "OK SC-SOURCES-SELFTEST SKILL.md:49 claimed=70 live=70",
+          "OK SC-SELFCOUNTS-SELFTEST SKILL.md:47 claimed=48 live=48",
+          "SETUP SC-CLOCK-SELFTEST ledger:R25-03 exit=1 expected=0",
+          "OK SC-LEDGER-SELFTEST SKILL.md:245 claimed=170 live=170",
+          "OK SC-CLOSURE-SELFTEST SKILL.md:751 claimed=14 live=14",
+          "OK SC-RENDERED-SELFTEST SKILL.md:752 claimed=22 live=22",
+          "OK PV-SURFACE-SELFTEST PROVINCE.md:46 claimed=16 pinned=16",
+          "OK PV-CENSUS-ROWS PROVINCE.md:46 claimed=35 live=35",
+          "OK PV-STATE-ROWS PROVINCE.md:46 claimed=22 live=22",
+          "OK PV-DRIFT-FILES PROVINCE.md:47 claimed=15 live=15",
+          "OK PV-DRIFT-SYMBOLS PROVINCE.md:47 claimed=20 live=20",
+          "OK PV-OPREF-SELFTEST PROVINCE.md:49 claimed=36 pinned=36",
+          "OK PV-CHECKLIST-SELFTEST PROVINCE.md:50 claimed=34 live=34",
+          "OK PV-SCOPE-SELFTEST PROVINCE.md:51 claimed=61 live=61",
+          "OK PV-STAMPS PROVINCE.md:52 claimed=90 live=90",
+          "OK PV-CLAIMS PROVINCE.md:52 claimed=65 live=65",
+          "OK PV-LEDGER-SELFTEST PROVINCE.md:52 claimed=170 live=170",
+          "OK PV-SELFCOUNTS-SELFTEST PROVINCE.md:53 claimed=48 live=48",
+          "SETUP PV-CLOCK-SELFTEST ledger:R25-03 exit=1 expected=0",
+          "OK PV-SOURCES-SELFTEST PROVINCE.md:55 claimed=70 live=70",
+          "OK PV-RENDERED-SELFTEST PROVINCE.md:56 claimed=22 live=22",
+          "OK PV-CLOSURE-SELFTEST PROVINCE.md:57 claimed=14 live=14",
+          "OK RD-CENSUS-ROWS corpus/README.md:41 claimed=35 live=35",
+          "OK RD-STATE-ROWS corpus/README.md:42 claimed=22 live=22",
+          "OK RD-SCOPE-SELFTEST corpus/README.md:43 claimed=61 live=61",
+          "OK RD-LEDGER-SELFTEST corpus/README.md:63 claimed=170 live=170",
+          "OK RD-LEDGER-ROWS corpus/README.md:64 claimed=65 live=65",
+          "OK RD-STAMPS corpus/README.md:65 claimed=90 live=90",
+          "OK RD-DOCS-ROWLINKED corpus/README.md:67 claimed=22 live=22",
+          "OK RD-DOCS-BYHAND corpus/README.md:67 claimed=3 live=3",
+          "OK RD-DOCS-ENTRIES corpus/README.md:67 claimed=25 live=25",
+          "OK RD-OPREF-SELFTEST corpus/README.md:69 claimed=36 pinned=36",
+          "OK RD-CHECKLIST-SELFTEST corpus/README.md:33 claimed=34 live=34",
+          "OK KN-BREADTH-SCOPE-SELFTEST corpus/knowledge/adjacency-breadth.md:152 claimed=61 live=61",
+          "OK KN-BREADTH-FALSIFY corpus/knowledge/adjacency-breadth.md:155 claimed=18 pinned=18",
+          "OK KN-SCOPE-CURRENT-SELFTEST corpus/knowledge/adjacency-scope.md:16 claimed=61 live=61",
+          "OK KN-SCOPE-CURRENT-FALSIFY corpus/knowledge/adjacency-scope.md:17 claimed=18 pinned=18",
+          "OK KN-SCOPE-TABLE-SELFTEST corpus/knowledge/adjacency-scope.md:155 claimed=61 live=61",
+          "OK KN-SCOPE-TABLE-FALSIFY corpus/knowledge/adjacency-scope.md:155 claimed=18 pinned=18",
+          "OK KN-SCOPE-MUTATIONS corpus/knowledge/adjacency-scope.md:269 claimed=18 pinned=18",
+          "OK KN-CHECKLIST-SELFTEST corpus/knowledge/checklist-execution.md:63 claimed=34 live=34",
+          "OK KN-CHECKLIST-FALSIFY-ROWS corpus/knowledge/checklist-execution.md:173 claimed=16 live=16",
+          "OK KN-CHECKLIST-FALSIFY-ITEMS corpus/knowledge/checklist-execution.md:179 claimed=16 live=16",
+          "OK KN-LEDGER-REPRO-SELFTEST corpus/knowledge/claim-ledger.md:304 claimed=170 live=170",
+          "OK KN-DRIFT-BOUND-FILES corpus/knowledge/drift-gate.md:143 claimed=15 live=15",
+          "OK KN-OPREF-REPRO-SELFTEST corpus/knowledge/op-ref-consumption.md:276 claimed=36 pinned=36",
+          "OK KN-OPREF-CORRECTION-SELFTEST corpus/knowledge/op-ref-consumption.md:374 claimed=36 pinned=36",
+          "OK KN-CENSUS-DRIFT-FILES corpus/knowledge/surface-census.md:32 claimed=15 live=15",
+          "OK KN-CENSUS-DRIFT-SYMBOLS corpus/knowledge/surface-census.md:32 claimed=20 live=20",
+          "OK KN-BREADTH-LINES corpus/knowledge/adjacency-breadth.md:148 claimed=4 live=4",
+          "OK KN-BREADTH-FALSIFIERS corpus/knowledge/adjacency-breadth.md:158 claimed=18 pinned=18",
+          "OK KN-SUBSTRATE-CENSUS-SELFTEST corpus/knowledge/substrate-deferral.md:44 claimed=16 pinned=16",
+          "OK KN-SUBSTRATE-ABSENCE-FILES corpus/knowledge/substrate-deferral.md:50 claimed=15 pinned=15",
+          "OK KN-CHECKLIST-FALSIFY-FLOOR corpus/knowledge/checklist-execution.md:179 claimed=8 live=8",
+          "OK KN-OPREF-FALSIFY-SELFTEST corpus/knowledge/op-ref-consumption.md:296 claimed=36 pinned=36",
+          "SELF_COUNTS: SETUP (claims=60 stale=0 unlocated=0 ambiguous=0 policy=0 setup=2)"
+        ],
+        "last_line": "SELF_COUNTS: SETUP (claims=60 stale=0 unlocated=0 ambiguous=0 policy=0 setup=2)",
+        "named_ids": [],
+        "stderr": "",
+        "stdout": "OK SC-SKILL-STAMPS SKILL.md:46 claimed=90 live=90\nOK SC-SKILL-CLAIMS SKILL.md:46 claimed=65 live=65\nOK SC-SCOPE-ROWS SKILL.md:35 claimed=35 live=35\nOK SC-SCOPE-SELFTEST SKILL.md:35 claimed=61 live=61\nOK SC-CENSUS-SELFTEST SKILL.md:36 claimed=16 pinned=16\nOK SC-SOURCES-SELFTEST SKILL.md:49 claimed=70 live=70\nOK SC-SELFCOUNTS-SELFTEST SKILL.md:47 claimed=48 live=48\nSETUP SC-CLOCK-SELFTEST ledger:R25-03 exit=1 expected=0\nOK SC-LEDGER-SELFTEST SKILL.md:245 claimed=170 live=170\nOK SC-CLOSURE-SELFTEST SKILL.md:751 claimed=14 live=14\nOK SC-RENDERED-SELFTEST SKILL.md:752 claimed=22 live=22\nOK PV-SURFACE-SELFTEST PROVINCE.md:46 claimed=16 pinned=16\nOK PV-CENSUS-ROWS PROVINCE.md:46 claimed=35 live=35\nOK PV-STATE-ROWS PROVINCE.md:46 claimed=22 live=22\nOK PV-DRIFT-FILES PROVINCE.md:47 claimed=15 live=15\nOK PV-DRIFT-SYMBOLS PROVINCE.md:47 claimed=20 live=20\nOK PV-OPREF-SELFTEST PROVINCE.md:49 claimed=36 pinned=36\nOK PV-CHECKLIST-SELFTEST PROVINCE.md:50 claimed=34 live=34\nOK PV-SCOPE-SELFTEST PROVINCE.md:51 claimed=61 live=61\nOK PV-STAMPS PROVINCE.md:52 claimed=90 live=90\nOK PV-CLAIMS PROVINCE.md:52 claimed=65 live=65\nOK PV-LEDGER-SELFTEST PROVINCE.md:52 claimed=170 live=170\nOK PV-SELFCOUNTS-SELFTEST PROVINCE.md:53 claimed=48 live=48\nSETUP PV-CLOCK-SELFTEST ledger:R25-03 exit=1 expected=0\nOK PV-SOURCES-SELFTEST PROVINCE.md:55 claimed=70 live=70\nOK PV-RENDERED-SELFTEST PROVINCE.md:56 claimed=22 live=22\nOK PV-CLOSURE-SELFTEST PROVINCE.md:57 claimed=14 live=14\nOK RD-CENSUS-ROWS corpus/README.md:41 claimed=35 live=35\nOK RD-STATE-ROWS corpus/README.md:42 claimed=22 live=22\nOK RD-SCOPE-SELFTEST corpus/README.md:43 claimed=61 live=61\nOK RD-LEDGER-SELFTEST corpus/README.md:63 claimed=170 live=170\nOK RD-LEDGER-ROWS corpus/README.md:64 claimed=65 live=65\nOK RD-STAMPS corpus/README.md:65 claimed=90 live=90\nOK RD-DOCS-ROWLINKED corpus/README.md:67 claimed=22 live=22\nOK RD-DOCS-BYHAND corpus/README.md:67 claimed=3 live=3\nOK RD-DOCS-ENTRIES corpus/README.md:67 claimed=25 live=25\nOK RD-OPREF-SELFTEST corpus/README.md:69 claimed=36 pinned=36\nOK RD-CHECKLIST-SELFTEST corpus/README.md:33 claimed=34 live=34\nOK KN-BREADTH-SCOPE-SELFTEST corpus/knowledge/adjacency-breadth.md:152 claimed=61 live=61\nOK KN-BREADTH-FALSIFY corpus/knowledge/adjacency-breadth.md:155 claimed=18 pinned=18\nOK KN-SCOPE-CURRENT-SELFTEST corpus/knowledge/adjacency-scope.md:16 claimed=61 live=61\nOK KN-SCOPE-CURRENT-FALSIFY corpus/knowledge/adjacency-scope.md:17 claimed=18 pinned=18\nOK KN-SCOPE-TABLE-SELFTEST corpus/knowledge/adjacency-scope.md:155 claimed=61 live=61\nOK KN-SCOPE-TABLE-FALSIFY corpus/knowledge/adjacency-scope.md:155 claimed=18 pinned=18\nOK KN-SCOPE-MUTATIONS corpus/knowledge/adjacency-scope.md:269 claimed=18 pinned=18\nOK KN-CHECKLIST-SELFTEST corpus/knowledge/checklist-execution.md:63 claimed=34 live=34\nOK KN-CHECKLIST-FALSIFY-ROWS corpus/knowledge/checklist-execution.md:173 claimed=16 live=16\nOK KN-CHECKLIST-FALSIFY-ITEMS corpus/knowledge/checklist-execution.md:179 claimed=16 live=16\nOK KN-LEDGER-REPRO-SELFTEST corpus/knowledge/claim-ledger.md:304 claimed=170 live=170\nOK KN-DRIFT-BOUND-FILES corpus/knowledge/drift-gate.md:143 claimed=15 live=15\nOK KN-OPREF-REPRO-SELFTEST corpus/knowledge/op-ref-consumption.md:276 claimed=36 pinned=36\nOK KN-OPREF-CORRECTION-SELFTEST corpus/knowledge/op-ref-consumption.md:374 claimed=36 pinned=36\nOK KN-CENSUS-DRIFT-FILES corpus/knowledge/surface-census.md:32 claimed=15 live=15\nOK KN-CENSUS-DRIFT-SYMBOLS corpus/knowledge/surface-census.md:32 claimed=20 live=20\nOK KN-BREADTH-LINES corpus/knowledge/adjacency-breadth.md:148 claimed=4 live=4\nOK KN-BREADTH-FALSIFIERS corpus/knowledge/adjacency-breadth.md:158 claimed=18 pinned=18\nOK KN-SUBSTRATE-CENSUS-SELFTEST corpus/knowledge/substrate-deferral.md:44 claimed=16 pinned=16\nOK KN-SUBSTRATE-ABSENCE-FILES corpus/knowledge/substrate-deferral.md:50 claimed=15 pinned=15\nOK KN-CHECKLIST-FALSIFY-FLOOR corpus/knowledge/checklist-execution.md:179 claimed=8 live=8\nOK KN-OPREF-FALSIFY-SELFTEST corpus/knowledge/op-ref-consumption.md:296 claimed=36 pinned=36\nSELF_COUNTS: SETUP (claims=60 stale=0 unlocated=0 ambiguous=0 policy=0 setup=2)\n",
+        "traceback": false
+      },
+      "selftest_cases": null
+    }
+  },
+  "summary": {
+    "c1_only": {
+      "F1_table_lie": "typed",
+      "F2_table_oversize": "typed",
+      "F3_observe_leading_zero": "typed",
+      "F4_observe_oversize": "typed",
+      "control_default": "clean"
+    },
+    "c2_accepted_clean": 0,
+    "c2_exact": 4,
+    "c2_only": {
+      "G1_sops": [
+        "typed-exact",
+        false,
+        true
+      ],
+      "G2_vault": [
+        "typed-exact",
+        false,
+        true
+      ],
+      "G3_openbao": [
+        "typed-exact",
+        false,
+        true
+      ],
+      "G4_curl": [
+        "typed-exact",
+        false,
+        true
+      ],
+      "control_default": [
+        "clean",
+        null,
+        null
+      ]
+    }
+  }
+}

@@ -1105,3 +1105,25 @@ docs stale 4 → 0, 22/22 mutation controls red (18 STALE, 4 UNLOCATED); C2
 downgrade fixtures accepted CLEAN 4/4 → 0/4, REGRESSED exact 0/4 → 4/4,
 control/default CLEAN30, clock selftest 67 → 79; separability holds except the
 declared SC/PV-CLOCK-SELFTEST edge. Axis scores stay as stated (9 → 9).
+
+## Round 28 — canonical version tokens; derived anchors bound to feed rows
+
+Frozen BASE `3553d499577084a6c98d7078906017840bbf7b28`; claims file and START census committed alone
+first (`bdf90f58e43fdcae6291224197afe17812a16b55`). Declared C1 freshness and C2 calibration
+(`plans/round-28.md`); CritC2Axis showed C2 is freshness by this lane's own
+precedent, so the round counts as ONE freshness claim measured by two frozen
+commands, and calibration carries no claim. The last capability entered
+round25 (window3: rounds 26–28 without one), so the stagnation nudge cannot
+fire before round29; no capability, retirement or promotion is claimed.
+
+| Axis | Before → after | Evidence and bounded interpretation |
+|---|---|---|
+| freshness | 9 → 9 | C1+C2 (one claim). `python3 -I -B .ufo/waves/round-28/tools/c1-measure.py <rev> <label> <out>`: non-canonical fixtures MISHANDLED at BASE 3/4 (F1 fired lie, F2 traceback, F3 written fired receipt; F4 already caught by the observer) → measured revision below. `python3 -I -B .ufo/waves/round-28/tools/c2-measure.py <rev> <label> <out>`: whole-feed derived-anchor lowerings accepted CLEAN at BASE 4/4 → measured revision below. Sourced S044/S045/S046. |
+| calibration | 9 → 9 | No claim (re-booked; see above). QM27–QM29 learn M28-1..M28-4. |
+| depth | 9 → 9 | R21-01 unchanged; no new mechanism claim beyond the clock. |
+| coverage | 9 → 9 | Registry 43 → 49: three claim-grounding rows and three frontier-lead rows (S047–S049); no knowledge entry or governed surface. |
+| operability | 9 → 9 | Default release-clock output unchanged (R25-04 CLEAN30); selftest 79 → 106 (count only). |
+| adjacency | 9 → 9 | R17-02 unchanged; eight connector scans found vocabulary overlap only (`REGRESSED`, registry grammar), no absorbed ground. |
+
+Measured revision, exact exits and separability overlays are appended below
+after the measured revision lands; no unrun result is stated here.

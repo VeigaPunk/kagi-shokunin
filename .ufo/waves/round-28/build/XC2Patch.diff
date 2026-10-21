@@ -1,0 +1,143 @@
+--- a/corpus/release-clock.py
++++ b/corpus/release-clock.py
+@@ -563,7 +563,22 @@
+                 errors.add(("BADFEED", source_id))
+                 row_valid = False
+             is_derived = values["note"].startswith("derived:")
+-            anchor_ok = is_derived or version_is_named(sources[source_id]["anchor"], anchored)
++            if is_derived:
++                # round-28 C2: an author-declared derived anchor is trusted only
++                # while the version it names is named by its feed row's located
++                # anchor (S033-S037) -- the same word-bounded naming predicate a
++                # non-derived anchor must satisfy against its own row. A lower,
++                # forged or unpinned derived anchor is a typed DERIVATION
++                # finding, never a silent not-fired clock. `v3.13.3` names
++                # `3.13.3` (optional v); `3.13.3` does not name `3.13.30` (the
++                # trailing lookahead rejects the extra digit).
++                feed_anchor = (sources.get(feed_source_id) or {}).get("anchor") or ""
++                anchor_ok = version_is_named(feed_anchor, anchored)
++                if not anchor_ok:
++                    errors.add(("DERIVATION", source_id))
++                    row_valid = False
++            else:
++                anchor_ok = version_is_named(sources[source_id]["anchor"], anchored)
+             if (is_regression(anchored, observed_version)
+                     or is_regression(floors.get(feed_url, ""), observed_version)):
+                 # S042 §11.2 numeric order: the feed's newest stable release is
+@@ -573,7 +588,7 @@
+                 # EQUAL to the feed floor cannot be told from a legitimate state.
+                 errors.add(("REGRESSED", source_id))
+                 row_valid = False
+-            elif (not anchor_ok or not observed_version or observed_version == "-"
++            elif ((not is_derived and not anchor_ok) or not observed_version or observed_version == "-"
+                     or numeric_version(observed_version) is None
+                     or not valid_iso_date(observed_at)
+                     or verdict not in ("not-fired", "fired")):
+@@ -971,7 +986,8 @@
+         bundle["records"].pop("S001", None)
+ 
+     def run_case(name, rows_text, expected_errors, expected_counts=None,
+-                 captures_text=default_capture, receipt_action=None, extra_sources=()):
++                 captures_text=default_capture, receipt_action=None, extra_sources=(),
++                 feed_anchor="Latest release 1.2.0; series 1.2.x"):
+         nonlocal cases
+         cases += 1
+         with tempfile.TemporaryDirectory(prefix="release-clock-") as temp:
+@@ -984,7 +1000,7 @@
+                 fixture_source("S001", "Document", "docs", "Version 1.2.3",
+                                "Quote: “the exact example.”", "on-release",
+                                "https://example.test/doc"),
+-                fixture_source("S002", "Release feed", "code", "Latest release",
++                fixture_source("S002", "Release feed", "code", feed_anchor,
+                                "Release Atom feed.", "90d",
+                                "https://example.test/releases.atom"),
+                 fixture_source("S003", "Stable doc", "spec", "Page title",
+@@ -1074,6 +1090,39 @@
+              anchored="1.2.x", observed="1.3.0", verdict="fired",
+              note="derived: series anchor, not orderable") + "\n", [],
+              {"observed": 1, "fired": 1, "derived": 1})
++    # round 28 C2: a derived anchor is bound to the version its feed row's
++    # anchor names. Red-before: every case below is accepted CLEAN at BASE,
++    # where `is_derived` skipped the anchor check entirely.
++    run_case("derived anchor must name feed anchor", fixture_row(
++             anchored="1.2.0", observed="1.2.0",
++             note="derived: newest stable release on the feed when the row was opened") + "\n",
++             [("DERIVATION", "S001")], {"observed": 0, "derived": 0},
++             feed_anchor="Latest release v1.2.9")
++    run_case("derived anchor rejects suffix sibling", fixture_row(
++             anchored="1.2.3", observed="1.2.3",
++             note="derived: newest stable release on the feed when the row was opened") + "\n",
++             [("DERIVATION", "S001")], {"observed": 0, "derived": 0},
++             feed_anchor="Latest release 1.2.30")
++    run_case("derived anchor needs a named version", fixture_row(
++             anchored="1.2.0", observed="1.2.0",
++             note="derived: newest stable release on the feed when the row was opened") + "\n",
++             [("DERIVATION", "S001")], {"observed": 0, "derived": 0},
++             feed_anchor="Latest release")
++    run_case("derived fired anchor bound to feed", fixture_row(
++             anchored="1.2.0", observed="1.3.0", verdict="fired",
++             note="derived: series anchor, not orderable") + "\n",
++             [("DERIVATION", "S001")], {"observed": 0, "fired": 0, "derived": 0},
++             feed_anchor="Latest release v1.2.9")
++    run_case("derived group named exactly", fixture_row(
++             anchored="1.2.0", observed="1.2.0",
++             note="derived: newest stable release on the feed when the row was opened") + "\n" + fixture_row(
++             "S004", anchored="1.2.0", observed="1.2.0",
++             note="derived: newest stable release on the feed when the row was opened") + "\n",
++             [("DERIVATION", "S001"), ("DERIVATION", "S004")], {"observed": 0, "derived": 0},
++             extra_sources=[fixture_source("S004", "Successor", "docs", "Version 1.2.0",
++                                           "Successor.", "on-release",
++                                           "https://example.test/successor")],
++             feed_anchor="Latest release v1.2.9")
+     run_case("feed floor catches un-fire", fixture_row(
+              anchored="1.2.3", observed="1.2.3", verdict="not-fired") + "\n" + fixture_row(
+              "S004", anchored="1.2.4", observed="1.2.4", verdict="not-fired") + "\n",
+@@ -1696,6 +1745,48 @@
+                 or ("RECEIPT-MISMATCH", "S001") not in result["errors"]
+                 or tsv_path.read_bytes() != tsv_before):
+             failures.append("quote-missing fired receipt or TSV immutability")
++
++    # round 28 C2: the --observe CLI path shares evaluate with verify and
++    # --receipt, so a derived anchor unbound from its feed row's anchor fails
++    # the observation run too (exit 1, typed finding, offline static body).
++    with tempfile.TemporaryDirectory(prefix="release-clock-observe-derived-") as temp:
++        root = Path(temp)
++        corpus = root / "corpus"
++        corpus.mkdir()
++        source_lines = [
++            "| id | source | kind | tier | scope | anchor | teaches | status | opened | recheck | used-by |",
++            "|---|---|---|---|---|---|---|---|---|---|---|",
++            fixture_source("S001", "Document", "docs", "Version 1.2.0",
++                           "Doc.", "on-release", "https://example.test/doc"),
++            fixture_source("S002", "Release feed", "code", "Latest release v1.2.9",
++                           "Release Atom feed.", "90d",
++                           "https://example.test/releases.atom"),
++        ]
++        (corpus / "SOURCES.md").write_text("\n".join(source_lines) + "\n", encoding="utf-8")
++        (corpus / "release-clocks.tsv").write_text("\t".join(HEADER) + "\n" + fixture_row(
++            anchored="1.2.0", observed="1.3.0", verdict="fired",
++            note="derived: newest stable release on the feed when the row was opened") + "\n",
++            encoding="utf-8")
++        original_request_body = request_body
++        original_utc_timestamp = utc_timestamp
++        request_body = lambda url, **kwargs: (
++            200, b'<feed xmlns="http://www.w3.org/2005/Atom">'
++                 b"<entry><title>v1.3.0</title></entry></feed>", None)
++        utc_timestamp = lambda: "2026-10-21T00:00:00Z"
++        observe_stdout = io.StringIO()
++        try:
++            with contextlib.redirect_stdout(observe_stdout):
++                observe_exit = main(["--root", str(root), "--observe",
++                                     str(root / "derived-observe.json")])
++        finally:
++            request_body = original_request_body
++            utc_timestamp = original_utc_timestamp
++        cases += 1
++        if (observe_exit != 1
++                or "DERIVATION S001" not in observe_stdout.getvalue()
++                or "RELEASE_CLOCK: FAILED" not in observe_stdout.getvalue()):
++            failures.append("observe path accepted an unbound derived anchor")
++
+     if failures:
+         for failure in failures:
+             print("RELEASE_CLOCK_SELFTEST: FAIL %s" % failure)

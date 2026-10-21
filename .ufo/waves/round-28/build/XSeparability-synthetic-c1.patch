@@ -1,0 +1,49 @@
+diff --git 1/a/corpus/release-clock.py 2/c1only/corpus/release-clock.py
+index e5fbbd2..d15ff1d 100644
+--- 1/a/corpus/release-clock.py
++++ 2/c1only/corpus/release-clock.py
+@@ -117,11 +117,15 @@ def parse_bindings(root):
+             continue
+         fields = [field.strip() for field in line.split("\t")]
+         row_id = fields[0] if fields and fields[0] else "row-%d" % line_number
++        malformed = len(fields) != len(HEADER)
++        if (not malformed and len(fields) >= 6
++                and (version_token_defect(fields[4]) or version_token_defect(fields[5]))):
++            malformed = True  # synthetic round-28 C1 demo: non-canonical or oversized token
+         rows.append({
+             "id": row_id,
+             "fields": fields,
+             "line": line_number,
+-            "malformed": len(fields) != len(HEADER),
++            "malformed": malformed,
+         })
+     return rows
+ 
+@@ -387,6 +391,18 @@ def is_regression(floor, observed):
+     return anchor is not None and seen is not None and seen < anchor
+ 
+ 
++def version_token_defect(value):
++    """Synthetic round-28 C1 demo: non-canonical or oversized [0-9]+ component."""
++    for part in norm_version(value or "").split("."):
++        if not re.fullmatch(r"[0-9]+", part):
++            continue
++        if len(part) > 1 and part[0] == "0":
++            return True
++        if len(part) > 4300:
++            return True
++    return False
++
++
+ def feed_floors(rows):
+     """Highest strict X.Y.Z anchor per feed URL over well-formed feed rows.
+ 
+@@ -787,6 +803,8 @@ def observe_one(source, values, normalizer, opener=None, resolver=None, capture=
+             raise ValueError(error)
+         if clock == "feed":
+             parsed_version = parse_latest_version(body)
++            if version_token_defect(parsed_version):
++                raise ValueError("synthetic C1 demo: non-canonical or oversized release token %r" % parsed_version)
+             receipt["parsed_version"] = parsed_version
+             # the row's anchor and its previously recorded observation are both
+             # floors: a fired 3.15.0 row that recorded 3.15.1 must not silently

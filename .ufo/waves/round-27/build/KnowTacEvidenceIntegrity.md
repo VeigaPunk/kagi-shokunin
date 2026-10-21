@@ -5,19 +5,19 @@
 | agent | `KagiR26.KnowTacEvidenceIntegrity-17` (leaf scout; no subagents) |
 | frozen BASE | `0a47dd189356ea66ec83c3891eed54526e95b89b` |
 | target | `corpus/knowledge/tac-evidence-integrity.md` (92 lines / 4437 bytes / sha256 `d53339af7683bb5036621ee620c75a68e476f0b960515f65f817cb6179023191`) |
-| target identity | byte-identical to `HEAD:corpus/knowledge/tac-evidence-integrity.md`; working tree clean for this path; `corpus/stamps.tsv:49` carries the same sha/lines/bytes |
+| target identity | byte-identical at `0a47dd1:`, `144babc:` and the working tree (same sha/lines/bytes); `corpus/stamps.tsv:49` at both revisions carries the same tuple |
 | scope | C1 inventory only. No production writes, no host reads, no gate runs, no installs |
 | report | this file only |
 
-**Revision hygiene.** BASE means `git show 0a47dd1:<path>`, not the working tree. The
-working tree is mid-integration: `corpus/self-counts.tsv`, `corpus/stamps.tsv`,
-`corpus/QUALITY.md`, `corpus/README.md`, `corpus/claim-ledger.tsv`, `corpus/release-clock.py`
-and several knowledge entries are `M`; `plans/round-27.md` and `corpus/lessons/round-27.md`
-are untracked wave inputs. The target entry, `drift-baseline.tsv`, `drift-symbols.tsv`,
-`state-shape.tsv`, `adjacency.tsv` and `surface-census.tsv` are clean at BASE; citations to
-`self-counts.tsv`, `stamps.tsv`, `QUALITY.md`, `README.md` and `claim-ledger.tsv` are read
-from `git show HEAD:`. The found tree changes are the user's/wave's; no production file
-was touched by this seat.
+**Revision hygiene.** The assignment's frozen BASE is `0a47dd1`; BASE citations below use
+`git show 0a47dd1:<path>`. During this audit HEAD advanced to `144babc` ("round-27:
+knowledge numbers bound; numeric release regression refused (candidate)"), which commits
+the after table and the C2 change. The target entry is byte-identical at BASE, at
+`144babc`, and in the working tree, so its line numbers and stamp are unaffected. At
+report time the only modified production path is `corpus/lessons/round-27.md`; the wave's
+reports/tools under `.ufo/waves/round-27/` are untracked or modified. Citations to
+`self-counts.tsv`, `stamps.tsv`, `QUALITY.md`, `README.md` and `claim-ledger.tsv` use
+`git show` at the stated revision.
 
 ## Godspeed axes
 
@@ -31,10 +31,11 @@ was touched by this seat.
 ## Verdict (read first)
 
 1. **Zero numbers in this entry are bindable in `corpus/self-counts.tsv` under the three
-   permitted source forms (`rows:`, `ledger:`, `expect:`).** The in-progress after table
-   (working tree `corpus/self-counts.tsv`, 56 rows, `M` vs BASE) has no `KN-*` row for this
-   entry, and that exclusion is correct under both readings of its one ambiguous date
-   (current vs. historical): no source form can extract the values either way.
+   permitted source forms (`rows:`, `ledger:`, `expect:`).** The round-27 candidate
+   `144babc` (60 data rows, 22 of them knowledge entries; BASE `0a47dd1` has 38) has no
+   `KN-*` row for this entry, and that exclusion is correct under both readings of its one
+   ambiguous date (current vs. historical): no source form can extract the values either
+   way.
 2. **Eight near-candidates were found** — the `88` size, five `L…` ranges, the `9-line`
    block count, and one host field value (`confirmed_recipients: 0`). Two rows
    (`TAC-SIZE-88` and the `63`/`69` anchors inside `TAC-LOC-OUTPUT`) agree with committed
@@ -47,9 +48,10 @@ was touched by this seat.
    line and no version anchor, so the round-27 regression rule has nothing to order here.
 5. The complete digit census is 25 lines (below); every digit-bearing line of the 92 is
    classified. **A one-digit mutation of `88` or `9` in this file would leave the
-   `self-counts.py` binder CLEAN** — there is no id to mutate. (The separate
-   `claim-ledger` stamp gate would flag the file's changed bytes, but it cannot see which
-   digit changed.) That is a named limit of the round's mutation claim, not a pass.
+   `self-counts.py` binder CLEAN** — there is no id to mutate (inferred from the absent
+   row; the binder was not run). (The separate `claim-ledger` stamp gate would flag the
+   file's changed bytes, but it cannot see which digit changed.) That is a named limit of
+   the round's mutation claim, not a pass.
 
 ## Population rule applied
 
@@ -75,18 +77,22 @@ source-layer facts above are declared historical by the entry's own erratum (`:8
 original measurement"). The five `L…` ranges are present-tense locators, but they point
 into a **host file** (`~/.local/bin/tac-check`) whose committed representation is limited
 to TSV fields, two symbol pins, and the quoted output block — none of the three source
-forms. The `9-line` count is a self-count of the entry's own quoted block, for which no
-permitted source exists. Therefore this entry contributes **0 rows** to the binding table;
-it belongs in the lesson's named-exclusion list, not in `KN-*`.
+forms. The `9-line` count is a self-count of the entry's own quoted block (covered by the
+erratum's "checker output … above"), for which no permitted source exists; if a reader
+rejects that coverage, the count is still unbindable, so the row count stays 0. Therefore
+this entry contributes **0 rows** to the binding table; the lesson's host/substrate
+exclusion class covers it, but the specific source-form gap (a TSV field pin cannot be
+read by `rows:`/`ledger:`/`expect:`) is not named and should be.
 
 ## Identity and freshness of the entry itself
 
 | check | observation |
 |---|---|
 | `sha256sum` at working tree | `d53339af…` / 92 lines / 4437 bytes — exact |
-| `git show HEAD:… \| sha256sum` | `d53339af…` — committed bytes identical |
-| `git show HEAD:… \| wc -lc` | `92 4437` — exact |
-| `corpus/stamps.tsv:49` (HEAD and working tree) | `corpus/knowledge/tac-evidence-integrity.md d53339af… 92 4437` — exact |
+| `git show 0a47dd1:… \| sha256sum` | `d53339af…` — committed bytes identical |
+| `git show 144babc:… \| sha256sum` | `d53339af…` — candidate bytes identical |
+| `git show 0a47dd1:…` / `git show 144babc:…` `\| wc -lc` | `92 4437` — exact at both revisions |
+| `corpus/stamps.tsv:49` (BASE, candidate and working tree) | `corpus/knowledge/tac-evidence-integrity.md d53339af… 92 4437` — exact |
 | `git status --porcelain -- <entry>` | empty — not modified by the wave |
 | declared reverify rows (`:7`) | `R11-01`, `R11-04`, both `[substrate]` at BASE `corpus/claim-ledger.tsv:15,18` |
 
@@ -103,10 +109,10 @@ one line of the 92.
 
 | id | line | exact text (BASE) | source form attempted | pinned live value | status | locator (one group) |
 |---|---|---|---|---|---|---|
-| TAC-SIZE-88 | 3 | ``Source: `~/.local/bin/tac-check` (88 lines, read 2026-09-28),`` | `rows:corpus/drift-baseline.tsv` → 15 (data lines), not 88; `ledger:R11-04` → `[substrate]`, verdict has `files=… symbols=…`, no 88; `expect:R11-04` → regex captures `files`/`symbols`, no 88 | `88` — `corpus/drift-baseline.tsv:10` field 3 (sha `af95ca97…` field 4) | OUT (dated measurement); value agrees with pin; **not** a live check | `\(([0-9]+) lines, read 2026-09-28\)` |
+| TAC-SIZE-88 | 3 | ``Source: `~/.local/bin/tac-check` (88 lines, read 2026-09-28),`` | `rows:corpus/drift-baseline.tsv` → 15 (data lines), not 88; `ledger:R11-04` → `[substrate]`, verdict has `files=… symbols=…`, no 88; `expect:R11-04` → regex captures `files`/`symbols`, no 88 | `88` — `corpus/drift-baseline.tsv:10` field 3 (sha `af95ca97…` field 4) | OUT (dated measurement); OK-vs-pin (historical); **not** a live check | `\(([0-9]+) lines, read 2026-09-28\)` |
 | TAC-LOC-PATHS | 12 | `check over one receipt file. Hardcoded paths (L83–88):` | none — no row, verdict or pin carries 83–88 | — | OUT (host locator, no lane-local extractor); UNVERIFIED (substrate absent) | `Hardcoded paths \(L([0-9]+)–88\):` |
 | TAC-LOC-FIELDS | 18 | ``fixed set of `live_model_check` fields (L19–31): `status: succeeded`,`` | none — no pin for 19–31 | — | OUT (host locator); UNVERIFIED | `fields \(L([0-9]+)–31\)` |
-| TAC-LOC-OUTPUT | 25 | `Success output vocabulary (L63–71), safe to quote verbatim in handoffs:` | none — `rows:corpus/drift-symbols.tsv` → 20 (data rows), not 63/71; `expect:R11-04` has no 63/71 | `63` (`drift-symbols.tsv:26`, `LOCAL_RECEIPT_INTEGRITY: OK`) and `69` (`:27`, `LIVE_ACCESS_NOW`); `71` unpinned | OUT (host locator); anchors 63/69 agree with the block positions; **not** OK | `Success output vocabulary \(L([0-9]+)–71\)` |
+| TAC-LOC-OUTPUT | 25 | `Success output vocabulary (L63–71), safe to quote verbatim in handoffs:` | none — `rows:corpus/drift-symbols.tsv` → 20 (data rows), not 63/71; `expect:R11-04` has no 63/71 | `63` (`drift-symbols.tsv:26`, `LOCAL_RECEIPT_INTEGRITY: OK`) and `69` (`:27`, `LIVE_ACCESS_NOW`); `71` unpinned | OUT (host locator); OK for 63/69 anchors (historical); 71 unpinned; **not** a pass | `Success output vocabulary \(L([0-9]+)–71\)` |
 | TAC-LOC-REGISTER | 42 | ``  `0700` dir (L36–49): it **never replaces** an existing record — a tampered`` | none — no pin for 36–49 | — | OUT (host locator); UNVERIFIED | `\(L([0-9]+)–49\):` |
 | TAC-LOC-CHECKSUM | 43 | `  receipt just fails the later checksum comparison (L52–58), not silent` | none — no pin for 52–58 | — | OUT (host locator); UNVERIFIED | `checksum comparison \(L([0-9]+)–58\)` |
 | TAC-BLOCK-LINES | 78 | ``- `the-janitor tac-check` → the 9-line output block above, exit 0.`` | none — self-count of the fenced block; `rows:` cannot count fenced lines, and no ledger/pin carries 9 | self-count `9` — block lines 28–36 (enumerated: 9 lines) | OUT (no lane-local source); count is accurate but unbound | `the ([0-9]+)-line output block above` |
@@ -135,6 +141,11 @@ Notes on the four that have committed anchors:
   changed to `1` would not be caught by `drift-pins` (it compares path/mode/lines/sha or
   the pinned symbol lines, not JSON values). The erratum is the only thing preventing
   this from reading as a current claim.
+
+**No paste-ready `self-counts.tsv` block is emitted.** `load_claims` accepts only the three
+source forms; every candidate's only possible slot would be rejected (a `[substrate]`
+`ledger:`) or bind a different quantity (`rows:` row count instead of field 3). The table
+above is the inventory, not a binding.
 
 ## Complete digit census — 25 of 92 lines
 
@@ -177,9 +188,13 @@ are descriptions of a historical observation or a test action, not artifact size
 
 - `rows:` cannot bind `88`: it counts nonblank/non-comment lines of a file
   (`corpus/self-counts.py`, `load_claims`: `rows:` requires extract `-`). It would compare
-  `88` against `15` and report a false STALE.
-- `ledger:R11-04` is a `[substrate]` row (`claim-ledger.tsv:18`) whose command is a host
-  gate; the assignment forbids executing it here. Its last-line verdict is
+  `88` against `15` and report a false STALE. The candidate's own
+  `KN-DRIFT-BOUND-FILES` row (`corpus/self-counts.tsv` at `144babc`) already binds `15`
+  from `rows:corpus/drift-baseline.tsv`, confirming that this source yields the baseline's
+  row count, not field 3.
+- `ledger:R11-04` cannot be used at all: `self-counts.py`'s `ledger_command` refuses any
+  ledger row whose note contains `[host]` or `[substrate]` (`corpus/self-counts.py:259-260`),
+  and R11-04 is `[substrate]` (`claim-ledger.tsv:18`). In any case its last-line verdict is
   `DRIFT_PINS: CLEAN (files=N symbols=M)` — no `88`, `63`, or `71`.
 - `expect:R11-04` runs nothing, but its committed regex captures only `files=N` and
   `symbols=M` (`claim-ledger.tsv:18`). There is no group for the line count or a symbol
@@ -196,7 +211,8 @@ are descriptions of a historical observation or a test action, not artifact size
 1. **`corpus/README.md:22` carries the same number, undated and unbound.** BASE line:
    ``| TAC / local-evidence integrity | `knowledge/tac-evidence-integrity.md` | `~/.local/bin/tac-check` (88 lines), … |``
    BASE `corpus/self-counts.tsv` has 38 data rows and **no row containing `88`, `tac`, or
-   `local-evidence`** (checked with `git show HEAD:corpus/self-counts.tsv`). It is out of
+   `local-evidence`** (checked with `git show 0a47dd1:corpus/self-counts.tsv`; the
+   candidate `144babc` table has 60 rows and also no such row). It is out of
    population if "host measurements" covers a host file's size, but the header's examples
    name "breadth, handler/DB counts", not file-size pins. No README-row locator matches
    that line (tested at BASE: zero hits for all `corpus/README.md` rows against line 22),
@@ -216,9 +232,10 @@ are descriptions of a historical observation or a test action, not artifact size
    historical clause prevents a current-claim reading. Keep that clause.
 4. **The one-digit mutation control cannot reach this entry.** `c1-measure.py --mutate
    <id>` needs a table row; this entry has none. A mutation of `88` (`:3`) or `9` (`:78`)
-   leaves `self-counts.py` CLEAN (the stamp gate flags only the byte change). Do not
-   present the mutation control as covering all knowledge digits; the round-27 lesson's
-   "not every digit" limit already says this, and this entry is a concrete instance.
+   leaves `self-counts.py` CLEAN (inferred from the absent row; not executed; the stamp
+   gate flags only the byte change). Do not present the mutation control as covering all
+   knowledge digits; the round-27 lesson's "not every digit" limit already says this, and
+   this entry is a concrete instance.
 5. **Range locators can bind only one endpoint.** All five locators above fix the second
    number as a literal (e.g. `–88`) and capture the first. If a future `field:` source is
    added, a range would still need either two rows or a literal endpoint; one capture
@@ -233,14 +250,15 @@ are descriptions of a historical observation or a test action, not artifact size
 
 Ran, all against committed bytes/lane files:
 
-- `sha256sum` and `git show HEAD:` identity of the entry; `git status --porcelain` for it;
-  comparison with `corpus/stamps.tsv:49`.
+- `sha256sum` and `git show 0a47dd1:` / `git show 144babc:` identity of the entry;
+  `git status --porcelain` for it; comparison with `corpus/stamps.tsv:49`.
 - Read `drift-baseline.tsv:10`, `drift-symbols.tsv:26-27`, `state-shape.tsv:45-46`,
-  `adjacency.tsv:50`, `surface-census.tsv:31`, `claim-ledger.tsv:15,18,32` (HEAD),
-  `self-counts.tsv` (HEAD), `QUALITY.md:118` (HEAD), `lessons/round-25.md:49-57`.
+  `adjacency.tsv:50`, `surface-census.tsv:31`, `claim-ledger.tsv:15,18,32` (same rows at
+  BASE and candidate), `self-counts.tsv` (BASE `0a47dd1` and candidate `144babc`),
+  `QUALITY.md:118` (both), `lessons/round-25.md:49-57`.
 - Counted data rows for `rows:` attempts: drift-baseline 15, drift-symbols 20,
-  state-shape 22; BASE self-counts 38 rows (working tree 56 after the in-progress KN
-  additions; the entry has no KN row in either).
+  state-shape 22; BASE self-counts 38 rows, candidate `144babc` 60 rows (22 knowledge
+  bindings); neither has a `tac-evidence` row.
 - Enumerated the fenced block (`:28-36`, 9 lines) and tested every locator above for
   exactly-one-line match and exactly one capture group.
 - Searched the tree for script bytes: `af95ca97…` occurs only in
@@ -267,13 +285,15 @@ Did **not** run / check:
 ```bash
 cd /home/vgpnk/Projects/shokunin/kagi-shokunin
 sha256sum corpus/knowledge/tac-evidence-integrity.md
-git show HEAD:corpus/knowledge/tac-evidence-integrity.md | sha256sum
-git show HEAD:corpus/knowledge/tac-evidence-integrity.md | wc -lc
-git show HEAD:corpus/stamps.tsv | grep tac-evidence
-git show HEAD:corpus/drift-baseline.tsv | sed -n '10p'
-git show HEAD:corpus/drift-symbols.tsv | grep tac-check
-git show HEAD:corpus/state-shape.tsv | grep handoff-status
-git show HEAD:corpus/self-counts.tsv | grep -n '88\|tac\|local-evidence' || echo 'no 88/tac rows at BASE'
+git show 0a47dd1:corpus/knowledge/tac-evidence-integrity.md | sha256sum
+git show 0a47dd1:corpus/knowledge/tac-evidence-integrity.md | wc -lc
+git show 0a47dd1:corpus/stamps.tsv | grep tac-evidence
+git show 0a47dd1:corpus/drift-baseline.tsv | sed -n '10p'
+git show 0a47dd1:corpus/drift-symbols.tsv | grep tac-check
+git show 0a47dd1:corpus/state-shape.tsv | grep handoff-status
+git show 0a47dd1:corpus/self-counts.tsv | grep -n '88\|tac\|local-evidence' || echo 'no 88/tac rows at BASE'
+git show 144babc:corpus/self-counts.tsv | grep -n 'tac-evidence' || echo 'no tac row at candidate'
+git show 144babc:corpus/self-counts.tsv | awk 'NF && $0 !~ /^[[:space:]]*#/' | wc -l
 ```
 
 The locator test used the regexes in the near-candidate table with

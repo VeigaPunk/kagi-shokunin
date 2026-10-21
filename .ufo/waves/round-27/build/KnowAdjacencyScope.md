@@ -109,7 +109,9 @@ KN-SCOPE-TABLE-FALSIFY-FAILED	155	table failed=0 V	expect:R16-03	failed=([0-9]+)
 KN-SCOPE-ERRATUM35	247	R11-11 (35)	ledger:R11-11	^([0-9]+)$	35	OK	outside by `R11-11` \(([0-9]+)\)
 ```
 
-The five in-flight rows plus these 51 give 56 current-tense occurrences covered. If all 51
+The five in-flight rows plus these 51 give 56 current-tense occurrences covered. Paste mapping
+to `corpus/self-counts.tsv`: `id<TAB>corpus/knowledge/adjacency-scope.md<TAB>locator<TAB>source<TAB>extract<TAB>note`,
+where `line`/`exact text`/`pin`/`verdict` are the review columns in this report. If all 51
 land, `corpus/claim-ledger.tsv:81` (`R25-02`, `claims=56`) must be re-pinned to **claims=107**
 (38 SC/PV/RD + 18 KN + 51 KN) and its note needs a second round-27 clause; no new ledger row
 is added by the 51 themselves. No new host contact is introduced: the sources are repo data

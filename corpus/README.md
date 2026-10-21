@@ -217,9 +217,9 @@ S029/S031 locator qualifiers and knowledge-number debt remain named gaps.
 ## Round-27 active contracts
 
 - `corpus/self-counts.tsv` now also binds 22 reviewed current-tense numbers in
-  eight `knowledge/*.md` entries (`KN-*`, QUALITY QM26); five stale ones were
-  corrected with the old value kept beside the new one, unbindable round-10
-  outputs are labelled as such. Exclusion classes and remaining debt:
+  eight `knowledge/*.md` entries (`KN-*`, QUALITY QM26); the four stale at BASE were corrected
+  with the old value kept beside the new one, per-round claim/stamp counts
+  became ledger pointers and unbindable round-13-close outputs are labelled. Exclusion classes and remaining debt:
   `lessons/round-27.md` §C1.
 - `corpus/release-clock.py` types a strict X.Y.Z observation below a strict
   X.Y.Z anchor as `REGRESSED` (QM25; S042 SemVer §11.2, S043 supporting), including below

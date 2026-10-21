@@ -294,7 +294,7 @@ deliberately never created — it is the missing-file signature probe.
   list `KAGI12_GOOD` — the blindness is asserted, not inferred.
 - Change any contract value (e.g. add `export ` to a fixture key) → the
   corresponding `FAIL` line and exit 1; `--selftest` proves the comparator on 36
-  cases (21 when §10 was written), including fifteen seeded mutations (value, masking, edge, quoting,
+  cases (the original "21" was an intermediate count, never the committed total — misstated), including fifteen seeded mutations (value, masking, edge, quoting,
   precedence, union, inherited trim, signatures, refs classification, the
   malformed-blindness pair).
 - `KAGI12_POISON=op://…` appended to `oprun.env` with `OP_REF_OP_BIN` pointed at

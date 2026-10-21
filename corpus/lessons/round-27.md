@@ -124,3 +124,103 @@ observation after a newer one was recorded.
   count, so a C2 selftest change turns C1's binder STALE until the doc moves
   (CritSeparability). Separability is executed by claim-only overlays
   (`tools/separability.py`), not asserted.
+
+## Executed claim measurements (candidate `144babcb892f0a30154880a9f94aa59ca8ddf9c5`)
+
+Invocations, exits and stdout: `.ufo/waves/round-27/measurement-invocations.json`.
+
+- **C1** `python3 -I -B .ufo/waves/round-27/tools/c1-measure.py <docs-rev> 144babcb892f0a30154880a9f94aa59ca8ddf9c5 <label> <out>`:
+  BASE docs (`c1-before.json`) STALE 4 knowledge ids (`KN-CENSUS-DRIFT-SYMBOLS`,
+  `KN-LEDGER-REPRO-SELFTEST`, `KN-OPREF-FALSIFY-SELFTEST`,
+  `KN-OPREF-REPRO-SELFTEST`), exit 1 → candidate docs (`c1-after.json`)
+  `SELF_COUNTS: CLEAN (claims=60 stale=0)`, exit 0. The two per-round counts
+  rewritten as pointers are outside this count (they are no longer bound).
+  Red control for EVERY binding: `--mutate <id>` for all 22 `KN-*` ids
+  (`receipts/c1-mutate-*.json`) exits 1 with exactly one finding naming that
+  id — 18 STALE and 4 UNLOCATED (the backreference locators refuse a line
+  whose two copies disagree, CritCounting).
+- **C2** `python3 -I -B .ufo/waves/round-27/tools/c2-measure.py <rev> <label> <out>`:
+  BASE downgrades accepted CLEAN 4/4 (`c2-before.json`,
+  `receipts/c2-before-final.json`) → candidate 0/4, each fixture exit 1 with
+  exactly the expected REGRESSED ids (lie S040; rollback S027/S028/S040/S041;
+  un-fire S027/S028; non-numeric S012) (`c2-after.json`); control and default
+  CLEAN30/fired3 in both. Clock selftest 67 → 76.
+- **Separability** `python3 -I -B .ufo/waves/round-27/tools/separability.py 144babcb892f0a30154880a9f94aa59ca8ddf9c5 <out>`
+  (`separability.json`): C1-only overlay on BASE → knowledge stale 0, CLEAN60,
+  clock selftest 67 and downgrades still accepted 4/4 (C1 does not cause C2);
+  C2-only overlay → REGRESSED exact 4/4, selftest 76, zero `KN-*` bindings,
+  and self-counts STALE 2 on SC/PV-CLOCK-SELFTEST (the declared C2→C1 doc edge:
+  BASE docs still say 67). Constructed claim-only trees, not ledger-clean commits.
+
+**Sources Gate addendum.** BUILD scouts also opened, but the L1 did not
+register: the PyPA/SemVer pages again (SrcSemver, SrcPep440 — receipts agree
+with S042/S043 captures; S043's "CPython-style" scope was narrowed before
+landing), `https://devguide.python.org/versions/` (SrcPythonVersions — admit-
+able for branch phases, rejected as grounding for the rule; it supplied the
+branch-scoped-row limit) and the github/docs tree at `cca0c9d7` (SrcGithubAtom —
+zero statements on `releases.atom` window/order; absence recorded as a limit).
+
+**Further named debt from the inventory.** KnowAdjacencyScope proposes 51
+more correct-today bindings in `adjacency-scope.md`; KnowDriftGate 5–10 in
+`drift-gate.md`; KnowSurfaceCensus several `rows:`/subtotal candidates. None was
+stale at BASE; they widen the reviewed population later, not this claim.
+RevKnowledgeDebt adds two named-debt items this round leaves open:
+`op-ref-consumption.md:283` "edge.env (10 classes" (9 keys in the fixture; the
+10th class comes from two1.env — a counting-scope ambiguity, no pinned source)
+and the round-25 pointer `credential-isolation.md:120-122`, whose real site is
+`checklist-execution.md:119-125` (partly conceded by its erratum). The dated
+sops/vault negative sweeps stay debt: they are absence claims, not counts.
+ConnKumitate: `release-clock.py` reads ids with `S[0-9]{3}` and no `## Registry`
+scope while the fleet census uses `S[0-9]{3,}` with section scope — latent
+(ids stop at S043), named debt; and kumitate's `anchor-truth.mjs` also emits a
+`REGRESSED` token for a different class, so a fleet grep must key by lane.
+
+## Residual falsification (8 seats on candidate `144babcb`) and dispositions
+
+Fewer than 64 distinct attack items remained after BUILD, so one ordinary
+8-seat batch (6 critics, 1 reviewer, 1 mutation-tester; dispatched on its
+third try under the job cap, `residual-refusals.json`) attacked the pushed
+candidate; reports in `.ufo/waves/round-27/residual/`.
+
+Accepted and fixed before the measured revision:
+- MutFinalClock: mutant M06 (major component dropped) survived the 76-case
+  selftest → case `major component compared` (anchor 1.2.3, observed 0.9.9).
+- CritFinalC2: non-strict observations (`3.14`, `1.20`, `3.14.0.0`) bypassed
+  the rule → a feed observation must be strict X.Y.Z (`non-strict observation
+  refused`, INCONSISTENT); the real observer never writes such strings.
+- CritFinalHarm: `--observe` did not apply the feed floor → `run_observe`
+  passes `feed_floors` into `observe_one` (case: observation below a sibling
+  anchor on the same feed). Clock selftest 76 → 79.
+- CritFinalC1: `claim-ledger.md:288` "selftest case 21" now names
+  `cite-multi-ref`; op-ref §10's "21" was never a committed total (§9 and §10
+  landed at 29) and is now marked misstated instead of "when written".
+- CritFinalDocs/CritFinalHarm: README "five stale"/"round-10 outputs"
+  corrected; SCORECARD's pre-critic 18/73/2-of-2 numbers are superseded by
+  its appended final outcome (append-only, not rewritten); the S043 gate row
+  above says "CPython-style" — superseded by the narrowed S043 registry
+  scope (Python software distributions, not CPython policy).
+- Lesson corrections: `surface-census.md:226` "case 14" is CORRECT
+  (`fused-shape-row`, KnowSurfaceCensus); only `:280` "selftest 10" is off by
+  one. Four of the 22 mutation controls go UNLOCATED (backreference
+  locators), not STALE; each still names exactly its id and exits 1.
+- CritFinalSeparability: the C2→C1 edge is the shared self-counts exit and
+  R25-02 pin via round-25 rows SC/PV-CLOCK-SELFTEST (not C1's 22 rows); with
+  C2's rule disabled but its doc lines present the binder reports SETUP
+  (exit 2), which outranks a concurrent knowledge STALE. `separability.py`
+  now counts UNLOCATED/AMBIGUOUS knowledge findings too.
+
+Rejected or kept as named limits, with reasons:
+- CritFinalC2 #1: lowering derived anchors together with a forged stale
+  observation stays CLEAN. That requires editing both the pinned table and
+  receipt; derived anchors are author-declared (`derived:`) and unverifiable
+  by design. The rule guards observations against declared anchors, not
+  anchors against their author. Flip: bind every floor-contributing anchor to
+  its feed row's anchored release (CritFinalC2 draft A) — next-round candidate.
+- CritFinalC2 #3: one row rearmed ahead of its feed flags its siblings too
+  (fail-closed cascade, exit 1 either way); accepted cost of the feed floor.
+- CritFinalSources: SemVer ordering applied to non-SemVer vendors rests on
+  numeric core order only; a numbering-scheme reset would read REGRESSED (a
+  stop for re-verification, never a silent pass). Leading-zero `3.15.01` is
+  still compared by string for fired/not-fired (inherited) — named debt.
+- XRegressDraft: a >4300-digit component raises ValueError (untyped crash,
+  non-zero exit) — named debt.

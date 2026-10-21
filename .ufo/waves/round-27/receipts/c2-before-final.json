@@ -1,0 +1,142 @@
+{
+  "format": "kagi-round27-c2-measure-v1",
+  "revision": "0a47dd189356ea66ec83c3891eed54526e95b89b",
+  "label": "base",
+  "downgrades_accepted_clean": 4,
+  "downgrades_regressed_exact": 0,
+  "downgrade_fixtures": 4,
+  "control_clean": true,
+  "results": {
+    "lie": {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/fast/scratch/kagi-r27-c2-4o19pvg1/clone/corpus/release-clock.py",
+        "--root",
+        "/fast/scratch/kagi-r27-c2-4o19pvg1/fixture-lie",
+        "--receipt",
+        "/fast/scratch/kagi-r27-c2-4o19pvg1/fixture-lie/receipt.json",
+        "--receipt-sha",
+        "f09761b39a8f70566c6a83ae8a6f9b4fcf0329362260bb0fbfd7f6902414674e"
+      ],
+      "exit": 0,
+      "stdout": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=4 derived=15)\n",
+      "stderr": "",
+      "last_line": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=4 derived=15)",
+      "changed_rows": [
+        "S040"
+      ],
+      "findings": [],
+      "regressed_findings": [],
+      "accepted_clean": true,
+      "regressed_exact": false
+    },
+    "rollback": {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/fast/scratch/kagi-r27-c2-4o19pvg1/clone/corpus/release-clock.py",
+        "--root",
+        "/fast/scratch/kagi-r27-c2-4o19pvg1/fixture-rollback",
+        "--receipt",
+        "/fast/scratch/kagi-r27-c2-4o19pvg1/fixture-rollback/receipt.json",
+        "--receipt-sha",
+        "bdfe949d7f9ea4c68547b2dca57765ca07b5391356ac989b5f75fa279541578f"
+      ],
+      "exit": 0,
+      "stdout": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)\n",
+      "stderr": "",
+      "last_line": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)",
+      "changed_rows": [
+        "S027",
+        "S028",
+        "S040",
+        "S041"
+      ],
+      "findings": [],
+      "regressed_findings": [],
+      "accepted_clean": true,
+      "regressed_exact": false
+    },
+    "unfire": {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/fast/scratch/kagi-r27-c2-4o19pvg1/clone/corpus/release-clock.py",
+        "--root",
+        "/fast/scratch/kagi-r27-c2-4o19pvg1/fixture-unfire",
+        "--receipt",
+        "/fast/scratch/kagi-r27-c2-4o19pvg1/fixture-unfire/receipt.json",
+        "--receipt-sha",
+        "26e5901e922de9620b496a044abdcf757a89e58db3b430ce4ef16ae4d34544fb"
+      ],
+      "exit": 0,
+      "stdout": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=1 derived=15)\n",
+      "stderr": "",
+      "last_line": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=1 derived=15)",
+      "changed_rows": [
+        "S027",
+        "S028"
+      ],
+      "findings": [],
+      "regressed_findings": [],
+      "accepted_clean": true,
+      "regressed_exact": false
+    },
+    "nonnumeric": {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/fast/scratch/kagi-r27-c2-4o19pvg1/clone/corpus/release-clock.py",
+        "--root",
+        "/fast/scratch/kagi-r27-c2-4o19pvg1/fixture-nonnumeric",
+        "--receipt",
+        "/fast/scratch/kagi-r27-c2-4o19pvg1/fixture-nonnumeric/receipt.json",
+        "--receipt-sha",
+        "0658a65d49595d51dff22723887001d293ef70f899255bf4d131867f640c3651"
+      ],
+      "exit": 0,
+      "stdout": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)\n",
+      "stderr": "",
+      "last_line": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)",
+      "changed_rows": [
+        "S012"
+      ],
+      "findings": [],
+      "regressed_findings": [],
+      "accepted_clean": true,
+      "regressed_exact": false
+    },
+    "control": {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/fast/scratch/kagi-r27-c2-4o19pvg1/clone/corpus/release-clock.py",
+        "--root",
+        "/fast/scratch/kagi-r27-c2-4o19pvg1/fixture-control",
+        "--receipt",
+        "/fast/scratch/kagi-r27-c2-4o19pvg1/fixture-control/receipt.json",
+        "--receipt-sha",
+        "13b8540c78b9de07bc184894583a368472fd1f2f04a898220bf7c29d2648a169"
+      ],
+      "exit": 0,
+      "stdout": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)\n",
+      "stderr": "",
+      "last_line": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)",
+      "changed_rows": [],
+      "findings": [],
+      "regressed_findings": [],
+      "accepted_clean": true,
+      "regressed_exact": false
+    },
+    "default": {
+      "exit": 0,
+      "stdout": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)\n"
+    }
+  }
+}

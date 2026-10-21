@@ -574,6 +574,7 @@ def evaluate(sources, rows, captures=None, receipt_bundle=None):
                 errors.add(("REGRESSED", source_id))
                 row_valid = False
             elif (not anchor_ok or not observed_version or observed_version == "-"
+                    or numeric_version(observed_version) is None
                     or not valid_iso_date(observed_at)
                     or verdict not in ("not-fired", "fired")):
                 errors.add(("INCONSISTENT", source_id))
@@ -763,7 +764,7 @@ def utc_timestamp():
     return dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
 
 
-def observe_one(source, values, normalizer, opener=None, resolver=None, capture=None):
+def observe_one(source, values, normalizer, opener=None, resolver=None, capture=None, floor=None):
     clock = values["clock"]
     url = values["feed_url"] if clock == "feed" else source["url"]
     receipt = {
@@ -791,7 +792,8 @@ def observe_one(source, values, normalizer, opener=None, resolver=None, capture=
             # floors: a fired 3.15.0 row that recorded 3.15.1 must not silently
             # read not-fired again when the feed shows 3.15.0 (round 27 C2)
             if (is_regression(values["anchored_version"], parsed_version)
-                    or is_regression(values.get("observed_version", ""), parsed_version)):
+                    or is_regression(values.get("observed_version", ""), parsed_version)
+                    or is_regression(floor or "", parsed_version)):
                 receipt["verdict"] = "regressed"
             elif norm_version(parsed_version) == norm_version(values["anchored_version"]):
                 receipt["verdict"] = "not-fired"
@@ -880,7 +882,9 @@ def run_observe(root, sources, rows, output_path, captures=None):
             normalizer = load_normalizer(root)
         except (OSError, ImportError, ValueError) as exc:
             setup("cannot load rendered-text-v1: %s" % exc.__class__.__name__)
-    receipts = [observe_one(source, values, normalizer, capture=captures.get(source["id"]))
+    floors = feed_floors(rows)
+    receipts = [observe_one(source, values, normalizer, capture=captures.get(source["id"]),
+                            floor=floors.get(values["feed_url"]))
                 for source, values in eligible]
     write_receipt(output_path, receipts)
     failures = sum("error" in receipt for receipt in receipts)
@@ -1088,6 +1092,11 @@ def selftest():
     run_case("regressed receipt refused", fixture_row() + "\n",
              [("REGRESSED", "S001"), ("RECEIPT-MISMATCH", "S001")], {"observed": 0},
              receipt_action=mutate_receipt_values(parsed_version="1.2.2", verdict="regressed"))
+    run_case("major component compared", fixture_row(
+             anchored="1.2.3", observed="0.9.9", verdict="fired") + "\n",
+             [("REGRESSED", "S001")], {"observed": 0})
+    run_case("non-strict observation refused", fixture_row(observed="1.3", verdict="fired") + "\n",
+             [("INCONSISTENT", "S001")], {"observed": 0})
 
     run_case("missing receipt", fixture_row() + "\n",
              [("NOT OBSERVED", "S001")], {"observed": 0},
@@ -1454,6 +1463,19 @@ def selftest():
     cases += 1
     if floor_observation["verdict"] != "regressed" or "error" in floor_observation:
         failures.append("return to the anchor after a recorded newer observation was not regressed")
+
+    sibling_floor_observation = observe_one(
+        {"url": "https://example.test/doc", "teaches": "test"},
+        {"id": "S001", "clock": "feed",
+         "feed_url": "https://feed.example.test/releases.atom",
+         "anchored_version": "1.2.3", "observed_version": "1.2.3"},
+        None,
+        opener=StaticOpener(b'<feed><entry><title>v1.2.3</title></entry></feed>'),
+        resolver=fake_public_resolver, floor="1.2.4",
+    )
+    cases += 1
+    if sibling_floor_observation["verdict"] != "regressed" or "error" in sibling_floor_observation:
+        failures.append("observation below a sibling anchor on the same feed was not regressed")
 
     normalizer = load_normalizer(Path(__file__).resolve().parent.parent)
     quote_source = {

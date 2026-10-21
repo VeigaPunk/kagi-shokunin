@@ -72,7 +72,7 @@ def main():
         counts = run(["python3", "-I", "-B", "corpus/self-counts.py"], clone, env)
         knowledge_ids = [l.split("\t")[0] for l in (clone / "corpus/self-counts.tsv").read_text().splitlines()
                          if l.startswith("KN-")]
-        stale = re.findall(r"^STALE (\S+)", counts["stdout"], re.M)
+        stale = re.findall(r"^(?:STALE|UNLOCATED|AMBIGUOUS) (\S+)", counts["stdout"], re.M)
         fixtures = c2m.measure_clone(clone, temp / "c1", env)
         result["c1_only"] = {"overlaid": blobs, "self_counts": counts, "knowledge_bindings": len(knowledge_ids),
                              "stale_knowledge": [i for i in stale if i in knowledge_ids], "stale_all": stale,

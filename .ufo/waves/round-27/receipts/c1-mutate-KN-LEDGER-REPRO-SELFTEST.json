@@ -1,0 +1,26 @@
+{
+  "format": "kagi-round27-c1-measure-v1",
+  "docs_revision": "144babcb892f0a30154880a9f94aa59ca8ddf9c5",
+  "table_revision": "144babcb892f0a30154880a9f94aa59ca8ddf9c5",
+  "label": "mutate-KN-LEDGER-REPRO-SELFTEST",
+  "bindings": 60,
+  "knowledge_bindings": 22,
+  "mutation": {
+    "id": "KN-LEDGER-REPRO-SELFTEST",
+    "doc": "corpus/knowledge/claim-ledger.md",
+    "line": 304,
+    "from": "1",
+    "to": "2"
+  },
+  "exit": 1,
+  "last_line": "SELF_COUNTS: STALE (claims=60 stale=0 unlocated=1 ambiguous=0)",
+  "findings": [
+    [
+      "UNLOCATED",
+      "KN-LEDGER-REPRO-SELFTEST"
+    ]
+  ],
+  "stale_knowledge": [],
+  "stdout": "OK SC-SKILL-STAMPS SKILL.md:46 claimed=90 live=90\nOK SC-SKILL-CLAIMS SKILL.md:46 claimed=65 live=65\nOK SC-SCOPE-ROWS SKILL.md:35 claimed=35 live=35\nOK SC-SCOPE-SELFTEST SKILL.md:35 claimed=61 live=61\nOK SC-CENSUS-SELFTEST SKILL.md:36 claimed=16 pinned=16\nOK SC-SOURCES-SELFTEST SKILL.md:49 claimed=70 live=70\nOK SC-SELFCOUNTS-SELFTEST SKILL.md:47 claimed=48 live=48\nOK SC-CLOCK-SELFTEST SKILL.md:48 claimed=76 live=76\nOK SC-LEDGER-SELFTEST SKILL.md:245 claimed=170 live=170\nOK SC-CLOSURE-SELFTEST SKILL.md:751 claimed=14 live=14\nOK SC-RENDERED-SELFTEST SKILL.md:752 claimed=22 live=22\nOK PV-SURFACE-SELFTEST PROVINCE.md:46 claimed=16 pinned=16\nOK PV-CENSUS-ROWS PROVINCE.md:46 claimed=35 live=35\nOK PV-STATE-ROWS PROVINCE.md:46 claimed=22 live=22\nOK PV-DRIFT-FILES PROVINCE.md:47 claimed=15 live=15\nOK PV-DRIFT-SYMBOLS PROVINCE.md:47 claimed=20 live=20\nOK PV-OPREF-SELFTEST PROVINCE.md:49 claimed=36 pinned=36\nOK PV-CHECKLIST-SELFTEST PROVINCE.md:50 claimed=34 live=34\nOK PV-SCOPE-SELFTEST PROVINCE.md:51 claimed=61 live=61\nOK PV-STAMPS PROVINCE.md:52 claimed=90 live=90\nOK PV-CLAIMS PROVINCE.md:52 claimed=65 live=65\nOK PV-LEDGER-SELFTEST PROVINCE.md:52 claimed=170 live=170\nOK PV-SELFCOUNTS-SELFTEST PROVINCE.md:53 claimed=48 live=48\nOK PV-CLOCK-SELFTEST PROVINCE.md:54 claimed=76 live=76\nOK PV-SOURCES-SELFTEST PROVINCE.md:55 claimed=70 live=70\nOK PV-RENDERED-SELFTEST PROVINCE.md:56 claimed=22 live=22\nOK PV-CLOSURE-SELFTEST PROVINCE.md:57 claimed=14 live=14\nOK RD-CENSUS-ROWS corpus/README.md:41 claimed=35 live=35\nOK RD-STATE-ROWS corpus/README.md:42 claimed=22 live=22\nOK RD-SCOPE-SELFTEST corpus/README.md:43 claimed=61 live=61\nOK RD-LEDGER-SELFTEST corpus/README.md:63 claimed=170 live=170\nOK RD-LEDGER-ROWS corpus/README.md:64 claimed=65 live=65\nOK RD-STAMPS corpus/README.md:65 claimed=90 live=90\nOK RD-DOCS-ROWLINKED corpus/README.md:67 claimed=22 live=22\nOK RD-DOCS-BYHAND corpus/README.md:67 claimed=3 live=3\nOK RD-DOCS-ENTRIES corpus/README.md:67 claimed=25 live=25\nOK RD-OPREF-SELFTEST corpus/README.md:69 claimed=36 pinned=36\nOK RD-CHECKLIST-SELFTEST corpus/README.md:33 claimed=34 live=34\nOK KN-BREADTH-SCOPE-SELFTEST corpus/knowledge/adjacency-breadth.md:152 claimed=61 live=61\nOK KN-BREADTH-FALSIFY corpus/knowledge/adjacency-breadth.md:155 claimed=18 pinned=18\nOK KN-SCOPE-CURRENT-SELFTEST corpus/knowledge/adjacency-scope.md:16 claimed=61 live=61\nOK KN-SCOPE-CURRENT-FALSIFY corpus/knowledge/adjacency-scope.md:17 claimed=18 pinned=18\nOK KN-SCOPE-TABLE-SELFTEST corpus/knowledge/adjacency-scope.md:155 claimed=61 live=61\nOK KN-SCOPE-TABLE-FALSIFY corpus/knowledge/adjacency-scope.md:155 claimed=18 pinned=18\nOK KN-SCOPE-MUTATIONS corpus/knowledge/adjacency-scope.md:269 claimed=18 pinned=18\nOK KN-CHECKLIST-SELFTEST corpus/knowledge/checklist-execution.md:63 claimed=34 live=34\nOK KN-CHECKLIST-FALSIFY-ROWS corpus/knowledge/checklist-execution.md:173 claimed=16 live=16\nOK KN-CHECKLIST-FALSIFY-ITEMS corpus/knowledge/checklist-execution.md:179 claimed=16 live=16\nUNLOCATED KN-LEDGER-REPRO-SELFTEST corpus/knowledge/claim-ledger.md\nOK KN-DRIFT-BOUND-FILES corpus/knowledge/drift-gate.md:143 claimed=15 live=15\nOK KN-OPREF-REPRO-SELFTEST corpus/knowledge/op-ref-consumption.md:276 claimed=36 pinned=36\nOK KN-OPREF-CORRECTION-SELFTEST corpus/knowledge/op-ref-consumption.md:374 claimed=36 pinned=36\nOK KN-CENSUS-DRIFT-FILES corpus/knowledge/surface-census.md:32 claimed=15 live=15\nOK KN-CENSUS-DRIFT-SYMBOLS corpus/knowledge/surface-census.md:32 claimed=20 live=20\nOK KN-BREADTH-LINES corpus/knowledge/adjacency-breadth.md:148 claimed=4 live=4\nOK KN-BREADTH-FALSIFIERS corpus/knowledge/adjacency-breadth.md:158 claimed=18 pinned=18\nOK KN-SUBSTRATE-CENSUS-SELFTEST corpus/knowledge/substrate-deferral.md:44 claimed=16 pinned=16\nOK KN-SUBSTRATE-ABSENCE-FILES corpus/knowledge/substrate-deferral.md:50 claimed=15 pinned=15\nOK KN-CHECKLIST-FALSIFY-FLOOR corpus/knowledge/checklist-execution.md:179 claimed=8 live=8\nOK KN-OPREF-FALSIFY-SELFTEST corpus/knowledge/op-ref-consumption.md:296 claimed=36 pinned=36\nSELF_COUNTS: STALE (claims=60 stale=0 unlocated=1 ambiguous=0)\n",
+  "stderr": ""
+}

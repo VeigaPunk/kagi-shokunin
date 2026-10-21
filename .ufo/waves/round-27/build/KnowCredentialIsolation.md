@@ -33,9 +33,13 @@ repo file. Every numeric statement about a file's size or content is a
 `~/.config/the-janitor/opencode.json`,
 `~/.config/opencode/agents/janitor.md`,
 `~/.config/opencode/tools/janitor_auth.ts`,
-`~/.local/state/tac/handoff-status.json`). `PROVINCE.md:10-15` at BASE declares
-those surfaces HISTORICAL and the substrate measured absent; the round-25
-inventory classified this entry `HISTORICAL (host; no erratum)`
+`~/.local/state/tac/handoff-status.json`). Two of those prefixes,
+`$HOME/.local/bin/the-janitor` and `$HOME/.config/the-janitor`, are declared
+lane-owned *surfaces* (`corpus/adjacency.tsv:48-49`), but the numbers are
+measurements of files that `PROVINCE.md:10-15` at BASE declares absent; the
+round-27 population excludes host/substrate observations regardless of which
+lane owns the surface. The round-25 inventory classified this entry
+`HISTORICAL (host; no erratum)`
 (`.ufo/waves/round-25/build/SelfInvKnowledge2.md:52`).
 
 Consequently the C1 binding table for this entry is empty:
@@ -84,6 +88,14 @@ L68  needs >([0-9]+) model steps                   -> line 68
 The regexes are correct as written; the backticks are literal characters in the
 document. They are recorded for a future promotion, not as rows of
 `corpus/self-counts.tsv`.
+
+Verdicts if a reviewer insists on a STALE/OK status anyway: `14 lines` is
+**OK** against the committed cell (`corpus/drift-baseline.tsv:8` = 14);
+`steps: 4` is **OK** against the three committed assertions above; `20 vars`
+and `759 bytes` are **UNVERIFIED** — no committed pin exists and the substrate
+is absent, so they are neither STALE nor OK. These verdicts describe agreement
+with committed data, not proof that the host files currently carry those
+values.
 
 ## 3. Why no binding can be written today
 
@@ -308,7 +320,7 @@ sha256sum corpus/knowledge/credential-isolation.md
 git show 0a47dd18…:corpus/knowledge/credential-isolation.md | wc -lc
   78 3986
 git show 0a47dd18…:corpus/stamps.tsv | grep credential-isolation
-  34  corpus/knowledge/credential-isolation.md  03570c65…  78  3986
+  34:corpus/knowledge/credential-isolation.md<TAB>03570c65…<TAB>78<TAB>3986
 git show 0a47dd18…:corpus/self-counts.tsv | grep -c credential-isolation
   0
 grep -c credential-isolation corpus/self-counts.tsv        # integration worktree

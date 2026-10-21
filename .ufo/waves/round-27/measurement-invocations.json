@@ -1,0 +1,450 @@
+{
+  "candidate": "144babcb892f0a30154880a9f94aa59ca8ddf9c5",
+  "runs": {
+    "c1-before": {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/tools/c1-measure.py",
+        "0a47dd189356ea66ec83c3891eed54526e95b89b",
+        "144babcb892f0a30154880a9f94aa59ca8ddf9c5",
+        "base-docs",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/c1-before.json"
+      ],
+      "exit": 0,
+      "stdout": "C1_MEASURE base-docs: exit=1 bindings=60 knowledge=22 stale_knowledge=4 findings=4 | SELF_COUNTS: STALE (claims=60 stale=4 unlocated=0 ambiguous=0)\n",
+      "stderr": ""
+    },
+    "c1-after": {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/tools/c1-measure.py",
+        "144babcb892f0a30154880a9f94aa59ca8ddf9c5",
+        "144babcb892f0a30154880a9f94aa59ca8ddf9c5",
+        "after",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/c1-after.json"
+      ],
+      "exit": 0,
+      "stdout": "C1_MEASURE after: exit=0 bindings=60 knowledge=22 stale_knowledge=0 findings=0 | SELF_COUNTS: CLEAN (claims=60 stale=0)\n",
+      "stderr": ""
+    },
+    "c2-before": {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/tools/c2-measure.py",
+        "0a47dd189356ea66ec83c3891eed54526e95b89b",
+        "base",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/receipts/c2-before-final.json"
+      ],
+      "exit": 0,
+      "stdout": "C2_MEASURE base: downgrades_accepted_clean=4/4 regressed_exact=0/4 control_clean=True default_exit=0\n",
+      "stderr": ""
+    },
+    "c2-after": {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/tools/c2-measure.py",
+        "144babcb892f0a30154880a9f94aa59ca8ddf9c5",
+        "after",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/c2-after.json"
+      ],
+      "exit": 0,
+      "stdout": "C2_MEASURE after: downgrades_accepted_clean=0/4 regressed_exact=4/4 control_clean=True default_exit=0\n",
+      "stderr": ""
+    },
+    "separability": {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/tools/separability.py",
+        "144babcb892f0a30154880a9f94aa59ca8ddf9c5",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/separability.json"
+      ],
+      "exit": 0,
+      "stdout": "SEPARABILITY c1-only: knowledge=22 stale_knowledge=0 clock_selftest='RELEASE_CLOCK_SELFTEST: PASS (67 cases)' downgrades_accepted=4/4\nSEPARABILITY c2-only: regressed_exact=4/4 accepted=0/4 control_clean=True selftest='RELEASE_CLOCK_SELFTEST: PASS (76 cases)' knowledge=0 self_counts='SELF_COUNTS: STALE (claims=38 stale=2 unlocated=0 ambiguous=0)'\n",
+      "stderr": ""
+    },
+    "mut-KN-BREADTH-SCOPE-SELFTEST": {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/tools/c1-measure.py",
+        "144babcb892f0a30154880a9f94aa59ca8ddf9c5",
+        "144babcb892f0a30154880a9f94aa59ca8ddf9c5",
+        "mutate-KN-BREADTH-SCOPE-SELFTEST",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/receipts/c1-mutate-KN-BREADTH-SCOPE-SELFTEST.json",
+        "--mutate",
+        "KN-BREADTH-SCOPE-SELFTEST"
+      ],
+      "exit": 0,
+      "stdout": "C1_MEASURE mutate-KN-BREADTH-SCOPE-SELFTEST: exit=1 bindings=60 knowledge=22 stale_knowledge=1 findings=1 | SELF_COUNTS: STALE (claims=60 stale=1 unlocated=0 ambiguous=0)\n",
+      "stderr": ""
+    },
+    "mut-KN-BREADTH-FALSIFY": {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/tools/c1-measure.py",
+        "144babcb892f0a30154880a9f94aa59ca8ddf9c5",
+        "144babcb892f0a30154880a9f94aa59ca8ddf9c5",
+        "mutate-KN-BREADTH-FALSIFY",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/receipts/c1-mutate-KN-BREADTH-FALSIFY.json",
+        "--mutate",
+        "KN-BREADTH-FALSIFY"
+      ],
+      "exit": 0,
+      "stdout": "C1_MEASURE mutate-KN-BREADTH-FALSIFY: exit=1 bindings=60 knowledge=22 stale_knowledge=0 findings=1 | SELF_COUNTS: STALE (claims=60 stale=0 unlocated=1 ambiguous=0)\n",
+      "stderr": ""
+    },
+    "mut-KN-SCOPE-CURRENT-SELFTEST": {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/tools/c1-measure.py",
+        "144babcb892f0a30154880a9f94aa59ca8ddf9c5",
+        "144babcb892f0a30154880a9f94aa59ca8ddf9c5",
+        "mutate-KN-SCOPE-CURRENT-SELFTEST",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/receipts/c1-mutate-KN-SCOPE-CURRENT-SELFTEST.json",
+        "--mutate",
+        "KN-SCOPE-CURRENT-SELFTEST"
+      ],
+      "exit": 0,
+      "stdout": "C1_MEASURE mutate-KN-SCOPE-CURRENT-SELFTEST: exit=1 bindings=60 knowledge=22 stale_knowledge=1 findings=1 | SELF_COUNTS: STALE (claims=60 stale=1 unlocated=0 ambiguous=0)\n",
+      "stderr": ""
+    },
+    "mut-KN-SCOPE-CURRENT-FALSIFY": {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/tools/c1-measure.py",
+        "144babcb892f0a30154880a9f94aa59ca8ddf9c5",
+        "144babcb892f0a30154880a9f94aa59ca8ddf9c5",
+        "mutate-KN-SCOPE-CURRENT-FALSIFY",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/receipts/c1-mutate-KN-SCOPE-CURRENT-FALSIFY.json",
+        "--mutate",
+        "KN-SCOPE-CURRENT-FALSIFY"
+      ],
+      "exit": 0,
+      "stdout": "C1_MEASURE mutate-KN-SCOPE-CURRENT-FALSIFY: exit=1 bindings=60 knowledge=22 stale_knowledge=0 findings=1 | SELF_COUNTS: STALE (claims=60 stale=0 unlocated=1 ambiguous=0)\n",
+      "stderr": ""
+    },
+    "mut-KN-SCOPE-TABLE-SELFTEST": {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/tools/c1-measure.py",
+        "144babcb892f0a30154880a9f94aa59ca8ddf9c5",
+        "144babcb892f0a30154880a9f94aa59ca8ddf9c5",
+        "mutate-KN-SCOPE-TABLE-SELFTEST",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/receipts/c1-mutate-KN-SCOPE-TABLE-SELFTEST.json",
+        "--mutate",
+        "KN-SCOPE-TABLE-SELFTEST"
+      ],
+      "exit": 0,
+      "stdout": "C1_MEASURE mutate-KN-SCOPE-TABLE-SELFTEST: exit=1 bindings=60 knowledge=22 stale_knowledge=1 findings=1 | SELF_COUNTS: STALE (claims=60 stale=1 unlocated=0 ambiguous=0)\n",
+      "stderr": ""
+    },
+    "mut-KN-SCOPE-TABLE-FALSIFY": {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/tools/c1-measure.py",
+        "144babcb892f0a30154880a9f94aa59ca8ddf9c5",
+        "144babcb892f0a30154880a9f94aa59ca8ddf9c5",
+        "mutate-KN-SCOPE-TABLE-FALSIFY",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/receipts/c1-mutate-KN-SCOPE-TABLE-FALSIFY.json",
+        "--mutate",
+        "KN-SCOPE-TABLE-FALSIFY"
+      ],
+      "exit": 0,
+      "stdout": "C1_MEASURE mutate-KN-SCOPE-TABLE-FALSIFY: exit=1 bindings=60 knowledge=22 stale_knowledge=0 findings=1 | SELF_COUNTS: STALE (claims=60 stale=0 unlocated=1 ambiguous=0)\n",
+      "stderr": ""
+    },
+    "mut-KN-SCOPE-MUTATIONS": {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/tools/c1-measure.py",
+        "144babcb892f0a30154880a9f94aa59ca8ddf9c5",
+        "144babcb892f0a30154880a9f94aa59ca8ddf9c5",
+        "mutate-KN-SCOPE-MUTATIONS",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/receipts/c1-mutate-KN-SCOPE-MUTATIONS.json",
+        "--mutate",
+        "KN-SCOPE-MUTATIONS"
+      ],
+      "exit": 0,
+      "stdout": "C1_MEASURE mutate-KN-SCOPE-MUTATIONS: exit=1 bindings=60 knowledge=22 stale_knowledge=1 findings=1 | SELF_COUNTS: STALE (claims=60 stale=1 unlocated=0 ambiguous=0)\n",
+      "stderr": ""
+    },
+    "mut-KN-CHECKLIST-SELFTEST": {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/tools/c1-measure.py",
+        "144babcb892f0a30154880a9f94aa59ca8ddf9c5",
+        "144babcb892f0a30154880a9f94aa59ca8ddf9c5",
+        "mutate-KN-CHECKLIST-SELFTEST",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/receipts/c1-mutate-KN-CHECKLIST-SELFTEST.json",
+        "--mutate",
+        "KN-CHECKLIST-SELFTEST"
+      ],
+      "exit": 0,
+      "stdout": "C1_MEASURE mutate-KN-CHECKLIST-SELFTEST: exit=1 bindings=60 knowledge=22 stale_knowledge=1 findings=1 | SELF_COUNTS: STALE (claims=60 stale=1 unlocated=0 ambiguous=0)\n",
+      "stderr": ""
+    },
+    "mut-KN-CHECKLIST-FALSIFY-ROWS": {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/tools/c1-measure.py",
+        "144babcb892f0a30154880a9f94aa59ca8ddf9c5",
+        "144babcb892f0a30154880a9f94aa59ca8ddf9c5",
+        "mutate-KN-CHECKLIST-FALSIFY-ROWS",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/receipts/c1-mutate-KN-CHECKLIST-FALSIFY-ROWS.json",
+        "--mutate",
+        "KN-CHECKLIST-FALSIFY-ROWS"
+      ],
+      "exit": 0,
+      "stdout": "C1_MEASURE mutate-KN-CHECKLIST-FALSIFY-ROWS: exit=1 bindings=60 knowledge=22 stale_knowledge=1 findings=1 | SELF_COUNTS: STALE (claims=60 stale=1 unlocated=0 ambiguous=0)\n",
+      "stderr": ""
+    },
+    "mut-KN-CHECKLIST-FALSIFY-ITEMS": {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/tools/c1-measure.py",
+        "144babcb892f0a30154880a9f94aa59ca8ddf9c5",
+        "144babcb892f0a30154880a9f94aa59ca8ddf9c5",
+        "mutate-KN-CHECKLIST-FALSIFY-ITEMS",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/receipts/c1-mutate-KN-CHECKLIST-FALSIFY-ITEMS.json",
+        "--mutate",
+        "KN-CHECKLIST-FALSIFY-ITEMS"
+      ],
+      "exit": 0,
+      "stdout": "C1_MEASURE mutate-KN-CHECKLIST-FALSIFY-ITEMS: exit=1 bindings=60 knowledge=22 stale_knowledge=1 findings=1 | SELF_COUNTS: STALE (claims=60 stale=1 unlocated=0 ambiguous=0)\n",
+      "stderr": ""
+    },
+    "mut-KN-LEDGER-REPRO-SELFTEST": {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/tools/c1-measure.py",
+        "144babcb892f0a30154880a9f94aa59ca8ddf9c5",
+        "144babcb892f0a30154880a9f94aa59ca8ddf9c5",
+        "mutate-KN-LEDGER-REPRO-SELFTEST",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/receipts/c1-mutate-KN-LEDGER-REPRO-SELFTEST.json",
+        "--mutate",
+        "KN-LEDGER-REPRO-SELFTEST"
+      ],
+      "exit": 0,
+      "stdout": "C1_MEASURE mutate-KN-LEDGER-REPRO-SELFTEST: exit=1 bindings=60 knowledge=22 stale_knowledge=0 findings=1 | SELF_COUNTS: STALE (claims=60 stale=0 unlocated=1 ambiguous=0)\n",
+      "stderr": ""
+    },
+    "mut-KN-DRIFT-BOUND-FILES": {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/tools/c1-measure.py",
+        "144babcb892f0a30154880a9f94aa59ca8ddf9c5",
+        "144babcb892f0a30154880a9f94aa59ca8ddf9c5",
+        "mutate-KN-DRIFT-BOUND-FILES",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/receipts/c1-mutate-KN-DRIFT-BOUND-FILES.json",
+        "--mutate",
+        "KN-DRIFT-BOUND-FILES"
+      ],
+      "exit": 0,
+      "stdout": "C1_MEASURE mutate-KN-DRIFT-BOUND-FILES: exit=1 bindings=60 knowledge=22 stale_knowledge=1 findings=1 | SELF_COUNTS: STALE (claims=60 stale=1 unlocated=0 ambiguous=0)\n",
+      "stderr": ""
+    },
+    "mut-KN-OPREF-REPRO-SELFTEST": {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/tools/c1-measure.py",
+        "144babcb892f0a30154880a9f94aa59ca8ddf9c5",
+        "144babcb892f0a30154880a9f94aa59ca8ddf9c5",
+        "mutate-KN-OPREF-REPRO-SELFTEST",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/receipts/c1-mutate-KN-OPREF-REPRO-SELFTEST.json",
+        "--mutate",
+        "KN-OPREF-REPRO-SELFTEST"
+      ],
+      "exit": 0,
+      "stdout": "C1_MEASURE mutate-KN-OPREF-REPRO-SELFTEST: exit=1 bindings=60 knowledge=22 stale_knowledge=1 findings=1 | SELF_COUNTS: STALE (claims=60 stale=1 unlocated=0 ambiguous=0)\n",
+      "stderr": ""
+    },
+    "mut-KN-OPREF-CORRECTION-SELFTEST": {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/tools/c1-measure.py",
+        "144babcb892f0a30154880a9f94aa59ca8ddf9c5",
+        "144babcb892f0a30154880a9f94aa59ca8ddf9c5",
+        "mutate-KN-OPREF-CORRECTION-SELFTEST",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/receipts/c1-mutate-KN-OPREF-CORRECTION-SELFTEST.json",
+        "--mutate",
+        "KN-OPREF-CORRECTION-SELFTEST"
+      ],
+      "exit": 0,
+      "stdout": "C1_MEASURE mutate-KN-OPREF-CORRECTION-SELFTEST: exit=1 bindings=60 knowledge=22 stale_knowledge=1 findings=1 | SELF_COUNTS: STALE (claims=60 stale=1 unlocated=0 ambiguous=0)\n",
+      "stderr": ""
+    },
+    "mut-KN-CENSUS-DRIFT-FILES": {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/tools/c1-measure.py",
+        "144babcb892f0a30154880a9f94aa59ca8ddf9c5",
+        "144babcb892f0a30154880a9f94aa59ca8ddf9c5",
+        "mutate-KN-CENSUS-DRIFT-FILES",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/receipts/c1-mutate-KN-CENSUS-DRIFT-FILES.json",
+        "--mutate",
+        "KN-CENSUS-DRIFT-FILES"
+      ],
+      "exit": 0,
+      "stdout": "C1_MEASURE mutate-KN-CENSUS-DRIFT-FILES: exit=1 bindings=60 knowledge=22 stale_knowledge=1 findings=1 | SELF_COUNTS: STALE (claims=60 stale=1 unlocated=0 ambiguous=0)\n",
+      "stderr": ""
+    },
+    "mut-KN-CENSUS-DRIFT-SYMBOLS": {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/tools/c1-measure.py",
+        "144babcb892f0a30154880a9f94aa59ca8ddf9c5",
+        "144babcb892f0a30154880a9f94aa59ca8ddf9c5",
+        "mutate-KN-CENSUS-DRIFT-SYMBOLS",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/receipts/c1-mutate-KN-CENSUS-DRIFT-SYMBOLS.json",
+        "--mutate",
+        "KN-CENSUS-DRIFT-SYMBOLS"
+      ],
+      "exit": 0,
+      "stdout": "C1_MEASURE mutate-KN-CENSUS-DRIFT-SYMBOLS: exit=1 bindings=60 knowledge=22 stale_knowledge=1 findings=1 | SELF_COUNTS: STALE (claims=60 stale=1 unlocated=0 ambiguous=0)\n",
+      "stderr": ""
+    },
+    "mut-KN-BREADTH-LINES": {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/tools/c1-measure.py",
+        "144babcb892f0a30154880a9f94aa59ca8ddf9c5",
+        "144babcb892f0a30154880a9f94aa59ca8ddf9c5",
+        "mutate-KN-BREADTH-LINES",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/receipts/c1-mutate-KN-BREADTH-LINES.json",
+        "--mutate",
+        "KN-BREADTH-LINES"
+      ],
+      "exit": 0,
+      "stdout": "C1_MEASURE mutate-KN-BREADTH-LINES: exit=1 bindings=60 knowledge=22 stale_knowledge=1 findings=1 | SELF_COUNTS: STALE (claims=60 stale=1 unlocated=0 ambiguous=0)\n",
+      "stderr": ""
+    },
+    "mut-KN-BREADTH-FALSIFIERS": {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/tools/c1-measure.py",
+        "144babcb892f0a30154880a9f94aa59ca8ddf9c5",
+        "144babcb892f0a30154880a9f94aa59ca8ddf9c5",
+        "mutate-KN-BREADTH-FALSIFIERS",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/receipts/c1-mutate-KN-BREADTH-FALSIFIERS.json",
+        "--mutate",
+        "KN-BREADTH-FALSIFIERS"
+      ],
+      "exit": 0,
+      "stdout": "C1_MEASURE mutate-KN-BREADTH-FALSIFIERS: exit=1 bindings=60 knowledge=22 stale_knowledge=1 findings=1 | SELF_COUNTS: STALE (claims=60 stale=1 unlocated=0 ambiguous=0)\n",
+      "stderr": ""
+    },
+    "mut-KN-SUBSTRATE-CENSUS-SELFTEST": {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/tools/c1-measure.py",
+        "144babcb892f0a30154880a9f94aa59ca8ddf9c5",
+        "144babcb892f0a30154880a9f94aa59ca8ddf9c5",
+        "mutate-KN-SUBSTRATE-CENSUS-SELFTEST",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/receipts/c1-mutate-KN-SUBSTRATE-CENSUS-SELFTEST.json",
+        "--mutate",
+        "KN-SUBSTRATE-CENSUS-SELFTEST"
+      ],
+      "exit": 0,
+      "stdout": "C1_MEASURE mutate-KN-SUBSTRATE-CENSUS-SELFTEST: exit=1 bindings=60 knowledge=22 stale_knowledge=1 findings=1 | SELF_COUNTS: STALE (claims=60 stale=1 unlocated=0 ambiguous=0)\n",
+      "stderr": ""
+    },
+    "mut-KN-SUBSTRATE-ABSENCE-FILES": {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/tools/c1-measure.py",
+        "144babcb892f0a30154880a9f94aa59ca8ddf9c5",
+        "144babcb892f0a30154880a9f94aa59ca8ddf9c5",
+        "mutate-KN-SUBSTRATE-ABSENCE-FILES",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/receipts/c1-mutate-KN-SUBSTRATE-ABSENCE-FILES.json",
+        "--mutate",
+        "KN-SUBSTRATE-ABSENCE-FILES"
+      ],
+      "exit": 0,
+      "stdout": "C1_MEASURE mutate-KN-SUBSTRATE-ABSENCE-FILES: exit=1 bindings=60 knowledge=22 stale_knowledge=1 findings=1 | SELF_COUNTS: STALE (claims=60 stale=1 unlocated=0 ambiguous=0)\n",
+      "stderr": ""
+    },
+    "mut-KN-CHECKLIST-FALSIFY-FLOOR": {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/tools/c1-measure.py",
+        "144babcb892f0a30154880a9f94aa59ca8ddf9c5",
+        "144babcb892f0a30154880a9f94aa59ca8ddf9c5",
+        "mutate-KN-CHECKLIST-FALSIFY-FLOOR",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/receipts/c1-mutate-KN-CHECKLIST-FALSIFY-FLOOR.json",
+        "--mutate",
+        "KN-CHECKLIST-FALSIFY-FLOOR"
+      ],
+      "exit": 0,
+      "stdout": "C1_MEASURE mutate-KN-CHECKLIST-FALSIFY-FLOOR: exit=1 bindings=60 knowledge=22 stale_knowledge=1 findings=1 | SELF_COUNTS: STALE (claims=60 stale=1 unlocated=0 ambiguous=0)\n",
+      "stderr": ""
+    },
+    "mut-KN-OPREF-FALSIFY-SELFTEST": {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/tools/c1-measure.py",
+        "144babcb892f0a30154880a9f94aa59ca8ddf9c5",
+        "144babcb892f0a30154880a9f94aa59ca8ddf9c5",
+        "mutate-KN-OPREF-FALSIFY-SELFTEST",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/receipts/c1-mutate-KN-OPREF-FALSIFY-SELFTEST.json",
+        "--mutate",
+        "KN-OPREF-FALSIFY-SELFTEST"
+      ],
+      "exit": 0,
+      "stdout": "C1_MEASURE mutate-KN-OPREF-FALSIFY-SELFTEST: exit=1 bindings=60 knowledge=22 stale_knowledge=1 findings=1 | SELF_COUNTS: STALE (claims=60 stale=1 unlocated=0 ambiguous=0)\n",
+      "stderr": ""
+    }
+  }
+}

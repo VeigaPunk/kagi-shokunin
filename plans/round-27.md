@@ -44,3 +44,22 @@ the round-27 wave directory. No host-private reads, no vault/account/handler/
 CDP action, no Git/jj mutation. Fresh falsification is a 64–100 wave only if
 ≥64 distinct attack items exist; otherwise ≤8 residual reviewers, said so.
 Non-author closure remains outside the lane.
+
+## Plan corrections (appended during the round; the text above is the frozen declaration)
+
+- C2 scope widened before landing (CritC2Rollback, CritC2NonNumeric): the
+  rule also refuses an observation below the highest numeric anchor on the
+  same feed URL (and, when observing, below the row's previous observation).
+  This closes the un-fire the declaration only claimed, and means a
+  non-numeric anchor such as S012 `v1.21.x` IS ordered against its feed's
+  numeric floor — the "keep the inequality rule" sentence above holds only
+  for a non-numeric anchor alone on its feed.
+- "Disjoint production files" is file-true for the claim code/data but false
+  for shared bookkeeping and one causal edge: SC/PV-CLOCK-SELFTEST (C1's
+  binder) bind the C2 selftest count in SKILL.md/PROVINCE.md (CritSeparability,
+  ConnKengaku). Separability is executed by claim-only overlays
+  (`.ufo/waves/round-27/tools/separability.py`), with that edge declared.
+- C1's population lost two per-round counts (claims/stamps on
+  `knowledge/claim-ledger.md:301`), rewritten as ledger pointers instead of
+  bindings (CritC1AppendOnly), and gained op-ref §10, substrate-deferral,
+  adjacency-breadth and checklist-floor bindings from the BUILD inventory.

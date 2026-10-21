@@ -285,7 +285,7 @@ which the sibling class now resolves); `corpus/README.md:157` (bare host file
 `AGENTS.md.bak-20260908` → `$HOME/.agents/…`). The gate bug: the line-ref
 stripper's greedy `.*` left the separator behind (`…:136,:164,`), fixed by
 dropping the trailing `[,:]` after each match — found by real data
-(`corpus/lessons/round-6-aggregator-audit.md:110`), pinned by selftest case 21.
+(`corpus/lessons/round-6-aggregator-audit.md:110`), pinned by selftest case `cite-multi-ref` (the 21st when written).
 
 **Counting a gate that reads its own docs.** `cites`/`docs`/`labeled` change
 whenever any scanned doc changes — including the LOG entry that quotes them. So

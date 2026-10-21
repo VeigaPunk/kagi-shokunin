@@ -3,8 +3,9 @@
 
 c2-measure.py REV LABEL OUT.json
 
-In a scratch clone at REV, builds three fixtures from the clone's own active
-binding table and default receipt (fixtures change ONLY the named rows):
+In a scratch clone at REV, builds five fixtures from the clone's own active
+binding table and default receipt (fixtures change ONLY the named rows;
+`unfire` and `nonnumeric` were added after CritC2Rollback/CritC2NonNumeric):
   lie       S040 observed 3.15.0 < anchor 3.15.1, verdict fired (table + receipt)
   rollback  the whole Python feed regresses to 3.15.0 with the BASE inequality
             semantics a fresh --observe would record: S027/S028 (anchor 3.15.0)

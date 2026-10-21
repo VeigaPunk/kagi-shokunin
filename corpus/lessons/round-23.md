@@ -207,7 +207,10 @@ the checker; the closed-pointer containment is path-based and an in-root
 hardlink to an outside inode would still be read; Python startup stats
 `$HOME/.local/lib/...` without opening files, and `mktemp` writes one `/tmp`
 file that is removed. The symlink-escape guard now has a regression case
-(selftest 14 cases). The 59-case census selftest exercises the declared-provenance branch; the
+(selftest 14 cases). Supersession is prose-only: `supersedes` is not parsed, so CLEAN does not mean an
+active entry cites a superseding row (the Vault/OpenBao entry still cites
+S012-S016, each covered only by a historical in-row pin), and `Paths` are not
+checked. The 59-case census selftest exercises the declared-provenance branch; the
 in-row branch (16 of 26 rows) is exercised only by the real-tree run. The
 falsify wave measured 17 surviving mutants against the selftest (11
 check-deletions, including `final-url`, `http-status`, `representation`,

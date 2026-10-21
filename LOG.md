@@ -1211,8 +1211,10 @@ the op-ref-consumption entry said a missing op binary reads as DRIFT exit 1;
 the probe code prints SETUP exit 2, and both are corrected here. SKILL.md's
 stale `PASS (29 cases)` for the probe selftest is corrected to the measured
 36. Historical in-row digests stay historical: S008 reproduces, S012/S013/
-S014/S016 do not reproduce under any tested representation, and only the
-declared captures in source-fetches.tsv are active provenance.
+S014/S016 do not reproduce under any tested representation. The declared
+captures in source-fetches.tsv are the only active declared provenance, but
+supersession is prose-only, so an active entry may still cite a superseded row
+(the Vault/OpenBao entry cites S012-S016; S022-S026 are consumed by lessons).
 
 No install, no account/vault/handler action, no host-private gate, no depth
 claim. Inherited red/unknown rows (R11-08 citations red at base; cells

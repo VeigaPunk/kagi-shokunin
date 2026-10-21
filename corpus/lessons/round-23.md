@@ -43,8 +43,8 @@ raw-byte substrings. S008's rendered-text quote and S014's uppercased quote stay
 historical; S025/S026 are the corrected active locators.
 
 Hash domain: `decoded-http-body-v1` is the HTTP entity body after curl removes
-`Content-Encoding`, and `bytes` is that body's length. S020 is declared
-`decoded-http-body-volatile-v1`: its raw HTML carries a per-response Cloudflare
+`Content-Encoding`, and `bytes` is that body's length. All ten capture rows are declared
+`decoded-http-body-volatile-v1`; only S020 was measured to vary per response: its raw HTML carries a per-response Cloudflare
 email-protection fragment (two same-day GETs gave `56ade2d0…` and `cbd70b29…`
 at constant 190,261 B), while its normalized-text digest was stable across two same-day GETs
 (`20b4fd86…` twice). A provenance digest — raw or normalized — is a point
@@ -63,8 +63,9 @@ cross-capture equality is enforced.
 
 ## Routed defect dispositions
 
-D1. The census prints seven W04 duplicate-URL warnings; the round report quotes
-them verbatim, not only the `kagi ok` line:
+D1. The fleet census wrapper prints five W04 duplicate-URL warnings at the base
+and seven at round end; the round report quotes them verbatim, not only the
+`kagi ok` line:
 `W04 S019 duplicate url www.1password.dev/brokered-access across scopes`,
 `W04 S020 duplicate url 1password.com/blog/1password-credential-broker-public-preview across scopes`,
 `W04 S021 duplicate url openbao.org/docs/concepts/tokens across scopes`,
@@ -92,8 +93,9 @@ routed debt from the parent audit (`ClaimR11X09`), not claimed as fixed, and no
 wave in this round may run a legacy verify.
 
 D4. Stale-pin dispositions cite the drift-causing commit per tuple, re-measured
-from lane history: four knowledge pins drifted at `f4a8dd9` (round-16 source
-qualification), the round-18 lesson at `bad9088` (round-19 audit corrections),
+from lane history: four knowledge pins (`config-layering.md`, `handler-on-disk-state.md`,
+`handler-trust-boundary.md`, `janitor-env-contract.md`) drifted at `f4a8dd9`
+(round-16 source qualification), the round-18 lesson at `bad9088` (round-19 audit corrections),
 and `LOG.md` at `584dd67`/`c2cab35`. Restamping proves pointer integrity, not
 source currentness.
 
@@ -126,7 +128,8 @@ it restored.
 
 D9. `R23-01` runs `cells` against a committed fixture
 (`corpus/fixtures/cells-hermetic/`) with no host file, no `$HOME`, and no
-substrate dependency. `R13-03` keeps its skip for host-bound rows. The known
+substrate dependency. `R13-03` is skipped by the audit as a self-invoking row (`SKIP-SELF`), not by
+substrate deferral. The known
 `SKIP-SELF` bound is reported rather than laundered: a scorecard cell citing a
 row that re-invokes the gate is skipped and counted in `self_skipped`, so
 `CELL_AUDIT: CLEAN` with `self_skipped>=1` does not verify that row. This round
@@ -177,9 +180,8 @@ rows, S025 OpenBao JWT locator and S026 OpenBao tokens locator). Distinct URLs: 
 provenance rows (S017-S026) over nine distinct URLs. The census gate's
 `SC_FETCH` covers every registry row by in-row pin or declared provenance.
 
-Tool installs: none this round. Census at round start: exit 0 with seven W04
-warnings (quoted under D1); census at round end must exit 0 with the same W04
-warnings and `rows=26`.
+Tool installs: none this round. Census at round start: exit 0 with five W04 warnings at base (quoted under D1); at round end the fleet wrapper emits
+seven and the lane census exits 0 with `rows=26`.
 
 ## Falsification bounds (round 23)
 

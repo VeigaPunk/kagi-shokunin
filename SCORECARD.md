@@ -883,3 +883,44 @@ policy guard; and `R13-01`'s identity-free round-heading count.
 | freshness | 9 → 9 | C2: R21-02 (`captures=31 inrow=16 inrow_only=0 inrow_nonreproducing=12`) and R24-01 (the one declared normalizer); rows whose only provenance is a historical in-row pin 16 → 0. | round 24 |
 | calibration | 9 → 9 | C3: R24-03 to R24-16 pin count plus membership digest for the 15 count rows; identity swaps surviving the ledger 15/15 → 0/15; R24-02 binds the closure selftest (D3). | round 24 |
 | adjacency | 9 → 9 | R17-02 and R24-12 (breadth identity) unchanged; sibling conventions were read, not absorbed. | round 24 |
+
+### Round-24 recovery — measured outcome and corrections
+
+Measured code/data revision:
+`017cc4c5eb87f7942fa41ff8893e8737fd14cfb4`; paired gate logic regression
+uses `277a0d4f1d9bc6c5cea9b1d0ab92e33e5c17bb56` (the later fix only adds
+the S032 provenance continuation and its pins). Actual commands, exits and
+stdout: `.ufo/waves/round-24/recovery-checks.json`.
+
+- **C1 operability, 9 → 9; measured:** `bash .ufo/waves/round-24/tools/host-tripwire.sh <label> <rev>` on BASE
+  `4f94b52a3cdfaa289d779bd8a2afcd0b1fcd9105` and the measured revision:
+  host executions35 → 0, complete4/4 in both, all four after runs emit
+  population_skipped12/12. These stubbed runs intentionally return
+  FAIL/BROKEN; they measure exclusion, not clean gate operation. Separately,
+  real-tree safe `bash corpus/claim-ledger.sh verify` exits0 CLEAN
+  (claims61, stamped83, host_skipped12). Paired identical151-case fixtures
+  fail the inherited logic and pass repaired logic; original guard/self-skip
+  false admissions are retained as red evidence, not called passing.
+- **C2 freshness, 9 → 9; measured:** `python3 .ufo/waves/round-24/tools/recovery-count.py <rev>` on the same revisions
+  gives inrow_only16 → 0, registry26 → 32, captures10 → 32, and zero stamp
+  mismatches (79 → 83 pins). R21-02 now measures32 rows / A30 / C2 /
+  mined29 / queued1 / rejected2, inrow16 / nonreproducing12. S032 repairs
+  an exact quote on held ground; v1 transformation functions are unchanged,
+  with22 selftest cases including the explicit malformed-tag bounds.
+- **C3 calibration, 9 → 9; measured projected identity only:** the repaired
+  `python3 .ufo/waves/round-24/tools/identity-swap.py <label> <rev>` gives
+  BASE15 survivors → after0 survivors /15 kills, invalid0 in BOTH runs.
+  All pristine processes exit0; after mutants exit1 with complete receipts.
+  The old lack-of-FAIL inference is withdrawn, and the twelve-case
+  instrument selftest passes. R22-04 is case-NAME identity, not behavioral
+  assertion identity; path-key checks do not establish an asset/runtime
+  partition. The broader semantic reading is **rejected**, not silently
+  counted as coverage. Independent admission remains the integrator's.
+
+Depth, coverage and adjacency remain9 with their earlier evidence/ceilings;
+no new knowledge entry, governed host surface, vault capability, retirement,
+promotion or repertoire row is claimed. The latest capability remains
+round23; saturation9/window3 and the tied-lowest-axis reasoning are unchanged.
+This append supersedes the inherited candidate's31-row current count and
+its incomplete cells HOST-SKIP/whole-process-control implications; filed
+historical measurements remain intact.

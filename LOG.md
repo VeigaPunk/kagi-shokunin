@@ -1300,3 +1300,21 @@ Its safe full ledger failed ONLY R21-02: the census found
 `SC_USEDBY_NOCITE` because S032 was cited in the lesson body, not its first
 source field. The named correction M24-14 adds a provenance continuation;
 the failed output is retained in `.ufo/waves/round-24/recovery-checks.json`.
+
+Measured repair revision `017cc4c5eb87f7942fa41ff8893e8737fd14cfb4`:
+safe ledger CLEAN61/83 with12 host skips; source census CLEAN32 rows,
+captures32, inrow_only0. New paired fixtures151 and receipt selftest12
+pass; the inherited gate logic fails those same fixtures. Repaired C3
+counts the original15 trials with clean exit0 controls:15 survivors at
+BASE → 0 survivors /15 kills /0 invalid after. Fresh tripwire counts35 → 0,
+four complete cases and12/12 skip IDs each after. Commands/stdout/exits:
+`.ufo/waves/round-24/recovery-checks.json`; bounds and named rejections:
+the recovery SCORECARD/lesson sections.
+
+Claim-only separability overlays are frozen under
+`.ufo/waves/round-24/separability`, with every input digest in each
+expected.json. C1 changes only gate/tag data, C2 only its six source
+artifacts, and C3 only the reader plus baseline-adapted ledger/stamp
+bookkeeping; original fifteen trial IDs are retained. The recorder
+`.ufo/waves/round-24/tools/claim-separability.py` checks input digests and
+records command output, not an admission verdict.

@@ -255,3 +255,30 @@ it from the first `source:` field. The actual census at
 claim row (`.ufo/waves/round-24/recovery-checks.json`). The original source
 line is preserved and a whitespace-led provenance continuation adds S032.
 The failed receipt remains evidence; it is not booked as CLEAN.
+
+### Measured recovery outcome
+
+At `017cc4c5eb87f7942fa41ff8893e8737fd14cfb4`, the fixed source handshake
+and safe full ledger both exit0. Actual outputs are in
+`.ufo/waves/round-24/recovery-checks.json`: claims61, stamped83,
+host_skipped12; source rows32, captures32, inrow16, inrow_only0,
+inrow_nonreproducing12. The first failed candidate is retained.
+
+The paired gate regression ran identical151-case fixture suffixes on the
+inherited versus repaired logic: old exit1, repaired exit0. The receipt
+parser selftest passes12 cases. Fresh C1 tripwire runs show35 → 0 population
+executions and12/12 HOST-SKIPs in all four after cases. Their stub-induced
+FAIL/BROKEN outcomes are not promoted to CLEAN.
+
+The repaired C3 instrument remeasured the SAME fifteen projected-identity
+trials: BASE survivors15/kills0/invalid0; measured survivors0/kills15/invalid0,
+every pristine process exit0 and each after mutant exit1. The original
+weaker control inference is superseded. This does not bind assertion bodies
+or prove vendor/host currentness. Repro commands and receipt paths are in
+the recovery SCORECARD append and `recovery-final.json`.
+
+Fleet source census recovery-start and recovery-end both exit0; end adds
+the expected S032 duplicate-URL warning. The original late start census
+(M24-4) remains a timing defect, not retroactively repaired. No old source
+status/recheck/used-by cell changed. No outside spot-check or promotion was
+self-certified.

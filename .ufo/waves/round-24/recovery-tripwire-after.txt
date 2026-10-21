@@ -1,0 +1,6 @@
+RUN verify substrate=absent exit=1 host_rows_executed=0 host_skip_lines=12 population_skipped=12/12 last=CLAIM_LEDGER: FAIL (claims=61 failed=11 deferred=0 stamped=83 stale=6 missing=0 unresolved_ids=0 labeled_ids=20 host_skipped=12)
+RUN verify substrate=present exit=1 host_rows_executed=0 host_skip_lines=12 population_skipped=12/12 last=CLAIM_LEDGER: FAIL (claims=61 failed=11 deferred=0 stamped=83 stale=6 missing=0 unresolved_ids=0 labeled_ids=20 host_skipped=12)
+RUN cells substrate=absent exit=1 host_rows_executed=0 host_skip_lines=12 population_skipped=12/12 last=CELL_AUDIT: BROKEN (cells=168 row_pointed=116 stamp_pointed=87 uncited=0 missing_ids=0 rows_run=32 row_deferred=0 row_failures=9 stale_pointers=5 self_skipped=5 orphans=10 host_skipped=12)
+RUN cells substrate=present exit=1 host_rows_executed=0 host_skip_lines=12 population_skipped=12/12 last=CELL_AUDIT: BROKEN (cells=168 row_pointed=116 stamp_pointed=87 uncited=0 missing_ids=0 rows_run=32 row_deferred=0 row_failures=9 stale_pointers=5 self_skipped=5 orphans=10 host_skipped=12)
+HOST_TRIPWIRE: label=recovery-after rev=017cc4c5eb87 verify_absent=0 verify_present=0 cells_absent=0 cells_present=0 total=0 complete=4/4 host_skip_lines=48
+process_exit=0

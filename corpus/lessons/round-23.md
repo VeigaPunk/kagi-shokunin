@@ -84,9 +84,10 @@ side effect is named here for the record: mise wrote the global
 list. That write is outside this lane's authority; revert stays operator-owned.
 This round's only network use was `curl` against public documentation pages.
 
-D3. Every wave context this round names the forbidden paths (host-private
-files, vault refs/tokens, live config contents, sibling lanes, `.ufo/state`,
-MANIFEST.json) and the no-prompt-injection rule. The pre-surface guard that rejects a mode token is exercised by the ledger
+D3. Every wave context authored by this lane names the forbidden paths
+(host-private files, vault refs/tokens, live config contents, sibling lanes,
+`.ufo/state`, MANIFEST.json); the parent-held build context is parent-authored
+and did not carry that list and the no-prompt-injection rule. The pre-surface guard that rejects a mode token is exercised by the ledger
 selftest case `mode-unknown-revision` (`unexpected positional argument for
 verify`). It does not yet cover an id-shaped positional (`R1-01`); that gap is
 routed debt from the parent audit (`ClaimR11X09`), not claimed as fixed, and no

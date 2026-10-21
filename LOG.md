@@ -1292,3 +1292,11 @@ patches; L1 integrated the reachable repairs. No tool installs, package
 transactions, vault/account/handler operations or host authorization occurred.
 Candidate code and migrations are committed before measured execution;
 actual outcomes, not this declaration, determine the report erratum.
+
+The first recovery candidate `277a0d4f1d9bc6c5cea9b1d0ab92e33e5c17bb56`
+passed paired gate regression (identical151-case fixtures, old logic red,
+repaired logic green) and the twelve-case instrument receipt selftest.
+Its safe full ledger failed ONLY R21-02: the census found
+`SC_USEDBY_NOCITE` because S032 was cited in the lesson body, not its first
+source field. The named correction M24-14 adds a provenance continuation;
+the failed output is retained in `.ufo/waves/round-24/recovery-checks.json`.

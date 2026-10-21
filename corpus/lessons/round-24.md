@@ -1,4 +1,5 @@
 source: S001, S002, S003, S004, S005, S006, S007, S008, S009, S010, S011, S012, S013, S014, S015, S016, S027, S028, S029, S031
+  S032 (round-24 recovery exact-quote correction; located quote in the recovery Gate)
 verified-at: 2026-10-21 (public documentation pages reopened over HTTPS with the declared profile; no account, vault, or handler probe)
 recheck: on-release — reopen the Python `re`/`html` docs, the curl man page and the WHATWG standards when a version route changes; recapture S001-S016 when their docs version routes change.
 
@@ -245,3 +246,12 @@ The original fleet report's absent-wave statement and late-seat text are
 filed history, not silently rewritten. Recovery evidence precedes its
 append-only report erratum. This wave is author-side falsification, not
 independent admission or a SHONEN promotion review.
+
+Recovery correction M24-14 (reference-drift; captured-by QA1): the first
+committed S032 `used-by` path cited the row in the lesson body but omitted
+it from the first `source:` field. The actual census at
+`277a0d4f1d9bc6c5cea9b1d0ab92e33e5c17bb56` refused it with
+`SC_USEDBY_NOCITE`; the full ledger therefore failed R21-02 and no other
+claim row (`.ufo/waves/round-24/recovery-checks.json`). The original source
+line is preserved and a whitespace-led provenance continuation adds S032.
+The failed receipt remains evidence; it is not booked as CLEAN.

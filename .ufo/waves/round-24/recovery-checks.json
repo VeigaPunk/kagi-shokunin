@@ -1,0 +1,58 @@
+[
+  {
+    "command": [
+      "python3",
+      "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-24/tools/gate-regression.py",
+      "c5ef9e92201b6c36396301f12b23740565bf86a0",
+      "277a0d4f1d9bc6c5cea9b1d0ab92e33e5c17bb56",
+      "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-24/recovery-gate-regression.json"
+    ],
+    "measured_commit": "277a0d4f1d9bc6c5cea9b1d0ab92e33e5c17bb56",
+    "exit": 0,
+    "stdout": "GATE_REGRESSION: PASS before_exit=1 after_exit=0 fixtures_identical=True\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "python3",
+      ".ufo/waves/round-24/tools/identity-swap.py",
+      "--selftest"
+    ],
+    "measured_commit": "277a0d4f1d9bc6c5cea9b1d0ab92e33e5c17bb56",
+    "exit": 0,
+    "stdout": "case clean: PASS\ncase killed: PASS\ncase timeout: PASS\ncase empty: PASS\ncase truncated: PASS\ncase short-count: PASS\ncase unaccounted-fail: PASS\ncase policy: PASS\ncase nonzero-clean: PASS\ncase missing-terminal: PASS\ncase unknown-row: PASS\ncase deferred: PASS\nIDENTITY_INSTRUMENT_SELFTEST: PASS (cases=12 failed=0)\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "bash",
+      "corpus/claim-ledger.sh",
+      "verify"
+    ],
+    "measured_commit": "277a0d4f1d9bc6c5cea9b1d0ab92e33e5c17bb56",
+    "exit": 1,
+    "stdout": "HOST-SKIP R11-01 reason=host-row-not-authorized\nHOST-SKIP R11-02 reason=host-row-not-authorized\nHOST-SKIP R11-03 reason=host-row-not-authorized\nHOST-SKIP R11-04 reason=host-row-not-authorized\nHOST-SKIP R11-06 reason=host-row-not-authorized\nHOST-SKIP R12-01 reason=host-row-not-authorized\nHOST-SKIP R15-01 reason=host-row-not-authorized\nHOST-SKIP R13-03 reason=host-row-not-authorized\nHOST-SKIP R16-01 reason=host-row-not-authorized\nHOST-SKIP R16-03 reason=host-row-not-authorized\nHOST-SKIP R17-01 reason=host-row-not-authorized\nHOST-SKIP R18-01 reason=host-row-not-authorized\nFAIL R21-02 reason=exit-mismatch exit=1 want=0\nLABELED-ID LOG.md:401 R13-99 (labelled on its line)\nLABELED-ID LOG.md:417 R12-03a (labelled on its line)\nLABELED-ID LOG.md:418 xR12-01 (labelled on its line)\nLABELED-ID SCORECARD.md:108 R13-99 (labelled on its line)\nLABELED-ID SKILL.md:657 R9-99 (labelled on its line)\nLABELED-ID corpus/knowledge/claim-ledger.md:142 R13-99 (labelled on its line)\nLABELED-ID corpus/knowledge/claim-ledger.md:147 R12-03a (labelled on its line)\nLABELED-ID corpus/knowledge/claim-ledger.md:147 xR12-01 (labelled on its line)\nLABELED-ID corpus/knowledge/claim-ledger.md:258 R9-99 (labelled on its line)\nLABELED-ID corpus/knowledge/claim-ledger.md:267 R13-99 (labelled on its line)\nLABELED-ID corpus/knowledge/claim-ledger.md:267 R13-99 (labelled on its line)\nLABELED-ID corpus/knowledge/claim-ledger.md:468 R13-99 (labelled on its line)\nLABELED-ID corpus/lessons/round-13.md:22 R13-99 (labelled on its line)\nLABELED-ID corpus/lessons/round-13.md:22 R12-88 (labelled on its line)\nLABELED-ID corpus/lessons/round-13.md:102 R12-03a (labelled on its line)\nLABELED-ID corpus/lessons/round-14.md:17 R13-99 (labelled on its line)\nLABELED-ID corpus/lessons/round-14.md:118 R99-99 (labelled on its line)\nLABELED-ID corpus/lessons/round-23.md:92 R1-01 (labelled on its line)\nLABELED-ID corpus/lessons/round-23.md:166 R90-01 (labelled on its line)\nLABELED-ID corpus/lessons/round-23.md:166 R90-02 (labelled on its line)\nCLAIM_LEDGER: FAIL (claims=61 failed=1 deferred=0 stamped=83 stale=0 missing=0 unresolved_ids=0 labeled_ids=20 host_skipped=12)\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "bash",
+      "corpus/claim-ledger.sh",
+      "citations"
+    ],
+    "measured_commit": "277a0d4f1d9bc6c5cea9b1d0ab92e33e5c17bb56",
+    "exit": 0,
+    "stdout": "LABELED SKILL.md:295 local:// (session URI, labelled on its line)\nLABELED SKILL.md:635 local://x (session URI, labelled on its line)\nLABELED corpus/knowledge/claim-ledger.md:24 local://round-10/connector.md (session URI, labelled on its line)\nLABELED corpus/knowledge/claim-ledger.md:25 local://round-10/critic.md (session URI, labelled on its line)\nLABELED corpus/knowledge/claim-ledger.md:122 local:// (session URI, labelled on its line)\nLABELED corpus/knowledge/claim-ledger.md:123 artifact:// (session URI, labelled on its line)\nLABELED corpus/knowledge/claim-ledger.md:123 agent:// (session URI, labelled on its line)\nLABELED corpus/knowledge/claim-ledger.md:123 proc:// (session URI, labelled on its line)\nLABELED corpus/knowledge/claim-ledger.md:132 .ufo/reports/round-2/AGGREGATE.md (unresolved, labelled on its line)\nLABELED corpus/lessons/round-11.md:45 local://round-10/connector.md (session URI, labelled on its line)\nLABELED corpus/lessons/round-11.md:47 local://round-10/critic.md (session URI, labelled on its line)\nLABELED corpus/lessons/round-11.md:71 .ufo/reports/round-2/AGGREGATE.md (unresolved, labelled on its line)\nLABELED corpus/lessons/round-5-aggregator-mirror-bare-path-and-unclosed-prereq.md:21 .ufo/reports/round-2/AGGREGATE.md (unresolved, labelled on its line)\nCITATION_GATE: CLEAN (cites=1344 docs=67 unresolved=0 ephemeral=0 labeled=13)\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "bash",
+      "corpus/sources-census.sh"
+    ],
+    "measured_commit": "277a0d4f1d9bc6c5cea9b1d0ab92e33e5c17bb56",
+    "exit": 1,
+    "stdout": "FINDING SC_USEDBY_NOCITE id=S032 path=corpus/lessons/round-24.md\nSOURCES_CENSUS: FAILED (findings=1 rows=32)\n",
+    "stderr": ""
+  }
+]

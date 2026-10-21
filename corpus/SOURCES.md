@@ -54,6 +54,12 @@ Question: which primary sources support the allocated machine-credential and enc
 - Vault KV v2 API (version deletion settings) and the Vault KV overview (delete/destroy operations) — surfaced by the round-21 post-landing critic; not opened by the row author, lead only, not evidence.
 - 1Password Credential Broker custom-OIDC workflow sub-page (per-workflow release status) — lead only; the round-21 critic's "public beta" report was not reproduced on the opened guide page.
 
+Round-23 lead disposition (2026-10-21): the Vault KV v2 API lead is now
+opened and mined as S024 (POST /:secret-mount-path/config, max_versions);
+its page exposes `datePublished 2026-04-15T00:13:54Z` and the `Vault v2.x
+(latest)` route, which the row's opened date records. No status/recheck/used-by
+field of an existing row changed.
+
 Round-22 lead disposition (2026-10-20): the custom-workflow lead immediately
 above is now opened and mined as S018; its public-beta title and the separate
 Actions page S017 settle feature status independently. S019/S020 supersede

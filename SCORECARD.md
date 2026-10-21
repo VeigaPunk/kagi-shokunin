@@ -837,7 +837,7 @@ secret-access/conformance attestation is unavailable.
 | Axis | Score | Evidence pointer | Last change |
 |---|---|---|---|
 | depth | 9 → 9 | R21-01 unchanged; no depth claim is booked. | round 23 |
-| coverage | 9 → 9 | R21-02 now counts 26 rows; S024-S026 are correction rows; the 10 captures cover nine distinct URLs, none of them new governed ground. | round 23 |
+| coverage | 9 → 9 | R21-02 now counts 26 rows; S024 is a new frontier row and S025/S026 are correction rows; the 10 captures cover nine distinct URLs and no new governed ground. | round 23 |
 | operability | 9 → 9 | R23-01 runs `cells` host-free over committed fixtures with the exact CLEAN line (`rows_run=2 row_deferred=0 self_skipped=0`). | round 23 |
 | freshness | 9 → 9 | C2: R21-03's 12 new `SC_FETCH` cases and 10 declared provenance rows in `corpus/source-fetches.tsv`; historical in-row pins stay bounded and uncompared. | round 23 |
 | calibration | 9 → 9 | C1 capability: R23-02 resolves 15 outside obligations with 7 fixed / 2 reported / 1 operator-owned / 5 no-action dispositions. | round 23 |

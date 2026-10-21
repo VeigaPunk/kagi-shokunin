@@ -1201,7 +1201,7 @@ exit0 for R23-01 on the committed fixture.
 New corpus artifacts: `corpus/closure-dispositions.py`/`.json`,
 `corpus/source-fetches.tsv` (10 declared captures over 9 distinct URLs),
 `corpus/fixtures/cells-hermetic/` (5 files), `corpus/lessons/round-23.md`.
-SOURCES.md gains S024 (KV v2 API), S025 (OpenBao JWT locator, supersedes
+SOURCES.md gains S024 (KV v2 API, new frontier row), S025 (OpenBao JWT locator, supersedes
 S014) and S026 (OpenBao tokens locator, supersedes S016); existing rows are
 unchanged. Census W04 duplicate-URL warnings remain expected and are quoted
 in the report.

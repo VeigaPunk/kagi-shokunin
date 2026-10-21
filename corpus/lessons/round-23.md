@@ -168,8 +168,8 @@ alone. No real host path is read.
 
 ## Source accounting
 
-Registry: 23 → 26 rows (three A/mined correction rows: S024 KV v2 API, S025
-OpenBao JWT locator, S026 OpenBao tokens locator). Distinct URLs: 18 → 19
+Registry: 23 → 26 rows (one new frontier row, S024 KV v2 API; two correction
+rows, S025 OpenBao JWT locator and S026 OpenBao tokens locator). Distinct URLs: 18 → 19
 (only the KV v2 API URL is new). `source-fetches.tsv` carries 10 declared
 provenance rows (S017-S026) over nine distinct URLs. The census gate's
 `SC_FETCH` covers every registry row by in-row pin or declared provenance.

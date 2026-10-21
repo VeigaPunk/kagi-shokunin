@@ -181,7 +181,7 @@ host_free_args() { # script args → 0 when that invocation is host-free
     corpus/checklist-run.sh)
       [[ $2 == --selftest || $2 == --list || $2 == --ratio ]] ;;
     corpus/claim-ledger.sh)
-      [[ $2 == --selftest || $2 == citations || $2 == docs || $2 == 'cells --root corpus/fixtures/'* ]] ;;
+      [[ $2 == --selftest || $2 == citations || $2 == docs || $2 == 'cells --root corpus/fixtures/cells-hermetic --claims corpus/fixtures/cells-hermetic/claims.tsv --stamps corpus/fixtures/cells-hermetic/stamps.tsv --scorecard corpus/fixtures/cells-hermetic/SCORECARD.md --docs corpus/fixtures/cells-hermetic/SCORECARD.md' ]] ;;
     *) return 1 ;;
   esac
 }
@@ -210,6 +210,18 @@ invoked_script() {
   INV_SCRIPT=$p
   INV_ARGS="${W[*]:i+1}"
   return 0
+}
+
+# Reject aliases before dereferencing any script component outside the root.
+script_has_symlink() {
+  local path=$ROOT part
+  local -a parts=()
+  IFS=/ read -r -a parts <<<"$1"
+  for part in "${parts[@]}"; do
+    path+=/"$part"
+    [[ -L $path ]] && return 0
+  done
+  return 1
 }
 
 # 0 when an UNTAGGED row would read host-private surfaces through a declared
@@ -268,6 +280,13 @@ policy_check() {
   # all reached a denied name while the literal text did not (round-11 sentinel
   # F2 / executor A03-A04). Legitimate rows use quotes only around EREs.
   local dn=${c//\'/}; dn=${dn//\"/}
+  # Script invocations have literal arguments; expansion must not manufacture
+  # options or alias a different script after the static checks.
+  if [[ $w == bash || $w == python3 ]]; then
+    case "$dn" in
+      *'*'*|*'?'*|*'['*|*']'*|*'{'*|*'}'*) printf 'script-expansion'; return 1 ;;
+    esac
+  fi
   [[ $dn =~ $DENY_WORD_RE ]] && { printf 'denied-verb:%s' "${BASH_REMATCH[2]}"; return 1; }
   # host paths (round 24, routed D4): a row argument naming `~`, an absolute
   # path or a `..` component reaches outside the repo root it runs in
@@ -275,6 +294,13 @@ policy_check() {
   local -a WS=()
   read -r -a WS <<<"$dn"
   for word in "${WS[@]}"; do
+    if [[ $w == grep ]]; then
+      if [[ $word == --file=* ]]; then
+        word=${word#--file=}
+      elif [[ $word =~ ^-[^f]*f(.+)$ ]]; then
+        word=${BASH_REMATCH[1]}
+      fi
+    fi
     case "$word" in
       '~'*|/*|*=/*|*='~'*) printf 'host-path'; return 1 ;;
     esac
@@ -520,7 +546,7 @@ verify_claims() {
     fi
     # a symlinked script word aliases another script under a new name, so the
     # host-script match could not see it (wave-1 ProbeHostEvasion)
-    if invoked_script "$cmd" && [[ -L $ROOT/$INV_SCRIPT ]]; then
+    if invoked_script "$cmd" && script_has_symlink "$INV_SCRIPT"; then
       printf 'POLICY %s reason=script-symlink script=%s\n' "$id" "$INV_SCRIPT"
       C_POLICY=$((C_POLICY + 1))
       continue
@@ -532,6 +558,16 @@ verify_claims() {
     if [[ $note == *'[substrate]'* ]] && ! substrate_present; then
       printf 'DEFER %s reason=substrate-absent\n' "$id"
       C_DEFER=$((C_DEFER + 1)); continue
+    fi
+    # Cells must classify policy and host rows before preventing recursion.
+    if [[ ${CELLS_CONTEXT:-0} -eq 1 ]] && invoked_script "$cmd" &&
+        [[ $INV_SCRIPT == corpus/claim-ledger.sh ]]; then
+      if [[ ! -f $ROOT/$INV_SCRIPT ]]; then
+        printf 'POLICY %s reason=script-missing script=%s\n' "$id" "$INV_SCRIPT"
+        C_POLICY=$((C_POLICY + 1)); continue
+      fi
+      printf 'SKIP-SELF %s (row invokes this gate; not re-run from inside the cell audit)\n' "$id"
+      CL_SELF_SKIP=$((CL_SELF_SKIP + 1)); continue
     fi
     C_RUN=$((C_RUN + 1))
     rc=0
@@ -927,24 +963,13 @@ cells_evidence() {
       [[ -z ${line:-} || ${line:0:1} == '#' ]] && continue
       split_tab "$line"
       [[ " ${CEL_IDS[*]} " == *" ${TF[0]:-} "* ]] || continue
-      # a row that re-invokes this gate is NOT re-run here: `cells` is reachable
-      # from a claim row, so re-running it from inside `cells` is how a bounded
-      # audit would become an unbounded one. Reported, never silent. The test is
-      # the SCRIPT (`claim-ledger.sh`), not the stem: a row that merely greps
-      # `corpus/claim-ledger.tsv` is a reader, not a re-invocation. Round 24:
-      # the old substring test also skipped a row that only READ the script
-      # (`grep -c x corpus/claim-ledger.sh`); now only a `bash` invocation of
-      # corpus/claim-ledger.sh (options, quotes, `./`, `//` normalized) is self.
-      if invoked_script "${TF[1]:-}" && [[ $INV_SCRIPT == corpus/claim-ledger.sh ]]; then
-        printf 'SKIP-SELF %s (row invokes this gate; not re-run from inside the cell audit)\n' "${TF[0]}"
-        CL_SELF_SKIP=$((CL_SELF_SKIP + 1))
-        continue
-      fi
       printf '%s\n' "$line" >>"$STAMP_TMP"
     done <"$CLAIMS"
     saved=$CLAIMS
     CLAIMS=$STAMP_TMP
+    CELLS_CONTEXT=1
     verify_claims
+    CELLS_CONTEXT=0
     CLAIMS=$saved
     rm -f -- "$STAMP_TMP"; STAMP_TMP=""
     # executed rows only (round 24): deferred, host-skipped and policy-refused
@@ -1346,6 +1371,22 @@ if [[ ${SELFTEST:-0} -eq 1 ]]; then
   printf 'b1\tbash -o posix corpus/drift-pins.sh\t^X$\t0\t5\tbash option operand hides the script word\n' >"$R/claims-bashopt.tsv"
   ln -s drift-pins.sh "$R/corpus/dp-alias.sh"
   printf 'a1\tbash corpus/dp-alias.sh\t^X$\t0\t5\tsymlink alias of a host script\n' >"$R/claims-alias.tsv"
+  # Recovery falsifiers: all paths and stand-ins remain under this temp tree.
+  printf 'EXPECTED\n' >"$R/corpus/patterns.txt"
+  printf 'g1\tbash ?c corpus/ok.txt\t^X$\t0\t5\tdynamic script/options\n' >"$R/claims-expansion.tsv"
+  printf 'p1\tgrep -c -f/fixture-only/patterns corpus/ok.txt\t^1$\t0\t5\tattached absolute\n' >"$R/claims-attached-abs.tsv"
+  printf 'p1\tgrep -c -f../patterns corpus/ok.txt\t^1$\t0\t5\tattached parent\n' >"$R/claims-attached-parent.tsv"
+  printf 'p1\tgrep -c -fcorpus/patterns.txt corpus/ok.txt\t^1$\t0\t5\tattached in-root control\n' >"$R/claims-attached-ok.tsv"
+  ln -s . "$R/corpus/hostalias"
+  mkdir -p "$S/fixture-outside" "$R/self-missing/corpus"
+  printf '#!/usr/bin/env bash\nprintf "CLAIM_OK\\n"\n' >"$S/fixture-outside/ok.sh"
+  ln -s ../../fixture-outside "$R/corpus/linked"
+  cp "$R/corpus/ok.txt" "$R/self-missing/corpus/ok.txt"
+  printf 'a1\tbash corpus/hostalias/drift-pins.sh --selftest\t^CLAIM_OK$\t0\t5\tancestor alias\n' >"$R/claims-parent-alias.tsv"
+  printf 'a1\tbash corpus/linked/ok.sh\t^CLAIM_OK$\t0\t5\toutside ancestor alias\n' >"$R/claims-outside-alias.tsv"
+  printf 'R3-01\tbash -x corpus/claim-ledger.sh --selftest\t^X$\t0\t5\tinvalid self\nR1-01\tgrep -c EXPECTED corpus/ok.txt\t^1$\t0\t5\tcontrol\n' >"$R/claims-invalid-self.tsv"
+  printf 'R3-01\tbash corpus/claim-ledger.sh --selftest\t^X$\t0\t5\thost self [host]\nR1-01\tgrep -c EXPECTED corpus/ok.txt\t^1$\t0\t5\tcontrol\n' >"$R/claims-host-self.tsv"
+  printf 'u1\tbash corpus/claim-ledger.sh cells --root corpus/fixtures/cells-hermetic --claims corpus/fixtures/cells-hermetic/claims.tsv --stamps corpus/fixtures/cells-hermetic/stamps.tsv --scorecard corpus/fixtures/cells-hermetic/SCORECARD.md --docs corpus/fixtures/cells-hermetic/SCORECARD.md --root corpus\t^X$\t0\t5\tsecond root\n' >"$R/claims-cells-override.tsv"
 
   # --- round 14: knowledge-entry declarations (`docs`) ------------------------
   # `entry` writes a minimal entry; `estamp` pins one; the pinned set is
@@ -1588,6 +1629,17 @@ if [[ ${SELFTEST:-0} -eq 1 ]]; then
   tcase cite-quote-list         0 'CITATION_GATE: CLEAN' "$0" citations --root "$R" --docs "$R/corpus/docs/quote-list.md"
   tcase cite-ufo-lane-first     0 'CITATION_GATE: CLEAN (cites=2' "$0" citations --root "$R" --docs "$R/corpus/docs/ufo-lane.md"
   tcase cite-ufo-lane-miss      1 'UNRESOLVED' "$0" citations --root "$R" --docs "$R/corpus/docs/ufo-lane-miss.md"
+  tcase cells-invalid-self-policy 2 'POLICY R3-01 reason=bash-option' "$0" cells --root "$R" --claims "$R/claims-invalid-self.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-selfrow.md" --docs "$R/sc-selfrow.md"
+  tcase cells-host-self-skip 0 'HOST-SKIP R3-01 reason=host-row-not-authorized' "$0" cells --root "$R" --claims "$R/claims-host-self.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-selfrow.md" --docs "$R/sc-selfrow.md"
+  tcase_last cells-host-self-summary 0 'CELL_AUDIT: CLEAN (cells=6 row_pointed=6 stamp_pointed=0 uncited=0 missing_ids=0 rows_run=1 row_deferred=0 row_failures=0 stale_pointers=0 self_skipped=0 orphans=0 host_skipped=1)' "$0" cells --root "$R" --claims "$R/claims-host-self.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-selfrow.md" --docs "$R/sc-selfrow.md"
+  tcase cells-missing-self-policy 2 'POLICY R3-01 reason=script-missing' "$0" cells --root "$R/self-missing" --claims "$R/claims-r3.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-selfrow.md" --docs "$R/sc-selfrow.md"
+  tcase policy-script-expansion 2 'POLICY g1 reason=script-expansion' "$0" verify --root "$R" --claims "$R/claims-expansion.tsv" --stamps "$R/stamps.tsv"
+  tcase policy-attached-absolute 2 'POLICY p1 reason=host-path' "$0" verify --root "$R" --claims "$R/claims-attached-abs.tsv" --stamps "$R/stamps.tsv"
+  tcase policy-attached-parent 2 'POLICY p1 reason=host-path' "$0" verify --root "$R" --claims "$R/claims-attached-parent.tsv" --stamps "$R/stamps.tsv"
+  tcase policy-attached-control 0 'CLAIM_LEDGER: CLEAN (claims=1' "$0" verify --root "$R" --claims "$R/claims-attached-ok.tsv" --stamps "$R/stamps.tsv"
+  tcase policy-script-ancestor 2 'POLICY a1 reason=script-symlink' "$0" verify --root "$R" --claims "$R/claims-parent-alias.tsv" --stamps "$R/stamps.tsv"
+  tcase policy-script-outside-ancestor 2 'POLICY a1 reason=script-symlink' "$0" verify --root "$R" --claims "$R/claims-outside-alias.tsv" --stamps "$R/stamps.tsv"
+  tcase policy-cells-root-override 2 'POLICY u1 reason=untagged-host' "$0" verify --root "$R" --claims "$R/claims-cells-override.tsv" --stamps "$R/stamps.tsv"
 
   if [[ $failures -eq 0 ]]; then printf 'SELFTEST: PASS (%d cases)\n' "$cases"; exit 0; fi
   printf 'SELFTEST: FAIL (%d/%d cases)\n' "$failures" "$cases"; exit 1

@@ -98,3 +98,15 @@ Each row turns one routed defect of `corpus/lessons/round-23-verifier-spotcheck.
 | QM16 | Supplements QM14: freshness provenance separates current captures from historical pins. Every permitted legacy in-row pin is classified against a same-day capture by a verdict the gate recomputes from digests; only the named historical population keeps an in-row-only exemption; every normalized digest uses ONE committed, selftested normalizer whose decode, element, tag/comment, entity, whitespace-class, trim and encode rules are explicit and source-cited. | a pin "required for coverage, never compared"; the same normalizer described three ways; a quote rule stated as "collapse whitespace" with no class | `corpus/lessons/round-23-verifier-spotcheck.md` §Routed defects D5, D6; `corpus/lessons/round-24.md` §Gate |
 | QM17 | Supplements QM13: a review Gate records each admitted, rejected, superseded/demoted or withdrawn candidate with its decision and basis; an aggregate count or "excluded 0" does not stand in for the rejected candidates. | a Gate with admits only; supersession recorded as prose elsewhere | `corpus/lessons/round-23-verifier-spotcheck.md` §Discernment spot-check and §Routed defects D8; `corpus/lessons/round-24.md` §Gate |
 | QM18 | A ledger row whose note describes a MEMBERSHIP (rows, ids, pins, paths, cases) pins that membership's identity, not only its cardinality; a count-preserving swap of members must fail some ledger row. Blank lines are not members. | `grep -c` rows whose notes say "membership", "declares N rows", "holds N ids"; a count that a rename keeps green | `corpus/lessons/round-24.md` §Mistakes M24-3 and §C3 identity contract |
+
+## Criteria from fresh round-24 falsifiers
+
+| id | criterion | weak signal | lesson |
+|---|---|---|---|
+| QM19 | Supplements QM3/QM13: a measurement control requires a valid whole-process receipt (exit, final summary, complete claim population, expected skips/failures); absent failure text alone is not success. A timeout, setup/policy refusal, truncation or unaccounted row is invalid, never a surviving mutant. | a nonzero pristine process booked green because no selected FAIL line appeared | `corpus/lessons/round-24.md` §Mistakes M24-10 |
+| QM20 | Supplements QM15: declared host-free invocation vectors are closed; static validation runs before recursion skips, and script expansion, attached path operands and symlinked ancestors are checked before launch. A trusted reviewed script allowlist is not a sandbox for arbitrary wrappers. | a lexical basename/argument prefix accepted before expansion or alias resolution; invalid or missing self invocation called CLEAN | `corpus/lessons/round-24.md` §Mistakes M24-8/M24-9 |
+
+QM18 application: name the identity projection explicitly. A path-key digest
+does not bind every row column; a test-case-name digest does not bind its
+behavioral assertion body. Fresh evidence and rejected broader reading:
+`plans/round-24.md` R24-C6 and `corpus/lessons/round-24.md` recovery Gate.

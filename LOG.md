@@ -1255,3 +1255,40 @@ R24-03..R24-16; D3 row R24-02; D1/D2 SCORECARD and SKILL.md registry; QM15-QM18
 appended to `corpus/QUALITY.md`. Expectation old/new values:
 `.ufo/waves/round-24/expectation-migrations.json`. Measured outcomes and the
 falsification wave follow in the lesson and the round-24 SCORECARD section.
+
+### Round-24 recovery — fresh falsifiers, not a rerun of round 23
+
+Inherited lane tip `c5ef9e92201b6c36396301f12b23740565bf86a0` was clean and
+pushed; code/data matched the earlier measured commit and all83 stamp
+tuples re-derived from immutable Git bytes (`recovery-inheritance.json`
+under `.ufo/waves/round-24`). The filed fleet report is preserved.
+The required fresh falsify wave dispatched64 seats in one validated batch
+after eight atomic job-cap refusals; its registry/spec/receipts live under
+`.ufo/waves/round-24/falsify`. No prior/dead seat was replaced.
+
+Fresh findings motivated the narrow repairs, not broader domain scope:
+`FPolicyPath.md`, `FPolicyRowsRun.md`, `FPolicySkipSelf.md` and
+`FPolicyUntagged.md` expose expansion/attached-path/ancestor-link/prefix
+policy gaps and skip-before-policy/missing-self defects. Claim-ledger
+validation now precedes recursion skips, exact fixture arguments replace
+the prefix, and eleven isolated regression/control cases are declared.
+`FIdentityR2204.md` and the other subset reviews expose invalid
+whole-process controls: the counting helper now confines docs and validates
+exit/terminal/population/failure accounting, with a synthetic receipt
+selftest. C3's scope is explicit identity projections, not row semantics.
+`FNormElements.md` motivates two fixed malformed-tag cases and narrower
+prose without changing v1 transform bytes.
+
+Source C2 correction: `FRecapS007.md` rejects the lowercase locator; S032
+was opened and captured by L1, with capital The locating twice and the old
+lowercase form locating zero times. No original source cells were rewritten.
+`corpus/lessons/round-24.md` records every rejection, M24-8..M24-13 and the
+source Gate; QUALITY QM19/QM20 capture the learned criteria. PROVINCE
+distinguishes helpers and lists the closure gate. The frozen plan receives
+named interface/projection corrections, not silently edited claims.
+
+Both requested repair executors died on Codex capacity before producing
+patches; L1 integrated the reachable repairs. No tool installs, package
+transactions, vault/account/handler operations or host authorization occurred.
+Candidate code and migrations are committed before measured execution;
+actual outcomes, not this declaration, determine the report erratum.

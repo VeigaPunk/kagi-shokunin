@@ -78,3 +78,22 @@ working tree; "consume the closure's decisions" — it consumes obligation ids).
 Remaining named debt stays named: the other selftest case-count rows (R11-03
 R11-05 R11-09 R12-02 R15-02 R16-02 R18-03 R21-03 R22-02) share the count-only
 class and are out of C3's frozen population.
+
+## Recovery corrections to the frozen declaration
+
+R24-C5: the C1 environment-variable opt-in at lines 15–17 was deliberately
+rejected. The implemented interface is the per-invocation flag
+`--allow-host-rows`; ambient variables confer no consent (QM15). This
+correction does not authorize a host run. Evidence:
+`.ufo/waves/round-24/falsify/FCrossAxis.md`.
+
+R24-C6: C3 binds the declared projections (path keys, literal directive
+lines, row IDs, heading text and revision-test case names), not complete row
+semantics or behavioral assertion bodies. The R22-04 trial is a case-NAME
+swap; changing an assertion without changing its name is not covered.
+Surface key identity does not establish the asset/runtime partition.
+The original 15-trial receipts lacked whole-process control accounting;
+the recovery instrument rejects incomplete, setup/policy, skipped and
+inconsistent receipts and confines its docs input to the selected IDs.
+Evidence: `.ufo/waves/round-24/falsify/FIdentityR2204.md` and
+`.ufo/waves/round-24/falsify/FIdentityR1111.md`.

@@ -14,12 +14,16 @@ Definition (applied in exactly this order to the decoded HTTP body bytes):
   2. script/style
                  remove every match of (?is)<(script|style)\\b[^>]*>.*?</\\1\\s*>
                  -- case-insensitive, spanning lines, the opening tag must
-                 close with '>' before the body, shortest body, the closing
-                 tag must name the same element -- replacing it with one SPACE.
+                 close with '>' before the body, shortest body, and the closer
+                 must repeat the captured script/style prefix, not a parsed tag.
                  This is the round-23 generator's exact opener pattern
                  (.ufo/waves/round-23/falsify/CritNormalizer.md:76); round-24
                  wave-1 CritC2Metric showed a looser opener disagrees on a
                  malformed opener (selftest case script-malformed-opener).
+                 The word boundary also accepts malformed `<script-foo>`; a
+                 later `</script>` can therefore swallow visible text. A closer
+                 carrying attributes does not match and may leave body text.
+                 These are pinned regex bounds, not browser element semantics.
   3. tags        replace every match of <[^>]+> with one SPACE.  There is NO
                  separate comment rule: an HTML comment is removed only because
                  it matches this tag pattern, so a '>' inside a comment ends the
@@ -139,6 +143,8 @@ CASES = [
     ("script-word-boundary", b"a<scripture>keep</script>b", "a keep b"),
     # round-24 wave-1 CritC2Metric: the round-23 opener needs '>' before the body
     ("script-malformed-opener", b"L<script broken</script>secret</script>R", "L R"),
+    ("script-hyphen-prefix", b"V<script-foo>VISIBLE<script>code</script>TAIL", "V TAIL"),
+    ("script-attributed-closer", b'A<script>x</script b="c">B', "A x B"),
 ]
 
 

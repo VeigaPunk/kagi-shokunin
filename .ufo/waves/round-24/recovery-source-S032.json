@@ -1,0 +1,57 @@
+{
+  "command": [
+    "/usr/bin/curl",
+    "-fsSL",
+    "--compressed",
+    "-A",
+    "kagi-shokunin-round23/1.0 (documentation verification)",
+    "-o",
+    "/fast/scratch/kagi-r24-recovery/L1-source/s032.body",
+    "-w",
+    "%{url_effective} %{http_code}\n",
+    "https://www.1password.dev/brokered-access"
+  ],
+  "exit": 0,
+  "stdout": "https://www.1password.dev/brokered-access 200\n",
+  "stderr": "",
+  "accessed": "2026-10-21",
+  "source_id": "S032",
+  "supersedes": "S007 quote capitalization only",
+  "runs": [
+    {
+      "command": [
+        "python3",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/rendered-text-v1.py",
+        "digest",
+        "/fast/scratch/kagi-r24-recovery/L1-source/s032.body"
+      ],
+      "exit": 0,
+      "stdout": "RENDERED_TEXT_V1: raw_sha256=67f690e21116a3644be8cff57058293150b8b03fc305ffa15dc3af63fa43c312 bytes=1199447 normalized_sha256=f3861c172c370dd10ef8a9289857b0b59c5b07a9d16f2f7cf25aeb02738cc6e9 normalized_bytes=6049\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python3",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/rendered-text-v1.py",
+        "locate",
+        "/fast/scratch/kagi-r24-recovery/L1-source/s032.body",
+        "The token value is your integration key"
+      ],
+      "exit": 0,
+      "stdout": "RENDERED_TEXT_V1_LOCATE: count=2\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python3",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/rendered-text-v1.py",
+        "locate",
+        "/fast/scratch/kagi-r24-recovery/L1-source/s032.body",
+        "the token value is your integration key"
+      ],
+      "exit": 1,
+      "stdout": "RENDERED_TEXT_V1_LOCATE: count=0\n",
+      "stderr": ""
+    }
+  ]
+}

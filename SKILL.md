@@ -745,9 +745,9 @@ pass. Existing unrelated gate registry debt is not claimed repaired here.
 
 | name | kind | entry command | verdict map | selftest | pinned values | write scope | owner |
 |---|---|---|---|---|---|---|---|
-| claim ledger and cell parser (host-safe, round 24) | gate | `bash corpus/claim-ledger.sh verify` / `cells`; `--allow-host-rows` is the only consent to run `[host]`/`[substrate]` rows | 0 clean; 1 failed; 2 could-not-evaluate/setup/policy (incl. `untagged-host`, `host-path`, `bash-option`, `script-symlink`, `backslash`) | `bash corpus/claim-ledger.sh --selftest` (R11-09/R18-03) | `corpus/claim-ledger.tsv`, `corpus/stamps.tsv`; host-script list and host-free argument allowlist in the script (`HOST_SCRIPT_RE`, `host_free_args`) | reads declared surfaces; HOST-SKIPs host rows by id unless consented; `stamp` replaces only the owned TSV; selftest isolated | kagi |
+| claim ledger and cell parser (host-safe, round 24) | gate | `bash corpus/claim-ledger.sh verify` / `cells`; `--allow-host-rows` is the only consent to run `[host]`/`[substrate]` rows | 0 clean; 1 failed; 2 could-not-evaluate/setup/policy (incl. `untagged-host`, `host-path`, `bash-option`, `script-symlink`, `script-expansion`, `script-missing`, `backslash`) | `bash corpus/claim-ledger.sh --selftest` (R11-09/R18-03) | `corpus/claim-ledger.tsv`, `corpus/stamps.tsv`; host-script list and closed host-free argument vectors in the script (`HOST_SCRIPT_RE`, `host_free_args`) | reads declared surfaces; policy/host classification precedes recursion skips; `stamp` replaces only the owned TSV; selftest isolated | kagi |
 | closure disposition review | gate | `python3 corpus/closure-dispositions.py` (R23-02) | 0 clean; 1 failed (missing/duplicate/unknown obligation, unresolved fixed pointer, rejected disposition); 2 setup (source digest mismatch, malformed input) | `python3 corpus/closure-dispositions.py --selftest` (R24-02, 14 cases) | `corpus/closure-dispositions.json` incl. the source sha256 of `corpus/lessons/round-22-verifier-spotcheck.md` | read-only; pointers resolve in the working tree (not a commit tree); selftest writes an isolated temp dir | kagi |
-| rendered-text-v1 normalizer | helper | `python3 corpus/rendered-text-v1.py digest <body>` / `locate <body> '<quote>'` | 0 ok/located; 1 not located or selftest failure; 2 setup (usage, unreadable, not strict UTF-8) | `python3 corpus/rendered-text-v1.py --selftest` (R24-01, 20 cases) | the step order and regexes in the file are the ONE declaration (sources S027-S029, S031; S030 rejected) | reads only the named file; no network, no writes | kagi |
+| rendered-text-v1 normalizer | helper | `python3 corpus/rendered-text-v1.py digest <body>` / `locate <body> '<quote>'` | 0 ok/located; 1 not located or selftest failure; 2 setup (usage, unreadable, not strict UTF-8) | `python3 corpus/rendered-text-v1.py --selftest` (R24-01, 22 cases) | the step order and regexes in the file are the ONE declaration (sources S027-S029, S031; S030 rejected) | reads only the named file; no network, no writes; malformed-tag behavior is a pinned regex bound, not browser parsing | kagi |
 | row identity reader | helper | `bash corpus/row-identity.sh <selector>` (R24-03..R24-16) | 0 prints `ROW_IDENTITY: <selector> count=N [blank=B ]sha256=<64hex>`; 2 setup (unknown selector, missing file, failed inner gate) | none of its own: each R24 row is pinned to an exact digest and `.ufo/waves/round-24/tools/identity-swap.py` is its mutation harness | selector→membership table in the script header | reads one repo file or runs a host-free python gate; prints counts/digests only | kagi |
 | source registry/citation census (round 24) | gate | `bash corpus/sources-census.sh` (R21-02) | 0 clean; 1 failed (incl. SC_FETCH, SC_INROW); 2 setup | `bash corpus/sources-census.sh --selftest` (R21-03) | `corpus/SOURCES.md`, `corpus/source-fetches.tsv`, `corpus/inrow-pins.tsv`; historical in-row set S001-S016 in the script | read-only owned corpus; selftest isolated temporary files, no network | kagi |
 
@@ -761,3 +761,18 @@ file); `citations` stats sibling/fleet paths for existence only; R21-01
 installed `op` binary under `env -i` with scratch HOME/XDG and no account, ref
 or handler — a wave-1 seat classed it HOST for executing `op`, and that
 dissent is recorded in `corpus/lessons/round-24.md`.
+
+Round-24 recovery precision (`corpus/lessons/round-24.md` recovery Gate):
+script arguments are literal, attached pattern-file paths receive the same
+root checks, and any symlink component in a script path is refused. The
+host-free cells exception is exactly R23-01's committed fixture vector, not
+an extensible prefix. Invalid or missing self invocations cannot become
+CLEAN recursion skips; host-tagged self rows are HOST-SKIPped first.
+
+C3 identity is the projection declared in `corpus/row-identity.sh`: path
+keys, literal lines, IDs or case names, not complete row semantics or test
+assertion bodies. The measurement helper
+`.ufo/waves/round-24/tools/identity-swap.py --selftest` checks malformed
+receipt refusal; its counting mode isolates selected-ID docs and validates
+process exit plus complete terminal counts. This is author-side
+measurement, not independent admission or a hostile-program sandbox.

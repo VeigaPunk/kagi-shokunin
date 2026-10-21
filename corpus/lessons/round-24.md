@@ -173,3 +173,75 @@ host-path reads); no values were copied. ProbeAbsPath died at spawn (Codex
   killed=12 invalid=3`; the three invalid rows (R13-02, R18-02, R21-04) are
   the claim-ledger mutants whose pristine control failed on M24-7, re-measured
   on the final commit.
+
+## Recovery — inherited work and fresh falsification
+
+This writer resumed the SAME round/attempt at
+`c5ef9e92201b6c36396301f12b23740565bf86a0`. The filed report and all
+committed code/data/build reports were inherited, not newly authored.
+Seven claimed code/data files were byte-identical to the inherited measured
+revision and all 83 stamp tuples matched immutable Git bytes
+(`.ufo/waves/round-24/recovery-inheritance.json`). No inherited production
+work was discarded. The missing second wave was dispatched fresh, after
+eight atomic job-cap refusals spaced 180 seconds apart; refusal is not a
+started or dead seat. Its registry is
+`.ufo/waves/round-24/falsify/swarm-registry.json`.
+
+### Gate — correction and rejected readings
+
+- **S032 admitted/mined:** public guide
+  https://www.1password.dev/brokered-access, opened 2026-10-21, location
+  Add an integration → GitHub Actions / Custom Workflow (OIDC), quote:
+  “The token value is your integration key” (8 words). The declared-profile
+  capture returned HTTP 200; the case-sensitive locator returned count 2.
+  This supersedes ONLY S007's lowercase quote; S019's release-status
+  correction remains active. S001–S031 status/recheck/used-by changes:
+  **none**. New capture and exact exits:
+  `.ufo/waves/round-24/recovery-source-S032.json`.
+- **Reject** the original lowercase S007 excerpt as an exact quote:
+  the same locator returned exit 1/count 0. This is a repaired quote defect,
+  not evidence of changed mechanism or a false historical capture.
+- **Reject** build RecapS002's inference that a normalized miss disproves
+  its raw image-alt quote, and RecapS012's query retaining Markdown
+  backticks as evidence the rendered quote is absent. Fresh reports
+  `FRecapS002.md` and `FRecapS012.md` under the falsify directory locate
+  the source support in the correct representation. The inherited lesson's
+  raw-literal and rendered-text distinctions were correct.
+- **Reject** the broad reading that all of a row's behavioral semantics are
+  bound by C3. Its actual projections are those in `plans/round-24.md` R24-C6. In
+  particular R22-04 changes a case label, not its assertion body. No
+  semantic-equivalence or asset/runtime-partition capability is claimed.
+- **Reject** the old instrument's inference that no printed FAIL means a
+  clean control. Several fresh subset invocations exited 1 on unrelated
+  unresolved IDs. The new instrument supplies selected-ID-only docs and
+  requires exit/terminal-summary/claim-count/failure-count/skip agreement;
+  the legacy gate emits no per-row PASS, so that is not fabricated.
+- **Reject** the normalizer's “same element” prose as an HTML guarantee:
+  its prefix regex can swallow a malformed hyphenated opener, and an
+  attribute-bearing closer may leave body text. The regex is retained
+  unchanged; explicit bounds and two fixed expected-byte cases record
+  what v1 actually does (`FNormElements.md`).
+- **Bound, not a source correction:** S005/S006 build-seat raw hashes and
+  the L1 capture rows came from independently volatile requests. Their
+  request identity is unproven; equal normalized digests do not establish
+  one request. No original capture falsity is inferred.
+- **Bound, not host authorization:** citations stats sibling/fleet paths
+  for existence as already documented; it is not an arbitrary outside-root
+  content-read guarantee. New/copied wrapper scripts remain trusted,
+  reviewed code, not a sandboxed hostile-program surface.
+
+### Mistakes — fresh falsifiers retained
+
+| id | class | evidence | captured-by | fix |
+|---|---|---|---|---|
+| M24-8 | scope | fresh `FPolicyPath.md` and `FPolicyUntagged.md` show lexical checks losing to expansion, attached file options, ancestor aliases and a prefix-only fixture exception | QM15; literal-only tests missed the variants | script invocations reject expansion, attached pattern-file operands receive path checks, every script component is checked for symlinks, and fixture invocation arguments are closed |
+| M24-9 | vacuous | `FPolicyRowsRun.md` and `FPolicySkipSelf.md`: policy-invalid, host-tagged or nonexistent self scripts became CLEAN self-skips | QM3/QM15 | policy/host classification precedes recursion skips; missing self script is refused; eleven isolated regression/control cases added |
+| M24-10 | survivor | fresh identity reviews show nonzero pristine processes; old instrument inspected only FAIL/POLICY text | QM3/QM13 | isolate selected docs and validate whole receipts; synthetic receipt selftest includes timeout, empty, truncation, short count and inconsistent failure controls |
+| M24-11 | reference-drift | `FRecapS007.md`: lowercase quote locates zero times | QA6/QM16 | append S032 with the opened exact excerpt; preserve S007 historical cells |
+| M24-12 | scope | `FNormElements.md`: a regex prefix is described as an element-name match | QA3/QM16 | keep v1 bytes unchanged, correct the prose and pin the two malformed-input outputs |
+| M24-13 | provider | dead fresh seats and both repair executors exhausted Codex capacity retries | none | retain identities/errors, do not replace seats; L1 integrates the reachable narrow repairs |
+
+The original fleet report's absent-wave statement and late-seat text are
+filed history, not silently rewritten. Recovery evidence precedes its
+append-only report erratum. This wave is author-side falsification, not
+independent admission or a SHONEN promotion review.

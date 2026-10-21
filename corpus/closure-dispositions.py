@@ -278,6 +278,8 @@ def selftest() -> int:
         (root / source_rel).write_text(FIXTURE_SOURCE, encoding="utf-8")
         (root / "notes.md").write_text(FIXTURE_NOTES, encoding="utf-8")
         (root / "other.md").write_text("# other\n\nnothing here.\n", encoding="utf-8")
+        (root.parent / "outside.md").write_text("# outside\n\nD1 outside root.\n", encoding="utf-8")
+        (root / "link.md").symlink_to(root.parent / "outside.md")
         source_digest = digest(root / source_rel)
 
         def write(rows: list[dict], **overrides) -> None:
@@ -309,6 +311,7 @@ def selftest() -> int:
         mutations.append(("bad-kind", lambda r: r[1].update(disposition="ignored")))
         mutations.append(("note-short", lambda r: r[1].update(note="short")))
         mutations.append(("pointer-escape", lambda r: r[0].update(pointer="../notes.md#Routed")))
+        mutations.append(("pointer-symlink", lambda r: r[0].update(pointer="link.md")))
         mutations.append(("class-mismatch", lambda r: r[1].update(**{"class": "spot-decision"})))
         expect = {
             "clean": (0, "CLOSURE_DISPOSITIONS: CLEAN (obligations=5 fixed=1 "
@@ -322,6 +325,7 @@ def selftest() -> int:
             "bad-kind": (2, "invalid disposition"),
             "note-short": (1, "DISPOSITION NOTE-SHORT D2"),
             "pointer-escape": (1, "DISPOSITION POINTER-ESCAPE D1"),
+            "pointer-symlink": (1, "DISPOSITION POINTER-ESCAPE D1"),
             "class-mismatch": (2, "class mismatch"),
         }
         failed = 0

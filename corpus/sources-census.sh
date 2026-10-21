@@ -61,9 +61,9 @@
 #                        it declares request profile, final URL,
 #                        HTTP status, representation, digest, decoded-byte count,
 #                        quote normalization, normalized digest and location.
-#                        Two provenance rows for one URL must agree on the raw
-#                        digest and, when rendered-text-v1, on the normalized
-#                        digest; a moving-ref URL needs a 40-hex revision.
+#                        A moving-ref URL needs a 40-hex revision. Captures are
+#                        point attestations: no cross-capture equality is
+#                        enforced, only one provenance row per id.
 #                        STATED BOUND: legacy in-row digests are historical
 #                        point observations with undocumented representation --
 #                        required for coverage, never compared to captures.

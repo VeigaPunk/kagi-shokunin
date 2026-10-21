@@ -194,3 +194,12 @@ days while their articles did not). C3's fixture proves the `cells` mechanics
 host-free; it does not replicate all 43 ledger rows, and `rows_run` counts
 selected rows, so only `row_deferred=0`/`self_skipped=0` exclude an unexecuted
 fixture.
+
+Late falsify-report bounds (post-landing sentinel `SentHostReads`): R23-01's
+hermeticity is per-row, not enforced by `cells` (a row using `~`/an absolute
+argument passes `policy_check`), so the fixture's rows are the guarantee, not
+the checker; the closed-pointer containment is path-based and an in-root
+hardlink to an outside inode would still be read; Python startup stats
+`$HOME/.local/lib/...` without opening files, and `mktemp` writes one `/tmp`
+file that is removed. The symlink-escape guard now has a regression case
+(selftest 14 cases).

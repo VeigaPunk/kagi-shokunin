@@ -122,7 +122,7 @@ The outside round25 closure is fleet MANIFEST ledger rounds[410], committed
 at `ff47be96994cfb99d7f6305c009c0c867eae64d8`, reviewer CloseKagi25.
 It admitted the bounded round25 work, agreed its sampled admits/reject,
 explicitly retained C2 INCOMPLETE/48 and routed D1 (Python feed drift) plus
-D2 (C1 is not complete corpus/digit coverage). This supersedes the earlier
+D2 (C1 is not complete corpus or digit coverage). This supersedes the earlier
 round25 lesson's pending-closure statements as a dated successor, without
 rewriting them. It verified no SHONEN box and is not a round26 outside
 discernment check; all four boxes remain author [~].
@@ -199,3 +199,47 @@ The stronger claim “current default is always vendor truth” is rejected:
 this is still a dated point observation, re-armed for the next explicit
 observation. One release feed supports both doc rows; two clock/teaching
 dispositions are not two independent release observations.
+
+### Residual guidance clarifications
+
+FinalHistory found that the original receipt was retained but lacked a
+named replay command. Its separate command is:
+
+```sh
+python3 -B .ufo/waves/round-26/frozen/release-clock.py --root .ufo/waves/round-26/frozen/before --receipt "$(realpath .ufo/waves/round-26/frozen/observe-round25.json)" --receipt-sha b74c8ee30aaeaf7a867f9bbad39ea42e94f199da69ebd01d0e391d2e8b349f92
+```
+
+Expected historical verdict: CLEAN28/observed28/fired1; final measurement
+runs this once separately, not through the wrapper's round26 receipt
+selection. FinalGuidance's stale wrapper comment and index “active” label
+were corrected; its pending-output observations are closed only by the
+final executed receipts, never by a prediction. The active receipt's
+S027/S028 observations are `2026-10-21T13:43:24Z`; its successor
+S040/S041 observations are `2026-10-21T13:43:27Z`. These are observation
+times, not authenticated release-publication times.
+
+FinalSnapshot's producer-boundary findings were accepted: a missing or
+unreadable checksum manifest now returns typed snapshot_tampered/exit2;
+the replay interpreter uses isolated `-I -B` startup so unlisted sibling
+Python modules are not import inputs. The recorder compares expected.json
+against literal verdict authority and the complete checksum digest map,
+and checks that the rearmed after-snapshot equals measured production.
+Its final negatives include input-only, input-plus-manifest and missing
+manifest controls. This is evidence-producer hardening, not a new gate.
+
+FinalRearm also names an inherited limit, not fixed or hidden here:
+the evaluator defines fired as observed-version unequal to anchor, not
+strictly newer. A stale/cropped feed could regress and un-fire an older
+anchor; no monotonic-history guarantee is made. The retained3.15.0
+anchors are fired **in this dated3.15.1 observation**, not promised always
+fired. Future3.15.2 testing is a synthetic observer/parser control using
+the real captured feed with only its3.15.1 item title changed, not proof
+that the vendor has released3.15.2 or a complete end-to-end live run.
+
+FinalLoneScope found a candidate-blocking citation defect before final
+execution: a slash-joined prose shorthand was tokenized as a nonexistent
+lane-local path, which would make both layouts BROKEN and prevent the
+honest lone INCOMPLETE verdict. It was replaced with the equivalent
+“corpus or digit coverage”; no citation classification or C2 policy was
+changed. Its static BASE-reconciled finding is retained in the residual
+report, and the final suite must re-establish both layout verdicts.

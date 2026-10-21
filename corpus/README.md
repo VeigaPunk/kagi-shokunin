@@ -167,7 +167,7 @@ readings, learned criteria and measured repairs; `SCORECARD.md`'s recovery
 append links the executable counters. The knowledge coverage map and the
 OIDC/scanning/NIST frontier list above are intentionally unchanged.
 
-## Round-25 active contracts
+## Round-25 contracts (historical; active successor below)
 
 - `corpus/self-counts.py` + `corpus/self-counts.tsv` (C1, ledger R25-01/R25-02):
   38 reviewed current-tense numbers in SKILL.md, PROVINCE.md and this file bound to

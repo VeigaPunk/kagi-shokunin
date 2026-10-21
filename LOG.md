@@ -1335,3 +1335,11 @@ The public-byte recorder
 declaration and compares the ten original capture rows against a step-5-only
 WHATWG ASCII-whitespace alternative. It records fetch/digest observations,
 keeps no page bodies in the lane and issues no admission verdict.
+
+Fresh replay executed at
+`31c8421407ec2c1776d52c49be85c2d4f0d40167`:
+`python3 .ufo/waves/round-24/tools/normalizer-replay.py .ufo/waves/round-24/recovery-normalizer-replay.json`
+→ exit0, rows10 / v1_matches10 / ascii_matches7. This closes the fresh
+review's quantitative UNKNOWN for the step-5-only S030 alternative and
+reopens the original ten rows without using unpreserved historical bodies.
+No transform, registry cell, capability or domain surface changed.

@@ -937,3 +937,11 @@ bookkeeping is baseline-shaped (80 pins / 59 rows), not the combined tree's
 83 / 61. Receipts: `.ufo/waves/round-24/separability/c1-only-run.json`,
 `.ufo/waves/round-24/separability/c2-only-run.json` and
 `.ufo/waves/round-24/separability/c3-only-run.json`; all outer exits are 0.
+
+Fresh public-byte replay at
+`31c8421407ec2c1776d52c49be85c2d4f0d40167` also verifies C2's retained
+normalization claim: `python3 .ufo/waves/round-24/tools/normalizer-replay.py .ufo/waves/round-24/recovery-normalizer-replay.json`
+exits 0 with rows=10 / v1_matches=10 / ascii_matches=7. The alternative
+changes only the collapse class in step 5; trim and all other v1 steps
+stay fixed. Exact requests/digests are committed in that receipt; no page
+body or semantic-drift guarantee is inferred.

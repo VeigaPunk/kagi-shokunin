@@ -294,3 +294,11 @@ row reader: the old gate and old source artifacts remain BASE bytes.
 Baseline-adapted bookkeeping (80 pins /59 rows) is explicit in the
 committed C3-only snapshot. Full records and every input digest live in
 `.ufo/waves/round-24/separability`; no absent-phase result is inferred.
+
+The S030 rejection's quantitative basis was freshly remeasured rather than
+left at the scoped review's UNKNOWN: `python3 .ufo/waves/round-24/tools/normalizer-replay.py .ufo/waves/round-24/recovery-normalizer-replay.json`
+at `31c8421407ec2c1776d52c49be85c2d4f0d40167` returns exit0, rows10,
+v1_matches10, ascii_matches7. Only step 5's collapse class changes for the
+alternative; trim remains v1. All requests and raw/normalized digests are
+in the committed receipt, which does not preserve the public page bodies
+or certify future byte stability.

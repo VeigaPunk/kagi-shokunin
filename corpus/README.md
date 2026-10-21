@@ -62,7 +62,7 @@ see `lessons/round-1.md` for the rule and its rationale.
 | Round-10 lesson | `lessons/round-10.md` | declared surfaces are prose until a gate reads them; the undeclared-child class (round-6 vector) and the two xdg-data artifacts get verdicts; selftest caught two real gate defects (dropped-table ⇒ SKIP false clean; scan-scope fixture); `--deep` split for probes with real-world effect; ref-literal hygiene via runtime-assembled prefix |
 | Claim ledger + revision stamps + citation gate (gate) | `corpus/claim-ledger.sh` | `verify` = stamps (`STALE`/`MISSING`/`NOT-A-FILE`, every stamped column compared) + claims (exit equality AND last-non-empty-line ERE, both `expect` and `timeout` guarded against bare-anchor/unbounded forms; `substrate`-tagged rows `DEFER` when the handler is absent — round 18); `stamp PATH… [--out F] [--prune]` rewrites the revision file from exactly the paths given — it replaces the row set, so a run that would DROP a pinned path is refused unless `--prune` is passed (round 12: an in-flight 10-path stamp silently dropped 18 rows; the guard is per-path, so an equal-count path swap is refused too) — a reviewed commit that refuses absolute/whitespace paths and the output file, in either argument order; `citations` checks five citation classes + brace sets over every token in a code span and fails `UNRESOLVED`/`EPHEMERAL` unless the citing line labels the token (`scratch|ephemeral|relocat|formerly|no longer|removed|renamed|historical` → printed as `LABELED` and counted); since round 25 a lone clone is explicit (`FLEET-ABSENT` lines, `CITATION_GATE: INCOMPLETE` exit 3, verify `LAYOUT-INCOMPLETE` + `CLAIM_LEDGER: INCOMPLETE`); `verify` also fails on any `R…-…` whole word a checked doc cites that is not a row (`MISSING-ID`); `cells` audits this file's score card (see `knowledge/claim-ledger.md`); `docs` audits the knowledge surface (every `corpus/knowledge/*.md` entry declares its re-verification and is revision-pinned); `--selftest` 170 cases; POLICY refuses non-simple commands without running (exit 2) |
 | Ledger rows (data) | `corpus/claim-ledger.tsv` | 65 rows (39 at round 21, 35 after round 18; round 25 added `R25-01..04`): runnable checks for the shipped gates, fixed count guards, score-cell audit, round-17 breadth assertions `R17-01..03`, round-18 substrate-deferral pins `R18-01..03`, and the round-21 byte-contract and source-census rows; expectations are anchored and time-bounded; a row tagged `substrate` defers (never fails) when the handler is absent |
-| Revision stamps (data) | `corpus/stamps.tsv` | 88 rows (63 at round 21, 56 after round 18, 54 at round 17): every cited in-repo artifact, checked as `path sha256 lines bytes`; regeneration is a reviewed `stamp` commit, never an automatic re-pin |
+| Revision stamps (data) | `corpus/stamps.tsv` | 89 rows (88 at round 25, 63 at round 21, 56 after round 18, 54 at round 17): every cited in-repo artifact, checked as `path sha256 lines bytes`; regeneration is a reviewed `stamp` commit, never an automatic re-pin |
 | Claim-ledger contract (entry) | `knowledge/claim-ledger.md` | why the gate exists (the round-10 hand-adjudication), the six classes column by column (stamps, claims, citations, ids, scorecard cells, knowledge entries), the last-line rule and why, the citation class table + marker rule, the three audit teeth (re-run the cited rows, re-compare the cited pins, re-resolve the declared entry ids), before→after, reproduction, 30 bounds, falsifiers |
 | Knowledge-entry declarations (data) | `corpus/knowledge/*.md` + `claim-ledger.sh docs` | one `Reverify:` line per entry: 22 row-linked / 3 by-hand / 25 pinned (21/3/24 at round 21, 18/3/21 after round 18, 20/17/3 at round 17); the floor is `ceil(entries/2)`, by-hand reasons are unique, and every entry is revision-stamped (ledger `R14-01`) |
 | Round-14 lesson | `lessons/round-14.md` | freshness axis-move: the knowledge surface gets a re-verification link; the round-13 `row_pointed ≥ half` plan falsified by measurement (35 stamp-only cells, at most 5–7 honestly reachable); the wave's counterexamples and what happened to each |
@@ -181,7 +181,7 @@ OIDC/scanning/NIST frontier list above are intentionally unchanged.
 - `corpus/release-clock.py` + `corpus/release-clocks.tsv` (C3, R25-03/R25-04):
   the 28 `on-release` registry rows bound to S033–S037 release feeds or to
   their declared capture quote; observation receipt
-  `.ufo/waves/round-25/observe-1.json` (S012 fired and was re-verified).
+  `.ufo/waves/round-25/observe-1.json` (S012 fired and was re-verified). This is historical evidence; round26 explicitly migrates the active default to its new rearmed receipt while preserving that original receipt and matching tables/code separately.
 - `lessons/round-25.md`: plan corrections R25-C1..C8, the five-row Gate, clock
   observations, M25-1..M25-5. The frontier gains one path, below; the OIDC /
   scanning / NIST rows are unchanged.
@@ -190,3 +190,26 @@ Frontier path added in round 25: **release clocks** — a source's `on-release`
 recheck is a claim only when it names a feed that can be observed to move
 (S033–S037); next steps are a superseding row for S029's development-label
 anchor and a second locator for multi-claim unversioned rows (ClockS017/S020).
+
+## Round-26 bounded drift response
+
+`lessons/round-26.md` and S039–S041 preserve the routed Python observation:
+the newly fetched feed's maximum stable semantic version is3.15.1, while
+the relied-on re/html clauses remain present on the served3.15.1 pages.
+Three source corrections are on held ground, not new knowledge coverage or
+a new capability. The original round25 receipt is unchanged; its matching
+code/tables are preserved in the historical frozen snapshot.
+
+The active default/table/R25-04 migrate explicitly to a NEW rearmed receipt.
+S027/S028 retain their original3.15.0 anchors, observed fired at3.15.1;
+S040/S041 retain on-release cadence with named3.15.1 anchors. A future
+stable release can therefore fire the successors, not merely leave old
+fired bits permanently set.
+
+`bash .ufo/waves/round-26/tools/replay-current.sh before` must fail with
+missing successor bindings and stale observation fields; `after` applies
+the explicit rearm. The separate historical28-record demonstration requires
+the explicit frozen-root argument. Both are dated point evidence, not
+continuous monitoring or an installed-interpreter upgrade. Round25's C2
+lone-clone INCOMPLETE/48 remains unclosed. Multi-claim quote coverage,
+S029/S031 locator qualifiers and knowledge-number debt remain named gaps.

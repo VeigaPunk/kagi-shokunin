@@ -1416,3 +1416,48 @@ self-count48 / clock67; safe full ledger CLEAN65 claims/88 stamps with12
 HOST-SKIPs. Three claim-only BASE overlays also execute independently
 (`separability-final.json`); constructed trees, not complete ledger commits.
 All author-side verdicts are bounded; non-author admission remains Main's.
+
+## Round 26 — bounded Python drift response with explicit rearm (2026-10-21)
+
+One declared claim C1, freshness9→9 (tied-lowest); BASE
+`1bf3eec48d3761580ffd375c88143232485ae814`, `plans/round-26.md`.
+Motivation: outside CloseKagi25, fleet MANIFEST rounds[410] at
+`ff47be96994cfb99d7f6305c009c0c867eae64d8`, routed the now-visible3.15.1
+feed entry while preserving the truthful earlier3.15.0 receipt. The feed
+pubDate precedes the older observation; cached-edge/backdated insertion
+remains unresolved, never called mismeasurement or release-since-review.
+
+- Re-opened exact Python feed/re/html URLs; S039/S040/S041 supersede only
+  current-version locators, retain unchanged relied-on teachings and scoped
+  limits. Point metadata/bodies: `.ufo/waves/round-26/captures/metadata.json`.
+  Per-clause proof separates docs from local ordering/flag facts in
+  `corpus/lessons/round-26.md` §Gate / §Per-clause source support.
+- First new28-record receipt deliberately failed against the old profile:
+  exactly S027/S028 mismatched, exit1, observer fired3 versus evaluator
+  fired1. This expected red is `.ufo/waves/round-26/observe-run.json`;
+  original round25 receipt bytes remain unchanged.
+- CritNoAxisHarm rejected the initial preserve-default/draft90d candidate
+  as freshness harm. Fixed before landing: S040/S041 retain on-release
+  cadence at named3.15.1 anchors; predecessor3.15.0 anchors remain fired.
+  NEW30-record `.ufo/waves/round-26/observe-2.json` and its explicit
+  path/digest/table/R25-04 migration rearm future observations; original
+  code/tables/receipt remain separately frozen. QM24 cites this actual
+  mistake, missing-binding/future-release controls, not an invented bar.
+- Active guidance is cut over in SKILL/PROVINCE/index; offline CLEAN is
+  never live truth. No interpreter install/upgrade, vault/account/handler/CDP
+  action, new capability/coverage ground or promotion is credited. Round25
+  C2 remains honest INCOMPLETE/48, not silently closed. Knowledge-number,
+  multi-quote and S029/S031 qualifier debts remain explicit.
+- BUILD64:28 scouts/3 executors/12 reviewers/8 critics/5 connectors/8
+  scribes.41 reports,23 terminal provider deaths, no replacements.
+  L1 canonical planner and sole production integration writer; specs,
+  registry, reports, error notices and outcomes under `.ufo/waves/round-26/`.
+  All three code seats died; L1 implemented the bounded replay only,
+  reusing the existing evaluator rather than inventing the absent tools.
+
+Migration record: `.ufo/waves/round-26/expectation-migrations.json`;
+counting replay: `bash .ufo/waves/round-26/tools/replay-current.sh before`
+and `after`. Final immutable outputs and measured pushed revision are
+appended after integration, never invented here. Historical/current
+snapshots pin all evaluated inputs; the wrapper separately pins each
+checksum manifest, including input-plus-manifest tamper refusal.

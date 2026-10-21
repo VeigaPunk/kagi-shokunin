@@ -1,0 +1,35 @@
+{
+  "format": "kagi-round26-frozen-v1",
+  "base_revision": "1bf3eec48d3761580ffd375c88143232485ae814",
+  "input_sha256": {
+    "after/corpus/SOURCES.md": "de198f7b8c9203776cc6700c9fd2f06f93cb18b6b3af8155b887962ddbabaddb",
+    "after/corpus/release-clocks.tsv": "ee0fafbcf43a0f59ef16d83329006a2d9670cb143a686f8cb59c63c355712807",
+    "after/corpus/rendered-text-v1.py": "7d6bfe8154898f8584e213bcf98936a0819ace75fd80f3dcc87bce1edd1dc7bf",
+    "after/corpus/source-fetches.tsv": "afa2dd4641825c19c682217b5b72d3f56806444fce232ff71b530d34160ce93a",
+    "before/corpus/SOURCES.md": "de198f7b8c9203776cc6700c9fd2f06f93cb18b6b3af8155b887962ddbabaddb",
+    "before/corpus/release-clocks.tsv": "53264aad0d4a8365b58527e10af4d2265c7e21ee9036217fe748156c2a70b74f",
+    "before/corpus/rendered-text-v1.py": "7d6bfe8154898f8584e213bcf98936a0819ace75fd80f3dcc87bce1edd1dc7bf",
+    "before/corpus/source-fetches.tsv": "afa2dd4641825c19c682217b5b72d3f56806444fce232ff71b530d34160ce93a",
+    "observe-1.json": "9a1cefec10c2c135daad6befbd3da76f80fa6a199633c51d985d999717c55b1e",
+    "observe-round25.json": "b74c8ee30aaeaf7a867f9bbad39ea42e94f199da69ebd01d0e391d2e8b349f92",
+    "release-clock.py": "f1a8237c795f6041d2942e9cfb17c1112aed8b22d74b5241874add719c31c1dc"
+  },
+  "before": {
+    "exit": 1,
+    "finding_ids": [
+      "RECEIPT-MISMATCH S027",
+      "RECEIPT-MISMATCH S028"
+    ],
+    "summary": "RELEASE_CLOCK: FAILED (on_release=28 bound=28 unbound=0 observed=26 fired=1 derived=15)"
+  },
+  "after": {
+    "exit": 0,
+    "summary": "RELEASE_CLOCK: CLEAN (on_release=28 bound=28 unbound=0 observed=28 fired=3 derived=15)"
+  },
+  "only_changed_binding_ids": [
+    "S027",
+    "S028"
+  ],
+  "historical_receipt_sha256": "b74c8ee30aaeaf7a867f9bbad39ea42e94f199da69ebd01d0e391d2e8b349f92",
+  "limits": "Current profile is an explicitly selected frozen observation, not a rewrite of the round25 default, installed runtime claim or vendor semantic oracle."
+}

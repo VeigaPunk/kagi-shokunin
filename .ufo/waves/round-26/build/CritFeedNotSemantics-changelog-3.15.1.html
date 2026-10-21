@@ -1,0 +1,793 @@
+<section id="python-3-15-1-final">
+<h2>Python 3.15.1 final<a class="headerlink" href="#python-3-15-1-final" title="Link to this heading">¶</a></h2>
+<p><em>Release date: 2026-10-21</em></p>
+<section id="security">
+<h3>Security<a class="headerlink" href="#security" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/159894">gh-159894</a>: Bump the version of <a class="extlink-pypi reference external" href="https://pypi.org/project/pip/">pip</a> bundled in <a class="reference internal" href="../library/ensurepip.html#module-ensurepip" title="ensurepip: Bootstrapping the &quot;pip&quot; installer into an existing Python installation or virtual environment."><code class="xref py py-mod docutils literal notranslate"><span class="pre">ensurepip</span></code></a> to
+version 26.2.2.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/159428">gh-159428</a>: <a class="reference internal" href="../library/mimetypes.html#module-mimetypes" title="mimetypes: Mapping of filename extensions to MIME types."><code class="xref py py-mod docutils literal notranslate"><span class="pre">mimetypes</span></code></a> no longer reads the files listed in
+<a class="reference internal" href="../library/mimetypes.html#mimetypes.knownfiles" title="mimetypes.knownfiles"><code class="xref py py-data docutils literal notranslate"><span class="pre">mimetypes.knownfiles</span></code></a> by default on Windows, and uses only the
+registry.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/157953">gh-157953</a>: Update bundled <a class="reference external" href="https://libexpat.github.io/">libexpat</a> to
+version 2.9.0.</p></li>
+</ul>
+</section>
+<section id="core-and-builtins">
+<h3>Core and Builtins<a class="headerlink" href="#core-and-builtins" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/159739">gh-159739</a>: Avoid a crash if allocation fails while creating a
+<a class="reference internal" href="../library/string.templatelib.html#string.templatelib.Template" title="string.templatelib.Template"><code class="xref py py-class docutils literal notranslate"><span class="pre">string.templatelib.Template</span></code></a> iterator.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/159739">gh-159739</a>: Propagate errors during generic class construction and avoid a
+crash after failed generic alias substitution.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/159739">gh-159739</a>: Raise <a class="reference internal" href="../builtins/exceptions.html#OverflowError" title="OverflowError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">OverflowError</span></code></a> when the absolute value of a dynamic
+printf-style formatting width is too large.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/159739">gh-159739</a>: Fix a reference leak in <a class="reference internal" href="../library/gc.html#gc.get_objects" title="gc.get_objects"><code class="xref py py-func docutils literal notranslate"><span class="pre">gc.get_objects()</span></code></a> and
+<a class="reference internal" href="../library/gc.html#gc.get_referrers" title="gc.get_referrers"><code class="xref py py-func docutils literal notranslate"><span class="pre">gc.get_referrers()</span></code></a> when an internal allocation fails in the
+free-threaded build.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/159739">gh-159739</a>: Fix memory leaks during interpreter startup when a path
+configuration file is empty or too large, or when an audit hook rejects a
+command.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/159739">gh-159739</a>: Avoid a crash when an interpreter configuration string cannot
+be encoded as UTF-8.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/159739">gh-159739</a>: Preserve the original <a class="reference internal" href="../builtins/exceptions.html#SyntaxError" title="SyntaxError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">SyntaxError</span></code></a> if allocating optional
+error metadata fails.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/159739">gh-159739</a>: Avoid a crash if formatting an integer with the <code class="docutils literal notranslate"><span class="pre">c</span></code>
+presentation type runs out of memory.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/159739">gh-159739</a>: Avoid a crash when a module filename cannot be encoded as
+UTF-8.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/159603">gh-159603</a>: On FreeBSD, call <code class="docutils literal notranslate"><span class="pre">pthread_attr_get_np()</span></code> to get the stack
+size (and guard size) of the current thread. Patch by Victor Stinner.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/130279">gh-130279</a>: Fix bug where compiler did not set the right exception handler
+for some jump instructions.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/159430">gh-159430</a>: Report the correct exception if looking up
+<a class="reference internal" href="../reference/datamodel.html#object.__bytes__" title="object.__bytes__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__bytes__()</span></code></a> raises an exception while performing
+%-formatting of <a class="reference internal" href="../builtins/stdtypes.html#bytes" title="bytes"><code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code></a>.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/159320">gh-159320</a>: Add dynamic detection of stack sizes on Android, allowing safer
+deep recursion.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/159288">gh-159288</a>: Fix a crash when walking a very long chain of lazy import
+placeholders, as created by an aliased dotted import such as <code class="docutils literal notranslate"><span class="pre">lazy</span> <span class="pre">import</span>
+<span class="pre">a.b.c</span> <span class="pre">as</span> <span class="pre">d</span></code>. <a class="reference internal" href="../builtins/exceptions.html#RecursionError" title="RecursionError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">RecursionError</span></code></a> is now raised instead.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/159285">gh-159285</a>: Fix a crash in a debug build when copying an empty
+<a class="reference internal" href="../builtins/stdtypes.html#dict" title="dict"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a> fails with <a class="reference internal" href="../builtins/exceptions.html#MemoryError" title="MemoryError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">MemoryError</span></code></a>. Patch by Christian Aurich
+Zanettini Martins.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/159041">gh-159041</a>: Fix a use-after-free in <a class="reference internal" href="../library/asyncio.html#module-asyncio" title="asyncio: Asynchronous I/O."><code class="xref py py-mod docutils literal notranslate"><span class="pre">asyncio</span></code></a> task bookkeeping when a
+finalizer creates a task during thread shutdown.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/158973">gh-158973</a>: Reset the warnings lock in the child after <a class="reference internal" href="../library/os.html#os.fork" title="os.fork"><code class="xref py py-func docutils literal notranslate"><span class="pre">os.fork()</span></code></a>,
+before clearing other threads’ states, to avoid deadlocks when their
+finalizers issue warnings. Preserve the lock’s recursion depth if the
+forking thread owns it.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/158918">gh-158918</a>: Reduce C stack usage of <code class="docutils literal notranslate"><span class="pre">_PyModule_IsPossiblyShadowing</span></code>,
+which could potentially cause stack overflows during module attribute
+access while deeply recursing in agressively optimized builds.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/158803">gh-158803</a>: Fix a crash in <a class="reference internal" href="../builtins/stdtypes.html#bytes.join" title="bytes.join"><code class="xref py py-meth docutils literal notranslate"><span class="pre">bytes.join()</span></code></a> and <a class="reference internal" href="../builtins/stdtypes.html#bytearray.join" title="bytearray.join"><code class="xref py py-meth docutils literal notranslate"><span class="pre">bytearray.join()</span></code></a> in
+the <a class="reference internal" href="../glossary.html#term-free-threaded-build"><span class="xref std std-term">free-threaded build</span></a> when another thread concurrently mutates
+the list being joined. Patch by Christian Aurich Zanettini Martins.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/158824">gh-158824</a>: Fix module-level <a class="reference internal" href="../reference/datamodel.html#module.__getattr__" title="module.__getattr__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__getattr__()</span></code></a> being called
+before a module’s own lazy imports were resolved, which allowed it to
+shadow them.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/158820">gh-158820</a>: Fix a crash when a <a class="reference internal" href="../reference/simple_stmts.html#lazy-imports"><span class="std std-ref">lazy import</span></a> is
+declared or resolved by a finalizer running during interpreter shutdown.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/158592">gh-158592</a>: Skip the array reallocation when shrinking a small
+<a class="reference internal" href="../builtins/stdtypes.html#list" title="list"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>. Patch by Donghee Na.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/158583">gh-158583</a>: <a class="reference internal" href="../builtins/stdtypes.html#bytes.fromhex" title="bytes.fromhex"><code class="xref py py-meth docutils literal notranslate"><span class="pre">bytes.fromhex()</span></code></a> and <a class="reference internal" href="../builtins/stdtypes.html#bytearray.fromhex" title="bytearray.fromhex"><code class="xref py py-meth docutils literal notranslate"><span class="pre">bytearray.fromhex()</span></code></a>: Fix
+uninitialized memory read. Patch by Victor Stinner.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/158197">gh-158197</a>: Fix crashes and debug-build assertion failures in the
+<a class="reference internal" href="../glossary.html#term-free-threaded-build"><span class="xref std std-term">free-threaded build</span></a> when iterating over a split dictionary while
+another thread deletes entries or clears it. Publish insertion-order
+updates atomically so readers cannot observe an increased size before the
+corresponding order entry is initialized.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/158592">gh-158592</a>: <code class="docutils literal notranslate"><span class="pre">del</span> <span class="pre">list[index]</span></code> now triggers shrinking the list’s internal
+array.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/158486">gh-158486</a>: Fix the PowerSort mask calculation in <a class="reference internal" href="../builtins/stdtypes.html#list.sort" title="list.sort"><code class="xref py py-meth docutils literal notranslate"><span class="pre">list.sort()</span></code></a> for
+very large lists.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/158121">gh-158121</a>: Fix missing <a class="reference internal" href="../library/sys.monitoring.html#module-sys.monitoring" title="sys.monitoring: Access and control event monitoring"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sys.monitoring</span></code></a> <code class="docutils literal notranslate"><span class="pre">INSTRUCTION</span></code> events when a
+<code class="docutils literal notranslate"><span class="pre">LINE</span></code> callback returns <a class="reference internal" href="../library/sys.monitoring.html#sys.monitoring.DISABLE" title="sys.monitoring.DISABLE"><code class="xref py py-data docutils literal notranslate"><span class="pre">sys.monitoring.DISABLE</span></code></a>.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/158219">gh-158219</a>: Fix <a class="reference internal" href="../builtins/stdtypes.html#bytearray" title="bytearray"><code class="xref py py-class docutils literal notranslate"><span class="pre">bytearray</span></code></a> constructor: do not use a bytes object
+if its hash value is already computed. Patch by Cody Maloney and Victor
+Stinner.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/158072">gh-158072</a>: Fix a JIT crash when a class is instantiated with their default
+arguments</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/157468">gh-157468</a>: Fix the JIT optimizer folding a builtin name to a constant
+taken from the interpreter’s builtins dictionary even when the running
+function uses a different <code class="docutils literal notranslate"><span class="pre">__builtins__</span></code> mapping, such as one created
+with <code class="docutils literal notranslate"><span class="pre">vars(builtins).copy()</span></code>. The optimizer now only folds when the
+function’s builtins is the interpreter’s, and the folded constant is
+guarded at runtime so that another function sharing the same code object
+but a different builtins mapping does not use it.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/157242">gh-157242</a>: If <a class="reference internal" href="../builtins/stdtypes.html#bytearray.resize" title="bytearray.resize"><code class="xref py py-meth docutils literal notranslate"><span class="pre">bytearray.resize()</span></code></a> or <a class="reference internal" href="../builtins/stdtypes.html#bytearray.take_bytes" title="bytearray.take_bytes"><code class="xref py py-meth docutils literal notranslate"><span class="pre">bytearray.take_bytes()</span></code></a>
+fails, leave the <a class="reference internal" href="../builtins/stdtypes.html#bytearray" title="bytearray"><code class="xref py py-class docutils literal notranslate"><span class="pre">bytearray</span></code></a> unchanged, instead of clearing it.
+Patch by Victor Stinner.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/156091">gh-156091</a>: Fix a crash when compiling deeply nested inlined list, set, or
+dict comprehensions. A <a class="reference internal" href="../builtins/exceptions.html#SyntaxError" title="SyntaxError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">SyntaxError</span></code></a> is now raised when the nesting
+exceeds the compiler’s static block limit.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/106045">gh-106045</a>: Fix standard library discovery in virtual environments created
+from a Python executable symlink located outside its base installation.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/156459">gh-156459</a>: Fix cleanup on error in <code class="docutils literal notranslate"><span class="pre">compiler_set_qualname</span></code>. Previously
+it was called in <code class="docutils literal notranslate"><span class="pre">_PyCompile_EnterScope</span></code>, after the scope had been
+entered, and this was not reversed in case of an error.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/156371">gh-156371</a>: Fix missing <code class="docutils literal notranslate"><span class="pre">PyRefTracer_DESTROY</span></code> events for trashcan
+deferred objects. Patch by Donghee Na.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/156204">gh-156204</a>: Fix a crash in <a class="reference internal" href="../c-api/exceptions.html#c.PyErr_GivenExceptionMatches" title="PyErr_GivenExceptionMatches"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyErr_GivenExceptionMatches()</span></code></a> when
+evaluating deeply nested exception tuples. The recursion is now bounded,
+and exceeding the limit is reported as an unraisable exception.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/155823">gh-155823</a>: Fix a JIT bug where the side exit taken when a virtual iterator
+is exhausted left a stale value on the stack, so the tier one interpreter
+resumed with corrupted state and <code class="docutils literal notranslate"><span class="pre">yield</span> <span class="pre">from</span></code> raised
+<a class="reference internal" href="../builtins/exceptions.html#AttributeError" title="AttributeError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">AttributeError</span></code></a> instead of finishing normally.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/155504">gh-155504</a>: Fix a crash when thread state creation fails before the thread
+state is fully initialized.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/155315">gh-155315</a>: Fix <a class="reference internal" href="../library/marshal.html#module-marshal" title="marshal: Convert Python objects to streams of bytes and back (with different constraints)."><code class="xref py py-mod docutils literal notranslate"><span class="pre">marshal</span></code></a> so that a <code class="docutils literal notranslate"><span class="pre">frozendict</span></code> referenced more
+than once in the serialized data round-trips correctly, instead of failing
+to load with <a class="reference internal" href="../builtins/exceptions.html#ValueError" title="ValueError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ValueError</span></code></a>. Patch by tonghuaroot.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/154937">gh-154937</a>: Fix a data race on thread handle identifiers when
+<code class="docutils literal notranslate"><span class="pre">_thread._shutdown()</span></code> runs concurrently with the startup of non-daemon
+threads in the <a class="reference internal" href="../glossary.html#term-free-threaded-build"><span class="xref std std-term">free-threaded build</span></a>.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/152075">gh-152075</a>: Reduced lock contention during LOAD_GLOBAL bytecode
+specialization under free threading.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/153578">gh-153578</a>: Fix an out-of-bounds write in <a class="reference internal" href="../builtins/stdtypes.html#bytearray.extend" title="bytearray.extend"><code class="xref py py-meth docutils literal notranslate"><span class="pre">bytearray.extend()</span></code></a> when the
+bytearray is resized while the argument’s <a class="reference internal" href="../reference/datamodel.html#object.__buffer__" title="object.__buffer__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__buffer__()</span></code></a> is
+being acquired, for example by another thread. Patch by tonghuaroot.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/151895">gh-151895</a>: Fixed a crash in <a class="reference internal" href="../library/marshal.html#marshal.loads" title="marshal.loads"><code class="xref py py-func docutils literal notranslate"><span class="pre">marshal.loads()</span></code></a> when an allocation
+failed while loading a reference-tracked dictionary; it now raises
+<a class="reference internal" href="../builtins/exceptions.html#MemoryError" title="MemoryError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">MemoryError</span></code></a>.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/151518">gh-151518</a>: Fix a free-threaded stop-the-world fairness issue that could
+starve a thread reattaching after being suspended while detached.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/149816">gh-149816</a>: Fix a Use-After-Free race condition in <code class="docutils literal notranslate"><span class="pre">subtype_getweakref()</span></code>
+during concurrent weakref creation and destruction in the free-threading
+build.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/149816">gh-149816</a>: Fix race conditions in <code class="docutils literal notranslate"><span class="pre">invoke_gc_callback</span></code> iterating
+<code class="docutils literal notranslate"><span class="pre">gc.callbacks</span></code> in free-threading mode.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/69605">gh-69605</a>: Fix <a class="reference internal" href="../glossary.html#term-REPL"><span class="xref std std-term">REPL</span></a> completions inserted incorrectly when there was
+spaces in import statements.</p></li>
+</ul>
+</section>
+<section id="id2">
+<h3>Library<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/138641">gh-138641</a>: Ignore <a class="reference internal" href="../library/pdb.html#pdb.set_trace" title="pdb.set_trace"><code class="xref py py-func docutils literal notranslate"><span class="pre">pdb.set_trace()</span></code></a> when called directly at the
+<a class="reference internal" href="../library/pdb.html#module-pdb" title="pdb: The Python debugger for interactive interpreters."><code class="xref py py-mod docutils literal notranslate"><span class="pre">pdb</span></code></a> prompt.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/159864">gh-159864</a>: Fix a crash in <a class="reference internal" href="../library/syslog.html#syslog.openlog" title="syslog.openlog"><code class="xref py py-func docutils literal notranslate"><span class="pre">syslog.openlog()</span></code></a> under the free-threaded
+build when <a class="reference internal" href="../library/sys.html#sys.argv" title="sys.argv"><code class="xref py py-data docutils literal notranslate"><span class="pre">sys.argv</span></code></a> is modified concurrently.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/159811">gh-159811</a>: Fix a crash in <a class="reference internal" href="../library/hashlib.html#module-hashlib" title="hashlib: Secure hash and message digest algorithms."><code class="xref py py-mod docutils literal notranslate"><span class="pre">hashlib</span></code></a> when the OpenSSL routine used by
+<a class="reference internal" href="../library/hashlib.html#hashlib.hash.update" title="hashlib.hash.update"><code class="xref py py-meth docutils literal notranslate"><span class="pre">hash.update()</span></code></a> or by hash object constructors
+fails on data larger than 2048 bytes. Patch by Bénédikt Tran.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/159811">gh-159811</a>: Fix a crash in <a class="reference internal" href="../library/hmac.html#module-hmac" title="hmac: Keyed-Hashing for Message Authentication (HMAC) implementation"><code class="xref py py-mod docutils literal notranslate"><span class="pre">hmac</span></code></a> when the OpenSSL routine used by
+<a class="reference internal" href="../library/hmac.html#hmac.HMAC.update" title="hmac.HMAC.update"><code class="xref py py-meth docutils literal notranslate"><span class="pre">hmac.HMAC.update()</span></code></a> or by <a class="reference internal" href="../library/hmac.html#hmac.new" title="hmac.new"><code class="xref py py-func docutils literal notranslate"><span class="pre">hmac.new()</span></code></a> fails on data larger than
+2048 bytes. Patch by Bénédikt Tran.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/159786">gh-159786</a>: Fix the error handling of the HACL* routine used by
+<a class="reference internal" href="../library/hmac.html#hmac.new" title="hmac.new"><code class="xref py py-func docutils literal notranslate"><span class="pre">hmac.new()</span></code></a> and <a class="reference internal" href="../library/hmac.html#hmac.HMAC.update" title="hmac.HMAC.update"><code class="xref py py-meth docutils literal notranslate"><span class="pre">hmac.HMAC.update()</span></code></a>. If the maximum input length
+of the underlying hash function is exceeded, an <a class="reference internal" href="../builtins/exceptions.html#OverflowError" title="OverflowError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">OverflowError</span></code></a> is
+now raised on all builds, instead of crashing on DEBUG builds and being
+silently ignored otherwise. Code correctness. Realistically this can only
+happen at implausible sizes. Patch by Bénédikt Tran.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/159739">gh-159739</a>: Fix copying <a class="reference internal" href="../library/collections.html#collections.deque" title="collections.deque"><code class="xref py py-class docutils literal notranslate"><span class="pre">collections.deque</span></code></a> subclasses with a large
+maximum length.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/159739">gh-159739</a>: Allow cyclic garbage collection to reclaim group records
+returned by <a class="reference internal" href="../library/grp.html#module-grp" title="grp: The group database (getgrnam() and friends)."><code class="xref py py-mod docutils literal notranslate"><span class="pre">grp</span></code></a>.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/159739">gh-159739</a>: Fix <a class="reference internal" href="../library/io.html#io.BytesIO" title="io.BytesIO"><code class="xref py py-class docutils literal notranslate"><span class="pre">io.BytesIO</span></code></a> reads into overlapping views of the
+same buffer.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/159739">gh-159739</a>: Avoid a crash when memory allocation fails while creating a
+<a class="reference internal" href="../library/collections.html#collections.OrderedDict" title="collections.OrderedDict"><code class="xref py py-class docutils literal notranslate"><span class="pre">collections.OrderedDict</span></code></a> items iterator.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/159739">gh-159739</a>: Avoid reading past the end of an encoding name when the
+<code class="docutils literal notranslate"><span class="pre">surrogatepass</span></code> error handler receives a truncated UTF-16 or UTF-32
+name.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/159739">gh-159739</a>: Fix incorrect <a class="reference internal" href="../library/ctypes.html#module-ctypes" title="ctypes: A foreign function library for Python."><code class="xref py py-mod docutils literal notranslate"><span class="pre">ctypes</span></code></a> scalar values after
+<a class="reference internal" href="../library/ctypes.html#ctypes.resize" title="ctypes.resize"><code class="xref py py-func docutils literal notranslate"><span class="pre">ctypes.resize()</span></code></a> enlarges the object.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/159739">gh-159739</a>: Fix a memory leak when Unicode normalization cannot grow its
+temporary buffer.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/159739">gh-159739</a>: Fix resource leaks in <a class="reference internal" href="../library/ssl.html#module-ssl" title="ssl: TLS/SSL wrapper for socket objects"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ssl</span></code></a> when certificate conversion or
+key log setup fails.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/149015">gh-149015</a>: Fix <a class="reference internal" href="../library/bdb.html#bdb.Bdb.clear_all_file_breaks" title="bdb.Bdb.clear_all_file_breaks"><code class="xref py py-meth docutils literal notranslate"><span class="pre">bdb.Bdb.clear_all_file_breaks()</span></code></a> leaving breakpoints
+behind when multiple breakpoints are set on the same line.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/159620">gh-159620</a>: Fix <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">asyncio</span> <span class="pre">ps</span></code>, <code class="docutils literal notranslate"><span class="pre">pstree</span></code> and async-aware
+<a class="reference internal" href="../library/profiling.sampling.html#module-profiling.sampling" title="profiling.sampling: Statistical sampling profiler for Python processes."><code class="xref py py-mod docutils literal notranslate"><span class="pre">profiling.sampling</span></code></a> stacks stopping at asynchronous generators.
+Patch by Timofei Ivankov.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/159458">gh-159458</a>: Fix a ThreadSanitizer data race on the static cache in
+<code class="docutils literal notranslate"><span class="pre">normalize_century()</span></code> of the datetime module under the free-threaded
+build.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/159430">gh-159430</a>: Report the correct exception if looking up <code class="docutils literal notranslate"><span class="pre">__name__</span></code> raises
+an exception when calling <a class="reference internal" href="../builtins/functions.html#repr" title="repr"><code class="xref py py-func docutils literal notranslate"><span class="pre">repr()</span></code></a> on a <a class="reference internal" href="../library/weakref.html#weakref.ref" title="weakref.ref"><code class="xref py py-class docutils literal notranslate"><span class="pre">weakref.ref</span></code></a>.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/159225">gh-159225</a>: Prevent <code class="docutils literal notranslate"><span class="pre">input</span></code> calls in PyREPL from modifying readline
+history.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/159044">gh-159044</a>: Restore the previous behaviour of
+<a class="reference internal" href="../library/http.client.html#http.client.HTTPConnection.set_tunnel" title="http.client.HTTPConnection.set_tunnel"><code class="xref py py-meth docutils literal notranslate"><span class="pre">http.client.HTTPConnection.set_tunnel()</span></code></a> where header values that are
+not strings (such as <a class="reference internal" href="../builtins/constants.html#None" title="None"><code class="xref py py-const docutils literal notranslate"><span class="pre">None</span></code></a>, <a class="reference internal" href="../builtins/functions.html#int" title="int"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a> or other objects) are
+converted with <a class="reference internal" href="../builtins/stdtypes.html#str" title="str"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> instead of raising <a class="reference internal" href="../builtins/exceptions.html#AttributeError" title="AttributeError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">AttributeError</span></code></a> when
+the request is sent.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/159184">gh-159184</a>: Fix <a class="reference internal" href="../library/marshal.html#marshal.dumps" title="marshal.dumps"><code class="xref py py-func docutils literal notranslate"><span class="pre">marshal.dumps()</span></code></a> raising <a class="reference internal" href="../builtins/exceptions.html#MemoryError" title="MemoryError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">MemoryError</span></code></a> for a set
+or frozenset containing several complex NaNs, which also made it
+impossible to write a <code class="file docutils literal notranslate"><span class="pre">.pyc</span></code> file for source code containing such a
+constant.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/159185">gh-159185</a>: Fix a crash in <a class="reference internal" href="../library/marshal.html#marshal.dumps" title="marshal.dumps"><code class="xref py py-func docutils literal notranslate"><span class="pre">marshal.dumps()</span></code></a> and <a class="reference internal" href="../library/marshal.html#marshal.dump" title="marshal.dump"><code class="xref py py-func docutils literal notranslate"><span class="pre">marshal.dump()</span></code></a>
+when a set is modified while its elements are serialized, for example by
+the <a class="reference internal" href="../reference/datamodel.html#object.__buffer__" title="object.__buffer__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__buffer__()</span></code></a> method of one of its elements.
+<a class="reference internal" href="../builtins/exceptions.html#RuntimeError" title="RuntimeError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">RuntimeError</span></code></a> is now raised.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/159049">gh-159049</a>: Fix reference cycles in <a class="reference internal" href="../library/asyncio-eventloop.html#asyncio.loop.create_connection" title="asyncio.loop.create_connection"><code class="xref py py-meth docutils literal notranslate"><span class="pre">asyncio.loop.create_connection()</span></code></a>
+and <a class="reference internal" href="../library/asyncio-eventloop.html#asyncio.loop.start_tls" title="asyncio.loop.start_tls"><code class="xref py py-meth docutils literal notranslate"><span class="pre">asyncio.loop.start_tls()</span></code></a> after a failed TLS handshake. Patch by
+Timofei Ivankov.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/87720">gh-87720</a>: Fixed error in <a class="reference internal" href="../library/email.html#module-email" title="email: Package supporting the parsing, manipulating, and generating email messages."><code class="xref py py-mod docutils literal notranslate"><span class="pre">email</span></code></a> new policies where header folding
+failed to detect the need to re-quote text obtained from encoded words in
+certain cases.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/158929">gh-158929</a>: Fix crash when calling <a class="reference internal" href="../library/syslog.html#syslog.syslog" title="syslog.syslog"><code class="xref py py-func docutils literal notranslate"><span class="pre">syslog.syslog()</span></code></a> while a
+subinterpreter in another thread calls <a class="reference internal" href="../library/syslog.html#syslog.openlog" title="syslog.openlog"><code class="xref py py-func docutils literal notranslate"><span class="pre">syslog.openlog()</span></code></a> or
+<a class="reference internal" href="../library/syslog.html#syslog.closelog" title="syslog.closelog"><code class="xref py py-func docutils literal notranslate"><span class="pre">syslog.closelog()</span></code></a>.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/158936">gh-158936</a>: <a class="reference internal" href="../library/dataclasses.html#dataclasses.dataclass" title="dataclasses.dataclass"><code class="xref py py-func docutils literal notranslate"><span class="pre">dataclass()</span></code></a> no longer fails when a string
+annotation names a <a class="reference internal" href="../reference/simple_stmts.html#lazy-imports"><span class="std std-ref">lazy import</span></a> that cannot be
+resolved, matching the behavior for non-string annotations.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/158893">gh-158893</a>: Make <a class="reference internal" href="../library/os.html#os.strerror" title="os.strerror"><code class="xref py py-func docutils literal notranslate"><span class="pre">os.strerror()</span></code></a> thread-safe: use the reentrant
+<code class="docutils literal notranslate"><span class="pre">strerror_r()</span></code> function if available. Patch by Victor Stinner.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/158539">gh-158539</a>: Fix macOS runtime section lookup for remote debugging when
+virtual memory region sizes differ from Mach-O segment file sizes.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/156545">gh-156545</a>: Fix deep flamegraph exports on platforms with small C stacks by
+falling back to the Python JSON encoder when the C encoder runs out of
+stack space.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/158552">gh-158552</a>: Wait for Windows threads to finish suspending before reading
+target memory in the sampling profiler’s blocking mode. Resume the target
+if waiting for suspension fails.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/156321">gh-156321</a>: Fix <a class="reference internal" href="../library/asyncio-task.html#asyncio.shield" title="asyncio.shield"><code class="xref py py-func docutils literal notranslate"><span class="pre">asyncio.shield()</span></code></a> reporting an exception from the
+inner future through the loop exception handler as soon as it completes
+after the shield was cancelled, even when the exception is retrieved
+afterwards. The exception is now reported only if it is never retrieved,
+as with any other future.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/158539">gh-158539</a>: Fix <a class="reference internal" href="../library/profiling.sampling.html#module-profiling.sampling" title="profiling.sampling: Statistical sampling profiler for Python processes."><code class="xref py py-mod docutils literal notranslate"><span class="pre">profiling.sampling</span></code></a> exception mode discarding samples
+for code running inside an <code class="docutils literal notranslate"><span class="pre">except</span></code> block in a generator or coroutine.
+The remote debugger now follows <code class="docutils literal notranslate"><span class="pre">tstate-&gt;exc_info</span></code> and its
+<code class="docutils literal notranslate"><span class="pre">previous_item</span></code> chain instead of only reading the embedded
+<code class="docutils literal notranslate"><span class="pre">exc_state</span></code>, matching the exception that <a class="reference internal" href="../library/sys.html#sys.exception" title="sys.exception"><code class="xref py py-func docutils literal notranslate"><span class="pre">sys.exception()</span></code></a> reports.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/158563">gh-158563</a>: Fix <a class="reference internal" href="../library/turtle.html#turtle.undo" title="turtle.undo"><code class="xref py py-func docutils literal notranslate"><span class="pre">turtle.undo()</span></code></a> after <a class="reference internal" href="../library/turtle.html#turtle.teleport" title="turtle.teleport"><code class="xref py py-func docutils literal notranslate"><span class="pre">turtle.teleport()</span></code></a> and after
+an exception in <a class="reference internal" href="../library/turtle.html#turtle.circle" title="turtle.circle"><code class="xref py py-func docutils literal notranslate"><span class="pre">turtle.circle()</span></code></a>, <a class="reference internal" href="../library/turtle.html#turtle.dot" title="turtle.dot"><code class="xref py py-func docutils literal notranslate"><span class="pre">turtle.dot()</span></code></a> or
+<a class="reference internal" href="../library/turtle.html#turtle.write" title="turtle.write"><code class="xref py py-func docutils literal notranslate"><span class="pre">turtle.write()</span></code></a>. Fix <a class="reference internal" href="../library/turtle.html#turtle.stamp" title="turtle.stamp"><code class="xref py py-func docutils literal notranslate"><span class="pre">turtle.stamp()</span></code></a>, <a class="reference internal" href="../library/turtle.html#turtle.clearstamp" title="turtle.clearstamp"><code class="xref py py-func docutils literal notranslate"><span class="pre">turtle.clearstamp()</span></code></a>,
+<a class="reference internal" href="../library/turtle.html#turtle.clear" title="turtle.clear"><code class="xref py py-func docutils literal notranslate"><span class="pre">turtle.clear()</span></code></a> and <a class="reference internal" href="../library/turtle.html#turtle.reset" title="turtle.reset"><code class="xref py py-func docutils literal notranslate"><span class="pre">turtle.reset()</span></code></a> when the undo buffer is
+disabled.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/158540">gh-158540</a>: Fix <a class="reference internal" href="../library/profiling.sampling.html#module-profiling.sampling" title="profiling.sampling: Statistical sampling profiler for Python processes."><code class="xref py py-mod docutils literal notranslate"><span class="pre">profiling.sampling</span></code></a> not adding the directory
+containing the profiled script to <a class="reference internal" href="../library/sys.html#sys.path" title="sys.path"><code class="xref py py-data docutils literal notranslate"><span class="pre">sys.path</span></code></a>, which prevented the
+script from importing modules placed next to it.  The script’s directory
+is now added, matching the behavior of <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">script.py</span></code>.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/158522">gh-158522</a>: Fix <a class="reference internal" href="../library/profiling.sampling.html#module-profiling.sampling" title="profiling.sampling: Statistical sampling profiler for Python processes."><code class="xref py py-mod docutils literal notranslate"><span class="pre">profiling.sampling</span></code></a> showing a single frame for a task
+whose coroutine recurses. Patch by Timofei Ivankov.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/158169">gh-158169</a>: Fix <a class="reference internal" href="../library/zlib.html#zlib.Decompress.unconsumed_tail" title="zlib.Decompress.unconsumed_tail"><code class="xref py py-attr docutils literal notranslate"><span class="pre">zlib.Decompress.unconsumed_tail</span></code></a> duplicating
+<a class="reference internal" href="../library/zlib.html#zlib.Decompress.unused_data" title="zlib.Decompress.unused_data"><code class="xref py py-attr docutils literal notranslate"><span class="pre">unused_data</span></code></a> after end of stream when <em>max_length</em>
+was used.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/158004">gh-158004</a>: Fix <a class="reference internal" href="../library/asyncio-task.html#asyncio.as_completed" title="asyncio.as_completed"><code class="xref py py-func docutils literal notranslate"><span class="pre">asyncio.as_completed()</span></code></a> to continue yielding every
+awaitable after a pending iteration step is cancelled.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/153888">gh-153888</a>: Fix <a class="reference internal" href="../library/unittest.mock.html#unittest.mock.patch" title="unittest.mock.patch"><code class="xref py py-func docutils literal notranslate"><span class="pre">unittest.mock.patch()</span></code></a> with <code class="docutils literal notranslate"><span class="pre">autospec</span></code>, <code class="docutils literal notranslate"><span class="pre">spec</span></code>, or
+<code class="docutils literal notranslate"><span class="pre">spec_set</span></code> when used with lazy-imported objects.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/157672">gh-157672</a>: Fix <a class="reference internal" href="../library/tkinter.html#module-tkinter" title="tkinter: Interface to Tcl/Tk for graphical user interfaces"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tkinter</span></code></a> on macOS: creating a <a class="reference internal" href="../library/tkinter.html#tkinter.Tk" title="tkinter.Tk"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tk</span></code></a>
+instance no longer replaces the Python handlers of SIGINT, SIGHUP and
+SIGTERM with Tk’s handler which exits the process, so Ctrl-C raises
+<a class="reference internal" href="../builtins/exceptions.html#KeyboardInterrupt" title="KeyboardInterrupt"><code class="xref py py-exc docutils literal notranslate"><span class="pre">KeyboardInterrupt</span></code></a> again.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/157621">gh-157621</a>: Fix a crash when a weak-reference callback is attached to a
+<a class="reference internal" href="../library/typing.html#typing.ParamSpecArgs" title="typing.ParamSpecArgs"><code class="xref py py-class docutils literal notranslate"><span class="pre">typing.ParamSpecArgs</span></code></a> or <a class="reference internal" href="../library/typing.html#typing.ParamSpecKwargs" title="typing.ParamSpecKwargs"><code class="xref py py-class docutils literal notranslate"><span class="pre">typing.ParamSpecKwargs</span></code></a> instance.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/69919">gh-69919</a>: <a class="reference internal" href="../library/code.html#code.InteractiveInterpreter.runsource" title="code.InteractiveInterpreter.runsource"><code class="xref py py-meth docutils literal notranslate"><span class="pre">code.InteractiveInterpreter.runsource()</span></code></a> and the REPL now
+report any exception raised by compiling the source, such as
+<a class="reference internal" href="../builtins/exceptions.html#MemoryError" title="MemoryError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">MemoryError</span></code></a> or <a class="reference internal" href="../builtins/exceptions.html#RecursionError" title="RecursionError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">RecursionError</span></code></a> for too deeply nested source,
+instead of propagating it or printing a traceback of the REPL internals.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/157451">gh-157451</a>: Fix <a class="reference internal" href="../library/gettext.html#module-gettext" title="gettext: Multilingual internationalization services."><code class="xref py py-mod docutils literal notranslate"><span class="pre">gettext</span></code></a> plural form selection when the
+<code class="docutils literal notranslate"><span class="pre">Plural-Forms</span></code> expression combines the unary <code class="docutils literal notranslate"><span class="pre">!</span></code> operator with a
+binary operator, for example <code class="docutils literal notranslate"><span class="pre">!n</span> <span class="pre">+</span> <span class="pre">1</span></code> or <code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">*</span> <span class="pre">!n</span></code>.  The latter raised
+<a class="reference internal" href="../builtins/exceptions.html#SyntaxError" title="SyntaxError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">SyntaxError</span></code></a>.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/157406">gh-157406</a>: Fix the Python implementation of
+<a class="reference internal" href="../library/xml.etree.elementtree.html#xml.etree.ElementTree.XMLParser" title="xml.etree.ElementTree.XMLParser"><code class="xref py py-class docutils literal notranslate"><span class="pre">xml.etree.ElementTree.XMLParser</span></code></a>: the <code class="docutils literal notranslate"><span class="pre">doctype()</span></code> method of the
+target is now called for a document type declaration without an external
+identifier, like <code class="docutils literal notranslate"><span class="pre">&lt;!DOCTYPE</span> <span class="pre">html&gt;</span></code>, as in the C implementation.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/157364">gh-157364</a>: Fix a use-after-free in <a class="reference internal" href="../library/io.html#io.TextIOWrapper" title="io.TextIOWrapper"><code class="xref py py-class docutils literal notranslate"><span class="pre">io.TextIOWrapper</span></code></a> when a call
+to the underlying buffer reentrantly detaches it. Patched by Shamil
+Abdulaev.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/157242">gh-157242</a>: <a class="reference internal" href="../library/io.html#io.BytesIO" title="io.BytesIO"><code class="xref py py-class docutils literal notranslate"><span class="pre">io.BytesIO</span></code></a> is no longer closed on <code class="docutils literal notranslate"><span class="pre">write()</span></code> and
+<code class="docutils literal notranslate"><span class="pre">truncate()</span></code> failure (<a class="reference internal" href="../builtins/exceptions.html#MemoryError" title="MemoryError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">MemoryError</span></code></a>). Patch by Victor Stinner.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/157325">gh-157325</a>: Fix an out-of-bounds read in the <code class="docutils literal notranslate"><span class="pre">hz</span></code> incremental decoder
+when the input ends with <code class="docutils literal notranslate"><span class="pre">~</span></code>.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/123018">gh-123018</a>: Fix <a class="reference internal" href="../library/readline.html#readline.write_history_file" title="readline.write_history_file"><code class="xref py py-func docutils literal notranslate"><span class="pre">readline.write_history_file()</span></code></a> and
+<a class="reference internal" href="../library/readline.html#readline.append_history_file" title="readline.append_history_file"><code class="xref py py-func docutils literal notranslate"><span class="pre">readline.append_history_file()</span></code></a> producing a history file that
+<a class="reference internal" href="../library/readline.html#readline.read_history_file" title="readline.read_history_file"><code class="xref py py-func docutils literal notranslate"><span class="pre">readline.read_history_file()</span></code></a> could not load when a limit was set
+with <a class="reference internal" href="../library/readline.html#readline.set_history_length" title="readline.set_history_length"><code class="xref py py-func docutils literal notranslate"><span class="pre">readline.set_history_length()</span></code></a> and Python was built against
+<code class="docutils literal notranslate"><span class="pre">libedit</span></code>.  This works around <a class="reference external" href="https://gnats.netbsd.org/60322">NetBSD PR 60322</a>.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/157146">gh-157146</a>: <a class="reference internal" href="../library/linecache.html#module-linecache" title="linecache: Provides random access to individual lines from text files."><code class="xref py py-mod docutils literal notranslate"><span class="pre">linecache</span></code></a> can now read the source of a module that was
+imported from a zip archive on <a class="reference internal" href="../library/sys.html#sys.path" title="sys.path"><code class="xref py py-data docutils literal notranslate"><span class="pre">sys.path</span></code></a> when given only the file
+name, as <a class="reference internal" href="../library/pdb.html#module-pdb" title="pdb: The Python debugger for interactive interpreters."><code class="xref py py-mod docutils literal notranslate"><span class="pre">pdb</span></code></a>, <a class="reference internal" href="../library/warnings.html#module-warnings" title="warnings: Issue warning messages and control their disposition."><code class="xref py py-mod docutils literal notranslate"><span class="pre">warnings</span></code></a> and <a class="reference internal" href="../library/doctest.html#module-doctest" title="doctest: Test pieces of code within docstrings."><code class="xref py py-mod docutils literal notranslate"><span class="pre">doctest</span></code></a> do.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/157048">gh-157048</a>: Preserve the position and contents of <a class="reference internal" href="../library/io.html#io.BytesIO" title="io.BytesIO"><code class="xref py py-class docutils literal notranslate"><span class="pre">io.BytesIO</span></code></a> when
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">BytesIO.__init__()</span></code> fails because a buffer is exported.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/156961">gh-156961</a>: Fix <a class="reference internal" href="../library/tkinter.font.html#tkinter.font.nametofont" title="tkinter.font.nametofont"><code class="xref py py-func docutils literal notranslate"><span class="pre">tkinter.font.nametofont()</span></code></a> and the
+<a class="reference internal" href="../library/tkinter.font.html#tkinter.font.Font" title="tkinter.font.Font"><code class="xref py py-class docutils literal notranslate"><span class="pre">tkinter.font.Font</span></code></a> constructor for a font name returned by Tk as a
+Tcl object, for example by <a class="reference internal" href="../library/tkinter.ttk.html#tkinter.ttk.Style.lookup" title="tkinter.ttk.Style.lookup"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ttk.Style.lookup()</span></code></a>.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/156946">gh-156946</a>: Fix a crash in <a class="reference internal" href="../library/curses.panel.html#module-curses.panel" title="curses.panel: A panel stack extension that adds depth to  curses windows."><code class="xref py py-mod docutils literal notranslate"><span class="pre">curses.panel</span></code></a> when the finalizer of a
+panel’s user pointer runs while the panel is being deallocated.  The panel
+is now taken off the panel stack before its user pointer is dropped.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/156920">gh-156920</a>: Fix <a class="reference internal" href="../library/asyncio.html#module-asyncio" title="asyncio: Asynchronous I/O."><code class="xref py py-mod docutils literal notranslate"><span class="pre">asyncio</span></code></a> on Windows: closing a
+<a class="reference internal" href="../library/asyncio-protocol.html#asyncio.DatagramTransport" title="asyncio.DatagramTransport"><code class="xref py py-class docutils literal notranslate"><span class="pre">DatagramTransport</span></code></a> under
+<a class="reference internal" href="../library/asyncio-eventloop.html#asyncio.ProactorEventLoop" title="asyncio.ProactorEventLoop"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProactorEventLoop</span></code></a> while datagrams were still queued, or
+while an in-flight write failed right as <code class="docutils literal notranslate"><span class="pre">close()</span></code> was draining the
+buffer, could strand the queued data and never call <code class="docutils literal notranslate"><span class="pre">connection_lost()</span></code>,
+hanging the close indefinitely.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/156810">gh-156810</a>: Fix a <a class="reference internal" href="../builtins/exceptions.html#UnicodeEncodeError" title="UnicodeEncodeError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">UnicodeEncodeError</span></code></a> crash in the sampling
+profiler’s collapsed-stack export (<code class="docutils literal notranslate"><span class="pre">--collapsed</span></code>) when a sampled frame’s
+function or file name contains non-ASCII or surrogate-escaped characters.
+The output file is now written as UTF-8.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/156797">gh-156797</a>: Fix <a class="reference internal" href="../library/xml.sax.utils.html#xml.sax.saxutils.XMLGenerator" title="xml.sax.saxutils.XMLGenerator"><code class="xref py py-class docutils literal notranslate"><span class="pre">xml.sax.saxutils.XMLGenerator</span></code></a>: the namespace URI
+is now escaped in the namespace declaration.  Previously a URI containing
+<code class="docutils literal notranslate"><span class="pre">&amp;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;</span></code> or a quote character produced a document which cannot be
+parsed.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/83895">gh-83895</a>: <a class="reference internal" href="../library/xml.etree.elementtree.html#module-xml.etree.ElementTree" title="xml.etree.ElementTree: Implementation of the ElementTree API."><code class="xref py py-mod docutils literal notranslate"><span class="pre">xml.etree.ElementTree</span></code></a> now accepts input larger than 2 GiB
+in the C implementation. The data is fed to Expat in chunks, as
+<a class="reference internal" href="../library/pyexpat.html#module-xml.parsers.expat" title="xml.parsers.expat: An interface to the Expat non-validating XML parser."><code class="xref py py-mod docutils literal notranslate"><span class="pre">xml.parsers.expat</span></code></a> already did, instead of raising
+<a class="reference internal" href="../builtins/exceptions.html#OverflowError" title="OverflowError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">OverflowError</span></code></a>.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/99064">gh-99064</a>: Fix <a class="reference internal" href="../library/xml.etree.elementtree.html#xml.etree.ElementTree.parse" title="xml.etree.ElementTree.parse"><code class="xref py py-func docutils literal notranslate"><span class="pre">xml.etree.ElementTree.parse()</span></code></a> with a text file or
+other source of <a class="reference internal" href="../builtins/stdtypes.html#str" title="str"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> data in the C implementation. The encoding
+declared in the document was applied to the already decoded text, which
+produced mojibake. It is now ignored, as when parsing with
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">XMLParser.feed()</span></code> or <a class="reference internal" href="../library/xml.etree.elementtree.html#xml.etree.ElementTree.fromstring" title="xml.etree.ElementTree.fromstring"><code class="xref py py-func docutils literal notranslate"><span class="pre">fromstring()</span></code></a>.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/156713">gh-156713</a>: Fix <code class="xref py py-func docutils literal notranslate"><span class="pre">nturl2path.pathname2url()</span></code> and
+<code class="xref py py-func docutils literal notranslate"><span class="pre">nturl2path.url2pathname()</span></code>: the filesystem encoding and error
+handler are now used for percent-encoding and decoding, as in
+<a class="reference internal" href="../library/urllib.request.html#module-urllib.request" title="urllib.request: Extensible library for opening URLs."><code class="xref py py-mod docutils literal notranslate"><span class="pre">urllib.request</span></code></a>.  Previously paths containing surrogate characters
+raised <a class="reference internal" href="../builtins/exceptions.html#UnicodeEncodeError" title="UnicodeEncodeError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">UnicodeEncodeError</span></code></a>.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/156698">gh-156698</a>: Fix <a class="reference internal" href="../library/asyncio-eventloop.html#asyncio.ProactorEventLoop" title="asyncio.ProactorEventLoop"><code class="xref py py-class docutils literal notranslate"><span class="pre">asyncio.ProactorEventLoop</span></code></a> UDP transports so that a
+write error no longer strands a paused protocol: the write loop is now
+rescheduled when data remains buffered, and the protocol is resumed when
+the buffer has drained.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/156658">gh-156658</a>: <a class="reference internal" href="../library/xml.dom.html#module-xml.dom" title="xml.dom: Document Object Model API for Python."><code class="xref py py-mod docutils literal notranslate"><span class="pre">xml.dom</span></code></a> and <a class="reference internal" href="../library/xml.etree.elementtree.html#module-xml.etree.ElementTree" title="xml.etree.ElementTree: Implementation of the ElementTree API."><code class="xref py py-mod docutils literal notranslate"><span class="pre">xml.etree.ElementTree</span></code></a> no longer treat
+characters which are not white space in XML (such as U+00A0) as white
+space. Previously they could be lost in
+<a class="reference internal" href="../library/xml.etree.elementtree.html#xml.etree.ElementTree.indent" title="xml.etree.ElementTree.indent"><code class="xref py py-func docutils literal notranslate"><span class="pre">indent()</span></code></a>,
+<a class="reference internal" href="../library/xml.etree.elementtree.html#xml.etree.ElementTree.canonicalize" title="xml.etree.ElementTree.canonicalize"><code class="xref py py-func docutils literal notranslate"><span class="pre">canonicalize()</span></code></a> with <code class="docutils literal notranslate"><span class="pre">strip_text=True</span></code>, and
+when parsing with the <code class="docutils literal notranslate"><span class="pre">whitespace-in-element-content</span></code> feature turned
+off.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/156568">gh-156568</a>: <a class="reference internal" href="../library/zipapp.html#zipapp.create_archive" title="zipapp.create_archive"><code class="xref py py-func docutils literal notranslate"><span class="pre">zipapp.create_archive()</span></code></a> now correctly sets the executable
+bit on the target archive when copying a zipapp where the target is a
+path-like object.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/156545">gh-156545</a>: Fix the sampling profiler’s flamegraph export so that profiling
+a deeply recursive program no longer fails with <a class="reference internal" href="../builtins/exceptions.html#RecursionError" title="RecursionError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">RecursionError</span></code></a>
+instead of producing a flamegraph. Patch by tonghuaroot.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/156476">gh-156476</a>: The pure Python implementation of <a class="reference internal" href="../library/queue.html#queue.SimpleQueue.get" title="queue.SimpleQueue.get"><code class="xref py py-meth docutils literal notranslate"><span class="pre">queue.SimpleQueue.get()</span></code></a>
+now ignores <em>timeout</em> when <em>block</em> is false, matching the documented
+behavior and the C implementation. It previously raised <a class="reference internal" href="../builtins/exceptions.html#ValueError" title="ValueError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ValueError</span></code></a>.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/156444">gh-156444</a>: Fix matching of a negated character set in a bytes pattern
+compiled with both <a class="reference internal" href="../library/re.html#re.IGNORECASE" title="re.IGNORECASE"><code class="xref py py-const docutils literal notranslate"><span class="pre">re.IGNORECASE</span></code></a> and <a class="reference internal" href="../library/re.html#re.LOCALE" title="re.LOCALE"><code class="xref py py-const docutils literal notranslate"><span class="pre">re.LOCALE</span></code></a>.  The
+case closure is now applied to the members of the set, so that <code class="docutils literal notranslate"><span class="pre">[^bc]</span></code>
+no longer matches <code class="docutils literal notranslate"><span class="pre">b'B'</span></code>.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/156180">gh-156180</a>: <a class="reference internal" href="../library/zlib.html#zlib.adler32_combine" title="zlib.adler32_combine"><code class="xref py py-func docutils literal notranslate"><span class="pre">zlib.adler32_combine()</span></code></a> and <a class="reference internal" href="../library/zlib.html#zlib.crc32_combine" title="zlib.crc32_combine"><code class="xref py py-func docutils literal notranslate"><span class="pre">zlib.crc32_combine()</span></code></a> now
+raise <a class="reference internal" href="../builtins/exceptions.html#ValueError" title="ValueError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ValueError</span></code></a> if the <em>len2</em> argument is negative, instead of
+returning rubbish or hanging indefinitely, respectively.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/156166">gh-156166</a>: <a class="reference internal" href="../library/ssl.html#module-ssl" title="ssl: TLS/SSL wrapper for socket objects"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ssl</span></code></a>: A failed assignment or deletion of the
+<code class="docutils literal notranslate"><span class="pre">_msg_callback</span></code> attribute of <a class="reference internal" href="../library/ssl.html#ssl.SSLContext" title="ssl.SSLContext"><code class="xref py py-class docutils literal notranslate"><span class="pre">ssl.SSLContext</span></code></a> no longer removes
+the current callback. Deleting it now raises <a class="reference internal" href="../builtins/exceptions.html#AttributeError" title="AttributeError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">AttributeError</span></code></a> instead
+of <a class="reference internal" href="../builtins/exceptions.html#TypeError" title="TypeError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">TypeError</span></code></a>.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/156173">gh-156173</a>: Calling <a class="reference internal" href="../library/zlib.html#zlib.Decompress.flush" title="zlib.Decompress.flush"><code class="xref py py-meth docutils literal notranslate"><span class="pre">zlib.Decompress.flush()</span></code></a> on invalid compressed
+data now raises <a class="reference internal" href="../library/zlib.html#zlib.error" title="zlib.error"><code class="xref py py-exc docutils literal notranslate"><span class="pre">zlib.error</span></code></a> instead of being silently ignored.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/152817">gh-152817</a>: <a class="reference internal" href="../library/sqlite3.html#module-sqlite3" title="sqlite3: A DB-API 2.0 implementation using SQLite 3.x."><code class="xref py py-mod docutils literal notranslate"><span class="pre">sqlite3</span></code></a>: Disallow removing the <code class="docutils literal notranslate"><span class="pre">row_factory</span></code> attribute
+of a cursor to prevent a crash on a query.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/156124">gh-156124</a>: Fix a crash in the free-threaded build when deleting the
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">contents</span></code> attribute of a <a class="reference internal" href="../library/ctypes.html#module-ctypes" title="ctypes: A foreign function library for Python."><code class="xref py py-mod docutils literal notranslate"><span class="pre">ctypes</span></code></a> pointer.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/156101">gh-156101</a>: Fix <a class="reference internal" href="../library/sqlite3.html#sqlite3.Cursor.arraysize" title="sqlite3.Cursor.arraysize"><code class="xref py py-attr docutils literal notranslate"><span class="pre">sqlite3.Cursor.arraysize</span></code></a> being set to 0 if the
+assigned value is too large. The attribute is now left unchanged if the
+assignment fails.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/156100">gh-156100</a>: Fix crashes in <a class="reference internal" href="../library/sqlite3.html#sqlite3.Connection" title="sqlite3.Connection"><code class="xref py py-class docutils literal notranslate"><span class="pre">sqlite3.Connection</span></code></a> when deleting the
+<a class="reference internal" href="../library/sqlite3.html#sqlite3.Connection.autocommit" title="sqlite3.Connection.autocommit"><code class="xref py py-attr docutils literal notranslate"><span class="pre">autocommit</span></code></a> attribute or setting it to an
+integer which does not fit in C <span class="c-expr sig sig-inline c"><span class="kt">long</span></span>. Both now raise an
+exception.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/156099">gh-156099</a>: Fix a crash when deleting the <code class="docutils literal notranslate"><span class="pre">keylog_filename</span></code> attribute of
+<a class="reference internal" href="../library/ssl.html#ssl.SSLContext" title="ssl.SSLContext"><code class="xref py py-class docutils literal notranslate"><span class="pre">ssl.SSLContext</span></code></a>. It now raises <a class="reference internal" href="../builtins/exceptions.html#AttributeError" title="AttributeError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">AttributeError</span></code></a>.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/156067">gh-156067</a>: Fix error handling in the <a class="reference internal" href="../library/zoneinfo.html#module-zoneinfo" title="zoneinfo: IANA time zone support"><code class="xref py py-mod docutils literal notranslate"><span class="pre">zoneinfo</span></code></a> accelerator module
+when a transition index is <code class="docutils literal notranslate"><span class="pre">-1</span></code> or a TZ string’s <code class="docutils literal notranslate"><span class="pre">__bool__</span></code> raises.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/155997">gh-155997</a>: Fix <a class="reference internal" href="../library/concurrent.interpreters.html#concurrent.interpreters.list_all" title="concurrent.interpreters.list_all"><code class="xref py py-func docutils literal notranslate"><span class="pre">concurrent.interpreters.list_all()</span></code></a>.  It failed if an
+interpreter was destroyed during the call, in particular by a garbage
+collection which finalized the object owning the last reference to it.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/155941">gh-155941</a>: Fix <a class="reference internal" href="../library/asyncio-stream.html#asyncio.start_server" title="asyncio.start_server"><code class="xref py py-func docutils literal notranslate"><span class="pre">asyncio.start_server()</span></code></a> when a plain-function
+<em>client_connected_cb</em> raises: the error is now reported like the coroutine
+case and the transport is closed, instead of leaving the connection open
+forever (which also made <a class="reference internal" href="../library/asyncio-eventloop.html#asyncio.Server.wait_closed" title="asyncio.Server.wait_closed"><code class="xref py py-meth docutils literal notranslate"><span class="pre">asyncio.Server.wait_closed()</span></code></a> hang).</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/155843">gh-155843</a>: <a class="reference internal" href="../library/hmac.html#module-hmac" title="hmac: Keyed-Hashing for Message Authentication (HMAC) implementation"><code class="xref py py-mod docutils literal notranslate"><span class="pre">hmac</span></code></a>: ensure that HMAC objects are properly initialized
+to prevent rare crashes on allocation failures. Patch by Bénédikt Tran.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/155835">gh-155835</a>: <a class="reference internal" href="../library/hashlib.html#module-hashlib" title="hashlib: Secure hash and message digest algorithms."><code class="xref py py-mod docutils literal notranslate"><span class="pre">hashlib</span></code></a>: Fix data races when accessing
+<a class="reference internal" href="../library/hashlib.html#hashlib.hash.digest_size" title="hashlib.hash.digest_size"><code class="xref py py-attr docutils literal notranslate"><span class="pre">digest_size</span></code></a> and <a class="reference internal" href="../library/hashlib.html#hashlib.hash.block_size" title="hashlib.hash.block_size"><code class="xref py py-attr docutils literal notranslate"><span class="pre">block_size</span></code></a> on
+SHA-3 objects. Patch by Bénédikt Tran.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/155830">gh-155830</a>: <code class="xref py py-mod docutils literal notranslate"><span class="pre">_blake2</span></code>: Ensure that BLAKE-2 objects are correctly
+initialized before being tracked by the garbage collector. Patch by
+Bénédikt Tran.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/155782">gh-155782</a>: <a class="reference internal" href="../library/ssl.html#module-ssl" title="ssl: TLS/SSL wrapper for socket objects"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ssl</span></code></a>: prevent a crash in <a class="reference internal" href="../library/ssl.html#ssl.SSLSocket.group" title="ssl.SSLSocket.group"><code class="xref py py-meth docutils literal notranslate"><span class="pre">group()</span></code></a> for
+session-less objects on OpenSSL 3.2 and later. Patch by Bénédikt Tran.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/155811">gh-155811</a>: Add a sequence counter to GC statistics to prevent
+<code class="xref py py-mod docutils literal notranslate"><span class="pre">_remote_debugging</span></code> returning inconsistent snapshots caused by
+non-atomic reads. Patch by Maurycy Pawłowski-Wieroński.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/155717">gh-155717</a>: <a class="reference internal" href="../library/multiprocessing.html#module-multiprocessing" title="multiprocessing: Process-based parallelism."><code class="xref py py-mod docutils literal notranslate"><span class="pre">multiprocessing</span></code></a>’s default start method is now
+<a class="reference internal" href="../library/multiprocessing.html#multiprocessing-start-methods"><span class="std std-ref">“spawn”</span></a> instead of <code class="docutils literal notranslate"><span class="pre">&quot;forkserver&quot;</span></code>
+when there is no writable temporary directory, such as on a read-only file
+system. Previously starting a process failed with an <a class="reference internal" href="../builtins/exceptions.html#OSError" title="OSError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">OSError</span></code></a> there.
+Patch by Bénédikt Tran.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/155775">gh-155775</a>: Fix a regression in <a class="reference internal" href="../library/imaplib.html#module-imaplib" title="imaplib: IMAP4 protocol client (requires sockets)."><code class="xref py py-mod docutils literal notranslate"><span class="pre">imaplib</span></code></a> introduced in the fix for
+<a class="reference external" href="https://github.com/python/cpython/issues/63121">gh-63121</a>: refreshing the capabilities after a successful
+<a class="reference internal" href="../library/imaplib.html#imaplib.IMAP4.login" title="imaplib.IMAP4.login"><code class="xref py py-meth docutils literal notranslate"><span class="pre">login()</span></code></a> or <a class="reference internal" href="../library/imaplib.html#imaplib.IMAP4.authenticate" title="imaplib.IMAP4.authenticate"><code class="xref py py-meth docutils literal notranslate"><span class="pre">authenticate()</span></code></a>
+consumed the <code class="docutils literal notranslate"><span class="pre">CAPABILITY</span></code> response, so it could no longer be read with
+<a class="reference internal" href="../library/imaplib.html#imaplib.IMAP4.response" title="imaplib.IMAP4.response"><code class="xref py py-meth docutils literal notranslate"><span class="pre">response()</span></code></a>.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/113318">gh-113318</a>: Fix crashes when deleting an attribute whose setter is
+generated by Argument Clinic and is not prepared for deletion, among them
+<a class="reference internal" href="../reference/datamodel.html#frame.f_trace_opcodes" title="frame.f_trace_opcodes"><code class="xref py py-attr docutils literal notranslate"><span class="pre">frame.f_trace_opcodes</span></code></a> and the <code class="docutils literal notranslate"><span class="pre">context</span></code>, <code class="docutils literal notranslate"><span class="pre">owner</span></code> and
+<code class="docutils literal notranslate"><span class="pre">session</span></code> attributes of <code class="docutils literal notranslate"><span class="pre">_ssl._SSLSocket</span></code>. Deleting such attribute now
+raises <a class="reference internal" href="../builtins/exceptions.html#AttributeError" title="AttributeError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">AttributeError</span></code></a>.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/150449">gh-150449</a>: Fix <a class="reference internal" href="../library/sqlite3.html#sqlite3.Blob" title="sqlite3.Blob"><code class="xref py py-class docutils literal notranslate"><span class="pre">sqlite3.Blob</span></code></a> slices with a negative step. Reading
+or writing such a slice raised <a class="reference internal" href="../builtins/exceptions.html#SystemError" title="SystemError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">SystemError</span></code></a>. It now raises
+<a class="reference internal" href="../builtins/exceptions.html#ValueError" title="ValueError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ValueError</span></code></a>.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/155336">gh-155336</a>: Fix error handling in <a class="reference internal" href="../library/socket.html#socket.gethostbyaddr" title="socket.gethostbyaddr"><code class="xref py py-func docutils literal notranslate"><span class="pre">socket.gethostbyaddr()</span></code></a> and
+<a class="reference internal" href="../library/socket.html#socket.gethostbyname_ex" title="socket.gethostbyname_ex"><code class="xref py py-func docutils literal notranslate"><span class="pre">socket.gethostbyname_ex()</span></code></a> when hostname resolution fails.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/155426">gh-155426</a>: Make sure that the pure Python fallback of <a class="reference internal" href="../library/hmac.html#hmac.digest" title="hmac.digest"><code class="xref py py-func docutils literal notranslate"><span class="pre">hmac.digest()</span></code></a>
+rejects keys that are neither <a class="reference internal" href="../builtins/stdtypes.html#bytes" title="bytes"><code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code></a> or <a class="reference internal" href="../builtins/stdtypes.html#bytearray" title="bytearray"><code class="xref py py-class docutils literal notranslate"><span class="pre">bytearray</span></code></a>.
+Previously, an <a class="reference internal" href="../builtins/exceptions.html#AttributeError" title="AttributeError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">AttributeError</span></code></a> was raised instead of
+<a class="reference internal" href="../builtins/exceptions.html#TypeError" title="TypeError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">TypeError</span></code></a>. Patch by Bénédikt Tran.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/102475">gh-102475</a>: Fix <a class="reference internal" href="../library/os.path.html#os.path.realpath" title="os.path.realpath"><code class="xref py py-func docutils literal notranslate"><span class="pre">os.path.realpath()</span></code></a> on Windows: the unresolved part of
+the path is now appended, not joined, so a file name which looks like a
+drive (e.g. <code class="docutils literal notranslate"><span class="pre">spam:eggs</span></code>) no longer discards the resolved part.  A path
+relative to another drive is now resolved against the root directory of
+that drive.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/89760">gh-89760</a>: Fix <a class="reference internal" href="../library/os.path.html#os.path.realpath" title="os.path.realpath"><code class="xref py py-func docutils literal notranslate"><span class="pre">os.path.realpath()</span></code></a> on Windows: the <code class="docutils literal notranslate"><span class="pre">\\?\</span></code> prefix is
+no longer stripped from a volume GUID path, which made the result invalid.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/84419">gh-84419</a>: Fix <a class="reference internal" href="../library/os.html#os.stat" title="os.stat"><code class="xref py py-func docutils literal notranslate"><span class="pre">os.stat()</span></code></a> on Windows: trailing dots and spaces, which
+are ignored by the operating system, are no longer taken into account when
+the execute permissions are guessed from the file extension.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/155319">gh-155319</a>: <a class="reference internal" href="../library/warnings.html#warnings.warn_explicit" title="warnings.warn_explicit"><code class="xref py py-func docutils literal notranslate"><span class="pre">warnings.warn_explicit()</span></code></a> now displays the source line
+taken from the loader of the module whose globals are passed as
+<em>module_globals</em>.  It also no longer raises <a class="reference internal" href="../builtins/exceptions.html#IndexError" title="IndexError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">IndexError</span></code></a> if <em>lineno</em>
+is out of the range of the module source.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/123011">gh-123011</a>: <a class="reference internal" href="../library/warnings.html#warnings.warn_explicit" title="warnings.warn_explicit"><code class="xref py py-func docutils literal notranslate"><span class="pre">warnings.warn_explicit()</span></code></a> no longer emits a spurious
+<a class="reference internal" href="../builtins/exceptions.html#DeprecationWarning" title="DeprecationWarning"><code class="xref py py-exc docutils literal notranslate"><span class="pre">DeprecationWarning</span></code></a> or raises <a class="reference internal" href="../builtins/exceptions.html#ImportError" title="ImportError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ImportError</span></code></a> when it is called
+with the globals of the <a class="reference internal" href="../library/__main__.html#module-__main__" title="__main__: The environment where top-level code is run. Covers command-line interfaces, import-time behavior, and ``__name__ == '__main__'``."><code class="xref py py-mod docutils literal notranslate"><span class="pre">__main__</span></code></a> module.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/69370">gh-69370</a>: <strong class="program">python -m inspect --details</strong> no longer fails with
+<a class="reference internal" href="../builtins/exceptions.html#UnicodeEncodeError" title="UnicodeEncodeError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">UnicodeEncodeError</span></code></a> if the path of the module contains characters
+unencodable in the encoding of <a class="reference internal" href="../library/sys.html#sys.stdout" title="sys.stdout"><code class="xref py py-data docutils literal notranslate"><span class="pre">sys.stdout</span></code></a>.  Such characters are
+now escaped with backslashes.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/69371">gh-69371</a>: Fix <a class="reference internal" href="../library/pydoc.html#module-pydoc" title="pydoc: Documentation generator and online help system."><code class="xref py py-mod docutils literal notranslate"><span class="pre">pydoc</span></code></a> for modules whose path contains undecodable
+bytes. <code class="xref py py-func docutils literal notranslate"><span class="pre">pydoc.writedoc()</span></code> and the pydoc HTTP server no longer fail
+with <a class="reference internal" href="../builtins/exceptions.html#UnicodeEncodeError" title="UnicodeEncodeError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">UnicodeEncodeError</span></code></a>: the file URL is now percent-encoded using
+the filesystem encoding, and characters unencodable in the generated HTML
+page are escaped with backslashes.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/154855">gh-154855</a>: Fix <a class="reference internal" href="../library/curses.html#curses.window.instr" title="curses.window.instr"><code class="xref py py-meth docutils literal notranslate"><span class="pre">curses.window.instr()</span></code></a> returning one character too few
+when the <a class="reference internal" href="../library/curses.html#module-curses" title="curses: An interface to the curses library, providing portable terminal handling."><code class="xref py py-mod docutils literal notranslate"><span class="pre">curses</span></code></a> module is built against a curses library that
+counts the terminator in the requested length, such as the NetBSD one.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/154594">gh-154594</a>: Fix <a class="reference internal" href="../library/copy.html#copy.deepcopy" title="copy.deepcopy"><code class="xref py py-func docutils literal notranslate"><span class="pre">copy.deepcopy()</span></code></a> so that an object whose deep copy is
+<code class="docutils literal notranslate"><span class="pre">None</span></code> is still memoized. Patch by tonghuaroot.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/154523">gh-154523</a>: Fixed data-race when calling <a class="reference internal" href="../library/io.html#io.TextIOBase.detach" title="io.TextIOBase.detach"><code class="xref py py-meth docutils literal notranslate"><span class="pre">io.TextIOBase.detach()</span></code></a> in
+<a class="reference internal" href="../glossary.html#term-free-threaded-build"><span class="xref std std-term">free-threaded build</span></a>.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/135683">gh-135683</a>: <a class="reference internal" href="../library/logging.handlers.html#logging.FileHandler" title="logging.FileHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">logging.FileHandler</span></code></a> and
+<a class="reference internal" href="../library/logging.handlers.html#logging.handlers.WatchedFileHandler" title="logging.handlers.WatchedFileHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">logging.handlers.WatchedFileHandler</span></code></a> now honor
+<a class="reference internal" href="../library/logging.html#logging.raiseExceptions" title="logging.raiseExceptions"><code class="xref py py-data docutils literal notranslate"><span class="pre">logging.raiseExceptions</span></code></a> for errors that occur while opening the
+file, like for other errors during logging.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/82535">gh-82535</a>: <a class="reference internal" href="../library/logging.handlers.html#logging.handlers.SysLogHandler" title="logging.handlers.SysLogHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">logging.handlers.SysLogHandler</span></code></a> no longer fails if the
+address cannot be resolved when the handler is created. The address is
+resolved again when a record is emitted.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/153970">gh-153970</a>: Calling <a class="reference internal" href="../builtins/stdtypes.html#str" title="str"><code class="xref py py-func docutils literal notranslate"><span class="pre">str()</span></code></a> on a <a class="reference internal" href="../library/subprocess.html#subprocess.CalledProcessError" title="subprocess.CalledProcessError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">subprocess.CalledProcessError</span></code></a>
+no longer raises <a class="reference internal" href="../builtins/exceptions.html#TypeError" title="TypeError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">TypeError</span></code></a> when its <code class="xref py py-attr docutils literal notranslate"><span class="pre">returncode</span></code> is not an
+integer, such as <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/154194">gh-154194</a>: Fix the sampling profiler dropping entire samples when a
+non-fatal read fails; frames now keep any readable metadata, and long
+funcnames and filenames are truncated instead. Patch by Maurycy
+Pawłowski-Wieroński.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/153005">gh-153005</a>: <code class="xref py py-meth docutils literal notranslate"><span class="pre">concurrent.interpreters.Queue.get()</span></code> and
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">concurrent.interpreters.Queue.put()</span></code> now compute their <code class="docutils literal notranslate"><span class="pre">timeout</span></code>
+deadline from <a class="reference internal" href="../library/time.html#time.monotonic" title="time.monotonic"><code class="xref py py-func docutils literal notranslate"><span class="pre">time.monotonic()</span></code></a> instead of the wall clock, so
+adjusting the system clock during the call no longer makes them over- or
+under-wait.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/154062">gh-154062</a>: Stop normalizing differential flamegraph baselines to the
+duration of the current profile.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/81241">gh-81241</a>: Fix <a class="reference internal" href="../builtins/exceptions.html#OSError" title="OSError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">OSError</span></code></a> when importing <a class="reference internal" href="../library/ctypes.html#module-ctypes" title="ctypes: A foreign function library for Python."><code class="xref py py-mod docutils literal notranslate"><span class="pre">ctypes</span></code></a> from a
+statically linked interpreter.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/153838">gh-153838</a>: Skip non-regular files in the <code class="docutils literal notranslate"><span class="pre">profiling.sampling</span></code> heatmap
+exporter instead of reading them unconditionally.  Patch by tonghuaroot.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/141276">gh-141276</a>: Fix duplicate <a class="reference internal" href="../builtins/exceptions.html#SyntaxWarning" title="SyntaxWarning"><code class="xref py py-exc docutils literal notranslate"><span class="pre">SyntaxWarning</span></code></a> messages when importing
+source modules from ZIP archives.
+<a class="reference internal" href="../library/zipimport.html#zipimport.zipimporter.get_filename" title="zipimport.zipimporter.get_filename"><code class="xref py py-meth docutils literal notranslate"><span class="pre">zipimport.zipimporter.get_filename()</span></code></a>, and therefore
+<a class="reference internal" href="../library/zipimport.html#zipimport.zipimporter.find_spec" title="zipimport.zipimporter.find_spec"><code class="xref py py-meth docutils literal notranslate"><span class="pre">find_spec()</span></code></a>, no longer compile source
+modules. A <a class="reference internal" href="../builtins/exceptions.html#SyntaxError" title="SyntaxError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">SyntaxError</span></code></a> in a zipped source module is now raised when
+the module is executed rather than when it is found, matching the behavior
+of filesystem-based loaders.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/153603">gh-153603</a>: Fix a crash in the ISO-2022 decoders when decoding a byte after
+an unknown charset designation is set via the decoder’s <code class="docutils literal notranslate"><span class="pre">setstate</span></code>
+method. Patch by tonghuaroot.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/153539">gh-153539</a>: Fix a crash in the C implementation of
+<a class="reference internal" href="../library/io.html#io.TextIOWrapper.tell" title="io.TextIOWrapper.tell"><code class="xref py py-meth docutils literal notranslate"><span class="pre">io.TextIOWrapper.tell()</span></code></a> when the decoder’s <code class="docutils literal notranslate"><span class="pre">getstate</span></code> method
+triggers a reentrant seek, or when another thread seeks the same stream
+concurrently. Patch by tonghuaroot.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/152754">gh-152754</a>: Fix a crash when the same <a class="reference internal" href="../library/os.html#os.scandir" title="os.scandir"><code class="xref py py-func docutils literal notranslate"><span class="pre">os.scandir()</span></code></a> iterator is used
+concurrently from multiple threads.  It no longer releases the directory
+handle while another thread is reading from it.  Sharing an iterator
+between threads remains subject to race conditions: which entries each
+thread receives is unspecified.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/153364">gh-153364</a>: Make frame, coroutine and task-waiter walks iterative and
+bounded, avoiding potential hangs and stack overflows. Fix asyncio task
+inspection when awaited-by sets contain removed entries. Patch by Maurycy
+Pawłowski-Wieroński.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/149816">gh-149816</a>: <a class="reference internal" href="../library/hashlib.html#module-hashlib" title="hashlib: Secure hash and message digest algorithms."><code class="xref py py-mod docutils literal notranslate"><span class="pre">hashlib</span></code></a>: fix a crash arising from a race condition when
+looking up an OpenSSL hash algorithm by name the first time. Patch by
+Bénédikt Tran.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/151292">gh-151292</a>: Fix <code class="docutils literal notranslate"><span class="pre">profiling.sampling</span> <span class="pre">--binary</span></code> leaving unreadable profile
+files when the binary format reaches a size limit. Preserve collected
+samples when the writer can still finalize safely. Patch by Maurycy
+Pawłowski-Wieroński.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/152721">gh-152721</a>: Fix quadratic replay time in the <a class="reference internal" href="../library/profiling.sampling.html#module-profiling.sampling" title="profiling.sampling: Statistical sampling profiler for Python processes."><code class="xref py py-mod docutils literal notranslate"><span class="pre">profiling.sampling</span></code></a>
+binary reader when a profile’s run-length-encoded samples alternate thread
+status.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/151126">gh-151126</a>: Fix a crash caused by failing to set <a class="reference internal" href="../builtins/exceptions.html#MemoryError" title="MemoryError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">MemoryError</span></code></a> on
+allocation failure when passing <a class="reference internal" href="../library/ctypes.html#ctypes.Structure" title="ctypes.Structure"><code class="xref py py-class docutils literal notranslate"><span class="pre">ctypes.Structure</span></code></a> or
+<a class="reference internal" href="../library/ctypes.html#ctypes.Union" title="ctypes.Union"><code class="xref py py-class docutils literal notranslate"><span class="pre">ctypes.Union</span></code></a> instances by value to ctypes foreign functions.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/152692">gh-152692</a>: Fix <a class="reference internal" href="../library/annotationlib.html#annotationlib.type_repr" title="annotationlib.type_repr"><code class="xref py py-func docutils literal notranslate"><span class="pre">annotationlib.type_repr()</span></code></a> returning a string such as
+<code class="docutils literal notranslate"><span class="pre">None.list.append</span></code> for bound built-in methods, whose <code class="docutils literal notranslate"><span class="pre">__module__</span></code> is
+<code class="docutils literal notranslate"><span class="pre">None</span></code>.  It now returns the qualified name, as it already did for other
+builtins.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/152490">gh-152490</a>: Fix <a class="reference internal" href="../builtins/exceptions.html#TypeError" title="TypeError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">TypeError</span></code></a> when formatting a <a class="reference internal" href="../builtins/exceptions.html#SyntaxError" title="SyntaxError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">SyntaxError</span></code></a>
+raised with <a class="reference internal" href="../builtins/constants.html#NotImplemented" title="NotImplemented"><code class="xref py py-data docutils literal notranslate"><span class="pre">NotImplemented</span></code></a> as its argument, which caused
+unexpected REPL exit and IDLE Shell restart.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/152373">gh-152373</a>: Fix the <a class="reference internal" href="../library/pdb.html#module-pdb" title="pdb: The Python debugger for interactive interpreters."><code class="xref py py-mod docutils literal notranslate"><span class="pre">pdb</span></code></a> <code class="docutils literal notranslate"><span class="pre">until</span></code> command not stepping over a list
+comprehension when a breakpoint is set on it. Patch by tonghuaroot.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/152204">gh-152204</a>: Fix the pure-Python implementations of
+<a class="reference internal" href="../library/datetime.html#datetime.date.fromisoformat" title="datetime.date.fromisoformat"><code class="xref py py-meth docutils literal notranslate"><span class="pre">datetime.date.fromisoformat()</span></code></a>, <a class="reference internal" href="../library/datetime.html#datetime.time.fromisoformat" title="datetime.time.fromisoformat"><code class="xref py py-meth docutils literal notranslate"><span class="pre">datetime.time.fromisoformat()</span></code></a>
+and <a class="reference internal" href="../library/datetime.html#datetime.datetime.fromisoformat" title="datetime.datetime.fromisoformat"><code class="xref py py-meth docutils literal notranslate"><span class="pre">datetime.datetime.fromisoformat()</span></code></a> silently accepting some
+malformed ISO 8601 strings, such as non-ASCII digits or a sign in a
+fixed-width field (for example <code class="docutils literal notranslate"><span class="pre">'2020+12'</span></code> or <code class="docutils literal notranslate"><span class="pre">'20201212T0102٣٤'</span></code>).
+Each field is now required to be exactly <em>N</em> ASCII digits, matching the C
+implementation.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/133998">gh-133998</a>: Fix <a class="reference internal" href="../library/tarfile.html#tarfile.open" title="tarfile.open"><code class="xref py py-func docutils literal notranslate"><span class="pre">tarfile.open()</span></code></a> in streaming write mode (<code class="docutils literal notranslate"><span class="pre">w|gz</span></code>)
+raising <a class="reference internal" href="../library/struct.html#struct.error" title="struct.error"><code class="xref py py-exc docutils literal notranslate"><span class="pre">struct.error</span></code></a> when given an <em>mtime</em> outside the range of the
+gzip header’s 32-bit timestamp field.  Out-of-range values are now stored
+as <code class="docutils literal notranslate"><span class="pre">0</span></code>, matching <a class="reference internal" href="../library/gzip.html#module-gzip" title="gzip: Interfaces for gzip compression and decompression using file objects."><code class="xref py py-mod docutils literal notranslate"><span class="pre">gzip</span></code></a>.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/117807">gh-117807</a>: Fix <a class="reference internal" href="../library/mimetypes.html#module-mimetypes" title="mimetypes: Mapping of filename extensions to MIME types."><code class="xref py py-mod docutils literal notranslate"><span class="pre">mimetypes</span></code></a> initialization from MIME map files
+containing invalid UTF-8 bytes.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/143008">gh-143008</a>: Fix race conditions when re-initializing a
+<a class="reference internal" href="../library/io.html#io.TextIOWrapper" title="io.TextIOWrapper"><code class="xref py py-class docutils literal notranslate"><span class="pre">io.TextIOWrapper</span></code></a> object.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/145856">gh-145856</a>: Fix <a class="reference internal" href="../library/plistlib.html#plistlib.dumps" title="plistlib.dumps"><code class="xref py py-func docutils literal notranslate"><span class="pre">plistlib.dumps()</span></code></a> and <a class="reference internal" href="../library/plistlib.html#plistlib.dump" title="plistlib.dump"><code class="xref py py-func docutils literal notranslate"><span class="pre">plistlib.dump()</span></code></a> so that
+<code class="docutils literal notranslate"><span class="pre">skipkeys=True</span></code> together with <code class="docutils literal notranslate"><span class="pre">sort_keys=True</span></code> correctly drops
+non-string keys when the dictionary contains a mix of string and
+non-string keys.  Previously the sort ran before the filter and raised
+<a class="reference internal" href="../builtins/exceptions.html#TypeError" title="TypeError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">TypeError</span></code></a>.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/143376">gh-143376</a>: <a class="reference internal" href="../library/concurrent.interpreters.html#module-concurrent.interpreters" title="concurrent.interpreters: Multiple interpreters in the same process"><code class="xref py py-mod docutils literal notranslate"><span class="pre">concurrent.interpreters</span></code></a>: fix a crash when internal
+cross-interpreter channel ends have incorrect channel IDs. Patch by
+Bénédikt Tran.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/146065">gh-146065</a>: Fix a crash in asyncio.Future iterator when send() is called
+after throw() or close().</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/143008">gh-143008</a>: Fix crash in <a class="reference internal" href="../library/io.html#io.TextIOWrapper" title="io.TextIOWrapper"><code class="xref py py-class docutils literal notranslate"><span class="pre">io.TextIOWrapper</span></code></a> when reentrant
+<a class="reference internal" href="../library/io.html#io.TextIOBase.detach" title="io.TextIOBase.detach"><code class="xref py py-meth docutils literal notranslate"><span class="pre">io.TextIOBase.detach()</span></code></a> is called reentrantly from the underlying
+buffer.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/129605">gh-129605</a>: Improve exception handling when computing suggestions in
+traceback.py. This fixes a bug that could cause PyREPL to exit
+unexpectedly.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/102967">gh-102967</a>: A bug in <code class="xref py py-func docutils literal notranslate"><span class="pre">doctest._SpoofOut.truncate()</span></code> was causing None
+to be passed to <code class="xref py py-func docutils literal notranslate"><span class="pre">StringIO.seek()</span></code> when no size was given. A simple
+fix skips the seek call when no size is given so the buffer can be
+truncated from the current position.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/82039">gh-82039</a>: <a class="reference internal" href="../library/http.cookiejar.html#http.cookiejar.FileCookieJar.load" title="http.cookiejar.FileCookieJar.load"><code class="xref py py-meth docutils literal notranslate"><span class="pre">http.cookiejar.FileCookieJar.load()</span></code></a> now checks the first,
+format signature line in a case-insensitive manner. Patch by Ashley
+Harvey.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/70758">gh-70758</a>: Creating a new <a class="reference internal" href="../library/turtle.html#module-turtle" title="turtle: An educational framework for simple graphics applications"><code class="xref py py-mod docutils literal notranslate"><span class="pre">turtle</span></code></a> screen after the previous one was
+closed no longer raises <code class="docutils literal notranslate"><span class="pre">turtle.Terminator</span></code> on the first turtle command.</p></li>
+<li><p><a class="reference external" href="https://bugs.python.org/issue?&#64;action=redirect&amp;bpo=44012">bpo-44012</a>: The <code class="docutils literal notranslate"><span class="pre">exploded</span></code> attribute of <a class="reference internal" href="../library/ipaddress.html#ipaddress.IPv6Address" title="ipaddress.IPv6Address"><code class="xref py py-class docutils literal notranslate"><span class="pre">ipaddress.IPv6Address</span></code></a>
+and <a class="reference internal" href="../library/ipaddress.html#ipaddress.IPv6Interface" title="ipaddress.IPv6Interface"><code class="xref py py-class docutils literal notranslate"><span class="pre">ipaddress.IPv6Interface</span></code></a> now supports addresses with a scope
+ID (link-local addresses). Previously the former raised
+<a class="reference internal" href="../library/ipaddress.html#ipaddress.AddressValueError" title="ipaddress.AddressValueError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">AddressValueError</span></code></a> and the latter omitted the scope ID.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/83869">gh-83869</a>: Fix <a class="reference internal" href="../library/tarfile.html#module-tarfile" title="tarfile: Read and write tar-format archive files."><code class="xref py py-mod docutils literal notranslate"><span class="pre">tarfile</span></code></a> reading an archive with a GNU sparse 1.0
+member whose size is set in the pax extended header. The offset of the
+next header was computed from the offset of the data, which is already
+past the sparse map, and from the size of the member, which can be the
+apparent size of the sparse file. All following members were unreachable.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/61366">gh-61366</a>: <a class="reference internal" href="../library/http.cookiejar.html#http.cookiejar.MozillaCookieJar" title="http.cookiejar.MozillaCookieJar"><code class="xref py py-class docutils literal notranslate"><span class="pre">http.cookiejar.MozillaCookieJar</span></code></a> now reads session
+cookies written by curl and Wget, which use <code class="docutils literal notranslate"><span class="pre">0</span></code> in the expiration time
+field. Contributed by Jérémie Detrey.</p></li>
+</ul>
+</section>
+<section id="documentation">
+<h3>Documentation<a class="headerlink" href="#documentation" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/142083">gh-142083</a>: Document the <code class="docutils literal notranslate"><span class="pre">'w'</span></code> type code in the <a class="reference internal" href="../library/array.html#array.array" title="array.array"><code class="xref py py-class docutils literal notranslate"><span class="pre">array.array</span></code></a>
+docstring, so that it lists the same type codes as <a class="reference internal" href="../library/array.html#array.typecodes" title="array.typecodes"><code class="xref py py-data docutils literal notranslate"><span class="pre">array.typecodes</span></code></a>
+and the <a class="reference internal" href="../library/array.html#module-array" title="array: Space efficient arrays of uniformly typed numeric values."><code class="xref py py-mod docutils literal notranslate"><span class="pre">array</span></code></a> module documentation.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/107689">gh-107689</a>: Added docstrings to abstract ctypes.</p></li>
+</ul>
+</section>
+<section id="tests">
+<h3>Tests<a class="headerlink" href="#tests" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/159293">gh-159293</a>: Restore the recursion limit after the free-threading
+recursion-limit race test to avoid failures in subsequent tests run in the
+same process.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/159211">gh-159211</a>: The iOS testbed no longer gathers simulator diagnostics when a
+test run fails.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/157628">gh-157628</a>: In regrtest, only consider that a test leaks if all test runs
+leak at least one file descriptor. For example, ignore “[0, 1, -1] file
+descriptors, sum=0” deltas, instead of reporting a leak. Patch by Victor
+Stinner.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/140550">gh-140550</a>: Enable limited C API tests on Free Threading in test_cext and
+test_cppext: test the <a class="reference internal" href="../c-api/stable.html#c.Py_TARGET_ABI3T" title="Py_TARGET_ABI3T"><code class="xref c c-macro docutils literal notranslate"><span class="pre">Py_TARGET_ABI3T</span></code></a> macro. Patch by Victor
+Stinner.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/75876">gh-75876</a>: A test decorated with <a class="reference internal" href="../library/test.html#test.support.bigmemtest" title="test.support.bigmemtest"><code class="xref py py-func docutils literal notranslate"><span class="pre">bigmemtest()</span></code></a> now runs
+in a subprocess if it really allocates the memory it asks for (that is, if
+the <code class="docutils literal notranslate"><span class="pre">-M</span></code> option is used), so that the memory it uses and the address
+space it fragments are released when it ends.  A dummy run stays in the
+process.  The separate memory watchdog process is no longer needed: the
+parent process watches the memory usage of the subprocess.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/155411">gh-155411</a>: Fix <code class="xref py py-func docutils literal notranslate"><span class="pre">test.support.subTests()</span></code> for asynchronous test
+methods.  They were wrapped in a synchronous function, which discarded the
+coroutine without awaiting it, so the test silently did not run at all.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/132581">gh-132581</a>: The list of tests which altered the execution environment now
+includes the reasons why the environment was considered altered, for
+example an unraisable exception or a modified <a class="reference internal" href="../library/sys.html#sys.path" title="sys.path"><code class="xref py py-data docutils literal notranslate"><span class="pre">sys.path</span></code></a>.  The final
+result no longer repeats the same state twice (like <code class="docutils literal notranslate"><span class="pre">ENV</span> <span class="pre">CHANGED</span> <span class="pre">then</span> <span class="pre">ENV</span>
+<span class="pre">CHANGED</span></code>).</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/155109">gh-155109</a>: Add <code class="docutils literal notranslate"><span class="pre">test.support.run_with_limited_c_stack()</span></code> and use it in
+tests that exhaust the C stack with a fixed number of recursive calls, so
+that their outcome no longer depends on the C stack size.</p></li>
+</ul>
+</section>
+<section id="build">
+<h3>Build<a class="headerlink" href="#build" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/143632">gh-143632</a>: Fix the check that disables <code class="docutils literal notranslate"><span class="pre">PR_SET_VMA_ANON_NAME</span></code> on musl
+libc: it tested an unset variable, so it never had any effect and the
+build could fail with a redefinition of <code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">prctl_mm_map</span></code>.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/159759">gh-159759</a>: Fix the <code class="docutils literal notranslate"><span class="pre">libpython.static</span></code> path in <span class="target" id="index-0"></span><a class="pep reference external" href="https://peps.python.org/pep-0739/"><strong>PEP 739</strong></a>
+<code class="docutils literal notranslate"><span class="pre">build-details.json</span></code>, which pointed to a file that is not installed when
+building with <a class="reference internal" href="../using/configure.html#cmdoption-enable-shared"><code class="xref std std-option docutils literal notranslate"><span class="pre">--enable-shared</span></code></a>, and no longer list a static
+library for framework builds, which do not install one.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/159440">gh-159440</a>: The version string reported by <code class="docutils literal notranslate"><span class="pre">sys.version</span></code> no longer
+carries a spurious <code class="docutils literal notranslate"><span class="pre">-dirty</span></code> suffix when CPython is built out-of-tree
+from a clean git checkout: the build stamp now checks the source tree
+instead of the build directory.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/158683">gh-158683</a>: Fix the <code class="file docutils literal notranslate"><span class="pre">Modules/Setup</span></code> entry for the <code class="xref py py-mod docutils literal notranslate"><span class="pre">_zstd</span></code>
+module by adding missing source files.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/157142">gh-157142</a>: Fix the link of <code class="docutils literal notranslate"><span class="pre">Programs/_freeze_module</span></code> when extension
+modules are built in (<code class="docutils literal notranslate"><span class="pre">MODULE_BUILDTYPE=static</span></code>) and the test modules
+are enabled: <code class="docutils literal notranslate"><span class="pre">Modules/getpath_noop.c</span></code> now defines
+<code class="docutils literal notranslate"><span class="pre">_Py_Get_Getpath_CodeObject()</span></code>, which <code class="docutils literal notranslate"><span class="pre">_testinternalcapi</span></code> uses.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/155911">gh-155911</a>: Fix curses detection when a curses library is already in
+<code class="docutils literal notranslate"><span class="pre">LIBS</span></code>. Patch by Shamil Abdulaev.</p></li>
+</ul>
+</section>
+<section id="windows">
+<h3>Windows<a class="headerlink" href="#windows" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/159880">gh-159880</a>: Fix a key handle leak in <a class="reference internal" href="../library/winreg.html#winreg.CreateKey" title="winreg.CreateKey"><code class="xref py py-func docutils literal notranslate"><span class="pre">winreg.CreateKey()</span></code></a>,
+<a class="reference internal" href="../library/winreg.html#winreg.CreateKeyEx" title="winreg.CreateKeyEx"><code class="xref py py-func docutils literal notranslate"><span class="pre">winreg.CreateKeyEx()</span></code></a> and <a class="reference internal" href="../library/winreg.html#winreg.OpenKey" title="winreg.OpenKey"><code class="xref py py-func docutils literal notranslate"><span class="pre">winreg.OpenKey()</span></code></a> when the
+<code class="docutils literal notranslate"><span class="pre">winreg.OpenKey/result</span></code> audit hook fails.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/157906">gh-157906</a>: Fix an incorrect architecture macro check that prevented CPU
+prefetching in the free-threaded garbage collector on 32-bit Windows
+builds.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/157789">gh-157789</a>: Use compiler option <code class="docutils literal notranslate"><span class="pre">-Og</span></code> in case of clang-cl debug builds on
+Windows to reduce stack usage. Patch by Chris Eibl.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/72353">gh-72353</a>: Reading from the console on Windows now continues if the read
+was cancelled by Ctrl+C, but the <a class="reference internal" href="../library/signal.html#signal.SIGINT" title="signal.SIGINT"><code class="xref py py-const docutils literal notranslate"><span class="pre">SIGINT</span></code></a> handler did not
+raise an exception.  Previously the read ended as if at end of file.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/86427">gh-86427</a>: Fix the encoding of the standard streams in the legacy Windows
+stdio mode (<span class="target" id="index-1"></span><a class="reference internal" href="../using/cmdline.html#envvar-PYTHONLEGACYWINDOWSSTDIO"><code class="xref std std-envvar docutils literal notranslate"><span class="pre">PYTHONLEGACYWINDOWSSTDIO</span></code></a>).  It is now the code page
+of the console, as in Python 3.7, not the ANSI code page.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/87587">gh-87587</a>: <a class="reference internal" href="../library/os.html#os.device_encoding" title="os.device_encoding"><code class="xref py py-func docutils literal notranslate"><span class="pre">os.device_encoding()</span></code></a> on Windows now returns the code page
+of any console file descriptor, not only 0, 1 and 2, and returns <code class="docutils literal notranslate"><span class="pre">None</span></code>
+for other character devices like <code class="docutils literal notranslate"><span class="pre">NUL</span></code>.  The UTF-8 code page is now
+reported as <code class="docutils literal notranslate"><span class="pre">&quot;utf-8&quot;</span></code> instead of <code class="docutils literal notranslate"><span class="pre">&quot;cp65001&quot;</span></code>.</p></li>
+</ul>
+</section>
+<section id="macos">
+<h3>macOS<a class="headerlink" href="#macos" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/159739">gh-159739</a>: Propagate errors that occur while converting macOS system proxy
+settings.</p></li>
+</ul>
+</section>
+<section id="idle">
+<h3>IDLE<a class="headerlink" href="#idle" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/159517">gh-159517</a>: Fix the completion list and the call tip grabbing the focus on
+macOS with Tcl/Tk 9.1.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/56596">gh-56596</a>: Make IDLE keyboard shortcuts with ascii letters work when Caps
+Lock is on even when only one of the upper and lowercase versions are
+defined.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/64007">gh-64007</a>: IDLE no longer applies syntax coloring to the text entered for
+<a class="reference internal" href="../builtins/functions.html#input" title="input"><code class="xref py py-func docutils literal notranslate"><span class="pre">input()</span></code></a> in the Shell.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/85560">gh-85560</a>: Fix IDLE failing to find the opening parenthesis when a
+continuation line inside the parentheses starts with <code class="docutils literal notranslate"><span class="pre">else</span></code> of a
+conditional expression or with <code class="docutils literal notranslate"><span class="pre">yield</span></code>.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/75487">gh-75487</a>: Fix saving a truncated number when an integer entry in the IDLE
+Settings dialog is blanked with the Backspace key.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/74112">gh-74112</a>: Ctrl-C in the IDLE Shell now interrupts blocking calls such as
+<a class="reference internal" href="../library/time.html#time.sleep" title="time.sleep"><code class="xref py py-func docutils literal notranslate"><span class="pre">time.sleep()</span></code></a> and <a class="reference internal" href="../library/socket.html#socket.socket.recv" title="socket.socket.recv"><code class="xref py py-meth docutils literal notranslate"><span class="pre">socket.recv</span></code></a>.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/151471">gh-151471</a>: Colorize the soft keyword <code class="docutils literal notranslate"><span class="pre">type</span></code> in IDLE.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/103089">gh-103089</a>: IDLE no longer hangs when opening a file with very long lines.
+Only the first 2,000 characters of a line are colorized.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/70331">gh-70331</a>: IDLE no longer fails to start with <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">idlelib</span></code>, and
+its user process no longer fails to start, when the current directory
+contains user files with the same names as standard library modules that
+IDLE imports, such as <code class="docutils literal notranslate"><span class="pre">random.py</span></code> or <code class="docutils literal notranslate"><span class="pre">tkinter.py</span></code>.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/93016">gh-93016</a>: Fix parsing of command line arguments in the IDLE “Run…
+Customized” dialog on Windows: backslashes are no longer treated as escape
+characters. Fix also display of the previous arguments in the dialog.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/69365">gh-69365</a>: The IDLE search dialogs now show a regular expression error
+below the entry instead of in a message box.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/105689">gh-105689</a>: Fix calltips, parenthesis matching and auto-indent in the IDLE
+Shell after output containing unbalanced quotes or parentheses.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/60402">gh-60402</a>: In IDLE, Tab in a string that is not the start of a file name
+inserts a tab instead of opening the completion list.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/68453">gh-68453</a>: Fix running IDLE with the -s option together with -c, -r or -:
+the command or script now runs after the startup file, without an error
+dialog and without restarting the shell.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/69919">gh-69919</a>: IDLE now reports any exception raised by compiling the source,
+such as <a class="reference internal" href="../builtins/exceptions.html#MemoryError" title="MemoryError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">MemoryError</span></code></a> for too deeply nested source, instead of
+hanging the Shell.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/91398">gh-91398</a>: Remove the border around the IDLE Shell sidebar, which was drawn
+in the window background color and stood out with dark themes.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/71136">gh-71136</a>: Fix a hang of the IDLE Shell when code run under the debugger
+raises <a class="reference internal" href="../builtins/exceptions.html#KeyboardInterrupt" title="KeyboardInterrupt"><code class="xref py py-exc docutils literal notranslate"><span class="pre">KeyboardInterrupt</span></code></a>.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/154511">gh-154511</a>: Consolidate IDLE’s mouse wheel handling in <code class="docutils literal notranslate"><span class="pre">idlelib.util</span></code>.
+<code class="docutils literal notranslate"><span class="pre">wheel_event</span></code> moves there from <code class="docutils literal notranslate"><span class="pre">idlelib.tree</span></code> and joins
+<code class="docutils literal notranslate"><span class="pre">x11_buttons</span></code>, which tells whether Tk reports wheel rotations to a
+widget as <code class="docutils literal notranslate"><span class="pre">&lt;Button-4&gt;</span></code>/<code class="docutils literal notranslate"><span class="pre">&lt;Button-5&gt;</span></code> events, and <code class="docutils literal notranslate"><span class="pre">bind_wheel</span></code>, which
+binds whichever events Tk sends.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/156896">gh-156896</a>: Stop deleting tkinter submodules when idlelib.run is imported.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/153480">gh-153480</a>: Fix IDLE failing to start when opening a file which does not
+exist yet. Fix a traceback when a file open in the IDLE editor is deleted
+by another program; IDLE now asks whether to close the window, save the
+file elsewhere, or ignore it.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/66172">gh-66172</a>: IDLE no longer fails to start when a user configuration file is
+corrupt. The unparsable file is renamed with a “.bad” suffix, default
+settings are used instead, and a warning lists the affected files.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/90304">gh-90304</a>: Prevent IDLE from failing to start when a font reports a zero
+width for the <code class="docutils literal notranslate"><span class="pre">'0'</span></code> character.  Such a broken font caused a
+<a class="reference internal" href="../builtins/exceptions.html#ZeroDivisionError" title="ZeroDivisionError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ZeroDivisionError</span></code></a>; the editor now falls back to the configured
+width.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/135511">gh-135511</a>: Fix display of <a class="reference internal" href="../builtins/exceptions.html#NameError" title="NameError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">NameError</span></code></a> and <a class="reference internal" href="../builtins/exceptions.html#AttributeError" title="AttributeError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">AttributeError</span></code></a> with
+multi-line message.</p></li>
+</ul>
+</section>
+<section id="tools-demos">
+<h3>Tools/Demos<a class="headerlink" href="#tools-demos" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/158451">gh-158451</a>: <code class="docutils literal notranslate"><span class="pre">python-gdb.py</span></code> is now able to format an invalid Unicode
+string: render invalid characters as <code class="docutils literal notranslate"><span class="pre">\Uhhhhhhhh</span></code> instead of raising an
+exception. Patch by Victor Stinner.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/156219">gh-156219</a>: Fix Argument Clinic generating code which reads an optional
+positional argument which was not passed, if the function has a <code class="docutils literal notranslate"><span class="pre">**kwds</span></code>
+parameter.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/113318">gh-113318</a>: Fix Argument Clinic for <code class="docutils literal notranslate"><span class="pre">&#64;getter</span></code> and <code class="docutils literal notranslate"><span class="pre">&#64;setter</span></code> in a
+preprocessor conditional block. It failed with an internal error. Argument
+Clinic now also rejects the accessors of the same attribute with different
+C basenames, and the same accessor defined twice, which silently generated
+invalid or duplicated entries of <a class="reference internal" href="../c-api/structures.html#c.PyGetSetDef" title="PyGetSetDef"><code class="xref c c-type docutils literal notranslate"><span class="pre">PyGetSetDef</span></code></a>.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/155218">gh-155218</a>: Fix Argument Clinic generating the flags of the optional groups
+in different order on 32-bit and 64-bit platforms.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/155207">gh-155207</a>: Argument Clinic now supports the <code class="docutils literal notranslate"><span class="pre">--dry-run</span></code> and <code class="docutils literal notranslate"><span class="pre">--diff</span></code>
+options. They list the files which would be changed, or write a unified
+diff of the changes to the standard output, without modifying any file.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/64502">gh-64502</a>: Fix Argument Clinic support of parameters with a default value
+used together with optional groups. Such parameters were always required
+in the generated parsing code.</p></li>
+</ul>
+</section>
+<section id="c-api">
+<h3>C API<a class="headerlink" href="#c-api" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/159739">gh-159739</a>: Fix a crash in <a class="reference internal" href="../c-api/tuple.html#c._PyTuple_Resize" title="_PyTuple_Resize"><code class="xref c c-func docutils literal notranslate"><span class="pre">_PyTuple_Resize()</span></code></a> when resizing a
+non-empty tuple to a negative or too large size. It now raises
+<a class="reference internal" href="../builtins/exceptions.html#SystemError" title="SystemError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">SystemError</span></code></a> or <a class="reference internal" href="../builtins/exceptions.html#MemoryError" title="MemoryError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">MemoryError</span></code></a> respectively.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/159739">gh-159739</a>: <a class="reference internal" href="../c-api/init_config.html#c.PyInitConfig_SetStr" title="PyInitConfig_SetStr"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyInitConfig_SetStr()</span></code></a> now releases a previously
+configured value and preserves it if conversion of the replacement fails.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/159739">gh-159739</a>: Fix a reference leak when <a class="reference internal" href="../c-api/tuple.html#c._PyTuple_Resize" title="_PyTuple_Resize"><code class="xref c c-func docutils literal notranslate"><span class="pre">_PyTuple_Resize()</span></code></a> fails.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/149044">gh-149044</a>: Fix the <a class="reference internal" href="../c-api/slots.html#c.PySlot_END" title="PySlot_END"><code class="xref c c-macro docutils literal notranslate"><span class="pre">PySlot_END</span></code></a> macro for C++: initialize all
+members to avoid compiler warnings. Patch by Victor Stinner.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/158810">gh-158810</a>: Fix <a class="reference internal" href="../c-api/intro.html#c.Py_ARRAY_LENGTH" title="Py_ARRAY_LENGTH"><code class="xref c c-macro docutils literal notranslate"><span class="pre">Py_ARRAY_LENGTH()</span></code></a> macro on C++: do not use
+<code class="docutils literal notranslate"><span class="pre">__builtin_types_compatible_p()</span></code> on C++. Patch by Victor Stinner.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/158451">gh-158451</a>: Fix <code class="xref c c-func docutils literal notranslate"><span class="pre">_PyUnicodeWriter_WriteLatin1String()</span></code> when the
+writer buffer kind is UCS-2 or UCS-4. Patch by Victor Stinner.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/157649">gh-157649</a>: Fix <a class="reference internal" href="../c-api/refcounting.html#c.Py_CLEAR" title="Py_CLEAR"><code class="xref c c-macro docutils literal notranslate"><span class="pre">Py_CLEAR</span></code></a> and <a class="reference internal" href="../c-api/refcounting.html#c.Py_SETREF" title="Py_SETREF"><code class="xref c c-macro docutils literal notranslate"><span class="pre">Py_SETREF</span></code></a> macros on C++:
+implement them using <code class="docutils literal notranslate"><span class="pre">auto</span></code> instead of <code class="docutils literal notranslate"><span class="pre">decltype()</span></code>. Using
+<code class="docutils literal notranslate"><span class="pre">decltype()</span></code> produced invalid code when clearing/setting an array item.
+Patch by Victor Stinner.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/142217">gh-142217</a>: Add tests on the undocumented and deprecated <code class="docutils literal notranslate"><span class="pre">_Py_Identifier</span></code>
+C API. Patch by Victor Stinner.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/157384">gh-157384</a>: <a class="reference internal" href="../c-api/import.html#c.PyImport_CreateModuleFromInitfunc" title="PyImport_CreateModuleFromInitfunc"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyImport_CreateModuleFromInitfunc()</span></code></a> now sets the
+package context while calling <em>initfunc</em>, so that a single-phase init
+submodule created with only the last component of its name gets the full
+name from the spec.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/157242">gh-157242</a>: Fix <a class="reference internal" href="../c-api/bytes.html#c.PyBytesWriter_Resize" title="PyBytesWriter_Resize"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyBytesWriter_Resize()</span></code></a> to handle properly memory
+allocation failure. Leave the writer unchanged on error, instead of
+leaving it in an inconsistent state. Patch by Victor Stinner.</p></li>
+<li><p><a class="reference external" href="https://github.com/python/cpython/issues/156101">gh-156101</a>: Don’t set the result in error in <a class="reference internal" href="../c-api/long.html#c.PyLong_AsInt32" title="PyLong_AsInt32"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyLong_AsInt32()</span></code></a>,
+<a class="reference internal" href="../c-api/long.html#c.PyLong_AsUInt32" title="PyLong_AsUInt32"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyLong_AsUInt32()</span></code></a>, <a class="reference internal" href="../c-api/long.html#c.PyLong_AsInt64" title="PyLong_AsInt64"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyLong_AsInt64()</span></code></a> and
+<a class="reference internal" href="../c-api/long.html#c.PyLong_AsUInt64" title="PyLong_AsUInt64"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyLong_AsUInt64()</span></code></a>. Leave the result unchanged in this case. Patch
+by Victor Stinner.</p></li>
+</ul>
+</section>
+</section>

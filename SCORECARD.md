@@ -1013,3 +1013,30 @@ spot-check. All original source rows, stamp paths and ledger IDs retained.
 
 Planned next (not executed): work the named knowledge-entry numeric drift and
 multi-claim quote coverage; no next-round claim or driver action here.
+
+## Round 26 — bounded release-drift response
+
+Frozen BASE: `1bf3eec48d3761580ffd375c88143232485ae814`; one declared
+claim C1, freshness (a tied-lowest non-retired axis), `plans/round-26.md`.
+The last capability entered round25; saturation9/window3 remains unchanged,
+so no stagnation waiver, capability, retirement or promotion is claimed.
+
+| Axis | Before → after | Evidence and bounded interpretation |
+|---|---|---|
+| freshness | 9 → 9 | C1: S039/S040/S041, `corpus/lessons/round-26.md`; fresh Python3.15.1 observation and clause-level source re-opening, original3.15.0 anchors retained fired, named3.15.1 successors rearmed on-release. `bash .ufo/waves/round-26/tools/replay-current.sh before` → `after`: controlled current-registry profile observed26→30 / bound28→30 / unbound2→0, fired1→3, derived15 unchanged. Active default/table/R25-04 migrate explicitly; original round25 receipt/code/tables remain separately replayable. No semantic-change, installed-runtime or continuous-truth inference. |
+| calibration | 9 → 9 | R25-02 remains bounded self-description agreement, no independent calibration claim. Historical CLEAN is not current vendor truth; R11-08/C2's original lone-clone INCOMPLETE/48 scope remains unclosed. |
+| depth | 9 → 9 | R21-01 unchanged; no new mechanism or normalizer behavior claim. |
+| coverage | 9 → 9 | R21-02: registry38→41 adds three correction rows on held ground, not governed surfaces or new admitted knowledge ground. |
+| operability | 9 → 9 | R25-03/R25-04 retain the existing CLI/evaluator; only pinned default selection and active bindings migrate explicitly. Historical/current replays are evidence for that gate, not a new gate or monitor. |
+| adjacency | 9 → 9 | R17-02 unchanged; connectors keep source-method ownership with chousa and system/runtime management outside this claim; shared Python drift is routed, not absorbed. |
+
+Before/after commands, exact exits and the pushed revision measured are
+recorded in the final outcome append below. Rejection of feed-as-semantics,
+installed-runtime and historical-CLEAN-as-live readings is in the lesson
+Gate. Expansion unchanged (same ground/no capability); quality improved
+only if the bounded re-verification passes; discernment unchanged pending
+outside admit/reject review, never supplied by dispatched children.
+
+Planned next (not executed): the named multi-claim quote coverage and
+knowledge-entry numeric debt remain, as do S029/S031 locator qualifiers;
+no next-round dispatch or round claim is made.

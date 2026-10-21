@@ -1,0 +1,45 @@
+{
+  "build": {
+    "seats": 64,
+    "role_mix": {
+      "scout": 28,
+      "executor": 3,
+      "reviewer": 12,
+      "critic": 8,
+      "connector": 5,
+      "scribe": 8
+    },
+    "completed_reports": 41,
+    "dead_seats": [
+      "XReceiptDelta",
+      "XNormalizerRegression",
+      "XCapturePython",
+      "ReviewReceiptIdentity",
+      "ReviewFeedParser",
+      "ReviewObservation",
+      "ReviewNoOverwrite",
+      "ReviewHistorical",
+      "ReviewDerived",
+      "ReviewRegistry",
+      "ReviewCapture",
+      "ReviewNormalizer",
+      "ReviewLone",
+      "ReviewGatePins",
+      "ReviewClaimScope",
+      "ScribeSourceRows",
+      "ScribeMistakes",
+      "ScribeLog",
+      "ScribeCensus",
+      "ScribeGate",
+      "ScribeLimits",
+      "ScribeScorecard",
+      "ScribeFrontier"
+    ],
+    "dead_count": 23,
+    "replacements": 0,
+    "failures": "terminal-failures.json",
+    "planner": "L1 canonical frozen planner; no unsupported validator planner role",
+    "routing": "role only; no model parameter"
+  },
+  "falsify": "residual bounded review after candidate freeze, fewer than64 concrete attacks; no padded wave"
+}

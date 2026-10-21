@@ -171,7 +171,9 @@ scorecard whose cells cite illustrative fixture rows `R90-01` and `R90-02`, a cl
 The fixture is copied by the falsify wave, mutated (uncited cell, bad row id,
 failing row) and must fail. `rows_run` counts selected rows including deferred
 rows, so the ledger pins `row_deferred=0` and `self_skipped=0`, not `rows_run`
-alone. No host file is read; the run may attempt PATH lookups and writes one removed `/tmp` file.
+alone. No private host file is opened (bash still reads system files such as
+`/etc/passwd`); the run may attempt PATH lookups and writes one removed `/tmp`
+file.
 
 ## Source accounting
 
@@ -210,7 +212,11 @@ the checker; the closed-pointer containment is path-based and an in-root
 hardlink to an outside inode would still be read; Python startup stats
 `$HOME/.local/lib/...` without opening files, and `mktemp` writes one `/tmp`
 file that is removed. The symlink-escape guard now has a regression case
-(selftest 14 cases). Supersession is prose-only: `supersedes` is not parsed, so CLEAN does not mean an
+(selftest 14 cases). C1 resolves pointers against the working tree, never a
+commit tree, and does not pin pointer targets; the plan's phrases
+"machine-checked provenance" and "located quote" are superseded by the
+declared shape-checked/identity-only bound. The C3 fixture-mutation case is
+executed by seats and recorded here, not by a committed selftest row. Supersession is prose-only: `supersedes` is not parsed, so CLEAN does not mean an
 active entry cites a superseding row (the Vault/OpenBao entry still cites
 S012-S016, each covered only by a historical in-row pin), and `Paths` are not
 checked. The 59-case census selftest exercises the declared-provenance branch; the

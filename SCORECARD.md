@@ -684,8 +684,9 @@ landed in the round-21 correction commit (cited in `LOG.md`):
 | op-only dotenv byte probe | run six generated plain-value dotenv classes through `op run --env-file` under `env -i` with scratch HOME/XDG and compare the child's bytes (hex) to literal expectations; no ref, account or handler involved | `bash corpus/op-ref-probe.sh --dotenv-bytes` (ledger `R21-01`; `knowledge/op-ref-consumption.md` §11) | 21 (first run in the round-20 attempt, unadmitted there) |
 | source registry + census gate | curate opened, scope-tiered sources with anchors, rejections and study paths, and machine-check the registry plus the entry ↔ source citation chain both ways | `bash corpus/sources-census.sh` (ledger `R21-02`), `--selftest` 59 cases (`R21-03`); `corpus/SOURCES.md` | 21 |
 | feature-bound typed credential review | adjudicate one caller-supplied typed claim against pinned product/feature/status/eligibility/anchor evidence; reject known false/bar-failing claims, keep unjudgeable inputs separate, accept bounded controls | measured code/data landing `4be5da3cac11a1db64c3e0a77246fd7f2bdee413`: selftest PASS cases=12, before rejects10/after admits4/boundary3 excluded; R22-01/R22-02; `kagi-shokunin/.ufo/waves/round-22/final-verification.json` (initial H1 demonstration retained separately) | 22 |
+| closure disposition review | turn a non-author closure's obligation ids into exactly one typed, pointer-resolving disposition each (fixed/reported/operator-owned/no-action/rejected); checks shape, id coverage and pointer presence in the working tree, not fix quality | `python3 corpus/closure-dispositions.py` (ledger `R23-02`), `--selftest` 14 cases (ledger `R24-02`, bound round 24); `corpus/closure-dispositions.json` | 23 |
 
-Rows enter only through demonstrated execution (`AXES.md` §Capabilities): the two round-21 capabilities entered through that round's runs; feature-bound typed credential review first worked in round 22 through R22-01/R22-02. The 2026-10-16 rollout added none.
+Rows enter only through demonstrated execution (`AXES.md` §Capabilities): the two round-21 capabilities entered through that round's runs; feature-bound typed credential review first worked in round 22 through R22-01/R22-02; closure disposition review first worked in round 23 through R23-02 (row added to this main table in round 24, routed D1 — it had sat only in the round-23 section). The 2026-10-16 rollout added none. The latest first-working round in this table is 23.
 
 ## Saturation
 
@@ -860,3 +861,25 @@ retired or split. Remaining named debt for a future round: the 16 historical
 in-row digests with undocumented representation; machine-readable supersession
 edges; the `SKIP-SELF` cells bound (R11-08 red at base); the single-backslash
 policy guard; and `R13-01`'s identity-free round-heading count.
+
+## Round 24 — pre-move (repo HEAD `4f94b52`, round-23 close)
+
+| Axis | Score | Evidence pointer | Last change |
+|---|---|---|---|
+| depth | 9 | R21-01: account-free dotenv byte behavior remains the verified depth evidence; no depth claim this round. | round 21 |
+| coverage | 9 | R21-02: 26 registry rows; no governed host/vault surface is added this round. | round 23 |
+| operability | 9 | R11-08 is red at base (`unresolved=2`); the default real-tree `verify`/`cells` executes host rows (tripwire total 35 at base, `.ufo/waves/round-24/tools/host-tripwire.sh`); R11-09 pins 121 cases. | round 23 |
+| freshness | 9 | R21-02: 16 of 26 registry rows (S001-S016) have only a historical in-row pin; the normalizer is declared three divergent ways. | round 23 |
+| calibration | 9 | R12-03, R21-04 and the other count rows pin a number while their notes claim a membership: 15/15 count-preserving identity swaps survive at base (`.ufo/waves/round-24/tools/identity-swap.py`). | round 23 |
+| adjacency | 9 | R17-02: the four declared breadth pins and PROVINCE boundaries are unchanged. | round 16 |
+
+## Round 24 — post-move (claims C1/C2/C3; measured candidate, falsification follows)
+
+| Axis | Score | Evidence pointer | Last change |
+|---|---|---|---|
+| depth | 9 → 9 | R21-01 unchanged; no depth claim is booked. | round 24 |
+| coverage | 9 → 9 | R21-02 now counts 31 rows; S027-S031 ground the normalizer (tooling sources, one rejected) and add no governed surface. | round 24 |
+| operability | 9 → 9 | C1: R11-09 (host-row default-skip, untagged-host/host-path/bash-option/symlink refusals, invocation-only SKIP-SELF, executed-only rows_run) and R11-08 CLEAN; tripwire total 35 → 0 with all 12 host IDs HOST-SKIPped. | round 24 |
+| freshness | 9 → 9 | C2: R21-02 (`captures=31 inrow=16 inrow_only=0 inrow_nonreproducing=12`) and R24-01 (the one declared normalizer); rows whose only provenance is a historical in-row pin 16 → 0. | round 24 |
+| calibration | 9 → 9 | C3: R24-03 to R24-16 pin count plus membership digest for the 15 count rows; identity swaps surviving the ledger 15/15 → 0/15; R24-02 binds the closure selftest (D3). | round 24 |
+| adjacency | 9 → 9 | R17-02 and R24-12 (breadth identity) unchanged; sibling conventions were read, not absorbed. | round 24 |

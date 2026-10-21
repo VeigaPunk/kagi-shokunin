@@ -64,15 +64,25 @@
 #                        A moving-ref URL needs a 40-hex revision. Captures are
 #                        point attestations: no cross-capture equality is
 #                        enforced, only one provenance row per id.
-#                        STATED BOUND: legacy in-row digests are historical
-#                        point observations with undocumented representation --
-#                        required for coverage, never compared to captures.
+#                        Round 24 (routed D5): in-row `Fetch sha256:` digests
+#                        are exempt from the capture requirement ONLY for the
+#                        historical set S001-S016; any later row with an in-row
+#                        pin is SC_INROW `inrow-pin-not-historical` and still
+#                        needs a capture row. Every in-row pin needs exactly one
+#                        corpus/inrow-pins.tsv row (id, in-row digest, capture
+#                        date, verdict, note) whose verdict the census RECOMPUTES
+#                        from that id's capture: reproduces-raw (capture sha256 =
+#                        pin), reproduces-normalized (normalized sha256 = pin) or
+#                        non-reproducing. A missing, duplicate, stale-dated or
+#                        disagreeing classification is SC_INROW.
 #                        request profile curl-fsSL-compressed-v1 is the command
 #                        in the round-23 lesson; decoded-http-body-v1 means
-#                        Content-Encoding removed by curl, and rendered-text-v1
-#                        means strip script/style, tags->single space,
-#                        html.unescape, collapse whitespace, trim ends, UTF-8. A provenance digest
+#                        Content-Encoding removed by curl. The quote/page
+#                        normalization rendered-text-v1 is declared ONCE, in
+#                        corpus/rendered-text-v1.py (round 24, routed D6); this
+#                        file does not restate it. A provenance digest
 #                        is a point attestation, not a drift pin.
+#     SC_INROW           historical in-row pin classification (round 24, above)
 #
 # ENTRIES. An entry is SOURCED when a line starts with `source:` (lower case,
 # column 1); exactly one such line is allowed. Its source field is that
@@ -91,7 +101,7 @@
 # tokens.
 #
 # VERDICT (last line, always):
-#   SOURCES_CENSUS: CLEAN (rows=N A=a B=b C=c queued=q mined=m rejected=r entries_sourced=e legacy=l)  exit 0
+#   SOURCES_CENSUS: CLEAN (rows=N A=a B=b C=c queued=q mined=m rejected=r entries_sourced=e legacy=l captures=k inrow=i inrow_only=o inrow_nonreproducing=n)  exit 0
 #   SOURCES_CENSUS: FAILED (findings=K rows=N)                                                          exit 1
 #   SOURCES_CENSUS: SETUP (<reason>)   SOURCES.md or knowledge/ absent/unreadable, bad args           exit 2
 #   --selftest: SOURCES_CENSUS_SELFTEST: PASS (N cases) exit 0 | FAIL (N cases, K failed) exit 1
@@ -226,7 +236,7 @@ verify() {
   # ---- fetch provenance (round 23, routed D7) -------------------------------
   local fetchf="$ROOT/corpus/source-fetches.tsv"
   local fid fstatus frow furl ffinal fhttp fprof ffet frep fsha fbytes frev fquote fnorm fnsha floc seen_key words
-  declare -A FURL=() FINROW=() FSEEN=()
+  declare -A FURL=() FINROW=() FSEEN=() FRAW=() FNORM=() FFET=()
   while IFS=$'\x1f' read -r fid furl sdigest; do
     [[ -n $fid ]] || continue
     FURL[$fid]=$furl; FINROW[$fid]=$sdigest
@@ -245,6 +255,7 @@ verify() {
     while IFS=$'\t' read -r fid fstatus frow furl ffinal fhttp fprof ffet frep fsha fbytes frev fquote fnorm fnsha floc; do
       [[ -n ${fid:-} ]] || continue
       FSEEN[$fid]=$(( ${FSEEN[$fid]:-0} + 1 ))
+      FRAW[$fid]=$fsha; FNORM[$fid]=$fnsha; FFET[$fid]=$ffet
       [[ -v FURL[$fid] ]] || { finding SC_FETCH "id=$fid not-a-registry-row"; continue; }
       [[ ${ST[$fid]:-} == "$fstatus" ]] || finding SC_FETCH "id=$fid status=$fstatus registry=${ST[$fid]:-absent}"
       [[ ${FURL[$fid]} == "$furl" ]] || finding SC_FETCH "id=$fid url-mismatch"
@@ -275,10 +286,44 @@ verify() {
       [[ ${FSEEN[$fid]} -le 1 ]] || finding SC_FETCH "id=$fid duplicate-provenance"
     done < <(awk -F'\t' 'length($0)>0 && $0 !~ /^#/ && NF==16' "$fetchf")
   fi
+  # ---- historical in-row pins (round 24, routed D5) -------------------------
+  # The in-row-only exemption belongs to the historical set S001-S016 alone: a
+  # later row cannot certify itself with a bare `Fetch sha256:` digest. Every
+  # in-row pin needs exactly one corpus/inrow-pins.tsv classification against
+  # that id's capture row; the verdict is CHECKED against the capture digests,
+  # never taken on the author's word.
+  local HIST_RE='^S0(0[1-9]|1[0-6])$' inrowf="$ROOT/corpus/inrow-pins.tsv"
+  local iid isha ifet iverdict inote n_inrow=0 n_inrow_only=0 n_nonrep=0 n_capt=0 want_v
+  declare -A IPSEEN=()
+  if [[ -f $inrowf ]]; then
+    out=$(awk -F'\t' 'length($0)>0 && $0 !~ /^#/ && NF!=5 {print "line=" NR " nf=" NF}' "$inrowf")
+    while IFS= read -r line; do [[ -n $line ]] && finding SC_INROW "$line"; done <<<"$out"
+    while IFS=$'\t' read -r iid isha ifet iverdict inote; do
+      [[ -n ${iid:-} ]] || continue
+      IPSEEN[$iid]=$(( ${IPSEEN[$iid]:-0} + 1 ))
+      [[ ${IPSEEN[$iid]} -le 1 ]] || { finding SC_INROW "id=$iid duplicate-classification"; continue; }
+      [[ -n ${FINROW[$iid]:-} ]] || { finding SC_INROW "id=$iid not-an-inrow-row"; continue; }
+      [[ $isha == "${FINROW[$iid]}" ]] || { finding SC_INROW "id=$iid inrow-digest-mismatch"; continue; }
+      [[ ${FSEEN[$iid]:-0} -ge 1 ]] || { finding SC_INROW "id=$iid capture-missing"; continue; }
+      [[ $ifet == "${FFET[$iid]}" ]] || { finding SC_INROW "id=$iid capture-date"; continue; }
+      if [[ ${FRAW[$iid]} == "$isha" ]]; then want_v=reproduces-raw
+      elif [[ ${FNORM[$iid]} == "$isha" ]]; then want_v=reproduces-normalized
+      else want_v=non-reproducing; fi
+      [[ $iverdict == "$want_v" ]] || { finding SC_INROW "id=$iid verdict=$iverdict capture-says=$want_v"; continue; }
+      [[ $iverdict == non-reproducing ]] && n_nonrep=$((n_nonrep + 1))
+    done < <(awk -F'\t' 'length($0)>0 && $0 !~ /^#/ && NF==5' "$inrowf")
+  fi
   for fid in "${!ST[@]}"; do
+    [[ ${FSEEN[$fid]:-0} -ge 1 ]] && n_capt=$((n_capt + 1))
     if [[ -n ${FINROW[$fid]:-} ]]; then
+      n_inrow=$((n_inrow + 1))
       [[ ${FINROW[$fid]} =~ ^[0-9a-f]{64}$ ]] || finding SC_FETCH "id=$fid inrow-digest-malformed"
-      continue
+      [[ ${IPSEEN[$fid]:-0} -ge 1 ]] || finding SC_INROW "id=$fid classification-missing"
+      if [[ $fid =~ $HIST_RE ]]; then
+        [[ ${FSEEN[$fid]:-0} -ge 1 ]] || n_inrow_only=$((n_inrow_only + 1))
+        continue
+      fi
+      finding SC_INROW "id=$fid inrow-pin-not-historical"
     fi
     [[ ${FSEEN[$fid]:-0} -ge 1 ]] || finding SC_FETCH "id=$fid missing-provenance"
   done
@@ -314,8 +359,8 @@ verify() {
   shopt -u nullglob
 
   if [[ $FINDINGS -eq 0 ]]; then
-    printf 'SOURCES_CENSUS: CLEAN (rows=%d A=%d B=%d C=%d queued=%d mined=%d rejected=%d entries_sourced=%d legacy=%d)\n' \
-      "$rows" "$a" "$b" "$c" "$q" "$m" "$r" "$sourced" "$legacy"
+    printf 'SOURCES_CENSUS: CLEAN (rows=%d A=%d B=%d C=%d queued=%d mined=%d rejected=%d entries_sourced=%d legacy=%d captures=%d inrow=%d inrow_only=%d inrow_nonreproducing=%d)\n' \
+      "$rows" "$a" "$b" "$c" "$q" "$m" "$r" "$sourced" "$legacy" "$n_capt" "$n_inrow" "$n_inrow_only" "$n_nonrep"
     exit 0
   fi
   printf 'SOURCES_CENSUS: FAILED (findings=%d rows=%d)\n' "$FINDINGS" "$rows"
@@ -484,12 +529,37 @@ m_setup_noknow() { rm -rf -- "$1/corpus/knowledge"; }
 m_setup_badarg() { ARGS=(verify --root "$1" --bogus); }
 m_setup_noroot() { ARGS=(verify --root "$1/absent"); }
 m_setup_rootnoarg() { ARGS=(verify --root); }
+# --- round 24: historical in-row pins (SC_INROW) ---------------------------------
+# S001's capture row carries raw sha256 = 64x`a` and normalized sha256 = 64x`1`.
+INROW_F() { printf '%s/corpus/inrow-pins.tsv' "$1"; }
+pin_s001() { sed -i "/^| S001 /s/| teaches one |/| teaches one. Fetch sha256: \`$2\` |/" "$(SRC_F "$1")"; }
+inrow_row() { printf 'S001\t%s\t%s\t%s\tselftest\n' "$2" "$3" "$4" >>"$(INROW_F "$1")"; }
+m_inrow_unclassified() { pin_s001 "$1" "$(rep a 64)"; }
+m_inrow_raw_ok() { pin_s001 "$1" "$(rep a 64)"; inrow_row "$1" "$(rep a 64)" 2026-10-19 reproduces-raw; }
+m_inrow_norm_ok() { pin_s001 "$1" "$(rep 1 64)"; inrow_row "$1" "$(rep 1 64)" 2026-10-19 reproduces-normalized; }
+m_inrow_nonrep_ok() { pin_s001 "$1" "$(rep 7 64)"; inrow_row "$1" "$(rep 7 64)" 2026-10-19 non-reproducing; }
+m_inrow_verdict_lie() { pin_s001 "$1" "$(rep a 64)"; inrow_row "$1" "$(rep a 64)" 2026-10-19 non-reproducing; }
+m_inrow_digest() { pin_s001 "$1" "$(rep a 64)"; inrow_row "$1" "$(rep 7 64)" 2026-10-19 reproduces-raw; }
+m_inrow_date() { pin_s001 "$1" "$(rep a 64)"; inrow_row "$1" "$(rep a 64)" 2026-10-20 reproduces-raw; }
+m_inrow_dup() { m_inrow_raw_ok "$1"; inrow_row "$1" "$(rep a 64)" 2026-10-19 reproduces-raw; }
+m_inrow_capture_missing() {
+  local f; f=$(FETCH_F "$1")
+  m_inrow_raw_ok "$1"
+  awk -F'\t' 'BEGIN{OFS="\t"} $1!="S001"' "$f" >"$f.t" && mv -- "$f.t" "$f"
+}
+m_inrow_not_historical() {
+  sed -i "/^| S004 /a | S017 | Doc seventeen — https://example.invalid/seventeen | docs | B | topic seventeen | §17, 2026-04-04 | teaches seventeen. Fetch sha256: \`$(rep a 64)\` | queued | 2026-10-19 | 90d | — |" "$(SRC_F "$1")"
+  printf 'S017\t%s\t2026-10-19\tnon-reproducing\tselftest\n' "$(rep a 64)" >>"$(INROW_F "$1")"
+}
+m_inrow_orphan() { inrow_row "$1" "$(rep a 64)" 2026-10-19 reproduces-raw; }
 
 selftest() {
   ST_DIR=$(mktemp -d) || setup "mktemp failed"
   trap cleanup EXIT
   base_fixture "$ST_DIR/base" || setup "fixture build failed"
-  local CLEAN_LINE='SOURCES_CENSUS: CLEAN (rows=4 A=1 B=2 C=1 queued=1 mined=2 rejected=1 entries_sourced=1 legacy=1)'
+  local CLEAN_LINE='SOURCES_CENSUS: CLEAN (rows=4 A=1 B=2 C=1 queued=1 mined=2 rejected=1 entries_sourced=1 legacy=1 captures=4 inrow=0 inrow_only=0 inrow_nonreproducing=0)'
+  local CLEAN_INROW='SOURCES_CENSUS: CLEAN (rows=4 A=1 B=2 C=1 queued=1 mined=2 rejected=1 entries_sourced=1 legacy=1 captures=4 inrow=1 inrow_only=0 inrow_nonreproducing=0)'
+  local CLEAN_NONREP='SOURCES_CENSUS: CLEAN (rows=4 A=1 B=2 C=1 queued=1 mined=2 rejected=1 entries_sourced=1 legacy=1 captures=4 inrow=1 inrow_only=0 inrow_nonreproducing=1)'
   # name | mutation | arg | exit | expected id (CLEAN / SETUP / finding id) | findings
   local -a CASES=(
     "clean|m_clean||0|CLEAN|0"
@@ -551,6 +621,17 @@ selftest() {
     "fetch-unknown|m_fetch_unknown||1|SC_FETCH|1"
     "fetch-duplicate|m_fetch_duplicate||1|SC_FETCH|1"
     "fetch-disagree|m_fetch_disagree||1|SC_FETCH|1"
+    "inrow-unclassified|m_inrow_unclassified||1|SC_INROW|1"
+    "inrow-raw-control|m_inrow_raw_ok||0|CLEAN_INROW|0"
+    "inrow-normalized-control|m_inrow_norm_ok||0|CLEAN_INROW|0"
+    "inrow-nonreproducing-counted|m_inrow_nonrep_ok||0|CLEAN_NONREP|0"
+    "inrow-verdict-lie|m_inrow_verdict_lie||1|SC_INROW|1"
+    "inrow-digest-mismatch|m_inrow_digest||1|SC_INROW|1"
+    "inrow-capture-date|m_inrow_date||1|SC_INROW|1"
+    "inrow-duplicate|m_inrow_dup||1|SC_INROW|1"
+    "inrow-capture-missing|m_inrow_capture_missing||1|SC_INROW|1"
+    "inrow-not-historical|m_inrow_not_historical||1|SC_INROW|3"
+    "inrow-orphan-classification|m_inrow_orphan||1|SC_INROW|1"
   )
   local spec name fn arg xe xid xn d out rc last ok cases=0 failed=0
   for spec in "${CASES[@]}"; do
@@ -569,6 +650,8 @@ selftest() {
     [[ $rc == "$xe" ]] || ok=0
     case $xid in
       CLEAN) [[ $last == "$CLEAN_LINE" ]] || ok=0 ;;
+      CLEAN_INROW) [[ $last == "$CLEAN_INROW" ]] || ok=0 ;;
+      CLEAN_NONREP) [[ $last == "$CLEAN_NONREP" ]] || ok=0 ;;
       SETUP) [[ $last == 'SOURCES_CENSUS: SETUP ('*')' ]] || ok=0 ;;
       *)
         grep -q "^FINDING $xid " <<<"$out" || ok=0

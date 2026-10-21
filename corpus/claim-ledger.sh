@@ -35,7 +35,10 @@
 #              `corpus/…` and the root docs (resolve under
 #              the repo), `knowledge/…`/`lessons/…` (the two corpus
 #              shorthands), `<lane>-shokunin/…` (sibling lane repo),
-#              `ufo/…`/`.ufo/…` (main-repo .ufo tree); a `{a,b}` brace set
+#              `ufo/…` (main-repo .ufo tree) and `.ufo/…` (this lane's own
+#              `.ufo/` first, then the main-repo tree — round 24: R11-08 was red
+#              on a lane-relative `.ufo/waves/…` path); quote/comma-joined
+#              lists (`['a.md','b.md']`) split into their members; a `{a,b}` brace set
 #              must have every alternative resolve. Session-scoped URIs
 #              (local://, artifact://, agent://, proc://) are EPHEMERAL and
 #              fail, and a path that does not resolve fails as UNRESOLVED —
@@ -74,7 +77,7 @@
 #              never a clean run.
 #
 # Verdicts  stamps:   OK (silent) | STALE | MISSING | NOT-A-FILE
-#           claims:   OK (silent) | FAIL(reason) | POLICY(reason)
+#           claims:   OK (silent) | FAIL(reason) | POLICY(reason) | HOST-SKIP | DEFER
 #           citations: CLEAN | BROKEN (UNRESOLVED / EPHEMERAL lines)
 #           idref:    OK (silent) | MISSING-ID doc:line id | ORPHAN (--orphans)
 #           cells:    OK (silent) | MISSING-ID file:line id | UNCITED file:line axis
@@ -89,13 +92,26 @@
 # claims are refused (POLICY, exit 2, never run) unless they are a single simple
 # command: first token in an allowlist (bash|grep|sha256sum|wc|test|python3),
 # with python3 limited to these exact path tokens: `corpus/feature-claims.py`,
-# `corpus/revision-audit.py` and `corpus/closure-dispositions.py` (a word boundary follows `.py`). No shell
-# metacharacters (; & | < > $ backtick), no backslash, no empty quote pair,
-# no `bash -c`, and no denied verb. Denied names are matched on a
+# `corpus/revision-audit.py`, `corpus/closure-dispositions.py` and
+# `corpus/rendered-text-v1.py` (a word boundary follows `.py`). No shell
+# metacharacters (; & | < > $ backtick), no backslash (a SINGLE `\` — round
+# 24: the guard matched only `\\` while this comment already promised `g\it`),
+# no empty quote pair, no `~`/absolute/`..` argument (round 24, routed D4), no
+# `bash -c`, and no denied verb. Denied names are matched on a
 # QUOTE-STRIPPED copy of the text, so `g''it` / `g\it` / `o"p"` cannot walk past
 # a name-based guard (round-11 executor A03/A04 + sentinel F2). `--selftest`
 # proves each refusal path on scratch data; selftest never runs `verify` against
 # the real files.
+#
+# Host rows (round 24, routed D4 — the round-23 real-tree `cells` run executed
+# R18-01, an untagged row reading 15 host-private paths): a row whose NOTE
+# carries `[host]` or `[substrate]` is a HOST row. `verify` and `cells` never
+# run a host row by default; they print `HOST-SKIP <id>` and count
+# `host_skipped=N`. Only the explicit flag `--allow-host-rows` runs them (no
+# environment variable is honoured, so a parent shell cannot leak consent).
+# An UNTAGGED row that invokes a declared host-reading script outside that
+# script's declared host-free arguments is refused (POLICY `untagged-host`),
+# so a new host row cannot run merely because its author forgot the tag.
 #
 set -euo pipefail
 
@@ -110,6 +126,7 @@ MODE="verify"
 POS=()
 PRUNE=0
 ORPHANS=0
+ALLOW_HOST=0
 
 die() { printf 'claim-ledger: %s\n' "$1" >&2; exit 2; }
 
@@ -145,6 +162,64 @@ substrate_present() {
   [[ -x "$HOME/.local/bin/the-janitor" ]]
 }
 
+# --- host rows (round 24, routed D4) -----------------------------------------
+# A row is a HOST row when its note carries `[host]` or `[substrate]`.
+is_host_note() { [[ $1 == *'[host]'* || $1 == *'[substrate]'* ]]; }
+
+# Scripts that read host-private surfaces in at least one mode, and the exact
+# argument strings under which each is host-free (static reading, round 24
+# wave-1 Host* seats). Anything else that invokes one of these scripts is a
+# host invocation. `claim-ledger.sh cells` is host-free only over a committed
+# fixture root, because the real-tree scorecard cites host rows.
+HOST_SCRIPT_RE='^corpus/(surface-census|drift-pins|transcript-scan|op-ref-probe|checklist-run|scope-gate|claim-ledger)\.sh$'
+host_free_args() { # script args → 0 when that invocation is host-free
+  case "$1" in
+    corpus/drift-pins.sh|corpus/transcript-scan.sh|corpus/scope-gate.sh)
+      [[ $2 == --selftest ]] ;;
+    corpus/op-ref-probe.sh)
+      [[ $2 == --selftest || $2 == --dotenv-bytes ]] ;;
+    corpus/checklist-run.sh)
+      [[ $2 == --selftest || $2 == --list || $2 == --ratio ]] ;;
+    corpus/claim-ledger.sh)
+      [[ $2 == --selftest || $2 == citations || $2 == docs || $2 == 'cells --root corpus/fixtures/'* ]] ;;
+    *) return 1 ;;
+  esac
+}
+
+# Which repo script (if any) does a policy-clean command run through `bash`?
+# Sets INV_SCRIPT (normalized: `./` and `//` collapsed; `..` is already a
+# policy refusal) and INV_ARGS (the remaining words, single-spaced). Bash
+# options before the script word are skipped, so `bash -x corpus/x.sh` is
+# still an invocation of corpus/x.sh. Quotes are stripped first, as for deny
+# words, so `bash 'corpus/x.sh'` is the same invocation.
+INV_SCRIPT="" INV_ARGS=""
+invoked_script() {
+  local c=${1//\'/} p i
+  local -a W=()
+  c=${c//\"/}
+  INV_SCRIPT="" INV_ARGS=""
+  read -r -a W <<<"$c"
+  [[ ${W[0]:-} == bash ]] || return 1
+  i=1
+  while [[ ${W[i]:-} == -* ]]; do i=$((i + 1)); done
+  p=${W[i]:-}
+  [[ -n $p ]] || return 1
+  while [[ $p == ./* ]]; do p=${p#./}; done
+  while [[ $p == *//* ]]; do p=${p//\/\//\/}; done
+  while [[ $p == */./* ]]; do p=${p//\/.\//\/}; done
+  INV_SCRIPT=$p
+  INV_ARGS="${W[*]:i+1}"
+  return 0
+}
+
+# 0 when an UNTAGGED row would read host-private surfaces through a declared
+# host-reading script (policy refusal `untagged-host`).
+host_invocation() {
+  invoked_script "$1" || return 1
+  [[ $INV_SCRIPT =~ $HOST_SCRIPT_RE ]] || return 1
+  host_free_args "$INV_SCRIPT" "$INV_ARGS" && return 1
+  return 0
+}
 
 # stamp's temp file is cleaned by an EXIT trap: a `local` tmp would be out of
 # scope (and unbound, under set -u) by the time the trap runs — found by the
@@ -178,16 +253,33 @@ policy_check() {
   # `bash -c <inline>` is the whole execution surface in one argument; no row
   # needs it (round-11 sentinel F1: policy-clean rows mutated state)
   [[ $c == 'bash -c' || $c == 'bash -c '* ]] && { printf 'inline-shell'; return 1; }
+  # round 24 (wave-1 ProbeHostEvasion): ANY bash option before the script word
+  # (`bash -o posix -c …`, `bash -O x corpus/…`) re-opened inline execution and
+  # hid the script word from the host-script match; no ledger row needs one
+  [[ $w == bash && $c =~ ^bash[[:space:]]+[\'\"]?- ]] && { printf 'bash-option'; return 1; }
   # word-splitting a denied name defeats a name-based guard; both forms are
   # refused because no legitimate claim row needs a backslash or an empty
-  # quote pair (round-11 executor A03/A04: `g''it` / `g\it` executed a stand-in)
-  [[ $c == *'\\'* ]] && { printf 'backslash'; return 1; }
+  # quote pair (round-11 executor A03/A04: `g''it` / `g\it` executed a stand-in).
+  # Round 24: the old test `*'\\'*` matched only TWO backslashes, so the single
+  # `g\it` the comment named was never refused; `*\\*` is one literal `\`.
+  [[ $c == *\\* ]] && { printf 'backslash'; return 1; }
   [[ $c == *"''"* || $c == *'""'* ]] && { printf 'empty-quotes'; return 1; }
   # deny words are matched on a QUOTE-STRIPPED copy: `o"p"`, `g''it` and `g\it`
   # all reached a denied name while the literal text did not (round-11 sentinel
   # F2 / executor A03-A04). Legitimate rows use quotes only around EREs.
   local dn=${c//\'/}; dn=${dn//\"/}
   [[ $dn =~ $DENY_WORD_RE ]] && { printf 'denied-verb:%s' "${BASH_REMATCH[2]}"; return 1; }
+  # host paths (round 24, routed D4): a row argument naming `~`, an absolute
+  # path or a `..` component reaches outside the repo root it runs in
+  local word
+  local -a WS=()
+  read -r -a WS <<<"$dn"
+  for word in "${WS[@]}"; do
+    case "$word" in
+      '~'*|/*|*=/*|*='~'*) printf 'host-path'; return 1 ;;
+    esac
+    [[ $word =~ (^|/|=)\.\.(/|$) ]] && { printf 'host-path'; return 1; }
+  done
   return 0
 }
 
@@ -204,6 +296,7 @@ while [[ $# -gt 0 ]]; do
     --out) [[ $# -ge 2 ]] || die "--out needs a file"; OUT="$2"; shift 2 ;;
     --prune) PRUNE=1; shift ;;
     --orphans) ORPHANS=1; shift ;;
+    --allow-host-rows) ALLOW_HOST=1; shift ;;
     # the range tracks the header's end marker, so extending the contract above
     # cannot silently truncate its own help (round 13; the old fixed `2,74p`
     # range had already drifted into the assignments below the header)
@@ -393,13 +486,13 @@ verify_stamps() {
   done
 }
 
-C_N=0 C_FAILED=0 C_POLICY=0 C_DEFER=0
+C_N=0 C_FAILED=0 C_POLICY=0 C_DEFER=0 C_HOST=0 C_RUN=0
 # the nesting depth this run was started with: every claim command this gate
 # spawns sees depth+1, which is what lets a nested audit detect itself
 CLAIM_LEDGER_DEPTH_IN=${CLAIM_LEDGER_DEPTH:-0}
 verify_claims() {
   local line id cmd expect want tmo note pc out last rc
-  C_N=0 C_FAILED=0 C_POLICY=0 C_DEFER=0
+  C_N=0 C_FAILED=0 C_POLICY=0 C_DEFER=0 C_HOST=0 C_RUN=0
   [[ -f $CLAIMS ]] || die "claims file not found: $CLAIMS"
   while IFS= read -r line || [[ -n ${line:-} ]]; do
     [[ -z ${line:-} || ${line:0:1} == '#' ]] && continue
@@ -413,15 +506,34 @@ verify_claims() {
     # whose command printed nothing (round-11 planner, observed)
     [[ $expect =~ [^\^\$] ]] || die "claims row $id: expect must assert a literal, not just anchors"
     C_N=$((C_N + 1))
-    if [[ $note == *'[substrate]'* ]] && ! substrate_present; then
-      printf 'DEFER %s reason=substrate-absent\n' "$id"
-      C_DEFER=$((C_DEFER + 1)); continue
-    fi
+    # policy is static and runs first for EVERY row (round 24): a host row that
+    # is skipped today must still be a refusable command tomorrow
     if ! pc=$(policy_check "$cmd"); then
       printf 'POLICY %s reason=%s\n' "$id" "$pc"
       C_POLICY=$((C_POLICY + 1))
       continue
     fi
+    if ! is_host_note "$note" && host_invocation "$cmd"; then
+      printf 'POLICY %s reason=untagged-host script=%s\n' "$id" "$INV_SCRIPT"
+      C_POLICY=$((C_POLICY + 1))
+      continue
+    fi
+    # a symlinked script word aliases another script under a new name, so the
+    # host-script match could not see it (wave-1 ProbeHostEvasion)
+    if invoked_script "$cmd" && [[ -L $ROOT/$INV_SCRIPT ]]; then
+      printf 'POLICY %s reason=script-symlink script=%s\n' "$id" "$INV_SCRIPT"
+      C_POLICY=$((C_POLICY + 1))
+      continue
+    fi
+    if is_host_note "$note" && [[ $ALLOW_HOST -ne 1 ]]; then
+      printf 'HOST-SKIP %s reason=host-row-not-authorized\n' "$id"
+      C_HOST=$((C_HOST + 1)); continue
+    fi
+    if [[ $note == *'[substrate]'* ]] && ! substrate_present; then
+      printf 'DEFER %s reason=substrate-absent\n' "$id"
+      C_DEFER=$((C_DEFER + 1)); continue
+    fi
+    C_RUN=$((C_RUN + 1))
     rc=0
     out=$(cd "$ROOT" && CLAIM_LEDGER_DEPTH=$((CLAIM_LEDGER_DEPTH_IN + 1)) \
       timeout -k 5 "$tmo" bash -o pipefail -c "$cmd" 2>&1) || rc=$?
@@ -477,7 +589,11 @@ cite_target() { # prints the resolved absolute path, or nothing
     knowledge/*|lessons/*)
       [[ -e $ROOT/corpus/$t ]] && printf '%s' "$ROOT/corpus/$t" ;;
     .ufo/*)
-      r=${t#.ufo/}; [[ -e $ROOT/../.ufo/$r ]] && printf '%s' "$ROOT/../.ufo/$r" ;;
+      # lane-first (round 24, R11-08): lane rounds keep their wave evidence in
+      # their own `.ufo/`; only a path absent there falls back to the fleet tree
+      r=${t#.ufo/}
+      if [[ -e $ROOT/.ufo/$r ]]; then printf '%s' "$ROOT/.ufo/$r"
+      elif [[ -e $ROOT/../.ufo/$r ]]; then printf '%s' "$ROOT/../.ufo/$r"; fi ;;
     ufo/*)
       r=${t#ufo/}; [[ -e $ROOT/../.ufo/$r ]] && printf '%s' "$ROOT/../.ufo/$r" ;;
     *-shokunin/*)
@@ -497,6 +613,7 @@ norm_tok() {
     t=${t#\"};  t=${t%\"}
     t=${t#\'};  t=${t%\'}
     t=${t#(};   t=${t%)}
+    t=${t#\[};  t=${t%\]}           # list brackets (`['a.md',` … `'b.md']`)
     t=${t#./}
     if [[ $t =~ ^(.*)[,:][0-9]+([-,][0-9]+)*$ ]]; then t=${BASH_REMATCH[1]}; fi
     t=${t%%#*}                      # anchor fragments (`path.md#section`)
@@ -590,8 +707,10 @@ citations() {
           CIT_UNRESOLVED=$((CIT_UNRESOLVED + 1))
         fi
       # spaces inside a brace set are not token separators: `{4, 5}` is one path
+      # a quote/comma-joined list (`['a.md','b.md']`, round 24 R11-08) is split
+      # into its members before whitespace tokenizing
       done < <(printf '%s' "$content" |
-        sed -E ':a; s/\{([^}]*)[[:space:]]+([^}]*)\}/{\1\2}/g; ta' |
+        sed -E ":a; s/\{([^}]*)[[:space:]]+([^}]*)\}/{\1\2}/g; ta; s/'[[:space:]]*,[[:space:]]*'/' '/g; s/\"[[:space:]]*,[[:space:]]*\"/\" \"/g" |
         tr ' ' '\n' | tr '\t' '\n' || true)
     done < <(grep -nE '.' "$doc" || true)
   done
@@ -812,8 +931,11 @@ cells_evidence() {
       # from a claim row, so re-running it from inside `cells` is how a bounded
       # audit would become an unbounded one. Reported, never silent. The test is
       # the SCRIPT (`claim-ledger.sh`), not the stem: a row that merely greps
-      # `corpus/claim-ledger.tsv` is a reader, not a re-invocation.
-      if [[ ${TF[1]:-} == *claim-ledger.sh* ]]; then
+      # `corpus/claim-ledger.tsv` is a reader, not a re-invocation. Round 24:
+      # the old substring test also skipped a row that only READ the script
+      # (`grep -c x corpus/claim-ledger.sh`); now only a `bash` invocation of
+      # corpus/claim-ledger.sh (options, quotes, `./`, `//` normalized) is self.
+      if invoked_script "${TF[1]:-}" && [[ $INV_SCRIPT == corpus/claim-ledger.sh ]]; then
         printf 'SKIP-SELF %s (row invokes this gate; not re-run from inside the cell audit)\n' "${TF[0]}"
         CL_SELF_SKIP=$((CL_SELF_SKIP + 1))
         continue
@@ -825,7 +947,9 @@ cells_evidence() {
     verify_claims
     CLAIMS=$saved
     rm -f -- "$STAMP_TMP"; STAMP_TMP=""
-    CL_ROWS_RUN=$C_N
+    # executed rows only (round 24): deferred, host-skipped and policy-refused
+    # rows were counted as "run" before, so rows_run overstated the re-run
+    CL_ROWS_RUN=$C_RUN
   fi
   for p in "${CEL_PATHS[@]}"; do
     rc=0; stamp_cmp "$p" || rc=$?
@@ -975,12 +1099,12 @@ case "$MODE" in
       exit 2
     fi
     if [[ $C_FAILED -gt 0 || $V_STALE -gt 0 || $V_MISSING -gt 0 || $IDX_MISSING -gt 0 ]]; then
-      printf 'CLAIM_LEDGER: FAIL (claims=%d failed=%d deferred=%d stamped=%d stale=%d missing=%d unresolved_ids=%d labeled_ids=%d)\n' \
-        "$C_N" "$C_FAILED" "$C_DEFER" "$V_ROWS" "$V_STALE" "$V_MISSING" "$IDX_MISSING" "$IDX_LABELED"
+      printf 'CLAIM_LEDGER: FAIL (claims=%d failed=%d deferred=%d stamped=%d stale=%d missing=%d unresolved_ids=%d labeled_ids=%d host_skipped=%d)\n' \
+        "$C_N" "$C_FAILED" "$C_DEFER" "$V_ROWS" "$V_STALE" "$V_MISSING" "$IDX_MISSING" "$IDX_LABELED" "$C_HOST"
       exit 1
     fi
-    printf 'CLAIM_LEDGER: CLEAN (claims=%d deferred=%d stamped=%d ids=%d cited=%d labeled_ids=%d orphans=%d)\n' \
-      "$C_N" "$C_DEFER" "$V_ROWS" "$LID_N" "$IDX_CITED" "$IDX_LABELED" "$IDX_ORPHANS"
+    printf 'CLAIM_LEDGER: CLEAN (claims=%d deferred=%d stamped=%d ids=%d cited=%d labeled_ids=%d orphans=%d host_skipped=%d)\n' \
+      "$C_N" "$C_DEFER" "$V_ROWS" "$LID_N" "$IDX_CITED" "$IDX_LABELED" "$IDX_ORPHANS" "$C_HOST"
     ;;
   docs)
     doc_audit "${POS[0]:-corpus/knowledge}"
@@ -1004,12 +1128,12 @@ case "$MODE" in
       exit 2
     fi
     if [[ $CL_UNCITED -gt 0 || $IDX_MISSING -gt 0 || $C_FAILED -gt 0 || $CL_STALE -gt 0 ]]; then
-      printf 'CELL_AUDIT: BROKEN (cells=%d row_pointed=%d stamp_pointed=%d uncited=%d missing_ids=%d rows_run=%d row_deferred=%d row_failures=%d stale_pointers=%d self_skipped=%d orphans=%d)\n' \
-        "$CL_CELLS" "$CL_ROWS" "$CL_STAMPS" "$CL_UNCITED" "$IDX_MISSING" "$CL_ROWS_RUN" "$C_DEFER" "$C_FAILED" "$CL_STALE" "$CL_SELF_SKIP" "$IDX_ORPHANS"
+      printf 'CELL_AUDIT: BROKEN (cells=%d row_pointed=%d stamp_pointed=%d uncited=%d missing_ids=%d rows_run=%d row_deferred=%d row_failures=%d stale_pointers=%d self_skipped=%d orphans=%d host_skipped=%d)\n' \
+        "$CL_CELLS" "$CL_ROWS" "$CL_STAMPS" "$CL_UNCITED" "$IDX_MISSING" "$CL_ROWS_RUN" "$C_DEFER" "$C_FAILED" "$CL_STALE" "$CL_SELF_SKIP" "$IDX_ORPHANS" "$C_HOST"
       exit 1
     fi
-    printf 'CELL_AUDIT: CLEAN (cells=%d row_pointed=%d stamp_pointed=%d uncited=0 missing_ids=0 rows_run=%d row_deferred=%d row_failures=0 stale_pointers=0 self_skipped=%d orphans=%d)\n' \
-      "$CL_CELLS" "$CL_ROWS" "$CL_STAMPS" "$CL_ROWS_RUN" "$C_DEFER" "$CL_SELF_SKIP" "$IDX_ORPHANS"
+    printf 'CELL_AUDIT: CLEAN (cells=%d row_pointed=%d stamp_pointed=%d uncited=0 missing_ids=0 rows_run=%d row_deferred=%d row_failures=0 stale_pointers=0 self_skipped=%d orphans=%d host_skipped=%d)\n' \
+      "$CL_CELLS" "$CL_ROWS" "$CL_STAMPS" "$CL_ROWS_RUN" "$C_DEFER" "$CL_SELF_SKIP" "$IDX_ORPHANS" "$C_HOST"
     ;;
   citations)
     citations
@@ -1203,6 +1327,25 @@ if [[ ${SELFTEST:-0} -eq 1 ]]; then
   # absent, and run normally when forced present. KAGI_SUBSTRATE overrides host
   # detection so both arms are provable on any host.
   printf 'c1\tgrep -c EXPECTED corpus/absent.txt\t^1$\t1\t5\tneeds the handler [substrate]\n' >"$R/claims-defer.tsv"
+  # --- round 24: host rows, host-path/backslash policy, self-test, citations ---
+  printf 'c1\tgrep -c EXPECTED corpus/ok.txt\t^1$\t0\t5\treads a host path [host]\n' >"$R/claims-hosttag.tsv"
+  printf 'u1\tbash corpus/drift-pins.sh\t^X$\t0\t5\tuntagged\nu2\tbash ./corpus//drift-pins.sh\t^X$\t0\t5\tuntagged\nu3\tbash -x '"'"'corpus/drift-pins.sh'"'"'\t^X$\t0\t5\tuntagged\nu4\tbash corpus/claim-ledger.sh cells\t^X$\t0\t5\tuntagged\n' >"$R/claims-untagged-host.tsv"
+  printf '#!/usr/bin/env bash\nprintf "CLAIM_OK\\n"\n' >"$R/corpus/drift-pins.sh"
+  printf 'h1\tbash corpus/drift-pins.sh --selftest\t^CLAIM_OK$\t0\t5\thost-free mode, untagged\n' >"$R/claims-hostfree.tsv"
+  printf 'c1\ttest -e corpus/a\\b\t^X$\t1\t5\tsingle backslash\n' >"$R/claims-bs1.tsv"
+  printf 'p1\tgrep -c x /etc/hostname\t^X$\t0\t5\tabs\np2\tgrep -c x ~/.bashrc\t^X$\t0\t5\ttilde\np3\ttest -e corpus/../x\t^X$\t1\t5\tparent\np4\tgrep -c x --file=/etc/hostname\t^X$\t0\t5\tvalue-abs\n' >"$R/claims-hostpath.tsv"
+  printf 'cells_evidence\n' >"$R/corpus/claim-ledger.sh"
+  printf 'R6-01\tgrep -c cells_evidence corpus/claim-ledger.sh\t^1$\t0\t5\treader of the gate script, not an invocation\n' >"$R/claims-reader.tsv"
+  printf 'R1-01\tgrep -c EXPECTED corpus/ok.txt\t^1$\t0\t5\tselftest\nR4-01\tgrep -c EXPECTED corpus/ok.txt\t^1$\t0\t5\thost row [host]\n' >"$R/claims-cells-host.tsv"
+  mkdir -p "$R/.ufo/waves/lane-only"
+  printf 'x\n' >"$R/.ufo/waves/lane-only/a.md"
+  printf 'list cites [%s] here\n' "'corpus/ok.txt','LOG.md'" >"$R/corpus/docs/quote-list.md"
+  printf 'lane-first `.ufo/waves/lane-only/a.md` and fleet `.ufo/reports` here\n' >"$R/corpus/docs/ufo-lane.md"
+  printf 'lane-first miss `.ufo/waves/lane-only/nope.md` here\n' >"$R/corpus/docs/ufo-lane-miss.md"
+  printf 'R1-01\tgrep -c EXPECTED corpus/ok.txt\t^1$\t0\t5\tselftest\nR4-02\tgrep -c EXPECTED corpus/absent.txt\t^1$\t1\t5\tneeds the handler [substrate]\n' >"$R/claims-cells-defer.tsv"
+  printf 'b1\tbash -o posix corpus/drift-pins.sh\t^X$\t0\t5\tbash option operand hides the script word\n' >"$R/claims-bashopt.tsv"
+  ln -s drift-pins.sh "$R/corpus/dp-alias.sh"
+  printf 'a1\tbash corpus/dp-alias.sh\t^X$\t0\t5\tsymlink alias of a host script\n' >"$R/claims-alias.tsv"
 
   # --- round 14: knowledge-entry declarations (`docs`) ------------------------
   # `entry` writes a minimal entry; `estamp` pins one; the pinned set is
@@ -1288,7 +1431,7 @@ if [[ ${SELFTEST:-0} -eq 1 ]]; then
     fi
   }
 
-  tcase claims-pass            0 'CLAIM_LEDGER: CLEAN (claims=1 deferred=0 stamped=1 ids=1 cited=0 labeled_ids=0 orphans=1)' "$0" verify --root "$R" --claims "$R/claims-pass.tsv" --stamps "$R/stamps.tsv"
+  tcase claims-pass            0 'CLAIM_LEDGER: CLEAN (claims=1 deferred=0 stamped=1 ids=1 cited=0 labeled_ids=0 orphans=1 host_skipped=0)' "$0" verify --root "$R" --claims "$R/claims-pass.tsv" --stamps "$R/stamps.tsv"
   tcase mode-unknown-revision 2 'unexpected positional argument for verify' "$0" revision --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv"
   tcase verify-extra-positional 2 'unexpected positional argument for verify' "$0" verify extra --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv"
   tcase claim-verdict-missing  1 'reason=verdict-not-final' "$0" verify --root "$R" --claims "$R/claims-verdict.tsv" --stamps "$R/stamps.tsv"
@@ -1326,7 +1469,7 @@ if [[ ${SELFTEST:-0} -eq 1 ]]; then
   tcase cite-labeled-line-ok   0 'labeled=1'                 "$0" citations --root "$R" --docs "$R/corpus/docs/labeled-line.md"
   tcase stamp-bytes-tampered   1 'STALE corpus/ok.txt'       "$0" verify --root "$R" --claims "$R/claims-pass.tsv" --stamps "$R/stamps-bytes.tsv"
   tcase stamp-write            0 'STAMPED: n=1'              "$0" stamp --root "$R" --out "$R/stamps-new.tsv" corpus/ok.txt
-  tcase stamp-verify-fresh     0 'CLAIM_LEDGER: CLEAN (claims=1 deferred=0 stamped=1 ids=1 cited=0 labeled_ids=0 orphans=1)' "$0" verify --root "$R" --claims "$R/claims-pass.tsv" --stamps "$R/stamps-new.tsv"
+  tcase stamp-verify-fresh     0 'CLAIM_LEDGER: CLEAN (claims=1 deferred=0 stamped=1 ids=1 cited=0 labeled_ids=0 orphans=1 host_skipped=0)' "$0" verify --root "$R" --claims "$R/claims-pass.tsv" --stamps "$R/stamps-new.tsv"
   tcase stamp-refuse-absolute  2 'absolute path refused'     "$0" stamp --root "$R" --out "$R/x.tsv" /etc/hostname
   tcase stamp-refuse-self      2 'refusing to stamp the output file itself' "$0" stamp --root "$R" --out "$R/stamps-new.tsv" stamps-new.tsv
   tcase stamp-out-after-args   0 'STAMPED: n=1'              "$0" stamp --root "$R" corpus/ok.txt --out "$R/stamps-late.tsv"
@@ -1355,7 +1498,7 @@ if [[ ${SELFTEST:-0} -eq 1 ]]; then
   tcase stamp-symlink-out      2 '--out is a symlink' "$0" stamp --root "$R" --out "$R/stamps-link.tsv" corpus/ok.txt
   # --- round 13: id resolution (verify) + scorecard cell pointers (cells) -----
   tcase verify-id-missing      1 'unresolved_ids=2' "$0" verify --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --docs "$R/corpus/docs/id-missing.md"
-  tcase verify-id-known        0 'CLAIM_LEDGER: CLEAN (claims=1 deferred=0 stamped=1 ids=1 cited=1 labeled_ids=0 orphans=0)' "$0" verify --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --docs "$R/corpus/docs/id-known.md"
+  tcase verify-id-known        0 'CLAIM_LEDGER: CLEAN (claims=1 deferred=0 stamped=1 ids=1 cited=1 labeled_ids=0 orphans=0 host_skipped=0)' "$0" verify --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --docs "$R/corpus/docs/id-known.md"
   tcase verify-orphan-listed   0 'ORPHAN R1-01' "$0" verify --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --docs "$R/corpus/docs/clean.md" --orphans
   tcase verify-empty-ledger    2 'no claim rows' "$0" verify --root "$R" --claims "$R/stamps-empty.tsv" --stamps "$R/stamps.tsv" --docs "$R/corpus/docs/clean.md"
   tcase cells-clean            0 'CELL_AUDIT: CLEAN (cells=6 row_pointed=5 stamp_pointed=1 uncited=0 missing_ids=0 rows_run=1 row_deferred=0 row_failures=0 stale_pointers=0' "$0" cells --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-ok.md" --docs "$R/sc-ok.md"
@@ -1419,9 +1562,32 @@ if [[ ${SELFTEST:-0} -eq 1 ]]; then
   tcase docs-dir-absolute     2 'must be relative to --root' "$0" docs "${DA[@]}" /etc
   tcase docs-dir-missing      2 'entries dir not found' "$0" docs "${DA[@]}" entries-nope
   tcase docs-malformed-line   2 "are not 'Reverify: ' declarations" "$0" docs "${DA[@]}" entries-malformed
-  tcase defer-substrate-absent  0 'CLAIM_LEDGER: CLEAN (claims=1 deferred=1' env KAGI_SUBSTRATE=absent "$0" verify --root "$R" --claims "$R/claims-defer.tsv" --stamps "$R/stamps.tsv"
-  tcase defer-substrate-present 1 'reason=exit-mismatch'      env KAGI_SUBSTRATE=present "$0" verify --root "$R" --claims "$R/claims-defer.tsv" --stamps "$R/stamps.tsv"
-  tcase defer-substrate-line    0 'DEFER c1 reason=substrate-absent' env KAGI_SUBSTRATE=absent "$0" verify --root "$R" --claims "$R/claims-defer.tsv" --stamps "$R/stamps.tsv"
+  tcase defer-substrate-absent  0 'CLAIM_LEDGER: CLEAN (claims=1 deferred=1' env KAGI_SUBSTRATE=absent "$0" verify --allow-host-rows --root "$R" --claims "$R/claims-defer.tsv" --stamps "$R/stamps.tsv"
+  tcase defer-substrate-present 1 'reason=exit-mismatch'      env KAGI_SUBSTRATE=present "$0" verify --allow-host-rows --root "$R" --claims "$R/claims-defer.tsv" --stamps "$R/stamps.tsv"
+  tcase defer-substrate-line    0 'DEFER c1 reason=substrate-absent' env KAGI_SUBSTRATE=absent "$0" verify --allow-host-rows --root "$R" --claims "$R/claims-defer.tsv" --stamps "$R/stamps.tsv"
+  # --- round 24 (routed D4 + audit debts) --------------------------------------
+  tcase host-substrate-default-skip 0 'HOST-SKIP c1 reason=host-row-not-authorized' env KAGI_SUBSTRATE=present "$0" verify --root "$R" --claims "$R/claims-defer.tsv" --stamps "$R/stamps.tsv"
+  tcase_last host-skip-summary  0 'CLAIM_LEDGER: CLEAN (claims=1 deferred=0 stamped=1 ids=1 cited=0 labeled_ids=0 orphans=1 host_skipped=1)' env KAGI_SUBSTRATE=present "$0" verify --root "$R" --claims "$R/claims-defer.tsv" --stamps "$R/stamps.tsv"
+  tcase host-env-not-consent    0 'HOST-SKIP c1' env KAGI_HOST_ROWS=run ALLOW_HOST=1 "$0" verify --root "$R" --claims "$R/claims-hosttag.tsv" --stamps "$R/stamps.tsv"
+  tcase_last host-tag-allowed   0 'CLAIM_LEDGER: CLEAN (claims=1 deferred=0 stamped=1 ids=1 cited=0 labeled_ids=0 orphans=1 host_skipped=0)' "$0" verify --allow-host-rows --root "$R" --claims "$R/claims-hosttag.tsv" --stamps "$R/stamps.tsv"
+  tcase untagged-host-refused   2 'CLAIM_LEDGER: POLICY (claims=4 policy=4' "$0" verify --root "$R" --claims "$R/claims-untagged-host.tsv" --stamps "$R/stamps.tsv"
+  tcase untagged-host-reason    2 'POLICY u2 reason=untagged-host script=corpus/drift-pins.sh' "$0" verify --root "$R" --claims "$R/claims-untagged-host.tsv" --stamps "$R/stamps.tsv"
+  tcase untagged-cells-realtree 2 'POLICY u4 reason=untagged-host script=corpus/claim-ledger.sh' "$0" verify --root "$R" --claims "$R/claims-untagged-host.tsv" --stamps "$R/stamps.tsv"
+  tcase host-free-mode-runs     0 'CLAIM_LEDGER: CLEAN (claims=1' "$0" verify --root "$R" --claims "$R/claims-hostfree.tsv" --stamps "$R/stamps.tsv"
+  tcase policy-single-backslash 2 'POLICY c1 reason=backslash' "$0" verify --root "$R" --claims "$R/claims-bs1.tsv" --stamps "$R/stamps.tsv"
+  tcase policy-host-paths       2 'CLAIM_LEDGER: POLICY (claims=4 policy=4' "$0" verify --root "$R" --claims "$R/claims-hostpath.tsv" --stamps "$R/stamps.tsv"
+  tcase policy-tilde-reason     2 'POLICY p2 reason=host-path' "$0" verify --root "$R" --claims "$R/claims-hostpath.tsv" --stamps "$R/stamps.tsv"
+  tcase policy-bash-option      2 'POLICY b1 reason=bash-option' "$0" verify --root "$R" --claims "$R/claims-bashopt.tsv" --stamps "$R/stamps.tsv"
+  tcase policy-script-symlink   2 'POLICY a1 reason=script-symlink script=corpus/dp-alias.sh' "$0" verify --root "$R" --claims "$R/claims-alias.tsv" --stamps "$R/stamps.tsv"
+  six "$R/sc-reader.md" '`R6-01`' '`R6-01`' '`R6-01`' '`R6-01`' '`R6-01`' '`R6-01`'
+  tcase_last cells-reader-not-self 0 'CELL_AUDIT: CLEAN (cells=6 row_pointed=6 stamp_pointed=0 uncited=0 missing_ids=0 rows_run=1 row_deferred=0 row_failures=0 stale_pointers=0 self_skipped=0 orphans=0 host_skipped=0)' "$0" cells --root "$R" --claims "$R/claims-reader.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-reader.md" --docs "$R/sc-reader.md"
+  six "$R/sc-cells-host.md" '`R1-01`' '`R4-01`' '`R1-01`' '`R1-01`' '`R1-01`' '`R1-01`'
+  tcase_last cells-host-not-run   0 'CELL_AUDIT: CLEAN (cells=6 row_pointed=6 stamp_pointed=0 uncited=0 missing_ids=0 rows_run=1 row_deferred=0 row_failures=0 stale_pointers=0 self_skipped=0 orphans=0 host_skipped=1)' "$0" cells --root "$R" --claims "$R/claims-cells-host.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-cells-host.md" --docs "$R/sc-cells-host.md"
+  six "$R/sc-cells-defer.md" '`R1-01`' '`R4-02`' '`R1-01`' '`R1-01`' '`R1-01`' '`R1-01`'
+  tcase cells-rows-run-excludes-defer 0 'rows_run=1 row_deferred=1' env KAGI_SUBSTRATE=absent "$0" cells --allow-host-rows --root "$R" --claims "$R/claims-cells-defer.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-cells-defer.md" --docs "$R/sc-cells-defer.md"
+  tcase cite-quote-list         0 'CITATION_GATE: CLEAN' "$0" citations --root "$R" --docs "$R/corpus/docs/quote-list.md"
+  tcase cite-ufo-lane-first     0 'CITATION_GATE: CLEAN (cites=2' "$0" citations --root "$R" --docs "$R/corpus/docs/ufo-lane.md"
+  tcase cite-ufo-lane-miss      1 'UNRESOLVED' "$0" citations --root "$R" --docs "$R/corpus/docs/ufo-lane-miss.md"
 
   if [[ $failures -eq 0 ]]; then printf 'SELFTEST: PASS (%d cases)\n' "$cases"; exit 0; fi
   printf 'SELFTEST: FAIL (%d/%d cases)\n' "$failures" "$cases"; exit 1

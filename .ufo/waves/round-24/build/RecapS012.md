@@ -1,0 +1,13 @@
+# S012 live re-open
+
+## Registry row and fetch
+- Source: `corpus/SOURCES.md:18`. Registered URL: `https://developer.hashicorp.com/vault/docs/auth/jwt`. Scope: “Vault JWT/OIDC signature and audience validation for role authentication.” Teaches: “Vault requires an exact role audience match when a presented JWT has an audience claim.” In-row `Fetch sha256`: `ec6e7b250d181c5c3cbbffb482e96f96649b9f556884e069fb62f64798357c45`.
+- Profile: `kagi-shokunin-round23/1.0 (documentation verification)`.
+- Command: `curl -fsSL --compressed -A 'kagi-shokunin-round23/1.0 (documentation verification)' -o /fast/scratch/kagi-r24/seats/RecapS012-2/s012-body.html -w '%{url_effective} %{http_code}\n' 'https://developer.hashicorp.com/vault/docs/auth/jwt'` — exit 0. `curl -w` result: `https://developer.hashicorp.com/vault/docs/auth/jwt 200`; HTTP status **200**.
+- Decoded response-body bytes: **386435**. Command: `python3 /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/rendered-text-v1.py digest /fast/scratch/kagi-r24/seats/RecapS012-2/s012-body.html` — exit 0; output: `RENDERED_TEXT_V1: raw_sha256=62556bf024c400fd06878657748a0f76958f7c3b7d538e432694df31a3768292 bytes=386435 normalized_sha256=06d2508c959bf32976b70965d254fb75b745ecc43d99970aed35088eecb4a431 normalized_bytes=18609`.
+- Pin comparison: the row pin matches **neither** raw SHA-256 (`62556bf024c400fd06878657748a0f76958f7c3b7d538e432694df31a3768292`) nor normalized SHA-256 (`06d2508c959bf32976b70965d254fb75b745ecc43d99970aed35088eecb4a431`).
+
+## Quote and live scope
+- Exact locator input from the row: `must exactly match at least one of the \`aud\` claims declared for the JWT.` Command: `python3 /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/rendered-text-v1.py locate /fast/scratch/kagi-r24/seats/RecapS012-2/s012-body.html 'must exactly match at least one of the `aud` claims declared for the JWT.'` — exit 1; output `RENDERED_TEXT_V1_LOCATE: count=0`. The normalizer's documented exit-1 meaning is not-found (`corpus/rendered-text-v1.py:42-49,101-112`).
+- Closest live sentence grounding the same audience-match claim (13 words), under **Configuration → Bound claims**: “the bound_audiences parameter must exactly match at least one of provided aud claims.” The adjacent sentence states: “the bound_audiences parameter is required when an aud claim is set.”
+- **Scope/teaches: partly.** The exact-match teaching still holds for JWT roles, but the combined JWT/OIDC scope needs the OIDC qualifier. Under **OIDC authentication → OIDC configuration troubleshooting**, the live page says: “bound_audiences is optional for OIDC roles and typically not required.”

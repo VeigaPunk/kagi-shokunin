@@ -1225,3 +1225,33 @@ claim. Inherited red/unknown rows (R11-08 citations red at base; cells
 SKIP-SELF bound; single-backslash guard; live-count breadth rows) are
 reported as debt, not credited. Independent non-author closure owns
 admission.
+
+## Round 24 — host-safe ledger, legacy pins classified, membership-bound counts (2026-10-21)
+
+Base `4f94b52a3cdfaa289d779bd8a2afcd0b1fcd9105` (round-23 spot-check). Frozen
+claims: `plans/round-24.md`. Lesson: `corpus/lessons/round-24.md`.
+
+Motivating evidence (before, measured on scratch clones of BASE):
+`.ufo/waves/round-24/tripwire-before.txt` — the default real-tree `verify`
+and `cells` executed host-population rows (stubbed): `total=35`
+(verify absent 1 / present 22, cells absent 1 / present 11);
+`.ufo/waves/round-24/identity-before.txt` — 15/15 count-preserving identity
+swaps survived every ledger row over their surface; `citations` at the lane
+tip `unresolved=2` (both tokens in the non-author round-22 file); 16 of 26
+registry rows had only a historical in-row pin, 12 of which do not reproduce
+their same-day capture (S001-S007, S012-S016).
+
+Changes: C1 `corpus/claim-ledger.sh` (host rows default-skip with
+`--allow-host-rows` consent, POLICY untagged-host/host-path/bash-option/
+script-symlink, single-backslash guard, invocation-only SKIP-SELF,
+executed-only rows_run, quote-list and lane-first `.ufo/` citations; 19 new
+selftest cases, 140 total; R18-01 tagged `[host]`, R18-02 rewritten); C2
+`corpus/rendered-text-v1.py` (the one normalizer declaration, 20 cases,
+reproduces all ten round-23 normalized digests), sixteen S001-S016 capture
+rows in `corpus/source-fetches.tsv`, `corpus/inrow-pins.tsv`, census SC_INROW
+and the extended CLEAN line (11 new selftest cases, 70 total), S027-S031
+(four admitted, S030 rejected); C3 `corpus/row-identity.sh` and ledger rows
+R24-03..R24-16; D3 row R24-02; D1/D2 SCORECARD and SKILL.md registry; QM15-QM18
+appended to `corpus/QUALITY.md`. Expectation old/new values:
+`.ufo/waves/round-24/expectation-migrations.json`. Measured outcomes and the
+falsification wave follow in the lesson and the round-24 SCORECARD section.

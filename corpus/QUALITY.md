@@ -85,3 +85,16 @@ arithmetic, retain exact argv/cwd/stdout or quarantine the claim; never
 invent missing semantics. In particular, legacy `verify` positional IDs
 were not row selectors. Its unauthorized host-gate results are not a
 substitute for QM12's explicit safe-row accounting.
+
+## Criteria from the outside round-23 spot-check (round 24)
+
+Each row turns one routed defect of `corpus/lessons/round-23-verifier-spotcheck.md`
+§Routed defects into a reusable bar; the fix that first satisfies it is named in
+`corpus/lessons/round-24.md` §Routed defect dispositions.
+
+| id | criterion | weak signal | lesson |
+|---|---|---|---|
+| QM15 | Supplements QM12: a gate entry point that can reach a host-private read is default-deny. A ledger row that reads host-private surfaces carries `[host]` or `[substrate]`; `verify`/`cells` skip such rows by id unless the caller passes an explicit per-invocation consent flag (no inherited environment variable), and an untagged row that invokes a declared host-reading script outside its host-free arguments is refused, not run. `~`, absolute and `..` arguments and bash options are refused in row commands. | "never run `verify` on this host" as prose only; a host row that runs because a tag was forgotten; a consent variable inherited from a parent shell | `corpus/lessons/round-23-verifier-spotcheck.md` §Routed defects D4 and §Weighing the waves (M23-5); `corpus/lessons/round-24.md` §Routed defect dispositions |
+| QM16 | Supplements QM14: freshness provenance separates current captures from historical pins. Every permitted legacy in-row pin is classified against a same-day capture by a verdict the gate recomputes from digests; only the named historical population keeps an in-row-only exemption; every normalized digest uses ONE committed, selftested normalizer whose decode, element, tag/comment, entity, whitespace-class, trim and encode rules are explicit and source-cited. | a pin "required for coverage, never compared"; the same normalizer described three ways; a quote rule stated as "collapse whitespace" with no class | `corpus/lessons/round-23-verifier-spotcheck.md` §Routed defects D5, D6; `corpus/lessons/round-24.md` §Gate |
+| QM17 | Supplements QM13: a review Gate records each admitted, rejected, superseded/demoted or withdrawn candidate with its decision and basis; an aggregate count or "excluded 0" does not stand in for the rejected candidates. | a Gate with admits only; supersession recorded as prose elsewhere | `corpus/lessons/round-23-verifier-spotcheck.md` §Discernment spot-check and §Routed defects D8; `corpus/lessons/round-24.md` §Gate |
+| QM18 | A ledger row whose note describes a MEMBERSHIP (rows, ids, pins, paths, cases) pins that membership's identity, not only its cardinality; a count-preserving swap of members must fail some ledger row. Blank lines are not members. | `grep -c` rows whose notes say "membership", "declares N rows", "holds N ids"; a count that a rename keeps green | `corpus/lessons/round-24.md` §Mistakes M24-3 and §C3 identity contract |

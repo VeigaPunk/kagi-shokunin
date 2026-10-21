@@ -89,3 +89,13 @@ action, no Git/jj mutation by seats. Plan corrections, if any, are appended
 below this line and never rewrite the frozen text or the counting commands.
 
 ## Plan corrections (appended during the round)
+
+- (L1, during BUILD, before any measurement tool or patch exists) Fixture
+  construction clarification, not a widening: the default receipt pins every
+  table row's observation, so a table-only edit ends `RECEIPT-MISMATCH` and
+  would never measure the targeted behaviour. F1, F2 and G1..G4 therefore
+  mirror their edited rows into a copy of the default receipt and run with
+  `--receipt <copy> --receipt-sha <its sha256>`, exactly as round27's
+  `c2-measure.py` built its fixtures ("table + receipt"). "release-clocks.tsv
+  edits only" in §C2 means: SOURCES.md and code are never edited by a fixture.
+  Command lines, fixture ids, values and predicates are unchanged.

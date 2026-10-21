@@ -197,7 +197,9 @@ not content verification: a 64-hex in-row digest passes on presence (the
 historical bound), quote text and location are not checked against the page (a changed-word quote, a blank quote, or 60 thin-space-joined words pass; only ASCII word count and a non-empty location are shape-checked), and captures are point
 attestations (page chrome moved S017's and S023's normalized digests between
 days while their articles did not). C3's fixture proves the `cells` mechanics
-host-free; it does not replicate all 43 ledger rows, and `rows_run` counts
+host-free; `claim-ledger.sh` policy still allow-lists `stamp --prune` and a
+`cells` row that omits explicit `--claims/--stamps/--docs`, so hermeticity and
+non-mutation rest on the row text plus its exact expected line, not on policy; it does not replicate all 43 ledger rows, and `rows_run` counts
 selected rows, so only `row_deferred=0`/`self_skipped=0` exclude an unexecuted
 fixture.
 

@@ -1,0 +1,295 @@
+{
+  "base": "0a47dd189356ea66ec83c3891eed54526e95b89b",
+  "axes": [
+    "calibration",
+    "freshness"
+  ],
+  "scope": "Read-only BASE extraction; all detector execution and mutations used the uniquely authorized lane sandbox, never production. /fast/scratch not used because the developer write boundary only authorizes this sandbox.",
+  "timeout_seconds_per_run": 30,
+  "rearmed_table": {
+    "base_path": ".ufo/waves/round-26/rearmed/after/corpus/release-clocks.tsv",
+    "sha256": "99a9b4bc36df89a0a86ca7fe16f922aab0abf8f4c3a3380bacdd8924cd02e6fd",
+    "equals_corpus_table_at_base": true
+  },
+  "pristine": [
+    {
+      "case": "S040",
+      "argv": [
+        "python3",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/sandboxes/MutDowngradeBase/S040/corpus/release-clock.py",
+        "--root",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/sandboxes/MutDowngradeBase/S040",
+        "--receipt",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/sandboxes/MutDowngradeBase/S040/.ufo/waves/round-26/observe-2.json",
+        "--receipt-sha",
+        "13b8540c78b9de07bc184894583a368472fd1f2f04a898220bf7c29d2648a169"
+      ],
+      "shell_argv": "python3 -B /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/sandboxes/MutDowngradeBase/S040/corpus/release-clock.py --root /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/sandboxes/MutDowngradeBase/S040 --receipt /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/sandboxes/MutDowngradeBase/S040/.ufo/waves/round-26/observe-2.json --receipt-sha 13b8540c78b9de07bc184894583a368472fd1f2f04a898220bf7c29d2648a169",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/sandboxes/MutDowngradeBase/S040",
+      "exit": 0,
+      "stdout": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)\n",
+      "stderr": "",
+      "last_line": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)",
+      "input_hashes": {
+        "corpus/release-clock.py": "ef17654e0b7fcdee1cdf35d40dc359b194ce4b0711247877dedfa43ff6ef45cc",
+        "corpus/release-clocks.tsv": "99a9b4bc36df89a0a86ca7fe16f922aab0abf8f4c3a3380bacdd8924cd02e6fd",
+        "corpus/rendered-text-v1.py": "7d6bfe8154898f8584e213bcf98936a0819ace75fd80f3dcc87bce1edd1dc7bf",
+        "corpus/SOURCES.md": "6008780bdf002dcc6977ef12debd56dad881552d972d535f4a96e1a22355af75",
+        "corpus/source-fetches.tsv": "a1415da3955f6f4b7c72d6da0c2f63e29c2b7a2ea6ca5a9a42b75ca63464078a",
+        ".ufo/waves/round-26/observe-2.json": "13b8540c78b9de07bc184894583a368472fd1f2f04a898220bf7c29d2648a169"
+      }
+    },
+    {
+      "case": "S027",
+      "argv": [
+        "python3",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/sandboxes/MutDowngradeBase/S027/corpus/release-clock.py",
+        "--root",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/sandboxes/MutDowngradeBase/S027",
+        "--receipt",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/sandboxes/MutDowngradeBase/S027/.ufo/waves/round-26/observe-2.json",
+        "--receipt-sha",
+        "13b8540c78b9de07bc184894583a368472fd1f2f04a898220bf7c29d2648a169"
+      ],
+      "shell_argv": "python3 -B /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/sandboxes/MutDowngradeBase/S027/corpus/release-clock.py --root /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/sandboxes/MutDowngradeBase/S027 --receipt /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/sandboxes/MutDowngradeBase/S027/.ufo/waves/round-26/observe-2.json --receipt-sha 13b8540c78b9de07bc184894583a368472fd1f2f04a898220bf7c29d2648a169",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/sandboxes/MutDowngradeBase/S027",
+      "exit": 0,
+      "stdout": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)\n",
+      "stderr": "",
+      "last_line": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)",
+      "input_hashes": {
+        "corpus/release-clock.py": "ef17654e0b7fcdee1cdf35d40dc359b194ce4b0711247877dedfa43ff6ef45cc",
+        "corpus/release-clocks.tsv": "99a9b4bc36df89a0a86ca7fe16f922aab0abf8f4c3a3380bacdd8924cd02e6fd",
+        "corpus/rendered-text-v1.py": "7d6bfe8154898f8584e213bcf98936a0819ace75fd80f3dcc87bce1edd1dc7bf",
+        "corpus/SOURCES.md": "6008780bdf002dcc6977ef12debd56dad881552d972d535f4a96e1a22355af75",
+        "corpus/source-fetches.tsv": "a1415da3955f6f4b7c72d6da0c2f63e29c2b7a2ea6ca5a9a42b75ca63464078a",
+        ".ufo/waves/round-26/observe-2.json": "13b8540c78b9de07bc184894583a368472fd1f2f04a898220bf7c29d2648a169"
+      }
+    }
+  ],
+  "mutations": {
+    "S040": {
+      "corpus/release-clocks.tsv": {
+        "before_sha256": "99a9b4bc36df89a0a86ca7fe16f922aab0abf8f4c3a3380bacdd8924cd02e6fd",
+        "mutated_sha256": "807b7eb68e30cc5cc6bb8f84eee81fbdd30db35f7f5ef2547b15111474a17436",
+        "unified_diff": "--- 0a47dd189356ea66ec83c3891eed54526e95b89b:corpus/release-clocks.tsv\n+++ S040:corpus/release-clocks.tsv\n@@ -27,5 +27,5 @@\n S030\trendered-quote\t-\t-\t-\t-\t2026-10-21\tquote-located\tliving standard (Last Updated 2026-10-19); whatwg/infra publishes no releases\n S031\trendered-quote\t-\t-\t-\t-\t2026-10-21\tquote-located\tliving standard; whatwg/html publishes no releases\n S032\trendered-quote\t-\t-\t-\t-\t2026-10-21\tquote-located\tunversioned guide; the quote locates in both integration panels\n-S040\tfeed\tS039\thttps://www.python.org/downloads/feed.rss\t3.15.1\t3.15.1\t2026-10-21\tnot-fired\tanchor names Python 3.15.1 documentation; rearmed successor to S027, which remains fired at its original 3.15.0 anchor\n+S040\tfeed\tS039\thttps://www.python.org/downloads/feed.rss\t3.15.1\t3.15.0\t2026-10-21\tfired\tanchor names Python 3.15.1 documentation; rearmed successor to S027, which remains fired at its original 3.15.0 anchor\n S041\tfeed\tS039\thttps://www.python.org/downloads/feed.rss\t3.15.1\t3.15.1\t2026-10-21\tnot-fired\tanchor names Python 3.15.1 documentation; rearmed successor to S028, which remains fired at its original 3.15.0 anchor\n"
+      },
+      ".ufo/waves/round-26/observe-2.json": {
+        "before_sha256": "13b8540c78b9de07bc184894583a368472fd1f2f04a898220bf7c29d2648a169",
+        "mutated_sha256": "f09761b39a8f70566c6a83ae8a6f9b4fcf0329362260bb0fbfd7f6902414674e",
+        "unified_diff": "--- 0a47dd189356ea66ec83c3891eed54526e95b89b:.ufo/waves/round-26/observe-2.json\n+++ S040:.ufo/waves/round-26/observe-2.json\n@@ -315,10 +315,10 @@\n       \"id\": \"S040\",\n       \"located\": null,\n       \"observed_at\": \"2026-10-21T13:43:27Z\",\n-      \"parsed_version\": \"3.15.1\",\n+      \"parsed_version\": \"3.15.0\",\n       \"sha256\": \"11c86a3481551067676403f66bc23b3d7dd1f5de14f32bbacafed239d13ca66b\",\n       \"url\": \"https://www.python.org/downloads/feed.rss\",\n-      \"verdict\": \"not-fired\"\n+      \"verdict\": \"fired\"\n     },\n     {\n       \"clock\": \"feed\",\n"
+      }
+    },
+    "S027": {
+      "corpus/release-clocks.tsv": {
+        "before_sha256": "99a9b4bc36df89a0a86ca7fe16f922aab0abf8f4c3a3380bacdd8924cd02e6fd",
+        "mutated_sha256": "a49ca5c68a5b3fb4f97baa2011e3ebf9c55172a878a6c9ae7252d57dad4ebfd2",
+        "unified_diff": "--- 0a47dd189356ea66ec83c3891eed54526e95b89b:corpus/release-clocks.tsv\n+++ S027:corpus/release-clocks.tsv\n@@ -21,7 +21,7 @@\n S024\tfeed\tS034\thttps://github.com/hashicorp/vault/releases.atom\t2.2.0\t2.2.0\t2026-10-21\tnot-fired\tderived: served v2.x (latest) route, no version in the anchor; newest stable Vault when opened 2026-10-21 (v2.2.0)\n S025\tfeed\tS035\thttps://github.com/openbao/openbao/releases.atom\t2.7.1\t2.7.1\t2026-10-21\tnot-fired\tderived: anchor names Version 2.7.x; newest stable server release when opened 2026-10-21 (v2.7.1)\n S026\tfeed\tS035\thttps://github.com/openbao/openbao/releases.atom\t2.7.1\t2.7.1\t2026-10-21\tnot-fired\tderived: anchor names Version 2.7.x; newest stable server release when opened 2026-10-21 (v2.7.1)\n-S027\tfeed\tS036\thttps://www.python.org/downloads/feed.rss\t3.15.0\t3.15.1\t2026-10-21\tfired\toriginal named Python 3.15.0 anchor retained; round26 observes 3.15.1 and reverifies the teaching; rearmed successor S040 has its own named 3.15.1 anchor\n+S027\tfeed\tS036\thttps://www.python.org/downloads/feed.rss\t3.15.0\t3.15.0\t2026-10-21\tnot-fired\toriginal named Python 3.15.0 anchor retained; round26 observes 3.15.1 and reverifies the teaching; rearmed successor S040 has its own named 3.15.1 anchor\n S028\tfeed\tS036\thttps://www.python.org/downloads/feed.rss\t3.15.0\t3.15.1\t2026-10-21\tfired\toriginal named Python 3.15.0 anchor retained; round26 observes 3.15.1 and reverifies the teaching; rearmed successor S041 has its own named 3.15.1 anchor\n S029\tfeed\tS037\thttps://curl.se/info\t8.23.0\t8.23.0\t2026-10-21\tnot-fired\tderived: anchor names 8.23.1, curl's unreleased development label (curlver.h 8.23.1-DEV); latest official release when opened 2026-10-21 (8.23.0, 2026-10-14)\n S030\trendered-quote\t-\t-\t-\t-\t2026-10-21\tquote-located\tliving standard (Last Updated 2026-10-19); whatwg/infra publishes no releases\n"
+      },
+      ".ufo/waves/round-26/observe-2.json": {
+        "before_sha256": "13b8540c78b9de07bc184894583a368472fd1f2f04a898220bf7c29d2648a169",
+        "mutated_sha256": "f7de548fe11d699e68a228b7b647db973be3c6c8cbbea215ff06f4ca202a3d99",
+        "unified_diff": "--- 0a47dd189356ea66ec83c3891eed54526e95b89b:.ufo/waves/round-26/observe-2.json\n+++ S027:.ufo/waves/round-26/observe-2.json\n@@ -249,6 +249,17 @@\n       \"id\": \"S027\",\n       \"located\": null,\n       \"observed_at\": \"2026-10-21T13:43:24Z\",\n+      \"parsed_version\": \"3.15.0\",\n+      \"sha256\": \"11c86a3481551067676403f66bc23b3d7dd1f5de14f32bbacafed239d13ca66b\",\n+      \"url\": \"https://www.python.org/downloads/feed.rss\",\n+      \"verdict\": \"not-fired\"\n+    },\n+    {\n+      \"clock\": \"feed\",\n+      \"http_status\": 200,\n+      \"id\": \"S028\",\n+      \"located\": null,\n+      \"observed_at\": \"2026-10-21T13:43:24Z\",\n       \"parsed_version\": \"3.15.1\",\n       \"sha256\": \"11c86a3481551067676403f66bc23b3d7dd1f5de14f32bbacafed239d13ca66b\",\n       \"url\": \"https://www.python.org/downloads/feed.rss\",\n@@ -257,17 +268,6 @@\n     {\n       \"clock\": \"feed\",\n       \"http_status\": 200,\n-      \"id\": \"S028\",\n-      \"located\": null,\n-      \"observed_at\": \"2026-10-21T13:43:24Z\",\n-      \"parsed_version\": \"3.15.1\",\n-      \"sha256\": \"11c86a3481551067676403f66bc23b3d7dd1f5de14f32bbacafed239d13ca66b\",\n-      \"url\": \"https://www.python.org/downloads/feed.rss\",\n-      \"verdict\": \"fired\"\n-    },\n-    {\n-      \"clock\": \"feed\",\n-      \"http_status\": 200,\n       \"id\": \"S029\",\n       \"located\": null,\n       \"observed_at\": \"2026-10-21T13:43:25Z\",\n"
+      }
+    }
+  },
+  "mutated": [
+    {
+      "case": "S040",
+      "argv": [
+        "python3",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/sandboxes/MutDowngradeBase/S040/corpus/release-clock.py",
+        "--root",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/sandboxes/MutDowngradeBase/S040",
+        "--receipt",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/sandboxes/MutDowngradeBase/S040/.ufo/waves/round-26/observe-2.json",
+        "--receipt-sha",
+        "f09761b39a8f70566c6a83ae8a6f9b4fcf0329362260bb0fbfd7f6902414674e"
+      ],
+      "shell_argv": "python3 -B /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/sandboxes/MutDowngradeBase/S040/corpus/release-clock.py --root /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/sandboxes/MutDowngradeBase/S040 --receipt /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/sandboxes/MutDowngradeBase/S040/.ufo/waves/round-26/observe-2.json --receipt-sha f09761b39a8f70566c6a83ae8a6f9b4fcf0329362260bb0fbfd7f6902414674e",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/sandboxes/MutDowngradeBase/S040",
+      "exit": 0,
+      "stdout": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=4 derived=15)\n",
+      "stderr": "",
+      "last_line": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=4 derived=15)",
+      "input_hashes": {
+        "corpus/release-clock.py": "ef17654e0b7fcdee1cdf35d40dc359b194ce4b0711247877dedfa43ff6ef45cc",
+        "corpus/release-clocks.tsv": "807b7eb68e30cc5cc6bb8f84eee81fbdd30db35f7f5ef2547b15111474a17436",
+        "corpus/rendered-text-v1.py": "7d6bfe8154898f8584e213bcf98936a0819ace75fd80f3dcc87bce1edd1dc7bf",
+        "corpus/SOURCES.md": "6008780bdf002dcc6977ef12debd56dad881552d972d535f4a96e1a22355af75",
+        "corpus/source-fetches.tsv": "a1415da3955f6f4b7c72d6da0c2f63e29c2b7a2ea6ca5a9a42b75ca63464078a",
+        ".ufo/waves/round-26/observe-2.json": "f09761b39a8f70566c6a83ae8a6f9b4fcf0329362260bb0fbfd7f6902414674e"
+      }
+    },
+    {
+      "case": "S027",
+      "argv": [
+        "python3",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/sandboxes/MutDowngradeBase/S027/corpus/release-clock.py",
+        "--root",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/sandboxes/MutDowngradeBase/S027",
+        "--receipt",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/sandboxes/MutDowngradeBase/S027/.ufo/waves/round-26/observe-2.json",
+        "--receipt-sha",
+        "f7de548fe11d699e68a228b7b647db973be3c6c8cbbea215ff06f4ca202a3d99"
+      ],
+      "shell_argv": "python3 -B /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/sandboxes/MutDowngradeBase/S027/corpus/release-clock.py --root /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/sandboxes/MutDowngradeBase/S027 --receipt /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/sandboxes/MutDowngradeBase/S027/.ufo/waves/round-26/observe-2.json --receipt-sha f7de548fe11d699e68a228b7b647db973be3c6c8cbbea215ff06f4ca202a3d99",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/sandboxes/MutDowngradeBase/S027",
+      "exit": 0,
+      "stdout": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=2 derived=15)\n",
+      "stderr": "",
+      "last_line": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=2 derived=15)",
+      "input_hashes": {
+        "corpus/release-clock.py": "ef17654e0b7fcdee1cdf35d40dc359b194ce4b0711247877dedfa43ff6ef45cc",
+        "corpus/release-clocks.tsv": "a49ca5c68a5b3fb4f97baa2011e3ebf9c55172a878a6c9ae7252d57dad4ebfd2",
+        "corpus/rendered-text-v1.py": "7d6bfe8154898f8584e213bcf98936a0819ace75fd80f3dcc87bce1edd1dc7bf",
+        "corpus/SOURCES.md": "6008780bdf002dcc6977ef12debd56dad881552d972d535f4a96e1a22355af75",
+        "corpus/source-fetches.tsv": "a1415da3955f6f4b7c72d6da0c2f63e29c2b7a2ea6ca5a9a42b75ca63464078a",
+        ".ufo/waves/round-26/observe-2.json": "f7de548fe11d699e68a228b7b647db973be3c6c8cbbea215ff06f4ca202a3d99"
+      }
+    }
+  ],
+  "restored": [
+    {
+      "case": "S040",
+      "argv": [
+        "python3",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/sandboxes/MutDowngradeBase/S040/corpus/release-clock.py",
+        "--root",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/sandboxes/MutDowngradeBase/S040",
+        "--receipt",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/sandboxes/MutDowngradeBase/S040/.ufo/waves/round-26/observe-2.json",
+        "--receipt-sha",
+        "13b8540c78b9de07bc184894583a368472fd1f2f04a898220bf7c29d2648a169"
+      ],
+      "shell_argv": "python3 -B /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/sandboxes/MutDowngradeBase/S040/corpus/release-clock.py --root /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/sandboxes/MutDowngradeBase/S040 --receipt /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/sandboxes/MutDowngradeBase/S040/.ufo/waves/round-26/observe-2.json --receipt-sha 13b8540c78b9de07bc184894583a368472fd1f2f04a898220bf7c29d2648a169",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/sandboxes/MutDowngradeBase/S040",
+      "exit": 0,
+      "stdout": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)\n",
+      "stderr": "",
+      "last_line": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)",
+      "input_hashes": {
+        "corpus/release-clock.py": "ef17654e0b7fcdee1cdf35d40dc359b194ce4b0711247877dedfa43ff6ef45cc",
+        "corpus/release-clocks.tsv": "99a9b4bc36df89a0a86ca7fe16f922aab0abf8f4c3a3380bacdd8924cd02e6fd",
+        "corpus/rendered-text-v1.py": "7d6bfe8154898f8584e213bcf98936a0819ace75fd80f3dcc87bce1edd1dc7bf",
+        "corpus/SOURCES.md": "6008780bdf002dcc6977ef12debd56dad881552d972d535f4a96e1a22355af75",
+        "corpus/source-fetches.tsv": "a1415da3955f6f4b7c72d6da0c2f63e29c2b7a2ea6ca5a9a42b75ca63464078a",
+        ".ufo/waves/round-26/observe-2.json": "13b8540c78b9de07bc184894583a368472fd1f2f04a898220bf7c29d2648a169"
+      }
+    },
+    {
+      "case": "S027",
+      "argv": [
+        "python3",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/sandboxes/MutDowngradeBase/S027/corpus/release-clock.py",
+        "--root",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/sandboxes/MutDowngradeBase/S027",
+        "--receipt",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/sandboxes/MutDowngradeBase/S027/.ufo/waves/round-26/observe-2.json",
+        "--receipt-sha",
+        "13b8540c78b9de07bc184894583a368472fd1f2f04a898220bf7c29d2648a169"
+      ],
+      "shell_argv": "python3 -B /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/sandboxes/MutDowngradeBase/S027/corpus/release-clock.py --root /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/sandboxes/MutDowngradeBase/S027 --receipt /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/sandboxes/MutDowngradeBase/S027/.ufo/waves/round-26/observe-2.json --receipt-sha 13b8540c78b9de07bc184894583a368472fd1f2f04a898220bf7c29d2648a169",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/sandboxes/MutDowngradeBase/S027",
+      "exit": 0,
+      "stdout": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)\n",
+      "stderr": "",
+      "last_line": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)",
+      "input_hashes": {
+        "corpus/release-clock.py": "ef17654e0b7fcdee1cdf35d40dc359b194ce4b0711247877dedfa43ff6ef45cc",
+        "corpus/release-clocks.tsv": "99a9b4bc36df89a0a86ca7fe16f922aab0abf8f4c3a3380bacdd8924cd02e6fd",
+        "corpus/rendered-text-v1.py": "7d6bfe8154898f8584e213bcf98936a0819ace75fd80f3dcc87bce1edd1dc7bf",
+        "corpus/SOURCES.md": "6008780bdf002dcc6977ef12debd56dad881552d972d535f4a96e1a22355af75",
+        "corpus/source-fetches.tsv": "a1415da3955f6f4b7c72d6da0c2f63e29c2b7a2ea6ca5a9a42b75ca63464078a",
+        ".ufo/waves/round-26/observe-2.json": "13b8540c78b9de07bc184894583a368472fd1f2f04a898220bf7c29d2648a169"
+      }
+    }
+  ],
+  "restoration": {
+    "S040": {
+      "corpus/release-clock.py": {
+        "base_sha256": "ef17654e0b7fcdee1cdf35d40dc359b194ce4b0711247877dedfa43ff6ef45cc",
+        "restored_sha256": "ef17654e0b7fcdee1cdf35d40dc359b194ce4b0711247877dedfa43ff6ef45cc",
+        "exact_bytes_equal": true
+      },
+      "corpus/release-clocks.tsv": {
+        "base_sha256": "99a9b4bc36df89a0a86ca7fe16f922aab0abf8f4c3a3380bacdd8924cd02e6fd",
+        "restored_sha256": "99a9b4bc36df89a0a86ca7fe16f922aab0abf8f4c3a3380bacdd8924cd02e6fd",
+        "exact_bytes_equal": true
+      },
+      "corpus/rendered-text-v1.py": {
+        "base_sha256": "7d6bfe8154898f8584e213bcf98936a0819ace75fd80f3dcc87bce1edd1dc7bf",
+        "restored_sha256": "7d6bfe8154898f8584e213bcf98936a0819ace75fd80f3dcc87bce1edd1dc7bf",
+        "exact_bytes_equal": true
+      },
+      "corpus/SOURCES.md": {
+        "base_sha256": "6008780bdf002dcc6977ef12debd56dad881552d972d535f4a96e1a22355af75",
+        "restored_sha256": "6008780bdf002dcc6977ef12debd56dad881552d972d535f4a96e1a22355af75",
+        "exact_bytes_equal": true
+      },
+      "corpus/source-fetches.tsv": {
+        "base_sha256": "a1415da3955f6f4b7c72d6da0c2f63e29c2b7a2ea6ca5a9a42b75ca63464078a",
+        "restored_sha256": "a1415da3955f6f4b7c72d6da0c2f63e29c2b7a2ea6ca5a9a42b75ca63464078a",
+        "exact_bytes_equal": true
+      },
+      ".ufo/waves/round-26/observe-2.json": {
+        "base_sha256": "13b8540c78b9de07bc184894583a368472fd1f2f04a898220bf7c29d2648a169",
+        "restored_sha256": "13b8540c78b9de07bc184894583a368472fd1f2f04a898220bf7c29d2648a169",
+        "exact_bytes_equal": true
+      }
+    },
+    "S027": {
+      "corpus/release-clock.py": {
+        "base_sha256": "ef17654e0b7fcdee1cdf35d40dc359b194ce4b0711247877dedfa43ff6ef45cc",
+        "restored_sha256": "ef17654e0b7fcdee1cdf35d40dc359b194ce4b0711247877dedfa43ff6ef45cc",
+        "exact_bytes_equal": true
+      },
+      "corpus/release-clocks.tsv": {
+        "base_sha256": "99a9b4bc36df89a0a86ca7fe16f922aab0abf8f4c3a3380bacdd8924cd02e6fd",
+        "restored_sha256": "99a9b4bc36df89a0a86ca7fe16f922aab0abf8f4c3a3380bacdd8924cd02e6fd",
+        "exact_bytes_equal": true
+      },
+      "corpus/rendered-text-v1.py": {
+        "base_sha256": "7d6bfe8154898f8584e213bcf98936a0819ace75fd80f3dcc87bce1edd1dc7bf",
+        "restored_sha256": "7d6bfe8154898f8584e213bcf98936a0819ace75fd80f3dcc87bce1edd1dc7bf",
+        "exact_bytes_equal": true
+      },
+      "corpus/SOURCES.md": {
+        "base_sha256": "6008780bdf002dcc6977ef12debd56dad881552d972d535f4a96e1a22355af75",
+        "restored_sha256": "6008780bdf002dcc6977ef12debd56dad881552d972d535f4a96e1a22355af75",
+        "exact_bytes_equal": true
+      },
+      "corpus/source-fetches.tsv": {
+        "base_sha256": "a1415da3955f6f4b7c72d6da0c2f63e29c2b7a2ea6ca5a9a42b75ca63464078a",
+        "restored_sha256": "a1415da3955f6f4b7c72d6da0c2f63e29c2b7a2ea6ca5a9a42b75ca63464078a",
+        "exact_bytes_equal": true
+      },
+      ".ufo/waves/round-26/observe-2.json": {
+        "base_sha256": "13b8540c78b9de07bc184894583a368472fd1f2f04a898220bf7c29d2648a169",
+        "restored_sha256": "13b8540c78b9de07bc184894583a368472fd1f2f04a898220bf7c29d2648a169",
+        "exact_bytes_equal": true
+      }
+    }
+  },
+  "verdicts": {
+    "S040": "SURVIVED at BASE: numeric observed 3.15.0 below anchor 3.15.1 accepted CLEAN, fired 3 -> 4.",
+    "S027": "SURVIVED as an un-fire demonstration at BASE: observed returns to anchor 3.15.0; CLEAN, fired 3 -> 2. Not a below-anchor case and not a claim that C2 must reject equality."
+  },
+  "not_checked": [
+    "after implementation",
+    "network/feed parser or authentic stale feed bodies",
+    "unchanged default receipt digest tamper rejection",
+    "cross-row same-feed consistency",
+    "historical monotonicity enforcement",
+    "selftests, builds, final gates, linters, formatters",
+    "C1 binders or broad digit census",
+    "fleet/private/vault/account/handler/CDP runtimes"
+  ],
+  "tools_installed_or_updated": []
+}

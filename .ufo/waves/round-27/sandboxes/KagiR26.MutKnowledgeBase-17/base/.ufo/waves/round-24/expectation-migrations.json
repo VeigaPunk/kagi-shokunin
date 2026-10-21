@@ -1,0 +1,219 @@
+{
+ "base": "4f94b52a3cdfaa289d779bd8a2afcd0b1fcd9105",
+ "policy": "QM14: every expectation change keeps old and new values; no row removed",
+ "motivation": {
+  "R11-09/R18-03": "selftest 121->140: 19 round-24 C1 cases",
+  "R13-03/R23-01": "summary lines gain host_skipped; rows_run executed-only",
+  "R18-01": "[host] tag (routed D4)",
+  "R18-02": "backslash ERE refused by the corrected guard; bracket class, same 11 lines",
+  "R12-03/R13-01/R21-04/R22-03": "membership grew (4 pins, 2 headings, 16 rows, 4 added paths)",
+  "R21-02/R21-03": "census CLEAN line gains captures/inrow fields; 11 SC_INROW cases",
+  "R24-*": "new rows (D3, D6, C3)"
+ },
+ "migrations": [
+  {
+   "id": "R11-09",
+   "expect": {
+    "old": "^SELFTEST: PASS \\(121 cases\\)",
+    "new": "^SELFTEST: PASS \\(140 cases\\)"
+   },
+   "note": "changed"
+  },
+  {
+   "id": "R12-03",
+   "expect": {
+    "old": "^79$",
+    "new": "^83$"
+   },
+   "note": "changed"
+  },
+  {
+   "id": "R13-01",
+   "expect": {
+    "old": "^27$",
+    "new": "^29$"
+   },
+   "note": "changed"
+  },
+  {
+   "id": "R13-03",
+   "expect": {
+    "old": "^CELL_AUDIT: CLEAN \\(cells=[0-9]+ row_pointed=[0-9]+ stamp_pointed=[0-9]+ uncited=0 missing_ids=0 rows_run=[0-9]+ row_deferred=[0-9]+ row_failures=0 stale_pointers=0 self_skipped=[0-9]+ orphans=[0-9]+\\)$",
+    "new": "^CELL_AUDIT: CLEAN \\(cells=[0-9]+ row_pointed=[0-9]+ stamp_pointed=[0-9]+ uncited=0 missing_ids=0 rows_run=[0-9]+ row_deferred=[0-9]+ row_failures=0 stale_pointers=0 self_skipped=[0-9]+ orphans=[0-9]+ host_skipped=[0-9]+\\)$"
+   },
+   "note": "changed"
+  },
+  {
+   "id": "R18-01",
+   "note": "changed"
+  },
+  {
+   "id": "R18-02",
+   "command": {
+    "old": "grep -cE '\\[substrate\\]' corpus/claim-ledger.tsv",
+    "new": "grep -cE '[[]substrate[]]' corpus/claim-ledger.tsv"
+   },
+   "note": "changed"
+  },
+  {
+   "id": "R18-03",
+   "expect": {
+    "old": "^SELFTEST: PASS \\(121 cases\\)$",
+    "new": "^SELFTEST: PASS \\(140 cases\\)$"
+   },
+   "note": "changed"
+  },
+  {
+   "id": "R21-02",
+   "expect": {
+    "old": "^SOURCES_CENSUS: CLEAN \\(rows=26 A=24 B=0 C=2 queued=1 mined=24 rejected=1 entries_sourced=4 legacy=21\\)$",
+    "new": "^SOURCES_CENSUS: CLEAN \\(rows=31 A=29 B=0 C=2 queued=1 mined=28 rejected=2 entries_sourced=4 legacy=21 captures=31 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$"
+   },
+   "note": "changed"
+  },
+  {
+   "id": "R21-03",
+   "expect": {
+    "old": "^SOURCES_CENSUS_SELFTEST: PASS \\(59 cases\\)$",
+    "new": "^SOURCES_CENSUS_SELFTEST: PASS \\(70 cases\\)$"
+   },
+   "note": "changed"
+  },
+  {
+   "id": "R21-04",
+   "expect": {
+    "old": "^45$",
+    "new": "^61$"
+   },
+   "note": "changed"
+  },
+  {
+   "id": "R22-03",
+   "expect": {
+    "old": "^REVISION_AUDIT: CLEAN \\(stale=0 missing=0 dropped=0 added=16 invalid=0\\)$",
+    "new": "^REVISION_AUDIT: CLEAN \\(stale=0 missing=0 dropped=0 added=20 invalid=0\\)$"
+   },
+   "note": "changed"
+  },
+  {
+   "id": "R23-01",
+   "expect": {
+    "old": "^CELL_AUDIT: CLEAN \\(cells=6 row_pointed=6 stamp_pointed=1 uncited=0 missing_ids=0 rows_run=2 row_deferred=0 row_failures=0 stale_pointers=0 self_skipped=0 orphans=0\\)$",
+    "new": "^CELL_AUDIT: CLEAN \\(cells=6 row_pointed=6 stamp_pointed=1 uncited=0 missing_ids=0 rows_run=2 row_deferred=0 row_failures=0 stale_pointers=0 self_skipped=0 orphans=0 host_skipped=0\\)$"
+   },
+   "note": "changed"
+  },
+  {
+   "id": "R24-01",
+   "added": {
+    "command": "python3 corpus/rendered-text-v1.py --selftest",
+    "expect": "^RENDERED_TEXT_V1_SELFTEST: PASS \\(cases=20\\)$"
+   }
+  },
+  {
+   "id": "R24-02",
+   "added": {
+    "command": "python3 corpus/closure-dispositions.py --selftest",
+    "expect": "^CLOSURE_DISPOSITIONS_SELFTEST: PASS \\(14 cases\\)$"
+   }
+  },
+  {
+   "id": "R24-03",
+   "added": {
+    "command": "bash corpus/row-identity.sh state-shape",
+    "expect": "^ROW_IDENTITY: state-shape count=22 blank=0 sha256=695d113fcffd17b9a952170310b5080e234276a69e961e5bf5f45b728d8a8135$"
+   }
+  },
+  {
+   "id": "R24-04",
+   "added": {
+    "command": "bash corpus/row-identity.sh surface-census",
+    "expect": "^ROW_IDENTITY: surface-census count=35 blank=0 sha256=9d34b393b708c3e0537c040c82ae0483932ce7267004d1a5b2dbfc52ef0c8d27$"
+   }
+  },
+  {
+   "id": "R24-05",
+   "added": {
+    "command": "bash corpus/row-identity.sh stamps",
+    "expect": "^ROW_IDENTITY: stamps count=83 sha256=136fde8b3656149c61f721eff42e1c0f973576a97d28eab2de079e962103b584$"
+   }
+  },
+  {
+   "id": "R24-06",
+   "added": {
+    "command": "bash corpus/row-identity.sh scorecard-rounds",
+    "expect": "^ROW_IDENTITY: scorecard-rounds count=29 sha256=18e0c4fd9068addbdda53c056bdc4e1aa78b8a84d17cc8e4e1522756e9e2f38c$"
+   }
+  },
+  {
+   "id": "R24-07",
+   "added": {
+    "command": "bash corpus/row-identity.sh ledger-r1",
+    "expect": "^ROW_IDENTITY: ledger-r1 count=35 sha256=7cac266074eeae54e767873e5c684bab7dbbf5699f4f0103d58bcf2ebc3064bb$"
+   }
+  },
+  {
+   "id": "R24-08",
+   "added": {
+    "command": "bash corpus/row-identity.sh checklist-ids",
+    "expect": "^ROW_IDENTITY: checklist-ids count=16 sha256=d892ba936daeb1e346e7e0aa4d2d8761523154172cc43bd93bfb74541df6652f$"
+   }
+  },
+  {
+   "id": "R24-09",
+   "added": {
+    "command": "bash corpus/row-identity.sh adjacency-own",
+    "expect": "^ROW_IDENTITY: adjacency-own count=5 sha256=79c248359430739ae757661c0a7cc42637fc8527e4e98f0f1503a916d8cec5c7$"
+   }
+  },
+  {
+   "id": "R24-10",
+   "added": {
+    "command": "bash corpus/row-identity.sh adjacency-rows",
+    "expect": "^ROW_IDENTITY: adjacency-rows count=4 sha256=d2e9deecb2612e5ff334175382275485122063e4ee398a29f237bbe581f1ed7e$"
+   }
+  },
+  {
+   "id": "R24-11",
+   "added": {
+    "command": "bash corpus/row-identity.sh adjacency-noenum",
+    "expect": "^ROW_IDENTITY: adjacency-noenum count=8 sha256=c52c1027bd87e4ea71dfa63f9e222d36fdc302a17a12fcc23ec05aab91d5a6b1$"
+   }
+  },
+  {
+   "id": "R24-12",
+   "added": {
+    "command": "bash corpus/row-identity.sh adjacency-breadth",
+    "expect": "^ROW_IDENTITY: adjacency-breadth count=4 sha256=2953746decc0a1ab765f77d2f507a1b0111c75715aa17f65eecfc0bcf899be5d$"
+   }
+  },
+  {
+   "id": "R24-13",
+   "added": {
+    "command": "bash corpus/row-identity.sh ledger-substrate",
+    "expect": "^ROW_IDENTITY: ledger-substrate count=11 sha256=08554f8484b58cd095b257d0b9d9a0cae55a94d73b9fb801f4f1a4e812f4b031$"
+   }
+  },
+  {
+   "id": "R24-14",
+   "added": {
+    "command": "bash corpus/row-identity.sh ledger-ids",
+    "expect": "^ROW_IDENTITY: ledger-ids count=61 sha256=f8fe98749e522ad5268d01bbef341ae49bea4fa11ce18b8c9467f1533366b3a0$"
+   }
+  },
+  {
+   "id": "R24-15",
+   "added": {
+    "command": "bash corpus/row-identity.sh revision-added",
+    "expect": "^ROW_IDENTITY: revision-added count=20 sha256=574d0da4c1b995923dfb9f95694cef96e159a078b7e0d2d6c076a60ee66c429e$"
+   }
+  },
+  {
+   "id": "R24-16",
+   "added": {
+    "command": "bash corpus/row-identity.sh revision-cases",
+    "expect": "^ROW_IDENTITY: revision-cases count=17 sha256=75c82770356fa358458b1c84a171d9c139fc4bbcea6d0ed0a356f63d4d549d16$"
+   }
+  }
+ ]
+}

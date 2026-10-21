@@ -1,0 +1,54 @@
+# R22-04 identity-swap probe
+
+## Finding — Medium (C3 / calibration)
+
+**R22-04's pinned `cases=17` summary does not bind case-name membership.** The count-preserving rename below leaves its command green; R22-04 is therefore **SURVIVES**. No code or ledger changes were made in the lane.
+
+All execution was in `/fast/scratch/kagi-r24/seats/IdentR2204`, cloned and checked out at BASE `4f94b52a3cdfaa289d779bd8a2afcd0b1fcd9105`.
+
+## Frozen membership claim
+
+BASE `corpus/claim-ledger.tsv:58` says: “H1 eleven cases plus Git/JJ metadata and hardlink refusals, gitignore valid control, and SHA256 full64/truncated40 controls: expected17.” The corresponding exact case-name membership in BASE `corpus/revision-audit.py` is:
+
+- H1 (11): `clean-control`, `duplicate-history-id`, `dropped-member`, `modified-worktree-stale`, `missing-file`, `malformed-current-row`, `duplicate-current-id`, `path-traversal`, `parent-symlink`, `fifo-not-file`, `option-history`.
+- Git/JJ metadata and hardlink refusals (3): `git-admin-path`, `jj-admin-path`, `hardlink-path`.
+- Gitignore valid control (1): `gitignore-valid`.
+- SHA256 full64/truncated40 controls (2): `sha256-full-id`, `sha256-truncated-id`.
+
+Total: 11 + 3 + 1 + 2 = 17. The BASE `check()` callsites are in `corpus/revision-audit.py:476-578` (the name is the first argument).
+
+The only BASE ledger rows whose command names `corpus/revision-audit.py` are R22-03 (`corpus/claim-ledger.tsv:57`) and R22-04 (`:58`). Neither is a host row; no other same-file row was found.
+
+## Mutant and stamp handling
+
+One count-preserving identity mutant changed only this call's case name (`corpus/revision-audit.py:545` in the clone):
+
+```diff
+-        check("gitignore-valid", 0, "ADDED .gitignore", audit(root, history))
++        check("clean-control", 0, "ADDED .gitignore", audit(root, history))
+```
+
+`check()` still runs and increments `cases`; the assertion is unchanged. The name multiset loses `gitignore-valid` and gains a second `clean-control`, while `cases` remains 17.
+
+The mutated file is stamped in BASE (`corpus/stamps.tsv:72`). `bash corpus/claim-ledger.sh stamp corpus/revision-audit.py` exited 2 because `stamp` refuses to drop the other 78 pinned paths. Two full-path-set attempts using `mapfile -t paths < <(cut -f1 corpus/stamps.tsv); bash corpus/claim-ledger.sh stamp "${paths[@]}"` timed out in the tool after 300s and 600s; no shell exit was surfaced. To restamp the target without changing membership, I retained the other 78 stamp rows in scratch edit registers, ran `bash corpus/claim-ledger.sh stamp --prune corpus/revision-audit.py` against the scratch `corpus/stamps.tsv` (success; `STAMPED: n=1`), then restored those rows unchanged. Final `corpus/stamps.tsv:72` is `corpus/revision-audit.py\t2f798ab8fe9538ecd2409d369bab0d7265807d714bedc917f47668b7a4a94842\t608\t24072`.
+
+## Required row results (mutant, BASE clone)
+
+- **R22-04** — `python3 corpus/revision-audit.py --selftest`: exit **0**; last line `REVISION_AUDIT_SELFTEST: PASS (cases=17 failed=0)`; **SURVIVES**. The expected summary observes the count, not names.
+- **R22-03** — `python3 corpus/revision-audit.py --history c2cab35bc92e57e39e5489bac3386db078345b3f`: exit **0**; last line `REVISION_AUDIT: CLEAN (stale=0 missing=0 dropped=0 added=16 invalid=0)`; **SURVIVES**. It sees unchanged stamped-path membership and the refreshed target bytes, not selftest case identities.
+
+## Proposed identity selector
+
+Anchor the ledger input to exactly one data row whose tab-field 1 is `R22-04`, and verify tab-field 2 is `python3 corpus/revision-audit.py --selftest`; ignore blank rows and rows whose first non-space character is `#`.
+
+For the source membership, parse `corpus/revision-audit.py` as Python AST. Select `check` calls in the `selftest()` function body (traverse control-flow blocks, but do not enter nested function/lambda bodies); digest only positional argument 1 (`Call.args[0]`) when it is a string literal, not `args[1:4]`. The BASE callsites are lines 476, 495, 498, 502, 505, 508, 512, 515, 522, 526, 528, 533, 539, 545, 547, 577, and 578. Use source line/column only to locate those AST nodes, not as digest material. AST parsing inherently ignores comments/blank lines.
+
+Sort the UTF-8 case-name byte strings lexicographically, retain duplicate entries, serialize one name plus LF per entry (including a final LF), and SHA-256 that byte stream. This avoids order-only changes while preserving duplicate-name identity. The BASE names produce digest `bfb91d732f60df5fc5fea258f84d4422bbb3b61caf89967b8daf6ae981686b3e`; the mutant produces `5028d897e7b81501881a66f7667688c0b37586941c7faecb9e643b2be025b074` (both count 17). Thus unchanged BASE content reproduces one fixed digest and this identity swap changes it.
+
+## Residual risk and verification gaps
+
+- The selector is a proposal; no reader-script implementation was in scope or changed.
+- The full 79-path stamp invocation timed out, but the target row was regenerated by the ledger stamp command and R22-03 passed with the final stamp contents.
+- No host/private ledger rows were run. No tools were installed or updated.
+
+- The LSP device is not mounted (`read xd://lsp` returned “No such tool”); text search only located candidate rows, with conclusions taken from direct row reads and command results.

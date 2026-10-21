@@ -1,0 +1,231 @@
+{
+  "format": "kagi-round27-knowledge-migrations-v1",
+  "base": "0a47dd189356ea66ec83c3891eed54526e95b89b",
+  "reason": "C1 (QM21/QM26): stale current-tense knowledge numbers corrected with history clause; per-round counts written as ledger pointers; erratum-conceded never-true values marked misstated; positional indexes named; round-27 errata appended",
+  "changes": [
+    {
+      "file": "corpus/knowledge/claim-ledger.md",
+      "op": "replace",
+      "old_lines": [
+        81,
+        81
+      ],
+      "new_lines": [
+        81,
+        81
+      ],
+      "old": [
+        "`reason=verdict-not-final` is the verdict for that class, and selftest case 16"
+      ],
+      "new": [
+        "`reason=verdict-not-final` is the verdict for that class, and selftest case `verdict-not-final` (the 16th case when written)"
+      ]
+    },
+    {
+      "file": "corpus/knowledge/claim-ledger.md",
+      "op": "replace",
+      "old_lines": [
+        301,
+        304
+      ],
+      "new_lines": [
+        301,
+        304
+      ],
+      "old": [
+        "bash corpus/claim-ledger.sh verify      # stamps + claims + claim ids → CLAIM_LEDGER: CLEAN (claims=17 stamped=33 ids=17 cited=17 labeled_ids=13 orphans=0)",
+        "bash corpus/claim-ledger.sh citations   # citation durability → CITATION_GATE: CLEAN (cites=700 docs=43 unresolved=0 ephemeral=0 labeled=13)",
+        "bash corpus/claim-ledger.sh cells       # scorecard audit    → CELL_AUDIT: CLEAN (cells=60 row_pointed=25 stamp_pointed=41 uncited=0 missing_ids=0 rows_run=14 row_failures=0 stale_pointers=0 self_skipped=3 orphans=0)",
+        "bash corpus/claim-ledger.sh --selftest  # 72 scratch cases   → SELFTEST: PASS (72 cases)"
+      ],
+      "new": [
+        "bash corpus/claim-ledger.sh verify      # stamps + claims + claim ids → CLAIM_LEDGER: CLEAN (claims=N … stamped=M …; N and M are ledger rows R21-04 and R12-03 and move every round; round-13-close output read claims=17 stamped=33 ids=17 cited=17 labeled_ids=13 orphans=0)",
+        "bash corpus/claim-ledger.sh citations   # citation durability → CITATION_GATE: CLEAN (…) in the fleet layout; round-13-close output read cites=700 docs=43 unresolved=0 ephemeral=0 labeled=13",
+        "bash corpus/claim-ledger.sh cells       # scorecard audit    → CELL_AUDIT: CLEAN (…); round-13-close output read cells=60 row_pointed=25 stamp_pointed=41 uncited=0 missing_ids=0 rows_run=14 row_failures=0 stale_pointers=0 self_skipped=3 orphans=0",
+        "bash corpus/claim-ledger.sh --selftest  # 170 scratch cases   → SELFTEST: PASS (170 cases); 72 at round-13 close"
+      ]
+    },
+    {
+      "file": "corpus/knowledge/claim-ledger.md",
+      "op": "insert",
+      "old_lines": [
+        506,
+        505
+      ],
+      "new_lines": [
+        506,
+        514
+      ],
+      "old": [],
+      "new": [
+        "",
+        "## Erratum (round 27 — reproduction counts)",
+        "",
+        "The Reproduction block's per-round counts were last true at round-13 close",
+        "and read as current until round 27. `claims=N`/`stamped=M` now point at",
+        "ledger rows R21-04/R12-03 (they move every round); the selftest count is",
+        "bound to R11-09 by `corpus/self-counts.tsv` (KN-LEDGER-REPRO-SELFTEST), and the",
+        "old values stay beside the new ones. Old/new text:",
+        "`.ufo/waves/round-27/knowledge-migrations.json`."
+      ]
+    },
+    {
+      "file": "corpus/knowledge/op-ref-consumption.md",
+      "op": "replace",
+      "old_lines": [
+        276,
+        276
+      ],
+      "new_lines": [
+        276,
+        276
+      ],
+      "old": [
+        "bash corpus/op-ref-probe.sh --selftest   # OP_REF_SELFTEST: PASS (29 cases), exit 0"
+      ],
+      "new": [
+        "bash corpus/op-ref-probe.sh --selftest   # OP_REF_SELFTEST: PASS (36 cases), exit 0 — 29 when §9 was written (§11 correction)"
+      ]
+    },
+    {
+      "file": "corpus/knowledge/op-ref-consumption.md",
+      "op": "replace",
+      "old_lines": [
+        296,
+        297
+      ],
+      "new_lines": [
+        296,
+        297
+      ],
+      "old": [
+        "  corresponding `FAIL` line and exit 1; `--selftest` proves the comparator on 21",
+        "  cases, including fifteen seeded mutations (value, masking, edge, quoting,"
+      ],
+      "new": [
+        "  corresponding `FAIL` line and exit 1; `--selftest` proves the comparator on 36",
+        "  cases (21 when §10 was written), including fifteen seeded mutations (value, masking, edge, quoting,"
+      ]
+    },
+    {
+      "file": "corpus/knowledge/op-ref-consumption.md",
+      "op": "insert",
+      "old_lines": [
+        388,
+        387
+      ],
+      "new_lines": [
+        388,
+        396
+      ],
+      "old": [],
+      "new": [
+        "",
+        "## Erratum (round 27 — bound selftest count)",
+        "",
+        "The §11 note's “§9 is left as written” is superseded: §9's reproduction",
+        "comment now states the current 36 cases with the historical 29 beside it",
+        "(QUALITY QM21), and both §9 and the §11 “36” are bound to R12-02's committed",
+        "pin by `corpus/self-counts.tsv` (KN-OPREF-*). R12-02 executes `op`, so the",
+        "binder reads the pin and runs nothing. Old/new text:",
+        "`.ufo/waves/round-27/knowledge-migrations.json`."
+      ]
+    },
+    {
+      "file": "corpus/knowledge/surface-census.md",
+      "op": "replace",
+      "old_lines": [
+        5,
+        5
+      ],
+      "new_lines": [
+        5,
+        5
+      ],
+      "old": [
+        "15 runtime) and `corpus/state-shape.tsv` (22 rows: 9 sqlite / 9 json / 3 log / 1 lock / 1 marker); `~/.local/bin/the-janitor`"
+      ],
+      "new": [
+        "15 runtime) and `corpus/state-shape.tsv` (22 rows: 9 sqlite / 8 json [first written as 9, misstated — round-22 erratum] / 3 log / 1 lock / 1 marker); `~/.local/bin/the-janitor`"
+      ]
+    },
+    {
+      "file": "corpus/knowledge/surface-census.md",
+      "op": "replace",
+      "old_lines": [
+        32,
+        32
+      ],
+      "new_lines": [
+        32,
+        32
+      ],
+      "old": [
+        "(15 files, 19 symbol pins) and is blind to additions in the domain dirs. The"
+      ],
+      "new": [
+        "(15 files, 20 symbol pins; 19 when this entry was written) and is blind to additions in the domain dirs. The"
+      ]
+    },
+    {
+      "file": "corpus/knowledge/surface-census.md",
+      "op": "replace",
+      "old_lines": [
+        76,
+        76
+      ],
+      "new_lines": [
+        76,
+        76
+      ],
+      "old": [
+        "16 published hashes, and the cross-check keeps the two from disagreeing."
+      ],
+      "new": [
+        "published hashes (9 of 15 rows; the original \"16\" was misstated, round-22 erratum), and the cross-check keeps the two from disagreeing."
+      ]
+    },
+    {
+      "file": "corpus/knowledge/surface-census.md",
+      "op": "insert",
+      "old_lines": [
+        307,
+        306
+      ],
+      "new_lines": [
+        307,
+        315
+      ],
+      "old": [],
+      "new": [
+        "",
+        "## Erratum (round 27 — bound counts and misstated values)",
+        "",
+        "The drift-pins file/symbol counts in \"Why this gate exists\" are bound to the",
+        "data files by `corpus/self-counts.tsv` (KN-CENSUS-*); the old 19 symbol pins",
+        "stays beside the current value. Two values the round-22 erratum conceded but",
+        "left in the body are now marked misstated where they are stated (the JSON",
+        "subtotal and the published-hash count). Old/new text:",
+        "`.ufo/waves/round-27/knowledge-migrations.json`."
+      ]
+    },
+    {
+      "file": "corpus/knowledge/substrate-deferral.md",
+      "op": "replace",
+      "old_lines": [
+        85,
+        85
+      ],
+      "new_lines": [
+        85,
+        85
+      ],
+      "old": [
+        "bash corpus/claim-ledger.sh --selftest   # cases 95-97 prove both arms"
+      ],
+      "new": [
+        "bash corpus/claim-ledger.sh --selftest   # cases defer-substrate-absent/-present/-line prove both arms (cases 95-97 when written)"
+      ]
+    }
+  ]
+}

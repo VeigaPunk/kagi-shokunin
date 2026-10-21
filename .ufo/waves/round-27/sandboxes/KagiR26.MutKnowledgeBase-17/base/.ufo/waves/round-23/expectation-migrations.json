@@ -1,0 +1,69 @@
+{
+  "round": 23,
+  "base": "d218603b74099ddca0bd8f869516fc41db0979bf",
+  "expectation_changes": [
+    {
+      "row": "R12-03",
+      "old": "^70$",
+      "new": "^79$",
+      "why": "nine reviewed round-23 pin additions"
+    },
+    {
+      "row": "R13-01",
+      "old": "^25$",
+      "new": "^27$",
+      "why": "Round 23 pre/post headings added"
+    },
+    {
+      "row": "R21-02",
+      "old": "rows=23 A=21 mined=21",
+      "new": "rows=26 A=24 mined=24",
+      "why": "S024-S026 correction rows"
+    },
+    {
+      "row": "R21-03",
+      "old": "47 cases",
+      "new": "59 cases",
+      "why": "12 SC_FETCH cases; 9 existing cases also changed expected findings counts: zero 1->5; malformed/row-leading/row-two-digit/row-lowercase/unused-dash/unused-empty/cite-tier-c-sole 1->2; enum-status 1->3"
+    },
+    {
+      "row": "R21-04",
+      "old": "^43$",
+      "new": "^45$",
+      "why": "R23-01/R23-02 added to the audited population"
+    },
+    {
+      "row": "R22-03",
+      "old": "added=7",
+      "new": "added=16",
+      "why": "stamps membership now includes nine round-23 artifacts"
+    }
+  ],
+  "prose_changes": [
+    {
+      "path": "SKILL.md",
+      "old": "47 cases",
+      "new": "59 cases"
+    },
+    {
+      "path": "PROVINCE.md",
+      "old": "47 cases",
+      "new": "59 cases"
+    },
+    {
+      "path": "corpus/knowledge/op-ref-consumption.md",
+      "old": "missing binary reads DRIFT exit 1",
+      "new": "missing binary SETUP exit 2; runtime sign-in/timeout DRIFT exit 1"
+    },
+    {
+      "path": "corpus/claim-ledger.tsv R21-01 note",
+      "old": "DRIFT exit 1 for all failures",
+      "new": "SETUP for missing binary, DRIFT for runtime failures"
+    },
+    {
+      "path": "corpus/surface-census.sh",
+      "old": "DEEP unset",
+      "new": "DEEP=\"\" default so ambient env cannot select --deep"
+    }
+  ]
+}

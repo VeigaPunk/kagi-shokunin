@@ -1,0 +1,80 @@
+{
+  "from_revision": "aea7a4301",
+  "to_revision": "e1544c194fddf1bb073b3946847b4526f326ad73",
+  "removed_members": [],
+  "changed_stamp_records": [
+    {
+      "path": "LOG.md",
+      "old": "LOG.md\te6db90d2a37c4b347e5b9a4e2373d1fc3a8a2747a9746be361358c04eb817e9b\t762\t56847",
+      "new": "LOG.md\t60a8fd366c8340800be603eb4b7bca5ad615de1c415eaccf815194babf341d60\t1043\t74864"
+    },
+    {
+      "path": "PROVINCE.md",
+      "old": "PROVINCE.md\tffe644a7b2cecfc8169de8393937214f563570a8413912069568fb7065648e17\t53\t8172",
+      "new": "PROVINCE.md\t4a346e2df81f7b2e649914d0d99da974d6c484caf12fed1c6bd530d106a78523\t62\t10586"
+    },
+    {
+      "path": "SCORECARD.md",
+      "old": "SCORECARD.md\tf3e61bfe2e7878cb8a3ffe22bde79dd7b8479f416d4c8fa628468981fb58c113\t446\t66069",
+      "new": "SCORECARD.md\t29f9f0231f2f57628e74d3e55bab2f950a8b784243777741c094c1994b687303\t691\t87010"
+    },
+    {
+      "path": "SHONEN.md",
+      "old": "SHONEN.md\tefe81fa75cc139e382a0b156074b541410434238163a7270f254cd3daad5c728\t11\t4695",
+      "new": "SHONEN.md\t1bb89fc5c006f4a9f22a9e121f4533c15f65993a1db1b3d32fa81c57bb5c4277\t12\t1312"
+    },
+    {
+      "path": "SKILL.md",
+      "old": "SKILL.md\tc2b3151c58dd81a856b283302c6fa365f26b348d42a74c9fbb16d45827c8be48\t663\t57062",
+      "new": "SKILL.md\tdf05677fe0dc0e82d14aad678daeb692f0ab36f7e86522e6634d8f9122e14d0b\t665\t58395"
+    },
+    {
+      "path": "corpus/README.md",
+      "old": "corpus/README.md\t6ddda47d8babffe68bbef905eb37396d20c45a5c39fe217d1e5b91a981ddb292\t86\t18689",
+      "new": "corpus/README.md\t6837d22b1e14a1ace6956f74e2f02c5c171039e03f2a6ba7658334a3c6614c6d\t118\t22365"
+    },
+    {
+      "path": "corpus/claim-ledger.tsv",
+      "old": "corpus/claim-ledger.tsv\tc8369a51869bc6ffbf8602d460a59ad8f10a5fc309a95e68ed0c3178bcacda8d\t49\t13981",
+      "new": "corpus/claim-ledger.tsv\t8a4019cfc1eec916f30a8958fbc3ca2d30e59632e0f1d5d843cea6d1c24faa97\t54\t16986"
+    },
+    {
+      "path": "corpus/knowledge/op-ref-consumption.md",
+      "old": "corpus/knowledge/op-ref-consumption.md\tdcd9389415efff269bc738e1409d6aae72fdb9970b1f8f6f109b96bc3391718a\t307\t21164",
+      "new": "corpus/knowledge/op-ref-consumption.md\tb195cc69840b0b6df65e578d86c0457a4a74b1660dca2e8f4513275a190143dd\t372\t25290"
+    },
+    {
+      "path": "corpus/op-ref-probe.sh",
+      "old": "corpus/op-ref-probe.sh\t509f084ad33229db5b7421e1da948c02f9d191a6098f7a449341cf9adc95da1c\t660\t28660",
+      "new": "corpus/op-ref-probe.sh\t0f1945e8d8a8fc56aaee256180cd7badde466bc8ac91503aa1e1853e79044f4c\t788\t34362"
+    }
+  ],
+  "rewritten_claim_rows": [
+    {
+      "id": "R12-02",
+      "old": "R12-02\tbash corpus/op-ref-probe.sh --selftest\t^OP_REF_SELFTEST: PASS \\(29 cases\\)\t0\t300\tprobe selftest: each seeded mutation class is caught (value, masking, edge, quoting, precedence, union, inherited trim, signatures, refs classification, malformed blindness), four POLICY cases prove refusal before exec (ref token, symlink, FIFO, premise break), plus SETUP paths; case count pinned",
+      "new": "R12-02\tbash corpus/op-ref-probe.sh --selftest\t^OP_REF_SELFTEST: PASS \\(36 cases\\)\t0\t300\tprobe selftest: each seeded mutation class is caught (value, masking, edge, quoting, precedence, union, inherited trim, signatures, refs classification, malformed blindness), four POLICY cases prove refusal before exec (ref token, symlink, FIFO, premise break), plus SETUP paths; case count pinned (29 until the `--dotenv-bytes` arm landed unclaimed in aea7a43 added 7 comparator cases; re-pinned to the measured 36 in round 21, op 2.41.0 \u2014 the 7 cases prove the byte comparator, not op's bytes)"
+    },
+    {
+      "id": "R12-03",
+      "old": "R12-03\tgrep -c '[^[:space:]]' corpus/stamps.tsv\t^56$\t0\t30\tstamps.tsv holds 56 non-blank rows (round 18 added knowledge/substrate-deferral.md and lessons/round-18.md; 54 at round 17, 52 before round 17, 48 before round 16, 44 before round 15, 33 before round 14, 32 before round 13, 28 before round 12); the exact count guards against silent stamp-set shrink",
+      "new": "R12-03\tgrep -c '[^[:space:]]' corpus/stamps.tsv\t^63$\t0\t30\tstamps.tsv holds 63 non-blank rows (round 21 added QUALITY.md, SOURCES.md, sources-census.sh, three knowledge entries and lessons/round-21.md; 56 after round 18 added knowledge/substrate-deferral.md and lessons/round-18.md; 54 at round 17, 52 before round 17, 48 before round 16, 44 before round 15, 33 before round 14, 32 before round 13, 28 before round 12); the exact count guards against silent stamp-set shrink"
+    },
+    {
+      "id": "R13-01",
+      "old": "R13-01\tgrep -c '^## Round ' SCORECARD.md\t^20$\t0\t30\tSCORECARD.md carries 20 round sections (rounds 9-18, pre and post; 18 at round 17, 16 at round 16) \u2014 the cell audit's checked set is 6 cells per section, and a deleted section is what a global non-zero cell count cannot see from outside the gate",
+      "new": "R13-01\tgrep -c '^## Round ' SCORECARD.md\t^23$\t0\t30\tSCORECARD.md carries 23 `## Round ` headings: rounds 9-18 and 21 pre and post (22) plus the round-20 attempt heading, which matches this count but not the cell audit's pre/post shape (so `cells` refuses the scorecard since 93ab9a5 \u2014 named debt, round-21 lesson); 20 until round 20, 18 at round 17, 16 at round 16. A deleted section is what a global non-zero cell count cannot see from outside the gate"
+    },
+    {
+      "id": "R13-02",
+      "old": "R13-02\tgrep -c '^R1' corpus/claim-ledger.tsv\t^35$\t0\t30\tclaim-ledger.tsv holds 35 rows (29 at round 16, 32 at round 17, +3 R18 rows at round 18); '^R1' matches every row id and no comment line",
+      "new": "R13-02\tgrep -c '^R1' corpus/claim-ledger.tsv\t^35$\t0\t30\tclaim-ledger.tsv holds 35 R1x rows (29 at round 16, 32 at round 17, +3 R18 rows at round 18); '^R1' matches every R1x row id and no comment line \u2014 round-21 R2x rows are counted by R21-04"
+    },
+    {
+      "id": "R14-01",
+      "old": "R14-01\tbash corpus/claim-ledger.sh docs\t^DOC_AUDIT: CLEAN \\(entries=21 row_linked=18 by_hand=3 undeclared=0 missing_ids=0 unpinned=0\t0\t300\tknowledge-surface declarations: 21 entries / 18 row-linked after round 18 added substrate-deferral.md (20/17 at round 17, 19/16 at round 16, 18/15 at round 15, 17/14 at round 14), with three unique by-hand classes; every entry declares re-verification and is revision-pinned",
+      "new": "R14-01\tbash corpus/claim-ledger.sh docs\t^DOC_AUDIT: CLEAN \\(entries=24 row_linked=21 by_hand=3 undeclared=0 missing_ids=0 unpinned=0\t0\t300\tknowledge-surface declarations: 24 entries / 21 row-linked after round 21 added three doc-sourced entries declaring R21-02 (21/18 after round 18 added substrate-deferral.md, 20/17 at round 17, 19/16 at round 16, 18/15 at round 15, 17/14 at round 14), with three unique by-hand classes; every entry declares re-verification and is revision-pinned. The three round-21 entries are row-linked to the citation-chain census, which does not re-verify page content (their `recheck:` lines carry that clock)"
+    }
+  ],
+  "interpretation": "Outside reviewer D6 reports nine deleted lines in diff, not nine lost stamp members. Compare complete old/new path sets; changed lines preserve same member IDs. Values require individual motivating evidence, not restoration to stale pins."
+}

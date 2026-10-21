@@ -1,0 +1,32 @@
+{
+  "schema": "kagi-receipt-prerequisite-status-v1",
+  "notATaskReceipt": true,
+  "applicableCanonicalSchema": "ufo-task-receipt-v1",
+  "minted": false,
+  "validated": false,
+  "sightingCompleted": false,
+  "availableIdentity": {
+    "missionId": "m_5d7890537ddb462fba4098b7f982d4fa",
+    "runId": "shk-kagi-interactive-20261015T050057Z",
+    "sessionId": "shk-kagi-interactive-20261015T050057Z",
+    "paneId": "%9",
+    "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin"
+  },
+  "missingAuthenticBindings": [
+    "taskKey",
+    "resultPath",
+    "receiptPath",
+    "promptSha256",
+    "configSha256"
+  ],
+  "sources": [
+    "/home/vgpnk/Projects/shokunin/.ufo/interactive-l1-20261015T050057Z/launch-kagi.json",
+    "/home/vgpnk/Projects/shokunin/.ufo/interactive-l1-20261015T050057Z/interactive-panes.json",
+    "/home/vgpnk/Projects/ufo-fsd-alpha/.ufo/sighting/manifest.json"
+  ],
+  "reason": "These metadata sources and the supplied prompt bind the manual Sighting launch but supply no task receipt acceptance bag. No synthetic key, arbitrary digest, schema-only receipt or Sighting completion is substituted.",
+  "unblockOwner": "operator/fleet integrator",
+  "reportPath": ".ufo/reports/round-20/kagi.md",
+  "reportSha256Observed": "49322124fa6ea65b43dbb1e032ca44c52aebfd8e90aba67ca8e92526a86b098f",
+  "workCommit": "93ab9a50605915f9af4192c46cdaf367153b8177"
+}

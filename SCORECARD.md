@@ -1077,3 +1077,22 @@ L1 held the canonical planner seat. Expansion unchanged; quality improved
 by the bounded source/rearm response; discernment unchanged pending fresh
 outside admit/reject review. All axes remain9; no new capability, coverage
 ground, retirement, promotion or next-round work is credited.
+
+## Round 27 — knowledge numbers bound; release clocks refuse silent regression
+
+Frozen BASE `0a47dd189356ea66ec83c3891eed54526e95b89b`; claims C1 calibration
+and C2 freshness (`plans/round-27.md`), both on tied-lowest axes at 9. The last
+capability entered round25 (window3), so no stagnation waiver; no capability,
+retirement or promotion is claimed.
+
+| Axis | Before → after | Evidence and bounded interpretation |
+|---|---|---|
+| calibration | 9 → 9 | C1: R25-02 population extended to 18 reviewed `knowledge/*.md` numbers (`KN-*`); `python3 .ufo/waves/round-27/tools/c1-measure.py <docs-rev> <table-rev> <label> <out>` with the after table: BASE docs stale knowledge numbers → after 0, plus a one-digit knowledge mutation that must turn STALE. Reviewed population, not a digit census. |
+| freshness | 9 → 9 | C2: `python3 .ufo/waves/round-27/tools/c2-measure.py <rev> <label> <out>`: numeric downgrade fixtures accepted CLEAN at BASE 2/2 → after 0/2 (REGRESSED, exit1), control and default stay CLEAN30; R25-03 selftest 67 → 73. Sourced S042/S043. |
+| depth | 9 → 9 | R21-01 unchanged; no new mechanism claim. |
+| coverage | 9 → 9 | R21-02 registry 41 → 43 adds two ordering-spec rows; no governed surface or knowledge ground. |
+| operability | 9 → 9 | Default release-clock and self-counts commands unchanged in shape; R25-04 stays CLEAN30. |
+| adjacency | 9 → 9 | R17-02 unchanged; version-tracking and doc-binding siblings read, not absorbed. |
+
+Measured revision, exact exits and separability overlays are appended below
+after the measured revision lands; no unrun result is stated here.

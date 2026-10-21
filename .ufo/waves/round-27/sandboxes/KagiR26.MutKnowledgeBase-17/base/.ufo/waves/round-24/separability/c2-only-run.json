@@ -1,0 +1,23 @@
+{
+  "manifest": {
+    "base": "4f94b52a3cdfaa289d779bd8a2afcd0b1fcd9105",
+    "source_commit": "017cc4c5eb87f7942fa41ff8893e8737fd14cfb4",
+    "claim": "c2-only",
+    "inputs": {
+      "corpus/SOURCES.md": "f37e7cdd738296d5ff3ee56284a8e55df178d110a4a8249e25638b8a29ac28ba",
+      "corpus/source-fetches.tsv": "2e21e649437f440c3393b5352ec9cbb0ff815b2d605995460c3aa2756a804d8e",
+      "corpus/inrow-pins.tsv": "e600474859ce927e78227f5d47d0b80851456a6ea659db565db5cb9da6b39124",
+      "corpus/sources-census.sh": "8d30d627021cd70947bfec6a3984418ff1e7f1a8a16d8b5ab580a56898a0968a",
+      "corpus/rendered-text-v1.py": "7d6bfe8154898f8584e213bcf98936a0819ace75fd80f3dcc87bce1edd1dc7bf",
+      "corpus/lessons/round-24.md": "66ed6a5facda2bd55a4c664b4d4de3ab233f8626ce9770dc17a86cfddb89406c"
+    },
+    "expected": "SOURCES_CENSUS CLEAN rows32 inrow_only0"
+  },
+  "command": [
+    "bash",
+    "corpus/sources-census.sh"
+  ],
+  "exit": 0,
+  "stdout": "SOURCES_CENSUS: CLEAN (rows=32 A=30 B=0 C=2 queued=1 mined=29 rejected=2 entries_sourced=4 legacy=21 captures=32 inrow=16 inrow_only=0 inrow_nonreproducing=12)\n",
+  "stderr": ""
+}

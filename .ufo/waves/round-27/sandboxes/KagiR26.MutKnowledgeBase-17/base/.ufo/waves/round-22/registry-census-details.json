@@ -1,0 +1,84 @@
+{
+  "before_revision": "c2cab35bc92e57e39e5489bac3386db078345b3f",
+  "measured_revision": "4be5da3cac11a1db64c3e0a77246fd7f2bdee413",
+  "before": {
+    "rows": 16,
+    "urls": 16,
+    "tiers": {
+      "A": 14,
+      "C": 2
+    },
+    "statuses": {
+      "mined": 14,
+      "queued": 1,
+      "rejected": 1
+    }
+  },
+  "after": {
+    "rows": 23,
+    "urls": 18,
+    "tiers": {
+      "A": 21,
+      "C": 2
+    },
+    "statuses": {
+      "mined": 21,
+      "queued": 1,
+      "rejected": 1
+    }
+  },
+  "added_ids": [
+    "S017",
+    "S018",
+    "S019",
+    "S020",
+    "S021",
+    "S022",
+    "S023"
+  ],
+  "new_urls": [
+    "https://www.1password.dev/brokered-access/custom-workflow/",
+    "https://www.1password.dev/brokered-access/github-actions/"
+  ],
+  "immutable_original_rows_equal": true,
+  "command_description": "Parse 11-column Registry rows from git show BASE:corpus/SOURCES.md and current corpus/SOURCES.md; id=S plus >=3 digits; canonical URL is source cell after final em dash. Count rows, distinct URL sets, tier/status histograms. sources-census.sh supplies independent conformance and entry reciprocity.",
+  "counting_argv": [
+    "python3",
+    "-c",
+    "import pathlib,re,json,collections; rows=[c for line in pathlib.Path('corpus/SOURCES.md').read_text().splitlines() if len(c:=[x.strip() for x in line.split('|')])==13 and re.fullmatch(r'S[0-9]{3,}',c[1])]; print(json.dumps({'rows':len(rows),'urls':len({c[2].rsplit(' \u2014 ',1)[-1] for c in rows}),'tiers':dict(collections.Counter(c[4] for c in rows)),'statuses':dict(collections.Counter(c[8] for c in rows))},sort_keys=True))"
+  ],
+  "executions": [
+    {
+      "stage": "before",
+      "cwd": "/tmp/kagi-r22-before-7elao5gl",
+      "exit": 0,
+      "stdout": "{\"rows\": 16, \"statuses\": {\"mined\": 14, \"queued\": 1, \"rejected\": 1}, \"tiers\": {\"A\": 14, \"C\": 2}, \"urls\": 16}\n",
+      "stderr": ""
+    },
+    {
+      "stage": "after",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin",
+      "exit": 0,
+      "stdout": "{\"rows\": 23, \"statuses\": {\"mined\": 21, \"queued\": 1, \"rejected\": 1}, \"tiers\": {\"A\": 21, \"C\": 2}, \"urls\": 18}\n",
+      "stderr": ""
+    }
+  ],
+  "immutable_original_full_line_sha256": {
+    "S001": "3f404d8d68f0a9228850cd96349588c90833639d0e6ebe95018114d061449781",
+    "S002": "eb8a70d298d7e01946d5bdc8585fcde1d2eb5594a680f83bf6583a4b7959ea1f",
+    "S003": "0b29023a578466cec33ae728711514641dce9dce80fc29898ec11b292c50437c",
+    "S004": "f4b7d1d9508ba1bbb6c05a8259c63772e470ebf5a48d0535e7942e4dc1c4378b",
+    "S005": "fe63d47d95e780c275fa2c6eaabb4a09b380f59356362e4959427303f80639ed",
+    "S006": "c417c1511c3abdfa6be26bc198d443e475ddaba2404c552766b4ab2a22562eaa",
+    "S007": "2d907e754d376b8799c0ed0445437c3b41f99bce79f360e10553dd7d4e85e689",
+    "S008": "24d193c79362d8c31a55a8cd3c8eece4cc977edb310b01ab8c5a5e625225fe99",
+    "S009": "9ccd72e14acadb6de7d05b000f6e218c57991a33a6b50bfbbd264751147b44d7",
+    "S010": "fbad93be39302bd0bdc6d6a2e7071b1cf42b751aca7ac236ca56576ee27810a6",
+    "S011": "680c8468315171898c3a8f915ecb98c6195d7e31273294ca9e87a13f5636514b",
+    "S012": "6dd2da35d5bfd0fadebbb4132679ff83b3488d19ebc88157d7b3db75b4f29b66",
+    "S013": "fe39d769ad84e255c6e51708e023f09e482d95a21f3520e0dde0609337a4aef4",
+    "S014": "3cab6f2a015bcc052544a892766a957f8d88c9d9f86c776ef18b3eed2f67eeea",
+    "S015": "2577ade761ad505e0df8fd9bfafa3acb28bc3f0797dd56f4c551d6d5eb106c67",
+    "S016": "2452a1c2562216df7261e2f9e263f6d348451838898afa08c5803f51fc640e06"
+  }
+}

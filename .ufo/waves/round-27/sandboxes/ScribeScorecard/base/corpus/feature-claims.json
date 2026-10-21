@@ -1,0 +1,1000 @@
+{
+  "schema": "kagi-feature-claims-v1",
+  "review": {
+    "axis": "calibration",
+    "base_revision": "c2cab35bc92e57e39e5489bac3386db078345b3f",
+    "opened_at": "2026-10-20",
+    "scope": "1Password Credential Broker GitHub Actions and custom OIDC; Vault dynamic-secret leases and OpenBao token TTL claims.",
+    "limits": [
+      "Typed records only: no free-prose parsing, NLP, or claim about arbitrary sentences.",
+      "Admission means required qualifiers and pinned quote bindings match this review artifact; it does not prove source truth or deployed behavior.",
+      "URLs are inert metadata; the gate never fetches them. A digest identifies captured bytes but is not semantic verification.",
+      "Vault lease evidence and OpenBao token evidence are product-separated. Vault token behavior and OpenBao KV retention are out of scope.",
+      "The label authority field records provenance; author/construction labels are not outside-verifier agreement or a calibration scalar.",
+      "The singleton exact-catalog projection may bar-fail valid alternate, superset, or conservative typed claims not represented by its pinned values.",
+      "eligibility.scope is review-policy metadata, not a vendor fact.",
+      "The dated EPM Business announcement qualifier and feature-page Business-account prerequisites are distinct; no tier-identity mapping is proved.",
+      "SHA-256 values attest captured response bytes, not live drift pins. S020 was response-variable; W2 reproduced S017, S018, S019, S013, and S021.",
+      "runtime_constraints records selected profile-covered qualifiers, not a complete workflow setup/prerequisite inventory; Actions desktop-app setup and id-token permissions are outside this profile and require direct source review. An empty list does not imply no prerequisites."
+    ]
+  },
+  "sources": [
+    {
+      "id": "S006",
+      "product": "1password",
+      "url": "https://1password.com/blog/1password-credential-broker-public-preview",
+      "sha256": "39a869df8807696009d98bd6d0a86bc27524af65f94f235d37e6dd5a6e514c1f",
+      "digest_observed_at": "2026-10-19",
+      "title": "1Password Credential Broker is now in public preview",
+      "quotes": [
+        {"id": "S006-title", "anchor": "page-title-H1", "text": "1Password Credential Broker is now in public preview"},
+        {"id": "S006-preview", "anchor": "§Try 1Password Credential Broker today", "text": "is in public preview"},
+        {"id": "S006-eligible", "anchor": "introduction", "text": "available for all Enterprise Password Manager Business customers"}
+      ],
+      "bindings": [
+        {"feature": "op_cb_github_actions", "field": "product", "value": "1password", "quote_id": "S006-title"},
+        {"feature": "op_cb_custom_oidc", "field": "product", "value": "1password", "quote_id": "S006-title"},
+        {"feature": "op_cb_github_actions", "field": "eligibility.plans", "value": "enterprise_password_manager_business", "quote_id": "S006-eligible"},
+        {"feature": "op_cb_custom_oidc", "field": "eligibility.plans", "value": "enterprise_password_manager_business", "quote_id": "S006-eligible"}
+      ]
+    },
+    {
+      "id": "S007",
+      "product": "1password",
+      "url": "https://www.1password.dev/brokered-access",
+      "sha256": "e4aef238bb5c93080bc0e1cc2156d0f8d19c9291dbbee60193bd42485686f818",
+      "digest_observed_at": "2026-10-19",
+      "title": "Set up 1Password Credential Broker to allow your team to access secrets in their workflows (public preview)",
+      "quotes": [
+        {"id": "S007-guide-title", "anchor": "page-title", "text": "Set up 1Password Credential Broker to allow your team to access secrets in their workflows (public preview)"},
+        {"id": "S007-business", "anchor": "introduction", "text": "a supported integration in their 1Password Business account"},
+        {"id": "S007-runtime", "anchor": "introduction", "text": "only remain accessible for the duration of the workflow"}
+      ],
+      "bindings": [
+        {"feature": "op_cb_github_actions", "field": "product", "value": "1password", "quote_id": "S007-guide-title"},
+        {"feature": "op_cb_custom_oidc", "field": "product", "value": "1password", "quote_id": "S007-guide-title"},
+        {"feature": "op_cb_github_actions", "field": "feature", "value": "op_cb_github_actions", "quote_id": "S007-guide-title"},
+        {"feature": "op_cb_custom_oidc", "field": "feature", "value": "op_cb_custom_oidc", "quote_id": "S007-guide-title"},
+        {"feature": "op_cb_custom_oidc", "field": "path", "value": "brokered-access/custom-workflow", "quote_id": "S007-guide-title"},
+        {"feature": "op_cb_github_actions", "field": "eligibility.requirements", "value": "business_account_connected", "quote_id": "S007-business"},
+        {"feature": "op_cb_custom_oidc", "field": "eligibility.requirements", "value": "business_account_connected", "quote_id": "S007-business"}
+      ]
+    },
+    {
+      "id": "S012",
+      "product": "hashicorp_vault",
+      "url": "https://developer.hashicorp.com/vault/docs/auth/jwt",
+      "sha256": "ec6e7b250d181c5c3cbbffb482e96f96649b9f556884e069fb62f64798357c45",
+      "digest_observed_at": "2026-10-19",
+      "title": "Use JWT/OIDC authentication",
+      "quotes": [
+        {"id": "S012-audience", "anchor": "§JWT verification; Vault 1.17 note", "text": "must exactly match at least one of the `aud` claims declared for the JWT."}
+      ],
+      "bindings": [
+        {"feature": "vault_jwt_login", "field": "product", "value": "hashicorp_vault", "quote_id": "S012-audience"},
+        {"feature": "vault_jwt_login", "field": "path", "value": "vault/docs/auth/jwt", "quote_id": "S012-audience"},
+        {"feature": "vault_jwt_login", "field": "fact", "value": "vault_jwt_audience_exact_match", "quote_id": "S012-audience"}
+      ]
+    },
+    {
+      "id": "S013",
+      "product": "hashicorp_vault",
+      "url": "https://developer.hashicorp.com/vault/docs/concepts/lease",
+      "sha256": "de5f8836b268372b5af165fa46d3c80195554f110f881723d606c6cc8bcc3802",
+      "prior_registry_sha256": "ae321512d37ae70bc19e7b8698217ce8af0d3000bb76fe04039870bff25b8bf5",
+      "digest_observed_at": "2026-10-20",
+      "title": "Lease, renew, and revoke | Vault | HashiCorp Developer",
+      "quotes": [
+        {"id": "S013-title", "anchor": "page-heading", "text": "Lease, renew, and revoke"},
+        {"id": "S013-dynamic", "anchor": "§Lease, renew, and revoke", "text": "All dynamic secrets in Vault are required to have a lease."}
+      ],
+      "bindings": [
+        {"feature": "vault_dynamic_secret_leases", "field": "product", "value": "hashicorp_vault", "quote_id": "S013-title"},
+        {"feature": "vault_dynamic_secret_leases", "field": "feature", "value": "vault_dynamic_secret_leases", "quote_id": "S013-title"},
+        {"feature": "vault_dynamic_secret_leases", "field": "path", "value": "vault/docs/concepts/lease", "quote_id": "S013-title"},
+        {"feature": "vault_dynamic_secret_leases", "field": "fact", "value": "vault_dynamic_secrets_require_leases", "quote_id": "S013-dynamic"}
+      ]
+    },
+    {
+      "id": "S017",
+      "product": "1password",
+      "url": "https://www.1password.dev/brokered-access/github-actions/",
+      "sha256": "937f6828883599d23c736ae8df57daaa60fd30295c3a300b226caa4ceed10849",
+      "digest_observed_at": "2026-10-20",
+      "title": "Use 1Password Credential Broker to access secrets in GitHub Actions at runtime (public preview)",
+      "quotes": [
+        {"id": "S017-title", "anchor": "page-title-H1", "text": "Use 1Password Credential Broker to access secrets in GitHub Actions at runtime (public preview)"},
+        {"id": "S017-business", "anchor": "introduction", "text": "connected your GitHub organization to your 1Password Business account"},
+        {"id": "S017-runtime", "anchor": "introduction", "text": "access secrets from your 1Password Environments in your organization's GitHub Actions workflows at runtime"}
+      ],
+      "bindings": [
+        {"feature": "op_cb_github_actions", "field": "product", "value": "1password", "quote_id": "S017-title"},
+        {"feature": "op_cb_github_actions", "field": "feature", "value": "op_cb_github_actions", "quote_id": "S017-title"},
+        {"feature": "op_cb_github_actions", "field": "path", "value": "brokered-access/github-actions", "quote_id": "S017-title"},
+        {"feature": "op_cb_github_actions", "field": "release_status", "value": "public_preview", "quote_id": "S017-title"},
+        {"feature": "op_cb_github_actions", "field": "eligibility.requirements", "value": "business_account_connected", "quote_id": "S017-business"},
+        {"feature": "op_cb_github_actions", "field": "fact", "value": "github_actions_runtime_environment_secrets", "quote_id": "S017-runtime"}
+      ]
+    },
+    {
+      "id": "S018",
+      "product": "1password",
+      "url": "https://www.1password.dev/brokered-access/custom-workflow/",
+      "sha256": "d0890c11edaa85d3ec68680d8d9bc867db502229fb3c815ee6b1b62ac62b76e5",
+      "digest_observed_at": "2026-10-20",
+      "title": "Use 1Password Credential Broker to access secrets in custom workflows at runtime (public beta)",
+      "quotes": [
+        {"id": "S018-title", "anchor": "page-title-H1", "text": "Use 1Password Credential Broker to access secrets in custom workflows at runtime (public beta)"},
+        {"id": "S018-intro", "anchor": "introduction", "text": "If an administrator has connected an OIDC provider to your 1Password Business account"},
+        {"id": "S018-beta-app", "anchor": "Step 1: Set up an Environment", "text": "latest beta release of the 1Password desktop app"},
+        {"id": "S018-js-sdk", "anchor": "Step 3 note", "text": "Credential Broker is only supported in the 1Password JavaScript SDK at this time."},
+        {"id": "S018-runtime", "anchor": "introduction", "text": "you can use 1Password to access secrets from your 1Password Environments in your custom workflows at runtime"}
+      ],
+      "bindings": [
+        {"feature": "op_cb_custom_oidc", "field": "product", "value": "1password", "quote_id": "S018-title"},
+        {"feature": "op_cb_custom_oidc", "field": "feature", "value": "op_cb_custom_oidc", "quote_id": "S018-title"},
+        {"feature": "op_cb_custom_oidc", "field": "path", "value": "brokered-access/custom-workflow", "quote_id": "S018-title"},
+        {"feature": "op_cb_custom_oidc", "field": "release_status", "value": "public_beta", "quote_id": "S018-title"},
+        {"feature": "op_cb_custom_oidc", "field": "eligibility.requirements", "value": "business_account_connected", "quote_id": "S018-intro"},
+        {"feature": "op_cb_custom_oidc", "field": "eligibility.requirements", "value": "oidc_provider_connected", "quote_id": "S018-intro"},
+        {"feature": "op_cb_custom_oidc", "field": "runtime_constraints", "value": "beta_desktop_app", "quote_id": "S018-beta-app"},
+        {"feature": "op_cb_custom_oidc", "field": "runtime_constraints", "value": "javascript_sdk_only", "quote_id": "S018-js-sdk"},
+        {"feature": "op_cb_custom_oidc", "field": "fact", "value": "custom_oidc_runtime_environment_secrets", "quote_id": "S018-runtime"}
+      ]
+    },
+    {
+      "id": "S019",
+      "product": "1password",
+      "url": "https://www.1password.dev/brokered-access",
+      "sha256": "896c780b243ebd1659dea22d6e46a1d4b2b74639adfde7ed22d8b362fc3b4a9f",
+      "prior_registry_sha256": "e4aef238bb5c93080bc0e1cc2156d0f8d19c9291dbbee60193bd42485686f818",
+      "digest_observed_at": "2026-10-20",
+      "title": "Set up 1Password Credential Broker to allow your team to access secrets in their workflows (public preview)",
+      "quotes": [
+        {"id": "S019-business", "anchor": "introduction", "text": "a supported integration in their 1Password Business account"},
+        {"id": "S019-github-com", "anchor": "§GitHub Actions requirements", "text": "Your GitHub organization must be hosted on GitHub.com."},
+        {"id": "S019-enterprise-host", "anchor": "§GitHub Actions requirements", "text": "GitHub organizations hosted on GitHub Enterprise Server or GitHub Enterprise Cloud with data residency aren't currently supported."},
+        {"id": "S019-free-private", "anchor": "§GitHub Actions requirements", "text": "If you use GitHub Free for organizations, your team won't be able to use this integration for workflows in private repositories."}
+      ],
+      "bindings": [
+        {"feature": "op_cb_github_actions", "field": "product", "value": "1password", "quote_id": "S019-business"},
+        {"feature": "op_cb_custom_oidc", "field": "product", "value": "1password", "quote_id": "S019-business"},
+        {"feature": "op_cb_github_actions", "field": "feature", "value": "op_cb_github_actions", "quote_id": "S019-github-com"},
+        {"feature": "op_cb_github_actions", "field": "path", "value": "brokered-access/github-actions", "quote_id": "S019-github-com"},
+        {"feature": "op_cb_github_actions", "field": "eligibility.requirements", "value": "business_account_connected", "quote_id": "S019-business"},
+        {"feature": "op_cb_custom_oidc", "field": "eligibility.requirements", "value": "business_account_connected", "quote_id": "S019-business"},
+        {"feature": "op_cb_github_actions", "field": "eligibility.requirements", "value": "github_com_org", "quote_id": "S019-github-com"},
+        {"feature": "op_cb_github_actions", "field": "eligibility.documented_exclusions", "value": "github_enterprise_server", "quote_id": "S019-enterprise-host"},
+        {"feature": "op_cb_github_actions", "field": "eligibility.documented_exclusions", "value": "github_enterprise_cloud_data_residency", "quote_id": "S019-enterprise-host"},
+        {"feature": "op_cb_github_actions", "field": "eligibility.documented_exclusions", "value": "github_free_private_repositories", "quote_id": "S019-free-private"}
+      ]
+    },
+    {
+      "id": "S020",
+      "product": "1password",
+      "url": "https://1password.com/blog/1password-credential-broker-public-preview",
+      "sha256": "55bf23fe6e56375aef3daab62aa90d7c60f753b6f1aba631a1cfffdaebfe3eda",
+      "prior_registry_sha256": "39a869df8807696009d98bd6d0a86bc27524af65f94f235d37e6dd5a6e514c1f",
+      "digest_observed_at": "2026-10-20",
+      "title": "1Password Credential Broker is now in public preview",
+      "quotes": [
+        {"id": "S020-epm-plan", "anchor": "introduction", "text": "available for all Enterprise Password Manager Business customers to start using right now"},
+        {"id": "S020-status-split", "anchor": "§New in this release: Custom OIDC workflows", "text": "Alongside GitHub Actions support in public preview, we're slowly rolling out a new capability in beta: custom OIDC workflows."}
+      ],
+      "bindings": [
+        {"feature": "op_cb_github_actions", "field": "product", "value": "1password", "quote_id": "S020-epm-plan"},
+        {"feature": "op_cb_custom_oidc", "field": "product", "value": "1password", "quote_id": "S020-epm-plan"},
+        {"feature": "op_cb_github_actions", "field": "feature", "value": "op_cb_github_actions", "quote_id": "S020-status-split"},
+        {"feature": "op_cb_custom_oidc", "field": "feature", "value": "op_cb_custom_oidc", "quote_id": "S020-status-split"},
+        {"feature": "op_cb_github_actions", "field": "path", "value": "brokered-access/github-actions", "quote_id": "S020-status-split"},
+        {"feature": "op_cb_custom_oidc", "field": "path", "value": "brokered-access/custom-workflow", "quote_id": "S020-status-split"},
+        {"feature": "op_cb_github_actions", "field": "release_status", "value": "public_preview", "quote_id": "S020-status-split"},
+        {"feature": "op_cb_custom_oidc", "field": "release_status", "value": "public_beta", "quote_id": "S020-status-split"},
+        {"feature": "op_cb_github_actions", "field": "eligibility.plans", "value": "enterprise_password_manager_business", "quote_id": "S020-epm-plan"},
+        {"feature": "op_cb_custom_oidc", "field": "eligibility.plans", "value": "enterprise_password_manager_business", "quote_id": "S020-epm-plan"}
+      ]
+    },
+    {
+      "id": "S021",
+      "product": "openbao",
+      "url": "https://openbao.org/docs/concepts/tokens/",
+      "sha256": "5229521866ce21fa8cd8f8ecf63d696877b8cb0a2ec25e89de683557b385f82c",
+      "prior_registry_sha256": "c083fdca8645f6248a3c42a8c0b912b356de281dc2da0099668a7850ba348380",
+      "digest_observed_at": "2026-10-20",
+      "title": "Tokens | OpenBao",
+      "quotes": [
+        {"id": "S021-title", "anchor": "page-heading", "text": "Tokens"},
+        {"id": "S021-version", "anchor": "version-label", "text": "Version: Version 2.7.x"},
+        {"id": "S021-service-scope", "anchor": "§Token types", "text": "The features in the following sections all apply to service tokens, and their applicability to batch tokens is discussed later."},
+        {"id": "S021-ttl", "anchor": "§Token Time-To-Live, periodic tokens, and explicit max TTLs", "text": "After the current TTL is up, the token will no longer function -- it, and its associated leases, are revoked."},
+        {"id": "S021-nonroot-ttl", "anchor": "Token Time-To-Live", "text": "Every non-root token has a time-to-live (TTL) associated with it"}
+      ],
+      "bindings": [
+        {"feature": "openbao_token_ttl", "field": "product", "value": "openbao", "quote_id": "S021-title"},
+        {"feature": "openbao_token_ttl", "field": "feature", "value": "openbao_token_ttl", "quote_id": "S021-title"},
+        {"feature": "openbao_token_ttl", "field": "path", "value": "openbao/docs/concepts/tokens", "quote_id": "S021-title"},
+        {"feature": "openbao_token_ttl", "field": "runtime_constraints", "value": "service_token_scope", "quote_id": "S021-service-scope"},
+        {"feature": "openbao_token_ttl", "field": "fact", "value": "openbao_service_token_nonroot_ttl_revokes_token_and_associated_leases", "quote_id": "S021-ttl"}
+      ]
+    }
+  ],
+  "features": [
+    {
+      "id": "op_cb_custom_oidc",
+      "group": "onepassword_credential_broker",
+      "product": "1password",
+      "path": "brokered-access/custom-workflow",
+      "release_status": "public_beta",
+      "release_status_anchor": "page-title-H1",
+      "eligibility": {
+        "scope": "source_bounded",
+        "plans": ["enterprise_password_manager_business"],
+        "requirements": ["business_account_connected", "oidc_provider_connected"],
+        "documented_exclusions": []
+      },
+      "runtime_constraints": ["beta_desktop_app", "javascript_sdk_only"],
+      "facts": ["custom_oidc_runtime_environment_secrets"],
+      "evidence_requirements": {
+        "product": [["S018", "S018-title"]],
+        "feature": [["S018", "S018-title"]],
+        "path": [["S018", "S018-title"]],
+        "release_status": [["S018", "S018-title"], ["S020", "S020-status-split"]],
+        "eligibility.plans": [["S020", "S020-epm-plan"]],
+        "eligibility.requirements": [["S018", "S018-intro"]],
+        "eligibility.documented_exclusions": [],
+        "runtime_constraints": [["S018", "S018-beta-app"], ["S018", "S018-js-sdk"]],
+        "fact": [["S018", "S018-runtime"]]
+      }
+    },
+    {
+      "id": "op_cb_github_actions",
+      "group": "onepassword_credential_broker",
+      "product": "1password",
+      "path": "brokered-access/github-actions",
+      "release_status": "public_preview",
+      "release_status_anchor": "page-title-H1",
+      "eligibility": {
+        "scope": "source_bounded",
+        "plans": ["enterprise_password_manager_business"],
+        "requirements": ["business_account_connected", "github_com_org"],
+        "documented_exclusions": ["github_enterprise_server", "github_enterprise_cloud_data_residency", "github_free_private_repositories"]
+      },
+      "runtime_constraints": [],
+      "facts": ["github_actions_runtime_environment_secrets"],
+      "evidence_requirements": {
+        "product": [["S017", "S017-title"]],
+        "feature": [["S017", "S017-title"]],
+        "path": [["S017", "S017-title"]],
+        "release_status": [["S017", "S017-title"], ["S020", "S020-status-split"]],
+        "eligibility.plans": [["S020", "S020-epm-plan"]],
+        "eligibility.requirements": [["S019", "S019-business"], ["S019", "S019-github-com"]],
+        "eligibility.documented_exclusions": [["S019", "S019-enterprise-host"], ["S019", "S019-free-private"]],
+        "runtime_constraints": [],
+        "fact": [["S017", "S017-runtime"]]
+      }
+    },
+    {
+      "id": "openbao_token_ttl",
+      "group": "vault_openbao_lifecycle_product_split",
+      "product": "openbao",
+      "path": "openbao/docs/concepts/tokens",
+      "release_status": "not_asserted",
+      "release_status_anchor": "not_assessed",
+      "eligibility": {
+        "scope": "not_assessed",
+        "plans": [],
+        "requirements": [],
+        "documented_exclusions": []
+      },
+      "runtime_constraints": ["service_token_scope"],
+      "facts": ["openbao_service_token_nonroot_ttl_revokes_token_and_associated_leases"],
+      "evidence_requirements": {
+        "product": [["S021", "S021-title"]],
+        "feature": [["S021", "S021-title"]],
+        "path": [["S021", "S021-title"]],
+        "release_status": [],
+        "eligibility.plans": [],
+        "eligibility.requirements": [],
+        "eligibility.documented_exclusions": [],
+        "runtime_constraints": [["S021", "S021-service-scope"]],
+        "fact": [["S021", "S021-ttl"]]
+      }
+    },
+    {
+      "id": "vault_dynamic_secret_leases",
+      "group": "vault_openbao_lifecycle_product_split",
+      "product": "hashicorp_vault",
+      "path": "vault/docs/concepts/lease",
+      "release_status": "not_asserted",
+      "release_status_anchor": "not_assessed",
+      "eligibility": {
+        "scope": "not_assessed",
+        "plans": [],
+        "requirements": [],
+        "documented_exclusions": []
+      },
+      "runtime_constraints": [],
+      "facts": ["vault_dynamic_secrets_require_leases"],
+      "evidence_requirements": {
+        "product": [["S013", "S013-title"]],
+        "feature": [["S013", "S013-title"]],
+        "path": [["S013", "S013-title"]],
+        "release_status": [],
+        "eligibility.plans": [],
+        "eligibility.requirements": [],
+        "eligibility.documented_exclusions": [],
+        "runtime_constraints": [],
+        "fact": [["S013", "S013-dynamic"]]
+      }
+    }
+  ],
+  "records": [
+    {
+      "id": "BEFORE-E1-STATUS",
+      "phase": "before",
+      "label_authority": "outside-verifier",
+      "defect_class": "status-conflation",
+      "expected_decision": "reject:false-claim",
+      "reference": {
+        "path": "corpus/lessons/round-21-verifier-spotcheck.md",
+        "sha256": "6e4fa622ae953f343c294e3ce401303b6b6fa377e8800f9164047b08711f1ffb",
+        "anchor": "§Spot-check, E1 row",
+        "quote": "E1 omits who can use Credential Broker and conflates GitHub Actions public preview with custom-OIDC beta."
+      },
+      "claim": {
+        "product": "1password",
+        "feature": "op_cb_custom_oidc",
+        "path": "brokered-access/custom-workflow",
+        "release_status": "public_preview",
+        "runtime_constraints": [],
+        "fact": "custom_oidc_runtime_environment_secrets",
+        "evidence": {
+          "product": [["S018", "S018-title"]],
+          "feature": [["S018", "S018-title"]],
+          "path": [["S018", "S018-title"]],
+          "release_status": [["S007", "S007-guide-title"]],
+          "eligibility.plans": [],
+          "eligibility.requirements": [],
+          "eligibility.documented_exclusions": [],
+          "runtime_constraints": [],
+          "fact": [["S018", "S018-runtime"]]
+        }
+      }
+    },
+    {
+      "id": "BEFORE-E1-ELIGIBILITY",
+      "phase": "before",
+      "label_authority": "construction-rule",
+      "defect_class": "eligibility-omission",
+      "expected_decision": "reject:bar-fail",
+      "reference": {
+        "rule": "QUALITY.md QA10: missing plan/deployment eligibility is not an admission."
+      },
+      "claim": {
+        "product": "1password",
+        "feature": "op_cb_github_actions",
+        "path": "brokered-access/github-actions",
+        "release_status": "public_preview",
+        "runtime_constraints": [],
+        "fact": "github_actions_runtime_environment_secrets",
+        "evidence": {
+          "product": [["S017", "S017-title"]],
+          "feature": [["S017", "S017-title"]],
+          "path": [["S017", "S017-title"]],
+          "release_status": [["S017", "S017-title"], ["S020", "S020-status-split"]],
+          "eligibility.plans": [],
+          "eligibility.requirements": [],
+          "eligibility.documented_exclusions": [],
+          "runtime_constraints": [],
+          "fact": [["S017", "S017-runtime"]]
+        }
+      }
+    },
+    {
+      "id": "BEFORE-E3-VAULT-ONLY",
+      "phase": "before",
+      "label_authority": "outside-verifier",
+      "defect_class": "cross-product-source",
+      "expected_decision": "reject:bar-fail",
+      "reference": {
+        "path": "corpus/lessons/round-21-verifier-spotcheck.md",
+        "sha256": "6e4fa622ae953f343c294e3ce401303b6b6fa377e8800f9164047b08711f1ffb",
+        "anchor": "§Spot-check, E3 row",
+        "quote": "E3 stretches one product's docs to the other."
+      },
+      "claim": {
+        "product": "openbao",
+        "feature": "openbao_token_ttl",
+        "path": "openbao/docs/concepts/tokens",
+        "release_status": "not_asserted",
+        "eligibility": {
+          "scope": "not_assessed",
+          "plans": [],
+          "requirements": [],
+          "documented_exclusions": []
+        },
+        "runtime_constraints": ["service_token_scope"],
+        "fact": "openbao_service_token_nonroot_ttl_revokes_token_and_associated_leases",
+        "evidence": {
+          "product": [["S021", "S021-title"]],
+          "feature": [["S021", "S021-title"]],
+          "path": [["S021", "S021-title"]],
+          "release_status": [],
+          "eligibility.plans": [],
+          "eligibility.requirements": [],
+          "eligibility.documented_exclusions": [],
+          "runtime_constraints": [["S021", "S021-service-scope"]],
+          "fact": [["S013", "S013-dynamic"]]
+        }
+      }
+    },
+    {
+      "id": "BEFORE-CUSTOM-UNDERCITED",
+      "phase": "before",
+      "label_authority": "construction-rule",
+      "defect_class": "true-but-under-cited",
+      "expected_decision": "reject:bar-fail",
+      "reference": {
+        "rule": "QA10 requires the custom-workflow feature page; a general announcement/setup label is not its title anchor."
+      },
+      "claim": {
+        "product": "1password",
+        "feature": "op_cb_custom_oidc",
+        "path": "brokered-access/custom-workflow",
+        "release_status": "public_beta",
+        "eligibility": {
+          "scope": "source_bounded",
+          "plans": ["enterprise_password_manager_business"],
+          "requirements": ["business_account_connected", "oidc_provider_connected"],
+          "documented_exclusions": []
+        },
+        "runtime_constraints": ["beta_desktop_app", "javascript_sdk_only"],
+        "fact": "custom_oidc_runtime_environment_secrets",
+        "evidence": {
+          "product": [["S018", "S018-title"]],
+          "feature": [["S018", "S018-title"]],
+          "path": [["S018", "S018-title"]],
+          "release_status": [["S006", "S006-preview"], ["S007", "S007-guide-title"]],
+          "eligibility.plans": [["S020", "S020-epm-plan"]],
+          "eligibility.requirements": [["S018", "S018-intro"]],
+          "eligibility.documented_exclusions": [],
+          "runtime_constraints": [["S018", "S018-beta-app"], ["S018", "S018-js-sdk"]],
+          "fact": [["S018", "S018-runtime"]]
+        }
+      }
+    },
+    {
+      "id": "BEFORE-SAME-PAGE-PREVIEW",
+      "phase": "before",
+      "label_authority": "construction-rule",
+      "defect_class": "same-page-status-anchor",
+      "expected_decision": "reject:false-claim",
+      "reference": {
+        "rule": "S018's feature title/H1 says public beta; shared-page preview text is not the feature status anchor."
+      },
+      "claim": {
+        "product": "1password",
+        "feature": "op_cb_custom_oidc",
+        "path": "brokered-access/custom-workflow",
+        "release_status": "public_preview",
+        "eligibility": {
+          "scope": "source_bounded",
+          "plans": ["enterprise_password_manager_business"],
+          "requirements": ["business_account_connected", "oidc_provider_connected"],
+          "documented_exclusions": []
+        },
+        "runtime_constraints": ["beta_desktop_app", "javascript_sdk_only"],
+        "fact": "custom_oidc_runtime_environment_secrets",
+        "evidence": {
+          "product": [["S018", "S018-title"]],
+          "feature": [["S018", "S018-title"]],
+          "path": [["S018", "S018-title"]],
+          "release_status": [["S018", "S018-title"], ["S020", "S020-status-split"]],
+          "eligibility.plans": [["S020", "S020-epm-plan"]],
+          "eligibility.requirements": [["S018", "S018-intro"]],
+          "eligibility.documented_exclusions": [],
+          "runtime_constraints": [["S018", "S018-beta-app"], ["S018", "S018-js-sdk"]],
+          "fact": [["S018", "S018-runtime"]]
+        }
+      }
+    },
+    {
+      "id": "BEFORE-GITHUB-EXCLUSIONS",
+      "phase": "before",
+      "label_authority": "construction-rule",
+      "defect_class": "deployment-eligibility-omission",
+      "expected_decision": "reject:bar-fail",
+      "reference": {
+        "rule": "S019's GitHub deployment exclusions are distinct from the Business plan qualifier."
+      },
+      "claim": {
+        "product": "1password",
+        "feature": "op_cb_github_actions",
+        "path": "brokered-access/github-actions",
+        "release_status": "public_preview",
+        "eligibility": {
+          "scope": "source_bounded",
+          "plans": ["enterprise_password_manager_business"],
+          "requirements": ["business_account_connected", "github_com_org"],
+          "documented_exclusions": []
+        },
+        "runtime_constraints": [],
+        "fact": "github_actions_runtime_environment_secrets",
+        "evidence": {
+          "product": [["S017", "S017-title"]],
+          "feature": [["S017", "S017-title"]],
+          "path": [["S017", "S017-title"]],
+          "release_status": [["S017", "S017-title"], ["S020", "S020-status-split"]],
+          "eligibility.plans": [["S020", "S020-epm-plan"]],
+          "eligibility.requirements": [["S019", "S019-business"], ["S019", "S019-github-com"]],
+          "eligibility.documented_exclusions": [],
+          "runtime_constraints": [],
+          "fact": [["S017", "S017-runtime"]]
+        }
+      }
+    },
+    {
+      "id": "BEFORE-CUSTOM-NO-BETA-APP",
+      "phase": "before",
+      "label_authority": "construction-rule",
+      "defect_class": "beta-app-condition",
+      "expected_decision": "reject:bar-fail",
+      "reference": {
+        "rule": "S018 Step 1 scopes custom OIDC setup to the beta desktop app."
+      },
+      "claim": {
+        "product": "1password",
+        "feature": "op_cb_custom_oidc",
+        "path": "brokered-access/custom-workflow",
+        "release_status": "public_beta",
+        "eligibility": {
+          "scope": "source_bounded",
+          "plans": ["enterprise_password_manager_business"],
+          "requirements": ["business_account_connected", "oidc_provider_connected"],
+          "documented_exclusions": []
+        },
+        "runtime_constraints": ["javascript_sdk_only"],
+        "fact": "custom_oidc_runtime_environment_secrets",
+        "evidence": {
+          "product": [["S018", "S018-title"]],
+          "feature": [["S018", "S018-title"]],
+          "path": [["S018", "S018-title"]],
+          "release_status": [["S018", "S018-title"], ["S020", "S020-status-split"]],
+          "eligibility.plans": [["S020", "S020-epm-plan"]],
+          "eligibility.requirements": [["S018", "S018-intro"]],
+          "eligibility.documented_exclusions": [],
+          "runtime_constraints": [["S018", "S018-js-sdk"]],
+          "fact": [["S018", "S018-runtime"]]
+        }
+      }
+    },
+    {
+      "id": "BEFORE-CUSTOM-NO-JS-SDK",
+      "phase": "before",
+      "label_authority": "construction-rule",
+      "defect_class": "sdk-scope-omission",
+      "expected_decision": "reject:bar-fail",
+      "reference": {
+        "rule": "S018 Step 3 note currently limits Broker support to the JavaScript SDK."
+      },
+      "claim": {
+        "product": "1password",
+        "feature": "op_cb_custom_oidc",
+        "path": "brokered-access/custom-workflow",
+        "release_status": "public_beta",
+        "eligibility": {
+          "scope": "source_bounded",
+          "plans": ["enterprise_password_manager_business"],
+          "requirements": ["business_account_connected", "oidc_provider_connected"],
+          "documented_exclusions": []
+        },
+        "runtime_constraints": ["beta_desktop_app"],
+        "fact": "custom_oidc_runtime_environment_secrets",
+        "evidence": {
+          "product": [["S018", "S018-title"]],
+          "feature": [["S018", "S018-title"]],
+          "path": [["S018", "S018-title"]],
+          "release_status": [["S018", "S018-title"], ["S020", "S020-status-split"]],
+          "eligibility.plans": [["S020", "S020-epm-plan"]],
+          "eligibility.requirements": [["S018", "S018-intro"]],
+          "eligibility.documented_exclusions": [],
+          "runtime_constraints": [["S018", "S018-beta-app"]],
+          "fact": [["S018", "S018-runtime"]]
+        }
+      }
+    },
+    {
+      "id": "BEFORE-VAULT-GA-UNPINNED",
+      "phase": "before",
+      "label_authority": "construction-rule",
+      "defect_class": "unstated-release-status",
+      "expected_decision": "reject:bar-fail",
+      "reference": {
+        "rule": "S013 documents leases but supplies no release-phase qualifier."
+      },
+      "claim": {
+        "product": "hashicorp_vault",
+        "feature": "vault_dynamic_secret_leases",
+        "path": "vault/docs/concepts/lease",
+        "release_status": "generally_available",
+        "eligibility": {
+          "scope": "not_assessed",
+          "plans": [],
+          "requirements": [],
+          "documented_exclusions": []
+        },
+        "runtime_constraints": [],
+        "fact": "vault_dynamic_secrets_require_leases",
+        "evidence": {
+          "product": [["S013", "S013-title"]],
+          "feature": [["S013", "S013-title"]],
+          "path": [["S013", "S013-title"]],
+          "release_status": [],
+          "eligibility.plans": [],
+          "eligibility.requirements": [],
+          "eligibility.documented_exclusions": [],
+          "runtime_constraints": [],
+          "fact": [["S013", "S013-dynamic"]]
+        }
+      }
+    },
+    {
+      "id": "BEFORE-VAULT-OPENBAO-SOURCE",
+      "phase": "before",
+      "label_authority": "construction-rule",
+      "defect_class": "reverse-cross-product-source",
+      "expected_decision": "reject:bar-fail",
+      "reference": {
+        "rule": "OpenBao's token page cannot establish Vault lease behavior."
+      },
+      "claim": {
+        "product": "hashicorp_vault",
+        "feature": "vault_dynamic_secret_leases",
+        "path": "vault/docs/concepts/lease",
+        "release_status": "not_asserted",
+        "eligibility": {
+          "scope": "not_assessed",
+          "plans": [],
+          "requirements": [],
+          "documented_exclusions": []
+        },
+        "runtime_constraints": [],
+        "fact": "vault_dynamic_secrets_require_leases",
+        "evidence": {
+          "product": [["S013", "S013-title"]],
+          "feature": [["S013", "S013-title"]],
+          "path": [["S013", "S013-title"]],
+          "release_status": [],
+          "eligibility.plans": [],
+          "eligibility.requirements": [],
+          "eligibility.documented_exclusions": [],
+          "runtime_constraints": [],
+          "fact": [["S021", "S021-ttl"]]
+        }
+      }
+    },
+    {
+      "id": "AFTER-GITHUB-BOUNDED",
+      "phase": "after",
+      "label_authority": "verbatim-pin",
+      "defect_class": "bounded-control",
+      "expected_decision": "admit",
+      "reference": {
+        "path": "corpus/knowledge/feature-bound-credential-review.md",
+        "anchor": "Broker GitHub Actions row"
+      },
+      "claim": {
+        "product": "1password",
+        "feature": "op_cb_github_actions",
+        "path": "brokered-access/github-actions",
+        "release_status": "public_preview",
+        "eligibility": {
+          "scope": "source_bounded",
+          "plans": ["enterprise_password_manager_business"],
+          "requirements": ["business_account_connected", "github_com_org"],
+          "documented_exclusions": ["github_enterprise_server", "github_enterprise_cloud_data_residency", "github_free_private_repositories"]
+        },
+        "runtime_constraints": [],
+        "fact": "github_actions_runtime_environment_secrets",
+        "evidence": {
+          "product": [["S017", "S017-title"]],
+          "feature": [["S017", "S017-title"]],
+          "path": [["S017", "S017-title"]],
+          "release_status": [["S017", "S017-title"], ["S020", "S020-status-split"]],
+          "eligibility.plans": [["S020", "S020-epm-plan"]],
+          "eligibility.requirements": [["S019", "S019-business"], ["S019", "S019-github-com"]],
+          "eligibility.documented_exclusions": [["S019", "S019-enterprise-host"], ["S019", "S019-free-private"]],
+          "runtime_constraints": [],
+          "fact": [["S017", "S017-runtime"]]
+        }
+      }
+    },
+    {
+      "id": "AFTER-CUSTOM-BETA-BOUNDED",
+      "phase": "after",
+      "label_authority": "verbatim-pin",
+      "defect_class": "bounded-control",
+      "expected_decision": "admit",
+      "reference": {
+        "path": "corpus/knowledge/feature-bound-credential-review.md",
+        "anchor": "Broker custom OIDC row"
+      },
+      "claim": {
+        "product": "1password",
+        "feature": "op_cb_custom_oidc",
+        "path": "brokered-access/custom-workflow",
+        "release_status": "public_beta",
+        "eligibility": {
+          "scope": "source_bounded",
+          "plans": ["enterprise_password_manager_business"],
+          "requirements": ["business_account_connected", "oidc_provider_connected"],
+          "documented_exclusions": []
+        },
+        "runtime_constraints": ["beta_desktop_app", "javascript_sdk_only"],
+        "fact": "custom_oidc_runtime_environment_secrets",
+        "evidence": {
+          "product": [["S018", "S018-title"]],
+          "feature": [["S018", "S018-title"]],
+          "path": [["S018", "S018-title"]],
+          "release_status": [["S018", "S018-title"], ["S020", "S020-status-split"]],
+          "eligibility.plans": [["S020", "S020-epm-plan"]],
+          "eligibility.requirements": [["S018", "S018-intro"]],
+          "eligibility.documented_exclusions": [],
+          "runtime_constraints": [["S018", "S018-beta-app"], ["S018", "S018-js-sdk"]],
+          "fact": [["S018", "S018-runtime"]]
+        }
+      }
+    },
+    {
+      "id": "AFTER-VAULT-LEASE",
+      "phase": "after",
+      "label_authority": "verbatim-pin",
+      "defect_class": "bounded-control",
+      "expected_decision": "admit",
+      "reference": {
+        "path": "corpus/SOURCES.md",
+        "anchor": "Registry S013: Vault dynamic-secret lease scope and quote"
+      },
+      "claim": {
+        "product": "hashicorp_vault",
+        "feature": "vault_dynamic_secret_leases",
+        "path": "vault/docs/concepts/lease",
+        "release_status": "not_asserted",
+        "eligibility": {
+          "scope": "not_assessed",
+          "plans": [],
+          "requirements": [],
+          "documented_exclusions": []
+        },
+        "runtime_constraints": [],
+        "fact": "vault_dynamic_secrets_require_leases",
+        "evidence": {
+          "product": [["S013", "S013-title"]],
+          "feature": [["S013", "S013-title"]],
+          "path": [["S013", "S013-title"]],
+          "release_status": [],
+          "eligibility.plans": [],
+          "eligibility.requirements": [],
+          "eligibility.documented_exclusions": [],
+          "runtime_constraints": [],
+          "fact": [["S013", "S013-dynamic"]]
+        }
+      }
+    },
+    {
+      "id": "AFTER-OPENBAO-TTL",
+      "phase": "after",
+      "label_authority": "verbatim-pin",
+      "defect_class": "bounded-control",
+      "expected_decision": "admit",
+      "reference": {
+        "path": "corpus/knowledge/feature-bound-credential-review.md",
+        "anchor": "OpenBao tokens row"
+      },
+      "claim": {
+        "product": "openbao",
+        "feature": "openbao_token_ttl",
+        "path": "openbao/docs/concepts/tokens",
+        "release_status": "not_asserted",
+        "eligibility": {
+          "scope": "not_assessed",
+          "plans": [],
+          "requirements": [],
+          "documented_exclusions": []
+        },
+        "runtime_constraints": ["service_token_scope"],
+        "fact": "openbao_service_token_nonroot_ttl_revokes_token_and_associated_leases",
+        "evidence": {
+          "product": [["S021", "S021-title"]],
+          "feature": [["S021", "S021-title"]],
+          "path": [["S021", "S021-title"]],
+          "release_status": [],
+          "eligibility.plans": [],
+          "eligibility.requirements": [],
+          "eligibility.documented_exclusions": [],
+          "runtime_constraints": [["S021", "S021-service-scope"]],
+          "fact": [["S021", "S021-ttl"]]
+        }
+      }
+    }
+  ],
+  "transitions": [
+    {
+      "id": "E1-STATUS-CONFLATION",
+      "before_record": "BEFORE-E1-STATUS",
+      "after_record": "AFTER-CUSTOM-BETA-BOUNDED",
+      "expected_before": "reject:false-claim",
+      "expected_after": "admit",
+      "allowed_delta_paths": ["eligibility", "evidence.eligibility.plans", "evidence.eligibility.requirements", "evidence.release_status", "evidence.runtime_constraints", "release_status", "runtime_constraints"]
+    },
+    {
+      "id": "E1-ELIGIBILITY-OMISSION",
+      "before_record": "BEFORE-E1-ELIGIBILITY",
+      "after_record": "AFTER-GITHUB-BOUNDED",
+      "expected_before": "reject:bar-fail",
+      "expected_after": "admit",
+      "allowed_delta_paths": ["eligibility", "evidence.eligibility.documented_exclusions", "evidence.eligibility.plans", "evidence.eligibility.requirements"]
+    },
+    {
+      "id": "E3-VAULT-ONLY-OPENBAO",
+      "before_record": "BEFORE-E3-VAULT-ONLY",
+      "after_record": "AFTER-OPENBAO-TTL",
+      "expected_before": "reject:bar-fail",
+      "expected_after": "admit",
+      "allowed_delta_paths": ["evidence.fact"]
+    },
+    {
+      "id": "CUSTOM-BETA-UNDERCITED",
+      "before_record": "BEFORE-CUSTOM-UNDERCITED",
+      "after_record": "AFTER-CUSTOM-BETA-BOUNDED",
+      "expected_before": "reject:bar-fail",
+      "expected_after": "admit",
+      "allowed_delta_paths": ["evidence.release_status"]
+    },
+    {
+      "id": "CUSTOM-SAME-PAGE-STATUS-SWAP",
+      "before_record": "BEFORE-SAME-PAGE-PREVIEW",
+      "after_record": "AFTER-CUSTOM-BETA-BOUNDED",
+      "expected_before": "reject:false-claim",
+      "expected_after": "admit",
+      "allowed_delta_paths": ["release_status"]
+    },
+    {
+      "id": "GITHUB-DEPLOYMENT-ELIGIBILITY",
+      "before_record": "BEFORE-GITHUB-EXCLUSIONS",
+      "after_record": "AFTER-GITHUB-BOUNDED",
+      "expected_before": "reject:bar-fail",
+      "expected_after": "admit",
+      "allowed_delta_paths": ["eligibility.documented_exclusions", "evidence.eligibility.documented_exclusions"]
+    },
+    {
+      "id": "CUSTOM-BETA-APP-CONDITION",
+      "before_record": "BEFORE-CUSTOM-NO-BETA-APP",
+      "after_record": "AFTER-CUSTOM-BETA-BOUNDED",
+      "expected_before": "reject:bar-fail",
+      "expected_after": "admit",
+      "allowed_delta_paths": ["evidence.runtime_constraints", "runtime_constraints"]
+    },
+    {
+      "id": "CUSTOM-JAVASCRIPT-SDK-SCOPE",
+      "before_record": "BEFORE-CUSTOM-NO-JS-SDK",
+      "after_record": "AFTER-CUSTOM-BETA-BOUNDED",
+      "expected_before": "reject:bar-fail",
+      "expected_after": "admit",
+      "allowed_delta_paths": ["evidence.runtime_constraints", "runtime_constraints"]
+    },
+    {
+      "id": "VAULT-UNSUPPORTED-STATUS",
+      "before_record": "BEFORE-VAULT-GA-UNPINNED",
+      "after_record": "AFTER-VAULT-LEASE",
+      "expected_before": "reject:bar-fail",
+      "expected_after": "admit",
+      "allowed_delta_paths": ["release_status"]
+    },
+    {
+      "id": "OPENBAO-DOES-NOT-SUPPORT-VAULT-LEASE",
+      "before_record": "BEFORE-VAULT-OPENBAO-SOURCE",
+      "after_record": "AFTER-VAULT-LEASE",
+      "expected_before": "reject:bar-fail",
+      "expected_after": "admit",
+      "allowed_delta_paths": ["evidence.fact"]
+    }
+  ],
+  "boundary_records": [
+    {
+      "id": "OUT-OF-SCOPE-VAULT-JWT",
+      "label_authority": "author",
+      "defect_class": "unjudgeable-scope-boundary",
+      "claim": {
+        "product": "hashicorp_vault",
+        "feature": "vault_jwt_login",
+        "path": "vault/docs/auth/jwt",
+        "release_status": "version_scoped",
+        "eligibility": {
+          "scope": "not_assessed",
+          "plans": [],
+          "requirements": [],
+          "documented_exclusions": []
+        },
+        "runtime_constraints": [],
+        "fact": "vault_jwt_audience_exact_match",
+        "evidence": {
+          "product": [["S012", "S012-audience"]],
+          "feature": [["S012", "S012-audience"]],
+          "path": [["S012", "S012-audience"]],
+          "release_status": [["S012", "S012-audience"]],
+          "eligibility.plans": [],
+          "eligibility.requirements": [],
+          "eligibility.documented_exclusions": [],
+          "runtime_constraints": [],
+          "fact": [["S012", "S012-audience"]]
+        }
+      }
+    },
+    {
+      "id": "UNKNOWN-SOURCE",
+      "label_authority": "author",
+      "defect_class": "unjudgeable-scope-boundary",
+      "claim": {
+        "product": "openbao",
+        "feature": "openbao_token_ttl",
+        "path": "openbao/docs/concepts/tokens",
+        "release_status": "not_asserted",
+        "eligibility": {
+          "scope": "not_assessed",
+          "plans": [],
+          "requirements": [],
+          "documented_exclusions": []
+        },
+        "runtime_constraints": ["service_token_scope"],
+        "fact": "openbao_service_token_nonroot_ttl_revokes_token_and_associated_leases",
+        "evidence": {
+          "product": [["S021", "S021-title"]],
+          "feature": [["S021", "S021-title"]],
+          "path": [["S021", "S021-title"]],
+          "release_status": [],
+          "eligibility.plans": [],
+          "eligibility.requirements": [],
+          "eligibility.documented_exclusions": [],
+          "runtime_constraints": [["S021", "S021-service-scope"]],
+          "fact": [["S999", "unknown-quote"]]
+        }
+      }
+    },
+    {
+      "id": "UNKNOWN-FIELD",
+      "label_authority": "author",
+      "defect_class": "unjudgeable-scope-boundary",
+      "claim": {
+        "product": "1password",
+        "feature": "op_cb_github_actions",
+        "path": "brokered-access/github-actions",
+        "release_status": "public_preview",
+        "eligibility": {
+          "scope": "source_bounded",
+          "plans": ["enterprise_password_manager_business"],
+          "requirements": ["business_account_connected", "github_com_org"],
+          "documented_exclusions": [
+            "github_enterprise_server",
+            "github_enterprise_cloud_data_residency",
+            "github_free_private_repositories"
+          ]
+        },
+        "runtime_constraints": [],
+        "fact": "github_actions_runtime_environment_secrets",
+        "extra_qualifier": "unregistered",
+        "evidence": {
+          "product": [["S017", "S017-title"]],
+          "feature": [["S017", "S017-title"]],
+          "path": [["S017", "S017-title"]],
+          "release_status": [["S017", "S017-title"], ["S020", "S020-status-split"]],
+          "eligibility.plans": [["S020", "S020-epm-plan"]],
+          "eligibility.requirements": [["S019", "S019-business"], ["S019", "S019-github-com"]],
+          "eligibility.documented_exclusions": [["S019", "S019-enterprise-host"], ["S019", "S019-free-private"]],
+          "runtime_constraints": [],
+          "fact": [["S017", "S017-runtime"]]
+        }
+      }
+    }
+  ]
+}

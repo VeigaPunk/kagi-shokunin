@@ -1,0 +1,305 @@
+{
+  "format": "kagi-round26-expectation-migration-v1",
+  "base_revision": "1bf3eec48d3761580ffd375c88143232485ae814",
+  "reason": "bounded Python3.15.1 source drift response; rearm successors without rewriting historical receipt; bookkeep41 source rows/89 pins/one new heading",
+  "ledger_rows": {
+    "R12-03": {
+      "old": "R12-03\tgrep -c '[^[:space:]]' corpus/stamps.tsv\t^88$\t0\t30\tcurrent pin membership: original 63 retained, seven round-22 additions, nine round-23 additions (five fixture files, closure script/records, source-fetches, round-23 lesson) and four round-24 additions (rendered-text-v1.py, row-identity.sh, inrow-pins.tsv, round-24 lesson). The outside-verifier artifact was pre-existing but unstamped, not newly authored; provenance correction retained. Count only: WHICH paths is pinned by R24-05. Round 25: +5 pins (self-counts.py/.tsv, release-clock.py, release-clocks.tsv, round-25 lesson) -> 88.",
+      "new": "R12-03\tgrep -c '[^[:space:]]' corpus/stamps.tsv\t^89$\t0\t30\tcurrent pin membership: original63 and all later pins retained; round25 had88, round26 adds only corpus/lessons/round-26.md ->89. WHICH paths is pinned by R24-05; old/new migration recorded in .ufo/waves/round-26/expectation-migrations.json."
+    },
+    "R13-01": {
+      "old": "R13-01\tgrep -c '^## Round ' SCORECARD.md\t^31$\t0\t30\tcurrent round-heading cardinality: 25 at round-22 close, round-23 pre/post, round-24 pre/post. Includes the preserved blocked round-20 attempt, which cells excludes from scored sections only; malformed actual scored headings still fail closed. Count only: the heading texts are pinned by R24-06. Round 25 adds round-25 pre/post -> 31.",
+      "new": "R13-01\tgrep -c '^## Round ' SCORECARD.md\t^32$\t0\t30\tcurrent round-heading cardinality: round25 had31; round26 adds one bounded response heading ->32. Includes the preserved blocked round20 attempt, excluded only from scored cells; WHICH heading texts is pinned by R24-06. Migration: .ufo/waves/round-26/expectation-migrations.json."
+    },
+    "R21-02": {
+      "old": "R21-02\tbash corpus/sources-census.sh\t^SOURCES_CENSUS: CLEAN \\(rows=38 A=36 B=0 C=2 queued=1 mined=34 rejected=3 entries_sourced=4 legacy=21 captures=38 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$\t0\t60\tcurrent registry snapshot: original16, S017-S026 and S027-S031 plus S032's exact-quote correction (round-24 recovery). Every row has a declared capture; sixteen historical pins remain classified, twelve non-reproducing and four reproducing raw. Four sourced knowledge entries and21 legacy entries remain. This checks metadata/citations, not network content or historical capture truth; old/new expectation in .ufo/waves/round-24/recovery-migrations.json. Round 25: S033-S037 release-feed rows (tier A, mined, recheck 90d) with raw-literal-v1 captures -> 37 rows.",
+      "new": "R21-02\tbash corpus/sources-census.sh\t^SOURCES_CENSUS: CLEAN \\(rows=41 A=39 B=0 C=2 queued=1 mined=37 rejected=3 entries_sourced=4 legacy=21 captures=41 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$\t0\t60\tcurrent registry snapshot: round25 had38; S039-S041 are three tierA mined corrections on held Python feed/documentation ground. S039 inventory recheck90d; S040/S041 retain on-release cadence and are rearmed at named3.15.1 anchors. No old source/status/recheck/used-by changes. Historical in-row classification and knowledge-entry population unchanged; metadata/citation consistency only. Migration in .ufo/waves/round-26/expectation-migrations.json."
+    },
+    "R22-03": {
+      "old": "R22-03\tpython3 corpus/revision-audit.py --history c2cab35bc92e57e39e5489bac3386db078345b3f\t^REVISION_AUDIT: CLEAN \\(stale=0 missing=0 dropped=0 added=25 invalid=0\\)$\t0\t120\tcurrent byte/pointer audit against immutable BASE membership: all original63 retained, twenty reviewed pin additions (seven in round 22, nine in round 23, four in round 24). Administrative metadata/hardlinks refused; canonical full OID required. Does not adjudicate source currentness or legitimacy of a repin without journal review. WHICH paths were added is pinned by R24-15. Round 25: five new pins are ADDED relative to c2cab35 -> 25.",
+      "new": "R22-03\tpython3 corpus/revision-audit.py --history c2cab35bc92e57e39e5489bac3386db078345b3f\t^REVISION_AUDIT: CLEAN \\(stale=0 missing=0 dropped=0 added=26 invalid=0\\)$\t0\t120\tcurrent byte/pointer audit against immutable BASE membership: all original63 retained; round25 had25 additions, round26 adds its lesson ->26. No source currentness or repin legitimacy inferred; WHICH additions is R24-15. Old/new migration in .ufo/waves/round-26/expectation-migrations.json."
+    },
+    "R24-05": {
+      "old": "R24-05\tbash corpus/row-identity.sh stamps\t^ROW_IDENTITY: stamps count=88 sha256=495c8e0e1cb09f4917b5ff7fc61fab6ab7f1ccc4fdd414e7ab167c0788752754$\t0\t30\tidentity for R12-03: pinned path membership (79 at round-23 close plus four round-24 pins: rendered-text-v1.py, row-identity.sh, inrow-pins.tsv, round-24 lesson). Round 25 membership: +5 pins.",
+      "new": "R24-05\tbash corpus/row-identity.sh stamps\t^ROW_IDENTITY: stamps count=89 sha256=25a19776627ef33f94e26994035bb6bf362a2d6ab0f6df291550736de450121e$\t0\t30\tidentity for R12-03: all88 round25 pin paths retained plus corpus/lessons/round-26.md; migration in .ufo/waves/round-26/expectation-migrations.json."
+    },
+    "R24-06": {
+      "old": "R24-06\tbash corpus/row-identity.sh scorecard-rounds\t^ROW_IDENTITY: scorecard-rounds count=31 sha256=f2af002b51ccdd4bfaf9b6fc50468ad9b3dc236c51348a47adec1546cca3b7e6$\t0\t30\tidentity for R13-01: every `## Round ` heading line in file order (27 at round-23 close plus round-24 pre/post). Round 25: + round-25 pre/post headings.",
+      "new": "R24-06\tbash corpus/row-identity.sh scorecard-rounds\t^ROW_IDENTITY: scorecard-rounds count=32 sha256=980bbdcaa7ef8db5d82a37dce957847e88f736089591431753948cea2466d3ac$\t0\t30\tidentity for R13-01: all31 round25 heading lines retained, plus one round26 bounded response heading; migration in .ufo/waves/round-26/expectation-migrations.json."
+    },
+    "R24-15": {
+      "old": "R24-15\tbash corpus/row-identity.sh revision-added\t^ROW_IDENTITY: revision-added count=25 sha256=ca5003fa0c6254cc9bff99342efbf07d9b6a400ef624c24983bdbcf8ca6f48a0$\t0\t120\tidentity for R22-03: the twenty ADDED pin paths relative to the c2cab35 membership (sixteen through round 23, four in round 24); fails if revision-audit itself fails. Round 25: + the five new pins.",
+      "new": "R24-15\tbash corpus/row-identity.sh revision-added\t^ROW_IDENTITY: revision-added count=26 sha256=8ddc68f9e8b0f8560ca341295e94eb955380fc937932c89f071c418b9ebc00a5$\t0\t120\tidentity for R22-03: all25 round25 additions retained plus corpus/lessons/round-26.md; revision-audit must succeed first. Migration in .ufo/waves/round-26/expectation-migrations.json."
+    },
+    "R25-04": {
+      "old": "R25-04\tpython3 corpus/release-clock.py\t^RELEASE_CLOCK: CLEAN \\(on_release=28 bound=28 unbound=0 observed=28 fired=1 derived=15\\)$\t0\t60\tround 25 C3 (sourced S033-S037): every on-release registry row bound to one clock and observed 2026-10-21 (receipt .ufo/waves/round-25/observe-1.json); S012 fired and was re-verified. Offline check only; --observe is refused in ledger rows (POLICY network-mode)",
+      "new": "R25-04\tpython3 corpus/release-clock.py\t^RELEASE_CLOCK: CLEAN \\(on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15\\)$\t0\t60\tround26 explicit migration to the NEW pinned rearmed receipt .ufo/waves/round-26/observe-2.json: old3.15.0 anchors S027/S028 stay fired; S040/S041 rearm at named3.15.1. Historical28/fired1 expectation, original receipt/code/bindings are retained in the migration record and frozen historical snapshot, not overwritten. Offline dated consistency only, never live vendor truth; --observe remains refused in ledger rows. Migration: .ufo/waves/round-26/expectation-migrations.json."
+    }
+  },
+  "default_receipt": {
+    "old_path": ".ufo/waves/round-25/observe-1.json",
+    "old_sha256": "b74c8ee30aaeaf7a867f9bbad39ea42e94f199da69ebd01d0e391d2e8b349f92",
+    "new_path": ".ufo/waves/round-26/observe-2.json",
+    "new_sha256": "13b8540c78b9de07bc184894583a368472fd1f2f04a898220bf7c29d2648a169",
+    "old_receipt_unchanged": true
+  },
+  "binding_changes": {
+    "original_anchors_retained": [
+      "S027",
+      "S028"
+    ],
+    "observed_version": "3.15.0 -> 3.15.1",
+    "verdict": "not-fired -> fired",
+    "added_bindings": {
+      "S040": {
+        "feed_source_id": "S039",
+        "anchor": "3.15.1",
+        "verdict": "not-fired"
+      },
+      "S041": {
+        "feed_source_id": "S039",
+        "anchor": "3.15.1",
+        "verdict": "not-fired"
+      }
+    }
+  },
+  "registry": {
+    "new_rows": [
+      "S039",
+      "S040",
+      "S041"
+    ],
+    "existing_status_recheck_used_by_changes": [],
+    "draft_rejected_cadence": {
+      "S040": "90d -> on-release",
+      "S041": "90d -> on-release"
+    }
+  },
+  "stamp_membership": {
+    "before": 88,
+    "after": 89,
+    "added": [
+      "corpus/lessons/round-26.md"
+    ],
+    "dropped": []
+  },
+  "verification": "exact executed checks retained separately in final-verification.json once performed",
+  "stamp_rows": {
+    "LOG.md": {
+      "base": [
+        "c4e79e62412fa6d07eb72c96b64fb123dc19a23c2e2e854a1c6f5304935c9a51",
+        "1418",
+        "97938"
+      ],
+      "measured": [
+        "86f99c0f6cf7b2bd9bbd530d86074ccf4634e2bd1d863b5adbbb8c3b6a1bb513",
+        "1463",
+        "100840"
+      ],
+      "final_metadata": [
+        "237dfe48786b475369160d760ede1914f0e702f88ed85e6f84d5ef7f8a813ad5",
+        "1494",
+        "102671"
+      ]
+    },
+    "PROVINCE.md": {
+      "base": [
+        "22ed8900afaef06610dfc112fdb7e09d32c152cbdc4385129607424b8ba2cdaa",
+        "83",
+        "13531"
+      ],
+      "measured": [
+        "616e33da6befe71ad82ea07defa88e59bbb67cec42fd4bbbe95a9ee63843565b",
+        "83",
+        "13782"
+      ],
+      "final_metadata": [
+        "616e33da6befe71ad82ea07defa88e59bbb67cec42fd4bbbe95a9ee63843565b",
+        "83",
+        "13782"
+      ]
+    },
+    "SCORECARD.md": {
+      "base": [
+        "8047f887bd393e4029c8f04907f74b78e52bbfd02184457cc9a20a7e01fb1308",
+        "1015",
+        "114065"
+      ],
+      "measured": [
+        "2696f361e0a7ab06b6fe4b10fa9cee0c7dff79b901be8361f498d637cacd3d82",
+        "1042",
+        "116596"
+      ],
+      "final_metadata": [
+        "171bcbf76759eb456d7358875fa303f435fe8e578a546a4171926b5f705bc314",
+        "1079",
+        "118884"
+      ]
+    },
+    "SKILL.md": {
+      "base": [
+        "c7b1509c18f3e3fc122191b39b0f3b2923400959651a6c01196b09008ec8b5b4",
+        "787",
+        "71838"
+      ],
+      "measured": [
+        "8370a36a6ce033085a453e07601a136d82cdb0aa74340b914a6ca982f2828de1",
+        "813",
+        "73657"
+      ],
+      "final_metadata": [
+        "8370a36a6ce033085a453e07601a136d82cdb0aa74340b914a6ca982f2828de1",
+        "813",
+        "73657"
+      ]
+    },
+    "corpus/QUALITY.md": {
+      "base": [
+        "452cb7c13597631f00219b8576ad0e6da8fe6d8e189cc28715c31feb1046e7ec",
+        "120",
+        "19071"
+      ],
+      "measured": [
+        "74e03a35b5de6a464a1a0bdcb60b109c5d9233d1df69bc5ba97d56fcaa9612d3",
+        "126",
+        "19874"
+      ],
+      "final_metadata": [
+        "74e03a35b5de6a464a1a0bdcb60b109c5d9233d1df69bc5ba97d56fcaa9612d3",
+        "126",
+        "19874"
+      ]
+    },
+    "corpus/README.md": {
+      "base": [
+        "45aa976a266e4f45b49adfdf02e2cb8ca8c518498d20ad7abb115d4bb6a93231",
+        "192",
+        "27114"
+      ],
+      "measured": [
+        "792da0f326f45dffcc5bbc2fb2e744b35f4cd772e4b96e27f4c6152b6c822ca1",
+        "215",
+        "28639"
+      ],
+      "final_metadata": [
+        "792da0f326f45dffcc5bbc2fb2e744b35f4cd772e4b96e27f4c6152b6c822ca1",
+        "215",
+        "28639"
+      ]
+    },
+    "corpus/SOURCES.md": {
+      "base": [
+        "de198f7b8c9203776cc6700c9fd2f06f93cb18b6b3af8155b887962ddbabaddb",
+        "152",
+        "35460"
+      ],
+      "measured": [
+        "6008780bdf002dcc6977ef12debd56dad881552d972d535f4a96e1a22355af75",
+        "158",
+        "38832"
+      ],
+      "final_metadata": [
+        "6008780bdf002dcc6977ef12debd56dad881552d972d535f4a96e1a22355af75",
+        "158",
+        "38832"
+      ]
+    },
+    "corpus/claim-ledger.tsv": {
+      "base": [
+        "4e44ef7780a8841c68f3e6e989adb31f1cf78607438e60d80d791de696d55c91",
+        "83",
+        "28004"
+      ],
+      "measured": [
+        "3fcdab10441d18038726f15420ccc58c36c292c698a9c8ad433c3725fb7c2aa5",
+        "83",
+        "27563"
+      ],
+      "final_metadata": [
+        "3fcdab10441d18038726f15420ccc58c36c292c698a9c8ad433c3725fb7c2aa5",
+        "83",
+        "27563"
+      ]
+    },
+    "corpus/lessons/round-26.md": {
+      "base": null,
+      "measured": [
+        "bcd399db4f5e8d24c548595adea60c5f8a531d2d42b33d719c0cf5d5cb77f8aa",
+        "268",
+        "20147"
+      ],
+      "final_metadata": [
+        "99b21a096be4ad96eeebbdc6fb7a894854b9094d0d11f679d802aef4e9d7cd0c",
+        "305",
+        "22447"
+      ]
+    },
+    "corpus/release-clock.py": {
+      "base": [
+        "f1a8237c795f6041d2942e9cfb17c1112aed8b22d74b5241874add719c31c1dc",
+        "1608",
+        "67214"
+      ],
+      "measured": [
+        "ef17654e0b7fcdee1cdf35d40dc359b194ce4b0711247877dedfa43ff6ef45cc",
+        "1608",
+        "67222"
+      ],
+      "final_metadata": [
+        "ef17654e0b7fcdee1cdf35d40dc359b194ce4b0711247877dedfa43ff6ef45cc",
+        "1608",
+        "67222"
+      ]
+    },
+    "corpus/release-clocks.tsv": {
+      "base": [
+        "53264aad0d4a8365b58527e10af4d2265c7e21ee9036217fe748156c2a70b74f",
+        "29",
+        "5348"
+      ],
+      "measured": [
+        "99a9b4bc36df89a0a86ca7fe16f922aab0abf8f4c3a3380bacdd8924cd02e6fd",
+        "31",
+        "5944"
+      ],
+      "final_metadata": [
+        "99a9b4bc36df89a0a86ca7fe16f922aab0abf8f4c3a3380bacdd8924cd02e6fd",
+        "31",
+        "5944"
+      ]
+    },
+    "corpus/source-fetches.tsv": {
+      "base": [
+        "afa2dd4641825c19c682217b5b72d3f56806444fce232ff71b530d34160ce93a",
+        "81",
+        "22069"
+      ],
+      "measured": [
+        "a1415da3955f6f4b7c72d6da0c2f63e29c2b7a2ea6ca5a9a42b75ca63464078a",
+        "84",
+        "23573"
+      ],
+      "final_metadata": [
+        "a1415da3955f6f4b7c72d6da0c2f63e29c2b7a2ea6ca5a9a42b75ca63464078a",
+        "84",
+        "23573"
+      ]
+    }
+  },
+  "executed_measurement": {
+    "revision": "d109c752797ecdcaf0e23ce0fbe56079e9c69797",
+    "argv": [
+      "python3",
+      "-I",
+      "-B",
+      "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-26/tools/final-measure.py",
+      "d109c752797ecdcaf0e23ce0fbe56079e9c69797",
+      "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-26/final-verification.json"
+    ],
+    "exit": 0,
+    "passed": 29,
+    "total": 29,
+    "receipt": ".ufo/waves/round-26/final-verification.json",
+    "scope": "Runtime/source/binding code measured once at this revision; final append-only outcome notes and their stamps land afterward, not silently called reexecuted"
+  }
+}

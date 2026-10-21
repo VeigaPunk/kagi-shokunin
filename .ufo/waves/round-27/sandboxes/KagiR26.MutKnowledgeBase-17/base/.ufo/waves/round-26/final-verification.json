@@ -1,0 +1,576 @@
+{
+  "format": "kagi-round26-final-measure-v1",
+  "measured_revision": "d109c752797ecdcaf0e23ce0fbe56079e9c69797",
+  "base_revision": "1bf3eec48d3761580ffd375c88143232485ae814",
+  "checks": [
+    {
+      "name": "frozen-before",
+      "passed": true,
+      "argv": [
+        "bash",
+        "/fast/scratch/kagi-r26-measure-9k8a_cdb/fleet/kagi-shokunin/.ufo/waves/round-26/tools/replay-current.sh",
+        "before",
+        "/fast/scratch/kagi-r26-measure-9k8a_cdb/fleet/kagi-shokunin/.ufo/waves/round-26/frozen"
+      ],
+      "cwd": "/fast/scratch/kagi-r26-measure-9k8a_cdb/fleet/kagi-shokunin",
+      "exit": 1,
+      "expected_exit": 1,
+      "expected_contains": [
+        "RELEASE_CLOCK: FAILED (on_release=28 bound=28 unbound=0 observed=26 fired=1 derived=15)",
+        "RECEIPT-MISMATCH S027",
+        "RECEIPT-MISMATCH S028"
+      ],
+      "expected_last_regex": null,
+      "last_line": "RELEASE_CLOCK: FAILED (on_release=28 bound=28 unbound=0 observed=26 fired=1 derived=15)",
+      "stdout": "RECEIPT-MISMATCH S027\nRECEIPT-MISMATCH S028\nRELEASE_CLOCK: FAILED (on_release=28 bound=28 unbound=0 observed=26 fired=1 derived=15)\n",
+      "stderr": ""
+    },
+    {
+      "name": "frozen-after",
+      "passed": true,
+      "argv": [
+        "bash",
+        "/fast/scratch/kagi-r26-measure-9k8a_cdb/fleet/kagi-shokunin/.ufo/waves/round-26/tools/replay-current.sh",
+        "after",
+        "/fast/scratch/kagi-r26-measure-9k8a_cdb/fleet/kagi-shokunin/.ufo/waves/round-26/frozen"
+      ],
+      "cwd": "/fast/scratch/kagi-r26-measure-9k8a_cdb/fleet/kagi-shokunin",
+      "exit": 0,
+      "expected_exit": 0,
+      "expected_contains": [
+        "RELEASE_CLOCK: CLEAN (on_release=28 bound=28 unbound=0 observed=28 fired=3 derived=15)"
+      ],
+      "expected_last_regex": null,
+      "last_line": "RELEASE_CLOCK: CLEAN (on_release=28 bound=28 unbound=0 observed=28 fired=3 derived=15)",
+      "stdout": "RELEASE_CLOCK: CLEAN (on_release=28 bound=28 unbound=0 observed=28 fired=3 derived=15)\n",
+      "stderr": ""
+    },
+    {
+      "name": "frozen-oracle-authority",
+      "passed": true,
+      "manifest_entries": 11,
+      "note": "Literal recorder verdicts, expected.json and complete input digest map must agree"
+    },
+    {
+      "name": "rearmed-before",
+      "passed": true,
+      "argv": [
+        "bash",
+        "/fast/scratch/kagi-r26-measure-9k8a_cdb/fleet/kagi-shokunin/.ufo/waves/round-26/tools/replay-current.sh",
+        "before",
+        "/fast/scratch/kagi-r26-measure-9k8a_cdb/fleet/kagi-shokunin/.ufo/waves/round-26/rearmed"
+      ],
+      "cwd": "/fast/scratch/kagi-r26-measure-9k8a_cdb/fleet/kagi-shokunin",
+      "exit": 1,
+      "expected_exit": 1,
+      "expected_contains": [
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=28 unbound=2 observed=26 fired=1 derived=15)",
+        "RECEIPT-MISMATCH S027",
+        "RECEIPT-MISMATCH S028",
+        "RECEIPT-MISMATCH S040",
+        "RECEIPT-MISMATCH S041",
+        "UNBOUND S040",
+        "UNBOUND S041"
+      ],
+      "expected_last_regex": null,
+      "last_line": "RELEASE_CLOCK: FAILED (on_release=30 bound=28 unbound=2 observed=26 fired=1 derived=15)",
+      "stdout": "RECEIPT-MISMATCH S027\nRECEIPT-MISMATCH S028\nRECEIPT-MISMATCH S040\nRECEIPT-MISMATCH S041\nUNBOUND S040\nUNBOUND S041\nRELEASE_CLOCK: FAILED (on_release=30 bound=28 unbound=2 observed=26 fired=1 derived=15)\n",
+      "stderr": ""
+    },
+    {
+      "name": "rearmed-after",
+      "passed": true,
+      "argv": [
+        "bash",
+        "/fast/scratch/kagi-r26-measure-9k8a_cdb/fleet/kagi-shokunin/.ufo/waves/round-26/tools/replay-current.sh",
+        "after",
+        "/fast/scratch/kagi-r26-measure-9k8a_cdb/fleet/kagi-shokunin/.ufo/waves/round-26/rearmed"
+      ],
+      "cwd": "/fast/scratch/kagi-r26-measure-9k8a_cdb/fleet/kagi-shokunin",
+      "exit": 0,
+      "expected_exit": 0,
+      "expected_contains": [
+        "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)"
+      ],
+      "expected_last_regex": null,
+      "last_line": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)",
+      "stdout": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)\n",
+      "stderr": ""
+    },
+    {
+      "name": "rearmed-oracle-authority",
+      "passed": true,
+      "manifest_entries": 10,
+      "note": "Literal recorder verdicts, expected.json and complete input digest map must agree"
+    },
+    {
+      "name": "rearmed-snapshot-is-measured-production",
+      "passed": true,
+      "paths": [
+        "corpus/SOURCES.md",
+        "corpus/source-fetches.tsv",
+        "corpus/release-clocks.tsv",
+        "corpus/rendered-text-v1.py"
+      ]
+    },
+    {
+      "name": "original-round25-replay",
+      "passed": true,
+      "argv": [
+        "python3",
+        "-B",
+        "/fast/scratch/kagi-r26-measure-9k8a_cdb/fleet/kagi-shokunin/.ufo/waves/round-26/frozen/release-clock.py",
+        "--root",
+        "/fast/scratch/kagi-r26-measure-9k8a_cdb/fleet/kagi-shokunin/.ufo/waves/round-26/frozen/before",
+        "--receipt",
+        "/fast/scratch/kagi-r26-measure-9k8a_cdb/fleet/kagi-shokunin/.ufo/waves/round-26/frozen/observe-round25.json",
+        "--receipt-sha",
+        "b74c8ee30aaeaf7a867f9bbad39ea42e94f199da69ebd01d0e391d2e8b349f92"
+      ],
+      "cwd": "/fast/scratch/kagi-r26-measure-9k8a_cdb/fleet/kagi-shokunin",
+      "exit": 0,
+      "expected_exit": 0,
+      "expected_contains": [
+        "RELEASE_CLOCK: CLEAN (on_release=28 bound=28 unbound=0 observed=28 fired=1 derived=15)"
+      ],
+      "expected_last_regex": null,
+      "last_line": "RELEASE_CLOCK: CLEAN (on_release=28 bound=28 unbound=0 observed=28 fired=1 derived=15)",
+      "stdout": "RELEASE_CLOCK: CLEAN (on_release=28 bound=28 unbound=0 observed=28 fired=1 derived=15)\n",
+      "stderr": ""
+    },
+    {
+      "name": "active-default",
+      "passed": true,
+      "argv": [
+        "python3",
+        "-B",
+        "corpus/release-clock.py"
+      ],
+      "cwd": "/fast/scratch/kagi-r26-measure-9k8a_cdb/fleet/kagi-shokunin",
+      "exit": 0,
+      "expected_exit": 0,
+      "expected_contains": [
+        "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)"
+      ],
+      "expected_last_regex": null,
+      "last_line": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)",
+      "stdout": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)\n",
+      "stderr": ""
+    },
+    {
+      "name": "clock-selftest",
+      "passed": true,
+      "argv": [
+        "python3",
+        "-B",
+        "corpus/release-clock.py",
+        "--selftest"
+      ],
+      "cwd": "/fast/scratch/kagi-r26-measure-9k8a_cdb/fleet/kagi-shokunin",
+      "exit": 0,
+      "expected_exit": 0,
+      "expected_contains": [
+        "RELEASE_CLOCK_SELFTEST: PASS (67 cases)"
+      ],
+      "expected_last_regex": null,
+      "last_line": "RELEASE_CLOCK_SELFTEST: PASS (67 cases)",
+      "stdout": "RELEASE_CLOCK_SELFTEST: PASS (67 cases)\n",
+      "stderr": ""
+    },
+    {
+      "name": "source-census",
+      "passed": true,
+      "argv": [
+        "bash",
+        "corpus/sources-census.sh"
+      ],
+      "cwd": "/fast/scratch/kagi-r26-measure-9k8a_cdb/fleet/kagi-shokunin",
+      "exit": 0,
+      "expected_exit": 0,
+      "expected_contains": [
+        "SOURCES_CENSUS: CLEAN (rows=41 A=39 B=0 C=2 queued=1 mined=37 rejected=3 entries_sourced=4 legacy=21 captures=41 inrow=16 inrow_only=0 inrow_nonreproducing=12)"
+      ],
+      "expected_last_regex": null,
+      "last_line": "SOURCES_CENSUS: CLEAN (rows=41 A=39 B=0 C=2 queued=1 mined=37 rejected=3 entries_sourced=4 legacy=21 captures=41 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+      "stdout": "SOURCES_CENSUS: CLEAN (rows=41 A=39 B=0 C=2 queued=1 mined=37 rejected=3 entries_sourced=4 legacy=21 captures=41 inrow=16 inrow_only=0 inrow_nonreproducing=12)\n",
+      "stderr": ""
+    },
+    {
+      "name": "self-counts",
+      "passed": true,
+      "argv": [
+        "python3",
+        "-B",
+        "corpus/self-counts.py"
+      ],
+      "cwd": "/fast/scratch/kagi-r26-measure-9k8a_cdb/fleet/kagi-shokunin",
+      "exit": 0,
+      "expected_exit": 0,
+      "expected_contains": [
+        "SELF_COUNTS: CLEAN (claims=38 stale=0)"
+      ],
+      "expected_last_regex": null,
+      "last_line": "SELF_COUNTS: CLEAN (claims=38 stale=0)",
+      "stdout": "OK SC-SKILL-STAMPS SKILL.md:46 claimed=89 live=89\nOK SC-SKILL-CLAIMS SKILL.md:46 claimed=65 live=65\nOK SC-SCOPE-ROWS SKILL.md:35 claimed=35 live=35\nOK SC-SCOPE-SELFTEST SKILL.md:35 claimed=61 live=61\nOK SC-CENSUS-SELFTEST SKILL.md:36 claimed=16 pinned=16\nOK SC-SOURCES-SELFTEST SKILL.md:49 claimed=70 live=70\nOK SC-SELFCOUNTS-SELFTEST SKILL.md:47 claimed=48 live=48\nOK SC-CLOCK-SELFTEST SKILL.md:48 claimed=67 live=67\nOK SC-LEDGER-SELFTEST SKILL.md:245 claimed=170 live=170\nOK SC-CLOSURE-SELFTEST SKILL.md:751 claimed=14 live=14\nOK SC-RENDERED-SELFTEST SKILL.md:752 claimed=22 live=22\nOK PV-SURFACE-SELFTEST PROVINCE.md:46 claimed=16 pinned=16\nOK PV-CENSUS-ROWS PROVINCE.md:46 claimed=35 live=35\nOK PV-STATE-ROWS PROVINCE.md:46 claimed=22 live=22\nOK PV-DRIFT-FILES PROVINCE.md:47 claimed=15 live=15\nOK PV-DRIFT-SYMBOLS PROVINCE.md:47 claimed=20 live=20\nOK PV-OPREF-SELFTEST PROVINCE.md:49 claimed=36 pinned=36\nOK PV-CHECKLIST-SELFTEST PROVINCE.md:50 claimed=34 live=34\nOK PV-SCOPE-SELFTEST PROVINCE.md:51 claimed=61 live=61\nOK PV-STAMPS PROVINCE.md:52 claimed=89 live=89\nOK PV-CLAIMS PROVINCE.md:52 claimed=65 live=65\nOK PV-LEDGER-SELFTEST PROVINCE.md:52 claimed=170 live=170\nOK PV-SELFCOUNTS-SELFTEST PROVINCE.md:53 claimed=48 live=48\nOK PV-CLOCK-SELFTEST PROVINCE.md:54 claimed=67 live=67\nOK PV-SOURCES-SELFTEST PROVINCE.md:55 claimed=70 live=70\nOK PV-RENDERED-SELFTEST PROVINCE.md:56 claimed=22 live=22\nOK PV-CLOSURE-SELFTEST PROVINCE.md:57 claimed=14 live=14\nOK RD-CENSUS-ROWS corpus/README.md:41 claimed=35 live=35\nOK RD-STATE-ROWS corpus/README.md:42 claimed=22 live=22\nOK RD-SCOPE-SELFTEST corpus/README.md:43 claimed=61 live=61\nOK RD-LEDGER-SELFTEST corpus/README.md:63 claimed=170 live=170\nOK RD-LEDGER-ROWS corpus/README.md:64 claimed=65 live=65\nOK RD-STAMPS corpus/README.md:65 claimed=89 live=89\nOK RD-DOCS-ROWLINKED corpus/README.md:67 claimed=22 live=22\nOK RD-DOCS-BYHAND corpus/README.md:67 claimed=3 live=3\nOK RD-DOCS-ENTRIES corpus/README.md:67 claimed=25 live=25\nOK RD-OPREF-SELFTEST corpus/README.md:69 claimed=36 pinned=36\nOK RD-CHECKLIST-SELFTEST corpus/README.md:33 claimed=34 live=34\nSELF_COUNTS: CLEAN (claims=38 stale=0)\n",
+      "stderr": ""
+    },
+    {
+      "name": "ledger-default-host-exclusion",
+      "passed": true,
+      "argv": [
+        "bash",
+        "corpus/claim-ledger.sh",
+        "verify"
+      ],
+      "cwd": "/fast/scratch/kagi-r26-measure-9k8a_cdb/fleet/kagi-shokunin",
+      "exit": 0,
+      "expected_exit": 0,
+      "expected_contains": [
+        "CLAIM_LEDGER: CLEAN",
+        "claims=65",
+        "stamped=89",
+        "host_skipped=12"
+      ],
+      "expected_last_regex": "CLAIM_LEDGER: CLEAN \\(claims=65 deferred=0 stamped=89 ids=65 cited=[0-9]+ labeled_ids=[0-9]+ orphans=[0-9]+ host_skipped=12\\)",
+      "last_line": "CLAIM_LEDGER: CLEAN (claims=65 deferred=0 stamped=89 ids=65 cited=55 labeled_ids=20 orphans=10 host_skipped=12)",
+      "stdout": "HOST-SKIP R11-01 reason=host-row-not-authorized\nHOST-SKIP R11-02 reason=host-row-not-authorized\nHOST-SKIP R11-03 reason=host-row-not-authorized\nHOST-SKIP R11-04 reason=host-row-not-authorized\nHOST-SKIP R11-06 reason=host-row-not-authorized\nHOST-SKIP R12-01 reason=host-row-not-authorized\nHOST-SKIP R15-01 reason=host-row-not-authorized\nHOST-SKIP R13-03 reason=host-row-not-authorized\nHOST-SKIP R16-01 reason=host-row-not-authorized\nHOST-SKIP R16-03 reason=host-row-not-authorized\nHOST-SKIP R17-01 reason=host-row-not-authorized\nHOST-SKIP R18-01 reason=host-row-not-authorized\nLABELED-ID LOG.md:401 R13-99 (labelled on its line)\nLABELED-ID LOG.md:417 R12-03a (labelled on its line)\nLABELED-ID LOG.md:418 xR12-01 (labelled on its line)\nLABELED-ID SCORECARD.md:108 R13-99 (labelled on its line)\nLABELED-ID SKILL.md:659 R9-99 (labelled on its line)\nLABELED-ID corpus/knowledge/claim-ledger.md:142 R13-99 (labelled on its line)\nLABELED-ID corpus/knowledge/claim-ledger.md:147 R12-03a (labelled on its line)\nLABELED-ID corpus/knowledge/claim-ledger.md:147 xR12-01 (labelled on its line)\nLABELED-ID corpus/knowledge/claim-ledger.md:258 R9-99 (labelled on its line)\nLABELED-ID corpus/knowledge/claim-ledger.md:267 R13-99 (labelled on its line)\nLABELED-ID corpus/knowledge/claim-ledger.md:267 R13-99 (labelled on its line)\nLABELED-ID corpus/knowledge/claim-ledger.md:485 R13-99 (labelled on its line)\nLABELED-ID corpus/lessons/round-13.md:22 R13-99 (labelled on its line)\nLABELED-ID corpus/lessons/round-13.md:22 R12-88 (labelled on its line)\nLABELED-ID corpus/lessons/round-13.md:102 R12-03a (labelled on its line)\nLABELED-ID corpus/lessons/round-14.md:17 R13-99 (labelled on its line)\nLABELED-ID corpus/lessons/round-14.md:118 R99-99 (labelled on its line)\nLABELED-ID corpus/lessons/round-23.md:92 R1-01 (labelled on its line)\nLABELED-ID corpus/lessons/round-23.md:166 R90-01 (labelled on its line)\nLABELED-ID corpus/lessons/round-23.md:166 R90-02 (labelled on its line)\nCLAIM_LEDGER: CLEAN (claims=65 deferred=0 stamped=89 ids=65 cited=55 labeled_ids=20 orphans=10 host_skipped=12)\n",
+      "stderr": ""
+    },
+    {
+      "name": "lone-citations-honesty",
+      "passed": true,
+      "argv": [
+        "bash",
+        "corpus/claim-ledger.sh",
+        "citations"
+      ],
+      "cwd": "/fast/scratch/kagi-r26-measure-9k8a_cdb/lone/checkout",
+      "exit": 3,
+      "expected_exit": 3,
+      "expected_contains": [
+        "CITATION_GATE: INCOMPLETE",
+        "unresolved=0",
+        "fleet_absent=48"
+      ],
+      "expected_last_regex": "CITATION_GATE: INCOMPLETE \\(cites=[0-9]+ docs=[0-9]+ unresolved=0 ephemeral=0 labeled=[0-9]+ fleet_absent=48\\)",
+      "last_line": "CITATION_GATE: INCOMPLETE (cites=1678 docs=69 unresolved=0 ephemeral=0 labeled=19 fleet_absent=48)",
+      "stdout": "FLEET-ABSENT LOG.md:210 .ufo/l0-questions.md (ufo)\nFLEET-ABSENT LOG.md:366 .ufo/reports/round-8/aggregator.md (ufo)\nFLEET-ABSENT LOG.md:598 kake-shokunin/SKILL.md (sibling)\nFLEET-ABSENT LOG.md:820 .ufo/l0-questions.md (ufo)\nFLEET-ABSENT SCORECARD.md:231 kake-shokunin/SKILL.md (sibling)\nLABELED SKILL.md:297 local:// (session URI, labelled on its line)\nLABELED SKILL.md:637 local://x (session URI, labelled on its line)\nFLEET-ABSENT corpus/README.md:26 .ufo/watchdog.log (ufo)\nFLEET-ABSENT corpus/README.md:26 .ufo/waves/round-1.json (ufo)\nFLEET-ABSENT corpus/README.md:96 kama-shokunin/corpus/knowledge/cross-lane-scope.md (sibling)\nFLEET-ABSENT corpus/README.md:97 kotoba-shokunin/corpus/knowledge/alwayson-checklist-round7.md (sibling)\nFLEET-ABSENT corpus/README.md:98 kake-shokunin/SKILL.md (sibling)\nFLEET-ABSENT corpus/README.md:98 kake-shokunin/corpus/lessons/round-1-aggregator-audit.md (sibling)\nFLEET-ABSENT corpus/knowledge/adjacency-scope.md:36 kake-shokunin/SKILL.md (sibling)\nFLEET-ABSENT corpus/knowledge/adjacency-scope.md:125 kake-shokunin/SKILL.md (sibling)\nFLEET-ABSENT corpus/knowledge/adjacency-scope.md:237 .ufo/reports/round-10/kagi.md (ufo)\nFLEET-ABSENT corpus/knowledge/adjacency-scope.md:276 kake-shokunin/SKILL.md (sibling)\nFLEET-ABSENT corpus/knowledge/adjacency-scope.md:304 kake-shokunin/SKILL.md (sibling)\nFLEET-ABSENT corpus/knowledge/adjacency-scope.md:306 kake-shokunin/corpus/knowledge/mirror-pitfalls.md (sibling)\nFLEET-ABSENT corpus/knowledge/cdp-bridge-1password.md:79 kake-shokunin/SKILL.md (sibling)\nLABELED corpus/knowledge/claim-ledger.md:24 local://round-10/connector.md (session URI, labelled on its line)\nLABELED corpus/knowledge/claim-ledger.md:25 local://round-10/critic.md (session URI, labelled on its line)\nLABELED corpus/knowledge/claim-ledger.md:122 local:// (session URI, labelled on its line)\nLABELED corpus/knowledge/claim-ledger.md:123 artifact:// (session URI, labelled on its line)\nLABELED corpus/knowledge/claim-ledger.md:123 agent:// (session URI, labelled on its line)\nLABELED corpus/knowledge/claim-ledger.md:123 proc:// (session URI, labelled on its line)\nFLEET-ABSENT corpus/knowledge/claim-ledger.md:27 .ufo/reports/round-10/protocol.md (ufo)\nFLEET-ABSENT corpus/knowledge/claim-ledger.md:112 kotoba-shokunin/corpus/knowledge/alwayson-checklist-round7.md (sibling)\nFLEET-ABSENT corpus/knowledge/claim-ledger.md:113 .ufo/reports/round-10/protocol.md (ufo)\nLABELED corpus/knowledge/claim-ledger.md:132 .ufo/reports/round-2/AGGREGATE.md (unresolved, labelled on its line)\nFLEET-ABSENT corpus/lessons/round-1-aggregator-seed.md:13 .ufo/waves/round-1.json (ufo)\nLABELED corpus/lessons/round-11.md:45 local://round-10/connector.md (session URI, labelled on its line)\nLABELED corpus/lessons/round-11.md:47 local://round-10/critic.md (session URI, labelled on its line)\nFLEET-ABSENT corpus/lessons/round-11.md:57 .ufo/reports/round-10/protocol.md (ufo)\nLABELED corpus/lessons/round-11.md:71 .ufo/reports/round-2/AGGREGATE.md (unresolved, labelled on its line)\nLABELED corpus/lessons/round-12.md:117 .ufo/reports/round-8/aggregator.md (unresolved, labelled on its line)\nFLEET-ABSENT corpus/lessons/round-16.md:15 kake-shokunin/SKILL.md (sibling)\nLABELED corpus/lessons/round-19-recensus.md:49 .ufo/waves/shokunin12h-20261014-p1-audit/members/KagiDeadPathSweep.md (unresolved, labelled on its line)\nFLEET-ABSENT corpus/lessons/round-21-verifier-spotcheck.md:6 .ufo/waves/kaika-w3/kagi-review.md (ufo)\nFLEET-ABSENT corpus/lessons/round-22-verifier-spotcheck.md:6 .ufo/reports/round-22/kagi.md (ufo)\nFLEET-ABSENT corpus/lessons/round-22-verifier-spotcheck.md:7 .ufo/prompts/kagi-round-22.md (ufo)\nFLEET-ABSENT corpus/lessons/round-22-verifier-spotcheck.md:19 .ufo/reports/round-22/kagi.md (ufo)\nFLEET-ABSENT corpus/lessons/round-23-verifier-spotcheck.md:6 .ufo/reports/round-23/kagi.md (ufo)\nFLEET-ABSENT corpus/lessons/round-23-verifier-spotcheck.md:7 .ufo/prompts/kagi-round-23.md (ufo)\nFLEET-ABSENT corpus/lessons/round-23-verifier-spotcheck.md:22 .ufo/reports/round-23/kagi.md (ufo)\nFLEET-ABSENT corpus/lessons/round-23.md:89 .ufo/state (ufo)\nFLEET-ABSENT corpus/lessons/round-3.md:3 .ufo/prompts/kagi-round-3.md (ufo)\nFLEET-ABSENT corpus/lessons/round-4-aggregator-audit.md:3 .ufo/state/aggregator.round (ufo)\nFLEET-ABSENT corpus/lessons/round-4-aggregator-audit.md:57 .ufo/prompts/kagi-round-3.md (ufo)\nFLEET-ABSENT corpus/lessons/round-4.md:3 .ufo/prompts/kagi-round-4.md (ufo)\nFLEET-ABSENT corpus/lessons/round-5-aggregator-audit.md:3 .ufo/state/aggregator.round (ufo)\nFLEET-ABSENT corpus/lessons/round-5-aggregator-mirror-bare-path-and-unclosed-prereq.md:4 kotoba-shokunin/corpus/knowledge/fleet-skill-audit-round5.md (sibling)\nLABELED corpus/lessons/round-5-aggregator-mirror-bare-path-and-unclosed-prereq.md:21 .ufo/reports/round-2/AGGREGATE.md (unresolved, labelled on its line)\nFLEET-ABSENT corpus/lessons/round-5.md:3 .ufo/prompts/kagi-round-5.md (ufo)\nFLEET-ABSENT corpus/lessons/round-6-aggregator-audit.md:100 .ufo/reports/round-9/kagi.md (ufo)\nFLEET-ABSENT corpus/lessons/round-6-aggregator-audit.md:124 .ufo/reports/round-3/kagi.md (ufo)\nFLEET-ABSENT corpus/lessons/round-6-aggregator-audit.md:125 .ufo/reports/round-7/kagi.md (ufo)\nFLEET-ABSENT corpus/lessons/round-6-aggregator-audit.md:128 .ufo/reports/round-9/kagi.md (ufo)\nFLEET-ABSENT corpus/lessons/round-6-aggregator-audit.md:129 .ufo/reports/round-9/kake.md (ufo)\nFLEET-ABSENT corpus/lessons/round-6-aggregator-audit.md:195 .ufo/reports/round-9/kagi.md (ufo)\nFLEET-ABSENT corpus/lessons/round-6-aggregator-audit.md:200 .ufo/reports/round-3/kagi.md (ufo)\nFLEET-ABSENT corpus/lessons/round-6-aggregator-audit.md:200 .ufo/reports/round-7/kagi.md (ufo)\nFLEET-ABSENT corpus/lessons/round-6-aggregator-audit.md:200 .ufo/reports/round-9/kake.md (ufo)\nLABELED corpus/lessons/round-8-aggregator-box3-coldrun.md:4 .ufo/reports/round-8/aggregator.md (unresolved, labelled on its line)\nLABELED corpus/lessons/round-8-aggregator-box3-coldrun.md:4 .ufo/prompts/aggregator-round-8.md (unresolved, labelled on its line)\nLABELED corpus/lessons/round-8-aggregator-box3-coldrun.md:69 .ufo/reports/round-8/aggregator.md (unresolved, labelled on its line)\nLABELED corpus/lessons/round-8-aggregator-box3-coldrun.md:80 .ufo/reports/round-8/aggregator.md (unresolved, labelled on its line)\nCITATION_LAYOUT: lone-clone fleet_absent=48 (no fleet-root entry or sibling lane beside the root; fleet-only citations were not checked)\nCITATION_GATE: INCOMPLETE (cites=1678 docs=69 unresolved=0 ephemeral=0 labeled=19 fleet_absent=48)\n",
+      "stderr": ""
+    },
+    {
+      "name": "lone-verify-honesty",
+      "passed": true,
+      "argv": [
+        "bash",
+        "corpus/claim-ledger.sh",
+        "verify"
+      ],
+      "cwd": "/fast/scratch/kagi-r26-measure-9k8a_cdb/lone/checkout",
+      "exit": 1,
+      "expected_exit": 1,
+      "expected_contains": [
+        "LAYOUT-INCOMPLETE R11-08",
+        "CLAIM_LEDGER: INCOMPLETE",
+        "layout_incomplete=1",
+        "host_skipped=12"
+      ],
+      "expected_last_regex": "CLAIM_LEDGER: INCOMPLETE \\(claims=65 layout_incomplete=1 deferred=0 stamped=89 ids=65 cited=[0-9]+ labeled_ids=[0-9]+ orphans=[0-9]+ host_skipped=12\\)",
+      "last_line": "CLAIM_LEDGER: INCOMPLETE (claims=65 layout_incomplete=1 deferred=0 stamped=89 ids=65 cited=55 labeled_ids=20 orphans=10 host_skipped=12)",
+      "stdout": "HOST-SKIP R11-01 reason=host-row-not-authorized\nHOST-SKIP R11-02 reason=host-row-not-authorized\nHOST-SKIP R11-03 reason=host-row-not-authorized\nHOST-SKIP R11-04 reason=host-row-not-authorized\nHOST-SKIP R11-06 reason=host-row-not-authorized\nLAYOUT-INCOMPLETE R11-08 exit=3 (fleet layout absent: the row could not check fleet-only evidence)\nHOST-SKIP R12-01 reason=host-row-not-authorized\nHOST-SKIP R15-01 reason=host-row-not-authorized\nHOST-SKIP R13-03 reason=host-row-not-authorized\nHOST-SKIP R16-01 reason=host-row-not-authorized\nHOST-SKIP R16-03 reason=host-row-not-authorized\nHOST-SKIP R17-01 reason=host-row-not-authorized\nHOST-SKIP R18-01 reason=host-row-not-authorized\nLABELED-ID LOG.md:401 R13-99 (labelled on its line)\nLABELED-ID LOG.md:417 R12-03a (labelled on its line)\nLABELED-ID LOG.md:418 xR12-01 (labelled on its line)\nLABELED-ID SCORECARD.md:108 R13-99 (labelled on its line)\nLABELED-ID SKILL.md:659 R9-99 (labelled on its line)\nLABELED-ID corpus/knowledge/claim-ledger.md:142 R13-99 (labelled on its line)\nLABELED-ID corpus/knowledge/claim-ledger.md:147 R12-03a (labelled on its line)\nLABELED-ID corpus/knowledge/claim-ledger.md:147 xR12-01 (labelled on its line)\nLABELED-ID corpus/knowledge/claim-ledger.md:258 R9-99 (labelled on its line)\nLABELED-ID corpus/knowledge/claim-ledger.md:267 R13-99 (labelled on its line)\nLABELED-ID corpus/knowledge/claim-ledger.md:267 R13-99 (labelled on its line)\nLABELED-ID corpus/knowledge/claim-ledger.md:485 R13-99 (labelled on its line)\nLABELED-ID corpus/lessons/round-13.md:22 R13-99 (labelled on its line)\nLABELED-ID corpus/lessons/round-13.md:22 R12-88 (labelled on its line)\nLABELED-ID corpus/lessons/round-13.md:102 R12-03a (labelled on its line)\nLABELED-ID corpus/lessons/round-14.md:17 R13-99 (labelled on its line)\nLABELED-ID corpus/lessons/round-14.md:118 R99-99 (labelled on its line)\nLABELED-ID corpus/lessons/round-23.md:92 R1-01 (labelled on its line)\nLABELED-ID corpus/lessons/round-23.md:166 R90-01 (labelled on its line)\nLABELED-ID corpus/lessons/round-23.md:166 R90-02 (labelled on its line)\nCLAIM_LEDGER: INCOMPLETE (claims=65 layout_incomplete=1 deferred=0 stamped=89 ids=65 cited=55 labeled_ids=20 orphans=10 host_skipped=12)\n",
+      "stderr": ""
+    },
+    {
+      "name": "citation-prose-mutation-applied",
+      "passed": true,
+      "pristine_sha256": "bcd399db4f5e8d24c548595adea60c5f8a531d2d42b33d719c0cf5d5cb77f8aa",
+      "mutant_sha256": "5194b3159b43c2d11040447f676e137b97dc53f1e2353ab3a4c5f68d7a2b77f9"
+    },
+    {
+      "name": "citation-prose-regression-red-before",
+      "passed": true,
+      "argv": [
+        "bash",
+        "corpus/claim-ledger.sh",
+        "citations"
+      ],
+      "cwd": "/fast/scratch/kagi-r26-measure-9k8a_cdb/lone/checkout",
+      "exit": 1,
+      "expected_exit": 1,
+      "expected_contains": [
+        "UNRESOLVED",
+        "corpus/digit",
+        "CITATION_GATE: BROKEN",
+        "unresolved=1"
+      ],
+      "expected_last_regex": "CITATION_GATE: BROKEN \\(cites=[0-9]+ docs=[0-9]+ unresolved=1 ephemeral=0 labeled=[0-9]+\\)",
+      "last_line": "CITATION_GATE: BROKEN (cites=1679 docs=69 unresolved=1 ephemeral=0 labeled=19)",
+      "stdout": "FLEET-ABSENT LOG.md:210 .ufo/l0-questions.md (ufo)\nFLEET-ABSENT LOG.md:366 .ufo/reports/round-8/aggregator.md (ufo)\nFLEET-ABSENT LOG.md:598 kake-shokunin/SKILL.md (sibling)\nFLEET-ABSENT LOG.md:820 .ufo/l0-questions.md (ufo)\nFLEET-ABSENT SCORECARD.md:231 kake-shokunin/SKILL.md (sibling)\nLABELED SKILL.md:297 local:// (session URI, labelled on its line)\nLABELED SKILL.md:637 local://x (session URI, labelled on its line)\nFLEET-ABSENT corpus/README.md:26 .ufo/watchdog.log (ufo)\nFLEET-ABSENT corpus/README.md:26 .ufo/waves/round-1.json (ufo)\nFLEET-ABSENT corpus/README.md:96 kama-shokunin/corpus/knowledge/cross-lane-scope.md (sibling)\nFLEET-ABSENT corpus/README.md:97 kotoba-shokunin/corpus/knowledge/alwayson-checklist-round7.md (sibling)\nFLEET-ABSENT corpus/README.md:98 kake-shokunin/SKILL.md (sibling)\nFLEET-ABSENT corpus/README.md:98 kake-shokunin/corpus/lessons/round-1-aggregator-audit.md (sibling)\nFLEET-ABSENT corpus/knowledge/adjacency-scope.md:36 kake-shokunin/SKILL.md (sibling)\nFLEET-ABSENT corpus/knowledge/adjacency-scope.md:125 kake-shokunin/SKILL.md (sibling)\nFLEET-ABSENT corpus/knowledge/adjacency-scope.md:237 .ufo/reports/round-10/kagi.md (ufo)\nFLEET-ABSENT corpus/knowledge/adjacency-scope.md:276 kake-shokunin/SKILL.md (sibling)\nFLEET-ABSENT corpus/knowledge/adjacency-scope.md:304 kake-shokunin/SKILL.md (sibling)\nFLEET-ABSENT corpus/knowledge/adjacency-scope.md:306 kake-shokunin/corpus/knowledge/mirror-pitfalls.md (sibling)\nFLEET-ABSENT corpus/knowledge/cdp-bridge-1password.md:79 kake-shokunin/SKILL.md (sibling)\nLABELED corpus/knowledge/claim-ledger.md:24 local://round-10/connector.md (session URI, labelled on its line)\nLABELED corpus/knowledge/claim-ledger.md:25 local://round-10/critic.md (session URI, labelled on its line)\nLABELED corpus/knowledge/claim-ledger.md:122 local:// (session URI, labelled on its line)\nLABELED corpus/knowledge/claim-ledger.md:123 artifact:// (session URI, labelled on its line)\nLABELED corpus/knowledge/claim-ledger.md:123 agent:// (session URI, labelled on its line)\nLABELED corpus/knowledge/claim-ledger.md:123 proc:// (session URI, labelled on its line)\nFLEET-ABSENT corpus/knowledge/claim-ledger.md:27 .ufo/reports/round-10/protocol.md (ufo)\nFLEET-ABSENT corpus/knowledge/claim-ledger.md:112 kotoba-shokunin/corpus/knowledge/alwayson-checklist-round7.md (sibling)\nFLEET-ABSENT corpus/knowledge/claim-ledger.md:113 .ufo/reports/round-10/protocol.md (ufo)\nLABELED corpus/knowledge/claim-ledger.md:132 .ufo/reports/round-2/AGGREGATE.md (unresolved, labelled on its line)\nFLEET-ABSENT corpus/lessons/round-1-aggregator-seed.md:13 .ufo/waves/round-1.json (ufo)\nLABELED corpus/lessons/round-11.md:45 local://round-10/connector.md (session URI, labelled on its line)\nLABELED corpus/lessons/round-11.md:47 local://round-10/critic.md (session URI, labelled on its line)\nFLEET-ABSENT corpus/lessons/round-11.md:57 .ufo/reports/round-10/protocol.md (ufo)\nLABELED corpus/lessons/round-11.md:71 .ufo/reports/round-2/AGGREGATE.md (unresolved, labelled on its line)\nLABELED corpus/lessons/round-12.md:117 .ufo/reports/round-8/aggregator.md (unresolved, labelled on its line)\nFLEET-ABSENT corpus/lessons/round-16.md:15 kake-shokunin/SKILL.md (sibling)\nLABELED corpus/lessons/round-19-recensus.md:49 .ufo/waves/shokunin12h-20261014-p1-audit/members/KagiDeadPathSweep.md (unresolved, labelled on its line)\nFLEET-ABSENT corpus/lessons/round-21-verifier-spotcheck.md:6 .ufo/waves/kaika-w3/kagi-review.md (ufo)\nFLEET-ABSENT corpus/lessons/round-22-verifier-spotcheck.md:6 .ufo/reports/round-22/kagi.md (ufo)\nFLEET-ABSENT corpus/lessons/round-22-verifier-spotcheck.md:7 .ufo/prompts/kagi-round-22.md (ufo)\nFLEET-ABSENT corpus/lessons/round-22-verifier-spotcheck.md:19 .ufo/reports/round-22/kagi.md (ufo)\nFLEET-ABSENT corpus/lessons/round-23-verifier-spotcheck.md:6 .ufo/reports/round-23/kagi.md (ufo)\nFLEET-ABSENT corpus/lessons/round-23-verifier-spotcheck.md:7 .ufo/prompts/kagi-round-23.md (ufo)\nFLEET-ABSENT corpus/lessons/round-23-verifier-spotcheck.md:22 .ufo/reports/round-23/kagi.md (ufo)\nFLEET-ABSENT corpus/lessons/round-23.md:89 .ufo/state (ufo)\nUNRESOLVED corpus/lessons/round-26.md:125 corpus/digit (local)\nFLEET-ABSENT corpus/lessons/round-3.md:3 .ufo/prompts/kagi-round-3.md (ufo)\nFLEET-ABSENT corpus/lessons/round-4-aggregator-audit.md:3 .ufo/state/aggregator.round (ufo)\nFLEET-ABSENT corpus/lessons/round-4-aggregator-audit.md:57 .ufo/prompts/kagi-round-3.md (ufo)\nFLEET-ABSENT corpus/lessons/round-4.md:3 .ufo/prompts/kagi-round-4.md (ufo)\nFLEET-ABSENT corpus/lessons/round-5-aggregator-audit.md:3 .ufo/state/aggregator.round (ufo)\nFLEET-ABSENT corpus/lessons/round-5-aggregator-mirror-bare-path-and-unclosed-prereq.md:4 kotoba-shokunin/corpus/knowledge/fleet-skill-audit-round5.md (sibling)\nLABELED corpus/lessons/round-5-aggregator-mirror-bare-path-and-unclosed-prereq.md:21 .ufo/reports/round-2/AGGREGATE.md (unresolved, labelled on its line)\nFLEET-ABSENT corpus/lessons/round-5.md:3 .ufo/prompts/kagi-round-5.md (ufo)\nFLEET-ABSENT corpus/lessons/round-6-aggregator-audit.md:100 .ufo/reports/round-9/kagi.md (ufo)\nFLEET-ABSENT corpus/lessons/round-6-aggregator-audit.md:124 .ufo/reports/round-3/kagi.md (ufo)\nFLEET-ABSENT corpus/lessons/round-6-aggregator-audit.md:125 .ufo/reports/round-7/kagi.md (ufo)\nFLEET-ABSENT corpus/lessons/round-6-aggregator-audit.md:128 .ufo/reports/round-9/kagi.md (ufo)\nFLEET-ABSENT corpus/lessons/round-6-aggregator-audit.md:129 .ufo/reports/round-9/kake.md (ufo)\nFLEET-ABSENT corpus/lessons/round-6-aggregator-audit.md:195 .ufo/reports/round-9/kagi.md (ufo)\nFLEET-ABSENT corpus/lessons/round-6-aggregator-audit.md:200 .ufo/reports/round-3/kagi.md (ufo)\nFLEET-ABSENT corpus/lessons/round-6-aggregator-audit.md:200 .ufo/reports/round-7/kagi.md (ufo)\nFLEET-ABSENT corpus/lessons/round-6-aggregator-audit.md:200 .ufo/reports/round-9/kake.md (ufo)\nLABELED corpus/lessons/round-8-aggregator-box3-coldrun.md:4 .ufo/reports/round-8/aggregator.md (unresolved, labelled on its line)\nLABELED corpus/lessons/round-8-aggregator-box3-coldrun.md:4 .ufo/prompts/aggregator-round-8.md (unresolved, labelled on its line)\nLABELED corpus/lessons/round-8-aggregator-box3-coldrun.md:69 .ufo/reports/round-8/aggregator.md (unresolved, labelled on its line)\nLABELED corpus/lessons/round-8-aggregator-box3-coldrun.md:80 .ufo/reports/round-8/aggregator.md (unresolved, labelled on its line)\nCITATION_LAYOUT: lone-clone fleet_absent=48 (no fleet-root entry or sibling lane beside the root; fleet-only citations were not checked)\nCITATION_GATE: BROKEN (cites=1679 docs=69 unresolved=1 ephemeral=0 labeled=19)\n",
+      "stderr": ""
+    },
+    {
+      "name": "historical-receipt-immutable",
+      "passed": true,
+      "sha256": "b74c8ee30aaeaf7a867f9bbad39ea42e94f199da69ebd01d0e391d2e8b349f92",
+      "expected_sha256": "b74c8ee30aaeaf7a867f9bbad39ea42e94f199da69ebd01d0e391d2e8b349f92"
+    },
+    {
+      "name": "current-receipt-literal-pin",
+      "passed": true,
+      "sha256": "13b8540c78b9de07bc184894583a368472fd1f2f04a898220bf7c29d2648a169",
+      "expected_sha256": "13b8540c78b9de07bc184894583a368472fd1f2f04a898220bf7c29d2648a169"
+    },
+    {
+      "name": "id-exact-drift",
+      "passed": true,
+      "identity_fields": [
+        "id",
+        "clock",
+        "url",
+        "http_status",
+        "error",
+        "parsed_version",
+        "located",
+        "verdict"
+      ],
+      "changed_ids": [
+        "S027",
+        "S028"
+      ],
+      "timestamps_and_digests_excluded": true,
+      "note": "One shared Python feed, two teaching/clock dispositions; not two independent release observations"
+    },
+    {
+      "name": "source-and-clock-population",
+      "passed": true,
+      "before": {
+        "source_rows": 38,
+        "clock_bindings": 28,
+        "rearmed_successors": 0
+      },
+      "after": {
+        "source_rows": 41,
+        "clock_bindings": 30,
+        "rearmed_successors": 2
+      },
+      "counting_command": "git show 1bf3eec48d3761580ffd375c88143232485ae814:corpus/SOURCES.md; git show 1bf3eec48d3761580ffd375c88143232485ae814:corpus/release-clocks.tsv; exact-id parsing in this recorder against the measured clone"
+    },
+    {
+      "name": "successors-fire-next-release",
+      "passed": true,
+      "observations": [
+        {
+          "id": "S040",
+          "clock": "feed",
+          "url": "https://www.python.org/downloads/feed.rss",
+          "http_status": 200,
+          "sha256": "da9a4fdbfac42f4a6781923cb250f7c84a373d14739b5e5ae4dabc932b50c313",
+          "parsed_version": "3.15.2",
+          "located": null,
+          "verdict": "fired",
+          "observed_at": "2026-10-21T14:33:33Z"
+        },
+        {
+          "id": "S041",
+          "clock": "feed",
+          "url": "https://www.python.org/downloads/feed.rss",
+          "http_status": 200,
+          "sha256": "da9a4fdbfac42f4a6781923cb250f7c84a373d14739b5e5ae4dabc932b50c313",
+          "parsed_version": "3.15.2",
+          "located": null,
+          "verdict": "fired",
+          "observed_at": "2026-10-21T14:33:33Z"
+        }
+      ],
+      "anchored_versions": {
+        "S040": "3.15.1",
+        "S041": "3.15.1"
+      }
+    },
+    {
+      "name": "missing-binding-S040",
+      "passed": true,
+      "argv": [
+        "python3",
+        "-B",
+        "/fast/scratch/kagi-r26-measure-9k8a_cdb/fleet/kagi-shokunin/corpus/release-clock.py",
+        "--root",
+        "/fast/scratch/kagi-r26-measure-9k8a_cdb/missing-S040",
+        "--receipt",
+        "/fast/scratch/kagi-r26-measure-9k8a_cdb/fleet/kagi-shokunin/.ufo/waves/round-26/observe-2.json",
+        "--receipt-sha",
+        "13b8540c78b9de07bc184894583a368472fd1f2f04a898220bf7c29d2648a169"
+      ],
+      "cwd": "/fast/scratch/kagi-r26-measure-9k8a_cdb/fleet/kagi-shokunin",
+      "exit": 1,
+      "expected_exit": 1,
+      "expected_contains": [
+        "UNBOUND S040",
+        "RELEASE_CLOCK: FAILED"
+      ],
+      "expected_last_regex": null,
+      "last_line": "RELEASE_CLOCK: FAILED (on_release=30 bound=29 unbound=1 observed=29 fired=3 derived=15)",
+      "stdout": "RECEIPT-MISMATCH S040\nUNBOUND S040\nRELEASE_CLOCK: FAILED (on_release=30 bound=29 unbound=1 observed=29 fired=3 derived=15)\n",
+      "stderr": ""
+    },
+    {
+      "name": "missing-binding-S041",
+      "passed": true,
+      "argv": [
+        "python3",
+        "-B",
+        "/fast/scratch/kagi-r26-measure-9k8a_cdb/fleet/kagi-shokunin/corpus/release-clock.py",
+        "--root",
+        "/fast/scratch/kagi-r26-measure-9k8a_cdb/missing-S041",
+        "--receipt",
+        "/fast/scratch/kagi-r26-measure-9k8a_cdb/fleet/kagi-shokunin/.ufo/waves/round-26/observe-2.json",
+        "--receipt-sha",
+        "13b8540c78b9de07bc184894583a368472fd1f2f04a898220bf7c29d2648a169"
+      ],
+      "cwd": "/fast/scratch/kagi-r26-measure-9k8a_cdb/fleet/kagi-shokunin",
+      "exit": 1,
+      "expected_exit": 1,
+      "expected_contains": [
+        "UNBOUND S041",
+        "RELEASE_CLOCK: FAILED"
+      ],
+      "expected_last_regex": null,
+      "last_line": "RELEASE_CLOCK: FAILED (on_release=30 bound=29 unbound=1 observed=29 fired=3 derived=15)",
+      "stdout": "RECEIPT-MISMATCH S041\nUNBOUND S041\nRELEASE_CLOCK: FAILED (on_release=30 bound=29 unbound=1 observed=29 fired=3 derived=15)\n",
+      "stderr": ""
+    },
+    {
+      "name": "tamper-input-only",
+      "passed": true,
+      "argv": [
+        "bash",
+        "/fast/scratch/kagi-r26-measure-9k8a_cdb/fleet/kagi-shokunin/.ufo/waves/round-26/tools/replay-current.sh",
+        "after",
+        "/fast/scratch/kagi-r26-measure-9k8a_cdb/tamper-input"
+      ],
+      "cwd": "/fast/scratch/kagi-r26-measure-9k8a_cdb/fleet/kagi-shokunin",
+      "exit": 2,
+      "expected_exit": 2,
+      "expected_contains": [
+        "ROUND26_REPLAY: snapshot_tampered"
+      ],
+      "expected_last_regex": null,
+      "last_line": "ROUND26_REPLAY: snapshot_tampered",
+      "stdout": "observe-2.json: FAILED\nROUND26_REPLAY: snapshot_tampered\n",
+      "stderr": "sha256sum: WARNING: 1 computed checksum did NOT match\n"
+    },
+    {
+      "name": "tamper-input-plus-manifest",
+      "passed": true,
+      "argv": [
+        "bash",
+        "/fast/scratch/kagi-r26-measure-9k8a_cdb/fleet/kagi-shokunin/.ufo/waves/round-26/tools/replay-current.sh",
+        "after",
+        "/fast/scratch/kagi-r26-measure-9k8a_cdb/tamper-pair"
+      ],
+      "cwd": "/fast/scratch/kagi-r26-measure-9k8a_cdb/fleet/kagi-shokunin",
+      "exit": 2,
+      "expected_exit": 2,
+      "expected_contains": [
+        "ROUND26_REPLAY: snapshot_tampered"
+      ],
+      "expected_last_regex": null,
+      "last_line": "ROUND26_REPLAY: snapshot_tampered",
+      "stdout": "ROUND26_REPLAY: snapshot_tampered\n",
+      "stderr": ""
+    },
+    {
+      "name": "missing-manifest-fails-typed",
+      "passed": true,
+      "argv": [
+        "bash",
+        "/fast/scratch/kagi-r26-measure-9k8a_cdb/fleet/kagi-shokunin/.ufo/waves/round-26/tools/replay-current.sh",
+        "after",
+        "/fast/scratch/kagi-r26-measure-9k8a_cdb/missing-manifest"
+      ],
+      "cwd": "/fast/scratch/kagi-r26-measure-9k8a_cdb/fleet/kagi-shokunin",
+      "exit": 2,
+      "expected_exit": 2,
+      "expected_contains": [
+        "ROUND26_REPLAY: snapshot_tampered"
+      ],
+      "expected_last_regex": null,
+      "last_line": "ROUND26_REPLAY: snapshot_tampered",
+      "stdout": "ROUND26_REPLAY: snapshot_tampered\n",
+      "stderr": ""
+    },
+    {
+      "name": "per-clause-source-check",
+      "passed": true,
+      "clauses": [
+        {
+          "id": "S039",
+          "kind": "input-digest",
+          "passed": true
+        },
+        {
+          "id": "S040",
+          "kind": "input-digest",
+          "passed": true
+        },
+        {
+          "id": "S041",
+          "kind": "input-digest",
+          "passed": true
+        },
+        {
+          "id": "unicode",
+          "quote": "Matches Unicode whitespace characters (as defined by str.isspace() ).",
+          "quote_words": 9,
+          "count": 1,
+          "passed": true
+        },
+        {
+          "id": "nbsp",
+          "quote": "non-breaking spaces mandated by typography rules in many languages.",
+          "quote_words": 9,
+          "count": 1,
+          "passed": true
+        },
+        {
+          "id": "ascii",
+          "quote": "if the ASCII flag is used.",
+          "quote_words": 6,
+          "count": 1,
+          "passed": true
+        },
+        {
+          "id": "named-numeric",
+          "quote": "Convert all named and numeric character references",
+          "quote_words": 7,
+          "count": 1,
+          "passed": true
+        },
+        {
+          "id": "unicode-result",
+          "quote": "to the corresponding Unicode characters.",
+          "quote_words": 5,
+          "count": 1,
+          "passed": true
+        },
+        {
+          "id": "html5",
+          "quote": "This function uses the rules defined by the HTML 5 standard for both valid and invalid character references",
+          "quote_words": 18,
+          "count": 1,
+          "passed": true
+        }
+      ],
+      "local_code_scope": "rendered-text-v1.py:65-75; no runtime3.15.1 or global semantic-equivalence assertion"
+    },
+    {
+      "name": "backport-first-parser-control",
+      "passed": true,
+      "first_title": "Python 3.14.9",
+      "max_stable": "3.15.1",
+      "rejected_first_entry_expected": "Python 3.15.1",
+      "rejected_first_entry_would_fail": true
+    }
+  ],
+  "passed": 29,
+  "total": 29
+}

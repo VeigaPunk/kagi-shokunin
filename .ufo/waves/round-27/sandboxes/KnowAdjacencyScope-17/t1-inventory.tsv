@@ -1,0 +1,52 @@
+id	line	exact_text	source	extract	pin	verdict	locator
+KN-SCOPE-SRC-OWN	4	5 `# own` prefixes	ledger:R16-04	^([0-9]+)$	5	OK	^`corpus/adjacency\.tsv` \(([0-9]+) `# own` prefixes
+KN-SCOPE-SRC-GROUPS	4	4 group rows	rows:corpus/adjacency.tsv	-	4	OK	^`corpus/adjacency\.tsv` \([0-9]+ `# own` prefixes, ([0-9]+) group rows
+KN-SCOPE-SRC-SHARED	4	the 8 census rows outside them	expect:R16-01	shared=([0-9]+)	8	OK	group rows covering the ([0-9]+) census$
+KN-SCOPE-SRC-OWNERS	5	4 `# owner`	expect:R16-01	owners=([0-9]+)	4	OK	rows outside them, ([0-9]+) `# owner`
+KN-SCOPE-SRC-NOENUM	5	8 `# no-enumerate`	ledger:R16-06	^([0-9]+)$	8	OK	`# claim` / ([0-9]+)$
+KN-SCOPE-SRC-BREADTH	6	4 `# breadth` directives	ledger:R17-02	^([0-9]+)$	4	OK	^`# no-enumerate` / ([0-9]+) `# breadth` directives
+KN-SCOPE-SRC-CENSUS	7	35 rows	rows:corpus/surface-census.tsv	-	35	OK	^`corpus/surface-census\.tsv` \(([0-9]+) rows
+KN-SCOPE-GATE-CENSUS	12	census=35	rows:corpus/surface-census.tsv	-	35	OK	^\(census=([0-9]+) owned=27
+KN-SCOPE-GATE-OWNED	12	owned=27	expect:R16-01	owned=([0-9]+)	27	OK	^\(census=[0-9]+ owned=([0-9]+)
+KN-SCOPE-GATE-SHARED	12	shared=8	expect:R16-01	shared=([0-9]+)	8	OK	^\(census=35 owned=27 shared=([0-9]+)
+KN-SCOPE-GATE-GROUPS	12	groups=4	rows:corpus/adjacency.tsv	-	4	OK	^\(census=.* shared=[0-9]+ groups=([0-9]+)
+KN-SCOPE-GATE-OWNERS	12	owners=4	expect:R16-01	owners=([0-9]+)	4	OK	^\(census=.* groups=[0-9]+ owners=([0-9]+)
+KN-SCOPE-GATE-UNRES	12	unresolved=1	expect:R16-01	unresolved=([0-9]+)	1	OK	^\(census=.* owners=[0-9]+ unresolved=([0-9]+)
+KN-SCOPE-GATE-CONTEST	12	contested=1	expect:R16-01	contested=([0-9]+)	1	OK	^\(census=.* unresolved=[0-9]+ contested=([0-9]+)
+KN-SCOPE-GATE-ESCAPES	13	escapes=0	expect:R16-01	escapes=([0-9]+)	0	OK	^escapes=([0-9]+) inbound=0
+KN-SCOPE-GATE-INBOUND	13	inbound=0	expect:R16-01	inbound=([0-9]+)	0	OK	^escapes=[0-9]+ inbound=([0-9]+)
+KN-SCOPE-GATE-FOREIGN	13	foreign=0	expect:R16-01	foreign=([0-9]+)	0	OK	inbound=[0-9]+ foreign=([0-9]+)
+KN-SCOPE-GATE-ORPHANS	13	orphans=0	expect:R16-01	orphans=([0-9]+)	0	OK	foreign=[0-9]+ orphans=([0-9]+)
+KN-SCOPE-GATE-STALEBASIS	13	stale_basis=0	expect:R16-01	stale_basis=([0-9]+)	0	OK	orphans=[0-9]+ stale_basis=([0-9]+)
+KN-SCOPE-GATE-BASISESC	13	basis_escape=0	expect:R16-01	basis_escape=([0-9]+)	0	OK	stale_basis=[0-9]+ basis_escape=([0-9]+)
+KN-SCOPE-GATE-OWNUNLISTED	14	own_unlisted=0	expect:R16-01	own_unlisted=([0-9]+)	0	OK	^own_unlisted=([0-9]+) breadth_required=4
+KN-SCOPE-GATE-BREQ	14	breadth_required=4	expect:R16-01	breadth_required=([0-9]+)	4	OK	^own_unlisted=[0-9]+ breadth_required=([0-9]+)
+KN-SCOPE-GATE-BPINS	14	breadth_pins=4	ledger:R17-02	^([0-9]+)$	4	OK	breadth_required=[0-9]+ breadth_pins=([0-9]+)
+KN-SCOPE-GATE-BCHECK	14	breadth_checked=4	expect:R16-01	breadth_checked=([0-9]+)	4	OK	breadth_pins=[0-9]+ breadth_checked=([0-9]+)
+KN-SCOPE-GATE-BOK	14	breadth_ok=4	expect:R16-01	breadth_ok=([0-9]+)	4	OK	breadth_checked=[0-9]+ breadth_ok=([0-9]+)
+KN-SCOPE-GATE-BMISS	15	breadth_missing=0	expect:R16-01	breadth_missing=([0-9]+)	0	OK	^breadth_missing=([0-9]+) breadth_invalid=0
+KN-SCOPE-GATE-BINVALID	15	breadth_invalid=0	expect:R16-01	breadth_invalid=([0-9]+)	0	OK	^breadth_missing=[0-9]+ breadth_invalid=([0-9]+)
+KN-SCOPE-GATE-BDRIFT	15	breadth_drift=0	expect:R16-01	breadth_drift=([0-9]+)	0	OK	breadth_invalid=[0-9]+ breadth_drift=([0-9]+)
+KN-SCOPE-GATE-BEXCEEDS	15	breadth_exceeds=0	expect:R16-01	breadth_exceeds=([0-9]+)	0	OK	breadth_drift=[0-9]+ breadth_exceeds=([0-9]+)
+KN-SCOPE-GATE-BUNVER	16	breadth_unverified=0	expect:R16-01	breadth_unverified=([0-9]+)	0	OK	^breadth_unverified=([0-9]+)\)`
+KN-SCOPE-CURRENT-FALSIFY-TOTAL	17	caught=18/18 total	expect:R16-03	caught=[0-9]+/([0-9]+)	18	OK	^`SCOPE_FALSIFY: PASS \(caught=[0-9]+/([0-9]+) failed
+KN-SCOPE-CURRENT-FALSIFY-FAILED	17	failed=0	expect:R16-03	failed=([0-9]+)	0	OK	^`SCOPE_FALSIFY: PASS \(caught=[0-9]+/[0-9]+ failed=([0-9]+)\)`
+KN-SCOPE-TABLE-CENSUS	46	census rows | 35	rows:corpus/surface-census.tsv	-	35	OK	^\| census rows \| ([0-9]+) \|
+KN-SCOPE-TABLE-OWN	47	owned by the 5 prefixes	ledger:R16-04	^([0-9]+)$	5	OK	^\| owned by the ([0-9]+) `# own` prefixes
+KN-SCOPE-TABLE-OWNED	47	table row 27	expect:R16-01	owned=([0-9]+)	27	OK	^\| owned by the [0-9]+ `# own` prefixes \| ([0-9]+) \|
+KN-SCOPE-TABLE-SHARED	48	table row 8	expect:R16-01	shared=([0-9]+)	8	OK	^\| shared \(covered by a group row\) \| ([0-9]+) \|
+KN-SCOPE-TABLE-GROUPS	49	group rows | 4	rows:corpus/adjacency.tsv	-	4	OK	^\| group rows \| ([0-9]+) \|
+KN-SCOPE-TABLE-OWNERS	50	owner directives | 4	expect:R16-01	owners=([0-9]+)	4	OK	^\| owner directives \| ([0-9]+) \(
+KN-SCOPE-TABLE-NOENUM	52	no-enumerate | 8	ledger:R16-06	^([0-9]+)$	8	OK	^\| `# no-enumerate` directives \| ([0-9]+) \|
+KN-SCOPE-COVERAGE-TOTAL	55	coverage = 27	expect:R16-01	owned=([0-9]+)	27	OK	state/tac\) = ([0-9]+)\.
+KN-SCOPE-PROSE-GROUPS	58	The 4 group rows	rows:corpus/adjacency.tsv	-	4	OK	launcher symlink\)\. The ([0-9]+) group rows
+KN-SCOPE-SUM8	68	8 = 4 + 1 + 2 + 1	expect:R16-01	shared=([0-9]+)	8	OK	^([0-9]+) = 4 \+ 1 \+ 2 \+ 1
+KN-SCOPE-R2-PIN	121	R11-11 pins 35	ledger:R11-11	^([0-9]+)$	35	OK	\(`R11-11` pins ([0-9]+)\)
+KN-SCOPE-BREADTH-REQ	147	required=4	expect:R17-01	required=([0-9]+)	4	OK	^\| `BREADTH_AUDIT: CLEAN \(required=([0-9]+) pins=4
+KN-SCOPE-BREADTH-PINS	147	pins=4	expect:R17-01	pins=([0-9]+)	4	OK	^\| `BREADTH_AUDIT: CLEAN \(required=4 pins=([0-9]+)
+KN-SCOPE-BREADTH-CHECKED	147	checked=4	expect:R17-01	checked=([0-9]+)	4	OK	^\| `BREADTH_AUDIT: CLEAN \(required=4 pins=4 checked=([0-9]+)
+KN-SCOPE-BREADTH-OK	147	ok=4	expect:R17-01	ok=([0-9]+)	4	OK	^\| `BREADTH_AUDIT: CLEAN \(required=4 pins=4 checked=4 ok=([0-9]+)
+KN-SCOPE-BREADTH-DECL	147	declared=8	expect:R17-01	declared=([0-9]+)	8	OK	^\| `BREADTH_AUDIT: CLEAN \(.*children=182 declared=([0-9]+)
+KN-SCOPE-TABLE-FALSIFY-TOTAL	155	table caught total	expect:R16-03	caught=[0-9]+/([0-9]+)	18	OK	^\| `SCOPE_SELFTEST: PASS \([0-9]+ cases\)` / `SCOPE_FALSIFY: PASS \(caught=[0-9]+/([0-9]+)
+KN-SCOPE-TABLE-FALSIFY-FAILED	155	table failed=0	expect:R16-03	failed=([0-9]+)	0	OK	^\| `SCOPE_SELFTEST: PASS \([0-9]+ cases\)` / `SCOPE_FALSIFY: PASS \(caught=[0-9]+/[0-9]+ failed=([0-9]+)\)`
+KN-SCOPE-ERRATUM35	247	R11-11 (35)	ledger:R11-11	^([0-9]+)$	35	OK	outside by `R11-11` \(([0-9]+)\)

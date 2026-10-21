@@ -78,7 +78,7 @@ A claim passes **only when both hold**:
 The last-line half exists because a verdict is a summary line by construction:
 a command that prints `SURFACE_CENSUS: CLEAN` at minute one and dies later
 still ends with its own error or progress line, so the token alone cannot pass.
-`reason=verdict-not-final` is the verdict for that class, and selftest case 16
+`reason=verdict-not-final` is the verdict for that class, and selftest case `verdict-not-final` (the 16th case when written)
 pins it with a fixture that prints the expected token then a trailer.
 
 Per-row verdicts: nothing on success (`OK` is silence), else
@@ -298,10 +298,10 @@ docs=39 unresolved=0 ephemeral=0 labeled=13)`.
 ## Reproduction
 
 ```
-bash corpus/claim-ledger.sh verify      # stamps + claims + claim ids → CLAIM_LEDGER: CLEAN (claims=17 stamped=33 ids=17 cited=17 labeled_ids=13 orphans=0)
-bash corpus/claim-ledger.sh citations   # citation durability → CITATION_GATE: CLEAN (cites=700 docs=43 unresolved=0 ephemeral=0 labeled=13)
-bash corpus/claim-ledger.sh cells       # scorecard audit    → CELL_AUDIT: CLEAN (cells=60 row_pointed=25 stamp_pointed=41 uncited=0 missing_ids=0 rows_run=14 row_failures=0 stale_pointers=0 self_skipped=3 orphans=0)
-bash corpus/claim-ledger.sh --selftest  # 72 scratch cases   → SELFTEST: PASS (72 cases)
+bash corpus/claim-ledger.sh verify      # stamps + claims + claim ids → CLAIM_LEDGER: CLEAN (claims=N … stamped=M …; N and M are ledger rows R21-04 and R12-03 and move every round; round-13-close output read claims=17 stamped=33 ids=17 cited=17 labeled_ids=13 orphans=0)
+bash corpus/claim-ledger.sh citations   # citation durability → CITATION_GATE: CLEAN (…) in the fleet layout; round-13-close output read cites=700 docs=43 unresolved=0 ephemeral=0 labeled=13
+bash corpus/claim-ledger.sh cells       # scorecard audit    → CELL_AUDIT: CLEAN (…); round-13-close output read cells=60 row_pointed=25 stamp_pointed=41 uncited=0 missing_ids=0 rows_run=14 row_failures=0 stale_pointers=0 self_skipped=3 orphans=0
+bash corpus/claim-ledger.sh --selftest  # 170 scratch cases   → SELFTEST: PASS (170 cases); 72 at round-13 close
 bash corpus/claim-ledger.sh stamp corpus/claim-ledger.sh …    # re-pin (reviewed commit)
 ```
 
@@ -503,3 +503,12 @@ The active TSV files are unique-ID/unique-path **current snapshots**;
 append-only old/new migration evidence belongs in the round lesson and
 journal. Duplicate active rows are not a valid way to preserve history.
 Audit: `kagi-shokunin/.ufo/waves/round-22/build/Entry05.md`.
+
+## Erratum (round 27 — reproduction counts)
+
+The Reproduction block's per-round counts were last true at round-13 close
+and read as current until round 27. `claims=N`/`stamped=M` now point at
+ledger rows R21-04/R12-03 (they move every round); the selftest count is
+bound to R11-09 by `corpus/self-counts.tsv` (KN-LEDGER-REPRO-SELFTEST), and the
+old values stay beside the new ones. Old/new text:
+`.ufo/waves/round-27/knowledge-migrations.json`.

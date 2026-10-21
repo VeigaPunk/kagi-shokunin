@@ -1,0 +1,109 @@
+{
+  "base": "4f94b52a3cdfaa289d779bd8a2afcd0b1fcd9105",
+  "frozen_inherited": "c5ef9e92201b6c36396301f12b23740565bf86a0",
+  "measured_commit": "017cc4c5eb87f7942fa41ff8893e8737fd14cfb4",
+  "paired_gate_logic_commits": [
+    "c5ef9e92201b6c36396301f12b23740565bf86a0",
+    "277a0d4f1d9bc6c5cea9b1d0ab92e33e5c17bb56"
+  ],
+  "checks": "recovery-checks.json",
+  "C1": {
+    "host_executions_before": 35,
+    "host_executions_after": 0,
+    "complete_runs": "4/4",
+    "population_skips_each_after": "12/12",
+    "paired_regression": "before exit1 / after exit0; identical151-case fixture suffix",
+    "tripwire_bound": "stubs intentionally cause gate FAIL/BROKEN; only safety execution counts and completeness are credited; independent real-tree verify CLEAN is separately recorded"
+  },
+  "C2": {
+    "inrow_only_before": 16,
+    "inrow_only_after": 0,
+    "rows_before": 26,
+    "rows_after": 32,
+    "nonreproducing": 12,
+    "new_source": "S032 corrects exact quote only",
+    "normalizer_transform": "unchanged; two boundary cases and prose precision added"
+  },
+  "C3": {
+    "population": 15,
+    "before_survived": 15,
+    "after_killed": 15,
+    "after_survived": 0,
+    "before_invalid": 0,
+    "after_invalid": 0,
+    "controls": "every selected control exits0 with complete clean terminal summary",
+    "scope": "declared keys/lines/IDs/headings/case names, NOT semantic assertions"
+  },
+  "waves": {
+    "build": 67,
+    "falsify": 64,
+    "ordinary_repair_executors": 2,
+    "total": 133,
+    "falsify_reported": 56,
+    "falsify_dead": 8,
+    "repair_dead": 2,
+    "inherited_build_dead": 1,
+    "replacements": 0,
+    "refusals_before_falsify_spawn": 8
+  },
+  "outside_admission": "pending integrator; no MANIFEST or closure write by lane",
+  "tool_installs": [],
+  "wave1_role_mix": {
+    "scout": 29,
+    "reviewer": 15,
+    "executor": 5,
+    "revenger": 4,
+    "connector": 3,
+    "critic": 4,
+    "scribe": 4,
+    "sentinel": 2,
+    "mutation-tester": 1
+  },
+  "wave2_role_mix": {
+    "scout": 21,
+    "reviewer": 27,
+    "mutation-tester": 11,
+    "critic": 4,
+    "connector": 1
+  },
+  "report_original_prefix_sha256": "dcb03fd40e42b2ae97c9316d763187257c2546fa170e28d637dc60de1a1af16b",
+  "separability": {
+    "input_commit": "e6210511a25ddd98ce54be346367f991ce9ff3ed",
+    "records": {
+      "c1-only": ".ufo/waves/round-24/separability/c1-only-run.json",
+      "c2-only": ".ufo/waves/round-24/separability/c2-only-run.json",
+      "c3-only": ".ufo/waves/round-24/separability/c3-only-run.json"
+    },
+    "observed": [
+      "C1 only: total0 complete4/4 skip_lines48",
+      "C2 only: CLEAN rows32 captures32 inrow_only0",
+      "C3 only: population15 killed15 survived0 invalid0; baseline-shaped80 pins/59 rows"
+    ],
+    "outer_exits": [
+      0,
+      0,
+      0
+    ]
+  },
+  "fresh_normalizer_replay": {
+    "measured_commit": "31c8421407ec2c1776d52c49be85c2d4f0d40167",
+    "record": ".ufo/waves/round-24/recovery-normalizer-replay.json",
+    "exit": 0,
+    "rows": 10,
+    "v1_matches": 10,
+    "ascii_matches": 7,
+    "alternative": "step5 collapse class only; all other v1 steps including trim unchanged"
+  },
+  "original_report_prefix_bytes": 8266,
+  "trend_assessment": {
+    "expansion": "unchanged",
+    "quality": "improved",
+    "discernment": "unchanged pending independent admit/reject sample; author-side falsifiers are not outside agreement"
+  },
+  "quote_word_count": {
+    "command": "python3 -c \"print(len('The token value is your integration key'.split()))\"",
+    "stdout": "7",
+    "correction": "M24-15 supersedes only the parenthetical8 in the recovery Gate; quote/source/<=25 bound unchanged"
+  },
+  "sequencing_disclosure": "M24-16: working-tree repairs began before final read-only reports returned; immutable Git freeze preserved, final measured executions after all settlements; unbound live-tree notes not runtime passes."
+}

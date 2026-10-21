@@ -1,0 +1,93 @@
+{
+  "base_module": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-27/sandboxes/RevInequality/base/corpus/release-clock.py",
+  "gate_cases": [
+    {
+      "anchored": "1.2.3",
+      "case": "C1 downgrade recorded fired (1.2.2 < anchor 1.2.3)",
+      "errors": [],
+      "fired": 1,
+      "observed": "1.2.2",
+      "observed_count": 1,
+      "passed": true,
+      "verdict": "fired"
+    },
+    {
+      "anchored": "3.15.1",
+      "case": "C2 stale feed falsely fires successor (3.15.0 < anchor 3.15.1)",
+      "errors": [],
+      "fired": 1,
+      "observed": "3.15.0",
+      "observed_count": 1,
+      "passed": true,
+      "verdict": "fired"
+    },
+    {
+      "anchored": "1.2.3",
+      "case": "C3 downgrade recorded not-fired (1.2.2 < anchor 1.2.3)",
+      "errors": [
+        [
+          "INCONSISTENT",
+          "S001"
+        ]
+      ],
+      "fired": 0,
+      "observed": "1.2.2",
+      "observed_count": 0,
+      "passed": false,
+      "verdict": "not-fired"
+    },
+    {
+      "anchored": "3.15.0",
+      "case": "C4 un-fire to anchor equality (3.15.0 == anchor 3.15.0)",
+      "errors": [],
+      "fired": 0,
+      "observed": "3.15.0",
+      "observed_count": 1,
+      "passed": true,
+      "verdict": "not-fired"
+    },
+    {
+      "anchored": "1.2.3",
+      "case": "C5 control: newer fired (1.2.4 > 1.2.3)",
+      "errors": [],
+      "fired": 1,
+      "observed": "1.2.4",
+      "observed_count": 1,
+      "passed": true,
+      "verdict": "fired"
+    },
+    {
+      "anchored": "1.2.3",
+      "case": "C6 control: equal not-fired (1.2.3 == 1.2.3)",
+      "errors": [],
+      "fired": 0,
+      "observed": "1.2.3",
+      "observed_count": 1,
+      "passed": true,
+      "verdict": "not-fired"
+    }
+  ],
+  "observe_cases": [
+    {
+      "anchored": "1.2.3",
+      "case": "O1 observer labels a downgrade fired (feed max 1.2.2, anchor 1.2.3)",
+      "error": null,
+      "parsed_version": "1.2.2",
+      "verdict": "fired"
+    },
+    {
+      "anchored": "3.15.1",
+      "case": "O2 observer labels stale feed fired for successor (max 3.15.0, anchor 3.15.1)",
+      "error": null,
+      "parsed_version": "3.15.0",
+      "verdict": "fired"
+    },
+    {
+      "anchored": "1.2.3",
+      "case": "O3 observer on equal max (control)",
+      "error": null,
+      "parsed_version": "1.2.3",
+      "verdict": "not-fired"
+    }
+  ]
+}

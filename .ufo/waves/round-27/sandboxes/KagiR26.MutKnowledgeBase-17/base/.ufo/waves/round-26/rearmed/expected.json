@@ -1,0 +1,42 @@
+{
+  "format": "kagi-round26-rearmed-v1",
+  "base_revision": "1bf3eec48d3761580ffd375c88143232485ae814",
+  "input_sha256": {
+    "after/corpus/SOURCES.md": "6008780bdf002dcc6977ef12debd56dad881552d972d535f4a96e1a22355af75",
+    "after/corpus/release-clocks.tsv": "99a9b4bc36df89a0a86ca7fe16f922aab0abf8f4c3a3380bacdd8924cd02e6fd",
+    "after/corpus/rendered-text-v1.py": "7d6bfe8154898f8584e213bcf98936a0819ace75fd80f3dcc87bce1edd1dc7bf",
+    "after/corpus/source-fetches.tsv": "a1415da3955f6f4b7c72d6da0c2f63e29c2b7a2ea6ca5a9a42b75ca63464078a",
+    "before/corpus/SOURCES.md": "6008780bdf002dcc6977ef12debd56dad881552d972d535f4a96e1a22355af75",
+    "before/corpus/release-clocks.tsv": "53264aad0d4a8365b58527e10af4d2265c7e21ee9036217fe748156c2a70b74f",
+    "before/corpus/rendered-text-v1.py": "7d6bfe8154898f8584e213bcf98936a0819ace75fd80f3dcc87bce1edd1dc7bf",
+    "before/corpus/source-fetches.tsv": "a1415da3955f6f4b7c72d6da0c2f63e29c2b7a2ea6ca5a9a42b75ca63464078a",
+    "observe-2.json": "13b8540c78b9de07bc184894583a368472fd1f2f04a898220bf7c29d2648a169",
+    "release-clock.py": "ef17654e0b7fcdee1cdf35d40dc359b194ce4b0711247877dedfa43ff6ef45cc"
+  },
+  "receipt_sha256": "13b8540c78b9de07bc184894583a368472fd1f2f04a898220bf7c29d2648a169",
+  "before": {
+    "exit": 1,
+    "summary": "RELEASE_CLOCK: FAILED (on_release=30 bound=28 unbound=2 observed=26 fired=1 derived=15)",
+    "findings": [
+      "RECEIPT-MISMATCH S027",
+      "RECEIPT-MISMATCH S028",
+      "RECEIPT-MISMATCH S040",
+      "RECEIPT-MISMATCH S041",
+      "UNBOUND S040",
+      "UNBOUND S041"
+    ]
+  },
+  "after": {
+    "exit": 0,
+    "summary": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)"
+  },
+  "changed_existing_ids": [
+    "S027",
+    "S028"
+  ],
+  "added_binding_ids": [
+    "S040",
+    "S041"
+  ],
+  "limits": "Controlled rearm-only overlay on the current41-row registry, not an asserted full-ledger-clean BASE tree. Historical28-record replay is separate under frozen/."
+}

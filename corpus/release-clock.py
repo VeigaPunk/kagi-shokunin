@@ -363,6 +363,53 @@ def norm_version(value):
     return value[1:] if value[:1].lower() == "v" else value
 
 
+NUMERIC_VERSION_RE = re.compile(r"[0-9]+\.[0-9]+\.[0-9]+")
+
+
+def numeric_version(value):
+    """Strict X.Y.Z (optional leading v) as an int tuple, else None.
+
+    SemVer 2.0.0 §11.2 (S042) / PyPA release segments (S043): cores compare
+    numerically. Non-numeric anchors (e.g. `v1.21.x`), two-component or series
+    anchors and prerelease/build suffixes are not ordered here; alone they keep
+    the inequality rule, a declared limit (corpus/lessons/round-27.md §C2).
+    """
+    value = norm_version(value or "")
+    if not NUMERIC_VERSION_RE.fullmatch(value):
+        return None
+    return tuple(int(part) for part in value.split("."))
+
+
+def is_regression(floor, observed):
+    """True when both are strict X.Y.Z and the observation is numerically older."""
+    anchor = numeric_version(floor)
+    seen = numeric_version(observed)
+    return anchor is not None and seen is not None and seen < anchor
+
+
+def feed_floors(rows):
+    """Highest strict X.Y.Z anchor per feed URL over well-formed feed rows.
+
+    Rows sharing one feed (S027/S028/S040/S041 on python.org) observe the same
+    stream, so an observation below ANY numeric anchor on that feed is older
+    than a release already recorded: this catches an un-fire back to an older
+    anchor (the fired 3.15.0 rows re-reading 3.15.0 while 3.15.1 is anchored)
+    and gives non-numeric anchors (S012 `v1.21.x`) the feed's numeric floor.
+    """
+    floors = {}
+    for row in rows:
+        if row["malformed"]:
+            continue
+        values = dict(zip(HEADER, row["fields"]))
+        anchor = numeric_version(values["anchored_version"])
+        if values["clock"] != "feed" or anchor is None:
+            continue
+        url = values["feed_url"]
+        if url not in floors or anchor > numeric_version(floors[url]):
+            floors[url] = values["anchored_version"]
+    return floors
+
+
 def receipt_date(value):
     if not isinstance(value, str) or not value.endswith("Z"):
         return None
@@ -473,6 +520,7 @@ def evaluate(sources, rows, captures=None, receipt_bundle=None):
             continue
         by_id.setdefault(row_id, []).append(row)
 
+    floors = feed_floors(rows)
     bound = 0
     unbound = 0
     observed = 0
@@ -516,7 +564,16 @@ def evaluate(sources, rows, captures=None, receipt_bundle=None):
                 row_valid = False
             is_derived = values["note"].startswith("derived:")
             anchor_ok = is_derived or version_is_named(sources[source_id]["anchor"], anchored)
-            if (not anchor_ok or not observed_version or observed_version == "-"
+            if (is_regression(anchored, observed_version)
+                    or is_regression(floors.get(feed_url, ""), observed_version)):
+                # S042 §11.2 numeric order: the feed's newest stable release is
+                # older than this row's anchor or than another numeric anchor
+                # on the same feed -- a stale, cropped or withdrawn stream to
+                # re-verify, never a newer-stable clock event. An observation
+                # EQUAL to the feed floor cannot be told from a legitimate state.
+                errors.add(("REGRESSED", source_id))
+                row_valid = False
+            elif (not anchor_ok or not observed_version or observed_version == "-"
                     or not valid_iso_date(observed_at)
                     or verdict not in ("not-fired", "fired")):
                 errors.add(("INCONSISTENT", source_id))
@@ -554,6 +611,9 @@ def evaluate(sources, rows, captures=None, receipt_bundle=None):
             row_valid = False
         elif not receipt_matches(source_id, sources[source_id], values, receipt):
             errors.add(("RECEIPT-MISMATCH", source_id))
+            row_valid = False
+        if isinstance(receipt, dict) and receipt.get("verdict") == "regressed":
+            errors.add(("REGRESSED", source_id))
             row_valid = False
         if row_valid:
             observed += 1
@@ -727,11 +787,16 @@ def observe_one(source, values, normalizer, opener=None, resolver=None, capture=
         if clock == "feed":
             parsed_version = parse_latest_version(body)
             receipt["parsed_version"] = parsed_version
-            receipt["verdict"] = (
-                "not-fired"
-                if norm_version(parsed_version) == norm_version(values["anchored_version"])
-                else "fired"
-            )
+            # the row's anchor and its previously recorded observation are both
+            # floors: a fired 3.15.0 row that recorded 3.15.1 must not silently
+            # read not-fired again when the feed shows 3.15.0 (round 27 C2)
+            if (is_regression(values["anchored_version"], parsed_version)
+                    or is_regression(values.get("observed_version", ""), parsed_version)):
+                receipt["verdict"] = "regressed"
+            elif norm_version(parsed_version) == norm_version(values["anchored_version"]):
+                receipt["verdict"] = "not-fired"
+            else:
+                receipt["verdict"] = "fired"
         else:
             # the declared capture quote and its locate profile (source-fetches.tsv)
             quote, profile = capture or ("", "")
@@ -821,8 +886,9 @@ def run_observe(root, sources, rows, output_path, captures=None):
     failures = sum("error" in receipt for receipt in receipts)
     fired = sum(receipt.get("verdict") in ("fired", "quote-missing")
                 for receipt in receipts)
-    print("RELEASE_CLOCK_OBSERVE: wrote %d observations (failed=%d fired=%d) to %s" % (
-        len(receipts), failures, fired, output_path,
+    regressed = sum(receipt.get("verdict") == "regressed" for receipt in receipts)
+    print("RELEASE_CLOCK_OBSERVE: wrote %d observations (failed=%d fired=%d regressed=%d) to %s" % (
+        len(receipts), failures, fired, regressed, output_path,
     ))
     return failures
 
@@ -901,7 +967,7 @@ def selftest():
         bundle["records"].pop("S001", None)
 
     def run_case(name, rows_text, expected_errors, expected_counts=None,
-                 captures_text=default_capture, receipt_action=None):
+                 captures_text=default_capture, receipt_action=None, extra_sources=()):
         nonlocal cases
         cases += 1
         with tempfile.TemporaryDirectory(prefix="release-clock-") as temp:
@@ -919,7 +985,7 @@ def selftest():
                                "https://example.test/releases.atom"),
                 fixture_source("S003", "Stable doc", "spec", "Page title",
                                "Stable.", "manual", "https://example.test/stable"),
-            ]
+            ] + list(extra_sources)
             (corpus / "SOURCES.md").write_text("\n".join(source_lines) + "\n", encoding="utf-8")
             (corpus / "release-clocks.tsv").write_text(
                 "\t".join(HEADER) + "\n" + rows_text, encoding="utf-8")
@@ -990,6 +1056,38 @@ def selftest():
     run_case("feed row on-release", fixture_row(
         feed_source_id="S001", feed_url="https://example.test/doc") + "\n",
         [("BADFEED", "S001")])
+    # round 27 C2: S042 §11.2 numeric precedence. Red-before: only the fired
+    # lie (and the feed-floor un-fire below) were accepted CLEAN at round-26
+    # BASE; a below-anchor not-fired row was already INCONSISTENT there.
+    run_case("downgrade fired lie refused", fixture_row(observed="1.2.2", verdict="fired") + "\n",
+             [("REGRESSED", "S001")], {"observed": 0, "fired": 0})
+    run_case("below-anchor not-fired typed regressed", fixture_row(
+             anchored="1.2.3", observed="1.1.9", verdict="not-fired") + "\n",
+             [("REGRESSED", "S001")], {"observed": 0})
+    run_case("numeric not lexical", fixture_row(observed="1.10.0", verdict="fired") + "\n", [],
+             {"observed": 1, "fired": 1})
+    run_case("non-numeric anchor keeps inequality", fixture_row(
+             anchored="1.2.x", observed="1.3.0", verdict="fired",
+             note="derived: series anchor, not orderable") + "\n", [],
+             {"observed": 1, "fired": 1, "derived": 1})
+    run_case("feed floor catches un-fire", fixture_row(
+             anchored="1.2.3", observed="1.2.3", verdict="not-fired") + "\n" + fixture_row(
+             "S004", anchored="1.2.4", observed="1.2.4", verdict="not-fired") + "\n",
+             [("REGRESSED", "S001")], {"observed": 1},
+             extra_sources=[fixture_source("S004", "Successor", "docs", "Version 1.2.4",
+                                           "Successor.", "on-release",
+                                           "https://example.test/successor")])
+    run_case("feed floor lifts non-numeric anchor", fixture_row(
+             anchored="1.2.x", observed="1.1.0", verdict="fired",
+             note="derived: series anchor, not orderable") + "\n" + fixture_row(
+             "S004", anchored="1.2.4", observed="1.2.4", verdict="not-fired") + "\n",
+             [("REGRESSED", "S001")], {"observed": 1},
+             extra_sources=[fixture_source("S004", "Successor", "docs", "Version 1.2.4",
+                                           "Successor.", "on-release",
+                                           "https://example.test/successor")])
+    run_case("regressed receipt refused", fixture_row() + "\n",
+             [("REGRESSED", "S001"), ("RECEIPT-MISMATCH", "S001")], {"observed": 0},
+             receipt_action=mutate_receipt_values(parsed_version="1.2.2", verdict="regressed"))
 
     run_case("missing receipt", fixture_row() + "\n",
              [("NOT OBSERVED", "S001")], {"observed": 0},
@@ -1326,6 +1424,36 @@ def selftest():
     if (feed_observation["parsed_version"] != "1.2.4"
             or feed_observation["verdict"] != "fired"):
         failures.append("live feed observation did not record a fired version")
+
+    downgrade_observation = observe_one(
+        {"url": "https://example.test/doc", "teaches": "test"},
+        {"id": "S001", "clock": "feed",
+         "feed_url": "https://feed.example.test/releases.atom",
+         "anchored_version": "1.2.3"},
+        None,
+        opener=StaticOpener(
+            b'<feed><entry><title>v1.2.2</title></entry><entry><title>v1.2.3-rc1</title></entry></feed>'
+        ),
+        resolver=fake_public_resolver,
+    )
+    cases += 1
+    if (downgrade_observation["parsed_version"] != "1.2.2"
+            or downgrade_observation["verdict"] != "regressed"
+            or "error" in downgrade_observation):
+        failures.append("older live feed observation was not typed regressed")
+
+    floor_observation = observe_one(
+        {"url": "https://example.test/doc", "teaches": "test"},
+        {"id": "S001", "clock": "feed",
+         "feed_url": "https://feed.example.test/releases.atom",
+         "anchored_version": "1.2.3", "observed_version": "1.2.4"},
+        None,
+        opener=StaticOpener(b'<feed><entry><title>v1.2.3</title></entry></feed>'),
+        resolver=fake_public_resolver,
+    )
+    cases += 1
+    if floor_observation["verdict"] != "regressed" or "error" in floor_observation:
+        failures.append("return to the anchor after a recorded newer observation was not regressed")
 
     normalizer = load_normalizer(Path(__file__).resolve().parent.parent)
     quote_source = {

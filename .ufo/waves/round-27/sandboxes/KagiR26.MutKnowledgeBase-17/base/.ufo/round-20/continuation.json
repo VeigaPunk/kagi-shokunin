@@ -1,0 +1,92 @@
+{
+  "schema": "kagi-blocked-continuation-v1",
+  "notATaskReceipt": true,
+  "attempt": 20,
+  "state": "blocked-before-native-task-dispatch",
+  "workCommit": "93ab9a50605915f9af4192c46cdaf367153b8177",
+  "reportPath": ".ufo/reports/round-20/kagi.md",
+  "reportSha256": "49322124fa6ea65b43dbb1e032ca44c52aebfd8e90aba67ca8e92526a86b098f",
+  "verifiedRoundIncrement": 0,
+  "priorVerifiedRoundTotal": null,
+  "axisSelected": "depth",
+  "axisVerdicts": {
+    "depth": "unchanged",
+    "coverage": "unchanged",
+    "operability": "unchanged",
+    "freshness": "unchanged",
+    "calibration": "unchanged",
+    "adjacency": "unchanged"
+  },
+  "learningVerdicts": {
+    "expansion": "unchanged",
+    "quality": "unchanged",
+    "discernment": "unchanged"
+  },
+  "nativeDispatch": {
+    "plannedMembers": 32,
+    "submittedMembers": 0,
+    "completedMembers": 0,
+    "registryPersisted": false,
+    "nativeJudgment": false
+  },
+  "requiredRoleAliases": {
+    "executor": "@m_composer",
+    "scribe": "@m_composer",
+    "reviewer": "@m_grok",
+    "revenger": "@m_grok",
+    "sentinel": "@m_grok",
+    "critic": "@m_grok",
+    "connector": "@m_antigravity",
+    "scout": "@m_grok"
+  },
+  "requiredConnectorFallbackAlias": "@m_zfl",
+  "routingConfigSha256Observed": "08788ddcbbb48180b987e6f54b517af294c85cacceb07bdd594843a53e668dcc",
+  "routingConfigDigestIsNotAcceptanceConfigDigest": true,
+  "receipt": {
+    "minted": false,
+    "validated": false,
+    "automaticSuccessorRelease": false,
+    "sightingCompleted": false,
+    "missingAuthenticBindings": [
+      "taskKey",
+      "resultPath",
+      "receiptPath",
+      "promptSha256",
+      "configSha256"
+    ]
+  },
+  "mission": {
+    "missionId": "m_5d7890537ddb462fba4098b7f982d4fa",
+    "runId": "shk-kagi-interactive-20261015T050057Z",
+    "sessionId": "shk-kagi-interactive-20261015T050057Z",
+    "paneId": "%9",
+    "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin"
+  },
+  "nextSession": {
+    "mode": "fresh-authorized-session-only",
+    "automaticLaunchPermitted": false,
+    "suggestedAttemptAfterExternalUnblock": 21,
+    "attemptNumberIsNotVerifiedRoundCount": true,
+    "actions": [
+      "Operator/integrator supplies the exact required effective role bindings and connector fallback without this lane altering routing.",
+      "Integrator supplies authentic UFO task receipt binding and designated report/receipt paths; never derive a fake taskKey from the run name.",
+      "Fresh session reads this report and actual inherited dirty state, chooses the lowest LIVE axis, and rechecks prerequisites.",
+      "Do not overwrite attempt-20 artifacts or loop into another round in the current session."
+    ]
+  },
+  "inheritedChangesExcluded": [
+    "LOG.md prior round-16 outcome append",
+    "SCORECARD.md prior round-16 outcome append",
+    "corpus/op-ref-probe.sh"
+  ],
+  "debt": [
+    "Missing corpus/QUALITY.md and MINT.md provenance.",
+    "Unrefreshed documentary/inherited revision pins: require ownership resolution and reviewed reconciliation, never blanket green repinning.",
+    "Historical missing-substrate deferrals and contested ownership require authorized operator/integrator unblock."
+  ],
+  "stopClaims": {
+    "saturated": false,
+    "threeConsecutiveBlockedRoundsEstablished": false,
+    "target100VerifiedRoundsSatisfied": false
+  }
+}

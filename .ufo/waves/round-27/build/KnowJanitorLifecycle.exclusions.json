@@ -1,0 +1,60 @@
+{
+  "format": "kagi-round27-c1-exclusion-v1",
+  "doc": "corpus/knowledge/janitor-lifecycle.md",
+  "base": "0a47dd189356ea66ec83c3891eed54526e95b89b",
+  "target": {
+    "git_blob_at_base": "850a544552207f08d3c35cfabf4a66392ebf28c0",
+    "sha256": "13c53ed256e6604e5df739c505d7cbd0d7dee865caa3c653502d47bd49dd3fb8",
+    "lines": 81,
+    "bytes": 5598,
+    "stamp_row": "corpus/stamps.tsv:41",
+    "worktree_matches_base": true
+  },
+  "in_population": 0,
+  "binding_rows": [],
+  "digit_bearing_lines": [3, 4, 5, 6, 14, 20, 21, 22, 23, 24, 31, 36, 48, 53, 64, 69, 80],
+  "excluded": [
+    {"line": 3, "tokens": ["121-135", "138-143"], "class": "host-source-line-offset", "lane_source": null, "why": "the-janitor cmd_request/cmd_start offsets; source declared absent at PROVINCE.md:10-17; block dated at L5/L7"},
+    {"line": 4, "tokens": ["173-184", "237-249", "41-95"], "class": "host-source-line-offset", "lane_source": null, "why": "cmd_stop/cmd_run offsets and client.py L41-95; source absent per substrate-deferral.md:3-8"},
+    {"line": 5, "tokens": ["2026-09-28"], "class": "measurement-date", "lane_source": null, "why": "QM26 dated-measurement exclusion (corpus/self-counts.tsv:55)"},
+    {"line": 6, "tokens": ["34113", "8080"], "class": "host-port", "lane_source": null, "why": "historical network surface PROVINCE.md:40-42; not a count"},
+    {"line": 14, "tokens": ["R11-01", "R11-04"], "class": "claim-identifier", "lane_source": "ledger:R11-01;ledger:R11-04", "why": "IDs not counts; both rows are [substrate] at corpus/claim-ledger.tsv:15,18"},
+    {"line": 20, "tokens": ["0600", "0 bytes", "L66", "9"], "class": "host-mode-size-offset-fd", "lane_source": null, "why": "host state facts; state-shape.tsv:39 asserts mode/0-byte prose but rows: counts 22 lines, not a field; 9 is flock fd"},
+    {"line": 21, "tokens": ["0600", "L57-63", "L41-46", "L183", "L92-97"], "class": "host-mode-and-offsets", "lane_source": null, "why": "client.py/the-janitor offsets, source absent; dated at L5/L7"},
+    {"line": 22, "tokens": ["L170"], "class": "host-source-line-offset", "lane_source": null, "why": "status output offset of absent CLI"},
+    {"line": 23, "tokens": ["L194"], "class": "host-source-line-offset", "lane_source": null, "why": "_serve offset of absent CLI"},
+    {"line": 24, "tokens": ["0600", "round-7"], "class": "host-mode-and-history-reference", "lane_source": null, "why": "mode is host; round-7 finding is measurement history (QM26)"},
+    {"line": 31, "tokens": ["1Password"], "class": "product-name", "lane_source": null, "why": "digit inside a proper noun; not a count"},
+    {"line": 36, "tokens": ["0600"], "class": "host-mode", "lane_source": null, "why": "op.env mode, host fact; no numeric pin"},
+    {"line": 48, "tokens": ["L179-181", "exit 0"], "class": "host-offset-and-exit-status", "lane_source": null, "why": "behavior text of absent CLI; exit status not an artifact size"},
+    {"line": 53, "tokens": ["exit 0"], "class": "exit-status", "lane_source": null, "why": "protocol outcome AUTH_OK, not a count"},
+    {"line": 64, "tokens": ["exit 1"], "class": "exit-status", "lane_source": null, "why": "probe semantic (has-session absent), not a count"},
+    {"line": 69, "tokens": ["round 7"], "class": "round-index-history", "lane_source": null, "why": "historical measurement reference, not a present size"},
+    {"line": 80, "tokens": ["1Password"], "class": "product-name", "lane_source": null, "why": "digit inside a proper noun; not a count"}
+  ],
+  "word_quantifier_exclusions": [
+    {"line": 6, "text": "on both state dirs", "why": "host-scoped quantifier (config + state dirs), no numeral"},
+    {"line": 48, "text": "both exit 0, both rm -f session-id", "why": "two stop paths; host behavior, no numeral"}
+  ],
+  "near_misses": [
+    {"tokens": ["0 bytes"], "line": 20, "lane_data": ["corpus/state-shape.tsv:39", "corpus/surface-census.tsv:36"], "why_unbindable": "rows: counts data lines (R11-10 pins 22 rows at claim-ledger.tsv:24), not the 0-byte field; no ledger pin states the size; host/substrate observation"},
+    {"tokens": ["0600"], "lines": [20, 21, 24, 36], "lane_data": ["corpus/state-shape.tsv:39-40", "corpus/surface-census.tsv:36-37"], "why_unbindable": "modes are not counts and the lane pins row membership, not field content"},
+    {"tokens": ["exit 0", "exit 1"], "lines": [48, 53, 64], "why_unbindable": "protocol/probe semantics, not artifact sizes"},
+    {"tokens": ["L-offsets"], "lines": [3, 4, 20, 21, 22, 23, 48], "lane_data": ["corpus/drift-baseline.tsv:1-2"], "why_unbindable": "baseline pins host files at 333/117 lines with sha256; cannot define intra-file offsets, and the entry states neither total"}
+  ],
+  "release_clock_rows": 0,
+  "release_clock_note": "no row in corpus/release-clocks.tsv names this doc or any knowledge/ path; the entry has no anchored/observed version pair, so QM25 REGRESSED has no surface here",
+  "freshness_observations": [
+    "state-shape.tsv:39 (lock mode 600, 0-byte prose) and :40 (session-id mode 600, chmod L61-63) agree with the excluded host facts",
+    "cmd_request L121-135 and cmd_stop L173-184 agree with control-plane-hardening.md:4-5 and janitor-command-surface.md:14,17",
+    "cmd_run L248 (SKILL.md:32) lies inside L237-249; L92-97 branch agrees with handler-on-disk-state.md:146 (L97)",
+    "counterexample: get_session_id is L57-63 here vs L49-65 in handler-on-disk-state.md:4; ensure_started is L92-118 (control-plane-hardening.md:4) vs L77-120 (handler-trust-boundary.md:4); unresolved without substrate"
+  ],
+  "not_checked": [
+    "the-janitor/client.py/opencode not read or executed; no host or vault contact",
+    "self-counts.py, c1-measure.py, gates, selftests, linters, formatters not run",
+    "2026-09-28 probes, modes, 0-byte size, ports and offsets not verified against source bytes",
+    "other knowledge entries not read in full; sibling statements are targeted greps",
+    "git history before BASE not inspected beyond blob equality"
+  ]
+}

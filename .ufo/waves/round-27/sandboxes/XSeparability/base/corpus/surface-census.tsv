@@ -1,0 +1,55 @@
+# kagi-shokunin external-surface census — v1 (round 10)
+#
+# Declares every host surface this corpus governs, so PROVINCE.md §Surfaces is
+# verifiable rather than prose. Columns:
+#   path <TAB> class <TAB> kind <TAB> mode <TAB> note
+#   class  asset   = must exist; missing/changed = drift
+#          runtime = may legitimately be absent (ABSENT, informational)
+#   kind   file | dir | exec        mode = 3 octal digits, or - for unchecked
+# Directives: `# scan <TAB> <dir>` — every child of <dir> must be declared
+# above, otherwise UNLISTED (the round-6 leak class: an undeclared file in
+# $CONFIG_DIR is loaded by the handler because discovery is not disabled).
+#
+# Modes are the live values read 2026-09-28 (round 10). Where a path is also in
+# drift-baseline.tsv the two modes must agree (CROSSCHECK); hash/line pins stay
+# in the baseline, they are not duplicated here.
+#
+# scan	$HOME/.config/the-janitor
+# scan	$HOME/.local/state/the-janitor
+# scan	$HOME/.local/state/the-janitor/xdg-data/opencode
+# scan	$HOME/.local/state/tac
+$HOME/.config/the-janitor	asset	dir	700	the-janitor config dir (CONFIG_DIR)
+$HOME/.config/the-janitor/client.py	asset	exec	755	HTTP client: session-id, request timeout (the flock is in the CLI)
+$HOME/.config/the-janitor/opencode.json	asset	file	644	model overlay: enabled_providers, share disabled, baseURL
+$HOME/.config/the-janitor/op.env	asset	file	600	env-ref file; values never read into an artifact
+$HOME/.config/the-janitor/config.json	asset	file	600	inert decoy — not an opencode-discovered filename (round 6)
+$HOME/.config/opencode/opencode.json	asset	file	644	global config merged UNDER the overlay (additive, round 6)
+$HOME/.config/opencode/agents/janitor.md	asset	file	644	agent contract: steps 4, permission deny ceiling
+$HOME/.config/opencode/tools/janitor_auth.ts	asset	file	644	the only allowed tool: AUTH_OK / AUTH_REQUIRED
+$HOME/.config/opencode/plugin/fnm-nudge.js	asset	file	644	global plugin; resolves but fails to load at every serve
+$HOME/.local/bin/the-janitor	asset	exec	755	the CLI (env overrides: CONFIG_DIR/STATE_DIR/ENV/PORT)
+$HOME/.local/bin/tac-check	asset	exec	755	offline receipt check; --register never replaces
+$HOME/.local/state/tac	asset	dir	700	tac evidence dir
+$HOME/.local/state/tac/daybreak-blue-access.json	asset	file	600	model-access receipt (model id + nonce only)
+$HOME/.local/state/tac/handoff-status.json	asset	file	600	custody/provenance record
+$HOME/.local/state/the-janitor	asset	dir	700	state dir (STATE_DIR)
+$HOME/.local/state/the-janitor/client.lock	runtime	file	600	flock serialization file; prepare_state recreates it
+$HOME/.local/state/the-janitor/session-id	runtime	file	600	OpenCode conversation id; stop removes it (not a credential)
+$HOME/.local/state/the-janitor/tac-daybreak-blue.json	asset	file	600	janitor custody checksum record (keys pinned by shape)
+$HOME/.local/state/the-janitor/xdg-cache	runtime	dir	700	XDG_CACHE_HOME for the handler
+$HOME/.local/state/the-janitor/xdg-cache/opencode/models.json	runtime	file	600	cached public model catalog (no secret material)
+$HOME/.local/state/the-janitor/xdg-data	runtime	dir	700	XDG_DATA_HOME for the handler
+$HOME/.local/state/the-janitor/xdg-data/opencode	runtime	dir	700	opencode data root
+$HOME/.local/state/the-janitor/xdg-data/opencode/log	runtime	dir	700	handler log dir
+$HOME/.local/state/the-janitor/xdg-data/opencode/repos	runtime	dir	700	created on first boot, unused here
+$HOME/.local/state/the-janitor/xdg-data/opencode/opencode.db	runtime	file	600	durable transcripts — shape-pinned in state-shape.tsv
+$HOME/.local/state/the-janitor/xdg-data/opencode/opencode.db-shm	runtime	file	600	WAL shared-memory index; appears with a writer
+$HOME/.local/state/the-janitor/xdg-data/opencode/opencode.db-wal	runtime	file	600	WAL; 0 bytes once checkpointed
+$HOME/.local/state/the-janitor/xdg-data/opencode/log/opencode.log	runtime	file	600	ERROR log — shape-pinned in state-shape.tsv
+$HOME/.local/state/the-janitor/xdg-state	runtime	dir	700	XDG_STATE_HOME for the handler
+$HOME/.local/state/the-janitor/xdg-state/opencode	runtime	dir	700	receives only locks/
+$HOME/.local/state/the-janitor/xdg-state/opencode/locks	runtime	dir	700	empty in every observed run
+$HOME/.local/share/the-musketeer/chrome-profile	asset	dir	-	CONTESTED with kake (lease/profile ownership) — reported, not ruled
+$HOME/.local/share/the-musketeer/chrome-profile/NativeMessagingHosts	asset	dir	700	NMH dir written by cdp-bridge ensure
+$HOME/.local/share/the-musketeer/chrome-profile/NativeMessagingHosts/com.1password.1password.json	asset	file	600	1Password NMH manifest — kagi pins this file only, not the profile
+$HOME/.agents/AGENTS.md	asset	file	600	shared with kotoba (always-on checklist surface); bytes pinned here

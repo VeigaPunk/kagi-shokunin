@@ -1,0 +1,23 @@
+# FIdentityR1605 — C3 / R16-05
+
+## Verdict
+
+- **Row-level result: KILLED by R24-10; not a survivor or invalid mutant.** In the frozen `c5ef9e92201b6c36396301f12b23740565bf86a0` clone, the assigned mutation preserves R16-05's count of 4, changes a declared path key, and makes only R24-10 fail among the selected rows. The adjacency stamp was current (`stale=0`), so stamp drift does not explain the kill.
+- **Control qualification:** the selected-row pristine control has `failed=0`; the `claim-ledger.sh verify` process itself exits 1 because its partial `--claims` set leaves 480 unrelated document IDs unresolved. This is not a full-ledger PASS. The frozen `identity-swap.py` evaluator ignores the process return code and final `CLAIM_LEDGER` status (lines 184–187), using row-level `FAIL`/`POLICY` lines only; interpret its result as row-scoped evidence.
+- **Severity: Low (verification-scope caveat, not a row-level defect).** The assigned key-membership check is supported; the aggregate verifier and full-row identity are not established by this probe.
+
+## Scope and exact projection
+
+R16-05's note names four group rows: `opencode`, `chrome-profile`, `NativeMessagingHosts`, and `agents-AGENTS.md` (`corpus/claim-ledger.tsv:43`). Their current path keys are `$HOME/.config/opencode`, `$HOME/.local/share/the-musketeer/chrome-profile`, `$HOME/.local/share/the-musketeer/chrome-profile/NativeMessagingHosts`, and `$HOME/.agents/AGENTS.md` (`corpus/adjacency.tsv:81–84`). `adjacency-rows` selects the same `^[^#[:space:]]` line population as R16-05, emits sorted first TAB fields only (`corpus/row-identity.sh:99–102`); its pristine output exactly matches R24-10's pinned count/hash. Thus the tested *key membership* matches R24-10's note (“four group data-row keys”). It does not hash columns 2–6/full row records; the earlier build report recommended columns 1–6 (`.ufo/waves/round-24/build/IdentR1605.md:42`). Same-key owner/status/claim/basis/token changes are outside this projection; do not read this result as full-record identity coverage.
+
+## Fresh bounded check
+
+- Scratch: `/fast/scratch/kagi-r24-recovery/FIdentityR1605-9/repo`, cloned with `git clone --no-hardlinks` and checked out at the frozen revision; `HOME=/fast/scratch/kagi-r24-recovery/FIdentityR1605-9/home` (empty), commands run under `env -i PATH=/usr/bin:/bin`. No installs, host rows, or `--allow-host-rows`.
+- Pristine `bash corpus/row-identity.sh adjacency-rows` → exit 0, `ROW_IDENTITY: adjacency-rows count=4 sha256=d2e9deecb2612e5ff334175382275485122063e4ee398a29f237bbe581f1ed7e`.
+- Pristine scoped verify used 21 rows: R16-05, all non-host adjacency-command rows, and R24-01..R24-16. Summary: `CLAIM_LEDGER: FAIL (claims=21 failed=0 deferred=0 stamped=83 stale=0 missing=0 unresolved_ids=480 labeled_ids=55 host_skipped=0)`; exit 1. The row control is clean, but the subset is not a successful aggregate verifier control. An initial two-row subset was discarded for the same reason (`claims=2 failed=0`, `unresolved_ids=516`, exit 1).
+- Applied exactly `identity-swap.py:145`: prefix the first data-row key (`$HOME/.config/opencode` → `zz-$HOME/.config/opencode`). This remains a data row. After mutation, the exact R16-05 count command `grep -cE '^[^#[:space:]]' corpus/adjacency.tsv` printed `4`, exit 0; selector printed `ROW_IDENTITY: adjacency-rows count=4 sha256=9a321926ab73f4d89875c9ccfb1ecb69c29292219eb138b93958433e19bed84a`, exit 0.
+- Refreshed only the sandbox's existing adjacency stamp entry: new SHA-256 `8424a6ab6fdff49783cf947afe12765d9c44b60afbfd6bac5ce321a276d45eb6`, 83 LF / 5663 bytes. The `stamp corpus/adjacency.tsv` subcommand refused to replace the 83-row manifest with one row (exit 2); no `--prune` was used. Scoped mutated verify reported `FAIL R24-10 reason=verdict-not-final exit=0`; summary `CLAIM_LEDGER: FAIL (claims=21 failed=1 deferred=0 stamped=83 stale=0 missing=0 unresolved_ids=480 labeled_ids=55 host_skipped=0)`; process exit 1. No other selected-row failure appeared.
+
+## Evidence bounds / falsifier
+
+`identity-before-v2.txt` is the original BASE (`4f94b52a3cdfaa289d779bd8a2afcd0b1fcd9105`); `identity-after.txt` says `final3` at `6c23a56dea0f`, not this frozen revision. The older build report used a different AGENTS-path mutant. This report independently exercised the current R16-05 mutant once at frozen `c5ef…`; it does not re-run or establish the other 14 cases. A pristine selected-row failure, changed count, unchanged R24-10 digest under the path swap, or nonzero stale-stamp count would falsify this row-level result. A full-gate-pass claim additionally requires resolving the omitted IDs and obtaining aggregate exit 0.

@@ -1,0 +1,209 @@
+[
+  {
+    "command": [
+      "python3",
+      "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-24/tools/gate-regression.py",
+      "c5ef9e92201b6c36396301f12b23740565bf86a0",
+      "277a0d4f1d9bc6c5cea9b1d0ab92e33e5c17bb56",
+      "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-24/recovery-gate-regression.json"
+    ],
+    "measured_commit": "277a0d4f1d9bc6c5cea9b1d0ab92e33e5c17bb56",
+    "exit": 0,
+    "stdout": "GATE_REGRESSION: PASS before_exit=1 after_exit=0 fixtures_identical=True\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "python3",
+      ".ufo/waves/round-24/tools/identity-swap.py",
+      "--selftest"
+    ],
+    "measured_commit": "277a0d4f1d9bc6c5cea9b1d0ab92e33e5c17bb56",
+    "exit": 0,
+    "stdout": "case clean: PASS\ncase killed: PASS\ncase timeout: PASS\ncase empty: PASS\ncase truncated: PASS\ncase short-count: PASS\ncase unaccounted-fail: PASS\ncase policy: PASS\ncase nonzero-clean: PASS\ncase missing-terminal: PASS\ncase unknown-row: PASS\ncase deferred: PASS\nIDENTITY_INSTRUMENT_SELFTEST: PASS (cases=12 failed=0)\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "bash",
+      "corpus/claim-ledger.sh",
+      "verify"
+    ],
+    "measured_commit": "277a0d4f1d9bc6c5cea9b1d0ab92e33e5c17bb56",
+    "exit": 1,
+    "stdout": "HOST-SKIP R11-01 reason=host-row-not-authorized\nHOST-SKIP R11-02 reason=host-row-not-authorized\nHOST-SKIP R11-03 reason=host-row-not-authorized\nHOST-SKIP R11-04 reason=host-row-not-authorized\nHOST-SKIP R11-06 reason=host-row-not-authorized\nHOST-SKIP R12-01 reason=host-row-not-authorized\nHOST-SKIP R15-01 reason=host-row-not-authorized\nHOST-SKIP R13-03 reason=host-row-not-authorized\nHOST-SKIP R16-01 reason=host-row-not-authorized\nHOST-SKIP R16-03 reason=host-row-not-authorized\nHOST-SKIP R17-01 reason=host-row-not-authorized\nHOST-SKIP R18-01 reason=host-row-not-authorized\nFAIL R21-02 reason=exit-mismatch exit=1 want=0\nLABELED-ID LOG.md:401 R13-99 (labelled on its line)\nLABELED-ID LOG.md:417 R12-03a (labelled on its line)\nLABELED-ID LOG.md:418 xR12-01 (labelled on its line)\nLABELED-ID SCORECARD.md:108 R13-99 (labelled on its line)\nLABELED-ID SKILL.md:657 R9-99 (labelled on its line)\nLABELED-ID corpus/knowledge/claim-ledger.md:142 R13-99 (labelled on its line)\nLABELED-ID corpus/knowledge/claim-ledger.md:147 R12-03a (labelled on its line)\nLABELED-ID corpus/knowledge/claim-ledger.md:147 xR12-01 (labelled on its line)\nLABELED-ID corpus/knowledge/claim-ledger.md:258 R9-99 (labelled on its line)\nLABELED-ID corpus/knowledge/claim-ledger.md:267 R13-99 (labelled on its line)\nLABELED-ID corpus/knowledge/claim-ledger.md:267 R13-99 (labelled on its line)\nLABELED-ID corpus/knowledge/claim-ledger.md:468 R13-99 (labelled on its line)\nLABELED-ID corpus/lessons/round-13.md:22 R13-99 (labelled on its line)\nLABELED-ID corpus/lessons/round-13.md:22 R12-88 (labelled on its line)\nLABELED-ID corpus/lessons/round-13.md:102 R12-03a (labelled on its line)\nLABELED-ID corpus/lessons/round-14.md:17 R13-99 (labelled on its line)\nLABELED-ID corpus/lessons/round-14.md:118 R99-99 (labelled on its line)\nLABELED-ID corpus/lessons/round-23.md:92 R1-01 (labelled on its line)\nLABELED-ID corpus/lessons/round-23.md:166 R90-01 (labelled on its line)\nLABELED-ID corpus/lessons/round-23.md:166 R90-02 (labelled on its line)\nCLAIM_LEDGER: FAIL (claims=61 failed=1 deferred=0 stamped=83 stale=0 missing=0 unresolved_ids=0 labeled_ids=20 host_skipped=12)\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "bash",
+      "corpus/claim-ledger.sh",
+      "citations"
+    ],
+    "measured_commit": "277a0d4f1d9bc6c5cea9b1d0ab92e33e5c17bb56",
+    "exit": 0,
+    "stdout": "LABELED SKILL.md:295 local:// (session URI, labelled on its line)\nLABELED SKILL.md:635 local://x (session URI, labelled on its line)\nLABELED corpus/knowledge/claim-ledger.md:24 local://round-10/connector.md (session URI, labelled on its line)\nLABELED corpus/knowledge/claim-ledger.md:25 local://round-10/critic.md (session URI, labelled on its line)\nLABELED corpus/knowledge/claim-ledger.md:122 local:// (session URI, labelled on its line)\nLABELED corpus/knowledge/claim-ledger.md:123 artifact:// (session URI, labelled on its line)\nLABELED corpus/knowledge/claim-ledger.md:123 agent:// (session URI, labelled on its line)\nLABELED corpus/knowledge/claim-ledger.md:123 proc:// (session URI, labelled on its line)\nLABELED corpus/knowledge/claim-ledger.md:132 .ufo/reports/round-2/AGGREGATE.md (unresolved, labelled on its line)\nLABELED corpus/lessons/round-11.md:45 local://round-10/connector.md (session URI, labelled on its line)\nLABELED corpus/lessons/round-11.md:47 local://round-10/critic.md (session URI, labelled on its line)\nLABELED corpus/lessons/round-11.md:71 .ufo/reports/round-2/AGGREGATE.md (unresolved, labelled on its line)\nLABELED corpus/lessons/round-5-aggregator-mirror-bare-path-and-unclosed-prereq.md:21 .ufo/reports/round-2/AGGREGATE.md (unresolved, labelled on its line)\nCITATION_GATE: CLEAN (cites=1344 docs=67 unresolved=0 ephemeral=0 labeled=13)\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "bash",
+      "corpus/sources-census.sh"
+    ],
+    "measured_commit": "277a0d4f1d9bc6c5cea9b1d0ab92e33e5c17bb56",
+    "exit": 1,
+    "stdout": "FINDING SC_USEDBY_NOCITE id=S032 path=corpus/lessons/round-24.md\nSOURCES_CENSUS: FAILED (findings=1 rows=32)\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "bash",
+      "corpus/claim-ledger.sh",
+      "verify"
+    ],
+    "measured_commit": "017cc4c5eb87f7942fa41ff8893e8737fd14cfb4",
+    "exit": 0,
+    "stdout": "HOST-SKIP R11-01 reason=host-row-not-authorized\nHOST-SKIP R11-02 reason=host-row-not-authorized\nHOST-SKIP R11-03 reason=host-row-not-authorized\nHOST-SKIP R11-04 reason=host-row-not-authorized\nHOST-SKIP R11-06 reason=host-row-not-authorized\nHOST-SKIP R12-01 reason=host-row-not-authorized\nHOST-SKIP R15-01 reason=host-row-not-authorized\nHOST-SKIP R13-03 reason=host-row-not-authorized\nHOST-SKIP R16-01 reason=host-row-not-authorized\nHOST-SKIP R16-03 reason=host-row-not-authorized\nHOST-SKIP R17-01 reason=host-row-not-authorized\nHOST-SKIP R18-01 reason=host-row-not-authorized\nLABELED-ID LOG.md:401 R13-99 (labelled on its line)\nLABELED-ID LOG.md:417 R12-03a (labelled on its line)\nLABELED-ID LOG.md:418 xR12-01 (labelled on its line)\nLABELED-ID SCORECARD.md:108 R13-99 (labelled on its line)\nLABELED-ID SKILL.md:657 R9-99 (labelled on its line)\nLABELED-ID corpus/knowledge/claim-ledger.md:142 R13-99 (labelled on its line)\nLABELED-ID corpus/knowledge/claim-ledger.md:147 R12-03a (labelled on its line)\nLABELED-ID corpus/knowledge/claim-ledger.md:147 xR12-01 (labelled on its line)\nLABELED-ID corpus/knowledge/claim-ledger.md:258 R9-99 (labelled on its line)\nLABELED-ID corpus/knowledge/claim-ledger.md:267 R13-99 (labelled on its line)\nLABELED-ID corpus/knowledge/claim-ledger.md:267 R13-99 (labelled on its line)\nLABELED-ID corpus/knowledge/claim-ledger.md:468 R13-99 (labelled on its line)\nLABELED-ID corpus/lessons/round-13.md:22 R13-99 (labelled on its line)\nLABELED-ID corpus/lessons/round-13.md:22 R12-88 (labelled on its line)\nLABELED-ID corpus/lessons/round-13.md:102 R12-03a (labelled on its line)\nLABELED-ID corpus/lessons/round-14.md:17 R13-99 (labelled on its line)\nLABELED-ID corpus/lessons/round-14.md:118 R99-99 (labelled on its line)\nLABELED-ID corpus/lessons/round-23.md:92 R1-01 (labelled on its line)\nLABELED-ID corpus/lessons/round-23.md:166 R90-01 (labelled on its line)\nLABELED-ID corpus/lessons/round-23.md:166 R90-02 (labelled on its line)\nCLAIM_LEDGER: CLEAN (claims=61 deferred=0 stamped=83 ids=61 cited=51 labeled_ids=20 orphans=10 host_skipped=12)\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "bash",
+      "corpus/sources-census.sh"
+    ],
+    "measured_commit": "017cc4c5eb87f7942fa41ff8893e8737fd14cfb4",
+    "exit": 0,
+    "stdout": "SOURCES_CENSUS: CLEAN (rows=32 A=30 B=0 C=2 queued=1 mined=29 rejected=2 entries_sourced=4 legacy=21 captures=32 inrow=16 inrow_only=0 inrow_nonreproducing=12)\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "python3",
+      ".ufo/waves/round-24/tools/recovery-count.py",
+      "4f94b52a3cdfaa289d779bd8a2afcd0b1fcd9105"
+    ],
+    "measured_commit": "4f94b52a3cdfaa289d779bd8a2afcd0b1fcd9105",
+    "exit": 0,
+    "stdout": "{\"captures\": 10, \"inrow\": 16, \"inrow_only\": 16, \"revision\": \"4f94b52a3cdfaa289d779bd8a2afcd0b1fcd9105\", \"rows\": 26, \"stamp_mismatches\": [], \"stamp_rows\": 79}\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "python3",
+      ".ufo/waves/round-24/tools/recovery-count.py",
+      "017cc4c5eb87f7942fa41ff8893e8737fd14cfb4"
+    ],
+    "measured_commit": "017cc4c5eb87f7942fa41ff8893e8737fd14cfb4",
+    "exit": 0,
+    "stdout": "{\"captures\": 32, \"inrow\": 16, \"inrow_only\": 0, \"revision\": \"017cc4c5eb87f7942fa41ff8893e8737fd14cfb4\", \"rows\": 32, \"stamp_mismatches\": [], \"stamp_rows\": 83}\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "python3",
+      ".ufo/waves/round-24/tools/identity-swap.py",
+      "recovery-before",
+      "4f94b52a3cdfaa289d779bd8a2afcd0b1fcd9105"
+    ],
+    "measured_commit": "4f94b52a3cdfaa289d779bd8a2afcd0b1fcd9105",
+    "exit": 0,
+    "stdout": "MUTANT R11-10 file=corpus/state-shape.tsv evaluated=R11-10 population_row_passes=yes killed_by=- control_failing=- control_exit=0 mutant_exit=0 receipt_invalid=- verdict=SURVIVES\nMUTANT R11-11 file=corpus/surface-census.tsv evaluated=R11-11 population_row_passes=yes killed_by=- control_failing=- control_exit=0 mutant_exit=0 receipt_invalid=- verdict=SURVIVES\nMUTANT R12-03 file=corpus/stamps.tsv evaluated=R12-03 population_row_passes=yes killed_by=- control_failing=- control_exit=0 mutant_exit=0 receipt_invalid=- verdict=SURVIVES\nMUTANT R13-01 file=SCORECARD.md evaluated=R13-01 population_row_passes=yes killed_by=- control_failing=- control_exit=0 mutant_exit=0 receipt_invalid=- verdict=SURVIVES\nMUTANT R13-02 file=corpus/claim-ledger.tsv evaluated=R13-02,R18-02,R21-04 population_row_passes=yes killed_by=- control_failing=- control_exit=0 mutant_exit=0 receipt_invalid=- verdict=SURVIVES\nMUTANT R15-04 file=corpus/checklist.tsv evaluated=R15-04 population_row_passes=yes killed_by=- control_failing=- control_exit=0 mutant_exit=0 receipt_invalid=- verdict=SURVIVES\nMUTANT R16-04 file=corpus/adjacency.tsv evaluated=R16-04,R16-05,R16-06,R17-02,R17-03 population_row_passes=yes killed_by=- control_failing=- control_exit=0 mutant_exit=0 receipt_invalid=- verdict=SURVIVES\nMUTANT R16-05 file=corpus/adjacency.tsv evaluated=R16-04,R16-05,R16-06,R17-02,R17-03 population_row_passes=yes killed_by=- control_failing=- control_exit=0 mutant_exit=0 receipt_invalid=- verdict=SURVIVES\nMUTANT R16-06 file=corpus/adjacency.tsv evaluated=R16-04,R16-05,R16-06,R17-02,R17-03 population_row_passes=yes killed_by=- control_failing=- control_exit=0 mutant_exit=0 receipt_invalid=- verdict=SURVIVES\nMUTANT R17-02 file=corpus/adjacency.tsv evaluated=R16-04,R16-05,R16-06,R17-02,R17-03 population_row_passes=yes killed_by=- control_failing=- control_exit=0 mutant_exit=0 receipt_invalid=- verdict=SURVIVES\nMUTANT R17-03 file=corpus/adjacency.tsv evaluated=R16-04,R16-05,R16-06,R17-02,R17-03 population_row_passes=yes killed_by=- control_failing=- control_exit=0 mutant_exit=0 receipt_invalid=- verdict=SURVIVES\nMUTANT R18-02 file=corpus/claim-ledger.tsv evaluated=R13-02,R18-02,R21-04 population_row_passes=yes killed_by=- control_failing=- control_exit=0 mutant_exit=0 receipt_invalid=- verdict=SURVIVES\nMUTANT R21-04 file=corpus/claim-ledger.tsv evaluated=R13-02,R18-02,R21-04 population_row_passes=yes killed_by=- control_failing=- control_exit=0 mutant_exit=0 receipt_invalid=- verdict=SURVIVES\nMUTANT R22-03 file=corpus/stamps.tsv evaluated=R12-03,R22-03 population_row_passes=yes killed_by=- control_failing=- control_exit=0 mutant_exit=0 receipt_invalid=- verdict=SURVIVES\nMUTANT R22-04 file=corpus/revision-audit.py evaluated=R22-03,R22-04 population_row_passes=yes killed_by=- control_failing=- control_exit=0 mutant_exit=0 receipt_invalid=- verdict=SURVIVES\nIDENTITY_SWAP: label=recovery-before rev=4f94b52a3cdf population=15 survived=15 killed=0 invalid=0\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "python3",
+      ".ufo/waves/round-24/tools/identity-swap.py",
+      "recovery-after",
+      "017cc4c5eb87f7942fa41ff8893e8737fd14cfb4"
+    ],
+    "measured_commit": "017cc4c5eb87f7942fa41ff8893e8737fd14cfb4",
+    "exit": 0,
+    "stdout": "MUTANT R11-10 file=corpus/state-shape.tsv evaluated=R11-10,R24-01,R24-02,R24-03,R24-04,R24-05,R24-06,R24-07,R24-08,R24-09,R24-10,R24-11,R24-12,R24-13,R24-14,R24-15,R24-16 population_row_passes=yes killed_by=R24-03 control_failing=- control_exit=0 mutant_exit=1 receipt_invalid=- verdict=KILLED\nMUTANT R11-11 file=corpus/surface-census.tsv evaluated=R11-11,R24-01,R24-02,R24-03,R24-04,R24-05,R24-06,R24-07,R24-08,R24-09,R24-10,R24-11,R24-12,R24-13,R24-14,R24-15,R24-16 population_row_passes=yes killed_by=R24-04 control_failing=- control_exit=0 mutant_exit=1 receipt_invalid=- verdict=KILLED\nMUTANT R12-03 file=corpus/stamps.tsv evaluated=R12-03,R24-01,R24-02,R24-03,R24-04,R24-05,R24-06,R24-07,R24-08,R24-09,R24-10,R24-11,R24-12,R24-13,R24-14,R24-15,R24-16 population_row_passes=yes killed_by=R24-05,R24-15 control_failing=- control_exit=0 mutant_exit=1 receipt_invalid=- verdict=KILLED\nMUTANT R13-01 file=SCORECARD.md evaluated=R13-01,R24-01,R24-02,R24-03,R24-04,R24-05,R24-06,R24-07,R24-08,R24-09,R24-10,R24-11,R24-12,R24-13,R24-14,R24-15,R24-16 population_row_passes=yes killed_by=R24-06 control_failing=- control_exit=0 mutant_exit=1 receipt_invalid=- verdict=KILLED\nMUTANT R13-02 file=corpus/claim-ledger.tsv evaluated=R13-02,R18-02,R21-04,R24-01,R24-02,R24-03,R24-04,R24-05,R24-06,R24-07,R24-08,R24-09,R24-10,R24-11,R24-12,R24-13,R24-14,R24-15,R24-16 population_row_passes=yes killed_by=R24-07,R24-14 control_failing=- control_exit=0 mutant_exit=1 receipt_invalid=- verdict=KILLED\nMUTANT R15-04 file=corpus/checklist.tsv evaluated=R15-04,R24-01,R24-02,R24-03,R24-04,R24-05,R24-06,R24-07,R24-08,R24-09,R24-10,R24-11,R24-12,R24-13,R24-14,R24-15,R24-16 population_row_passes=yes killed_by=R24-08 control_failing=- control_exit=0 mutant_exit=1 receipt_invalid=- verdict=KILLED\nMUTANT R16-04 file=corpus/adjacency.tsv evaluated=R16-04,R16-05,R16-06,R17-02,R17-03,R24-01,R24-02,R24-03,R24-04,R24-05,R24-06,R24-07,R24-08,R24-09,R24-10,R24-11,R24-12,R24-13,R24-14,R24-15,R24-16 population_row_passes=yes killed_by=R24-09 control_failing=- control_exit=0 mutant_exit=1 receipt_invalid=- verdict=KILLED\nMUTANT R16-05 file=corpus/adjacency.tsv evaluated=R16-04,R16-05,R16-06,R17-02,R17-03,R24-01,R24-02,R24-03,R24-04,R24-05,R24-06,R24-07,R24-08,R24-09,R24-10,R24-11,R24-12,R24-13,R24-14,R24-15,R24-16 population_row_passes=yes killed_by=R24-10 control_failing=- control_exit=0 mutant_exit=1 receipt_invalid=- verdict=KILLED\nMUTANT R16-06 file=corpus/adjacency.tsv evaluated=R16-04,R16-05,R16-06,R17-02,R17-03,R24-01,R24-02,R24-03,R24-04,R24-05,R24-06,R24-07,R24-08,R24-09,R24-10,R24-11,R24-12,R24-13,R24-14,R24-15,R24-16 population_row_passes=yes killed_by=R24-11 control_failing=- control_exit=0 mutant_exit=1 receipt_invalid=- verdict=KILLED\nMUTANT R17-02 file=corpus/adjacency.tsv evaluated=R16-04,R16-05,R16-06,R17-02,R17-03,R24-01,R24-02,R24-03,R24-04,R24-05,R24-06,R24-07,R24-08,R24-09,R24-10,R24-11,R24-12,R24-13,R24-14,R24-15,R24-16 population_row_passes=yes killed_by=R24-12 control_failing=- control_exit=0 mutant_exit=1 receipt_invalid=- verdict=KILLED\nMUTANT R17-03 file=corpus/adjacency.tsv evaluated=R16-04,R16-05,R16-06,R17-02,R17-03,R24-01,R24-02,R24-03,R24-04,R24-05,R24-06,R24-07,R24-08,R24-09,R24-10,R24-11,R24-12,R24-13,R24-14,R24-15,R24-16 population_row_passes=yes killed_by=R24-11 control_failing=- control_exit=0 mutant_exit=1 receipt_invalid=- verdict=KILLED\nMUTANT R18-02 file=corpus/claim-ledger.tsv evaluated=R13-02,R18-02,R21-04,R24-01,R24-02,R24-03,R24-04,R24-05,R24-06,R24-07,R24-08,R24-09,R24-10,R24-11,R24-12,R24-13,R24-14,R24-15,R24-16 population_row_passes=yes killed_by=R24-13 control_failing=- control_exit=0 mutant_exit=1 receipt_invalid=- verdict=KILLED\nMUTANT R21-04 file=corpus/claim-ledger.tsv evaluated=R13-02,R18-02,R21-04,R24-01,R24-02,R24-03,R24-04,R24-05,R24-06,R24-07,R24-08,R24-09,R24-10,R24-11,R24-12,R24-13,R24-14,R24-15,R24-16 population_row_passes=yes killed_by=R24-14 control_failing=- control_exit=0 mutant_exit=1 receipt_invalid=- verdict=KILLED\nMUTANT R22-03 file=corpus/stamps.tsv evaluated=R12-03,R22-03,R24-01,R24-02,R24-03,R24-04,R24-05,R24-06,R24-07,R24-08,R24-09,R24-10,R24-11,R24-12,R24-13,R24-14,R24-15,R24-16 population_row_passes=yes killed_by=R24-05,R24-15 control_failing=- control_exit=0 mutant_exit=1 receipt_invalid=- verdict=KILLED\nMUTANT R22-04 file=corpus/revision-audit.py evaluated=R22-03,R22-04,R24-01,R24-02,R24-03,R24-04,R24-05,R24-06,R24-07,R24-08,R24-09,R24-10,R24-11,R24-12,R24-13,R24-14,R24-15,R24-16 population_row_passes=yes killed_by=R24-16 control_failing=- control_exit=0 mutant_exit=1 receipt_invalid=- verdict=KILLED\nIDENTITY_SWAP: label=recovery-after rev=017cc4c5eb87 population=15 survived=0 killed=15 invalid=0\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "bash",
+      ".ufo/waves/round-24/tools/host-tripwire.sh",
+      "recovery-before",
+      "4f94b52a3cdfaa289d779bd8a2afcd0b1fcd9105"
+    ],
+    "measured_commit": "4f94b52a3cdfaa289d779bd8a2afcd0b1fcd9105",
+    "exit": 0,
+    "stdout": "RUN verify substrate=absent exit=1 host_rows_executed=1 host_skip_lines=0 population_skipped=0/12 last=CLAIM_LEDGER: FAIL (claims=45 failed=11 deferred=11 stamped=79 stale=6 missing=0 unresolved_ids=0 labeled_ids=20)\nRUN verify substrate=present exit=1 host_rows_executed=22 host_skip_lines=0 population_skipped=0/12 last=CLAIM_LEDGER: FAIL (claims=45 failed=22 deferred=0 stamped=79 stale=6 missing=0 unresolved_ids=0 labeled_ids=20)\nRUN cells substrate=absent exit=1 host_rows_executed=1 host_skip_lines=0 population_skipped=0/12 last=CELL_AUDIT: BROKEN (cells=156 row_pointed=104 stamp_pointed=87 uncited=0 missing_ids=0 rows_run=37 row_deferred=10 row_failures=10 stale_pointers=5 self_skipped=6 orphans=0)\nRUN cells substrate=present exit=1 host_rows_executed=11 host_skip_lines=0 population_skipped=0/12 last=CELL_AUDIT: BROKEN (cells=156 row_pointed=104 stamp_pointed=87 uncited=0 missing_ids=0 rows_run=37 row_deferred=0 row_failures=20 stale_pointers=5 self_skipped=6 orphans=0)\nHOST_TRIPWIRE: label=recovery-before rev=4f94b52a3cdf verify_absent=1 verify_present=22 cells_absent=1 cells_present=11 total=35 complete=4/4 host_skip_lines=0\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "bash",
+      ".ufo/waves/round-24/tools/host-tripwire.sh",
+      "recovery-after",
+      "017cc4c5eb87f7942fa41ff8893e8737fd14cfb4"
+    ],
+    "measured_commit": "017cc4c5eb87f7942fa41ff8893e8737fd14cfb4",
+    "exit": 0,
+    "stdout": "RUN verify substrate=absent exit=1 host_rows_executed=0 host_skip_lines=12 population_skipped=12/12 last=CLAIM_LEDGER: FAIL (claims=61 failed=11 deferred=0 stamped=83 stale=6 missing=0 unresolved_ids=0 labeled_ids=20 host_skipped=12)\nRUN verify substrate=present exit=1 host_rows_executed=0 host_skip_lines=12 population_skipped=12/12 last=CLAIM_LEDGER: FAIL (claims=61 failed=11 deferred=0 stamped=83 stale=6 missing=0 unresolved_ids=0 labeled_ids=20 host_skipped=12)\nRUN cells substrate=absent exit=1 host_rows_executed=0 host_skip_lines=12 population_skipped=12/12 last=CELL_AUDIT: BROKEN (cells=168 row_pointed=116 stamp_pointed=87 uncited=0 missing_ids=0 rows_run=32 row_deferred=0 row_failures=9 stale_pointers=5 self_skipped=5 orphans=10 host_skipped=12)\nRUN cells substrate=present exit=1 host_rows_executed=0 host_skip_lines=12 population_skipped=12/12 last=CELL_AUDIT: BROKEN (cells=168 row_pointed=116 stamp_pointed=87 uncited=0 missing_ids=0 rows_run=32 row_deferred=0 row_failures=9 stale_pointers=5 self_skipped=5 orphans=10 host_skipped=12)\nHOST_TRIPWIRE: label=recovery-after rev=017cc4c5eb87 verify_absent=0 verify_present=0 cells_absent=0 cells_present=0 total=0 complete=4/4 host_skip_lines=48\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "/home/vgpnk/Projects/shokunin/scripts/sources-census.sh",
+      "validate",
+      "--root",
+      "/home/vgpnk/Projects/shokunin",
+      "kagi"
+    ],
+    "measured_commit": "017cc4c5eb87f7942fa41ff8893e8737fd14cfb4",
+    "exit": 0,
+    "stdout": "kagi\tW04\tS019 duplicate url www.1password.dev/brokered-access across scopes\nkagi\tW04\tS020 duplicate url 1password.com/blog/1password-credential-broker-public-preview across scopes\nkagi\tW04\tS021 duplicate url openbao.org/docs/concepts/tokens across scopes\nkagi\tW04\tS022 duplicate url developer.hashicorp.com/vault/docs/auth/jwt across scopes\nkagi\tW04\tS023 duplicate url developer.hashicorp.com/vault/docs/concepts/lease across scopes\nkagi\tW04\tS025 duplicate url openbao.org/docs/auth/jwt across scopes\nkagi\tW04\tS026 duplicate url openbao.org/docs/concepts/tokens across scopes\nkagi\tW04\tS032 duplicate url www.1password.dev/brokered-access across scopes\nkagi\tok\t/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/SOURCES.md\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "python3",
+      ".ufo/waves/round-24/tools/claim-separability.py",
+      "c1-only"
+    ],
+    "measured_commit": "e6210511a25ddd98ce54be346367f991ce9ff3ed",
+    "input_manifest": ".ufo/waves/round-24/separability/c1-only/expected.json",
+    "exit": 0,
+    "stdout": "CLAIM_SEPARABILITY: c1-only exit=0 HOST_TRIPWIRE: label=separable-c1-only rev=4f94b52a3cdf verify_absent=0 verify_present=0 cells_absent=0 cells_present=0 total=0 complete=4/4 host_skip_lines=48\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "python3",
+      ".ufo/waves/round-24/tools/claim-separability.py",
+      "c2-only"
+    ],
+    "measured_commit": "e6210511a25ddd98ce54be346367f991ce9ff3ed",
+    "input_manifest": ".ufo/waves/round-24/separability/c2-only/expected.json",
+    "exit": 0,
+    "stdout": "CLAIM_SEPARABILITY: c2-only exit=0 SOURCES_CENSUS: CLEAN (rows=32 A=30 B=0 C=2 queued=1 mined=29 rejected=2 entries_sourced=4 legacy=21 captures=32 inrow=16 inrow_only=0 inrow_nonreproducing=12)\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "python3",
+      ".ufo/waves/round-24/tools/claim-separability.py",
+      "c3-only"
+    ],
+    "measured_commit": "e6210511a25ddd98ce54be346367f991ce9ff3ed",
+    "input_manifest": ".ufo/waves/round-24/separability/c3-only/expected.json",
+    "exit": 0,
+    "stdout": "CLAIM_SEPARABILITY: c3-only exit=0 IDENTITY_SWAP: label=separable-c3-only rev=4f94b52a3cdf population=15 survived=0 killed=15 invalid=0\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "python3",
+      ".ufo/waves/round-24/tools/normalizer-replay.py",
+      "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-24/recovery-normalizer-replay.json"
+    ],
+    "measured_commit": "31c8421407ec2c1776d52c49be85c2d4f0d40167",
+    "exit": 0,
+    "stdout": "NORMALIZER_REPLAY: rows=10 v1_matches=10 ascii_matches=7\n",
+    "stderr": ""
+  }
+]

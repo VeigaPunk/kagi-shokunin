@@ -1,0 +1,672 @@
+{
+  "before_implementation": "8ada17a50a25a75e6fc4a8cf880c87a85c67c8a3",
+  "after_implementation_sha256": "cf56f9ea75d512f60c3be80b8afe34d331eb0f007b8fa6aef2d3d9f188cb6c2c",
+  "case_count": 17,
+  "passed": 17,
+  "scope": "Same retained fixture bytes, argv and environment; only gate script path/bytes changed. No host or production fixture writes.",
+  "results": [
+    {
+      "id": "control-six-axes",
+      "argv": [
+        "/usr/bin/bash",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/claim-ledger.sh",
+        "cells",
+        "--root",
+        ".",
+        "--claims",
+        "claims.tsv",
+        "--stamps",
+        "stamps.tsv",
+        "--scorecard",
+        "./SCORECARD.md",
+        "--docs",
+        "./SCORECARD.md"
+      ],
+      "cwd": "/tmp/kagi-r22-w2-CellsMalformed/fixtures/control-six-axes",
+      "env": {
+        "CLAIM_LEDGER_DEPTH": "0",
+        "HOME": "/tmp/kagi-r22-w2-CellsMalformed/home",
+        "KAGI_SUBSTRATE": "absent",
+        "LC_ALL": "C",
+        "PATH": "/usr/bin:/bin",
+        "TMPDIR": "/tmp/kagi-r22-w2-CellsMalformed/tmp"
+      },
+      "fixture_digests": {
+        "SCORECARD.md": "e59edf559468e7e548e253d14dd547f08141b1e4708805bf67d07352ba773fad",
+        "claims.tsv": "91c76e92ce3781f2ba1835a0aabdfdff03d08bf1806cb29c12ae529f6aca50c0",
+        "corpus/ok.txt": "fe6c38465f34c6c6cfdb0411f8bf0a604da841f46cea8b4de7238957ca0152c1",
+        "stamps.tsv": "33c959da402f5fe9775b3103efdff4c298af22f0e435579124990236450cb66e"
+      },
+      "before_exit": 0,
+      "expected_exit": 0,
+      "exit": 0,
+      "stdout": "CELL_AUDIT: CLEAN (cells=6 row_pointed=6 stamp_pointed=0 uncited=0 missing_ids=0 rows_run=1 row_deferred=0 row_failures=0 stale_pointers=0 self_skipped=0 orphans=0)\n",
+      "stderr": "",
+      "passed": true
+    },
+    {
+      "id": "control-exact-blocked",
+      "argv": [
+        "/usr/bin/bash",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/claim-ledger.sh",
+        "cells",
+        "--root",
+        ".",
+        "--claims",
+        "claims.tsv",
+        "--stamps",
+        "stamps.tsv",
+        "--scorecard",
+        "./SCORECARD.md",
+        "--docs",
+        "./SCORECARD.md"
+      ],
+      "cwd": "/tmp/kagi-r22-w2-CellsMalformed/fixtures/control-exact-blocked",
+      "env": {
+        "CLAIM_LEDGER_DEPTH": "0",
+        "HOME": "/tmp/kagi-r22-w2-CellsMalformed/home",
+        "KAGI_SUBSTRATE": "absent",
+        "LC_ALL": "C",
+        "PATH": "/usr/bin:/bin",
+        "TMPDIR": "/tmp/kagi-r22-w2-CellsMalformed/tmp"
+      },
+      "fixture_digests": {
+        "SCORECARD.md": "6458e9ed0d4453bd09a6cfaeb4306a3bcb8fc963aecc28ff53c006fa68d06ebc",
+        "claims.tsv": "91c76e92ce3781f2ba1835a0aabdfdff03d08bf1806cb29c12ae529f6aca50c0",
+        "corpus/ok.txt": "fe6c38465f34c6c6cfdb0411f8bf0a604da841f46cea8b4de7238957ca0152c1",
+        "stamps.tsv": "33c959da402f5fe9775b3103efdff4c298af22f0e435579124990236450cb66e"
+      },
+      "before_exit": 0,
+      "expected_exit": 0,
+      "exit": 0,
+      "stdout": "CELL_AUDIT: CLEAN (cells=6 row_pointed=6 stamp_pointed=0 uncited=0 missing_ids=0 rows_run=1 row_deferred=0 row_failures=0 stale_pointers=0 self_skipped=0 orphans=0)\n",
+      "stderr": "",
+      "passed": true
+    },
+    {
+      "id": "control-scored-uncited",
+      "argv": [
+        "/usr/bin/bash",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/claim-ledger.sh",
+        "cells",
+        "--root",
+        ".",
+        "--claims",
+        "claims.tsv",
+        "--stamps",
+        "stamps.tsv",
+        "--scorecard",
+        "./SCORECARD.md",
+        "--docs",
+        "./SCORECARD.md"
+      ],
+      "cwd": "/tmp/kagi-r22-w2-CellsMalformed/fixtures/control-scored-uncited",
+      "env": {
+        "CLAIM_LEDGER_DEPTH": "0",
+        "HOME": "/tmp/kagi-r22-w2-CellsMalformed/home",
+        "KAGI_SUBSTRATE": "absent",
+        "LC_ALL": "C",
+        "PATH": "/usr/bin:/bin",
+        "TMPDIR": "/tmp/kagi-r22-w2-CellsMalformed/tmp"
+      },
+      "fixture_digests": {
+        "SCORECARD.md": "b67e117103e2bf2527d443f38a87ab93b51eedf2f4636439f8defa4ab59b8bcb",
+        "claims.tsv": "91c76e92ce3781f2ba1835a0aabdfdff03d08bf1806cb29c12ae529f6aca50c0",
+        "corpus/ok.txt": "fe6c38465f34c6c6cfdb0411f8bf0a604da841f46cea8b4de7238957ca0152c1",
+        "stamps.tsv": "33c959da402f5fe9775b3103efdff4c298af22f0e435579124990236450cb66e"
+      },
+      "before_exit": 1,
+      "expected_exit": 1,
+      "exit": 1,
+      "stdout": "UNCITED SCORECARD.md:18 depth (no resolving row id and no pinned artifact)\nUNCITED SCORECARD.md:19 coverage (no resolving row id and no pinned artifact)\nUNCITED SCORECARD.md:20 operability (no resolving row id and no pinned artifact)\nUNCITED SCORECARD.md:21 freshness (no resolving row id and no pinned artifact)\nUNCITED SCORECARD.md:22 calibration (no resolving row id and no pinned artifact)\nUNCITED SCORECARD.md:23 adjacency (no resolving row id and no pinned artifact)\nCELL_AUDIT: BROKEN (cells=12 row_pointed=6 stamp_pointed=0 uncited=6 missing_ids=0 rows_run=1 row_deferred=0 row_failures=0 stale_pointers=0 self_skipped=0 orphans=0)\n",
+      "stderr": "",
+      "passed": true
+    },
+    {
+      "id": "control-five-after-blocked",
+      "argv": [
+        "/usr/bin/bash",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/claim-ledger.sh",
+        "cells",
+        "--root",
+        ".",
+        "--claims",
+        "claims.tsv",
+        "--stamps",
+        "stamps.tsv",
+        "--scorecard",
+        "./SCORECARD.md",
+        "--docs",
+        "./SCORECARD.md"
+      ],
+      "cwd": "/tmp/kagi-r22-w2-CellsMalformed/fixtures/control-five-after-blocked",
+      "env": {
+        "CLAIM_LEDGER_DEPTH": "0",
+        "HOME": "/tmp/kagi-r22-w2-CellsMalformed/home",
+        "KAGI_SUBSTRATE": "absent",
+        "LC_ALL": "C",
+        "PATH": "/usr/bin:/bin",
+        "TMPDIR": "/tmp/kagi-r22-w2-CellsMalformed/tmp"
+      },
+      "fixture_digests": {
+        "SCORECARD.md": "b9a92c5b0c47d4db385b86b61c625d6c8c4a9e612ca4f71facfd5171a4a32596",
+        "claims.tsv": "91c76e92ce3781f2ba1835a0aabdfdff03d08bf1806cb29c12ae529f6aca50c0",
+        "corpus/ok.txt": "fe6c38465f34c6c6cfdb0411f8bf0a604da841f46cea8b4de7238957ca0152c1",
+        "stamps.tsv": "33c959da402f5fe9775b3103efdff4c298af22f0e435579124990236450cb66e"
+      },
+      "before_exit": 2,
+      "expected_exit": 2,
+      "exit": 2,
+      "stdout": "",
+      "stderr": "claim-ledger: scorecard section '## Round 23 \u2014 pre-move' does not carry all six axes exactly once (found=5 missing=adjacency)\n",
+      "passed": true
+    },
+    {
+      "id": "malformed-missing-separator",
+      "argv": [
+        "/usr/bin/bash",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/claim-ledger.sh",
+        "cells",
+        "--root",
+        ".",
+        "--claims",
+        "claims.tsv",
+        "--stamps",
+        "stamps.tsv",
+        "--scorecard",
+        "./SCORECARD.md",
+        "--docs",
+        "./SCORECARD.md"
+      ],
+      "cwd": "/tmp/kagi-r22-w2-CellsMalformed/fixtures/malformed-missing-separator",
+      "env": {
+        "CLAIM_LEDGER_DEPTH": "0",
+        "HOME": "/tmp/kagi-r22-w2-CellsMalformed/home",
+        "KAGI_SUBSTRATE": "absent",
+        "LC_ALL": "C",
+        "PATH": "/usr/bin:/bin",
+        "TMPDIR": "/tmp/kagi-r22-w2-CellsMalformed/tmp"
+      },
+      "fixture_digests": {
+        "SCORECARD.md": "a63c9e283c084395ac5bd3a75d0caf16a9356e289345e016273ccf93aaa65ee8",
+        "claims.tsv": "91c76e92ce3781f2ba1835a0aabdfdff03d08bf1806cb29c12ae529f6aca50c0",
+        "corpus/ok.txt": "fe6c38465f34c6c6cfdb0411f8bf0a604da841f46cea8b4de7238957ca0152c1",
+        "stamps.tsv": "33c959da402f5fe9775b3103efdff4c298af22f0e435579124990236450cb66e"
+      },
+      "before_exit": 2,
+      "expected_exit": 2,
+      "exit": 2,
+      "stdout": "",
+      "stderr": "claim-ledger: unrecognised round heading in ./SCORECARD.md: '## Round 23 post-move' (expected '## Round <N> \u2014 pre-move|post-move')\n",
+      "passed": true
+    },
+    {
+      "id": "malformed-en-dash",
+      "argv": [
+        "/usr/bin/bash",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/claim-ledger.sh",
+        "cells",
+        "--root",
+        ".",
+        "--claims",
+        "claims.tsv",
+        "--stamps",
+        "stamps.tsv",
+        "--scorecard",
+        "./SCORECARD.md",
+        "--docs",
+        "./SCORECARD.md"
+      ],
+      "cwd": "/tmp/kagi-r22-w2-CellsMalformed/fixtures/malformed-en-dash",
+      "env": {
+        "CLAIM_LEDGER_DEPTH": "0",
+        "HOME": "/tmp/kagi-r22-w2-CellsMalformed/home",
+        "KAGI_SUBSTRATE": "absent",
+        "LC_ALL": "C",
+        "PATH": "/usr/bin:/bin",
+        "TMPDIR": "/tmp/kagi-r22-w2-CellsMalformed/tmp"
+      },
+      "fixture_digests": {
+        "SCORECARD.md": "ce522eaf6fba8ccf9f65af6b027237b31bc3aa962fbefbb48c594eef95fb1f85",
+        "claims.tsv": "91c76e92ce3781f2ba1835a0aabdfdff03d08bf1806cb29c12ae529f6aca50c0",
+        "corpus/ok.txt": "fe6c38465f34c6c6cfdb0411f8bf0a604da841f46cea8b4de7238957ca0152c1",
+        "stamps.tsv": "33c959da402f5fe9775b3103efdff4c298af22f0e435579124990236450cb66e"
+      },
+      "before_exit": 2,
+      "expected_exit": 2,
+      "exit": 2,
+      "stdout": "",
+      "stderr": "claim-ledger: unrecognised round heading in ./SCORECARD.md: '## Round 23 \u2013 post-move' (expected '## Round <N> \u2014 pre-move|post-move')\n",
+      "passed": true
+    },
+    {
+      "id": "nonblocked-completed",
+      "argv": [
+        "/usr/bin/bash",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/claim-ledger.sh",
+        "cells",
+        "--root",
+        ".",
+        "--claims",
+        "claims.tsv",
+        "--stamps",
+        "stamps.tsv",
+        "--scorecard",
+        "./SCORECARD.md",
+        "--docs",
+        "./SCORECARD.md"
+      ],
+      "cwd": "/tmp/kagi-r22-w2-CellsMalformed/fixtures/nonblocked-completed",
+      "env": {
+        "CLAIM_LEDGER_DEPTH": "0",
+        "HOME": "/tmp/kagi-r22-w2-CellsMalformed/home",
+        "KAGI_SUBSTRATE": "absent",
+        "LC_ALL": "C",
+        "PATH": "/usr/bin:/bin",
+        "TMPDIR": "/tmp/kagi-r22-w2-CellsMalformed/tmp"
+      },
+      "fixture_digests": {
+        "SCORECARD.md": "e9cbf9849d502c5df8ded8788caef7a604eb0b215cbc2e4215208c422633a284",
+        "claims.tsv": "91c76e92ce3781f2ba1835a0aabdfdff03d08bf1806cb29c12ae529f6aca50c0",
+        "corpus/ok.txt": "fe6c38465f34c6c6cfdb0411f8bf0a604da841f46cea8b4de7238957ca0152c1",
+        "stamps.tsv": "33c959da402f5fe9775b3103efdff4c298af22f0e435579124990236450cb66e"
+      },
+      "before_exit": 2,
+      "expected_exit": 2,
+      "exit": 2,
+      "stdout": "",
+      "stderr": "claim-ledger: unrecognised round heading in ./SCORECARD.md: '## Round 20 \u2014 interactive attempt; completed (2026-10-15)' (expected '## Round <N> \u2014 pre-move|post-move')\n",
+      "passed": true
+    },
+    {
+      "id": "nonblocked-unqualified",
+      "argv": [
+        "/usr/bin/bash",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/claim-ledger.sh",
+        "cells",
+        "--root",
+        ".",
+        "--claims",
+        "claims.tsv",
+        "--stamps",
+        "stamps.tsv",
+        "--scorecard",
+        "./SCORECARD.md",
+        "--docs",
+        "./SCORECARD.md"
+      ],
+      "cwd": "/tmp/kagi-r22-w2-CellsMalformed/fixtures/nonblocked-unqualified",
+      "env": {
+        "CLAIM_LEDGER_DEPTH": "0",
+        "HOME": "/tmp/kagi-r22-w2-CellsMalformed/home",
+        "KAGI_SUBSTRATE": "absent",
+        "LC_ALL": "C",
+        "PATH": "/usr/bin:/bin",
+        "TMPDIR": "/tmp/kagi-r22-w2-CellsMalformed/tmp"
+      },
+      "fixture_digests": {
+        "SCORECARD.md": "7339a45244ac1cb24d6314bed8bc975619a653b177e6957075000b1693dc6c42",
+        "claims.tsv": "91c76e92ce3781f2ba1835a0aabdfdff03d08bf1806cb29c12ae529f6aca50c0",
+        "corpus/ok.txt": "fe6c38465f34c6c6cfdb0411f8bf0a604da841f46cea8b4de7238957ca0152c1",
+        "stamps.tsv": "33c959da402f5fe9775b3103efdff4c298af22f0e435579124990236450cb66e"
+      },
+      "before_exit": 2,
+      "expected_exit": 2,
+      "exit": 2,
+      "stdout": "",
+      "stderr": "claim-ledger: unrecognised round heading in ./SCORECARD.md: '## Round 20 \u2014 interactive attempt (2026-10-15)' (expected '## Round <N> \u2014 pre-move|post-move')\n",
+      "passed": true
+    },
+    {
+      "id": "malformed-round-tab",
+      "argv": [
+        "/usr/bin/bash",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/claim-ledger.sh",
+        "cells",
+        "--root",
+        ".",
+        "--claims",
+        "claims.tsv",
+        "--stamps",
+        "stamps.tsv",
+        "--scorecard",
+        "./SCORECARD.md",
+        "--docs",
+        "./SCORECARD.md"
+      ],
+      "cwd": "/tmp/kagi-r22-w2-CellsMalformed/fixtures/malformed-round-tab",
+      "env": {
+        "CLAIM_LEDGER_DEPTH": "0",
+        "HOME": "/tmp/kagi-r22-w2-CellsMalformed/home",
+        "KAGI_SUBSTRATE": "absent",
+        "LC_ALL": "C",
+        "PATH": "/usr/bin:/bin",
+        "TMPDIR": "/tmp/kagi-r22-w2-CellsMalformed/tmp"
+      },
+      "fixture_digests": {
+        "SCORECARD.md": "c32dfab23ed6b5278bef00e0f0ce5e219f84f9f72cba7e84afac00ab64e9dd56",
+        "claims.tsv": "91c76e92ce3781f2ba1835a0aabdfdff03d08bf1806cb29c12ae529f6aca50c0",
+        "corpus/ok.txt": "fe6c38465f34c6c6cfdb0411f8bf0a604da841f46cea8b4de7238957ca0152c1",
+        "stamps.tsv": "33c959da402f5fe9775b3103efdff4c298af22f0e435579124990236450cb66e"
+      },
+      "before_exit": 0,
+      "expected_exit": 2,
+      "exit": 2,
+      "stdout": "",
+      "stderr": "claim-ledger: unrecognised round heading in ./SCORECARD.md: '## Round\t23 \u2014 post-move' (expected '## Round <N> \u2014 pre-move|post-move')\n",
+      "passed": true
+    },
+    {
+      "id": "malformed-round-no-identifier",
+      "argv": [
+        "/usr/bin/bash",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/claim-ledger.sh",
+        "cells",
+        "--root",
+        ".",
+        "--claims",
+        "claims.tsv",
+        "--stamps",
+        "stamps.tsv",
+        "--scorecard",
+        "./SCORECARD.md",
+        "--docs",
+        "./SCORECARD.md"
+      ],
+      "cwd": "/tmp/kagi-r22-w2-CellsMalformed/fixtures/malformed-round-no-identifier",
+      "env": {
+        "CLAIM_LEDGER_DEPTH": "0",
+        "HOME": "/tmp/kagi-r22-w2-CellsMalformed/home",
+        "KAGI_SUBSTRATE": "absent",
+        "LC_ALL": "C",
+        "PATH": "/usr/bin:/bin",
+        "TMPDIR": "/tmp/kagi-r22-w2-CellsMalformed/tmp"
+      },
+      "fixture_digests": {
+        "SCORECARD.md": "43a22240acb788f1e5adea368d4f0ef2bf7ff27e897ae386ae2b0f5e0a65cec3",
+        "claims.tsv": "91c76e92ce3781f2ba1835a0aabdfdff03d08bf1806cb29c12ae529f6aca50c0",
+        "corpus/ok.txt": "fe6c38465f34c6c6cfdb0411f8bf0a604da841f46cea8b4de7238957ca0152c1",
+        "stamps.tsv": "33c959da402f5fe9775b3103efdff4c298af22f0e435579124990236450cb66e"
+      },
+      "before_exit": 0,
+      "expected_exit": 2,
+      "exit": 2,
+      "stdout": "",
+      "stderr": "claim-ledger: unrecognised round heading in ./SCORECARD.md: '## Round' (expected '## Round <N> \u2014 pre-move|post-move')\n",
+      "passed": true
+    },
+    {
+      "id": "scored-tab-after-hashes",
+      "argv": [
+        "/usr/bin/bash",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/claim-ledger.sh",
+        "cells",
+        "--root",
+        ".",
+        "--claims",
+        "claims.tsv",
+        "--stamps",
+        "stamps.tsv",
+        "--scorecard",
+        "./SCORECARD.md",
+        "--docs",
+        "./SCORECARD.md"
+      ],
+      "cwd": "/tmp/kagi-r22-w2-CellsMalformed/fixtures/scored-tab-after-hashes",
+      "env": {
+        "CLAIM_LEDGER_DEPTH": "0",
+        "HOME": "/tmp/kagi-r22-w2-CellsMalformed/home",
+        "KAGI_SUBSTRATE": "absent",
+        "LC_ALL": "C",
+        "PATH": "/usr/bin:/bin",
+        "TMPDIR": "/tmp/kagi-r22-w2-CellsMalformed/tmp"
+      },
+      "fixture_digests": {
+        "SCORECARD.md": "57984ff61fdedc474c2710522a06041e541b5b464e455cca795b4ae0eadd7d02",
+        "claims.tsv": "91c76e92ce3781f2ba1835a0aabdfdff03d08bf1806cb29c12ae529f6aca50c0",
+        "corpus/ok.txt": "fe6c38465f34c6c6cfdb0411f8bf0a604da841f46cea8b4de7238957ca0152c1",
+        "stamps.tsv": "33c959da402f5fe9775b3103efdff4c298af22f0e435579124990236450cb66e"
+      },
+      "before_exit": 0,
+      "expected_exit": 1,
+      "exit": 1,
+      "stdout": "UNCITED SCORECARD.md:18 depth (no resolving row id and no pinned artifact)\nUNCITED SCORECARD.md:19 coverage (no resolving row id and no pinned artifact)\nUNCITED SCORECARD.md:20 operability (no resolving row id and no pinned artifact)\nUNCITED SCORECARD.md:21 freshness (no resolving row id and no pinned artifact)\nUNCITED SCORECARD.md:22 calibration (no resolving row id and no pinned artifact)\nUNCITED SCORECARD.md:23 adjacency (no resolving row id and no pinned artifact)\nCELL_AUDIT: BROKEN (cells=12 row_pointed=6 stamp_pointed=0 uncited=6 missing_ids=0 rows_run=1 row_deferred=0 row_failures=0 stale_pointers=0 self_skipped=0 orphans=0)\n",
+      "stderr": "",
+      "passed": true
+    },
+    {
+      "id": "nonblocked-tab-after-hashes",
+      "argv": [
+        "/usr/bin/bash",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/claim-ledger.sh",
+        "cells",
+        "--root",
+        ".",
+        "--claims",
+        "claims.tsv",
+        "--stamps",
+        "stamps.tsv",
+        "--scorecard",
+        "./SCORECARD.md",
+        "--docs",
+        "./SCORECARD.md"
+      ],
+      "cwd": "/tmp/kagi-r22-w2-CellsMalformed/fixtures/nonblocked-tab-after-hashes",
+      "env": {
+        "CLAIM_LEDGER_DEPTH": "0",
+        "HOME": "/tmp/kagi-r22-w2-CellsMalformed/home",
+        "KAGI_SUBSTRATE": "absent",
+        "LC_ALL": "C",
+        "PATH": "/usr/bin:/bin",
+        "TMPDIR": "/tmp/kagi-r22-w2-CellsMalformed/tmp"
+      },
+      "fixture_digests": {
+        "SCORECARD.md": "1dc5f3da8a8e7900b64c336ae6046b88af727b4625be8747ba494acc60e81e96",
+        "claims.tsv": "91c76e92ce3781f2ba1835a0aabdfdff03d08bf1806cb29c12ae529f6aca50c0",
+        "corpus/ok.txt": "fe6c38465f34c6c6cfdb0411f8bf0a604da841f46cea8b4de7238957ca0152c1",
+        "stamps.tsv": "33c959da402f5fe9775b3103efdff4c298af22f0e435579124990236450cb66e"
+      },
+      "before_exit": 0,
+      "expected_exit": 2,
+      "exit": 2,
+      "stdout": "",
+      "stderr": "claim-ledger: unrecognised round heading in ./SCORECARD.md: '##\tRound 20 \u2014 interactive attempt; completed (2026-10-15)' (expected '## Round <N> \u2014 pre-move|post-move')\n",
+      "passed": true
+    },
+    {
+      "id": "scored-three-leading-spaces",
+      "argv": [
+        "/usr/bin/bash",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/claim-ledger.sh",
+        "cells",
+        "--root",
+        ".",
+        "--claims",
+        "claims.tsv",
+        "--stamps",
+        "stamps.tsv",
+        "--scorecard",
+        "./SCORECARD.md",
+        "--docs",
+        "./SCORECARD.md"
+      ],
+      "cwd": "/tmp/kagi-r22-w2-CellsMalformed/fixtures/scored-three-leading-spaces",
+      "env": {
+        "CLAIM_LEDGER_DEPTH": "0",
+        "HOME": "/tmp/kagi-r22-w2-CellsMalformed/home",
+        "KAGI_SUBSTRATE": "absent",
+        "LC_ALL": "C",
+        "PATH": "/usr/bin:/bin",
+        "TMPDIR": "/tmp/kagi-r22-w2-CellsMalformed/tmp"
+      },
+      "fixture_digests": {
+        "SCORECARD.md": "3c2ab81b7383c7ff2ef73e69021ada101e36a03e2f3d75159fcafb6ea7a023b0",
+        "claims.tsv": "91c76e92ce3781f2ba1835a0aabdfdff03d08bf1806cb29c12ae529f6aca50c0",
+        "corpus/ok.txt": "fe6c38465f34c6c6cfdb0411f8bf0a604da841f46cea8b4de7238957ca0152c1",
+        "stamps.tsv": "33c959da402f5fe9775b3103efdff4c298af22f0e435579124990236450cb66e"
+      },
+      "before_exit": 0,
+      "expected_exit": 1,
+      "exit": 1,
+      "stdout": "UNCITED SCORECARD.md:18 depth (no resolving row id and no pinned artifact)\nUNCITED SCORECARD.md:19 coverage (no resolving row id and no pinned artifact)\nUNCITED SCORECARD.md:20 operability (no resolving row id and no pinned artifact)\nUNCITED SCORECARD.md:21 freshness (no resolving row id and no pinned artifact)\nUNCITED SCORECARD.md:22 calibration (no resolving row id and no pinned artifact)\nUNCITED SCORECARD.md:23 adjacency (no resolving row id and no pinned artifact)\nCELL_AUDIT: BROKEN (cells=12 row_pointed=6 stamp_pointed=0 uncited=6 missing_ids=0 rows_run=1 row_deferred=0 row_failures=0 stale_pointers=0 self_skipped=0 orphans=0)\n",
+      "stderr": "",
+      "passed": true
+    },
+    {
+      "id": "nonblocked-three-leading-spaces",
+      "argv": [
+        "/usr/bin/bash",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/claim-ledger.sh",
+        "cells",
+        "--root",
+        ".",
+        "--claims",
+        "claims.tsv",
+        "--stamps",
+        "stamps.tsv",
+        "--scorecard",
+        "./SCORECARD.md",
+        "--docs",
+        "./SCORECARD.md"
+      ],
+      "cwd": "/tmp/kagi-r22-w2-CellsMalformed/fixtures/nonblocked-three-leading-spaces",
+      "env": {
+        "CLAIM_LEDGER_DEPTH": "0",
+        "HOME": "/tmp/kagi-r22-w2-CellsMalformed/home",
+        "KAGI_SUBSTRATE": "absent",
+        "LC_ALL": "C",
+        "PATH": "/usr/bin:/bin",
+        "TMPDIR": "/tmp/kagi-r22-w2-CellsMalformed/tmp"
+      },
+      "fixture_digests": {
+        "SCORECARD.md": "cc403f3b4afa35fa45a69740e12654dc81cd59a094c44c6becfa73000e21f40d",
+        "claims.tsv": "91c76e92ce3781f2ba1835a0aabdfdff03d08bf1806cb29c12ae529f6aca50c0",
+        "corpus/ok.txt": "fe6c38465f34c6c6cfdb0411f8bf0a604da841f46cea8b4de7238957ca0152c1",
+        "stamps.tsv": "33c959da402f5fe9775b3103efdff4c298af22f0e435579124990236450cb66e"
+      },
+      "before_exit": 0,
+      "expected_exit": 2,
+      "exit": 2,
+      "stdout": "",
+      "stderr": "claim-ledger: unrecognised round heading in ./SCORECARD.md: '   ## Round 20 \u2014 interactive attempt; completed (2026-10-15)' (expected '## Round <N> \u2014 pre-move|post-move')\n",
+      "passed": true
+    },
+    {
+      "id": "h1-upper-round-unpointed",
+      "argv": [
+        "/usr/bin/bash",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/claim-ledger.sh",
+        "cells",
+        "--root",
+        ".",
+        "--claims",
+        "claims.tsv",
+        "--stamps",
+        "stamps.tsv",
+        "--scorecard",
+        "./SCORECARD.md",
+        "--docs",
+        "./SCORECARD.md"
+      ],
+      "cwd": "/tmp/kagi-r22-w2-CellsMalformed/h1-supplement/fixtures/h1-upper-round-unpointed",
+      "env": {
+        "CLAIM_LEDGER_DEPTH": "0",
+        "HOME": "/tmp/kagi-r22-w2-CellsMalformed/home",
+        "KAGI_SUBSTRATE": "absent",
+        "LC_ALL": "C",
+        "PATH": "/usr/bin:/bin",
+        "TMPDIR": "/tmp/kagi-r22-w2-CellsMalformed/tmp"
+      },
+      "fixture_digests": {
+        "SCORECARD.md": "165d93f6b261b3e4f444cc42a9baaf3344d8fd03344870e6b2782044fdfcdb80",
+        "claims.tsv": "91c76e92ce3781f2ba1835a0aabdfdff03d08bf1806cb29c12ae529f6aca50c0",
+        "corpus/ok.txt": "fe6c38465f34c6c6cfdb0411f8bf0a604da841f46cea8b4de7238957ca0152c1",
+        "stamps.tsv": "33c959da402f5fe9775b3103efdff4c298af22f0e435579124990236450cb66e"
+      },
+      "before_exit": 0,
+      "expected_exit": 2,
+      "exit": 2,
+      "stdout": "",
+      "stderr": "claim-ledger: unrecognised round heading in ./SCORECARD.md: '## ROUND 23 \u2014 post-move' (expected '## Round <N> \u2014 pre-move|post-move')\n",
+      "passed": true
+    },
+    {
+      "id": "h1-lower-round-unpointed",
+      "argv": [
+        "/usr/bin/bash",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/claim-ledger.sh",
+        "cells",
+        "--root",
+        ".",
+        "--claims",
+        "claims.tsv",
+        "--stamps",
+        "stamps.tsv",
+        "--scorecard",
+        "./SCORECARD.md",
+        "--docs",
+        "./SCORECARD.md"
+      ],
+      "cwd": "/tmp/kagi-r22-w2-CellsMalformed/h1-supplement/fixtures/h1-lower-round-unpointed",
+      "env": {
+        "CLAIM_LEDGER_DEPTH": "0",
+        "HOME": "/tmp/kagi-r22-w2-CellsMalformed/home",
+        "KAGI_SUBSTRATE": "absent",
+        "LC_ALL": "C",
+        "PATH": "/usr/bin:/bin",
+        "TMPDIR": "/tmp/kagi-r22-w2-CellsMalformed/tmp"
+      },
+      "fixture_digests": {
+        "SCORECARD.md": "37724428971f701da6cd20ac1f80e61cc5d89993177e7b5eb0844a9d56ddbd91",
+        "claims.tsv": "91c76e92ce3781f2ba1835a0aabdfdff03d08bf1806cb29c12ae529f6aca50c0",
+        "corpus/ok.txt": "fe6c38465f34c6c6cfdb0411f8bf0a604da841f46cea8b4de7238957ca0152c1",
+        "stamps.tsv": "33c959da402f5fe9775b3103efdff4c298af22f0e435579124990236450cb66e"
+      },
+      "before_exit": 0,
+      "expected_exit": 2,
+      "exit": 2,
+      "stdout": "",
+      "stderr": "claim-ledger: unrecognised round heading in ./SCORECARD.md: '## round 23 \u2014 post-move' (expected '## Round <N> \u2014 pre-move|post-move')\n",
+      "passed": true
+    },
+    {
+      "id": "h1-post-movement-pointed",
+      "argv": [
+        "/usr/bin/bash",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/claim-ledger.sh",
+        "cells",
+        "--root",
+        ".",
+        "--claims",
+        "claims.tsv",
+        "--stamps",
+        "stamps.tsv",
+        "--scorecard",
+        "./SCORECARD.md",
+        "--docs",
+        "./SCORECARD.md"
+      ],
+      "cwd": "/tmp/kagi-r22-w2-CellsMalformed/h1-supplement/fixtures/h1-post-movement-pointed",
+      "env": {
+        "CLAIM_LEDGER_DEPTH": "0",
+        "HOME": "/tmp/kagi-r22-w2-CellsMalformed/home",
+        "KAGI_SUBSTRATE": "absent",
+        "LC_ALL": "C",
+        "PATH": "/usr/bin:/bin",
+        "TMPDIR": "/tmp/kagi-r22-w2-CellsMalformed/tmp"
+      },
+      "fixture_digests": {
+        "SCORECARD.md": "e404298ea9b5cae9497e255ecf39235eb99f2ded5a662e3b8b724aa06fe3a6bd",
+        "claims.tsv": "91c76e92ce3781f2ba1835a0aabdfdff03d08bf1806cb29c12ae529f6aca50c0",
+        "corpus/ok.txt": "fe6c38465f34c6c6cfdb0411f8bf0a604da841f46cea8b4de7238957ca0152c1",
+        "stamps.tsv": "33c959da402f5fe9775b3103efdff4c298af22f0e435579124990236450cb66e"
+      },
+      "before_exit": 0,
+      "expected_exit": 2,
+      "exit": 2,
+      "stdout": "",
+      "stderr": "claim-ledger: unrecognised round heading in ./SCORECARD.md: '## Round 23 \u2014 post-movement' (expected '## Round <N> \u2014 pre-move|post-move')\n",
+      "passed": true
+    }
+  ]
+}

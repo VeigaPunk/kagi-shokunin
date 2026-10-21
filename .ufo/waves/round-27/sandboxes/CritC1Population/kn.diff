@@ -1,0 +1,86 @@
+diff --git c/corpus/QUALITY.md w/corpus/QUALITY.md
+index 79d0e71..6b7c21e 100644
+--- c/corpus/QUALITY.md
++++ w/corpus/QUALITY.md
+@@ -124,3 +124,10 @@ behavioral assertion body. Fresh evidence and rejected broader reading:
+ | id | criterion | weak signal | lesson |
+ |---|---|---|---|
+ | QM24 | Supplements QM23: a successor to an on-release teaching retains release-driven rechecking and is bound at its named current release; preserving an already-fired predecessor is not rearming. Active default/receipt/table/expectation migration is explicit and retains the original historical receipt with matching inputs. A missing-successor binding must fail UNBOUND, and a later-release fixture must fire the successor. | replacing on-release with90d while calling the old permanently-fired clock sufficient; changing default pins without an old/new journal; treating the historical profile as current | `corpus/lessons/round-26.md` M26-3 and §Final rearm correction; CritNoAxisHarm |
++
++## Criteria from the round-27 build
++
++| id | criterion | weak signal | lesson |
++|---|---|---|---|
++| QM25 | Supplements QM23/QM24: a release clock orders strict X.Y.Z versions numerically (SemVer §11.2, S042; S043); an observation older than its numeric anchor is a typed regression finding that fails the run, never a fired release and never an un-fire of an earlier anchor. Anchors that cannot be ordered keep inequality only as a declared limit. | `observed != anchor` treated as a release; a rollback fixture that still ends CLEAN; fired count unchanged across a downgrade | `corpus/lessons/round-27.md` M27-1 |
++| QM26 | Supplements QM21: current-tense numbers about lane artifacts inside `corpus/knowledge/*.md` are bound like SKILL/PROVINCE/README numbers; a dated measurement section, Evidence/Erratum history or a positional case index is excluded by rule and named, and an unbindable stale output is labelled with its round, not restated as current. | a knowledge reproduction block quoting a selftest count three rounds stale; a correction note elsewhere instead of a history clause beside the number | `corpus/lessons/round-27.md` M27-2 |
+diff --git c/corpus/knowledge/claim-ledger.md w/corpus/knowledge/claim-ledger.md
+index 194b26f..281fb32 100644
+--- c/corpus/knowledge/claim-ledger.md
++++ w/corpus/knowledge/claim-ledger.md
+@@ -78,7 +78,7 @@ A claim passes **only when both hold**:
+ The last-line half exists because a verdict is a summary line by construction:
+ a command that prints `SURFACE_CENSUS: CLEAN` at minute one and dies later
+ still ends with its own error or progress line, so the token alone cannot pass.
+-`reason=verdict-not-final` is the verdict for that class, and selftest case 16
++`reason=verdict-not-final` is the verdict for that class, and selftest case `verdict-not-final`
+ pins it with a fixture that prints the expected token then a trailer.
+ 
+ Per-row verdicts: nothing on success (`OK` is silence), else
+@@ -298,10 +298,10 @@ docs=39 unresolved=0 ephemeral=0 labeled=13)`.
+ ## Reproduction
+ 
+ ```
+-bash corpus/claim-ledger.sh verify      # stamps + claims + claim ids → CLAIM_LEDGER: CLEAN (claims=17 stamped=33 ids=17 cited=17 labeled_ids=13 orphans=0)
+-bash corpus/claim-ledger.sh citations   # citation durability → CITATION_GATE: CLEAN (cites=700 docs=43 unresolved=0 ephemeral=0 labeled=13)
+-bash corpus/claim-ledger.sh cells       # scorecard audit    → CELL_AUDIT: CLEAN (cells=60 row_pointed=25 stamp_pointed=41 uncited=0 missing_ids=0 rows_run=14 row_failures=0 stale_pointers=0 self_skipped=3 orphans=0)
+-bash corpus/claim-ledger.sh --selftest  # 72 scratch cases   → SELFTEST: PASS (72 cases)
++bash corpus/claim-ledger.sh verify      # stamps + claims + claim ids → CLAIM_LEDGER: CLEAN (claims=65 … stamped=89 …; round-10 output read claims=17 stamped=33 ids=17 cited=17 labeled_ids=13 orphans=0)
++bash corpus/claim-ledger.sh citations   # citation durability → CITATION_GATE: CLEAN (…) in the fleet layout; round-10 output read cites=700 docs=43 unresolved=0 ephemeral=0 labeled=13
++bash corpus/claim-ledger.sh cells       # scorecard audit    → CELL_AUDIT: CLEAN (…); round-10 output read cells=60 row_pointed=25 stamp_pointed=41 uncited=0 missing_ids=0 rows_run=14 row_failures=0 stale_pointers=0 self_skipped=3 orphans=0
++bash corpus/claim-ledger.sh --selftest  # 170 scratch cases   → SELFTEST: PASS (170 cases); 72 at round 10
+ bash corpus/claim-ledger.sh stamp corpus/claim-ledger.sh …    # re-pin (reviewed commit)
+ ```
+ 
+diff --git c/corpus/knowledge/op-ref-consumption.md w/corpus/knowledge/op-ref-consumption.md
+index 9a63a51..c45b6b0 100644
+--- c/corpus/knowledge/op-ref-consumption.md
++++ w/corpus/knowledge/op-ref-consumption.md
+@@ -273,7 +273,7 @@ subcommand); the handler's `OP_SERVICE_ACCOUNT_TOKEN` contract
+ 
+ ```
+ bash corpus/op-ref-probe.sh              # OP_REF_PROBE: CLEAN (checks=44 oprun=12 refs=7 divergent=5 edge=10 sig=6), exit 0
+-bash corpus/op-ref-probe.sh --selftest   # OP_REF_SELFTEST: PASS (29 cases), exit 0
++bash corpus/op-ref-probe.sh --selftest   # OP_REF_SELFTEST: PASS (36 cases), exit 0 — 29 when §9 was written (§11 correction)
+ bash corpus/op-ref-probe.sh --fixture DIR    # re-measure against your own env files (op-side files must be plain)
+ bash corpus/op-ref-probe.sh --evaluate OBS   # pure comparison of a collected observation file
+ ```
+@@ -384,4 +384,13 @@ measurement. The surface-census pointer in this entry is not evidence for
+ dotenv semantics. Handler-derived observations retain their original
+ version/date and unavailable-substrate limits; the account-free byte arm
+ does not reverify the missing handler or reference-resolved masking.
+-Audit: `kagi-shokunin/.ufo/waves/round-22/build/Entry18.md`.
+\ No newline at end of file
++Audit: `kagi-shokunin/.ufo/waves/round-22/build/Entry18.md`.
++
++## Erratum (round 27 — bound selftest count)
++
++The §11 note's “§9 is left as written” is superseded: §9's reproduction
++comment now states the current 36 cases with the historical 29 beside it
++(QUALITY QM21), and both §9 and the §11 “36” are bound to R12-02's committed
++pin by `corpus/self-counts.tsv` (KN-OPREF-*). R12-02 executes `op`, so the
++binder reads the pin and runs nothing. Old/new text:
++`.ufo/waves/round-27/knowledge-migrations.json`.
+\ No newline at end of file
+diff --git c/corpus/knowledge/surface-census.md w/corpus/knowledge/surface-census.md
+index 37c393d..8f8c72b 100644
+--- c/corpus/knowledge/surface-census.md
++++ w/corpus/knowledge/surface-census.md
+@@ -29,7 +29,7 @@ mode, and nothing could falsify it. Two concrete holes followed:
+    disagree with a truncated or reset file.
+ 
+ `drift-pins.sh` closes the first hole only for files that are *already* listed
+-(15 files, 19 symbol pins) and is blind to additions in the domain dirs. The
++(15 files, 20 symbol pins; 19 when this entry was written) and is blind to additions in the domain dirs. The
+ census is the complement: it declares the surface set, enumerates the declared
+ directories for anything undeclared, and pins runtime state by *shape*.
+ 

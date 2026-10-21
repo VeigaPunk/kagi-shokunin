@@ -1,0 +1,63 @@
+[
+ {
+  "argv": [
+   "bash",
+   "corpus/claim-ledger.sh",
+   "--selftest"
+  ],
+  "exit": 0,
+  "stdout": "ok-case  1  claims-pass                        exit=0\nok-case  2  mode-unknown-revision              exit=2\nok-case  3  verify-extra-positional            exit=2\nok-case  4  claim-verdict-missing              exit=1\nok-case  5  claim-exit-mismatch                exit=1\nok-case  6  claim-timeout                      exit=1\nok-case  7  policy-metachar                    exit=2\nok-case  8  policy-first-token                 exit=2\nok-case  9  policy-denied-verb                 exit=2\nok-case  10 policy-python-feature-allowed      exit=0\nok-case  11 policy-python-revision-allowed     exit=0\nok-case  12 policy-python-inline-refused       exit=2\nok-case  13 policy-python-module-refused       exit=2\nok-case  14 policy-python-stdin-refused        exit=2\nok-case  15 policy-python-other-refused        exit=2\nok-case  16 policy-python-boundary-refused     exit=2\nok-case  17 policy-python-metachar-refused     exit=2\nok-case  18 policy-python-denied-refused       exit=2\nok-case  19 claims-malformed                   exit=2\nok-case  20 claims-file-missing                exit=2\nok-case  21 stamp-stale                        exit=1\nok-case  22 stamp-missing                      exit=1\nok-case  23 cite-clean                         exit=0\nok-case  24 cite-unresolved                    exit=1\nok-case  25 cite-ephemeral                     exit=1\nok-case  26 cite-marked                        exit=0\nok-case  27 verdict-not-final                  exit=1\nok-case  28 cite-shorthand                     exit=0\nok-case  29 cite-unchecked                     exit=0\nok-case  30 cite-brace-ok                      exit=0\nok-case  31 cite-brace-missing                 exit=1\nok-case  32 cite-multi-ref                     exit=0\nok-case  33 cite-ellipsis-skipped              exit=0\nok-case  34 cite-second-token                  exit=1\nok-case  35 cite-brace-space                   exit=0\nok-case  36 cite-labeled-line-ok               exit=0\nok-case  37 stamp-bytes-tampered               exit=1\nok-case  38 stamp-write                        exit=0\nok-case  39 stamp-verify-fresh                 exit=0\nok-case  40 stamp-refuse-absolute              exit=2\nok-case  41 stamp-refuse-self                  exit=2\nok-case  42 stamp-out-after-args               exit=0\nok-case  43 claims-expect-anchor               exit=2\nok-case  44 claims-timeout-zero                exit=2\nok-case  45 claims-empty-command               exit=2\nok-case  46 claims-fused-row                   exit=2\nok-case  47 policy-split-verb                  exit=2\nok-case  48 claims-no-output                   exit=1\nok-case  49 stamp-duplicate                    exit=2\nok-case  50 stamps-empty-file                  exit=2\nok-case  51 stamp-shrink-refused               exit=2\nok-case  52 stamp-prune-allowed                exit=0\nok-case  53 stamp-swap-refused                 exit=2\nok-case  54 stamps-blank-row                   exit=2\nok-case  55 stamp-unterminated-row             exit=2\nok-case  56 stamp-symlink-out                  exit=2\nok-case  57 verify-id-missing                  exit=1\nok-case  58 verify-id-known                    exit=0\nok-case  59 verify-orphan-listed               exit=0\nok-case  60 verify-empty-ledger                exit=2\nok-case  61 cells-clean                        exit=0\nok-case  62 cells-uncited                      exit=1\nok-case  63 cells-missing-id                   exit=1\nok-case  64 cells-retired-exempt               exit=0\nok-case  65 cells-empty-scorecard              exit=2\nok-case  66 cells-not-in-docset                exit=2\nok-case  67 verify-comment-id                  exit=1\nok-case  68 verify-suffixed-id                 exit=1\nok-case  69 verify-prefixed-id                 exit=1\nok-case  70 verify-range-head-only             exit=0\nok-case  71 verify-labeled-id                  exit=0\nok-case  72 nested-audit-refused               exit=2\nok-case  73 cells-self-row-skip                exit=0\nok-case  74 cells-six-axis-guard               exit=2\nok-case  75 cells-bold-axes                    exit=0\nok-case  76 cells-row-fails                    exit=1\nok-case  77 cells-stale-pointer                exit=1\nok-case  78 cells-vacuous-guard                exit=2\nok-case  79 cells-numeric-anchored             exit=0\nok-case  80 stamps-symlink-row                 exit=1\nok-case  81 stamps-dotdot-row                  exit=2\nok-case  82 stamps-absolute-row                exit=2\nok-case  83 cells-bad-round-heading            exit=2\nok-case  84 cells-blocked-attempt-excluded     exit=0\nok-case  85 cells-malformed-score-after-blocked exit=2\nok-case  86 cells-round-tab-refused            exit=2\nok-case  87 cells-bare-round-refused           exit=2\nok-case  88 cells-tab-hashes-scored-visible    exit=1\nok-case  89 cells-tab-hashes-attempt-refused   exit=2\nok-case  90 cells-three-spaces-scored-visible  exit=1\nok-case  91 cells-three-spaces-attempt-refused exit=2\nok-case  92 cells-commonmark-tab-control       exit=0\nok-case  93 cells-exact-blocked-control        exit=0\nok-case  94 cells-uppercase-round-refused      exit=2\nok-case  95 cells-lowercase-round-refused      exit=2\nok-case  96 cells-pre-movement-refused         exit=2\nok-case  97 docs-clean                         exit=0\nok-case  98 docs-undeclared                    exit=1\nok-case  99 docs-undeclared-summary            exit=1\nok-case  100 docs-missing-id                    exit=1\nok-case  101 docs-missing-id-summary            exit=1\nok-case  102 docs-padded-reason                 exit=2\nok-case  103 docs-two-declarations              exit=2\nok-case  104 docs-unknown-class                 exit=2\nok-case  105 docs-short-reason                  exit=2\nok-case  106 docs-no-separator                  exit=2\nok-case  107 docs-trailing-garbage              exit=2\nok-case  108 docs-id-suffixed                   exit=2\nok-case  109 docs-unpinned                      exit=1\nok-case  110 docs-duplicate-reason              exit=1\nok-case  111 docs-ratio-floor                   exit=1\nok-case  112 docs-ratio-boundary                exit=0\nok-case  113 docs-zero-entries                  exit=2\nok-case  114 docs-hidden-entry                  exit=2\nok-case  115 docs-dir-dotdot                    exit=2\nok-case  116 docs-dir-absolute                  exit=2\nok-case  117 docs-dir-missing                   exit=2\nok-case  118 docs-malformed-line                exit=2\nok-case  119 defer-substrate-absent             exit=0\nok-case  120 defer-substrate-present            exit=1\nok-case  121 defer-substrate-line               exit=0\nok-case  122 host-substrate-default-skip        exit=0\nok-case  123 host-skip-summary                  exit=0\nok-case  124 host-env-not-consent               exit=0\nok-case  125 host-tag-allowed                   exit=0\nok-case  126 untagged-host-refused              exit=2\nok-case  127 untagged-host-reason               exit=2\nok-case  128 untagged-cells-realtree            exit=2\nok-case  129 host-free-mode-runs                exit=0\nok-case  130 policy-single-backslash            exit=2\nok-case  131 policy-host-paths                  exit=2\nok-case  132 policy-tilde-reason                exit=2\nok-case  133 policy-bash-option                 exit=2\nok-case  134 policy-script-symlink              exit=2\nok-case  135 cells-reader-not-self              exit=0\nok-case  136 cells-host-not-run                 exit=0\nok-case  137 cells-rows-run-excludes-defer      exit=0\nok-case  138 cite-quote-list                    exit=0\nok-case  139 cite-ufo-lane-first                exit=0\nok-case  140 cite-ufo-lane-miss                 exit=1\nok-case  141 cells-invalid-self-policy          exit=2\nok-case  142 cells-host-self-skip               exit=0\nok-case  143 cells-host-self-summary            exit=0\nok-case  144 cells-missing-self-policy          exit=2\nok-case  145 policy-script-expansion            exit=2\nok-case  146 policy-attached-absolute           exit=2\nok-case  147 policy-attached-parent             exit=2\nok-case  148 policy-attached-control            exit=0\nok-case  149 policy-script-ancestor             exit=2\nok-case  150 policy-script-outside-ancestor     exit=2\nok-case  151 policy-cells-root-override         exit=2\nok-case  152 cite-lone-incomplete               exit=3\nok-case  153 cite-lone-layout-line              exit=3\nok-case  154 cite-lone-sibling-absent           exit=3\nok-case  155 cite-fleet-clean                   exit=0\nok-case  156 cite-fleet-ufo-miss                exit=1\nok-case  157 cite-lone-fleet-miss-absent        exit=3\nok-case  158 cite-lone-local-miss               exit=1\nok-case  159 cite-lone-owned-ufo-miss           exit=1\nok-case  160 cite-lone-self-miss                exit=1\nok-case  161 cite-partial-fleet-miss            exit=1\nok-case  162 cite-eol-token-checked             exit=1\nok-case  163 verify-layout-incomplete-row       exit=1\nok-case  164 verify-layout-incomplete           exit=1\nok-case  165 verify-layout-fleet-runs           exit=0\nok-case  166 policy-release-observe-refused     exit=2\nok-case  167 cite-lone-nested-owned-miss        exit=1\nok-case  168 cite-slash-joined-spans            exit=0\nok-case  169 verify-nonlayout-incomplete        exit=1\nok-case  170 cite-legacy-fleet-miss             exit=1\nSELFTEST: PASS (170 cases)\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "python3",
+   "-B",
+   "corpus/self-counts.py",
+   "--selftest"
+  ],
+  "exit": 0,
+  "stdout": "SELF_COUNTS_SELFTEST: PASS (48 cases)\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "python3",
+   "-B",
+   "corpus/release-clock.py",
+   "--selftest"
+  ],
+  "exit": 0,
+  "stdout": "RELEASE_CLOCK_SELFTEST: PASS (67 cases)\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "python3",
+   "-B",
+   "corpus/self-counts.py"
+  ],
+  "exit": 0,
+  "stdout": "OK SC-SKILL-STAMPS SKILL.md:46 claimed=88 live=88\nOK SC-SKILL-CLAIMS SKILL.md:46 claimed=65 live=65\nOK SC-SCOPE-ROWS SKILL.md:35 claimed=35 live=35\nOK SC-SCOPE-SELFTEST SKILL.md:35 claimed=61 live=61\nOK SC-CENSUS-SELFTEST SKILL.md:36 claimed=16 pinned=16\nOK SC-SOURCES-SELFTEST SKILL.md:49 claimed=70 live=70\nOK SC-SELFCOUNTS-SELFTEST SKILL.md:47 claimed=48 live=48\nOK SC-CLOCK-SELFTEST SKILL.md:48 claimed=67 live=67\nOK SC-LEDGER-SELFTEST SKILL.md:245 claimed=170 live=170\nOK SC-CLOSURE-SELFTEST SKILL.md:751 claimed=14 live=14\nOK SC-RENDERED-SELFTEST SKILL.md:752 claimed=22 live=22\nOK PV-SURFACE-SELFTEST PROVINCE.md:46 claimed=16 pinned=16\nOK PV-CENSUS-ROWS PROVINCE.md:46 claimed=35 live=35\nOK PV-STATE-ROWS PROVINCE.md:46 claimed=22 live=22\nOK PV-DRIFT-FILES PROVINCE.md:47 claimed=15 live=15\nOK PV-DRIFT-SYMBOLS PROVINCE.md:47 claimed=20 live=20\nOK PV-OPREF-SELFTEST PROVINCE.md:49 claimed=36 pinned=36\nOK PV-CHECKLIST-SELFTEST PROVINCE.md:50 claimed=34 live=34\nOK PV-SCOPE-SELFTEST PROVINCE.md:51 claimed=61 live=61\nOK PV-STAMPS PROVINCE.md:52 claimed=88 live=88\nOK PV-CLAIMS PROVINCE.md:52 claimed=65 live=65\nOK PV-LEDGER-SELFTEST PROVINCE.md:52 claimed=170 live=170\nOK PV-SELFCOUNTS-SELFTEST PROVINCE.md:53 claimed=48 live=48\nOK PV-CLOCK-SELFTEST PROVINCE.md:54 claimed=67 live=67\nOK PV-SOURCES-SELFTEST PROVINCE.md:55 claimed=70 live=70\nOK PV-RENDERED-SELFTEST PROVINCE.md:56 claimed=22 live=22\nOK PV-CLOSURE-SELFTEST PROVINCE.md:57 claimed=14 live=14\nOK RD-CENSUS-ROWS corpus/README.md:41 claimed=35 live=35\nOK RD-STATE-ROWS corpus/README.md:42 claimed=22 live=22\nOK RD-SCOPE-SELFTEST corpus/README.md:43 claimed=61 live=61\nOK RD-LEDGER-SELFTEST corpus/README.md:63 claimed=170 live=170\nOK RD-LEDGER-ROWS corpus/README.md:64 claimed=65 live=65\nOK RD-STAMPS corpus/README.md:65 claimed=88 live=88\nOK RD-DOCS-ROWLINKED corpus/README.md:67 claimed=22 live=22\nOK RD-DOCS-BYHAND corpus/README.md:67 claimed=3 live=3\nOK RD-DOCS-ENTRIES corpus/README.md:67 claimed=25 live=25\nOK RD-OPREF-SELFTEST corpus/README.md:69 claimed=36 pinned=36\nOK RD-CHECKLIST-SELFTEST corpus/README.md:33 claimed=34 live=34\nSELF_COUNTS: CLEAN (claims=38 stale=0)\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "python3",
+   "-B",
+   "corpus/release-clock.py"
+  ],
+  "exit": 0,
+  "stdout": "RELEASE_CLOCK: CLEAN (on_release=28 bound=28 unbound=0 observed=28 fired=1 derived=15)\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "bash",
+   "corpus/sources-census.sh"
+  ],
+  "exit": 0,
+  "stdout": "SOURCES_CENSUS: CLEAN (rows=38 A=36 B=0 C=2 queued=1 mined=34 rejected=3 entries_sourced=4 legacy=21 captures=38 inrow=16 inrow_only=0 inrow_nonreproducing=12)\n",
+  "stderr": ""
+ }
+]

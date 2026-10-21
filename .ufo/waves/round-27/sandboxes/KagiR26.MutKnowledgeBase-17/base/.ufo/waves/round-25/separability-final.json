@@ -1,0 +1,64 @@
+{
+  "records": [
+    {
+      "claim": "c1",
+      "base": "4587c61a348e4528717404a68912c373f3ef4d03",
+      "overlay_ref": "9b755f5b44ace949fc4d71c9d6d8f125a560e9cf",
+      "inputs": {
+        "corpus/self-counts.py": "5b600f0a997929cace485fc280bc74be5f0ef6f63711195855db0feaa79a6654"
+      },
+      "argv": [
+        "python3",
+        "-B",
+        "corpus/self-counts.py"
+      ],
+      "exit": 0,
+      "stdout": "OK SC-SKILL-STAMPS SKILL.md:46 claimed=83 live=83\nOK SC-SKILL-CLAIMS SKILL.md:46 claimed=61 live=61\nOK SC-SCOPE-ROWS SKILL.md:35 claimed=35 live=35\nOK SC-SCOPE-SELFTEST SKILL.md:35 claimed=61 live=61\nOK SC-CENSUS-SELFTEST SKILL.md:36 claimed=16 pinned=16\nOK SC-SOURCES-SELFTEST SKILL.md:47 claimed=70 live=70\nOK SC-LEDGER-SELFTEST SKILL.md:243 claimed=151 live=151\nOK SC-CLOSURE-SELFTEST SKILL.md:749 claimed=14 live=14\nOK SC-RENDERED-SELFTEST SKILL.md:750 claimed=22 live=22\nOK PV-SURFACE-SELFTEST PROVINCE.md:46 claimed=16 pinned=16\nOK PV-CENSUS-ROWS PROVINCE.md:46 claimed=35 live=35\nOK PV-STATE-ROWS PROVINCE.md:46 claimed=22 live=22\nOK PV-DRIFT-FILES PROVINCE.md:47 claimed=15 live=15\nOK PV-DRIFT-SYMBOLS PROVINCE.md:47 claimed=20 live=20\nOK PV-OPREF-SELFTEST PROVINCE.md:49 claimed=36 pinned=36\nOK PV-CHECKLIST-SELFTEST PROVINCE.md:50 claimed=34 live=34\nOK PV-SCOPE-SELFTEST PROVINCE.md:51 claimed=61 live=61\nOK PV-STAMPS PROVINCE.md:52 claimed=83 live=83\nOK PV-CLAIMS PROVINCE.md:52 claimed=61 live=61\nOK PV-LEDGER-SELFTEST PROVINCE.md:52 claimed=151 live=151\nOK PV-SOURCES-SELFTEST PROVINCE.md:53 claimed=70 live=70\nOK PV-RENDERED-SELFTEST PROVINCE.md:54 claimed=22 live=22\nOK PV-CLOSURE-SELFTEST PROVINCE.md:55 claimed=14 live=14\nOK RD-CENSUS-ROWS corpus/README.md:41 claimed=35 live=35\nOK RD-STATE-ROWS corpus/README.md:42 claimed=22 live=22\nOK RD-SCOPE-SELFTEST corpus/README.md:43 claimed=61 live=61\nOK RD-LEDGER-SELFTEST corpus/README.md:63 claimed=151 live=151\nOK RD-LEDGER-ROWS corpus/README.md:64 claimed=61 live=61\nOK RD-STAMPS corpus/README.md:65 claimed=83 live=83\nOK RD-DOCS-ROWLINKED corpus/README.md:67 claimed=22 live=22\nOK RD-DOCS-BYHAND corpus/README.md:67 claimed=3 live=3\nOK RD-DOCS-ENTRIES corpus/README.md:67 claimed=25 live=25\nOK RD-OPREF-SELFTEST corpus/README.md:69 claimed=36 pinned=36\nOK RD-CHECKLIST-SELFTEST corpus/README.md:33 claimed=34 live=34\nSELF_COUNTS: CLEAN (claims=34 stale=0)\n",
+      "stderr": "",
+      "expected_exit": 0,
+      "passed": true
+    },
+    {
+      "claim": "c2",
+      "base": "4587c61a348e4528717404a68912c373f3ef4d03",
+      "overlay_ref": "9b755f5b44ace949fc4d71c9d6d8f125a560e9cf",
+      "inputs": {
+        "corpus/claim-ledger.sh": "ec915f604ba6dce33672263ef53e7f79912f4af94bd42ffb1fc32b6eefbc8da5"
+      },
+      "argv": [
+        "bash",
+        "corpus/claim-ledger.sh",
+        "citations"
+      ],
+      "exit": 3,
+      "stdout": "FLEET-ABSENT LOG.md:210 .ufo/l0-questions.md (ufo)\nFLEET-ABSENT LOG.md:366 .ufo/reports/round-8/aggregator.md (ufo)\nFLEET-ABSENT LOG.md:598 kake-shokunin/SKILL.md (sibling)\nFLEET-ABSENT LOG.md:820 .ufo/l0-questions.md (ufo)\nFLEET-ABSENT SCORECARD.md:231 kake-shokunin/SKILL.md (sibling)\nLABELED SKILL.md:295 local:// (session URI, labelled on its line)\nLABELED SKILL.md:635 local://x (session URI, labelled on its line)\nFLEET-ABSENT corpus/README.md:26 .ufo/watchdog.log (ufo)\nFLEET-ABSENT corpus/README.md:26 .ufo/waves/round-1.json (ufo)\nFLEET-ABSENT corpus/README.md:96 kama-shokunin/corpus/knowledge/cross-lane-scope.md (sibling)\nFLEET-ABSENT corpus/README.md:97 kotoba-shokunin/corpus/knowledge/alwayson-checklist-round7.md (sibling)\nFLEET-ABSENT corpus/README.md:98 kake-shokunin/SKILL.md (sibling)\nFLEET-ABSENT corpus/README.md:98 kake-shokunin/corpus/lessons/round-1-aggregator-audit.md (sibling)\nFLEET-ABSENT corpus/knowledge/adjacency-scope.md:36 kake-shokunin/SKILL.md (sibling)\nFLEET-ABSENT corpus/knowledge/adjacency-scope.md:125 kake-shokunin/SKILL.md (sibling)\nFLEET-ABSENT corpus/knowledge/adjacency-scope.md:237 .ufo/reports/round-10/kagi.md (ufo)\nFLEET-ABSENT corpus/knowledge/adjacency-scope.md:276 kake-shokunin/SKILL.md (sibling)\nFLEET-ABSENT corpus/knowledge/adjacency-scope.md:304 kake-shokunin/SKILL.md (sibling)\nFLEET-ABSENT corpus/knowledge/adjacency-scope.md:306 kake-shokunin/corpus/knowledge/mirror-pitfalls.md (sibling)\nFLEET-ABSENT corpus/knowledge/cdp-bridge-1password.md:79 kake-shokunin/SKILL.md (sibling)\nLABELED corpus/knowledge/claim-ledger.md:24 local://round-10/connector.md (session URI, labelled on its line)\nLABELED corpus/knowledge/claim-ledger.md:25 local://round-10/critic.md (session URI, labelled on its line)\nLABELED corpus/knowledge/claim-ledger.md:122 local:// (session URI, labelled on its line)\nLABELED corpus/knowledge/claim-ledger.md:123 artifact:// (session URI, labelled on its line)\nLABELED corpus/knowledge/claim-ledger.md:123 agent:// (session URI, labelled on its line)\nLABELED corpus/knowledge/claim-ledger.md:123 proc:// (session URI, labelled on its line)\nFLEET-ABSENT corpus/knowledge/claim-ledger.md:27 .ufo/reports/round-10/protocol.md (ufo)\nFLEET-ABSENT corpus/knowledge/claim-ledger.md:112 kotoba-shokunin/corpus/knowledge/alwayson-checklist-round7.md (sibling)\nFLEET-ABSENT corpus/knowledge/claim-ledger.md:113 .ufo/reports/round-10/protocol.md (ufo)\nLABELED corpus/knowledge/claim-ledger.md:132 .ufo/reports/round-2/AGGREGATE.md (unresolved, labelled on its line)\nLABELED corpus/lessons/round-11.md:45 local://round-10/connector.md (session URI, labelled on its line)\nLABELED corpus/lessons/round-11.md:47 local://round-10/critic.md (session URI, labelled on its line)\nFLEET-ABSENT corpus/lessons/round-11.md:57 .ufo/reports/round-10/protocol.md (ufo)\nLABELED corpus/lessons/round-11.md:71 .ufo/reports/round-2/AGGREGATE.md (unresolved, labelled on its line)\nLABELED corpus/lessons/round-12.md:117 .ufo/reports/round-8/aggregator.md (unresolved, labelled on its line)\nFLEET-ABSENT corpus/lessons/round-16.md:15 kake-shokunin/SKILL.md (sibling)\nLABELED corpus/lessons/round-19-recensus.md:49 .ufo/waves/shokunin12h-20261014-p1-audit/members/KagiDeadPathSweep.md (unresolved, labelled on its line)\nFLEET-ABSENT corpus/lessons/round-1-aggregator-seed.md:13 .ufo/waves/round-1.json (ufo)\nFLEET-ABSENT corpus/lessons/round-21-verifier-spotcheck.md:6 .ufo/waves/kaika-w3/kagi-review.md (ufo)\nFLEET-ABSENT corpus/lessons/round-22-verifier-spotcheck.md:6 .ufo/reports/round-22/kagi.md (ufo)\nFLEET-ABSENT corpus/lessons/round-22-verifier-spotcheck.md:7 .ufo/prompts/kagi-round-22.md (ufo)\nFLEET-ABSENT corpus/lessons/round-22-verifier-spotcheck.md:19 .ufo/reports/round-22/kagi.md (ufo)\nFLEET-ABSENT corpus/lessons/round-23.md:89 .ufo/state (ufo)\nFLEET-ABSENT corpus/lessons/round-23-verifier-spotcheck.md:6 .ufo/reports/round-23/kagi.md (ufo)\nFLEET-ABSENT corpus/lessons/round-23-verifier-spotcheck.md:7 .ufo/prompts/kagi-round-23.md (ufo)\nFLEET-ABSENT corpus/lessons/round-23-verifier-spotcheck.md:22 .ufo/reports/round-23/kagi.md (ufo)\nFLEET-ABSENT corpus/lessons/round-3.md:3 .ufo/prompts/kagi-round-3.md (ufo)\nFLEET-ABSENT corpus/lessons/round-4-aggregator-audit.md:3 .ufo/state/aggregator.round (ufo)\nFLEET-ABSENT corpus/lessons/round-4-aggregator-audit.md:57 .ufo/prompts/kagi-round-3.md (ufo)\nFLEET-ABSENT corpus/lessons/round-4.md:3 .ufo/prompts/kagi-round-4.md (ufo)\nFLEET-ABSENT corpus/lessons/round-5-aggregator-audit.md:3 .ufo/state/aggregator.round (ufo)\nFLEET-ABSENT corpus/lessons/round-5-aggregator-mirror-bare-path-and-unclosed-prereq.md:4 kotoba-shokunin/corpus/knowledge/fleet-skill-audit-round5.md (sibling)\nLABELED corpus/lessons/round-5-aggregator-mirror-bare-path-and-unclosed-prereq.md:21 .ufo/reports/round-2/AGGREGATE.md (unresolved, labelled on its line)\nFLEET-ABSENT corpus/lessons/round-5.md:3 .ufo/prompts/kagi-round-5.md (ufo)\nFLEET-ABSENT corpus/lessons/round-6-aggregator-audit.md:100 .ufo/reports/round-9/kagi.md (ufo)\nFLEET-ABSENT corpus/lessons/round-6-aggregator-audit.md:124 .ufo/reports/round-3/kagi.md (ufo)\nFLEET-ABSENT corpus/lessons/round-6-aggregator-audit.md:125 .ufo/reports/round-7/kagi.md (ufo)\nFLEET-ABSENT corpus/lessons/round-6-aggregator-audit.md:128 .ufo/reports/round-9/kagi.md (ufo)\nFLEET-ABSENT corpus/lessons/round-6-aggregator-audit.md:129 .ufo/reports/round-9/kake.md (ufo)\nFLEET-ABSENT corpus/lessons/round-6-aggregator-audit.md:195 .ufo/reports/round-9/kagi.md (ufo)\nFLEET-ABSENT corpus/lessons/round-6-aggregator-audit.md:200 .ufo/reports/round-3/kagi.md (ufo)\nFLEET-ABSENT corpus/lessons/round-6-aggregator-audit.md:200 .ufo/reports/round-7/kagi.md (ufo)\nFLEET-ABSENT corpus/lessons/round-6-aggregator-audit.md:200 .ufo/reports/round-9/kake.md (ufo)\nLABELED corpus/lessons/round-8-aggregator-box3-coldrun.md:4 .ufo/reports/round-8/aggregator.md (unresolved, labelled on its line)\nLABELED corpus/lessons/round-8-aggregator-box3-coldrun.md:4 .ufo/prompts/aggregator-round-8.md (unresolved, labelled on its line)\nLABELED corpus/lessons/round-8-aggregator-box3-coldrun.md:69 .ufo/reports/round-8/aggregator.md (unresolved, labelled on its line)\nLABELED corpus/lessons/round-8-aggregator-box3-coldrun.md:80 .ufo/reports/round-8/aggregator.md (unresolved, labelled on its line)\nCITATION_LAYOUT: lone-clone fleet_absent=48 (no fleet-root entry or sibling lane beside the root; fleet-only citations were not checked)\nCITATION_GATE: INCOMPLETE (cites=1552 docs=67 unresolved=0 ephemeral=0 labeled=19 fleet_absent=48)\n",
+      "stderr": "",
+      "expected_exit": 3,
+      "passed": true
+    },
+    {
+      "claim": "c3",
+      "base": "4587c61a348e4528717404a68912c373f3ef4d03",
+      "overlay_ref": "9b755f5b44ace949fc4d71c9d6d8f125a560e9cf",
+      "inputs": {
+        "corpus/release-clock.py": "f1a8237c795f6041d2942e9cfb17c1112aed8b22d74b5241874add719c31c1dc",
+        "corpus/release-clocks.tsv": "53264aad0d4a8365b58527e10af4d2265c7e21ee9036217fe748156c2a70b74f",
+        "corpus/SOURCES.md": "de198f7b8c9203776cc6700c9fd2f06f93cb18b6b3af8155b887962ddbabaddb",
+        "corpus/source-fetches.tsv": "afa2dd4641825c19c682217b5b72d3f56806444fce232ff71b530d34160ce93a",
+        ".ufo/waves/round-25/observe-1.json": "b74c8ee30aaeaf7a867f9bbad39ea42e94f199da69ebd01d0e391d2e8b349f92"
+      },
+      "argv": [
+        "python3",
+        "-B",
+        "corpus/release-clock.py"
+      ],
+      "exit": 0,
+      "stdout": "RELEASE_CLOCK: CLEAN (on_release=28 bound=28 unbound=0 observed=28 fired=1 derived=15)\n",
+      "stderr": "",
+      "expected_exit": 0,
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "note": "These are claim-only constructed trees, not complete ledger-clean repo commits. C1 common34 bindings uses BASE membership83/61 and selftest151; C2/C3 use no C1 code."
+}

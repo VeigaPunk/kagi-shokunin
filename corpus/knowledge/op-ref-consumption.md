@@ -273,7 +273,7 @@ subcommand); the handler's `OP_SERVICE_ACCOUNT_TOKEN` contract
 
 ```
 bash corpus/op-ref-probe.sh              # OP_REF_PROBE: CLEAN (checks=44 oprun=12 refs=7 divergent=5 edge=10 sig=6), exit 0
-bash corpus/op-ref-probe.sh --selftest   # OP_REF_SELFTEST: PASS (29 cases), exit 0
+bash corpus/op-ref-probe.sh --selftest   # OP_REF_SELFTEST: PASS (36 cases), exit 0 — 29 when §9 was written (§11 correction)
 bash corpus/op-ref-probe.sh --fixture DIR    # re-measure against your own env files (op-side files must be plain)
 bash corpus/op-ref-probe.sh --evaluate OBS   # pure comparison of a collected observation file
 ```
@@ -293,8 +293,8 @@ deliberately never created — it is the missing-file signature probe.
   1 with `parsing Dotenv file`, and the `malformedrefs` inventory must still
   list `KAGI12_GOOD` — the blindness is asserted, not inferred.
 - Change any contract value (e.g. add `export ` to a fixture key) → the
-  corresponding `FAIL` line and exit 1; `--selftest` proves the comparator on 21
-  cases, including fifteen seeded mutations (value, masking, edge, quoting,
+  corresponding `FAIL` line and exit 1; `--selftest` proves the comparator on 36
+  cases (21 when §10 was written), including fifteen seeded mutations (value, masking, edge, quoting,
   precedence, union, inherited trim, signatures, refs classification, the
   malformed-blindness pair).
 - `KAGI12_POISON=op://…` appended to `oprun.env` with `OP_REF_OP_BIN` pointed at
@@ -385,3 +385,12 @@ dotenv semantics. Handler-derived observations retain their original
 version/date and unavailable-substrate limits; the account-free byte arm
 does not reverify the missing handler or reference-resolved masking.
 Audit: `kagi-shokunin/.ufo/waves/round-22/build/Entry18.md`.
+
+## Erratum (round 27 — bound selftest count)
+
+The §11 note's “§9 is left as written” is superseded: §9's reproduction
+comment now states the current 36 cases with the historical 29 beside it
+(QUALITY QM21), and both §9 and the §11 “36” are bound to R12-02's committed
+pin by `corpus/self-counts.tsv` (KN-OPREF-*). R12-02 executes `op`, so the
+binder reads the pin and runs nothing. Old/new text:
+`.ufo/waves/round-27/knowledge-migrations.json`.

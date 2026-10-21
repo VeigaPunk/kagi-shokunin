@@ -1,0 +1,53 @@
+# proposed self-counts.tsv rows for corpus/knowledge/adjacency-scope.md (BASE 0a47dd18)
+# id	doc	locator	source	extract	note
+KN-SCOPE-SRC-OWN	corpus/knowledge/adjacency-scope.md	^`corpus/adjacency\.tsv` \(([0-9]+) `# own` prefixes	ledger:R16-04	^([0-9]+)$	source-basis: # own prefixes
+KN-SCOPE-SRC-GROUPS	corpus/knowledge/adjacency-scope.md	^`corpus/adjacency\.tsv` \([0-9]+ `# own` prefixes, ([0-9]+) group rows	rows:corpus/adjacency.tsv	-	source-basis: group rows
+KN-SCOPE-SRC-SHARED	corpus/knowledge/adjacency-scope.md	group rows covering the ([0-9]+) census$	expect:R16-01	None	source-basis: shared census rows
+KN-SCOPE-SRC-OWNERS	corpus/knowledge/adjacency-scope.md	rows outside them, ([0-9]+) `# owner`	expect:R16-01	None	source-basis: owner directives
+KN-SCOPE-SRC-NOENUM	corpus/knowledge/adjacency-scope.md	`# claim` / ([0-9]+)$	ledger:R16-06	^([0-9]+)$	source-basis: no-enumerate directives
+KN-SCOPE-SRC-BREADTH	corpus/knowledge/adjacency-scope.md	^`# no-enumerate` / ([0-9]+) `# breadth` directives	ledger:R17-02	^([0-9]+)$	source-basis: breadth pins
+KN-SCOPE-SRC-CENSUS	corpus/knowledge/adjacency-scope.md	^`corpus/surface-census\.tsv` \(([0-9]+) rows	rows:corpus/surface-census.tsv	-	source-basis: census rows
+KN-SCOPE-GATE-CENSUS	corpus/knowledge/adjacency-scope.md	^\(census=([0-9]+) owned=27	rows:corpus/surface-census.tsv	-	Current gates: census
+KN-SCOPE-GATE-OWNED	corpus/knowledge/adjacency-scope.md	^\(census=[0-9]+ owned=([0-9]+)	expect:R16-01	None	Current gates: owned
+KN-SCOPE-GATE-SHARED	corpus/knowledge/adjacency-scope.md	^\(census=35 owned=27 shared=([0-9]+)	expect:R16-01	None	Current gates: shared
+KN-SCOPE-GATE-GROUPS	corpus/knowledge/adjacency-scope.md	^\(census=.* shared=[0-9]+ groups=([0-9]+)	rows:corpus/adjacency.tsv	-	Current gates: groups
+KN-SCOPE-GATE-OWNERS	corpus/knowledge/adjacency-scope.md	^\(census=.* groups=[0-9]+ owners=([0-9]+)	expect:R16-01	None	Current gates: owners
+KN-SCOPE-GATE-UNRES	corpus/knowledge/adjacency-scope.md	^\(census=.* owners=[0-9]+ unresolved=([0-9]+)	expect:R16-01	None	Current gates: unresolved
+KN-SCOPE-GATE-CONTEST	corpus/knowledge/adjacency-scope.md	^\(census=.* unresolved=[0-9]+ contested=([0-9]+)	expect:R16-01	None	Current gates: contested
+KN-SCOPE-GATE-BREQ	corpus/knowledge/adjacency-scope.md	^own_unlisted=[0-9]+ breadth_required=([0-9]+)	expect:R16-01	None	Current gates: breadth_required
+KN-SCOPE-GATE-BPINS	corpus/knowledge/adjacency-scope.md	breadth_required=[0-9]+ breadth_pins=([0-9]+)	ledger:R17-02	^([0-9]+)$	Current gates: breadth_pins
+KN-SCOPE-CURRENT-FALSIFY-TOTAL	corpus/knowledge/adjacency-scope.md	^`SCOPE_FALSIFY: PASS \(caught=[0-9]+/([0-9]+) failed	expect:R16-03	None	Current gates: falsify total
+KN-SCOPE-TABLE-CENSUS	corpus/knowledge/adjacency-scope.md	^\| census rows \| ([0-9]+) \|	rows:corpus/surface-census.tsv	-	partition table: census rows
+KN-SCOPE-TABLE-OWN	corpus/knowledge/adjacency-scope.md	^\| owned by the ([0-9]+) `# own` prefixes	ledger:R16-04	^([0-9]+)$	partition table: own prefixes
+KN-SCOPE-TABLE-OWNED	corpus/knowledge/adjacency-scope.md	^\| owned by the [0-9]+ `# own` prefixes \| ([0-9]+) \|	expect:R16-01	None	partition table: owned rows
+KN-SCOPE-TABLE-SHARED	corpus/knowledge/adjacency-scope.md	^\| shared \(covered by a group row\) \| ([0-9]+) \|	expect:R16-01	None	partition table: shared rows
+KN-SCOPE-TABLE-GROUPS	corpus/knowledge/adjacency-scope.md	^\| group rows \| ([0-9]+) \|	rows:corpus/adjacency.tsv	-	partition table: group rows
+KN-SCOPE-TABLE-OWNERS	corpus/knowledge/adjacency-scope.md	^\| owner directives \| ([0-9]+) \(	expect:R16-01	None	partition table: owner directives
+KN-SCOPE-TABLE-NOENUM	corpus/knowledge/adjacency-scope.md	^\| `# no-enumerate` directives \| ([0-9]+) \|	ledger:R16-06	^([0-9]+)$	partition table: no-enumerate
+KN-SCOPE-COVERAGE-TOTAL	corpus/knowledge/adjacency-scope.md	state/tac\) = ([0-9]+)\.	expect:R16-01	None	prefix coverage total
+KN-SCOPE-PROSE-GROUPS	corpus/knowledge/adjacency-scope.md	launcher symlink\)\. The ([0-9]+) group rows	rows:corpus/adjacency.tsv	-	group-table lead-in
+KN-SCOPE-SUM8	corpus/knowledge/adjacency-scope.md	^([0-9]+) = 4 \+ 1 \+ 2 \+ 1	expect:R16-01	None	group coverage sum
+KN-SCOPE-R2-PIN	corpus/knowledge/adjacency-scope.md	\(`R11-11` pins ([0-9]+)\)	ledger:R11-11	^([0-9]+)$	R2: removed census row
+KN-SCOPE-BREADTH-REQ	corpus/knowledge/adjacency-scope.md	^\| `BREADTH_AUDIT: CLEAN \(required=([0-9]+) pins=4	expect:R17-01	None	verdict table: breadth required
+KN-SCOPE-BREADTH-PINS	corpus/knowledge/adjacency-scope.md	^\| `BREADTH_AUDIT: CLEAN \(required=4 pins=([0-9]+)	expect:R17-01	None	verdict table: breadth pins
+KN-SCOPE-BREADTH-DECL	corpus/knowledge/adjacency-scope.md	^\| `BREADTH_AUDIT: CLEAN \(.*children=182 declared=([0-9]+)	expect:R17-01	None	verdict table: declared buckets
+KN-SCOPE-TABLE-FALSIFY-TOTAL	corpus/knowledge/adjacency-scope.md	^\| `SCOPE_SELFTEST: PASS \([0-9]+ cases\)` / `SCOPE_FALSIFY: PASS \(caught=[0-9]+/([0-9]+)	expect:R16-03	None	verdict table: falsify total
+KN-SCOPE-ERRATUM35	corpus/knowledge/adjacency-scope.md	outside by `R11-11` \(([0-9]+)\)	ledger:R11-11	^([0-9]+)$	bound 14: census row count
+KN-SCOPE-GATE-ESCAPES	corpus/knowledge/adjacency-scope.md	^escapes=([0-9]+) inbound=0	expect:R16-01	None	Current gates: escapes
+KN-SCOPE-GATE-INBOUND	corpus/knowledge/adjacency-scope.md	^escapes=[0-9]+ inbound=([0-9]+)	expect:R16-01	None	Current gates: inbound
+KN-SCOPE-GATE-FOREIGN	corpus/knowledge/adjacency-scope.md	inbound=[0-9]+ foreign=([0-9]+)	expect:R16-01	None	Current gates: foreign
+KN-SCOPE-GATE-ORPHANS	corpus/knowledge/adjacency-scope.md	foreign=[0-9]+ orphans=([0-9]+)	expect:R16-01	None	Current gates: orphans
+KN-SCOPE-GATE-STALEBASIS	corpus/knowledge/adjacency-scope.md	orphans=[0-9]+ stale_basis=([0-9]+)	expect:R16-01	None	Current gates: stale_basis
+KN-SCOPE-GATE-BASISESC	corpus/knowledge/adjacency-scope.md	stale_basis=[0-9]+ basis_escape=([0-9]+)	expect:R16-01	None	Current gates: basis_escape
+KN-SCOPE-GATE-OWNUNLISTED	corpus/knowledge/adjacency-scope.md	^own_unlisted=([0-9]+) breadth_required=4	expect:R16-01	None	Current gates: own_unlisted
+KN-SCOPE-GATE-BCHECK	corpus/knowledge/adjacency-scope.md	breadth_pins=[0-9]+ breadth_checked=([0-9]+)	expect:R16-01	None	Current gates: breadth_checked
+KN-SCOPE-GATE-BOK	corpus/knowledge/adjacency-scope.md	breadth_checked=[0-9]+ breadth_ok=([0-9]+)	expect:R16-01	None	Current gates: breadth_ok
+KN-SCOPE-GATE-BMISS	corpus/knowledge/adjacency-scope.md	^breadth_missing=([0-9]+) breadth_invalid=0	expect:R16-01	None	Current gates: breadth_missing
+KN-SCOPE-GATE-BINVALID	corpus/knowledge/adjacency-scope.md	^breadth_missing=[0-9]+ breadth_invalid=([0-9]+)	expect:R16-01	None	Current gates: breadth_invalid
+KN-SCOPE-GATE-BDRIFT	corpus/knowledge/adjacency-scope.md	breadth_invalid=[0-9]+ breadth_drift=([0-9]+)	expect:R16-01	None	Current gates: breadth_drift
+KN-SCOPE-GATE-BEXCEEDS	corpus/knowledge/adjacency-scope.md	breadth_drift=[0-9]+ breadth_exceeds=([0-9]+)	expect:R16-01	None	Current gates: breadth_exceeds
+KN-SCOPE-GATE-BUNVER	corpus/knowledge/adjacency-scope.md	^breadth_unverified=([0-9]+)\)`	expect:R16-01	None	Current gates: breadth_unverified
+KN-SCOPE-CURRENT-FALSIFY-FAILED	corpus/knowledge/adjacency-scope.md	^`SCOPE_FALSIFY: PASS \(caught=[0-9]+/[0-9]+ failed=([0-9]+)\)`	expect:R16-03	None	Current gates: falsify failed
+KN-SCOPE-BREADTH-CHECKED	corpus/knowledge/adjacency-scope.md	^\| `BREADTH_AUDIT: CLEAN \(required=4 pins=4 checked=([0-9]+)	expect:R17-01	None	verdict table: breadth checked
+KN-SCOPE-BREADTH-OK	corpus/knowledge/adjacency-scope.md	^\| `BREADTH_AUDIT: CLEAN \(required=4 pins=4 checked=4 ok=([0-9]+)	expect:R17-01	None	verdict table: breadth ok
+KN-SCOPE-TABLE-FALSIFY-FAILED	corpus/knowledge/adjacency-scope.md	^\| `SCOPE_SELFTEST: PASS \([0-9]+ cases\)` / `SCOPE_FALSIFY: PASS \(caught=[0-9]+/[0-9]+ failed=([0-9]+)\)`	expect:R16-03	None	verdict table: falsify failed

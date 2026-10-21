@@ -1,0 +1,5 @@
+Round-27 misroot record (reported by KengakuR28's fleet sweep, 2026-10-21 ~15:30Z)
+Fleet path: /home/vgpnk/Projects/shokunin/.ufo/waves/round-27/build/ScribeLesson.md (untracked; header names KagiR26.ScribeLesson-17, BASE 0a47dd18)
+Action: cp -p into kagi-shokunin/.ufo/waves/round-27/build/ScribeLesson.md; cmp equal; sha256 56f224c3ce016382f4a2b69cd63676a84461ea67fc3a1a4404fe1e2607681cee both; fleet copy and the two empty fleet dirs removed.
+Cause: the seat resolved the relative Report: trailer from the fleet root despite the context's absolute-path instruction.
+Other untracked fleet files at that time (.ufo/reports/round-22/souji.md, .ufo/state/*.report-baseline) are not kagi's and were left untouched.

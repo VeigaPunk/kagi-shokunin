@@ -1,0 +1,103 @@
+{
+  "base": "c2cab35bc92e57e39e5489bac3386db078345b3f",
+  "checks": [
+    {
+      "argv": [
+        "python3",
+        "corpus/feature-claims.py",
+        "--selftest"
+      ],
+      "expected_exit": 0,
+      "exit": 2,
+      "stdout": "FEATURE_CLAIMS: CANNOT_EVALUATE finding=FC-FEATURE-SCHEMA\n",
+      "stderr": "",
+      "seconds": 0.027
+    },
+    {
+      "argv": [
+        "python3",
+        "corpus/feature-claims.py",
+        "--phase",
+        "before"
+      ],
+      "expected_exit": 1,
+      "exit": 2,
+      "stdout": "FEATURE_CLAIMS: CANNOT_EVALUATE finding=FC-FEATURE-SCHEMA\n",
+      "stderr": "",
+      "seconds": 0.027
+    },
+    {
+      "argv": [
+        "python3",
+        "corpus/feature-claims.py",
+        "--phase",
+        "after"
+      ],
+      "expected_exit": 0,
+      "exit": 2,
+      "stdout": "FEATURE_CLAIMS: CANNOT_EVALUATE finding=FC-FEATURE-SCHEMA\n",
+      "stderr": "",
+      "seconds": 0.028
+    },
+    {
+      "argv": [
+        "python3",
+        "corpus/feature-claims.py",
+        "--phase",
+        "boundary"
+      ],
+      "expected_exit": 2,
+      "exit": 2,
+      "stdout": "FEATURE_CLAIMS: CANNOT_EVALUATE finding=FC-FEATURE-SCHEMA\n",
+      "stderr": "",
+      "seconds": 0.027
+    },
+    {
+      "argv": [
+        "python3",
+        "corpus/revision-audit.py",
+        "--selftest"
+      ],
+      "expected_exit": 0,
+      "exit": 1,
+      "stdout": "SELFTEST_CASE: FAIL (name=clean-control expected_exit=0 expected_finding=NONE)\nSELFTEST_CASE: FAIL (name=duplicate-history-id expected_exit=2 expected_finding=HISTORY-DUPLICATE corpus/keep.txt)\nSELFTEST_CASE: FAIL (name=dropped-member expected_exit=1 expected_finding=DROPPED corpus/drop.txt)\nSELFTEST_CASE: FAIL (name=modified-worktree-stale expected_exit=1 expected_finding=STALE corpus/keep.txt)\nSELFTEST_CASE: FAIL (name=missing-file expected_exit=1 expected_finding=MISSING corpus/keep.txt)\nSELFTEST_CASE: FAIL (name=malformed-current-row expected_exit=2 expected_finding=MALFORMED-LINE 1)\nSELFTEST_CASE: FAIL (name=duplicate-current-id expected_exit=2 expected_finding=DUPLICATE corpus/drop.txt)\nSELFTEST_CASE: FAIL (name=path-traversal expected_exit=2 expected_finding=PATH-ESCAPE 1)\nSELFTEST_CASE: FAIL (name=parent-symlink expected_exit=2 expected_finding=PATH-ESCAPE corpus/linked/sentinel.txt)\nSELFTEST_CASE: FAIL (name=fifo-not-file expected_exit=2 expected_finding=NOT-FILE corpus/fifo)\nSELFTEST_CASE: PASS (name=option-history exit=2 finding=HISTORY-INVALID)\nREVISION_AUDIT_SELFTEST: FAIL (cases=11 failed=10)\n",
+      "stderr": "",
+      "seconds": 0.073
+    },
+    {
+      "argv": [
+        "bash",
+        "corpus/claim-ledger.sh",
+        "--selftest"
+      ],
+      "expected_exit": 0,
+      "exit": 0,
+      "stdout": "ok-case  1  claims-pass                        exit=0\nok-case  2  claim-verdict-missing              exit=1\nok-case  3  claim-exit-mismatch                exit=1\nok-case  4  claim-timeout                      exit=1\nok-case  5  policy-metachar                    exit=2\nok-case  6  policy-first-token                 exit=2\nok-case  7  policy-denied-verb                 exit=2\nok-case  8  policy-python-feature-allowed      exit=0\nok-case  9  policy-python-revision-allowed     exit=0\nok-case  10 policy-python-inline-refused       exit=2\nok-case  11 policy-python-module-refused       exit=2\nok-case  12 policy-python-stdin-refused        exit=2\nok-case  13 policy-python-other-refused        exit=2\nok-case  14 policy-python-boundary-refused     exit=2\nok-case  15 policy-python-metachar-refused     exit=2\nok-case  16 policy-python-denied-refused       exit=2\nok-case  17 claims-malformed                   exit=2\nok-case  18 claims-file-missing                exit=2\nok-case  19 stamp-stale                        exit=1\nok-case  20 stamp-missing                      exit=1\nok-case  21 cite-clean                         exit=0\nok-case  22 cite-unresolved                    exit=1\nok-case  23 cite-ephemeral                     exit=1\nok-case  24 cite-marked                        exit=0\nok-case  25 verdict-not-final                  exit=1\nok-case  26 cite-shorthand                     exit=0\nok-case  27 cite-unchecked                     exit=0\nok-case  28 cite-brace-ok                      exit=0\nok-case  29 cite-brace-missing                 exit=1\nok-case  30 cite-multi-ref                     exit=0\nok-case  31 cite-ellipsis-skipped              exit=0\nok-case  32 cite-second-token                  exit=1\nok-case  33 cite-brace-space                   exit=0\nok-case  34 cite-labeled-line-ok               exit=0\nok-case  35 stamp-bytes-tampered               exit=1\nok-case  36 stamp-write                        exit=0\nok-case  37 stamp-verify-fresh                 exit=0\nok-case  38 stamp-refuse-absolute              exit=2\nok-case  39 stamp-refuse-self                  exit=2\nok-case  40 stamp-out-after-args               exit=0\nok-case  41 claims-expect-anchor               exit=2\nok-case  42 claims-timeout-zero                exit=2\nok-case  43 claims-empty-command               exit=2\nok-case  44 claims-fused-row                   exit=2\nok-case  45 policy-split-verb                  exit=2\nok-case  46 claims-no-output                   exit=1\nok-case  47 stamp-duplicate                    exit=2\nok-case  48 stamps-empty-file                  exit=2\nok-case  49 stamp-shrink-refused               exit=2\nok-case  50 stamp-prune-allowed                exit=0\nok-case  51 stamp-swap-refused                 exit=2\nok-case  52 stamps-blank-row                   exit=2\nok-case  53 stamp-unterminated-row             exit=2\nok-case  54 stamp-symlink-out                  exit=2\nok-case  55 verify-id-missing                  exit=1\nok-case  56 verify-id-known                    exit=0\nok-case  57 verify-orphan-listed               exit=0\nok-case  58 verify-empty-ledger                exit=2\nok-case  59 cells-clean                        exit=0\nok-case  60 cells-uncited                      exit=1\nok-case  61 cells-missing-id                   exit=1\nok-case  62 cells-retired-exempt               exit=0\nok-case  63 cells-empty-scorecard              exit=2\nok-case  64 cells-not-in-docset                exit=2\nok-case  65 verify-comment-id                  exit=1\nok-case  66 verify-suffixed-id                 exit=1\nok-case  67 verify-prefixed-id                 exit=1\nok-case  68 verify-range-head-only             exit=0\nok-case  69 verify-labeled-id                  exit=0\nok-case  70 nested-audit-refused               exit=2\nok-case  71 cells-self-row-skip                exit=0\nok-case  72 cells-six-axis-guard               exit=2\nok-case  73 cells-bold-axes                    exit=0\nok-case  74 cells-row-fails                    exit=1\nok-case  75 cells-stale-pointer                exit=1\nok-case  76 cells-vacuous-guard                exit=2\nok-case  77 cells-numeric-anchored             exit=0\nok-case  78 stamps-symlink-row                 exit=1\nok-case  79 stamps-dotdot-row                  exit=2\nok-case  80 stamps-absolute-row                exit=2\nok-case  81 cells-bad-round-heading            exit=2\nok-case  82 cells-blocked-attempt-excluded     exit=0\nok-case  83 cells-malformed-score-after-blocked exit=2\nok-case  84 docs-clean                         exit=0\nok-case  85 docs-undeclared                    exit=1\nok-case  86 docs-undeclared-summary            exit=1\nok-case  87 docs-missing-id                    exit=1\nok-case  88 docs-missing-id-summary            exit=1\nok-case  89 docs-padded-reason                 exit=2\nok-case  90 docs-two-declarations              exit=2\nok-case  91 docs-unknown-class                 exit=2\nok-case  92 docs-short-reason                  exit=2\nok-case  93 docs-no-separator                  exit=2\nok-case  94 docs-trailing-garbage              exit=2\nok-case  95 docs-id-suffixed                   exit=2\nok-case  96 docs-unpinned                      exit=1\nok-case  97 docs-duplicate-reason              exit=1\nok-case  98 docs-ratio-floor                   exit=1\nok-case  99 docs-ratio-boundary                exit=0\nok-case  100 docs-zero-entries                  exit=2\nok-case  101 docs-hidden-entry                  exit=2\nok-case  102 docs-dir-dotdot                    exit=2\nok-case  103 docs-dir-absolute                  exit=2\nok-case  104 docs-dir-missing                   exit=2\nok-case  105 docs-malformed-line                exit=2\nok-case  106 defer-substrate-absent             exit=0\nok-case  107 defer-substrate-present            exit=1\nok-case  108 defer-substrate-line               exit=0\nSELFTEST: PASS (108 cases)\n",
+      "stderr": "",
+      "seconds": 2.158
+    },
+    {
+      "argv": [
+        "bash",
+        "corpus/sources-census.sh"
+      ],
+      "expected_exit": 0,
+      "exit": 0,
+      "stdout": "SOURCES_CENSUS: CLEAN (rows=21 A=19 B=0 C=2 queued=1 mined=19 rejected=1 entries_sourced=4 legacy=21)\n",
+      "stderr": "",
+      "seconds": 0.069
+    },
+    {
+      "argv": [
+        "bash",
+        "corpus/sources-census.sh",
+        "--selftest"
+      ],
+      "expected_exit": 0,
+      "exit": 0,
+      "stdout": "case clean: ok (exit 0, CLEAN)\ncase continuation-line: ok (exit 0, CLEAN)\ncase legacy-not-scanned: ok (exit 0, CLEAN)\ncase zero: ok (exit 1, SC_ZERO)\ncase malformed: ok (exit 1, SC_MALFORMED)\ncase row-leading-space: ok (exit 1, SC_MALFORMED)\ncase row-two-digit-id: ok (exit 1, SC_MALFORMED)\ncase row-lowercase-id: ok (exit 1, SC_MALFORMED)\ncase dup: ok (exit 1, SC_DUP)\ncase enum-tier: ok (exit 1, SC_ENUM)\ncase enum-status: ok (exit 1, SC_ENUM)\ncase enum-kind: ok (exit 1, SC_ENUM)\ncase inflation: ok (exit 1, SC_INFLATION)\ncase usedby-missing: ok (exit 1, SC_USEDBY_MISSING)\ncase usedby-absolute: ok (exit 1, SC_USEDBY_MISSING)\ncase usedby-dotdot: ok (exit 1, SC_USEDBY_MISSING)\ncase usedby-nocite: ok (exit 1, SC_USEDBY_NOCITE)\ncase mined-unused-dash: ok (exit 1, SC_MINED_UNUSED)\ncase mined-unused-empty: ok (exit 1, SC_MINED_UNUSED)\ncase reject-prefix: ok (exit 1, SC_REJECT_SHAPE)\ncase reject-flip: ok (exit 1, SC_REJECT_SHAPE)\ncase sections-registry: ok (exit 1, SC_SECTIONS)\ncase sections-paths: ok (exit 1, SC_SECTIONS)\ncase sections-search: ok (exit 1, SC_SECTIONS)\ncase sections-leads: ok (exit 1, SC_SECTIONS)\ncase entry-verified-at: ok (exit 1, SC_ENTRY_HEADER)\ncase entry-recheck: ok (exit 1, SC_ENTRY_HEADER)\ncase entry-two-source: ok (exit 1, SC_ENTRY_HEADER)\ncase cite-unknown: ok (exit 1, SC_ENTRY_CITE)\ncase cite-not-mined: ok (exit 1, SC_ENTRY_CITE)\ncase cite-usedby-omits: ok (exit 1, SC_ENTRY_CITE)\ncase cite-no-id: ok (exit 1, SC_ENTRY_CITE)\ncase cite-tier-c-sole: ok (exit 1, SC_ENTRY_CITE)\ncase cred-scheme: ok (exit 1, SC_CREDENTIAL)\ncase cred-pem: ok (exit 1, SC_CREDENTIAL)\ncase cred-gh: ok (exit 1, SC_CREDENTIAL)\ncase cred-aws: ok (exit 1, SC_CREDENTIAL)\ncase cred-slack: ok (exit 1, SC_CREDENTIAL)\ncase cred-age: ok (exit 1, SC_CREDENTIAL)\ncase cred-vault: ok (exit 1, SC_CREDENTIAL)\ncase cred-entry: ok (exit 1, SC_CREDENTIAL)\ncase setup-no-sources: ok (exit 2, SETUP)\ncase setup-sources-dir: ok (exit 2, SETUP)\ncase setup-no-knowledge: ok (exit 2, SETUP)\ncase setup-bad-arg: ok (exit 2, SETUP)\ncase setup-root-absent: ok (exit 2, SETUP)\ncase setup-root-noarg: ok (exit 2, SETUP)\nSOURCES_CENSUS_SELFTEST: PASS (47 cases)\n",
+      "stderr": "",
+      "seconds": 0.949
+    }
+  ]
+}

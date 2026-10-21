@@ -1,0 +1,13 @@
+{
+  "deleted_stamps": [],
+  "from_revision": "c41af82dfb11ac74b5cb40284415ed366554262b",
+  "rewritten_claim_rows": [
+    {
+      "id": "R21-03",
+      "new": "R21-03\tbash corpus/sources-census.sh --selftest\t^SOURCES_CENSUS_SELFTEST: PASS \\(47 cases\\)$\t0\t120\tthe census gate's scratch-tree proof: 3 clean shapes, one mutation per finding id (zero/malformed x4 incl. leading-space, 2-digit and lowercase ids/dup/enum x3/inflation/used-by missing x3 incl. absolute and ../ paths/no-cite/unused x2/reject shape x2/sections x4/entry header x3 incl. two source: lines/cite x5 incl. tier-C sole support/credential x8 with runtime-built needles) and 6 SETUP paths, each asserting exit + finding id + findings count; case count pinned (40 at c41af82; the post-landing reviewer's seven fail-open mutations added in the round-21 correction commit)",
+      "old": "R21-03\tbash corpus/sources-census.sh --selftest\t^SOURCES_CENSUS_SELFTEST: PASS \\(40 cases\\)$\t0\t120\tthe census gate's scratch-tree proof: 3 clean shapes, one mutation per finding id (zero/malformed/dup/enum x3/inflation/used-by missing/no-cite/unused x2/reject shape x2/sections x4/entry header x2/cite x4/credential x8 with runtime-built needles) and 6 SETUP paths, each asserting exit + finding id + findings count; case count pinned"
+    }
+  ],
+  "snapshot_semantics": "stamps and claim-ledger expected rows are mutable gate inputs, not append-only LOG/QUALITY/SOURCES immutable columns. Historic values are preserved here; all removals require restoration or exact justified disposition.",
+  "to_revision": "e1544c194fddf1bb073b3946847b4526f326ad73"
+}

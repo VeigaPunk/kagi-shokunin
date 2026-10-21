@@ -82,7 +82,7 @@ reads the missing surface).
 KAGI_SUBSTRATE=absent  bash corpus/claim-ledger.sh verify   # DEFER lines, deferred=N
 KAGI_SUBSTRATE=present bash corpus/claim-ledger.sh verify   # rows run normally
 test -x "$HOME/.local/bin/the-janitor" && echo present || echo absent
-bash corpus/claim-ledger.sh --selftest   # cases 95-97 prove both arms
+bash corpus/claim-ledger.sh --selftest   # cases defer-substrate-absent/-present/-line prove both arms (cases 95-97 when written)
 ```
 
 ## Falsifiers

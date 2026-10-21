@@ -1,0 +1,63 @@
+{
+ "base": "4f94b52a3cdfaa289d779bd8a2afcd0b1fcd9105",
+ "measured_commit": "6c23a56dea0f68dfb93d793a7de440a3ac5bb7b5",
+ "generated": "2026-10-21",
+ "runs": [
+  {
+   "claim": "C1",
+   "command": "bash .ufo/waves/round-24/tools/host-tripwire.sh before 4f94b52a\u2026",
+   "measured": "4f94b52a3cdfaa289d779bd8a2afcd0b1fcd9105",
+   "last": "HOST_TRIPWIRE: label=before rev=4f94b52a3cdf verify_absent=1 verify_present=22 cells_absent=1 cells_present=11 total=35"
+  },
+  {
+   "claim": "C1",
+   "command": "bash .ufo/waves/round-24/tools/host-tripwire.sh final 735123d5\u2026",
+   "measured": "735123d532387caccdbf04cb0303217d2483de73",
+   "last": "HOST_TRIPWIRE: label=final rev=735123d53238 verify_absent=0 verify_present=0 cells_absent=0 cells_present=0 total=0 complete=4/4 host_skip_lines=48",
+   "note": "gate code unchanged after 735123d5 (later commits: stamps, ledger note, lesson, evidence)"
+  },
+  {
+   "claim": "C1+all",
+   "command": "env -i PATH HOME=<scratch> bash corpus/claim-ledger.sh verify (real tree, no --allow-host-rows)",
+   "measured": "6c23a56dea0f68dfb93d793a7de440a3ac5bb7b5",
+   "exit": 0,
+   "last": "CLAIM_LEDGER: CLEAN (claims=61 deferred=0 stamped=83 ids=61 cited=51 labeled_ids=20 orphans=10 host_skipped=12)"
+  },
+  {
+   "claim": "C3",
+   "command": "python3 .ufo/waves/round-24/tools/identity-swap.py before2 4f94b52a\u2026",
+   "measured": "4f94b52a3cdfaa289d779bd8a2afcd0b1fcd9105",
+   "last": "IDENTITY_SWAP: label=before2 rev=4f94b52a3cdf population=15 survived=15 killed=0 invalid=0"
+  },
+  {
+   "claim": "C3",
+   "command": "python3 .ufo/waves/round-24/tools/identity-swap.py final3 6c23a56d\u2026",
+   "measured": "6c23a56dea0f68dfb93d793a7de440a3ac5bb7b5",
+   "last": "IDENTITY_SWAP: label=final3 rev=6c23a56dea0f population=15 survived=0 killed=15 invalid=0"
+  },
+  {
+   "claim": "C2",
+   "command": "bash corpus/sources-census.sh",
+   "measured": "6c23a56dea0f68dfb93d793a7de440a3ac5bb7b5",
+   "exit": 0,
+   "last": "SOURCES_CENSUS: CLEAN (rows=31 A=29 B=0 C=2 queued=1 mined=28 rejected=2 entries_sourced=4 legacy=21 captures=31 inrow=16 inrow_only=0 inrow_nonreproducing=12)"
+  },
+  {
+   "claim": "frontier",
+   "command": "scripts/sources-census.sh validate --root /home/vgpnk/Projects/shokunin kagi",
+   "start": "exit=0",
+   "end": "fleet_census_exit=0"
+  }
+ ],
+ "selftests_in_verify": {
+  "R11-09/R18-03": "SELFTEST: PASS (140 cases)",
+  "R21-03": "70 cases",
+  "R24-01": "cases=20",
+  "R24-02": "14 cases",
+  "R22-04": "cases=17"
+ },
+ "wave2": "not dispatched: the L1 run budget was exhausted after wave 1; residual checks were the L1's own re-measurements above",
+ "dead_seats": [
+  "ProbeAbsPath (Codex turn_rate_limit_exceeded at spawn)"
+ ]
+}

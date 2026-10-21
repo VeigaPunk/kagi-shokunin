@@ -1,0 +1,16 @@
+{
+  "base": "c2cab35bc92e57e39e5489bac3386db078345b3f",
+  "command_template": "git clone --no-hardlinks <lane-repo> <empty-scratch>; python3 corpus/revision-audit.py --root <scratch-base-tree> --history c2cab35bc92e57e39e5489bac3386db078345b3f",
+  "argv": [
+    "python3",
+    "/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/revision-audit.py",
+    "--root",
+    "/tmp/kagi-r22-before-7elao5gl",
+    "--history",
+    "c2cab35bc92e57e39e5489bac3386db078345b3f"
+  ],
+  "exit": 1,
+  "stdout": "STALE LOG.md\nSTALE corpus/knowledge/config-layering.md\nSTALE corpus/knowledge/handler-on-disk-state.md\nSTALE corpus/knowledge/handler-trust-boundary.md\nSTALE corpus/knowledge/janitor-env-contract.md\nSTALE corpus/lessons/round-18.md\nREVISION_AUDIT: DRIFT (stale=6 missing=0 dropped=0 added=0 invalid=0)\n",
+  "stderr": "",
+  "auditor_sha256": "ac19e186ce6f8e70ad6443058f0569222519d501a55106c813fa5f71ed1f8977"
+}

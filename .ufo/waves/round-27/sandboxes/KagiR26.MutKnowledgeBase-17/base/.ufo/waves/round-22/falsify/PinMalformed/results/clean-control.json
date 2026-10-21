@@ -1,0 +1,216 @@
+{
+  "audit": {
+    "argv": [
+      "/usr/bin/python3",
+      "-I",
+      "-B",
+      "/tmp/kagi-r22-w2-PinMalformed/corpus/revision-audit.py",
+      "--root",
+      "/tmp/kagi-r22-w2-PinMalformed/fixtures/clean-control",
+      "--history",
+      "f4dc520c064d997b51949c919e27636b1084ba6a"
+    ],
+    "cwd": "/tmp/kagi-r22-w2-PinMalformed/fixtures/clean-control",
+    "exit_code": 0,
+    "stderr": "",
+    "stderr_b64": "",
+    "stdin_b64": "",
+    "stdout": "REVISION_AUDIT: CLEAN (stale=0 missing=0 dropped=0 added=0 invalid=0)\n",
+    "stdout_b64": "UkVWSVNJT05fQVVESVQ6IENMRUFOIChzdGFsZT0wIG1pc3Npbmc9MCBkcm9wcGVkPTAgYWRkZWQ9MCBpbnZhbGlkPTApCg=="
+  },
+  "case": "clean-control",
+  "commands": [
+    {
+      "argv": [
+        "/usr/bin/git",
+        "-C",
+        "/tmp/kagi-r22-w2-PinMalformed/fixtures/clean-control",
+        "-c",
+        "core.hooksPath=/dev/null",
+        "init",
+        "--quiet",
+        "--template=/tmp/kagi-r22-w2-PinMalformed/empty-template",
+        "--initial-branch=fixture",
+        "--object-format=sha1"
+      ],
+      "cwd": "/tmp/kagi-r22-w2-PinMalformed/fixtures/clean-control",
+      "exit_code": 0,
+      "stderr": "",
+      "stderr_b64": "",
+      "stdin_b64": "",
+      "stdout": "",
+      "stdout_b64": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/git",
+        "-C",
+        "/tmp/kagi-r22-w2-PinMalformed/fixtures/clean-control",
+        "-c",
+        "core.hooksPath=/dev/null",
+        "hash-object",
+        "-w",
+        "--stdin"
+      ],
+      "cwd": "/tmp/kagi-r22-w2-PinMalformed/fixtures/clean-control",
+      "exit_code": 0,
+      "stderr": "",
+      "stderr_b64": "",
+      "stdin_b64": "a2VlcAo=",
+      "stdout": "2fa992c0b8b5c6acd2bdd4fa31de29d29799bdd5\n",
+      "stdout_b64": "MmZhOTkyYzBiOGI1YzZhY2QyYmRkNGZhMzFkZTI5ZDI5Nzk5YmRkNQo="
+    },
+    {
+      "argv": [
+        "/usr/bin/git",
+        "-C",
+        "/tmp/kagi-r22-w2-PinMalformed/fixtures/clean-control",
+        "-c",
+        "core.hooksPath=/dev/null",
+        "hash-object",
+        "-w",
+        "--stdin"
+      ],
+      "cwd": "/tmp/kagi-r22-w2-PinMalformed/fixtures/clean-control",
+      "exit_code": 0,
+      "stderr": "",
+      "stderr_b64": "",
+      "stdin_b64": "Y29ycHVzL2tlZXAudHh0CWY2NjBhNzk5NmRlYWNmYmM3NTYwZTQyNDAwNTRhOGFkODJlYjAyZmUyNWE5NTA2NDI1N2UwNzA4NGJjYWNiODUJMQk1Cg==",
+      "stdout": "6d145982011de1fbc585f48de33a470b16d10b0e\n",
+      "stdout_b64": "NmQxNDU5ODIwMTFkZTFmYmM1ODVmNDhkZTMzYTQ3MGIxNmQxMGIwZQo="
+    },
+    {
+      "argv": [
+        "/usr/bin/git",
+        "-C",
+        "/tmp/kagi-r22-w2-PinMalformed/fixtures/clean-control",
+        "-c",
+        "core.hooksPath=/dev/null",
+        "mktree"
+      ],
+      "cwd": "/tmp/kagi-r22-w2-PinMalformed/fixtures/clean-control",
+      "exit_code": 0,
+      "stderr": "",
+      "stderr_b64": "",
+      "stdin_b64": "MTAwNjQ0IGJsb2IgMmZhOTkyYzBiOGI1YzZhY2QyYmRkNGZhMzFkZTI5ZDI5Nzk5YmRkNQlrZWVwLnR4dAoxMDA2NDQgYmxvYiA2ZDE0NTk4MjAxMWRlMWZiYzU4NWY0OGRlMzNhNDcwYjE2ZDEwYjBlCXN0YW1wcy50c3YK",
+      "stdout": "9db244100eb744d1f431d1db6949350096544e8d\n",
+      "stdout_b64": "OWRiMjQ0MTAwZWI3NDRkMWY0MzFkMWRiNjk0OTM1MDA5NjU0NGU4ZAo="
+    },
+    {
+      "argv": [
+        "/usr/bin/git",
+        "-C",
+        "/tmp/kagi-r22-w2-PinMalformed/fixtures/clean-control",
+        "-c",
+        "core.hooksPath=/dev/null",
+        "mktree"
+      ],
+      "cwd": "/tmp/kagi-r22-w2-PinMalformed/fixtures/clean-control",
+      "exit_code": 0,
+      "stderr": "",
+      "stderr_b64": "",
+      "stdin_b64": "MDQwMDAwIHRyZWUgOWRiMjQ0MTAwZWI3NDRkMWY0MzFkMWRiNjk0OTM1MDA5NjU0NGU4ZAljb3JwdXMK",
+      "stdout": "1c4e992b2b66909821f0f80b1b69cc01741c2f83\n",
+      "stdout_b64": "MWM0ZTk5MmIyYjY2OTA5ODIxZjBmODBiMWI2OWNjMDE3NDFjMmY4Mwo="
+    },
+    {
+      "argv": [
+        "/usr/bin/git",
+        "-C",
+        "/tmp/kagi-r22-w2-PinMalformed/fixtures/clean-control",
+        "-c",
+        "core.hooksPath=/dev/null",
+        "commit-tree",
+        "1c4e992b2b66909821f0f80b1b69cc01741c2f83"
+      ],
+      "cwd": "/tmp/kagi-r22-w2-PinMalformed/fixtures/clean-control",
+      "exit_code": 0,
+      "stderr": "",
+      "stderr_b64": "",
+      "stdin_b64": "cGluLW1hbGZvcm1lZC1maXh0dXJlLWhpc3RvcnkK",
+      "stdout": "f4dc520c064d997b51949c919e27636b1084ba6a\n",
+      "stdout_b64": "ZjRkYzUyMGMwNjRkOTk3YjUxOTQ5YzkxOWUyNzYzNmIxMDg0YmE2YQo="
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-I",
+        "-B",
+        "/tmp/kagi-r22-w2-PinMalformed/corpus/revision-audit.py",
+        "--root",
+        "/tmp/kagi-r22-w2-PinMalformed/fixtures/clean-control",
+        "--history",
+        "f4dc520c064d997b51949c919e27636b1084ba6a"
+      ],
+      "cwd": "/tmp/kagi-r22-w2-PinMalformed/fixtures/clean-control",
+      "exit_code": 0,
+      "stderr": "",
+      "stderr_b64": "",
+      "stdin_b64": "",
+      "stdout": "REVISION_AUDIT: CLEAN (stale=0 missing=0 dropped=0 added=0 invalid=0)\n",
+      "stdout_b64": "UkVWSVNJT05fQVVESVQ6IENMRUFOIChzdGFsZT0wIG1pc3Npbmc9MCBkcm9wcGVkPTAgYWRkZWQ9MCBpbnZhbGlkPTApCg=="
+    }
+  ],
+  "environment": {
+    "GIT_AUTHOR_DATE": "2000-01-01T00:00:00+0000",
+    "GIT_AUTHOR_EMAIL": "pin-malformed@example.invalid",
+    "GIT_AUTHOR_NAME": "PinMalformed fixture",
+    "GIT_CEILING_DIRECTORIES": "/tmp/kagi-r22-w2-PinMalformed",
+    "GIT_COMMITTER_DATE": "2000-01-01T00:00:00+0000",
+    "GIT_COMMITTER_EMAIL": "pin-malformed@example.invalid",
+    "GIT_COMMITTER_NAME": "PinMalformed fixture",
+    "GIT_CONFIG_GLOBAL": "/dev/null",
+    "GIT_CONFIG_NOSYSTEM": "1",
+    "GIT_CONFIG_SYSTEM": "/dev/null",
+    "GIT_NO_LAZY_FETCH": "1",
+    "GIT_NO_REPLACE_OBJECTS": "1",
+    "GIT_OPTIONAL_LOCKS": "0",
+    "GIT_TERMINAL_PROMPT": "0",
+    "HOME": "/tmp/kagi-r22-w2-PinMalformed/fixture-home",
+    "LC_ALL": "C",
+    "PATH": "/usr/bin:/bin",
+    "XDG_CONFIG_HOME": "/tmp/kagi-r22-w2-PinMalformed/fixture-home/.config"
+  },
+  "expected": {
+    "exit_code": 0,
+    "stderr": "",
+    "stdout": "REVISION_AUDIT: CLEAN (stale=0 missing=0 dropped=0 added=0 invalid=0)\n"
+  },
+  "fixture_inputs": {
+    "clean-control/corpus/stamps.tsv": {
+      "bytes": 85,
+      "content_b64": "Y29ycHVzL2tlZXAudHh0CWY2NjBhNzk5NmRlYWNmYmM3NTYwZTQyNDAwNTRhOGFkODJlYjAyZmUyNWE5NTA2NDI1N2UwNzA4NGJjYWNiODUJMQk1Cg==",
+      "content_utf8": "corpus/keep.txt\tf660a7996deacfbc7560e4240054a8ad82eb02fe25a95064257e07084bcacb85\t1\t5\n",
+      "newline_count": 1,
+      "sha256": "5e93a41e562f795afa3858452b0b881d6341d6f33bc0593d2c8afa9c0efc552c"
+    },
+    "history/corpus/keep.txt": {
+      "bytes": 5,
+      "content_b64": "a2VlcAo=",
+      "content_utf8": "keep\n",
+      "newline_count": 1,
+      "sha256": "f660a7996deacfbc7560e4240054a8ad82eb02fe25a95064257e07084bcacb85"
+    },
+    "history/corpus/stamps.tsv": {
+      "bytes": 85,
+      "content_b64": "Y29ycHVzL2tlZXAudHh0CWY2NjBhNzk5NmRlYWNmYmM3NTYwZTQyNDAwNTRhOGFkODJlYjAyZmUyNWE5NTA2NDI1N2UwNzA4NGJjYWNiODUJMQk1Cg==",
+      "content_utf8": "corpus/keep.txt\tf660a7996deacfbc7560e4240054a8ad82eb02fe25a95064257e07084bcacb85\t1\t5\n",
+      "newline_count": 1,
+      "sha256": "5e93a41e562f795afa3858452b0b881d6341d6f33bc0593d2c8afa9c0efc552c"
+    }
+  },
+  "fixture_root": "/tmp/kagi-r22-w2-PinMalformed/fixtures/clean-control",
+  "history_oid": "f4dc520c064d997b51949c919e27636b1084ba6a",
+  "history_tree_oid": "1c4e992b2b66909821f0f80b1b69cc01741c2f83",
+  "implementation_sha256": "ac19e186ce6f8e70ad6443058f0569222519d501a55106c813fa5f71ed1f8977",
+  "matches_expectation": true,
+  "observed_at_utc": "2026-10-20T22:17:31.612072+00:00",
+  "runner_argv": [
+    "/usr/bin/python3",
+    "-I",
+    "-B",
+    "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-22/falsify/PinMalformed/run-case.py",
+    "clean-control"
+  ],
+  "runner_sha256": "781f317dc013e8ceb2e93f2d10058de5e804bb60e7f81c201bcdaadc8c43b998"
+}

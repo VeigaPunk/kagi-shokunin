@@ -2,7 +2,7 @@
 
 Source basis: `corpus/surface-census.sh` (v1, round 10) run on 2026-09-28 against
 the live host; data files `corpus/surface-census.tsv` (35 rows: 20 asset /
-15 runtime) and `corpus/state-shape.tsv` (22 rows: 9 sqlite / 9 json / 3 log / 1 lock / 1 marker); `~/.local/bin/the-janitor`
+15 runtime) and `corpus/state-shape.tsv` (22 rows: 9 sqlite / 8 json [first written as 9, misstated — round-22 erratum] / 3 log / 1 lock / 1 marker); `~/.local/bin/the-janitor`
 (333 lines, env overrides L7–27, dispatch L293–333), `~/.local/bin/tac-check`
 (88 lines), `client.py` (117 lines), live `stat`/`sqlite3`/`the-janitor` probes;
 `corpus/drift-baseline.tsv` + `corpus/drift-symbols.tsv` for the cross-check.
@@ -29,7 +29,7 @@ mode, and nothing could falsify it. Two concrete holes followed:
    disagree with a truncated or reset file.
 
 `drift-pins.sh` closes the first hole only for files that are *already* listed
-(15 files, 19 symbol pins) and is blind to additions in the domain dirs. The
+(15 files, 20 symbol pins; 19 when this entry was written) and is blind to additions in the domain dirs. The
 census is the complement: it declares the surface set, enumerates the declared
 directories for anything undeclared, and pins runtime state by *shape*.
 
@@ -73,7 +73,7 @@ another lane's files would be an ownership claim this repo must not make.
 No assertion reads, prints or hashes content. `sha256` of a 0600 private file is
 an offline oracle and stays withheld (round-9 sentinel ruling, restated in
 `drift-gate.md` §Bounds); the census checks kind/mode, the baseline keeps the
-16 published hashes, and the cross-check keeps the two from disagreeing.
+published hashes (9 of 15 rows; the original "16" was misstated, round-22 erratum), and the cross-check keeps the two from disagreeing.
 
 ## Verdicts and exit codes
 
@@ -304,3 +304,12 @@ dropped-required-table falsifier is the named required-table case, not the
 unavailable-SQLite case. Do not use a helper ordinal as its contract.
 Static findings and commands: `kagi-shokunin/.ufo/waves/round-22/build/Entry21.md`.
 No live census or private-state read occurred in this round.
+
+## Erratum (round 27 — bound counts and misstated values)
+
+The drift-pins file/symbol counts in "Why this gate exists" are bound to the
+data files by `corpus/self-counts.tsv` (KN-CENSUS-*); the old 19 symbol pins
+stays beside the current value. Two values the round-22 erratum conceded but
+left in the body are now marked misstated where they are stated (the JSON
+subtotal and the published-hash count). Old/new text:
+`.ufo/waves/round-27/knowledge-migrations.json`.

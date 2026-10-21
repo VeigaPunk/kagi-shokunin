@@ -1,0 +1,126 @@
+line	numbers	class	ruling	text
+3	2408,57,333	HOST-SRC	OUT: property of absent host substrate; erratum :252 qualifies lines 3-9 historical	Source basis: `~/.local/bin/the-janitor` (sha256 `2408b0c9…57edd`, 333 lines:
+4	226,,120,,171,	HOST-SRC	OUT: property of absent host substrate; erratum :252 qualifies lines 3-9 historical	`cmd_serve` L186–226, `ensure_started` L77–120, `cmd_status` L145–171, flock at
+5	139,175,,330,117	HOST-SRC	OUT: property of absent host substrate; erratum :252 qualifies lines 3-9 historical	L130/139/175, dispatch L303–330), `~/.config/the-janitor/client.py` (117 lines:
+6	38,,65,,96,,100,	HOST-SRC	OUT: property of absent host substrate; erratum :252 qualifies lines 3-9 historical	`request` L22–38, `get_session_id` L49–65, `run_prompt` L67–96, `health` L98–100,
+7	113,1.18.31,,2026,09,28	HOST-SRC	OUT: property of absent host substrate; erratum :252 qualifies lines 3-9 historical	`main` L103–113), `opencode` 1.18.31, live probes 2026-09-28 (stat/find on the
+13	2026,09,28	DATE	OUT: dated measurement (2026-09-28 / 2026-10-15)	`verified 2026-09-28`. Everything below is metadata: no secret values, no
+16	01,,04	REF-ID	OUT: ledger row identifiers, not counts	Reverify: R11-01, R11-04
+18	1.	HEADING/ENUM	OUT: section number + prose enumeration of host objects	## 1. XDG layout — three roots, all under `$STATE_DIR`
+21	191,700	HOST-SRC/MODE	OUT: host source/mode property of absent substrate	(L190–191: `mkdir -p`, `chmod 700` on all three roots), then re-points the
+22	224	HOST-SRC/MODE	OUT: host source/mode property of absent substrate	standard XDG variables at them (L222–224) and execs the server (L225):
+23	127.0.0.1	HOST-SRC/MODE	OUT: host source/mode property of absent substrate	`opencode serve --hostname 127.0.0.1 --port $PORT --log-level ERROR`.
+24	077	HOST-SRC/MODE	OUT: host source/mode property of absent substrate	Because `cmd_serve` runs under `umask 077` (L5), every persisted file lands
+25	0600.	HOST-SRC/MODE	OUT: host source/mode property of absent substrate	0600. Probe: a bare `opencode serve` started with the same three env vars but
+26	0644	HOST-SRC/MODE	OUT: host source/mode property of absent substrate	*without* the-janitor's umask wrote the identical file set at **0644** — the
+31	0600,,9,240,576,4096,2256	HOST-FILE/VENDOR	OUT: host file property / vendor catalog fact	| `xdg-data/opencode/opencode.db` | 0600, 9,240,576 B, SQLite (journal_mode `wal`, page 4096 × 2256) | **the durable transcript** |
+32	0600,	HOST-FILE/VENDOR	OUT: host file property / vendor catalog fact	| `xdg-data/opencode/opencode.db{-wal,-shm}` | 0600, transient | WAL siblings; present while a writer holds it, empty-`-wal` after clean exit |
+33	0600,,33,687,84	HOST-FILE/VENDOR	OUT: host file property / vendor catalog fact	| `xdg-data/opencode/log/opencode.log` | 0600, 33,687 B, 84 lines, **all `level=ERROR`** | the diagnostic surface |
+35	0600,,4,709,964,222,7865	HOST-FILE/VENDOR	OUT: host file property / vendor catalog fact	| `xdg-cache/opencode/models.json` | 0600, 4,709,964 B | cached **public** model catalog (222 providers / 7865 models) |
+36	0600	HOST-FILE/VENDOR	OUT: host file property / vendor catalog fact	| `xdg-cache/opencode/bin/`, `xdg-cache/bun/@t@/*.pile` | empty dir / 0600 | bun's install cache |
+46	8,33,2026,08,29,22,31	HOST-LOG/DATE	OUT: host log measurement, dated	  (8 distinct `run=` ids in one 33 KB file spanning 2026-08-29T17:22:31Z →
+47	2026,09,21,58,13	HOST-LOG/DATE	OUT: host log measurement, dated	  2026-09-21T04:58:13Z) and is never rotated or truncated. It is a single
+50	1,2026,09,28	DATE	OUT: dated measurement (2026-09-28 / 2026-10-15)	### What the DB actually holds (`?immutable=1` reads, 2026-09-28)
+54	7,30	HOST-DB	OUT: host DB census; self-counts header names handler/DB counts out of population	| `session` | 7 | all `agent=janitor`, all `model` = `qwen-local/Qwen3-Coder-30B-A3B-Instruct-UD-IQ2_XXS`, all `directory=/home/vgpnk/.config/the-janitor` (because `cmd_serve` `cd`s to `$CONFIG_DIR`, 
+55	39,16,23	HOST-DB	OUT: host DB census; self-counts header names handler/DB counts out of population	| `message` | 39 | `$.role` = user 16 / assistant 23 |
+56	55,22,,7,,13,,13	HOST-DB	OUT: host DB census; self-counts header names handler/DB counts out of population	| `part` | 55 | `$.type` = text 22, tool 7, step-start 13, step-finish 13 |
+57	238,104,,75,,52,,7	HOST-DB	OUT: host DB census; self-counts header names handler/DB counts out of population	| `event` | 238 | `type` **column** (not JSON): `message.updated.1` 104, `message.part.updated.1` 75, `session.updated.1` 52, `session.created.1` 7 |
+58	7,1,38,38	HOST-DB	OUT: host DB census; self-counts header names handler/DB counts out of population	| `event_sequence` / `project` / `migration` / `data_migration` | 7 / 1 / 38 / 38 | event-sourcing bookkeeping |
+59	0	HOST-DB	OUT: host DB census; self-counts header names handler/DB counts out of population	| `permission`, `todo`, `credential`, `account`, `session_input`, `session_share`, `session_message`, `session_context_epoch` | 0 | empty — no permissions were ever requested, no cloud account ever ex
+61	7	HOST-DB	OUT: host DB census; self-counts header names handler/DB counts out of population	- All 7 session `title`s are the single constant literal `client.py` sends on
+62	1	HOST-DB	OUT: host DB census; self-counts header names handler/DB counts out of population	  `POST /session` (`janitor persistent local handler`) — 1 distinct title, so
+64	22,12,2047,,11,175	HOST-DB	OUT: host DB census; self-counts header names handler/DB counts out of population	  `part.data.$.text`** (22 rows, lengths 12–2047, 11,175 chars total) and in
+66	2,0	HOST-DB	OUT: host DB census; self-counts header names handler/DB counts out of population	  appears in 2 of those rows; `op://` appears in **0**.
+68	7	HOST-DB	OUT: host DB census; self-counts header names handler/DB counts out of population	  (7 invocations) — the DB is positive evidence that *only* the auth probe ever
+72	1788026642930,2026,08,29,04,02	HOST-DB	OUT: host DB census; self-counts header names handler/DB counts out of population	- Time span: `session.time_created` 1788026642930 (2026-08-29T18:04:02Z) →
+73	1789966628471,2026,09,21,57,08	HOST-DB	OUT: host DB census; self-counts header names handler/DB counts out of population	  `time_updated` 1789966628471 (2026-09-21T04:57:08Z), consistent with the log.
+77	0600	MODE/CODE	OUT: host mode / code literal	Any `sqlite3` open of that path **creates the 0600 `-wal`/`-shm` siblings**,
+78	1	MODE/CODE	OUT: host mode / code literal	even read-only (`?mode=ro`). Verified both ways: with `?immutable=1` or a
+81	6	ROUND	OUT: round id, not a count	### Corrections to the round-6 note
+83	2026,09,21	HOST-LOG/DATE/ROUND	OUT: host log measurement / round id	- `fnm-nudge.js`'s `Plugin export is not a function` is not a 2026-09-21 one-off:
+84	10,8,2026,08,29,2026,09,21	HOST-LOG/DATE/ROUND	OUT: host log measurement / round id	  10 lines across **all 8 logged runs** (2026-08-29 → 2026-09-21) — it recurs on
+86	6	HOST-LOG/DATE/ROUND	OUT: host log measurement / round id	  round-6 finding the plugin is fail-open and also inert on this daemon: its
+89	2.3,4.7,8.9,19,30	HOST-BEHAV	OUT: host runtime measurement	- The endpoint-drift burst is exponential (**2.3 → 4.7 → 8.9 → 19 → 30 s**
+90	60,60	HOST-BEHAV	OUT: host runtime measurement	  within one run), not a flat ~60 s retry; ~60 s was the length of the window.
+92	238	HOST-DB/LOG/FILE/BEHAV	OUT: host DB/log/file measurement (dated section)	  returns NULL for all 238 rows.
+93	9.2,0600,33,687,0600	HOST-DB/LOG/FILE/BEHAV	OUT: host DB/log/file measurement (dated section)	- 9.2 MB / 0600 is the **DB**; the log is 33,687 B / 0600 in the same tree.
+94	120,0.5,64	HOST-DB/LOG/FILE/BEHAV	OUT: host DB/log/file measurement (dated section)	- `ensure_started`'s window is 120 × 0.5 s, measured **64 s** to the timeout
+95	60	HOST-DB/LOG/FILE/BEHAV	OUT: host DB/log/file measurement (dated section)	  message, not a hard 60 s.
+98	60,1	HOST-BEHAV	OUT: host runtime measurement	  same failure surfaces as the 60 s `waiting for 1Password authorization`
+100	0600	MODE	OUT	- Reading the state dir mutates it (0600 `-wal`/`-shm` siblings), and
+103	2.	HEADING/ENUM	OUT: section number + prose enumeration of host objects	## 2. Lock topology — three flock verbs, everyone else is lock-free
+105	70,0600	HOST-SRC/CODE	OUT: host source line ref / code literal	`prepare_state` (L62–70) creates `client.lock` 0600 if absent; the locking verbs
+106	9,9,9	HOST-SRC/CODE	OUT: host source line ref / code literal	then `exec 9>"$LOCK_FILE"; flock 9` and hold fd 9 **for their entire body**.
+110	131,3600	HOST-SRC/BEHAV	OUT: host source ref / host timing	| `request` | yes | L130–131 | `ensure_started` + `python3 client.py request` (`THE_JANITOR_REQUEST_TIMEOUT`, default **3600 s**, client.py L74) |
+111	140,60	HOST-SRC/BEHAV	OUT: host source ref / host timing	| `start` | yes | L139–140 | `ensure_started` (up to ~60 s) |
+112	176	HOST-SRC/BEHAV	OUT: host source ref / host timing	| `stop` | yes | L175–176 | `tmux kill-session` + `rm -f session-id` |
+113	330	HOST-SRC/BEHAV	OUT: host source ref / host timing	| `status`, `run`, `refs`, `whoami`, `cdp-bridge *`, `tac-*`, `_serve` | **no** | dispatch L303–330 | nothing |
+116	1	HOST-BEHAV	OUT: host runtime measurement	`flock -n` fails immediately (exit 1) and `flock -x` blocks for the whole
+117	124,0	HOST-BEHAV	OUT: host runtime measurement	window (exit 124); `the-janitor status` still answers exit 0; killing the server
+118	0.01	HOST-BEHAV	OUT: host runtime measurement	releases the holder **0.01 s** later. Same shape through the real verbs with
+120	124	HOST-BEHAV	OUT: host runtime measurement	returned 124 (silent, no output) while the lock was held, and `stop` printed
+121	0	HOST-BEHAV	OUT: host runtime measurement	`the-janitor: already stopped` (exit 0) once it was free.
+128	33,,35,1,,9	HOST-SRC/BEHAV	OUT: host source ref / host timing	(L32–33, L34–35); untidy message, exit 1, fd 9 released just the same).
+133	3.	HEADING	OUT	## 3. Wedge taxonomy — state → diagnostic → recovery
+138	2	HOST-BEHAV	OUT: host runtime measurement	`python3 client.py health` (`GET /global/health`, timeout 2 s).
+142	0,1,1	HOST-BEHAV/SRC/LOG	OUT: host runtime/log measurement	| Stopped | `status` → `state stopped`, exit 0; `tmux has-session` exit 1; `client.py health` → `the-janitor: Janitor server is unavailable`, exit 1 | normal; `request`/`start` |
+144	60,1,1,1,120,0.5,64,90	HOST-BEHAV/SRC/LOG	OUT: host runtime/log measurement	| **Pane alive, no server, ≥60 s** | `start` prints `handler is waiting for 1Password authorization` + `Unlock 1Password…` and exits 1 after 120 × 0.5 s (measured **64 s**) | message is a **timeout, n
+145	1,110,1,1	HOST-BEHAV/SRC/LOG	OUT: host runtime/log measurement	| Pane died on arrival | `handler exited before becoming ready` + the 1Password Settings hint (L108–110), exit 1 in <1 s | the cause was printed in the pane, which is now gone — `capture-pane` returns
+146	40961,95,1	HOST-BEHAV/SRC/LOG	OUT: host runtime/log measurement	| Foreign healthy server, no pane | `port 40961 already has an OpenCode server outside tmux session janitor` (L93–95), exit 1; `ensure_started` also `rm -f session-id` (L97) | a non-janitor OpenCode o
+147	124,2,9	HOST-BEHAV/SRC/LOG	OUT: host runtime/log measurement	| **Lock held by an in-flight request** | `stop`/`start` produce **no output** and block (exit 124 at a 2 s timeout); `status` still works | `tmux kill-session -t janitor` (releases fd 9 when the clie
+148	61,2.3,4.7,8.9,19,30,60,10,2,6	HOST-BEHAV/SRC/LOG	OUT: host runtime/log measurement	| Server up, model endpoint dead | `status` → `health ready`, yet every request fails; only the log says so: 61 `message="stream error"` lines, exponential backoff **2.3 → 4.7 → 8.9 → 19 → 30 s**, the
+149	401,1,33,60,27	HOST-BEHAV/SRC/LOG	OUT: host runtime/log measurement	| Control-plane password set | `the-janitor: Janitor server returned HTTP 401`, exit 1 (health raises on `HTTPError`, L32–33); `ensure_started` then falls into the foreign-server or the 60 s timeout m
+155	4.	HEADING	OUT	## 4. Hygiene consequences
+157	1	VENDOR/SRC	OUT: vendor product name / host source ref	- **`status`'s `authorization process_memory_only` is about 1Password only.**
+158	170	VENDOR/SRC	OUT: vendor product name / host source ref	  It is also printed *only* inside the `state running` branch (L158–170) — a
+168	0700,0600	MODE	OUT	  transcript is 0700 dirs + 0600 files, i.e. the same-user boundary; the DB is
+170	0	HOST-LOG	OUT: host log measurement	- **The log is clean.** 0 matches for `op://`, `sk-`, `Bearer`, `api_key`,
+173	4.7,222,7865	VENDOR/FILE	OUT: vendor catalog fact / host file property	- **`models.json` is a copied public catalog**, 4.7 MB, 222 providers / 7865
+174	0	VENDOR/FILE	OUT: vendor catalog fact / host file property	  models, provider keys `api/doc/env/id/models/name/npm`, 0 `apiKey`/`key`/
+176	4.7	VENDOR/FILE	OUT: vendor catalog fact / host file property	  declares it). Not a secret — but it is 4.7 MB of third-party catalog sitting
+177	0600	VENDOR/FILE	OUT: vendor catalog fact / host file property	  at 0600 inside a secret handler's quarantine, and it is regenerated on demand.
+181	2026,09,21.	HOST-DB/DATE/ROUND	OUT: host DB bound, labelled rounds 6->10; no lane pin	- Nothing here proves the daemon ran after 2026-09-21. The durable bound is
+182	2026,09,21,58,13	HOST-DB/DATE/ROUND	OUT: host DB bound, labelled rounds 6->10; no lane pin	  **content**: the last log line is 2026-09-21T04:58:13Z, `max(session.time_updated)`
+183	2026,09,21,57,08,1789966628471	HOST-DB/DATE/ROUND	OUT: host DB bound, labelled rounds 6->10; no lane pin	  = 2026-09-21T04:57:08Z (ms epoch 1789966628471) and the row census is
+184	7,39,55,238,6,10.	HOST-DB/DATE/ROUND	OUT: host DB bound, labelled rounds 6->10; no lane pin	  7/39/55/238 — all unchanged rounds 6→10. The DB *file* mtime is **not** part
+185	2026,09,28,59,02,10	HOST-DB/DATE/ROUND	OUT: host DB bound, labelled rounds 6->10; no lane pin	  of that bound: it reads 2026-09-28T19:59:02Z (re-observed round 10), because
+186	10	HOST-DB/DATE/ROUND	OUT: host DB bound, labelled rounds 6->10; no lane pin	  any SQLite open — including a read-only one — can advance it, and round 10's
+191	7	HOST-DB	OUT: host DB census; self-counts header names handler/DB counts out of population	- `agent=janitor` on all 7 sessions bounds what this daemon did; it is **not** a
+193	0600,077	MODE	OUT	- The 0600 modes are a property of the wrapper's `umask 077`; running
+195	0644,,0600	MODE	OUT	  at 0644, so "files are 0600" must not be assumed from the paths themselves.
+205	84	REPRO/HOST	OUT: reproduction-block host measurement	grep -o 'level=[A-Z]*' $L | sort | uniq -c    # 84 level=ERROR
+206	9,8,33	REPRO/HOST	OUT: reproduction-block host measurement	grep -o 'run=[a-f0-9]*' $L | sort | uniq -c   # 8 daemon starts in one 33 KB file
+207	70	REPRO/HOST	OUT: reproduction-block host measurement	grep -c 'Cannot connect to API' $L            # 70
+208	10	REPRO/HOST	OUT: reproduction-block host measurement	grep -c 'failed to load plugin' $L            # 10 (fnm-nudge.js, every logged run)
+210	1	REPRO/HOST	OUT: reproduction-block host measurement	DB="file:$SD/xdg-data/opencode/opencode.db?immutable=1"   # immutable => no -wal/-shm side effect
+213	1	REPRO/HOST	OUT: reproduction-block host measurement	sqlite3 "$DB" "select json_extract(data,'\$.type'),count(*) from part group by 1;"
+214	1	REPRO/HOST	OUT: reproduction-block host measurement	sqlite3 "$DB" "select type,count(*) from event group by 1;"          # type is a column, not $.type
+216	1,7	REPRO/HOST	OUT: reproduction-block host measurement	               where json_extract(data,'\$.type')='tool' group by 1;" # janitor_auth|7
+217	2	REPRO/HOST	OUT: reproduction-block host measurement	sqlite3 "$DB" "select count(*) from part where data like '%JANITOR_ACTION_REQUIRED%';"  # 2
+218	0	REPRO/HOST	OUT: reproduction-block host measurement	sqlite3 "$DB" "select count(*) from part where data like '%op://%';"                    # 0
+219	0600	REPRO/HOST	OUT: reproduction-block host measurement	ls $SD/xdg-data/opencode/                     # reading in place adds 0600 -wal/-shm; cp to /tmp instead
+221	9,131,,140,,176	HOST-SRC	OUT: property of absent host substrate; erratum :252 qualifies lines 3-9 historical	grep -n 'flock\|exec 9>' ~/.local/bin/the-janitor      # locking verbs: L130/131, L139/140, L175/176 (+ need_command flock L63)
+226	5	REPRO/BEHAV	OUT: reproduction-block host timing/exit code	flock -x $W/client.lock -c 'sleep 5' &
+227	2,124	REPRO/BEHAV	OUT: reproduction-block host timing/exit code	THE_JANITOR_STATE_DIR=$W timeout 2 the-janitor stop;  echo "stop exit=$?"   # 124 while held
+228	2,124	REPRO/BEHAV	OUT: reproduction-block host timing/exit code	THE_JANITOR_STATE_DIR=$W timeout 2 the-janitor start; echo "start exit=$?"  # 124 while held
+229	1,0	REPRO/BEHAV	OUT: reproduction-block host timing/exit code	THE_JANITOR_STATE_DIR=$W the-janitor status | tail -1                       # state stopped (lock-free, exit 0)
+230	0	REPRO/BEHAV	OUT: reproduction-block host timing/exit code	wait; THE_JANITOR_STATE_DIR=$W the-janitor stop                             # already stopped, exit 0
+231	5	REPRO/BEHAV	OUT: reproduction-block host timing/exit code	# NB: `start` here is only safe because the background flock (5 s) outlives the
+232	2	REPRO/BEHAV	OUT: reproduction-block host timing/exit code	# 2 s timeout. A lock-free `start` will really launch the handler and prompt
+233	1	REPRO/BEHAV	OUT: reproduction-block host timing/exit code	# 1Password — use the isolated TMUX_TMPDIR form below for bare-start probes.
+238	1	REPRO/BEHAV	OUT: reproduction-block host timing/exit code	SHIM=$(mktemp -d); printf '#!/bin/sh\nexit 1\n' > $SHIM/op; chmod +x $SHIM/op
+241	1,,1	REPRO/BEHAV	OUT: reproduction-block host timing/exit code	#   => "handler exited before becoming ready" + Settings hint, exit 1, <1 s
+242	90	REPRO/BEHAV	OUT: reproduction-block host timing/exit code	env -u TMUX TMUX_TMPDIR=$S tmux new-session -d -s janitor 'sleep 90'
+244	1,1,64	REPRO/BEHAV	OUT: reproduction-block host timing/exit code	#   => "handler is waiting for 1Password authorization", exit 1 after ~64 s
+250	16,2026,10,15	DATE/ROUND	OUT: dated erratum heading / round id	## Historical-source erratum — round-16 re-dispatch (2026-10-15)
+253	2026,09,28,	DATE	OUT: dated measurement (2026-09-28 / 2026-10-15)	claims remain observations from 2026-09-28, not current handler guarantees.
+255	3,9,13,14	LANE-LOCATOR	OUT: erratum history (QM26) and no lane-local defining source; still resolves at BASE	This qualifies original lines 3-9 (handler/client source basis), 13-14
+257	248,	LANE-LOCATOR	OUT: erratum history (QM26) and no lane-local defining source; still resolves at BASE	through line 248, including the XDG layout, database census, lock/wedge
+261	2026,10,15	DATE	OUT: dated measurement (2026-09-28 / 2026-10-15)	Metadata probes on this host on 2026-10-15 returned `ENOENT` for
+264	1	HOST-BEHAV	OUT: host probe exit code (metadata probe, 2026-10-15)	The scout's `stat -c '%F %a %s'` exited 1; Node `lstatSync` likewise reported
+265	454,466	HOST-BEHAV/LANE-LOCATOR	OUT: historical SCORECARD line span in erratum; superseded by round-22 locator note	`ENOENT`, not permission denial. Evidence: `SCORECARD.md:454-466` names the
+266	496,506	HOST-BEHAV/LANE-LOCATOR	OUT: historical SCORECARD line span in erratum; superseded by round-22 locator note	debt; `SCORECARD.md:496-506` records the three-path count and its boundary.
+280	22	ROUND/HEADING	OUT: round id in heading	### Round-22 locator note
+283	16,19	ROUND	OUT: round id, not a count	round-16 revision. Use the named **Round-19 correction** and
+284	16	ROUND	OUT: round id, not a count	**Outcome — round-16 re-dispatch** sections in the current scorecard
+288	22	PATH/ROUND	OUT: path filename and round id	Audit: `kagi-shokunin/.ufo/waves/round-22/build/Entry10.md`.

@@ -1,0 +1,28 @@
+id	line(s)	exact text	class	live source (BASE)	pinned/actual	verdict	locator	note
+HOST-SIZE-333	3	333 lines of ~/.local/bin/the-janitor	host artifact size	none - host path absent since 2026-10-15 (entry :299-303); no ledger pin (grep -c 333 claim-ledger.tsv = 0)	333 at 2026-09-28	OUT host/absent substrate	^Source basis: `~/\.local/bin/the-janitor` \(sha256 `[^`]+`, ([0-9]+) lines\)	body historically qualified at :295
+HOST-SIZE-117	6	117 lines of ~/.config/the-janitor/client.py	host artifact size	none - same	117 at 2026-09-28	OUT host/absent substrate	^`8179b241…ce51`, ([0-9]+) lines\)	
+HOST-SIZE-14	148	14 lines of janitor_auth.ts	host artifact size	none - same	14 at 2026-09-28	OUT host/absent substrate	^- `janitor_auth\.ts` \(([0-9]+) lines\)	
+HOST-COUNT-162a	36	/doc (162 paths)	host opencode runtime	none - no ledger pin (grep -c 162 = 0)	162 at 2026-09-28	OUT host measurement	^\| `GET /doc` \(([0-9]+) paths\)	table cell
+HOST-COUNT-162b	64	/doc lists 162 paths	host opencode runtime	none	162 at 2026-09-28	OUT host measurement	^`/doc` lists ([0-9]+) paths	same value restated
+HOST-COUNT-26	77	/agent returns 26 entries	host agent set	none	26 at 2026-09-28	OUT host measurement	^overlay returns \*\*([0-9]+) entries\*\*	
+HOST-COUNT-13	81	distiller -> 13 tools	host tool map	none	13 at 2026-09-28	OUT host measurement	^`distiller` → ([0-9]+) tools	
+HOST-COUNT-20	103	20 global JSON agents	host config	none	20 at 2026-09-28	OUT host measurement	^Correction to round 6: .*\(([0-9]+) global	
+HOST-COUNT-2	115	env | grep -c '^OP_' = 2	host probe env	none	2 (fake values)	OUT host measurement	^  `session=FAKE-SESSION-TOKEN-D` and `env \| grep -c '\^OP_'` = ([0-9]+)\.	
+HOST-DB-ROWS	128	session=7 message=39 part=55; 22 text, 7 tool	host SQLite census	none - header excludes handler/DB counts (self-counts.tsv:8-9)	7/39/55/22/7	OUT host measurement	^  0600; `session`=([0-9]+), `message`=39, `part`=55	captures session only
+HOST-DB-BYTES	127	9 240 576 B	host SQLite size	none	9240576 B	OUT host measurement	^  daemon writes land in .*\(([0-9]+) [0-9]+ [0-9]+ B,	space-grouped; captures first group only
+HOST-HITS-0	55	0 hits for SO_PEERCRED|getpeereid	host binary scan	none	0	OUT host measurement	^- No uid gate: `([0-9]+)` hits	
+HOST-LOG-10	158	plugin load failures x10	host log census	none	10 (2026-08-29..2026-09-21)	OUT host measurement	error="Plugin export is not a function"` ×([0-9]+)	
+HOST-LOOP-120	185	120 x 0.5 s loop	host binary constant	none	120 x 0.5 s	OUT host measurement	^([0-9]+) × 0\.5 s loop, then	
+HOST-ENV-0	192	0 OP_* vars in tmux server env	host env	none	0	OUT host measurement	^global env holds ([0-9]+) `OP_\*` vars	
+HOST-LINEREF	4-6,51,59,84,109-111,120-122,176-177,180,184-185,263	L186-226 L72-75 L77-120 L130/139/175 L22-38 L41-95 L100 L24 L27 L80 L204-207 L194 L225 L214-219 L130-131 L139-140 L175-176 L94 L116	line refs into absent host files	none - files ENOENT per :299-303	unverifiable	OUT host/absent substrate	n/a	11 sites in text plus 3 flock sites
+LANE-SPAN-A	306	SCORECARD.md:454-466	lane-owned line span	git show 0a47dd18:SCORECARD.md -> 458 header, 470 last line	458-470 at BASE (454-466 at f4a8dd9)	STALE pointer (+4)	^`SCORECARD\.md:454-([0-9]+)` and `SCORECARD\.md:[0-9]+-506`\.$	exact when written; round-22 Entry13 s8 already found it
+LANE-SPAN-B	306	SCORECARD.md:496-506	lane-owned line span	git show 0a47dd18:SCORECARD.md -> block 500-510, Observed 508	500-510 at BASE (496-506 at f4a8dd9, Observed 504)	STALE pointer (+4; Observed outside range)	^`SCORECARD\.md:454-466` and `SCORECARD\.md:[0-9]+-([0-9]+)`\.$	no Round-22 locator note in this entry
+SELF-3-11	293	original lines 3-11	self span	entry bytes unchanged since f4a8dd9	3-11 = source basis	OK	^This qualifies original lines ([0-9]+)-11	
+SELF-9-10-17	294	verification marker at 9-10; by-hand at 17	self refs	entry bytes	9-10 marker; 17 Reverify	OK	^basis\), the verification marker at ([0-9]+)-10	
+SELF-286	295	through line 286	body boundary	entry bytes	286 = last body line (287 blank, 288 erratum)	OK	^and all source-dependent conclusions and recipes through line ([0-9]+)	not a count
+SELF-284-286	316	original lines 284-286	self span	entry bytes; f4a8dd9^ has 286 logical lines	same-uid isolation bullet	OK	^the same-uid isolation limit at original lines 284-([0-9]+)	
+VENDOR-OPENCODE	8,276	opencode 1.18.31	vendor version	none	1.18.31	OUT vendor fact	n/a	
+VENDOR-TMUX	188	tmux 3.7b	vendor version	none	3.7b	OUT vendor fact	n/a	
+RECIPE-CONSTANTS	174,205-267	openssl rand -hex 32; ports 41999/41998/41996; sleep 2; exit codes 1/2	reproduction recipe	none - recipe unexecuted	n/a	OUT recipe syntax	n/a	code fences, not claims
+STRUCT-COUNT	62,79,145,171,139	three verified routes; two disabled agents; two janitor_auth parts; both halves; at most once per request	enumerations/bounds of host objects	none	n/a	OUT host prose	n/a	inside historically qualified body
+DATES-ROUNDS	9,30,158-159,288,291,299	2026-09-28; 2026-08-29..2026-09-21; 2026-10-15; round-6/16	dates and round tags	n/a	n/a	OUT history	n/a	

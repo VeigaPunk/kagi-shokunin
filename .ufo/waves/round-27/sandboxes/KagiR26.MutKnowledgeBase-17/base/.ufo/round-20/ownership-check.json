@@ -1,0 +1,35 @@
+{
+  "baseCommit": "f4a8dd92674e95231c50f361e8c69eb00c7e713b",
+  "result": "OWNED_INDEX: PASS",
+  "stagedPaths": [
+    ".ufo/round-20/citation-check-final.json",
+    ".ufo/round-20/citation-check.json",
+    ".ufo/round-20/inspection.json",
+    ".ufo/round-20/local-checks.json",
+    ".ufo/round-20/pane-attestation.json",
+    ".ufo/round-20/route-admission.mjs",
+    ".ufo/round-20/wave/dispatch.json",
+    ".ufo/round-20/wave/plan.json",
+    ".ufo/round-20/wave/spec.json",
+    ".ufo/round-20/wave/validation.json",
+    "LOG.md",
+    "SCORECARD.md",
+    "corpus/README.md",
+    "corpus/lessons/round-20.md",
+    "plans/wwkd-round-20-interactive.md"
+  ],
+  "recordSelection": "Index bytes equal HEAD bytes plus only this session round-20 section; inherited round-16 outcome headings are absent from the staged records.",
+  "excludedInheritedPaths": [
+    "corpus/op-ref-probe.sh"
+  ],
+  "excludedInheritedHunks": [
+    "LOG.md: round-16 committed-measurement outcome append",
+    "SCORECARD.md: Outcome \u2014 round-16 re-dispatch"
+  ],
+  "nativeSessionPathsStaged": false,
+  "selectionCommand": "git apply --cached of a HEAD-plus-owned-section patch; explicit git add of authored new paths and the initially clean corpus index",
+  "stagedInputSha256": {
+    "LOG.md": "f90aca11ca6c5f7ba37ccecc0a6dc3e6aa73b7b2dd4522ead0002fa38b288848",
+    "SCORECARD.md": "f127dfe8868028d8a7e5cb748dca45142a5c8986ff0f668e80a8f56c2f190e2f"
+  }
+}

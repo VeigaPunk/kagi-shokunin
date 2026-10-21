@@ -1,0 +1,53 @@
+{
+  "sourceRevision": "f4a8dd92674e95231c50f361e8c69eb00c7e713b",
+  "state": "blocked-before-native-task-dispatch",
+  "proposedRound": 20,
+  "verifiedRoundIncrement": 0,
+  "priorVerifiedRoundTotal": null,
+  "inheritedDirtyPaths": ["LOG.md", "SCORECARD.md", "corpus/op-ref-probe.sh"],
+  "inheritedBookkeeping": "Preserve the interrupted round-16 outcome appends as prior-session records, not newly executed evidence or a 32-seat round.",
+  "inheritedProbe": "Observed only; do not commit or overwrite the inherited uncommitted implementation.",
+  "missingLaneFiles": ["corpus/QUALITY.md", "MINT.md"],
+  "localSmoke": {
+    "command": ["bash", "corpus/op-ref-probe.sh", "--dotenv-bytes"],
+    "exitCode": 0,
+    "stdout": "DOTENV_BYTES_CASE id=escaped-lf status=PASS\nDOTENV_BYTES_CASE id=trailing-lf status=PASS\nDOTENV_BYTES_CASE id=newline-only status=PASS\nDOTENV_BYTES_CASE id=single-literal status=PASS\nDOTENV_BYTES_CASE id=double-multiline status=PASS\nDOTENV_BYTES_CASE id=single-multiline status=PASS\nOP_DOTENV_BYTES: CLEAN (checks=6 failed=0)\n",
+    "stderr": "",
+    "opBinary": "/usr/bin/op",
+    "opVersion": "2.40.0",
+    "limit": "Inherited dirty probe, generated plain-value fixtures, isolated HOME/XDG/env; not a committed feature, handler verification, masking observation, vault/auth/ref resolution or completed round."
+  },
+  "declarationGate": {
+    "command": ["bash", "corpus/claim-ledger.sh", "docs"],
+    "exitCode": 0,
+    "verdict": "DOC_AUDIT: CLEAN (entries=21 row_linked=18 by_hand=3 undeclared=0 missing_ids=0 unpinned=0 duplicate_reasons=0)",
+    "limit": "Declaration/pointer coverage only; no live claim execution or private-file gate."
+  },
+  "sightingBinding": {
+    "source": "/home/vgpnk/Projects/ufo-fsd-alpha/.ufo/sighting/manifest.json",
+    "missionId": "m_5d7890537ddb462fba4098b7f982d4fa",
+    "runId": "shk-kagi-interactive-20261015T050057Z",
+    "sessionId": "shk-kagi-interactive-20261015T050057Z",
+    "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin",
+    "status": "running",
+    "taskKey": null,
+    "resultPath": null,
+    "receiptPath": null,
+    "promptSha256": null,
+    "configSha256": null
+  },
+  "receipt": {
+    "minted": false,
+    "validated": false,
+    "sightingCompleted": false,
+    "reason": "Manual Sighting launch metadata and supplied prompt contain no authentic UFO task receipt binding. Do not derive a taskKey or invent an acceptance config digest."
+  },
+  "executionIncident": {
+    "action": "A JS evidence helper attempted to run the route gate using process.execPath, assuming a Bun CLI. The value resolved to /home/vgpnk/.local/bin/omp; the eval cell timed out after 60 seconds.",
+    "observedArgv": ["/home/vgpnk/.local/bin/omp", "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/round-20/route-admission.mjs"],
+    "terminatedPid": 2890276,
+    "identityCheck": "Before SIGTERM, /proc cmdline matched the exact two-argument attempted helper command. No pre-termination ppid attestation was captured; do not claim more ancestry than observed.",
+    "after": "The exact PID disappeared. Independent pane ancestry attestation found the original live omp PID 2844375 under Sighting PID 2844352, --cwd bound to kagi, @m_sol, stdin/stdout /dev/pts/9, no headless flag. Native session bodies were not read.",
+    "classification": "Local execution mistake, not an authorized specialist dispatch, route recovery, native judgment or completed craft round. No native task batch was submitted."
+  }
+}

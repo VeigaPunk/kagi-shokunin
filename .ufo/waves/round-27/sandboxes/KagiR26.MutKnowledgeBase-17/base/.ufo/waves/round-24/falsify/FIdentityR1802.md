@@ -1,0 +1,20 @@
+# FIdentityR1802 — C3 / R18-02
+
+## Findings (by severity)
+- None for the assigned R18-02 row at frozen revision `c5ef9e92201b6c36396301f12b23740565bf86a0`. Its count-preserving identity swap is **KILLED**, not a survivor or invalid mutant. This is only the assigned row slice, not an admission of the full 15-row C3 claim.
+- Axes checked: calibration (membership binding), operability (host-safe scoped run), freshness (frozen-revision evidence).
+
+## Bounded probe
+- Checkout: `git clone --no-hardlinks /home/vgpnk/Projects/shokunin/kagi-shokunin /fast/scratch/kagi-r24-recovery/KagiR24-2.FIdentityR1802-9/repo`, then checkout `c5ef9e92201b6c36396301f12b23740565bf86a0`; `git rev-parse HEAD` stdout matched that full OID.
+- Pristine `bash corpus/row-identity.sh ledger-substrate` (exit 0): `count=11 sha256=08554f8484b58cd095b257d0b9d9a0cae55a94d73b9fb801f4f1a4e812f4b031`, equal to the R24-13 pin. R18-02's `grep -cE` count was 11.
+- Independently rendered membership from valid row IDs whose sixth TSV field contains the literal marker: `R11-01 R11-02 R11-03 R11-04 R11-06 R12-01 R13-03 R15-01 R16-01 R16-03 R17-01`. It matches the eleven IDs described by R18-02; R24-13 is not a member or host row. `row-identity.sh:83-85` projects exactly this column/ID set.
+- Single mutant, matching `identity-swap.py:123-134,149`: moved the note marker from R11-01 to R11-05 (R11-01 now has `[sub-strate]`); the whole-file count stayed 11. Mutant membership replaces only R11-01 with R11-05. The measured selector output became `count=11 sha256=6aa35c829c99eb2e8ccd6750d72498fe60928e41016f922e6176dc98a13cea71`.
+- Re-pinned only `corpus/claim-ledger.tsv` in the mutant copy to its measured SHA-256 `d0cd59e0a0e0b4854c7b0b6bdd0ff5410532fc60ae294c8208d87bf1d39b009a`, 79 LF / 26189 bytes. `verify` reported `stale=0 missing=0` (83 stamp rows), so stamp drift did not kill it. The ledger `stamp --out corpus/stamps.tsv corpus/claim-ledger.tsv` attempt refused with exit 2 (`refusing to shrink ... existing 83 rows, new 1`); the scratch mutation used the same one-row restamp behavior as the probe helper.
+- Scoped control and mutant `verify` used only R18-02 + R24-13, `--docs` an empty sandbox fixture to suppress unrelated full-document ID findings, and `env -i PATH=/usr/bin:/bin HOME=$S/home-isolated TMPDIR=$S LANG=C.UTF-8` (`$S=/fast/scratch/kagi-r24-recovery/KagiR24-2.FIdentityR1802-9`). Pristine exit 0: `CLAIM_LEDGER: CLEAN (claims=2 deferred=0 stamped=83 ids=2 cited=0 labeled_ids=0 orphans=2 host_skipped=0)`.
+- Mutant exit 1: `FAIL R24-13 reason=verdict-not-final exit=0`; summary `CLAIM_LEDGER: FAIL (claims=2 failed=1 deferred=0 stamped=83 stale=0 missing=0 unresolved_ids=0 labeled_ids=0 host_skipped=0)`. R18-02's count remained 11; only R24-13's changed digest failed. No host row or `--allow-host-rows` was used.
+
+## Residual risk and verification gaps
+- The named `identity-before-v2.txt` is a BASE `4f94b52…` 15/15-survivor result. `identity-after.txt` reports `6c23a56…`, not frozen `c5ef9e9…`; neither is evidence for this frozen revision. The older `build/IdentR1802.md` finding of a 12-member/self-tagged R24-13 is likewise not reproduced at `c5ef`.
+- I did not run the full 15-mutant instrument. Its `evaluate()` (`identity-swap.py:183-186`) parses row `FAIL`/`POLICY` markers but ignores the subprocess return code. With the default document set and subset claims, an unfiltered control exited 1 on `unresolved_ids=511` despite `failed=0` and `stale=missing=0`; explicit empty-doc scoped control above isolates the assigned row and exits cleanly.
+- `xd://lsp` is not mounted (`No such tool`), so no LSP references/definition/diagnostics were available. Literal text inspection was not treated as semantic proof.
+- An initial selector probe omitted `TMPDIR`; its `mktemp` was cleaned by the script trap. All result-driving reruns set `TMPDIR` inside the unique sandbox. No tools were installed or updated.

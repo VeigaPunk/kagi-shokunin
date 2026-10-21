@@ -1,0 +1,29 @@
+{
+  "build": {
+    "seats": 88,
+    "reports": 88,
+    "dead": []
+  },
+  "falsify": {
+    "seats": 64,
+    "reports": 52,
+    "dead": {
+      "FClockS005": "openai-codex/gpt-6-luna capacity turn_rate_limit_exceeded retry budget exhausted5",
+      "FClockS032": "openai-codex/gpt-6-luna capacity turn_rate_limit_exceeded retry budget exhausted5",
+      "FSelfGroup2": "openai-codex/gpt-6-luna capacity turn_rate_limit_exceeded retry budget exhausted5",
+      "FSelfGroup4": "openai-codex/gpt-6-luna capacity turn_rate_limit_exceeded retry budget exhausted5",
+      "FSelfGroup6": "openai-codex/gpt-6-luna capacity turn_rate_limit_exceeded retry budget exhausted5",
+      "FSelfGroup7": "zai/glm-5.3-flash429 type=1302 retry budget exhausted5",
+      "FSelfGroup9": "openai-codex/gpt-6-luna capacity turn_rate_limit_exceeded retry budget exhausted5",
+      "FNetworkPolicy": "openai-codex/gpt-6-luna capacity turn_rate_limit_exceeded retry budget exhausted5",
+      "FAnchorIntegrity": "openai-codex/gpt-6-luna capacity turn_rate_limit_exceeded retry budget exhausted5",
+      "FConformance": "anthropic haiku429 retry-after-ms=10159000",
+      "FConnections": "google-antigravity gemini3.8-flash429 QUOTA_EXHAUSTED until2026-10-25T11:37:24Z",
+      "FFeedS035": "openai-codex/gpt-6-luna capacity turn_rate_limit_exceeded retry budget exhausted5"
+    }
+  },
+  "round_total": 152,
+  "continuation_failure": {
+    "XMeasureC1": "wake turn failed: Codex capacity turn_rate_limit_exceeded retry budget exhausted5; L1 repaired its script; no replacement"
+  }
+}

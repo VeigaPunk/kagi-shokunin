@@ -1492,3 +1492,30 @@ raw Git/jj mutation or helper bypass was used; receipts retain refusals.
 Fleet misroot sweep found only operator driver/runtime changes and no
 untracked artifacts; those runtime files stayed untouched. No installs.
 Outside admission remains the parent's duty and SHONEN stays author [~].
+
+## Round 27 — knowledge-entry numbers bound; numeric regression refused (2026-10-21)
+
+Two declared claims on tied-lowest axes (all at 9); BASE
+`0a47dd189356ea66ec83c3891eed54526e95b89b`, `plans/round-27.md`. Motivation:
+round25 closure D2 (knowledge-entry numbers outside the binder, named debt
+for two rounds) and round26 FinalRearm's inherited limit (`observed !=
+anchor` reads any older observation as a fired release).
+
+- C1 calibration: 22 `KN-*` bindings in `corpus/self-counts.tsv` over eight
+  knowledge entries after one scout inventoried each of the 25 entries;
+  stale numbers corrected with history clauses (claim-ledger.md 72→170;
+  op-ref 29→36 and 21→36; surface-census 19→20); per-round claim/stamp counts
+  written as ledger pointers; never-true values the round-22 erratum
+  conceded marked misstated; positional indexes named. Exclusions/debt:
+  `corpus/lessons/round-27.md` §C1; old/new text
+  `.ufo/waves/round-27/knowledge-migrations.json`.
+- C2 freshness: `REGRESSED` for strict X.Y.Z observations below their own
+  numeric anchor or the feed's highest numeric anchor (offline), and below the
+  previous observation (observe); nine selftest cases (67→76). Red before at
+  BASE: `.ufo/waves/round-27/c2-before.json`, all four downgrade fixtures
+  CLEAN exit0. Sourced S042/S043.
+- QM25/QM26 cite M27-1/M27-2; M27-3 records the L1's own first-draft
+  overclaims the round's critics caught; M27-4 a seat misroot relocated.
+- Job cap: the validated 67-seat BUILD wave was refused atomically 16 times
+  (`build-refusals.json`) and dispatched on try 17; the L1 implemented while
+  refused and the seats attacked the working candidate.

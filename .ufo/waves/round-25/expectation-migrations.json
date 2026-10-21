@@ -1,0 +1,144 @@
+{
+ "schema": "kagi-expectation-migrations-v1",
+ "round": 25,
+ "base": "4587c61a348e4528717404a68912c373f3ef4d03",
+ "policy": "membership changes allowed only for the listed new pins/rows; every moved expectation recorded old/new",
+ "stamp_added": [
+  "corpus/lessons/round-25.md",
+  "corpus/release-clock.py",
+  "corpus/release-clocks.tsv",
+  "corpus/self-counts.py",
+  "corpus/self-counts.tsv"
+ ],
+ "stamp_dropped": [],
+ "migrations": [
+  {
+   "id": "R12-03",
+   "expect": {
+    "old": "^83$",
+    "new": "^88$"
+   },
+   "note": "Round 25: +5 pins (self-counts.py/.tsv, release-clock.py, release-clocks.tsv, round-25 lesson) -> 88."
+  },
+  {
+   "id": "R13-01",
+   "expect": {
+    "old": "^29$",
+    "new": "^31$"
+   },
+   "note": "Round 25 adds round-25 pre/post -> 31."
+  },
+  {
+   "id": "R21-02",
+   "expect": {
+    "old": "^SOURCES_CENSUS: CLEAN \\(rows=32 A=30 B=0 C=2 queued=1 mined=29 rejected=2 entries_sourced=4 legacy=21 captures=32 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+    "new": "^SOURCES_CENSUS: CLEAN \\(rows=37 A=35 B=0 C=2 queued=1 mined=34 rejected=2 entries_sourced=4 legacy=21 captures=37 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$"
+   },
+   "note": "Round 25: S033-S037 release-feed rows (tier A, mined, recheck 90d) with raw-literal-v1 captures -> 37 rows."
+  },
+  {
+   "id": "R21-04",
+   "expect": {
+    "old": "^61$",
+    "new": "^65$"
+   },
+   "note": "Round 25: R25-01..04 -> 65."
+  },
+  {
+   "id": "R22-03",
+   "expect": {
+    "old": "^REVISION_AUDIT: CLEAN \\(stale=0 missing=0 dropped=0 added=20 invalid=0\\)$",
+    "new": "^REVISION_AUDIT: CLEAN \\(stale=0 missing=0 dropped=0 added=25 invalid=0\\)$"
+   },
+   "note": "Round 25: five new pins are ADDED relative to c2cab35 -> 25."
+  },
+  {
+   "id": "R24-05",
+   "expect": {
+    "old": "^ROW_IDENTITY: stamps count=83 sha256=136fde8b3656149c61f721eff42e1c0f973576a97d28eab2de079e962103b584$",
+    "new": "^ROW_IDENTITY: stamps count=88 sha256=495c8e0e1cb09f4917b5ff7fc61fab6ab7f1ccc4fdd414e7ab167c0788752754$"
+   },
+   "note": "Round 25 membership: +5 pins."
+  },
+  {
+   "id": "R24-06",
+   "expect": {
+    "old": "^ROW_IDENTITY: scorecard-rounds count=29 sha256=18e0c4fd9068addbdda53c056bdc4e1aa78b8a84d17cc8e4e1522756e9e2f38c$",
+    "new": "^ROW_IDENTITY: scorecard-rounds count=31 sha256=f2af002b51ccdd4bfaf9b6fc50468ad9b3dc236c51348a47adec1546cca3b7e6$"
+   },
+   "note": "Round 25: + round-25 pre/post headings."
+  },
+  {
+   "id": "R24-14",
+   "expect": {
+    "old": "^ROW_IDENTITY: ledger-ids count=61 sha256=f8fe98749e522ad5268d01bbef341ae49bea4fa11ce18b8c9467f1533366b3a0$",
+    "new": "^ROW_IDENTITY: ledger-ids count=65 sha256=f06ca9d54d50b00541aa0f7c61ccac906d9ba04b255f22f256c71b8b82e645f0$"
+   },
+   "note": "Round 25: + R25-01..04."
+  },
+  {
+   "id": "R24-15",
+   "expect": {
+    "old": "^ROW_IDENTITY: revision-added count=20 sha256=574d0da4c1b995923dfb9f95694cef96e159a078b7e0d2d6c076a60ee66c429e$",
+    "new": "^ROW_IDENTITY: revision-added count=25 sha256=ca5003fa0c6254cc9bff99342efbf07d9b6a400ef624c24983bdbcf8ca6f48a0$"
+   },
+   "note": "Round 25: + the five new pins."
+  },
+  {
+   "id": "R11-09",
+   "expect": {
+    "old": "^SELFTEST: PASS \\(151 cases\\)",
+    "new": "^SELFTEST: PASS \\(166 cases\\)"
+   },
+   "note": "15 round-25 cases: 14 layout + 1 network-mode refusal"
+  },
+  {
+   "id": "R18-03",
+   "expect": {
+    "old": "^SELFTEST: PASS \\(151 cases\\)$",
+    "new": "^SELFTEST: PASS \\(166 cases\\)$"
+   },
+   "note": "same selftest"
+  },
+  {
+   "id": "R11-08",
+   "expect": {
+    "old": "unchanged",
+    "new": "unchanged"
+   },
+   "note": "note rewritten: lone clone explicit (INCOMPLETE/LAYOUT-INCOMPLETE), was 'fails by design'"
+  },
+  {
+   "id": "R25-01",
+   "expect": {
+    "old": null,
+    "new": "added"
+   },
+   "note": "new round-25 row"
+  },
+  {
+   "id": "R25-02",
+   "expect": {
+    "old": null,
+    "new": "added"
+   },
+   "note": "new round-25 row"
+  },
+  {
+   "id": "R25-03",
+   "expect": {
+    "old": null,
+    "new": "added"
+   },
+   "note": "new round-25 row"
+  },
+  {
+   "id": "R25-04",
+   "expect": {
+    "old": null,
+    "new": "added"
+   },
+   "note": "new round-25 row"
+  }
+ ]
+}

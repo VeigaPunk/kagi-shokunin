@@ -1,0 +1,300 @@
+diff --git a/corpus/claim-ledger.sh b/corpus/claim-ledger.sh
+index 13ca1d3..648abbd 100755
+--- a/corpus/claim-ledger.sh
++++ b/corpus/claim-ledger.sh
+@@ -41,12 +41,15 @@
+ #              lists (`['a.md','b.md']`) split into their members; a `{a,b}` brace set
+ #              must have every alternative resolve. Session-scoped URIs
+ #              (local://, artifact://, agent://, proc://) are EPHEMERAL and
+-#              fail, and a path that does not resolve fails as UNRESOLVED —
+-#              unless the citing LINE labels it with a marker (scratch |
+-#              ephemeral | relocat | formerly | no longer | removed | renamed |
+-#              historical). A labelled stale token is counted, not failed: the
+-#              rule is "a dead citation must be labelled dead where it is
+-#              cited", not "no dead citations ever".
++#              fail. In lone clone, missing `.ufo/…`, `ufo/…`, and sibling
++#              targets are FLEET-ABSENT (counted, not UNRESOLVED); lane-local
++#              misses remain UNRESOLVED in any layout, and missing fleet
++#              targets remain UNRESOLVED when the parent markers are present.
++#              Other unresolved paths fail unless the citing LINE labels them
++#              with a marker (scratch | ephemeral | relocat | formerly |
++#              no longer | removed | renamed | historical). Labelled stale
++#              tokens are counted, not failed: dead pointers must be labelled
++#              where they are cited, not removed from the corpus.
+ #   idref    — every claim-id token (`R<digits>-<digits>`) in the same doc set
+ #              must be a row id in `corpus/claim-ledger.tsv`. The ledger was
+ #              only ever iterated FORWARD (rows → commands), so a doc citing an
+@@ -78,7 +81,7 @@
+ #
+ # Verdicts  stamps:   OK (silent) | STALE | MISSING | NOT-A-FILE
+ #           claims:   OK (silent) | FAIL(reason) | POLICY(reason) | HOST-SKIP | DEFER
+-#           citations: CLEAN | BROKEN (UNRESOLVED / EPHEMERAL lines)
++#           citations: CLEAN | INCOMPLETE (FLEET-ABSENT) | BROKEN (UNRESOLVED / EPHEMERAL)
+ #           idref:    OK (silent) | MISSING-ID doc:line id | ORPHAN (--orphans)
+ #           cells:    OK (silent) | MISSING-ID file:line id | UNCITED file:line axis
+ #           entry:    OK (silent) | UNDECLARED | MISSING-ID | UNPINNED | RATIO
+@@ -112,6 +115,10 @@
+ # An UNTAGGED row that invokes a declared host-reading script outside that
+ # script's declared host-free arguments is refused (POLICY `untagged-host`),
+ # so a new host row cannot run merely because its author forgot the tag.
++# Fleet rows (round 25): a `[fleet]` note requires both parent markers. In a
++# lone clone `verify` and `cells` print `LAYOUT-SKIP` and count
++# `layout_skipped`; they never run or credit the row. Fleet layouts use normal
++# claim checks.
+ #
+ set -euo pipefail
+@@ -345,6 +352,11 @@ case "$MODE" in
+   *) die "unknown mode: $MODE" ;;
+ esac
+ [[ -d $ROOT ]] || die "root is not a dir: $ROOT"
++# The lane root is in a fleet layout only when its parent has both fleet
++# markers; the lane's own `.ufo` tree alone is not enough.
++FLEET_LAYOUT=0
++if [[ -d $ROOT/../.ufo && -f $ROOT/../MANIFEST.json ]]; then FLEET_LAYOUT=1; fi
++fleet_layout() { [[ $FLEET_LAYOUT -eq 1 ]]; }
+ # A claim row may invoke this gate's `--selftest` (scratch-only and bounded —
+ # R11-09 does exactly that), but a nested AUDIT recurses: `verify` runs every
+ # row, and rows can run gates. `verify` is therefore refused when it is already
+@@ -512,13 +524,13 @@ verify_stamps() {
+   done
+ }
+ 
+-C_N=0 C_FAILED=0 C_POLICY=0 C_DEFER=0 C_HOST=0 C_RUN=0
++C_N=0 C_FAILED=0 C_POLICY=0 C_DEFER=0 C_HOST=0 C_LAYOUT_SKIP=0 C_RUN=0
+ # the nesting depth this run was started with: every claim command this gate
+ # spawns sees depth+1, which is what lets a nested audit detect itself
+ CLAIM_LEDGER_DEPTH_IN=${CLAIM_LEDGER_DEPTH:-0}
+ verify_claims() {
+   local line id cmd expect want tmo note pc out last rc
+-  C_N=0 C_FAILED=0 C_POLICY=0 C_DEFER=0 C_HOST=0 C_RUN=0
++  C_N=0 C_FAILED=0 C_POLICY=0 C_DEFER=0 C_HOST=0 C_LAYOUT_SKIP=0 C_RUN=0
+   [[ -f $CLAIMS ]] || die "claims file not found: $CLAIMS"
+   while IFS= read -r line || [[ -n ${line:-} ]]; do
+     [[ -z ${line:-} || ${line:0:1} == '#' ]] && continue
+@@ -551,6 +563,10 @@ verify_claims() {
+       C_POLICY=$((C_POLICY + 1))
+       continue
+     fi
++    if [[ $note == *'[fleet]'* ]] && ! fleet_layout; then
++      printf 'LAYOUT-SKIP %s (fleet layout absent)\n' "$id"
++      C_LAYOUT_SKIP=$((C_LAYOUT_SKIP + 1)); continue
++    fi
+     if is_host_note "$note" && [[ $ALLOW_HOST -ne 1 ]]; then
+       printf 'HOST-SKIP %s reason=host-row-not-authorized\n' "$id"
+       C_HOST=$((C_HOST + 1)); continue
+@@ -680,11 +696,20 @@ default_docs() {
+   fi
+ }
+ 
+-CIT_CITES=0 CIT_DOCS=0 CIT_UNRESOLVED=0 CIT_EPHEMERAL=0 CIT_MARKED=0
++CIT_CITES=0 CIT_DOCS=0 CIT_UNRESOLVED=0 CIT_EPHEMERAL=0 CIT_MARKED=0 CIT_FLEET_ABSENT=0
+ citations() {
+-  local doc l lineno content t tok cls marked pre rest post grp ok alt
++  local doc l lineno content t tok cls marked pre rest post grp ok alt marker_absent
+   local -a DOCS=()
+-  CIT_CITES=0 CIT_DOCS=0 CIT_UNRESOLVED=0 CIT_EPHEMERAL=0 CIT_MARKED=0
++  CIT_CITES=0 CIT_DOCS=0 CIT_UNRESOLVED=0 CIT_EPHEMERAL=0 CIT_MARKED=0 CIT_FLEET_ABSENT=0
++  if fleet_layout; then
++    printf 'CITATION_LAYOUT: fleet (marker present: ../.ufo directory and ../MANIFEST.json file)\n'
++  else
++    marker_absent=""
++    [[ -d $ROOT/../.ufo ]] || marker_absent="../.ufo is not a directory"
++    [[ -f $ROOT/../MANIFEST.json ]] ||
++      marker_absent="${marker_absent:+$marker_absent; }../MANIFEST.json is not a file"
++    printf 'CITATION_LAYOUT: lone-clone (fleet marker absent: %s)\n' "$marker_absent"
++  fi
+   default_docs
+   DOCS=("${DOCS_LIST[@]}")
+   for doc in "${DOCS[@]}"; do
+@@ -735,7 +760,10 @@ citations() {
+         # round-11 critic CE3 proved `bash corpus/nope.md` and a two-token span
+         # were invisible before this.
+ 
+-        if [[ $marked -eq 1 ]]; then
++        if [[ $FLEET_LAYOUT -eq 0 && ( $cls == ufo || $cls == sibling ) ]]; then
++          printf 'FLEET-ABSENT %s:%s %s (%s)\n' "${doc#"$ROOT/"}" "$lineno" "$tok" "$cls"
++          CIT_FLEET_ABSENT=$((CIT_FLEET_ABSENT + 1))
++        elif [[ $marked -eq 1 ]]; then
+           printf 'LABELED %s:%s %s (unresolved, labelled on its line)\n' "${doc#"$ROOT/"}" "$lineno" "$tok"
+           CIT_MARKED=$((CIT_MARKED + 1))
+         else
+@@ -1124,12 +1152,12 @@ case "$MODE" in
+       exit 2
+     fi
+     if [[ $C_FAILED -gt 0 || $V_STALE -gt 0 || $V_MISSING -gt 0 || $IDX_MISSING -gt 0 ]]; then
+-      printf 'CLAIM_LEDGER: FAIL (claims=%d failed=%d deferred=%d stamped=%d stale=%d missing=%d unresolved_ids=%d labeled_ids=%d host_skipped=%d)\n' \
+-        "$C_N" "$C_FAILED" "$C_DEFER" "$V_ROWS" "$V_STALE" "$V_MISSING" "$IDX_MISSING" "$IDX_LABELED" "$C_HOST"
++      printf 'CLAIM_LEDGER: FAIL (claims=%d failed=%d deferred=%d stamped=%d stale=%d missing=%d unresolved_ids=%d labeled_ids=%d host_skipped=%d layout_skipped=%d)\n' \
++        "$C_N" "$C_FAILED" "$C_DEFER" "$V_ROWS" "$V_STALE" "$V_MISSING" "$IDX_MISSING" "$IDX_LABELED" "$C_HOST" "$C_LAYOUT_SKIP"
+       exit 1
+     fi
+-    printf 'CLAIM_LEDGER: CLEAN (claims=%d deferred=%d stamped=%d ids=%d cited=%d labeled_ids=%d orphans=%d host_skipped=%d)\n' \
+-      "$C_N" "$C_DEFER" "$V_ROWS" "$LID_N" "$IDX_CITED" "$IDX_LABELED" "$IDX_ORPHANS" "$C_HOST"
++    printf 'CLAIM_LEDGER: CLEAN (claims=%d deferred=%d stamped=%d ids=%d cited=%d labeled_ids=%d orphans=%d host_skipped=%d layout_skipped=%d)\n' \
++      "$C_N" "$C_DEFER" "$V_ROWS" "$LID_N" "$IDX_CITED" "$IDX_LABELED" "$IDX_ORPHANS" "$C_HOST" "$C_LAYOUT_SKIP"
+     ;;
+   docs)
+     doc_audit "${POS[0]:-corpus/knowledge}"
+@@ -1153,12 +1181,12 @@ case "$MODE" in
+       exit 2
+     fi
+     if [[ $CL_UNCITED -gt 0 || $IDX_MISSING -gt 0 || $C_FAILED -gt 0 || $CL_STALE -gt 0 ]]; then
+-      printf 'CELL_AUDIT: BROKEN (cells=%d row_pointed=%d stamp_pointed=%d uncited=%d missing_ids=%d rows_run=%d row_deferred=%d row_failures=%d stale_pointers=%d self_skipped=%d orphans=%d host_skipped=%d)\n' \
+-        "$CL_CELLS" "$CL_ROWS" "$CL_STAMPS" "$CL_UNCITED" "$IDX_MISSING" "$CL_ROWS_RUN" "$C_DEFER" "$C_FAILED" "$CL_STALE" "$CL_SELF_SKIP" "$IDX_ORPHANS" "$C_HOST"
++      printf 'CELL_AUDIT: BROKEN (cells=%d row_pointed=%d stamp_pointed=%d uncited=%d missing_ids=%d rows_run=%d row_deferred=%d row_failures=%d stale_pointers=%d self_skipped=%d orphans=%d host_skipped=%d layout_skipped=%d)\n' \
++        "$CL_CELLS" "$CL_ROWS" "$CL_STAMPS" "$CL_UNCITED" "$IDX_MISSING" "$CL_ROWS_RUN" "$C_DEFER" "$C_FAILED" "$CL_STALE" "$CL_SELF_SKIP" "$IDX_ORPHANS" "$C_HOST" "$C_LAYOUT_SKIP"
+       exit 1
+     fi
+-    printf 'CELL_AUDIT: CLEAN (cells=%d row_pointed=%d stamp_pointed=%d uncited=0 missing_ids=0 rows_run=%d row_deferred=%d row_failures=0 stale_pointers=0 self_skipped=%d orphans=%d host_skipped=%d)\n' \
+-      "$CL_CELLS" "$CL_ROWS" "$CL_STAMPS" "$CL_ROWS_RUN" "$C_DEFER" "$CL_SELF_SKIP" "$IDX_ORPHANS" "$C_HOST"
++    printf 'CELL_AUDIT: CLEAN (cells=%d row_pointed=%d stamp_pointed=%d uncited=0 missing_ids=0 rows_run=%d row_deferred=%d row_failures=0 stale_pointers=0 self_skipped=%d orphans=%d host_skipped=%d layout_skipped=%d)\n' \
++      "$CL_CELLS" "$CL_ROWS" "$CL_STAMPS" "$CL_ROWS_RUN" "$C_DEFER" "$CL_SELF_SKIP" "$IDX_ORPHANS" "$C_HOST" "$C_LAYOUT_SKIP"
+     ;;
+   citations)
+     citations
+@@ -1167,7 +1195,12 @@ case "$MODE" in
+         "$CIT_CITES" "$CIT_DOCS" "$CIT_UNRESOLVED" "$CIT_EPHEMERAL" "$CIT_MARKED"
+       exit 1
+     fi
+-    printf 'CITATION_GATE: CLEAN (cites=%d docs=%d unresolved=0 ephemeral=0 labeled=%d)\n' \
++    if [[ $CIT_FLEET_ABSENT -gt 0 ]]; then
++      printf 'CITATION_GATE: INCOMPLETE (cites=%d docs=%d unresolved=0 ephemeral=0 labeled=%d fleet_absent=%d)\n' \
++        "$CIT_CITES" "$CIT_DOCS" "$CIT_MARKED" "$CIT_FLEET_ABSENT"
++      exit 1
++    fi
++    printf 'CITATION_GATE: CLEAN (cites=%d docs=%d unresolved=0 ephemeral=0 labeled=%d fleet_absent=0)\n' \
+       "$CIT_CITES" "$CIT_DOCS" "$CIT_MARKED"
+     ;;
+   selftest)
+@@ -1187,10 +1220,18 @@ if [[ ${SELFTEST:-0} -eq 1 ]]; then
+   CLAIM_LEDGER_DEPTH_IN=0
+   R="$S/inner"
+   mkdir -p "$R/corpus/docs" "$R/corpus/knowledge" "$R/corpus/lessons" "$S/kagi-selftest" "$S/.ufo/reports"
++  LONE="$S/layout-lone/lane-shokunin"
++  FLEET="$S/layout-fleet/lane-shokunin"
++  mkdir -p "$LONE/corpus/docs" "$FLEET/corpus/docs" "$S/layout-fleet/.ufo"
++  printf '{}\n' >"$S/layout-fleet/MANIFEST.json"
+   printf 'EXPECTED\n' >"$R/corpus/ok.txt"
+   printf '#!/usr/bin/env bash\nsleep 30\n' >"$R/corpus/sleep.sh"
+   printf '#!/usr/bin/env bash\nprintf "CLAIM_OK\\ntrailer\\n"\n' >"$R/corpus/echo-two.sh"
+   SHA_OK=$(sha256sum -- "$R/corpus/ok.txt"); SHA_OK=${SHA_OK%% *}
++  for layout_root in "$LONE" "$FLEET"; do
++    printf 'EXPECTED\n' >"$layout_root/corpus/ok.txt"
++    printf 'corpus/ok.txt\t%s\t1\t9\n' "$SHA_OK" >"$layout_root/stamps.tsv"
++  done
+   printf 'corpus/ok.txt\t%s\t1\t9\n' "$SHA_OK" >"$R/stamps.tsv"
+   printf '# only a comment\n' >"$R/stamps-empty.tsv"
+   printf 'corpus/ok.txt\t%s\t99\t9\n' "$SHA_OK" >"$R/stamps-stale.tsv"
+@@ -1367,6 +1408,25 @@ if [[ ${SELFTEST:-0} -eq 1 ]]; then
+   printf 'list cites [%s] here\n' "'corpus/ok.txt','LOG.md'" >"$R/corpus/docs/quote-list.md"
+   printf 'lane-first `.ufo/waves/lane-only/a.md` and fleet `.ufo/reports` here\n' >"$R/corpus/docs/ufo-lane.md"
+   printf 'lane-first miss `.ufo/waves/lane-only/nope.md` here\n' >"$R/corpus/docs/ufo-lane-miss.md"
++  # Round 25 C2: fixture parents distinguish a lone checkout from a fleet;
++  # both rows are valid only in fleet layout, and the lone row fails if run.
++  printf 'ufo/reports/missing.md sibling-shokunin/corpus/missing.md\n' \
++    >"$LONE/corpus/docs/fleet-misses.md"
++  printf 'ufo/reports/missing.md corpus/missing.md local://scratch\n' \
++    >"$LONE/corpus/docs/mixed-miss.md"
++  printf 'corpus/missing.md\n' >"$LONE/corpus/docs/lane-miss.md"
++  printf 'corpus/missing.md\n' >"$FLEET/corpus/docs/lane-miss.md"
++  printf 'ufo/reports/missing.md\n' >"$FLEET/corpus/docs/ufo-miss.md"
++  printf 'sibling-shokunin/corpus/missing.md\n' >"$FLEET/corpus/docs/sibling-miss.md"
++  printf 'corpus/ok.txt\n' >"$LONE/corpus/docs/clean.md"
++  printf 'R25-90\n' >"$LONE/corpus/docs/fleet-claim.md"
++  printf 'R25-91\n' >"$FLEET/corpus/docs/fleet-claim.md"
++  printf 'R25-90\tgrep -c EXPECTED corpus/missing.txt\t^1$\t0\t5\tfixture requires fleet [fleet]\n' \
++    >"$LONE/claims-fleet.tsv"
++  printf 'R25-91\tgrep -c EXPECTED corpus/ok.txt\t^1$\t0\t5\tfixture requires fleet [fleet]\n' \
++    >"$FLEET/claims-fleet.tsv"
++  six "$LONE/sc-fleet.md" '`R25-90`' '`R25-90`' '`R25-90`' '`R25-90`' '`R25-90`' '`R25-90`'
++  six "$FLEET/sc-fleet.md" '`R25-91`' '`R25-91`' '`R25-91`' '`R25-91`' '`R25-91`' '`R25-91`'
+   printf 'R1-01\tgrep -c EXPECTED corpus/ok.txt\t^1$\t0\t5\tselftest\nR4-02\tgrep -c EXPECTED corpus/absent.txt\t^1$\t1\t5\tneeds the handler [substrate]\n' >"$R/claims-cells-defer.tsv"
+   printf 'b1\tbash -o posix corpus/drift-pins.sh\t^X$\t0\t5\tbash option operand hides the script word\n' >"$R/claims-bashopt.tsv"
+   ln -s drift-pins.sh "$R/corpus/dp-alias.sh"
+@@ -1472,7 +1532,7 @@ if [[ ${SELFTEST:-0} -eq 1 ]]; then
+     fi
+   }
+ 
+-  tcase claims-pass            0 'CLAIM_LEDGER: CLEAN (claims=1 deferred=0 stamped=1 ids=1 cited=0 labeled_ids=0 orphans=1 host_skipped=0)' "$0" verify --root "$R" --claims "$R/claims-pass.tsv" --stamps "$R/stamps.tsv"
++  tcase claims-pass            0 'CLAIM_LEDGER: CLEAN (claims=1 deferred=0 stamped=1 ids=1 cited=0 labeled_ids=0 orphans=1 host_skipped=0 layout_skipped=0)' "$0" verify --root "$R" --claims "$R/claims-pass.tsv" --stamps "$R/stamps.tsv"
+   tcase mode-unknown-revision 2 'unexpected positional argument for verify' "$0" revision --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv"
+   tcase verify-extra-positional 2 'unexpected positional argument for verify' "$0" verify extra --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv"
+   tcase claim-verdict-missing  1 'reason=verdict-not-final' "$0" verify --root "$R" --claims "$R/claims-verdict.tsv" --stamps "$R/stamps.tsv"
+@@ -1510,7 +1570,7 @@ if [[ ${SELFTEST:-0} -eq 1 ]]; then
+   tcase cite-labeled-line-ok   0 'labeled=1'                 "$0" citations --root "$R" --docs "$R/corpus/docs/labeled-line.md"
+   tcase stamp-bytes-tampered   1 'STALE corpus/ok.txt'       "$0" verify --root "$R" --claims "$R/claims-pass.tsv" --stamps "$R/stamps-bytes.tsv"
+   tcase stamp-write            0 'STAMPED: n=1'              "$0" stamp --root "$R" --out "$R/stamps-new.tsv" corpus/ok.txt
+-  tcase stamp-verify-fresh     0 'CLAIM_LEDGER: CLEAN (claims=1 deferred=0 stamped=1 ids=1 cited=0 labeled_ids=0 orphans=1 host_skipped=0)' "$0" verify --root "$R" --claims "$R/claims-pass.tsv" --stamps "$R/stamps-new.tsv"
++  tcase stamp-verify-fresh     0 'CLAIM_LEDGER: CLEAN (claims=1 deferred=0 stamped=1 ids=1 cited=0 labeled_ids=0 orphans=1 host_skipped=0 layout_skipped=0)' "$0" verify --root "$R" --claims "$R/claims-pass.tsv" --stamps "$R/stamps-new.tsv"
+   tcase stamp-refuse-absolute  2 'absolute path refused'     "$0" stamp --root "$R" --out "$R/x.tsv" /etc/hostname
+   tcase stamp-refuse-self      2 'refusing to stamp the output file itself' "$0" stamp --root "$R" --out "$R/stamps-new.tsv" stamps-new.tsv
+   tcase stamp-out-after-args   0 'STAMPED: n=1'              "$0" stamp --root "$R" corpus/ok.txt --out "$R/stamps-late.tsv"
+@@ -1539,7 +1599,7 @@ if [[ ${SELFTEST:-0} -eq 1 ]]; then
+   tcase stamp-symlink-out      2 '--out is a symlink' "$0" stamp --root "$R" --out "$R/stamps-link.tsv" corpus/ok.txt
+   # --- round 13: id resolution (verify) + scorecard cell pointers (cells) -----
+   tcase verify-id-missing      1 'unresolved_ids=2' "$0" verify --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --docs "$R/corpus/docs/id-missing.md"
+-  tcase verify-id-known        0 'CLAIM_LEDGER: CLEAN (claims=1 deferred=0 stamped=1 ids=1 cited=1 labeled_ids=0 orphans=0 host_skipped=0)' "$0" verify --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --docs "$R/corpus/docs/id-known.md"
++  tcase verify-id-known        0 'CLAIM_LEDGER: CLEAN (claims=1 deferred=0 stamped=1 ids=1 cited=1 labeled_ids=0 orphans=0 host_skipped=0 layout_skipped=0)' "$0" verify --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --docs "$R/corpus/docs/id-known.md"
+   tcase verify-orphan-listed   0 'ORPHAN R1-01' "$0" verify --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --docs "$R/corpus/docs/clean.md" --orphans
+   tcase verify-empty-ledger    2 'no claim rows' "$0" verify --root "$R" --claims "$R/stamps-empty.tsv" --stamps "$R/stamps.tsv" --docs "$R/corpus/docs/clean.md"
+   tcase cells-clean            0 'CELL_AUDIT: CLEAN (cells=6 row_pointed=5 stamp_pointed=1 uncited=0 missing_ids=0 rows_run=1 row_deferred=0 row_failures=0 stale_pointers=0' "$0" cells --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-ok.md" --docs "$R/sc-ok.md"
+@@ -1608,9 +1668,9 @@ if [[ ${SELFTEST:-0} -eq 1 ]]; then
+   tcase defer-substrate-line    0 'DEFER c1 reason=substrate-absent' env KAGI_SUBSTRATE=absent "$0" verify --allow-host-rows --root "$R" --claims "$R/claims-defer.tsv" --stamps "$R/stamps.tsv"
+   # --- round 24 (routed D4 + audit debts) --------------------------------------
+   tcase host-substrate-default-skip 0 'HOST-SKIP c1 reason=host-row-not-authorized' env KAGI_SUBSTRATE=present "$0" verify --root "$R" --claims "$R/claims-defer.tsv" --stamps "$R/stamps.tsv"
+-  tcase_last host-skip-summary  0 'CLAIM_LEDGER: CLEAN (claims=1 deferred=0 stamped=1 ids=1 cited=0 labeled_ids=0 orphans=1 host_skipped=1)' env KAGI_SUBSTRATE=present "$0" verify --root "$R" --claims "$R/claims-defer.tsv" --stamps "$R/stamps.tsv"
++  tcase_last host-skip-summary  0 'CLAIM_LEDGER: CLEAN (claims=1 deferred=0 stamped=1 ids=1 cited=0 labeled_ids=0 orphans=1 host_skipped=1 layout_skipped=0)' env KAGI_SUBSTRATE=present "$0" verify --root "$R" --claims "$R/claims-defer.tsv" --stamps "$R/stamps.tsv"
+   tcase host-env-not-consent    0 'HOST-SKIP c1' env KAGI_HOST_ROWS=run ALLOW_HOST=1 "$0" verify --root "$R" --claims "$R/claims-hosttag.tsv" --stamps "$R/stamps.tsv"
+-  tcase_last host-tag-allowed   0 'CLAIM_LEDGER: CLEAN (claims=1 deferred=0 stamped=1 ids=1 cited=0 labeled_ids=0 orphans=1 host_skipped=0)' "$0" verify --allow-host-rows --root "$R" --claims "$R/claims-hosttag.tsv" --stamps "$R/stamps.tsv"
++  tcase_last host-tag-allowed   0 'CLAIM_LEDGER: CLEAN (claims=1 deferred=0 stamped=1 ids=1 cited=0 labeled_ids=0 orphans=1 host_skipped=0 layout_skipped=0)' "$0" verify --allow-host-rows --root "$R" --claims "$R/claims-hosttag.tsv" --stamps "$R/stamps.tsv"
+   tcase untagged-host-refused   2 'CLAIM_LEDGER: POLICY (claims=4 policy=4' "$0" verify --root "$R" --claims "$R/claims-untagged-host.tsv" --stamps "$R/stamps.tsv"
+   tcase untagged-host-reason    2 'POLICY u2 reason=untagged-host script=corpus/drift-pins.sh' "$0" verify --root "$R" --claims "$R/claims-untagged-host.tsv" --stamps "$R/stamps.tsv"
+   tcase untagged-cells-realtree 2 'POLICY u4 reason=untagged-host script=corpus/claim-ledger.sh' "$0" verify --root "$R" --claims "$R/claims-untagged-host.tsv" --stamps "$R/stamps.tsv"
+@@ -1621,17 +1681,31 @@ if [[ ${SELFTEST:-0} -eq 1 ]]; then
+   tcase policy-bash-option      2 'POLICY b1 reason=bash-option' "$0" verify --root "$R" --claims "$R/claims-bashopt.tsv" --stamps "$R/stamps.tsv"
+   tcase policy-script-symlink   2 'POLICY a1 reason=script-symlink script=corpus/dp-alias.sh' "$0" verify --root "$R" --claims "$R/claims-alias.tsv" --stamps "$R/stamps.tsv"
+   six "$R/sc-reader.md" '`R6-01`' '`R6-01`' '`R6-01`' '`R6-01`' '`R6-01`' '`R6-01`'
+-  tcase_last cells-reader-not-self 0 'CELL_AUDIT: CLEAN (cells=6 row_pointed=6 stamp_pointed=0 uncited=0 missing_ids=0 rows_run=1 row_deferred=0 row_failures=0 stale_pointers=0 self_skipped=0 orphans=0 host_skipped=0)' "$0" cells --root "$R" --claims "$R/claims-reader.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-reader.md" --docs "$R/sc-reader.md"
++  tcase_last cells-reader-not-self 0 'CELL_AUDIT: CLEAN (cells=6 row_pointed=6 stamp_pointed=0 uncited=0 missing_ids=0 rows_run=1 row_deferred=0 row_failures=0 stale_pointers=0 self_skipped=0 orphans=0 host_skipped=0 layout_skipped=0)' "$0" cells --root "$R" --claims "$R/claims-reader.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-reader.md" --docs "$R/sc-reader.md"
+   six "$R/sc-cells-host.md" '`R1-01`' '`R4-01`' '`R1-01`' '`R1-01`' '`R1-01`' '`R1-01`'
+-  tcase_last cells-host-not-run   0 'CELL_AUDIT: CLEAN (cells=6 row_pointed=6 stamp_pointed=0 uncited=0 missing_ids=0 rows_run=1 row_deferred=0 row_failures=0 stale_pointers=0 self_skipped=0 orphans=0 host_skipped=1)' "$0" cells --root "$R" --claims "$R/claims-cells-host.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-cells-host.md" --docs "$R/sc-cells-host.md"
++  tcase_last cells-host-not-run   0 'CELL_AUDIT: CLEAN (cells=6 row_pointed=6 stamp_pointed=0 uncited=0 missing_ids=0 rows_run=1 row_deferred=0 row_failures=0 stale_pointers=0 self_skipped=0 orphans=0 host_skipped=1 layout_skipped=0)' "$0" cells --root "$R" --claims "$R/claims-cells-host.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-cells-host.md" --docs "$R/sc-cells-host.md"
+   six "$R/sc-cells-defer.md" '`R1-01`' '`R4-02`' '`R1-01`' '`R1-01`' '`R1-01`' '`R1-01`'
+   tcase cells-rows-run-excludes-defer 0 'rows_run=1 row_deferred=1' env KAGI_SUBSTRATE=absent "$0" cells --allow-host-rows --root "$R" --claims "$R/claims-cells-defer.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-cells-defer.md" --docs "$R/sc-cells-defer.md"
+   tcase cite-quote-list         0 'CITATION_GATE: CLEAN' "$0" citations --root "$R" --docs "$R/corpus/docs/quote-list.md"
+   tcase cite-ufo-lane-first     0 'CITATION_GATE: CLEAN (cites=2' "$0" citations --root "$R" --docs "$R/corpus/docs/ufo-lane.md"
+   tcase cite-ufo-lane-miss      1 'UNRESOLVED' "$0" citations --root "$R" --docs "$R/corpus/docs/ufo-lane-miss.md"
++  tcase cite-lone-layout-header 1 'CITATION_LAYOUT: lone-clone (fleet marker absent: ../.ufo is not a directory; ../MANIFEST.json is not a file)' "$0" citations --root "$LONE" --docs "$LONE/corpus/docs/fleet-misses.md"
++  tcase cite-lone-ufo-fleet-absent 1 'FLEET-ABSENT corpus/docs/fleet-misses.md:1 ufo/reports/missing.md (ufo)' "$0" citations --root "$LONE" --docs "$LONE/corpus/docs/fleet-misses.md"
++  tcase cite-lone-sibling-fleet-absent 1 'FLEET-ABSENT corpus/docs/fleet-misses.md:1 sibling-shokunin/corpus/missing.md (sibling)' "$0" citations --root "$LONE" --docs "$LONE/corpus/docs/fleet-misses.md"
++  tcase_last cite-lone-incomplete-summary 1 'CITATION_GATE: INCOMPLETE (cites=2 docs=1 unresolved=0 ephemeral=0 labeled=0 fleet_absent=2)' "$0" citations --root "$LONE" --docs "$LONE/corpus/docs/fleet-misses.md"
++  tcase_last cite-lone-broken-wins 1 'CITATION_GATE: BROKEN (cites=3 docs=1 unresolved=1 ephemeral=1 labeled=0)' "$0" citations --root "$LONE" --docs "$LONE/corpus/docs/mixed-miss.md"
++  tcase cite-lone-lane-local-miss 1 'UNRESOLVED corpus/docs/lane-miss.md:1 corpus/missing.md (local)' "$0" citations --root "$LONE" --docs "$LONE/corpus/docs/lane-miss.md"
++  tcase cite-fleet-ufo-miss 1 $'CITATION_LAYOUT: fleet (marker present: ../.ufo directory and ../MANIFEST.json file)\nUNRESOLVED corpus/docs/ufo-miss.md:1 ufo/reports/missing.md (ufo)' "$0" citations --root "$FLEET" --docs "$FLEET/corpus/docs/ufo-miss.md"
++  tcase cite-fleet-sibling-miss 1 $'CITATION_LAYOUT: fleet (marker present: ../.ufo directory and ../MANIFEST.json file)\nUNRESOLVED corpus/docs/sibling-miss.md:1 sibling-shokunin/corpus/missing.md (sibling)' "$0" citations --root "$FLEET" --docs "$FLEET/corpus/docs/sibling-miss.md"
++  tcase cite-fleet-lane-local-miss 1 'UNRESOLVED corpus/docs/lane-miss.md:1 corpus/missing.md (local)' "$0" citations --root "$FLEET" --docs "$FLEET/corpus/docs/lane-miss.md"
++  tcase_last cite-clean-fleet-zero 0 'CITATION_GATE: CLEAN (cites=1 docs=1 unresolved=0 ephemeral=0 labeled=0 fleet_absent=0)' "$0" citations --root "$LONE" --docs "$LONE/corpus/docs/clean.md"
++  tcase lone-fleet-row-skip 0 $'LAYOUT-SKIP R25-90 (fleet layout absent)\nCLAIM_LEDGER: CLEAN (claims=1 deferred=0 stamped=1 ids=1 cited=1 labeled_ids=0 orphans=0 host_skipped=0 layout_skipped=1)' "$0" verify --root "$LONE" --claims "$LONE/claims-fleet.tsv" --stamps "$LONE/stamps.tsv" --docs "$LONE/corpus/docs/fleet-claim.md"
++  tcase_last fleet-row-runs 0 'CLAIM_LEDGER: CLEAN (claims=1 deferred=0 stamped=1 ids=1 cited=1 labeled_ids=0 orphans=0 host_skipped=0 layout_skipped=0)' "$0" verify --root "$FLEET" --claims "$FLEET/claims-fleet.tsv" --stamps "$FLEET/stamps.tsv" --docs "$FLEET/corpus/docs/fleet-claim.md"
++  tcase lone-cells-fleet-row-skip 0 $'LAYOUT-SKIP R25-90 (fleet layout absent)\nCELL_AUDIT: CLEAN (cells=6 row_pointed=6 stamp_pointed=0 uncited=0 missing_ids=0 rows_run=0 row_deferred=0 row_failures=0 stale_pointers=0 self_skipped=0 orphans=0 host_skipped=0 layout_skipped=1)' "$0" cells --root "$LONE" --claims "$LONE/claims-fleet.tsv" --stamps "$LONE/stamps.tsv" --scorecard "$LONE/sc-fleet.md" --docs "$LONE/sc-fleet.md"
++  tcase_last fleet-cells-row-runs 0 'CELL_AUDIT: CLEAN (cells=6 row_pointed=6 stamp_pointed=0 uncited=0 missing_ids=0 rows_run=1 row_deferred=0 row_failures=0 stale_pointers=0 self_skipped=0 orphans=0 host_skipped=0 layout_skipped=0)' "$0" cells --root "$FLEET" --claims "$FLEET/claims-fleet.tsv" --stamps "$FLEET/stamps.tsv" --scorecard "$FLEET/sc-fleet.md" --docs "$FLEET/sc-fleet.md"
+   tcase cells-invalid-self-policy 2 'POLICY R3-01 reason=bash-option' "$0" cells --root "$R" --claims "$R/claims-invalid-self.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-selfrow.md" --docs "$R/sc-selfrow.md"
+   tcase cells-host-self-skip 0 'HOST-SKIP R3-01 reason=host-row-not-authorized' "$0" cells --root "$R" --claims "$R/claims-host-self.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-selfrow.md" --docs "$R/sc-selfrow.md"
+-  tcase_last cells-host-self-summary 0 'CELL_AUDIT: CLEAN (cells=6 row_pointed=6 stamp_pointed=0 uncited=0 missing_ids=0 rows_run=1 row_deferred=0 row_failures=0 stale_pointers=0 self_skipped=0 orphans=0 host_skipped=1)' "$0" cells --root "$R" --claims "$R/claims-host-self.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-selfrow.md" --docs "$R/sc-selfrow.md"
++  tcase_last cells-host-self-summary 0 'CELL_AUDIT: CLEAN (cells=6 row_pointed=6 stamp_pointed=0 uncited=0 missing_ids=0 rows_run=1 row_deferred=0 row_failures=0 stale_pointers=0 self_skipped=0 orphans=0 host_skipped=1 layout_skipped=0)' "$0" cells --root "$R" --claims "$R/claims-host-self.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-selfrow.md" --docs "$R/sc-selfrow.md"
+   tcase cells-missing-self-policy 2 'POLICY R3-01 reason=script-missing' "$0" cells --root "$R/self-missing" --claims "$R/claims-r3.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-selfrow.md" --docs "$R/sc-selfrow.md"
+   tcase policy-script-expansion 2 'POLICY g1 reason=script-expansion' "$0" verify --root "$R" --claims "$R/claims-expansion.tsv" --stamps "$R/stamps.tsv"
+   tcase policy-attached-absolute 2 'POLICY p1 reason=host-path' "$0" verify --root "$R" --claims "$R/claims-attached-abs.tsv" --stamps "$R/stamps.tsv"
+   tcase policy-attached-parent 2 'POLICY p1 reason=host-path' "$0" verify --root "$R" --claims "$R/claims-attached-parent.tsv" --stamps "$R/stamps.tsv"
+ diff --git a/corpus/claim-ledger.tsv b/corpus/claim-ledger.tsv
+index 132dca5..9c2f819 100644
+--- a/corpus/claim-ledger.tsv
++++ b/corpus/claim-ledger.tsv
+@@ -19,8 +19,8 @@ R11-04	bash corpus/drift-pins.sh	^DRIFT_PINS: CLEAN \(files=[1-9][0-9]* symbols=
+ R11-05	bash corpus/drift-pins.sh --selftest	^DRIFT_SELFTEST: PASS \(13 cases\)	0	300	drift selftest, case count pinned
+ R11-06	bash corpus/transcript-scan.sh	^TRANSCRIPT_SCAN: HITS=2 \(cells=[1-9][0-9]*	1	300	known baseline 2026-09-28: 2 prose collisions, 5 credential tripwires empty [substrate]
+ R11-07	bash corpus/transcript-scan.sh --selftest	^SELFTEST OK	0	300	seeded-hit + wal-resident detection on scratch DBs
+-R11-08	bash corpus/claim-ledger.sh citations	^CITATION_GATE: CLEAN \(cites=[1-9][0-9]* docs=[1-9][0-9]* unresolved=0 ephemeral=0	0	300	committed docs cite durable evidence; requires the fleet checkout layout (`~/projects/shokunin/<lane>-shokunin`) — in a lone clone the sibling/ufo citations cannot resolve and this row fails by design (observed on a /tmp clone, round 11)
+-R11-09	bash corpus/claim-ledger.sh --selftest	^SELFTEST: PASS \(151 cases\)	0	300	current expected isolated ledger selftest: 108->121->140; round-24 recovery adds eleven policy/self-skip regression and valid-control cases, expected151. Old/new expectations retained in .ufo/waves/round-24/recovery-migrations.json; only executed output verifies this count.
++R11-08	bash corpus/claim-ledger.sh citations	^CITATION_GATE: CLEAN \(cites=[1-9][0-9]* docs=[1-9][0-9]* unresolved=0 ephemeral=0	0	300	Checks committed durable citations against sibling and fleet evidence. Requires both parent markers (`.ufo/` directory and `MANIFEST.json` file); lone-clone `ufo`/sibling misses are reported as FLEET-ABSENT and citations return INCOMPLETE. `[fleet]` skips this row in lone-clone verify/cells; it runs normally in fleet layout.
++R11-09	bash corpus/claim-ledger.sh --selftest	^SELFTEST: PASS \(165 cases\)	0	300	current expected isolated ledger selftest: 108->121->140; round-24 recovery adds eleven policy/self-skip regression and valid-control cases (151); round-25 adds fourteen C2 layout cases (165). Old/new expectations retained in .ufo/waves/round-24/recovery-migrations.json; only executed output verifies this count.

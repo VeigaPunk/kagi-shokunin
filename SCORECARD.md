@@ -945,3 +945,35 @@ exits 0 with rows=10 / v1_matches=10 / ascii_matches=7. The alternative
 changes only the collapse class in step 5; trim and all other v1 steps
 stay fixed. Exact requests/digests are committed in that receipt; no page
 body or semantic-drift guarantee is inferred.
+
+## Round 25 — pre-move (repo HEAD `4587c61`, round-24 close)
+
+| Axis | Score | Evidence pointer | Last change |
+|---|---|---|---|
+| depth | 9 | R21-01: account-free dotenv byte behavior remains the verified depth evidence; no depth claim this round. | round 21 |
+| coverage | 9 | R21-02: 32 registry rows; no governed host/vault surface is added this round. | round 24 |
+| operability | 9 | R11-08 in a lone clone: `FAIL R11-08 reason=exit-mismatch`, `citations` BROKEN unresolved=88 (57 sibling + 31 ufo, 42 of them committed self-references); the layout rule lived only in the row note (`.ufo/waves/round-25/build/RLoneVerify.md`). | round 24 |
+| freshness | 9 | R21-02: 28 registry rows carry `recheck: on-release` with no release identity, so no clock could be observed to fire (`python3 .ufo/waves/round-25/tools/c3-measure.py 4587c61a…` → bound=0 unbound=28). | round 24 |
+| calibration | 9 | R12-03/R21-04 pinned 83/61 while SKILL.md:46 said 63/39 (routed D1); the after binder and table over the BASE docs report STALE=6 (SKILL.md:46 ×2, :243, README:63, :67 ×2) plus 2 stale-and-unlocatable README:64/65 phrasings (39/63 rows), exit 2 because the 4 new-tool rows are absent at BASE (`.ufo/waves/round-25/c1-before.txt`). | round 24 |
+| adjacency | 9 | R17-02: the four declared breadth pins and PROVINCE boundaries are unchanged; wave-1 connectors found no sibling claiming the new ground. | round 16 |
+
+## Round 25 — post-move (claims C1/C2/C3; measured, falsification follows)
+
+| Axis | Score | Evidence pointer | Last change |
+|---|---|---|---|
+| depth | 9 → 9 | R21-01 unchanged; no depth claim is booked. | round 25 |
+| coverage | 9 → 9 | R21-02 now counts 37 rows; S033–S037 are release-feed rows that ground C3 and add no governed surface. | round 25 |
+| operability | 9 → 9 | C2: R11-08/R11-09 — a lone clone runs the row and ends `CITATION_GATE: INCOMPLETE` exit 3 (FLEET-ABSENT, unresolved=0) and `CLAIM_LEDGER: INCOMPLETE` with `LAYOUT-INCOMPLETE R11-08`; lane-owned misses stay UNRESOLVED; the fleet layout stays CLEAN; the end-of-line token is now checked. | round 25 |
+| freshness | 9 → 9 | C3: R25-04 binds all 28 on-release rows (18 feed, 10 rendered-quote; 15 derived anchors declared) and the 2026-10-21 receipt observes every one; S012 fired and was re-verified; R25-03 selftest. | round 25 |
+| calibration | 9 → 9 | C1: R25-02 binds 37 current-tense numbers in SKILL.md/PROVINCE.md/corpus/README.md to their live source; stale bound numbers 6 (+2 unlocatable) → 0; R25-01 selftest. | round 25 |
+| adjacency | 9 → 9 | R17-02 unchanged; sibling conventions (kumitate FLEET_MISSING, souji fleet classification, kengaku doc-number binding) were read, not absorbed. | round 25 |
+
+### Capabilities (round 25)
+
+| capability | what it can now do | evidence pointer | first working round |
+|---|---|---|---|
+| release-clock observation | bind every `on-release` source to an official release feed or its declared capture quote and observe, in one dated receipt, which clocks fired | `python3 corpus/release-clock.py --observe <receipt>` (offline check R25-04, selftest R25-03); `.ufo/waves/round-25/observe-1.json` | 25 |
+
+Saturation line 9 and window N=3 unchanged; a capability entered this round, so
+the nudge cannot fire before round 28. No axis is retired or split. Claim
+verdicts, the measured commit and the falsify wave are appended below once run.

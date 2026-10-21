@@ -1199,7 +1199,7 @@ row_pointed=6 stamp_pointed=1 uncited=0 missing_ids=0 rows_run=2
 row_deferred=0 row_failures=0 stale_pointers=0 self_skipped=0 orphans=0)`
 exit0 for R23-01 on the committed fixture.
 
-New corpus artifacts: `corpus/closure-dispositions.py`/`.json`,
+New corpus artifacts: `corpus/closure-dispositions.py` and `.json`,
 `corpus/source-fetches.tsv` (10 declared captures over 9 distinct URLs),
 `corpus/fixtures/cells-hermetic/` (5 files), `corpus/lessons/round-23.md`.
 SOURCES.md gains S024 (KV v2 API, new frontier row), S025 (OpenBao JWT locator, supersedes
@@ -1354,3 +1354,33 @@ Sequencing disclosure M24-16: repairs began in the working tree before the
 last frozen-wave reports returned. The Git freeze was not rewritten; final
 measured executions waited for every seat to settle. The lesson records
 the QM8 defect and the restriction on unbound live-tree notes.
+
+## Round 25 — numbers bound to their source, the lone clone explicit, release clocks observed (2026-10-21)
+
+Base `4587c61a348e4528717404a68912c373f3ef4d03` (round 24 admitted). Frozen
+claims: `plans/round-25.md`; lesson `corpus/lessons/round-25.md`; wave
+evidence `.ufo/waves/round-25/`.
+
+Motivating evidence (before, measured on scratch clones of BASE): the
+round-24 closure's routed D1 (SKILL.md:46 said 63 stamps / 39 claims while
+R12-03/R21-04 pinned 83/61) and D2 (a lone clone's `verify` printed a bare
+`FAIL R11-08 reason=exit-mismatch`; `citations` BROKEN unresolved=88, 57
+sibling + 31 ufo, `.ufo/waves/round-25/build/RLoneVerify.md`); 28 registry
+rows with `recheck: on-release` and no release identity
+(`.ufo/waves/round-25/build/RevOnRelease.md`). MutCountRows: four doc-number
+mutations survive every existing gate.
+
+Changes: C1 `corpus/self-counts.py` + `corpus/self-counts.tsv` (37 bindings;
+`expect:` source added for host-pinned counts) and the doc corrections they
+enforce (SKILL.md:46/243, PROVINCE.md:52, corpus/README.md lines 46, 63-65 and 67);
+C2 `corpus/claim-ledger.sh` (layout detection, FLEET-ABSENT, INCOMPLETE
+verdicts, in-tree self-references, end-of-line token fix, network-mode
+refusal; 15 selftest cases, 166 total), R11-08/R11-09/R18-03 rows,
+`knowledge/claim-ledger.md` bound 8/11, LOG.md:1202 spacing; C3
+`corpus/release-clock.py` + `corpus/release-clocks.tsv`, S033–S037 with their
+captures; QUALITY QM21–QM23; ledger rows R25-01..R25-04. Re-verification:
+every on-release row observed 2026-10-21 (receipt `observe-1.json`); S012's
+clock fired (Vault 2.2.0 past its v1.21.x anchor) and its teaching re-verified
+on the served v2.x page. No vault/account/handler/CDP action, no host-row
+consent, no installs. Measured outcomes and the falsify wave follow in the
+SCORECARD round-25 section and `final-verification.json`.

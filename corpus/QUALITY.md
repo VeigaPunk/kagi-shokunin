@@ -110,3 +110,11 @@ QM18 application: name the identity projection explicitly. A path-key digest
 does not bind every row column; a test-case-name digest does not bind its
 behavioral assertion body. Fresh evidence and rejected broader reading:
 `plans/round-24.md` R24-C6 and `corpus/lessons/round-24.md` recovery Gate.
+
+## Criteria from the round-25 build
+
+| id | criterion | weak signal | lesson |
+|---|---|---|---|
+| QM21 | Supplements QA6/QM13: a current-tense number a committed doc states about this lane's own artifacts is bound to the live source that defines it (`corpus/self-counts.tsv`: `rows:`, a non-host row's live `ledger:` verdict, or a host row's committed `expect:` pin). A "round N" tag does not make a number historical; only an explicit history clause with a newer value beside it does. | the ledger pin moved while the prose copy stayed (SKILL.md:46 63/39 vs 83/61 for three rounds) | `corpus/lessons/round-25.md` M25-1, R25-C6 |
+| QM22 | Supplements QM3/QM15: an outcome that depends on a layout the checkout lacks is printed and counted as INCOMPLETE, never CLEAN and never a bare failure; the row still runs, so lane-owned defects stay UNRESOLVED; any doubt about the layout keeps it fleet. | a whole-row skip that ends CLEAN, or a lone clone reporting the same `FAIL … exit-mismatch` as a real defect | `corpus/lessons/round-25.md` M25-3, R25-C1..C3 |
+| QM23 | Supplements QA4/QM14: an `on-release` recheck names one observable release identity — an official feed that is itself a registry row, or the declared capture quote of an unversioned page — and is observed; a derived anchor says `derived:`, a fired clock is re-verified in the lesson, never silently re-pinned. | `on-release` with no feed; first-entry or any-version feed parsing; a fired verdict with no re-verification | `corpus/lessons/round-25.md` R25-C7, R25-C8, §Clock observations |

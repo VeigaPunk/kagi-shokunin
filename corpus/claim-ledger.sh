@@ -47,6 +47,17 @@
 #              historical). A labelled stale token is counted, not failed: the
 #              rule is "a dead citation must be labelled dead where it is
 #              cited", not "no dead citations ever".
+#              Layout (round 25, routed D2): `kagi-shokunin/…` self-references
+#              resolve against this tree first. When NO fleet-root entry
+#              (`.ufo`, MANIFEST.json, MISSION.md, AXES.md) and NO other
+#              `*-shokunin` lane sits beside the root (physical or logical
+#              parent), the layout is lone: an unresolved sibling-lane or
+#              fleet-only `.ufo/` token prints FLEET-ABSENT (never counted as
+#              resolved), a `CITATION_LAYOUT: lone-clone` line precedes the
+#              verdict, and the gate ends INCOMPLETE (exit 3) — never CLEAN.
+#              A miss the lane owns (`corpus/…`, root docs, self-references,
+#              `.ufo/<dir>/…` under a directory this tree has) stays UNRESOLVED
+#              in either layout, and any doubt about the layout keeps it fleet.
 #   idref    — every claim-id token (`R<digits>-<digits>`) in the same doc set
 #              must be a row id in `corpus/claim-ledger.tsv`. The ledger was
 #              only ever iterated FORWARD (rows → commands), so a doc citing an
@@ -78,11 +89,15 @@
 #
 # Verdicts  stamps:   OK (silent) | STALE | MISSING | NOT-A-FILE
 #           claims:   OK (silent) | FAIL(reason) | POLICY(reason) | HOST-SKIP | DEFER
+#                     | LAYOUT-INCOMPLETE (row exited 3 with an `…: INCOMPLETE (` verdict)
 #           citations: CLEAN | BROKEN (UNRESOLVED / EPHEMERAL lines)
+#                     | INCOMPLETE (only FLEET-ABSENT lines; lone layout, exit 3)
 #           idref:    OK (silent) | MISSING-ID doc:line id | ORPHAN (--orphans)
 #           cells:    OK (silent) | MISSING-ID file:line id | UNCITED file:line axis
 #           entry:    OK (silent) | UNDECLARED | MISSING-ID | UNPINNED | RATIO
-# Exit      0 clean · 1 drift/claim/id/cell/entry failure · 2 policy/setup error
+# Exit      0 clean · 1 drift/claim/id/cell/entry failure (verify also ends
+#           `CLAIM_LEDGER: INCOMPLETE`, exit 1, when a row is layout-incomplete)
+#           · 2 policy/setup error · 3 citations incomplete in a lone layout
 #
 # Secret hygiene: the gate prints paths, hashes of repo files, claim ids,
 # exit codes and counts. It NEVER echoes a claim's output (a claim could read
@@ -245,7 +260,7 @@ trap cleanup_tmp EXIT
 # First token must be one of these; the allowlist is deliberately tiny — a
 # claim is a verdict-producing command, not a pipeline.
 ALLOWED_RE='^(bash|grep|sha256sum|wc|test|python3)$'
-PYTHON_SCRIPT_RE='^python3[[:space:]]+corpus/(feature-claims|revision-audit|closure-dispositions|rendered-text-v1)\.py([[:space:]]|$)'
+PYTHON_SCRIPT_RE='^python3[[:space:]]+corpus/(feature-claims|revision-audit|closure-dispositions|rendered-text-v1|self-counts|release-clock)\.py([[:space:]]|$)'
 # No shell metacharacters at all: one simple command, no composition.
 META_RE='[;&|<>$`]'
 # Verbs that touch the handler, the vault, the repo, or the network. Word
@@ -260,6 +275,11 @@ policy_check() {
   [[ $w =~ $ALLOWED_RE ]] || { printf 'first-token:%s' "$w"; return 1; }
   if [[ $w == python3 && ! $c =~ $PYTHON_SCRIPT_RE ]]; then
     printf 'python-script'; return 1
+  fi
+  # round 25: release-clock.py's `--observe` fetches the network; a ledger row
+  # may only run its offline check or selftest (RStampsBookkeeping hazard 3)
+  if [[ $c =~ ^python3[[:space:]]+corpus/release-clock\.py && $c == *--observe* ]]; then
+    printf 'network-mode'; return 1
   fi
   [[ $c =~ $META_RE ]] && { printf 'metachar'; return 1; }
   # `bash -c <inline>` is the whole execution surface in one argument; no row
@@ -512,13 +532,13 @@ verify_stamps() {
   done
 }
 
-C_N=0 C_FAILED=0 C_POLICY=0 C_DEFER=0 C_HOST=0 C_RUN=0
+C_N=0 C_FAILED=0 C_POLICY=0 C_DEFER=0 C_HOST=0 C_RUN=0 C_LAYOUT=0
 # the nesting depth this run was started with: every claim command this gate
 # spawns sees depth+1, which is what lets a nested audit detect itself
 CLAIM_LEDGER_DEPTH_IN=${CLAIM_LEDGER_DEPTH:-0}
 verify_claims() {
   local line id cmd expect want tmo note pc out last rc
-  C_N=0 C_FAILED=0 C_POLICY=0 C_DEFER=0 C_HOST=0 C_RUN=0
+  C_N=0 C_FAILED=0 C_POLICY=0 C_DEFER=0 C_HOST=0 C_RUN=0 C_LAYOUT=0
   [[ -f $CLAIMS ]] || die "claims file not found: $CLAIMS"
   while IFS= read -r line || [[ -n ${line:-} ]]; do
     [[ -z ${line:-} || ${line:0:1} == '#' ]] && continue
@@ -577,6 +597,17 @@ verify_claims() {
       printf 'FAIL %s reason=timeout exit=%s tmo=%s\n' "$id" "$rc" "$tmo"
       C_FAILED=$((C_FAILED + 1)); continue
     fi
+    # Round 25 (routed D2): a gate that could not check fleet-only evidence in a
+    # lone layout exits 3 with an `…: INCOMPLETE (` verdict. That is reported by
+    # name and makes the whole run INCOMPLETE — never a pass, never a bare
+    # exit-mismatch. The verdict text itself is matched, not printed.
+    if [[ $rc -eq 3 && $want -ne 3 ]]; then
+      last=$(printf '%s\n' "$out" | grep -v '^[[:space:]]*$' | tail -n 1 || true)
+      if [[ $last =~ ^[A-Z_]+:\ INCOMPLETE\ \( ]]; then
+        printf 'LAYOUT-INCOMPLETE %s exit=3 (fleet layout absent: the row could not check fleet-only evidence)\n' "$id"
+        C_LAYOUT=$((C_LAYOUT + 1)); continue
+      fi
+    fi
     if [[ $rc -ne $want ]]; then
       printf 'FAIL %s reason=exit-mismatch exit=%s want=%s\n' "$id" "$rc" "$want"
       C_FAILED=$((C_FAILED + 1)); continue
@@ -600,6 +631,7 @@ verify_claims() {
 # removed | renamed | historical), otherwise it is a defect.
 #   corpus/…            → $ROOT/…
 #   knowledge/… lessons/… → $ROOT/corpus/…   (the two corpus shorthands)
+#   kagi-shokunin/…     → $ROOT/… first, then $ROOT/../… (self-reference, round 25)
 #   <lane>-shokunin/…   → $ROOT/../…         (sibling lane repo)
 #   ufo/… .ufo/…        → $ROOT/../.ufo/…   (main-repo .ufo tree)
 #   root docs exact     → $ROOT/…
@@ -611,6 +643,7 @@ cite_class() {
     corpus/*) printf 'local' ;;
     knowledge/*|lessons/*) printf 'shorthand' ;;
     ufo/*|.ufo/*) printf 'ufo' ;;
+    kagi-shokunin/*) printf 'self' ;;
     *-shokunin/*) printf 'sibling' ;;
     SKILL.md|SCORECARD.md|PROVINCE.md|SHONEN.md|LOG.md|AGENTS.md) printf 'rootdoc' ;;
     *) return 1 ;;
@@ -632,9 +665,60 @@ cite_target() { # prints the resolved absolute path, or nothing
       elif [[ -e $ROOT/../.ufo/$r ]]; then printf '%s' "$ROOT/../.ufo/$r"; fi ;;
     ufo/*)
       r=${t#ufo/}; [[ -e $ROOT/../.ufo/$r ]] && printf '%s' "$ROOT/../.ufo/$r" ;;
+    kagi-shokunin/*)
+      # round 25: a self-reference names this lane's own tree, so it must not
+      # depend on the directory name or a fleet copy (42 of 88 lone misses at
+      # BASE were committed self-references — RCiteTargets, SentLayoutSkip F4)
+      r=${t#kagi-shokunin/}
+      if [[ -e $ROOT/$r ]]; then printf '%s' "$ROOT/$r"
+      elif [[ -e $ROOT/../$t ]]; then printf '%s' "$ROOT/../$t"; fi ;;
     *-shokunin/*)
       [[ -e $ROOT/../$t ]] && printf '%s' "$ROOT/../$t" ;;
   esac
+}
+
+# Fleet layout (round 25, routed D2). LONE only when neither the physical nor
+# the logical parent holds a fleet-root entry or another `*-shokunin` lane, so
+# any doubt keeps the layout FLEET and a real fleet miss stays UNRESOLVED
+# (RLayoutMarker v2 union: 0 safety failures over 22 fixtures). Call only in an
+# `if` (a bare call returning 1 would abort under `set -e`).
+fleet_entry_in() { # DIR SELF
+  local p=$1 self=$2 d
+  [[ -n $p ]] || return 1
+  for d in .ufo MANIFEST.json MISSION.md AXES.md; do
+    [[ -e $p/$d || -L $p/$d ]] && return 0
+  done
+  for d in "$p"/*-shokunin; do
+    [[ ( -e $d || -L $d ) && $(readlink -f -- "$d") != "$self" ]] && return 0
+  done
+  return 1
+}
+fleet_layout_present() { # ROOT
+  local root=$1 self lp
+  self=$(readlink -f -- "$root")
+  lp=$(cd -- "$root/.." 2>/dev/null && pwd) || lp=
+  fleet_entry_in "$root/.." "$self" && return 0
+  fleet_entry_in "$lp" "$self"
+}
+
+# In a lone layout, is this unresolved token evidence only a fleet checkout can
+# hold? Sibling lanes and the legacy `ufo/` spelling: yes. `.ufo/<a>/<b>/…`:
+# only when this tree has no `.ufo/<a>/<b>` of its own — a miss under a
+# directory the lane owns (e.g. `.ufo/waves/round-24/`) is the lane's defect.
+# A top-level namespace (`.ufo/waves/x.json`, `.ufo/l0-questions.md`) is shared
+# with the fleet tree, so it cannot prove lane ownership. Self-references and
+# every other class: no.
+fleet_only_token() { # TOKEN CLASS
+  local t=$1 cls=$2 r d
+  case "$cls" in
+    sibling) return 0 ;;
+    ufo)
+      [[ $t == ufo/* ]] && return 0
+      r=${t#.ufo/}; d=${r%/*}
+      [[ $d == */* && -d $ROOT/.ufo/$d ]] && return 1
+      return 0 ;;
+  esac
+  return 1
 }
 
 # Normalize a whitespace token into a citation candidate: strip backticks,
@@ -680,11 +764,12 @@ default_docs() {
   fi
 }
 
-CIT_CITES=0 CIT_DOCS=0 CIT_UNRESOLVED=0 CIT_EPHEMERAL=0 CIT_MARKED=0
+CIT_CITES=0 CIT_DOCS=0 CIT_UNRESOLVED=0 CIT_EPHEMERAL=0 CIT_MARKED=0 CIT_FLEET_ABSENT=0 CIT_LONE=0
 citations() {
   local doc l lineno content t tok cls marked pre rest post grp ok alt
   local -a DOCS=()
-  CIT_CITES=0 CIT_DOCS=0 CIT_UNRESOLVED=0 CIT_EPHEMERAL=0 CIT_MARKED=0
+  CIT_CITES=0 CIT_DOCS=0 CIT_UNRESOLVED=0 CIT_EPHEMERAL=0 CIT_MARKED=0 CIT_FLEET_ABSENT=0 CIT_LONE=0
+  if fleet_layout_present "$ROOT"; then CIT_LONE=0; else CIT_LONE=1; fi
   default_docs
   DOCS=("${DOCS_LIST[@]}")
   for doc in "${DOCS[@]}"; do
@@ -738,6 +823,9 @@ citations() {
         if [[ $marked -eq 1 ]]; then
           printf 'LABELED %s:%s %s (unresolved, labelled on its line)\n' "${doc#"$ROOT/"}" "$lineno" "$tok"
           CIT_MARKED=$((CIT_MARKED + 1))
+        elif [[ $CIT_LONE -eq 1 ]] && fleet_only_token "$tok" "$cls"; then
+          printf 'FLEET-ABSENT %s:%s %s (%s)\n' "${doc#"$ROOT/"}" "$lineno" "$tok" "$cls"
+          CIT_FLEET_ABSENT=$((CIT_FLEET_ABSENT + 1))
         else
           printf 'UNRESOLVED %s:%s %s (%s)\n' "${doc#"$ROOT/"}" "$lineno" "$tok" "$cls"
           CIT_UNRESOLVED=$((CIT_UNRESOLVED + 1))
@@ -745,7 +833,10 @@ citations() {
       # spaces inside a brace set are not token separators: `{4, 5}` is one path
       # a quote/comma-joined list (`['a.md','b.md']`, round 24 R11-08) is split
       # into its members before whitespace tokenizing
-      done < <(printf '%s' "$content" |
+      # round 25 (RQualityCriteria): the trailing newline matters — without it
+      # `read` drops the LAST token of every line, so a citation ending its
+      # line was never checked
+      done < <(printf '%s\n' "$content" |
         sed -E ":a; s/\{([^}]*)[[:space:]]+([^}]*)\}/{\1\2}/g; ta; s/'[[:space:]]*,[[:space:]]*'/' '/g; s/\"[[:space:]]*,[[:space:]]*\"/\" \"/g" |
         tr ' ' '\n' | tr '\t' '\n' || true)
     done < <(grep -nE '.' "$doc" || true)
@@ -1128,6 +1219,11 @@ case "$MODE" in
         "$C_N" "$C_FAILED" "$C_DEFER" "$V_ROWS" "$V_STALE" "$V_MISSING" "$IDX_MISSING" "$IDX_LABELED" "$C_HOST"
       exit 1
     fi
+    if [[ $C_LAYOUT -gt 0 ]]; then
+      printf 'CLAIM_LEDGER: INCOMPLETE (claims=%d layout_incomplete=%d deferred=%d stamped=%d ids=%d cited=%d labeled_ids=%d orphans=%d host_skipped=%d)\n' \
+        "$C_N" "$C_LAYOUT" "$C_DEFER" "$V_ROWS" "$LID_N" "$IDX_CITED" "$IDX_LABELED" "$IDX_ORPHANS" "$C_HOST"
+      exit 1
+    fi
     printf 'CLAIM_LEDGER: CLEAN (claims=%d deferred=%d stamped=%d ids=%d cited=%d labeled_ids=%d orphans=%d host_skipped=%d)\n' \
       "$C_N" "$C_DEFER" "$V_ROWS" "$LID_N" "$IDX_CITED" "$IDX_LABELED" "$IDX_ORPHANS" "$C_HOST"
     ;;
@@ -1152,7 +1248,7 @@ case "$MODE" in
         "$CL_CELLS" "$CL_ROWS" "$CL_STAMPS" "$C_POLICY"
       exit 2
     fi
-    if [[ $CL_UNCITED -gt 0 || $IDX_MISSING -gt 0 || $C_FAILED -gt 0 || $CL_STALE -gt 0 ]]; then
+    if [[ $CL_UNCITED -gt 0 || $IDX_MISSING -gt 0 || $C_FAILED -gt 0 || $C_LAYOUT -gt 0 || $CL_STALE -gt 0 ]]; then
       printf 'CELL_AUDIT: BROKEN (cells=%d row_pointed=%d stamp_pointed=%d uncited=%d missing_ids=%d rows_run=%d row_deferred=%d row_failures=%d stale_pointers=%d self_skipped=%d orphans=%d host_skipped=%d)\n' \
         "$CL_CELLS" "$CL_ROWS" "$CL_STAMPS" "$CL_UNCITED" "$IDX_MISSING" "$CL_ROWS_RUN" "$C_DEFER" "$C_FAILED" "$CL_STALE" "$CL_SELF_SKIP" "$IDX_ORPHANS" "$C_HOST"
       exit 1
@@ -1162,10 +1258,19 @@ case "$MODE" in
     ;;
   citations)
     citations
+    if [[ $CIT_LONE -eq 1 ]]; then
+      printf 'CITATION_LAYOUT: lone-clone fleet_absent=%d (no fleet-root entry or sibling lane beside the root; fleet-only citations were not checked)\n' \
+        "$CIT_FLEET_ABSENT"
+    fi
     if [[ $CIT_UNRESOLVED -gt 0 || $CIT_EPHEMERAL -gt 0 ]]; then
       printf 'CITATION_GATE: BROKEN (cites=%d docs=%d unresolved=%d ephemeral=%d labeled=%d)\n' \
         "$CIT_CITES" "$CIT_DOCS" "$CIT_UNRESOLVED" "$CIT_EPHEMERAL" "$CIT_MARKED"
       exit 1
+    fi
+    if [[ $CIT_FLEET_ABSENT -gt 0 ]]; then
+      printf 'CITATION_GATE: INCOMPLETE (cites=%d docs=%d unresolved=0 ephemeral=0 labeled=%d fleet_absent=%d)\n' \
+        "$CIT_CITES" "$CIT_DOCS" "$CIT_MARKED" "$CIT_FLEET_ABSENT"
+      exit 3
     fi
     printf 'CITATION_GATE: CLEAN (cites=%d docs=%d unresolved=0 ephemeral=0 labeled=%d)\n' \
       "$CIT_CITES" "$CIT_DOCS" "$CIT_MARKED"
@@ -1640,6 +1745,47 @@ if [[ ${SELFTEST:-0} -eq 1 ]]; then
   tcase policy-script-ancestor 2 'POLICY a1 reason=script-symlink' "$0" verify --root "$R" --claims "$R/claims-parent-alias.tsv" --stamps "$R/stamps.tsv"
   tcase policy-script-outside-ancestor 2 'POLICY a1 reason=script-symlink' "$0" verify --root "$R" --claims "$R/claims-outside-alias.tsv" --stamps "$R/stamps.tsv"
   tcase policy-cells-root-override 2 'POLICY u1 reason=untagged-host' "$0" verify --root "$R" --claims "$R/claims-cells-override.tsv" --stamps "$R/stamps.tsv"
+  # --- round 25: layout-explicit citations (routed D2) ------------------------
+  # lone = nothing fleet-shaped beside the lane; fleetx = a fleet root with .ufo,
+  # MANIFEST.json and a sibling lane; partial = a lone MISSION.md beside it (any
+  # fleet-root entry keeps the layout FLEET, so misses there stay UNRESOLVED).
+  LONE="$S/lone/lane" FX="$S/fleetx" PART="$S/partial/lane"
+  mkdir -p "$FX/.ufo/reports" "$FX/kake-shokunin" "$S/partial"
+  printf '{}\n' >"$FX/MANIFEST.json"; printf 'x\n' >"$FX/.ufo/reports/y.md"
+  printf 'x\n' >"$FX/kake-shokunin/z.md"; printf 'x\n' >"$S/partial/MISSION.md"
+  for L in "$LONE" "$FX/lane" "$PART"; do
+    mkdir -p "$L/corpus" "$L/.ufo/waves/round-9"
+    printf 'EXPECTED\n' >"$L/corpus/ok.txt"
+    for f in AGENTS.md LOG.md PROVINCE.md SCORECARD.md SHONEN.md SKILL.md corpus/README.md; do
+      printf 'EXPECTED\n' >"$L/$f"
+    done
+    printf 'corpus/ok.txt\t%s\t1\t9\n' "$SHA_OK" >"$L/stamps.tsv"
+    cp -- "$0" "$L/corpus/claim-ledger.sh"
+    printf 'fleet `.ufo/reports/y.md` sibling `kake-shokunin/z.md` self `kagi-shokunin/corpus/ok.txt` here\n' >"$L/corpus/fleet.md"
+    cp -- "$L/corpus/fleet.md" "$L/corpus/README.md"   # the default doc set the layout row reads
+    printf 'fleet misses `.ufo/reports/nope.md` and `kake-shokunin/nope.md` here\n' >"$L/corpus/fleet-miss.md"
+    printf 'lane miss `corpus/nope-r25.md` here\n' >"$L/corpus/local-miss.md"
+    printf 'owned miss `.ufo/waves/round-9/nope.md` here\n' >"$L/corpus/owned-miss.md"
+    printf 'self miss `kagi-shokunin/corpus/nope.md` here\n' >"$L/corpus/self-miss.md"
+    printf 'a cite that ends the line `corpus/nope-r25.md`\n' >"$L/corpus/eol-miss.md"
+    printf 'L1\tbash corpus/claim-ledger.sh citations\t^CITATION_GATE: CLEAN \\(\t0\t60\tlayout-bound row\n' >"$L/claims-layout.tsv"
+  done
+  tcase_last cite-lone-incomplete    3 'CITATION_GATE: INCOMPLETE (cites=3 docs=1 unresolved=0 ephemeral=0 labeled=0 fleet_absent=2)' "$0" citations --root "$LONE" --docs "$LONE/corpus/fleet.md"
+  tcase cite-lone-layout-line        3 'CITATION_LAYOUT: lone-clone fleet_absent=2' "$0" citations --root "$LONE" --docs "$LONE/corpus/fleet.md"
+  tcase cite-lone-sibling-absent     3 'FLEET-ABSENT corpus/fleet.md:1 kake-shokunin/z.md (sibling)' "$0" citations --root "$LONE" --docs "$LONE/corpus/fleet.md"
+  tcase_last cite-fleet-clean        0 'CITATION_GATE: CLEAN (cites=3 docs=1 unresolved=0 ephemeral=0 labeled=0)' "$0" citations --root "$FX/lane" --docs "$FX/lane/corpus/fleet.md"
+  tcase cite-fleet-ufo-miss          1 'UNRESOLVED corpus/fleet-miss.md:1 .ufo/reports/nope.md (ufo)' "$0" citations --root "$FX/lane" --docs "$FX/lane/corpus/fleet-miss.md"
+  tcase cite-lone-fleet-miss-absent  3 'FLEET-ABSENT corpus/fleet-miss.md:1 .ufo/reports/nope.md (ufo)' "$0" citations --root "$LONE" --docs "$LONE/corpus/fleet-miss.md"
+  tcase cite-lone-local-miss         1 'UNRESOLVED corpus/local-miss.md:1 corpus/nope-r25.md (local)' "$0" citations --root "$LONE" --docs "$LONE/corpus/local-miss.md"
+  tcase cite-lone-owned-ufo-miss     1 'UNRESOLVED corpus/owned-miss.md:1 .ufo/waves/round-9/nope.md (ufo)' "$0" citations --root "$LONE" --docs "$LONE/corpus/owned-miss.md"
+  tcase cite-lone-self-miss          1 'UNRESOLVED corpus/self-miss.md:1 kagi-shokunin/corpus/nope.md (self)' "$0" citations --root "$LONE" --docs "$LONE/corpus/self-miss.md"
+  tcase cite-partial-fleet-miss      1 'UNRESOLVED corpus/fleet.md:1 .ufo/reports/y.md (ufo)' "$0" citations --root "$PART" --docs "$PART/corpus/fleet.md"
+  tcase cite-eol-token-checked       1 'UNRESOLVED corpus/eol-miss.md:1 corpus/nope-r25.md (local)' "$0" citations --root "$FX/lane" --docs "$FX/lane/corpus/eol-miss.md"
+  tcase verify-layout-incomplete-row 1 'LAYOUT-INCOMPLETE L1 exit=3' "$0" verify --root "$LONE" --claims "$LONE/claims-layout.tsv" --stamps "$LONE/stamps.tsv"
+  tcase_last verify-layout-incomplete 1 'CLAIM_LEDGER: INCOMPLETE (claims=1 layout_incomplete=1 deferred=0 stamped=1 ids=1 cited=0 labeled_ids=0 orphans=1 host_skipped=0)' "$0" verify --root "$LONE" --claims "$LONE/claims-layout.tsv" --stamps "$LONE/stamps.tsv"
+  tcase_last verify-layout-fleet-runs 0 'CLAIM_LEDGER: CLEAN (claims=1 deferred=0 stamped=1 ids=1 cited=0 labeled_ids=0 orphans=1 host_skipped=0)' "$0" verify --root "$FX/lane" --claims "$FX/lane/claims-layout.tsv" --stamps "$FX/lane/stamps.tsv"
+  printf 'n1\tpython3 corpus/release-clock.py --observe receipt.json\t^X$\t0\t5\tnetwork fetch in a ledger row\n' >"$R/claims-observe.tsv"
+  tcase policy-release-observe-refused 2 'POLICY n1 reason=network-mode' "$0" verify --root "$R" --claims "$R/claims-observe.tsv" --stamps "$R/stamps.tsv"
 
   if [[ $failures -eq 0 ]]; then printf 'SELFTEST: PASS (%d cases)\n' "$cases"; exit 0; fi
   printf 'SELFTEST: FAIL (%d/%d cases)\n' "$failures" "$cases"; exit 1

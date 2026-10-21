@@ -1,0 +1,383 @@
+#!/usr/bin/env python3
+"""Bind current-tense document counts to their declared live quantities.
+
+Usage: python3 corpus/self-counts.py [--root DIR] [--table PATH] [--selftest]
+
+The six tab-separated columns are id, doc, locator, source, extract, note.
+Blank lines and lines whose first non-space character is # are comments.
+The locator is a Python regex with exactly one capture group (the claimed
+nonnegative integer), searched on each document line. Exactly one line must
+match. rows:<repo-path> counts nonblank, non-comment lines; its extract is -.
+ledger:<ID> executes that row's command, not its pinned expected number, and
+applies extract (also exactly one group) to its last nonempty combined output
+line. The process must return the ledger's expected exit code. A changed live
+count remains measurable even when the ledger's old expect regex is stale.
+expect:<ID> runs NOTHING: extract is applied to that row's committed expect
+column, so a host/substrate row's pinned number can still bind a document
+(the ledger's own `verify --allow-host-rows` is what re-measures it). It
+binds the doc to the ledger, never the ledger to the live host.
+
+Ledger commands are trusted, reviewed repo inputs, NOT a hostile-code sandbox:
+shlex.split, shell=False, cwd=root, the row's timeout, and an exact first-token
+allowlist (bash, grep, python3). Host/substrate rows and recursive ledger
+verify/cells commands are refused, never skipped as a passing measurement.
+This does not prove transitive host-freedom of an arbitrary new wrapper.
+
+Paths in doc and rows: sources are repo-relative and must remain under root.
+A relative --table is rooted there; an absolute --table explicitly selects an
+external binding table (useful for measuring frozen docs with the after tool).
+Historical round-dated observations are outside the table's population; table
+notes must explain exclusions, not silently reinterpret a historical number.
+
+Exit: 0 CLEAN; 1 STALE (including UNLOCATED/AMBIGUOUS); 2 POLICY/SETUP.
+Normal checks write nothing. Selftest writes isolated synthetic temp roots.
+"""
+from __future__ import annotations
+
+import argparse
+import contextlib
+import io
+import re
+import shlex
+import subprocess
+import sys
+import tempfile
+from dataclasses import dataclass
+from pathlib import Path
+
+DEFAULT_TABLE = "corpus/self-counts.tsv"
+ALLOWED_COMMANDS = {"bash", "grep", "python3"}
+
+
+class GateError(Exception):
+    def __init__(self, kind: str, message: str):
+        self.kind = kind
+        self.message = message
+        super().__init__(message)
+
+
+def fail(kind: str, message: str):
+    raise GateError(kind, message)
+
+
+def read_text(path: Path) -> str:
+    try:
+        return path.read_text(encoding="utf-8")
+    except (OSError, UnicodeError) as exc:
+        fail("SETUP", f"unreadable {path.name}: {type(exc).__name__}")
+
+
+def repo_path(root: Path, value: str) -> Path:
+    rel = Path(value)
+    if not value or rel.is_absolute() or ".." in rel.parts:
+        fail("POLICY", f"repo-path {value!r}")
+    try:
+        path = (root / rel).resolve()
+    except (OSError, RuntimeError) as exc:
+        fail("SETUP", f"repo-path {value!r}: {type(exc).__name__}")
+    if not path.is_relative_to(root):
+        fail("POLICY", f"repo-path escapes root: {value!r}")
+    return path
+
+
+def data_lines(text: str):
+    return (line for line in text.splitlines()
+            if line.strip() and not line.lstrip().startswith("#"))
+
+
+def tsv_rows(path: Path):
+    seen = set()
+    for number, line in enumerate(read_text(path).splitlines(), 1):
+        if not line.strip() or line.lstrip().startswith("#"):
+            continue
+        fields = line.split("\t")
+        if len(fields) != 6 or any(not field.strip() for field in fields):
+            fail("SETUP", f"{path.name}:{number}: expected six nonempty columns")
+        ident = fields[0]
+        if re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_.-]*", ident) is None:
+            fail("SETUP", f"{path.name}:{number}: invalid id")
+        if ident in seen:
+            fail("SETUP", f"{path.name}:{number}: duplicate id {ident}")
+        seen.add(ident)
+        yield fields
+
+
+def capture_regex(pattern: str, label: str) -> re.Pattern:
+    try:
+        compiled = re.compile(pattern)
+    except re.error:
+        fail("SETUP", f"{label}: bad regex")
+    if compiled.groups != 1:
+        fail("SETUP", f"{label}: regex needs exactly one capture group")
+    return compiled
+
+
+def integer(value: str | None, label: str) -> int:
+    if value is None or re.fullmatch(r"[0-9]+", value) is None:
+        fail("SETUP", f"{label}: capture is not a nonnegative integer")
+    try:
+        return int(value)
+    except ValueError:
+        fail("SETUP", f"{label}: integer is too large")
+
+
+@dataclass(frozen=True)
+class Claim:
+    ident: str
+    doc: str
+    locator: re.Pattern
+    source: str
+    extract: re.Pattern | None
+
+
+def load_claims(table: Path) -> list[Claim]:
+    claims = []
+    for ident, doc, locator, source, extract, _note in tsv_rows(table):
+        loc = capture_regex(locator, f"{ident} locator")
+        if source.startswith("rows:") and source[5:] and extract == "-":
+            ext = None
+        elif (source.startswith("ledger:") and source[7:]) or (
+                source.startswith("expect:") and source[7:]):
+            ext = capture_regex(extract, f"{ident} extract")
+        else:
+            fail("SETUP", f"{ident}: expected rows:<path> with -, or ledger:<ID>/expect:<ID> with extract")
+        claims.append(Claim(ident, doc, loc, source, ext))
+    if not claims:
+        fail("SETUP", "empty binding table")
+    return claims
+
+
+def ledger_command(ident: str, ledger: dict[str, list[str]]):
+    if ident not in ledger:
+        fail("POLICY", f"unknown ledger id {ident}")
+    _ident, command, _expect, expected_exit, timeout, note = ledger[ident]
+    if "[host]" in note or "[substrate]" in note:
+        fail("POLICY", f"ledger:{ident} host/substrate row refused")
+    try:
+        argv = shlex.split(command)
+    except ValueError:
+        fail("POLICY", f"ledger:{ident} invalid argv")
+    if not argv or argv[0] not in ALLOWED_COMMANDS:
+        fail("POLICY", f"ledger:{ident} command not allowlisted")
+    # Detect explicit modes even inside a quoted argument, plus default verify.
+    if "claim-ledger.sh" in command:
+        explicit_recursion = re.search(r"\b(?:verify|cells)\b", command)
+        other_mode = any(arg in {"--selftest", "citations", "docs", "stamp", "--help", "-h"}
+                         for arg in argv)
+        if explicit_recursion or not other_mode:
+            fail("POLICY", f"ledger:{ident} recursive verify/cells refused")
+    if "--allow-host-rows" in argv:
+        fail("POLICY", f"ledger:{ident} host consent refused")
+    try:
+        code = int(expected_exit)
+        seconds = int(timeout)
+        if not 0 <= code <= 255 or seconds <= 0:
+            raise ValueError
+    except ValueError:
+        fail("SETUP", f"ledger:{ident} invalid exit/timeout")
+    return argv, code, seconds
+
+
+def last_output(root: Path, ident: str, command) -> str:
+    argv, expected_exit, timeout = command
+    try:
+        result = subprocess.run(argv, cwd=root, stdin=subprocess.DEVNULL,
+                                stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                                encoding="utf-8", errors="strict", timeout=timeout,
+                                shell=False, check=False)
+    except subprocess.TimeoutExpired:
+        fail("SETUP", f"ledger:{ident} timed out after {timeout}s")
+    except (OSError, UnicodeError) as exc:
+        fail("SETUP", f"ledger:{ident} execution failed: {type(exc).__name__}")
+    if result.returncode != expected_exit:
+        fail("SETUP", f"ledger:{ident} exit={result.returncode} expected={expected_exit}")
+    lines = [line for line in result.stdout.splitlines() if line.strip()]
+    if not lines:
+        fail("SETUP", f"ledger:{ident} empty output")
+    return lines[-1]
+
+
+def check(root: Path, table: Path) -> int:
+    claims = load_claims(table)
+    ledger = {}
+    if any(claim.source.startswith(("ledger:", "expect:")) for claim in claims):
+        ledger = {row[0]: row for row in tsv_rows(repo_path(root, "corpus/claim-ledger.tsv"))}
+    documents = {}
+    outputs = {}
+    counts = {"stale": 0, "unlocated": 0, "ambiguous": 0}
+    errors = {"POLICY": 0, "SETUP": 0}
+    for claim in claims:
+        try:
+            # Source policy applies even when the doc locator is missing/ambiguous.
+            kind, _sep, source = claim.source.partition(":")
+            command = ledger_command(source, ledger) if kind == "ledger" else None
+            if kind == "expect" and source not in ledger:
+                fail("POLICY", f"unknown ledger id {source}")
+            data_path = repo_path(root, source) if kind == "rows" else None
+            doc_path = repo_path(root, claim.doc)
+            if claim.doc not in documents:
+                documents[claim.doc] = read_text(doc_path).splitlines()
+            matches = [(number, match) for number, line in enumerate(documents[claim.doc], 1)
+                       if (match := claim.locator.search(line)) is not None]
+            if not matches:
+                counts["unlocated"] += 1
+                print(f"UNLOCATED {claim.ident} {claim.doc}")
+                continue
+            if len(matches) != 1:
+                counts["ambiguous"] += 1
+                numbers = ",".join(str(number) for number, _match in matches)
+                print(f"AMBIGUOUS {claim.ident} {claim.doc} lines={numbers}")
+                continue
+            number, match = matches[0]
+            claimed = integer(match.group(1), f"{claim.ident} locator")
+            if kind == "rows":
+                live = sum(1 for _line in data_lines(read_text(data_path)))
+            elif kind == "expect":
+                # the committed pin (column 3), never executed
+                match = claim.extract.search(ledger[source][2])
+                if match is None:
+                    fail("SETUP", f"{claim.ident}: extract did not match expect:{source}")
+                live = integer(match.group(1), f"{claim.ident} extract")
+            else:
+                if source not in outputs:
+                    outputs[source] = last_output(root, source, command)
+                match = claim.extract.search(outputs[source])
+                if match is None:
+                    fail("SETUP", f"{claim.ident}: extract did not match ledger:{source} last line")
+                live = integer(match.group(1), f"{claim.ident} extract")
+            status = "OK" if claimed == live else "STALE"
+            counts["stale"] += claimed != live
+            print(f"{status} {claim.ident} {claim.doc}:{number} claimed={claimed} live={live}")
+        except GateError as exc:
+            errors[exc.kind] += 1
+            print(f"{exc.kind} {claim.ident} {exc.message}")
+    if any(errors.values()):
+        kind = "POLICY" if errors["POLICY"] else "SETUP"
+        print(f"SELF_COUNTS: {kind} (claims={len(claims)} stale={counts['stale']} "
+              f"unlocated={counts['unlocated']} ambiguous={counts['ambiguous']} "
+              f"policy={errors['POLICY']} setup={errors['SETUP']})")
+        return 2
+    if any(counts.values()):
+        print(f"SELF_COUNTS: STALE (claims={len(claims)} stale={counts['stale']} "
+              f"unlocated={counts['unlocated']} ambiguous={counts['ambiguous']})")
+        return 1
+    print(f"SELF_COUNTS: CLEAN (claims={len(claims)} stale=0)")
+    return 0
+
+
+def selftest() -> int:
+    failed = 0
+    total = 0
+    with tempfile.TemporaryDirectory(prefix="self-counts-selftest-") as tmp:
+        def case(name, expected, needle, *, doc="Count: 2\n", source="ledger:R1-01",
+                 locator=r"^Count: ([0-9]+)$", extract=r"^LIVE: ([0-9]+)$",
+                 command="python3 corpus/count.py", note="synthetic quantity",
+                 program="print('noise\\nLIVE: 2\\n\\n')\n", timeout="5",
+                 table=None, expect="^deliberately-old-expect$", never_run=False):
+            nonlocal failed, total
+            root = Path(tmp) / name
+            (root / "corpus").mkdir(parents=True)
+            (root / "SKILL.md").write_text(doc, encoding="utf-8")
+            (root / "corpus/count.py").write_text(program, encoding="utf-8")
+            (root / "corpus/data.tsv").write_text("# comment\n\n a\n \t \n  # indented\nb\n", encoding="utf-8")
+            binding = "\t".join(("T1", "SKILL.md", locator, source, extract, "synthetic claim")) + "\n"
+            (root / DEFAULT_TABLE).write_text(binding if table is None else table, encoding="utf-8")
+            row = "\t".join(("R1-01", command, expect, "0", timeout, note)) + "\n"
+            (root / "corpus/claim-ledger.tsv").write_text(row, encoding="utf-8")
+            output = io.StringIO()
+            with contextlib.redirect_stdout(output):
+                code = main(["--root", str(root)])
+            good = code == expected and needle in output.getvalue()
+            # Refusals must happen before a command can create this witness.
+            if (expected == 2 or never_run) and (root / "EXECUTED").exists():
+                good = False
+            total += 1
+            if not good:
+                failed += 1
+                print(f"case {name}: FAIL (exit={code}, wanted={expected})")
+                print(output.getvalue(), end="")
+
+        case("clean", 0, "OK T1 SKILL.md:1 claimed=2 live=2")
+        case("stale", 1, "SELF_COUNTS: STALE (claims=1 stale=1 unlocated=0 ambiguous=0)", doc="Count: 3\n")
+        case("unlocated", 1, "UNLOCATED T1 SKILL.md", doc="Other: 2\n")
+        case("ambiguous", 1, "AMBIGUOUS T1 SKILL.md lines=1,3", doc="Count: 2\nother\nCount: 2\n")
+        witness = "from pathlib import Path\nPath('EXECUTED').touch()\nprint('LIVE: 2')\n"
+        case("host", 2, "host/substrate row refused", note="quantity [host]", program=witness)
+        case("substrate", 2, "host/substrate row refused", note="quantity [substrate]", program=witness)
+        case("host-unlocated", 2, "host/substrate row refused", note="[host]", doc="other\n", program=witness)
+        case("unknown-id", 2, "unknown ledger id R9-99", source="ledger:R9-99", program=witness)
+        for mode in ("verify", "cells", ""):
+            case("recursion-" + (mode or "default"), 2, "recursive verify/cells refused",
+                 command="bash corpus/claim-ledger.sh " + mode)
+        case("recursion-quoted", 2, "recursive verify/cells refused",
+             command="bash -c 'bash corpus/claim-ledger.sh cells'")
+        case("rows-comments-blank", 0, "SELF_COUNTS: CLEAN (claims=1 stale=0)",
+             source="rows:corpus/data.tsv", extract="-")
+        case("bad-locator-regex", 2, "locator: bad regex", locator="([")
+        case("bad-extract-regex", 2, "extract: bad regex", extract="([")
+        case("locator-no-group", 2, "exactly one capture group", locator="Count: 2")
+        case("locator-two-groups", 2, "exactly one capture group", locator=r"^(Count): ([0-9]+)$")
+        case("extract-no-group", 2, "exactly one capture group", extract="LIVE: 2")
+        case("bad-claimed-integer", 2, "capture is not a nonnegative integer",
+             locator=r"^Count: (.+)$", doc="Count: two\n")
+        case("bad-live-integer", 2, "capture is not a nonnegative integer",
+             extract=r"^LIVE: (.+)$", program="print('LIVE: two')\n")
+        case("last-line-not-extracted", 2, "extract did not match",
+             program="print('LIVE: 2\\ntrailer')\n")
+        case("nonallowlisted", 2, "command not allowlisted", command="sh corpus/count.py")
+        case("command-exit", 2, "exit=1 expected=0", program="print('LIVE: 2')\nraise SystemExit(1)\n")
+        case("timeout", 2, "timed out after 1s", timeout="1", program="import time\ntime.sleep(3)\n")
+        case("empty-output", 2, "empty output", program="print('  ')\n")
+        case("stderr-last-line", 0, "claimed=2 live=2",
+             program="import sys\nprint('noise', flush=True)\nprint('LIVE: 2', file=sys.stderr)\n")
+        case("repo-path-escape", 2, "repo-path", source="rows:../data.tsv", extract="-")
+        case("empty-table", 2, "empty binding table", table="# no claims\n")
+        case("bad-columns", 2, "expected six nonempty columns", table="T1\tSKILL.md\n")
+        # round 25: expect:<ID> binds a doc to a row's committed pin and runs nothing,
+        # so a host/substrate row can bind without being executed
+        pinned = r"^SELFTEST: PASS \(2 cases\)$"
+        case("expect-clean-host-row", 0, "OK T1 SKILL.md:1 claimed=2 live=2", source="expect:R1-01",
+             extract=r"\(([0-9]+) cases", expect=pinned, note="quantity [substrate]",
+             program=witness, never_run=True)
+        case("expect-stale", 1, "STALE T1 SKILL.md:1 claimed=3 live=2", source="expect:R1-01",
+             extract=r"\(([0-9]+) cases", expect=pinned, doc="Count: 3\n",
+             program=witness, never_run=True)
+        case("expect-no-number", 2, "extract did not match expect:R1-01", source="expect:R1-01",
+             extract=r"\(([0-9]+) cases", program=witness)
+        case("expect-unknown-id", 2, "unknown ledger id R9-99", source="expect:R9-99",
+             extract=r"\(([0-9]+) cases", program=witness)
+    if failed:
+        print(f"SELF_COUNTS_SELFTEST: FAIL ({total} cases, {failed} failed)")
+        return 1
+    print(f"SELF_COUNTS_SELFTEST: PASS ({total} cases)")
+    return 0
+
+
+class Parser(argparse.ArgumentParser):
+    def error(self, message):
+        fail("SETUP", message)
+
+
+def main(argv: list[str]) -> int:
+    try:
+        parser = Parser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+        parser.add_argument("--root", type=Path, default=Path(__file__).resolve().parents[1])
+        parser.add_argument("--table", type=Path, default=Path(DEFAULT_TABLE))
+        parser.add_argument("--selftest", action="store_true")
+        args = parser.parse_args(argv)
+        if args.selftest:
+            return selftest()
+        root = args.root.resolve()
+        if not root.is_dir():
+            fail("SETUP", "root is not a directory")
+        return check(root, root / args.table)
+    except GateError as exc:
+        print(f"SELF_COUNTS: {exc.kind} ({exc.message})")
+        return 2
+    except (OSError, RuntimeError) as exc:
+        print(f"SELF_COUNTS: SETUP ({type(exc).__name__})")
+        return 2
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv[1:]))

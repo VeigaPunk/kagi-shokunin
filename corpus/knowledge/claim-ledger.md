@@ -340,12 +340,29 @@ bash corpus/claim-ledger.sh stamp corpus/claim-ledger.sh …    # re-pin (review
    want=0` (the `citations` scan cannot resolve the sibling/`.ufo` citations
    without the fleet present). That is the bound working, not a gate bug — and
    it is why `R11-08`'s note names the layout requirement.
+   **Round 25 (routed D2): the bound is now printed, not only documented.**
+   `kagi-shokunin/…` self-references resolve in the lane's own tree; when no
+   fleet-root entry (`.ufo`, `MANIFEST.json`, `MISSION.md`, `AXES.md`) and no
+   other `*-shokunin` lane sits beside the root, unresolved sibling-lane and
+   fleet-only `.ufo/` tokens print `FLEET-ABSENT`, a `CITATION_LAYOUT:
+   lone-clone fleet_absent=N` line precedes the verdict and the gate ends
+   `CITATION_GATE: INCOMPLETE (…)` exit 3; `verify` reports
+   `LAYOUT-INCOMPLETE R11-08` and `CLAIM_LEDGER: INCOMPLETE` exit 1. Never
+   CLEAN: lane-owned misses (`corpus/…`, root docs, self-references,
+   `.ufo/<a>/<b>/…` under a directory the lane has) stay `UNRESOLVED`, and any
+   fleet-shaped entry beside the root keeps the layout fleet. Measured on a
+   lone scratch clone at BASE `4587c61a`: `unresolved=88` (57 sibling, 31
+   ufo; 42 of the sibling misses were committed self-references). The same
+   round fixed a tokenizer defect: the last token of every line was never read
+   (`printf '%s'` without a newline), so a citation ending its line went
+   unchecked; repairing it adds 175 checked citations in the fleet layout.
 9. **Claims are not scheduled.** Nothing runs `verify` on a timer; the round
    discipline is "run it before you cite it".
 10. **`POLICY` rows are not run at all** — a policy refusal is a failure of the
     ledger, not of the claim (exit 2, distinct from FAIL's exit 1).
 11. **`bash <reviewed script>` is still arbitrary execution.** The allowlist
-    (five commands) and the refusal of `bash -c`, backslashes, empty quote pairs
+    (six commands: bash, grep, sha256sum, wc, test, python3 — "five" until the
+    round-25 count correction) and the refusal of `bash -c`, backslashes, empty quote pairs
     and denied verbs shrink the surface that the round-11 sentinel and executor
     probed; they do not close it. The control is that the ledger is a reviewed,
     committed file.

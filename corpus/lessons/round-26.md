@@ -266,3 +266,40 @@ seats ran normalizer selftests despite the mid-flight restriction and
 created corpus bytecode, which L1 removed as generated scaffolding. No
 whole-round no-tests/no-private-read attestation is made; no vault action
 or host-row consent is credited. No tool was installed or updated.
+
+## Final executed Gate outcome
+
+At pushed `d109c752797ecdcaf0e23ce0fbe56079e9c69797`, the L1 ran
+`python3 -I -B .ufo/waves/round-26/tools/final-measure.py d109c752797ecdcaf0e23ce0fbe56079e9c69797 .ufo/waves/round-26/final-verification.json`
+once, after all residual reports: exit0,29/29. Full receipt and exact
+invocation are committed under that wave directory. M26-1's paired
+historical drift red/clean and M26-3's rearm/missing-binding/future-release
+controls all execute as expected, as do three typed tamper/missing-input
+controls. Per-clause captures/digests locate successfully; source rows
+S039/S040/S041 remain admitted within their stated scopes, all three
+broader inferences in the Gate remain rejected.
+
+C1 counts: BASE38 sources/28 bindings →41/30, rearmed successors0→2,
+old/new first-receipt identity projection changes exactly S027/S028.
+Same-current-registry rearm profile observed26→30/unbound2→0, exit1→0;
+after fired3/derived15. This is one shared feed event and two doc/clock
+dispositions. The original receipt is byte-identical and replays its
+historical CLEAN28/fired1. No independent vendor attestation is inferred.
+
+Full safe ledger CLEAN65/89/host_skipped12; lone citations INCOMPLETE,
+unresolved0/fleet_absent48 exit3; lone verify INCOMPLETE exit1; the
+one-phrase citation mutant is BROKEN/unresolved1. C2 remains incomplete.
+Clock selftest67, self-counts CLEAN38 and source census CLEAN41 execute.
+Required fleet census start/end both exit0:38→41 rows,8→11 duplicate-URL
+W04 warnings (three expected new same-URL correction scopes), no malformed
+or enum defect. Exact full outputs are census-start.json/census-end.json
+under the wave. Existing source status/recheck/used-by fields unchanged.
+
+BUILD64 completed41 reports and23 terminal provider deaths; residual8
+returned8 reports.72 seats total, no dead replacement. There were only
+eight distinct residual integration attack groups for this one bounded
+claim, so no padded64-seat second wave was made. Author-side repairs
+landed; fresh outside admit/reject review is still pending. Expansion
+unchanged, quality improved, discernment unchanged; no promotion or new
+repertoire row. Operator checkpoint recovery/refusal evidence is retained,
+with Main's ownership acknowledged; no helper guard was bypassed.

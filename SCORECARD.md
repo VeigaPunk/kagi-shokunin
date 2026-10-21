@@ -1040,3 +1040,40 @@ outside admit/reject review, never supplied by dispatched children.
 Planned next (not executed): the named multi-claim quote coverage and
 knowledge-entry numeric debt remain, as do S029/S031 locator qualifiers;
 no next-round dispatch or round claim is made.
+
+### Final executed outcome — round 26
+
+Measured pushed revision:
+`d109c752797ecdcaf0e23ce0fbe56079e9c69797`.
+`python3 -I -B .ufo/waves/round-26/tools/final-measure.py d109c752797ecdcaf0e23ce0fbe56079e9c69797 .ufo/waves/round-26/final-verification.json`
+returned exit0, **29/29 checks**. Exact argv/exits/stdout and final verdict
+lines are in that receipt; its invocation receipt is beside it.
+
+- C1 freshness, 9→9, measured: original BASE source rows38/clock bindings28
+  → current41/30, all original IDs retained; rearmed3.15.1 successor
+  bindings0→2. The first28-record receipt has exactly S027/S028 changed
+  on the declared identity/observation projection (timestamps and volatile
+  digests excluded), not28 changed sources or two independent feed events.
+- Controlled rearm-only profile: same current registry/new receipt,
+  before bound28/unbound2/observed26 exit1 → after bound30/unbound0/
+  observed30/fired3/derived15 exit0. Separate historical28-record
+  demonstration observed26→28 (exit1→0); original round25 receipt
+  replays CLEAN28/fired1 and remains byte-identical.
+- Future3.15.2 synthetic feed fixture fires both successors; each missing
+  successor binding fails UNBOUND; input-only/input-plus-manifest/missing
+  manifest controls fail typed exit2. All per-clause source checks pass;
+  first-item3.14.9 is rejected by the existing max-stable3.15.1 parser.
+- Full safe ledger: CLEAN65 claims/89 stamps/host_skipped12, exit0.
+  Lone citations: INCOMPLETE, unresolved0/fleet_absent48, exit3;
+  lone verify: INCOMPLETE/layout_incomplete1, exit1. The slash-prose
+  negative becomes BROKEN/unresolved1 with only that phrase changed.
+  These limits are not declared fixed or CLEAN. Self-counts CLEAN38,
+  clock selftest67, source census CLEAN41 all execute successfully.
+
+One64-seat validated BUILD plus one ordinary8-seat residual review
+(fewer than64 distinct residual integration attacks, no padding):
+72 seats total,49 reports,23 terminal provider deaths, none replaced.
+L1 held the canonical planner seat. Expansion unchanged; quality improved
+by the bounded source/rearm response; discernment unchanged pending fresh
+outside admit/reject review. All axes remain9; no new capability, coverage
+ground, retirement, promotion or next-round work is credited.

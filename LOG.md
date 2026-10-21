@@ -1461,3 +1461,34 @@ and `after`. Final immutable outputs and measured pushed revision are
 appended after integration, never invented here. Historical/current
 snapshots pin all evaluated inputs; the wrapper separately pins each
 checksum manifest, including input-plus-manifest tamper refusal.
+
+### Round-26 final immutable evidence
+
+Helper-pushed measured revision
+`d109c752797ecdcaf0e23ce0fbe56079e9c69797`: the isolated recorder executes
+once after all residual reviews and returns **29/29**, exit0.
+Command/output: `.ufo/waves/round-26/final-suite-invocation.json` and
+`.ufo/waves/round-26/final-verification.json`. C1's exact identity delta is
+S027/S028, source/binding counts38/28→41/30, rearmed successors0→2;
+controlled rearm observed26→30, unbound2→0 (exit1→0), fired3/derived15.
+The original round25 receipt remains byte-identical and separately
+replays CLEAN28/fired1. Future-release, missing-binding and tamper
+controls all execute with their expected red/clean verdicts.
+
+No C2 laundering: measured lone citations remain INCOMPLETE/absent48/
+unresolved0, exit3; lone verify INCOMPLETE/layout_incomplete1, exit1.
+The introduced slash-prose citation defect is caught by a one-phrase
+negative (BROKEN/unresolved1) beside the repaired INCOMPLETE control.
+Safe full ledger CLEAN65/89, host_skipped12; self-counts CLEAN38; clock
+selftest67; source census CLEAN41. Counts are bounded to the measured
+revision; later metadata appends are not silently called re-executed.
+
+Residual8 author-side reports all returned; total72 seats/49 reports,
+23 build provider deaths retained, no replacements. An operator-owned
+mid-round checkpoint moved jj's working parent; the helper refused the
+stale branch base, Main acknowledged its checkpoint and moved the tip,
+then the ordinary helper landed the measured revision. No lane-side
+raw Git/jj mutation or helper bypass was used; receipts retain refusals.
+Fleet misroot sweep found only operator driver/runtime changes and no
+untracked artifacts; those runtime files stayed untouched. No installs.
+Outside admission remains the parent's duty and SHONEN stays author [~].

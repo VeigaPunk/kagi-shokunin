@@ -1343,3 +1343,14 @@ Fresh replay executed at
 review's quantitative UNKNOWN for the step-5-only S030 alternative and
 reopens the original ten rows without using unpreserved historical bodies.
 No transform, registry cell, capability or domain surface changed.
+
+Quote-count erratum M24-15: S032's unchanged excerpt has seven words,
+not the recovery Gate's parenthetical eight. The exact counting command
+and output are appended to `corpus/lessons/round-24.md`; its ≤25-word
+bound remains satisfied. No source cells, runtime behavior or measurement
+outcome changed.
+
+Sequencing disclosure M24-16: repairs began in the working tree before the
+last frozen-wave reports returned. The Git freeze was not rewritten; final
+measured executions waited for every seat to settle. The lesson records
+the QM8 defect and the restriction on unbound live-tree notes.

@@ -302,3 +302,19 @@ v1_matches10, ascii_matches7. Only step 5's collapse class changes for the
 alternative; trim remains v1. All requests and raw/normalized digests are
 in the committed receipt, which does not preserve the public page bodies
 or certify future byte stability.
+
+M24-15 (number-drift; captured-by QA6): the recovery Gate's parenthetical
+“8 words” for S032 is incorrect. The exact seven-word quote is unchanged:
+`python3 -c "print(len('The token value is your integration key'.split()))"`
+prints `7`. This named correction supersedes only that parenthetical;
+the ≤25-word bound, source row, located counts and claim verdicts do not
+change.
+
+M24-16 (stale-premise; captured-by QM8): L1 began working-tree repairs
+before the last fresh read-only reports returned, although their declared
+Git revision remained immutable. Mutable live-tree notes without a frozen
+checkout binding are not credited as runtime passes. All combined-tree,
+paired-regression and claim-only outcome measurements were executed on
+committed inputs after all fresh seats settled; those receipts, not an
+assumed writing pause, support the final verdicts. The sequencing defect is
+disclosed, not retroactively called conformant.

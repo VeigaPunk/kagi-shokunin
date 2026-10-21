@@ -1176,3 +1176,46 @@ workflow is claimed. Safety deviations and withdrawn evidence are
 preserved for independent closure. Outcome/provenance metadata and their
 reviewed pin refresh follow this measured commit; the fleet report lands
 last and cites only a helper-confirmed pushed lane hash.
+
+## Round 23 — outside decisions as obligations; declared source provenance
+
+Base `d218603b74099ddca0bd8f869516fc41db0979bf`. Claims: C1 calibration
+capability (closure disposition gate), C2 freshness/D7 (declared fetch
+provenance plus S024-S026 correction rows), C3 operability/D9 (hermetic
+committed-fixture `cells` row). The build wave is the parent-held 66-seat
+audit (43 claim-ledger rows + 23 source rows); this lane dispatched no second
+build wave and remains the sole production writer.
+
+Before: `test -e corpus/closure-dispositions.py` fails; 9 routed defects have
+no machine disposition; 16 of 23 registry rows carry only historical in-row
+pins and 7 carry none; `sources-census.sh` has no fetch check; no ledger row
+runs `cells` host-free. After: `CLOSURE_DISPOSITIONS: CLEAN (obligations=15
+fixed=7 reported=2 operator_owned=1 no_action=5 rejected=0 pointers=15)` exit0
+with a 13-case selftest; `SOURCES_CENSUS: CLEAN (rows=26 A=24 B=0 C=2
+queued=1 mined=24 rejected=1 entries_sourced=4 legacy=21)` exit0 and a
+59-case selftest with 12 SC_FETCH cases; `CELL_AUDIT: CLEAN (cells=6
+row_pointed=6 stamp_pointed=1 uncited=0 missing_ids=0 rows_run=2
+row_deferred=0 row_failures=0 stale_pointers=0 self_skipped=0 orphans=0)`
+exit0 for R23-01 on the committed fixture.
+
+New corpus artifacts: `corpus/closure-dispositions.py`/`.json`,
+`corpus/source-fetches.tsv` (10 declared captures over 9 distinct URLs),
+`corpus/fixtures/cells-hermetic/` (5 files), `corpus/lessons/round-23.md`.
+SOURCES.md gains S024 (KV v2 API), S025 (OpenBao JWT locator, supersedes
+S014) and S026 (OpenBao tokens locator, supersedes S016); existing rows are
+unchanged. Census W04 duplicate-URL warnings remain expected and are quoted
+in the report.
+
+Quality corrections found by the parent-held audit: the op byte-row note and
+the op-ref-consumption entry said a missing op binary reads as DRIFT exit 1;
+the probe code prints SETUP exit 2, and both are corrected here. SKILL.md's
+stale `PASS (29 cases)` for the probe selftest is corrected to the measured
+36. Historical in-row digests stay historical: S008 reproduces, S012/S013/
+S014/S016 do not reproduce under any tested representation, and only the
+declared captures in source-fetches.tsv are active provenance.
+
+No install, no account/vault/handler action, no host-private gate, no depth
+claim. Inherited red/unknown rows (R11-08 citations red at base; cells
+SKIP-SELF bound; single-backslash guard; live-count breadth rows) are
+reported as debt, not credited. Independent non-author closure owns
+admission.

@@ -88,8 +88,8 @@
 # Command safety: a committed runnable-command file is an execution surface, so
 # claims are refused (POLICY, exit 2, never run) unless they are a single simple
 # command: first token in an allowlist (bash|grep|sha256sum|wc|test|python3),
-# with python3 limited to these exact path tokens: `corpus/feature-claims.py`
-# and `corpus/revision-audit.py` (a word boundary follows `.py`). No shell
+# with python3 limited to these exact path tokens: `corpus/feature-claims.py`,
+# `corpus/revision-audit.py` and `corpus/closure-dispositions.py` (a word boundary follows `.py`). No shell
 # metacharacters (; & | < > $ backtick), no backslash, no empty quote pair,
 # no `bash -c`, and no denied verb. Denied names are matched on a
 # QUOTE-STRIPPED copy of the text, so `g''it` / `g\it` / `o"p"` cannot walk past
@@ -158,7 +158,7 @@ trap cleanup_tmp EXIT
 # First token must be one of these; the allowlist is deliberately tiny — a
 # claim is a verdict-producing command, not a pipeline.
 ALLOWED_RE='^(bash|grep|sha256sum|wc|test|python3)$'
-PYTHON_SCRIPT_RE='^python3[[:space:]]+corpus/(feature-claims|revision-audit)\.py([[:space:]]|$)'
+PYTHON_SCRIPT_RE='^python3[[:space:]]+corpus/(feature-claims|revision-audit|closure-dispositions)\.py([[:space:]]|$)'
 # No shell metacharacters at all: one simple command, no composition.
 META_RE='[;&|<>$`]'
 # Verbs that touch the handler, the vault, the repo, or the network. Word

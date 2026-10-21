@@ -820,3 +820,43 @@ claimed. **This lane does not admit the round:** disclosed scope breaches,
 withdrawn review claims, indirect installation and scratch collision remain
 for the parent's independent non-author closure; a clean whole-round
 secret-access/conformance attestation is unavailable.
+
+## Round 23 — pre-move (repo HEAD `d218603`, round-22 close)
+
+| Axis | Score | Evidence pointer | Last change |
+|---|---|---|---|
+| depth | 9 | R21-01: account-free dotenv byte behavior remains the verified depth evidence; no new domain-byte contract is proposed. | round 21 |
+| coverage | 9 | R11-11: the declared host-surface set is unchanged; S024-S026 correct locators, not new governed surfaces. | round 11 |
+| operability | 9 | R15-05: the checklist ratio is unchanged; `cells` has no host-free ledger row at base (R13-03 is skipped for host rows). | round 15 |
+| freshness | 9 | R21-02 measured 23 rows, of which 16 carried only historical in-row pins and 7 carried no provenance at all; `sources-census.sh` had no fetch check. | round 22 |
+| calibration | 9 | R22-02: the outside closure's D1-D9 and decisions were prose only; no machine disposition resolved at base (`test -e corpus/closure-dispositions.py` fails). | round 22 |
+| adjacency | 9 | R16-02: the ownership partition and PROVINCE boundaries are unchanged. | round 16 |
+
+## Round 23 — post-move (claims C1/C2/C3; measured candidate, falsification follows)
+
+| Axis | Score | Evidence pointer | Last change |
+|---|---|---|---|
+| depth | 9 → 9 | R21-01 unchanged; no depth claim is booked. | round 23 |
+| coverage | 9 → 9 | R21-02 now counts 26 rows; S024-S026 are correction rows; the 10 captures cover nine distinct URLs, none of them new governed ground. | round 23 |
+| operability | 9 → 9 | R23-01 runs `cells` host-free over committed fixtures with the exact CLEAN line (`rows_run=2 row_deferred=0 self_skipped=0`). | round 23 |
+| freshness | 9 → 9 | C2: R21-03's 12 new `SC_FETCH` cases and 10 declared provenance rows in `corpus/source-fetches.tsv`; historical in-row pins stay bounded and uncompared. | round 23 |
+| calibration | 9 → 9 | C1 capability: R23-02 resolves 15 outside obligations with 7 fixed / 2 reported / 1 operator-owned / 5 no-action dispositions. | round 23 |
+| adjacency | 9 → 9 | `corpus/adjacency.tsv` and R17-02: the four declared breadth pins are unchanged; inherited parent findings are reported, not absorbed. | round 23 |
+
+### Capabilities
+
+| capability | what it can now do | evidence pointer | first working round |
+|---|---|---|---|
+| typed feature-bounded credential review | adjudicate typed credential records against pinned source bindings, refusing known-bad admits | `corpus/feature-claims.py`; R22-01/R22-02 | round 22 |
+| closure disposition review | turn a non-author closure into exactly one typed, pointer-resolving disposition per obligation | `corpus/closure-dispositions.py`; R23-02; `--selftest` (13 cases) | round 23 |
+
+### Saturation and next intended claims
+
+Saturation line 9 and stagnation window N=3 stay unchanged. A capability entered
+this round (closure disposition review), so the stagnation nudge is not applied
+and the lowest-axis obligation is moot at a uniform 9: claims C1-C3 are distinct
+axes at 9→9 with new executable evidence, not scalar inflation. No axis is
+retired or split. Remaining named debt for a future round: the 16 historical
+in-row digests with undocumented representation; machine-readable supersession
+edges; the `SKIP-SELF` cells bound (R11-08 red at base); the single-backslash
+policy guard; and `R13-01`'s identity-free round-heading count.

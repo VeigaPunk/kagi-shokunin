@@ -53,6 +53,26 @@
 #                        tier C is a lead, never sole support)
 #     SC_CREDENTIAL      credential-shaped text in SOURCES.md or a sourced entry;
 #                        prints `file:line` only, never the matched bytes
+#     SC_FETCH           fetch provenance (round 23, routed D7): every registry
+#                        row needs an in-row `Fetch sha256:` or at least one
+#                        `corpus/source-fetches.tsv` row. A provenance row must
+#                        match its registry id, status, exact registered URL and
+#                        the sha256 of its registry identity (id, status, URL);
+#                        it declares request profile, final URL,
+#                        HTTP status, representation, digest, decoded-byte count,
+#                        quote normalization, normalized digest and location.
+#                        Two provenance rows for one URL must agree on the raw
+#                        digest and, when rendered-text-v1, on the normalized
+#                        digest; a moving-ref URL needs a 40-hex revision.
+#                        STATED BOUND: legacy in-row digests are historical
+#                        point observations with undocumented representation --
+#                        required for coverage, never compared to captures.
+#                        request profile curl-fsSL-compressed-v1 is the command
+#                        in the round-23 lesson; decoded-http-body-v1 means
+#                        Content-Encoding removed by curl, and rendered-text-v1
+#                        means strip script/style, tags->single space,
+#                        html.unescape, collapse whitespace, trim ends, UTF-8. A provenance digest
+#                        is a point attestation, not a drift pin.
 #
 # ENTRIES. An entry is SOURCED when a line starts with `source:` (lower case,
 # column 1); exactly one such line is allowed. Its source field is that
@@ -203,6 +223,82 @@ verify() {
     fi
   done < <(awk -F'|' '/^\|[[:space:]]*S[0-9][0-9][0-9]+[[:space:]]*\|/ && NF==13 {i=$2; s=$9; r=$5; gsub(/[[:space:]]/,"",i); gsub(/[[:space:]]/,"",s); gsub(/[[:space:]]/,"",r); t=$8; u=$12; sub(/^[[:space:]]+/,"",t); sub(/[[:space:]]+$/,"",t); sub(/^[[:space:]]+/,"",u); sub(/[[:space:]]+$/,"",u); printf "%s\037%s\037%s\037%s\037%s\n", i, s, r, t, u}' "$src")
 
+  # ---- fetch provenance (round 23, routed D7) -------------------------------
+  local fetchf="$ROOT/corpus/source-fetches.tsv"
+  local fid fstatus frow furl ffinal fhttp fprof ffet frep fsha fbytes frev fquote fnorm fnsha floc seen_key words
+  declare -A FURL=() FINROW=() FSEEN=() FDIG=() FNRM=()
+  while IFS=$'\x1f' read -r fid furl sdigest; do
+    [[ -n $fid ]] || continue
+    FURL[$fid]=$furl; FINROW[$fid]=$sdigest
+  done < <(awk -F'|' '
+    /^\|[[:space:]]*S[0-9][0-9][0-9]+[[:space:]]*\|/ && NF==13 {
+      i=$2; gsub(/[[:space:]]/,"",i)
+      src=$3; url=""
+      if (match(src, /https?:\/\/[^ |]+/)) url=substr(src,RSTART,RLENGTH)
+      d=""
+      if (match($0, /Fetch sha256: `[0-9a-f]+`/)) d=substr($0,RSTART+15,RLENGTH-16)
+      printf "%s\037%s\037%s\n", i, url, d
+    }' "$src")
+  if [[ -f $fetchf ]]; then
+    out=$(awk -F'\t' 'length($0)>0 && $0 !~ /^#/ && NF!=16 {print "line=" NR " nf=" NF}' "$fetchf")
+    while IFS= read -r line; do [[ -n $line ]] && finding SC_FETCH "$line"; done <<<"$out"
+    while IFS=$'\t' read -r fid fstatus frow furl ffinal fhttp fprof ffet frep fsha fbytes frev fquote fnorm fnsha floc; do
+      [[ -n ${fid:-} ]] || continue
+      FSEEN[$fid]=$(( ${FSEEN[$fid]:-0} + 1 ))
+      [[ -v FURL[$fid] ]] || { finding SC_FETCH "id=$fid not-a-registry-row"; continue; }
+      [[ ${ST[$fid]:-} == "$fstatus" ]] || finding SC_FETCH "id=$fid status=$fstatus registry=${ST[$fid]:-absent}"
+      [[ ${FURL[$fid]} == "$furl" ]] || finding SC_FETCH "id=$fid url-mismatch"
+      line=$(printf '%s\t%s\t%s\n' "$fid" "${ST[$fid]:-}" "${FURL[$fid]}" | sha256sum)
+      [[ $frow == "${line%% *}" ]] || finding SC_FETCH "id=$fid row-identity-digest-mismatch"
+      [[ $ffinal =~ ^https?://[^[:space:]]+$ ]] || finding SC_FETCH "id=$fid final-url"
+      [[ $fhttp =~ ^[0-9]{3}$ ]] || finding SC_FETCH "id=$fid http-status"
+      [[ $fprof == curl-fsSL-compressed-v1 ]] || finding SC_FETCH "id=$fid request-profile"
+      [[ $ffet =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]] || finding SC_FETCH "id=$fid fetched"
+      [[ $frep == decoded-http-body-v1 || $frep == decoded-http-body-volatile-v1 ]] || finding SC_FETCH "id=$fid representation"
+      [[ $fsha =~ ^[0-9a-f]{64}$ ]] || finding SC_FETCH "id=$fid digest"
+      [[ $fbytes =~ ^[1-9][0-9]*$ ]] || finding SC_FETCH "id=$fid bytes"
+      if [[ $frev != - ]]; then
+        [[ $frev =~ ^[0-9a-f]{40}$ ]] || finding SC_FETCH "id=$fid revision"
+      fi
+      if [[ $furl == *raw.githubusercontent.com* || $furl == */main/* || $furl == */main ]]; then
+        [[ $frev =~ ^[0-9a-f]{40}$ ]] || finding SC_FETCH "id=$fid moving-ref-revision"
+      fi
+      words=$(printf '%s' "$fquote" | wc -w); words=${words//[[:space:]]/}
+      [[ -n $fquote && $words -le 25 ]] || finding SC_FETCH "id=$fid quote"
+      [[ $fnorm == rendered-text-v1 || $fnorm == raw-literal-v1 ]] || finding SC_FETCH "id=$fid normalization"
+      if [[ $fnorm == rendered-text-v1 ]]; then
+        [[ $fnsha =~ ^[0-9a-f]{64}$ ]] || finding SC_FETCH "id=$fid normalized-digest"
+      elif [[ $fnsha != - ]]; then
+        finding SC_FETCH "id=$fid normalized-digest-not-applicable"
+      fi
+      [[ ${#floc} -ge 8 ]] || finding SC_FETCH "id=$fid location"
+      # Two captures of one URL under one representation must agree. Volatile
+      # raw HTML is compared through its normalized digest instead (site chrome
+      # and per-response tokens change the bytes, not the article). Legacy
+      # in-row digests are outside this comparison; see the header bound.
+      if [[ $frep != decoded-http-body-volatile-v1 ]]; then
+        seen_key="$furl|$frep"
+        if [[ -n ${FDIG[$seen_key]:-} ]]; then
+          [[ ${FDIG[$seen_key]} == "$fsha" ]] || finding SC_FETCH "id=$fid same-url-digest-disagreement url=$furl"
+        else FDIG[$seen_key]=$fsha; fi
+      fi
+      if [[ $fnorm == rendered-text-v1 ]]; then
+        seen_key="$furl|norm|$fnorm"
+        if [[ -n ${FNRM[$seen_key]:-} ]]; then
+          [[ ${FNRM[$seen_key]} == "$fnsha" ]] || finding SC_FETCH "id=$fid same-url-normalized-disagreement url=$furl"
+        else FNRM[$seen_key]=$fnsha; fi
+      fi
+      [[ ${FSEEN[$fid]} -le 1 ]] || finding SC_FETCH "id=$fid duplicate-provenance"
+    done < <(awk -F'\t' 'length($0)>0 && $0 !~ /^#/ && NF==16' "$fetchf")
+  fi
+  for fid in "${!ST[@]}"; do
+    if [[ -n ${FINROW[$fid]:-} ]]; then
+      [[ ${FINROW[$fid]} =~ ^[0-9a-f]{64}$ ]] || finding SC_FETCH "id=$fid inrow-digest-malformed"
+      continue
+    fi
+    [[ ${FSEEN[$fid]:-0} -ge 1 ]] || finding SC_FETCH "id=$fid missing-provenance"
+  done
+
   cred_scan "$src" "corpus/SOURCES.md"
 
   local f rel sourced=0 legacy=0 ids listed_here nsrc supported
@@ -282,7 +378,22 @@ Reverify: R21-02
 
 Body.
 EOF
-  printf '# legacy\n\nSource basis: host inspection.\n' >"$d/corpus/knowledge/legacy.md"
+  cat >"$d/corpus/knowledge/legacy.md" <<'EOF'
+# legacy
+
+Source basis: host inspection.
+EOF
+  local h1 h2 h3 h4
+  h1=$(printf 'S001\tmined\thttps://example.invalid/one\n' | sha256sum); h1=${h1%% *}
+  h2=$(printf 'S002\tmined\thttps://example.invalid/two\n' | sha256sum); h2=${h2%% *}
+  h3=$(printf 'S003\tqueued\thttps://example.invalid/three\n' | sha256sum); h3=${h3%% *}
+  h4=$(printf 'S004\trejected\thttps://example.invalid/four\n' | sha256sum); h4=${h4%% *}
+  {
+    printf 'S001\tmined\t%s\thttps://example.invalid/one\thttps://example.invalid/one\t200\tcurl-fsSL-compressed-v1\t2026-10-19\tdecoded-http-body-v1\t%s\t100\t-\tteaches one\trendered-text-v1\t%s\t§1, rev 1\n' "$h1" "$(rep a 64)" "$(rep 1 64)"
+    printf 'S002\tmined\t%s\thttps://example.invalid/two\thttps://example.invalid/two\t200\tcurl-fsSL-compressed-v1\t2026-10-19\tdecoded-http-body-v1\t%s\t200\t-\tteaches two\trendered-text-v1\t%s\t§2, 2026-01-01\n' "$h2" "$(rep b 64)" "$(rep 2 64)"
+    printf 'S003\tqueued\t%s\thttps://example.invalid/three\thttps://example.invalid/three\t200\tcurl-fsSL-compressed-v1\t2026-10-19\tdecoded-http-body-v1\t%s\t300\t-\tlead three\traw-literal-v1\t-\tthread 3\n' "$h3" "$(rep c 64)"
+    printf 'S004\trejected\t%s\thttps://example.invalid/four\thttps://example.invalid/four\t200\tcurl-fsSL-compressed-v1\t2026-10-19\tdecoded-http-body-v1\t%s\t400\t-\tproduct four\traw-literal-v1\t-\tpage four\n' "$h4" "$(rep d 64)"
+  } >"$d/corpus/source-fetches.tsv"
 }
 
 rep() { printf "%${2}s" '' | tr ' ' "$1"; }
@@ -299,6 +410,41 @@ needle() { # k → a credential-shaped string built at runtime
 }
 
 SRC_F() { printf '%s/corpus/SOURCES.md' "$1"; }
+FETCH_F() { printf '%s/corpus/source-fetches.tsv' "$1"; }
+fetch_edit() { # dir id field value
+  local f tmp
+  f=$(FETCH_F "$1"); tmp="$f.tmp"
+  awk -F'\t' -v OFS='\t' -v id="$2" -v field="$3" -v value="$4" '
+    /^#/ || length($0)==0 {print; next}
+    $1==id { $field=value; print; next }
+    {print}' "$f" >"$tmp" && mv -- "$tmp" "$f"
+}
+m_fetch_missing() {
+  local f; f=$(FETCH_F "$1")
+  awk -F'\t' 'BEGIN{OFS="\t"} $1!="S002"' "$f" >"$f.t" && mv -- "$f.t" "$f"
+}
+m_fetch_url() { fetch_edit "$1" S002 4 https://example.invalid/wrong; }
+m_fetch_status() { fetch_edit "$1" S002 2 queued; }
+m_fetch_rowdigest() { fetch_edit "$1" S002 3 deadbeef; }
+m_fetch_digest() { fetch_edit "$1" S002 10 deadbeef; }
+m_fetch_quote_long() { fetch_edit "$1" S002 13 "one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen twenty twentyone twentytwo twentythree twentyfour twentyfive twentysix"; }
+m_fetch_norm() { fetch_edit "$1" S002 14 bad-norm-v1; fetch_edit "$1" S002 15 -; }
+m_fetch_normsha() { fetch_edit "$1" S002 15 -; }
+m_fetch_location() { fetch_edit "$1" S002 16 ""; }
+m_fetch_unknown() {
+  printf 'S099\tmined\t%s\thttps://example.invalid/nine\thttps://example.invalid/nine\t200\tcurl-fsSL-compressed-v1\t2026-10-19\tdecoded-http-body-v1\t%s\t10\t-\tunknown row\traw-literal-v1\t-\t§9\n' \
+    "$(rep e 64)" "$(rep f 64)" >>"$(FETCH_F "$1")"
+}
+m_fetch_duplicate() {
+  local f; f=$(FETCH_F "$1")
+  grep '^S002	' "$f" >"$f.t" && cat "$f.t" >>"$f" && rm -f -- "$f.t"
+}
+m_fetch_disagree() {
+  local f sha
+  f=$(FETCH_F "$1")
+  sha=$(rep 9 64)
+  awk -F'\t' -v OFS='\t' -v sha="$sha" '$1=="S002" {$10=sha; print; exit}' "$f" >>"$f"
+}
 E1_F() { printf '%s/corpus/knowledge/e1.md' "$1"; }
 ROW5='| S005 | Doc five — https://example.invalid/five | docs | B | topic five | §5, 2026-04-04 | teaches five | mined | 2026-10-19 | 90d | USEDBY |'
 ROW5C='| S005 | Forum five — https://example.invalid/five | community | C | topic five | thread 5, 2026-04-04 | lead five | mined | 2026-10-19 | 90d | corpus/knowledge/e2.md |'
@@ -365,22 +511,22 @@ selftest() {
     "clean|m_clean||0|CLEAN|0"
     "continuation-line|m_continuation||0|CLEAN|0"
     "legacy-not-scanned|m_cred_legacy||0|CLEAN|0"
-    "zero|m_zero||1|SC_ZERO|1"
-    "malformed|m_malformed||1|SC_MALFORMED|1"
-    "row-leading-space|m_row_lead_space||1|SC_MALFORMED|1"
-    "row-two-digit-id|m_row_two_digit||1|SC_MALFORMED|1"
-    "row-lowercase-id|m_row_lower||1|SC_MALFORMED|1"
+    "zero|m_zero||1|SC_ZERO|5"
+    "malformed|m_malformed||1|SC_MALFORMED|2"
+    "row-leading-space|m_row_lead_space||1|SC_MALFORMED|2"
+    "row-two-digit-id|m_row_two_digit||1|SC_MALFORMED|2"
+    "row-lowercase-id|m_row_lower||1|SC_MALFORMED|2"
     "dup|m_dup||1|SC_DUP|1"
     "enum-tier|m_enum_tier||1|SC_ENUM|1"
-    "enum-status|m_enum_status||1|SC_ENUM|1"
+    "enum-status|m_enum_status||1|SC_ENUM|3"
     "enum-kind|m_enum_kind||1|SC_ENUM|1"
     "inflation|m_inflation||1|SC_INFLATION|1"
     "usedby-missing|m_usedby_missing||1|SC_USEDBY_MISSING|1"
     "usedby-absolute|m_usedby_abs||1|SC_USEDBY_MISSING|1"
     "usedby-dotdot|m_usedby_dotdot||1|SC_USEDBY_MISSING|1"
     "usedby-nocite|m_usedby_nocite||1|SC_USEDBY_NOCITE|1"
-    "mined-unused-dash|m_unused_dash||1|SC_MINED_UNUSED|1"
-    "mined-unused-empty|m_unused_empty||1|SC_MINED_UNUSED|1"
+    "mined-unused-dash|m_unused_dash||1|SC_MINED_UNUSED|2"
+    "mined-unused-empty|m_unused_empty||1|SC_MINED_UNUSED|2"
     "reject-prefix|m_reject_prefix||1|SC_REJECT_SHAPE|1"
     "reject-flip|m_reject_flip||1|SC_REJECT_SHAPE|1"
     "sections-registry|m_sec_registry||1|SC_SECTIONS|1"
@@ -394,7 +540,7 @@ selftest() {
     "cite-not-mined|m_cite_queued||1|SC_ENTRY_CITE|1"
     "cite-usedby-omits|m_cite_usedby||1|SC_ENTRY_CITE|1"
     "cite-no-id|m_cite_noid||1|SC_ENTRY_CITE|3"
-    "cite-tier-c-sole|m_cite_tier_c||1|SC_ENTRY_CITE|1"
+    "cite-tier-c-sole|m_cite_tier_c||1|SC_ENTRY_CITE|2"
     "cred-scheme|m_cred_src|0|1|SC_CREDENTIAL|1"
     "cred-pem|m_cred_src|1|1|SC_CREDENTIAL|1"
     "cred-gh|m_cred_src|2|1|SC_CREDENTIAL|1"
@@ -409,6 +555,18 @@ selftest() {
     "setup-bad-arg|m_setup_badarg||2|SETUP|-"
     "setup-root-absent|m_setup_noroot||2|SETUP|-"
     "setup-root-noarg|m_setup_rootnoarg||2|SETUP|-"
+    "fetch-missing|m_fetch_missing||1|SC_FETCH|1"
+    "fetch-url|m_fetch_url||1|SC_FETCH|1"
+    "fetch-status|m_fetch_status||1|SC_FETCH|1"
+    "fetch-rowdigest|m_fetch_rowdigest||1|SC_FETCH|1"
+    "fetch-digest|m_fetch_digest||1|SC_FETCH|1"
+    "fetch-quote-long|m_fetch_quote_long||1|SC_FETCH|1"
+    "fetch-norm|m_fetch_norm||1|SC_FETCH|1"
+    "fetch-normsha|m_fetch_normsha||1|SC_FETCH|1"
+    "fetch-location|m_fetch_location||1|SC_FETCH|1"
+    "fetch-unknown|m_fetch_unknown||1|SC_FETCH|1"
+    "fetch-duplicate|m_fetch_duplicate||1|SC_FETCH|1"
+    "fetch-disagree|m_fetch_disagree||1|SC_FETCH|2"
   )
   local spec name fn arg xe xid xn d out rc last ok cases=0 failed=0
   for spec in "${CASES[@]}"; do

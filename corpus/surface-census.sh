@@ -79,6 +79,7 @@ BASELINE="$SCRIPT_DIR/drift-baseline.tsv"
 ROOT="${HOME}"
 VERB_ROOT=""
 MODE="verify"
+DEEP=""
 JANITOR="${THE_JANITOR_BIN:-the-janitor}"
 SQLITE3="${SQLITE3_BIN:-sqlite3}"
 

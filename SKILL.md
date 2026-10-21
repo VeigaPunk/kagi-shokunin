@@ -640,7 +640,7 @@ verdict line rather than from a narrative.
   `op.env` contract (two parsers) and the masking scope. Repro:
   `bash corpus/op-ref-probe.sh` ⇒ `OP_REF_PROBE: CLEAN (checks=44 oprun=12
   refs=7 divergent=5 edge=10 sig=6)`, exit 0; `--selftest` ⇒
-  `OP_REF_SELFTEST: PASS (29 cases)`. Falsify: append `KAGI12_POISON=op://…` to
+  `OP_REF_SELFTEST: PASS (36 cases)`. Falsify: append `KAGI12_POISON=op://…` to
   a copy's `oprun.env` and run with `OP_REF_OP_BIN` pointed at a logger stub ⇒
   `POLICY` exit 2 **and an empty stub log** (selftest case `policy-ref-token`);
   a stale `--evaluate` fixture with one value changed ⇒ `FAIL oprun-value` +

@@ -360,8 +360,10 @@ was resolved. Scoped to op 2.40.0 and 2.41.0. Round-21 reviewer limits on the
 instrument itself: the seven `--selftest` byte cases prove the comparator
 only (their "faithful" fixture is a hand copy of the contract array, not an
 independent observation); an op-side failure (sign-in prompt, timeout,
-missing binary) is reported as `DRIFT` exit 1, not `SETUP`, so a red `R21-01`
-is not by itself evidence of a byte change; and failing rows print no observed
+a missing binary is `SETUP` exit 2 (preflight `command -v`, probe
+code at `op-ref-probe.sh:525-526`), while a sign-in or timeout failure inside
+`op run` surfaces as `DRIFT` exit 1 through `evaluate_bytes`; either way a red
+`R21-01` is not by itself evidence of a byte change; and failing rows print no observed
 hex. Those are named debt for the probe, not facts about `op`.
 
 **Falsifier.** Any `DOTENV_BYTES_CASE … status=FAIL` with op exiting 0 on a

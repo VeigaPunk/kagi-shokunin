@@ -150,3 +150,26 @@ expectation (QM14), which is the intended cost.
 | M24-4 | round-start census not run at round start | the start-of-round fleet census was reproduced on a BASE clone after implementation began (`.ufo/waves/round-24/census-start.txt`) | the prompt's §2b step 2 | reproduced on an exact BASE clone with the same command; future rounds run it before the first edit |
 | M24-5 | the first draft normalizer diverged from the generator it declares | CritC2Metric's malformed-opener counterexample | none until wave 1 | adopt the round-23 opener; case `script-malformed-opener` fails on the draft regex |
 | M24-6 | comment updated, code not | the candidate `a3eb6c75` widened the python allowlist COMMENT for `rendered-text-v1.py` but not `PYTHON_SCRIPT_RE`, so R24-01 was POLICY-refused; the identity harness's pristine control caught it (`.ufo/waves/round-24/identity-after-a3eb6c75.txt`, every control `INVALID-CONTROL` on R24-01) | the harness control (QM3: a failing control invalidates the run) | regex fixed; re-measured on the fix commit |
+| M24-7 | a note spelling a semantic tag | R24-13's first note contained the bracketed substrate tag, so the gate treated it as a host row and R18-02 counted 12 (final real-tree verify at `ce9c544d`: `FAIL R18-02 reason=verdict-not-final`, `host_skipped=13`) | the real-tree `verify`, runnable for the first time because of C1 | note reworded; re-verified on the final commit |
+
+Seat safety deviations (disclosed, not credited): IdentR1111 edited the live
+lane's `corpus/surface-census.tsv` once (wrong relative path), restored it from
+BASE, and admitted it when asked; the stamp taken during that window was wrong
+and was re-taken at `ce9c544d`. IdentR1604 ran a default `verify` in its BASE
+scratch clone without an isolated HOME (at BASE that reaches R18-01's
+host-path reads); no values were copied. ProbeAbsPath died at spawn (Codex
+`turn_rate_limit_exceeded`), never replaced.
+
+## Measured outcome (final commit in `.ufo/waves/round-24/final-verification.json`)
+
+- C1: `host-tripwire.sh` BASE `total=35` → `735123d5` `total=0 complete=4/4`,
+  every verify run `population_skipped=12/12`; `citations` `unresolved=2` → 0;
+  ledger selftest 121 → 140 cases.
+- C2: rows whose only provenance is a historical in-row pin 16 → 0; census
+  `captures=31 inrow=16 inrow_only=0 inrow_nonreproducing=12`; non-reproducing
+  pins named 5 → 12; normalizer declarations 3 → 1 (20-case selftest; 10/10
+  round-23 normalized digests reproduced).
+- C3: `identity-swap.py` BASE `survived=15` → `ce9c544d` `survived=0
+  killed=12 invalid=3`; the three invalid rows (R13-02, R18-02, R21-04) are
+  the claim-ledger mutants whose pristine control failed on M24-7, re-measured
+  on the final commit.

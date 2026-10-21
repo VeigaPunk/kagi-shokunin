@@ -392,11 +392,15 @@ def parse_args(argv: list[str]) -> tuple[Path, str, str, bool, bool]:
             i += 1
             if i >= len(argv):
                 setup("--source needs a path")
+            if argv[i].startswith("/") or ".." in Path(argv[i]).parts:
+                setup("absolute or escaping --source refused")
             source = argv[i]
         elif token == "--dispositions":
             i += 1
             if i >= len(argv):
                 setup("--dispositions needs a path")
+            if argv[i].startswith("/") or ".." in Path(argv[i]).parts:
+                setup("absolute or escaping --dispositions refused")
             dispositions = argv[i]
         elif token == "--selftest":
             selftest_flag = True

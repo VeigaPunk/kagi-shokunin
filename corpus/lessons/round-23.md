@@ -89,7 +89,7 @@ D3. Every wave context authored by this lane names the forbidden paths
 `.ufo/state`, MANIFEST.json); the parent-held build context is parent-authored
 and did not carry that list and the no-prompt-injection rule. The pre-surface guard that rejects a mode token is exercised by the ledger
 selftest case `mode-unknown-revision` (`unexpected positional argument for
-verify`). It does not yet cover an id-shaped positional (`R1-01`); that gap is
+verify`). It does not yet cover an id-shaped positional (illustrative `R1-01`); that gap is
 routed debt from the parent audit (`ClaimR11X09`), not claimed as fixed, and no
 wave in this round may run a legacy verify.
 
@@ -162,8 +162,7 @@ shows only this round's appends, so no silently rewritten lesson body exists.
 ## C3 fixture contract
 
 `corpus/fixtures/cells-hermetic/` holds a five-file fixture: a six-axis
-scorecard whose cells cite the illustrative fixture rows `R90-01` and
-`R90-02`, a claims file with two local-only rows, two stamped fixture rows, and
+scorecard whose cells cite illustrative fixture rows `R90-01` and `R90-02`, a claims file with two local-only rows, two stamped fixture rows, and
 `corpus/fixtures/cells-hermetic/corpus/fx-ok.sh`. `stale_pointers=0` covers only paths a cell cites, so the
 `fx-ok.sh` stamp is inert in this run (stated bound). `R23-01` runs
 `bash corpus/claim-ledger.sh cells --root corpus/fixtures/cells-hermetic

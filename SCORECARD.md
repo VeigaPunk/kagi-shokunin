@@ -1106,7 +1106,7 @@ downgrade fixtures accepted CLEAN 4/4 → 0/4, REGRESSED exact 0/4 → 4/4,
 control/default CLEAN30, clock selftest 67 → 79; separability holds except the
 declared SC/PV-CLOCK-SELFTEST edge. Axis scores stay as stated (9 → 9).
 
-## Round 28 — canonical version tokens; derived anchors bound to feed rows
+## Round 28 — post-move: canonical version tokens; derived anchors bound to feed rows
 
 Frozen BASE `3553d499577084a6c98d7078906017840bbf7b28`; claims file and START census committed alone
 first (`bdf90f58e43fdcae6291224197afe17812a16b55`). Declared C1 freshness and C2 calibration
@@ -1118,12 +1118,41 @@ fire before round29; no capability, retirement or promotion is claimed.
 
 | Axis | Before → after | Evidence and bounded interpretation |
 |---|---|---|
-| freshness | 9 → 9 | C1+C2 (one claim). `python3 -I -B .ufo/waves/round-28/tools/c1-measure.py <rev> <label> <out>`: non-canonical fixtures MISHANDLED at BASE 3/4 (F1 fired lie, F2 traceback, F3 written fired receipt; F4 already caught by the observer) → measured revision below. `python3 -I -B .ufo/waves/round-28/tools/c2-measure.py <rev> <label> <out>`: whole-feed derived-anchor lowerings accepted CLEAN at BASE 4/4 → measured revision below. Sourced S044/S045/S046. |
-| calibration | 9 → 9 | No claim (re-booked; see above). QM27–QM29 learn M28-1..M28-4. |
+| freshness | 9 → 9 | C1+C2 (one claim). `python3 -I -B .ufo/waves/round-28/tools/c1-measure.py <rev> <label> <out>`: non-canonical fixtures MISHANDLED at BASE 3/4 (F1 fired lie, F2 traceback, F3 written fired receipt; F4 already caught by the observer) → measured revision below. `python3 -I -B .ufo/waves/round-28/tools/c2-measure.py <rev> <label> <out>`: whole-feed derived-anchor lowerings accepted CLEAN at BASE 4/4 → measured revision below. Sourced S044/S045/S046; stamped `corpus/release-clock.py`. |
+| calibration | 9 → 9 | No claim (re-booked; see above). QM27–QM29 learn M28-1..M28-4 (`corpus/QUALITY.md`). |
 | depth | 9 → 9 | R21-01 unchanged; no new mechanism claim beyond the clock. |
-| coverage | 9 → 9 | Registry 43 → 49: three claim-grounding rows and three frontier-lead rows (S047–S049); no knowledge entry or governed surface. |
+| coverage | 9 → 9 | Registry 43 → 49: three claim-grounding rows and three frontier-lead rows (S047–S049); no knowledge entry or governed surface (`corpus/SOURCES.md`). |
 | operability | 9 → 9 | Default release-clock output unchanged (R25-04 CLEAN30); selftest 79 → 106 (count only). |
-| adjacency | 9 → 9 | R17-02 unchanged; eight connector scans found vocabulary overlap only (`REGRESSED`, registry grammar), no absorbed ground. |
+| adjacency | 9 → 9 | R17-02 unchanged; eight connector scans found vocabulary and mechanism analogy (tsukuroi/kumitate have the same defect class), no absorbed ground. |
 
 Measured revision, exact exits and separability overlays are appended below
 after the measured revision lands; no unrun result is stated here.
+
+
+**Round-28 measured outcome (appended):** repaired revision
+`5e847472a66fe0b41bfc4c374a3659eace3bd4f8`; receipts `.ufo/waves/round-28/final/`.
+Frozen commands (verbatim):
+
+    python3 -I -B .ufo/waves/round-28/tools/c1-measure.py <rev> <label> <out.json>
+    python3 -I -B .ufo/waves/round-28/tools/c2-measure.py <rev> <label> <out.json>
+
+C1 BASE3/4 MISHANDLED → 0/4; TYPED0/4 → 4/4 (all NON-CANONICAL S040).
+C2 corrected construction BASE4/4 accepted → 0/4, exact0/4 → 4/4 (DERIVATION
+exactly the group ids). Both commands exit0; their controls exit0 CLEAN30.
+Strict category/id audit independently agrees (four adversarial classifier
+controls rejected). Selftest79 → 114; ledger CLEAN65/stamped91/host_skipped12;
+self-counts CLEAN60; sources census CLEAN51. MutDeriveGE now killed by the
+raised-anchor case (pristine0 / mutant1 / restored0).
+
+**Verdict distinction:** behaviour improvement measured, all axes remain9.
+The original literal TSV-only C2 fixture was already rejected by the receipt
+pin, so its ACCEPTED count is0/4 → 0/4; the4/4 → 0/4 result depends on the
+pre-tool receipt-mirroring amendment. This is a contested frozen-fixture
+conformance defect, NOT claimed fully met; outside admission is the operator's.
+Neither classifier is a general correctness oracle (lesson FALSIFY dispositions).
+The full freshness claim cannot be self-admitted solely from corrected counts.
+Inherited `cells` heading debt in round26/27 remains (RevScorecardShape);
+no green cell-audit claim is made. Planned next (not executed): the saturation
+nudge points toward a frontier capability, rather than more scalar inflation;
+OIDC claim-condition or detection-versus-validity evidence are opened leads,
+not acquired capabilities.

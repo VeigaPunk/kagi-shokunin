@@ -182,3 +182,11 @@ distinct URLs are committed in
 ## Round-25 search log
 
 Question: which official release identity can make each existing on-release recheck observable? Where: the 28 S005–S032 row pages, their maintainer feeds, vendor release hubs and living-standard feeds; 2026-10-21. Registry decisions: six distinct candidate URLs screened, five included (S033–S037), one excluded (S038, empty release stream; flip in its row). Other probes (REST API, client release hubs) remain scoped rejected routes in the lesson, not independent admitted sources. Stop: all 28 existing clocks have a declared identity; this is not an exhaustive source census.
+
+
+Round-28 FALSIFY correction (same opened URLs, no extra screened pages): S050
+supersedes S047's missing GitHub.com/GHES qualifier, and S051 supersedes S049's
+unsupported latest-final/adoption wording. Sources end51 (eight new tier A,
+including two correction rows); first-pass43→49 remains the candidate record.
+No existing status/recheck/used-by cell changed. Located captures and closure
+checks: SourceS047/SourceS049 addenda in `.ufo/waves/round-28/falsify/`.

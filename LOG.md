@@ -1545,3 +1545,16 @@ ValueError, CritFinalC2 #1 derived-anchor forgery).
 - BUILD wave 73 seats (validated, one taskCall; job cap refused 6 times,
   dispatched on try 7). Selftest 79 → 106. Measured revision and receipts are
   recorded in the lesson and SCORECARD after landing.
+
+- FALSIFY: validated64-seat wave on candidate `62a33b1`; repaired
+  `5e847472a66fe0b41bfc4c374a3659eace3bd4f8` (total feed-token validation,
+  punctuation-aware derivation,114 selftests, receipt parsing and S050/S051
+  scope successors). Fresh source reviewers closed both source findings.
+- Measured final (`.ufo/waves/round-28/final/`): frozen C1 MISHANDLED3/4→0/4,
+  typed0/4→4/4; corrected C2 accepted4/4→0/4, exact0/4→4/4; controls CLEAN30;
+  exact category/id audit8/8 with4 red controls. Ledger CLEAN65/stamps91,
+  self-counts CLEAN60, sources census51. Vendor feed reopens unchanged
+  (SOPS3.13.3, Vault2.2.0, OpenBao2.7.1, Python3.15.1, curl8.23.0), not a
+  live deployment assertion. Original literal C2 fixture accepted0/4 at BASE:
+  receipt mirroring is a real contested fixture change. Honest non-admission
+  of frozen-fixture conformance; operator decides, no r29 started.

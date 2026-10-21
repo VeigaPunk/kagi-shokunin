@@ -185,3 +185,61 @@ C2-only still mishandles F1–F3. XSeparability's hunk-only instrument cannot
 separate fused selftest hunks; its partial-overlay failures are retained,
 not called PASS. The final token-totality/attribution corrections do not turn
 those hunk failures into an independent proof.
+
+
+## Final measured outcome
+
+Measured repaired revision `5e847472a66fe0b41bfc4c374a3659eace3bd4f8`;
+`.ufo/waves/round-28/final/instrument-pins.json` pins the SAME c1/c2 instrument
+bytes for BASE and after. Raw argv/exits/output are in c1-before/after.json
+and c2-before/after.json; both tool invocations exit0. C1 MISHANDLED3/4→0/4,
+TYPED0/4→4/4; C2 amended construction ACCEPTED4/4→0/4, exact0/4→4/4.
+`strict-receipt-audit.py` independently requires exact categories and row ids:
+8/8 observed fixture receipts pass,4 adversarial classifier controls fail
+(`final/strict-audit.json`). Literal original BASE construction is retained
+separately in `final/literal-before.json`: G1–G4 already exit1 via the receipt
+pin, so its ACCEPTED0/4 baseline does NOT support the amended4/4 delta.
+Freshness behaviour is measured; frozen-fixture conformance is NOT declared
+met (operator decides admission). No r29 work or claim was started.
+
+Final regression receipts (`final/invocations.json`): default CLEAN30/fired3/
+derived15 exit0, selftest114 PASS exit0, self-counts60 CLEAN exit0, lane census51
+CLEAN exit0, ledger65/stamped91/host_skipped12 CLEAN exit0. The repaired >=
+mutant is killed by `derived raised anchor refused` (pristine0/mutant1/
+restored0); sentence-period,second-version,prerelease,fourth-segment and older
+noncanonical helper checks all pass (`final/repair-probes.json`).
+END fleet census exit0,14 W04 versus START exit0,11 W04: S045/S050/S051 are
+intentional same-URL/different-scope correction/teaching rows. Both complete
+outputs retained (START census-start.txt,END final/census-end.json),not trimmed.
+S050/S051 source fixes independently closed by the SAME source reviewers
+(SourceS047/SourceS049 addenda). No parent closure or promotion asserted.
+
+The generated `tools/__pycache__` was removed; the stamp helper's host-locale
+collation reordered entries without changing membership (CheckSelfCounts),
+so final stamping uses LC_ALL=C; all91 paths retained. Fleet misroot:
+ScribeKnowledgeClock wrote its report under the fleet `.ufo/waves/round-28/`;
+relocated byte-exact into the lane (misroots.json), fleet copy removed.
+Full exported sandbox trees are throwaway scratch,not evidence; small probes
+and receipts are retained under `.ufo/waves/round-28/retained-probes/` (original
+sandboxes-relative suffix),and reports retain their observed original paths.
+
+
+Residual limits not silently absorbed: oversized row ids can still echo in
+findings (CheckOutputSafety, pre-existing); strict-X.Y.Z prerelease/extra-
+component strings are outside the canonical-core parser; derived binding does
+not prevent writing an observation receipt before evaluate rejects DERIVATION
+(FDeriveBao, no overall CLEAN). CritNoHarm H1 calls fail-closing a feed with
+an older malformed token a coverage loss: accepted as an observation-
+availability cost on malformed input, required by the frozen C1 token rule,
+not silently traded for a score. Current real feeds contain zero such stable
+malformed tokens (XTagHistory); unchanged default and canonical controls
+provide the bounded no-harm evidence, not a universal no-cost claim.
+Inherited round26/27 cell-heading debt and the conformance/classifier limits
+remain visible; no unexecuted green cells claim or full-proof claim is made.
+
+
+Round27 lesson precision (RevLessonR27): its op-ref `21→36 when written`
+phrase was withdrawn later in that same lesson (21 was never the committed
+total), and "CPython-style" for S043 is withdrawn by its PyPA scope. Neither
+phrase is adopted as round28 teaching. Round28 final source count51 and
+selftest114 supersede candidate49/106 descriptions, not the historical rows.

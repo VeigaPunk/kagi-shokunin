@@ -1,0 +1,25 @@
+{
+ "pristine": {
+  "exit": 0,
+  "stdout": "RELEASE_CLOCK_SELFTEST: PASS (114 cases)\n",
+  "stderr": ""
+ },
+ "mutant": {
+  "exit": 1,
+  "stdout": "RELEASE_CLOCK_SELFTEST: FAIL derived raised anchor refused: errors set() != {('DERIVATION', 'S001')}\nRELEASE_CLOCK_SELFTEST: FAIL derived raised anchor refused: observed=1 != 0\nRELEASE_CLOCK_SELFTEST: FAIL derived raised anchor refused: passed=True\n",
+  "stderr": ""
+ },
+ "restored": {
+  "exit": 0,
+  "stdout": "RELEASE_CLOCK_SELFTEST: PASS (114 cases)\n",
+  "stderr": ""
+ },
+ "helper_probes": {
+  "older_noncanonical_refused": true,
+  "period_binds": true,
+  "second_period_unbinds": true,
+  "prerelease_unbinds": true,
+  "fourth_segment_unbinds": true
+ },
+ "huge_json_number_invalid": true
+}

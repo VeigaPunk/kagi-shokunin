@@ -17,7 +17,7 @@
   {
    "id": "R21-02",
    "old": "R21-02\tbash corpus/sources-census.sh\t^SOURCES_CENSUS: CLEAN \\(rows=43 A=41 B=0 C=2 queued=1 mined=39 rejected=3 entries_sourced=4 legacy=21 captures=43 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$\t0\t60\tcurrent registry snapshot: round25 had38; S039-S041 are three tierA mined corrections on held Python feed/documentation ground. S039 inventory recheck90d; S040/S041 retain on-release cadence and are rearmed at named3.15.1 anchors. No old source/status/recheck/used-by changes. Historical in-row classification and knowledge-entry population unchanged; metadata/citation consistency only. Migration in .ufo/waves/round-26/expectation-migrations.json. Round 27: S042/S043 ordering specs (tier A, mined, 180d) with captures -> 43.",
-   "new": "R21-02\tbash corpus/sources-census.sh\t^SOURCES_CENSUS: CLEAN \\(rows=51 A=49 B=0 C=2 queued=1 mined=47 rejected=3 entries_sourced=4 legacy=21 captures=51 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$\t0\t60\tcurrent registry snapshot: round25 had38; S039-S041 are three tierA mined corrections on held Python feed/documentation ground. S039 inventory recheck90d; S040/S041 retain on-release cadence and are rearmed at named3.15.1 anchors. No old source/status/recheck/used-by changes. Historical in-row classification and knowledge-entry population unchanged; metadata/citation consistency only. Migration in .ufo/waves/round-26/expectation-migrations.json. Round 27: S042/S043 ordering specs (tier A, mined, 180d) with captures -> 43. Round 28: S044-S049 (tier A, mined, 180d/90d) with captures -> 49."
+   "new": "R21-02\tbash corpus/sources-census.sh\t^SOURCES_CENSUS: CLEAN \\(rows=51 A=49 B=0 C=2 queued=1 mined=47 rejected=3 entries_sourced=4 legacy=21 captures=51 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$\t0\t60\tcurrent registry snapshot: round25 had38; S039-S041 are three tierA mined corrections on held Python feed/documentation ground. S039 inventory recheck90d; S040/S041 retain on-release cadence and are rearmed at named3.15.1 anchors. No old source/status/recheck/used-by changes. Historical in-row classification and knowledge-entry population unchanged; metadata/citation consistency only. Migration in .ufo/waves/round-26/expectation-migrations.json. Round 27: S042/S043 ordering specs (tier A, mined, 180d) with captures -> 43. Round 28: S044-S049 (tier A, mined, 180d/90d) with captures -> 49. Final S050/S051 scope-correction successors ->51, no existing rows rewritten."
   },
   {
    "id": "R22-03",
@@ -32,7 +32,7 @@
   {
    "id": "R24-06",
    "old": "R24-06\tbash corpus/row-identity.sh scorecard-rounds\t^ROW_IDENTITY: scorecard-rounds count=33 sha256=cb0f57e0ac92dcac02001d55b70ece7daca8b5e6a71467de21abf6598490bbac$\t0\t30\tidentity for R13-01: all31 round25 heading lines retained, plus one round26 bounded response heading; migration in .ufo/waves/round-26/expectation-migrations.json. Round 27: + round-27 heading.",
-   "new": "R24-06\tbash corpus/row-identity.sh scorecard-rounds\t^ROW_IDENTITY: scorecard-rounds count=34 sha256=c59f5341b350064bddb6a7ae79a68bf2ca9a02cf77ccdac7c979ab7b3873e661$\t0\t30\tidentity for R13-01: all31 round25 heading lines retained, plus one round26 bounded response heading; migration in .ufo/waves/round-26/expectation-migrations.json. Round 27: + round-27 heading. Round 28: + one round-28 heading -> 34."
+   "new": "R24-06\tbash corpus/row-identity.sh scorecard-rounds\t^ROW_IDENTITY: scorecard-rounds count=34 sha256=567453c92c098c03f18eb65a9841df972525f14367ccd8ef59bca099effc4134$\t0\t30\tidentity for R13-01: all31 round25 heading lines retained, plus one round26 bounded response heading; migration in .ufo/waves/round-26/expectation-migrations.json. Round 27: + round-27 heading. Round 28: + one round-28 heading -> 34."
   },
   {
    "id": "R24-15",
@@ -42,7 +42,7 @@
   {
    "id": "R25-03",
    "old": "R25-03\tpython3 corpus/release-clock.py --selftest\t^RELEASE_CLOCK_SELFTEST: PASS \\(79 cases\\)$\t0\t120\tround 25 C3: offline synthetic cases (binding, feed, derived-anchor, quote, parser, URL and receipt safety); no network Round 27 (C2): + twelve REGRESSED/feed-floor/strictness cases -> 79 (76 at the candidate, +3 from residual falsifiers).",
-   "new": "R25-03\tpython3 corpus/release-clock.py --selftest\t^RELEASE_CLOCK_SELFTEST: PASS \\(114 cases\\)$\t0\t120\tround 25 C3: offline synthetic cases (binding, feed, derived-anchor, quote, parser, URL and receipt safety); no network Round 27 (C2): + twelve REGRESSED/feed-floor/strictness cases -> 79 (76 at the candidate, +3 from residual falsifiers). Round 28: + eighteen NON-CANONICAL token/feed cases (C1) and nine DERIVATION cases (C2) -> 106; three round-25 derived cases keep their expectations with a feed-row anchor that names their version (migration .ufo/waves/round-28/expectation-migrations.json)."
+   "new": "R25-03\tpython3 corpus/release-clock.py --selftest\t^RELEASE_CLOCK_SELFTEST: PASS \\(114 cases\\)$\t0\t120\tround 25 C3: offline synthetic cases (binding, feed, derived-anchor, quote, parser, URL and receipt safety); no network Round 27 (C2): + twelve REGRESSED/feed-floor/strictness cases -> 79 (76 at the candidate, +3 from residual falsifiers). Round 28: + eighteen NON-CANONICAL token/feed cases (C1) and nine DERIVATION cases (C2) -> 106; three round-25 derived cases keep their expectations with a feed-row anchor that names their version (migration .ufo/waves/round-28/expectation-migrations.json). Final FALSIFY: 106 ->114 (+eight boundary/raised/fired/receipt cases), older malformed feed case corrected from ignore to refusal."
   }
  ],
  "stamp_membership": {
@@ -51,5 +51,6 @@
   ],
   "dropped": []
  },
- "observed_checks": "recorded in .ufo/waves/round-28/final/ after the measured revision"
+ "observed_checks": "recorded in .ufo/waves/round-28/final/ after the measured revision",
+ "stamp_collation": "stamp helper sorts in host locale; candidate reorders uppercase paths; membership unchanged. Final C-locale stamping restores stable collation."
 }

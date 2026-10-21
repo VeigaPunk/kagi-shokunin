@@ -1,0 +1,35 @@
+== G1-SOPS lower=3.13.2 rows=S008,S009,S010,S011
+BASE    exit=0
+RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)
+PATCHED exit=1
+DERIVATION S008
+DERIVATION S009
+DERIVATION S010
+DERIVATION S011
+RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=26 fired=3 derived=11)
+== G2-Vault lower=2.1.9 rows=S013,S022,S023,S024
+BASE    exit=0
+RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)
+PATCHED exit=1
+DERIVATION S013
+DERIVATION S022
+DERIVATION S023
+DERIVATION S024
+RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=26 fired=3 derived=11)
+== G3-OpenBao lower=2.7.0 rows=S014,S015,S016,S021,S025,S026
+BASE    exit=0
+RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)
+PATCHED exit=1
+DERIVATION S014
+DERIVATION S015
+DERIVATION S016
+DERIVATION S021
+DERIVATION S025
+DERIVATION S026
+RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=24 fired=3 derived=9)
+== G4-curl lower=8.22.1 rows=S029
+BASE    exit=0
+RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)
+PATCHED exit=1
+DERIVATION S029
+RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)

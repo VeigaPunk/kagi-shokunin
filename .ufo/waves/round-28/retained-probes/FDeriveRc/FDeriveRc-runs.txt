@@ -1,0 +1,23 @@
+== cand (control) ==
+RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)
+exit=0
+== probe_rc (S034 anchor cell names only v2.2.0-rc1) ==
+DERIVATION S013
+DERIVATION S022
+DERIVATION S023
+DERIVATION S024
+RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=26 fired=3 derived=11)
+exit=1
+== probe_both (stable + rc in the same cell) ==
+RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)
+exit=0
+== probe_base_rc (BASE code, same registry edit) ==
+RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)
+exit=0
+== probe_nodecl (S013 note loses the derived: prefix) ==
+DERIVATION S022
+DERIVATION S023
+DERIVATION S024
+INCONSISTENT S013
+RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=26 fired=3 derived=11)
+exit=1

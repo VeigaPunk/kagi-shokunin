@@ -1,0 +1,11 @@
+--- cand/corpus/release-clock.py	2026-10-21 14:44:12.000000000 -0300
++++ mut-anchoronly/corpus/release-clock.py	2026-10-21 14:49:59.432080962 -0300
+@@ -615,7 +615,7 @@
+             is_derived = values["note"].startswith("derived:")
+             anchor_ok = is_derived or version_is_named(sources[source_id]["anchor"], anchored)
+             non_canonical = non_canonical_version(anchored) or non_canonical_version(observed_version)
+-            if (is_derived and not non_canonical and feed_source is not None
++            if (is_derived and not non_canonical_version(anchored) and feed_source is not None
+                     and not derived_anchor_bound(feed_source["anchor"], anchored)):
+                 # round-28 C2: an author-declared derived anchor holds only while
+                 # its feed row's located anchor cell (S033-S037) names exactly

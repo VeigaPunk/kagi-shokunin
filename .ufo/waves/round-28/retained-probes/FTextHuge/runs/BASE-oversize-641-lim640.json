@@ -1,0 +1,48 @@
+{
+  "label": "BASE-oversize-641-lim640",
+  "tree": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FTextHuge/base",
+  "extra_env": {
+    "PYTHONINTMAXSTRDIGITS": "640"
+  },
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "run-observe.py",
+    "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FTextHuge/base",
+    "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FTextHuge/runs/BASE-oversize-641-lim640/fixture-root",
+    "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FTextHuge/runs/BASE-oversize-641-lim640/observe-out.json",
+    "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FTextHuge/fixtures/curl-oversize-641.txt",
+    "https://curl.se/info",
+    "2026-10-21"
+  ],
+  "exit": 1,
+  "stdout": "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=0 fired=1 regressed=0) to /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FTextHuge/runs/BASE-oversize-641-lim640/observe-out.json\nRECEIPT-MISMATCH S029\nRELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)\n",
+  "stderr": "",
+  "traceback_in_output": false,
+  "finding_lines": [
+    "RECEIPT-MISMATCH S029"
+  ],
+  "last_line": "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)",
+  "receipt_records": [
+    {
+      "id": "S029",
+      "url": "https://curl.se/info",
+      "http_status": 200,
+      "parsed_version": "8.23.11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+      "verdict": "fired",
+      "error": null
+    }
+  ],
+  "fired_records": [
+    {
+      "id": "S029",
+      "url": "https://curl.se/info",
+      "http_status": 200,
+      "parsed_version": "8.23.11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+      "verdict": "fired",
+      "error": null
+    }
+  ],
+  "feed_url": "https://curl.se/info"
+}

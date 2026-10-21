@@ -1,0 +1,58 @@
+{
+  "end_to_end": {
+    "exit": 1,
+    "receipt": {
+      "format": "release-clock-observations-v1",
+      "observations": [
+        {
+          "clock": "feed",
+          "error": "non-canonical version token: feed newest stable entry",
+          "http_status": 200,
+          "id": "S040",
+          "located": null,
+          "observed_at": "2026-10-21T00:00:00Z",
+          "parsed_version": null,
+          "sha256": "b3284e388fb067fab9f2beeae8a041de6909aced9a0816f1355d82e7f850de7f",
+          "url": "https://www.python.org/downloads/feed.rss",
+          "verdict": null
+        }
+      ]
+    },
+    "stderr": "",
+    "stdout": ""
+  },
+  "python": "3.14.8",
+  "tree": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FAtomHuge/cand",
+  "unit_observe": {
+    "clock": "feed",
+    "error": "host lookup returned an invalid address",
+    "http_status": null,
+    "id": "S040",
+    "located": null,
+    "observed_at": "2026-10-21T17:57:19Z",
+    "parsed_version": null,
+    "sha256": null,
+    "url": "https://www.python.org/downloads/feed.rss",
+    "verdict": null
+  },
+  "unit_parse": {
+    "atom_leading_zero_newest": {
+      "is_traceback_text": false,
+      "message": "non-canonical version token: feed newest stable entry",
+      "raised": "ValueError"
+    },
+    "atom_newest_oversize": {
+      "is_traceback_text": false,
+      "message": "non-canonical version token: feed newest stable entry",
+      "raised": "ValueError"
+    },
+    "atom_older_oversize": {
+      "returned": "3.15.0"
+    },
+    "atom_only_oversize": {
+      "is_traceback_text": false,
+      "message": "non-canonical version token: feed has no canonical stable X.Y.Z entry",
+      "raised": "ValueError"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+RELEASE_CLOCK_OBSERVE: wrote 6 observations (failed=0 fired=0 regressed=0) to /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveBao/cand/observe-control-unmodified.json
+=== control-unmodified
+observe failures=0
+  receipt S014 verdict='not-fired' parsed='2.7.1' error=None
+  receipt S015 verdict='not-fired' parsed='2.7.1' error=None
+  receipt S016 verdict='not-fired' parsed='2.7.1' error=None
+  receipt S021 verdict='not-fired' parsed='2.7.1' error=None
+  receipt S025 verdict='not-fired' parsed='2.7.1' error=None
+  receipt S026 verdict='not-fired' parsed='2.7.1' error=None
+  evaluate errors=[]
+  evaluate counts: on_release=6 bound=6 observed=6 fired=0 derived=6
+
+RELEASE_CLOCK_OBSERVE: wrote 6 observations (failed=0 fired=6 regressed=0) to /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveBao/g3/observe-g3-lowered.json
+=== g3-lowered
+observe failures=0
+  receipt S014 verdict='fired' parsed='2.7.1' error=None
+  receipt S015 verdict='fired' parsed='2.7.1' error=None
+  receipt S016 verdict='fired' parsed='2.7.1' error=None
+  receipt S021 verdict='fired' parsed='2.7.1' error=None
+  receipt S025 verdict='fired' parsed='2.7.1' error=None
+  receipt S026 verdict='fired' parsed='2.7.1' error=None
+  evaluate errors=[('DERIVATION', 'S014'), ('DERIVATION', 'S015'), ('DERIVATION', 'S016'), ('DERIVATION', 'S021'), ('DERIVATION', 'S025'), ('DERIVATION', 'S026'), ('RECEIPT-MISMATCH', 'S014'), ('RECEIPT-MISMATCH', 'S015'), ('RECEIPT-MISMATCH', 'S016'), ('RECEIPT-MISMATCH', 'S021'), ('RECEIPT-MISMATCH', 'S025'), ('RECEIPT-MISMATCH', 'S026')]
+  evaluate counts: on_release=6 bound=6 observed=0 fired=0 derived=0
+

@@ -1,0 +1,586 @@
+{
+  "base": {
+    "F2-table-oversize[default-I]": {
+      "all_finding_lines": [],
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/KagiR28.FEnvDisabled/base/corpus/release-clock.py",
+        "--root",
+        "/tmp/env-disabled-base-khv6_ker/fixture-T-base-default-I",
+        "--receipt",
+        "/tmp/env-disabled-base-khv6_ker/fixture-T-base-default-I/receipt.json",
+        "--receipt-sha",
+        "59b75e47de2642a767be3ed77a9209ee8009fb3be01d834b76d2fe052870dae2"
+      ],
+      "clean": false,
+      "env_PYTHONINTMAXSTRDIGITS": null,
+      "exit": 1,
+      "fired_observation_written": null,
+      "isolated_flag": true,
+      "last_line": "",
+      "receipt_records": null,
+      "stderr_tail": "okunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/KagiR28.FEnvDisabled/base/corpus/release-clock.py\", line 380, in numeric_version\n    return tuple(int(part) for part in value.split(\".\"))\n           ^^^^^\n  File \"/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/KagiR28.FEnvDisabled/base/corpus/release-clock.py\", line 380, in <genexpr>\n    return tuple(int(part) for part in value.split(\".\"))\n                 ~~~^^^^^^\nValueError: Exceeds the limit (4300 digits) for integer string conversion: value has 4301 digits; use sys.set_int_max_str_digits() to increase the limit\n",
+      "stdout_tail": "",
+      "tag": "F2-table-oversize[default-I]",
+      "traceback": true,
+      "typed_finding_lines": []
+    },
+    "F2-table-oversize[default-no-I]": {
+      "all_finding_lines": [],
+      "argv": [
+        "python3",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/KagiR28.FEnvDisabled/base/corpus/release-clock.py",
+        "--root",
+        "/tmp/env-disabled-base-khv6_ker/fixture-T-base-default-no-I",
+        "--receipt",
+        "/tmp/env-disabled-base-khv6_ker/fixture-T-base-default-no-I/receipt.json",
+        "--receipt-sha",
+        "59b75e47de2642a767be3ed77a9209ee8009fb3be01d834b76d2fe052870dae2"
+      ],
+      "clean": false,
+      "env_PYTHONINTMAXSTRDIGITS": null,
+      "exit": 1,
+      "fired_observation_written": null,
+      "isolated_flag": false,
+      "last_line": "",
+      "receipt_records": null,
+      "stderr_tail": "okunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/KagiR28.FEnvDisabled/base/corpus/release-clock.py\", line 380, in numeric_version\n    return tuple(int(part) for part in value.split(\".\"))\n           ^^^^^\n  File \"/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/KagiR28.FEnvDisabled/base/corpus/release-clock.py\", line 380, in <genexpr>\n    return tuple(int(part) for part in value.split(\".\"))\n                 ~~~^^^^^^\nValueError: Exceeds the limit (4300 digits) for integer string conversion: value has 4301 digits; use sys.set_int_max_str_digits() to increase the limit\n",
+      "stdout_tail": "",
+      "tag": "F2-table-oversize[default-no-I]",
+      "traceback": true,
+      "typed_finding_lines": []
+    },
+    "F2-table-oversize[limit0-I]": {
+      "all_finding_lines": [],
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/KagiR28.FEnvDisabled/base/corpus/release-clock.py",
+        "--root",
+        "/tmp/env-disabled-base-khv6_ker/fixture-T-base-limit0-I",
+        "--receipt",
+        "/tmp/env-disabled-base-khv6_ker/fixture-T-base-limit0-I/receipt.json",
+        "--receipt-sha",
+        "59b75e47de2642a767be3ed77a9209ee8009fb3be01d834b76d2fe052870dae2"
+      ],
+      "clean": false,
+      "env_PYTHONINTMAXSTRDIGITS": "0",
+      "exit": 1,
+      "fired_observation_written": null,
+      "isolated_flag": true,
+      "last_line": "",
+      "receipt_records": null,
+      "stderr_tail": "okunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/KagiR28.FEnvDisabled/base/corpus/release-clock.py\", line 380, in numeric_version\n    return tuple(int(part) for part in value.split(\".\"))\n           ^^^^^\n  File \"/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/KagiR28.FEnvDisabled/base/corpus/release-clock.py\", line 380, in <genexpr>\n    return tuple(int(part) for part in value.split(\".\"))\n                 ~~~^^^^^^\nValueError: Exceeds the limit (4300 digits) for integer string conversion: value has 4301 digits; use sys.set_int_max_str_digits() to increase the limit\n",
+      "stdout_tail": "",
+      "tag": "F2-table-oversize[limit0-I]",
+      "traceback": true,
+      "typed_finding_lines": []
+    },
+    "F2-table-oversize[limit0-no-I]": {
+      "all_finding_lines": [],
+      "argv": [
+        "python3",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/KagiR28.FEnvDisabled/base/corpus/release-clock.py",
+        "--root",
+        "/tmp/env-disabled-base-khv6_ker/fixture-T-base-limit0-no-I",
+        "--receipt",
+        "/tmp/env-disabled-base-khv6_ker/fixture-T-base-limit0-no-I/receipt.json",
+        "--receipt-sha",
+        "59b75e47de2642a767be3ed77a9209ee8009fb3be01d834b76d2fe052870dae2"
+      ],
+      "clean": true,
+      "env_PYTHONINTMAXSTRDIGITS": "0",
+      "exit": 0,
+      "fired_observation_written": null,
+      "isolated_flag": false,
+      "last_line": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=4 derived=15)",
+      "receipt_records": null,
+      "stderr_tail": "",
+      "stdout_tail": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=4 derived=15)\n",
+      "tag": "F2-table-oversize[limit0-no-I]",
+      "traceback": false,
+      "typed_finding_lines": []
+    },
+    "F4-observe-oversize[default-I]": {
+      "all_finding_lines": [
+        "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/env-disabled-base-khv6_ker/fixture-O-base-default-I/observe-out.json",
+        "RECEIPT-MISMATCH S040"
+      ],
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/tmp/env-disabled-base-khv6_ker/observe-runner.py",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/KagiR28.FEnvDisabled/base",
+        "/tmp/env-disabled-base-khv6_ker/fixture-O-base-default-I",
+        "/tmp/env-disabled-base-khv6_ker/fixture-O-base-default-I/observe-out.json",
+        "/tmp/env-disabled-base-khv6_ker/fixture-O-base-default-I/feed.atom",
+        "https://www.python.org/downloads/feed.rss",
+        "2026-10-21"
+      ],
+      "clean": false,
+      "env_PYTHONINTMAXSTRDIGITS": null,
+      "exit": 1,
+      "fired_observation_written": false,
+      "isolated_flag": true,
+      "last_line": "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)",
+      "receipt_records": [
+        {
+          "error": "Exceeds the limit (4300 digits) for integer string conversion: value has 4301 digits; use sys.set_int_max_str_digits() to increase the limit",
+          "id": "S040",
+          "parsed_version": null,
+          "verdict": null
+        }
+      ],
+      "stderr_tail": "",
+      "stdout_tail": "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/env-disabled-base-khv6_ker/fixture-O-base-default-I/observe-out.json\nRECEIPT-MISMATCH S040\nRELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)\n",
+      "tag": "F4-observe-oversize[default-I]",
+      "traceback": false,
+      "typed_finding_lines": [
+        "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/env-disabled-base-khv6_ker/fixture-O-base-default-I/observe-out.json"
+      ]
+    },
+    "F4-observe-oversize[default-no-I]": {
+      "all_finding_lines": [
+        "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/env-disabled-base-khv6_ker/fixture-O-base-default-no-I/observe-out.json",
+        "RECEIPT-MISMATCH S040"
+      ],
+      "argv": [
+        "python3",
+        "-B",
+        "/tmp/env-disabled-base-khv6_ker/observe-runner.py",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/KagiR28.FEnvDisabled/base",
+        "/tmp/env-disabled-base-khv6_ker/fixture-O-base-default-no-I",
+        "/tmp/env-disabled-base-khv6_ker/fixture-O-base-default-no-I/observe-out.json",
+        "/tmp/env-disabled-base-khv6_ker/fixture-O-base-default-no-I/feed.atom",
+        "https://www.python.org/downloads/feed.rss",
+        "2026-10-21"
+      ],
+      "clean": false,
+      "env_PYTHONINTMAXSTRDIGITS": null,
+      "exit": 1,
+      "fired_observation_written": false,
+      "isolated_flag": false,
+      "last_line": "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)",
+      "receipt_records": [
+        {
+          "error": "Exceeds the limit (4300 digits) for integer string conversion: value has 4301 digits; use sys.set_int_max_str_digits() to increase the limit",
+          "id": "S040",
+          "parsed_version": null,
+          "verdict": null
+        }
+      ],
+      "stderr_tail": "",
+      "stdout_tail": "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/env-disabled-base-khv6_ker/fixture-O-base-default-no-I/observe-out.json\nRECEIPT-MISMATCH S040\nRELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)\n",
+      "tag": "F4-observe-oversize[default-no-I]",
+      "traceback": false,
+      "typed_finding_lines": [
+        "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/env-disabled-base-khv6_ker/fixture-O-base-default-no-I/observe-out.json"
+      ]
+    },
+    "F4-observe-oversize[limit0-I]": {
+      "all_finding_lines": [
+        "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/env-disabled-base-khv6_ker/fixture-O-base-limit0-I/observe-out.json",
+        "RECEIPT-MISMATCH S040"
+      ],
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/tmp/env-disabled-base-khv6_ker/observe-runner.py",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/KagiR28.FEnvDisabled/base",
+        "/tmp/env-disabled-base-khv6_ker/fixture-O-base-limit0-I",
+        "/tmp/env-disabled-base-khv6_ker/fixture-O-base-limit0-I/observe-out.json",
+        "/tmp/env-disabled-base-khv6_ker/fixture-O-base-limit0-I/feed.atom",
+        "https://www.python.org/downloads/feed.rss",
+        "2026-10-21"
+      ],
+      "clean": false,
+      "env_PYTHONINTMAXSTRDIGITS": "0",
+      "exit": 1,
+      "fired_observation_written": false,
+      "isolated_flag": true,
+      "last_line": "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)",
+      "receipt_records": [
+        {
+          "error": "Exceeds the limit (4300 digits) for integer string conversion: value has 4301 digits; use sys.set_int_max_str_digits() to increase the limit",
+          "id": "S040",
+          "parsed_version": null,
+          "verdict": null
+        }
+      ],
+      "stderr_tail": "",
+      "stdout_tail": "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/env-disabled-base-khv6_ker/fixture-O-base-limit0-I/observe-out.json\nRECEIPT-MISMATCH S040\nRELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)\n",
+      "tag": "F4-observe-oversize[limit0-I]",
+      "traceback": false,
+      "typed_finding_lines": [
+        "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/env-disabled-base-khv6_ker/fixture-O-base-limit0-I/observe-out.json"
+      ]
+    },
+    "F4-observe-oversize[limit0-no-I]": {
+      "all_finding_lines": [
+        "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=0 fired=1 regressed=0) to /tmp/env-disabled-base-khv6_ker/fixture-O-base-limit0-no-I/observe-out.json",
+        "RECEIPT-MISMATCH S040"
+      ],
+      "argv": [
+        "python3",
+        "-B",
+        "/tmp/env-disabled-base-khv6_ker/observe-runner.py",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/KagiR28.FEnvDisabled/base",
+        "/tmp/env-disabled-base-khv6_ker/fixture-O-base-limit0-no-I",
+        "/tmp/env-disabled-base-khv6_ker/fixture-O-base-limit0-no-I/observe-out.json",
+        "/tmp/env-disabled-base-khv6_ker/fixture-O-base-limit0-no-I/feed.atom",
+        "https://www.python.org/downloads/feed.rss",
+        "2026-10-21"
+      ],
+      "clean": false,
+      "env_PYTHONINTMAXSTRDIGITS": "0",
+      "exit": 1,
+      "fired_observation_written": true,
+      "isolated_flag": false,
+      "last_line": "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)",
+      "receipt_records": [
+        {
+          "error": null,
+          "id": "S040",
+          "parsed_version": "3.15.11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+          "verdict": "fired"
+        }
+      ],
+      "stderr_tail": "",
+      "stdout_tail": "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=0 fired=1 regressed=0) to /tmp/env-disabled-base-khv6_ker/fixture-O-base-limit0-no-I/observe-out.json\nRECEIPT-MISMATCH S040\nRELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)\n",
+      "tag": "F4-observe-oversize[limit0-no-I]",
+      "traceback": false,
+      "typed_finding_lines": [
+        "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=0 fired=1 regressed=0) to /tmp/env-disabled-base-khv6_ker/fixture-O-base-limit0-no-I/observe-out.json"
+      ]
+    },
+    "control[limit0-no-I]": {
+      "all_finding_lines": [],
+      "argv": [
+        "python3",
+        "-B",
+        "corpus/release-clock.py"
+      ],
+      "clean": true,
+      "env_PYTHONINTMAXSTRDIGITS": null,
+      "exit": 0,
+      "fired_observation_written": null,
+      "isolated_flag": null,
+      "last_line": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)",
+      "receipt_records": null,
+      "stderr_tail": "",
+      "stdout_tail": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)\n",
+      "tag": "control[limit0-no-I]",
+      "traceback": false,
+      "typed_finding_lines": []
+    }
+  },
+  "cand": {
+    "F2-table-oversize[default-I]": {
+      "all_finding_lines": [
+        "NON-CANONICAL S040"
+      ],
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/KagiR28.FEnvDisabled/cand/corpus/release-clock.py",
+        "--root",
+        "/tmp/env-disabled-cand-skeqzbm6/fixture-T-cand-default-I",
+        "--receipt",
+        "/tmp/env-disabled-cand-skeqzbm6/fixture-T-cand-default-I/receipt.json",
+        "--receipt-sha",
+        "59b75e47de2642a767be3ed77a9209ee8009fb3be01d834b76d2fe052870dae2"
+      ],
+      "clean": false,
+      "env_PYTHONINTMAXSTRDIGITS": null,
+      "exit": 1,
+      "fired_observation_written": null,
+      "isolated_flag": true,
+      "last_line": "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)",
+      "receipt_records": null,
+      "stderr_tail": "",
+      "stdout_tail": "NON-CANONICAL S040\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)\n",
+      "tag": "F2-table-oversize[default-I]",
+      "traceback": false,
+      "typed_finding_lines": [
+        "NON-CANONICAL S040"
+      ]
+    },
+    "F2-table-oversize[default-no-I]": {
+      "all_finding_lines": [
+        "NON-CANONICAL S040"
+      ],
+      "argv": [
+        "python3",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/KagiR28.FEnvDisabled/cand/corpus/release-clock.py",
+        "--root",
+        "/tmp/env-disabled-cand-skeqzbm6/fixture-T-cand-default-no-I",
+        "--receipt",
+        "/tmp/env-disabled-cand-skeqzbm6/fixture-T-cand-default-no-I/receipt.json",
+        "--receipt-sha",
+        "59b75e47de2642a767be3ed77a9209ee8009fb3be01d834b76d2fe052870dae2"
+      ],
+      "clean": false,
+      "env_PYTHONINTMAXSTRDIGITS": null,
+      "exit": 1,
+      "fired_observation_written": null,
+      "isolated_flag": false,
+      "last_line": "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)",
+      "receipt_records": null,
+      "stderr_tail": "",
+      "stdout_tail": "NON-CANONICAL S040\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)\n",
+      "tag": "F2-table-oversize[default-no-I]",
+      "traceback": false,
+      "typed_finding_lines": [
+        "NON-CANONICAL S040"
+      ]
+    },
+    "F2-table-oversize[limit0-I]": {
+      "all_finding_lines": [
+        "NON-CANONICAL S040"
+      ],
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/KagiR28.FEnvDisabled/cand/corpus/release-clock.py",
+        "--root",
+        "/tmp/env-disabled-cand-skeqzbm6/fixture-T-cand-limit0-I",
+        "--receipt",
+        "/tmp/env-disabled-cand-skeqzbm6/fixture-T-cand-limit0-I/receipt.json",
+        "--receipt-sha",
+        "59b75e47de2642a767be3ed77a9209ee8009fb3be01d834b76d2fe052870dae2"
+      ],
+      "clean": false,
+      "env_PYTHONINTMAXSTRDIGITS": "0",
+      "exit": 1,
+      "fired_observation_written": null,
+      "isolated_flag": true,
+      "last_line": "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)",
+      "receipt_records": null,
+      "stderr_tail": "",
+      "stdout_tail": "NON-CANONICAL S040\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)\n",
+      "tag": "F2-table-oversize[limit0-I]",
+      "traceback": false,
+      "typed_finding_lines": [
+        "NON-CANONICAL S040"
+      ]
+    },
+    "F2-table-oversize[limit0-no-I]": {
+      "all_finding_lines": [
+        "NON-CANONICAL S040"
+      ],
+      "argv": [
+        "python3",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/KagiR28.FEnvDisabled/cand/corpus/release-clock.py",
+        "--root",
+        "/tmp/env-disabled-cand-skeqzbm6/fixture-T-cand-limit0-no-I",
+        "--receipt",
+        "/tmp/env-disabled-cand-skeqzbm6/fixture-T-cand-limit0-no-I/receipt.json",
+        "--receipt-sha",
+        "59b75e47de2642a767be3ed77a9209ee8009fb3be01d834b76d2fe052870dae2"
+      ],
+      "clean": false,
+      "env_PYTHONINTMAXSTRDIGITS": "0",
+      "exit": 1,
+      "fired_observation_written": null,
+      "isolated_flag": false,
+      "last_line": "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)",
+      "receipt_records": null,
+      "stderr_tail": "",
+      "stdout_tail": "NON-CANONICAL S040\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)\n",
+      "tag": "F2-table-oversize[limit0-no-I]",
+      "traceback": false,
+      "typed_finding_lines": [
+        "NON-CANONICAL S040"
+      ]
+    },
+    "F4-observe-oversize[default-I]": {
+      "all_finding_lines": [
+        "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/env-disabled-cand-skeqzbm6/fixture-O-cand-default-I/observe-out.json",
+        "NON-CANONICAL S040"
+      ],
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/tmp/env-disabled-cand-skeqzbm6/observe-runner.py",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/KagiR28.FEnvDisabled/cand",
+        "/tmp/env-disabled-cand-skeqzbm6/fixture-O-cand-default-I",
+        "/tmp/env-disabled-cand-skeqzbm6/fixture-O-cand-default-I/observe-out.json",
+        "/tmp/env-disabled-cand-skeqzbm6/fixture-O-cand-default-I/feed.atom",
+        "https://www.python.org/downloads/feed.rss",
+        "2026-10-21"
+      ],
+      "clean": false,
+      "env_PYTHONINTMAXSTRDIGITS": null,
+      "exit": 1,
+      "fired_observation_written": false,
+      "isolated_flag": true,
+      "last_line": "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)",
+      "receipt_records": [
+        {
+          "error": "non-canonical version token: feed newest stable entry",
+          "id": "S040",
+          "parsed_version": null,
+          "verdict": null
+        }
+      ],
+      "stderr_tail": "",
+      "stdout_tail": "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/env-disabled-cand-skeqzbm6/fixture-O-cand-default-I/observe-out.json\nNON-CANONICAL S040\nRELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)\n",
+      "tag": "F4-observe-oversize[default-I]",
+      "traceback": false,
+      "typed_finding_lines": [
+        "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/env-disabled-cand-skeqzbm6/fixture-O-cand-default-I/observe-out.json",
+        "NON-CANONICAL S040"
+      ]
+    },
+    "F4-observe-oversize[default-no-I]": {
+      "all_finding_lines": [
+        "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/env-disabled-cand-skeqzbm6/fixture-O-cand-default-no-I/observe-out.json",
+        "NON-CANONICAL S040"
+      ],
+      "argv": [
+        "python3",
+        "-B",
+        "/tmp/env-disabled-cand-skeqzbm6/observe-runner.py",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/KagiR28.FEnvDisabled/cand",
+        "/tmp/env-disabled-cand-skeqzbm6/fixture-O-cand-default-no-I",
+        "/tmp/env-disabled-cand-skeqzbm6/fixture-O-cand-default-no-I/observe-out.json",
+        "/tmp/env-disabled-cand-skeqzbm6/fixture-O-cand-default-no-I/feed.atom",
+        "https://www.python.org/downloads/feed.rss",
+        "2026-10-21"
+      ],
+      "clean": false,
+      "env_PYTHONINTMAXSTRDIGITS": null,
+      "exit": 1,
+      "fired_observation_written": false,
+      "isolated_flag": false,
+      "last_line": "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)",
+      "receipt_records": [
+        {
+          "error": "non-canonical version token: feed newest stable entry",
+          "id": "S040",
+          "parsed_version": null,
+          "verdict": null
+        }
+      ],
+      "stderr_tail": "",
+      "stdout_tail": "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/env-disabled-cand-skeqzbm6/fixture-O-cand-default-no-I/observe-out.json\nNON-CANONICAL S040\nRELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)\n",
+      "tag": "F4-observe-oversize[default-no-I]",
+      "traceback": false,
+      "typed_finding_lines": [
+        "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/env-disabled-cand-skeqzbm6/fixture-O-cand-default-no-I/observe-out.json",
+        "NON-CANONICAL S040"
+      ]
+    },
+    "F4-observe-oversize[limit0-I]": {
+      "all_finding_lines": [
+        "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/env-disabled-cand-skeqzbm6/fixture-O-cand-limit0-I/observe-out.json",
+        "NON-CANONICAL S040"
+      ],
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/tmp/env-disabled-cand-skeqzbm6/observe-runner.py",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/KagiR28.FEnvDisabled/cand",
+        "/tmp/env-disabled-cand-skeqzbm6/fixture-O-cand-limit0-I",
+        "/tmp/env-disabled-cand-skeqzbm6/fixture-O-cand-limit0-I/observe-out.json",
+        "/tmp/env-disabled-cand-skeqzbm6/fixture-O-cand-limit0-I/feed.atom",
+        "https://www.python.org/downloads/feed.rss",
+        "2026-10-21"
+      ],
+      "clean": false,
+      "env_PYTHONINTMAXSTRDIGITS": "0",
+      "exit": 1,
+      "fired_observation_written": false,
+      "isolated_flag": true,
+      "last_line": "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)",
+      "receipt_records": [
+        {
+          "error": "non-canonical version token: feed newest stable entry",
+          "id": "S040",
+          "parsed_version": null,
+          "verdict": null
+        }
+      ],
+      "stderr_tail": "",
+      "stdout_tail": "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/env-disabled-cand-skeqzbm6/fixture-O-cand-limit0-I/observe-out.json\nNON-CANONICAL S040\nRELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)\n",
+      "tag": "F4-observe-oversize[limit0-I]",
+      "traceback": false,
+      "typed_finding_lines": [
+        "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/env-disabled-cand-skeqzbm6/fixture-O-cand-limit0-I/observe-out.json",
+        "NON-CANONICAL S040"
+      ]
+    },
+    "F4-observe-oversize[limit0-no-I]": {
+      "all_finding_lines": [
+        "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/env-disabled-cand-skeqzbm6/fixture-O-cand-limit0-no-I/observe-out.json",
+        "NON-CANONICAL S040"
+      ],
+      "argv": [
+        "python3",
+        "-B",
+        "/tmp/env-disabled-cand-skeqzbm6/observe-runner.py",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/KagiR28.FEnvDisabled/cand",
+        "/tmp/env-disabled-cand-skeqzbm6/fixture-O-cand-limit0-no-I",
+        "/tmp/env-disabled-cand-skeqzbm6/fixture-O-cand-limit0-no-I/observe-out.json",
+        "/tmp/env-disabled-cand-skeqzbm6/fixture-O-cand-limit0-no-I/feed.atom",
+        "https://www.python.org/downloads/feed.rss",
+        "2026-10-21"
+      ],
+      "clean": false,
+      "env_PYTHONINTMAXSTRDIGITS": "0",
+      "exit": 1,
+      "fired_observation_written": false,
+      "isolated_flag": false,
+      "last_line": "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)",
+      "receipt_records": [
+        {
+          "error": "non-canonical version token: feed newest stable entry",
+          "id": "S040",
+          "parsed_version": null,
+          "verdict": null
+        }
+      ],
+      "stderr_tail": "",
+      "stdout_tail": "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/env-disabled-cand-skeqzbm6/fixture-O-cand-limit0-no-I/observe-out.json\nNON-CANONICAL S040\nRELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)\n",
+      "tag": "F4-observe-oversize[limit0-no-I]",
+      "traceback": false,
+      "typed_finding_lines": [
+        "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/env-disabled-cand-skeqzbm6/fixture-O-cand-limit0-no-I/observe-out.json",
+        "NON-CANONICAL S040"
+      ]
+    },
+    "control[limit0-no-I]": {
+      "all_finding_lines": [],
+      "argv": [
+        "python3",
+        "-B",
+        "corpus/release-clock.py"
+      ],
+      "clean": true,
+      "env_PYTHONINTMAXSTRDIGITS": null,
+      "exit": 0,
+      "fired_observation_written": null,
+      "isolated_flag": null,
+      "last_line": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)",
+      "receipt_records": null,
+      "stderr_tail": "",
+      "stdout_tail": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)\n",
+      "tag": "control[limit0-no-I]",
+      "traceback": false,
+      "typed_finding_lines": []
+    }
+  }
+}

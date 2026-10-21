@@ -1,0 +1,16 @@
+== A-base-staleS012-only ==
+   vault floor=2.2.0  S012 errors=[('REGRESSED', 'S012')]
+   all errors=[('REGRESSED', 'S012')]
+   counts={'observed': 29, 'fired': 2, 'derived': 15}
+== A-cand-staleS012-only ==
+   vault floor=2.2.0  S012 errors=[('REGRESSED', 'S012')]
+   all errors=[('REGRESSED', 'S012')]
+   counts={'observed': 29, 'fired': 2, 'derived': 15}
+== B-base-staleS012-plus-G2 ==
+   vault floor=2.1.9  S012 errors=[]
+   all errors=[]
+   counts={'observed': 30, 'fired': 3, 'derived': 15}
+== B-cand-staleS012-plus-G2 ==
+   vault floor=2.1.9  S012 errors=[]
+   all errors=[('DERIVATION', 'S013'), ('DERIVATION', 'S022'), ('DERIVATION', 'S023'), ('DERIVATION', 'S024')]
+   counts={'observed': 26, 'fired': 3, 'derived': 11}

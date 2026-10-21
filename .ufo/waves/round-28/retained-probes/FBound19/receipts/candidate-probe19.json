@@ -1,0 +1,214 @@
+{
+  "tree": "/fast/scratch/hyaku/kagi-r28/FBound19/lanegit",
+  "label": "candidate",
+  "python": "3.14.8",
+  "T-OBS": {
+    "exit": 1,
+    "summary": "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)",
+    "finding_lines": [
+      "NON-CANONICAL S040"
+    ],
+    "traceback": false,
+    "categories": [
+      "NON-CANONICAL"
+    ],
+    "fired_in_summary": true
+  },
+  "T-OBS-NOMIRROR": {
+    "exit": 1,
+    "summary": "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)",
+    "finding_lines": [
+      "NON-CANONICAL S040",
+      "RECEIPT-MISMATCH S040"
+    ],
+    "traceback": false,
+    "categories": [
+      "NON-CANONICAL",
+      "RECEIPT-MISMATCH"
+    ],
+    "fired_in_summary": true
+  },
+  "T-ANC": {
+    "exit": 1,
+    "summary": "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)",
+    "finding_lines": [
+      "NON-CANONICAL S040"
+    ],
+    "traceback": false,
+    "categories": [
+      "NON-CANONICAL"
+    ],
+    "fired_in_summary": true
+  },
+  "F-NEW": {
+    "exit": 1,
+    "summary": "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)",
+    "finding_lines": [
+      "NON-CANONICAL S040",
+      "ORPHAN S005",
+      "ORPHAN S006",
+      "ORPHAN S007",
+      "ORPHAN S008",
+      "ORPHAN S009",
+      "ORPHAN S010",
+      "ORPHAN S011",
+      "ORPHAN S012",
+      "ORPHAN S013",
+      "ORPHAN S014",
+      "ORPHAN S015",
+      "ORPHAN S016",
+      "ORPHAN S017",
+      "ORPHAN S018",
+      "ORPHAN S019",
+      "ORPHAN S020",
+      "ORPHAN S021",
+      "ORPHAN S022",
+      "ORPHAN S023",
+      "ORPHAN S024",
+      "ORPHAN S025",
+      "ORPHAN S026",
+      "ORPHAN S027",
+      "ORPHAN S028",
+      "ORPHAN S029",
+      "ORPHAN S030",
+      "ORPHAN S031",
+      "ORPHAN S032",
+      "ORPHAN S041"
+    ],
+    "traceback": false,
+    "categories": [
+      "NON-CANONICAL",
+      "ORPHAN"
+    ],
+    "fired_in_summary": false,
+    "receipt_record": {
+      "clock": "feed",
+      "error": "non-canonical version token: feed newest stable entry",
+      "http_status": 200,
+      "id": "S040",
+      "located": null,
+      "observed_at": "2026-10-21T00:00:00Z",
+      "parsed_version": null,
+      "sha256": "37d48ab7704ef240aba31c57605b1627e60119368e362b9a280bd8b72b721dac",
+      "url": "https://www.python.org/downloads/feed.rss",
+      "verdict": null
+    }
+  },
+  "F-OLD": {
+    "exit": 1,
+    "summary": "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=1 fired=0 derived=0)",
+    "finding_lines": [
+      "ORPHAN S005",
+      "ORPHAN S006",
+      "ORPHAN S007",
+      "ORPHAN S008",
+      "ORPHAN S009",
+      "ORPHAN S010",
+      "ORPHAN S011",
+      "ORPHAN S012",
+      "ORPHAN S013",
+      "ORPHAN S014",
+      "ORPHAN S015",
+      "ORPHAN S016",
+      "ORPHAN S017",
+      "ORPHAN S018",
+      "ORPHAN S019",
+      "ORPHAN S020",
+      "ORPHAN S021",
+      "ORPHAN S022",
+      "ORPHAN S023",
+      "ORPHAN S024",
+      "ORPHAN S025",
+      "ORPHAN S026",
+      "ORPHAN S027",
+      "ORPHAN S028",
+      "ORPHAN S029",
+      "ORPHAN S030",
+      "ORPHAN S031",
+      "ORPHAN S032",
+      "ORPHAN S041"
+    ],
+    "traceback": false,
+    "categories": [
+      "ORPHAN"
+    ],
+    "fired_in_summary": false,
+    "receipt_record": {
+      "clock": "feed",
+      "http_status": 200,
+      "id": "S040",
+      "located": null,
+      "observed_at": "2026-10-21T00:00:00Z",
+      "parsed_version": "3.15.1",
+      "sha256": "27acc8c73f7282a4c020c8d5b402757db520e2e9a7e786b04765a1cf100db2b4",
+      "url": "https://www.python.org/downloads/feed.rss",
+      "verdict": "not-fired"
+    }
+  },
+  "F-ONLY": {
+    "exit": 1,
+    "summary": "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)",
+    "finding_lines": [
+      "NON-CANONICAL S040",
+      "ORPHAN S005",
+      "ORPHAN S006",
+      "ORPHAN S007",
+      "ORPHAN S008",
+      "ORPHAN S009",
+      "ORPHAN S010",
+      "ORPHAN S011",
+      "ORPHAN S012",
+      "ORPHAN S013",
+      "ORPHAN S014",
+      "ORPHAN S015",
+      "ORPHAN S016",
+      "ORPHAN S017",
+      "ORPHAN S018",
+      "ORPHAN S019",
+      "ORPHAN S020",
+      "ORPHAN S021",
+      "ORPHAN S022",
+      "ORPHAN S023",
+      "ORPHAN S024",
+      "ORPHAN S025",
+      "ORPHAN S026",
+      "ORPHAN S027",
+      "ORPHAN S028",
+      "ORPHAN S029",
+      "ORPHAN S030",
+      "ORPHAN S031",
+      "ORPHAN S032",
+      "ORPHAN S041"
+    ],
+    "traceback": false,
+    "categories": [
+      "NON-CANONICAL",
+      "ORPHAN"
+    ],
+    "fired_in_summary": false,
+    "receipt_record": {
+      "clock": "feed",
+      "error": "non-canonical version token: feed has no canonical stable X.Y.Z entry",
+      "http_status": 200,
+      "id": "S040",
+      "located": null,
+      "observed_at": "2026-10-21T00:00:00Z",
+      "parsed_version": null,
+      "sha256": "dbeae8b1e0a0f7b16be1c207982c9bddd227ee27599e1c4f69d67c10c3e7abdd",
+      "url": "https://www.python.org/downloads/feed.rss",
+      "verdict": null
+    }
+  },
+  "T-DERIVED": {
+    "exit": 1,
+    "summary": "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)",
+    "finding_lines": [
+      "NON-CANONICAL S008"
+    ],
+    "traceback": false,
+    "categories": [
+      "NON-CANONICAL"
+    ],
+    "fired_in_summary": true
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "label": "BASE-canonical",
+  "tree": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FTextHuge/base",
+  "extra_env": {},
+  "argv": [
+    "python3",
+    "-I",
+    "-B",
+    "run-observe.py",
+    "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FTextHuge/base",
+    "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FTextHuge/runs/BASE-canonical/fixture-root",
+    "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FTextHuge/runs/BASE-canonical/observe-out.json",
+    "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FTextHuge/fixtures/curl-canonical.txt",
+    "https://curl.se/info",
+    "2026-10-21"
+  ],
+  "exit": 0,
+  "stdout": "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=0 fired=0 regressed=0) to /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FTextHuge/runs/BASE-canonical/observe-out.json\nRELEASE_CLOCK: CLEAN (on_release=1 bound=1 unbound=0 observed=1 fired=0 derived=1)\n",
+  "stderr": "",
+  "traceback_in_output": false,
+  "finding_lines": [],
+  "last_line": "RELEASE_CLOCK: CLEAN (on_release=1 bound=1 unbound=0 observed=1 fired=0 derived=1)",
+  "receipt_records": [
+    {
+      "id": "S029",
+      "url": "https://curl.se/info",
+      "http_status": 200,
+      "parsed_version": "8.23.0",
+      "verdict": "not-fired",
+      "error": null
+    }
+  ],
+  "fired_records": [],
+  "feed_url": "https://curl.se/info"
+}

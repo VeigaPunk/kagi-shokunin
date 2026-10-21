@@ -1,0 +1,114 @@
+{
+  "seat": "FObsHuge",
+  "carrier": "table observation with 4301-digit patch (F2 table-oversize) at S040",
+  "pinned_candidate": "62a33b1bd15217ed729df2ca40c8a30aba3076c0",
+  "frozen_measure_cand": {
+    "mishandled": 0,
+    "typed": 4,
+    "other": 0,
+    "fixtures": 4
+  },
+  "frozen_measure_base": {
+    "mishandled": 3,
+    "typed": 0,
+    "other": 1,
+    "fixtures": 4
+  },
+  "frozen_cand_F2": {
+    "verdict": "TYPED",
+    "exit": 1,
+    "traceback_in_output": false,
+    "typed_finding_lines": [
+      "NON-CANONICAL S040"
+    ],
+    "clean_last_line": false,
+    "fired_observation_written": false
+  },
+  "frozen_base_F2": {
+    "verdict": "MISHANDLED",
+    "exit": 1,
+    "traceback_in_output": true,
+    "typed_finding_lines": [],
+    "clean_last_line": false,
+    "fired_observation_written": false
+  },
+  "independent_probe_mirror_cand": {
+    "cmd": "python3 -I -B probe_f2.py <cand> cand <work>",
+    "exit": 1,
+    "stdout": [
+      "NON-CANONICAL S040",
+      "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)"
+    ],
+    "traceback": false,
+    "tsv_immutable": true,
+    "files_written": [
+      "corpus",
+      "receipt.json"
+    ]
+  },
+  "independent_probe_base": {
+    "cmd": "python3 -I -B probe_f2.py <base> base <work>",
+    "exit": 1,
+    "stderr_tail": "ValueError: Exceeds the limit (4300 digits) for integer string conversion: value has 4301 digits",
+    "traceback": true
+  },
+  "mutation_A_bound_4301": {
+    "exit": 0,
+    "stdout": [
+      "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=4 derived=15)"
+    ],
+    "note": "VERSION_COMPONENT_MAX_DIGITS 18->4301 bypasses C1: token accepted, fired=4 (a release event)"
+  },
+  "mutation_B_branch_removed": {
+    "exit": 1,
+    "findings": [
+      "INCONSISTENT S040"
+    ],
+    "note": "removing the C1 row rule degrades the finding to a BASE-era category"
+  },
+  "in_process_attribution": {
+    "receipt_matches_S040": true,
+    "receipt_error_key": false,
+    "errors": [
+      [
+        "NON-CANONICAL",
+        "S040"
+      ]
+    ],
+    "note": "finding is the row rule (release-clock.py:631), not receipt integrity (release-clock.py:682)"
+  },
+  "adjacent": {
+    "derived_row_oversize_anchor_S008": [
+      "NON-CANONICAL S008"
+    ],
+    "sibling_same_feed_oversize_anchor_S027": [
+      "NON-CANONICAL S027",
+      "NON-CANONICAL S040"
+    ],
+    "rendered_quote_row_oversize_observed_S005": [
+      "INCONSISTENT S005"
+    ],
+    "malformed_row_oversize": [
+      "INCONSISTENT S040"
+    ]
+  },
+  "observe_path": {
+    "exit": 1,
+    "s040_record": {
+      "verdict": null,
+      "parsed_version": null,
+      "error": "non-canonical version token: row anchor or observation; no verdict written"
+    },
+    "fired_written": false,
+    "elapsed_100k_digits_s": 0.05
+  },
+  "selftest": {
+    "base": 79,
+    "cand": 106,
+    "ledger_pin": "R25-03 expects 106"
+  },
+  "control": {
+    "base": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)",
+    "cand": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)"
+  }
+}

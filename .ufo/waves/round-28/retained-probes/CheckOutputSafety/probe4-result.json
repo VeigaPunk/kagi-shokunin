@@ -1,0 +1,876 @@
+{
+  "cases": [
+    {
+      "label": "anchor='3.13.3' feed=S033",
+      "exit": 0,
+      "traceback": false,
+      "stdout": [
+        "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='3.13.3' feed=S999",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "BADFEED S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='3.13.3' feed=S017",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "BADFEED S008",
+        "DERIVATION S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='3.13.3' feed=-",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "BADFEED S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='3.13.03' feed=S033",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "NON-CANONICAL S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='3.13.03' feed=S999",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "BADFEED S008",
+        "NON-CANONICAL S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='3.13.03' feed=S017",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "BADFEED S008",
+        "NON-CANONICAL S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='3.13.03' feed=-",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "BADFEED S008",
+        "NON-CANONICAL S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='3.13.1111111111111111111' feed=S033",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "NON-CANONICAL S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='3.13.1111111111111111111' feed=S999",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "BADFEED S008",
+        "NON-CANONICAL S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='3.13.1111111111111111111' feed=S017",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "BADFEED S008",
+        "NON-CANONICAL S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='3.13.1111111111111111111' feed=-",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "BADFEED S008",
+        "NON-CANONICAL S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='3.13.1.1' feed=S033",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "DERIVATION S008",
+        "INCONSISTENT S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='3.13.1.1' feed=S999",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "BADFEED S008",
+        "INCONSISTENT S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='3.13.1.1' feed=S017",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "BADFEED S008",
+        "DERIVATION S008",
+        "INCONSISTENT S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='3.13.1.1' feed=-",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "BADFEED S008",
+        "INCONSISTENT S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='v3.13.3' feed=S033",
+      "exit": 0,
+      "traceback": false,
+      "stdout": [
+        "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='v3.13.3' feed=S999",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "BADFEED S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='v3.13.3' feed=S017",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "BADFEED S008",
+        "DERIVATION S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='v3.13.3' feed=-",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "BADFEED S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='3.13.x' feed=S033",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "DERIVATION S008",
+        "INCONSISTENT S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='3.13.x' feed=S999",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "BADFEED S008",
+        "INCONSISTENT S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='3.13.x' feed=S017",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "BADFEED S008",
+        "DERIVATION S008",
+        "INCONSISTENT S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='3.13.x' feed=-",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "BADFEED S008",
+        "INCONSISTENT S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='-' feed=S033",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "DERIVATION S008",
+        "INCONSISTENT S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='-' feed=S999",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "BADFEED S008",
+        "INCONSISTENT S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='-' feed=S017",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "BADFEED S008",
+        "DERIVATION S008",
+        "INCONSISTENT S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='-' feed=-",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "BADFEED S008",
+        "INCONSISTENT S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='' feed=S033",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "DERIVATION S008",
+        "INCONSISTENT S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='' feed=S999",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "BADFEED S008",
+        "INCONSISTENT S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='' feed=S017",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "BADFEED S008",
+        "DERIVATION S008",
+        "INCONSISTENT S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='' feed=-",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "BADFEED S008",
+        "INCONSISTENT S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='3.13.3 ' feed=S033",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "RECEIPT-MISMATCH S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='3.13.3 ' feed=S999",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "BADFEED S008",
+        "RECEIPT-MISMATCH S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='3.13.3 ' feed=S017",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "BADFEED S008",
+        "DERIVATION S008",
+        "RECEIPT-MISMATCH S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='3.13.3 ' feed=-",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "BADFEED S008",
+        "RECEIPT-MISMATCH S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor=' 3.13.3' feed=S033",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "RECEIPT-MISMATCH S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor=' 3.13.3' feed=S999",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "BADFEED S008",
+        "RECEIPT-MISMATCH S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor=' 3.13.3' feed=S017",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "BADFEED S008",
+        "DERIVATION S008",
+        "RECEIPT-MISMATCH S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor=' 3.13.3' feed=-",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "BADFEED S008",
+        "RECEIPT-MISMATCH S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='3.13.3-rc1' feed=S033",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "DERIVATION S008",
+        "INCONSISTENT S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='3.13.3-rc1' feed=S999",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "BADFEED S008",
+        "INCONSISTENT S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='3.13.3-rc1' feed=S017",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "BADFEED S008",
+        "DERIVATION S008",
+        "INCONSISTENT S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='3.13.3-rc1' feed=-",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "BADFEED S008",
+        "INCONSISTENT S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='3.13.3+build' feed=S033",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "DERIVATION S008",
+        "INCONSISTENT S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='3.13.3+build' feed=S999",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "BADFEED S008",
+        "INCONSISTENT S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='3.13.3+build' feed=S017",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "BADFEED S008",
+        "DERIVATION S008",
+        "INCONSISTENT S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='3.13.3+build' feed=-",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "BADFEED S008",
+        "INCONSISTENT S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='0.0.0' feed=S033",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "DERIVATION S008",
+        "REGRESSED S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='0.0.0' feed=S999",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "BADFEED S008",
+        "REGRESSED S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='0.0.0' feed=S017",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "BADFEED S008",
+        "DERIVATION S008",
+        "REGRESSED S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='0.0.0' feed=-",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "BADFEED S008",
+        "REGRESSED S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='00.13.3' feed=S033",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "NON-CANONICAL S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='00.13.3' feed=S999",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "BADFEED S008",
+        "NON-CANONICAL S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='00.13.3' feed=S017",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "BADFEED S008",
+        "NON-CANONICAL S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='00.13.3' feed=-",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "BADFEED S008",
+        "NON-CANONICAL S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='3.13.3.0' feed=S033",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "DERIVATION S008",
+        "INCONSISTENT S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='3.13.3.0' feed=S999",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "BADFEED S008",
+        "INCONSISTENT S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='3.13.3.0' feed=S017",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "BADFEED S008",
+        "DERIVATION S008",
+        "INCONSISTENT S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='3.13.3.0' feed=-",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "BADFEED S008",
+        "INCONSISTENT S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='999999999999999999999999' feed=S033",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "NON-CANONICAL S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='999999999999999999999999' feed=S999",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "BADFEED S008",
+        "NON-CANONICAL S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='999999999999999999999999' feed=S017",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "BADFEED S008",
+        "NON-CANONICAL S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='999999999999999999999999' feed=-",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "BADFEED S008",
+        "NON-CANONICAL S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='3.13.\u0663' feed=S033",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "DERIVATION S008",
+        "INCONSISTENT S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='3.13.\u0663' feed=S999",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "BADFEED S008",
+        "INCONSISTENT S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='3.13.\u0663' feed=S017",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "BADFEED S008",
+        "DERIVATION S008",
+        "INCONSISTENT S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='3.13.\u0663' feed=-",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "BADFEED S008",
+        "INCONSISTENT S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='3.13.3\\t' feed=S033",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "INCONSISTENT S008",
+        "RECEIPT-MISMATCH S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='3.13.3\\t' feed=S999",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "INCONSISTENT S008",
+        "RECEIPT-MISMATCH S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='3.13.3\\t' feed=S017",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "INCONSISTENT S008",
+        "RECEIPT-MISMATCH S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "anchor='3.13.3\\t' feed=-",
+      "exit": 1,
+      "traceback": false,
+      "stdout": [
+        "INCONSISTENT S008",
+        "RECEIPT-MISMATCH S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    },
+    {
+      "label": "registry-anchor-huge",
+      "exit": 0,
+      "traceback": false,
+      "stdout": [
+        "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)"
+      ],
+      "stderr": [],
+      "echoed_oversize": false
+    }
+  ],
+  "anomalies": []
+}

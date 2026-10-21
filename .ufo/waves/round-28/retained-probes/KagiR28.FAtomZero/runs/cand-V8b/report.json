@@ -1,0 +1,39 @@
+{
+  "tree": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/KagiR28.FAtomZero/cand",
+  "titles": [
+    "Python 3.14.09",
+    "Python 3.15.0"
+  ],
+  "argv_row": [
+    "S040",
+    "feed",
+    "S039",
+    "https://www.python.org/downloads/feed.rss",
+    "3.15.1",
+    "3.15.0",
+    "2026-10-21",
+    "not-fired",
+    "anchor names Python 3.15.1 documentation; rearmed successor to S027, which remains fired at its original 3.15.0 anchor"
+  ],
+  "exit": 1,
+  "stdout": "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=0 fired=0 regressed=1) to /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/KagiR28.FAtomZero/runs/cand-V8b/observe-out.json\nRECEIPT-MISMATCH S040\nREGRESSED S040\nRELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)\n",
+  "stderr": "HARNESS_FETCH_CALLS=['https://www.python.org/downloads/feed.rss']\n",
+  "traceback_in_output": false,
+  "receipt_records": [
+    {
+      "clock": "feed",
+      "http_status": 200,
+      "id": "S040",
+      "located": null,
+      "observed_at": "2026-10-21T00:00:00Z",
+      "parsed_version": "3.15.0",
+      "sha256": "890169023035a765010d81697940ea2f202790d5133aa9bcb598f5151cfc5ceb",
+      "url": "https://www.python.org/downloads/feed.rss",
+      "verdict": "regressed"
+    }
+  ],
+  "stdout_finding_lines": [
+    "RECEIPT-MISMATCH S040",
+    "REGRESSED S040"
+  ]
+}

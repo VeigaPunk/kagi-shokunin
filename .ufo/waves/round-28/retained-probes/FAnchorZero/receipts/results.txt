@@ -1,0 +1,46 @@
+FAnchorZero — receipts (pinned candidate 62a33b1 vs BASE 3553d49)
+Sandbox: .ufo/waves/round-28/sandboxes/FAnchorZero/
+Trees exported with `git archive` into the sandbox; released after capture.
+
+COMMAND 1 (harness fixtures, own construction, receipts/fixures.py):
+  python3 fixtures.py . candidate        # tree = exported candidate
+  python3 fixtures.py base base          # tree = exported BASE
+Exit codes and stdout are reproduced verbatim in the report.
+
+Candidate (62a33b1) corpus/release-clock.py:
+  349  def derived_anchor_bound(feed_anchor, anchored)
+  388  VERSION_COMPONENT_MAX_DIGITS = 18
+  391  NON_CANONICAL_PREFIX = "non-canonical version token: "
+  395  def non_canonical_version(value)
+  405  return any(part != "0" and (part[0] == "0" or len(part) > VERSION_COMPONENT_MAX_DIGITS)
+  617  non_canonical = non_canonical_version(anchored) or non_canonical_version(observed_version)
+  625  errors.add(("DERIVATION", source_id))
+  631  errors.add(("NON-CANONICAL", source_id))
+  679-682  elif str(receipt.get("error","")).startswith(NON_CANONICAL_PREFIX): errors.add(("NON-CANONICAL", source_id))
+  864  raise ValueError(NON_CANONICAL_PREFIX + "row anchor or observation; no verdict written")
+
+BASE (3553d49) corpus/release-clock.py:
+  380  return tuple(int(part) for part in value.split("."))   # unbounded int()
+  566  anchor_ok = is_derived or version_is_named(...)          # derived anchor never bound
+  582  elif verdict == "fired" and norm_version(observed_version) != norm_version(anchored)
+
+SUMMARY OF OBSERVED DIFFERENTIAL (S008 = derived SOPS row, feed S033):
+  control                       candidate exit 0 CLEAN fired=3 derived=15 | base exit 0 CLEAN fired=3 derived=15
+  A anchor=3.13.03 (tbl+rcpt)  candidate exit 1 NON-CANONICAL S008      | base exit 0 CLEAN  (silent accept)
+  A2 anchor=3.13.03 (rcpt kept)candidate exit 1 NON-CANONICAL S008      | base exit 1 INCONSISTENT S008
+  B observed=3.13.03 fired     candidate exit 1 NON-CANONICAL S008 fired=3 (no fired written) | base exit 0 CLEAN fired=4 (fired written)
+  D anchor=3.13.<4301 digits>  candidate exit 1 NON-CANONICAL S008      | base exit 1 TRACEBACK ValueError (4300-digit limit)
+  G1 S033 group -> 3.13.2      candidate exit 1 DERIVATION S008..S011  | base exit 0 CLEAN
+  G2 S033 group -> 3.13.02     candidate exit 1 NON-CANONICAL S008..S011| base exit 0 CLEAN
+  observe anchor=3.13.03       candidate exit 1 receipt error='non-canonical version token: row anchor or observation; no verdict written', verdict=None | base exit 1 receipt verdict='fired' parsed='3.13.3'
+  observe feed title v3.13.03   candidate exit 1 receipt error='non-canonical version token: feed has no canonical stable X.Y.Z entry' | base exit 1 receipt verdict='fired' parsed='3.13.03'
+  observe feed title v3.13.3    candidate exit 0 CLEAN derived=1         | base exit 0 CLEAN derived=1
+
+candidate selftest: python3 -I -B corpus/release-clock.py --selftest -> exit 0, "RELEASE_CLOCK_SELFTEST: PASS (106 cases)"
+
+UNFINISHED probe (syntax error before execution, NOT a result):
+  H: repoint S033's anchor cell in SOURCES.md to v3.14.0 to prove the DERIVATION binding reads
+     corpus/SOURCES.md rather than the row's own note. NOT RUN. Code reading (corpus/release-clock.py:618-625,
+     feed_source = sources.get(feed_source_id)) indicates the binding does use the SOURCES.md registry row, but
+     this was not executed.
+  I/J/K: 19-digit component, leading zero in middle/major component: NOT RUN.

@@ -1,0 +1,242 @@
+{
+  "base|F2-table-oversize[default-I]": {
+    "clean": false,
+    "exit": 1,
+    "findings": [],
+    "last": "",
+    "stderr_tail": "^^^^^\n  File \"/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/KagiR28.FEnvDisabled/base/corpus/release-clock.py\", line 380, in <genexpr>\n    return tuple(int(part) for part in value.split(\".\"))\n                 ~~~^^^^^^\nValueError: Exceeds the limit (4300 digits) for integer string conversion: value has 4301 digits; use sys.set_int_max_str_digits() to increase the limit\n",
+    "stdout_tail": "",
+    "traceback": true,
+    "typed": [],
+    "verdict": "MISHANDLED"
+  },
+  "base|F2-table-oversize[limit0-no-I]": {
+    "clean": true,
+    "exit": 0,
+    "findings": [],
+    "last": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=4 derived=15)",
+    "stderr_tail": "",
+    "stdout_tail": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=4 derived=15)\n",
+    "traceback": false,
+    "typed": [],
+    "verdict": "MISHANDLED"
+  },
+  "base|F4-observe-oversize[default-I]": {
+    "clean": false,
+    "exit": 1,
+    "findings": [
+      "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/nm-base-p_h5wx9i/fixture-O-base-default-I/observe-out.json",
+      "RECEIPT-MISMATCH S040"
+    ],
+    "fired_observation_written": false,
+    "last": "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)",
+    "receipt_records": [
+      {
+        "error": "Exceeds the limit (4300 digits) for integer string conversion: value has 4301 digits; use sys.set_int_max_str_digits() to increase the limit",
+        "id": "S040",
+        "parsed_version": null,
+        "verdict": null
+      }
+    ],
+    "stderr_tail": "",
+    "stdout_tail": "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/nm-base-p_h5wx9i/fixture-O-base-default-I/observe-out.json\nRECEIPT-MISMATCH S040\nRELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)\n",
+    "traceback": false,
+    "typed": [
+      "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/nm-base-p_h5wx9i/fixture-O-base-default-I/observe-out.json"
+    ],
+    "verdict": "TYPED"
+  },
+  "base|F4-observe-oversize[limit0-no-I]": {
+    "clean": false,
+    "exit": 1,
+    "findings": [
+      "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=0 fired=1 regressed=0) to /tmp/nm-base-p_h5wx9i/fixture-O-base-limit0-no-I/observe-out.json",
+      "RECEIPT-MISMATCH S040"
+    ],
+    "fired_observation_written": true,
+    "last": "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)",
+    "receipt_records": [
+      {
+        "error": null,
+        "id": "S040",
+        "parsed_version": "3.15.11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+        "verdict": "fired"
+      }
+    ],
+    "stderr_tail": "",
+    "stdout_tail": "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=0 fired=1 regressed=0) to /tmp/nm-base-p_h5wx9i/fixture-O-base-limit0-no-I/observe-out.json\nRECEIPT-MISMATCH S040\nRELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)\n",
+    "traceback": false,
+    "typed": [
+      "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=0 fired=1 regressed=0) to /tmp/nm-base-p_h5wx9i/fixture-O-base-limit0-no-I/observe-out.json"
+    ],
+    "verdict": "MISHANDLED"
+  },
+  "cand|F2-table-oversize[default-I]": {
+    "clean": false,
+    "exit": 1,
+    "findings": [
+      "NON-CANONICAL S040"
+    ],
+    "last": "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)",
+    "stderr_tail": "",
+    "stdout_tail": "NON-CANONICAL S040\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)\n",
+    "traceback": false,
+    "typed": [
+      "NON-CANONICAL S040"
+    ],
+    "verdict": "TYPED"
+  },
+  "cand|F2-table-oversize[limit0-no-I]": {
+    "clean": false,
+    "exit": 1,
+    "findings": [
+      "NON-CANONICAL S040"
+    ],
+    "last": "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)",
+    "stderr_tail": "",
+    "stdout_tail": "NON-CANONICAL S040\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)\n",
+    "traceback": false,
+    "typed": [
+      "NON-CANONICAL S040"
+    ],
+    "verdict": "TYPED"
+  },
+  "cand|F4-observe-oversize[default-I]": {
+    "clean": false,
+    "exit": 1,
+    "findings": [
+      "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/nm-cand-8tp8bgj6/fixture-O-cand-default-I/observe-out.json",
+      "NON-CANONICAL S040"
+    ],
+    "fired_observation_written": false,
+    "last": "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)",
+    "receipt_records": [
+      {
+        "error": "non-canonical version token: feed newest stable entry",
+        "id": "S040",
+        "parsed_version": null,
+        "verdict": null
+      }
+    ],
+    "stderr_tail": "",
+    "stdout_tail": "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/nm-cand-8tp8bgj6/fixture-O-cand-default-I/observe-out.json\nNON-CANONICAL S040\nRELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)\n",
+    "traceback": false,
+    "typed": [
+      "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/nm-cand-8tp8bgj6/fixture-O-cand-default-I/observe-out.json",
+      "NON-CANONICAL S040"
+    ],
+    "verdict": "TYPED"
+  },
+  "cand|F4-observe-oversize[limit0-no-I]": {
+    "clean": false,
+    "exit": 1,
+    "findings": [
+      "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/nm-cand-8tp8bgj6/fixture-O-cand-limit0-no-I/observe-out.json",
+      "NON-CANONICAL S040"
+    ],
+    "fired_observation_written": false,
+    "last": "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)",
+    "receipt_records": [
+      {
+        "error": "non-canonical version token: feed newest stable entry",
+        "id": "S040",
+        "parsed_version": null,
+        "verdict": null
+      }
+    ],
+    "stderr_tail": "",
+    "stdout_tail": "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/nm-cand-8tp8bgj6/fixture-O-cand-limit0-no-I/observe-out.json\nNON-CANONICAL S040\nRELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)\n",
+    "traceback": false,
+    "typed": [
+      "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/nm-cand-8tp8bgj6/fixture-O-cand-limit0-no-I/observe-out.json",
+      "NON-CANONICAL S040"
+    ],
+    "verdict": "TYPED"
+  },
+  "frozen_instrument": {
+    "cand-exit": 1,
+    "cand-stderr": "hon3.14/tarfile.py\", line 1975, in open\n    raise ReadError(f\"file could not be opened successfully:\\n{error_msgs_summary}\")\ntarfile.ReadError: file could not be opened successfully:\n- method gz: ReadError('not a gzip file')\n- method bz2: ReadError('not a bzip2 file')\n- method xz: ReadError('not an lzma file')\n- method zst: ReadError('not a zstd file')\n- method tar: ReadError('end of file header')",
+    "cand-stdout": ""
+  },
+  "nearmiss|F2-table-oversize[default-I]": {
+    "clean": false,
+    "exit": 1,
+    "findings": [
+      "NON-CANONICAL S040"
+    ],
+    "last": "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)",
+    "stderr_tail": "",
+    "stdout_tail": "NON-CANONICAL S040\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)\n",
+    "traceback": false,
+    "typed": [
+      "NON-CANONICAL S040"
+    ],
+    "verdict": "TYPED"
+  },
+  "nearmiss|F2-table-oversize[limit0-no-I]": {
+    "clean": false,
+    "exit": 1,
+    "findings": [
+      "NON-CANONICAL S040"
+    ],
+    "last": "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)",
+    "stderr_tail": "",
+    "stdout_tail": "NON-CANONICAL S040\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)\n",
+    "traceback": false,
+    "typed": [
+      "NON-CANONICAL S040"
+    ],
+    "verdict": "TYPED"
+  },
+  "nearmiss|F4-observe-oversize[default-I]": {
+    "clean": false,
+    "exit": 1,
+    "findings": [
+      "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/nm-nearmiss-a46kdurs/fixture-O-nearmiss-default-I/observe-out.json",
+      "RECEIPT-MISMATCH S040"
+    ],
+    "fired_observation_written": false,
+    "last": "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)",
+    "receipt_records": [
+      {
+        "error": "Exceeds the limit (4300 digits) for integer string conversion: value has 4301 digits; use sys.set_int_max_str_digits() to increase the limit",
+        "id": "S040",
+        "parsed_version": null,
+        "verdict": null
+      }
+    ],
+    "stderr_tail": "",
+    "stdout_tail": "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/nm-nearmiss-a46kdurs/fixture-O-nearmiss-default-I/observe-out.json\nRECEIPT-MISMATCH S040\nRELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)\n",
+    "traceback": false,
+    "typed": [
+      "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/nm-nearmiss-a46kdurs/fixture-O-nearmiss-default-I/observe-out.json"
+    ],
+    "verdict": "TYPED"
+  },
+  "nearmiss|F4-observe-oversize[limit0-no-I]": {
+    "clean": false,
+    "exit": 1,
+    "findings": [
+      "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/nm-nearmiss-a46kdurs/fixture-O-nearmiss-limit0-no-I/observe-out.json",
+      "NON-CANONICAL S040"
+    ],
+    "fired_observation_written": false,
+    "last": "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)",
+    "receipt_records": [
+      {
+        "error": "non-canonical version token: feed newest stable entry",
+        "id": "S040",
+        "parsed_version": null,
+        "verdict": null
+      }
+    ],
+    "stderr_tail": "",
+    "stdout_tail": "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/nm-nearmiss-a46kdurs/fixture-O-nearmiss-limit0-no-I/observe-out.json\nNON-CANONICAL S040\nRELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)\n",
+    "traceback": false,
+    "typed": [
+      "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/nm-nearmiss-a46kdurs/fixture-O-nearmiss-limit0-no-I/observe-out.json",
+      "NON-CANONICAL S040"
+    ],
+    "verdict": "TYPED"
+  }
+}

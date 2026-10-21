@@ -1,0 +1,159 @@
+{
+  "label": "BASE",
+  "results": {
+    "F1_table_lie_leading_zero": {
+      "base_era_lines": [
+        [
+          "RECEIPT-MISMATCH",
+          "S040"
+        ]
+      ],
+      "class": "OTHER",
+      "exit": 1,
+      "fired_python_receipts": false,
+      "output": [
+        "RECEIPT-MISMATCH S040",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)"
+      ],
+      "typed_lines": []
+    },
+    "F2_table_oversize": {
+      "base_era_lines": [],
+      "class": "MISHANDLED (traceback)",
+      "exit": 1,
+      "fired_python_receipts": false,
+      "output": [
+        "Traceback (most recent call last):",
+        "  File \"/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/XC1Patch/out/fixtures/BASE-F2-36bxsj1i/corpus/release-clock.py\", line 1758, in",
+        "    sys.exit(main())",
+        "             ~~~~^^",
+        "  File \"/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/XC1Patch/out/fixtures/BASE-F2-36bxsj1i/corpus/release-clock.py\", line 1748, in",
+        "    result = evaluate(sources, rows, captures, receipts)",
+        "  File \"/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/XC1Patch/out/fixtures/BASE-F2-36bxsj1i/corpus/release-clock.py\", line 567, in ",
+        "    if (is_regression(anchored, observed_version)",
+        "        ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "  File \"/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/XC1Patch/out/fixtures/BASE-F2-36bxsj1i/corpus/release-clock.py\", line 386, in ",
+        "    seen = numeric_version(observed)",
+        "  File \"/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/XC1Patch/out/fixtures/BASE-F2-36bxsj1i/corpus/release-clock.py\", line 380, in ",
+        "    return tuple(int(part) for part in value.split(\".\"))",
+        "           ^^^^^",
+        "  File \"/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/XC1Patch/out/fixtures/BASE-F2-36bxsj1i/corpus/release-clock.py\", line 380, in ",
+        "    return tuple(int(part) for part in value.split(\".\"))",
+        "                 ~~~^^^^^^",
+        "ValueError: Exceeds the limit (4300 digits) for integer string conversion: value has 4301 digits; use sys.set_int_max_str_digits() to increase the limit"
+      ],
+      "typed_lines": []
+    },
+    "F3_observe_leading_zero": {
+      "base_era_lines": [
+        [
+          "RECEIPT-MISMATCH",
+          "S027"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "S028"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "S040"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "S041"
+        ]
+      ],
+      "class": "MISHANDLED",
+      "exit": 1,
+      "fired_python_receipts": true,
+      "python_receipts": {
+        "S027": {
+          "error": null,
+          "parsed_version": "3.15.01",
+          "verdict": "fired"
+        },
+        "S028": {
+          "error": null,
+          "parsed_version": "3.15.01",
+          "verdict": "fired"
+        },
+        "S040": {
+          "error": null,
+          "parsed_version": "3.15.01",
+          "verdict": "fired"
+        },
+        "S041": {
+          "error": null,
+          "parsed_version": "3.15.01",
+          "verdict": "fired"
+        }
+      },
+      "text": "RELEASE_CLOCK_OBSERVE: wrote 30 observations (failed=0 fired=6 regressed=0) to /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/XC1Patch/out/fixtures/BASE-F3-ybdrtsgz/observe-receipt.json\nRECEIPT-MISMATCH S027\nRECEIPT-MISMATCH S028\nRECEIPT-MISMATCH S031\nRECEIPT-MISMATCH S040\nRECEIPT-MISMATCH S041\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=25 fired=1 derived=15)\n",
+      "typed_lines": []
+    },
+    "F4_observe_oversize": {
+      "base_era_lines": [
+        [
+          "RECEIPT-MISMATCH",
+          "S027"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "S028"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "S040"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "S041"
+        ]
+      ],
+      "class": "OTHER",
+      "exit": 1,
+      "fired_python_receipts": false,
+      "python_receipts": {
+        "S027": {
+          "error": "Exceeds the limit (4300 digits) for integer string conversion: value has 4301 digits; use sys.set_int_max_str_digits() to increase the limit",
+          "parsed_version": null,
+          "verdict": null
+        },
+        "S028": {
+          "error": "Exceeds the limit (4300 digits) for integer string conversion: value has 4301 digits; use sys.set_int_max_str_digits() to increase the limit",
+          "parsed_version": null,
+          "verdict": null
+        },
+        "S040": {
+          "error": "Exceeds the limit (4300 digits) for integer string conversion: value has 4301 digits; use sys.set_int_max_str_digits() to increase the limit",
+          "parsed_version": null,
+          "verdict": null
+        },
+        "S041": {
+          "error": "Exceeds the limit (4300 digits) for integer string conversion: value has 4301 digits; use sys.set_int_max_str_digits() to increase the limit",
+          "parsed_version": null,
+          "verdict": null
+        }
+      },
+      "text": "RELEASE_CLOCK_OBSERVE: wrote 30 observations (failed=4 fired=2 regressed=0) to /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/XC1Patch/out/fixtures/BASE-F4-fouqbxfu/observe-receipt.json\nRECEIPT-MISMATCH S027\nRECEIPT-MISMATCH S028\nRECEIPT-MISMATCH S031\nRECEIPT-MISMATCH S040\nRECEIPT-MISMATCH S041\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=25 fired=1 derived=15)\n",
+      "typed_lines": []
+    },
+    "control_default": {
+      "class": "control",
+      "exit": 0,
+      "output": [
+        "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)"
+      ]
+    },
+    "control_observe_canonical": {
+      "class": "control",
+      "exit": 1,
+      "fired_python_receipts": [
+        "S027",
+        "S028"
+      ],
+      "text": "RELEASE_CLOCK_OBSERVE: wrote 30 observations (failed=0 fired=4 regressed=0) to /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/XC1Patch/out/fixtures/BASE-control-observe-1w9_st87/observe-receipt.json\nRECEIPT-MISMATCH S031\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)\n"
+    }
+  },
+  "tree": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/XC1Patch/base"
+}

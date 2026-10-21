@@ -1,0 +1,247 @@
+[
+ {
+  "label": "T18",
+  "exit": 0,
+  "last_line": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=4 derived=15)",
+  "finding_lines": [],
+  "traceback": false,
+  "fired_count": 4,
+  "stderr_head": "",
+  "token": "3.15.111111111111111111",
+  "mode": "table+receipt"
+ },
+ {
+  "label": "T19",
+  "exit": 0,
+  "last_line": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=4 derived=15)",
+  "finding_lines": [],
+  "traceback": false,
+  "fired_count": 4,
+  "stderr_head": "",
+  "token": "3.15.1111111111111111111",
+  "mode": "table+receipt"
+ },
+ {
+  "label": "T17",
+  "exit": 0,
+  "last_line": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=4 derived=15)",
+  "finding_lines": [],
+  "traceback": false,
+  "fired_count": 4,
+  "stderr_head": "",
+  "token": "3.15.11111111111111111",
+  "mode": "table+receipt"
+ },
+ {
+  "label": "T18zero",
+  "exit": 0,
+  "last_line": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=4 derived=15)",
+  "finding_lines": [],
+  "traceback": false,
+  "fired_count": 4,
+  "stderr_head": "",
+  "token": "3.15.011111111111111111",
+  "mode": "table+receipt"
+ },
+ {
+  "label": "T19zero",
+  "exit": 0,
+  "last_line": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=4 derived=15)",
+  "finding_lines": [],
+  "traceback": false,
+  "fired_count": 4,
+  "stderr_head": "",
+  "token": "3.15.0111111111111111111",
+  "mode": "table+receipt"
+ },
+ {
+  "label": "T4301",
+  "exit": 1,
+  "last_line": "",
+  "finding_lines": [
+   "  File \"/fast/scratch/hyaku/kagi-r28/FBound18/base/corpus/release-clock.py\", line 1758, in <module>",
+   "    sys.exit(main())",
+   "             ~~~~^^",
+   "  File \"/fast/scratch/hyaku/kagi-r28/FBound18/base/corpus/release-clock.py\", line 1748, in main",
+   "    result = evaluate(sources, rows, captures, receipts)",
+   "  File \"/fast/scratch/hyaku/kagi-r28/FBound18/base/corpus/release-clock.py\", line 567, in evaluate",
+   "    if (is_regression(anchored, observed_version)",
+   "        ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+   "  File \"/fast/scratch/hyaku/kagi-r28/FBound18/base/corpus/release-clock.py\", line 386, in is_regression",
+   "    seen = numeric_version(observed)",
+   "  File \"/fast/scratch/hyaku/kagi-r28/FBound18/base/corpus/release-clock.py\", line 380, in numeric_version",
+   "    return tuple(int(part) for part in value.split(\".\"))",
+   "           ^^^^^",
+   "  File \"/fast/scratch/hyaku/kagi-r28/FBound18/base/corpus/release-clock.py\", line 380, in <genexpr>",
+   "    return tuple(int(part) for part in value.split(\".\"))",
+   "                 ~~~^^^^^^",
+   "ValueError: Exceeds the limit (4300 digits) for integer string conversion: value has 4301 digits; use sys.set_int_max_str_digits() to increase the limit"
+  ],
+  "traceback": true,
+  "fired_count": null,
+  "stderr_head": "Traceback (most recent call last):\n  File \"/fast/scratch/hyaku/kagi-r28/FBound18/base/corpus/release-clock.py\", line 1758, in <module>\n    sys.exit(main())\n             ~~~~^^\n  File \"/fast/scratch/hyaku/kagi-r28/FBound18/base/corpus/release-clock.py\", line 1748, in main\n    result = evaluate(sources, rows, captures, receipts)\n  File \"/fast/scratch/hyaku/kagi-r28/FBound18/base/corpus/release-clock",
+  "token": "3.15.11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+  "mode": "table+receipt"
+ },
+ {
+  "label": "A19-anchor",
+  "exit": 1,
+  "last_line": "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=26 fired=1 derived=15)",
+  "finding_lines": [
+   "REGRESSED S027",
+   "REGRESSED S028",
+   "REGRESSED S040",
+   "REGRESSED S041"
+  ],
+  "traceback": false,
+  "fired_count": 1,
+  "stderr_head": "",
+  "mode": "table+receipt"
+ },
+ {
+  "label": "O18",
+  "exit": 0,
+  "last_line": "RELEASE_CLOCK: CLEAN (on_release=1 bound=1 unbound=0 observed=1 fired=1 derived=0)",
+  "finding_lines": [],
+  "traceback": false,
+  "fired_count": 1,
+  "stderr_head": "",
+  "titles": [
+   "Python 3.15.111111111111111111",
+   "Python 3.15.0"
+  ],
+  "mode": "observe",
+  "receipt_record": {
+   "id": "S040",
+   "verdict": "fired",
+   "error": null,
+   "parsed_version": "3.15.111111111111111111"
+  },
+  "fired_written": true
+ },
+ {
+  "label": "O19",
+  "exit": 1,
+  "last_line": "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)",
+  "finding_lines": [
+   "RECEIPT-MISMATCH S040"
+  ],
+  "traceback": false,
+  "fired_count": 0,
+  "stderr_head": "",
+  "titles": [
+   "Python 3.15.1111111111111111111",
+   "Python 3.15.0"
+  ],
+  "mode": "observe",
+  "receipt_record": {
+   "id": "S040",
+   "verdict": "fired",
+   "error": null,
+   "parsed_version": "3.15.1111111111111111111"
+  },
+  "fired_written": true
+ },
+ {
+  "label": "O19-lower",
+  "exit": 1,
+  "last_line": "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)",
+  "finding_lines": [
+   "RECEIPT-MISMATCH S040"
+  ],
+  "traceback": false,
+  "fired_count": 0,
+  "stderr_head": "",
+  "titles": [
+   "Python 3.15.1",
+   "Python 3.15.1111111111111111100"
+  ],
+  "mode": "observe",
+  "receipt_record": {
+   "id": "S040",
+   "verdict": "fired",
+   "error": null,
+   "parsed_version": "3.15.1111111111111111100"
+  },
+  "fired_written": true
+ },
+ {
+  "label": "O19-only",
+  "exit": 1,
+  "last_line": "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)",
+  "finding_lines": [
+   "RECEIPT-MISMATCH S040"
+  ],
+  "traceback": false,
+  "fired_count": 0,
+  "stderr_head": "",
+  "titles": [
+   "Python 3.15.1111111111111111111"
+  ],
+  "mode": "observe",
+  "receipt_record": {
+   "id": "S040",
+   "verdict": "fired",
+   "error": null,
+   "parsed_version": "3.15.1111111111111111111"
+  },
+  "fired_written": true
+ },
+ {
+  "label": "O19-below",
+  "exit": 0,
+  "last_line": "RELEASE_CLOCK: CLEAN (on_release=1 bound=1 unbound=0 observed=1 fired=0 derived=0)",
+  "finding_lines": [],
+  "traceback": false,
+  "fired_count": 0,
+  "stderr_head": "",
+  "titles": [
+   "Python 3.15.1",
+   "Python 3.15.0000000000000000000"
+  ],
+  "mode": "observe",
+  "receipt_record": {
+   "id": "S040",
+   "verdict": "not-fired",
+   "error": null,
+   "parsed_version": "3.15.1"
+  },
+  "fired_written": false
+ },
+ {
+  "label": "O19-tie",
+  "exit": 0,
+  "last_line": "RELEASE_CLOCK: CLEAN (on_release=1 bound=1 unbound=0 observed=1 fired=0 derived=0)",
+  "finding_lines": [],
+  "traceback": false,
+  "fired_count": 0,
+  "stderr_head": "",
+  "titles": [
+   "Python 3.15.1",
+   "Python 3.15.0000000000000000001"
+  ],
+  "mode": "observe",
+  "receipt_record": {
+   "id": "S040",
+   "verdict": "not-fired",
+   "error": null,
+   "parsed_version": "3.15.1"
+  },
+  "fired_written": false
+ },
+ {
+  "label": "A18-anchor",
+  "exit": 1,
+  "last_line": "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=26 fired=1 derived=15)",
+  "finding_lines": [
+   "REGRESSED S027",
+   "REGRESSED S028",
+   "REGRESSED S040",
+   "REGRESSED S041"
+  ],
+  "traceback": false,
+  "fired_count": 1,
+  "stderr_head": "",
+  "mode": "table+receipt"
+ }
+]

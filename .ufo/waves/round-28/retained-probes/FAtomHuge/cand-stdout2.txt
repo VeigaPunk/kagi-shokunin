@@ -1,0 +1,108 @@
+RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/fatomhuge-wefldgt2/observe-out.json
+NON-CANONICAL S040
+RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)
+RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=0 fired=1 regressed=0) to /tmp/fatomhuge-riv726mi/observe-out.json
+RECEIPT-MISMATCH S040
+RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)
+{
+  "end_to_end": {
+    "exit": 1,
+    "receipt": {
+      "format": "release-clock-observations-v1",
+      "observations": [
+        {
+          "clock": "feed",
+          "error": "non-canonical version token: feed newest stable entry",
+          "http_status": 200,
+          "id": "S040",
+          "located": null,
+          "observed_at": "2026-10-21T00:00:00Z",
+          "parsed_version": null,
+          "sha256": "b3284e388fb067fab9f2beeae8a041de6909aced9a0816f1355d82e7f850de7f",
+          "url": "https://www.python.org/downloads/feed.rss",
+          "verdict": null
+        }
+      ]
+    },
+    "stderr": "",
+    "stdout": ""
+  },
+  "end_to_end_newer_canonical": {
+    "exit": 1,
+    "receipt": {
+      "format": "release-clock-observations-v1",
+      "observations": [
+        {
+          "clock": "feed",
+          "http_status": 200,
+          "id": "S040",
+          "located": null,
+          "observed_at": "2026-10-21T00:00:00Z",
+          "parsed_version": "3.16.0",
+          "sha256": "479d56fd6b7c1543c14371e2f1ef60b01ba23b5554924b67516c9320d7061493",
+          "url": "https://www.python.org/downloads/feed.rss",
+          "verdict": "fired"
+        }
+      ]
+    },
+    "stderr": "",
+    "stdout": ""
+  },
+  "python": "3.14.8",
+  "tree": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FAtomHuge/cand",
+  "unit_observe": {
+    "clock": "feed",
+    "error": "host lookup returned an invalid address",
+    "http_status": null,
+    "id": "S040",
+    "located": null,
+    "observed_at": "2026-10-21T17:58:58Z",
+    "parsed_version": null,
+    "sha256": null,
+    "url": "https://www.python.org/downloads/feed.rss",
+    "verdict": null
+  },
+  "unit_parse": {
+    "atom_leading_zero_newest": {
+      "is_traceback_text": false,
+      "message": "non-canonical version token: feed newest stable entry",
+      "raised": "ValueError"
+    },
+    "atom_newest_oversize": {
+      "is_traceback_text": false,
+      "message": "non-canonical version token: feed newest stable entry",
+      "raised": "ValueError"
+    },
+    "atom_older_oversize": {
+      "returned": "3.15.0"
+    },
+    "atom_only_oversize": {
+      "is_traceback_text": false,
+      "message": "non-canonical version token: feed has no canonical stable X.Y.Z entry",
+      "raised": "ValueError"
+    },
+    "atom_oversize_below_canonical_newer": {
+      "returned": "3.16.0"
+    },
+    "linkhref_newest_oversize": {
+      "is_traceback_text": false,
+      "message": "non-canonical version token: feed newest stable entry",
+      "raised": "ValueError"
+    },
+    "rss_newest_oversize": {
+      "is_traceback_text": false,
+      "message": "non-canonical version token: feed newest stable entry",
+      "raised": "ValueError"
+    },
+    "rss_only_oversize": {
+      "is_traceback_text": false,
+      "message": "non-canonical version token: feed has no canonical stable X.Y.Z entry",
+      "raised": "ValueError"
+    },
+    "text_oversize": {
+      "is_traceback_text": false,
+      "message": "non-canonical version token: text release version",
+      "raised": "ValueError"
+    }
+  }
+}

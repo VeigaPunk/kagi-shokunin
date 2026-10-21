@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/ScribeKnowledgeClock/f2/corpus/release-clock.py", line 1758, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/ScribeKnowledgeClock/f2/corpus/release-clock.py", line 1748, in main
+    result = evaluate(sources, rows, captures, receipts)
+  File "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/ScribeKnowledgeClock/f2/corpus/release-clock.py", line 567, in evaluate
+    if (is_regression(anchored, observed_version)
+        ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/ScribeKnowledgeClock/f2/corpus/release-clock.py", line 386, in is_regression
+    seen = numeric_version(observed)
+  File "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/ScribeKnowledgeClock/f2/corpus/release-clock.py", line 380, in numeric_version
+    return tuple(int(part) for part in value.split("."))
+           ^^^^^
+  File "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/ScribeKnowledgeClock/f2/corpus/release-clock.py", line 380, in <genexpr>
+    return tuple(int(part) for part in value.split("."))
+                 ~~~^^^^^^
+ValueError: Exceeds the limit (4300 digits) for integer string conversion: value has 4301 digits; use sys.set_int_max_str_digits() to increase the limit

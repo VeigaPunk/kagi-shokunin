@@ -1,0 +1,64 @@
+--- cand digits=640 mode=canonical
+  observe verdict='not-fired' parsed_version='3.15.1' error=None
+  parse_latest_version='3.15.1'
+  non_canonical_version(row anchor)=False non_canonical_version(observed)=False
+--- cand digits=640 mode=newest
+  observe verdict=None parsed_version=None error='non-canonical version token: feed has no canonical stable X.Y.Z entry'
+  parse_latest_version raised ValueError: non-canonical version token: feed has no canonical stable X.Y.Z entry
+  non_canonical_version(row anchor)=False non_canonical_version(observed)=False
+--- cand digits=640 mode=older
+  observe verdict='not-fired' parsed_version='3.15.1' error=None
+  parse_latest_version='3.15.1'
+  non_canonical_version(row anchor)=False non_canonical_version(observed)=False
+--- cand digits=640 mode=rowanchor
+  observe verdict=None parsed_version=None error='non-canonical version token: row anchor or observation; no verdict written'
+  parse_latest_version='3.15.1'
+  non_canonical_version(row anchor)=True non_canonical_version(observed)=True
+--- cand digits=4301 mode=canonical
+  observe verdict='not-fired' parsed_version='3.15.1' error=None
+  parse_latest_version='3.15.1'
+  non_canonical_version(row anchor)=False non_canonical_version(observed)=False
+--- cand digits=4301 mode=newest
+  observe verdict=None parsed_version=None error='non-canonical version token: feed has no canonical stable X.Y.Z entry'
+  parse_latest_version raised ValueError: non-canonical version token: feed has no canonical stable X.Y.Z entry
+  non_canonical_version(row anchor)=False non_canonical_version(observed)=False
+--- cand digits=4301 mode=older
+  observe verdict='not-fired' parsed_version='3.15.1' error=None
+  parse_latest_version='3.15.1'
+  non_canonical_version(row anchor)=False non_canonical_version(observed)=False
+--- cand digits=4301 mode=rowanchor
+  observe verdict=None parsed_version=None error='non-canonical version token: row anchor or observation; no verdict written'
+  parse_latest_version='3.15.1'
+  non_canonical_version(row anchor)=True non_canonical_version(observed)=True
+--- base digits=640 mode=canonical
+  observe verdict='not-fired' parsed_version='3.15.1' error=None
+  parse_latest_version='3.15.1'
+  non_canonical_version(row anchor)='n/a' non_canonical_version(observed)='n/a'
+--- base digits=640 mode=newest
+  observe verdict='fired' parsed_version='3.15.1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111' error=None
+  parse_latest_version='3.15.1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111'
+  non_canonical_version(row anchor)='n/a' non_canonical_version(observed)='n/a'
+--- base digits=640 mode=older
+  observe verdict='not-fired' parsed_version='3.15.1' error=None
+  parse_latest_version='3.15.1'
+  non_canonical_version(row anchor)='n/a' non_canonical_version(observed)='n/a'
+--- base digits=640 mode=rowanchor
+  observe verdict='regressed' parsed_version='3.15.1' error=None
+  parse_latest_version='3.15.1'
+  non_canonical_version(row anchor)='n/a' non_canonical_version(observed)='n/a'
+--- base digits=4301 mode=canonical
+  observe verdict='not-fired' parsed_version='3.15.1' error=None
+  parse_latest_version='3.15.1'
+  non_canonical_version(row anchor)='n/a' non_canonical_version(observed)='n/a'
+--- base digits=4301 mode=newest
+  observe verdict=None parsed_version=None error='Exceeds the limit (640 digits) for integer string conversion: value has 4301 digits; use sys.set_int_max_str_digits() to increase the limit'
+  parse_latest_version raised ValueError: Exceeds the limit (640 digits) for integer string conversion: value has 4301 digits; use sys.set_int_max_str_digits() to increase the limit
+  non_canonical_version(row anchor)='n/a' non_canonical_version(observed)='n/a'
+--- base digits=4301 mode=older
+  observe verdict=None parsed_version=None error='Exceeds the limit (640 digits) for integer string conversion: value has 4301 digits; use sys.set_int_max_str_digits() to increase the limit'
+  parse_latest_version raised ValueError: Exceeds the limit (640 digits) for integer string conversion: value has 4301 digits; use sys.set_int_max_str_digits() to increase the limit
+  non_canonical_version(row anchor)='n/a' non_canonical_version(observed)='n/a'
+--- base digits=4301 mode=rowanchor
+  observe verdict=None parsed_version='3.15.1' error='Exceeds the limit (640 digits) for integer string conversion: value has 4301 digits; use sys.set_int_max_str_digits() to increase the limit'
+  parse_latest_version='3.15.1'
+  non_canonical_version(row anchor)='n/a' non_canonical_version(observed)='n/a'

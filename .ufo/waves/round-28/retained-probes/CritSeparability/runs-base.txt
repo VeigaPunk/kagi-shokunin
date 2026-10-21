@@ -1,0 +1,30 @@
+control exit=0 traceback=False findings=[] RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)
+F1 exit=1 traceback=False findings=['RECEIPT-MISMATCH S040'] RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)
+F2 exit=1 traceback=True findings=ValueError: Exceeds the limit (4300 digits) for integer string conversion: value has 4301 digits; use sys.set_int_max_str_digits() to increase the limit 
+G1 exit=1 traceback=False findings=['RECEIPT-MISMATCH S008', 'RECEIPT-MISMATCH S009', 'RECEIPT-MISMATCH S010', 'RECEIPT-MISMATCH S011'] RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=26 fired=3 derived=11)
+G2 exit=1 traceback=False findings=['RECEIPT-MISMATCH S013', 'RECEIPT-MISMATCH S022', 'RECEIPT-MISMATCH S023', 'RECEIPT-MISMATCH S024'] RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=26 fired=3 derived=11)
+G3 exit=1 traceback=False findings=['RECEIPT-MISMATCH S014', 'RECEIPT-MISMATCH S015', 'RECEIPT-MISMATCH S016', 'RECEIPT-MISMATCH S021', 'RECEIPT-MISMATCH S025', 'RECEIPT-MISMATCH S026'] RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=24 fired=3 derived=9)
+G4 exit=1 traceback=False findings=['RECEIPT-MISMATCH S029'] RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)
+X1 derived leading-zero anchor+obs S008 exit=1 traceback=False findings=['RECEIPT-MISMATCH S008'] RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)
+X2 derived leading-zero anchor only S008 (obs 3.13.3, fired) exit=1 traceback=False findings=['RECEIPT-MISMATCH S008'] RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)
+X3 derived oversize anchor S029 exit=1 traceback=True findings=ValueError: Exceeds the limit (4300 digits) for integer string conversion: value has 4301 digits; use sys.set_int_max_str_digits() to increase the limit 
+X4 G1 lowered to non-canonical 3.13.02 exit=1 traceback=False findings=['RECEIPT-MISMATCH S008', 'RECEIPT-MISMATCH S009', 'RECEIPT-MISMATCH S010', 'RECEIPT-MISMATCH S011'] RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=26 fired=3 derived=11)
+X5 derived v-prefix anchor S008 v3.13.3 exit=0 traceback=False findings=[] RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)
+F3 receipt verdict=fired parsed=3.15.01 error=
+F4 receipt verdict=None parsed= error=Exceeds the limit (4300 digits) for integer string conversion: value has 4301 digits; use 
+EXIT=0
+control exit=0 traceback=False findings=[] RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)
+F1 exit=0 traceback=False findings=[] RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=4 derived=15)
+F2 exit=1 traceback=True findings=ValueError: Exceeds the limit (4300 digits) for integer string conversion: value has 4301 digits; use sys.set_int_max_str_digits() to increase the limit 
+G1 exit=0 traceback=False findings=[] RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)
+G2 exit=0 traceback=False findings=[] RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)
+G3 exit=0 traceback=False findings=[] RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)
+G4 exit=0 traceback=False findings=[] RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)
+X1 derived leading-zero anchor+obs S008 exit=0 traceback=False findings=[] RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)
+X2 derived leading-zero anchor only S008 (obs 3.13.3, fired) exit=0 traceback=False findings=[] RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=4 derived=15)
+X3 derived oversize anchor S029 exit=1 traceback=True findings=ValueError: Exceeds the limit (4300 digits) for integer string conversion: value has 4301 digits; use sys.set_int_max_str_digits() to increase the limit 
+X4 G1 lowered to non-canonical 3.13.02 exit=0 traceback=False findings=[] RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)
+X5 derived v-prefix anchor S008 v3.13.3 exit=0 traceback=False findings=[] RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)
+F3 receipt verdict=fired parsed=3.15.01 error=
+F4 receipt verdict=None parsed= error=Exceeds the limit (4300 digits) for integer string conversion: value has 4301 digits; use 
+EXIT=0

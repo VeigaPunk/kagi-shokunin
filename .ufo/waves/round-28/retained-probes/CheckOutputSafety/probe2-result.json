@@ -1,0 +1,172 @@
+{
+  "D1-derived-lowered": {
+    "exit": 1,
+    "secs": 0.055,
+    "traceback": false,
+    "stdout_lines": [
+      "DERIVATION S008",
+      "REGRESSED S008",
+      "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+    ],
+    "stderr_lines": [],
+    "echoed": [],
+    "max_line_len": 87
+  },
+  "D2-derived-leadzero": {
+    "exit": 1,
+    "secs": 0.058,
+    "traceback": false,
+    "stdout_lines": [
+      "NON-CANONICAL S008",
+      "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+    ],
+    "stderr_lines": [],
+    "echoed": [],
+    "max_line_len": 87
+  },
+  "D3-derived-oversize": {
+    "exit": 1,
+    "secs": 0.055,
+    "traceback": false,
+    "stdout_lines": [
+      "NON-CANONICAL S008",
+      "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+    ],
+    "stderr_lines": [],
+    "echoed": [],
+    "max_line_len": 87
+  },
+  "D4-derived-4comp": {
+    "exit": 1,
+    "secs": 0.053,
+    "traceback": false,
+    "stdout_lines": [
+      "DERIVATION S008",
+      "INCONSISTENT S008",
+      "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+    ],
+    "stderr_lines": [],
+    "echoed": [],
+    "max_line_len": 87
+  },
+  "D5-derived-missing-feed": {
+    "exit": 1,
+    "secs": 0.054,
+    "traceback": false,
+    "stdout_lines": [
+      "BADFEED S008",
+      "REGRESSED S008",
+      "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+    ],
+    "stderr_lines": [],
+    "echoed": [],
+    "max_line_len": 87
+  },
+  "D6-derived-lowered-fired": {
+    "exit": 1,
+    "secs": 0.06,
+    "traceback": false,
+    "stdout_lines": [
+      "DERIVATION S008",
+      "REGRESSED S008",
+      "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+    ],
+    "stderr_lines": [],
+    "echoed": [],
+    "max_line_len": 87
+  },
+  "D7-derived-lowered-default-receipt": {
+    "exit": 1,
+    "secs": 0.056,
+    "traceback": false,
+    "stdout_lines": [
+      "DERIVATION S008",
+      "NOT OBSERVED S005",
+      "NOT OBSERVED S006",
+      "NOT OBSERVED S007",
+      "NOT OBSERVED S008",
+      "NOT OBSERVED S009",
+      "NOT OBSERVED S010",
+      "NOT OBSERVED S011",
+      "NOT OBSERVED S012",
+      "NOT OBSERVED S013",
+      "NOT OBSERVED S014",
+      "NOT OBSERVED S015",
+      "NOT OBSERVED S016",
+      "NOT OBSERVED S017",
+      "NOT OBSERVED S018",
+      "NOT OBSERVED S019",
+      "NOT OBSERVED S020",
+      "NOT OBSERVED S021",
+      "NOT OBSERVED S022",
+      "NOT OBSERVED S023",
+      "NOT OBSERVED S024",
+      "NOT OBSERVED S025",
+      "NOT OBSERVED S026",
+      "NOT OBSERVED S027",
+      "NOT OBSERVED S028",
+      "NOT OBSERVED S029",
+      "NOT OBSERVED S030",
+      "NOT OBSERVED S031",
+      "NOT OBSERVED S032",
+      "NOT OBSERVED S040",
+      "NOT OBSERVED S041",
+      "REGRESSED S008",
+      "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=0 fired=0 derived=0)"
+    ],
+    "stderr_lines": [],
+    "echoed": [],
+    "max_line_len": 85
+  },
+  "D8-observe-lower-noncanonical": {
+    "exit": 1,
+    "secs": 0.049,
+    "traceback": false,
+    "stdout_lines": [
+      "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=0 fired=1 regressed=0) to /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/CheckOutputSafety/r28-probe2-qosvu_o6/D8-observe-lower-noncanonical/obs.json",
+      "RECEIPT-MISMATCH S040",
+      "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)"
+    ],
+    "stderr_lines": [],
+    "echoed": [],
+    "max_line_len": 228,
+    "receipt_records": [
+      {
+        "id": "S040",
+        "verdict": "fired",
+        "error": null,
+        "parsed_version": "3.15.5"
+      }
+    ]
+  },
+  "D9-observe-only-noncanonical": {
+    "exit": 1,
+    "secs": 0.049,
+    "traceback": false,
+    "stdout_lines": [
+      "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/CheckOutputSafety/r28-probe2-qosvu_o6/D9-observe-only-noncanonical/obs.json",
+      "NON-CANONICAL S040",
+      "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)"
+    ],
+    "stderr_lines": [],
+    "echoed": [],
+    "max_line_len": 227,
+    "receipt_records": [
+      {
+        "id": "S040",
+        "verdict": null,
+        "error": "non-canonical version token: feed has no canonical stable X.Y.Z entry",
+        "parsed_version": null
+      }
+    ]
+  },
+  "D10-regex-timing": {
+    "findall_secs": 0.0,
+    "n_tokens": 1,
+    "token_lens": [
+      6
+    ],
+    "version_is_named_secs": 0.001,
+    "version_is_named": false
+  }
+}

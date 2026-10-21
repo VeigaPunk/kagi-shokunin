@@ -1,0 +1,40 @@
+=== P1 registry cell says v2.6.0, table still 2.7.1 (expect DERIVATION x6)
+$ /usr/bin/python3 -I -B /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveBao/p1/corpus/release-clock.py --root /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveBao/p1
+DERIVATION S014
+DERIVATION S015
+DERIVATION S016
+DERIVATION S021
+DERIVATION S025
+DERIVATION S026
+RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=24 fired=3 derived=9)
+EXIT=1
+
+=== P2 registry cell v2.6.0 + table lowered to 2.6.0 (expect CLEAN)
+$ /usr/bin/python3 -I -B /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveBao/p2/corpus/release-clock.py --root /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveBao/p2 --receipt /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveBao/p2/probe-receipt.json --receipt-sha 18495533aa3cb381995039b8df5cfc5e9a8e2b96be03de0469419270fd4cdc8c
+RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)
+EXIT=0
+
+=== P3 table lowered, receipt NOT mirrored (expect RECEIPT-MISMATCH alongside DERIVATION)
+$ /usr/bin/python3 -I -B /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveBao/p3/corpus/release-clock.py --root /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveBao/p3 --receipt /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveBao/p3/probe-receipt.json --receipt-sha 13b8540c78b9de07bc184894583a368472fd1f2f04a898220bf7c29d2648a169
+DERIVATION S014
+DERIVATION S015
+DERIVATION S016
+DERIVATION S021
+DERIVATION S025
+DERIVATION S026
+RECEIPT-MISMATCH S014
+RECEIPT-MISMATCH S015
+RECEIPT-MISMATCH S016
+RECEIPT-MISMATCH S021
+RECEIPT-MISMATCH S025
+RECEIPT-MISMATCH S026
+RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=24 fired=3 derived=9)
+EXIT=1
+
+=== P4 only S014 lowered (expect DERIVATION S014 + REGRESSED S014)
+$ /usr/bin/python3 -I -B /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveBao/p4/corpus/release-clock.py --root /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveBao/p4 --receipt /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveBao/p4/probe-receipt.json --receipt-sha 5e06f2a64e707ffef90eba100226316aac9c647034e01c7e85f1ee95e0ca755e
+DERIVATION S014
+REGRESSED S014
+RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)
+EXIT=1
+

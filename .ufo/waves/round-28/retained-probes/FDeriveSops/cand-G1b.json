@@ -1,0 +1,70 @@
+{
+  "tree": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveSops/cand",
+  "all4": {
+    "label": "all4",
+    "lowered": [
+      "S008",
+      "S009",
+      "S010",
+      "S011"
+    ],
+    "exit": 1,
+    "tail": [
+      "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=26 fired=3 derived=11)"
+    ],
+    "findings": [
+      "DERIVATION S008",
+      "DERIVATION S009",
+      "DERIVATION S010",
+      "DERIVATION S011"
+    ],
+    "tree_unchanged": true,
+    "fixture_unchanged": true,
+    "traceback": false,
+    "stdout": "DERIVATION S008\nDERIVATION S009\nDERIVATION S010\nDERIVATION S011\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=26 fired=3 derived=11)\n",
+    "stderr": "",
+    "receipt_verdicts": {
+      "S008": "not-fired",
+      "S009": "not-fired",
+      "S010": "not-fired",
+      "S011": "not-fired"
+    },
+    "receipt_parsed": {
+      "S008": "3.13.2",
+      "S009": "3.13.2",
+      "S010": "3.13.2",
+      "S011": "3.13.2"
+    }
+  },
+  "partial_S008": {
+    "label": "partial",
+    "lowered": [
+      "S008"
+    ],
+    "exit": 1,
+    "tail": [
+      "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+    ],
+    "findings": [
+      "DERIVATION S008",
+      "REGRESSED S008"
+    ],
+    "tree_unchanged": true,
+    "fixture_unchanged": true,
+    "traceback": false,
+    "stdout": "DERIVATION S008\nREGRESSED S008\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)\n",
+    "stderr": "",
+    "receipt_verdicts": {
+      "S008": "not-fired",
+      "S009": "not-fired",
+      "S010": "not-fired",
+      "S011": "not-fired"
+    },
+    "receipt_parsed": {
+      "S008": "3.13.2",
+      "S009": "3.13.3",
+      "S010": "3.13.3",
+      "S011": "3.13.3"
+    }
+  }
+}

@@ -1,0 +1,43 @@
+R22 PLAN_FIRST     FAIL 8ada17a5 prod_files=34 first=['LOG.md', 'PROVINCE.md', 'SCORECARD.md']
+R22 APPEND_ONLY    PASS removed_lines=0
+R22 CENSUS_START   FAIL files=[]
+R22 CENSUS_RECEIPT FAIL no receipt
+R22 CENSUS_REVISION FAIL no receipt
+R22 CENSUS_TIMING  FAIL no receipt
+R23 PLAN_FIRST     FAIL e1884c6e prod_files=19 first=['LOG.md', 'SCORECARD.md', 'SKILL.md']
+R23 APPEND_ONLY    PASS removed_lines=0
+R23 CENSUS_START   FAIL files=[]
+R23 CENSUS_RECEIPT FAIL no receipt
+R23 CENSUS_REVISION FAIL no receipt
+R23 CENSUS_TIMING  FAIL no receipt
+R24 PLAN_FIRST     FAIL a3eb6c75 prod_files=15 first=['LOG.md', 'PROVINCE.md', 'SCORECARD.md']
+R24 APPEND_ONLY    PASS removed_lines=0
+R24 CENSUS_START   PASS files=['.ufo/waves/round-24/census-start.txt']
+R24 CENSUS_RECEIPT FAIL timestamp=False revision=False
+R24 CENSUS_REVISION FAIL declared=4f94b52a3cdfaa289d779bd8a2afcd0b1fcd9105 receipt=None
+R24 CENSUS_TIMING  FAIL census=None plan_commit=2026-10-21T03:20:15-03:00
+R25 PLAN_FIRST     FAIL 82745e2c prod_files=17 first=['LOG.md', 'PROVINCE.md', 'SCORECARD.md']
+R25 APPEND_ONLY    PASS removed_lines=0
+R25 CENSUS_START   PASS files=['.ufo/waves/round-25/census-start.txt']
+R25 CENSUS_RECEIPT FAIL timestamp=False revision=False
+R25 CENSUS_REVISION FAIL declared=4587c61a348e4528717404a68912c373f3ef4d03 receipt=None
+R25 CENSUS_TIMING  FAIL census=None plan_commit=2026-10-21T08:49:25-03:00
+R26 PLAN_FIRST     FAIL d30c9892 prod_files=13 first=['LOG.md', 'PROVINCE.md', 'SCORECARD.md']
+R26 APPEND_ONLY    PASS removed_lines=0
+R26 CENSUS_START   PASS files=['.ufo/waves/round-26/census-start.json']
+R26 CENSUS_RECEIPT FAIL timestamp=False revision=True
+R26 CENSUS_REVISION PASS declared=1bf3eec48d3761580ffd375c88143232485ae814 receipt=1bf3eec48d3761580ffd375c88143232485ae814
+R26 CENSUS_TIMING  FAIL census=None plan_commit=2026-10-21T10:50:35-03:00
+R27 PLAN_FIRST     FAIL 144babcb prod_files=17 first=['LOG.md', 'PROVINCE.md', 'SCORECARD.md']
+R27 APPEND_ONLY    PASS removed_lines=0
+R27 CENSUS_START   FAIL files=[]
+R27 CENSUS_RECEIPT FAIL no receipt
+R27 CENSUS_REVISION FAIL no receipt
+R27 CENSUS_TIMING  FAIL no receipt
+R28 PLAN_FIRST     PASS bdf90f58 prod_files=0 first=[]
+R28 APPEND_ONLY    PASS removed_lines=0
+R28 CENSUS_START   PASS files=['.ufo/waves/round-28/census-start.txt']
+R28 CENSUS_RECEIPT FAIL timestamp=True revision=False
+R28 CENSUS_REVISION FAIL declared=3553d499577084a6c98d7078906017840bbf7b28 receipt=None
+R28 CENSUS_TIMING  PASS census=2026-10-21T13:38 plan_commit=2026-10-21T13:44:04-03:00
+ROUND_CONFORMANCE: FAIL (28 failing checks)

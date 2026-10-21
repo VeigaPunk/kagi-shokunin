@@ -1,0 +1,100 @@
+SPEC_CONFORMANCE: PASS (round=28 first=b053dcb frozen_cmd_lines=0)
+CONFORMANCE PLAN-NO-CLAIMS round=28 frozen_bytes=69
+CONFORMANCE PLAN-AMENDED-WITH-WORK round=28 4411ca3 paths=2
+ROUND_CONFORMANCE: FAIL (round=28 plan_first=b053dcb tip=4411ca3 defects=2)
+
+SPEC_CONFORMANCE: PASS (round=28 first=adaf87b frozen_cmd_lines=2)
+CONFORMANCE PLAN-NOT-ON-BASE round=28 parent=5807fb1 declared=2571ec4 between=1
+ROUND_CONFORMANCE: FAIL (round=28 plan_first=adaf87b tip=adaf87b defects=1)
+
+SPEC_CONFORMANCE: PASS (round=28 first=c10788f frozen_cmd_lines=2)
+CONFORMANCE BASE-NOT-ADMITTED round=28 declared=5807fb1 manifest=['kagi-shokunin@2571ec4959243a28fe19c3e27a8b76435a9cdac9']
+ROUND_CONFORMANCE: FAIL (round=28 plan_first=c10788f tip=c10788f defects=1)
+
+SPEC_CONFORMANCE: PASS (round=28 first=c1c75b2 frozen_cmd_lines=2)
+CONFORMANCE CENSUS-START-REWRITTEN round=28 commits=['57537fb', 'c1c75b2']
+ROUND_CONFORMANCE: FAIL (round=28 plan_first=c1c75b2 tip=57537fb defects=1)
+
+SPEC_CONFORMANCE: PASS (round=28 first=a3a8206 frozen_cmd_lines=2)
+CONFORMANCE CENSUS-START-NO-TIMESTAMP round=28 []
+CONFORMANCE CENSUS-START-EXIT round=28 ''
+CONFORMANCE CENSUS-START-NOT-LANE-REGISTRY round=28 lines=0
+ROUND_CONFORMANCE: FAIL (round=28 plan_first=a3a8206 tip=a3a8206 defects=3)
+
+SPEC_CONFORMANCE: PASS (round=28 first=613138d frozen_cmd_lines=2)
+CONFORMANCE CENSUS-START-EXIT round=28 'exit=1'
+ROUND_CONFORMANCE: FAIL (round=28 plan_first=613138d tip=613138d defects=1)
+
+SPEC_CONFORMANCE: PASS (round=28 first=13aa39b frozen_cmd_lines=2)
+CONFORMANCE PLAN-FIRST-IMPURE round=28 13aa39b extra=2 e.g. ['corpus/helper.py', 'plans/helper.py'] missing=[]
+ROUND_CONFORMANCE: FAIL (round=28 plan_first=13aa39b tip=13aa39b defects=1)
+
+SPEC_CONFORMANCE: PASS (round=28 first=72c9917 frozen_cmd_lines=2)
+CONFORMANCE PLAN-FIRST-IMPURE round=28 72c9917 extra=1 e.g. ['plans/round-28-candidate.patch'] missing=[]
+ROUND_CONFORMANCE: FAIL (round=28 plan_first=72c9917 tip=72c9917 defects=1)
+
+SPEC FAIL plan-missing plans/round-28.md
+CONFORMANCE PLAN-FIRST-MERGE round=28 5520e2e parents=2
+ROUND_CONFORMANCE: FAIL (round=28 plan_first=5520e2e tip=5520e2e defects=1)
+
+SPEC_CONFORMANCE: PASS (round=28 first=c1c75b2 frozen_cmd_lines=2)
+CONFORMANCE FROZEN-REWRITTEN round=28 a2159e7
+ROUND_CONFORMANCE: FAIL (round=28 plan_first=c1c75b2 tip=a2159e7 defects=1)
+
+SPEC_CONFORMANCE: PASS (round=28 first=c1c75b2 frozen_cmd_lines=2)
+CONFORMANCE FROZEN-REWRITTEN round=28 bbbdb67
+CONFORMANCE PLAN-AMENDED-AFTER-WORK round=28 1d8cd86 after 87ef7d2
+ROUND_CONFORMANCE: FAIL (round=28 plan_first=c1c75b2 tip=1d8cd86 defects=2)
+
+SPEC_CONFORMANCE: PASS (round=28 first=c1c75b2 frozen_cmd_lines=2)
+CONFORMANCE PLAN-AMENDED-AFTER-WORK round=28 a2d3ee0 after b14fa70
+ROUND_CONFORMANCE: FAIL (round=28 plan_first=c1c75b2 tip=a2d3ee0 defects=1)
+
+SPEC FAIL frozen-lines-changed first=2 tip=1
+SPEC_CONFORMANCE: FAIL (round=28 first=c1c75b2 frozen_cmd_lines=2)
+CONFORMANCE FROZEN-REWRITTEN round=28 7db029f
+ROUND_CONFORMANCE: FAIL (round=28 plan_first=c1c75b2 tip=7db029f defects=1)
+
+SPEC_CONFORMANCE: PASS (round=28 first=c1c75b2 frozen_cmd_lines=2)
+CONFORMANCE PLAN-READDED round=28 adds=2 deletes=1
+CONFORMANCE FROZEN-REWRITTEN round=28 c431f8e
+CONFORMANCE PLAN-AMENDED-WITH-WORK round=28 4b7f30e paths=2
+ROUND_CONFORMANCE: FAIL (round=28 plan_first=c1c75b2 tip=4b7f30e defects=3)
+
+SPEC_CONFORMANCE: PASS (round=28 first=c1c75b2 frozen_cmd_lines=2)
+CONFORMANCE PLAN-WORKTREE-DIRTY round=28 plans/round-28.md
+ROUND_CONFORMANCE: FAIL (round=28 plan_first=c1c75b2 tip=c1c75b2 defects=1)
+
+SPEC_CONFORMANCE: PASS (round=28 first=c1c75b2 frozen_cmd_lines=2)
+CONFORMANCE TOOL-REWRITTEN round=28 .ufo/waves/round-28/tools/c1-measure.py commits=2
+ROUND_CONFORMANCE: FAIL (round=28 plan_first=c1c75b2 tip=9acf463 defects=1)
+
+SPEC_CONFORMANCE: PASS (round=28 first=aee515b frozen_cmd_lines=2)
+ROUND_CONFORMANCE: PASS (round=28 plan_first=aee515b tip=aee515b defects=0)
+
+SPEC_CONFORMANCE: PASS (round=28 first=16fb6f9 frozen_cmd_lines=2)
+CONFORMANCE CENSUS-START-NOT-BASE-REGISTRY round=28 sha=b7d25ce607af
+ROUND_CONFORMANCE: FAIL (round=28 plan_first=16fb6f9 tip=16fb6f9 defects=1)
+
+SPEC FAIL census-after-plan 352a8be
+SPEC_CONFORMANCE: FAIL (round=28 first=bc2f39f frozen_cmd_lines=2)
+CONFORMANCE PLAN-FIRST-IMPURE round=28 bc2f39f extra=0 e.g. [] missing=['.ufo/waves/round-28/census-start.txt']
+CONFORMANCE CENSUS-START-NOT-WITH-PLAN round=28 commits=['352a8be']
+CONFORMANCE CENSUS-START-OUT-OF-WINDOW round=28 ts=2026-10-21T10:15:00-03:00 base=2026-10-21T10:00:00-03:00 plan=2026-10-21T10:10:00-03:00
+ROUND_CONFORMANCE: FAIL (round=28 plan_first=bc2f39f tip=352a8be defects=3)
+
+SPEC_CONFORMANCE: PASS (round=28 first=c1c75b2 frozen_cmd_lines=2)
+CONFORMANCE PLAN-READDED round=28 adds=2 deletes=0
+CONFORMANCE WORK-OFF-PLAN round=28 1 commits not descended from c1c75b2 e.g. b6469ea
+ROUND_CONFORMANCE: FAIL (round=28 plan_first=c1c75b2 tip=3a24bc7 defects=2)
+
+SPEC FAIL frozen-lines-changed first=0 tip=2
+SPEC_CONFORMANCE: FAIL (round=28 first=14da58a frozen_cmd_lines=0)
+CONFORMANCE PLAN-NO-BASE round=28 no `Frozen BASE: <40-hex>` line
+CONFORMANCE PLAN-NO-CLAIMS round=28 frozen_bytes=0
+CONFORMANCE PLAN-AMENDED-WITH-WORK round=28 b62abc9 paths=2
+ROUND_CONFORMANCE: FAIL (round=28 plan_first=14da58a tip=b62abc9 defects=3)
+
+SPEC_CONFORMANCE: PASS (round=28 first=c1c75b2 frozen_cmd_lines=2)
+ROUND_CONFORMANCE: PASS (round=28 plan_first=c1c75b2 tip=52dbfc6 defects=0)
+

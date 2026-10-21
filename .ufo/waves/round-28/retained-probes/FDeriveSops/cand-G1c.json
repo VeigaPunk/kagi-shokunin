@@ -1,0 +1,69 @@
+[
+  {
+    "label": "same-3.13.3",
+    "lower": "3.13.3",
+    "note_prefix": null,
+    "exit": 0,
+    "tail": [
+      "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)"
+    ],
+    "findings": [],
+    "traceback": false,
+    "tree_unchanged": true,
+    "fixture_unchanged": true
+  },
+  {
+    "label": "lower-3.14.0",
+    "lower": "3.14.0",
+    "note_prefix": null,
+    "exit": 1,
+    "tail": [
+      "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=26 fired=3 derived=11)"
+    ],
+    "findings": [
+      "DERIVATION S008",
+      "DERIVATION S009",
+      "DERIVATION S010",
+      "DERIVATION S011"
+    ],
+    "traceback": false,
+    "tree_unchanged": true,
+    "fixture_unchanged": true
+  },
+  {
+    "label": "note-case-escape",
+    "lower": "3.13.2",
+    "note_prefix": "Derived",
+    "exit": 1,
+    "tail": [
+      "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=26 fired=3 derived=11)"
+    ],
+    "findings": [
+      "INCONSISTENT S008",
+      "INCONSISTENT S009",
+      "INCONSISTENT S010",
+      "INCONSISTENT S011"
+    ],
+    "traceback": false,
+    "tree_unchanged": true,
+    "fixture_unchanged": true
+  },
+  {
+    "label": "note-prefix-escape",
+    "lower": "3.13.2",
+    "note_prefix": "xderived",
+    "exit": 1,
+    "tail": [
+      "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=26 fired=3 derived=11)"
+    ],
+    "findings": [
+      "INCONSISTENT S008",
+      "INCONSISTENT S009",
+      "INCONSISTENT S010",
+      "INCONSISTENT S011"
+    ],
+    "traceback": false,
+    "tree_unchanged": true,
+    "fixture_unchanged": true
+  }
+]

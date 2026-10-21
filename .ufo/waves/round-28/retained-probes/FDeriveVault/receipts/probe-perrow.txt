@@ -1,0 +1,22 @@
+== cand ==
+  errors: [('DERIVATION', 'S013'), ('DERIVATION', 'S022'), ('DERIVATION', 'S023'), ('DERIVATION', 'S024')]
+  counts: {'on_release': 30, 'bound': 30, 'unbound': 0, 'observed': 26, 'fired': 3, 'derived': 11}
+  vault feed floor: 2.1.9
+    S012 anchor=v1.21.x observed=2.2.0 verdict=fired derived=False
+    S013 anchor=2.1.9 observed=2.1.9 verdict=not-fired derived=True
+    S022 anchor=2.1.9 observed=2.1.9 verdict=not-fired derived=True
+    S023 anchor=2.1.9 observed=2.1.9 verdict=not-fired derived=True
+    S024 anchor=2.1.9 observed=2.1.9 verdict=not-fired derived=True
+  S012 in errors: []
+
+== base ==
+  errors: []
+  counts: {'on_release': 30, 'bound': 30, 'unbound': 0, 'observed': 30, 'fired': 3, 'derived': 15}
+  vault feed floor: 2.1.9
+    S012 anchor=v1.21.x observed=2.2.0 verdict=fired derived=False
+    S013 anchor=2.1.9 observed=2.1.9 verdict=not-fired derived=True
+    S022 anchor=2.1.9 observed=2.1.9 verdict=not-fired derived=True
+    S023 anchor=2.1.9 observed=2.1.9 verdict=not-fired derived=True
+    S024 anchor=2.1.9 observed=2.1.9 verdict=not-fired derived=True
+  S012 in errors: []
+

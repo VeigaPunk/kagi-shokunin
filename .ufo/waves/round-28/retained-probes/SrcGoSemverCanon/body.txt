@@ -1,0 +1,370 @@
+semver package - golang.org/x/mod/semver - Go Packages
+Help us shape the future of Go!
+Take the
+2026 Go Developer Survey
+Skip to Main Content
+Why Go
+Case Studies
+Common problems companies solve with Go
+Use Cases
+Stories about how and why companies use Go
+Security
+How Go can help keep you secure by default
+Learn
+Docs
+Effective Go
+Tips for writing clear, performant, and idiomatic Go code
+Go User Manual
+A complete introduction to building software with Go
+Standard library
+Reference documentation for Go's standard library
+Release Notes
+Learn what's new in each Go release
+API
+Reference documentation for the pkg.go.dev API
+Packages
+Community
+Recorded Talks
+Videos from prior events
+Meetups
+Meet other local Go developers
+Conferences
+Learn and network with Go developers from around the world
+Go blog
+The Go project's official blog.
+Go project
+Get help and stay informed from Go
+Get connected
+Why Go
+Why Go
+Case Studies
+Use Cases
+Security
+Learn
+Docs
+Docs
+Effective Go
+Go User Manual
+Standard library
+Release Notes
+API
+Packages
+Community
+Community
+Recorded Talks
+Meetups
+Conferences
+Go blog
+Go project
+Get connected
+Discover Packages
+golang.org/x/mod
+semver
+semver
+package
+Version:
+v0.42.0
+Opens a new window with list of versions in this module.
+Latest
+Latest
+This package is not in the latest version of its module.
+Go to latest
+Published: Oct  9, 2026
+License:
+BSD-3-Clause
+Opens a new window with license information.
+Imports:
+2
+Opens a new window with list of imports.
+Imported by:
+1,930
+Opens a new window with list of known importers.
+Main
+Versions
+Licenses
+Imports
+Imported By
+Details
+Valid
+go.mod
+file
+The Go module system was introduced in Go 1.11 and is the official dependency management
+solution for Go.
+Redistributable license
+Redistributable licenses place minimal restrictions on how software can be used,
+modified, and redistributed.
+Tagged version
+Modules with tagged versions give importers more predictable builds.
+Stable version
+When a project reaches major version v1 it is considered stable.
+Learn more about best practices
+Repository
+cs.opensource.google/go/x/mod
+Links
+Report a Vulnerability
+Open Source Insights
+Jump to ...
+Documentation
+Overview
+Index
+Constants
+Variables
+Functions
+Build(v)
+Canonical(v)
+Compare(v, w)
+IsValid(v)
+Major(v)
+MajorMinor(v)
+Max(v, w)
+Prerelease(v)
+Sort(list)
+Types
+type ByVersion
+(vs) Len()
+(vs) Less(i, j)
+(vs) Swap(i, j)
+Source Files
+Documentation
+Documentation
+¶
+Overview
+¶
+Package semver implements comparison of semantic version strings.
+In this package, semantic version strings must begin with a leading "v",
+as in "v1.0.0".
+The general form of a semantic version string accepted by this package is
+vMAJOR[.MINOR[.PATCH[-PRERELEASE][+BUILD]]]
+where square brackets indicate optional parts of the syntax;
+MAJOR, MINOR, and PATCH are decimal integers without extra leading zeros;
+PRERELEASE and BUILD are each a series of non-empty dot-separated identifiers
+using only alphanumeric characters and hyphens; and
+all-numeric PRERELEASE identifiers must not have leading zeros.
+This package follows Semantic Versioning 2.0.0 (see semver.org)
+with two exceptions. First, it requires the "v" prefix. Second, it recognizes
+vMAJOR and vMAJOR.MINOR (with no prerelease or build suffixes)
+as shorthands for vMAJOR.0.0 and vMAJOR.MINOR.0.
+Index
+¶
+func Build(v string) string
+func Canonical(v string) string
+func Compare(v, w string) int
+func IsValid(v string) bool
+func Major(v string) string
+func MajorMinor(v string) string
+func Max(v, w string) string
+deprecated
+func Prerelease(v string) string
+func Sort(list []string)
+type ByVersion
+func (vs ByVersion) Len() int
+func (vs ByVersion) Less(i, j int) bool
+func (vs ByVersion) Swap(i, j int)
+Constants
+¶
+This section is empty.
+Variables
+¶
+This section is empty.
+Functions
+¶
+func
+Build
+¶
+func Build(v
+string
+)
+string
+Build returns the build suffix of the semantic version v.
+For example, Build("v2.1.0+meta") == "+meta".
+If v is an invalid semantic version string, Build returns the empty string.
+func
+Canonical
+¶
+func Canonical(v
+string
+)
+string
+Canonical returns the canonical formatting of the semantic version v.
+It fills in any missing .MINOR or .PATCH and discards build metadata.
+Two semantic versions compare equal only if their canonical formatting
+is an identical string.
+The canonical invalid semantic version is the empty string.
+func
+Compare
+¶
+func Compare(v, w
+string
+)
+int
+Compare returns an integer comparing two versions according to
+semantic version precedence.
+The result will be 0 if v == w, -1 if v < w, or +1 if v > w.
+An invalid semantic version string is considered less than a valid one.
+All invalid semantic version strings compare equal to each other.
+func
+IsValid
+¶
+func IsValid(v
+string
+)
+bool
+IsValid reports whether v is a valid semantic version string.
+func
+Major
+¶
+func Major(v
+string
+)
+string
+Major returns the major version prefix of the semantic version v.
+For example, Major("v2.1.0") == "v2".
+If v is an invalid semantic version string, Major returns the empty string.
+func
+MajorMinor
+¶
+func MajorMinor(v
+string
+)
+string
+MajorMinor returns the major.minor version prefix of the semantic version v.
+For example, MajorMinor("v2.1.0") == "v2.1".
+If v is an invalid semantic version string, MajorMinor returns the empty string.
+func
+Max
+deprecated
+func Max(v, w
+string
+)
+string
+Max canonicalizes its arguments and then returns the version string
+that compares greater.
+Deprecated: use
+Compare
+instead. In most cases, returning a canonicalized
+version is not expected or desired.
+func
+Prerelease
+¶
+func Prerelease(v
+string
+)
+string
+Prerelease returns the prerelease suffix of the semantic version v.
+For example, Prerelease("v2.1.0-pre+meta") == "-pre".
+If v is an invalid semantic version string, Prerelease returns the empty string.
+func
+Sort
+¶
+added in
+v0.5.0
+func Sort(list []
+string
+)
+Sort sorts a list of semantic version strings using
+Compare
+and falls back
+to use
+strings.Compare
+if both versions are considered equal.
+Types
+¶
+type
+ByVersion
+¶
+added in
+v0.5.0
+type ByVersion []
+string
+ByVersion implements
+sort.Interface
+for sorting semantic version strings.
+func (ByVersion)
+Len
+¶
+added in
+v0.5.0
+func (vs
+ByVersion
+) Len()
+int
+func (ByVersion)
+Less
+¶
+added in
+v0.5.0
+func (vs
+ByVersion
+) Less(i, j
+int
+)
+bool
+func (ByVersion)
+Swap
+¶
+added in
+v0.5.0
+func (vs
+ByVersion
+) Swap(i, j
+int
+)
+Source Files
+¶
+View all Source files
+semver.go
+Click to show internal directories.
+Click to hide internal directories.
+Why Go
+Use Cases
+Case Studies
+Get Started
+Playground
+Tour
+Stack Overflow
+Help
+Packages
+Standard Library
+Sub-repositories
+About Go Packages
+pkg.go.dev API
+About
+Download
+Blog
+Issue Tracker
+Release Notes
+Brand Guidelines
+Code of Conduct
+Connect
+Twitter
+GitHub
+Slack
+r/golang
+Meetup
+Golang Weekly
+Copyright
+Terms of Service
+Privacy Policy
+Report an Issue
+Theme Toggle
+Shortcuts Modal
+Jump to
+Close
+Keyboard shortcuts
+?
+: This menu
+/
+: Search site
+f
+or
+F
+: Jump to
+y
+or
+Y
+: Canonical URL
+Close
+go.dev uses cookies from Google to deliver and enhance the quality of its services and to
+analyze traffic.
+Learn more.
+Okay

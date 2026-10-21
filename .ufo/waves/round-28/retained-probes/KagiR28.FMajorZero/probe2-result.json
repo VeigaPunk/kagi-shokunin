@@ -1,0 +1,166 @@
+{
+  "cand": {
+    "V1-table-not-fired": {
+      "exit": 1,
+      "stdout": "NON-CANONICAL S040\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)\n",
+      "stderr": "",
+      "verdict": "TYPED",
+      "traceback_in_output": false,
+      "typed_finding_lines": [
+        "NON-CANONICAL S040"
+      ]
+    },
+    "V2-table-00major": {
+      "exit": 1,
+      "stdout": "NON-CANONICAL S040\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)\n",
+      "stderr": "",
+      "verdict": "TYPED",
+      "traceback_in_output": false,
+      "typed_finding_lines": [
+        "NON-CANONICAL S040"
+      ]
+    },
+    "V3-table-v-prefix": {
+      "exit": 1,
+      "stdout": "NON-CANONICAL S040\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)\n",
+      "stderr": "",
+      "verdict": "TYPED",
+      "traceback_in_output": false,
+      "typed_finding_lines": [
+        "NON-CANONICAL S040"
+      ]
+    },
+    "V4-observe-taglink": {
+      "exit": 1,
+      "stdout": "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/kagi-r28-fmj2-cand-6jbn9xy5/fixture-v4/observe-out.json\nNON-CANONICAL S040\nRELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)\n",
+      "stderr": "",
+      "fired_observation_written": false,
+      "receipt": [
+        {
+          "id": "S040",
+          "verdict": null,
+          "error": "non-canonical version token: feed newest stable entry",
+          "parsed_version": null
+        }
+      ],
+      "verdict": "TYPED",
+      "traceback_in_output": false,
+      "typed_finding_lines": [
+        "NON-CANONICAL S040"
+      ]
+    },
+    "V5-observe-older-majorzero": {
+      "exit": 0,
+      "stdout": "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=0 fired=0 regressed=0) to /tmp/kagi-r28-fmj2-cand-6jbn9xy5/fixture-v5/observe-out.json\nRELEASE_CLOCK: CLEAN (on_release=1 bound=1 unbound=0 observed=1 fired=0 derived=0)\n",
+      "stderr": "",
+      "fired_observation_written": false,
+      "receipt": [
+        {
+          "id": "S040",
+          "verdict": "not-fired",
+          "error": null,
+          "parsed_version": "3.15.1"
+        }
+      ],
+      "verdict": "MISHANDLED",
+      "traceback_in_output": false,
+      "typed_finding_lines": []
+    },
+    "V6-observe-twin-majorzero": {
+      "exit": 1,
+      "stdout": "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/kagi-r28-fmj2-cand-6jbn9xy5/fixture-v6/observe-out.json\nNON-CANONICAL S040\nRELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)\n",
+      "stderr": "",
+      "fired_observation_written": false,
+      "receipt": [
+        {
+          "id": "S040",
+          "verdict": null,
+          "error": "non-canonical version token: feed newest stable entry",
+          "parsed_version": null
+        }
+      ],
+      "verdict": "TYPED",
+      "traceback_in_output": false,
+      "typed_finding_lines": [
+        "NON-CANONICAL S040"
+      ]
+    }
+  },
+  "base": {
+    "V1-table-not-fired": {
+      "exit": 1,
+      "stdout": "INCONSISTENT S040\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)\n",
+      "stderr": "",
+      "verdict": "OTHER",
+      "traceback_in_output": false,
+      "typed_finding_lines": []
+    },
+    "V2-table-00major": {
+      "exit": 1,
+      "stdout": "REGRESSED S040\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)\n",
+      "stderr": "",
+      "verdict": "OTHER",
+      "traceback_in_output": false,
+      "typed_finding_lines": []
+    },
+    "V3-table-v-prefix": {
+      "exit": 0,
+      "stdout": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=4 derived=15)\n",
+      "stderr": "",
+      "verdict": "MISHANDLED",
+      "traceback_in_output": false,
+      "typed_finding_lines": []
+    },
+    "V4-observe-taglink": {
+      "exit": 1,
+      "stdout": "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=0 fired=1 regressed=0) to /tmp/kagi-r28-fmj2-base-crxloivh/fixture-v4/observe-out.json\nRECEIPT-MISMATCH S040\nRELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)\n",
+      "stderr": "",
+      "fired_observation_written": true,
+      "receipt": [
+        {
+          "id": "S040",
+          "verdict": "fired",
+          "error": null,
+          "parsed_version": "03.15.1"
+        }
+      ],
+      "verdict": "MISHANDLED",
+      "traceback_in_output": false,
+      "typed_finding_lines": []
+    },
+    "V5-observe-older-majorzero": {
+      "exit": 0,
+      "stdout": "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=0 fired=0 regressed=0) to /tmp/kagi-r28-fmj2-base-crxloivh/fixture-v5/observe-out.json\nRELEASE_CLOCK: CLEAN (on_release=1 bound=1 unbound=0 observed=1 fired=0 derived=0)\n",
+      "stderr": "",
+      "fired_observation_written": false,
+      "receipt": [
+        {
+          "id": "S040",
+          "verdict": "not-fired",
+          "error": null,
+          "parsed_version": "3.15.1"
+        }
+      ],
+      "verdict": "MISHANDLED",
+      "traceback_in_output": false,
+      "typed_finding_lines": []
+    },
+    "V6-observe-twin-majorzero": {
+      "exit": 0,
+      "stdout": "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=0 fired=0 regressed=0) to /tmp/kagi-r28-fmj2-base-crxloivh/fixture-v6/observe-out.json\nRELEASE_CLOCK: CLEAN (on_release=1 bound=1 unbound=0 observed=1 fired=0 derived=0)\n",
+      "stderr": "",
+      "fired_observation_written": false,
+      "receipt": [
+        {
+          "id": "S040",
+          "verdict": "not-fired",
+          "error": null,
+          "parsed_version": "3.15.1"
+        }
+      ],
+      "verdict": "MISHANDLED",
+      "traceback_in_output": false,
+      "typed_finding_lines": []
+    }
+  }
+}

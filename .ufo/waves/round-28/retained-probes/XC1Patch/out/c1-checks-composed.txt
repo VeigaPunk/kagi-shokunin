@@ -1,0 +1,25 @@
+PASS 18-digit component canonical
+PASS 19-digit component non-canonical
+PASS leading zero non-canonical
+PASS zero component canonical
+PASS double-zero component non-canonical
+PASS v-prefixed leading zero non-canonical
+PASS series anchor not flagged
+PASS two-component not flagged
+PASS suffix token not flagged (not strict X.Y.Z)
+PASS numeric_version canonical tuple
+PASS numeric_version None for leading zero
+PASS numeric_version None for 5000-digit component
+PASS feed_floors ignores leading-zero anchor
+PASS newest_stable case 0 (3.15.1, 3.15.01) == refuse
+PASS newest_stable case 1 (3.15.0, 3.14.01) == refuse
+PASS newest_stable case 2 (3.14.01, 3.15.0) == refuse
+PASS newest_stable case 3 (3.15.01) == refuse
+PASS newest_stable case 4 (3.15.0, 3.15.01) == refuse
+PASS newest_stable case 5 (1.2.3, 1.2.3) == 1.2.3
+PASS newest_stable case 6 (3.15.0, 3.15.111111111) == refuse
+PASS newest_stable case 7 (3.15.0, 3.14.111111111) == refuse
+PASS version_order equals integer order on 20000 canonical pairs
+PASS leading zeros do not change version_order (5000 tokens)
+PASS no int() call remains in the module
+CHECKS: CLEAN (failed=0)

@@ -1,0 +1,332 @@
+{
+  "fixtures": {
+    "A-rss-newest-zero": {
+      "any_finding_line": [
+        "NON-CANONICAL S040"
+      ],
+      "exit": 1,
+      "fired_record_written": false,
+      "note": "RSS: newest item title 'Python 3.15.01' (leading zero)",
+      "record": {
+        "clock": "feed",
+        "error": "non-canonical version token: feed newest stable entry",
+        "http_status": 200,
+        "id": "S040",
+        "located": null,
+        "observed_at": "2026-10-21T00:00:00Z",
+        "parsed_version": null,
+        "sha256": "bc7d360c78f1a4e06fd91904530eff9f6e2459be1a839f3e644e42a1d2b5d0f8",
+        "url": "https://www.python.org/downloads/feed.rss",
+        "verdict": null
+      },
+      "stderr": [],
+      "stdout": [
+        "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FRssZero/work/rssh-cand/A-rss-newest-zero/observe-out.json",
+        "NON-CANONICAL S040",
+        "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)"
+      ],
+      "traceback": false,
+      "typed_finding": [
+        "NON-CANONICAL S040"
+      ],
+      "verdict": "TYPED"
+    },
+    "B-rss-only-zero": {
+      "any_finding_line": [
+        "NON-CANONICAL S040"
+      ],
+      "exit": 1,
+      "fired_record_written": false,
+      "note": "RSS: only item title 'Python 3.15.01'",
+      "record": {
+        "clock": "feed",
+        "error": "non-canonical version token: feed has no canonical stable X.Y.Z entry",
+        "http_status": 200,
+        "id": "S040",
+        "located": null,
+        "observed_at": "2026-10-21T00:00:00Z",
+        "parsed_version": null,
+        "sha256": "196eec6bc4c2382beeee0e601ccb3fa2be7c750154d7fe82c6f14da05c30687b",
+        "url": "https://www.python.org/downloads/feed.rss",
+        "verdict": null
+      },
+      "stderr": [],
+      "stdout": [
+        "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FRssZero/work/rssh-cand/B-rss-only-zero/observe-out.json",
+        "NON-CANONICAL S040",
+        "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)"
+      ],
+      "traceback": false,
+      "typed_finding": [
+        "NON-CANONICAL S040"
+      ],
+      "verdict": "TYPED"
+    },
+    "C-rss-zero-not-newest": {
+      "any_finding_line": [
+        "RECEIPT-MISMATCH S040"
+      ],
+      "exit": 1,
+      "fired_record_written": true,
+      "note": "RSS: leading-zero title older than the canonical newest",
+      "record": {
+        "clock": "feed",
+        "http_status": 200,
+        "id": "S040",
+        "located": null,
+        "observed_at": "2026-10-21T00:00:00Z",
+        "parsed_version": "3.16.0",
+        "sha256": "4398f3bc67b1fae14a1420ef4df3bfc54dcf428d86b62cf6bc6f336d2be7ecf7",
+        "url": "https://www.python.org/downloads/feed.rss",
+        "verdict": "fired"
+      },
+      "stderr": [],
+      "stdout": [
+        "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=0 fired=1 regressed=0) to /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FRssZero/work/rssh-cand/C-rss-zero-not-newest/observe-out.json",
+        "RECEIPT-MISMATCH S040",
+        "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)"
+      ],
+      "traceback": false,
+      "typed_finding": [],
+      "verdict": "MISHANDLED(fired observation written)"
+    },
+    "D-rss-zero-below-newest": {
+      "any_finding_line": [],
+      "exit": 0,
+      "fired_record_written": false,
+      "note": "RSS: leading-zero title below the canonical newest",
+      "record": {
+        "clock": "feed",
+        "http_status": 200,
+        "id": "S040",
+        "located": null,
+        "observed_at": "2026-10-21T00:00:00Z",
+        "parsed_version": "3.15.1",
+        "sha256": "8208b5d1869eec7244596196d9e01563d1639cf6fd08275d495a36607dbf7c83",
+        "url": "https://www.python.org/downloads/feed.rss",
+        "verdict": "not-fired"
+      },
+      "stderr": [],
+      "stdout": [
+        "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=0 fired=0 regressed=0) to /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FRssZero/work/rssh-cand/D-rss-zero-below-newest/observe-out.json",
+        "RELEASE_CLOCK: CLEAN (on_release=1 bound=1 unbound=0 observed=1 fired=0 derived=0)"
+      ],
+      "traceback": false,
+      "typed_finding": [],
+      "verdict": "CLEAN(exit 0)"
+    },
+    "E-atom-newest-zero": {
+      "any_finding_line": [
+        "NON-CANONICAL S040"
+      ],
+      "exit": 1,
+      "fired_record_written": false,
+      "note": "Atom (frozen-tool shape): newest title 'Python 3.15.01'",
+      "record": {
+        "clock": "feed",
+        "error": "non-canonical version token: feed newest stable entry",
+        "http_status": 200,
+        "id": "S040",
+        "located": null,
+        "observed_at": "2026-10-21T00:00:00Z",
+        "parsed_version": null,
+        "sha256": "f34471e9bf6ac1b97f61e1155183500d116a19ca1d9a3adf36992cbbf1675440",
+        "url": "https://www.python.org/downloads/feed.rss",
+        "verdict": null
+      },
+      "stderr": [],
+      "stdout": [
+        "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FRssZero/work/rssh-cand/E-atom-newest-zero/observe-out.json",
+        "NON-CANONICAL S040",
+        "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)"
+      ],
+      "traceback": false,
+      "typed_finding": [
+        "NON-CANONICAL S040"
+      ],
+      "verdict": "TYPED"
+    },
+    "F-rss-cdata-newest-zero": {
+      "any_finding_line": [
+        "NON-CANONICAL S040"
+      ],
+      "exit": 1,
+      "fired_record_written": false,
+      "note": "RSS: CDATA title 'Python 3.15.01' newest",
+      "record": {
+        "clock": "feed",
+        "error": "non-canonical version token: feed newest stable entry",
+        "http_status": 200,
+        "id": "S040",
+        "located": null,
+        "observed_at": "2026-10-21T00:00:00Z",
+        "parsed_version": null,
+        "sha256": "6971de2bb8a5818f39167e379f822e6a634153c33efeb9bd2096f2b9809be9d8",
+        "url": "https://www.python.org/downloads/feed.rss",
+        "verdict": null
+      },
+      "stderr": [],
+      "stdout": [
+        "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FRssZero/work/rssh-cand/F-rss-cdata-newest-zero/observe-out.json",
+        "NON-CANONICAL S040",
+        "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)"
+      ],
+      "traceback": false,
+      "typed_finding": [
+        "NON-CANONICAL S040"
+      ],
+      "verdict": "TYPED"
+    },
+    "G-rss-oversize-newest": {
+      "any_finding_line": [
+        "NON-CANONICAL S040"
+      ],
+      "exit": 1,
+      "fired_record_written": false,
+      "note": "RSS: newest title with a 4301-digit patch component",
+      "record": {
+        "clock": "feed",
+        "error": "non-canonical version token: feed newest stable entry",
+        "http_status": 200,
+        "id": "S040",
+        "located": null,
+        "observed_at": "2026-10-21T00:00:00Z",
+        "parsed_version": null,
+        "sha256": "0e2bfaa3412f7bf165831c57d45e3f19b8437588729c7b9cbee3ffa9353c5b65",
+        "url": "https://www.python.org/downloads/feed.rss",
+        "verdict": null
+      },
+      "stderr": [],
+      "stdout": [
+        "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FRssZero/work/rssh-cand/G-rss-oversize-newest/observe-out.json",
+        "NON-CANONICAL S040",
+        "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)"
+      ],
+      "traceback": false,
+      "typed_finding": [
+        "NON-CANONICAL S040"
+      ],
+      "verdict": "TYPED"
+    },
+    "H-rss-canonical-only": {
+      "any_finding_line": [],
+      "exit": 0,
+      "fired_record_written": false,
+      "note": "control: canonical titles only",
+      "record": {
+        "clock": "feed",
+        "http_status": 200,
+        "id": "S040",
+        "located": null,
+        "observed_at": "2026-10-21T00:00:00Z",
+        "parsed_version": "3.15.1",
+        "sha256": "a8c51880a8ba6ac7f3518d10b6259881da90580a498cf2bb03c5297c31651fba",
+        "url": "https://www.python.org/downloads/feed.rss",
+        "verdict": "not-fired"
+      },
+      "stderr": [],
+      "stdout": [
+        "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=0 fired=0 regressed=0) to /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FRssZero/work/rssh-cand/H-rss-canonical-only/observe-out.json",
+        "RELEASE_CLOCK: CLEAN (on_release=1 bound=1 unbound=0 observed=1 fired=0 derived=0)"
+      ],
+      "traceback": false,
+      "typed_finding": [],
+      "verdict": "CLEAN(exit 0)"
+    },
+    "I-rss-major-zero": {
+      "any_finding_line": [
+        "NON-CANONICAL S040"
+      ],
+      "exit": 1,
+      "fired_record_written": false,
+      "note": "RSS: newest title with a leading zero in the major component",
+      "record": {
+        "clock": "feed",
+        "error": "non-canonical version token: feed newest stable entry",
+        "http_status": 200,
+        "id": "S040",
+        "located": null,
+        "observed_at": "2026-10-21T00:00:00Z",
+        "parsed_version": null,
+        "sha256": "8333efeeae9cc68bac33b991b20411edbdd67b1f0aeac70ffc8ca210e2c5a252",
+        "url": "https://www.python.org/downloads/feed.rss",
+        "verdict": null
+      },
+      "stderr": [],
+      "stdout": [
+        "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FRssZero/work/rssh-cand/I-rss-major-zero/observe-out.json",
+        "NON-CANONICAL S040",
+        "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)"
+      ],
+      "traceback": false,
+      "typed_finding": [
+        "NON-CANONICAL S040"
+      ],
+      "verdict": "TYPED"
+    },
+    "J-rss-middle-zero": {
+      "any_finding_line": [
+        "NON-CANONICAL S040"
+      ],
+      "exit": 1,
+      "fired_record_written": false,
+      "note": "RSS: newest title with a leading zero in the minor component",
+      "record": {
+        "clock": "feed",
+        "error": "non-canonical version token: feed newest stable entry",
+        "http_status": 200,
+        "id": "S040",
+        "located": null,
+        "observed_at": "2026-10-21T00:00:00Z",
+        "parsed_version": null,
+        "sha256": "39e8a09e97041131b2f30fdcfac129458184c23bbc591438daa483deeef08915",
+        "url": "https://www.python.org/downloads/feed.rss",
+        "verdict": null
+      },
+      "stderr": [],
+      "stdout": [
+        "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FRssZero/work/rssh-cand/J-rss-middle-zero/observe-out.json",
+        "NON-CANONICAL S040",
+        "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)"
+      ],
+      "traceback": false,
+      "typed_finding": [
+        "NON-CANONICAL S040"
+      ],
+      "verdict": "TYPED"
+    },
+    "K-rss-v-prefix-zero": {
+      "any_finding_line": [
+        "NON-CANONICAL S040"
+      ],
+      "exit": 1,
+      "fired_record_written": false,
+      "note": "RSS: newest title 'v3.15.01' (v prefix, leading zero)",
+      "record": {
+        "clock": "feed",
+        "error": "non-canonical version token: feed newest stable entry",
+        "http_status": 200,
+        "id": "S040",
+        "located": null,
+        "observed_at": "2026-10-21T00:00:00Z",
+        "parsed_version": null,
+        "sha256": "21d5b3957cdd0c9d2306c28e772638a8f7054b2e0bbe6fee241d72e9648a8858",
+        "url": "https://www.python.org/downloads/feed.rss",
+        "verdict": null
+      },
+      "stderr": [],
+      "stdout": [
+        "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FRssZero/work/rssh-cand/K-rss-v-prefix-zero/observe-out.json",
+        "NON-CANONICAL S040",
+        "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)"
+      ],
+      "traceback": false,
+      "typed_finding": [
+        "NON-CANONICAL S040"
+      ],
+      "verdict": "TYPED"
+    }
+  },
+  "label": "cand",
+  "tree": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FRssZero/cand"
+}

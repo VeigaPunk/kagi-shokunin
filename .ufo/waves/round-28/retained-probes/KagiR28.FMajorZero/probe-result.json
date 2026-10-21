@@ -1,0 +1,192 @@
+{
+  "cand": {
+    "table_observed": {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/KagiR28.FMajorZero/cand/corpus/release-clock.py",
+        "--root",
+        "/tmp/kagi-r28-fmj-cand-qscmsurc/fixture-table-observed",
+        "--receipt",
+        "/tmp/kagi-r28-fmj-cand-qscmsurc/fixture-table-observed/receipt.json",
+        "--receipt-sha",
+        "d4c8e1f66b01e9f8a319f9eb4c01d94e9d61b75e36297cb0ce1004f3073740b0"
+      ],
+      "exit": 1,
+      "stdout": "NON-CANONICAL S040\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)\n",
+      "stderr": "",
+      "verdict": "TYPED",
+      "clean_last_line": false,
+      "traceback_in_output": false,
+      "typed_finding_lines": [
+        "NON-CANONICAL S040"
+      ],
+      "root_files_after_run": [
+        "receipt.json"
+      ],
+      "mirrored_rows": [
+        "S040"
+      ]
+    },
+    "table_anchored": {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/KagiR28.FMajorZero/cand/corpus/release-clock.py",
+        "--root",
+        "/tmp/kagi-r28-fmj-cand-qscmsurc/fixture-table-anchored",
+        "--receipt",
+        "/tmp/kagi-r28-fmj-cand-qscmsurc/fixture-table-anchored/receipt.json",
+        "--receipt-sha",
+        "8aa4678c2ff5da2d9e66b66100123b3bf19a6ceff6bb11c8e4158ca6268c772b"
+      ],
+      "exit": 1,
+      "stdout": "NON-CANONICAL S040\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)\n",
+      "stderr": "",
+      "verdict": "TYPED",
+      "clean_last_line": false,
+      "traceback_in_output": false,
+      "typed_finding_lines": [
+        "NON-CANONICAL S040"
+      ],
+      "root_files_after_run": [
+        "receipt.json"
+      ],
+      "mirrored_rows": [
+        "S040"
+      ]
+    },
+    "observe": {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/tmp/kagi-r28-fmj-cand-qscmsurc/observe-runner-observe-majorzero.py",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/KagiR28.FMajorZero/cand",
+        "/tmp/kagi-r28-fmj-cand-qscmsurc/fixture-observe-majorzero",
+        "/tmp/kagi-r28-fmj-cand-qscmsurc/fixture-observe-majorzero/observe-out.json",
+        "/tmp/kagi-r28-fmj-cand-qscmsurc/fixture-observe-majorzero/feed.atom",
+        "https://www.python.org/downloads/feed.rss",
+        "2026-10-21"
+      ],
+      "exit": 1,
+      "stdout": "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/kagi-r28-fmj-cand-qscmsurc/fixture-observe-majorzero/observe-out.json\nNON-CANONICAL S040\nRELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)\n",
+      "stderr": "",
+      "fired_observation_written": false,
+      "receipt": [
+        {
+          "id": "S040",
+          "verdict": null,
+          "error": "non-canonical version token: feed newest stable entry",
+          "parsed_version": null
+        }
+      ],
+      "receipt_path": "/tmp/kagi-r28-fmj-cand-qscmsurc/fixture-observe-majorzero/observe-out.json",
+      "feed_url": "https://www.python.org/downloads/feed.rss",
+      "mirrored_rows": [
+        "S040"
+      ],
+      "note": "--observe via release-clock.py main(); request_body stubbed to the local fixture feed, utc_timestamp pinned to the row date; table narrowed to the fixture row",
+      "verdict": "TYPED",
+      "clean_last_line": false,
+      "traceback_in_output": false,
+      "typed_finding_lines": [
+        "NON-CANONICAL S040"
+      ]
+    }
+  },
+  "base": {
+    "table_observed": {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/KagiR28.FMajorZero/base/corpus/release-clock.py",
+        "--root",
+        "/tmp/kagi-r28-fmj-base-j95f9d20/fixture-table-observed",
+        "--receipt",
+        "/tmp/kagi-r28-fmj-base-j95f9d20/fixture-table-observed/receipt.json",
+        "--receipt-sha",
+        "d4c8e1f66b01e9f8a319f9eb4c01d94e9d61b75e36297cb0ce1004f3073740b0"
+      ],
+      "exit": 0,
+      "stdout": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=4 derived=15)\n",
+      "stderr": "",
+      "verdict": "MISHANDLED",
+      "clean_last_line": true,
+      "traceback_in_output": false,
+      "typed_finding_lines": [],
+      "root_files_after_run": [
+        "receipt.json"
+      ],
+      "mirrored_rows": [
+        "S040"
+      ]
+    },
+    "table_anchored": {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/KagiR28.FMajorZero/base/corpus/release-clock.py",
+        "--root",
+        "/tmp/kagi-r28-fmj-base-j95f9d20/fixture-table-anchored",
+        "--receipt",
+        "/tmp/kagi-r28-fmj-base-j95f9d20/fixture-table-anchored/receipt.json",
+        "--receipt-sha",
+        "8aa4678c2ff5da2d9e66b66100123b3bf19a6ceff6bb11c8e4158ca6268c772b"
+      ],
+      "exit": 1,
+      "stdout": "INCONSISTENT S040\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)\n",
+      "stderr": "",
+      "verdict": "OTHER",
+      "clean_last_line": false,
+      "traceback_in_output": false,
+      "typed_finding_lines": [],
+      "root_files_after_run": [
+        "receipt.json"
+      ],
+      "mirrored_rows": [
+        "S040"
+      ]
+    },
+    "observe": {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/tmp/kagi-r28-fmj-base-j95f9d20/observe-runner-observe-majorzero.py",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/KagiR28.FMajorZero/base",
+        "/tmp/kagi-r28-fmj-base-j95f9d20/fixture-observe-majorzero",
+        "/tmp/kagi-r28-fmj-base-j95f9d20/fixture-observe-majorzero/observe-out.json",
+        "/tmp/kagi-r28-fmj-base-j95f9d20/fixture-observe-majorzero/feed.atom",
+        "https://www.python.org/downloads/feed.rss",
+        "2026-10-21"
+      ],
+      "exit": 1,
+      "stdout": "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=0 fired=1 regressed=0) to /tmp/kagi-r28-fmj-base-j95f9d20/fixture-observe-majorzero/observe-out.json\nRECEIPT-MISMATCH S040\nRELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)\n",
+      "stderr": "",
+      "fired_observation_written": true,
+      "receipt": [
+        {
+          "id": "S040",
+          "verdict": "fired",
+          "error": null,
+          "parsed_version": "03.15.1"
+        }
+      ],
+      "receipt_path": "/tmp/kagi-r28-fmj-base-j95f9d20/fixture-observe-majorzero/observe-out.json",
+      "feed_url": "https://www.python.org/downloads/feed.rss",
+      "mirrored_rows": [
+        "S040"
+      ],
+      "note": "--observe via release-clock.py main(); request_body stubbed to the local fixture feed, utc_timestamp pinned to the row date; table narrowed to the fixture row",
+      "verdict": "MISHANDLED",
+      "clean_last_line": false,
+      "traceback_in_output": false,
+      "typed_finding_lines": []
+    }
+  }
+}

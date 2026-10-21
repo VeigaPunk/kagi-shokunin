@@ -1,0 +1,160 @@
+{
+  "label": "PATCHED",
+  "results": {
+    "F1_table_lie_leading_zero": {
+      "base_era_lines": [
+        [
+          "RECEIPT-MISMATCH",
+          "S040"
+        ]
+      ],
+      "class": "TYPED",
+      "exit": 1,
+      "fired_python_receipts": false,
+      "output": [
+        "NON-CANONICAL S040",
+        "RECEIPT-MISMATCH S040",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)"
+      ],
+      "typed_lines": [
+        [
+          "NON-CANONICAL",
+          "S040"
+        ]
+      ]
+    },
+    "F2_table_oversize": {
+      "base_era_lines": [
+        [
+          "RECEIPT-MISMATCH",
+          "S040"
+        ]
+      ],
+      "class": "TYPED",
+      "exit": 1,
+      "fired_python_receipts": false,
+      "output": [
+        "NON-CANONICAL S040",
+        "RECEIPT-MISMATCH S040",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)"
+      ],
+      "typed_lines": [
+        [
+          "NON-CANONICAL",
+          "S040"
+        ]
+      ]
+    },
+    "F3_observe_leading_zero": {
+      "base_era_lines": [],
+      "class": "TYPED",
+      "exit": 1,
+      "fired_python_receipts": false,
+      "python_receipts": {
+        "S027": {
+          "error": "non-canonical version token: feed stable entry",
+          "parsed_version": null,
+          "verdict": null
+        },
+        "S028": {
+          "error": "non-canonical version token: feed stable entry",
+          "parsed_version": null,
+          "verdict": null
+        },
+        "S040": {
+          "error": "non-canonical version token: feed stable entry",
+          "parsed_version": null,
+          "verdict": null
+        },
+        "S041": {
+          "error": "non-canonical version token: feed stable entry",
+          "parsed_version": null,
+          "verdict": null
+        }
+      },
+      "text": "RELEASE_CLOCK_OBSERVE: wrote 30 observations (failed=4 fired=2 regressed=0) to /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/XC1Patch/out/fixtures/PATCHED-F3-e5draui2/observe-receipt.json\nNON-CANONICAL S027\nNON-CANONICAL S028\nNON-CANONICAL S040\nNON-CANONICAL S041\nRECEIPT-MISMATCH S031\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=25 fired=1 derived=15)\n",
+      "typed_lines": [
+        [
+          "NON-CANONICAL",
+          "S027"
+        ],
+        [
+          "NON-CANONICAL",
+          "S028"
+        ],
+        [
+          "NON-CANONICAL",
+          "S040"
+        ],
+        [
+          "NON-CANONICAL",
+          "S041"
+        ]
+      ]
+    },
+    "F4_observe_oversize": {
+      "base_era_lines": [],
+      "class": "TYPED",
+      "exit": 1,
+      "fired_python_receipts": false,
+      "python_receipts": {
+        "S027": {
+          "error": "non-canonical version token: feed stable entry",
+          "parsed_version": null,
+          "verdict": null
+        },
+        "S028": {
+          "error": "non-canonical version token: feed stable entry",
+          "parsed_version": null,
+          "verdict": null
+        },
+        "S040": {
+          "error": "non-canonical version token: feed stable entry",
+          "parsed_version": null,
+          "verdict": null
+        },
+        "S041": {
+          "error": "non-canonical version token: feed stable entry",
+          "parsed_version": null,
+          "verdict": null
+        }
+      },
+      "text": "RELEASE_CLOCK_OBSERVE: wrote 30 observations (failed=4 fired=2 regressed=0) to /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/XC1Patch/out/fixtures/PATCHED-F4-3vodcojh/observe-receipt.json\nNON-CANONICAL S027\nNON-CANONICAL S028\nNON-CANONICAL S040\nNON-CANONICAL S041\nRECEIPT-MISMATCH S031\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=25 fired=1 derived=15)\n",
+      "typed_lines": [
+        [
+          "NON-CANONICAL",
+          "S027"
+        ],
+        [
+          "NON-CANONICAL",
+          "S028"
+        ],
+        [
+          "NON-CANONICAL",
+          "S040"
+        ],
+        [
+          "NON-CANONICAL",
+          "S041"
+        ]
+      ]
+    },
+    "control_default": {
+      "class": "control",
+      "exit": 0,
+      "output": [
+        "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)"
+      ]
+    },
+    "control_observe_canonical": {
+      "class": "control",
+      "exit": 1,
+      "fired_python_receipts": [
+        "S027",
+        "S028"
+      ],
+      "text": "RELEASE_CLOCK_OBSERVE: wrote 30 observations (failed=0 fired=4 regressed=0) to /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/XC1Patch/out/fixtures/PATCHED-control-observe-tsfelqq7/observe-receipt.json\nRECEIPT-MISMATCH S031\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)\n"
+    }
+  },
+  "tree": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/XC1Patch/patched"
+}

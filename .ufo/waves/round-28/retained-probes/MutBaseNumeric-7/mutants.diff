@@ -1,0 +1,191 @@
+--- BASE/corpus/release-clock.py
++++ M01/corpus/release-clock.py
+@@ -363,7 +363,7 @@
+     return value[1:] if value[:1].lower() == "v" else value
+ 
+ 
+-NUMERIC_VERSION_RE = re.compile(r"[0-9]+\.[0-9]+\.[0-9]+")
++NUMERIC_VERSION_RE = re.compile(r"\d+\.\d+\.\d+")
+ 
+ 
+ def numeric_version(value):
+
+--- BASE/corpus/release-clock.py
++++ M02/corpus/release-clock.py
+@@ -363,7 +363,7 @@
+     return value[1:] if value[:1].lower() == "v" else value
+ 
+ 
+-NUMERIC_VERSION_RE = re.compile(r"[0-9]+\.[0-9]+\.[0-9]+")
++NUMERIC_VERSION_RE = re.compile(r"[0-9]+\.[0-9]+(?:\.[0-9]+)?")
+ 
+ 
+ def numeric_version(value):
+
+--- BASE/corpus/release-clock.py
++++ M03/corpus/release-clock.py
+@@ -363,7 +363,7 @@
+     return value[1:] if value[:1].lower() == "v" else value
+ 
+ 
+-NUMERIC_VERSION_RE = re.compile(r"[0-9]+\.[0-9]+\.[0-9]+")
++NUMERIC_VERSION_RE = re.compile(r"[0-9]+\.[0-9]+\.[0-9]+(?:\.[0-9]+)?")
+ 
+ 
+ def numeric_version(value):
+
+--- BASE/corpus/release-clock.py
++++ M04/corpus/release-clock.py
+@@ -375,7 +375,7 @@
+     the inequality rule, a declared limit (corpus/lessons/round-27.md §C2).
+     """
+     value = norm_version(value or "")
+-    if not NUMERIC_VERSION_RE.fullmatch(value):
++    if not NUMERIC_VERSION_RE.match(value):
+         return None
+     return tuple(int(part) for part in value.split("."))
+ 
+
+--- BASE/corpus/release-clock.py
++++ M05/corpus/release-clock.py
+@@ -377,7 +377,7 @@
+     value = norm_version(value or "")
+     if not NUMERIC_VERSION_RE.fullmatch(value):
+         return None
+-    return tuple(int(part) for part in value.split("."))
++    return tuple(str(part) for part in value.split("."))
+ 
+ 
+ def is_regression(floor, observed):
+
+--- BASE/corpus/release-clock.py
++++ M06/corpus/release-clock.py
+@@ -377,7 +377,7 @@
+     value = norm_version(value or "")
+     if not NUMERIC_VERSION_RE.fullmatch(value):
+         return None
+-    return tuple(int(part) for part in value.split("."))
++    return tuple(int(part) for part in value.split(".")[:2])
+ 
+ 
+ def is_regression(floor, observed):
+
+--- BASE/corpus/release-clock.py
++++ M07/corpus/release-clock.py
+@@ -377,7 +377,7 @@
+     value = norm_version(value or "")
+     if not NUMERIC_VERSION_RE.fullmatch(value):
+         return None
+-    return tuple(int(part) for part in value.split("."))
++    return tuple(int(part) for part in value.split(".")[1:])
+ 
+ 
+ def is_regression(floor, observed):
+
+--- BASE/corpus/release-clock.py
++++ M08/corpus/release-clock.py
+@@ -384,7 +384,7 @@
+     """True when both are strict X.Y.Z and the observation is numerically older."""
+     anchor = numeric_version(floor)
+     seen = numeric_version(observed)
+-    return anchor is not None and seen is not None and seen < anchor
++    return anchor is not None and seen is not None and seen <= anchor
+ 
+ 
+ def feed_floors(rows):
+
+--- BASE/corpus/release-clock.py
++++ M09/corpus/release-clock.py
+@@ -384,7 +384,7 @@
+     """True when both are strict X.Y.Z and the observation is numerically older."""
+     anchor = numeric_version(floor)
+     seen = numeric_version(observed)
+-    return anchor is not None and seen is not None and seen < anchor
++    return anchor is not None and seen is not None and seen < (anchor[0], anchor[1], anchor[2] - 1)
+ 
+ 
+ def feed_floors(rows):
+
+--- BASE/corpus/release-clock.py
++++ M10/corpus/release-clock.py
+@@ -377,7 +377,7 @@
+     value = norm_version(value or "")
+     if not NUMERIC_VERSION_RE.fullmatch(value):
+         return None
+-    return tuple(int(part) for part in value.split("."))
++    return tuple(int(part[:4300]) for part in value.split("."))
+ 
+ 
+ def is_regression(floor, observed):
+
+--- BASE/corpus/release-clock.py
++++ M11/corpus/release-clock.py
+@@ -707,7 +707,7 @@
+             return status, body, "HTTP %s" % status
+         return status, body, None
+ 
+-STABLE_TITLE_RE = re.compile(r"^(?:[A-Za-z]+ )?v?([0-9]+\.[0-9]+\.[0-9]+)$")
++STABLE_TITLE_RE = re.compile(r"^(?:[A-Za-z]+ )?v?(\d+\.\d+\.\d+)$")
+ STABLE_TAG_HREF_RE = re.compile(r"/releases/tag/v?([0-9]+\.[0-9]+\.[0-9]+)$")
+ TEXT_VERSION_RE = re.compile(r"^Version:[ \t]*v?([0-9]+\.[0-9]+\.[0-9]+)[ \t]*$", re.MULTILINE)
+ 
+
+--- BASE/corpus/release-clock.py
++++ M12/corpus/release-clock.py
+@@ -708,7 +708,7 @@
+         return status, body, None
+ 
+ STABLE_TITLE_RE = re.compile(r"^(?:[A-Za-z]+ )?v?([0-9]+\.[0-9]+\.[0-9]+)$")
+-STABLE_TAG_HREF_RE = re.compile(r"/releases/tag/v?([0-9]+\.[0-9]+\.[0-9]+)$")
++STABLE_TAG_HREF_RE = re.compile(r"/releases/tag/v?(\d+\.\d+\.\d+)$")
+ TEXT_VERSION_RE = re.compile(r"^Version:[ \t]*v?([0-9]+\.[0-9]+\.[0-9]+)[ \t]*$", re.MULTILINE)
+ 
+ 
+
+--- BASE/corpus/release-clock.py
++++ M13/corpus/release-clock.py
+@@ -709,7 +709,7 @@
+ 
+ STABLE_TITLE_RE = re.compile(r"^(?:[A-Za-z]+ )?v?([0-9]+\.[0-9]+\.[0-9]+)$")
+ STABLE_TAG_HREF_RE = re.compile(r"/releases/tag/v?([0-9]+\.[0-9]+\.[0-9]+)$")
+-TEXT_VERSION_RE = re.compile(r"^Version:[ \t]*v?([0-9]+\.[0-9]+\.[0-9]+)[ \t]*$", re.MULTILINE)
++TEXT_VERSION_RE = re.compile(r"^Version:[ \t]*v?(\d+\.\d+\.\d+)[ \t]*$", re.MULTILINE)
+ 
+ 
+ def parse_latest_version(body):
+
+--- BASE/corpus/release-clock.py
++++ M14/corpus/release-clock.py
+@@ -707,7 +707,7 @@
+             return status, body, "HTTP %s" % status
+         return status, body, None
+ 
+-STABLE_TITLE_RE = re.compile(r"^(?:[A-Za-z]+ )?v?([0-9]+\.[0-9]+\.[0-9]+)$")
++STABLE_TITLE_RE = re.compile(r"^(?:[A-Za-z]+ )?v?([0-9]+\.[0-9]+\.[0-9]+)")
+ STABLE_TAG_HREF_RE = re.compile(r"/releases/tag/v?([0-9]+\.[0-9]+\.[0-9]+)$")
+ TEXT_VERSION_RE = re.compile(r"^Version:[ \t]*v?([0-9]+\.[0-9]+\.[0-9]+)[ \t]*$", re.MULTILINE)
+ 
+
+--- BASE/corpus/release-clock.py
++++ M15/corpus/release-clock.py
+@@ -708,7 +708,7 @@
+         return status, body, None
+ 
+ STABLE_TITLE_RE = re.compile(r"^(?:[A-Za-z]+ )?v?([0-9]+\.[0-9]+\.[0-9]+)$")
+-STABLE_TAG_HREF_RE = re.compile(r"/releases/tag/v?([0-9]+\.[0-9]+\.[0-9]+)$")
++STABLE_TAG_HREF_RE = re.compile(r"/releases/tag/v?([0-9]+\.[0-9]+\.[0-9]+)")
+ TEXT_VERSION_RE = re.compile(r"^Version:[ \t]*v?([0-9]+\.[0-9]+\.[0-9]+)[ \t]*$", re.MULTILINE)
+ 
+ 
+
+--- BASE/corpus/release-clock.py
++++ M16/corpus/release-clock.py
+@@ -709,7 +709,7 @@
+ 
+ STABLE_TITLE_RE = re.compile(r"^(?:[A-Za-z]+ )?v?([0-9]+\.[0-9]+\.[0-9]+)$")
+ STABLE_TAG_HREF_RE = re.compile(r"/releases/tag/v?([0-9]+\.[0-9]+\.[0-9]+)$")
+-TEXT_VERSION_RE = re.compile(r"^Version:[ \t]*v?([0-9]+\.[0-9]+\.[0-9]+)[ \t]*$", re.MULTILINE)
++TEXT_VERSION_RE = re.compile(r"^Version:[ \t]*v?([0-9]+\.[0-9]+\.[0-9]+)[ \t]*", re.MULTILINE)
+ 
+ 
+ def parse_latest_version(body):

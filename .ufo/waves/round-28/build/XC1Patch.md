@@ -16,13 +16,14 @@ Revision 3 adds the integrated-lane divergence and frozen-tool rerun. The publis
 1. **Oversize int crash, table path.** `corpus/release-clock.py:380` `int(part)` in `numeric_version` (369–380). Reached from `is_regression` (385–386), from evaluate (567–568, 577), and from `feed_floors` (404, 408), which runs at 523 (evaluate) and 885 (run_observe). Counterexample F2: S040 `observed_version=3.15.`+4301×`1`, verdict fired → Traceback, `ValueError: Exceeds the limit (4300 digits)`, exit 1.
 2. **Leading zero written as a fired release, --observe.** `:760` `max(stable, key=int)` ranks `Python 3.15.01` above `3.15.0`; `:798–801` compares strings and writes `verdict="fired"`. Counterexample F3: python.org titles `Python 3.15.01` and `Python 3.15.0` → receipts S027, S028, S040, S041 each `parsed_version=3.15.01`, `fired`.
 3. **F1 depends on the mirrored receipt fixture.** BASE `:582–583` uses string inequality; the frozen F1 mirrors S040's edited `3.15.01`/fired values into the receipt, so BASE exits 0 CLEAN with fired=4. The earlier custom reproduction used the pinned default receipt and therefore measured RECEIPT-MISMATCH instead; that was not the frozen F1.
-4. **F4 evidence conflicts between the retained artifact and a frozen-tool rerun.** `observe_one` catches `(OSError, ValueError)` at BASE `:822`. The retained `XC1Measure-base-c1.json` reports F4 traceback/MISHANDLED; a rerun of the current instrument against the same BASE archive reports exit 1, no traceback, OTHER. Both observations are preserved; L1 should reconcile the artifact/tool-version difference. F2 table path is a traceback in both.
+4. **F4 retained-artifact fixture construction differs from the current frozen identity-edit fixture.** The integrated `c1-measure.py` (sha fa1706f5…) leaves S040's row unchanged and tests the oversized token only in the feed; BASE exits 1 without traceback and classifies OTHER. Pre-integration tool sha c78029c5… produced the retained BASE artifact (14:24) with F4's 4301-digit value reaching table `evaluate()` / `numeric_version` (BASE `:380`) and a traceback. Its patched-probe artifact also records the row-guard error. These artifacts are historical, not the same F4 construction as the current frozen tool.
 5. **Feed poisoning.** A non-canonical anchor becomes the feed floor: `feed_floors` 404–409 with `1.2.04` lifts the floor above S001's `1.2.3`, giving REGRESSED S001 and INCONSISTENT S004 (selftest case; BASE fails it).
 6. **Wrong category by accident.** Observed `1.00.0` below anchor `1.2.3` is REGRESSED on BASE, not a canonicality finding.
+- **F7r, derived anchor accepted at BASE.** `evaluate()` at `corpus/release-clock.py:566` sets `anchor_ok = is_derived or …`; numeric strictness at `:577` checks only `observed_version`. Counterexample: derived row `anchored=1.2.03`, `observed=1.2.03`, `verdict=not-fired`, matching receipt → BASE has no errors, `observed=1`, `passed=True` (the red selftest result). The strict branch flags NON-CANONICAL. This is selftest evidence, not frozen F1–F4 coverage: none of those fixtures carries a non-canonical anchor. The integrated lane's C2 guard keeps the derived case in its selftest; the strict lane candidate passes it.
 7. **Dead second grammar.** `VERSION_RE` at `:30–33` has no users (grep: definition only) and accepts leading zeros and suffixes. The patch deletes it.
 8. **Sourcing update.** At BASE `corpus/SOURCES.md:49` (S042) teaches §11.2 only. The integrated lane now has S044 (Python int-string limit) and S045 (SemVer §2); this resolves the cited sourcing gap there. The standalone XC1Patch.diff still cites S042 for §2; the lane-side strict candidate retains the integrated S045 citation.
 9. **Integrated lane diverges from the strict patch.** The lane's `newest_stable` at `corpus/release-clock.py:784-798` silently ignores a non-canonical entry below the canonical max; `corpus/lessons/round-28.md:63-64` documents that weaker rule. BASE plan C1 `plans/round-28.md:21-23` requires any feed-entry token to be canonical and otherwise a typed feed finding. No plan correction narrows that scope. Lane-copy control is CLEAN, selftest PASS (106), but `3.15.1` + `3.14.01` returns `3.15.1` without a finding.
-10. **Frozen measurement evidence is inconsistent.** Current `.ufo/waves/round-28/tools/c1-measure.py` rerun on the BASE archive reports MISHANDLED 3/4, OTHER 1/4; retained `XC1Measure-base-c1.json` reports MISHANDLED 4/4. F4 is the discrepancy (see finding 4). The current instrument copy used for reruns is byte-identical to the lane tool.
+10. **Retained measurement artifacts use the pre-integration tool.** Current tool sha fa1706f5… rerun on BASE is MISHANDLED 3/4, OTHER 1/4; pre-integration tool sha c78029c5… artifacts report 4/4, with F4 table traceback and patched-probe row-guard receipt. The lane-native identity-edit tool and current rerun agree on the 3/4 result.
 
 ## Revision 2 changes (RevSelftestIsolation-7 defects)
 
@@ -51,16 +52,17 @@ Revision 3 adds the integrated-lane divergence and frozen-tool rerun. The publis
 | Lane integrated copy | default exit 0 CLEAN; selftest exit 0 PASS (106) |
 | Lane strict candidate (`XC1LaneStrict.diff`) | default exit 0 CLEAN; selftest exit 0 PASS (107) |
 | Frozen instrument rerun: BASE | MISHANDLED 3/4, TYPED 0/4, OTHER 1/4; control clean |
-| Retained `XC1Measure-base-c1.json` | MISHANDLED 4/4; records F4 traceback (conflicts with rerun) |
-| Frozen instrument: strict patch, composed, lane, lane-strict | each MISHANDLED 0/4, TYPED 4/4, OTHER 0/4; fired observation written=false on F3/F4 |
+| Historical pre-integration `XC1Measure-base-c1.json` | MISHANDLED 4/4 (different F4 construction; not comparable to identity-edit rerun) |
+| Frozen instrument: strict patch, composed, lane snapshot, lane-native 62a33b1 and lane-strict | each MISHANDLED 0/4, TYPED 4/4, OTHER 0/4; fired observation written=false on F3/F4 |
 | Property checks | strict patch and lane-strict exit 0, 24/24 PASS |
 
 The frozen F1/F2 fixtures mirror edited table rows into receipts; my earlier `out/c1_repro.py` did not, so its F1 count is superseded. BASE+patched-selftest remains exit 1 (25 FAIL lines, all 18 new case names). The stricter rule is distinguished by the added selftest `older leading-zero refused`: lane integrated parses `3.15.1` alongside `3.14.01`; lane-strict refuses with `NON-CANONICAL`.
 
 ## Lane-side strict candidate and L1 decision
 
-- `build/XC1LaneStrict.diff` (61 lines) applies to the integrated lane snapshot, preserves its later C2/S044/S045 edits, changes `newest_stable` to reject every non-canonical stable entry, changes older-oversize to require a typed refusal, and adds the below-newest leading-zero case. It is a sandbox candidate, not applied to the lane.
-- Frozen-tool commit of this candidate: `cd8ffeffbb849f5f6ce2ec9ea72b9ae8abd1203a`; tool result exit 0, TYPED 4/4, no fired observation written.
+- `build/XC1LaneStrict.diff` (61 lines) applies to lane-native rev `62a33b1bd15217ed729df2ca40c8a30aba3076c0`, preserves its later C2/S044/S045 edits, rejects every non-canonical stable entry, changes older-oversize to require a typed refusal, and adds the below-newest leading-zero case. Dry-run/apply both exit 0 in a sandbox; resulting file sha `89bcead2…`, selftest PASS (107), default CLEAN.
+- Lane-native `62a33b1` itself remains lenient on below-newest entries; the current frozen candidate artifact `XC1Measure-candidate-c1.json` measures F1–F4 TYPED 4/4 because those fixtures do not exercise below-newest input.
+- Frozen predicate follow-up: with current identity-edit fixtures, BASE is MISHANDLED 3/4 (k=3); F4 is OTHER and becomes TYPED after strict handling. L1 should append this measured `k=3` and OTHER→TYPED transition as a plan correction; leave the frozen command and fixture values unchanged.
 - Recommendation: restore strict rule because it matches frozen plan C1. If L1 chooses the weaker at-or-above-newest scope, append a plan correction and add a frozen below-newest fixture; code, lesson and published diff must then agree.
 
 ## Composition (C1 + XC2 final), built and tested
@@ -93,8 +95,7 @@ The frozen F1/F2 fixtures mirror edited table rows into receipts; my earlier `ou
 - Lane-copy default/selftest → 0/0 (CLEAN / PASS 106); lane-strict candidate default/selftest → 0/0 (CLEAN / PASS 107).
 - BASE code + patched C1 selftest → 1 (25 FAIL lines, all 18 new names). Property checks on strict C1 and lane-strict → 0, 24/24.
 - `patch -p1 --dry-run` and apply XC1Patch.diff → 0; applied file cmp → 0; applied default with receipt → 0. `diff -u` → 1 (changes).
-- `python3 -I -B .ufo/waves/round-28/tools/c1-measure.py REV LABEL OUT.json` in the sandbox measure repo → exit 0 for BASE `89306216712530188bc3f9a33e2d66ff0aba2ece`, PATCHED `d7bcebb2aef13ee4552f5fee34876903a5b8f6e4`, COMPOSED `1896ecf6c6b071afe58e39a316a138ebddceeec7`, LANE `613aa695bd54b0f830351e8bc8e7936822f3406b`, LANE-STRICT `cd8ffeffbb849f5f6ce2ec9ea72b9ae8abd1203a`. BASE rerun summary is MISHANDLED 3/4, OTHER 1/4; strict variants each MISHANDLED 0/4, TYPED 4/4; control clean.
-- Retained `XC1Measure-base-c1.json` instead says BASE MISHANDLED 4/4 and records F4 traceback. This conflicts with the rerun; both outputs are retained and reported, not reconciled by assumption.
+- Integrated tool sha fa1706f5… artifacts: BASE `XC1Measure-base-c1-rerun.json` → MISHANDLED 3/4, OTHER 1/4; lane-native 62a33b1 `XC1Measure-candidate-c1.json` → TYPED 4/4. Pre-integration sha c78029c5… artifacts `XC1Measure-base-c1.json` and `XC1Measure-patched-probe-c1.json` are historical (F4 table-mirrored / row-guard construction).
 - Frozen-tool F3/F4 `fired_observation_written` is false for strict PATCHED, COMPOSED, LANE and LANE-STRICT. The BASE artifact records F3 true.
 - `git merge-file -p --diff3` → 2 conflicts, resolved in the earlier C1+C2 draft. `XC1LaneStrict.diff` → 1 from `diff -u` (expected differences); candidate verified in a sandbox.
 
@@ -104,7 +105,7 @@ The frozen F1/F2 fixtures mirror edited table rows into receipts; my earlier `ou
 - No live feeds; observation fixtures use the frozen instrument's local feed stubs.
 - SemVer/CPython docs were not fetched during this seat; current lane registry has S044/S045.
 - Claim-ledger, self-count, stamps and other gates were not run.
-- L1 must decide strict restoration versus a plan correction for the weaker scope, and reconcile the retained BASE measurement artifact with a rerun of the current frozen tool.
+- L1 should decide strict restoration versus a plan correction for the weaker scope, and append the measured baseline `k=3` / F4 OTHER→TYPED correction; the frozen command and fixtures stay unchanged.
 - The composition tested at 103 is the XC2 final available to this seat; the integrated lane later has additional C2 edits and selftest 106.
 
 Installs: none. Sandbox writes: `.ufo/waves/round-28/sandboxes/XC1Patch/` (base, patched, composed, lane-copy, lane-fix, measure-repo, out/, release-clock.py) and `build/XC1Patch.diff`, `build/XC1LaneStrict.diff`, `build/XC1Patch.md`. Temporary `/tmp` files were created and removed.

@@ -1,0 +1,89 @@
+{
+  "tree": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveSops/cand",
+  "cases": [
+    {
+      "label": "G1-mirrored",
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveSops/cand/corpus/release-clock.py",
+        "--root",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveSops/work-cand/G1-mirrored/root",
+        "--receipt",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveSops/work-cand/G1-mirrored/receipt.json",
+        "--receipt-sha",
+        "471fbbbde3309e8ccc643c8546c4ae9042781227cecd9c2d87dccd72f19a5996"
+      ],
+      "exit": 1,
+      "stdout": "DERIVATION S008\nDERIVATION S009\nDERIVATION S010\nDERIVATION S011\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=26 fired=3 derived=11)\n",
+      "stderr": "",
+      "tail": "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=26 fired=3 derived=11)",
+      "findings": [
+        "DERIVATION S008",
+        "DERIVATION S009",
+        "DERIVATION S010",
+        "DERIVATION S011"
+      ],
+      "edited": [
+        "S008",
+        "S009",
+        "S010",
+        "S011"
+      ],
+      "mirrored": [
+        "S008",
+        "S009",
+        "S010",
+        "S011"
+      ],
+      "tree_unchanged": true,
+      "traceback": false
+    },
+    {
+      "label": "G1-unmirrored",
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveSops/cand/corpus/release-clock.py",
+        "--root",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveSops/work-cand/G1-unmirrored/root",
+        "--receipt",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveSops/work-cand/G1-unmirrored/receipt.json",
+        "--receipt-sha",
+        "13b8540c78b9de07bc184894583a368472fd1f2f04a898220bf7c29d2648a169"
+      ],
+      "exit": 1,
+      "stdout": "DERIVATION S008\nDERIVATION S009\nDERIVATION S010\nDERIVATION S011\nRECEIPT-MISMATCH S008\nRECEIPT-MISMATCH S009\nRECEIPT-MISMATCH S010\nRECEIPT-MISMATCH S011\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=26 fired=3 derived=11)\n",
+      "stderr": "",
+      "tail": "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=26 fired=3 derived=11)",
+      "findings": [
+        "DERIVATION S008",
+        "DERIVATION S009",
+        "DERIVATION S010",
+        "DERIVATION S011",
+        "RECEIPT-MISMATCH S008",
+        "RECEIPT-MISMATCH S009",
+        "RECEIPT-MISMATCH S010",
+        "RECEIPT-MISMATCH S011"
+      ],
+      "edited": [
+        "S008",
+        "S009",
+        "S010",
+        "S011"
+      ],
+      "mirrored": [],
+      "tree_unchanged": true,
+      "traceback": false
+    }
+  ],
+  "control": {
+    "exit": 0,
+    "tail": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)",
+    "findings": [],
+    "stdout": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)\n",
+    "stderr": ""
+  }
+}

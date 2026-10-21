@@ -1,0 +1,332 @@
+{
+ "wave": "kagi-r28-falsify",
+ "context": "# Goal\nkagi round28 FALSIFY wave. Lane repo /home/vgpnk/Projects/shokunin/kagi-shokunin (secrets & vault ops shokunin). Frozen original BASE 3553d499577084a6c98d7078906017840bbf7b28; pinned candidate 62a33b1bd15217ed729df2ca40c8a30aba3076c0 (claims-file commit bdf90f58e43fdcae6291224197afe17812a16b55 adds only plans/round-28.md + the START census; code identical to BASE). Read /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-28.md FIRST \u2014 it is frozen: C1 freshness (corpus/release-clock.py: non-canonical version tokens \u2014 leading-zero components, components beyond CPython's int-string conversion limit \u2014 become typed findings, never a fired release and never a traceback; sourced by a registry row opened this round), C2 calibration (the 15 `derived:` release-clock rows' anchored version must equal the version named by their feed_source_id registry row's located anchor in corpus/SOURCES.md; mismatch is a typed finding). The frozen counting commands and fixture sets in that file are NEVER changed; report any defect in them as a finding, do not redefine them. L1 is planner and SOLE production integrator; seats advise. Honest findings and counterexamples; no consensus padding.\n# Contract\nProduction files under /home/vgpnk/Projects/shokunin/kagi-shokunin are READ ONLY. Every `Report:` trailer path is relative to /home/vgpnk/Projects/shokunin/kagi-shokunin \u2014 write it at /home/vgpnk/Projects/shokunin/kagi-shokunin/<that path>. Your only writes: your unique report and uniquely named artifacts beneath /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/build/ or your unique sandbox /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/<YourName>/ (code drafts and runs go there). To get a BASE tree: `mkdir -p /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/<YourName>/base && git -C /home/vgpnk/Projects/shokunin/kagi-shokunin archive 3553d499577084a6c98d7078906017840bbf7b28 | tar -x -C /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/<YourName>/base` (read-only git; never clone into or run code in the lane checkout itself). Never write in the fleet root /home/vgpnk/Projects/shokunin outside /home/vgpnk/Projects/shokunin/kagi-shokunin, sibling lanes, the lane Git index or jj state; no commits/pushes; no git/jj mutating commands in the lane; no subagents or swarms (an executor may spawn one read-only labrat only). Executors may run their own drafts only inside their sandbox; everyone else: do NOT run lane gates/selftests in the lane checkout. Read ledger pins in /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/claim-ledger.tsv instead of executing host rows. No host-private reads (no ~/.config, op.env, tokens, sessions), no vault/account/handler/CDP contact; public primary documentation/feeds only where your item asks. Never fabricate; mark inference; unrun checks are not passes. Tooling: you may install/upgrade tools that help, after reading /home/vgpnk/.omp/agent/RULES.md (official channels; record tool/version/channel/reason in your report); ALL pacman transactions are PAUSED host-wide \u2014 use uv tool/npx/official binaries in ~/.local/bin; when the pause lifts the dry-run rule applies (`pacman -Sp --print-format '%n %v'` first; never -Sy/-Syu/-U/-R, downgrades or service restarts). Your report is lane-authored advice, not non-author closure; never write SHONEN marks. Historical receipts, LOG and lessons are append-only. Never message agent://all.\n# Report\nMarkdown, \u2264120 lines unless your item says otherwise: findings first with exact path:line at BASE, commands run with exit codes, what you did NOT check.\n# New scratch directive\nAll clones and heavy scratch (>=200MB) MUST live under /fast/scratch/hyaku/kagi-r28/<YourName>/, never /tmp or an evidence directory. Delete your own clone at completion; retain small diffs/receipts with your report. Export pinned candidate 62a33b1bd15217ed729df2ca40c8a30aba3076c0 (not the original BASE) unless your comparison explicitly needs BASE. NO production edits; skip fleet-wide builds/tests; sandbox probes expressly requested above are authorized. Wave1 has 73 seats; this falsification wave has64 distinct attack items. L1 planner seat retained.\n",
+ "items": [
+  {
+   "name": "FObsZero",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nIndependently reproduce candidate behavior for table observation 3.15.01 (mirrored receipt). Use an isolated exported candidate tree, no network unless absolutely necessary. Assert exact typed category for bad inputs, no Traceback, no fired verdict written; do not accept generic receipt mismatch as proof of the new rule. Compare BASE when meaningful. Attack only this carrier, not the whole round.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/FObsZero.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "FAnchorZero",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nIndependently reproduce candidate behavior for derived S008 anchor 3.13.03. Use an isolated exported candidate tree, no network unless absolutely necessary. Assert exact typed category for bad inputs, no Traceback, no fired verdict written; do not accept generic receipt mismatch as proof of the new rule. Compare BASE when meaningful. Attack only this carrier, not the whole round.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/FAnchorZero.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "FObsHuge",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nIndependently reproduce candidate behavior for table observation with 4301-digit patch. Use an isolated exported candidate tree, no network unless absolutely necessary. Assert exact typed category for bad inputs, no Traceback, no fired verdict written; do not accept generic receipt mismatch as proof of the new rule. Compare BASE when meaningful. Attack only this carrier, not the whole round.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/FObsHuge.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "FAnchorHuge",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nIndependently reproduce candidate behavior for derived S008 anchor with 4301-digit patch. Use an isolated exported candidate tree, no network unless absolutely necessary. Assert exact typed category for bad inputs, no Traceback, no fired verdict written; do not accept generic receipt mismatch as proof of the new rule. Compare BASE when meaningful. Attack only this carrier, not the whole round.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/FAnchorHuge.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "FMajorZero",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nIndependently reproduce candidate behavior for table observation 03.15.1. Use an isolated exported candidate tree, no network unless absolutely necessary. Assert exact typed category for bad inputs, no Traceback, no fired verdict written; do not accept generic receipt mismatch as proof of the new rule. Compare BASE when meaningful. Attack only this carrier, not the whole round.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/FMajorZero.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "FMinorZero",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nIndependently reproduce candidate behavior for table observation 3.015.1. Use an isolated exported candidate tree, no network unless absolutely necessary. Assert exact typed category for bad inputs, no Traceback, no fired verdict written; do not accept generic receipt mismatch as proof of the new rule. Compare BASE when meaningful. Attack only this carrier, not the whole round.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/FMinorZero.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "FZeroCore",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nIndependently reproduce candidate behavior for 0.0.0 canonical control. Use an isolated exported candidate tree, no network unless absolutely necessary. Assert exact typed category for bad inputs, no Traceback, no fired verdict written; do not accept generic receipt mismatch as proof of the new rule. Compare BASE when meaningful. Attack only this carrier, not the whole round.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/FZeroCore.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "FBound18",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nIndependently reproduce candidate behavior for 18-digit component canonical control. Use an isolated exported candidate tree, no network unless absolutely necessary. Assert exact typed category for bad inputs, no Traceback, no fired verdict written; do not accept generic receipt mismatch as proof of the new rule. Compare BASE when meaningful. Attack only this carrier, not the whole round.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/FBound18.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "FBound19",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nIndependently reproduce candidate behavior for 19-digit component non-canonical. Use an isolated exported candidate tree, no network unless absolutely necessary. Assert exact typed category for bad inputs, no Traceback, no fired verdict written; do not accept generic receipt mismatch as proof of the new rule. Compare BASE when meaningful. Attack only this carrier, not the whole round.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/FBound19.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "FEnv640",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nIndependently reproduce candidate behavior for invoke Python -X int_max_str_digits=640 with 640- and 4301-digit tokens. Use an isolated exported candidate tree, no network unless absolutely necessary. Assert exact typed category for bad inputs, no Traceback, no fired verdict written; do not accept generic receipt mismatch as proof of the new rule. Compare BASE when meaningful. Attack only this carrier, not the whole round.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/FEnv640.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "FEnvDisabled",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nIndependently reproduce candidate behavior for PYTHONINTMAXSTRDIGITS=0 without -I; oversized observation still refused. Use an isolated exported candidate tree, no network unless absolutely necessary. Assert exact typed category for bad inputs, no Traceback, no fired verdict written; do not accept generic receipt mismatch as proof of the new rule. Compare BASE when meaningful. Attack only this carrier, not the whole round.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/FEnvDisabled.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "FAtomZero",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nIndependently reproduce candidate behavior for Atom newest leading-zero title. Use an isolated exported candidate tree, no network unless absolutely necessary. Assert exact typed category for bad inputs, no Traceback, no fired verdict written; do not accept generic receipt mismatch as proof of the new rule. Compare BASE when meaningful. Attack only this carrier, not the whole round.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/FAtomZero.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "FAtomHuge",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nIndependently reproduce candidate behavior for Atom newest oversized title. Use an isolated exported candidate tree, no network unless absolutely necessary. Assert exact typed category for bad inputs, no Traceback, no fired verdict written; do not accept generic receipt mismatch as proof of the new rule. Compare BASE when meaningful. Attack only this carrier, not the whole round.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/FAtomHuge.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "FRssZero",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nIndependently reproduce candidate behavior for RSS newest leading-zero title. Use an isolated exported candidate tree, no network unless absolutely necessary. Assert exact typed category for bad inputs, no Traceback, no fired verdict written; do not accept generic receipt mismatch as proof of the new rule. Compare BASE when meaningful. Attack only this carrier, not the whole round.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/FRssZero.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "FRssHuge",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nIndependently reproduce candidate behavior for RSS newest oversized title. Use an isolated exported candidate tree, no network unless absolutely necessary. Assert exact typed category for bad inputs, no Traceback, no fired verdict written; do not accept generic receipt mismatch as proof of the new rule. Compare BASE when meaningful. Attack only this carrier, not the whole round.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/FRssHuge.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "FTextZero",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nIndependently reproduce candidate behavior for curl Version line leading-zero token. Use an isolated exported candidate tree, no network unless absolutely necessary. Assert exact typed category for bad inputs, no Traceback, no fired verdict written; do not accept generic receipt mismatch as proof of the new rule. Compare BASE when meaningful. Attack only this carrier, not the whole round.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/FTextZero.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "FTextHuge",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nIndependently reproduce candidate behavior for curl Version line oversized component. Use an isolated exported candidate tree, no network unless absolutely necessary. Assert exact typed category for bad inputs, no Traceback, no fired verdict written; do not accept generic receipt mismatch as proof of the new rule. Compare BASE when meaningful. Attack only this carrier, not the whole round.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/FTextHuge.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "FFeedTie",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nIndependently reproduce candidate behavior for canonical/noncanonical numeric tie both orders. Use an isolated exported candidate tree, no network unless absolutely necessary. Assert exact typed category for bad inputs, no Traceback, no fired verdict written; do not accept generic receipt mismatch as proof of the new rule. Compare BASE when meaningful. Attack only this carrier, not the whole round.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/FFeedTie.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "FFeedOlder",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nIndependently reproduce candidate behavior for noncanonical older than canonical entry (documented ignored limit). Use an isolated exported candidate tree, no network unless absolutely necessary. Assert exact typed category for bad inputs, no Traceback, no fired verdict written; do not accept generic receipt mismatch as proof of the new rule. Compare BASE when meaningful. Attack only this carrier, not the whole round.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/FFeedOlder.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "FReceiptToken",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nIndependently reproduce candidate behavior for receipt parsed_version malformed while table canonical. Use an isolated exported candidate tree, no network unless absolutely necessary. Assert exact typed category for bad inputs, no Traceback, no fired verdict written; do not accept generic receipt mismatch as proof of the new rule. Compare BASE when meaningful. Attack only this carrier, not the whole round.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/FReceiptToken.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "FObserveAnchor",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nIndependently reproduce candidate behavior for observe derived row anchor noncanonical, no fired receipt. Use an isolated exported candidate tree, no network unless absolutely necessary. Assert exact typed category for bad inputs, no Traceback, no fired verdict written; do not accept generic receipt mismatch as proof of the new rule. Compare BASE when meaningful. Attack only this carrier, not the whole round.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/FObserveAnchor.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "FObservePrevious",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nIndependently reproduce candidate behavior for observe previous table observation noncanonical. Use an isolated exported candidate tree, no network unless absolutely necessary. Assert exact typed category for bad inputs, no Traceback, no fired verdict written; do not accept generic receipt mismatch as proof of the new rule. Compare BASE when meaningful. Attack only this carrier, not the whole round.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/FObservePrevious.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "FSeriesControl",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nIndependently reproduce candidate behavior for S012 non-derived v1.21.x remains valid. Use an isolated exported candidate tree, no network unless absolutely necessary. Assert exact typed category for bad inputs, no Traceback, no fired verdict written; do not accept generic receipt mismatch as proof of the new rule. Compare BASE when meaningful. Attack only this carrier, not the whole round.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/FSeriesControl.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "FDeriveSops",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nIndependently reproduce candidate behavior for G1 all four SOPS rows lowered. Use an isolated exported candidate tree, no network unless absolutely necessary. Assert exact typed category for bad inputs, no Traceback, no fired verdict written; do not accept generic receipt mismatch as proof of the new rule. Compare BASE when meaningful. Attack only this carrier, not the whole round.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/FDeriveSops.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "FDeriveVault",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nIndependently reproduce candidate behavior for G2 Vault group lowered, S012 unaffected. Use an isolated exported candidate tree, no network unless absolutely necessary. Assert exact typed category for bad inputs, no Traceback, no fired verdict written; do not accept generic receipt mismatch as proof of the new rule. Compare BASE when meaningful. Attack only this carrier, not the whole round.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/FDeriveVault.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "FDeriveBao",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nIndependently reproduce candidate behavior for G3 OpenBao six rows lowered. Use an isolated exported candidate tree, no network unless absolutely necessary. Assert exact typed category for bad inputs, no Traceback, no fired verdict written; do not accept generic receipt mismatch as proof of the new rule. Compare BASE when meaningful. Attack only this carrier, not the whole round.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/FDeriveBao.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "FDeriveCurl",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nIndependently reproduce candidate behavior for G4 curl single lowered row. Use an isolated exported candidate tree, no network unless absolutely necessary. Assert exact typed category for bad inputs, no Traceback, no fired verdict written; do not accept generic receipt mismatch as proof of the new rule. Compare BASE when meaningful. Attack only this carrier, not the whole round.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/FDeriveCurl.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "FDeriveRaised",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nIndependently reproduce candidate behavior for derived anchor raised above feed-row anchor with a matching canonical observation. Use an isolated exported candidate tree, no network unless absolutely necessary. Assert exact typed category for bad inputs, no Traceback, no fired verdict written; do not accept generic receipt mismatch as proof of the new rule. Compare BASE when meaningful. Attack only this carrier, not the whole round.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/FDeriveRaised.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "FDeriveRc",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nIndependently reproduce candidate behavior for feed-row anchor only v2.2.0-rc1 cannot bind 2.2.0. Use an isolated exported candidate tree, no network unless absolutely necessary. Assert exact typed category for bad inputs, no Traceback, no fired verdict written; do not accept generic receipt mismatch as proof of the new rule. Compare BASE when meaningful. Attack only this carrier, not the whole round.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/FDeriveRc.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "FDeriveTwo",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nIndependently reproduce candidate behavior for feed-row anchor naming two distinct stable versions binds none. Use an isolated exported candidate tree, no network unless absolutely necessary. Assert exact typed category for bad inputs, no Traceback, no fired verdict written; do not accept generic receipt mismatch as proof of the new rule. Compare BASE when meaningful. Attack only this carrier, not the whole round.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/FDeriveTwo.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "SourceS044",
+   "role": "scout",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nReopen registered S044 URL yourself; verify registered source/scope/anchor/teaches against page, Gate quote <=25 words and locate with declared normalizer, capture identity+sha/bytes in source-fetches.tsv. Do not treat old scout advice as verification. Attack one source row only, include status/eligibility/draft qualifiers. Report any scope overclaim.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/SourceS044.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "SourceS045",
+   "role": "scout",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nReopen registered S045 URL yourself; verify registered source/scope/anchor/teaches against page, Gate quote <=25 words and locate with declared normalizer, capture identity+sha/bytes in source-fetches.tsv. Do not treat old scout advice as verification. Attack one source row only, include status/eligibility/draft qualifiers. Report any scope overclaim.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/SourceS045.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "SourceS046",
+   "role": "scout",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nReopen registered S046 URL yourself; verify registered source/scope/anchor/teaches against page, Gate quote <=25 words and locate with declared normalizer, capture identity+sha/bytes in source-fetches.tsv. Do not treat old scout advice as verification. Attack one source row only, include status/eligibility/draft qualifiers. Report any scope overclaim.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/SourceS046.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "SourceS047",
+   "role": "scout",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nReopen registered S047 URL yourself; verify registered source/scope/anchor/teaches against page, Gate quote <=25 words and locate with declared normalizer, capture identity+sha/bytes in source-fetches.tsv. Do not treat old scout advice as verification. Attack one source row only, include status/eligibility/draft qualifiers. Report any scope overclaim.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/SourceS047.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "SourceS048",
+   "role": "scout",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nReopen registered S048 URL yourself; verify registered source/scope/anchor/teaches against page, Gate quote <=25 words and locate with declared normalizer, capture identity+sha/bytes in source-fetches.tsv. Do not treat old scout advice as verification. Attack one source row only, include status/eligibility/draft qualifiers. Report any scope overclaim.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/SourceS048.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "SourceS049",
+   "role": "scout",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nReopen registered S049 URL yourself; verify registered source/scope/anchor/teaches against page, Gate quote <=25 words and locate with declared normalizer, capture identity+sha/bytes in source-fetches.tsv. Do not treat old scout advice as verification. Attack one source row only, include status/eligibility/draft qualifiers. Report any scope overclaim.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/SourceS049.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "MutNoLeadZero",
+   "role": "mutation-tester",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nOne bounded mutate-run-revert probe in your own candidate archive: remove leading-zero refusal. Run clock --selftest and the relevant frozen counting tool/harness on the mutant; show which case kills it, or report survivor. Never mutate production. Retain only diff and receipt, not full clone.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/MutNoLeadZero.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "MutNoLength",
+   "role": "mutation-tester",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nOne bounded mutate-run-revert probe in your own candidate archive: remove component digit bound. Run clock --selftest and the relevant frozen counting tool/harness on the mutant; show which case kills it, or report survivor. Never mutate production. Retain only diff and receipt, not full clone.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/MutNoLength.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "MutIntOrder",
+   "role": "mutation-tester",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nOne bounded mutate-run-revert probe in your own candidate archive: restore int() tuple ordering with malformed anchor. Run clock --selftest and the relevant frozen counting tool/harness on the mutant; show which case kills it, or report survivor. Never mutate production. Retain only diff and receipt, not full clone.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/MutIntOrder.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "MutSkipNewest",
+   "role": "mutation-tester",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nOne bounded mutate-run-revert probe in your own candidate archive: silently discard every noncanonical feed entry. Run clock --selftest and the relevant frozen counting tool/harness on the mutant; show which case kills it, or report survivor. Never mutate production. Retain only diff and receipt, not full clone.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/MutSkipNewest.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "MutAcceptTie",
+   "role": "mutation-tester",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nOne bounded mutate-run-revert probe in your own candidate archive: allow equal-valued noncanonical/canonical ties. Run clock --selftest and the relevant frozen counting tool/harness on the mutant; show which case kills it, or report survivor. Never mutate production. Retain only diff and receipt, not full clone.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/MutAcceptTie.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "MutNoDerived",
+   "role": "mutation-tester",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nOne bounded mutate-run-revert probe in your own candidate archive: remove DERIVATION check. Run clock --selftest and the relevant frozen counting tool/harness on the mutant; show which case kills it, or report survivor. Never mutate production. Retain only diff and receipt, not full clone.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/MutNoDerived.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "MutDeriveOwn",
+   "role": "mutation-tester",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nOne bounded mutate-run-revert probe in your own candidate archive: bind to own row not feed row. Run clock --selftest and the relevant frozen counting tool/harness on the mutant; show which case kills it, or report survivor. Never mutate production. Retain only diff and receipt, not full clone.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/MutDeriveOwn.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "MutDeriveWhole",
+   "role": "mutation-tester",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nOne bounded mutate-run-revert probe in your own candidate archive: scan whole feed row not anchor cell. Run clock --selftest and the relevant frozen counting tool/harness on the mutant; show which case kills it, or report survivor. Never mutate production. Retain only diff and receipt, not full clone.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/MutDeriveWhole.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "MutDeriveContain",
+   "role": "mutation-tester",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nOne bounded mutate-run-revert probe in your own candidate archive: replace exact set equality with version_is_named. Run clock --selftest and the relevant frozen counting tool/harness on the mutant; show which case kills it, or report survivor. Never mutate production. Retain only diff and receipt, not full clone.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/MutDeriveContain.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "MutDeriveGE",
+   "role": "mutation-tester",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nOne bounded mutate-run-revert probe in your own candidate archive: accept anchors >= feed anchor instead of exact equality. Run clock --selftest and the relevant frozen counting tool/harness on the mutant; show which case kills it, or report survivor. Never mutate production. Retain only diff and receipt, not full clone.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/MutDeriveGE.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "CritFrozenC1",
+   "role": "critic",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nAttack this bounded contract: C1 instrument preserves frozen F1-F4 text: table+receipt only F1/F2; F3/F4 unchanged table and local feed injection; BASE3 mishandled, F4 OTHER; classifier excludes BASE-era categories honestly. Read committed candidate, not mutable lane artifacts; execute only sandbox-local checks explicitly needed. Preserve frozen command/predicate; do not redefine scope to rescue admission.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/CritFrozenC1.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "CritFrozenC2",
+   "role": "critic",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nAttack this bounded contract: C2 instrument derives exactly four groups and matches only DERIVATION category; receipt-only failure cannot count EXACT. Read committed candidate, not mutable lane artifacts; execute only sandbox-local checks explicitly needed. Preserve frozen command/predicate; do not redefine scope to rescue admission.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/CritFrozenC2.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "CritSeparability",
+   "role": "critic",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nAttack this bounded contract: candidate C1-only/C2-only overlays; report any real behavioral coupling, helper ownership, source fixture changes. Read committed candidate, not mutable lane artifacts; execute only sandbox-local checks explicitly needed. Preserve frozen command/predicate; do not redefine scope to rescue admission.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/CritSeparability.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "CritAxis",
+   "role": "critic",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nAttack this bounded contract: one freshness claim with two commands; no calibration delta credited; no score inflation. Read committed candidate, not mutable lane artifacts; execute only sandbox-local checks explicitly needed. Preserve frozen command/predicate; do not redefine scope to rescue admission.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/CritAxis.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "CritPlanFirst",
+   "role": "critic",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nAttack this bounded contract: first plan commit bdf90f58 only plan+START census, corrections b9a42c0/2dfb534 before candidate62a33b1; counting commands unchanged. Read committed candidate, not mutable lane artifacts; execute only sandbox-local checks explicitly needed. Preserve frozen command/predicate; do not redefine scope to rescue admission.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/CritPlanFirst.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "CritConformance",
+   "role": "critic",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nAttack this bounded contract: round-conformance.py known negative round27 and synthetic changed-command/census-after-plan cases; note vacuous frozen-line check and no claim it prevents semantic widening. Read committed candidate, not mutable lane artifacts; execute only sandbox-local checks explicitly needed. Preserve frozen command/predicate; do not redefine scope to rescue admission.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/CritConformance.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "CritSourceRegistry",
+   "role": "critic",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nAttack this bounded contract: six source rows49, census49 and W04 12; append-only existing rows; provenance all49 present; Gate/source citations correct. Read committed candidate, not mutable lane artifacts; execute only sandbox-local checks explicitly needed. Preserve frozen command/predicate; do not redefine scope to rescue admission.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/CritSourceRegistry.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "CritMistakes",
+   "role": "critic",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nAttack this bounded contract: M28-1..4 evidence and captured-by/fix; fixed gates actually fail bad cases, no conflated axis claim. Read committed candidate, not mutable lane artifacts; execute only sandbox-local checks explicitly needed. Preserve frozen command/predicate; do not redefine scope to rescue admission.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/CritMistakes.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "CheckLedger",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nIndependently check ledger/stamp expectations and migration old/new records (R12-03/R13-01/R21-02/R22-03/R24-05/06/15/R25-03). Report concrete mismatch or narrow PASS with evidence; do not execute host-private ledger rows.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/CheckLedger.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "CheckSelfCounts",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nIndependently check self-counts60 and stamp count91 doc bindings; clock selftest106 counted, not silently altered. Report concrete mismatch or narrow PASS with evidence; do not execute host-private ledger rows.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/CheckSelfCounts.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "CheckDefault",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nIndependently check default clock CLEAN30 fired3 derived15 output at BASE/candidate byte-identical; release-clocks.tsv unchanged. Report concrete mismatch or narrow PASS with evidence; do not execute host-private ledger rows.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/CheckDefault.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "CheckFrontier",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nIndependently check S047\u2013S049 source rows are frontier-only, no knowledge/coverage capability overclaim; unopened leads accurately retained. Report concrete mismatch or narrow PASS with evidence; do not execute host-private ledger rows.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/CheckFrontier.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "CheckDocs",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nIndependently check SKILL/PROVINCE/README/QUALITY QM27\u201329 agree with actual token/derived rules and limits. Report concrete mismatch or narrow PASS with evidence; do not execute host-private ledger rows.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/CheckDocs.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "CheckSourcesQuote",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nIndependently check quote word counts and normalization attribution; every new used-by path cites correct S id. Report concrete mismatch or narrow PASS with evidence; do not execute host-private ledger rows.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/CheckSourcesQuote.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "CheckRearm",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nIndependently check derived rearm path requiring successor feed row retains old fired rows/avoids unrelated false positives; name actual remaining limitations. Report concrete mismatch or narrow PASS with evidence; do not execute host-private ledger rows.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/CheckRearm.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "CheckOutputSafety",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nIndependently check oversized errors stdout/stderr class+row only, never echo full untrusted token; no hidden crash on derived paths. Report concrete mismatch or narrow PASS with evidence; do not execute host-private ledger rows.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/CheckOutputSafety.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "CheckNoHarm",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nIndependently check six axes/trends no-harm and owned-lane boundaries, eight BUILD connector revisions. Report concrete mismatch or narrow PASS with evidence; do not execute host-private ledger rows.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/CheckNoHarm.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  },
+  {
+   "name": "CheckEvidence",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\ncaptures\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin at 62a33b1bd15217ed729df2ca40c8a30aba3076c0\n# Attack\nIndependently check candidate evidence scope: missing/dead seat accounting and incomplete command receipts honestly reported; no sandbox clone bloat as proof. Report concrete mismatch or narrow PASS with evidence; do not execute host-private ledger rows.\n# Acceptance\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/falsify/CheckEvidence.md (\u226490 lines). State PASS/FAIL/UNPROVABLE, actual command+exit, exact candidate path:line, concrete counterexample; no new scope."
+  }
+ ],
+ "reportDir": ".ufo/waves/round-28/falsify",
+ "axes": [
+  "freshness",
+  "calibration"
+ ],
+ "milestone": "Round28 falsify pinned candidate 62a33b1bd15217ed729df2ca40c8a30aba3076c0"
+}

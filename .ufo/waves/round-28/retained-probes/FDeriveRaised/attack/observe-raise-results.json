@@ -1,0 +1,54 @@
+[
+  {
+    "label": "O1-raised-vs-true-feed",
+    "anchored": "1.3.0",
+    "observed": "1.3.0",
+    "feed_title": "v1.2.9",
+    "exit": 1,
+    "stdout": "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=0 fired=0 regressed=1) to /tmp/raise-observe-jjcfdbp_/receipt.json\nDERIVATION S001\nRECEIPT-MISMATCH S001\nREGRESSED S001\nRELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)\n",
+    "findings": [
+      "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=0 fired=0 regressed=1) to /tmp/raise-observe-jjcfdbp_/receipt.json",
+      "DERIVATION S001",
+      "RECEIPT-MISMATCH S001",
+      "REGRESSED S001"
+    ],
+    "receipt_verdict": "regressed",
+    "receipt_parsed_version": "1.2.9",
+    "receipt_error": null,
+    "traceback": false,
+    "fired_written": false
+  },
+  {
+    "label": "O2-raised-vs-stale-registry",
+    "anchored": "1.3.0",
+    "observed": "1.3.0",
+    "feed_title": "v1.3.0",
+    "exit": 1,
+    "stdout": "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=0 fired=0 regressed=0) to /tmp/raise-observe-zii8qevb/receipt.json\nDERIVATION S001\nRELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)\n",
+    "findings": [
+      "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=0 fired=0 regressed=0) to /tmp/raise-observe-zii8qevb/receipt.json",
+      "DERIVATION S001"
+    ],
+    "receipt_verdict": "not-fired",
+    "receipt_parsed_version": "1.3.0",
+    "receipt_error": null,
+    "traceback": false,
+    "fired_written": false
+  },
+  {
+    "label": "O3-control-bound",
+    "anchored": "1.2.9",
+    "observed": "1.2.9",
+    "feed_title": "v1.2.9",
+    "exit": 0,
+    "stdout": "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=0 fired=0 regressed=0) to /tmp/raise-observe-4uc9ewy7/receipt.json\nRELEASE_CLOCK: CLEAN (on_release=1 bound=1 unbound=0 observed=1 fired=0 derived=1)\n",
+    "findings": [
+      "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=0 fired=0 regressed=0) to /tmp/raise-observe-4uc9ewy7/receipt.json"
+    ],
+    "receipt_verdict": "not-fired",
+    "receipt_parsed_version": "1.2.9",
+    "receipt_error": null,
+    "traceback": false,
+    "fired_written": false
+  }
+]

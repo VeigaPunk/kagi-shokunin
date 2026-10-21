@@ -1,0 +1,254 @@
+{
+ "ctrl": {
+  "exit": 0,
+  "receipt": {
+   "clock": "feed",
+   "http_status": 200,
+   "id": "S029",
+   "located": null,
+   "observed_at": "2026-10-21T00:00:00Z",
+   "parsed_version": "8.23.0",
+   "sha256": "81fa354886ff6693b3129b3f47265321259c3b3da6d13d4434d3a5dc6b70b32e",
+   "url": "https://curl.se/info",
+   "verdict": "not-fired"
+  },
+  "stdout": [
+   "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=0 fired=0 regressed=0) to /tmp/curlprobe-8z04ovf7/receipt.json",
+   "RELEASE_CLOCK: CLEAN (on_release=1 bound=1 unbound=0 observed=1 fired=0 derived=1)"
+  ]
+ },
+ "lz_crlf": {
+  "exit": 1,
+  "receipt": {
+   "clock": "feed",
+   "error": "text release file has no Version: X.Y.Z line",
+   "http_status": 200,
+   "id": "S029",
+   "located": null,
+   "observed_at": "2026-10-21T00:00:00Z",
+   "parsed_version": null,
+   "sha256": "b512112c1a18470ea000ab2b9dd1ecba3c62c2a6fca003b0fc1830dcef68cde4",
+   "url": "https://curl.se/info",
+   "verdict": null
+  },
+  "stdout": [
+   "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/curlprobe-wcal7z7l/receipt.json",
+   "RECEIPT-MISMATCH S029",
+   "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)"
+  ]
+ },
+ "lz_fourcomp": {
+  "exit": 1,
+  "receipt": {
+   "clock": "feed",
+   "error": "text release file has no Version: X.Y.Z line",
+   "http_status": 200,
+   "id": "S029",
+   "located": null,
+   "observed_at": "2026-10-21T00:00:00Z",
+   "parsed_version": null,
+   "sha256": "11f9410b5e08da7b448b14ab4401242d3186eb9488ff384b79f8da743071f5c1",
+   "url": "https://curl.se/info",
+   "verdict": null
+  },
+  "stdout": [
+   "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/curlprobe-tn3rik3e/receipt.json",
+   "RECEIPT-MISMATCH S029",
+   "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)"
+  ]
+ },
+ "lz_indent": {
+  "exit": 1,
+  "receipt": {
+   "clock": "feed",
+   "error": "text release file has no Version: X.Y.Z line",
+   "http_status": 200,
+   "id": "S029",
+   "located": null,
+   "observed_at": "2026-10-21T00:00:00Z",
+   "parsed_version": null,
+   "sha256": "d42513c2eb0ba1ffc782d1117a3499c6854b79f742ab3a2ada45190376a98458",
+   "url": "https://curl.se/info",
+   "verdict": null
+  },
+  "stdout": [
+   "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/curlprobe-4vwcpad4/receipt.json",
+   "RECEIPT-MISMATCH S029",
+   "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)"
+  ]
+ },
+ "lz_lowercase": {
+  "exit": 1,
+  "receipt": {
+   "clock": "feed",
+   "error": "text release file has no Version: X.Y.Z line",
+   "http_status": 200,
+   "id": "S029",
+   "located": null,
+   "observed_at": "2026-10-21T00:00:00Z",
+   "parsed_version": null,
+   "sha256": "4f3407ad4c299c9ea7e2791e30faf819b983197a987ea068507a23c20646b221",
+   "url": "https://curl.se/info",
+   "verdict": null
+  },
+  "stdout": [
+   "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/curlprobe-6e9r5iyw/receipt.json",
+   "RECEIPT-MISMATCH S029",
+   "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)"
+  ]
+ },
+ "lz_major": {
+  "exit": 1,
+  "receipt": {
+   "clock": "feed",
+   "http_status": 200,
+   "id": "S029",
+   "located": null,
+   "observed_at": "2026-10-21T00:00:00Z",
+   "parsed_version": "08.23.0",
+   "sha256": "21ee34bbc1acf9caa39ffeb44cf1bae368226aad9d0291adb5a5f67cdbb85d26",
+   "url": "https://curl.se/info",
+   "verdict": "fired"
+  },
+  "stdout": [
+   "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=0 fired=1 regressed=0) to /tmp/curlprobe-1bk7u388/receipt.json",
+   "RECEIPT-MISMATCH S029",
+   "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)"
+  ]
+ },
+ "lz_minor": {
+  "exit": 1,
+  "receipt": {
+   "clock": "feed",
+   "http_status": 200,
+   "id": "S029",
+   "located": null,
+   "observed_at": "2026-10-21T00:00:00Z",
+   "parsed_version": "8.023.0",
+   "sha256": "c344afced70e4a24a2a105e6d18a1372dd108811c51c1889365dfd81191d7249",
+   "url": "https://curl.se/info",
+   "verdict": "fired"
+  },
+  "stdout": [
+   "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=0 fired=1 regressed=0) to /tmp/curlprobe-wyuorz2r/receipt.json",
+   "RECEIPT-MISMATCH S029",
+   "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)"
+  ]
+ },
+ "lz_oversize": {
+  "exit": 1,
+  "receipt": {
+   "clock": "feed",
+   "error": "Exceeds the limit (4300 digits) for integer string conversion: value has 4301 digits; use sys.set_int_max_str_digits() to increase the limit",
+   "http_status": 200,
+   "id": "S029",
+   "located": null,
+   "observed_at": "2026-10-21T00:00:00Z",
+   "parsed_version": "8.23.11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+   "sha256": "ee68144cc8b2ff563d45b8b2a18a3369729251c6277f90a906639a1a67ea7921",
+   "url": "https://curl.se/info",
+   "verdict": null
+  },
+  "stdout": [
+   "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/curlprobe-h76vddzb/receipt.json",
+   "RECEIPT-MISMATCH S029",
+   "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)"
+  ]
+ },
+ "lz_patch": {
+  "exit": 1,
+  "receipt": {
+   "clock": "feed",
+   "http_status": 200,
+   "id": "S029",
+   "located": null,
+   "observed_at": "2026-10-21T00:00:00Z",
+   "parsed_version": "8.23.01",
+   "sha256": "5b92512dffbf1ce6138ad7df3af47e34923b59e2265a0bf7c4ae301bc80a065f",
+   "url": "https://curl.se/info",
+   "verdict": "fired"
+  },
+  "stdout": [
+   "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=0 fired=1 regressed=0) to /tmp/curlprobe-w9xrjyvb/receipt.json",
+   "RECEIPT-MISMATCH S029",
+   "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)"
+  ]
+ },
+ "lz_second_line": {
+  "exit": 1,
+  "receipt": {
+   "clock": "feed",
+   "http_status": 200,
+   "id": "S029",
+   "located": null,
+   "observed_at": "2026-10-21T00:00:00Z",
+   "parsed_version": "8.23.01",
+   "sha256": "fbba1df912c3014db2c9c5c697d2fa5899f18eae9c36501f85dbfc3daa475e06",
+   "url": "https://curl.se/info",
+   "verdict": "fired"
+  },
+  "stdout": [
+   "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=0 fired=1 regressed=0) to /tmp/curlprobe-51wvhf88/receipt.json",
+   "RECEIPT-MISMATCH S029",
+   "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)"
+  ]
+ },
+ "lz_suffix": {
+  "exit": 1,
+  "receipt": {
+   "clock": "feed",
+   "error": "text release file has no Version: X.Y.Z line",
+   "http_status": 200,
+   "id": "S029",
+   "located": null,
+   "observed_at": "2026-10-21T00:00:00Z",
+   "parsed_version": null,
+   "sha256": "6d260fac4afe3aaac90a993ff480edfa84f7c9d1ef989f58421807da945aedaf",
+   "url": "https://curl.se/info",
+   "verdict": null
+  },
+  "stdout": [
+   "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/curlprobe-f769iw9f/receipt.json",
+   "RECEIPT-MISMATCH S029",
+   "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)"
+  ]
+ },
+ "lz_then_canonical": {
+  "exit": 1,
+  "receipt": {
+   "clock": "feed",
+   "http_status": 200,
+   "id": "S029",
+   "located": null,
+   "observed_at": "2026-10-21T00:00:00Z",
+   "parsed_version": "8.23.01",
+   "sha256": "4a16b8df3f9134c8d552a29dcf916108c23e71e839aee562da427d74efe4f757",
+   "url": "https://curl.se/info",
+   "verdict": "fired"
+  },
+  "stdout": [
+   "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=0 fired=1 regressed=0) to /tmp/curlprobe-dqx9ugx6/receipt.json",
+   "RECEIPT-MISMATCH S029",
+   "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)"
+  ]
+ },
+ "lz_zero_patch": {
+  "exit": 1,
+  "receipt": {
+   "clock": "feed",
+   "http_status": 200,
+   "id": "S029",
+   "located": null,
+   "observed_at": "2026-10-21T00:00:00Z",
+   "parsed_version": "8.23.00",
+   "sha256": "63132a6c368d46964c3497356adfc3e00f19270c77d111407c94afa0039713fb",
+   "url": "https://curl.se/info",
+   "verdict": "fired"
+  },
+  "stdout": [
+   "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=0 fired=1 regressed=0) to /tmp/curlprobe-f8bpp4ck/receipt.json",
+   "RECEIPT-MISMATCH S029",
+   "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)"
+  ]
+ }
+}

@@ -1,0 +1,50 @@
+##### round 24
+SPEC FAIL first-commit-impure a3eb6c7 outside=80 e.g. ['.ufo/waves/round-24/build-dispatch.json', '.ufo/waves/round-24/build-spec.json', '.ufo/waves/round-24/build-task-result.txt']
+SPEC_CONFORMANCE: FAIL (round=24 first=a3eb6c7 frozen_cmd_lines=0)
+spec exit=1
+CONFORMANCE PLAN-FIRST-IMPURE round=24 a3eb6c7 extra=80 e.g. ['.ufo/waves/round-24/build-dispatch.json', '.ufo/waves/round-24/build-spec.json', '.ufo/waves/round-24/build-task-result.txt'] missing=[]
+CONFORMANCE PLAN-NO-BASE round=24 no `Frozen BASE: <40-hex>` line
+CONFORMANCE PLAN-NO-CLAIMS round=24 frozen_bytes=5233
+CONFORMANCE PLAN-AMENDED-WITH-WORK round=24 277a0d4 paths=86
+CONFORMANCE CENSUS-START-NO-TIMESTAMP round=24 ['kagi\tW04\tS019 duplicate url www.1password.dev/brokered-access across scopes']
+ROUND_CONFORMANCE: FAIL (round=24 plan_first=a3eb6c7 tip=b9a42c0 defects=5)
+hard exit=1
+##### round 25
+SPEC FAIL first-commit-impure 82745e2 outside=125 e.g. ['.ufo/waves/round-25/build-assignments.json', '.ufo/waves/round-25/build-dispatch.json', '.ufo/waves/round-25/build-refusals.json']
+SPEC_CONFORMANCE: FAIL (round=25 first=82745e2 frozen_cmd_lines=0)
+spec exit=1
+CONFORMANCE PLAN-FIRST-IMPURE round=25 82745e2 extra=125 e.g. ['.ufo/waves/round-25/build-assignments.json', '.ufo/waves/round-25/build-dispatch.json', '.ufo/waves/round-25/build-refusals.json'] missing=[]
+CONFORMANCE PLAN-NO-BASE round=25 no `Frozen BASE: <40-hex>` line
+CONFORMANCE PLAN-NO-CLAIMS round=25 frozen_bytes=5275
+CONFORMANCE CENSUS-START-NO-TIMESTAMP round=25 ['kagi\tW04\tS019 duplicate url www.1password.dev/brokered-access across scopes']
+ROUND_CONFORMANCE: FAIL (round=25 plan_first=82745e2 tip=b9a42c0 defects=4)
+hard exit=1
+##### round 26
+SPEC FAIL first-commit-impure d30c989 outside=238 e.g. ['.ufo/waves/round-26/build-assignments.json', '.ufo/waves/round-26/build-dispatch.json', '.ufo/waves/round-26/build-record.txt']
+SPEC FAIL census-start-missing
+SPEC_CONFORMANCE: FAIL (round=26 first=d30c989 frozen_cmd_lines=0)
+spec exit=1
+CONFORMANCE PLAN-FIRST-IMPURE round=26 d30c989 extra=238 e.g. ['.ufo/waves/round-26/build-assignments.json', '.ufo/waves/round-26/build-dispatch.json', '.ufo/waves/round-26/build-record.txt'] missing=['.ufo/waves/round-26/census-start.txt']
+CONFORMANCE PLAN-NO-CLAIMS round=26 frozen_bytes=3314
+CONFORMANCE CENSUS-START-NOT-WITH-PLAN round=26 commits=[]
+CONFORMANCE CENSUS-START-MISSING round=26 .ufo/waves/round-26/census-start.txt
+ROUND_CONFORMANCE: FAIL (round=26 plan_first=d30c989 tip=b9a42c0 defects=4)
+hard exit=1
+##### round 27
+SPEC FAIL first-commit-impure 144babc outside=1873 e.g. ['.ufo/waves/round-27/build-assignments.json', '.ufo/waves/round-27/build-dispatch.json', '.ufo/waves/round-27/build-record.txt']
+SPEC FAIL census-start-missing
+SPEC_CONFORMANCE: FAIL (round=27 first=144babc frozen_cmd_lines=0)
+spec exit=1
+CONFORMANCE PLAN-FIRST-IMPURE round=27 144babc extra=1873 e.g. ['.ufo/waves/round-27/build-assignments.json', '.ufo/waves/round-27/build-dispatch.json', '.ufo/waves/round-27/build-record.txt'] missing=['.ufo/waves/round-27/census-start.txt']
+CONFORMANCE CLAIM-NO-COUNTING-COMMAND round=27 C1
+CONFORMANCE CLAIM-NO-COUNTING-COMMAND round=27 C2
+CONFORMANCE PLAN-AMENDED-WITH-WORK round=27 3fb7727 paths=65
+CONFORMANCE CENSUS-START-NOT-WITH-PLAN round=27 commits=[]
+CONFORMANCE CENSUS-START-MISSING round=27 .ufo/waves/round-27/census-start.txt
+ROUND_CONFORMANCE: FAIL (round=27 plan_first=144babc tip=b9a42c0 defects=6)
+hard exit=1
+##### round 28
+SPEC_CONFORMANCE: PASS (round=28 first=bdf90f5 frozen_cmd_lines=2)
+spec exit=0
+ROUND_CONFORMANCE: PASS (round=28 plan_first=bdf90f5 tip=b9a42c0 defects=0)
+hard exit=0

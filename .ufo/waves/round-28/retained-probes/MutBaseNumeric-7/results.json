@@ -1,0 +1,1043 @@
+{
+  "axes": [
+    "freshness",
+    "calibration"
+  ],
+  "base_commit": "3553d499577084a6c98d7078906017840bbf7b28",
+  "base_sha256": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+  "detector_timeout_seconds": 45,
+  "max_parallel_processes": 8,
+  "mutated": [
+    {
+      "TMPDIR": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M01/.tmp",
+      "command": "python3 -I -B corpus/release-clock.py --selftest",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M01",
+      "exit": 0,
+      "id": "M01",
+      "phase": "mutated",
+      "sha256": "7cdd1ce44df8e7e6cb5a7b4d68e2014746e3e38ab05a66eb9608433dfc1e9d22",
+      "stderr": "",
+      "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n"
+    },
+    {
+      "TMPDIR": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M02/.tmp",
+      "command": "python3 -I -B corpus/release-clock.py --selftest",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M02",
+      "exit": 1,
+      "id": "M02",
+      "phase": "mutated",
+      "sha256": "15151af3ffb340e78b9bd09b0214fb98238efdbe64e5099538a5c5fa9c69620a",
+      "stderr": "",
+      "stdout": "RELEASE_CLOCK_SELFTEST: FAIL non-strict observation refused: errors set() != {('INCONSISTENT', 'S001')}\nRELEASE_CLOCK_SELFTEST: FAIL non-strict observation refused: observed=1 != 0\nRELEASE_CLOCK_SELFTEST: FAIL non-strict observation refused: passed=True\n"
+    },
+    {
+      "TMPDIR": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M03/.tmp",
+      "command": "python3 -I -B corpus/release-clock.py --selftest",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M03",
+      "exit": 0,
+      "id": "M03",
+      "phase": "mutated",
+      "sha256": "92846b144e47f38b8a0b6e67cf9922c85e89d56d0a73e0bf4a69fceefac604eb",
+      "stderr": "",
+      "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n"
+    },
+    {
+      "TMPDIR": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M04/.tmp",
+      "command": "python3 -I -B corpus/release-clock.py --selftest",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M04",
+      "exit": 0,
+      "id": "M04",
+      "phase": "mutated",
+      "sha256": "0abfd27df8ab60c43bdc1900ff0a97eab3c52b0353cac30fd7c237da4393c7e0",
+      "stderr": "",
+      "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n"
+    },
+    {
+      "TMPDIR": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M05/.tmp",
+      "command": "python3 -I -B corpus/release-clock.py --selftest",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M05",
+      "exit": 1,
+      "id": "M05",
+      "phase": "mutated",
+      "sha256": "5462804a898f346c718962dd649725413b2cf2974cd4e67910fd957734bb984b",
+      "stderr": "",
+      "stdout": "RELEASE_CLOCK_SELFTEST: FAIL numeric not lexical: errors {('REGRESSED', 'S001')} != set()\nRELEASE_CLOCK_SELFTEST: FAIL numeric not lexical: observed=0 != 1\nRELEASE_CLOCK_SELFTEST: FAIL numeric not lexical: fired=0 != 1\nRELEASE_CLOCK_SELFTEST: FAIL numeric not lexical: passed=False\n"
+    },
+    {
+      "TMPDIR": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M06/.tmp",
+      "command": "python3 -I -B corpus/release-clock.py --selftest",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M06",
+      "exit": 1,
+      "id": "M06",
+      "phase": "mutated",
+      "sha256": "e87a115f775d19ad6c96abc548d67659a5bcab0504a1f0d27d3002dcc573f8bd",
+      "stderr": "",
+      "stdout": "RELEASE_CLOCK_SELFTEST: FAIL downgrade fired lie refused: errors set() != {('REGRESSED', 'S001')}\nRELEASE_CLOCK_SELFTEST: FAIL downgrade fired lie refused: observed=1 != 0\nRELEASE_CLOCK_SELFTEST: FAIL downgrade fired lie refused: fired=1 != 0\nRELEASE_CLOCK_SELFTEST: FAIL downgrade fired lie refused: passed=True\nRELEASE_CLOCK_SELFTEST: FAIL feed floor catches un-fire: errors set() != {('REGRESSED', 'S001')}\nRELEASE_CLOCK_SELFTEST: FAIL feed floor catches un-fire: observed=2 != 1\nRELEASE_CLOCK_SELFTEST: FAIL feed floor catches un-fire: passed=True\nRELEASE_CLOCK_SELFTEST: FAIL older live feed observation was not typed regressed\nRELEASE_CLOCK_SELFTEST: FAIL return to the anchor after a recorded newer observation was not regressed\nRELEASE_CLOCK_SELFTEST: FAIL observation below a sibling anchor on the same feed was not regressed\n"
+    },
+    {
+      "TMPDIR": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M07/.tmp",
+      "command": "python3 -I -B corpus/release-clock.py --selftest",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M07",
+      "exit": 1,
+      "id": "M07",
+      "phase": "mutated",
+      "sha256": "f62674bb137c09b8c42b414c060cff6f4617729c1c5eeaa73bd8fed0e886e2ff",
+      "stderr": "",
+      "stdout": "RELEASE_CLOCK_SELFTEST: FAIL major component compared: errors set() != {('REGRESSED', 'S001')}\nRELEASE_CLOCK_SELFTEST: FAIL major component compared: observed=1 != 0\nRELEASE_CLOCK_SELFTEST: FAIL major component compared: passed=True\n"
+    },
+    {
+      "TMPDIR": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M08/.tmp",
+      "command": "python3 -I -B corpus/release-clock.py --selftest",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M08",
+      "exit": 1,
+      "id": "M08",
+      "phase": "mutated",
+      "sha256": "6c836a48d3398e8936967de531dc7fbc0841b7e510541a8ebdf63ab7d623de2e",
+      "stderr": "",
+      "stdout": "RELEASE_CLOCK_SELFTEST: FAIL unchanged feed: errors {('REGRESSED', 'S001')} != set()\nRELEASE_CLOCK_SELFTEST: FAIL unchanged feed: observed=0 != 1\nRELEASE_CLOCK_SELFTEST: FAIL unchanged feed: passed=False\nRELEASE_CLOCK_SELFTEST: FAIL unknown feed: errors {('BADFEED', 'S001'), ('REGRESSED', 'S001')} != {('BADFEED', 'S001')}\nRELEASE_CLOCK_SELFTEST: FAIL non-feed source: errors {('BADFEED', 'S001'), ('REGRESSED', 'S001')} != {('BADFEED', 'S001')}\nRELEASE_CLOCK_SELFTEST: FAIL invalid date: errors {('REGRESSED', 'S001'), ('RECEIPT-MISMATCH', 'S001')} != {('INCONSISTENT', 'S001'), ('RECEIPT-MISMATCH', 'S001')}\nRELEASE_CLOCK_SELFTEST: FAIL derived anchor counted: errors {('REGRESSED', 'S001')} != set()\nRELEASE_CLOCK_SELFTEST: FAIL derived anchor counted: observed=0 != 1\nRELEASE_CLOCK_SELFTEST: FAIL derived anchor counted: derived=0 != 1\nRELEASE_CLOCK_SELFTEST: FAIL derived anchor counted: passed=False\nRELEASE_CLOCK_SELFTEST: FAIL unnamed anchor refused: errors {('REGRESSED', 'S001')} != {('INCONSISTENT', 'S001')}\nRELEASE_CLOCK_SELFTEST: FAIL v-prefix equality: errors {('REGRESSED', 'S001')} != set()\nRELEASE_CLOCK_SELFTEST: FAIL v-prefix equality: observed=0 != 1\nRELEASE_CLOCK_SELFTEST: FAIL v-prefix equality: passed=False\nRELEASE_CLOCK_SELFTEST: FAIL feed row on-release: errors {('BADFEED', 'S001'), ('REGRESSED', 'S001')} != {('BADFEED', 'S001')}\nRELEASE_CLOCK_SELFTEST: FAIL feed floor catches un-fire: errors {('REGRESSED', 'S001'), ('REGRESSED', 'S004')} != {('REGRESSED', 'S001')}\nRELEASE_CLOCK_SELFTEST: FAIL feed floor catches un-fire: observed=0 != 1\nRELEASE_CLOCK_SELFTEST: FAIL feed floor lifts non-numeric anchor: errors {('REGRESSED', 'S001'), ('REGRESSED', 'S004')} != {('REGRESSED', 'S001')}\nRELEASE_CLOCK_SELFTEST: FAIL feed floor lifts non-numeric anchor: observed=0 != 1\nRELEASE_CLOCK_SELFTEST: FAIL missing receipt: errors {('REGRESSED', 'S001'), ('NOT OBSERVED', 'S001')} != {('NOT OBSERVED', 'S001')}\nRELEASE_CLOCK_SELFTEST: FAIL receipt id mutation: errors {('REGRESSED', 'S001'), ('RECEIPT-MISMATCH', 'S001')} != {('RECEIPT-MISMATCH', 'S001')}\nRELEASE_CLOCK_SELFTEST: FAIL receipt clock mutation: errors {('REGRESSED', 'S001'), ('RECEIPT-MISMATCH', 'S001')} != {('RECEIPT-MISMATCH', 'S001')}\nRELEASE_CLOCK_SELFTEST: FAIL receipt URL mutation: errors {('REGRESSED', 'S001'), ('RECEIPT-MISMATCH', 'S001')} != {('RECEIPT-MISMATCH', 'S001')}\nRELEASE_CLOCK_SELFTEST: FAIL receipt date mutation: errors {('REGRESSED', 'S001'), ('RECEIPT-MISMATCH', 'S001')} != {('RECEIPT-MISMATCH', 'S001')}\nRELEASE_CLOCK_SELFTEST: FAIL receipt verdict mutation: errors {('REGRESSED', 'S001'), ('RECEIPT-MISMATCH', 'S001')} != {('RECEIPT-MISMATCH', 'S001')}\nRELEASE_CLOCK_SELFTEST: FAIL receipt parsed-version mutation: errors {('REGRESSED', 'S001'), ('RECEIPT-MISMATCH', 'S001')} != {('RECEIPT-MISMATCH', 'S001')}\nRELEASE_CLOCK_SELFTEST: FAIL receipt version normalization control: errors {('REGRESSED', 'S001')} != set()\nRELEASE_CLOCK_SELFTEST: FAIL receipt version normalization control: observed=0 != 1\nRELEASE_CLOCK_SELFTEST: FAIL receipt version normalization control: passed=False\nRELEASE_CLOCK_SELFTEST: FAIL extra receipt mismatch: errors {('REGRESSED', 'S001'), ('RECEIPT-MISMATCH', 'S999')} != {('RECEIPT-MISMATCH', 'S999')}\nRELEASE_CLOCK_SELFTEST: FAIL duplicate receipt mismatch: errors {('REGRESSED', 'S001'), ('RECEIPT-MISMATCH', 'S001')} != {('RECEIPT-MISMATCH', 'S001')}\nRELEASE_CLOCK_SELFTEST: FAIL stale receipt recapture or TSV immutability\nRELEASE_CLOCK_SELFTEST: FAIL explicit receipt override with digest\n"
+    },
+    {
+      "TMPDIR": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M09/.tmp",
+      "command": "python3 -I -B corpus/release-clock.py --selftest",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M09",
+      "exit": 1,
+      "id": "M09",
+      "phase": "mutated",
+      "sha256": "ca954daf6b4ffaf04471e1ccea5b7c050bc32273f4056283de2349ae67026a33",
+      "stderr": "",
+      "stdout": "RELEASE_CLOCK_SELFTEST: FAIL downgrade fired lie refused: errors set() != {('REGRESSED', 'S001')}\nRELEASE_CLOCK_SELFTEST: FAIL downgrade fired lie refused: observed=1 != 0\nRELEASE_CLOCK_SELFTEST: FAIL downgrade fired lie refused: fired=1 != 0\nRELEASE_CLOCK_SELFTEST: FAIL downgrade fired lie refused: passed=True\nRELEASE_CLOCK_SELFTEST: FAIL feed floor catches un-fire: errors set() != {('REGRESSED', 'S001')}\nRELEASE_CLOCK_SELFTEST: FAIL feed floor catches un-fire: observed=2 != 1\nRELEASE_CLOCK_SELFTEST: FAIL feed floor catches un-fire: passed=True\nRELEASE_CLOCK_SELFTEST: FAIL older live feed observation was not typed regressed\nRELEASE_CLOCK_SELFTEST: FAIL return to the anchor after a recorded newer observation was not regressed\nRELEASE_CLOCK_SELFTEST: FAIL observation below a sibling anchor on the same feed was not regressed\n"
+    },
+    {
+      "TMPDIR": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M10/.tmp",
+      "command": "python3 -I -B corpus/release-clock.py --selftest",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M10",
+      "exit": 0,
+      "id": "M10",
+      "phase": "mutated",
+      "sha256": "9f4c9c2d7ff0185a18e423196ca26cfda631a961d1dc71b1a75357273ce924a8",
+      "stderr": "",
+      "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n"
+    },
+    {
+      "TMPDIR": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M11/.tmp",
+      "command": "python3 -I -B corpus/release-clock.py --selftest",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M11",
+      "exit": 0,
+      "id": "M11",
+      "phase": "mutated",
+      "sha256": "c5e08d4b2ed5853967ba587622b7b920766c0ee8cc2772d2df17ebd51efdbeb6",
+      "stderr": "",
+      "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n"
+    },
+    {
+      "TMPDIR": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M12/.tmp",
+      "command": "python3 -I -B corpus/release-clock.py --selftest",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M12",
+      "exit": 0,
+      "id": "M12",
+      "phase": "mutated",
+      "sha256": "cd441d71f1146e7aeaa20bb278be94004e1583935aac6f6f573d737d625709e1",
+      "stderr": "",
+      "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n"
+    },
+    {
+      "TMPDIR": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M13/.tmp",
+      "command": "python3 -I -B corpus/release-clock.py --selftest",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M13",
+      "exit": 0,
+      "id": "M13",
+      "phase": "mutated",
+      "sha256": "45bb342803a1c35901cbd1298164cbf85cedad37343053ed4fb09eac7cf987c4",
+      "stderr": "",
+      "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n"
+    },
+    {
+      "TMPDIR": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M14/.tmp",
+      "command": "python3 -I -B corpus/release-clock.py --selftest",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M14",
+      "exit": 1,
+      "id": "M14",
+      "phase": "mutated",
+      "sha256": "3d87ff3ce2f9fce7c341dcaf1918d28a7e499c83f5b5750b15daec43d4d8123f",
+      "stderr": "",
+      "stdout": "RELEASE_CLOCK_SELFTEST: FAIL version parser rss product titles: '3.16.0' != '3.15.0'\nRELEASE_CLOCK_SELFTEST: FAIL version parser no stable entry: accepted\nRELEASE_CLOCK_SELFTEST: FAIL older live feed observation was not typed regressed\n"
+    },
+    {
+      "TMPDIR": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M15/.tmp",
+      "command": "python3 -I -B corpus/release-clock.py --selftest",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M15",
+      "exit": 1,
+      "id": "M15",
+      "phase": "mutated",
+      "sha256": "127567d7b24f93aa708d7f4336c2e1ffb03180b66cb3098ff5e0b311f8a33fbb",
+      "stderr": "",
+      "stdout": "RELEASE_CLOCK_SELFTEST: FAIL version parser no stable entry: accepted\n"
+    },
+    {
+      "TMPDIR": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M16/.tmp",
+      "command": "python3 -I -B corpus/release-clock.py --selftest",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M16",
+      "exit": 0,
+      "id": "M16",
+      "phase": "mutated",
+      "sha256": "35178f57e7690a7eee46fbf5e112c31918cbdf9e85deb63c6a7dda8048e4aab7",
+      "stderr": "",
+      "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n"
+    }
+  ],
+  "mutation_diffs": {
+    "M01": "--- BASE/corpus/release-clock.py\n+++ M01/corpus/release-clock.py\n@@ -363,7 +363,7 @@\n     return value[1:] if value[:1].lower() == \"v\" else value\n \n \n-NUMERIC_VERSION_RE = re.compile(r\"[0-9]+\\.[0-9]+\\.[0-9]+\")\n+NUMERIC_VERSION_RE = re.compile(r\"\\d+\\.\\d+\\.\\d+\")\n \n \n def numeric_version(value):\n",
+    "M02": "--- BASE/corpus/release-clock.py\n+++ M02/corpus/release-clock.py\n@@ -363,7 +363,7 @@\n     return value[1:] if value[:1].lower() == \"v\" else value\n \n \n-NUMERIC_VERSION_RE = re.compile(r\"[0-9]+\\.[0-9]+\\.[0-9]+\")\n+NUMERIC_VERSION_RE = re.compile(r\"[0-9]+\\.[0-9]+(?:\\.[0-9]+)?\")\n \n \n def numeric_version(value):\n",
+    "M03": "--- BASE/corpus/release-clock.py\n+++ M03/corpus/release-clock.py\n@@ -363,7 +363,7 @@\n     return value[1:] if value[:1].lower() == \"v\" else value\n \n \n-NUMERIC_VERSION_RE = re.compile(r\"[0-9]+\\.[0-9]+\\.[0-9]+\")\n+NUMERIC_VERSION_RE = re.compile(r\"[0-9]+\\.[0-9]+\\.[0-9]+(?:\\.[0-9]+)?\")\n \n \n def numeric_version(value):\n",
+    "M04": "--- BASE/corpus/release-clock.py\n+++ M04/corpus/release-clock.py\n@@ -375,7 +375,7 @@\n     the inequality rule, a declared limit (corpus/lessons/round-27.md \u00a7C2).\n     \"\"\"\n     value = norm_version(value or \"\")\n-    if not NUMERIC_VERSION_RE.fullmatch(value):\n+    if not NUMERIC_VERSION_RE.match(value):\n         return None\n     return tuple(int(part) for part in value.split(\".\"))\n \n",
+    "M05": "--- BASE/corpus/release-clock.py\n+++ M05/corpus/release-clock.py\n@@ -377,7 +377,7 @@\n     value = norm_version(value or \"\")\n     if not NUMERIC_VERSION_RE.fullmatch(value):\n         return None\n-    return tuple(int(part) for part in value.split(\".\"))\n+    return tuple(str(part) for part in value.split(\".\"))\n \n \n def is_regression(floor, observed):\n",
+    "M06": "--- BASE/corpus/release-clock.py\n+++ M06/corpus/release-clock.py\n@@ -377,7 +377,7 @@\n     value = norm_version(value or \"\")\n     if not NUMERIC_VERSION_RE.fullmatch(value):\n         return None\n-    return tuple(int(part) for part in value.split(\".\"))\n+    return tuple(int(part) for part in value.split(\".\")[:2])\n \n \n def is_regression(floor, observed):\n",
+    "M07": "--- BASE/corpus/release-clock.py\n+++ M07/corpus/release-clock.py\n@@ -377,7 +377,7 @@\n     value = norm_version(value or \"\")\n     if not NUMERIC_VERSION_RE.fullmatch(value):\n         return None\n-    return tuple(int(part) for part in value.split(\".\"))\n+    return tuple(int(part) for part in value.split(\".\")[1:])\n \n \n def is_regression(floor, observed):\n",
+    "M08": "--- BASE/corpus/release-clock.py\n+++ M08/corpus/release-clock.py\n@@ -384,7 +384,7 @@\n     \"\"\"True when both are strict X.Y.Z and the observation is numerically older.\"\"\"\n     anchor = numeric_version(floor)\n     seen = numeric_version(observed)\n-    return anchor is not None and seen is not None and seen < anchor\n+    return anchor is not None and seen is not None and seen <= anchor\n \n \n def feed_floors(rows):\n",
+    "M09": "--- BASE/corpus/release-clock.py\n+++ M09/corpus/release-clock.py\n@@ -384,7 +384,7 @@\n     \"\"\"True when both are strict X.Y.Z and the observation is numerically older.\"\"\"\n     anchor = numeric_version(floor)\n     seen = numeric_version(observed)\n-    return anchor is not None and seen is not None and seen < anchor\n+    return anchor is not None and seen is not None and seen < (anchor[0], anchor[1], anchor[2] - 1)\n \n \n def feed_floors(rows):\n",
+    "M10": "--- BASE/corpus/release-clock.py\n+++ M10/corpus/release-clock.py\n@@ -377,7 +377,7 @@\n     value = norm_version(value or \"\")\n     if not NUMERIC_VERSION_RE.fullmatch(value):\n         return None\n-    return tuple(int(part) for part in value.split(\".\"))\n+    return tuple(int(part[:4300]) for part in value.split(\".\"))\n \n \n def is_regression(floor, observed):\n",
+    "M11": "--- BASE/corpus/release-clock.py\n+++ M11/corpus/release-clock.py\n@@ -707,7 +707,7 @@\n             return status, body, \"HTTP %s\" % status\n         return status, body, None\n \n-STABLE_TITLE_RE = re.compile(r\"^(?:[A-Za-z]+ )?v?([0-9]+\\.[0-9]+\\.[0-9]+)$\")\n+STABLE_TITLE_RE = re.compile(r\"^(?:[A-Za-z]+ )?v?(\\d+\\.\\d+\\.\\d+)$\")\n STABLE_TAG_HREF_RE = re.compile(r\"/releases/tag/v?([0-9]+\\.[0-9]+\\.[0-9]+)$\")\n TEXT_VERSION_RE = re.compile(r\"^Version:[ \\t]*v?([0-9]+\\.[0-9]+\\.[0-9]+)[ \\t]*$\", re.MULTILINE)\n \n",
+    "M12": "--- BASE/corpus/release-clock.py\n+++ M12/corpus/release-clock.py\n@@ -708,7 +708,7 @@\n         return status, body, None\n \n STABLE_TITLE_RE = re.compile(r\"^(?:[A-Za-z]+ )?v?([0-9]+\\.[0-9]+\\.[0-9]+)$\")\n-STABLE_TAG_HREF_RE = re.compile(r\"/releases/tag/v?([0-9]+\\.[0-9]+\\.[0-9]+)$\")\n+STABLE_TAG_HREF_RE = re.compile(r\"/releases/tag/v?(\\d+\\.\\d+\\.\\d+)$\")\n TEXT_VERSION_RE = re.compile(r\"^Version:[ \\t]*v?([0-9]+\\.[0-9]+\\.[0-9]+)[ \\t]*$\", re.MULTILINE)\n \n \n",
+    "M13": "--- BASE/corpus/release-clock.py\n+++ M13/corpus/release-clock.py\n@@ -709,7 +709,7 @@\n \n STABLE_TITLE_RE = re.compile(r\"^(?:[A-Za-z]+ )?v?([0-9]+\\.[0-9]+\\.[0-9]+)$\")\n STABLE_TAG_HREF_RE = re.compile(r\"/releases/tag/v?([0-9]+\\.[0-9]+\\.[0-9]+)$\")\n-TEXT_VERSION_RE = re.compile(r\"^Version:[ \\t]*v?([0-9]+\\.[0-9]+\\.[0-9]+)[ \\t]*$\", re.MULTILINE)\n+TEXT_VERSION_RE = re.compile(r\"^Version:[ \\t]*v?(\\d+\\.\\d+\\.\\d+)[ \\t]*$\", re.MULTILINE)\n \n \n def parse_latest_version(body):\n",
+    "M14": "--- BASE/corpus/release-clock.py\n+++ M14/corpus/release-clock.py\n@@ -707,7 +707,7 @@\n             return status, body, \"HTTP %s\" % status\n         return status, body, None\n \n-STABLE_TITLE_RE = re.compile(r\"^(?:[A-Za-z]+ )?v?([0-9]+\\.[0-9]+\\.[0-9]+)$\")\n+STABLE_TITLE_RE = re.compile(r\"^(?:[A-Za-z]+ )?v?([0-9]+\\.[0-9]+\\.[0-9]+)\")\n STABLE_TAG_HREF_RE = re.compile(r\"/releases/tag/v?([0-9]+\\.[0-9]+\\.[0-9]+)$\")\n TEXT_VERSION_RE = re.compile(r\"^Version:[ \\t]*v?([0-9]+\\.[0-9]+\\.[0-9]+)[ \\t]*$\", re.MULTILINE)\n \n",
+    "M15": "--- BASE/corpus/release-clock.py\n+++ M15/corpus/release-clock.py\n@@ -708,7 +708,7 @@\n         return status, body, None\n \n STABLE_TITLE_RE = re.compile(r\"^(?:[A-Za-z]+ )?v?([0-9]+\\.[0-9]+\\.[0-9]+)$\")\n-STABLE_TAG_HREF_RE = re.compile(r\"/releases/tag/v?([0-9]+\\.[0-9]+\\.[0-9]+)$\")\n+STABLE_TAG_HREF_RE = re.compile(r\"/releases/tag/v?([0-9]+\\.[0-9]+\\.[0-9]+)\")\n TEXT_VERSION_RE = re.compile(r\"^Version:[ \\t]*v?([0-9]+\\.[0-9]+\\.[0-9]+)[ \\t]*$\", re.MULTILINE)\n \n \n",
+    "M16": "--- BASE/corpus/release-clock.py\n+++ M16/corpus/release-clock.py\n@@ -709,7 +709,7 @@\n \n STABLE_TITLE_RE = re.compile(r\"^(?:[A-Za-z]+ )?v?([0-9]+\\.[0-9]+\\.[0-9]+)$\")\n STABLE_TAG_HREF_RE = re.compile(r\"/releases/tag/v?([0-9]+\\.[0-9]+\\.[0-9]+)$\")\n-TEXT_VERSION_RE = re.compile(r\"^Version:[ \\t]*v?([0-9]+\\.[0-9]+\\.[0-9]+)[ \\t]*$\", re.MULTILINE)\n+TEXT_VERSION_RE = re.compile(r\"^Version:[ \\t]*v?([0-9]+\\.[0-9]+\\.[0-9]+)[ \\t]*\", re.MULTILINE)\n \n \n def parse_latest_version(body):\n"
+  },
+  "pristine": [
+    {
+      "TMPDIR": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M01/.tmp",
+      "command": "python3 -I -B corpus/release-clock.py --selftest",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M01",
+      "exit": 0,
+      "id": "M01",
+      "phase": "pristine",
+      "sha256": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+      "stderr": "",
+      "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n"
+    },
+    {
+      "TMPDIR": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M02/.tmp",
+      "command": "python3 -I -B corpus/release-clock.py --selftest",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M02",
+      "exit": 0,
+      "id": "M02",
+      "phase": "pristine",
+      "sha256": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+      "stderr": "",
+      "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n"
+    },
+    {
+      "TMPDIR": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M03/.tmp",
+      "command": "python3 -I -B corpus/release-clock.py --selftest",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M03",
+      "exit": 0,
+      "id": "M03",
+      "phase": "pristine",
+      "sha256": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+      "stderr": "",
+      "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n"
+    },
+    {
+      "TMPDIR": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M04/.tmp",
+      "command": "python3 -I -B corpus/release-clock.py --selftest",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M04",
+      "exit": 0,
+      "id": "M04",
+      "phase": "pristine",
+      "sha256": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+      "stderr": "",
+      "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n"
+    },
+    {
+      "TMPDIR": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M05/.tmp",
+      "command": "python3 -I -B corpus/release-clock.py --selftest",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M05",
+      "exit": 0,
+      "id": "M05",
+      "phase": "pristine",
+      "sha256": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+      "stderr": "",
+      "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n"
+    },
+    {
+      "TMPDIR": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M06/.tmp",
+      "command": "python3 -I -B corpus/release-clock.py --selftest",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M06",
+      "exit": 0,
+      "id": "M06",
+      "phase": "pristine",
+      "sha256": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+      "stderr": "",
+      "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n"
+    },
+    {
+      "TMPDIR": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M07/.tmp",
+      "command": "python3 -I -B corpus/release-clock.py --selftest",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M07",
+      "exit": 0,
+      "id": "M07",
+      "phase": "pristine",
+      "sha256": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+      "stderr": "",
+      "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n"
+    },
+    {
+      "TMPDIR": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M08/.tmp",
+      "command": "python3 -I -B corpus/release-clock.py --selftest",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M08",
+      "exit": 0,
+      "id": "M08",
+      "phase": "pristine",
+      "sha256": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+      "stderr": "",
+      "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n"
+    },
+    {
+      "TMPDIR": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M09/.tmp",
+      "command": "python3 -I -B corpus/release-clock.py --selftest",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M09",
+      "exit": 0,
+      "id": "M09",
+      "phase": "pristine",
+      "sha256": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+      "stderr": "",
+      "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n"
+    },
+    {
+      "TMPDIR": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M10/.tmp",
+      "command": "python3 -I -B corpus/release-clock.py --selftest",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M10",
+      "exit": 0,
+      "id": "M10",
+      "phase": "pristine",
+      "sha256": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+      "stderr": "",
+      "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n"
+    },
+    {
+      "TMPDIR": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M11/.tmp",
+      "command": "python3 -I -B corpus/release-clock.py --selftest",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M11",
+      "exit": 0,
+      "id": "M11",
+      "phase": "pristine",
+      "sha256": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+      "stderr": "",
+      "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n"
+    },
+    {
+      "TMPDIR": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M12/.tmp",
+      "command": "python3 -I -B corpus/release-clock.py --selftest",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M12",
+      "exit": 0,
+      "id": "M12",
+      "phase": "pristine",
+      "sha256": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+      "stderr": "",
+      "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n"
+    },
+    {
+      "TMPDIR": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M13/.tmp",
+      "command": "python3 -I -B corpus/release-clock.py --selftest",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M13",
+      "exit": 0,
+      "id": "M13",
+      "phase": "pristine",
+      "sha256": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+      "stderr": "",
+      "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n"
+    },
+    {
+      "TMPDIR": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M14/.tmp",
+      "command": "python3 -I -B corpus/release-clock.py --selftest",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M14",
+      "exit": 0,
+      "id": "M14",
+      "phase": "pristine",
+      "sha256": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+      "stderr": "",
+      "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n"
+    },
+    {
+      "TMPDIR": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M15/.tmp",
+      "command": "python3 -I -B corpus/release-clock.py --selftest",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M15",
+      "exit": 0,
+      "id": "M15",
+      "phase": "pristine",
+      "sha256": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+      "stderr": "",
+      "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n"
+    },
+    {
+      "TMPDIR": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M16/.tmp",
+      "command": "python3 -I -B corpus/release-clock.py --selftest",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M16",
+      "exit": 0,
+      "id": "M16",
+      "phase": "pristine",
+      "sha256": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+      "stderr": "",
+      "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n"
+    }
+  ],
+  "python": "3.14.8",
+  "restoration_exact": {
+    "M01": true,
+    "M02": true,
+    "M03": true,
+    "M04": true,
+    "M05": true,
+    "M06": true,
+    "M07": true,
+    "M08": true,
+    "M09": true,
+    "M10": true,
+    "M11": true,
+    "M12": true,
+    "M13": true,
+    "M14": true,
+    "M15": true,
+    "M16": true
+  },
+  "restored": [
+    {
+      "TMPDIR": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M01/.tmp",
+      "command": "python3 -I -B corpus/release-clock.py --selftest",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M01",
+      "exit": 0,
+      "id": "M01",
+      "phase": "restored",
+      "sha256": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+      "stderr": "",
+      "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n"
+    },
+    {
+      "TMPDIR": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M02/.tmp",
+      "command": "python3 -I -B corpus/release-clock.py --selftest",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M02",
+      "exit": 0,
+      "id": "M02",
+      "phase": "restored",
+      "sha256": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+      "stderr": "",
+      "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n"
+    },
+    {
+      "TMPDIR": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M03/.tmp",
+      "command": "python3 -I -B corpus/release-clock.py --selftest",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M03",
+      "exit": 0,
+      "id": "M03",
+      "phase": "restored",
+      "sha256": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+      "stderr": "",
+      "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n"
+    },
+    {
+      "TMPDIR": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M04/.tmp",
+      "command": "python3 -I -B corpus/release-clock.py --selftest",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M04",
+      "exit": 0,
+      "id": "M04",
+      "phase": "restored",
+      "sha256": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+      "stderr": "",
+      "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n"
+    },
+    {
+      "TMPDIR": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M05/.tmp",
+      "command": "python3 -I -B corpus/release-clock.py --selftest",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M05",
+      "exit": 0,
+      "id": "M05",
+      "phase": "restored",
+      "sha256": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+      "stderr": "",
+      "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n"
+    },
+    {
+      "TMPDIR": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M06/.tmp",
+      "command": "python3 -I -B corpus/release-clock.py --selftest",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M06",
+      "exit": 0,
+      "id": "M06",
+      "phase": "restored",
+      "sha256": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+      "stderr": "",
+      "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n"
+    },
+    {
+      "TMPDIR": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M07/.tmp",
+      "command": "python3 -I -B corpus/release-clock.py --selftest",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M07",
+      "exit": 0,
+      "id": "M07",
+      "phase": "restored",
+      "sha256": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+      "stderr": "",
+      "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n"
+    },
+    {
+      "TMPDIR": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M08/.tmp",
+      "command": "python3 -I -B corpus/release-clock.py --selftest",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M08",
+      "exit": 0,
+      "id": "M08",
+      "phase": "restored",
+      "sha256": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+      "stderr": "",
+      "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n"
+    },
+    {
+      "TMPDIR": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M09/.tmp",
+      "command": "python3 -I -B corpus/release-clock.py --selftest",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M09",
+      "exit": 0,
+      "id": "M09",
+      "phase": "restored",
+      "sha256": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+      "stderr": "",
+      "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n"
+    },
+    {
+      "TMPDIR": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M10/.tmp",
+      "command": "python3 -I -B corpus/release-clock.py --selftest",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M10",
+      "exit": 0,
+      "id": "M10",
+      "phase": "restored",
+      "sha256": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+      "stderr": "",
+      "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n"
+    },
+    {
+      "TMPDIR": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M11/.tmp",
+      "command": "python3 -I -B corpus/release-clock.py --selftest",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M11",
+      "exit": 0,
+      "id": "M11",
+      "phase": "restored",
+      "sha256": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+      "stderr": "",
+      "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n"
+    },
+    {
+      "TMPDIR": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M12/.tmp",
+      "command": "python3 -I -B corpus/release-clock.py --selftest",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M12",
+      "exit": 0,
+      "id": "M12",
+      "phase": "restored",
+      "sha256": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+      "stderr": "",
+      "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n"
+    },
+    {
+      "TMPDIR": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M13/.tmp",
+      "command": "python3 -I -B corpus/release-clock.py --selftest",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M13",
+      "exit": 0,
+      "id": "M13",
+      "phase": "restored",
+      "sha256": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+      "stderr": "",
+      "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n"
+    },
+    {
+      "TMPDIR": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M14/.tmp",
+      "command": "python3 -I -B corpus/release-clock.py --selftest",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M14",
+      "exit": 0,
+      "id": "M14",
+      "phase": "restored",
+      "sha256": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+      "stderr": "",
+      "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n"
+    },
+    {
+      "TMPDIR": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M15/.tmp",
+      "command": "python3 -I -B corpus/release-clock.py --selftest",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M15",
+      "exit": 0,
+      "id": "M15",
+      "phase": "restored",
+      "sha256": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+      "stderr": "",
+      "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n"
+    },
+    {
+      "TMPDIR": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M16/.tmp",
+      "command": "python3 -I -B corpus/release-clock.py --selftest",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M16",
+      "exit": 0,
+      "id": "M16",
+      "phase": "restored",
+      "sha256": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+      "stderr": "",
+      "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n"
+    }
+  ],
+  "verdicts": {
+    "M01": "survived",
+    "M02": "killed",
+    "M03": "survived",
+    "M04": "survived",
+    "M05": "killed",
+    "M06": "killed",
+    "M07": "killed",
+    "M08": "killed",
+    "M09": "killed",
+    "M10": "survived",
+    "M11": "survived",
+    "M12": "survived",
+    "M13": "survived",
+    "M14": "killed",
+    "M15": "killed",
+    "M16": "survived"
+  },
+  "witness_timeout_seconds": 15,
+  "witnesses": [
+    {
+      "command": "python3 -I -B ../witness.py M01",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/base",
+      "exit": 0,
+      "id": "M01",
+      "phase": "pristine-reference",
+      "stderr": "",
+      "stdout": "{\"id\": \"M01\", \"int_max_str_digits\": 4300, \"result\": {\"value\": null}}\n"
+    },
+    {
+      "command": "python3 -I -B ../witness.py M02",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/base",
+      "exit": 0,
+      "id": "M02",
+      "phase": "pristine-reference",
+      "stderr": "",
+      "stdout": "{\"id\": \"M02\", \"int_max_str_digits\": 4300, \"result\": {\"value\": null}}\n"
+    },
+    {
+      "command": "python3 -I -B ../witness.py M03",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/base",
+      "exit": 0,
+      "id": "M03",
+      "phase": "pristine-reference",
+      "stderr": "",
+      "stdout": "{\"id\": \"M03\", \"int_max_str_digits\": 4300, \"result\": {\"value\": null}}\n"
+    },
+    {
+      "command": "python3 -I -B ../witness.py M04",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/base",
+      "exit": 0,
+      "id": "M04",
+      "phase": "pristine-reference",
+      "stderr": "",
+      "stdout": "{\"id\": \"M04\", \"int_max_str_digits\": 4300, \"result\": {\"value\": null}}\n"
+    },
+    {
+      "command": "python3 -I -B ../witness.py M05",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/base",
+      "exit": 0,
+      "id": "M05",
+      "phase": "pristine-reference",
+      "stderr": "",
+      "stdout": "{\"id\": \"M05\", \"int_max_str_digits\": 4300, \"result\": {\"value\": false}}\n"
+    },
+    {
+      "command": "python3 -I -B ../witness.py M06",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/base",
+      "exit": 0,
+      "id": "M06",
+      "phase": "pristine-reference",
+      "stderr": "",
+      "stdout": "{\"id\": \"M06\", \"int_max_str_digits\": 4300, \"result\": {\"value\": true}}\n"
+    },
+    {
+      "command": "python3 -I -B ../witness.py M07",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/base",
+      "exit": 0,
+      "id": "M07",
+      "phase": "pristine-reference",
+      "stderr": "",
+      "stdout": "{\"id\": \"M07\", \"int_max_str_digits\": 4300, \"result\": {\"value\": true}}\n"
+    },
+    {
+      "command": "python3 -I -B ../witness.py M08",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/base",
+      "exit": 0,
+      "id": "M08",
+      "phase": "pristine-reference",
+      "stderr": "",
+      "stdout": "{\"id\": \"M08\", \"int_max_str_digits\": 4300, \"result\": {\"value\": false}}\n"
+    },
+    {
+      "command": "python3 -I -B ../witness.py M09",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/base",
+      "exit": 0,
+      "id": "M09",
+      "phase": "pristine-reference",
+      "stderr": "",
+      "stdout": "{\"id\": \"M09\", \"int_max_str_digits\": 4300, \"result\": {\"value\": true}}\n"
+    },
+    {
+      "command": "python3 -I -B ../witness.py M10",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/base",
+      "exit": 0,
+      "id": "M10",
+      "phase": "pristine-reference",
+      "stderr": "",
+      "stdout": "{\"id\": \"M10\", \"int_max_str_digits\": 4300, \"result\": {\"exception\": \"ValueError\", \"message\": \"Exceeds the limit (4300 digits) for integer string conversion: value has 4301 digits; use sys.set_int_max_str_digits() to increase the limit\"}}\n"
+    },
+    {
+      "command": "python3 -I -B ../witness.py M11",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/base",
+      "exit": 0,
+      "id": "M11",
+      "phase": "pristine-reference",
+      "stderr": "",
+      "stdout": "{\"id\": \"M11\", \"int_max_str_digits\": 4300, \"result\": {\"value\": {\"observation\": {\"error\": \"feed has no stable X.Y.Z release entry\", \"parsed_version\": null, \"verdict\": null}, \"parser\": {\"exception\": \"ValueError\", \"message\": \"feed has no stable X.Y.Z release entry\"}}}}\n"
+    },
+    {
+      "command": "python3 -I -B ../witness.py M12",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/base",
+      "exit": 0,
+      "id": "M12",
+      "phase": "pristine-reference",
+      "stderr": "",
+      "stdout": "{\"id\": \"M12\", \"int_max_str_digits\": 4300, \"result\": {\"value\": {\"observation\": {\"error\": \"feed has no stable X.Y.Z release entry\", \"parsed_version\": null, \"verdict\": null}, \"parser\": {\"exception\": \"ValueError\", \"message\": \"feed has no stable X.Y.Z release entry\"}}}}\n"
+    },
+    {
+      "command": "python3 -I -B ../witness.py M13",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/base",
+      "exit": 0,
+      "id": "M13",
+      "phase": "pristine-reference",
+      "stderr": "",
+      "stdout": "{\"id\": \"M13\", \"int_max_str_digits\": 4300, \"result\": {\"value\": {\"observation\": {\"error\": \"text release file has no Version: X.Y.Z line\", \"parsed_version\": null, \"verdict\": null}, \"parser\": {\"exception\": \"ValueError\", \"message\": \"text release file has no Version: X.Y.Z line\"}}}}\n"
+    },
+    {
+      "command": "python3 -I -B ../witness.py M14",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/base",
+      "exit": 0,
+      "id": "M14",
+      "phase": "pristine-reference",
+      "stderr": "",
+      "stdout": "{\"id\": \"M14\", \"int_max_str_digits\": 4300, \"result\": {\"value\": {\"observation\": {\"error\": null, \"parsed_version\": \"3.15.0\", \"verdict\": \"regressed\"}, \"parser\": \"3.15.0\"}}}\n"
+    },
+    {
+      "command": "python3 -I -B ../witness.py M15",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/base",
+      "exit": 0,
+      "id": "M15",
+      "phase": "pristine-reference",
+      "stderr": "",
+      "stdout": "{\"id\": \"M15\", \"int_max_str_digits\": 4300, \"result\": {\"value\": {\"observation\": {\"error\": \"feed has no stable X.Y.Z release entry\", \"parsed_version\": null, \"verdict\": null}, \"parser\": {\"exception\": \"ValueError\", \"message\": \"feed has no stable X.Y.Z release entry\"}}}}\n"
+    },
+    {
+      "command": "python3 -I -B ../witness.py M16",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/base",
+      "exit": 0,
+      "id": "M16",
+      "phase": "pristine-reference",
+      "stderr": "",
+      "stdout": "{\"id\": \"M16\", \"int_max_str_digits\": 4300, \"result\": {\"value\": {\"observation\": {\"error\": \"text release file has no Version: X.Y.Z line\", \"parsed_version\": null, \"verdict\": null}, \"parser\": {\"exception\": \"ValueError\", \"message\": \"text release file has no Version: X.Y.Z line\"}}}}\n"
+    },
+    {
+      "command": "python3 -I -B ../witness.py C1-leading-zero",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/base",
+      "exit": 0,
+      "id": "C1-leading-zero",
+      "phase": "pristine-reference",
+      "stderr": "",
+      "stdout": "{\"id\": \"C1-leading-zero\", \"int_max_str_digits\": 4300, \"result\": {\"value\": {\"feed\": {\"observation\": {\"error\": null, \"parsed_version\": \"3.15.01\", \"verdict\": \"fired\"}, \"parser\": \"3.15.01\"}, \"numeric\": [3, 15, 1]}}}\n"
+    },
+    {
+      "command": "python3 -I -B ../witness.py M01",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M01",
+      "exit": 0,
+      "id": "M01",
+      "phase": "mutated",
+      "stderr": "",
+      "stdout": "{\"id\": \"M01\", \"int_max_str_digits\": 4300, \"result\": {\"value\": [3, 15, 1]}}\n"
+    },
+    {
+      "command": "python3 -I -B ../witness.py M02",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M02",
+      "exit": 0,
+      "id": "M02",
+      "phase": "mutated",
+      "stderr": "",
+      "stdout": "{\"id\": \"M02\", \"int_max_str_digits\": 4300, \"result\": {\"value\": [1, 3]}}\n"
+    },
+    {
+      "command": "python3 -I -B ../witness.py M03",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M03",
+      "exit": 0,
+      "id": "M03",
+      "phase": "mutated",
+      "stderr": "",
+      "stdout": "{\"id\": \"M03\", \"int_max_str_digits\": 4300, \"result\": {\"value\": [1, 2, 3, 4]}}\n"
+    },
+    {
+      "command": "python3 -I -B ../witness.py M04",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M04",
+      "exit": 0,
+      "id": "M04",
+      "phase": "mutated",
+      "stderr": "",
+      "stdout": "{\"id\": \"M04\", \"int_max_str_digits\": 4300, \"result\": {\"exception\": \"ValueError\", \"message\": \"invalid literal for int() with base 10: '3-rc1'\"}}\n"
+    },
+    {
+      "command": "python3 -I -B ../witness.py M05",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M05",
+      "exit": 0,
+      "id": "M05",
+      "phase": "mutated",
+      "stderr": "",
+      "stdout": "{\"id\": \"M05\", \"int_max_str_digits\": 4300, \"result\": {\"value\": true}}\n"
+    },
+    {
+      "command": "python3 -I -B ../witness.py M06",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M06",
+      "exit": 0,
+      "id": "M06",
+      "phase": "mutated",
+      "stderr": "",
+      "stdout": "{\"id\": \"M06\", \"int_max_str_digits\": 4300, \"result\": {\"value\": false}}\n"
+    },
+    {
+      "command": "python3 -I -B ../witness.py M07",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M07",
+      "exit": 0,
+      "id": "M07",
+      "phase": "mutated",
+      "stderr": "",
+      "stdout": "{\"id\": \"M07\", \"int_max_str_digits\": 4300, \"result\": {\"value\": false}}\n"
+    },
+    {
+      "command": "python3 -I -B ../witness.py M08",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M08",
+      "exit": 0,
+      "id": "M08",
+      "phase": "mutated",
+      "stderr": "",
+      "stdout": "{\"id\": \"M08\", \"int_max_str_digits\": 4300, \"result\": {\"value\": true}}\n"
+    },
+    {
+      "command": "python3 -I -B ../witness.py M09",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M09",
+      "exit": 0,
+      "id": "M09",
+      "phase": "mutated",
+      "stderr": "",
+      "stdout": "{\"id\": \"M09\", \"int_max_str_digits\": 4300, \"result\": {\"value\": false}}\n"
+    },
+    {
+      "command": "python3 -I -B ../witness.py M10",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M10",
+      "exit": 0,
+      "id": "M10",
+      "phase": "mutated",
+      "stderr": "",
+      "stdout": "{\"id\": \"M10\", \"int_max_str_digits\": 4300, \"result\": {\"value\": {\"accepted\": true, \"component_digits\": [1, 1, 4300]}}}\n"
+    },
+    {
+      "command": "python3 -I -B ../witness.py M11",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M11",
+      "exit": 0,
+      "id": "M11",
+      "phase": "mutated",
+      "stderr": "",
+      "stdout": "{\"id\": \"M11\", \"int_max_str_digits\": 4300, \"result\": {\"value\": {\"observation\": {\"error\": null, \"parsed_version\": \"\\u0663.\\u0661\\u0665.\\u0661\", \"verdict\": \"fired\"}, \"parser\": \"\\u0663.\\u0661\\u0665.\\u0661\"}}}\n"
+    },
+    {
+      "command": "python3 -I -B ../witness.py M12",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M12",
+      "exit": 0,
+      "id": "M12",
+      "phase": "mutated",
+      "stderr": "",
+      "stdout": "{\"id\": \"M12\", \"int_max_str_digits\": 4300, \"result\": {\"value\": {\"observation\": {\"error\": null, \"parsed_version\": \"\\u0663.\\u0661\\u0665.\\u0661\", \"verdict\": \"fired\"}, \"parser\": \"\\u0663.\\u0661\\u0665.\\u0661\"}}}\n"
+    },
+    {
+      "command": "python3 -I -B ../witness.py M13",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M13",
+      "exit": 0,
+      "id": "M13",
+      "phase": "mutated",
+      "stderr": "",
+      "stdout": "{\"id\": \"M13\", \"int_max_str_digits\": 4300, \"result\": {\"value\": {\"observation\": {\"error\": null, \"parsed_version\": \"\\u0663.\\u0661\\u0665.\\u0661\", \"verdict\": \"fired\"}, \"parser\": \"\\u0663.\\u0661\\u0665.\\u0661\"}}}\n"
+    },
+    {
+      "command": "python3 -I -B ../witness.py M14",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M14",
+      "exit": 0,
+      "id": "M14",
+      "phase": "mutated",
+      "stderr": "",
+      "stdout": "{\"id\": \"M14\", \"int_max_str_digits\": 4300, \"result\": {\"value\": {\"observation\": {\"error\": null, \"parsed_version\": \"3.16.0\", \"verdict\": \"fired\"}, \"parser\": \"3.16.0\"}}}\n"
+    },
+    {
+      "command": "python3 -I -B ../witness.py M15",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M15",
+      "exit": 0,
+      "id": "M15",
+      "phase": "mutated",
+      "stderr": "",
+      "stdout": "{\"id\": \"M15\", \"int_max_str_digits\": 4300, \"result\": {\"value\": {\"observation\": {\"error\": null, \"parsed_version\": \"3.0.0\", \"verdict\": \"fired\"}, \"parser\": \"3.0.0\"}}}\n"
+    },
+    {
+      "command": "python3 -I -B ../witness.py M16",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M16",
+      "exit": 0,
+      "id": "M16",
+      "phase": "mutated",
+      "stderr": "",
+      "stdout": "{\"id\": \"M16\", \"int_max_str_digits\": 4300, \"result\": {\"value\": {\"observation\": {\"error\": null, \"parsed_version\": \"8.23.0\", \"verdict\": \"fired\"}, \"parser\": \"8.23.0\"}}}\n"
+    },
+    {
+      "command": "python3 -I -B ../witness.py M01",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M01",
+      "exit": 0,
+      "id": "M01",
+      "phase": "restored",
+      "stderr": "",
+      "stdout": "{\"id\": \"M01\", \"int_max_str_digits\": 4300, \"result\": {\"value\": null}}\n"
+    },
+    {
+      "command": "python3 -I -B ../witness.py M02",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M02",
+      "exit": 0,
+      "id": "M02",
+      "phase": "restored",
+      "stderr": "",
+      "stdout": "{\"id\": \"M02\", \"int_max_str_digits\": 4300, \"result\": {\"value\": null}}\n"
+    },
+    {
+      "command": "python3 -I -B ../witness.py M03",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M03",
+      "exit": 0,
+      "id": "M03",
+      "phase": "restored",
+      "stderr": "",
+      "stdout": "{\"id\": \"M03\", \"int_max_str_digits\": 4300, \"result\": {\"value\": null}}\n"
+    },
+    {
+      "command": "python3 -I -B ../witness.py M04",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M04",
+      "exit": 0,
+      "id": "M04",
+      "phase": "restored",
+      "stderr": "",
+      "stdout": "{\"id\": \"M04\", \"int_max_str_digits\": 4300, \"result\": {\"value\": null}}\n"
+    },
+    {
+      "command": "python3 -I -B ../witness.py M05",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M05",
+      "exit": 0,
+      "id": "M05",
+      "phase": "restored",
+      "stderr": "",
+      "stdout": "{\"id\": \"M05\", \"int_max_str_digits\": 4300, \"result\": {\"value\": false}}\n"
+    },
+    {
+      "command": "python3 -I -B ../witness.py M06",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M06",
+      "exit": 0,
+      "id": "M06",
+      "phase": "restored",
+      "stderr": "",
+      "stdout": "{\"id\": \"M06\", \"int_max_str_digits\": 4300, \"result\": {\"value\": true}}\n"
+    },
+    {
+      "command": "python3 -I -B ../witness.py M07",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M07",
+      "exit": 0,
+      "id": "M07",
+      "phase": "restored",
+      "stderr": "",
+      "stdout": "{\"id\": \"M07\", \"int_max_str_digits\": 4300, \"result\": {\"value\": true}}\n"
+    },
+    {
+      "command": "python3 -I -B ../witness.py M08",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M08",
+      "exit": 0,
+      "id": "M08",
+      "phase": "restored",
+      "stderr": "",
+      "stdout": "{\"id\": \"M08\", \"int_max_str_digits\": 4300, \"result\": {\"value\": false}}\n"
+    },
+    {
+      "command": "python3 -I -B ../witness.py M09",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M09",
+      "exit": 0,
+      "id": "M09",
+      "phase": "restored",
+      "stderr": "",
+      "stdout": "{\"id\": \"M09\", \"int_max_str_digits\": 4300, \"result\": {\"value\": true}}\n"
+    },
+    {
+      "command": "python3 -I -B ../witness.py M10",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M10",
+      "exit": 0,
+      "id": "M10",
+      "phase": "restored",
+      "stderr": "",
+      "stdout": "{\"id\": \"M10\", \"int_max_str_digits\": 4300, \"result\": {\"exception\": \"ValueError\", \"message\": \"Exceeds the limit (4300 digits) for integer string conversion: value has 4301 digits; use sys.set_int_max_str_digits() to increase the limit\"}}\n"
+    },
+    {
+      "command": "python3 -I -B ../witness.py M11",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M11",
+      "exit": 0,
+      "id": "M11",
+      "phase": "restored",
+      "stderr": "",
+      "stdout": "{\"id\": \"M11\", \"int_max_str_digits\": 4300, \"result\": {\"value\": {\"observation\": {\"error\": \"feed has no stable X.Y.Z release entry\", \"parsed_version\": null, \"verdict\": null}, \"parser\": {\"exception\": \"ValueError\", \"message\": \"feed has no stable X.Y.Z release entry\"}}}}\n"
+    },
+    {
+      "command": "python3 -I -B ../witness.py M12",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M12",
+      "exit": 0,
+      "id": "M12",
+      "phase": "restored",
+      "stderr": "",
+      "stdout": "{\"id\": \"M12\", \"int_max_str_digits\": 4300, \"result\": {\"value\": {\"observation\": {\"error\": \"feed has no stable X.Y.Z release entry\", \"parsed_version\": null, \"verdict\": null}, \"parser\": {\"exception\": \"ValueError\", \"message\": \"feed has no stable X.Y.Z release entry\"}}}}\n"
+    },
+    {
+      "command": "python3 -I -B ../witness.py M13",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M13",
+      "exit": 0,
+      "id": "M13",
+      "phase": "restored",
+      "stderr": "",
+      "stdout": "{\"id\": \"M13\", \"int_max_str_digits\": 4300, \"result\": {\"value\": {\"observation\": {\"error\": \"text release file has no Version: X.Y.Z line\", \"parsed_version\": null, \"verdict\": null}, \"parser\": {\"exception\": \"ValueError\", \"message\": \"text release file has no Version: X.Y.Z line\"}}}}\n"
+    },
+    {
+      "command": "python3 -I -B ../witness.py M14",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M14",
+      "exit": 0,
+      "id": "M14",
+      "phase": "restored",
+      "stderr": "",
+      "stdout": "{\"id\": \"M14\", \"int_max_str_digits\": 4300, \"result\": {\"value\": {\"observation\": {\"error\": null, \"parsed_version\": \"3.15.0\", \"verdict\": \"regressed\"}, \"parser\": \"3.15.0\"}}}\n"
+    },
+    {
+      "command": "python3 -I -B ../witness.py M15",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M15",
+      "exit": 0,
+      "id": "M15",
+      "phase": "restored",
+      "stderr": "",
+      "stdout": "{\"id\": \"M15\", \"int_max_str_digits\": 4300, \"result\": {\"value\": {\"observation\": {\"error\": \"feed has no stable X.Y.Z release entry\", \"parsed_version\": null, \"verdict\": null}, \"parser\": {\"exception\": \"ValueError\", \"message\": \"feed has no stable X.Y.Z release entry\"}}}}\n"
+    },
+    {
+      "command": "python3 -I -B ../witness.py M16",
+      "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseNumeric-7/M16",
+      "exit": 0,
+      "id": "M16",
+      "phase": "restored",
+      "stderr": "",
+      "stdout": "{\"id\": \"M16\", \"int_max_str_digits\": 4300, \"result\": {\"value\": {\"observation\": {\"error\": \"text release file has no Version: X.Y.Z line\", \"parsed_version\": null, \"verdict\": null}, \"parser\": {\"exception\": \"ValueError\", \"message\": \"text release file has no Version: X.Y.Z line\"}}}}\n"
+    }
+  ]
+}

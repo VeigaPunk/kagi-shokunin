@@ -1,0 +1,577 @@
+{
+ "BASE-CONTROL": {
+  "exit": 0,
+  "traceback": false,
+  "lines": [
+   "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)"
+  ]
+ },
+ "BASE-F1": {
+  "exit": 0,
+  "traceback": false,
+  "lines": [
+   "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=4 derived=15)"
+  ]
+ },
+ "BASE-F2": {
+  "exit": 1,
+  "traceback": true,
+  "lines": [
+   "Traceback (most recent call last):",
+   "ValueError: Exceeds the limit (4300 digits) for integer string conversion: value has 4301 digits; use sys.set_"
+  ]
+ },
+ "BASE-F3replace": {
+  "exit": 1,
+  "traceback": false,
+  "lines": [
+   "RECEIPT-MISMATCH S028",
+   "RECEIPT-MISMATCH S040",
+   "RECEIPT-MISMATCH S041",
+   "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=26 fired=1 derived=15)",
+   "WRITTEN S027 verdict=fired parsed=3.15.01 error=",
+   "WRITTEN S028 verdict=fired parsed=3.15.01 error=",
+   "WRITTEN S040 verdict=fired parsed=3.15.01 error=",
+   "WRITTEN S041 verdict=fired parsed=3.15.01 error="
+  ]
+ },
+ "BASE-F4replace": {
+  "exit": 1,
+  "traceback": false,
+  "lines": [
+   "RECEIPT-MISMATCH S028",
+   "RECEIPT-MISMATCH S040",
+   "RECEIPT-MISMATCH S041",
+   "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=26 fired=1 derived=15)",
+   "WRITTEN S027 verdict=None parsed= error=Exceeds the limit (4300 digits) for integer string conversio",
+   "WRITTEN S028 verdict=None parsed= error=Exceeds the limit (4300 digits) for integer string conversio",
+   "WRITTEN S040 verdict=None parsed= error=Exceeds the limit (4300 digits) for integer string conversio",
+   "WRITTEN S041 verdict=None parsed= error=Exceeds the limit (4300 digits) for integer string conversio"
+  ]
+ },
+ "BASE-F3prepend": {
+  "exit": 1,
+  "traceback": false,
+  "lines": [
+   "RECEIPT-MISMATCH S028",
+   "RECEIPT-MISMATCH S040",
+   "RECEIPT-MISMATCH S041",
+   "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=26 fired=1 derived=15)",
+   "WRITTEN S027 verdict=fired parsed=3.15.01 error=",
+   "WRITTEN S028 verdict=fired parsed=3.15.01 error=",
+   "WRITTEN S040 verdict=fired parsed=3.15.01 error=",
+   "WRITTEN S041 verdict=fired parsed=3.15.01 error="
+  ]
+ },
+ "BASE-F4prepend": {
+  "exit": 1,
+  "traceback": false,
+  "lines": [
+   "RECEIPT-MISMATCH S028",
+   "RECEIPT-MISMATCH S040",
+   "RECEIPT-MISMATCH S041",
+   "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=26 fired=1 derived=15)",
+   "WRITTEN S027 verdict=None parsed= error=Exceeds the limit (4300 digits) for integer string conversio",
+   "WRITTEN S028 verdict=None parsed= error=Exceeds the limit (4300 digits) for integer string conversio",
+   "WRITTEN S040 verdict=None parsed= error=Exceeds the limit (4300 digits) for integer string conversio",
+   "WRITTEN S041 verdict=None parsed= error=Exceeds the limit (4300 digits) for integer string conversio"
+  ]
+ },
+ "BASE-CX-canonlie": {
+  "exit": 0,
+  "traceback": false,
+  "lines": [
+   "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=4 derived=15)"
+  ]
+ },
+ "BASE-CX-anchor-oversize": {
+  "exit": 1,
+  "traceback": true,
+  "lines": [
+   "Traceback (most recent call last):",
+   "ValueError: Exceeds the limit (4300 digits) for integer string conversion: value has 4301 digits; use sys.set_"
+  ]
+ },
+ "BASE-CX-derived-lz-fired": {
+  "exit": 0,
+  "traceback": false,
+  "lines": [
+   "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=4 derived=15)"
+  ]
+ },
+ "BASE-CX-derived-lz-notfired": {
+  "exit": 0,
+  "traceback": false,
+  "lines": [
+   "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)"
+  ]
+ },
+ "BASE-CX-major-lz": {
+  "exit": 0,
+  "traceback": false,
+  "lines": [
+   "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=4 derived=15)"
+  ]
+ },
+ "BASE-CX-4300digits": {
+  "exit": 0,
+  "traceback": false,
+  "lines": [
+   "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=4 derived=15)"
+  ]
+ },
+ "BASE-CX-F2-env0-noI": {
+  "exit": 0,
+  "traceback": false,
+  "lines": [
+   "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=4 derived=15)"
+  ]
+ },
+ "BASE-CX-atom-taglz": {
+  "exit": 1,
+  "traceback": false,
+  "lines": [
+   "RECEIPT-MISMATCH S026",
+   "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=24 fired=3 derived=9)",
+   "WRITTEN S014 verdict=fired parsed=2.7.01 error=",
+   "WRITTEN S015 verdict=fired parsed=2.7.01 error=",
+   "WRITTEN S016 verdict=fired parsed=2.7.01 error=",
+   "WRITTEN S021 verdict=fired parsed=2.7.01 error=",
+   "WRITTEN S025 verdict=fired parsed=2.7.01 error=",
+   "WRITTEN S026 verdict=fired parsed=2.7.01 error="
+  ]
+ },
+ "P1-CONTROL": {
+  "exit": 0,
+  "traceback": false,
+  "lines": [
+   "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)"
+  ]
+ },
+ "P1-F1": {
+  "exit": 1,
+  "traceback": false,
+  "lines": [
+   "NONCANONICAL S040",
+   "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)"
+  ]
+ },
+ "P1-F2": {
+  "exit": 1,
+  "traceback": false,
+  "lines": [
+   "NONCANONICAL S040",
+   "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)"
+  ]
+ },
+ "P1-F3replace": {
+  "exit": 1,
+  "traceback": false,
+  "lines": [
+   "RECEIPT-MISMATCH S028",
+   "RECEIPT-MISMATCH S040",
+   "RECEIPT-MISMATCH S041",
+   "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=26 fired=1 derived=15)",
+   "WRITTEN S027 verdict=None parsed= error=non-canonical version token",
+   "WRITTEN S028 verdict=None parsed= error=non-canonical version token",
+   "WRITTEN S040 verdict=None parsed= error=non-canonical version token",
+   "WRITTEN S041 verdict=None parsed= error=non-canonical version token"
+  ]
+ },
+ "P1-F4replace": {
+  "exit": 1,
+  "traceback": false,
+  "lines": [
+   "RECEIPT-MISMATCH S028",
+   "RECEIPT-MISMATCH S040",
+   "RECEIPT-MISMATCH S041",
+   "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=26 fired=1 derived=15)",
+   "WRITTEN S027 verdict=None parsed= error=Exceeds the limit (4300 digits) for integer string conversio",
+   "WRITTEN S028 verdict=None parsed= error=Exceeds the limit (4300 digits) for integer string conversio",
+   "WRITTEN S040 verdict=None parsed= error=Exceeds the limit (4300 digits) for integer string conversio",
+   "WRITTEN S041 verdict=None parsed= error=Exceeds the limit (4300 digits) for integer string conversio"
+  ]
+ },
+ "P1-F3prepend": {
+  "exit": 1,
+  "traceback": false,
+  "lines": [
+   "RECEIPT-MISMATCH S028",
+   "RECEIPT-MISMATCH S040",
+   "RECEIPT-MISMATCH S041",
+   "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=26 fired=1 derived=15)",
+   "WRITTEN S027 verdict=None parsed= error=non-canonical version token",
+   "WRITTEN S028 verdict=None parsed= error=non-canonical version token",
+   "WRITTEN S040 verdict=None parsed= error=non-canonical version token",
+   "WRITTEN S041 verdict=None parsed= error=non-canonical version token"
+  ]
+ },
+ "P1-F4prepend": {
+  "exit": 1,
+  "traceback": false,
+  "lines": [
+   "RECEIPT-MISMATCH S028",
+   "RECEIPT-MISMATCH S040",
+   "RECEIPT-MISMATCH S041",
+   "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=26 fired=1 derived=15)",
+   "WRITTEN S027 verdict=None parsed= error=Exceeds the limit (4300 digits) for integer string conversio",
+   "WRITTEN S028 verdict=None parsed= error=Exceeds the limit (4300 digits) for integer string conversio",
+   "WRITTEN S040 verdict=None parsed= error=Exceeds the limit (4300 digits) for integer string conversio",
+   "WRITTEN S041 verdict=None parsed= error=Exceeds the limit (4300 digits) for integer string conversio"
+  ]
+ },
+ "P1-CX-canonlie": {
+  "exit": 0,
+  "traceback": false,
+  "lines": [
+   "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=4 derived=15)"
+  ]
+ },
+ "P1-CX-anchor-oversize": {
+  "exit": 1,
+  "traceback": true,
+  "lines": [
+   "Traceback (most recent call last):",
+   "ValueError: Exceeds the limit (4300 digits) for integer string conversion: value has 4301 digits; use sys.set_"
+  ]
+ },
+ "P1-CX-derived-lz-fired": {
+  "exit": 0,
+  "traceback": false,
+  "lines": [
+   "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=4 derived=15)"
+  ]
+ },
+ "P1-CX-derived-lz-notfired": {
+  "exit": 1,
+  "traceback": false,
+  "lines": [
+   "NONCANONICAL S014",
+   "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+  ]
+ },
+ "P1-CX-major-lz": {
+  "exit": 1,
+  "traceback": false,
+  "lines": [
+   "NONCANONICAL S040",
+   "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)"
+  ]
+ },
+ "P1-CX-4300digits": {
+  "exit": 0,
+  "traceback": false,
+  "lines": [
+   "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=4 derived=15)"
+  ]
+ },
+ "P1-CX-F2-env0-noI": {
+  "exit": 1,
+  "traceback": false,
+  "lines": [
+   "NONCANONICAL S040",
+   "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)"
+  ]
+ },
+ "P1-CX-atom-taglz": {
+  "exit": 1,
+  "traceback": false,
+  "lines": [
+   "RECEIPT-MISMATCH S026",
+   "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=24 fired=3 derived=9)",
+   "WRITTEN S014 verdict=None parsed= error=non-canonical version token",
+   "WRITTEN S015 verdict=None parsed= error=non-canonical version token",
+   "WRITTEN S016 verdict=None parsed= error=non-canonical version token",
+   "WRITTEN S021 verdict=None parsed= error=non-canonical version token",
+   "WRITTEN S025 verdict=None parsed= error=non-canonical version token",
+   "WRITTEN S026 verdict=None parsed= error=non-canonical version token"
+  ]
+ },
+ "P2-CONTROL": {
+  "exit": 0,
+  "traceback": false,
+  "lines": [
+   "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)"
+  ]
+ },
+ "P2-F1": {
+  "exit": 1,
+  "traceback": false,
+  "lines": [
+   "INCONSISTENT S040",
+   "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)"
+  ]
+ },
+ "P2-F2": {
+  "exit": 1,
+  "traceback": false,
+  "lines": [
+   "INCONSISTENT S040",
+   "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)"
+  ]
+ },
+ "P2-F3replace": {
+  "exit": 1,
+  "traceback": false,
+  "lines": [
+   "REGRESSED S028",
+   "REGRESSED S040",
+   "REGRESSED S041",
+   "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=26 fired=1 derived=15)",
+   "WRITTEN S027 verdict=regressed parsed=3.15.0 error=",
+   "WRITTEN S028 verdict=regressed parsed=3.15.0 error=",
+   "WRITTEN S040 verdict=regressed parsed=3.15.0 error=",
+   "WRITTEN S041 verdict=regressed parsed=3.15.0 error="
+  ]
+ },
+ "P2-F4replace": {
+  "exit": 1,
+  "traceback": false,
+  "lines": [
+   "REGRESSED S028",
+   "REGRESSED S040",
+   "REGRESSED S041",
+   "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=26 fired=1 derived=15)",
+   "WRITTEN S027 verdict=regressed parsed=3.15.0 error=",
+   "WRITTEN S028 verdict=regressed parsed=3.15.0 error=",
+   "WRITTEN S040 verdict=regressed parsed=3.15.0 error=",
+   "WRITTEN S041 verdict=regressed parsed=3.15.0 error="
+  ]
+ },
+ "P2-F3prepend": {
+  "exit": 0,
+  "traceback": false,
+  "lines": [
+   "RELEASE_CLOCK_OBSERVE: wrote 30 observations (failed=0 fired=3 regressed=0) to /home/vgpnk/Projects/shokunin/k",
+   "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)",
+   "WRITTEN S027 verdict=fired parsed=3.15.1 error=",
+   "WRITTEN S028 verdict=fired parsed=3.15.1 error=",
+   "WRITTEN S040 verdict=not-fired parsed=3.15.1 error=",
+   "WRITTEN S041 verdict=not-fired parsed=3.15.1 error="
+  ]
+ },
+ "P2-F4prepend": {
+  "exit": 0,
+  "traceback": false,
+  "lines": [
+   "RELEASE_CLOCK_OBSERVE: wrote 30 observations (failed=0 fired=3 regressed=0) to /home/vgpnk/Projects/shokunin/k",
+   "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)",
+   "WRITTEN S027 verdict=fired parsed=3.15.1 error=",
+   "WRITTEN S028 verdict=fired parsed=3.15.1 error=",
+   "WRITTEN S040 verdict=not-fired parsed=3.15.1 error=",
+   "WRITTEN S041 verdict=not-fired parsed=3.15.1 error="
+  ]
+ },
+ "P2-CX-canonlie": {
+  "exit": 0,
+  "traceback": false,
+  "lines": [
+   "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=4 derived=15)"
+  ]
+ },
+ "P2-CX-anchor-oversize": {
+  "exit": 1,
+  "traceback": false,
+  "lines": [
+   "INCONSISTENT S041",
+   "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)"
+  ]
+ },
+ "P2-CX-derived-lz-fired": {
+  "exit": 0,
+  "traceback": false,
+  "lines": [
+   "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=4 derived=15)"
+  ]
+ },
+ "P2-CX-derived-lz-notfired": {
+  "exit": 1,
+  "traceback": false,
+  "lines": [
+   "INCONSISTENT S014",
+   "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+  ]
+ },
+ "P2-CX-major-lz": {
+  "exit": 1,
+  "traceback": false,
+  "lines": [
+   "INCONSISTENT S040",
+   "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)"
+  ]
+ },
+ "P2-CX-4300digits": {
+  "exit": 0,
+  "traceback": false,
+  "lines": [
+   "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=4 derived=15)"
+  ]
+ },
+ "P2-CX-F2-env0-noI": {
+  "exit": 1,
+  "traceback": false,
+  "lines": [
+   "INCONSISTENT S040",
+   "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)"
+  ]
+ },
+ "P2-CX-atom-taglz": {
+  "exit": 0,
+  "traceback": false,
+  "lines": [
+   "RELEASE_CLOCK_OBSERVE: wrote 30 observations (failed=0 fired=3 regressed=0) to /home/vgpnk/Projects/shokunin/k",
+   "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)",
+   "WRITTEN S014 verdict=not-fired parsed=2.7.1 error=",
+   "WRITTEN S015 verdict=not-fired parsed=2.7.1 error=",
+   "WRITTEN S016 verdict=not-fired parsed=2.7.1 error=",
+   "WRITTEN S021 verdict=not-fired parsed=2.7.1 error=",
+   "WRITTEN S025 verdict=not-fired parsed=2.7.1 error=",
+   "WRITTEN S026 verdict=not-fired parsed=2.7.1 error="
+  ]
+ },
+ "P3-CONTROL": {
+  "exit": 0,
+  "traceback": false,
+  "lines": [
+   "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)"
+  ]
+ },
+ "P3-F1": {
+  "exit": 1,
+  "traceback": false,
+  "lines": [
+   "INCONSISTENT S040",
+   "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)"
+  ]
+ },
+ "P3-F2": {
+  "exit": 1,
+  "traceback": false,
+  "lines": [
+   "INCONSISTENT S040",
+   "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)"
+  ]
+ },
+ "P3-F3replace": {
+  "exit": 1,
+  "traceback": false,
+  "lines": [
+   "RECEIPT-MISMATCH S028",
+   "RECEIPT-MISMATCH S040",
+   "RECEIPT-MISMATCH S041",
+   "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=26 fired=1 derived=15)",
+   "WRITTEN S027 verdict=fired parsed=3.15.01 error=",
+   "WRITTEN S028 verdict=fired parsed=3.15.01 error=",
+   "WRITTEN S040 verdict=fired parsed=3.15.01 error=",
+   "WRITTEN S041 verdict=fired parsed=3.15.01 error="
+  ]
+ },
+ "P3-F4replace": {
+  "exit": 1,
+  "traceback": false,
+  "lines": [
+   "RECEIPT-MISMATCH S028",
+   "RECEIPT-MISMATCH S040",
+   "RECEIPT-MISMATCH S041",
+   "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=26 fired=1 derived=15)",
+   "WRITTEN S027 verdict=None parsed= error=Exceeds the limit (4300 digits) for integer string conversio",
+   "WRITTEN S028 verdict=None parsed= error=Exceeds the limit (4300 digits) for integer string conversio",
+   "WRITTEN S040 verdict=None parsed= error=Exceeds the limit (4300 digits) for integer string conversio",
+   "WRITTEN S041 verdict=None parsed= error=Exceeds the limit (4300 digits) for integer string conversio"
+  ]
+ },
+ "P3-F3prepend": {
+  "exit": 1,
+  "traceback": false,
+  "lines": [
+   "RECEIPT-MISMATCH S028",
+   "RECEIPT-MISMATCH S040",
+   "RECEIPT-MISMATCH S041",
+   "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=26 fired=1 derived=15)",
+   "WRITTEN S027 verdict=fired parsed=3.15.01 error=",
+   "WRITTEN S028 verdict=fired parsed=3.15.01 error=",
+   "WRITTEN S040 verdict=fired parsed=3.15.01 error=",
+   "WRITTEN S041 verdict=fired parsed=3.15.01 error="
+  ]
+ },
+ "P3-F4prepend": {
+  "exit": 1,
+  "traceback": false,
+  "lines": [
+   "RECEIPT-MISMATCH S028",
+   "RECEIPT-MISMATCH S040",
+   "RECEIPT-MISMATCH S041",
+   "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=26 fired=1 derived=15)",
+   "WRITTEN S027 verdict=None parsed= error=Exceeds the limit (4300 digits) for integer string conversio",
+   "WRITTEN S028 verdict=None parsed= error=Exceeds the limit (4300 digits) for integer string conversio",
+   "WRITTEN S040 verdict=None parsed= error=Exceeds the limit (4300 digits) for integer string conversio",
+   "WRITTEN S041 verdict=None parsed= error=Exceeds the limit (4300 digits) for integer string conversio"
+  ]
+ },
+ "P3-CX-canonlie": {
+  "exit": 0,
+  "traceback": false,
+  "lines": [
+   "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=4 derived=15)"
+  ]
+ },
+ "P3-CX-anchor-oversize": {
+  "exit": 1,
+  "traceback": false,
+  "lines": [
+   "INCONSISTENT S041",
+   "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)"
+  ]
+ },
+ "P3-CX-derived-lz-fired": {
+  "exit": 0,
+  "traceback": false,
+  "lines": [
+   "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=4 derived=15)"
+  ]
+ },
+ "P3-CX-derived-lz-notfired": {
+  "exit": 1,
+  "traceback": false,
+  "lines": [
+   "INCONSISTENT S014",
+   "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+  ]
+ },
+ "P3-CX-major-lz": {
+  "exit": 1,
+  "traceback": false,
+  "lines": [
+   "INCONSISTENT S040",
+   "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)"
+  ]
+ },
+ "P3-CX-4300digits": {
+  "exit": 0,
+  "traceback": false,
+  "lines": [
+   "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=4 derived=15)"
+  ]
+ },
+ "P3-CX-F2-env0-noI": {
+  "exit": 0,
+  "traceback": false,
+  "lines": [
+   "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=4 derived=15)"
+  ]
+ },
+ "P3-CX-atom-taglz": {
+  "exit": 1,
+  "traceback": false,
+  "lines": [
+   "RECEIPT-MISMATCH S026",
+   "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=24 fired=3 derived=9)",
+   "WRITTEN S014 verdict=fired parsed=2.7.01 error=",
+   "WRITTEN S015 verdict=fired parsed=2.7.01 error=",
+   "WRITTEN S016 verdict=fired parsed=2.7.01 error=",
+   "WRITTEN S021 verdict=fired parsed=2.7.01 error=",
+   "WRITTEN S025 verdict=fired parsed=2.7.01 error=",
+   "WRITTEN S026 verdict=fired parsed=2.7.01 error="
+  ]
+ }
+}

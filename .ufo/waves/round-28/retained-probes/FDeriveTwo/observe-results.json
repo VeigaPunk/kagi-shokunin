@@ -1,0 +1,100 @@
+[
+ {
+  "tag": "control",
+  "exit": 1,
+  "stdout": "RELEASE_CLOCK_OBSERVE: wrote 30 observations (failed=0 fired=13 regressed=0) to /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveTwo/obs-control/observe.json\nRECEIPT-MISMATCH S005\nRECEIPT-MISMATCH S006\nRECEIPT-MISMATCH S007\nRECEIPT-MISMATCH S017\nRECEIPT-MISMATCH S018\nRECEIPT-MISMATCH S019\nRECEIPT-MISMATCH S020\nRECEIPT-MISMATCH S030\nRECEIPT-MISMATCH S031\nRECEIPT-MISMATCH S032\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=20 fired=3 derived=15)\n",
+  "finding_lines": [
+   "RECEIPT-MISMATCH S005",
+   "RECEIPT-MISMATCH S006",
+   "RECEIPT-MISMATCH S007",
+   "RECEIPT-MISMATCH S017",
+   "RECEIPT-MISMATCH S018",
+   "RECEIPT-MISMATCH S019",
+   "RECEIPT-MISMATCH S020",
+   "RECEIPT-MISMATCH S030",
+   "RECEIPT-MISMATCH S031",
+   "RECEIPT-MISMATCH S032"
+  ],
+  "final_lines": [
+   "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=20 fired=3 derived=15)"
+  ],
+  "derived_receipts": {
+   "S008": {
+    "id": "S008",
+    "parsed_version": "3.13.3",
+    "verdict": "not-fired",
+    "error": null
+   },
+   "S009": {
+    "id": "S009",
+    "parsed_version": "3.13.3",
+    "verdict": "not-fired",
+    "error": null
+   },
+   "S010": {
+    "id": "S010",
+    "parsed_version": "3.13.3",
+    "verdict": "not-fired",
+    "error": null
+   },
+   "S011": {
+    "id": "S011",
+    "parsed_version": "3.13.3",
+    "verdict": "not-fired",
+    "error": null
+   }
+  },
+  "observe_line": "RELEASE_CLOCK_OBSERVE: wrote 30 observations (failed=0 fired=13 regressed=0) to /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveTwo/obs-control/observe.json"
+ },
+ {
+  "tag": "two_versions",
+  "exit": 1,
+  "stdout": "RELEASE_CLOCK_OBSERVE: wrote 30 observations (failed=0 fired=13 regressed=0) to /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveTwo/obs-two_versions/observe.json\nDERIVATION S008\nDERIVATION S009\nDERIVATION S010\nDERIVATION S011\nRECEIPT-MISMATCH S005\nRECEIPT-MISMATCH S006\nRECEIPT-MISMATCH S007\nRECEIPT-MISMATCH S017\nRECEIPT-MISMATCH S018\nRECEIPT-MISMATCH S019\nRECEIPT-MISMATCH S020\nRECEIPT-MISMATCH S030\nRECEIPT-MISMATCH S031\nRECEIPT-MISMATCH S032\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=16 fired=3 derived=11)\n",
+  "finding_lines": [
+   "DERIVATION S008",
+   "DERIVATION S009",
+   "DERIVATION S010",
+   "DERIVATION S011",
+   "RECEIPT-MISMATCH S005",
+   "RECEIPT-MISMATCH S006",
+   "RECEIPT-MISMATCH S007",
+   "RECEIPT-MISMATCH S017",
+   "RECEIPT-MISMATCH S018",
+   "RECEIPT-MISMATCH S019",
+   "RECEIPT-MISMATCH S020",
+   "RECEIPT-MISMATCH S030",
+   "RECEIPT-MISMATCH S031",
+   "RECEIPT-MISMATCH S032"
+  ],
+  "final_lines": [
+   "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=16 fired=3 derived=11)"
+  ],
+  "derived_receipts": {
+   "S008": {
+    "id": "S008",
+    "parsed_version": "3.13.3",
+    "verdict": "not-fired",
+    "error": null
+   },
+   "S009": {
+    "id": "S009",
+    "parsed_version": "3.13.3",
+    "verdict": "not-fired",
+    "error": null
+   },
+   "S010": {
+    "id": "S010",
+    "parsed_version": "3.13.3",
+    "verdict": "not-fired",
+    "error": null
+   },
+   "S011": {
+    "id": "S011",
+    "parsed_version": "3.13.3",
+    "verdict": "not-fired",
+    "error": null
+   }
+  },
+  "observe_line": "RELEASE_CLOCK_OBSERVE: wrote 30 observations (failed=0 fired=13 regressed=0) to /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveTwo/obs-two_versions/observe.json"
+ }
+]

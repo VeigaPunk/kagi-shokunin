@@ -1,0 +1,16 @@
+cand  n=640   rss-newest   -> ValueError: non-canonical version token: feed has no canonical stable X.
+cand  n=640   text-newest  -> ValueError: non-canonical version token: text release version
+cand  n=640   rss-older    -> ValueError: feed body is invalid or too large
+cand  n=4301  rss-newest   -> ValueError: non-canonical version token: feed has no canonical stable X.
+cand  n=4301  text-newest  -> ValueError: non-canonical version token: text release version
+cand  n=4301  rss-older    -> ValueError: feed body is invalid or too large
+base  n=640   rss-newest   -> '3.15.1111111111111111111111111111111111
+base  n=640   text-newest  -> '3.15.1111111111111111111111111111111111
+base  n=640   rss-older    -> ValueError: feed body is invalid or too large
+base  n=4301  rss-newest   -> ValueError: Exceeds the limit (4300 digits) for integer string conversio
+base  n=4301  text-newest  -> '3.15.1111111111111111111111111111111111
+base  n=4301  rss-older    -> ValueError: feed body is invalid or too large
+cand  n=640   rss-older -> '3.15.1'
+cand  n=4301  rss-older -> '3.15.1'
+base  n=640   rss-older -> '3.15.1'
+base  n=4301  rss-older -> ValueError: Exceeds the limit (4300 digits) for integer string conversion: value h

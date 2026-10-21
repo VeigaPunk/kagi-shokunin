@@ -1,0 +1,40 @@
+# KagiR28.FMinorZero receipts (candidate 62a33b1, BASE 3553d49)
+
+## A. table observation S040 observed_version=3.015.1 verdict=fired, receipt mirrored
+candidate: NON-CANONICAL S040 / RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15) exit=1
+BASE:     RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=4 derived=15) exit=0
+
+## B. same, observed_version=3.15.01 (patch leading zero)
+candidate: NON-CANONICAL S040 / FAILED observed=29 fired=3 exit=1
+BASE:     RELEASE_CLOCK: CLEAN observed=30 fired=4 exit=0
+
+## C. control (unmutated table, mirrored receipt)
+candidate: RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15) exit=0
+BASE:     identical exit=0
+
+## D. receipt-integrity isolation (S040 receipt record removed)
+candidate: NON-CANONICAL S040 + NOT OBSERVED S040 exit=1  (category is row-derived, not receipt-derived)
+
+## E. table+receipt mismatch without mirroring (default receipt kept)
+candidate: NON-CANONICAL S040 AND RECEIPT-MISMATCH S040 exit=1
+
+## F. --observe over local feed 'Python 3.015.1' (runner stubs request_body)
+candidate: wrote 1 obs failed=1 fired=0; record S040 verdict=null parsed_version=null error='non-canonical version token: feed newest stable entry'; stdout NON-CANONICAL S040 exit=1
+BASE:     wrote 1 obs failed=0 fired=1; record S040 verdict='fired' parsed_version='3.015.1' (fired release event written)
+
+## G. BASE oversize table fixture 3.15.+4301x'1'
+BASE: ValueError traceback at base/corpus/release-clock.py:380 tuple(int(part)...) exit=1
+candidate: NON-CANONICAL S040 exit=1 (no traceback)
+
+## H. frozen instrument .ufo/waves/round-28/tools/c1-measure.py
+candidate: C1_MEASURE candidate: mishandled=0/4 typed=4/4 other=0/4 control_exit=0 control_clean=True (exit 0)
+BASE:     C1_MEASURE base: mishandled=3/4 typed=0/4 other=1/4 control_exit=0 control_clean=True (exit 0)
+  candidate per-fixture: F1/F2/F3/F4 all TYPED, finding line 'NON-CANONICAL S040'
+  BASE per-fixture: F1 MISHANDLED(exit0 CLEAN), F2 MISHANDLED(traceback), F3 MISHANDLED(fired_observation_written=True), F4 OTHER
+
+## I. selftest
+candidate: RELEASE_CLOCK_SELFTEST: PASS (106 cases) exit=0
+BASE:     RELEASE_CLOCK_SELFTEST: PASS (79 cases) exit=0
+
+## J. candidate selftest count vs candidate tree docs
+candidate 62a33b1 SKILL.md/PROVINCE.md say 106 cases; ledger R25-03 pins 106 -> consistent at candidate

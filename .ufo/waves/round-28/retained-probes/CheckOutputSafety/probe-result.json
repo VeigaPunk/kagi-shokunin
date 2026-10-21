@@ -1,0 +1,124 @@
+{
+  "tree": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/CheckOutputSafety/cand",
+  "cases": {
+    "A-table-oversize": {
+      "exit": 1,
+      "traceback": false,
+      "stdout_lines": [
+        "NON-CANONICAL S040",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)"
+      ],
+      "stderr_lines": [],
+      "echoed_tokens": [],
+      "max_line_len": 87
+    },
+    "A2-table-leadzero": {
+      "exit": 1,
+      "traceback": false,
+      "stdout_lines": [
+        "NON-CANONICAL S040",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)"
+      ],
+      "stderr_lines": [],
+      "echoed_tokens": [],
+      "max_line_len": 87
+    },
+    "B-observe-oversize": {
+      "exit": 1,
+      "traceback": false,
+      "stdout_lines": [
+        "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/CheckOutputSafety/r28-probe-kboqqd83/B-observe-oversize/obs.json",
+        "NON-CANONICAL S040",
+        "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)"
+      ],
+      "stderr_lines": [],
+      "echoed_tokens": [],
+      "max_line_len": 216,
+      "receipt_records": [
+        {
+          "id": "S040",
+          "verdict": null,
+          "error": "non-canonical version token: feed newest stable entry",
+          "parsed_version": null
+        }
+      ],
+      "receipt_echoes_oversize": false
+    },
+    "C1-derived-mismatch": {
+      "exit": 1,
+      "traceback": false,
+      "stdout_lines": [
+        "REGRESSED S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr_lines": [],
+      "echoed_tokens": [],
+      "max_line_len": 87
+    },
+    "C2-derived-leadzero": {
+      "exit": 1,
+      "traceback": false,
+      "stdout_lines": [
+        "NON-CANONICAL S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr_lines": [],
+      "echoed_tokens": [],
+      "max_line_len": 87
+    },
+    "C3-derived-oversize": {
+      "exit": 1,
+      "traceback": false,
+      "stdout_lines": [
+        "NON-CANONICAL S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr_lines": [],
+      "echoed_tokens": [],
+      "max_line_len": 87
+    },
+    "C4-derived-series": {
+      "exit": 1,
+      "traceback": false,
+      "stdout_lines": [
+        "INCONSISTENT S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr_lines": [],
+      "echoed_tokens": [],
+      "max_line_len": 87
+    },
+    "C5-derived-badfeed": {
+      "exit": 1,
+      "traceback": false,
+      "stdout_lines": [
+        "BADFEED S008",
+        "DERIVATION S008",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)"
+      ],
+      "stderr_lines": [],
+      "echoed_tokens": [],
+      "max_line_len": 87
+    },
+    "D-control": {
+      "exit": 0,
+      "traceback": false,
+      "stdout_lines": [
+        "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)"
+      ],
+      "stderr_lines": [],
+      "echoed_tokens": [],
+      "max_line_len": 86
+    },
+    "E-selftest": {
+      "exit": 0,
+      "traceback": false,
+      "stdout_lines": [
+        "RELEASE_CLOCK_SELFTEST: PASS (106 cases)"
+      ],
+      "stderr_lines": [],
+      "echoed_tokens": [],
+      "max_line_len": 40
+    }
+  }
+}

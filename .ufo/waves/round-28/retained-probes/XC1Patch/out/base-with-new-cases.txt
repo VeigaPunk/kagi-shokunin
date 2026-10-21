@@ -1,0 +1,25 @@
+RELEASE_CLOCK_SELFTEST: FAIL leading-zero observation refused: errors set() != {('NON-CANONICAL', 'S001')}
+RELEASE_CLOCK_SELFTEST: FAIL leading-zero observation refused: observed=1 != 0
+RELEASE_CLOCK_SELFTEST: FAIL leading-zero observation refused: fired=1 != 0
+RELEASE_CLOCK_SELFTEST: FAIL leading-zero observation refused: passed=True
+RELEASE_CLOCK_SELFTEST: FAIL leading-zero anchor refused: errors {('INCONSISTENT', 'S001')} != {('NON-CANONICAL', 'S001')}
+RELEASE_CLOCK_SELFTEST: FAIL zero-padded middle component refused: errors {('REGRESSED', 'S001')} != {('NON-CANONICAL', 'S001')}
+RELEASE_CLOCK_SELFTEST: FAIL nineteen-digit component refused: errors set() != {('NON-CANONICAL', 'S001')}
+RELEASE_CLOCK_SELFTEST: FAIL nineteen-digit component refused: observed=1 != 0
+RELEASE_CLOCK_SELFTEST: FAIL nineteen-digit component refused: fired=1 != 0
+RELEASE_CLOCK_SELFTEST: FAIL nineteen-digit component refused: passed=True
+RELEASE_CLOCK_SELFTEST: FAIL oversize observation refused: raised Exceeds the limit (4300 digits) for integer string conversion: value has 4301 digits; use sys.set_int_max_str_digits() to increase the limit
+RELEASE_CLOCK_SELFTEST: FAIL oversize anchor refused: raised Exceeds the limit (4300 digits) for integer string conversion: value has 4301 digits; use sys.set_int_max_str_digits() to increase the limit
+RELEASE_CLOCK_SELFTEST: FAIL non-canonical anchor is no feed floor: errors {('INCONSISTENT', 'S004'), ('REGRESSED', 'S001')} != {('NON-CANONICAL', 'S004')}
+RELEASE_CLOCK_SELFTEST: FAIL non-canonical anchor is no feed floor: observed=0 != 1
+RELEASE_CLOCK_SELFTEST: FAIL version parser leading-zero newest refused: accepted '3.15.01'
+RELEASE_CLOCK_SELFTEST: FAIL version parser leading-zero tie with canonical refused: accepted '3.15.1'
+RELEASE_CLOCK_SELFTEST: FAIL version parser oversize newest refused: untyped refusal Exceeds the limit (4300 digits) for integer string conversion: value has 4301 digits; use sys.set_int_max_str_digits() to increase the limit
+RELEASE_CLOCK_SELFTEST: FAIL version parser older leading-zero refused: accepted '3.15.0'
+RELEASE_CLOCK_SELFTEST: FAIL version parser older oversize refused: untyped refusal Exceeds the limit (4300 digits) for integer string conversion: value has 4301 digits; use sys.set_int_max_str_digits() to increase the limit
+RELEASE_CLOCK_SELFTEST: FAIL version parser rss leading-zero above canonical refused: accepted '3.15.01'
+RELEASE_CLOCK_SELFTEST: FAIL version parser text leading-zero refused: accepted '8.23.01'
+RELEASE_CLOCK_SELFTEST: FAIL observe leading-zero newest entry was not typed non-canonical
+RELEASE_CLOCK_SELFTEST: FAIL observe oversize newest entry was not typed non-canonical
+RELEASE_CLOCK_SELFTEST: FAIL observe non-canonical row anchor was not typed non-canonical
+RELEASE_CLOCK_SELFTEST: FAIL leading-zero feed observation was not typed NON-CANONICAL

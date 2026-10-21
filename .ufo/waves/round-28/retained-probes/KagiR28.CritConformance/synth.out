@@ -1,0 +1,83 @@
+== S1 changed-command
+ROUND-CONFORM lane=/fast/scratch/hyaku/kagi-r28/KagiR28.CritConformance/lane round=28 head=683b0c05033d
+C1 PLAN-FIRST-COMMIT-SCOPE OK first=bdf90f58e43f ct=1792601044 subject='round-28: frozen claims file and START census (before any work)' touched=2
+C2 CENSUS-START-ORDER OK same-commit-as-plan first=bdf90f58e43f ct=1792601044
+C3 FROZEN-COUNTING-COMMANDS FAIL-CHANGED first=bdf90f58e43f tip=HEAD
+  C3 FIRST-DIFF index=0
+  C3 AT-FIRST '    python3 -I -B .ufo/waves/round-28/tools/c1-measure.py <rev> <label> <out.json>'
+  C3 AT-TIP '    python3 -I -B .ufo/waves/round-28/tools/c1-measure.py <rev> <label> <out.json> --lenient'
+VERDICT FAIL
+exit=1
+== S2 census-after-plan
+ROUND-CONFORM lane=/fast/scratch/hyaku/kagi-r28/KagiR28.CritConformance/lane round=99 head=58738d50eb78
+C1 PLAN-FIRST-COMMIT-SCOPE OK first=d84e3f1fb37a ct=1792604837 subject='s2-plan' touched=1
+C2 CENSUS-START-ORDER FAIL-ORDER census_first=58738d50eb78(1792604837) plan_first=d84e3f1fb37a(1792604837) census-committed-after-plan
+C3 FROZEN-COUNTING-COMMANDS OK lines=2 first=d84e3f1fb37a tip=HEAD
+VERDICT FAIL
+exit=1
+ plans/round-28.md | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+== S3 frozen-prose-widened
+ROUND-CONFORM lane=/fast/scratch/hyaku/kagi-r28/KagiR28.CritConformance/lane round=28 head=df4d73735872
+C1 PLAN-FIRST-COMMIT-SCOPE OK first=bdf90f58e43f ct=1792601044 subject='round-28: frozen claims file and START census (before any work)' touched=2
+C2 CENSUS-START-ORDER OK same-commit-as-plan first=bdf90f58e43f ct=1792601044
+C3 FROZEN-COUNTING-COMMANDS OK lines=2 first=bdf90f58e43f tip=HEAD
+VERDICT PASS
+exit=0
+== S4 boundary-moved
+ROUND-CONFORM lane=/fast/scratch/hyaku/kagi-r28/KagiR28.CritConformance/lane round=28 head=afe9b2520db4
+C1 PLAN-FIRST-COMMIT-SCOPE OK first=bdf90f58e43f ct=1792601044 subject='round-28: frozen claims file and START census (before any work)' touched=2
+C2 CENSUS-START-ORDER OK same-commit-as-plan first=bdf90f58e43f ct=1792601044
+C3 FROZEN-COUNTING-COMMANDS OK lines=2 first=bdf90f58e43f tip=HEAD
+VERDICT PASS
+exit=0
+    python3 -I -B .ufo/waves/round-28/tools/c1-measure-loose.py <rev> <label> <out.json>
+== S5 change-then-restore
+ROUND-CONFORM lane=/fast/scratch/hyaku/kagi-r28/KagiR28.CritConformance/lane round=28 head=726be9aaa424
+C1 PLAN-FIRST-COMMIT-SCOPE OK first=bdf90f58e43f ct=1792601044 subject='round-28: frozen claims file and START census (before any work)' touched=2
+C2 CENSUS-START-ORDER OK same-commit-as-plan first=bdf90f58e43f ct=1792601044
+C3 FROZEN-COUNTING-COMMANDS OK lines=2 first=bdf90f58e43f tip=HEAD
+VERDICT PASS
+exit=0
+== S6 tool-body-changed
+ROUND-CONFORM lane=/fast/scratch/hyaku/kagi-r28/KagiR28.CritConformance/lane round=28 head=2a2253e30a74
+C1 PLAN-FIRST-COMMIT-SCOPE OK first=bdf90f58e43f ct=1792601044 subject='round-28: frozen claims file and START census (before any work)' touched=2
+C2 CENSUS-START-ORDER OK same-commit-as-plan first=bdf90f58e43f ct=1792601044
+C3 FROZEN-COUNTING-COMMANDS OK lines=2 first=bdf90f58e43f tip=HEAD
+VERDICT PASS
+exit=0
+== S7 code-before-plan-via-census-commit
+ROUND-CONFORM lane=/fast/scratch/hyaku/kagi-r28/KagiR28.CritConformance/lane round=99 head=ef8b7fa4ba98
+C1 PLAN-FIRST-COMMIT-SCOPE OK first=ef8b7fa4ba98 ct=1792604837 subject='s7-plan' touched=1
+C2 CENSUS-START-ORDER OK census_first=cd08e1360bf5(1792604837) plan_first=ef8b7fa4ba98(1792604837) census-not-later
+C3 FROZEN-COUNTING-COMMANDS OK lines=2 first=ef8b7fa4ba98 tip=HEAD
+VERDICT PASS
+exit=0
+== S8 placeholder-plan
+ROUND-CONFORM lane=/fast/scratch/hyaku/kagi-r28/KagiR28.CritConformance/lane round=99 head=9711e7520a8f
+C1 PLAN-FIRST-COMMIT-SCOPE OK first=edf28cbf3242 ct=1792604837 subject='s8-stub' touched=2
+C2 CENSUS-START-ORDER OK same-commit-as-plan first=edf28cbf3242 ct=1792604837
+C3 FROZEN-COUNTING-COMMANDS OK lines=2 first=edf28cbf3242 tip=HEAD
+VERDICT PASS
+exit=0
+== S9 census-rewritten
+ROUND-CONFORM lane=/fast/scratch/hyaku/kagi-r28/KagiR28.CritConformance/lane round=28 head=6927073ec3c7
+C1 PLAN-FIRST-COMMIT-SCOPE OK first=bdf90f58e43f ct=1792601044 subject='round-28: frozen claims file and START census (before any work)' touched=2
+C2 CENSUS-START-ORDER OK same-commit-as-plan first=bdf90f58e43f ct=1792601044
+C3 FROZEN-COUNTING-COMMANDS OK lines=2 first=bdf90f58e43f tip=HEAD
+VERDICT PASS
+exit=0
+  c2f39e2 s10-main-plan-only
+  all: c2f39e2 s10-main-plan-only
+  all: 5d75a71 s10-side-plan+code
+  all: ef8b7fa s7-plan
+  all: 9711e75 s8-plan+code
+  all: d84e3f1 s2-plan
+  all: edf28cb s8-stub
+== S10 side-branch-plan-with-code
+ROUND-CONFORM lane=/fast/scratch/hyaku/kagi-r28/KagiR28.CritConformance/lane round=99 head=e6c04f4039d6
+C1 PLAN-FIRST-COMMIT-SCOPE OK first=c2f39e2d2d9e ct=1792604838 subject='s10-main-plan-only' touched=1
+C2 CENSUS-START-ORDER OK census_first=cb5e7dd445c1(1792604837) plan_first=c2f39e2d2d9e(1792604838) census-not-later
+C3 FROZEN-COUNTING-COMMANDS OK lines=2 first=c2f39e2d2d9e tip=HEAD
+VERDICT PASS
+exit=0

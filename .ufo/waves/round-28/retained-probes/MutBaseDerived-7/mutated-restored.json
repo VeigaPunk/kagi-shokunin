@@ -1,0 +1,925 @@
+{
+  "base_commit": "3553d499577084a6c98d7078906017840bbf7b28",
+  "base_sha256": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+  "mutated": [
+    {
+      "id": "M01",
+      "selftest": {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "corpus/release-clock.py",
+          "--selftest"
+        ],
+        "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M01",
+        "exit": 1,
+        "stderr": "",
+        "stdout": "RELEASE_CLOCK_SELFTEST: FAIL derived anchor counted: errors {('INCONSISTENT', 'S001')} != set()\nRELEASE_CLOCK_SELFTEST: FAIL derived anchor counted: observed=0 != 1\nRELEASE_CLOCK_SELFTEST: FAIL derived anchor counted: derived=0 != 1\nRELEASE_CLOCK_SELFTEST: FAIL derived anchor counted: passed=False\nRELEASE_CLOCK_SELFTEST: FAIL non-numeric anchor keeps inequality: errors {('INCONSISTENT', 'S001')} != set()\nRELEASE_CLOCK_SELFTEST: FAIL non-numeric anchor keeps inequality: observed=0 != 1\nRELEASE_CLOCK_SELFTEST: FAIL non-numeric anchor keeps inequality: fired=0 != 1\nRELEASE_CLOCK_SELFTEST: FAIL non-numeric anchor keeps inequality: derived=0 != 1\nRELEASE_CLOCK_SELFTEST: FAIL non-numeric anchor keeps inequality: passed=False\n",
+        "timed_out": false,
+        "timeout_seconds": 120
+      },
+      "sha256_after": "0defc30a93ba085f4ebf867cc524c84591bd685986be532a828ef4421c0743af",
+      "sha256_before": "0defc30a93ba085f4ebf867cc524c84591bd685986be532a828ef4421c0743af",
+      "witness": {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/witness.py",
+          "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M01/corpus/release-clock.py"
+        ],
+        "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M01",
+        "exit": 0,
+        "stderr": "",
+        "stdout": "{\"canonical_derived\": {\"derived\": 0, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"derived_mismatch\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"infix_marker\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"left_subtoken\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"named_boundaries\": {\"left\": false, \"right\": false}, \"no_colon\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"plain_row\": {\"derived\": 0, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"right_subtoken\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"two_derived\": {\"derived\": 0, \"errors\": [], \"fired\": 0, \"observed\": 2, \"passed\": true}}\n",
+        "timed_out": false,
+        "timeout_seconds": 30
+      }
+    },
+    {
+      "id": "M02",
+      "selftest": {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "corpus/release-clock.py",
+          "--selftest"
+        ],
+        "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M02",
+        "exit": 0,
+        "stderr": "",
+        "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n",
+        "timed_out": false,
+        "timeout_seconds": 120
+      },
+      "sha256_after": "5b3a3a0d72334dc92e3af767a05a1a31ce1fd8e5c1ea18fd92cb1230aeb671f1",
+      "sha256_before": "5b3a3a0d72334dc92e3af767a05a1a31ce1fd8e5c1ea18fd92cb1230aeb671f1",
+      "witness": {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/witness.py",
+          "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M02/corpus/release-clock.py"
+        ],
+        "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M02",
+        "exit": 0,
+        "stderr": "",
+        "stdout": "{\"canonical_derived\": {\"derived\": 1, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"derived_mismatch\": {\"derived\": 1, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"infix_marker\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"left_subtoken\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"named_boundaries\": {\"left\": false, \"right\": false}, \"no_colon\": {\"derived\": 1, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"plain_row\": {\"derived\": 0, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"right_subtoken\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"two_derived\": {\"derived\": 2, \"errors\": [], \"fired\": 0, \"observed\": 2, \"passed\": true}}\n",
+        "timed_out": false,
+        "timeout_seconds": 30
+      }
+    },
+    {
+      "id": "M03",
+      "selftest": {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "corpus/release-clock.py",
+          "--selftest"
+        ],
+        "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M03",
+        "exit": 0,
+        "stderr": "",
+        "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n",
+        "timed_out": false,
+        "timeout_seconds": 120
+      },
+      "sha256_after": "815664860eb249ec6fc863d9562dd904ec26c322252bee670d1282476f387b1f",
+      "sha256_before": "815664860eb249ec6fc863d9562dd904ec26c322252bee670d1282476f387b1f",
+      "witness": {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/witness.py",
+          "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M03/corpus/release-clock.py"
+        ],
+        "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M03",
+        "exit": 0,
+        "stderr": "",
+        "stdout": "{\"canonical_derived\": {\"derived\": 1, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"derived_mismatch\": {\"derived\": 1, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"infix_marker\": {\"derived\": 1, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"left_subtoken\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"named_boundaries\": {\"left\": false, \"right\": false}, \"no_colon\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"plain_row\": {\"derived\": 0, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"right_subtoken\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"two_derived\": {\"derived\": 2, \"errors\": [], \"fired\": 0, \"observed\": 2, \"passed\": true}}\n",
+        "timed_out": false,
+        "timeout_seconds": 30
+      }
+    },
+    {
+      "id": "M04",
+      "selftest": {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "corpus/release-clock.py",
+          "--selftest"
+        ],
+        "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M04",
+        "exit": 1,
+        "stderr": "",
+        "stdout": "RELEASE_CLOCK_SELFTEST: FAIL unnamed anchor refused: errors set() != {('INCONSISTENT', 'S001')}\nRELEASE_CLOCK_SELFTEST: FAIL unnamed anchor refused: passed=True\n",
+        "timed_out": false,
+        "timeout_seconds": 120
+      },
+      "sha256_after": "32bf09139774a30a7fbdee1fa93a66c3d51c2310f64c59453876ab343c117e5d",
+      "sha256_before": "32bf09139774a30a7fbdee1fa93a66c3d51c2310f64c59453876ab343c117e5d",
+      "witness": {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/witness.py",
+          "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M04/corpus/release-clock.py"
+        ],
+        "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M04",
+        "exit": 0,
+        "stderr": "",
+        "stdout": "{\"canonical_derived\": {\"derived\": 1, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"derived_mismatch\": {\"derived\": 1, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"infix_marker\": {\"derived\": 0, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"left_subtoken\": {\"derived\": 0, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"named_boundaries\": {\"left\": false, \"right\": false}, \"no_colon\": {\"derived\": 0, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"plain_row\": {\"derived\": 0, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"right_subtoken\": {\"derived\": 0, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"two_derived\": {\"derived\": 2, \"errors\": [], \"fired\": 0, \"observed\": 2, \"passed\": true}}\n",
+        "timed_out": false,
+        "timeout_seconds": 30
+      }
+    },
+    {
+      "id": "M05",
+      "selftest": {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "corpus/release-clock.py",
+          "--selftest"
+        ],
+        "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M05",
+        "exit": 1,
+        "stderr": "",
+        "stdout": "RELEASE_CLOCK_SELFTEST: FAIL derived anchor counted: errors {('INCONSISTENT', 'S001')} != set()\nRELEASE_CLOCK_SELFTEST: FAIL derived anchor counted: observed=0 != 1\nRELEASE_CLOCK_SELFTEST: FAIL derived anchor counted: derived=0 != 1\nRELEASE_CLOCK_SELFTEST: FAIL derived anchor counted: passed=False\nRELEASE_CLOCK_SELFTEST: FAIL non-numeric anchor keeps inequality: errors {('INCONSISTENT', 'S001')} != set()\nRELEASE_CLOCK_SELFTEST: FAIL non-numeric anchor keeps inequality: observed=0 != 1\nRELEASE_CLOCK_SELFTEST: FAIL non-numeric anchor keeps inequality: fired=0 != 1\nRELEASE_CLOCK_SELFTEST: FAIL non-numeric anchor keeps inequality: derived=0 != 1\nRELEASE_CLOCK_SELFTEST: FAIL non-numeric anchor keeps inequality: passed=False\n",
+        "timed_out": false,
+        "timeout_seconds": 120
+      },
+      "sha256_after": "567ee5868ad32dfff644acf4c388f869bf4aa98b80995491255a7a7f92c3c232",
+      "sha256_before": "567ee5868ad32dfff644acf4c388f869bf4aa98b80995491255a7a7f92c3c232",
+      "witness": {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/witness.py",
+          "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M05/corpus/release-clock.py"
+        ],
+        "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M05",
+        "exit": 0,
+        "stderr": "",
+        "stdout": "{\"canonical_derived\": {\"derived\": 1, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"derived_mismatch\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"infix_marker\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"left_subtoken\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"named_boundaries\": {\"left\": false, \"right\": false}, \"no_colon\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"plain_row\": {\"derived\": 0, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"right_subtoken\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"two_derived\": {\"derived\": 2, \"errors\": [], \"fired\": 0, \"observed\": 2, \"passed\": true}}\n",
+        "timed_out": false,
+        "timeout_seconds": 30
+      }
+    },
+    {
+      "id": "M06",
+      "selftest": {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "corpus/release-clock.py",
+          "--selftest"
+        ],
+        "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M06",
+        "exit": 0,
+        "stderr": "",
+        "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n",
+        "timed_out": false,
+        "timeout_seconds": 120
+      },
+      "sha256_after": "c6d1819bda797b2e9f74f5958b7a2568003f739c21b0e32ee97ee2962a901fc9",
+      "sha256_before": "c6d1819bda797b2e9f74f5958b7a2568003f739c21b0e32ee97ee2962a901fc9",
+      "witness": {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/witness.py",
+          "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M06/corpus/release-clock.py"
+        ],
+        "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M06",
+        "exit": 0,
+        "stderr": "",
+        "stdout": "{\"canonical_derived\": {\"derived\": 1, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"derived_mismatch\": {\"derived\": 1, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"infix_marker\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"left_subtoken\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"named_boundaries\": {\"left\": false, \"right\": false}, \"no_colon\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"plain_row\": {\"derived\": 1, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"right_subtoken\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"two_derived\": {\"derived\": 2, \"errors\": [], \"fired\": 0, \"observed\": 2, \"passed\": true}}\n",
+        "timed_out": false,
+        "timeout_seconds": 30
+      }
+    },
+    {
+      "id": "M07",
+      "selftest": {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "corpus/release-clock.py",
+          "--selftest"
+        ],
+        "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M07",
+        "exit": 0,
+        "stderr": "",
+        "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n",
+        "timed_out": false,
+        "timeout_seconds": 120
+      },
+      "sha256_after": "60580fd7f7f5ad3ed32599aa6c33b45e6b1940200b88882c3ba165149d637fe3",
+      "sha256_before": "60580fd7f7f5ad3ed32599aa6c33b45e6b1940200b88882c3ba165149d637fe3",
+      "witness": {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/witness.py",
+          "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M07/corpus/release-clock.py"
+        ],
+        "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M07",
+        "exit": 0,
+        "stderr": "",
+        "stdout": "{\"canonical_derived\": {\"derived\": true, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"derived_mismatch\": {\"derived\": true, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"infix_marker\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"left_subtoken\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"named_boundaries\": {\"left\": false, \"right\": false}, \"no_colon\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"plain_row\": {\"derived\": false, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"right_subtoken\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"two_derived\": {\"derived\": true, \"errors\": [], \"fired\": 0, \"observed\": 2, \"passed\": true}}\n",
+        "timed_out": false,
+        "timeout_seconds": 30
+      }
+    },
+    {
+      "id": "M08",
+      "selftest": {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "corpus/release-clock.py",
+          "--selftest"
+        ],
+        "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M08",
+        "exit": 1,
+        "stderr": "",
+        "stdout": "RELEASE_CLOCK_SELFTEST: FAIL non-numeric anchor keeps inequality: derived=0 != 1\n",
+        "timed_out": false,
+        "timeout_seconds": 120
+      },
+      "sha256_after": "9e5ab2192f52e8b8aee8199acfc3233fb6b2f8d76149cc0ed9470573ad971dc8",
+      "sha256_before": "9e5ab2192f52e8b8aee8199acfc3233fb6b2f8d76149cc0ed9470573ad971dc8",
+      "witness": {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/witness.py",
+          "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M08/corpus/release-clock.py"
+        ],
+        "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M08",
+        "exit": 0,
+        "stderr": "",
+        "stdout": "{\"canonical_derived\": {\"derived\": 1, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"derived_mismatch\": {\"derived\": 1, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"infix_marker\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"left_subtoken\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"named_boundaries\": {\"left\": false, \"right\": false}, \"no_colon\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"plain_row\": {\"derived\": 0, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"right_subtoken\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"two_derived\": {\"derived\": 2, \"errors\": [], \"fired\": 0, \"observed\": 2, \"passed\": true}}\n",
+        "timed_out": false,
+        "timeout_seconds": 30
+      }
+    },
+    {
+      "id": "M09",
+      "selftest": {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "corpus/release-clock.py",
+          "--selftest"
+        ],
+        "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M09",
+        "exit": 1,
+        "stderr": "",
+        "stdout": "RELEASE_CLOCK_SELFTEST: FAIL derived anchor counted: derived=0 != 1\n",
+        "timed_out": false,
+        "timeout_seconds": 120
+      },
+      "sha256_after": "2cd85f7234307382ceb798e40ea22ff0f430473b97d98cfb34cbc3da961ad381",
+      "sha256_before": "2cd85f7234307382ceb798e40ea22ff0f430473b97d98cfb34cbc3da961ad381",
+      "witness": {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/witness.py",
+          "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M09/corpus/release-clock.py"
+        ],
+        "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M09",
+        "exit": 0,
+        "stderr": "",
+        "stdout": "{\"canonical_derived\": {\"derived\": 0, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"derived_mismatch\": {\"derived\": 0, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"infix_marker\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"left_subtoken\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"named_boundaries\": {\"left\": false, \"right\": false}, \"no_colon\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"plain_row\": {\"derived\": 0, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"right_subtoken\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"two_derived\": {\"derived\": 0, \"errors\": [], \"fired\": 0, \"observed\": 2, \"passed\": true}}\n",
+        "timed_out": false,
+        "timeout_seconds": 30
+      }
+    },
+    {
+      "id": "M10",
+      "selftest": {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "corpus/release-clock.py",
+          "--selftest"
+        ],
+        "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M10",
+        "exit": 0,
+        "stderr": "",
+        "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n",
+        "timed_out": false,
+        "timeout_seconds": 120
+      },
+      "sha256_after": "e705017b393bb722c579db13a28a35df76a997a4df917f3ddfc9616f429626b4",
+      "sha256_before": "e705017b393bb722c579db13a28a35df76a997a4df917f3ddfc9616f429626b4",
+      "witness": {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/witness.py",
+          "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M10/corpus/release-clock.py"
+        ],
+        "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M10",
+        "exit": 0,
+        "stderr": "",
+        "stdout": "{\"canonical_derived\": {\"derived\": 1, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"derived_mismatch\": {\"derived\": 1, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"infix_marker\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"left_subtoken\": {\"derived\": 0, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"named_boundaries\": {\"left\": true, \"right\": false}, \"no_colon\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"plain_row\": {\"derived\": 0, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"right_subtoken\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"two_derived\": {\"derived\": 2, \"errors\": [], \"fired\": 0, \"observed\": 2, \"passed\": true}}\n",
+        "timed_out": false,
+        "timeout_seconds": 30
+      }
+    },
+    {
+      "id": "M11",
+      "selftest": {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "corpus/release-clock.py",
+          "--selftest"
+        ],
+        "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M11",
+        "exit": 0,
+        "stderr": "",
+        "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n",
+        "timed_out": false,
+        "timeout_seconds": 120
+      },
+      "sha256_after": "e885080cb5fbeb4e5e668d4f2662420bebf4698f1efce38362957dd4ad94311f",
+      "sha256_before": "e885080cb5fbeb4e5e668d4f2662420bebf4698f1efce38362957dd4ad94311f",
+      "witness": {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/witness.py",
+          "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M11/corpus/release-clock.py"
+        ],
+        "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M11",
+        "exit": 0,
+        "stderr": "",
+        "stdout": "{\"canonical_derived\": {\"derived\": 1, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"derived_mismatch\": {\"derived\": 1, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"infix_marker\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"left_subtoken\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"named_boundaries\": {\"left\": false, \"right\": true}, \"no_colon\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"plain_row\": {\"derived\": 0, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"right_subtoken\": {\"derived\": 0, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"two_derived\": {\"derived\": 2, \"errors\": [], \"fired\": 0, \"observed\": 2, \"passed\": true}}\n",
+        "timed_out": false,
+        "timeout_seconds": 30
+      }
+    },
+    {
+      "id": "M12",
+      "selftest": {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "corpus/release-clock.py",
+          "--selftest"
+        ],
+        "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M12",
+        "exit": 1,
+        "stderr": "",
+        "stdout": "RELEASE_CLOCK_SELFTEST: FAIL unnamed anchor refused: errors set() != {('INCONSISTENT', 'S001')}\nRELEASE_CLOCK_SELFTEST: FAIL unnamed anchor refused: passed=True\n",
+        "timed_out": false,
+        "timeout_seconds": 120
+      },
+      "sha256_after": "57b42a4739f7486ba3e6349922060755caed27ad64856b0a46bbc5e7ae1b010b",
+      "sha256_before": "57b42a4739f7486ba3e6349922060755caed27ad64856b0a46bbc5e7ae1b010b",
+      "witness": {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/witness.py",
+          "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M12/corpus/release-clock.py"
+        ],
+        "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M12",
+        "exit": 0,
+        "stderr": "",
+        "stdout": "{\"canonical_derived\": {\"derived\": 1, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"derived_mismatch\": {\"derived\": 1, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"infix_marker\": {\"derived\": 0, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"left_subtoken\": {\"derived\": 0, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"named_boundaries\": {\"left\": true, \"right\": true}, \"no_colon\": {\"derived\": 0, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"plain_row\": {\"derived\": 0, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"right_subtoken\": {\"derived\": 0, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"two_derived\": {\"derived\": 2, \"errors\": [], \"fired\": 0, \"observed\": 2, \"passed\": true}}\n",
+        "timed_out": false,
+        "timeout_seconds": 30
+      }
+    }
+  ],
+  "parallel_workers": 6,
+  "phase": "mutated",
+  "python_version": "3.14.8",
+  "restoration": [
+    {
+      "exact_bytes": true,
+      "exit": 0,
+      "id": "M01",
+      "sha256": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc"
+    },
+    {
+      "exact_bytes": true,
+      "exit": 0,
+      "id": "M02",
+      "sha256": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc"
+    },
+    {
+      "exact_bytes": true,
+      "exit": 0,
+      "id": "M03",
+      "sha256": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc"
+    },
+    {
+      "exact_bytes": true,
+      "exit": 0,
+      "id": "M04",
+      "sha256": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc"
+    },
+    {
+      "exact_bytes": true,
+      "exit": 0,
+      "id": "M05",
+      "sha256": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc"
+    },
+    {
+      "exact_bytes": true,
+      "exit": 0,
+      "id": "M06",
+      "sha256": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc"
+    },
+    {
+      "exact_bytes": true,
+      "exit": 0,
+      "id": "M07",
+      "sha256": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc"
+    },
+    {
+      "exact_bytes": true,
+      "exit": 0,
+      "id": "M08",
+      "sha256": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc"
+    },
+    {
+      "exact_bytes": true,
+      "exit": 0,
+      "id": "M09",
+      "sha256": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc"
+    },
+    {
+      "exact_bytes": true,
+      "exit": 0,
+      "id": "M10",
+      "sha256": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc"
+    },
+    {
+      "exact_bytes": true,
+      "exit": 0,
+      "id": "M11",
+      "sha256": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc"
+    },
+    {
+      "exact_bytes": true,
+      "exit": 0,
+      "id": "M12",
+      "sha256": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc"
+    }
+  ],
+  "restored": [
+    {
+      "id": "M01",
+      "selftest": {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "corpus/release-clock.py",
+          "--selftest"
+        ],
+        "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M01",
+        "exit": 0,
+        "stderr": "",
+        "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n",
+        "timed_out": false,
+        "timeout_seconds": 120
+      },
+      "sha256_after": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+      "sha256_before": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+      "witness": {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/witness.py",
+          "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M01/corpus/release-clock.py"
+        ],
+        "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M01",
+        "exit": 0,
+        "stderr": "",
+        "stdout": "{\"canonical_derived\": {\"derived\": 1, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"derived_mismatch\": {\"derived\": 1, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"infix_marker\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"left_subtoken\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"named_boundaries\": {\"left\": false, \"right\": false}, \"no_colon\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"plain_row\": {\"derived\": 0, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"right_subtoken\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"two_derived\": {\"derived\": 2, \"errors\": [], \"fired\": 0, \"observed\": 2, \"passed\": true}}\n",
+        "timed_out": false,
+        "timeout_seconds": 30
+      }
+    },
+    {
+      "id": "M02",
+      "selftest": {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "corpus/release-clock.py",
+          "--selftest"
+        ],
+        "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M02",
+        "exit": 0,
+        "stderr": "",
+        "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n",
+        "timed_out": false,
+        "timeout_seconds": 120
+      },
+      "sha256_after": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+      "sha256_before": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+      "witness": {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/witness.py",
+          "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M02/corpus/release-clock.py"
+        ],
+        "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M02",
+        "exit": 0,
+        "stderr": "",
+        "stdout": "{\"canonical_derived\": {\"derived\": 1, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"derived_mismatch\": {\"derived\": 1, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"infix_marker\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"left_subtoken\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"named_boundaries\": {\"left\": false, \"right\": false}, \"no_colon\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"plain_row\": {\"derived\": 0, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"right_subtoken\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"two_derived\": {\"derived\": 2, \"errors\": [], \"fired\": 0, \"observed\": 2, \"passed\": true}}\n",
+        "timed_out": false,
+        "timeout_seconds": 30
+      }
+    },
+    {
+      "id": "M03",
+      "selftest": {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "corpus/release-clock.py",
+          "--selftest"
+        ],
+        "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M03",
+        "exit": 0,
+        "stderr": "",
+        "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n",
+        "timed_out": false,
+        "timeout_seconds": 120
+      },
+      "sha256_after": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+      "sha256_before": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+      "witness": {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/witness.py",
+          "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M03/corpus/release-clock.py"
+        ],
+        "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M03",
+        "exit": 0,
+        "stderr": "",
+        "stdout": "{\"canonical_derived\": {\"derived\": 1, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"derived_mismatch\": {\"derived\": 1, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"infix_marker\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"left_subtoken\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"named_boundaries\": {\"left\": false, \"right\": false}, \"no_colon\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"plain_row\": {\"derived\": 0, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"right_subtoken\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"two_derived\": {\"derived\": 2, \"errors\": [], \"fired\": 0, \"observed\": 2, \"passed\": true}}\n",
+        "timed_out": false,
+        "timeout_seconds": 30
+      }
+    },
+    {
+      "id": "M04",
+      "selftest": {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "corpus/release-clock.py",
+          "--selftest"
+        ],
+        "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M04",
+        "exit": 0,
+        "stderr": "",
+        "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n",
+        "timed_out": false,
+        "timeout_seconds": 120
+      },
+      "sha256_after": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+      "sha256_before": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+      "witness": {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/witness.py",
+          "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M04/corpus/release-clock.py"
+        ],
+        "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M04",
+        "exit": 0,
+        "stderr": "",
+        "stdout": "{\"canonical_derived\": {\"derived\": 1, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"derived_mismatch\": {\"derived\": 1, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"infix_marker\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"left_subtoken\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"named_boundaries\": {\"left\": false, \"right\": false}, \"no_colon\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"plain_row\": {\"derived\": 0, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"right_subtoken\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"two_derived\": {\"derived\": 2, \"errors\": [], \"fired\": 0, \"observed\": 2, \"passed\": true}}\n",
+        "timed_out": false,
+        "timeout_seconds": 30
+      }
+    },
+    {
+      "id": "M05",
+      "selftest": {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "corpus/release-clock.py",
+          "--selftest"
+        ],
+        "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M05",
+        "exit": 0,
+        "stderr": "",
+        "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n",
+        "timed_out": false,
+        "timeout_seconds": 120
+      },
+      "sha256_after": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+      "sha256_before": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+      "witness": {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/witness.py",
+          "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M05/corpus/release-clock.py"
+        ],
+        "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M05",
+        "exit": 0,
+        "stderr": "",
+        "stdout": "{\"canonical_derived\": {\"derived\": 1, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"derived_mismatch\": {\"derived\": 1, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"infix_marker\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"left_subtoken\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"named_boundaries\": {\"left\": false, \"right\": false}, \"no_colon\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"plain_row\": {\"derived\": 0, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"right_subtoken\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"two_derived\": {\"derived\": 2, \"errors\": [], \"fired\": 0, \"observed\": 2, \"passed\": true}}\n",
+        "timed_out": false,
+        "timeout_seconds": 30
+      }
+    },
+    {
+      "id": "M06",
+      "selftest": {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "corpus/release-clock.py",
+          "--selftest"
+        ],
+        "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M06",
+        "exit": 0,
+        "stderr": "",
+        "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n",
+        "timed_out": false,
+        "timeout_seconds": 120
+      },
+      "sha256_after": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+      "sha256_before": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+      "witness": {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/witness.py",
+          "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M06/corpus/release-clock.py"
+        ],
+        "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M06",
+        "exit": 0,
+        "stderr": "",
+        "stdout": "{\"canonical_derived\": {\"derived\": 1, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"derived_mismatch\": {\"derived\": 1, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"infix_marker\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"left_subtoken\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"named_boundaries\": {\"left\": false, \"right\": false}, \"no_colon\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"plain_row\": {\"derived\": 0, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"right_subtoken\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"two_derived\": {\"derived\": 2, \"errors\": [], \"fired\": 0, \"observed\": 2, \"passed\": true}}\n",
+        "timed_out": false,
+        "timeout_seconds": 30
+      }
+    },
+    {
+      "id": "M07",
+      "selftest": {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "corpus/release-clock.py",
+          "--selftest"
+        ],
+        "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M07",
+        "exit": 0,
+        "stderr": "",
+        "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n",
+        "timed_out": false,
+        "timeout_seconds": 120
+      },
+      "sha256_after": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+      "sha256_before": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+      "witness": {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/witness.py",
+          "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M07/corpus/release-clock.py"
+        ],
+        "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M07",
+        "exit": 0,
+        "stderr": "",
+        "stdout": "{\"canonical_derived\": {\"derived\": 1, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"derived_mismatch\": {\"derived\": 1, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"infix_marker\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"left_subtoken\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"named_boundaries\": {\"left\": false, \"right\": false}, \"no_colon\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"plain_row\": {\"derived\": 0, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"right_subtoken\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"two_derived\": {\"derived\": 2, \"errors\": [], \"fired\": 0, \"observed\": 2, \"passed\": true}}\n",
+        "timed_out": false,
+        "timeout_seconds": 30
+      }
+    },
+    {
+      "id": "M08",
+      "selftest": {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "corpus/release-clock.py",
+          "--selftest"
+        ],
+        "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M08",
+        "exit": 0,
+        "stderr": "",
+        "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n",
+        "timed_out": false,
+        "timeout_seconds": 120
+      },
+      "sha256_after": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+      "sha256_before": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+      "witness": {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/witness.py",
+          "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M08/corpus/release-clock.py"
+        ],
+        "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M08",
+        "exit": 0,
+        "stderr": "",
+        "stdout": "{\"canonical_derived\": {\"derived\": 1, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"derived_mismatch\": {\"derived\": 1, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"infix_marker\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"left_subtoken\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"named_boundaries\": {\"left\": false, \"right\": false}, \"no_colon\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"plain_row\": {\"derived\": 0, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"right_subtoken\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"two_derived\": {\"derived\": 2, \"errors\": [], \"fired\": 0, \"observed\": 2, \"passed\": true}}\n",
+        "timed_out": false,
+        "timeout_seconds": 30
+      }
+    },
+    {
+      "id": "M09",
+      "selftest": {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "corpus/release-clock.py",
+          "--selftest"
+        ],
+        "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M09",
+        "exit": 0,
+        "stderr": "",
+        "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n",
+        "timed_out": false,
+        "timeout_seconds": 120
+      },
+      "sha256_after": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+      "sha256_before": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+      "witness": {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/witness.py",
+          "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M09/corpus/release-clock.py"
+        ],
+        "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M09",
+        "exit": 0,
+        "stderr": "",
+        "stdout": "{\"canonical_derived\": {\"derived\": 1, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"derived_mismatch\": {\"derived\": 1, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"infix_marker\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"left_subtoken\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"named_boundaries\": {\"left\": false, \"right\": false}, \"no_colon\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"plain_row\": {\"derived\": 0, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"right_subtoken\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"two_derived\": {\"derived\": 2, \"errors\": [], \"fired\": 0, \"observed\": 2, \"passed\": true}}\n",
+        "timed_out": false,
+        "timeout_seconds": 30
+      }
+    },
+    {
+      "id": "M10",
+      "selftest": {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "corpus/release-clock.py",
+          "--selftest"
+        ],
+        "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M10",
+        "exit": 0,
+        "stderr": "",
+        "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n",
+        "timed_out": false,
+        "timeout_seconds": 120
+      },
+      "sha256_after": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+      "sha256_before": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+      "witness": {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/witness.py",
+          "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M10/corpus/release-clock.py"
+        ],
+        "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M10",
+        "exit": 0,
+        "stderr": "",
+        "stdout": "{\"canonical_derived\": {\"derived\": 1, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"derived_mismatch\": {\"derived\": 1, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"infix_marker\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"left_subtoken\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"named_boundaries\": {\"left\": false, \"right\": false}, \"no_colon\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"plain_row\": {\"derived\": 0, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"right_subtoken\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"two_derived\": {\"derived\": 2, \"errors\": [], \"fired\": 0, \"observed\": 2, \"passed\": true}}\n",
+        "timed_out": false,
+        "timeout_seconds": 30
+      }
+    },
+    {
+      "id": "M11",
+      "selftest": {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "corpus/release-clock.py",
+          "--selftest"
+        ],
+        "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M11",
+        "exit": 0,
+        "stderr": "",
+        "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n",
+        "timed_out": false,
+        "timeout_seconds": 120
+      },
+      "sha256_after": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+      "sha256_before": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+      "witness": {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/witness.py",
+          "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M11/corpus/release-clock.py"
+        ],
+        "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M11",
+        "exit": 0,
+        "stderr": "",
+        "stdout": "{\"canonical_derived\": {\"derived\": 1, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"derived_mismatch\": {\"derived\": 1, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"infix_marker\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"left_subtoken\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"named_boundaries\": {\"left\": false, \"right\": false}, \"no_colon\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"plain_row\": {\"derived\": 0, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"right_subtoken\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"two_derived\": {\"derived\": 2, \"errors\": [], \"fired\": 0, \"observed\": 2, \"passed\": true}}\n",
+        "timed_out": false,
+        "timeout_seconds": 30
+      }
+    },
+    {
+      "id": "M12",
+      "selftest": {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "corpus/release-clock.py",
+          "--selftest"
+        ],
+        "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M12",
+        "exit": 0,
+        "stderr": "",
+        "stdout": "RELEASE_CLOCK_SELFTEST: PASS (79 cases)\n",
+        "timed_out": false,
+        "timeout_seconds": 120
+      },
+      "sha256_after": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+      "sha256_before": "53823416d267e886d780fc347f6ef6f347592ba117ebc296e2148e88a2a136dc",
+      "witness": {
+        "argv": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/witness.py",
+          "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M12/corpus/release-clock.py"
+        ],
+        "cwd": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/MutBaseDerived-7/M12",
+        "exit": 0,
+        "stderr": "",
+        "stdout": "{\"canonical_derived\": {\"derived\": 1, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"derived_mismatch\": {\"derived\": 1, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"infix_marker\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"left_subtoken\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"named_boundaries\": {\"left\": false, \"right\": false}, \"no_colon\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"plain_row\": {\"derived\": 0, \"errors\": [], \"fired\": 0, \"observed\": 1, \"passed\": true}, \"right_subtoken\": {\"derived\": 0, \"errors\": [[\"INCONSISTENT\", \"S001\"]], \"fired\": 0, \"observed\": 0, \"passed\": false}, \"two_derived\": {\"derived\": 2, \"errors\": [], \"fired\": 0, \"observed\": 2, \"passed\": true}}\n",
+        "timed_out": false,
+        "timeout_seconds": 30
+      }
+    }
+  ]
+}

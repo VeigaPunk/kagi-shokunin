@@ -1,0 +1,129 @@
+[
+ {
+  "evaluate_categories": [],
+  "evaluate_rc": 0,
+  "evaluate_summary": "RELEASE_CLOCK: CLEAN (on_release=1 bound=1 unbound=0 observed=1 fired=0 derived=0)",
+  "evaluate_traceback": false,
+  "label": "canonical_000_control",
+  "observe_rc": 0,
+  "observe_stderr": [],
+  "observe_stdout": "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=0 fired=0 regressed=0) to /tmp/fzerocore3-py1ae9zj/observe.json\nRELEASE_CLOCK: CLEAN (on_release=1 bound=1 unbound=0 observed=1 fired=0 derived=0)",
+  "observe_traceback": false,
+  "receipt_record": {
+   "clock": "feed",
+   "http_status": 200,
+   "id": "S001",
+   "located": null,
+   "observed_at": "2026-10-21T00:00:00Z",
+   "parsed_version": "0.0.0",
+   "sha256": "9b406b40dd2480bdcdab03cf89edb517549eb069cba2d94d56805a8ebc82bf4b",
+   "url": "https://example.test/releases.atom",
+   "verdict": "not-fired"
+  },
+  "receipt_sha256": "b9dee74923d41affd953867a2b11abdafd7fe4b4b3416fd02eb87f2377e29f42"
+ },
+ {
+  "evaluate_categories": [
+   "NON-CANONICAL"
+  ],
+  "evaluate_rc": 1,
+  "evaluate_summary": "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)",
+  "evaluate_traceback": false,
+  "label": "zero_core_feed_newest",
+  "observe_rc": 1,
+  "observe_stderr": [],
+  "observe_stdout": "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/fzerocore3-p421w5wz/observe.json\nNON-CANONICAL S001\nRELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)",
+  "observe_traceback": false,
+  "receipt_record": {
+   "clock": "feed",
+   "error": "non-canonical version token: feed has no canonical stable X.Y.Z entry",
+   "http_status": 200,
+   "id": "S001",
+   "located": null,
+   "observed_at": "2026-10-21T00:00:00Z",
+   "parsed_version": null,
+   "sha256": "72b678b70eb66b354be54338a01d82900a3f540c30ca0b1841c09c4494c74c64",
+   "url": "https://example.test/releases.atom",
+   "verdict": null
+  },
+  "receipt_sha256": "4bc9ac176bfae9952b42b77b18730bea3e2d5efa0f2616da15f39aa7316db48b"
+ },
+ {
+  "evaluate_categories": [
+   "NON-CANONICAL"
+  ],
+  "evaluate_rc": 1,
+  "evaluate_summary": "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)",
+  "evaluate_traceback": false,
+  "label": "zero_core_row_anchor",
+  "observe_rc": 1,
+  "observe_stderr": [],
+  "observe_stdout": "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/fzerocore3-nltyyx7i/observe.json\nNON-CANONICAL S001\nRELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)",
+  "observe_traceback": false,
+  "receipt_record": {
+   "clock": "feed",
+   "error": "non-canonical version token: row anchor or observation; no verdict written",
+   "http_status": null,
+   "id": "S001",
+   "located": null,
+   "observed_at": "2026-10-21T00:00:00Z",
+   "parsed_version": null,
+   "sha256": null,
+   "url": "https://example.test/releases.atom",
+   "verdict": null
+  },
+  "receipt_sha256": "99d5c54da9d93ad6c591594f00946d2be245097b995121bd552f71ae580707db"
+ },
+ {
+  "evaluate_categories": [
+   "NON-CANONICAL"
+  ],
+  "evaluate_rc": 1,
+  "evaluate_summary": "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)",
+  "evaluate_traceback": false,
+  "label": "zero_core_row_obs",
+  "observe_rc": 1,
+  "observe_stderr": [],
+  "observe_stdout": "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/fzerocore3-tnjqoy4k/observe.json\nNON-CANONICAL S001\nRELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)",
+  "observe_traceback": false,
+  "receipt_record": {
+   "clock": "feed",
+   "error": "non-canonical version token: row anchor or observation; no verdict written",
+   "http_status": null,
+   "id": "S001",
+   "located": null,
+   "observed_at": "2026-10-21T00:00:00Z",
+   "parsed_version": null,
+   "sha256": null,
+   "url": "https://example.test/releases.atom",
+   "verdict": null
+  },
+  "receipt_sha256": "99d5c54da9d93ad6c591594f00946d2be245097b995121bd552f71ae580707db"
+ },
+ {
+  "evaluate_categories": [
+   "NON-CANONICAL"
+  ],
+  "evaluate_rc": 1,
+  "evaluate_summary": "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)",
+  "evaluate_traceback": false,
+  "label": "zero_core_feed_older_than_newest",
+  "observe_rc": 1,
+  "observe_stderr": [],
+  "observe_stdout": "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/fzerocore3-bll8kspc/observe.json\nNON-CANONICAL S001\nRELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)",
+  "observe_traceback": false,
+  "receipt_record": {
+   "clock": "feed",
+   "error": "non-canonical version token: feed newest stable entry",
+   "http_status": 200,
+   "id": "S001",
+   "located": null,
+   "observed_at": "2026-10-21T00:00:00Z",
+   "parsed_version": null,
+   "sha256": "352876ce9942cb1b8c7cebe4322ff402e90b7d2b68fa74d74563494653daba3f",
+   "url": "https://example.test/releases.atom",
+   "verdict": null
+  },
+  "receipt_sha256": "88507501b05ca4a64f994957fd3c8ac095e17d86851f7906d787638cc95760a8"
+ }
+]

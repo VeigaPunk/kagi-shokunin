@@ -1,0 +1,99 @@
+[
+  {
+    "case": "cand-control-default",
+    "argv": "python3 -I -B /fast/scratch/hyaku/kagi-r28/FDeriveCurl/cand/corpus/release-clock.py --root /fast/scratch/hyaku/kagi-r28/FDeriveCurl/cand --receipt /fast/scratch/hyaku/kagi-r28/FDeriveCurl/cand/.ufo/waves/round-26/observe-2.json --receipt-sha 13b8540c78b9de07bc184894583a368472fd1f2f04a898220bf7c29d2648a169",
+    "exit": 0,
+    "stdout": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)\n",
+    "stderr": "",
+    "traceback": false,
+    "last_line": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)",
+    "findings": [],
+    "files_written": []
+  },
+  {
+    "case": "cand-G4-lowered-8.22.0-mirrored",
+    "argv": "python3 -I -B /fast/scratch/hyaku/kagi-r28/FDeriveCurl/cand/corpus/release-clock.py --root /fast/scratch/hyaku/kagi-r28/FDeriveCurl/fixture-cand-8_22_0 --receipt /fast/scratch/hyaku/kagi-r28/FDeriveCurl/fixture-cand-8_22_0/receipt.json --receipt-sha 3431d955890f7cf4f373310738b869538ef8852501635610cd2159ae2f64265d",
+    "exit": 1,
+    "stdout": "DERIVATION S029\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)\n",
+    "stderr": "",
+    "traceback": false,
+    "last_line": "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)",
+    "findings": [
+      "DERIVATION S029"
+    ],
+    "files_written": []
+  },
+  {
+    "case": "cand-G4-lowered-8.10.0-mirrored",
+    "argv": "python3 -I -B /fast/scratch/hyaku/kagi-r28/FDeriveCurl/cand/corpus/release-clock.py --root /fast/scratch/hyaku/kagi-r28/FDeriveCurl/fixture-cand-8_10_0 --receipt /fast/scratch/hyaku/kagi-r28/FDeriveCurl/fixture-cand-8_10_0/receipt.json --receipt-sha 63b78c5d7f4aa1402fd1699d2fa7b0c0d2f1a74fe2badd47567bef6f0237d31c",
+    "exit": 1,
+    "stdout": "DERIVATION S029\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)\n",
+    "stderr": "",
+    "traceback": false,
+    "last_line": "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)",
+    "findings": [
+      "DERIVATION S029"
+    ],
+    "files_written": []
+  },
+  {
+    "case": "cand-G4-lowered-8.22.0-unmirrored-receipt",
+    "argv": "python3 -I -B /fast/scratch/hyaku/kagi-r28/FDeriveCurl/cand/corpus/release-clock.py --root /fast/scratch/hyaku/kagi-r28/FDeriveCurl/fixture-cand-8_22_0 --receipt /fast/scratch/hyaku/kagi-r28/FDeriveCurl/fixture-cand-8_22_0/receipt.json --receipt-sha 13b8540c78b9de07bc184894583a368472fd1f2f04a898220bf7c29d2648a169",
+    "exit": 1,
+    "stdout": "DERIVATION S029\nRECEIPT-MISMATCH S029\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)\n",
+    "stderr": "",
+    "traceback": false,
+    "last_line": "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)",
+    "findings": [
+      "DERIVATION S029",
+      "RECEIPT-MISMATCH S029"
+    ],
+    "files_written": []
+  },
+  {
+    "case": "base-control-default",
+    "argv": "python3 -I -B /fast/scratch/hyaku/kagi-r28/FDeriveCurl/base/corpus/release-clock.py --root /fast/scratch/hyaku/kagi-r28/FDeriveCurl/base --receipt /fast/scratch/hyaku/kagi-r28/FDeriveCurl/base/.ufo/waves/round-26/observe-2.json --receipt-sha 13b8540c78b9de07bc184894583a368472fd1f2f04a898220bf7c29d2648a169",
+    "exit": 0,
+    "stdout": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)\n",
+    "stderr": "",
+    "traceback": false,
+    "last_line": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)",
+    "findings": [],
+    "files_written": []
+  },
+  {
+    "case": "base-G4-lowered-8.22.0-mirrored",
+    "argv": "python3 -I -B /fast/scratch/hyaku/kagi-r28/FDeriveCurl/base/corpus/release-clock.py --root /fast/scratch/hyaku/kagi-r28/FDeriveCurl/fixture-base-8_22_0 --receipt /fast/scratch/hyaku/kagi-r28/FDeriveCurl/fixture-base-8_22_0/receipt.json --receipt-sha 3431d955890f7cf4f373310738b869538ef8852501635610cd2159ae2f64265d",
+    "exit": 0,
+    "stdout": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)\n",
+    "stderr": "",
+    "traceback": false,
+    "last_line": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)",
+    "findings": [],
+    "files_written": []
+  },
+  {
+    "case": "base-G4-lowered-8.10.0-mirrored",
+    "argv": "python3 -I -B /fast/scratch/hyaku/kagi-r28/FDeriveCurl/base/corpus/release-clock.py --root /fast/scratch/hyaku/kagi-r28/FDeriveCurl/fixture-base-8_10_0 --receipt /fast/scratch/hyaku/kagi-r28/FDeriveCurl/fixture-base-8_10_0/receipt.json --receipt-sha 63b78c5d7f4aa1402fd1699d2fa7b0c0d2f1a74fe2badd47567bef6f0237d31c",
+    "exit": 0,
+    "stdout": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)\n",
+    "stderr": "",
+    "traceback": false,
+    "last_line": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)",
+    "findings": [],
+    "files_written": []
+  },
+  {
+    "case": "base-G4-lowered-8.22.0-unmirrored-receipt",
+    "argv": "python3 -I -B /fast/scratch/hyaku/kagi-r28/FDeriveCurl/base/corpus/release-clock.py --root /fast/scratch/hyaku/kagi-r28/FDeriveCurl/fixture-base-8_22_0 --receipt /fast/scratch/hyaku/kagi-r28/FDeriveCurl/fixture-base-8_22_0/receipt.json --receipt-sha 13b8540c78b9de07bc184894583a368472fd1f2f04a898220bf7c29d2648a169",
+    "exit": 1,
+    "stdout": "RECEIPT-MISMATCH S029\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)\n",
+    "stderr": "",
+    "traceback": false,
+    "last_line": "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)",
+    "findings": [
+      "RECEIPT-MISMATCH S029"
+    ],
+    "files_written": []
+  }
+]

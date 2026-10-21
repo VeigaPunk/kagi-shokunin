@@ -1,0 +1,8 @@
+t = open('cand/corpus/SOURCES.md', encoding='utf-8').read().splitlines()
+s = t[6].strip()
+print('len', len(s))
+print('ord head', [ord(c) for c in s[:12]])
+print('count pipe', s.count('|'))
+print('s[1] repr', repr(s[1]))
+print('s[1:12] repr', repr(s[1:12]))
+print('split full', len(s.split('|')))

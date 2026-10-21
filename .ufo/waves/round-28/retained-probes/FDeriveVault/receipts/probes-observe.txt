@@ -1,0 +1,55 @@
+== O1 observe mode (offline, authentic cached feed body) ==
+   feed_body_sha256=e41bc5793403136a07c68d7d107fe3e9d68b834f51bd4d77cad5c13a388670ba
+   exit=1
+   | RELEASE_CLOCK_OBSERVE: wrote 30 observations (failed=15 fired=15 regressed=0) to /fast/scratch/kagi-r28-fdderivevault/o1/root/observe-out.json
+   | DERIVATION S013
+   | DERIVATION S022
+   | DERIVATION S023
+   | DERIVATION S024
+   | RECEIPT-MISMATCH S005
+   | RECEIPT-MISMATCH S006
+   | RECEIPT-MISMATCH S007
+   | RECEIPT-MISMATCH S008
+   | RECEIPT-MISMATCH S009
+   | RECEIPT-MISMATCH S010
+   | RECEIPT-MISMATCH S011
+   | RECEIPT-MISMATCH S013
+   | RECEIPT-MISMATCH S014
+   | RECEIPT-MISMATCH S015
+   | RECEIPT-MISMATCH S016
+   | RECEIPT-MISMATCH S017
+   | RECEIPT-MISMATCH S018
+   | RECEIPT-MISMATCH S019
+   | RECEIPT-MISMATCH S020
+   | RECEIPT-MISMATCH S021
+   | RECEIPT-MISMATCH S022
+   | RECEIPT-MISMATCH S023
+   | RECEIPT-MISMATCH S024
+   | RECEIPT-MISMATCH S025
+   | RECEIPT-MISMATCH S026
+   | RECEIPT-MISMATCH S027
+   | RECEIPT-MISMATCH S028
+   | RECEIPT-MISMATCH S029
+   | RECEIPT-MISMATCH S030
+   | RECEIPT-MISMATCH S031
+   | RECEIPT-MISMATCH S032
+   | RECEIPT-MISMATCH S040
+   | RECEIPT-MISMATCH S041
+   | RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=1 fired=1 derived=0)
+   --- receipt records for the vault feed rows ---
+     S012 parsed_version='2.2.0' verdict='fired' error=None
+     S013 parsed_version='2.2.0' verdict='fired' error=None
+     S022 parsed_version='2.2.0' verdict='fired' error=None
+     S023 parsed_version='2.2.0' verdict='fired' error=None
+     S024 parsed_version='2.2.0' verdict='fired' error=None
+== O2 same table edit, receipt NOT mirrored ==
+   exit=1 traceback=False
+   | DERIVATION S013
+   | DERIVATION S022
+   | DERIVATION S023
+   | DERIVATION S024
+   | RECEIPT-MISMATCH S013
+   | RECEIPT-MISMATCH S022
+   | RECEIPT-MISMATCH S023
+   | RECEIPT-MISMATCH S024
+   | RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=26 fired=3 derived=11)

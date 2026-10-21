@@ -1,0 +1,199 @@
+--- composed/corpus/release-clock.py	2026-10-21 14:26:23.794388593 -0300
++++ /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/release-clock.py	2026-10-21 14:28:29.515788800 -0300
+@@ -342,6 +342,27 @@
+     return re.search(pattern, anchor, re.IGNORECASE) is not None
+ 
+ 
++STABLE_TOKEN_RE = re.compile(r"(?<![A-Za-z0-9.])v?([0-9]+\.[0-9]+\.[0-9]+)(?![A-Za-z0-9.+-])",
++                             re.IGNORECASE)
++
++
++def derived_anchor_bound(feed_anchor, anchored):
++    """True when the feed row's anchor cell binds the derived anchor `anchored`.
++
++    Round 28 C2. Reads only the anchor cell (never `teaches`, which can name a
++    development label such as curl 8.23.1). A strict X.Y.Z anchor must be the ONE
++    stable X.Y.Z the cell names: a prerelease/build sibling (`v2.2.0-rc1`) or a
++    longer component (`3.13.30`) is not the same token, and a cell naming two
++    different versions binds none. A non-numeric series anchor (`1.2.x`) must be
++    named by the cell (version_is_named).
++    """
++    if not anchored or anchored == "-":
++        return False
++    if not NUMERIC_VERSION_RE.fullmatch(norm_version(anchored)):
++        return version_is_named(feed_anchor or "", anchored)
++    return set(STABLE_TOKEN_RE.findall(feed_anchor or "")) == {norm_version(anchored)}
++
++
+ def extract_quotes(teaches):
+     quotes = []
+     for match in QUOTE_RE.finditer(teaches):
+@@ -359,7 +380,7 @@
+     return value[1:] if value[:1].lower() == "v" else value
+ 
+ 
+-# SemVer 2.0.0 §2 (S042): a numeric identifier MUST NOT contain leading zeroes.
++# SemVer 2.0.0 §2 (S045): a numeric identifier MUST NOT contain leading zeroes.
+ # Each component is also capped at VERSION_COMPONENT_MAX_DIGITS: 18 digits keep a
+ # canonical component inside a signed 64-bit integer, 4282 digits below CPython's
+ # int-string conversion limit (sys.get_int_max_str_digits(), 4300 by default), and
+@@ -592,25 +613,21 @@
+                 errors.add(("BADFEED", source_id))
+                 row_valid = False
+             is_derived = values["note"].startswith("derived:")
+-            if is_derived:
+-                # round-28 C2: an author-declared derived anchor is trusted only
+-                # while the version it names is named by its feed row's located
+-                # anchor (S033-S037) -- the same word-bounded naming predicate a
+-                # non-derived anchor must satisfy against its own row. A lower,
+-                # forged or unpinned derived anchor is a typed DERIVATION
+-                # finding, never a silent not-fired clock. `v3.13.3` names
+-                # `3.13.3` (optional v); `3.13.3` does not name `3.13.30` (the
+-                # trailing lookahead rejects the extra digit).
+-                feed_anchor = (sources.get(feed_source_id) or {}).get("anchor") or ""
+-                anchor_ok = version_is_named(feed_anchor, anchored)
+-                if not anchor_ok:
+-                    errors.add(("DERIVATION", source_id))
+-                    row_valid = False
+-            else:
+-                anchor_ok = version_is_named(sources[source_id]["anchor"], anchored)
+-            if non_canonical_version(anchored) or non_canonical_version(observed_version):
+-                # SemVer 2.0.0 §2 (S042): a leading zero or an over-bound component
+-                # names no release identity, so it is never ordered, compared or fired.
++            anchor_ok = is_derived or version_is_named(sources[source_id]["anchor"], anchored)
++            non_canonical = non_canonical_version(anchored) or non_canonical_version(observed_version)
++            if (is_derived and not non_canonical and feed_source is not None
++                    and not derived_anchor_bound(feed_source["anchor"], anchored)):
++                # round-28 C2: an author-declared derived anchor holds only while
++                # its feed row's located anchor cell (S033-S037) names exactly
++                # that one stable X.Y.Z. Lowering a whole feed group, a second
++                # version in the cell or a prerelease sibling is a typed
++                # DERIVATION finding, never a silent not-fired clock.
++                errors.add(("DERIVATION", source_id))
++                row_valid = False
++            if non_canonical:
++                # SemVer 2.0.0 §2 (S045): a leading zero or an over-bound component
++                # (S044) names no release identity, so it is never ordered, compared
++                # or fired.
+                 errors.add(("NON-CANONICAL", source_id))
+                 row_valid = False
+             elif (is_regression(anchored, observed_version)
+@@ -622,7 +639,7 @@
+                 # EQUAL to the feed floor cannot be told from a legitimate state.
+                 errors.add(("REGRESSED", source_id))
+                 row_valid = False
+-            elif ((not is_derived and not anchor_ok) or not observed_version or observed_version == "-"
++            elif (not anchor_ok or not observed_version or observed_version == "-"
+                     or numeric_version(observed_version) is None
+                     or not valid_iso_date(observed_at)
+                     or verdict not in ("not-fired", "fired")):
+@@ -765,18 +782,24 @@
+ 
+ 
+ def newest_stable(tokens):
+-    """Newest stable X.Y.Z token. Every stable entry must be canonical (SemVer 2.0.0 §2).
++    """Newest canonical stable X.Y.Z token; a non-canonical token is never named.
+ 
+-    A non-canonical entry (leading zero or over-bound component) fails the feed typed,
+-    wherever it sits in the feed, so none is ordered around or silently skipped.
++    A non-canonical token (leading zero or over-bound component) that orders below
++    the newest canonical token cannot be the newest release and is ignored. At or
++    above that token the feed cannot name its newest release, so the feed fails.
+     """
+-    if any(non_canonical_version(token) for token in tokens):
+-        raise ValueError(NON_CANONICAL_PREFIX + "feed stable entry")
+-    return max(tokens, key=version_order)
++    canonical = [token for token in tokens if not non_canonical_version(token)]
++    if not canonical:
++        raise ValueError(NON_CANONICAL_PREFIX + "feed has no canonical stable X.Y.Z entry")
++    newest = max(canonical, key=version_order)
++    if any(version_order(token) >= version_order(newest)
++           for token in tokens if non_canonical_version(token)):
++        raise ValueError(NON_CANONICAL_PREFIX + "feed newest stable entry")
++    return newest
+ 
+ 
+ def parse_latest_version(body):
+-    """Newest STABLE release in a feed: the max X.Y.Z over every entry; all must be canonical.
++    """Newest STABLE release in a feed: the newest canonical X.Y.Z over every entry.
+ 
+     Entry order is not trusted (GitHub Atom orders by update time and mixes
+     module tags such as `sdk/v0.26.0` and prereleases such as `v2.2.0-rc1`);
+@@ -1180,6 +1203,21 @@
+                                            "Successor.", "on-release",
+                                            "https://example.test/successor")],
+              feed_anchor="Latest release v1.2.9")
++    run_case("derived anchor rejects prerelease sibling", fixture_row(
++             anchored="1.2.3", observed="1.2.3",
++             note="derived: newest stable release on the feed when the row was opened") + "\n",
++             [("DERIVATION", "S001")], {"observed": 0, "derived": 0},
++             feed_anchor="Entry titled v1.2.3-rc1, tag link /releases/tag/v1.2.3-rc1")
++    run_case("derived anchor needs one version in cell", fixture_row(
++             anchored="1.2.0", observed="1.2.0",
++             note="derived: newest stable release on the feed when the row was opened") + "\n",
++             [("DERIVATION", "S001")], {"observed": 0, "derived": 0},
++             feed_anchor="Entry titled v1.2.9; prior stable v1.2.0")
++    run_case("derived anchor bound to its one feed token", fixture_row(
++             anchored="1.2.9", observed="1.2.9",
++             note="derived: newest stable release on the feed when the row was opened") + "\n",
++             [], {"observed": 1, "derived": 1},
++             feed_anchor="Entry titled v1.2.9, tag link /releases/tag/v1.2.9, updated 2026-10-15T18:50:14Z")
+     run_case("feed floor catches un-fire", fixture_row(
+              anchored="1.2.3", observed="1.2.3", verdict="not-fired") + "\n" + fixture_row(
+              "S004", anchored="1.2.4", observed="1.2.4", verdict="not-fired") + "\n",
+@@ -1205,13 +1243,17 @@
+              [("INCONSISTENT", "S001")], {"observed": 0})
+ 
+     # round 28 C1: a leading zero or an over-bound component names no release
+-    # identity (SemVer 2.0.0 §2, S042): typed NON-CANONICAL, never ordered or fired.
++    # identity (SemVer 2.0.0 §2, S045): typed NON-CANONICAL, never ordered or fired.
+     run_case("leading-zero observation refused", fixture_row(
+              observed="1.2.04", verdict="fired") + "\n",
+              [("NON-CANONICAL", "S001")], {"observed": 0, "fired": 0})
+     run_case("leading-zero anchor refused", fixture_row(
+              anchored="1.2.03", observed="1.2.03") + "\n",
+              [("NON-CANONICAL", "S001")], {"observed": 0})
++    run_case("derived leading-zero anchor refused", fixture_row(
++             anchored="1.2.03", observed="1.2.03",
++             note="derived: leading-zero anchor, not a release identity") + "\n",
++             [("NON-CANONICAL", "S001")], {"observed": 0})
+     run_case("zero-padded middle component refused", fixture_row(
+              observed="1.00.0", verdict="fired") + "\n",
+              [("NON-CANONICAL", "S001")], {"observed": 0, "fired": 0})
+@@ -1317,18 +1359,14 @@
+         except ValueError:
+             pass
+ 
+-    # round 28 C1: every stable feed entry must be canonical; a non-canonical entry fails
+-    # the feed with a canonical-rule message (never an accepted leading-zero tag, never an
+-    # untyped int() ValueError), wherever it sits in the feed.
++    # round 28 C1: a non-canonical stable token is never named the release; a feed
++    # whose newest stable entry cannot be named fails with a canonical-rule message
++    # (never an accepted leading-zero tag, never an untyped int() ValueError).
+     for label, feed_body in (
+             ("leading-zero newest refused", atom % entry(b"v3.15.01", b"v3.15.01")),
+             ("leading-zero tie with canonical refused", atom % b"".join((
+                 entry(b"v3.15.1", b"v3.15.1"), entry(b"v3.15.01", b"v3.15.01")))),
+             ("oversize newest refused", atom % entry(b"v3.15." + b"1" * 4301, b"v3.15.1")),
+-            ("older leading-zero refused", atom % b"".join((
+-                entry(b"v3.15.0", b"v3.15.0"), entry(b"v3.14.01", b"v3.14.01")))),
+-            ("older oversize refused", atom % b"".join((
+-                entry(b"v3.15.0", b"v3.15.0"), entry(b"v3.14." + b"1" * 4301, b"v3.14.1")))),
+             ("rss leading-zero above canonical refused",
+              b"<rss><channel><item><title>Python 3.15.01</title></item>"
+              b"<item><title>Python 3.15.0</title></item></channel></rss>"),
+@@ -1340,6 +1378,14 @@
+         except ValueError as exc:
+             if "canonical" not in str(exc):
+                 failures.append("version parser %s: untyped refusal %s" % (label, exc))
++    cases += 1
++    try:
++        older_oversize = parse_latest_version(atom % (
++            entry(b"v3.15.0", b"v3.15.0") + entry(b"v3.14." + b"1" * 4301, b"v3.14.1")))
++    except ValueError as exc:
++        older_oversize = "ValueError: %s" % exc
++    if older_oversize != "3.15.0":
++        failures.append("older oversize entry was not ignored: %r" % (older_oversize,))
+ 
+     cases += 1
+     try:

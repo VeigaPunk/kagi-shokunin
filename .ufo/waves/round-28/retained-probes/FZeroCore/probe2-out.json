@@ -1,0 +1,188 @@
+{
+ "canonical_refused_count": 0,
+ "canonical_refused_sample": [],
+ "derived_0.0.0": {
+  "feed_names_000_anchor_000": true,
+  "feed_names_000_anchor_001": false,
+  "feed_names_000_anchor_zero_core": false,
+  "feed_names_3151_anchor_31501": false
+ },
+ "feeds": {
+  "000_plus_00000": {
+   "base": [
+    "ok",
+    "0.0.0"
+   ],
+   "cand": [
+    "ValueError",
+    "non-canonical version token: feed newest stable entry"
+   ]
+  },
+  "000_plus_001": {
+   "base": [
+    "ok",
+    "0.0.1"
+   ],
+   "cand": [
+    "ok",
+    "0.0.1"
+   ]
+  },
+  "3151_plus_31500": {
+   "base": [
+    "ok",
+    "3.15.1"
+   ],
+   "cand": [
+    "ok",
+    "3.15.1"
+   ]
+  },
+  "3151_plus_315001": {
+   "base": [
+    "ok",
+    "3.15.1"
+   ],
+   "cand": [
+    "ValueError",
+    "non-canonical version token: feed newest stable entry"
+   ]
+  },
+  "3151_plus_31501": {
+   "base": [
+    "ok",
+    "3.15.1"
+   ],
+   "cand": [
+    "ValueError",
+    "non-canonical version token: feed newest stable entry"
+   ]
+  },
+  "canonical_000_only": {
+   "base": [
+    "ok",
+    "0.0.0"
+   ],
+   "cand": [
+    "ok",
+    "0.0.0"
+   ]
+  },
+  "huge_newest": {
+   "base": [
+    "ValueError",
+    "Exceeds the limit (4300 digits) for integer string conversion: value has 4301 digits; use sys.set_int_max_str_"
+   ],
+   "cand": [
+    "ValueError",
+    "non-canonical version token: feed has no canonical stable X.Y.Z entry"
+   ]
+  },
+  "huge_older": {
+   "base": [
+    "ValueError",
+    "Exceeds the limit (4300 digits) for integer string conversion: value has 4301 digits; use sys.set_int_max_str_"
+   ],
+   "cand": [
+    "ok",
+    "3.15.0"
+   ]
+  }
+ },
+ "ordering_mismatches": [],
+ "ordering_pairs_checked": "all pairs over 0..40^3 (sampled 287 tokens)",
+ "texts": {
+  "text_000": {
+   "base": [
+    "ok",
+    "0.0.0"
+   ],
+   "cand": [
+    "ok",
+    "0.0.0"
+   ]
+  },
+  "text_0_0_01": {
+   "base": [
+    "ok",
+    "0.0.01"
+   ],
+   "cand": [
+    "ValueError",
+    "non-canonical version token: text release version"
+   ]
+  },
+  "text_no_trailing_nl": {
+   "base": [
+    "ok",
+    "0.0.01"
+   ],
+   "cand": [
+    "ValueError",
+    "non-canonical version token: text release version"
+   ]
+  }
+ },
+ "zero_core": {
+  "0.0.0": {
+   "base_numeric": "(0, 0, 0)",
+   "cand_noncanonical": false,
+   "cand_numeric": "((0, ''), (0, ''), (0, ''))",
+   "cand_order": "((0, ''), (0, ''), (0, ''))"
+  },
+  "0.0.01": {
+   "base_numeric": "(0, 0, 1)",
+   "cand_noncanonical": true,
+   "cand_numeric": "None",
+   "cand_order": "((0, ''), (0, ''), (1, '1'))"
+  },
+  "0.00.0": {
+   "base_numeric": "(0, 0, 0)",
+   "cand_noncanonical": true,
+   "cand_numeric": "None",
+   "cand_order": "((0, ''), (0, ''), (0, ''))"
+  },
+  "1.2.0": {
+   "base_numeric": "(1, 2, 0)",
+   "cand_noncanonical": false,
+   "cand_numeric": "((1, '1'), (1, '2'), (0, ''))",
+   "cand_order": "((1, '1'), (1, '2'), (0, ''))"
+  },
+  "1.2.00": {
+   "base_numeric": "(1, 2, 0)",
+   "cand_noncanonical": true,
+   "cand_numeric": "None",
+   "cand_order": "((1, '1'), (1, '2'), (0, ''))"
+  },
+  "1.2.003": {
+   "base_numeric": "(1, 2, 3)",
+   "cand_noncanonical": true,
+   "cand_numeric": "None",
+   "cand_order": "((1, '1'), (1, '2'), (1, '3'))"
+  },
+  "1.2.03": {
+   "base_numeric": "(1, 2, 3)",
+   "cand_noncanonical": true,
+   "cand_numeric": "None",
+   "cand_order": "((1, '1'), (1, '2'), (1, '3'))"
+  },
+  "10.20.30": {
+   "base_numeric": "(10, 20, 30)",
+   "cand_noncanonical": false,
+   "cand_numeric": "((2, '10'), (2, '20'), (2, '30'))",
+   "cand_order": "((2, '10'), (2, '20'), (2, '30'))"
+  },
+  "3.15.001": {
+   "base_numeric": "(3, 15, 1)",
+   "cand_noncanonical": true,
+   "cand_numeric": "None",
+   "cand_order": "((1, '3'), (2, '15'), (1, '1'))"
+  },
+  "3.15.01": {
+   "base_numeric": "(3, 15, 1)",
+   "cand_noncanonical": true,
+   "cand_numeric": "None",
+   "cand_order": "((1, '3'), (2, '15'), (1, '1'))"
+  }
+ }
+}

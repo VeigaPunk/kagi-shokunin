@@ -1,0 +1,88 @@
+{
+ "sort_identical": true,
+ "tokens": 68921,
+ "zero_core_feed_positions": {
+  "canonical_plus_zero_core_newer": {
+   "base": [
+    "ok",
+    "3.15.2"
+   ],
+   "cand": [
+    "ok",
+    "3.15.2"
+   ]
+  },
+  "newer_canonical_plus_000_zero_core": {
+   "base": [
+    "ok",
+    "3.15.2"
+   ],
+   "cand": [
+    "ok",
+    "3.15.2"
+   ]
+  },
+  "newer_canonical_plus_older_zero_core": {
+   "base": [
+    "ok",
+    "3.15.2"
+   ],
+   "cand": [
+    "ok",
+    "3.15.2"
+   ]
+  },
+  "newer_canonical_plus_zero_core_000": {
+   "base": [
+    "ok",
+    "3.15.2"
+   ],
+   "cand": [
+    "ok",
+    "3.15.2"
+   ]
+  },
+  "newer_canonical_plus_zero_core_tie": {
+   "base": [
+    "ok",
+    "3.15.2"
+   ],
+   "cand": [
+    "ok",
+    "3.15.2"
+   ]
+  },
+  "only_zero_core": {
+   "base": [
+    "ok",
+    "3.15.01"
+   ],
+   "cand": [
+    "ValueError",
+    "non-canonical version token: feed has no canonical stable X.Y.Z entry"
+   ]
+  },
+  "only_zero_core_000": {
+   "base": [
+    "ok",
+    "0.0.01"
+   ],
+   "cand": [
+    "ValueError",
+    "non-canonical version token: feed has no canonical stable X.Y.Z entry"
+   ]
+  }
+ },
+ "zero_semantics": {
+  "base_is_regression_000_to_001": false,
+  "base_is_regression_001_to_000": true,
+  "base_numeric_000": "(0, 0, 0)",
+  "cand_is_regression_000_to_001": false,
+  "cand_is_regression_001_to_000": true,
+  "cand_is_regression_2.9_to_2.10": false,
+  "cand_is_regression_3.15.10_to_3.15.9": true,
+  "cand_is_regression_3.15.9_to_3.15.10": false,
+  "cand_numeric_000": "((0, ''), (0, ''), (0, ''))",
+  "cand_order_000": "((0, ''), (0, ''), (0, ''))"
+ }
+}

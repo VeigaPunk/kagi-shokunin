@@ -1,0 +1,922 @@
+{
+  "candidate": "62a33b1bd15217ed729df2ca40c8a30aba3076c0",
+  "base": "3553d499577084a6c98d7078906017840bbf7b28",
+  "groups": {
+    "R1-mirror-candidate": {
+      "exit": 1,
+      "last_line": "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=26 fired=3 derived=11)",
+      "findings": [
+        "DERIVATION S008",
+        "DERIVATION S009",
+        "DERIVATION S010",
+        "DERIVATION S011"
+      ],
+      "categories": [
+        "DERIVATION"
+      ],
+      "named_ids": [
+        "S008",
+        "S009",
+        "S010",
+        "S011"
+      ],
+      "derivation_rows": [
+        "S008",
+        "S009",
+        "S010",
+        "S011"
+      ],
+      "receipt_mismatch_rows": [],
+      "traceback": false,
+      "stderr": "",
+      "observed": 26,
+      "fired": 3,
+      "derived": null,
+      "typed_derivation": true,
+      "no_fired_event": true,
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveRaised/attack/clone-candidate/corpus/release-clock.py",
+        "--root",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveRaised/attack/run/R1-mirror-candidate",
+        "--receipt",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveRaised/attack/run/R1-mirror-candidate/receipt.json",
+        "--receipt-sha",
+        "a25aaac610bb430599153de2617ec9e49d3e68f602262d118adf1ac974b0737b"
+      ],
+      "edited_rows": [
+        "S008",
+        "S009",
+        "S010",
+        "S011"
+      ],
+      "mirrored_rows": [
+        "S008",
+        "S009",
+        "S010",
+        "S011"
+      ],
+      "raised_to": "3.13.4",
+      "feed": "S033",
+      "stdout": "DERIVATION S008\nDERIVATION S009\nDERIVATION S010\nDERIVATION S011\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=26 fired=3 derived=11)\n"
+    },
+    "R1-nomirror-candidate": {
+      "exit": 1,
+      "last_line": "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=26 fired=3 derived=11)",
+      "findings": [
+        "DERIVATION S008",
+        "DERIVATION S009",
+        "DERIVATION S010",
+        "DERIVATION S011",
+        "RECEIPT-MISMATCH S008",
+        "RECEIPT-MISMATCH S009",
+        "RECEIPT-MISMATCH S010",
+        "RECEIPT-MISMATCH S011"
+      ],
+      "categories": [
+        "DERIVATION",
+        "RECEIPT-MISMATCH"
+      ],
+      "named_ids": [
+        "S008",
+        "S009",
+        "S010",
+        "S011"
+      ],
+      "derivation_rows": [
+        "S008",
+        "S009",
+        "S010",
+        "S011"
+      ],
+      "receipt_mismatch_rows": [
+        "S008",
+        "S009",
+        "S010",
+        "S011"
+      ],
+      "traceback": false,
+      "stderr": "",
+      "observed": 26,
+      "fired": 3,
+      "derived": null,
+      "typed_derivation": false,
+      "no_fired_event": true,
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveRaised/attack/clone-candidate/corpus/release-clock.py",
+        "--root",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveRaised/attack/run/R1-nomirror-candidate",
+        "--receipt",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveRaised/attack/clone-candidate/.ufo/waves/round-26/observe-2.json",
+        "--receipt-sha",
+        "13b8540c78b9de07bc184894583a368472fd1f2f04a898220bf7c29d2648a169"
+      ],
+      "edited_rows": [
+        "S008",
+        "S009",
+        "S010",
+        "S011"
+      ],
+      "mirrored_rows": [],
+      "raised_to": "3.13.4",
+      "feed": "S033",
+      "stdout": "DERIVATION S008\nDERIVATION S009\nDERIVATION S010\nDERIVATION S011\nRECEIPT-MISMATCH S008\nRECEIPT-MISMATCH S009\nRECEIPT-MISMATCH S010\nRECEIPT-MISMATCH S011\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=26 fired=3 derived=11)\n"
+    },
+    "R2-mirror-candidate": {
+      "exit": 1,
+      "last_line": "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=25 fired=2 derived=11)",
+      "findings": [
+        "DERIVATION S013",
+        "DERIVATION S022",
+        "DERIVATION S023",
+        "DERIVATION S024",
+        "REGRESSED S012"
+      ],
+      "categories": [
+        "DERIVATION",
+        "REGRESSED"
+      ],
+      "named_ids": [
+        "S012",
+        "S013",
+        "S022",
+        "S023",
+        "S024"
+      ],
+      "derivation_rows": [
+        "S013",
+        "S022",
+        "S023",
+        "S024"
+      ],
+      "receipt_mismatch_rows": [],
+      "traceback": false,
+      "stderr": "",
+      "observed": 25,
+      "fired": 2,
+      "derived": null,
+      "typed_derivation": true,
+      "no_fired_event": true,
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveRaised/attack/clone-candidate/corpus/release-clock.py",
+        "--root",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveRaised/attack/run/R2-mirror-candidate",
+        "--receipt",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveRaised/attack/run/R2-mirror-candidate/receipt.json",
+        "--receipt-sha",
+        "ca685c2ab9e1d2a267aa9f200c364d70c6c238da067c993dd4adf2fd50b1e6e6"
+      ],
+      "edited_rows": [
+        "S013",
+        "S022",
+        "S023",
+        "S024"
+      ],
+      "mirrored_rows": [
+        "S013",
+        "S022",
+        "S023",
+        "S024"
+      ],
+      "raised_to": "2.2.1",
+      "feed": "S034",
+      "stdout": "DERIVATION S013\nDERIVATION S022\nDERIVATION S023\nDERIVATION S024\nREGRESSED S012\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=25 fired=2 derived=11)\n"
+    },
+    "R2-nomirror-candidate": {
+      "exit": 1,
+      "last_line": "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=25 fired=2 derived=11)",
+      "findings": [
+        "DERIVATION S013",
+        "DERIVATION S022",
+        "DERIVATION S023",
+        "DERIVATION S024",
+        "RECEIPT-MISMATCH S013",
+        "RECEIPT-MISMATCH S022",
+        "RECEIPT-MISMATCH S023",
+        "RECEIPT-MISMATCH S024",
+        "REGRESSED S012"
+      ],
+      "categories": [
+        "DERIVATION",
+        "RECEIPT-MISMATCH",
+        "REGRESSED"
+      ],
+      "named_ids": [
+        "S012",
+        "S013",
+        "S022",
+        "S023",
+        "S024"
+      ],
+      "derivation_rows": [
+        "S013",
+        "S022",
+        "S023",
+        "S024"
+      ],
+      "receipt_mismatch_rows": [
+        "S013",
+        "S022",
+        "S023",
+        "S024"
+      ],
+      "traceback": false,
+      "stderr": "",
+      "observed": 25,
+      "fired": 2,
+      "derived": null,
+      "typed_derivation": false,
+      "no_fired_event": true,
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveRaised/attack/clone-candidate/corpus/release-clock.py",
+        "--root",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveRaised/attack/run/R2-nomirror-candidate",
+        "--receipt",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveRaised/attack/clone-candidate/.ufo/waves/round-26/observe-2.json",
+        "--receipt-sha",
+        "13b8540c78b9de07bc184894583a368472fd1f2f04a898220bf7c29d2648a169"
+      ],
+      "edited_rows": [
+        "S013",
+        "S022",
+        "S023",
+        "S024"
+      ],
+      "mirrored_rows": [],
+      "raised_to": "2.2.1",
+      "feed": "S034",
+      "stdout": "DERIVATION S013\nDERIVATION S022\nDERIVATION S023\nDERIVATION S024\nRECEIPT-MISMATCH S013\nRECEIPT-MISMATCH S022\nRECEIPT-MISMATCH S023\nRECEIPT-MISMATCH S024\nREGRESSED S012\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=25 fired=2 derived=11)\n"
+    },
+    "R3-mirror-candidate": {
+      "exit": 1,
+      "last_line": "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=24 fired=3 derived=9)",
+      "findings": [
+        "DERIVATION S014",
+        "DERIVATION S015",
+        "DERIVATION S016",
+        "DERIVATION S021",
+        "DERIVATION S025",
+        "DERIVATION S026"
+      ],
+      "categories": [
+        "DERIVATION"
+      ],
+      "named_ids": [
+        "S014",
+        "S015",
+        "S016",
+        "S021",
+        "S025",
+        "S026"
+      ],
+      "derivation_rows": [
+        "S014",
+        "S015",
+        "S016",
+        "S021",
+        "S025",
+        "S026"
+      ],
+      "receipt_mismatch_rows": [],
+      "traceback": false,
+      "stderr": "",
+      "observed": 24,
+      "fired": 3,
+      "derived": null,
+      "typed_derivation": true,
+      "no_fired_event": true,
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveRaised/attack/clone-candidate/corpus/release-clock.py",
+        "--root",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveRaised/attack/run/R3-mirror-candidate",
+        "--receipt",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveRaised/attack/run/R3-mirror-candidate/receipt.json",
+        "--receipt-sha",
+        "ea061be7fc52834fc0ae410fa292d17e9029949fd5b9abc15a933bc8feb7363b"
+      ],
+      "edited_rows": [
+        "S014",
+        "S015",
+        "S016",
+        "S021",
+        "S025",
+        "S026"
+      ],
+      "mirrored_rows": [
+        "S014",
+        "S015",
+        "S016",
+        "S021",
+        "S025",
+        "S026"
+      ],
+      "raised_to": "2.7.2",
+      "feed": "S035",
+      "stdout": "DERIVATION S014\nDERIVATION S015\nDERIVATION S016\nDERIVATION S021\nDERIVATION S025\nDERIVATION S026\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=24 fired=3 derived=9)\n"
+    },
+    "R3-nomirror-candidate": {
+      "exit": 1,
+      "last_line": "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=24 fired=3 derived=9)",
+      "findings": [
+        "DERIVATION S014",
+        "DERIVATION S015",
+        "DERIVATION S016",
+        "DERIVATION S021",
+        "DERIVATION S025",
+        "DERIVATION S026",
+        "RECEIPT-MISMATCH S014",
+        "RECEIPT-MISMATCH S015",
+        "RECEIPT-MISMATCH S016",
+        "RECEIPT-MISMATCH S021",
+        "RECEIPT-MISMATCH S025",
+        "RECEIPT-MISMATCH S026"
+      ],
+      "categories": [
+        "DERIVATION",
+        "RECEIPT-MISMATCH"
+      ],
+      "named_ids": [
+        "S014",
+        "S015",
+        "S016",
+        "S021",
+        "S025",
+        "S026"
+      ],
+      "derivation_rows": [
+        "S014",
+        "S015",
+        "S016",
+        "S021",
+        "S025",
+        "S026"
+      ],
+      "receipt_mismatch_rows": [
+        "S014",
+        "S015",
+        "S016",
+        "S021",
+        "S025",
+        "S026"
+      ],
+      "traceback": false,
+      "stderr": "",
+      "observed": 24,
+      "fired": 3,
+      "derived": null,
+      "typed_derivation": false,
+      "no_fired_event": true,
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveRaised/attack/clone-candidate/corpus/release-clock.py",
+        "--root",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveRaised/attack/run/R3-nomirror-candidate",
+        "--receipt",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveRaised/attack/clone-candidate/.ufo/waves/round-26/observe-2.json",
+        "--receipt-sha",
+        "13b8540c78b9de07bc184894583a368472fd1f2f04a898220bf7c29d2648a169"
+      ],
+      "edited_rows": [
+        "S014",
+        "S015",
+        "S016",
+        "S021",
+        "S025",
+        "S026"
+      ],
+      "mirrored_rows": [],
+      "raised_to": "2.7.2",
+      "feed": "S035",
+      "stdout": "DERIVATION S014\nDERIVATION S015\nDERIVATION S016\nDERIVATION S021\nDERIVATION S025\nDERIVATION S026\nRECEIPT-MISMATCH S014\nRECEIPT-MISMATCH S015\nRECEIPT-MISMATCH S016\nRECEIPT-MISMATCH S021\nRECEIPT-MISMATCH S025\nRECEIPT-MISMATCH S026\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=24 fired=3 derived=9)\n"
+    },
+    "R4-mirror-candidate": {
+      "exit": 1,
+      "last_line": "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)",
+      "findings": [
+        "DERIVATION S029"
+      ],
+      "categories": [
+        "DERIVATION"
+      ],
+      "named_ids": [
+        "S029"
+      ],
+      "derivation_rows": [
+        "S029"
+      ],
+      "receipt_mismatch_rows": [],
+      "traceback": false,
+      "stderr": "",
+      "observed": 29,
+      "fired": 3,
+      "derived": null,
+      "typed_derivation": true,
+      "no_fired_event": true,
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveRaised/attack/clone-candidate/corpus/release-clock.py",
+        "--root",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveRaised/attack/run/R4-mirror-candidate",
+        "--receipt",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveRaised/attack/run/R4-mirror-candidate/receipt.json",
+        "--receipt-sha",
+        "5ce4443bcde2ee99d4098fac74f849f4ba1b8d32b1331e0d71b9c9f465a3116e"
+      ],
+      "edited_rows": [
+        "S029"
+      ],
+      "mirrored_rows": [
+        "S029"
+      ],
+      "raised_to": "8.23.1",
+      "feed": "S037",
+      "stdout": "DERIVATION S029\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)\n"
+    },
+    "R4-nomirror-candidate": {
+      "exit": 1,
+      "last_line": "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)",
+      "findings": [
+        "DERIVATION S029",
+        "RECEIPT-MISMATCH S029"
+      ],
+      "categories": [
+        "DERIVATION",
+        "RECEIPT-MISMATCH"
+      ],
+      "named_ids": [
+        "S029"
+      ],
+      "derivation_rows": [
+        "S029"
+      ],
+      "receipt_mismatch_rows": [
+        "S029"
+      ],
+      "traceback": false,
+      "stderr": "",
+      "observed": 29,
+      "fired": 3,
+      "derived": null,
+      "typed_derivation": false,
+      "no_fired_event": true,
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveRaised/attack/clone-candidate/corpus/release-clock.py",
+        "--root",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveRaised/attack/run/R4-nomirror-candidate",
+        "--receipt",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveRaised/attack/clone-candidate/.ufo/waves/round-26/observe-2.json",
+        "--receipt-sha",
+        "13b8540c78b9de07bc184894583a368472fd1f2f04a898220bf7c29d2648a169"
+      ],
+      "edited_rows": [
+        "S029"
+      ],
+      "mirrored_rows": [],
+      "raised_to": "8.23.1",
+      "feed": "S037",
+      "stdout": "DERIVATION S029\nRECEIPT-MISMATCH S029\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)\n"
+    },
+    "R1-mirror-base": {
+      "exit": 0,
+      "last_line": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)",
+      "findings": [],
+      "categories": [],
+      "named_ids": [],
+      "derivation_rows": [],
+      "receipt_mismatch_rows": [],
+      "traceback": false,
+      "stderr": "",
+      "observed": 30,
+      "fired": 3,
+      "derived": null,
+      "typed_derivation": false,
+      "no_fired_event": true,
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveRaised/attack/clone-base/corpus/release-clock.py",
+        "--root",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveRaised/attack/run/R1-mirror-base",
+        "--receipt",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveRaised/attack/run/R1-mirror-base/receipt.json",
+        "--receipt-sha",
+        "a25aaac610bb430599153de2617ec9e49d3e68f602262d118adf1ac974b0737b"
+      ],
+      "edited_rows": [
+        "S008",
+        "S009",
+        "S010",
+        "S011"
+      ],
+      "mirrored_rows": [
+        "S008",
+        "S009",
+        "S010",
+        "S011"
+      ],
+      "raised_to": "3.13.4",
+      "feed": "S033",
+      "stdout": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)\n"
+    },
+    "R1-nomirror-base": {
+      "exit": 1,
+      "last_line": "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=26 fired=3 derived=11)",
+      "findings": [
+        "RECEIPT-MISMATCH S008",
+        "RECEIPT-MISMATCH S009",
+        "RECEIPT-MISMATCH S010",
+        "RECEIPT-MISMATCH S011"
+      ],
+      "categories": [
+        "RECEIPT-MISMATCH"
+      ],
+      "named_ids": [
+        "S008",
+        "S009",
+        "S010",
+        "S011"
+      ],
+      "derivation_rows": [],
+      "receipt_mismatch_rows": [
+        "S008",
+        "S009",
+        "S010",
+        "S011"
+      ],
+      "traceback": false,
+      "stderr": "",
+      "observed": 26,
+      "fired": 3,
+      "derived": null,
+      "typed_derivation": false,
+      "no_fired_event": true,
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveRaised/attack/clone-base/corpus/release-clock.py",
+        "--root",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveRaised/attack/run/R1-nomirror-base",
+        "--receipt",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveRaised/attack/clone-base/.ufo/waves/round-26/observe-2.json",
+        "--receipt-sha",
+        "13b8540c78b9de07bc184894583a368472fd1f2f04a898220bf7c29d2648a169"
+      ],
+      "edited_rows": [
+        "S008",
+        "S009",
+        "S010",
+        "S011"
+      ],
+      "mirrored_rows": [],
+      "raised_to": "3.13.4",
+      "feed": "S033",
+      "stdout": "RECEIPT-MISMATCH S008\nRECEIPT-MISMATCH S009\nRECEIPT-MISMATCH S010\nRECEIPT-MISMATCH S011\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=26 fired=3 derived=11)\n"
+    },
+    "R2-mirror-base": {
+      "exit": 1,
+      "last_line": "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=2 derived=15)",
+      "findings": [
+        "REGRESSED S012"
+      ],
+      "categories": [
+        "REGRESSED"
+      ],
+      "named_ids": [
+        "S012"
+      ],
+      "derivation_rows": [],
+      "receipt_mismatch_rows": [],
+      "traceback": false,
+      "stderr": "",
+      "observed": 29,
+      "fired": 2,
+      "derived": null,
+      "typed_derivation": false,
+      "no_fired_event": true,
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveRaised/attack/clone-base/corpus/release-clock.py",
+        "--root",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveRaised/attack/run/R2-mirror-base",
+        "--receipt",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveRaised/attack/run/R2-mirror-base/receipt.json",
+        "--receipt-sha",
+        "ca685c2ab9e1d2a267aa9f200c364d70c6c238da067c993dd4adf2fd50b1e6e6"
+      ],
+      "edited_rows": [
+        "S013",
+        "S022",
+        "S023",
+        "S024"
+      ],
+      "mirrored_rows": [
+        "S013",
+        "S022",
+        "S023",
+        "S024"
+      ],
+      "raised_to": "2.2.1",
+      "feed": "S034",
+      "stdout": "REGRESSED S012\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=2 derived=15)\n"
+    },
+    "R2-nomirror-base": {
+      "exit": 1,
+      "last_line": "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=25 fired=2 derived=11)",
+      "findings": [
+        "RECEIPT-MISMATCH S013",
+        "RECEIPT-MISMATCH S022",
+        "RECEIPT-MISMATCH S023",
+        "RECEIPT-MISMATCH S024",
+        "REGRESSED S012"
+      ],
+      "categories": [
+        "RECEIPT-MISMATCH",
+        "REGRESSED"
+      ],
+      "named_ids": [
+        "S012",
+        "S013",
+        "S022",
+        "S023",
+        "S024"
+      ],
+      "derivation_rows": [],
+      "receipt_mismatch_rows": [
+        "S013",
+        "S022",
+        "S023",
+        "S024"
+      ],
+      "traceback": false,
+      "stderr": "",
+      "observed": 25,
+      "fired": 2,
+      "derived": null,
+      "typed_derivation": false,
+      "no_fired_event": true,
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveRaised/attack/clone-base/corpus/release-clock.py",
+        "--root",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveRaised/attack/run/R2-nomirror-base",
+        "--receipt",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveRaised/attack/clone-base/.ufo/waves/round-26/observe-2.json",
+        "--receipt-sha",
+        "13b8540c78b9de07bc184894583a368472fd1f2f04a898220bf7c29d2648a169"
+      ],
+      "edited_rows": [
+        "S013",
+        "S022",
+        "S023",
+        "S024"
+      ],
+      "mirrored_rows": [],
+      "raised_to": "2.2.1",
+      "feed": "S034",
+      "stdout": "RECEIPT-MISMATCH S013\nRECEIPT-MISMATCH S022\nRECEIPT-MISMATCH S023\nRECEIPT-MISMATCH S024\nREGRESSED S012\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=25 fired=2 derived=11)\n"
+    },
+    "R3-mirror-base": {
+      "exit": 0,
+      "last_line": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)",
+      "findings": [],
+      "categories": [],
+      "named_ids": [],
+      "derivation_rows": [],
+      "receipt_mismatch_rows": [],
+      "traceback": false,
+      "stderr": "",
+      "observed": 30,
+      "fired": 3,
+      "derived": null,
+      "typed_derivation": false,
+      "no_fired_event": true,
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveRaised/attack/clone-base/corpus/release-clock.py",
+        "--root",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveRaised/attack/run/R3-mirror-base",
+        "--receipt",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveRaised/attack/run/R3-mirror-base/receipt.json",
+        "--receipt-sha",
+        "ea061be7fc52834fc0ae410fa292d17e9029949fd5b9abc15a933bc8feb7363b"
+      ],
+      "edited_rows": [
+        "S014",
+        "S015",
+        "S016",
+        "S021",
+        "S025",
+        "S026"
+      ],
+      "mirrored_rows": [
+        "S014",
+        "S015",
+        "S016",
+        "S021",
+        "S025",
+        "S026"
+      ],
+      "raised_to": "2.7.2",
+      "feed": "S035",
+      "stdout": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)\n"
+    },
+    "R3-nomirror-base": {
+      "exit": 1,
+      "last_line": "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=24 fired=3 derived=9)",
+      "findings": [
+        "RECEIPT-MISMATCH S014",
+        "RECEIPT-MISMATCH S015",
+        "RECEIPT-MISMATCH S016",
+        "RECEIPT-MISMATCH S021",
+        "RECEIPT-MISMATCH S025",
+        "RECEIPT-MISMATCH S026"
+      ],
+      "categories": [
+        "RECEIPT-MISMATCH"
+      ],
+      "named_ids": [
+        "S014",
+        "S015",
+        "S016",
+        "S021",
+        "S025",
+        "S026"
+      ],
+      "derivation_rows": [],
+      "receipt_mismatch_rows": [
+        "S014",
+        "S015",
+        "S016",
+        "S021",
+        "S025",
+        "S026"
+      ],
+      "traceback": false,
+      "stderr": "",
+      "observed": 24,
+      "fired": 3,
+      "derived": null,
+      "typed_derivation": false,
+      "no_fired_event": true,
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveRaised/attack/clone-base/corpus/release-clock.py",
+        "--root",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveRaised/attack/run/R3-nomirror-base",
+        "--receipt",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveRaised/attack/clone-base/.ufo/waves/round-26/observe-2.json",
+        "--receipt-sha",
+        "13b8540c78b9de07bc184894583a368472fd1f2f04a898220bf7c29d2648a169"
+      ],
+      "edited_rows": [
+        "S014",
+        "S015",
+        "S016",
+        "S021",
+        "S025",
+        "S026"
+      ],
+      "mirrored_rows": [],
+      "raised_to": "2.7.2",
+      "feed": "S035",
+      "stdout": "RECEIPT-MISMATCH S014\nRECEIPT-MISMATCH S015\nRECEIPT-MISMATCH S016\nRECEIPT-MISMATCH S021\nRECEIPT-MISMATCH S025\nRECEIPT-MISMATCH S026\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=24 fired=3 derived=9)\n"
+    },
+    "R4-mirror-base": {
+      "exit": 0,
+      "last_line": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)",
+      "findings": [],
+      "categories": [],
+      "named_ids": [],
+      "derivation_rows": [],
+      "receipt_mismatch_rows": [],
+      "traceback": false,
+      "stderr": "",
+      "observed": 30,
+      "fired": 3,
+      "derived": null,
+      "typed_derivation": false,
+      "no_fired_event": true,
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveRaised/attack/clone-base/corpus/release-clock.py",
+        "--root",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveRaised/attack/run/R4-mirror-base",
+        "--receipt",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveRaised/attack/run/R4-mirror-base/receipt.json",
+        "--receipt-sha",
+        "5ce4443bcde2ee99d4098fac74f849f4ba1b8d32b1331e0d71b9c9f465a3116e"
+      ],
+      "edited_rows": [
+        "S029"
+      ],
+      "mirrored_rows": [
+        "S029"
+      ],
+      "raised_to": "8.23.1",
+      "feed": "S037",
+      "stdout": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)\n"
+    },
+    "R4-nomirror-base": {
+      "exit": 1,
+      "last_line": "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)",
+      "findings": [
+        "RECEIPT-MISMATCH S029"
+      ],
+      "categories": [
+        "RECEIPT-MISMATCH"
+      ],
+      "named_ids": [
+        "S029"
+      ],
+      "derivation_rows": [],
+      "receipt_mismatch_rows": [
+        "S029"
+      ],
+      "traceback": false,
+      "stderr": "",
+      "observed": 29,
+      "fired": 3,
+      "derived": null,
+      "typed_derivation": false,
+      "no_fired_event": true,
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveRaised/attack/clone-base/corpus/release-clock.py",
+        "--root",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveRaised/attack/run/R4-nomirror-base",
+        "--receipt",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FDeriveRaised/attack/clone-base/.ufo/waves/round-26/observe-2.json",
+        "--receipt-sha",
+        "13b8540c78b9de07bc184894583a368472fd1f2f04a898220bf7c29d2648a169"
+      ],
+      "edited_rows": [
+        "S029"
+      ],
+      "mirrored_rows": [],
+      "raised_to": "8.23.1",
+      "feed": "S037",
+      "stdout": "RECEIPT-MISMATCH S029\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=14)\n"
+    }
+  },
+  "candidate_control": {
+    "argv": [
+      "python3",
+      "-I",
+      "-B",
+      "corpus/release-clock.py"
+    ],
+    "exit": 0,
+    "stdout": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)\n",
+    "stderr": "",
+    "last_line": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)",
+    "fired": 3
+  },
+  "base_control": {
+    "argv": [
+      "python3",
+      "-I",
+      "-B",
+      "corpus/release-clock.py"
+    ],
+    "exit": 0,
+    "stdout": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)\n",
+    "stderr": "",
+    "last_line": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)",
+    "fired": 3
+  }
+}

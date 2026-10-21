@@ -1,0 +1,1534 @@
+{
+  "format": "ffeedtie-harness-v1",
+  "label": "CANDIDATE",
+  "tree": "/fast/scratch/hyaku/kagi-r28/FFeedTie",
+  "cases": {
+    "FEED-tie-canon-first": {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/tmp/ffeedtie-47lhm1em/observe-runner.py",
+        "/fast/scratch/hyaku/kagi-r28/FFeedTie",
+        "/tmp/ffeedtie-47lhm1em/fx-FEED-tie-canon-first",
+        "/tmp/ffeedtie-47lhm1em/fx-FEED-tie-canon-first/observe-out.json",
+        "/tmp/ffeedtie-47lhm1em/fx-FEED-tie-canon-first/feed.atom",
+        "https://www.python.org/downloads/feed.rss",
+        "2026-10-21"
+      ],
+      "exit": 1,
+      "stdout": "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/ffeedtie-47lhm1em/fx-FEED-tie-canon-first/observe-out.json\nNON-CANONICAL S040\nUNBOUND S005\nUNBOUND S006\nUNBOUND S007\nUNBOUND S008\nUNBOUND S009\nUNBOUND S010\nUNBOUND S011\nUNBOUND S012\nUNBOUND S013\nUNBOUND S014\nUNBOUND S015\nUNBOUND S016\nUNBOUND S017\nUNBOUND S018\nUNBOUND S019\nUNBOUND S020\nUNBOUND S021\nUNBOUND S022\nUNBOUND S023\nUNBOUND S024\nUNBOUND S025\nUNBOUND S026\nUNBOUND S027\nUNBOUND S028\nUNBOUND S029\nUNBOUND S030\nUNBOUND S031\nUNBOUND S032\nUNBOUND S041\nRELEASE_CLOCK: FAILED (on_release=30 bound=1 unbound=29 observed=0 fired=0 derived=0)\n",
+      "stderr": "",
+      "record": {
+        "clock": "feed",
+        "error": "non-canonical version token: feed newest stable entry",
+        "http_status": 200,
+        "id": "S040",
+        "located": null,
+        "observed_at": "2026-10-21T00:00:00Z",
+        "parsed_version": null,
+        "sha256": "08074a324ee224dab07d4dfd17fa7850b2f29f01e0e2d20f69f9df7126eeed52",
+        "url": "https://www.python.org/downloads/feed.rss",
+        "verdict": null
+      },
+      "titles": [
+        "Python 3.15.1",
+        "Python 3.15.01"
+      ],
+      "traceback": false,
+      "categories": [
+        [
+          "NON-CANONICAL",
+          "NON-CANONICAL S040"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S005"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S006"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S007"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S008"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S009"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S010"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S011"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S012"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S013"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S014"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S015"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S016"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S017"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S018"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S019"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S020"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S021"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S022"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S023"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S024"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S025"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S026"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S027"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S028"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S029"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S030"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S031"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S032"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S041"
+        ]
+      ],
+      "new_categories": [
+        [
+          "NON-CANONICAL",
+          "NON-CANONICAL S040"
+        ]
+      ],
+      "fired_written": false,
+      "clean": false,
+      "last_line": "RELEASE_CLOCK: FAILED (on_release=30 bound=1 unbound=29 observed=0 fired=0 derived=0)",
+      "mishandled": false
+    },
+    "FEED-tie-nc-first": {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/tmp/ffeedtie-47lhm1em/observe-runner.py",
+        "/fast/scratch/hyaku/kagi-r28/FFeedTie",
+        "/tmp/ffeedtie-47lhm1em/fx-FEED-tie-nc-first",
+        "/tmp/ffeedtie-47lhm1em/fx-FEED-tie-nc-first/observe-out.json",
+        "/tmp/ffeedtie-47lhm1em/fx-FEED-tie-nc-first/feed.atom",
+        "https://www.python.org/downloads/feed.rss",
+        "2026-10-21"
+      ],
+      "exit": 1,
+      "stdout": "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/ffeedtie-47lhm1em/fx-FEED-tie-nc-first/observe-out.json\nNON-CANONICAL S040\nUNBOUND S005\nUNBOUND S006\nUNBOUND S007\nUNBOUND S008\nUNBOUND S009\nUNBOUND S010\nUNBOUND S011\nUNBOUND S012\nUNBOUND S013\nUNBOUND S014\nUNBOUND S015\nUNBOUND S016\nUNBOUND S017\nUNBOUND S018\nUNBOUND S019\nUNBOUND S020\nUNBOUND S021\nUNBOUND S022\nUNBOUND S023\nUNBOUND S024\nUNBOUND S025\nUNBOUND S026\nUNBOUND S027\nUNBOUND S028\nUNBOUND S029\nUNBOUND S030\nUNBOUND S031\nUNBOUND S032\nUNBOUND S041\nRELEASE_CLOCK: FAILED (on_release=30 bound=1 unbound=29 observed=0 fired=0 derived=0)\n",
+      "stderr": "",
+      "record": {
+        "clock": "feed",
+        "error": "non-canonical version token: feed newest stable entry",
+        "http_status": 200,
+        "id": "S040",
+        "located": null,
+        "observed_at": "2026-10-21T00:00:00Z",
+        "parsed_version": null,
+        "sha256": "c442a9eef75f1df28196fea6ecece3a87e9570145f3e4f24825c9152d27488cf",
+        "url": "https://www.python.org/downloads/feed.rss",
+        "verdict": null
+      },
+      "titles": [
+        "Python 3.15.01",
+        "Python 3.15.1"
+      ],
+      "traceback": false,
+      "categories": [
+        [
+          "NON-CANONICAL",
+          "NON-CANONICAL S040"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S005"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S006"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S007"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S008"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S009"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S010"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S011"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S012"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S013"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S014"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S015"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S016"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S017"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S018"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S019"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S020"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S021"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S022"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S023"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S024"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S025"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S026"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S027"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S028"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S029"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S030"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S031"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S032"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S041"
+        ]
+      ],
+      "new_categories": [
+        [
+          "NON-CANONICAL",
+          "NON-CANONICAL S040"
+        ]
+      ],
+      "fired_written": false,
+      "clean": false,
+      "last_line": "RELEASE_CLOCK: FAILED (on_release=30 bound=1 unbound=29 observed=0 fired=0 derived=0)",
+      "mishandled": false
+    },
+    "FEED-tie-below-max": {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/tmp/ffeedtie-47lhm1em/observe-runner.py",
+        "/fast/scratch/hyaku/kagi-r28/FFeedTie",
+        "/tmp/ffeedtie-47lhm1em/fx-FEED-tie-below-max",
+        "/tmp/ffeedtie-47lhm1em/fx-FEED-tie-below-max/observe-out.json",
+        "/tmp/ffeedtie-47lhm1em/fx-FEED-tie-below-max/feed.atom",
+        "https://www.python.org/downloads/feed.rss",
+        "2026-10-21"
+      ],
+      "exit": 1,
+      "stdout": "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=0 fired=1 regressed=0) to /tmp/ffeedtie-47lhm1em/fx-FEED-tie-below-max/observe-out.json\nRECEIPT-MISMATCH S040\nUNBOUND S005\nUNBOUND S006\nUNBOUND S007\nUNBOUND S008\nUNBOUND S009\nUNBOUND S010\nUNBOUND S011\nUNBOUND S012\nUNBOUND S013\nUNBOUND S014\nUNBOUND S015\nUNBOUND S016\nUNBOUND S017\nUNBOUND S018\nUNBOUND S019\nUNBOUND S020\nUNBOUND S021\nUNBOUND S022\nUNBOUND S023\nUNBOUND S024\nUNBOUND S025\nUNBOUND S026\nUNBOUND S027\nUNBOUND S028\nUNBOUND S029\nUNBOUND S030\nUNBOUND S031\nUNBOUND S032\nUNBOUND S041\nRELEASE_CLOCK: FAILED (on_release=30 bound=1 unbound=29 observed=0 fired=0 derived=0)\n",
+      "stderr": "",
+      "record": {
+        "clock": "feed",
+        "http_status": 200,
+        "id": "S040",
+        "located": null,
+        "observed_at": "2026-10-21T00:00:00Z",
+        "parsed_version": "3.16.0",
+        "sha256": "b5be56e7e0bf2cc8610e34a373ddaf39241d55408226dce452e2c8de598f6602",
+        "url": "https://www.python.org/downloads/feed.rss",
+        "verdict": "fired"
+      },
+      "titles": [
+        "Python 3.16.0",
+        "Python 3.15.1",
+        "Python 3.15.01"
+      ],
+      "traceback": false,
+      "categories": [
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S040"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S005"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S006"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S007"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S008"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S009"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S010"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S011"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S012"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S013"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S014"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S015"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S016"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S017"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S018"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S019"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S020"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S021"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S022"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S023"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S024"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S025"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S026"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S027"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S028"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S029"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S030"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S031"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S032"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S041"
+        ]
+      ],
+      "new_categories": [],
+      "fired_written": true,
+      "clean": false,
+      "last_line": "RELEASE_CLOCK: FAILED (on_release=30 bound=1 unbound=29 observed=0 fired=0 derived=0)",
+      "mishandled": true
+    },
+    "FEED-nc-only": {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/tmp/ffeedtie-47lhm1em/observe-runner.py",
+        "/fast/scratch/hyaku/kagi-r28/FFeedTie",
+        "/tmp/ffeedtie-47lhm1em/fx-FEED-nc-only",
+        "/tmp/ffeedtie-47lhm1em/fx-FEED-nc-only/observe-out.json",
+        "/tmp/ffeedtie-47lhm1em/fx-FEED-nc-only/feed.atom",
+        "https://www.python.org/downloads/feed.rss",
+        "2026-10-21"
+      ],
+      "exit": 1,
+      "stdout": "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/ffeedtie-47lhm1em/fx-FEED-nc-only/observe-out.json\nNON-CANONICAL S040\nUNBOUND S005\nUNBOUND S006\nUNBOUND S007\nUNBOUND S008\nUNBOUND S009\nUNBOUND S010\nUNBOUND S011\nUNBOUND S012\nUNBOUND S013\nUNBOUND S014\nUNBOUND S015\nUNBOUND S016\nUNBOUND S017\nUNBOUND S018\nUNBOUND S019\nUNBOUND S020\nUNBOUND S021\nUNBOUND S022\nUNBOUND S023\nUNBOUND S024\nUNBOUND S025\nUNBOUND S026\nUNBOUND S027\nUNBOUND S028\nUNBOUND S029\nUNBOUND S030\nUNBOUND S031\nUNBOUND S032\nUNBOUND S041\nRELEASE_CLOCK: FAILED (on_release=30 bound=1 unbound=29 observed=0 fired=0 derived=0)\n",
+      "stderr": "",
+      "record": {
+        "clock": "feed",
+        "error": "non-canonical version token: feed has no canonical stable X.Y.Z entry",
+        "http_status": 200,
+        "id": "S040",
+        "located": null,
+        "observed_at": "2026-10-21T00:00:00Z",
+        "parsed_version": null,
+        "sha256": "035380f4e1d5e6ffd142a9870c321acbffc7be4baf792e9aeb5778c1a99d22dc",
+        "url": "https://www.python.org/downloads/feed.rss",
+        "verdict": null
+      },
+      "titles": [
+        "Python 3.15.01"
+      ],
+      "traceback": false,
+      "categories": [
+        [
+          "NON-CANONICAL",
+          "NON-CANONICAL S040"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S005"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S006"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S007"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S008"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S009"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S010"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S011"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S012"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S013"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S014"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S015"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S016"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S017"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S018"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S019"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S020"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S021"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S022"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S023"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S024"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S025"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S026"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S027"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S028"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S029"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S030"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S031"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S032"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S041"
+        ]
+      ],
+      "new_categories": [
+        [
+          "NON-CANONICAL",
+          "NON-CANONICAL S040"
+        ]
+      ],
+      "fired_written": false,
+      "clean": false,
+      "last_line": "RELEASE_CLOCK: FAILED (on_release=30 bound=1 unbound=29 observed=0 fired=0 derived=0)",
+      "mishandled": false
+    },
+    "FEED-tie-oversize": {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/tmp/ffeedtie-47lhm1em/observe-runner.py",
+        "/fast/scratch/hyaku/kagi-r28/FFeedTie",
+        "/tmp/ffeedtie-47lhm1em/fx-FEED-tie-oversize",
+        "/tmp/ffeedtie-47lhm1em/fx-FEED-tie-oversize/observe-out.json",
+        "/tmp/ffeedtie-47lhm1em/fx-FEED-tie-oversize/feed.atom",
+        "https://www.python.org/downloads/feed.rss",
+        "2026-10-21"
+      ],
+      "exit": 1,
+      "stdout": "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/ffeedtie-47lhm1em/fx-FEED-tie-oversize/observe-out.json\nNON-CANONICAL S040\nUNBOUND S005\nUNBOUND S006\nUNBOUND S007\nUNBOUND S008\nUNBOUND S009\nUNBOUND S010\nUNBOUND S011\nUNBOUND S012\nUNBOUND S013\nUNBOUND S014\nUNBOUND S015\nUNBOUND S016\nUNBOUND S017\nUNBOUND S018\nUNBOUND S019\nUNBOUND S020\nUNBOUND S021\nUNBOUND S022\nUNBOUND S023\nUNBOUND S024\nUNBOUND S025\nUNBOUND S026\nUNBOUND S027\nUNBOUND S028\nUNBOUND S029\nUNBOUND S030\nUNBOUND S031\nUNBOUND S032\nUNBOUND S041\nRELEASE_CLOCK: FAILED (on_release=30 bound=1 unbound=29 observed=0 fired=0 derived=0)\n",
+      "stderr": "",
+      "record": {
+        "clock": "feed",
+        "error": "non-canonical version token: feed newest stable entry",
+        "http_status": 200,
+        "id": "S040",
+        "located": null,
+        "observed_at": "2026-10-21T00:00:00Z",
+        "parsed_version": null,
+        "sha256": "0c2e8c4d234f6293167ac1af2ae57d14b8f4be3be925056059af81a95922714c",
+        "url": "https://www.python.org/downloads/feed.rss",
+        "verdict": null
+      },
+      "titles": [
+        "Python 3.15.1",
+        "Python 3.15.0000000000000000001"
+      ],
+      "traceback": false,
+      "categories": [
+        [
+          "NON-CANONICAL",
+          "NON-CANONICAL S040"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S005"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S006"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S007"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S008"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S009"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S010"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S011"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S012"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S013"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S014"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S015"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S016"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S017"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S018"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S019"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S020"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S021"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S022"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S023"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S024"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S025"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S026"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S027"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S028"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S029"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S030"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S031"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S032"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S041"
+        ]
+      ],
+      "new_categories": [
+        [
+          "NON-CANONICAL",
+          "NON-CANONICAL S040"
+        ]
+      ],
+      "fired_written": false,
+      "clean": false,
+      "last_line": "RELEASE_CLOCK: FAILED (on_release=30 bound=1 unbound=29 observed=0 fired=0 derived=0)",
+      "mishandled": false
+    },
+    "FEED-control": {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/tmp/ffeedtie-47lhm1em/observe-runner.py",
+        "/fast/scratch/hyaku/kagi-r28/FFeedTie",
+        "/tmp/ffeedtie-47lhm1em/fx-FEED-control",
+        "/tmp/ffeedtie-47lhm1em/fx-FEED-control/observe-out.json",
+        "/tmp/ffeedtie-47lhm1em/fx-FEED-control/feed.atom",
+        "https://www.python.org/downloads/feed.rss",
+        "2026-10-21"
+      ],
+      "exit": 1,
+      "stdout": "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=0 fired=0 regressed=0) to /tmp/ffeedtie-47lhm1em/fx-FEED-control/observe-out.json\nUNBOUND S005\nUNBOUND S006\nUNBOUND S007\nUNBOUND S008\nUNBOUND S009\nUNBOUND S010\nUNBOUND S011\nUNBOUND S012\nUNBOUND S013\nUNBOUND S014\nUNBOUND S015\nUNBOUND S016\nUNBOUND S017\nUNBOUND S018\nUNBOUND S019\nUNBOUND S020\nUNBOUND S021\nUNBOUND S022\nUNBOUND S023\nUNBOUND S024\nUNBOUND S025\nUNBOUND S026\nUNBOUND S027\nUNBOUND S028\nUNBOUND S029\nUNBOUND S030\nUNBOUND S031\nUNBOUND S032\nUNBOUND S041\nRELEASE_CLOCK: FAILED (on_release=30 bound=1 unbound=29 observed=1 fired=0 derived=0)\n",
+      "stderr": "",
+      "record": {
+        "clock": "feed",
+        "http_status": 200,
+        "id": "S040",
+        "located": null,
+        "observed_at": "2026-10-21T00:00:00Z",
+        "parsed_version": "3.15.1",
+        "sha256": "41066e9a9d9a173af4da8e8a9b6fe710cb5b51a66fa79a6a4dfdfbb6ab020975",
+        "url": "https://www.python.org/downloads/feed.rss",
+        "verdict": "not-fired"
+      },
+      "titles": [
+        "Python 3.15.1",
+        "Python 3.15.0"
+      ],
+      "traceback": false,
+      "categories": [
+        [
+          "UNBOUND",
+          "UNBOUND S005"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S006"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S007"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S008"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S009"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S010"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S011"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S012"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S013"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S014"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S015"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S016"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S017"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S018"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S019"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S020"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S021"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S022"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S023"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S024"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S025"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S026"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S027"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S028"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S029"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S030"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S031"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S032"
+        ],
+        [
+          "UNBOUND",
+          "UNBOUND S041"
+        ]
+      ],
+      "new_categories": [],
+      "fired_written": false,
+      "clean": false,
+      "last_line": "RELEASE_CLOCK: FAILED (on_release=30 bound=1 unbound=29 observed=1 fired=0 derived=0)",
+      "mishandled": false
+    },
+    "TABLE-tie-observed-nc": {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/tmp/ffeedtie-47lhm1em/observe-runner.py",
+        "/fast/scratch/hyaku/kagi-r28/FFeedTie",
+        "/tmp/ffeedtie-47lhm1em/fx-TABLE-tie-observed-nc",
+        "/tmp/ffeedtie-47lhm1em/fx-TABLE-tie-observed-nc/observe-out.json",
+        "/tmp/ffeedtie-47lhm1em/fx-TABLE-tie-observed-nc/feed.atom",
+        "https://www.python.org/downloads/feed.rss",
+        "2026-10-21"
+      ],
+      "exit": 1,
+      "stdout": "RELEASE_CLOCK_OBSERVE: wrote 30 observations (failed=27 fired=2 regressed=0) to /tmp/ffeedtie-47lhm1em/fx-TABLE-tie-observed-nc/observe-out.json\nNON-CANONICAL S040\nRECEIPT-MISMATCH S005\nRECEIPT-MISMATCH S006\nRECEIPT-MISMATCH S007\nRECEIPT-MISMATCH S008\nRECEIPT-MISMATCH S009\nRECEIPT-MISMATCH S010\nRECEIPT-MISMATCH S011\nRECEIPT-MISMATCH S012\nRECEIPT-MISMATCH S013\nRECEIPT-MISMATCH S014\nRECEIPT-MISMATCH S015\nRECEIPT-MISMATCH S016\nRECEIPT-MISMATCH S017\nRECEIPT-MISMATCH S018\nRECEIPT-MISMATCH S019\nRECEIPT-MISMATCH S020\nRECEIPT-MISMATCH S021\nRECEIPT-MISMATCH S022\nRECEIPT-MISMATCH S023\nRECEIPT-MISMATCH S024\nRECEIPT-MISMATCH S025\nRECEIPT-MISMATCH S026\nRECEIPT-MISMATCH S029\nRECEIPT-MISMATCH S030\nRECEIPT-MISMATCH S031\nRECEIPT-MISMATCH S032\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=3 fired=2 derived=0)\n",
+      "stderr": "",
+      "record": {
+        "clock": "feed",
+        "error": "non-canonical version token: row anchor or observation; no verdict written",
+        "http_status": null,
+        "id": "S040",
+        "located": null,
+        "observed_at": "2026-10-21T00:00:00Z",
+        "parsed_version": null,
+        "sha256": null,
+        "url": "https://www.python.org/downloads/feed.rss",
+        "verdict": null
+      },
+      "edited": {
+        "anchored": "3.15.1",
+        "observed": "3.15.01",
+        "verdict": "fired"
+      },
+      "traceback": false,
+      "categories": [
+        [
+          "NON-CANONICAL",
+          "NON-CANONICAL S040"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S005"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S006"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S007"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S008"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S009"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S010"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S011"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S012"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S013"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S014"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S015"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S016"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S017"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S018"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S019"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S020"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S021"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S022"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S023"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S024"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S025"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S026"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S029"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S030"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S031"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S032"
+        ]
+      ],
+      "new_categories": [
+        [
+          "NON-CANONICAL",
+          "NON-CANONICAL S040"
+        ]
+      ],
+      "fired_written": false,
+      "clean": false,
+      "last_line": "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=3 fired=2 derived=0)",
+      "mishandled": false
+    },
+    "TABLE-tie-anchored-nc": {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/tmp/ffeedtie-47lhm1em/observe-runner.py",
+        "/fast/scratch/hyaku/kagi-r28/FFeedTie",
+        "/tmp/ffeedtie-47lhm1em/fx-TABLE-tie-anchored-nc",
+        "/tmp/ffeedtie-47lhm1em/fx-TABLE-tie-anchored-nc/observe-out.json",
+        "/tmp/ffeedtie-47lhm1em/fx-TABLE-tie-anchored-nc/feed.atom",
+        "https://www.python.org/downloads/feed.rss",
+        "2026-10-21"
+      ],
+      "exit": 1,
+      "stdout": "RELEASE_CLOCK_OBSERVE: wrote 30 observations (failed=27 fired=2 regressed=0) to /tmp/ffeedtie-47lhm1em/fx-TABLE-tie-anchored-nc/observe-out.json\nNON-CANONICAL S040\nRECEIPT-MISMATCH S005\nRECEIPT-MISMATCH S006\nRECEIPT-MISMATCH S007\nRECEIPT-MISMATCH S008\nRECEIPT-MISMATCH S009\nRECEIPT-MISMATCH S010\nRECEIPT-MISMATCH S011\nRECEIPT-MISMATCH S012\nRECEIPT-MISMATCH S013\nRECEIPT-MISMATCH S014\nRECEIPT-MISMATCH S015\nRECEIPT-MISMATCH S016\nRECEIPT-MISMATCH S017\nRECEIPT-MISMATCH S018\nRECEIPT-MISMATCH S019\nRECEIPT-MISMATCH S020\nRECEIPT-MISMATCH S021\nRECEIPT-MISMATCH S022\nRECEIPT-MISMATCH S023\nRECEIPT-MISMATCH S024\nRECEIPT-MISMATCH S025\nRECEIPT-MISMATCH S026\nRECEIPT-MISMATCH S029\nRECEIPT-MISMATCH S030\nRECEIPT-MISMATCH S031\nRECEIPT-MISMATCH S032\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=3 fired=2 derived=0)\n",
+      "stderr": "",
+      "record": {
+        "clock": "feed",
+        "error": "non-canonical version token: row anchor or observation; no verdict written",
+        "http_status": null,
+        "id": "S040",
+        "located": null,
+        "observed_at": "2026-10-21T00:00:00Z",
+        "parsed_version": null,
+        "sha256": null,
+        "url": "https://www.python.org/downloads/feed.rss",
+        "verdict": null
+      },
+      "edited": {
+        "anchored": "3.15.01",
+        "observed": "3.15.1",
+        "verdict": "fired"
+      },
+      "traceback": false,
+      "categories": [
+        [
+          "NON-CANONICAL",
+          "NON-CANONICAL S040"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S005"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S006"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S007"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S008"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S009"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S010"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S011"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S012"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S013"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S014"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S015"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S016"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S017"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S018"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S019"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S020"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S021"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S022"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S023"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S024"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S025"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S026"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S029"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S030"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S031"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S032"
+        ]
+      ],
+      "new_categories": [
+        [
+          "NON-CANONICAL",
+          "NON-CANONICAL S040"
+        ]
+      ],
+      "fired_written": false,
+      "clean": false,
+      "last_line": "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=3 fired=2 derived=0)",
+      "mishandled": false
+    },
+    "TABLE-control": {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/tmp/ffeedtie-47lhm1em/observe-runner.py",
+        "/fast/scratch/hyaku/kagi-r28/FFeedTie",
+        "/tmp/ffeedtie-47lhm1em/fx-TABLE-control",
+        "/tmp/ffeedtie-47lhm1em/fx-TABLE-control/observe-out.json",
+        "/tmp/ffeedtie-47lhm1em/fx-TABLE-control/feed.atom",
+        "https://www.python.org/downloads/feed.rss",
+        "2026-10-21"
+      ],
+      "exit": 1,
+      "stdout": "RELEASE_CLOCK_OBSERVE: wrote 30 observations (failed=26 fired=2 regressed=0) to /tmp/ffeedtie-47lhm1em/fx-TABLE-control/observe-out.json\nRECEIPT-MISMATCH S005\nRECEIPT-MISMATCH S006\nRECEIPT-MISMATCH S007\nRECEIPT-MISMATCH S008\nRECEIPT-MISMATCH S009\nRECEIPT-MISMATCH S010\nRECEIPT-MISMATCH S011\nRECEIPT-MISMATCH S012\nRECEIPT-MISMATCH S013\nRECEIPT-MISMATCH S014\nRECEIPT-MISMATCH S015\nRECEIPT-MISMATCH S016\nRECEIPT-MISMATCH S017\nRECEIPT-MISMATCH S018\nRECEIPT-MISMATCH S019\nRECEIPT-MISMATCH S020\nRECEIPT-MISMATCH S021\nRECEIPT-MISMATCH S022\nRECEIPT-MISMATCH S023\nRECEIPT-MISMATCH S024\nRECEIPT-MISMATCH S025\nRECEIPT-MISMATCH S026\nRECEIPT-MISMATCH S029\nRECEIPT-MISMATCH S030\nRECEIPT-MISMATCH S031\nRECEIPT-MISMATCH S032\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=4 fired=2 derived=0)\n",
+      "stderr": "",
+      "record": {
+        "clock": "feed",
+        "http_status": 200,
+        "id": "S040",
+        "located": null,
+        "observed_at": "2026-10-21T00:00:00Z",
+        "parsed_version": "3.15.1",
+        "sha256": "9cd60454993774c34a63553bdf770bbc77feade769f67342990ae562c6b476ac",
+        "url": "https://www.python.org/downloads/feed.rss",
+        "verdict": "not-fired"
+      },
+      "edited": {
+        "anchored": "3.15.1",
+        "observed": "3.15.1",
+        "verdict": "not-fired"
+      },
+      "traceback": false,
+      "categories": [
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S005"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S006"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S007"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S008"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S009"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S010"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S011"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S012"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S013"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S014"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S015"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S016"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S017"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S018"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S019"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S020"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S021"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S022"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S023"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S024"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S025"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S026"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S029"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S030"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S031"
+        ],
+        [
+          "RECEIPT-MISMATCH",
+          "RECEIPT-MISMATCH S032"
+        ]
+      ],
+      "new_categories": [],
+      "fired_written": false,
+      "clean": false,
+      "last_line": "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=4 fired=2 derived=0)",
+      "mishandled": false
+    },
+    "TABLE-mirror-observed-nc": {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/fast/scratch/hyaku/kagi-r28/FFeedTie/corpus/release-clock.py",
+        "--root",
+        "/tmp/ffeedtie-47lhm1em/fx-TABLE-mirror-observed-nc",
+        "--receipt",
+        "/tmp/ffeedtie-47lhm1em/fx-TABLE-mirror-observed-nc/receipt.json",
+        "--receipt-sha",
+        "a93cfb9819591e4c4ddc01291bf8854abe86bf43a6c8790714c9aa73bd2e2465"
+      ],
+      "exit": 1,
+      "stdout": "NON-CANONICAL S040\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)\n",
+      "stderr": "",
+      "record": null,
+      "edited": {
+        "anchored": "3.15.1",
+        "observed": "3.15.01",
+        "verdict": "fired"
+      },
+      "traceback": false,
+      "categories": [
+        [
+          "NON-CANONICAL",
+          "NON-CANONICAL S040"
+        ]
+      ],
+      "new_categories": [
+        [
+          "NON-CANONICAL",
+          "NON-CANONICAL S040"
+        ]
+      ],
+      "fired_written": false,
+      "clean": false,
+      "last_line": "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)",
+      "mishandled": false
+    },
+    "TABLE-mirror-anchored-nc": {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/fast/scratch/hyaku/kagi-r28/FFeedTie/corpus/release-clock.py",
+        "--root",
+        "/tmp/ffeedtie-47lhm1em/fx-TABLE-mirror-anchored-nc",
+        "--receipt",
+        "/tmp/ffeedtie-47lhm1em/fx-TABLE-mirror-anchored-nc/receipt.json",
+        "--receipt-sha",
+        "f4d8b23940635dfb93cf881fbadcff6ce27d1a44449939da2e0acea361979264"
+      ],
+      "exit": 1,
+      "stdout": "NON-CANONICAL S040\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)\n",
+      "stderr": "",
+      "record": null,
+      "edited": {
+        "anchored": "3.15.01",
+        "observed": "3.15.1",
+        "verdict": "fired"
+      },
+      "traceback": false,
+      "categories": [
+        [
+          "NON-CANONICAL",
+          "NON-CANONICAL S040"
+        ]
+      ],
+      "new_categories": [
+        [
+          "NON-CANONICAL",
+          "NON-CANONICAL S040"
+        ]
+      ],
+      "fired_written": false,
+      "clean": false,
+      "last_line": "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)",
+      "mishandled": false
+    },
+    "control": {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "corpus/release-clock.py"
+      ],
+      "exit": 0,
+      "stdout": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)\n",
+      "stderr": "",
+      "last_line": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)"
+    }
+  }
+}

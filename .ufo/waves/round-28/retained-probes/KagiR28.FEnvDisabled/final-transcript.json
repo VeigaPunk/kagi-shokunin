@@ -1,0 +1,230 @@
+[
+  {
+    "argv": "python3 -I -B /fast/scratch/hyaku/kagi-r28/KagiR28.FEnvDisabled/cand/corpus/release-clock.py --root /tmp/final-cand-g_7pqzf8/fixture-T-cand-frozen-env --receipt /tmp/final-cand-g_7pqzf8/fixture-T-cand-frozen-env/receipt.json --receipt-sha 59b75e47de2642a767be3ed77a9209ee8009fb3be01d834b76d2fe052870dae2",
+    "clean_last_line": false,
+    "env": "frozen-env",
+    "exit": 1,
+    "fired_observation_written": false,
+    "fixture": "F2-table-oversize",
+    "stderr": "",
+    "stdout": "NON-CANONICAL S040\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)\n",
+    "traceback_in_output": false,
+    "tree": "cand",
+    "typed_finding_lines": [
+      "NON-CANONICAL S040"
+    ],
+    "verdict": "TYPED"
+  },
+  {
+    "argv": "python3 -I -B /tmp/final-cand-g_7pqzf8/runner-O-cand-frozen-env.py /fast/scratch/hyaku/kagi-r28/KagiR28.FEnvDisabled/cand /tmp/final-cand-g_7pqzf8/fixture-O-cand-frozen-env /tmp/final-cand-g_7pqzf8/fixture-O-cand-frozen-env/observe-out.json /tmp/final-cand-g_7pqzf8/fixture-O-cand-frozen-env/feed.atom https://www.python.org/downloads/feed.rss 2026-10-21",
+    "clean_last_line": false,
+    "env": "frozen-env",
+    "exit": 1,
+    "fired_observation_written": false,
+    "fixture": "F4-observe-oversize",
+    "receipt_records": [
+      {
+        "error": "non-canonical version token: feed newest stable entry",
+        "id": "S040",
+        "parsed_version": null,
+        "verdict": null
+      }
+    ],
+    "stderr": "",
+    "stdout": "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/final-cand-g_7pqzf8/fixture-O-cand-frozen-env/observe-out.json\nNON-CANONICAL S040\nRELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)\n",
+    "traceback_in_output": false,
+    "tree": "cand",
+    "typed_finding_lines": [
+      "NON-CANONICAL S040"
+    ],
+    "verdict": "TYPED"
+  },
+  {
+    "argv": "python3 -B /fast/scratch/hyaku/kagi-r28/KagiR28.FEnvDisabled/cand/corpus/release-clock.py --root /tmp/final-cand-g_7pqzf8/fixture-T-cand-attack-env --receipt /tmp/final-cand-g_7pqzf8/fixture-T-cand-attack-env/receipt.json --receipt-sha 59b75e47de2642a767be3ed77a9209ee8009fb3be01d834b76d2fe052870dae2",
+    "clean_last_line": false,
+    "env": "attack-env",
+    "exit": 1,
+    "fired_observation_written": false,
+    "fixture": "F2-table-oversize",
+    "stderr": "",
+    "stdout": "NON-CANONICAL S040\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)\n",
+    "traceback_in_output": false,
+    "tree": "cand",
+    "typed_finding_lines": [
+      "NON-CANONICAL S040"
+    ],
+    "verdict": "TYPED"
+  },
+  {
+    "argv": "python3 -B /tmp/final-cand-g_7pqzf8/runner-O-cand-attack-env.py /fast/scratch/hyaku/kagi-r28/KagiR28.FEnvDisabled/cand /tmp/final-cand-g_7pqzf8/fixture-O-cand-attack-env /tmp/final-cand-g_7pqzf8/fixture-O-cand-attack-env/observe-out.json /tmp/final-cand-g_7pqzf8/fixture-O-cand-attack-env/feed.atom https://www.python.org/downloads/feed.rss 2026-10-21",
+    "clean_last_line": false,
+    "env": "attack-env",
+    "exit": 1,
+    "fired_observation_written": false,
+    "fixture": "F4-observe-oversize",
+    "receipt_records": [
+      {
+        "error": "non-canonical version token: feed newest stable entry",
+        "id": "S040",
+        "parsed_version": null,
+        "verdict": null
+      }
+    ],
+    "stderr": "",
+    "stdout": "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/final-cand-g_7pqzf8/fixture-O-cand-attack-env/observe-out.json\nNON-CANONICAL S040\nRELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)\n",
+    "traceback_in_output": false,
+    "tree": "cand",
+    "typed_finding_lines": [
+      "NON-CANONICAL S040"
+    ],
+    "verdict": "TYPED"
+  },
+  {
+    "argv": "python3 -I -B /fast/scratch/hyaku/kagi-r28/KagiR28.FEnvDisabled/base/corpus/release-clock.py --root /tmp/final-base-ca1vkhx2/fixture-T-base-frozen-env --receipt /tmp/final-base-ca1vkhx2/fixture-T-base-frozen-env/receipt.json --receipt-sha 59b75e47de2642a767be3ed77a9209ee8009fb3be01d834b76d2fe052870dae2",
+    "clean_last_line": false,
+    "env": "frozen-env",
+    "exit": 1,
+    "fired_observation_written": false,
+    "fixture": "F2-table-oversize",
+    "stderr": "Traceback (most recent call last):\n  File \"/fast/scratch/hyaku/kagi-r28/KagiR28.FEnvDisabled/base/corpus/release-clock.py\", line 1758, in <module>\n    sys.exit(main())\n             ~~~~^^\n  File \"/fast/scratch/hyaku/kagi-r28/KagiR28.FEnvDisabled/base/corpus/release-clock.py\", line 1748, in main\n    result = evaluate(sources, rows, captures, receipts)\n  File \"/fast/scratch/hyaku/kagi-r28/KagiR28.FEnvDisabled/base/corpus/release-clock.py\", line 567, in evaluate\n    if (is_regression(anchored, observed_version)\n        ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/fast/scratch/hyaku/kagi-r28/KagiR28.FEnvDisabled/base/corpus/release-clock.py\", line 386, in is_regression\n    seen = numeric_version(observed)\n  File \"/fast/scratch/hyaku/kagi-r28/KagiR28.FEnvDisabled/base/corpus/release-clock.py\", line 380, in numeric_version\n    return tuple(int(part) for part in value.split(\".\"))\n           ^^^^^\n  File \"/fast/scratch/hyaku/kagi-r28/KagiR28.FEnvDisabled/base/corpus/release-clock.py\", line 380, in <genexpr>\n    return tuple(int(part) for part in value.split(\".\"))\n                 ~~~^^^^^^\nValueError: Exceeds the limit (4300 digits) for integer string conversion: value has 4301 digits; use sys.set_int_max_str_digits() to increase the limit\n",
+    "stdout": "",
+    "traceback_in_output": true,
+    "tree": "base",
+    "typed_finding_lines": [],
+    "verdict": "MISHANDLED"
+  },
+  {
+    "argv": "python3 -I -B /tmp/final-base-ca1vkhx2/runner-O-base-frozen-env.py /fast/scratch/hyaku/kagi-r28/KagiR28.FEnvDisabled/base /tmp/final-base-ca1vkhx2/fixture-O-base-frozen-env /tmp/final-base-ca1vkhx2/fixture-O-base-frozen-env/observe-out.json /tmp/final-base-ca1vkhx2/fixture-O-base-frozen-env/feed.atom https://www.python.org/downloads/feed.rss 2026-10-21",
+    "clean_last_line": false,
+    "env": "frozen-env",
+    "exit": 1,
+    "fired_observation_written": false,
+    "fixture": "F4-observe-oversize",
+    "receipt_records": [
+      {
+        "error": "Exceeds the limit (4300 digits) for integer string conversion: value has 4301 digits; use sys.set_int_max_str_digits() to increase the limit",
+        "id": "S040",
+        "parsed_version": null,
+        "verdict": null
+      }
+    ],
+    "stderr": "",
+    "stdout": "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/final-base-ca1vkhx2/fixture-O-base-frozen-env/observe-out.json\nRECEIPT-MISMATCH S040\nRELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)\n",
+    "traceback_in_output": false,
+    "tree": "base",
+    "typed_finding_lines": [],
+    "verdict": "OTHER"
+  },
+  {
+    "argv": "python3 -B /fast/scratch/hyaku/kagi-r28/KagiR28.FEnvDisabled/base/corpus/release-clock.py --root /tmp/final-base-ca1vkhx2/fixture-T-base-attack-env --receipt /tmp/final-base-ca1vkhx2/fixture-T-base-attack-env/receipt.json --receipt-sha 59b75e47de2642a767be3ed77a9209ee8009fb3be01d834b76d2fe052870dae2",
+    "clean_last_line": true,
+    "env": "attack-env",
+    "exit": 0,
+    "fired_observation_written": false,
+    "fixture": "F2-table-oversize",
+    "stderr": "",
+    "stdout": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=4 derived=15)\n",
+    "traceback_in_output": false,
+    "tree": "base",
+    "typed_finding_lines": [],
+    "verdict": "MISHANDLED"
+  },
+  {
+    "argv": "python3 -B /tmp/final-base-ca1vkhx2/runner-O-base-attack-env.py /fast/scratch/hyaku/kagi-r28/KagiR28.FEnvDisabled/base /tmp/final-base-ca1vkhx2/fixture-O-base-attack-env /tmp/final-base-ca1vkhx2/fixture-O-base-attack-env/observe-out.json /tmp/final-base-ca1vkhx2/fixture-O-base-attack-env/feed.atom https://www.python.org/downloads/feed.rss 2026-10-21",
+    "clean_last_line": false,
+    "env": "attack-env",
+    "exit": 1,
+    "fired_observation_written": true,
+    "fixture": "F4-observe-oversize",
+    "receipt_records": [
+      {
+        "error": null,
+        "id": "S040",
+        "parsed_version": "3.15.11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+        "verdict": "fired"
+      }
+    ],
+    "stderr": "",
+    "stdout": "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=0 fired=1 regressed=0) to /tmp/final-base-ca1vkhx2/fixture-O-base-attack-env/observe-out.json\nRECEIPT-MISMATCH S040\nRELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)\n",
+    "traceback_in_output": false,
+    "tree": "base",
+    "typed_finding_lines": [],
+    "verdict": "MISHANDLED"
+  },
+  {
+    "argv": "python3 -I -B /fast/scratch/hyaku/kagi-r28/KagiR28.FEnvDisabled/envdep2/corpus/release-clock.py --root /tmp/final-envdep2-33d75f76/fixture-T-envdep2-frozen-env --receipt /tmp/final-envdep2-33d75f76/fixture-T-envdep2-frozen-env/receipt.json --receipt-sha 59b75e47de2642a767be3ed77a9209ee8009fb3be01d834b76d2fe052870dae2",
+    "clean_last_line": false,
+    "env": "frozen-env",
+    "exit": 1,
+    "fired_observation_written": false,
+    "fixture": "F2-table-oversize",
+    "stderr": "",
+    "stdout": "NON-CANONICAL S040\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)\n",
+    "traceback_in_output": false,
+    "tree": "envdep2",
+    "typed_finding_lines": [
+      "NON-CANONICAL S040"
+    ],
+    "verdict": "TYPED"
+  },
+  {
+    "argv": "python3 -I -B /tmp/final-envdep2-33d75f76/runner-O-envdep2-frozen-env.py /fast/scratch/hyaku/kagi-r28/KagiR28.FEnvDisabled/envdep2 /tmp/final-envdep2-33d75f76/fixture-O-envdep2-frozen-env /tmp/final-envdep2-33d75f76/fixture-O-envdep2-frozen-env/observe-out.json /tmp/final-envdep2-33d75f76/fixture-O-envdep2-frozen-env/feed.atom https://www.python.org/downloads/feed.rss 2026-10-21",
+    "clean_last_line": false,
+    "env": "frozen-env",
+    "exit": 1,
+    "fired_observation_written": false,
+    "fixture": "F4-observe-oversize",
+    "receipt_records": [
+      {
+        "error": "non-canonical version token: component exceeds the conversion limit",
+        "id": "S040",
+        "parsed_version": null,
+        "verdict": null
+      }
+    ],
+    "stderr": "",
+    "stdout": "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/final-envdep2-33d75f76/fixture-O-envdep2-frozen-env/observe-out.json\nNON-CANONICAL S040\nRELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)\n",
+    "traceback_in_output": false,
+    "tree": "envdep2",
+    "typed_finding_lines": [
+      "NON-CANONICAL S040"
+    ],
+    "verdict": "TYPED"
+  },
+  {
+    "argv": "python3 -B /fast/scratch/hyaku/kagi-r28/KagiR28.FEnvDisabled/envdep2/corpus/release-clock.py --root /tmp/final-envdep2-33d75f76/fixture-T-envdep2-attack-env --receipt /tmp/final-envdep2-33d75f76/fixture-T-envdep2-attack-env/receipt.json --receipt-sha 59b75e47de2642a767be3ed77a9209ee8009fb3be01d834b76d2fe052870dae2",
+    "clean_last_line": true,
+    "env": "attack-env",
+    "exit": 0,
+    "fired_observation_written": false,
+    "fixture": "F2-table-oversize",
+    "stderr": "",
+    "stdout": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=4 derived=15)\n",
+    "traceback_in_output": false,
+    "tree": "envdep2",
+    "typed_finding_lines": [],
+    "verdict": "MISHANDLED"
+  },
+  {
+    "argv": "python3 -B /tmp/final-envdep2-33d75f76/runner-O-envdep2-attack-env.py /fast/scratch/hyaku/kagi-r28/KagiR28.FEnvDisabled/envdep2 /tmp/final-envdep2-33d75f76/fixture-O-envdep2-attack-env /tmp/final-envdep2-33d75f76/fixture-O-envdep2-attack-env/observe-out.json /tmp/final-envdep2-33d75f76/fixture-O-envdep2-attack-env/feed.atom https://www.python.org/downloads/feed.rss 2026-10-21",
+    "clean_last_line": false,
+    "env": "attack-env",
+    "exit": 1,
+    "fired_observation_written": true,
+    "fixture": "F4-observe-oversize",
+    "receipt_records": [
+      {
+        "error": null,
+        "id": "S040",
+        "parsed_version": "3.15.11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+        "verdict": "fired"
+      }
+    ],
+    "stderr": "",
+    "stdout": "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=0 fired=1 regressed=0) to /tmp/final-envdep2-33d75f76/fixture-O-envdep2-attack-env/observe-out.json\nRECEIPT-MISMATCH S040\nRELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)\n",
+    "traceback_in_output": false,
+    "tree": "envdep2",
+    "typed_finding_lines": [],
+    "verdict": "MISHANDLED"
+  }
+]

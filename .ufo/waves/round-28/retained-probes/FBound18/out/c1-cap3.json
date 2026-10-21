@@ -1,0 +1,174 @@
+{
+  "format": "kagi-round28-c1-measure-v1",
+  "revision": "9dd261536de7f60fab4134f70138d8be8ad72629",
+  "label": "cap3",
+  "fixtures": {
+    "F1-table-lie": {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/fast/scratch/hyaku/kagi-r28/FBound18/tmp/kagi-r28-c1-1wt6w4gx/tree/corpus/release-clock.py",
+        "--root",
+        "/fast/scratch/hyaku/kagi-r28/FBound18/tmp/kagi-r28-c1-1wt6w4gx/fixture-F1-table-lie",
+        "--receipt",
+        "/fast/scratch/hyaku/kagi-r28/FBound18/tmp/kagi-r28-c1-1wt6w4gx/fixture-F1-table-lie/receipt.json",
+        "--receipt-sha",
+        "a93cfb9819591e4c4ddc01291bf8854abe86bf43a6c8790714c9aa73bd2e2465"
+      ],
+      "exit": 1,
+      "stdout": [
+        "NON-CANONICAL S040",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)"
+      ],
+      "stderr": [],
+      "fired_observation_written": false,
+      "receipt": null,
+      "mirrored_rows": [
+        "S040"
+      ],
+      "note": "table + mirrored receipt, --receipt/--receipt-sha",
+      "verdict": "TYPED",
+      "clean_last_line": false,
+      "traceback_in_output": false,
+      "typed_finding_lines": [
+        "NON-CANONICAL S040"
+      ]
+    },
+    "F2-table-oversize": {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/fast/scratch/hyaku/kagi-r28/FBound18/tmp/kagi-r28-c1-1wt6w4gx/tree/corpus/release-clock.py",
+        "--root",
+        "/fast/scratch/hyaku/kagi-r28/FBound18/tmp/kagi-r28-c1-1wt6w4gx/fixture-F2-table-oversize",
+        "--receipt",
+        "/fast/scratch/hyaku/kagi-r28/FBound18/tmp/kagi-r28-c1-1wt6w4gx/fixture-F2-table-oversize/receipt.json",
+        "--receipt-sha",
+        "59b75e47de2642a767be3ed77a9209ee8009fb3be01d834b76d2fe052870dae2"
+      ],
+      "exit": 1,
+      "stdout": [
+        "NON-CANONICAL S040",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)"
+      ],
+      "stderr": [],
+      "fired_observation_written": false,
+      "receipt": null,
+      "mirrored_rows": [
+        "S040"
+      ],
+      "note": "table + mirrored receipt, --receipt/--receipt-sha",
+      "verdict": "TYPED",
+      "clean_last_line": false,
+      "traceback_in_output": false,
+      "typed_finding_lines": [
+        "NON-CANONICAL S040"
+      ]
+    },
+    "F3-observe-zero": {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/fast/scratch/hyaku/kagi-r28/FBound18/tmp/kagi-r28-c1-1wt6w4gx/observe-runner.py",
+        "/fast/scratch/hyaku/kagi-r28/FBound18/tmp/kagi-r28-c1-1wt6w4gx/tree",
+        "/fast/scratch/hyaku/kagi-r28/FBound18/tmp/kagi-r28-c1-1wt6w4gx/fixture-F3-observe-zero",
+        "/fast/scratch/hyaku/kagi-r28/FBound18/tmp/kagi-r28-c1-1wt6w4gx/fixture-F3-observe-zero/observe-out.json",
+        "/fast/scratch/hyaku/kagi-r28/FBound18/tmp/kagi-r28-c1-1wt6w4gx/fixture-F3-observe-zero/feed.atom",
+        "https://www.python.org/downloads/feed.rss",
+        "2026-10-21"
+      ],
+      "exit": 1,
+      "stdout": [
+        "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /fast/scratch/hyaku/kagi-r28/FBound18/tmp/kagi-r28-c1-1wt6w4gx/fixture-F3-observe-zero/observe-out.json",
+        "NON-CANONICAL S040",
+        "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)"
+      ],
+      "stderr": [],
+      "fired_observation_written": false,
+      "receipt": [
+        {
+          "id": "S040",
+          "verdict": null,
+          "error": "non-canonical version token: feed newest stable entry",
+          "parsed_version": null
+        }
+      ],
+      "receipt_path": "/fast/scratch/hyaku/kagi-r28/FBound18/tmp/kagi-r28-c1-1wt6w4gx/fixture-F3-observe-zero/observe-out.json",
+      "feed_url": "https://www.python.org/downloads/feed.rss",
+      "mirrored_rows": [
+        "S040"
+      ],
+      "note": "--observe via release-clock.py main(); request_body stubbed to the local fixture feed, utc_timestamp pinned to the row date; table narrowed to the fixture row",
+      "verdict": "TYPED",
+      "clean_last_line": false,
+      "traceback_in_output": false,
+      "typed_finding_lines": [
+        "NON-CANONICAL S040"
+      ]
+    },
+    "F4-observe-oversize": {
+      "argv": [
+        "python3",
+        "-I",
+        "-B",
+        "/fast/scratch/hyaku/kagi-r28/FBound18/tmp/kagi-r28-c1-1wt6w4gx/observe-runner.py",
+        "/fast/scratch/hyaku/kagi-r28/FBound18/tmp/kagi-r28-c1-1wt6w4gx/tree",
+        "/fast/scratch/hyaku/kagi-r28/FBound18/tmp/kagi-r28-c1-1wt6w4gx/fixture-F4-observe-oversize",
+        "/fast/scratch/hyaku/kagi-r28/FBound18/tmp/kagi-r28-c1-1wt6w4gx/fixture-F4-observe-oversize/observe-out.json",
+        "/fast/scratch/hyaku/kagi-r28/FBound18/tmp/kagi-r28-c1-1wt6w4gx/fixture-F4-observe-oversize/feed.atom",
+        "https://www.python.org/downloads/feed.rss",
+        "2026-10-21"
+      ],
+      "exit": 1,
+      "stdout": [
+        "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /fast/scratch/hyaku/kagi-r28/FBound18/tmp/kagi-r28-c1-1wt6w4gx/fixture-F4-observe-oversize/observe-out.json",
+        "NON-CANONICAL S040",
+        "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)"
+      ],
+      "stderr": [],
+      "fired_observation_written": false,
+      "receipt": [
+        {
+          "id": "S040",
+          "verdict": null,
+          "error": "non-canonical version token: feed newest stable entry",
+          "parsed_version": null
+        }
+      ],
+      "receipt_path": "/fast/scratch/hyaku/kagi-r28/FBound18/tmp/kagi-r28-c1-1wt6w4gx/fixture-F4-observe-oversize/observe-out.json",
+      "feed_url": "https://www.python.org/downloads/feed.rss",
+      "mirrored_rows": [
+        "S040"
+      ],
+      "note": "--observe via release-clock.py main(); request_body stubbed to the local fixture feed, utc_timestamp pinned to the row date; table narrowed to the fixture row",
+      "verdict": "TYPED",
+      "clean_last_line": false,
+      "traceback_in_output": false,
+      "typed_finding_lines": [
+        "NON-CANONICAL S040"
+      ]
+    }
+  },
+  "summary": {
+    "mishandled": 0,
+    "typed": 4,
+    "other": 0,
+    "fixtures": 4
+  },
+  "control": {
+    "argv": [
+      "python3",
+      "-I",
+      "-B",
+      "corpus/release-clock.py"
+    ],
+    "exit": 0,
+    "last_line": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)",
+    "stdout": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)\n",
+    "stderr": "",
+    "clean": true
+  }
+}

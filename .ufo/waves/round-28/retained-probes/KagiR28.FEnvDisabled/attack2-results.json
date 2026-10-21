@@ -1,0 +1,322 @@
+{
+  "base|F1-table-lie[default-I]": {
+    "argv": [
+      "python3",
+      "-I",
+      "-B",
+      "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/KagiR28.FEnvDisabled/base/corpus/release-clock.py",
+      "--root",
+      "/tmp/env2-base-2qdisglz/fixture-F1-base-default-I",
+      "--receipt",
+      "/tmp/env2-base-2qdisglz/fixture-F1-base-default-I/receipt.json",
+      "--receipt-sha",
+      "a93cfb9819591e4c4ddc01291bf8854abe86bf43a6c8790714c9aa73bd2e2465"
+    ],
+    "exit": 0,
+    "findings": [],
+    "last_line": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=4 derived=15)",
+    "stderr_tail": "",
+    "stdout_tail": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=4 derived=15)\n",
+    "tag": "F1-table-lie[default-I]",
+    "traceback": false
+  },
+  "base|F1-table-lie[limit0-no-I]": {
+    "argv": [
+      "python3",
+      "-B",
+      "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/KagiR28.FEnvDisabled/base/corpus/release-clock.py",
+      "--root",
+      "/tmp/env2-base-2qdisglz/fixture-F1-base-limit0-no-I",
+      "--receipt",
+      "/tmp/env2-base-2qdisglz/fixture-F1-base-limit0-no-I/receipt.json",
+      "--receipt-sha",
+      "a93cfb9819591e4c4ddc01291bf8854abe86bf43a6c8790714c9aa73bd2e2465"
+    ],
+    "exit": 0,
+    "findings": [],
+    "last_line": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=4 derived=15)",
+    "stderr_tail": "",
+    "stdout_tail": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=4 derived=15)\n",
+    "tag": "F1-table-lie[limit0-no-I]",
+    "traceback": false
+  },
+  "base|F3-observe-zero[default-I]": {
+    "argv": [
+      "python3",
+      "-I",
+      "-B",
+      "/tmp/env2-base-2qdisglz/observe-runner.py",
+      "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/KagiR28.FEnvDisabled/base",
+      "/tmp/env2-base-2qdisglz/fixture-F3-base-default-I",
+      "/tmp/env2-base-2qdisglz/fixture-F3-base-default-I/observe-out.json",
+      "/tmp/env2-base-2qdisglz/fixture-F3-base-default-I/feed.atom",
+      "https://www.python.org/downloads/feed.rss",
+      "2026-10-21"
+    ],
+    "exit": 1,
+    "findings": [
+      "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=0 fired=1 regressed=0) to /tmp/env2-base-2qdisglz/fixture-F3-base-default-I/observe-out.json",
+      "RECEIPT-MISMATCH S040"
+    ],
+    "fired_observation_written": true,
+    "last_line": "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)",
+    "receipt_records": [
+      {
+        "error": null,
+        "id": "S040",
+        "parsed_version": "3.15.01",
+        "verdict": "fired"
+      }
+    ],
+    "stderr_tail": "",
+    "stdout_tail": "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=0 fired=1 regressed=0) to /tmp/env2-base-2qdisglz/fixture-F3-base-default-I/observe-out.json\nRECEIPT-MISMATCH S040\nRELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)\n",
+    "tag": "F3-observe-zero[default-I]",
+    "traceback": false
+  },
+  "base|F3-observe-zero[limit0-no-I]": {
+    "argv": [
+      "python3",
+      "-B",
+      "/tmp/env2-base-2qdisglz/observe-runner.py",
+      "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/KagiR28.FEnvDisabled/base",
+      "/tmp/env2-base-2qdisglz/fixture-F3-base-limit0-no-I",
+      "/tmp/env2-base-2qdisglz/fixture-F3-base-limit0-no-I/observe-out.json",
+      "/tmp/env2-base-2qdisglz/fixture-F3-base-limit0-no-I/feed.atom",
+      "https://www.python.org/downloads/feed.rss",
+      "2026-10-21"
+    ],
+    "exit": 1,
+    "findings": [
+      "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=0 fired=1 regressed=0) to /tmp/env2-base-2qdisglz/fixture-F3-base-limit0-no-I/observe-out.json",
+      "RECEIPT-MISMATCH S040"
+    ],
+    "fired_observation_written": true,
+    "last_line": "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)",
+    "receipt_records": [
+      {
+        "error": null,
+        "id": "S040",
+        "parsed_version": "3.15.01",
+        "verdict": "fired"
+      }
+    ],
+    "stderr_tail": "",
+    "stdout_tail": "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=0 fired=1 regressed=0) to /tmp/env2-base-2qdisglz/fixture-F3-base-limit0-no-I/observe-out.json\nRECEIPT-MISMATCH S040\nRELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)\n",
+    "tag": "F3-observe-zero[limit0-no-I]",
+    "traceback": false
+  },
+  "base|control[limit=18]": {
+    "argv": [
+      "python3",
+      "-B",
+      "corpus/release-clock.py"
+    ],
+    "exit": 1,
+    "findings": [],
+    "last_line": "",
+    "stderr_tail": "Fatal Python error: config_init_int_max_str_digits: PYTHONINTMAXSTRDIGITS: invalid limit; must be >= 640 or 0 for unlimited.\nPython runtime state: preinitialized\n\n",
+    "stdout_tail": "",
+    "tag": "control[limit=18]",
+    "traceback": false
+  },
+  "base|control[limit=5]": {
+    "argv": [
+      "python3",
+      "-B",
+      "corpus/release-clock.py"
+    ],
+    "exit": 1,
+    "findings": [],
+    "last_line": "",
+    "stderr_tail": "Fatal Python error: config_init_int_max_str_digits: PYTHONINTMAXSTRDIGITS: invalid limit; must be >= 640 or 0 for unlimited.\nPython runtime state: preinitialized\n\n",
+    "stdout_tail": "",
+    "tag": "control[limit=5]",
+    "traceback": false
+  },
+  "base|control[limit=640]": {
+    "argv": [
+      "python3",
+      "-B",
+      "corpus/release-clock.py"
+    ],
+    "exit": 0,
+    "findings": [],
+    "last_line": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)",
+    "stderr_tail": "",
+    "stdout_tail": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)\n",
+    "tag": "control[limit=640]",
+    "traceback": false
+  },
+  "base|json-huge-int[default]": {
+    "exit": 1,
+    "stderr_tail": "(s, idx)\n               ~~~~~~~~~~~~~~^^^^^^^^\nValueError: Exceeds the limit (4300 digits) for integer string conversion: value has 5000 digits; use sys.set_int_max_str_digits() to increase the limit\n",
+    "tag": "json-huge-int[default]"
+  },
+  "base|json-huge-int[limit0]": {
+    "exit": 0,
+    "stderr_tail": "",
+    "tag": "json-huge-int[limit0]"
+  },
+  "cand|F1-table-lie[default-I]": {
+    "argv": [
+      "python3",
+      "-I",
+      "-B",
+      "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/KagiR28.FEnvDisabled/cand/corpus/release-clock.py",
+      "--root",
+      "/tmp/env2-cand-b51_xjji/fixture-F1-cand-default-I",
+      "--receipt",
+      "/tmp/env2-cand-b51_xjji/fixture-F1-cand-default-I/receipt.json",
+      "--receipt-sha",
+      "a93cfb9819591e4c4ddc01291bf8854abe86bf43a6c8790714c9aa73bd2e2465"
+    ],
+    "exit": 1,
+    "findings": [
+      "NON-CANONICAL S040"
+    ],
+    "last_line": "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)",
+    "stderr_tail": "",
+    "stdout_tail": "NON-CANONICAL S040\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)\n",
+    "tag": "F1-table-lie[default-I]",
+    "traceback": false
+  },
+  "cand|F1-table-lie[limit0-no-I]": {
+    "argv": [
+      "python3",
+      "-B",
+      "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/KagiR28.FEnvDisabled/cand/corpus/release-clock.py",
+      "--root",
+      "/tmp/env2-cand-b51_xjji/fixture-F1-cand-limit0-no-I",
+      "--receipt",
+      "/tmp/env2-cand-b51_xjji/fixture-F1-cand-limit0-no-I/receipt.json",
+      "--receipt-sha",
+      "a93cfb9819591e4c4ddc01291bf8854abe86bf43a6c8790714c9aa73bd2e2465"
+    ],
+    "exit": 1,
+    "findings": [
+      "NON-CANONICAL S040"
+    ],
+    "last_line": "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)",
+    "stderr_tail": "",
+    "stdout_tail": "NON-CANONICAL S040\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)\n",
+    "tag": "F1-table-lie[limit0-no-I]",
+    "traceback": false
+  },
+  "cand|F3-observe-zero[default-I]": {
+    "argv": [
+      "python3",
+      "-I",
+      "-B",
+      "/tmp/env2-cand-b51_xjji/observe-runner.py",
+      "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/KagiR28.FEnvDisabled/cand",
+      "/tmp/env2-cand-b51_xjji/fixture-F3-cand-default-I",
+      "/tmp/env2-cand-b51_xjji/fixture-F3-cand-default-I/observe-out.json",
+      "/tmp/env2-cand-b51_xjji/fixture-F3-cand-default-I/feed.atom",
+      "https://www.python.org/downloads/feed.rss",
+      "2026-10-21"
+    ],
+    "exit": 1,
+    "findings": [
+      "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/env2-cand-b51_xjji/fixture-F3-cand-default-I/observe-out.json",
+      "NON-CANONICAL S040"
+    ],
+    "fired_observation_written": false,
+    "last_line": "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)",
+    "receipt_records": [
+      {
+        "error": "non-canonical version token: feed newest stable entry",
+        "id": "S040",
+        "parsed_version": null,
+        "verdict": null
+      }
+    ],
+    "stderr_tail": "",
+    "stdout_tail": "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/env2-cand-b51_xjji/fixture-F3-cand-default-I/observe-out.json\nNON-CANONICAL S040\nRELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)\n",
+    "tag": "F3-observe-zero[default-I]",
+    "traceback": false
+  },
+  "cand|F3-observe-zero[limit0-no-I]": {
+    "argv": [
+      "python3",
+      "-B",
+      "/tmp/env2-cand-b51_xjji/observe-runner.py",
+      "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/KagiR28.FEnvDisabled/cand",
+      "/tmp/env2-cand-b51_xjji/fixture-F3-cand-limit0-no-I",
+      "/tmp/env2-cand-b51_xjji/fixture-F3-cand-limit0-no-I/observe-out.json",
+      "/tmp/env2-cand-b51_xjji/fixture-F3-cand-limit0-no-I/feed.atom",
+      "https://www.python.org/downloads/feed.rss",
+      "2026-10-21"
+    ],
+    "exit": 1,
+    "findings": [
+      "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/env2-cand-b51_xjji/fixture-F3-cand-limit0-no-I/observe-out.json",
+      "NON-CANONICAL S040"
+    ],
+    "fired_observation_written": false,
+    "last_line": "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)",
+    "receipt_records": [
+      {
+        "error": "non-canonical version token: feed newest stable entry",
+        "id": "S040",
+        "parsed_version": null,
+        "verdict": null
+      }
+    ],
+    "stderr_tail": "",
+    "stdout_tail": "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to /tmp/env2-cand-b51_xjji/fixture-F3-cand-limit0-no-I/observe-out.json\nNON-CANONICAL S040\nRELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)\n",
+    "tag": "F3-observe-zero[limit0-no-I]",
+    "traceback": false
+  },
+  "cand|control[limit=18]": {
+    "argv": [
+      "python3",
+      "-B",
+      "corpus/release-clock.py"
+    ],
+    "exit": 1,
+    "findings": [],
+    "last_line": "",
+    "stderr_tail": "Fatal Python error: config_init_int_max_str_digits: PYTHONINTMAXSTRDIGITS: invalid limit; must be >= 640 or 0 for unlimited.\nPython runtime state: preinitialized\n\n",
+    "stdout_tail": "",
+    "tag": "control[limit=18]",
+    "traceback": false
+  },
+  "cand|control[limit=5]": {
+    "argv": [
+      "python3",
+      "-B",
+      "corpus/release-clock.py"
+    ],
+    "exit": 1,
+    "findings": [],
+    "last_line": "",
+    "stderr_tail": "Fatal Python error: config_init_int_max_str_digits: PYTHONINTMAXSTRDIGITS: invalid limit; must be >= 640 or 0 for unlimited.\nPython runtime state: preinitialized\n\n",
+    "stdout_tail": "",
+    "tag": "control[limit=5]",
+    "traceback": false
+  },
+  "cand|control[limit=640]": {
+    "argv": [
+      "python3",
+      "-B",
+      "corpus/release-clock.py"
+    ],
+    "exit": 0,
+    "findings": [],
+    "last_line": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)",
+    "stderr_tail": "",
+    "stdout_tail": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)\n",
+    "tag": "control[limit=640]",
+    "traceback": false
+  },
+  "cand|json-huge-int[default]": {
+    "exit": 1,
+    "stderr_tail": "(s, idx)\n               ~~~~~~~~~~~~~~^^^^^^^^\nValueError: Exceeds the limit (4300 digits) for integer string conversion: value has 5000 digits; use sys.set_int_max_str_digits() to increase the limit\n",
+    "tag": "json-huge-int[default]"
+  },
+  "cand|json-huge-int[limit0]": {
+    "exit": 0,
+    "stderr_tail": "",
+    "tag": "json-huge-int[limit0]"
+  }
+}

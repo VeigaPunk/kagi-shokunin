@@ -1,0 +1,45 @@
+{
+ "label": "cand-F1",
+ "tree": "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FObsZero/cand",
+ "token": "3.15.01",
+ "verdict": "fired",
+ "anchor_token": null,
+ "argv": [
+  "python3",
+  "-I",
+  "-B",
+  "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FObsZero/cand/corpus/release-clock.py",
+  "--root",
+  "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FObsZero/runs/fixture-cand-F1",
+  "--receipt",
+  "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-28/sandboxes/FObsZero/runs/fixture-cand-F1/receipt.json",
+  "--receipt-sha",
+  "a93cfb9819591e4c4ddc01291bf8854abe86bf43a6c8790714c9aa73bd2e2465"
+ ],
+ "exit": 1,
+ "stdout": "NON-CANONICAL S040\nRELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)\n",
+ "stderr": "",
+ "traceback_in_output": false,
+ "mirrored_rows": [
+  "S040"
+ ],
+ "receipt_sha_before": "a93cfb9819591e4c4ddc01291bf8854abe86bf43a6c8790714c9aa73bd2e2465",
+ "receipt_sha_after": "a93cfb9819591e4c4ddc01291bf8854abe86bf43a6c8790714c9aa73bd2e2465",
+ "receipt_unchanged": true,
+ "s040_receipt_after": [
+  {
+   "clock": "feed",
+   "http_status": 200,
+   "id": "S040",
+   "located": null,
+   "observed_at": "2026-10-21T13:43:27Z",
+   "parsed_version": "3.15.01",
+   "sha256": "11c86a3481551067676403f66bc23b3d7dd1f5de14f32bbacafed239d13ca66b",
+   "url": "https://www.python.org/downloads/feed.rss",
+   "verdict": "fired"
+  }
+ ],
+ "fired_lines": [
+  "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)"
+ ]
+}

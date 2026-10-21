@@ -1,0 +1,79 @@
+# self-counts.tsv — id<TAB>doc<TAB>locator<TAB>source<TAB>extract<TAB>note
+# Python regexes each have exactly one capture group: a nonnegative integer.
+# Population (reviewed bindings, round 25, plans/round-25.md C1): selected numbers
+# SKILL.md, PROVINCE.md and corpus/README.md state about this lane's own
+# artifacts (stamps, claim rows, selftest cases, data-file rows, knowledge-entry
+# declarations) that has a lane-local live source. Out of population by rule,
+# not omission: explicitly round-dated history clauses ("63 at round 21",
+# "Round-11: … (39 cases)" bullets, "as of round 9"), host measurements (breadth,
+# handler/DB counts) and counts with no machine source; the round-25 lesson
+# lists the hand-corrected unbindable ones.
+# Sources: rows:<file> counts data lines; ledger:<ID> runs a NON-host ledger
+# row's own command and reads its live verdict; expect:<ID> reads a host or
+# op-executing row's committed pin and runs nothing (the ledger re-measures it
+# under --allow-host-rows). The ledger stays the single definition.
+SC-SKILL-STAMPS	SKILL.md	^\| Re-run a claim .*?\(([0-9]+) stamps \+ 	ledger:R12-03	^([0-9]+)$	decision table: current stamp membership
+SC-SKILL-CLAIMS	SKILL.md	^\| Re-run a claim .*?\([0-9]+ stamps \+ ([0-9]+) claims\b	ledger:R21-04	^([0-9]+)$	decision table: total claim rows (routed D1: said 63/39 at BASE)
+SC-SCOPE-ROWS	SKILL.md	^\| Own vs read a shared surface .*?partitions the ([0-9]+) census rows\b	rows:corpus/surface-census.tsv	-	declared census rows
+SC-SCOPE-SELFTEST	SKILL.md	^\| Own vs read a shared surface .*?`--selftest` proves ([0-9]+) cases\b	ledger:R16-02	^SCOPE_SELFTEST: PASS \(([0-9]+) cases\)$	scope gate selftest
+SC-CENSUS-SELFTEST	SKILL.md	^\| Exercise the handler's write-side verbs safely .*?`--selftest` proves ([0-9]+) cases\b	expect:R11-03	\(([0-9]+) cases	R11-03 is [substrate]: bound to its committed pin, never executed
+SC-SOURCES-SELFTEST	SKILL.md	^\| Learn from, cite or curate an external source .*?`--selftest` ([0-9]+) cases\b	ledger:R21-03	^SOURCES_CENSUS_SELFTEST: PASS \(([0-9]+) cases\)$	source census selftest
+SC-SELFCOUNTS-SELFTEST	SKILL.md	^\| Check a number the corpus states about itself .*?`--selftest` ([0-9]+) cases\b	ledger:R25-01	^SELF_COUNTS_SELFTEST: PASS \(([0-9]+) cases\)$	this gate's own selftest
+SC-CLOCK-SELFTEST	SKILL.md	^\| Judge whether a source's `on-release` recheck fired .*?`--selftest` ([0-9]+) cases\b	ledger:R25-03	^RELEASE_CLOCK_SELFTEST: PASS \(([0-9]+) cases\)$	release-clock selftest
+SC-LEDGER-SELFTEST	SKILL.md	^\s+bash corpus/claim-ledger\.sh --selftest # ([0-9]+) scratch cases\b	ledger:R11-09	^SELFTEST: PASS \(([0-9]+) cases\)$	command example; its '94 until round 18, 151 until round 25' tail is history
+SC-CLOSURE-SELFTEST	SKILL.md	^\| closure disposition review \|.*?R24-02, ([0-9]+) cases\b	ledger:R24-02	^CLOSURE_DISPOSITIONS_SELFTEST: PASS \(([0-9]+) cases\)$	gate registry
+SC-RENDERED-SELFTEST	SKILL.md	^\| rendered-text-v1 normalizer \|.*?R24-01, ([0-9]+) cases\b	ledger:R24-01	^RENDERED_TEXT_V1_SELFTEST: PASS \(cases=([0-9]+)\)$	gate registry
+PV-SURFACE-SELFTEST	PROVINCE.md	^- `corpus/surface-census\.sh` — .*?`--selftest` proves ([0-9]+) cases on a scratch tree	expect:R11-03	\(([0-9]+) cases	[substrate] row: committed pin
+PV-CENSUS-ROWS	PROVINCE.md	^- `corpus/surface-census\.sh` — .*?`corpus/surface-census\.tsv` \(([0-9]+) rows	rows:corpus/surface-census.tsv	-	declared census rows
+PV-STATE-ROWS	PROVINCE.md	^- `corpus/surface-census\.sh` — .*?`corpus/state-shape\.tsv` \(([0-9]+) rows	rows:corpus/state-shape.tsv	-	runtime shape rows
+PV-DRIFT-FILES	PROVINCE.md	^- `corpus/drift-pins\.sh` \+ `corpus/drift-baseline\.tsv` \(([0-9]+) files\)	rows:corpus/drift-baseline.tsv	-	baseline rows
+PV-DRIFT-SYMBOLS	PROVINCE.md	^- `corpus/drift-pins\.sh` .*?`corpus/drift-symbols\.tsv` \(([0-9]+) claims	rows:corpus/drift-symbols.tsv	-	symbol pins
+PV-OPREF-SELFTEST	PROVINCE.md	^- `corpus/op-ref-probe\.sh` — .*?`--selftest` proves ([0-9]+) cases	expect:R12-02	\(([0-9]+) cases	R12-02 executes op: committed pin, never executed here
+PV-CHECKLIST-SELFTEST	PROVINCE.md	^- `corpus/checklist-run\.sh` — .*?`--selftest` proves ([0-9]+) cases on scratch fixtures	ledger:R15-02	^CHECKLIST_SELFTEST: PASS \(([0-9]+) cases\)$	checklist selftest
+PV-SCOPE-SELFTEST	PROVINCE.md	^- `corpus/scope-gate\.sh` — .*?`--selftest` proves ([0-9]+) cases	ledger:R16-02	^SCOPE_SELFTEST: PASS \(([0-9]+) cases\)$	scope gate selftest
+PV-STAMPS	PROVINCE.md	^- `corpus/claim-ledger\.sh` — .*?`verify` \(([0-9]+) revision stamps	ledger:R12-03	^([0-9]+)$	current stamp membership
+PV-CLAIMS	PROVINCE.md	^- `corpus/claim-ledger\.sh` — .*?revision stamps \+ ([0-9]+) claim rows	ledger:R21-04	^([0-9]+)$	current claim rows
+PV-LEDGER-SELFTEST	PROVINCE.md	^- `corpus/claim-ledger\.sh` — .*?`--selftest` declares ([0-9]+) cases	ledger:R11-09	^SELFTEST: PASS \(([0-9]+) cases\)$	ledger selftest
+PV-SELFCOUNTS-SELFTEST	PROVINCE.md	^- `corpus/self-counts\.py` .*?`--selftest` proves ([0-9]+) cases	ledger:R25-01	^SELF_COUNTS_SELFTEST: PASS \(([0-9]+) cases\)$	this gate
+PV-CLOCK-SELFTEST	PROVINCE.md	^- `corpus/release-clock\.py` .*?`--selftest` proves ([0-9]+) cases	ledger:R25-03	^RELEASE_CLOCK_SELFTEST: PASS \(([0-9]+) cases\)$	release clock
+PV-SOURCES-SELFTEST	PROVINCE.md	^- `corpus/sources-census\.sh` — .*?`--selftest` proves ([0-9]+) cases	ledger:R21-03	^SOURCES_CENSUS_SELFTEST: PASS \(([0-9]+) cases\)$	source census
+PV-RENDERED-SELFTEST	PROVINCE.md	^- Helpers, not gates: `corpus/rendered-text-v1\.py` .*?`--selftest` ([0-9]+) cases	ledger:R24-01	^RENDERED_TEXT_V1_SELFTEST: PASS \(cases=([0-9]+)\)$	normalizer
+PV-CLOSURE-SELFTEST	PROVINCE.md	^- `corpus/closure-dispositions\.py` .*?`--selftest` declares ([0-9]+) isolated cases	ledger:R24-02	^CLOSURE_DISPOSITIONS_SELFTEST: PASS \(([0-9]+) cases\)$	closure review
+RD-CENSUS-ROWS	corpus/README.md	^\| Surface declaration \(data\) \| .*?\| ([0-9]+) rows(?: at round [0-9]+)? \(	rows:corpus/surface-census.tsv	-	index row
+RD-STATE-ROWS	corpus/README.md	^\| Runtime shape pins \(data\) \| .*?\| ([0-9]+) rows(?: at round [0-9]+)? \(	rows:corpus/state-shape.tsv	-	index row
+RD-SCOPE-SELFTEST	corpus/README.md	^\| Ownership \+ breadth gate \| .*?`--selftest` \(([0-9]+) cases\)	ledger:R16-02	^SCOPE_SELFTEST: PASS \(([0-9]+) cases\)$	index row
+RD-LEDGER-SELFTEST	corpus/README.md	^\| Claim ledger \+ revision stamps .*?`--selftest` ([0-9]+) cases	ledger:R11-09	^SELFTEST: PASS \(([0-9]+) cases\)$	index row (said 97 at BASE)
+RD-LEDGER-ROWS	corpus/README.md	^\| Ledger rows(?: at round [0-9]+)? \(data\) \| .*?\| ([0-9]+) rows(?: at round [0-9]+)? \(	ledger:R21-04	^([0-9]+)$	index row (said 39 at BASE)
+RD-STAMPS	corpus/README.md	^\| Revision stamps \(data\) \| .*?\| ([0-9]+) rows(?: at round [0-9]+)? \(	ledger:R12-03	^([0-9]+)$	index row (said 63 at BASE)
+RD-DOCS-ROWLINKED	corpus/README.md	^\| Knowledge-entry declarations \(data\) \| .*?per entry: ([0-9]+) row-linked	ledger:R14-01	row_linked=([0-9]+)	index row (said 21 at BASE)
+RD-DOCS-BYHAND	corpus/README.md	^\| Knowledge-entry declarations \(data\) \| .*?per entry: [0-9]+ row-linked / ([0-9]+) by-hand	ledger:R14-01	by_hand=([0-9]+)	index row
+RD-DOCS-ENTRIES	corpus/README.md	^\| Knowledge-entry declarations \(data\) \| .*?by-hand / ([0-9]+) pinned	ledger:R14-01	entries=([0-9]+)	index row (said 24 at BASE)
+RD-OPREF-SELFTEST	corpus/README.md	^\| `op\.env` contract probe \(gate\) \| .*?`--selftest` \(([0-9]+) cases	expect:R12-02	\(([0-9]+) cases	R12-02 executes op: committed pin
+RD-CHECKLIST-SELFTEST	corpus/README.md	^\| Credential-hygiene checklist.*?`--selftest` \(([0-9]+) cases	ledger:R15-02	^CHECKLIST_SELFTEST: PASS \(([0-9]+) cases\)$	current checklist selftest already existed at BASE; FAxisHarm omission fixed
+# Round 27 (plans/round-27.md C1, routed round-25 D2): current-tense numbers in
+# corpus/knowledge/*.md about this lane's own artifacts. Out of population by rule:
+# sections dated as measurements ("Reproduction (2026-09-28)", "Source basis: measured …"),
+# Evidence/Erratum/Round-N findings history, host/substrate observations and
+# positional case indexes (round-27 lesson lists the excluded candidates).
+KN-BREADTH-SCOPE-SELFTEST	corpus/knowledge/adjacency-breadth.md	^# SCOPE_SELFTEST: PASS \(([0-9]+) cases\)	ledger:R16-02	^SCOPE_SELFTEST: PASS \(([0-9]+) cases\)$	Reproduction block (undated): scope selftest
+KN-BREADTH-FALSIFY	corpus/knowledge/adjacency-breadth.md	^# SCOPE_FALSIFY: PASS \(caught=([0-9]+)/\1 failed=0\)	expect:R16-03	caught=([0-9]+)/	R16-03 is [host]: committed pin, never executed
+KN-SCOPE-CURRENT-SELFTEST	corpus/knowledge/adjacency-scope.md	^breadth_unverified=0\)`; `SCOPE_SELFTEST: PASS \(([0-9]+) cases\)	ledger:R16-02	^SCOPE_SELFTEST: PASS \(([0-9]+) cases\)$	"Current gates" clause
+KN-SCOPE-CURRENT-FALSIFY	corpus/knowledge/adjacency-scope.md	^`SCOPE_FALSIFY: PASS \(caught=([0-9]+)/\1 failed=0\)	expect:R16-03	caught=([0-9]+)/	"Current gates" clause; host pin
+KN-SCOPE-TABLE-SELFTEST	corpus/knowledge/adjacency-scope.md	^\| `SCOPE_SELFTEST: PASS \(([0-9]+) cases\)` /	ledger:R16-02	^SCOPE_SELFTEST: PASS \(([0-9]+) cases\)$	verdict table
+KN-SCOPE-TABLE-FALSIFY	corpus/knowledge/adjacency-scope.md	^\| `SCOPE_SELFTEST: PASS \([0-9]+ cases\)` / `SCOPE_FALSIFY: PASS \(caught=([0-9]+)/\1 failed=0\)	expect:R16-03	caught=([0-9]+)/	verdict table; host pin
+KN-SCOPE-MUTATIONS	corpus/knowledge/adjacency-scope.md	^Every listed defect turns the gate red; `--falsify` runs ([0-9]+) mutations	expect:R16-03	caught=[0-9]+/([0-9]+)	Falsification section; host pin (denominator: mutations run)
+KN-CHECKLIST-SELFTEST	corpus/knowledge/checklist-execution.md	`--selftest` proves ([0-9]+) cases on scratch	ledger:R15-02	^CHECKLIST_SELFTEST: PASS \(([0-9]+) cases\)$	modes paragraph
+KN-CHECKLIST-FALSIFY-ROWS	corpus/knowledge/checklist-execution.md	^1\. Add a 17th .*?\(items=17 rows=([0-9]+)\)	ledger:R15-04	^([0-9]+)$	falsifier 1 expected output: current row count
+KN-CHECKLIST-FALSIFY-ITEMS	corpus/knowledge/checklist-execution.md	^5\. Convert three runnable rows .*?items=([0-9]+)\)	ledger:R15-04	^([0-9]+)$	falsifier 5 expected output: current item count
+KN-LEDGER-REPRO-SELFTEST	corpus/knowledge/claim-ledger.md	^bash corpus/claim-ledger\.sh --selftest +# ([0-9]+) scratch cases +→ SELFTEST: PASS \(\1 cases\)	ledger:R11-09	^SELFTEST: PASS \(([0-9]+) cases\)$	undated Reproduction block (said 72 at BASE)
+KN-DRIFT-BOUND-FILES	corpus/knowledge/drift-gate.md	^- \*\*[0-9]+ of ([0-9]+) files are content-unhashed	rows:corpus/drift-baseline.tsv	-	Bounds: baseline file count
+KN-OPREF-REPRO-SELFTEST	corpus/knowledge/op-ref-consumption.md	^bash corpus/op-ref-probe\.sh --selftest +# OP_REF_SELFTEST: PASS \(([0-9]+) cases\)	expect:R12-02	\(([0-9]+) cases	§9 Reproduction; R12-02 executes op: pin (said 29 at BASE)
+KN-OPREF-CORRECTION-SELFTEST	corpus/knowledge/op-ref-consumption.md	^superseded: the selftest now proves ([0-9]+) cases	expect:R12-02	\(([0-9]+) cases	§11 correction note; R12-02 pin
+KN-CENSUS-DRIFT-FILES	corpus/knowledge/surface-census.md	^\(([0-9]+) files, [0-9]+ symbol pins	rows:corpus/drift-baseline.tsv	-	Why section: drift-pins listed files
+KN-CENSUS-DRIFT-SYMBOLS	corpus/knowledge/surface-census.md	^\([0-9]+ files, ([0-9]+) symbol pins	rows:corpus/drift-symbols.tsv	-	Why section: drift symbol pins (said 19 at BASE)
+KN-BREADTH-LINES	corpus/knowledge/adjacency-breadth.md	^# ([0-9]+) ADJACENCY_BREADTH lines	ledger:R17-02	^([0-9]+)$	Reproduction: one line per breadth pin
+KN-BREADTH-FALSIFIERS	corpus/knowledge/adjacency-breadth.md	^The ([0-9]+) falsifiers are the round-16	expect:R16-03	caught=[0-9]+/([0-9]+)	falsifier count; host pin (denominator: mutations run)
+KN-SUBSTRATE-CENSUS-SELFTEST	corpus/knowledge/substrate-deferral.md	The case count is unchanged \(([0-9]+)\)	expect:R11-03	\(([0-9]+) cases	R11-03 [substrate]: pin
+KN-SUBSTRATE-ABSENCE-FILES	corpus/knowledge/substrate-deferral.md	all-GONE `DRIFT_PINS: DRIFT \(files_ok=0 files_bad=([0-9]+)	expect:R18-01	files_bad=([0-9]+)	R18-01 [host] absence pin
+KN-CHECKLIST-FALSIFY-FLOOR	corpus/knowledge/checklist-execution.md	^5\. Convert three runnable rows .*?floor=([0-9]+)	ledger:R15-05	floor=([0-9]+)	falsifier 5 expected floor
+KN-OPREF-FALSIFY-SELFTEST	corpus/knowledge/op-ref-consumption.md	`--selftest` proves the comparator on ([0-9]+)$	expect:R12-02	\(([0-9]+) cases	§10; R12-02 pin (said 21 at BASE)

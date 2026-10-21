@@ -258,3 +258,10 @@ and tails in `.ufo/waves/round-27/final/invocations.json`.
 
 Recorded after `3fb77271eeee797047c37871038b1db1247fa236`: this section, SCORECARD/LOG outcome text, `final/`
 receipts and restamps — text and evidence only, no code or table change.
+
+Correction to the census line above: no round-27 start census file was
+written. Round 26's retained end receipt (`.ufo/waves/round-26/census-end.json`)
+already shows the same 11 W04 lines (S039–S041 included, its own correction
+URLs), so "start had 8" and the sibling-lane explanation are withdrawn; the
+retained before/after pair is round-26 end (11 W04, exit 0) → round-27 end
+(11 W04, exit 0), unchanged warnings with S042/S043 added clean.

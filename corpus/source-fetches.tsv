@@ -25,8 +25,8 @@
 #   quote              declared quote, shape-checked only: <=25 ASCII words,
 #                      not verified against the page bytes or the location
 #   normalization      rendered-text-v1: strip script/style, tags -> single space,
-#                      html.unescape, collapse whitespace, trim both ends,
-#                      UTF-8 encode; raw-literal-v1: bytes
+#                      html.unescape, collapse Unicode whitespace (Python \s),
+#                      trim both ends, UTF-8 encode; raw-literal-v1: bytes
 #   normalized_sha256  sha256 of the normalized text (rendered-text-v1 only), else -
 #   location           section/heading the quote was located under
 #

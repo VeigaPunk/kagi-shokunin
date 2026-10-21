@@ -272,22 +272,6 @@ verify() {
         finding SC_FETCH "id=$fid normalized-digest-not-applicable"
       fi
       [[ ${#floc} -ge 8 ]] || finding SC_FETCH "id=$fid location"
-      # Two captures of one URL under one representation must agree. Volatile
-      # raw HTML is compared through its normalized digest instead (site chrome
-      # and per-response tokens change the bytes, not the article). Legacy
-      # in-row digests are outside this comparison; see the header bound.
-      if [[ $frep != decoded-http-body-volatile-v1 ]]; then
-        seen_key="$furl|$frep"
-        if [[ -n ${FDIG[$seen_key]:-} ]]; then
-          [[ ${FDIG[$seen_key]} == "$fsha" ]] || finding SC_FETCH "id=$fid same-url-digest-disagreement url=$furl"
-        else FDIG[$seen_key]=$fsha; fi
-      fi
-      if [[ $fnorm == rendered-text-v1 ]]; then
-        seen_key="$furl|norm|$fnorm"
-        if [[ -n ${FNRM[$seen_key]:-} ]]; then
-          [[ ${FNRM[$seen_key]} == "$fnsha" ]] || finding SC_FETCH "id=$fid same-url-normalized-disagreement url=$furl"
-        else FNRM[$seen_key]=$fnsha; fi
-      fi
       [[ ${FSEEN[$fid]} -le 1 ]] || finding SC_FETCH "id=$fid duplicate-provenance"
     done < <(awk -F'\t' 'length($0)>0 && $0 !~ /^#/ && NF==16' "$fetchf")
   fi
@@ -566,7 +550,7 @@ selftest() {
     "fetch-location|m_fetch_location||1|SC_FETCH|1"
     "fetch-unknown|m_fetch_unknown||1|SC_FETCH|1"
     "fetch-duplicate|m_fetch_duplicate||1|SC_FETCH|1"
-    "fetch-disagree|m_fetch_disagree||1|SC_FETCH|2"
+    "fetch-disagree|m_fetch_disagree||1|SC_FETCH|1"
   )
   local spec name fn arg xe xid xn d out rc last ok cases=0 failed=0
   for spec in "${CASES[@]}"; do

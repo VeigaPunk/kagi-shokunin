@@ -848,7 +848,7 @@ secret-access/conformance attestation is unavailable.
 | capability | what it can now do | evidence pointer | first working round |
 |---|---|---|---|
 | typed feature-bounded credential review | adjudicate typed credential records against pinned source bindings, refusing known-bad admits | `corpus/feature-claims.py`; R22-01/R22-02 | round 22 |
-| closure disposition review | turn a non-author closure into exactly one typed, pointer-resolving disposition per obligation | `corpus/closure-dispositions.py`; R23-02; `--selftest` (13 cases) | round 23 |
+| closure disposition review | turn a non-author closure into exactly one typed, pointer-resolving disposition per obligation | `corpus/closure-dispositions.py`; R23-02; `--selftest` (14 cases) | round 23 |
 
 ### Saturation and next intended claims
 

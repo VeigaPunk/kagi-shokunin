@@ -63,14 +63,16 @@ cross-capture equality is enforced.
 
 ## Routed defect dispositions
 
-D1. The census prints five W04 duplicate-URL warnings; the round report quotes
+D1. The census prints seven W04 duplicate-URL warnings; the round report quotes
 them verbatim, not only the `kagi ok` line:
 `W04 S019 duplicate url www.1password.dev/brokered-access across scopes`,
 `W04 S020 duplicate url 1password.com/blog/1password-credential-broker-public-preview across scopes`,
 `W04 S021 duplicate url openbao.org/docs/concepts/tokens across scopes`,
 `W04 S022 duplicate url developer.hashicorp.com/vault/docs/auth/jwt across scopes`,
-`W04 S023 duplicate url developer.hashicorp.com/vault/docs/concepts/lease across scopes`.
-(The duplicate-URL warnings are expected: S019/S020/S022/S023 are
+`W04 S023 duplicate url developer.hashicorp.com/vault/docs/concepts/lease across scopes`,
+`W04 S025 duplicate url openbao.org/docs/auth/jwt across scopes`,
+`W04 S026 duplicate url openbao.org/docs/concepts/tokens across scopes`.
+(The seven duplicate-URL warnings are expected: S019/S020/S022/S023 are
 correction rows over URLs already registered by S007/S006/S012/S013, and
 S025/S026 add further correction rows over `docs/auth/jwt/` and
 `docs/concepts/tokens/`; W04 is a warning, not a failure.)
@@ -129,8 +131,9 @@ substrate dependency. `R13-03` keeps its skip for host-bound rows. The known
 row that re-invokes the gate is skipped and counted in `self_skipped`, so
 `CELL_AUDIT: CLEAN` with `self_skipped>=1` does not verify that row. This round
 found, from the parent-held audit, that `R11-08` (citations) is red at the base
-revision because the round-22 spot-check file adds three class-shaped tokens
-that do not resolve; the row is inherited evidence, not this round's claim, and
+revision because the round-22 spot-check file carries two resolvable
+class-shaped tokens that do not resolve (a third is hidden by the scanner's
+last-token skip); the row is inherited evidence, not this round's claim, and
 is reported unverified instead of credited.
 
 The outside spot-check's five discernment decisions (SPOT-01..05) and its
@@ -156,7 +159,7 @@ shows only this round's appends, so no silently rewritten lesson body exists.
 `corpus/fixtures/cells-hermetic/` holds a five-file fixture: a six-axis
 scorecard whose cells cite the illustrative fixture rows `R90-01` and
 `R90-02`, a claims file with two local-only rows, two stamped fixture rows, and
-`corpus/fx-ok.sh`. `stale_pointers=0` covers only paths a cell cites, so the
+`corpus/fixtures/cells-hermetic/corpus/fx-ok.sh`. `stale_pointers=0` covers only paths a cell cites, so the
 `fx-ok.sh` stamp is inert in this run (stated bound). `R23-01` runs
 `bash corpus/claim-ledger.sh cells --root corpus/fixtures/cells-hermetic
 --claims .../claims.tsv --stamps .../stamps.tsv --scorecard .../SCORECARD.md
@@ -164,7 +167,7 @@ scorecard whose cells cite the illustrative fixture rows `R90-01` and
 The fixture is copied by the falsify wave, mutated (uncited cell, bad row id,
 failing row) and must fail. `rows_run` counts selected rows including deferred
 rows, so the ledger pins `row_deferred=0` and `self_skipped=0`, not `rows_run`
-alone. No real host path is read.
+alone. No host file is read; the run may attempt PATH lookups and writes one removed `/tmp` file.
 
 ## Source accounting
 
@@ -174,7 +177,7 @@ rows, S025 OpenBao JWT locator and S026 OpenBao tokens locator). Distinct URLs: 
 provenance rows (S017-S026) over nine distinct URLs. The census gate's
 `SC_FETCH` covers every registry row by in-row pin or declared provenance.
 
-Tool installs: none this round. Census at round start: exit 0 with five W04
+Tool installs: none this round. Census at round start: exit 0 with seven W04
 warnings (quoted under D1); census at round end must exit 0 with the same W04
 warnings and `rows=26`.
 
@@ -202,6 +205,16 @@ the checker; the closed-pointer containment is path-based and an in-root
 hardlink to an outside inode would still be read; Python startup stats
 `$HOME/.local/lib/...` without opening files, and `mktemp` writes one `/tmp`
 file that is removed. The symlink-escape guard now has a regression case
-(selftest 14 cases). The 59-case census selftest exercises the declared-provenance
-branch; the 16-row in-row branch is exercised only by the real-tree run, so the
-selftest count does not certify that half of `SC_FETCH`.
+(selftest 14 cases). The 59-case census selftest exercises the declared-provenance branch; the
+in-row branch (16 of 26 rows) is exercised only by the real-tree run. The
+falsify wave measured 17 surviving mutants against the selftest (11
+check-deletions, including `final-url`, `http-status`, `representation`,
+`bytes`, `revision` and `inrow-digest-malformed`; plus in-row pins ignored and
+URL folded into the row digest), and `fetch-disagree` now duplicates
+`fetch-duplicate`. The selftest count is not per-check proof; empty quotes are
+reported under neighbouring field names, a `404`/`000` status and a
+`2099-01-01` fetch date pass shape checks, and the moving-ref rule only matches
+`raw.githubusercontent.com`/`/main`. That branch is open to
+any row: a 64-hex `Fetch sha256:` on any id opts that row out of declared
+provenance, and the CLEAN line carries no declared/legacy split — the bound is
+stated, not enforced (parent audit `CritLegacyBound`).

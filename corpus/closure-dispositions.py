@@ -38,11 +38,13 @@ VERDICT (last line):
   CLOSURE_DISPOSITIONS: SETUP (<reason>)                              exit 2
   --selftest: CLOSURE_DISPOSITIONS_SELFTEST: PASS (N cases)           exit 0
 
-Bounds: the gate checks record shape, obligation coverage and pointer
-resolution. It does not judge whether a disposition's prose is honest, rerun
-the fix, or reach the network; the parent's non-author closure still owns
-admission. A `fixed` pointer proves a reviewed record exists at that path, not
-that its content is correct.
+Bounds: the gate checks record shape, obligation-id coverage and pointer
+presence. Obligations are the closure's id list, not the reviewer's verdicts;
+a `fixed` pointer proves that a file exists at that path and contains the id
+token somewhere (comments count), not that a reviewer saw a fix, that the
+target is pinned, or that the fix works. It does not rerun fixes, compare
+verdicts, or reach the network; the parent's non-author closure still owns
+admission.
 """
 
 from __future__ import annotations
@@ -272,14 +274,16 @@ def base_rows() -> list[dict]:
 def selftest() -> int:
     cases: list[tuple[str, str, int, str]] = []  # name, mutation, expected exit, needle
     with tempfile.TemporaryDirectory(prefix="closure-dispositions-selftest-") as tmp:
-        root = Path(tmp)
+        root = Path(tmp) / "root"
+        root.mkdir()
+        outside = Path(tmp) / "outside.md"
         source_rel = "spot.md"
         dispo_rel = "dispositions.json"
         (root / source_rel).write_text(FIXTURE_SOURCE, encoding="utf-8")
         (root / "notes.md").write_text(FIXTURE_NOTES, encoding="utf-8")
         (root / "other.md").write_text("# other\n\nnothing here.\n", encoding="utf-8")
-        (root.parent / "outside.md").write_text("# outside\n\nD1 outside root.\n", encoding="utf-8")
-        (root / "link.md").symlink_to(root.parent / "outside.md")
+        outside.write_text("# outside\n\nD1 outside root.\n", encoding="utf-8")
+        (root / "link.md").symlink_to(outside)
         source_digest = digest(root / source_rel)
 
         def write(rows: list[dict], **overrides) -> None:

@@ -1191,7 +1191,7 @@ no machine disposition; 16 of 23 registry rows carry only historical in-row
 pins and 7 carry none; `sources-census.sh` has no fetch check; no ledger row
 runs `cells` host-free. After: `CLOSURE_DISPOSITIONS: CLEAN (obligations=15
 fixed=7 reported=2 operator_owned=1 no_action=5 rejected=0 pointers=15)` exit0
-with a 13-case selftest; `SOURCES_CENSUS: CLEAN (rows=26 A=24 B=0 C=2
+with a 14-case selftest; `SOURCES_CENSUS: CLEAN (rows=26 A=24 B=0 C=2
 queued=1 mined=24 rejected=1 entries_sourced=4 legacy=21)` exit0 and a
 59-case selftest with 12 SC_FETCH cases; `CELL_AUDIT: CLEAN (cells=6
 row_pointed=6 stamp_pointed=1 uncited=0 missing_ids=0 rows_run=2

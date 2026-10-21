@@ -826,7 +826,7 @@ secret-access/conformance attestation is unavailable.
 | Axis | Score | Evidence pointer | Last change |
 |---|---|---|---|
 | depth | 9 | R21-01: account-free dotenv byte behavior remains the verified depth evidence; no new domain-byte contract is proposed. | round 21 |
-| coverage | 9 | R11-11: the declared host-surface set is unchanged; S024-S026 correct locators, not new governed surfaces. | round 11 |
+| coverage | 9 | R11-11: the declared host-surface set is unchanged; S024-S026 do not exist at base, and the round adds no governed surface. | round 11 |
 | operability | 9 | R15-05: the checklist ratio is unchanged; `cells` has no host-free ledger row at base (R13-03 is skipped for host rows). | round 15 |
 | freshness | 9 | R21-02 measured 23 rows, of which 16 carried only historical in-row pins and 7 carried no provenance at all; `sources-census.sh` had no fetch check. | round 22 |
 | calibration | 9 | R22-02: the outside closure's D1-D9 and decisions were prose only; no machine disposition resolved at base (`test -e corpus/closure-dispositions.py` fails). | round 22 |
@@ -840,7 +840,7 @@ secret-access/conformance attestation is unavailable.
 | coverage | 9 → 9 | R21-02 now counts 26 rows; S024 is a new frontier row and S025/S026 are correction rows; the 10 captures cover nine distinct URLs and no new governed ground. | round 23 |
 | operability | 9 → 9 | R23-01 runs `cells` host-free over committed fixtures with the exact CLEAN line (`rows_run=2 row_deferred=0 self_skipped=0`). | round 23 |
 | freshness | 9 → 9 | C2: R21-03's 12 new `SC_FETCH` cases and 10 declared provenance rows in `corpus/source-fetches.tsv`; historical in-row pins stay bounded and uncompared. | round 23 |
-| calibration | 9 → 9 | C1 capability: R23-02 resolves 15 outside obligations with 7 fixed / 2 reported / 1 operator-owned / 5 no-action dispositions. | round 23 |
+| calibration | 9 → 9 | C1 capability: R23-02 resolves 15 outside obligation ids (not reviewer verdicts) with 6 fixed / 3 reported / 1 operator-owned / 5 no-action dispositions; D3 is reported, not fixed, because id-shaped positionals remain debt. | round 23 |
 | adjacency | 9 → 9 | `corpus/adjacency.tsv` and R17-02: the four declared breadth pins are unchanged; inherited parent findings are reported, not absorbed. | round 23 |
 
 ### Capabilities

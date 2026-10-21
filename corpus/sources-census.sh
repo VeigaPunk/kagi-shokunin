@@ -226,7 +226,7 @@ verify() {
   # ---- fetch provenance (round 23, routed D7) -------------------------------
   local fetchf="$ROOT/corpus/source-fetches.tsv"
   local fid fstatus frow furl ffinal fhttp fprof ffet frep fsha fbytes frev fquote fnorm fnsha floc seen_key words
-  declare -A FURL=() FINROW=() FSEEN=() FDIG=() FNRM=()
+  declare -A FURL=() FINROW=() FSEEN=()
   while IFS=$'\x1f' read -r fid furl sdigest; do
     [[ -n $fid ]] || continue
     FURL[$fid]=$furl; FINROW[$fid]=$sdigest

@@ -99,3 +99,17 @@ below this line and never rewrite the frozen text or the counting commands.
   `c2-measure.py` built its fixtures ("table + receipt"). "release-clocks.tsv
   edits only" in §C2 means: SOURCES.md and code are never edited by a fixture.
   Command lines, fixture ids, values and predicates are unchanged.
+
+- (L1, after BUILD reports, before any tool/patch commit) Axis booking
+  narrowed, not widened: CritC2Axis (`.ufo/waves/round-28/build/CritC2Axis.md`)
+  shows C2 binds a registry/release value, which this lane has always booked
+  as freshness (QM21 is scoped to numbers about the lane's own artifacts). The
+  L1 accepts it: per AXES.md "two claims on one axis = one claim", C1 and C2
+  are reported as ONE freshness claim with two frozen counting commands;
+  calibration carries no claim this round. Commands, fixtures and predicates
+  are unchanged.
+- Sourcing clarification: §C1's "SemVer S042 §2" was wrong — S042 locates
+  §11.2 only (`corpus/SOURCES.md:49`; ScribeSourcesRows, SrcSemverSec2,
+  RevSourcesContract). The leading-zero half is grounded by a new row for
+  SemVer §2 and the oversize half by a new Python integer-string conversion
+  limit row, both opened this round; S042 is unchanged.

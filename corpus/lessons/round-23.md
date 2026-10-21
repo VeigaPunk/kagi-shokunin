@@ -111,7 +111,10 @@ round confirmed that bound is real, not theoretical: S008's in-row digest
 reproduces (1909 B, `63cb0a46…`) but its quote is reST-rendered; S012/S013's
 in-row digests do not reproduce under any tested representation; S014's
 `e9472324…` matches none of seven representations; S016's `c083fdca…` matches
-neither raw `52295218…` nor normalized `ed949658…`. Superseding rows S025/S026
+neither raw `52295218…` nor normalized `ed949658…`; the parent audit also
+measured S015's active in-row `a0a2b227…` against 520 representations with no
+match, so S015 remains a named historical-pin debt (fix: a declared capture,
+not a restamp). Superseding rows S025/S026
 carry the corrected active locators and declared digests; the old rows keep
 their historical values and are never silently rewritten.
 
@@ -141,6 +144,7 @@ manufacture agreement.
 |---|---|---|---|---|
 | M23-1 | a digest with no declared representation was treated as provenance | `corpus/SOURCES.md` in-row pins S012/S013/S014/S016; parent audit reports `SourceS012.md`, `SourceS013.md`, `SourceS014.md`, `SourceS016.md`; `source-fetches.tsv` re-captures | QA6 ("a count carries its command") did not distinguish a digest value from its representation | `SC_FETCH` requires representation, request profile, final URL, status and row-line identity; legacy pins are explicitly bounded as historical; same-URL captures must agree |
 | M23-2 | supersession and used-by edges were prose-only, so a pointer closure could miss real consumers | S012's consumers in `corpus/feature-claims.json:63-77,915-932` and `corpus/README.md:78`; S018 body citations in `onepassword-machine-credentials.md:42,52,55` | QA10 covered qualifier travel, not machine-readable supersession/used-by | recorded as routed debt with named consumers; the census keeps its declared used-by shape, and no silent widening is claimed |
+| M23-4 | seat reports misrooted to the fleet root | `.ufo/waves/round-23/falsify/RevS019.md`, `ScoutMigration.md`, `parent-build/ClaimR11X11.md` were found under the fleet root and byte-copied into the lane (`cmp` equal) before deletion | assigned absolute Report paths in every wave context | relocate and keep the fleet root clean; report names the misroot |
 | M23-3 | `cells` can print CLEAN while a cited row is self-skipped and red | `claim-ledger.sh` `SKIP-SELF` path; `R11-08` red at `d218603` per parent audit `ClaimR11X08.md` | QM3 counted skips in verdict lines but not the self-skip exemption | reported as unverified; the hermetic fixture deliberately cites no self-invoking row, and the real-tree claim is not made |
 
 Sweep that looked for a fourth mistake and found none:

@@ -104,8 +104,8 @@ input-digest sidecar. This round writes `measured_commit` into
 `.ufo/waves/round-23/final-verification.json`.
 
 D7. `corpus/source-fetches.tsv` + `SC_FETCH` bind every row without an in-row
-pin to a declared representation, URL, final URL, HTTP status, row-line digest
-and located quote. Bound, stated: legacy in-row digests (S001-S016) remain
+pin to a declared representation, URL, final URL, HTTP status, row-identity
+digest and a declared quote (shape-checked only, not verified against the page). Bound, stated: legacy in-row digests (S001-S016) remain
 historical point observations with undocumented representation. The audits this
 round confirmed that bound is real, not theoretical: S008's in-row digest
 reproduces (1909 B, `63cb0a46…`) but its quote is reST-rendered; S012/S013's
@@ -180,7 +180,7 @@ warnings and `rows=26`.
 
 ## Falsification bounds (round 23)
 
-The 64-seat falsification wave confirmed the three claims and named these
+The 64-seat falsification wave reported on the three claims and named these
 bounds, which the report repeats: C1's pointer test is presence-only (a
 `fixed` pointer proves a file plus anchor substring plus id token, not fix
 content); the obligation source digest is pinned in the same lane-writable
@@ -188,7 +188,7 @@ JSON, so the gate proves internal consistency, not that nobody deleted an
 obligation; anchor matching is a substring over any `#`-prefixed line; and only
 `fixed` dispositions require the id token. C2's SC_FETCH is shape-and-identity,
 not content verification: a 64-hex in-row digest passes on presence (the
-historical bound), quote text is not substring-checked, and captures are point
+historical bound), quote text and location are not checked against the page (a changed-word quote, a blank quote, or 60 thin-space-joined words pass; only ASCII word count and a non-empty location are shape-checked), and captures are point
 attestations (page chrome moved S017's and S023's normalized digests between
 days while their articles did not). C3's fixture proves the `cells` mechanics
 host-free; it does not replicate all 43 ledger rows, and `rows_run` counts
@@ -202,4 +202,6 @@ the checker; the closed-pointer containment is path-based and an in-root
 hardlink to an outside inode would still be read; Python startup stats
 `$HOME/.local/lib/...` without opening files, and `mktemp` writes one `/tmp`
 file that is removed. The symlink-escape guard now has a regression case
-(selftest 14 cases).
+(selftest 14 cases). The 59-case census selftest exercises the declared-provenance
+branch; the 16-row in-row branch is exercised only by the real-tree run, so the
+selftest count does not certify that half of `SC_FETCH`.

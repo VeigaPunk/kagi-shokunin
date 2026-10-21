@@ -22,7 +22,8 @@
 #   sha256             sha256 of the representation bytes
 #   bytes              byte count of the representation
 #   revision           40-hex immutable revision for a moving-ref URL, else -
-#   quote              located quote, <=25 whitespace-separated words
+#   quote              declared quote, shape-checked only: <=25 ASCII words,
+#                      not verified against the page bytes or the location
 #   normalization      rendered-text-v1: strip script/style, tags -> single space,
 #                      html.unescape, collapse whitespace, trim both ends,
 #                      UTF-8 encode; raw-literal-v1: bytes

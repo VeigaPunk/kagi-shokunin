@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 """Round-26 evidence recorder. All gate executions use fresh scratch clones."""
-import copy
 import hashlib
 import importlib.util
 import json
@@ -18,6 +17,7 @@ BASE = "1bf3eec48d3761580ffd375c88143232485ae814"
 HISTORICAL_SHA = "b74c8ee30aaeaf7a867f9bbad39ea42e94f199da69ebd01d0e391d2e8b349f92"
 CURRENT_SHA = "13b8540c78b9de07bc184894583a368472fd1f2f04a898220bf7c29d2648a169"
 REL = ".ufo/waves/round-26"
+RECORDS = []
 
 
 def load_module(path, name):
@@ -28,28 +28,33 @@ def load_module(path, name):
 
 
 def main():
+    if len(sys.argv) != 3:
+        raise SystemExit("usage: final-measure.py FULL_REVISION OUTPUT.json")
     revision, output = sys.argv[1:]
     if not re.fullmatch(r"[0-9a-f]{40}", revision):
         raise SystemExit("full measured revision required")
-    records = []
+    records = RECORDS
     with tempfile.TemporaryDirectory(prefix="kagi-r26-measure-", dir="/fast/scratch") as temp:
         temp = Path(temp)
+        home = temp / "empty-home"
+        home.mkdir()
+        scratch_tmp = temp / "tmp"
+        scratch_tmp.mkdir()
+        env = {
+            "PATH": os.environ.get("PATH", "/usr/bin:/bin"),
+            "HOME": str(home), "TMPDIR": str(scratch_tmp),
+            "LC_ALL": "C", "LANG": "C", "PYTHONDONTWRITEBYTECODE": "1",
+        }
         mirror = temp / "fleet"
         mirror.mkdir()
         root = mirror / "kagi-shokunin"
-        subprocess.run(["git", "clone", "--quiet", "--no-hardlinks", "--no-checkout", str(LANE), str(root)], check=True)
-        subprocess.run(["git", "-C", str(root), "checkout", "--quiet", "--detach", revision], check=True)
+        subprocess.run(["git", "clone", "--quiet", "--no-hardlinks", "--no-checkout", str(LANE), str(root)], check=True, env=env)
+        subprocess.run(["git", "-C", str(root), "checkout", "--quiet", "--detach", revision], check=True, env=env)
         for entry in LANE.parent.iterdir():
             if entry.name == "kagi-shokunin" or entry.name in (".git", ".jj"):
                 continue
             if entry.name.endswith("-shokunin") or entry.name == ".ufo" or entry.is_file():
                 (mirror / entry.name).symlink_to(entry, target_is_directory=entry.is_dir())
-        home = temp / "empty-home"
-        home.mkdir()
-        env = dict(os.environ, HOME=str(home), PYTHONDONTWRITEBYTECODE="1")
-        for key in list(env):
-            if key.startswith("OP_SESSION") or key in ("OP_SERVICE_ACCOUNT_TOKEN", "OP_CONNECT_TOKEN", "OP_CONNECT_HOST", "OP_ACCOUNT"):
-                del env[key]
 
         def record(name, passed, **detail):
             records.append(dict(name=name, passed=bool(passed), **detail))
@@ -121,8 +126,8 @@ def main():
         lone_parent = temp / "lone"
         lone_parent.mkdir()
         lone = lone_parent / "checkout"
-        subprocess.run(["git", "clone", "--quiet", "--no-hardlinks", "--no-checkout", str(LANE), str(lone)], check=True)
-        subprocess.run(["git", "-C", str(lone), "checkout", "--quiet", "--detach", revision], check=True)
+        subprocess.run(["git", "clone", "--quiet", "--no-hardlinks", "--no-checkout", str(LANE), str(lone)], check=True, env=env)
+        subprocess.run(["git", "-C", str(lone), "checkout", "--quiet", "--detach", revision], check=True, env=env)
         run("lone-citations-honesty", ["bash", "corpus/claim-ledger.sh", "citations"], 3,
             ["CITATION_GATE: INCOMPLETE", "unresolved=0", "fleet_absent=48"], cwd=lone,
             last_re=r"CITATION_GATE: INCOMPLETE \(cites=[0-9]+ docs=[0-9]+ unresolved=0 ephemeral=0 labeled=[0-9]+ fleet_absent=48\)")
@@ -141,7 +146,7 @@ def main():
         prose.write_bytes(pristine_prose)
 
         historical = root / ".ufo/waves/round-25/observe-1.json"
-        old_bytes = subprocess.check_output(["git", "-C", str(root), "show", BASE + ":.ufo/waves/round-25/observe-1.json"])
+        old_bytes = subprocess.check_output(["git", "-C", str(root), "show", BASE + ":.ufo/waves/round-25/observe-1.json"], env=env)
         record("historical-receipt-immutable", historical.read_bytes() == old_bytes and hashlib.sha256(old_bytes).hexdigest() == HISTORICAL_SHA,
                sha256=hashlib.sha256(historical.read_bytes()).hexdigest(), expected_sha256=HISTORICAL_SHA)
         current = root / REL / "observe-2.json"
@@ -161,9 +166,9 @@ def main():
         sources = clock.parse_sources(root)
         bindings = clock.parse_bindings(root)
         by_id = {row["id"]: dict(zip(clock.HEADER, row["fields"])) for row in bindings}
-        old_source_text = subprocess.check_output(["git", "-C", str(root), "show", BASE + ":corpus/SOURCES.md"], text=True)
+        old_source_text = subprocess.check_output(["git", "-C", str(root), "show", BASE + ":corpus/SOURCES.md"], text=True, env=env)
         old_source_ids = re.findall(r"^\| (S[0-9]{3,}) \|", old_source_text, re.M)
-        old_table = subprocess.check_output(["git", "-C", str(root), "show", BASE + ":corpus/release-clocks.tsv"], text=True)
+        old_table = subprocess.check_output(["git", "-C", str(root), "show", BASE + ":corpus/release-clocks.tsv"], text=True, env=env)
         old_binding_ids = [line.split("\t", 1)[0] for line in old_table.splitlines()[1:]]
         record("source-and-clock-population", len(old_source_ids) == 38 and len(sources) == 41 and len(old_binding_ids) == 28 and len(by_id) == 30 and set(old_source_ids) <= sources.keys() and set(old_binding_ids) <= by_id.keys(),
                before={"source_rows": len(old_source_ids), "clock_bindings": len(old_binding_ids), "rearmed_successors": 0},
@@ -234,4 +239,15 @@ def main():
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    try:
+        status = main()
+    except Exception as exc:
+        RECORDS.append(dict(name="recorder-crash", passed=False, error_type=type(exc).__name__, error=str(exc)))
+        result = dict(format="kagi-round26-final-measure-v1", measured_revision=sys.argv[1],
+                      base_revision=BASE, checks=RECORDS,
+                      passed=sum(entry["passed"] for entry in RECORDS), total=len(RECORDS),
+                      crashed=True)
+        Path(sys.argv[2]).write_text(json.dumps(result, indent=2) + "\n")
+        print("ROUND26_MEASURE: recorder-crash " + type(exc).__name__ + ": " + str(exc))
+        status = 2
+    raise SystemExit(status)

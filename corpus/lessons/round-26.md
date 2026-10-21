@@ -243,3 +243,26 @@ honest lone INCOMPLETE verdict. It was replaced with the equivalent
 “corpus or digit coverage”; no citation classification or C2 policy was
 changed. Its static BASE-reconciled finding is retained in the residual
 report, and the final suite must re-establish both layout verdicts.
+
+FinalInstrument's environment and invalid-success findings were accepted:
+the recorder now whitelists its environment before Git setup or any gate,
+uses a scratch HOME/TMPDIR, checks complete verdict lines rather than
+truncated counts, and retains prior records plus a failed recorder-crash
+record if execution raises. The command invoking the recorder uses isolated
+Python startup. Its before/after source and binding counts are parsed from
+the actual BASE and measured Git blobs, not copied from prose.
+
+The fleet citation mirror intentionally resolves sibling/fleet targets
+against the live fleet checkout; it is a dated layout check, not a frozen
+snapshot of every sibling. The claim's clock snapshots and producer inputs
+are separately pinned. Source re-openings and all residual reviews remain
+lane-authored advice; none supplies outside admission or a SHONEN [x].
+
+Process conformance: the full round prompt, godspeed, fleet SSOT and
+canonical protocol/corpus/learning were loaded before implementation.
+Redundant canonical MISSION/AXES copies and the incident appendix were
+opened later; no claim of perfect literal load order is made. A few BUILD
+seats ran normalizer selftests despite the mid-flight restriction and
+created corpus bytecode, which L1 removed as generated scaffolding. No
+whole-round no-tests/no-private-read attestation is made; no vault action
+or host-row consent is credited. No tool was installed or updated.

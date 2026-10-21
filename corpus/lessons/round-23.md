@@ -153,7 +153,8 @@ manufacture agreement.
 | M23-4 | seat reports misrooted to the fleet root | `.ufo/waves/round-23/falsify/RevS019.md`, `ScoutMigration.md`, `parent-build/ClaimR11X11.md` were found under the fleet root and byte-copied into the lane (`cmp` equal) before deletion | assigned absolute Report paths in every wave context | relocate and keep the fleet root clean; report names the misroot |
 | M23-3 | `cells` can print CLEAN while a cited row is self-skipped and red | `claim-ledger.sh` `SKIP-SELF` path; `R11-08` red at `d218603` per parent audit `ClaimR11X08.md` | QM3 counted skips in verdict lines but not the self-skip exemption | reported as unverified; the hermetic fixture deliberately cites no self-invoking row, and the real-tree claim is not made |
 
-Sweep that looked for a fourth mistake and found none:
+Sweep that looked for another coding mistake and found none (M23-4 is a
+process misroot, not a code defect):
 `git -C kagi-shokunin diff --stat d218603..HEAD -- corpus/lessons corpus/QUALITY.md`
 shows only this round's appends, so no silently rewritten lesson body exists.
 

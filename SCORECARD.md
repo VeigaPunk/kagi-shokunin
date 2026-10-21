@@ -841,7 +841,7 @@ secret-access/conformance attestation is unavailable.
 | operability | 9 → 9 | R23-01 runs `cells` host-free over committed fixtures with the exact CLEAN line (`rows_run=2 row_deferred=0 self_skipped=0`). | round 23 |
 | freshness | 9 → 9 | C2: R21-03's 12 new `SC_FETCH` cases and 10 declared provenance rows in `corpus/source-fetches.tsv`; historical in-row pins stay bounded and uncompared. | round 23 |
 | calibration | 9 → 9 | C1 capability: R23-02 resolves 15 outside obligation ids (not reviewer verdicts) with 6 fixed / 3 reported / 1 operator-owned / 5 no-action dispositions; D3 is reported, not fixed, because id-shaped positionals remain debt. | round 23 |
-| adjacency | 9 → 9 | `corpus/adjacency.tsv` and R17-02: the four declared breadth pins are unchanged; inherited parent findings are reported, not absorbed. | round 23 |
+| adjacency | 9 → 9 | stamp-pinned `corpus/adjacency.tsv` and R17-02: the four declared breadth pins are unchanged; inherited parent findings are reported, not absorbed. | round 23 |
 
 ### Capabilities
 

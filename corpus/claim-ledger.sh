@@ -233,7 +233,7 @@ trap cleanup_tmp EXIT
 # First token must be one of these; the allowlist is deliberately tiny — a
 # claim is a verdict-producing command, not a pipeline.
 ALLOWED_RE='^(bash|grep|sha256sum|wc|test|python3)$'
-PYTHON_SCRIPT_RE='^python3[[:space:]]+corpus/(feature-claims|revision-audit|closure-dispositions)\.py([[:space:]]|$)'
+PYTHON_SCRIPT_RE='^python3[[:space:]]+corpus/(feature-claims|revision-audit|closure-dispositions|rendered-text-v1)\.py([[:space:]]|$)'
 # No shell metacharacters at all: one simple command, no composition.
 META_RE='[;&|<>$`]'
 # Verbs that touch the handler, the vault, the repo, or the network. Word

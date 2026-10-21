@@ -224,3 +224,37 @@ Rejected or kept as named limits, with reasons:
   still compared by string for fired/not-fired (inherited) — named debt.
 - XRegressDraft: a >4300-digit component raises ValueError (untyped crash,
   non-zero exit) — named debt.
+
+
+## Final executed Gate (measured revision `3fb77271eeee797047c37871038b1db1247fa236`)
+
+All runs in a clean clone of `3fb77271eeee797047c37871038b1db1247fa236` (`/fast/scratch/kagi-r27-final/m`) with
+`env -i PATH HOME=/fast/scratch LC_ALL=C PYTHONDONTWRITEBYTECODE=1`; argv, exits
+and tails in `.ufo/waves/round-27/final/invocations.json`.
+
+- C1: BASE docs + final table `SELF_COUNTS: STALE (claims=60 stale=4)` (exit 1;
+  the four ids above) → final docs `SELF_COUNTS: CLEAN (claims=60 stale=0)`
+  (exit 0). All 22 `--mutate` controls exit 1 with exactly one finding naming
+  their id: 18 STALE, 4 UNLOCATED (`final/c1-mutate-*.json`).
+- C2: BASE downgrades accepted CLEAN 4/4, REGRESSED exact 0/4 → final 0/4 and
+  4/4; control CLEAN and default `RELEASE_CLOCK: CLEAN (on_release=30 bound=30
+  unbound=0 observed=30 fired=3 derived=15)` at both. Clock selftest
+  `PASS (79 cases)` (67 at BASE).
+- Separability (`final/separability.json`): C1-only overlay stale knowledge 0,
+  clock selftest 67, downgrades accepted 4/4; C2-only overlay REGRESSED exact
+  4/4, selftest 79, zero `KN-*` rows, `SELF_COUNTS: STALE (claims=38 stale=2)`
+  on SC/PV-CLOCK-SELFTEST — the declared edge, nothing else.
+- Ledger: fleet layout (lane checkout at `3fb77271eeee797047c37871038b1db1247fa236`, clean tree)
+  `CLAIM_LEDGER: CLEAN (claims=65 deferred=0 stamped=90 ids=65 cited=55
+  labeled_ids=20 orphans=10 host_skipped=12)`; lone clone `INCOMPLETE` with
+  exactly `LAYOUT-INCOMPLETE R11-08 exit=3` (fleet-only evidence; inherited
+  since round 25, not a round-27 result and not laundered).
+- Sources census exit 0, `kagi ok`, 11 W04 duplicate-url warnings
+  (`final/census-end.json`; start had 8 — S039/S040/S041 now share URLs with
+  another lane's registry, no kagi row changed URL).
+- An earlier dev run of self-counts in the live checkout printed SETUP
+  (setup=1) once while a residual seat was running; the immediate rerun and
+  the clean-clone run are CLEAN. Disclosed, not explained.
+
+Recorded after `3fb77271eeee797047c37871038b1db1247fa236`: this section, SCORECARD/LOG outcome text, `final/`
+receipts and restamps — text and evidence only, no code or table change.

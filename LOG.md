@@ -1519,3 +1519,10 @@ anchor` reads any older observation as a fired release).
 - Job cap: the validated 67-seat BUILD wave was refused atomically 16 times
   (`build-refusals.json`) and dispatched on try 17; the L1 implemented while
   refused and the seats attacked the working candidate.
+- Residual: 8 falsifiers (6 critic, 1 reviewer, 1 mutation-tester) on the
+  candidate; a surviving major-component mutant, non-strict observations and
+  the observer's missing feed floor were fixed (selftest 76 → 79) and doc
+  overclaims corrected; derived-anchor forgery, sibling cascade and leading-
+  zero equality stay named limits (`lessons/round-27.md`).
+- Measured revision `3fb77271eeee797047c37871038b1db1247fa236`; final Gate receipts `.ufo/waves/round-27/final/`
+  (C1 stale 4 → 0, C2 accepted 4/4 → 0/4, ledger CLEAN in fleet layout).

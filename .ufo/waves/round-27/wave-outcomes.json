@@ -1,0 +1,53 @@
+{
+  "round": 27,
+  "lane": "kagi",
+  "build": {
+    "wave": "kagi-r27-build",
+    "seats": 67,
+    "mix": {
+      "scout": 29,
+      "reviewer": 9,
+      "critic": 8,
+      "scribe": 6,
+      "connector": 5,
+      "executor": 4,
+      "mutation-tester": 2,
+      "revenger": 2,
+      "simplifier": 1,
+      "sentinel": 1
+    },
+    "refusals_before_dispatch": 16,
+    "dispatched_on_try": 17,
+    "reports": 58,
+    "dead": [
+      "ClockCurl",
+      "ClockOpenbao",
+      "ClockSops",
+      "ClockQuotes",
+      "ClockPython",
+      "ClockVault",
+      "RevwBookkeeping",
+      "RevwDocsAudit",
+      "RevwLocator"
+    ],
+    "dead_cause": "Devin stream error resource_exhausted (free model rate limit), terminal-error-notices.json",
+    "replaced": 0,
+    "slot": "acquired, released"
+  },
+  "residual": {
+    "reason": "fewer than 64 distinct attack items after BUILD; ordinary batch, not a wave",
+    "seats": 8,
+    "mix": {
+      "critic": 6,
+      "reviewer": 1,
+      "mutation-tester": 1
+    },
+    "refusals_before_dispatch": 2,
+    "dispatched_on_try": 3,
+    "reports": 8,
+    "dead": []
+  },
+  "total_seats": 75,
+  "candidate": "144babcb892f0a30154880a9f94aa59ca8ddf9c5",
+  "measured_revision": "3fb77271eeee797047c37871038b1db1247fa236"
+}

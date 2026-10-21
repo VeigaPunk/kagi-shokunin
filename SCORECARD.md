@@ -1096,3 +1096,12 @@ retirement or promotion is claimed.
 
 Measured revision, exact exits and separability overlays are appended below
 after the measured revision lands; no unrun result is stated here.
+
+**Round-27 measured outcome (appended; supersedes the pre-critic numbers in
+the table above — 18 bindings, 2/2 fixtures and selftest 73 were candidate-
+time figures).** Measured revision `3fb77271eeee797047c37871038b1db1247fa236`, receipts
+`.ufo/waves/round-27/final/`: C1 22 `KN-*` bindings over eight entries, BASE
+docs stale 4 → 0, 22/22 mutation controls red (18 STALE, 4 UNLOCATED); C2
+downgrade fixtures accepted CLEAN 4/4 → 0/4, REGRESSED exact 0/4 → 4/4,
+control/default CLEAN30, clock selftest 67 → 79; separability holds except the
+declared SC/PV-CLOCK-SELFTEST edge. Axis scores stay as stated (9 → 9).

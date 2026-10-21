@@ -1,41 +1,52 @@
 # RevS019 — round-23 falsification: S019 live re-measure
 
 Seat: RevS019 (falsification). Date: 2026-10-21 (UTC). Base:
-`d218603b74099ddca0bd8f869516fc41db0979bf` plus the uncommitted round-23 tree at
+`d218603b74099ddca0bd8f869516fc41db0979bf` plus the round-23 tree at
 `/home/vgpnk/Projects/shokunin/kagi-shokunin`.
 
-Artifact state pinned by sha256 at measurement time:
+The tree moved repeatedly while this seat measured (integrator commits
+`ea5b734`, `b55e0e7`, `7af07b4`, `284d40e`, `638d44c`, `def9bc2e`, plus
+working-tree edits). The S019 row is byte-identical in every state; the gate
+and the provenance wording changed under the seat. Measurements are pinned to
+the attacked state and to the write-time state; intermediate changes are named
+where they bear on a finding. No lane edits by this seat; scratch only under
+`/tmp`; this report is the only write.
 
-| path | sha256 |
-|---|---|
-| `corpus/SOURCES.md` | `06dde644801bee13736fca21d9ecadec83086ea1f5de77043394a62d2d525b29` |
-| `corpus/source-fetches.tsv` | `ccc9ae6ec1b4bfa2ea8d879762a8fca18a84673145b54a04f39530de2d65a0af` |
-| `corpus/sources-census.sh` | `80966e208321348aad0ae6dd5b65987bccc4901e99fcba9f94feedd150228781` |
-| `corpus/lessons/round-23.md` | `d55209887c13825cdf4b0a423aed080830d0ffaaefbb980ce01d49cb9642c773` |
+| state | when | HEAD | `SOURCES.md` | `source-fetches.tsv` | `sources-census.sh` | `lessons/round-23.md` |
+|---|---|---|---|---|---|---|
+| A (attacked as delivered) | before 01:02 | `d218603` + dirty tree | `06dde644…` | `ccc9ae6e…` | `80966e20…` | `d5520988…` |
+| D (final at write) | 2026-10-21T04:14Z | `def9bc2e` | `c6ea91ab…` | `6e26e140…` | `511deb27…` | `93df7d34…` |
 
-Host facts: bash `5.3.20(1)-release`, curl `8.23.0`. No installs, no host gates,
-no git/jj mutation, no production edits. Scratch only under `/tmp/r23s019.RahVu7`;
-this report is the only write inside the lane.
+Host: bash `5.3.20(1)-release`, curl `8.23.0`. At state D the S019-bearing
+files (`SOURCES.md`, `source-fetches.tsv`, `sources-census.sh`) were clean;
+`lessons/round-23.md` and `stamps.tsv` carried uncommitted integrator edits that
+do not touch the S019 row. The S019 registry row (`SOURCES.md:25`) and provenance
+row (`source-fetches.tsv:40`) are unchanged from state A in every field that
+matters (status, URL, digests, quote).
 
-**Verdict.** The S019 provenance row reproduces exactly on every declared field:
-registered URL, final URL, HTTP status, decoded byte count, raw sha256,
-row-identity sha256, `rendered-text-v1` sha256, and the located quote. I found
-**no wrong digest and no stale capture**. The pass, however, is established only
-by this external re-measurement: the round's own `SC_FETCH` check never reaches
-S019 because `corpus/sources-census.sh` aborts at line 242 before the fetch
-block. Two surrounding defects are independently reproduced: the C2 gate is
-inert on the tree (already reported at `RevS022.md:91`,
-`MutFetchRemove.md:123`) and the round's "seven distinct URLs" is actually nine
-(`RevS022.md:133`, `MutFetchRemove.md:143`). No S019-specific datum is falsified;
-the S019 `location` label is a precision caveat, not a wrong-section claim.
+**Verdict.** The S019 provenance row reproduces on every declared field —
+registered URL, final URL, HTTP 200, decoded byte count, raw sha256,
+row-identity sha256, `rendered-text-v1` sha256, and the located quote — against
+three byte-identical fetches. **No wrong digest and no stale capture.** The
+current gate evaluates S019: deleting the row yields `SC_FETCH id=S019
+missing-provenance`; zeroing its row-identity digest yields `SC_FETCH id=S019
+row-identity-digest-mismatch`; the pristine tree is `CLEAN (rows=26 …)`, exit 0,
+and the 59-case selftest passes. State A had a real blocker (the census aborted
+at its `SUPERSEDED` line before any `SC_FETCH` check), plus three
+wording/accounting defects ("seven distinct URLs", "stable declared identity",
+and later a "no cross-capture equality" claim contradicted by the gate); all
+were repaired by the integrator during this seat's run and are recorded in §3.4
+as historical, not current. Current findings: one LOW locator caveat (S019's
+`location` is not present in the representation) and two INFO caveats
+(W04/`kagi` reproducibility, D7 pointer existence vs execution).
 
 ---
 
-## 1. Fetch with the declared profile
+## 1. S019 fetch with the declared profile
 
-Profile definition: `corpus/source-fetches.tsv:12-13`
+Declared profile: `corpus/source-fetches.tsv:12-13`
 (`curl -fsSL --compressed -A 'kagi-shokunin-round23/1.0 (documentation verification)' <url>`).
-Registered URL: `corpus/SOURCES.md:25`; provenance row: `corpus/source-fetches.tsv:39`.
+Registered row: `corpus/SOURCES.md:25`; provenance row: `corpus/source-fetches.tsv:40`.
 
 ```console
 $ mkdir -p /tmp/r23s019.RahVu7 && cd /tmp/r23s019.RahVu7
@@ -53,12 +64,10 @@ $ wc -c < body.html
 1199447
 ```
 
-A second GET produced a byte-identical body (`cmp` exit 0; same sha256, same
-1,199,447 bytes). A third GET captured headers:
+Two further GETs (`body2.html`, `body3.html`) produced identical bytes: same
+sha256, same 1,199,447 B, `cmp` exit 0 each time. Headers from a third GET:
 
-```console
-$ curl -fsSL --compressed -A '...' -D hdr.txt -o /dev/null \
-    https://www.1password.dev/brokered-access
+```text
 HTTP/2 200
 content-encoding: br
 etag: W/"z6d2q9klrgppcp"
@@ -67,23 +76,23 @@ cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0
 server: Vercel
 vary: rsc, accept-encoding, Accept, User-Agent
 x-vercel-cache: MISS
-exit=0
 ```
 
 `size_download=166493` is the wire (brotli) size; the declared `bytes` is the
-decoded body (`corpus/source-fetches.tsv:15-16`), measured at 1,199,447 by
-`wc -c`. That is the declared domain, so there is no byte-count mismatch. The
-body contains asset URLs carrying `?dpl=dpl_8AUWT8nFRmT7D3RgoEGEPVymfFQP`, i.e.
-the HTML is deployment-coupled even though three same-deployment GETs were
-byte-identical.
+decoded body (`corpus/source-fetches.tsv:15-16`), measured 1,199,447 by
+`wc -c`. No mismatch. The body contains `?dpl=dpl_8AUWT8nFRmT7D3RgoEGEPVymfFQP`
+asset URLs, so the HTML is deployment-coupled even though three
+same-deployment GETs were byte-identical.
 
 ---
 
-## 2. Row identity, digest, normalization, quote
+## 2. Row verification
 
-`rendered-text-v1` recomputed from the decoded body with the algorithm declared
-at `corpus/source-fetches.tsv:26-28` (strip `script`/`style` with contents, tags
-to a single space, `html.unescape`, collapse `\s+`, trim, UTF-8):
+### 2.1 Declared vs measured
+
+`rendered-text-v1` recomputed with the algorithm declared at
+`corpus/source-fetches.tsv:27-29` (strip `script`/`style` with contents, tags to
+a single space, `html.unescape`, collapse Unicode whitespace, trim, UTF-8):
 
 ```python
 h = open('body.html', encoding='utf-8').read()
@@ -94,124 +103,79 @@ s = re.sub(r'\s+', ' ', s).strip()
 hashlib.sha256(s.encode('utf-8')).hexdigest()
 ```
 
-| field | declared (`source-fetches.tsv:39`) | measured | result |
+| field | declared (`source-fetches.tsv:40`) | measured | result |
 |---|---|---|---|
-| status | `mined` | registry status `mined` (`SOURCES.md:25`) | equal |
+| status | `mined` | registry `mined` (`SOURCES.md:25`) | equal |
 | url | `https://www.1password.dev/brokered-access` | registered URL, same string | equal |
 | final_url | same | `%{url_effective}` = same | equal |
 | http_status | `200` | `200` | equal |
 | request_profile | `curl-fsSL-compressed-v1` | exact command above | equal |
-| fetched | `2026-10-21` | fetch date 2026-10-21 | equal |
-| representation | `decoded-http-body-volatile-v1` | decoded body; see §4.6 | declared domain |
+| fetched | `2026-10-21` | 2026-10-21 | equal |
+| representation | `decoded-http-body-volatile-v1` | decoded body; deployment-coupled via `?dpl=` | declared domain |
 | sha256 | `67f690e21116a364…43c312` | `67f690e21116a364…43c312` | equal |
 | bytes | `1199447` | `1199447` | equal |
 | revision | `-` | URL is not a moving ref | applicable |
-| quote | `administrators can set up a supported integration in their 1Password Business account` | exact substring, 1 occurrence | located |
+| quote | `administrators can set up a supported integration in their 1Password Business account` | exact substring, 1 occurrence in normalized text | located |
 | normalization | `rendered-text-v1` | same algorithm | applied |
 | normalized_sha256 | `f3861c172c370dd1…38cc6e9` | `f3861c172c370dd1…38cc6e9` | equal |
-| location | `Introduction` | 0 occurrences in page; see §4.2 | precision caveat |
+| location | `Introduction` | 0 occurrences in the page; see §3.1 | precision caveat |
 
-Normalized text length: 6,019 characters. Quote index in the normalized text:
-1508; the article's `Add an integration` H2 body offset is 2207, so the quote
-precedes the first body section. The quote is visible article content, not a
-script payload: in raw HTML it begins at offset 98,901 inside
-`<div … id="content">` → `<span data-as="p">` → `…</a>, administrators can set up
-a supported integration in their 1Password Business account …`.
+Normalized text length: 6,019 characters. Quote index: 1508; the article's
+`Add an integration` H2 body offset is 2207, so the quote precedes the first
+body section. The quote is visible article content, not a script payload: in
+raw HTML it begins at offset 98,901 inside `<div … id="content">` →
+`<span data-as="p">` → `…</a>, administrators can set up a supported integration
+in their 1Password Business account …`. The raw HTML has three occurrences (one
+visible, two inside the RSC script payload that `rendered-text-v1` strips); the
+normalized text has exactly one.
 
-Row identity recomputed exactly as the census does (`id<TAB>status<TAB>url<LF>`):
+### 2.2 Row identity
 
 ```console
 $ printf 'S019\tmined\thttps://www.1password.dev/brokered-access\n' | sha256sum
 6b60cca671eb812e3c63332a17262231a9b8d7dff6f5f53465232aba16567f9c  -
 ```
 
-This equals field 3 of `corpus/source-fetches.tsv:39`. The row has 16 fields, no
-embedded tabs, one occurrence in the file (no duplicate-provenance), and every
-`SC_FETCH` predicate (`corpus/sources-census.sh:250-305`) replays cleanly for
-S019 when applied by hand.
+Equals field 3 of `corpus/source-fetches.tsv:40`. Sixteen fields, no embedded
+tabs, one occurrence in the file (no duplicate-provenance).
 
-**S019 row result: verified; no falsifying datum.**
+### 2.3 The current gate enforces S019 (state D)
+
+```console
+$ bash corpus/sources-census.sh
+SOURCES_CENSUS: CLEAN (rows=26 A=24 B=0 C=2 queued=1 mined=24 rejected=1 entries_sourced=4 legacy=21)
+exit=0
+
+$ # /tmp copy of corpus only; production tree untouched
+$ awk -F'\t' 'BEGIN{OFS="\t"} $1!="S019"' f.pristine > root/corpus/source-fetches.tsv
+$ bash corpus/sources-census.sh verify --root "$w/root"
+FINDING SC_FETCH id=S019 missing-provenance
+SOURCES_CENSUS: FAILED (findings=1 rows=26)
+exit=1
+
+$ awk -F'\t' 'BEGIN{OFS="\t"} $1=="S019"{$3=sprintf("%064d",0)} {print}' f.pristine \
+    > root/corpus/source-fetches.tsv
+$ bash corpus/sources-census.sh verify --root "$w/root"
+FINDING SC_FETCH id=S019 row-identity-digest-mismatch
+SOURCES_CENSUS: FAILED (findings=1 rows=26)
+exit=1
+```
+
+Both mutants are killed by the current script (`511deb27…`), so S019 is in the
+gate's scope, not silently exempt. The 59-case selftest passes (`PASS (59
+cases)`, exit 0; three consecutive runs plus a fourth after the final commit).
 
 ---
 
 ## 3. Findings
 
-### 3.1 F1 — BLOCKER (operability): `SC_FETCH` never evaluates S019
+### 3.1 F1 (current, LOW) — S019 `location` is not in the fetched representation
 
-```console
-$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin
-$ bash corpus/sources-census.sh >/tmp/r23s019.RahVu7/census.stdout \
-    2>/tmp/r23s019.RahVu7/census.stderr
-exit=1
-$ wc -c </tmp/r23s019.RahVu7/census.stdout
-0
-$ cat /tmp/r23s019.RahVu7/census.stderr
-corpus/sources-census.sh: line 242: S007: unbound variable
-```
-
-- `corpus/sources-census.sh:107` sets `set -uo pipefail`.
-- `corpus/sources-census.sh:229` declares `FURL`, `FINROW`, `FSEEN`, `FDIG`,
-  `FNRM` with `declare -A`; `SUPERSEDED` is **not** declared.
-- `corpus/sources-census.sh:242` writes `SUPERSEDED[$fid]=1`. With no
-  associative declaration the subscript is arithmetic; the first id emitted by
-  the `supersedes S…` awk is `S007` (from `corpus/SOURCES.md:25`, i.e. **S019's
-  own supersession edge**), so `$fid` expands as variable `S007`, which is
-  unbound.
-- Minimal repro: `bash -c 'set -u; FOO=(); foo=S007; FOO[$foo]=1'` → `S007:
-  unbound variable`; with `declare -A FOO=()` the same script prints `ok`.
-- `SUPERSEDED` is written but never read (only reference: line 242), so the
-  loop is dead code whose only effect is the abort.
-- The crash precedes the fetch block (`corpus/sources-census.sh:247`), so zero
-  `SC_FETCH` checks run; stdout is empty and the "VERDICT (last line, always)"
-  contract (`corpus/sources-census.sh:93`) and the verdict printers at
-  `:337-343` are never reached.
-
-Selftest remains green because no case exercises the path:
-
-```console
-$ bash corpus/sources-census.sh --selftest
-...
-SOURCES_CENSUS_SELFTEST: PASS (59 cases)
-exit=0
-```
-
-The base fixture's teaches cells are `teaches one/two`, `lead three`, `product
-four` (`corpus/sources-census.sh:353-376`) and the 59-case table
-(`:510-570`) injects no `supersedes` cell; `grep -n supersedes` finds only lines
-242 and 245. The green 59-case count is therefore not evidence for the
-production path.
-
-Diagnostic isolation (no lane edit): copy `corpus` to `/tmp`, add only
-`SUPERSEDED=()` to the `declare -A` line of a copied script, and run
-`verify --root` on the copy:
-
-```console
-$ sed 's/declare -A FURL=() FINROW=() FSEEN=() FDIG=() FNRM=()/& SUPERSEDED=()/' \
-    corpus/sources-census.sh > /tmp/r23s019gate.*/census.patched
-$ bash /tmp/.../census.patched verify --root /tmp/.../root
-SOURCES_CENSUS: CLEAN (rows=26 A=24 B=0 C=2 queued=1 mined=24 rejected=1 entries_sourced=4 legacy=21)
-exit=0
-```
-
-No `S019` line appears in that output: once the dead loop is neutralized, the
-S019 provenance row produces no finding. The failure is the gate, not S019's
-data.
-
-Consequence for this seat: the round's claimed evidence command
-(`corpus/lessons/round-23.md:61`) and its end-of-round statement "census at
-round end must exit 0 with the same W04 warnings and `rows=26`"
-(`corpus/lessons/round-23.md:168-170`) are not reproducible. S019's provenance
-was never machine-verified by the shipped command; the verification in §1-2 is
-external. Independently reproduced; same defect already reported at
-`RevS022.md:91` and `MutFetchRemove.md:123`.
-
-### 3.2 F2 — LOW (locator precision): S019 `location` is not in the fetched representation
-
-The field is defined as "section/heading the quote was located under"
-(`corpus/source-fetches.tsv:30`). For S019 it declares `Introduction`. The
-substring `introduction` occurs **0 times** in the raw 1,199,447-byte body and
-0 times in the 6,019-character normalized text (no heading, no id, no anchor,
-no text). The rendered headings are:
+`corpus/source-fetches.tsv:40` declares `Introduction`; the field is defined as
+"section/heading the quote was located under" (`:31`). The substring
+`introduction` occurs 0 times in the 1,199,447-byte raw body and 0 times in the
+6,019-character normalized text (no heading, id, anchor, or text). Rendered
+headings:
 
 ```text
 H1  Set up 1Password Credential Broker to allow your team to access secrets in their workflows (public preview)
@@ -220,56 +184,25 @@ H2  Delete an integration
 H2  Learn more
 ```
 
-The quote is in the untitled lead paragraph directly beneath the H1, so
-"Introduction" names the correct region semantically; it is **not** a
-wrong-section label of the S022 kind. But it is the only row whose `location`
-is not an actual heading/H1: `page title/H1` (S017/S018), `New in this
-release`, `Token Time-To-Live`, `JWT verification, Vault 1.17 note`, `Lease,
-renew, and revoke`, `POST /:secret-mount-path/config parameters, max_versions`,
-`H1 JWT/OIDC auth method`, `Token hierarchies and orphan tokens`. The inherited
-registry anchor repeats the label (`corpus/SOURCES.md:25`). The census only
-checks `${#floc} -ge 8` (`corpus/sources-census.sh:280`), so this cannot be
-caught by the gate. Scope: precision only; no effect on the digest, quote text,
-or claim.
+The quote sits in the untitled intro block beneath the H1, so the label names
+the right region semantically — this is not the S022 wrong-section case. But it
+is the only row whose location is not an actual heading/H1 (`page title/H1`,
+`New in this release`, `Token Time-To-Live`, `JWT verification, Vault 1.17
+note`, `Lease, renew, and revoke`, `POST /:secret-mount-path/config parameters,
+max_versions`, `H1 JWT/OIDC auth method`, `Token hierarchies and orphan
+tokens`). The label is inherited from `corpus/SOURCES.md:25`. The gate checks
+only `${#floc} -ge 8` (`corpus/sources-census.sh:274`), and the round now
+declares that bound (`corpus/lessons/round-23.md:191-192`: "quote text and
+location are not checked against the page"). Scope: locator precision only;
+the digest and quote are correct, and the gate's shape-only bound is honest.
 
-### 3.3 F3 — INFO (freshness accounting): "seven distinct URLs" is nine
-
-```console
-$ awk -F'\t' '!/^#/ && NF==16 {print $4}' corpus/source-fetches.tsv | sort -u | wc -l
-9
-$ grep -c '^S0' corpus/source-fetches.tsv
-10
-$ awk -F'\t' '$1 ~ /^S01[7-9]$/ || $1 ~ /^S02[0-3]$/ {print $4}' corpus/source-fetches.tsv | sort -u | wc -l
-7
-```
-
-Ten rows cover nine distinct URL strings; only `https://openbao.org/docs/concepts/tokens/`
-is repeated (S021/S026). The wording "10 declared provenance rows (S017-S026)
-over seven distinct URLs" (`corpus/lessons/round-23.md:164-165`) uses the
-S017-S023 subset count. Registry-side counts are correct: 26 rows, 19 distinct
-URLs (`corpus/lessons/round-23.md:162-163`; independently counted). No counting
-command accompanies the seven. Independently reproduced; also reported at
-`RevS022.md:133-155` and `MutFetchRemove.md:143-150`.
-
-### 3.4 F4 — INFO (calibration): D7 "fixed" is pointer existence, not execution
-
-`python3 corpus/closure-dispositions.py` → exit 0,
-`CLOSURE_DISPOSITIONS: CLEAN (obligations=15 fixed=7 reported=2 operator_owned=1 no_action=5 rejected=0 pointers=15)`.
-D7 (`corpus/closure-dispositions.json:91`) is `fixed` with pointer
-`corpus/source-fetches.tsv`, which exists. The gate's own docstring bounds this
-as pointer resolution only (`corpus/closure-dispositions.py:41-44`: "A `fixed`
-pointer proves a reviewed record exists at that path, not… admission"). So C1
-CLEAN must not be read as proof that the C2 runtime check listed in the same
-round actually runs; F1 shows it does not. This is a calibration caveat about
-reading the disposition, not a defect in C1's stated contract.
-
-### 3.5 F5 — INFO (evidence provenance): the five W04 lines are not reproducible or verbatim on this host
+### 3.2 F2 (current, INFO) — the five W04 lines are not reproducible or verbatim here
 
 `command -v kagi` → absent (exit 1); `kagi ok …/corpus/SOURCES.md` → exit 127
-(`bash: kagi: command not found`). No in-repo script emits `W04`:
-`grep -rn W04 --include=*.sh corpus/` → no matches. The only retained source of
-the warning text is the round-22 capture
-`.ufo/waves/round-22/final-verification.json` (`additional/6/stdout`):
+(`command not found: kagi`). No in-repo script emits `W04`
+(`grep -rn W04 --include=*.sh corpus/` → no matches, exit 1). The only retained
+source of the warning text is the round-22 capture
+`.ufo/waves/round-22/final-verification.json` (`additional/6/stdout`, line 679):
 
 ```text
 kagi\tW04\tS019 duplicate url www.1password.dev/brokered-access across scopes
@@ -279,54 +212,87 @@ kagi\tok\t/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/SOURCES.md
 ```
 
 `corpus/lessons/round-23.md:66-72` claims to quote these "verbatim" but prints
-`W04 S019 duplicate url …` with the `kagi\t` framing removed. The warning body
-text matches; the verbatim claim and the present-tense "the census prints"
-(`:66`) are not reproducible this round. This is a provenance-of-evidence
-caveat around the S019 line, not a defect in S019's row.
+`W04 S019 duplicate url …` with the `kagi\t` framing removed; `:178-180`
+conflates them with the in-repo gate's `rows=26` verdict. The warning body text
+matches; the "verbatim" and present-tense "the census prints" claims are not
+reproducible this round. Evidence-provenance caveat around the S019 line, not a
+defect in S019's row.
 
-### 3.6 F6 — INFO (representation wording): `volatile` is defensible; "stable identity" is overstated
+### 3.3 F3 (current, INFO) — D7 "fixed" is pointer existence, not execution
 
-S019 carries a deployment id (`?dpl=dpl_8AUWT8nFRmT7D3RgoEGEPVymfFQP`), so the
-`decoded-http-body-volatile-v1` label is defensible under the header's
-"deployment/response-coupled" definition (`corpus/source-fetches.tsv:17-21`),
-even though three same-day GETs were byte-identical. The lesson's concrete
-evidence for volatility is written only for S020
-(`corpus/lessons/round-23.md:45-50`), while all ten rows carry the label. The
-header's "the normalized digest is the stable declared identity"
-(`corpus/source-fetches.tsv:19-20`) reads as invariance, but the lesson itself
-says page chrome moved S017's normalized digest between days
-(`corpus/lessons/round-23.md:52-54`), and S019's normalized text includes
-navigation/TOC text (`Documentation Index`, `On this page`, `Copy page Copy
-page`). "Stable" must therefore mean "the declared comparison identity", not
-"unchanged across chrome changes". No S019 digest is falsified; this bounds what
-the normalized digest can prove.
+`python3 corpus/closure-dispositions.py` → exit 0,
+`CLOSURE_DISPOSITIONS: CLEAN (obligations=15 fixed=7 reported=2 operator_owned=1 no_action=5 rejected=0 pointers=15)`.
+D7 (`corpus/closure-dispositions.json:91`) is `fixed` with pointer
+`corpus/source-fetches.tsv`, which exists. The script's own bound
+(`corpus/closure-dispositions.py:41-44`) says a `fixed` pointer proves a reviewed
+record exists at that path, not admission. In state D the C2 gate also runs, so
+pointer and behavior agree; the caveat is that the closure gate alone could not
+have detected state A's inert gate.
+
+### 3.4 Historical (states A-C) — real then, repaired in flight
+
+Not current findings; recorded because the attack target as delivered failed
+here. Line numbers refer to the state named in each bullet.
+
+- **State-A blocker.** `bash corpus/sources-census.sh` → exit 1, stdout 0 bytes,
+  stderr `corpus/sources-census.sh: line 242: S007: unbound variable` (state-A
+  script `80966e20…`). `SUPERSEDED` was assigned at line 242 but not included in
+  the `declare -A` at line 229; under `set -u` (line 107) the subscript `S007`
+  was arithmetic and unbound. The abort preceded every `SC_FETCH` check (line
+  247), so S019's provenance was never machine-verified by the shipped command.
+  The 59-case selftest stayed green because the fixture teaches cells were
+  `teaches one/two`, `lead three`, `product four` (state-A lines 353-376) and no
+  case injected a `supersedes` cell. Cause confirmed by a minimal repro:
+  `bash -c 'set -u; FOO=(); foo=S007; FOO[$foo]=1'` fails, while
+  `declare -A FOO=()` passes. Repaired before `ea5b734`; state D has no
+  `SUPERSEDED` reference (`grep` exit 1) and the gate is CLEAN.
+- **"Seven distinct URLs".** Measured 10 rows over 9 distinct URL strings (only
+  `https://openbao.org/docs/concepts/tokens/` repeats, S021/S026); state-A
+  lesson line 165 said seven. State-D lesson `:174-175` says nine;
+  `SCORECARD.md:840` says nine. Repaired.
+- **"Stable declared identity".** State-A header said the normalized digest "is
+  the stable declared identity" while the lesson conceded chrome can move it
+  between days. State-D header `:19-21` says "a more stable point attestation,
+  still chrome-sensitive, never a drift pin". Repaired.
+- **"No cross-capture equality" vs the gate.** At state C (`24d834cc…`, and
+  briefly `6d4190a7…`) both headers said "no cross-capture equality is
+  enforced" while the gate still enforced same-URL raw/normalized agreement
+  (state-C lines 275-290, `same-url-normalized-disagreement`). Commit `638d44c`
+  ("remove cross-capture equality") deleted those checks: state-D
+  `grep -n 'same-url\|cross-capture'` returns only the header phrase
+  (`no cross-capture equality`), with no `same-url-*` finding id, and the
+  header/code now agree. Repaired.
 
 ---
 
 ## 4. Residual risk and verification gaps
 
-- Point attestation only: three GETs are consistent with one Vercel deployment
-  object (`age: 11996`, weak ETag, `x-vercel-cache: MISS`, `cache-control:
-  no-store`, `vary: User-Agent`). Origin drift between captures is untested; a
-  matching digest proves equality with this serving path now, not vendor truth
-  or future content.
-- The gate does not re-fetch and does not verify quote presence or that the
-  declared normalization was applied; it checks shape, row identity and
-  same-URL agreement only (`corpus/sources-census.sh:250-305`; quote bound and
-  location length at `:272`, `:280`). The live verification in §1-2 is the only
-  check that the S019 quote and normalization actually reproduce.
-- The normalized digest includes page chrome and nav, so the same-URL
-  normalized-agreement check would fire on a sidebar/TOC change; the lesson
-  concedes this for S017. It is not evidence of article drift.
-- `decoded-http-body-volatile-v1` disables the raw same-URL agreement check for
-  S019; there is only one S019 capture in this table, so neither raw nor
-  normalized same-URL comparison is exercised for this URL.
-- `kagi` is absent on this host, so the five W04 lines could not be
-  re-measured this round; their only retained source is the round-22
-  verification artifact.
-- The line-242 repair was validated only in a `/tmp` copy; the lane was not
-  modified. S019's row, the TSV, the census script and the lesson bytes were
-  unchanged by this seat (`tmp` copy discarded by scope).
+- Point attestation only: three GETs match one Vercel deployment (`age: 11996`,
+  weak ETag, `x-vercel-cache: MISS`, `cache-control: no-store`, `vary:
+  User-Agent`). A matching digest proves equality with this serving path now,
+  not vendor truth or future content; origin drift between captures is untested.
+- The gate does not re-fetch and does not verify quote presence, quote text, or
+  that the declared normalization was applied; it checks shape, row identity,
+  URL/status equality and one-row-per-id
+  (`corpus/sources-census.sh:242-277`; quote bound `:266-267`, location length
+  `:274`). The live check in §1-2 is the only proof that the S019 quote and
+  normalization reproduce. The round now states this bound explicitly
+  (`corpus/source-fetches.tsv:25-26`, `corpus/lessons/round-23.md:191-192`).
+- The normalized digest includes nav/TOC chrome (`Documentation Index`, `On this
+  page`, `Copy page Copy page`), so a future chrome change would move it; the
+  round concedes this and no longer enforces cross-capture equality.
+- S019 is volatile, so raw same-URL agreement is skipped by design; with one
+  S019 row, no same-URL comparison is exercised for this URL.
+- `kagi` is absent, so the five W04 lines could not be re-measured; their only
+  retained source is the round-22 verification artifact.
+- One selftest invocation during the concurrent rewrite reported `FAIL (59
+  cases, 1 failed)`; four subsequent runs on the settled script (`511deb27…`)
+  pass 59/59. Not reproducible; attributed to reading the script while it was
+  being rewritten, not recorded as a finding.
+- The tree moved during the seat (`d218603`+dirty → `ea5b734` → `b55e0e7` →
+  `7af07b4` → `284d40e` → `638d44c` → `def9bc2e`); state-A hashes/line numbers
+  are recorded so the historical findings are replayable. S019 row bytes are
+  identical across states.
 
 ---
 
@@ -362,15 +328,22 @@ print('quote_count', s.count(q), 'quote_index', s.find(q), 'introduction_count',
 PY
 # 6019 f3861c17…38cc6e9 ; quote_count 1 ; introduction_count 0
 
-# 4. production gate (fails)
+# 4. current gate (state D)
 cd "$lane"
-bash corpus/sources-census.sh >/tmp/r23s019.RahVu7/census.stdout 2>/tmp/r23s019.RahVu7/census.stderr
-echo "gate_exit=$?"            # 1
-wc -c </tmp/r23s019.RahVu7/census.stdout   # 0
-cat /tmp/r23s019.RahVu7/census.stderr      # line 242: S007: unbound variable
+bash corpus/sources-census.sh; echo "gate_exit=$?"
+# CLEAN (rows=26 …), exit 0
+bash corpus/sources-census.sh --selftest | tail -1
+# PASS (59 cases), exit 0
 
-# 5. selftest (green but blind)
-bash corpus/sources-census.sh --selftest | tail -1   # PASS (59 cases), exit 0
+# 5. S019 enforcement mutants (on a /tmp copy of corpus only)
+w=$(mktemp -d /tmp/r23s019cur.XXXXXX); mkdir -p "$w/root"
+cp -a corpus "$w/root/corpus"; cp "$w/root/corpus/source-fetches.tsv" "$w/f.pristine"
+awk -F'\t' 'BEGIN{OFS="\t"} $1!="S019"' "$w/f.pristine" > "$w/root/corpus/source-fetches.tsv"
+bash corpus/sources-census.sh verify --root "$w/root"   # id=S019 missing-provenance, exit 1
+cp "$w/f.pristine" "$w/root/corpus/source-fetches.tsv"
+awk -F'\t' 'BEGIN{OFS="\t"} $1=="S019"{$3=sprintf("%064d",0)} {print}' "$w/f.pristine" \
+  > "$w/root/corpus/source-fetches.tsv"
+bash corpus/sources-census.sh verify --root "$w/root"   # id=S019 row-identity-digest-mismatch, exit 1
 
 # 6. cardinality
 awk -F'\t' '!/^#/ && NF==16 {print $4}' corpus/source-fetches.tsv | sort -u | wc -l   # 9

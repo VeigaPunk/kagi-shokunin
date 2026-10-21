@@ -1217,7 +1217,10 @@ captures in source-fetches.tsv are the only active declared provenance, but
 supersession is prose-only, so an active entry may still cite a superseded row
 (the Vault/OpenBao entry cites S012-S016; S022-S026 are consumed by lessons).
 
-No install, no account/vault/handler action, no host-private gate, no depth
+No install, no account/vault/handler action; one unauthorized host-private row
+(R18-01, drift-pins) was executed by L1's direct real-tree `cells` run and is
+disclosed/not credited (no rerun, no per-row receipt, no values copied); no
+depth
 claim. Inherited red/unknown rows (R11-08 citations red at base; cells
 SKIP-SELF bound; single-backslash guard; live-count breadth rows) are
 reported as debt, not credited. Independent non-author closure owns

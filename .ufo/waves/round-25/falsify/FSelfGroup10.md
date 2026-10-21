@@ -1,0 +1,23 @@
+# FSelfGroup10 — C1 exact-binding falsification
+
+Revision: `82745e2c60e726b49499b8f309529935dc4eff2b` (frozen candidate).
+Axes: calibration (primary); operability/freshness not exercised.
+Verdict: **FAIL — source-kind honesty for RD-OPREF-SELFTEST**; current value and +1 mutation behavior pass.
+
+## Finding — Medium
+`corpus/self-counts.tsv:51` binds `RD-OPREF-SELFTEST` with `expect:R12-02` and says “R12-02 executes op: committed pin.” `corpus/README.md:170-173` documents `expect:` as a host-row pin. But `corpus/claim-ledger.tsv:27`'s command is `bash corpus/op-ref-probe.sh --selftest` and has no `[host]`/`[substrate]` tag. The selftest at `corpus/op-ref-probe.sh:595-751,783-789` uses canned `--evaluate` inputs and controlled missing-binary/stub cases; it does not run the live `verify`/`dotenv_bytes` path. The literal pin is currently correct, but this is a runnable non-host source, not an op-executing source.
+
+`corpus/self-counts.py:235-240` implements `expect:` by extracting the committed ledger regex and running nothing; `:241-247` runs the ledger command for `ledger:`. Consequently the selected binding prints `live=36` while reading only the pin. A scratch comparison table using `ledger:R12-02` was accepted and measured the same source as 36. This falsifies the claimed per-binding live-source classification; the full claim-ledger may separately remeasure R12-02 in `verify`, but that integration was not run here.
+
+## Receipts
+All experiments used the unique scratch clone `/fast/scratch/kagi-r25/FSelfGroup10-4/lane`; only this report was written in the production checkout. The selected table contained only RD-OPREF-SELFTEST; `corpus/claim-ledger.tsv` was left complete and byte-identical (SHA-256 before and after: `fd73f63d7dbe315ebbc47eb3ba61a2950a0585df5d892e8d747f4e2d2a75ec32`; 83 physical lines).
+
+- Clone/checkout: `mkdir -p /fast/scratch/kagi-r25/FSelfGroup10-4 && cd /fast/scratch/kagi-r25/FSelfGroup10-4 && git clone -q --no-hardlinks /home/vgpnk/Projects/shokunin/kagi-shokunin lane && git -C lane checkout -q 82745e2c60e726b49499b8f309529935dc4eff2b && git -C lane rev-parse HEAD && echo EXIT=$?`; stdout `82745e2c60e726b49499b8f309529935dc4eff2b` / `EXIT=0`.
+- Original binding, cwd `/fast/scratch/kagi-r25/FSelfGroup10-4/lane`, argv `env -i PATH=/usr/bin:/bin HOME=/fast/scratch/kagi-r25/FSelfGroup10-4/home TMPDIR=/fast/scratch/kagi-r25/FSelfGroup10-4/tmp PYTHONDONTWRITEBYTECODE=1 python3 -B corpus/self-counts.py --table /fast/scratch/kagi-r25/FSelfGroup10-4/selected.tsv`; stdout `OK RD-OPREF-SELFTEST corpus/README.md:69 claimed=36 live=36` / `SELF_COUNTS: CLEAN (claims=1 stale=0)` / `EXIT=0`. **PASS**: unique locator, numeric value 36, and pin value 36.
+- Literal-source check, same cwd, argv `env -i PATH=/usr/bin:/bin HOME=/fast/scratch/kagi-r25/FSelfGroup10-4/home TMPDIR=/fast/scratch/kagi-r25/FSelfGroup10-4/tmp bash corpus/op-ref-probe.sh --selftest`; stdout `OP_REF_SELFTEST: PASS (36 cases)` / `EXIT=0`. No op/account/handler operation was invoked.
+- Live-source comparison, same cwd, argv `env -i PATH=/usr/bin:/bin HOME=/fast/scratch/kagi-r25/FSelfGroup10-4/home TMPDIR=/fast/scratch/kagi-r25/FSelfGroup10-4/tmp PYTHONDONTWRITEBYTECODE=1 python3 -B corpus/self-counts.py --table /fast/scratch/kagi-r25/FSelfGroup10-4/selected-live.tsv` (scratch-only table changes source to `ledger:R12-02`); stdout `OK RD-OPREF-SELFTEST corpus/README.md:69 claimed=36 live=36` / `SELF_COUNTS: CLEAN (claims=1 stale=0)` / `EXIT=0`.
+- Mutant: changed only `corpus/README.md:69` captured integer `36 -> 37`; same cwd, argv `env -i PATH=/usr/bin:/bin HOME=/fast/scratch/kagi-r25/FSelfGroup10-4/home PYTHONDONTWRITEBYTECODE=1 python3 -B corpus/self-counts.py --table /fast/scratch/kagi-r25/FSelfGroup10-4/selected.tsv`; stdout `STALE RD-OPREF-SELFTEST corpus/README.md:69 claimed=37 live=36` / `SELF_COUNTS: STALE (claims=1 stale=1 unlocated=0 ambiguous=0)` / `EXIT=1` — **PASS**, required detection observed.
+- Restored README integer to 36; reran the original-binding argv; same CLEAN stdout and `EXIT=0`. Ledger digest remained unchanged.
+
+## Residual risk and gaps
+The stale-number mutation is caught, and the committed 36 expectation matches the independently runnable source. The defect is that this binding uses a pin-only path and labels that value `live`; `ledger:R12-02` demonstrates a live path exists. Full `verify`/`cells` were **UNRUN** as required; no host rows, `--allow-host-rows`, network, or real op operation were used. LSP status/references/definition/diagnostics were **UNRUN**: `read xd://lsp` returned “No such tool”; literal grep was used only to locate exact strings, not as semantic proof. No tools were installed.

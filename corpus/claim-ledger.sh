@@ -603,7 +603,8 @@ verify_claims() {
     # exit-mismatch. The verdict text itself is matched, not printed.
     if [[ $rc -eq 3 && $want -ne 3 ]]; then
       last=$(printf '%s\n' "$out" | grep -v '^[[:space:]]*$' | tail -n 1 || true)
-      if [[ $last =~ ^[A-Z_]+:\ INCOMPLETE\ \( ]]; then
+      if [[ $cmd == 'bash corpus/claim-ledger.sh citations' &&
+            $last == 'CITATION_GATE: INCOMPLETE ('* ]]; then
         printf 'LAYOUT-INCOMPLETE %s exit=3 (fleet layout absent: the row could not check fleet-only evidence)\n' "$id"
         C_LAYOUT=$((C_LAYOUT + 1)); continue
       fi
@@ -715,7 +716,10 @@ fleet_only_token() { # TOKEN CLASS
     ufo)
       [[ $t == ufo/* ]] && return 0
       r=${t#.ufo/}; d=${r%/*}
-      [[ $d == */* && -d $ROOT/.ufo/$d ]] && return 1
+      while [[ $d == */* ]]; do
+        [[ -d $ROOT/.ufo/$d ]] && return 1
+        d=${d%/*}
+      done
       return 0 ;;
   esac
   return 1
@@ -837,7 +841,7 @@ citations() {
       # `read` drops the LAST token of every line, so a citation ending its
       # line was never checked
       done < <(printf '%s\n' "$content" |
-        sed -E ":a; s/\{([^}]*)[[:space:]]+([^}]*)\}/{\1\2}/g; ta; s/'[[:space:]]*,[[:space:]]*'/' '/g; s/\"[[:space:]]*,[[:space:]]*\"/\" \"/g" |
+        sed -E ":a; s/\{([^}]*)[[:space:]]+([^}]*)\}/{\1\2}/g; ta; s/'[[:space:]]*,[[:space:]]*'/' '/g; s/\"[[:space:]]*,[[:space:]]*\"/\" \"/g; s@\x60/\x60@\x60 / \x60@g" |
         tr ' ' '\n' | tr '\t' '\n' || true)
     done < <(grep -nE '.' "$doc" || true)
   done
@@ -1786,6 +1790,17 @@ if [[ ${SELFTEST:-0} -eq 1 ]]; then
   tcase_last verify-layout-fleet-runs 0 'CLAIM_LEDGER: CLEAN (claims=1 deferred=0 stamped=1 ids=1 cited=0 labeled_ids=0 orphans=1 host_skipped=0)' "$0" verify --root "$FX/lane" --claims "$FX/lane/claims-layout.tsv" --stamps "$FX/lane/stamps.tsv"
   printf 'n1\tpython3 corpus/release-clock.py --observe receipt.json\t^X$\t0\t5\tnetwork fetch in a ledger row\n' >"$R/claims-observe.tsv"
   tcase policy-release-observe-refused 2 'POLICY n1 reason=network-mode' "$0" verify --root "$R" --claims "$R/claims-observe.tsv" --stamps "$R/stamps.tsv"
+  # Fresh falsifiers: nested lane-owned misses, joined code spans, non-layout
+  # INCOMPLETE output, and the legacy ufo branch all retain negative controls.
+  printf 'owned nested `.ufo/waves/round-9/new/nope.md` here\n' >"$LONE/corpus/nested-miss.md"
+  tcase cite-lone-nested-owned-miss 1 'UNRESOLVED' "$0" citations --root "$LONE" --docs "$LONE/corpus/nested-miss.md"
+  printf 'pair `corpus/ok.txt`/`.json`\n' >"$LONE/corpus/joined.md"
+  tcase_last cite-slash-joined-spans 0 'CITATION_GATE: CLEAN (cites=1 docs=1 unresolved=0 ephemeral=0 labeled=0)' "$0" citations --root "$LONE" --docs "$LONE/corpus/joined.md"
+  printf 'import sys\nprint("SYNTHETIC_CHECK: INCOMPLETE (x=1)")\nsys.exit(3)\n' >"$LONE/corpus/rendered-text-v1.py"
+  printf 'L1\tpython3 corpus/rendered-text-v1.py\t^X$\t0\t5\tnot a citation gate\n' >"$LONE/claims-other-incomplete.tsv"
+  tcase verify-nonlayout-incomplete 1 'FAIL L1 reason=exit-mismatch' "$0" verify --root "$LONE" --claims "$LONE/claims-other-incomplete.tsv" --stamps "$LONE/stamps.tsv"
+  printf 'legacy missing `ufo/reports/nope.md`\n' >"$FX/lane/corpus/legacy-miss.md"
+  tcase cite-legacy-fleet-miss 1 'UNRESOLVED corpus/legacy-miss.md:1 ufo/reports/nope.md (ufo)' "$0" citations --root "$FX/lane" --docs "$FX/lane/corpus/legacy-miss.md"
 
   if [[ $failures -eq 0 ]]; then printf 'SELFTEST: PASS (%d cases)\n' "$cases"; exit 0; fi
   printf 'SELFTEST: FAIL (%d/%d cases)\n' "$failures" "$cases"; exit 1

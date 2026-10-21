@@ -1,6 +1,6 @@
 # self-counts.tsv — id<TAB>doc<TAB>locator<TAB>source<TAB>extract<TAB>note
 # Python regexes each have exactly one capture group: a nonnegative integer.
-# Population (frozen round 25, plans/round-25.md C1): every CURRENT-tense number
+# Population (reviewed bindings, round 25, plans/round-25.md C1): selected numbers
 # SKILL.md, PROVINCE.md and corpus/README.md state about this lane's own
 # artifacts (stamps, claim rows, selftest cases, data-file rows, knowledge-entry
 # declarations) that has a lane-local live source. Out of population by rule,
@@ -39,13 +39,14 @@ PV-CLOCK-SELFTEST	PROVINCE.md	^- `corpus/release-clock\.py` .*?`--selftest` prov
 PV-SOURCES-SELFTEST	PROVINCE.md	^- `corpus/sources-census\.sh` — .*?`--selftest` proves ([0-9]+) cases	ledger:R21-03	^SOURCES_CENSUS_SELFTEST: PASS \(([0-9]+) cases\)$	source census
 PV-RENDERED-SELFTEST	PROVINCE.md	^- Helpers, not gates: `corpus/rendered-text-v1\.py` .*?`--selftest` ([0-9]+) cases	ledger:R24-01	^RENDERED_TEXT_V1_SELFTEST: PASS \(cases=([0-9]+)\)$	normalizer
 PV-CLOSURE-SELFTEST	PROVINCE.md	^- `corpus/closure-dispositions\.py` .*?`--selftest` declares ([0-9]+) isolated cases	ledger:R24-02	^CLOSURE_DISPOSITIONS_SELFTEST: PASS \(([0-9]+) cases\)$	closure review
-RD-CENSUS-ROWS	corpus/README.md	^\| Surface declaration \(data\) \| .*?\| ([0-9]+) rows \(	rows:corpus/surface-census.tsv	-	index row
-RD-STATE-ROWS	corpus/README.md	^\| Runtime shape pins \(data\) \| .*?\| ([0-9]+) rows \(	rows:corpus/state-shape.tsv	-	index row
+RD-CENSUS-ROWS	corpus/README.md	^\| Surface declaration \(data\) \| .*?\| ([0-9]+) rows(?: at round [0-9]+)? \(	rows:corpus/surface-census.tsv	-	index row
+RD-STATE-ROWS	corpus/README.md	^\| Runtime shape pins \(data\) \| .*?\| ([0-9]+) rows(?: at round [0-9]+)? \(	rows:corpus/state-shape.tsv	-	index row
 RD-SCOPE-SELFTEST	corpus/README.md	^\| Ownership \+ breadth gate \| .*?`--selftest` \(([0-9]+) cases\)	ledger:R16-02	^SCOPE_SELFTEST: PASS \(([0-9]+) cases\)$	index row
 RD-LEDGER-SELFTEST	corpus/README.md	^\| Claim ledger \+ revision stamps .*?`--selftest` ([0-9]+) cases	ledger:R11-09	^SELFTEST: PASS \(([0-9]+) cases\)$	index row (said 97 at BASE)
-RD-LEDGER-ROWS	corpus/README.md	^\| Ledger rows \(data\) \| .*?\| ([0-9]+) rows \(	ledger:R21-04	^([0-9]+)$	index row (said 39 at BASE)
-RD-STAMPS	corpus/README.md	^\| Revision stamps \(data\) \| .*?\| ([0-9]+) rows \(	ledger:R12-03	^([0-9]+)$	index row (said 63 at BASE)
+RD-LEDGER-ROWS	corpus/README.md	^\| Ledger rows(?: at round [0-9]+)? \(data\) \| .*?\| ([0-9]+) rows(?: at round [0-9]+)? \(	ledger:R21-04	^([0-9]+)$	index row (said 39 at BASE)
+RD-STAMPS	corpus/README.md	^\| Revision stamps \(data\) \| .*?\| ([0-9]+) rows(?: at round [0-9]+)? \(	ledger:R12-03	^([0-9]+)$	index row (said 63 at BASE)
 RD-DOCS-ROWLINKED	corpus/README.md	^\| Knowledge-entry declarations \(data\) \| .*?per entry: ([0-9]+) row-linked	ledger:R14-01	row_linked=([0-9]+)	index row (said 21 at BASE)
 RD-DOCS-BYHAND	corpus/README.md	^\| Knowledge-entry declarations \(data\) \| .*?per entry: [0-9]+ row-linked / ([0-9]+) by-hand	ledger:R14-01	by_hand=([0-9]+)	index row
 RD-DOCS-ENTRIES	corpus/README.md	^\| Knowledge-entry declarations \(data\) \| .*?by-hand / ([0-9]+) pinned	ledger:R14-01	entries=([0-9]+)	index row (said 24 at BASE)
 RD-OPREF-SELFTEST	corpus/README.md	^\| `op\.env` contract probe \(gate\) \| .*?`--selftest` \(([0-9]+) cases	expect:R12-02	\(([0-9]+) cases	R12-02 executes op: committed pin
+RD-CHECKLIST-SELFTEST	corpus/README.md	^\| Credential-hygiene checklist.*?`--selftest` \(([0-9]+) cases	ledger:R15-02	^CHECKLIST_SELFTEST: PASS \(([0-9]+) cases\)$	current checklist selftest already existed at BASE; FAxisHarm omission fixed

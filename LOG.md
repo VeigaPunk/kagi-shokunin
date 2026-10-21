@@ -1199,7 +1199,7 @@ row_pointed=6 stamp_pointed=1 uncited=0 missing_ids=0 rows_run=2
 row_deferred=0 row_failures=0 stale_pointers=0 self_skipped=0 orphans=0)`
 exit0 for R23-01 on the committed fixture.
 
-New corpus artifacts: `corpus/closure-dispositions.py` and `.json`,
+New corpus artifacts: `corpus/closure-dispositions.py`/`.json`,
 `corpus/source-fetches.tsv` (10 declared captures over 9 distinct URLs),
 `corpus/fixtures/cells-hermetic/` (5 files), `corpus/lessons/round-23.md`.
 SOURCES.md gains S024 (KV v2 API, new frontier row), S025 (OpenBao JWT locator, supersedes
@@ -1384,3 +1384,24 @@ clock fired (Vault 2.2.0 past its v1.21.x anchor) and its teaching re-verified
 on the served v2.x page. No vault/account/handler/CDP action, no host-row
 consent, no installs. Measured outcomes and the falsify wave follow in the
 SCORECARD round-25 section and `final-verification.json`.
+
+### Round-25 fresh falsification corrections
+
+Frozen candidate `82745e2c60e726b49499b8f309529935dc4eff2b` was attacked by
+64 seats (52 reports; 12 provider deaths, no replacements). Scope findings
+and rejected broader readings are retained in `corpus/lessons/round-25.md`:
+receipt-bound clock observations, self-count policy/re-entry, nested owned
+citation paths, exact layout diagnostic classification and measurement
+instruments repaired. The missing README checklist binding was added
+(38 reviewed numbers, not exhaustive completeness). S038 registers the empty
+WHATWG release-feed rejection; source registry/captures now38, no existing
+source row edited. `corpus/QUALITY.md` QM21–QM23 ground the lessons.
+
+Append-only erratum: the candidate changed historical LOG line1202's spacing.
+That edit is now reverted byte-exact; adjacent slash-joined code spans are
+handled by the tokenizer instead. Earlier phrases saying line1202 was fixed
+mean citation parsing, not authorization to rewrite historical logs.
+The new source count38 supersedes the initial five-feed/37-total candidate;
+one rejected feed was registered (S038). Exact final measurements, revisions
+and commands are retained in `final-verification.json` under the round25 wave
+directory; failures remain there as failures, not rerolled verdicts.

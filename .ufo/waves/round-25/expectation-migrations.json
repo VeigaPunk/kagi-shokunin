@@ -1,144 +1,290 @@
 {
- "schema": "kagi-expectation-migrations-v1",
- "round": 25,
  "base": "4587c61a348e4528717404a68912c373f3ef4d03",
- "policy": "membership changes allowed only for the listed new pins/rows; every moved expectation recorded old/new",
- "stamp_added": [
-  "corpus/lessons/round-25.md",
-  "corpus/release-clock.py",
-  "corpus/release-clocks.tsv",
-  "corpus/self-counts.py",
-  "corpus/self-counts.tsv"
- ],
- "stamp_dropped": [],
+ "candidate": "82745e2c60e726b49499b8f309529935dc4eff2b",
  "migrations": [
   {
-   "id": "R12-03",
-   "expect": {
-    "old": "^83$",
-    "new": "^88$"
-   },
-   "note": "Round 25: +5 pins (self-counts.py/.tsv, release-clock.py, release-clocks.tsv, round-25 lesson) -> 88."
-  },
-  {
-   "id": "R13-01",
-   "expect": {
-    "old": "^29$",
-    "new": "^31$"
-   },
-   "note": "Round 25 adds round-25 pre/post -> 31."
-  },
-  {
-   "id": "R21-02",
-   "expect": {
-    "old": "^SOURCES_CENSUS: CLEAN \\(rows=32 A=30 B=0 C=2 queued=1 mined=29 rejected=2 entries_sourced=4 legacy=21 captures=32 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
-    "new": "^SOURCES_CENSUS: CLEAN \\(rows=37 A=35 B=0 C=2 queued=1 mined=34 rejected=2 entries_sourced=4 legacy=21 captures=37 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$"
-   },
-   "note": "Round 25: S033-S037 release-feed rows (tier A, mined, recheck 90d) with raw-literal-v1 captures -> 37 rows."
-  },
-  {
-   "id": "R21-04",
-   "expect": {
-    "old": "^61$",
-    "new": "^65$"
-   },
-   "note": "Round 25: R25-01..04 -> 65."
-  },
-  {
-   "id": "R22-03",
-   "expect": {
-    "old": "^REVISION_AUDIT: CLEAN \\(stale=0 missing=0 dropped=0 added=20 invalid=0\\)$",
-    "new": "^REVISION_AUDIT: CLEAN \\(stale=0 missing=0 dropped=0 added=25 invalid=0\\)$"
-   },
-   "note": "Round 25: five new pins are ADDED relative to c2cab35 -> 25."
-  },
-  {
-   "id": "R24-05",
-   "expect": {
-    "old": "^ROW_IDENTITY: stamps count=83 sha256=136fde8b3656149c61f721eff42e1c0f973576a97d28eab2de079e962103b584$",
-    "new": "^ROW_IDENTITY: stamps count=88 sha256=495c8e0e1cb09f4917b5ff7fc61fab6ab7f1ccc4fdd414e7ab167c0788752754$"
-   },
-   "note": "Round 25 membership: +5 pins."
-  },
-  {
-   "id": "R24-06",
-   "expect": {
-    "old": "^ROW_IDENTITY: scorecard-rounds count=29 sha256=18e0c4fd9068addbdda53c056bdc4e1aa78b8a84d17cc8e4e1522756e9e2f38c$",
-    "new": "^ROW_IDENTITY: scorecard-rounds count=31 sha256=f2af002b51ccdd4bfaf9b6fc50468ad9b3dc236c51348a47adec1546cca3b7e6$"
-   },
-   "note": "Round 25: + round-25 pre/post headings."
-  },
-  {
-   "id": "R24-14",
-   "expect": {
-    "old": "^ROW_IDENTITY: ledger-ids count=61 sha256=f8fe98749e522ad5268d01bbef341ae49bea4fa11ce18b8c9467f1533366b3a0$",
-    "new": "^ROW_IDENTITY: ledger-ids count=65 sha256=f06ca9d54d50b00541aa0f7c61ccac906d9ba04b255f22f256c71b8b82e645f0$"
-   },
-   "note": "Round 25: + R25-01..04."
-  },
-  {
-   "id": "R24-15",
-   "expect": {
-    "old": "^ROW_IDENTITY: revision-added count=20 sha256=574d0da4c1b995923dfb9f95694cef96e159a078b7e0d2d6c076a60ee66c429e$",
-    "new": "^ROW_IDENTITY: revision-added count=25 sha256=ca5003fa0c6254cc9bff99342efbf07d9b6a400ef624c24983bdbcf8ca6f48a0$"
-   },
-   "note": "Round 25: + the five new pins."
+   "id": "R11-08",
+   "old": [
+    "R11-08",
+    "bash corpus/claim-ledger.sh citations",
+    "^CITATION_GATE: CLEAN \\(cites=[1-9][0-9]* docs=[1-9][0-9]* unresolved=0 ephemeral=0",
+    "0",
+    "300",
+    "committed docs cite durable evidence; requires the fleet checkout layout (`~/projects/shokunin/<lane>-shokunin`) \u2014 in a lone clone the sibling/ufo citations cannot resolve and this row fails by design (observed on a /tmp clone, round 11)"
+   ],
+   "new": [
+    "R11-08",
+    "bash corpus/claim-ledger.sh citations",
+    "^CITATION_GATE: CLEAN \\(cites=[1-9][0-9]* docs=[1-9][0-9]* unresolved=0 ephemeral=0",
+    "0",
+    "300",
+    "committed docs cite durable evidence; fleet checkout layout required for CLEAN. Since round 25 a lone clone is explicit, not a bare failure: self-references (`kagi-shokunin/\u2026`) resolve in-tree, fleet-only tokens print FLEET-ABSENT, the gate ends `CITATION_GATE: INCOMPLETE (\u2026 fleet_absent=N)` exit 3 and verify reports `LAYOUT-INCOMPLETE R11-08` + `CLAIM_LEDGER: INCOMPLETE` exit 1 (never CLEAN); lane-owned misses stay UNRESOLVED in either layout. Before round 25 a lone clone gave exit-mismatch (unresolved=88, round-25 plan)."
+   ]
   },
   {
    "id": "R11-09",
-   "expect": {
-    "old": "^SELFTEST: PASS \\(151 cases\\)",
-    "new": "^SELFTEST: PASS \\(166 cases\\)"
-   },
-   "note": "15 round-25 cases: 14 layout + 1 network-mode refusal"
+   "old": [
+    "R11-09",
+    "bash corpus/claim-ledger.sh --selftest",
+    "^SELFTEST: PASS \\(151 cases\\)",
+    "0",
+    "300",
+    "current expected isolated ledger selftest: 108->121->140; round-24 recovery adds eleven policy/self-skip regression and valid-control cases, expected151. Old/new expectations retained in .ufo/waves/round-24/recovery-migrations.json; only executed output verifies this count."
+   ],
+   "new": [
+    "R11-09",
+    "bash corpus/claim-ledger.sh --selftest",
+    "^SELFTEST: PASS \\(170 cases\\)",
+    "0",
+    "300",
+    "current expected isolated ledger selftest: 108->121->140->151; round 25 adds fourteen layout cases (lone INCOMPLETE, fleet CLEAN, lane-owned/self/partial-fleet misses stay UNRESOLVED, end-of-line token checked, verify LAYOUT-INCOMPLETE) and one release-clock --observe network-mode refusal, plus four fresh falsifier cases, expected170. Old/new expectations retained in .ufo/waves/round-25/expectation-migrations.json; only executed output verifies this count."
+   ]
+  },
+  {
+   "id": "R12-03",
+   "old": [
+    "R12-03",
+    "grep -c '[^[:space:]]' corpus/stamps.tsv",
+    "^83$",
+    "0",
+    "30",
+    "current pin membership: original 63 retained, seven round-22 additions, nine round-23 additions (five fixture files, closure script/records, source-fetches, round-23 lesson) and four round-24 additions (rendered-text-v1.py, row-identity.sh, inrow-pins.tsv, round-24 lesson). The outside-verifier artifact was pre-existing but unstamped, not newly authored; provenance correction retained. Count only: WHICH paths is pinned by R24-05."
+   ],
+   "new": [
+    "R12-03",
+    "grep -c '[^[:space:]]' corpus/stamps.tsv",
+    "^88$",
+    "0",
+    "30",
+    "current pin membership: original 63 retained, seven round-22 additions, nine round-23 additions (five fixture files, closure script/records, source-fetches, round-23 lesson) and four round-24 additions (rendered-text-v1.py, row-identity.sh, inrow-pins.tsv, round-24 lesson). The outside-verifier artifact was pre-existing but unstamped, not newly authored; provenance correction retained. Count only: WHICH paths is pinned by R24-05. Round 25: +5 pins (self-counts.py/.tsv, release-clock.py, release-clocks.tsv, round-25 lesson) -> 88."
+   ]
+  },
+  {
+   "id": "R13-01",
+   "old": [
+    "R13-01",
+    "grep -c '^## Round ' SCORECARD.md",
+    "^29$",
+    "0",
+    "30",
+    "current round-heading cardinality: 25 at round-22 close, round-23 pre/post, round-24 pre/post. Includes the preserved blocked round-20 attempt, which cells excludes from scored sections only; malformed actual scored headings still fail closed. Count only: the heading texts are pinned by R24-06."
+   ],
+   "new": [
+    "R13-01",
+    "grep -c '^## Round ' SCORECARD.md",
+    "^31$",
+    "0",
+    "30",
+    "current round-heading cardinality: 25 at round-22 close, round-23 pre/post, round-24 pre/post. Includes the preserved blocked round-20 attempt, which cells excludes from scored sections only; malformed actual scored headings still fail closed. Count only: the heading texts are pinned by R24-06. Round 25 adds round-25 pre/post -> 31."
+   ]
   },
   {
    "id": "R18-03",
-   "expect": {
-    "old": "^SELFTEST: PASS \\(151 cases\\)$",
-    "new": "^SELFTEST: PASS \\(166 cases\\)$"
-   },
-   "note": "same selftest"
+   "old": [
+    "R18-03",
+    "bash corpus/claim-ledger.sh --selftest",
+    "^SELFTEST: PASS \\(151 cases\\)$",
+    "0",
+    "300",
+    "same isolated selftest as R11-09: expected108->121->140->151; the last eleven cover the fresh policy/self-skip falsifiers and controls. All epochs retained; no host-private gate execution in selftest."
+   ],
+   "new": [
+    "R18-03",
+    "bash corpus/claim-ledger.sh --selftest",
+    "^SELFTEST: PASS \\(170 cases\\)$",
+    "0",
+    "300",
+    "same isolated selftest as R11-09: expected108->121->140->151->170; the nineteen round-25 cases cover layout-explicit citations, verdicts, nested ownership, joined code spans, legacy ufo negatives and network-mode refusal. All epochs retained; no host-private gate execution in selftest."
+   ]
   },
   {
-   "id": "R11-08",
-   "expect": {
-    "old": "unchanged",
-    "new": "unchanged"
-   },
-   "note": "note rewritten: lone clone explicit (INCOMPLETE/LAYOUT-INCOMPLETE), was 'fails by design'"
+   "id": "R21-02",
+   "old": [
+    "R21-02",
+    "bash corpus/sources-census.sh",
+    "^SOURCES_CENSUS: CLEAN \\(rows=32 A=30 B=0 C=2 queued=1 mined=29 rejected=2 entries_sourced=4 legacy=21 captures=32 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+    "0",
+    "60",
+    "current registry snapshot: original16, S017-S026 and S027-S031 plus S032's exact-quote correction (round-24 recovery). Every row has a declared capture; sixteen historical pins remain classified, twelve non-reproducing and four reproducing raw. Four sourced knowledge entries and21 legacy entries remain. This checks metadata/citations, not network content or historical capture truth; old/new expectation in .ufo/waves/round-24/recovery-migrations.json."
+   ],
+   "new": [
+    "R21-02",
+    "bash corpus/sources-census.sh",
+    "^SOURCES_CENSUS: CLEAN \\(rows=38 A=36 B=0 C=2 queued=1 mined=34 rejected=3 entries_sourced=4 legacy=21 captures=38 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+    "0",
+    "60",
+    "current registry snapshot: original16, S017-S026 and S027-S031 plus S032's exact-quote correction (round-24 recovery). Every row has a declared capture; sixteen historical pins remain classified, twelve non-reproducing and four reproducing raw. Four sourced knowledge entries and21 legacy entries remain. This checks metadata/citations, not network content or historical capture truth; old/new expectation in .ufo/waves/round-24/recovery-migrations.json. Round 25: S033-S037 release-feed rows (tier A, mined, recheck 90d) with raw-literal-v1 captures -> 37 rows."
+   ]
+  },
+  {
+   "id": "R21-04",
+   "old": [
+    "R21-04",
+    "grep -cE '^R[0-9]+-[0-9]+' corpus/claim-ledger.tsv",
+    "^61$",
+    "0",
+    "30",
+    "current claim-row membership: original 39 retained, R22-01..04, R23-01/R23-02, and R24-01..R24-16 (normalizer and closure selftests, fourteen identity rows). Counts rows, not calibration or source truth; the id set is pinned by R24-14; old/new values in .ufo/waves/round-24/expectation-migrations.json."
+   ],
+   "new": [
+    "R21-04",
+    "grep -cE '^R[0-9]+-[0-9]+' corpus/claim-ledger.tsv",
+    "^65$",
+    "0",
+    "30",
+    "current claim-row membership: original 39 retained, R22-01..04, R23-01/R23-02, and R24-01..R24-16 (normalizer and closure selftests, fourteen identity rows). Counts rows, not calibration or source truth; the id set is pinned by R24-14; old/new values in .ufo/waves/round-24/expectation-migrations.json. Round 25: R25-01..04 -> 65."
+   ]
+  },
+  {
+   "id": "R22-03",
+   "old": [
+    "R22-03",
+    "python3 corpus/revision-audit.py --history c2cab35bc92e57e39e5489bac3386db078345b3f",
+    "^REVISION_AUDIT: CLEAN \\(stale=0 missing=0 dropped=0 added=20 invalid=0\\)$",
+    "0",
+    "120",
+    "current byte/pointer audit against immutable BASE membership: all original63 retained, twenty reviewed pin additions (seven in round 22, nine in round 23, four in round 24). Administrative metadata/hardlinks refused; canonical full OID required. Does not adjudicate source currentness or legitimacy of a repin without journal review. WHICH paths were added is pinned by R24-15."
+   ],
+   "new": [
+    "R22-03",
+    "python3 corpus/revision-audit.py --history c2cab35bc92e57e39e5489bac3386db078345b3f",
+    "^REVISION_AUDIT: CLEAN \\(stale=0 missing=0 dropped=0 added=25 invalid=0\\)$",
+    "0",
+    "120",
+    "current byte/pointer audit against immutable BASE membership: all original63 retained, twenty reviewed pin additions (seven in round 22, nine in round 23, four in round 24). Administrative metadata/hardlinks refused; canonical full OID required. Does not adjudicate source currentness or legitimacy of a repin without journal review. WHICH paths were added is pinned by R24-15. Round 25: five new pins are ADDED relative to c2cab35 -> 25."
+   ]
+  },
+  {
+   "id": "R24-05",
+   "old": [
+    "R24-05",
+    "bash corpus/row-identity.sh stamps",
+    "^ROW_IDENTITY: stamps count=83 sha256=136fde8b3656149c61f721eff42e1c0f973576a97d28eab2de079e962103b584$",
+    "0",
+    "30",
+    "identity for R12-03: pinned path membership (79 at round-23 close plus four round-24 pins: rendered-text-v1.py, row-identity.sh, inrow-pins.tsv, round-24 lesson)."
+   ],
+   "new": [
+    "R24-05",
+    "bash corpus/row-identity.sh stamps",
+    "^ROW_IDENTITY: stamps count=88 sha256=495c8e0e1cb09f4917b5ff7fc61fab6ab7f1ccc4fdd414e7ab167c0788752754$",
+    "0",
+    "30",
+    "identity for R12-03: pinned path membership (79 at round-23 close plus four round-24 pins: rendered-text-v1.py, row-identity.sh, inrow-pins.tsv, round-24 lesson). Round 25 membership: +5 pins."
+   ]
+  },
+  {
+   "id": "R24-06",
+   "old": [
+    "R24-06",
+    "bash corpus/row-identity.sh scorecard-rounds",
+    "^ROW_IDENTITY: scorecard-rounds count=29 sha256=18e0c4fd9068addbdda53c056bdc4e1aa78b8a84d17cc8e4e1522756e9e2f38c$",
+    "0",
+    "30",
+    "identity for R13-01: every `## Round ` heading line in file order (27 at round-23 close plus round-24 pre/post)."
+   ],
+   "new": [
+    "R24-06",
+    "bash corpus/row-identity.sh scorecard-rounds",
+    "^ROW_IDENTITY: scorecard-rounds count=31 sha256=f2af002b51ccdd4bfaf9b6fc50468ad9b3dc236c51348a47adec1546cca3b7e6$",
+    "0",
+    "30",
+    "identity for R13-01: every `## Round ` heading line in file order (27 at round-23 close plus round-24 pre/post). Round 25: + round-25 pre/post headings."
+   ]
+  },
+  {
+   "id": "R24-14",
+   "old": [
+    "R24-14",
+    "bash corpus/row-identity.sh ledger-ids",
+    "^ROW_IDENTITY: ledger-ids count=61 sha256=f8fe98749e522ad5268d01bbef341ae49bea4fa11ce18b8c9467f1533366b3a0$",
+    "0",
+    "30",
+    "identity for R21-04: all 61 claim-row ids (45 at round-23 close plus R24-01..R24-16)."
+   ],
+   "new": [
+    "R24-14",
+    "bash corpus/row-identity.sh ledger-ids",
+    "^ROW_IDENTITY: ledger-ids count=65 sha256=f06ca9d54d50b00541aa0f7c61ccac906d9ba04b255f22f256c71b8b82e645f0$",
+    "0",
+    "30",
+    "identity for R21-04: all 61 claim-row ids (45 at round-23 close plus R24-01..R24-16). Round 25: + R25-01..04."
+   ]
+  },
+  {
+   "id": "R24-15",
+   "old": [
+    "R24-15",
+    "bash corpus/row-identity.sh revision-added",
+    "^ROW_IDENTITY: revision-added count=20 sha256=574d0da4c1b995923dfb9f95694cef96e159a078b7e0d2d6c076a60ee66c429e$",
+    "0",
+    "120",
+    "identity for R22-03: the twenty ADDED pin paths relative to the c2cab35 membership (sixteen through round 23, four in round 24); fails if revision-audit itself fails."
+   ],
+   "new": [
+    "R24-15",
+    "bash corpus/row-identity.sh revision-added",
+    "^ROW_IDENTITY: revision-added count=25 sha256=ca5003fa0c6254cc9bff99342efbf07d9b6a400ef624c24983bdbcf8ca6f48a0$",
+    "0",
+    "120",
+    "identity for R22-03: the twenty ADDED pin paths relative to the c2cab35 membership (sixteen through round 23, four in round 24); fails if revision-audit itself fails. Round 25: + the five new pins."
+   ]
   },
   {
    "id": "R25-01",
-   "expect": {
-    "old": null,
-    "new": "added"
-   },
-   "note": "new round-25 row"
+   "old": null,
+   "new": [
+    "R25-01",
+    "python3 corpus/self-counts.py --selftest",
+    "^SELF_COUNTS_SELFTEST: PASS \\(48 cases\\)$",
+    "0",
+    "120",
+    "round 25 C1: the binder's isolated synthetic cases (clean/stale/unlocated/ambiguous, host and substrate refusal, recursion refusal, expect: binds without executing)"
+   ]
   },
   {
    "id": "R25-02",
-   "expect": {
-    "old": null,
-    "new": "added"
-   },
-   "note": "new round-25 row"
+   "old": null,
+   "new": [
+    "R25-02",
+    "python3 corpus/self-counts.py",
+    "^SELF_COUNTS: CLEAN \\(claims=38 stale=0\\)$",
+    "0",
+    "600",
+    "round 25 C1 (routed D1): the 38 reviewed current-tense numbers of SKILL.md, PROVINCE.md and corpus/README.md bound to their live source; runs non-host ledger rows' own commands, never a host row; population and history rule in corpus/self-counts.tsv"
+   ]
   },
   {
    "id": "R25-03",
-   "expect": {
-    "old": null,
-    "new": "added"
-   },
-   "note": "new round-25 row"
+   "old": null,
+   "new": [
+    "R25-03",
+    "python3 corpus/release-clock.py --selftest",
+    "^RELEASE_CLOCK_SELFTEST: PASS \\(67 cases\\)$",
+    "0",
+    "120",
+    "round 25 C3: offline synthetic cases (binding, feed, derived-anchor, quote, parser, URL and receipt safety); no network"
+   ]
   },
   {
    "id": "R25-04",
-   "expect": {
-    "old": null,
-    "new": "added"
-   },
-   "note": "new round-25 row"
+   "old": null,
+   "new": [
+    "R25-04",
+    "python3 corpus/release-clock.py",
+    "^RELEASE_CLOCK: CLEAN \\(on_release=28 bound=28 unbound=0 observed=28 fired=1 derived=15\\)$",
+    "0",
+    "60",
+    "round 25 C3 (sourced S033-S037): every on-release registry row bound to one clock and observed 2026-10-21 (receipt .ufo/waves/round-25/observe-1.json); S012 fired and was re-verified. Offline check only; --observe is refused in ledger rows (POLICY network-mode)"
+   ]
   }
- ]
+ ],
+ "stamp_added": [
+  "corpus/self-counts.py",
+  "corpus/self-counts.tsv",
+  "corpus/release-clock.py",
+  "corpus/release-clocks.tsv",
+  "corpus/lessons/round-25.md"
+ ],
+ "stamp_dropped": []
 }

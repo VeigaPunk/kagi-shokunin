@@ -1,0 +1,26 @@
+# FSelfGroup3 — round 25 C1 falsification
+
+Candidate: `82745e2c60e726b49499b8f309529935dc4eff2b` (frozen clone checkout); BASE: `4587c61a348e4528717404a68912c373f3ef4d03`.
+Axes: **calibration — PASS** for four selected bindings and their one-digit mutants, with the output-label finding below; **operability — PASS** in empty HOME/env-i sandbox; **freshness — UNRUN** (C3 outside this assignment).
+LSP: unavailable: `read xd://lsp` returned `No such tool`; literal reads/search were fallback only, not semantic proof. No installs/updates.
+
+## Scope and source checks
+- Sandbox: `/fast/scratch/kagi-r25/FSelfGroup3-4/lane`; selected table `/fast/scratch/kagi-r25/FSelfGroup3-4/selected.tsv` contains exactly `SC-LEDGER-SELFTEST`, `SC-CLOSURE-SELFTEST`, `SC-RENDERED-SELFTEST`, `PV-SURFACE-SELFTEST`. It did not replace or filter `corpus/claim-ledger.tsv`.
+- Full ledger count command `awk -F '\t' 'NF && $1 !~ /^#/ {n++; if (NF != 6) bad++} END {printf "claim-ledger ids=%d malformed=%d\n", n, bad}' corpus/claim-ledger.tsv && sha256sum corpus/claim-ledger.tsv` → exit 0; stdout `claim-ledger ids=65 malformed=0` and `fd73f63d7dbe315ebbc47eb3ba61a2950a0585df5d892e8d747f4e2d2a75ec32  corpus/claim-ledger.tsv`.
+- `corpus/self-counts.py:202-204` loads all IDs from `corpus/claim-ledger.tsv`; `181-197` runs ledger sources and checks declared exit/last non-empty output; `235-240` reads `expect:` from ledger column 3 and does not execute it.
+- Source meanings match the three executed `ledger:` rows: R11-09 is claim-ledger `--selftest` (166); R24-02 is closure selftest (14); R24-01 is rendered-text selftest (22). Their exact documentation locators resolve once each at `SKILL.md:245,751,752`.
+- `PV-SURFACE-SELFTEST` uses `expect:R11-03`; `claim-ledger.tsv:17` marks R11-03 `[substrate]` and pins `^SELFTEST: PASS \(16 cases\)$`. Independent runnable-source check: `env -i PATH=/usr/bin:/bin HOME=/fast/scratch/kagi-r25/FSelfGroup3-4/home TMPDIR=/fast/scratch/kagi-r25/FSelfGroup3-4/tmp THE_JANITOR_BIN=/fast/scratch/kagi-r25/FSelfGroup3-4/no-handler bash corpus/surface-census.sh --selftest` → exit 0; stdout excerpt `skip-case 15 verbs-sandboxed substrate-absent (handler not on PATH)`, `skip-case 16 verbs-break-injection substrate-absent (handler not on PATH)`, `SELFTEST: PASS (16 cases)`. The absent handler is forced, so neither handler case ran; this independently checks the literal count without executing the substrate row.
+
+## Receipts
+Common selected-check argv (baseline and all mutants): `env -i PATH=/usr/bin:/bin HOME=/fast/scratch/kagi-r25/FSelfGroup3-4/home TMPDIR=/fast/scratch/kagi-r25/FSelfGroup3-4/tmp PYTHONDONTWRITEBYTECODE=1 python3 -B corpus/self-counts.py --table /fast/scratch/kagi-r25/FSelfGroup3-4/selected.tsv`; HOME was empty before the baseline run.
+- **Original — PASS, exit 0.** Stdout: `OK SC-LEDGER-SELFTEST SKILL.md:245 claimed=166 live=166`; `OK SC-CLOSURE-SELFTEST SKILL.md:751 claimed=14 live=14`; `OK SC-RENDERED-SELFTEST SKILL.md:752 claimed=22 live=22`; `OK PV-SURFACE-SELFTEST PROVINCE.md:46 claimed=16 live=16`; `SELF_COUNTS: CLEAN (claims=4 stale=0)`.
+- **SC-LEDGER-SELFTEST — PASS mutation control, exit 1.** In sandbox only, `SKILL.md:245` 166→167; stdout excerpt `STALE SC-LEDGER-SELFTEST SKILL.md:245 claimed=167 live=166`; `SELF_COUNTS: STALE (claims=4 stale=1 unlocated=0 ambiguous=0)`. Restored 166 before next case.
+- **SC-CLOSURE-SELFTEST — PASS mutation control, exit 1.** `SKILL.md:751` 14→15; `STALE SC-CLOSURE-SELFTEST SKILL.md:751 claimed=15 live=14`; same `STALE (claims=4 stale=1 unlocated=0 ambiguous=0)` summary. Restored 14 before next case.
+- **SC-RENDERED-SELFTEST — PASS mutation control, exit 1.** `SKILL.md:752` 22→23; `STALE SC-RENDERED-SELFTEST SKILL.md:752 claimed=23 live=22`; same `STALE (claims=4 stale=1 unlocated=0 ambiguous=0)` summary. Restored 22 before next case.
+- **PV-SURFACE-SELFTEST — PASS mutation control, exit 1.** `PROVINCE.md:46` 16→17; `STALE PV-SURFACE-SELFTEST PROVINCE.md:46 claimed=17 live=16`; same `STALE (claims=4 stale=1 unlocated=0 ambiguous=0)` summary. Restored 16 after this case.
+
+## Finding
+- **LOW — expect pin is printed as `live`.** The original stdout says `OK PV-SURFACE-SELFTEST … claimed=16 live=16`, but `corpus/self-counts.py:235-240` obtains 16 from committed R11-03 expect text and executes nothing. The docstring explains this distinction (`15-18`), yet the per-claim stdout erases it (`250` prints `live=` for every kind); its `expect-clean-host` selftest also requires `live=2` while asserting the witness was never executed (`336-344`). This is a concrete provenance-label mismatch: a consumer of the normal verdict can mistake a pin comparison for a live measurement. The pin itself was independently confirmed by the scratch-only source run above. Recommendation: label this branch `expect`/`pinned`, not `live`.
+
+## Limits / UNRUN
+Only these four of the 37 self-count rows were selected; other C1 population, C2, and C3 freshness were not assessed. `verify`/`cells`, `--allow-host-rows`, and live handler, vault/account, CDP, op, and network operations were not run. No production code/data was changed; only this report was written in the lane, and temporary document mutants were restored between cases.

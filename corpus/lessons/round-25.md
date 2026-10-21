@@ -52,7 +52,7 @@ scouts, reviewers, revengers and connectors (`.ufo/waves/round-25/build/`).
   motivating defect. Landed rule: a number is CURRENT when it states an
   artifact's present size and no newer value sits in the same clause; an
   explicit history clause ("63 at round 21", the dated Round-N bullets of
-  §Falsification history) is out. The bound population is the 37 rows of
+  §Falsification history) is out. The bound population is the 38 rows of
   `corpus/self-counts.tsv` over SKILL.md, PROVINCE.md and corpus/README.md;
   completeness over all docs is NOT claimed (knowledge entries are named debt
   below).
@@ -174,3 +174,86 @@ by hand in round 12) — unresolved, not "fixed".
 Measured on the committed candidate and recorded with exact commands, exits
 and stdout in the SCORECARD round-25 outcome section (appended after the
 candidate lands, so the measurement names a pushed revision).
+
+### Registered reject S038
+
+Opened 2026-10-21: https://github.com/whatwg/html/releases.atom, HTTP200, 496 decoded bytes. Located quote “<title>Release notes from html</title>” (root title; four whitespace-delimited words); XML entry count=0. Rejected as S031’s release clock: no release identity can fire; flip: a maintainer-published stable release entry. S038 is tier A for the feed’s own inventory only, not for HTML semantics. The earlier phrase “Rejected, not registered” describes rejected routes, not a replacement for this registry rejection.
+
+## Fresh falsification — frozen candidate 82745e2c
+
+The 64-seat wave returned 52 reports and 12 provider deaths (not replaced),
+following three atomic job-cap refusals. All production work stayed frozen
+until the wave settled. Specs, registry, exact errors and role mixes:
+`.ufo/waves/round-25/wave-outcomes.json` and the falsify reports.
+
+Accepted findings and repairs:
+- FAxisHarm: README's existing checklist selftest count had no binding. Added
+  RD-CHECKLIST-SELFTEST (38 reviewed bindings); the gate is not a completeness
+  claim for all numbers even in those three documents.
+- FOwnUfo: a missing nested directory beneath a lane-owned round directory
+  was FLEET-ABSENT. Walk existing ancestor directories; it stays UNRESOLVED.
+- FIncompleteReceipt: arbitrary non-layout `SYNTHETIC_CHECK: INCOMPLETE`
+  output was mislabeled missing fleet. Limit the diagnostic to the exact
+  citation invocation and CITATION_GATE verdict, never generic output.
+- FQuoteIntegrity: live summary did not count quote-missing as fired.
+  FSeparability: S008's TSV observation could contradict its retained receipt
+  and still CLEAN. Bind offline observations to the retained receipt and
+  count missing-quote clocks as fired; mutate the TSV while retaining the
+  original receipt to prove refusal. A receipt is still author-side point
+  evidence, not provider attestation or historical capture authentication.
+- FSelfPolicy: refuse self-counts re-entry except its exact selftest, inline
+  interpreter commands, transitive release-clock observation and relative
+  table symlink escapes. `expect:` output says pinned, not live; trusted repo
+  inputs remain the declared boundary, not an arbitrary-wrapper sandbox.
+- FCountInstrument: the mutator expected a header but the TSV has six-field
+  rows with comments. Replaced the recorder with direct headerless parsing;
+  common population excludes the four new-tool bindings, never calls a BASE
+  POLICY receipt clean. FClockInstrument: observation counts now exclude
+  orphan/duplicate bindings. Replaced the layout recorder: complete fleet
+  evidence mirror, every control confined to a scratch clone, no ambient-cwd
+  edits.
+
+Bounded passes: FLocalMiss/FSelfMiss/FLegacyUfo/FSibling/FEol kill their scoped
+mutants; FLoneName demonstrates name-invariant after counts (48 absent, zero
+unresolved in both clone names), whereas BASE counts 88 vs46. Four of five
+new feed rows were freshly reopened by reviewers (FFeedS035 died); L1's
+capture remains S035 evidence, not an independent pass.
+
+Limits retained: a single quote is not an oracle for the entire teaching
+(FClockS017/S020); a release feed misses docs-only/footer edits
+(FClockS011/S024/S030). Current surrounding text was reviewed, not silently
+promoted into continuous coverage. Derived anchors are explicit author-side
+inferences from the current feed window and row open dates; past feed states
+were not retained. Fired S012 predates the registry open date: it detects an
+already-stale version anchor, not a release occurring since that review.
+
+## Conformance and outside review
+
+The L1 loaded the canonical skill/protocol late, after implementation began;
+this load-order defect is disclosed, not claimed conformant. In particular
+PROTOCOL's append-only LOG rule prompted restoration of historical line1202;
+the tokenizer now separates adjacent slash-joined code spans instead of
+rewriting the filed log. Its candidate spacing change is superseded.
+XMeasureC2 admitted a transient live README edit and restored it; other seats
+observed it. A real-lane normalizer import created untracked pycache, removed
+by L1. SentLayoutSkip's broad grep matched old interactive transcripts; no
+content was adopted. These process defects prevent a complete whole-round
+no-private-read attestation. No vault/account/handler/CDP action was credited.
+
+Installs by ClockS010 only: pyrage1.4.0 (`uv pip`, sandbox venv, throwaway age
+identity tests); official sops3.13.0/3.13.3 binaries in sandbox, checksum-file
+verified, no host PATH/system change (Sigstore verification unrun). No pacman
+transaction. Non-author admit/reject spot-check remains pending the parent's
+closure; the lane's own dispatched seats cannot supply it. SHONEN stays [~].
+
+### Integrated repair checks (before frozen-revision measurement)
+
+`repair-checks.json` under `.ufo/waves/round-25/` retains exact argv/exits:
+ledger selftest170, self-count selftest48, clock selftest67 all exit0;
+self-counts CLEAN38/stale0; receipt-bound clocks CLEAN28/observed28/fired1;
+source census CLEAN38/A36/C2/mined34/queued1/rejected3/captures38.
+These are working-tree checks, not substitutes for the final named commit.
+The receipt worker proposed overwrite during recapture; L1 rejected that
+regression and restored exclusive, no-overwrite receipt creation. New captures
+choose a new path. Explicit receipts require their SHA256; the default
+committed receipt's actual bytes are pinned, not a hand-transcribed hash.

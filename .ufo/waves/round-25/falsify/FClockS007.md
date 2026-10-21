@@ -1,0 +1,29 @@
+# FClockS007 — C3 S007 falsification
+
+## Outcome
+
+- **PASS — frozen clock observation reproduces.** Candidate revision: `82745e2c60e726b49499b8f309529935dc4eff2b` (sandbox HEAD, checkout exit 0). No production files changed; no tools installed.
+- **PASS — clock basis is appropriate as a rendered quote.** `corpus/release-clocks.tsv:4` records `rendered-quote`, no feed ID/URL, no version anchor, date `2026-10-21`, and `quote-located`. The live guide is visibly a public-preview page but has no displayed stable product version/date in its page content. Changelog probe below returned 404.
+- **UNRUN / N/A — newest stable server/product version.** This is not a feed clock and the registry binds no feed. I did not infer a latest stable product release from an unrelated release index or API; a product-wide release/version source applicable to this guide is not established. No `derived:` anchor exists for S007.
+- **PASS, narrow scope — bound quote supports workflow-duration access only.** The declared capture quote is `only remain accessible for the duration of the workflow` (`source-fetches.tsv:60`), not a quote reconstructed from the `SOURCES.md` teaches cell. It locates once and directly supports that workflow-duration teaching. It does not by itself establish the row's other teaching claims. The current page independently states configured claims must match (locate count 1), and “The token value is your integration key” (count 2); lowercase `public preview` locates 7. S019 (`SOURCES.md:25,98-103`) supersedes S007's uniform-status/eligibility reading; S032 (`:38,53`) corrects the integration-key quotation's case-sensitive locator. Thus surviving quote does not revive superseded status scope.
+- **Falsifier checked:** the bound sentence disappearing or changing so the declared quote has zero matches would falsify the rendered-quote observation. Observed count is 1, so this falsifier did not occur. The broad claim that this *one quote* substantiates all S007 teaching is unsupported; the page has separate statements for the other mechanisms.
+
+## Reproduction evidence
+
+Sandbox: `/fast/scratch/kagi-r25/FClockS007/lane`; HEAD exactly the candidate above. The fetch/hash/normalizer commands below used an isolated `env -i PATH=/usr/bin:/bin HOME=/fast/scratch/kagi-r25/FClockS007/home`; no credentials/API headers, account actions, or product execution.
+
+1. `git clone -q --no-hardlinks /home/vgpnk/Projects/shokunin/kagi-shokunin /fast/scratch/kagi-r25/FClockS007/lane && git -C /fast/scratch/kagi-r25/FClockS007/lane checkout -q 82745e2c60e726b49499b8f309529935dc4eff2b && git -C /fast/scratch/kagi-r25/FClockS007/lane rev-parse HEAD` — **exit 0**; stdout `82745e2c60e726b49499b8f309529935dc4eff2b`.
+2. `env -i PATH=/usr/bin:/bin HOME=/fast/scratch/kagi-r25/FClockS007/home date -u '+OBSERVED_UTC=%Y-%m-%dT%H:%M:%SZ'` — **exit 0**; stdout `OBSERVED_UTC=2026-10-21T12:07:19Z`.
+3. `env -i PATH=/usr/bin:/bin HOME=/fast/scratch/kagi-r25/FClockS007/home curl -fsSL --compressed -A 'kagi-shokunin-round25/1.0 (documentation verification)' -o /fast/scratch/kagi-r25/FClockS007/page.html -w 'HTTP:%{http_code} bytes:%{size_download} effective:%{url_effective}\n' https://www.1password.dev/brokered-access` — **exit 0**; `HTTP:200 bytes:166493 effective:https://www.1password.dev/brokered-access`.
+4. `env -i PATH=/usr/bin:/bin HOME=/fast/scratch/kagi-r25/FClockS007/home sha256sum /fast/scratch/kagi-r25/FClockS007/page.html` — **exit 0**; `67f690e21116a3644be8cff57058293150b8b03fc305dc3af63fa43c312`.
+5. `env -i PATH=/usr/bin:/bin HOME=/fast/scratch/kagi-r25/FClockS007/home PYTHONDONTWRITEBYTECODE=1 python3 -B corpus/rendered-text-v1.py digest /fast/scratch/kagi-r25/FClockS007/page.html` — **exit 0**; raw `67f690e21116a3644be8cff57058293150b8b03fc305dc3af63fa43c312`, bytes `1199447`; normalized `f3861c172c370dd10ef8a9289857b0b59c5b07a9d16f2f7cf25aeb02738cc6e9`, bytes `6049`.
+6. `env -i PATH=/usr/bin:/bin HOME=/fast/scratch/kagi-r25/FClockS007/home PYTHONDONTWRITEBYTECODE=1 python3 -B corpus/rendered-text-v1.py locate /fast/scratch/kagi-r25/FClockS007/page.html 'only remain accessible for the duration of the workflow'` — **exit 0**; `RENDERED_TEXT_V1_LOCATE: count=1`.
+7. `env -i PATH=/usr/bin:/bin HOME=/fast/scratch/kagi-r25/FClockS007/home PYTHONDONTWRITEBYTECODE=1 python3 -B corpus/rendered-text-v1.py locate /fast/scratch/kagi-r25/FClockS007/page.html 'All configured claims must match'` — **exit 0**, count 1.
+8. Same command/profile with quote `'The token value is your integration key'` — **exit 0**, count 2.
+9. Same command/profile with quote `'public preview'` — **exit 0**, count 7.
+10. `env -i PATH=/usr/bin:/bin HOME=/fast/scratch/kagi-r25/FClockS007/home curl -sS --compressed -A 'kagi-shokunin-round25/1.0 (documentation verification)' -o /dev/null -w 'HTTP:%{http_code} bytes:%{size_download} effective:%{url_effective}\n' https://www.1password.dev/changelog` — **exit 0**; `HTTP:404 bytes:11029 effective:https://www.1password.dev/changelog`.
+Frozen pointers: `corpus/release-clocks.tsv:4`; `corpus/SOURCES.md:13,25,38,98-105`; `corpus/source-fetches.tsv:14-24,27-40,60`; `corpus/rendered-text-v1.py:70-121`.
+
+## Hash and coverage limits
+
+The fresh HTTP status, body SHA-256, byte count, normalized digest, and quote result match the frozen S007 `source-fetches.tsv:60` capture exactly. Its representation is explicitly `decoded-http-body-volatile-v1`; `source-fetches.tsv:17-23,37-40` says digests are point attestations, not cross-capture drift pins. The different inline historical `SOURCES.md:13` fetch digest (`e4aef238bb5c93080bc0e1cc2156d0f8d19c9291dbbee60193bd42485686f818`) is not evidence of semantic drift. The guide's current body supports the bound sentence and separately observed mechanisms; absence of every possible public release feed cannot be proved from a page fetch plus the 404 endpoint, so no universal feed-absence claim is made.

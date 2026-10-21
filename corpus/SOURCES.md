@@ -42,7 +42,11 @@
 | S036 | Python releases, python.org downloads RSS — https://www.python.org/downloads/feed.rss | docs | A | CPython release identity (newest stable X.Y.Z item) for the on-release clocks of S027 and S028; prereleases and install-manager items excluded | Item titled Python 3.15.0, pubDate Fri, 09 Oct 2026 13:54:59 +0000; feed fetched 2026-10-21 | Newest stable CPython is 3.15.0; the newer Python 3.16.0a1 item is a prerelease and must not move the stable clock. Quote: “<title>Python 3.15.0</title>” (newest stable item). | mined | 2026-10-21 | 90d | corpus/lessons/round-25.md |
 | S037 | curl release information file — https://curl.se/info | docs | A | curl release identity (latest official release and date) for the on-release clock of S029 | Lines Version and Date: 8.23.0, 2026-10-14 (Next release: 2026-12-09); fetched 2026-10-21 | The latest official curl release is 8.23.0 (2026-10-14); S029's anchor names 8.23.1, which is curl's unreleased development label, so its clock anchors on the released 8.23.0. Quote: “Version: 8.23.0” (line 1). | mined | 2026-10-21 | 90d | corpus/lessons/round-25.md |
 
+| S038 | WHATWG HTML release Atom feed (empty) — https://github.com/whatwg/html/releases.atom | code | A | Whether WHATWG HTML publishes a release stream suitable for an on-release clock | Atom feed root title and zero entry elements; fetched 2026-10-21 | REJECTED: an empty feed has no release identity and cannot fire S031’s clock; flip: the maintainers publish a stable release entry. Quote: “<title>Release notes from html</title>” (root title); entry count is zero. | rejected | 2026-10-21 | 90d | — |
+
 ## Paths
+
+- **Observable release clocks** — S033 → S034 → S035 → S036 → S037, with S038 rejected: distinguish server/product stable releases from module tags, prereleases and empty living-standard feeds.
 
 - **Machine credential custody boundaries** — S001 → S004 → S002 → S003 → S006 → S007: distinguish process-scoped delivery, Service Account permission/token controls, Connect server deployment credentials versus caller tokens, and Broker preview identity/key custody.
 - **Encrypted-file key lifecycle** — S009 → S010 → S011: configure age recipients, understand multi-group recovery, then distinguish recipient synchronization from data-key rotation and the documented compromise order.
@@ -142,3 +146,7 @@ Counting commands for the round-22 cardinalities: run
 the exact executable `counting_argv` and before/after exit0 outputs for
 distinct URLs are committed in
 `kagi-shokunin/.ufo/waves/round-22/registry-census-details.json`.
+
+## Round-25 search log
+
+Question: which official release identity can make each existing on-release recheck observable? Where: the 28 S005–S032 row pages, their maintainer feeds, vendor release hubs and living-standard feeds; 2026-10-21. Registry decisions: six distinct candidate URLs screened, five included (S033–S037), one excluded (S038, empty release stream; flip in its row). Other probes (REST API, client release hubs) remain scoped rejected routes in the lesson, not independent admitted sources. Stop: all 28 existing clocks have a declared identity; this is not an exhaustive source census.

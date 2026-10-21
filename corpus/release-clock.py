@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 """Check and observe release clocks bound to SOURCES.md recheck rows."""
 import argparse
+import contextlib
 import datetime as dt
 import hashlib
 import http.client
 import importlib.util
 import ipaddress
+import io
 import json
 import os
 import re
@@ -23,6 +25,7 @@ HEADER = (
     "id", "clock", "feed_source_id", "feed_url", "anchored_version",
     "observed_version", "observed_at", "verdict", "note",
 )
+DEFAULT_RECEIPT_SHA256 = "b74c8ee30aaeaf7a867f9bbad39ea42e94f199da69ebd01d0e391d2e8b349f92"
 SOURCE_ID_RE = re.compile(r"S[0-9]{3}")
 VERSION_RE = re.compile(
     r"(?<![A-Za-z0-9.])v?([0-9]+\.[0-9]+(?:\.[0-9]+)*(?:[-+][0-9A-Za-z.-]+)?)(?![A-Za-z0-9.])",
@@ -360,8 +363,102 @@ def norm_version(value):
     return value[1:] if value[:1].lower() == "v" else value
 
 
-def evaluate(sources, rows, captures=None):
+def receipt_date(value):
+    if not isinstance(value, str) or not value.endswith("Z"):
+        return None
+    try:
+        timestamp = dt.datetime.fromisoformat(value[:-1] + "+00:00")
+    except ValueError:
+        return None
+    if timestamp.utcoffset() != dt.timedelta(0):
+        return None
+    return timestamp.date().isoformat()
+
+
+def receipt_matches(source_id, source, values, receipt):
+    if not isinstance(receipt, dict):
+        return False
+    expected_url = values["feed_url"] if values["clock"] == "feed" else source["url"]
+    status = receipt.get("http_status")
+    if ("error" in receipt
+            or receipt.get("id") != source_id
+            or receipt.get("clock") != values["clock"]
+            or receipt.get("url") != expected_url
+            or receipt.get("verdict") != values["verdict"]
+            or receipt_date(receipt.get("observed_at")) != values["observed_at"]
+            or type(status) is not int or not 200 <= status < 300
+            or not isinstance(receipt.get("sha256"), str)
+            or not re.fullmatch(r"[0-9a-f]{64}", receipt["sha256"])):
+        return False
+    if values["clock"] == "feed":
+        parsed_version = receipt.get("parsed_version")
+        return (
+            isinstance(parsed_version, str)
+            and norm_version(parsed_version) == norm_version(values["observed_version"])
+            and receipt.get("located") is None
+        )
+    if values["clock"] == "rendered-quote":
+        located = receipt.get("located")
+        expected_located = values["verdict"] == "quote-located"
+        return (
+            receipt.get("parsed_version") is None
+            and type(located) is bool
+            and located is expected_located
+        )
+    return False
+
+
+def load_receipt_bundle(path, expected_sha256=None):
+    bundle = {"records": {}, "invalid_ids": set(), "invalid": False}
+    if not os.path.lexists(path):
+        return bundle
+    try:
+        raw = Path(path).read_bytes()
+    except OSError:
+        bundle["invalid"] = True
+        return bundle
+    if expected_sha256 is not None:
+        if (not re.fullmatch(r"[0-9a-f]{64}", expected_sha256)
+                or hashlib.sha256(raw).hexdigest() != expected_sha256):
+            bundle["invalid"] = True
+            return bundle
+    try:
+        document = json.loads(raw.decode("utf-8"))
+    except (UnicodeError, json.JSONDecodeError):
+        bundle["invalid"] = True
+        return bundle
+    if (not isinstance(document, dict)
+            or document.get("format") != "release-clock-observations-v1"
+            or not isinstance(document.get("observations"), list)):
+        bundle["invalid"] = True
+        return bundle
+    for record in document["observations"]:
+        if not isinstance(record, dict) or not isinstance(record.get("id"), str):
+            bundle["invalid"] = True
+            continue
+        record_id = record["id"]
+        if record_id in bundle["records"] or record_id in bundle["invalid_ids"]:
+            bundle["invalid_ids"].add(record_id)
+            bundle["records"].pop(record_id, None)
+        else:
+            bundle["records"][record_id] = record
+    return bundle
+
+
+def receipt_path(root, selected):
+    if selected is None:
+        return root / ".ufo" / "waves" / "round-25" / "observe-1.json"
+    path = Path(selected)
+    return path if path.is_absolute() else root / path
+
+
+def evaluate(sources, rows, captures=None, receipt_bundle=None):
     captures = captures or {}
+    receipt_bundle = receipt_bundle or {
+        "records": {}, "invalid_ids": set(), "invalid": False,
+    }
+    receipt_records = receipt_bundle["records"]
+    invalid_receipt_ids = receipt_bundle["invalid_ids"]
     on_release = sorted(
         source_id for source_id, source in sources.items()
         if source["recheck"] == "on-release"
@@ -392,11 +489,10 @@ def evaluate(sources, rows, captures=None):
             continue
         row = matches[0]
         bound += 1
-        fields = row["fields"]
         if row["malformed"]:
             errors.add(("INCONSISTENT", source_id))
             continue
-        values = dict(zip(HEADER, fields))
+        values = dict(zip(HEADER, row["fields"]))
         clock = values["clock"]
         feed_source_id = values["feed_source_id"]
         feed_url = values["feed_url"]
@@ -404,11 +500,11 @@ def evaluate(sources, rows, captures=None):
         observed_version = values["observed_version"]
         observed_at = values["observed_at"]
         verdict = values["verdict"]
-        date_ok = valid_iso_date(observed_at)
+        row_valid = True
+        row_fired = False
+        row_derived = False
 
         if clock == "feed":
-            # A feed is its own registry row (opened, tiered, captured), never
-            # an on-release row itself, so a clock cannot need a clock.
             feed_source = sources.get(feed_source_id)
             if (not SOURCE_ID_RE.fullmatch(feed_source_id)
                     or feed_source is None
@@ -417,37 +513,60 @@ def evaluate(sources, rows, captures=None):
                     or not valid_public_https_url(feed_url)
                     or feed_source["url"] != feed_url):
                 errors.add(("BADFEED", source_id))
-            # The anchored release is either named by the row's anchor cell or
-            # declared as derived (the feed's release current when the row was
-            # opened) in the note; a derived anchor is counted, never silent.
+                row_valid = False
             is_derived = values["note"].startswith("derived:")
             anchor_ok = is_derived or version_is_named(sources[source_id]["anchor"], anchored)
             if (not anchor_ok or not observed_version or observed_version == "-"
-                    or not date_ok or verdict not in ("not-fired", "fired")):
+                    or not valid_iso_date(observed_at)
+                    or verdict not in ("not-fired", "fired")):
                 errors.add(("INCONSISTENT", source_id))
+                row_valid = False
             elif verdict == "fired" and norm_version(observed_version) != norm_version(anchored):
-                fired += 1
-                observed += 1
-                derived += is_derived
+                row_fired = True
+                row_derived = is_derived
             elif verdict == "not-fired" and norm_version(observed_version) == norm_version(anchored):
-                observed += 1
-                derived += is_derived
+                row_derived = is_derived
             else:
                 errors.add(("INCONSISTENT", source_id))
+                row_valid = False
         elif clock == "rendered-quote":
             quote, profile = captures.get(source_id, ("", ""))
             if (feed_source_id != "-" or feed_url != "-" or anchored != "-"
-                    or observed_version != "-" or not date_ok
+                    or observed_version != "-" or not valid_iso_date(observed_at)
                     or verdict not in ("quote-located", "quote-missing")
                     or not quote.strip() or quote == "-"
                     or profile not in LOCATE_PROFILES
                     or not sources[source_id]["url"]):
                 errors.add(("INCONSISTENT", source_id))
+                row_valid = False
             else:
-                observed += 1
-                fired += verdict == "quote-missing"
+                row_fired = verdict == "quote-missing"
         else:
             errors.add(("INCONSISTENT", source_id))
+            row_valid = False
+
+        receipt = receipt_records.get(source_id)
+        if receipt_bundle["invalid"] or source_id in invalid_receipt_ids:
+            errors.add(("RECEIPT-MISMATCH", source_id))
+            row_valid = False
+        elif receipt is None:
+            errors.add(("NOT OBSERVED", source_id))
+            row_valid = False
+        elif not receipt_matches(source_id, sources[source_id], values, receipt):
+            errors.add(("RECEIPT-MISMATCH", source_id))
+            row_valid = False
+        if row_valid:
+            observed += 1
+            fired += row_fired
+            derived += row_derived
+
+    bound_ids = {
+        source_id for source_id, matches in by_id.items()
+        if len(matches) == 1 and not matches[0]["malformed"]
+    }
+    for record_id in set(receipt_records) | invalid_receipt_ids:
+        if record_id not in bound_ids:
+            errors.add(("RECEIPT-MISMATCH", record_id))
 
     return {
         "on_release": len(on_release),
@@ -700,7 +819,8 @@ def run_observe(root, sources, rows, output_path, captures=None):
                 for source, values in eligible]
     write_receipt(output_path, receipts)
     failures = sum("error" in receipt for receipt in receipts)
-    fired = sum(receipt.get("verdict") == "fired" for receipt in receipts)
+    fired = sum(receipt.get("verdict") in ("fired", "quote-missing")
+                for receipt in receipts)
     print("RELEASE_CLOCK_OBSERVE: wrote %d observations (failed=%d fired=%d) to %s" % (
         len(receipts), failures, fired, output_path,
     ))
@@ -726,7 +846,7 @@ def fixture_row(source_id="S001", clock="feed", feed_source_id="S002",
 
 
 def selftest():
-    global MAX_BODY_BYTES, MAX_XML_ELEMENTS
+    global MAX_BODY_BYTES, MAX_XML_ELEMENTS, request_body, utc_timestamp
     cases = 0
     failures = []
 
@@ -741,8 +861,47 @@ def selftest():
          "200", "curl-fsSL-compressed-v1", "2026-10-21", "decoded-http-body-v1", "0" * 64,
          "1", "-", "the exact example.", "rendered-text-v1", "0" * 64, "1"]) + "\n"
 
+    def synthetic_receipt_bundle(sources, rows):
+        records = {}
+        by_id = {}
+        for row in rows:
+            if row["id"] in sources and sources[row["id"]]["recheck"] == "on-release":
+                by_id.setdefault(row["id"], []).append(row)
+        for source_id, matches in by_id.items():
+            if len(matches) != 1 or matches[0]["malformed"]:
+                continue
+            values = dict(zip(HEADER, matches[0]["fields"]))
+            clock = values["clock"]
+            source = sources[source_id]
+            records[source_id] = {
+                "id": source_id,
+                "clock": clock,
+                "url": values["feed_url"] if clock == "feed" else source["url"],
+                "http_status": 200,
+                "sha256": "0" * 64,
+                "parsed_version": values["observed_version"] if clock == "feed" else None,
+                "located": (values["verdict"] == "quote-located")
+                           if clock == "rendered-quote" else None,
+                "verdict": values["verdict"],
+                "observed_at": values["observed_at"] + "T00:00:00Z",
+            }
+        return {"records": records, "invalid_ids": set(), "invalid": False}
+
+    def mutate_receipt(field, value):
+        def mutation(bundle):
+            bundle["records"]["S001"][field] = value
+        return mutation
+
+    def mutate_receipt_values(**values):
+        def mutation(bundle):
+            bundle["records"]["S001"].update(values)
+        return mutation
+
+    def remove_receipt(bundle):
+        bundle["records"].pop("S001", None)
+
     def run_case(name, rows_text, expected_errors, expected_counts=None,
-                 captures_text=default_capture):
+                 captures_text=default_capture, receipt_action=None):
         nonlocal cases
         cases += 1
         with tempfile.TemporaryDirectory(prefix="release-clock-") as temp:
@@ -767,7 +926,13 @@ def selftest():
             if captures_text:
                 (corpus / "source-fetches.tsv").write_text(
                     "# capture fixture\n" + captures_text, encoding="utf-8")
-            result = evaluate(parse_sources(root), parse_bindings(root), parse_captures(root))
+            sources = parse_sources(root)
+            rows = parse_bindings(root)
+            captures = parse_captures(root)
+            receipts = synthetic_receipt_bundle(sources, rows)
+            if receipt_action:
+                receipt_action(receipts)
+            result = evaluate(sources, rows, captures, receipts)
             actual_errors = set(result["errors"])
             expected = set(expected_errors)
             if actual_errors != expected:
@@ -797,7 +962,7 @@ def selftest():
         feed_source_id="S003", feed_url="https://example.test/stable") + "\n",
         [("BADFEED", "S001")])
     run_case("invalid date", fixture_row(observed_at="2026-02-30") + "\n",
-             [("INCONSISTENT", "S001")])
+             [("INCONSISTENT", "S001"), ("RECEIPT-MISMATCH", "S001")])
     run_case("wrong verdict", fixture_row(observed="1.2.4", verdict="not-fired") + "\n",
              [("INCONSISTENT", "S001")])
     run_case("duplicate binding", fixture_row() + "\n" + fixture_row() + "\n",
@@ -825,6 +990,54 @@ def selftest():
     run_case("feed row on-release", fixture_row(
         feed_source_id="S001", feed_url="https://example.test/doc") + "\n",
         [("BADFEED", "S001")])
+
+    run_case("missing receipt", fixture_row() + "\n",
+             [("NOT OBSERVED", "S001")], {"observed": 0},
+             receipt_action=remove_receipt)
+    run_case("receipt id mutation", fixture_row() + "\n",
+             [("RECEIPT-MISMATCH", "S001")],
+             receipt_action=mutate_receipt("id", "S999"))
+    run_case("receipt clock mutation", fixture_row() + "\n",
+             [("RECEIPT-MISMATCH", "S001")],
+             receipt_action=mutate_receipt("clock", "rendered-quote"))
+    run_case("receipt URL mutation", fixture_row() + "\n",
+             [("RECEIPT-MISMATCH", "S001")],
+             receipt_action=mutate_receipt("url", "https://example.test/other"))
+    run_case("receipt date mutation", fixture_row() + "\n",
+             [("RECEIPT-MISMATCH", "S001")],
+             receipt_action=mutate_receipt("observed_at", "2026-10-20T23:59:59Z"))
+    run_case("receipt verdict mutation", fixture_row() + "\n",
+             [("RECEIPT-MISMATCH", "S001")],
+             receipt_action=mutate_receipt("verdict", "fired"))
+    run_case("receipt parsed-version mutation", fixture_row() + "\n",
+             [("RECEIPT-MISMATCH", "S001")],
+             receipt_action=mutate_receipt("parsed_version", "9.9.9"))
+
+    run_case("TSV fired mutation against retained receipt",
+             fixture_row(observed="1.2.4", verdict="fired") + "\n",
+             [("RECEIPT-MISMATCH", "S001")],
+             receipt_action=mutate_receipt_values(
+                 parsed_version="1.2.3", verdict="not-fired"))
+    run_case("receipt version normalization control",
+             fixture_row(anchored="v1.2.3") + "\n", [],
+             {"observed": 1},
+             receipt_action=mutate_receipt("parsed_version", "v1.2.3"))
+    run_case("extra receipt mismatch", fixture_row() + "\n",
+             [("RECEIPT-MISMATCH", "S999")],
+             receipt_action=lambda bundle: bundle["records"].__setitem__(
+                 "S999", {"id": "S999"}))
+    run_case("duplicate receipt mismatch", fixture_row() + "\n",
+             [("RECEIPT-MISMATCH", "S001")],
+             receipt_action=lambda bundle: bundle["invalid_ids"].add("S001"))
+    run_case("quote located receipt control", fixture_row(
+        clock="rendered-quote", feed_source_id="-", feed_url="-",
+        anchored="-", observed="-", verdict="quote-located") + "\n", [],
+        {"observed": 1, "fired": 0})
+    run_case("quote located receipt mutation", fixture_row(
+        clock="rendered-quote", feed_source_id="-", feed_url="-",
+        anchored="-", observed="-", verdict="quote-located") + "\n",
+        [("RECEIPT-MISMATCH", "S001")],
+        receipt_action=mutate_receipt("located", False))
 
     atom = b'<feed xmlns="http://www.w3.org/2005/Atom">%s</feed>'
     def entry(title, tag):
@@ -1162,13 +1375,20 @@ def selftest():
                 or set(decoded["observations"][0]) != allowed_receipt_keys):
             failures.append("receipt mode or fields")
         before = destination.read_bytes()
+        cases += 1
         try:
             write_receipt(destination, [])
             failures.append("receipt overwrite was accepted")
         except SetupError:
             if destination.read_bytes() != before:
                 failures.append("receipt changed after overwrite refusal")
+        digest = hashlib.sha256(before).hexdigest()
+        valid_bundle = load_receipt_bundle(destination, digest)
+        mismatch_bundle = load_receipt_bundle(destination, "0" * 64)
         cases += 1
+        if (valid_bundle["invalid"] or "S001" not in valid_bundle["records"]
+                or not mismatch_bundle["invalid"]):
+            failures.append("receipt digest binding")
         target = root / "target.json"
         target.write_text("preserve", encoding="utf-8")
         link = root / "receipt-link.json"
@@ -1181,6 +1401,151 @@ def selftest():
                 failures.append("receipt symlink target changed")
         cases += 1
 
+    with tempfile.TemporaryDirectory(prefix="release-clock-recapture-") as temp:
+        root = Path(temp)
+        corpus = root / "corpus"
+        corpus.mkdir()
+        source_lines = [
+            "| id | source | kind | tier | scope | anchor | teaches | status | opened | recheck | used-by |",
+            "|---|---|---|---|---|---|---|---|---|---|---|",
+            fixture_source("S001", "Document", "docs", "Version 1.2.3",
+                           "Quote: “the exact example.”", "on-release",
+                           "https://example.test/doc"),
+            fixture_source("S002", "Release feed", "code", "Latest release",
+                           "Release Atom feed.", "90d",
+                           "https://example.test/releases.atom"),
+        ]
+        (corpus / "SOURCES.md").write_text(
+            "\n".join(source_lines) + "\n", encoding="utf-8"
+        )
+        tsv_path = corpus / "release-clocks.tsv"
+        tsv_path.write_text(
+            "\t".join(HEADER) + "\n" + fixture_row() + "\n", encoding="utf-8"
+        )
+        tsv_before = tsv_path.read_bytes()
+        output_path = root / "receipt.json"
+        stale_receipt = [dict(
+            synthetic_receipt_bundle(
+                parse_sources(root),
+                [{"id": "S001", "fields": fixture_row(
+                    observed="9.9.9", verdict="fired").split("\t"),
+                 "malformed": False}],
+            )["records"]["S001"]
+        )]
+        write_receipt(output_path, stale_receipt)
+        # Recapture writes a NEW receipt, never overwrites filed evidence.
+        output_path = root / "new-receipt.json"
+        original_request_body = request_body
+        original_utc_timestamp = utc_timestamp
+        request_body = lambda url, **kwargs: (
+            200, b'<feed><entry><title>v1.2.3</title></entry></feed>', None
+        )
+        utc_timestamp = lambda: "2026-10-21T00:00:00Z"
+        recapture_stdout = io.StringIO()
+        try:
+            with contextlib.redirect_stdout(recapture_stdout):
+                recapture_exit = main([
+                    "--root", str(root), "--observe", str(output_path),
+                ])
+        finally:
+            request_body = original_request_body
+            utc_timestamp = original_utc_timestamp
+        recaptured = load_receipt_bundle(output_path)["records"].get("S001", {})
+        cases += 1
+        if (recapture_exit != 0
+                or "RECEIPT-MISMATCH" in recapture_stdout.getvalue()
+                or recaptured.get("parsed_version") != "1.2.3"
+                or recaptured.get("verdict") != "not-fired"
+                or tsv_path.read_bytes() != tsv_before):
+            failures.append("stale receipt recapture or TSV immutability")
+
+        receipt_digest = hashlib.sha256(output_path.read_bytes()).hexdigest()
+        explicit_stdout = io.StringIO()
+        with contextlib.redirect_stdout(explicit_stdout):
+            explicit_exit = main([
+                "--root", str(root), "--receipt", str(output_path),
+                "--receipt-sha", receipt_digest,
+            ])
+        cases += 1
+        if explicit_exit != 0 or "RELEASE_CLOCK: CLEAN" not in explicit_stdout.getvalue():
+            failures.append("explicit receipt override with digest")
+
+        no_digest_stdout = io.StringIO()
+        with contextlib.redirect_stdout(no_digest_stdout):
+            no_digest_exit = main(["--root", str(root), "--receipt", str(output_path)])
+        cases += 1
+        if (no_digest_exit != 2
+                or "--receipt requires --receipt-sha" not in no_digest_stdout.getvalue()):
+            failures.append("explicit receipt without digest was accepted")
+
+        changed_document = json.loads(output_path.read_text(encoding="utf-8"))
+        changed_document["observations"][0]["parsed_version"] = "9.9.9"
+        output_path.write_text(
+            json.dumps(changed_document, sort_keys=True) + "\n", encoding="utf-8"
+        )
+        mismatch_stdout = io.StringIO()
+        with contextlib.redirect_stdout(mismatch_stdout):
+            mismatch_exit = main([
+                "--root", str(root), "--receipt", str(output_path),
+                "--receipt-sha", receipt_digest,
+            ])
+        cases += 1
+        if (mismatch_exit != 1
+                or "RECEIPT-MISMATCH S001" not in mismatch_stdout.getvalue()):
+            failures.append("explicit receipt digest mismatch was accepted")
+
+    with tempfile.TemporaryDirectory(prefix="release-clock-quote-missing-") as temp:
+        root = Path(temp)
+        corpus = root / "corpus"
+        corpus.mkdir()
+        source_lines = [
+            "| id | source | kind | tier | scope | anchor | teaches | status | opened | recheck | used-by |",
+            "|---|---|---|---|---|---|---|---|---|---|---|",
+            fixture_source("S001", "Document", "docs", "Page title",
+                           "Quote: “the exact example.”", "on-release",
+                           "https://example.test/doc"),
+        ]
+        (corpus / "SOURCES.md").write_text("\n".join(source_lines) + "\n", encoding="utf-8")
+        tsv_path = corpus / "release-clocks.tsv"
+        quote_row = fixture_row(
+            clock="rendered-quote", feed_source_id="-", feed_url="-",
+            anchored="-", observed="-", verdict="quote-located",
+        )
+        tsv_path.write_text("\t".join(HEADER) + "\n" + quote_row + "\n", encoding="utf-8")
+        (corpus / "source-fetches.tsv").write_text(
+            "# synthetic capture\n" + default_capture, encoding="utf-8"
+        )
+        normalizer_source = Path(__file__).resolve().parent / "rendered-text-v1.py"
+        (corpus / "rendered-text-v1.py").write_bytes(normalizer_source.read_bytes())
+        tsv_before = tsv_path.read_bytes()
+        root_sources = parse_sources(root)
+        root_rows = parse_bindings(root)
+        root_captures = parse_captures(root)
+        output_path = root / "quote-receipt.json"
+        original_request_body = request_body
+        original_utc_timestamp = utc_timestamp
+        request_body = lambda url, **kwargs: (200, b"<p>changed text</p>", None)
+        utc_timestamp = lambda: "2026-10-21T00:00:00Z"
+        summary = io.StringIO()
+        try:
+            with contextlib.redirect_stdout(summary):
+                observe_failures = run_observe(
+                    root, root_sources, root_rows, output_path, root_captures
+                )
+        finally:
+            request_body = original_request_body
+            utc_timestamp = original_utc_timestamp
+        bundle = load_receipt_bundle(output_path)
+        result = evaluate(root_sources, root_rows, root_captures, bundle)
+        quote_receipt = bundle["records"].get("S001", {})
+        cases += 1
+        if (observe_failures != 0
+                or "failed=0 fired=1" not in summary.getvalue()
+                or quote_receipt.get("located") is not False
+                or quote_receipt.get("verdict") != "quote-missing"
+                or ("RECEIPT-MISMATCH", "S001") not in result["errors"]
+                or tsv_path.read_bytes() != tsv_before):
+            failures.append("quote-missing fired receipt or TSV immutability")
     if failures:
         for failure in failures:
             print("RELEASE_CLOCK_SELFTEST: FAIL %s" % failure)
@@ -1190,36 +1555,53 @@ def selftest():
 
 
 def main(argv=None):
-    parser = argparse.ArgumentParser(description=__doc__)
+    parser = argparse.ArgumentParser(description=__doc__, allow_abbrev=False)
     parser.add_argument("--root", metavar="DIR", help="repository root (defaults to this script's checkout)")
     parser.add_argument("--selftest", action="store_true", help="run synthetic, offline cases")
     parser.add_argument("--observe", metavar="OUT.json", help="fetch currently bound clocks and write a receipt")
+    parser.add_argument("--receipt", metavar="FILE", help="retained observation receipt (default is the round-25 receipt)")
+    parser.add_argument("--receipt-sha", metavar="SHA256", help="required digest for an explicit --receipt")
     args = parser.parse_args(argv)
     if args.selftest:
-        if args.observe:
-            print("RELEASE_CLOCK: SETUP (--selftest and --observe are mutually exclusive)")
+        if args.observe or args.receipt or args.receipt_sha:
+            print("RELEASE_CLOCK: SETUP (--selftest is isolated from receipts and observation)")
             return 2
         return selftest()
+    if args.observe and (args.receipt or args.receipt_sha):
+        print("RELEASE_CLOCK: SETUP (--observe uses its output receipt, not --receipt)")
+        return 2
+    if args.receipt and not args.receipt_sha:
+        print("RELEASE_CLOCK: SETUP (--receipt requires --receipt-sha)")
+        return 2
+    if args.receipt_sha and not args.receipt:
+        print("RELEASE_CLOCK: SETUP (--receipt-sha requires --receipt)")
+        return 2
+    if args.receipt_sha and not re.fullmatch(r"[0-9a-f]{64}", args.receipt_sha):
+        print("RELEASE_CLOCK: SETUP (--receipt-sha must be 64 lowercase hex digits)")
+        return 2
 
     root = Path(args.root).resolve() if args.root else Path(__file__).resolve().parent.parent
     try:
         sources = parse_sources(root)
         rows = parse_bindings(root)
         captures = parse_captures(root)
-        result = evaluate(sources, rows, captures)
+        if args.observe:
+            observation_failures = run_observe(root, sources, rows, args.observe, captures)
+            receipts = load_receipt_bundle(Path(args.observe))
+        else:
+            observation_failures = 0
+            receipt_file = receipt_path(root, args.receipt)
+            expected_sha256 = args.receipt_sha or (
+                DEFAULT_RECEIPT_SHA256 if args.receipt is None else None
+            )
+            receipts = load_receipt_bundle(receipt_file, expected_sha256)
+        result = evaluate(sources, rows, captures, receipts)
     except SetupError as exc:
         print("RELEASE_CLOCK: SETUP (%s)" % exc)
         return 2
 
     print_result(result)
-    if args.observe:
-        try:
-            observation_failures = run_observe(root, sources, rows, args.observe, captures)
-        except SetupError as exc:
-            print("RELEASE_CLOCK: SETUP (%s)" % exc)
-            return 2
-        return 0 if result["passed"] and observation_failures == 0 else 1
-    return 0 if result["passed"] else 1
+    return 0 if result["passed"] and observation_failures == 0 else 1
 
 
 if __name__ == "__main__":

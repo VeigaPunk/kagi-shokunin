@@ -18,10 +18,13 @@ column, so a host/substrate row's pinned number can still bind a document
 binds the doc to the ledger, never the ledger to the live host.
 
 Ledger commands are trusted, reviewed repo inputs, NOT a hostile-code sandbox:
-shlex.split, shell=False, cwd=root, the row's timeout, and an exact first-token
-allowlist (bash, grep, python3). Host/substrate rows and recursive ledger
-verify/cells commands are refused, never skipped as a passing measurement.
-This does not prove transitive host-freedom of an arbitrary new wrapper.
+shlex argv, shell=False, cwd=root, ledger timeouts, and an exact first-token
+allowlist are retained. Inline bash/python -c, ordinary self-counts re-entry,
+and release-clock observe (including argparse prefixes) are refused; only the
+exact python3 corpus/self-counts.py --selftest vector is exempt. A best-effort
+walk of root-local literal bash/Python wrapper calls catches transitive forms.
+This does not prove transitive host-freedom of dynamically constructed or
+external wrappers.
 
 Paths in doc and rows: sources are repo-relative and must remain under root.
 A relative --table is rooted there; an absolute --table explicitly selects an
@@ -35,6 +38,7 @@ Normal checks write nothing. Selftest writes isolated synthetic temp roots.
 from __future__ import annotations
 
 import argparse
+import ast
 import contextlib
 import io
 import re
@@ -45,6 +49,7 @@ import tempfile
 from dataclasses import dataclass
 from pathlib import Path
 
+SELFTEST_ARGV = ["python3", "corpus/self-counts.py", "--selftest"]
 DEFAULT_TABLE = "corpus/self-counts.tsv"
 ALLOWED_COMMANDS = {"bash", "grep", "python3"}
 
@@ -147,7 +152,107 @@ def load_claims(table: Path) -> list[Claim]:
     return claims
 
 
-def ledger_command(ident: str, ledger: dict[str, list[str]]):
+def is_repo_script(argument: str, filename: str) -> bool:
+    parts = Path(argument).parts
+    return len(parts) >= 2 and parts[-2:] == ("corpus", filename)
+
+
+def observes_release(argv: list[str]) -> bool:
+    for index, argument in enumerate(argv):
+        if is_repo_script(argument, "release-clock.py"):
+            for option in argv[index + 1:]:
+                name = option.split("=", 1)[0]
+                # argparse accepts unique prefixes, including --obs, for --observe.
+                if name.startswith("--") and len(name) > 2 and "--observe".startswith(name):
+                    return True
+    return False
+
+
+def inline_command(argv: list[str]) -> bool:
+    if not argv:
+        return False
+    for argument in argv[1:]:
+        if argv[0] == "python3" and argument == "-c":
+            return True
+        if (argv[0] == "bash" and argument.startswith("-")
+                and not argument.startswith("--") and "c" in argument[1:]):
+            return True
+    return False
+
+
+def script_arguments(argv: list[str]) -> list[str]:
+    if not argv or argv[0] not in {"bash", "python3"}:
+        return []
+    return [argument for argument in argv[1:]
+            if not Path(argument).is_absolute()
+            and Path(argument).suffix in {".py", ".sh"}
+            and "corpus" in Path(argument).parts]
+
+
+def nested_commands(text: str):
+    """Find literal simple commands in reviewed shell/Python wrapper text."""
+    for line in text.splitlines():
+        stripped = line.strip()
+        if not stripped or stripped.startswith("#"):
+            continue
+        for fragment in re.split(r"(?:&&|\|\||[;|])", stripped):
+            fragment = fragment.strip()
+            fragment = re.sub(r"^(?:if|then|while)\s+", "", fragment)
+            if not re.match(r"^(?:exec\s+)?(?:bash|python3)\s+", fragment):
+                continue
+            try:
+                argv = shlex.split(fragment, comments=True)
+            except ValueError:
+                continue
+            if argv and argv[0] == "exec":
+                argv = argv[1:]
+            if argv and argv[0] in {"bash", "python3"}:
+                yield argv
+    call_re = re.compile(
+        r"subprocess\.(?:run|Popen|call|check_call|check_output)\s*\(\s*(\[[^\]]*\])",
+        re.S,
+    )
+    for match in call_re.finditer(text):
+        try:
+            argv = ast.literal_eval(match.group(1))
+        except (SyntaxError, ValueError):
+            continue
+        if (isinstance(argv, list) and argv and isinstance(argv[0], str)
+                and argv[0] in {"bash", "python3"}
+                and all(isinstance(value, str) for value in argv)):
+            yield argv
+
+
+def enforce_command_policy(root: Path, argv: list[str], *, allow_selftest: bool = False):
+    if allow_selftest and argv == SELFTEST_ARGV:
+        return []
+    if any(is_repo_script(argument, "self-counts.py") for argument in argv):
+        fail("POLICY", "recursive self-counts invocation refused")
+    if inline_command(argv):
+        fail("POLICY", "inline bash/python -c refused")
+    if observes_release(argv):
+        fail("POLICY", "release-clock observe mode refused")
+
+    pending = script_arguments(argv)
+    seen = set()
+    while pending:
+        argument = pending.pop()
+        if argument in seen or is_repo_script(argument, "release-clock.py"):
+            continue
+        seen.add(argument)
+        text = read_text(repo_path(root, argument))
+        for nested in nested_commands(text):
+            if any(is_repo_script(item, "self-counts.py") for item in nested):
+                fail("POLICY", "transitive self-counts invocation refused")
+            if inline_command(nested):
+                fail("POLICY", "transitive inline bash/python -c refused")
+            if observes_release(nested):
+                fail("POLICY", "transitive release-clock observe mode refused")
+            pending.extend(script_arguments(nested))
+    return []
+
+
+def ledger_command(root: Path, ident: str, ledger: dict[str, list[str]]):
     if ident not in ledger:
         fail("POLICY", f"unknown ledger id {ident}")
     _ident, command, _expect, expected_exit, timeout, note = ledger[ident]
@@ -159,7 +264,6 @@ def ledger_command(ident: str, ledger: dict[str, list[str]]):
         fail("POLICY", f"ledger:{ident} invalid argv")
     if not argv or argv[0] not in ALLOWED_COMMANDS:
         fail("POLICY", f"ledger:{ident} command not allowlisted")
-    # Detect explicit modes even inside a quoted argument, plus default verify.
     if "claim-ledger.sh" in command:
         explicit_recursion = re.search(r"\b(?:verify|cells)\b", command)
         other_mode = any(arg in {"--selftest", "citations", "docs", "stamp", "--help", "-h"}
@@ -168,6 +272,7 @@ def ledger_command(ident: str, ledger: dict[str, list[str]]):
             fail("POLICY", f"ledger:{ident} recursive verify/cells refused")
     if "--allow-host-rows" in argv:
         fail("POLICY", f"ledger:{ident} host consent refused")
+    enforce_command_policy(root, argv, allow_selftest=True)
     try:
         code = int(expected_exit)
         seconds = int(timeout)
@@ -176,6 +281,7 @@ def ledger_command(ident: str, ledger: dict[str, list[str]]):
     except ValueError:
         fail("SETUP", f"ledger:{ident} invalid exit/timeout")
     return argv, code, seconds
+
 
 
 def last_output(root: Path, ident: str, command) -> str:
@@ -210,7 +316,7 @@ def check(root: Path, table: Path) -> int:
         try:
             # Source policy applies even when the doc locator is missing/ambiguous.
             kind, _sep, source = claim.source.partition(":")
-            command = ledger_command(source, ledger) if kind == "ledger" else None
+            command = ledger_command(root, source, ledger) if kind == "ledger" else None
             if kind == "expect" and source not in ledger:
                 fail("POLICY", f"unknown ledger id {source}")
             data_path = repo_path(root, source) if kind == "rows" else None
@@ -231,23 +337,26 @@ def check(root: Path, table: Path) -> int:
             number, match = matches[0]
             claimed = integer(match.group(1), f"{claim.ident} locator")
             if kind == "rows":
-                live = sum(1 for _line in data_lines(read_text(data_path)))
+                value = sum(1 for _line in data_lines(read_text(data_path)))
+                label = "live"
             elif kind == "expect":
-                # the committed pin (column 3), never executed
+                # The committed pin (column 3), never executed.
                 match = claim.extract.search(ledger[source][2])
                 if match is None:
                     fail("SETUP", f"{claim.ident}: extract did not match expect:{source}")
-                live = integer(match.group(1), f"{claim.ident} extract")
+                value = integer(match.group(1), f"{claim.ident} extract")
+                label = "pinned"
             else:
                 if source not in outputs:
                     outputs[source] = last_output(root, source, command)
                 match = claim.extract.search(outputs[source])
                 if match is None:
                     fail("SETUP", f"{claim.ident}: extract did not match ledger:{source} last line")
-                live = integer(match.group(1), f"{claim.ident} extract")
-            status = "OK" if claimed == live else "STALE"
-            counts["stale"] += claimed != live
-            print(f"{status} {claim.ident} {claim.doc}:{number} claimed={claimed} live={live}")
+                value = integer(match.group(1), f"{claim.ident} extract")
+                label = "live"
+            status = "OK" if claimed == value else "STALE"
+            counts["stale"] += claimed != value
+            print(f"{status} {claim.ident} {claim.doc}:{number} claimed={claimed} {label}={value}")
         except GateError as exc:
             errors[exc.kind] += 1
             print(f"{exc.kind} {claim.ident} {exc.message}")
@@ -272,23 +381,51 @@ def selftest() -> int:
         def case(name, expected, needle, *, doc="Count: 2\n", source="ledger:R1-01",
                  locator=r"^Count: ([0-9]+)$", extract=r"^LIVE: ([0-9]+)$",
                  command="python3 corpus/count.py", note="synthetic quantity",
-                 program="print('noise\\nLIVE: 2\\n\\n')\n", timeout="5",
-                 table=None, expect="^deliberately-old-expect$", never_run=False):
+                 program="print('LIVE: 2')\n", timeout="5",
+                 table=None, expect="^deliberately-old-expect$", never_run=False,
+                 table_arg=None, table_symlink=False, absolute_table=False,
+                 selfcount_program="print('LIVE: 2')\n",
+                 shell_wrapper="printf 'LIVE: 2\\n'\n",
+                 python_wrapper="print('LIVE: 2')\n"):
             nonlocal failed, total
             root = Path(tmp) / name
             (root / "corpus").mkdir(parents=True)
             (root / "SKILL.md").write_text(doc, encoding="utf-8")
             (root / "corpus/count.py").write_text(program, encoding="utf-8")
-            (root / "corpus/data.tsv").write_text("# comment\n\n a\n \t \n  # indented\nb\n", encoding="utf-8")
-            binding = "\t".join(("T1", "SKILL.md", locator, source, extract, "synthetic claim")) + "\n"
-            (root / DEFAULT_TABLE).write_text(binding if table is None else table, encoding="utf-8")
-            row = "\t".join(("R1-01", command, expect, "0", timeout, note)) + "\n"
+            (root / "corpus/data.tsv").write_text(
+                "# comment\n\n a\n \t \n  # indented\nb\n", encoding="utf-8")
+            binding = "\t".join(
+                ("T1", "SKILL.md", locator, source, extract, "synthetic claim")
+            ) + "\n"
+            (root / DEFAULT_TABLE).write_text(
+                binding if table is None else table, encoding="utf-8")
+            row = "\t".join(
+                ("R1-01", command, expect, "0", timeout, note)
+            ) + "\n"
             (root / "corpus/claim-ledger.tsv").write_text(row, encoding="utf-8")
+            (root / "corpus/self-counts.py").write_text(
+                selfcount_program, encoding="utf-8")
+            (root / "corpus/release-clock.py").write_text(
+                "print('LIVE: 2')\n", encoding="utf-8")
+            (root / "corpus/wrapper.sh").write_text(shell_wrapper, encoding="utf-8")
+            (root / "corpus/wrapper.py").write_text(python_wrapper, encoding="utf-8")
+            if table_symlink:
+                outside = Path(tmp) / f"{name}-outside.tsv"
+                outside.write_text(binding, encoding="utf-8")
+                (root / DEFAULT_TABLE).unlink()
+                (root / "corpus/table-link.tsv").symlink_to(outside)
+                table_arg = "corpus/table-link.tsv"
+            elif absolute_table:
+                outside = Path(tmp) / f"{name}-outside.tsv"
+                outside.write_text(binding, encoding="utf-8")
+                table_arg = str(outside)
+            args = ["--root", str(root)]
+            if table_arg is not None:
+                args.extend(["--table", table_arg])
             output = io.StringIO()
             with contextlib.redirect_stdout(output):
-                code = main(["--root", str(root)])
+                code = main(args)
             good = code == expected and needle in output.getvalue()
-            # Refusals must happen before a command can create this witness.
             if (expected == 2 or never_run) and (root / "EXECUTED").exists():
                 good = False
             total += 1
@@ -297,17 +434,24 @@ def selftest() -> int:
                 print(f"case {name}: FAIL (exit={code}, wanted={expected})")
                 print(output.getvalue(), end="")
 
-        case("clean", 0, "OK T1 SKILL.md:1 claimed=2 live=2")
-        case("stale", 1, "SELF_COUNTS: STALE (claims=1 stale=1 unlocated=0 ambiguous=0)", doc="Count: 3\n")
-        case("unlocated", 1, "UNLOCATED T1 SKILL.md", doc="Other: 2\n")
-        case("ambiguous", 1, "AMBIGUOUS T1 SKILL.md lines=1,3", doc="Count: 2\nother\nCount: 2\n")
         witness = "from pathlib import Path\nPath('EXECUTED').touch()\nprint('LIVE: 2')\n"
-        case("host", 2, "host/substrate row refused", note="quantity [host]", program=witness)
-        case("substrate", 2, "host/substrate row refused", note="quantity [substrate]", program=witness)
-        case("host-unlocated", 2, "host/substrate row refused", note="[host]", doc="other\n", program=witness)
-        case("unknown-id", 2, "unknown ledger id R9-99", source="ledger:R9-99", program=witness)
+        case("clean", 0, "OK T1 SKILL.md:1 claimed=2 live=2")
+        case("stale", 1, "SELF_COUNTS: STALE (claims=1 stale=1 unlocated=0 ambiguous=0)",
+             doc="Count: 3\n")
+        case("unlocated", 1, "UNLOCATED T1 SKILL.md", doc="Other: 2\n")
+        case("ambiguous", 1, "AMBIGUOUS T1 SKILL.md lines=1,3",
+             doc="Count: 2\nother\nCount: 2\n")
+        case("host", 2, "host/substrate row refused", note="quantity [host]",
+             program=witness)
+        case("substrate", 2, "host/substrate row refused",
+             note="quantity [substrate]", program=witness)
+        case("host-unlocated", 2, "host/substrate row refused", note="[host]",
+             doc="other\n", program=witness)
+        case("unknown-id", 2, "unknown ledger id R9-99", source="ledger:R9-99",
+             program=witness)
         for mode in ("verify", "cells", ""):
-            case("recursion-" + (mode or "default"), 2, "recursive verify/cells refused",
+            case("recursion-" + (mode or "default"), 2,
+                 "recursive verify/cells refused",
                  command="bash corpus/claim-ledger.sh " + mode)
         case("recursion-quoted", 2, "recursive verify/cells refused",
              command="bash -c 'bash corpus/claim-ledger.sh cells'")
@@ -316,7 +460,8 @@ def selftest() -> int:
         case("bad-locator-regex", 2, "locator: bad regex", locator="([")
         case("bad-extract-regex", 2, "extract: bad regex", extract="([")
         case("locator-no-group", 2, "exactly one capture group", locator="Count: 2")
-        case("locator-two-groups", 2, "exactly one capture group", locator=r"^(Count): ([0-9]+)$")
+        case("locator-two-groups", 2, "exactly one capture group",
+             locator=r"^(Count): ([0-9]+)$")
         case("extract-no-group", 2, "exactly one capture group", extract="LIVE: 2")
         case("bad-claimed-integer", 2, "capture is not a nonnegative integer",
              locator=r"^Count: (.+)$", doc="Count: two\n")
@@ -324,28 +469,78 @@ def selftest() -> int:
              extract=r"^LIVE: (.+)$", program="print('LIVE: two')\n")
         case("last-line-not-extracted", 2, "extract did not match",
              program="print('LIVE: 2\\ntrailer')\n")
-        case("nonallowlisted", 2, "command not allowlisted", command="sh corpus/count.py")
-        case("command-exit", 2, "exit=1 expected=0", program="print('LIVE: 2')\nraise SystemExit(1)\n")
-        case("timeout", 2, "timed out after 1s", timeout="1", program="import time\ntime.sleep(3)\n")
+        case("nonallowlisted", 2, "command not allowlisted",
+             command="sh corpus/count.py")
+        case("command-exit", 2, "exit=1 expected=0",
+             program="print('LIVE: 2')\nraise SystemExit(1)\n")
+        case("timeout", 2, "timed out after 1s", timeout="1",
+             program="import time\ntime.sleep(3)\n")
         case("empty-output", 2, "empty output", program="print('  ')\n")
         case("stderr-last-line", 0, "claimed=2 live=2",
-             program="import sys\nprint('noise', flush=True)\nprint('LIVE: 2', file=sys.stderr)\n")
-        case("repo-path-escape", 2, "repo-path", source="rows:../data.tsv", extract="-")
+             program="import sys\nprint('noise', flush=True)\n"
+                     "print('LIVE: 2', file=sys.stderr)\n")
+        case("repo-path-escape", 2, "repo-path",
+             source="rows:../data.tsv", extract="-")
         case("empty-table", 2, "empty binding table", table="# no claims\n")
-        case("bad-columns", 2, "expected six nonempty columns", table="T1\tSKILL.md\n")
-        # round 25: expect:<ID> binds a doc to a row's committed pin and runs nothing,
-        # so a host/substrate row can bind without being executed
+        case("bad-columns", 2, "expected six nonempty columns",
+             table="T1\tSKILL.md\n")
         pinned = r"^SELFTEST: PASS \(2 cases\)$"
-        case("expect-clean-host-row", 0, "OK T1 SKILL.md:1 claimed=2 live=2", source="expect:R1-01",
-             extract=r"\(([0-9]+) cases", expect=pinned, note="quantity [substrate]",
-             program=witness, never_run=True)
-        case("expect-stale", 1, "STALE T1 SKILL.md:1 claimed=3 live=2", source="expect:R1-01",
-             extract=r"\(([0-9]+) cases", expect=pinned, doc="Count: 3\n",
-             program=witness, never_run=True)
-        case("expect-no-number", 2, "extract did not match expect:R1-01", source="expect:R1-01",
-             extract=r"\(([0-9]+) cases", program=witness)
-        case("expect-unknown-id", 2, "unknown ledger id R9-99", source="expect:R9-99",
-             extract=r"\(([0-9]+) cases", program=witness)
+        case("expect-clean-host-row", 0, "OK T1 SKILL.md:1 claimed=2 pinned=2",
+             source="expect:R1-01", extract=r"\(([0-9]+) cases", expect=pinned,
+             note="quantity [substrate]", program=witness, never_run=True)
+        case("expect-stale", 1, "STALE T1 SKILL.md:1 claimed=3 pinned=2",
+             source="expect:R1-01", extract=r"\(([0-9]+) cases", expect=pinned,
+             doc="Count: 3\n", program=witness, never_run=True)
+        case("expect-no-number", 2, "extract did not match expect:R1-01",
+             source="expect:R1-01", extract=r"\(([0-9]+) cases",
+             program=witness)
+        case("expect-unknown-id", 2, "unknown ledger id R9-99",
+             source="expect:R9-99", extract=r"\(([0-9]+) cases",
+             program=witness)
+        case("self-counts-reentry", 2, "recursive self-counts invocation refused",
+             command="python3 corpus/self-counts.py", program=witness,
+             selfcount_program=witness)
+        case("self-counts-reentry-with-options", 2,
+             "recursive self-counts invocation refused",
+             command="python3 corpus/self-counts.py --selftest --root .",
+             program=witness, selfcount_program=witness)
+        case("self-counts-selftest-control", 0, "claimed=2 live=2",
+             command="python3 corpus/self-counts.py --selftest")
+        case("bash-inline", 2, "inline bash/python -c refused",
+             command="bash -c 'python3 corpus/count.py'", program=witness)
+        case("bash-combined-inline", 2, "inline bash/python -c refused",
+             command="bash -lc 'python3 corpus/count.py'", program=witness)
+        case("python-inline", 2, "inline bash/python -c refused",
+             command="python3 -c \"print('LIVE: 2')\"", program=witness)
+        case("release-observe", 2, "release-clock observe mode refused",
+             command="python3 corpus/release-clock.py --observe", program=witness)
+        case("release-observe-abbrev", 2, "release-clock observe mode refused",
+             command="python3 corpus/release-clock.py --obs", program=witness)
+        case("release-observe-short-abbrev", 2,
+             "release-clock observe mode refused",
+             command="python3 corpus/release-clock.py --ob", program=witness)
+        case("release-offline-control", 0, "claimed=2 live=2",
+             command="python3 corpus/release-clock.py")
+        case("transitive-release-observe", 2,
+             "transitive release-clock observe mode refused",
+             command="bash corpus/wrapper.sh",
+             shell_wrapper="python3 corpus/release-clock.py --obs\n",
+             program=witness)
+        case("transitive-python-release-observe", 2,
+             "transitive release-clock observe mode refused",
+             command="python3 corpus/wrapper.py",
+             python_wrapper="import subprocess\n"
+                            "subprocess.run(['python3', 'corpus/release-clock.py', '--obs'])\n",
+             program=witness)
+        case("transitive-self-counts", 2,
+             "transitive self-counts invocation refused",
+             command="bash corpus/wrapper.sh",
+             shell_wrapper="python3 corpus/self-counts.py --selftest\n",
+             program=witness, selfcount_program=witness)
+        case("relative-table-symlink-escape", 2, "repo-path escapes root",
+             table_symlink=True)
+        case("absolute-external-table-control", 0,
+             "SELF_COUNTS: CLEAN (claims=1 stale=0)", absolute_table=True)
     if failed:
         print(f"SELF_COUNTS_SELFTEST: FAIL ({total} cases, {failed} failed)")
         return 1
@@ -370,7 +565,11 @@ def main(argv: list[str]) -> int:
         root = args.root.resolve()
         if not root.is_dir():
             fail("SETUP", "root is not a directory")
-        return check(root, root / args.table)
+        if args.table.is_absolute():
+            table = args.table
+        else:
+            table = repo_path(root, args.table.as_posix())
+        return check(root, table)
     except GateError as exc:
         print(f"SELF_COUNTS: {exc.kind} ({exc.message})")
         return 2

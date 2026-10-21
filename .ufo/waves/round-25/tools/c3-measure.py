@@ -149,8 +149,12 @@ def measure(root: Path, revision: str) -> tuple[int, int, int, int, int, int]:
     bound = sum(binding_counts[row_id] == 1 for row_id in on_release_ids)
     unbound = sum(binding_counts[row_id] == 0 for row_id in on_release_ids)
     orphan = sum(binding["id"] not in on_release_ids for binding in bindings)
-    observed = sum(is_iso_observed_at(binding["observed_at"]) for binding in bindings)
-    fired = sum(binding["verdict"] == "fired" for binding in bindings)
+    # Observation/firing counts belong only to unique population members.
+    # Orphans and duplicate bindings are invalid inputs, never observations.
+    eligible = [binding for binding in bindings
+                if binding["id"] in on_release_ids and binding_counts[binding["id"]] == 1]
+    observed = sum(is_iso_observed_at(binding["observed_at"]) for binding in eligible)
+    fired = sum(binding["verdict"] in ("fired", "quote-missing") for binding in eligible)
     return len(on_release), bound, unbound, orphan, observed, fired
 
 

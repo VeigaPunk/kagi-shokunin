@@ -243,3 +243,14 @@ phrase was withdrawn later in that same lesson (21 was never the committed
 total), and "CPython-style" for S043 is withdrawn by its PyPA scope. Neither
 phrase is adopted as round28 teaching. Round28 final source count51 and
 selftest114 supersede candidate49/106 descriptions, not the historical rows.
+
+
+CheckLedger record corrections: the three migrated derived fixture cases are
+one round25 case and two round27 cases (not three round25 cases); ledger note
+corrected and `expectation-migrations.json` now records the synthetic S002
+feed-anchor old/new text explicitly (`Latest release` → `Latest release
+1.2.0; series 1.2.x`) and their unchanged expected outcomes. R25-03 alone is a
+count-only pin, not a named-case identity gate: CheckLedger's count-preserving
+swap passes that row; exact source bytes remain stamp-pinned, but a case-
+identity selector is not claimed and remains calibration debt. No calibration
+improvement is credited this round.

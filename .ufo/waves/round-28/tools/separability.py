@@ -267,10 +267,8 @@ def base_blob(env):
 
 
 def candidate_from_rev(rev, env):
-    clone = temp_quick(env)
-    diff = git(["diff", "--no-color", BASE_REV, rev, "--", CLOCK_REL], cwd=clone, env=env).stdout
-    blob = git(["show", rev + ":" + CLOCK_REL], cwd=clone, env=env).stdout
-    shutil.rmtree(clone, ignore_errors=True)
+    diff = git(["-C", str(LANE), "diff", "--no-color", BASE_REV, rev, "--", CLOCK_REL], env=env).stdout
+    blob = git(["-C", str(LANE), "show", rev + ":" + CLOCK_REL], env=env).stdout
     files, _ = parse_unified_diff(diff)
     hunks = files.get(CLOCK_REL, [])
     if any(path != CLOCK_REL for path in files):
@@ -281,7 +279,7 @@ def candidate_from_rev(rev, env):
     if join_text_lines(rebuilt, trailing) != blob:
         raise SplitError("internal: full hunk application does not reproduce "
                          "the candidate blob for %s" % rev)
-    return blob, hunks, diff, []
+    return blob.encode("utf-8"), hunks, diff, []
 
 
 def candidate_from_patch(patch_path, env):
@@ -296,11 +294,6 @@ def candidate_from_patch(patch_path, env):
     base_lines, trailing = split_text_lines(base_text)
     rebuilt, applied = apply_hunks(base_lines, hunks, "patch")
     return join_text_lines(rebuilt, trailing).encode("utf-8"), hunks, text, other
-
-
-def temp_quick(env):
-    directory = Path(tempfile.mkdtemp(prefix="kagi-r28-sep-git-", dir=SCRATCH))
-    return directory
 
 
 def load_manifest(path, hunk_total, allow_unassigned):
@@ -349,6 +342,12 @@ def default_receipt_rel(clone):
     return "/".join(re.findall(r'"([^"]+)"', match.group(1)))
 
 
+GENERIC_FINDING_CODES = frozenset((
+    "BADFEED", "REGRESSED", "INCONSISTENT", "UNBOUND", "ORPHAN",
+    "RECEIPT-MISMATCH", "NOT OBSERVED", "SETUP",
+))
+
+
 def fixture_class(result, written_fired=False):
     if result.get("traceback"):
         return "mishandled-traceback"
@@ -356,9 +355,19 @@ def fixture_class(result, written_fired=False):
         return "mishandled-written-fired"
     if result.get("clean_exit0"):
         return "mishandled-clean-exit0"
-    if result.get("exit") not in (0, None) and result.get("named_ids"):
+    if result.get("exit") not in (0, None) and typed_finding_codes(result):
         return "typed"
     return "other"
+
+
+def typed_finding_codes(result):
+    """Finding lines whose code is not a BASE-era generic code."""
+    codes = set()
+    for line in result.get("findings", []):
+        code = line.split(" ", 1)[0]
+        if code not in GENERIC_FINDING_CODES:
+            codes.add(code)
+    return codes
 
 
 def build_table_fixture(clone, temp, env, name, edits):

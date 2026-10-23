@@ -42,7 +42,7 @@
   {
    "id": "R25-03",
    "old": "R25-03\tpython3 corpus/release-clock.py --selftest\t^RELEASE_CLOCK_SELFTEST: PASS \\(79 cases\\)$\t0\t120\tround 25 C3: offline synthetic cases (binding, feed, derived-anchor, quote, parser, URL and receipt safety); no network Round 27 (C2): + twelve REGRESSED/feed-floor/strictness cases -> 79 (76 at the candidate, +3 from residual falsifiers).",
-   "new": "R25-03\tpython3 corpus/release-clock.py --selftest\t^RELEASE_CLOCK_SELFTEST: PASS \\(114 cases\\)$\t0\t120\tround 25 C3: offline synthetic cases (binding, feed, derived-anchor, quote, parser, URL and receipt safety); no network Round 27 (C2): + twelve REGRESSED/feed-floor/strictness cases -> 79 (76 at the candidate, +3 from residual falsifiers). Round 28: + eighteen NON-CANONICAL token/feed cases (C1) and nine DERIVATION cases (C2) -> 106; three round-25 derived cases keep their expectations with a feed-row anchor that names their version (migration .ufo/waves/round-28/expectation-migrations.json). Final FALSIFY: 106 ->114 (+eight boundary/raised/fired/receipt cases), older malformed feed case corrected from ignore to refusal."
+   "new": "R25-03\tpython3 corpus/release-clock.py --selftest\t^RELEASE_CLOCK_SELFTEST: PASS \\(114 cases\\)$\t0\t120\tround 25 C3: offline synthetic cases (binding, feed, derived-anchor, quote, parser, URL and receipt safety); no network Round 27 (C2): + twelve REGRESSED/feed-floor/strictness cases -> 79 (76 at the candidate, +3 from residual falsifiers). Round 28: + eighteen NON-CANONICAL token/feed cases (C1) and nine DERIVATION cases (C2) -> 106; three pre-existing derived cases (one round25, two round27) keep their expectations with a feed-row anchor that names their version (migration .ufo/waves/round-28/expectation-migrations.json). Final FALSIFY: 106 ->114 (+eight boundary/raised/fired/receipt cases), older malformed feed case corrected from ignore to refusal."
   }
  ],
  "stamp_membership": {
@@ -52,5 +52,19 @@
   "dropped": []
  },
  "observed_checks": "recorded in .ufo/waves/round-28/final/ after the measured revision",
- "stamp_collation": "stamp helper sorts in host locale; candidate reorders uppercase paths; membership unchanged. Final C-locale stamping restores stable collation."
+ "stamp_collation": "stamp helper sorts in host locale; candidate reorders uppercase paths; membership unchanged. Final C-locale stamping restores stable collation.",
+ "fixture_migrations": [
+  {
+   "file": "corpus/release-clock.py",
+   "field": "synthetic S002 feed source anchor",
+   "old": "Latest release",
+   "new": "Latest release 1.2.0; series 1.2.x",
+   "affected_cases": [
+    "derived anchor counted (round25)",
+    "non-numeric anchor keeps inequality (round27)",
+    "feed floor lifts non-numeric anchor (round27)"
+   ],
+   "reason": "new derived binding requires test feed row to name its anchor; expected outcomes unchanged; reverting only this fixture produces three DERIVATION case failures (CheckLedger)"
+  }
+ ]
 }

@@ -1558,3 +1558,34 @@ ValueError, CritFinalC2 #1 derived-anchor forgery).
   live deployment assertion. Original literal C2 fixture accepted0/4 at BASE:
   receipt mirroring is a real contested fixture change. Honest non-admission
   of frozen-fixture conformance; operator decides, no r29 started.
+
+### Round 28 — attempt-3 documentary close under policy HOLD (2026-10-25)
+
+The 2026-10-21 attempt ended after a provider content-safety refusal
+(18:31:49Z, Codex) and a Devin weekly-quota failure; its lane work was already
+pushed at `899c50b`, its report absent. Fleet records hold this round:
+`.tower/comms/inbox/20261024-r100-recovery-census-tower-survey-summary.md`
+row "kagi | 28 | HOLD — policy | Never dispatch (content-safety/cyber
+refusal …)", and the L0 line at `.ufo/l0-questions.md` asks for a
+*documentary* disposition. This attempt therefore did **no new craft work**:
+no claim, measurement, source row, knowledge entry or capability was added,
+and the refused work was not retried, rephrased or rerouted.
+
+- Landed the pre-refusal authored dirt as evidence, unchanged in substance:
+  `4839d3f` (instrument corrections, `expectation-migrations.json` fixture
+  record, separability fixes, the lesson's CheckLedger correction, build
+  reports, `136` seat reports, wave metadata). Files dated 15:09–15:28 -03,
+  i.e. **before** the 15:31 refusal.
+- Re-stamped `corpus/stamps.tsv` (LC_ALL=C, 91 paths, membership unchanged)
+  after the reviewed edits, and corrected one stale cell a re-running
+  reviewer found: `SCORECARD.md:1124` said `Registry 43 → 49` where the
+  measured registry is **51** (`bash corpus/sources-census.sh` →
+  `rows=51 A=49 … captures=51`).
+- Hygiene: `vault-releases.json` (1,598,338 B > the directory-add 1 MiB
+  skip) is required input for `retained-probes/XTagHistory/census.py`; its
+  six siblings were already committed, so it is committed as an explicit
+  file rather than ignored. `__pycache__/` added to the lane `.gitignore`
+  (proven by `git check-ignore`) after a lane-root `.pyc` leaked.
+- Verification seats (8, read-only, this attempt) re-ran the census, the
+  ledger, both frozen counters' receipts, the source rows and the scorecard
+  cells; their findings are in the round report. No seat wrote to the repo.

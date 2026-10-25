@@ -28,12 +28,12 @@ candidate first (`.ufo/waves/round-28/build/Src*.md`).
 
 | Candidate | Decision and basis | URL, access date, located quote |
 |---|---|---|
-| S044 Python integer-string conversion limit | ADMIT tier A docs, 180d: grounds the oversize half — a component must be bounded by length before any int(). | https://docs.python.org/3/builtins/stdtypes.html ; 2026-10-21 (requested /3/library/stdtypes.html, 301); “The default limit is 4300 digits as provided in sys.int_info.default_max_str_digits .” (located once). Second quote, same capture: “The lowest limit that can be configured is 640 digits as provided in sys.int_info.str_digits_check_threshold .” |
-| S045 SemVer 2.0.0 §2 normal version | ADMIT tier A spec, 180d: grounds the leading-zero half. Same URL as S042 with a different scope (one more W04 by design); S042 unchanged. | https://semver.org/spec/v2.0.0.html ; 2026-10-21; “A normal version number MUST take the form X.Y.Z where X, Y, and Z are non-negative integers, and MUST NOT contain leading zeroes.” (item 2; located once) |
-| S046 Python int() | ADMIT tier A docs, 180d: default-base int() accepts leading zeros, so canonicality is decided on text, never through int(). | https://docs.python.org/3/builtins/functions.html ; 2026-10-21 (301 from /3/library/functions.html); “Base 0 also disallows leading zeros: int('010', 0) is not legal, while int('010') and int('010', 8) are.” (located once) |
-| S047 GitHub Actions OIDC concepts | ADMIT tier A docs, 90d, frontier lead (OIDC trust policy), narrowed: claim-condition matching only; no audience rule (prose-absent); the page's `sub` example is the previous format. | https://docs.github.com/en/actions/concepts/security/openid-connect ; 2026-10-21; “the cloud provider checks if the OIDC token's subject and other claims are a match for the conditions that were preconfigured” (located once) |
-| S048 GitHub secret scanning concepts | ADMIT tier A docs, 90d, frontier lead (detection versus verification); GitHub only, no scanner-independent semantics. | https://docs.github.com/en/code-security/concepts/secret-security/secret-scanning ; 2026-10-21; “Validity checks help you prioritize which secrets to remediate first by verifying whether a detected secret is still active.” (located once) |
-| S049 NIST SP 800-57 Pt 1 Rev. 6 IPD | ADMIT tier A spec, 90d, frontier lead (draft status): Rev. 6 is a closed-comment draft; Rev. 5 final remains the citable text. | https://csrc.nist.gov/pubs/sp/800/57/pt1/r6/ipd ; 2026-10-21; “The initial draft of NIST SP 800-57 Part 1 Revision 6 is available for comment through February 5, 2026.” (located once) |
+| S044 Python integer-string conversion limit | ADMIT tier A docs, 180d: grounds the oversize half — a component must be bounded by length before any int(). | https://docs.python.org/3/builtins/stdtypes.html ; 2026-10-21 (requested /3/library/stdtypes.html, 301); “The default limit is 4300 digits as provided in sys.int_info.default_max_str_digits .” (located once; anchor §Integer string conversion length limitation (#integer-string-conversion-length-limitation), default-limit paragraph). Second quote, same capture: “The lowest limit that can be configured is 640 digits as provided in sys.int_info.str_digits_check_threshold .” |
+| S045 SemVer 2.0.0 §2 normal version | ADMIT tier A spec, 180d: grounds the leading-zero half. Same URL as S042 with a different scope (one more W04 by design); S042 unchanged. | https://semver.org/spec/v2.0.0.html ; 2026-10-21; “A normal version number MUST take the form X.Y.Z where X, Y, and Z are non-negative integers, and MUST NOT contain leading zeroes.” (item 2 of the Semantic Versioning Specification (#semantic-versioning-specification-semver); located once) |
+| S046 Python int() | ADMIT tier A docs, 180d: default-base int() accepts leading zeros, so canonicality is decided on text, never through int(). | https://docs.python.org/3/builtins/functions.html ; 2026-10-21 (301 from /3/library/functions.html); “Base 0 also disallows leading zeros: int('010', 0) is not legal, while int('010') and int('010', 8) are.” (located once; anchor class int, base-0 paragraph (#int)) |
+| S047 GitHub Actions OIDC concepts | ADMIT tier A docs, 90d, frontier lead (OIDC trust policy), narrowed: claim-condition matching only; no audience rule (prose-absent); the page's `sub` example is the previous format. | https://docs.github.com/en/actions/concepts/security/openid-connect ; 2026-10-21; “the cloud provider checks if the OIDC token's subject and other claims are a match for the conditions that were preconfigured” (located once; anchor §Understanding the OIDC token (#understanding-the-oidc-token)) |
+| S048 GitHub secret scanning concepts | ADMIT tier A docs, 90d, frontier lead (detection versus verification); GitHub only, no scanner-independent semantics. | https://docs.github.com/en/code-security/concepts/secret-security/secret-scanning ; 2026-10-21; “Validity checks help you prioritize which secrets to remediate first by verifying whether a detected secret is still active.” (located once; anchor §Customizability → About validity checks (#about-validity-checks)) |
+| S049 NIST SP 800-57 Pt 1 Rev. 6 IPD | ADMIT tier A spec, 90d, frontier lead (draft status): Rev. 6 is a closed-comment draft; Rev. 5 final remains the citable text. | https://csrc.nist.gov/pubs/sp/800/57/pt1/r6/ipd ; 2026-10-21; “The initial draft of NIST SP 800-57 Part 1 Revision 6 is available for comment through February 5, 2026.” (located once; anchor Announcement (#pub-announcement)) |
 | NIST SP 800-57 Pt 1 Rev. 5 final | NOT REGISTERED: proves "Rev. 5 is final" but carries no forward reference to Rev. 6, so it cannot establish currency (SrcFrontierNist). Flip: a key-management control that cites Rev. 5 text. | https://csrc.nist.gov/pubs/sp/800/57/pt1/r5/final ; 2026-10-21; “SP 800-57 Part 1 Rev. 5 (Final)” (Document History) |
 | PyPA integer normalization (S043 URL) | REJECT for C1: it normalizes `09000` to `9000`, i.e. it would make `3.15.01` equal to `3.15.1` and hide the finding; the lane follows SemVer form (S045). Flip: a feed that declares PEP 440 versions. | https://packaging.python.org/en/latest/specifications/version-specifiers/ ; 2026-10-21; “This means that an integer version of 00 would normalize to 0 while 09000 would normalize to 9000” |
 | Go x/mod/semver | NOT REGISTERED (tier B prior art): leading-zero exclusion matches, but Go orders an invalid version below a valid one instead of refusing it — the opposite of C1. | https://pkg.go.dev/golang.org/x/mod/semver ; 2026-10-21; “MAJOR, MINOR, and PATCH are decimal integers without extra leading zeros” |
@@ -73,7 +73,9 @@ non-canonical).
 stable X.Y.Z that its `feed_source_id` row's anchor cell names (anchor cell
 only, never `teaches`, which names curl's 8.23.1 development label; `-rc`/`+`
 siblings and longer components are different tokens; a cell naming two
-versions binds none). A non-numeric derived anchor must be named by the cell.
+different stable X.Y.Z tokens binds none — a second *prerelease* or
+*4-component* token does not block the binding (CritC2Derivation (c′)/(c″),
+attempt-3 corrigenda 1–2)). A non-numeric derived anchor must be named by the cell.
 Mismatch is `DERIVATION` (exit 1) in verify, `--receipt` and `--observe`. A
 non-canonical derived anchor is reported once, as `NON-CANONICAL`. All 15
 derived rows bind at BASE and at every historical revision
@@ -85,7 +87,7 @@ derived rows bind at BASE and at every historical revision
 | id | class | evidence | captured-by | fix (shown able to fail) |
 |---|---|---|---|---|
 | M28-1 | conformance (claims and census not frozen before work) | round27's plan first landed in `144babcb` with 1,873 other paths; no round-27 START census; C2 scope widened by an appended correction after the first measurement (`RevengeR27Timeline.md`). The plan-with-code pattern holds for rounds 22–27, 6/6 (`ScoutMistakeSweep.md`) | none | QM29 + `.ufo/waves/round-28/tools/round-conformance.py`: round 27 → `VERDICT FAIL` exit 1 (first-commit scope, census missing); round 28 → PASS exit 0; synthetic negatives fail (`XConformance.md`). Limit: its frozen-line check is vacuous on prose commands (CritConformanceFix); the hardened draft is kept as evidence. |
-| M28-2 | survivor (non-canonical token read as a release or crash) | `.ufo/waves/round-28/build/XC1Measure-base-c1.json`: at BASE F1 `3.15.01` → CLEAN fired=4, F2 → ValueError traceback, F3 → written fired receipt; round27 named both as debt | QM25 orders values, not token form | QM27 + NON-CANONICAL; frozen `c1-measure.py` must read MISHANDLED 0/4 at the measured revision |
+| M28-2 | survivor (non-canonical token read as a release or crash) | `final/c1-before.json` (the committed instrument's BASE run; `.ufo/waves/round-28/build/XC1Measure-base-c1.json` is the superseded draft that mirrored F4 into the table): at BASE F1 `3.15.01` → CLEAN fired=4, F2 → ValueError traceback, F3 → written fired receipt; round27 named both as debt | QM25 orders values, not token form | QM27 + NON-CANONICAL; frozen `c1-measure.py` must read MISHANDLED 0/4 at the measured revision |
 | M28-3 | discernment (a checkable value called "unverifiable by design") | round27 lesson §Residual rejected CritFinalC2 #1 as "derived anchors are author-declared and unverifiable by design", yet every derived anchor names its feed row's located release; `XC2Measure-c2-base.json`: G1–G4 accepted CLEAN 4/4 at BASE | none | QM28 + DERIVATION; frozen `c2-measure.py` must read ACCEPTED 0/4 |
 | M28-4 | overclaim in the L1's own frozen plan | plan cited "SemVer S042 §2" (S042 locates §11.2 only); fixtures written table-only would have measured the receipt pin, not the behaviour; C2 booked calibration | BUILD critics (ScribeSourcesRows, SrcSemverSec2, RevC1Fixtures, CritC2Axis) | corrections appended before any work commit; S045 registered; measured by the conformance check above |
 
@@ -254,3 +256,57 @@ count-only pin, not a named-case identity gate: CheckLedger's count-preserving
 swap passes that row; exact source bytes remain stamp-pinned, but a case-
 identity selector is not claimed and remains calibration debt. No calibration
 improvement is credited this round.
+
+## Attempt-3 corrigenda — verification seats, documentary close only (2026-10-25)
+
+This round is under the fleet **policy HOLD** (`.tower/comms/inbox/20261024-r100-recovery-census-tower-survey-summary.md`
+row `kagi | 28 | HOLD — policy`; L0 line `.ufo/l0-questions.md`). Attempt 3
+therefore added no claim, measurement, source row, knowledge entry or
+capability: it landed the pre-refusal authored artifacts unchanged in substance
+and had eight read-only seats re-run the committed evidence. Findings, in the
+order they matter:
+
+1. **C1 fail-open on a period-suffixed feed token — NOT FIXED, routed.** The
+   FALSIFY correction above states the observer "now refuses any such token".
+   That is false for a token carrying a sentence period: `STABLE_TOKEN_RE`
+   (`corpus/release-clock.py:345`, used only by `derived_anchor_bound`) tolerates
+   one trailing period, while the three feed tokenizers (`:781-783`) are
+   `$`-anchored and `non_canonical_version` (`:395-406`) does no period
+   stripping. Measured (CritC1Tokens, `/tmp/critc1`): the feed title
+   `Python 3.15.01.` is **dropped**, an older canonical entry then becomes
+   newest and the run prints `RELEASE_CLOCK: CLEAN` exit 0; a *canonical*
+   `Python 3.15.1.` is likewise invisible, so a genuinely newer release reads
+   not-fired. The frozen fixture set cannot see this (its titles carry no
+   period, `.ufo/waves/round-28/tools/c1-measure.py:358-359`). Fix recipe for
+   round 29: give `STABLE_TITLE_RE`/`STABLE_TAG_HREF_RE`/`TEXT_VERSION_RE` the
+   same right boundary as `STABLE_TOKEN_RE` (`(?![A-Za-z0-9+-]|\.[0-9])`) so
+   the token is extracted and then judged at `:786`, plus one positive and one
+   negative selftest pair on the feed path. Not applied here: it changes the
+   measured instrument (`fa9bcc02…`) after the round's frozen receipts, and the
+   HOLD forbids new craft work. The bounded verdict stands on the frozen
+   fixtures only (MISHANDLED 3/4→0/4, TYPED 0/4→4/4); token totality is
+   **not** claimed.
+2. **C2 prose precision.** "a cell naming two versions binds none" was true only
+   for two *stable X.Y.Z* tokens; a second prerelease (`3.13.3-rc1`) or
+   4-component (`3.13.2.1`) token leaves the binding intact. Corrected in §C2.
+3. **C2 wider than its named limit.** Flipping a row's marker to `Derived:` and
+   editing its own source anchor cell passes with `derived=0`, i.e. the row
+   leaves the derived population (CritC2Derivation (e″)). The named limit
+   (§Limits bullet 2) covers only the *feed* row's cell; the next step already
+   named there (require the derived row's id in its feed row's scope list) is
+   the closure. Recorded, not fixed.
+4. **C2 outside-core event ordering.** A derived anchor outside the canonical
+   core (`3.13.3-rc1`, `3.13.2.1`, `vv3.13.3`) that its cell truthfully names can
+   register `fired=1` against an unrelated observation, because ordering never
+   runs on an unorderable anchor. Binding is correct; the fired-event
+   consequence belongs to the C1/round-27 ordering terrain and is inherited
+   debt, now stated.
+5. **Gate cell locations.** Five admitted cells said only "(located once)" (a
+   count, not a location); each now names the registry anchor it was located
+   under. The registry `anchor` cells already carried them; nothing was
+   re-opened or re-fetched.
+6. **Relocation has no byte witness.** The misrooted seat report was moved from
+   the fleet root into the lane, but `misroots.json` records only the path (no
+   hash, no `cmp`), and the fleet copy was never committed, so "byte-exact" is
+   not independently checkable. Lane copy sha256 `bf25d726f86cbce6d27d0b5d99ee075f7d524066dabe47908548b00df1fe4647`
+   is recorded here as the surviving witness.

@@ -1121,8 +1121,8 @@ fire before round29; no capability, retirement or promotion is claimed.
 | freshness | 9 → 9 | C1+C2 (one claim). `python3 -I -B .ufo/waves/round-28/tools/c1-measure.py <rev> <label> <out>`: non-canonical fixtures MISHANDLED at BASE 3/4 (F1 fired lie, F2 traceback, F3 written fired receipt; F4 already caught by the observer) → measured revision below. `python3 -I -B .ufo/waves/round-28/tools/c2-measure.py <rev> <label> <out>`: whole-feed derived-anchor lowerings accepted CLEAN at BASE 4/4 → measured revision below. Sourced S044/S045/S046; stamped `corpus/release-clock.py`. |
 | calibration | 9 → 9 | No claim (re-booked; see above). QM27–QM29 learn M28-1..M28-4 (`corpus/QUALITY.md`). |
 | depth | 9 → 9 | R21-01 unchanged; no new mechanism claim beyond the clock. |
-| coverage | 9 → 9 | Registry 43 → 49: three claim-grounding rows and three frontier-lead rows (S047–S049); no knowledge entry or governed surface (`corpus/SOURCES.md`). |
-| operability | 9 → 9 | Default release-clock output unchanged (R25-04 CLEAN30); selftest 79 → 106 (count only). |
+| coverage | 9 → 9 | Registry 43 → 51 (candidate-time 49): three claim-grounding rows (S044–S046), three frontier-lead rows (S047–S049) and two falsify correction rows (S050 supersedes S047, S051 supersedes S049 — old rows kept); no knowledge entry or governed surface (`corpus/SOURCES.md`; `bash corpus/sources-census.sh` ⇒ `rows=51 A=49`). |
+| operability | 9 → 9 | Default release-clock output unchanged (R25-04 CLEAN30); selftest 79 → 114 measured (candidate-time 106; count only, no behaviour claim). |
 | adjacency | 9 → 9 | R17-02 unchanged; eight connector scans found vocabulary and mechanism analogy (tsukuroi/kumitate have the same defect class), no absorbed ground. |
 
 Measured revision, exact exits and separability overlays are appended below
@@ -1156,3 +1156,23 @@ no green cell-audit claim is made. Planned next (not executed): the saturation
 nudge points toward a frontier capability, rather than more scalar inflation;
 OIDC claim-condition or detection-versus-validity evidence are opened leads,
 not acquired capabilities.
+
+### Round-28 attempt-3 documentary close (2026-10-25, policy HOLD)
+
+The fleet card holds this round (`HOLD — policy`, content-safety refusal
+2026-10-21; L0 line in `.ufo/l0-questions.md`). Attempt 3
+added **no claim, measurement, source row or capability**: it landed the
+pre-refusal authored evidence, re-stamped the ledger, and had eight read-only
+seats re-run the committed counters. Two consequences for this section:
+
+- The registry delta is **43 → 51** (the candidate-time 49 in the coverage cell
+  below was corrected); both censuses exit 0.
+- A verification critic found a real **C1 fail-open**: a period-suffixed feed
+  token (`Python 3.15.01.`) is dropped by the `$`-anchored feed tokenizers
+  instead of being refused, so an older canonical entry can read as newest and
+  a canonical `3.15.1.` reads not-fired (`corpus/lessons/round-28.md`
+  §Attempt-3 corrigenda 1). It is **not fixed** and token totality is not
+  claimed: the bounded verdict rests on the frozen fixture set only
+  (MISHANDLED 3/4→0/4, TYPED 0/4→4/4). Fix recipe is routed to round 29.
+
+No axis score changes. Outside admission remains the operator`s.

@@ -1,0 +1,5 @@
+PARSE P1 title-period-noncanonical beside older -> '3.15.0'
+PARSE P2 title-period-canonical alone -> ValueError: feed has no stable X.Y.Z release entry
+PARSE P3 text-period -> ValueError: text release file has no Version: X.Y.Z line
+PARSE P4 href-period beside older -> '3.14.0'
+PARSE P5 exact-title control -> '3.15.1'

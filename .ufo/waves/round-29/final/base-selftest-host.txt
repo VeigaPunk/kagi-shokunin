@@ -1,0 +1,7 @@
+# kagi round 29 — release-clock selftest on this Windows host (POSIX-mode case)
+$ python -I -B corpus/release-clock.py --selftest   # working tree at START tip 66d1a2c, 2026-10-31
+RELEASE_CLOCK_SELFTEST: FAIL receipt mode or fields
+exit=1
+$ python -I -B <export of c49023b>/corpus/release-clock.py --selftest   # frozen BASE, 2026-10-31
+RELEASE_CLOCK_SELFTEST: FAIL receipt mode or fields
+exit=1

@@ -1,0 +1,14 @@
+# kagi round 29 — substrate absence receipt (host: Windows 10.0.26200 x64, Git Bash; 2026-10-31)
+$ ls ~/.local/bin/the-janitor
+ls: cannot access '/c/Users/jpvei/.local/bin/the-janitor': No such file or directory
+(exit 2)
+$ command -v op; op --version
+/c/Users/jpvei/AppData/Local/Microsoft/WinGet/Links/op
+2.39.0
+(op CLI PRESENT via WinGet; no sign-in, no vault/account contact, nothing installed or provisioned)
+$ ls ~/.config/the-janitor   # op.env fixtures dir
+ls: cannot access '/c/Users/jpvei/.config/the-janitor': No such file or directory
+(exit 2)
+$ ls ~/.local/state/the-janitor
+ls: cannot access '/c/Users/jpvei/.local/state/the-janitor': No such file or directory
+(exit 2)

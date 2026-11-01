@@ -1,0 +1,433 @@
+{
+  "format": "kagi-round29-c1-measure-v1",
+  "revision": "fc6511263a233f3db018fd7355568f4cf239727f",
+  "label": "after",
+  "extraction": {
+    "mode": "sparse-corpus-plus-default-receipt",
+    "receipt_rel": ".ufo/waves/round-26/observe-2.json",
+    "members_skipped_outside_projection": 4466,
+    "reason": "plans/round-29.md Correction 2 (NTFS case collision)"
+  },
+  "fixtures": {
+    "NF1-title-period-noncanonical": {
+      "argv": [
+        "C:\\Users\\jpvei\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+        "-I",
+        "-B",
+        "C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\observe-runner.py",
+        "C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\tree",
+        "C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\fixture-NF1-title-period-noncanonical",
+        "C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\fixture-NF1-title-period-noncanonical\\observe-out.json",
+        "C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\fixture-NF1-title-period-noncanonical\\feed-body.bin",
+        "https://www.python.org/downloads/feed.rss",
+        "2026-10-21"
+      ],
+      "exit": 1,
+      "stdout": [
+        "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\fixture-NF1-title-period-noncanonical\\observe-out.json",
+        "NON-CANONICAL S040",
+        "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)"
+      ],
+      "stderr": [],
+      "row_receipt": {
+        "clock": "feed",
+        "error": "non-canonical version token: feed stable entry",
+        "http_status": 200,
+        "id": "S040",
+        "located": null,
+        "observed_at": "2026-10-21T00:00:00Z",
+        "parsed_version": null,
+        "sha256": "9ee39fc3185d871055eb8380d4acc2efb506902adad4feb5d7cb86a2088de00d",
+        "url": "https://www.python.org/downloads/feed.rss",
+        "verdict": null
+      },
+      "note": "--observe via main(); request_body stubbed to the fixture body, utc_timestamp pinned; table narrowed to S040",
+      "verdict": "CORRECT",
+      "traceback_in_output": false,
+      "name": "NF1-title-period-noncanonical"
+    },
+    "NF2-title-period-canonical": {
+      "argv": [
+        "C:\\Users\\jpvei\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+        "-I",
+        "-B",
+        "C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\observe-runner.py",
+        "C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\tree",
+        "C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\fixture-NF2-title-period-canonical",
+        "C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\fixture-NF2-title-period-canonical\\observe-out.json",
+        "C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\fixture-NF2-title-period-canonical\\feed-body.bin",
+        "https://www.python.org/downloads/feed.rss",
+        "2026-10-21"
+      ],
+      "exit": 0,
+      "stdout": [
+        "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=0 fired=0 regressed=0) to C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\fixture-NF2-title-period-canonical\\observe-out.json",
+        "RELEASE_CLOCK: CLEAN (on_release=1 bound=1 unbound=0 observed=1 fired=0 derived=0)"
+      ],
+      "stderr": [],
+      "row_receipt": {
+        "clock": "feed",
+        "http_status": 200,
+        "id": "S040",
+        "located": null,
+        "observed_at": "2026-10-21T00:00:00Z",
+        "parsed_version": "3.15.1",
+        "sha256": "80e65d6bc1efe4781b62c7588096237d8a53e6bc3f7f5387e7336c17b5e84753",
+        "url": "https://www.python.org/downloads/feed.rss",
+        "verdict": "not-fired"
+      },
+      "note": "--observe via main(); request_body stubbed to the fixture body, utc_timestamp pinned; table narrowed to S040",
+      "verdict": "CORRECT",
+      "traceback_in_output": false,
+      "name": "NF2-title-period-canonical"
+    },
+    "NF3-href-period-noncanonical": {
+      "argv": [
+        "C:\\Users\\jpvei\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+        "-I",
+        "-B",
+        "C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\observe-runner.py",
+        "C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\tree",
+        "C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\fixture-NF3-href-period-noncanonical",
+        "C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\fixture-NF3-href-period-noncanonical\\observe-out.json",
+        "C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\fixture-NF3-href-period-noncanonical\\feed-body.bin",
+        "https://www.python.org/downloads/feed.rss",
+        "2026-10-21"
+      ],
+      "exit": 1,
+      "stdout": [
+        "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\fixture-NF3-href-period-noncanonical\\observe-out.json",
+        "NON-CANONICAL S040",
+        "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)"
+      ],
+      "stderr": [],
+      "row_receipt": {
+        "clock": "feed",
+        "error": "non-canonical version token: feed stable entry",
+        "http_status": 200,
+        "id": "S040",
+        "located": null,
+        "observed_at": "2026-10-21T00:00:00Z",
+        "parsed_version": null,
+        "sha256": "f28c620bf803c506c0d4a3782699c9df10a4eb2491dc7e2e18bcd94cc159b2cc",
+        "url": "https://www.python.org/downloads/feed.rss",
+        "verdict": null
+      },
+      "note": "--observe via main(); request_body stubbed to the fixture body, utc_timestamp pinned; table narrowed to S040",
+      "verdict": "CORRECT",
+      "traceback_in_output": false,
+      "name": "NF3-href-period-noncanonical"
+    },
+    "NF4-text-period-noncanonical": {
+      "argv": [
+        "C:\\Users\\jpvei\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+        "-I",
+        "-B",
+        "C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\observe-runner.py",
+        "C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\tree",
+        "C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\fixture-NF4-text-period-noncanonical",
+        "C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\fixture-NF4-text-period-noncanonical\\observe-out.json",
+        "C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\fixture-NF4-text-period-noncanonical\\feed-body.bin",
+        "https://curl.se/info",
+        "2026-10-21"
+      ],
+      "exit": 1,
+      "stdout": [
+        "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\fixture-NF4-text-period-noncanonical\\observe-out.json",
+        "NON-CANONICAL S029",
+        "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)"
+      ],
+      "stderr": [],
+      "row_receipt": {
+        "clock": "feed",
+        "error": "non-canonical version token: text release version",
+        "http_status": 200,
+        "id": "S029",
+        "located": null,
+        "observed_at": "2026-10-21T00:00:00Z",
+        "parsed_version": null,
+        "sha256": "63385096792d97a1e46b41fa104d8948876ef6f9fc7e1e5c4f243ec1816f2174",
+        "url": "https://curl.se/info",
+        "verdict": null
+      },
+      "note": "--observe via main(); request_body stubbed to the fixture body, utc_timestamp pinned; table narrowed to S029",
+      "verdict": "CORRECT",
+      "traceback_in_output": false,
+      "name": "NF4-text-period-noncanonical"
+    },
+    "NF5-title-comma-prose": {
+      "argv": [
+        "C:\\Users\\jpvei\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+        "-I",
+        "-B",
+        "C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\observe-runner.py",
+        "C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\tree",
+        "C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\fixture-NF5-title-comma-prose",
+        "C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\fixture-NF5-title-comma-prose\\observe-out.json",
+        "C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\fixture-NF5-title-comma-prose\\feed-body.bin",
+        "https://www.python.org/downloads/feed.rss",
+        "2026-10-21"
+      ],
+      "exit": 0,
+      "stdout": [
+        "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=0 fired=0 regressed=0) to C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\fixture-NF5-title-comma-prose\\observe-out.json",
+        "RELEASE_CLOCK: CLEAN (on_release=1 bound=1 unbound=0 observed=1 fired=0 derived=0)"
+      ],
+      "stderr": [],
+      "row_receipt": {
+        "clock": "feed",
+        "http_status": 200,
+        "id": "S040",
+        "located": null,
+        "observed_at": "2026-10-21T00:00:00Z",
+        "parsed_version": "3.15.1",
+        "sha256": "441ec9193a22d3ff48c5d2a38b0e5725df434feb40811b60382864b3614d8312",
+        "url": "https://www.python.org/downloads/feed.rss",
+        "verdict": "not-fired"
+      },
+      "note": "--observe via main(); request_body stubbed to the fixture body, utc_timestamp pinned; table narrowed to S040",
+      "verdict": "CORRECT",
+      "traceback_in_output": false,
+      "name": "NF5-title-comma-prose"
+    },
+    "NF6-title-prerelease-sibling": {
+      "argv": [
+        "C:\\Users\\jpvei\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+        "-I",
+        "-B",
+        "C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\observe-runner.py",
+        "C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\tree",
+        "C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\fixture-NF6-title-prerelease-sibling",
+        "C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\fixture-NF6-title-prerelease-sibling\\observe-out.json",
+        "C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\fixture-NF6-title-prerelease-sibling\\feed-body.bin",
+        "https://www.python.org/downloads/feed.rss",
+        "2026-10-21"
+      ],
+      "exit": 1,
+      "stdout": [
+        "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\fixture-NF6-title-prerelease-sibling\\observe-out.json",
+        "RECEIPT-MISMATCH S040",
+        "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)"
+      ],
+      "stderr": [],
+      "row_receipt": {
+        "clock": "feed",
+        "error": "feed has no stable X.Y.Z release entry",
+        "http_status": 200,
+        "id": "S040",
+        "located": null,
+        "observed_at": "2026-10-21T00:00:00Z",
+        "parsed_version": null,
+        "sha256": "561c99fb870cb17c60984f9eaadcbb84f329615b0b5d22a0a7a6f58d7e168819",
+        "url": "https://www.python.org/downloads/feed.rss",
+        "verdict": null
+      },
+      "note": "--observe via main(); request_body stubbed to the fixture body, utc_timestamp pinned; table narrowed to S040",
+      "verdict": "CORRECT",
+      "traceback_in_output": false,
+      "name": "NF6-title-prerelease-sibling"
+    },
+    "NF7-four-component-sibling": {
+      "argv": [
+        "C:\\Users\\jpvei\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+        "-I",
+        "-B",
+        "C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\observe-runner.py",
+        "C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\tree",
+        "C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\fixture-NF7-four-component-sibling",
+        "C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\fixture-NF7-four-component-sibling\\observe-out.json",
+        "C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\fixture-NF7-four-component-sibling\\feed-body.bin",
+        "https://www.python.org/downloads/feed.rss",
+        "2026-10-21"
+      ],
+      "exit": 1,
+      "stdout": [
+        "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\fixture-NF7-four-component-sibling\\observe-out.json",
+        "RECEIPT-MISMATCH S040",
+        "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)"
+      ],
+      "stderr": [],
+      "row_receipt": {
+        "clock": "feed",
+        "error": "feed has no stable X.Y.Z release entry",
+        "http_status": 200,
+        "id": "S040",
+        "located": null,
+        "observed_at": "2026-10-21T00:00:00Z",
+        "parsed_version": null,
+        "sha256": "4e4f4bc89f95cbc9e4fb4022de5f365a4f5092e412b349df827df79228212d2a",
+        "url": "https://www.python.org/downloads/feed.rss",
+        "verdict": null
+      },
+      "note": "--observe via main(); request_body stubbed to the fixture body, utc_timestamp pinned; table narrowed to S040",
+      "verdict": "CORRECT",
+      "traceback_in_output": false,
+      "name": "NF7-four-component-sibling"
+    },
+    "F1-table-lie": {
+      "argv": [
+        "C:\\Users\\jpvei\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+        "-I",
+        "-B",
+        "C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\tree\\corpus\\release-clock.py",
+        "--root",
+        "C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\fixture-F1-table-lie",
+        "--receipt",
+        "C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\fixture-F1-table-lie\\receipt.json",
+        "--receipt-sha",
+        "ddf9a2fbc0a202a80700be6e851aa469a20fdb34c319409c38c66307abcc2496"
+      ],
+      "exit": 1,
+      "stdout": [
+        "NON-CANONICAL S040",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)"
+      ],
+      "stderr": [],
+      "fired_observation_written": false,
+      "receipt": null,
+      "mirrored_rows": [
+        "S040"
+      ],
+      "note": "table + mirrored receipt, --receipt/--receipt-sha (r28 verbatim)",
+      "verdict": "TYPED",
+      "clean_last_line": false,
+      "traceback_in_output": false,
+      "typed_finding_lines": [
+        "NON-CANONICAL S040"
+      ]
+    },
+    "F2-table-oversize": {
+      "argv": [
+        "C:\\Users\\jpvei\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+        "-I",
+        "-B",
+        "C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\tree\\corpus\\release-clock.py",
+        "--root",
+        "C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\fixture-F2-table-oversize",
+        "--receipt",
+        "C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\fixture-F2-table-oversize\\receipt.json",
+        "--receipt-sha",
+        "8e1c5167e5c5eaa518871d71cf09f9eb1b7cc5892d588236bf63a4c75054d137"
+      ],
+      "exit": 1,
+      "stdout": [
+        "NON-CANONICAL S040",
+        "RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=3 derived=15)"
+      ],
+      "stderr": [],
+      "fired_observation_written": false,
+      "receipt": null,
+      "mirrored_rows": [
+        "S040"
+      ],
+      "note": "table + mirrored receipt, --receipt/--receipt-sha (r28 verbatim)",
+      "verdict": "TYPED",
+      "clean_last_line": false,
+      "traceback_in_output": false,
+      "typed_finding_lines": [
+        "NON-CANONICAL S040"
+      ]
+    },
+    "F3-observe-zero": {
+      "argv": [
+        "C:\\Users\\jpvei\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+        "-I",
+        "-B",
+        "C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\observe-runner.py",
+        "C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\tree",
+        "C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\fixture-F3-observe-zero",
+        "C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\fixture-F3-observe-zero\\observe-out.json",
+        "C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\fixture-F3-observe-zero\\feed.atom",
+        "https://www.python.org/downloads/feed.rss",
+        "2026-10-21"
+      ],
+      "exit": 1,
+      "stdout": [
+        "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\fixture-F3-observe-zero\\observe-out.json",
+        "NON-CANONICAL S040",
+        "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)"
+      ],
+      "stderr": [],
+      "fired_observation_written": false,
+      "receipt": [
+        {
+          "id": "S040",
+          "verdict": null,
+          "error": "non-canonical version token: feed stable entry",
+          "parsed_version": null
+        }
+      ],
+      "feed_url": "https://www.python.org/downloads/feed.rss",
+      "note": "--observe; stubbed transport, table narrowed to the fixture row (r28 verbatim)",
+      "verdict": "TYPED",
+      "clean_last_line": false,
+      "traceback_in_output": false,
+      "typed_finding_lines": [
+        "NON-CANONICAL S040"
+      ]
+    },
+    "F4-observe-oversize": {
+      "argv": [
+        "C:\\Users\\jpvei\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+        "-I",
+        "-B",
+        "C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\observe-runner.py",
+        "C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\tree",
+        "C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\fixture-F4-observe-oversize",
+        "C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\fixture-F4-observe-oversize\\observe-out.json",
+        "C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\fixture-F4-observe-oversize\\feed.atom",
+        "https://www.python.org/downloads/feed.rss",
+        "2026-10-21"
+      ],
+      "exit": 1,
+      "stdout": [
+        "RELEASE_CLOCK_OBSERVE: wrote 1 observations (failed=1 fired=0 regressed=0) to C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c1-62mc3mqp\\fixture-F4-observe-oversize\\observe-out.json",
+        "NON-CANONICAL S040",
+        "RELEASE_CLOCK: FAILED (on_release=1 bound=1 unbound=0 observed=0 fired=0 derived=0)"
+      ],
+      "stderr": [],
+      "fired_observation_written": false,
+      "receipt": [
+        {
+          "id": "S040",
+          "verdict": null,
+          "error": "non-canonical version token: feed stable entry",
+          "parsed_version": null
+        }
+      ],
+      "feed_url": "https://www.python.org/downloads/feed.rss",
+      "note": "--observe; stubbed transport, table narrowed to the fixture row (r28 verbatim)",
+      "verdict": "TYPED",
+      "clean_last_line": false,
+      "traceback_in_output": false,
+      "typed_finding_lines": [
+        "NON-CANONICAL S040"
+      ]
+    }
+  },
+  "nf_summary": {
+    "mishandled": 0,
+    "correct": 7,
+    "other": 0,
+    "fixtures": 7
+  },
+  "replay_summary": {
+    "mishandled": 0,
+    "typed": 4,
+    "other": 0,
+    "fixtures": 4
+  },
+  "control": {
+    "argv": [
+      "C:\\Users\\jpvei\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+      "-I",
+      "-B",
+      "corpus/release-clock.py"
+    ],
+    "exit": 0,
+    "last_line": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)",
+    "stdout": "RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=3 derived=15)\n",
+    "stderr": "",
+    "clean": true
+  }
+}

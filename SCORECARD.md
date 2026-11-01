@@ -1206,3 +1206,32 @@ touch only `corpus/release-clock.py`); C2's gate verified red against BASE
 
 Measured revision, exact exits and receipts are appended below after the
 measured revision lands; no unrun result is stated here.
+
+**Round-29 measured outcome (appended):** measured revision
+`fc6511263a233f3db018fd7355568f4cf239727f`; receipts
+`.ufo/waves/round-29/final/`. Frozen commands (verbatim, Correction-1 host
+interpreter):
+
+    python -I -B .ufo/waves/round-29/tools/c1-measure.py <rev> <label> <out.json>
+    python -I -B .ufo/waves/round-29/tools/c2-measure.py <rev> <label> <out.json>
+
+C1 (`c1-before.json` at `c49023b`, exit 1 → `c1-after.json` at `fc65112`,
+exit 0): NF MISHANDLED **5/7 → 0/7**, CORRECT **2/7 → 7/7**; round-28
+counter replay stays MISHANDLED **0/4**, TYPED **4/4**; default control
+CLEAN exit 0 at both. C2 (`c2-base-plain.json` at `c49023b`: 0/4 booleans;
+`c2-base-gate.json` at `0229375` with the gate present over BASE instrument
+bytes: m1=1 m2=1 m3=0 m4=1 — the red witness; `c2-after.json` at
+`fc65112`: **m1=1 m2=1 m3=1 m4=1**). Separability holds: C1's frozen
+receipts are rev-pinned to trees without the gate; the gate's selftest
+passed on a red tree. Regression battery at `fc65112`: selftest
+`PASS (116 cases)` exit 0 (count grew only by the recipe's two cases; one
+explicit SKIP line on nt is M29-1's declared limit); default CLEAN30 exit 0
+(R25-04 unchanged); checklist-run 34 / op-ref-probe 36 selftests PASS;
+census CLEAN rows=52 A=50 captures=52 exit 0 (one SC_ENTRY_CITE on first
+contact closed by the S045 used-by back-reference, logged in the lesson).
+Touched/added ledger rows re-run individually (QM12 substitute, M29-3):
+R25-03 (migrated 114→116) exit 0, R25-04 exit 0, R29-01 exit 0, R29-02
+exit 0; full verify/self-counts unmeasurable in time on this host (>300 s/
+>240 s). Stamps 91 → 94, verified 94/94 against tree bytes. All axes
+remain 9; the capability row for `feed-token-agree.py` entered the
+capabilities table this round. Outside admission is the operator's.

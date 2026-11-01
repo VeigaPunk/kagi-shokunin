@@ -1,0 +1,94 @@
+{
+  "format": "kagi-round29-c2-measure-v1",
+  "revision": "fc6511263a233f3db018fd7355568f4cf239727f",
+  "label": "after",
+  "extraction": {
+    "mode": "sparse-corpus",
+    "reason": "plans/round-29.md Correction 2 (NTFS case collision)"
+  },
+  "measures": {
+    "M1_gate_present_runnable": {
+      "value": true,
+      "evidence": {
+        "argv": [
+          "C:\\Users\\jpvei\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+          "-I",
+          "-B",
+          "C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c2-c5595gqm\\tree\\corpus\\feed-token-agree.py",
+          "--help"
+        ],
+        "exit": 0,
+        "stdout": [
+          "",
+          "differential feed-token agreement gate (round 29 C2)",
+          "",
+          "options:",
+          "  -h, --help         show this help message and exit",
+          "  --instrument FILE  release-clock module to check (default: release-clock.py",
+          "                     beside this script)",
+          "  --selftest         run synthetic offline cases only"
+        ],
+        "stderr": []
+      }
+    },
+    "M2_selftest_catches_seeded_divergence": {
+      "value": true,
+      "evidence": {
+        "argv": [
+          "C:\\Users\\jpvei\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+          "-I",
+          "-B",
+          "C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c2-c5595gqm\\tree\\corpus\\feed-token-agree.py",
+          "--selftest"
+        ],
+        "exit": 0,
+        "stdout": [
+          "FEED_TOKEN_AGREE_SELFTEST: PASS (4 cases)"
+        ],
+        "stderr": []
+      }
+    },
+    "M3_live_run_agree": {
+      "value": true,
+      "evidence": {
+        "argv": [
+          "C:\\Users\\jpvei\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+          "-I",
+          "-B",
+          "C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c2-c5595gqm\\tree\\corpus\\feed-token-agree.py"
+        ],
+        "exit": 0,
+        "stdout": [
+          "FEED_TOKEN_AGREE: AGREE (shapes=12 disagreements=0)"
+        ],
+        "stderr": []
+      }
+    },
+    "M4_red_before_base_instrument_disagrees": {
+      "value": true,
+      "base_revision": "c49023b773b69de983f0e6eb7e5867ceb5c2c634",
+      "evidence": {
+        "argv": [
+          "C:\\Users\\jpvei\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+          "-I",
+          "-B",
+          "C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c2-c5595gqm\\tree\\corpus\\feed-token-agree.py",
+          "--instrument",
+          "C:\\Users\\jpvei\\AppData\\Local\\Temp\\kagi-r29-c2-c5595gqm\\base\\corpus\\release-clock.py"
+        ],
+        "exit": 1,
+        "stdout": [
+          "FEED_TOKEN_DISAGREE shape=trailing-period expected=extract:3.15.1 TEXT_VERSION_RE=refuse",
+          "FEED_TOKEN_DISAGREE shape=comma-prose expected=extract:3.15.1 STABLE_TITLE_RE=refuse",
+          "FEED_TOKEN_DISAGREE shape=comma-prose expected=extract:3.15.1 STABLE_TAG_HREF_RE=refuse",
+          "FEED_TOKEN_DISAGREE shape=comma-prose expected=extract:3.15.1 TEXT_VERSION_RE=refuse",
+          "FEED_TOKEN_DISAGREE shape=close-paren expected=extract:3.15.1 STABLE_TITLE_RE=refuse",
+          "FEED_TOKEN_DISAGREE shape=close-paren expected=extract:3.15.1 STABLE_TAG_HREF_RE=refuse",
+          "FEED_TOKEN_DISAGREE shape=close-paren expected=extract:3.15.1 TEXT_VERSION_RE=refuse",
+          "FEED_TOKEN_AGREE: DISAGREE (shapes=12 disagreements=9)"
+        ],
+        "stderr": []
+      }
+    }
+  }
+}

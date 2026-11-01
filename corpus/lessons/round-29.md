@@ -22,7 +22,11 @@ C2 capability acquisition (`considerthese/2026-10-25.md` proposal 1).
 | S052 The Atom Syndication Format (RFC 4287) | ADMIT tier A spec, 180d: grounds the right-boundary half — an Atom entry title is a Text construct, so a trailing period is content and an extractor may not treat end-of-title as a token edge. | https://www.rfc-editor.org/rfc/rfc4287.txt ; 2026-10-31; "The "atom:title" element is a Text construct" (§4.2.14, raw text; located once, capture digest `3bd71d76…f2d89c`, 81922 bytes, `corpus/source-fetches.tsv`) |
 | Re-opened S045 (SemVer 2.0.0 §2) | NO CHANGE: canonical-form teaching unchanged; cited by the new entry and by QM27 as before. | https://semver.org/spec/v2.0.0.html ; reopened 2026-10-31 via the round-28 capture; no new row (same URL, zero new information) |
 
-**Existing registry cells (status/recheck/used-by), old → new:** none.
+**Existing registry cells (status/recheck/used-by), old → new:** S045
+`used-by`: `corpus/lessons/round-28.md` → `corpus/lessons/round-28.md,
+corpus/knowledge/feed-token-boundaries.md` (the new entry cites S045 for
+canonical form; the census handshake requires the used-by back-reference;
+SC_ENTRY_CITE fired once on first contact and is closed by this cell).
 Sources 51 → 52 (one tier A, mined, used-by the new knowledge entry).
 START census exit 0 (14 W04, `.ufo/waves/round-29/census-start.txt`,
 committed pre-move; re-run on this host exit 0 — same 14 W04 + ok).
@@ -92,6 +96,56 @@ SCORECARD capabilities table on the measured after-state.
   the measured-outcome block below once the measured revision lands; no
   unrun result is stated in this lesson.
 
-## Measured outcome (appended after the measured revision lands)
+## Measured outcome (appended; measured revision `fc6511263a233f3db018fd7355568f4cf239727f`)
 
-See the appended block at the end of this file.
+Frozen commands run with the Correction-1 host interpreter (`python -I -B`);
+receipts in `.ufo/waves/round-29/final/`:
+
+    python -I -B .ufo/waves/round-29/tools/c1-measure.py <rev> <label> <out.json>
+    python -I -B .ufo/waves/round-29/tools/c2-measure.py <rev> <label> <out.json>
+
+- C1 before (`c49023b`, `c1-before.json`, exit 1): NF MISHANDLED 5/7,
+  CORRECT 2/7 (NF1–NF5 mishandled: silent drop to the older canonical
+  token, invisible canonical release, wrong-typed text error; NF6/NF7
+  refused-controls correct), replay F1–F4 MISHANDLED 0/4 TYPED 4/4,
+  control CLEAN exit 0.
+- C1 after (`fc65112`, `c1-after.json`, exit 0): NF MISHANDLED **0/7**,
+  CORRECT **7/7**; replay MISHANDLED **0/4**, TYPED **4/4**; control CLEAN
+  exit 0. Separability: the gate file existed with BASE instrument bytes at
+  `0229375` and C1 still measured red there (`c1-before.json` is rev-pinned
+  to `c49023b`), so C1 does not rest on C2.
+- C2 before: at `c49023b` (`c2-base-plain.json`) m1=0 m2=0 m3=0 m4=0 (no
+  artifact); at `0229375` with the gate present and BASE instrument bytes
+  (`c2-base-gate.json`) m1=1 m2=1 **m3=0** (live DISAGREE, 9 findings over
+  trailing-period/comma-prose/close-paren × 3 extractors) **m4=1**.
+- C2 after (`fc65112`, `c2-after.json`, exit 0): **m1=1 m2=1 m3=1 m4=1** —
+  gate present and runnable, selftest PASS (4 cases, seeded divergence
+  caught), live `FEED_TOKEN_AGREE: AGREE (shapes=12 disagreements=0)`, and
+  the red witness: the gate vs the BASE instrument exits 1 DISAGREE naming
+  `shape=trailing-period`.
+- Regression battery at `fc65112`: release-clock `--selftest` ⇒
+  `PASS (116 cases)` exit 0 (one explicit SKIP line on nt, M29-1's declared
+  limit; count grew only by the recipe's two cases); default ⇒
+  `RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30
+  fired=3 derived=15)` exit 0 (R25-04 unchanged); checklist-run selftest
+  PASS 34; op-ref-probe selftest PASS 36; lane census ⇒ CLEAN
+  (rows=52 A=50 mined=48 captures=52 entries_sourced=5) exit 0 — one
+  SC_ENTRY_CITE finding on first contact (S045 used-by back-reference,
+  logged above) closed in place.
+- Touched/added ledger rows re-run individually (QM12 substitute,
+  M29-3): R25-03 substitute exit 0 `PASS (116 cases)` (regex migrated
+  114→116 with the old value and reason in the row note); R25-04 exit 0
+  CLEAN30; R29-01 exit 0 `PASS (4 cases)`; R29-02 exit 0 `AGREE (shapes=12
+  disagreements=0)`. Full `claim-ledger.sh verify` and `self-counts.py`
+  remain unmeasurable in time on this host (>300 s/>240 s, M29-3); the
+  round-28 Linux-host full-verify receipt stands for the ledger-wide claim.
+- New self-counts bindings verified individually: PV-FEEDTOKEN-SHAPES
+  doc 12 == R29-02 capture 12; PV-FEEDTOKEN-SELFTEST doc 4 == R29-01
+  capture 4; PV-CLOCK-SELFTEST/SC-CLOCK-SELFTEST read R25-03 → 116, held
+  by the direct selftest run.
+- Stamps: 91 → 94 paths (membership + the three new artifacts), refreshed
+  through the ledger's `stamp` command (LC_ALL=C) and verified 94/94
+  against the working tree bytes.
+
+Outside admit/reject judgment stays with the operator/closure judge; the
+L1's verdicts end here.

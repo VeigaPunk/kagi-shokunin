@@ -1632,3 +1632,13 @@ the frontier/capability move; the lowest-axis obligation is waived.
 - Measured after-receipts, the frozen commands' exits and the capability
   table row land with the measured revision (see the appended measured-
   outcome block and the round report); nothing here is claimed unrun.
+- Measured revision `fc6511263a233f3db018fd7355568f4cf239727f` (receipts
+  `.ufo/waves/round-29/final/`): C1 NF MISHANDLED 5/7 → 0/7, CORRECT 2/7 →
+  7/7 with the round-28 replay green (0/4 TYPED 4/4) and control CLEAN30;
+  C2 booleans 0/4 at BASE → red witness m1=1 m2=1 m3=0 m4=1 at `0229375`
+  → 4/4 at `fc65112`. Selftest 116 PASS (one declared SKIP on nt); census
+  CLEAN rows=52; touched/added ledger rows re-run individually exit 0
+  (QM12 substitute); stamps 91 → 94 verified. Capability row entered the
+  SCORECARD table. Verdicts: C1 freshness behaviour measured, 9 → 9;
+  C2 capability acquired; no axis harmed; outside admission is the
+  operator's.

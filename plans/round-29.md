@@ -166,3 +166,63 @@ marker) are noted for the operator/HOLD path, not implemented here.
 
 Plan corrections, if any, are appended below this line and never rewrite the
 frozen text, the fixtures, the predicates or the counting commands.
+
+## Correction 1 (2026-10-31, before the first work commit) — the round executes on a new Windows host
+
+The round runs on Windows 10.0.26200 x64 / Git Bash 5.3 / Python 3.13.15
+(`python`); `python3` on this host is the Microsoft Store stub (exit 49,
+"Python was not found"). Adaptations, none of which touch the frozen fixture
+set, predicates or commands' arguments:
+
+- The two frozen counting commands run with the host's working interpreter:
+  `python -I -B .ufo/waves/round-29/tools/c1-measure.py <rev> <label> <out.json>`
+  and the same for `c2-measure.py`. The instruments spawn every child process
+  with `sys.executable` (never a hardcoded `python3`), so the same tool bytes
+  run on both host generations.
+- The plan preamble's BASE probes were re-verified by direct probe on this
+  host against an export of `c49023b` (results identical to the recorded
+  BASE behavior; probe retained at `.ufo/waves/round-29/final/base-probes.txt`).
+- Pre-existing host defect at BASE (not caused by round-29 work, probe
+  committed at `.ufo/waves/round-29/final/base-selftest-host.txt`):
+  `python -I -B corpus/release-clock.py --selftest` prints
+  `RELEASE_CLOCK_SELFTEST: FAIL receipt mode or fields`, exit 1, at `c49023b`
+  AND at the round-29 START tip `66d1a2c`. Cause: the receipt-write selftest
+  case asserts `stat.S_IMODE(...) == 0o600`, a POSIX-only property; NTFS
+  carries no POSIX mode bits. Minimal additional delta beyond C1's frozen
+  "three regex lines + two selftest cases": that one case's mode assertion is
+  scoped to POSIX hosts (a declared limit recorded in the case comment,
+  `corpus/lessons/round-29.md` §Limits and `PROVINCE.md`); the case's fields
+  assertions stay universal; on POSIX hosts the case is byte-identical to
+  BASE. The regression line adapts accordingly on this host: before = the
+  committed BASE FAIL line above; after = `PASS (116 cases)` exit 0. On a
+  POSIX host the frozen 114 → 116 growth reading is unchanged.
+- Host receipt for bookkeeping: `claim-ledger.sh verify` and
+  `corpus/self-counts.py` do not complete in practical time on this host
+  (>300 s / >240 s, per-row process-spawn cost; runs recorded), so the
+  QM12 substitute applies: every touched or added ledger row is re-run
+  individually against the commit tree (exit + last line recorded), stamps
+  are refreshed through the ledger's own `stamp` command, and the round-28
+  Linux-host full-verify receipt remains the record for the ledger-wide
+  CLEAN claim. Substrate note (honest absence, no action taken): the-janitor
+  handler, `~/.config/the-janitor` (op.env fixtures) and
+  `~/.local/state/the-janitor` are ABSENT on this host; an `op` CLI 2.39.0
+  IS present (WinGet). No secret store is installed, signed in, provisioned
+  or pinned; `PROVINCE.md` carries the dated correction.
+
+## Correction 2 (2026-10-31, before the first work commit) — sparse archive export on a case-insensitive host
+
+`git archive` of every round-29-relevant revision contains BOTH
+`.ufo/waves/round-27/sandboxes/CritCounting/BASE` (a file) and
+`.ufo/waves/round-27/sandboxes/CritCounting/base/` (a directory); the two
+names collide on NTFS, so a full-tree `tarfile.extractall` raises
+`FileExistsError` on this host (this also makes the frozen round-28
+c1-measure tool itself unrunnable here — the Correction-1 replay re-hosting
+is therefore required, not merely convenient). The two round-29 instruments
+export a declared sparse projection instead of the whole tree: `corpus/**`
+plus the one default-receipt path the F1/F2 fixtures read, discovered from
+the exported `corpus/release-clock.py`; any case-colliding pair INSIDE the
+exported projection aborts the run loudly (no silent member dropping). The
+sandboxes subtree is read by no fixture; every fixture's inputs are
+byte-identical to the revision's. Recorded per run in the receipt JSON under
+`extraction`. Fixture set, predicates, commands and summary lines are
+unchanged.

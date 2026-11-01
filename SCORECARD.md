@@ -686,6 +686,7 @@ landed in the round-21 correction commit (cited in `LOG.md`):
 | feature-bound typed credential review | adjudicate one caller-supplied typed claim against pinned product/feature/status/eligibility/anchor evidence; reject known false/bar-failing claims, keep unjudgeable inputs separate, accept bounded controls | measured code/data landing `4be5da3cac11a1db64c3e0a77246fd7f2bdee413`: selftest PASS cases=12, before rejects10/after admits4/boundary3 excluded; R22-01/R22-02; `kagi-shokunin/.ufo/waves/round-22/final-verification.json` (initial H1 demonstration retained separately) | 22 |
 | closure disposition review | turn a non-author closure's obligation ids into exactly one typed, pointer-resolving disposition each (fixed/reported/operator-owned/no-action/rejected); checks shape, id coverage and pointer presence in the working tree, not fix quality | `python3 corpus/closure-dispositions.py` (ledger `R23-02`), `--selftest` 14 cases (ledger `R24-02`, bound round 24); `corpus/closure-dispositions.json` | 23 |
 | release-clock observation | observe every on-release registry clock against its declared official release feed or capture quote and retain a dated receipt | `python3 corpus/release-clock.py --observe <receipt>`; R25-03/R25-04; `.ufo/waves/round-25/observe-1.json` | 25 |
+| differential feed-token agreement gate | import the live feed extractors and the shared token grammar and prove, over a fixed shape corpus in the three natural wrappers, that every shape the grammar adjudicates is extracted identically (and every shape it refuses is refused by all) — the D1 "one scanner trusting a token shape another never extracts" class becomes a standing check | `python -I -B corpus/feed-token-agree.py` ⇒ `FEED_TOKEN_AGREE: AGREE (shapes=12 disagreements=0)` (ledger `R29-02`); `--selftest` PASS 4 cases (ledger `R29-01`); red witness `corpus/feed-token-agree.py --instrument <BASE tree>` ⇒ DISAGREE naming `trailing-period` (`.ufo/waves/round-29/final/c2-after.json` M4); `corpus/knowledge/feed-token-boundaries.md` | 29 |
 
 Rows enter only through demonstrated execution (`AXES.md` §Capabilities): the two round-21 capabilities entered through that round's runs; feature-bound typed credential review first worked in round 22 through R22-01/R22-02; closure disposition review first worked in round 23 through R23-02 (row added to this main table in round 24, routed D1 — it had sat only in the round-23 section). The 2026-10-16 rollout added none. The latest first-working round in this table is 25 (release-clock observation).
 
@@ -1176,3 +1177,32 @@ seats re-run the committed counters. Two consequences for this section:
   (MISHANDLED 3/4→0/4, TYPED 0/4→4/4). Fix recipe is routed to round 29.
 
 No axis score changes. Outside admission remains the operator`s.
+
+## Round 29 — post-move: feed-token right boundary; differential agreement gate (new host)
+
+Frozen BASE `c49023b773b69de983f0e6eb7e5867ceb5c2c634`; plan+START census
+`66d1a2c`; corrections `47a46d1` (alone, before work, QM29); instruments/gate/
+before-receipts `0229375` (BASE instrument bytes). The round executes on a NEW
+Windows host (plans/round-29.md Correction 1): the-janitor substrate and the
+op.env fixtures are ABSENT (receipt `substrate-absence.txt`), an `op` CLI
+2.39.0 is present and was left untouched — no install, sign-in, provisioning
+or vault contact. All six axes stood at the saturation line 9 with rounds
+26–28 capability-less, so the stagnation nudge fires and waives the
+lowest-axis obligation; C2 is the frontier/capability move. Declared claims
+(plans/round-29.md, frozen): C1 freshness (routed D1 closure, frozen round-28
+recipe, sourced S052) and C2 capability acquisition. Two claims, distinct
+types, causally separable: C1 verifies without the gate file (its fixtures
+touch only `corpus/release-clock.py`); C2's gate verified red against BASE
+(`c2-base-gate.json`: m1=1 m2=1 m3=0 m4=1) before the C1 fix landed.
+
+| Axis | Before → after | Evidence and bounded interpretation |
+|---|---|---|
+| freshness | 9 → 9 | C1: the three feed extractors take the `STABLE_TOKEN_RE` right boundary (S052: a title's trailing period is content), so a period-suffixed token is extracted then judged — the round-28 D1 fail-open (silent drop to CLEAN / canonical release invisible) is closed by the frozen recipe plus its two feed-path selftest cases (114 → 116). Frozen instrument `.ufo/waves/round-29/tools/c1-measure.py`: NF MISHANDLED 5/7 → 0/7, CORRECT 2/7 → 7/7; round-28 counter replay stays MISHANDLED 0/4, TYPED 4/4; default control CLEAN30. `receipt mode or fields` at BASE on this host was a pre-existing POSIX-only assertion (M29-1), POSIX-scoped per Correction 1. |
+| calibration | 9 → 9 | No scalar move claimed. Three mistakes mined with fixes shown able to fail (M29-1 host-property assertion, M29-2 host environment: python3 Store stub + NTFS case collision, M29-3 unmeasurable-in-time full verify); QM30 enters QUALITY.md; new self-counts bindings verified individually (12/12, 4/4, 116) with the QM12 substitute because full `verify`/`self-counts` exceed 300 s/240 s here (M29-3). Scores remain author-assigned; outside admission stays the operator's. |
+| depth | 9 → 9 | `corpus/knowledge/feed-token-boundaries.md` adds the extraction contract, the agreement invariant, six bounds and four falsifiers — detail on the release-clock surface, not new domain scope; no vault/ref-resolved ground touched. |
+| coverage | 9 → 9 | Registry 51 → 52 (S052, one tier A spec row on an opened URL); the new gate covers the lane's own token-extraction surface, not a host surface; census CLEAN (rows=52) at the measured revision. |
+| operability | 9 → 9 | A ninth runnable gate mode-set (`feed-token-agree.py` verify + `--selftest`, exit 0/1/2, counts in the verdict line); nothing schedules any gate and the by-hand duties remain by-hand — the increment is claimed under C2/capability, not double-counted here. |
+| adjacency | 9 → 9 | R17-02 unchanged; the gate imports this lane's own instrument and adjudicates nothing owned by siblings (chousa keeps the research method; no sibling claims workload-identity or scanner ground — round-21 sweep). The new host itself is reported (PROVINCE round-29 erratum), not absorbed into any other lane's surface list. |
+
+Measured revision, exact exits and receipts are appended below after the
+measured revision lands; no unrun result is stated here.

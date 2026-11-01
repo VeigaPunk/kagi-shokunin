@@ -77,3 +77,5 @@ KN-SUBSTRATE-CENSUS-SELFTEST	corpus/knowledge/substrate-deferral.md	The case cou
 KN-SUBSTRATE-ABSENCE-FILES	corpus/knowledge/substrate-deferral.md	all-GONE `DRIFT_PINS: DRIFT \(files_ok=0 files_bad=([0-9]+)	expect:R18-01	files_bad=([0-9]+)	R18-01 [host] absence pin
 KN-CHECKLIST-FALSIFY-FLOOR	corpus/knowledge/checklist-execution.md	^5\. Convert three runnable rows .*?floor=([0-9]+)	ledger:R15-05	floor=([0-9]+)	falsifier 5 expected floor
 KN-OPREF-FALSIFY-SELFTEST	corpus/knowledge/op-ref-consumption.md	`--selftest` proves the comparator on ([0-9]+)$	expect:R12-02	\(([0-9]+) cases	§10; R12-02 pin (said 21 at BASE)
+PV-FEEDTOKEN-SHAPES	PROVINCE.md	^- `corpus/feed-token-agree\.py` .*?fixed shape corpus of ([0-9]+) shapes	ledger:R29-02	shapes=\(([0-9]+)	round 29 C2: gate shape-corpus count bound to the live gate run
+PV-FEEDTOKEN-SELFTEST	PROVINCE.md	^- `corpus/feed-token-agree\.py` .*?`--selftest` proves ([0-9]+) cases	ledger:R29-01	\(([0-9]+) cases	round 29 C2: gate selftest case count bound to the live selftest

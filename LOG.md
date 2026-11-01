@@ -1589,3 +1589,46 @@ and the refused work was not retried, rephrased or rerouted.
 - Verification seats (8, read-only, this attempt) re-ran the census, the
   ledger, both frozen counters' receipts, the source rows and the scorecard
   cells; their findings are in the round report. No seat wrote to the repo.
+
+## Round 29 (2026-10-31) — feed-token right boundary; differential agreement gate; new Windows host
+
+Frozen BASE `c49023b`; plan+START census `66d1a2c` (alone); corrections
+`47a46d1` (alone, before work, QM29); instruments/gate/before-receipts
+`0229375` (BASE instrument bytes). Claims: C1 freshness (routed D1 closure
+via the frozen round-28 recipe, sourced S052) and C2 capability
+(`considerthese/2026-10-25.md` proposal 1 → `corpus/feed-token-agree.py`).
+Stagnation nudge fires (all axes 9; rounds 26–28 capability-less) — C2 is
+the frontier/capability move; the lowest-axis obligation is waived.
+
+- Host receipt (honest absence): new Windows host; the-janitor handler,
+  `~/.config/the-janitor` (op.env fixtures) and `~/.local/state/the-janitor`
+  ABSENT (`.ufo/waves/round-29/final/substrate-absence.txt`); `op` CLI 2.39.0
+  present via WinGet and left untouched — nothing installed, signed in,
+  provisioned or pinned; no vault/account contact. Live gates fail closed
+  (SURFACE_CENSUS DRIFT absent=37; DRIFT_PINS DRIFT files_bad=15) — correct
+  outputs. Cross-host debt measured and routed (PROVINCE round-29 erratum):
+  sqlite3-dependent selftests SETUP/127, drift-pins selftest 2/13 (symlinks),
+  claim-ledger selftest FAIL (`ln -s`), scope-gate/sources-census selftests
+  >100 s, full ledger verify >300 s and self-counts >240 s (QM12 substitute
+  applied). Passing here: checklist-run 34, op-ref-probe 36, sources-census
+  validate, release-clock default replay CLEAN30.
+- C1: the three feed extractors now take the `STABLE_TOKEN_RE` right
+  boundary (`(?![A-Za-z0-9+-]|\.[0-9])`, S052) instead of `$`/`[ \t]*$` — a
+  period-suffixed token is extracted then judged, never silently dropped
+  (BASE probes committed: older-canonical-wins and invisible-canonical both
+  reproduced at `c49023b`, then fixed). Two feed-path selftest cases added
+  per the recipe (114 → 116). Pre-existing POSIX-only receipt-mode case
+  POSIX-scoped per Correction 1 (M29-1; red-before committed).
+- C2: `corpus/feed-token-agree.py` — agreement gate over the live
+  extractors + grammar, 12-shape corpus, named disagreements, hermetic
+  selftest (seeded `$` divergence caught). Red witness at `0229375`:
+  m1=1 m2=1 m3=0 m4=1 (gate vs BASE instrument DISAGREEs naming
+  `trailing-period`); before that, at `c49023b` itself: m1=0 m2=0 m3=0
+  m4=0 (no artifact).
+- Frontier: S052 opened this round (RFC 4287 §4.2.14, raw-literal located,
+  capture row in `source-fetches.tsv`); sources 51 → 52; one new knowledge
+  entry (`feed-token-boundaries.md`, Reverify: R29-01/R29-02). Mistakes
+  M29-1..M29-3 mined (lesson §Mistakes); QM30 added to QUALITY.md.
+- Measured after-receipts, the frozen commands' exits and the capability
+  table row land with the measured revision (see the appended measured-
+  outcome block and the round report); nothing here is claimed unrun.

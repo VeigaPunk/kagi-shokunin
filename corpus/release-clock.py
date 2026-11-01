@@ -778,9 +778,17 @@ def request_body(url, opener=None, resolver=None):
             return status, body, "HTTP %s" % status
         return status, body, None
 
-STABLE_TITLE_RE = re.compile(r"^(?:[A-Za-z]+ )?v?([0-9]+\.[0-9]+\.[0-9]+)$")
-STABLE_TAG_HREF_RE = re.compile(r"/releases/tag/v?([0-9]+\.[0-9]+\.[0-9]+)$")
-TEXT_VERSION_RE = re.compile(r"^Version:[ \t]*v?([0-9]+\.[0-9]+\.[0-9]+)[ \t]*$", re.MULTILINE)
+# Round 29 C1 (frozen recipe, corpus/lessons/round-28.md §Attempt-3 corrigenda 1):
+# the three feed extractors take their right boundary from the one STABLE_TOKEN_RE
+# already uses — (?![A-Za-z0-9+-]|\.[0-9]) — instead of a $ anchor, so a token
+# carrying sentence punctuation (S052: an Atom title is a Text construct; the
+# trailing period is content) is EXTRACTED and then judged at newest_stable /
+# the text-release canonicality check, never silently dropped. A dotted numeric
+# suffix (3.15.1.2) and prerelease/build suffixes still refuse (the boundary
+# excludes them), so NF6/NF7-class refusals are unchanged.
+STABLE_TITLE_RE = re.compile(r"^(?:[A-Za-z]+ )?v?([0-9]+\.[0-9]+\.[0-9]+)(?![A-Za-z0-9+-]|\.[0-9])")
+STABLE_TAG_HREF_RE = re.compile(r"/releases/tag/v?([0-9]+\.[0-9]+\.[0-9]+)(?![A-Za-z0-9+-]|\.[0-9])")
+TEXT_VERSION_RE = re.compile(r"^Version:[ \t]*v?([0-9]+\.[0-9]+\.[0-9]+)(?![A-Za-z0-9+-]|\.[0-9])", re.MULTILINE)
 
 
 def newest_stable(tokens):
@@ -1413,6 +1421,29 @@ def selftest():
         if not str(exc).startswith(NON_CANONICAL_PREFIX):
             failures.append("older non-canonical feed entry refused without a type")
 
+    # round 29 C1 (frozen recipe, round-28 §Attempt-3 corrigenda 1): a
+    # period-suffixed feed token is EXTRACTED, then judged -- a canonical one is
+    # observed, a non-canonical one is typed NON-CANONICAL; neither is silently
+    # dropped by the extractor (S052: a title's trailing period is content).
+    cases += 1
+    try:
+        if parse_latest_version(atom % entry(
+                b"Python 3.15.1.", b"3.15.1")) != "3.15.1":
+            failures.append("canonical period-suffixed feed entry invisible")
+    except ValueError as exc:
+        failures.append("canonical period-suffixed feed entry dropped: %s" % exc)
+
+    cases += 1
+    try:
+        parse_latest_version(atom % b"".join((
+            entry(b"Python 3.15.0", b"3.15.0"),
+            entry(b"Python 3.15.01.", b"3.15.01"))))
+        failures.append("non-canonical period-suffixed feed entry accepted")
+    except ValueError as exc:
+        if not str(exc).startswith(NON_CANONICAL_PREFIX):
+            failures.append(
+                "non-canonical period-suffixed feed entry not typed: %s" % exc)
+
     cases += 1
     try:
         if parse_latest_version(
@@ -1785,10 +1816,23 @@ def selftest():
             "id", "clock", "url", "http_status", "sha256", "parsed_version",
             "located", "verdict", "observed_at",
         }
-        if (stat.S_IMODE(destination.stat().st_mode) != 0o600
-                or set(decoded) != {"format", "observations"}
-                or set(decoded["observations"][0]) != allowed_receipt_keys):
-            failures.append("receipt mode or fields")
+        # The 0o600 receipt-privacy property is POSIX-only: Windows/NTFS carries
+        # no POSIX mode bits (measured 0o666 here, 2026-10-31, the committed
+        # round-29 BASE probe), so on a non-POSIX host the mode half is a
+        # declared limit and the fields half still runs. On POSIX hosts this
+        # case is byte-identical to the round-28 behavior (plans/round-29.md
+        # Correction 1).
+        mode_ok = stat.S_IMODE(destination.stat().st_mode) == 0o600
+        fields_ok = (set(decoded) == {"format", "observations"}
+                     and set(decoded["observations"][0]) == allowed_receipt_keys)
+        if os.name == "posix":
+            if not mode_ok or not fields_ok:
+                failures.append("receipt mode or fields")
+        elif not fields_ok:
+            failures.append("receipt fields")
+        else:
+            print("RELEASE_CLOCK_SELFTEST: SKIP receipt mode 0o600"
+                  " (POSIX-only property; os.name=%s)" % os.name)
         before = destination.read_bytes()
         cases += 1
         try:

@@ -1661,3 +1661,9 @@ Frozen BASE `655e620`; plan `4767b04` (alone, QM29); plan corrections 1/2 `2d46e
 - Frontier: census before→after recorded (START exit 0; after-state receipt lands with the measured revision); mistakes mined in `corpus/lessons/round-31.md` §Mistakes; QM32 landed in `corpus/QUALITY.md` (M30-4's proposal, red witness = the round-30 plan); considerthese proposal 2 mined (the `lane-status:` convention, landed in SCORECARD with four binding rows; proposal 3's premise is stale since round 29 and was not mined).
 - D1/D2 hygiene (routed by the round-30 verifier): the 14 inherited round-30 paths committed (`2681f2b`); the D2 pointer defect superseded by the correctly-produced receipt `.ufo/waves/round-31/build/selfcounts-at-r31-tip.txt` (stale=0 policy=2 at the tip; the round-31 report names the superseded pointer).
 - Measurements, exits and receipts: `.ufo/reports/round-31/kagi.md` (measured revision cited there).
+- Correction (pre-report, same round): OidcEntry2 delivered late (~2 h 20 m after dispatch,
+  after the integration commit) and was RECONCILED — its draft adopted as the landed entry 2
+  (the JP product-level status the English-needle sweep missed; the S066 locator corrected
+  twice; the S071 scope cell corrected); lesson corrigenda + M31-6 appended; commit `ffa4add5`.
+  RowsDraft never delivered; its collision artifacts were used and the L1 built the registry
+  rows. The "stalled" line above is superseded by this correction for OidcEntry2.

@@ -374,6 +374,28 @@ new op release falsifies the corresponding bullet for that release.
 superseded: the selftest now proves 36 cases (ledger `R12-02`, re-pinned this
 round after the byte arm added seven); §9 is left as written.
 
+### 11.1 Re-measure on op 2.41.1 (round 32)
+
+Installed CLI at measurement: `op --version` → `2.41.1` (receipt `.ufo/waves/round-32/final/c2-after.txt`, which also records the `op` path, the `1password-cli` package version and the probe script's sha256 in the same file). The §11 text above stays as written (its scope: op `2.40.0`–`2.41.0`). This subsection re-runs the same six-class byte check on the installed release and adds no new class.
+
+Command and expected last line (identical to §11): `bash corpus/op-ref-probe.sh --dotenv-bytes` → six `DOTENV_BYTES_CASE id=<id> status=PASS` lines, then `OP_DOTENV_BYTES: CLEAN (checks=6 failed=0)`, exit 0. Measured 2026-11-03 on 2.41.1: exit 0, six PASS, that last line (same receipt).
+
+Counting command (frozen, `plans/round-32.md` C2), run from the lane root:
+
+    V=$(op --version | awk '{print $1}')
+    awk '/^## 11\./{f=1;next} /^## /{f=0} f' corpus/knowledge/op-ref-consumption.md | grep -c "op \`$V\`"
+    bash corpus/op-ref-probe.sh --dotenv-bytes; echo "exit=$?"
+
+At BASE the second line printed `0` (the §11 range named op `2.40.0` and `2.41.0` only); this subsection makes it print `1`. The count reads any mention of the version in the range, so it is evidence of naming; the measurement is the CLEAN probe beside it.
+
+Six classes, unchanged from §11 — ids and the bytes the child receives for `KAGI16_VALUE` (`dotenv_bytes()`): `escaped-lf` → `alpha` LF `beta` (`616c7068610a62657461`); `trailing-lf` → `alpha` LF LF (`616c7068610a0a`); `newline-only` → one LF (`0a`); `single-literal` → `alpha` `\` `n` `beta` (`616c7068615c6e62657461`); `double-multiline` and `single-multiline` → `alpha` LF `beta` (`616c7068610a62657461`). This round asserts no byte change on 2.41.1: six PASS is the whole claim.
+
+**Sourced.** `corpus/SOURCES.md` **S072** — 1Password CLI release notes, `https://app-updates.agilebits.com/product_history/CLI2`, accessed 2026-11-03; its entry reads `2.41.1 (build #2410101 ) – released 2026-10-21`. The row records the URL, the access date and the located quote; this subsection cites it for the installed release's identity, not as evidence about bytes. The release notes say nothing about `op run`, `--env-file` or dotenv handling in 2.41.1 (`.ufo/waves/round-32/build/ScoutOp.md`).
+
+**Does not establish.** Representation fidelity for these six classes on op `2.41.1` only: no ref-resolved value, no item read, no vault or account fact, and no handler behaviour — `the-janitor` is absent from this host and nothing ran through it. The downstream `$(...)` trailing-LF loss in §11 is a shell fact, not re-measured here. Scoped to the exact version string above; a later release is unmeasured until the `on-release` clock fires.
+
+**Falsifier.** Any `DOTENV_BYTES_CASE … status=FAIL`, or a `DRIFT`/`SETUP` verdict, from `bash corpus/op-ref-probe.sh --dotenv-bytes` on a newer op release falsifies the corresponding class for that release; `recheck: on-release of op`.
+
 ## Erratum (round 22 — comparator history)
 
 The §10 “21 cases” comparator sentence is an intermediate historical count,

@@ -158,3 +158,15 @@ QM32's fix shown able to fail: the round-30 plan (`plans/round-30.md` as committ
 QM32 to that plan fires. The round-31 plan carries the measured BASE controls
 (`.ufo/waves/round-31/controls/`) and names every red row of every gate it touches
 (R25-02, R29-01, R29-02 routed; the ten migrations claimed).
+
+## Criterion from the round-32 M32-1 mistake (landed round 32)
+
+| id | criterion | weak signal | lesson |
+|---|---|---|---|
+| QM33 | A frontier-to-core move removes the frontier entry in the same round; `corpus/self-description-sweep.sh` SD1 and SD2 must read 0 at the landing revision. | a `Core` bullet and a `Frontier` bullet naming the same theme in one file (round-31 `PROVINCE.md:90`, SD1 = 2); a `## Frontier` entry that still reads `moved to core` after the move (round-31 `corpus/README.md:117,118`, SD2 = 2) | `corpus/lessons/round-32.md` §Mistakes, M32-1 |
+
+QM33 binds `plans/round-32.md` R1 and R6: the frontier repair is the landing, and SD1/SD2 are
+the counter that reads it. The sweep's SD1–SD6 set and its planted-mismatch selftest are the
+frozen plan's, not this criterion's to widen. Red witness: the BASE run (`32c35fe`, no round-32
+edit) prints `MISMATCH SD1 PROVINCE.md:90` ×2 and `MISMATCH SD2 corpus/README.md:117` and `:118`,
+so the criterion fires on the unedited tree (receipt `.ufo/waves/round-32/build/sweep/base-run.txt`).

@@ -1,0 +1,14 @@
+# red witness 1: stub op prints 2.41.9 for --version, exits 1 otherwise
+# stub: /fast/scratch/hyaku/kagi-r32/ExecProbe/stubs/op
+#   #!/bin/sh
+#   if [ "${1:-}" = "--version" ]; then printf "%s\n" "2.41.9"; exit 0; fi
+#   exit 1
+# command: PATH=/fast/scratch/hyaku/kagi-r32/ExecProbe/stubs:$PATH bash corpus/op-ref-probe.sh --dotenv-bytes
+DOTENV_BYTES_CASE id=escaped-lf status=FAIL reason=exit-or-bytes
+DOTENV_BYTES_CASE id=trailing-lf status=FAIL reason=exit-or-bytes
+DOTENV_BYTES_CASE id=newline-only status=FAIL reason=exit-or-bytes
+DOTENV_BYTES_CASE id=single-literal status=FAIL reason=exit-or-bytes
+DOTENV_BYTES_CASE id=double-multiline status=FAIL reason=exit-or-bytes
+DOTENV_BYTES_CASE id=single-multiline status=FAIL reason=exit-or-bytes
+OP_DOTENV_BYTES: DRIFT (checks=6 failed=6)
+exit=1

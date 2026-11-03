@@ -1,0 +1,36 @@
+verified_at=2026-11-03T19:41:20-03:00 file=/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-32/build/scorecard/round-32-sections.md
+sha256=882529fd111151bb588d41177dfa19d05ee1db14bd8bc011453122a81f1e9a64 bytes=7346 lines=52
+SEC_RE=^ {0,3}##[[:blank:]]+Round [0-9]+ — (pre|post)-move([[:blank:]]|$)
+ROUND_RE=^ {0,3}##[[:blank:]]*[Rr][Oo][Uu][Nn][Dd]([[:blank:]]|$)
+AXES_RE=^(depth|coverage|operability|freshness|calibration|adjacency)$
+--- grep -E SEC_RE (headings the parser accepts):
+1:## Round 32 — pre-move (repo HEAD 32c35fe, round-31 close)
+21:## Round 32 — post-move (claims C1 calibration, C2 freshness)
+sec_matches=2
+--- grep -E ROUND_RE (every round-like line; must equal the SEC_RE set):
+1:## Round 32 — pre-move (repo HEAD 32c35fe, round-31 close)
+21:## Round 32 — post-move (claims C1 calibration, C2 freshness)
+round_matches=2
+--- parser replica (accept-gate + six axes once per section):
+section: ## Round 32 — pre-move (repo HEAD 32c35fe, round-31 close) | axes=6 seen= depth coverage operability freshness calibration adjacency result=OK
+section: ## Round 32 — post-move (claims C1 calibration, C2 freshness) | axes=6 seen= calibration freshness depth coverage operability adjacency result=OK
+unrecognised=0 axis_rows_total=12
+--- one table per section:
+## Round 32 — pre-move (repo HEAD 32c35fe, round-31 close) -> tables=1
+## Round 32 — post-move (claims C1 calibration, C2 freshness) -> tables=1
+--- cell projection (parser rules) — L1 expected delta when spliced:
+depth        row_ids=1 stamps=0
+coverage     row_ids=1 stamps=0
+operability  row_ids=1 stamps=1
+freshness    row_ids=1 stamps=2
+calibration  row_ids=4 stamps=1
+adjacency    row_ids=1 stamps=0
+calibration  row_ids=4 stamps=2
+freshness    row_ids=1 stamps=0
+depth        row_ids=1 stamps=0
+coverage     row_ids=2 stamps=1
+operability  row_ids=1 stamps=0
+adjacency    row_ids=1 stamps=0
+cells=+12 row_pointed=+12 stamp_pointed=+5 (BASE 222/162/103 -> 234/174/108)
+--- placeholders:
+L1_FILL=12

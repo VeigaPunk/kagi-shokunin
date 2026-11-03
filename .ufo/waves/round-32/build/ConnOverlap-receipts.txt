@@ -1,0 +1,81 @@
+# ConnOverlap receipts — measured 2026-11-03 (read-only, no lane writes)
+# root /home/vgpnk/Projects/shokunin ; lanes = *-shokunin except kagi-shokunin (20)
+
+## cmd A: grep -l -iE 'moved to core|explored, not held' <lane>/{PROVINCE,README,SKILL}.md
+game-dev-3d-shokunin/PROVINCE.md
+kotoba-shokunin/PROVINCE.md
+(files listed above; no output = 0 matches)
+
+## cmd A per-lane line counts
+audio-shokunin	0
+chousa-shokunin	0
+game-dev-2d-shokunin	0
+game-dev-3d-shokunin	1
+kaidoku-shokunin	0
+kake-shokunin	0
+kama-shokunin	0
+kasegi-shokunin	0
+kengaku-shokunin	0
+kotoba-shokunin	3
+kotodama-shokunin	0
+kumitate-shokunin	0
+lore-shokunin	0
+mado-shokunin	0
+mori-shokunin	0
+revenger-shokunin	0
+souji-shokunin	0
+tabi-shokunin	0
+tameshi-shokunin	0
+tsukuroi-shokunin	0
+
+## cmd B: grep -rIn -E 'op (CLI )?2\.[0-9]+\.[0-9]+|1password.*2\.[0-9]' <lane>/corpus <lane>/knowledge
+## (knowledge/ absent in all 20 lanes; corpus/ present in all 20)
+audio-shokunin	0
+chousa-shokunin	0
+game-dev-2d-shokunin	0
+game-dev-3d-shokunin	0
+kaidoku-shokunin	12
+kake-shokunin	0
+kama-shokunin	0
+kasegi-shokunin	0
+kengaku-shokunin	0
+kotoba-shokunin	0
+kotodama-shokunin	0
+kumitate-shokunin	0
+lore-shokunin	0
+mado-shokunin	0
+mori-shokunin	0
+revenger-shokunin	0
+souji-shokunin	0
+tabi-shokunin	0
+tameshi-shokunin	0
+tsukuroi-shokunin	14
+
+## cmd C: grep -rIn -iE 'citation[- ]gate|citations? gate|claim-ledger\.sh[[:space:]]+citations|\bgate:?[[:space:]]*citations\b' <lane>/corpus
+audio-shokunin	lines=0	files=0
+chousa-shokunin	lines=0	files=0
+game-dev-2d-shokunin	lines=0	files=0
+game-dev-3d-shokunin	lines=0	files=0
+kaidoku-shokunin	lines=0	files=0
+kake-shokunin	lines=5	files=4
+kama-shokunin	lines=1	files=1
+kasegi-shokunin	lines=0	files=0
+kengaku-shokunin	lines=2	files=1
+kotoba-shokunin	lines=0	files=0
+kotodama-shokunin	lines=0	files=0
+kumitate-shokunin	lines=7	files=6
+lore-shokunin	lines=0	files=0
+mado-shokunin	lines=0	files=0
+mori-shokunin	lines=0	files=0
+revenger-shokunin	lines=0	files=0
+souji-shokunin	lines=0	files=0
+tabi-shokunin	lines=1	files=1
+tameshi-shokunin	lines=0	files=0
+tsukuroi-shokunin	lines=3	files=3
+
+## UNRESOLVED label (context only; SD6 counts only claim-ledger output)
+kumitate-shokunin/scripts/cite-check.mjs
+kumitate-shokunin/scripts/claims-check.mjs
+kumitate-shokunin/scripts/make-dispatch-actual.mjs
+kumitate-shokunin/scripts/round-gate.mjs
+tabi-shokunin/scripts/check-release-pins.mjs

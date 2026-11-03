@@ -1667,3 +1667,10 @@ Frozen BASE `655e620`; plan `4767b04` (alone, QM29); plan corrections 1/2 `2d46e
   twice; the S071 scope cell corrected); lesson corrigenda + M31-6 appended; commit `ffa4add5`.
   RowsDraft never delivered; its collision artifacts were used and the L1 built the registry
   rows. The "stalled" line above is superseded by this correction for OidcEntry2.
+
+## Round 32 (2026-11-03) — self-description calibration and byte-evidence freshness
+
+- Frozen plan alone `507dd9f`; inherited round-31 late-seat evidence R2 committed/pushed `76241c0`. C1 calibration: frozen sweep BASE n=8 (plan's expected 10 was wrong, SD5=1 rather than3); frontier/core conflicts, README tombstones, missing M31-6 table row and calibration red-id naming repaired. Integrator-owned SD6 reference remains untouched, so n=0 cannot be self-admitted if that residual persists.
+- C2 freshness: op 2.41.1, six byte classes CLEAN; §11.1 appended inside §11, historical 2.41.0 text retained. Official release history S072 opened 2026-11-03; entry names build #2410101 released 2026-10-21; release identity is sourced, byte behaviour is measured. Receipts `.ufo/waves/round-32/final/c2-after.txt`, source capture `.ufo/waves/round-32/build/ScoutOp.md`.
+- Round-31 verifier R1/R6 frontier fixes; R3/R4 appended corrigenda; R5 reds explicitly named and bounded in SCORECARD; M32-1 → QM33 with planted red witnesses (selftest seven cases, independent ReviewSD plants 3/3). Lesson `corpus/lessons/round-32.md`.
+- One v1 wave, 13 settled seats, 2 scouts/3 executors/3 scribes/1 connector/2 reviewers/1 critic/1 mutation-tester, attack4/13; L1 planner. WAVE-DONE received before report; `.ufo/waves/round-32/build-results.json`. No installs, vault contact, new capability, promotion or assimilation. Every scalar remains9; report states honest claim verdicts.

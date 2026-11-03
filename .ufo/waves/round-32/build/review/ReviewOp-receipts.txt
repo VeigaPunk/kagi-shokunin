@@ -1,0 +1,17 @@
+# ReviewOp receipts (round-32 C2 attack)
+V=2.41.1
+# plan counter, run in BASE archive copy /fast/scratch/hyaku/kagi-r32/ReviewOp/base:
+0
+count_pipeline_exit=1
+DOTENV_BYTES_CASE id=escaped-lf status=PASS
+DOTENV_BYTES_CASE id=trailing-lf status=PASS
+DOTENV_BYTES_CASE id=newline-only status=PASS
+DOTENV_BYTES_CASE id=single-literal status=PASS
+DOTENV_BYTES_CASE id=double-multiline status=PASS
+DOTENV_BYTES_CASE id=single-multiline status=PASS
+OP_DOTENV_BYTES: CLEAN (checks=6 failed=0)
+exit=0
+# ## heading grep
+## 9. Reproduction
+## 10. Falsification
+## 11. Byte fidelity of `op run --env-file` (round 21, op 2.41.0)

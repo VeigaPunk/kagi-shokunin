@@ -1,0 +1,45 @@
+root=/fast/scratch/hyaku/kagi-r32/ReviewSD/base-clone rev=32c35fe5ed44f2017d6a662c7fd13f7e63a7ce9b
+== SD1: PROVINCE.md Frontier-bullet lines naming a theme a Core bullet also names ==
+SD1 n=2
+  theme[OIDC workload-federation]: frontier_bullet_lines=1 core_bullets_named=1
+  theme[secret[- ]scanning]: frontier_bullet_lines=1 core_bullets_named=1
+  frontier bullet lines:
+    L90:- **Frontier — explored, not held:** OIDC workload-federation trust policy; secret-scanning detec
+== SD2: corpus/README.md lines inside ## Frontier containing 'moved to core' ==
+SD2 n=2
+    [section starts] L111
+    L117: - **OIDC workload-federation trust policy** — moved to core in round 31 (S061–S071; `knowl
+    L118: - **Secret scanning: detection versus verification** — moved to core in round 30 (S053–S06
+== SD3: SHONEN.md evidence tokens whose file does not exist ==
+SD3 n=0 (distinct tokens checked=7)
+    token: corpus/claim-ledger.sh
+    token: corpus/lessons/round-19-recensus.md
+    token: corpus/op-ref-probe.sh
+    token: corpus/scope-gate.sh
+    token: LOG.md
+    token: PROVINCE.md
+    token: SKILL.md
+== SD4: round-31 lesson M31-n ids named with no '| M31-n ' row ==
+SD4 n=1
+    named: M31-1 M31-2 M31-3 M31-4 M31-5 M31-6
+    rowed: M31-1 M31-2 M31-3 M31-4 M31-5
+    rows:
+      L181:| M31-1 | unreachable counter nearly frozen | the L1's i
+      L182:| M31-2 | wrong-interpreter invocation | the L1 ran `pyt
+      L183:| M31-3 | layout-artifact misread risk | the scratch-clo
+      L184:| M31-4 | seat stall | OidcEntry2 and RowsDraft produced
+      L185:| M31-5 | QM32's own red witness | the round-30 plan (`p
+== SD5: lane-status red ids absent from latest calibration row of latest ## Round ==
+  absent from latest calibration row: R25-02
+SD5 n=1 (latest ## Round heading at line 1281)
+    reds: R25-02 R29-01 R29-02
+    latest calibration row (truncated): | calibration | 9 → 9 | The scorecard cell audit is setup-clean again: the five round-26–30 headings reshaped into the parser'
+== SD6: claim-ledger citations UNRESOLVED lines (run in THIS root) ==
+SD6 skipped by request (SKIP_SD6=1)
+== step-5 aid: every PROVINCE.md line matching either theme (any context) ==
+    L88:- **Core, round 30 — secret scanning, detection versus verification:** the Gitleaks, TruffleHog and Betterleaks tool documentation and the TruffleH
+    L89:- **Core, round 31 — OIDC workload-federation trust policy:** the provider/protocol layer (AWS IAM registration + condition keys, AWS STS response 
+    L90:- **Frontier — explored, not held:** OIDC workload-federation trust policy; secret-scanning detection vs verification; NIST key-management draft st
+== SUMMARY ==
+SD1=2 SD2=2 SD3=0 SD4=1 SD5=1 SD6=0
+SUM(SD1..SD6)=6

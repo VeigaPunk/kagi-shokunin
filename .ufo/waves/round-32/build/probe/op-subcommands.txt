@@ -1,0 +1,33 @@
+### A. literal spec command: grep -o 'op [a-z-]*' corpus/op-ref-probe.sh | sort | uniq -c
+        1 op bash
+        7 op binary
+        1 op invocation
+        1 op nref
+        1 op path
+        1 op repeats
+        3 op run
+  (prose matches: 'op binary', 'op invocation', 'op path', 'op repeats', 'op bash', 'op nref' — not subcommands)
+
+### B. precise inventory: every op invocation site
+  270:  op_exec run --env-file="$f" -- "$@"
+  282:      txt=$(op_exec run --env-file="$OP_ABSENT" -- printenv KAGI12_A 2>&1); rc=$? ;;
+  284:      txt=$(op_exec run --env-file="$OPRUN_F" 2>&1); rc=$? ;;
+  286:      txt=$(op_exec run --env-file="$FIX_F/malformed.env" -- true 2>&1); rc=$? ;;
+  295:      txt=$(op_exec run --env-file="$FIX_F/adir" -- true 2>&1); rc=$?
+  324:    val=$(op_run "$d/oprun.env" printenv "$key" 2>/dev/null); local rc=$?
+  331:  val=$(op_run "$d/oprun.env" printenv KAGI12_A 2>/dev/null) || val=
+  333:  val=$(op_exec run --no-masking --env-file="$d/oprun.env" -- printenv KAGI12_A 2>/dev/null) || val=
+  337:    val=$(op_run "$d/edge.env" printenv "$key" 2>/dev/null) || val=
+  340:  val=$(op_run "$d/two1.env" printenv KAGI12_P8 2>/dev/null) || val=
+  342:  val=$(op_exec run --env-file="$d/two1.env" --env-file="$d/two2.env" -- printenv KAGI12_P8 2>/dev/null) || val=
+  344:  val=$(op_exec run --env-file="$d/two1.env" --env-file="$d/two2.env" -- printenv KAGI12_P9 2>/dev/null) || val=
+  346:  val=$(KAGI12_T='  spaced  ' op_exec run --env-file="$d/oprun.env" -- printenv KAGI12_T 2>/dev/null) || val=
+  542:    op_exec run --env-file="$WORK/plain.env" -- /bin/sh -c \
+
+  direct 'op_exec run' sites: 10
+  'op_run' wrapper sites (each expands to op_exec run): 4
+  total op invocations: 14
+  distinct op subcommands: run (only)
+
+### C. account/vault/item/signin/inject/read subcommand anywhere in the script?
+  none

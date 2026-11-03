@@ -1290,3 +1290,31 @@ Measured revision, exact exits and receipts are in the round report; no unrun re
 | adjacency | 9 → 9 | Connector sweep over all 20 sibling lanes: 0 registry rows and 0 citations for the 11 adopted URLs; no sibling claims workload-identity ground — reported, not absorbed. The scorecard heading-shape class is kagi-local (0 of 20 siblings run a cells-equivalent gate). | `.ufo/waves/round-31/build/ConnOverlap.md`; row `R17-02`. |
 
 Measured revision, exact exits and receipts are in the round report; no unrun result is stated here.
+
+## Round 32 — pre-move (repo HEAD 32c35fe, round-31 close)
+
+Frozen BASE `32c35fe5ed44f2017d6a662c7fd13f7e63a7ce9b`; plan and frozen claims `507dd9f`, committed alone before any round-32 data (`plans/round-32.md`). Every axis stood at 9 at the round-31 close, so this table is the reference line the round's two claims are measured against; no value in it is a round-32 measurement.
+
+| Axis | Score | Evidence pointer | Last change |
+|---|---|---|---|
+| depth | 9 | Unchanged from round 29: the release-clock extraction contract and agreement invariant, and the refusal bounds (masking of ref-resolved values, item-level reads, the absent handler). Row `R29-01`. | round 29 |
+| coverage | 9 | Unchanged: 71 registry rows with the census green at BASE (row `R31-02`); the NIST SP 800-57 family candidate in `merge/kagi/` is not selected this round (`plans/round-32.md` §Frontier step). | round 31 |
+| operability | 9 | Unchanged: nine gate mode-sets with verdicts and selftests; `bash corpus/eol-sweep.sh` green at BASE (row `R30-01`); nothing schedules any gate. | round 30 |
+| freshness | 9 | Unchanged as a score. Measured BASE gap, not re-scored: §11 of `corpus/knowledge/op-ref-consumption.md` names op 2.41.0 as its measured release while `op --version` reads 2.41.1 (observed 2026-11-03; `plans/round-32.md` §C2, BASE counter 0). The 21 legacy entries remain the named gap (`corpus/README.md` §Known gaps). | round 29 |
+| calibration | 9 | Kept at 9 with the reason stated. The cell audit (`bash corpus/claim-ledger.sh cells`, row `R31-01`) completes to `CELL_AUDIT: POLICY` with one FAIL and two POLICY rows, all operator-owned: `R25-02` (FAIL, self-count binding blocked by the gate policy), `R29-01` (RED, operator-owned `PYTHON_SCRIPT_RE` registration), `R29-02` (RED, operator-owned, same registration). The instrument reports reds this lane cannot clear without an operator policy decision; the score is neither raised nor lowered to hide them. Receipt `.ufo/waves/round-31/final/receipts/cells-at-tip.txt`. | round 31 |
+| adjacency | 9 | Unchanged: the ownership partition gate is green (row `R17-02`); OIDC and workload-identity ground is unclaimed by siblings (round-31 sweep over 20 lanes, 0 hits). | round 31 |
+
+## Round 32 — post-move (self-description sweep and byte-evidence recheck)
+
+Measured commands and receipts: `.ufo/waves/round-32/final/`. The report records the pushed measured revision. The frozen predicate is not amended after data; BASE expectations SD5=3/total10 were wrong (actual 1/8), recorded in `corpus/lessons/round-32.md`.
+
+| Axis | Before → after | What moved | Evidence |
+|---|---|---|---|
+| calibration | 9 → 9 | C1 not admitted if the frozen n=0 target retains its integrator-owned SD6 residual. Frontier conflicts, tombstones, missing M31-6 row and red-id naming repaired. R25-02 (FAIL), R29-01 and R29-02 (POLICY) remain operator-owned; 9 is retained as the bounded instrument-strength score, not a green-state score. | `corpus/self-description-sweep.sh` (stamped); BASE receipt n=8, final receipt `.ufo/waves/round-32/final/sweep-after.txt`; row `R31-01`. |
+| freshness | 9 → 9 | C2 frozen version occurrence count 0 → 1; byte probe CLEAN six classes on installed op 2.41.1. S072 proves published release identity only. | `corpus/knowledge/op-ref-consumption.md` §11.1; `.ufo/waves/round-32/final/c2-after.txt`; row `R21-01`. |
+| depth | 9 → 9 | No new byte class or vault behaviour; historical observations retained. | `corpus/knowledge/op-ref-consumption.md` (stamped). |
+| coverage | 9 → 9 | Registry 71 → 72, S072 only; existing entry gains scoped provenance, not a new knowledge entry or host surface. | Row `R21-02`; `corpus/SOURCES.md` (stamped). |
+| operability | 9 → 9 | New sweep counter, seven-case selftest; no scheduler added. | `corpus/self-description-sweep.sh` (stamped); `.ufo/waves/round-32/build/sweep/selftest.txt`. |
+| adjacency | 9 → 9 | Integrator-owned citation is not edited; no sibling ownership absorbed. | Row `R17-02`; `.ufo/waves/round-32/build/ConnOverlap.md`. |
+
+Next move: pre-freeze controls must be actually executed, not estimated. Any correction to the author-inaccessible SD6 token belongs to its integrator; this round does not narrow the counter to hide it.

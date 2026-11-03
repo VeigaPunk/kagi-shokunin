@@ -118,7 +118,7 @@ captures 60 → 71; docs entries 29 → 31, row_linked 26 → 28; revision-audit
 36 → 39 (stamps membership 102 − the immutable 63). The digest values are in each
 migrated row's note (`corpus/claim-ledger.tsv`) — old→new per row, reasons chained.
 The round's own bookkeeping also moved the eight self-description cells round 30
-had corrected (SKILL.md:46, PROVINCE.md:73, `corpus/README.md`:64/65/67) — re-corrected
+had corrected (historical line numbers: SKILL.md:46, PROVINCE.md:73, `corpus/README.md`:64/65/67) — re-corrected
 to the measured values (102 stamps / 74 ledger rows / 28 row-linked / 31 pinned
 entries; `python3 corpus/self-counts.py` ⇒ `stale=0`, the two PV-FEEDTOKEN policy
 bindings stay the operator-routed reds).
@@ -281,3 +281,14 @@ and audited the LANDED bytes; four material findings, all fixed in this corrigen
 - **Collision-count correction:** the measured collision set is S052–S060 (9 ids — lane
   S058–S060 also collide with staged ids), not the 6 the plan's parenthetical named; the
   renumber map resolves all nine; no live id overwritten.
+
+## Corrigenda 3 (round 32 — verifier routed items R3 and R4; the SD6 label)
+
+- **R3 (S063 `Audience` count, Gate table line 44).** The row states `Audience` "occurs twice, both in the response section". Measured by the non-author integrator (round-31 verifier spot-check §2, R3) on the saved page: two lines, 343 (Response Elements) and 593 (an example XML response, not the response section's element list). The request-parameter list has no `Audience`. The Gate text above is kept as written; this corrigendum supersedes its count.
+- **R4 (M31-6 row).** M31-6 was named in Limits (line 214) and in Corrigenda 1 but had no row in the Mistakes table. Its row, appended here:
+
+| id | class | evidence | captured-by | fix |
+|---|---|---|---|---|
+| M31-6 | absence-sweep-language-blindness | Corrigenda 1, item 2 (line 214): the English-needle sweep reported "no release status" for the JP credential-broker page; the Japanese needles locate a product-level status | QA6/QM10: a negative claim carries a sweep whose needles cover the source's languages | Japanese needles added; the status claim re-derived from the page and quoted as product-level, not per-feature |
+
+- **SD6 label (round-32 edit, line 121).** The citation `corpus/README.md`:64/65/67 on line 121 did not resolve under `corpus/claim-ledger.sh citations` (UNRESOLVED). The gate's documented remedy is a labelled citation: the word `historical` was added on that line; no other text changed.

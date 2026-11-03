@@ -1,0 +1,19 @@
+# C2 after-measure (round 32, BYTE_PIN) — measured at lane tip before the round-32 commit; receipt binds binary + probe + counter in one file
+date=2026-11-03T19:48:07-03:00
+op_version=2.41.1
+op_path=/usr/bin/op
+pacman_1password_cli=1password-cli 2.41.1-1
+probe_sha256=0f1945e8d8a8fc56aaee256180cd7badde466bc8ac91503aa1e1853e79044f4c
+git_diff_probe_vs_BASE=0
+--- counter (frozen)
+V=2.41.1
+0
+--- probe (frozen)
+DOTENV_BYTES_CASE id=escaped-lf status=PASS
+DOTENV_BYTES_CASE id=trailing-lf status=PASS
+DOTENV_BYTES_CASE id=newline-only status=PASS
+DOTENV_BYTES_CASE id=single-literal status=PASS
+DOTENV_BYTES_CASE id=double-multiline status=PASS
+DOTENV_BYTES_CASE id=single-multiline status=PASS
+OP_DOTENV_BYTES: CLEAN (checks=6 failed=0)
+exit=0

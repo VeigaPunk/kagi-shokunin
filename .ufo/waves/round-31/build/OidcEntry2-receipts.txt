@@ -1,0 +1,39 @@
+# OidcEntry2 — seat receipt (round-31 BUILD, C2 entry 2), independent re-open, 2026-11-03
+# Seat: OidcEntry2 (scribe). Declared fetch profile: curl -fsSL --max-time 30 <url>
+# Scratch: /fast/scratch/hyaku/kagi-r31/OidcEntry2/ — deleted after this receipt and the draft were written.
+# Locator: corpus/rendered-text-v1.py locate (the lane's own normalizer).
+#
+# url                                                              raw sha256 (this seat)   rendered-text-v1 sha256
+# https://www.1password.dev/brokered-access                    6179e9c1408515293f7fdf9b6445a4318e5a1289fc036fbb7559a21e3c6fa93c  232239dd8ae8e792148706d72c1c13707a3a6a195046141950e10448cf003b50
+# https://www.1password.dev/brokered-access/custom-workflow    a34902cc251b9d9c9573ff25d7bd9a230494689a4cc9a6c99775c1f1e28eca0b  20fbc423c4faea7839316780ef28a5fad24e30982cbc9636e3f9c46c26a76271
+# https://1password.com/jp/product/credential-broker          a23c4d5d900eecadf4a0500eed52baa35b8bd2895e708fda3769fd381a215352  0c2d13e54cc059d0b39fceb0e8f9c02ccb4a0847529442dfae669647f1b6813a
+# https://help.aliyun.com/zh/ram/user-guide/create-a-ram-role-for-a-trusted-idp  db2c5bd4ca3d902f99ce11fc1c8cb147f711d513f8fb3fc467471abe15eb528c  8b21f8346902b086a2bc778d34a854625a4662c8f6496f49ed725f735d3e23d4
+# (raw bytes vary per fetch for the three Broker pages and the Alibaba page — per-request markup;
+#  the rendered-text-v1 digest is stable across five fetches and matches the lane's in-round captures.)
+#
+# LOCATIONS FOUND (count = rendered-text-v1 locate):
+#  S069 'Enter a name for the integration, then enter your OIDC provider’s issuer URL'  -> 2
+#  S069 'All configured claims must match to verify the workload’s identity'            -> 2
+#  S069 'GitLab CI/CD jobs running in a specific project, branch, environment, etc.'    -> 1
+#  S069 'Make note of the expected audience value.' / 'Your team members will need to declare this when their workflows request an OIDC token.' -> 2
+#  S069 'configure the key as a secret that can be retrieved at runtime'              -> 1
+#  S070 'The client authenticates using your OIDC token, workload ID, and the integration key configured by your administrator' -> 1
+#  S070 '(Optional) Define any additional access conditions you want to enforce'       -> 2
+#  S070 'any inherited conditions your administrator configured for the integration'   -> 2
+#  S070 'Credential Broker (public preview)'  (SHARED NAV label, not the feature anchor) -> 1
+#  S070 page title '(public beta)'                                                   -> 1
+#  S071 '実行時にAIエージェントとマシンワークロードを検証し、それぞれが受け取る権限を持つ認証情報のみを提供します。' -> 1
+#  S071 'Credential Brokerは、認証情報を配信する前に、Workload Identity Federationを使用してワークロードのIDを検証します。' -> 1
+#  S071 'まだ一般提供されていません。' / 'プレビュー版' / 'カスタムOIDC構成' -> 1 each (JP-language status; see notes F-2)
+#  S071 EN status needles 'public preview' / 'public beta' / 'Generally Available' / 'Preview' / 'preview' -> 0 each
+#  S066 '创建可信实体为身份提供商的RAM角色' -> 3 ; '限制条件关键字' -> 2 ; '是否必选' -> 2
+#  S066 '创建OIDC身份提供商的RAM角色' -> 0 ; '服务级限制条件表' -> 0 ; '信任策略' -> 0 ; '是否必填' -> 0
+#
+# RE-CHECK COMMAND COUNTS (live, 5 runs each; plain and census-UA profiles):
+#  A) landed entry-2 line: curl -fsSL --max-time 30 '.../brokered-access' | grep -c 'All configured claims must match'  -> 2 (every run)
+#  B) same, with the census UA profile                                                                                    -> 2
+#  C) staged-style flattened: ... | sed 's/<[^>]*>/ /g' | tr -s '\n' ' ' | grep -c 'All configured claims must match to verify'  -> 1
+#  D) draft recheck: curl .../custom-workflow | python3 corpus/rendered-text-v1.py locate /dev/stdin '<triple sentence>' -> count=1, exit 0 (plain and census UA)
+#
+# CREDENTIAL SWEEP over the draft: grep -nE 'op://|AQAAAB|client_secret|password[[:space:]]*=' -> no match (empty). PASS.
+# No credential read, no op/vault/account contact, no secret material in this receipt.

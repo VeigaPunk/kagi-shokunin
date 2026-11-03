@@ -199,3 +199,41 @@ since round 29 (`STABLE_TITLE_RE` takes the right boundary; selftest 116).
   unclaimed; `corpus/README.md` §Known gaps) — this round did not touch them.
 - The `docs` audit's UNPINNED/MISSING-ID states for the new entries are closed by the
   same landing (stamps + rows), not by this lesson alone.
+
+## Corrigenda (appended before the round report filed; the round-30 corrigenda pattern)
+
+1. **M31-4 resolved — the stalled seat delivered and was adopted.** OidcEntry2 landed its draft
+   and receipts at ~19:00 (its scratch shows fetch work through 18:43; the wave-dispatch-to-
+   delivery latency was ~2 h 20 m). Its draft is BETTER than the L1's integration on one
+   load-bearing point and was adopted wholesale (with `Reverify: R31-02` substituted and the
+   draft placeholder removed): the L1's landed entry 2 had repeated the attack seat's
+   "the JP product page carries no release status" bound — the late seat's Japanese-language
+   needles found the status the English sweep missed (below). RowsDraft never delivered; its
+   collision artifacts (reg-ids/staged-ids/collisions) were used; the registry rows were built
+   by the L1 from the staged rows + the three SrcOpen capture sets.
+2. **M31-6 (new mistake): an absence sweep is language-blind unless its needles cover the
+   source's languages.** Class: absence-sweep-language-blindness. Evidence: the round's gate
+   (AttackOidc, then the L1's landed entry 2 and the S071 registry row) asserted "the JP product
+   page carries no release status (0 status hits)" from an English-needle sweep
+   (`パブリックプレビュー`/`public preview`/`ベータ` → 0); the late seat's Japanese needles
+   (`一般提供されていません`, `プレビュー版`, `カスタムOIDC構成`) locate the page's
+   product-level status — 「まだ一般提供されていません。Credential Brokerは現在、すべての
+   Enterprise Password Managerのお客様向けにプレビュー版が公開されています。これにはGitHub
+   ActionとカスタムOIDC構成が含まれます。」 — a product-level label naming both paths, quoted
+   in the entry and explicitly not used as a per-feature status (the round-22 uniform-preview
+   rejection still governs). Captured-by: QA6/QM10 (a negative claim carries its sweep — the
+   sweep's needles must cover the source's own languages, not only the entry's). Fix: the
+   landed entry quotes the JP status with its sweep limitation; the S071 row's scope cell
+   records it; a future absence sweep over a non-English source runs needles in that source's
+   language (shown able to fail: the English-needle sweep IS the red witness — it reported the
+   absence the page contradicts).
+3. **The S066 locator was wrong twice.** The staged anchor (§信任策略 → 限制条件表) located 0;
+   the first in-round correction (SrcOpenB/OidcEntry1/AttackOidc: §创建OIDC身份提供商的RAM角色
+   → 操作步骤 → 服务级限制条件表) ALSO locates 0 on the rendered page; the late seat's locate
+   counts found the real headings (创建可信实体为身份提供商的RAM角色 → 3; 限制条件关键字 → 2;
+   是否必选 → 2). The entry 1 source line, the S066 registry anchor and the S066 capture
+   location are corrected to the counted form. Class: locator-by-narrative (a location named
+   from reading, not counted). Captured-by: the locate-count discipline the late seat applied
+   (every location should carry its count — SrcOpenC's receipts already do). Fix: the corrected
+   anchors carry the counted headings; the lesson records that a location asserted without a
+   count is a claim, not a measurement.

@@ -1,0 +1,18 @@
+# C3 frozen counting commands, run in the scratch mirror
+# cwd: /fast/scratch/hyaku/kagi-r30/XAssimCol/scratch-mirror  (mirror of the lane corpus, SOURCES.md LF-restored)
+
+$ grep -cE '^ {0,3}\|[[:space:]]*S(05[3-9]|060)[[:space:]]*\|' corpus/SOURCES.md
+8
+
+$ ls corpus/knowledge/secret-scanning-detection-vs-validation.md corpus/knowledge/betterleaks-detection-vs-validation.md corpus/knowledge/trufflehog-verification-lifecycle.md
+corpus/knowledge/betterleaks-detection-vs-validation.md
+corpus/knowledge/secret-scanning-detection-vs-validation.md
+corpus/knowledge/trufflehog-verification-lifecycle.md
+
+$ grep -cE '^ {0,3}\|[[:space:]]*S[0-9]{3}[[:space:]]*\|' corpus/SOURCES.md   # registry rows
+60
+
+$ grep -c $'\r' corpus/SOURCES.md
+0
+
+# lane gate (corpus/sources-census.sh) results are in census-lane-gate-*.txt

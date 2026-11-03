@@ -1,0 +1,36 @@
+id: S070
+url: https://trufflesecurity.com/docs/verification-caching
+date: 2026-11-03
+profile: curl -fsSL --max-time 30 <url>
+http: 200
+final-url: https://trufflesecurity.com/docs/verification-caching
+content-type: text/html; charset=utf-8
+last-modified: Tue, 03 Nov 2026 10:20:23 GMT
+cache-control: private, no-cache, no-store, max-age=0, must-revalidate
+size: 102006
+sha256: 0beb84fec97fa0ac2cb2c8c8b1cb0e1616ea7b8485b6848da1771d109c9d44d1
+sha16: 0beb84fec97fa0ac
+staged-sha16: b1eb8215a66933f9
+prefix-match: MISMATCH
+
+quote: Each cache entry expires after three hours
+located-count (raw grep -cF on HTML): 1  [line 12]
+located-count (rendered-text-v1 locate): 1
+occurrences (not lines): 2 — offset 53054 (rendered paragraph) and offset 94021 (the archbee JSON payload that duplicates the prose for the client-side renderer)
+quote-verdict: LOCATED (full sentence: "Each cache entry expires after three hours. Cache items will also expire on a least-recently-used basis if the cache begins to grow too large.")
+
+route note (two clean routes, different accounting):
+- HTML route  /docs/verification-caching      : 102006 bytes, sha16 0beb84fec97fa0ac, quote grep-c 1 / occurrences 2
+- .md route   /docs/verification-caching.md   : 1882 bytes,  sha16 d6265d99e3e9eef7, quote grep-c 1 / occurrences 1, line 14
+- The .md route is byte-identical across repeated fetches and carries no duplicate payload, so it is the better representation for a capture row that wants a single unambiguous count. The .md frontmatter carries only `createdAt: 2025-05-01T17:50:55.601Z` — no updatedAt.
+
+digest-attribution (why the staged digest does not reproduce here):
+- The HTML is stable within today (five consecutive curl fetches byte-identical at 102006 bytes / 0beb84fe...), so this is not per-request volatility.
+- The served page embeds a Next.js `buildId` (7B9L9Z6Go3Rwt4xNufx2f) and has `last-modified` today; a rebuild changes the document, so a 2026-10-23 digest of the same URL legitimately differs from today's.
+- The only body-level variance I could produce is the Cloudflare-insights beacon `<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/...">`, injected when the request carries a non-curl User-Agent (curl UA -> 102006 bytes / 0beb84fe...; UA curl/8 or a browser UA -> 102367 bytes / a9c48433...). Neither variant, nor gzip-wire bytes (24ee252c...), brotli-wire bytes (cc0b2302...), beacon-stripped HTML (97b0b7b8...), CRLF, tag-stripped, host variants (www/http/trailing-slash), the .md route (d6265d99...), or any tested UA/Accept-Encoding combination reproduces b1eb8215a66933f9.
+- No 2026-10-23 snapshot was reachable (archive.org returned HTTP 429 on every query), so the staged digest is un-attributable from this host. It is not contradicted — the quote is present — but it cannot be verified and must be treated as non-reproducing.
+
+page stamp (anchor field hazard):
+The staged anchor cites a page stamp "Updated 06 Jul 2026". In the RAW HTML that string does not exist: it renders as `Updated<!-- --> <!-- -->06 Jul 2026` (line 12), and raw grep -cF returns 0. The stamp is only greppable comment-stripped (count 1) or on the .md route (absent there entirely). A recheck needle aimed at the stamp as written will fail against the raw body.
+
+verdict: FETCHED ok / QUOTE LOCATED / PREFIX MISMATCH (un-attributable; page rebuilt since 2026-10-23, no archive reachable)

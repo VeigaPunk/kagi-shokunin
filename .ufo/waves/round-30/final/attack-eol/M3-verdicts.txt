@@ -1,0 +1,16 @@
+=== M3 — is the ledger EOL drift detectable? ===
+probe A: bash corpus/row-identity.sh ledger-ids
+  pristine : ROW_IDENTITY: ledger-ids count=67 sha256=917ef251a13141cab409f36f5a601c8f0e9b1244d14344d254ae7e4390586b85
+  M3 mutant: ROW_IDENTITY: ledger-ids count=67 sha256=917ef251a13141cab409f36f5a601c8f0e9b1244d14344d254ae7e4390586b85
+  verdict  : SURVIVED — selector digests the id list (awk field 1), CR sits at end of last field
+
+probe B: claim-ledger.sh verify (stamp detector), single-row pins
+  at BASE (pins == CRLF bytes): 0 STALE for SKILL.md / corpus/SOURCES.md / corpus/claim-ledger.tsv
+  after C2 re-stamp to LF:      STALE corpus/claim-ledger.tsv sha=3419c6d50ea0->5676ced76cd3 lines=85->85 bytes=29820->29905
+  verdict  : killed only AFTER the pins are re-taken on LF bytes; at BASE the gate is blind
+             because round-29 re-pinned the DRIFTED bytes (fc65112 SKILL+ledger, bc2f3fd SOURCES).
+
+probe C: counter 2 in its scoped form (R30-01 form): 0 pristine -> 1 mutant = KILLED
+
+probe D: other row-identity selectors, M3 mutant vs pristine: all 12 identical
+         (scorecard-rounds IS CR-sensitive when SCORECARD.md itself is converted: sha 92016a58 -> 6add9e12)

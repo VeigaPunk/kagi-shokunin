@@ -1,0 +1,21 @@
+# C3 renumber map — per document, never arithmetic
+# lane holds S001-S052 (52 rows); staged package holds S052-S085.
+# staged S053-S060 documents in the package (why the map cannot be arithmetic):
+#   S053 = AWS IAM User Guide, Available keys for AWS OIDC federation
+#   S054 = AWS STS API Reference, AssumeRoleWithWebIdentity
+#   S055 = Google Cloud IAM, Best practices for using Workload Identity Federation
+#   S056 = Google Cloud IAM ドキュメント（日本語）, Workload Identity 連携
+#   S057 = 阿里云 RAM 用户指南，为受信身份提供商创建 RAM 角色
+#   S058 = 腾讯云 密钥管理系统 产品概述
+#   S059 = CRYPTREC Report 2025（暗号技術活用委員会報告；独立行政法人情報処理推進機構／国立研究開発法人情報通信研究機構）
+#   S060 = Google Cloud KMS ドキュメント（日本語）, 鍵の破棄のデフォルト時間 MSA
+#
+# staged id	document -> new id	staged URL	entry citation URL	verdict
+S066	Gitleaks README, gitleaks/gitleaks -> S053	https://raw.githubusercontent.com/gitleaks/gitleaks/master/README.md	MATCH (secret-scanning-detection-vs-validation.md)	ok
+S067	TruffleHog README, trufflesecurity/trufflehog -> S054	https://raw.githubusercontent.com/trufflesecurity/trufflehog/main/README.md	MATCH (secret-scanning-detection-vs-validation.md)	ok
+S068	Betterleaks README, betterleaks/betterleaks -> S055	https://raw.githubusercontent.com/betterleaks/betterleaks/main/README.md	MATCH (betterleaks-detection-vs-validation.md)	ok
+S069	GitHub repository search API response for "betterleaks" -> S056	https://api.github.com/search/repositories?q=betterleaks&per_page=10	MATCH (betterleaks-detection-vs-validation.md)	ok
+S070	TruffleHog Docs, Verification caching -> S057	https://trufflesecurity.com/docs/verification-caching	MATCH (trufflehog-verification-lifecycle.md)	ok
+S071	TruffleHog Docs, How we handle your data -> S058	https://trufflesecurity.com/docs/how-we-handle-your-data	MATCH (trufflehog-verification-lifecycle.md)	ok
+S072	TruffleHog Docs, Reverify secrets -> S059	https://trufflesecurity.com/docs/reverify-secrets	MATCH (trufflehog-verification-lifecycle.md)	ok
+S073	TruffleHog Docs, Notify results -> S060	https://trufflesecurity.com/docs/notify-results	MATCH (trufflehog-verification-lifecycle.md)	ok

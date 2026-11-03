@@ -1,0 +1,31 @@
+id: S068
+url: https://raw.githubusercontent.com/betterleaks/betterleaks/main/README.md
+date: 2026-11-03
+profile: curl -fsSL --max-time 30 <url>
+http: 200
+final-url: https://raw.githubusercontent.com/betterleaks/betterleaks/main/README.md
+content-type: text/plain; charset=utf-8
+size: 13252
+sha256: f61c3993fd48dfb973652b9676697f4d37404fad9f30748c2003127eb81a73b1
+sha16: f61c3993fd48dfb9
+staged-sha16: f61c3993fd48dfb9
+prefix-match: MATCH
+
+quote: Scans detect secrets without credential provider requests by default
+located-count (raw grep -cF): 1
+located-count (rendered-text-v1 locate): 1
+first-line: 66
+line-note: first sentence of §"Usage". The default-off model the row teaches is intact: "Use `-v` / `--validate` to check credentials, or `-a` / `--analyze` to also resolve identity and permissions. Analysis implies validation."
+quote-verdict: LOCATED
+
+revision:
+- main HEAD today: 6cd808f299a81b19fdbd196b04a64e63565c8c5c (committed 2026-11-02T16:22:04Z)
+- README at that commit: 13252 bytes, sha16 f61c3993fd48dfb9 — byte-identical to today's main and to the staged digest
+- so this row's byte identity is stable across the moving ref; nothing has moved since 2026-10-23.
+
+supporting anchors all still present (raw grep -cF = 1 each): "Secrets Validation", "Secrets Analysis", "Expr-based filtering", "BPE filtering"; §"Notable Features" table at lines 15-26; "The `main` branch is for v2 development. V1 maintenance and documentation live on the [`v1.x` branch]" at line 31.
+
+correction to the staged entry's CEL clause (content, not fetch):
+The word "CEL" occurs once in today's README, and only inside a linked Substack post title: "3. [Express YourCELf](https://lookingatcomputer.substack.com/p/express-yourcelf-filtering-and-validating)" (line 8). The README prose itself says Expr. So a claim that "one of those articles describes the rule language as CEL while the README says Expr" is NOT supported by S068 — the only CEL string here is a pun in a title, not a description of the rule language. Any entry carrying that clause must either drop it or cite the article directly instead of citing S068.
+
+verdict: FETCHED ok / QUOTE LOCATED / PREFIX MATCH / one content clause in the staged entry is not carried by this source

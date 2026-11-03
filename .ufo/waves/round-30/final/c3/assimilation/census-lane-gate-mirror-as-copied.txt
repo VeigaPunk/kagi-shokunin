@@ -1,0 +1,19 @@
+$ bash corpus/sources-census.sh verify --root /fast/scratch/hyaku/kagi-r30/XAssimCol/scratch-mirror
+FINDING SC_USEDBY_NOCITE id=S054 path=corpus/knowledge/secret-scanning-detection-vs-validation.md
+FINDING SC_USEDBY_NOCITE id=S056 path=corpus/knowledge/betterleaks-detection-vs-validation.md
+FINDING SC_USEDBY_NOCITE id=S058 path=corpus/knowledge/trufflehog-verification-lifecycle.md
+FINDING SC_USEDBY_NOCITE id=S059 path=corpus/knowledge/trufflehog-verification-lifecycle.md
+FINDING SC_USEDBY_NOCITE id=S060 path=corpus/knowledge/trufflehog-verification-lifecycle.md
+FINDING SC_FETCH id=S059 missing-provenance
+FINDING SC_FETCH id=S058 missing-provenance
+FINDING SC_FETCH id=S053 missing-provenance
+FINDING SC_FETCH id=S057 missing-provenance
+FINDING SC_FETCH id=S056 missing-provenance
+FINDING SC_FETCH id=S055 missing-provenance
+FINDING SC_FETCH id=S054 missing-provenance
+FINDING SC_FETCH id=S060 missing-provenance
+FINDING SC_ENTRY_HEADER corpus/knowledge/betterleaks-detection-vs-validation.md: multiple source: lines
+FINDING SC_ENTRY_HEADER corpus/knowledge/secret-scanning-detection-vs-validation.md: multiple source: lines
+FINDING SC_ENTRY_HEADER corpus/knowledge/trufflehog-verification-lifecycle.md: multiple source: lines
+SOURCES_CENSUS: FAILED (findings=16 rows=60)
+exit=1

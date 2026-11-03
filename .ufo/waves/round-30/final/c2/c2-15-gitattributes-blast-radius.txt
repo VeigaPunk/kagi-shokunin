@@ -1,0 +1,29 @@
+# .gitattributes blast-radius probe (scratch git repo built from `git archive BASE`)
+# Method: fresh git init, extract BASE, commit, add .gitattributes, commit,
+#         `git add --renormalize .`, count `git status --porcelain`.
+#
+# variant                                                          files changed
+# N0 (no .gitattributes)                                                   0
+# S1  *.md *.tsv *.sh *.py *.json                                          8
+#     -> .ufo/waves/round-29/final/{c1-after,c1-before,c2-after,c2-base-gate,c2-base-plain}.json
+#        SKILL.md corpus/SOURCES.md corpus/claim-ledger.tsv
+# S2  *.md *.tsv *.sh *.py                                                 3
+#     -> SKILL.md corpus/SOURCES.md corpus/claim-ledger.tsv
+# S3  *.md *.tsv *.sh *.py *.json  +  `.ufo/** -text -eol`                 3
+#     -> SKILL.md corpus/SOURCES.md corpus/claim-ledger.tsv
+# S4  *.md *.tsv only                                                      3
+#
+# Conclusion: `*.json text eol=lf` alone renormalizes 5 committed round-29
+# receipt JSONs (unrelated to the drift). S3 keeps the .json rule for authored
+# trees and excludes the .ufo evidence tree from text conversion, so the
+# renormalize set is exactly the 3 drifted files.
+#
+# .ufo/** -text means: never convert, never normalize. Diff stays readable
+# (verified: `git diff` on a `-text` path still shows a normal hunk diff).
+# Wire captures (127 files: *.headers/*.hdr/*.txt/*.body/*.html) legitimately
+# carry CRLF as captured bytes; -text protects them from any future renormalize.
+#
+# Windows-host recurrence check (simulated with `git -c core.autocrlf=true clone`):
+#   without `eol=lf`: checkout produces CRLF (2/2 lines)
+#   with    `eol=lf`: checkout produces LF   (0/2 lines)
+# so the attribute is what stops D5 recurring on a Windows host.

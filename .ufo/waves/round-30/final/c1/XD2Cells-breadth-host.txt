@@ -1,0 +1,17 @@
+# breadth pins vs live on the round-30 host (read-only measurement; seat XD2Cells)
+# Gate semantics mirrored from corpus/scope-gate.sh: live_children = find -P DIR -mindepth 1 -maxdepth 1;
+# live_declared = children equal to, or containing, a corpus/surface-census.tsv row.
+# Rows R16-01 / R17-01 are [substrate]-tagged -> DEFER with the handler absent (correct host output).
+dir	pinned_children	pinned_declared	live_children	live_declared	status
+$HOME/.config/opencode	20	4	5	1	CHILDREN+DECLARED DRIFT
+$HOME/.local/bin	105	2	112	0	CHILDREN+DECLARED DRIFT
+$HOME/.agents	4	1	3	1	CHILDREN DRIFT
+$HOME/.local/share/the-musketeer/chrome-profile	53	1	0	0	HOST-MISSING (dir absent)
+TOTAL	182	8	120	2	pinned totals no longer match this host
+#
+# surface-census.tsv asset rows absent on this host: 18 of 20
+#   (the-janitor config/state/bin tree, opencode janitor layer, tac state, chrome-profile NMH)
+# => corpus/surface-census.sh verify is red here for the declared substrateless host; expected, not a defect.
+#
+# Declaration-derived counts (host-free) are current: 5 '# own', 4 group rows, 8 '# no-enumerate',
+# 4 '# breadth', 35 census rows, owned 27 = 35-8.

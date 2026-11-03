@@ -1,0 +1,30 @@
+# C2 gate-flip attribution (one file stripped at a time, BASE f67232c)
+
+## census (sources-census.sh validate --root <mirror> kagi)
+  BASE (all CRLF)                     : exit 1, E12 x52
+  only corpus/SOURCES.md stripped     : exit 0, ok + 14 W04
+  all three stripped                  : exit 0, ok + 14 W04
+
+## checklist-run.sh --ratio (cwd = tree root)
+  BASE (all CRLF)                     : exit 2, SETUP no `## Credential-hygiene checklist` section
+  only SKILL.md stripped              : exit 0, CHECKLIST_RATIO: runnable=9/16 floor=8 by_hand=7 delegated=3 direct=6
+  only SOURCES.md stripped            : exit 2, SETUP (unchanged)
+  only claim-ledger.tsv stripped      : exit 2, SETUP (unchanged)
+
+## claim-ledger.sh citations (fleet-shaped mirror, real siblings + fleet .ufo)
+  BASE (all CRLF)                     : exit 1, CITATION_GATE: BROKEN unresolved=19
+  only SKILL.md stripped              : exit 0, CITATION_GATE: CLEAN unresolved=0 labeled=13
+  all three stripped                  : exit 0, CITATION_GATE: CLEAN unresolved=0 labeled=13
+
+## claim-ledger.sh verify
+  BASE (all CRLF, lone clone)         : 13 FAIL + 2 POLICY -> CLAIM_LEDGER: POLICY
+    FAIL set: R11-08 R12-03 R13-01 R14-01 R15-05 R21-02 R21-04 R22-03 R24-05 R24-06 R24-14 R24-15 R25-02
+  all three stripped + re-stamped     : 11 FAIL + 2 POLICY, STALE 0 -> CLAIM_LEDGER: POLICY
+    FAIL set: R12-03 R13-01 R14-01 R21-02 R21-04 R22-03 R24-05 R24-06 R24-14 R24-15 R25-02
+  delta: R11-08 (citations) and R15-05 (checklist) are EOL-caused and clear;
+         the remaining 11 are C1 calibration rows, unchanged by C2 (causally separable).
+
+## self-counts.py
+  BASE  : exit 2, SELF_COUNTS: POLICY (... stale=8 ... setup=1), SETUP KN-CHECKLIST-FALSIFY-FLOOR ledger:R15-05 exit=2 expected=0
+  after : exit 2, SELF_COUNTS: POLICY (... stale=8 ... setup=0)
+  delta : the SETUP line disappears; the 8 STALE cells are byte-for-byte the same set.

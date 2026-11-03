@@ -1,0 +1,46 @@
+=== M4 wrong-pattern `*.md text eol=crlf`: fresh-clone blast (no .ufo) ===
+non-ufo CR files: 99
+     42 corpus/lessons
+     26 corpus/knowledge
+      1 plans/wwkd-round-20-interactive.md
+      1 plans/wwkd-round-19-recensus.md
+      1 plans/round-30.md
+      1 plans/round-29.md
+      1 plans/round-28.md
+      1 plans/round-27.md
+      1 plans/round-26.md
+      1 plans/round-25.md
+      1 plans/round-24.md
+      1 plans/round-23.md
+      1 plans/round-22.md
+      1 plans/round-21.md
+      1 corpus/fixtures
+      1 corpus/SOURCES.md
+      1 corpus/README.md
+      1 corpus/QUALITY.md
+      1 considerthese/2026-10-26.md
+      1 considerthese/2026-10-25.md
+      1 considerthese/2026-10-24.md
+      1 considerthese/2026-10-23.md
+      1 considerthese/2026-10-22.md
+      1 considerthese/2026-10-21.md
+      1 considerthese/2026-10-20.md
+      1 considerthese/2026-10-19.md
+      1 SKILL.md
+      1 SHONEN.md
+      1 SCORECARD.md
+      1 README.md
+      1 PROVINCE.md
+      1 LOG.md
+      1 AGENTS.md
+
+=== git status in that clone (drift invisible?) ===
+ M .ufo/waves/round-29/final/c1-after.json
+ M .ufo/waves/round-29/final/c1-before.json
+ M .ufo/waves/round-29/final/c2-after.json
+(empty means the CRLF drift is invisible to git status)
+
+=== correct pattern control: renormalize footprint ===
+  *.md text eol=lf                       touched=2
+  *.md text eol=lf|*.tsv text eol=lf     touched=3
+  * text=auto eol=lf                     touched=3

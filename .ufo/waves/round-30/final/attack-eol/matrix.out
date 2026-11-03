@@ -1,0 +1,66 @@
+=== pristine LF mirror hashes ===
+c5206b7c04996ddcc0805140f61e59b775e9373a7d89fa860e55c93734ff2162  SKILL.md
+7d0aad4fef9aee947335e20d4a97853f6742808aaea371868a2bbcb6784e1e93  corpus/SOURCES.md
+3419c6d50ea0c81c44d568446569675e40755945f37ce83c549b095b52701c7d  corpus/claim-ledger.tsv
+
+##### M1 — CR into corpus/SOURCES.md only
+-- mutated:
+c5206b7c04996ddcc0805140f61e59b775e9373a7d89fa860e55c93734ff2162  SKILL.md
+f63eb5911ec54bdc061c3dd68703c58659cc03f255c0064dc15bfacacf4a4047  corpus/SOURCES.md
+3419c6d50ea0c81c44d568446569675e40755945f37ce83c549b095b52701c7d  corpus/claim-ledger.tsv
+census exit=1  E12=52 W0x=0 ok=0 lines=52
+   first 2 rows:
+kagi	E12	S001 row outside Registry section
+kagi	E12	S002 row outside Registry section
+-- restored: census exit=0  E12=0 W0x=14 ok=1 lines=15
+
+##### M1b — CR on the ## Registry heading line only (sensitivity probe)
+census exit=1  E12=52 W0x=0 ok=0 lines=52
+-- restored: census exit=0  E12=0 W0x=14 ok=1 lines=15
+
+##### M1c — CR on a single data row (S030), heading untouched
+census exit=0  E12=0 W0x=14 ok=1 lines=15
+kagi	rows	52
+
+##### M2 — CR into SKILL.md only
+-- mutated:
+56b567cdb744a797c5945cf3b20ae87ef5f7106c9533797e3c83aae7c5ce44f0  SKILL.md
+7d0aad4fef9aee947335e20d4a97853f6742808aaea371868a2bbcb6784e1e93  corpus/SOURCES.md
+3419c6d50ea0c81c44d568446569675e40755945f37ce83c549b095b52701c7d  corpus/claim-ledger.tsv
+-- checklist --ratio:
+SETUP no `## Credential-hygiene checklist` section with `- [ ] ` items in /fast/scratch/hyaku/kagi-r30/MAttackEol/mx/work/kagi-shokunin/SKILL.md
+exit=2
+-- restored:
+CHECKLIST_RATIO: runnable=9/16 floor=8 by_hand=7 delegated=3 direct=6
+exit=0
+
+##### M3 — CR into corpus/claim-ledger.tsv only
+-- mutated:
+c5206b7c04996ddcc0805140f61e59b775e9373a7d89fa860e55c93734ff2162  SKILL.md
+7d0aad4fef9aee947335e20d4a97853f6742808aaea371868a2bbcb6784e1e93  corpus/SOURCES.md
+5676ced76cd3d01a9af4516d742be6c0a4e2abfc673148aa03630af6a51d644d  corpus/claim-ledger.tsv
+-- row-identity ledger-ids:
+ROW_IDENTITY: ledger-ids count=67 sha256=917ef251a13141cab409f36f5a601c8f0e9b1244d14344d254ae7e4390586b85
+exit=0
+-- restored:
+ROW_IDENTITY: ledger-ids count=67 sha256=917ef251a13141cab409f36f5a601c8f0e9b1244d14344d254ae7e4390586b85
+exit=0
+
+##### M4 — .gitattributes draft with wrong pattern (*.md text eol=crlf)
+TOPLEVEL=/fast/scratch/hyaku/kagi-r30/MAttackEol/mx/git4/kagi-shokunin
+-- check-attr eol (wrong draft):
+SKILL.md: eol: crlf
+corpus/SOURCES.md: eol: crlf
+corpus/claim-ledger.tsv: eol: unspecified
+-- check-attr text (wrong draft):
+SKILL.md: text: set
+
+##### M4b — correct pattern contrast (*.md/*.tsv text eol=lf)
+SKILL.md: eol: lf
+corpus/SOURCES.md: eol: lf
+corpus/claim-ledger.tsv: eol: lf
+
+##### M4-renorm — blast radius of candidate attribute sets (on pre-drift checkout)
+  *.md text eol=lf                         touched=2
+  *.md text eol=lf|*.tsv text eol=lf       touched=3
+  * text=auto eol=lf                       touched=3

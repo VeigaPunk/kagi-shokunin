@@ -1,0 +1,11 @@
+=== D5 mechanism reproduction ===
+A) no attributes + core.autocrlf=true clone (Windows-like checkout):
+   f.md CR=2  f.tsv CR=1
+B) text eol=lf attributes + core.autocrlf=true clone:
+   f.md CR=0  f.tsv CR=0
+C) tree with i/crlf blobs + correct eol=lf attributes, fresh --no-local clone:
+   worktree_CR=813/193/85 (attributes do NOT repair existing blobs; normalization happens on add)
+D) tree with i/lf blobs + eol=crlf-style wrong attributes, fresh clone:
+   worktree_CR=813/193/85, git status hides the md drift
+E) blob rewritten by --renormalize + commit, fresh clone under eol=lf:
+   CR=0/0/0, idx=i/lf

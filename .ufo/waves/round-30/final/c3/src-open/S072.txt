@@ -1,0 +1,36 @@
+id: S072
+url: https://trufflesecurity.com/docs/reverify-secrets
+date: 2026-11-03
+profile: curl -fsSL --max-time 30 <url>
+http: 200
+final-url: https://trufflesecurity.com/docs/reverify-secrets
+content-type: text/html; charset=utf-8
+last-modified: Tue, 03 Nov 2026 10:20:23 GMT
+size: 99172
+sha256: b4790c43398da9db6aa07b2dd883ecbad33e2e593c8f5cd4a30a90328eae3e0a
+sha16: b4790c43398da9db
+staged-sha16: 2997de910834f751
+prefix-match: MISMATCH
+
+quote: Secret reverification is currently only supported
+located-count (raw grep -cF on HTML): 1  [line 12]
+occurrences: 2 (offset 54386 rendered callout, offset 93562 archbee JSON payload)
+rendered-text-v1 locate: 1
+quote-verdict: LOCATED (full sentence: "Secret reverification is currently only supported for secrets that have been detected within a GitHub or Slack integration.")
+
+full scope sentence intact — the scope limit the entry teaches has not been widened or narrowed:
+- first paragraph present: "Whenever TruffleHog scans an integrated source, it will attempt to verify each secret it finds. On each subsequent interval scan, TruffleHog will re-verify the previously discovered live secrets."
+- the individual-secret path present: "This option causes the associated scanner to run a small job that targets the particular secret in question."
+
+route note:
+- HTML route /docs/reverify-secrets     : 99172 bytes, sha16 b4790c43398da9db, quote grep-c 1 / occurrences 2
+- .md route  /docs/reverify-secrets.md  : 1275 bytes, sha16 82ea96b972874471, quote grep-c 1, line 15 — byte-stable across refetches, no duplicate payload
+  (note: a resident staged recheck command quoted in a sibling round-38 artifact points at /docs/verification-caching.md; this row's own URL has no .md sibling in the staged row, and the .md variant of THIS page exists at .../reverify-secrets.md)
+
+digest-attribution:
+- HTML stable within today (repeat fetches byte-identical), page rebuilt since 2026-10-23 (same buildId family across the four docs pages, last-modified today).
+- No variant reproduced 2997de910834f751: gzip-wire 08b24bb2..., brotli-decoded 98ba6559..., beacon-stripped 382f99ce..., .md 82ea96b9..., CRLF/tag-stripped/host-variant/UA combinations all differ. archive.org unreachable (HTTP 429).
+
+page stamp hazard (same as S070): the staged anchor's "Updated 06 Jul 2026" is not greppable raw — it is `Updated<!-- --> <!-- -->06 Jul 2026`. Comment-stripped count 1. The stamp VALUE is still 06 Jul 2026 today, so the page itself has not been re-dated since the campaign captured it even though the document bytes changed.
+
+verdict: FETCHED ok / QUOTE LOCATED / PREFIX MISMATCH (un-attributable; page rebuilt since 2026-10-23, stamp value unchanged)

@@ -1235,3 +1235,18 @@ exit 0; full verify/self-counts unmeasurable in time on this host (>300 s/
 >240 s). Stamps 91 → 94, verified 94/94 against tree bytes. All axes
 remain 9; the capability row for `feed-token-agree.py` entered the
 capabilities table this round. Outside admission is the operator's.
+
+## Round 30 — post-move: routed-defect closure (D1–D5), EOL repair, secret-scanning adoption
+
+Frozen BASE `f67232c`; plan `b7482b4`; plan correction 1 `d163290` (before any work commit; `plans/round-30.md` §Correction 1). Claims: C1 calibration (owned), C2 freshness (owned), C3 coverage. No axis is scored up: the round's measured moves are recorded under each claim, and the lowest-axis obligation is met by C1 (all six axes stand at 9; last capability round 29, window 3, so the nudge does not fire).
+
+| Axis | Before → after | Evidence and bounded interpretation |
+|---|---|---|
+| calibration | 9 → 9 | C1 partial: `self-counts.py` stale 8 → 0 (eight doc cells corrected), but the counter exits 2 (`POLICY`) on two round-29 feed-token bindings the ledger policy refuses. Ledger rows migrated to measured values: R12-03, R13-01, R14-01, R21-02, R21-04, R22-03, R24-05, R24-06, R24-14, R24-15. Not migrated and routed: R25-02 (blocked by the same policy bindings), R29-01 and R29-02 (gate-policy registration). Pointers: `R30-01`, `R14-01`, `R21-02`. |
+| freshness | 9 → 9 | C2: CR files 3 → 0 outside `.ufo/`, `.gitattributes` with eol=lf (`.ufo/**` excluded), standing gate `R30-01` with a red witness (exit 1 on a planted CRLF); fleet census E12 ×52 exit 1 → exit 0; checklist ratio SETUP → CLEAN. Pointers: `R30-01`, `R21-02`. |
+| depth | 9 → 9 | No new mechanism claim; the three entries add vendor-documented detail inside the declared frontier area. |
+| coverage | 9 → 9 | C3: registry 52 → 60 (eight tier-A/B rows opened 2026-11-03), three knowledge entries admitted with per-entry gates (one refused as staged and admitted after a logged flip), lane census CLEAN `entries_sourced=8 captures=60`. Pointers: `R21-02`. |
+| operability | 9 → 9 | `corpus/eol-sweep.sh` is a new runnable gate; every counter the round used runs on this host again. Nothing schedules any gate. |
+| adjacency | 9 → 9 | Connector sweep found no sibling claim on scanner, NIST or OIDC ground; the shokuknow package was read, never written. |
+
+Measured revision, exact exits and receipts are in the round report; no unrun result is stated here.

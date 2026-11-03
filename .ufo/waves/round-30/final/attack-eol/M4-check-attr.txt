@@ -1,0 +1,18 @@
+=== M4: wrong pattern ruling (draft *.md text eol=crlf) ===
+SKILL.md: eol: crlf
+SKILL.md: text: set
+corpus/SOURCES.md: eol: crlf
+corpus/SOURCES.md: text: set
+corpus/claim-ledger.tsv: eol: unspecified
+corpus/claim-ledger.tsv: text: unspecified
+
+=== M4b: correct pattern (*.md+*.tsv text eol=lf) ===
+SKILL.md: eol: lf
+corpus/SOURCES.md: eol: lf
+corpus/claim-ledger.tsv: eol: lf
+
+=== M4: wrong pattern -> fresh checkout reintroduces CRLF while git status is clean ===
+A  .gitattributes
+  SKILL.md                   worktree_CR=813 idx=i/lf
+  corpus/SOURCES.md          worktree_CR=193 idx=i/lf
+  corpus/claim-ledger.tsv    worktree_CR=85 idx=i/lf

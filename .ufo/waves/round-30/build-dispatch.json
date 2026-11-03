@@ -1,0 +1,298 @@
+{
+  "schema": "ufo-swarm-wave-dispatch-v1",
+  "wave": "kagi-r30-build",
+  "policy": {
+    "source": "config",
+    "maxLanes": 256,
+    "minLanes": 8,
+    "waveMinLanes": 8,
+    "waveMaxLanes": 16,
+    "declaredMaxLanes": null,
+    "hardCeiling": 256,
+    "rampBatchSize": 5,
+    "rampIntervalMs": 700,
+    "globalRunnerCeiling": 1056
+  },
+  "counts": {
+    "spawn": 15,
+    "resume": 0,
+    "total": 15
+  },
+  "registry": {
+    "schema": "ufo-swarm-registry-v1",
+    "path": ".ufo/waves/round-30/build/swarm-registry.json",
+    "reportDir": ".ufo/waves/round-30/build",
+    "members": {
+      "XD1Rows": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": null,
+        "axes": [
+          "calibration",
+          "freshness",
+          "coverage"
+        ],
+        "milestone": "Round-30 build: C1 ledger pin restoration, C2 EOL drift repair, C3 secret-scanning adoption"
+      },
+      "XD2Cells": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": null,
+        "axes": [
+          "calibration",
+          "freshness",
+          "coverage"
+        ],
+        "milestone": "Round-30 build: C1 ledger pin restoration, C2 EOL drift repair, C3 secret-scanning adoption"
+      },
+      "XEol": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": null,
+        "axes": [
+          "calibration",
+          "freshness",
+          "coverage"
+        ],
+        "milestone": "Round-30 build: C1 ledger pin restoration, C2 EOL drift repair, C3 secret-scanning adoption"
+      },
+      "XAssimCol": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": null,
+        "axes": [
+          "calibration",
+          "freshness",
+          "coverage"
+        ],
+        "milestone": "Round-30 build: C1 ledger pin restoration, C2 EOL drift repair, C3 secret-scanning adoption"
+      },
+      "XSrcOpen": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": null,
+        "axes": [
+          "calibration",
+          "freshness",
+          "coverage"
+        ],
+        "milestone": "Round-30 build: C1 ledger pin restoration, C2 EOL drift repair, C3 secret-scanning adoption"
+      },
+      "SDraftEntries": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scribe",
+        "item": null,
+        "axes": [
+          "calibration",
+          "freshness",
+          "coverage"
+        ],
+        "milestone": "Round-30 build: C1 ledger pin restoration, C2 EOL drift repair, C3 secret-scanning adoption"
+      },
+      "SRegistryRows": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scribe",
+        "item": null,
+        "axes": [
+          "calibration",
+          "freshness",
+          "coverage"
+        ],
+        "milestone": "Round-30 build: C1 ledger pin restoration, C2 EOL drift repair, C3 secret-scanning adoption"
+      },
+      "ScoutHost": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scout",
+        "item": null,
+        "axes": [
+          "calibration",
+          "freshness",
+          "coverage"
+        ],
+        "milestone": "Round-30 build: C1 ledger pin restoration, C2 EOL drift repair, C3 secret-scanning adoption"
+      },
+      "ConnOverlap": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "connector",
+        "item": null,
+        "axes": [
+          "calibration",
+          "freshness",
+          "coverage"
+        ],
+        "milestone": "Round-30 build: C1 ledger pin restoration, C2 EOL drift repair, C3 secret-scanning adoption"
+      },
+      "RAttackC1": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "calibration",
+          "freshness",
+          "coverage"
+        ],
+        "milestone": "Round-30 build: C1 ledger pin restoration, C2 EOL drift repair, C3 secret-scanning adoption"
+      },
+      "RAttackC3": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "calibration",
+          "freshness",
+          "coverage"
+        ],
+        "milestone": "Round-30 build: C1 ledger pin restoration, C2 EOL drift repair, C3 secret-scanning adoption"
+      },
+      "CAttackPredicates": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "critic",
+        "item": null,
+        "axes": [
+          "calibration",
+          "freshness",
+          "coverage"
+        ],
+        "milestone": "Round-30 build: C1 ledger pin restoration, C2 EOL drift repair, C3 secret-scanning adoption"
+      },
+      "MAttackEol": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "mutation-tester",
+        "item": null,
+        "axes": [
+          "calibration",
+          "freshness",
+          "coverage"
+        ],
+        "milestone": "Round-30 build: C1 ledger pin restoration, C2 EOL drift repair, C3 secret-scanning adoption"
+      },
+      "LProbeGitattr": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": null,
+        "axes": [
+          "calibration",
+          "freshness",
+          "coverage"
+        ],
+        "milestone": "Round-30 build: C1 ledger pin restoration, C2 EOL drift repair, C3 secret-scanning adoption"
+      },
+      "SentHygiene": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "sentinel",
+        "item": null,
+        "axes": [
+          "calibration",
+          "freshness",
+          "coverage"
+        ],
+        "milestone": "Round-30 build: C1 ledger pin restoration, C2 EOL drift repair, C3 secret-scanning adoption"
+      }
+    }
+  },
+  "compaction": {
+    "applied": false,
+    "mechanism": null,
+    "reason": null,
+    "savedBytes": 0,
+    "payloadBytesBefore": 0,
+    "payloadBytesAfter": 0
+  },
+  "taskCall": {
+    "context": "# Goal\nkagi round-30 BUILD wave (one v1 wave, 15 seats). Lane repo /home/vgpnk/Projects/shokunin/kagi-shokunin (secrets & vault ops shokunin). Frozen BASE f67232cd3ae682ea1fb14d447667016f2b6ed336 (plan commit b7482b4acc42413fbb3d49ab6e4f811fb18e9f0c). Read /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-30.md FIRST — it is the frozen claims contract: C1 calibration (ledger/doc pin restoration, 12 enumerated rows), C2 freshness (routed D5 LF→CRLF repair + standing gate), C3 coverage (secret-scanning detection-vs-verification adoption from /home/vgpnk/Projects/shokuknow/merge/kagi — READ-ONLY source). The L1 is the sole integration writer; seats advise with evidence. Return honest findings; counterexamples welcome; no consensus padding.\n# Contract\nLane production files are READ ONLY for you. Write ONLY your own uniquely named report file (and, where your item says so, your own named draft/receipt files under /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-30/). Every `Report:` trailer path is relative to /home/vgpnk/Projects/shokunin/kagi-shokunin — write it at /home/vgpnk/Projects/shokunin/kagi-shokunin/<that path>, NEVER at the fleet root /home/vgpnk/Projects/shokunin. No fleet-repo or sibling-lane edits; no lane git/jj mutation (no git add/commit/stash/checkout/reset/pull/push in the lane, no mutating jj); seats never commit or push anywhere. No credential reads; no vault/account/handler/CDP/op sign-in or provisioning; `op --version`-level reads only; no `op://` values or secret material in any artifact (ref-path discipline: cite mechanism, never a secret). The 2026-10-21 content-safety refusal boundary is binding: no seat works feed-token derivation, token totality, or corpus/release-clock.py tokenizers. Experiments only in your unique scratch /fast/scratch/hyaku/kagi-r30/<your-seat-name>/ (create it; `trap 'rm -rf -- \"$S\"' EXIT` in shell or shutil.rmtree in a finally — receipts first copied into the wave dir); /tmp only for files under 50 MB; never clone the lane into a wave build/ dir (use `git archive` or `git -C /home/vgpnk/Projects/shokunin/kagi-shokunin worktree`-free `git archive HEAD | tar -x -C \"$S\"`). Every concurrent writer needs its own scratch tree; you never edit a sibling seat's files. Never message agent://all; never spawn other agents (leaf seats).\nTooling: you may install/upgrade useful tools; read /home/vgpnk/.omp/agent/RULES.md first; official channels only; record tool/version/channel/reason in your report. ALL pacman transactions are PAUSED host-wide: no pacman -S/-Sy/-Syu/-U/-R, ever; use uv tool / npx / an official binary in ~/.local/bin, or report the need. No installs are expected for this wave.\nHost facts: Linux (Arch), python3 3.14.8 at /usr/bin/python3, sqlite3 present, the-janitor substrate ABSENT, op 2.41.1 at /usr/bin/op (observed untouched). A gate that fails over absent substrate is a correct output, not a defect.\n",
+    "tasks": [
+      {
+        "name": "XD1Rows",
+        "agent": "executor",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/claim-ledger.tsv (READ ONLY) — drafts to /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-30/final/c1/\n# Work\nC1 pre-integration. For EACH of these 12 ledger rows: R12-03, R13-01, R14-01, R21-02, R21-04, R22-03, R24-05, R24-06, R24-14, R24-15, R29-01, R29-02 — read the row, run its command at the current tree (lane root, from a git archive copy in your scratch if the command could write; none should write), and record exit + last non-empty output line. Then draft the migrated row (same id/command/exit/timeout; new expectation = the observed value; note column gains \"Round 30: <old> -> <new>, <one-line reason citing the round-29 spotcheck D1/D2 or the Windows-host row origin>\"). For R29-01/R29-02 the fix is the command token `python -I -B` -> `python3 -I -B` (POSIX policy; python3 3.14.8 present) — verify both commands pass with python3 and record their outputs. Values are PROVISIONAL (they move again after C2/C3 land); the deliverable is old value, live value now, and the drafted new-expect line. Write one TSV /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-30/final/c1/migrations.tsv (same 6 columns) + per-row receipts /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-30/final/c1/<id>.txt. Flag any row where the observed failure is NOT a moved number (e.g. a broken gate, a CRLF effect) — classify, do not fix.\n# Acceptance\nReport: round-30-reports/XD1Rows.md under /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-30 (write at /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-30/XD1Rows-report.md). Names each row's old/live/new, flags non-number causes, receipts paths.\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\nJudged on: calibration, freshness, coverage\nMilestone: Round-30 build: C1 ledger pin restoration, C2 EOL drift repair, C3 secret-scanning adoption\n\nReport: write your scoped findings to .ufo/waves/round-30/build/XD1Rows.md"
+      },
+      {
+        "name": "XD2Cells",
+        "agent": "executor",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin/SKILL.md, /home/vgpnk/Projects/shokunin/kagi-shokunin/PROVINCE.md, /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/README.md, /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/self-counts.tsv (all READ ONLY) — drafts to /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-30/final/c1/\n# Work\nC1 doc-cell pre-integration. The routed six stale cells: SC-SKILL-STAMPS + SC-SKILL-CLAIMS (SKILL.md:46 \"(91 stamps + 65 claims\"), PV-STAMPS + PV-CLAIMS (PROVINCE.md:73 \"91 revision stamps + 65 claim rows\"), RD-STAMPS + RD-LEDGER-ROWS (corpus/README.md revision-stamps and ledger-rows index rows). For each: exact current line, current live source value (wc -l / ledger count), and a draft corrected line. THEN sweep all three docs for any OTHER current-tense number bound or bindable in self-counts.tsv that moved since the round-28 receipts (stamps 91, ledger rows 65, registry rows 51/52, round headings 34, entries 25, selftest case counts) — list file:line, claimed vs live, and whether a self-counts.tsv binding exists. Corrected cells must state the CURRENT value only where the sentence is current-tense; round-dated history lines stay untouched. Deliverable: /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-30/final/c1/cells-draft.md with exact before/after line texts.\n# Acceptance\nReport at /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-30/XD2Cells-report.md: the six cells + any additional stale numbers found, each file:line with old/new text.\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\nJudged on: calibration, freshness, coverage\nMilestone: Round-30 build: C1 ledger pin restoration, C2 EOL drift repair, C3 secret-scanning adoption\n\nReport: write your scoped findings to .ufo/waves/round-30/build/XD2Cells.md"
+      },
+      {
+        "name": "XEol",
+        "agent": "executor",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-30/final/c2/ (all outputs; production files untouched)\n# Work\nC2 pre-integration for the routed D5 LF->CRLF drift. In your scratch: (1) enumerate CR-bearing tracked files at BASE: `git -C /home/vgpnk/Projects/shokunin/kagi-shokunin grep -Il $'\\r' HEAD` and working-tree `grep -rIl $'\\r' --exclude-dir=.git --exclude-dir=.jj /home/vgpnk/Projects/shokunin/kagi-shokunin` — expect SKILL.md, corpus/SOURCES.md, corpus/claim-ledger.tsv (flag any other). (2) `git -C /home/vgpnk/Projects/shokunin/kagi-shokunin archive HEAD | tar -x -C $S/tree` then strip CR (`sed -i 's/\\r$//'` on the three files) and prove the repair: run the FLEET census against the stripped tree — copy the stripped tree to $S/mirror/<lane-repo-name>/ so path shapes resolve, then `/home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --root $S/mirror kagi` from a cwd where that resolves (build the mirror so $S/mirror/kagi-shokunin/corpus/SOURCES.md exists) — E12 must drop to 0 (record exit + remaining findings). In the stripped tree also run `bash corpus/checklist-run.sh --ratio` (cwd = stripped tree root) — expect the SETUP line gone and `CHECKLIST_RATIO: runnable=9/16 floor=8 by_hand=7 delegated=3 direct=6` (or record exactly what it prints). (3) Draft the exact normalization procedure for the lane (commands + order + the re-stamp list: the three files' stamps.tsv rows become STALE after normalization and must be re-pinned via `bash corpus/claim-ledger.sh stamp` with ALL currently-pinned paths plus new files) and a draft .gitattributes: `*.md text eol=lf`, `*.tsv text eol=lf`, `*.sh text eol=lf`, `*.py text eol=lf`, `*.json text eol=lf` (narrow, reviewed; no `*` blanket). Receipts to /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-30/final/c2/.\n# Acceptance\nReport at /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-30/XEol-report.md: CR inventory, stripped-tree census/checklist receipts, the procedure, the .gitattributes draft.\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\nJudged on: calibration, freshness, coverage\nMilestone: Round-30 build: C1 ledger pin restoration, C2 EOL drift repair, C3 secret-scanning adoption\n\nReport: write your scoped findings to .ufo/waves/round-30/build/XEol.md"
+      },
+      {
+        "name": "XAssimCol",
+        "agent": "executor",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nscratch mirror + /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-30/final/c3/assimilation/ (production registry untouched)\n# Work\nC3 scratch gate (addendum §10 shape). S=/home/vgpnk/Projects/shokuknow (READ ONLY). A=/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-30/final/c3/assimilation; S scratch mirror under /fast/scratch/hyaku/kagi-r30/XAssimCol/. (1) Id-collision check with the 0-3-space-tolerant pattern per plans/round-30.md: reg-ids from /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/SOURCES.md, staged-ids from $S/merge/kagi/SOURCES.append.md, collisions=comm -12 — paste all three lists + count. Expect exactly S052 colliding. (2) Renumber map for the 8 adopted staged rows, by document: verify each staged row's URL matches its entry's citation (S066 gitleaks README raw master, S067 trufflehog README raw main, S068 betterleaks README raw main, S069 api.github.com search betterleaks, S070-S073 trufflesecurity.com/docs/verification-caching|how-we-handle-your-data|reverify-secrets|notify-results), then map S066->S053, S067->S054, S068->S055, S069->S056, S070->S057, S071->S058, S072->S059, S073->S060. (3) Normalize the 8 rows to fleet schema: recheck cell -> plain cadence (180d, or 90d for S069) with the stripped prose recorded verbatim in your receipt (it goes to the lesson Gate); NO literal or escaped `|` in any cell; status `mined`; `opened` = 2026-11-03 (this lane's opening, not the campaign's); `used-by` = exactly the three adopted entry paths, comma-separated: corpus/knowledge/secret-scanning-detection-vs-validation.md, corpus/knowledge/betterleaks-detection-vs-validation.md, corpus/knowledge/trufflehog-verification-lifecycle.md (only the entries that actually cite each row). (4) Scratch mirror: copy /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/ to $S/scratch-mirror/corpus/, append the 8 normalized rows at the END of the Registry table in the mirrored SOURCES.md, re-point the staged entries' source ids per the map (copy the 3 staged entry files from $S/merge/kagi/knowledge/corpus/knowledge/ to $S/scratch-mirror/corpus/knowledge/ with ids re-pointed), then from cwd $S/scratch-mirror run `/home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --file corpus/SOURCES.md` — must exit 0 (warnings allowed; E03/E04 = duplicate id or within-scope duplicate URL = refuse that row, never append past). Receipts: reg-ids, staged-ids, collisions, renumber map, normalized rows, census output.\n# Acceptance\nReport at /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-30/XAssimCol-report.md with the pasted id lists, collision count, map, census exit.\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\nJudged on: calibration, freshness, coverage\nMilestone: Round-30 build: C1 ledger pin restoration, C2 EOL drift repair, C3 secret-scanning adoption\n\nReport: write your scoped findings to .ufo/waves/round-30/build/XAssimCol.md"
+      },
+      {
+        "name": "XSrcOpen",
+        "agent": "executor",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-30/final/c3/src-open/ (no registry edits)\n# Work\nC3 source re-opening (the campaign's 2026-10-23 dates prove nothing about this lane). For each of the 8 rows: fetch with the declared profile `curl -fsSL --max-time 30 <url>`, record HTTP ok/fail, sha256 (full + first16), byte size; locate the staged quote with a fixed-count grep (grep -c / grep -n as appropriate) and record located-count + first line number. Rows/URLs/quotes: S066 https://raw.githubusercontent.com/gitleaks/gitleaks/master/README.md quote \"detecting secrets like passwords, API keys, and tokens\" (staged pin HEAD b58d3f10..., staged sha16 65e87e68f4a16aef); S067 https://raw.githubusercontent.com/trufflesecurity/trufflehog/main/README.md quote \"it can also log in to confirm if that secret is live or not\" (pin d6ea4a52..., sha16 068fbb5c93eb993d); S068 https://raw.githubusercontent.com/betterleaks/betterleaks/main/README.md quote \"Scans detect secrets without credential provider requests by default\" (sha16 f61c3993fd48dfb9); S069 https://api.github.com/search/repositories?q=betterleaks&per_page=10 — items[0].full_name == \"betterleaks/betterleaks\", fork == false (sha16 0c8bdbd04508489c); S070 https://trufflesecurity.com/docs/verification-caching quote \"Each cache entry expires after three hours\" (sha16 b1eb8215a66933f9); S071 https://trufflesecurity.com/docs/how-we-handle-your-data quote \"Credentials are verified using safe, read-only API calls\" (sha16 aef5f76a64c9565a); S072 https://trufflesecurity.com/docs/reverify-secrets quote \"Secret reverification is currently only supported\" (sha16 2997de910834f751); S073 https://trufflesecurity.com/docs/notify-results token \"sendUnverified\" expect 2 matching lines (sha16 417032af5635ef39). Staged sha16s are prefixes of the campaign fetch digests: compare prefix-only and record match/mismatch (a mismatch is a finding, not a refusal — the vendor page may have moved; record the NEW digest + whether the quote still locates). One receipt file per row /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-30/final/c3/src-open/S0xx.txt with url, date (2026-11-03), sha256, size, quote, located-count, line, prefix-match verdict.\n# Acceptance\nReport at /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-30/XSrcOpen-report.md: table of 8 rows (fetched/located/prefix-match), any fetch failure or quote drift named explicitly.\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\nJudged on: calibration, freshness, coverage\nMilestone: Round-30 build: C1 ledger pin restoration, C2 EOL drift repair, C3 secret-scanning adoption\n\nReport: write your scoped findings to .ufo/waves/round-30/build/XSrcOpen.md"
+      },
+      {
+        "name": "SDraftEntries",
+        "agent": "scribe",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\ndrafts to /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-30/final/c3/entries/ (production corpus untouched)\n# Work\nC3 entry drafts. Staged source: /home/vgpnk/Projects/shokuknow/merge/kagi/knowledge/corpus/knowledge/ (READ ONLY): secret-scanning-detection-vs-validation.md, betterleaks-detection-vs-validation.md, trufflehog-verification-lifecycle.md. Produce lane drafts, byte-LF: (1) provenance trio FIRST, exact keys: `source:` one line PER cited row, re-pointed per the frozen map (S066->S053, S067->S054, S068->S055, S069->S056, S070->S057, S071->S058, S072->S059, S073->S060), format `source: S053 — <canonical url> — <anchor summary> — opened 2026-11-03`; `verified-at: 2026-11-03 — sources re-opened in-round by the lane's fetch profile (see .ufo/waves/round-30/final/c3/src-open/)`; `recheck: 180d` (90d for the S056 API row) citing the re-open command shape; (2) `Reverify: R21-02` line (resolves to the existing registry-census ledger row); (3) keep the staged body's substance but: re-point every in-body [S066]-style citation to the new ids, keep vendor quotes attributed to their anchors, and mark campaign-era measurement dates inside the body as the campaign's (this lane re-opened the sources 2026-11-03); (4) NO secret values, NO `op://` paths, NO CRLF; each file ends with a one-line `Ground:` noting it moves the round-21 frontier lead (S048 ground) into admitted knowledge, adopted from the staged campaign package with per-entry gates this round. Preserve the staged entries' honest bounds (e.g. Betterleaks stage-tagging, TruffleHog cache limits).\n# Acceptance\nReport at /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-30/SDraftEntries-report.md: the three draft paths, per-entry scope note (why each is in PROVINCE frontier->core), any content you refused to carry and why.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: calibration, freshness, coverage\nMilestone: Round-30 build: C1 ledger pin restoration, C2 EOL drift repair, C3 secret-scanning adoption\n\nReport: write your scoped findings to .ufo/waves/round-30/build/SDraftEntries.md"
+      },
+      {
+        "name": "SRegistryRows",
+        "agent": "scribe",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\ndrafts to /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-30/final/c3/registry/ (production registry untouched)\n# Work\nC3 registry + index drafts. (1) Take XAssimCol's normalized 8-row block if present (/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-30/final/c3/assimilation/), else normalize the staged rows yourself per plans/round-30.md (11 columns, no pipes in cells, recheck=cadence, opened 2026-11-03, status mined, used-by = exactly the citing entries) — assemble the append block that lands at the END of the Registry table in /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/SOURCES.md. (2) Draft the corpus/README.md coverage-map row(s): one new area row `Secret scanning: detection versus verification` citing the three entry paths + source basis (S053-S060, re-opened 2026-11-03); update the `## Frontier` bullet (secret-scanning lead -> moved to core round 30, keeping the OIDC and NIST bullets untouched); add index rows for the three new knowledge entries. (3) Draft the PROVINCE.md Core bullet addition (one line, same three entries, dated round 30). Keep every draft as exact line texts ready to paste.\n# Acceptance\nReport at /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-30/SRegistryRows-report.md: the append block, the README/PROVINCE draft lines, and the used-by set per row.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: calibration, freshness, coverage\nMilestone: Round-30 build: C1 ledger pin restoration, C2 EOL drift repair, C3 secret-scanning adoption\n\nReport: write your scoped findings to .ufo/waves/round-30/build/SRegistryRows.md"
+      },
+      {
+        "name": "ScoutHost",
+        "agent": "scout",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nhost state + /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-30/final/host/\n# Work\nPer-surface reconnaissance (read-only). (1) Substrate absence receipt: `ls ~/.local/bin/the-janitor ~/.config/the-janitor ~/.local/state/the-janitor` exit 2 x3 recorded; `op --version` (2.41.1, /usr/bin/op) — nothing signed in, no vault contact; `sqlite3 --version`; `python3 --version`; `git --version`; `jj --version`. (2) Round-29 cross-host debt retirement, time-bounded, cwd /home/vgpnk/Projects/shokunin/kagi-shokunin (gates that write run nowhere — these are selftests, they use their own scratch): `bash corpus/checklist-run.sh --selftest` (34 cases), `bash corpus/op-ref-probe.sh --selftest` (36), `bash corpus/drift-pins.sh --selftest` (13), `bash corpus/surface-census.sh --selftest` (16), `bash corpus/scope-gate.sh --selftest` (61), `bash corpus/sources-census.sh --selftest` (70), `bash corpus/claim-ledger.sh --selftest` (170 — allow up to 480s, record seconds; if it exceeds 480s record that honestly and move on), `python3 corpus/self-counts.py --selftest` (48), `python3 corpus/release-clock.py --selftest` (116), `python3 corpus/rendered-text-v1.py --selftest` (22), `python3 corpus/feed-token-agree.py --selftest` (4 — run it with python3; it is a corpus script). Record per gate: PASS/FAIL, case count, wall seconds. (3) Also capture `bash corpus/claim-ledger.sh citations` full output to /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-30/final/host/citations-at-base.txt (it takes ~60-90s) and list the unresolved=19 tokens with file:line — classify each: CRLF-effect, integrator-spotcheck-file (never editable), or lane-authored fixable.\n# Acceptance\nReport at /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-30/ScoutHost-report.md: the receipts table, the citations unresolved list + classification.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: calibration, freshness, coverage\nMilestone: Round-30 build: C1 ledger pin restoration, C2 EOL drift repair, C3 secret-scanning adoption\n\nReport: write your scoped findings to .ufo/waves/round-30/build/ScoutHost.md"
+      },
+      {
+        "name": "ConnOverlap",
+        "agent": "connector",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nread-only sweep of /home/vgpnk/Projects/shokunin/*-shokunin/ (siblings) + report only\n# Work\nSibling-overlap scan for C3: which sibling lanes claim secret-scanning, credential-validation, NIST key-management, or OIDC-federation ground (PROVINCE.md, SKILL.md, corpus/knowledge/, corpus/SOURCES.md of each sibling at its current tip)? The round-21 sweep found none; re-verify at current tips (chousa, kasegi, kumitate run their own secret-shaped tripwires — hygiene filters, not vault/scanner ground; name exactly what each sibling holds and why it does not contest the three adopted entries). Also: does any sibling already cite the same 8 source URLs? Report overlaps with path:line evidence; kagi reports, never absorbs.\n# Acceptance\nReport at /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-30/ConnOverlap-report.md: per-sibling verdict + evidence pointers.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: calibration, freshness, coverage\nMilestone: Round-30 build: C1 ledger pin restoration, C2 EOL drift repair, C3 secret-scanning adoption\n\nReport: write your scoped findings to .ufo/waves/round-30/build/ConnOverlap.md"
+      },
+      {
+        "name": "RAttackC1",
+        "agent": "reviewer",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/self-counts.tsv, /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/claim-ledger.tsv, /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-30.md (all READ ONLY); receipts to /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-30/final/attack-c1/\n# Work\nAttack C1. (1) Independently re-derive every self-counts.tsv binding's doc-claimed number vs its live source at the current tree — hunt for a SEVENTH stale cell beyond the routed six (run `python3 corpus/self-counts.py` from a copy if needed; it is read-only). (2) Run `bash corpus/claim-ledger.sh verify` (~4 min) in your scratch FROM a git-archive copy so nothing writes to the lane, diff its FAIL/POLICY set against the plan's enumerated 12 rows: is the enumeration complete? Any row failing for a cause outside C1's scope (CRLF, integrator file) must be classified, not absorbed. (3) Attack the drafted migrations in /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-30/final/c1/ (if present): any draft that changes a gate's SEMANTICS rather than its recorded value, or relaxes an anchored expectation to a looser one, is a rejected migration — name it. (4) Check the kill rule is honest: would any proposed expectation edit silence a real defect? Verdict per item with evidence.\n# Acceptance\nReport at /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-30/RAttackC1-report.md: seventh-cell hunt result, FAIL-set diff, migration rejects, kill-rule check.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: calibration, freshness, coverage\nMilestone: Round-30 build: C1 ledger pin restoration, C2 EOL drift repair, C3 secret-scanning adoption\n\nReport: write your scoped findings to .ufo/waves/round-30/build/RAttackC1.md"
+      },
+      {
+        "name": "RAttackC3",
+        "agent": "reviewer",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\n/home/vgpnk/Projects/shokuknow/merge/kagi/ (READ ONLY), /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-30/final/c3/ (drafts), /home/vgpnk/Projects/shokunin/kagi-shokunin/PROVINCE.md, /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/QUALITY.md (READ ONLY)\n# Work\nAttack C3 per-entry and per-row. (1) PROVINCE scope check per entry: is secret-scanning detection-vs-verification inside kagi's frontier->core (PROVINCE Core/Frontier/Adjacent), or does it absorb sibling ground (chousa method, kasegi research, kumitate tooling)? Refuse generic material. (2) QUALITY.md bar per entry: every claim cited, falsifiable, no unverifiable assertion; flag any staged sentence that asserts more than its source. (3) Independent quote re-location: pick 2 of the 8 sources, re-fetch with the declared profile, re-locate the staged quote, compare your digest to /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-30/final/c3/src-open/ receipts. (4) Row-set discipline: the append block must contain ONLY rows the three admitted entries cite, used-by exact, opened 2026-11-03, recheck a bare cadence (prose stripped — the prose must be slated for the lesson Gate, not lost). (5) Refusal-boundary check: no entry may claim token totality or scanner completeness. Verdict per entry: ADMIT / REFUSE(reason+flip).\n# Acceptance\nReport at /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-30/RAttackC3-report.md: per-entry verdicts, per-row findings, your 2 independent fetch receipts.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: calibration, freshness, coverage\nMilestone: Round-30 build: C1 ledger pin restoration, C2 EOL drift repair, C3 secret-scanning adoption\n\nReport: write your scoped findings to .ufo/waves/round-30/build/RAttackC3.md"
+      },
+      {
+        "name": "CAttackPredicates",
+        "agent": "critic",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-30.md (READ ONLY — the frozen claims), receipts to /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-30/final/attack-pred/\n# Work\nFalsify the round's claim predicates BEFORE data lands. For each of C1/C2/C3 as frozen: (a) do-nothing control — could a round that lands nothing meet the after-state? (the controls are the committed BASE receipts: verify them: does census-start.txt really show E12 x52 exit 1; does a fresh run of the C1/C2 before-commands at BASE reproduce the committed reds?); (b) gameability — can any counting command pass without the claimed work (e.g. self-counts CLEAN with cells deleted instead of corrected; census exit 0 with the registry section emptied; grep -c 8 with duplicate rows)? Name the cheapest cheat for each counter and whether the frozen kill rule catches it; (c) separability — does any C1 counter's pass depend on C2 bytes having landed, or C3's on C1/C2 (check R21-02's command runs over CRLF today: run `bash corpus/sources-census.sh` and record its exit + last line); (d) universal clauses — any \"all/every\" not backed by an enumerating command? Verdict per claim: predicate SOUND or ATTACKED(with fix).\n# Acceptance\nReport at /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-30/CAttackPredicates-report.md: per-claim verdicts with the receipts you ran.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: calibration, freshness, coverage\nMilestone: Round-30 build: C1 ledger pin restoration, C2 EOL drift repair, C3 secret-scanning adoption\n\nReport: write your scoped findings to .ufo/waves/round-30/build/CAttackPredicates.md"
+      },
+      {
+        "name": "MAttackEol",
+        "agent": "mutation-tester",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nscratch trees only (/fast/scratch/hyaku/kagi-r30/MAttackEol/) + /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-30/final/attack-eol/\n# Work\nMutation-test C2's counters. Build a stripped (LF) scratch mirror of the lane (git archive HEAD | tar -x, then strip CR on SKILL.md, corpus/SOURCES.md, corpus/claim-ledger.tsv). Baseline: in the mirror root, `/home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --root <mirror-parent> kagi` (mirror-parent must contain <lane-repo-name>/corpus/SOURCES.md in LF) — record exit (expect 0 modulo used-by/entry artifacts; record exactly). Then apply each mutation to a FRESH copy and record the verdict each counter gives: M1 re-add CR to corpus/SOURCES.md only -> fleet census must exit non-zero (E12 present); M2 re-add CR to SKILL.md only -> `bash corpus/checklist-run.sh --ratio` must fail (SETUP); M3 CR into corpus/claim-ledger.tsv only -> `bash corpus/claim-ledger.sh verify --root <mirror> ...` is too slow — instead run `bash corpus/row-identity.sh ledger-ids` in the mirror and record whether the CRLF bytes change its sha verdict (any observable verdict change counts as killed; no change = record honestly as not-killed-by-this-probe); M4 .gitattributes draft with a wrong pattern (`*.md text eol=crlf`) -> `git check-attr eol -- one-file` shows the wrong ruling (record). A counter that survives a mutation it should kill = a finding against C2.\n# Acceptance\nReport at /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-30/MAttackEol-report.md: per-mutation killed/not-killed with exact outputs.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: calibration, freshness, coverage\nMilestone: Round-30 build: C1 ledger pin restoration, C2 EOL drift repair, C3 secret-scanning adoption\n\nReport: write your scoped findings to .ufo/waves/round-30/build/MAttackEol.md"
+      },
+      {
+        "name": "LProbeGitattr",
+        "agent": "executor",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nscratch clone (/fast/scratch/hyaku/kagi-r30/LProbeGitattr/) + /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-30/final/probe-gitattr.md\n# Work\nFalsifiable probe for C2's mechanism: does adding the drafted .gitattributes change any OTHER tracked file's bytes? In your scratch: clone the lane (`git clone --shared /home/vgpnk/Projects/shokunin/kagi-shokunin $S/clone`), add .gitattributes exactly as drafted in /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-30/final/c2/ (or draft it: *.md/*.tsv/*.sh/*.py/*.json -> text eol=lf), normalize the 3 CR files to LF, `git add -A && git -c user.name=t -c user.email=t@t commit -m probe` INSIDE $S/clone ONLY (verify `git -C $S/clone rev-parse --show-toplevel` == $S/clone first; never anywhere else), then (a) `git status --porcelain` empty? (b) check out a second worktree from the new commit — do all tracked files match the original tree except the 3 normalized + .gitattributes? (`git diff --stat <old> <new>` — name every changed path); (c) does `git check-attr text eol -- SKILL.md corpus/stamps.tsv corpus/SOURCES.md` give the intended rulings; (d) record `git --version`. Clean up $S in a trap. This decides whether .gitattributes renormalizes unexpected classes.\n# Acceptance\nReport at /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-30/final/probe-gitattr.md: changed-path list (expect exactly 4), attr rulings, git version, verdict.\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\nJudged on: calibration, freshness, coverage\nMilestone: Round-30 build: C1 ledger pin restoration, C2 EOL drift repair, C3 secret-scanning adoption\n\nReport: write your scoped findings to .ufo/waves/round-30/build/LProbeGitattr.md"
+      },
+      {
+        "name": "SentHygiene",
+        "agent": "sentinel",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\n/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-30/final/ (all round-30 candidate bytes), /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-30.md (READ ONLY)\n# Work\nHygiene + boundary scan over every byte this round intends to land (plans file, wave dirs, drafts under final/): (1) secret material: scan for credential-shaped strings, tokens, cookies, `op://` references, private-key blocks — counts only, never print matches beyond the shape class; (2) refusal boundary: grep the round's bytes for feed-token totality/derivation phrasing (\"total\", \"totality\", \"all tokens\", \"derivation\" applied to feed tokens/release-clock) — any hit near release-clock/tokenizer claims is a violation to report; (3) scope: confirm no draft proposes editing integrator-authored files (round-29-verifier-spotcheck.md), MANIFEST.json, fleet templates/, fleet scripts/, sibling repos, or /home/vgpnk/Projects/shokuknow (read-only); (4) pacman guard: confirm no draft instructs a pacman transaction. Verdict per class with counts and file pointers.\n# Acceptance\nReport at /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-30/SentHygiene-report.md: the four classes, counts, verdicts.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: calibration, freshness, coverage\nMilestone: Round-30 build: C1 ledger pin restoration, C2 EOL drift repair, C3 secret-scanning adoption\n\nReport: write your scoped findings to .ufo/waves/round-30/build/SentHygiene.md"
+      }
+    ]
+  },
+  "resumeSends": [],
+  "note": "Issue exactly one batched task call with taskCall ({context, tasks}); never split a wave into multiple task calls (one-swarm-per-wave). Then one hub send per resumeSends entry: hub send --to <entry.resume> --message <entry.message> (entry.name is bookkeeping, not a hub field)."
+}

@@ -1,0 +1,25 @@
+row_id: R21-02
+round: 30 (C1 pre-integration measurement; values PROVISIONAL — they move again after C2/C3 land)
+tree: /home/vgpnk/Projects/shokunin/kagi-shokunin
+tree_head: b7482b4acc42413fbb3d49ab6e4f811fb18e9f0c
+measured_at_utc: 2026-11-03T18:12:25Z
+runner: cwd=tree root; timeout -k 5 60 bash -o pipefail -c '<cmd>' 2>&1; last non-empty line (claim-ledger.sh verify semantics)
+
+declared_command: bash corpus/sources-census.sh
+declared_expect: ^SOURCES_CENSUS: CLEAN \(rows=51 A=49 B=0 C=2 queued=1 mined=47 rejected=3 entries_sourced=4 legacy=21 captures=51 inrow=16 inrow_only=0 inrow_nonreproducing=12\)$
+declared_exit: 0
+declared_timeout: 60
+
+observed_exit: 0
+observed_last_line: SOURCES_CENSUS: CLEAN (rows=52 A=50 B=0 C=2 queued=1 mined=48 rejected=3 entries_sourced=5 legacy=21 captures=52 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+declared_expect_matches_observed: no
+classification: number-drift (CRLF-independent; verified exit 0 at this tree)
+
+new_command: bash corpus/sources-census.sh
+new_expect: SOURCES_CENSUS: CLEAN \(rows=52 A=50 B=0 C=2 queued=1 mined=48 rejected=3 entries_sourced=5 legacy=21 captures=52 inrow=16 inrow_only=0 inrow_nonreproducing=12\)
+new_expect_matches_observed_last_line: yes
+
+full_output (stdout+stderr):
+-----8<-----
+SOURCES_CENSUS: CLEAN (rows=52 A=50 B=0 C=2 queued=1 mined=48 rejected=3 entries_sourced=5 legacy=21 captures=52 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+----->8-----

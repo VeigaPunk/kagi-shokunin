@@ -1,0 +1,13 @@
+bytecode attribution — corpus/feed-token-agree.py on python3 3.14.8 (measured 2026-11-03)
+tree: git archive HEAD (b7482b4) -> /fast/scratch/hyaku/kagi-r30/XD1Rows/tree
+
+after `python3 corpus/feed-token-agree.py --selftest`      -> __pycache__ count = 0
+after `python3 corpus/feed-token-agree.py` (live, no args) -> __pycache__ count = 1
+  file: corpus/__pycache__/release-clock.cpython-314.pyc
+
+git ignore coverage: .gitignore:2 `__pycache__/`
+  `git check-ignore -v corpus/__pycache__/release-clock.cpython-314.pyc`
+  -> .gitignore:2:__pycache__/  (ignored)
+
+consequence: `-B` is load-bearing for the R29-02 live row (keeps the verify run from writing
+into the tree); `-I` is not (exit 0 and identical verdict lines with and without it).

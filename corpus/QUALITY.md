@@ -140,3 +140,9 @@ behavioral assertion body. Fresh evidence and rejected broader reading:
 | id | criterion | weak signal | lesson |
 |---|---|---|---|
 | QM30 | Supplements QM27: a feed token the shared token grammar adjudicates is EXTRACTED by every feed extractor and then judged; an extractor that silently refuses a shape the grammar adjudicates — or extracts a different token — is a defect, and extractor agreement is a standing gate against the live grammar, not a one-off patch (all extractors can drift the same way, so extractor-vs-extractor comparison alone cannot see the class). | a period-suffixed title dropped to CLEAN; three extractors independently `$`-anchored; a fix that patches one scanner and leaves the others; an agreement check with no grammar arbiter | `corpus/lessons/round-29.md` M29-1; `corpus/feed-token-agree.py`; `corpus/knowledge/feed-token-boundaries.md` §The agreement invariant |
+
+## Criterion from the round-30 C2 closure
+
+| id | criterion | weak signal | lesson |
+|---|---|---|---|
+| QM31 | Supplements QM6/QM12: committed text bytes are a checked property of the lane, not an artifact of the host that last wrote them. Text classes carry `eol=lf` in `.gitattributes` with `.ufo/**` excluded (committed capture evidence keeps its bytes), and `corpus/eol-sweep.sh` (ledger `R30-01`) fails when a text file outside `.git`/`.jj`/`.ufo` carries CRLF or the attribute set drops. A counter whose pipeline the claim-ledger policy refuses (`$'\r'`, `\|`) is re-scoped to a registered script before it counts. | three lane files converted LF→CRLF on a foreign host and landed unnoticed; a census that reads zero registry rows as an opaque E12 wall; a `.gitattributes` glob that renormalizes committed evidence | `corpus/lessons/round-30.md` M30-1, M30-2; `corpus/eol-sweep.sh` |

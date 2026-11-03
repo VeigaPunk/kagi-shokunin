@@ -1,0 +1,12 @@
+=== restoration evidence ===
+pristine LF mirror hashes:
+  c5206b7c04996ddcc0805140f61e59b775e9373a7d89fa860e55c93734ff2162  SKILL.md
+  7d0aad4fef9aee947335e20d4a97853f6742808aaea371868a2bbcb6784e1e93  corpus/SOURCES.md
+  3419c6d50ea0c81c44d568446569675e40755945f37ce83c549b095b52701c7d  corpus/claim-ledger.tsv
+
+after each mutation the file was copied back from the pristine mirror and cmp-ed:
+  M1 SOURCES.md     -> restored byte-identical
+  M2 SKILL.md       -> restored byte-identical
+  M3 claim-ledger.tsv -> restored byte-identical
+  detector re-run on every restored tree returned the pristine verdict (census exit 0 /
+  CHECKLIST_RATIO line / ROW_IDENTITY ledger-ids count=67 sha=917ef251...).

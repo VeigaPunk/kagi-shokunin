@@ -1,0 +1,8 @@
+# Normalized text files: LF in the repo and the working tree (round-30 C2, routed defect D5).
+*.md text eol=lf
+*.tsv text eol=lf
+*.sh text eol=lf
+*.py text eol=lf
+*.json text eol=lf
+# Committed .ufo evidence keeps its captured bytes (authentic CRLF HTTP captures and round receipts); not renormalized.
+.ufo/** -text -eol

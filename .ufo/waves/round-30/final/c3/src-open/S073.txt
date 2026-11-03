@@ -1,0 +1,39 @@
+id: S073
+url: https://trufflesecurity.com/docs/notify-results
+date: 2026-11-03
+profile: curl -fsSL --max-time 30 <url>
+http: 200
+final-url: https://trufflesecurity.com/docs/notify-results
+content-type: text/html; charset=utf-8
+last-modified: Tue, 03 Nov 2026 10:20:23 GMT
+size: 144104
+sha256: 8c0a977c75286c178ce3cc6c296fa46cc70ac676f329b926c5e387e0ee9e4752
+sha16: 8c0a977c75286c17
+staged-sha16: 417032af5635ef39
+prefix-match: MISMATCH
+
+quote: sendUnverified
+located-count (raw grep -cF on HTML): 2  [lines 16, 25]
+occurrences: 2 (offset 54585 rendered config code block, offset 129313 archbee JSON payload)
+rendered-text-v1 locate: 1
+expected: 2 matching lines (frozen for this row)
+quote-verdict: LOCATED at 2 lines, as expected
+
+context of both matches today:
+- line 16, inside the yaml example: "  sendUnverified: true" (notifier block: name "stdout secrets notifications", sourcesToNotify SOURCES_IN_THIS_CONFIG, customText, includeSecretLink, type NOTIFIER_TYPE_STDOUT)
+- line 25, the same yaml re-emitted in the archbee JSON payload for the client renderer
+- the field is still the explicit opt-in switch the row teaches: notifier config carries `sendUnverified`, and the notifier matrix (Email/Jira/Slack/Stdout/Splunk/Webhook with Open-Source and Cloud/On-premise columns) is intact.
+
+route note:
+- HTML route /docs/notify-results    : 144104 bytes, sha16 8c0a977c75286c17, grep-c 2 (as staged expects)
+- .md route  /docs/notify-results.md : 1809 bytes, sha16 25a4aa8094ccd72a, grep-c 1, line 26 — the .md has the yaml once, so its count is 1, not 2. A capture row choosing the .md representation must restate the expected count as 1.
+
+digest-attribution:
+- HTML stable within today (repeat fetches byte-identical), same rebuilt-page family as S070-S072 (last-modified today).
+- No variant reproduced 417032af5635ef39: gzip-wire fdf72904..., brotli-decoded b12a6e65..., beacon-stripped fa565382..., .md 25a4aa80..., CRLF/tag-stripped/host-variant/UA combinations all differ. archive.org unreachable (HTTP 429).
+
+page stamp hazard (same class as S070/S072): "Updated 14 Aug 2026" is not greppable raw (`Updated<!-- --> <!-- -->14 Aug 2026`); comment-stripped count 1, .md route 0. Stamp VALUE is still 14 Aug 2026 today.
+
+credential hygiene: the yaml example in this page carries filler fields (`trufflehogAddress`, `trufflehogScannerGroup`, `trufflehogScannerToken: thog-agent-XXXX...`). That is vendor-published placeholder text, not live material; it must never be copied into a lane artifact — cite the field name `sendUnverified` only.
+
+verdict: FETCHED ok / QUOTE LOCATED at the expected 2 lines / PREFIX MISMATCH (un-attributable; page rebuilt since 2026-10-23, stamp value unchanged)

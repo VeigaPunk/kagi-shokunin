@@ -1,0 +1,15 @@
+=== M4 exact assigned pattern: `*.md text eol=crlf` only (LF-index fixture) ===
+TOPLEVEL=/fast/scratch/hyaku/kagi-r30/MAttackEol/m4e/kagi-shokunin
+tracked *.md in source repo: 99
+
+-- check-attr ruling:
+SKILL.md: eol: crlf
+corpus/SOURCES.md: eol: crlf
+corpus/claim-ledger.tsv: eol: unspecified
+
+-- fresh --no-local clone:
+   tracked *.md: 99
+   CRLF files: 99 (all *.md)
+   git status: []  <-- clean, drift invisible
+   census exit=1 E12=52
+   checklist --ratio exit=2 :: SETUP no `## Credential-hygiene checklist` section with `- [ ] ` items in /fast/scratch/hyaku/kagi-r30/MAttackEol/m4e-clone/SKILL.md

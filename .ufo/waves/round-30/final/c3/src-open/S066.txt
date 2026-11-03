@@ -1,0 +1,30 @@
+id: S066
+url: https://raw.githubusercontent.com/gitleaks/gitleaks/master/README.md
+date: 2026-11-03
+profile: curl -fsSL --max-time 30 <url>
+http: 200
+final-url: https://raw.githubusercontent.com/gitleaks/gitleaks/master/README.md
+content-type: text/plain; charset=utf-8
+size: 29328
+sha256: 65e87e68f4a16aefa1f1fba55b2e7a9b9bc8716393b7ddb013fc7c7bef4e4bc1
+sha16: 65e87e68f4a16aef
+staged-sha16: 65e87e68f4a16aef
+prefix-match: MATCH
+
+quote: detecting secrets like passwords, API keys, and tokens
+located-count (raw grep -cF): 0
+located-count (rendered-text-v1 locate): 1
+first-line: 35
+line-note: The sentence reads "Gitleaks is a tool for **detecting** secrets like passwords, API keys, and tokens in git repos, files, ..." — the staged quote is split in the source by bold markup around "detecting". A raw grep -c on the staged quote prints 0; the lane's rendered-text-v1 normalizer strips the markup and locates 1. Re-quoting with the markup included ("**detecting** secrets like passwords, API keys, and tokens") greps 1 raw.
+quote-verdict: LOCATED (normalization-sensitive: raw grep fails, rendered locate succeeds)
+
+revision:
+- staged pin: repo HEAD commit b58d3f102cf3a2c84cb7f923d05c25c9b1aed84b (2026-07-22)
+- README at that commit today: 29328 bytes, sha16 65e87e68f4a16aef (byte-identical to today's master)
+- today's master HEAD: 5f6ec56cfa6f8c67648d863582c7ae2f206d5c1c (committed 2026-10-23T20:44:59Z), README also 29328 bytes, sha16 65e87e68f4a16aef
+- so the moving ref advanced but the README bytes did not change; the staged pin still describes today's bytes exactly.
+
+content-drift note (not a quote failure):
+The README now opens with a maintainer warning: "Gitleaks is feature complete. I'm not merging new features into Gitleaks. Future releases will be security patches only. I'm shifting my focus to Betterleaks" (line 10). This does not touch the detect-only semantics the row teaches, but it is a status fact the staged row does not carry and an adopting entry should not describe Gitleaks as actively developed.
+
+verdict: FETCHED ok / QUOTE LOCATED (rendered) / PREFIX MATCH

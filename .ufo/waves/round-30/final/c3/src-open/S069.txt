@@ -1,0 +1,36 @@
+id: S069
+url: https://api.github.com/search/repositories?q=betterleaks&per_page=10
+date: 2026-11-03
+profile: curl -fsSL --max-time 30 <url>
+http: 200
+final-url: https://api.github.com/search/repositories?q=betterleaks&per_page=10
+content-type: application/json; charset=utf-8
+cache-control: no-cache
+size: 64526
+sha256: b7e19953ecde88d0ea2b9b248d9424fd817fa8cf9cde4ba6050d762d281ac21c
+sha16: b7e19953ecde88d0
+staged-sha16: 0c8bdbd04508489c
+prefix-match: MISMATCH
+
+assertion (the frozen one, items[0].full_name == "betterleaks/betterleaks" AND fork == false):
+- items[0].full_name = betterleaks/betterleaks  => TRUE
+- items[0].fork = false                          => TRUE
+- corroborated independently at /repos/betterleaks/betterleaks: full_name betterleaks/betterleaks, fork false, parent null, archived false, default_branch main
+assertion-verdict: HOLDS
+
+quote: "full_name": "betterleaks/betterleaks"
+located-count (raw grep -cF): 1
+first-line: 9
+corroborating literal (raw grep -cF): "fork": false => 10 occurrences (first in items[0] at line 11)
+quote-verdict: LOCATED
+
+digest-attribution (why the mismatch is not a content failure):
+- This endpoint returns a live ranked result set, not a versioned document. Today: total_count=39, items=10, items[0].stargazers_count=2774, items[0].pushed_at=2026-11-03T00:45:58Z.
+- Staged row recorded stargazers_count 2322 and pushed_at 2026-10-22T21:28:27Z. Both moved, so the staged digest cannot reproduce and its recorded numbers are no longer true.
+- Three consecutive fetches today were byte-identical (64526 bytes, sha16 b7e19953ecde88d0 each) and returned the same items[0] values — the response is stable within a day, not per request.
+- The staged digest is therefore an un-reproducible point attestation of a 2026-10-23 capture. It is not a contradiction of the source; it is a volatile endpoint whose payload legitimately changed.
+
+adoption consequence (important):
+The row must NOT carry `stargazers_count` 2322 or `pushed_at` 2026-10-22T21:28:27Z as taught facts — they were already stale on arrival and are stale now. Only `full_name` and `fork` are durable, and `fork` is better pinned from /repos/<owner>/<repo> (a versionless object) than from a ranked search response. A `recheck` cadence on this row should be short (the staged 90d is defensible) because the numbers move daily.
+
+verdict: FETCHED ok / ASSERTION HOLDS / QUOTE LOCATED / PREFIX MISMATCH (volatile ranked endpoint; recorded star/push numbers stale)

@@ -1,0 +1,13 @@
+=== M1 sensitivity matrix — what level of SOURCES.md drift the census sees ===
+mutant                                                   census_exit E12    rows     verdict
+full-file CRLF (M1)                                      1        52     0        KILLED
+CR on "## Registry" heading only (M1b)                   1        52     0        KILLED
+CR on one data row S030 (M1c)                            0        0      52       survived
+CR on mined row S001 incl used-by (M1d)                  0        0      52       survived
+CR on header+separator rows (M1e)                        0        0      52       survived
+CR inside used-by cell S001 (M1f)                        0        0      52       survived
+CR on ALL table rows, heading left LF (M1g)              0        0      52       survived
+
+Mechanism: gawk BEGIN sees `## Registry\r` -> trim() strips only [ \t] -> in_registry=false
+-> every row below prints E12. Row-level CR is trimmed by trim()/trim_cell() elsewhere, so
+the ONLY line whose EOL state the census checks is the `## Registry` heading.

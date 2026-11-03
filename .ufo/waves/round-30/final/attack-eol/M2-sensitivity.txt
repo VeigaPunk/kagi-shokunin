@@ -1,0 +1,14 @@
+=== M2 sensitivity: which SKILL.md lines matter to checklist --ratio ===
+baseline: CHECKLIST_RATIO: runnable=9/16 floor=8 by_hand=7 delegated=3 direct=6
+
+M2 (full CRLF SKILL.md):
+SETUP no `## Credential-hygiene checklist` section with `- [ ] ` items in /fast/scratch/hyaku/kagi-r30/MAttackEol/c2-m2/kagi-shokunin/SKILL.md
+exit=2
+
+M2b (CR only on the "## Credential-hygiene checklist" heading):
+SETUP no `## Credential-hygiene checklist` section with `- [ ] ` items in /fast/scratch/hyaku/kagi-r30/MAttackEol/m2b/kagi-shokunin/SKILL.md
+exit=2
+
+M2c (CR only on 5 checklist item lines, heading intact):
+CHECKLIST_RATIO: runnable=9/16 floor=8 by_hand=7 delegated=3 direct=6
+exit=0

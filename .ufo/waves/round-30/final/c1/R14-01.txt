@@ -1,0 +1,52 @@
+row_id: R14-01
+round: 30 (C1 pre-integration measurement; values PROVISIONAL — they move again after C2/C3 land)
+tree: /home/vgpnk/Projects/shokunin/kagi-shokunin
+tree_head: b7482b4acc42413fbb3d49ab6e4f811fb18e9f0c
+measured_at_utc: 2026-11-03T18:12:25Z
+runner: cwd=tree root; timeout -k 5 300 bash -o pipefail -c '<cmd>' 2>&1; last non-empty line (claim-ledger.sh verify semantics)
+
+declared_command: bash corpus/claim-ledger.sh docs
+declared_expect: ^DOC_AUDIT: CLEAN \(entries=25 row_linked=22 by_hand=3 undeclared=0 missing_ids=0 unpinned=0
+declared_exit: 0
+declared_timeout: 300
+
+observed_exit: 0
+observed_last_line: DOC_AUDIT: CLEAN (entries=26 row_linked=23 by_hand=3 undeclared=0 missing_ids=0 unpinned=0 duplicate_reasons=0)
+declared_expect_matches_observed: no
+classification: number-drift (prefix-pinned line; extra trailing field observed)
+
+new_command: bash corpus/claim-ledger.sh docs
+new_expect: DOC_AUDIT: CLEAN \(entries=26 row_linked=23 by_hand=3 undeclared=0 missing_ids=0 unpinned=0 duplicate_reasons=0\)
+new_expect_matches_observed_last_line: yes
+
+full_output (stdout+stderr):
+-----8<-----
+ENTRY corpus/knowledge/adjacency-breadth.md row_linked=6 by_hand=-
+ENTRY corpus/knowledge/adjacency-scope.md row_linked=9 by_hand=-
+ENTRY corpus/knowledge/cdp-bridge-1password.md row_linked=2 by_hand=-
+ENTRY corpus/knowledge/checklist-execution.md row_linked=5 by_hand=-
+ENTRY corpus/knowledge/claim-ledger.md row_linked=4 by_hand=-
+ENTRY corpus/knowledge/config-layering.md row_linked=0 by_hand=opencode-internal
+ENTRY corpus/knowledge/control-plane-hardening.md row_linked=0 by_hand=control-plane-scratch
+ENTRY corpus/knowledge/credential-isolation.md row_linked=2 by_hand=-
+ENTRY corpus/knowledge/drift-gate.md row_linked=2 by_hand=-
+ENTRY corpus/knowledge/feature-bound-credential-review.md row_linked=1 by_hand=-
+ENTRY corpus/knowledge/feed-token-boundaries.md row_linked=2 by_hand=-
+ENTRY corpus/knowledge/handler-on-disk-state.md row_linked=2 by_hand=-
+ENTRY corpus/knowledge/handler-trust-boundary.md row_linked=0 by_hand=control-plane-scratch
+ENTRY corpus/knowledge/janitor-command-surface.md row_linked=2 by_hand=-
+ENTRY corpus/knowledge/janitor-env-contract.md row_linked=2 by_hand=-
+ENTRY corpus/knowledge/janitor-lifecycle.md row_linked=2 by_hand=-
+ENTRY corpus/knowledge/onepassword-machine-credentials.md row_linked=1 by_hand=-
+ENTRY corpus/knowledge/op-cli-surface.md row_linked=2 by_hand=-
+ENTRY corpus/knowledge/op-env-refs.md row_linked=3 by_hand=-
+ENTRY corpus/knowledge/op-ref-consumption.md row_linked=4 by_hand=-
+ENTRY corpus/knowledge/sops-age-key-rotation.md row_linked=1 by_hand=-
+ENTRY corpus/knowledge/substrate-deferral.md row_linked=2 by_hand=-
+ENTRY corpus/knowledge/surface-census.md row_linked=5 by_hand=-
+ENTRY corpus/knowledge/tac-evidence-integrity.md row_linked=2 by_hand=-
+ENTRY corpus/knowledge/transcript-hygiene.md row_linked=2 by_hand=-
+ENTRY corpus/knowledge/vault-openbao-token-lease-lifecycle.md row_linked=1 by_hand=-
+DOC_AUDIT_RATIO: row_linked=23/26 floor=13 by_hand=3 duplicate_reasons=0
+DOC_AUDIT: CLEAN (entries=26 row_linked=23 by_hand=3 undeclared=0 missing_ids=0 unpinned=0 duplicate_reasons=0)
+----->8-----

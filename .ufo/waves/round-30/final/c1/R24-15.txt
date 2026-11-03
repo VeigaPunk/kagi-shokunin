@@ -1,0 +1,25 @@
+row_id: R24-15
+round: 30 (C1 pre-integration measurement; values PROVISIONAL — they move again after C2/C3 land)
+tree: /home/vgpnk/Projects/shokunin/kagi-shokunin
+tree_head: b7482b4acc42413fbb3d49ab6e4f811fb18e9f0c
+measured_at_utc: 2026-11-03T18:12:25Z
+runner: cwd=tree root; timeout -k 5 120 bash -o pipefail -c '<cmd>' 2>&1; last non-empty line (claim-ledger.sh verify semantics)
+
+declared_command: bash corpus/row-identity.sh revision-added
+declared_expect: ^ROW_IDENTITY: revision-added count=28 sha256=80f8f3d7fb7220594e3b250f9a5eb6aebf44b02ee0944be6698ecdd0610110e6$
+declared_exit: 0
+declared_timeout: 120
+
+observed_exit: 0
+observed_last_line: ROW_IDENTITY: revision-added count=31 sha256=b0d0f6f582c22195d6613738db919b95938afe804884081777b59483a0eeac57
+declared_expect_matches_observed: no
+classification: number-drift (count+digest)
+
+new_command: bash corpus/row-identity.sh revision-added
+new_expect: ROW_IDENTITY: revision-added count=31 sha256=b0d0f6f582c22195d6613738db919b95938afe804884081777b59483a0eeac57
+new_expect_matches_observed_last_line: yes
+
+full_output (stdout+stderr):
+-----8<-----
+ROW_IDENTITY: revision-added count=31 sha256=b0d0f6f582c22195d6613738db919b95938afe804884081777b59483a0eeac57
+----->8-----

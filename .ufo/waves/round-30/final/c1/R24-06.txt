@@ -1,0 +1,25 @@
+row_id: R24-06
+round: 30 (C1 pre-integration measurement; values PROVISIONAL — they move again after C2/C3 land)
+tree: /home/vgpnk/Projects/shokunin/kagi-shokunin
+tree_head: b7482b4acc42413fbb3d49ab6e4f811fb18e9f0c
+measured_at_utc: 2026-11-03T18:12:25Z
+runner: cwd=tree root; timeout -k 5 30 bash -o pipefail -c '<cmd>' 2>&1; last non-empty line (claim-ledger.sh verify semantics)
+
+declared_command: bash corpus/row-identity.sh scorecard-rounds
+declared_expect: ^ROW_IDENTITY: scorecard-rounds count=34 sha256=567453c92c098c03f18eb65a9841df972525f14367ccd8ef59bca099effc4134$
+declared_exit: 0
+declared_timeout: 30
+
+observed_exit: 0
+observed_last_line: ROW_IDENTITY: scorecard-rounds count=35 sha256=92016a58b685618543b1eda6a6f0159d5a8de376e082f2a05af0ea5cf2edf89a
+declared_expect_matches_observed: no
+classification: number-drift (count+digest)
+
+new_command: bash corpus/row-identity.sh scorecard-rounds
+new_expect: ROW_IDENTITY: scorecard-rounds count=35 sha256=92016a58b685618543b1eda6a6f0159d5a8de376e082f2a05af0ea5cf2edf89a
+new_expect_matches_observed_last_line: yes
+
+full_output (stdout+stderr):
+-----8<-----
+ROW_IDENTITY: scorecard-rounds count=35 sha256=92016a58b685618543b1eda6a6f0159d5a8de376e082f2a05af0ea5cf2edf89a
+----->8-----

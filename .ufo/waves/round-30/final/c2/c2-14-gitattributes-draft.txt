@@ -1,0 +1,12 @@
+# .gitattributes draft for kagi-shokunin (round 30, C2)
+# Narrow, reviewed: no `*` blanket, no `text=auto`.
+# Measured blast radius on BASE f67232c (`git add --renormalize .`):
+#   N1 *.md *.tsv *.sh *.py        -> 3 files (exactly the drifted set)
+#   N2 N1 + *.json                 -> 8 files (3 drifted + 5 round-29 receipt JSONs)
+#   N3 N2 + `.ufo/** -text -eol`   -> 3 files (exactly the drifted set)
+*.md text eol=lf
+*.tsv text eol=lf
+*.sh text eol=lf
+*.py text eol=lf
+*.json text eol=lf
+.ufo/** -text -eol

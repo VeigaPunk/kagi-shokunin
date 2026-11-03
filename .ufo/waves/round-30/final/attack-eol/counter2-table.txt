@@ -1,0 +1,16 @@
+=== counter 2 — frozen form vs scoped form ===
+command frozen: grep -rIl $'\r' --exclude-dir=.git --exclude-dir=.jj . | wc -l
+command scoped: same + --exclude-dir=.ufo
+
+tree                               frozen     scoped  
+raw BASE archive f67232c           135        3       
+LF mirror (pristine, 3 stripped)   132        0       
+mutant c2-m1                       133        1       
+mutant c2-m2                       133        1       
+mutant c2-m3                       133        1       
+all-CR-stripped tree               0          0       
+live lane worktree (15:45)         165        0       
+
+NOTE: the 132 frozen-form files in every repaired/mirror tree are committed .ufo/waves CRLF artifacts
+(HTTP --dump-header captures per RFC 7230, round-29 final/*.json, retained-probe node_modules).
+The frozen command can therefore NEVER print 0 in this repo; scoped form is the satisfiable one.

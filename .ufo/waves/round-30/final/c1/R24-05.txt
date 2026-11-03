@@ -1,0 +1,25 @@
+row_id: R24-05
+round: 30 (C1 pre-integration measurement; values PROVISIONAL — they move again after C2/C3 land)
+tree: /home/vgpnk/Projects/shokunin/kagi-shokunin
+tree_head: b7482b4acc42413fbb3d49ab6e4f811fb18e9f0c
+measured_at_utc: 2026-11-03T18:12:25Z
+runner: cwd=tree root; timeout -k 5 30 bash -o pipefail -c '<cmd>' 2>&1; last non-empty line (claim-ledger.sh verify semantics)
+
+declared_command: bash corpus/row-identity.sh stamps
+declared_expect: ^ROW_IDENTITY: stamps count=91 sha256=14663dcd2ee9f3528c6c233cf426f13b6db93ca9767eda0758fd7a2196d4b264$
+declared_exit: 0
+declared_timeout: 30
+
+observed_exit: 0
+observed_last_line: ROW_IDENTITY: stamps count=94 sha256=94df9364048a72da259278023e74fe5e6658efa289e2a4dc2a3af0c6c3abc72c
+declared_expect_matches_observed: no
+classification: number-drift (count+digest)
+
+new_command: bash corpus/row-identity.sh stamps
+new_expect: ROW_IDENTITY: stamps count=94 sha256=94df9364048a72da259278023e74fe5e6658efa289e2a4dc2a3af0c6c3abc72c
+new_expect_matches_observed_last_line: yes
+
+full_output (stdout+stderr):
+-----8<-----
+ROW_IDENTITY: stamps count=94 sha256=94df9364048a72da259278023e74fe5e6658efa289e2a4dc2a3af0c6c3abc72c
+----->8-----

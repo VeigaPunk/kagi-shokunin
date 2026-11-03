@@ -1,0 +1,11 @@
+=== M4 end-to-end bracket ===
+--- WRONG draft (*.md text eol=crlf), fresh clone:
+census: exit=1 E12=52
+checklist: exit=2 SETUP
+non-ufo CR files: 99 (all *.md)
+git status tracked-modified: 5 (.ufo JSONs only; md drift hidden)
+
+--- CORRECT draft (5-line eol=lf), fresh clone:
+census: exit=0 E12=0 W04=14
+checklist: exit=0 CHECKLIST_RATIO: runnable=9/16 floor=8 by_hand=7 delegated=3 direct=6
+non-ufo CR files: 0

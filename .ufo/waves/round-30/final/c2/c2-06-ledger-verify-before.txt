@@ -1,0 +1,49 @@
+HOST-SKIP R11-01 reason=host-row-not-authorized
+HOST-SKIP R11-02 reason=host-row-not-authorized
+HOST-SKIP R11-03 reason=host-row-not-authorized
+HOST-SKIP R11-04 reason=host-row-not-authorized
+HOST-SKIP R11-06 reason=host-row-not-authorized
+FAIL R11-08 reason=exit-mismatch exit=1 want=0
+HOST-SKIP R12-01 reason=host-row-not-authorized
+FAIL R12-03 reason=verdict-not-final exit=0
+FAIL R13-01 reason=verdict-not-final exit=0
+FAIL R14-01 reason=verdict-not-final exit=0
+HOST-SKIP R15-01 reason=host-row-not-authorized
+FAIL R15-05 reason=exit-mismatch exit=2 want=0
+HOST-SKIP R13-03 reason=host-row-not-authorized
+HOST-SKIP R16-01 reason=host-row-not-authorized
+HOST-SKIP R16-03 reason=host-row-not-authorized
+HOST-SKIP R17-01 reason=host-row-not-authorized
+HOST-SKIP R18-01 reason=host-row-not-authorized
+FAIL R21-02 reason=verdict-not-final exit=0
+FAIL R21-04 reason=verdict-not-final exit=0
+FAIL R22-03 reason=exit-mismatch exit=2 want=0
+FAIL R24-05 reason=verdict-not-final exit=0
+FAIL R24-06 reason=verdict-not-final exit=0
+FAIL R24-14 reason=verdict-not-final exit=0
+FAIL R24-15 reason=exit-mismatch exit=2 want=0
+FAIL R25-02 reason=exit-mismatch exit=2 want=0
+POLICY R29-01 reason=first-token:python
+POLICY R29-02 reason=first-token:python
+LABELED-ID LOG.md:401 R13-99 (labelled on its line)
+LABELED-ID LOG.md:417 R12-03a (labelled on its line)
+LABELED-ID LOG.md:418 xR12-01 (labelled on its line)
+LABELED-ID SCORECARD.md:108 R13-99 (labelled on its line)
+LABELED-ID SKILL.md:659 R9-99 (labelled on its line)
+LABELED-ID corpus/knowledge/claim-ledger.md:142 R13-99 (labelled on its line)
+LABELED-ID corpus/knowledge/claim-ledger.md:147 R12-03a (labelled on its line)
+LABELED-ID corpus/knowledge/claim-ledger.md:147 xR12-01 (labelled on its line)
+LABELED-ID corpus/knowledge/claim-ledger.md:258 R9-99 (labelled on its line)
+LABELED-ID corpus/knowledge/claim-ledger.md:267 R13-99 (labelled on its line)
+LABELED-ID corpus/knowledge/claim-ledger.md:267 R13-99 (labelled on its line)
+LABELED-ID corpus/knowledge/claim-ledger.md:485 R13-99 (labelled on its line)
+LABELED-ID corpus/lessons/round-13.md:22 R13-99 (labelled on its line)
+LABELED-ID corpus/lessons/round-13.md:22 R12-88 (labelled on its line)
+LABELED-ID corpus/lessons/round-13.md:102 R12-03a (labelled on its line)
+LABELED-ID corpus/lessons/round-14.md:17 R13-99 (labelled on its line)
+LABELED-ID corpus/lessons/round-14.md:118 R99-99 (labelled on its line)
+LABELED-ID corpus/lessons/round-23.md:92 R1-01 (labelled on its line)
+LABELED-ID corpus/lessons/round-23.md:166 R90-01 (labelled on its line)
+LABELED-ID corpus/lessons/round-23.md:166 R90-02 (labelled on its line)
+CLAIM_LEDGER: POLICY (claims=67 policy=2 stamped=94)
+EXIT=2

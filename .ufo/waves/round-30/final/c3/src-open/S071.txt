@@ -1,0 +1,35 @@
+id: S071
+url: https://trufflesecurity.com/docs/how-we-handle-your-data
+date: 2026-11-03
+profile: curl -fsSL --max-time 30 <url>
+http: 200
+final-url: https://trufflesecurity.com/docs/how-we-handle-your-data
+content-type: text/html; charset=utf-8
+last-modified: Tue, 03 Nov 2026 10:20:23 GMT
+size: 161061
+sha256: 2c85abe9e3f842a703ea0a8671230f63ed223233b3590c3c7a3da3f0151b5914
+sha16: 2c85abe9e3f842a7
+staged-sha16: aef5f76a64c9565a
+prefix-match: MISMATCH
+
+quote: Credentials are verified using safe, read-only API calls
+located-count (raw grep -cF on HTML): 2  [lines 12, 14]
+occurrences: 2 (offset 55646 rendered list item, offset 141749 archbee JSON payload)
+rendered-text-v1 locate: 1
+quote-verdict: LOCATED ("- **Immediate Verification** - Credentials are verified using safe, read-only API calls", Key Security Principles item 3)
+
+route note:
+- HTML route /docs/how-we-handle-your-data    : 161061 bytes, sha16 2c85abe9e3f842a7, quote grep-c 2 / occurrences 2
+- .md route  /docs/how-we-handle-your-data.md : 4071 bytes, sha16 1092a349780e0650, quote grep-c 1, line 17 — byte-identical across refetches; the .md carries the whole page as selectable text with no duplicate payload
+- This says nothing about the staged row's intent: the staged recheck cell already expects "-> 2 matching lines" for this row, and raw HTML today returns exactly 2. The count is intact.
+
+supporting anchors (found in the .md route, and rendered text of HTML):
+- "Read-only API calls only" and "No state-changing operations" under §"Verification Safety" — both present.
+- "cryptographic fingerprints and metadata" — present (§"Storage").
+- §"What We Don't Do" heading — present.
+
+digest-attribution:
+- HTML is stable within today (repeat fetches byte-identical), and carries the same Next.js `buildId` as the other three trufflesecurity docs pages; the page was rebuilt since 2026-10-23, so the staged digest legitimately differs.
+- No variant reproduced aef5f76a64c9565a: gzip-wire 9d2b08a5..., brotli-decoded 9c773ec3..., beacon-stripped 01d61f3c..., .md route 1092a349..., CRLF/tag-stripped/host-variant/UA combinations all differ. archive.org unreachable (HTTP 429). Staged digest is non-reproducing and un-attributable from here.
+
+verdict: FETCHED ok / QUOTE LOCATED (2 lines as the staged recheck expects) / PREFIX MISMATCH (un-attributable; page rebuilt since 2026-10-23)

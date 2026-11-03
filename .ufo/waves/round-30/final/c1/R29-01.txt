@@ -1,0 +1,40 @@
+row_id: R29-01
+round: 30 (C1 pre-integration measurement; values PROVISIONAL — they move again after C2/C3 land)
+tree: /home/vgpnk/Projects/shokunin/kagi-shokunin
+tree_head: b7482b4acc42413fbb3d49ab6e4f811fb18e9f0c
+measured_at_utc: 2026-11-03T18:12:25Z
+runner: cwd=tree root; timeout -k 5 60 bash -o pipefail -c '<cmd>' 2>&1; last non-empty line (claim-ledger.sh verify semantics)
+
+declared_command: python -I -B corpus/feed-token-agree.py --selftest
+declared_expect: ^FEED_TOKEN_AGREE_SELFTEST: PASS \(4 cases\)$
+declared_exit: 0
+declared_timeout: 60
+
+observed_exit: 0
+observed_last_line: FEED_TOKEN_AGREE_SELFTEST: PASS (4 cases)
+declared_expect_matches_observed: yes
+classification: static-policy (first-token:python) — not a number move, gate is behaving as designed
+
+new_command: python3 -B corpus/feed-token-agree.py --selftest
+new_expect: FEED_TOKEN_AGREE_SELFTEST: PASS \(4 cases\)
+new_expect_matches_observed_last_line: yes
+
+runtime_evidence (this host has /usr/bin/python = Python 3.14.8, so the declared row also runs):
+  python -I -B <declared>      -> exit=0 last=FEED_TOKEN_AGREE_SELFTEST: PASS (4 cases)
+  python3 -I -B (plan token)   -> exit=0 last=FEED_TOKEN_AGREE_SELFTEST: PASS (4 cases) (expect_matches=yes)
+  python3 -B (draft token)     -> exit=0 last=FEED_TOKEN_AGREE_SELFTEST: PASS (4 cases)
+  python3 (archive copy, no flag) -> exit=0, last line identical (see _feed-token-no-flags.txt),
+                                    but live mode then writes corpus/__pycache__/release-clock.cpython-314.pyc (selftest mode writes none) -> `-B` is kept, `-I` is not (see _bytecode-attribution.txt)
+
+gate_policy_evidence (policy_check via claim-ledger.sh verify; see _policy-matrix.txt):
+  python -I -B <declared>                       -> POLICY reason=first-token:python
+  python3 -I -B <plan-prescribed token>         -> POLICY reason=python-script  <-- plan fix INSUFFICIENT
+  python3 -B <draft token>                      -> POLICY reason=python-script  <-- flags + registration still needed
+  python3 -I -B corpus/revision-audit.py --selftest -> POLICY reason=python-script (flags alone break the pattern)
+  python3 corpus/revision-audit.py --selftest       -> allowed (registered script)
+  consequence: passing needs feed-token-agree added to PYTHON_SCRIPT_RE — gate code, not a recorded value.
+
+full_output (stdout+stderr):
+-----8<-----
+FEED_TOKEN_AGREE_SELFTEST: PASS (4 cases)
+----->8-----

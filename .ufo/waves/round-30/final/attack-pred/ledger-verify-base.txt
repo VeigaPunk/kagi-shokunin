@@ -1,0 +1,17 @@
+claim-ledger.sh verify @BASE (exit=2)
+FAIL R11-08 reason=exit-mismatch exit=1 want=0
+FAIL R12-03 reason=verdict-not-final exit=0
+FAIL R13-01 reason=verdict-not-final exit=0
+FAIL R14-01 reason=verdict-not-final exit=0
+FAIL R15-05 reason=exit-mismatch exit=2 want=0
+FAIL R21-02 reason=verdict-not-final exit=0
+FAIL R21-04 reason=verdict-not-final exit=0
+FAIL R22-03 reason=exit-mismatch exit=2 want=0
+FAIL R24-05 reason=verdict-not-final exit=0
+FAIL R24-06 reason=verdict-not-final exit=0
+FAIL R24-14 reason=verdict-not-final exit=0
+FAIL R24-15 reason=exit-mismatch exit=2 want=0
+FAIL R25-02 reason=exit-mismatch exit=2 want=0
+POLICY R29-01 reason=first-token:python
+POLICY R29-02 reason=first-token:python
+CLAIM_LEDGER: POLICY (claims=67 policy=2 stamped=94)

@@ -1,0 +1,30 @@
+=== M4 — wrong .gitattributes pattern `*.md text eol=crlf` (clean LF-index fixture) ===
+-- git check-attr eol -- SKILL.md corpus/SOURCES.md corpus/claim-ledger.tsv
+SKILL.md: eol: crlf
+corpus/SOURCES.md: eol: crlf
+corpus/claim-ledger.tsv: eol: crlf
+
+-- fresh checkout under the wrong draft:
+   SKILL.md                   worktree_CR=813 idx=i/lf
+   corpus/SOURCES.md          worktree_CR=193 idx=i/lf
+   corpus/claim-ledger.tsv    worktree_CR=85 idx=i/lf
+   git status --short: []  <-- drift INVISIBLE
+
+-- fresh --no-local clone under the wrong draft: 99 non-.ufo *.md CRLF; census exit 1 E12=52; checklist SETUP exit 2
+
+=== correct 5-line draft control ===
+SKILL.md: eol: lf
+corpus/SOURCES.md: eol: lf
+corpus/claim-ledger.tsv: eol: lf
+
+=== R30-02 proposed attribute counter vs overrides ===
+=== R30-02 proposed counter (plan correction 1 item 6) vs counterexamples ===
+canonical        R30-02=5  check-attr(SKILL,SOURCES,ledger)=lf,lf,lf,
+override         R30-02=5  check-attr(SKILL,SOURCES,ledger)=crlf,crlf,lf,
+trailing-space   R30-02=4  check-attr(SKILL,SOURCES,ledger)=lf,lf,lf,
+uppercase        R30-02=4  check-attr(SKILL,SOURCES,ledger)=lf,lf,lf,
+
+Note: R30-02 form (`grep -cE ^\*\.(md|tsv|sh|py|json) text eol=lf$`) counts lines, so a LATER
+override line (`*.md text eol=crlf`) keeps count=5 while the ruling flips to crlf (row above).
+A per-file assertion (`git check-attr eol -- <3 files> | awk "{print \\$3}" | grep -cx lf` => 3)
+observes the actual ruling and kills the override mutant.

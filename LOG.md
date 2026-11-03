@@ -1642,3 +1642,13 @@ the frontier/capability move; the lowest-axis obligation is waived.
   SCORECARD table. Verdicts: C1 freshness behaviour measured, 9 → 9;
   C2 capability acquired; no axis harmed; outside admission is the
   operator's.
+
+## Round 30 (2026-11-03) — routed-defect closure (D1–D5); EOL drift repair; secret-scanning adoption
+
+Frozen BASE `f67232c`; plan `b7482b4` (alone, QM29); plan correction 1 `d163290` (alone, before any work commit, after the attack seats measured the BASE controls). Claims: C1 calibration (ledger and doc pins to observed state), C2 freshness (routed D5: silent LF→CRLF on three lane files), C3 coverage (assimilation §10: one theme, secret scanning detection versus verification, three entries, eight registry rows).
+
+- C1 (partial, reported): `self-counts.py` stale 8 → 0 (SKILL.md:46, PROVINCE.md:73, README.md:64/65/67 corrected), but the counter exits 2 (`POLICY`) on the two round-29 feed-token bindings whose commands the ledger policy refuses. Ledger rows migrated to measured values: R12-03, R13-01, R14-01, R21-02, R21-04, R22-03, R24-05, R24-06, R24-14, R24-15 (old→new in each row note). Not migrated and routed: R25-02 (blocked by the same policy bindings), R29-01 and R29-02 (gate-policy registration of `feed-token-agree`); see lesson §Plan corrections and §C1.
+- C2: `.gitattributes` (five text classes at eol=lf; `.ufo/**` excluded after the sentinel's H7 finding), the three files restored to LF, `corpus/eol-sweep.sh` as standing gate `R30-01` (red witness exit 1). Fleet census E12 ×52 → exit 0; checklist ratio restored.
+- C3: S053–S060 appended (campaign ids S066–S073 mapped per document; S052 collision proven in scratch); `corpus/knowledge/secret-scanning-detection-vs-validation.md`, `betterleaks-detection-vs-validation.md`, `trufflehog-verification-lifecycle.md` admitted (Betterleaks refused as staged, CEL clause removed); capture rows 96–103; lane census CLEAN rows=60.
+- Mistakes M30-1..M30-7 mined (`corpus/lessons/round-30.md` §Mistakes); QM31 added to `corpus/QUALITY.md`.
+- Measurements, exits and receipts: `.ufo/reports/round-30/kagi.md` (measured revision cited there).

@@ -1,0 +1,27 @@
+id: S067
+url: https://raw.githubusercontent.com/trufflesecurity/trufflehog/main/README.md
+date: 2026-11-03
+profile: curl -fsSL --max-time 30 <url>
+http: 200
+final-url: https://raw.githubusercontent.com/trufflesecurity/trufflehog/main/README.md
+content-type: text/plain; charset=utf-8
+size: 38524
+sha256: 7cf6efb50ab892347b1fa3bee77592603b371b066b6b1659fcc2c56a62e6eff7
+sha16: 7cf6efb50ab89234
+staged-sha16: 068fbb5c93eb993d
+prefix-match: MISMATCH
+
+quote: it can also log in to confirm if that secret is live or not
+located-count (raw grep -cF): 1
+located-count (rendered-text-v1 locate): 1
+first-line: 53
+line-note: under the §"Validation" heading; the full sentence is "For every secret TruffleHog can classify, it can also log in to confirm if that secret is live or not."
+quote-verdict: LOCATED (quote unchanged; the source moved around it)
+
+digest-attribution (why the mismatch is bookkeeping, not drift of the quote):
+- README at the staged pin d6ea4a52e3f4705989210e60e9f0da0deafe84bf: 38515 bytes, sha16 068fbb5c93eb993d — reproduces the staged digest EXACTLY.
+- README at today's main HEAD 240ccdd9061905ed3d7cbe05c01565f0ccf0cd0a (committed 2026-11-03T17:38:10Z): 38524 bytes, sha16 7cf6efb50ab89234 — identical to today's main.
+- full diff pinned -> main is ONE line (line 573): "Find credentials in HuggingFace datasets, models and spaces." -> "Find credentials in HuggingFace datasets, models, spaces and buckets."
+- so the staged digest is a true point attestation of the pinned commit; today's main has moved by one unrelated line. An adopting row should pin the revision it captured (main is a moving ref and the census requires a 40-hex revision for raw.githubusercontent.com URLs).
+
+verdict: FETCHED ok / QUOTE LOCATED / PREFIX MISMATCH (staged digest reproduces at pinned commit d6ea4a52; main advanced one line)

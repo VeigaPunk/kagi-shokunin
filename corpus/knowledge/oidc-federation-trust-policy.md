@@ -45,7 +45,7 @@ That is why a trust policy that checks `iss` and `sub` but omits `aud` leaves th
 token's application-binding unchecked — the gap RFC 9700's audience-restriction
 guidance exists to close [S068]. RFC 9700 states the same rule on the
 resource-server side, written for access tokens: the resource server "is then
-supposed to verify the intended audience", and "if the access token fails the
+supposed to verify the intended audience", and "If the access token fails the
 intended audience validation, the resource server refuses to serve the respective
 request" [S068]. The recommendation to use that audience restriction is
 SHOULD-level and its scope is access tokens; the ID-token case this entry is

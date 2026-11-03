@@ -12,7 +12,7 @@ Reverify: R21-02
 The round-1 ledger recorded Betterleaks as "a Gitleaks fork" and asked whether it
 changed detection semantics. The repository record says otherwise: the GitHub
 repository search returns `betterleaks/betterleaks` with `"fork": false`,
-2322 stars and a push on 2026-10-22 [S056]. It is an independent project with its
+2322 stars and a push on 2026-10-22 at the campaign capture; re-opened 2026-11-03: 2776 stars and a push on 2026-11-03 (point observations, not properties) [S056]. It is an independent project with its
 own design, not a patch set on Gitleaks, and its rules therefore cannot be read
 through Gitleaks's documentation.
 
@@ -69,8 +69,7 @@ Two further cautions follow from the README's own wording:
 - It does not compare Betterleaks' rule set with Gitleaks' or TruffleHog's rules;
   this entry does not open those rule sets. A comparison needs a shared
   corpus and a shared metric, neither of which exists here.
-- It does not extend to Betterleaks' optional revocation stage, which the
-  features table lists but the README does not describe in operational detail.
+- It does not describe Betterleaks' optional revocation stage beyond the README's own text: a rule may define an optional `revoke` Expr, `betterleaks revoke --rule <id>` executes it, and "Scans never run revocation" (re-opened 2026-11-03), so a rule hit never means a credential was revoked [S055].
 - It does not claim the project is stable: `main` is a development branch, and
   the round-1 Gitleaks fork-network page could not be used to enumerate forks
   (see the round-2 rejection ledger).

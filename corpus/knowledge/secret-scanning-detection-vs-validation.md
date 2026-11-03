@@ -68,9 +68,6 @@ counts only `verified` and reports nothing about `unknown` has silently converte
 - It does not extend to GitHub's own secret-scanning product, whose validity-check
   semantics the lane holds only as an opened-but-unwritten row (S048).
 - It does not cover the **Betterleaks** project, whose stage model is the subject of the Betterleaks entry (rows S055-S056).
-- It does not claim that TruffleHog's `unverified` and `unknown` are distinct
-  *policy* categories in the tool's own documentation; the README exposes the
-  flags but does not define the distinction, so the table above is this lane's
-  reading of the flag vocabulary, not a quotation of the vendor's definitions.
+- It does not claim that TruffleHog's `unverified` and `unknown` are undefined by the tool. The README's section "What is credential verification?" (pinned commit `d6ea4a52`, line 422; re-opened 2026-11-03) defines `unverified` as "Credential detected but not confirmed valid (may be invalid, expired, or verification disabled)" and `unknown` as "Verification attempted but failed due to errors, such as a network or API failure". The table above paraphrases those definitions and adds no fourth status.
 
 ---

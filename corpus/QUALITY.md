@@ -146,3 +146,15 @@ behavioral assertion body. Fresh evidence and rejected broader reading:
 | id | criterion | weak signal | lesson |
 |---|---|---|---|
 | QM31 | Supplements QM6/QM12: committed text bytes are a checked property of the lane, not an artifact of the host that last wrote them. Text classes carry `eol=lf` in `.gitattributes` with `.ufo/**` excluded (committed capture evidence keeps its bytes), and `corpus/eol-sweep.sh` (ledger `R30-01`) fails when a text file outside `.git`/`.jj`/`.ufo` carries CRLF or the attribute set drops. A counter whose pipeline the claim-ledger policy refuses (`$'\r'`, `\|`) is re-scoped to a registered script before it counts. | three lane files converted LF→CRLF on a foreign host and landed unnoticed; a census that reads zero registry rows as an opaque E12 wall; a `.gitattributes` glob that renormalizes committed evidence | `corpus/lessons/round-30.md` M30-1, M30-2; `corpus/eol-sweep.sh` |
+
+## Criterion from the round-30 M30-4 routing (landed round 31)
+
+| id | criterion | weak signal | lesson |
+|---|---|---|---|
+| QM32 | Supplements QM13/QM29: a plan that touches a gate enumerates every red row that gate prints at BASE — from a measured run committed with the plan, not from prose — and names each red as claimed or routed before the plan freezes; a FAIL/POLICY row that belongs to no claim is a plan defect, and the pre-data attack is what catches it. | a plan naming "the routed six" from the spot-check text while the counter prints eight (round-30 M30-3); a FAIL row belonging to no claim (round-30 R25-02, unowned at its BASE) | `corpus/lessons/round-30.md` §Mistakes M30-4 (the proposal); `corpus/lessons/round-31.md` §Mistakes M31-1 (landed here, with the round-30 plan as the red witness it fails) |
+
+QM32's fix shown able to fail: the round-30 plan (`plans/round-30.md` as committed at
+`b7482b4`) freezes C1 with R25-02 already FAIL at BASE and named in no claim — applying
+QM32 to that plan fires. The round-31 plan carries the measured BASE controls
+(`.ufo/waves/round-31/controls/`) and names every red row of every gate it touches
+(R25-02, R29-01, R29-02 routed; the ten migrations claimed).

@@ -9,6 +9,22 @@ not a feeling about the domain. Every cell carries an evidence pointer a third
 party can re-run; ceilings are named in the same cell, because an unqualified
 high score is the calibration failure this file exists to prevent.
 
+## Lane status
+
+lane-status: open — as-of:2026-11-03 — dispatch unblocked; 3 operator-routed reds (R25-02,R29-01,R29-02) stay red
+
+One `lane-status:` line per the round-31 convention (mined from
+`considerthese/2026-10-26.md` proposal 2; the lesson carries the contract): a
+lane-authored self-declaration about dispatch posture, never a control — the
+operator's holds live in the fleet root's `.ufo/l0-questions.md` and
+`MANIFEST.json`, and no driver reads this file. "Open" is a dispatch fact
+(rounds 29-31 were dispatched and ran); round 30's closure verdict
+(`rejected-honest-stop`, `admitted: false`) is a different fact and is not
+conflated here. The three routed reds are named so the line cannot read as
+"everything is fine". Recheck: on-release — the line is re-asserted whenever
+the dispatch state changes, and the `as-of:` date is the staleness signal.
+
+
 ## Round 9 — pre-move (repo `HEAD` `ea77bf0`, round-8 close)
 
 | Axis | Score | Evidence pointer | Last change |
@@ -1015,7 +1031,7 @@ spot-check. All original source rows, stamp paths and ledger IDs retained.
 Planned next (not executed): work the named knowledge-entry numeric drift and
 multi-claim quote coverage; no next-round claim or driver action here.
 
-## Round 26 — bounded release-drift response
+## Round 26 — post-move (bounded release-drift response)
 
 Frozen BASE: `1bf3eec48d3761580ffd375c88143232485ae814`; one declared
 claim C1, freshness (a tied-lowest non-retired axis), `plans/round-26.md`.
@@ -1079,7 +1095,7 @@ by the bounded source/rearm response; discernment unchanged pending fresh
 outside admit/reject review. All axes remain9; no new capability, coverage
 ground, retirement, promotion or next-round work is credited.
 
-## Round 27 — knowledge numbers bound; release clocks refuse silent regression
+## Round 27 — post-move (knowledge numbers bound; release clocks refuse silent regression)
 
 Frozen BASE `0a47dd189356ea66ec83c3891eed54526e95b89b`; claims C1 calibration
 and C2 freshness (`plans/round-27.md`), both on tied-lowest axes at 9. The last
@@ -1107,7 +1123,7 @@ downgrade fixtures accepted CLEAN 4/4 → 0/4, REGRESSED exact 0/4 → 4/4,
 control/default CLEAN30, clock selftest 67 → 79; separability holds except the
 declared SC/PV-CLOCK-SELFTEST edge. Axis scores stay as stated (9 → 9).
 
-## Round 28 — post-move: canonical version tokens; derived anchors bound to feed rows
+## Round 28 — post-move (canonical version tokens; derived anchors bound to feed rows)
 
 Frozen BASE `3553d499577084a6c98d7078906017840bbf7b28`; claims file and START census committed alone
 first (`bdf90f58e43fdcae6291224197afe17812a16b55`). Declared C1 freshness and C2 calibration
@@ -1178,7 +1194,7 @@ seats re-run the committed counters. Two consequences for this section:
 
 No axis score changes. Outside admission remains the operator`s.
 
-## Round 29 — post-move: feed-token right boundary; differential agreement gate (new host)
+## Round 29 — post-move (feed-token right boundary; differential agreement gate on the new host)
 
 Frozen BASE `c49023b773b69de983f0e6eb7e5867ceb5c2c634`; plan+START census
 `66d1a2c`; corrections `47a46d1` (alone, before work, QM29); instruments/gate/
@@ -1197,11 +1213,11 @@ touch only `corpus/release-clock.py`); C2's gate verified red against BASE
 
 | Axis | Before → after | Evidence and bounded interpretation |
 |---|---|---|
-| freshness | 9 → 9 | C1: the three feed extractors take the `STABLE_TOKEN_RE` right boundary (S052: a title's trailing period is content), so a period-suffixed token is extracted then judged — the round-28 D1 fail-open (silent drop to CLEAN / canonical release invisible) is closed by the frozen recipe plus its two feed-path selftest cases (114 → 116). Frozen instrument `.ufo/waves/round-29/tools/c1-measure.py`: NF MISHANDLED 5/7 → 0/7, CORRECT 2/7 → 7/7; round-28 counter replay stays MISHANDLED 0/4, TYPED 4/4; default control CLEAN30. `receipt mode or fields` at BASE on this host was a pre-existing POSIX-only assertion (M29-1), POSIX-scoped per Correction 1. |
-| calibration | 9 → 9 | No scalar move claimed. Three mistakes mined with fixes shown able to fail (M29-1 host-property assertion, M29-2 host environment: python3 Store stub + NTFS case collision, M29-3 unmeasurable-in-time full verify); QM30 enters QUALITY.md; new self-counts bindings verified individually (12/12, 4/4, 116) with the QM12 substitute because full `verify`/`self-counts` exceed 300 s/240 s here (M29-3). Scores remain author-assigned; outside admission stays the operator's. |
+| freshness | 9 → 9 | C1: the three feed extractors take the `STABLE_TOKEN_RE` right boundary (S052: a title's trailing period is content), so a period-suffixed token is extracted then judged — the round-28 D1 fail-open (silent drop to CLEAN / canonical release invisible) is closed by the frozen recipe plus its two feed-path selftest cases (114 → 116). Frozen instrument `.ufo/waves/round-29/tools/c1-measure.py`: NF MISHANDLED 5/7 → 0/7, CORRECT 2/7 → 7/7; round-28 counter replay stays MISHANDLED 0/4, TYPED 4/4; default control CLEAN30. `receipt mode or fields` at BASE on this host was a pre-existing POSIX-only assertion (M29-1), POSIX-scoped per Correction 1. Row `R29-01` |
+| calibration | 9 → 9 | No scalar move claimed. Three mistakes mined with fixes shown able to fail (M29-1 host-property assertion, M29-2 host environment: python3 Store stub + NTFS case collision, M29-3 unmeasurable-in-time full verify); QM30 enters QUALITY.md; new self-counts bindings verified individually (12/12, 4/4, 116) with the QM12 substitute because full `verify`/`self-counts` exceed 300 s/240 s here (M29-3). Scores remain author-assigned; outside admission stays the operator's.; rows `R29-01`, `R29-02` |
 | depth | 9 → 9 | `corpus/knowledge/feed-token-boundaries.md` adds the extraction contract, the agreement invariant, six bounds and four falsifiers — detail on the release-clock surface, not new domain scope; no vault/ref-resolved ground touched. |
-| coverage | 9 → 9 | Registry 51 → 52 (S052, one tier A spec row on an opened URL); the new gate covers the lane's own token-extraction surface, not a host surface; census CLEAN (rows=52) at the measured revision. |
-| operability | 9 → 9 | A ninth runnable gate mode-set (`feed-token-agree.py` verify + `--selftest`, exit 0/1/2, counts in the verdict line); nothing schedules any gate and the by-hand duties remain by-hand — the increment is claimed under C2/capability, not double-counted here. |
+| coverage | 9 → 9 | Registry 51 → 52 (S052, one tier A spec row on an opened URL); the new gate covers the lane's own token-extraction surface, not a host surface; census CLEAN (rows=52) at the measured revision.; row `R21-02` |
+| operability | 9 → 9 | A ninth runnable gate mode-set (`feed-token-agree.py` verify + `--selftest`, exit 0/1/2, counts in the verdict line); nothing schedules any gate and the by-hand duties remain by-hand — the increment is claimed under C2/capability, not double-counted here.; rows `R29-01`, `R29-02` |
 | adjacency | 9 → 9 | R17-02 unchanged; the gate imports this lane's own instrument and adjudicates nothing owned by siblings (chousa keeps the research method; no sibling claims workload-identity or scanner ground — round-21 sweep). The new host itself is reported (PROVINCE round-29 erratum), not absorbed into any other lane's surface list. |
 
 Measured revision, exact exits and receipts are appended below after the
@@ -1236,7 +1252,7 @@ exit 0; full verify/self-counts unmeasurable in time on this host (>300 s/
 remain 9; the capability row for `feed-token-agree.py` entered the
 capabilities table this round. Outside admission is the operator's.
 
-## Round 30 — post-move: routed-defect closure (D1–D5), EOL repair, secret-scanning adoption
+## Round 30 — post-move (routed-defect closure D1–D5, EOL repair, secret-scanning adoption)
 
 Frozen BASE `f67232c`; plan `b7482b4`; plan correction 1 `d163290` (before any work commit; `plans/round-30.md` §Correction 1). Claims: C1 calibration (owned), C2 freshness (owned), C3 coverage. No axis is scored up: the round's measured moves are recorded under each claim, and the lowest-axis obligation is met by C1 (all six axes stand at 9; last capability round 29, window 3, so the nudge does not fire).
 
@@ -1244,9 +1260,33 @@ Frozen BASE `f67232c`; plan `b7482b4`; plan correction 1 `d163290` (before any w
 |---|---|---|
 | calibration | 9 → 9 | C1 partial: `self-counts.py` stale 8 → 0 (eight doc cells corrected), but the counter exits 2 (`POLICY`) on two round-29 feed-token bindings the ledger policy refuses. Ledger rows migrated to measured values: R12-03, R13-01, R14-01, R21-02, R21-04, R22-03, R24-05, R24-06, R24-14, R24-15. Not migrated and routed: R25-02 (blocked by the same policy bindings), R29-01 and R29-02 (gate-policy registration). Pointers: `R30-01`, `R14-01`, `R21-02`. |
 | freshness | 9 → 9 | C2: CR files 3 → 0 outside `.ufo/`, `.gitattributes` with eol=lf (`.ufo/**` excluded), standing gate `R30-01` with a red witness (exit 1 on a planted CRLF); fleet census E12 ×52 exit 1 → exit 0; checklist ratio SETUP → CLEAN. Pointers: `R30-01`, `R21-02`. |
-| depth | 9 → 9 | No new mechanism claim; the three entries add vendor-documented detail inside the declared frontier area. |
+| depth | 9 → 9 | No new mechanism claim; the three entries add vendor-documented detail inside the declared frontier area. Stamped `corpus/knowledge/secret-scanning-detection-vs-validation.md` |
 | coverage | 9 → 9 | C3: registry 52 → 60 (eight tier-A/B rows opened 2026-11-03), three knowledge entries admitted with per-entry gates (one refused as staged and admitted after a logged flip), lane census CLEAN `entries_sourced=8 captures=60`. Pointers: `R21-02`. |
 | operability | 9 → 9 | `corpus/eol-sweep.sh` is a new runnable gate; every counter the round used runs on this host again. Nothing schedules any gate. |
-| adjacency | 9 → 9 | Connector sweep found no sibling claim on scanner, NIST or OIDC ground; the shokuknow package was read, never written. |
+| adjacency | 9 → 9 | Connector sweep found no sibling claim on scanner, NIST or OIDC ground; the shokuknow package was read, never written.; stamped `corpus/lessons/round-30.md` |
+
+Measured revision, exact exits and receipts are in the round report; no unrun result is stated here.
+
+## Round 31 — pre-move (repo `HEAD` `655e620`, round-30 close + verifier spot-checks)
+
+| Axis | Score | Evidence pointer | Last change |
+|---|---|---|---|
+| depth | 9 | Unchanged from round 29: the release-clock surface carries the extraction contract, agreement invariant and falsifiers; the refusal bounds (masking of ref-resolved values, item-level reads) stand; no new mechanism claim this round. Row `R29-01`. | round 29 |
+| coverage | 9 | Registry 60 rows, census CLEAN `entries_sourced=8 legacy=21 captures=60` at BASE (row `R21-02`); the OIDC workload-federation lead is unopened ground (`corpus/README.md` §Frontier since round 21). | round 30 |
+| operability | 9 | Nine gate mode-sets with verdicts + selftests; `eol-sweep.sh` re-runs green at BASE (row `R30-01`); nothing schedules any gate and the by-hand duties remain by-hand. | round 30 |
+| freshness | 9 | Every declared entry's re-verification link is gate-checked (`docs` mode inside `verify`, row `R14-01`); the 21 legacy entries stay the named gap (`corpus/README.md` §Known gaps). | round 29 |
+| calibration | 9 | Round-30 gates are green, but the scorecard cell audit has been unable to run since round 26: `bash corpus/claim-ledger.sh cells` at BASE dies with `unrecognised round heading` (five sections, rounds 26–30), exit 2, no CELL_AUDIT summary — the `RevScorecardShape` debt routed by the round-28 verifier. Control receipt `.ufo/waves/round-31/controls/cells-base.txt`. | round 30 |
+| adjacency | 9 | Ownership partition gate green (row `R17-02`); OIDC/workload-identity ground unclaimed by siblings (round-21/30 sweeps; re-swept this round, 0 hits over 20 lanes). | round 30 |
+
+## Round 31 — post-move (calibration + coverage axis-moves; C1 cell-audit re-arm, C2 OIDC adoption)
+
+| Axis | Before → after | What moved | Evidence |
+|---|---|---|---|
+| calibration | 9 → 9 | The scorecard cell audit is setup-clean again: the five round-26–30 headings reshaped into the parser's `pre-move|post-move` shape (content-preserving, +30 bytes, 1252→1264 lines), six never-audited round-29/30 cells given resolvable pointers, the full stamp set re-pinned under `LC_ALL=C`, and ten count/identity rows migrated to measured values with old→new records. The audit completes to a `CELL_AUDIT:` summary whose only non-clean rows are the three operator-routed ids. | Row `R31-01`; receipt `.ufo/waves/round-31/final/receipts/cells-at-tip.txt`; `corpus/lessons/round-31.md` §Migrations. Ceilings: the summary stays `POLICY` while R29-01/R29-02 are operator-blocked; pointer relevance remains unverifiable (round-13 ceiling). |
+| coverage | 9 → 9 | The OIDC workload-federation trust-policy theme moved from frontier lead to admitted knowledge: two entries (provider/protocol layer; 1Password custom-OIDC consuming side), 11 registry rows S061–S071 renumbered by document, 11 capture rows, every source re-opened 2026-11-03; census CLEAN rows=71 entries_sourced=10 captures=71. | Row `R31-02`; receipt `.ufo/waves/round-31/final/receipts/census-c2-at-tip.txt`; `corpus/lessons/round-31.md` §Gate. Ceilings: the census checks citation shape, not vendor truth; campaign-era anchor pins are kept as labelled history. |
+| depth | 9 → 9 | The new entry adds the federation-trust contract (three claims + permission output, four provider dialects, the session-boundary rule, bounds and falsifier) — detail on newly-held ground, not a new mechanism claim on held surfaces. | `corpus/knowledge/oidc-federation-trust-policy.md` (stamped); row `R31-02`. |
+| operability | 9 → 9 | No new gate; the round's counters are the existing census and cells modes re-run at the tip. Nothing schedules any gate; the by-hand duties remain by-hand. | Rows `R31-01`, `R31-02`. |
+| freshness | 9 → 9 | The two adopted entries carry provenance trios + `Reverify:` rows and enter every census/docs check; 9 of 11 campaign fetch pins recorded non-reproducing with in-round captures as the evidence. Not re-scored: the lane's freshness measurement set (host-file drift, surfaces, runtime shape) is unchanged. | Row `R31-02`; `corpus/source-fetches.tsv` lines 104–114. |
+| adjacency | 9 → 9 | Connector sweep over all 20 sibling lanes: 0 registry rows and 0 citations for the 11 adopted URLs; no sibling claims workload-identity ground — reported, not absorbed. The scorecard heading-shape class is kagi-local (0 of 20 siblings run a cells-equivalent gate). | `.ufo/waves/round-31/build/ConnOverlap.md`; row `R17-02`. |
 
 Measured revision, exact exits and receipts are in the round report; no unrun result is stated here.

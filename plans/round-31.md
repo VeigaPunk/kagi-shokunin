@@ -220,3 +220,43 @@ wave's attack seats:
 Round-31 self-consistency (AttackCells item 4): the round's own SCORECARD sections use
 `## Round 31 — pre-move (…)` / `## Round 31 — post-move (…)` headings from their first
 commit, so the re-armed audit never re-enters the debt state.
+
+## Plan correction 2 (pre-data; appended before the first work commit; from AttackPred F1–F10, AttackCells F1–F7)
+
+1. **C1 predicate tightened (F1/F2).** The CELL_AUDIT summary line must be the POLICY
+   field shape with `cells ≥ 222` (the simulated-tip population: 37 scored sections —
+   30 historical + the round's own two + the five reshaped — at 6 cells per section;
+   the ≥210 floor alone would let a silently dropped section pass at 204). The allowed
+   non-clean row set inside `cells` is exactly {R25-02 (FAIL), R29-01 (POLICY),
+   R29-02 (POLICY)} — **R11-08 is removed from the cells exception set**: its command is
+   `bash corpus/claim-ledger.sh citations`, so inside `cells` it is SKIP-SELF and never
+   prints; the report-pointer resolution fact belongs to full-`verify` receipts and the
+   lesson, not to this predicate. `HOST-SKIP`, `SKIP-SELF` and `LABELED-ID` lines are
+   named non-finding classes the receipt records, not reds.
+2. **C1 landing procedure frozen (F2/F3/F4).** Canonical rewrite =
+   `.ufo/waves/round-31/build/AttackCells-reshape.sed` (five anchored full-line
+   substitutions; diff-stat 5/5/5, +30 bytes, 1252 lines). Order is forced:
+   (a) SCORECARD edits; (b) `LC_ALL=C bash corpus/claim-ledger.sh stamp <every path in
+   stamps.tsv>` plus the round's new stamped artifacts in the same run (the re-pin is
+   locale-sensitive: ambient UTF-8 re-collates 22 rows; LC_ALL=C moves exactly the
+   changed rows); (c) the ten row migrations (correction 1's set, R13-01 included);
+   (d) the frozen cells receipt last. `corpus/claim-ledger.tsv` is itself stamped
+   (stamps.tsv row) and is covered by the full-set stamp run.
+3. **C2 counting commands extended (F8).** Beyond the census CLEAN line, the predicate's
+   per-row clauses get their own committed-bytes checks, both frozen:
+   `awk -F'|' '/^\|[[:space:]]*S(06[1-9]|07[01])[[:space:]]*\|/ {d=$10; gsub(/[[:space:]]/,"",d); if (d!="2026-11-03") print "bad-opened", $2}' corpus/SOURCES.md`
+   must print nothing, and every S-id on each new entry's `source:` line must be in
+   {S061..S071} (grep-extractable; the entries' ids are checked against the adopted set,
+   not against the whole registry).
+4. **C2 tier fallback made explicit (F9).** The staged JP product page row (staged S095)
+   may land tier B or C with the reason recorded; a tier-C row is a lead and never sole
+   support — entry 2 must keep at least one tier-A row (S069/S070) for its mechanism
+   claims, and the census's tier-A/B support check is the arbiter. The predicate's
+   "cite only … tier-A rows" clause is narrowed accordingly: every ADOPTED row is tier A
+   or B with the tier justified in the row; each entry keeps ≥1 tier-A support.
+5. **C2 post-window fallback (F10).** After the first work commit the plan-correction
+   window is closed: a staged source that then cannot be re-opened is refused in the
+   Gate block (reason + flip condition); the entry lands without it only if it keeps ≥1
+   tier-A support for every claim, else the entry is refused and C2 honest-stops for
+   that entry; the census counts move to the refused shape and the lesson records them.
+   No silent narrowing.

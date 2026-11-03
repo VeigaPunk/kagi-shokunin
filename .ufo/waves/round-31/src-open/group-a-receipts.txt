@@ -1,0 +1,138 @@
+# group-a-receipts.txt — SrcOpenA in-round re-open receipts (round 31 BUILD wave, C2 adoption)
+# Wave kagi-r31-build · seat SrcOpenA · date 2026-11-03 · host Arch Linux (omp)
+# Declared fetch profile: curl -fsSL --max-time 30 '<url>'
+# Bodies were fetched in /fast/scratch/hyaku/kagi-r31/src-opena (A1..A5), then deleted after these
+# receipts and the draft TSV were written. Every value below is pasted from an executed command.
+#
+# Attested capture per row = run1 (first fetch of the session). Runs 2 and 3 are stability probes:
+# same argv and profile; they decide the representation column (stable body vs volatile body).
+#
+# Draft id -> final lane id (plans/round-31.md C2; OidcEntry1 renumber map — by document, not arithmetic):
+#   A1 -> S061 (staged S052)   A2 -> S062 (staged S053)   A3 -> S063 (staged S054)
+#   A4 -> S064 (staged S055)   A5 -> S065 (staged S056)
+# Row-identity digest convention (corpus/sources-census.sh:262):
+#   sha256 over '<final-id>\t<status>\t<url>\n' — the exact bytes the census recomputes.
+
+===== A1 -> S061 =====
+URL-REGISTERED: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html
+ARGV(run1, attested): curl -fsSL --max-time 30 'https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html'
+EXIT: 0
+HTTP-STATUS(final response): 200
+FINAL-URL: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html
+REDIRECT: none (registered URL served directly)
+RAW-SHA256(run1): 141dd4819db34dc20ac4bbde5990c2db46458ddac961c7d67f403e6d94332508
+BYTES(run1): 51283
+STABILITY-PROBE-2: sha256=141dd4819db34dc20ac4bbde5990c2db46458ddac961c7d67f403e6d94332508 bytes=51283 identical run1
+STABILITY-PROBE-3: sha256=141dd4819db34dc20ac4bbde5990c2db46458ddac961c7d67f403e6d94332508 bytes=51283 identical run1
+NORMALIZE(run1): RENDERED_TEXT_V1: raw_sha256=141dd4819db34dc20ac4bbde5990c2db46458ddac961c7d67f403e6d94332508 bytes=51283 normalized_sha256=37de7130c478569ea68283c5a0f13683802651fd07b6bce4057926d6fca9aca8 normalized_bytes=20126
+NORMALIZE(run2): RENDERED_TEXT_V1: raw_sha256=141dd4819db34dc20ac4bbde5990c2db46458ddac961c7d67f403e6d94332508 bytes=51283 normalized_sha256=37de7130c478569ea68283c5a0f13683802651fd07b6bce4057926d6fca9aca8 normalized_bytes=20126
+QUOTE: The aud claim must match the Audience value
+WORDCOUNT(wc -w): 8
+LOCATE-RENDERED: RENDERED_TEXT_V1_LOCATE: count=1
+LOCATE-RAW(grep -c -F, one line): 1
+LOCATE-RAW(tr newline->space | grep -c -F): 1
+LOCATION: section Create an OpenID Connect (OIDC) identity provider in IAM, claims_supported list, aud bullet (raw line 158)
+NOTE: Content-Type text/html; three fetches byte-identical (51283 B).
+
+===== A2 -> S062 =====
+URL-REGISTERED: https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_iam-condition-keys.html
+ARGV(run1, attested): curl -fsSL --max-time 30 'https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_iam-condition-keys.html'
+EXIT: 0
+HTTP-STATUS(final response): 200
+FINAL-URL: https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_iam-condition-keys.html
+REDIRECT: none (registered URL served directly)
+RAW-SHA256(run1): fb5b2e35ec37c18b70d5bd9fd1ba61bd87bfaa1b4d0b7a3dfe12a44c24190ae3
+BYTES(run1): 185044
+STABILITY-PROBE-2: sha256=fb5b2e35ec37c18b70d5bd9fd1ba61bd87bfaa1b4d0b7a3dfe12a44c24190ae3 bytes=185044 identical run1
+STABILITY-PROBE-3: sha256=fb5b2e35ec37c18b70d5bd9fd1ba61bd87bfaa1b4d0b7a3dfe12a44c24190ae3 bytes=185044 identical run1
+NORMALIZE(run1): RENDERED_TEXT_V1: raw_sha256=fb5b2e35ec37c18b70d5bd9fd1ba61bd87bfaa1b4d0b7a3dfe12a44c24190ae3 bytes=185044 normalized_sha256=5db9d8032b6f7f01044f4ea5d5230e6b7c3370cde944c63533d6dd8a7af04299 normalized_bytes=68347
+NORMALIZE(run2): RENDERED_TEXT_V1: raw_sha256=fb5b2e35ec37c18b70d5bd9fd1ba61bd87bfaa1b4d0b7a3dfe12a44c24190ae3 bytes=185044 normalized_sha256=5db9d8032b6f7f01044f4ea5d5230e6b7c3370cde944c63533d6dd8a7af04299 normalized_bytes=68347
+QUOTE: the OIDC condition context key can only be used in a role trust policy for the initial AssumeRoleWithWebIdentity authentication
+WORDCOUNT(wc -w): 19
+LOCATE-RENDERED: RENDERED_TEXT_V1_LOCATE: count=1
+LOCATE-RAW(grep -c -F, one line): 0
+LOCATE-RAW(tr newline->space | grep -c -F): 0
+LOCATION: section Available keys for AWS OIDC federation, available-in-session paragraph above the IdP selector
+NOTE: Three fetches byte-identical (185044 B). Quote is markup-split in raw HTML (hard wrap + <a> around AssumeRoleWithWebIdentity): raw grep 0, rendered locate 1.
+
+===== A3 -> S063 =====
+URL-REGISTERED: https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRoleWithWebIdentity.html
+ARGV(run1, attested): curl -fsSL --max-time 30 'https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRoleWithWebIdentity.html'
+EXIT: 0
+HTTP-STATUS(final response): 200
+FINAL-URL: https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRoleWithWebIdentity.html
+REDIRECT: none (registered URL served directly)
+RAW-SHA256(run1): a08888ce4d86adf2afa428d4ed10a04c483bb746d9d0bfb6a2cb2bf14126d27c
+BYTES(run1): 51850
+STABILITY-PROBE-2: sha256=a08888ce4d86adf2afa428d4ed10a04c483bb746d9d0bfb6a2cb2bf14126d27c bytes=51850 identical run1
+STABILITY-PROBE-3: sha256=a08888ce4d86adf2afa428d4ed10a04c483bb746d9d0bfb6a2cb2bf14126d27c bytes=51850 identical run1
+NORMALIZE(run1): RENDERED_TEXT_V1: raw_sha256=a08888ce4d86adf2afa428d4ed10a04c483bb746d9d0bfb6a2cb2bf14126d27c bytes=51850 normalized_sha256=c9927f8902d62d323a31ea4783de6a4fc9ea1110bf983c36770c57205fed417a normalized_bytes=22062
+NORMALIZE(run2): RENDERED_TEXT_V1: raw_sha256=a08888ce4d86adf2afa428d4ed10a04c483bb746d9d0bfb6a2cb2bf14126d27c bytes=51850 normalized_sha256=c9927f8902d62d323a31ea4783de6a4fc9ea1110bf983c36770c57205fed417a normalized_bytes=22062
+QUOTE: The intended audience (also known as client ID) of the web identity token
+WORDCOUNT(wc -w): 13
+LOCATE-RENDERED: RENDERED_TEXT_V1_LOCATE: count=1
+LOCATE-RAW(grep -c -F, one line): 1
+LOCATE-RAW(tr newline->space | grep -c -F): 1
+LOCATION: Request Parameters section, Audience parameter description (raw line 347)
+NOTE: Three fetches byte-identical (51850 B).
+
+===== A4 -> S064 =====
+URL-REGISTERED: https://cloud.google.com/iam/docs/best-practices-for-using-workload-identity-federation
+ARGV(run1, attested): curl -fsSL --max-time 30 'https://cloud.google.com/iam/docs/best-practices-for-using-workload-identity-federation'
+EXIT: 0
+HTTP-STATUS(final response): 200
+FINAL-URL: https://docs.cloud.google.com/iam/docs/best-practices-for-using-workload-identity-federation
+REDIRECT: location: https://docs.cloud.google.com/iam/docs/best-practices-for-using-workload-identity-federation
+RAW-SHA256(run1): 116398b3807c1016ce2bfc21a90940d942cc22293a38a94f7c32855c7edc7c45
+BYTES(run1): 211206
+STABILITY-PROBE-2: sha256=6a64b144bed369f78c86e335e4a3c496a04741054cd78578398222ef7d56bc35 bytes=211202 differs run1
+STABILITY-PROBE-3: sha256=14bd376f0679bee4140e280a4c6bf0f1dac66fcd72d2bbea961cea215405d2f3 bytes=211206 differs run1
+NORMALIZE(run1): RENDERED_TEXT_V1: raw_sha256=116398b3807c1016ce2bfc21a90940d942cc22293a38a94f7c32855c7edc7c45 bytes=211206 normalized_sha256=92c7db2c25ab976660dd0a5c516ba39b7245ed3a91d9f55bd9d54b0c430de722 normalized_bytes=37290
+NORMALIZE(run2): RENDERED_TEXT_V1: raw_sha256=6a64b144bed369f78c86e335e4a3c496a04741054cd78578398222ef7d56bc35 bytes=211202 normalized_sha256=92c7db2c25ab976660dd0a5c516ba39b7245ed3a91d9f55bd9d54b0c430de722 normalized_bytes=37290
+QUOTE: the same external identity might be represented as multiple different IAM principals, or several external identities could map to the same IAM principal
+WORDCOUNT(wc -w): 23
+LOCATE-RENDERED: RENDERED_TEXT_V1_LOCATE: count=1
+LOCATE-RAW(grep -c -F, one line): 0
+LOCATE-RAW(tr newline->space | grep -c -F): 1
+LOCATION: section Protecting against spoofing threats, identity-ambiguity paragraph (page h2; the staged entry names a Best practices bullet list)
+NOTE: Body volatile: per-request CSP nonce changes the raw sha and byte count; the normalized text digest is identical across probes (92c7db2c…de722; 37290 B) — content stable, markup nonce-bearing. Quote is line-wrapped in raw HTML (raw grep 0, newline-flattened grep 1).
+
+===== A5 -> S065 =====
+URL-REGISTERED: https://docs.cloud.google.com/iam/docs/workload-identity-federation?hl=ja
+ARGV(run1, attested): curl -fsSL --max-time 30 'https://docs.cloud.google.com/iam/docs/workload-identity-federation?hl=ja'
+EXIT: 0
+HTTP-STATUS(final response): 200
+FINAL-URL: https://docs.cloud.google.com/iam/docs/workload-identity-federation?hl=ja
+REDIRECT: none (registered URL served directly)
+RAW-SHA256(run1): 0179cc57506a632e3dd2312ca549895df6a58897d35d4a626c4d5f2ab99c348f
+BYTES(run1): 174357
+STABILITY-PROBE-2: sha256=79fc43698c689be099a3a4f0dd56b59f9c1faeae8a8a0d7593062af9cfab1383 bytes=174357 differs run1
+STABILITY-PROBE-3: sha256=6febdbe99d7f48745d7a179fd4224e0e2d1f93fb8bcaaf6aa85a1f58e7ca5ffc bytes=174357 differs run1
+NORMALIZE(run1): RENDERED_TEXT_V1: raw_sha256=0179cc57506a632e3dd2312ca549895df6a58897d35d4a626c4d5f2ab99c348f bytes=174357 normalized_sha256=7a5a1c571fc5cef42b0a04a45782525beb3153b05c2ae183494d401d970a6c12 normalized_bytes=25877
+NORMALIZE(run2): RENDERED_TEXT_V1: raw_sha256=79fc43698c689be099a3a4f0dd56b59f9c1faeae8a8a0d7593062af9cfab1383 bytes=174357 normalized_sha256=7a5a1c571fc5cef42b0a04a45782525beb3153b05c2ae183494d401d970a6c12 normalized_bytes=25877
+QUOTE: 属性条件は、アサーション属性とターゲット属性をチェックする CEL 式です。
+WORDCOUNT(wc -w): 3
+LOCATE-RENDERED: RENDERED_TEXT_V1_LOCATE: count=1
+LOCATE-RAW(grep -c -F, one line): 1
+LOCATE-RAW(tr newline->space | grep -c -F): 1
+LOCATION: heading 属性条件 (h3), first paragraph of the attribute-condition definition (raw line 4095)
+NOTE: Native Japanese rendering kept (?hl=ja). Body volatile: per-request CSP nonce changes the raw sha (size constant 174357 B); normalized text digest identical across probes (7a5a1c57…a6c12; 25877 B).
+
+===== FIELD SELF-CHECK (same rules as corpus/sources-census.sh:264-283) =====
+COMMAND: python3 selfcheck.py group-a.tsv   (scratch-only reimplementation of the census regexes;
+         the lane census itself is not run here because the S061-S065 registry rows do not exist yet)
+RESULT: A1->S061: PASS all 14 field rules
+RESULT: A2->S062: PASS all 14 field rules
+RESULT: A3->S063: PASS all 14 field rules
+RESULT: A4->S064: PASS all 14 field rules
+RESULT: A5->S065: PASS all 14 field rules
+EXIT: 0
+
+===== READY-TO-APPEND (col1 = final id, col3 digest verified above; tabs preserved) =====
+# These five lines are byte-for-byte the rows above with A1..A5 replaced by S061..S065.
+# Append to corpus/source-fetches.tsv after the registry rows land; no other edit needed.
+S061	mined	f3ea708460b6bb9f13f48ca71e5a8ba048c9da4c48def88936563dfac8736aa5	https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html	https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html	200	curl-fsSL-compressed-v1	2026-11-03	decoded-http-body-v1	141dd4819db34dc20ac4bbde5990c2db46458ddac961c7d67f403e6d94332508	51283	-	The aud claim must match the Audience value	rendered-text-v1	37de7130c478569ea68283c5a0f13683802651fd07b6bce4057926d6fca9aca8	Create an OpenID Connect (OIDC) identity provider in IAM, claims_supported list, aud bullet (line 158)
+S062	mined	0c6b4e583d2b2d0e3b0ec817d2a69016943def37784a48afbb43e80773a8b78b	https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_iam-condition-keys.html	https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_iam-condition-keys.html	200	curl-fsSL-compressed-v1	2026-11-03	decoded-http-body-v1	fb5b2e35ec37c18b70d5bd9fd1ba61bd87bfaa1b4d0b7a3dfe12a44c24190ae3	185044	-	the OIDC condition context key can only be used in a role trust policy for the initial AssumeRoleWithWebIdentity authentication	rendered-text-v1	5db9d8032b6f7f01044f4ea5d5230e6b7c3370cde944c63533d6dd8a7af04299	Available keys for AWS OIDC federation, available-in-session paragraph above the IdP selector
+S063	mined	50cc9976bafde37031852768a764f7fe9634dbb5d1fb5a927a9461668fce0a3a	https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRoleWithWebIdentity.html	https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRoleWithWebIdentity.html	200	curl-fsSL-compressed-v1	2026-11-03	decoded-http-body-v1	a08888ce4d86adf2afa428d4ed10a04c483bb746d9d0bfb6a2cb2bf14126d27c	51850	-	The intended audience (also known as client ID) of the web identity token	rendered-text-v1	c9927f8902d62d323a31ea4783de6a4fc9ea1110bf983c36770c57205fed417a	Request Parameters, Audience parameter description (line 347)
+S064	mined	bf2be27f563b9aa7b31d61c06eff46e48f437b047d9ab40d39975293ddbe7626	https://cloud.google.com/iam/docs/best-practices-for-using-workload-identity-federation	https://docs.cloud.google.com/iam/docs/best-practices-for-using-workload-identity-federation	200	curl-fsSL-compressed-v1	2026-11-03	decoded-http-body-volatile-v1	116398b3807c1016ce2bfc21a90940d942cc22293a38a94f7c32855c7edc7c45	211206	-	the same external identity might be represented as multiple different IAM principals, or several external identities could map to the same IAM principal	rendered-text-v1	92c7db2c25ab976660dd0a5c516ba39b7245ed3a91d9f55bd9d54b0c430de722	Protecting against spoofing threats, identity-ambiguity paragraph (h2)
+S065	mined	1e57b1d572d44cf7cbf31258a975d44d5ea772320f826593a72b9d0075ea4abd	https://docs.cloud.google.com/iam/docs/workload-identity-federation?hl=ja	https://docs.cloud.google.com/iam/docs/workload-identity-federation?hl=ja	200	curl-fsSL-compressed-v1	2026-11-03	decoded-http-body-volatile-v1	0179cc57506a632e3dd2312ca549895df6a58897d35d4a626c4d5f2ab99c348f	174357	-	属性条件は、アサーション属性とターゲット属性をチェックする CEL 式です。	rendered-text-v1	7a5a1c571fc5cef42b0a04a45782525beb3153b05c2ae183494d401d970a6c12	heading 属性条件 (h3), attribute-condition definition, first paragraph (line 4095)

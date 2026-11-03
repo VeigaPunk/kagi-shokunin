@@ -1,0 +1,45 @@
+# ConnOverlap receipt A — per-lane SCORECARD.md round-heading shape classification (round-31, seat ConnOverlap)
+# generated 2026-11-03 · lane kagi-shokunin · BASE 655e620651808ac04bb59bfa35b81227f62a031b
+# classification regexes copied verbatim from kagi-shokunin/corpus/claim-ledger.sh:940-944
+#   SEC_RE='^ {0,3}##[[:blank:]]+Round [0-9]+ — (pre|post)-move([[:blank:]]|$)'
+#   SECTION_RE='^ {0,3}##[[:blank:]]+'
+#   ROUND_RE='^ {0,3}##[[:blank:]]*[Rr][Oo][Uu][Nn][Dd]([[:blank:]]|$)'
+#   BLOCKED_ATTEMPT_RE='^## Round 20 — interactive attempt; blocked, not completed \(2026-10-15\)$'
+#
+# SEC_CONFORM    = matches SEC_RE  -> the shape kagi's cells gate accepts
+# WOULD_DIE      = matches ROUND_RE but neither SEC_RE nor BLOCKED_ATTEMPT_RE -> a kagi-style cells gate DIES at this heading
+# BLOCKED_EXEMPT = matches BLOCKED_ATTEMPT_RE (the one filed exemption)
+# GLUED_INERT    = a '## Round…' heading that does NOT match ROUND_RE (e.g. '## Round-1', '## Round27') -> inert to the gate
+# cells_equiv    = does the lane run a cells-equivalent audit of its own SCORECARD round headings?
+# literal_nonconf = count of '^## Round' lines in the file that do NOT continue with ' pre-move'/' post-move'
+#
+lane         tip            H2_all  SEC_CONFORM WOULD_DIE  BLOCKED_EXEMPT GLUED_INERT cells_equiv literal_nonconf
+audio        f9da7ee97e0b   107     0           101        0              0           no         101
+chousa       f748abbb6bf5   168     0           75         0              7           no         82
+game-dev-2d  1e033ef053be   36      0           33         0              0           no         33
+game-dev-3d  39ca3973c786   41      0           36         0              0           no         36
+kaidoku      c7fe6898e9a8   97      0           51         0              0           no         51
+kake         d76ae92656bc   103     0           92         0              3           no         95
+kama         6035e952c252   88      0           73         0              1           no         74
+kasegi       cd3029876eac   58      0           42         0              7           no         49
+kengaku      b5032ff8391d   70      4           49         0              1           no         50
+kotoba       1c8f37edf2e5   6       0           0          0              0           no         0
+kotodama     c285b2afb19d   82      0           3          0              0           no         3
+kumitate     3c3693362183   52      0           43         0              0           no         43
+lore         0f044aa7c7e4   25      0           20         0              0           no         20
+mado         524fa1f90b1f   74      0           66         0              0           no         66
+mori         84c6cbc3b47c   94      0           79         0              4           no         83
+revenger     5915ad8d71c1   38      0           29         0              0           no         29
+souji        1a53bcabc91d   6       0           0          0              0           no         0
+tabi         051f433dd498   89      0           75         0              1           no         76
+tameshi      f20ba482c744   89      0           61         0              3           no         64
+tsukuroi     37c74e27b29d   161     0           91         0              4           no         95
+
+# kagi (own lane — reference only; this seat may not edit the lane's SCORECARD.md):
+#   H2_all=52 SEC_CONFORM=30 WOULD_DIE=5 BLOCKED_EXEMPT=1
+#   the five WOULD_DIE headings (exactly the plan §C1 scope):
+  WOULD_DIE	## Round 26 — bounded release-drift response
+  WOULD_DIE	## Round 27 — knowledge numbers bound; release clocks refuse silent regression
+  WOULD_DIE	## Round 28 — post-move: canonical version tokens; derived anchors bound to feed rows
+  WOULD_DIE	## Round 29 — post-move: feed-token right boundary; differential agreement gate (new host)
+  WOULD_DIE	## Round 30 — post-move: routed-defect closure (D1–D5), EOL repair, secret-scanning adoption

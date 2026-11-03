@@ -1,0 +1,24 @@
+# group-a.tsv — SrcOpenA draft capture rows, round 31 BUILD wave (C2 OIDC adoption, entry 1, sources 1-5)
+# 16 TAB-separated columns, schema corpus/sources-census.sh:237-283. One row per re-opened URL; 2026-11-03.
+# Draft id -> final lane id (by document, never arithmetic): A1..A5 -> S061..S065 (staged S052..S056).
+#
+# COLUMN-1 PLACEHOLDER: A1..A5 must be replaced by the final ids S061..S065.
+# COLUMN-3 DIGEST IS ALREADY COMPUTED WITH THE FINAL ID, because the census recomputes
+#   sha256("<SOURCES.md id>\t<status>\t<registered url>\n") (corpus/sources-census.sh:262):
+#     A1 -> sha256("S061\tmined\thttps://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html\n") = f3ea708460b6bb9f13f48ca71e5a8ba048c9da4c48def88936563dfac8736aa5
+#     A2 -> S062 = 0c6b4e583d2b2d0e3b0ec817d2a69016943def37784a48afbb43e80773a8b78b
+#     A3 -> S063 = 50cc9976bafde37031852768a764f7fe9634dbb5d1fb5a927a9461668fce0a3a
+#     A4 -> S064 = bf2be27f563b9aa7b31d61c06eff46e48f437b047d9ab40d39975293ddbe7626
+#     A5 -> S065 = 1e57b1d572d44cf7cbf31258a975d44d5ea772320f826593a72b9d0075ea4abd
+#   If the L1 assigns a DIFFERENT final id, column 3 must be recomputed; col1 and the registry id must agree.
+#
+# Representation judgment: decoded-http-body-v1 = body byte-stable across re-fetches;
+#   decoded-http-body-volatile-v1 = per-request CSP nonce in the served markup (normalized text identical).
+# Every quote is <=25 whitespace words, verbatim in the decoded body, located (see receipts for the
+# rendered-text-v1 locate count and the raw-grep count, which differs when markup splits the sentence).
+# revision is '-' on every row: no raw.githubusercontent.com URL and no moving-ref registry URL here.
+A1	mined	f3ea708460b6bb9f13f48ca71e5a8ba048c9da4c48def88936563dfac8736aa5	https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html	https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html	200	curl-fsSL-compressed-v1	2026-11-03	decoded-http-body-v1	141dd4819db34dc20ac4bbde5990c2db46458ddac961c7d67f403e6d94332508	51283	-	The aud claim must match the Audience value	rendered-text-v1	37de7130c478569ea68283c5a0f13683802651fd07b6bce4057926d6fca9aca8	Create an OpenID Connect (OIDC) identity provider in IAM, claims_supported list, aud bullet (line 158)
+A2	mined	0c6b4e583d2b2d0e3b0ec817d2a69016943def37784a48afbb43e80773a8b78b	https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_iam-condition-keys.html	https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_iam-condition-keys.html	200	curl-fsSL-compressed-v1	2026-11-03	decoded-http-body-v1	fb5b2e35ec37c18b70d5bd9fd1ba61bd87bfaa1b4d0b7a3dfe12a44c24190ae3	185044	-	the OIDC condition context key can only be used in a role trust policy for the initial AssumeRoleWithWebIdentity authentication	rendered-text-v1	5db9d8032b6f7f01044f4ea5d5230e6b7c3370cde944c63533d6dd8a7af04299	Available keys for AWS OIDC federation, available-in-session paragraph above the IdP selector
+A3	mined	50cc9976bafde37031852768a764f7fe9634dbb5d1fb5a927a9461668fce0a3a	https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRoleWithWebIdentity.html	https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRoleWithWebIdentity.html	200	curl-fsSL-compressed-v1	2026-11-03	decoded-http-body-v1	a08888ce4d86adf2afa428d4ed10a04c483bb746d9d0bfb6a2cb2bf14126d27c	51850	-	The intended audience (also known as client ID) of the web identity token	rendered-text-v1	c9927f8902d62d323a31ea4783de6a4fc9ea1110bf983c36770c57205fed417a	Request Parameters, Audience parameter description (line 347)
+A4	mined	bf2be27f563b9aa7b31d61c06eff46e48f437b047d9ab40d39975293ddbe7626	https://cloud.google.com/iam/docs/best-practices-for-using-workload-identity-federation	https://docs.cloud.google.com/iam/docs/best-practices-for-using-workload-identity-federation	200	curl-fsSL-compressed-v1	2026-11-03	decoded-http-body-volatile-v1	116398b3807c1016ce2bfc21a90940d942cc22293a38a94f7c32855c7edc7c45	211206	-	the same external identity might be represented as multiple different IAM principals, or several external identities could map to the same IAM principal	rendered-text-v1	92c7db2c25ab976660dd0a5c516ba39b7245ed3a91d9f55bd9d54b0c430de722	Protecting against spoofing threats, identity-ambiguity paragraph (h2)
+A5	mined	1e57b1d572d44cf7cbf31258a975d44d5ea772320f826593a72b9d0075ea4abd	https://docs.cloud.google.com/iam/docs/workload-identity-federation?hl=ja	https://docs.cloud.google.com/iam/docs/workload-identity-federation?hl=ja	200	curl-fsSL-compressed-v1	2026-11-03	decoded-http-body-volatile-v1	0179cc57506a632e3dd2312ca549895df6a58897d35d4a626c4d5f2ab99c348f	174357	-	属性条件は、アサーション属性とターゲット属性をチェックする CEL 式です。	rendered-text-v1	7a5a1c571fc5cef42b0a04a45782525beb3153b05c2ae183494d401d970a6c12	heading 属性条件 (h3), attribute-condition definition, first paragraph (line 4095)

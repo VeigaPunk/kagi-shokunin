@@ -1,0 +1,1 @@
+# Label (round-31, per round-30 verifier routed-defect D1/F5): the drafts in this directory are PRE-correction seat outputs retained as counterexample evidence; the landed entries/registry differ (correction commit 2017a68). Never paste into landed registries.

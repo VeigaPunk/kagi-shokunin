@@ -1,0 +1,46 @@
+# group 5 — revision-audit, the three identity rows, self-counts, and the scorecard stamp at BASE
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin
+$ python3 corpus/revision-audit.py --history c2cab35bc92e57e39e5489bac3386db078345b3f
+… (60 ADDED lines) …
+ADDED corpus/self-counts.py
+ADDED corpus/self-counts.tsv
+ADDED corpus/source-fetches.tsv
+REVISION_AUDIT: CLEAN (stale=0 missing=0 dropped=0 added=36 invalid=0)
+revision-audit-exit=0
+
+$ bash corpus/row-identity.sh scorecard-rounds
+ROW_IDENTITY: scorecard-rounds count=36 sha256=1259a3e1c170d9e3f3aed1d7aabfb1ef08ada83455d373126dbbde3ec20592b5
+ri-exit=0
+$ bash corpus/row-identity.sh revision-added
+ROW_IDENTITY: revision-added count=36 sha256=2b86f032e7eaf741deb87ee6dd1ace706c28ae80ecba303dad1b85323626747a
+ri2-exit=0
+
+# the ledger's own pins (corpus/claim-ledger.tsv), matched against the two lines above
+R22-03 (line 57) expect ^REVISION_AUDIT: CLEAN \(stale=0 missing=0 dropped=0 added=36 invalid=0\)$  -> MATCH
+R24-06 (line 69) expect ^ROW_IDENTITY: scorecard-rounds count=36 sha256=1259a3e1c170d9e3f3aed1d7aabfb1ef08ada83455d373126dbbde3ec20592b5$ -> MATCH
+R24-15 (line 78) expect ^ROW_IDENTITY: revision-added count=36 sha256=2b86f032e7eaf741deb87ee6dd1ace706c28ae80ecba303dad1b85323626747a$ -> MATCH
+   (all three run green IN THE LANE at this revision, exactly as the plan states: "added=36 CLEAN;
+    scorecard-rounds count=36 exact line" — they move only because round 31 adds files/sections.)
+
+$ python3 corpus/self-counts.py
+OK KN-SUBSTRATE-ABSENCE-FILES corpus/knowledge/substrate-deferral.md:50 claimed=15 pinned=15
+OK KN-CHECKLIST-FALSIFY-FLOOR corpus/knowledge/checklist-execution.md:179 claimed=8 live=8
+OK KN-OPREF-FALSIFY-SELFTEST corpus/knowledge/op-ref-consumption.md:296 claimed=36 pinned=36
+POLICY PV-FEEDTOKEN-SHAPES ledger:R29-02 command not allowlisted
+POLICY PV-FEEDTOKEN-SELFTEST ledger:R29-01 command not allowlisted
+SELF_COUNTS: POLICY (claims=62 stale=0 unlocated=0 ambiguous=0 policy=2 setup=0)
+self-counts-exit=2
+
+# the two POLICY rows are exactly the routed ids the C1 predicate allows (R29-01, R29-02)
+# scorecard stamp at BASE — fresh, so the reshape *necessarily* forces the declared re-pin:
+$ grep '^SCORECARD.md' corpus/stamps.tsv
+SCORECARD.md  f4eb6ec481f1552108c6a3030ff7838beef7dc50cb51ee5d49f2444a90b62fbf  1252  134670
+$ sha256sum SCORECARD.md
+f4eb6ec481f1552108c6a3030ff7838beef7dc50cb51ee5d49f2444a90b62fbf  SCORECARD.md
+$ wc -l SCORECARD.md  -> 1252
+# ledger population: 68 data rows; only R11-06 and R18-01 carry a nonzero expected exit (both 1,
+# with their own expect line) — no fourth red is baked into the BASE population.
+
+VERDICT: MATCHES the plan for all four numbers (added=36 exit 0; count=36 both identities, exact digests;
+SELF_COUNTS POLICY policy=2 exit 2, claims=62). The stamp is currently valid, which is why the heading
+reshape must re-pin it or the audit will print a STALE-POINTER.

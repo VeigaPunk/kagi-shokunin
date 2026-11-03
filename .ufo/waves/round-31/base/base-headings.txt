@@ -1,0 +1,41 @@
+# group 1 — the five debt headings, independently re-derived at BASE
+# BASE 655e620651808ac04bb59bfa35b81227f62a031b; lane HEAD 4767b045773607fc8ab4cb7ba2fea386e05b53c0
+# (verified: `git diff --stat 655e620..HEAD` adds only plans/round-31.md + the four .ufo/waves/round-31
+#  census/control files, 239 insertions; `git diff --stat 655e620 -- corpus SCORECARD.md LOG.md SOURCES.md`
+#  is EMPTY, so every measurement in this directory is a BASE fact.)
+$ grep -n -E '^## Round 2[6-9]|^## Round 30' SCORECARD.md
+1018:## Round 26 — bounded release-drift response
+1082:## Round 27 — knowledge numbers bound; release clocks refuse silent regression
+1110:## Round 28 — post-move: canonical version tokens; derived anchors bound to feed rows
+1181:## Round 29 — post-move: feed-token right boundary; differential agreement gate (new host)
+1239:## Round 30 — post-move: routed-defect closure (D1–D5), EOL repair, secret-scanning adoption
+grep-exit=0
+
+# cross-checks
+$ grep -c '^## Round ' SCORECARD.md
+36
+$ sed -n '1018p' SCORECARD.md | od -c | head -1
+0000000   #   #       R   o   u   n   d       2   6     342 200 224
+$ git log --oneline -S'## Round 26 — bounded release-drift response' -- SCORECARD.md | tail -1
+d30c989 round-26: reverify Python drift and rearm named successor clocks
+$ git log --oneline -S'## Round 28 — post-move: canonical version tokens' -- SCORECARD.md | tail -1
+899c50b round-28: measured outcomes, strict receipt audit and honest frozen-fixture conformance
+$ grep -c 'post-move (bounded release-drift response)' SCORECARD.md
+0
+
+# parser shape the reshape must satisfy (corpus/claim-ledger.sh:939-944):
+#   SEC_RE='^ {0,3}##[[:blank:]]+Round [0-9]+ — (pre|post)-move([[:blank:]]|$)'
+#   ROUND_RE, SECTION_RE, BLOCKED_ATTEMPT_RE = the Round-20 attempt heading, matched exactly.
+# Regex check of plan item 1-5 old→new strings:
+#   old '## Round 26 — bounded release-drift response'      SEC_RE=False
+#   old '## Round 28 — post-move: canonical version tokens…' SEC_RE=False  (colon after post-move)
+#   new '## Round 26 — post-move (bounded release-drift response)'                        SEC_RE=True
+#   new '## Round 27 — post-move (knowledge numbers bound; release clocks refuse silent regression)' SEC_RE=True
+#   new '## Round 28 — post-move (canonical version tokens; derived anchors bound to feed rows)'    SEC_RE=True
+#   new '## Round 29 — post-move (feed-token right boundary; differential agreement gate on the new host)' SEC_RE=True
+#   new '## Round 30 — post-move (routed-defect closure D1–D5, EOL repair, secret-scanning adoption)'      SEC_RE=True
+
+VERDICT: MATCHES plans/round-31.md §C1 items 1-5 byte-for-byte (five headings; U+2014 em dash;
+28/29/30 carry `post-move:` with a colon). Heading count 36 is unchanged by a pure reshape, which is
+exactly the `scorecard-rounds count=36` identity row (see base-rows.txt). Round-26 introduction commit
+d30c989 supports the plan's "unable to run since round 26" premise.

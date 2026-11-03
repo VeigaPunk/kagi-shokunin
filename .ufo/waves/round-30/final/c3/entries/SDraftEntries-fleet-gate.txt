@@ -1,0 +1,12 @@
+$ /home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --file $M/corpus/SOURCES.md --root /home/vgpnk/Projects/shokunin
+file	W04	S050 duplicate url docs.github.com/en/actions/concepts/security/openid-connect across scopes
+file	W04	S051 duplicate url csrc.nist.gov/pubs/sp/800/57/pt1/r6/ipd across scopes
+file	ok	/fast/scratch/hyaku/kagi-r30/SDraftEntries/mirror/corpus/SOURCES.md
+exit=0
+
+$ grep -cE '^ {0,3}\\|[[:space:]]*S(05[3-9]|060)[[:space:]]*\|' corpus/SOURCES.md
+8
+$ ls corpus/knowledge/{secret-scanning-detection-vs-validation,betterleaks-detection-vs-validation,trufflehog-verification-lifecycle}.md
+corpus/knowledge/betterleaks-detection-vs-validation.md
+corpus/knowledge/secret-scanning-detection-vs-validation.md
+corpus/knowledge/trufflehog-verification-lifecycle.md

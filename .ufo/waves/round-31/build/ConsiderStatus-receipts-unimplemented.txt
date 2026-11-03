@@ -1,0 +1,43 @@
+# ConsiderStatus receipts — proposal-2 unimplemented check (BASE 655e620, lane tip 91f7752)
+
+## A. grep -rn 'status:' SCORECARD.md  (unanchored: 1 hit, inside an embedded node -e script at :505 — NOT a lane-status line)
+SCORECARD.md:505:node -e 'const fs=require("node:fs"),os=require("node:os"),p=require("node:path");const files=["config-
+
+## B. grep -rn '^status:' SCORECARD.md  (anchored: none)
+rc=1 (1 = no match)
+
+## C. corpus/self-counts.py 'status' hits (per-claim STALE/OK verdict, not a lane-status binding)
+357:            status = "OK" if claimed == value else "STALE"
+359:            print(f"{status} {claim.ident} {claim.doc}:{number} claimed={claimed} {label}={value}")
+
+## D. corpus/self-counts.tsv 'status' hits
+rc=1 (1 = no match)
+
+## E. anchored '^status:' count in every lane root doc
+SCORECARD.md           0
+LOG.md                 0
+PROVINCE.md            0
+SKILL.md               0
+SHONEN.md              0
+AGENTS.md              0
+corpus/README.md       0
+corpus/QUALITY.md      0
+
+## F. STATUS* file anywhere in the lane (excluding .git)
+rc=0 (1 = none)
+
+## G. sibling lanes: anchored '^status:' in SCORECARD.md
+kake-shokunin                0
+kasegi-shokunin              0
+kengaku-shokunin             0
+kumitate-shokunin            0
+kotoba-shokunin              0
+tabi-shokunin                0
+souji-shokunin               0
+mado-shokunin                0
+mori-shokunin                0
+kama-shokunin                0
+tameshi-shokunin             0
+
+## H. the ONLY existing 'status:' vocabulary in the lane: Source-status: (per knowledge entry)
+14

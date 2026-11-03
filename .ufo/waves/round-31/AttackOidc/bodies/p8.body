@@ -1,0 +1,5095 @@
+
+
+
+
+
+
+
+
+
+<!doctype html>
+<html 
+      lang="ja-x-mtfrom-en"
+      dir="ltr">
+  <head>
+    <meta name="google-signin-client-id" content="721724668570-nbkv1cfusk7kk4eni4pjvepaus73b13t.apps.googleusercontent.com"><meta name="google-signin-scope"
+          content="profile email https://www.googleapis.com/auth/developerprofiles https://www.googleapis.com/auth/developerprofiles.award https://www.googleapis.com/auth/devprofiles.full_control.firstparty"><meta property="og:site_name" content="Google Cloud Documentation">
+    <meta property="og:type" content="website"><meta name="theme-color" content="#1a73e8"><meta charset="utf-8">
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+
+    <link rel="manifest" href="/_pwa/clouddocs/manifest.json"
+          crossorigin="use-credentials">
+    <link rel="preconnect" href="//www.gstatic.com" crossorigin>
+    <link rel="preconnect" href="//fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="//www.google-analytics.com" crossorigin><link rel="stylesheet" href="//fonts.googleapis.com/css?family=Google+Sans:400,500|Roboto:400,400italic,500,500italic,700,700italic|Roboto+Mono:400,500,700&display=swap">
+      <link rel="stylesheet"
+            href="//fonts.googleapis.com/css2?family=Material+Icons&family=Material+Symbols+Outlined&display=block"><link rel="stylesheet" href="//fonts.googleapis.com/earlyaccess/notosansjp.css"><link rel="stylesheet" href="https://www.gstatic.com/devrel-devsite/prod/veed85ba0e3651062c793a40796e84fb34afbf8489308d45f92d5448e587e3f03/clouddocs/css/app.css">
+      
+        <link rel="stylesheet" href="https://www.gstatic.com/devrel-devsite/prod/veed85ba0e3651062c793a40796e84fb34afbf8489308d45f92d5448e587e3f03/clouddocs/css/dark-theme.css" disabled>
+      <link rel="shortcut icon" href="https://www.gstatic.com/devrel-devsite/prod/veed85ba0e3651062c793a40796e84fb34afbf8489308d45f92d5448e587e3f03/clouddocs/images/favicons/onecloud/favicon.ico">
+    <link rel="apple-touch-icon" href="https://www.gstatic.com/devrel-devsite/prod/veed85ba0e3651062c793a40796e84fb34afbf8489308d45f92d5448e587e3f03/clouddocs/images/favicons/onecloud/super_cloud.png"><link rel="canonical" href="https://docs.cloud.google.com/iam/docs/workload-identity-federation?hl=ja"><link rel="search" type="application/opensearchdescription+xml"
+            title="Google Cloud Documentation" href="https://docs.cloud.google.com/s/opensearch.xml?hl=ja">
+      <link rel="alternate" hreflang="en"
+          href="https://docs.cloud.google.com/iam/docs/workload-identity-federation" /><link rel="alternate" hreflang="x-default" href="https://docs.cloud.google.com/iam/docs/workload-identity-federation" /><link rel="alternate" hreflang="zh-Hans"
+          href="https://docs.cloud.google.com/iam/docs/workload-identity-federation?hl=zh-cn" /><link rel="alternate" hreflang="zh-Hant"
+          href="https://docs.cloud.google.com/iam/docs/workload-identity-federation?hl=zh-tw" /><link rel="alternate" hreflang="fr"
+          href="https://docs.cloud.google.com/iam/docs/workload-identity-federation?hl=fr" /><link rel="alternate" hreflang="de"
+          href="https://docs.cloud.google.com/iam/docs/workload-identity-federation?hl=de" /><link rel="alternate" hreflang="he"
+          href="https://docs.cloud.google.com/iam/docs/workload-identity-federation?hl=he" /><link rel="alternate" hreflang="id"
+          href="https://docs.cloud.google.com/iam/docs/workload-identity-federation?hl=id" /><link rel="alternate" hreflang="it"
+          href="https://docs.cloud.google.com/iam/docs/workload-identity-federation?hl=it" /><link rel="alternate" hreflang="ja"
+          href="https://docs.cloud.google.com/iam/docs/workload-identity-federation?hl=ja" /><link rel="alternate" hreflang="ko"
+          href="https://docs.cloud.google.com/iam/docs/workload-identity-federation?hl=ko" /><link rel="alternate" hreflang="pt-BR"
+          href="https://docs.cloud.google.com/iam/docs/workload-identity-federation?hl=pt-br" /><link rel="alternate" hreflang="pt"
+          href="https://docs.cloud.google.com/iam/docs/workload-identity-federation?hl=pt" /><link rel="alternate" hreflang="es"
+          href="https://docs.cloud.google.com/iam/docs/workload-identity-federation?hl=es" /><link rel="alternate" hreflang="es-419"
+          href="https://docs.cloud.google.com/iam/docs/workload-identity-federation?hl=es-419" /><link rel="alternate" hreflang="en"
+          href="https://berlin.devsitetest.how/iam/docs/workload-identity-federation" /><link rel="alternate" hreflang="x-default" href="https://berlin.devsitetest.how/iam/docs/workload-identity-federation" /><link rel="alternate" hreflang="zh-Hans"
+          href="https://berlin.devsitetest.how/iam/docs/workload-identity-federation?hl=zh-cn" /><link rel="alternate" hreflang="zh-Hant"
+          href="https://berlin.devsitetest.how/iam/docs/workload-identity-federation?hl=zh-tw" /><link rel="alternate" hreflang="fr"
+          href="https://berlin.devsitetest.how/iam/docs/workload-identity-federation?hl=fr" /><link rel="alternate" hreflang="de"
+          href="https://berlin.devsitetest.how/iam/docs/workload-identity-federation?hl=de" /><link rel="alternate" hreflang="he"
+          href="https://berlin.devsitetest.how/iam/docs/workload-identity-federation?hl=he" /><link rel="alternate" hreflang="id"
+          href="https://berlin.devsitetest.how/iam/docs/workload-identity-federation?hl=id" /><link rel="alternate" hreflang="it"
+          href="https://berlin.devsitetest.how/iam/docs/workload-identity-federation?hl=it" /><link rel="alternate" hreflang="ja"
+          href="https://berlin.devsitetest.how/iam/docs/workload-identity-federation?hl=ja" /><link rel="alternate" hreflang="ko"
+          href="https://berlin.devsitetest.how/iam/docs/workload-identity-federation?hl=ko" /><link rel="alternate" hreflang="pt-BR"
+          href="https://berlin.devsitetest.how/iam/docs/workload-identity-federation?hl=pt-br" /><link rel="alternate" hreflang="pt"
+          href="https://berlin.devsitetest.how/iam/docs/workload-identity-federation?hl=pt" /><link rel="alternate" hreflang="es"
+          href="https://berlin.devsitetest.how/iam/docs/workload-identity-federation?hl=es" /><link rel="alternate" hreflang="es-419"
+          href="https://berlin.devsitetest.how/iam/docs/workload-identity-federation?hl=es-419" /><title>Workload Identity 連携 &nbsp;|&nbsp; Identity and Access Management (IAM) &nbsp;|&nbsp; Google Cloud Documentation</title>
+
+<meta property="og:title" content="Workload Identity 連携 &nbsp;|&nbsp; Identity and Access Management (IAM) &nbsp;|&nbsp; Google Cloud Documentation"><meta property="og:url" content="https://docs.cloud.google.com/iam/docs/workload-identity-federation?hl=ja"><meta property="og:image" content="https://docs.cloud.google.com/_static/cloud/images/social-icon-google-cloud-1200-630.png?hl=ja">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630"><meta property="og:locale" content="ja"><meta name="twitter:card" content="summary_large_image"><script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    
+    "headline": "Workload Identity 連携"
+  }
+</script><script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1,
+      "name": "IAM",
+      "item": "https://docs.cloud.google.com/iam/docs"
+    },{
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Identity and Access Management (IAM)",
+      "item": "https://docs.cloud.google.com/iam/docs"
+    },{
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Workload Identity 連携",
+      "item": "https://docs.cloud.google.com/iam/docs/workload-identity-federation"
+    }]
+  }
+  </script><link rel="alternate machine-translated-from" hreflang="en"
+        href="https://docs.cloud.google.com/iam/docs/workload-identity-federation?hl=en">
+  
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+
+ 
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+    
+    
+    
+    
+    
+  
+
+    </head>
+  <body class="color-scheme--light"
+        template="page"
+        theme="clouddocs-theme"
+        type="article"
+        
+        appearance
+        
+        layout="docs"
+        
+        
+        free-trial
+        
+        
+        display-toc
+        pending>
+  
+    <devsite-progress type="indeterminate" id="app-progress"></devsite-progress>
+  
+  
+    <a href="#main-content" class="skip-link button">
+      
+      メイン コンテンツにスキップ
+    </a>
+    <section class="devsite-wrapper">
+      <devsite-cookie-notification-bar></devsite-cookie-notification-bar>
+        <cloudx-track userCountry="BR"></cloudx-track>
+
+<devsite-header role="banner" keep-tabs-visible>
+  
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="devsite-header--inner" data-nosnippet>
+  <div class="devsite-top-logo-row-wrapper-wrapper">
+    <div class="devsite-top-logo-row-wrapper">
+      <div class="devsite-top-logo-row">
+        <button type="button" id="devsite-hamburger-menu"
+          class="devsite-header-icon-button button-flat material-icons gc-analytics-event"
+          data-category="Site-Wide Custom Events"
+          data-label="Navigation menu button"
+          visually-hidden
+          aria-label="メニューを開く">
+        </button>
+        
+<div class="devsite-product-name-wrapper">
+
+  <a href="/" class="devsite-site-logo-link gc-analytics-event"
+   data-category="Site-Wide Custom Events" data-label="Site logo" track-type="globalNav"
+   track-name="googleCloudDocumentation" track-metadata-position="nav"
+   track-metadata-eventDetail="nav">
+  
+  <picture>
+    
+    <source srcset="https://www.gstatic.com/devrel-devsite/prod/veed85ba0e3651062c793a40796e84fb34afbf8489308d45f92d5448e587e3f03/clouddocs/images/lockup_dark_theme.svg"
+            media="(prefers-color-scheme: dark)"
+            class="devsite-dark-theme">
+    
+    <img src="https://www.gstatic.com/devrel-devsite/prod/veed85ba0e3651062c793a40796e84fb34afbf8489308d45f92d5448e587e3f03/clouddocs/images/lockup_full_color.svg" class="devsite-site-logo" alt="Google Cloud Documentation">
+  </picture>
+  
+</a>
+
+
+
+</div>
+        <div class="devsite-top-logo-row-middle">
+          <div class="devsite-header-upper-tabs">
+            
+              
+              
+  <devsite-tabs class="upper-tabs">
+
+    <nav class="devsite-tabs-wrapper" aria-label="上部のタブ">
+      
+        
+          <tab class="devsite-dropdown
+    
+    devsite-active
+    devsite-clickable
+    ">
+  
+    <a href="https://docs.cloud.google.com/docs?hl=ja"
+    class="devsite-tabs-content gc-analytics-event "
+      track-metadata-eventdetail="https://docs.cloud.google.com/docs?hl=ja"
+    
+       track-type="nav"
+       track-metadata-position="nav - docs-home"
+       track-metadata-module="primary nav"
+       aria-label="テクノロジー分野, selected" 
+       
+         
+           data-category="Site-Wide Custom Events"
+         
+           data-label="Tab: テクノロジー分野"
+         
+           track-name="docs-home"
+         
+           track-link-column-type="single-column"
+         
+       >
+    テクノロジー分野
+  
+    </a>
+    
+      <button
+         aria-haspopup="menu"
+         aria-expanded="false"
+         aria-label="プルダウン メニュー: テクノロジー分野"
+         track-type="nav"
+         track-metadata-eventdetail="https://docs.cloud.google.com/docs?hl=ja"
+         track-metadata-position="nav - docs-home"
+         track-metadata-module="primary nav"
+         
+          
+            data-category="Site-Wide Custom Events"
+          
+            data-label="Tab: テクノロジー分野"
+          
+            track-name="docs-home"
+          
+            track-link-column-type="single-column"
+          
+        
+         class="devsite-tabs-dropdown-toggle devsite-icon devsite-icon-arrow-drop-down"></button>
+    
+  
+  <div class="devsite-tabs-dropdown" role="menu" aria-label="submenu" hidden>
+    <div class="devsite-tabs-dropdown-content">
+      
+        <button class="devsite-tabs-close-button material-icons button-flat gc-analytics-event"
+                data-category="Site-Wide Custom Events"
+                data-label="Close dropdown menu"
+                aria-label="プルダウン メニューを閉じる"
+                track-type="nav"
+                track-name="close"
+                track-metadata-eventdetail="#"
+                track-metadata-position="nav - docs-home"
+                track-metadata-module="tertiary nav">close</button>
+      
+      
+        <div class="devsite-tabs-dropdown-column
+                    ">
+          
+            <ul class="devsite-tabs-dropdown-section
+                       ">
+              
+              
+              
+                <li class="devsite-nav-item">
+                  <a href="https://docs.cloud.google.com/docs/ai-ml?hl=ja"
+                    
+                     track-type="nav"
+                     track-metadata-eventdetail="https://docs.cloud.google.com/docs/ai-ml?hl=ja"
+                     track-metadata-position="nav - docs-home"
+                     track-metadata-module="tertiary nav"
+                     
+                     tooltip
+                  >
+                    
+                    <div class="devsite-nav-item-title">
+                      AI と ML
+                    </div>
+                    
+                  </a>
+                </li>
+              
+                <li class="devsite-nav-item">
+                  <a href="https://docs.cloud.google.com/docs/application-development?hl=ja"
+                    
+                     track-type="nav"
+                     track-metadata-eventdetail="https://docs.cloud.google.com/docs/application-development?hl=ja"
+                     track-metadata-position="nav - docs-home"
+                     track-metadata-module="tertiary nav"
+                     
+                     tooltip
+                  >
+                    
+                    <div class="devsite-nav-item-title">
+                      アプリケーション開発
+                    </div>
+                    
+                  </a>
+                </li>
+              
+                <li class="devsite-nav-item">
+                  <a href="https://docs.cloud.google.com/docs/application-hosting?hl=ja"
+                    
+                     track-type="nav"
+                     track-metadata-eventdetail="https://docs.cloud.google.com/docs/application-hosting?hl=ja"
+                     track-metadata-position="nav - docs-home"
+                     track-metadata-module="tertiary nav"
+                     
+                     tooltip
+                  >
+                    
+                    <div class="devsite-nav-item-title">
+                      アプリケーションのホスティング
+                    </div>
+                    
+                  </a>
+                </li>
+              
+                <li class="devsite-nav-item">
+                  <a href="https://docs.cloud.google.com/docs/compute-area?hl=ja"
+                    
+                     track-type="nav"
+                     track-metadata-eventdetail="https://docs.cloud.google.com/docs/compute-area?hl=ja"
+                     track-metadata-position="nav - docs-home"
+                     track-metadata-module="tertiary nav"
+                     
+                     tooltip
+                  >
+                    
+                    <div class="devsite-nav-item-title">
+                      コンピューティング
+                    </div>
+                    
+                  </a>
+                </li>
+              
+                <li class="devsite-nav-item">
+                  <a href="https://docs.cloud.google.com/docs/data?hl=ja"
+                    
+                     track-type="nav"
+                     track-metadata-eventdetail="https://docs.cloud.google.com/docs/data?hl=ja"
+                     track-metadata-position="nav - docs-home"
+                     track-metadata-module="tertiary nav"
+                     
+                     tooltip
+                  >
+                    
+                    <div class="devsite-nav-item-title">
+                      データ分析とパイプライン
+                    </div>
+                    
+                  </a>
+                </li>
+              
+                <li class="devsite-nav-item">
+                  <a href="https://docs.cloud.google.com/docs/databases?hl=ja"
+                    
+                     track-type="nav"
+                     track-metadata-eventdetail="https://docs.cloud.google.com/docs/databases?hl=ja"
+                     track-metadata-position="nav - docs-home"
+                     track-metadata-module="tertiary nav"
+                     
+                     tooltip
+                  >
+                    
+                    <div class="devsite-nav-item-title">
+                      データベース
+                    </div>
+                    
+                  </a>
+                </li>
+              
+                <li class="devsite-nav-item">
+                  <a href="https://docs.cloud.google.com/docs/dhm-cloud?hl=ja"
+                    
+                     track-type="nav"
+                     track-metadata-eventdetail="https://docs.cloud.google.com/docs/dhm-cloud?hl=ja"
+                     track-metadata-position="nav - docs-home"
+                     track-metadata-module="tertiary nav"
+                     
+                     tooltip
+                  >
+                    
+                    <div class="devsite-nav-item-title">
+                      分散型クラウド、ハイブリッド クラウド、マルチクラウド
+                    </div>
+                    
+                  </a>
+                </li>
+              
+                <li class="devsite-nav-item">
+                  <a href="https://docs.cloud.google.com/docs/generative-ai?hl=ja"
+                    
+                     track-type="nav"
+                     track-metadata-eventdetail="https://docs.cloud.google.com/docs/generative-ai?hl=ja"
+                     track-metadata-position="nav - docs-home"
+                     track-metadata-module="tertiary nav"
+                     
+                     tooltip
+                  >
+                    
+                    <div class="devsite-nav-item-title">
+                      生成 AI
+                    </div>
+                    
+                  </a>
+                </li>
+              
+                <li class="devsite-nav-item">
+                  <a href="https://docs.cloud.google.com/docs/industry?hl=ja"
+                    
+                     track-type="nav"
+                     track-metadata-eventdetail="https://docs.cloud.google.com/docs/industry?hl=ja"
+                     track-metadata-position="nav - docs-home"
+                     track-metadata-module="tertiary nav"
+                     
+                     tooltip
+                  >
+                    
+                    <div class="devsite-nav-item-title">
+                      業種別ソリューション
+                    </div>
+                    
+                  </a>
+                </li>
+              
+                <li class="devsite-nav-item">
+                  <a href="https://docs.cloud.google.com/docs/networking?hl=ja"
+                    
+                     track-type="nav"
+                     track-metadata-eventdetail="https://docs.cloud.google.com/docs/networking?hl=ja"
+                     track-metadata-position="nav - docs-home"
+                     track-metadata-module="tertiary nav"
+                     
+                     tooltip
+                  >
+                    
+                    <div class="devsite-nav-item-title">
+                      ネットワーキング
+                    </div>
+                    
+                  </a>
+                </li>
+              
+                <li class="devsite-nav-item">
+                  <a href="https://docs.cloud.google.com/docs/observability?hl=ja"
+                    
+                     track-type="nav"
+                     track-metadata-eventdetail="https://docs.cloud.google.com/docs/observability?hl=ja"
+                     track-metadata-position="nav - docs-home"
+                     track-metadata-module="tertiary nav"
+                     
+                     tooltip
+                  >
+                    
+                    <div class="devsite-nav-item-title">
+                      オブザーバビリティとモニタリング
+                    </div>
+                    
+                  </a>
+                </li>
+              
+                <li class="devsite-nav-item">
+                  <a href="https://docs.cloud.google.com/docs/security?hl=ja"
+                    
+                     track-type="nav"
+                     track-metadata-eventdetail="https://docs.cloud.google.com/docs/security?hl=ja"
+                     track-metadata-position="nav - docs-home"
+                     track-metadata-module="tertiary nav"
+                     
+                     tooltip
+                  >
+                    
+                    <div class="devsite-nav-item-title">
+                      セキュリティ
+                    </div>
+                    
+                  </a>
+                </li>
+              
+                <li class="devsite-nav-item">
+                  <a href="https://docs.cloud.google.com/docs/storage?hl=ja"
+                    
+                     track-type="nav"
+                     track-metadata-eventdetail="https://docs.cloud.google.com/docs/storage?hl=ja"
+                     track-metadata-position="nav - docs-home"
+                     track-metadata-module="tertiary nav"
+                     
+                     tooltip
+                  >
+                    
+                    <div class="devsite-nav-item-title">
+                      Storage
+                    </div>
+                    
+                  </a>
+                </li>
+              
+            </ul>
+          
+        </div>
+      
+    </div>
+  </div>
+</tab>
+        
+      
+        
+          <tab class="devsite-dropdown
+    
+    
+    devsite-clickable
+    ">
+  
+    <a href="https://docs.cloud.google.com/docs/cross-product-overviews?hl=ja"
+    class="devsite-tabs-content gc-analytics-event "
+      track-metadata-eventdetail="https://docs.cloud.google.com/docs/cross-product-overviews?hl=ja"
+    
+       track-type="nav"
+       track-metadata-position="nav - crossproduct"
+       track-metadata-module="primary nav"
+       
+       
+         
+           data-category="Site-Wide Custom Events"
+         
+           data-label="Tab: プロダクト横断型のツール"
+         
+           track-name="crossproduct"
+         
+           track-link-column-type="single-column"
+         
+       >
+    プロダクト横断型のツール
+  
+    </a>
+    
+      <button
+         aria-haspopup="menu"
+         aria-expanded="false"
+         aria-label="プルダウン メニュー: プロダクト横断型のツール"
+         track-type="nav"
+         track-metadata-eventdetail="https://docs.cloud.google.com/docs/cross-product-overviews?hl=ja"
+         track-metadata-position="nav - crossproduct"
+         track-metadata-module="primary nav"
+         
+          
+            data-category="Site-Wide Custom Events"
+          
+            data-label="Tab: プロダクト横断型のツール"
+          
+            track-name="crossproduct"
+          
+            track-link-column-type="single-column"
+          
+        
+         class="devsite-tabs-dropdown-toggle devsite-icon devsite-icon-arrow-drop-down"></button>
+    
+  
+  <div class="devsite-tabs-dropdown" role="menu" aria-label="submenu" hidden>
+    <div class="devsite-tabs-dropdown-content">
+      
+        <button class="devsite-tabs-close-button material-icons button-flat gc-analytics-event"
+                data-category="Site-Wide Custom Events"
+                data-label="Close dropdown menu"
+                aria-label="プルダウン メニューを閉じる"
+                track-type="nav"
+                track-name="close"
+                track-metadata-eventdetail="#"
+                track-metadata-position="nav - crossproduct"
+                track-metadata-module="tertiary nav">close</button>
+      
+      
+        <div class="devsite-tabs-dropdown-column
+                    ">
+          
+            <ul class="devsite-tabs-dropdown-section
+                       ">
+              
+              
+              
+                <li class="devsite-nav-item">
+                  <a href="https://docs.cloud.google.com/docs/access-resources?hl=ja"
+                    
+                     track-type="nav"
+                     track-metadata-eventdetail="https://docs.cloud.google.com/docs/access-resources?hl=ja"
+                     track-metadata-position="nav - crossproduct"
+                     track-metadata-module="tertiary nav"
+                     
+                     tooltip
+                  >
+                    
+                    <div class="devsite-nav-item-title">
+                      アクセスとリソースの管理
+                    </div>
+                    
+                  </a>
+                </li>
+              
+                <li class="devsite-nav-item">
+                  <a href="https://docs.cloud.google.com/docs/costs-usage?hl=ja"
+                    
+                     track-type="nav"
+                     track-metadata-eventdetail="https://docs.cloud.google.com/docs/costs-usage?hl=ja"
+                     track-metadata-position="nav - crossproduct"
+                     track-metadata-module="tertiary nav"
+                     
+                     tooltip
+                  >
+                    
+                    <div class="devsite-nav-item-title">
+                      費用と使用量の管理
+                    </div>
+                    
+                  </a>
+                </li>
+              
+                <li class="devsite-nav-item">
+                  <a href="https://docs.cloud.google.com/docs/iac?hl=ja"
+                    
+                     track-type="nav"
+                     track-metadata-eventdetail="https://docs.cloud.google.com/docs/iac?hl=ja"
+                     track-metadata-position="nav - crossproduct"
+                     track-metadata-module="tertiary nav"
+                     
+                     tooltip
+                  >
+                    
+                    <div class="devsite-nav-item-title">
+                      Infrastructure as code
+                    </div>
+                    
+                  </a>
+                </li>
+              
+                <li class="devsite-nav-item">
+                  <a href="https://docs.cloud.google.com/docs/migration?hl=ja"
+                    
+                     track-type="nav"
+                     track-metadata-eventdetail="https://docs.cloud.google.com/docs/migration?hl=ja"
+                     track-metadata-position="nav - crossproduct"
+                     track-metadata-module="tertiary nav"
+                     
+                     tooltip
+                  >
+                    
+                    <div class="devsite-nav-item-title">
+                      移行
+                    </div>
+                    
+                  </a>
+                </li>
+              
+                <li class="devsite-nav-item">
+                  <a href="https://docs.cloud.google.com/docs/devtools?hl=ja"
+                    
+                     track-type="nav"
+                     track-metadata-eventdetail="https://docs.cloud.google.com/docs/devtools?hl=ja"
+                     track-metadata-position="nav - crossproduct"
+                     track-metadata-module="tertiary nav"
+                     
+                     tooltip
+                  >
+                    
+                    <div class="devsite-nav-item-title">
+                      SDK、言語、フレームワーク、ツール
+                    </div>
+                    
+                  </a>
+                </li>
+              
+            </ul>
+          
+        </div>
+      
+    </div>
+  </div>
+</tab>
+        
+      
+    </nav>
+
+  </devsite-tabs>
+
+            
+           </div>
+          
+<devsite-search
+    enable-signin
+    enable-search
+    enable-suggestions
+      
+    
+    enable-search-summaries
+    project-name="Identity and Access Management (IAM)"
+    tenant-name="Google Cloud Documentation"
+    project-scope="/iam/docs"
+    url-scoped="https://docs.cloud.google.com/s/results/iam/docs?hl=ja"
+    
+    
+    
+    >
+  <form class="devsite-search-form" action="https://docs.cloud.google.com/s/results?hl=ja" method="GET">
+    <div class="devsite-search-container">
+      <button type="button"
+              search-open
+              class="devsite-search-button devsite-header-icon-button button-flat material-icons"
+              
+              aria-label="検索を開始"></button>
+      <div class="devsite-searchbox">
+        <input
+          aria-activedescendant=""
+          aria-autocomplete="list"
+          
+          aria-label="検索"
+          aria-expanded="false"
+          aria-haspopup="listbox"
+          autocomplete="off"
+          class="devsite-search-field devsite-search-query"
+          name="q"
+          
+          placeholder="検索"
+          role="combobox"
+          type="text"
+          value=""
+          >
+          <div class="devsite-search-image material-icons" aria-hidden="true">
+            
+              <svg class="devsite-search-ai-image" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <g clip-path="url(#clip0_6641_386)">
+                    <path d="M19.6 21L13.3 14.7C12.8 15.1 12.225 15.4167 11.575 15.65C10.925 15.8833 10.2333 16 9.5 16C7.68333 16 6.14167 15.375 4.875 14.125C3.625 12.8583 3 11.3167 3 9.5C3 7.68333 3.625 6.15 4.875 4.9C6.14167 3.63333 7.68333 3 9.5 3C10.0167 3 10.5167 3.05833 11 3.175C11.4833 3.275 11.9417 3.43333 12.375 3.65L10.825 5.2C10.6083 5.13333 10.3917 5.08333 10.175 5.05C9.95833 5.01667 9.73333 5 9.5 5C8.25 5 7.18333 5.44167 6.3 6.325C5.43333 7.19167 5 8.25 5 9.5C5 10.75 5.43333 11.8167 6.3 12.7C7.18333 13.5667 8.25 14 9.5 14C10.6667 14 11.6667 13.625 12.5 12.875C13.35 12.1083 13.8417 11.15 13.975 10H15.975C15.925 10.6333 15.7833 11.2333 15.55 11.8C15.3333 12.3667 15.05 12.8667 14.7 13.3L21 19.6L19.6 21ZM17.5 12C17.5 10.4667 16.9667 9.16667 15.9 8.1C14.8333 7.03333 13.5333 6.5 12 6.5C13.5333 6.5 14.8333 5.96667 15.9 4.9C16.9667 3.83333 17.5 2.53333 17.5 0.999999C17.5 2.53333 18.0333 3.83333 19.1 4.9C20.1667 5.96667 21.4667 6.5 23 6.5C21.4667 6.5 20.1667 7.03333 19.1 8.1C18.0333 9.16667 17.5 10.4667 17.5 12Z" fill="#5F6368"/>
+                  </g>
+                <defs>
+                <clipPath id="clip0_6641_386">
+                <rect width="24" height="24" fill="white"/>
+                </clipPath>
+                </defs>
+              </svg>
+            
+          </div>
+          <div class="devsite-search-shortcut-icon-container" aria-hidden="true">
+            <kbd class="devsite-search-shortcut-icon">/</kbd>
+          </div>
+      </div>
+    </div>
+  </form>
+  <button type="button"
+          search-close
+          class="devsite-search-button devsite-header-icon-button button-flat material-icons"
+          
+          aria-label="検索を閉じる"></button>
+</devsite-search>
+
+        </div>
+
+        
+
+  
+
+  
+    <a class="devsite-header-link devsite-top-button button gc-analytics-event button-with-icon"
+    href="//console.cloud.google.com/?hl=ja"
+    data-category="Site-Wide Custom Events"
+    data-label="Site header link: コンソール"
+    
+      
+        track-metadata-eventDetail="nav"
+      
+        referrerpolicy="no-referrer-when-downgrade"
+      
+        track-name="console"
+      
+        track-type="globalNav"
+      
+        track-metadata-position="nav"
+      
+    >
+  コンソール
+</a>
+  
+
+  
+
+  <devsite-appearance-selector></devsite-appearance-selector>
+
+  
+<devsite-language-selector>
+  <ul role="presentation">
+    
+    
+    <li role="presentation">
+      <a role="menuitem" lang="en"
+        >English</a>
+    </li>
+    
+    <li role="presentation">
+      <a role="menuitem" lang="de"
+        >Deutsch</a>
+    </li>
+    
+    <li role="presentation">
+      <a role="menuitem" lang="es"
+        >Español</a>
+    </li>
+    
+    <li role="presentation">
+      <a role="menuitem" lang="es_419"
+        >Español – América Latina</a>
+    </li>
+    
+    <li role="presentation">
+      <a role="menuitem" lang="fr"
+        >Français</a>
+    </li>
+    
+    <li role="presentation">
+      <a role="menuitem" lang="id"
+        >Indonesia</a>
+    </li>
+    
+    <li role="presentation">
+      <a role="menuitem" lang="it"
+        >Italiano</a>
+    </li>
+    
+    <li role="presentation">
+      <a role="menuitem" lang="pt"
+        >Português</a>
+    </li>
+    
+    <li role="presentation">
+      <a role="menuitem" lang="pt_br"
+        >Português – Brasil</a>
+    </li>
+    
+    <li role="presentation">
+      <a role="menuitem" lang="he"
+        >עברית</a>
+    </li>
+    
+    <li role="presentation">
+      <a role="menuitem" lang="zh_cn"
+        >中文 – 简体</a>
+    </li>
+    
+    <li role="presentation">
+      <a role="menuitem" lang="zh_tw"
+        >中文 – 繁體</a>
+    </li>
+    
+    <li role="presentation">
+      <a role="menuitem" lang="ja"
+        >日本語</a>
+    </li>
+    
+    <li role="presentation">
+      <a role="menuitem" lang="ko"
+        >한국어</a>
+    </li>
+    
+  </ul>
+</devsite-language-selector>
+
+
+
+
+        
+          <devsite-user 
+                        
+                        
+                          enable-profiles
+                        
+                        
+                          fp-auth
+                        
+                        id="devsite-user">
+            
+              
+              <span class="button devsite-top-button" aria-hidden="true" visually-hidden>ログイン</span>
+            
+          </devsite-user>
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="devsite-collapsible-section
+    ">
+    <div class="devsite-header-background">
+      
+        
+          <div class="devsite-product-id-row"
+           >
+            <div class="devsite-product-description-row">
+              
+                
+                <div class="devsite-product-id">
+                  
+                    
+  
+  <a href="https://docs.cloud.google.com/iam/docs?hl=ja">
+    
+  <div class="devsite-product-logo-container"
+       
+       
+       
+    size="medium"
+  >
+  
+    <picture>
+      
+      <source class="devsite-dark-theme"
+              media="(prefers-color-scheme: dark)"
+              srcset=" /_static/clouddocs/images/icons/categories/security-and-identity-white.svg"
+              sizes="64px">
+      
+      <img class="devsite-product-logo"
+           alt=""
+           src="https://docs.cloud.google.com/_static/clouddocs/images/icons/categories/security-and-identity-color.svg?hl=ja"
+           srcset=" /_static/clouddocs/images/icons/categories/security-and-identity-color.svg"
+           sizes="64px"
+           loading="lazy"
+           >
+    </picture>
+  
+  </div>
+  
+  </a>
+  
+
+                  
+                  
+                  
+                    <ul class="devsite-breadcrumb-list"
+  
+    aria-label="下部ヘッダーのパンくずリスト">
+  
+  <li class="devsite-breadcrumb-item
+             ">
+    
+    
+    
+      
+        
+  <a href="https://docs.cloud.google.com/iam/docs?hl=ja"
+      
+        class="devsite-breadcrumb-link gc-analytics-event"
+      
+        data-category="Site-Wide Custom Events"
+      
+        data-label="Lower Header"
+      
+        data-value="1"
+      
+        track-type="globalNav"
+      
+        track-name="breadcrumb"
+      
+        track-metadata-position="1"
+      
+        track-metadata-eventdetail="Identity and Access Management (IAM)"
+      
+    >
+    
+          IAM
+        
+  </a>
+  
+      
+    
+  </li>
+  
+  <li class="devsite-breadcrumb-item
+             ">
+    
+      
+      <div class="devsite-breadcrumb-guillemet material-icons" aria-hidden="true"></div>
+    
+    
+    
+      
+        
+  <a href="https://docs.cloud.google.com/iam/docs?hl=ja"
+      
+        class="devsite-breadcrumb-link gc-analytics-event"
+      
+        data-category="Site-Wide Custom Events"
+      
+        data-label="Lower Header"
+      
+        data-value="2"
+      
+        track-type="globalNav"
+      
+        track-name="breadcrumb"
+      
+        track-metadata-position="2"
+      
+        track-metadata-eventdetail="Identity and Access Management (IAM)"
+      
+    >
+    
+          Identity and Access Management (IAM)
+        
+  </a>
+  
+      
+    
+  </li>
+  
+</ul>
+                </div>
+                
+              
+              
+            </div>
+            
+              <div class="devsite-product-button-row">
+  
+
+  
+  <a href="//console.cloud.google.com/freetrial?hl=ja"
+  
+    class="cloud-free-trial-button button button-primary
+      "
+    
+    
+      
+        track-metadata-position="nav"
+      
+        track-metadata-eventDetail="nav"
+      
+        track-name="gcpCta"
+      
+        referrerpolicy="no-referrer-when-downgrade"
+      
+        track-type="freeTrial"
+      
+    
+    >無料で利用開始</a>
+
+</div>
+            
+          </div>
+          
+        
+      
+      
+        <div class="devsite-doc-set-nav-row">
+          
+          
+            
+            
+  <devsite-tabs class="lower-tabs">
+
+    <nav class="devsite-tabs-wrapper" aria-label="下部のタブ">
+      
+        
+          <tab  >
+            
+    <a href="https://docs.cloud.google.com/iam/docs?hl=ja"
+    class="devsite-tabs-content gc-analytics-event "
+      track-metadata-eventdetail="https://docs.cloud.google.com/iam/docs?hl=ja"
+    
+       track-type="nav"
+       track-metadata-position="nav - 概要"
+       track-metadata-module="primary nav"
+       
+       
+         
+           data-category="Site-Wide Custom Events"
+         
+           data-label="Tab: 概要"
+         
+           track-name="概要"
+         
+       >
+    概要
+  
+    </a>
+    
+  
+          </tab>
+        
+      
+        
+          <tab  class="devsite-active">
+            
+    <a href="https://docs.cloud.google.com/iam/docs/overview?hl=ja"
+    class="devsite-tabs-content gc-analytics-event "
+      track-metadata-eventdetail="https://docs.cloud.google.com/iam/docs/overview?hl=ja"
+    
+       track-type="nav"
+       track-metadata-position="nav - ガイド"
+       track-metadata-module="primary nav"
+       aria-label="ガイド, selected" 
+       
+         
+           data-category="Site-Wide Custom Events"
+         
+           data-label="Tab: ガイド"
+         
+           track-name="ガイド"
+         
+       >
+    ガイド
+  
+    </a>
+    
+  
+          </tab>
+        
+      
+        
+          <tab  >
+            
+    <a href="https://docs.cloud.google.com/iam/docs/apis?hl=ja"
+    class="devsite-tabs-content gc-analytics-event "
+      track-metadata-eventdetail="https://docs.cloud.google.com/iam/docs/apis?hl=ja"
+    
+       track-type="nav"
+       track-metadata-position="nav - リファレンス"
+       track-metadata-module="primary nav"
+       
+       
+         
+           data-category="Site-Wide Custom Events"
+         
+           data-label="Tab: リファレンス"
+         
+           track-name="リファレンス"
+         
+       >
+    リファレンス
+  
+    </a>
+    
+  
+          </tab>
+        
+      
+        
+          <tab  >
+            
+    <a href="https://docs.cloud.google.com/iam/docs/samples?hl=ja"
+    class="devsite-tabs-content gc-analytics-event "
+      track-metadata-eventdetail="https://docs.cloud.google.com/iam/docs/samples?hl=ja"
+    
+       track-type="nav"
+       track-metadata-position="nav - サンプル"
+       track-metadata-module="primary nav"
+       
+       
+         
+           data-category="Site-Wide Custom Events"
+         
+           data-label="Tab: サンプル"
+         
+           track-name="サンプル"
+         
+       >
+    サンプル
+  
+    </a>
+    
+  
+          </tab>
+        
+      
+        
+          <tab  >
+            
+    <a href="https://docs.cloud.google.com/iam/docs/resources?hl=ja"
+    class="devsite-tabs-content gc-analytics-event "
+      track-metadata-eventdetail="https://docs.cloud.google.com/iam/docs/resources?hl=ja"
+    
+       track-type="nav"
+       track-metadata-position="nav - リソース"
+       track-metadata-module="primary nav"
+       
+       
+         
+           data-category="Site-Wide Custom Events"
+         
+           data-label="Tab: リソース"
+         
+           track-name="リソース"
+         
+       >
+    リソース
+  
+    </a>
+    
+  
+          </tab>
+        
+      
+    </nav>
+
+  </devsite-tabs>
+
+          
+          
+        </div>
+      
+    </div>
+  </div>
+
+</div>
+
+
+
+  
+
+  
+</devsite-header>
+        <devsite-book-nav scrollbars >
+          
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="devsite-book-nav-filter"
+     >
+  <span class="filter-list-icon material-icons" aria-hidden="true"></span>
+  <input type="text"
+         placeholder="フィルタ"
+         
+         aria-label="フィルタ テキストを入力"
+         role="searchbox">
+  
+  <span class="filter-clear-button hidden"
+        data-title="フィルタをクリア"
+        aria-label="フィルタをクリア"
+        role="button"
+        tabindex="0"></span>
+</div>
+
+<nav class="devsite-book-nav devsite-nav nocontent" data-nosnippet
+     aria-label="サイドメニュー">
+  <div class="devsite-mobile-header">
+    <button type="button"
+            id="devsite-close-nav"
+            class="devsite-header-icon-button button-flat material-icons gc-analytics-event"
+            data-category="Site-Wide Custom Events"
+            data-label="Close navigation"
+            aria-label="ナビゲーションを閉じる">
+    </button>
+    <div class="devsite-product-name-wrapper">
+
+  <a href="/" class="devsite-site-logo-link gc-analytics-event"
+   data-category="Site-Wide Custom Events" data-label="Site logo" track-type="globalNav"
+   track-name="googleCloudDocumentation" track-metadata-position="nav"
+   track-metadata-eventDetail="nav">
+  
+  <picture>
+    
+    <source srcset="https://www.gstatic.com/devrel-devsite/prod/veed85ba0e3651062c793a40796e84fb34afbf8489308d45f92d5448e587e3f03/clouddocs/images/lockup_dark_theme.svg"
+            media="(prefers-color-scheme: dark)"
+            class="devsite-dark-theme">
+    
+    <img src="https://www.gstatic.com/devrel-devsite/prod/veed85ba0e3651062c793a40796e84fb34afbf8489308d45f92d5448e587e3f03/clouddocs/images/lockup_full_color.svg" class="devsite-site-logo" alt="Google Cloud Documentation">
+  </picture>
+  
+</a>
+
+
+</div>
+  </div>
+
+  <div class="devsite-book-nav-wrapper">
+    <div class="devsite-mobile-nav-top">
+      
+        <ul class="devsite-nav-list">
+          
+            <li class="devsite-nav-item">
+              
+  
+  <a href="/docs"
+    
+       class="devsite-nav-title gc-analytics-event
+              
+              devsite-nav-active"
+    
+
+    
+      
+        data-category="Site-Wide Custom Events"
+      
+        data-label="Tab: テクノロジー分野"
+      
+        track-name="docs-home"
+      
+        track-link-column-type="single-column"
+      
+    
+     data-category="Site-Wide Custom Events"
+     data-label="Responsive Tab: テクノロジー分野"
+     track-type="globalNav"
+     track-metadata-eventDetail="globalMenu"
+     track-metadata-position="nav">
+  
+    <span class="devsite-nav-text" tooltip >
+      テクノロジー分野
+   </span>
+    
+  
+  </a>
+  
+
+  
+    <ul class="devsite-nav-responsive-tabs devsite-nav-has-menu
+               ">
+      
+<li class="devsite-nav-item">
+
+  
+  <span
+    
+       class="devsite-nav-title"
+       tooltip
+    
+    
+      
+        data-category="Site-Wide Custom Events"
+      
+        data-label="Tab: テクノロジー分野"
+      
+        track-name="docs-home"
+      
+        track-link-column-type="single-column"
+      
+    >
+  
+    <span class="devsite-nav-text" tooltip menu="テクノロジー分野">
+      その他
+   </span>
+    
+    <span class="devsite-nav-icon material-icons" data-icon="forward"
+          menu="テクノロジー分野">
+    </span>
+    
+  
+  </span>
+  
+
+</li>
+
+    </ul>
+  
+              
+                <ul class="devsite-nav-responsive-tabs">
+                  
+                    
+                    
+                    
+                    <li class="devsite-nav-item">
+                      
+  
+  <a href="/iam/docs"
+    
+       class="devsite-nav-title gc-analytics-event
+              
+              "
+    
+
+    
+      
+        data-category="Site-Wide Custom Events"
+      
+        data-label="Tab: 概要"
+      
+        track-name="概要"
+      
+    
+     data-category="Site-Wide Custom Events"
+     data-label="Responsive Tab: 概要"
+     track-type="globalNav"
+     track-metadata-eventDetail="globalMenu"
+     track-metadata-position="nav">
+  
+    <span class="devsite-nav-text" tooltip >
+      概要
+   </span>
+    
+  
+  </a>
+  
+
+  
+                    </li>
+                  
+                    
+                    
+                    
+                    <li class="devsite-nav-item">
+                      
+  
+  <a href="/iam/docs/overview"
+    
+       class="devsite-nav-title gc-analytics-event
+              
+              devsite-nav-active"
+    
+
+    
+      
+        data-category="Site-Wide Custom Events"
+      
+        data-label="Tab: ガイド"
+      
+        track-name="ガイド"
+      
+    
+     data-category="Site-Wide Custom Events"
+     data-label="Responsive Tab: ガイド"
+     track-type="globalNav"
+     track-metadata-eventDetail="globalMenu"
+     track-metadata-position="nav">
+  
+    <span class="devsite-nav-text" tooltip menu="_book">
+      ガイド
+   </span>
+    
+  
+  </a>
+  
+
+  
+                    </li>
+                  
+                    
+                    
+                    
+                    <li class="devsite-nav-item">
+                      
+  
+  <a href="/iam/docs/apis"
+    
+       class="devsite-nav-title gc-analytics-event
+              
+              "
+    
+
+    
+      
+        data-category="Site-Wide Custom Events"
+      
+        data-label="Tab: リファレンス"
+      
+        track-name="リファレンス"
+      
+    
+     data-category="Site-Wide Custom Events"
+     data-label="Responsive Tab: リファレンス"
+     track-type="globalNav"
+     track-metadata-eventDetail="globalMenu"
+     track-metadata-position="nav">
+  
+    <span class="devsite-nav-text" tooltip >
+      リファレンス
+   </span>
+    
+  
+  </a>
+  
+
+  
+                    </li>
+                  
+                    
+                    
+                    
+                    <li class="devsite-nav-item">
+                      
+  
+  <a href="/iam/docs/samples"
+    
+       class="devsite-nav-title gc-analytics-event
+              
+              "
+    
+
+    
+      
+        data-category="Site-Wide Custom Events"
+      
+        data-label="Tab: サンプル"
+      
+        track-name="サンプル"
+      
+    
+     data-category="Site-Wide Custom Events"
+     data-label="Responsive Tab: サンプル"
+     track-type="globalNav"
+     track-metadata-eventDetail="globalMenu"
+     track-metadata-position="nav">
+  
+    <span class="devsite-nav-text" tooltip >
+      サンプル
+   </span>
+    
+  
+  </a>
+  
+
+  
+                    </li>
+                  
+                    
+                    
+                    
+                    <li class="devsite-nav-item">
+                      
+  
+  <a href="/iam/docs/resources"
+    
+       class="devsite-nav-title gc-analytics-event
+              
+              "
+    
+
+    
+      
+        data-category="Site-Wide Custom Events"
+      
+        data-label="Tab: リソース"
+      
+        track-name="リソース"
+      
+    
+     data-category="Site-Wide Custom Events"
+     data-label="Responsive Tab: リソース"
+     track-type="globalNav"
+     track-metadata-eventDetail="globalMenu"
+     track-metadata-position="nav">
+  
+    <span class="devsite-nav-text" tooltip >
+      リソース
+   </span>
+    
+  
+  </a>
+  
+
+  
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="devsite-nav-item">
+              
+  
+  <a href="/docs/cross-product-overviews"
+    
+       class="devsite-nav-title gc-analytics-event
+              
+              "
+    
+
+    
+      
+        data-category="Site-Wide Custom Events"
+      
+        data-label="Tab: プロダクト横断型のツール"
+      
+        track-name="crossproduct"
+      
+        track-link-column-type="single-column"
+      
+    
+     data-category="Site-Wide Custom Events"
+     data-label="Responsive Tab: プロダクト横断型のツール"
+     track-type="globalNav"
+     track-metadata-eventDetail="globalMenu"
+     track-metadata-position="nav">
+  
+    <span class="devsite-nav-text" tooltip >
+      プロダクト横断型のツール
+   </span>
+    
+  
+  </a>
+  
+
+  
+    <ul class="devsite-nav-responsive-tabs devsite-nav-has-menu
+               ">
+      
+<li class="devsite-nav-item">
+
+  
+  <span
+    
+       class="devsite-nav-title"
+       tooltip
+    
+    
+      
+        data-category="Site-Wide Custom Events"
+      
+        data-label="Tab: プロダクト横断型のツール"
+      
+        track-name="crossproduct"
+      
+        track-link-column-type="single-column"
+      
+    >
+  
+    <span class="devsite-nav-text" tooltip menu="プロダクト横断型のツール">
+      その他
+   </span>
+    
+    <span class="devsite-nav-icon material-icons" data-icon="forward"
+          menu="プロダクト横断型のツール">
+    </span>
+    
+  
+  </span>
+  
+
+</li>
+
+    </ul>
+  
+              
+            </li>
+          
+          
+    
+    
+<li class="devsite-nav-item">
+
+  
+  <a href="//console.cloud.google.com/"
+    
+       class="devsite-nav-title gc-analytics-event button-with-icon"
+    
+
+    
+      
+        track-metadata-eventDetail="nav"
+      
+        referrerpolicy="no-referrer-when-downgrade"
+      
+        track-name="console"
+      
+        track-type="globalNav"
+      
+        track-metadata-position="nav"
+      
+    
+     data-category="Site-Wide Custom Events"
+     data-label="Responsive Tab: コンソール"
+     track-type="navMenu"
+     track-metadata-eventDetail="globalMenu"
+     track-metadata-position="nav">
+  
+    <span class="devsite-nav-text" tooltip >
+      コンソール
+   </span>
+    
+  
+  </a>
+  
+
+</li>
+
+  
+          
+        </ul>
+      
+    </div>
+    
+      <div class="devsite-mobile-nav-bottom">
+        
+          
+          <ul class="devsite-nav-list" menu="_book">
+            <li class="devsite-nav-item
+           devsite-nav-heading"><div class="devsite-nav-title devsite-nav-title-no-path">
+        <span class="devsite-nav-text" tooltip>Discover</span>
+      </div></li>
+
+  <li class="devsite-nav-item"><a href="/iam/docs/overview"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>サービスの概要</span></a></li>
+
+  <li class="devsite-nav-item
+           devsite-nav-heading"><div class="devsite-nav-title devsite-nav-title-no-path">
+        <span class="devsite-nav-text" tooltip>使ってみる</span>
+      </div></li>
+
+  <li class="devsite-nav-item"><a href="/iam/docs/grant-role-console"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>Google Cloud コンソールでロールを付与する</span></a></li>
+
+  <li class="devsite-nav-item"><a href="/iam/docs/write-policy-client-libraries"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>クライアント ライブラリを使用してロールを付与する</span></a></li>
+
+  <li class="devsite-nav-item"><a href="/iam/docs/iam-security-architecture"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>IAM とセキュリティ アーキテクチャ</span></a></li>
+
+  <li class="devsite-nav-item"><a href="/iam/docs/google-identities"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>Google Cloud の ID 管理</span></a></li>
+
+  <li class="devsite-nav-item
+           devsite-nav-heading"><div class="devsite-nav-title devsite-nav-title-no-path">
+        <span class="devsite-nav-text" tooltip>ユーザーの ID を構成する</span>
+      </div></li>
+
+  <li class="devsite-nav-item"><a href="/iam/docs/user-identities"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>ユーザーの ID</span></a></li>
+
+  <li class="devsite-nav-item"><a href="/iam/docs/groups-in-cloud-console"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>Google Cloud コンソールで Google グループを作成して管理する</span></a></li>
+
+  <li class="devsite-nav-item"><a href="/iam/docs/groups-best-practices"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>Google グループの使用に関するベスト プラクティス</span></a></li>
+
+  <li class="devsite-nav-item
+           devsite-nav-expandable"><div class="devsite-expandable-nav">
+      <a class="devsite-nav-toggle" aria-hidden="true"></a><div class="devsite-nav-title devsite-nav-title-no-path" tabindex="0" role="button">
+        <span class="devsite-nav-text" tooltip>ユーザーの ID を連携させる</span>
+      </div><ul class="devsite-nav-section"><li class="devsite-nav-item"><a href="/iam/docs/workforce-identity-federation"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>Workforce Identity 連携</span></a></li><li class="devsite-nav-item
+           devsite-nav-expandable"><div class="devsite-expandable-nav">
+      <a class="devsite-nav-toggle" aria-hidden="true"></a><div class="devsite-nav-title devsite-nav-title-no-path" tabindex="0" role="button">
+        <span class="devsite-nav-text" tooltip>Workforce Identity 連携を構成する</span>
+      </div><ul class="devsite-nav-section"><li class="devsite-nav-item"><a href="/iam/docs/workforce-sign-in-microsoft-entra-id"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>Microsoft Entra ID</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/workforce-sign-in-microsoft-entra-id-scalable-groups"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>グループ数の多い Microsoft Entra ID</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/workforce-sign-in-okta"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>Okta</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/configuring-workforce-identity-federation"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>その他の OIDC または SAML 2.0</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/workforce-sign-in-power-bi"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>Microsoft Entra を使用して Power BI で BigQuery データにアクセスする</span></a></li></ul></div></li><li class="devsite-nav-item"><a href="/iam/docs/workforce-obtaining-short-lived-credentials"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>Workforce Identity 連携の有効期間が短い認証情報を取得する</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/manage-workforce-identity-pools-providers"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>Workforce Identity プールとプロバイダを管理する</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/workforce-delete-user-data"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>Workforce Identity 連携ユーザーとそのデータを削除する</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/workforce-console-sso"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>コンソール（連携）へのユーザー アクセスを設定する</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/workforce-log-in-gcloud"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>連携 ID を使用して gcloud CLI にログインする</span></a></li><li class="devsite-nav-item
+           devsite-nav-expandable"><div class="devsite-expandable-nav">
+      <a class="devsite-nav-toggle" aria-hidden="true"></a><div class="devsite-nav-title devsite-nav-title-no-path" tabindex="0" role="button">
+        <span class="devsite-nav-text" tooltip>OAuth アプリケーションを統合する</span>
+      </div><ul class="devsite-nav-section"><li class="devsite-nav-item"><a href="/iam/docs/workforce-oauth-app"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>OAuth アプリケーション統合の概要</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/workforce-manage-oauth-app"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>OAuth アプリケーションを管理する</span></a></li></ul></div></li></ul></div></li>
+
+  <li class="devsite-nav-item
+           devsite-nav-heading"><div class="devsite-nav-title devsite-nav-title-no-path">
+        <span class="devsite-nav-text" tooltip>ワークロードの ID を構成する</span>
+      </div></li>
+
+  <li class="devsite-nav-item"><a href="/iam/docs/workload-identities"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>ワークロードの ID</span></a></li>
+
+  <li class="devsite-nav-item
+           devsite-nav-expandable"><div class="devsite-expandable-nav">
+      <a class="devsite-nav-toggle" aria-hidden="true"></a><div class="devsite-nav-title devsite-nav-title-no-path" tabindex="0" role="button">
+        <span class="devsite-nav-text" tooltip>サービス アカウントの作成と管理</span>
+      </div><ul class="devsite-nav-section"><li class="devsite-nav-item
+           devsite-nav-expandable"><div class="devsite-expandable-nav">
+      <a class="devsite-nav-toggle" aria-hidden="true"></a><div class="devsite-nav-title devsite-nav-title-no-path" tabindex="0" role="button">
+        <span class="devsite-nav-text" tooltip>サービス アカウントについて</span>
+      </div><ul class="devsite-nav-section"><li class="devsite-nav-item"><a href="/iam/docs/service-account-overview"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>サービス アカウント</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/service-account-creds"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>サービス アカウント認証情報</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/service-account-impersonation"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>サービス アカウントの権限借用</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/service-account-types"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>サービス アカウントの種類</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/service-account-permissions"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>サービス アカウント認証用のロール</span></a></li></ul></div></li><li class="devsite-nav-item
+           devsite-nav-preview"><a href="/iam/docs/create-service-agents"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>ロールを作成してサービス エージェントに付与する</span><span class="devsite-nav-icon material-icons"
+        data-icon="preview"
+        data-title="プレビュー"
+        aria-hidden="true"></span></a></li><li class="devsite-nav-item"><a href="/iam/docs/service-accounts-create"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>サービス アカウントを作成する</span></a></li><li class="devsite-nav-item
+           devsite-nav-expandable"><div class="devsite-expandable-nav">
+      <a class="devsite-nav-toggle" aria-hidden="true"></a><div class="devsite-nav-title devsite-nav-title-no-path" tabindex="0" role="button">
+        <span class="devsite-nav-text" tooltip>サービス アカウントを管理</span>
+      </div><ul class="devsite-nav-section"><li class="devsite-nav-item"><a href="/iam/docs/service-accounts-list-edit"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>サービス アカウントの一覧表示と編集</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/service-accounts-disable-enable"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>サービス アカウントを無効または有効にする</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/service-accounts-delete-undelete"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>サービス アカウントの削除と削除取り消し</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/service-accounts-tags"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>サービス アカウントのタグを管理する</span></a></li></ul></div></li><li class="devsite-nav-item"><a href="/iam/docs/attach-service-accounts"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>サービス アカウントをリソースに関連付ける</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/service-accounts-custom-constraints"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>サービス アカウントとキーにカスタム組織ポリシーを使用する</span></a></li><li class="devsite-nav-item
+           devsite-nav-expandable"><div class="devsite-expandable-nav">
+      <a class="devsite-nav-toggle" aria-hidden="true"></a><div class="devsite-nav-title devsite-nav-title-no-path" tabindex="0" role="button">
+        <span class="devsite-nav-text" tooltip>サービス アカウントのベスト プラクティス</span>
+      </div><ul class="devsite-nav-section"><li class="devsite-nav-item"><a href="/iam/docs/best-practices-service-accounts"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>サービス アカウントの使用に関するベスト プラクティス</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/best-practices-for-using-service-accounts-in-deployment-pipelines"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>デプロイ パイプラインでサービス アカウントを使用するためのベスト プラクティス</span></a></li></ul></div></li></ul></div></li>
+
+  <li class="devsite-nav-item
+           devsite-nav-expandable
+           devsite-nav-preview"><div class="devsite-expandable-nav">
+      <a class="devsite-nav-toggle" aria-hidden="true"></a><div class="devsite-nav-title devsite-nav-title-no-path" tabindex="0" role="button">
+        <span class="devsite-nav-text" tooltip>マネージド ワークロード ID を使用する</span><span class="devsite-nav-icon material-icons"
+        data-icon="preview"
+        data-title="プレビュー"
+        aria-hidden="true"></span>
+      </div><ul class="devsite-nav-section"><li class="devsite-nav-item
+           devsite-nav-preview"><a href="/iam/docs/managed-workload-identity"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>マネージド Workload Identity について</span><span class="devsite-nav-icon material-icons"
+        data-icon="preview"
+        data-title="プレビュー"
+        aria-hidden="true"></span></a></li><li class="devsite-nav-item
+           devsite-nav-expandable"><div class="devsite-expandable-nav">
+      <a class="devsite-nav-toggle" aria-hidden="true"></a><div class="devsite-nav-title devsite-nav-title-no-path" tabindex="0" role="button">
+        <span class="devsite-nav-text" tooltip>Compute Engine </span>
+      </div><ul class="devsite-nav-section"><li class="devsite-nav-item
+           devsite-nav-preview"><a href="/iam/docs/create-managed-workload-identities"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>GCE 用のマネージド ワークロード ID を作成する</span><span class="devsite-nav-icon material-icons"
+        data-icon="preview"
+        data-title="プレビュー"
+        aria-hidden="true"></span></a></li></ul></div></li><li class="devsite-nav-item
+           devsite-nav-expandable"><div class="devsite-expandable-nav">
+      <a class="devsite-nav-toggle" aria-hidden="true"></a><div class="devsite-nav-title devsite-nav-title-no-path" tabindex="0" role="button">
+        <span class="devsite-nav-text" tooltip>GKE</span>
+      </div><ul class="devsite-nav-section"><li class="devsite-nav-item
+           devsite-nav-preview"><a href="/iam/docs/create-managed-workload-identities-gke"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>GKE 用のマネージド ワークロード ID を作成する</span><span class="devsite-nav-icon material-icons"
+        data-icon="preview"
+        data-title="プレビュー"
+        aria-hidden="true"></span></a></li><li class="devsite-nav-item
+           devsite-nav-preview"><a href="/iam/docs/troubleshoot-managed-workload-identities-gke"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>GKE 用マネージド ワークロード ID のトラブルシューティング</span><span class="devsite-nav-icon material-icons"
+        data-icon="preview"
+        data-title="プレビュー"
+        aria-hidden="true"></span></a></li></ul></div></li><li class="devsite-nav-item"><a href="/iam/docs/managed-workload-identity-custom-constraints"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>カスタム組織ポリシーを使用する</span></a></li></ul></div></li>
+
+  <li class="devsite-nav-item
+           devsite-nav-expandable"><div class="devsite-expandable-nav">
+      <a class="devsite-nav-toggle" aria-hidden="true"></a><div class="devsite-nav-title devsite-nav-title-no-path" tabindex="0" role="button">
+        <span class="devsite-nav-text" tooltip>外部ワークロードの ID を連携させる</span>
+      </div><ul class="devsite-nav-section"><li class="devsite-nav-item"><a href="/iam/docs/workload-identity-federation"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>Workload Identity 連携</span></a></li><li class="devsite-nav-item
+           devsite-nav-expandable"><div class="devsite-expandable-nav">
+      <a class="devsite-nav-toggle" aria-hidden="true"></a><div class="devsite-nav-title devsite-nav-title-no-path" tabindex="0" role="button">
+        <span class="devsite-nav-text" tooltip>Workload Identity 連携を構成する</span>
+      </div><ul class="devsite-nav-section"><li class="devsite-nav-item"><a href="/iam/docs/workload-identity-federation-with-other-clouds"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>AWS または Azure</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/workload-identity-federation-with-active-directory"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>Active Directory</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/workload-identity-federation-with-deployment-pipelines"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>デプロイメント パイプライン</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/workload-identity-federation-with-kubernetes"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>Kubernetes</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/workload-identity-federation-with-x509-certificates"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>X.509 証明書を使用するワークロード</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/workload-identity-federation-with-other-providers"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>その他の ID プロバイダ</span></a></li></ul></div></li><li class="devsite-nav-item"><a href="/iam/docs/manage-workload-identity-pools-providers"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>Workload Identity プールとプロバイダを管理する</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/best-practices-for-using-workload-identity-federation"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>Workload Identity 連携の使用に関するベスト プラクティス</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/use-workload-identity-federation-to-let-customers-access-their-cloud-resources"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>プロダクトやサービスから Google Cloud リソースにアクセスできるようにする</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/workload-download-cred-and-grant-access"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>認証情報の構成をダウンロードしてアクセス権を付与する</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/tutorial-cloud-run-workload-id-federation"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>Cloud Run と Workload Identity 連携を統合する</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/workload-identity-federation-custom-constraints"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>カスタム組織ポリシーを使用する</span></a></li></ul></div></li>
+
+  <li class="devsite-nav-item
+           devsite-nav-expandable"><div class="devsite-expandable-nav">
+      <a class="devsite-nav-toggle" aria-hidden="true"></a><div class="devsite-nav-title devsite-nav-title-no-path" tabindex="0" role="button">
+        <span class="devsite-nav-text" tooltip>サービス アカウント キーの作成と管理</span>
+      </div><ul class="devsite-nav-section"><li class="devsite-nav-item"><a href="/iam/docs/migrate-from-service-account-keys"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>サービス アカウント キーから移行する</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/key-rotation"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>サービス アカウント キーのローテーション</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/keys-create-delete"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>サービス アカウント キーの作成と削除</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/keys-list-get"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>サービス アカウント キーの一覧表示と取得</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/keys-upload"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>公開鍵をアップロードする</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/keys-disable-enable"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>サービス アカウント キーの無効化と有効化</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/best-practices-for-managing-service-account-keys"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>サービス アカウント キーを管理するためのベスト プラクティス</span></a></li></ul></div></li>
+
+  <li class="devsite-nav-item"><a href="/iam/docs/built-in-resource-identities"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>リソースの組み込み ID</span></a></li>
+
+  <li class="devsite-nav-item
+           devsite-nav-heading"><div class="devsite-nav-title devsite-nav-title-no-path">
+        <span class="devsite-nav-text" tooltip>リソースへのアクセスを制御する</span>
+      </div></li>
+
+  <li class="devsite-nav-item
+           devsite-nav-expandable"><div class="devsite-expandable-nav">
+      <a class="devsite-nav-toggle" aria-hidden="true"></a><div class="devsite-nav-title devsite-nav-title-no-path" tabindex="0" role="button">
+        <span class="devsite-nav-text" tooltip>IAM アクセス制御について</span>
+      </div><ul class="devsite-nav-section"><li class="devsite-nav-item"><a href="/iam/docs/roles-overview"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>ロールと権限</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/principals-overview"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>プリンシパル</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/policy-types"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>ポリシーの種類</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/allow-policies"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>許可ポリシー</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/resource-hierarchy-access-control"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>許可ポリシーの継承</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/deny-overview"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>拒否ポリシー</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/principal-access-boundary-policies"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>プリンシパル アクセス境界ポリシー</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/access-change-propagation"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>アクセス権の変更の伝播</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/conditions-overview"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>IAM Conditions</span></a></li></ul></div></li>
+
+  <li class="devsite-nav-item
+           devsite-nav-expandable"><div class="devsite-expandable-nav">
+      <a class="devsite-nav-toggle" aria-hidden="true"></a><div class="devsite-nav-title devsite-nav-title-no-path" tabindex="0" role="button">
+        <span class="devsite-nav-text" tooltip>付与するロールを選択する</span>
+      </div><ul class="devsite-nav-section"><li class="devsite-nav-item"><a href="/iam/docs/choose-role-type"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>使用するロールの種類を選択する</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/choose-predefined-roles"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>適切な事前定義ロールを見つける</span></a></li><li class="devsite-nav-item
+           devsite-nav-preview"><a href="/iam/docs/role-picker-gemini"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>Gemini のアシスト機能を使用して事前定義ロールの候補を取得する</span><span class="devsite-nav-icon material-icons"
+        data-icon="preview"
+        data-title="プレビュー"
+        aria-hidden="true"></span></a></li><li class="devsite-nav-item"><a href="/iam/docs/viewing-grantable-roles"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>付与可能なロールを表示する</span></a></li><li class="devsite-nav-item
+           devsite-nav-expandable"><div class="devsite-expandable-nav">
+      <a class="devsite-nav-toggle" aria-hidden="true"></a><div class="devsite-nav-title devsite-nav-title-no-path" tabindex="0" role="button">
+        <span class="devsite-nav-text" tooltip>特定のジョブ機能のロール</span>
+      </div><ul class="devsite-nav-section"><li class="devsite-nav-item"><a href="/iam/docs/job-functions/roles-for-job-functions"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>職務の事前定義ロール</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/job-functions/billing"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>請求関連のジョブ機能</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/job-functions/networking"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>ネットワーク関連のジョブ機能</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/job-functions/auditing"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>監査関連のジョブ機能</span></a></li></ul></div></li></ul></div></li>
+
+  <li class="devsite-nav-item
+           devsite-nav-expandable"><div class="devsite-expandable-nav">
+      <a class="devsite-nav-toggle" aria-hidden="true"></a><div class="devsite-nav-title devsite-nav-title-no-path" tabindex="0" role="button">
+        <span class="devsite-nav-text" tooltip>カスタムロールの作成と管理</span>
+      </div><ul class="devsite-nav-section"><li class="devsite-nav-item"><a href="/iam/docs/creating-custom-roles"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>カスタムロールの作成と管理</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/maintain-custom-roles-deployment-manager"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>Deployment Manager を使用してカスタムロールを保守する</span></a></li></ul></div></li>
+
+  <li class="devsite-nav-item
+           devsite-nav-expandable"><div class="devsite-expandable-nav">
+      <a class="devsite-nav-toggle" aria-hidden="true"></a><div class="devsite-nav-title devsite-nav-title-no-path" tabindex="0" role="button">
+        <span class="devsite-nav-text" tooltip>アクセスの許可</span>
+      </div><ul class="devsite-nav-section"><li class="devsite-nav-item"><a href="/iam/docs/granting-changing-revoking-access"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>プロジェクト、フォルダ、組織へのアクセス権の管理</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/manage-access-service-accounts"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>サービス アカウントに対するアクセス権の管理</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/manage-access-other-resources"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>他のリソースへのアクセス権を管理する</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/test-policy-changes"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>許可ポリシーの変更をテストする</span></a></li></ul></div></li>
+
+  <li class="devsite-nav-item
+           devsite-nav-expandable"><div class="devsite-expandable-nav">
+      <a class="devsite-nav-toggle" aria-hidden="true"></a><div class="devsite-nav-title devsite-nav-title-no-path" tabindex="0" role="button">
+        <span class="devsite-nav-text" tooltip>条件付きでアクセスを許可する</span>
+      </div><ul class="devsite-nav-section"><li class="devsite-nav-item"><a href="/iam/docs/managing-conditional-role-bindings"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>条件付きロール バインディングを管理する</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/configuring-temporary-access"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>一時的なアクセス権を構成する</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/configuring-resource-based-access"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>リソースベースのアクセスを構成する</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/tags-access-control"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>タグと条件付きアクセス</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/setting-limits-on-granting-roles"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>ロール付与の制限を設定する</span></a></li><li class="devsite-nav-item
+           devsite-nav-alpha"><a href="/iam/docs/linting-policies"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>許可ポリシーの条件の検証方法</span><span class="devsite-nav-icon material-icons"
+        data-icon="alpha"
+        data-title="アルファ版"
+        aria-hidden="true"></span></a></li></ul></div></li>
+
+  <li class="devsite-nav-item"><a href="/iam/docs/deny-access"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>アクセスを拒否する</span></a></li>
+
+  <li class="devsite-nav-item
+           devsite-nav-expandable"><div class="devsite-expandable-nav">
+      <a class="devsite-nav-toggle" aria-hidden="true"></a><div class="devsite-nav-title devsite-nav-title-no-path" tabindex="0" role="button">
+        <span class="devsite-nav-text" tooltip>プリンシパルがアクセスできるリソースを制限する</span>
+      </div><ul class="devsite-nav-section"><li class="devsite-nav-item"><a href="/iam/docs/principal-access-boundary-policies-create"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>プリンシパル アクセス境界ポリシーの作成と適用</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/principal-access-boundary-policies-view"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>プリンシパル アクセス境界ポリシーを表示する</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/principal-access-boundary-policies-edit"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>プリンシパル アクセス境界ポリシーを編集する</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/principal-access-boundary-policies-remove"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>プリンシパル アクセス境界ポリシーを削除する</span></a></li></ul></div></li>
+
+  <li class="devsite-nav-item
+           devsite-nav-expandable"><div class="devsite-expandable-nav">
+      <a class="devsite-nav-toggle" aria-hidden="true"></a><div class="devsite-nav-title devsite-nav-title-no-path" tabindex="0" role="button">
+        <span class="devsite-nav-text" tooltip>一時的に昇格したアクセス</span>
+      </div><ul class="devsite-nav-section"><li class="devsite-nav-item"><a href="/iam/docs/temporary-elevated-access"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>一時的に昇格したアクセスの概要</span></a></li><li class="devsite-nav-item
+           devsite-nav-expandable"><div class="devsite-expandable-nav">
+      <a class="devsite-nav-toggle" aria-hidden="true"></a><div class="devsite-nav-title devsite-nav-title-no-path" tabindex="0" role="button">
+        <span class="devsite-nav-text" tooltip>PAM を使用して一時的に昇格されたアクセス権を制御する</span>
+      </div><ul class="devsite-nav-section"><li class="devsite-nav-item"><a href="/iam/docs/pam-overview"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>PAM の概要</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/pam-permissions-and-setup"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>権限と設定</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/pam-create-entitlements"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>利用資格を作成する</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/pam-view-update-delete-entitlements"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>利用資格の表示、更新、削除</span></a></li><li class="devsite-nav-item
+           devsite-nav-preview"><a href="/iam/docs/pam-configure-settings"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>PAM 設定を構成する</span><span class="devsite-nav-icon material-icons"
+        data-icon="preview"
+        data-title="プレビュー"
+        aria-hidden="true"></span></a></li><li class="devsite-nav-item
+           devsite-nav-preview"><a href="/iam/docs/pam-view-export-settings"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>PAM 設定を表示およびエクスポートする</span><span class="devsite-nav-icon material-icons"
+        data-icon="preview"
+        data-title="プレビュー"
+        aria-hidden="true"></span></a></li><li class="devsite-nav-item"><a href="/iam/docs/pam-view-grants"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>権限付与を表示する</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/pam-revoke-grants"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>権限付与を取り消す</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/pam-audit-entitlement-events"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>利用資格と付与イベントを監査する</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/pam-best-practices"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>PAM のベスト プラクティス</span></a></li></ul></div></li><li class="devsite-nav-item"><a href="/iam/docs/pam-request-temporary-elevated-access"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>PAM で一時的に昇格されたアクセス権をリクエストする</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/pam-withdraw-grants"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>権限付与を取り消す</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/pam-approve-deny-grants"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>PAM で権限付与を承認または拒否する</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/create-short-lived-credentials-direct"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>サービス アカウントに有効期間の短い認証情報を作成する</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/create-short-lived-credentials-delegated"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>複数のサービス アカウントに有効期間の短い認証情報を作成する</span></a></li><li class="devsite-nav-item
+           devsite-nav-expandable"><div class="devsite-expandable-nav">
+      <a class="devsite-nav-toggle" aria-hidden="true"></a><div class="devsite-nav-title devsite-nav-title-no-path" tabindex="0" role="button">
+        <span class="devsite-nav-text" tooltip>認証情報の Cloud Storage 権限を制限する</span>
+      </div><ul class="devsite-nav-section"><li class="devsite-nav-item"><a href="/iam/docs/downscoping-short-lived-credentials"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>認証情報アクセス境界の概要</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/create-downscoped-short-lived-credentials"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>範囲が限定された有効期間の短い認証情報を作成する</span></a></li></ul></div></li><li class="devsite-nav-item"><a href="/iam/docs/migrating-to-credentials-api"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>Service Account Credentials API に移行する</span></a></li></ul></div></li>
+
+  <li class="devsite-nav-item"><a href="/iam/docs/testing-permissions"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>カスタム ユーザー インターフェースの権限をテストする</span></a></li>
+
+  <li class="devsite-nav-item"><a href="/iam/docs/org-policy-custom-constraints"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>許可ポリシーにカスタム組織ポリシーを使用する</span></a></li>
+
+  <li class="devsite-nav-item"><a href="/solutions/help-secure-the-pipeline-from-your-data-lake-to-your-data-warehouse"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>IAM を使用してデータ パイプラインからの漏洩を防ぐ</span></a></li>
+
+  <li class="devsite-nav-item
+           devsite-nav-heading"><div class="devsite-nav-title devsite-nav-title-no-path">
+        <span class="devsite-nav-text" tooltip>IAM 構成を最適化する</span>
+      </div></li>
+
+  <li class="devsite-nav-item"><a href="/iam/docs/using-iam-securely"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>IAM を安全に使用する</span></a></li>
+
+  <li class="devsite-nav-item"><a href="/iam/docs/policy-intelligence-tools"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>ポリシー インテリジェンス ツールを使用して IAM ポリシーを最適化する</span></a></li>
+
+  <li class="devsite-nav-item"><a href="/iam/docs/secure-iam-vpc-sc"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>VPC Service Controls を使用して IAM を保護する</span></a></li>
+
+  <li class="devsite-nav-item
+           devsite-nav-heading"><div class="devsite-nav-title devsite-nav-title-no-path">
+        <span class="devsite-nav-text" tooltip>モニタリング</span>
+      </div></li>
+
+  <li class="devsite-nav-item
+           devsite-nav-expandable"><div class="devsite-expandable-nav">
+      <a class="devsite-nav-toggle" aria-hidden="true"></a><div class="devsite-nav-title devsite-nav-title-no-path" tabindex="0" role="button">
+        <span class="devsite-nav-text" tooltip>監査ロギング</span>
+      </div><ul class="devsite-nav-section"><li class="devsite-nav-item"><a href="/iam/docs/audit-logging"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>IAM API の監査ロギング</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/audit-logging/audit-logging-iamscim"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>IAM SCIM の監査ロギング</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/audit-logging/audit-logging-iamcreds"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>Service Account Credentials API の監査ロギング</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/audit-logging/audit-logging-pam"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>Privileged Access Manager の監査ロギング</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/audit-logging/audit-logging-sts"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>Security Token Service API の監査ロギング</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/audit-logging/examples-service-accounts"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>サービス アカウントのログの例</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/audit-logging/examples-workforce-identity"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>Workforce Identity 連携のログの例</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/audit-logging/examples-oauth-clients"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>Workforce OAuth アプリケーション統合のログの例</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/audit-logging/examples-workload-identity"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>Workload Identity 連携のログの例</span></a></li></ul></div></li>
+
+  <li class="devsite-nav-item"><a href="/iam/docs/analyze-access"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>リソースへのアクセス権を分析する</span></a></li>
+
+  <li class="devsite-nav-item
+           devsite-nav-expandable"><div class="devsite-expandable-nav">
+      <a class="devsite-nav-toggle" aria-hidden="true"></a><div class="devsite-nav-title devsite-nav-title-no-path" tabindex="0" role="button">
+        <span class="devsite-nav-text" tooltip>サービス アカウントの使用状況をモニタリングする</span>
+      </div><ul class="devsite-nav-section"><li class="devsite-nav-item"><a href="/iam/docs/service-account-usage-tools"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>サービス アカウントの使用状況を把握するためのツール</span></a></li><li class="devsite-nav-item"><a href="/iam/docs/service-account-monitoring"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>サービス アカウントとキーの使用状況をモニタリングする</span></a></li></ul></div></li>
+
+  <li class="devsite-nav-item"><a href="/iam/docs/review-iam-policy-history"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>許可ポリシーの履歴を確認する</span></a></li>
+
+  <li class="devsite-nav-item
+           devsite-nav-preview"><a href="/iam/docs/review-security-insights"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>セキュリティ分析情報を確認する</span><span class="devsite-nav-icon material-icons"
+        data-icon="preview"
+        data-title="プレビュー"
+        aria-hidden="true"></span></a></li>
+
+  <li class="devsite-nav-item
+           devsite-nav-heading"><div class="devsite-nav-title devsite-nav-title-no-path">
+        <span class="devsite-nav-text" tooltip>トラブルシューティング</span>
+      </div></li>
+
+  <li class="devsite-nav-item"><a href="/iam/docs/permission-error-messages"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>権限に関するエラー メッセージのトラブルシューティング</span></a></li>
+
+  <li class="devsite-nav-item"><a href="/iam/docs/troubleshoot-policies"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>許可ポリシーと拒否ポリシーのトラブルシューティング</span></a></li>
+
+  <li class="devsite-nav-item"><a href="/iam/docs/troubleshoot-org-policies"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>サービス アカウントに関する組織のポリシーエラーのトラブルシューティング</span></a></li>
+
+  <li class="devsite-nav-item"><a href="/iam/docs/troubleshooting-withcond"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>ポリシーとロールのバインドでの withcond のトラブルシューティング</span></a></li>
+
+  <li class="devsite-nav-item"><a href="/iam/docs/troubleshooting-workforce-identity-federation"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>Workforce Identity 連携のトラブルシューティング</span></a></li>
+
+  <li class="devsite-nav-item"><a href="/iam/docs/troubleshooting-workload-identity-federation"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>Workload Identity 連携のトラブルシューティング</span></a></li>
+
+  <li class="devsite-nav-item
+           devsite-nav-heading"><div class="devsite-nav-title devsite-nav-title-no-path">
+        <span class="devsite-nav-text" tooltip>サンプル</span>
+      </div></li>
+
+  <li class="devsite-nav-item"><a href="/iam/docs/samples"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>すべての Identity and Access Management コードサンプル</span></a></li>
+
+  <li class="devsite-nav-item"><a href="/docs/samples"
+        class="devsite-nav-title"
+      ><span class="devsite-nav-text" tooltip>すべてのプロダクトのコードサンプル</span></a></li>
+          </ul>
+        
+        
+          
+    
+      
+      <ul class="devsite-nav-list" menu="テクノロジー分野"
+          aria-label="サイドメニュー" hidden>
+        
+          
+            
+            
+              
+<li class="devsite-nav-item">
+
+  
+  <a href="/docs/ai-ml"
+    
+       class="devsite-nav-title gc-analytics-event
+              
+              "
+    
+
+    
+     data-category="Site-Wide Custom Events"
+     data-label="Responsive Tab: AI と ML"
+     track-type="navMenu"
+     track-metadata-eventDetail="globalMenu"
+     track-metadata-position="nav">
+  
+    <span class="devsite-nav-text" tooltip >
+      AI と ML
+   </span>
+    
+  
+  </a>
+  
+
+</li>
+
+            
+              
+<li class="devsite-nav-item">
+
+  
+  <a href="/docs/application-development"
+    
+       class="devsite-nav-title gc-analytics-event
+              
+              "
+    
+
+    
+     data-category="Site-Wide Custom Events"
+     data-label="Responsive Tab: アプリケーション開発"
+     track-type="navMenu"
+     track-metadata-eventDetail="globalMenu"
+     track-metadata-position="nav">
+  
+    <span class="devsite-nav-text" tooltip >
+      アプリケーション開発
+   </span>
+    
+  
+  </a>
+  
+
+</li>
+
+            
+              
+<li class="devsite-nav-item">
+
+  
+  <a href="/docs/application-hosting"
+    
+       class="devsite-nav-title gc-analytics-event
+              
+              "
+    
+
+    
+     data-category="Site-Wide Custom Events"
+     data-label="Responsive Tab: アプリケーションのホスティング"
+     track-type="navMenu"
+     track-metadata-eventDetail="globalMenu"
+     track-metadata-position="nav">
+  
+    <span class="devsite-nav-text" tooltip >
+      アプリケーションのホスティング
+   </span>
+    
+  
+  </a>
+  
+
+</li>
+
+            
+              
+<li class="devsite-nav-item">
+
+  
+  <a href="/docs/compute-area"
+    
+       class="devsite-nav-title gc-analytics-event
+              
+              "
+    
+
+    
+     data-category="Site-Wide Custom Events"
+     data-label="Responsive Tab: コンピューティング"
+     track-type="navMenu"
+     track-metadata-eventDetail="globalMenu"
+     track-metadata-position="nav">
+  
+    <span class="devsite-nav-text" tooltip >
+      コンピューティング
+   </span>
+    
+  
+  </a>
+  
+
+</li>
+
+            
+              
+<li class="devsite-nav-item">
+
+  
+  <a href="/docs/data"
+    
+       class="devsite-nav-title gc-analytics-event
+              
+              "
+    
+
+    
+     data-category="Site-Wide Custom Events"
+     data-label="Responsive Tab: データ分析とパイプライン"
+     track-type="navMenu"
+     track-metadata-eventDetail="globalMenu"
+     track-metadata-position="nav">
+  
+    <span class="devsite-nav-text" tooltip >
+      データ分析とパイプライン
+   </span>
+    
+  
+  </a>
+  
+
+</li>
+
+            
+              
+<li class="devsite-nav-item">
+
+  
+  <a href="/docs/databases"
+    
+       class="devsite-nav-title gc-analytics-event
+              
+              "
+    
+
+    
+     data-category="Site-Wide Custom Events"
+     data-label="Responsive Tab: データベース"
+     track-type="navMenu"
+     track-metadata-eventDetail="globalMenu"
+     track-metadata-position="nav">
+  
+    <span class="devsite-nav-text" tooltip >
+      データベース
+   </span>
+    
+  
+  </a>
+  
+
+</li>
+
+            
+              
+<li class="devsite-nav-item">
+
+  
+  <a href="/docs/dhm-cloud"
+    
+       class="devsite-nav-title gc-analytics-event
+              
+              "
+    
+
+    
+     data-category="Site-Wide Custom Events"
+     data-label="Responsive Tab: 分散型クラウド、ハイブリッド クラウド、マルチクラウド"
+     track-type="navMenu"
+     track-metadata-eventDetail="globalMenu"
+     track-metadata-position="nav">
+  
+    <span class="devsite-nav-text" tooltip >
+      分散型クラウド、ハイブリッド クラウド、マルチクラウド
+   </span>
+    
+  
+  </a>
+  
+
+</li>
+
+            
+              
+<li class="devsite-nav-item">
+
+  
+  <a href="/docs/generative-ai"
+    
+       class="devsite-nav-title gc-analytics-event
+              
+              "
+    
+
+    
+     data-category="Site-Wide Custom Events"
+     data-label="Responsive Tab: 生成 AI"
+     track-type="navMenu"
+     track-metadata-eventDetail="globalMenu"
+     track-metadata-position="nav">
+  
+    <span class="devsite-nav-text" tooltip >
+      生成 AI
+   </span>
+    
+  
+  </a>
+  
+
+</li>
+
+            
+              
+<li class="devsite-nav-item">
+
+  
+  <a href="/docs/industry"
+    
+       class="devsite-nav-title gc-analytics-event
+              
+              "
+    
+
+    
+     data-category="Site-Wide Custom Events"
+     data-label="Responsive Tab: 業種別ソリューション"
+     track-type="navMenu"
+     track-metadata-eventDetail="globalMenu"
+     track-metadata-position="nav">
+  
+    <span class="devsite-nav-text" tooltip >
+      業種別ソリューション
+   </span>
+    
+  
+  </a>
+  
+
+</li>
+
+            
+              
+<li class="devsite-nav-item">
+
+  
+  <a href="/docs/networking"
+    
+       class="devsite-nav-title gc-analytics-event
+              
+              "
+    
+
+    
+     data-category="Site-Wide Custom Events"
+     data-label="Responsive Tab: ネットワーキング"
+     track-type="navMenu"
+     track-metadata-eventDetail="globalMenu"
+     track-metadata-position="nav">
+  
+    <span class="devsite-nav-text" tooltip >
+      ネットワーキング
+   </span>
+    
+  
+  </a>
+  
+
+</li>
+
+            
+              
+<li class="devsite-nav-item">
+
+  
+  <a href="/docs/observability"
+    
+       class="devsite-nav-title gc-analytics-event
+              
+              "
+    
+
+    
+     data-category="Site-Wide Custom Events"
+     data-label="Responsive Tab: オブザーバビリティとモニタリング"
+     track-type="navMenu"
+     track-metadata-eventDetail="globalMenu"
+     track-metadata-position="nav">
+  
+    <span class="devsite-nav-text" tooltip >
+      オブザーバビリティとモニタリング
+   </span>
+    
+  
+  </a>
+  
+
+</li>
+
+            
+              
+<li class="devsite-nav-item">
+
+  
+  <a href="/docs/security"
+    
+       class="devsite-nav-title gc-analytics-event
+              
+              "
+    
+
+    
+     data-category="Site-Wide Custom Events"
+     data-label="Responsive Tab: セキュリティ"
+     track-type="navMenu"
+     track-metadata-eventDetail="globalMenu"
+     track-metadata-position="nav">
+  
+    <span class="devsite-nav-text" tooltip >
+      セキュリティ
+   </span>
+    
+  
+  </a>
+  
+
+</li>
+
+            
+              
+<li class="devsite-nav-item">
+
+  
+  <a href="/docs/storage"
+    
+       class="devsite-nav-title gc-analytics-event
+              
+              "
+    
+
+    
+     data-category="Site-Wide Custom Events"
+     data-label="Responsive Tab: Storage"
+     track-type="navMenu"
+     track-metadata-eventDetail="globalMenu"
+     track-metadata-position="nav">
+  
+    <span class="devsite-nav-text" tooltip >
+      Storage
+   </span>
+    
+  
+  </a>
+  
+
+</li>
+
+            
+          
+        
+      </ul>
+    
+  
+    
+      
+      <ul class="devsite-nav-list" menu="プロダクト横断型のツール"
+          aria-label="サイドメニュー" hidden>
+        
+          
+            
+            
+              
+<li class="devsite-nav-item">
+
+  
+  <a href="/docs/access-resources"
+    
+       class="devsite-nav-title gc-analytics-event
+              
+              "
+    
+
+    
+     data-category="Site-Wide Custom Events"
+     data-label="Responsive Tab: アクセスとリソースの管理"
+     track-type="navMenu"
+     track-metadata-eventDetail="globalMenu"
+     track-metadata-position="nav">
+  
+    <span class="devsite-nav-text" tooltip >
+      アクセスとリソースの管理
+   </span>
+    
+  
+  </a>
+  
+
+</li>
+
+            
+              
+<li class="devsite-nav-item">
+
+  
+  <a href="/docs/costs-usage"
+    
+       class="devsite-nav-title gc-analytics-event
+              
+              "
+    
+
+    
+     data-category="Site-Wide Custom Events"
+     data-label="Responsive Tab: 費用と使用量の管理"
+     track-type="navMenu"
+     track-metadata-eventDetail="globalMenu"
+     track-metadata-position="nav">
+  
+    <span class="devsite-nav-text" tooltip >
+      費用と使用量の管理
+   </span>
+    
+  
+  </a>
+  
+
+</li>
+
+            
+              
+<li class="devsite-nav-item">
+
+  
+  <a href="/docs/iac"
+    
+       class="devsite-nav-title gc-analytics-event
+              
+              "
+    
+
+    
+     data-category="Site-Wide Custom Events"
+     data-label="Responsive Tab: Infrastructure as code"
+     track-type="navMenu"
+     track-metadata-eventDetail="globalMenu"
+     track-metadata-position="nav">
+  
+    <span class="devsite-nav-text" tooltip >
+      Infrastructure as code
+   </span>
+    
+  
+  </a>
+  
+
+</li>
+
+            
+              
+<li class="devsite-nav-item">
+
+  
+  <a href="/docs/migration"
+    
+       class="devsite-nav-title gc-analytics-event
+              
+              "
+    
+
+    
+     data-category="Site-Wide Custom Events"
+     data-label="Responsive Tab: 移行"
+     track-type="navMenu"
+     track-metadata-eventDetail="globalMenu"
+     track-metadata-position="nav">
+  
+    <span class="devsite-nav-text" tooltip >
+      移行
+   </span>
+    
+  
+  </a>
+  
+
+</li>
+
+            
+              
+<li class="devsite-nav-item">
+
+  
+  <a href="/docs/devtools"
+    
+       class="devsite-nav-title gc-analytics-event
+              
+              "
+    
+
+    
+     data-category="Site-Wide Custom Events"
+     data-label="Responsive Tab: SDK、言語、フレームワーク、ツール"
+     track-type="navMenu"
+     track-metadata-eventDetail="globalMenu"
+     track-metadata-position="nav">
+  
+    <span class="devsite-nav-text" tooltip >
+      SDK、言語、フレームワーク、ツール
+   </span>
+    
+  
+  </a>
+  
+
+</li>
+
+            
+          
+        
+      </ul>
+    
+  
+        
+        
+          
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+        
+      </div>
+    
+  </div>
+</nav>
+          
+        </devsite-book-nav>
+      
+      <section id="gc-wrapper">
+        <main role="main" id="main-content" class="devsite-main-content"
+            
+              has-book-nav
+              has-sidebar
+            >
+          <div class="devsite-sidebar">
+            <div class="devsite-sidebar-content">
+                
+                <devsite-toc class="devsite-nav"
+                            role="navigation"
+                            aria-label="このページの内容"
+                            depth="2"
+                            scrollbars
+                            data-nosnippet
+                  ></devsite-toc>
+                <devsite-recommendations-sidebar class="nocontent devsite-nav" data-nosnippet>
+                </devsite-recommendations-sidebar>
+            </div>
+          </div>
+          <devsite-content>
+            
+              
+
+
+
+
+
+
+
+
+
+
+<article class="devsite-article">
+  
+  
+  
+  
+  
+
+  <div class="devsite-article-meta nocontent" role="navigation" data-nosnippet>
+    
+    
+    <ul class="devsite-breadcrumb-list"
+  
+    aria-label="パンくずリスト">
+  
+  <li class="devsite-breadcrumb-item
+             ">
+    
+    
+    
+      
+        
+  <a href="https://docs.cloud.google.com/?hl=ja"
+      
+        class="devsite-breadcrumb-link gc-analytics-event"
+      
+        data-category="Site-Wide Custom Events"
+      
+        data-label="Breadcrumbs"
+      
+        data-value="1"
+      
+        track-type="globalNav"
+      
+        track-name="breadcrumb"
+      
+        track-metadata-position="1"
+      
+        track-metadata-eventdetail="Google Cloud Documentation"
+      
+    >
+    
+          Home
+        
+  </a>
+  
+      
+    
+  </li>
+  
+  <li class="devsite-breadcrumb-item
+             ">
+    
+      
+      <div class="devsite-breadcrumb-guillemet material-icons" aria-hidden="true"></div>
+    
+    
+    
+      
+        
+  <a href="https://docs.cloud.google.com/docs?hl=ja"
+      
+        class="devsite-breadcrumb-link gc-analytics-event"
+      
+        data-category="Site-Wide Custom Events"
+      
+        data-label="Breadcrumbs"
+      
+        data-value="2"
+      
+        track-type="globalNav"
+      
+        track-name="breadcrumb"
+      
+        track-metadata-position="2"
+      
+        track-metadata-eventdetail="Documentation"
+      
+    >
+    
+          Documentation
+        
+  </a>
+  
+      
+    
+  </li>
+  
+  <li class="devsite-breadcrumb-item
+             ">
+    
+      
+      <div class="devsite-breadcrumb-guillemet material-icons" aria-hidden="true"></div>
+    
+    
+    
+      
+        
+  <a href="https://docs.cloud.google.com/docs/security?hl=ja"
+      
+        class="devsite-breadcrumb-link gc-analytics-event"
+      
+        data-category="Site-Wide Custom Events"
+      
+        data-label="Breadcrumbs"
+      
+        data-value="3"
+      
+        track-type="globalNav"
+      
+        track-name="breadcrumb"
+      
+        track-metadata-position="3"
+      
+        track-metadata-eventdetail="Security"
+      
+    >
+    
+          Security
+        
+  </a>
+  
+      
+    
+  </li>
+  
+  <li class="devsite-breadcrumb-item
+             ">
+    
+      
+      <div class="devsite-breadcrumb-guillemet material-icons" aria-hidden="true"></div>
+    
+    
+    
+      
+        
+  <a href="https://docs.cloud.google.com/iam/docs?hl=ja"
+      
+        class="devsite-breadcrumb-link gc-analytics-event"
+      
+        data-category="Site-Wide Custom Events"
+      
+        data-label="Breadcrumbs"
+      
+        data-value="4"
+      
+        track-type="globalNav"
+      
+        track-name="breadcrumb"
+      
+        track-metadata-position="4"
+      
+        track-metadata-eventdetail="Identity and Access Management (IAM)"
+      
+    >
+    
+          IAM
+        
+  </a>
+  
+      
+    
+  </li>
+  
+  <li class="devsite-breadcrumb-item
+             ">
+    
+      
+      <div class="devsite-breadcrumb-guillemet material-icons" aria-hidden="true"></div>
+    
+    
+    
+      
+        
+  <a href="https://docs.cloud.google.com/iam/docs?hl=ja"
+      
+        class="devsite-breadcrumb-link gc-analytics-event"
+      
+        data-category="Site-Wide Custom Events"
+      
+        data-label="Breadcrumbs"
+      
+        data-value="5"
+      
+        track-type="globalNav"
+      
+        track-name="breadcrumb"
+      
+        track-metadata-position="5"
+      
+        track-metadata-eventdetail="Identity and Access Management (IAM)"
+      
+    >
+    
+          Identity and Access Management (IAM)
+        
+  </a>
+  
+      
+    
+  </li>
+  
+  <li class="devsite-breadcrumb-item
+             ">
+    
+      
+      <div class="devsite-breadcrumb-guillemet material-icons" aria-hidden="true"></div>
+    
+    
+    
+      
+        
+  <a href="https://docs.cloud.google.com/iam/docs/overview?hl=ja"
+      
+        class="devsite-breadcrumb-link gc-analytics-event"
+      
+        data-category="Site-Wide Custom Events"
+      
+        data-label="Breadcrumbs"
+      
+        data-value="6"
+      
+        track-type="globalNav"
+      
+        track-name="breadcrumb"
+      
+        track-metadata-position="6"
+      
+        track-metadata-eventdetail=""
+      
+    >
+    
+          ガイド
+        
+  </a>
+  
+      
+    
+  </li>
+  
+</ul>
+    
+      
+    <devsite-thumb-rating position="header">
+    </devsite-thumb-rating>
+  
+    
+  </div>
+  
+    <devsite-feedback
+  position="header"
+  project-name="Identity and Access Management (IAM)"
+  product-id="717553"
+  bucket="BYOID"
+  context=""
+  version="t-devsite-webserver-20261029-r00-rc00.481474161002368321"
+  data-label="Send Feedback Button"
+  track-type="feedback"
+  track-name="sendFeedbackLink"
+  track-metadata-position="header"
+  class="nocontent"
+  data-nosnippet
+  
+  
+  
+    
+      project-icon="https://docs.cloud.google.com/_static/clouddocs/images/icons/categories/security-and-identity-color.svg?hl=ja"
+    
+  
+  
+  
+  >
+
+  <button>
+  
+    
+    フィードバックを送信
+  
+  </button>
+</devsite-feedback>
+  
+    <h1 class="devsite-page-title" tabindex="-1">
+      Workload Identity 連携<devsite-actions hidden data-nosnippet><devsite-feature-tooltip
+      ack-key="AckCollectionsBookmarkTooltipDismiss"
+      analytics-category="Site-Wide Custom Events"
+      analytics-action-show="Callout Profile displayed"
+      analytics-action-close="Callout Profile dismissed"
+      analytics-label="Create Collection Callout"
+      class="devsite-page-bookmark-tooltip nocontent"
+      data-nosnippet
+      dismiss-button="true"
+      id="devsite-collections-dropdown"
+      
+      dismiss-button-text="閉じる"
+
+      
+      close-button-text="OK">
+
+    
+    
+      <devsite-bookmark></devsite-bookmark>
+    
+
+    <span slot="popout-heading">
+      
+      コレクションでコンテンツを整理
+    </span>
+    <span slot="popout-contents">
+      
+      必要に応じて、コンテンツの保存と分類を行います。
+    </span>
+  </devsite-feature-tooltip>
+    <devsite-llm-tools></devsite-llm-tools></devsite-actions>
+  
+      
+    </h1>
+  
+
+  <devsite-toc class="devsite-nav"
+    depth="2"
+    devsite-toc-embedded
+    >
+  </devsite-toc>
+  
+    
+  <div class="devsite-article-body clearfix
+  ">
+
+  
+    
+    
+    
+    
+  
+
+
+
+<p>このドキュメントでは、Workload Identity 連携の概要について説明します。Workload Identity 連携を使用すると、サービス アカウント キーの代わりにフェデレーション ID を使用して、オンプレミスまたはマルチクラウドのワークロードに Google Cloud リソースへのアクセス権を付与できます。</p>
+
+<p>Workload Identity 連携は、<a href="https://docs.cloud.google.com/iam/docs/workload-identity-federation-with-x509-certificates?hl=ja">X.509 クライアント証明書</a>を使用して認証するワークロード、<a href="https://docs.cloud.google.com/iam/docs/workload-identity-federation-with-other-clouds?hl=ja">アマゾン ウェブ サービス（AWS）または Azure</a> で実行されるワークロード、オンプレミスの <a href="https://docs.cloud.google.com/iam/docs/workload-identity-federation-with-active-directory?hl=ja">Active Directory</a>、<a href="https://docs.cloud.google.com/iam/docs/workload-identity-federation-with-deployment-pipelines?hl=ja">GitHub や GitLab</a> などのデプロイ サービス、<a href="https://docs.cloud.google.com/iam/docs/workload-identity-federation-with-other-providers?hl=ja">OpenID Connect（OIDC）または Security Assertion Markup Language（SAML）V2.0</a> をサポートする任意の ID プロバイダ（IdP）で使用できます。</p>
+
+<h2 data-text="Workload Identity 連携を使用する理由" id="why" tabindex="-1">Workload Identity 連携を使用する理由</h2>
+
+<p> Google Cloud の外部で実行されているアプリケーションは、<a href="https://docs.cloud.google.com/iam/docs/service-account-creds?hl=ja#key-types">サービス アカウント キー</a>を使用して Google Cloud リソースにアクセスできます。しかし、サービス アカウント キーは強力な認証情報であり、正しく管理しなければセキュリティ上のリスクとなります。Workload Identity 連携を使用することで、サービス アカウント キーに関連するメンテナンスとセキュリティの負担が軽減されます。</p>
+
+<p>Workload Identity 連携を使用すると、Identity and Access Management（IAM）を使用して、Workload Identity プールのフェデレーション ID に基づく<a href="https://docs.cloud.google.com/iam/docs/principals-overview?hl=ja">プリンシパル</a>に <a href="https://docs.cloud.google.com/iam/docs/overview?hl=ja#roles">IAM ロール</a>を付与できます。特定の Google Cloud リソースに対してプリンシパルのアクセス権を付与できます。このアプローチは、直接アクセスと呼ばれます。<em></em>または、サービス アカウントにアクセス権を付与することもできます。サービス アカウントは、 Google Cloud リソースにアクセスできます。このアプローチは、サービス アカウントの権限借用と呼ばれます。<em></em></p>
+
+<h2 data-text="Workload Identity プール" id="pools" tabindex="-1">Workload Identity プール</h2>
+
+<p>Workload Identity プールは、外部 ID を管理できるエンティティです。<em></em></p>
+
+<p>開発環境、ステージング環境、本番環境など、 Google Cloud リソースにアクセスする必要があるGoogle Cloud以外の環境ごとに、新しいプールを作成することをおすすめします。</p>
+
+<h2 data-text="Workload Identity プールのプロバイダ" id="providers" tabindex="-1">Workload Identity プールのプロバイダ</h2>
+
+<p>Workload Identity プール プロバイダは、 Google Cloud と IdP の間の関係を記述するエンティティです。これには次のものが含まれます。<em></em></p>
+
+<ul>
+<li>AWS</li>
+<li>Microsoft Entra ID</li>
+<li>GitHub</li>
+<li>GitLab</li>
+<li>Kubernetes クラスタ</li>
+<li>Okta</li>
+<li>オンプレミスの Active Directory フェデレーション サービス（AD FS）</li>
+<li>Terraform</li>
+</ul>
+
+<p><a href="https://tools.ietf.org/html/rfc8693">Workload Identity 連携</a>は、OAuth 2.0 トークン交換の仕様に準拠しています。IdP から<a href="https://docs.cloud.google.com/iam/docs/reference/sts/rest?hl=ja">セキュリティ トークン サービス</a>に認証情報を提供します。このサービスは、認証情報の ID を検証し、連携トークンを返します。</p>
+
+<h3 data-text="ローカル JWK を使用する OIDC プロバイダ" id="oidc-credential-security" tabindex="-1">ローカル JWK を使用する OIDC プロバイダ</h3>
+
+<p>パブリック OIDC エンドポイントのないワークロードを連携するには、OIDC JSON Web Key Set（JWKS）をプールに直接アップロードします。これは、Terraform または GitHub Enterprise を独自の環境でホストしている場合や、公開 URL を公開できない規制要件がある場合によく使用されます。詳細については、<a href="https://docs.cloud.google.com/iam/docs/workload-identity-federation-with-other-providers?hl=ja#manage-oidc-keys">OIDC JWK を管理する（省略可）</a>をご覧ください。</p>
+
+<h3 data-text="属性のマッピング" id="mapping" tabindex="-1">属性のマッピング</h3>
+
+<p>外部 IdP によって発行されたトークンには 1 つ以上の属性が含まれています。一部の IdP では、これらの属性をクレームと呼んでいます。<em></em></p>
+
+<p>また、Google Security Token Service トークンには次の表に示す 1 つ以上の属性が含まれます。</p>
+
+<table>
+  <tbody><tr>
+    <th>属性</th>
+    <th>説明</th>
+  </tr>
+  <tr>
+    <td><code dir="ltr" translate="no">google.subject</code></td>
+    <td>
+      必須。ユーザーの固有識別子。この属性は、IAM <code dir="ltr" translate="no">principal://</code> ロール バインディングで使用され、Cloud Logging のログに表示されます。127 文字以内の一意の値にする必要があります。</td>
+  </tr>
+  <tr>
+    <td><code dir="ltr" translate="no">google.groups</code></td>
+    <td>
+      省略可。ID が属するグループのセット。この属性は、IAM の <code dir="ltr" translate="no">principalSet://</code> ロール バインディングでグループのすべてのメンバーにアクセス権を付与する場合に使用されます。</td>
+  </tr>
+  <tr>
+    <td><code dir="ltr" translate="no">attribute.<var translate="no">NAME</var></code></td>
+    <td>
+      省略可。最大で 50 個までのカスタム属性を定義できます。これらの属性を IAM <code dir="ltr" translate="no">principalSet://</code> ロール バインディングで使用して、特定の属性を持つすべての ID にアクセス権を付与できます。</td>
+  </tr>
+</tbody></table>
+
+<p>属性マッピングでは、外部トークンから Google Security Token Service トークン属性の値を派生させる方法を定義します。Google Security Token Service トークン属性ごとに、次の形式で属性マッピングを定義できます。</p>
+
+<p><code dir="ltr" translate="no"><var translate="no">TARGET_ATTRIBUTE</var></code>=<code dir="ltr" translate="no"><var translate="no">SOURCE_EXPRESSION</var></code></p>
+
+<p>次のように置き換えます。</p>
+
+<ul>
+<li><code dir="ltr" translate="no"><var translate="no">TARGET_ATTRIBUTE</var></code> は Google Security Token Service トークンの属性です。</li>
+<li><code dir="ltr" translate="no"><var translate="no">SOURCE_EXPRESSION</var></code> は、外部 IdP によって発行されたトークンから 1 つ以上の属性を変換する <a href="https://github.com/google/cel-spec/blob/master/doc/intro.md#introduction">Common Expression Language（CEL）</a>の式です。</li>
+</ul>
+
+<p>次のリストは、属性マッピングの例を示しています。</p>
+
+<ul>
+<li><p>アサーション属性 <code dir="ltr" translate="no">sub</code> を <code dir="ltr" translate="no">google.subject</code> に割り当てます。</p>
+
+<div></div><devsite-code><pre translate="no" dir="ltr" is-upgraded>
+google.subject=assertion.sub
+</pre></devsite-code></li>
+<li><p>複数のアサーション属性を連結します。</p>
+
+<div></div><devsite-code><pre translate="no" dir="ltr" is-upgraded>
+google.subject='myprovider::' + assertion.aud + '::' + assertion.sub
+</pre></devsite-code></li>
+<li><p>GUID 値のアサーション属性 <code dir="ltr" translate="no">workload_id</code> を名前にマッピングし、結果を <code dir="ltr" translate="no">attribute.my_display_name</code> という名前のカスタム属性に割り当てます。</p>
+
+<div></div><devsite-code><pre translate="no" dir="ltr" is-upgraded>
+attribute.my_display_name={
+  "8bb39bdb-1cc5-4447-b7db-a19e920eb111": "Workload1",
+  "55d36609-9bcf-48e0-a366-a3cf19027d2a": "Workload2"
+}[assertion.workload_id]
+</pre></devsite-code></li>
+<li><p>CEL の<a href="https://github.com/google/cel-spec/blob/master/doc/langdef.md#list-of-standard-definitions">論理演算子と関数</a>を使用して、ID の Amazon リソース名（ARN）に応じて、<code dir="ltr" translate="no">attribute.environment</code> という名前のカスタム属性を <code dir="ltr" translate="no">prod</code> または <code dir="ltr" translate="no">test</code> に設定します。</p>
+
+<div></div><devsite-code><pre class="devsite-click-to-copy" translate="no" dir="ltr" is-upgraded>
+attribute.environment=assertion.arn.contains(":instance-profile/Production") ? "prod" : "test"
+</pre></devsite-code></li>
+<li><p><a href="https://docs.cloud.google.com/iam/docs/conditions-attribute-reference?hl=ja#extract"><code dir="ltr" translate="no">extract</code> 関数</a>を使用して、想定されたロール名をカスタム属性 <code dir="ltr" translate="no">aws_role</code> に設定します。想定されたロールがない場合は、ID の ARN が設定されます。</p>
+
+<div></div><devsite-code><pre class="devsite-click-to-copy" translate="no" dir="ltr" is-upgraded>
+attribute.aws_role=assertion.arn.contains('assumed-role') ? assertion.arn.extract('{account_arn}assumed-role/') + 'assumed-role/' + assertion.arn.extract('assumed-role/{role_name}/') : assertion.arn
+</pre></devsite-code></li>
+<li><p><a href="https://pkg.go.dev/github.com/google/cel-go/ext#readme-split"><code dir="ltr" translate="no">split</code> 関数</a>は、指定された区切り値で文字列を分割します。たとえば、メールアドレスの値を <code dir="ltr" translate="no">@</code> で分割し、最初の文字列を使用して属性 <code dir="ltr" translate="no">username</code> を抽出するには、次の属性マッピングを使用します。</p><div></div><devsite-code><pre translate="no" dir="ltr" is-upgraded>
+attribute.username=assertion.email.split(&quot;@&quot;)[0]
+</pre></devsite-code><p></p></li>
+<li><p><a href="https://pkg.go.dev/github.com/google/cel-go/ext#readme-join"><code dir="ltr" translate="no">join</code> 関数</a>は、指定された区切り文字の値に基づいて文字列のリストを結合します。たとえば、区切り文字として <code dir="ltr" translate="no">.</code> を使用して文字列のリストを連結し、カスタム属性 <code dir="ltr" translate="no">department</code> に値を挿入するには、次の属性マッピングを使用します。</p><div></div><devsite-code><pre translate="no" dir="ltr" is-upgraded>
+attribute.department=assertion.department.join(&quot;.&quot;)
+</pre></devsite-code><p></p></li>
+</ul>
+
+<p>X.509 クライアント証明書を使用する場合、Google は証明書の属性からデフォルトのマッピングを提供します。</p>
+
+<p>AWS の場合は、Google はデフォルトのマッピングを指定します。このマッピングは、最も一般的なシナリオに対応しています。カスタム マッピングを指定することもできます。</p>
+
+<p>OIDC プロバイダの場合は、カスタム マッピングを指定します。マッピングを作成するには、認証情報の属性のリストに関するプロバイダのドキュメントを確認してください。</p>
+
+<p>詳細については、API ドキュメントで <a href="https://docs.cloud.google.com/iam/docs/reference/rest/v1/projects.locations.workloadIdentityPools.providers?hl=ja#WorkloadIdentityPoolProvider.FIELDS.attribute_mapping"><code dir="ltr" translate="no">attributeMapping</code> フィールド</a>の説明をご覧ください。</p>
+
+<h3 data-text="属性条件" id="conditions" tabindex="-1">属性条件</h3>
+
+<p>属性条件は、アサーション属性とターゲット属性をチェックする CEL 式です。<em></em>特定の認証情報の属性条件が <code dir="ltr" translate="no">true</code> と評価されると、認証情報が受け入れられます。それ以外の場合、認証情報は拒否されます。</p>
+
+<p>属性条件により、Workload Identity プールを使用して認証できる ID を制限できます。</p>
+
+<p>属性条件は、次のようなシナリオで役立ちます。</p>
+
+<ul>
+<li><p>ワークロードが一般に公開されていて利用可能な IdP を使用している場合は、選択した ID のみが Workload Identity プールにアクセスできるようアクセスを制限できます。</p></li>
+<li><p>複数のクラウド プラットフォームで IdP を使用する場合、別のプラットフォームで使用する予定の認証情報が Google Cloudで使用されないようにできます（逆も同様）。これにより、<a href="https://wikipedia.org/wiki/Confused_deputy_problem">混乱した使節の問題</a>を回避できます。</p></li>
+</ul>
+
+<p>Workload Identity プール プロバイダの条件では、<code dir="ltr" translate="no">assertion</code> キーワードを使用できます。これは、IdP によって発行された認証情報を表すマップを参照します。マップの値には、ドット表記を使用してアクセスできます。たとえば、AWS 認証情報には <code dir="ltr" translate="no">arn</code> 値が含まれ、<code dir="ltr" translate="no">assertion.arn</code> としてアクセスできます。さらに、属性条件にはプロバイダの<a href="#mapping">属性マッピング</a>で定義されている任意の属性を使用できます。</p>
+
+<p>次の例では、特定の AWS ロールを持つ ID からのリクエストのみを許可しています。</p>
+
+<div></div><devsite-code><pre class="devsite-click-to-copy" translate="no" dir="ltr" is-upgraded syntax="Bash">attribute.aws_role<span class="devsite-syntax-w"> </span><span class="devsite-syntax-o">==</span><span class="devsite-syntax-w"> </span><span class="devsite-syntax-s2">"<var translate="no">ROLE_MAPPING</var>"</span></pre></devsite-code>
+
+<p>詳細については、API ドキュメントで <a href="https://docs.cloud.google.com/iam/docs/reference/rest/v1/projects.locations.workloadIdentityPools.providers?hl=ja#WorkloadIdentityPoolProvider.FIELDS.attribute_condition"><code dir="ltr" translate="no">attributeCondition</code> フィールド</a>の説明をご覧ください。</p>
+
+<h2 data-text="アクセス管理" id="access_management" tabindex="-1">アクセス管理</h2>
+
+<p>トークン交換フローは連携アクセス トークンを返します。この連携アクセス トークンを使用すると、 Google Cloud リソースの<a href="#principal-types">プリンシパル ID</a> の代わりにワークロード アクセスを付与し、<a href="https://docs.cloud.google.com/iam/docs/creating-short-lived-service-account-credentials?hl=ja#sa-credentials-oauth">有効期間の短い OAuth 2.0 アクセス トークン</a>を取得できます。</p>
+
+<p>このアクセス トークンを使用して IAM アクセスを提供できます。</p>
+
+<p>Workload Identity 連携を使用して、<a href="#direct-resource-access"> Google Cloud リソースに直接</a>アクセスできるようにすることをおすすめします。ほとんどの Google Cloud APIs は Workload Identity 連携をサポートしていますが、一部の API には<a href="https://docs.cloud.google.com/iam/docs/federated-identity-supported-services?hl=ja">制限</a>があります。または、<a href="#impersonation">サービス アカウントの権限借用</a>を使用することもできます。</p>
+
+<p>有効期間の短いアクセス トークンを使用すると、リソースまたはサービス アカウントがアクセスできる Google Cloud APIs を呼び出すことができます。</p>
+
+<h3 data-text="リソースへの直接アクセス" id="direct-resource-access" tabindex="-1">リソースへの直接アクセス</h3>
+
+<p>リソースへの直接アクセスを使用すると、リソース固有のロールを介して、外部 ID に Google Cloud リソースへの直接アクセスを許可できます。<em></em></p>
+
+<h3 data-text="代替手段: サービス アカウントの権限借用" id="impersonation" tabindex="-1">代替手段: サービス アカウントの権限借用</h3>
+
+<p><a href="#direct-resource-access">リソースへの直接アクセス</a>の代わりに、<a href="https://docs.cloud.google.com/iam/docs/workload-identity-federation-with-other-clouds?hl=ja#impersonation">サービス アカウントの権限借用</a>を使用できます。</p>
+<aside class="note"><strong>注:</strong><span> 外部 ID にロールを付与する場合は、完全修飾リソース名を使用します。プロジェクト ID ではなくプロジェクト番号を使用します。<em></em><em></em></span></aside><p>サービス アカウントに Workload Identity ユーザー（<code dir="ltr" translate="no">roles/iam.workloadIdentityUser</code>）ロールを付与する必要があります。</p>
+
+<h3 data-text="プリンシパル スコープとセキュリティ" id="security" tabindex="-1">プリンシパル スコープとセキュリティ</h3>
+
+<p>プリンシパルまたはそのサブセットにアクセス権を付与するには、<a href="#principal-types">プリンシパル タイプ</a>を使用します。</p>
+<aside class="warning"><strong>警告:</strong><span> Workload Identity プール内のすべての ID にアクセス権を付与できますが、その場合、リスクが伴う可能性があります。<a href="#mapping">属性</a>と<a href="#conditions">条件</a>を使用してアクセスを制限することをおすすめします。</span></aside><h2 data-text="プリンシパルのタイプ" id="principal-types" tabindex="-1">プリンシパルのタイプ</h2>
+
+<p>次の表に、プリンシパルを個人と ID のグループとして定義する方法を示します。</p>
+
+
+
+
+
+
+
+<table>
+  <thead>
+    <tr>
+      <th width="30%">ID</th>
+      
+        <th>ID の形式</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+
+    
+
+    
+
+    
+      <tr>
+        <td>単一の ID</td>
+        
+          <td>
+            <code dir="ltr" translate="no">principal://iam.googleapis.com/projects/<var translate="no">PROJECT_NUMBER</var>/locations/global/<wbr />workloadIdentityPools/<var translate="no">POOL_ID</var>/subject/<var translate="no">SUBJECT_ATTRIBUTE_VALUE</var></code>
+          </td>
+        
+      </tr>
+    
+
+    
+      <tr>
+        <td>グループ内のすべての ID</td>
+        
+          <td>
+            <code dir="ltr" translate="no">principalSet://iam.googleapis.com/projects/<var translate="no">PROJECT_NUMBER</var>/locations/global/<wbr />workloadIdentityPools/<var translate="no">POOL_ID</var>/group/<var translate="no">GROUP_ID</var></code>
+          </td>
+        
+      </tr>
+    
+
+    <tr>
+      <td>
+        特定の属性値を持つすべての ID<em></em></td>
+      
+        <td>
+          <code dir="ltr" translate="no">principalSet://iam.googleapis.com/projects/<var translate="no">PROJECT_NUMBER</var>/locations/global/<wbr />workloadIdentityPools/<var translate="no">POOL_ID</var>/attribute.<var translate="no">ATTRIBUTE_NAME</var>/<var translate="no">ATTRIBUTE_VALUE</var></code>
+        </td>
+      
+    </tr>
+  </tbody>
+</table>
+
+<h2 data-text="次のステップ" id="whats_next" tabindex="-1">次のステップ</h2>
+
+<ul>
+<li><p>Workload Identity 連携を使用して、ワークロードが <a href="https://docs.cloud.google.com/iam/docs/workload-identity-federation-with-other-clouds?hl=ja">AWS または Azure</a>、<a href="https://docs.cloud.google.com/iam/docs/workload-identity-federation-with-x509-certificates?hl=ja">X.509 証明書</a>、<a href="https://docs.cloud.google.com/iam/docs/workload-identity-federation-with-active-directory?hl=ja">Active Directory</a>、<a href="https://docs.cloud.google.com/iam/docs/workload-identity-federation-with-deployment-pipelines?hl=ja">デプロイ パイプライン</a>、<a href="https://docs.cloud.google.com/iam/docs/workload-identity-federation-with-other-providers?hl=ja">OIDC または SAML プロバイダ</a>のリソースにアクセスできるようにする。</p></li>
+<li><p>Google Cloud CLI または REST API を使用して <a href="https://docs.cloud.google.com/iam/docs/manage-workload-identity-pools-providers?hl=ja">Workload Identity プールを管理する</a>方法を確認する。</p></li>
+</ul>
+
+
+  
+  
+  
+
+  
+    <devsite-hats-survey class="nocontent" data-nosnippet
+      hats-id="mwETRvWii0eU5NUYprb0Y9z5GVbc"
+      listnr-id="83405"></devsite-hats-survey>
+  
+
+  
+</div>
+
+  
+    
+    
+      
+    <devsite-thumb-rating position="footer">
+    </devsite-thumb-rating>
+  
+       
+         <devsite-feedback
+  position="footer"
+  project-name="Identity and Access Management (IAM)"
+  product-id="717553"
+  bucket="BYOID"
+  context=""
+  version="t-devsite-webserver-20261029-r00-rc00.481474161002368321"
+  data-label="Send Feedback Button"
+  track-type="feedback"
+  track-name="sendFeedbackLink"
+  track-metadata-position="footer"
+  class="nocontent"
+  data-nosnippet
+  
+  
+  
+    
+      project-icon="https://docs.cloud.google.com/_static/clouddocs/images/icons/categories/security-and-identity-color.svg?hl=ja"
+    
+  
+  
+  
+  >
+
+  <button>
+  
+    
+    フィードバックを送信
+  
+  </button>
+</devsite-feedback>
+       
+    
+    
+  
+
+  <div class="devsite-floating-action-buttons"></div></article>
+
+
+<devsite-content-footer class="nocontent" data-nosnippet>
+  <p>特に記載のない限り、このページのコンテンツは<a href="https://creativecommons.org/licenses/by/4.0/">クリエイティブ・コモンズの表示 4.0 ライセンス</a>により使用許諾されます。コードサンプルは <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache 2.0 ライセンス</a>により使用許諾されます。詳しくは、<a href="https://developers.google.com/site-policies?hl=ja">Google Developers サイトのポリシー</a>をご覧ください。Java は Oracle および関連会社の登録商標です。</p>
+  <p>最終更新日 2026-03-04 UTC。</p>
+</devsite-content-footer>
+
+
+<devsite-notification
+>
+</devsite-notification>
+
+
+  
+<div class="devsite-content-data">
+  
+    
+    
+    <template class="devsite-thumb-rating-feedback">
+      <devsite-feedback
+  position="thumb-rating"
+  project-name="Identity and Access Management (IAM)"
+  product-id="717553"
+  bucket="BYOID"
+  context=""
+  version="t-devsite-webserver-20261029-r00-rc00.481474161002368321"
+  data-label="Send Feedback Button"
+  track-type="feedback"
+  track-name="sendFeedbackLink"
+  track-metadata-position="thumb-rating"
+  class="nocontent"
+  data-nosnippet
+  
+  
+  
+    
+      project-icon="https://docs.cloud.google.com/_static/clouddocs/images/icons/categories/security-and-identity-color.svg?hl=ja"
+    
+  
+  
+  
+  >
+
+  <button>
+  
+    ご意見をお聞かせください
+  
+  </button>
+</devsite-feedback>
+    </template>
+  
+  
+    <template class="devsite-content-data-template">
+      [[["わかりやすい","easyToUnderstand","thumb-up"],["問題の解決に役立った","solvedMyProblem","thumb-up"],["その他","otherUp","thumb-up"]],[["わかりにくい","hardToUnderstand","thumb-down"],["情報またはサンプルコードが不正確","incorrectInformationOrSampleCode","thumb-down"],["必要な情報 / サンプルがない","missingTheInformationSamplesINeed","thumb-down"],["翻訳に関する問題","translationIssue","thumb-down"],["その他","otherDown","thumb-down"]],["最終更新日 2026-03-04 UTC。"],[],[]]
+    </template>
+  
+</div>
+            
+          </devsite-content>
+        </main>
+        <devsite-footer-promos class="devsite-footer">
+          
+            
+          
+        </devsite-footer-promos>
+        <devsite-footer-linkboxes class="devsite-footer">
+          
+            
+<nav class="devsite-footer-linkboxes nocontent"
+     aria-label="フッターのリンク"
+     data-nosnippet>
+  
+  <ul class="devsite-footer-linkboxes-list">
+    
+    <li class="devsite-footer-linkbox ">
+    <h3 class="devsite-footer-linkbox-heading no-link">プロダクトと料金</h3>
+      <ul class="devsite-footer-linkbox-list">
+        
+        <li class="devsite-footer-linkbox-item">
+          
+          <a href="//cloud.google.com/products/?hl=ja"
+             class="devsite-footer-linkbox-link gc-analytics-event"
+             data-category="Site-Wide Custom Events"
+            
+             data-label="Footer Link (index 1)"
+            track-metadata-position="footer"track-metadata-module="footer"track-metadata-eventDetail="cloud.google.com/products/"track-metadata-child_headline="products and pricing"track-type="footer link"track-name="see all products">
+            
+          
+            すべてのプロダクトを見る
+          
+          </a>
+          
+          
+        </li>
+        
+        <li class="devsite-footer-linkbox-item">
+          
+          <a href="//cloud.google.com/pricing/?hl=ja"
+             class="devsite-footer-linkbox-link gc-analytics-event"
+             data-category="Site-Wide Custom Events"
+            
+             data-label="Footer Link (index 2)"
+            track-metadata-child_headline="products and pricing"track-name="google cloud pricing"track-type="footer link"track-metadata-position="footer"track-metadata-eventDetail="cloud.google.com/pricing/"track-metadata-module="footer">
+            
+          
+            Google Cloud の料金
+          
+          </a>
+          
+          
+        </li>
+        
+        <li class="devsite-footer-linkbox-item">
+          
+          <a href="//cloud.google.com/marketplace/?hl=ja"
+             class="devsite-footer-linkbox-link gc-analytics-event"
+             data-category="Site-Wide Custom Events"
+            
+             data-label="Footer Link (index 3)"
+            track-metadata-child_headline="resources"track-type="footer link"track-metadata-position="footer"track-name="google cloud marketplace"track-metadata-module="footer"track-metadata-eventDetail="cloud.google.com/marketplace/">
+            
+          
+            Google Cloud Marketplace
+          
+          </a>
+          
+          
+        </li>
+        
+        <li class="devsite-footer-linkbox-item">
+          
+          <a href="//cloud.google.com/contact/?hl=ja"
+             class="devsite-footer-linkbox-link gc-analytics-event"
+             data-category="Site-Wide Custom Events"
+            
+             data-label="Footer Link (index 4)"
+            track-type="footer link"track-metadata-position="footer"track-metadata-child_headline="engage"track-metadata-module="footer"track-metadata-eventDetail="cloud.google.com/contact/"track-name="contact sales">
+            
+              
+              
+            
+          
+            お問い合わせ
+          
+          </a>
+          
+          
+        </li>
+        
+      </ul>
+    </li>
+    
+    <li class="devsite-footer-linkbox ">
+    <h3 class="devsite-footer-linkbox-heading no-link">サポート</h3>
+      <ul class="devsite-footer-linkbox-list">
+        
+        <li class="devsite-footer-linkbox-item">
+          
+          <a href="//discuss.google.dev/c/google-cloud/14/?hl=ja"
+             class="devsite-footer-linkbox-link gc-analytics-event"
+             data-category="Site-Wide Custom Events"
+            
+             data-label="Footer Link (index 1)"
+            track-name="google cloud community"rel="noopener"track-type="footer link"track-metadata-module="footer"track-metadata-child_headline="engage"track-metadata-position="footer"track-metadata-eventDetail="www.googlecloudcommunity.com"target="_blank">
+            
+          
+            コミュニティ フォーラム
+          
+          </a>
+          
+          
+        </li>
+        
+        <li class="devsite-footer-linkbox-item">
+          
+          <a href="//cloud.google.com/support-hub/?hl=ja"
+             class="devsite-footer-linkbox-link gc-analytics-event"
+             data-category="Site-Wide Custom Events"
+            
+             data-label="Footer Link (index 2)"
+            track-type="footer link"track-metadata-child_headline="resources"track-name="support"track-metadata-module="footer"track-metadata-position="footer"track-metadata-eventDetail="cloud.google.com/support-hub/">
+            
+          
+            サポート
+          
+          </a>
+          
+          
+        </li>
+        
+        <li class="devsite-footer-linkbox-item">
+          
+          <a href="//docs.cloud.google.com/release-notes?hl=ja"
+             class="devsite-footer-linkbox-link gc-analytics-event"
+             data-category="Site-Wide Custom Events"
+            
+             data-label="Footer Link (index 3)"
+            track-name="release notes"track-type="footer link"track-metadata-position="footer"track-metadata-module="footer"track-metadata-child_headline="resources"track-metadata-eventDetail="cloud.google.com/release-notes/">
+            
+          
+            リリースノート
+          
+          </a>
+          
+          
+        </li>
+        
+        <li class="devsite-footer-linkbox-item">
+          
+          <a href="//status.cloud.google.com?hl=ja"
+             class="devsite-footer-linkbox-link gc-analytics-event"
+             data-category="Site-Wide Custom Events"
+            
+             data-label="Footer Link (index 4)"
+            track-metadata-child_headline="resources"track-metadata-eventDetail="status.cloud.google.com"track-metadata-position="footer"track-metadata-module="footer"track-name="system status"target="_blank"track-type="footer link">
+            
+              
+              
+            
+          
+            システム ステータス
+          
+          </a>
+          
+          
+        </li>
+        
+      </ul>
+    </li>
+    
+    <li class="devsite-footer-linkbox ">
+    <h3 class="devsite-footer-linkbox-heading no-link">リソース</h3>
+      <ul class="devsite-footer-linkbox-list">
+        
+        <li class="devsite-footer-linkbox-item">
+          
+          <a href="//github.com/googlecloudPlatform/"
+             class="devsite-footer-linkbox-link gc-analytics-event"
+             data-category="Site-Wide Custom Events"
+            
+             data-label="Footer Link (index 1)"
+            track-metadata-module="footer"track-name="github"track-type="footer link"track-metadata-eventDetail="github.com/googlecloudPlatform/"track-metadata-child_headline="resources"track-metadata-position="footer">
+            
+          
+            GitHub
+          
+          </a>
+          
+          
+        </li>
+        
+        <li class="devsite-footer-linkbox-item">
+          
+          <a href="https://docs.cloud.google.com/docs/get-started/?hl=ja"
+             class="devsite-footer-linkbox-link gc-analytics-event"
+             data-category="Site-Wide Custom Events"
+            
+             data-label="Footer Link (index 2)"
+            track-metadata-position="footer"track-metadata-child_headline="resources"track-type="footer link"track-metadata-module="footer"track-metadata-eventDetail="cloud.google.com/docs/get-started/"track-name="google cloud quickstarts">
+            
+          
+            Google Cloud の概要
+          
+          </a>
+          
+          
+        </li>
+        
+        <li class="devsite-footer-linkbox-item">
+          
+          <a href="https://docs.cloud.google.com/docs/samples?hl=ja"
+             class="devsite-footer-linkbox-link gc-analytics-event"
+             data-category="Site-Wide Custom Events"
+            
+             data-label="Footer Link (index 3)"
+            track-name="code samples"track-type="footer link"track-metadata-eventDetail="cloud.google.com/docs/samples"track-metadata-position="footer"track-metadata-child_headline="resources"track-metadata-module="footer">
+            
+          
+            コードサンプル
+          
+          </a>
+          
+          
+        </li>
+        
+        <li class="devsite-footer-linkbox-item">
+          
+          <a href="https://docs.cloud.google.com/architecture/?hl=ja"
+             class="devsite-footer-linkbox-link gc-analytics-event"
+             data-category="Site-Wide Custom Events"
+            
+             data-label="Footer Link (index 4)"
+            track-metadata-eventDetail="cloud.google.com/architecture/"track-name="cloud architecture center"track-metadata-module="footer"track-type="footer link"track-metadata-position="footer"track-metadata-child_headline="resources">
+            
+          
+            Cloud アーキテクチャ センター
+          
+          </a>
+          
+          
+        </li>
+        
+        <li class="devsite-footer-linkbox-item">
+          
+          <a href="//cloud.google.com/learn/training/?hl=ja"
+             class="devsite-footer-linkbox-link gc-analytics-event"
+             data-category="Site-Wide Custom Events"
+            
+             data-label="Footer Link (index 5)"
+            track-metadata-eventDetail="cloud.google.com/learn/training/"track-type="footer link"track-metadata-child_headline="resources"track-metadata-position="footer"track-metadata-module="footer"track-name="training">
+            
+          
+            トレーニングと認定資格
+          
+          </a>
+          
+          
+        </li>
+        
+        <li class="devsite-footer-linkbox-item">
+          
+          <a href="//me.developers.google.com/?hl=ja"
+             class="devsite-footer-linkbox-link gc-analytics-event"
+             data-category="Site-Wide Custom Events"
+            
+             data-label="Footer Link (index 6)"
+            track-metadata-eventDetail="me.developers.google.com/"track-metadata-child_headline="resources"track-name="builders hub"track-metadata-position="footer"track-metadata-module="footer"track-type="footer link">
+            
+              
+              
+            
+          
+            Builders Hub
+          
+          </a>
+          
+          
+        </li>
+        
+      </ul>
+    </li>
+    
+    <li class="devsite-footer-linkbox ">
+    <h3 class="devsite-footer-linkbox-heading no-link">つながる</h3>
+      <ul class="devsite-footer-linkbox-list">
+        
+        <li class="devsite-footer-linkbox-item">
+          
+          <a href="//cloud.google.com/blog/ja?hl=ja"
+             class="devsite-footer-linkbox-link gc-analytics-event"
+             data-category="Site-Wide Custom Events"
+            
+             data-label="Footer Link (index 1)"
+            track-metadata-child_headline="engage"track-metadata-module="footer"track-type="footer link"track-metadata-eventDetail="cloud.google.com/blog/"track-name="blog"track-metadata-position="footer">
+            
+          
+            ブログ
+          
+          </a>
+          
+          
+        </li>
+        
+        <li class="devsite-footer-linkbox-item">
+          
+          <a href="//cloud.google.com/events/?hl=ja"
+             class="devsite-footer-linkbox-link gc-analytics-event"
+             data-category="Site-Wide Custom Events"
+            
+             data-label="Footer Link (index 2)"
+            track-metadata-eventDetail="cloud.google.com/events/"track-metadata-position="footer"track-metadata-child_headline="engage"track-type="footer link"track-metadata-module="footer"track-name="events">
+            
+          
+            イベント
+          
+          </a>
+          
+          
+        </li>
+        
+        <li class="devsite-footer-linkbox-item">
+          
+          <a href="//x.com/googlecloud"
+             class="devsite-footer-linkbox-link gc-analytics-event"
+             data-category="Site-Wide Custom Events"
+            
+             data-label="Footer Link (index 3)"
+            track-metadata-eventDetail="x.com/googlecloud"track-metadata-child_headline="engage"track-name="follow on x"rel="noopener"track-metadata-module="footer"target="_blank"track-metadata-position="footer"track-type="footer link">
+            
+          
+            X（Twitter）
+          
+          </a>
+          
+          
+        </li>
+        
+        <li class="devsite-footer-linkbox-item">
+          
+          <a href="//www.youtube.com/googlecloud?hl=ja"
+             class="devsite-footer-linkbox-link gc-analytics-event"
+             data-category="Site-Wide Custom Events"
+            
+             data-label="Footer Link (index 4)"
+            track-metadata-eventDetail="www.youtube.com/googlecloud"track-metadata-position="footer"track-metadata-child_headline="engage"track-name="google cloud on youtube"track-metadata-module="footer"rel="noopener"track-type="footer link"target="_blank">
+            
+          
+            YouTube の Google Cloud チャンネル
+          
+          </a>
+          
+          
+        </li>
+        
+        <li class="devsite-footer-linkbox-item">
+          
+          <a href="//www.youtube.com/googlecloudplatform?hl=ja"
+             class="devsite-footer-linkbox-link gc-analytics-event"
+             data-category="Site-Wide Custom Events"
+            
+             data-label="Footer Link (index 5)"
+            track-metadata-module="footer"track-metadata-child_headline="engage"track-metadata-position="footer"track-metadata-eventDetail="www.youtube.com/googlecloudplatform"rel="noopener"target="_blank"track-name="google cloud tech on youtube"track-type="footer link">
+            
+              
+              
+            
+          
+            YouTube の Google Cloud Tech チャンネル
+          
+          </a>
+          
+          
+        </li>
+        
+      </ul>
+    </li>
+    
+  </ul>
+  
+</nav>
+          
+        </devsite-footer-linkboxes>
+        <devsite-footer-utility class="devsite-footer">
+          
+            
+
+<div class="devsite-footer-utility nocontent" data-nosnippet>
+  
+  
+  <nav class="devsite-footer-sites" aria-label="Google Developers のその他のウェブサイト">
+    <a href="https://developers.google.com/?hl=ja"
+       class="devsite-footer-sites-logo-link gc-analytics-event"
+       data-category="Site-Wide Custom Events"
+       data-label="Footer Google Developers Link">
+      <picture>
+        
+        <source srcset="https://www.gstatic.com/devrel-devsite/prod/veed85ba0e3651062c793a40796e84fb34afbf8489308d45f92d5448e587e3f03/clouddocs/images/lockup-google-for-developers-dark-theme.svg"
+                media="(prefers-color-scheme: none)"
+                class="devsite-dark-theme">
+        
+        <img class="devsite-footer-sites-logo"
+             src="https://www.gstatic.com/devrel-devsite/prod/veed85ba0e3651062c793a40796e84fb34afbf8489308d45f92d5448e587e3f03/clouddocs/images/lockup-google-for-developers.svg"
+             loading="lazy"
+             alt="Google Developers">
+      </picture>
+    </a>
+    <ul class="devsite-footer-sites-list">
+      
+      <li class="devsite-footer-sites-item">
+        <a href="https://developer.android.com/?hl=ja"
+           class="devsite-footer-sites-link
+                  gc-analytics-event"
+           data-category="Site-Wide Custom Events"
+         
+         
+           data-label="Footer Android Developers Link"
+         >
+          Android
+        </a>
+      </li>
+      
+      <li class="devsite-footer-sites-item">
+        <a href="https://developer.chrome.com/?hl=ja"
+           class="devsite-footer-sites-link
+                  gc-analytics-event"
+           data-category="Site-Wide Custom Events"
+         
+         
+           data-label="Footer Chrome Link"
+         >
+          Chrome
+        </a>
+      </li>
+      
+      <li class="devsite-footer-sites-item">
+        <a href="https://firebase.google.com/?hl=ja"
+           class="devsite-footer-sites-link
+                  gc-analytics-event"
+           data-category="Site-Wide Custom Events"
+         
+         
+           data-label="Footer Firebase Link"
+         >
+          Firebase
+        </a>
+      </li>
+      
+      <li class="devsite-footer-sites-item">
+        <a href="https://ai.google.com/?hl=ja"
+           class="devsite-footer-sites-link
+                  gc-analytics-event"
+           data-category="Site-Wide Custom Events"
+         
+         
+           data-label="Footer Google AI Link"
+         >
+          Google AI
+        </a>
+      </li>
+      
+    </ul>
+  </nav>
+  
+
+  
+  <nav class="devsite-footer-utility-links" aria-label="ユーティリティのリンク">
+    
+    <ul class="devsite-footer-utility-list">
+      
+      <li class="devsite-footer-utility-item
+                 ">
+        
+        
+        <a class="devsite-footer-utility-link gc-analytics-event"
+           href="//about.google/intl/ja/?hl=ja"
+           data-category="Site-Wide Custom Events"
+           data-label="Footer About Google link"
+         
+           track-type="footer link"
+         
+           target="_blank"
+         
+           track-name="about google"
+         
+           track-metadata-position="footer"
+         
+           track-metadata-eventDetail="//about.google/"
+         
+           track-metadata-module="utility footer"
+         >
+          Google について
+        </a>
+        
+      </li>
+      
+      <li class="devsite-footer-utility-item
+                 devsite-footer-privacy-link">
+        
+        
+        <a class="devsite-footer-utility-link gc-analytics-event"
+           href="//policies.google.com/privacy?hl=ja"
+           data-category="Site-Wide Custom Events"
+           data-label="Footer Privacy link"
+         
+           target="_blank"
+         
+           track-metadata-eventDetail="//policies.google.com/privacy"
+         
+           track-type="footer link"
+         
+           track-name="privacy"
+         
+           track-metadata-position="footer"
+         
+           track-metadata-module="utility footer"
+         >
+          プライバシー
+        </a>
+        
+      </li>
+      
+      <li class="devsite-footer-utility-item
+                 ">
+        
+        
+        <a class="devsite-footer-utility-link gc-analytics-event"
+           href="//policies.google.com/terms?hl=ja"
+           data-category="Site-Wide Custom Events"
+           data-label="Footer Site terms link"
+         
+           track-name="site terms"
+         
+           track-metadata-position="footer"
+         
+           track-type="footer link"
+         
+           track-metadata-eventDetail="//www.google.com/intl/en/policies/terms/regional.html"
+         
+           target="_blank"
+         
+           track-metadata-module="utility footer"
+         >
+          サイトの利用規約
+        </a>
+        
+      </li>
+      
+      <li class="devsite-footer-utility-item
+                 ">
+        
+        
+        <a class="devsite-footer-utility-link gc-analytics-event"
+           href="//cloud.google.com/product-terms?hl=ja"
+           data-category="Site-Wide Custom Events"
+           data-label="Footer Google Cloud terms link"
+         
+           track-name="google cloud terms"
+         
+           track-type="footer link"
+         
+           track-metadata-module="utility footer"
+         
+           track-metadata-position="footer"
+         
+           track-metadata-eventDetail="//cloud.google.com/product-terms"
+         >
+          Google Cloud 利用規約
+        </a>
+        
+      </li>
+      
+      <li class="devsite-footer-utility-item
+                 glue-cookie-notification-bar-control">
+        
+        
+        <a class="devsite-footer-utility-link gc-analytics-event"
+           href="#"
+           data-category="Site-Wide Custom Events"
+           data-label="Footer Manage cookies link"
+         
+           track-metadata-module="utility footer"
+         
+           track-name="Manage cookies"
+         
+           track-metadata-position="footer"
+         
+           track-type="footer link"
+         
+           aria-hidden="true"
+         
+           track-metadata-eventDetail="#"
+         >
+          Manage cookies
+        </a>
+        
+      </li>
+      
+      <li class="devsite-footer-utility-item
+                 devsite-footer-carbon-button">
+        
+        
+        <a class="devsite-footer-utility-link gc-analytics-event"
+           href="//cloud.google.com/sustainability?hl=ja"
+           data-category="Site-Wide Custom Events"
+           data-label="Footer Our third decade of climate action: join us link"
+         
+           track-name="Our third decade of climate action: join us"
+         
+           track-metadata-position="footer"
+         
+           track-type="footer link"
+         
+           track-metadata-eventDetail="/sustainability/"
+         
+           track-metadata-module="utility footer"
+         >
+          Google の 30 年の気候変動対策: ご参加ください
+        </a>
+        
+      </li>
+      
+      <li class="devsite-footer-utility-item
+                 devsite-footer-utility-button">
+        
+        <span class="devsite-footer-utility-description">Google Cloud ニュースレターに登録</span>
+        
+        
+        <a class="devsite-footer-utility-link gc-analytics-event"
+           href="//cloud.google.com/newsletter/?hl=ja"
+           data-category="Site-Wide Custom Events"
+           data-label="Footer Subscribe link"
+         
+           track-metadata-eventDetail="/newsletter/"
+         
+           track-metadata-position="footer"
+         
+           track-name="subscribe"
+         
+           track-type="footer link"
+         
+           track-metadata-module="utility footer"
+         >
+          購読
+        </a>
+        
+      </li>
+      
+    </ul>
+    
+    
+<devsite-language-selector>
+  <ul role="presentation">
+    
+    
+    <li role="presentation">
+      <a role="menuitem" lang="en"
+        >English</a>
+    </li>
+    
+    <li role="presentation">
+      <a role="menuitem" lang="de"
+        >Deutsch</a>
+    </li>
+    
+    <li role="presentation">
+      <a role="menuitem" lang="es"
+        >Español</a>
+    </li>
+    
+    <li role="presentation">
+      <a role="menuitem" lang="es_419"
+        >Español – América Latina</a>
+    </li>
+    
+    <li role="presentation">
+      <a role="menuitem" lang="fr"
+        >Français</a>
+    </li>
+    
+    <li role="presentation">
+      <a role="menuitem" lang="id"
+        >Indonesia</a>
+    </li>
+    
+    <li role="presentation">
+      <a role="menuitem" lang="it"
+        >Italiano</a>
+    </li>
+    
+    <li role="presentation">
+      <a role="menuitem" lang="pt"
+        >Português</a>
+    </li>
+    
+    <li role="presentation">
+      <a role="menuitem" lang="pt_br"
+        >Português – Brasil</a>
+    </li>
+    
+    <li role="presentation">
+      <a role="menuitem" lang="he"
+        >עברית</a>
+    </li>
+    
+    <li role="presentation">
+      <a role="menuitem" lang="zh_cn"
+        >中文 – 简体</a>
+    </li>
+    
+    <li role="presentation">
+      <a role="menuitem" lang="zh_tw"
+        >中文 – 繁體</a>
+    </li>
+    
+    <li role="presentation">
+      <a role="menuitem" lang="ja"
+        >日本語</a>
+    </li>
+    
+    <li role="presentation">
+      <a role="menuitem" lang="ko"
+        >한국어</a>
+    </li>
+    
+  </ul>
+</devsite-language-selector>
+
+  </nav>
+</div>
+          
+        </devsite-footer-utility>
+        <devsite-panel>
+          
+        </devsite-panel>
+        
+      </section>
+      </section>
+    <devsite-sitemask></devsite-sitemask>
+    <devsite-snackbar></devsite-snackbar>
+    <devsite-tooltip ></devsite-tooltip>
+    <devsite-heading-link></devsite-heading-link>
+    <devsite-analytics>
+      
+        <script type="application/json" analytics>[]</script>
+<script type="application/json" tag-management>{&#34;at&#34;: &#34;True&#34;, &#34;ga4&#34;: [], &#34;ga4p&#34;: [], &#34;gtm&#34;: [{&#34;id&#34;: &#34;GTM-5CVQBG&#34;, &#34;purpose&#34;: 1}], &#34;parameters&#34;: {&#34;internalUser&#34;: &#34;False&#34;, &#34;language&#34;: {&#34;machineTranslated&#34;: &#34;False&#34;, &#34;requested&#34;: &#34;ja&#34;, &#34;served&#34;: &#34;ja&#34;}, &#34;pageType&#34;: &#34;article&#34;, &#34;projectName&#34;: &#34;Identity and Access Management (IAM)&#34;, &#34;signedIn&#34;: &#34;False&#34;, &#34;tenant&#34;: &#34;clouddocs&#34;, &#34;recommendations&#34;: {&#34;sourcePage&#34;: &#34;&#34;, &#34;sourceType&#34;: 0, &#34;sourceRank&#34;: 0, &#34;sourceIdenticalDescriptions&#34;: 0, &#34;sourceTitleWords&#34;: 0, &#34;sourceDescriptionWords&#34;: 0, &#34;experiment&#34;: &#34;&#34;}, &#34;experiment&#34;: {&#34;ids&#34;: &#34;&#34;}}}</script>
+      
+    </devsite-analytics>
+    
+      <devsite-badger></devsite-badger>
+    
+    
+    
+    
+<cloudx-user></cloudx-user>
+
+
+
+
+  
+    <cloudx-free-trial-eligible-store freeTrialEligible="true"></cloudx-free-trial-eligible-store>
+  
+
+    
+<script nonce="uDdfk3uyoVaRdSjZDY3v+KP9MuOy9E">
+  
+  (function(d,e,v,s,i,t,E){d['GoogleDevelopersObject']=i;
+    t=e.createElement(v);t.async=1;t.src=s;E=e.getElementsByTagName(v)[0];
+    E.parentNode.insertBefore(t,E);})(window, document, 'script',
+    'https://www.gstatic.com/devrel-devsite/prod/veed85ba0e3651062c793a40796e84fb34afbf8489308d45f92d5448e587e3f03/clouddocs/js/app_loader.js', '[39,"ja",null,"/js/devsite_app_module.js","https://www.gstatic.com/devrel-devsite/prod/veed85ba0e3651062c793a40796e84fb34afbf8489308d45f92d5448e587e3f03","https://www.gstatic.com/devrel-devsite/prod/veed85ba0e3651062c793a40796e84fb34afbf8489308d45f92d5448e587e3f03/clouddocs","https://clouddocs-dot-devsite-v2-prod.appspot.com",null,null,["/_pwa/clouddocs/manifest.json","https://www.gstatic.com/devrel-devsite/prod/veed85ba0e3651062c793a40796e84fb34afbf8489308d45f92d5448e587e3f03/images/video-placeholder.svg","https://www.gstatic.com/devrel-devsite/prod/veed85ba0e3651062c793a40796e84fb34afbf8489308d45f92d5448e587e3f03/clouddocs/images/favicons/onecloud/favicon.ico","https://www.gstatic.com/devrel-devsite/prod/veed85ba0e3651062c793a40796e84fb34afbf8489308d45f92d5448e587e3f03/clouddocs/images/lockup_full_color.svg","https://fonts.googleapis.com/css?family=Google+Sans:400,500|Roboto:400,400italic,500,500italic,700,700italic|Roboto+Mono:400,500,700&display=swap"],1,null,[1,6,8,12,14,17,21,25,50,52,63,70,75,76,80,87,91,92,93,97,98,100,101,102,103,104,105,107,108,109,110,112,113,117,118,120,122,124,125,126,127,129,130,131,132,133,134,135,136,138,140,141,147,148,149,151,152,156,157,158,159,161,163,164,168,169,170,179,180,182,183,186,191,193,196],"AIzaSyAP-jjEJBzmIyKR4F-3XITp8yM9T1gEEI8","AIzaSyB6xiKGDR5O3Ak2okS4rLkauxGUG7XP0hg","docs.cloud.google.com","AIzaSyAQk0fBONSGUqCNznf6Krs82Ap1-NV6J4o","AIzaSyCCxcqdrZ_7QMeLCRY20bh_SXdAYqy70KY",null,null,null,["MiscFeatureFlags__enable_dark_theme","MiscFeatureFlags__enable_project_variables","Search__enable_ai_eligibility_checks","OnSwitch__enable","Search__enable_dynamic_content_confidential_banner","Search__enable_ai_search_summaries_for_all","Analytics__enable_devpro_interaction_logging","Concierge__enable_pushui","Profiles__enable_callout_notifications","DevPro__enable_cloud_innovators_plus","Concierge__enable_remove_info_panel_tags","Profiles__enable_stripe_subscription_management","MiscFeatureFlags__enable_appearance_cookies","Profiles__enable_complete_playlist_endpoint","BookNav__enable_tenant_cache_key","DevPro__enable_vertex_credit_card","DevPro__enable_g1_integration","CloudShell__cloud_code_overflow_menu","Analytics__enable_clearcut_logging","MiscFeatureFlags__enable_explicit_template_dependencies","Profiles__enable_purchase_prompts","Profiles__enable_recognition_badges","Cloud__enable_cloudx_experiment_ids","DevPro__enable_g1_ineligible_redirect","EngEduTelemetry__enable_engedu_telemetry","Cloud__enable_legacy_calculator_redirect","DevPro__enable_developer_subscriptions","DevPro__enable_devpro_offers","Profiles__enable_developer_profiles_callout","MiscFeatureFlags__gdp_dashboard_reskin_enabled","MiscFeatureFlags__fix_lower_breadcrumbs","MiscFeatureFlags__developers_footer_image","Concierge__enable_concierge_restricted","MiscFeatureFlags__enable_framebox_badge_methods","Profiles__enable_dashboard_curated_recommendations","Profiles__enable_targeted_hero","MiscFeatureFlags__enable_variable_operator","DevPro__enable_devsite_captcha","TpcFeatures__enable_unmirrored_page_left_nav","DevPro__enable_nvidia_credits_card","Profiles__enable_profile_collections","Profiles__enable_completequiz_endpoint","MiscFeatureFlags__enable_explain_this_code","Profiles__enable_completecodelab_endpoint","CloudShell__cloud_shell_button","Cloud__enable_cloud_dlp_service","Cloud__enable_cloud_shell","MiscFeatureFlags__remove_cross_domain_tracking_params","Cloud__enable_free_trial_server_call","MiscFeatureFlags__developers_footer_dark_image","Profiles__enable_user_type","Experiments__reqs_query_experiments","DevPro__enable_credits_banner","AIStudioInteractionsToggle__interactions_are_default","Concierge__enable_actions_menu","Profiles__enable_page_saving","Profiles__enable_join_program_group_endpoint","DevPro__remove_eu_tax_intake_form","DevPro__enable_embed_profile_creation","DevPro__enable_enterprise","Cloud__fast_free_trial","MiscFeatureFlags__enable_firebase_utm","MiscFeatureFlags__enable_variable_operator_index_yaml","Concierge__enable_devsite_llm_tools","MiscFeatureFlags__enable_view_transitions","SignIn__enable_l1_signup_flow","Profiles__enable_developer_profile_benefits_ui_redesign","Profiles__enable_developer_profile_pages_as_content","DevPro__enable_firebase_workspaces_card","Profiles__require_profile_eligibility_for_signin","Cloud__cache_serialized_dynamic_content","Profiles__enable_playlist_community_acl","TpcFeatures__proxy_prod_host","Profiles__enable_auto_apply_credits","DevPro__enable_payments_second_batch","Search__enable_page_map","Search__enable_suggestions_from_borg","Profiles__enable_public_developer_profiles","DevPro__enable_google_payments_buyflow","DevPro__enable_free_benefits","DevPro__enable_code_assist","MiscFeatureFlags__enable_markdown_accept_header","Cloud__enable_cloud_shell_fte_user_flow","DevPro__enable_google_one_card","Profiles__enable_awarding_url"],null,null,"AIzaSyBLEMok-5suZ67qRPzx0qUtbnLmyT_kCVE","https://developerscontentserving-pa.clients6.google.com","AIzaSyCM4QpTRSqP5qI4Dvjt4OAScIN8sOUlO-k","https://developerscontentsearch-pa.clients6.google.com",1,4,1,"https://developerprofiles-pa.clients6.google.com",[39,"clouddocs","Google Cloud Documentation","docs.cloud.google.com",null,"clouddocs-dot-devsite-v2-prod.appspot.com",null,null,[1,1,null,null,null,null,null,null,null,null,null,[1],null,null,null,null,null,1,[1],[null,null,null,[1,20],"/terms/recommendations"],[1],null,[1],[1,null,1],null,[1]],null,[54,null,null,null,null,null,"/images/lockup_full_color.svg","/images/favicons/onecloud/apple-icon.png",null,null,null,1,1,1,1,null,[],null,null,[[],[],[],[],[],[],[],[]],null,1,null,null,null,"/images/lockup_dark_theme.svg",[]],[],null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,[54,null,null,null,null,null,"/images/lockup_full_color.svg","/images/favicons/onecloud/apple-icon.png",null,null,null,1,1,1,1,null,[],null,null,[[],[],[],[],[],[],[],[]],null,1,null,null,null,"/images/lockup_dark_theme.svg",[]],null,null,null,null,null,[6,1,14,15,22,23,29,37],null,[[null,null,null,null,null,null,[1,[["docType","Choose a content type",[["ApiReference",null,null,null,null,null,null,null,null,"API reference"],["Sample",null,null,null,null,null,null,null,null,"Code sample"],["ReferenceArchitecture",null,null,null,null,null,null,null,null,"Reference architecture"],["Tutorial",null,null,null,null,null,null,null,null,"Tutorial"]]],["category","Choose a topic",[["AiAndMachineLearning",null,null,null,null,null,null,null,null,"Artificial intelligence and machine learning (AI/ML)"],["ApplicationDevelopment",null,null,null,null,null,null,null,null,"Application development"],["BigDataAndAnalytics",null,null,null,null,null,null,null,null,"Big data and analytics"],["Compute",null,null,null,null,null,null,null,null,"Compute"],["Containers",null,null,null,null,null,null,null,null,"Containers"],["Databases",null,null,null,null,null,null,null,null,"Databases"],["HybridCloud",null,null,null,null,null,null,null,null,"Hybrid and multicloud"],["LoggingAndMonitoring",null,null,null,null,null,null,null,null,"Logging and monitoring"],["Migrations",null,null,null,null,null,null,null,null,"Migrations"],["Networking",null,null,null,null,null,null,null,null,"Networking"],["SecurityAndCompliance",null,null,null,null,null,null,null,null,"Security and compliance"],["Serverless",null,null,null,null,null,null,null,null,"Serverless"],["Storage",null,null,null,null,null,null,null,null,"Storage"]]]]]],[1],null,1],[[null,null,null,null,null,["GTM-5CVQBG"],null,null,null,null,null,[["GTM-5CVQBG",2]],1],null,null,null,null,null,1],"mwETRvWii0eU5NUYprb0Y9z5GVbc",4,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,["cloud.google.com",["cloud.google.com","console.cloud.google.com","docs.cloud.google.com"]]],null,"pk_live_5170syrHvgGVmSx9sBrnWtA5luvk9BwnVcvIi7HizpwauFG96WedXsuXh790rtij9AmGllqPtMLfhe2RSwD6Pn38V00uBCydV4m",1,1,"https://developerscontentinsights-pa.clients6.google.com","AIzaSyCg-ZUslalsEbXMfIo9ZP8qufZgo3LSBDU","AIzaSyDxT0vkxnY_KeINtA4LSePJO-4MAZPMRsE","https://developers.clients6.google.com",null,null,"AIzaSyBQom12tzI-rybN7Sf-KfeL4nwm-Rf7PmI\n",null,null,"https://developers.googleapis.com"]')
+  
+</script>
+
+    <devsite-a11y-announce></devsite-a11y-announce>
+  </body>
+</html>

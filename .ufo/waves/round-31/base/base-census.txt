@@ -1,0 +1,33 @@
+# group 3 — lane sources census at BASE: last line + exit
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && bash corpus/sources-census.sh
+SOURCES_CENSUS: CLEAN (rows=60 A=57 B=1 C=2 queued=1 mined=56 rejected=3 entries_sourced=8 legacy=21 captures=60 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+lane-census-exit=0
+
+# field-by-field against plans/round-31.md and controls/c2-base.txt
+field              plan/control   measured   match
+rows               60             60         yes
+A                  57             57         yes
+B                  1              1          yes
+C                  2              2          yes
+queued             1              1          yes
+mined              56             56         yes
+rejected           3              3          yes
+entries_sourced    8              8          yes
+legacy             21             21         yes
+captures           60             60         yes
+inrow              16             16         yes
+inrow_only         0              0          yes
+inrow_nonreproducing 12           12         yes
+exit               0              0          yes
+
+# cross-checks
+$ grep -cE '^\|[[:space:]]*S[0-9]+[[:space:]]*\|' corpus/SOURCES.md          -> 60
+$ grep -v '^#' corpus/source-fetches.tsv | wc -l                              -> 60
+$ grep -v '^#' corpus/source-fetches.tsv | awk -F'\t' 'NF!=16' | wc -l        -> 0   (16-col schema holds)
+$ grep -v '^#' corpus/source-fetches.tsv | cut -f7 | sort -u                  -> curl-fsSL-compressed-v1
+$ grep -l '^source:' corpus/knowledge/*.md | wc -l                            -> 8
+$ grep -L '^source:' corpus/knowledge/*.md | wc -l                            -> 21
+   (tier arithmetic closes: 57+1+2=60 rows; 56 mined + 1 queued + 3 rejected = 60)
+
+VERDICT: MATCHES controls/c2-base.txt (which additionally pre-prints legacy=21 / rows=60 as its own
+header lines) and the plan's declared CLEAN shape exactly — every one of the 13 counters, both exits.

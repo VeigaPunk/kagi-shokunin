@@ -399,6 +399,54 @@ H1, H2, H3, H5, H6 are receipt/wave-artifact issues and are not yet in the lande
 
 ---
 
+## Post-commit verification (the L1 committed `064d4b6`; re-scan of what actually landed)
+
+The L1 committed while I was finishing. I extracted the committed tree (`git archive 064d4b6`, 4313
+files) and re-ran the four classes, then separately re-ran them over **only the 205 paths the two
+round-30 commits touched** (`d163290` plan correction + `064d4b6` work commit) — the delta, not the
+whole historical tree.
+
+**Round-30 delta (the bytes this round actually landed):**
+
+| class | hits in the 205 changed/added paths | verdict |
+|---|---|---|
+| secret material (11 shape classes) | **0** | PASS |
+| refusal boundary | 52 — all the plan's binding sentence, `RAttackC3`/`ScoutHost` attestations, the dispatch/spec text, and my own report's quotation of them | PASS (0 assertions) |
+| scope | 0 edit proposals against integrator files / MANIFEST.json / fleet templates / fleet scripts / siblings / shokuknow | PASS |
+| pacman | 6 — the guard sentence in `build-spec.json`, `build-dispatch.json`, and my report quoting it | PASS (0 instructions) |
+
+Two residual pattern hits in the delta are confirmed false positives: 2 `envsec` rows are
+`TOPLEVEL=/fast/scratch/…` (a shell variable holding a scratch path, in
+`final/attack-eol/M4-exact-pattern.txt:2` and `matrix.out:50`), and 6 `excred` rows are the *names*
+of the credential patterns in my own report's scan table (`aws_secret_access_key`, `client_secret=`,
+`private_key=`) — no values.
+
+**EOL repair verified in the committed tree:**
+
+- `git ls-files --eol` → `i/lf w/lf attr/text eol=lf` for `SKILL.md`, `corpus/SOURCES.md`,
+  `corpus/claim-ledger.tsv`.
+- HEAD blob CR counts: `SKILL.md` 0 (was 813), `corpus/SOURCES.md` 0 (was 193),
+  `corpus/claim-ledger.tsv` 0 (was 85).
+- **H7 confirmed fixed in the commit:** `064d4b6` touched **0** `.ufo/waves/round-29/` paths, and the
+  five receipt JSONs retain their original CR counts in the new HEAD (433/437/94/101/56). The
+  `.ufo/** -text -eol` exclusion held.
+
+**One residual hazard worth the L1's attention (not a violation; the commit is already safe).**
+During this work I was told of a live CRLF-resurrection in a *sibling* lane (tsukuroi round-64) and
+tested the same mechanism against my own lane. The mechanism is real and lane-independent: while a
+path's **index blob** is still CRLF (`i/crlf`), any `git checkout --`, `git restore`, or
+`git checkout-index -f` on that path re-materialises the committed CRLF bytes, undoing the worktree
+repair. Measured on a kagi clone at the pre-commit state: after the LF repair the worktree read
+`i/crlf w/lf`, and all three commands restored 193 CR bytes into `corpus/SOURCES.md` — byte-identical
+to the committed blob. The escape hatch is the **index**, not the worktree: once the LF content is
+staged (`git add`, or a jj `new`/commit that snapshots the index — a jj `describe` alone does *not*
+update it), the index becomes `i/lf` and all three commands are safe. The kagi commit reached that
+state (`i/lf`, HEAD blobs CR=0), so **kagi is not exposed**. Any lane whose index still holds CRLF
+blobs for a repaired path is, and the fix is to stage the repaired content before any checkout-class
+command runs.
+
+---
+
 ## Boundary statement (role)
 
 I inspected trust boundaries and failure modes from local evidence only. I did not judge, integrate,

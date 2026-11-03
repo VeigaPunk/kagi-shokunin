@@ -1,0 +1,138 @@
+group-b fetch receipts — round-31 C2, seat SrcOpenB, 2026-11-03
+lane: /home/vgpnk/Projects/shokunin/kagi-shokunin
+declared profile (seat): curl -fsSL --max-time 30 '<url>'
+lane capture column label: curl-fsSL-compressed-v1 (legacy name; see note at end)
+control profile: curl -fsSL --max-time 30 --compressed -A 'kagi-shokunin-round23/1.0 (documentation verification)' '<url>'
+
+==============================================================================
+id: B1 (final lane id S066; staged S057)
+url: https://help.aliyun.com/zh/ram/user-guide/create-a-ram-role-for-a-trusted-idp
+date: 2026-11-03
+profile (canonical capture): curl -fsSL --max-time 30 'https://help.aliyun.com/zh/ram/user-guide/create-a-ram-role-for-a-trusted-idp'
+fetch exit: 0
+http: 200
+final-url: https://help.aliyun.com/zh/ram/user-guide/create-a-ram-role-for-a-trusted-idp
+body file: body-33fcf811.plain (decoded HTTP entity body; no Content-Encoding on the dial)
+body-retention: not retained (scratch deleted after this receipt); re-fetch with the command above reproduces the digest, except B1 whose raw bytes are volatile
+document-stamp: page meta last-modified 2026-06-05T09:45:25+08:00; content-type text/html;charset=UTF-8; server Tengine/Aserver
+bytes: 95137
+sha256: 0e2d9afdfda461bde4dfe33c1b1a300b5db70090f354f6454092726c8f3b3a0b
+sha16: 0e2d9afdfda461bd
+staged-sha16: 48173805d3c27af4
+prefix-match: DIFFERS from the 2026-10-23 campaign pin (a provenance digest is a point attestation, never a drift pin)
+representation: decoded-http-body-volatile-v1
+normalization: rendered-text-v1
+normalized_sha256: 8b21f8346902b086a2bc778d34a854625a4662c8f6496f49ed725f735d3e23d4
+normalized_bytes: 6877
+digest command: python3 /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/rendered-text-v1.py digest body-33fcf811.plain
+digest output: RENDERED_TEXT_V1: raw_sha256=0e2d9afdfda461bde4dfe33c1b1a300b5db70090f354f6454092726c8f3b3a0b bytes=95137 normalized_sha256=8b21f8346902b086a2bc778d34a854625a4662c8f6496f49ed725f735d3e23d4 normalized_bytes=6877
+quote: OIDC 受众（Audience）。用来扮演角色的 OIDC 令牌中的 aud 字段值必须满足该限制条件要求，角色才允许被扮演。
+quote words (LC_ALL=C wc -w): 6
+locate command: python3 /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/rendered-text-v1.py locate body-33fcf811.plain '<quote>'
+locate output: RENDERED_TEXT_V1_LOCATE: count=1
+location: §创建OIDC身份提供商的RAM角色 → 操作步骤, 限制条件表 oidc:aud row
+control profile body: body-33fcf811.profiled bytes=95135 sha256=edb1278df27c0d38d28f87150c8928c63ae8597055db4223620febc3977ba70b
+control normalized_sha256: 8b21f8346902b086a2bc778d34a854625a4662c8f6496f49ed725f735d3e23d4
+profile delta: raw bytes differ by 2 (leading CRLF count only; normalized digest identical)
+note: staged anchor cell reads '§信任策略 → 限制条件表'; the fetched page carries no 信任策略
+note: heading (rendered count = 0). The table sits under §创建OIDC身份提供商的RAM角色 →
+note: 操作步骤, introduced by '在编辑器中设置限制条件。 支持的服务级限制条件如下表所示：'.
+note: Anchor-label drift, not quote drift: the quote locates 1 in today's rendered text.
+verdict: FETCHED ok / QUOTE LOCATED (rendered-text-v1, count=1)
+==============================================================================
+id: B2 (final lane id S067; staged S064)
+url: https://openid.net/specs/openid-connect-core-1_0.html
+date: 2026-11-03
+profile (canonical capture): curl -fsSL --max-time 30 'https://openid.net/specs/openid-connect-core-1_0.html'
+fetch exit: 0
+http: 200
+final-url: https://openid.net/specs/openid-connect-core-1_0.html
+body file: body-2078b308.plain (decoded HTTP entity body; no Content-Encoding on the dial)
+body-retention: not retained (scratch deleted after this receipt); re-fetch with the command above reproduces the digest, except B1 whose raw bytes are volatile
+document-stamp: <title>Final: OpenID Connect Core 1.0 incorporating errata set 2</title>; content-type text/html
+bytes: 437508
+sha256: 4d016752a645e8a3c259baa4173b5a90cb6c82898ce868fc8444adde262a5aed
+sha16: 4d016752a645e8a3
+staged-pin: document identity string, not a digest (see note)
+representation: decoded-http-body-v1
+normalization: rendered-text-v1
+normalized_sha256: c2ba57c4adaaeb9a8283e1d93efbe2ae0a60c37168e137e9caca7aa50bf24743
+normalized_bytes: 258083
+digest command: python3 /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/rendered-text-v1.py digest body-2078b308.plain
+digest output: RENDERED_TEXT_V1: raw_sha256=4d016752a645e8a3c259baa4173b5a90cb6c82898ce868fc8444adde262a5aed bytes=437508 normalized_sha256=c2ba57c4adaaeb9a8283e1d93efbe2ae0a60c37168e137e9caca7aa50bf24743 normalized_bytes=258083
+quote: aud REQUIRED. Audience(s) that this ID Token is intended for. It MUST contain the OAuth 2.0 client_id of the Relying Party as an audience value.
+quote words (LC_ALL=C wc -w): 25
+locate command: python3 /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/rendered-text-v1.py locate body-2078b308.plain '<quote>'
+locate output: RENDERED_TEXT_V1_LOCATE: count=1
+location: §2 ID Token, aud claim paragraph (aud REQUIRED)
+control profile body: body-2078b308.profiled bytes=437508 sha256=4d016752a645e8a3c259baa4173b5a90cb6c82898ce868fc8444adde262a5aed
+control normalized_sha256: c2ba57c4adaaeb9a8283e1d93efbe2ae0a60c37168e137e9caca7aa50bf24743
+profile delta: none (byte-identical bodies under both profiles)
+note: staged cell pins the document by its version string, not a digest:
+note: 'Final: OpenID Connect Core 1.0 incorporating errata set 2', present verbatim in
+note: <title> and in the page body today.
+note: ANCHOR CORRECTION: the staged cell says §3.1.3.6 'ID Token', aud claim. §3.1.3.6's body
+note: defers to §2 ('The contents of the ID Token are as described in Section 2') and adds only
+note: at_hash; the aud definition and the quoted sentence live in §2 ID Token. Rendered locate
+note: count for the quote is 1 in the whole document, so §2 is the unique location.
+verdict: FETCHED ok / QUOTE LOCATED (rendered-text-v1, count=1)
+==============================================================================
+id: B3 (final lane id S068; staged S065)
+url: https://www.rfc-editor.org/rfc/rfc9700.txt
+date: 2026-11-03
+profile (canonical capture): curl -fsSL --max-time 30 'https://www.rfc-editor.org/rfc/rfc9700.txt'
+fetch exit: 0
+http: 200
+final-url: https://www.rfc-editor.org/rfc/rfc9700.txt
+body file: body-46c7aa63.plain (decoded HTTP entity body; no Content-Encoding on the dial)
+body-retention: not retained (scratch deleted after this receipt); re-fetch with the command above reproduces the digest, except B1 whose raw bytes are volatile
+document-stamp: Request for Comments: 9700 / BCP: 240 / Category: Best Current Practice / January 2025; content-type text/plain;charset=utf-8; body carries a UTF-8 BOM
+bytes: 124673
+sha256: 9919d061d40a97886ca866b51c69389b6c81c65cd4b979056c14fdbebfcf622a
+sha16: 9919d061d40a9788
+staged-pin: document identity string, not a digest (see note)
+representation: decoded-http-body-v1
+normalization: rendered-text-v1
+normalized_sha256: ab2871e3ae367bceb8db57c4e9786f196060d261d23e2383fd683a0fdd68ff36
+normalized_bytes: 110683
+digest command: python3 /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/rendered-text-v1.py digest body-46c7aa63.plain
+digest output: RENDERED_TEXT_V1: raw_sha256=9919d061d40a97886ca866b51c69389b6c81c65cd4b979056c14fdbebfcf622a bytes=124673 normalized_sha256=ab2871e3ae367bceb8db57c4e9786f196060d261d23e2383fd683a0fdd68ff36 normalized_bytes=110683
+quote: If the access token fails the intended audience validation, the resource server refuses to serve the respective request.
+quote words (LC_ALL=C wc -w): 18
+locate command: python3 /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/rendered-text-v1.py locate body-46c7aa63.plain '<quote>'
+locate output: RENDERED_TEXT_V1_LOCATE: count=1
+location: §4.10.2 Audience-Restricted Access Tokens, lines 1666-1668
+control profile body: body-46c7aa63.profiled bytes=124673 sha256=9919d061d40a97886ca866b51c69389b6c81c65cd4b979056c14fdbebfcf622a
+control normalized_sha256: ab2871e3ae367bceb8db57c4e9786f196060d261d23e2383fd683a0fdd68ff36
+profile delta: none (byte-identical bodies under both profiles)
+note: staged cell pins the document by identity ('RFC 9700, BCP 240, January 2025'), not a
+note: digest; the fetched header carries Request for Comments: 9700 / BCP: 240 / January 2025.
+note: The staged in-text quotation drops 'access token' and 'If the'; today's bytes read
+note: 'If the access token fails the intended audience validation, ...'. Partial, not wrong.
+note: Normalization is rendered-text-v1 only because the sentence spans a hard wrap in the
+note: raw bytes; the raw sha256 stays the primary attestation.
+verdict: FETCHED ok / QUOTE LOCATED (rendered-text-v1, count=1)
+==============================================================================
+row-identity digests (sha256 of `id<TAB>mined<TAB>url<LF>`)
+group-b.tsv column 1 carries the draft seat id (B1..B3), as group-a.tsv carries
+A1..A5; column 3 is computed over the FINAL S-id (B1->S066, B2->S067, B3->S068),
+so it verifies only after the L1 replaces column 1 with the S-id. Both forms:
+  S066 (final B1) ac132ef11627027f4056967f7c7d37eeb9b9e59300af3e78802a92f7fbe05288
+  B1 (draft id)   541e609a2103884086994661b920d4108d14e5c934af375f41d9b9fb3ffd7d80
+  S067 (final B2) 49f3593553337ad52cc997e511651f3e7d2b97bb0dec499e819d4b95f146db66
+  B2 (draft id)   df4e7919575a80f9f18a9c1140e89630ab6567163021aa630f06b1c813627a82
+  S068 (final B3) 74df33fce5c90b31d37aff4a59fa7e9a0978a150ad895d6433719029b9d964ac
+  B3 (draft id)   fafd957923c1e67ddca5eb56eccbc64ce63be1dcb4556e2abcc9d8a16e37ef6b
+
+stability probes (two same-day GETs, profiled profile):
+  B1 https://help.aliyun.com/zh/ram/user-guide/create-a-ram-role-for-a-trusted-idp first=edb1278df27c0d38 second=1074eb8681a404ef -> VARIES (raw), so decoded-http-body-volatile-v1
+  B2 https://openid.net/specs/openid-connect-core-1_0.html first=4d016752a645e8a3 second=4d016752a645e8a3 -> STABLE across two GETs
+  B3 https://www.rfc-editor.org/rfc/rfc9700.txt first=9919d061d40a9788 second=9919d061d40a9788 -> STABLE across two GETs
+
+note: the canonical capture body was fetched with the plain profile named in the
+seat brief; the lane's capture-column label curl-fsSL-compressed-v1 is the
+legacy round-23 name and is not re-derived here. The profiled control body is
+recorded above so the L1 can swap the digest domain by one substitution: for B2
+and B3 both profiles return byte-identical bodies; for B1 the two profiled
+fetches themselves differ in leading CRLF bytes (edb1278d.. vs 1074eb86..), which
+is exactly why B1 is declared decoded-http-body-volatile-v1.

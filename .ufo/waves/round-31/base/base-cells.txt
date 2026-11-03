@@ -1,0 +1,84 @@
+# group 2 — claim-ledger cells at BASE: full output + exit code
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && bash corpus/claim-ledger.sh cells
+LABELED-ID LOG.md:401 R13-99 (labelled on its line)
+LABELED-ID LOG.md:417 R12-03a (labelled on its line)
+LABELED-ID LOG.md:418 xR12-01 (labelled on its line)
+LABELED-ID SCORECARD.md:108 R13-99 (labelled on its line)
+LABELED-ID SKILL.md:659 R9-99 (labelled on its line)
+LABELED-ID corpus/knowledge/claim-ledger.md:142 R13-99 (labelled on its line)
+LABELED-ID corpus/knowledge/claim-ledger.md:147 R12-03a (labelled on its line)
+LABELED-ID corpus/knowledge/claim-ledger.md:147 xR12-01 (labelled on its line)
+LABELED-ID corpus/knowledge/claim-ledger.md:258 R9-99 (labelled on its line)
+LABELED-ID corpus/knowledge/claim-ledger.md:267 R13-99 (labelled on its line)
+LABELED-ID corpus/knowledge/claim-ledger.md:267 R13-99 (labelled on its line)
+LABELED-ID corpus/knowledge/claim-ledger.md:485 R13-99 (labelled on its line)
+LABELED-ID corpus/lessons/round-13.md:22 R13-99 (labelled on its line)
+LABELED-ID corpus/lessons/round-13.md:22 R12-88 (labelled on its line)
+LABELED-ID corpus/lessons/round-13.md:102 R12-03a (labelled on its line)
+LABELED-ID corpus/lessons/round-14.md:17 R13-99 (labelled on its line)
+LABELED-ID corpus/lessons/round-14.md:118 R99-99 (labelled on its line)
+LABELED-ID corpus/lessons/round-23.md:92 R1-01 (labelled on its line)
+LABELED-ID corpus/lessons/round-23.md:166 R90-01 (labelled on its line)
+LABELED-ID corpus/lessons/round-23.md:166 R90-02 (labelled on its line)
+claim-ledger: unrecognised round heading in /home/vgpnk/Projects/shokunin/kagi-shokunin/SCORECARD.md: '## Round 26 — bounded release-drift response' (expected '## Round <N> — pre-move|post-move')
+cells-exit=2
+
+# grading greps on that output
+grep -c 'unrecognised round heading'  -> 1
+grep -c '^CELL_AUDIT:'                -> 0
+output lines                           -> 21 (20 LABELED-ID + the one error line)
+
+# byte comparison with the committed control
+$ diff <output> .ufo/waves/round-31/controls/cells-base.txt
+21a22
+> cells-exit=2
+=> identical apart from the trailer line the live run could not echo; controls/cells-base.txt IS this state.
+
+# independent cell population (cannot be produced by the tool — it dies at setup), emulating the
+# parser: 35 round sections in scope (36 `## Round` lines minus the Round-20 blocked attempt, which
+# BLOCKED_ATTEMPT_RE excludes), table rows whose first cell matches AXES_RE
+# (depth|coverage|operability|freshness|calibration|adjacency):
+cells_total                     -> 210
+round_sections_parsed           -> 35
+cells_in_the_5_broken_sections  -> 30   (R26..R30, 6 each)
+=> the plan's floor "cells >= 210, the 30-round population at BASE" is EXACT, not approximate.
+   The reshape adds/removes no table rows, so 210 stays the floor until round-31 sections land.
+
+# --- what the FIRST successful audit will say (emulated, not run: the gate dies at setup) -----------
+# A faithful re-implementation of cells()'s scoring — same SEC_RE/ROUND_RE/SECTION_RE/BLOCKED_ATTEMPT_RE
+# section walk, same AXES_RE row filter, same line_ids IDWORD_RE='[A-Za-z0-9_-]*R[0-9]+-[0-9]+[A-Za-z0-9_-]*',
+# same norm_tok normalisation order, same exact-string stamp_index lookup — over the scorecard with the
+# five headings treated as conforming (i.e. the after-reshape section set):
+cells               -> 210      (= the plan's floor, exactly)
+row_pointed         -> 147
+stamp_pointed       ->  94
+uncited             ->   6
+   UNCITED SCORECARD.md:1200 freshness    (Round 29)
+   UNCITED SCORECARD.md:1201 calibration  (Round 29)
+   UNCITED SCORECARD.md:1203 coverage     (Round 29)
+   UNCITED SCORECARD.md:1204 operability  (Round 29)
+   UNCITED SCORECARD.md:1247 depth        (Round 30)
+   UNCITED SCORECARD.md:1250 adjacency    (Round 30)
+# Cross-check: the round-31 build probe .ufo/waves/round-31/build/cells-red-probe.txt (a sibling seat's
+# scratch reshape run) reports exactly
+#   CELL_AUDIT: POLICY (cells=210 row_pointed=147 stamp_pointed=94 policy=2)
+# with the same six UNCITED coordinates — this emulation reproduces all four numbers independently.
+
+# Why those six: R29's cells cite S052 / `STABLE_TOKEN_RE` / `.ufo/waves/round-29/tools/c1-measure.py`
+# / `feed-token-agree.py` (no corpus/ prefix) / M29-* / QM30; R30's cite prose only. None is a ledger row
+# id and none is an exact stamps.tsv path, so has_row=has_stamp=0 -> UNCITED. Note `.ufo/...` paths are
+# never stamp-registered, and norm_tok does NOT add a `corpus/` prefix, so bare basenames never resolve.
+# Available resolving pointers for a repair: rows R29-01/R29-02/R30-01 exist; stamps corpus/lessons/
+# round-29.md, corpus/lessons/round-30.md, corpus/QUALITY.md, corpus/SOURCES.md, corpus/feed-token-agree.py
+# are all fresh. Any repair edits an evidence line, which §C1 forbids ("no table cell, score or evidence
+# line inside those sections changes") -> the plan needs a QM14-recorded correction or an honest stop.
+
+# Also note the audit's branch order (claim-ledger.sh:1249-1262): the POLICY branch prints and exits 2
+# BEFORE the BROKEN branch tests CL_UNCITED. So the after-state summary line reads `CELL_AUDIT: POLICY
+# (…policy=2)` even while uncited=6 — the frozen predicate's greps would not see the uncited class, but
+# the §C1 kill rule names "an uncited/missing-id class" explicitly.
+
+VERDICT: MATCHES plans/round-31.md §C1 "at BASE (655e620): exit 2, no CELL_AUDIT summary line,
+error names the Round 26 heading" and controls/cells-base.txt exactly. Do-nothing control holds.
+The after-state, however, cannot be clean under the plan's own content-preserving constraint: 6 of the
+30 never-audited cells in R26-R30 carry no pointer (see the UNCITED list above).

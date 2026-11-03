@@ -1,0 +1,78 @@
+# routed/host/frontier BASE facts that plans/round-31.md declares (D1, D2, D3, host, frontier, sibling sweep)
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin
+
+# --- D1: inherited uncommitted round-30 wave evidence, cited but not durable -------------------------
+$ git status --porcelain | grep round-30
+ M .ufo/waves/round-30/SentHygiene-report.md
+ M .ufo/waves/round-30/build/SentHygiene.md
+?? .ufo/waves/round-30/SDraftEntries-report.md
+?? .ufo/waves/round-30/SRegistryRows-report.md
+?? .ufo/waves/round-30/build-results.json
+?? .ufo/waves/round-30/build/SDraftEntries.md
+?? .ufo/waves/round-30/build/SRegistryRows.md
+?? .ufo/waves/round-30/final/c3/entries/SDraftEntries-fetch-receipts.txt
+?? .ufo/waves/round-30/final/c3/entries/SDraftEntries-fleet-gate.txt
+?? .ufo/waves/round-30/final/c3/entries/SDraftEntries-lane-gate.txt
+?? .ufo/waves/round-30/final/c3/registry/
+count = 11          # 2 modified + 9 untracked (one is a directory) — exactly the 11 the plan names
+# NOTE for the L1: .ufo/waves/round-31/build/, build-spec.json, build-dispatch.json, build.ready and
+# build.ready.partial are ALSO untracked at this instant, but they are this round's own live wave files,
+# not inherited evidence; the D1 commit should take the 11 round-30 paths only.
+
+# --- D2: report pointer whose file holds the before-state -------------------------------------------
+$ tail -2 .ufo/waves/round-30/final/receipts/selfcounts-at-tip.txt
+POLICY PV-FEEDTOKEN-SELFTEST ledger:R29-01 command not allowlisted
+SELF_COUNTS: POLICY (claims=62 stale=8 unlocated=0 ambiguous=0 policy=2 setup=1)
+# => holds stale=8 (and setup=1), i.e. the BEFORE state, exactly as the plan says. Current run at BASE:
+#    stale=0 setup=0 (see base-rows.txt). A correctly produced round-31-tip receipt is still owed.
+
+# --- D3a: feed-token-agree registration in PYTHON_SCRIPT_RE (operator-owned; L0 kagi | round-30) ---
+$ grep -rn 'PYTHON_SCRIPT_RE' --include='*.sh' --include='*.py' /home/vgpnk/Projects/shokunin/scripts /
+    -> no match (the fleet scripts tree does not carry it; the only live definition is the lane's)
+$ grep -n 'PYTHON_SCRIPT_RE=' corpus/claim-ledger.sh
+263:PYTHON_SCRIPT_RE='^python3[[:space:]]+corpus/(feature-claims|revision-audit|closure-dispositions|rendered-text-v1|self-counts|release-clock)\.py([[:space:]]|$)'
+$ grep -c 'feed-token-agree' corpus/claim-ledger.sh
+0
+# => unregistered, as declared. This is the mechanism behind R29-01/R29-02 staying POLICY in
+#    base-rows.txt. Operator-owned; the round must NOT self-relax it.
+
+# --- D3b: fleet parser trim() does not strip CR (fleet-owned) ---------------------------------------
+$ sed -n '581p' /home/vgpnk/Projects/shokunin/scripts/sources-census.sh
+    function trim(s) { gsub(/^[ \t]+|[ \t]+$/,"",s); return s }
+# => line 581 is exactly the declared site; [ \t] excludes \r. Defect located as stated.
+
+# --- host declaration ------------------------------------------------------------------------------
+$ python3 --version   -> Python 3.14.8
+$ op --version        -> 2.41.1        (version string only; no sign-in, no vault/account contact)
+$ for p in ~/.local/bin/the-janitor ~/.config/the-janitor ~/.local/state/the-janitor; do test -e "$p" || echo absent "$p"; done
+absent /home/vgpnk/.local/bin/the-janitor
+absent /home/vgpnk/.config/the-janitor
+absent /home/vgpnk/.local/state/the-janitor
+# => substrate ABSENT: any gate failing over it is a correct output (QM22), matching controls/host.txt.
+
+# --- C2 frontier premise ---------------------------------------------------------------------------
+$ sed -n '116p' corpus/README.md
+- **OIDC workload federation trust policy** — issuer, audience, identity-claim binding, and resulting permissions; see `SOURCES.md` §Leads (unopened), GitHub/Google Cloud/AWS federation.
+$ sed -n '100,102p' corpus/SOURCES.md
+## Leads (unopened)
+- GitHub, Google Cloud, and AWS OIDC workload-federation trust-policy configuration — leads only, not evidence.
+$ git log --oneline -S'OIDC workload federation trust policy' -- corpus/README.md | tail -1
+c41af82 round-21: admit dotenv byte contract (depth), mine mistakes into QUALITY.md (calibration), add SOURCES.md + sources-census gate with three sourced entries (capability/coverage)
+# => lead present in both files, introduced at round 21: "held ... since round 21" holds.
+
+# --- sibling sweep (read-only): does any other lane claim workload-identity ground? -----------------
+$ ls */corpus/knowledge/*oidc* -> no match, fleet-wide
+$ grep -rl 'workload.identity\|workload federation' --include='*.md' */corpus/knowledge/
+kagi-shokunin/corpus/knowledge/vault-openbao-token-lease-lifecycle.md   (kagi's own, not a sibling)
+# => the plan's "no sibling claims workload-identity ground" is consistent with fleet evidence.
+
+# --- C2 mechanical constraint discovered in the staged text (work owed by the adopters) -------------
+# staged oidc-federation-trust-policy.md      : 8 `^source:` lines, verified-at 2026-10-23, recheck, ground, NO `Reverify:`
+# staged cdp-bridge-1password-oidc-workflow.md: 3 `^source:` lines, verified-at 2026-10-23, recheck, ground, NO `Reverify:`
+# corpus/sources-census.sh:339-343 rejects >1 `^source:` line (SC_ENTRY_HEADER) and requires verified-at
+# and recheck. So the staged text cannot be appended as-is: the 8 and 3 lines must collapse to ONE
+# column-1 `source:` line each, verified-at must move to 2026-11-03, and the plan's `Reverify:` link
+# does not exist in the staged files. The plan says all of this; the staged headers are the reason.
+
+VERDICT: D1=11 paths, D2 stale=8, D3a unregistered, D3b at line 581, host declaration, frontier-since-21
+and the sibling sweep all MATCH plans/round-31.md.

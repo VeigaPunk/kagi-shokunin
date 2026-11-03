@@ -1,0 +1,136 @@
+# group-c-receipts.txt — SrcOpenC in-round re-open receipts (round-31 BUILD wave, C2 adoption, entry 2)
+# Wave kagi-r31-build · seat SrcOpenC · 2026-11-03 · host Arch Linux (omp)
+# Lane /home/vgpnk/Projects/shokunin/kagi-shokunin @ frozen BASE 655e620651808ac04bb59bfa35b81227f62a031b
+# Frozen plan: plans/round-31.md (C2). Staged entry (READ-ONLY):
+#   /home/vgpnk/Projects/shokuknow/merge/kagi/knowledge/corpus/knowledge/cdp-bridge-1password-oidc-workflow.md
+# Declared fetch profile for the attested captures: curl -fsSL --max-time 30 '<url>'   (plan text, C2 scope)
+# curl 8.23.0 (x86_64-pc-linux-gnu) libcurl/8.23.0 OpenSSL/3.6.5 zlib/1.3.2 brotli/1.2.0 zstd/1.5.7
+# Post-capture inventory timestamp observed on the host: 2026-11-03T19:47:48Z (curl --version and stat run together).
+# Scratch: /fast/scratch/hyaku/kagi-r31/SrcOpenC — deleted after these receipts and the draft TSV were written.
+#
+# Draft id -> final lane id (build-spec.json renumber map, by document; verified by URL, never arithmetic):
+#   C1 -> S069 (staged S092)   C2 -> S070 (staged S093)   C3 -> S071 (staged S095)
+# Row-identity digest convention (corpus/sources-census.sh:262):
+#   sha256 over '<final-id>\t<mined>\t<registered-url>\n' — the exact bytes the census recomputes.
+# Attested capture per row = the FIRST fetch of the session for that URL (c1.html / c2.html / c3.html).
+# Later fetches are stability probes: they decide the representation column.
+
+===== C1 -> S069 =====
+URL-REGISTERED: https://www.1password.dev/brokered-access
+ARGV(attested): curl -fsSL --max-time 30 'https://www.1password.dev/brokered-access' -o c1.html -w '%{http_code} %{url_effective} %{size_download}'
+EXIT: 0
+HTTP-STATUS: 200
+FINAL-URL: https://www.1password.dev/brokered-access
+REDIRECT: none (registered URL served directly)
+BYTES(decoded body): 215346
+RAW-SHA256: 6179e9c1408515293f7fdf9b6445a4318e5a1289fc036fbb7559a21e3c6fa93c
+NORMALIZE: RENDERED_TEXT_V1: raw_sha256=6179e9c1408515293f7fdf9b6445a4318e5a1289fc036fbb7559a21e3c6fa93c bytes=215346 normalized_sha256=232239dd8ae8e792148706d72c1c13707a3a6a195046141950e10448cf003b50 normalized_bytes=66388
+QUOTE: All configured claims must match to verify the workload’s identity.
+WORDCOUNT(wc -w): 10
+LOCATE-RENDERED: RENDERED_TEXT_V1_LOCATE: count=2
+LOCATE-RAW(literal byte count in the saved body): 2 — one visible prose occurrence (rendered offset 4109) and one duplicate inside the surviving hydration JSX payload (rendered offset 42438)
+LOCATION: §Custom Workflow (OIDC), ordered setup steps 1-5, item 3 (claims)
+STRUCTURE-CHECK: the raw HTML carries exactly one <ol> whose items begin with "Enter a name for the integration, then enter your OIDC provider’s issuer URL."; that <ol> has 5 <li> items (steps 1-5). Item 3 is the claims item and contains the quote. Item 5 is the integration-key item ("The token value is your integration key ...").
+STABILITY: 5 captures (4 plain-command + 1 census-profile) — raw sha256 and normalized sha256 identical on all 5.
+
+===== C2 -> S070 =====
+URL-REGISTERED: https://www.1password.dev/brokered-access/custom-workflow
+ARGV(attested): curl -fsSL --max-time 30 'https://www.1password.dev/brokered-access/custom-workflow' -o c2.html -w '%{http_code} %{url_effective} %{size_download}'
+EXIT: 0
+HTTP-STATUS: 200
+FINAL-URL: https://www.1password.dev/brokered-access/custom-workflow
+REDIRECT: none (registered URL served directly)
+BYTES(decoded body): 266770
+RAW-SHA256: a34902cc251b9d9c9573ff25d7bd9a230494689a4cc9a6c99775c1f1e28eca0b
+NORMALIZE: RENDERED_TEXT_V1: raw_sha256=a34902cc251b9d9c9573ff25d7bd9a230494689a4cc9a6c99775c1f1e28eca0b bytes=266770 normalized_sha256=20fbc423c4faea7839316780ef28a5fad24e30982cbc9636e3f9c46c26a76271 normalized_bytes=90174
+QUOTE: The client authenticates using your OIDC token, workload ID, and the integration key configured by your administrator
+WORDCOUNT(wc -w): 17
+LOCATE-RENDERED: RENDERED_TEXT_V1_LOCATE: count=1
+LOCATE-RAW(literal byte count in the saved body): 0 — the sentence spans an anchor element: "... the <a href=\"/brokered-access#custom-workflow-oidc\" class=\"link\">integration key configured by your administrator</a>, then uses ...". The declared rendered-text-v1 normalization is what makes the quote a contiguous string.
+LOCATION: §Step 3: Use your Environment in your workflow, SDK-client sentence
+STRUCTURE-CHECK: page headings present: "Step 2. Connect your Environment to your workflow" and "Step 3: Use your Environment in your workflow".
+STABILITY: 5 captures (4 plain-command + 1 census-profile) — raw sha256 and normalized sha256 identical on all 5.
+
+===== C3 -> S071 =====
+URL-REGISTERED: https://1password.com/jp/product/credential-broker
+ARGV(attested): curl -fsSL --max-time 30 'https://1password.com/jp/product/credential-broker' -o c3.html -w '%{http_code} %{url_effective} %{size_download}'
+EXIT: 0
+HTTP-STATUS: 200
+FINAL-URL: https://1password.com/jp/product/credential-broker
+REDIRECT: none (registered URL served directly; the Japanese rendering was kept native, no ?hl= rewrite, no Accept-Language set)
+BYTES(decoded body): 200638
+RAW-SHA256: a5d4a10132d672c46c5afab0ad373418830554177eb688c6d659528ece3aa3f5
+NORMALIZE: RENDERED_TEXT_V1: raw_sha256=a5d4a10132d672c46c5afab0ad373418830554177eb688c6d659528ece3aa3f5 bytes=200638 normalized_sha256=0c2d13e54cc059d0b39fceb0e8f9c02ccb4a0847529442dfae669647f1b6813a normalized_bytes=7747
+QUOTE: 実行時にAIエージェントとマシンワークロードを検証し、それぞれが受け取る権限を持つ認証情報のみを提供します。
+WORDCOUNT(wc -w): 1 (Japanese: one whitespace-free token)
+LOCATE-RENDERED: RENDERED_TEXT_V1_LOCATE: count=1
+LOCATE-RAW(literal byte count in the saved body): 2 — hero lead paragraph and its duplicated hydration copy
+LOCATION: §1Password Credential Broker マシンとAIエージェントによる実行時の認証情報アクセス, hero lead sentence
+STRUCTURE-CHECK: the cited heading is present in the rendered text at offset 161; the quoted sentence follows at offset 189, immediately under it.
+STABILITY: 7 captures (4 plain-command + 3 census-profile): 6 distinct raw sha256, 7/7 identical normalized sha256. Raw is response/deployment-coupled; the rendered text is stable.
+
+# ---------------------------------------------------------------------------
+# CAPTURE INVENTORY (all bodies, one line each: file bytes raw_sha256 normalized_sha256)
+c1.html                215346 6179e9c1408515293f7fdf9b6445a4318e5a1289fc036fbb7559a21e3c6fa93c 232239dd8ae8e792148706d72c1c13707a3a6a195046141950e10448cf003b50
+c1-1.html              215346 6179e9c1408515293f7fdf9b6445a4318e5a1289fc036fbb7559a21e3c6fa93c 232239dd8ae8e792148706d72c1c13707a3a6a195046141950e10448cf003b50
+c1-2.html              215346 6179e9c1408515293f7fdf9b6445a4318e5a1289fc036fbb7559a21e3c6fa93c 232239dd8ae8e792148706d72c1c13707a3a6a195046141950e10448cf003b50
+c1-3.html              215346 6179e9c1408515293f7fdf9b6445a4318e5a1289fc036fbb7559a21e3c6fa93c 232239dd8ae8e792148706d72c1c13707a3a6a195046141950e10448cf003b50
+prof-9736.html         215346 6179e9c1408515293f7fdf9b6445a4318e5a1289fc036fbb7559a21e3c6fa93c 232239dd8ae8e792148706d72c1c13707a3a6a195046141950e10448cf003b50
+c2.html                266770 a34902cc251b9d9c9573ff25d7bd9a230494689a4cc9a6c99775c1f1e28eca0b 20fbc423c4faea7839316780ef28a5fad24e30982cbc9636e3f9c46c26a76271
+c2-1.html              266770 a34902cc251b9d9c9573ff25d7bd9a230494689a4cc9a6c99775c1f1e28eca0b 20fbc423c4faea7839316780ef28a5fad24e30982cbc9636e3f9c46c26a76271
+c2-2.html              266770 a34902cc251b9d9c9573ff25d7bd9a230494689a4cc9a6c99775c1f1e28eca0b 20fbc423c4faea7839316780ef28a5fad24e30982cbc9636e3f9c46c26a76271
+c2-3.html              266770 a34902cc251b9d9c9573ff25d7bd9a230494689a4cc9a6c99775c1f1e28eca0b 20fbc423c4faea7839316780ef28a5fad24e30982cbc9636e3f9c46c26a76271
+prof-09af.html         266770 a34902cc251b9d9c9573ff25d7bd9a230494689a4cc9a6c99775c1f1e28eca0b 20fbc423c4faea7839316780ef28a5fad24e30982cbc9636e3f9c46c26a76271
+c3.html                200638 a5d4a10132d672c46c5afab0ad373418830554177eb688c6d659528ece3aa3f5 0c2d13e54cc059d0b39fceb0e8f9c02ccb4a0847529442dfae669647f1b6813a
+c3-1.html              200638 88434cd7015c66ed6755383879ab258a70b27bdffcdf29264b17fe16883d40c4 0c2d13e54cc059d0b39fceb0e8f9c02ccb4a0847529442dfae669647f1b6813a
+c3-2.html              200638 957e3f4cbce15dc6518598d5696476097e96e45434a94091688b46e02a57a57a 0c2d13e54cc059d0b39fceb0e8f9c02ccb4a0847529442dfae669647f1b6813a
+c3-3.html              200638 79b9d31f9ba7ada81babcb7f27e6af897ec2716c25ca2c327f250f312abd2d5a 0c2d13e54cc059d0b39fceb0e8f9c02ccb4a0847529442dfae669647f1b6813a
+c3p-1.html             200638 443752f0cb3593e11abe1ca29bb26ad3b1df3ab56f8aae2607ffee3af12c6f88 0c2d13e54cc059d0b39fceb0e8f9c02ccb4a0847529442dfae669647f1b6813a
+c3p-2.html             200638 7fb08017f1eb1e4e6dc0571172fca9e154b50f506fcd2725c4a1d6a9a2b1fefd 0c2d13e54cc059d0b39fceb0e8f9c02ccb4a0847529442dfae669647f1b6813a
+prof-03dd.html         200638 7fb08017f1eb1e4e6dc0571172fca9e154b50f506fcd2725c4a1d6a9a2b1fefd 0c2d13e54cc059d0b39fceb0e8f9c02ccb4a0847529442dfae669647f1b6813a
+
+# ---------------------------------------------------------------------------
+# CENSUS-PROFILE EQUIVALENCE CHECK (column 7 is the literal name curl-fsSL-compressed-v1 only)
+# The schema's documented argv for that name (corpus/source-fetches.tsv header) is:
+#   curl -fsSL --compressed -A 'kagi-shokunin-round23/1.0 (documentation verification)' <url>
+# The plan text names: curl -fsSL --max-time 30 <url>. The attested captures used the plan argv.
+# Control fetch with the documented census argv, same URLs, minutes later:
+#   https://www.1password.dev/brokered-access              -> 6179e9c1408515293f7fdf9b6445a4318e5a1289fc036fbb7559a21e3c6fa93c  (identical decoded body)
+#   https://www.1password.dev/brokered-access/custom-workflow -> a34902cc251b9d9c9573ff25d7bd9a230494689a4cc9a6c99775c1f1e28eca0b  (identical decoded body)
+#   https://1password.com/jp/product/credential-broker      -> 443752f0cb3593e11abe1ca29bb26ad3b1df3ab56f8aae2607ffee3af12c6f88  (differs; every fetch of this URL differs — see C3 stability)
+# Byte-count caveat: under --compressed, curl's %{size_download} is the COMPRESSED transfer size
+# (38918 / 40545 / 42664), while the representation is the DECODED body whose length is
+# 215346 / 266770 / 200638. The census `bytes` column is the decoded length, as recorded in group-c.tsv.
+
+# ---------------------------------------------------------------------------
+# STAGED PIN CHECK (staged entry was opened 2026-10-23; today is 2026-11-03)
+#   staged S092 page fetch sha256 prefix 11c2476e3733ceff -> today 6179e9c1...  NO MATCH
+#   staged S093 page fetch sha256 prefix bd85d7332dda43d0 -> today a34902cc...  NO MATCH
+#   staged S095 page fetch sha256 prefix 654571f5f88fc6bc -> today a5d4a101...  NO MATCH
+# All three live pages changed in the 11 days between the staged pin and this re-open. The staged pins
+# are historical point observations and are not reproducible today; the captures above supersede them
+# as the adopted rows' point attestation. The staged QUOTES still locate (next section), so no row is refused.
+
+# ---------------------------------------------------------------------------
+# STAGED ANCHOR CHECK (corpus/rendered-text-v1.py locate on the attested bodies)
+# S092 / C1 — anchor "§Custom Workflow (OIDC) setup steps 1-5":
+#   "All configured claims must match to verify the workload's identity"   ASCII apostrophe -> count=0
+#   "All configured claims must match to verify the workload’s identity."  page glyph U+2019 -> count=2
+#   "Enter a name for the integration, then enter your OIDC provider's issuer URL"   ASCII -> count=0
+#   same sentence with provider’s (U+2019)                                             -> count=2
+#   "Make note of the expected audience value."                                        -> count=2
+#   Verdict: sentence present; the staged markdown transcribed the page's U+2019 as ASCII U+0027.
+#   The row quote uses the fetched glyph (U+2019), never the staged transcription.
+# S093 / C2 — anchor "§Step 2" and "§Step 3":
+#   staged quote "authenticates using your OIDC token, workload ID, and the integration key configured by your administrator" -> count=1
+#   "(Optional) Define any additional access conditions you want to enforce" -> count=2
+#   Verdict: present.
+# S095 / C3 — anchor "§1Password Credential Broker マシンとAIエージェントによる実行時の認証情報アクセス":
+#   heading text -> present (rendered offset 161)
+#   hero lead sentence quoted in group-c.tsv -> count=1
+#   Verdict: present; the staged cell carries no literal quote, only the section reference.
+
+# ---------------------------------------------------------------------------
+# REFUSALS: none. All three URLs re-opened (exit 0, HTTP 200), all three chosen quotes locate.
+# NETWORK: only the three declared URLs, re-fetched for stability/profile evidence; no other external host.
+# CREDENTIALS: none read, no op/vault/account contact, no secret material in any artifact.

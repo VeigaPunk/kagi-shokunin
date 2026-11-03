@@ -1,0 +1,55 @@
+# group 4 — legacy / registry / staged-entry absence at BASE, plus the staged-id inventory
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin
+$ grep -L '^source:' corpus/knowledge/*.md | wc -l
+21                      # <- the number the plan calls legacy=21, and the exact rule corpus/sources-census.sh:337 applies
+$ grep -L 'legacy' corpus/knowledge/*.md | wc -l
+29                      # <- pattern mis-selection: ALL 29 entries lack the literal word; NOT the legacy count
+$ grep -l '^source:' corpus/knowledge/*.md | wc -l
+8                       # entries_sourced
+$ ls corpus/knowledge/*.md | wc -l
+29
+$ grep -cE '^\|[[:space:]]*S[0-9]+[[:space:]]*\|' corpus/SOURCES.md
+60                      # registry rows
+$ ls corpus/knowledge/ | grep -c oidc
+0                       # grep exit 1 (no match) — staged OIDC entry is absent from the lane
+$ ls corpus/knowledge/ | grep -c 'cdp-bridge-1password-oidc-workflow'
+0
+$ ls corpus/knowledge/ | grep 'cdp-bridge'
+cdp-bridge-1password.md  # the pre-existing entry the OIDC one is an addition to, not a replacement
+
+# --- id space ---------------------------------------------------------------
+$ grep -oE '^\|[[:space:]]*S[0-9]+' corpus/SOURCES.md | tr -d '| ' | sort -V | tail -1
+S060                    # => next free lane id S061, as the plan states
+$ grep -cE '^\|[[:space:]]*S0(6[1-9]|7[01])[[:space:]]*\|' corpus/SOURCES.md
+0                       # the whole C2 target band S061..S071 is empty at BASE (predicate's +11 is clean)
+
+# --- staged inventory (read-only source /home/vgpnk/Projects/shokuknow/merge/kagi) ------------------
+# SOURCES.append.md carries 11 OIDC rows (8 + 3, one per entry source line):
+#   S052 S053 S054 S055 S056 S057 S064 S065   (oidc-federation-trust-policy.md)
+#   S092 S093 S095                            (cdp-bridge-1password-oidc-workflow.md)
+# MERGE-REPORT.md:19 and :32 propose exactly those two entries.
+# Staged ids that COLLIDE with a live lane id (different document, same id):
+#   S052 atom RFC4287   S053 gitleaks README   S054 trufflehog README   S055 betterleaks README
+#   S056 api.github.com/search?q=betterleaks    S057 trufflesecurity.com/docs/verification-caching
+#   -> 6 of 11
+# Staged ids that are FREE in the lane (no collision at all):
+#   S064 S065 S092 S093 S095                    -> 5 of 11
+# MISMATCH (precision, not arithmetic): plans/round-31.md §C2 says the staged ids "collide with lane ids
+# and are re-pointed per document". Only 6 do. The renumber to S061..S071 is still correct and required
+# (id follows the document, never arithmetic), but the stated reason is wrong for 5 of the 11.
+
+# --- URL overlap with the live registry (what duplicate-URL pressure the adoption adds) -------------
+$ grep -oE 'https://www\.1password\.dev/brokered-access[^ |]*' corpus/SOURCES.md | sort | uniq -c
+      3 https://www.1password.dev/brokered-access        (S007, S019, S032)
+      1 https://www.1password.dev/brokered-access/custom-workflow/   (S018)
+      1 https://www.1password.dev/brokered-access/github-actions/    (S017)
+# => staged S092's URL is ALREADY registered three times; staged S093's matches S018 modulo the trailing
+#    slash. 9 of the 11 staged URLs are new to the lane. MERGE-REPORT.md §"Rows whose source the lane's
+#    registry already holds" names exactly this row (S092 -> lane S007/S019/S032) and asks the operator to
+#    justify the added aspect; plans/round-31.md's C2 scope does not record that justification, and its
+#    phrase "11 ... distinct sources" overstates distinctness for 1-2 rows. The lane census does not gate
+#    URL duplication, so rows=71 still measures; the FLEET validate will emit additional W04 duplicate-url
+#    warnings after adoption (warnings are allowed, exit should stay 0, but the "14 W04" baseline moves).
+
+VERDICT: legacy=21, registry rows=60, staged-entry absence=0 all MATCH the plan. The staged-id collision
+sentence and "distinct sources" do NOT fully match the evidence (see MISMATCH above).

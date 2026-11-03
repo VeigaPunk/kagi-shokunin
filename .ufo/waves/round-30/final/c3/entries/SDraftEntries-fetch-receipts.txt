@@ -1,0 +1,19 @@
+# SDraftEntries — own fetch receipts, 2026-11-03 (lane fetch profile: curl -fsSL --compressed)
+# scratch: /fast/scratch/hyaku/kagi-r30/SDraftEntries (deleted after these receipts were copied here)
+# each row: id | url | http | bytes | sha256 | revision | quote-needle | needle-count
+
+S053	https://raw.githubusercontent.com/gitleaks/gitleaks/master/README.md	200	29328	65e87e68f4a16aefa1f1fba55b2e7a9b9bc8716393b7ddb013fc7c7bef4e4bc1	5f6ec56cfa6f8c67648d863582c7ae2f206d5c1c	is a tool for **detecting** secrets like passwords, API keys, and tokens in git repos, files	1
+S054	https://raw.githubusercontent.com/trufflesecurity/trufflehog/main/README.md	200	38524	7cf6efb50ab892347b1fa3bee77592603b371b066b6b1659fcc2c56a62e6eff7	240ccdd9061905ed3d7cbe05c01565f0ccf0cd0a	it can also log in to confirm if that secret is live or not	1
+S055	https://raw.githubusercontent.com/betterleaks/betterleaks/main/README.md	200	13252	f61c3993fd48dfb973652b9676697f4d37404fad9f30748c2003127eb81a73b1	6cd808f299a81b19fdbd196b04a64e63565c8c5c	Scans detect secrets without credential provider requests by default	1
+S056	https://api.github.com/search/repositories?q=betterleaks&per_page=10	200	64526	b7e19953ecde88d0ea2b9b248d9424fd817fa8cf9cde4ba6050d762d281ac21c	-	"full_name": "betterleaks/betterleaks"	1
+S057	https://trufflesecurity.com/docs/verification-caching	200	102006	0beb84fec97fa0ac2cb2c8c8b1cb0e1616ea7b8485b6848da1771d109c9d44d1	-	Each cache entry expires after three hours	1
+S058	https://trufflesecurity.com/docs/how-we-handle-your-data	200	161061	2c85abe9e3f842a703ea0a8671230f63ed223233b3590c3c7a3da3f0151b5914	-	Credentials are verified using safe, read-only API calls	2
+S059	https://trufflesecurity.com/docs/reverify-secrets	200	99172	b4790c43398da9db6aa07b2dd883ecbad33e2e593c8f5cd4a30a90328eae3e0a	-	Secret reverification is currently only supported	1
+S060	https://trufflesecurity.com/docs/notify-results	200	144104	8c0a977c75286c178ce3cc6c296fa46cc70ac676f329b926c5e387e0ee9e4752	-	sendUnverified	2
+
+## assertions checked
+S056 items[0]: full_name=betterleaks/betterleaks fork=false stargazers_count=2774 pushed_at=2026-11-03T00:45:58Z (campaign capture 2026-10-23 recorded 2322 / 2026-10-22T21:28:27Z)
+S054 README at the campaign pin d6ea4a52e3f4705989210e60e9f0da0deafe84bf: 38515 bytes, sha256 068fbb5c93eb993d877b24992da59a653d4043c977cba691b76b374ef4fcaf82 = the staged digest; that pinned body ALSO carries the section 'What is credential verification?' with the three status definitions
+S068/S055 README: the string CEL occurs exactly once, inside a linked Substack post title ('Express YourCELf'); the README prose says Expr
+S055 README lines 153-156: 'Rules may also define an optional `revoke` Expr for explicit credential revocation', 'betterleaks config show ids --revocation', 'betterleaks revoke --rule <id>', 'Scans never run revocation'
+S053 README line 12: 'Gitleaks is feature complete. I'm not merging new features into Gitleaks. Future releases will be security patches only. I\'m shifting my focus to Betterleaks'

@@ -1,0 +1,25 @@
+== pristine bytes ==
+f4eb6ec481f1552108c6a3030ff7838beef7dc50cb51ee5d49f2444a90b62fbf  pristine-SCORECARD.md
+ea0ba36fb843b1e06a28602d3a465c7e58f2f077ecc24f0d6de8a55e9df6aeaf  reshaped-SCORECARD.md
+23363843b898f52004298d1d3fafa07b946258ea4db204364e10282bf14c9047  pristine-claim-ledger.tsv
+156c292a5aa26f875dd0c374ec6434b0f7fe4b38928ce1118ea226887bd2f6c6  pristine-source-fetches.tsv
+
+== mutant-state hashes (append expressions replayed on pristine copies) ==
+A-rowdigest: 269562ed38208509a6e58e7534fd455351e197ca6db79b1963b5c503837e1204  tA.tsv
+B-15col: 3c431ae5b6ae45903767838b40955397af071591ee1acb921c062d37b6e03e89  tB.tsv
+C-quote26: a7498a491579b42cc342ab3a4283b095cb2e96def0f036b41dcda34fd40a2268  tC.tsv
+
+== mutant rows appended (fields TAB-separated) ==
+-- A (S017 copy, field3 zeroed):
+S017^Imined^I0000000000000000000000000000000000000000000000000000000000000000^Ihttps://www.1password.dev/brokered-access/github-actions/^Ihttps://www.1password.dev/brokered-access/github-actions^I200^Icurl-fsSL-compressed-v1^I2026-10-21^Idecoded-http-body-volatile-v1^I62953bb47db1af593c522b06c4f12c6a89853dd0a8fb718118189349213f478d^I1215460^I-^IUse 1Password Credential Broker to access secrets in 
+-- B (S017 copy, NF=15, location dropped):
+S017	mined	916f8afe83ee4c74312087b450b2351b164caf85d397511da447700a76cf423f	https://www.1password.dev/brokered-access/github-actions/	https://www.1password.dev/brokered-access/github-actions	200	curl-fsSL-compressed-v1	2026-10-21	decoded-http-body-volatile-v1	62953bb47db1af593c522b06c4f12c6a89853dd0a8fb718118189349213f478d	1215460	-	Use 1Password Credential Broker to access secrets in GitHub Actions at runtime (public preview)	rendered-text-v1	2a39cb1691b24f492dd4ad5a126538df35f865c15cd5f46a35e405a5282781c7
+-- C (S017 copy, field13 = 26-word quote):
+fid=S017
+quote=one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen twenty twentyone twentytwo twentythree twentyfour twentyfive twentysix
+words=26
+
+== word count of A/B/C rows (NF) ==
+tA.tsv NF=16
+tB.tsv NF=15
+tC.tsv NF=16

@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Create an OpenID Connect (OIDC) identity provider in IAM - AWS Identity and Access Management</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="id_roles_providers_create_oidc" /><meta name="default_state" content="id_roles_providers_create_oidc" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html" /><link rel="alternate" type="text/markdown" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.md" title="Markdown version" /><meta name="description" content="Create an OpenID Connect (OIDC) identity provider that describes a trust relationship between an OIDC-compatible IdP and AWS." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Identity and Access Management" /><meta name="guide" content="User Guide" /><meta name="abstract" content="Control access to your AWS resources with user identity (authentication) and with policies that define specific permissions (authorization)." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/id_roles_providers_create_oidc.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/id_roles_providers_create_oidc.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/id_roles_providers_create_oidc.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/id_roles_providers_create_oidc.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/id_roles_providers_create_oidc.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/id_roles_providers_create_oidc.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/id_roles_providers_create_oidc.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/id_roles_providers_create_oidc.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/id_roles_providers_create_oidc.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/id_roles_providers_create_oidc.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/id_roles_providers_create_oidc.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/id_roles_providers_create_oidc.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_providers_create_oidc.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_providers_create_oidc.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/id_roles_providers_create_oidc.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/id_roles_providers_create_oidc.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/id_roles_providers_create_oidc.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/id_roles_providers_create_oidc.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html" hreflang="x-default" /><meta name="feedback-item" content="IAM" /><meta name="this_doc_product" content="AWS Identity and Access Management" /><meta name="this_doc_guide" content="User Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'iam'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Create an OpenID Connect (OIDC) identity provider in IAM" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="id_roles_providers_create_oidc.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Create an OpenID Connect (OIDC) identity provider in IAM - AWS Identity and Access Management</title><meta name="pdf" content="/pdfs/IAM/latest/UserGuide/iam-ug.pdf#id_roles_providers_create_oidc" /><meta name="rss" content="aws-iam-release-notes.rss" /><meta name="forums" content="https://repost.aws/tags/TAO7Z4bI5hQVWMiYFs34QhIA" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/en_us/IAM/latest/UserGuide/id_roles_providers_create_oidc.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/IAM/latest/UserGuide/id_roles_providers_create_oidc.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/IAM/latest/UserGuide/id_roles_providers_create_oidc.html" /><meta name="keywords" content="IAM,AWS Identity and Access Management,IAM user,user,IAM group,group,IAM role,role,permission policy,trust policy,policy,access key,password,AWS IAM federation,identity federation,IAM SAML,IAM OIDC,OpenID Connect,OIDC" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Identity and Access Management",
+        "item" : "https://docs.aws.amazon.com/iam/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/IAM/latest/UserGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "IAM Identities",
+        "item" : "https://docs.aws.amazon.com/IAM/latest/UserGuide/id.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Identity providers and federation into AWS",
+        "item" : "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "OIDC federation",
+        "item" : "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_oidc.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 7,
+        "name" : "Create an OpenID Connect (OIDC) identity provider in IAM",
+        "item" : "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_oidc.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/IAM/latest/UserGuide/iam-ug.pdf#id_roles_providers_create_oidc" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/iam/index.html">AWS Identity and Access Management</a><a href="introduction.html">User Guide</a></div><div id="page-toc-src"><a href="#manage-oidc-provider-prerequisites">Prerequisites</a><a href="#manage-oidc-provider-console">Creating and managing an OIDC provider (console)</a><a href="#manage-oidc-provider-cli">Creating and managing an IAM OIDC identity provider (AWS CLI)</a><a href="#manage-oidc-provider-api">Creating and managing an OIDC Identity Provider (AWS API)</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="id_roles_providers_create_oidc">Create an OpenID Connect (OIDC) identity provider in IAM</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p><em>IAM OIDC identity providers</em> are entities in IAM that describe an
+    external identity provider (IdP) service that supports the <a href="http://openid.net/connect/" rel="noopener noreferrer" target="_blank"><span>OpenID Connect</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> (OIDC) standard, such as Google or
+    Salesforce. You use an IAM OIDC identity provider when you want to establish trust between an
+    OIDC-compatible IdP and your AWS account. This is useful when creating a mobile app or web
+    application that requires access to AWS resources, but you don't want to create custom sign-in
+    code or manage your own user identities. For more information about this scenario, see <a href="./id_roles_providers_oidc.html">OIDC federation</a>.</p><p>You can create and manage an IAM OIDC identity provider using the AWS Management Console, the
+    AWS Command Line Interface, the Tools for Windows PowerShell, or the IAM API.</p><p>After you create an IAM OIDC identity provider, you must create one or more IAM roles. A
+    role is an identity in AWS that doesn't have its own credentials (as a user does). But in this
+    context, a role is dynamically assigned to an OIDC federated principal that is authenticated by
+    your organization's IdP. The role permits your organization's IdP to request temporary security
+    credentials for access to AWS. The policies assigned to the role determine what users are
+    allowed to do in AWS. To create a role for a third-party identity provider, see <a href="./id_roles_create_for-idp.html">Create a role for a third-party identity provider</a>.</p><div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>When you configure identity-based policies for actions that support
+        <code class="code">oidc-provider</code> resources, IAM evaluates the full OIDC identity provider URL,
+      including any specified paths. If your OIDC identity provider URL has a path, you must include
+      that path in the <code class="code">oidc-provider</code> ARN as a <code class="code">Resource</code> element value. You
+      also have the option to append a forward slash and wildcard (<code class="code">/*</code>) to the URL
+      domain or use wildcard characters (<code class="code">*</code> and <code class="code">?</code>) at any point in the URL
+      path. If the OIDC identity provider URL in the request doesn't match the value set in the
+      policy's <code class="code">Resource</code> element, the request fails.</p></div></div><p>To troubleshoot common issues with IAM OIDC federation, see <a href="https://repost.aws/knowledge-center/iam-oidc-idp-federation" rel="noopener noreferrer" target="_blank"><span>Resolve errors related to
+      OIDC</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> on AWS re:Post.</p><div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><p><a href="#manage-oidc-provider-prerequisites">Prerequisites: Validate configuration of your identity provider</a></p></li><li><p><a href="#manage-oidc-provider-console">Creating and managing an OIDC provider (console)</a></p></li><li><p><a href="#manage-oidc-provider-cli">Creating and managing an IAM OIDC identity provider (AWS CLI)</a></p></li><li><p><a href="#manage-oidc-provider-api">Creating and managing an OIDC Identity Provider (AWS API)</a></p></li></ul></div>
+    <h2 id="manage-oidc-provider-prerequisites">Prerequisites: Validate configuration of your identity provider</h2>
+    <p>Before you can create an IAM OIDC identity provider, you must have the following
+      information from your IdP. For more information about obtaining OIDC provider configuration
+      Information, see the documentation for your IdP.</p>
+    <div class="procedure"><ol><li>
+        <p>Determine your OIDC identity provider’s publicly available URL. The URL must begin
+          with https://. Per the OIDC standard, path components are allowed but query parameters are
+          not. Typically, the URL consists of only a hostname, like https://server.example.org or
+          https://example.com. The URL should not contain a port number.</p>
+      </li><li>
+        <p>Add <b>/.well-known/openid-configuration</b> to the end of
+          your OIDC identity provider's URL to see the provider's publicly available configuration
+          document and metadata. You must have a discovery document in JSON format with the
+          provider's configuration document and metadata that can be retrieved from the <a href="https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderConfig" rel="noopener noreferrer" target="_blank"><span>OpenID
+            Connect provider discovery endpoint URL</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+      </li><li>
+        <p>Confirm the following values are included in your provider’s configuration
+          information. If your openid-configuration is missing any of these fields, you must update
+          your discovery document. This process can vary based on your identity provider, so follow
+          your IdP's documentation to complete this task.</p>
+        <div class="itemizedlist">
+           
+           
+           
+           
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p>issuer: The URL for your domain.</p>
+          </li><li class="listitem">
+            <p>jwks_uri: The JSON Web Key Set (JWKS) endpoint where IAM gets your public keys.
+              Your identity provider must include a JSON Web Key Set (JWKS) endpoint in the
+              openid-configuration. This URI defines where to get your public keys that are used to
+              verify the signed tokens from your identity provider.</p>
+            <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>The JSON Web Key Set (JWKS) must contain at least one key and can have a maximum
+                of 100 RSA keys and 100 EC keys. If your OIDC identity provider's JWKS contains more
+                than 100 RSA keys or 100 EC keys, an <code class="code">InvalidIdentityToken</code> exception
+                will be returned when using the <a href="https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRoleWithWebIdentity.html">AssumeRoleWithWebIdentity</a> API operation with a JWT signed by a key type
+                that exceeds the 100-key limit. For example, if a JWT is signed with the RSA
+                algorithm and there are more than 100 RSA keys in your provider's JWKS, an
+                  <code class="code">InvalidIdentityToken</code> exception will be returned.</p></div></div>
+            <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p><a href="https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata" rel="noopener noreferrer" target="_blank"><span>OpenID Connect Discovery on the OpenID Foundation website</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> requires that
+                the JSON Web Key Set (JWKS) at <code class="code">jwks_uri</code> must not contain private or
+                symmetric key values. Your JWKS must not include the RSA <code class="code">d</code>,
+                  <code class="code">p</code>, <code class="code">q</code>, <code class="code">dp</code>, <code class="code">dq</code>,
+                  <code class="code">qi</code>, or <code class="code">oth</code> parameters, the elliptic curve
+                  <code class="code">d</code> parameter, or the <code class="code">k</code> parameter of a symmetric
+                  (<code class="code">oct</code>) key.</p><p>If your JWKS contains any of these values, AWS STS returns an
+                  <code class="code">InvalidIdentityToken</code> exception when you use the
+                AssumeRoleWithWebIdentity API operation. The exception message is "Couldn't
+                retrieve verification key from your identity provider, please reference
+                AssumeRoleWithWebIdentity documentation for requirements". AWS STS also returns this
+                message for other key retrieval failures.</p><p>You must treat any private key that you published as compromised. Republishing
+                a clean JWKS alone is not sufficient. To remediate this exposure, complete the
+                following steps:</p><div class="itemizedlist">
+                 
+                 
+                 
+                 
+              <ul class="itemizedlist"><li class="listitem">
+                  <p>Generate a new key pair and configure your identity provider to sign tokens
+                    with the new key ID (<code class="code">kid</code>).</p>
+                </li><li class="listitem">
+                  <p>Remove the exposed key from your JWKS.</p>
+                </li><li class="listitem">
+                  <p>Review your AWS CloudTrail <code class="code">AssumeRoleWithWebIdentity</code> events for the
+                    period when your JWKS exposed the private key.</p>
+                </li><li class="listitem">
+                  <p>Revoke active sessions for roles that trust the provider. For more
+                    information, see <a href="./id_roles_use_revoke-sessions.html">Revoke IAM role temporary security credentials</a>.</p>
+                </li></ul></div></div></div>
+          </li><li class="listitem">
+            <p>claims_supported: Information about the user that helps you ensure OIDC
+              authentication responses from your IdP contain the required attributes AWS uses in
+              IAM policies to check permissions for OIDC federated principals. For a list of IAM condition
+              keys that can be used for claims, see <a href="./reference_policies_iam-condition-keys.html#condition-keys-wif">Available keys for AWS OIDC federation</a>.</p>
+            <div class="itemizedlist">
+               
+               
+               
+            <ul class="itemizedlist"><li class="listitem">
+                <p>aud: You must determine the audience claim value your IdP issues in JSON Web
+                  Tokens (JWTs). The audience (aud) claim is application specific and identifies the
+                  intended recipients of the token. When you register a mobile or web app with an
+                  OpenID Connect provider, they establish a client ID that identifies the
+                  application. The client ID is a unique identifier for your app that is passed in
+                  the aud claim for authentication. The aud claim must match the Audience value when
+                  creating your IAM OIDC identity provider.</p>
+              </li><li class="listitem">
+                <p>iat: Claims must include a value for <code class="code">iat</code> that represents the time
+                  that the ID token is issued.</p>
+              </li><li class="listitem">
+                <p>iss: The URL of the identity provider. The URL must begin with https:// and
+                  should correspond to the Provider URL provided to IAM. Per the OIDC standard, path
+                  components are allowed but query parameters are not. Typically, the URL consists
+                  of only a hostname, like https://server.example.org or https://example.com. The
+                  URL should not contain a port number.</p>
+              </li></ul></div>
+          </li><li class="listitem">
+            <p>response_types_supported: id_token</p>
+          </li><li class="listitem">
+            <p>subject_types_supported: public</p>
+          </li><li class="listitem">
+            <p>id_token_signing_alg_values_supported: RS256, RS384, RS512, ES256, ES384,
+              ES512</p>
+          </li></ul></div>
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>You can include additional claims like <code class="code">my_custom_claim</code> in the example
+            below; however, AWS STS will ignore the claim.</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG: cli (JSON)--><code class="JSON "><span>{</span>
+  "issuer": "https://example-domain.com",
+  "jwks_uri": "https://example-domain.com/jwks/keys",
+  "claims_supported": [
+    "aud",
+    "iat",
+    "iss",
+    "name",
+    "sub",
+    "my_custom_claim"
+  ],
+  "response_types_supported": [
+    "id_token"
+  ],
+  "id_token_signing_alg_values_supported": [
+    "RS256",
+    "RS384",
+    "RS512",
+    "ES256",
+    "ES384",
+    "ES512"
+  ],
+  "subject_types_supported": [
+    "public"
+  ]
+}</code></pre></div></div>
+      </li></ol></div>
+   
+    <h2 id="manage-oidc-provider-console">Creating and managing an OIDC provider (console)</h2>
+    <p>Follow these instructions to create and manage an IAM OIDC identity provider in the
+      AWS Management Console.</p>
+    <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>If you are using an OIDC identity provider from either Google, Facebook, or Amazon Cognito, do
+        not create a separate IAM identity provider using this procedure. These OIDC identity
+        providers are already built-in to AWS and are available for your use. Instead, follow the
+        steps to create new roles for your identity provider, see <a href="./id_roles_create_for-idp_oidc.html">Create a role for OpenID Connect federation (console)</a>.</p></div></div>
+    <div class="procedure"><h6>To create an IAM OIDC identity provider (console)</h6><ol><li id="idpoidcstep1">
+        <p>Before you create an IAM OIDC identity provider, you must register your application
+          with the IdP to receive a <em>client ID</em>. The client ID (also known as
+            <em>audience</em>) is a unique identifier for your app that is
+          issued to you when you register your app with the IdP. For more information about
+          obtaining a client ID, see the documentation for your IdP. </p>
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>AWS secures communication with OIDC identity providers (IdPs) using our library of
+        trusted root certificate authorities (CAs) to verify the JSON Web Key Set (JWKS)
+        endpoint's TLS certificate. If your OIDC IdP relies on a certificate that is not signed
+        by one of these trusted CAs, only then we secure communication using the thumbprints set in
+        the IdP's configuration. AWS will fall back to thumbprint verification if we are
+        unable to retrieve the TLS certificate or if TLS v1.3 is required.</p></div></div>
+      </li><li><p>Open the IAM console at
+         <a href="https://console.aws.amazon.com/iam/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/iam/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+        <p>In the navigation pane, choose <b>Identity providers</b>, and then
+          choose <b>Add provider</b>.</p>
+      </li><li>
+        <p>For <b>Configure provider</b>, choose <b>OpenID
+            Connect</b>. </p>
+      </li><li>
+        <p>For <b>Provider URL</b>, type the URL of the IdP. The URL must comply
+          with these restrictions:</p>
+        <div class="itemizedlist">
+           
+           
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p>The URL is case-sensitive.</p>
+          </li><li class="listitem">
+            <p>The URL must begin with <code class="userinput">https://</code>.</p>
+          </li><li class="listitem">
+            <p>The URL should not contain a port number. </p>
+          </li><li class="listitem">
+            <p>Within your AWS account, each IAM OIDC identity provider must use a unique
+              URL. If you try to submit a URL that has already been used for an OpenID Connect
+              provider in the AWS account, you will get an error.</p>
+          </li></ul></div>
+      </li><li>
+        <p>For <b>Audience</b>, type the client ID of the application that you
+          registered with the IdP and received in <a href="#idpoidcstep1">Step 1</a>, and that make requests to AWS. If you have
+          additional client IDs (also known as <em>audiences</em>) for
+          this IdP, you can add them later on the provider detail page.</p>
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>If your IdP JWT token includes the <code class="code">azp</code> claim, enter this value as the
+            Audience value.</p><p>If your OIDC identity provider is setting both <code class="code">aud</code> and <code class="code">azp</code>
+            claims in the token, AWS STS will use the value in the <code class="code">azp</code> claim as the
+              <code class="code">aud</code> claim.</p></div></div>
+      </li><li>
+        <p>(Optional) For <b>Add tags</b>, you can add key–value pairs to
+          help you identify and organize your IdPs. You can also use tags to control access to AWS
+          resources. To learn more about tagging IAM OIDC identity providers, see <a href="./id_tags_oidc.html">Tag OpenID Connect (OIDC) identity providers</a>. Choose <b>Add
+            tag</b>. Enter values for each tag key-value pair. </p>
+      </li><li>
+        <p>Verify the information that you have provided. When you are done choose <b>Add
+            provider</b>. IAM will attempt to retrieve and use the top intermediate CA
+          thumbprint of the OIDC IdP server certificate to create the IAM OIDC identity
+          provider.</p>
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>The OIDC identity provider's certificate chain must start with the domain or issuer
+            URL, then the intermediate certificate, and end with the root certificate. If the
+            certificate chain order is different or includes duplicate or additional certificates,
+            then you receive a signature mismatch error and STS fails to validate the JSON Web Token
+            (JWT). Correct the order of the certificates in the chain returned from the server to
+            resolve the error. For more information about certificate chain standards, see <a href="https://www.rfc-editor.org/rfc/rfc5246#section-7.4.2" rel="noopener noreferrer" target="_blank"><span>certificate_list in RFC
+              5246</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> on the RFC Series website.</p></div></div>
+      </li><li>
+        <p>Assign an IAM role to your identity provider to give external user identities
+          managed by your identity provider permissions to access AWS resources in your account.
+          To learn more about creating roles for identity federation, see <a href="./id_roles_create_for-idp.html">Create a role for a third-party identity provider</a>.</p>
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>OIDC IdPs used in a role trust policy must be in the same account as the role that
+            trusts it.</p></div></div>
+      </li></ol></div>
+    <div class="procedure"><h6>To add or remove a thumbprint for an IAM OIDC identity provider (console)</h6><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>AWS secures communication with OIDC identity providers (IdPs) using our library of
+        trusted root certificate authorities (CAs) to verify the JSON Web Key Set (JWKS)
+        endpoint's TLS certificate. If your OIDC IdP relies on a certificate that is not signed
+        by one of these trusted CAs, only then we secure communication using the thumbprints set in
+        the IdP's configuration. AWS will fall back to thumbprint verification if we are
+        unable to retrieve the TLS certificate or if TLS v1.3 is required.</p></div></div><ol><li><p>Open the IAM console at
+         <a href="https://console.aws.amazon.com/iam/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/iam/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+        <p>In the navigation pane, choose <b>Identity providers</b>. Then choose
+          the name of the IAM identity provider that you want to update.</p>
+      </li><li>
+        <p>Choose the <b>Endpoint verification</b> tab, then in the
+            <b>Thumbprints</b> section, choose <b>Manage</b>. To enter a
+          new thumbprint value, choose <b>Add thumbprint</b>. To remove a thumbprint,
+          choose <b>Remove</b> next to the thumbprint that you want to remove.</p>
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>An IAM OIDC identity provider must have at least one and can have a maximum of
+            five thumbprints.</p></div></div>
+        <p> When you are done, choose <b>Save changes</b>.</p>
+      </li></ol></div>
+    <div class="procedure"><h6>To add an audience for an IAM OIDC identity provider (console)</h6><ol><li>
+        <p>In the navigation pane, choose <b>Identity providers</b>, then choose
+          the name of the IAM identity provider that you want to update.</p>
+      </li><li>
+        <p>In the <b>Audiences</b> section, choose <b>Actions</b> and
+          select <b>Add audience</b>. </p>
+      </li><li>
+        <p>Type the client ID of the application that you registered with the IdP and received in
+            <a href="#idpoidcstep1">Step 1</a>, and that will make
+          requests to AWS. Then choose <b>Add audiences</b>.</p>
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>An IAM OIDC identity provider must have at least one and can have a maximum of 100
+            audiences.</p></div></div>
+      </li></ol></div>
+    <div class="procedure"><h6>To remove an audience for an IAM OIDC identity provider (console)</h6><ol><li>
+        <p>In the navigation pane, choose <b>Identity providers</b>, then choose
+          the name of the IAM identity provider that you want to update.</p>
+      </li><li>
+        <p>In the <b>Audiences</b> section, select the radio button next to the
+          audience that you want to remove, then select <b>Actions</b>.</p>
+      </li><li>
+        <p> Choose <b>Remove audience</b>. A new window opens.</p>
+      </li><li>
+        <p>If you remove an audience, identities federating with the audience cannot assume roles
+          associated with the audience. In the window, read the warning and confirm that you want to
+          remove the audience by typing the word <code class="code">remove</code> in the field.</p>
+      </li><li>
+        <p>Choose <b>Remove</b> to remove the audience.</p>
+      </li></ol></div>
+    <div class="procedure"><h6>To delete an IAM OIDC identity provider (console)</h6><ol><li><p>Open the IAM console at
+         <a href="https://console.aws.amazon.com/iam/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/iam/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+        <p>In the navigation pane, choose <b>Identity providers</b>. </p>
+      </li><li>
+        <p>Select the checkbox next to the IAM identity provider that you want to delete. A new
+          window opens.</p>
+      </li><li>
+        <p>Confirm that you want to delete the provider by typing the word <code class="code">delete</code> in
+          the field. Then, choose <b>Delete</b>.</p>
+      </li></ol></div>
+   
+    <h2 id="manage-oidc-provider-cli">Creating and managing an IAM OIDC identity provider (AWS CLI)</h2>
+    <p>You can use the following AWS CLI commands to create and manage IAM OIDC identity
+      providers.</p>
+    <div class="procedure"><h6>To create an IAM OIDC identity provider (AWS CLI)</h6><ol><li>
+        <p>(Optional) To get a list of all the IAM OIDC identity providers in your AWS
+          account, run the following command:</p>
+        <div class="itemizedlist">
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><a href="https://docs.aws.amazon.com/cli/latest/reference/iam/list-open-id-connect-providers.html"><code class="code">aws iam
+                  list-open-id-connect-providers</code></a></p>
+          </li></ul></div>
+      </li><li>
+        <p>To create a new IAM OIDC identity provider, run the following command:</p>
+        <div class="itemizedlist">
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><a href="https://docs.aws.amazon.com/cli/latest/reference/iam/create-open-id-connect-provider.html"><code class="code">aws iam
+                  create-open-id-connect-provider</code></a></p>
+          </li></ul></div>
+      </li></ol></div>
+    <div class="procedure"><h6>To update the list of server certificate thumbprints for an existing IAM OIDC identity provider (AWS CLI)</h6><ul><li>
+        <p>To update the list of server certificate thumbprints for an IAM OIDC identity
+          provider, run the following command:</p>
+        <div class="itemizedlist">
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><a href="https://docs.aws.amazon.com/cli/latest/reference/iam/update-open-id-connect-provider-thumbprint.html"><code class="code">aws iam update-open-id-connect-provider-thumbprint</code></a></p>
+          </li></ul></div>
+      </li></ul></div>
+    <div class="procedure"><h6>To tag an existing IAM OIDC identity provider (AWS CLI)</h6><ul><li>
+        <p>To tag an existing IAM OIDC identity provider, run the following command:</p>
+        <div class="itemizedlist">
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><a href="https://docs.aws.amazon.com/cli/latest/reference/iam/tag-open-id-connect-provider.html"><code class="code">aws iam
+                  tag-open-id-connect-provider</code></a></p>
+          </li></ul></div>
+      </li></ul></div>
+    <div class="procedure"><h6>To list tags for an existing IAM OIDC identity provider (AWS CLI)</h6><ul><li>
+        <p>To list tags for an existing IAM OIDC identity provider, run the following
+          command:</p>
+        <div class="itemizedlist">
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><a href="https://docs.aws.amazon.com/cli/latest/reference/iam/list-open-id-connect-provider-tags.html"><code class="code">aws
+                  iam list-open-id-connect-provider-tags</code></a></p>
+          </li></ul></div>
+      </li></ul></div>
+    <div class="procedure"><h6>To remove tags on an IAM OIDC identity provider (AWS CLI)</h6><ul><li>
+        <p>To remove tags on an existing IAM OIDC identity provider, run the following
+          command:</p>
+        <div class="itemizedlist">
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><a href="https://docs.aws.amazon.com/cli/latest/reference/iam/untag-open-id-connect-provider.html"><code class="code">aws iam
+                  untag-open-id-connect-provider</code></a></p>
+          </li></ul></div>
+      </li></ul></div>
+    <div class="procedure"><h6>To add or remove a client ID from an existing IAM OIDC identity provider (AWS CLI)</h6><ol><li>
+        <p>(Optional) To get a list of all the IAM OIDC identity provider in your AWS
+          account, run the following command:</p>
+        <div class="itemizedlist">
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><a href="https://docs.aws.amazon.com/cli/latest/reference/iam/list-open-id-connect-providers.html"><code class="code">aws iam
+                  list-open-id-connect-providers</code></a></p>
+          </li></ul></div>
+      </li><li>
+        <p>(Optional) To get detailed information about an IAM OIDC identity provider, run the
+          following command:</p>
+        <div class="itemizedlist">
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><a href="https://docs.aws.amazon.com/cli/latest/reference/iam/get-open-id-connect-provider.html"><code class="code">aws iam
+                  get-open-id-connect-provider</code></a></p>
+          </li></ul></div>
+      </li><li>
+        <p>To add a new client ID to an existing IAM OIDC identity provider, run the following
+          command:</p>
+        <div class="itemizedlist">
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><a href="https://docs.aws.amazon.com/cli/latest/reference/iam/add-client-id-to-open-id-connect-provider.html"><code class="code">aws iam add-client-id-to-open-id-connect-provider</code></a></p>
+          </li></ul></div>
+      </li><li>
+        <p>To remove a client from an existing IAM OIDC identity provider, run the following
+          command:</p>
+        <div class="itemizedlist">
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><a href="https://docs.aws.amazon.com/cli/latest/reference/iam/remove-client-id-from-open-id-connect-provider.html"><code class="code">aws iam
+              remove-client-id-from-open-id-connect-provider</code></a></p>
+          </li></ul></div>
+      </li></ol></div>
+    <div class="procedure"><h6>To delete an IAM OIDC identity provider (AWS CLI)</h6><ol><li>
+        <p>(Optional) To get a list of all the IAM OIDC identity provider in your AWS
+          account, run the following command:</p>
+        <div class="itemizedlist">
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><a href="https://docs.aws.amazon.com/cli/latest/reference/iam/list-open-id-connect-providers.html"><code class="code">aws iam
+                  list-open-id-connect-providers</code></a></p>
+          </li></ul></div>
+      </li><li>
+        <p>(Optional) To get detailed information about an IAM OIDC identity provider, run the
+          following command:</p>
+        <div class="itemizedlist">
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><a href="https://docs.aws.amazon.com/cli/latest/reference/iam/get-open-id-connect-provider.html"><code class="code">aws iam
+                  get-open-id-connect-provider</code></a></p>
+          </li></ul></div>
+      </li><li>
+        <p>To delete an IAM OIDC identity provider, run the following command:</p>
+        <div class="itemizedlist">
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><a href="https://docs.aws.amazon.com/cli/latest/reference/iam/delete-open-id-connect-provider.html"><code class="code">aws iam
+                  delete-open-id-connect-provider</code></a></p>
+          </li></ul></div>
+      </li></ol></div>
+   
+    <h2 id="manage-oidc-provider-api">Creating and managing an OIDC Identity Provider (AWS API)</h2>
+    <p>You can use the following IAM API commands to create and manage OIDC providers.</p>
+    <div class="procedure"><h6>To create an IAM OIDC identity provider (AWS API)</h6><ol><li>
+        <p>(Optional) To get a list of all the IAM OIDC identity provider in your AWS
+          account, call the following operation:</p>
+        <div class="itemizedlist">
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_ListOpenIDConnectProviders.html"><code class="code">ListOpenIDConnectProviders</code></a></p>
+          </li></ul></div>
+      </li><li>
+        <p>To create a new IAM OIDC identity provider, call the following operation: </p>
+        <div class="itemizedlist">
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateOpenIDConnectProvider.html"><code class="code">CreateOpenIDConnectProvider</code></a></p>
+          </li></ul></div>
+      </li></ol></div>
+    <div class="procedure"><h6>To update the list of server certificate thumbprints for an existing IAM OIDC identity provider (AWS API)</h6><ul><li>
+        <p>To update the list of server certificate thumbprints for an IAM OIDC identity
+          provider, call the following operation:</p>
+        <div class="itemizedlist">
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_UpdateOpenIDConnectProviderThumbprint.html"><code class="code">UpdateOpenIDConnectProviderThumbprint</code></a></p>
+          </li></ul></div>
+      </li></ul></div>
+    <div class="procedure"><h6>To tag an existing IAM OIDC identity provider (AWS API)</h6><ul><li>
+        <p>To tag an existing IAM OIDC identity provider, call the following operation:</p>
+        <div class="itemizedlist">
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_TagOpenIDConnectProvider.html"><code class="code">TagOpenIDConnectProvider</code></a></p>
+          </li></ul></div>
+      </li></ul></div>
+    <div class="procedure"><h6>To list tags for an existing IAM OIDC identity provider (AWS API)</h6><ul><li>
+        <p>To list tags for an existing IAM OIDC identity provider, call the following
+          operation:</p>
+        <div class="itemizedlist">
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_ListOpenIDConnectProviderTags.html"><code class="code">ListOpenIDConnectProviderTags</code></a></p>
+          </li></ul></div>
+      </li></ul></div>
+    <div class="procedure"><h6>To remove tags on an existing IAM OIDC identity provider (AWS API)</h6><ul><li>
+        <p>To remove tags on an existing IAM OIDC identity provider, call the following
+          operation:</p>
+        <div class="itemizedlist">
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_UntagOpenIDConnectProvider.html"><code class="code">UntagOpenIDConnectProvider</code></a></p>
+          </li></ul></div>
+      </li></ul></div>
+    <div class="procedure"><h6>To add or remove a client ID from an existing IAM OIDC identity provider (AWS API)</h6><ol><li>
+        <p>(Optional) To get a list of all the IAM OIDC identity provider in your AWS
+          account, call the following operation:</p>
+        <div class="itemizedlist">
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_ListOpenIDConnectProviders.html"><code class="code">ListOpenIDConnectProviders</code></a></p>
+          </li></ul></div>
+      </li><li>
+        <p>(Optional) To get detailed information about an IAM OIDC identity provider, call the
+          following operation: </p>
+        <div class="itemizedlist">
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_GetOpenIDConnectProvider.html"><code class="code">GetOpenIDConnectProvider</code></a></p>
+          </li></ul></div>
+      </li><li>
+        <p>To add a new client ID to an existing IAM OIDC identity provider, call the following
+          operation: </p>
+        <div class="itemizedlist">
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_AddClientIDToOpenIDConnectProvider.html"><code class="code">AddClientIDToOpenIDConnectProvider</code></a></p>
+          </li></ul></div>
+      </li><li>
+        <p>To remove a client ID from an existing IAM OIDC identity provider, call the
+          following operation:</p>
+        <div class="itemizedlist">
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_RemoveClientIDFromOpenIDConnectProvider.html"><code class="code">RemoveClientIDFromOpenIDConnectProvider</code></a></p>
+          </li></ul></div>
+      </li></ol></div>
+    <div class="procedure"><h6>To delete an IAM OIDC identity provider (AWS API)</h6><ol><li>
+        <p>(Optional) To get a list of all the IAM OIDC identity provider in your AWS
+          account, call the following operation: </p>
+        <div class="itemizedlist">
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_ListOpenIDConnectProviders.html"><code class="code">ListOpenIDConnectProviders</code></a></p>
+          </li></ul></div>
+      </li><li>
+        <p>(Optional) To get detailed information about an IAM OIDC identity provider, call the
+          following operation:</p>
+        <div class="itemizedlist">
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_GetOpenIDConnectProvider.html"><code class="code">GetOpenIDConnectProvider</code></a></p>
+          </li></ul></div>
+      </li><li>
+        <p>To delete an IAM OIDC identity provider, call the following operation:</p>
+        <div class="itemizedlist">
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_DeleteOpenIDConnectProvider.html"><code class="code">DeleteOpenIDConnectProvider</code></a></p>
+          </li></ul></div>
+      </li></ol></div>
+  <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./id_roles_providers_oidc.html">OIDC federation</div><div id="next" class="next-link" accesskey="n" href="./id_roles_providers_create_oidc_verify-thumbprint.html">Obtain the thumbprint for an OIDC provider</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/en_us/IAM/latest/UserGuide/id_roles_providers_create_oidc.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/en_us/IAM/latest/UserGuide/id_roles_providers_create_oidc.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

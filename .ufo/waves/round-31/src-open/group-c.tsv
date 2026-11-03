@@ -1,0 +1,17 @@
+# group-c.tsv — round-31 C2 src-open capture draft, seat SrcOpenC, 2026-11-03
+# Sources: staged entry 2 (corpus/knowledge/cdp-bridge-1password-oidc-workflow.md), staged S092/S093/S095.
+# Column 1 is a placeholder per the seat assignment. Final lane ids follow the wave renumber map
+# (build-spec.json, by document): C1 -> S069 (staged S092), C2 -> S070 (staged S093), C3 -> S071 (staged S095).
+# The L1 replaces column 1 with the final id and keeps column 3 unless the map changes.
+# Column 3 is sha256("<final-id>\t<mined>\t<registered-url>\n") — corpus/sources-census.sh:262 — and is
+# already computed over the FINAL id, so these rows pass the SC_FETCH row-identity recomputation once
+# column 1 is corrected. If any id changes, column 3 must be recomputed.
+# 16 tab-separated columns, no tabs inside a cell, order = corpus/source-fetches.tsv:
+# id status row_identity_sha256 url final_url http_status request_profile fetched representation
+# sha256 bytes revision quote normalization normalized_sha256 location
+# quote located with corpus/rendered-text-v1.py locate on the saved decoded body (counts in group-c-receipts.txt).
+# representation is decoded-http-body-volatile-v1 for all three: c1/c2 carry a Next.js buildId and a deploy id;
+# c3 raw bytes differed on every one of 5 fetches while its rendered text was identical on all 6 captures.
+C1	mined	b46bb5edc7e59220cd89907d24c18df7bed45126b8c38914f6bf02dc67eab8d6	https://www.1password.dev/brokered-access	https://www.1password.dev/brokered-access	200	curl-fsSL-compressed-v1	2026-11-03	decoded-http-body-volatile-v1	6179e9c1408515293f7fdf9b6445a4318e5a1289fc036fbb7559a21e3c6fa93c	215346	-	All configured claims must match to verify the workload’s identity.	rendered-text-v1	232239dd8ae8e792148706d72c1c13707a3a6a195046141950e10448cf003b50	§Custom Workflow (OIDC), ordered setup steps 1-5, item 3 (claims)
+C2	mined	58690583e5af268b242e61d642841a40622d3d9c0525b3e8e530dca9debfcf7e	https://www.1password.dev/brokered-access/custom-workflow	https://www.1password.dev/brokered-access/custom-workflow	200	curl-fsSL-compressed-v1	2026-11-03	decoded-http-body-volatile-v1	a34902cc251b9d9c9573ff25d7bd9a230494689a4cc9a6c99775c1f1e28eca0b	266770	-	The client authenticates using your OIDC token, workload ID, and the integration key configured by your administrator	rendered-text-v1	20fbc423c4faea7839316780ef28a5fad24e30982cbc9636e3f9c46c26a76271	§Step 3: Use your Environment in your workflow, SDK-client sentence
+C3	mined	6789116b7e4042f37b3cbc4b84d68bf8f9cc7d4774e53afe7bb3386c802cbda5	https://1password.com/jp/product/credential-broker	https://1password.com/jp/product/credential-broker	200	curl-fsSL-compressed-v1	2026-11-03	decoded-http-body-volatile-v1	a5d4a10132d672c46c5afab0ad373418830554177eb688c6d659528ece3aa3f5	200638	-	実行時にAIエージェントとマシンワークロードを検証し、それぞれが受け取る権限を持つ認証情報のみを提供します。	rendered-text-v1	0c2d13e54cc059d0b39fceb0e8f9c02ccb4a0847529442dfae669647f1b6813a	§1Password Credential Broker マシンとAIエージェントによる実行時の認証情報アクセス, hero lead sentence

@@ -191,3 +191,32 @@ Residual checks after the wave, if any, go into ONE ordinary task call of ≤4 s
 Every seat: absolute paths under `/home/vgpnk/Projects/shokunin/kagi-shokunin`, writes
 ONLY under `.ufo/waves/round-31/<seat-name>/` plus its scratch dir, never commits, never
 mutates git/jj state, never edits fleet/sibling files, no `agent://all`.
+
+## Plan correction 1 (pre-data; appended before the first work commit)
+
+Two pre-data findings, both from the L1's own BASE probing and to be confirmed by the
+wave's attack seats:
+
+1. **C1 migration set widened 3 → 10.** `cells` re-runs every row its scorecard cells
+   cite, so every count/identity pin those rows carry moves when this round lands its own
+   bytes. The full enumerated migration set (each with old→new measured at the landing and
+   a note-chain reason, QM14): R13-01 (round headings 36→current), R21-04 (ledger rows
+   68→current), R24-05 (stamps identity 99+digest→current), R24-14 (ledger-ids identity
+   68+digest→current), R12-03 (stamps 99→current), R14-01 (docs entries 29/row_linked
+   26→current), R21-02 (census rows=60 entries_sourced=8 captures=60→current), R22-03
+   (revision-audit added 36→current), R24-06 (scorecard-rounds 36+digest→current), R24-15
+   (revision-added 36+digest→current). No expectation migrates to hide a routed red: the
+   R25-02/R29-01/R29-02 POLICY/FAIL state stays red and named.
+2. **C1 predicate gains one named, self-resolving exception.** R11-08 (the citations-mode
+   row, cited by 7 walked cells) reads FAIL at the measured revision because the round's
+   LOG entry points at this round's fleet-repo report, which by the commit-order rule can
+   only file after the measured revision exists (round-30 precedent: `verify-final.txt`
+   "FAIL R11-08 (resolves on report filing — now filed)"). The predicate's allowed
+   non-clean set is therefore exactly {R25-02 (FAIL), R29-01 (POLICY), R29-02 (POLICY),
+   R11-08 (FAIL, self-resolving on report filing)}, with zero STALE-POINTER lines; a
+   confirmation re-run after the report files is committed as a final receipt and must
+   show R11-08 resolved.
+
+Round-31 self-consistency (AttackCells item 4): the round's own SCORECARD sections use
+`## Round 31 — pre-move (…)` / `## Round 31 — post-move (…)` headings from their first
+commit, so the re-armed audit never re-enters the debt state.

@@ -148,3 +148,65 @@ revision is REPORTED (C1+C2's combined end-state), not claimed in advance: R11-0
 the claim its cause requires, with the unresolved list as evidence; if a cause requires
 editing a file this lane did not author (the integrator spot-check), it is routed, never
 edited. No axis may be harmed; a trade is reported, never admitted.
+
+## Correction 1 — appended BEFORE the first work commit (QM29)
+
+Written after the build-wave attack seats (CAttackPredicates, RAttackC1, RAttackC3,
+LProbeGitattr, XD2Cells, XAssimCol) measured the BASE controls and attacked the frozen text.
+Nothing has been committed as work; each item below narrows or repairs a frozen predicate
+to what the attack measured. Original counting commands are retained in the lesson as the
+rejected readings.
+
+1. **C1 stale set is EIGHT, not six.** `self-counts.py` at BASE prints `stale=8`: the routed
+   six (SC-SKILL-STAMPS, SC-SKILL-CLAIMS, PV-STAMPS, PV-CLAIMS, RD-STAMPS, RD-LEDGER-ROWS)
+   plus RD-DOCS-ROWLINKED (README.md:67, 22→live) and RD-DOCS-ENTRIES (README.md:67, 25→live),
+   both R14-01's bindings. All eight are corrected; the counter stays `stale=0`.
+2. **C1 ledger set adds R25-02.** R25-02 pins `claims=60`; live is 62 (round 29 added two
+   self-counts bindings). It FAILs at BASE and was in no claim. It is migrated 60→measured
+   value with old→new recorded in the lesson.
+3. **R29-01 and R29-02 are NOT migrated (kill rule).** `PYTHON_SCRIPT_RE`
+   (`corpus/claim-ledger.sh:263`) lists no `feed-token-agree`, and any pre-script flag breaks
+   its anchored pattern, so `python3 -I -B …` and `python3 -B …` both read POLICY
+   `python-script` (measured: `c1/_policy-matrix.txt`). Passing requires registering the script
+   in the gate's policy regex, which is a gate-policy change, so the kill rule reports these two
+   rows as not migrated. They stay POLICY and are routed (operator/next-round decision:
+   register `feed-token-agree` in `PYTHON_SCRIPT_RE`, with a selftest case). C1's counted
+   population is therefore: 11 ledger rows migrated (10 enumerated + R25-02), 2 reported
+   not migrated.
+4. **Migrated expectations keep their `^…$` anchors.** Drafts that dropped anchors degrade to
+   substring pins (F4) and are rejected.
+5. **C2 counter 2 is re-scoped.** Frozen form `grep -rIl $'\r' --exclude-dir=.git --exclude-dir=.jj .`
+   is unsatisfiable: 130+ `.ufo/waves/**` files are CRLF in the index. Those are authentic HTTP
+   captures (RFC 7230 CRLF headers) and are evidence bytes, not drift. Corrected counter:
+   `grep -rIl $'\r' --exclude-dir=.git --exclude-dir=.jj --exclude-dir=.ufo . | wc -l`, before
+   **3**, after **0**. Standing row **R30-01** carries this form, expect `^0$`.
+6. **C2 attribute assertion (standing row R30-02).** `grep -cE '^\*\.(md|tsv|sh|py|json) text eol=lf$' .gitattributes`
+   expect `^5$`. Without it a round can repair bytes and skip the convention.
+7. **C2 ordering.** The LF repair lands before the C3 append: the fleet census cannot
+   parse a CRLF `## Registry` heading (`scripts/sources-census.sh:581` trim strips only
+   space/tab), so C3's census counter reads red for a C2 reason otherwise.
+8. **C3 entry gates (per-entry, decided in-round).**
+   - Entry 1 `secret-scanning-detection-vs-validation.md` (S053, S054): ADMIT after two wording
+     edits — "prose-absent **lead** (row S048)" becomes "opened-but-unwritten row S048" (S048 is
+     a mined row, not a lead); "It does not cover the **Betterleaks fork**" becomes "the
+     Betterleaks project" (the same entry headlines Betterleaks as `fork: false`).
+   - Entry 2 `betterleaks-detection-vs-validation.md` (S055, S056): **REFUSE as staged**. The
+     CEL clause cites a Substack article nobody opened; the S068 README anchor carries only
+     "Express YourCELf" in the blog-index title. Flip (i): delete the CEL clause and keep the
+     README-wins caution anchored to the blog-list line. Also: the S070–S073 pointer names
+     verification-behaviour pages; the sentence is corrected to name that subject or dropped.
+     Admitted only after the flip, logged in the Gate; if the flip is not made, S055/S056 are
+     NOT appended.
+   - Entry 3 `trufflehog-verification-lifecycle.md` (S057–S060): ADMIT (normalization only).
+9. **Frontmatter shape.** Each admitted entry carries ONE column-1 `source:` line (census
+   `SC_ENTRY_HEADER` fails >1). Each new id gets a `corpus/source-fetches.tsv` capture row
+   (census `captures`). `verified-at:`/`recheck:` are re-dated in-round.
+10. **C3 counter 3 pins `entries_sourced=8`** in the measured census line (F7: a three-empty-file
+    simulation passed counters 1–2 at 8/3; the census catches empty files, the pin catches a
+    stub-entry pass).
+11. **Snapshot pins are captured at the measured revision AFTER C2 and C3 land** (R21-02 full
+    line, R21-04 count, R24-05/06/14/15 identities). Numbers move 51→60 (registry), 67→68 (R30-01/02
+    rows), stamps 94→…; the measurement sequence is the sole source of values.
+
+Predicate verdicts behind these corrections: C1 SOUND in arithmetic and separability (CAttackPredicates);
+C2 ATTACKED → repaired by 5–7; C3 ATTACKED at content level → repaired by 8–10.

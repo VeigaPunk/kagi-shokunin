@@ -237,3 +237,47 @@ since round 29 (`STABLE_TITLE_RE` takes the right boundary; selftest 116).
    (every location should carry its count — SrcOpenC's receipts already do). Fix: the corrected
    anchors carry the counted headings; the lesson records that a location asserted without a
    count is a claim, not a measurement.
+
+## Corrigenda 2 (post-WAVE-DONE, pre-report; the RowsDraft seat's independent verification of the landed state)
+
+RowsDraft delivered last (its report + `build/assimilation/{registry-append.md,renumber-map.md}`
+landed with the wave results; the orchestrator kernel restarted mid-wave, so the seats' final
+outputs were re-read from their wave-dir files). It independently re-fetched all eleven sources
+and audited the LANDED bytes; four material findings, all fixed in this corrigenda commit:
+
+- **F-1 (S067's section anchor was wrong twice):** the aud (REQUIRED) claim-list entry sits
+  under the heading "2. ID Token" (measured offset 51700); the §3.1.3.6 block contains ZERO
+  `aud` occurrences. AttackOidc's F-C flip ("use the stable §3.1.3.6 anchor") corrected the
+  staged line numbers but kept a wrong section; the committed capture row (SrcOpenB: "§2 ID
+  Token") was right. The registry anchor and entry 1's source line now say §2; the L1
+  re-measured independently (the enclosing-heading walk + the §3.1.3.6 block scan) before
+  adopting. Class: an attack seat's correction adopted without an independent measurement —
+  captured-by: QM2/the two-evidences gate standard; fix: every locator correction is re-measured
+  by the L1 before landing (done here).
+- **F-2 (the S063 capture location carried the staged defect's section label):** the capture
+  row said "Request Parameters, Audience parameter description (line 347)"; line 347 sits under
+  the Response Elements h2. Fixed to the counted form. The census cannot see it (location is
+  length-checked only) — a verifier re-running the capture would have chased the wrong section.
+- **F-5 (locator labels not verbatim on the page):** S068's "BCP 240" locates 0 (the RFC header
+  reads "SPRIND BCP: 240") — anchor corrected; S064's "the three bullets appear twice" was
+  imprecise (bullets 1-2 twice each; bullet 3 once + a heading variant) — anchor corrected;
+  S066's table is named by its header row (限制条件关键字 ×2), the lead-in being 支持的服务级
+  限制条件.
+- **F-6 (S065's premise and flip condition):** the ja page's html lang is `ja-x-mtfrom-en` (a
+  Google machine-translation marker) — recorded in the row; the row is never cited beyond
+  terminology and the language-invariant code sample; the flip condition (ja lags en) has no
+  en-twin capture in-round (the en WIF path is unopened) and stays open — recorded as an open
+  condition, not silently dropped.
+- **F-4 (the S071 tier decision, recorded):** RowsDraft recommended tier B (the pre-reconciliation
+  entry had no in-text [S071] citation; the EN twin S005 sits at tier C). The reconciliation
+  landed the late seat's JP section WITH in-text [S071] citations (the JP renderings are the
+  claim), so the tier-A-for-Japanese-terminology scope now has a primary claim and tier A
+  stands; the seat's counter-argument (a native ja page under a ja-scoped tier A) is on record,
+  and both censuses were verified green at tier B on a scratch clone should a later round
+  re-grade.
+- **F-7 (recorded, not scored):** entry-body quotes use straight apostrophes where the pages use
+  curly (the lane-wide convention; the capture rows preserve the pages' exact forms and locate);
+  the census does not gate entry-body quotes.
+- **Collision-count correction:** the measured collision set is S052–S060 (9 ids — lane
+  S058–S060 also collide with staged ids), not the 6 the plan's parenthetical named; the
+  renumber map resolves all nine; no live id overwritten.

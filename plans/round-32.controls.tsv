@@ -1,0 +1,4 @@
+# round-32 declared BASE expectations, replayed against 32c35fe (the M32-2 red witness)
+# id	expect	command
+sd5	3	bash "$LANE/corpus/self-description-sweep.sh" --root "$BASE" | grep -o 'SD5=[0-9]*' | cut -d= -f2
+total	10	bash "$LANE/corpus/self-description-sweep.sh" --root "$BASE" | sed -n 's/.*n=\([0-9][0-9]*\).*/\1/p'

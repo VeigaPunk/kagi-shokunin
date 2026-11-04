@@ -1,0 +1,5 @@
+measured_revision=c5e0ecef2843dc8fded337780c579102ef8c9ee8
+input_revision=f9dc06fd8f6b43c175193c76dc6350468f551634
+command=bash corpus/self-description-sweep.sh --root /fast/scratch/hyaku/kagi-r34/l1/base-final | tee /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-34/final/c1-base-final-producer.txt | awk -F'[ =()]' '{for(i=1;i<NF;i++) if($i ~ /^SD[789]$/) s+=$(i+1)} END{print s+0}'; printf "PIPESTATUS=%s\n" "${PIPESTATUS[*]}"
+5
+PIPESTATUS=1 0 0

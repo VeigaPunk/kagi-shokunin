@@ -17,7 +17,7 @@ All access dates below are **2026-11-04**, independently opened by the L1 using 
 | S085 | https://help.aliyun.com/zh/kms/key-management-service/user-guide/manage-and-use-ram-secrets | 删除RAM凭据: “不会在RAM中删除RAM用户的AccessKey。” | KMS credential deletion is not RAM AccessKey retirement |
 | S086 | https://help.aliyun.com/zh/ram/support/faq-about-accesskey-pairs | 什么是AccessKey, important note: “只在创建时显示一次，后续无法查看。” | Secret-display boundary; recycle-bin recovery is RAM-user scoped |
 | S087 | https://www.alibabacloud.com/help/ja/ram/user-guide/rotate-accesskey-pairs-of-ram-users | 次のステップ: “このローテーションを 90 日ごと、またはそれより早いタイミングで繰り返してください。” | Japanese vendor rendering; tier B, not independent product authority |
-| S088 | https://raw.githubusercontent.com/VeigaPunk/kagi-shokunin/97b35ceec87cceac25d1e0e5f92f75c953728802/corpus/prefreeze-control.sh | Header measurement rule: “Measurement = the final run of digits on the LAST” | Own-work implementation at a fixed published revision; not command truth or confinement |
+| S088 | https://raw.githubusercontent.com/VeigaPunk/kagi%2Dshokunin/97b35ceec87cceac25d1e0e5f92f75c953728802/corpus/prefreeze-control.sh | Header measurement rule: “Measurement = the final run of digits on the LAST” | Own-work implementation at a fixed published revision; not command truth or confinement |
 
 **ADMIT:** corrected `corpus/knowledge/aliyun-accesskey-credential-custody.md` on uncovered cloud-IAM credential-custody ground, citing S083–S087. Rotation, idle-key disable observation, recycle-bin retention and KMS deletion are separate clocks. `corpus/knowledge/prefreeze-controls.md` gains the provenance trio and S088 rather than slipping into the legacy exemption again.
 
@@ -35,21 +35,21 @@ ScribeEntry's five `source:` lines followed the L1's erroneous seat instructions
 
 | id | class | evidence | captured-by | fix shown able to fail |
 |---|---|---|---|---|
-| M34-1 | a new entry bypassed provenance checks by entering the legacy bucket | R33-4; prefreeze-controls.md had Reverify R33-01 but no trio; BASE SD9=1 | QM35 | delivered sweep on the BASE extraction prints SD9=1; adding the trio is the production delta; SD9 planted fixture is the executable red witness |
-| M34-2 | a declared closure lacked observed failure evidence | R33-2/R33-3; old report said M7 failed and relative-work was re-tested without final-byte receipts | QM36 | build/mut/m7-shipped-11.txt records the actual base-isolation failure; receipts/gate-unfixed-relative-work.txt records the failure when absolute work-root resolution is removed |
+| M34-1 | a new entry bypassed provenance checks by entering the legacy bucket | round33 closure defect 4; prefreeze-controls.md had Reverify R33-01 but no trio; BASE SD9=1 | QM35 | delivered sweep on the BASE extraction prints SD9=1; adding the trio is the production delta; SD9 planted fixture is the executable red witness |
+| M34-2 | a declared closure lacked observed failure evidence | round33 closure defect 2/round33 closure defect 3; old report said M7 failed and relative-work was re-tested without final-byte receipts | QM36 | build/mut/m7-shipped-11.txt records the actual base-isolation failure; receipts/gate-unfixed-relative-work.txt records the failure when absolute work-root resolution is removed |
 | M34-3 | mixed-claim target arithmetic was frozen without measuring the target population | plans/round-34.md C3 expects sourced=13, but 12 BASE + migrated prefreeze entry + AccessKey entry =14; migrated own-work provenance also needs S088, giving rows/captures=88, not87 | QM34 | no claim of repaired frozen arithmetic: C3 is NOT ADMITTED; targets remain unchanged, not retrospectively rewritten |
 | M34-4 | seat instruction contradicted an existing schema | five-source-line acceptance in build-spec.json versus census code requiring one source line | QM35 | the untransformed draft fails SC_ENTRY_HEADER multiple source lines; installation consolidates the same five ids into one line |
 | M34-5 | literal receipt counter ignored output padding | C2 frozen grep expects CASE base-isolation FAIL, while ck prints a padded label | QM36 | m7-run.sh retains raw output and explicitly labels its normalized derived verdict; the receipt counter reads that derived verdict, not a falsely claimed raw match |
 
 ## Migrations and routed dispositions
 
-- R33-1: three complete SKILL gate-registry rows added (prefreeze-control, self-description-sweep, feed-token-agree). SD7 only checks basename presence, not row semantics; registry review is still necessary.
-- R33-2: actual M7 receipt retained; round-33's claim of a run was unsupported at that time, even though the experiment can now be reproduced.
-- R33-3: relative-work case added with failure witness against the unfixed mutation.
-- R33-4: prefreeze entry trio added, cited to own-work S088; legacy population 22→21.
-- R33-5: README lesson range becomes M33-1..M33-4. README and PROVINCE's stale “ten cases” become 12 for the current prefreeze selftest. Historical round-33 records are not silently rewritten.
-- R33-6: the fleet census prints per-lane ok/warnings; the detailed SOURCES_CENSUS summary belongs to the lane script. This round cites separate receipts for each.
-- R33-7: this round preserves the executed docs audit output rather than reconstructing its counts from memory.
+- round33 closure defect 1: three complete SKILL gate-registry rows added (prefreeze-control, self-description-sweep, feed-token-agree). SD7 only checks basename presence, not row semantics; registry review is still necessary.
+- round33 closure defect 2: actual M7 receipt retained; round-33's claim of a run was unsupported at that time, even though the experiment can now be reproduced.
+- round33 closure defect 3: relative-work case added with failure witness against the unfixed mutation.
+- round33 closure defect 4: prefreeze entry trio added, cited to own-work S088; legacy population 22→21.
+- round33 closure defect 5: README lesson range becomes M33-1..M33-4. README and PROVINCE's stale “ten cases” become 12 for the current prefreeze selftest. Historical round-33 records are not silently rewritten.
+- round33 closure defect 6: the fleet census prints per-lane ok/warnings; the detailed SOURCES_CENSUS summary belongs to the lane script. This round cites separate receipts for each.
+- round33 closure defect 7: this round preserves the executed docs audit output rather than reconstructing its counts from memory.
 - Registry: six rows added (five external + own-work S088); existing status/recheck/used-by cells unchanged. Selected staged recheck prose becomes 180d; provenance conditions remain in this Gate.
 
 ## Boundaries

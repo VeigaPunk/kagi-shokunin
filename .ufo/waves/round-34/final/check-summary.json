@@ -1,0 +1,68 @@
+[
+  [
+    "prefreeze-selftest",
+    0,
+    "ASE no-integer                 ok\nCASE malformed-row              ok\nCASE missing-controls-file      ok\nCASE grep-c-exit1-is-zero       ok\nCASE empty-controls             ok\nCASE bad-rev                    ok\nCASE timeout                    ok\nCASE base-isolation             ok\nCASE relative-work              ok\nPREFREEZE_SELFTEST: PASS (12 cases)\n",
+    ""
+  ],
+  [
+    "sweep-selftest",
+    0,
+    "CASE clean ok\nCASE SD1 ok\nCASE SD2 ok\nCASE SD3 ok\nCASE SD4 ok\nCASE SD5 ok\nCASE SD6 ok\nCASE SD7 ok\nCASE SD8 ok\nCASE SD9 ok\nSELFTEST: PASS (10 cases)\n",
+    ""
+  ],
+  [
+    "sweep-tip",
+    1,
+    "/lessons/round-33-verifier-spotcheck.md:90 knowledge/corpus/knowledge/ (shorthand)\nMISMATCH SD6 corpus/lessons/round-34.md:20 https://raw.githubusercontent.com/VeigaPunk/kagi-shokunin/97b35ceec87cceac25d1e0e5f92f75c953728802/corpus/prefreeze-control.sh (sibling)\nSELF_DESCRIPTION: MISMATCH n=4 (SD1=0 SD2=0 SD3=0 SD4=0 SD5=0 SD6=4 SD7=0 SD8=0 SD9=0)\n",
+    ""
+  ],
+  [
+    "census-tip",
+    0,
+    "SOURCES_CENSUS: CLEAN (rows=88 A=84 B=2 C=2 queued=1 mined=84 rejected=3 entries_sourced=14 legacy=21 captures=88 inrow=16 inrow_only=0 inrow_nonreproducing=12)\n",
+    ""
+  ],
+  [
+    "fleet-census-tip",
+    0,
+    "/openid-connect across scopes\nkagi\tW04\tS051 duplicate url csrc.nist.gov/pubs/sp/800/57/pt1/r6/ipd across scopes\nkagi\tW04\tS069 duplicate url www.1password.dev/brokered-access across scopes\nkagi\tW04\tS070 duplicate url www.1password.dev/brokered-access/custom-workflow across scopes\nkagi\tok\t/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/SOURCES.md\n",
+    ""
+  ],
+  [
+    "docs-tip",
+    0,
+    "RY corpus/knowledge/trufflehog-verification-lifecycle.md row_linked=1 by_hand=-\nENTRY corpus/knowledge/vault-openbao-token-lease-lifecycle.md row_linked=1 by_hand=-\nDOC_AUDIT_RATIO: row_linked=32/35 floor=18 by_hand=3 duplicate_reasons=0\nDOC_AUDIT: CLEAN (entries=35 row_linked=32 by_hand=3 undeclared=0 missing_ids=0 unpinned=0 duplicate_reasons=0)\n",
+    ""
+  ],
+  [
+    "eol-tip",
+    0,
+    "EOL_SWEEP: CLEAN (crlf=0 attrs=5 scope=lane-minus-git-jj-ufo)\n",
+    ""
+  ],
+  [
+    "self-counts-tip",
+    2,
+    "checklist-execution.md:179 claimed=8 live=8\nOK KN-OPREF-FALSIFY-SELFTEST corpus/knowledge/op-ref-consumption.md:296 claimed=36 pinned=36\nPOLICY PV-FEEDTOKEN-SHAPES ledger:R29-02 command not allowlisted\nPOLICY PV-FEEDTOKEN-SELFTEST ledger:R29-01 command not allowlisted\nSELF_COUNTS: POLICY (claims=62 stale=0 unlocated=0 ambiguous=0 policy=2 setup=0)\n",
+    ""
+  ],
+  [
+    "cells-tip",
+    2,
+    "SSING-ID corpus/lessons/round-34.md:46 R33-1\nMISSING-ID corpus/lessons/round-34.md:47 R33-2\nMISSING-ID corpus/lessons/round-34.md:48 R33-3\nMISSING-ID corpus/lessons/round-34.md:49 R33-4\nLABELED-ID corpus/lessons/round-34.md:50 R33-5 (labelled on its line)\nMISSING-ID corpus/lessons/round-34.md:51 R33-6\nMISSING-ID corpus/lessons/round-34.md:52 R33-7\n",
+    "'## Round 34 \u2014 bounded checks and executed evidence' (expected '## Round <N> \u2014 pre-move|post-move')\n"
+  ],
+  [
+    "prefreeze-controls",
+    0,
+    " expect=1 measured=1\nOK sd9 expect=1 measured=1\nOK sd789 expect=5 measured=5\nOK prefreeze_cases expect=11 measured=11\nOK sweep_selftest_cases expect=7 measured=7\nOK registry_rows expect=82 measured=82\nOK aliyun_entry expect=0 measured=0\nOK m7_receipt expect=0 measured=0\nOK doc_entries expect=34 measured=34\nPREFREEZE: CLEAN (controls=10 mismatch=0)\n",
+    ""
+  ],
+  [
+    "m7-final",
+    0,
+    "M7_RECEIPT: /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-34/mut/m7-shipped.txt FAIL=1\n",
+    ""
+  ]
+]

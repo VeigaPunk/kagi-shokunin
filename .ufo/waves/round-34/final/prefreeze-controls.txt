@@ -1,0 +1,15 @@
+measured_revision=b4e9fd9a474583db69b9601d162c6eb9e54ce0d6
+command=bash corpus/prefreeze-control.sh run --base f9dc06fd8f6b43c175193c76dc6350468f551634 --controls plans/round-34.controls.tsv --work /fast/scratch/hyaku/kagi-r34/l1/work
+OK sd7 expect=3 measured=3
+OK sd8 expect=1 measured=1
+OK sd9 expect=1 measured=1
+OK sd789 expect=5 measured=5
+OK prefreeze_cases expect=11 measured=11
+OK sweep_selftest_cases expect=7 measured=7
+OK registry_rows expect=82 measured=82
+OK aliyun_entry expect=0 measured=0
+OK m7_receipt expect=0 measured=0
+OK doc_entries expect=34 measured=34
+PREFREEZE: CLEAN (controls=10 mismatch=0)
+
+exit=0

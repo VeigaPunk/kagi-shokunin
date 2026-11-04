@@ -1,0 +1,17 @@
+measured_revision=b4e9fd9a474583db69b9601d162c6eb9e54ce0d6
+command=bash corpus/prefreeze-control.sh --selftest
+CASE equal-values               ok
+CASE one-differs                ok
+CASE two-differ                 ok
+CASE no-integer                 ok
+CASE malformed-row              ok
+CASE missing-controls-file      ok
+CASE grep-c-exit1-is-zero       ok
+CASE empty-controls             ok
+CASE bad-rev                    ok
+CASE timeout                    ok
+CASE base-isolation             ok
+CASE relative-work              ok
+PREFREEZE_SELFTEST: PASS (12 cases)
+
+exit=0

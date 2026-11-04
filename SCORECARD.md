@@ -1348,7 +1348,7 @@ Measured commands and receipts: `.ufo/waves/round-33/final/`. The frozen predica
 
 Measured revision, exact exits and receipts are in the round report; no unrun result is stated here. If a C1/C2 kill rule fires, that row records a partial move and the capability row is withheld — no re-scope after data.
 
-## Round 34 — bounded checks and executed evidence
+## Round 34 — post-move (bounded checks and executed evidence)
 
 Frozen BASE `f9dc06fd8f6b43c175193c76dc6350468f551634`; plan frozen alone at `5a2f145ee80b6879a833c2e70d16f2671d103367`. Counting commands, targets and kill rules remain `plans/round-34.md`; receipts and the measured landed commit are named by the round-34 report. No scalar increase and no stagnation waiver are claimed.
 

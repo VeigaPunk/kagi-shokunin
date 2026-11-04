@@ -35,11 +35,14 @@
 # Falsifier: one wrong `expect` -> MISMATCH exit 1 naming that id.
 # --selftest builds a throwaway fixture repository under `$TMPDIR` (init, then
 # `git rev-parse --show-toplevel` is asserted equal to the fixture before its
-# single commit) and proves eleven cases: equal values, one and two mismatches,
+# single commit) and proves twelve cases: equal values, one and two mismatches,
 # no-integer NORESULT, malformed row, missing controls file, `grep -c` exit 1
-# with 0, empty controls, bad rev, timeout, and --base isolation (a second
+# with 0, empty controls, bad rev, timeout, --base isolation (a second
 # fixture commit changes the counted file, so a harness that ignores --base and
-# measures the worktree reports 4 instead of 3). Final line
+# measures the worktree reports 4 instead of 3), and relative-work (round-33
+# F1: run from another directory with a relative `--work ./w`, which a harness
+# that never makes the work root absolute turns into a false
+# `PREFREEZE: SETUP noresult` on every row). Final line
 # `PREFREEZE_SELFTEST: PASS (<k> cases)` exit 0, or `... FAIL (<k> cases)`.
 # PREFREEZE_REPO overrides the repository `--base` is extracted from; run mode
 # needs it only when the script is exercised from outside its <lane>/corpus/
@@ -172,6 +175,18 @@ selftest() {
   printf 'lines\t4\twc -l < corpus/a.txt\n' > "$ctl"
   try --base "$rev" --controls "$ctl"
   ck base-isolation 1 '^PREFREEZE: MISMATCH \(controls=1 mismatch=1\)$' '^MISMATCH lines expect=4 measured=3$'
+
+  # relative-work (round-33 F1): the gate is invoked from another directory with
+  # a RELATIVE --work root. WORK_ROOT must be canonicalized with `pwd -P` before
+  # use: every row executes with cwd = the extraction, so a relative root breaks
+  # each row's stderr redirect and reports a false `SETUP noresult` for a clean
+  # BASE. Same capture convention as try(), but from $tmp/rel.
+  mkdir -p -- "$tmp/rel" || die fixture-failed
+  ctl=$tmp/rel/controls.tsv
+  printf 'lines\t3\twc -l < corpus/a.txt\n' > "$ctl"
+  out=$(cd -- "$tmp/rel" && PREFREEZE_REPO=$repo TMPDIR=$tmp/tmp bash "$SELF" run --base "$rev" --controls "$ctl" --work ./w 2>&1); rc=$?
+  last=$(printf '%s\n' "$out" | tail -n 1)
+  ck relative-work 0 '^PREFREEZE: CLEAN \(controls=1 mismatch=0\)$' '^OK lines expect=3 measured=3$'
 
   if [ "$fails" -eq 0 ]; then
     printf 'PREFREEZE_SELFTEST: PASS (%d cases)\n' "$k"

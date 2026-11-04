@@ -1,3 +1,7 @@
+source: S088 — own-work corpus/prefreeze-control.sh at 97b35ceec87cceac25d1e0e5f92f75c953728802; current execution linked by Reverify below
+verified-at: 2026-11-04 — published source reopened; round-34 shipped-byte receipts under .ufo/waves/round-34/final/
+recheck: on-change — bash corpus/prefreeze-control.sh --selftest; replay the frozen BASE controls after any gate change
+
 # Pre-freeze BASE controls — declared values are measured, never estimated
 
 Source basis: written 2026-11-04 (round 33) from the shipped gate itself —

@@ -180,3 +180,10 @@ so the criterion fires on the unedited tree (receipt `.ufo/waves/round-32/build/
 QM34's fix shown able to fail: `bash corpus/prefreeze-control.sh run --base 32c35fe5ed44f2017d6a662c7fd13f7e63a7ce9b --controls plans/round-32.controls.tsv`
 prints `PREFREEZE: MISMATCH (controls=2 mismatch=2)` exit 1, so a plan carrying those declared values cannot pass the gate; the same gate is green on
 `plans/round-33.controls.tsv` at `76f4eea` (`PREFREEZE: CLEAN (controls=4 mismatch=0)` exit 0), which is what an executed — rather than estimated — freeze looks like.
+
+## Criteria from the round-34 routed closures
+
+| id | criterion | weak signal | lesson |
+|---|---|---|---|
+| QM35 | Self-description is compared with shipped artifacts: selftesting script names appear in SKILL's registry, documented lesson-range upper endpoints match lesson rows, and entries bound to round-30-or-later Reverify rows carry the provenance trio. SD7–SD9 are bounded presence/endpoint checks, not proofs of registry semantics or source truth; existing census shape still applies. | A new entry becomes exempt by lacking source:; a README range omits a later lesson row; a gate is described but absent from its registry. | `corpus/lessons/round-34.md` M34-1 and M34-4; BASE SD7=3, SD8=1, SD9=1 and planted fixtures |
+| QM36 | A claim that a fix or mutation fails ships observed output from the named source bytes and an unchanged control. Preserve raw output; label any normalized derived verdict separately. A matching string alone is not execution evidence, and padding must be accounted for before freezing a literal counter. | An eleven-case PASS offered as evidence that the mutant FAILs; a relative-path patch with no exercised relative-path case; a literal grep that never matches padded output. | `corpus/lessons/round-34.md` M34-2 and M34-5; M7 and unfixed-relative-work failure receipts under `.ufo/waves/round-34/build/` |

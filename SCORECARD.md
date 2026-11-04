@@ -1347,3 +1347,18 @@ Measured commands and receipts: `.ufo/waves/round-33/final/`. The frozen predica
 | adjacency | 9 → 9 | The round-33 connector sweep over the sibling lanes is the sole-ground check for the ten NIST URLs (receipt `.ufo/waves/round-33/build/ConnOverlap.md`); the ownership partition is unchanged and green. | Row `R17-02`; `.ufo/waves/round-33/build/ConnOverlap.md` |
 
 Measured revision, exact exits and receipts are in the round report; no unrun result is stated here. If a C1/C2 kill rule fires, that row records a partial move and the capability row is withheld — no re-scope after data.
+
+## Round 34 — bounded checks and executed evidence
+
+Frozen BASE `f9dc06fd8f6b43c175193c76dc6350468f551634`; plan frozen alone at `5a2f145ee80b6879a833c2e70d16f2671d103367`. Counting commands, targets and kill rules remain `plans/round-34.md`; receipts and the measured landed commit are named by the round-34 report. No scalar increase and no stagnation waiver are claimed.
+
+| Axis | Before → after | What moved | Evidence |
+|---|---|---|---|
+| calibration | 9 → 9 | C1: SD7–SD9 sum is measured against BASE by the shipped sweep and compared at landing; BASE freeze-time equivalent counts are 3+1+1=5. Three registry rows, the corrected lesson range and prefreeze provenance address those observed mismatches. Bounded presence checks do not prove semantic completeness. R25-02 FAIL and R29-01/R29-02 POLICY remain operator-owned; three SD6 citations remain integrator-owned. | `corpus/self-description-sweep.sh`; `.ufo/waves/round-34/controls/prefreeze-base.txt`; row `R34-01` |
+| operability | 9 → 9 | C2: relative-work becomes the twelfth prefreeze selftest case; M7 and the unfixed work-root mutation have actual failure receipts rather than inferred failure. | `corpus/prefreeze-control.sh`; `.ufo/waves/round-34/build/receipts/gate-unfixed-relative-work.txt`; row `R34-02` |
+| coverage | 9 → 9 | C3 NOT ADMITTED: one AccessKey entry and five external rows land, but the frozen census target is wrong and coupled to C1. Migrating the prefreeze entry requires own-work S088; sourced entries become14, not13, and rows/captures88, not87. No target is rewritten after data. | `corpus/knowledge/aliyun-accesskey-credential-custody.md`; S083–S088; row `R34-03`; `corpus/lessons/round-34.md` M34-3 |
+| freshness | 9 → 9 | Six sources opened in-round and the prefreeze provenance trio migrated; no separately claimed freshness axis-move. | `corpus/source-fetches.tsv`; `corpus/lessons/round-34.md` Gate |
+| depth | 9 → 9 | Documentation distinguishes RAM key retirement, recycle-bin recovery and KMS credential deletion; no live account behaviour is claimed. | S083–S087 |
+| adjacency | 9 → 9 | Connector scan is recorded; cloud-IAM custody does not absorb sibling security research or cloud application deployment. Existing CDP/profile contested scope is unchanged. | `.ufo/waves/round-34/build/ConnOverlap.md` |
+
+Planned next move: measure per-claim target populations independently before freeze, including provenance migrations; widen a bounded self-description check only under a new explicit predicate, never retrospectively strengthen this round's claim. No new capability-table entry is claimed in round34.

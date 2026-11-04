@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
-# self-description-sweep.sh — round 32, claim C1 counter (SD1–SD6).
+# self-description-sweep.sh — round 34, self-description counter (SD1–SD9).
 #
-# Predicate (frozen in plans/round-32.md; identical here, in the plan and on the
-# receipt label):
-#   SELF_DESCRIPTION: CLEAN n=0 — the sum of checks SD1–SD6 is zero at the
-#   measured revision.
+# Predicate: SELF_DESCRIPTION: CLEAN n=0 means the sum of SD1–SD9 is zero.
+# Round-34 C1 (plans/round-34.md) separately requires SD7+SD8+SD9=0;
+# SD1–SD6 retain their round-32 contract, including the named SD6 exclusion.
 #
 # SD1  PROVINCE.md lines that name a theme in a `Frontier` bullet while a `Core`
 #      bullet of the same file names the same theme. Themes (case-insensitive
@@ -22,10 +21,18 @@
 #      `calibration`) of the latest `## Round` section.
 # SD6  lines beginning `UNRESOLVED` in `bash corpus/claim-ledger.sh citations`
 #      run inside the measured root.
+# SD7  top-level corpus/*.sh and corpus/*.py whose bytes mention --selftest
+#      but whose basename never appears in SKILL.md (literal substring).
+# SD8  range tokens M<r>-<n>..M<r>-<m> or M<r>-<n>..<m> in SKILL.md,
+#      PROVINCE.md, SCORECARD.md and corpus/README.md. Cross-round ranges are
+#      ignored. Count once per token if its round lesson is missing, its upper
+#      endpoint row is missing, or any row exceeds that endpoint (in that order).
+# SD9  knowledge entries whose first ^Reverify: line names R<r>-<n>, r>=30,
+#      missing any of ^source:, ^verified-at:, ^recheck:. Count once per entry.
 #
 # Verdict (last line):
 #   SELF_DESCRIPTION: CLEAN n=0                                          exit 0
-#   SELF_DESCRIPTION: MISMATCH n=N (SD1=a SD2=b SD3=c SD4=d SD5=e SD6=f) exit 1
+#   SELF_DESCRIPTION: MISMATCH n=N (SD1=a SD2=b SD3=c SD4=d SD5=e SD6=f SD7=g SD8=h SD9=i) exit 1
 #   SELF_DESCRIPTION: SETUP <reason>                                     exit 2
 #
 # --selftest builds throwaway fixture trees (one planted defect per check plus a
@@ -120,6 +127,12 @@ SCORE_EOF
 #!/usr/bin/env bash
 printf 'CITATION_GATE: CLEAN (cites=0 docs=0 unresolved=0 ephemeral=0 labeled=0)\n'
 LEDGER_EOF
+  mkdir -p "$d/corpus/knowledge" || return 1
+  cat > "$d/corpus/knowledge/legacy-entry.md" <<'LEGACY_EOF'
+# kagi-shokunin — fixture legacy knowledge entry
+
+Reverify: R29-01
+LEGACY_EOF
 }
 
 plant_sd1() {
@@ -187,6 +200,25 @@ printf 'CITATION_GATE: BROKEN (cites=1 docs=1 unresolved=1 ephemeral=0 labeled=0
 EOF
 }
 
+plant_sd7() {
+  printf '# fixture --selftest\n' > "$1/corpus/fixture-gate.sh"
+}
+
+plant_sd8() {
+  cat > "$1/corpus/lessons/round-30.md" <<'EOF'
+# Round 30 (fixture)
+| M30-1 | fixture |
+| M30-2 | fixture |
+EOF
+  printf '\nM30-1..M30-1\n' >> "$1/corpus/README.md"
+}
+
+plant_sd9() {
+  mkdir -p "$1/corpus/knowledge"
+  printf '# Fixture entry\nReverify: R30-01\n' > "$1/corpus/knowledge/fixture-entry.md"
+  printf '# Fixture entry, source only\nsource: fixture\nReverify: R33-02\n' > "$1/corpus/knowledge/fixture-source-only.md"
+}
+
 FIXTURE_TMP=
 
 selftest() {
@@ -195,8 +227,8 @@ selftest() {
   FIXTURE_TMP=$tmp
   trap 'rm -rf -- "${FIXTURE_TMP:-}"' EXIT
 
-  run_case() { # name dir expect(clean|mismatch) sd-id
-    name=$1; dir=$2; local expect=$3; id=$4
+  run_case() { # name dir expect(clean|mismatch) sd-id [expected-n]
+    name=$1; dir=$2; local expect=$3; id=$4; local want_n=${5:-1}
     cases=$((cases + 1))
     out=$(bash "$SELF" --root "$dir" 2>&1); rc=$?
     last=$(printf '%s\n' "$out" | tail -n 1)
@@ -208,7 +240,7 @@ selftest() {
     else
       [ "$rc" -eq 1 ] || ok=0
       printf '%s\n' "$out" | grep -q "^MISMATCH $id " || ok=0
-      printf '%s\n' "$last" | grep -qE "SELF_DESCRIPTION: MISMATCH n=1 \(SD1=[0-9]+ SD2=[0-9]+ SD3=[0-9]+ SD4=[0-9]+ SD5=[0-9]+ SD6=[0-9]+\)" || ok=0
+      printf '%s\n' "$last" | grep -qE "SELF_DESCRIPTION: MISMATCH n=$want_n \(SD1=[0-9]+ SD2=[0-9]+ SD3=[0-9]+ SD4=[0-9]+ SD5=[0-9]+ SD6=[0-9]+ SD7=[0-9]+ SD8=[0-9]+ SD9=[0-9]+\)" || ok=0
       printf '%s\n' "$last" | grep -q "$id=" || ok=0
     fi
     if [ "$ok" -eq 1 ]; then
@@ -223,7 +255,7 @@ selftest() {
   mk_common "$dir" || die "fixture setup failed: clean"
   run_case clean "$dir" clean ""
 
-  for sd in SD1 SD2 SD3 SD4 SD5 SD6; do
+  for sd in SD1 SD2 SD3 SD4 SD5 SD6 SD7 SD8 SD9; do
     dir=$tmp/$sd
     mk_common "$dir" || die "fixture setup failed: $sd"
     case $sd in
@@ -233,8 +265,13 @@ selftest() {
       SD4) plant_sd4 "$dir" ;;
       SD5) plant_sd5 "$dir" ;;
       SD6) plant_sd6 "$dir" ;;
+      SD7) plant_sd7 "$dir" ;;
+      SD8) plant_sd8 "$dir" ;;
+      SD9) plant_sd9 "$dir" ;;
     esac
-    run_case "$sd" "$dir" mismatch "$sd"
+    want_n=1
+    [ "$sd" = SD9 ] && want_n=2
+    run_case "$sd" "$dir" mismatch "$sd" "$want_n"
   done
 
   if [ "$fails" -eq 0 ]; then
@@ -252,6 +289,7 @@ fi
 
 # ------------------------------------------------------------------ checks ---
 HITS=()
+sd7=0 sd8=0 sd9=0
 sd1=0 sd2=0 sd3=0 sd4=0 sd5=0 sd6=0
 
 # SD1 — PROVINCE.md frontier bullet naming a theme held by a Core bullet.
@@ -375,6 +413,76 @@ while IFS= read -r line || [ -n "$line" ]; do
   esac
 done <<< "$cit_out"
 
+# SD7 — shipped selftesting scripts named in the gate registry.
+skill=$ROOT_ABS/SKILL.md
+[ -f "$skill" ] || die "missing SKILL.md under root"
+for script in "$ROOT_ABS"/corpus/*.sh "$ROOT_ABS"/corpus/*.py; do
+  [ -f "$script" ] || continue
+  grep -q -- '--selftest' "$script" || continue
+  basename=${script##*/}
+  grep -qF -- "$basename" "$skill" && continue
+  sd7=$((sd7 + 1))
+  HITS+=("MISMATCH SD7 corpus/$basename mentions --selftest but SKILL.md never names $basename")
+done
+
+# SD8 — documented lesson ranges agree with the upper endpoint and row set.
+range_re='M([0-9]+)-([0-9]+)\.\.(M([0-9]+)-)?([0-9]+)'
+for doc in SKILL.md PROVINCE.md SCORECARD.md corpus/README.md; do
+  lineno=0
+  while IFS= read -r line || [ -n "$line" ]; do
+    lineno=$((lineno + 1))
+    rest=$line
+    while [[ $rest =~ $range_re ]]; do
+      token=${BASH_REMATCH[0]}
+      round=${BASH_REMATCH[1]}
+      end_round=${BASH_REMATCH[4]:-$round}
+      upper=${BASH_REMATCH[5]}
+      rest=${rest#*"$token"}
+      [ "$((10#$round))" -eq "$((10#$end_round))" ] || continue
+      lesson=$ROOT_ABS/corpus/lessons/round-$round.md
+      reason=
+      if [ ! -f "$lesson" ]; then
+        reason="missing corpus/lessons/round-$round.md"
+      elif ! grep -qE "^\| M$round-$upper " "$lesson"; then
+        reason="missing upper endpoint row '| M$round-$upper '"
+      else
+        while IFS= read -r row; do
+          k=${row#*M$round-}; k=${k% }
+          if [ "$((10#$k))" -gt "$((10#$upper))" ]; then
+            reason="row '| M$round-$k ' exceeds upper endpoint M$round-$upper"
+            break
+          fi
+        done < <(grep -oE "^\| M$round-[0-9]+ " "$lesson")
+      fi
+      [ -n "$reason" ] || continue
+      sd8=$((sd8 + 1))
+      HITS+=("MISMATCH SD8 $doc:$lineno range '$token' $reason")
+    done
+  done < "$ROOT_ABS/$doc"
+done
+
+# SD9 — recently admitted knowledge entries carry the provenance trio.
+admission_re='R([0-9]+)-[0-9]+'
+for entry in "$ROOT_ABS"/corpus/knowledge/*.md; do
+  [ -f "$entry" ] || continue
+  reverify=$(grep -m1 '^Reverify: ' "$entry")
+  qualifies=0
+  while [[ $reverify =~ $admission_re ]]; do
+    admission=${BASH_REMATCH[0]}
+    round=${BASH_REMATCH[1]}
+    if [ "$((10#$round))" -ge 30 ]; then qualifies=1; break; fi
+    reverify=${reverify#*"$admission"}
+  done
+  [ "$qualifies" -eq 1 ] || continue
+  missing=()
+  for key in source verified-at recheck; do
+    grep -q "^$key:" "$entry" || missing+=("$key:")
+  done
+  [ "${#missing[@]}" -gt 0 ] || continue
+  sd9=$((sd9 + 1))
+  HITS+=("MISMATCH SD9 corpus/knowledge/${entry##*/} missing ${missing[*]}")
+done
+
 # ---------------------------------------------------------------- verdict ----
 n=${#HITS[@]}
 if [ "$n" -eq 0 ]; then
@@ -384,6 +492,6 @@ fi
 for hit in "${HITS[@]}"; do
   printf '%s\n' "$hit"
 done
-printf 'SELF_DESCRIPTION: MISMATCH n=%d (SD1=%d SD2=%d SD3=%d SD4=%d SD5=%d SD6=%d)\n' \
-  "$n" "$sd1" "$sd2" "$sd3" "$sd4" "$sd5" "$sd6"
+printf 'SELF_DESCRIPTION: MISMATCH n=%d (SD1=%d SD2=%d SD3=%d SD4=%d SD5=%d SD6=%d SD7=%d SD8=%d SD9=%d)\n' \
+  "$n" "$sd1" "$sd2" "$sd3" "$sd4" "$sd5" "$sd6" "$sd7" "$sd8" "$sd9"
 exit 1

@@ -1,0 +1,8 @@
+$ standalone replay of the relative-work case (fixture: one commit, corpus/a.txt = a,b,c; controls row: lines<TAB>3<TAB>wc -l < corpus/a.txt; gate run from $tmp/rel with relative --work ./w)
+$ ( cd "$tmp/rel" && PREFREEZE_REPO=$repo bash /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-34/build/prefreeze-control.sh run --base 5214a7cc --controls controls.tsv --work ./w )
+OK lines expect=3 measured=3
+PREFREEZE: CLEAN (controls=1 mismatch=0)
+exit=0
+
+$ bash .ufo/waves/round-34/build/prefreeze-control.sh --selftest (case line)
+CASE relative-work              ok

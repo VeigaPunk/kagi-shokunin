@@ -1,0 +1,15 @@
+CASE equal-values               ok
+CASE one-differs                ok
+CASE two-differ                 ok
+CASE no-integer                 ok
+CASE malformed-row              ok
+CASE missing-controls-file      ok
+CASE grep-c-exit1-is-zero       ok
+CASE empty-controls             ok
+CASE bad-rev                    ok
+CASE timeout                    ok
+CASE base-isolation             FAIL rc=0 last=PREFREEZE: CLEAN (controls=1 mismatch=0)
+PREFREEZE_SELFTEST: FAIL (11 cases)
+exit=1
+m7: source sha256=b634a8d1a1a161debf6069c5ea033a220550efa61c3271313257f8a8f9cd9098 (/fast/scratch/hyaku/kagi-r34/ExecMut/orig.sh), mutant sha256=20539afb46048db769253528d51388f527487624049016dc20a44bc322c10ad1
+m7: verdict: CASE base-isolation FAIL (count=1); raw line: "CASE base-isolation             FAIL rc=0 last=PREFREEZE: CLEAN (controls=1 mismatch=0)"

@@ -1,0 +1,253 @@
+
+<!DOCTYPE html>
+<html lang="ja" class="transparent alicloud back-to-top new_default light" traceid="800e74a717938018124228334e">
+<link rel="stylesheet" href="//g.alicdn.com/aliyun-help/help-portal-fe/0.12.66/css/index.css" />
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+<meta name="spm-id" content="a2c63">
+<meta name="data-spm" content="a2c63" />
+<meta name="aplus-core" content="aplus.js">
+<meta name="aplus-ajax" content="chksum">
+<meta name="aplus-waiting" content="MAN">
+<meta name="aplus-pvhash" content="1">
+ <!-- MINOR_LANG_ENTRY_GATE：ko/de/vi/th 入口暂关；开放时把码追加到下方 content 并同步 Constants 卡点列表 -->
+<meta name="kloud:supported-langs" content="en,zh,tc,ja,id,pt-BR,fr,es,tr"/>
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="applicable-device" content="pc,mobile">
+<meta name="aplus-rhost-v" content="sg.mmstat.com">
+<meta name="aplus-rhost-g" content="sg.mmstat.com">
+<title>
+ RAM ユーザーの AccessKey のローテーション - Resource Access Management - Alibaba Cloud ドキュメントセンター
+
+</title>
+ <meta name="keywords" content="AccessKey のローテーション、AK のローテーション">
+ <meta name="description" content="RAM ユーザーの AccessKey のローテーション,Resource Access Management:各 RAM ユーザーは最大 2 つの AccessKey を作成できます。90 日以上経過した AccessKey はローテーションし、不正利用のリスクを軽減してください。 2 番目の AccessKey を作成します。">
+ <script>
+window.globalData = {
+website: "intl",
+language: "ja",
+nodeId:"152682",
+channel: "",
+notfound: "",
+statusCode: "",
+errorType: ""
+};
+// UT的全局配置变量，在CDN加载前配置
+window.$ACE_TRACKER_CONFIG = {
+enableHistory: true,
+enableHash: false
+};
+</script>
+<!-- <base href="https://www.alibabacloud.com">-->
+<link rel="canonical" href="https://www.alibabacloud.com/help/ja/ram/user-guide/rotate-accesskey-pairs-of-ram-users"/>
+ <meta property="og:title" content="RAM ユーザーの AccessKey のローテーション - Alibaba Cloud" />
+ <meta property="og:type" content="website" />
+ <meta property="og:url" content="https://www.alibabacloud.com/help/ja/ram/user-guide/rotate-accesskey-pairs-of-ram-users" />
+ <meta property="og:image" content="https://img.alicdn.com/tfs/TB1xpNqnmslXu8jSZFuXXXg7FXa-1200-630.png_.webp" />
+ <meta property="og:description" content="RAM ユーザーの AccessKey のローテーション,Resource Access Management:各 RAM ユーザーは最大 2 つの AccessKey を作成できます。90 日以上経過した AccessKey はローテーションし、不正利用のリスクを軽減してください。 2 番目の AccessKey を作成します。" />
+ <link rel="shortcut icon" href="//img.alicdn.com/tfs/TB1ugg7M9zqK1RjSZPxXXc4tVXa-32-32.png"/>
+<link rel="stylesheet" href="https://o.alicdn.com/fund/alicloud-pure-layout/css/index.min.css" />
+ <link
+rel="icon"
+href="https://img.alicdn.com/imgextra/i2/O1CN01TFs5Qw27uYvfA6gib_!!6000000007857-55-tps-32-32.svg"
+type="image/x-icon"
+/>
+</head>
+<body data-spm="" class="HAS_ALPS_RESOURCE"><script>
+with(document)with(body)with(insertBefore(createElement("script"),firstChild))setAttribute("exparams","category=&userid=&aplus&yunid=&&trid=800e74a717938018124228334e&asid=AQAAAABVPutq8HzIJgAAAABeuyTc3nY4Sg==",id="tb-beacon-aplus",src=(location>"https"?"//g":"//g")+".alicdn.com/alilog/mlog/aplus_v2.js")
+</script>
+
+ <script async src="https://o.alicdn.com/fund/alicloud-pure-layout/index.js"></script>
+
+<div id="app">
+<div class="aliyun-app-layout">
+
+<!-- docId:152682 -->
+<input type="hidden" id="website" value="intl">
+<div class="products-wrapper$tip" data-spm="879954">
+<section id="products" class="intl-product container">
+<div class="row">
+<div class="col-lg-3 col-md-3 col-sm-4 col-xs-12" id="navDocument">
+<div class="doc-nav">
+<a class="doc-center" href="/help/ja">
+<i class="icon-docs icon-docs-back"></i>
+ドキュメントセンター
+</a>
+</div>
+<div class="placeholder-ele">&nbsp;</div>
+</div>
+<div class="col-lg-7 col-md-7 col-sm-8 col-xs-12 doc-content">
+<div class="all-products action" id="J_AllProducts">
+<div class="all-products-head">
+<div class="all-products-title">すべてのプロダクト</div>
+<div class="all-products-search-wrapper">
+<div class="all-products-search focus">
+<input autocomplete="off" class="all-products-search-box-input" id="J_AllProductsSearch" placeholder="プロダクトの検索" data-spm-anchor-id="a2c4g.11186623.6.i0.1f753945H9RVzu">
+<i class="icon-search icon-docs icon-docs-search"></i>
+<ul class="all-products-search-result" style="display: none;">
+</ul>
+</div>
+</div>
+</div>
+<div class="all-products-body" id="J_AllProductsBody"></div>
+</div>
+<div class="search-product-modal">
+Search
+</div>
+<div class="breadcrumbs-top" data-spm="a1">
+<div class="row nav-breadcrumb">
+ <div class="col-md-12 hidden-sm hidden-xs">
+<ul class="breadcrumb text-sm">
+<li><a class="active" title="ドキュメントセンター" href="/help/ja">ドキュメントセンター</a></li>
+ <li><a class="active" title="Resource Access Management" href="/help/ja/ram/">Resource Access Management</a></li>
+ <li><a class="active" title="アイデンティ管理" href="/help/ja/ram/user-guide/">アイデンティ管理</a></li>
+ <li><a class="active" title="AccessKeyペアの管理" href="/help/ja/ram/user-guide/accesskey-pair-management/">AccessKeyペアの管理</a></li>
+ <li><a class="active" title="RAM ユーザーの AccessKey のローテーション" href="/help/ja/ram/user-guide/rotate-accesskey-pairs-of-ram-users">RAM ユーザーの AccessKey のローテーション</a></li>
+ </ul>
+</div>
+ <div class="col-md-4 col-sm-12">
+<button type="button" class="navbar-toggle bc mr0" data-toggle="collapse"
+data-target="#sideMenu-mobile">
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+all-products-head <span class="icon-bar"></span>
+</button>
+</div>
+</div>
+<form class="search-bar clearfix" method="GET" action="/s/ja">
+<input type="hidden" name="type" value="doc"/>
+<div class="select">
+<p class="select-text">
+<span class="placeholder">このプロダクト</span>
+<i class="icon-docs icon-docs-selected"></i>
+</p>
+<ul class="select-options" style="display:none;">
+<li class="option selected" data-value="h_pid_$productId">このプロダクト</li>
+<li class="option" data-value="">すべてのプロダクト</li>
+</ul>
+<input type="hidden" name="rangeinfo" value="h_pid_28625"/>
+</div>
+<input autocomplete="off" class="search-key" type="text" placeholder="キーワードで検索" name="k"/>
+<ul class="help-top-search-result" style="display: block;"></ul>
+<button class="search-submit" type="submit">
+<i class="icon-docs icon-docs-search"></i>
+</button>
+<div class="collapse-menus select">
+<p class="select-text">
+<span class="placeholder">Resource Access Management:RAM ユーザーの AccessKey のローテーション</span>
+<i class="icon-docs icon-docs-more"></i>
+</p>
+</div>
+</form>
+</div>
+<header id="header-faq" class="clearfix">
+<a class="doc-center" href="/help/ja">
+<i class="icon-docs icon-docs-back"></i>
+ドキュメントセンター
+</a>
+<div class="download-links">
+ </div>
+<h1 class="page-title">Resource Access Management:RAM ユーザーの AccessKey のローテーション</h1>
+<div class="doc-status">
+最終更新日:Jun 04, 2026
+</div>
+</header>
+<article class="product-description markdown-body">
+<div lang="ja" class="icms-help-docs-content">
+
+<main id="task-2407397">
+
+<p data-tag="shortdesc" id="shortdesc-94g-5x7-ao4" class="shortdesc">各 RAM ユーザーは最大 2 つの AccessKey を作成できます。90 日以上経過した AccessKey はローテーションし、不正利用のリスクを軽減してください。</p>
+<div data-tag="taskbody" id="taskbody-u8h-prm-jse" class="taskbody">
+<section data-tag="steps" data-type="steps" id="steps-ih6-82y-ais" class="section steps">
+<h2 id="d41e14">操作手順</h2>
+<ol data-init-id="steps_ih6_82y_ais" data-tag="steps" id="908d7d5a585hq" class="steps">
+<li data-tag="step" id="step-67q-g3e-dip" class="step">
+<p id="25527e483cqc8"><span data-tag="cmd" id="cmd-ppb-vpi-yl8" class="cmd">2 番目の AccessKey を作成します。</span></p>
+<div data-tag="info" id="info-qbf-nwm-m5g" class="info">
+<p id="c48f5e3cb8v75">手順については、「<a href="/help/ja/ram/user-guide/create-an-accesskey-pair#section-rjh-18m-7kp" id="xref-7u8-q2n-r0s" title="" class="xref">RAM ユーザーの AccessKey の作成</a>」をご参照ください。</p>
+</div>
+</li>
+<li data-tag="step" id="step-3v9-y70-eml" class="step">
+<p id="bddd2880bbeof"><span data-tag="cmd" id="cmd-on0-0ke-h2d" class="cmd">すべてのアプリケーションおよびシステムを更新し、新しい AccessKey を使用するように設定します。</span></p>
+<div data-tag="info" id="info-cwu-220-rfz" class="info">
+<div data-tag="note" id="note-1cv-qm3-kb9" class="note note-note"><div class="note-icon-wrapper"><i class="icon-note note note"></i></div><div class="noteContentSpan"><strong>説明 </strong>
+<p id="f84c0ff997zd4"><span props="china intl"><a href="https://ram.console.alibabacloud.com/" id="xref-8n2-fgp-v0w" class="" target="_blank">RAM コンソール</a></span>で、<b id="uicontrol-884-5p9-exy" data-tag="uicontrol" data-isbold="true" class="uicontrol">ユーザー</b>ページに移動し、対象ユーザーの詳細ページを開きます。元の AccessKey の最終使用時刻を確認し、無効化する前に非アクティブであることを確認してください。「<a href="/help/ja/ram/user-guide/view-the-accesskey-pairs-of-a-ram-user" id="cf9624237c8nh" title="" class="xref">RAM ユーザーの AccessKey 詳細の確認</a>」。</p>
+</div></div>
+</div>
+</li>
+<li data-tag="step" id="step-f6i-aqw-bmd" class="step">
+<p id="500429a48595p"><span data-tag="cmd" id="cmd-cmd-ig8-e3w" class="cmd">元の AccessKey を無効化します。</span></p>
+<div data-tag="info" id="info-gyn-xs8-sdq" class="info">
+<p id="883c1236d7gk9">手順については、「<a href="/help/ja/ram/user-guide/disable-an-accesskey-pair-of-a-ram-user#task-221538" id="xref-s9c-gxd-p4n" title="" class="xref">RAM ユーザーの AccessKey の無効化</a>」をご参照ください。</p>
+</div>
+</li>
+<li data-tag="step" id="step-7fk-mn2-lsl" class="step">
+<p id="0b7f802fd5cg7"><span data-tag="cmd" id="cmd-hh4-76a-vdh" class="cmd">新しい AccessKey を使用するすべてのアプリケーションおよびシステムが正常に動作することを確認します。</span></p>
+<div data-tag="info" id="info-t5g-tb4-wj2" class="info">
+<ul data-tag="ul" id="ul-imk-vt2-tcj" class="ul">
+<li data-tag="li" id="li-qws-5qt-uw1" class="li">
+<p id="3f6cf257eeryo">すべてのアプリケーションおよびシステムが正常に動作する場合は、元の AccessKey を削除します。</p>
+</li>
+<li data-tag="li" id="li-5xc-5zo-svd" class="li">
+<p id="43a60c858ah6t">いずれかのアプリケーションまたはシステムが失敗する場合は、直ちに元の AccessKey を再有効化します。ステップ 2 からステップ 4 を繰り返し、更新が成功するまで操作を行ってください。</p>
+</li>
+</ul>
+</div>
+</li>
+<li data-tag="step" id="step-ept-gih-676" class="step">
+<p id="1f0ad07bdd9le"><span data-tag="cmd" id="cmd-2ne-l41-uha" class="cmd">元の AccessKey を削除します。</span></p>
+<div data-tag="info" id="info-11b-lws-ahx" class="info">
+<p id="7c732f656fpg8">手順については、「<a href="/help/ja/ram/user-guide/delete-an-accesskey-pair-of-a-ram-user#task-221540" id="xref-djm-uxz-ett" title="" class="xref">RAM ユーザーの AccessKey の削除</a>」をご参照ください。</p>
+</div>
+</li>
+</ol>
+</section>
+<section data-tag="postreq" data-type="postreq" id="postreq-fdt-otu-n51" class="postreq section">
+<h2 id="d41e67">次のステップ</h2>
+<p id="6c3ed56d5f71t">このローテーションを 90 日ごと、またはそれより早いタイミングで繰り返してください。</p>
+</section>
+</div>
+</main>
+
+
+
+</div>
+</article>
+<script type="text/javascript">
+window.storeDocs = {
+language: '$lang',
+docGithubLink: '$!githubInfo.url'
+}
+</script>
+<div class="nav-footer">
+ </div>
+<div class="alicloud-document-ask clearfix"></div>
+<div class="feedback-message" style="display:none;">
+<span class="hasfeedback acon acon-done-16"></span>
+ありがとうございます。フィードバックを受け取りました。
+</div>
+</div>
+<div class="col-log-2 col-md-2 col-sm-0 col-xs-0 nav-catalog">
+<div class="article-catalog" id="articleCatalog"></div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+<script
+crossorigin
+src="https://g.alicdn.com/code/lib/??react/16.8.6/umd/react.production.min.js,react-dom/16.8.6/umd/react-dom.production.min.js"
+></script>
+<script
+src="https://g.alicdn.com/code/lib/lodash.js/4.17.21/lodash.min.js"
+crossorigin="anonymous"
+></script>
+<script src="//g.alicdn.com/aliyun-help/help-portal-fe/0.12.66/js/vendor.js"></script>
+<script src="//g.alicdn.com/aliyun-help/help-portal-fe/0.12.66/js/index.js"></script>
+<script defer src="https://cloud-assets.alicdn.com/alicdn/dawn/user-tracker/latest/js/index.js"></script>
+</body>
+</html>

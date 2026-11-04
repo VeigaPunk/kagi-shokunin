@@ -1,0 +1,10 @@
+sd7	3	for f in corpus/*.sh corpus/*.py; do grep -q -- '--selftest' "$f" || continue; grep -qF "${f##*/}" SKILL.md || echo "$f"; done | wc -l
+sd8	1	grep -ohE 'M[0-9]+-[0-9]+\.\.(M[0-9]+-)?[0-9]+' SKILL.md PROVINCE.md SCORECARD.md corpus/README.md | sort -u | while read -r t; do r=${t#M}; r=${r%%-*}; m=${t##*-}; [ -f "corpus/lessons/round-$r.md" ] || { echo x; continue; }; grep -qE "^\| M$r-$m " "corpus/lessons/round-$r.md" || { echo x; continue; }; hi=$(grep -oE "^\| M$r-[0-9]+ " "corpus/lessons/round-$r.md" | sed -E "s/^\| M$r-([0-9]+) /\1/" | sort -n | tail -1); [ "${hi:-0}" -gt "$m" ] && echo x; done | wc -l
+sd9	1	for e in corpus/knowledge/*.md; do rv=$(grep -m1 '^Reverify: ' "$e" | sed -E 's/^Reverify: *//'); [ -n "$rv" ] || continue; rn=$(printf '%s' "$rv" | grep -oE 'R[0-9]+' | head -1 | tr -d R); [ -n "$rn" ] || continue; [ "$rn" -ge 30 ] || continue; for k in source verified-at recheck; do grep -q "^$k:" "$e" || { echo "$e"; break; }; done; done | sort -u | wc -l
+sd789	5	bash "$LANE/.ufo/waves/round-34/controls/sd789-base.sh"
+prefreeze_cases	11	bash corpus/prefreeze-control.sh --selftest | tail -1
+sweep_selftest_cases	7	bash corpus/self-description-sweep.sh --selftest | tail -1
+registry_rows	82	grep -cE '^\|[[:space:]]*S[0-9]{3,}[[:space:]]*\|' corpus/SOURCES.md
+aliyun_entry	0	ls corpus/knowledge/aliyun-accesskey-credential-custody.md 2>/dev/null | wc -l
+m7_receipt	0	ls .ufo/waves/round-34/mut/m7-shipped.txt 2>/dev/null | wc -l
+doc_entries	34	grep -l '^Reverify: ' corpus/knowledge/*.md | wc -l

@@ -3,7 +3,12 @@
 # Population (reviewed bindings, round 25, plans/round-25.md C1): selected numbers
 # SKILL.md, PROVINCE.md and corpus/README.md state about this lane's own
 # artifacts (stamps, claim rows, selftest cases, data-file rows, knowledge-entry
-# declarations) that has a lane-local live source. Out of population by rule,
+# declarations) that has a lane-local live source. Round 36 extends it to
+# SCORECARD.md capability-table rows (the calibration axis names SCORECARD, and
+# that file was outside every self-count check). SHONEN.md stays out by rule:
+# its box evidence quotes whole-tree citation-gate counts that the round's own
+# documents change, so a binding there would be self-referential, not stable.
+# Out of population by rule,
 # not omission: explicitly round-dated history clauses ("63 at round 21",
 # "Round-11: … (39 cases)" bullets, "as of round 9"), host measurements (breadth,
 # handler/DB counts) and counts with no machine source; the round-25 lesson
@@ -79,3 +84,4 @@ KN-CHECKLIST-FALSIFY-FLOOR	corpus/knowledge/checklist-execution.md	^5\. Convert 
 KN-OPREF-FALSIFY-SELFTEST	corpus/knowledge/op-ref-consumption.md	`--selftest` proves the comparator on ([0-9]+)$	expect:R12-02	\(([0-9]+) cases	§10; R12-02 pin (said 21 at BASE)
 PV-FEEDTOKEN-SHAPES	PROVINCE.md	^- `corpus/feed-token-agree\.py` .*?fixed shape corpus of ([0-9]+) shapes	ledger:R29-02	shapes=\(([0-9]+)	round 29 C2: gate shape-corpus count bound to the live gate run
 PV-FEEDTOKEN-SELFTEST	PROVINCE.md	^- `corpus/feed-token-agree\.py` .*?`--selftest` proves ([0-9]+) cases	ledger:R29-01	\(([0-9]+) cases	round 29 C2: gate selftest case count bound to the live selftest
+SA-CAP-CENSUS-SELFTEST	SCORECARD.md	^\| source registry \+ census gate \|.*?`--selftest` ([0-9]+) cases\b	ledger:R21-03	^SOURCES_CENSUS_SELFTEST: PASS \(([0-9]+) cases\)$	capabilities table: present-tense selftest count (round 36 population extension)

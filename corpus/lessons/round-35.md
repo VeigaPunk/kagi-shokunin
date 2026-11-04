@@ -16,7 +16,7 @@ Frozen claim: `plans/round-35.md`. Motivating rejected closures: round32 at `76f
 
 | id | class | evidence pointer | captured-by | fix |
 |---|---|---|---|---|
-| M35-1 | vacuous | round34 non-author spotcheck §C1 and routed R34-2: empty/SETUP producer output can collapse to awk zero; round35 controls/before.json records five public-path false-CLEAN outcomes | QM19 | QM37 requires producer status, envelope and stderr validation before numeric comparison; frozen empty-output and invalid producer controls must return NORESULT/SETUP rather than CLEAN. Red-before is controls/before.json (five mismatches, rc1 overall); final execution evidence is reported separately, not inferred. |
+| M35-1 | vacuous | round34 non-author spotcheck §C1 and routed defect2: empty/SETUP producer output can collapse to awk zero; round35 controls/before.json records five public-path false-CLEAN outcomes | QM19 | QM37 requires producer status, envelope and stderr validation before numeric comparison; frozen empty-output and invalid producer controls must return NORESULT/SETUP rather than CLEAN. Red-before is controls/before.json (five mismatches, rc1 overall); final execution evidence is reported separately, not inferred. |
 | M35-2 | number-drift | round33 non-author spotcheck §C2: unmeasured captures101; round34 §C3: provenance S088 couples population targets | QM34 | This round has one causal case population, independently measured9 cases with five false-CLEAN and two positive matches before freeze. Registry88/sourced14/legacy21/captures88 separately measured in controls/populations-independent.json; none is substituted for a frozen target. Historical misses remain misses. |
 | M35-3 | scope | `plans/round-35.md` C1 and ReviewGate's axis-fit review: fixed gate-decision errors are not SCORECARD/SHONEN self-assessment discrepancy counts | QM13 | Calibration admission withheld despite a passing numeric battery. No post-data rebooking as operability; this is a disposition, not a claimed instrument fix. |
 
@@ -41,3 +41,13 @@ ReviewContract and CriticClaims note that the frozen oracle checks rc and a find
 Historical-control disposition follows ConnScope: round34's SD789 helper and textual selftest-summary controls are historical old-parser experiments, not active strict scalar producers. Their bytes and outcomes remain unchanged. Round33 scalar pipelines remain subject to the explicitly excluded masked-upstream limitation; no backward-compatibility claim is made.
 
 Considerthese: no proposal adopted from `considerthese/2026-10-26.md` (read in-round by ScribeLesson); the status line already exists, policy changes remain operator-owned, and creating its proposed backlog would edit operator-authored inputs. No assimilation or second source method is introduced.
+
+## Landed measurement and handoff
+
+L1 executed the frozen command at committed revision `f8413db121da2203532d10f55bb76d79fa26f56f`: `MEASUREMENT_RESULT mismatches=0 invalid_false_clean=0 positive_matches=2 cases=9`, exit0 (`.ufo/waves/round-35/final/frozen-counter.json`, complete per-case `final/after.json`). All nine complete raw receipts agree with canonical final verdicts, not only the frozen prefix oracle (`final/whole-receipt-review.json`); input BASE and unchanged instrument hash match the predeclaration receipt. Selftest PASS25 exit0; docs CLEAN35/32/3, lane census CLEAN88/14/21/88 and EOL CLEAN; fleet census exit0. Exact argv, revision, rc and outputs are under `final/`.
+
+Retained non-clean outcomes: self-counts POLICY2 with stale0; verify POLICY2 with R25-02 FAIL, R29-01/R29-02 POLICY, R11-08 citation FAIL and inherited closure-id MISSING-ID findings; cells POLICY2. No overall-green claim. A newly introduced closure-id token in this lesson's M35-1 was changed to an unambiguous textual defect locator; historical and non-owned records were not edited.
+
+Safe real domain task: generated plain-value `op`2.41.1 dotenv probe CLEAN6 exit0, no vault/ref/account/handler read (`build/ExecDomain/run.json` and report). This is an unchanged bounded re-verification, not a second freshness claim.
+
+WAVE-DONE build received: twelve seats settled. Orchestrator kernel restart lost output envelopes; results.json names all12 with output null and instructs reading durable seat reports. All12 seat report.md files exist. No dead-seat error is recorded; no replacement or residual call occurred. This is incomplete envelope custody, not twelve fabricated final-text results.

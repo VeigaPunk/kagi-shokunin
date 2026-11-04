@@ -1,0 +1,21 @@
+{
+  "before": {
+    "base": "063c407494276d0c616e6c712a2e5d7aeb7e3768",
+    "rows": 88,
+    "entries": 35,
+    "sourced": 14,
+    "captures": 88,
+    "legacy": 21
+  },
+  "after": {
+    "revision": "f8413db121da2203532d10f55bb76d79fa26f56f",
+    "rows": 88,
+    "entries": 35,
+    "sourced": 14,
+    "legacy": 21,
+    "captures": 88
+  },
+  "method_before": "git show BASE:corpus/SOURCES.md and source-fetches.tsv lexical rows; git ls-tree and each knowledge blob; independently corroborated by build/ScoutPop/base-populations.json and build/ExecReplay/receipts/base-populations.txt",
+  "method_after": "bash corpus/sources-census.sh executed against f8413db1; full final/census-lane.json",
+  "source_cell_change": "S088 used-by knowledge-only -> knowledge plus round35 lesson; no tier/status/recheck change or new row"
+}

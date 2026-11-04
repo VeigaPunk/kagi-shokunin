@@ -1,0 +1,23 @@
+== self-description-sweep ==
+MISMATCH SD6 corpus/lessons/round-30-verifier-spotcheck.md:41 corpus/README.md:64/65/67 (local)
+MISMATCH SD6 corpus/lessons/round-32-verifier-spotcheck.md:54 corpus/README.md:64/65/67 (local)
+SELF_DESCRIPTION: MISMATCH n=2 (SD1=0 SD2=0 SD3=0 SD4=0 SD5=0 SD6=2)
+
+== cells ==
+SKIP-SELF R23-01 (row invokes this gate; not re-run from inside the cell audit)
+FAIL R25-02 reason=exit-mismatch exit=2 want=0
+POLICY R29-01 reason=first-token:python
+POLICY R29-02 reason=first-token:python
+HOST-SKIP R31-01 reason=host-row-not-authorized
+STALE-POINTER PROVINCE.md sha=77c92045e1bf->7d6b6080a826 lines=108->108 bytes=19456->19512
+STALE-POINTER SCORECARD.md sha=2d817781ea97->287b9f86154f lines=1349->1349 bytes=150467->150546
+STALE-POINTER LOG.md sha=16adbe7c5e94->60fd630de255 lines=1676->1685 bytes=118807->121434
+STALE-POINTER corpus/SOURCES.md sha=4d1f2830175e->7929674a1e56 lines=237->242 bytes=79286->79681
+CELL_AUDIT: POLICY (cells=246 row_pointed=179 stamp_pointed=119 policy=2)
+
+== self-counts ==
+OK KN-CHECKLIST-FALSIFY-FLOOR corpus/knowledge/checklist-execution.md:179 claimed=8 live=8
+OK KN-OPREF-FALSIFY-SELFTEST corpus/knowledge/op-ref-consumption.md:296 claimed=36 pinned=36
+POLICY PV-FEEDTOKEN-SHAPES ledger:R29-02 command not allowlisted
+POLICY PV-FEEDTOKEN-SELFTEST ledger:R29-01 command not allowlisted
+SELF_COUNTS: POLICY (claims=62 stale=0 unlocated=0 ambiguous=0 policy=2 setup=0)

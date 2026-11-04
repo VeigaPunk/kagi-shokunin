@@ -1,0 +1,92 @@
+impl     self_rc ctl_rc  | selftest last line                                   | controls last line
+pristine 0       0       | PREFREEZE_SELFTEST: PASS (10 cases)                  | PREFREEZE: CLEAN (controls=4 mismatch=0)
+M1       1       0       | PREFREEZE_SELFTEST: FAIL (10 cases)                  | PREFREEZE: CLEAN (controls=4 mismatch=0)
+M2       1       0       | PREFREEZE_SELFTEST: FAIL (10 cases)                  | PREFREEZE: CLEAN (controls=4 mismatch=0)
+M3       1       0       | PREFREEZE_SELFTEST: FAIL (10 cases)                  | PREFREEZE: CLEAN (controls=4 mismatch=0)
+M4       1       0       | PREFREEZE_SELFTEST: FAIL (10 cases)                  | PREFREEZE: CLEAN (controls=4 mismatch=0)
+M5       1       0       | PREFREEZE_SELFTEST: FAIL (10 cases)                  | PREFREEZE: CLEAN (controls=4 mismatch=0)
+M6       1       0       | PREFREEZE_SELFTEST: FAIL (10 cases)                  | PREFREEZE: CLEAN (controls=4 mismatch=0)
+M7       0       1       | PREFREEZE_SELFTEST: PASS (10 cases)                  | PREFREEZE: MISMATCH (controls=4 mismatch=3)
+
+=== controls33 rows
+-- pristine (rc 0)
+OK nist_entries expect=0 measured=0
+OK registry_rows expect=72 measured=72
+OK prefreeze_artifact expect=0 measured=0
+OK frontier_nist expect=1 measured=1
+PREFREEZE: CLEAN (controls=4 mismatch=0)
+-- M1 (rc 0)
+OK nist_entries expect=0 measured=0
+OK registry_rows expect=72 measured=72
+OK prefreeze_artifact expect=0 measured=0
+OK frontier_nist expect=1 measured=1
+PREFREEZE: CLEAN (controls=4 mismatch=0)
+-- M2 (rc 0)
+OK nist_entries expect=0 measured=0
+OK registry_rows expect=72 measured=72
+OK prefreeze_artifact expect=0 measured=0
+OK frontier_nist expect=1 measured=1
+PREFREEZE: CLEAN (controls=4 mismatch=0)
+-- M3 (rc 0)
+OK nist_entries expect=0 measured=0
+OK registry_rows expect=72 measured=72
+OK prefreeze_artifact expect=0 measured=0
+OK frontier_nist expect=1 measured=1
+PREFREEZE: CLEAN (controls=4 mismatch=0)
+-- M4 (rc 0)
+OK nist_entries expect=0 measured=0
+OK registry_rows expect=72 measured=72
+OK prefreeze_artifact expect=0 measured=0
+OK frontier_nist expect=1 measured=1
+PREFREEZE: CLEAN (controls=4 mismatch=0)
+-- M5 (rc 0)
+OK nist_entries expect=0 measured=0
+OK registry_rows expect=72 measured=72
+OK prefreeze_artifact expect=0 measured=0
+OK frontier_nist expect=1 measured=1
+PREFREEZE: CLEAN (controls=4 mismatch=0)
+-- M6 (rc 0)
+OK expect=0 measured=0
+OK expect=72 measured=72
+OK expect=0 measured=0
+OK expect=1 measured=1
+PREFREEZE: CLEAN (controls=4 mismatch=0)
+-- M7 (rc 1)
+MISMATCH nist_entries expect=0 measured=2
+MISMATCH registry_rows expect=72 measured=82
+MISMATCH prefreeze_artifact expect=0 measured=1
+OK frontier_nist expect=1 measured=1
+PREFREEZE: MISMATCH (controls=4 mismatch=3)
+
+=== selftest failing cases (if any)
+-- pristine (rc 0)
+PREFREEZE_SELFTEST: PASS (10 cases)
+-- M1 (rc 1)
+CASE one-differs                FAIL rc=0 last=PREFREEZE: CLEAN (controls=2 mismatch=0)
+CASE two-differ                 FAIL rc=0 last=PREFREEZE: CLEAN (controls=2 mismatch=0)
+PREFREEZE_SELFTEST: FAIL (10 cases)
+-- M2 (rc 1)
+CASE one-differs                FAIL rc=0 last=PREFREEZE: CLEAN (controls=2 mismatch=0)
+CASE two-differ                 FAIL rc=0 last=PREFREEZE: CLEAN (controls=2 mismatch=0)
+PREFREEZE_SELFTEST: FAIL (10 cases)
+-- M3 (rc 1)
+CASE no-integer                 FAIL rc=0 last=PREFREEZE: CLEAN (controls=1 mismatch=0)
+CASE timeout                    FAIL rc=0 last=PREFREEZE: CLEAN (controls=1 mismatch=0)
+PREFREEZE_SELFTEST: FAIL (10 cases)
+-- M4 (rc 1)
+CASE empty-controls             FAIL rc=0 last=PREFREEZE: CLEAN (controls=0 mismatch=0)
+PREFREEZE_SELFTEST: FAIL (10 cases)
+-- M5 (rc 1)
+CASE one-differs                FAIL rc=0 last=PREFREEZE: CLEAN (controls=2 mismatch=0)
+CASE two-differ                 FAIL rc=0 last=PREFREEZE: CLEAN (controls=2 mismatch=0)
+CASE grep-c-exit1-is-zero       FAIL rc=1 last=PREFREEZE: MISMATCH (controls=1 mismatch=1)
+PREFREEZE_SELFTEST: FAIL (10 cases)
+-- M6 (rc 1)
+CASE equal-values               FAIL rc=0 last=PREFREEZE: CLEAN (controls=2 mismatch=0)
+CASE one-differs                FAIL rc=1 last=PREFREEZE: MISMATCH (controls=2 mismatch=1)
+CASE no-integer                 FAIL rc=2 last=PREFREEZE: SETUP noresult
+CASE grep-c-exit1-is-zero       FAIL rc=0 last=PREFREEZE: CLEAN (controls=1 mismatch=0)
+CASE timeout                    FAIL rc=2 last=PREFREEZE: SETUP timeout
+PREFREEZE_SELFTEST: FAIL (10 cases)
+-- M7 (rc 0)
+PREFREEZE_SELFTEST: PASS (10 cases)

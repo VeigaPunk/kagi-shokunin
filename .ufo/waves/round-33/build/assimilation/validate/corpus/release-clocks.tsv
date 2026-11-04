@@ -1,0 +1,31 @@
+id	clock	feed_source_id	feed_url	anchored_version	observed_version	observed_at	verdict	note
+S005	rendered-quote	-	-	-	-	2026-10-21	quote-located	unversioned product page; the declared capture quote is the clock
+S006	rendered-quote	-	-	-	-	2026-10-21	quote-located	dated vendor announcement (published 2026-07-28); no release feed governs it
+S007	rendered-quote	-	-	-	-	2026-10-21	quote-located	unversioned guide (www.1password.dev changelog 404; no public feed)
+S008	feed	S033	https://github.com/getsops/sops/releases.atom	3.13.3	3.13.3	2026-10-21	not-fired	derived: anchor names the main snapshot, no release; newest stable SOPS tag when the row was opened 2026-10-19 (v3.13.3, 2026-07-23)
+S009	feed	S033	https://github.com/getsops/sops/releases.atom	3.13.3	3.13.3	2026-10-21	not-fired	derived: anchor names the docs commit, no SOPS release; newest stable SOPS tag when the row was opened 2026-10-19 (v3.13.3, 2026-07-23); a docs-date anchor (v3.13.0) would read fired, re-verified in the lesson
+S010	feed	S033	https://github.com/getsops/sops/releases.atom	3.13.3	3.13.3	2026-10-21	not-fired	derived: anchor names the docs commit, no SOPS release; newest stable SOPS tag when the row was opened 2026-10-19 (v3.13.3, 2026-07-23); a docs-date anchor (v3.13.0) would read fired, re-verified in the lesson
+S011	feed	S033	https://github.com/getsops/sops/releases.atom	3.13.3	3.13.3	2026-10-21	not-fired	derived: anchor names the docs commit, no SOPS release; newest stable SOPS tag when the row was opened 2026-10-19 (v3.13.3, 2026-07-23); a docs-date anchor (v3.13.0) would read fired, re-verified in the lesson
+S012	feed	S034	https://github.com/hashicorp/vault/releases.atom	v1.21.x	2.2.0	2026-10-21	fired	anchor names the newest pinned version v1.21.x; Vault 2.2.0 (2026-10-15) is past it, so the clock FIRED; the JWT-role audience teaching re-verified on the served v2.x page (lesson Gate)
+S013	feed	S034	https://github.com/hashicorp/vault/releases.atom	2.2.0	2.2.0	2026-10-21	not-fired	derived: anchor says no displayed version; newest stable Vault when the row was opened 2026-10-19 (v2.2.0, 2026-10-15)
+S014	feed	S035	https://github.com/openbao/openbao/releases.atom	2.7.1	2.7.1	2026-10-21	not-fired	derived: anchor names the 2.7.x series; newest stable 2.7.x server release when the row was opened 2026-10-19 (v2.7.1, 2026-10-01)
+S015	feed	S035	https://github.com/openbao/openbao/releases.atom	2.7.1	2.7.1	2026-10-21	not-fired	derived: anchor names the 2.7.x series; newest stable server release when opened 2026-10-19 (v2.7.1)
+S016	feed	S035	https://github.com/openbao/openbao/releases.atom	2.7.1	2.7.1	2026-10-21	not-fired	derived: anchor names the 2.7.x series; newest stable server release when opened 2026-10-19 (v2.7.1)
+S017	rendered-quote	-	-	-	-	2026-10-21	quote-located	unversioned guide; JSON-LD dateModified is metadata, not a release identity
+S018	rendered-quote	-	-	-	-	2026-10-21	quote-located	unversioned guide; the beta SDK version is not named by the anchor
+S019	rendered-quote	-	-	-	-	2026-10-21	quote-located	unversioned guide; releases.1password.com indexes client releases, not this page
+S020	rendered-quote	-	-	-	-	2026-10-21	quote-located	dated announcement (2026-07-28); the blog feed indexes every post, not this page
+S021	feed	S035	https://github.com/openbao/openbao/releases.atom	2.7.1	2.7.1	2026-10-21	not-fired	derived: anchor names Version 2.7.x; newest stable server release when opened 2026-10-20 (v2.7.1)
+S022	feed	S034	https://github.com/hashicorp/vault/releases.atom	2.2.0	2.2.0	2026-10-21	not-fired	derived: the anchor's 1.17 dates a feature note, not the served page; newest stable Vault when opened 2026-10-20 (v2.2.0)
+S023	feed	S034	https://github.com/hashicorp/vault/releases.atom	2.2.0	2.2.0	2026-10-21	not-fired	derived: anchor names the served v2.x route; newest stable Vault when opened 2026-10-20 (v2.2.0)
+S024	feed	S034	https://github.com/hashicorp/vault/releases.atom	2.2.0	2.2.0	2026-10-21	not-fired	derived: served v2.x (latest) route, no version in the anchor; newest stable Vault when opened 2026-10-21 (v2.2.0)
+S025	feed	S035	https://github.com/openbao/openbao/releases.atom	2.7.1	2.7.1	2026-10-21	not-fired	derived: anchor names Version 2.7.x; newest stable server release when opened 2026-10-21 (v2.7.1)
+S026	feed	S035	https://github.com/openbao/openbao/releases.atom	2.7.1	2.7.1	2026-10-21	not-fired	derived: anchor names Version 2.7.x; newest stable server release when opened 2026-10-21 (v2.7.1)
+S027	feed	S036	https://www.python.org/downloads/feed.rss	3.15.0	3.15.1	2026-10-21	fired	original named Python 3.15.0 anchor retained; round26 observes 3.15.1 and reverifies the teaching; rearmed successor S040 has its own named 3.15.1 anchor
+S028	feed	S036	https://www.python.org/downloads/feed.rss	3.15.0	3.15.1	2026-10-21	fired	original named Python 3.15.0 anchor retained; round26 observes 3.15.1 and reverifies the teaching; rearmed successor S041 has its own named 3.15.1 anchor
+S029	feed	S037	https://curl.se/info	8.23.0	8.23.0	2026-10-21	not-fired	derived: anchor names 8.23.1, curl's unreleased development label (curlver.h 8.23.1-DEV); latest official release when opened 2026-10-21 (8.23.0, 2026-10-14)
+S030	rendered-quote	-	-	-	-	2026-10-21	quote-located	living standard (Last Updated 2026-10-19); whatwg/infra publishes no releases
+S031	rendered-quote	-	-	-	-	2026-10-21	quote-located	living standard; whatwg/html publishes no releases
+S032	rendered-quote	-	-	-	-	2026-10-21	quote-located	unversioned guide; the quote locates in both integration panels
+S040	feed	S039	https://www.python.org/downloads/feed.rss	3.15.1	3.15.1	2026-10-21	not-fired	anchor names Python 3.15.1 documentation; rearmed successor to S027, which remains fired at its original 3.15.0 anchor
+S041	feed	S039	https://www.python.org/downloads/feed.rss	3.15.1	3.15.1	2026-10-21	not-fired	anchor names Python 3.15.1 documentation; rearmed successor to S028, which remains fired at its original 3.15.0 anchor

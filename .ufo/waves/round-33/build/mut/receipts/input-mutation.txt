@@ -1,0 +1,11 @@
+input mutation (pinned freeze-state replica /fast/scratch/hyaku/kagi-r33/MutGate-2/work/replica, HEAD 880824b):
+plans/round-33.controls.tsv registry_rows expect 72 -> 73
+harness: prefreeze-control.pristine.sh sha256 c265a5d82a8b3b0dc588ba3c9e5b5cd887de092127be36835584ee7f8b381e59
+command: PREFREEZE_REPO=/fast/scratch/hyaku/kagi-r33/MutGate-2/work/replica bash prefreeze-control.pristine.sh run --base 76f4eeae7aa9af4dbb9423f5632b55791824253a --controls input-mutated.controls.tsv
+rc=1
+--- stdout
+OK nist_entries expect=0 measured=0
+MISMATCH registry_rows expect=73 measured=72
+OK prefreeze_artifact expect=0 measured=0
+OK frontier_nist expect=1 measured=1
+PREFREEZE: MISMATCH (controls=4 mismatch=1)

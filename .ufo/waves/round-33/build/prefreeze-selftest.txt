@@ -1,0 +1,19 @@
+script=/fast/scratch/hyaku/kagi-r33/ExecGate/prefreeze-control.sh
+script_sha256=c265a5d82a8b3b0dc588ba3c9e5b5cd887de092127be36835584ee7f8b381e59
+script_lines=256
+command=['bash','/fast/scratch/hyaku/kagi-r33/ExecGate/prefreeze-control.sh','--selftest']
+cwd=/fast/scratch/hyaku/kagi-r33/ExecGate
+
+CASE equal-values               ok
+CASE one-differs                ok
+CASE two-differ                 ok
+CASE no-integer                 ok
+CASE malformed-row              ok
+CASE missing-controls-file      ok
+CASE grep-c-exit1-is-zero       ok
+CASE empty-controls             ok
+CASE bad-rev                    ok
+CASE timeout                    ok
+PREFREEZE_SELFTEST: PASS (10 cases)
+
+exit=0

@@ -1,0 +1,30 @@
+# drift-symbols.tsv — content claims the corpus makes about host files.
+# Rows: $HOME-relative path <TAB> line <TAB> extended regex
+#   line = a number  → assert the ERE matches exactly once, on that line
+#   line = #N        → count pin: assert the ERE matches exactly N lines
+#                      (4th col `shape` on a NOHASH file: every non-comment
+#                      line must itself be an assignment — dotenv shape)
+#                      (used where naming the matched text would leak: op.env)
+# Verify: corpus/drift-pins.sh   Re-pin after inspection: --pin
+# --pin refreshes a recorded line only while the ERE still matches exactly
+# once; GONE or ambiguous aborts without writing. Never add a value here.
+$HOME/.local/bin/the-janitor	17	^MODEL_ID=
+$HOME/.local/bin/the-janitor	19	^MODEL_ENDPOINT="http://127\.0\.0\.1:8080/v1"$
+$HOME/.local/bin/the-janitor	148	endpoint \$MODEL_ENDPOINT
+$HOME/.local/bin/the-janitor	194	OP_SERVICE_ACCOUNT_TOKEN
+$HOME/.local/bin/the-janitor	196	^    if \[\[ -n "\$\{OP_ACCOUNT
+$HOME/.local/bin/the-janitor	214	^  unset ANTHROPIC_API_KEY
+$HOME/.config/the-janitor/client.py	19	^SESSION_FILE = STATE_DIR
+$HOME/.config/the-janitor/client.py	74	THE_JANITOR_REQUEST_TIMEOUT
+$HOME/.config/the-janitor/opencode.json	4	"share": "disabled"
+$HOME/.config/the-janitor/opencode.json	5	"enabled_providers"
+$HOME/.config/the-janitor/opencode.json	16	"baseURL": "http://127\.0\.0\.1:8080/v1"
+$HOME/.config/the-janitor/op.env	#10	^[A-Z][A-Z0-9_]*=	shape
+$HOME/.config/opencode/agents/janitor.md	6	^steps: 4
+$HOME/.config/opencode/agents/janitor.md	8	^  "\*": deny
+$HOME/.config/opencode/tools/janitor_auth.ts	12	^    return \(await process\.exited\)
+$HOME/.local/bin/tac-check	63	LOCAL_RECEIPT_INTEGRITY: OK
+$HOME/.local/bin/tac-check	69	LIVE_ACCESS_NOW
+$HOME/.local/state/tac/handoff-status.json	#1	"boundaries"
+$HOME/.local/state/tac/handoff-status.json	#1	credentials_in_evidence
+$HOME/.local/bin/the-janitor	248	^  exec op run --env-file="\$ENV_FILE" -- "\$@"$

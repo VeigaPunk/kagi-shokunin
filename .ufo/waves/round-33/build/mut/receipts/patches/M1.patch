@@ -1,0 +1,11 @@
+--- /fast/scratch/hyaku/kagi-r33/MutGate-2/prefreeze-control.pristine.sh	2026-11-04 10:32:58.930428734 -0300
++++ /fast/scratch/hyaku/kagi-r33/MutGate-2/mutants/M1.sh	2026-11-04 10:33:16.821408732 -0300
+@@ -236,7 +236,7 @@
+     noresult=$((noresult + 1)); [ -n "$reason" ] || reason=noresult; continue
+   fi
+   m=$((10#${BASH_REMATCH[1]}))
+-  if [ "$m" -eq "$((10#$exp))" ]; then
++  if [ "$m" -ge 0 ]; then   # M1: every measured value accepted
+     printf 'OK %s expect=%s measured=%s\n' "$id" "$exp" "$m"
+   else
+     printf 'MISMATCH %s expect=%s measured=%s\n' "$id" "$exp" "$m"

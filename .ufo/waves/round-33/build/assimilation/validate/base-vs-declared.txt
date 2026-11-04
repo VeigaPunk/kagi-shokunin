@@ -1,0 +1,15 @@
+# BASE 76f4eeae7aa9af4dbb9423f5632b55791824253a, extracted with git archive corpus -> base-mirror/
+# command: bash base-mirror/corpus/sources-census.sh verify --root <base-mirror>
+SOURCES_CENSUS: CLEAN (rows=72 A=69 B=1 C=2 queued=1 mined=68 rejected=3 entries_sourced=10 legacy=21 captures=72 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+exit=0
+
+# plan plans/round-33.md C2 declares BASE: entries 0, rows 72, frontier NIST 1, census exit 0 (entries_sourced=10 legacy=21 captures=101)
+# measured at BASE with the delivered counter:
+#   rows=72 (agrees)  entries_sourced=10 (agrees)  legacy=21 (agrees)  captures=72 (DECLARED 101, delta -29)
+# post-change (mirror): rows=82 captures=82 entries_sourced=12 -> delta +10 captures, so the post-change
+#   target 'captures=111' in the plan is unreachable: the counter cannot exceed one capture row per registry id
+#   (fixture check below: data rows in source-fetches.tsv)
+# base capture rows: 72
+# mirror capture rows: 82
+# base registry rows: 72
+# mirror registry rows: 82

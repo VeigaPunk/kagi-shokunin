@@ -1,0 +1,38 @@
+seat=ExecReplay  wave=kagi-r33-build  measured_at=2026-11-04T10:30:30-03:00
+counter=/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/self-description-sweep.sh
+counter_sha256=61f83578583b35028bb841b6c54ef8a532b2d3fa1db3c069534ff501f5bbad26
+counter_sha256_at_76f4eea=61f83578583b35028bb841b6c54ef8a532b2d3fa1db3c069534ff501f5bbad26
+counter_at_32c35fe=ABSENT (no such path in the extracted tree; ls exit 2)
+harness_wall_time_s=92.57 (32c35fe run) / 98.47 (76f4eea run)
+
+-- run 1: replay of the round-32 declared values --
+cmd=bash /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/self-description-sweep.sh --root /fast/scratch/hyaku/kagi-r33/ExecReplay/tree
+tree=git archive 32c35fe5ed44f2017d6a662c7fd13f7e63a7ce9b
+stdout=sweep-32c35fe.out (888 B)  stderr=sweep-32c35fe.err (0 B)
+exit=1
+verdict=SELF_DESCRIPTION: MISMATCH n=8 (SD1=2 SD2=2 SD3=0 SD4=1 SD5=1 SD6=2)
+
+-- run 2: round-33 BASE re-measure --
+cmd=bash /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/self-description-sweep.sh --root /fast/scratch/hyaku/kagi-r33/ExecReplay/tree33
+tree=git archive 76f4eeae7aa9af4dbb9423f5632b55791824253a
+stdout=sweep-76f4eea.out (261 B)  stderr=sweep-76f4eea.err (0 B)
+exit=1
+verdict=SELF_DESCRIPTION: MISMATCH n=2 (SD1=0 SD2=0 SD3=0 SD4=0 SD5=0 SD6=2)
+
+-- frozen r32 tsv extraction applied to run-1 stdout --
+grep -o 'SD5=[0-9]*' | cut -d= -f2 -> 1 (exit 0)
+sed -n 's/.*n=\([0-9][0-9]*\).*/\1/p' -> 8 (exit 0)
+
+-- provenance of the declared values --
+plans/round-32.md at 507dd9f (round-32 freeze):
+31:| SD5 | red ids named in the SCORECARD `lane-status:` line (`R25-02,R29-01,R29-02`) that are absent from the latest `calibration` row of the latest `## Round` section | 3 at BASE |
+34:BASE sum = 2+2+0+1+3+2 = **10** (to be measured by the sweep itself; the sum is the counted number).
+plans/round-32.controls.tsv (committed 880824b, round-33 freeze):
+880824b round-33: plan + frozen claims
+plans/round-33.controls.tsv (committed 880824b):
+880824b round-33: plan + frozen claims
+working-tree modifications to either controls file:
+(empty above = unmodified)
+
+-- round-32 lesson recorded verdict (independent comparison target) --
+30:`SELF_DESCRIPTION: MISMATCH n=8 (SD1=2 SD2=2 SD3=0 SD4=1 SD5=1 SD6=2)`, exit 1.

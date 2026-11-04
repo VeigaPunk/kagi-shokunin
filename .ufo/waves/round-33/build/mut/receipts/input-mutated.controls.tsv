@@ -1,0 +1,6 @@
+# round-33 pre-freeze controls (frozen in plans/round-33.md; committed with the plan)
+# id	expect	command
+nist_entries	0	ls corpus/knowledge/nist-*.md 2>/dev/null | wc -l
+registry_rows	73	grep -cE '^\|[[:space:]]*S[0-9]{3,}[[:space:]]*\|' corpus/SOURCES.md
+prefreeze_artifact	0	test -e corpus/prefreeze-control.sh && echo 1 || echo 0
+frontier_nist	1	awk '/^## Frontier/{f=1;next} /^## /{f=0} f' corpus/README.md | grep -c 'NIST'

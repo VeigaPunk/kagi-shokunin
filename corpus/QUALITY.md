@@ -170,3 +170,13 @@ the counter that reads it. The sweep's SD1–SD6 set and its planted-mismatch se
 frozen plan's, not this criterion's to widen. Red witness: the BASE run (`32c35fe`, no round-32
 edit) prints `MISMATCH SD1 PROVINCE.md:90` ×2 and `MISMATCH SD2 corpus/README.md:117` and `:118`,
 so the criterion fires on the unedited tree (receipt `.ufo/waves/round-32/build/sweep/base-run.txt`).
+
+## Criterion from the round-33 C1 capability (landed round 33)
+
+| id | criterion | weak signal | lesson |
+|---|---|---|---|
+| QM34 | A plan's declared BASE values are executed, not estimated, before the plan freezes: every counting command in the plan's controls file runs against a `git archive` extraction of the named BASE revision and the measured value must equal the declared one, with the controls file and its START receipt committed in the plan commit. A declared value no command produced is an estimate and fails the bar, and the gate's own red witness — a previously frozen plan's declared values replayed against the delivered counter — must fire before the gate is accepted. | a plan that states BASE numbers with no command output behind them; a controls run whose declared values were never measured; a harness that reports CLEAN on `plans/round-32.controls.tsv` | `corpus/lessons/round-32.md` §Mistakes M32-2 (SD5 declared 3, measured 1; total declared 10, measured 8); `corpus/lessons/round-33.md` §Gate; red witness `.ufo/waves/round-33/final/c1-red-witness.txt` (`MISMATCH sd5 expect=3 measured=1`, `MISMATCH total expect=10 measured=8`, exit 1) |
+
+QM34's fix shown able to fail: `bash corpus/prefreeze-control.sh run --base 32c35fe5ed44f2017d6a662c7fd13f7e63a7ce9b --controls plans/round-32.controls.tsv`
+prints `PREFREEZE: MISMATCH (controls=2 mismatch=2)` exit 1, so a plan carrying those declared values cannot pass the gate; the same gate is green on
+`plans/round-33.controls.tsv` at `76f4eea` (`PREFREEZE: CLEAN (controls=4 mismatch=0)` exit 0), which is what an executed — rather than estimated — freeze looks like.

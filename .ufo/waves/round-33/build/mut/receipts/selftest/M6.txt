@@ -1,0 +1,11 @@
+CASE equal-values               FAIL rc=0 last=PREFREEZE: CLEAN (controls=2 mismatch=0)
+CASE one-differs                FAIL rc=1 last=PREFREEZE: MISMATCH (controls=2 mismatch=1)
+CASE two-differ                 ok
+CASE no-integer                 FAIL rc=2 last=PREFREEZE: SETUP noresult
+CASE malformed-row              ok
+CASE missing-controls-file      ok
+CASE grep-c-exit1-is-zero       FAIL rc=0 last=PREFREEZE: CLEAN (controls=1 mismatch=0)
+CASE empty-controls             ok
+CASE bad-rev                    ok
+CASE timeout                    FAIL rc=2 last=PREFREEZE: SETUP timeout
+PREFREEZE_SELFTEST: FAIL (10 cases)

@@ -1,0 +1,20 @@
+# ScribeEntry1 independent fetch receipt (kagi round 33, 2026-11-04)
+# profile: curl -fsSL --compressed --max-time 90, no credentials, no POST
+# normalization: .ufo/waves/round-33/build/src-open/normalize.py (rendered-text-v1)
+# lane_id	url	http	final_url	bytes	raw_sha256	normalized_sha256
+S073	https://csrc.nist.gov/pubs/sp/800/57/pt1/r5/final	200	https://csrc.nist.gov/pubs/sp/800/57/pt1/r5/final	47203	74fc2e1ff9b176d3	950ae8a8ad88da31
+S074	https://csrc.nist.gov/pubs/sp/800/133/r3/ipd	200	https://csrc.nist.gov/pubs/sp/800/133/r3/ipd	45351	642591084fe9ccaf	955dd86653889462
+S075	https://csrc.nist.gov/pubs/sp/800/133/r2/final	200	https://csrc.nist.gov/pubs/sp/800/133/r2/final	42741	793b2236efef955f	bb1cce593095f6c1
+
+# Three-way comparison for the same three URLs (ScribeEntry1 / ScoutNist / ExecCapture):
+# S073 raw: 74fc2e1ff9b1 / e49ef52267ea / 673f5d878217  -> all 47203 bytes, three different sha256
+# S074 raw: 642591084fe9 / 389177cee332 / 337d67213c75  -> all 45351 bytes, three different sha256
+# S075 raw: 793b2236efef / 7bf12d6d21b8 / 90b757583a37  -> all 42741 bytes, three different sha256
+# S073/S074/S075 normalized: 950ae8a8ad88da31 / 955dd86653889462 / bb1cce593095f6c1 -> identical across all three fetches.
+# Conclusion: the CSRC pages carry a fixed-size per-response marker; the rendered-text-v1
+# normalized text is the reproducible identity, the raw body sha256 is not.
+
+# recheck probe (live, 2026-11-04):
+# curl -fsSL 'https://csrc.nist.gov/pubs/sp/800/133/r3/ipd' | grep -c 'public comment period is CLOSED' -> 1
+# staged form: curl -fsSL '...' | grep -c 'Comments Due: June 16, 2026 (public comment period is CLOSED)' -> 0
+#   (served HTML wraps the label: '<strong>Comments Due:</strong> <span id="pub-comments-due">June 16, 2026 (public comment period is CLOSED)</span>')

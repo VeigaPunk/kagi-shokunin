@@ -1,0 +1,19 @@
+fixture=/fast/scratch/hyaku/kagi-r33/MutGate-2/work/m7fix/repo phys=/fast/scratch/hyaku/kagi-r33/MutGate-2/work/m7fix/repo top=/fast/scratch/hyaku/kagi-r33/MutGate-2/work/m7fix/repo
+A=74e14522fb7fd29ffa2eaa0a23b863edf94487ff (f.txt 2 lines) B=2933f3cac11e2e37c017ee5145b31372274ad1ce (f.txt 3 lines)
+worktree f.txt 3 lines
+
+=== --base A, controls declare A's value (2)
+OK f expect=2 measured=2
+PREFREEZE: CLEAN (controls=1 mismatch=0)
+pristineA rc=0
+MISMATCH f expect=2 measured=3
+PREFREEZE: MISMATCH (controls=1 mismatch=1)
+M7A rc=1
+
+=== --base A, controls declare B's value (3)
+MISMATCH f expect=3 measured=2
+PREFREEZE: MISMATCH (controls=1 mismatch=1)
+pristineB rc=1
+OK f expect=3 measured=3
+PREFREEZE: CLEAN (controls=1 mismatch=0)
+M7B rc=0

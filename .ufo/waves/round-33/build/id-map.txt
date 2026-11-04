@@ -1,0 +1,24 @@
+# staged id -> lane id, re-pointed BY DOCUMENT (the URL is the evidence, the id follows the document)
+# staged ids are a campaign namespace of 172 rows (S052-S223); lane ids continue the lane at S073.
+# column 3 is a machine check: the URL parsed out of the staged row's source cell against the
+# URL parsed out of this wave's lane row for the mapped id. MATCH means same document, not arithmetic.
+#
+# staged	lane	document_url	proof
+S061	S073	https://csrc.nist.gov/pubs/sp/800/57/pt1/r5/final	MATCH
+S062	S074	https://csrc.nist.gov/pubs/sp/800/133/r3/ipd	MATCH
+S063	S075	https://csrc.nist.gov/pubs/sp/800/133/r2/final	MATCH
+S079	S076	https://csrc.nist.gov/pubs/sp/800/57/pt2/final	MATCH
+S080	S077	https://csrc.nist.gov/pubs/sp/800/57/pt3/final	MATCH
+S083	S078	https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-57p2.pdf	MATCH
+S084	S079	https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-57p3.pdf	MATCH
+S085	S080	https://csrc.nist.gov/pubs/sp/800/57/pt2/r1/final	MATCH
+S086	S081	https://csrc.nist.gov/pubs/sp/800/57/pt3/r1/final	MATCH
+S087	S082	https://csrc.nist.gov/pubs/sp/800/131/a/r2/final	MATCH
+#
+# arithmetic refutation: the offsets are not constant, so no shifted-id rule reproduces this map.
+# lane_minus_staged offsets observed: -5, -3, +12 (a single constant offset would have been one value)
+# lane order is the staged document order: S073 < S074 < S075 < S076 < S077 < S078 < S079 < S080 < S081 < S082
+#
+# staged rows in the package that are NOT adopted this round (no lane id):
+# S081	https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-57pt1r6.ipd.pdf	the Rev. 6 IPD PDF: substance, not status; the lane already holds the Rev. 6 IPD publication page as S049/S051 and this round adopts status rows only
+# S082	https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-57pt1r5.pdf	the Part 1 Rev. 5 PDF: normative substance, deferred with the Part 2/Part 3 substance entry; its one prose cite in the withdrawal entry is re-pointed to the Part 1 status row S073, whose claim it supports

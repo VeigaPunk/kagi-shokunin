@@ -1,0 +1,14 @@
+--- /fast/scratch/hyaku/kagi-r33/MutGate-2/prefreeze-control.pristine.sh	2026-11-04 10:32:58.930428734 -0300
++++ /fast/scratch/hyaku/kagi-r33/MutGate-2/mutants/M3.sh	2026-11-04 10:33:16.821479812 -0300
+@@ -244,10 +244,7 @@
+   fi
+ done
+ 
+-if [ "$noresult" -gt 0 ]; then
+-  printf 'PREFREEZE: SETUP %s\n' "$reason"
+-  exit 2
+-fi
++# M3: NORESULT rows no longer block a CLEAN verdict
+ if [ "$mismatch" -gt 0 ]; then
+   printf 'PREFREEZE: MISMATCH (controls=%d mismatch=%d)\n' "$n" "$mismatch"
+   exit 1

@@ -1,0 +1,290 @@
+# ReviewC1 raw receipts — round 33, claim C1
+# seat ReviewC1; lane rev 880824b1d3da5f70b2fe489a34fe866a47314672 (plan commit); BASE 76f4eeae
+# delivered script sha256 c265a5d82a8b3b0dc588ba3c9e5b5cd887de092127be36835584ee7f8b381e59 (256 lines)
+# scratch: /fast/scratch/hyaku/kagi-r33/ReviewC1 (removed after this file was copied out)
+
+=== 0. plan target (a): installed copy, no PREFREEZE_REPO, plan exact command ===
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && bash corpus/prefreeze-control.sh run --base 76f4eea... --controls plans/round-33.controls.tsv
+OK nist_entries expect=0 measured=0
+OK registry_rows expect=72 measured=72
+OK prefreeze_artifact expect=0 measured=0
+OK frontier_nist expect=1 measured=1
+PREFREEZE: CLEAN (controls=4 mismatch=0)
+rc=0
+
+=== 1a. red witness, DELIVERED bytes (188 s) ===
+$ PREFREEZE_REPO=<lane> bash deliv.sh run --base 32c35fe... --controls plans/round-32.controls.tsv
+MISMATCH sd5 expect=3 measured=1
+MISMATCH total expect=10 measured=8
+PREFREEZE: MISMATCH (controls=2 mismatch=2)
+--- stderr ---
+
+=== 1b. red witness, independent reference implementation of the frozen spec (194 s) ===
+$ bash pf.sh run --base 32c35fe... --controls plans/round-32.controls.tsv
+MISMATCH sd5 expect=3 measured=1
+MISMATCH total expect=10 measured=8
+PREFREEZE: MISMATCH (controls=2 mismatch=2)
+--- stderr ---
+
+=== 1c. canonical executor receipt build/prefreeze-32.txt (md5 79808ecc9692ef007d0354c2fdec0ccd) ===
+revision=32c35fe5ed44f2017d6a662c7fd13f7e63a7ce9b
+script=/fast/scratch/hyaku/kagi-r33/ExecGate/prefreeze-control.sh
+script_sha256=c265a5d82a8b3b0dc588ba3c9e5b5cd887de092127be36835584ee7f8b381e59
+env=[PREFREEZE_REPO=/home/vgpnk/Projects/shokunin/kagi-shokunin]
+command=['bash','/fast/scratch/hyaku/kagi-r33/ExecGate/prefreeze-control.sh','run','--base','32c35fe5ed44f2017d6a662c7fd13f7e63a7ce9b','--controls','/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-32.controls.tsv']
+cwd=/home/vgpnk/Projects/shokunin/kagi-shokunin
+
+MISMATCH sd5 expect=3 measured=1
+MISMATCH total expect=10 measured=8
+PREFREEZE: MISMATCH (controls=2 mismatch=2)
+
+exit=1
+
+=== 1d. final/c1-red-witness.txt (md5 c07402704533bdf9a0fcfbf604784c5f) — diff vs canonical ===
+(both files 653 bytes; first 50 bytes differ in place)
+
+=== 2. stub cheat (20 lines, measures nothing) ===
+### T1 stub --selftest
+PREFREEZE_SELFTEST: PASS (cases=8)
+rc=0
+### T1 stub round-33
+OK nist_entries expect=0 measured=0
+OK registry_rows expect=72 measured=72
+OK prefreeze_artifact expect=0 measured=0
+OK frontier_nist expect=1 measured=1
+PREFREEZE: CLEAN (controls=4 mismatch=0)
+rc=0
+### T1 stub round-32
+MISMATCH sd5 expect=3 measured=1
+MISMATCH total expect=10 measured=8
+PREFREEZE: MISMATCH (controls=2 mismatch=2)
+rc=1
+
+=== 3. all-echo controls (reference impl and delivered) ===
+$ bash pb.sh run --base 76f4eea... --controls att/all-echo.tsv   [reference impl]
+### T2 all-echo controls
+OK x expect=1 measured=1
+OK y expect=2 measured=2
+OK z expect=3 measured=3
+OK w expect=4 measured=4
+PREFREEZE: CLEAN (controls=4 mismatch=0)
+rc=0
+$ bash deliv.sh run --base 76f4eea... --controls att/all-echo.tsv   [delivered]
+PREFREEZE: SETUP bad-rev
+rc=2
+
+=== 4. --work readings ===
+--- reference variant A: --work = parent, fresh mktemp (safe reading) ---
+### T3a variant A (fresh mktemp under prepopulated workroot), expect=48, base=32c35fe
+MISMATCH lessons expect=48 measured=46
+PREFREEZE: MISMATCH (controls=1 mismatch=1)
+rc=1
+### T3b variant B (work = extraction target, merge), expect=48, base=32c35fe
+OK lessons expect=48 measured=48
+PREFREEZE: CLEAN (controls=1 mismatch=0)
+rc=0
+### T3c variant C (reuse non-empty --work, no extract), round-33 controls, base=32c35fe
+OK nist_entries expect=0 measured=0
+OK registry_rows expect=72 measured=72
+OK prefreeze_artifact expect=0 measured=0
+OK frontier_nist expect=1 measured=1
+PREFREEZE: CLEAN (controls=4 mismatch=0)
+rc=0
+### post-state lesson counts
+workA  lessons=48
+workB  lessons=48
+workC  lessons=48
+--- delivered, ABSOLUTE --work prepopulated with the 76f4 tree ---
+### T3b-abs --work ABS prepopulated 76f4 tree, lessons expect=48, base=32c35fe
+MISMATCH lessons expect=48 measured=46
+PREFREEZE: MISMATCH (controls=1 mismatch=1)
+rc=1
+### T3c-abs --work ABS 76f4 tree, round-33 controls, base=32c35fe
+OK nist_entries expect=0 measured=0
+MISMATCH registry_rows expect=72 measured=71
+OK prefreeze_artifact expect=0 measured=0
+OK frontier_nist expect=1 measured=1
+PREFREEZE: MISMATCH (controls=4 mismatch=1)
+rc=1
+### T3d relative TMPDIR (no --work)
+deliv.sh: line 226: tmp/prefreeze.4GPCRw/stderr/lessons.stderr: No such file or directory
+NORESULT lessons expect=46 (no integer)
+PREFREEZE: SETUP noresult
+rc=2
+--- delivered, RELATIVE --work / RELATIVE TMPDIR (defect) ---
+$ bash deliv.sh run --base 32c35fe... --controls att/lessons48.tsv --work workB
+PREFREEZE: SETUP bad-rev
+rc=2
+--- one-line absolutise patch: relative paths work ---
+### relative --work WITH one-line absolutise patch
+MISMATCH lessons expect=48 measured=46
+PREFREEZE: MISMATCH (controls=1 mismatch=1)
+rc=1
+### relative TMPDIR WITH patch
+MISMATCH lessons expect=46 measured=48
+PREFREEZE: MISMATCH (controls=1 mismatch=1)
+rc=1
+
+=== 5. parse attack matrix, delivered bytes ===
+### P1a
+MISMATCH prose8 expect=8 measured=2
+PREFREEZE: MISMATCH (controls=1 mismatch=1)
+rc=1
+### P1b
+OK prose2 expect=2 measured=2
+PREFREEZE: CLEAN (controls=1 mismatch=0)
+rc=0
+### P2a
+MISMATCH two3 expect=3 measured=4
+PREFREEZE: MISMATCH (controls=1 mismatch=1)
+rc=1
+### P2b
+OK two4 expect=4 measured=4
+PREFREEZE: CLEAN (controls=1 mismatch=0)
+rc=0
+### P3
+NORESULT err12 expect=12 (no integer)
+PREFREEZE: SETUP noresult
+rc=2
+### P4
+OK grep0 expect=0 measured=0
+PREFREEZE: CLEAN (controls=1 mismatch=0)
+rc=0
+### P5
+prefreeze: line 1: want id<TAB>expect<TAB>command
+PREFREEZE: SETUP malformed-controls
+rc=2
+### P6a
+prefreeze: line 1: expect is not an integer: '+3'
+PREFREEZE: SETUP malformed-controls
+rc=2
+### P6b
+prefreeze: line 1: expect is not an integer: ' 3'
+PREFREEZE: SETUP malformed-controls
+rc=2
+### P7
+prefreeze: line 1: expect is not an integer: '3abc'
+PREFREEZE: SETUP malformed-controls
+rc=2
+### P8
+NORESULT last72 expect=72 (no integer)
+PREFREEZE: SETUP noresult
+rc=2
+### P9
+OK exit1 expect=0 measured=0
+PREFREEZE: CLEAN (controls=1 mismatch=0)
+rc=0
+### P10
+NORESULT silent expect=0 (no integer)
+PREFREEZE: SETUP noresult
+rc=2
+### P12
+prefreeze: line 1: expect is not an integer: ''
+PREFREEZE: SETUP malformed-controls
+rc=2
+
+=== 6. lifecycle/setup attacks, delivered bytes ===
+### T2 all-echo controls
+OK x expect=1 measured=1
+OK y expect=2 measured=2
+OK z expect=3 measured=3
+OK w expect=4 measured=4
+PREFREEZE: CLEAN (controls=4 mismatch=0)
+rc=0
+### T3b --work prepopulated (should still extract fresh)
+deliv.sh: line 226: workB/prefreeze.W68J4c/stderr/lessons.stderr: No such file or directory
+NORESULT lessons expect=48 (no integer)
+PREFREEZE: SETUP noresult
+rc=2
+### T3c --work = 76f4 tree, round-33 controls, base 32c35fe
+deliv.sh: line 226: workC/prefreeze.5G4tsz/stderr/nist_entries.stderr: No such file or directory
+NORESULT nist_entries expect=0 (no integer)
+deliv.sh: line 226: workC/prefreeze.5G4tsz/stderr/registry_rows.stderr: No such file or directory
+NORESULT registry_rows expect=72 (no integer)
+deliv.sh: line 226: workC/prefreeze.5G4tsz/stderr/prefreeze_artifact.stderr: No such file or directory
+NORESULT prefreeze_artifact expect=0 (no integer)
+deliv.sh: line 226: workC/prefreeze.5G4tsz/stderr/frontier_nist.stderr: No such file or directory
+NORESULT frontier_nist expect=1 (no integer)
+PREFREEZE: SETUP noresult
+rc=2
+### T4a bad rev
+PREFREEZE: SETUP bad-rev
+rc=2
+### T4b missing controls
+prefreeze: unreadable: att/nope.tsv
+PREFREEZE: SETUP missing-controls
+rc=2
+### T4c empty controls
+prefreeze: no control rows in att/empty.tsv
+PREFREEZE: SETUP empty-controls
+rc=2
+### T4d timeout 1
+NORESULT slow expect=0 (timeout 1s)
+PREFREEZE: SETUP timeout
+rc=2
+### T5 traversal id
+OK ../../evil expect=0 measured=0
+PREFREEZE: CLEAN (controls=1 mismatch=0)
+rc=0
+### T6 rev silence: round-33 controls at HEAD (880824b) vs 76f4
+OK nist_entries expect=0 measured=0
+OK registry_rows expect=72 measured=72
+OK prefreeze_artifact expect=0 measured=0
+OK frontier_nist expect=1 measured=1
+PREFREEZE: CLEAN (controls=4 mismatch=0)
+rc=0
+### selftest delivered
+CASE equal-values               ok
+CASE one-differs                ok
+CASE two-differ                 ok
+CASE no-integer                 ok
+CASE malformed-row              ok
+CASE missing-controls-file      ok
+CASE grep-c-exit1-is-zero       ok
+CASE empty-controls             ok
+CASE bad-rev                    ok
+CASE timeout                    ok
+PREFREEZE_SELFTEST: PASS (10 cases)
+rc=0
+
+=== 7. exit-code row can be measured if declared ===
+### gate on an exit-code row (cheap stand-in)
+MISMATCH false_exit expect=0 measured=1
+PREFREEZE: MISMATCH (controls=1 mismatch=1)
+rc=1
+
+=== 8. M1 mutation: numeric comparison accepts any value -> selftest must FAIL ===
+  if true; then  # M1: accept any measured value
+CASE equal-values               ok
+CASE one-differs                FAIL rc=0 last=PREFREEZE: CLEAN (controls=2 mismatch=0)
+CASE two-differ                 FAIL rc=0 last=PREFREEZE: CLEAN (controls=2 mismatch=0)
+CASE no-integer                 ok
+CASE malformed-row              ok
+CASE missing-controls-file      ok
+CASE grep-c-exit1-is-zero       ok
+CASE empty-controls             ok
+CASE bad-rev                    ok
+CASE timeout                    ok
+PREFREEZE_SELFTEST: FAIL (10 cases)
+rc=1
+
+=== 9. selftest, delivered bytes (10 cases) ===
+CASE equal-values               ok
+CASE one-differs                ok
+CASE two-differ                 ok
+CASE no-integer                 ok
+CASE malformed-row              ok
+CASE missing-controls-file      ok
+CASE grep-c-exit1-is-zero       ok
+CASE empty-controls             ok
+CASE bad-rev                    ok
+CASE timeout                    ok
+PREFREEZE_SELFTEST: PASS (10 cases)
+rc=0
+
+=== 10. post-note (captured after the log above) ===
+final/c1-red-witness.txt was replaced by the L1 during the review:
+79808ecc9692ef007d0354c2fdec0ccd  .ufo/waves/round-33/final/c1-red-witness.txt
+79808ecc9692ef007d0354c2fdec0ccd  .ufo/waves/round-33/build/prefreeze-32.txt
+revision=32c35fe5ed44f2017d6a662c7fd13f7e63a7ce9b
+=> both byte-identical; the corrupt splice recorded in 1d no longer exists.

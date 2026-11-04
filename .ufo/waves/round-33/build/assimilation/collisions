@@ -1,0 +1,27 @@
+# id-collision guard: staged campaign ids that are ALREADY lane registry rows at BASE
+# BASE 76f4eeae7aa9af4dbb9423f5632b55791824253a
+# pattern: grep -oE '^ {0,3}\|[[:space:]]*S[0-9]{3,}' (0-3 leading spaces, as the census table_re)
+# BASE registry ids matched: 72   staged ids matched: 172   intersection: 21
+# the intersection is non-empty and includes S061/S062/S063, the staged ids this wave re-points;
+# that is why the append is by DOCUMENT (id-map.txt), never by staged number.
+S052
+S053
+S054
+S055
+S056
+S057
+S058
+S059
+S060
+S061
+S062
+S063
+S064
+S065
+S066
+S067
+S068
+S069
+S070
+S071
+S072

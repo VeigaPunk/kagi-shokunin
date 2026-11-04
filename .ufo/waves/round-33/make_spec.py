@@ -1,0 +1,226 @@
+import json, pathlib
+
+LANE = "/home/vgpnk/Projects/shokunin/kagi-shokunin"
+WAVE = ".ufo/waves/round-33/build"
+SCR = "/fast/scratch/hyaku/kagi-r33"
+
+context = f"""# Goal
+kagi round-33 BUILD wave (one v1 wave, 13 seats). Lane repo {LANE} (secrets & vault ops shokunin; domain: 1Password CLI `op`, the-janitor handler — ABSENT on this host, env-file ref discipline).
+Frozen BASE `76f4eeae7aa9af4dbb9423f5632b55791824253a`. Frozen claims contract {LANE}/plans/round-33.md — READ IT FIRST; it fixes every predicate, counter, kill rule and target, and it is already committed (find it with `git -C {LANE} log -- plans/round-33.md`). Do not change any predicate or counter; if you think one is wrong, say so in your report and still measure it as written.
+Claims: C1 capability acquisition — a new gate `corpus/prefreeze-control.sh` that extracts a BASE revision and compares each declared BASE value with what its own counting command measures (red witness = the round-32 declared values); C2 coverage/expansion — the NIST key-management frontier theme assimilated into two knowledge entries plus ten registry rows, and the Frontier bullet removed.
+Do NOT write lane-tracked files: every lane edit is the L1's. You write only under {LANE}/{WAVE}/ (your named report file and receipts) and your scratch dir.
+
+# Contract (binding on every seat)
+- Path rule: every file path you read or write is ABSOLUTE under {LANE} or your scratch dir. Every `Report:` trailer path the validator appends is relative to {LANE} — write it at {LANE}/<that path>.
+- Write scope: ONLY your own named file(s) under {LANE}/{WAVE}/ plus your scratch dir {SCR}/<your-seat-name>/ (create with `mkdir -p`; export `TMPDIR={SCR}/<your-seat-name>/tmp` explicitly; `trap 'rm -rf -- "{SCR}/<your-seat-name>"' EXIT` in shell). Copy receipts into {LANE}/{WAVE}/ before exit. Never write under /tmp (files >50 MB never; /tmp is reaped).
+- Scratch discipline: clones are `git clone --shared` / `git archive` into {SCR}/<your-seat-name>/; one live clone per seat; no multi-GB mirrors; remove your scratch dir before you yield (a seat that leaves it reports that as its own defect).
+- Never edit lane-tracked files, never edit {LANE}/considerthese/, never write /home/vgpnk/Projects/shokuknow (read-only), never touch any sibling `*-shokunin` repo, the fleet root's `.ufo/`, `.scratch/`, `templates/`, `scripts/`, or `.ufo/state/`.
+- Git: read-only git only (`git -C {LANE} show/log/diff/ls-files/rev-parse`, `git archive`). NEVER git add/commit/stash/checkout/switch/reset/pull/push and NEVER any mutating jj command. Any fixture repo: `D=$(mktemp -d) && git -C "$D" init -q`, and every later git call names `-C "$D"`; verify `git -C "$D" rev-parse --show-toplevel` equals `$D` before the first commit (you should not commit at all).
+- Vault contact: NONE. `op --version` is allowed; never `op signin/account/item/read/inject/run` against real config, never read `~/.config/the-janitor` or any `op.env`, never print a secret value, token, session id or 1Password reference. The handler is absent — expected, not a defect.
+- Network: reading the ten NIST URLs listed in the plan is allowed (curl -fsSL --compressed, no credentials, no POST). Nothing else.
+- Verify once, not mid-flight: run only the counting/measurement commands your item names. No lint/format/build/full-suite runs; the L1 runs the full gates afterward.
+- No sub-spawns, no sub-swarm (you are a leaf).
+- Tooling authorization (operator 2026-10-19): you may install or upgrade tools that help this task — read `/home/vgpnk/.omp/agent/RULES.md` first (official channels only; record tool/version/channel/reason in your report). pacman guard (orchestrator ruling 2026-10-20): ALL pacman transactions are PAUSED host-wide — install via `uv tool` / `npx` / an official binary into `~/.local/bin`, or file an L0 question; never `-Sy`, `-Syu`, `-U`, `-R`, downgrade or restart a host service.
+
+# What is already known (do not re-derive from scratch)
+- BASE readings measured and committed by the L1: registry rows 72; `corpus/knowledge/nist-*.md` 0; `corpus/prefreeze-control.sh` absent; `corpus/README.md ## Frontier` NIST lines 1; `bash corpus/self-description-sweep.sh` → `SELF_DESCRIPTION: MISMATCH n=2 (SD1=0 SD2=0 SD3=0 SD4=0 SD5=0 SD6=2)`, both SD6 lines integrator-owned; fleet census exit 0. Receipts: {LANE}/.ufo/waves/round-33/controls/.
+- The staged package is `/home/vgpnk/Projects/shokuknow/merge/kagi/` (read-only): `MERGE-REPORT.md`, `SOURCES.append.md`, `knowledge/corpus/knowledge/nist-key-management-*.md`. Staged ids are campaign ids, NOT lane ids: the lane continues at S073 and ids are re-pointed by DOCUMENT (URL is the evidence; the id follows it).
+- The round-32 lesson `corpus/lessons/round-32.md` and the non-author closure `corpus/lessons/round-32-verifier-spotcheck.md` carry the routed defects this round closes.
+"""
+
+items = []
+def item(name, role, prompt):
+    items.append({"name": name, "role": role, "prompt": prompt})
+
+item("ScoutNist", "scout", f"""# Target
+Re-open the ten NIST sources the two admitted entries will cite, from the staged package rows in `/home/vgpnk/Projects/shokuknow/merge/kagi/SOURCES.append.md`: staged ids S061, S062, S063, S079, S080, S083, S084, S085, S086, S087. Produce the fetch evidence the census capture rows need.
+# Change
+None to lane files. Write {LANE}/{WAVE}/nist-captures.tsv and {LANE}/{WAVE}/ScoutNist.md; keep the raw bodies/digests under {LANE}/{WAVE}/src-open/.
+# Work
+1. For each URL: `curl -fsSL --compressed -o <scratch body> -w '%{{http_code}} %{{url_effective}}' --max-time 90 <url>`; record http status, final URL, fetch date (UTC, 2026-11-04), body bytes, sha256 of the body, and the representation (`decoded-http-body-v1`).
+2. Locate the exact anchor and a <=25-word quote that carries the row's claim (for the PDFs use `pdftotext -layout`; if pdftotext is absent, say so and use `strings`-free means only to REPORT the blocker — never fabricate a quote).
+3. Check the staged row's `teaches` cell against what you actually found; mark `agree` or `differs` with a one-line reason, and flag any cell that over-claims.
+4. Emit `nist-captures.tsv`, one line per staged id, TAB-separated, columns: staged_id, registry_url, final_url, http_status, fetched(YYYY-MM-DD), bytes, sha256, representation, normalization(`rendered-text-v1`), normalized_sha256, quote, location, verdict(agree|differs), note.
+# Acceptance
+{LANE}/{WAVE}/nist-captures.tsv exists with 10 tab-separated data lines (one per staged id), every sha256 64 lowercase hex chars, every quote <=25 words, and {LANE}/{WAVE}/ScoutNist.md names per id: URL, anchor, quote, the staged claim, and agree/differs. Yield which ids you could not open, and why (a blocked fetch is a finding, never a pass).""")
+
+item("ScoutLane", "scout", f"""# Target
+Read-only data-walk that gives the L1 exact insertion points and formats. No edits.
+# Change
+Write {LANE}/{WAVE}/ScoutLane.md only.
+# Work
+1. `SCORECARD.md`: quote the `## Capabilities` table's header row and its last data row with line numbers, and the `awk '/^## Capabilities$/,/^## Saturation$/'` window bounds; quote the stale prose sentence that says the latest first-working round is 25 (line + text).
+2. `corpus/QUALITY.md`: the last criterion row (QM33) with its line, and the exact 4-column table shape; the heading style used by each criteria section.
+3. `corpus/claim-ledger.tsv`: the column header and two representative rows (a stamp row is in `corpus/stamps.tsv`; a claim row in `claim-ledger.tsv`), plus how `corpus/claim-ledger.sh stamp` is invoked (read the usage block).
+4. `corpus/sources-census.sh`: the `SC_FETCH` column list and the `corpus/source-fetches.tsv` header, in order, with the exact field order your read of the code proves (not the header comment).
+5. `corpus/self-description-sweep.sh`: the `--root` option and which of SD1..SD6 read files that exist at rev 32c35fe.
+6. `corpus/lessons/round-32.md`: quote the `## Mistakes` table header and the M32-2/M32-3 rows with line numbers (the L1 edits their `captured-by` cells).
+7. `corpus/SOURCES.md`: the registry header row verbatim and the last row S072 (line + id), so appended rows match column count exactly.
+# Acceptance
+{LANE}/.ufo/waves/round-33/build/ScoutLane.md holds each item as `file:line` + verbatim quote <=20 words + the command you ran. Yield the list of formats the L1 must match, and any place where the file's comment header contradicts the code.""")
+
+item("ExecGate", "executor", f"""# Target
+Implement `corpus/prefreeze-control.sh` for {LANE} exactly as frozen in `plans/round-33.md` §C1. Build it in scratch, then copy the final bytes to {LANE}/{WAVE}/prefreeze-control.sh. Do NOT write into the lane tree.
+# Change
+{LANE}/{WAVE}/prefreeze-control.sh (deliverable, the L1 installs it), plus receipts {LANE}/{WAVE}/prefreeze-selftest.txt, prefreeze-33.txt, prefreeze-32.txt.
+# Work
+Interface (frozen):
+  `run` (default) `--base <rev> --controls <tsv> [--work <dir>] [--timeout <s>]`
+  `--selftest`
+- Read the controls file: skip blank lines and lines starting `#`; split on TAB into `id`, `expect` (an integer), `command` (the rest of the line, kept verbatim). A row that does not have exactly three TAB fields is `POLICY` -> verdict `PREFREEZE: SETUP malformed-controls`, exit 2.
+- Extract `--base` with `git -C {LANE} archive <rev> | tar -x -C <workdir>` into a directory under `$TMPDIR` (default `/tmp`), removed on exit; export `BASE=<workdir>` and `LANE={LANE}`; run each command with `bash -c` and cwd = `<workdir>`.
+- Measurement = the LAST non-empty stdout line of the command, reduced to its final run of digits (an integer). A command that prints no integer is `NORESULT`.
+- Per-row output line: `OK <id> expect=<e> measured=<m>` or `MISMATCH <id> expect=<e> measured=<m>` or `NORESULT <id> expect=<e>`; stderr of each command captured to `<receiptdir>/<id>.stderr` only when non-empty.
+- Verdict (last line, exact): `PREFREEZE: CLEAN (controls=<n> mismatch=0)` exit 0; `PREFREEZE: MISMATCH (controls=<n> mismatch=<m>)` exit 1; `PREFREEZE: SETUP <reason>` exit 2 (bad rev, missing file, empty controls, any NORESULT). `--timeout <s>` (default 300) per row; a timeout is `NORESULT` naming the timeout.
+- `--selftest`: build throwaway fixture trees under `$TMPDIR` with a fixture git repo (init in scratch, commit once; verify `git -C "$D" rev-parse --show-toplevel` equals `$D` BEFORE the commit) and prove at least these 8 cases: (1) equal values -> CLEAN exit 0; (2) one differing value -> MISMATCH exit 1 naming the id; (3) two differing values -> mismatch=2; (4) a command printing no integer -> SETUP exit 2; (5) malformed controls row -> SETUP exit 2; (6) missing controls file -> SETUP exit 2; (7) a `grep -c`-style command exiting 1 while printing 0 is still a MEASURED 0, not a failure; (8) an empty-of-rows controls file -> SETUP exit 2. Last line `PREFREEZE_SELFTEST: PASS (<k> cases)` exit 0 or `... FAIL (<k> cases)` exit 1.
+- House rules: `set -u`; no hardcoded `/tmp` root (honour `TMPDIR` and `--work`); no `eval`; quote every path; exit codes 0/1/2 only.
+Then run, from {LANE} with the delivered copy in place under scratch:
+  `bash <scratch>/prefreeze-control.sh run --base 76f4eeae7aa9af4dbb9423f5632b55791824253a --controls {LANE}/plans/round-33.controls.tsv`  -> expect CLEAN controls=4 mismatch=0 exit 0
+  `bash <scratch>/prefreeze-control.sh run --base 32c35fe5ed44f2017d6a662c7fd13f7e63a7ce9b --controls {LANE}/plans/round-32.controls.tsv` -> expect MISMATCH controls=2 mismatch=2 exit 1 naming sd5 measured=1 and total measured=8 (each run costs ~90 s; that is expected)
+  `bash <scratch>/prefreeze-control.sh --selftest`
+# Acceptance
+The three receipts exist and carry the exact verdict lines above with the exit codes; the selftest reports PASS with k>=8; the script is <=260 lines, shellcheck-clean by eye, and honours TMPDIR/--work. Yield the three verdict lines verbatim plus any case you could not make fail.""")
+
+item("ExecCapture", "executor", f"""# Target
+Turn {LANE}/{WAVE}/nist-captures.tsv (from ScoutNist) into the two append blocks the L1 will land: ten registry rows for `corpus/SOURCES.md` and ten capture rows for `corpus/source-fetches.tsv`. Build and validate them in scratch; do not touch lane-tracked files.
+# Change
+{LANE}/{WAVE}/sources-append.md (the 10 registry rows, census schema), {LANE}/{WAVE}/fetches-append.tsv (the 10 capture rows), {LANE}/{WAVE}/id-map.txt (staged id -> lane id), and validation receipts under {LANE}/{WAVE}/assimilation/.
+# Work
+1. Read the lane's registry header and S072 from `{LANE}/corpus/SOURCES.md`; the append rows must have exactly 11 columns and no literal or escaped `|` inside a cell (rewrite any anchor that needs a pipe), `status = mined`, `opened = 2026-11-04`, a recheck value that is a valid ISO date, `NNd`, or `on-release`, and `used-by` naming exactly the admitted entry that cites it.
+2. Renumber by DOCUMENT, continuing the lane at S073: map staged S061->S073, S062->S074, S063->S075, S079->S076, S080->S077, S083->S078, S084->S079, S085->S080, S086->S081, S087->S082. Prove the map is by URL, not arithmetic, in id-map.txt (URL per line both sides).
+3. Collision guard, in scratch: `grep -oE '^ {{0,3}}\\|[[:space:]]*S[0-9]{{3,}}'` over the lane registry and over `/home/vgpnk/Projects/shokuknow/merge/kagi/SOURCES.append.md`, intersect -> {LANE}/{WAVE}/assimilation/collisions. Prove the guard can fail: build a scratch registry with an INDENTED `  | S002 |` row that collides and show the 0-3-space pattern catches it while a column-zero-only pattern misses it; paste both outputs.
+4. Mirror the lane in scratch: copy `{LANE}/corpus/` to `{LANE}/{WAVE}/assimilation/validate/corpus/`, add the ten rows in the Registry table, add the ten capture rows, place the two drafted entries (take them from {LANE}/{WAVE}/knowledge/ if present, else use the staged entries with ids re-pointed), and run `bash /home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --file <mirror>/corpus/SOURCES.md`. Iterate until exit 0 (warnings allowed). Record every exit and the last verdict line.
+# Acceptance
+Both append files exist in the exact lane schema; the collision file is non-empty (it SHOULD be, because campaign ids S061-S063 are already lane rows from other themes) and your id-map proves the by-document re-pointing; the scratch mirror validates exit 0; receipts record the commands. Yield the collision count, the id map, and the mirror verdict.""")
+
+item("ExecReplay", "executor", f"""# Target
+Independently replay the round-32 declared BASE values against rev 32c35fe, and re-measure the round-33 controls against 76f4eea, without trusting the L1's receipts and without using any script the L1 wrote.
+# Change
+{LANE}/{WAVE}/replay/ receipts + {LANE}/{WAVE}/ExecReplay.md. No lane edits.
+# Work
+1. `S={SCR}/ExecReplay; mkdir -p $S/tree; git -C {LANE} archive 32c35fe5ed44f2017d6a662c7fd13f7e63a7ce9b | tar -x -C $S/tree`.
+2. Run the round-32 counter against it: `bash {LANE}/corpus/self-description-sweep.sh --root $S/tree` (≈90 s). Record the last verdict line, SD5's value and the `n=` value. The round-32 plan declared SD5=3 and a total of 10; report what you measured.
+3. Do the same for BASE 76f4eea: extract it to `$S/tree33` and measure the four round-33 control values with your OWN plain commands — registry rows (`grep -cE '^\\|[[:space:]]*S[0-9]{{3,}}[[:space:]]*\\|'`), `nist-*.md` count, `prefreeze-control.sh` presence, and the `## Frontier` NIST line count. Report each with the command and exit code.
+4. Report any place where the L1's committed receipt ({LANE}/.ufo/waves/round-33/controls/base-values.txt) disagrees with your measurement.
+# Acceptance
+{LANE}/.ufo/waves/round-33/build/ExecReplay.md holds a table (value, L1 receipt, your measurement, agree/differ, command, exit) for all six values, plus the two sweep verdict lines. Yield the table's disagreeing rows (may be none) and the sweep's exact verdict line at 32c35fe.""")
+
+item("ScribeEntry1", "scribe", f"""# Target
+Draft the admitted knowledge entry `corpus/knowledge/nist-key-management-guidance-status.md` for {LANE}, re-grounded this round (the staged original is `/home/vgpnk/Projects/shokuknow/merge/kagi/knowledge/corpus/knowledge/nist-key-management-guidance-status.md`).
+# Change
+{LANE}/{WAVE}/knowledge/nist-key-management-guidance-status.md (deliverable; the L1 installs it). Nothing else.
+# Work
+1. Read the staged entry and {LANE}/corpus/knowledge/feed-token-boundaries.md for the lane's entry shape (front-matter lines `source:`, `verified-at:`, `recheck:`, `ground:`; then body; then a `## Reverify:` row is NOT here — follow the staged shape plus the lane's `source:` convention).
+2. Re-point the `source:` lines to the lane ids: S073 (SP 800-57 Pt 1 Rev. 5 publication page), S074 (SP 800-133 Rev. 3 IPD), S075 (SP 800-133 Rev. 2 final); keep the lane's existing S049 (SP 800-57 Pt 1 Rev. 6 IPD status) as a citation in the body, and say in one sentence that S049 is pre-existing and not re-proposed.
+3. Verify every claim against {LANE}/{WAVE}/nist-captures.tsv (ScoutNist's captures). If a capture contradicts a sentence, change the sentence and note it in the Gate note at the end of your file. Set `verified-at: 2026-11-04`, `recheck: 90d` (draft pages move), and keep the `ground:` line naming the frontier question.
+4. Keep the entry's structure: status table, reading-the-status-signals, operational rule, "What this entry does not establish". Add a final line: `Gate: admitted round 33 from merge/kagi (assimilation); sources re-opened 2026-11-04; see corpus/lessons/round-33.md §Gate.`
+5. No credential material, no secret reference, no `op://` string; quote <=25 words per quote.
+# Acceptance
+The file parses as the lane's entry shape (4 front-matter lines, H1, body), cites only S049 and S073-S075 (no staged ids anywhere, no `S06x`/`S08x` tokens), every numeric/date claim matches the captures, and quotes are <=25 words. Yield the citation list and any sentence you had to correct.""")
+
+item("ScribeEntry2", "scribe", f"""# Target
+Draft the admitted knowledge entry `corpus/knowledge/nist-key-management-parts-withdrawal.md` for {LANE}, re-grounded this round (staged original: `/home/vgpnk/Projects/shokuknow/merge/kagi/knowledge/corpus/knowledge/nist-key-management-parts-withdrawal.md`).
+# Change
+{LANE}/{WAVE}/knowledge/nist-key-management-parts-withdrawal.md (deliverable). Nothing else.
+# Work
+1. Read the staged entry and {LANE}/{WAVE}/nist-captures.tsv (ScoutNist's re-opened evidence).
+2. Re-point `source:` lines to lane ids: S076 (SP 800-57 Pt 2, 2005 page), S077 (Pt 3, 2009 page), S078 (Pt 2 legacy PDF, withdrawal wrapper), S079 (Pt 3 legacy PDF, archived wrapper), S080 (Pt 2 Rev. 1 page), S081 (Pt 3 Rev. 1 page), S082 (SP 800-131A Rev. 2 page). No staged ids may survive: replace "[round-2 S079]" and "[round-3 S085][S086]" style references with the new lane ids or with plain document names plus the right id.
+3. Re-verify the withdrawal wording and dates, the two wrappers' different words (Withdrawn vs Archived), the supersession notes, the two Rev. 1 publication dates, and the SP 800-131A Rev. 2 status against the captures. Correct anything the captures do not support and note it.
+4. Keep the entry's structure: what the documents say (table), what is actually current, the Rev. 6 substitution, the rule, "What this entry does not establish". Set `verified-at: 2026-11-04`, `recheck: 365d`, keep the `ground:` line.
+5. No credential material, no secret reference; quotes <=25 words.
+# Acceptance
+File parses as the lane entry shape, cites exactly S076-S082 (plus at most one body citation of S049), contains no staged id token and no `[round-` reference, and every date/wording claim matches the captures. Yield the citation list and each corrected sentence.""")
+
+item("ScribeDocs", "scribe", f"""# Target
+Draft every prose artifact round 33 must land besides the two entries: the round lesson, the QUALITY criterion, the SCORECARD sections, the PROVINCE/README frontier move, and the two routed metadata edits. The L1 installs them.
+# Change
+Write under {LANE}/{WAVE}/docs/: `round-33-lesson.md`, `quality-QM34.md`, `scorecard-round33.md`, `province-core-bullet.md`, `readme-frontier-removal.md`, `round32-captured-by.patch`, `s072-scope-fix.md`. Nothing else.
+# Work
+1. `round-33-lesson.md`: front-matter (`source:` line for the lesson's own source basis, `verified-at: 2026-11-04`, `recheck:`), `## Gate` (per-candidate table: the two admitted entries with their located quotes and access date, the REFUSED `nist-key-management-family-status.md` with reason and flip, the DEFERRED `nist-key-management-part2-part3-substance.md` named as a deferral not a reject, and the considerthese mining decision), `## Mistakes` (M33-1 and M33-2 — see the plan §Frontier step; each with class, evidence pointer, captured-by as a criterion id or `none`, and a fix shown able to fail), `## Migrations` (old->new for every registry/scorecard/QUALITY/lesson change), `## Measurements`, `## Self-evaluation` (mean of accuracy/completeness/clarity/actionability/conciseness). Copy the section shapes from {LANE}/corpus/lessons/round-32.md.
+2. `quality-QM34.md`: the new criterion row (4 columns `id | criterion | weak signal | lesson`) for the pre-freeze-control class, citing `corpus/lessons/round-32.md` M32-2 and this round's red witness, with a red-before state and the criterion's fix shown able to fail. Plus the `## Criterion from the round-33 build` heading the file's style uses.
+3. `scorecard-round33.md`: `## Round 33 — pre-move (repo HEAD 76f4eea, round-32 close)` (six rows, scores 9, evidence pointers, last-change rounds) and `## Round 33 — post-move (claims C1 capability, C2 coverage)` (Axis | Before → after | What moved | Evidence rows), plus the capability table row for `corpus/prefreeze-control.sh` and the repaired stale-prose sentence (R32-4: the latest first-working round is 29, not 25).
+4. `province-core-bullet.md`: the Core bullet to add (`- **Core, round 33 — NIST key-management guidance status:** ...`) AND the exact current Frontier line to delete (`- **Frontier — explored, not held:** NIST key-management draft status ...`); `readme-frontier-removal.md`: the exact `## Frontier` bullet lines to delete from `corpus/README.md` and the Core-area sentence that must replace them.
+5. `round32-captured-by.patch`: a unified diff against `corpus/lessons/round-32.md` changing ONLY the `captured-by` cell of M32-2 to `QM34` and of M32-3 to `none` (keep every other cell byte-identical).
+6. `s072-scope-fix.md`: the exact current S072 scope cell text and the corrected text (narrow the parenthetical that claims the build the installed binary reports; `op --version` prints `2.41.1` only), old->new.
+# Acceptance
+All eight files exist; the lesson has every named section; QM34 is a valid 4-column row; the SCORECARD file's tables have the same column counts as the round-32 sections; the patch applies cleanly to a scratch copy (`git -C <scratch clone> apply --check`); the S072 fix is old->new specific. Yield the lesson's M33 rows, the QM34 row, and anything you could not draft without inventing evidence.""")
+
+item("ConnOverlap", "connector", f"""# Target
+Read-only sibling-overlap scan for round-33 ground: (a) NIST key-management / SP 800-57 / SP 800-131A / SP 800-133 claims, and (b) any sibling gate that already runs frozen-plan BASE controls (a prefreeze-control equivalent).
+# Change
+{LANE}/{WAVE}/ConnOverlap.md + {LANE}/{WAVE}/ConnOverlap-receipts.txt.
+# Work
+For every `/home/vgpnk/Projects/shokunin/*-shokunin` except `kagi-shokunin` (20 lanes):
+1. `grep -rl` for `NIST`, `800-57`, `800-131A`, `800-133`, `key-management` in `PROVINCE.md`, `SKILL.md`, `corpus/SOURCES.md`, `corpus/knowledge/` — count per lane and quote the owning sentence if any lane claims the ground.
+2. `grep -rl` for a script that extracts a git revision and compares declared values (`git archive` + expect/control/plan tokens) under `corpus/` and `scripts/` — name any equivalent gate and what it checks.
+3. Report contested ground with the sibling's own file:line, and the kagi file:line that claims it. Do not adjudicate.
+# Acceptance
+{LANE}/.ufo/waves/round-33/build/ConnOverlap.md lists, per lane, hits and quotes (0 is a result and must be stated with the command), a summary line, and an explicit statement of whether any sibling already runs a prefreeze-control equivalent. Yield the counts and any contested claim.""")
+
+item("ReviewC1", "reviewer", f"""# Target
+Attack claim C1 of {LANE}/plans/round-33.md (capability `corpus/prefreeze-control.sh`; predicate `PREFREEZE: CLEAN (controls=N mismatch=0)`).
+# Change
+None to lane files. Output {LANE}/{WAVE}/review/ReviewC1.md.
+# Work
+1. Read the plan §C1 and the delivered script {LANE}/{WAVE}/prefreeze-control.sh (if absent, say so and attack the plan's predicate instead).
+2. Cheat paths: can the predicate be met by a stub that echoes CLEAN without running the commands? By a controls file whose commands are all `echo 0`? By `--work` pointing at a tree that is not the named rev? Try each in scratch and report which succeed.
+3. Parse attacks: a command whose last line contains a number in prose (`... n=8 (SD1=2)`); a command printing two numbers; a command printing to stderr only; `grep -c` exiting 1 while printing 0; a controls line with a tab inside the command; an `expect` with a leading `+` or space.
+4. Verify the red witness independently: run the delivered harness on `plans/round-32.controls.tsv` at 32c35fe in your own scratch (≈90-180 s) and compare with the delivered receipt.
+5. Check the selftest really fails when the harness is wrong: copy the script, break the numeric comparison (accept any value), and confirm its selftest now FAILS.
+# Acceptance
+{LANE}/.ufo/waves/round-33/build/review/ReviewC1.md lists each attack, the command, the observed verdict, and PASS/FAIL for the claim. Yield the surviving cheats (may be none) and the red-witness comparison.""")
+
+item("ReviewC2", "reviewer", f"""# Target
+Attack claim C2 of {LANE}/plans/round-33.md (NIST frontier -> core; predicate NIST_CORE: CLEAN).
+# Change
+None to lane files. Output {LANE}/{WAVE}/review/ReviewC2.md.
+# Work
+1. Re-derive the four target readings from the plan against the delivered artifacts under {LANE}/{WAVE}/ (entries, append files) applied to a scratch mirror — do not trust the delivered receipts. Report each reading and exit code.
+2. Citation attack: for each adopted row, compare its URL and quote with {LANE}/{WAVE}/nist-captures.tsv; name any row whose quote does not appear in the captured body, any id collision with the existing registry (0-3 leading spaces pattern), and any `used-by` pointing at an unadopted entry.
+3. Detection-risk attack: can C2's predicate be satisfied by two empty entry files plus ten junk rows? By ten rows with `status=mined` but no captures? Enumerate which clause fails and which does not.
+4. Frontier discipline: after the move, does any file still claim the NIST ground is a frontier lead (grep `Frontier` in PROVINCE.md and corpus/README.md), and does `corpus/self-description-sweep.sh` stay at SD1=0 SD2=0?
+# Acceptance
+{LANE}/.ufo/waves/round-33/build/review/ReviewC2.md holds the re-derived table, the citation findings, the cheat analysis and the frontier check. Yield the surviving cheats (may be none) and every dangling or mis-quoted row.""")
+
+item("CriticClaims", "critic", f"""# Target
+Adversarial review of the frozen claims contract {LANE}/plans/round-33.md as committed, and of its routed items and frontier step.
+# Change
+None to lane files. Output {LANE}/{WAVE}/review/CriticClaims.md.
+# Work
+Attack, each with a concrete counterexample or a concrete reason it holds:
+(a) C1 — is `PREFREEZE: CLEAN (controls=N mismatch=0)` a capability or a self-referential echo? Does the do-nothing control prove the target unreachable without the work? Is the red witness (round-32 declared values) genuinely the M32-2 class, or a fixture dressed as one?
+(b) C2 — is the row count (72 -> 82) a coverage move or bookkeeping? Does the entry count add knowledge the lane did not hold? Is the refusal of `nist-key-management-family-status.md` honest, or a convenient way to dodge its wrong Part 2/3 rows?
+(c) Both — are the two claims causally separable (can each verify without the other landing)? Is any axis harmed (name the axis and the harm)? Is any predicate stated differently in the plan, the script and the receipt label?
+(d) The frontier step — does the round really mine a mistake into the lesson with a fix shown able to fail, or does it restate round 32? Does it claim a sourced claim that is actually unsourced?
+# Acceptance
+{LANE}/.ufo/waves/round-33/build/review/CriticClaims.md: one block per (a)-(d), each ending `HOLDS` or `BROKEN: <the smallest fix>`. Yield the BROKEN items only.""")
+
+item("MutGate", "mutation-tester", f"""# Target
+Mutation-test the C1 gate: does each declared behaviour have an assertion that kills its mutant?
+# Change
+None to lane files. Output {LANE}/{WAVE}/mut/MutGate.md + receipts.
+# Work
+In scratch, copy {LANE}/{WAVE}/prefreeze-control.sh and create one mutant per row, each applied to a separate copy (never in the lane):
+ M1 numeric comparison accepts any measured value;
+ M2 the mismatch counter always prints 0;
+ M3 NORESULT is treated as a pass;
+ M4 an empty controls file yields CLEAN;
+ M5 the `expect` field is ignored (only exit code matters);
+ M6 the id in the per-row line is dropped;
+ M7 `--base` is ignored and the live lane tree is measured instead.
+For each mutant: run `--selftest` and a controls run; record exit code + last line. A mutant that keeps the selftest PASS or keeps a CLEAN verdict without doing the work is an ESCAPE. Then mutate an input, not the tool: copy `plans/round-33.controls.tsv`, change one `expect` by +1, run the unmutated harness against 76f4eea — it must print MISMATCH 1 and exit 1.
+# Acceptance
+{LANE}/.ufo/waves/round-33/build/mut/MutGate.md: a table (mutant, what changed, selftest verdict/exit, controls verdict/exit, KILLED/ESCAPE) for M1-M7 plus the input mutation, and an explicit list of escapes. Yield the escape list and the input-mutation verdict.""")
+
+spec = {
+    "wave": "kagi-r33-build",
+    "context": context,
+    "reportDir": WAVE,
+    "axes": ["coverage", "calibration"],
+    "milestone": "Round 33 build: C1 prefreeze-control capability (frozen BASE controls, red witness on the round-32 declared values); C2 NIST key-management frontier -> core (2 entries, 10 rows, withdraw Frontier bullet)",
+    "items": items,
+}
+out = pathlib.Path(LANE) / ".ufo/waves/round-33/build-spec.json"
+out.write_text(json.dumps(spec, indent=2) + "\n")
+print("wrote", out, len(items), "items")
+print([ (i["name"], i["role"]) for i in items ])

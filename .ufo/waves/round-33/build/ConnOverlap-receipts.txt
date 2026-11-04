@@ -1,0 +1,394 @@
+# ConnOverlap — round-33 build receipts (kagi-shokunin, read-only sibling scan)
+# seat: ConnOverlap-9  date: 2026-11-04  cwd for every command: /home/vgpnk/Projects/shokunin
+# lane kagi-shokunin HEAD: 880824b1d3da5f70b2fe489a34fe866a47314672
+# op --version: 2.41.1
+
+## R1 — NIST-term census, scoped file classes (PROVINCE.md, SKILL.md, corpus/SOURCES.md, corpus/knowledge/)
+$ cd /home/vgpnk/Projects/shokunin && for l in *-shokunin; do [ "$l" = kagi-shokunin ] && continue; ... grep -cE "NIST|800-57|800-131A|800-133|key-management" ...
+audio-shokunin           PROVINCE=0 SKILL=0 SOURCES=0 knowledge_lines=0
+chousa-shokunin          PROVINCE=0 SKILL=0 SOURCES=0 knowledge_lines=0
+game-dev-2d-shokunin     PROVINCE=0 SKILL=0 SOURCES=0 knowledge_lines=0
+game-dev-3d-shokunin     PROVINCE=0 SKILL=0 SOURCES=0 knowledge_lines=0
+kaidoku-shokunin         PROVINCE=0 SKILL=0 SOURCES=0 knowledge_lines=0
+kake-shokunin            PROVINCE=0 SKILL=0 SOURCES=0 knowledge_lines=0
+kama-shokunin            PROVINCE=0 SKILL=0 SOURCES=0 knowledge_lines=0
+kasegi-shokunin          PROVINCE=2 SKILL=0 SOURCES=7 knowledge_lines=27
+kengaku-shokunin         PROVINCE=0 SKILL=0 SOURCES=2 knowledge_lines=1
+kotoba-shokunin          PROVINCE=0 SKILL=0 SOURCES=0 knowledge_lines=0
+kotodama-shokunin        PROVINCE=0 SKILL=0 SOURCES=0 knowledge_lines=6
+kumitate-shokunin        PROVINCE=0 SKILL=0 SOURCES=0 knowledge_lines=0
+lore-shokunin            PROVINCE=0 SKILL=0 SOURCES=0 knowledge_lines=0
+mado-shokunin            PROVINCE=0 SKILL=0 SOURCES=0 knowledge_lines=0
+mori-shokunin            PROVINCE=0 SKILL=0 SOURCES=4 knowledge_lines=3
+revenger-shokunin        PROVINCE=0 SKILL=1 SOURCES=4 knowledge_lines=9
+souji-shokunin           PROVINCE=0 SKILL=0 SOURCES=0 knowledge_lines=0
+tabi-shokunin            PROVINCE=0 SKILL=0 SOURCES=0 knowledge_lines=0
+tameshi-shokunin         PROVINCE=0 SKILL=0 SOURCES=0 knowledge_lines=0
+tsukuroi-shokunin        PROVINCE=0 SKILL=0 SOURCES=0 knowledge_lines=1
+
+## R2 — knowledge-dir hit lines, non-zero lanes only (file:line, cut to 160 cols)
+$ grep -rnE "NIST|800-57|800-131A|800-133|key-management" <lane>/corpus/knowledge
+-- kasegi-shokunin
+kasegi-shokunin/corpus/knowledge/authorised-testing-rules-of-engagement.md:2:source: S032 — https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication80
+kasegi-shokunin/corpus/knowledge/authorised-testing-rules-of-engagement.md:10:authority and **bounds** it. NIST SP 800-115 gives that document a name — the
+kasegi-shokunin/corpus/knowledge/authorised-testing-rules-of-engagement.md:16:The ROE's scope section is not a permission list. NIST's own template pairs an
+kasegi-shokunin/corpus/knowledge/authorised-testing-rules-of-engagement.md:60:statement — NIST's template asks for both, so their absence is a package defect,
+kasegi-shokunin/corpus/knowledge/authorised-testing-rules-of-engagement.md:79:The capture is a `pdftotext` render of the PDF NIST serves today (fetched
+kasegi-shokunin/corpus/knowledge/nist-sp800-216-vdp-framework.md:1:# NIST SP 800-216 on its publication record — a *recommended* federal disclosure framework th
+kasegi-shokunin/corpus/knowledge/nist-sp800-216-vdp-framework.md:4:verified-at: 2026-10-26 (re-opened by me this day: the URL returned HTTP 200, text/html; char
+kasegi-shokunin/corpus/knowledge/nist-sp800-216-vdp-framework.md:10:This is NIST's publication record for a NIST Special Publication, and both halves of that ma
+kasegi-shokunin/corpus/knowledge/nist-sp800-216-vdp-framework.md:12:> "Kim Schaffer (NIST), Peter Mell (NIST), Hung Trinh (NIST), Isabel Van Wyk (NIST)" — S019.
+kasegi-shokunin/corpus/knowledge/nist-sp800-216-vdp-framework.md:26:The verbs are process verbs — accept, assess, manage — and the object is "actions", not a pu
+kasegi-shokunin/corpus/knowledge/nist-sp800-216-vdp-framework.md:38:Three asset classes — software, hardware, digital services — and one qualifier — under feder
+kasegi-shokunin/corpus/knowledge/nist-sp800-216-vdp-framework.md:40:## Claim 4 — the stated benefit is a possibility, and it is NIST's own rationale
+kasegi-shokunin/corpus/knowledge/nist-sp800-216-vdp-framework.md:44:The modal is "can help reduce", not "reduces" and not a measured effect. The page reports no
+kasegi-shokunin/corpus/knowledge/nist-sp800-216-vdp-framework.md:64:> "https://doi.org/10.6028/NIST.SP.800-216" — S019.txt:L91
+kasegi-shokunin/corpus/knowledge/nist-sp800-216-vdp-framework.md:79:2. **Keep "recommends" in the sentence.** NIST recommends guidance (L80); `mandatory` is abs
+kasegi-shokunin/corpus/knowledge/nist-sp800-216-vdp-framework.md:82:5. **Attribute the rationale as a possibility.** "can help reduce" (L80) is NIST's stated ex
+kasegi-shokunin/corpus/knowledge/nist-sp800-216-vdp-framework.md:88:`grep -oFi` on the capture gives `federal=9`, `disclosure=11`, `recommends=2`, `NIST=7`, `po
+kasegi-shokunin/corpus/knowledge/nist-sp800-216-vdp-framework.md:106:1. **"NIST requires federal agencies to run a vulnerability disclosure programme."** Reject
+kasegi-shokunin/corpus/knowledge/nist-sp800-216-vdp-framework.md:119:- **No currency claim.** The page is a publication record that NIST can revise; this entry 
+kasegi-shokunin/corpus/knowledge/nvd-api-2.0-response-schema.md:4:verified-at: 2026-11-01 (opened this round; a static schema artifact served from NIST's csrc h
+kasegi-shokunin/corpus/knowledge/nvd-api-2.0-response-schema.md:10:This is NIST's own schema document speaking: the bytes are what NIST's csrc host served at th
+kasegi-shokunin/corpus/knowledge/nvd-api-2.0-response-schema.md:32:only; it does not assert that NIST validates every served payload against this schema, and it
+kasegi-shokunin/corpus/knowledge/nvd-api-2.0-response-schema.md:46:field names ground nothing about the KEV catalog's own content (F18/S052); they are NIST's mi
+kasegi-shokunin/corpus/knowledge/nvd-api-2.0-retrieval-interface.md:1:# NVD API 2.0 — NIST's read-side retrieval interface over the NVD-enriched CVE record: the
+kasegi-shokunin/corpus/knowledge/nvd-api-2.0-retrieval-interface.md:3:source: S083 — https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2024-3094 — capt
+kasegi-shokunin/corpus/knowledge/nvd-api-2.0-retrieval-interface.md:4:verified-at: 2026-11-01 (opened this round; the capture is one live response at one instan
+kasegi-shokunin/corpus/knowledge/nvd-api-2.0-retrieval-interface.md:10:This is NIST's own service speaking: the bytes are what the NVD Vulnerability Data API 2.
+-- kotodama-shokunin
+kotodama-shokunin/corpus/knowledge/verification/gate-frozen-run-standard.md:10:  - KTD-FR-S-0006 — NIST (2015). *Secure Hash Standard (SHS)*, FIPS PUB 180-4. Na
+kotodama-shokunin/corpus/knowledge/verification/generated-artifact-roundtrip-verification.md:14:  - KTD-GA-S-0009 — NIST (2015), *Secure Hash Standard (SHS)*, F
+kotodama-shokunin/corpus/knowledge/verification/generated-artifact-roundtrip-verification.md:15:- calibration: round-trip verification is this lane's house poli
+kotodama-shokunin/corpus/knowledge/verification/append-only-record-verification.md:17:  - KTD-AR-S-0012 — NIST SP 800-92, *Guide to Computer Security Log Manage
+kotodama-shokunin/corpus/knowledge/verification/append-only-record-verification.md:19:- calibration: append-only discipline is this lane's house policy, grounde
+kotodama-shokunin/corpus/knowledge/verification/append-only-record-verification.md:22:- verified-at: 2026-10-19 — written this round at lane HEAD dfb0719, from 
+-- mori-shokunin
+mori-shokunin/corpus/knowledge/evidence-minimization-r18.md:1:source: S049 (OWASP Logging Cheat Sheet, "Data to exclude"), S050 (OWASP ASVS 5.0.0 V16), S051 (NI
+mori-shokunin/corpus/knowledge/evidence-minimization-r18.md:16:should be removed, masked, sanitized, hashed, or encrypted") and NIST's minimum-necessary
+mori-shokunin/corpus/knowledge/quota-observability-r48.md:1:source: S479 — https://man7.org/linux/man-pages/man8/xfs_quota.8.html — §QUOTA OVERVIEW, §QUOTA ADMI
+-- revenger-shokunin
+revenger-shokunin/corpus/knowledge/digest-scope-versus-provenance.md:2:source: S006 — https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.180-4.pdf — Announcement 
+revenger-shokunin/corpus/knowledge/digest-scope-versus-provenance.md:58:  the acquired data using a NIST-approved hash algorithm to facilitate
+revenger-shokunin/corpus/knowledge/digest-scope-versus-provenance.md:166:  curl -sL 'https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.180-4.pdf' | pdftotext -la
+revenger-shokunin/corpus/knowledge/digest-scope-versus-provenance.md:177:  curl -sL 'https://swgde.org/wp-content/uploads/2025/09/2025-08-05-Best-Practices-for-
+revenger-shokunin/corpus/knowledge/digest-scope-versus-provenance.md:184:  NIST-approved hash algorithm
+revenger-shokunin/corpus/knowledge/tool-validation-by-function-and-version.md:48:- NIST CFTT methodology overview: "The testing methodology developed by NIST
+revenger-shokunin/corpus/knowledge/tool-validation-by-function-and-version.md:102:| Q01 | pass | Load-bearing claims cite tier-A rows opened this round (SWGDE 1
+revenger-shokunin/corpus/knowledge/tool-validation-by-function-and-version.md:168:  curl -sL https://www.nist.gov/itl/csd/secure-systems-and-applications/comput
+revenger-shokunin/corpus/knowledge/tool-validation-by-function-and-version.md:172:  ['The testing methodology developed by NIST is functionality driven']
+-- kengaku-shokunin
+kengaku-shokunin/corpus/knowledge/tb2-cancel-async-tasks-grader.md:41:DETERMINISTIC, zero U marks, full commitment (every cell is a fixed function of the
+-- tsukuroi-shokunin
+tsukuroi-shokunin/corpus/knowledge/kernel-taint-r27.md:33:- Before enabling `module.sig_enforce=1` or a lockdown mode that requires signatures, the DKMS key mus
+
+## R3 — key-management DOCUMENT FAMILY (SP 800-56/57/108/131/133/152, FIPS 140/186/197) in the same scoped classes
+$ grep -rIohE "SP ?800-(56|57|108|131|133|152)[A-Z]?|800-(56|57|108|131|133|152)[A-Z]?|FIPS ?(PUB )?(140|186|197)[-0-9]*" <lane>/PROVINCE.md <lane>/SKILL.md <lane>/corpus/SOURCES.md <lane>/corpus/knowledge
+audio-shokunin: <none>
+chousa-shokunin: <none>
+game-dev-2d-shokunin: <none>
+game-dev-3d-shokunin: <none>
+kaidoku-shokunin: <none>
+kake-shokunin: <none>
+kama-shokunin: <none>
+kasegi-shokunin: <none>
+kengaku-shokunin: <none>
+kotoba-shokunin: <none>
+kotodama-shokunin: <none>
+kumitate-shokunin: <none>
+lore-shokunin: <none>
+mado-shokunin: <none>
+mori-shokunin: <none>
+revenger-shokunin: <none>
+souji-shokunin: <none>
+tabi-shokunin: <none>
+tameshi-shokunin: <none>
+tsukuroi-shokunin: <none>
+
+## R4 — semantic key-management phrases in the same scoped classes
+$ grep -rIlnE "key establishment|key derivation|key agreement|cryptographic key|key rotation|key lifecycle|key-management|key management" <lane>/{PROVINCE.md,SKILL.md,corpus/SOURCES.md,corpus/knowledge}
+-- kengaku-shokunin
+kengaku-shokunin/corpus/SOURCES.md
+-- kumitate-shokunin
+kumitate-shokunin/corpus/knowledge/kimi-residue-files.md
+-- revenger-shokunin
+revenger-shokunin/corpus/SOURCES.md
+revenger-shokunin/corpus/knowledge/round-73-re-resource-atlas.md
+-- souji-shokunin
+souji-shokunin/SKILL.md
+-- tsukuroi-shokunin
+tsukuroi-shokunin/corpus/knowledge/kernel-taint-r27.md
+
+## R5 — gate scan: executable scripts naming 'git archive' under corpus/ and scripts/ that also carry an expect|control|declared|claim token
+$ for f in $(grep -rIl "git archive" <lane>/corpus <lane>/scripts); do case "$f" in *.sh|*.py|*.mjs|*.js) ;; *) continue;; esac; case "$f" in */live/*|*/mut/*) continue;; esac; grep -qE "expect|control|declared|claim" "$f" && echo "$f"; done
+audio-shokunin: audio-shokunin/corpus/fixtures/measure_audio.py
+chousa-shokunin: chousa-shokunin/corpus/evidence/round24-measure.sh
+chousa-shokunin/corpus/evidence/round55/c3-count.py
+chousa-shokunin/corpus/evidence/round63/c2-count.py
+game-dev-2d-shokunin: <none>
+game-dev-3d-shokunin: <none>
+kaidoku-shokunin: <none>
+kake-shokunin: <none>
+kama-shokunin: <none>
+kasegi-shokunin: kasegi-shokunin/corpus/instruments/r-defect-closure.sh
+kasegi-shokunin/corpus/instruments/r35-defect-closure.sh
+kasegi-shokunin/corpus/instruments/r36-closure.sh
+kasegi-shokunin/corpus/instruments/r37-closure.sh
+kasegi-shokunin/corpus/instruments/r38-closure.sh
+kasegi-shokunin/corpus/instruments/r39-closure.sh
+kasegi-shokunin/corpus/instruments/r40-closure.sh
+kasegi-shokunin/corpus/instruments/r41-closure.sh
+kasegi-shokunin/corpus/instruments/r43-limbs/k19-freeze.sh
+kengaku-shokunin: <none>
+kotoba-shokunin: <none>
+kotodama-shokunin: <none>
+kumitate-shokunin: kumitate-shokunin/scripts/receipt-evidence.mjs
+kumitate-shokunin/scripts/plan-before-ready.sh
+lore-shokunin: <none>
+mado-shokunin: <none>
+mori-shokunin: <none>
+revenger-shokunin: revenger-shokunin/corpus/self_assessment_check.py
+souji-shokunin: <none>
+tabi-shokunin: <none>
+tameshi-shokunin: <none>
+tsukuroi-shokunin: <none>
+
+## R6 — gates taking --base, EXECUTABLE files only under corpus/ and scripts/ (excl live/mut/evidence-round/snapshots)
+$ grep -rIln -- "--base" <lane>/corpus <lane>/scripts | grep -E "\\.(sh|py|mjs|js)$" | grep -vE "/live/|/mut/|/evidence/|source-snapshots"
+audio-shokunin: <none>
+chousa-shokunin: <none>
+game-dev-2d-shokunin: <none>
+game-dev-3d-shokunin: <none>
+kaidoku-shokunin: <none>
+kake-shokunin: kake-shokunin/scripts/append_guard.py
+kake-shokunin/scripts/doc_quote_truth.py
+kake-shokunin/scripts/ledger_append_guard.py
+kama-shokunin: <none>
+kasegi-shokunin: kasegi-shokunin/corpus/instruments/r44-routed-defects.py
+kasegi-shokunin/corpus/instruments/r45-routed-defects.py
+kasegi-shokunin/corpus/instruments/freeze-check.py
+kasegi-shokunin/corpus/instruments/r45-counters-selftest-c1.py
+kasegi-shokunin/corpus/instruments/r46-c1-gate.py
+kasegi-shokunin/corpus/instruments/r46-counters-selftest-c1.py
+kasegi-shokunin/corpus/instruments/r46-mutant-equivalents/m14-equivalence-differential.py
+kasegi-shokunin/corpus/instruments/r47-routed-defects.py
+kasegi-shokunin/corpus/instruments/r47-counters-selftest.py
+kasegi-shokunin/corpus/instruments/r47-mutbat.py
+kengaku-shokunin: <none>
+kotoba-shokunin: <none>
+kotodama-shokunin: <none>
+kumitate-shokunin: kumitate-shokunin/scripts/harm-matrix.mjs
+lore-shokunin: <none>
+mado-shokunin: <none>
+mori-shokunin: <none>
+revenger-shokunin: <none>
+souji-shokunin: <none>
+tabi-shokunin: tabi-shokunin/scripts/check-round-contract.mjs
+tabi-shokunin/scripts/check-user-round-contract.mjs
+tabi-shokunin/scripts/check-decision-table.mjs
+tabi-shokunin/scripts/check-bidi-runtime.mjs
+tameshi-shokunin: <none>
+tsukuroi-shokunin: <none>
+
+## R7 — committed instruments named *freeze-check* OUTSIDE .ufo (find), plus raw string-mention file counts
+$ find <lane> -name "*freeze-check*" -type f | grep -vE "/\\.git/|/\\.jj/|/\\.ufo/"
+audio-shokunin: instruments=[none] string_mention_files=0
+chousa-shokunin: instruments=[chousa-shokunin/corpus/evidence/round61/freeze-check-selftest.txt
+chousa-shokunin/corpus/evidence/round61/freeze-check-live.txt
+chousa-shokunin/tools/freeze-check.py] string_mention_files=101
+game-dev-2d-shokunin: instruments=[none] string_mention_files=0
+game-dev-3d-shokunin: instruments=[none] string_mention_files=0
+kaidoku-shokunin: instruments=[none] string_mention_files=13
+kake-shokunin: instruments=[none] string_mention_files=12
+kama-shokunin: instruments=[none] string_mention_files=4
+kasegi-shokunin: instruments=[kasegi-shokunin/corpus/instruments/freeze-check.py] string_mention_files=137
+kengaku-shokunin: instruments=[none] string_mention_files=304
+kotoba-shokunin: instruments=[none] string_mention_files=3
+kotodama-shokunin: instruments=[none] string_mention_files=7
+kumitate-shokunin: instruments=[none] string_mention_files=4
+lore-shokunin: instruments=[none] string_mention_files=2
+mado-shokunin: instruments=[none] string_mention_files=6
+mori-shokunin: instruments=[none] string_mention_files=13
+revenger-shokunin: instruments=[none] string_mention_files=0
+souji-shokunin: instruments=[souji-shokunin/census/round-41/waves/w1/R41critic06/c2/freeze-check-executor09-copy.py
+souji-shokunin/census/round-41/waves/w1/R41critic06/c2/freeze-check-mutant-no-ready.py
+souji-shokunin/census/round-41/waves/w1/R41executor07/souji-freeze-check.py
+souji-shokunin/census/round-41/waves/w1/R41executor08/souji-freeze-check.py
+souji-shokunin/census/round-41/waves/w1/R41executor09/souji-freeze-check.py
+souji-shokunin/census/round-41/waves/w1/R41executor10/souji-freeze-check.py
+souji-shokunin/census/round-41/waves/w1/R41executor11/souji-freeze-check.py
+souji-shokunin/census/round-41/waves/w1/R41executor12/souji-freeze-check.py
+souji-shokunin/census/round-41/waves/w2/R41w2executor01/freeze-check-fixed-candidate.py
+souji-shokunin/census/round-41/waves/w2/R41w2executor02/souji-freeze-check.patched.py
+souji-shokunin/census/round-41/waves/w2/R41w2scribe01/receipts/freeze-check-r40-tip.txt
+souji-shokunin/census/round-41/waves/w2/R41w2scribe01/receipts/freeze-check-r41-freeze.txt
+souji-shokunin/census/round-41/waves/w2/R41w2scribe01/receipts/freeze-check-r41-tip.txt
+souji-shokunin/census/round-42/waves/w1/R42critic06/attacks/freeze-check-envcheat.py
+souji-shokunin/census/round-42/waves/w1/R42executor02/souji-freeze-check.py
+souji-shokunin/census/round-42/waves/w1/R42executor03/souji-freeze-check.py
+souji-shokunin/census/round-42/waves/w1/R42executor04/souji-freeze-check.py
+souji-shokunin/census/round-42/waves/w1/R42executor05/souji-freeze-check.py
+souji-shokunin/census/round-42/waves/w1/R42executor06/souji-freeze-check.py
+souji-shokunin/census/round-42/waves/w2/R42w2critic07/receipts/ci-freeze-check.txt
+souji-shokunin/census/round-42/waves/w2/R42w2reviewer01/receipts/freeze-check-prereg.txt
+souji-shokunin/census/round-42/waves/w2/R42w2reviewer01/receipts/freeze-check-selftest.txt
+souji-shokunin/census/round-42/waves/w2/R42w2reviewer06/receipts/freeze-check-selftest-at-tip.txt
+souji-shokunin/census/round-42/waves/w2/R42w2sentinel01/probe/probe-patched-freeze-check.py
+souji-shokunin/census/round-44/waves/w1/S44reviewer19/tools__souji-freeze-check.py
+souji-shokunin/census/round-44/waves/w1/S44reviewer20/frozen-tools__souji-freeze-check.py
+souji-shokunin/census/round-44/waves/w1/S44reviewer24/tools__souji-freeze-check.py
+souji-shokunin/census/round-44/waves/w1/S44reviewer26/tools__souji-freeze-check.py
+souji-shokunin/census/round-49/records/freeze-check-at-freeze-attempt1.txt
+souji-shokunin/census/round-49/records/freeze-check-at-freeze-r2.txt
+souji-shokunin/census/round-49/records/freeze-check-at-tip.txt
+souji-shokunin/census/round-50/records/freeze-check-at-content-tip.txt
+souji-shokunin/census/round-51/records/freeze-check-at-content-tip-51.txt
+souji-shokunin/census/round-54/records/freeze-check-at-freeze.txt
+souji-shokunin/census/round-55/records/freeze-check-at-freeze.txt
+souji-shokunin/tools/souji-freeze-check.py] string_mention_files=2196
+tabi-shokunin: instruments=[none] string_mention_files=17
+tameshi-shokunin: instruments=[none] string_mention_files=19
+tsukuroi-shokunin: instruments=[none] string_mention_files=18
+
+## R8 — committed implementations named freeze-check
+6809c99cd9a491bd343365ed36548d8ae81cd55d1a29d47252f7aa898cab079c  /home/vgpnk/Projects/shokunin/kasegi-shokunin/corpus/instruments/freeze-check.py
+da9f6e16b9913a63fc6b16445cbe7b97ac878e6863ab8bb4e92e7922735b55c2  /home/vgpnk/Projects/shokunin/chousa-shokunin/tools/freeze-check.py
+d1ca06fd0fb21d4c7a8452dbbc879f2ecf63ffaaf65378efa3c512e4dbfca364  /home/vgpnk/Projects/shokunin/souji-shokunin/tools/souji-freeze-check.py
+
+### kasegi freeze-check.py docstring (lines 1-33)
+#!/usr/bin/env python3
+"""freeze-check.py - replay a kasegi-round-claims-v2 file against the frozen base.
+
+Round-44 defect it closes: a counter frozen as
+    grep -cE '^\\| F[0-9]+ \\| admitted \\|' corpus/README.md
+printed 0 at the base AND after landing, because the status is the third table
+cell, so the frozen claim could never go green.  The claim text was never replayed
+at the freeze commit.  This tool replays every claim's counter_cmd at the base
+tree and refuses the freeze unless the counter reads exactly what the claim says.
+
+Usage
+  freeze-check.py --claims PATH --tool-root DIR --base DIR [--work DIR] [--timeout S]
+  freeze-check.py --selftest [--work DIR] [--base DIR]
+
+For each claim: counter_cmd is rendered with {tool}=tool-root, {tree}={base}=base
+(each shell-quoted), run with `bash -c` in tool-root (stdout+stderr merged, child
+env R45_FREEZE_CHECK=1, TMPDIR explicit, default timeout 300 s).  A nonzero counter
+exit is NOT a failure (counters are red at the base).  The claim is ok only when:
+  * it carries non-empty counter_cmd, expect_before, expect_after;
+  * some output line, stripped, EQUALS expect_before (whole line, never a substring:
+    `fixed=0` does not match `fixed=0x` or `xfixed=0`, R41);
+  * no output line contains expect_after (a counter already green at the base is a
+    do-nothing pass);
+  * expect_before != expect_after, counter_cmd mentions {tree} or {base}, ids are
+    unique, and the counter left the base tree byte-for-byte untouched (counters are
+    read-only; checked as relative path + size + mtime_ns).
+Findings (stable ids, printed as `finding <claim> <ID> <detail>`):
+  FC-SCHEMA FC-NO-CLAIMS FC-DUP-ID FC-MISSING-FIELD FC-BEFORE-EQ-AFTER FC-NO-TREE
+  FC-NO-MATCH FC-AFTER-AT-BASE FC-TIMEOUT FC-BASE-MUTATED
+Exit 0 only when claims>0, every claim is ok and there is no file-level finding.
+--work: scratch root; as a check it becomes the children's TMPDIR (created if
+missing, otherwise TMPDIR is inherited); in --selftest it holds the fixtures.
+"""
+
+### kasegi instruments/README.md row for freeze-check.py (line 995, cut)
+| freeze-check.py | gate | run `corpus/instruments/freeze-check.py` with --claims FILE --tool-root DIR --base DIR; per claim `claim ID base_read=LINE verdict=ok` then `freeze-check claims=N base_ok=K exit=C` | exit 0 only when every claim replays at the base with its expect_before as a whole line and without its expect_after; exit 1 failed with stable ids FC-SCHEMA, FC-NO-CLAIMS, FC-DUP-ID, FC-MISSING-FIELD, FC-BEFORE-EQ-AFTER, FC-NO-TREE, FC-NO-MATCH, FC-AFTER-AT-BASE, FC-TIMEOUT, FC-BASE-MUTATED; undeclared nonzero -> could-not-evaluate | run `corpus/instruments/freeze-check.py` with --selftest [--work DIR]; prints `selftest cases=27 failures=0` (built-in README fixture, includes the round
+
+## R9 — the name-equivalent: kaidoku tools/round-30/prefreeze-gate.py
+-rwxr-xr-x 1 vgpnk vgpnk 21560 Oct 22 23:48 /home/vgpnk/Projects/shokunin/kaidoku-shokunin/tools/round-30/prefreeze-gate.py
+#!/usr/bin/env python3
+"""Round-30 pre-freeze gate: round-29 routed defect 3 (M29-3) as an exit-code check.
+
+Routed defect 3 of corpus/lessons/round-29-verifier-spotcheck.md: the round-29 freeze file
+names tools/round-28/c1-heldout-naming.py in a claim's own text but pins no sha256 for it,
+and the run-before-freeze step was a procedure rather than a check.  This gate turns both
+into exit codes for one round, reading Git objects only (no working-tree read, no write):
+
+  python3 -I -B tools/round-30/prefreeze-gate.py --root <LANE> --round <N> [--rev <REV>]
+
+For round <N>:
+  freeze  the first commit (reachable from --rev, default HEAD) that adds
+          .ufo/waves/round-<N>/claims.json.
+  pins    every path recorded under `instruments`, `frozen_inputs` (round-30 shape) and
+          `loaded_by_counter`, `producers_not_counters` (round-29 shape) in the claims
+          file at the freeze commit: a string value is a sha256 pin and the path must be
+
+## R9b — souji CONTROL-NOT-RED clause source
+17:CONTROL-NOT-RED, FROZEN-EDITED, DISPATCH-BEFORE-FREEZE. Prereg-wide findings carry claim label C0.
+25:reading its link text as a control. FROZEN-EDITED covers Control and preregistration blobs too.
+236:                    found.append((label, "CONTROL-NOT-RED", "%s last line %r is not EXIT=<nonzero>"
+275:    ("control-missing", 1, "C1:CONTROL-MISSING", prereg(Control="n.txt"), {}),
+276:    ("control-not-red", 1, "C1:CONTROL-NOT-RED", prereg(), {"fz": {"ctl.txt": "x\nEXIT=0\n"}}),
+304:    ("control-symlink", 1, "C1:CONTROL-SYMLINK",
+306:    ("control-edited", 1, "C1:FROZEN-EDITED",
+
+## R10 — kagi-side claim locations (read-only)
+$ grep -n "NIST\|Frontier" PROVINCE.md; grep -n "NIST" corpus/README.md
+83:## Core / Frontier / Adjacent (round 21)
+89:- **Core, round 31 — OIDC workload-federation trust policy:** the provider/protocol layer (AWS IAM registration + condition keys, AWS STS response echo, GCP attribute conditions en/ja, Alibaba RAM, OIDC Core `aud`, RFC 9700) and the 1Password Credential Broker custom-OIDC consuming side (`knowledge/oidc-federation-trust-policy.md`, `knowledge/cdp-bridge-1password-oidc-workflow.md`; rows S061–S071 in `corpus/SOURCES.md`, every source re-opened 2026-11-03). No sibling claims workload-identity ground (round-31 connector sweep over all 20 lanes: 0 registry rows, 0 citations). The round-21 frontier lead is discharged; the NIST leads stay leads.
+90:- **Frontier — explored, not held:** NIST key-management draft status (`corpus/README.md` §Frontier; leads in `corpus/SOURCES.md` §Leads (unopened)).
+106:operations from siblings. Frontier and operator-owned terminal actions
+117:- **NIST key-management draft status** — distinguish final guidance from IPDs before adopting controls; see `SOURCES.md` §Leads (unopened), SP 800-57 Rev. 5/Rev. 6 and SP 800-133 Rev. 3.
+171:OIDC/scanning/NIST frontier list above are intentionally unchanged.
+190:  scanning / NIST rows are unchanged.
+230:  anchors are named limits. Coverage map and OIDC/scanning/NIST frontier unchanged; no new
+245:  detection versus validity checks), S049 (NIST SP 800-57 Pt 1 Rev. 6 IPD
+$ grep -cE "^\|[[:space:]]*S[0-9]{3,}[[:space:]]*\|" corpus/SOURCES.md
+72
+$ test -e corpus/prefreeze-control.sh; echo exit=$?
+exit=0
+$ ls corpus/knowledge/nist-*.md 2>/dev/null | wc -l
+0
+
+## R11 — false-positive token evidence (why two knowledge hits are not NIST citations)
+$ grep -ohE "NIST|800-57|800-131A|800-133|key-management" <file> | sort | uniq -c
+-- kengaku-shokunin/corpus/knowledge/tb2-cancel-async-tasks-grader.md
+      1 NIST
+-- tsukuroi-shokunin/corpus/knowledge/kernel-taint-r27.md
+      1 key-management
+modules will be refused at load. Trusting it is a key-management decision for the op
+
+## R12 — a sibling inventory OF kagi's gates (not a sibling gate of its own)
+$ ls -l tameshi-shokunin/corpus/knowledge/*kagi*
+-rw-r--r-- 1 vgpnk vgpnk 34570 Oct 14 11:05 /home/vgpnk/Projects/shokunin/tameshi-shokunin/corpus/knowledge/gates-survey-kagi.md
+-rw-r--r-- 1 vgpnk vgpnk 19300 Oct 21 10:05 /home/vgpnk/Projects/shokunin/tameshi-shokunin/corpus/knowledge/mutation-case-kagi-census.md
+-rw-r--r-- 1 vgpnk vgpnk 22952 Oct 14 16:19 /home/vgpnk/Projects/shokunin/tameshi-shokunin/corpus/knowledge/mutation-case-kagi-checklist.md
+-rw-r--r-- 1 vgpnk vgpnk 17373 Oct 26 22:31 /home/vgpnk/Projects/shokunin/tameshi-shokunin/corpus/knowledge/mutation-case-kagi-drift-pins.md
+$ grep -nE "^#{2,3} " tameshi-shokunin/corpus/knowledge/gates-survey-kagi.md
+19:## 1. What the six gates are, in one table
+44:## 2. Case counts — provable
+73:## 3. POLICY and other fail-closed classes
+157:## 4. Evidence discipline — five shared habits
+207:## 5. Cross-checks — kagi's prose against measurement
+209:### 5.1 Case-count claims in `corpus/README.md` — 6/6 confirmed
+228:### 5.2 The 16-item checklist bijection — verified two ways
+246:### 5.3 The revision stamp set — 56/56 resolving
+259:## 6. Finding F-1 — `--falsify` measures 16/18 on this host, README says 18/18
+326:## 6b. Finding F-2 — three of six refusal paths in `policy_check()` have no selftest case
+367:## 7. Spot-checks (three anchors, re-verified on the current revision)
+418:## 8. Caveats on this survey itself
+420:### 8.1 The substrate moved during the survey
+442:### 8.2 What this survey did not measure
+469:## 9. Reusable pattern (candidate — for the tameshi method, not a claim on kagi)
+503:## 10. Errata (append-only)
+545:### Errata (round 2)
+610:## 11. Secret handling — positive statement
+$ sed -n "19,32p" tameshi-shokunin/corpus/knowledge/gates-survey-kagi.md
+## 1. What the six gates are, in one table
+
+Line counts, byte sizes and sha256 (first 16 hex) are `wc -l`, `stat -c %s`,
+`sha256sum` on the files as read, 2026-10-14.
+
+| Gate | Lines | Bytes | sha256 (16) | Data file (rows¹) | Selftest cases² | Modes³ |
+|---|---|---|---|---|---|---|
+| `corpus/surface-census.sh` | 886 | 44212 | `275d8294a94e9eb7` | `surface-census.tsv` (35), `state-shape.tsv` (22) | **16** | verify (default) · `--verbs` · `--selftest` |
+| `corpus/drift-pins.sh` | 451 | 19088 | `c138d34c7f0dfe95` | `drift-baseline.tsv` (15), `drift-symbols.tsv` (20) | **13** | verify (default) · `--pin` · `--selftest` · `--baseline/--symbols` |
+| `corpus/op-ref-probe.sh` | 660 | 28660 | `509f084ad33229db` | contract arrays in-file⁴ | **29** | verify (default) · `--evaluate F` · `--fixture DIR` · `--selftest` |
+| `corpus/checklist-run.sh` | 506 | 24697 | `7e5ec98b9e1d0afa` | `checklist.tsv` (16) | **34** | verify (default) · `--list` · `--ratio` · `--only ID` · `--selftest` |
+| `corpus/scope-gate.sh` | 1129 | 55002 | `078a260184e25282` | `adjacency.tsv` (4) | **61** | gate (default) · `--map` · `--breadth` · `--selftest` · `--falsify` |
+| `corpus/claim-ledger.sh` | 1319 | 79294 | `357fb24554cd0447` | `claim-ledger.tsv` (35), `stamps.tsv` (56) | **97** | `verify`/`citations`/`cells`/`docs` · `stamp` · `--selftest` |
+
+$ grep -cE "prefreeze|pre-freeze|git archive" tameshi-shokunin/corpus/knowledge/gates-survey-kagi.md
+0
+$ grep -ohE "NIST|800-57|800-131A|800-133|key-management" tameshi-shokunin/corpus/knowledge/*kagi* | sort | uniq -c
+
+# END receipts

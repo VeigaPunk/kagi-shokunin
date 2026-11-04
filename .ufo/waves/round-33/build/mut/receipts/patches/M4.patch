@@ -1,0 +1,11 @@
+--- /fast/scratch/hyaku/kagi-r33/MutGate-2/prefreeze-control.pristine.sh	2026-11-04 10:32:58.930428734 -0300
++++ /fast/scratch/hyaku/kagi-r33/MutGate-2/mutants/M4.sh	2026-11-04 10:33:16.821502072 -0300
+@@ -201,7 +201,7 @@
+   IDS+=("$id"); EXPS+=("$exp"); CMDS+=("$cmd")
+ done < "$CONTROLS"
+ n=${#IDS[@]}
+-[ "$n" -gt 0 ] || { note "no control rows in $CONTROLS"; die empty-controls; }
++[ "$n" -gt 0 ] || :   # M4: empty controls file yields CLEAN
+ 
+ git -C "$REPO" rev-parse --verify --quiet "$BASE_REV^{commit}" >/dev/null 2>&1 || die bad-rev
+ 

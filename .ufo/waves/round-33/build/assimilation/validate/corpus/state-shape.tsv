@@ -1,0 +1,53 @@
+# kagi-shokunin runtime shape pins — v1 (round 10)
+#
+# Makes the two `xdg-data` artifacts and the other runtime state falsifiable
+# without pinning content: shape floors that survive legitimate mutation and
+# fire on reset or gross truncation. Columns:
+#   path <TAB> kind <TAB> assertion <TAB> value <TAB> note
+#   assertion: magic | mode | size_min | lines_min | tables_min
+#            | tables_required (<comma list>) | rows_min (<table>:<floor>)
+#            | keys (<comma list of top-level JSON key names, presence only>)
+# Runtime paths may be absent (ABSENT, informational). No assertion prints or
+# hashes content; a sha256 of a 0600 file is an offline oracle and stays
+# withheld (round-9 sentinel ruling in knowledge/drift-gate.md §Bounds).
+#
+# Floor policy (round-10 scout, evidence in lessons/round-10.md): each numeric
+# floor is a third of the value observed 2026-09-28, never the observed value
+# itself. A floor can then only fire on truncation below one third — the
+# corpus records no purge, reset, vacuum or rotate verb, but an operator
+# `rm -rf $STATE/xdg-data` or a session delete through the control plane is
+# plausible, and a floor that fires on any shrink would be a false alarm
+# (round-8 lesson). Reset stays detectable: a reset lands at 0, below every
+# floor here, and it invalidates the recorded census in
+# knowledge/handler-on-disk-state.md at the same moment.
+#
+# The database is read through a snapshot copy (see surface-census.sh
+# sqlite_probe): a read-only open of the live file can still touch `-shm`,
+# which would make the gate a mutator of a surface it verifies.
+$STATE/xdg-data/opencode/opencode.db	sqlite	magic	SQLite format 3	NUL-terminated 16-byte header, compared byte-exact
+$STATE/xdg-data/opencode/opencode.db	sqlite	mode	600	-
+$STATE/xdg-data/opencode/opencode.db	sqlite	size_min	1	any non-empty projection
+$STATE/xdg-data/opencode/opencode.db	sqlite	tables_min	12	observed 20; migrations only add, a truncated file yields 0
+$STATE/xdg-data/opencode/opencode.db	sqlite	tables_required	session,message,part,event,account,credential,permission	transcript + credential surfaces
+$STATE/xdg-data/opencode/opencode.db	sqlite	rows_min	session:2	observed 7 (rounds 6–10)
+$STATE/xdg-data/opencode/opencode.db	sqlite	rows_min	message:13	observed 39
+$STATE/xdg-data/opencode/opencode.db	sqlite	rows_min	part:18	observed 55
+$STATE/xdg-data/opencode/opencode.db	sqlite	rows_min	event:79	observed 238; event log is the superset projection
+$STATE/xdg-data/opencode/log/opencode.log	log	mode	600	-
+$STATE/xdg-data/opencode/log/opencode.log	log	size_min	16384	observed 33687 B (~49%); fires on rotation-to-empty only
+$STATE/xdg-data/opencode/log/opencode.log	log	lines_min	1	84 lines, all level=ERROR, unchanged 2026-09-21 → 2026-09-28
+$STATE/client.lock	lock	mode	600	0-byte flock file; prepare_state recreates it
+$STATE/session-id	marker	mode	600	conversation id, not a credential (client.py chmod 0600 L61-63); mode unverified while absent
+$STATE/tac-daybreak-blue.json	json	mode	600	-
+$STATE/tac-daybreak-blue.json	json	keys	schema_version,custodian,receipt_path,receipt_sha256,registered_at,verification_method,evidence_scope	names only; no value is read
+$STATE/xdg-cache/opencode/models.json	json	mode	600	public catalog cache
+$STATE/xdg-cache/opencode/models.json	json	size_min	65536	observed 4.7 MB; upstream-regenerated, so a weak floor only
+$HOME/.local/state/tac/handoff-status.json	json	mode	600	-
+$HOME/.local/state/tac/handoff-status.json	json	keys	schema_version,recorded_at,access_receipt,receipt_sha256,janitor_custody,commands,verification,janitor_provenance,future_l1_context_files,current_l1_relay,runner_capacity,boundaries,quiet_operation,temporary_smoke_files_removed	presence only; new fields are tolerated
+$HOME/.local/state/tac/daybreak-blue-access.json	json	mode	600	model-access receipt (round-10 critic: a rewrite dropping a published field must be visible)
+$HOME/.local/state/tac/daybreak-blue-access.json	json	keys	schema_version,recorded_at,operator_statement,catalog_evidence,client_login_evidence,live_model_check,interpretation,prior_check_failures	presence only; nested live_model_check fields are not pinned here
+# Round-22 erratum: the blanket one-third policy above is historical and
+# overbroad. Row-count floors use their declared rounded bounds; table-count,
+# nonempty-file and size floors are separately chosen declared limits.
+# No active assertion/value changed. See corpus/knowledge/surface-census.md
+# round-22 erratum and kagi-shokunin/.ufo/waves/round-22/build/Entry21.md.

@@ -1,0 +1,72 @@
+{
+  "S061": {
+    "url": "https://csrc.nist.gov/pubs/sp/800/57/pt1/r5/final",
+    "quote": "05/04/20: SP 800-57 Part 1 Rev. 5 (Final)",
+    "location": "csrc publication page, Documentation block: field \"Document History\" (same block: \"Date Published: May 2020\"; \"Publication Parts: SP 800-57 Part 2 Rev. 1 SP 800-57 Part 3 Rev. 1\")",
+    "verdict": "agree",
+    "note": "agree: \"May 2020\" and the \"(Final)\" Document History entry are verbatim, and the page's Publication Parts line already lists only the Rev. 1 parts. OVER-CLAIM: the trailing clause \"must not cite the Rev. 6 draft\" is not on this page (it names no Rev. 6); it is the lane's S049 inference, not a reading of S061."
+  },
+  "S062": {
+    "url": "https://csrc.nist.gov/pubs/sp/800/133/r3/ipd",
+    "quote": "Comments Due: June 16, 2026 (public comment period is CLOSED)",
+    "location": "csrc publication page, Documentation block header; page title \"NIST SP 800-133 Rev. 3 (Initial Public Draft) Recommendation for Cryptographic Key Generation\"; Document History \"04/17/26: SP 800-133 Rev. 3 (Draft)\"; Planning Note (06/30/2026)",
+    "verdict": "agree",
+    "note": "agree: Date Published April 17, 2026, the CLOSED comment field, the \"(Initial Public Draft)\" title and the \"(Draft)\" history entry all appear verbatim; the page contains no Final entry. No over-claim found."
+  },
+  "S063": {
+    "url": "https://csrc.nist.gov/pubs/sp/800/133/r2/final",
+    "quote": "06/04/20: SP 800-133 Rev. 2 (Final)",
+    "location": "csrc publication page, Documentation block: field \"Document History\" (same block: \"Date Published: June 2020 Supersedes: SP 800-133 Rev. 1 (07/23/2019)\"; \"Publication: https://doi.org/10.6028/NIST.SP.800-133r2\")",
+    "verdict": "agree",
+    "note": "agree: June 2020, Supersedes Rev. 1 (07/23/2019), the Final history entry and a DOI all appear verbatim. No over-claim found."
+  },
+  "S079": {
+    "url": "https://csrc.nist.gov/pubs/sp/800/57/pt2/final",
+    "quote": "Withdrawn on May 23, 2019",
+    "location": "csrc publication page: red alert block id=\"pub-withdrawn-message\" (icon id=\"pub-withdrawn\", title \"This publication has been withdrawn. See details below.\") between the breadcrumb and the page title, reading \"Withdrawn on <span id='pub-withdrawn-date'>May 23, 2019</span>. Superseded by <span id='pub-superseded-container'>SP 800-57 Part 2 Rev. 1</span>\"; the Dublin Core meta title also reads \"NIST Special Publication (SP) 800-57 Part 2 (Withdrawn)\"; the Documentation block below still prints \"Date Published: August 2005\" and Document History \"08/25/05: SP 800-57 Part 2 (Final)\"",
+    "verdict": "differs",
+    "note": "differs: the page carries a machine-identifiable withdrawal banner (\"Withdrawn on May 23, 2019. Superseded by SP 800-57 Part 2 Rev. 1\", ids pub-withdrawn-message / pub-withdrawn-date), so the teaches cell's \"finalised in 2005\" is incomplete and the admitted entry's headline \"the CSRC pages do not say so\" is false as of 2026-11-04. The age arithmetic is also wrong: August 2005 vs Part 1 Rev. 5 (May 2020) is 15 years, not \"twenty\". The row's used-by points at the refused nist-key-management-family-status.md."
+  },
+  "S080": {
+    "url": "https://csrc.nist.gov/pubs/sp/800/57/pt3/final",
+    "quote": "Withdrawn on January 22, 2015",
+    "location": "csrc publication page: red alert block id=\"pub-withdrawn-message\" (same element ids as S079) between the breadcrumb and the page title, reading \"Withdrawn on <span id='pub-withdrawn-date'>January 22, 2015</span>. Superseded by <span id='pub-superseded-container'>SP 800-57 Part 3 Rev. 1</span>\"; Dublin Core meta title reads \"NIST Special Publication (SP) 800-57 Part 3 (Withdrawn)\"; the Documentation block below still prints \"Date Published: December 2009\" and Document History \"12/28/09: SP 800-57 Part 3 (Final)\"",
+    "verdict": "differs",
+    "note": "differs: same class as S079 — the page carries the withdrawal banner the teaches cell omits, and gives the exact date (January 22, 2015) where the PDF wrapper says only \"January 2015\". The \"three different vintages\" half is correct (2020 / 2019 / 2015). used-by points at the refused family-status document."
+  },
+  "S083": {
+    "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-57p2.pdf",
+    "quote": "SP 800-57 Part 2 is superseded in its entirety by the publication of SP 800-57 Part 2 Revision 1.",
+    "location": "PDF page 1 \"Warning Notice\" wrapper: banner \"Withdrawn NIST Technical Series Publication\", must-notice line \"The attached publication has been withdrawn (archived), and is provided solely for historical purposes.\"; the quote is the \"Withdrawal Note\" field, under \"Withdrawal Date  May 23, 2019\"",
+    "verdict": "agree",
+    "note": "agree: the wrapper banner, the withdrawal sentence, the Withdrawal Date (May 23, 2019) and the Withdrawal Note all appear verbatim; the body bytes are identical to the staged pin 68266cb10868a1fe, and the server's Last-Modified is Thu, 23 May 2019 13:52:47 GMT — the same day as the withdrawal date."
+  },
+  "S084": {
+    "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-57p3.pdf",
+    "quote": "SP 800-57 Part 3 is superseded in its entirety by the publication of SP 800-57 Part 3 Revision 1 (January 2015).",
+    "location": "PDF page 1 \"Archived NIST Technical Series Publication\" wrapper: notice line \"The attached publication has been archived (withdrawn), and is provided solely for historical purposes.\"; the quote is the \"Withdrawal Note:\" field, under \"Withdrawal Date:  January 2015\"",
+    "verdict": "agree",
+    "note": "agree: \"archived (withdrawn)\", the Withdrawal Date and the Withdrawal Note appear verbatim; body bytes identical to the staged pin 52b9a7d321ab0f81. Caution for downstream greps: the wrapper's \"Latest revision of the attached publication\" line renders as \"SP 800-53 Part 3 Revision 1 (as of July 15, 2015)\" — a wrong series number in NIST's own wrapper (or an extraction artifact); it is not evidence about Part 3."
+  },
+  "S085": {
+    "url": "https://csrc.nist.gov/pubs/sp/800/57/pt2/r1/final",
+    "quote": "05/23/19: SP 800-57 Part 2 Rev. 1 (Final)",
+    "location": "csrc publication page, Documentation block: field \"Document History\" (same block: \"Date Published: May 2019 Supersedes: SP 800-57 Part 2 (08/25/2005)\"; \"Publication: https://doi.org/10.6028/NIST.SP.800-57pt2r1\"; \"Publication Parts: SP 800-57 Part 1 Rev. 5 SP 800-57 Part 3 Rev. 1\")",
+    "verdict": "agree",
+    "note": "agree on the published facts (May 2019, the DOI, the Final entry, superseding the 2005 Part 2). FLAG — omission: the page carries Planning Note (07/01/2025) \"This publication is currently being reviewed. Monitor progress on the Crypto Publication Review Project.\" The staged row does not record it, which over-states stability: Rev. 1 is current today but is under an open review that may produce a revision."
+  },
+  "S086": {
+    "url": "https://csrc.nist.gov/pubs/sp/800/57/pt3/r1/final",
+    "quote": "01/22/15: SP 800-57 Part 3 Rev. 1 (Final)",
+    "location": "csrc publication page, Documentation block: field \"Document History\" (same block: \"Date Published: January 2015 Supersedes: SP 800-57 Part 3 (12/28/2009)\"; \"Publication: https://doi.org/10.6028/NIST.SP.800-57pt3r1\"; \"Publication Parts: SP 800-57 Part 1 Rev. 5 SP 800-57 Part 2 Rev. 1\")",
+    "verdict": "agree",
+    "note": "agree on the published facts (January 2015, the DOI, the Final entry, superseding the 2009 Part 3). FLAG — omission, same class as S085: Planning Note (07/01/2025) \"This publication is currently being reviewed\" is on the page and absent from the row."
+  },
+  "S087": {
+    "url": "https://csrc.nist.gov/pubs/sp/800/131/a/r2/final",
+    "quote": "An initial public draft of Revision 3 has been posted for public comment through December 4, 2024.",
+    "location": "csrc publication page, Documentation block: \"Planning Note (10/21/2024)\" (same block: \"Date Published: March 2019 Supersedes: SP 800-131A Rev. 1 (11/06/2015)\"; Document History \"03/21/19: SP 800-131A Rev. 2 (Final)\"; \"Publication: https://doi.org/10.6028/NIST.SP.800-131Ar2\")",
+    "verdict": "agree",
+    "note": "agree: March 2019, Supersedes Rev. 1 (11/06/2015), the Final history entry and the Rev. 3 planning note appear verbatim; the page has no later history entry, so Rev. 2 is still the newest final on it. Minor flag: \"closed-comment\" is date arithmetic here (the window ended 2024-12-04); the word CLOSED is printed on the Rev. 3 IPD page (lane S110), not on this one."
+  }
+}

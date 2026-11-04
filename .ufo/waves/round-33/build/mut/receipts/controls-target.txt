@@ -1,0 +1,14 @@
+canonical controls target: git clone --shared of the lane at freeze-time revision
+880824b1d3da5f70b2fe489a34fe866a47314672, worktree clean, gate absent
+(sha256 880824b1d3da5f70b2fe489a34fe866a47314672); commit 76f4eea is present and is what --base extracts.
+This pins the controls detector to the state the round-33 controls were declared from:
+the live lane changed under this seat while the L1 landed C2 (and installed the gate).
+
+live-lane observations (not canonical, recorded for the drift note):
+- run 1 (~13:35Z): only the installed corpus/prefreeze-control.sh differed from BASE ->
+  M7 controls MISMATCH (controls=4 mismatch=1), row prefreeze_artifact expect=0 measured=1.
+  Output: receipts/controls33-live-lane/M7.txt
+- run 2 (~13:44Z): C2 working-tree values had landed (nist_entries 2, registry_rows 82;
+  frontier still 1 at that instant) -> M7 controls MISMATCH (controls=4 mismatch=3).
+  Output: receipts/matrix-summary-live-lane.txt
+Both catches are lane drift, not an assertion: at the freeze-time worktree M7 is CLEAN.

@@ -1,0 +1,31 @@
+seat=ExecReplay
+root=/fast/scratch/hyaku/kagi-r33/ExecReplay/tree33
+revision=76f4eeae7aa9af4dbb9423f5632b55791824253a
+measured_at=2026-11-04T10:28:42-03:00
+tree_identity_sha256_SOURCES=1e4923b9f0e3fbc38d6e848aee99e65a3524d33cd37350384c147222c15957e8
+tree_identity_sha256_README=3440be875c05a6fbb152b4ff2675633f5384db658926a426fc9f7a55d54a8e1d
+
+-- registry_rows --
+cmd=grep -cE ^\|[[:space:]]*S[0-9]{3,}[[:space:]]*\| corpus/SOURCES.md
+out=72
+exit=0
+
+-- nist_entries --
+cmd=sh -c ls corpus/knowledge/nist-*.md 2>/dev/null | wc -l
+out=0
+exit=0
+
+-- nist_glob_exit --
+cmd=sh -c ls corpus/knowledge/nist-*.md >/dev/null 2>&1; echo $?
+out=2
+exit=0
+
+-- prefreeze_artifact --
+cmd=test -e corpus/prefreeze-control.sh
+out=
+exit=1
+
+-- frontier_nist --
+cmd=sh -c awk '/^## Frontier/{f=1;next} /^## /{f=0} f' corpus/README.md | grep -c 'NIST'
+out=1
+exit=0

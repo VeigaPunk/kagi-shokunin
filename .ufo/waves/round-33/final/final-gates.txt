@@ -1,0 +1,16 @@
+== final pass at the landing tree ==
+-- census --
+exit=0
+SOURCES_CENSUS: CLEAN (rows=82 A=79 B=1 C=2 queued=1 mined=78 rejected=3 entries_sourced=12 legacy=22 captures=82 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+-- eol --
+exit=0
+EOL_SWEEP: CLEAN (crlf=0 attrs=5 scope=lane-minus-git-jj-ufo)
+-- prefreeze --
+exit=0
+PREFREEZE: CLEAN (controls=4 mismatch=0)
+-- selftest --
+exit=0
+PREFREEZE_SELFTEST: PASS (11 cases)
+-- sweep --
+exit=1
+SELF_DESCRIPTION: MISMATCH n=2 (SD1=0 SD2=0 SD3=0 SD4=0 SD5=0 SD6=2)

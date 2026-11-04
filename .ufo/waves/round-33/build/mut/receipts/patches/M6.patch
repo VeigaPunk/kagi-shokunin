@@ -1,0 +1,26 @@
+--- /fast/scratch/hyaku/kagi-r33/MutGate-2/prefreeze-control.pristine.sh	2026-11-04 10:32:58.930428734 -0300
++++ /fast/scratch/hyaku/kagi-r33/MutGate-2/mutants/M6.sh	2026-11-04 10:33:16.821556672 -0300
+@@ -227,19 +227,19 @@
+   rc=$?
+   [ -s "$errf" ] || rm -f -- "$errf"
+   if [ "$rc" -eq 124 ]; then
+-    printf 'NORESULT %s expect=%s (timeout %ss)\n' "$id" "$exp" "$TIMEOUT"
++    printf 'NORESULT expect=%s (timeout %ss)\n' "$exp" "$TIMEOUT"
+     noresult=$((noresult + 1)); [ -n "$reason" ] || reason=timeout; continue
+   fi
+   last=$(printf '%s\n' "$out" | grep -v '^[[:space:]]*$' | tail -n 1)
+   if [ -z "$last" ] || [[ ! $last =~ ([0-9]+)[^0-9]*$ ]]; then
+-    printf 'NORESULT %s expect=%s (no integer)\n' "$id" "$exp"
++    printf 'NORESULT expect=%s (no integer)\n' "$exp"
+     noresult=$((noresult + 1)); [ -n "$reason" ] || reason=noresult; continue
+   fi
+   m=$((10#${BASH_REMATCH[1]}))
+   if [ "$m" -eq "$((10#$exp))" ]; then
+-    printf 'OK %s expect=%s measured=%s\n' "$id" "$exp" "$m"
++    printf 'OK expect=%s measured=%s\n' "$exp" "$m"
+   else
+-    printf 'MISMATCH %s expect=%s measured=%s\n' "$id" "$exp" "$m"
++    printf 'MISMATCH expect=%s measured=%s\n' "$exp" "$m"
+     mismatch=$((mismatch + 1))
+   fi
+ done

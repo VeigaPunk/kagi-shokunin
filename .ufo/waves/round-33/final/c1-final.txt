@@ -1,0 +1,13 @@
+script_sha256=b634a8d1a1a161debf6069c5ea033a220550efa61c3271313257f8a8f9cd9098
+== round-33 controls at BASE 76f4eea ==
+OK nist_entries expect=0 measured=0
+OK registry_rows expect=72 measured=72
+OK prefreeze_artifact expect=0 measured=0
+OK frontier_nist expect=1 measured=1
+PREFREEZE: CLEAN (controls=4 mismatch=0)
+exit=0
+
+== selftest ==
+CASE base-isolation             ok
+PREFREEZE_SELFTEST: PASS (11 cases)
+exit=0

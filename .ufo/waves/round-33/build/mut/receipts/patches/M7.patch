@@ -1,0 +1,14 @@
+--- /fast/scratch/hyaku/kagi-r33/MutGate-2/prefreeze-control.pristine.sh	2026-11-04 10:32:58.930428734 -0300
++++ /fast/scratch/hyaku/kagi-r33/MutGate-2/mutants/M7.sh	2026-11-04 10:33:16.821577902 -0300
+@@ -214,9 +214,8 @@
+ EXTRACT_TMP=$EXTRACT
+ trap 'rm -rf -- "$EXTRACT_TMP"' EXIT
+ 
+-git -C "$REPO" archive --format=tar "$BASE_REV" | tar -x -f - -C "$BASE_DIR"
+-rcs=("${PIPESTATUS[@]}")
+-{ [ "${rcs[0]}" -eq 0 ] && [ "${rcs[1]}" -eq 0 ]; } || { note "git archive failed for $BASE_REV"; die extract-failed; }
++# M7: --base ignored; the live lane worktree is measured instead.
++BASE_DIR=$REPO
+ 
+ mismatch=0 noresult=0 reason=''
+ for ((i = 0; i < n; i++)); do

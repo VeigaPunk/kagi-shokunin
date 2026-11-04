@@ -1,0 +1,15 @@
+diff --git a/corpus/lessons/round-32.md b/corpus/lessons/round-32.md
+index e88663c..d6245bc 100644
+--- a/corpus/lessons/round-32.md
++++ b/corpus/lessons/round-32.md
+@@ -21,8 +21,8 @@ Non-author admit/reject spot-check: pending; dispatched seats are still this lan
+ | id | class | evidence | captured-by | fix shown able to fail |
+ |---|---|---|---|---|
+ | M32-1 | self-description outlived frontier-to-core move | round-31 verifier R1/R4/R6; BASE sweep SD1=2 SD2=2 SD4=1 | none for cross-document comparison; QM33 now captures the frontier part | `corpus/self-description-sweep.sh`; seven-case selftest clean plus one planted mismatch per SD id, `.ufo/waves/round-32/build/sweep/selftest.txt` exit 0; independent ReviewSD plants caught 3/3 |
+-| M32-2 | unmeasured BASE expectation frozen as fact | plan SD5 expected 3 and total 10; ReviewSD independently measured SD5=1 and total 8 | pre-freeze control duty was not fulfilled by the L1's estimate | record discrepancy, keep frozen predicate; do not repair history or change target after data |
+-| M32-3 | counter includes author-inaccessible correction | SD6 counts `corpus/lessons/round-30-verifier-spotcheck.md:41`, an integrator-owned file | ownership boundary | do not edit the verifier file; retain residual and report C1 not admitted if it remains; no claimed fix |
++| M32-2 | unmeasured BASE expectation frozen as fact | plan SD5 expected 3 and total 10; ReviewSD independently measured SD5=1 and total 8 | QM34 | record discrepancy, keep frozen predicate; do not repair history or change target after data |
++| M32-3 | counter includes author-inaccessible correction | SD6 counts `corpus/lessons/round-30-verifier-spotcheck.md:41`, an integrator-owned file | none | do not edit the verifier file; retain residual and report C1 not admitted if it remains; no claimed fix |
+ 
+ ## Frozen counter identity and actual BASE
+ 

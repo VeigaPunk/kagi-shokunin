@@ -1,0 +1,22 @@
+# inrow-pins.tsv — classification of the historical in-row `Fetch sha256:` pins (S001-S016), round 24 (routed D5)
+# 5 tab-separated columns: id, inrow_sha256 (must equal the registry row pin), capture_fetched (must equal that
+# id's corpus/source-fetches.tsv capture date), verdict, note. verdict is RECOMPUTED by corpus/sources-census.sh
+# SC_INROW from the capture digests: reproduces-raw (capture sha256 = pin), reproduces-normalized (capture
+# rendered-text-v1 normalized sha256 = pin) or non-reproducing. A non-reproducing pin is kept as a historical
+# point observation of an undocumented representation; it is not evidence that the page changed.
+S001	9f9d7283c2659d23c9ede72d96a31690533678b28437b2b22f73b2b73370c439	2026-10-21	non-reproducing	pin 9f9d7283c265 vs capture raw e72ab5f3f85e / normalized a8be89d90b8c
+S002	68017d4cf1655abb55baec982c2ed89b5a73731bba0275ca2426a25dfcd9d2a6	2026-10-21	non-reproducing	pin 68017d4cf165 vs capture raw 9b5dc190d03d / normalized b82b2b2cae28
+S003	7f6d3b49ac3019073c37360c4771ebad2bad43a0f87ce314eb94bb0e0debe7ff	2026-10-21	non-reproducing	pin 7f6d3b49ac30 vs capture raw 2e697420d1d6 / normalized 915a222d3743
+S004	19bcf13eacd212b54db578ed7b1fdaa7341756ab73a6bd4f61d4b0012c7d2d60	2026-10-21	non-reproducing	pin 19bcf13eacd2 vs capture raw beb67f2d0b8b / normalized ed6f87eb0ff1
+S005	f7ba8254b1109111c42429eb896b9ba767a7320c20c5a9c5fc6f1d993bdffd2f	2026-10-21	non-reproducing	pin f7ba8254b110 vs capture raw 0be7a540048c / normalized f439a0eb0411
+S006	39a869df8807696009d98bd6d0a86bc27524af65f94f235d37e6dd5a6e514c1f	2026-10-21	non-reproducing	pin 39a869df8807 vs capture raw fe37e1f3ef44 / normalized 20b4fd86dada
+S007	e4aef238bb5c93080bc0e1cc2156d0f8d19c9291dbbee60193bd42485686f818	2026-10-21	non-reproducing	pin e4aef238bb5c vs capture raw 67f690e21116 / normalized f3861c172c37
+S008	63cb0a462ce23574365c0b692aa09ea2f632f4b4df2b5f4186d8c004b57e3440	2026-10-21	reproduces-raw	pin 63cb0a462ce2 vs capture raw 63cb0a462ce2 / normalized 4dd7e969ed6f
+S009	a840727ea1a8faa05e547f59766f608cbff81b28a66d1507a614d18d25b50b76	2026-10-21	reproduces-raw	pin a840727ea1a8 vs capture raw a840727ea1a8 / normalized 189d5ba9145e
+S010	fed6b2e145246ebcd2de4d8133945a8cb744331a20f5ef509980b77ef112192e	2026-10-21	reproduces-raw	pin fed6b2e14524 vs capture raw fed6b2e14524 / normalized d1ef84f175c6
+S011	d0ab8b201f1a6d5f5751e1f261f904822492c530bdcdc5a4db9a8e178c2e180c	2026-10-21	reproduces-raw	pin d0ab8b201f1a vs capture raw d0ab8b201f1a / normalized 4a71dbc959fc
+S012	ec6e7b250d181c5c3cbbffb482e96f96649b9f556884e069fb62f64798357c45	2026-10-21	non-reproducing	pin ec6e7b250d18 vs capture raw 62556bf024c4 / normalized 06d2508c959b
+S013	ae321512d37ae70bc19e7b8698217ce8af0d3000bb76fe04039870bff25b8bf5	2026-10-21	non-reproducing	pin ae321512d37a vs capture raw ac99140f11ac / normalized 0e62e05612ea
+S014	e94723241fbcbdd0b2741c569f6ce51befe39e526cd736cebe4023fbca1cb0b1	2026-10-21	non-reproducing	pin e94723241fbc vs capture raw 449ef132ba38 / normalized ca496ad8f822
+S015	a0a2b227a7a91b7af0033a9fc665d319776d2d03aa09341620f9abee2f195fd4	2026-10-21	non-reproducing	pin a0a2b227a7a9 vs capture raw 4e3fdb7d2628 / normalized 2732189767e6
+S016	c083fdca8645f6248a3c42a8c0b912b356de281dc2da0099668a7850ba348380	2026-10-21	non-reproducing	pin c083fdca8645 vs capture raw 5229521866ce / normalized ed949658b434

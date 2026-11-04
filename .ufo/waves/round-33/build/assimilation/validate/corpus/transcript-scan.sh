@@ -1,0 +1,282 @@
+#!/usr/bin/env bash
+# transcript-scan.sh — secret-shape tripwire over the janitor transcript DB.
+#
+# Round 7 proved request/response text is durable plaintext in
+# $STATE_DIR/xdg-data/opencode/opencode.db and that `the-janitor stop` does NOT
+# purge it. This script is the repeatable gate for that surface: it counts rows
+# matching secret-shaped LIKE patterns in every text-bearing column and row
+# counts in every credential-bearing table. It NEVER prints row contents or
+# matched text — counts, session-id triage, and exit codes only.
+#
+#   exit 0  clean-or-warn   exit 1  hits found   exit 2  usage/db/schema error
+#
+# Usage: transcript-scan.sh [--db PATH] [--selftest] [--classify] [-h|--help]
+#   --db PATH    override DB (default: $THE_JANITOR_STATE_DIR or
+#                ~/.local/state/the-janitor)/xdg-data/opencode/opencode.db
+#   --selftest   build scratch DBs in mktemp: seeded op:// row, a populated
+#                credential tripwire, and a WAL-resident row (un-checkpointed
+#                wal) — asserts the gate fires on each. No contact with the
+#                real state dir.
+#   --classify   bounded triage of HIT rows, no content: per firing pattern
+#                prints rows / key_shaped / prose (key_shaped = the 32 chars
+#                after the literal prefix are all key characters). Use it before
+#                treating a HIT as material — round 9 found a HIT that was
+#                provider prose, and a HIT class that was a LIKE-wildcard bug.
+#
+# Read design (sentinel round-8): the source db is NEVER opened — not even
+# `file:…?immutable=1`, which silently misses rows committed to an
+# un-checkpointed -wal (the blind-window hole), and not `-readonly`, which
+# creates/mutates the 0600 -wal/-shm siblings in the live dir. Instead the
+# db + -wal/-shm are copied to mktemp and the COPY is opened; sqlite replays
+# the wal on open, so committed-but-uncheckpointed rows are scanned too.
+set -euo pipefail
+
+SD="${THE_JANITOR_STATE_DIR:-$HOME/.local/state/the-janitor}"
+DB="$SD/xdg-data/opencode/opencode.db"
+SELFTEST=0
+CLASSIFY=0
+usage() { echo "usage: transcript-scan.sh [--db PATH] [--selftest] [--classify]" >&2; exit 2; }
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --db) [[ $# -ge 2 ]] || usage; DB="$2"; shift 2 ;;
+    --selftest) SELFTEST=1; shift ;;
+    --classify) CLASSIFY=1; shift ;;
+    -h|--help) sed -n '1,24p' "$0"; exit 0 ;;
+    *) usage ;;
+  esac
+done
+
+# --- scan surface ------------------------------------------------------------
+# table -> text columns that can hold request/response text or handler-shaped
+# strings; SID_COL = the column used for distinct-session triage.
+declare -A SCAN_COLS SID_COL
+SCAN_COLS[part]="data";                          SID_COL[part]="session_id"
+SCAN_COLS[message]="data";                       SID_COL[message]="session_id"
+SCAN_COLS[event]="data";                         SID_COL[event]="aggregate_id"
+SCAN_COLS[session]="title slug path share_url summary_diffs metadata permission"; SID_COL[session]="id"
+SCAN_COLS[session_input]="prompt";               SID_COL[session_input]="session_id"
+SCAN_COLS[session_message]="data";               SID_COL[session_message]="session_id"
+SCAN_COLS[session_context_epoch]="baseline snapshot"; SID_COL[session_context_epoch]="session_id"
+SCAN_COLS[todo]="content";                       SID_COL[todo]="session_id"
+SCAN_COLS[project]="name worktree commands sandboxes"; SID_COL[project]="id"
+SCAN_COLS[workspace]="name directory extra";     SID_COL[workspace]="id"
+SCAN_COLS[permission]="action resource";         SID_COL[permission]="id"
+# tables that must stay EMPTY — populated = account/oauth material in the
+# quarantine DB (finding, same severity as a pattern hit)
+TRIPWIRE_TABLES="account account_state control_account credential session_share"
+
+# Secret-shaped patterns. SQL LIKE (ASCII case-insensitive). LIKE METACHARACTERS
+# ARE ESCAPED (like_lit + ESCAPE '\'): `_` in a pattern is a literal underscore,
+# never "any single char". Round 9 found the unescaped form matching 7 rows of
+# "gsk" + any char — a false-positive class that would train operators to ignore
+# the HIT tier (see lessons/round-9.md §11).
+# HIT tier = material that should NEVER rest in the transcript (exit 1).
+# WARN tier = credential-language field names — request text discussing keys
+# matches these legitimately; reported, exit unaffected.
+# Baseline 2026-09-28 (THIS shipped revision, 32+5 patterns, 888 cells):
+# HITS=2 (both `xai-` prefix collisions with provider prose, key_shaped=0 by
+# --classify), warns=2, all 5 tripwires empty. The 0-HIT figure recorded in
+# round 8 describes a narrower revision (25+5 patterns, 270 cells) measured
+# before the last edits landed — see lessons/round-9.md §12.
+# Prefix set informed by the daemon's own
+# env-scrub inventory (credential-isolation.md L214-219).
+PATTERNS_HIT=(
+  'op://'                 # vault ref paths — must never rest in the transcript
+  '-----BEGIN'            # PEM blocks: PRIVATE KEY, OPENSSH, PGP, certs
+  'AKIA' 'ASIA'           # AWS access key id prefixes
+  'ghp_' 'gho_' 'ghu_' 'ghs_' 'ghr_' 'github_pat_'   # GitHub tokens
+  'xoxb-' 'xoxp-' 'xoxs-' 'xoxa-' 'xoxr-' 'xoxc-' 'xapp-'  # Slack tokens
+  'sk-ant-' 'sk-proj-' 'sk-or-v1-' 'sk_live' 'sk_test'     # Anthropic/OpenRouter/Stripe
+  'gsk_' 'xai-' 'csk-'    # Groq / xAI / Cohere key prefixes
+  'glpat-' 'npm_'         # GitLab PAT / npm token
+  'AIza' 'ya29.'          # Google API key / OAuth access token prefixes
+  'eyJhbG'                # JWT header ({"alg":...)
+  'OP_SESSION_' 'OP_SERVICE_ACCOUNT_TOKEN'           # daemon-env credential vars
+)
+PATTERNS_WARN=('access_token' 'refresh_token' 'api_key' 'secret_key' 'apikey')
+
+hits=0; warns=0; cells=0; absent=0
+
+sql() { sqlite3 "$SCAN_DB" "$1"; }
+
+# Escape LIKE metacharacters so a pattern means its literal bytes: `_` is an
+# underscore, `%` a percent sign (backslash itself is escaped first).
+like_lit() { local s=${1//\\/\\\\}; s=${s//%/\\%}; s=${s//_/\\_}; printf '%s' "$s"; }
+
+table_exists() {
+  [[ $(sql "SELECT count(*) FROM sqlite_master WHERE type='table' AND name='$1'") -eq 1 ]]
+}
+
+# Bounded triage of HIT rows WITHOUT printing content: for every pattern that
+# fires, count the rows whose 32 characters after the literal prefix are all key
+# characters (key-shaped) versus the rest (prose/placeholder). A long key-shaped
+# run is material; a short run is a prefix collision — e.g. the `xai-` HIT at the
+# round-9 baseline is a five-letter provider word, while a real xAI key is a long
+# alnum run (lessons/round-9.md §11-12). Case note: LIKE is case-insensitive,
+# instr() is exact, so this is triage, never a verdict.
+classify_hits() {
+  local t c p n shaped
+  for t in "${!SCAN_COLS[@]}"; do
+    table_exists "$t" || continue
+    for c in ${SCAN_COLS[$t]}; do
+      for p in "${PATTERNS_HIT[@]}"; do
+        n=$(sql "SELECT count(*) FROM $t WHERE $c LIKE '%$(like_lit "$p")%' ESCAPE '\\'") \
+          || { echo "transcript-scan: query error on $t.$c" >&2; exit 2; }
+        (( n > 0 )) || continue
+        shaped=$(sql "SELECT count(*) FROM $t WHERE $c LIKE '%$(like_lit "$p")%' ESCAPE '\\' AND instr($c,'$p') > 0 AND substr($c, instr($c,'$p') + length('$p'), 32) NOT GLOB '*[^A-Za-z0-9_-]*'") \
+          || { echo "transcript-scan: query error on $t.$c" >&2; exit 2; }
+        printf 'CLASSIFY %s.%s pattern=%s rows=%s key_shaped=%s prose=%s\n' \
+          "$t" "$c" "$p" "$n" "$shaped" "$(( n - shaped ))"
+      done
+    done
+  done
+}
+
+run_scan() {
+  local t c p n s
+  for t in "${!SCAN_COLS[@]}"; do
+    if ! table_exists "$t"; then
+      printf 'NOTE  table=%s ABSENT (schema drift — re-check scan coverage)\n' "$t"
+      absent=$((absent+1)); continue
+    fi
+    for c in ${SCAN_COLS[$t]}; do
+      for p in "${PATTERNS_HIT[@]}"; do
+        cells=$((cells+1))
+        n=$(sql "SELECT count(*) FROM $t WHERE $c LIKE '%$(like_lit "$p")%' ESCAPE '\'") \
+          || { echo "transcript-scan: query error on $t.$c" >&2; exit 2; }
+        if [[ $n -gt 0 ]]; then
+          s=$(sql "SELECT count(DISTINCT ${SID_COL[$t]}) FROM $t WHERE $c LIKE '%$(like_lit "$p")%' ESCAPE '\'") \
+            || { echo "transcript-scan: query error on $t.$c" >&2; exit 2; }
+          printf 'HIT   %s.%s pattern=%s rows=%s distinct_%s=%s\n' \
+            "$t" "$c" "$p" "$n" "${SID_COL[$t]}" "$s"
+          hits=$((hits+1))
+        fi
+      done
+      for p in "${PATTERNS_WARN[@]}"; do
+        cells=$((cells+1))
+        n=$(sql "SELECT count(*) FROM $t WHERE $c LIKE '%$(like_lit "$p")%' ESCAPE '\'") \
+          || { echo "transcript-scan: query error on $t.$c" >&2; exit 2; }
+        if [[ $n -gt 0 ]]; then
+          s=$(sql "SELECT count(DISTINCT ${SID_COL[$t]}) FROM $t WHERE $c LIKE '%$(like_lit "$p")%' ESCAPE '\'") \
+            || { echo "transcript-scan: query error on $t.$c" >&2; exit 2; }
+          printf 'WARN  %s.%s pattern=%s rows=%s distinct_%s=%s\n' \
+            "$t" "$c" "$p" "$n" "${SID_COL[$t]}" "$s"
+          warns=$((warns+1))
+        fi
+      done
+    done
+  done
+  for t in $TRIPWIRE_TABLES; do
+    if ! table_exists "$t"; then
+      printf 'NOTE  tripwire=%s ABSENT\n' "$t"; absent=$((absent+1)); continue
+    fi
+    n=$(sql "SELECT count(*) FROM $t") \
+      || { echo "transcript-scan: query error on $t" >&2; exit 2; }
+    if [[ $n -gt 0 ]]; then
+      printf 'HIT   tripwire=%s rows=%s (credential table populated — should be empty)\n' "$t" "$n"
+      hits=$((hits+1))
+    else
+      printf 'ok    tripwire=%s rows=0\n' "$t"
+    fi
+  done
+}
+
+if [[ $SELFTEST -eq 1 ]]; then
+  command -v sqlite3 >/dev/null || { echo "transcript-scan: sqlite3 not found" >&2; exit 2; }
+  T=$(mktemp -d); trap 'rm -rf "$T"' EXIT
+  cat > "$T/mk.sql" <<'SQL'
+CREATE TABLE part(id text, message_id text, session_id text, data text);
+CREATE TABLE message(id text, session_id text, data text);
+CREATE TABLE event(id text, aggregate_id text, data text);
+CREATE TABLE session(id text, title text, slug text, path text, share_url text, summary_diffs text, metadata text, permission text);
+CREATE TABLE session_input(id text, session_id text, prompt text);
+CREATE TABLE session_message(id text, session_id text, data text);
+CREATE TABLE session_context_epoch(session_id text, baseline text, snapshot text);
+CREATE TABLE todo(session_id text, content text);
+CREATE TABLE project(id text, name text, worktree text, commands text, sandboxes text);
+CREATE TABLE workspace(id text, name text, directory text, extra text);
+CREATE TABLE permission(id text, action text, resource text);
+CREATE TABLE account(id text); CREATE TABLE account_state(id integer);
+CREATE TABLE control_account(email text); CREATE TABLE credential(id text);
+CREATE TABLE session_share(session_id text);
+INSERT INTO part VALUES('p1','m1','ses_selftest','{"text":"fake op://vault/item/field marker"}');
+INSERT INTO credential VALUES('c1');
+SQL
+  sqlite3 "$T/hit.db" < "$T/mk.sql"
+  sqlite3 "$T/clean.db" < "$T/mk.sql"
+  sqlite3 "$T/clean.db" "DELETE FROM part; DELETE FROM credential;"
+  echo "-- selftest: seeded db (expect exit 1, 2 hits) --"
+  if bash "$0" --db "$T/hit.db"; then
+    echo "SELFTEST FAILED: seeded hit not detected" >&2; exit 2
+  else
+    [[ $? -eq 1 ]] || { echo "SELFTEST FAILED: unexpected exit" >&2; exit 2; }
+  fi
+  echo "-- selftest: clean db (expect exit 0) --"
+  bash "$0" --db "$T/clean.db" \
+    || { echo "SELFTEST FAILED: clean db flagged" >&2; exit 2; }
+  if command -v python3 >/dev/null; then
+    # WAL-resident row: commit then hard-exit without close → wal un-checkpointed.
+    # Regression test for the immutable-mode blind window: the gate must see
+    # rows that live only in -wal.
+    python3 - "$T/wal.db" <<'PY'
+import sqlite3, sys, os
+c = sqlite3.connect(sys.argv[1])
+c.execute("PRAGMA journal_mode=WAL")
+c.executescript("""
+CREATE TABLE part(id text, message_id text, session_id text, data text);
+CREATE TABLE message(id text, session_id text, data text);
+CREATE TABLE event(id text, aggregate_id text, data text);
+CREATE TABLE session(id text, title text, slug text, path text, share_url text, summary_diffs text, metadata text, permission text);
+CREATE TABLE session_input(id text, session_id text, prompt text);
+CREATE TABLE session_message(id text, session_id text, data text);
+CREATE TABLE session_context_epoch(session_id text, baseline text, snapshot text);
+CREATE TABLE todo(session_id text, content text);
+CREATE TABLE project(id text, name text, worktree text, commands text, sandboxes text);
+CREATE TABLE workspace(id text, name text, directory text, extra text);
+CREATE TABLE permission(id text, action text, resource text);
+CREATE TABLE account(id text); CREATE TABLE account_state(id integer);
+CREATE TABLE control_account(email text); CREATE TABLE credential(id text);
+CREATE TABLE session_share(session_id text);
+""")
+c.commit()
+c.execute("INSERT INTO part VALUES('p','m','s','fake op://wal/resident marker')")
+c.commit()
+os._exit(0)
+PY
+    [[ -s $T/wal.db-wal ]] || { echo "SELFTEST FAILED: could not stage wal file" >&2; exit 2; }
+    echo "-- selftest: wal-resident db (expect exit 1, 1 hit) --"
+    if bash "$0" --db "$T/wal.db"; then
+      echo "SELFTEST FAILED: wal-resident hit missed" >&2; exit 2
+    else
+      [[ $? -eq 1 ]] || { echo "SELFTEST FAILED: unexpected exit" >&2; exit 2; }
+    fi
+  else
+    echo "-- selftest: python3 absent, wal-resident case skipped --"
+  fi
+  echo "SELFTEST OK (seeded hit + wal-resident hit detected; clean db passed)"
+  exit 0
+fi
+
+command -v sqlite3 >/dev/null || { echo "transcript-scan: sqlite3 not found" >&2; exit 2; }
+[[ -f $DB ]] || { echo "transcript-scan: db not found: $DB" >&2; exit 2; }
+
+# Snapshot the db + wal siblings into mktemp; scan the copy. Never opens the
+# source: immutable mode has a committed-rows blind window on a populated -wal,
+# and -readonly/plain opens create or mutate -wal/-shm in the live dir.
+SNAP=$(mktemp -d); trap 'rm -rf "$SNAP"' EXIT
+SCAN_DB="$SNAP/scan.db"
+cp -p -- "$DB" "$SCAN_DB" 2>/dev/null \
+  || { echo "transcript-scan: cannot copy $DB" >&2; exit 2; }
+for sib in -wal -shm; do
+  [[ -f $DB$sib ]] && cp -p -- "$DB$sib" "$SCAN_DB$sib" 2>/dev/null || true
+done
+sqlite3 "$SCAN_DB" 'SELECT count(*) FROM sqlite_master' >/dev/null \
+  || { echo "transcript-scan: cannot open snapshot of $DB" >&2; exit 2; }
+
+if [[ $CLASSIFY -eq 1 ]]; then classify_hits; exit 0; fi
+run_scan
+printf 'TRANSCRIPT_SCAN: %s (cells=%d patterns=%d+%d warns=%d schema-absent=%d) db=%s\n' \
+  "$([[ $hits -eq 0 ]] && echo CLEAN || echo "HITS=$hits")" \
+  "$cells" "${#PATTERNS_HIT[@]}" "${#PATTERNS_WARN[@]}" "$warns" "$absent" "$DB"
+# schema drift is fail-closed: absent scanned tables mean unknown coverage
+[[ $hits -eq 0 && $absent -eq 0 ]] || exit $(( hits > 0 ? 1 : 2 ))

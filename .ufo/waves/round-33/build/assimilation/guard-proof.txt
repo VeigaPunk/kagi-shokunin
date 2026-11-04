@@ -1,0 +1,22 @@
+# id-guard proof: the 0-3-space pattern must catch an INDENTED colliding row that a column-zero-only pattern misses
+# fixture: fixture-registry.md (one column-0 S001, one column-0 S002, one 2-space-indented duplicate S002)
+
+-- pattern used by the guard (0-3 leading spaces) --
+grep -oE '^ {0,3}\|[[:space:]]*S[0-9]{3,}' fixture-registry.md
+| S001
+| S002
+  | S002
+comm_exit=0
+-- S002 occurrences seen: 2
+
+-- column-zero-only pattern (the broken guard) --
+grep -oE '^\|[[:space:]]*S[0-9]{3,}' fixture-registry.md
+| S001
+| S002
+comm_exit=0
+-- S002 occurrences seen: 1
+
+-- why this matters: the census table regex is ^ {0,3}\| --
+  lane sources-census.sh: table_re='^ {0,3}\|' (a 2-space-indented row IS a registry row to the gate)
+  so a collision guard that only reads column 0 disagrees with the gate it is supposed to guard.
+  The indented row above is a real collision the column-zero guard reports as absent; the 0-3-space guard reports it.

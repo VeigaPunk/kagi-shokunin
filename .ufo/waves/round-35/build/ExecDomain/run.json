@@ -1,0 +1,22 @@
+{
+  "argv": [
+    "bash",
+    "/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/op-ref-probe.sh",
+    "--dotenv-bytes"
+  ],
+  "cwd": "/fast/scratch/hyaku/kagi-r35/ExecDomain",
+  "environment_overrides": {
+    "TMPDIR": "/fast/scratch/hyaku/kagi-r35/ExecDomain/tmp",
+    "OP_REF_OP_BIN": "/usr/bin/op"
+  },
+  "rc": 0,
+  "stdout": "DOTENV_BYTES_CASE id=escaped-lf status=PASS\nDOTENV_BYTES_CASE id=trailing-lf status=PASS\nDOTENV_BYTES_CASE id=newline-only status=PASS\nDOTENV_BYTES_CASE id=single-literal status=PASS\nDOTENV_BYTES_CASE id=double-multiline status=PASS\nDOTENV_BYTES_CASE id=single-multiline status=PASS\nOP_DOTENV_BYTES: CLEAN (checks=6 failed=0)\n",
+  "stderr": "",
+  "op_version": {
+    "path": "/usr/bin/op",
+    "command": "op --version",
+    "rc": 0,
+    "stdout": "2.41.1\n"
+  },
+  "script_sha256": "0f1945e8d8a8fc56aaee256180cd7badde466bc8ac91503aa1e1853e79044f4c"
+}

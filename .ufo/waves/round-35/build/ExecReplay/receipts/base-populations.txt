@@ -1,0 +1,40 @@
+# BASE populations — ExecReplay independent measurement (seat ExecReplay-2)
+
+BASE = 063c407494276d0c616e6c712a2e5d7aeb7e3768 (ancestor of lane HEAD 83ba8d1aac70f0f04a2357471def9b19b2bdc794).
+Method: `git -C <lane> show|archive 063c407494276d0c616e6c712a2e5d7aeb7e3768` only; full tree extracted once via
+`git archive --format=tar 063c4074… | tar -x` into scratch; every count below executed on those bytes or via `git show`.
+Comment rule for data rows = self-counts.py header rule: nonblank, first non-space char not '#'.
+
+## Wave population set (registry / sourced / legacy / capture)
+
+registry  = corpus/SOURCES.md `## Registry` table rows
+  cmd: grep -cE '^\| S[0-9]{3} ' corpus/SOURCES.md           -> 88
+  (also measured with literal S0xx form `grep -c '^| S0[0-9][0-9]'` -> 88; ids are S001..S088, no gaps observed)
+
+sourced   = corpus/knowledge/*.md entries carrying a `source:` header
+  cmd: grep -l '^source:' corpus/knowledge/*.md | wc -l      -> 14
+
+legacy    = corpus/knowledge/*.md entries lacking a `source:` header
+  cmd: grep -L '^source:' corpus/knowledge/*.md | wc -l      -> 21
+  (README "Known gaps" states this exact command; the 21 names are recorded in report.md §E5)
+
+capture   = corpus/source-fetches.tsv data rows ("one capture row per registry id")
+  cmd: awk data-row count (nonblank, non-comment)            -> 88
+
+entries   = corpus/knowledge/*.md count                     -> 35
+
+## Corroborating context populations (reporting only)
+
+claim-ledger data rows   (corpus/claim-ledger.tsv)          -> 79   (README index row says 79)
+stamps data rows         (corpus/stamps.tsv)                -> 111  (README index row says 111)
+self-counts data rows    (corpus/self-counts.tsv)           -> 62
+Reverify declarations: claim-ledger.sh `docs` executed on the BASE extraction:
+  DOC_AUDIT_RATIO: row_linked=32/35 floor=18 by_hand=3 duplicate_reasons=0
+  DOC_AUDIT: CLEAN (entries=35 row_linked=32 by_hand=3 undeclared=0 missing_ids=0 unpinned=0 duplicate_reasons=0) exit 0
+  raw receipt: receipts/claim-ledger-docs-base.stdout
+
+## Cross-check
+
+A sibling seat's untracked artifact .ufo/waves/round-35/controls/populations-independent.json
+(read as data only) states rows=88 entries=35 sourced=14 captures=88 legacy=21 — all five values
+equal my independently executed counts above.

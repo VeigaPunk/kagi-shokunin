@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "bash",
+    "/fast/scratch/hyaku/kagi-r35/MutGate/ignore-base-isolation.sh",
+    "--selftest"
+  ],
+  "rc": 1,
+  "stdout": "CASE equal-values               ok\nCASE one-differs                ok\nCASE two-differ                 ok\nCASE no-integer                 ok\nCASE malformed-row              ok\nCASE missing-controls-file      ok\nCASE grep-c-exit1-is-zero       ok\nCASE empty-controls             ok\nCASE bad-rev                    ok\nCASE timeout                    ok\nCASE base-isolation             FAIL rc=0 last=PREFREEZE: CLEAN (controls=1 mismatch=0)\nCASE relative-work              FAIL rc=1 last=PREFREEZE: MISMATCH (controls=1 mismatch=1)\nCASE setup-number               ok\nCASE failed-number              ok\nCASE diagnostic-number          ok\nCASE stderr-number              ok\nCASE clean-forgery              ok\nCASE multiple-lines             ok\nCASE rc1-nonzero                ok\nCASE policy-number              ok\nCASE signed-number              ok\nCASE nul-output                 ok\nCASE padded-zero                ok\nCASE large-integer              ok\nCASE no-integer-wraparound      ok\nPREFREEZE_SELFTEST: FAIL (25 cases)\n",
+  "stderr": ""
+}

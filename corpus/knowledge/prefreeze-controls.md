@@ -101,3 +101,31 @@ exists to catch.
 4. Deleting the numeric comparison in the script must make `--selftest` FAIL.
 5. Treating `NORESULT` as a pass must make `--selftest` FAIL.
 6. An empty controls file (only comments) must produce `SETUP`, never CLEAN.
+
+## Round-35 contract erratum — producer-result envelope
+
+The original Interface and exit-code sections above describe the round33/34
+implementation. Last-integer extraction and ignored exit status are superseded
+for current runs, not retroactively regraded. S088 remains pinned to that old
+source; it is evidence of the limitation, not the repaired implementation.
+
+Current producer output must contain one nonempty unsigned-integer stdout line,
+no stderr, and exit0 or exit1 with zero only (grep's empty-match convention).
+Optional whitespace and blank padding are accepted. Empty output, additional
+nonempty lines, diagnostic/SETUP/POLICY prose, stderr or other statuses produce
+NORESULT and final SETUP exit2. Timeout retains its named timeout finding.
+Matching usable values produce CLEAN exit0; unequal usable values MISMATCH exit1.
+This does not establish shell-command truth or confinement: a deliberate plain
+integer lie or caller-masked upstream failure still has an accepted envelope.
+
+Recheck on change: `bash corpus/prefreeze-control.sh --selftest` (current exact
+expectations R33-01/R34-02), then the unchanged public-path counter in
+`plans/round-35.md`. The source-bound before witness is
+`.ufo/waves/round-35/controls/before.json`; executed after evidence and measured
+commit are named in the round35 report and lesson. Numeric CLEAN/SETUP-shaped
+forgeries must be refused while valid zero controls remain accepted.
+
+Axis limitation: the frozen nine-case instrument measures gate decision errors,
+not SCORECARD/SHONEN self-assessment discrepancies. A behavioral gain alone does
+not satisfy the declared calibration axis; no retrospective rebooking as an
+operability claim is made.

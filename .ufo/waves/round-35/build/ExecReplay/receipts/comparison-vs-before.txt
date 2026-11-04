@@ -1,0 +1,14 @@
+setup-number         rc frozen=0 mine=0 stdout_identical=True stderr_identical=True field_identical=True
+failed-number        rc frozen=0 mine=0 stdout_identical=True stderr_identical=True field_identical=True
+diagnostic-number    rc frozen=0 mine=0 stdout_identical=True stderr_identical=True field_identical=True
+stderr-number        rc frozen=0 mine=0 stdout_identical=True stderr_identical=True field_identical=True
+valid-zero           rc frozen=0 mine=0 stdout_identical=True stderr_identical=True field_identical=True
+grep-empty           rc frozen=0 mine=0 stdout_identical=True stderr_identical=True field_identical=True
+empty-output         rc frozen=2 mine=2 stdout_identical=True stderr_identical=True field_identical=True
+wrong-count          rc frozen=1 mine=1 stdout_identical=True stderr_identical=True field_identical=True
+clean-forgery        rc frozen=0 mine=0 stdout_identical=True stderr_identical=True field_identical=True
+script sha frozen ca338da7c7400e07fa551c42b02a4bb6b7bedf4c47bda849e1aa162fbc86493a
+script sha mine   ca338da7c7400e07fa551c42b02a4bb6b7bedf4c47bda849e1aa162fbc86493a
+ALL_NINE_FIELDS_IDENTICAL_TO_FROZEN_BEFORE: True
+frozen totals mismatches=5 invalid_false_clean=5 positive_matches=2
+mine   totals mismatches=5 invalid_false_clean=5 positive_matches=2 cases=9

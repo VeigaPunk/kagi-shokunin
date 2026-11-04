@@ -1,0 +1,198 @@
+{
+  "base": "063c407494276d0c616e6c712a2e5d7aeb7e3768",
+  "script_sha256": "2a0986d4e0bce5e2383ef60afe68b84036960045e7177870333b5de5424edeea",
+  "cases": [
+    {
+      "id": "setup-number",
+      "command": "printf \"PREFREEZE: SETUP producer 0\\n\"; exit 2",
+      "expected_rc": 2,
+      "expected_finding": "NORESULT",
+      "rc": 2,
+      "stdout": "NORESULT setup-number expect=0 (invalid producer result)\nPREFREEZE: SETUP noresult\n",
+      "stderr": "",
+      "match": true,
+      "argv": [
+        "bash",
+        "/fast/scratch/hyaku/kagi-r35/MutGate/blanket-refuse-producers.sh",
+        "run",
+        "--base",
+        "063c407494276d0c616e6c712a2e5d7aeb7e3768",
+        "--controls",
+        "/fast/scratch/hyaku/kagi-r35/MutGate/measure/public-0d5aom9v/setup-number.tsv",
+        "--work",
+        "/fast/scratch/hyaku/kagi-r35/MutGate/measure/public-0d5aom9v"
+      ]
+    },
+    {
+      "id": "failed-number",
+      "command": "printf \"0\\n\"; exit 127",
+      "expected_rc": 2,
+      "expected_finding": "NORESULT",
+      "rc": 2,
+      "stdout": "NORESULT failed-number expect=0 (invalid producer result)\nPREFREEZE: SETUP noresult\n",
+      "stderr": "",
+      "match": true,
+      "argv": [
+        "bash",
+        "/fast/scratch/hyaku/kagi-r35/MutGate/blanket-refuse-producers.sh",
+        "run",
+        "--base",
+        "063c407494276d0c616e6c712a2e5d7aeb7e3768",
+        "--controls",
+        "/fast/scratch/hyaku/kagi-r35/MutGate/measure/public-0d5aom9v/failed-number.tsv",
+        "--work",
+        "/fast/scratch/hyaku/kagi-r35/MutGate/measure/public-0d5aom9v"
+      ]
+    },
+    {
+      "id": "diagnostic-number",
+      "command": "printf \"FAIL rows=0\\n\"",
+      "expected_rc": 2,
+      "expected_finding": "NORESULT",
+      "rc": 2,
+      "stdout": "NORESULT diagnostic-number expect=0 (invalid producer result)\nPREFREEZE: SETUP noresult\n",
+      "stderr": "",
+      "match": true,
+      "argv": [
+        "bash",
+        "/fast/scratch/hyaku/kagi-r35/MutGate/blanket-refuse-producers.sh",
+        "run",
+        "--base",
+        "063c407494276d0c616e6c712a2e5d7aeb7e3768",
+        "--controls",
+        "/fast/scratch/hyaku/kagi-r35/MutGate/measure/public-0d5aom9v/diagnostic-number.tsv",
+        "--work",
+        "/fast/scratch/hyaku/kagi-r35/MutGate/measure/public-0d5aom9v"
+      ]
+    },
+    {
+      "id": "stderr-number",
+      "command": "printf \"0\\n\"; printf \"producer unavailable\\n\" >&2",
+      "expected_rc": 2,
+      "expected_finding": "NORESULT",
+      "rc": 2,
+      "stdout": "NORESULT stderr-number expect=0 (invalid producer result)\nPREFREEZE: SETUP noresult\n",
+      "stderr": "",
+      "match": true,
+      "argv": [
+        "bash",
+        "/fast/scratch/hyaku/kagi-r35/MutGate/blanket-refuse-producers.sh",
+        "run",
+        "--base",
+        "063c407494276d0c616e6c712a2e5d7aeb7e3768",
+        "--controls",
+        "/fast/scratch/hyaku/kagi-r35/MutGate/measure/public-0d5aom9v/stderr-number.tsv",
+        "--work",
+        "/fast/scratch/hyaku/kagi-r35/MutGate/measure/public-0d5aom9v"
+      ]
+    },
+    {
+      "id": "valid-zero",
+      "command": "printf \"0\\n\"",
+      "expected_rc": 0,
+      "expected_finding": "OK",
+      "rc": 0,
+      "stdout": "OK valid-zero expect=0 measured=0\nPREFREEZE: CLEAN (controls=1 mismatch=0)\n",
+      "stderr": "",
+      "match": true,
+      "argv": [
+        "bash",
+        "/fast/scratch/hyaku/kagi-r35/MutGate/blanket-refuse-producers.sh",
+        "run",
+        "--base",
+        "063c407494276d0c616e6c712a2e5d7aeb7e3768",
+        "--controls",
+        "/fast/scratch/hyaku/kagi-r35/MutGate/measure/public-0d5aom9v/valid-zero.tsv",
+        "--work",
+        "/fast/scratch/hyaku/kagi-r35/MutGate/measure/public-0d5aom9v"
+      ]
+    },
+    {
+      "id": "grep-empty",
+      "command": "grep -c QQQ_NO_MATCH_R35 corpus/prefreeze-control.sh",
+      "expected_rc": 0,
+      "expected_finding": "OK",
+      "rc": 0,
+      "stdout": "OK grep-empty expect=0 measured=0\nPREFREEZE: CLEAN (controls=1 mismatch=0)\n",
+      "stderr": "",
+      "match": true,
+      "argv": [
+        "bash",
+        "/fast/scratch/hyaku/kagi-r35/MutGate/blanket-refuse-producers.sh",
+        "run",
+        "--base",
+        "063c407494276d0c616e6c712a2e5d7aeb7e3768",
+        "--controls",
+        "/fast/scratch/hyaku/kagi-r35/MutGate/measure/public-0d5aom9v/grep-empty.tsv",
+        "--work",
+        "/fast/scratch/hyaku/kagi-r35/MutGate/measure/public-0d5aom9v"
+      ]
+    },
+    {
+      "id": "empty-output",
+      "command": ":",
+      "expected_rc": 2,
+      "expected_finding": "NORESULT",
+      "rc": 2,
+      "stdout": "NORESULT empty-output expect=0 (invalid producer result)\nPREFREEZE: SETUP noresult\n",
+      "stderr": "",
+      "match": true,
+      "argv": [
+        "bash",
+        "/fast/scratch/hyaku/kagi-r35/MutGate/blanket-refuse-producers.sh",
+        "run",
+        "--base",
+        "063c407494276d0c616e6c712a2e5d7aeb7e3768",
+        "--controls",
+        "/fast/scratch/hyaku/kagi-r35/MutGate/measure/public-0d5aom9v/empty-output.tsv",
+        "--work",
+        "/fast/scratch/hyaku/kagi-r35/MutGate/measure/public-0d5aom9v"
+      ]
+    },
+    {
+      "id": "wrong-count",
+      "command": "printf \"1\\n\"",
+      "expected_rc": 1,
+      "expected_finding": "MISMATCH",
+      "rc": 1,
+      "stdout": "MISMATCH wrong-count expect=0 measured=1\nPREFREEZE: MISMATCH (controls=1 mismatch=1)\n",
+      "stderr": "",
+      "match": true,
+      "argv": [
+        "bash",
+        "/fast/scratch/hyaku/kagi-r35/MutGate/blanket-refuse-producers.sh",
+        "run",
+        "--base",
+        "063c407494276d0c616e6c712a2e5d7aeb7e3768",
+        "--controls",
+        "/fast/scratch/hyaku/kagi-r35/MutGate/measure/public-0d5aom9v/wrong-count.tsv",
+        "--work",
+        "/fast/scratch/hyaku/kagi-r35/MutGate/measure/public-0d5aom9v"
+      ]
+    },
+    {
+      "id": "clean-forgery",
+      "command": "printf \"PREFREEZE: CLEAN (controls=0 mismatch=0)\\n\"",
+      "expected_rc": 2,
+      "expected_finding": "NORESULT",
+      "rc": 2,
+      "stdout": "NORESULT clean-forgery expect=0 (invalid producer result)\nPREFREEZE: SETUP noresult\n",
+      "stderr": "",
+      "match": true,
+      "argv": [
+        "bash",
+        "/fast/scratch/hyaku/kagi-r35/MutGate/blanket-refuse-producers.sh",
+        "run",
+        "--base",
+        "063c407494276d0c616e6c712a2e5d7aeb7e3768",
+        "--controls",
+        "/fast/scratch/hyaku/kagi-r35/MutGate/measure/public-0d5aom9v/clean-forgery.tsv",
+        "--work",
+        "/fast/scratch/hyaku/kagi-r35/MutGate/measure/public-0d5aom9v"
+      ]
+    }
+  ],
+  "mismatches": 0,
+  "invalid_false_clean": 0,
+  "positive_matches": 2
+}

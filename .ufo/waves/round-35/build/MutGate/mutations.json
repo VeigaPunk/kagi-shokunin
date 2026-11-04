@@ -1,0 +1,32 @@
+[
+  {
+    "name": "remove-rc-guard",
+    "old": "{ [ \"$rc\" -ne 0 ] && { [ \"$rc\" -ne 1 ] || [ \"$m\" != 0 ]; }; }; then",
+    "new": "false; then",
+    "detector": "measure"
+  },
+  {
+    "name": "remove-stderr-guard",
+    "old": " || [ -s \"$errf\" ] ||",
+    "new": " ||",
+    "detector": "measure"
+  },
+  {
+    "name": "last-integer-grammar",
+    "old": "[[ $line =~ ^[[:space:]]*([0-9]+)[[:space:]]*$ ]]",
+    "new": "[[ $line =~ ([0-9]+)[^0-9]*$ ]]",
+    "detector": "measure"
+  },
+  {
+    "name": "blanket-refuse-producers",
+    "old": "  valid=1 count=0 m=''",
+    "new": "  valid=0 count=0 m=''",
+    "detector": "measure"
+  },
+  {
+    "name": "ignore-base-isolation",
+    "old": "(cd -- \"$BASE_DIR\" && BASE=$BASE_DIR LANE=$REPO timeout",
+    "new": "(cd -- \"$REPO\" && BASE=$REPO LANE=$REPO timeout",
+    "detector": "selftest"
+  }
+]

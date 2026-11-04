@@ -1,0 +1,198 @@
+{
+  "base": "063c407494276d0c616e6c712a2e5d7aeb7e3768",
+  "script_sha256": "ca338da7c7400e07fa551c42b02a4bb6b7bedf4c47bda849e1aa162fbc86493a",
+  "cases": [
+    {
+      "id": "setup-number",
+      "command": "printf \"PREFREEZE: SETUP producer 0\\n\"; exit 2",
+      "expected_rc": 2,
+      "expected_finding": "NORESULT",
+      "rc": 0,
+      "stdout": "OK setup-number expect=0 measured=0\nPREFREEZE: CLEAN (controls=1 mismatch=0)\n",
+      "stderr": "",
+      "match": false,
+      "argv": [
+        "bash",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-35/build/ReviewGate/base-prefreeze-control.sh",
+        "run",
+        "--base",
+        "063c407494276d0c616e6c712a2e5d7aeb7e3768",
+        "--controls",
+        "/fast/scratch/hyaku/kagi-r35/ReviewGate/public-wkdg4lc1/setup-number.tsv",
+        "--work",
+        "/fast/scratch/hyaku/kagi-r35/ReviewGate/public-wkdg4lc1"
+      ]
+    },
+    {
+      "id": "failed-number",
+      "command": "printf \"0\\n\"; exit 127",
+      "expected_rc": 2,
+      "expected_finding": "NORESULT",
+      "rc": 0,
+      "stdout": "OK failed-number expect=0 measured=0\nPREFREEZE: CLEAN (controls=1 mismatch=0)\n",
+      "stderr": "",
+      "match": false,
+      "argv": [
+        "bash",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-35/build/ReviewGate/base-prefreeze-control.sh",
+        "run",
+        "--base",
+        "063c407494276d0c616e6c712a2e5d7aeb7e3768",
+        "--controls",
+        "/fast/scratch/hyaku/kagi-r35/ReviewGate/public-wkdg4lc1/failed-number.tsv",
+        "--work",
+        "/fast/scratch/hyaku/kagi-r35/ReviewGate/public-wkdg4lc1"
+      ]
+    },
+    {
+      "id": "diagnostic-number",
+      "command": "printf \"FAIL rows=0\\n\"",
+      "expected_rc": 2,
+      "expected_finding": "NORESULT",
+      "rc": 0,
+      "stdout": "OK diagnostic-number expect=0 measured=0\nPREFREEZE: CLEAN (controls=1 mismatch=0)\n",
+      "stderr": "",
+      "match": false,
+      "argv": [
+        "bash",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-35/build/ReviewGate/base-prefreeze-control.sh",
+        "run",
+        "--base",
+        "063c407494276d0c616e6c712a2e5d7aeb7e3768",
+        "--controls",
+        "/fast/scratch/hyaku/kagi-r35/ReviewGate/public-wkdg4lc1/diagnostic-number.tsv",
+        "--work",
+        "/fast/scratch/hyaku/kagi-r35/ReviewGate/public-wkdg4lc1"
+      ]
+    },
+    {
+      "id": "stderr-number",
+      "command": "printf \"0\\n\"; printf \"producer unavailable\\n\" >&2",
+      "expected_rc": 2,
+      "expected_finding": "NORESULT",
+      "rc": 0,
+      "stdout": "OK stderr-number expect=0 measured=0\nPREFREEZE: CLEAN (controls=1 mismatch=0)\n",
+      "stderr": "",
+      "match": false,
+      "argv": [
+        "bash",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-35/build/ReviewGate/base-prefreeze-control.sh",
+        "run",
+        "--base",
+        "063c407494276d0c616e6c712a2e5d7aeb7e3768",
+        "--controls",
+        "/fast/scratch/hyaku/kagi-r35/ReviewGate/public-wkdg4lc1/stderr-number.tsv",
+        "--work",
+        "/fast/scratch/hyaku/kagi-r35/ReviewGate/public-wkdg4lc1"
+      ]
+    },
+    {
+      "id": "valid-zero",
+      "command": "printf \"0\\n\"",
+      "expected_rc": 0,
+      "expected_finding": "OK",
+      "rc": 0,
+      "stdout": "OK valid-zero expect=0 measured=0\nPREFREEZE: CLEAN (controls=1 mismatch=0)\n",
+      "stderr": "",
+      "match": true,
+      "argv": [
+        "bash",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-35/build/ReviewGate/base-prefreeze-control.sh",
+        "run",
+        "--base",
+        "063c407494276d0c616e6c712a2e5d7aeb7e3768",
+        "--controls",
+        "/fast/scratch/hyaku/kagi-r35/ReviewGate/public-wkdg4lc1/valid-zero.tsv",
+        "--work",
+        "/fast/scratch/hyaku/kagi-r35/ReviewGate/public-wkdg4lc1"
+      ]
+    },
+    {
+      "id": "grep-empty",
+      "command": "grep -c QQQ_NO_MATCH_R35 corpus/prefreeze-control.sh",
+      "expected_rc": 0,
+      "expected_finding": "OK",
+      "rc": 0,
+      "stdout": "OK grep-empty expect=0 measured=0\nPREFREEZE: CLEAN (controls=1 mismatch=0)\n",
+      "stderr": "",
+      "match": true,
+      "argv": [
+        "bash",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-35/build/ReviewGate/base-prefreeze-control.sh",
+        "run",
+        "--base",
+        "063c407494276d0c616e6c712a2e5d7aeb7e3768",
+        "--controls",
+        "/fast/scratch/hyaku/kagi-r35/ReviewGate/public-wkdg4lc1/grep-empty.tsv",
+        "--work",
+        "/fast/scratch/hyaku/kagi-r35/ReviewGate/public-wkdg4lc1"
+      ]
+    },
+    {
+      "id": "empty-output",
+      "command": ":",
+      "expected_rc": 2,
+      "expected_finding": "NORESULT",
+      "rc": 2,
+      "stdout": "NORESULT empty-output expect=0 (no integer)\nPREFREEZE: SETUP noresult\n",
+      "stderr": "",
+      "match": true,
+      "argv": [
+        "bash",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-35/build/ReviewGate/base-prefreeze-control.sh",
+        "run",
+        "--base",
+        "063c407494276d0c616e6c712a2e5d7aeb7e3768",
+        "--controls",
+        "/fast/scratch/hyaku/kagi-r35/ReviewGate/public-wkdg4lc1/empty-output.tsv",
+        "--work",
+        "/fast/scratch/hyaku/kagi-r35/ReviewGate/public-wkdg4lc1"
+      ]
+    },
+    {
+      "id": "wrong-count",
+      "command": "printf \"1\\n\"",
+      "expected_rc": 1,
+      "expected_finding": "MISMATCH",
+      "rc": 1,
+      "stdout": "MISMATCH wrong-count expect=0 measured=1\nPREFREEZE: MISMATCH (controls=1 mismatch=1)\n",
+      "stderr": "",
+      "match": true,
+      "argv": [
+        "bash",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-35/build/ReviewGate/base-prefreeze-control.sh",
+        "run",
+        "--base",
+        "063c407494276d0c616e6c712a2e5d7aeb7e3768",
+        "--controls",
+        "/fast/scratch/hyaku/kagi-r35/ReviewGate/public-wkdg4lc1/wrong-count.tsv",
+        "--work",
+        "/fast/scratch/hyaku/kagi-r35/ReviewGate/public-wkdg4lc1"
+      ]
+    },
+    {
+      "id": "clean-forgery",
+      "command": "printf \"PREFREEZE: CLEAN (controls=0 mismatch=0)\\n\"",
+      "expected_rc": 2,
+      "expected_finding": "NORESULT",
+      "rc": 0,
+      "stdout": "OK clean-forgery expect=0 measured=0\nPREFREEZE: CLEAN (controls=1 mismatch=0)\n",
+      "stderr": "",
+      "match": false,
+      "argv": [
+        "bash",
+        "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-35/build/ReviewGate/base-prefreeze-control.sh",
+        "run",
+        "--base",
+        "063c407494276d0c616e6c712a2e5d7aeb7e3768",
+        "--controls",
+        "/fast/scratch/hyaku/kagi-r35/ReviewGate/public-wkdg4lc1/clean-forgery.tsv",
+        "--work",
+        "/fast/scratch/hyaku/kagi-r35/ReviewGate/public-wkdg4lc1"
+      ]
+    }
+  ],
+  "mismatches": 5,
+  "invalid_false_clean": 5,
+  "positive_matches": 2
+}

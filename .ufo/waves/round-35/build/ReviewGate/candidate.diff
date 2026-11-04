@@ -1,0 +1,154 @@
+--- /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-35/build/ReviewGate/base-prefreeze-control.sh	2026-11-04 15:30:11.774000497 -0300
++++ /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-35/build/ExecGate/prefreeze-control.sh	2026-11-04 15:30:01.023162075 -0300
+@@ -1,5 +1,5 @@
+ #!/usr/bin/env bash
+-# prefreeze-control.sh — round 33, claim C1: freeze-time BASE control execution.
++# prefreeze-control.sh — round 33 BASE execution; round 35 producer integrity.
+ #
+ # Frozen predicate (identical sentence in plans/round-33.md and on the receipt
+ # label):
+@@ -12,12 +12,12 @@
+ # `git archive <rev> | tar -x` into a scratch dir under `$TMPDIR` (or `--work`),
+ # removed on exit. Each command runs with `bash -c` and that extraction as cwd,
+ # with `BASE=<extraction>` and `LANE=<repository>` exported, under `--timeout`
+-# seconds (default 300). Measurement = the final run of digits on the LAST
+-# non-empty stdout line. A command that prints no integer is NORESULT, never a
+-# pass; a timeout is NORESULT naming the timeout; either makes the verdict
+-# SETUP. Exit codes are deliberately ignored (`grep -c` exits 1 while printing
+-# 0, which is a measured 0). Per-row stderr, only when non-empty, lands in
+-# `<extraction>/stderr/<id>.stderr` and is removed with the scratch tree.
++# seconds (default 300). A measurement requires exactly one nonempty stdout
++# line containing only optional whitespace and an unsigned integer, no stderr,
++# and exit 0, or exit 1 with a measured zero (the grep -c empty-match convention).
++# Blank/whitespace-only lines are ignored. Every other result is NORESULT and
++# makes the final verdict SETUP; timeout retains its named finding and reason.
++# Raw stdout/stderr live under the extraction and are removed with that tree.
+ #
+ # Verdict (last stdout line):
+ #   PREFREEZE: CLEAN (controls=N mismatch=0)     exit 0
+@@ -26,23 +26,25 @@
+ #   PREFREEZE: SETUP <reason>                    exit 2  (missing-base,
+ #       missing-controls, empty-controls, bad-timeout, bad-rev, extract-failed,
+ #       work-unwritable, noresult, timeout)
+-# Named ceiling: numeric counters only; an integer-shaped line from a failing
+-# command still counts, and the harness cannot judge whether the declared
+-# predicate is the right one. The measurement rule is the FINAL digit run of
+-# the last non-empty line, so a command whose final number is not the counted
+-# value is misread — the rule is deliberately not widened, because a wider
+-# match (any number on the line) would accept prose and stray version tokens.
++# Named ceiling: numeric counters only. A dishonest producer that deliberately
++# emits a valid integer with exit 0 (including a pipeline masking an upstream
++# failure) cannot be detected here. The harness does not judge whether the
++# declared predicate is the right one. Integers are normalized and compared as
++# decimal strings, so leading zeroes and values beyond shell integer range do
++# not change their meaning.
+ # Falsifier: one wrong `expect` -> MISMATCH exit 1 naming that id.
+ # --selftest builds a throwaway fixture repository under `$TMPDIR` (init, then
+ # `git rev-parse --show-toplevel` is asserted equal to the fixture before its
+-# single commit) and proves twelve cases: equal values, one and two mismatches,
++# commits) and retains twelve baseline cases: equal values, one and two mismatches,
+ # no-integer NORESULT, malformed row, missing controls file, `grep -c` exit 1
+ # with 0, empty controls, bad rev, timeout, --base isolation (a second
+ # fixture commit changes the counted file, so a harness that ignores --base and
+ # measures the worktree reports 4 instead of 3), and relative-work (round-33
+ # F1: run from another directory with a relative `--work ./w`, which a harness
+ # that never makes the work root absolute turns into a false
+-# `PREFREEZE: SETUP noresult` on every row). Final line
++# `PREFREEZE: SETUP noresult` on every row). Round 35 adds public run-mode cases
++# for the five frozen false-cleans and the strict output/status boundary.
++# Final line
+ # `PREFREEZE_SELFTEST: PASS (<k> cases)` exit 0, or `... FAIL (<k> cases)`.
+ # PREFREEZE_REPO overrides the repository `--base` is extracted from; run mode
+ # needs it only when the script is exercised from outside its <lane>/corpus/
+@@ -168,6 +170,8 @@
+   # the live worktree instead. The fixture gets a SECOND commit that changes the
+   # counted file, so the two trees differ and only a real extraction can measure 3.
+   printf 'a\nb\nc\nd\n' > "$repo/corpus/a.txt"
++  top=$(git -C "$repo" rev-parse --show-toplevel 2>/dev/null) || die fixture-failed
++  [ "$top" = "$phys" ] || die fixture-toplevel-mismatch
+   git -C "$repo" add -A >/dev/null 2>&1 || die fixture-failed
+   git -C "$repo" -c user.name=prefreeze -c user.email=prefreeze@local \
+     commit -q -m 'prefreeze fixture 2' >/dev/null 2>&1 || die fixture-failed
+@@ -188,6 +192,39 @@
+   last=$(printf '%s\n' "$out" | tail -n 1)
+   ck relative-work 0 '^PREFREEZE: CLEAN \(controls=1 mismatch=0\)$' '^OK lines expect=3 measured=3$'
+ 
++  # Exercise the public parser, extraction, producer launch and final verdict.
++  reject_producer() {
++    ctl=$tmp/producer.tsv
++    printf '%s\t0\t%s\n' "$1" "$2" > "$ctl"
++    try --base "$rev" --controls "$ctl"
++    ck "$1" 2 '^PREFREEZE: SETUP noresult$' "^NORESULT $1 expect=0 "
++  }
++  reject_producer setup-number 'printf "PREFREEZE: SETUP producer 0\n"; exit 2'
++  reject_producer failed-number 'printf "0\n"; exit 127'
++  reject_producer diagnostic-number 'printf "FAIL rows=0\n"'
++  reject_producer stderr-number 'printf "0\n"; printf "producer unavailable\n" >&2'
++  reject_producer clean-forgery 'printf "PREFREEZE: CLEAN (controls=0 mismatch=0)\n"'
++  reject_producer multiple-lines 'printf "0\n0\n"'
++  reject_producer rc1-nonzero 'printf "1\n"; exit 1'
++  reject_producer policy-number 'printf "POLICY producer 0\n"'
++  reject_producer signed-number 'printf "+0\n"'
++  reject_producer nul-output 'printf "0\000\n"'
++
++  ctl=$tmp/padded.tsv
++  printf 'padded\t0\t%s\n' 'printf "\n  000  \n\n"' > "$ctl"
++  try --base "$rev" --controls "$ctl"
++  ck padded-zero 0 '^PREFREEZE: CLEAN \(controls=1 mismatch=0\)$' '^OK padded expect=0 measured=0$'
++
++  ctl=$tmp/large.tsv
++  printf 'large\t18446744073709551616\t%s\n' 'printf "18446744073709551616\n"' > "$ctl"
++  try --base "$rev" --controls "$ctl"
++  ck large-integer 0 '^PREFREEZE: CLEAN \(controls=1 mismatch=0\)$' '^OK large expect=18446744073709551616 measured=18446744073709551616$'
++
++  ctl=$tmp/overflow.tsv
++  printf 'large\t0\t%s\n' 'printf "18446744073709551616\n"' > "$ctl"
++  try --base "$rev" --controls "$ctl"
++  ck no-integer-wraparound 1 '^PREFREEZE: MISMATCH \(controls=1 mismatch=1\)$' '^MISMATCH large expect=0 measured=18446744073709551616$'
++
+   if [ "$fails" -eq 0 ]; then
+     printf 'PREFREEZE_SELFTEST: PASS (%d cases)\n' "$k"
+     return 0
+@@ -255,20 +292,35 @@
+   id=${IDS[i]} exp=${EXPS[i]} cmd=${CMDS[i]}
+   safe=${id//[^A-Za-z0-9._-]/_}
+   errf=$RECEIPTS/$safe.stderr
+-  out=$(cd -- "$BASE_DIR" && BASE=$BASE_DIR LANE=$REPO timeout "$TIMEOUT" bash -c "$cmd" 2>"$errf")
++  outf=$RECEIPTS/$safe.stdout
++  (cd -- "$BASE_DIR" && BASE=$BASE_DIR LANE=$REPO timeout "$TIMEOUT" bash -c "$cmd") >"$outf" 2>"$errf"
+   rc=$?
+-  [ -s "$errf" ] || rm -f -- "$errf"
+   if [ "$rc" -eq 124 ]; then
+     printf 'NORESULT %s expect=%s (timeout %ss)\n' "$id" "$exp" "$TIMEOUT"
+     noresult=$((noresult + 1)); [ -n "$reason" ] || reason=timeout; continue
+   fi
+-  last=$(printf '%s\n' "$out" | grep -v '^[[:space:]]*$' | tail -n 1)
+-  if [ -z "$last" ] || [[ ! $last =~ ([0-9]+)[^0-9]*$ ]]; then
+-    printf 'NORESULT %s expect=%s (no integer)\n' "$id" "$exp"
++  valid=1 count=0 m=''
++  # A NUL-delimited read retains newlines and detects NUL bytes rather than
++  # silently discarding them as command substitution would.
++  if IFS= read -r -d '' out < "$outf"; then valid=0; fi
++  while IFS= read -r line || [ -n "$line" ]; do
++    [[ $line =~ ^[[:space:]]*$ ]] && continue
++    count=$((count + 1))
++    if [[ $line =~ ^[[:space:]]*([0-9]+)[[:space:]]*$ ]]; then
++      m=${BASH_REMATCH[1]}
++    else
++      valid=0
++    fi
++  done <<< "$out"
++  # Strip leading zeroes without converting an unbounded counter to shell int.
++  m=${m#"${m%%[!0]*}"}; m=${m:-0}
++  if [ "$valid" -ne 1 ] || [ "$count" -ne 1 ] || [ -s "$errf" ] ||
++     { [ "$rc" -ne 0 ] && { [ "$rc" -ne 1 ] || [ "$m" != 0 ]; }; }; then
++    printf 'NORESULT %s expect=%s (invalid producer result)\n' "$id" "$exp"
+     noresult=$((noresult + 1)); [ -n "$reason" ] || reason=noresult; continue
+   fi
+-  m=$((10#${BASH_REMATCH[1]}))
+-  if [ "$m" -eq "$((10#$exp))" ]; then
++  expected=${exp#"${exp%%[!0]*}"}; expected=${expected:-0}
++  if [ "$m" = "$expected" ]; then
+     printf 'OK %s expect=%s measured=%s\n' "$id" "$exp" "$m"
+   else
+     printf 'MISMATCH %s expect=%s measured=%s\n' "$id" "$exp" "$m"

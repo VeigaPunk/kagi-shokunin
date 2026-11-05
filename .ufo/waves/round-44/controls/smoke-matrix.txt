@@ -1,0 +1,14 @@
+ROUND-44 PRE-FREEZE SMOKE MATRIX (fixture clone of the lane at d54109d; scratch removed after)
+fixture: /fast/scratch/hyaku/kagi-r44/smoke/fix (clone --shared; two commits: instruments, receipt+register)
+R1 (instruments): 17826e540f2a42917064d95cb4e7267e540b5d7a
+R2 (receipt+register): edecb282e0fcc7ffa2773a5a5028e7a28a0ad819
+receipt fixture inside the fixture names R1 with the committed gate sha fab42e1d0a6b06b3608bb6a0543fad0da37a3c4e40ad85fd9c208cfb0d9e740f
+
+bash <fix>/plans/round-44-c1.sh $R2        -> 2   (target; both mutants discriminated; ~13 s)
+R44_SKIP_FIXTURES=1 ...                    -> 0   (M43-7 state: no targeted fixtures, no discrimination)
+R44_ONLY_FIXTURE=stale ...                 -> 1   (one pair)
+bash <fix>/plans/round-44-c2.sh $R2        -> 1   (target)
+R44_RECEIPT=<wrong-sha fixture> ...        -> 0
+R44_RECEIPT=<wrong-rev fixture> ...        -> 0
+bash <fix>/plans/round-44-c3.sh $R2        -> 3   (target; full re-derivation at 5f3566c executed)
+R44_REGISTER_ROOT=<wrongvals fixture> ...  -> 1   (executed leg load-bearing)

@@ -1,0 +1,17 @@
+# round-44 pre-freeze controls (frozen in plans/round-44.md; committed with the plan).
+# Tree-shape facts at the claim BASE d54109d943abc900e71613a02e5a7a2e46453c3a, run by
+# corpus/prefreeze-control.sh against a git archive extraction of that revision.
+# id	expect	command
+battery_absent	0	test -e plans/round-44-c1.sh && echo 1 || echo 0
+receipt_absent	0	test -e .ufo/waves/round-44/final/replay-at-tip.txt && echo 1 || echo 0
+register_absent	0	test -e .ufo/waves/round-44/controls/receipt-corrections.md && echo 1 || echo 0
+c2_gate_present	1	test -e corpus/controls-replay.sh && echo 1 || echo 0
+r43_counter_present	1	test -e plans/round-43-c2.sh && echo 1 || echo 0
+drifted_receipts_present	3	for f in c1-base c2-base c2-worktree-at-base; do test -e ".ufo/waves/round-42/controls/$f.txt" && echo 1; done | wc -l
+manifest_rderive_present	1	test -e .ufo/waves/round-43/controls/c2-manifest-rederive-base.txt && echo 1 || echo 0
+y1_marker_present	1	grep -c '^# N1: stale fixture' plans/round-43-c2.sh
+y2_marker_present	1	grep -c '^# N2: silent fixture' plans/round-43-c2.sh
+finalcond_marker_present	1	grep -cF '[ "$P1" = "0" ] && [ "$N1" = "1" ] && [ "$N2" = "1" ]' plans/round-43-c2.sh
+c1_committed_value	4	tail -1 .ufo/waves/round-42/controls/c1-base.txt
+c2_committed_value	0	tail -1 .ufo/waves/round-42/controls/c2-base.txt
+c2worktree_committed_value	3	tail -1 .ufo/waves/round-42/controls/c2-worktree-at-base.txt

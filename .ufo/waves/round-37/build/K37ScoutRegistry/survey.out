@@ -1,0 +1,111 @@
+=== ALL REGISTRY ROWS WITH A FEED-STYLE URL IN THE SOURCE CELL ===
+(source-cell pattern: releases\.atom|/releases|feed\.rss|releases/)
+
+S033  line 39  tier A
+   source : SOPS releases, GitHub release Atom feed — https://github.com/getsops/sops/releases.atom
+   urls   : ['https://github.com/getsops/sops/releases.atom']
+   anchor : Entry titled v3.13.3, tag link /releases/tag/v3.13.3, updated 2026-07-23T05:29:11Z; feed fetched 2026-10-21
+   -> url https://github.com/getsops/sops/releases.atom  [OUT-OF-CLAIM]
+      receipt versions for url : ['3.13.3']
+      anchor names receipt ver : 3.13.3
+      anchor versions seen     : ['3.13.3', '3.13.3']
+      anchor superseded versions: none
+
+S034  line 40  tier A
+   source : Vault releases, GitHub release Atom feed — https://github.com/hashicorp/vault/releases.atom
+   urls   : ['https://github.com/hashicorp/vault/releases.atom']
+   anchor : Entry titled v2.2.0, tag link /releases/tag/v2.2.0, updated 2026-10-15T18:50:14Z; feed fetched 2026-10-21
+   -> url https://github.com/hashicorp/vault/releases.atom  [IN-CLAIM]
+      receipt versions for url : ['2.2.1']
+      anchor names receipt ver : NO
+      anchor versions seen     : ['2.2.0', '2.2.0']
+      anchor superseded versions: ['2.2.0', '2.2.0']
+
+S035  line 41  tier A
+   source : OpenBao releases, GitHub release Atom feed — https://github.com/openbao/openbao/releases.atom
+   urls   : ['https://github.com/openbao/openbao/releases.atom']
+   anchor : Entry titled v2.7.1, tag link /releases/tag/v2.7.1, updated 2026-10-01T18:32:18Z; feed fetched 2026-10-21
+   -> url https://github.com/openbao/openbao/releases.atom  [IN-CLAIM]
+      receipt versions for url : ['2.7.2']
+      anchor names receipt ver : NO
+      anchor versions seen     : ['2.7.1', '2.7.1']
+      anchor superseded versions: ['2.7.1', '2.7.1']
+
+S036  line 42  tier A
+   source : Python releases, python.org downloads RSS — https://www.python.org/downloads/feed.rss
+   urls   : ['https://www.python.org/downloads/feed.rss']
+   anchor : Item titled Python 3.15.0, pubDate Fri, 09 Oct 2026 13:54:59 +0000; feed fetched 2026-10-21
+   -> url https://www.python.org/downloads/feed.rss  [IN-CLAIM]
+      receipt versions for url : ['3.15.2']
+      anchor names receipt ver : NO
+      anchor versions seen     : ['3.15.0']
+      anchor superseded versions: ['3.15.0']
+
+S038  line 45  tier A
+   source : WHATWG HTML release Atom feed (empty) — https://github.com/whatwg/html/releases.atom
+   urls   : ['https://github.com/whatwg/html/releases.atom']
+   anchor : Atom feed root title and zero entry elements; fetched 2026-10-21
+   -> url https://github.com/whatwg/html/releases.atom  [OUT-OF-CLAIM]
+      receipt versions for url : NONE (no receipt record)
+      anchor names receipt ver : NO
+      anchor versions seen     : none
+      anchor superseded versions: none
+
+S039  line 46  tier A
+   source : Python release feed, round-26 point observation — https://www.python.org/downloads/feed.rss
+   urls   : ['https://www.python.org/downloads/feed.rss']
+   anchor : Python 3.15.1 item, pubDate Wed, 21 Oct 2026 09:59:50 +0000; fetched 2026-10-21
+   -> url https://www.python.org/downloads/feed.rss  [IN-CLAIM]
+      receipt versions for url : ['3.15.2']
+      anchor names receipt ver : NO
+      anchor versions seen     : ['3.15.1']
+      anchor superseded versions: ['3.15.1']
+
+S089  line 96  tier A
+   source : Vault releases, GitHub release Atom feed — https://github.com/hashicorp/vault/releases.atom
+   urls   : ['https://github.com/hashicorp/vault/releases.atom']
+   anchor : Entry titled v2.2.1, tag link /releases/tag/v2.2.1, first stable entry at byte offset 726; feed fetched 2026-11-05 (receipt .ufo/waves/round-37/controls/observe-r37.json)
+   -> url https://github.com/hashicorp/vault/releases.atom  [IN-CLAIM]
+      receipt versions for url : ['2.2.1']
+      anchor names receipt ver : 2.2.1
+      anchor versions seen     : ['2.2.1', '2.2.1']
+      anchor superseded versions: none
+
+S090  line 97  tier A
+   source : OpenBao releases, GitHub release Atom feed — https://github.com/openbao/openbao/releases.atom
+   urls   : ['https://github.com/openbao/openbao/releases.atom']
+   anchor : Entry titled v2.7.2, tag link /releases/tag/v2.7.2, first stable entry at byte offset 729; feed fetched 2026-11-05 (receipt .ufo/waves/round-37/controls/observe-r37.json)
+   -> url https://github.com/openbao/openbao/releases.atom  [IN-CLAIM]
+      receipt versions for url : ['2.7.2']
+      anchor names receipt ver : 2.7.2
+      anchor versions seen     : ['2.7.2', '2.7.2']
+      anchor superseded versions: none
+
+S091  line 98  tier A
+   source : Python releases, python.org downloads RSS — https://www.python.org/downloads/feed.rss
+   urls   : ['https://www.python.org/downloads/feed.rss']
+   anchor : Item titled Python 3.15.2, pubDate Sun, 25 Oct 2026 04:15:38 +0000; feed fetched 2026-11-05 (receipt .ufo/waves/round-37/controls/observe-r37.json)
+   -> url https://www.python.org/downloads/feed.rss  [IN-CLAIM]
+      receipt versions for url : ['3.15.2']
+      anchor names receipt ver : 3.15.2
+      anchor versions seen     : ['3.15.2']
+      anchor superseded versions: none
+
+=== COUNTS ===
+rows with feed-style URL in source cell : 9
+row-url pairs whose anchor names the receipt version : 4
+row-url pairs whose anchor names a superseded version : 4
+
+=== OUT-OF-CLAIM FEED ROWS ===
+S033  url https://github.com/getsops/sops/releases.atom
+   anchor : Entry titled v3.13.3, tag link /releases/tag/v3.13.3, updated 2026-07-23T05:29:11Z; feed fetched 2026-10-21
+   teaches: The newest stable SOPS release is v3.13.3, so a clock anchored there has not fired; only stable tag titles count. Quote: “<title>v3.13.3</title>” (first stable entry).
+   receipt versions for url: ['3.13.3']
+   anchor names receipt ver: 3.13.3
+
+S038  url https://github.com/whatwg/html/releases.atom
+   anchor : Atom feed root title and zero entry elements; fetched 2026-10-21
+   teaches: REJECTED: an empty feed has no release identity and cannot fire S031’s clock; flip: the maintainers publish a stable release entry. Quote: “<title>Release notes from html</title>” (root title); entry count is zero.
+   receipt versions for url: NONE
+   anchor names receipt ver: NO
+

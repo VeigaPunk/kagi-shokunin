@@ -1,0 +1,3 @@
+NO CHANGE
+
+Reason: `corpus/README.md` §Frontier holds one bullet, "Observable release clocks — entered in round25 (S033–S037; S038 empty-feed reject); on-demand observation of declared identities, not continuous vendor-truth monitoring." Round 37 does not change that bullet's claim. Its scope (on-demand observation of declared identities, not continuous monitoring) and its round-25 entry set (S033–S037, S038) are unchanged by this round. The round adds rows S089–S091, which supersede the S034, S035 and S039 release anchors inside the same clock class, and adds a counter that reads anchor currency. Both are recorded in `corpus/SOURCES.md`, `corpus/lessons/round-37.md` and the SCORECARD round-37 capability row, not as a new frontier theme. No frontier entry is invented.

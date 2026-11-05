@@ -71,3 +71,44 @@ Assimilation: none this round (the quarantine above adopts nothing; `considerthe
 ## Non-author spot-check
 
 Pending outside closure. This lesson's Gate is lane-authored. Dispatched seats are lane evidence, not outside agreement (LEARNING.md discernment rule).
+
+## Wave settlement
+
+One v1 wave, `build`, 10 seats, all settled with output (`.ufo/waves/round-37/build-results.json`; none dead). Roles: executor 3 (K37ExecRows, K37ExecCounter, K37ExecEvidence), scribe 1 (K37ScribeDocs), scout 1 (K37ScoutRegistry), connector 1 (K37ConnFeeds), reviewer 2 (K37ReviewFresh, K37ReviewCounter), critic 1 (K37CriticClaim), mutation-tester 1 (K37MutCounter). Attack seats 4/10 = 40 %. The planner seat stayed with the L1 (deviation recorded at plan freeze, as in round 33).
+
+Seat verdicts, each read from the seat's own report under `.ufo/waves/round-37/build/`:
+
+- **ROWS** (K37ExecRows): AGREE. Capture digests, row-identity digests, located quotes at the claimed offsets, both censuses exit 0, counter 0 at candidate and 3 at BASE.
+- **COUNTER** (K37ExecCounter): AGREE. Candidate 0, BASE 3, setup exits 2 with no integer.
+- **EVIDENCE** (K37ExecEvidence): AGREE. `self-counts` stale 0 with the two operator-owned POLICY rows (PV-FEEDTOKEN-SHAPES, PV-FEEDTOKEN-SELFTEST); census selftest PASS (70 cases); `claim-ledger docs` CLEAN (entries 35); no current count in SKILL/PROVINCE/README says 88 registry rows.
+- **FRESH** (K37ReviewFresh, independent re-fetch of all three feeds): AGREE on S089, S090, S091. Quotes located in its own bytes; anchor is the newest stable entry; the superseded versions named in each `teaches` exist in the live feed.
+- **COUNTER REVIEW** (K37ReviewCounter, 15 attacks): attacks=15 wrong=0. The counter fails closed on receipt faults and reads the boundary and URL correctly. Named ceilings below.
+- **CLAIM CRITIC** (K37CriticClaim): counterfeit_passes=yes, verdict=admissible on its predicate. A counterfeit with invented quotes and the correct URL and version reads 0; no repo gate opens the stored bodies. Discipline condition, recorded in §Ceilings.
+- **MUTATION** (K37MutCounter): killed=5 survived=1. M1 (URL), M2 (version equality), M3 (knowledge holder), M4 (SETUP as 0), M6 (column) killed on the frozen set. M5 (boundary `(?![0-9])` dropped) survived the frozen set and was killed by an extra probe (`v2.2.10`) the frozen set does not contain. Routed below.
+- **CONNECTOR** (K37ConnFeeds): no sibling lane hits the same feed surface (overlap 0).
+- **SCOUT** (K37ScoutRegistry): feed rows outside the claim population: `S033` sops (anchor 3.13.3, current against the receipt's sops record) and `S038` whatwg (empty feed, rejected). Superseded feed anchors: S034, S035, S036, S039.
+
+## Ceilings (named before data, measured by the wave)
+
+- **Quote authenticity is not machine-checked.** No repo gate opens `.ufo/waves/round-37/capture/*.body` or checks a Gate quote against it: the lane census and the fleet census both pass with the bodies deleted (K37CriticClaim, V3). A row can therefore pass the frozen counter with an invented quote (K37CriticClaim counterfeit). What supports C2's substance is this round's independent re-fetch (K37ReviewFresh), not the counter. The critic's discipline condition is adopted: the round's closure must not cite the counter's 0 or either census CLEAN as evidence of quote authenticity. Routed: a located-quote gate against committed bodies (`rendered-text-v1.py locate`), round 38.
+- **Append-only is not enforced by the counter.** Rewriting S034's, S035's and S039's anchor cells in place to the current versions reads 0 with no new row (K37ReviewCounter A1, A1c). The candidate does not do this (its three rows are additions; S034/S035/S039 mutable cells are unchanged, checked by diff at `9efcea7`). Routed: a BASE-to-candidate anchor-immutability check, round 38.
+- **Looseness of the URL and version match.** `12.2.1`, `.v2.2.1`, `1v2.2.1`, `hashicorp-vault2.2.1`, `python 3.15.2`, `Python  3.15.2` match the version pattern, and a row whose source cell embeds the URL in a longer string counts (K37ReviewCounter A5, A2h). Strict on trailing query strings and schemes (A2, A2b). None of these shapes is in the candidate.
+- **Comment and fence blindness.** A row inside an HTML comment or a code fence counts both ways (A6–A6e). Consistent with "any matching row holds the surface"; not exploited by the candidate.
+- **The frozen control set does not exercise the boundary.** M5 survives it; the extra `v2.2.10` probe kills it. Routed as a coverage gap for the next round's frozen-counter amendment; this round's claim and controls are not changed after data.
+
+## Migrations and stamps (QM5, QM14)
+
+- **Ledger expectations, old → new**, each row's notes kept verbatim with a migration sentence appended, record `.ufo/waves/round-37/expectation-migrations.json`: `R21-02`, `R31-02`, `R33-02`, `R34-03` — `rows=88 A=84 mined=84 captures=88` → `rows=91 A=87 mined=87 captures=91`. Each new regex matches the live census line (checked: `MATCH` × 4). Word diff against HEAD shows only the count tokens and the appended sentence changed. The frozen round-34 C3 target is NOT amended.
+- **Stamps, old → new** (`corpus/stamps.tsv`): `corpus/SOURCES.md` `b974504e…/248/84683` → `b8f502a1…/251/86981`; `corpus/source-fetches.tsv` `66403078…/131/52524` → `8609b0bd…/134/53645`; `corpus/claim-ledger.tsv` re-pinned at the migrated bytes (`2e819250…/100/44320`). `python3 corpus/revision-audit.py --history c2cab35bc92e57e39e5489bac3386db078345b3f --root .` → `REVISION_AUDIT: CLEAN (stale=0 missing=0 dropped=0 added=49 invalid=0)` (was `DRIFT stale=2` before the re-pin; the third stale entry was the migrated ledger). `row-identity.sh revision-added` → `count=49 sha256=5bc6507a8807280c5dc352e561e65b8beefdd71deeb30c67db0234238fe86412` (was `SETUP`).
+
+## Routed to round 38 (not claimed, not hidden)
+
+- **Release clock table not re-pointed.** `corpus/release-clocks.tsv` still binds S012–S028 and S040/S041 to the superseded rows and the round-36 receipt. Re-pointing the feed ids alone breaks `DERIVATION` (10 findings: the derived binding needs the anchored version); updating the anchored versions as well leaves 11 `RECEIPT-MISMATCH` rows on `observed_at` 2026-11-04 vs 2026-11-05. A coupled change, not a one-cell edit. The release-clock gate still reads `CLEAN (…)` at both BASE and the candidate (its default pin is round 36).
+- **The round-37 receipt is not consumable by `release-clock.py`.** It was written by `--observe` in a scratch root without `corpus/source-fetches.tsv`, so its 10 rendered-quote records error with "source row has no declared capture quote" (K37Scout §5.2; M37-2 class). The C2 counter does not read those fields and is unaffected; a full-tree re-observation is a separate act, and it would change the pinned sha, so it is not done inside this claim.
+- **The calibration hold** (R36-4 reviewer conditions) and the M37-2 guard red-before run, as stated above.
+- **Stale prose in SCORECARD** (`R32-4`): the capabilities-table sentence about the latest first-working round is updated this round to 37 because the row is new; the older prose is not otherwise touched.
+
+## Frontier debt carried forward
+
+- The 8 quarantined absent-defect rows (above) remain unadopted; the register's campaign ids `S090`/`S091` are not this lane's rows and must be re-keyed under the collision guard before any adoption.
+- `S036` (python `3.15.0`) and `S039` (python `3.15.1`) remain as superseded history rows; their status is unchanged.

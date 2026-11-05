@@ -704,8 +704,9 @@ landed in the round-21 correction commit (cited in `LOG.md`):
 | release-clock observation | observe every on-release registry clock against its declared official release feed or capture quote and retain a dated receipt | `python3 corpus/release-clock.py --observe <receipt>`; R25-03/R25-04; `.ufo/waves/round-25/observe-1.json` | 25 |
 | differential feed-token agreement gate | import the live feed extractors and the shared token grammar and prove, over a fixed shape corpus in the three natural wrappers, that every shape the grammar adjudicates is extracted identically (and every shape it refuses is refused by all) — the D1 "one scanner trusting a token shape another never extracts" class becomes a standing check | `python -I -B corpus/feed-token-agree.py` ⇒ `FEED_TOKEN_AGREE: AGREE (shapes=12 disagreements=0)` (ledger `R29-02`); `--selftest` PASS 4 cases (ledger `R29-01`); red witness `corpus/feed-token-agree.py --instrument <BASE tree>` ⇒ DISAGREE naming `trailing-period` (`.ufo/waves/round-29/final/c2-after.json` M4); `corpus/knowledge/feed-token-boundaries.md` | 29 |
 | pre-freeze BASE control execution | extract a named revision into scratch, run caller-declared commands with BASE/LANE exported and compare the measured integer to expect. Since round35, accept only one nonempty unsigned-integer stdout line, no stderr, rc0 or rc1-zero; invalid producer results are NORESULT/SETUP exit2. This validates an envelope, not command truth or a masked pipeline's upstream status. Historical last-integer behavior remains in round33/34 receipts. | `bash corpus/prefreeze-control.sh run --base <rev> --controls <file>`; `R33-01`, `R34-02`; frozen public-path battery `.ufo/waves/round-35/controls/measure.py`; original red witness `.ufo/waves/round-33/final/c1-red-witness.txt`; `corpus/knowledge/prefreeze-controls.md` | 33 |
+| release-feed anchor currency counter | counts release-feed surfaces (vault releases.atom, openbao releases.atom, python.org feed.rss) with no registry row naming the feed URL and the observed version, against a committed observation receipt; fails closed on a missing, sha-mismatched or malformed receipt | `bash plans/round-37-c2.sh` (frozen counter; `plans/round-37-controls.sh`, `plans/round-37.controls.tsv` — `PREFREEZE: CLEAN (controls=6 mismatch=0)`, `.ufo/waves/round-37/controls/prefreeze-gate.txt`); `.ufo/waves/round-37/controls/observe-r37.json` | 37 |
 
-Rows enter only through demonstrated execution (`AXES.md` §Capabilities): the two round-21 capabilities entered through that round's runs; feature-bound typed credential review first worked in round 22 through R22-01/R22-02; closure disposition review first worked in round 23 through R23-02 (row added to this main table in round 24, routed D1 — it had sat only in the round-23 section). The 2026-10-16 rollout added none. The latest first-working round in this table is 33 (pre-freeze BASE control execution).
+Rows enter only through demonstrated execution (`AXES.md` §Capabilities): the two round-21 capabilities entered through that round's runs; feature-bound typed credential review first worked in round 22 through R22-01/R22-02; closure disposition review first worked in round 23 through R23-02 (row added to this main table in round 24, routed D1 — it had sat only in the round-23 section). The 2026-10-16 rollout added none. The latest first-working round in this table is 37 (release-feed anchor currency counter).
 
 ## Saturation
 
@@ -1409,3 +1410,29 @@ Measured commands, raw outputs and exits: `.ufo/waves/round-36/`. The frozen pre
 | adjacency | 9 → 9 | The connector sweep over the sibling lanes is the sole-ground check for the four cited feeds; ownership partition unchanged. | Row `R17-02`; `.ufo/waves/round-36/build/ConnScope/ConnOverlap.md` |
 
 Measured revision, exact exits and receipts are in the round report; no unrun result is stated here.
+
+## Round 37 — pre-move
+
+Frozen BASE `911ab519b6b07694c3cb9f7d9a7c56e142ad957c`; predeclaration `04489d4184edb25a01ec8983b3ccedb45c683564`; frozen plan alone `e2030d2` (`plans/round-37.md`). One claim, C2 freshness; no calibration claim (`corpus/lessons/round-37.md` §Calibration hold: `bash plans/round-36-c1.sh` already reads 0 at HEAD). Every axis stood at 9 at the round-36 close; this table is the reference line the claim is measured against, and no value in it is a round-37 measurement.
+
+| Axis | Score | Evidence pointer | Last change |
+|---|---|---|---|
+| depth | 9 | Unchanged: release-clock extraction contract and feed-token agreement invariant (rows `R29-01`, `R29-02`). No depth claim this round. | round 29 |
+| coverage | 9 | Unchanged as a score: 88 registry rows and 88 captures at BASE, lane census `SOURCES_CENSUS: CLEAN (rows=88 …)` (`corpus/lessons/round-37.md` §Census). | round 35 |
+| operability | 9 | Unchanged: nine gate mode-sets, nothing schedules any gate; the new counter runs on demand. | round 35 |
+| freshness | 9 | Unchanged as a score. Measured BASE gap: `bash plans/round-37-c2.sh` reads 3 at `04489d4` and at `911ab51`'s tree with the frozen counter (`plans/round-37.md` §C2; `corpus/lessons/round-37.md` §Before → after). | round 36 |
+| calibration | 9 | Unchanged as a score. `bash plans/round-36-c1.sh` reads 0 at HEAD, so no calibration claim is admitted this round. | round 36 |
+| adjacency | 9 | Unchanged: ownership partition gate (row `R17-02`). | round 35 |
+
+## Round 37 — post-move (claim C2 freshness)
+
+Measured commands and receipts: `.ufo/waves/round-37/controls/` and `corpus/lessons/round-37.md` §Before → after. The frozen predicate and kill rules are `plans/round-37.md` §C2 and are not amended after data. Scores stay 9 → 9: a claim move adds no new score; the rows record what moved and what did not.
+
+| Axis | Before → after | What moved | Evidence |
+|---|---|---|---|
+| freshness | 9 → 9 | C2 `bash plans/round-37-c2.sh` 3 → 0 at candidate `9efcea7`. Vault S034 (`v2.2.0`), openbao S035 (`v2.7.1`) and python S039 (`Python 3.15.1`) are superseded by rows S089, S090 and S091, each naming its feed URL and the receipt version (`2.2.1`, `2.7.2`, `3.15.2`). No mutable cell of S034, S035 or S039 changed. Commits: predeclaration `04489d4`, plan `e2030d2`, candidate `9efcea7`. Admission: see the lesson's verdict and the report; the counter's ceilings (quote authenticity, append-only, looseness) are named in `corpus/lessons/round-37.md` §Ceilings and are not claimed as closed. | Rows `S089`, `S090`, `S091` (`corpus/SOURCES.md`); captures `corpus/source-fetches.tsv`; receipt `.ufo/waves/round-37/controls/observe-r37.json` (sha256 `cb96cfb2…`); `.ufo/waves/round-37/controls/prefreeze-gate.txt` (`CLEAN (controls=6 mismatch=0)`); seat verdicts `.ufo/waves/round-37/build/` |
+| calibration | 9 → 9 | No calibration move. Round-36 errata are routed in the round-37 lesson and not counted: `R36-1` (the `M36-4` pointer does not exist) and `R36-2` (the round-36 report says "five" W04 lines; the live count is 16). | `corpus/lessons/round-37.md` §Corrigenda, §Calibration hold |
+| operability | 9 → 9 | The release-feed anchor counter is added as a capability row, with six executed controls and two setup refusals (exit 2). Nothing schedules it. Known coverage gap, routed: the frozen set does not exercise the `2.2.10` boundary (mutant M5). | `plans/round-37-c2.sh`; `plans/round-37-controls.sh`; `plans/round-37.controls.tsv`; `.ufo/waves/round-37/build/K37MutCounter/` |
+| depth | 9 → 9 | No mechanism change. | `plans/round-37.md` |
+| coverage | 9 → 9 | Registry rows 88 → 91 and captures 88 → 91: three supersession rows, no new entry, no frontier-to-core move. Fleet W04 duplicate-URL warnings 16 → 19 (the three cross-scope duplicates; no E-finding). | `corpus/lessons/round-37.md` §Census |
+| adjacency | 9 → 9 | No change; connector sweep found no sibling claiming the same feed surfaces. | `.ufo/waves/round-37/build/K37ConnFeeds/` |

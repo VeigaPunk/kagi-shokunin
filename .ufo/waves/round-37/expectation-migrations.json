@@ -1,0 +1,42 @@
+{
+  "round": 37,
+  "lane": "kagi",
+  "reason": "candidate rows S089-S091 and their capture rows change the live registry census from rows=88 to rows=91; four ledger rows pin the live census line and failed their expectation at the candidate (scout K37ScoutRegistry found the four FAIL verdicts; reproduced by the L1 with `bash corpus/sources-census.sh`).",
+  "candidate": "9efcea7",
+  "migrations": [
+    {
+      "row": "R21-02",
+      "kind": "live census expectation (current registry snapshot)",
+      "old": "SOURCES_CENSUS: CLEAN (rows=88 A=84 B=2 C=2 queued=1 mined=84 rejected=3 entries_sourced=14 legacy=21 captures=88 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+      "new": "SOURCES_CENSUS: CLEAN (rows=91 A=87 B=2 C=2 queued=1 mined=87 rejected=3 entries_sourced=14 legacy=21 captures=91 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+      "measured_at": "9efcea7 (lane census, working tree = commit)"
+    },
+    {
+      "row": "R31-02",
+      "kind": "live census expectation (round-31 row; the live command is the same)",
+      "old": "rows=88 A=84 mined=84 captures=88 (entries_sourced=14 legacy=21 unchanged)",
+      "new": "rows=91 A=87 mined=87 captures=91 (entries_sourced=14 legacy=21 unchanged)",
+      "measured_at": "9efcea7"
+    },
+    {
+      "row": "R33-02",
+      "kind": "live census expectation (round-33 row; the live command is the same)",
+      "old": "rows=88 A=84 mined=84 captures=88 (entries_sourced=14 legacy=21 unchanged)",
+      "new": "rows=91 A=87 mined=87 captures=91 (entries_sourced=14 legacy=21 unchanged)",
+      "measured_at": "9efcea7"
+    },
+    {
+      "row": "R34-03",
+      "kind": "live census expectation (round-34 row; the frozen C3 target is NOT changed)",
+      "old": "rows=88 A=84 mined=84 captures=88 (entries_sourced=14 legacy=21 unchanged)",
+      "new": "rows=91 A=87 mined=87 captures=91 (entries_sourced=14 legacy=21 unchanged)",
+      "measured_at": "9efcea7",
+      "frozen_target_note": "round-34 C3 frozen target (captures 87 / rows 87) was never met and is not amended by this migration"
+    }
+  ],
+  "verification": {
+    "live_line": "SOURCES_CENSUS: CLEAN (rows=91 A=87 B=2 C=2 queued=1 mined=87 rejected=3 entries_sourced=14 legacy=21 captures=91 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+    "each_new_regex_matches_live_line": true,
+    "word_diff_scope": "only the regex count fields and an appended `Round37 measured migration` sentence changed; historical notes are byte-identical in their prior text"
+  }
+}

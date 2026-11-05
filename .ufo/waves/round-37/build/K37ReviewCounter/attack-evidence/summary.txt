@@ -1,0 +1,23 @@
+base  rc=0 out=0            candidate 9efcea7 baseline
+a1    rc=0 out=0            candidate; S034 anchor rewritten in place -> reads 0 (append-only unenforced)
+a1b   rc=0 out=2            BASE; S034 anchor rewritten in place -> vault held by rewritten row
+a1c   rc=0 out=0            BASE; all three anchors rewritten in place -> full 3-to-0 without any appended row
+a1census  rc=0 CLEAN        lane census after in-place rewrite -> CLEAN rows=88 (census does not catch rewrites)
+a2    rc=0 out=0            candidate; S099 query-string row appended (already 0)
+a2b   rc=0 out=3            BASE; http:// scheme row -> does NOT hold (strict)
+a2h2  rc=0 out=2            BASE; URL embedded in longer string -> DOES hold (substring, loose)
+a3    rc=2 sha-gated        frozen counter on receipt carrying duplicate differing parsed_version
+a3    rc=2 logic-only       surface ... carries 2 receipt versions (fail closed)
+a4    rc=2 sha-gated        frozen counter on receipt with vault observations deleted
+a4    rc=2 logic-only       surface ... carries 0 receipt versions (fail closed)
+a4b   rc=2 logic-only       receipt records with empty parsed_version -> 0 versions (fail closed)
+a5    rc=0 out=0            candidate; S034 anchor v2.2.10 (S089 holds) - not contributory
+a5b   rc=0 out=0            candidate; python 3.15.21 row (S091 holds) - not contributory
+a5d   rc=0 out=3            BASE + probes: v2.2.10/3.15.21/12.2.1 MISS (trailing boundary tight)
+a5e   rc=0 out=1            BASE + probes: .v2.2.1 / 1v2.2.1 / hashicorp-vault2.2.1 / v2.2.1. / python 3.15.2 / Python  3.15.2 / 3.15.2-rc1 all MATCH (lead boundary loose)
+a6a   rc=0 out=0            candidate; holding rows in HTML comment -> still count
+a6b   rc=0 out=0            candidate; holding rows in code fence -> still count
+a6c   rc=0 out=0            candidate; stale rows commented -> 0 (held rows still hold); comment-insensitive
+a6d   rc=0 out=3            BASE; stale rows in HTML comment -> still count stale
+a6e   rc=0 out=3            BASE; stale rows in code fence -> still count stale
+a7    rc=2 format-gated     receipt sha repinned but format string wrong -> bad receipt format

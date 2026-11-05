@@ -1,0 +1,6 @@
+## Criteria from the round-43 closures
+
+| id | criterion | weak signal | lesson |
+|---|---|---|---|
+| QM46 | Every report diff-stat is re-derived by `git diff --numstat` before the report is filed: a report that quotes insertion and deletion counts for a landed diff states the numbers the command prints at the named revisions, not the numbers the diff looks like. | the round-42 report says the gate diff is "+23/−3" and the runner diff "+7/−1", while `git diff --numstat e8265c0 d00a543 -- corpus/expect-journal.sh plans/round-41-controls.sh` prints `21 2` and `6 1` | `corpus/lessons/round-43.md` §Mistakes M42-4; `corpus/lessons/round-42-verifier-spotcheck.md` §6 item 1 |
+| QM47 | Seat liveness is explicit: every wave prompt demands a final `SEAT-STATUS:` line, and the round report lists a per-seat status taken from `results.json`, so a seat that produced no final output cannot pass as settled. | the round-42 `build-results.json` gives each seat `name`, `agent`, `note` and `output` and no `status` field, so the report could only assert "all nine settled" without a per-seat status | `corpus/lessons/round-43.md` §Mistakes M42-5; `corpus/lessons/round-42-verifier-spotcheck.md` §6 item 3 |

@@ -1593,3 +1593,37 @@ Measured commands and receipts: `.ufo/waves/round-42/`. The frozen predicates, c
 | adjacency | 9 → 9 | Connector sweep over 20 sibling lanes: no sibling implements a ledger-deletion refusal (`REFUSE DELETED <ID>`: 0 hits). Overlap, recorded: kake r91 implements a revision-pinned controls replay with an enforcing counter, the same defect class as C2 (fleet prior art, not claimed as kagi's); lore r96–r98 and kasegi r42 J12 hold the C1 rationale. Lineage in `corpus/lessons/round-42.md` §Adjacency. | `R17-02`; `.ufo/waves/round-42/build/K42ConnOverlap/ConnOverlap.md` |
 
 Measured revision, exact exits and receipts are in the round report; no unrun result is stated here.
+
+## Round 43 — pre-move (repo HEAD 5f3566c, round-42 close)
+
+Claim BASE `5f3566c4cfe65a74da4d201d74d28b403929807b`; predeclaration `a9180250955ad44530b565fa5b131b540c849199` (frozen plan `plans/round-43.md`, counters `plans/round-43-c1.sh`, `-c2.sh`, `-c3.sh`, controls runner `plans/round-43-controls.sh`, BASE receipts under `.ufo/waves/round-43/controls/`); amendments A1 `dd6ccb92` and A2 `f2b4ec76`, both before any candidate measurement. All six axes stood at 9 at the round-42 close; this table is the reference line the three claims are measured against.
+
+- **C1 calibration — BASE 5 (round-42 instrument).** The round-43 counter does not exist at BASE. The round-42 counter reads 5 at BASE, and its three broken shapes (guard-drop, token-drop, answer-key) all read 5. Target 6, with broken-shape rejection 3/3.
+- **C2 freshness — BASE 0.** No committed gate re-derives the controls receipts; `bash plans/round-43-c2.sh` reads 0 at BASE (`controls/c2-base`). The eight-receipt manifest re-derives 8/8 at 5f3566c (`controls/c2-manifest-rederive-base.txt`). Target 1.
+- **C3 operability — BASE 0.** Five gate selftests carry `TMPDIR`/`/tmp` scratch defaults; `bash plans/round-43-c3.sh` reads 0 (`controls/c3-base`). Target 5.
+
+| Axis | Score | Evidence pointer | Last change |
+|---|---|---|---|
+| depth | 9 | Unchanged from round 29 (`R29-01`). | round 29 |
+| coverage | 9 | 98 registry rows at BASE, census `kagi ok` (`R21-02`). | round 41 |
+| operability | 9 | Unchanged as a score; measured BASE gap: `c3-base` 0 (five `/tmp` defaults). | round 41 |
+| freshness | 9 | Unchanged as a score; measured BASE gap: `c2-base` 0 (no gate). | round 41 |
+| calibration | 9 | Unchanged as a score; measured BASE gap: round-42 counter 5 with three broken shapes passing. | round 41 |
+| adjacency | 9 | Unchanged: ownership partition gate green (`R17-02`); 86 ledger ids at BASE, none removed. | round 35 |
+
+## Round 43 — post-move (claims C1 calibration, C2 freshness, C3 operability)
+
+Measured commands and receipts: `.ufo/waves/round-43/final/` (candidate `542885ed1514fd01d4e949caa5fab58eb000fffc`, measured in a clone of that commit). The frozen predicates, counters, kill rules and targets are `plans/round-43.md` with amendments A1 and A2; none was amended after data. Axis scores stay 9 → 9: a claim move adds no new score; the rows record what moved, as in rounds 36–42.
+
+| Axis | Before → after | What moved | Evidence |
+|---|---|---|---|
+| calibration | 5 → 6 (score 9 → 9) | [C1] `bash plans/round-43-c1.sh` reads 6 at the candidate (target 6): six forgeries F1–F6 refused with their tokens; F6 is the deletion of `R11-03`. The instrument now rejects the three broken shapes it used to accept: `c1-new-m3-K1` 6 (was 5), `c1-new-m5-K3` 6 (was 5), `c1-new-fakeC` 5 against target 6 (was 5 against 5). Broken-shape rejection 0/3 → 3/3. Blankets 0 and 0. Journal-gate bytes unchanged. Named ceilings: a six-key answer-key gate still reaches 6; the missing-gate branch and the grep-q token form survive counter mutation (`K43ReviewC1` x5, x9). | `plans/round-43-c1.sh`; `.ufo/waves/round-43/final/c1-new-real`, `c1-new-m3-K1`, `c1-new-m5-K3`, `c1-new-fakeC`, `c1-blanket-*`; `corpus/lessons/round-43.md` §Claims, §Mistakes M43-1, M43-6 |
+| freshness | 0 → 1 (score 9 → 9) | [C2] `bash plans/round-43-c2.sh` reads 1 at the candidate (target 1): the committed gate `corpus/controls-replay.sh` verifies the clean clone (P1), refuses the stale and silent fixtures (N1, N2), and restores the controls directories on every path. Blankets 0 and 0. Named ceilings: the gate's default verification is reviewed as code, not by the counter (a shape-keyed gate reads 1, `K43ReviewC2` item 3); the counter's N1 and N2 legs have no negative fixture in the frozen battery (`K43MutCounters` y1, y2). | `corpus/controls-replay.sh`; `.ufo/waves/round-43/final/c2-base` (1), `c2-blanket-0` (0), `c2-blanket-1` (0); `controls/c2-manifest-rederive-base.txt` (8/8); `corpus/lessons/round-43.md` §Claims, §Mistakes M43-5, M43-7 |
+| operability | 0 → 5 (score 9 → 9) | [C3] `bash plans/round-43-c3.sh` reads 5 at the candidate (target 5): `anchor-pins.sh`, `claims-declared.sh`, `prefreeze-control.sh`, `self-description-sweep.sh` and `surface-census.sh` carry no `TMPDIR`/`/tmp` default, and each selftest prints its frozen PASS line. Fixture controls: `c3-pos` 1 and `c3-blanket` 4 (predeclaration receipts, A2-7); 7 changed lines in 5 files. | `corpus/anchor-pins.sh`; `corpus/claims-declared.sh`; `corpus/prefreeze-control.sh`; `corpus/self-description-sweep.sh`; `corpus/surface-census.sh`; `.ufo/waves/round-43/controls/c3-base`, `c3-pos`, `c3-blanket`; `corpus/lessons/round-43.md` §Claims, §Mistakes M43-2, M43-3 |
+| depth | 9 → 9 | No mechanism claim. | `plans/round-43.md` |
+| coverage | 9 → 9 | No registry row added; S094 `used-by` extended (round-42 routed item 2); census `kagi ok`, 98 rows. | `R21-02`; `corpus/SOURCES.md` S094 |
+| adjacency | 9 → 9 | Connector sweep recorded in `corpus/lessons/round-43.md` §Adjacency; nothing absorbed. | `R17-02` |
+
+**Round-43 verdicts (L1 reading, for the operator's ruling):** C1, C2 and C3 each measured at its frozen target (6, 1, 5), with their no-work readings at their predicted values (5 for the round-42 instrument, 0, 0). No axis is harmed: all six stay 9 → 9. The named ceilings above are not closed.
+
+**Planned (next — round 43 close):** a round-44 claim against the C2 counter's N1/N2 negative fixtures (`K43MutCounters` y1, y2; routed item 2) and scheduling for `corpus/controls-replay.sh` (routed item 3), both by counter amendment before data.

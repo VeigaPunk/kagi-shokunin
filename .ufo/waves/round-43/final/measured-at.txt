@@ -1,0 +1,21 @@
+CANDIDATE MEASUREMENTS (round 43, kagi). Candidate commit 542885ed1514fd01d4e949caa5fab58eb000fffc (code: corpus/controls-replay.sh + five gate selftest-scratch patches). Measured in a fresh `git clone --shared` of the lane detached at that commit; scratch removed afterwards. Round-43 plan and amendments A1 (dd6ccb9) and A2 (f2b4ec7) are ancestors of the candidate.
+
+Counters, run directly in the candidate clone:
+  bash plans/round-43-c1.sh  -> 6 (rc 0)   target 6
+  bash plans/round-43-c2.sh  -> 1 (rc 0)   target 1
+  bash plans/round-43-c3.sh  -> 5 (rc 0)   target 5
+
+Runner `plans/round-43-controls.sh` run in the candidate clone (A2-3): C1 and C2 receipts written and copied here as the `c1-*`, `c2-base`, `c2-blanket-0`, `c2-blanket-1` files of this directory. Its C3 section stopped at the fixture-edit assertion by construction (A2-7: the patterns it edits are gone at the candidate); its C3 fixture receipts are therefore NOT re-measured here and are the predeclaration receipts `controls/c3-pos` (1) and `controls/c3-blanket` (4), committed at a918025.
+
+Kill-clause measurements at the candidate:
+  C1 (d) git diff --quiet 5f3566c HEAD -- corpus/expect-journal.sh       rc 0 (gate bytes unchanged)
+  C1 (f) and C3 (g) git diff --quiet a918025 HEAD -- plans/round-43-{c1,c2,c3}.sh plans/round-43-controls.sh   rc 0
+  C1 (e) and C3 (d) landing check, materialized base (A2-1):
+         EXPECT_JOURNAL: CLEAN (changed=6 journaled=6)   rc 0
+  C2 (e) restore duty on refusing fixtures (A2-6a):
+         stale fixture (D=2): REFUSED rc 1; controls dirs equal the pre-run state (only the test's own D=2 write differs from HEAD)
+         silent fixture (round-42 runner exit 0): REFUSED rc 1; controls dirs clean (0 changed entries)
+         clean clone: CLEAN rc 0; status of the two controls dirs after the run: 0 entries
+  C3 (c) ledger rows re-run: surface-census --selftest SELFTEST: PASS (16 cases) rc 0; prefreeze-control --selftest PREFREEZE_SELFTEST: PASS (25 cases) rc 0; self-description-sweep --selftest SELFTEST: PASS (10 cases) rc 0
+  C3 (e) git diff --numstat 5f3566c HEAD for the five gates: 1/1, 1/1, 2/2, 2/2, 1/1 = 7 changed lines in 5 files
+  C3 (b) predeclaration receipts (a918025): c3-base 0, c3-pos 1, c3-blanket 4

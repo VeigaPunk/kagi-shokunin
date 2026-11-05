@@ -1,0 +1,25 @@
+K43ExecScratchFix receipts (C3 frozen patch, sandbox at dd6ccb92bf04a061e9f1e66913d15f097397b1b3)
+SANDBOX: $S/work (git rev-parse --show-toplevel == $S/work verified)
+APPLIED: seven frozen replaces from plans/round-43-controls.sh FIXES, python str.replace, each pattern count==1 asserted, nothing else changed.
+
+SELFTESTS (HYAKU_SCRATCH=$S/probe bash $S/work/corpus/<g>.sh --selftest, run from $S/work):
+cmd: HYAKU_SCRATCH=$S/probe bash corpus/anchor-pins.sh --selftest -> rc=0 LAST=ANCHOR_PINS_SELFTEST: PASS (8 cases)
+cmd: HYAKU_SCRATCH=$S/probe bash corpus/claims-declared.sh --selftest -> rc=0 LAST=CLAIMS_DECLARED_SELFTEST: PASS (8 cases)
+cmd: HYAKU_SCRATCH=$S/probe bash corpus/prefreeze-control.sh --selftest -> rc=0 LAST=PREFREEZE_SELFTEST: PASS (25 cases)
+cmd: HYAKU_SCRATCH=$S/probe bash corpus/self-description-sweep.sh --selftest -> rc=0 LAST=SELFTEST: PASS (10 cases)
+cmd: HYAKU_SCRATCH=$S/probe bash corpus/surface-census.sh --selftest -> rc=0 LAST=SELFTEST: PASS (16 cases)
+Expected per plan: all five frozen last lines, all exit 0. MATCHED.
+
+COUNTER:
+cmd: C3_ROOT=$S/work bash plans/round-43-c3.sh -> rc=0 output=5 (expected 5)
+
+LEDGER MAPPING (grep -n 'surface-census.sh --selftest|prefreeze-control.sh --selftest|self-description-sweep.sh --selftest' corpus/claim-ledger.tsv at sandbox):
+line 17: R11-03  bash corpus/surface-census.sh --selftest  -> covered verbatim by step 3 surface-census run (HYAKU_SCRATCH=$S/probe prefix only; command + --selftest identical, output SELFTEST: PASS (16 cases) rc 0 matches row regex ^SELFTEST: PASS \(16 cases\) expecting 0)
+line 93: R33-01  bash corpus/prefreeze-control.sh --selftest -> covered verbatim (PREFREEZE_SELFTEST: PASS (25 cases) rc 0 matches ^PREFREEZE_SELFTEST: PASS \(25 cases\)$)
+line 95: R34-01  bash corpus/self-description-sweep.sh --selftest -> covered verbatim (SELFTEST: PASS (10 cases) rc 0 matches ^SELFTEST: PASS \(10 cases\)$)
+line 96: R34-02  bash corpus/prefreeze-control.sh --selftest -> covered verbatim (same prefreeze run, PASS (25 cases) rc 0)
+Note: step-3 runs prepend HYAKU_SCRATCH=<probe> env (per plan step 3 instruction); the ledger commands themselves are run verbatim apart from that env prefix, which does not alter gate behavior beyond scratch root. Full rows in grep output above.
+
+DIFF STAT: 5 files changed, 7 insertions(+), 7 deletions(-) (git diff --stat); each file exactly its frozen replaces (anchor-pins 1, claims-declared 1, prefreeze-control 2, self-description-sweep 2, surface-census 1).
+
+TOOLING: no installs; used bash, git, python3 stdlib, sha256sum (present). No pacman.

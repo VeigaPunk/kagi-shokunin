@@ -1,0 +1,41 @@
+K43ExecReplayGate receipts -- frozen counter plans/round-43-c2.sh via CONTROLS_REPLAY_GATE override
+Sandbox: $HYAKU_SCRATCH/kagi-r43/K43ExecReplayGate/work (detached dd6ccb92bf04a061e9f1e66913d15f097397b1b3)
+Counter reads the gate via: CONTROLS_REPLAY_GATE=<gate> bash plans/round-43-c2.sh
+
+== usage / setup (direct gate invocation) ==
+$ bash corpus/controls-replay.sh
+Usage: bash corpus/controls-replay.sh --clone <dir>
+rc=2 (expected 2: any non-`--clone <dir>` invocation is setup)
+
+== 3a: real gate, run 1 + run 2 (determinism) ==
+$ CONTROLS_REPLAY_GATE=$S/work/corpus/controls-replay.sh bash plans/round-43-c2.sh
+1
+rc=0
+$ CONTROLS_REPLAY_GATE=$S/work/corpus/controls-replay.sh bash plans/round-43-c2.sh
+1
+rc=0
+run1=1 run2=1 (same value: deterministic)
+
+== 3b: mutant-gate A (step (e) comparison removed; runners run, restore, exit 0) ==
+$ CONTROLS_REPLAY_GATE=$S/mutant-A.sh bash plans/round-43-c2.sh
+0
+rc=0
+expected 0 (stale fixture N1 catches the missing comparison)
+
+== 3c: mutant-gate B (exit 1 unconditionally) ==
+$ CONTROLS_REPLAY_GATE=$S/mutant-B.sh bash plans/round-43-c2.sh
+0
+rc=0
+expected 0 (P1 fails)
+
+== restore / non-destructive check ==
+$ git -C $S/work status --porcelain
+?? corpus/controls-replay.sh
+$ git -C $S/work diff --quiet HEAD -- .ufo/waves/round-42/controls .ufo/waves/round-41/controls
+rc=0 (controls dirs byte-match committed state after replay; only the untracked gate is new)
+sample receipts: round-42/controls/c2-derivation-D.txt = 1, round-41/controls/c2-base-19025d9.txt = 1
+
+== gate ==
+S=$S/work/corpus/controls-replay.sh: bash, set -u, invoked only as `bash <path> --clone <dir>`
+exit 0 clean / 1 refused / 2 setup; scratch root ${HYAKU_SCRATCH:-/fast/scratch/hyaku}/kagi-r43/controls-replay.<pid> with trap cleanup;
+writes nothing outside <dir> and the scratch root; bash + coreutils (find, cp -a, cmp) only.

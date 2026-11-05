@@ -1,0 +1,213 @@
+{
+  "schema": "ufo-swarm-wave-dispatch-v1",
+  "wave": "kagi-r43-build",
+  "policy": {
+    "source": "config",
+    "maxLanes": 256,
+    "minLanes": 8,
+    "waveMinLanes": 8,
+    "waveMaxLanes": 16,
+    "declaredMaxLanes": null,
+    "hardCeiling": 256,
+    "rampBatchSize": 5,
+    "rampIntervalMs": 700,
+    "globalRunnerCeiling": 1056
+  },
+  "counts": {
+    "spawn": 10,
+    "resume": 0,
+    "total": 10
+  },
+  "registry": {
+    "schema": "ufo-swarm-registry-v1",
+    "path": ".ufo/waves/round-43/build/swarm-registry.json",
+    "reportDir": ".ufo/waves/round-43/build",
+    "members": {
+      "K43ExecC1Inst": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": null,
+        "axes": [
+          "calibration",
+          "freshness",
+          "operability"
+        ],
+        "milestone": "C1 matrix verified and C2 gate implemented and C3 patch proven in sandboxes with receipts; pre-measurement attacks recorded; every surviving defect named; per-seat SEAT-STATUS explicit"
+      },
+      "K43ExecReplayGate": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": null,
+        "axes": [
+          "calibration",
+          "freshness",
+          "operability"
+        ],
+        "milestone": "C1 matrix verified and C2 gate implemented and C3 patch proven in sandboxes with receipts; pre-measurement attacks recorded; every surviving defect named; per-seat SEAT-STATUS explicit"
+      },
+      "K43ExecScratchFix": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": null,
+        "axes": [
+          "calibration",
+          "freshness",
+          "operability"
+        ],
+        "milestone": "C1 matrix verified and C2 gate implemented and C3 patch proven in sandboxes with receipts; pre-measurement attacks recorded; every surviving defect named; per-seat SEAT-STATUS explicit"
+      },
+      "K43ScoutS094": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scout",
+        "item": null,
+        "axes": [
+          "calibration",
+          "freshness",
+          "operability"
+        ],
+        "milestone": "C1 matrix verified and C2 gate implemented and C3 patch proven in sandboxes with receipts; pre-measurement attacks recorded; every surviving defect named; per-seat SEAT-STATUS explicit"
+      },
+      "K43ScribeDocs": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scribe",
+        "item": null,
+        "axes": [
+          "calibration",
+          "freshness",
+          "operability"
+        ],
+        "milestone": "C1 matrix verified and C2 gate implemented and C3 patch proven in sandboxes with receipts; pre-measurement attacks recorded; every surviving defect named; per-seat SEAT-STATUS explicit"
+      },
+      "K43ConnOverlap": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "connector",
+        "item": null,
+        "axes": [
+          "calibration",
+          "freshness",
+          "operability"
+        ],
+        "milestone": "C1 matrix verified and C2 gate implemented and C3 patch proven in sandboxes with receipts; pre-measurement attacks recorded; every surviving defect named; per-seat SEAT-STATUS explicit"
+      },
+      "K43ReviewC1": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "calibration",
+          "freshness",
+          "operability"
+        ],
+        "milestone": "C1 matrix verified and C2 gate implemented and C3 patch proven in sandboxes with receipts; pre-measurement attacks recorded; every surviving defect named; per-seat SEAT-STATUS explicit"
+      },
+      "K43ReviewC2": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "calibration",
+          "freshness",
+          "operability"
+        ],
+        "milestone": "C1 matrix verified and C2 gate implemented and C3 patch proven in sandboxes with receipts; pre-measurement attacks recorded; every surviving defect named; per-seat SEAT-STATUS explicit"
+      },
+      "K43CriticClaims": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "critic",
+        "item": null,
+        "axes": [
+          "calibration",
+          "freshness",
+          "operability"
+        ],
+        "milestone": "C1 matrix verified and C2 gate implemented and C3 patch proven in sandboxes with receipts; pre-measurement attacks recorded; every surviving defect named; per-seat SEAT-STATUS explicit"
+      },
+      "K43MutCounters": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "mutation-tester",
+        "item": null,
+        "axes": [
+          "calibration",
+          "freshness",
+          "operability"
+        ],
+        "milestone": "C1 matrix verified and C2 gate implemented and C3 patch proven in sandboxes with receipts; pre-measurement attacks recorded; every surviving defect named; per-seat SEAT-STATUS explicit"
+      }
+    }
+  },
+  "compaction": {
+    "applied": false,
+    "mechanism": null,
+    "reason": null,
+    "savedBytes": 0,
+    "payloadBytesBefore": 0,
+    "payloadBytesAfter": 0
+  },
+  "taskCall": {
+    "context": "kagi round 43 (attempt 1): ONE v1 build/attack wave, 10 seats. Lane absolute path /home/vgpnk/Projects/shokunin/kagi-shokunin, branch master.\nClaim BASE 5f3566c4cfe65a74da4d201d74d28b403929807b. Predeclaration a9180250955ad44530b565fa5b131b540c849199; amendment A1 dd6ccb92bf04a061e9f1e66913d15f097397b1b3 (frozen plan plans/round-43.md, counters plans/round-43-c1.sh / -c2.sh / -c3.sh, controls runner plans/round-43-controls.sh, BASE receipts .ufo/waves/round-43/controls/ — all committed).\n\nFROZEN PLAN: /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-43.md. Read it in full first. Its predicates, counter names, targets, kill rules, controls and ceilings are frozen; do not reinterpret them.\n\nRULES FOR EVERY SEAT\n- You are a leaf: no delegation, no sub-swarm. Never call the ask tool. Never message agent://all.\n- Never edit the lane tree. Work in your own sandbox: S=$HYAKU_SCRATCH/kagi-r43/<seat-name> (HYAKU_SCRATCH defaults to /fast/scratch/hyaku; mkdir -p; pass the path explicitly; never rely on TMPDIR; files over 50 MB never go to /tmp). Clone with: git clone --shared /home/vgpnk/Projects/shokunin/kagi-shokunin \"$S/work\" && git -C \"$S/work\" checkout --detach dd6ccb92bf04a061e9f1e66913d15f097397b1b3. Verify git -C \"$S/work\" rev-parse --show-toplevel equals \"$S/work\" before any write. Every git call names -C explicitly.\n- Never run git add/commit/stash/checkout/switch/reset/pull/push or any mutating jj command anywhere in the lane. Never commit in your sandbox with a throwaway identity. Never write to the fleet root, sibling lanes, MANIFEST.json, .ufo/state, .ufo/watchdog.log, templates/, scripts/, .scratch/, or host settings (no sysctl, no services, no pacman -S/-Sy/-Syu/-U/-R).\n- Delete your scratch dir before you yield: trap 'rm -rf -- \"$S\"' EXIT. Copy receipts you need into your deliverable directory first.\n- Deliverables go ONLY under /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-43/build/<your-seat-name>/ (absolute path). Every `Report:` trailer path is relative to /home/vgpnk/Projects/shokunin/kagi-shokunin — write it at /home/vgpnk/Projects/shokunin/kagi-shokunin/<that path>.\n- Seat paths are absolute. A relative path lands in the FLEET repo; never write there.\n- Only the L1 applies changes to the lane. Your deliverable is a file set; the L1 copies, commits and measures.\n- Tooling authorization (operator, 2026-10-19): you and every seat may install or upgrade tools that help the task — read /home/vgpnk/.omp/agent/RULES.md first (official channels, update-safety gate; record tool/version/channel/reason in your yield). pacman guard (orchestrator ruling 2026-10-20): all pacman transactions are PAUSED host-wide — install via uv tool, npx, or an official binary in ~/.local/bin, or report an L0 need; never -Sy, -Syu, -U, -R, downgrade, or restart a host service.\n- Honesty: an unrun check has not passed. Report exact commands, exit codes and the last output line of each receipt. End your yield with an explicit final line `SEAT-STATUS: complete` or `SEAT-STATUS: partial <what is missing>` (round-42 routed fix M42-5).\n- Do not run the lane's full claim-ledger verify or self-counts (host-heavy). Run only the scripts your item names. Do not edit SOURCES.md or any registry row.\n",
+    "tasks": [
+      {
+        "name": "K43ExecC1Inst",
+        "agent": "executor",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\nVerify the C1 discrimination matrix at dd6ccb92bf04a061e9f1e66913d15f097397b1b3 in your sandbox and deliver receipts (plans/round-43.md §C1). You deliver evidence only; the L1 measures finals.\n1. S=$HYAKU_SCRATCH/kagi-r43/K43ExecC1Inst; clone and checkout dd6ccb92bf04a061e9f1e66913d15f097397b1b3 detached (see RULES). Read plans/round-43.md §C1 and plans/round-43-c1.sh in full.\n2. Run in $S/work and record for each: command, exit code, last stdout line.\n   a. bash plans/round-43-c1.sh  → expect 6\n   b. Build a refuse-all gate in scratch (prints exactly `EXPECT_JOURNAL: REFUSED (violations=1)`, exit 1) and run EXPECT_JOURNAL=<it> bash plans/round-43-c1.sh → expect 0\n   c. Build an accept-all gate (prints exactly `EXPECT_JOURNAL: CLEAN (changed=0 journaled=0)`, exit 0) and run the same → expect 0\n3. F6 evidence (each a receipt):\n   a. git -C $S/work show 6cc8850dfc5757927699e5a53a876f47c8df21aa:corpus/claim-ledger.tsv | grep -c '^R11-03' → 1\n   b. git -C $S/work show 6f1588cc0ebd5cbbd4e983fbd71c1e419d225ce0:corpus/claim-ledger.tsv | grep -c '^R11-03' → 1\n   c. git -C $S/work show 6f1588cc0ebd5cbbd4e983fbd71c1e419d225ce0:.ufo/waves/round-40/expectation-migrations.json | grep -c '\"R11-03\"' → 0\n4. Landing check (kill rule (e), amendment A1 form): mkdir -p $S/j41; cp $S/work/.ufo/waves/round-41/expectation-migrations.json $S/j41/; git -C $S/work show 5142b52:corpus/claim-ledger.tsv > $S/base5142.tsv; bash $S/work/corpus/expect-journal.sh --base-ledger $S/base5142.tsv --ledger $S/work/corpus/claim-ledger.tsv --journals $S/j41 → expect exactly `EXPECT_JOURNAL: CLEAN (changed=6 journaled=6)`, exit 0.\n5. Gate-bytes-unchanged receipt: git -C $S/work diff --quiet 5f3566c4cfe65a74da4d201d74d28b403929807b HEAD -- corpus/expect-journal.sh; echo $? → 0.\n6. Deliverables under /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-43/build/K43ExecC1Inst/: receipts.txt (all commands + exits + last lines), deviations.md if any value differs from its prediction.\n7. Yield: SEAT-STATUS + the receipt values. Remove $S on exit.\n\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\nJudged on: calibration, freshness, operability\nMilestone: C1 matrix verified and C2 gate implemented and C3 patch proven in sandboxes with receipts; pre-measurement attacks recorded; every surviving defect named; per-seat SEAT-STATUS explicit\n\nReport: write your scoped findings to .ufo/waves/round-43/build/K43ExecC1Inst.md"
+      },
+      {
+        "name": "K43ExecReplayGate",
+        "agent": "executor",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\nImplement corpus/controls-replay.sh per the frozen interface (plans/round-43.md §C2) and prove it through the frozen counter in your sandbox.\n1. S=$HYAKU_SCRATCH/kagi-r43/K43ExecReplayGate; clone and checkout dd6ccb92bf04a061e9f1e66913d15f097397b1b3 detached. Read plans/round-43.md §C2 and the header of plans/round-43-c2.sh (it names the 8-file manifest and the two fixtures).\n2. Write $S/work/corpus/controls-replay.sh: bash, set -u; invoked ONLY as `bash <path> --clone <dir>` — any other invocation prints usage to stderr and exits 2. Behaviour: (a) require <dir>/plans/round-42-controls.sh and <dir>/plans/round-41-controls.sh (files); (b) snapshot to scratch every file under <dir>/.ufo/waves/round-42/controls/ and <dir>/.ufo/waves/round-41/controls/ (all of them, not only the manifest); (c) delete every file under those two dirs in <dir>; (d) run (cd <dir> && bash plans/round-42-controls.sh) and (cd <dir> && bash plans/round-41-controls.sh); each rc must be 0; (e) each of the 8 manifest files must exist under <dir> again and be byte-identical (cmp) to its snapshot; (f) restore every snapshotted file back into <dir>; (g) exit 0 clean / 1 refused / 2 setup. Scratch root ${HYAKU_SCRATCH:-/fast/scratch/hyaku}/kagi-r43/controls-replay.<pid>, trap cleanup. Write nothing outside <dir> and your scratch. bash + python3 stdlib only.\n3. Prove through the frozen counter (it must read the gate via the override):\n   a. CONTROLS_REPLAY_GATE=$S/work/corpus/controls-replay.sh bash plans/round-43-c2.sh → expect 1\n   b. Build mutant-gate A: a copy of your gate with step (e) removed (runners run, no comparison, restore, exit 0). CONTROLS_REPLAY_GATE=<A> bash plans/round-43-c2.sh → expect 0 (the stale fixture N1 must catch it).\n   c. Build mutant-gate B: `exit 1` unconditionally. CONTROLS_REPLAY_GATE=<B> ... → expect 0 (P1 fails).\n   d. Run (a) twice → same value both times (determinism receipt).\n4. Deliverables under /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-43/build/K43ExecReplayGate/: controls-replay.sh (bytes), gate.diff (git -C $S/work diff), gate-sha256.txt, receipts.txt.\n5. Yield: SEAT-STATUS + values of 3a-3d. Remove $S on exit.\n\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\nJudged on: calibration, freshness, operability\nMilestone: C1 matrix verified and C2 gate implemented and C3 patch proven in sandboxes with receipts; pre-measurement attacks recorded; every surviving defect named; per-seat SEAT-STATUS explicit\n\nReport: write your scoped findings to .ufo/waves/round-43/build/K43ExecReplayGate.md"
+      },
+      {
+        "name": "K43ExecScratchFix",
+        "agent": "executor",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\nApply the frozen C3 patch in your sandbox and prove the five selftests (plans/round-43.md §C3).\n1. S=$HYAKU_SCRATCH/kagi-r43/K43ExecScratchFix; clone and checkout dd6ccb92bf04a061e9f1e66913d15f097397b1b3 detached. Read plans/round-43.md §C3; the seven frozen replaces are codified in the python FIXES list inside plans/round-43-controls.sh (read them from there; do not invent variants).\n2. Apply exactly those seven replaces to $S/work/corpus/anchor-pins.sh, claims-declared.sh, prefreeze-control.sh (two lines), self-description-sweep.sh (two lines), surface-census.sh with python str.replace; fail loudly if any pattern is absent or appears twice. Change nothing else.\n3. Receipts — for each gate run HYAKU_SCRATCH=$S/probe bash $S/work/corpus/<g>.sh --selftest; record rc + last line; expect exactly: ANCHOR_PINS_SELFTEST: PASS (8 cases) / CLAIMS_DECLARED_SELFTEST: PASS (8 cases) / PREFREEZE_SELFTEST: PASS (25 cases) / SELFTEST: PASS (10 cases) / SELFTEST: PASS (16 cases), all exit 0.\n4. Counter check: C3_ROOT=$S/work bash plans/round-43-c3.sh → expect 5.\n5. Ledger mapping receipt: grep -n 'surface-census.sh --selftest\\|prefreeze-control.sh --selftest\\|self-description-sweep.sh --selftest' $S/work/corpus/claim-ledger.tsv → name the rows (R11-03, R33-01, R34-01, R34-02) and note that step 3 covers each row's command verbatim.\n6. Deliverables under /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-43/build/K43ExecScratchFix/: gates.diff (git -C $S/work diff), receipts.txt, sha256sums.txt (one line per patched gate).\n7. Yield: SEAT-STATUS + the six values. Remove $S on exit.\n\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\nJudged on: calibration, freshness, operability\nMilestone: C1 matrix verified and C2 gate implemented and C3 patch proven in sandboxes with receipts; pre-measurement attacks recorded; every surviving defect named; per-seat SEAT-STATUS explicit\n\nReport: write your scoped findings to .ufo/waves/round-43/build/K43ExecScratchFix.md"
+      },
+      {
+        "name": "K43ScoutS094",
+        "agent": "scout",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\nRe-open registry source S094 this round and record its current used-by cell (plans/round-43.md sourced claim; the round-42 spot-check routed item 2). Read-only except your deliverable directory.\n1. Row S094 in /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/SOURCES.md (line ~101): the fetch URL https://raw.githubusercontent.com/VeigaPunk/shokunin/f47ad6ba8d306f8125597401cb2ce45c1297a593/CORPUS.md . Also record the row's FULL current text verbatim (for the L1's used-by old→new log), especially its last cell (used-by) — read-only, do not edit.\n2. Live re-open (today, 2026-11-05): curl -fsSL --compressed <url> -o /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-43/build/K43ScoutS094/CORPUS-live.md; record HTTP status, byte count, sha256. Compare against the committed capture: cmp /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-43/build/K43ScoutS094/CORPUS-live.md /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-39/capture/S094.body → report match/drift (the round-42 spot-check re-verified sha256 88556402940e7a0f1dbbed3abef9e00c87a90db6f80eaed03269e371f50050b8, 11296 bytes).\n3. Locate the append-only rule: grep -n 'Only `status`, `recheck` and `used-by` change in place' the body; record the line number and a byte offset (grep -b -o -F). The located quote for the Gate block is: Only `status`, `recheck` and `used-by` change in place (8 whitespace tokens).\n4. Write /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-43/build/K43ScoutS094/notes.md: URL, HTTP status, access date 2026-11-05, byte count, sha256, match verdict, quote, line number, byte offset, the verbatim current S094 row text, and one sentence on what the rule permits to change in place.\n5. Yield the key values. Do not edit SOURCES.md.\n\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: calibration, freshness, operability\nMilestone: C1 matrix verified and C2 gate implemented and C3 patch proven in sandboxes with receipts; pre-measurement attacks recorded; every surviving defect named; per-seat SEAT-STATUS explicit\n\nReport: write your scoped findings to .ufo/waves/round-43/build/K43ScoutS094.md"
+      },
+      {
+        "name": "K43ScribeDocs",
+        "agent": "scribe",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\nDraft the round-43 lesson, SCORECARD blocks, LOG entry and QUALITY rows as text files for the L1 to integrate. Prose only; no lane edits.\nMeasured values you may use (all measured at the claim BASE 5f3566c4cfe65a74da4d201d74d28b403929807b at predeclaration; receipts in /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-43/controls/): C1 old instrument real 5, +K1 0, +K3 0, +fakeC 5, m3+K1 5, m5+K3 5; C1 new instrument real 6, +K1 0, +K3 0, +fakeC 5, m3+K1 6, m5+K3 6; blankets 0/0; C2 base 0, blanket-0 0, blanket-1 0; C3 base 0, pos 1, blanket 4; census before: `kagi ok`, exit 0, 98 rows (19 W04 duplicate-url warnings). SOURCES row count before 98. Anything measured later must appear as <<FILL: name>> (QM7 forbids placeholders in committed files; the L1 replaces every FILL before commit).\nRead plans/round-43.md in full first — its predicates and kill rules are frozen and must be copied verbatim into the lesson's Claims section.\nFiles under /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-43/build/K43ScribeDocs/:\n  lesson-draft.md — sections in order: `## Claims` (C1 calibration, C2 freshness, C3 operability: frozen predicate sentences verbatim from the plan, BASE readings with receipt names, targets, kill rules, ceilings; FILLs for candidate values), `## Gate` (sourced claim S094: URL, access date 2026-11-05, the ≤25-word located quote, the re-open verdict as FILL, the used-by old→new line as FILL), `## Mistakes` table (columns id · class · evidence pointer · captured-by · fix) with rows M42-4 (round-42 report diff-stat sentences +23/−3 and +7/−1 disagree with git diff --numstat 21 2 and 6 1; evidence .ufo/reports/round-42/kagi.md vs the numstat command; captured-by none; fix = QUALITY QM46) and M42-5 (round-42 build-results.json carried no per-seat status field; evidence .ufo/waves/round-42/build-results.json; captured-by none; fix = per-seat SEAT-STATUS in wave prompts and per-seat status in the round report), plus FILL rows for any new mistake the round finds; `## Frontier` (what advanced; no frontier-to-core move; rows added none; rows touched: S094 used-by old→new as FILL), `## Routed` (the seven items in plans/round-43.md §Routed, verbatim names), `## considerthese` (latest file considerthese/2026-10-26.md, proposals 1 and 3 remain unimplemented; reason: no separable claim slot; proposal 1 is operator policy under HOLD), `## Assimilation` (none this round; reason: no merge/kagi knowledge entry fits the three frozen instrument claims; the S094 re-open is the round's sourced action), `## Adjacency` (FILL from the connector's scan).\n  scorecard-block.md — `## Round 43 — pre-move` (six axes at 9 with evidence pointers to the controls receipts; claim BASE + predeclaration + A1 hashes) and `## Round 43 — post-move` (three rows: calibration C1, freshness C2, operability C3; Before → after columns carry FILLs; the other three axes unchanged rows).\n  log-entry.md — one `## Round 43 (2026-11-05)` entry naming the predeclaration a9180250955ad44530b565fa5b131b540c849199, amendment A1 dd6ccb92bf04a061e9f1e66913d15f097397b1b3, and FILLs for the candidate commit and final receipts.\n  quality-rows.md — two rows in the QUALITY.md criterion format: QM46 (every report diff-stat is re-derived by `git diff --numstat` before the report is filed; cites M42-4 and round-42 spot-check §6 item 1) and QM47 (seat liveness is explicit: every wave prompt demands a final SEAT-STATUS line and the round report lists per-seat status from results.json; cites M42-5 and round-42 spot-check §6 item 3).\nYield: the four file paths + one-line status each. Keep prose tight.\n\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: calibration, freshness, operability\nMilestone: C1 matrix verified and C2 gate implemented and C3 patch proven in sandboxes with receipts; pre-measurement attacks recorded; every surviving defect named; per-seat SEAT-STATUS explicit\n\nReport: write your scoped findings to .ufo/waves/round-43/build/K43ScribeDocs.md"
+      },
+      {
+        "name": "K43ConnOverlap",
+        "agent": "connector",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\nSibling overlap scan, read-only. Across /home/vgpnk/Projects/shokunin/*-shokunin (exclude kagi-shokunin), search for: a committed gate or counter that verifies committed receipts re-derive at a named revision (controls-replay, replay, re-derive, `git archive` in verification gates); counter-level discrimination controls (token-refusing / answer-key / blanket fixtures around counters); `${TMPDIR:-/tmp}` scratch defaults in sibling corpus scripts; `SEAT-STATUS` liveness conventions. Use the grep/read tools on sibling paths; never write into any sibling.\nWrite /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-43/build/K43ConnOverlap/ConnOverlap.md: for each hit, path:line, owning lane, verdict (overlap | adjacent | none); counts per term; and two explicit answers: (1) does any sibling already run a committed replay gate over its committed receipts (kake r90→r91 was recorded as fleet prior art in the round-42 lesson — verify it still exists at the sibling's current tip and cite path:line); (2) does any sibling implement counter-discrimination controls like K1/K3/fakeC.\nYield the verdict table summary (counts per verdict) and the two explicit answers.\n\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: calibration, freshness, operability\nMilestone: C1 matrix verified and C2 gate implemented and C3 patch proven in sandboxes with receipts; pre-measurement attacks recorded; every surviving defect named; per-seat SEAT-STATUS explicit\n\nReport: write your scoped findings to .ufo/waves/round-43/build/K43ConnOverlap.md"
+      },
+      {
+        "name": "K43ReviewC1",
+        "agent": "reviewer",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\nAttack claim C1 BEFORE any candidate measurement (plans/round-43.md §C1). Do not edit the lane.\n1. Build a SIX-key answer-key gate in scratch (accepts P0, refuses F1..F6 with their exact tokens, keyed on the fixture basenames the counter writes) and run `EXPECT_JOURNAL=<it> bash plans/round-43-c1.sh` in a sandbox clone at dd6ccb92bf04a061e9f1e66913d15f097397b1b3 → the plan names this shape as a surviving ceiling; confirm or refute the prediction (6) with the receipt.\n2. Verify F6's id choice: R11-03 present in base 6cc8850 and P0 6f1588c, absent from the round-40 journal; also confirm the round-41 journal does not mention it (git show <rev>:...). Would an id pinned by a ledger expectation row (R11-03's command is `bash corpus/surface-census.sh --selftest`) make F6 special in any way that weakens the claim? Verdict.\n3. Attack the mutant recipes (plans/round-43-controls.sh): name at least two OTHER trivial counter mutations the controls do not kill (e.g., replacing the final `echo \"$n\"` with `echo 6`, or dropping an n-increment) and show each reading against the real gate and against K1/K3/fakeC. Survivors are named ceilings, not defects — say which.\n4. Attack the before-state immutability: verify the ledger ids at 6cc8850, 6f1588c and HEAD are identical (86 ids, none removed) and that plans/round-42-c1.sh is byte-unchanged since 5142b52 (`git diff --quiet 5142b52 HEAD -- plans/round-42-c1.sh; echo $?`).\n5. Attack the axis fit: is \"the C1 instrument refuses three broken-instrument shapes\" a calibration move (the instrument's discrimination of its own no-work classes) or something else? Verdict with reasons.\nWrite /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-43/build/K43ReviewC1/attacks.md: one numbered attack per item with claim, command, output, verdict DEFECT or NOT-DEFECT. Receipts beside it.\nYield the verdict list in ≤10 lines + SEAT-STATUS.\n\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: calibration, freshness, operability\nMilestone: C1 matrix verified and C2 gate implemented and C3 patch proven in sandboxes with receipts; pre-measurement attacks recorded; every surviving defect named; per-seat SEAT-STATUS explicit\n\nReport: write your scoped findings to .ufo/waves/round-43/build/K43ReviewC1.md"
+      },
+      {
+        "name": "K43ReviewC2",
+        "agent": "reviewer",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\nAttack claim C2 BEFORE any candidate measurement (plans/round-43.md §C2). Do not edit the lane.\n1. BASE premise: in a sandbox clone at dd6ccb92bf04a061e9f1e66913d15f097397b1b3, verify the manifest's 8 receipts re-derive byte-identically: run `bash plans/round-42-controls.sh` and `bash plans/round-41-controls.sh` in the clone (receipts deleted first? NO — first record a plain re-run comparison WITHOUT deleting, then a second run after deleting every file under the two controls dirs; both must reproduce the 8 manifest files byte-identically; record any deviation).\n2. The excluded receipts: confirm `.ufo/waves/round-42/controls/c1-base.txt` reads 4 committed and re-derives 5 at HEAD, `c2-base.txt` reads 0 committed and re-derives 1 — i.e. the exclusion is real, not cosmetic.\n3. Shape-keying attack: build a shape-keyed gate in scratch that passes the counter without genuine verification (e.g. it exits 1 only when <dir>/plans/round-42-controls.sh differs from `git show HEAD:plans/round-42-controls.sh`, or when c2-derivation-D.txt does not read 1; otherwise replays nothing and exits 0) and run CONTROLS_REPLAY_GATE=<it> bash plans/round-43-c2.sh → if it reads 1, the named ceiling is real; record the receipt.\n4. Restore duty: after a direct `bash <gate> --clone <clone>` run, `git -C <clone> status --porcelain -- .ufo/waves/round-42/controls .ufo/waves/round-41/controls` must be empty. Verify with the round-41/42 runners only (you have no candidate gate yet — use a minimal correct gate you write yourself in scratch to test the interface).\n5. Attack the predicate wording: any ambiguity between the plan's §C2 sentence and the counter header? Verdicts.\nWrite /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-43/build/K43ReviewC2/attacks.md (one numbered attack per item: claim, command, output, verdict). Yield ≤10 lines + SEAT-STATUS.\n\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: calibration, freshness, operability\nMilestone: C1 matrix verified and C2 gate implemented and C3 patch proven in sandboxes with receipts; pre-measurement attacks recorded; every surviving defect named; per-seat SEAT-STATUS explicit\n\nReport: write your scoped findings to .ufo/waves/round-43/build/K43ReviewC2.md"
+      },
+      {
+        "name": "K43CriticClaims",
+        "agent": "critic",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\nFalsify all three claims and their controls BEFORE candidate scoring (plans/round-43.md). Do not edit the lane.\n1. §9 no-work reachability: for each claim name the cheapest do-nothing candidate and give its reading from the committed BASE receipts: C1 = the round-42 instrument (old-real 5; the three broken shapes pass at 5/5/5 — receipt names) → cannot reach target 6/matrix; C2 = no gate (c2-base.txt 0) → cannot reach 1; C3 = the untouched gates (c3-base.txt 0) → cannot reach 5. Confirm each by re-running one of the three counters in a sandbox clone at dd6ccb92bf04a061e9f1e66913d15f097397b1b3.\n2. Kill-rule testability: for each kill clause in §C1 (a)-(e), §C2 (a)-(d), §C3 (a)-(f) state the exact command that tests it and whether it is runnable as written; flag any clause that is vague, untestable, or already satisfied by the BASE (a clause that cannot fail is a defect — say so).\n3. Predicate ambiguity: quote any sentence of plans/round-43.md §C1/§C2/§C3 that admits two readings (e.g. \"the gate set is scanned under C3_ROOT\", \"re-derives byte-identically\"); for each, the reading the counter actually implements.\n4. Universal clauses: does any claim use all/every/none without an enumerating command? Flag and name the enumerating command or the needed narrowing.\n5. Axis fit: C1 calibration / C2 freshness / C3 operability — argue against each fit; give your verdicts.\n6. A1 soundness: amendment A1 changed kill rule (e) before any candidate measurement; confirm from the committed bytes that (a) the combined-journal form indeed refuses (run it: base 6cc8850 + both journals) and (b) the corrected form reads CLEAN (changed=6 journaled=6).\nWrite /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-43/build/K43CriticClaims/findings.md: one numbered finding per item with evidence and verdict DEFECT / NOT-DEFECT / CEILING. Yield ≤12 lines + SEAT-STATUS.\n\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: calibration, freshness, operability\nMilestone: C1 matrix verified and C2 gate implemented and C3 patch proven in sandboxes with receipts; pre-measurement attacks recorded; every surviving defect named; per-seat SEAT-STATUS explicit\n\nReport: write your scoped findings to .ufo/waves/round-43/build/K43CriticClaims.md"
+      },
+      {
+        "name": "K43MutCounters",
+        "agent": "mutation-tester",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\nMutation-test the three frozen counters (plans/round-43-c1.sh, -c2.sh, -c3.sh) BEFORE candidate scoring. Do not run anything against the lane tree; work in your sandbox clone at dd6ccb92bf04a061e9f1e66913d15f097397b1b3.\n1. C1 (in $S/work): apply the two frozen recipes from plans/round-43-controls.sh (m3 guard-drop, m5 token-drop) to copies of plans/round-43-c1.sh living in your sandbox clone's plans/ (so their git-show calls resolve); run each mutant against the real gate and against K1/K3-shaped fixture gates you build per the runner's mk_keyed constructions. Expected: pristine real 6; m3+K1 6 vs pristine+K1 0 (exposed); m5+K3 6 vs pristine+K3 0 (exposed). Then two of your own mutants: (x1) replace the final `echo \"$n\"` with `echo 6`; (x2) delete one `n=$((n + 1))` increment; run each against the real gate, K1, K3, fakeC; record killed-by or SURVIVOR for each.\n2. C2: build three counter mutants: (y1) skip the N1 stale check; (y2) skip the N2 silent check; (y3) accept P1 rc in {0,1} (weaken the guard). For each: run against a correct gate you write yourself (per the §C2 interface) and against blanket always-0/always-1 gates; record killed-by or SURVIVOR (which receipt/fixture kills it).\n3. C3: build two mutants: (z1) delete leg (3) (the executed selftest); (z2) weaken leg (1) to only check `/tmp` literals. Run each against the lane clone tree at dd6ccb92bf04a061e9f1e66913d15f097397b1b3 (C3_ROOT=$S/work) and against a fixture tree you build per the runner recipe (all-greps-fixed + sabotaged selftest). Record killed-by or SURVIVOR.\n4. Write /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-43/build/K43MutCounters/mutants.md: one row per mutant: id, mutation, command, readings, killed-by (receipt name) or SURVIVOR (named ceiling). Yield ≤12 lines + SEAT-STATUS.\n\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: calibration, freshness, operability\nMilestone: C1 matrix verified and C2 gate implemented and C3 patch proven in sandboxes with receipts; pre-measurement attacks recorded; every surviving defect named; per-seat SEAT-STATUS explicit\n\nReport: write your scoped findings to .ufo/waves/round-43/build/K43MutCounters.md"
+      }
+    ]
+  },
+  "resumeSends": [],
+  "note": "Issue exactly one batched task call with taskCall ({context, tasks}); never split a wave into multiple task calls (one-swarm-per-wave). Then one hub send per resumeSends entry: hub send --to <entry.resume> --message <entry.message> (entry.name is bookkeeping, not a hub field)."
+}

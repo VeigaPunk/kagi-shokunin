@@ -1,0 +1,23 @@
+corpus/controls-replay.sh at dd6ccb9: ABSENT
+CAND (HEAD of sandbox clone) = dd6ccb92bf04a061e9f1e66913d15f097397b1b3
+c2 surgery ok
+=== C2 battery (variant x gate -> counter stdout, rc) ===
+round-43-c2.sh     c2gate.sh      out=[1] rc=0
+round-43-c2.sh     always0.sh     out=[0] rc=0
+round-43-c2.sh     always1.sh     out=[0] rc=0
+mut-y1-non1.sh     c2gate.sh      out=[1] rc=0
+mut-y1-non1.sh     always0.sh     out=[0] rc=0
+mut-y1-non1.sh     always1.sh     out=[0] rc=0
+mut-y2-non2.sh     c2gate.sh      out=[1] rc=0
+mut-y2-non2.sh     always0.sh     out=[0] rc=0
+mut-y2-non2.sh     always1.sh     out=[0] rc=0
+mut-y3-p01.sh      c2gate.sh      out=[1] rc=0
+mut-y3-p01.sh      always0.sh     out=[0] rc=0
+mut-y3-p01.sh      always1.sh     out=[1] rc=0
+--- discriminating extra probes (not part of the frozen battery) ---
+round-43-c2.sh     accept-stale.sh out=[0] rc=0
+mut-y1-non1.sh     accept-stale.sh out=[1] rc=0
+round-43-c2.sh     accept-silent.sh out=[0] rc=0
+mut-y2-non2.sh     accept-silent.sh out=[1] rc=0
+=== C2 battery done ===
+C2-BATTERY-RC=0

@@ -1,0 +1,35 @@
+cmd: cd /fast/scratch/hyaku/kagi-r43/K43ExecC1Inst/work
+cmd: HYAKU_SCRATCH=/fast/scratch/hyaku bash plans/round-43-c1.sh
+stdout: 6
+rc: 0
+last stdout line: 6
+---
+cmd: EXPECT_JOURNAL=/home/vgpnk/.local/bin/refuse-all.sh HYAKU_SCRATCH=/fast/scratch/hyaku bash plans/round-43-c1.sh
+stdout: 0
+rc: 0
+last stdout line: 0
+---
+cmd: EXPECT_JOURNAL=/home/vgpnk/.local/bin/accept-all.sh HYAKU_SCRATCH=/fast/scratch/hyaku bash plans/round-43-c1.sh
+stdout: 0
+rc: 0
+last stdout line: 0
+---
+cmd: git -C /fast/scratch/hyaku/kagi-r43/K43ExecC1Inst/work show 6cc8850dfc5757927699e5a53a876f47c8df21aa:corpus/claim-ledger.tsv | grep -c '^R11-03'
+stdout: 1
+rc: 0
+---
+cmd: git -C /fast/scratch/hyaku/kagi-r43/K43ExecC1Inst/work show 6f1588cc0ebd5cbbd4e983fbd71c1e419d225ce0:corpus/claim-ledger.tsv | grep -c '^R11-03'
+stdout: 1
+rc: 0
+---
+cmd: git -C /fast/scratch/hyaku/kagi-r43/K43ExecC1Inst/work show 6f1588cc0ebd5cbbd4e983fbd71c1e419d225ce0:.ufo/waves/round-40/expectation-migrations.json | grep -c '"R11-03"'
+stdout: 0
+rc: 1
+---
+cmd: bash /fast/scratch/hyaku/kagi-r43/K43ExecC1Inst/work/corpus/expect-journal.sh --base-ledger /fast/scratch/hyaku/kagi-r43/K43ExecC1Inst/base5142.tsv --ledger /fast/scratch/hyaku/kagi-r43/K43ExecC1Inst/work/corpus/claim-ledger.tsv --journals /fast/scratch/hyaku/kagi-r43/K43ExecC1Inst/j41
+stdout: EXPECT_JOURNAL: CLEAN (changed=6 journaled=6)
+rc: 0
+last stdout line: EXPECT_JOURNAL: CLEAN (changed=6 journaled=6)
+---
+cmd: git -C /fast/scratch/hyaku/kagi-r43/K43ExecC1Inst/work diff --quiet 5f3566c4cfe65a74da4d201d74d28b403929807b HEAD -- corpus/expect-journal.sh; echo $?
+rc: 0

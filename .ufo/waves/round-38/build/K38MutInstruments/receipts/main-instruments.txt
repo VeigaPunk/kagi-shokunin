@@ -1,0 +1,31 @@
+### QUOTE-LOCATE on mutant copies (python3 -I -B corpus/quote-locate.py --root <copy>)
+base | rc=0 | QUOTE_LOCATE: CLEAN located=5 rows=5
+    QUOTE_LOCATE: CLEAN located=5 rows=5
+M1 | rc=0 | QUOTE_LOCATE: CLEAN located=5 rows=5
+    QUOTE_LOCATE: CLEAN located=5 rows=5
+M2 | rc=0 | QUOTE_LOCATE: CLEAN located=5 rows=5
+    QUOTE_LOCATE: CLEAN located=5 rows=5
+M3 | rc=0 | QUOTE_LOCATE: CLEAN located=5 rows=5
+    QUOTE_LOCATE: CLEAN located=5 rows=5
+M4 | rc=0 | QUOTE_LOCATE: CLEAN located=5 rows=5
+    QUOTE_LOCATE: CLEAN located=5 rows=5
+M5 | rc=0 | QUOTE_LOCATE: CLEAN located=5 rows=5
+    QUOTE_LOCATE: CLEAN located=5 rows=5
+M6 | rc=0 | QUOTE_LOCATE: CLEAN located=5 rows=5
+    QUOTE_LOCATE: CLEAN located=5 rows=5
+
+### LANEGUARD selftest on mutant copies
+base | rc=0 | LANE_GUARD_SELFTEST: detected=3 mutants=3 clean=ok
+G1 | rc=1 | LANE_GUARD_SELFTEST: detected=2 mutants=3 clean=ok
+G2 | rc=1 | LANE_GUARD_SELFTEST: detected=2 mutants=3 clean=ok
+G3 | rc=0 | LANE_GUARD_SELFTEST: detected=3 mutants=3 clean=ok
+G4 | rc=1 | LANE_GUARD_SELFTEST: detected=0 mutants=3 clean=ok
+G5 | rc=0 | LANE_GUARD_SELFTEST: detected=3 mutants=3 clean=ok
+
+### laneguard --no-mutate on mutants
+base | rc=1 | LANE_GUARD_SELFTEST: detected=0 mutants=3 clean=ok
+G1 | rc=1 | LANE_GUARD_SELFTEST: detected=0 mutants=3 clean=ok
+G2 | rc=1 | LANE_GUARD_SELFTEST: detected=0 mutants=3 clean=ok
+G3 | rc=1 | LANE_GUARD_SELFTEST: detected=0 mutants=3 clean=ok
+G4 | rc=1 | LANE_GUARD_SELFTEST: detected=0 mutants=3 clean=ok
+G5 | rc=0 | LANE_GUARD_SELFTEST: detected=3 mutants=3 clean=ok

@@ -1,0 +1,77 @@
+# exact mutation diffs (diff base/<file> m-<id>/<file>)
+## M1 corpus/quote-locate.py
+100c100
+<             if hashlib.sha256(data).hexdigest() != capture[9]:
+---
+>             if False:
+## M2 corpus/quote-locate.py
+102c102
+<             elif len(data) != int(capture[10]):
+---
+>             elif False:
+## M3 corpus/quote-locate.py
+106c106
+<             elif data[int(offset):int(offset) + len(needle)] != needle:
+---
+>             elif needle not in data:
+## M4 corpus/quote-locate.py
+104c104
+<             elif line is None or quote not in line:
+---
+>             elif False:
+## M5 corpus/quote-locate.py
+94c94
+<         elif quote != capture[12]:
+---
+>         elif False:
+## M6 corpus/quote-locate.py
+88c88
+<         elif os.path.isabs(body_path) or ".." in Path(body_path).parts:
+---
+>         elif ".." in Path(body_path).parts:
+## G1 corpus/laneguard.sh
+28d27
+<     git -C "$lane" --no-optional-locks status --porcelain=v1 -z --untracked-files=all
+## G2 corpus/laneguard.sh
+27d26
+<     git -C "$lane" rev-parse HEAD 2>/dev/null || echo NOHEAD
+## G3 corpus/laneguard.sh
+28c28
+<     git -C "$lane" --no-optional-locks status --porcelain=v1 -z --untracked-files=all
+---
+>     git -C "$lane" --no-optional-locks status --porcelain=v1 -z
+## G4 corpus/laneguard.sh
+46c46
+<   if [ "$before" != "$after" ]; then
+---
+>   if false; then
+## G5 corpus/laneguard.sh
+85c85
+<   for c in "${cmds[@]}"; do
+---
+>   detected=${#cmds[@]}; mutants=$detected; for c in "${cmds[@]:0:0}"; do
+## probes (manifests/fetch row)
+## p-bytes
+diff -r base/corpus/source-fetches.tsv p-bytes/corpus/source-fetches.tsv
+134c134
+< S091	mined	445546903979b87bac2bef96c591d9f5b6200a177ac738b9200f77c2dfaad986	https://www.python.org/downloads/feed.rss	https://www.python.org/downloads/feed.rss	200	curl-fsSL-compressed-v1	2026-11-05	decoded-http-body-v1	9ba8856e586659ab78349c3963aa1de178636c0f08772d6196fadbaa92bcea1e	3354	-	<title>Python 3.15.2</title>	raw-literal-v1	-	feed-item-title-byte-offset-1583
+---
+> S091	mined	445546903979b87bac2bef96c591d9f5b6200a177ac738b9200f77c2dfaad986	https://www.python.org/downloads/feed.rss	https://www.python.org/downloads/feed.rss	200	curl-fsSL-compressed-v1	2026-11-05	decoded-http-body-v1	9ba8856e586659ab78349c3963aa1de178636c0f08772d6196fadbaa92bcea1e	3355	-	<title>Python 3.15.2</title>	raw-literal-v1	-	feed-item-title-byte-offset-1583
+## p-offset
+diff -r base/corpus/quote-bodies.tsv p-offset/corpus/quote-bodies.tsv
+3c3
+< S090	.ufo/waves/round-37/capture/S090-openbao.body	729	<title>v2.7.2</title>
+---
+> S090	.ufo/waves/round-37/capture/S090-openbao.body	730	<title>v2.7.2</title>
+## p-sub
+diff -r base/corpus/quote-bodies.tsv p-sub/corpus/quote-bodies.tsv
+5c5
+< S092	.ufo/waves/round-38/capture/S092-vault-tag.body	21886	<title>Release v2.2.1 · hashicorp/vault · GitHub</title>
+---
+> S092	.ufo/waves/round-38/capture/S092-vault-tag.body	21886	<title>Release v2.2.1
+## p-abs
+diff -r base/corpus/quote-bodies.tsv p-abs/corpus/quote-bodies.tsv
+4c4
+< S091	.ufo/waves/round-37/capture/S091-python.body	1583	<title>Python 3.15.2</title>
+---
+> S091	/fast/scratch/hyaku/kagi-r38/K38MutInstruments/p-abs/.ufo/waves/round-37/capture/S091-python.body	1583	<title>Python 3.15.2</title>

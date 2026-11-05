@@ -1,0 +1,55 @@
+=== CASE_DOCKET(DOCUMENTED GRAMMAR run LANE -- CMD) rc=2
+usage: laneguard.sh run LANE -- CMD...
+=== CASE_A rc=1
+cp: cannot create regular file '/a.bak': Permission denied
+cp: cannot stat '/a.bak': No such file or directory
+LANE_GUARD: VIOLATION lane=/fast/scratch/hyaku/kagi-r38/K38ReviewGuard/case-a
+  changed:  M corpus/laneguard.sh
+=== CASE_B rc=0
+LANE_GUARD: CLEAN lane=/fast/scratch/hyaku/kagi-r38/K38ReviewGuard/case-b rc=0
+=== CASE_C rc=0
+LANE_GUARD: CLEAN lane=/fast/scratch/hyaku/kagi-r38/K38ReviewGuard/case-c rc=0
+=== CASE_D rc=0
+LANE_GUARD: CLEAN lane=/fast/scratch/hyaku/kagi-r38/K38ReviewGuard/case-d rc=0
+CASE_E gitignore-tracked: .gitignore
+CASE_E check-ignore: .gitignore:3:ignored-dir/	ignored-dir/f.txt
+=== CASE_E rc=0
+LANE_GUARD: CLEAN lane=/fast/scratch/hyaku/kagi-r38/K38ReviewGuard/case-e rc=0
+CASE_E file-after: x
+=== CASE_F rc=0
+LANE_GUARD: CLEAN lane=/fast/scratch/hyaku/kagi-r38/K38ReviewGuard/case-f rc=0
+CASE_F config-after: attack
+CASE_G toplevel: /fast/scratch/hyaku/kagi-r38/K38ReviewGuard/case-g
+=== CASE_G rc=1
+LANE_GUARD: VIOLATION lane=/fast/scratch/hyaku/kagi-r38/K38ReviewGuard/case-g
+CASE_H toplevel: /fast/scratch/hyaku/kagi-r38/K38ReviewGuard/case-h
+=== CASE_H rc=1
+LANE_GUARD: VIOLATION lane=/fast/scratch/hyaku/kagi-r38/K38ReviewGuard/case-h
+  changed: M  corpus/laneguard.sh
+CASE_I index-before=c5cf16384a68923d3d460e7dde957b41c98711583848d12dbd764b5afbe63caf
+=== CASE_I rc=0
+LANE_GUARD: CLEAN lane=/fast/scratch/hyaku/kagi-r38/K38ReviewGuard/case-i rc=0
+CASE_I index-after=371bd0aac57d532962c82f01ddc806cf25d9bde0952fc868285f75df45eab196
+CASE_J index-before=bac41c57fe2741e9d8adecef27556318522f655cf46b14f918a1359d94c79917
+=== CASE_J rc=0
+LANE_GUARD: CLEAN lane=/fast/scratch/hyaku/kagi-r38/K38ReviewGuard/case-j rc=0
+CASE_J index-after=bac41c57fe2741e9d8adecef27556318522f655cf46b14f918a1359d94c79917
+CASE_K status-before: ?? u.txt|
+=== CASE_K rc=0
+LANE_GUARD: CLEAN lane=/fast/scratch/hyaku/kagi-r38/K38ReviewGuard/case-k rc=0
+CASE_K status-after: ?? u.txt|
+CASE_K content-after: seed
+drift
+CASE_L toplevel: /fast/scratch/hyaku/kagi-r38/K38ReviewGuard/case-l
+=== CASE_L rc=0
+LANE_GUARD: CLEAN lane=/fast/scratch/hyaku/kagi-r38/K38ReviewGuard/case-l rc=0
+CASE_L branch-after: attack-branch
+=== CASE_M rc=0
+LANE_GUARD: CLEAN lane=/fast/scratch/hyaku/kagi-r38/K38ReviewGuard/case-m rc=0
+CASE_M tag-after: attack-tag
+=== SELFTEST
+LANE_GUARD_SELFTEST: detected=3 mutants=3 clean=ok
+SELFTEST rc=0
+=== SELFTEST-NO-MUTATE
+LANE_GUARD_SELFTEST: detected=0 mutants=3 clean=ok
+NO-MUTATE rc=1

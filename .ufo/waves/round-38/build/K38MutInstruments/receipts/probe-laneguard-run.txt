@@ -1,0 +1,18 @@
+### documented form 'run LANE -- CMD' (as printed by usage):
+usage: laneguard.sh run LANE -- CMD...
+rc=2
+### implemented form 'run -- LANE -- CMD':
+base | write d/y | rc=1 | LANE_GUARD: VIOLATION lane=/fast/scratch/hyaku/kagi-r38/K38MutInstruments/hs/probe-g3
+G1 | write d/y | rc=0 | LANE_GUARD: CLEAN lane=/fast/scratch/hyaku/kagi-r38/K38MutInstruments/hs/probe-g3 rc=0
+G2 | write d/y | rc=1 | LANE_GUARD: VIOLATION lane=/fast/scratch/hyaku/kagi-r38/K38MutInstruments/hs/probe-g3
+G3 | write d/y | rc=0 | LANE_GUARD: CLEAN lane=/fast/scratch/hyaku/kagi-r38/K38MutInstruments/hs/probe-g3 rc=0
+G4 | write d/y | rc=0 | LANE_GUARD: CLEAN lane=/fast/scratch/hyaku/kagi-r38/K38MutInstruments/hs/probe-g3 rc=0
+G5 | write d/y | rc=1 | LANE_GUARD: VIOLATION lane=/fast/scratch/hyaku/kagi-r38/K38MutInstruments/hs/probe-g3
+### control (no write):
+base | no-write | rc=0 | LANE_GUARD: CLEAN lane=/fast/scratch/hyaku/kagi-r38/K38MutInstruments/hs/probe-g3 rc=0
+G3 | no-write | rc=0 | LANE_GUARD: CLEAN lane=/fast/scratch/hyaku/kagi-r38/K38MutInstruments/hs/probe-g3 rc=0
+### root-level untracked file (G1 probe):
+base | rc=1 | LANE_GUARD: VIOLATION lane=/fast/scratch/hyaku/kagi-r38/K38MutInstruments/hs/probe-g3
+G1 | rc=0 | LANE_GUARD: CLEAN lane=/fast/scratch/hyaku/kagi-r38/K38MutInstruments/hs/probe-g3 rc=0
+### fixture status after probes (lane untouched; fixture only):
+?? d/

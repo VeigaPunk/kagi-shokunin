@@ -1,0 +1,25 @@
+Receipts — seat K38ExecSources, round 38 build wave, 2026-11-05.
+
+Live fetches (curl -fsSL --compressed --max-time 60, exit 0 both):
+vault   https://github.com/hashicorp/vault/releases/tag/v2.2.1    http=200 wire_bytes=32559 disk_bytes=161249 sha256=dc431425f6177d539274fd46f09dc8f448715a662b02fbe74fea56237b84f0cb
+openbao https://github.com/openbao/openbao/releases/tag/v2.7.2    http=200 wire_bytes=36371 disk_bytes=192516 sha256=1953ea71a4f3810117202f163b1cdd77264ee7a6e478ac8ce23bd5194e5ce66d
+Live identity strings, each count=1:
+vault:   "<title>Release v2.2.1 · hashicorp/vault · GitHub</title>"  datetime 2026-10-22T21:59:36Z
+openbao: "<title>Release v2.7.2 · openbao/openbao · GitHub</title>"  datetime 2026-10-26T20:24:37Z
+
+Committed capture bodies (lane HEAD b94473505e6239cee0073d5be7a1c6f2ee07f564):
+S092 .ufo/waves/round-38/capture/S092-vault-tag.body  bytes=161306 sha256=1e0346160e6679f1f5f4f9b6d763cd05235d422ecb1ca1231331b5d9528ba468 title@21886=match dt_count=1
+S093 .ufo/waves/round-38/capture/S093-openbao-tag.body bytes=192563 sha256=a69db25645f08a09bf48a0ed4c98aaf27fc8692e35651e513351496f1b0f6165 title@21886=match dt_count=1
+live sha equals committed sha: vault=False openbao=False (volatile pages; identity strings still match)
+
+Row equality (python3 -I -B plans/round-38-rows.py registry|fetch, cwd=lane, rc=0):
+SOURCES.md line 99 == gen S092: True ; line 100 == gen S093: True
+source-fetches.tsv line 135 == gen S092: True ; line 136 == gen S093: True
+independent recomputation: S092/S093 cols=16, col3 identity, col10 sha, col11 bytes, col13 quote all match; col12=200; col8=2026-11-05
+
+Census (rc=0): SOURCES_CENSUS: CLEAN (rows=93 A=89 B=2 C=2 queued=1 mined=89 rejected=3 entries_sourced=14 legacy=21 captures=93 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+Fleet validate (rc=0, last line): kagi   ok   /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/SOURCES.md
+awk -F'|' NF: line 99 NF=13 ; line 100 NF=13 ; quotes 6 words each (≤25), no '|' inside quotes.
+
+live-vault-20261105.html and live-openbao-20261105.html in this directory are the fetched live pages.
+Scratch /fast/scratch/hyaku/kagi-r38/K38ExecSources deleted after these receipts were copied.

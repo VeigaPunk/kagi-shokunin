@@ -2,7 +2,7 @@
   "round": 38,
   "lane": "kagi",
   "date": "2026-11-05",
-  "reason": "S092 and S093 appended to corpus/SOURCES.md (tier A, mined; captures appended to corpus/source-fetches.tsv); the live census count expectations move with them. Frozen claim targets are not amended: C1 target 5 and C2 target 3 are in plans/round-38.md and the controls file.",
+  "reason": "S092 and S093 appended to corpus/SOURCES.md (tier A, mined; captures appended to corpus/source-fetches.tsv); ten round-38 artifacts joined corpus/stamps.tsv; R38-01..R38-04 appended to corpus/claim-ledger.tsv; SCORECARD gained two round-38 headings. The live expectations that encode these counts move with them. Frozen claim targets are not amended: C1 target 5 and C2 target 3 are in plans/round-38.md and the controls file.",
   "migrations": [
     {
       "ledger_row": "R21-02",
@@ -33,8 +33,42 @@
       "old": "^82$",
       "new": "^86$",
       "observed_at_candidate": "grep -cE '^R[0-9]+-[0-9]+' corpus/claim-ledger.tsv -> 86 (R38-01..R38-04 appended)"
+    },
+    {
+      "ledger_row": "R12-03",
+      "old": "^112$",
+      "new": "^122$",
+      "observed_at_candidate": "grep -c '[^[:space:]]' corpus/stamps.tsv -> 122"
+    },
+    {
+      "ledger_row": "R24-05",
+      "old": "^ROW_IDENTITY: stamps count=112 sha256=84fb4a48301c7dbad75a9e1cde0c775c3971189ccab6b5b97a31d53a0861cf53$",
+      "new": "^ROW_IDENTITY: stamps count=122 sha256=3586872e6cb0db978433fe248a08a5e3d36e260b9a2c4e9f7a6e4cb4e5378192$",
+      "observed_at_candidate": "bash corpus/row-identity.sh stamps -> ROW_IDENTITY: stamps count=122 sha256=3586872e6cb0db978433fe248a08a5e3d36e260b9a2c4e9f7a6e4cb4e5378192"
+    },
+    {
+      "ledger_row": "R24-14",
+      "old": "^ROW_IDENTITY: ledger-ids count=82 sha256=bf8349783478271be6a691e9a2cae57acdbacff6f759645535c353cb90e0b3ca$",
+      "new": "^ROW_IDENTITY: ledger-ids count=86 sha256=3728b4c4b62b1e418a4a407ec10d8a9e118094fef48befd7c570c8b56c6fcce0$",
+      "observed_at_candidate": "bash corpus/row-identity.sh ledger-ids -> ROW_IDENTITY: ledger-ids count=86 sha256=3728b4c4b62b1e418a4a407ec10d8a9e118094fef48befd7c570c8b56c6fcce0"
+    },
+    {
+      "ledger_row": "R13-01",
+      "old": "^46$",
+      "new": "^50$",
+      "note": "inherited red: the round-37 close added two headings (48 at a916f4a); migrated at round 38 with the round-38 pair",
+      "observed_at_candidate": "grep -c '^## Round ' SCORECARD.md -> 50 (a916f4a: 48)"
+    },
+    {
+      "ledger_row": "R24-06",
+      "old": "^ROW_IDENTITY: scorecard-rounds count=46 sha256=accc4d54d2384db279d3e87ac7133c5e9c24f35863b91e1332d459209e1ebf5e$",
+      "new": "^ROW_IDENTITY: scorecard-rounds count=50 sha256=0cbb2da2e745aa7a1dd9dd13cb489392c2cdc67df4a111dd05e0839e03ee3e10$",
+      "note": "inherited red as R13-01; the first measurement (efa2e5fd…) was taken before the round-38 post-move heading text settled; the identity was re-measured after the last heading edit",
+      "observed_at_candidate": "bash corpus/row-identity.sh scorecard-rounds -> ROW_IDENTITY: scorecard-rounds count=50 sha256=0cbb2da2e745aa7a1dd9dd13cb489392c2cdc67df4a111dd05e0839e03ee3e10"
     }
   ],
   "appended_rows": ["R38-01", "R38-02", "R38-03", "R38-04"],
+  "pending_operator_row": "R38-03 is POLICY (python3 on an unregistered script; PYTHON_SCRIPT_RE is operator-owned). Not migrated; routed by L0 question (fleet .ufo/l0-questions.md, kagi | round-38).",
+  "ledger_verify_at_close": "bash corpus/claim-ledger.sh verify -> CLAIM_LEDGER: POLICY (claims=86 policy=3 stamped=122); FAIL R11-08, R22-03, R24-15, R25-02 (all predate this round); POLICY R29-01, R29-02, R38-03; MISSING-ID 53 (pre-existing R32/R33 and round-37 R36-1/R36-2 ids; none in round-38 files)",
   "fleet_census": "scripts/sources-census.sh validate --root /home/vgpnk/Projects/shokunin kagi -> exit 0, kagi ok (W04 duplicate-URL warnings are cross-scope warnings, no E-finding)"
 }

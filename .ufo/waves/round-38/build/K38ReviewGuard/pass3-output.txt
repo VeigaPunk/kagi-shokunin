@@ -1,0 +1,10 @@
+MODES: 100755 941a30715c5698fb2a41691b7048aaedf7f4b036 0	corpus/laneguard.sh;100755 0d9e82cf33fd4a78aec2a63dd3985bf1b6acfa93 0	plans/round-38-c2.sh;
+CASE_B_POST status: []
+=== CASE_A2 rc=0
+LANE_GUARD: CLEAN lane=/fast/scratch/hyaku/kagi-r38/K38ReviewGuard/case-a2 rc=0
+CASE_A2 restored-ok: yes
+=== CASE_B2 rc=0
+LANE_GUARD: CLEAN lane=/fast/scratch/hyaku/kagi-r38/K38ReviewGuard/case-b2 rc=0
+=== CASE_B3 rc=1
+LANE_GUARD: VIOLATION lane=/fast/scratch/hyaku/kagi-r38/K38ReviewGuard/case-b3
+  changed:  M corpus/laneguard.sh

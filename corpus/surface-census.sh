@@ -272,7 +272,7 @@ sqlite_probe() { # $1 = live path -> sets S_TABLES, S_NAMES, S_ROWS, S_ERR, S_RE
   # `-shm`, which would make this gate a mutator of a surface it verifies.
   # A WAL-mode database is only current together with its `-wal`, so the
   # snapshot carries the siblings when they are non-empty.
-  snap="$(mktemp -d "${TMPDIR:-/tmp}/surface-census.XXXXXX")" || { S_ERR="no scratch dir"; return 0; }
+  snap="$(mktemp -d "${HYAKU_SCRATCH:-/fast/scratch/hyaku}/kagi-r43-surfacecensus.XXXXXX")" || { S_ERR="no scratch dir"; return 0; }
   CLEANUP_DIRS+=("$snap")
   cp -p "$live" "$snap/db" 2>/dev/null || { S_ERR="snapshot copy failed"; return 0; }
   [[ -s "$live-wal" ]] && cp -p "$live-wal" "$snap/db-wal" 2>/dev/null

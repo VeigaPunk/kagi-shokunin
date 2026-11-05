@@ -34,7 +34,7 @@ case "${1:-}" in
   --root) root=${2:?root}; ;;
 esac
 if [ "${SELFTEST:-0}" = 1 ]; then
-  s=$(mktemp -d "${HYAKU_SCRATCH:-${TMPDIR:-/tmp}}/kagi-r40-claimsdecl-selftest.XXXXXX") || exit 2
+  s=$(mktemp -d "${HYAKU_SCRATCH:-/fast/scratch/hyaku}/kagi-r43-claimsdecl-selftest.XXXXXX") || exit 2
   trap 'rm -rf -- "$s"' EXIT
   mkdir -p "$s/corpus" "$s/plans"
   mfix() { # mfix: a conforming fixture lane for round 90, claims C1 freshness + C2 calibration

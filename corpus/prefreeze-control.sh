@@ -91,7 +91,7 @@ done
 
 selftest() {
   local tmp repo rev top phys ctl out='' rc=0 last='' k=0 fails=0
-  tmp=$(mktemp -d "${TMPDIR:-/tmp}/prefreeze-selftest.XXXXXX") || die mktemp-failed
+  tmp=$(mktemp -d "${HYAKU_SCRATCH:-/fast/scratch/hyaku}/kagi-r43-prefreeze-selftest.XXXXXX") || die mktemp-failed
   FIXTURE_TMP=$tmp
   trap 'rm -rf -- "$FIXTURE_TMP"' EXIT
   repo=$tmp/repo
@@ -271,7 +271,7 @@ n=${#IDS[@]}
 
 git -C "$REPO" rev-parse --verify --quiet "$BASE_REV^{commit}" >/dev/null 2>&1 || die bad-rev
 
-WORK_ROOT=${WORK:-${TMPDIR:-/tmp}}
+WORK_ROOT=${WORK:-${HYAKU_SCRATCH:-/fast/scratch/hyaku}}
 mkdir -p -- "$WORK_ROOT" 2>/dev/null || { note "cannot create: $WORK_ROOT"; die work-unwritable; }
 # a relative --work (or relative $TMPDIR) must be made absolute: each row runs with
 # cwd = the extraction, so a relative extraction root would break every later row.

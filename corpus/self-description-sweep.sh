@@ -40,7 +40,7 @@
 # must exit 0. Final line: SELFTEST: PASS (<k> cases) | SELFTEST: FAIL (<k> cases).
 #
 # Reads only files under --root. Writes nothing except stdout; selftest writes a
-# fixture tree under ${TMPDIR:-/tmp} and removes it on exit.
+# fixture tree under ${HYAKU_SCRATCH:-/fast/scratch/hyaku} and removes it on exit.
 set -u
 
 SELF_RAW=${BASH_SOURCE[0]}
@@ -223,7 +223,7 @@ FIXTURE_TMP=
 
 selftest() {
   local tmp cases=0 fails=0 last rc out dir name id ok
-  tmp=$(mktemp -d "${TMPDIR:-/tmp}/sd-sweep-selftest.XXXXXX") || die "mktemp failed"
+  tmp=$(mktemp -d "${HYAKU_SCRATCH:-/fast/scratch/hyaku}/kagi-r43-sdsweep-selftest.XXXXXX") || die "mktemp failed"
   FIXTURE_TMP=$tmp
   trap 'rm -rf -- "${FIXTURE_TMP:-}"' EXIT
 

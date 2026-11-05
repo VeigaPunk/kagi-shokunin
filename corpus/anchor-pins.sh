@@ -34,7 +34,7 @@ case "${1:-}" in
   --root) root=${2:?root}; ;;
 esac
 if [ "${SELFTEST:-0}" = 1 ]; then
-  s=$(mktemp -d "${HYAKU_SCRATCH:-${TMPDIR:-/tmp}}/kagi-r40-anchorpins-selftest.XXXXXX") || exit 2
+  s=$(mktemp -d "${HYAKU_SCRATCH:-/fast/scratch/hyaku}/kagi-r43-anchorpins-selftest.XXXXXX") || exit 2
   trap 'rm -rf -- "$s"' EXIT
   mkdir -p "$s/corpus"
   a1="Item titled Python 3.15.0, pubDate Fri, 09 Oct 2026 13:54:59 +0000; feed fetched 2026-10-21"

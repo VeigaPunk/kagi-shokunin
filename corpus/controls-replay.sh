@@ -1,0 +1,144 @@
+#!/usr/bin/env bash
+# corpus/controls-replay.sh -- freshness gate: the committed controls receipts
+# under .ufo/waves/round-42/controls/ and .ufo/waves/round-41/controls/
+# re-derive byte-identically from the clone's committed runners.
+#
+# Interface (frozen, plans/round-43.md section C2): invoked ONLY as
+#   bash corpus/controls-replay.sh --clone <dir>
+# Any other invocation prints usage to stderr and exits 2 (setup).
+# Behaviour:
+#   (a) require <dir>/plans/round-42-controls.sh and
+#       <dir>/plans/round-41-controls.sh (files);
+#   (b) snapshot to scratch every file under
+#       <dir>/.ufo/waves/round-42/controls/ and
+#       <dir>/.ufo/waves/round-41/controls/ (all of them, not only the
+#       manifest);
+#   (c) delete every file under those two dirs in <dir>;
+#   (d) run (cd <dir> && bash plans/round-42-controls.sh) and
+#       (cd <dir> && bash plans/round-41-controls.sh); each rc must be 0;
+#   (e) each of the 8 manifest files must exist under <dir> again and be
+#       byte-identical (cmp) to its snapshot;
+#   (f) restore every snapshotted file back into <dir> (verification is
+#       non-destructive);
+#   (g) exit 0 clean / 1 refused / 2 setup.
+# Manifest (frozen, plans/round-43.md C2; paths relative to .ufo/waves/):
+#   round-42/controls/c1-control-refuse-all.txt
+#   round-42/controls/c1-control-accept-all.txt
+#   round-42/controls/c2-derivation-D.txt
+#   round-41/controls/c1-control-refuse-all.txt
+#   round-41/controls/c1-control-accept-all.txt
+#   round-41/controls/c1-control-no-gate.txt
+#   round-41/controls/c2-control-decoy.txt
+#   round-41/controls/c2-base-19025d9.txt
+# Scratch root: ${HYAKU_SCRATCH:-/fast/scratch/hyaku}/kagi-r43/controls-replay.<pid>,
+# removed on exit. Writes nothing outside <dir> and the scratch root.
+# bash + coreutils only (no other toolchains).
+set -u
+
+usage() {
+  printf 'Usage: bash %s --clone <dir>\n' "$0" >&2
+}
+
+# --- interface: exactly `bash <path> --clone <dir>` ---------------------------
+if [ "$#" -ne 2 ] || [ "$1" != "--clone" ] || [ -z "$2" ]; then
+  usage
+  exit 2
+fi
+DIR=$2
+
+if [ ! -d "$DIR" ]; then
+  printf 'controls-replay: setup: not a directory: %s\n' "$DIR" >&2
+  exit 2
+fi
+
+# --- (a) the clone's committed runners must exist ------------------------------
+if [ ! -f "$DIR/plans/round-42-controls.sh" ] || [ ! -f "$DIR/plans/round-41-controls.sh" ]; then
+  printf 'controls-replay: setup: missing plans/round-42-controls.sh or plans/round-41-controls.sh\n' >&2
+  exit 2
+fi
+
+C42=$DIR/.ufo/waves/round-42/controls
+C41=$DIR/.ufo/waves/round-41/controls
+if [ ! -d "$C42" ] || [ ! -d "$C41" ]; then
+  printf 'controls-replay: setup: missing controls dirs under %s\n' "$DIR" >&2
+  exit 2
+fi
+
+# --- scratch root (removed on exit) --------------------------------------------
+SCR=${HYAKU_SCRATCH:-/fast/scratch/hyaku}/kagi-r43/controls-replay.$$
+mkdir -p -- "$SCR" || { printf 'controls-replay: setup: scratch root\n' >&2; exit 2; }
+trap 'rm -rf -- "$SCR"' EXIT
+
+SNAP=$SCR/snap
+mkdir -p -- "$SNAP/round-42/controls" "$SNAP/round-41/controls" \
+  || { printf 'controls-replay: setup: snapshot dirs\n' >&2; exit 2; }
+
+# --- (b) snapshot every file under both controls dirs --------------------------
+cp -a -- "$C42/." "$SNAP/round-42/controls/" || { printf 'controls-replay: setup: snapshot round-42\n' >&2; exit 2; }
+cp -a -- "$C41/." "$SNAP/round-41/controls/" || { printf 'controls-replay: setup: snapshot round-41\n' >&2; exit 2; }
+
+# --- (c) delete every file under both dirs -------------------------------------
+find "$C42" -type f -delete || { printf 'controls-replay: setup: delete round-42\n' >&2; exit 2; }
+find "$C41" -type f -delete || { printf 'controls-replay: setup: delete round-41\n' >&2; exit 2; }
+
+# --- (d) re-run the clone's committed runners ----------------------------------
+(cd "$DIR" && bash plans/round-42-controls.sh) >/dev/null 2>&1
+rc42=$?
+(cd "$DIR" && bash plans/round-41-controls.sh) >/dev/null 2>&1
+rc41=$?
+
+refused=0
+if [ "$rc42" -ne 0 ] || [ "$rc41" -ne 0 ]; then
+  refused=1
+fi
+
+# --- (e) every manifest file must exist again and byte-match its snapshot ------
+if [ "$refused" -eq 0 ]; then
+  for m in \
+    round-42/controls/c1-control-refuse-all.txt \
+    round-42/controls/c1-control-accept-all.txt \
+    round-42/controls/c2-derivation-D.txt \
+    round-41/controls/c1-control-refuse-all.txt \
+    round-41/controls/c1-control-accept-all.txt \
+    round-41/controls/c1-control-no-gate.txt \
+    round-41/controls/c2-control-decoy.txt \
+    round-41/controls/c2-base-19025d9.txt
+  do
+    live=$DIR/.ufo/waves/$m
+    snap=$SNAP/$m
+    if [ ! -f "$live" ] || [ ! -f "$snap" ] || ! cmp -s "$snap" "$live"; then
+      printf 'controls-replay: refused: %s\n' "$m" >&2
+      refused=1
+      break
+    fi
+  done
+fi
+
+# --- (f) restore the snapshot (verification is non-destructive) ----------------
+# Overwrite the snapshotted files, then drop any file the runners left behind
+# that was not in the snapshot, so the dirs byte-match their prior state.
+restore_ok=1
+cp -a -- "$SNAP/round-42/controls/." "$C42/" || restore_ok=0
+cp -a -- "$SNAP/round-41/controls/." "$C41/" || restore_ok=0
+if [ "$restore_ok" -eq 1 ]; then
+  (cd "$C42" && find . -type f -print0) |
+    while IFS= read -r -d '' f; do
+      if [ ! -e "$SNAP/round-42/controls/$f" ]; then rm -f -- "$C42/$f" || exit 1; fi
+    done || restore_ok=0
+  (cd "$C41" && find . -type f -print0) |
+    while IFS= read -r -d '' f; do
+      if [ ! -e "$SNAP/round-41/controls/$f" ]; then rm -f -- "$C41/$f" || exit 1; fi
+    done || restore_ok=0
+fi
+if [ "$restore_ok" -ne 1 ]; then
+  printf 'controls-replay: refused: restore failed\n' >&2
+  refused=1
+fi
+
+# --- (g) verdict ----------------------------------------------------------------
+if [ "$refused" -eq 1 ]; then
+  printf 'controls-replay: REFUSED\n'
+  exit 1
+fi
+printf 'controls-replay: CLEAN\n'
+exit 0

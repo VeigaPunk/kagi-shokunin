@@ -2,9 +2,10 @@
 # plans/round-45-c2.sh -- frozen counter for round-45 C2 (coverage): one assimilated ISO/IEC 11770-3
 # knowledge entry, every quote of its newly added registry rows located in committed capture bodies.
 #
+# Amendment A1 (pre-candidate, see plans/round-45.md): value also requires quote-locate.py rc 0; negative located is not floored.
 # Frozen predicate (the same sentence appears in plans/round-45.md and in this counter's label):
 #   C2_LOCATED: value = LOCATED when (a) corpus/SOURCES.md at REV passes the sources census
-#   (exit 0), (b) at least one knowledge file added after BASE cites at least one registry id
+#   (exit 0), quote-locate.py exits 0 (Amendment A1: a locator SETUP/crash can never pass), (b) at least one knowledge file added after BASE cites at least one registry id
 #   added after BASE in its `source:` line, and (c) LOCATED >= 3; else 0.
 #   ADDED   = registry ids present at REV and absent at BASE (the rows this round appends).
 #   LOCATED = rows of corpus/quote-bodies.tsv whose id is in ADDED and that quote-locate.py does not
@@ -67,9 +68,8 @@ while read -r kw rid _rest; do
   grep -qx "$rid" "$S/ids-added" && f_add=$((f_add+1))
 done <<<"$locate_out"
 located=$((m_add - f_add))
-[ "$located" -lt 0 ] && located=0
 
 value=0
-if [ "$census" -eq 0 ] && [ "$entries" -ge 1 ] && [ "$located" -ge 3 ]; then value=$located; fi
+if [ "$census" -eq 0 ] && [ "$locate_rc" -eq 0 ] && [ "$entries" -ge 1 ] && [ "$located" -ge 3 ]; then value=$located; fi
 echo "C2_LOCATED: value=$value added=$added entries=$entries census=$census located=$located (quote-locate rc=$locate_rc, rows-added=$m_add, not-located-added=$f_add, tree=$REV)"
 exit 0

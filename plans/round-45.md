@@ -109,3 +109,19 @@ Seats write only under `.ufo/waves/round-45/` (absolute paths under the lane) an
 
 Frozen at the predeclaration commit. No predicate, counter, target or kill rule changes after any seat
 has scored; a change is an L0 question and a named amendment, not a silent edit.
+
+## Amendment A1 (predeclaration, before any candidate is measured; named by the wave's pre-freeze attacks)
+
+Filed by the L1 after the build wave's pre-candidate attacks (reviewer `K45ReviewerPlan`, critic `K45CriticClaims`, mutation-tester `K45MutBattery`, all at 307fb50d; no candidate exists and no candidate has been scored). Each item changes an instrument or a sentence; none changes a target.
+
+- **A1-1 (critic D-1, stagnation premise):** the last capability row in SCORECARD's table has first-working round 40 (SCORECARD table, "The latest first-working round in this table is 40"), not 39. Rounds 41–44 are capability-less; the window N=3 is exhausted; the nudge fires. The stagnation sentence above is corrected to read round 40 and window 41–44.
+- **A1-2 (reviewer F-1 HIGH, critic D-5, C2):** `value` also requires `quote-locate.py` exit 0. Kill rule added: C2 is killed if the locator exits non-zero at the candidate. Reason: a SETUP exit with no NOT-LOCATED lines previously counted every ADDED row as located.
+- **A1-3 (reviewer F-4):** the negative-located floor is removed; a negative value cannot be produced by correct parsing and is not floored.
+- **A1-4 (reviewer F-2, MED):** fixtures carry no shared header marker (no `# fixture` line), so a gate keyed on that marker cannot satisfy the counter. Ceiling named: a gate keyed on the synthetic round numbers 90 and 91 is not refused by the fixtures; the REAL leg (real tree CLEAN) and the gate's committed `--selftest` are the remaining legs and must both pass at the candidate.
+- **A1-5 (reviewer F-6, portability):** the counter runs the gate with `bash`, not `sh`; gate output is captured and its last line is printed in the receipt (reviewer F-3).
+- **A1-6 (critic D-3, universal exception):** the phrase "that lacks a named defect" is removed from the C1 kill rule. C1 is killed if REAL is not CLEAN at the candidate, or if DETECTED is below 2 at the candidate (critic D-6).
+- **A1-7 (critic D-4, gameable in-flight scope):** ceiling named: a plan carrying claim headings with no SCORECARD post-move section is not checked by either direction. The carve-out stays (round 45 itself is in flight at the candidate). Catch-up: once round 45's post-move section lands, round 46's and every later run audits round 45 mechanically; any round-45 MISMATCH after that is a round-46 finding.
+- **A1-8 (critic D-2, C2 boundary and provenance):** C2's scope is the status and supersession of ISO/IEC 11770-3 only. KMS-managed credential lifecycle (round 34, `PROVINCE.md` core) and the lifecycle requirements that ISO excludes are not in scope and are not claimed. The admitted entry is self-contained: every factual premise it uses is cited and re-opened this round; the staged "lane frontier item — NIST" provenance is rewritten to the lane's current core status (round 33), not copied. Renumbering is by document from S100; the registry's next free id is taken after the append is composed, so no staged-reserved id is reused.
+- **A1-9 (ExecISO finding, live source):** the archived ISO catalogue snapshot (S170, web.archive.org) timed out at 30 s in this round; the live catalogue page https://www.iso.org/standard/60237.html was fetched as the body for S170 quotes. The registry row for the admitted entry names the live URL it cites and the archive attempt as failed. Quotes are located only in bodies that were fetched this round.
+
+Frozen counter text after A1: `plans/round-45-c1.sh` and `plans/round-45-c2.sh` at the amendment commit. BASE values after A1 are the same (`controls/c1-base.txt` value=0; `controls/c2-base.txt` value=0), re-run and recorded.

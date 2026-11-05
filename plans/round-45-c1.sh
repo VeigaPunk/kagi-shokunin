@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # plans/round-45-c1.sh -- frozen counter for round-45 C1 (calibration): plan<->manifest bijection.
 #
+# Amendment A1 (pre-candidate, see plans/round-45.md): fixtures carry no shared header marker; gate run with bash; gate output captured.
 # Frozen predicate (the same sentence appears in plans/round-45.md and in this counter's label):
 #   C1_BIJECTION: value = DETECTED when POSITIVE = 1 and REAL = CLEAN, else 0; target 2.
 #   DETECTED  = number of planted-omission fixtures A and B that the claims-declared gate
@@ -47,28 +48,29 @@ post() { # post ROUND "tag-axis-pairs" -> SCORECARD post-move section
 # A: manifest has C1 only; plan 90 carries C1 and C2 headings; post-move tags both.
 A="$S/fxA"; fx "$A"
 printf 'round\tclaim\taxis\n90\tC1\tcalibration\n' > "$A/corpus/claims-declared.tsv"
-printf '# fixture\n\n## C1 — calibration: fixture claim one\n\ntext\n\n## C2 — coverage: fixture claim two\n\ntext\n' > "$A/plans/round-90.md"
-{ printf '# fixture scorecard\n\n'; post 90 "C1:calibration C2:coverage"; } > "$A/SCORECARD.md"
+printf '## C1 — calibration: fixture claim one\n\ntext\n\n## C2 — coverage: fixture claim two\n\ntext\n' > "$A/plans/round-90.md"
+{ printf '# scorecard\n\n'; post 90 "C1:calibration C2:coverage"; } > "$A/SCORECARD.md"
 
 # B: round 90 has no manifest rows; round 91 is a complete correct row set.
 B="$S/fxB"; fx "$B"
 printf 'round\tclaim\taxis\n91\tC1\tcalibration\n' > "$B/corpus/claims-declared.tsv"
-printf '# fixture\n\n## C1 — calibration: fixture claim one\n\ntext\n' > "$B/plans/round-90.md"
-printf '# fixture\n\n## C1 — calibration: fixture claim one\n\ntext\n' > "$B/plans/round-91.md"
-{ printf '# fixture scorecard\n\n'; post 90 "C1:calibration"; post 91 "C1:calibration"; } > "$B/SCORECARD.md"
+printf '## C1 — calibration: fixture claim one\n\ntext\n' > "$B/plans/round-90.md"
+printf '## C1 — calibration: fixture claim one\n\ntext\n' > "$B/plans/round-91.md"
+{ printf '# scorecard\n\n'; post 90 "C1:calibration"; post 91 "C1:calibration"; } > "$B/SCORECARD.md"
 
 # C: manifest says calibration; plan heading says freshness (positive control: gate must be alive).
 C="$S/fxC"; fx "$C"
 printf 'round\tclaim\taxis\n90\tC1\tcalibration\n' > "$C/corpus/claims-declared.tsv"
-printf '# fixture\n\n## C1 — freshness: fixture claim one\n\ntext\n' > "$C/plans/round-90.md"
-{ printf '# fixture scorecard\n\n'; post 90 "C1:calibration"; } > "$C/SCORECARD.md"
+printf '## C1 — freshness: fixture claim one\n\ntext\n' > "$C/plans/round-90.md"
+{ printf '# scorecard\n\n'; post 90 "C1:calibration"; } > "$C/SCORECARD.md"
 
-run_gate() { ( cd "$LANE" && sh "$GATE" --root "$1" ) >/dev/null 2>&1; echo $?; }
+run_gate() { ( cd "$LANE" && bash "$GATE" --root "$1" ) >"$1/out.txt" 2>&1; echo $?; }
 ra=$(run_gate "$A"); rb=$(run_gate "$B"); rc=$(run_gate "$C")
-(cd "$TREE" && sh "$GATE" --root "$TREE") >/dev/null 2>&1; real=$?
+(cd "$TREE" && bash "$GATE" --root "$TREE") >"$S/real-out.txt" 2>&1; real=$?
+real_last=$(tail -1 "$S/real-out.txt")
 detected=0; [ "$ra" -eq 1 ] && detected=$((detected+1)); [ "$rb" -eq 1 ] && detected=$((detected+1))
 positive=0; [ "$rc" -eq 1 ] && positive=1
 realv=FAIL; [ "$real" -eq 0 ] && realv=CLEAN
 value=0; if [ "$positive" -eq 1 ] && [ "$realv" = CLEAN ]; then value=$detected; fi
-echo "C1_BIJECTION: value=$value detected=$detected positive=$positive real=$realv (rc A=$ra B=$rb C=$rc tree=$REV)"
+echo "C1_BIJECTION: value=$value detected=$detected positive=$positive real=$realv (rc A=$ra B=$rb C=$rc tree=$REV; real-last='$real_last'; A-last='$(tail -1 "$A/out.txt")'; B-last='$(tail -1 "$B/out.txt")'; C-last='$(tail -1 "$C/out.txt")')"
 exit 0

@@ -1,0 +1,16 @@
+C2 BEFORE-STATE RECEIPT (round 43, critic D4): eight-manifest re-derivation at the claim BASE 5f3566c4cfe65a74da4d201d74d28b403929807b.
+
+Method (run by the L1 in a fresh `git clone --shared` of the lane, detached at 5f3566c, scratch removed afterwards):
+  mode 1: bash plans/round-42-controls.sh ; bash plans/round-41-controls.sh   (plain re-run, no delete)
+  mode 2: delete every file under .ufo/waves/round-42/controls and .ufo/waves/round-41/controls, then re-run both runners
+  each manifest file compared with `cmp` against a snapshot taken from the committed BASE bytes.
+
+mode 1: runner rc42=0 rc41=0 ; 8/8 MATCH
+mode 2: runner rc42=0 rc41=0 ; 8/8 MATCH
+manifest reading at BASE: 8 of 8 re-derive byte-identically (both modes).
+
+Excluded receipts (not in the manifest; they record historical claim-BASE readings): after mode 2 the clone's status for .ufo/waves/round-42/controls and .ufo/waves/round-41/controls shows 3 changed entries:
+  round-42/controls/c1-base.txt        re-derives 5 (committed 4)
+  round-42/controls/c2-base.txt        re-derives 1 (committed 0)
+  round-42/controls/c2-worktree-at-base.txt  not written by any committed runner (absent after full delete)
+These three are the excluded set named in plans/round-43-c2.sh's header.

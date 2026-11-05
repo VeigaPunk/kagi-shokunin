@@ -1,0 +1,24 @@
+B3: accept-stale AND accept-silent widened: both refusals exit 1 -> exit 0
+edit-rc=0
+--- /fast/scratch/hyaku/kagi-r44/K44MutBattery/work/plans/round-44-c1.sh	2026-11-05 16:09:02.226268546 -0300
++++ /fast/scratch/hyaku/kagi-r44/K44MutBattery/fix-b3/plans/round-44-c1.sh	2026-11-05 16:21:31.121637169 -0300
+@@ -120,7 +120,7 @@
+ if [ -f "$D/plans/round-42-controls.sh" ] \
+    && [ "$(wc -l < "$D/plans/round-42-controls.sh")" -le 2 ] \
+    && grep -q '^exit 0' "$D/plans/round-42-controls.sh"; then
+-  exit 1
++  exit 0
+ fi
+ exit 0
+ EOF
+@@ -132,7 +132,7 @@
+ D=$2
+ F=$D/.ufo/waves/round-42/controls/c2-derivation-D.txt
+ if [ -f "$F" ] && [ "$(cat "$F")" = "2" ]; then
+-  exit 1
++  exit 0
+ fi
+ exit 0
+ EOF
+050801ae95c87d49ea57125234a6ce76e1b6ddf774839f687caf1e4ae546f293  /fast/scratch/hyaku/kagi-r44/K44MutBattery/work/plans/round-44-c1.sh
+6eebed6435ecc171bb55472ad487591b50f93359fc2584b8a90a19c91a96aaaf  /fast/scratch/hyaku/kagi-r44/K44MutBattery/fix-b3/plans/round-44-c1.sh

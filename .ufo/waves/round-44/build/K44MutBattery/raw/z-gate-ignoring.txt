@@ -1,0 +1,10 @@
+# gate-ignoring demonstration (outside the frozen matrix vocabulary)
+# pristine battery needs y1-shape (R_as,Y1_as,Y1_al) = (0,1,0); B1 battery needs (0,1)
+counter=r44b-z        gate=own           rc=0 stdout=[1]
+counter=r44b-z        gate=accept-stale  rc=0 stdout=[1]
+counter=r44b-z        gate=accept-silent rc=0 stdout=[1]
+counter=r44b-z        gate=always-refuse rc=0 stdout=[1]
+counter=r44b-z-y1     gate=own           rc=0 stdout=[1]
+counter=r44b-z-y1     gate=accept-stale  rc=0 stdout=[1]
+counter=r44b-z-y1     gate=accept-silent rc=0 stdout=[1]
+counter=r44b-z-y1     gate=always-refuse rc=0 stdout=[1]

@@ -27,12 +27,20 @@
 # around the counter invocations). Scratch honours HYAKU_SCRATCH (default
 # /fast/scratch/hyaku); nothing is written under /tmp.
 set -u
+unset CONTROLS_REPLAY_GATE
 
 REPO=$(cd "$(dirname "$0")/.." && pwd -P)
 OUT=$REPO/.ufo/waves/round-44/controls
 FIX=$OUT/fixtures
 MODE=${1:-base}
 REV=${2:-$(git -C "$REPO" rev-parse HEAD)}
+# Amendment A1 (sentinel F1): a revision that is not a full commit id of this repository is
+# refused before any receipt is written; the committed receipts are never overwritten by a
+# refusal (M44-4).
+printf '%s' "$REV" | grep -qE '^[0-9a-f]{40}$' \
+  || { echo "runner-refused: revision is not a full commit id" >&2; exit 2; }
+git -C "$REPO" cat-file -e "$REV^{commit}" 2>/dev/null \
+  || { echo "runner-refused: revision unknown" >&2; exit 2; }
 mkdir -p -- "$OUT"
 MEA=$OUT/measured-at.txt
 [ "$MODE" = "final" ] && MEA=$OUT/measured-at-final.txt

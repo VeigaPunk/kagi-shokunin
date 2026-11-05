@@ -1,0 +1,16 @@
+# K44LabratIsolation raw outputs — round-44 negative fixture gate leg-isolation probe
+# candidate revision: ae9e9eb319826a7ded0a47ba2d043c44aa1c3bae
+# method: mutants built per plans/round-44-c1.sh frozen recipes (python block, byte-copy of
+#   plans/round-43-c2.sh at candidate); gate templates byte-extracted from plans/round-44-c1.sh
+#   heredocs g-as/accept-stale and g-asi/accept-silent (verified byte-identical by extraction diff)
+# invocation: CONTROLS_REPLAY_GATE=<gate> bash <counter-copy-in-clone> ae9e9eb... (same shape as c1 run_counter)
+# === clean rerun 2026-11-05T19:09:34Z ===
+recipe rc=0
+COUNTER=real-default GATE=default RC=0 STDOUT=1
+COUNTER=real-stale GATE=g-as RC=0 STDOUT=0
+COUNTER=y1-stale GATE=g-as RC=0 STDOUT=1
+COUNTER=y2-stale GATE=g-as RC=0 STDOUT=0
+COUNTER=real-silent GATE=g-asi RC=0 STDOUT=0
+COUNTER=y1-silent GATE=g-asi RC=0 STDOUT=0
+COUNTER=y2-silent GATE=g-asi RC=0 STDOUT=1
+run rc=0

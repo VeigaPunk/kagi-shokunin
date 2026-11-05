@@ -1,0 +1,7 @@
+# e7: the M41-4 worktree reading at the claim BASE (c2-worktree-at-base.txt = 3)
+$ cmd: cd rev-e8265c0 && bash plans/round-41-c2.sh   # direct counter, worktree mode
+output: 3
+rc: 0
+$ cmd: cd rev-e8265c0 && bash plans/round-41-controls.sh >/dev/null; tail -1 .ufo/waves/round-41/controls/c2-base-19025d9.txt
+runner rc: 0  receipt tail: 3
+committed c2-worktree-at-base.txt: 3

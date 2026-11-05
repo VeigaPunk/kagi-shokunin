@@ -1,0 +1,8 @@
+fixture: /fast/scratch/hyaku/kagi-r44/K44MutBattery/fix-b1 (scratch; deleted before yield)
+toplevel-ok: /fast/scratch/hyaku/kagi-r44/K44MutBattery/fix-b1
+fixture-commit: a46a28b3a3fe1edbeec476cd3f8944c408501cab
+fixture-identity: K44MutBattery (round-44 fixture) <k44mutbattery.fixture@invalid> -- declared, never leaves scratch
+# expect if killed: real!=2; if survives: real=2 skipfix=0 only-stale=1 (identical to pristine battery readings)
+B1-real         env=[B1_ENV=none] rc=0 stdout=[2]
+B1-skipfix      env=[R44_SKIP_FIXTURES=1] rc=0 stdout=[0]
+B1-only-stale   env=[R44_ONLY_FIXTURE=stale] rc=0 stdout=[1]

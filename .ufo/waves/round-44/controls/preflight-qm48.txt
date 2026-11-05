@@ -1,0 +1,18 @@
+ROUND-44 QM48 PRE-FLIGHT (kill-clause commands runnable before the candidate, run at the claim BASE / predeclaration ae9e9eb)
+
+[gate pin] git diff --quiet 65f66e17a313efd839db2a77e7156a313a1e363d d54109d943abc900e71613a02e5a7a2e46453c3a -- corpus/controls-replay.sh plans/round-43-c2.sh
+rc=0 (expect 0)
+
+[claims-declared after repair] bash corpus/claims-declared.sh
+CLAIMS_DECLARED: CLEAN (claims=12)
+rc=0
+
+[prefreeze] bash corpus/prefreeze-control.sh run --base d54109d943abc900e71613a02e5a7a2e46453c3a --controls plans/round-44.controls.tsv
+PREFREEZE: CLEAN (controls=13 mismatch=0)
+rc=0
+
+[BASE receipts] bash plans/round-44-controls.sh base d54109d943abc900e71613a02e5a7a2e46453c3a (already measured; committed receipts c1-base=0 c1-skipfix=0 c2-base=0 c2-forged-sha=0 c2-forged-rev=0 c3-base=0 c3-pos=3 c3-wrongvals=1; see measured-at.txt)
+
+[supersede paths exist at BASE]
+  round-43 manifest receipt: rc 0
+  round-41 corrected receipt: rc 0

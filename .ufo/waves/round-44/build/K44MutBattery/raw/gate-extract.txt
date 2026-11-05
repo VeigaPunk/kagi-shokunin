@@ -1,0 +1,10 @@
+accept-stale extracted 401 bytes from battery heredoc g-as
+accept-silent extracted 334 bytes from battery heredoc g-asi
+always-refuse extracted 26 bytes from battery heredoc g-always
+gate-extract-rc=0
+522eb01ba3c706db8273db4c0ab6659bedfb8d0c9121e5a7dee9c3f7483b2012  /fast/scratch/hyaku/kagi-r44/K44MutBattery/gates/accept-stale
+6e2dd8ca34901450be931e1cb0cae36f3e5719c78f8b777f556147c774a52024  /fast/scratch/hyaku/kagi-r44/K44MutBattery/gates/accept-silent
+d784e012f98bd1897fd2bc4b107d09d2240f575eb787693dba8bd6c4ade7a6b0  /fast/scratch/hyaku/kagi-r44/K44MutBattery/gates/always-refuse
+#!/usr/bin/env bash
+# round-44 negative fixture gate (accept-stale): refuses ONLY the silent shape.
+set -u

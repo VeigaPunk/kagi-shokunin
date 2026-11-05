@@ -1,0 +1,37 @@
+K44ReviewC1 — coverage probes, verbatim captured output
+Command: bash /fast/scratch/hyaku/kagi-r44/K44ReviewC1/coverage-probes.sh
+Fixture: fix3, a disposable shared clone of the work clone at ae9e9eb. Each variant is a
+fixture commit with seat-attributed identity
+  user.name  'K44ReviewC1 (fixture)'
+  user.email 'k44reviewc1@fixture.invalid'
+made only inside the disposable scratch fixture (never pushed, lane untouched); the
+assignment's smoke-matrix reproduction step sanctions fixture commits. Fixture revs are
+recorded per line; the fixture clone is deleted with the sandbox at seat end.
+
+== v1: echo-constant 2, no recipe markers ==
+v1 (ff74395d): battery out='' rc=2  527ms
+== v2: real counter, final echo 1 -> echo 2 (reads 2 at candidate) ==
+v2 (a7084500): battery out='0' rc=0  6385ms
+== v3: y3 shape, P1 test replaced by true (P1-weakening) ==
+v3 (b41fa2bf): battery out='' rc=2  655ms
+== v4: N1 stale gate invocation replaced by true (stale leg crippled, markers kept) ==
+v4 (efa8ecb5): battery out='0' rc=0  4228ms
+== v5: N1 leg runs only when a gate override is present (P0 blind, fixture-visible) ==
+v5 (b572b419): battery out='0' rc=0  4357ms
+== v6: equivalent-on-probed-shapes: dead extra check appended (should still read 2) ==
+v6 (5712f880): battery out='2' rc=0  22657ms
+== leftover scratch census ==
+none
+
+Reading:
+  v1  rc 2  — killed by kill rule (f): recipe marker absent -> battery fails closed.
+  v2  0     — killed by P0: real copy reads 2 with the committed gate -> battery 0.
+  v3  rc 2  — killed by kill rule (f): replacing the P1 test destroys the frozen
+              final-condition marker, the recipe assert refuses the candidate.
+  v4  0     — killed by P0 (real copy reads 0 under its own committed gate).
+  v5  0     — killed by P0: there is no invocation of the real copy without an override
+              path except P0 itself, which always runs env-free; crippling the leg under
+              overrides still drops the P0 reading to 0.
+  v6  2     — NOT killed: a behavior-equivalent-on-probed-shapes mutant (dead extra check)
+              reaches the target N=2. This is exactly the plan's declared ceiling
+              ("the battery proves discrimination of the two frozen recipes only").

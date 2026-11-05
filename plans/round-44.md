@@ -258,3 +258,71 @@ its own scratch sandbox at the predeclaration commit, never edits the lane tree,
 receipts under `.ufo/waves/round-44/build/<seat>/`, and yields an explicit per-seat liveness status
 (QM47). The L1 integrates, applies any pre-measurement amendments (A1, A2, ... — before any
 candidate measurement), measures the final receipts, and lands the round.
+
+## Amendment A1 (predeclaration, before any candidate measurement; closes the wave's pre-measurement attacks)
+
+The wave (11 seats, `.ufo/waves/round-44/build/`, WAVE-DONE received) attacked the predeclaration. Each
+defect below is closed by the text or code named here. No predicate, target, counter name, BASE reading or
+kill-rule threshold moves; each code change preserves every declared value (re-measured in §A1-evidence).
+The instrument pin of kill clauses C1(d) and C3(d) is **re-anchored from `ae9e9eb` to the A1 commit** (the
+commit that carries this section): the round-43 A2 pattern, declared before any candidate measurement.
+
+- **A1-1 (reviewer C1 F1, LOW operational, code):** `plans/round-44-c1.sh` and `plans/round-44-controls.sh`
+  clear `CONTROLS_REPLAY_GATE` from the ambient environment at entry. An exported override previously reached
+  the P0 leg and could read 0 on a valid candidate (degrading toward 0 only; never a false green).
+- **A1-2 (sentinel F1, MEDIUM, code):** `plans/round-44-controls.sh` refuses a REV that is not a full
+  commit id of the repository (`^[0-9a-f]{40}$` and `cat-file -e <rev>^{commit}`) with rc 2 **before** any
+  receipt is written. Previously `base --help` overwrote the eight committed receipts and exited 0.
+- **A1-3 (reviewer C2C3 F1 and critic D2, MEDIUM, code):** `plans/round-44-c3.sh` reads the `via` cell:
+  rows 1–2 must name exactly `plans/round-42-controls.sh`, row 3 must name `none`. The §C3 ceiling sentence
+  "the legs run the named `via` file" was false before A1 and is now true for the cell check; the executed
+  runner remains the hardcoded `plans/round-42-controls.sh` (named ceiling: a wrong runner that still
+  produces the values passes; reviewed as code).
+- **A1-4 (reviewer C2C3 F2 and F4, LOW, code):** the C3 counter requires each row to carry exactly six cells
+  (8 awk fields), the `receipt` cell to equal the frozen path exactly (no substring match), and the
+  `superseded-by` target to be a **blob** (`git cat-file -t` = `blob`), so a tree (`…/controls`) or a
+  pipe-truncated disposition cannot satisfy the leg.
+- **A1-5 (critic D1, LOW, code):** the C3 counter's register-wide leg (w2): exactly three register lines
+  begin `| .ufo/waves/round-42/controls/`; any other row count fails closed with rc 2.
+- **A1-6 (critic D7, sourced-claim duty, code):** the C3 counter's register-wide leg (w1): the register
+  carries a `Basis: … S099 …` line; without it every row is uncounted (reads 0). The landed register carries
+  the line.
+- **A1-7 (reviewer C2C3 F3, LOW, code):** `plans/round-44-c2.sh` refuses a receipt with any fifth line,
+  including an unterminated one (`sed -n '5,$p'` must be empty), in addition to the four-line count.
+- **A1-8 (critic D5, code):** `plans/round-44-c2.sh` fails closed (rc 2) when the candidate's gate blob is
+  absent (`cat-file -e CAND:corpus/controls-replay.sh`), instead of hashing an empty stream.
+- **A1-9 (critic D3, comment-only code):** the C1/C2 counter headers no longer claim the predicate sentence
+  appears "in the receipt labels" (no receipt carries it).
+- **A1-10 (critic D8, code, value-preserving):** the C3 row-3 sweep pathspec widens from `plans/*.sh
+  corpus/*.sh` to `'*.sh'` (the seat measured 0 `.sh` files at the claim BASE carrying the token).
+- **A1-11 (plan text, no code, the ceilings the wave corrected):**
+  - *D4 (C1 ceiling):* a constant counter is caught by the battery itself (echo-1 reads 0 through the R-leg;
+    echo-2 is refused by the recipe guard, rc 2). The BASE no-work control establishes the battery-absent
+    zero only. A name- or gate-keyed counter forgery survives the battery and is caught only by the gate pin.
+  - *D6 (C1 no-work):* at the claim BASE no tree reaches N = 2 because the battery file is absent. Every
+    candidate carries the battery, so the candidate reading re-executes the pre-committed discrimination; its
+    load-bearing content is P0 and the pins.
+  - *D9 (C2 ceiling, measured):* the receipt's revision window is `65f66e17…` → the A1 commit (gate bytes
+    identical, sha `fab42e1d…740f`). Any ancestor in the window passes leg (b) by design; the counter cannot
+    check that R equals the landing parent.
+  - *D10 (evidence):* `smoke-matrix.txt` names fixture revisions (`17826e5…`, `edecb28…`) whose scratch clones
+    were deleted; its readings are receipt-only evidence, corroborated by the BASE receipts and this section's
+    red-witness receipt `controls/amend-a1-redwitness.txt`.
+  - *B1 (mutation-tester; routed, not claimed):* dropping the battery's always-refuse conjunct
+    `[ "$Y1_AL" = "0" ]` changes no frozen receipt; the gate-ignoring y1 counter (`OVER=`) is credited only
+    without that conjunct. A receipt that exercises the blanket conjunct needs a gate-ignoring counter fixture
+    and a runner slot; routed to round 45.
+  - *D7 (ceiling, now code):* see A1-6; the Basis line is checked as text, not as the S099 row's truth.
+
+**A1-evidence (measured after the A1 code, before any candidate):** prefreeze `PREFREEZE: CLEAN (controls=13
+mismatch=0)`; BASE runner `base d54109d…` reads c1-base 0, c1-skipfix 0, c2-base 0, c2-forged-sha 0,
+c2-forged-rev 0, c3-base 0, c3-pos 3, c3-wrongvals 1 (all unchanged); `base --help` refused rc 2 with the
+committed receipts byte-untouched; red-witness probes `.ufo/waves/round-44/controls/amend-a1-redwitness.txt`:
+extra row → rc 2 (structural), bogus via → 2, tree disposition → 2, no Basis → 0, unterminated fifth line → 0,
+gate-absent candidate → rc 2, clean valid receipt → 1 (positive control), runner `--help` → rc 2.
+
+**Instrument pin, re-anchored:** kill clauses C1(d) and C3(d) now read
+`git diff --quiet <A1-commit> HEAD -- plans/round-44-c1.sh plans/round-44-c2.sh plans/round-44-c3.sh plans/round-44-controls.sh plans/round-44.controls.tsv` (rc 0). The lane's predeclaration commit `ae9e9eb` remains the predeclaration record.
+
+**Round-44 verdict basis:** the frozen targets (C1 2, C2 1, C3 3) and kill rules are unchanged; A1 changes
+only the instrument checks that were false or fail-open, verified above.

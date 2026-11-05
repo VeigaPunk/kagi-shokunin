@@ -1,0 +1,14 @@
+== gate run 1 (clean clone of ae9e9eb) ==
+rc=0 stdout=[controls-replay: CLEAN] err=[]
+porcelain r41+r42 controls: []
+== gate run 2 (runner tampered to fail: restore duty under refusal) ==
+rc=0 stdout=[controls-replay: CLEAN] err=[]
+porcelain r41+r42 controls: []
+(tamper is in plans/, outside both controls dirs)
+== gate run 3 (runner exits 3 -> expected refusal) ==
+rc=1 stdout=[controls-replay: REFUSED] err=[]
+porcelain r41+r42 controls: []
+== gate run 4 (tamper reverted) ==
+rc=0 stdout=[controls-replay: CLEAN] err=[]
+porcelain r41+r42 controls: []
+runner bytes vs committed: 0 dirty entries (expect 0)

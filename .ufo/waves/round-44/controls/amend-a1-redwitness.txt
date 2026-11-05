@@ -1,0 +1,21 @@
+A1 RED-WITNESS (each planted defect must change the counter reading; no-op control = register-full)
+revision: d54109d943abc900e71613a02e5a7a2e46453c3a
+c3-ok counter=3
+ rc=0
+c3-extra-row counter= rc=2
+c3-badvia counter=2
+ rc=0
+c3-treedisp counter=2
+ rc=0
+c3-nobasis counter=0
+ rc=0
+c3-extra-row stderr: counter-refused: register rows
+-- C2 --
+C2 unterminated fifth line (expect 0): 0
+rc=0
+C2 clean four-line receipt at BASE (expect 0: gate absent at BASE? see note): 1
+rc=0
+C2 candidate-gate-missing (fixture commit without gate; expect rc 2): counter-refused: gate bytes
+rc=2
+-- runner --
+runner --help REV refusal rc: 2

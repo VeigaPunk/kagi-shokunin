@@ -1,0 +1,50 @@
+K44ReviewC1 — probe-matrix run, verbatim captured output
+Command: bash /fast/scratch/hyaku/kagi-r44/K44ReviewC1/probe-matrix.sh
+Fixture: git clone --shared of the reviewer work clone at ae9e9eb (instruments are
+committed at ae9e9eb; battery's untracked counter copies plans/r44b-* added exactly as
+the battery makes them; NO fixture commits were needed for the C1 trio).
+Gate semantics probes use the battery's own heredoc gates extracted verbatim
+(../artifacts/g-as, g-asi, g-always). 12-cell matrix uses run_counter's exact
+invocation shape (explicit CAND, CONTROLS_REPLAY_GATE inline for override legs).
+
+fixture HEAD: ae9e9eb319826a7ded0a47ba2d043c44aa1c3bae
+gates extracted: g-as g-asi g-always
+== direct gate semantics probes ==
+g-always clean-clone: rc=1 (expect 1) 1ms
+g-as clean-clone: rc=0 (expect 0)
+g-asi clean-clone: rc=0 (expect 0)
+g-as silent-fixture: rc=1 (expect 1)
+g-asi silent-fixture: rc=0 (expect 0)
+g-asi stale-fixture: rc=1 (expect 1)
+g-as stale-fixture: rc=0 (expect 0)
+== 12-cell counter x gate matrix (run_counter invocation shape) ==
+real/default: out=1 rc=0 5305ms
+real/g-as    : out=0 rc=0 1390ms
+real/g-asi   : out=0 rc=0 1260ms
+real/g-always: out=0 rc=0 1682ms
+y1/default   : out=1 rc=0 2939ms
+y1/g-as      : out=1 rc=0 1192ms
+y1/g-asi     : out=0 rc=0 974ms
+y1/g-always  : out=0 rc=0 1038ms
+y2/default   : out=1 rc=0 4550ms
+y2/g-as      : out=0 rc=0 1142ms
+y2/g-asi     : out=1 rc=0 1147ms
+y2/g-always  : out=0 rc=0 1377ms
+== smoke matrix reproduction (battery at ae9e9eb, fixture = lane clone) ==
+c1-real:    out=2 rc=0 (expect 2) 12426ms
+c1-skipfix: out=0 rc=0 (expect 0) 28768ms
+c1-only-stale: out=1 rc=0 (expect 1) 21543ms
+c1-only-silent: out=1 rc=0 (expect 1) 18730ms
+== fail-closed and existence legs ==
+c1-base re-measure at d54109d943abc900e71613a02e5a7a2e46453c3a: out=0 rc=0 (expect 0/0)
+stale-copy self-cmp: out='' rc=2 (expect empty/2) stderr='battery-refused: self mismatch'
+bogus only-fixture: out='' rc=2 (expect empty/2)
+unknown candidate: out='' rc=2 (expect empty/2)
+== ambient-environment leak probe (P0 hermeticity) ==
+ambient CONTROLS_REPLAY_GATE=g-as: out=0 rc=0 (P0 poisoned -> expect 0)
+ambient CONTROLS_REPLAY_GATE=g-asi: out=0 rc=0 (expect 0)
+== runner cap() env-propagation shape (final-mode c1-skipfix is load-bearing) ==
+cap: rc=0 out=0
+== leftover scratch census ==
+none
+Wall time: 138.96 seconds

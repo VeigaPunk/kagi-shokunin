@@ -1,0 +1,39 @@
+K44ReviewC1 — recipe-fidelity run, verbatim captured output
+Command: bash /fast/scratch/hyaku/kagi-r44/K44ReviewC1/recipe-fidelity.sh
+Script (verbatim copy of the battery's embedded python, run on a byte-copy of
+ae9e9eb:plans/round-43-c2.sh); hand-built equivalents cut line-anchored per the
+frozen plan text; diff + post-conditions. Artifacts under ../artifacts/.
+Fixture identity note: no commits in this script.
+
+bytecopy: identical to worktree file
+-- marker census (independent of the battery's own asserts) --
+finalcond OLD: count=1
+N1 marker '# N1: stale fixture': count=1
+N2 marker '# N2: silent fixture': count=1
+N1=$? assignment: count=1
+N2=$? assignment: count=1
+-- (1) battery's embedded recipe, extracted verbatim, run on the byte-copy --
+embedded.py bytes: 779
+embedded-recipes rc=0
+-- (2) hand-built equivalents from the frozen plan text (line-anchored) --
+hand-built: ok
+-- (3) byte-diff battery mutant vs hand-built --
+cmp mut-y1 hand-y1: IDENTICAL
+cmp mut-y2 hand-y2: IDENTICAL
+-- (4) post-conditions and block-cut evidence --
+mut-y1 free of "$N1": ok
+mut-y2 free of "$N2": ok
+mut-y1 stale block cut: ok
+mut-y2 silent block cut: ok
+mut-y1 bash -n: ok
+mut-y2 bash -n: ok
+-- final condition lines --
+77:if [ "$P1" = "0" ] && [ "$N1" = "1" ] && [ "$N2" = "1" ]; then
+70:if [ "$P1" = "0" ] && [ "$N2" = "1" ]; then
+72:if [ "$P1" = "0" ] && [ "$N1" = "1" ]; then
+-- sha256 --
+2424b89b8591a339fba779432ae4fa52346ab01ac782ced9d692df6f751e5086  counter.orig
+28f51a7885a2dd5e4527126ed89afdac8b804ac2124c185e5f5c3b6aa2dc27af  mut-y1
+4730a2be0615119b25b13696e5aea730a305e82be0610448c12ae90d061c3d5f  mut-y2
+28f51a7885a2dd5e4527126ed89afdac8b804ac2124c185e5f5c3b6aa2dc27af  hand-y1
+4730a2be0615119b25b13696e5aea730a305e82be0610448c12ae90d061c3d5f  hand-y2

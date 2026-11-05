@@ -1,0 +1,14 @@
+# survivor/isolation grid at predeclaration ae9e9eb319826a7ded0a47ba2d043c44aa1c3bae
+# expect: real own=1 as=0 asi=0 always=0 | y1 own=1(M43-7 survivor) as=1 asi=0(wrong pair) always=0 | y2 own=1(survivor) asi=1 as=0(wrong pair) always=0
+counter=r44b-real     gate=own           rc=0 stdout=[1]
+counter=r44b-real     gate=accept-stale  rc=0 stdout=[0]
+counter=r44b-real     gate=accept-silent rc=0 stdout=[0]
+counter=r44b-real     gate=always-refuse rc=0 stdout=[0]
+counter=r44b-mut-y1   gate=own           rc=0 stdout=[1]
+counter=r44b-mut-y1   gate=accept-stale  rc=0 stdout=[1]
+counter=r44b-mut-y1   gate=accept-silent rc=0 stdout=[0]
+counter=r44b-mut-y1   gate=always-refuse rc=0 stdout=[0]
+counter=r44b-mut-y2   gate=own           rc=0 stdout=[1]
+counter=r44b-mut-y2   gate=accept-stale  rc=0 stdout=[0]
+counter=r44b-mut-y2   gate=accept-silent rc=0 stdout=[1]
+counter=r44b-mut-y2   gate=always-refuse rc=0 stdout=[0]

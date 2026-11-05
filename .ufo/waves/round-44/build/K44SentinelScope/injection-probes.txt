@@ -1,0 +1,22 @@
+# Observed argument-injection probes — sandbox clone at ae9e9eb319826a7ded0a47ba2d043c44aa1c3bae
+# Env: HYAKU_SCRATCH=<sandbox>/scr2; commands: bash <W>/plans/round-44-<c>.sh "<arg>" (stderr discarded, stdout captured)
+# Format: counter arg=[...] rc=N stdout-bytes=N stdout=[...]
+c1 arg=[--help] rc=2 stdout-bytes=0 stdout=[]
+c1 arg=[/etc/passwd] rc=2 stdout-bytes=0 stdout=[]
+c1 arg=[HEAD:plans] rc=2 stdout-bytes=0 stdout=[]
+c2 arg=[--help] rc=2 stdout-bytes=0 stdout=[]
+c2 arg=[/etc/passwd] rc=2 stdout-bytes=0 stdout=[]
+c2 arg=[HEAD:plans] rc=2 stdout-bytes=0 stdout=[]
+c3 arg=[--help] rc=2 stdout-bytes=0 stdout=[]
+c3 arg=[/etc/passwd] rc=2 stdout-bytes=0 stdout=[]
+c3 arg=[HEAD:plans] rc=2 stdout-bytes=0 stdout=[]
+c2 arg=[] rc=0 stdout=[0]
+c3 arg=[] rc=0 stdout=[0]
+controls arg1=[--help] rc=2 stdout-bytes=0
+controls rev=[--help] rc=0 stdout-bytes=478
+# ^ F1: with REV=--help the runner overwrote all 8 receipt files and measured-at.txt in the clone's
+#   .ufo/waves/round-44/controls/ with rc-2 refusal bytes ("battery-refused: candidate" /
+#   "counter-refused: candidate") and exited 0 ("runner done: base at --help"). Same-shaped receipts
+#   were observed on disk (od -c of c1-base: "battery-refused: candidate\n").
+# Residue after probes: scr2/kagi-r44 (single empty parent dir; all leaf scratch dirs trap-removed).
+# Empty-string args exercise the ${1:-HEAD} default: at the predeclaration c2/c3 read 0 (no receipt / no register).

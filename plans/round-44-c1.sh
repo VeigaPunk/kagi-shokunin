@@ -4,10 +4,11 @@
 # y2 (N2 silent-refusal leg dropped), routed defect M43-7 -- and this committed battery
 # discriminates both from the real counter with negative fixture gates).
 #
-# Frozen predicate (the same sentence appears in plans/round-44.md section C1 and in the
-# receipt labels): prints ONE unsigned integer N in 0..2 = the number of the two counter
+# Frozen predicate (the same sentence appears in plans/round-44.md section C1 only):
+# prints ONE unsigned integer N in 0..2 = the number of the two counter
 # mutants y1 and y2 the battery discriminates from the real round-43 C2 counter
 # (the candidate's own plans/round-43-c2.sh bytes), counted only if the positive control P0
+# Amendment A1 (before any candidate measurement): CONTROLS_REPLAY_GATE is cleared at entry.
 # holds: the real counter reads 1 with the candidate's own corpus/controls-replay.sh gate.
 # Mutant m is discriminated iff, with its paired negative fixture gate (y1: accept-stale;
 # y2: accept-silent), the real counter reads 0, the mutant reads 1, and with the
@@ -50,6 +51,7 @@
 # mutant recipe that does not apply exactly once.
 # Scratch root: ${HYAKU_SCRATCH:-/fast/scratch/hyaku}/kagi-r44/battery.<pid>, removed on exit.
 set -u
+unset CONTROLS_REPLAY_GATE
 
 SELF=$(readlink -f "$0")
 REPO=$(cd "$(dirname "$0")/.." && pwd -P)

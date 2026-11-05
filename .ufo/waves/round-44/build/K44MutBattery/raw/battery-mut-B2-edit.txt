@@ -1,0 +1,15 @@
+B2: accept-stale widened: refusal exit 1 -> exit 0 (anchor count 1)
+edit-rc=0
+--- /fast/scratch/hyaku/kagi-r44/K44MutBattery/work/plans/round-44-c1.sh	2026-11-05 16:09:02.226268546 -0300
++++ /fast/scratch/hyaku/kagi-r44/K44MutBattery/fix-b2/plans/round-44-c1.sh	2026-11-05 16:20:25.403556036 -0300
+@@ -120,7 +120,7 @@
+ if [ -f "$D/plans/round-42-controls.sh" ] \
+    && [ "$(wc -l < "$D/plans/round-42-controls.sh")" -le 2 ] \
+    && grep -q '^exit 0' "$D/plans/round-42-controls.sh"; then
+-  exit 1
++  exit 0
+ fi
+ exit 0
+ EOF
+050801ae95c87d49ea57125234a6ce76e1b6ddf774839f687caf1e4ae546f293  /fast/scratch/hyaku/kagi-r44/K44MutBattery/work/plans/round-44-c1.sh
+9440699c86c14facb630e1efba3ec103dc19208db77df31bae0eb5aacf045bf7  /fast/scratch/hyaku/kagi-r44/K44MutBattery/fix-b2/plans/round-44-c1.sh

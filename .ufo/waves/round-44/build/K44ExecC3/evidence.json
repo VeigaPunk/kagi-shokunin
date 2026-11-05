@@ -1,0 +1,69 @@
+{
+  "seat": "K44ExecC3",
+  "predeclaration": "ae9e9eb319826a7ded0a47ba2d043c44aa1c3bae",
+  "claim_base": "d54109d943abc900e71613a02e5a7a2e46453c3a",
+  "pinned_revision": "5f3566c4cfe65a74da4d201d74d28b403929807b",
+  "step1_committed_at_pinned": {
+    "c1-base.txt": {
+      "last_line": "4",
+      "bytes": "34 0a",
+      "command": "git show 5f3566c:.ufo/waves/round-42/controls/c1-base.txt",
+      "rc": 0
+    },
+    "c2-base.txt": {
+      "last_line": "0",
+      "bytes": "30 0a",
+      "command": "git show 5f3566c:.ufo/waves/round-42/controls/c2-base.txt",
+      "rc": 0
+    },
+    "c2-worktree-at-base.txt": {
+      "last_line": "3",
+      "bytes": "33 0a",
+      "command": "git show 5f3566c:.ufo/waves/round-42/controls/c2-worktree-at-base.txt",
+      "rc": 0
+    },
+    "expected_match": true
+  },
+  "step2_rederivation": {
+    "method": "fresh git clone --shared, checkout --detach 5f3566c, snapshot 3 receipts, delete 3, (cd clone && bash plans/round-42-controls.sh)",
+    "runner_rc": 0,
+    "produced_c1_base_last_line": "5",
+    "produced_c2_base_last_line": "1",
+    "expected_match": true,
+    "c2-worktree_at_base_recreated": false,
+    "restore_cmp": "all 3 identical rc 0",
+    "runner_stdout_last_lines": [
+      "C1 BASE N=5",
+      "C2 derivation D=1",
+      "C2 BASE N=1"
+    ]
+  },
+  "step3_sweep": {
+    "command": "git grep 'c2-worktree-at-base' 5f3566c -- 'plans/*.sh' 'corpus/*.sh'",
+    "output": "",
+    "rc": 1,
+    "expected_match": true,
+    "broader_inventory": {
+      "sh_files_at_pinned_total": 204,
+      "covered_by_sweep_globs": "plans/*.sh + corpus/*.sh only; the frozen predicate names exactly these two globs; the remaining .sh files are all under .ufo/waves/** (archived fixtures, build sandboxes, mutants) and are not candidate runners",
+      "missed": "none within the frozen predicate's declared scope; catalog of all .sh files recorded in all-sh-at-5f3566c.txt",
+      "non_archived_sh": 38,
+      "note": "204 .sh at 5f3566c; 38 outside .ufo/waves/** (17 corpus/*.sh incl. 1 nested fixture, 21 plans/*.sh); sweep globs plans/*.sh corpus/*.sh cover the direct children of both dirs (36 runners + 1 fixture fx-ok.sh); all remaining 166 .sh are archived .ufo/waves/** fixtures/mutants/sandboxes"
+    }
+  },
+  "step4_superseding_artifacts_at_claim_base": {
+    "round43_c2_manifest_rederive_base": {
+      "cat_file_e_rc": 0
+    },
+    "round41_c2_base_19025d9": {
+      "cat_file_e_rc": 0,
+      "content_last_line": "1"
+    }
+  },
+  "step5_crosscheck": {
+    "round43_disclosure_claims": "c1 re-derives 5 (committed 4); c2 re-derives 1 (committed 0); c2-worktree absent after full delete",
+    "measured": "c1 5, c2 1, c2-worktree absent",
+    "disagreement": "none \u2014 full agreement with round-43 disclosure and frozen plan matrix",
+    "tools_installed": "none"
+  }
+}

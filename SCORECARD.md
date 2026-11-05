@@ -1627,3 +1627,35 @@ Measured commands and receipts: `.ufo/waves/round-43/final/` (candidate `542885e
 **Round-43 verdicts (L1 reading, for the operator's ruling):** C1, C2 and C3 each measured at its frozen target (6, 1, 5), with their no-work readings at their predicted values (5 for the round-42 instrument, 0, 0). No axis is harmed: all six stay 9 → 9. The named ceilings above are not closed.
 
 **Planned (next — round 43 close):** a round-44 claim against the C2 counter's N1/N2 negative fixtures (`K43MutCounters` y1, y2; routed item 2) and scheduling for `corpus/controls-replay.sh` (routed item 3), both by counter amendment before data.
+
+## Round 44 — pre-move (repo HEAD d54109d, round-43 close)
+
+Claim BASE `d54109d943abc900e71613a02e5a7a2e46453c3a` (the round-43 verifier spot-check's verified
+tip); predeclaration `ae9e9eb319826a7ded0a47ba2d043c44aa1c3bae` (frozen plan `plans/round-44.md`,
+counters `plans/round-44-c1.sh` / `-c2.sh` / `-c3.sh`, controls runner `plans/round-44-controls.sh`,
+prefreeze controls `plans/round-44.controls.tsv`, BASE receipts and fixtures under
+`.ufo/waves/round-44/controls/`, and the claims-declared repair rows for rounds 41/43 — all
+committed alone before any candidate work). All six axes stood at 9 at the round-43 close; this
+table is the reference line the three claims are measured against; no value in it is a round-44
+measurement.
+
+- **C1 calibration — BASE 0.** The counter-mutation battery does not exist at the BASE
+  (`bash plans/round-44-c1.sh d54109d` → `controls/c1-base` = 0): the round-43 C2 counter's two
+  mutation survivors (`K43MutCounters` y1 = N1-stale-leg drop, y2 = N2-silent-leg drop, M43-7) are
+  discriminated by no committed instrument. Target 2.
+- **C2 operability — BASE 0.** No receipt of the round-43 replay gate's own run exists at the BASE
+  (`bash plans/round-44-c2.sh d54109d` → `controls/c2-base` = 0; prefreeze row `receipt_absent` 0);
+  `corpus/controls-replay.sh` is run by nothing (round-43 routed item 3). Target 1.
+- **C3 freshness — BASE 0.** No corrections register exists at the BASE
+  (`bash plans/round-44-c3.sh d54109d` → `controls/c3-base` = 0; prefreeze row `register_absent`
+  0): the three drifted round-42-era receipts (c1-base 4→5, c2-base 0→1, c2-worktree-at-base
+  written by no committed runner) are disclosed only inside receipts. Target 3.
+
+| Axis | Score | Evidence pointer | Last change |
+|---|---|---|---|
+| depth | 9 | Unchanged from round 29: the release-clock extraction contract, the feed-token agreement invariant and the refusal bounds. Row `R29-01`. | round 29 |
+| coverage | 9 | 98 registry rows at the BASE, census `kagi ok`, exit 0 (`.ufo/waves/round-44/controls/census-start.txt`). Row `R21-02`. | round 41 |
+| operability | 9 | Unchanged as a score. Measured BASE gap: `c2-base` = 0 — the round-43 replay gate's own run is receipted nowhere; forged fixtures `c2-forged-sha`/`c2-forged-rev` read 0. | round 43 |
+| freshness | 9 | Unchanged as a score. Measured BASE gap: `c3-base` = 0 — no committed record supersedes the three drifted round-42-era control receipts. | round 43 |
+| calibration | 9 | Unchanged as a score. Measured BASE gap: `c1-base` = 0 with the two C2-counter mutation survivors undiscriminated (M43-7); the round-43 instrument's named answer-key ceiling stands. | round 43 |
+| adjacency | 9 | Ownership partition gate green (row `R17-02`); 86 ledger ids at the BASE, none removed. | round 35 |

@@ -1,0 +1,23 @@
+Cloning into '/fast/scratch/hyaku/kagi-r44/K44ExecC3/rederive'...
+done.
+/fast/scratch/hyaku/kagi-r44/K44ExecC3/rederive
+HEAD is now at 5f3566c round-42 verifier spot-check (integrator, hyaku): non-author admit/reject
+snapshot c1-base: 4
+snapshot c2-base: 0
+snapshot c2-worktree-at-base: 3
+c1-control-accept-all.txt
+c1-control-refuse-all.txt
+c2-derivation-D.txt
+CONTROL c1-blanket-refuse N=0
+CONTROL c1-blanket-accept N=0
+C1 BASE N=5
+C2 derivation D=1
+C2 BASE N=1
+runner_rc=0
+--- after run ---
+c1-base exists last=5
+c2-base exists last=1
+c2-worktree-at-base ABSENT
+restore_cmp c1-base: identical rc=0
+restore_cmp c2-base: identical rc=0
+restore_cmp c2-worktree-at-base: identical rc=0

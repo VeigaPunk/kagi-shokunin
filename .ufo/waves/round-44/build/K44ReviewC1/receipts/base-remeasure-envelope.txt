@@ -1,0 +1,57 @@
+K44ReviewC1 — BASE receipt re-measurement + runtime envelope, verbatim captured output
+Command: bash /fast/scratch/hyaku/kagi-r44/K44ReviewC1/base-remeasure.sh
+Fixture: fix (shared clone at ae9e9eb); counters invoked with REV=d54109d (the claim BASE)
+exactly as the committed controls runner's base mode does. c2-real proxy: R44_RECEIPT
+override naming ae9e9eb with the committed gate sha (no commit needed — exercises the
+counter's parsed-receipt path AND its executed gate leg). Final runner: bash
+plans/round-44-controls.sh final ae9e9eb inside a second disposable fixture (fix2),
+the sanctioned clone-only flow.
+
+== BASE receipts re-measured (worktree ae9e9eb, REV=d54109d943abc900e71613a02e5a7a2e46453c3a) ==
+c1-base: out=0 rc=0 expect=0  5ms
+c1-skipfix: out=0 rc=0 expect=0  5ms
+c2-base: out=0 rc=0 expect=0  4ms
+c2-forged-sha: out=0 rc=0 expect=0  10ms
+c2-forged-rev: out=0 rc=0 expect=0  11ms
+c3-base: out=0 rc=0 expect=0  4ms
+c3-pos: out=3 rc=0 expect=3  3452ms
+c3-wrongvals: out=1 rc=0 expect=1  5375ms
+== c2-real cost proxy: receipt names ae9e9eb with the committed gate sha ==
+c2-real-proxy: out=1 rc=0 expect=1  8219ms
+== single committed-gate run cost + restore duty on the fixture ==
+gate --clone fixture: last=controls-replay: CLEAN rc=0  3996ms
+controls dirs after gate run: clean (restore duty ok)
+== full final-runner suite cost (second fixture, disposable) ==
+runner final rc=0  total=79829ms
+mode: final
+revision: ae9e9eb319826a7ded0a47ba2d043c44aa1c3bae
+measured-at: 2026-11-05T19:17:34Z
+c1-real rc=0 last=2 expect=2
+c1-skipfix rc=0 last=0 expect=0
+c1-partial rc=0 last=1 expect=1
+c2-real rc=0 last=0 expect=1
+c3-real rc=0 last=0 expect=3
+runner done: final at ae9e9eb319826a7ded0a47ba2d043c44aa1c3bae
+-- final-runner receipt values (c2/c3 read 0 at ae9e9eb: no receipt/register committed) --
+c1-real: 2
+c1-skipfix: 0
+c1-partial: 1
+c2-real: 0
+c3-real: 0
+F2 receipt writes dirty tracked c1-skipfix? ?? .ufo/waves/round-44/controls/c1-partial
+?? .ufo/waves/round-44/controls/c1-real
+?? .ufo/waves/round-44/controls/c2-real
+?? .ufo/waves/round-44/controls/c3-real
+?? .ufo/waves/round-44/controls/measured-at-final.txt
+== leftover scratch census ==
+none
+
+Reading:
+  All eight committed BASE receipts re-measure to their committed values at the BASE.
+  c2-real at a landing candidate = parse cost + executed gate leg ~= the 8219ms proxy.
+  c3-real at a landing candidate ~= c3-pos cost (same executed legs) ~= 3.5-5.4s.
+  Full final suite measured 79.8s at ae9e9eb where c2/c3 short-circuit to 0; with the
+  executed legs added (c2 ~8.2s, c3 ~5.4s) the landing measurement is ~= 93s ~= 1.6 min,
+  ~9x headroom against the ~15 min candidate budget. No threat.
+  Final-mode receipt writes added only untracked files in the fixture; the name collision
+  with the tracked BASE receipt c1-skipfix was byte-identical here (both "0") so no dirt.

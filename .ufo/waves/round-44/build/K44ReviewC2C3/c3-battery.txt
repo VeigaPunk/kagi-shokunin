@@ -1,0 +1,28 @@
+== C3 BASE re-measurement ==
+c3-base-remeasure  rc=0 out=[0] err=[]
+c3-pos             rc=0 out=[3] err=[]
+c3-wrongvals       rc=0 out=[1] err=[]
+== C3 crafted-register variants ==
+extra-row          rc=2 out=[] err=[counter-refused: override register]
+swapped-rows       rc=2 out=[] err=[counter-refused: override register]
+path-suffix        rc=2 out=[] err=[counter-refused: override register]
+tree-disposition   rc=2 out=[] err=[counter-refused: override register]
+pipe-truncated     rc=2 out=[] err=[counter-refused: override register]
+via-bogus          rc=2 out=[] err=[counter-refused: override register]
+== C3 crafted-register variants (BASE d54109d) ==
+extra-row          rc=2 out=[] err=[counter-refused: register rows]
+swapped-rows       rc=2 out=[] err=[counter-refused: register order]
+path-suffix        rc=2 out=[] err=[counter-refused: register rows]
+tree-disposition   rc=2 out=[] err=[counter-refused: register rows]
+pipe-truncated     rc=2 out=[] err=[counter-refused: register rows]
+via-bogus          rc=0 out=[3] err=[]
+nonexistent-sup    rc=2 out=[] err=[counter-refused: register rows]
+token-prefix       rc=2 out=[] err=[counter-refused: register rows]
+shape-extra-cell   rc=2 out=[] err=[counter-refused: register rows]
+== C3 crafted-register variants, rebuilt (BASE d54109d) ==
+path-suffix        rc=0 out=[3] err=[]
+tree-disposition   rc=0 out=[3] err=[]
+pipe-truncated     rc=0 out=[3] err=[]
+nonexistent-sup    rc=0 out=[2] err=[]
+token-prefix       rc=0 out=[3] err=[]
+shape-extra-cell   rc=0 out=[3] err=[]

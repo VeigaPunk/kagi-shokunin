@@ -1,0 +1,22 @@
+== baseline porcelain (expect empty) ==
+== delete both receipts, re-run plans/round-42-controls.sh ==
+runner rc=0
+re-derived c1-base last=[5]
+re-derived c2-base last=[1]
+== restore + cmp ==
+c1 cmp=OK
+c2 cmp=OK
+== post-restore porcelain (expect empty) ==
+== exact frozen sweep in PIN worktree ==
+sweep rc=1 output=[]
+== unrestricted *.sh sweep at PIN ==
+unrestricted-sh rc=1 files=[]
+== pathspec coverage facts at PIN ==
+total .sh: 204
+plans/*.sh pathspec matches: 0
+plans/ .sh actual: 21
+corpus/*.sh pathspec matches: 0
+corpus/ .sh actual: 17
+.sh outside plans/ and corpus/: 166
+token matches in .sh at PIN (unrestricted): 0
+token matches at PIN (all files): 17

@@ -1,0 +1,8 @@
+# battery re-measurement (frozen matrix receipts)
+# expect: predecl real=2 (smoke R2=2), skipfix=0, only-stale=1, only-silent<=1; base/skipfix at d54109d = 0 (battery absent)
+c1-predecl-real          rev=ae9e9eb319826a7ded0a47ba2d043c44aa1c3bae env=[] rc=0 stdout=[2]
+c1-predecl-skipfix       rev=ae9e9eb319826a7ded0a47ba2d043c44aa1c3bae env=[R44_SKIP_FIXTURES=1] rc=0 stdout=[0]
+c1-predecl-only-stale    rev=ae9e9eb319826a7ded0a47ba2d043c44aa1c3bae env=[R44_ONLY_FIXTURE=stale] rc=0 stdout=[1]
+c1-predecl-only-silent   rev=ae9e9eb319826a7ded0a47ba2d043c44aa1c3bae env=[R44_ONLY_FIXTURE=silent] rc=0 stdout=[1]
+c1-base-remeasure        rev=d54109d943abc900e71613a02e5a7a2e46453c3a env=[] rc=0 stdout=[0]
+c1-skipfix-remeasure     rev=d54109d943abc900e71613a02e5a7a2e46453c3a env=[R44_SKIP_FIXTURES=1] rc=0 stdout=[0]

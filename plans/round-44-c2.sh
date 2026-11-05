@@ -3,8 +3,8 @@
 # corpus/controls-replay.sh was never run by anything after landing -- round-43 routed item 3;
 # this counter verifies a committed receipt of the gate's own run and re-executes the gate).
 #
-# Frozen predicate (the same sentence appears in plans/round-44.md section C2 and in the
-# receipt labels): prints ONE unsigned integer N in {0,1}. N = 1 iff, for the candidate
+# Frozen predicate (the same sentence appears in plans/round-44.md section C2 only):
+# prints ONE unsigned integer N in {0,1}. N = 1 iff, for the candidate
 # revision (argument, default HEAD of the repository this file lives in):
 #   (a) a receipt is provided: the committed bytes at
 #       .ufo/waves/round-44/final/replay-at-tip.txt (fixture override: R44_RECEIPT=<path>;
@@ -40,10 +40,12 @@ else
     || { echo 0; exit 0; }
 fi
 
-GATE_SHA_CAND=$(git -C "$REPO" show "$CAND:corpus/controls-replay.sh" 2>/dev/null | sha256sum | cut -d' ' -f1)
-[ -n "$GATE_SHA_CAND" ] || { echo "counter-refused: gate bytes" >&2; exit 2; }
+git -C "$REPO" cat-file -e "$CAND:corpus/controls-replay.sh" 2>/dev/null \
+  || { echo "counter-refused: gate bytes" >&2; exit 2; }
+GATE_SHA_CAND=$(git -C "$REPO" show "$CAND:corpus/controls-replay.sh" | sha256sum | cut -d' ' -f1)
 
 [ "$(wc -l < "$SCR/receipt")" -eq 4 ] || { echo 0; exit 0; }
+[ -z "$(sed -n '5,$p' "$SCR/receipt")" ] || { echo 0; exit 0; }
 L1=$(sed -n '1p' "$SCR/receipt")
 L2=$(sed -n '2p' "$SCR/receipt")
 L3=$(sed -n '3p' "$SCR/receipt")

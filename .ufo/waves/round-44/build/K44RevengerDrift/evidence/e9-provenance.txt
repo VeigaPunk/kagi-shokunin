@@ -1,0 +1,117 @@
+# e9: provenance transcript (all git -C /fast/scratch/hyaku/kagi-r44/K44RevengerDrift/work, read-only, rev-parse --show-toplevel verified = /fast/scratch/hyaku/kagi-r44/K44RevengerDrift/work before any write)
+
+## creation commits (--diff-filter=A, no follow) — all three receipts
+-- .ufo/waves/round-42/controls/c1-base.txt
+   98dd4dec3407e45ef75445a61ceaa2dff68f7e73 2026-11-05 13:23:22 -0300 round-42: predeclaration (frozen plan, counters, BASE controls)
+-- .ufo/waves/round-42/controls/c2-base.txt
+   98dd4dec3407e45ef75445a61ceaa2dff68f7e73 2026-11-05 13:23:22 -0300 round-42: predeclaration (frozen plan, counters, BASE controls)
+-- .ufo/waves/round-42/controls/c2-worktree-at-base.txt
+   98dd4dec3407e45ef75445a61ceaa2dff68f7e73 2026-11-05 13:23:22 -0300 round-42: predeclaration (frozen plan, counters, BASE controls)
+
+## full history of each receipt path (no follow)
+-- c1-base.txt
+   98dd4dec3407e45ef75445a61ceaa2dff68f7e73 2026-11-05 13:23:22 -0300 round-42: predeclaration (frozen plan, counters, BASE controls)
+-- c2-base.txt
+   98dd4dec3407e45ef75445a61ceaa2dff68f7e73 2026-11-05 13:23:22 -0300 round-42: predeclaration (frozen plan, counters, BASE controls)
+-- c2-worktree-at-base.txt
+   98dd4dec3407e45ef75445a61ceaa2dff68f7e73 2026-11-05 13:23:22 -0300 round-42: predeclaration (frozen plan, counters, BASE controls)
+
+## r42 window e8265c0..5f3566c
+5f3566c4cfe65a74da4d201d74d28b403929807b 2026-11-05 14:28:06 -0300 round-42 verifier spot-check (integrator, hyaku): non-author admit/reject
+b266c5f90ad128fff09928bbffd7f9f8d6b0d401 2026-11-05 14:18:21 -0300 round-42: census receipt after round (kagi ok, 98 rows)
+0cb78144af2c8a8eee87a7e155416d8b136694a2 2026-11-05 14:17:12 -0300 round-42: adjacency correction (kake r91 overlap recorded; lineage lines; stamps)
+6d6b486e8b8b4d05ac6cbf6019432885cdc42aea 2026-11-05 14:15:38 -0300 round-42: lesson, scorecard, log, quality rows (QM44, QM45), registry gate row, stamps, declared-axis manifest, wave evidence
+d00a543eef1936e4263caf9aa27349ccd9ff5021 2026-11-05 14:11:21 -0300 round-42: candidate C1 DELETED rule in expect-journal, C2 runner derives BASE receipt from 19025d9
+ca0c6a92b5317e85528b2faa5fa03a4a491522c2 2026-11-05 14:10:30 -0300 round-42: predeclaration amendment A2 (C2 receipt deleted before runner; runner exit required)
+fdbb83d130e9e28226d33af4defc08bb689a7ca0 2026-11-05 13:52:45 -0300 round-42: predeclaration amendment A1 (frozen counter from 5142b52, before any candidate)
+98dd4dec3407e45ef75445a61ceaa2dff68f7e73 2026-11-05 13:23:22 -0300 round-42: predeclaration (frozen plan, counters, BASE controls)
+
+## parent chain: 98dd4de^ and d00a543^
+e8265c0d90b01fcce0447d2f70615b0592ed145f
+ca0c6a92b5317e85528b2faa5fa03a4a491522c2
+
+## commits touching corpus/expect-journal.sh in the window (only the candidate)
+d00a543eef1936e4263caf9aa27349ccd9ff5021 2026-11-05 14:11:21 -0300 round-42: candidate C1 DELETED rule in expect-journal, C2 runner derives BASE receipt from 19025d9
+
+## the DELETED-class hunk (git diff e8265c0 5f3566c -- corpus/expect-journal.sh, key hunks)
++#   DELETED <ID>               base-ledger id absent from the candidate ledger (refusal;
++  # Build P0, F1..F5 (the frozen constructions of plans/round-41.md C1 and plans/round-42.md
++# F5 (plans/round-42.md C1): the P0 ledger with row R17-02 deleted, journal unchanged.
++f5 = [line for line in p0 if line.split("\t")[0] != "R17-02"]
++if len(f5) != len(p0) - 1:
++write_ledger("f5-ledger.tsv", f5)
++write_journal("f5-journals", journal)
++# 8 F5 refused with its frozen token (deleted base row, plans/round-42.md C1).
++run("f5", "f5-ledger.tsv", "f5-journals", 1,
++    need_lines=("EXPECT_JOURNAL: REFUSE DELETED R17-02",))
++        refuses.add(("DELETED", rid))
+
+## the runner C2-leg diff (git diff ca0c6a9 d00a543 -- plans/round-41-controls.sh)
+diff --git a/plans/round-41-controls.sh b/plans/round-41-controls.sh
+index 6e4f280..268fde2 100755
+--- a/plans/round-41-controls.sh
++++ b/plans/round-41-controls.sh
+@@ -36,5 +36,10 @@ open(os.path.join(s, "rtv1-decoy.py"), "w", encoding="utf-8").write("".join(out)
+ PY
+ RTV1="$S/rtv1-decoy.py" bash plans/round-41-c2.sh > "$OUT/c2-control-decoy.txt" 2>&1
+ echo "CONTROL c2-decoy-superseded N=$(tail -1 "$OUT/c2-control-decoy.txt")"
+-bash plans/round-41-c2.sh > "$OUT/c2-base-19025d9.txt" 2>&1
++# C2 BASE: derived from the pinned revision 19025d9 in a git archive extraction, with the frozen
++# counter copied in from predeclaration 5142b52 (amendment A1) -- never from the worktree.
++mkdir -p -- "$S/base/plans" || exit 2
++git archive 19025d97e5013bac2f45d6b9e61bfbafc84c3c8d | tar -x -f - -C "$S/base" || exit 2
++git show 5142b52:plans/round-41-c2.sh > "$S/base/plans/round-41-c2.sh" || exit 2
++( cd "$S/base" && bash plans/round-41-c2.sh ) > "$OUT/c2-base-19025d9.txt" 2>&1
+ echo "C2 BASE N=$(tail -1 "$OUT/c2-base-19025d9.txt")"
+
+## sweep: c2-worktree-at-base in plans/*.sh corpus/*.sh (empty at every pinned revision)
+98dd4de -> rc=1 EMPTY
+e8265c0 -> rc=1 EMPTY
+5f3566c -> rc=1 EMPTY
+d54109d -> rc=0 d54109d:plans/round-43-c2.sh:#   c2-worktree-at-base.txt (a diagnostic receipt no committed runner writes).
+ae9e9eb -> rc=0 ae9e9eb:plans/round-43-c2.sh:#   c2-worktree-at-base.txt (a diagnostic receipt no committed runner writes).
+ae9e9eb:plans/round-44-c3.sh:#   row 3 (.ufo/waves/round-42/controls/c2-worktree-at-base.txt): (a) row cells; (b) the
+ae9e9eb:plans/round-44-c3.sh:#   EXECUTED: a sweep (`git grep c2-worktree-at-base <rev> -- 'plans/*.sh' 'corpus/*.sh'`)
+ae9e9eb:plans/round-44-c3.sh:P3=.ufo/waves/round-42/controls/c2-worktree-at-base.txt
+ae9e9eb:plans/round-44-c3.sh:SWEEP=$(git -C "$SCR/clone" grep 'c2-worktree-at-base' -- 'plans/*.sh' 'corpus/*.sh' 2>/dev/null)
+
+## git log -S c2-worktree-at-base over plans/ corpus/ (all history: only docs/plan/receipt commits, no runner)
+ae9e9eb319826a7ded0a47ba2d043c44aa1c3bae 2026-11-05 15:33:30 -0300 round-44: predeclaration (frozen plan, counters, controls runner, BASE receipts; claims-declared 41/43 repair)
+d54109d943abc900e71613a02e5a7a2e46453c3a 2026-11-05 15:33:30 -0300 round-43 verifier spot-check (integrator, hyaku): non-author admit/reject
+65f66e17a313efd839db2a77e7156a313a1e363d 2026-11-05 15:18:11 -0300 round-43: C1-C3 integration - lesson, S094 used-by, QUALITY QM46-49, SCORECARD, LOG, final receipts, wave evidence
+f2b4ec761b2fa40ecc621cd6fcbfa3e54788cff9 2026-11-05 15:17:35 -0300 round-43: amendment A2 (critic/reviewer pre-measurement defects D1-D5, restore duty, C3 fixture controls at BASE) + BASE manifest re-derivation receipt
+a9180250955ad44530b565fa5b131b540c849199 2026-11-05 14:28:06 -0300 round-43: predeclaration (frozen plan plans/round-43.md, counters round-43-c1/c2/c3.sh, controls runner, BASE receipts)
+5f3566c4cfe65a74da4d201d74d28b403929807b 2026-11-05 14:28:06 -0300 round-42 verifier spot-check (integrator, hyaku): non-author admit/reject
+6d6b486e8b8b4d05ac6cbf6019432885cdc42aea 2026-11-05 14:15:38 -0300 round-42: lesson, scorecard, log, quality rows (QM44, QM45), registry gate row, stamps, declared-axis manifest, wave evidence
+98dd4dec3407e45ef75445a61ceaa2dff68f7e73 2026-11-05 13:23:22 -0300 round-42: predeclaration (frozen plan, counters, BASE controls)
+
+## gate presence at 6cc8850 (r39 tip): corpus/expect-journal.sh
+fatal: path 'corpus/expect-journal.sh' exists on disk, but not in '6cc8850'
+ABSENT at 6cc8850
+
+## r41 counter bytes unchanged 5142b52..e8265c0
+IDENTICAL
+
+## committed r41 receipt provenance (the superseder of register row 2)
+5142b522fb905a237cb01aaa582b8e4543496bdd 2026-11-05 12:04:25 -0300 round-41: frozen plan (predeclaration) — C1 calibration journal gate, C2 freshness rendered-text grounding; counters and BASE controls
+content at e8265c0 / 5f3566c / ae9e9eb:
+  e8265c0: 1
+  5f3566c: 1
+  ae9e9eb: 1
+
+## receipts untouched after 98dd4de through 5f3566c
+0
+(0 = untouched)
+
+## r43 disclosure receipt provenance
+f2b4ec761b2fa40ecc621cd6fcbfa3e54788cff9 2026-11-05 15:17:35 -0300 round-43: amendment A2 (critic/reviewer pre-measurement defects D1-D5, restore duty, C3 fixture controls at BASE) + BASE manifest re-derivation receipt
+
+## --follow artifact (why naive --follow misleads on 2-byte receipts)
+-- git log --follow c1-base.txt reports:
+   98dd4dec3407e45ef75445a61ceaa2dff68f7e73 2026-11-05 13:23:22 -0300 round-42: predeclaration (frozen plan, counters, BASE controls)
+   4a32d2c99b02a842a36c612ab5315021116da287 2026-11-04 22:04:46 -0300 round-36: wave evidence, gate receipts and the measured landing record (C1 admission withheld on reviewer grounds)
+   cb8cb659e84240a8db12e4f7b4a0def5068baf7e 2026-11-04 15:57:32 -0300 round-36: arm the self-assessment population and commit executed predeclaration controls
+-- none of the older commits touched any *controls/c1-base* path (raw grep):
+  4a32d2c: 0 matching paths
+  cb8cb65: 0 matching paths
+  441581b: 0 matching paths

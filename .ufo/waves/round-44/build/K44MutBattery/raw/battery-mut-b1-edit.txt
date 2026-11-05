@@ -1,0 +1,15 @@
+B1: dropped y1 blanket leg: removed ' && [ "$Y1_AL" = "0" ]' (anchor count was 1)
+b1-edit-rc=0
+--- /fast/scratch/hyaku/kagi-r44/K44MutBattery/work/plans/round-44-c1.sh	2026-11-05 16:09:02.226268546 -0300
++++ /fast/scratch/hyaku/kagi-r44/K44MutBattery/fix-b1/plans/round-44-c1.sh	2026-11-05 16:16:48.692908888 -0300
+@@ -182,7 +182,7 @@
+ R_AS=$(run_counter "$SCR/clone/plans/r44b-real" "$AS")
+ Y1_AS=$(run_counter "$SCR/clone/plans/r44b-mut-y1" "$AS")
+ Y1_AL=$(run_counter "$SCR/clone/plans/r44b-mut-y1" "$SCR/g-always")
+-if [ "$R_AS" = "0" ] && [ "$Y1_AS" = "1" ] && [ "$Y1_AL" = "0" ]; then
++if [ "$R_AS" = "0" ] && [ "$Y1_AS" = "1" ]; then
+   N=$((N + 1))
+ fi
+ 
+050801ae95c87d49ea57125234a6ce76e1b6ddf774839f687caf1e4ae546f293  /fast/scratch/hyaku/kagi-r44/K44MutBattery/work/plans/round-44-c1.sh
+fd47d15fbaa8723f19a9ddd71376aa7906ceeb07ee78484353dd392814fafdff  /fast/scratch/hyaku/kagi-r44/K44MutBattery/fix-b1/plans/round-44-c1.sh

@@ -277,6 +277,94 @@ S173→S104 and the digests must be recomputed for the shifted ids — never shi
    the lane already holds under another id). Any future adoption from this package must renumber by
    document; a bulk append would duplicate rows and trip E03/E04.
 
+## 6b. Concurrent landing observed while this seat ran (L1's S100–S102 append)
+
+While this seat was measuring, the lane working tree changed under me: HEAD moved
+`307fb50` → `c74ca51` ("round-45: amendment A1 … BASE receipts re-run") and the working tree gained
+`corpus/SOURCES.md` rows **S100, S101, S102**, `corpus/knowledge/iso-11770-3-edition-status.md`,
+`corpus/source-fetches.tsv` and `corpus/quote-bodies.tsv` rows, and committed capture bodies under
+`.ufo/waves/round-45/controls/capture-r45/`. All of it is **uncommitted** (`git status` shows
+`M`/`A`), so the committed registry at HEAD still holds 99 rows.
+
+**The landed renumber agrees with the map proposed in §5** (first three entries):
+
+| landed lane id | document | my §5 proposal |
+|---|---|---|
+| S100 | IEC webstore record `…/publication/62160` (= staged **S159**) | S159 → S100 ✔ |
+| S101 | ISO catalogue record `https://www.iso.org/standard/60237.html`, **live** (= staged **S170**) | S170 → S101 ✔ |
+| S102 | IEC webstore record `…/publication/71650` (= staged **S171**) | S171 → S102 ✔ |
+
+and the landed `row_identity_sha256` values equal my proposed digests exactly
+(S100 `c76c54eb…`, S101 `3bed1244…`, S102 `1878d713…`). Staged **S148 was not appended** — the
+prose-only citation, as §5 recommended. Staged S172/S173 (IEC `…/107179`, `…/21094`) are **not yet
+landed**; they remain to be numbered S103/S104.
+
+### 6b-i. The guard now reads 51, and three of the collisions are the L1's own new ids
+
+```
+reg-ids (working tree, 102 rows) = 102 ; staged-ids = 172 ; collisions = 51
+comm -13 collisions-at-HEAD collisions-now  ->  S100 S101 S102
+```
+
+**S100, S101, S102 now collide with the staged package's own S100/S101/S102 — different documents**
+(staged S100 = betterleaks `main` tree; staged S101 = betterleaks `v1.x` tree; staged S102 =
+GB/T 17901.1-2020 采标情况). The renumber was into the same numeric space the package occupies, so a
+later round that admits *those* staged rows must not reuse S100–S102 for them; they need the next
+free ids (S103+). This is the id-space half of the "by document, never arithmetic" rule and it is
+recorded here for the L1.
+
+### 6b-ii. Two defects in the landed rows (named, for the L1)
+
+1. **The offsets quoted in the registry rows' `teaches` cells are offsets into the `.txt` render, not
+   into the committed capture body.** Measured against the committed bodies:
+
+   | landed row | offset the row states | what the committed body holds |
+   |---|---|---|
+   | S100 | "byte offset 1827" for `A more recent version of this publication exists: ISO/IEC 11770-3:2021/AMD1:2025` | that string occurs **0×** in `capture-r45/S100.raw`; the phrase alone is at byte **256615** |
+   | S100 | "title quote (offset 0)" for `ISO/IEC 11770-3:2015/AMD1:2017` | the string is at byte **187** (4 occurrences), not 0 |
+   | S101 | "offset 3446" for `Withdrawal of International Standard` | at byte **45752** (2 occurrences) |
+   | S101 | "offset 1273" for `New version available: ISO/IEC 11770-3:2021` | that string occurs **0×** in `capture-r45/S101.raw` (the raw interleaves the link tag); `New version available` alone occurs 1× |
+   | S101 | "offset 2562" for the exclusion sentence | the sentence is at byte **44314** (1 occurrence) |
+   | S102 | "offset 0" for `ISO/IEC 11770-3:2021` | at byte **187** (4 occurrences) |
+
+   1827/3446/1273/2562 are byte offsets in the **rendered `.txt`** files (`ExecISO/captures/S159.txt`,
+   `S170.txt`), which are *not* the committed capture bodies. The committed bodies are the `.raw`
+   files under `.ufo/waves/round-45/controls/capture-r45/`, and `corpus/quote-bodies.tsv` points at
+   those with the **correct** offsets (S100 → 187, S101 → 45752, S102 → 187) — which is why the gate
+   still passes:
+   * `python3 corpus/quote-locate.py` → `QUOTE_LOCATE: CLEAN located=8 rows=8`, rc=0
+   * `bash /home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --file corpus/SOURCES.md`
+     → rc=0 (only pre-existing `W04` duplicate-URL-across-scopes warnings; no `E`-level finding).
+
+   The gate therefore certifies the **manifest**, not the prose offsets in the `teaches` cells. The
+   S100/S101/S102 `teaches` cells assert "verbatim, byte offset N" for spans that are not verbatim in
+   the committed body — they must be rewritten to the committed body's offsets (or the claims
+   re-worded), otherwise a reader re-checking a row by its stated offset lands on the wrong bytes.
+2. **`representation=decoded-http-body-v1` is not reproducible for the IEC pages.** Two independent
+   fetches of `…/publication/62160` on 2026-11-05 (the L1's `capture-r45/S100.raw` and
+   `ExecISO/captures/S159.raw`) have **different sha256** and differ in **18 bytes**, all inside a
+   per-response token: `x-data="initMenuMobile_6aecec285893b()"` vs `…6aecde1730e45()`. Same byte
+   count (430686), different digest. The IEC bodies are deployment-coupled (volatile); the honest
+   representation is `decoded-http-body-volatile-v1`, which the census also accepts.
+
+### 6b-iii. What the landed state means for the C2 predicate
+
+* ADDED at the working tree = {S100, S101, S102} (present now, absent at BASE) — the C2 counter's
+  `ids-added` will read 3.
+* LOCATED = rows of `corpus/quote-bodies.tsv` whose id is in ADDED that `quote-locate.py` does not
+  report NOT-LOCATED → the three new manifest rows pass (CLEAN located=8, of which 3 are ADDED ids),
+  so **LOCATED = 3**, meeting the frozen C2 target of 3.
+* The admitted entry `corpus/knowledge/iso-11770-3-edition-status.md` cites exactly S100, S101, S102
+  in a **single** `source:` line (the staged r41 entry's four `source:` lines were merged — the
+  defect named in §6.6 is resolved in the landed text), and its `used-by` is
+  `corpus/knowledge/iso-11770-3-edition-status.md` on all three rows.
+* `recheck` on the landed rows is the bare trigger `90d` (valid for the fleet census E09). My §3a
+  proposal suggested `180d`; both are conformant — the landed choice is not a defect, only a
+  divergence from my proposal.
+* Still outstanding for the L1: staged **S172/S173** (IEC `…/107179`, `…/21094`) are re-opened and
+  located by ExecISO but **not yet appended**; if the r41 entry keeps its three 2021/2025/1999
+  catalogue claims in prose, the rows and their manifest entries must follow.
+
 ## 7. Scope kept
 
 Read-only throughout: lane, `corpus/`, `plans/`, `SCORECARD.md`, `LOG.md`, `SHONEN.md`, `QUALITY`,

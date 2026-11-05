@@ -1,0 +1,22 @@
+=== baseline (honest candidate gate, real tree) ===
+CLAIMS_DECLARED: CLEAN (claims=15)
+rc=0
+=== M1: delete the manifest row for round 44 C1 (a landed real claim) ===
+MISMATCH 44 C1 no-manifest-row
+CLAIMS_DECLARED: MISMATCH (claims=14 mismatch=1)
+rc=1
+=== M2: delete the SCORECARD post-move section header for round 44 ===
+CLAIMS_DECLARED: CLEAN (claims=15)
+rc=0
+=== M3: BOTH -- delete manifest row 44/C1 AND rename the round-44 post-move header ===
+MISMATCH 44 C1 no-manifest-row
+CLAIMS_DECLARED: MISMATCH (claims=14 mismatch=1)
+rc=1
+=== M4: delete the round-44 PLAN file (the plan heading source) ===
+MISMATCH 44 C3 plan-heading-not-freshness
+CLAIMS_DECLARED: MISMATCH (claims=15 mismatch=3)
+rc=1
+=== M5: rename the round-44 plan heading so the plan-to-manifest direction cannot see it ===
+MISMATCH 44 C1 plan-heading-not-calibration
+CLAIMS_DECLARED: MISMATCH (claims=15 mismatch=1)
+rc=1

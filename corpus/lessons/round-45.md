@@ -82,3 +82,21 @@ Connector sweep (`.ufo/waves/round-45/build/K45Connector.md`): no sibling gate b
 - Stamp drift (E45-1): `STAMP_DRIFT: rows=123 drift=0` at the candidate after re-pinning.
 
 Receipts and command output: `.ufo/waves/round-45/final/` (landing-time measurements, committed with the candidate).
+
+## Sentinel review (K45Sentinel, non-author, after the candidate landed at 072bb0bc)
+
+The sentinel seat attacked the frozen instruments after they were scored at the candidate. Under the rule that a frozen counter is not amended after scoring, the findings below are **named ceilings and routed defects**, not silent fixes. Full text: `.ufo/waves/round-45/build/K45Sentinel.md`.
+
+- **S-07, HIGH (C1 forgery).** Raising the scope floor above the real landed rounds (39–44) to a value that skips them passes the counter: fixtures A and B use synthetic rounds 90 and 91, so a shrunk floor still detects them, and the REAL leg reads CLEAN on a tree with no omitted real rows. The counter has no leg that exercises a real round below the floor. Routed: round-46 counter amendment with a real-round planted omission (a copy of a landed round's plan with its row removed in scratch).
+- **S-08, HIGH (C1 forgery).** Replacing the new direction with a pass-through that only reads the manifest is caught by fixtures A and B, so this shape is refused; the residual is the S-07 shape above.
+- **S-09, HIGH (C1 forgery).** The REAL leg can be satisfied by editing the manifest registry rows rather than the gate. Ceiling named: the manifest is the lane's own record; a row removed together with its plan heading is not seen by any leg. Routed: a non-author bijection check against the landed SCORECARD post-move rows (already partly present) as a second leg.
+- **S-10, HIGH (C2 forgery).** LOCATED is satisfied by any committed capture body whose sha256 is declared in `corpus/source-fetches.tsv`; the lane wrote both. The counter binds the quote to a body, not the body to the live page. Ceiling named: a re-fetch check of the body sha against the live page is the freshness path and is not counted this round. Routed: a live re-fetch leg for admitted rows at the next assimilation.
+- **S-11, MEDIUM.** The located set is decoupled from the entry's own citations: the counter counts any added row with a located quote, not the rows the entry cites. In this round the two sets coincide (S100–S102); routed for the counter's next amendment.
+- **S-12, MEDIUM.** The located quotes are not the entry's sentences. The entry's paraphrases (lifecycle scope, withdrawal date, amendment successor) are cited by row but not located. Ceiling named; the entry says so in its Gate section.
+- **S-14, MEDIUM (renumber).** The landed ids S100–S102 collide with staged-reserved ids for other documents in `merge/kagi/SOURCES.append.md` (the staged package's own S100+ numbering). The renumber map is by document, and the package is not appended as-is; the collision is a standing note for any later adoption from that package.
+- **S-13, LOW.** The M45-1 red witness is satisfiable by a coordinated edit of the stamp row and the file. Ceiling named; the stamp check verifies bytes, not authorship.
+- **S-02, LOW.** Staged registry rows disclose local host paths; the lane's own rows do not (one pre-existing host path in `corpus/SOURCES.md` at line 131, an older search-log line, not touched this round).
+- **S-04, LOW.** `op://` appears as a bare scheme in four wave artifacts (documentation text, no reference path). Recorded; no reference path, no secret.
+- **S-01, S-03, S-05, S-06, INFO.** No secret-shaped material in the staged entries or in the round's artifacts; the three `1password` hits in staged rows are public vendor titles; captured vendor pages carry session and password identifiers, not values; no privileged, mutating or vault call anywhere in the wave.
+
+Routed to round 46 (named): the S-07 real-round planted-omission leg; the S-09 non-author second leg; the S-10 live re-fetch leg for admitted rows; the S-11 cited-rows-only located set. Round 46's plan is the place for those amendments, before any round-46 scoring.

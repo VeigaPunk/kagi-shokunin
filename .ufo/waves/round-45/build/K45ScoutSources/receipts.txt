@@ -47,3 +47,35 @@ raw awk -F'|' NF on staged rows: S148 S159 S170 S171 S172 S173 all NF=14 (must b
 lane corpus/SOURCES.md: 99 rows, 0 with NF!=13, 0 rows with an escaped pipe in any cell
 lane recheck-cell census: 67 bare 'Nd', 29 'on-release', 2 ISO dates, 1 'on-change', 0 carry a command
 fleet census E09 accepts only ISO date, 'NNd', or symbolic cadence -> the staged prose cell also fails E09
+
+=== (5) concurrent landing observed during this seat (uncommitted working tree) ===
+HEAD moved 307fb50 -> c74ca51 ('round-45: amendment A1 (pre-candidate: locator rc gate, ...), BASE receipts re-run')
+git status --porcelain: ' M corpus/SOURCES.md', ' M corpus/quote-bodies.tsv', ' M corpus/source-fetches.tsv',
+  ' A corpus/knowledge/iso-11770-3-edition-status.md', ' A .ufo/waves/round-45/controls/capture-r45/S100.raw|S101.raw|S102.raw'
+committed registry at HEAD: 99 rows, max S099 ; working tree: 102 rows (S100, S101, S102 added)
+$ grep -oE '^ {0,3}\|[[:space:]]*S[0-9]{3,}' corpus/SOURCES.md | grep -oE 'S[0-9]+' | sort | comm -12 - staged-ids
+  -> collisions-now = 51 ; comm -13 collisions-head collisions-now -> S100 S101 S102
+  (the L1's own new ids now collide with the package's S100/S101/S102, different documents)
+$ python3 corpus/quote-locate.py
+QUOTE_LOCATE: CLEAN located=8 rows=8
+rc=0
+$ bash /home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --file corpus/SOURCES.md
+last: file	ok	/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/SOURCES.md
+rc=0   (W04 warnings only, no E-level finding)
+$ sha256sum capture-r45/S100.raw build/K45ExecISO/captures/S159.raw
+9ef61b3f8f191ef8f9e61355d714ac0c26b9c0ac6c91eca428566ff8fd736298  capture-r45/S100.raw
+8bd6e9691fd9b294da1d4b295b39320913a66f33769bc2c197f74c18e6a91ab5  build/K45ExecISO/captures/S159.raw
+cmp -l | wc -l -> 18 differing bytes, all inside x-data="initMenuMobile_<hash>()" -> IEC bodies are volatile
+$ python3 (byte offsets of the row-quoted spans inside the COMMITTED bodies)
+S100.raw 'A more recent version of this publication exists: ISO/IEC 11770-3:2021/AMD1:2025' -> 0 occurrences
+S100.raw 'A more recent version of this publication exists' -> byte 256615
+S100.raw 'ISO/IEC 11770-3:2015/AMD1:2017' -> byte 187 (4x)      [row states offset 0]
+S101.raw 'Withdrawal of International Standard' -> byte 45752 (2x)   [row states 3446]
+S101.raw 'New version available: ISO/IEC 11770-3:2021' -> 0 occurrences  [row states 1273]
+S101.raw exclusion sentence -> byte 44314 (1x)                 [row states 2562]
+S102.raw 'ISO/IEC 11770-3:2021' -> byte 187 (4x)               [row states 0]
+-> the teaches-cell offsets are offsets into the .txt render, not into the committed .raw body
+
+=== (6) scratch discipline ===
+scratch root: /fast/scratch/hyaku/kagi-r45/K45ScoutSources ; created with mkdir -p ; removed with
+trap 'rm -rf -- "$S"' EXIT (verified absent after the final run); receipts copied into the build dir first

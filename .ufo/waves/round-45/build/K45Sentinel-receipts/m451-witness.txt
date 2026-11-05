@@ -1,0 +1,16 @@
+=== stamp rows mentioning LOG.md (path column only) ===
+113: path=LOG.md
+=== (a) unaltered tree ===
+STAMP_DRIFT: rows=123 drift=0
+rc=0
+=== (b) seat's fixture: byte appended to corpus/LOG.md (as the receipt did) ===
+STAMP_DRIFT: rows=123 drift=0
+rc=0
+=== (c) correct fixture: byte appended to the STAMPED lane-root LOG.md ===
+STAMP_DRIFT: rows=123 drift=1
+DRIFT LOG.md
+rc=1
+=== (d) a stamped corpus file altered: corpus/QUALITY.md ===
+STAMP_DRIFT: rows=123 drift=1
+DRIFT corpus/QUALITY.md
+rc=1

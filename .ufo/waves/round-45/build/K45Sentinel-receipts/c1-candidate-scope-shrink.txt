@@ -1,0 +1,11 @@
+=== baseline (candidate tree) ===
+CLAIMS_DECLARED: CLEAN (claims=17)
+=== attack A: drop round-44 manifest rows only ===
+MISMATCH 44 C3 no-manifest-row
+CLAIMS_DECLARED: MISMATCH (claims=14 mismatch=3)
+=== attack B: drop round-44 manifest rows AND the round-44 post-move section ===
+CLAIMS_DECLARED: CLEAN (claims=14)
+  round-44 plan headings still on disk: 3
+  round-44 manifest rows now: 0
+=== restored ===
+CLAIMS_DECLARED: CLEAN (claims=17)

@@ -1,0 +1,14 @@
+=== honest candidate gate on the real tree ===
+CLAIMS_DECLARED: CLEAN (claims=15)
+rc=0
+=== M2 mutant (post-move gating removed) on the real tree ===
+MISMATCH 45 C1 no-manifest-row
+MISMATCH 45 C2 no-manifest-row
+CLAIMS_DECLARED: MISMATCH (claims=15 mismatch=2)
+rc=1
+=== M2 mutant + candidate EDITS the manifest and the post-move gating (round 45 made 'landed') ===
+CLAIMS_DECLARED: CLEAN (claims=17)
+rc=0
+=== restored ===
+CLAIMS_DECLARED: CLEAN (claims=15)
+rc=0

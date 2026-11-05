@@ -1,0 +1,36 @@
+# round-45 final measurements at candidate 072bb0bc1860fcc33418b659cec0dd40d5c0f944 (counters archive the revision into scratch)
+$ bash plans/round-45-c1.sh 072bb0bc1860fcc33418b659cec0dd40d5c0f944
+C1_BIJECTION: value=2 detected=2 positive=1 real=CLEAN (rc A=1 B=1 C=1 tree=072bb0bc1860fcc33418b659cec0dd40d5c0f944; real-last='CLAIMS_DECLARED: CLEAN (claims=17)'; A-last='CLAIMS_DECLARED: MISMATCH (claims=1 mismatch=1)'; B-last='CLAIMS_DECLARED: MISMATCH (claims=1 mismatch=1)'; C-last='CLAIMS_DECLARED: MISMATCH (claims=1 mismatch=2)')
+$ bash plans/round-45-c2.sh 072bb0bc1860fcc33418b659cec0dd40d5c0f944
+C2_LOCATED: value=3 added=3 entries=1 census=0 located=3 (quote-locate rc=0, rows-added=3, not-located-added=0, tree=072bb0bc1860fcc33418b659cec0dd40d5c0f944)
+$ bash plans/round-45-c1.sh LANE (pre-candidate control at tree)
+$ census root form
+kagi	W04	S019 duplicate url www.1password.dev/brokered-access across scopes
+kagi	W04	S020 duplicate url 1password.com/blog/1password-credential-broker-public-preview across scopes
+kagi	W04	S021 duplicate url openbao.org/docs/concepts/tokens across scopes
+kagi	W04	S022 duplicate url developer.hashicorp.com/vault/docs/auth/jwt across scopes
+kagi	W04	S023 duplicate url developer.hashicorp.com/vault/docs/concepts/lease across scopes
+kagi	W04	S025 duplicate url openbao.org/docs/auth/jwt across scopes
+kagi	W04	S026 duplicate url openbao.org/docs/concepts/tokens across scopes
+kagi	W04	S032 duplicate url www.1password.dev/brokered-access across scopes
+kagi	W04	S039 duplicate url www.python.org/downloads/feed.rss across scopes
+kagi	W04	S040 duplicate url docs.python.org/3/library/re.html across scopes
+kagi	W04	S041 duplicate url docs.python.org/3/library/html.html across scopes
+kagi	W04	S045 duplicate url semver.org/spec/v2.0.0.html across scopes
+kagi	W04	S050 duplicate url docs.github.com/en/actions/concepts/security/openid-connect across scopes
+kagi	W04	S051 duplicate url csrc.nist.gov/pubs/sp/800/57/pt1/r6/ipd across scopes
+kagi	W04	S069 duplicate url www.1password.dev/brokered-access across scopes
+kagi	W04	S070 duplicate url www.1password.dev/brokered-access/custom-workflow across scopes
+kagi	W04	S089 duplicate url github.com/hashicorp/vault/releases.atom across scopes
+kagi	W04	S090 duplicate url github.com/openbao/openbao/releases.atom across scopes
+kagi	W04	S091 duplicate url www.python.org/downloads/feed.rss across scopes
+kagi	ok	/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/SOURCES.md
+census rc=0
+$ git archive 072bb0bc1860fcc33418b659cec0dd40d5c0f944 | quote-locate
+QUOTE_LOCATE: CLEAN located=8 rows=8
+qloc rc=0
+CLAIMS_DECLARED: CLEAN (claims=17)
+claims rc=0
+CLAIMS_DECLARED_SELFTEST: PASS (8 cases)
+stamp rc=2
+$ stamp-drift.py <archive of 072bb0bc1860fcc33418b659cec0dd40d5c0f944>

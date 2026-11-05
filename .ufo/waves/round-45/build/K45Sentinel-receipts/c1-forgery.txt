@@ -1,0 +1,6 @@
+MUTANT thr=39 => C1_BIJECTION value=2 detected=2 positive=1 real=CLEAN (rc A=1 B=1 C=1)
+MUTANT thr=45 => C1_BIJECTION value=2 detected=2 positive=1 real=CLEAN (rc A=1 B=1 C=1)
+MUTANT thr=90 => C1_BIJECTION value=2 detected=2 positive=1 real=CLEAN (rc A=1 B=1 C=1)
+--- scope probe: does the threshold-90 mutant still fire on a REAL-lane round (44) with a planted omission? ---
+MUTANT thr=39 on planted omission at round 44 => rc=1 (DETECTED)
+MUTANT thr=90 on planted omission at round 44 => rc=0 (MISSED)

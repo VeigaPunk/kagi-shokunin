@@ -1,0 +1,12 @@
+GATE scope thr=39  [202:  if [ "$((10#$rname))" -lt 39 ]; then continue; fi]
+   planted omission at REAL round 39 -> rc=1 DETECTED
+   planted omission at REAL round 44 -> rc=1 DETECTED
+   planted omission at REAL round 45 -> rc=1 DETECTED
+GATE scope thr=46  [202:  if [ "$((10#$rname))" -lt 46 ]; then continue; fi]
+   planted omission at REAL round 39 -> rc=0 MISSED
+   planted omission at REAL round 44 -> rc=0 MISSED
+   planted omission at REAL round 45 -> rc=0 MISSED
+GATE scope thr=90  [202:  if [ "$((10#$rname))" -lt 90 ]; then continue; fi]
+   planted omission at REAL round 39 -> rc=0 MISSED
+   planted omission at REAL round 44 -> rc=0 MISSED
+   planted omission at REAL round 45 -> rc=0 MISSED

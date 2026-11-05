@@ -6,8 +6,11 @@
 #   prints ONE unsigned integer N in {0,1}. N = 1 iff, in a clean clone of the candidate commit
 #   (argument, default HEAD of this repository), running that clone's plans/round-41-controls.sh
 #   writes .ufo/waves/round-41/controls/c2-base-19025d9.txt whose last line equals D, where D is the
-#   frozen C2 counter (plans/round-41-c2.sh, copied from the candidate) run in a git archive of the
-#   claim BASE 19025d9 (its own normalizer, registry and fetch rows), AND D equals 1. Otherwise N = 0.
+#   frozen C2 counter (plans/round-41-c2.sh as frozen at predeclaration 5142b52, read with git show,
+#   never the candidate's copy) run in a git archive of the claim BASE 19025d9 (its own normalizer,
+#   registry and fetch rows), AND D equals 1. Otherwise N = 0.
+#   Amendment A1 (predeclaration, before any candidate commit): the frozen counter source is 5142b52,
+#   not the candidate's copy; a candidate edit to plans/round-41-c2.sh cannot move D or N.
 #   The claim-BASE reading (committed runner e8265c0, which measures the worktree) is 0: it writes 3.
 #
 # Ceiling (named in plans/round-42.md): a runner that writes the constant 1 passes; the counter
@@ -30,7 +33,7 @@ git -C "$SCR/clone" checkout -q --detach "$CAND" || { echo "counter-refused: che
 # D: the frozen C2 counter over the pinned BASE tree (its own inputs, never the worktree).
 mkdir -p -- "$SCR/base/plans" || { echo "counter-refused: base dir" >&2; exit 2; }
 git -C "$REPO" archive "$BASE" | tar -x -f - -C "$SCR/base" || { echo "counter-refused: archive" >&2; exit 2; }
-cp -- "$SCR/clone/plans/round-41-c2.sh" "$SCR/base/plans/round-41-c2.sh" || { echo "counter-refused: copy" >&2; exit 2; }
+git -C "$REPO" show 5142b52:plans/round-41-c2.sh > "$SCR/base/plans/round-41-c2.sh" || { echo "counter-refused: frozen counter" >&2; exit 2; }
 D=$(cd "$SCR/base" && bash plans/round-41-c2.sh 2>/dev/null | tail -1)
 case $D in ''|*[!0-9]*) echo "counter-refused: derivation" >&2; exit 2 ;; esac
 

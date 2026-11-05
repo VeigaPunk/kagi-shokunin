@@ -22,9 +22,9 @@ echo "CONTROL c1-blanket-accept N=$(tail -1 "$OUT/c1-control-accept-all.txt")"
 bash plans/round-42-c1.sh > "$OUT/c1-base.txt" 2>&1
 echo "C1 BASE N=$(tail -1 "$OUT/c1-base.txt")"
 
-# C2 derivation D: the frozen round-41 C2 counter over a git archive of the claim BASE.
+# C2 derivation D: the frozen round-41 C2 counter (as frozen at 5142b52, amendment A1) over a git archive of the claim BASE.
 mkdir -p -- "$S/base/plans" && git archive "$BASE" | tar -x -f - -C "$S/base" \
-  && cp -- plans/round-41-c2.sh "$S/base/plans/round-41-c2.sh" || { echo "controls: derivation setup failed" >&2; exit 2; }
+  && git show 5142b52:plans/round-41-c2.sh > "$S/base/plans/round-41-c2.sh" || { echo "controls: derivation setup failed" >&2; exit 2; }
 (cd "$S/base" && bash plans/round-41-c2.sh 2>/dev/null) > "$OUT/c2-derivation-D.txt"
 echo "C2 derivation D=$(tail -1 "$OUT/c2-derivation-D.txt")"
 

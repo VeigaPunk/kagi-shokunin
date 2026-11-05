@@ -57,3 +57,7 @@ Frontier step (§2b): census before `scripts/sources-census.sh validate --root /
 ## Controls and receipts
 
 All committed with this plan under `.ufo/waves/round-42/controls/`: `c1-base.txt` (4), `c1-control-refuse-all.txt` (0), `c1-control-accept-all.txt` (0), `c2-base.txt` (0), `c2-derivation-D.txt` (1), `c2-worktree-at-base.txt` (3, the direct worktree reading). Commands: `bash plans/round-42-controls.sh` (writes the receipts) and `bash plans/round-42-c1.sh`, `bash plans/round-42-c2.sh` (the counters).
+
+## Amendment A1 (predeclaration, before any candidate commit)
+
+Found on re-reading the C2 counter before any candidate existed: `plans/round-42-c2.sh` derived D with the frozen counter copied from the **candidate** clone, so a candidate that edited `plans/round-41-c2.sh` to print `1` would pass. A1 takes the frozen counter from its pinned predeclaration commit `5142b52` (`git show 5142b52:plans/round-41-c2.sh`) in both the counter and the controls runner's derivation step. The C2 target, predicate, no-work reading (0), derivation (1) and kill rule are unchanged; the BASE receipts re-measure identically (`c2-base.txt` 0, `c2-derivation-D.txt` 1, `c1-base.txt` 4). The predicate sentence in the counter's header is updated to name the source. Nothing else in this plan changes.

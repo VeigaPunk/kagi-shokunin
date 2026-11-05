@@ -1,0 +1,49 @@
+K45ScoutSources receipts (round 45, C2 collision/quarantine scout)
+BASE 0d0192f63eb5e49826d75af1e5293004dc691a18 ; predecl 307fb50da825d6e6f2b5c7981c71556d35611142
+lane HEAD at read time: 307fb50da825d6e6f2b5c7981c71556d35611142 (kagi-shokunin, branch master)
+
+=== (1) collision guard, exact command from the seat spec ===
+$ grep -oE '^ {0,3}\|[[:space:]]*S[0-9]{3,}' /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/SOURCES.md | grep -oE 'S[0-9]+' | sort > $A/reg-ids
+rc=0
+$ grep -oE '^ {0,3}\|[[:space:]]*S[0-9]{3,}' /home/vgpnk/Projects/shokuknow/merge/kagi/SOURCES.append.md | grep -oE 'S[0-9]+' | sort > $A/staged-ids
+rc=0
+$ comm -12 $A/reg-ids $A/staged-ids > $A/collisions
+rc=0
+reg-ids lines   : 99   (S001..S099, contiguous, no gaps)
+staged-ids lines: 172  (S052..S223, contiguous, no gaps)
+collisions lines: 48   (S052..S099, contiguous)
+last: S099
+
+=== (1b) RED WITNESS (required before any append) ===
+$ scratch registry: header + separator + one row '  | S052 |' (2-space indent)
+$ grep -oE '^ {0,3}\|[[:space:]]*S[0-9]{3,}' registry-witness.md | grep -oE 'S[0-9]+' | sort | comm -12 - staged-ids
+rc=0
+w1 extracted ids: 1 -> S052
+w1 collisions lines: 1  (S052)   NONEMPTY  => guard is alive
+$ negative control: grep -oE '^\|[[:space:]]*S[0-9]{3,}' (column-zero only)
+control extracted ids: 0 ; control collisions lines: 0
+   => the 0-3 leading-space tolerance is what makes the witness fire
+$ scratch registry = real corpus/SOURCES.md + appended '  | S052 |' row
+w2 collisions lines: 48 (>= 48 expected; unchanged from base)
+w2 NONEMPTY => guard alive on the real tree shape too
+receipts copied: red-witness-w1-collisions, red-witness-w1-control-collisions, red-witness-w2-collisions
+
+=== (2) quarantine slice (read-only awk, exactly as specified) ===
+$ awk -F'|' -v l='kagi' '$2 ~ ("`" l "`") && $3 ~ /round[0-9]+/ && $4 ~ /S[0-9]+/ {print $4, $5}' /home/vgpnk/Projects/shokuknow/.ufo/waves/corpus-expansion-1/absent-defect-register.md
+rc=0
+8 lines: S053 S071 S081 S090 S091 S093 S108 S113 (all `payload-absent`)
+last: S113 `payload-absent`
+
+=== (3) cited-id set of the two staged entries ===
+r39 iso-11770-3-2015-supersession-chain-r39.md : source: S159 ; body also cites S148 (round 8's row) ; source: lines = 1
+r41 iso-11770-3-catalogue-record-and-lifecycle-r41.md : source: S170, S171, S172, S173 ; source: lines = 4
+cited set = S159 S170 S171 S172 S173 (+ S148 prose-only)
+intersection with kagi quarantine slice = EMPTY (0)
+cross-lane numeric coincidences that are NOT kagi rows: kake round1 S148, tabi round3 S148, kotoba round5 S172, tabi round5 S171 -> id-only greps false-positive
+
+=== (4) staged-row shape audit (why a staged row cannot be appended as-is) ===
+raw awk -F'|' NF on staged rows: S148 S159 S170 S171 S172 S173 all NF=14 (must be 13)
+107 of the 172 staged rows are NF!=13 (escaped \| inside the recheck command)
+lane corpus/SOURCES.md: 99 rows, 0 with NF!=13, 0 rows with an escaped pipe in any cell
+lane recheck-cell census: 67 bare 'Nd', 29 'on-release', 2 ISO dates, 1 'on-change', 0 carry a command
+fleet census E09 accepts only ISO date, 'NNd', or symbolic cadence -> the staged prose cell also fails E09

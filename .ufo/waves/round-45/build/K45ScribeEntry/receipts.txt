@@ -1,0 +1,121 @@
+K45ScribeEntry — scribe receipts (round-45 build wave, attempt 1)
+Seat: scribe. Scope: draft the round-45 lesson prose and the closure errata for the L1 to verify
+and place. Read-only everywhere else; no lane file edited, no git/jj mutation, no network write.
+Scratch root: $HYAKU_SCRATCH/kagi-r45/K45ScribeEntry (HYAKU_SCRATCH=/fast/scratch/hyaku).
+
+=== (1) lane identity ===
+CMD: git -C /home/vgpnk/Projects/shokunin/kagi-shokunin rev-parse HEAD
+RC: 0
+LAST: 307fb50da825d6e6f2b5c7981c71556d35611142
+CMD: git -C /home/vgpnk/Projects/shokunin/kagi-shokunin status --porcelain
+RC: 0
+LAST:  M corpus/SOURCES.md   (pre-existing, not mine; staged-lead bullet appended by another seat before this seat ran)
+CMD: git -C /home/vgpnk/Projects/shokunin/kagi-shokunin log --oneline -5
+RC: 0
+LAST: 307fb50 round-45: predeclaration (frozen plan, counters C1/C2, BASE controls receipts)
+
+=== (2) BASE receipts read (committed, unmodified) ===
+CMD: cat .ufo/waves/round-45/controls/c1-base.txt
+RC: 0
+LAST: C1_BIJECTION: value=0 detected=0 positive=1 real=CLEAN (rc A=0 B=0 C=1 tree=LANE)
+CMD: cat .ufo/waves/round-45/controls/c2-base.txt
+RC: 0
+LAST: C2_LOCATED: value=0 added=0 entries=0 census=0 located=0 (quote-locate rc=0, rows-added=0, not-located-added=0, tree=LANE)
+CMD: cat .ufo/waves/round-45/controls/claims-declared-base.txt
+RC: 0
+LAST: CLAIMS_DECLARED: CLEAN (claims=15)
+CMD: cat .ufo/waves/round-45/controls/quote-locate-base.txt
+RC: 0
+LAST: QUOTE_LOCATE: CLEAN located=5 rows=5
+CMD: tail -1 .ufo/waves/round-45/controls/census-start.txt
+RC: 0
+LAST: kagi	ok	/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/SOURCES.md
+
+=== (3) M45-1 stamp-drift red witness (scratch clone of the predeclaration commit) ===
+CMD: git -C <lane> archive 307fb50da825d6e6f2b5c7981c71556d35611142 | tar -x -C $S/base
+RC: 0
+LAST: base archive extracted
+CMD: python3 .ufo/waves/round-45/build/K45ExecStampRW/stamp-drift.py $S/base-clean   # unaltered BASE
+RC: 0
+LAST: STAMP_DRIFT: rows=123 drift=0
+CMD: printf 'X' >> $S/base/LOG.md ; python3 .ufo/waves/round-45/build/K45ExecStampRW/stamp-drift.py $S/base
+RC: 1
+LAST: DRIFT LOG.md
+CMD: python3 .ufo/waves/round-45/build/K45ExecStampRW/stamp-drift.py /home/vgpnk/Projects/shokunin/kagi-shokunin
+RC: 1
+LAST: DRIFT corpus/SOURCES.md
+NOTE: the live lane tree reads drift=1 on corpus/SOURCES.md only because that file carries an
+uncommitted edit made by another seat before this seat ran; the committed predeclaration tree
+reads drift=0 (arm above). The scribe did not edit it.
+CMD: git -C <lane> cat-file -e d54109d:corpus/controls-replay.sh
+RC: 0
+LAST: controls-replay.sh PRESENT at d54109d   (evidence for E45-2)
+
+=== (4) S170 re-open attempted independently by the scribe (FAILED) ===
+CMD: timeout 40 curl -fsSL --max-time 35 -o /tmp/s170retry.html -w 'http=%{http_code} bytes=%{size_download}\n' 'https://web.archive.org/web/20260212133408id_/https://www.iso.org/standard/60237.html'
+RC: 28
+LAST: curl: (28) Connection timed out after 35001 milliseconds
+      http=000 bytes=0
+
+=== (5) located-quote spans measured in the executor's raw captures ===
+CMD: python3 (byte scan of .ufo/waves/round-45/build/K45ExecISO/captures/S1{59,71,72,73}.raw)
+RC: 0
+LAST:
+  S159.raw sha256 8bd6e9691fd9b294da1d4b295b39320913a66f33769bc2c197f74c18e6a91ab5 bytes 430686
+    "A more recent version of this publication exists"  @256615 (1 occurrence)
+    "Withdrawal date</strong></td><td>2021-10-22"       @259929 (1 occurrence)
+  S171.raw sha256 f3d4813a04497605b22d93bd9b05742f9cf6159be206df4e3bcb49a9010fef2f bytes 434303
+    "Publication date</strong></td><td>2021-10-22"      @263676 (1 occurrence)
+  S172.raw sha256 1079585f82f3536c8401f9c7a85657d540535db29f777de316c11550ac21696b bytes 429695
+    "Publication date</strong></td><td>2025-04-28"      @259021 (1 occurrence)
+  S173.raw sha256 34a9c4a34122134d86dffb42d4122646061091e8b686304540d1d9fabbd998f3 bytes 432311
+    "A more recent version of this publication exists"  @258300 (1 occurrence)
+    "Withdrawal date</strong></td><td>2008-07-02"       @261614 (1 occurrence)
+  (the same sentences also occur in the flattened .txt extracts at other offsets)
+
+=== (6) id-space and collision measurement ===
+CMD: grep -oE '^\| S[0-9]{3}' corpus/SOURCES.md | tail -3
+RC: 0
+LAST: | S099      (lane registry: S001-S099, 99 rows)
+CMD: diff of .ufo/waves/round-45/build/K45ScoutSources/reg-ids against .../staged-ids
+RC: 0
+LAST: intersection = S052-S099 (48 ids); staged package range S052-S223
+CMD: grep '^| S053 |\|^| S071 |\|^| S081 |\|^| S090 |\|^| S091 |\|^| S093 |\|^| S108 |\|^| S113 |' /home/vgpnk/Projects/shokuknow/merge/kagi/SOURCES.append.md
+RC: 0
+LAST: 8 quarantine-slice rows located in the staged append file; none is cited by the admitted entry
+
+=== (7) knowledge gap and census ===
+CMD: grep -l '11770' corpus/knowledge/*.md | wc -l
+RC: 0
+LAST: 0
+CMD: grep -rl '11770' corpus/
+RC: 0
+LAST: corpus/SOURCES.md, corpus/lessons/round-44.md   (no knowledge entry, no corpus/knowledge/iso-* file)
+CMD: bash /home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --file corpus/SOURCES.md
+RC: 0
+LAST: (no output; exit 0)
+
+=== (8) QM55 exemplar probe (the considerthese proposal-3 defect state) ===
+CMD: git -C <lane> show 5e84747:corpus/release-clock.py | grep -n STABLE_TITLE_RE
+RC: 0
+LAST: 781:STABLE_TITLE_RE = re.compile(r"^(?:[A-Za-z]+ )?v?([0-9]+\.[0-9]+\.[0-9]+)$")
+CMD: git -C <lane> show fc65112:corpus/release-clock.py | grep -n STABLE_TITLE_RE
+RC: 0
+LAST: 789:STABLE_TITLE_RE = re.compile(r"^(?:[A-Za-z]+ )?v?([0-9]+\.[0-9]+\.[0-9]+)(?![A-Za-z0-9+-]|\.[0-9])")
+CMD: git -C <lane> log -1 --format='%h %ad %s' --date=iso fc65112
+RC: 0
+LAST: fc65112 2026-11-01 03:28:28 +0000 round-29: C1 feed-token right boundary via frozen recipe (S052) + agreement-gate bookkeeping
+CMD: python3 (match old vs current regex on 'Python 3.15.1', 'Python 3.15.1.', 'Python 3.15.01.')
+RC: 0
+LAST: old $ anchor: 'Python 3.15.1'->3.15.1, 'Python 3.15.1.'->None, 'Python 3.15.01.'->None
+      current boundary: 'Python 3.15.1'->3.15.1, 'Python 3.15.1.'->3.15.1, 'Python 3.15.01.'->3.15.01
+CMD: grep -c 'KNOWN_DEFECT' corpus/release-clock.py
+RC: 0
+LAST: 0
+
+=== (9) delivered files (write scope: .ufo/waves/round-45/build/K45ScribeEntry* only) ===
+  .ufo/waves/round-45/build/K45ScribeEntry/lesson-draft.md
+  .ufo/waves/round-45/build/K45ScribeEntry/errata-draft.md
+  .ufo/waves/round-45/build/K45ScribeEntry/receipts.txt
+  .ufo/waves/round-45/build/K45ScribeEntry.md            (seat report)
+No tool was installed or upgraded by this seat (no pacman, no uv/pip/cargo/npm install).

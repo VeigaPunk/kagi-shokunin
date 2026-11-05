@@ -180,6 +180,52 @@ EOF
     bad=$((bad + 1))
   fi
 done < "$manifest"
+# Round-45 C1 plan-to-manifest direction (frozen predicate): a round R >= 39 is
+# checked when plans/round-R.md carries claim headings AND SCORECARD.md carries
+# `## Round R — post-move`. Each such heading needs exactly one manifest row
+# (R, Ck, axis); a missing row prints MISMATCH R Ck no-manifest-row.
+declare -A manifest_set=()
+while IFS=$'\t' read -r mround mclaim maxis || [ -n "${mround:-}" ]; do
+  case $mround in
+    ''|'#'*|round) continue ;;
+  esac
+  manifest_set["$mround/$mclaim/$maxis"]=1
+done < "$manifest"
+for planfile in "$root"/plans/round-*.md; do
+  [ -f "$planfile" ] || continue
+  fname=${planfile##*/}
+  rname=${fname#round-}
+  rname=${rname%.md}
+  case $rname in
+    ''|*[!0-9]*) continue ;;
+  esac
+  if [ "$((10#$rname))" -lt 39 ]; then continue; fi
+  if ! awk -v want="## Round $rname — post-move" 'index($0, want) == 1 { found = 1 } END { exit found ? 0 : 1 }' "$root/SCORECARD.md" 2>/dev/null; then
+    continue
+  fi
+  while IFS=$'\t' read -r hclaim haxis; do
+    [ -n "${hclaim:-}" ] || continue
+    if [ -z "${manifest_set["$rname/$hclaim/$haxis"]:-}" ]; then
+      echo "MISMATCH $rname $hclaim no-manifest-row"
+      bad=$((bad + 1))
+    fi
+  done <<EOF
+$(awk '
+    /^[[:space:]]*(```|~~~)/ { fence = !fence; next }
+    /<!--/ { htmlc = 1 }
+    /-->/  { htmlc = 0 }
+    !fence && !htmlc {
+      line = $0
+      if (line ~ /^## C[0-9]+ — [a-z]+:/) {
+        sub(/^## /, "", line)
+        claim = line; sub(/ .*/, "", claim)
+        rest = line; sub(/^[^ ]+ — /, "", rest)
+        axis = rest; sub(/:.*$/, "", axis)
+        print claim "\t" axis
+      }
+    }' "$planfile")
+EOF
+done
 if [ "$n" -eq 0 ]; then
   echo "CLAIMS_DECLARED: SETUP no-rows"
   exit 2

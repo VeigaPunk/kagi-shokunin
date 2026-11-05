@@ -1,0 +1,53 @@
+K45ExecBijection receipts — C1 bijection candidate (scratch only)
+==============================================================
+Axes: calibration / coverage / freshness per plan round-45.md C1 bijection predicate.
+
+Command (archive):
+  S="${HYAKU_SCRATCH:-/fast/scratch/hyaku}/kagi-r45/K45ExecBijection"; mkdir -p "$S/tree"; git -C /home/vgpnk/Projects/shokunin/kagi-shokunin archive 307fb50da825d6e6f2b5c7981c71556d35611142 | tar -x -C "$S/tree"
+rc=0
+last line: (archive listing) /fast/scratch/hyaku/kagi-r45/K45ExecBijection/tree/corpus/claims-declared.sh exists
+
+Patch:
+  Edit of "$S/tree/corpus/claims-declared.sh" ONLY: inserted plan-to-manifest direction after the manifest-to-plan loop (before the `if [ "$n" -eq 0 ]` check).
+  - Builds manifest_set from `round<TAB>claim<TAB>axis` rows (skipping header/comment/empty lines).
+  - For each plans/round-*.md with numeric R >= 39 AND a `## Round R — post-move` section in SCORECARD.md, extracts fence/comment-stripped `## C<k> — <axis>:` headings (same fence/HTML-comment discipline as the existing plan-heading check) and requires each (R,Ck,axis) in manifest_set; else prints `MISMATCH R Ck no-manifest-row` and bad++.
+  - Existing manifest-to-plan checks, output lines (CLAIMS_DECLARED: CLEAN (claims=15) / MISMATCH (claims=N mismatch=M)), and exit codes 0/1/2 unchanged (bad feeds the same final branch).
+  - `bash -n` syntax check: SYNTAX_OK.
+
+Measurement (a) real tree:
+  Command: sh "$S/tree/corpus/claims-declared.sh" --root "$S/tree"
+  rc=0
+  last line: CLAIMS_DECLARED: CLEAN (claims=15)
+  Expectation: CLEAN claims=15 -> MATCH. Real tree is CLEAN (no false positive; round 45 correctly skipped as in-flight: no `## Round 45 — post-move` in SCORECARD.md; rounds <39 skipped by freeze).
+
+Measurement (c) selftest:
+  Command: sh "$S/tree/corpus/claims-declared.sh" --selftest
+  rc=0
+  last line: CLAIMS_DECLARED_SELFTEST: PASS (8 cases)
+  Expectation: pass 8 cases -> MATCH.
+
+Measurement (b) fixtures A/B/C (fixture section copied verbatim from plans/round-45-c1.sh; frozen counter not modified):
+  Command: sh fixtures-c1.sh (fx/post + A/B/C definitions copied from plans/round-45-c1.sh; gate run via `(cd /home/vgpnk/Projects/shokunin/kagi-shokunin && sh "$GATE" --root "$A"/"$B"/"$C")` matching the counter's run_gate)
+  A output:
+    MISMATCH 90 C2 no-manifest-row
+    CLAIMS_DECLARED: MISMATCH (claims=1 mismatch=1)
+    rc: A rc=1
+  B output:
+    MISMATCH 90 C1 no-manifest-row
+    CLAIMS_DECLARED: MISMATCH (claims=1 mismatch=1)
+    rc: B rc=1
+  C output:
+    MISMATCH 90 C1 plan-heading-not-calibration
+    MISMATCH 90 C1 no-manifest-row
+    CLAIMS_DECLARED: MISMATCH (claims=1 mismatch=2)
+    rc: C rc=1
+  Expectation: A=1 B=1 C=1 -> MATCH (A=1 B=1 C=1). DETECTED=2 POSITIVE=1 REAL=CLEAN => value would be 2 under the frozen predicate (not computed by the lane counter here).
+
+Artifacts:
+  Patched script: .ufo/waves/round-45/build/K45ExecBijection/claims-declared.sh
+  Diff: .ufo/waves/round-45/build/K45ExecBijection/claims-declared.diff (diff -u against 307fb50d:corpus/claims-declared.sh, 55 lines, added block only)
+  Scratch: /fast/scratch/hyaku/kagi-r45/K45ExecBijection/tree (archive of 307fb50d + patched gate), fixtures fxA/fxB/fxC, fixtures-c1.sh
+
+Collisions/quarantine: N/A (no registry/knowledge writes; single-file candidate in scratch only; lane tree untouched).
+Risks: (1) New direction reads only numeric plans/round-*.md with post-move sections >=39; any non-numeric/extra plans ignored by design. (2) Heading regex `## C[0-9]+ — [a-z]+:` is deliberately identical in shape to the existing manifest-to-plan check (`## C<k> — <axis>` prefix); headings with other axis spellings stop counting in both directions consistently. (3) Fixture C now double-counts one claim (plan-heading-not-* plus no-manifest-row); still rc=1, frozen counter only checks rc==1, so no predicate change. (4) Empty/`IFS` handling verified against real tree (15 rows) and selftest (8 cases).
+Blockers: none.

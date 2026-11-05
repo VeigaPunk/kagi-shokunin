@@ -1,0 +1,30 @@
+=== (a) base ===
+CMD: python3 /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-45/build/K45ExecStampRW/stamp-drift.py /fast/scratch/hyaku/kagi-r45/K45ExecStampRW/base
+STAMP_DRIFT: rows=123 drift=0
+RC: 0
+LAST: STAMP_DRIFT: rows=123 drift=0
+---
+=== (b) LOG.md byte appended (root LOG.md, stamped path) ===
+CMD: python3 /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-45/build/K45ExecStampRW/stamp-drift.py /fast/scratch/hyaku/kagi-r45/K45ExecStampRW/altered-byte
+STAMP_DRIFT: rows=123 drift=1
+DRIFT LOG.md
+RC: 1
+LAST: DRIFT LOG.md
+---
+=== (c) stamps.tsv sha cell changed ===
+CMD: python3 /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-45/build/K45ExecStampRW/stamp-drift.py /fast/scratch/hyaku/kagi-r45/K45ExecStampRW/altered-sha
+STAMP_DRIFT: rows=123 drift=1
+DRIFT corpus/adjacency.tsv
+RC: 1
+LAST: DRIFT corpus/adjacency.tsv
+---
+=== optional claim-ledger verify (a) timeout 240s ===
+CMD: timeout 240 bash corpus/claim-ledger.sh verify (cwd=/fast/scratch/hyaku/kagi-r45/K45ExecStampRW/base)
+RC: 124
+LAST: FAIL R34-03 reason=exit-mismatch exit=1 want=0
+---
+=== optional claim-ledger verify (b) timeout 240s ===
+CMD: timeout 240 bash corpus/claim-ledger.sh verify (cwd=/fast/scratch/hyaku/kagi-r45/K45ExecStampRW/altered-byte)
+RC: 124
+LAST: FAIL R34-03 reason=exit-mismatch exit=1 want=0
+---

@@ -1,0 +1,14 @@
+=== RED WITNESS (final run, exact guard command) ===
+$ grep -oE '^ {0,3}\\|[[:space:]]*S[0-9]{3,}' $S/registry-witness.md | grep -oE 'S[0-9]+' | sort | comm -12 - staged-ids
+rc=0
+w1 extracted ids: 1 -> S052 
+w1 collisions lines: 1  content: S052 
+w1 NONEMPTY: yes
+
+=== negative control: column-zero-only pattern ===
+rc=0
+control extracted ids: 0 ; control collisions lines: 0
+
+=== W2: real registry copy + appended indented '  | S052 |' row ===
+rc=0
+w2 collisions lines: 51 ; NONEMPTY: yes

@@ -1672,3 +1672,16 @@ Candidate `0ad617a0c255a2141df8a9fa46bd6114be0bf75e` (landed); content revision 
 | depth | 9 → 9 | No mechanism claim this round. | `plans/round-44.md` |
 | coverage | 9 → 9 | Registry 98 → 99: one own-work row S099 (tier A, mined), no new knowledge entry, no frontier-to-core move; census `kagi ok`, rc 0, 99 rows. | `corpus/SOURCES.md` S099; `corpus/lessons/round-44.md` §Gate |
 | adjacency | 9 → 9 | Connector sweep: 46 hit-classes, overlap 4 (kake r91 for C2, tameshi r14 for C3 — fleet prior art, recorded, not claimed); the ownership partition is unchanged. | `R17-02`; `.ufo/waves/round-44/build/K44ConnOverlap.md` |
+
+## Round 45 — post-move (claims C1 calibration, C2 coverage)
+
+Candidate: the round-45 landing commit (recorded in the report; this section is written before the candidate's hash is known and names the content it measures). Claim BASE `0d0192f63eb5e49826d75af1e5293004dc691a18`; predeclaration `307fb50da825d6e6f2b5c7981c71556d35611142`; amendment A1 `c74ca51b9e867ac2d18e92664662f2115705c099` (pre-candidate, `plans/round-45.md` §Amendment A1). Frozen counters `plans/round-45-c1.sh`, `plans/round-45-c2.sh`. Measured receipts: `.ufo/waves/round-45/final/`.
+
+| Axis | Before → after | What moved | Evidence |
+|---|---|---|---|
+| calibration | 9 → 9 | [C1] `bash plans/round-45-c1.sh <candidate>` 0 → 2 (target 2): the claims-declared gate now reports a landed plan claim that has no manifest row. Fixtures A and B (planted omissions) each MISMATCH; fixture C (axis relabel) still MISMATCH; the real tree stays CLEAN (claims=15 at the BASE, 17 with rows 45 C1 and C2 once the post-move section exists). Ceiling named: rounds below 39 are out of scope; a plan with headings and no post-move section is not checked (round 46 audits round 45). | `plans/round-45-c1.sh`; `corpus/claims-declared.sh`; `corpus/claims-declared.tsv` rows 45 C1, 45 C2; `.ufo/waves/round-45/controls/c1-base.txt` (value 0); `corpus/lessons/round-45.md` §Claims |
+| coverage | 9 → 9 | [C2] `bash plans/round-45-c2.sh <candidate>` 0 → 3 (target 3): one knowledge entry on ISO/IEC 11770-3 edition status (`knowledge/iso-11770-3-edition-status.md`), three registry rows S100–S102 with located quotes against committed decoded bodies; census `kagi ok` rc 0. Ground the lane did not hold (`grep -l 11770 corpus/knowledge/*.md` was empty at BASE). Not frontier-to-core of a held surface: the scope boundary excludes key lifecycle management. | `plans/round-45-c2.sh`; `corpus/knowledge/iso-11770-3-edition-status.md`; `corpus/SOURCES.md` S100–S102; `corpus/quote-bodies.tsv`; `corpus/source-fetches.tsv`; `.ufo/waves/round-45/controls/capture-r45/` |
+| depth | 9 → 9 | No mechanism claim this round. | `plans/round-45.md` |
+| freshness | 9 → 9 | No freshness claim this round. Measured in passing: staged ISO catalogue claim "Cloudflare 403, could not be opened" is stale for a browser user agent (HTTP 200 on 2026-11-05); corrected in the entry's access note. | `corpus/knowledge/iso-11770-3-edition-status.md` §Access note |
+| operability | 9 → 9 | No operability claim this round. | `plans/round-45.md` |
+| adjacency | 9 → 9 | Connector sweep (K45Connector): no sibling gate binds plan headings to a manifest; ISO/IEC 11770-3 is held by no sibling lane entry (see the wave's connector report). | `.ufo/waves/round-45/build/K45Connector.md` |

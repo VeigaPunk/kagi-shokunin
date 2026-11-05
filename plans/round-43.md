@@ -206,6 +206,22 @@ in `measured-at.txt`): `c1-old-real.txt` (5), `c1-old-K1.txt` (0), `c1-old-K3.tx
 7. The old counter's mutants (`mut-m3-old`, `mut-m5-old`) are receipts, not committed instruments;
    a durable counter-mutation battery is later work if the fleet wants it.
 
+## Amendment A1 (predeclaration, before any candidate measurement)
+
+Found while measuring kill rule (e) before the wave: with base `6cc8850` and BOTH journals
+(round-40 and round-41) the landing check refuses — both journals carry migrations for the same six
+ids (R13-01, R21-02, R24-06, R31-02, R33-02, R34-03; round 41 migrated the same rows again), so the
+gate finds entries whose old/new values do not match the candidate (`REFUSED (violations=12)`, rc 1,
+measured at `5f3566c`; and base `6cc8850` + the round-40 journal alone also refuses,
+`REFUSED (violations=6)`, because the candidate's six rows carry the round-41 landing values).
+The plan text's `CLEAN (changed=6 journaled=6)` claim for that combined form was wrong.
+Kill rule (e) is corrected to the round-42 landing form, measured now:
+`bash corpus/expect-journal.sh --base-ledger <(git show 5142b52:corpus/claim-ledger.tsv)
+--ledger corpus/claim-ledger.tsv --journals <dir holding a copy of
+.ufo/waves/round-41/expectation-migrations.json>` → `EXPECT_JOURNAL: CLEAN (changed=6 journaled=6)`,
+rc 0, measured at `5f3566c` (the ledger is unchanged this round; the same command is kill rule C3
+(d)). Nothing else in this plan changes.
+
 ## Wave contract
 
 One v1 wave of the 10 seats above; every seat works in its own scratch sandbox at the predeclaration

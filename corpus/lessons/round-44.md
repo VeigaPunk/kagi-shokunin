@@ -33,6 +33,8 @@ Amendment A1 `c70bfb0b6db5c2df090034d63f9c38e935a1a786` (the wave's pre-measurem
 
 Fix proofs (each shown able to fail before it counted): M44-1 (`c3-pos` 2 → 3 after the path fix); M44-2 (`c3-badvia` 3 → 2); M44-3 (`c3-treedisp` 3 → 2); M44-4 (`base --help` rc 0 → rc 2 with receipts untouched); M44-5 (ambient gate override reads 0 → cleared at entry); M44-6 (`c3-extra-row` 3 → rc 2 structural refusal); M44-7 (`c2` unterminated fifth line 1 → 0); M44-8 (`gate-absent` 0 → rc 2); M44-9 (count 7 → 12 with the omission rows present).
 
+- **M44-10** (class: landing; stale pin). Round 43 changed three gate scripts (`corpus/prefreeze-control.sh`, `corpus/self-description-sweep.sh`, `corpus/surface-census.sh`, commit `542885e`) and did not re-pin their `corpus/stamps.tsv` rows; the stamp verdict was STALE at round-44 start. Captured-by: none. Fix: full-membership re-pin (123 rows, membership identical), old→new values in `.ufo/waves/round-44/controls/stamp-migration.txt` (QM14). Fix proof: the diff of the stamp registry lists exactly the seven changed rows; the three round-43 scripts are not changed by round 44.
+
 ## Frontier
 
 - **Calibration ground:** the round-43 C2 counter's two mutation survivors are now discriminated by a committed battery. The blanket conjunct is not discriminated by any frozen receipt (routed B1 below).
@@ -65,3 +67,14 @@ The latest file is `considerthese/2026-10-26.md`; proposals 1 and 3 remain unimp
 ## Adjacency
 
 Connector sweep `.ufo/waves/round-44/build/K44ConnOverlap.md`: 46 hit-classes over 20 sibling lanes — overlap 4, adjacent 37, none 5. The overlaps are the fleet prior art named under Frontier (kake r91 for C2; tameshi r14 for C3). No sibling implements a battery of counter-mutation negative fixtures or a receipt-corrections register with executed re-derivation at a pinned revision; the connector's proposed static recipe-validation move is recorded for a later round (Routed 1 lineage), not claimed here.
+
+
+## Measured (candidate `0ad617a0c255a2141df8a9fa46bd6114be0bf75e`)
+
+Measured by `bash plans/round-44-controls.sh final 0ad617a0c255a2141df8a9fa46bd6114be0bf75e` in a fresh clone of the candidate (`final/measured-at-final.txt`, `final/c1-real`, `c1-skipfix`, `c1-partial`, `c2-real`, `c3-real`); kill-rule receipts in `final/killrules-at-L.txt`.
+
+- C1 `plans/round-44-c1.sh` = **2** (target 2). Controls: `R44_SKIP_FIXTURES=1` = 0 (the M43-7 state); `R44_ONLY_FIXTURE=stale` = 1; BASE battery-absent = 0. Battery rc 0 at the candidate, not 2 (kill f clean). Instrument pin vs A1 rc 0 (kill d); gate pin vs `65f66e17` rc 0 (kill e).
+- C2 `plans/round-44-c2.sh` = **1** (target 1). Forged sha 0, forged revision 0 (kill b). Restore duty on the producing run: 0 dirty entries in `round-41/controls` and `round-42/controls` (kill c).
+- C3 `plans/round-44-c3.sh` = **3** (target 3). Full-register fixture 3, wrong-values fixture 1 (kill b); BASE no register 0.
+- Every frozen kill clause fired on none of its conditions. Named ceilings stand as stated in each claim's `Declared ceilings`, plus routed B1 (Routed 1).
+- Discernment reading for the non-author closure: the claim verdicts above are measured; their admission is the closure's ruling, not this lesson's.

@@ -1,0 +1,18 @@
+STAMP MIGRATION RECORD — round 44 (QM14: old and new values, motivating correction, observed checks)
+
+Command: bash corpus/claim-ledger.sh stamp $(cut -f1 corpus/stamps.tsv)   (full membership, 123 rows before and after; membership identical)
+Old values: the committed corpus/stamps.tsv at HEAD d54109d (before the round-44 stamp).
+New values: corpus/stamps.tsv at the round-44 landing revision (see the report's pointer).
+
+Changed rows (path, old sha256 prefix, new sha256 prefix, old lines/bytes, new lines/bytes, motivating change):
+  corpus/prefreeze-control.sh        2a0986d4e0bce5e2  6bef785cc6696f9f  340/15971  340/16024  round-43 C3 selftest-scratch patch (commit 542885e) — stamp was stale since 542885e
+  corpus/self-description-sweep.sh   45d8e4a2d0bbf152  27d609e938e93ee3  497/17637  497/17689  round-43 C3 selftest-scratch patch (commit 542885e) — stamp was stale since 542885e
+  corpus/surface-census.sh           1e697b0179547a86  d60652b2594af35d  887/44220  887/44250  round-43 C3 selftest-scratch patch (commit 542885e) — stamp was stale since 542885e
+  corpus/QUALITY.md                  9e4ffdc524561278  0437eed15245c7d2  218/38737  237/43747  round-44 QM50–QM54 appended
+  corpus/SOURCES.md                  17981a0efff12cda  eb4a2373b655d927  258/92005  259/92761  round-44 S099 row appended
+  LOG.md                             8823cd795b5e97f1  342b0c34823fa11d  1783/148801  1806/154272  round-44 entry appended
+  SCORECARD.md                       7d606e265f2ee251  8706207336e13bf1  1595/196478  1674/208236  round-44 pre-move and post-move blocks appended
+
+Observed checks: membership identical (cut -f1 diff rc 0); row count 123 = 123; every unchanged row keeps its old bytes (the `diff` lists only the seven rows above); the three round-43 scripts' bytes were not changed by this round (their git history: last commit 542885e).
+
+Defect class: the round-43 landing changed three gate scripts and did not re-pin their stamp rows; the stamp verdict was STALE at round-44 start. Captured-by: none (the round-43 closure did not run the stamp check). Fix: this re-pin, with the old→new record above; QM14 holds because the new values are the bytes the landing revision carries, and nothing was restamped to hide a drifted claim.

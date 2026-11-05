@@ -1,0 +1,9 @@
+# round-38 pre-freeze controls (frozen in plans/round-38.md; executed by corpus/prefreeze-control.sh before the freeze)
+# id	expect	command
+c1_nowork	0	bash "$BASE/plans/round-38-controls.sh" c1_nowork
+c1_positive_full	5	bash "$BASE/plans/round-38-controls.sh" c1_full
+c1_forge_quote	4	bash "$BASE/plans/round-38-controls.sh" c1_forge_quote
+c1_forge_bytes	4	bash "$BASE/plans/round-38-controls.sh" c1_forge_bytes
+c1_forge_registry	4	bash "$BASE/plans/round-38-controls.sh" c1_forge_registry
+c2_nowork	0	bash "$BASE/plans/round-38-controls.sh" c2_nowork
+c2_positive	3	bash "$BASE/plans/round-38-c2.sh"

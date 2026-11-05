@@ -11,7 +11,7 @@ high score is the calibration failure this file exists to prevent.
 
 ## Lane status
 
-lane-status: open — as-of:2026-11-03 — dispatch unblocked; 3 operator-routed reds (R25-02,R29-01,R29-02) stay red
+lane-status: open — as-of:2026-11-04 — dispatch unblocked; 3 operator-routed reds (R25-02,R29-01,R29-02) stay red
 
 One `lane-status:` line per the round-31 convention (mined from
 `considerthese/2026-10-26.md` proposal 2; the lesson carries the contract): a
@@ -698,7 +698,7 @@ landed in the round-21 correction commit (cited in `LOG.md`):
 | Capability | What it can now do | Evidence pointer | First-working round |
 |---|---|---|---|
 | op-only dotenv byte probe | run six generated plain-value dotenv classes through `op run --env-file` under `env -i` with scratch HOME/XDG and compare the child's bytes (hex) to literal expectations; no ref, account or handler involved | `bash corpus/op-ref-probe.sh --dotenv-bytes` (ledger `R21-01`; `knowledge/op-ref-consumption.md` §11) | 21 (first run in the round-20 attempt, unadmitted there) |
-| source registry + census gate | curate opened, scope-tiered sources with anchors, rejections and study paths, and machine-check the registry plus the entry ↔ source citation chain both ways | `bash corpus/sources-census.sh` (ledger `R21-02`), `--selftest` 59 cases (`R21-03`); `corpus/SOURCES.md` | 21 |
+| source registry + census gate | curate opened, scope-tiered sources with anchors, rejections and study paths, and machine-check the registry plus the entry ↔ source citation chain both ways | `bash corpus/sources-census.sh` (ledger `R21-02`), `--selftest` 70 cases (`R21-03`; the round-21 record said 59, measured stale by round 36 C1); `corpus/SOURCES.md` | 21 |
 | feature-bound typed credential review | adjudicate one caller-supplied typed claim against pinned product/feature/status/eligibility/anchor evidence; reject known false/bar-failing claims, keep unjudgeable inputs separate, accept bounded controls | measured code/data landing `4be5da3cac11a1db64c3e0a77246fd7f2bdee413`: selftest PASS cases=12, before rejects10/after admits4/boundary3 excluded; R22-01/R22-02; `kagi-shokunin/.ufo/waves/round-22/final-verification.json` (initial H1 demonstration retained separately) | 22 |
 | closure disposition review | turn a non-author closure's obligation ids into exactly one typed, pointer-resolving disposition each (fixed/reported/operator-owned/no-action/rejected); checks shape, id coverage and pointer presence in the working tree, not fix quality | `python3 corpus/closure-dispositions.py` (ledger `R23-02`), `--selftest` 14 cases (ledger `R24-02`, bound round 24); `corpus/closure-dispositions.json` | 23 |
 | release-clock observation | observe every on-release registry clock against its declared official release feed or capture quote and retain a dated receipt | `python3 corpus/release-clock.py --observe <receipt>`; R25-03/R25-04; `.ufo/waves/round-25/observe-1.json` | 25 |
@@ -1381,3 +1381,31 @@ Frozen BASE `063c407494276d0c616e6c712a2e5d7aeb7e3768`; executed predeclaration 
 R25-02 FAIL and R29-01/R29-02 POLICY remain routed; non-owned SD6 history is preserved. Current capability description is corrected, but that correction does not change the frozen counter population. No capability acquisition, retirement or promotion is asserted. Final committed-tree measurement is appended after execution; candidate receipts above are not represented as that later run.
 
 Measured outcome: at committed `f8413db121da2203532d10f55bb76d79fa26f56f`, the frozen command prints `MEASUREMENT_RESULT mismatches=0 invalid_false_clean=0 positive_matches=2 cases=9`, exit0 (`.ufo/waves/round-35/final/frozen-counter.json`). This is the measured 5→0 gate-decision error result, not calibration-axis admission. Selftest PASS25 exit0; complete canonical final verdicts checked independently for all9 saved cases (`final/whole-receipt-review.json`). C1 remains not admitted on axis fit; all six scores remain9→9. Lane census CLEAN88/sourced14/legacy21/captures88; docs CLEAN35/32/3; fleet census exit0. Overall verify/cells/self-counts remain POLICY2 with the disclosed inherited reds and missing-id history. Final report names the pushed evidence-carrying tip; no whole-ledger clean claim is made.
+
+## Round 36 — pre-move (repo HEAD cb8cb65, round-35 close)
+
+Frozen BASE `cb8cb659e84240a8db12e4f7b4a0def5068baf7e` (frozen counters and executed predeclaration controls); frozen plan and claims `09f27e2e16c26484b2675aa2a2b1e2ca4d3d1d8d`, committed before any round-36 candidate scoring (`plans/round-36.md`). Every axis stood at 9 at the round-35 close; this table is the reference line the round's two claims are measured against, and no value in it is a round-36 measurement.
+
+| Axis | Score | Evidence pointer | Last change |
+|---|---|---|---|
+| depth | 9 | Unchanged from round 29: the release-clock extraction contract, the feed-token agreement invariant and the refusal bounds. Row `R29-01`. | round 29 |
+| coverage | 9 | Unchanged: 88 registry rows, lane census green at BASE (row `R21-02`). | round 35 |
+| operability | 9 | Unchanged: nine gate mode-sets with verdicts and selftests; nothing schedules any gate. | round 35 |
+| freshness | 9 | Unchanged as a score. Measured BASE gap: `bash plans/round-36-c2.sh` reads 15 — 15 of the 20 `clock=feed` rows disagree with the committed 2026-11-04 observation receipt `.ufo/waves/round-36/controls/observe-live.json`. | round 35 |
+| calibration | 9 | Unchanged as a score. Measured BASE gap: `bash plans/round-36-c1.sh` reads 4 — the three routed reds named on this file's `lane-status:` line are absent from the last round's calibration row, plus one stale capability-table count. | round 35 |
+| adjacency | 9 | Unchanged: ownership partition gate green (row `R17-02`). | round 35 |
+
+## Round 36 — post-move (claims C1 calibration, C2 freshness)
+
+Measured commands, raw outputs and exits: `.ufo/waves/round-36/`. The frozen predicates, counters, kill rules and targets are `plans/round-36.md` §C1/§C2 and are not amended after data. Scores stay 9 → 9: a claim move adds no new score, so the rows record what moved and which reds remain.
+
+| Axis | Before → after | What moved | Evidence |
+|---|---|---|---|
+| calibration | 9 → 9 | C1 `bash plans/round-36-c1.sh` 4 → 0: this round's calibration row names the three routed reds with their state, and the capability-table census count was corrected to the live 70. The routed reds are unchanged and stay operator-owned: R25-02 (FAIL, self-count binding blocked by the gate policy), R29-01 (RED, operator-owned `PYTHON_SCRIPT_RE` registration) and R29-02 (RED, same registration). | Rows `R36-01`, `R21-03`; receipts `.ufo/waves/round-36/final/` |
+| freshness | 9 → 9 | C2 `bash plans/round-36-c2.sh` 15 → 0: the fifteen drifting `clock=feed` rows take the 2026-11-04 receipt's observed version, date and verdict, all thirty bound rows are re-dated to that observation, and the round-36 receipt becomes the gate's default pin. | Rows `R36-02`, `R36-03` |
+| operability | 9 → 9 | `bash plans/round-36-c3.sh` prints `RELEASE_CLOCK: CLEAN` against the repointed default receipt; the three selftests re-run green. No scheduler added. | Row `R36-03` |
+| depth | 9 → 9 | No new mechanism claim: the round re-observes declared clocks and re-binds a self-assessment population. | Rows `R36-01`, `R36-02` |
+| coverage | 9 → 9 | No registry row appended, no new entry, no frontier-to-core move; the four cited rows' recheck dates move 2026-10-21 → 2026-11-04. | `R21-02`; `corpus/SOURCES.md` |
+| adjacency | 9 → 9 | The connector sweep over the sibling lanes is the sole-ground check for the four cited feeds; ownership partition unchanged. | Row `R17-02`; `.ufo/waves/round-36/build/ConnScope/ConnOverlap.md` |
+
+Measured revision, exact exits and receipts are in the round report; no unrun result is stated here.

@@ -72,6 +72,8 @@ Assimilation: none this round (the quarantine above adopts nothing; `considerthe
 
 Pending outside closure. This lesson's Gate is lane-authored. Dispatched seats are lane evidence, not outside agreement (LEARNING.md discernment rule).
 
+Outside closure located: `corpus/lessons/round-37-verifier-spotcheck.md` (non-author integrator, 2026-11-05; C2 verified, discernment improved; routed R37-V1..V5). Round 38 answers R37-V1 (erratum), V3 (C1 gate), V5 (this line) and M37-2 (C2); V2 is answered by measurement in `corpus/lessons/round-38.md` §Routed item R37-V2; V4 is routed to round 39.
+
 ## Wave settlement
 
 One v1 wave, `build`, 10 seats, all settled with output (`.ufo/waves/round-37/build-results.json`; none dead). Roles: executor 3 (K37ExecRows, K37ExecCounter, K37ExecEvidence), scribe 1 (K37ScribeDocs), scout 1 (K37ScoutRegistry), connector 1 (K37ConnFeeds), reviewer 2 (K37ReviewFresh, K37ReviewCounter), critic 1 (K37CriticClaim), mutation-tester 1 (K37MutCounter). Attack seats 4/10 = 40 %. The planner seat stayed with the L1 (deviation recorded at plan freeze, as in round 33).

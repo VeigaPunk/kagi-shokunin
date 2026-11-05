@@ -1,0 +1,40 @@
+{
+  "round": 38,
+  "lane": "kagi",
+  "date": "2026-11-05",
+  "reason": "S092 and S093 appended to corpus/SOURCES.md (tier A, mined; captures appended to corpus/source-fetches.tsv); the live census count expectations move with them. Frozen claim targets are not amended: C1 target 5 and C2 target 3 are in plans/round-38.md and the controls file.",
+  "migrations": [
+    {
+      "ledger_row": "R21-02",
+      "old": "^SOURCES_CENSUS: CLEAN \\(rows=91 A=87 B=2 C=2 queued=1 mined=87 rejected=3 entries_sourced=14 legacy=21 captures=91 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+      "new": "^SOURCES_CENSUS: CLEAN \\(rows=93 A=89 B=2 C=2 queued=1 mined=89 rejected=3 entries_sourced=14 legacy=21 captures=93 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+      "observed_at_candidate": "bash corpus/sources-census.sh -> SOURCES_CENSUS: CLEAN (rows=93 A=89 B=2 C=2 queued=1 mined=89 rejected=3 entries_sourced=14 legacy=21 captures=93 inrow=16 inrow_only=0 inrow_nonreproducing=12), exit 0"
+    },
+    {
+      "ledger_row": "R31-02",
+      "old": "^SOURCES_CENSUS: CLEAN \\(rows=91 A=87 B=2 C=2 queued=1 mined=87 rejected=3 entries_sourced=14 legacy=21 captures=91 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+      "new": "^SOURCES_CENSUS: CLEAN \\(rows=93 A=89 B=2 C=2 queued=1 mined=89 rejected=3 entries_sourced=14 legacy=21 captures=93 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+      "observed_at_candidate": "same census line as R21-02"
+    },
+    {
+      "ledger_row": "R33-02",
+      "old": "^SOURCES_CENSUS: CLEAN \\(rows=91 A=87 B=2 C=2 queued=1 mined=87 rejected=3 entries_sourced=14 legacy=21 captures=91 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+      "new": "^SOURCES_CENSUS: CLEAN \\(rows=93 A=89 B=2 C=2 queued=1 mined=89 rejected=3 entries_sourced=14 legacy=21 captures=93 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+      "observed_at_candidate": "same census line as R21-02"
+    },
+    {
+      "ledger_row": "R34-03",
+      "old": "^SOURCES_CENSUS: CLEAN \\(rows=91 A=87 B=2 C=2 queued=1 mined=87 rejected=3 entries_sourced=14 legacy=21 captures=91 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+      "new": "^SOURCES_CENSUS: CLEAN \\(rows=93 A=89 B=2 C=2 queued=1 mined=89 rejected=3 entries_sourced=14 legacy=21 captures=93 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+      "observed_at_candidate": "same census line as R21-02; the frozen C3 target (rows88/sourced14) is unchanged"
+    },
+    {
+      "ledger_row": "R21-04",
+      "old": "^82$",
+      "new": "^86$",
+      "observed_at_candidate": "grep -cE '^R[0-9]+-[0-9]+' corpus/claim-ledger.tsv -> 86 (R38-01..R38-04 appended)"
+    }
+  ],
+  "appended_rows": ["R38-01", "R38-02", "R38-03", "R38-04"],
+  "fleet_census": "scripts/sources-census.sh validate --root /home/vgpnk/Projects/shokunin kagi -> exit 0, kagi ok (W04 duplicate-URL warnings are cross-scope warnings, no E-finding)"
+}

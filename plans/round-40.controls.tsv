@@ -1,0 +1,12 @@
+# round-40 pre-freeze controls (frozen in plans/round-40.md; executed by corpus/prefreeze-control.sh
+# before the freeze; c1_nowork re-runs the ledger and takes about five minutes)
+# id	expect	command
+c1_nowork	6	bash "$BASE/plans/round-40-controls.sh" c1_nowork
+c1_mutant_const	0	bash "$BASE/plans/round-40-controls.sh" c1_mutant_const
+c2_nowork	0	bash "$BASE/plans/round-40-controls.sh" c2_nowork
+c2_positive_pin	1	bash "$BASE/plans/round-40-controls.sh" c2_positive_pin
+c2_forge_rows	1	bash "$BASE/plans/round-40-controls.sh" c2_forge_rows
+c3_nowork	0	bash "$BASE/plans/round-40-controls.sh" c3_nowork
+c3_selftest_anchor	8	bash "$BASE/plans/round-40-controls.sh" c3_selftest_anchor
+c3_selftest_claims	8	bash "$BASE/plans/round-40-controls.sh" c3_selftest_claims
+c3_forge_missing_gate	0	bash "$BASE/plans/round-40-controls.sh" c3_forge_missing_gate

@@ -1,0 +1,6 @@
+# round-39 pre-freeze controls (frozen in plans/round-39.md; executed by corpus/prefreeze-control.sh before the freeze)
+# id	expect	command
+c1_nowork	0	bash "$BASE/plans/round-39-controls.sh" c1_nowork
+c1_positive_three	3	bash "$BASE/plans/round-39-c1.sh"
+c2_nowork	0	bash "$BASE/plans/round-39-controls.sh" c2_nowork
+c2_positive_three	3	bash "$BASE/plans/round-39-c2.sh"

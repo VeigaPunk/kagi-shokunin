@@ -11,6 +11,9 @@
 #   registry and fetch rows), AND D equals 1. Otherwise N = 0.
 #   Amendment A1 (predeclaration, before any candidate commit): the frozen counter source is 5142b52,
 #   not the candidate's copy; a candidate edit to plans/round-41-c2.sh cannot move D or N.
+#   Amendment A2 (predeclaration, before any candidate measurement, after the critic's no-op attack):
+#   the clone's receipt is deleted before the runner runs and the runner's exit status must be 0; a
+#   do-nothing runner therefore reads 0, not 1 from the committed receipt. Predicate, target and D are unchanged.
 #   The claim-BASE reading (committed runner e8265c0, which measures the worktree) is 0: it writes 3.
 #
 # Ceiling (named in plans/round-42.md): a runner that writes the constant 1 passes; the counter
@@ -38,9 +41,12 @@ D=$(cd "$SCR/base" && bash plans/round-41-c2.sh 2>/dev/null | tail -1)
 case $D in ''|*[!0-9]*) echo "counter-refused: derivation" >&2; exit 2 ;; esac
 
 # R: the candidate's committed runner, executed in the clone (writes receipts there only).
-(cd "$SCR/clone" && bash plans/round-41-controls.sh >/dev/null 2>&1)
+# Amendment A2: the committed receipt is deleted in the clone first, so a runner that writes nothing
+# leaves no receipt to read; the runner's exit status must be 0.
 RCPT=$SCR/clone/.ufo/waves/round-41/controls/c2-base-19025d9.txt
-R=$( [ -r "$RCPT" ] && tail -1 "$RCPT" || true )
+rm -f -- "$RCPT" || { echo "counter-refused: receipt" >&2; exit 2; }
+(cd "$SCR/clone" && bash plans/round-41-controls.sh >/dev/null 2>&1); RUNNER_RC=$?
+R=$( [ "$RUNNER_RC" = 0 ] && [ -r "$RCPT" ] && tail -1 "$RCPT" || true )
 
 if [ "$D" = 1 ] && [ "$R" = "$D" ]; then
   echo 1

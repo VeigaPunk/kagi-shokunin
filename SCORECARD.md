@@ -1590,6 +1590,6 @@ Measured commands and receipts: `.ufo/waves/round-42/`. The frozen predicates, c
 | depth | 9 → 9 | No mechanism claim. | `plans/round-42.md` |
 | coverage | 9 → 9 | No registry row added or changed; S094 re-opened as an existing row. Census `kagi ok`, 98 rows. | `R21-02`; `corpus/SOURCES.md` |
 | operability | 9 → 9 | The gate's selftest gains a case (7 → 8) and the controls runner's C2 BASE line is re-derivable; nothing schedules either. | `corpus/expect-journal.sh --selftest`; `plans/round-41-controls.sh` |
-| adjacency | 9 → 9 | Connector sweep over 20 sibling lanes: no sibling implements a ledger-deletion refusal or a receipt re-derivation (`.ufo/waves/round-42/build/K42ConnOverlap/ConnOverlap.md`). | `R17-02`; `.ufo/waves/round-42/build/K42ConnOverlap/ConnOverlap.md` |
+| adjacency | 9 → 9 | Connector sweep over 20 sibling lanes: no sibling implements a ledger-deletion refusal (`REFUSE DELETED <ID>`: 0 hits). Overlap, recorded: kake r91 implements a revision-pinned controls replay with an enforcing counter, the same defect class as C2 (fleet prior art, not claimed as kagi's); lore r96–r98 and kasegi r42 J12 hold the C1 rationale. Lineage in `corpus/lessons/round-42.md` §Adjacency. | `R17-02`; `.ufo/waves/round-42/build/K42ConnOverlap/ConnOverlap.md` |
 
 Measured revision, exact exits and receipts are in the round report; no unrun result is stated here.

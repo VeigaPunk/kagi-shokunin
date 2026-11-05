@@ -190,6 +190,15 @@ HOLD") remain unimplemented. Measured at `e8265c0`: `grep -c 'KNOWN_DEFECT' corp
 and the lane holds no HOLD-release mechanism. **Not taken this round — reason:** no separable claim slot;
 both need a new predicate, and proposal 1 is operator policy.
 
+## Adjacency (connector sweep; recorded at the round-42 close, not claimed)
+
+The connector seat swept 20 sibling lanes (`.ufo/waves/round-42/build/K42ConnOverlap/ConnOverlap.md`; 3 overlap, 54 adjacent, 27 none by file-level tally). Measured results, stated without novelty claims:
+
+- **C1 (deletion refusal).** No sibling gate refuses a base-ledger id absent from its candidate (`REFUSE DELETED <ID>`: 0 hits). The C1 rationale — a deleted row is in neither population of a change-only gate — is present in other lanes' work: lore r96–r98 (a frozen-inventory pin catches fully self-consistent deletions) and kasegi r42 J12 (deleted-versus-pinned-digest refusal, fail closed on the wrong base). C1's object (the claim ledger and its expectation journal) is kagi-local; the lineage is recorded here, and nothing is absorbed.
+- **C2 (pinned-revision receipt).** kake r90→r91 is fleet prior art for the same defect class: a committed runner that read the live lane tree, closed by a committed counter that refuses unless the runner replays at the revision it names, with a committed replay receipt. kagi's C2 counter is a one-shot frozen predicate; kake's is the durable form. The connector's routed item for round 43 is a kake-style permanent gate for kagi (`plans/round-41-controls.sh` replays green at the revision it names), so the property survives after round 42 closes. Souji r18 states the same fleet principle ("resolve at `--rev`, never the worktree"); this round's runner conforms to it and contradicts no sibling.
+- **Risk recorded.** Sibling paths are mutable across rounds (kasegi r42 and revenger r93 were live during the scan); the citations above name the lane and round, and a later round must re-verify them at its own integration.
+
+
 ## Assimilation
 
 None this round. The round claims no new registry row and no knowledge entry; the sourced action is the

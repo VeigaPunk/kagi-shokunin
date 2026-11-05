@@ -1,0 +1,39 @@
+# Receipt: the four C3 control modes at the predeclaration (seat K40ExecGates, 2026-11-05)
+
+Extraction (lane untouched; `git archive` of the frozen predeclaration commit
+f687504767ce9ed56b848dfde83e03a1ec6cedd3, exit 0):
+
+    S=/fast/scratch/hyaku/kagi-r40/K40ExecGates/predec
+    mkdir -p "$S"
+    git -C /home/vgpnk/Projects/shokunin/kagi-shokunin archive f687504767ce9ed56b848dfde83e03a1ec6cedd3 | tar -x -C "$S"
+
+Extraction sanity: plans/round-40-c3.sh, plans/round-40-controls.sh,
+corpus/anchor-pins.sh, corpus/claims-declared.sh, SKILL.md all present.
+Pre-check: no row of the predec SKILL.md `## Gate registry` table names
+`corpus/anchor-pins.sh` or `corpus/claims-declared.sh` (awk filter → 0 rows),
+i.e. the no-work precondition holds.
+
+Control run (each mode copies the extraction to a fresh mktemp dir under
+HYAKU_SCRATCH/kagi-r40, mutates only that copy, and prints ONE integer):
+
+    export BASE=/fast/scratch/hyaku/kagi-r40/K40ExecGates/predec
+    export HYAKU_SCRATCH=/fast/scratch/hyaku/kagi-r40/K40ExecGates
+    bash "$BASE/plans/round-40-controls.sh" <MODE>
+
+Observed (all four modes; script exit code 0 in every case):
+
+| MODE                 | stdout | exit | frozen expectation | verdict     |
+|----------------------|--------|------|--------------------|-------------|
+| c3_nowork            | 0      | 0    | 0                  | REPRODUCED  |
+| c3_selftest_anchor   | 8      | 0    | 8                  | REPRODUCED  |
+| c3_selftest_claims   | 8      | 0    | 8                  | REPRODUCED  |
+| c3_forge_missing_gate| 0      | 0    | 0                  | REPRODUCED  |
+
+c3_forge_missing_gate semantics (mode source): forges SKILL.md registry rows
+for both gates and deletes corpus/anchor-pins.sh in the scratch copy; the
+counter must refuse (exit 2, `counter-refused: corpus/anchor-pins.sh missing
+though registered`), which the mode reports as 0 (a refusal observed as
+non-zero exit → echo 0). Output 1 would mean the forged row counted.
+
+The scratch copy tree was removed after receipts were written; nothing in the
+lane, the predec extraction source, or any production tree was mutated.

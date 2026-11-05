@@ -1,0 +1,83 @@
+== P-window: real gate on fixture (tag only in round-89 section)
+MISMATCH 90 C1 tagged-rows-0
+CLAIMS_DECLARED: MISMATCH (claims=1 mismatch=1)
+rc=1
+== P-window: cd-nowindow mutant on same fixture
+CLAIMS_DECLARED: CLEAN (claims=1)
+rc=0
+== P-window: candidate SCORECARD tag lines for C1 (to explain real-tree false red)
+28:## Round 9 — pre-move (repo `HEAD` `ea77bf0`, round-8 close)
+39:## Round 9 — post-move (freshness axis-move landed, commit `round-9`)
+50:## Round 10 — pre-move (repo `HEAD` `e64e81b`, round-9 close)
+61:## Round 10 — post-move (coverage axis-move landed, commit `round-10`)
+72:## Round 11 — pre-move (repo `HEAD` `03477c0`, round-10 close)
+83:## Round 11 — post-move (calibration axis-move landed, commit `round-11`)
+94:## Round 12 — pre-move (repo `HEAD` `301b9ec`, round-11 close)
+105:## Round 12 — post-move (depth axis-move landed, commit `round-12`)
+116:## Round 13 — pre-move (repo `HEAD` `4391b3b` + the uncommitted round-12 set; script stamped `1efb8b6d…`)
+127:## Round 13 — post-move (calibration axis-move landed, commit `round-13`)
+194:## Round 14 — pre-move (repo `HEAD` `4b8c018`, round-13 close)
+205:## Round 14 — post-move (freshness axis-move landed, commit `round-14`)
+216:## Round 15 — pre-move (repo `HEAD` `2486643`, round-14 close)
+227:## Round 15 — post-move (operability axis-move landed, commit `round-15`)
+238:## Round 16 — pre-move (repo `HEAD` `587fda0`, round-15 close)
+249:## Round 16 — post-move (adjacency axis-move landed, commit `round-16`)
+302:## Round 17 — pre-move (repo `HEAD` `8a6ec16`, round-16 close)
+313:## Round 17 — post-move (coverage axis-move landed, commit `round-17`)
+323:## Round 18 — pre-move (repo `HEAD` `4e48b77`, round-17 close + HOURS.md revert)
+334:## Round 18 — post-move (re-census landed; substrate-deferral mechanism, commit `round-18`)
+474:## Round-19 correction (appended 2026-10-14) — the describe-don't-pin claim was too strong
+574:## Round 20 — interactive attempt; blocked, not completed (2026-10-15)
+631:## Round 21 — pre-move (repo `HEAD` `aea7a43`, round-20 attempt close)
+649:## Round 21 — post-move (three claims, commit `round-21`)
+679:## Round-21 correction (post-landing review of `c41af82`)
+720:## Round 22 — pre-move (master `c2cab35bc92e57e39e5489bac3386db078345b3f`)
+751:## Round 22 — post-move (integration candidate; execution evidence follows)
+850:## Round 23 — pre-move (repo HEAD `d218603`, round-22 close)
+861:## Round 23 — post-move (claims C1/C2/C3; measured candidate, falsification follows)
+890:## Round 24 — pre-move (repo HEAD `4f94b52`, round-23 close)
+901:## Round 24 — post-move (claims C1/C2/C3; measured candidate, falsification follows)
+974:## Round 25 — pre-move (repo HEAD `4587c61`, round-24 close)
+985:## Round 25 — post-move (claims C1/C2/C3; measured, falsification follows)
+1041:## Round 26 — post-move (bounded release-drift response)
+1105:## Round 27 — post-move (knowledge numbers bound; release clocks refuse silent regression)
+1133:## Round 28 — post-move (canonical version tokens; derived anchors bound to feed rows)
+1204:## Round 29 — post-move (feed-token right boundary; differential agreement gate on the new host)
+1262:## Round 30 — post-move (routed-defect closure D1–D5, EOL repair, secret-scanning adoption)
+1277:## Round 31 — pre-move (repo `HEAD` `655e620`, round-30 close + verifier spot-checks)
+1288:## Round 31 — post-move (calibration + coverage axis-moves; C1 cell-audit re-arm, C2 OIDC adoption)
+1301:## Round 32 — pre-move (repo HEAD 32c35fe, round-31 close)
+1314:## Round 32 — post-move (self-description sweep and byte-evidence recheck)
+1329:## Round 33 — pre-move (repo HEAD 76f4eea, round-32 close)
+1342:## Round 33 — post-move (claims C1 capability, C2 coverage)
+1357:## Round 34 — post-move (bounded checks and executed evidence)
+1374:## Round 35 — post-move (producer-result integrity; calibration admission withheld)
+1391:## Round 36 — pre-move (repo HEAD cb8cb65, round-35 close)
+1404:## Round 36 — post-move (claims C1 calibration, C2 freshness)
+1419:## Round 37 — pre-move
+1432:## Round 37 — post-move (claim C2 freshness)
+1445:## Round 38 — pre-move (repo HEAD a916f4a, round-37 close)
+1458:## Round 38 — post-move (claims C1 freshness, C2 operability as measured)
+1473:## Round 39 — pre-move (repo HEAD 0614451, round-38 close)
+1486:## Round 39 — post-move (claims C1 freshness, C2 calibration)
+1492:| freshness | 9 → 9 | [C1] Anchor-pin gate `corpus/anchor-pins.sh` binds the anchor cells of the three superseded
+1501:## Round 40 — pre-move (repo HEAD 6cc8850, round-39 close)
+1514:## Round 40 — post-move (claims C1 calibration, C2 freshness, C3 operability)
+1520:| calibration | 9 → 9 | [C1] `bash plans/round-40-c1.sh` 6 → 0: the six routed debt rows re-run green at the la
+== P-sha: tampered S095.body (1 byte appended, sha no longer matches fetch row)
+real C2:
+2
+rc=0
+c2-nosha mutant C2:
+3
+rc=0
+c2-noquote mutant C2 (sha check intact):
+2
+rc=0
+== P-c3: anchor-pins gate replaced by constant-CLEAN mutant (its selftest fails)
+real C3:
+1
+rc=0
+c3-noselftest mutant C3:
+2
+rc=0

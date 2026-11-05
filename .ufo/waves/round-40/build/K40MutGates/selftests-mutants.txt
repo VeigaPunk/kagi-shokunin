@@ -1,0 +1,53 @@
+== ap-nodup --selftest
+rc=1
+SELFTEST-FAIL dup-row rc=0 out=ANCHOR_PINS: CLEAN (pins=3)
+ANCHOR_PINS_SELFTEST: FAIL (passed=7/8)
+== ap-noshape --selftest
+rc=1
+SELFTEST-FAIL tab-indent rc=0 out=ANCHOR_PINS: CLEAN (pins=3)
+ANCHOR_PINS_SELFTEST: FAIL (passed=7/8)
+== ap-noschema --selftest
+rc=1
+SELFTEST-FAIL extra-cell rc=0 out=ANCHOR_PINS: CLEAN (pins=3)
+ANCHOR_PINS_SELFTEST: FAIL (passed=7/8)
+== ap-nonewline --selftest
+rc=1
+SELFTEST-FAIL no-final-newline rc=0 out=ANCHOR_PINS: CLEAN (pins=2)
+ANCHOR_PINS_SELFTEST: FAIL (passed=7/8)
+== ap-const-clean --selftest
+rc=1
+SELFTEST-FAIL clean rc=0 out=ANCHOR_PINS: CLEAN (pins=4)
+SELFTEST-FAIL drift-rewrite rc=0 out=ANCHOR_PINS: CLEAN (pins=4)
+SELFTEST-FAIL dup-row rc=0 out=ANCHOR_PINS: CLEAN (pins=4)
+SELFTEST-FAIL tab-indent rc=0 out=ANCHOR_PINS: CLEAN (pins=4)
+SELFTEST-FAIL extra-cell rc=0 out=ANCHOR_PINS: CLEAN (pins=4)
+SELFTEST-FAIL no-final-newline rc=0 out=ANCHOR_PINS: CLEAN (pins=4)
+SELFTEST-FAIL row-missing rc=0 out=ANCHOR_PINS: CLEAN (pins=4)
+SELFTEST-FAIL constant-mutant real=0 mutant=0
+ANCHOR_PINS_SELFTEST: FAIL (passed=0/8)
+== cd-nodup --selftest
+rc=1
+SELFTEST-FAIL dup-row rc=0 out=CLAIMS_DECLARED: CLEAN (claims=3)
+CLAIMS_DECLARED_SELFTEST: FAIL (passed=7/8)
+== cd-nofence --selftest
+rc=1
+SELFTEST-FAIL fence-heading rc=0 out=CLAIMS_DECLARED: CLEAN (claims=2)
+CLAIMS_DECLARED_SELFTEST: FAIL (passed=7/8)
+== cd-nowindow --selftest
+rc=0
+CLAIMS_DECLARED_SELFTEST: PASS (8 cases)
+== cd-padded --selftest
+rc=1
+SELFTEST-FAIL padded-cell rc=0 out=CLAIMS_DECLARED: CLEAN (claims=2)
+CLAIMS_DECLARED_SELFTEST: FAIL (passed=7/8)
+== cd-const-clean --selftest
+rc=1
+SELFTEST-FAIL clean rc=0 out=CLAIMS_DECLARED: CLEAN (claims=5)
+SELFTEST-FAIL dup-row rc=0 out=CLAIMS_DECLARED: CLEAN (claims=5)
+SELFTEST-FAIL fence-heading rc=0 out=CLAIMS_DECLARED: CLEAN (claims=5)
+SELFTEST-FAIL cross-section rc=0 out=CLAIMS_DECLARED: CLEAN (claims=5)
+SELFTEST-FAIL padded-cell rc=0 out=CLAIMS_DECLARED: CLEAN (claims=5)
+SELFTEST-FAIL missing-tag rc=0 out=CLAIMS_DECLARED: CLEAN (claims=5)
+SELFTEST-FAIL duplicate-tag rc=0 out=CLAIMS_DECLARED: CLEAN (claims=5)
+SELFTEST-FAIL constant-mutant real=0 mutant=0
+CLAIMS_DECLARED_SELFTEST: FAIL (passed=0/8)

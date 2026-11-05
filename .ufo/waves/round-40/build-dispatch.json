@@ -1,0 +1,213 @@
+{
+  "schema": "ufo-swarm-wave-dispatch-v1",
+  "wave": "kagi-r40-build",
+  "policy": {
+    "source": "config",
+    "maxLanes": 256,
+    "minLanes": 8,
+    "waveMinLanes": 8,
+    "waveMaxLanes": 16,
+    "declaredMaxLanes": null,
+    "hardCeiling": 256,
+    "rampBatchSize": 5,
+    "rampIntervalMs": 700,
+    "globalRunnerCeiling": 1056
+  },
+  "counts": {
+    "spawn": 10,
+    "resume": 0,
+    "total": 10
+  },
+  "registry": {
+    "schema": "ufo-swarm-registry-v1",
+    "path": ".ufo/waves/round-40/build/swarm-registry.json",
+    "reportDir": ".ufo/waves/round-40/build",
+    "members": {
+      "K40ExecLedger": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": null,
+        "axes": [
+          "freshness",
+          "calibration",
+          "operability"
+        ],
+        "milestone": "Frozen C1/C2/C3 counters reproduced or falsified at the candidate; every surviving defect recorded"
+      },
+      "K40ExecCurrency": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": null,
+        "axes": [
+          "freshness",
+          "calibration",
+          "operability"
+        ],
+        "milestone": "Frozen C1/C2/C3 counters reproduced or falsified at the candidate; every surviving defect recorded"
+      },
+      "K40ExecGates": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": null,
+        "axes": [
+          "freshness",
+          "calibration",
+          "operability"
+        ],
+        "milestone": "Frozen C1/C2/C3 counters reproduced or falsified at the candidate; every surviving defect recorded"
+      },
+      "K40ScoutDocs": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scout",
+        "item": null,
+        "axes": [
+          "freshness",
+          "calibration",
+          "operability"
+        ],
+        "milestone": "Frozen C1/C2/C3 counters reproduced or falsified at the candidate; every surviving defect recorded"
+      },
+      "K40ScribeLesson": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scribe",
+        "item": null,
+        "axes": [
+          "freshness",
+          "calibration",
+          "operability"
+        ],
+        "milestone": "Frozen C1/C2/C3 counters reproduced or falsified at the candidate; every surviving defect recorded"
+      },
+      "K40ConnOverlap": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "connector",
+        "item": null,
+        "axes": [
+          "freshness",
+          "calibration",
+          "operability"
+        ],
+        "milestone": "Frozen C1/C2/C3 counters reproduced or falsified at the candidate; every surviving defect recorded"
+      },
+      "K40ReviewLedger": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "freshness",
+          "calibration",
+          "operability"
+        ],
+        "milestone": "Frozen C1/C2/C3 counters reproduced or falsified at the candidate; every surviving defect recorded"
+      },
+      "K40ReviewGates": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "freshness",
+          "calibration",
+          "operability"
+        ],
+        "milestone": "Frozen C1/C2/C3 counters reproduced or falsified at the candidate; every surviving defect recorded"
+      },
+      "K40CriticClaims": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "critic",
+        "item": null,
+        "axes": [
+          "freshness",
+          "calibration",
+          "operability"
+        ],
+        "milestone": "Frozen C1/C2/C3 counters reproduced or falsified at the candidate; every surviving defect recorded"
+      },
+      "K40MutGates": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "mutation-tester",
+        "item": null,
+        "axes": [
+          "freshness",
+          "calibration",
+          "operability"
+        ],
+        "milestone": "Frozen C1/C2/C3 counters reproduced or falsified at the candidate; every surviving defect recorded"
+      }
+    }
+  },
+  "compaction": {
+    "applied": false,
+    "mechanism": null,
+    "reason": null,
+    "savedBytes": 0,
+    "payloadBytesBefore": 0,
+    "payloadBytesAfter": 0
+  },
+  "taskCall": {
+    "context": "kagi round 40 one v1 build/attack wave. Candidate cb3f642479a09644a03874909bb7e44b52697a8d; BASE 6cc8850dfc5757927699e5a53a876f47c8df21aa; predeclaration f687504767ce9ed56b848dfde83e03a1ec6cedd3; frozen plan 38a118f9cf15729e7732cc3cafe1011e3a899ee4. Lane absolute /home/vgpnk/Projects/shokunin/kagi-shokunin; branch master. Read /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-40.md in full. C1 calibration counter `bash plans/round-40-c1.sh` target 0 BASE 6 (it runs the whole claim ledger: takes ~5 minutes, use a >=420 s timeout); C2 freshness counter `bash plans/round-40-c2.sh` target 3 BASE 0; C3 operability counter `bash plans/round-40-c3.sh` target 2 BASE 0. Do not reinterpret targets. The L1 holds the canonical planner seat. You are a leaf: no delegation, no background jobs, no commits, no pushes, no git/jj mutation anywhere (a throwaway fixture repo may be created only as D=$(mktemp -d) && git -C \"$D\" init -q with every later git/jj call naming -C \"$D\"; verify git -C \"$D\" rev-parse --show-toplevel equals $D before the first commit). Never modify production lane, fleet, sibling or domain-source trees. Write ONLY your report and durable receipts under /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-40/build/<your seat name>/ ; every `Report:` trailer path your prompt carries is relative to /home/vgpnk/Projects/shokunin/kagi-shokunin — write it at /home/vgpnk/Projects/shokunin/kagi-shokunin/<that path>. Scratch discipline: every clone, fixture and work dir lives under ${HYAKU_SCRATCH:-/fast/scratch/hyaku}/kagi-r40/<your seat name>/ (create it, pass it explicitly, delete it before you finish; copy receipts into your seat dir first). /tmp is for files under 50 MB only and a /tmp path is never citable evidence. Tooling authorization (operator, 2026-10-19): you may install or upgrade tools that help the task — read /home/vgpnk/.omp/agent/RULES.md first (official channels only; update-safety gate; record tool/version/channel/reason in your report). Pacman guard (2026-10-20): ALL pacman transactions are PAUSED host-wide — never run pacman -S/-Sy/-Syu/-U/-R and never restart a host service; install via uv tool / npx / an official binary in ~/.local/bin, or file the need in your report. Seats must not mutate host sysctls. Never message agent://all. Model routing is operator-owned in the host config; never pass a model.",
+    "tasks": [
+      {
+        "name": "K40ExecLedger",
+        "agent": "executor",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Assignment\nRe-run C1 end to end on the candidate tree (read-only; no edits). 1) `bash plans/round-40-c1.sh` (>=420 s timeout) — expect exactly `0`. 2) `bash corpus/claim-ledger.sh verify` — capture the full output; confirm no line matching ^(FAIL|STALE|MISSING) names any of R13-01, R21-02, R24-06, R31-02, R33-02, R34-03, and that the remaining red set is exactly R11-08, R22-03, R24-15, R25-02, R36-03 FAILs plus the historical MISSING-ID errata classes plus the STALE stamp rows. 3) Audit `.ufo/waves/round-40/expectation-migrations.json`: for each of the six rows, confirm old_expect matches the BASE bytes (`git show 6cc8850dfc5757927699e5a53a876f47c8df21aa:corpus/claim-ledger.tsv`) field-for-field, and new_expect matches what the row's command produces on the candidate tree (`git show cb3f642479a09644a03874909bb7e44b52697a8d` extraction or direct re-run: grep -c '^## Round ' SCORECARD.md; bash corpus/row-identity.sh scorecard-rounds; bash corpus/sources-census.sh). 4) Confirm the ledger rows R25-02, R29-01, R29-02, R38-03, R11-08, R22-03, R24-15, R36-03 are byte-unchanged BASE vs candidate. Receipts: c1-counter.txt, verify-full.txt, migrations-audit.md, untouched-rows.txt.\n\nWrite your report and receipts ONLY under /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-40/build/K40ExecLedger/ and delete your scratch tree before you finish. Record every tool install (tool, version, channel, reason) or state 'none'. Report only what you executed: exact commands, exit codes, outputs.\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\nJudged on: freshness, calibration, operability\nMilestone: Frozen C1/C2/C3 counters reproduced or falsified at the candidate; every surviving defect recorded\n\nReport: write your scoped findings to .ufo/waves/round-40/build/K40ExecLedger.md"
+      },
+      {
+        "name": "K40ExecCurrency",
+        "agent": "executor",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Assignment\nRe-run C2 end to end on the candidate tree (read-only). 1) `bash plans/round-40-c2.sh` — expect exactly `3`. 2) `bash corpus/anchor-pins.sh` — expect `ANCHOR_PINS: CLEAN (pins=4)`. 3) `bash corpus/sources-census.sh` — expect `SOURCES_CENSUS: CLEAN (rows=96 A=92 B=2 C=2 queued=1 mined=92 rejected=3 entries_sourced=14 legacy=21 captures=96 inrow=16 inrow_only=0 inrow_nonreproducing=12)`. 4) sha256sum the two capture bodies `.ufo/waves/round-40/capture/S095.body` and `S096.body`; confirm each equals column 10 of the matching corpus/source-fetches.tsv row. 5) Whitespace-normalized locate of the two verbatim quotes ('Matches Unicode whitespace characters (as defined by' near offset 75897; 'This function uses the rules defined by the HTML 5 standard' near offset 13521) inside the committed bodies. 6) `git diff 6cc8850..cb3f6424 -- corpus/SOURCES.md` — confirm the ONLY changed registry lines are the two appended S095/S096 rows and that S040/S041 lines are byte-identical. Receipts: c2-counter.txt, gate.txt, census.txt, sha.txt, quotes.txt, sources-diff.txt.\n\nWrite your report and receipts ONLY under /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-40/build/K40ExecCurrency/ and delete your scratch tree before you finish. Record every tool install (tool, version, channel, reason) or state 'none'. Report only what you executed: exact commands, exit codes, outputs.\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\nJudged on: freshness, calibration, operability\nMilestone: Frozen C1/C2/C3 counters reproduced or falsified at the candidate; every surviving defect recorded\n\nReport: write your scoped findings to .ufo/waves/round-40/build/K40ExecCurrency.md"
+      },
+      {
+        "name": "K40ExecGates",
+        "agent": "executor",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Assignment\nRe-run C3 and the two amended gates on the candidate tree. 1) `bash plans/round-40-c3.sh` — expect exactly `2`. 2) `bash corpus/anchor-pins.sh --selftest` and `bash corpus/claims-declared.sh --selftest` — expect PASS (8 cases) each. 3) `bash corpus/claims-declared.sh --root .` — expect `CLAIMS_DECLARED: CLEAN (claims=5)`. 4) Re-derive the M39-6 red witnesses yourself in scratch copies: copy each gate to your scratch, patch it to a constant-CLEAN (replace `if [ \"$bad\" -gt 0 ]; then` with `if false; then`), run the corresponding --selftest against the patched copy as the gate under test, and confirm the divergence is caught (case 8 / selftest FAIL or equivalent observed behavior — record exactly what you observe and how you observed it). 5) Re-run the four c3 control modes on a predeclaration extraction: S=/fast/scratch/hyaku/kagi-r40/K40ExecGates/predec; mkdir -p; git -C /home/vgpnk/Projects/shokunin/kagi-shokunin archive f687504767ce9ed56b848dfde83e03a1ec6cedd3 | tar -x -C $S; then with BASE=$S and HYAKU_SCRATCH=/fast/scratch/hyaku/kagi-r40/K40ExecGates run `bash $S/plans/round-40-controls.sh <mode>` for c3_nowork (expect 0), c3_selftest_anchor (8), c3_selftest_claims (8), c3_forge_missing_gate (0). Receipts: c3-counter.txt, selftests.txt, constant-mutants.md, controls-at-predec.txt.\n\nWrite your report and receipts ONLY under /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-40/build/K40ExecGates/ and delete your scratch tree before you finish. Record every tool install (tool, version, channel, reason) or state 'none'. Report only what you executed: exact commands, exit codes, outputs.\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\nJudged on: freshness, calibration, operability\nMilestone: Frozen C1/C2/C3 counters reproduced or falsified at the candidate; every surviving defect recorded\n\nReport: write your scoped findings to .ufo/waves/round-40/build/K40ExecGates.md"
+      },
+      {
+        "name": "K40ScoutDocs",
+        "agent": "scout",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Assignment\nIndependent live re-observation of the two C2 sources (network fetches only; write nothing outside your seat dir). 1) `curl -fsSL https://docs.python.org/3/library/re.html` and `https://docs.python.org/3/library/html.html` into your scratch; report served `<title>` lines byte-exact. 2) Locate 'Matches Unicode whitespace characters (as defined by' and 'This function uses the rules defined by the HTML 5 standard' in your fresh bodies; report the byte offsets you measure next to the committed offsets 75897 and 13521 from .ufo/waves/round-40/capture/*.body. 3) sha256sum your fresh bodies vs the committed captures ef2d8abe698b74bbee5259f02599f9b6bf023733d47bb4c7003ac1277bf469b1 / 570d72c3910b313e905246e75b3238522d6c26194ffd33c1f4112c4f0d3fbab5; any difference is drift evidence (report it, do not fix anything). 4) Also fetch https://www.python.org/downloads/feed.rss and report the newest stable X.Y.Z item title (prereleases excluded) against the S091 identity (Python 3.15.2). Receipts: fresh-bodies/, offsets.txt, sha.txt, feed.txt.\n\nWrite your report and receipts ONLY under /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-40/build/K40ScoutDocs/ and delete your scratch tree before you finish. Record every tool install (tool, version, channel, reason) or state 'none'. Report only what you executed: exact commands, exit codes, outputs.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness, calibration, operability\nMilestone: Frozen C1/C2/C3 counters reproduced or falsified at the candidate; every surviving defect recorded\n\nReport: write your scoped findings to .ufo/waves/round-40/build/K40ScoutDocs.md"
+      },
+      {
+        "name": "K40ScribeLesson",
+        "agent": "scribe",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Assignment\nDrafting only — write nothing outside your seat dir. Read /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-40.md, corpus/lessons/round-40.md, corpus/lessons/round-39.md and corpus/lessons/round-39-verifier-spotcheck.md. Produce in your seat dir: draft-trial.md — the round-40 trial-on-real-domain-work paragraph (the S095/S096 documentation re-observations ARE this round's trial: read the lane's knowledge entries that consume the re/ html whitespace and entity teachings, chiefly corpus/rendered-text-v1.py and corpus/knowledge/ files citing them, and state read-only whether each version-sensitive statement still matches the served 3.15.2 identity), draft-settlement.md — a skeleton for the wave-settlement section listing every seat and what its receipt must show, and quote-counts.md — whitespace token counts of the two verbatim Gate quotes ('Matches Unicode whitespace characters (as defined by' and 'This function uses the rules defined by the HTML 5 standard') with your method stated, the M40-1 precision rule applied. Also list (overstatement-audit.md) every sentence in the round-40 sections of SCORECARD.md or the lesson that claims more than its receipt shows.\n\nWrite your report and receipts ONLY under /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-40/build/K40ScribeLesson/ and delete your scratch tree before you finish. Record every tool install (tool, version, channel, reason) or state 'none'. Report only what you executed: exact commands, exit codes, outputs.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness, calibration, operability\nMilestone: Frozen C1/C2/C3 counters reproduced or falsified at the candidate; every surviving defect recorded\n\nReport: write your scoped findings to .ufo/waves/round-40/build/K40ScribeLesson.md"
+      },
+      {
+        "name": "K40ConnOverlap",
+        "agent": "connector",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Assignment\nSibling-overlap scan, read-only over the fleet. For every directory matching /home/vgpnk/Projects/*-shokunin (skip kagi-shokunin itself): check PROVINCE.md, SKILL.md and corpus/SOURCES.md (if present) for (a) python.org documentation-currency claims (docs.python.org pages, served-version refresh rows), (b) anchor-cell pinning of release or registry rows (sha-pinned quote/anchor cells), (c) gate-registry plus committed-gate-selftest conformance programs. Classify each hit as adjacent (different surface, same idea) or overlapping (same surface). No writes outside your seat dir. Receipts: overlap.md with the lane list you walked, the greps you ran, and the per-lane verdict.\n\nWrite your report and receipts ONLY under /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-40/build/K40ConnOverlap/ and delete your scratch tree before you finish. Record every tool install (tool, version, channel, reason) or state 'none'. Report only what you executed: exact commands, exit codes, outputs.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness, calibration, operability\nMilestone: Frozen C1/C2/C3 counters reproduced or falsified at the candidate; every surviving defect recorded\n\nReport: write your scoped findings to .ufo/waves/round-40/build/K40ConnOverlap.md"
+      },
+      {
+        "name": "K40ReviewLedger",
+        "agent": "reviewer",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Assignment\nAttack C1 with the goal of reaching the target 0 without the migrations (read-only over the lane; all mutants in scratch copies). 1) Delete one of the six set rows from a scratch copy of corpus/claim-ledger.tsv and run `bash plans/round-40-c1.sh` there — it must exit 2 (counter-refused), never print 0. 2) Move one expect to a WRONG value (e.g. R13-01 to ^999$) — the counter must not read 0. 3) Blind the summary: run the counter with the ledger's summary line suppressed (e.g. wrap corpus/claim-ledger.sh in a scratch shim that drops CLAIM_LEDGER lines) — must exit 2. 4) Check the counter's grep cannot be fooled by a MISSING-ID line naming a set id from an unrelated file (is that counted? does the frozen predicate sentence in plans/round-40.md allow or forbid it — quote both and judge). 5) Audit the six migrations' old_expect fields against `git show 6cc8850:corpus/claim-ledger.tsv` byte-for-byte. 6) Confirm R25-02/R29-01/R29-02/R38-03/R11-08/R22-03/R24-15/R36-03 rows are byte-identical BASE vs candidate. Record every shortcut that reaches 0 as a surviving attack; every refused shortcut as a killed attack, with exact commands and outputs. Receipts: attacks.md, mutants/.\n\nWrite your report and receipts ONLY under /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-40/build/K40ReviewLedger/ and delete your scratch tree before you finish. Record every tool install (tool, version, channel, reason) or state 'none'. Report only what you executed: exact commands, exit codes, outputs.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness, calibration, operability\nMilestone: Frozen C1/C2/C3 counters reproduced or falsified at the candidate; every surviving defect recorded\n\nReport: write your scoped findings to .ufo/waves/round-40/build/K40ReviewLedger.md"
+      },
+      {
+        "name": "K40ReviewGates",
+        "agent": "reviewer",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Assignment\nAttack the two amended gates and C3 (read-only over the lane; all mutants in scratch fixtures). 1) Find NEW false-clean classes beyond the covered F1/F2/F3/F6 (anchor-pins) and D1/D2/D3/D5 (claims-declared): candidates to test — a pins file with two rows for the same id; a registry row whose anchor cell contains internal double spaces (does the trim hide them?); a plan heading with trailing spaces before the colon or a missing space around the em-dash; a manifest row with a lowercase axis or an unknown round; a tagged row inside the pre-move section; a fixture where SCORECARD lacks the post-move heading entirely. For each: does the gate catch it (exact output + exit), or is it a surviving false-clean (a routed candidate)? 2) Can a selftest pass while the gate is broken — e.g. does each selftest actually execute the real gate logic, or could a gate edited after its selftest was written pass both? Test one concrete instance. 3) Check the two new SKILL.md gate-registry rows: does each documented entry command, verdict map and selftest line match the implemented code byte-for-byte behavior? Report every mismatch. Receipts: attacks.md, fixtures/.\n\nWrite your report and receipts ONLY under /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-40/build/K40ReviewGates/ and delete your scratch tree before you finish. Record every tool install (tool, version, channel, reason) or state 'none'. Report only what you executed: exact commands, exit codes, outputs.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness, calibration, operability\nMilestone: Frozen C1/C2/C3 counters reproduced or falsified at the candidate; every surviving defect recorded\n\nReport: write your scoped findings to .ufo/waves/round-40/build/K40ReviewGates.md"
+      },
+      {
+        "name": "K40CriticClaims",
+        "agent": "critic",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Assignment\nFalsify the round-40 claims as declared (read `plans/round-40.md` in full first). For each of C1 (calibration, 6 -> 0), C2 (freshness, 0 -> 3), C3 (operability, 0 -> 2): 1) Compare every predicate sentence against the executed receipts in .ufo/waves/round-40/ (controls, prefreze-gate.txt, c3-fix-score-neutral.txt, census receipts) — is each number in the plan actually measured somewhere committed? 2) Do-nothing and forgery discrimination: c1_nowork 6 vs target 0; c2_nowork 0 and c2_forge_rows 1 vs target 3; c3_nowork 0 and c3_forge_missing_gate 0 vs target 2 — could a do-nothing round reach any target? Could a forged row reach 3 or 2 without the capture bodies/selftests? Try to construct one. 3) Axis fit: do the declared axes (calibration/freshness/operability) match what each counter actually measures — name the surface each claim moves and judge, exactly the R38-D1 standard. 4) Causal separation: does any counter read another claim's artifact? 5) The M40-3 amendment: confirm it was fixed before any scoring, score-neutral (controls/c3-fix-score-neutral.txt), and honestly recorded (corpus/lessons/round-40.md Mistakes). 6) Report every unsupported assertion in SCORECARD round-40 sections, the lesson, and LOG.md (if a round-40 block exists yet) with the exact sentence and the missing evidence. Receipts: falsify.md.\n\nWrite your report and receipts ONLY under /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-40/build/K40CriticClaims/ and delete your scratch tree before you finish. Record every tool install (tool, version, channel, reason) or state 'none'. Report only what you executed: exact commands, exit codes, outputs.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness, calibration, operability\nMilestone: Frozen C1/C2/C3 counters reproduced or falsified at the candidate; every surviving defect recorded\n\nReport: write your scoped findings to .ufo/waves/round-40/build/K40CriticClaims.md"
+      },
+      {
+        "name": "K40MutGates",
+        "agent": "mutation-tester",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Assignment\nMutation-test the two gates and three counters on scratch copies only (never the lane tree). Mutants: anchor-pins.sh — remove the dup check, remove the shape check, remove the schema check, restore the newline-dropping read (drop the `|| [ -n ... ]`), constant-CLEAN; claims-declared.sh — remove the dup-row check, remove fence tracking, remove the section window (count tags anywhere), accept padded axis cells (trim before compare), constant-CLEAN; round-40-c1.sh — `echo 0`, `echo 6`; round-40-c2.sh — `echo 3` constant, drop the capture-sha equality check, drop the quote-location check; round-40-c3.sh — `echo 2` constant, skip the selftest execution (count registry rows only). For each mutant: run the corresponding battery (the gate's --selftest for gates; the matching control modes from plans/round-40.controls.sh via a scratch BASE extraction, or direct counter reasoning) and record CAUGHT (with the exact observed output) or SURVIVED (with what it would take to catch it). Receipts: mutants.md, mutant scripts under mutants/.\n\nWrite your report and receipts ONLY under /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-40/build/K40MutGates/ and delete your scratch tree before you finish. Record every tool install (tool, version, channel, reason) or state 'none'. Report only what you executed: exact commands, exit codes, outputs.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness, calibration, operability\nMilestone: Frozen C1/C2/C3 counters reproduced or falsified at the candidate; every surviving defect recorded\n\nReport: write your scoped findings to .ufo/waves/round-40/build/K40MutGates.md"
+      }
+    ]
+  },
+  "resumeSends": [],
+  "note": "Issue exactly one batched task call with taskCall ({context, tasks}); never split a wave into multiple task calls (one-swarm-per-wave). Then one hub send per resumeSends entry: hub send --to <entry.resume> --message <entry.message> (entry.name is bookkeeping, not a hub field)."
+}

@@ -1,0 +1,34 @@
+== ap-nodup on candidate (real tree)
+rc=0
+ANCHOR_PINS: CLEAN (pins=4)
+== ap-noshape on candidate (real tree)
+rc=0
+ANCHOR_PINS: CLEAN (pins=4)
+== ap-noschema on candidate (real tree)
+rc=0
+ANCHOR_PINS: CLEAN (pins=4)
+== ap-nonewline on candidate (real tree)
+rc=0
+ANCHOR_PINS: CLEAN (pins=4)
+== ap-const-clean on candidate (real tree)
+rc=0
+ANCHOR_PINS: CLEAN (pins=4)
+== cd-nodup on candidate (real tree)
+rc=0
+CLAIMS_DECLARED: CLEAN (claims=5)
+== cd-nofence on candidate (real tree)
+rc=0
+CLAIMS_DECLARED: CLEAN (claims=5)
+== cd-nowindow on candidate (real tree)
+rc=1
+MISMATCH 39 C1 tagged-rows-2
+MISMATCH 39 C2 tagged-rows-2
+MISMATCH 40 C1 tagged-rows-2
+MISMATCH 40 C2 tagged-rows-2
+CLAIMS_DECLARED: MISMATCH (claims=5 mismatch=4)
+== cd-padded on candidate (real tree)
+rc=0
+CLAIMS_DECLARED: CLEAN (claims=5)
+== cd-const-clean on candidate (real tree)
+rc=0
+CLAIMS_DECLARED: CLEAN (claims=5)

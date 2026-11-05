@@ -1,0 +1,21 @@
+diff --git a/corpus/SOURCES.md b/corpus/SOURCES.md
+index a582db0..08cb8d5 100644
+--- a/corpus/SOURCES.md
++++ b/corpus/SOURCES.md
+@@ -99,6 +99,8 @@
+ | S092 | Vault release tag page v2.2.1, GitHub -- https://github.com/hashicorp/vault/releases/tag/v2.2.1 | docs | A | Vault release identity for the tag v2.2.1 (corroborates the feed entry of S089) | Page title "Release v2.2.1 · hashicorp/vault · GitHub"; release datetime 2026-10-22T21:59:36Z in the page body; opened 2026-11-05 | corroborates S089 -- the release tag page names the same version and date as the feed entry, so the feed identity is not a single-surface claim. Quote: “<title>Release v2.2.1 · hashicorp/vault · GitHub</title>” (page title, byte offset 21886). | mined | 2026-11-05 | 90d | corpus/lessons/round-38.md |
+ | S093 | OpenBao release tag page v2.7.2, GitHub -- https://github.com/openbao/openbao/releases/tag/v2.7.2 | docs | A | OpenBao server release identity for the tag v2.7.2 (corroborates the feed entry of S090) | Page title "Release v2.7.2 · openbao/openbao · GitHub"; release datetime 2026-10-26T20:24:37Z in the page body; opened 2026-11-05 | corroborates S090 -- the release tag page names the same version and date as the feed entry. Quote: “<title>Release v2.7.2 · openbao/openbao · GitHub</title>” (page title, byte offset 21886). | mined | 2026-11-05 | 90d | corpus/lessons/round-38.md |
+ | S094 | CORPUS.md — https://raw.githubusercontent.com/VeigaPunk/shokunin/f47ad6ba8d306f8125597401cb2ce45c1297a593/CORPUS.md | own-work | A | registry append-only discipline: which cells may change in place | SOURCES.md Rules item 2, line 116, revision f47ad6ba8d306f8125597401cb2ce45c1297a593 | Only status, recheck and used-by change in place; an in-place anchor rewrite violates this rule | mined | 2026-11-05 | 90d | corpus/lessons/round-39.md |
++| S095 | re — Regular expression operations (Python 3.15.2 docs) — https://docs.python.org/3/library/re.html | docs | A | rendered-text-v1 Unicode whitespace declaration; current documentation version only | Regular expression syntax → special sequences → backslash-s entry; title Python 3.15.2 documentation, fetched 2026-11-05 | supersedes S040 — the Unicode-whitespace teaching of the backslash-s entry locates verbatim on the served Python 3.15.2 documentation. Quote (verbatim): “Matches Unicode whitespace characters (as defined by” (raw body offset 75897). Derivation (paraphrase, outside the quote): str patterns match Unicode whitespace as defined by str.isspace() unless ASCII matching is requested; no installed-interpreter upgrade or complete normalizer equivalence follows. | mined | 2026-11-05 | on-release | corpus/lessons/round-40.md |
++| S096 | html — HyperText Markup Language support (Python 3.15.2 docs) — https://docs.python.org/3/library/html.html | docs | A | rendered-text-v1 entity-step declaration; current documentation version only | html.unescape(s), first and second sentences; title Python 3.15.2 documentation, fetched 2026-11-05 | supersedes S041 — the HTML-5 rules teaching of html.unescape locates verbatim on the served Python 3.15.2 documentation. Quote (verbatim): “This function uses the rules defined by the HTML 5 standard” (raw body offset 13521). Derivation (paraphrase, outside the quote): named and numeric references still convert to Unicode under HTML 5 rules for valid and invalid references; tag-removal-before-unescape order belongs to the lane implementation, not this documentation. | mined | 2026-11-05 | on-release | corpus/lessons/round-40.md |
+ 
+ ## Paths
+ 
+EXIT=0
+== numstat ==
+2	0	corpus/SOURCES.md
+== S040/S041 lines base vs cand ==
+S040 base 24059a917ec66ab23c854e2468332424ce4a7baf9cd0187785b1fe833521262b  -
+S040 cand 24059a917ec66ab23c854e2468332424ce4a7baf9cd0187785b1fe833521262b  -
+S041 base 76ab74f66f0d6756a572e8b47a07e6dd64767e636120f5a3b790622ae79a9efc  -
+S041 cand 76ab74f66f0d6756a572e8b47a07e6dd64767e636120f5a3b790622ae79a9efc  -

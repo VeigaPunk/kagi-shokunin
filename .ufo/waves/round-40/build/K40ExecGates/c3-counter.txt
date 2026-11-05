@@ -1,0 +1,24 @@
+# Receipt: C3 counter at the round-40 candidate (seat K40ExecGates, 2026-11-05)
+
+Tree: lane /home/vgpnk/Projects/shokunin/kagi-shokunin, branch master,
+HEAD cb3f642479a09644a03874909bb7e44b52697a8d (== candidate, verified with
+`git rev-parse HEAD` before the run). Working tree: 13 dirty paths, ALL under
+`.ufo/waves/round-40/` (wave artifacts/dispatch/receipts) — no production file dirty.
+
+Command (executed from cwd /home/vgpnk/Projects/shokunin; the script itself
+cd's to the lane root via `dirname "$0"`):
+
+    bash /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-40-c3.sh
+
+Observed:
+- stdout: `2`
+- stderr: (empty)
+- exit code: 0
+
+Frozen expectation (plans/round-40.md, C3): target 2 at the landing. REPRODUCED.
+
+Method note: the counter counted both gates because each has a
+`## Gate registry` row in SKILL.md naming the script path AND its committed
+`--selftest` printed the frozen verdict token `*_SELFTEST: PASS (8 cases)` with
+exit 0 during this same run (see selftests.txt for those runs, executed
+separately with identical result).

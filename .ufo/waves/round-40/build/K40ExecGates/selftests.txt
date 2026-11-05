@@ -1,0 +1,39 @@
+# Receipt: gate selftests + declared-axis run at the round-40 candidate
+# (seat K40ExecGates, 2026-11-05)
+
+Tree: lane HEAD cb3f642479a09644a03874909bb7e44b52697a8d (== candidate).
+HYAKU_SCRATCH=/fast/scratch/hyaku/kagi-r40/K40ExecGates exported for all runs
+(selftest fixtures are mktemp'd under it and trap-removed by the gates).
+
+## Run 1 — anchor-pins selftest
+
+    bash /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/anchor-pins.sh --selftest
+
+- stdout: `ANCHOR_PINS_SELFTEST: PASS (8 cases)`
+- stderr: (empty)
+- exit code: 0
+
+Expectation: PASS (8 cases). REPRODUCED.
+
+## Run 2 — claims-declared selftest
+
+    bash /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/claims-declared.sh --selftest
+
+- stdout: `CLAIMS_DECLARED_SELFTEST: PASS (8 cases)`
+- stderr: (empty)
+- exit code: 0
+
+Expectation: PASS (8 cases). REPRODUCED.
+
+## Run 3 — declared-axis gate over the lane (cwd = lane root)
+
+    cd /home/vgpnk/Projects/shokunin/kagi-shokunin
+    bash /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/claims-declared.sh --root .
+
+- stdout: `CLAIMS_DECLARED: CLEAN (claims=5)`
+- stderr: (empty)
+- exit code: 0
+
+Expectation: `CLAIMS_DECLARED: CLEAN (claims=5)`. REPRODUCED.
+(5 claims = the three round-40 rows appended to corpus/claims-declared.tsv by
+this round plus the pre-existing declared rows on the candidate tree.)

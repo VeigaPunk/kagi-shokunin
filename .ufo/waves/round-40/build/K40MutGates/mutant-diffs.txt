@@ -1,0 +1,166 @@
+--- /fast/scratch/hyaku/kagi-r40/K40MutGates/cand/corpus/anchor-pins.sh	2026-11-05 10:52:49.000000000 -0300
++++ ap-nodup.sh	2026-11-05 11:02:14.744708278 -0300
+@@ -131,11 +131,6 @@
+     bad=$((bad + 1))
+     continue
+   fi
+-  if [ "$rows" -gt 1 ]; then
+-    echo "DRIFT $id dup"
+-    bad=$((bad + 1))
+-    continue
+-  fi
+   if [ "$shape" -gt 0 ]; then
+     echo "DRIFT $id shape"
+     bad=$((bad + 1))
+--- /fast/scratch/hyaku/kagi-r40/K40MutGates/cand/corpus/anchor-pins.sh	2026-11-05 10:52:49.000000000 -0300
++++ ap-noshape.sh	2026-11-05 11:02:14.749296518 -0300
+@@ -136,11 +136,6 @@
+     bad=$((bad + 1))
+     continue
+   fi
+-  if [ "$shape" -gt 0 ]; then
+-    echo "DRIFT $id shape"
+-    bad=$((bad + 1))
+-    continue
+-  fi
+   if [ "$schema" -gt 0 ]; then
+     echo "DRIFT $id schema"
+     bad=$((bad + 1))
+--- /fast/scratch/hyaku/kagi-r40/K40MutGates/cand/corpus/anchor-pins.sh	2026-11-05 10:52:49.000000000 -0300
++++ ap-noschema.sh	2026-11-05 11:02:14.754296536 -0300
+@@ -141,11 +141,6 @@
+     bad=$((bad + 1))
+     continue
+   fi
+-  if [ "$schema" -gt 0 ]; then
+-    echo "DRIFT $id schema"
+-    bad=$((bad + 1))
+-    continue
+-  fi
+   if [ -z "$anchor" ]; then
+     echo "DRIFT $id empty-anchor"
+     bad=$((bad + 1))
+--- /fast/scratch/hyaku/kagi-r40/K40MutGates/cand/corpus/anchor-pins.sh	2026-11-05 10:52:49.000000000 -0300
++++ ap-nonewline.sh	2026-11-05 11:02:14.759296555 -0300
+@@ -108,7 +108,7 @@
+ fi
+ n=0
+ bad=0
+-while IFS=$'\t' read -r id want || [ -n "${id:-}" ]; do
++while IFS=$'\t' read -r id want; do
+   case $id in
+     ''|'#'*|id) continue ;;
+   esac
+--- /fast/scratch/hyaku/kagi-r40/K40MutGates/cand/corpus/anchor-pins.sh	2026-11-05 10:52:49.000000000 -0300
++++ ap-const-clean.sh	2026-11-05 11:02:14.764296573 -0300
+@@ -100,6 +100,8 @@
+   echo "ANCHOR_PINS_SELFTEST: FAIL (passed=$passed/$cases)"
+   exit 1
+ fi
++echo "ANCHOR_PINS: CLEAN (pins=4)"
++exit 0
+ pins="$root/corpus/anchor-pins.tsv"
+ reg="$root/corpus/SOURCES.md"
+ if [ ! -f "$pins" ] || [ ! -f "$reg" ]; then
+--- /fast/scratch/hyaku/kagi-r40/K40MutGates/cand/corpus/claims-declared.sh	2026-11-05 10:52:49.000000000 -0300
++++ cd-nodup.sh	2026-11-05 11:02:14.770900268 -0300
+@@ -124,11 +124,6 @@
+   esac
+   n=$((n + 1))
+   key="$round/$claim"
+-  if [ -n "${seen_pair[$key]:-}" ]; then
+-    echo "MISMATCH $round $claim dup-row"
+-    bad=$((bad + 1))
+-    continue
+-  fi
+   seen_pair[$key]=1
+   plan="$root/plans/round-$round.md"
+   if ! awk -v want="## $claim — $axis:" '
+--- /fast/scratch/hyaku/kagi-r40/K40MutGates/cand/corpus/claims-declared.sh	2026-11-05 10:52:49.000000000 -0300
++++ cd-nofence.sh	2026-11-05 11:02:14.775296613 -0300
+@@ -132,7 +132,6 @@
+   seen_pair[$key]=1
+   plan="$root/plans/round-$round.md"
+   if ! awk -v want="## $claim — $axis:" '
+-    /^[[:space:]]*(```|~~~)/ { fence = !fence; next }
+     /<!--/ { htmlc = 1 }
+     /-->/  { htmlc = 0 }
+     !fence && !htmlc && index($0, want) == 1 { found = 1 }
+--- /fast/scratch/hyaku/kagi-r40/K40MutGates/cand/corpus/claims-declared.sh	2026-11-05 10:52:49.000000000 -0300
++++ cd-nowindow.sh	2026-11-05 11:02:14.792337186 -0300
+@@ -149,7 +149,7 @@
+     next
+   }
+   /^## / { insec = 0; next }
+-  insec && /^\|/ && index($0, tag) > 0 {
++  /^\|/ && index($0, tag) > 0 {
+     cnt++
+     if (cell == "") {
+       first = $0
+--- /fast/scratch/hyaku/kagi-r40/K40MutGates/cand/corpus/claims-declared.sh	2026-11-05 10:52:49.000000000 -0300
++++ cd-padded.sh	2026-11-05 11:02:14.797296693 -0300
+@@ -158,7 +158,7 @@
+       cell = first
+     }
+   }
+-  END { ok = (cell == axis) ? 1 : 0; print seen+0, cnt+0, dupsec+0, ok }' "$root/SCORECARD.md")
++  END { gsub(/^[ \t]+|[ \t]+$/, "", cell); ok = (cell == axis) ? 1 : 0; print seen+0, cnt+0, dupsec+0, ok }' "$root/SCORECARD.md")
+ EOF
+   if [ "$seen" -eq 0 ]; then
+     echo "MISMATCH $round $claim section-missing"
+--- /fast/scratch/hyaku/kagi-r40/K40MutGates/cand/corpus/claims-declared.sh	2026-11-05 10:52:49.000000000 -0300
++++ cd-const-clean.sh	2026-11-05 11:02:14.802871000 -0300
+@@ -106,6 +106,8 @@
+   echo "CLAIMS_DECLARED_SELFTEST: FAIL (passed=$passed/$cases)"
+   exit 1
+ fi
++echo "CLAIMS_DECLARED: CLEAN (claims=5)"
++exit 0
+ manifest="$root/corpus/claims-declared.tsv"
+ if [ ! -f "$manifest" ] || [ ! -f "$root/SCORECARD.md" ]; then
+   echo "CLAIMS_DECLARED: SETUP missing-input"
+--- /fast/scratch/hyaku/kagi-r40/K40MutGates/cand/plans/round-40-c2.sh	2026-11-05 10:52:49.000000000 -0300
++++ c2-nosha.sh	2026-11-05 11:02:14.806748082 -0300
+@@ -46,7 +46,6 @@
+   [ -n "$fsha" ] || return 1
+   [ -f "$cap" ] || return 1
+   csha=$(sha256sum "$cap" | cut -d' ' -f1)
+-  [ "$csha" = "$fsha" ] || return 1
+   printf '%s\n' "$rowline" | grep -qF "supersedes ${oldid}" || return 1
+   python3 - "$rowline" "$cap" <<'PYEOF' || return 1
+ import re, sys
+--- /fast/scratch/hyaku/kagi-r40/K40MutGates/cand/plans/round-40-c2.sh	2026-11-05 10:52:49.000000000 -0300
++++ c2-noquote.sh	2026-11-05 11:02:14.810296741 -0300
+@@ -48,16 +48,6 @@
+   csha=$(sha256sum "$cap" | cut -d' ' -f1)
+   [ "$csha" = "$fsha" ] || return 1
+   printf '%s\n' "$rowline" | grep -qF "supersedes ${oldid}" || return 1
+-  python3 - "$rowline" "$cap" <<'PYEOF' || return 1
+-import re, sys
+-row, path = sys.argv[1], sys.argv[2]
+-m = re.search("\u201c(.+?)\u201d", row)
+-if not m:
+-    sys.exit(1)
+-needle = re.sub(r"\s+", " ", m.group(1)).strip()
+-body = re.sub(r"\s+", " ", open(path, encoding="utf-8", errors="replace").read())
+-sys.exit(0 if needle and needle in body else 1)
+-PYEOF
+ }
+ if item S095 S040 .ufo/waves/round-40/capture/S095.body; then n=$((n + 1)); fi
+ if item S096 S041 .ufo/waves/round-40/capture/S096.body; then n=$((n + 1)); fi
+--- /fast/scratch/hyaku/kagi-r40/K40MutGates/cand/plans/round-40-c3.sh	2026-11-05 10:52:49.000000000 -0300
++++ c3-noselftest.sh	2026-11-05 11:02:14.815296759 -0300
+@@ -31,12 +31,7 @@
+   rows=$(gate_reg "$script")
+   if [ "$rows" -ge 1 ]; then
+     [ -f "$script" ] || { echo "counter-refused: $script missing though registered" >&2; exit 2; }
+-    out=$(bash "$script" --selftest 2>/dev/null); rc=$?
+-    last=$(printf '%s\n' "$out" | grep -v '^[[:space:]]*$' | tail -1)
+-    if [ -z "$last" ]; then echo "counter-refused: $script selftest produced no verdict" >&2; exit 2; fi
+-    if [ "$rc" -eq 0 ] && printf '%s' "$last" | grep -qF "${token}: PASS (8 cases)"; then
+-      n=$((n + 1))
+-    fi
++    n=$((n + 1))
+   fi
+ done
+ echo "$n"

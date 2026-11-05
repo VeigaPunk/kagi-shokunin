@@ -34,7 +34,7 @@ for pair in "corpus/anchor-pins.sh|ANCHOR_PINS_SELFTEST" "corpus/claims-declared
     out=$(bash "$script" --selftest 2>/dev/null); rc=$?
     last=$(printf '%s\n' "$out" | grep -v '^[[:space:]]*$' | tail -1)
     if [ -z "$last" ]; then echo "counter-refused: $script selftest produced no verdict" >&2; exit 2; fi
-    if [ "$rc" -eq 0 ] && printf '%s' "$last" | grep -qF "${token}_SELFTEST: PASS (8 cases)"; then
+    if [ "$rc" -eq 0 ] && printf '%s' "$last" | grep -qF "${token}: PASS (8 cases)"; then
       n=$((n + 1))
     fi
   fi

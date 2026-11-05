@@ -1562,3 +1562,34 @@ Measured commands and receipts: `.ufo/waves/round-41/`. The frozen predicates, c
 ## Erratum to the Round 40 post-move block (appended; the filed bytes are not rewritten)
 
 The round-40 post-move section (line 1516 at the round-40 close) states: "The frozen predicates, counters, kill rules and targets are `plans/round-40.md` and are not amended after data." That sentence is contradicted by round 40's own lesson, which records **M40-3**: the C3 counter's verdict grep doubled `_SELFTEST`, so it read `0` at one candidate measurement, was repaired to read `2`, and that pre-repair reading is kept in `.ufo/waves/round-40/build/candidate-fast-gates.txt`. The correction is this appended erratum, not a rewrite of the filed bytes (routed by `corpus/lessons/round-40-verifier-spotcheck.md` §7 item 3).
+
+## Round 42 — pre-move (repo HEAD e8265c0, round-41 close)
+
+Claim BASE `e8265c0d90b01fcce0447d2f70615b0592ed145f`; predeclaration `98dd4de` (frozen plan `plans/round-42.md`, counters `plans/round-42-c1.sh` and `plans/round-42-c2.sh`, controls runner `plans/round-42-controls.sh`, BASE receipts under `.ufo/waves/round-42/controls/`); amendment A1 `fdbb83d` and amendment A2 `ca0c6a9` (both before any candidate). Every axis stood at 9 at the round-41 close; this table is the reference line the two claims are measured against.
+
+- **C1 calibration — BASE 4.** `bash plans/round-42-c1.sh` reads 4 at the claim BASE (`.ufo/waves/round-42/controls/c1-base.txt`): the round-41 gate refuses F1–F4 and accepts F5, an unjournaled deletion of `R17-02`. Blanket-refuse 0 and blanket-accept 0 (`c1-control-refuse-all.txt`, `c1-control-accept-all.txt`). Target 5.
+- **C2 freshness — BASE 0.** `bash plans/round-42-c2.sh` reads 0 at the claim BASE (`.ufo/waves/round-42/controls/c2-base.txt`): the committed runner writes a worktree reading, 3 (`c2-worktree-at-base.txt`), where the frozen derivation D reads 1 (`c2-derivation-D.txt`), and the committed receipt reads 1. Target 1.
+
+| Axis | Score | Evidence pointer | Last change |
+|---|---|---|---|
+| depth | 9 | Unchanged from round 29: the release-clock extraction contract, the feed-token agreement invariant and the refusal bounds. Row `R29-01`. | round 29 |
+| coverage | 9 | 98 registry rows at BASE, census `kagi ok` (row `R21-02`); this round re-opens S094 and adds no row. | round 41 |
+| operability | 9 | Gate mode-sets with verdicts and selftests green; the controls runner's C2 BASE line is a worktree reading (receipt 1, worktree 3). | round 41 |
+| freshness | 9 | Unchanged as a score. Measured BASE gap: `bash plans/round-42-c2.sh` reads 0; the committed receipt `.ufo/waves/round-41/controls/c2-base-19025d9.txt` reads 1 while the same runner at the same commit reads 3. | round 41 |
+| calibration | 9 | Unchanged as a score. Measured BASE gap: `bash plans/round-42-c1.sh` reads 4; a deleted base row is in neither population of the journal gate's frozen classes and passes `CLEAN` (round-41 spot-check, routed item 4). | round 41 |
+| adjacency | 9 | Unchanged: ownership partition gate green (row `R17-02`); 86 ledger ids at the base ledger, at P0 and at BASE, none removed. | round 35 |
+
+## Round 42 — post-move (claims C1 calibration, C2 freshness)
+
+Measured commands and receipts: `.ufo/waves/round-42/`. The frozen predicates, counters, kill rules and targets are `plans/round-42.md` (with amendments A1 and A2) and were not amended after data. Axis scores stay 9 → 9: a claim move adds no new score; the rows record what moved, as in rounds 36–41. Candidate: `d00a543`; the landed measurements are `.ufo/waves/round-42/final/`.
+
+| Axis | Before → after | What moved | Evidence |
+|---|---|---|---|
+| calibration | 4 → 5 (score 9 → 9) | [C1] `bash plans/round-42-c1.sh` at `d00a543` reads 5 (target 5): the journal gate refuses F1–F5 with their frozen tokens and accepts P0; `DELETED <ID>` is unconditional for every base id absent from the candidate. Blanket controls 0 and 0. Kill clauses (a) landing `CLEAN (changed=6 journaled=6)`, (b) N = 5, (c) selftest `PASS (cases=8)`: none fired. Declared ceilings: reason text not judged; a legitimate retirement is refused until a retirement form exists; F5 forges one row. Named ceilings found by attack seats: an answer-key gate reaches 5 with the blanket controls at 0; two counter-level mutants survive the frozen controls (`c1-M3`, `c1-M5`). | `plans/round-42-c1.sh`; `corpus/expect-journal.sh`; `.ufo/waves/round-42/final/c1-final.txt` (5), `final/c1-blanket-refuse.txt` (0), `final/c1-blanket-accept.txt` (0), `final/landing-r41.txt`, `final/gate-selftest.txt`; `corpus/lessons/round-42.md` §Claims, §Mistakes M41-6, M42-3 |
+| freshness | 0 → 1 (score 9 → 9) | [C2] `bash plans/round-42-c2.sh` at `d00a543` reads 1 (target 1): the controls runner's C2 BASE line is produced from a `git archive 19025d9` extraction with the frozen counter from `5142b52`, so the receipt is re-derivable from the revision it names. A2 closes a do-nothing hole (a runner that writes nothing read 1; after A2 it reads 0). Ceiling (named): the counter checks the receipt value, not the runner's source; a constant-1 runner passes, and a receipt copied from a later commit passes. | `plans/round-42-c2.sh`; `plans/round-41-controls.sh`; `.ufo/waves/round-42/final/c2-final.txt` (1); `.ufo/waves/round-42/controls/c2-base.txt` (0); `corpus/lessons/round-42.md` §Claims, §Mistakes M41-4, M42-1, M42-2 |
+| depth | 9 → 9 | No mechanism claim. | `plans/round-42.md` |
+| coverage | 9 → 9 | No registry row added or changed; S094 re-opened as an existing row. Census `kagi ok`, 98 rows. | `R21-02`; `corpus/SOURCES.md` |
+| operability | 9 → 9 | The gate's selftest gains a case (7 → 8) and the controls runner's C2 BASE line is re-derivable; nothing schedules either. | `corpus/expect-journal.sh --selftest`; `plans/round-41-controls.sh` |
+| adjacency | 9 → 9 | Connector sweep over 20 sibling lanes: no sibling implements a ledger-deletion refusal or a receipt re-derivation (`.ufo/waves/round-42/build/K42ConnOverlap/ConnOverlap.md`). | `R17-02`; `.ufo/waves/round-42/build/K42ConnOverlap/ConnOverlap.md` |
+
+Measured revision, exact exits and receipts are in the round report; no unrun result is stated here.

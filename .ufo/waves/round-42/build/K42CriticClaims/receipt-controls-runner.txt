@@ -1,0 +1,8 @@
+# controls runner in clean clone of 98dd4de (sandbox), bash plans/round-42-controls.sh
+CONTROL c1-blanket-refuse N=0
+CONTROL c1-blanket-accept N=0
+C1 BASE N=4
+C2 derivation D=1
+C2 BASE N=0
+rc=0
+# c2-base receipt also holds the git checkout detached-HEAD note (17 stderr lines) when the clone is detached; tail -1 = 0

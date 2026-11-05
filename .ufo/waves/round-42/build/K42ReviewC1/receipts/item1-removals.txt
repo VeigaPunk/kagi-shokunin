@@ -1,0 +1,28 @@
+commits touching corpus/claim-ledger.tsv: 42 (newest first)
+tip-touching commit 209147c64610: 86 ids
+b94473505e62 (vs parent 58121282fbb7): removed=[] (re-added by tip: []) added=['R38-01', 'R38-02', 'R38-03', 'R38-04']
+00bbe667aead (vs parent f8413db121da): removed=[] (re-added by tip: []) added=['R36-01', 'R36-02', 'R36-03']
+b4e9fd9a4745 (vs parent 441581bdad86): removed=[] (re-added by tip: []) added=['R34-01', 'R34-02', 'R34-03']
+441581bdad86 (vs parent edbc67156a6c): removed=[] (re-added by tip: []) added=['R33-01', 'R33-02']
+2dd3f8cce52b (vs parent 064d4b649bbe): removed=[] (re-added by tip: []) added=['R31-01', 'R31-02', 'R31-03', 'R31-04', 'R31-05', 'R31-06']
+064d4b649bbe (vs parent fc6511263a23): removed=[] (re-added by tip: []) added=['R30-01']
+fc6511263a23 (vs parent 4839d3f17bef): removed=[] (re-added by tip: []) added=['R29-01', 'R29-02']
+82745e2c60e7 (vs parent 277a0d4f1d9b): removed=[] (re-added by tip: []) added=['R25-01', 'R25-02', 'R25-03', 'R25-04']
+a3eb6c756dcc (vs parent 3764bc57cfb4): removed=[] (re-added by tip: []) added=['R24-01', 'R24-02', 'R24-03', 'R24-04', 'R24-05', 'R24-06', 'R24-07', 'R24-08', 'R24-09', 'R24-10', 'R24-11', 'R24-12', 'R24-13', 'R24-14', 'R24-15', 'R24-16']
+e1884c6ecb7c (vs parent 4be5da3cac11): removed=[] (re-added by tip: []) added=['R23-01', 'R23-02']
+8ada17a50a25 (vs parent e1544c194fdd): removed=[] (re-added by tip: []) added=['R22-01', 'R22-02', 'R22-03', 'R22-04']
+c41af82dfb11 (vs parent fecee8743e52): removed=[] (re-added by tip: []) added=['R21-01', 'R21-02', 'R21-03', 'R21-04']
+fecee8743e52 (vs parent bc1af88c359b): removed=[] (re-added by tip: []) added=['R18-01', 'R18-02', 'R18-03']
+bc1af88c359b (vs parent 8a6ec1665778): removed=[] (re-added by tip: []) added=['R17-01', 'R17-02', 'R17-03']
+8a6ec1665778 (vs parent 587fda0470f2): removed=[] (re-added by tip: []) added=['R16-01', 'R16-02', 'R16-03', 'R16-04', 'R16-05', 'R16-06']
+587fda0470f2 (vs parent 2486643ffc7f): removed=[] (re-added by tip: []) added=['R15-01', 'R15-02', 'R15-03', 'R15-04', 'R15-05']
+2486643ffc7f (vs parent 4b8c0183bd57): removed=[] (re-added by tip: []) added=['R14-01']
+4b8c0183bd57 (vs parent 301b9ec6f5fa): removed=[] (re-added by tip: []) added=['R12-01', 'R12-02', 'R12-03', 'R13-01', 'R13-02', 'R13-03']
+consecutive pairs compared: 41; pairs with id-set change: 18 (ALL additions, removed=[] in every pair)
+CORRECTED VERDICT (the live run's last line mislabeled "id(s) were removed" because it counted
+any id-set change; the data above shows zero removals):
+NO base-ledger id was ever removed in any of the 41 consecutive pairs; no removal was re-added
+because none occurred. The append-only premise holds over the full history, not a sample.
+Method: git -C $S/work log --format=%H -- corpus/claim-ledger.tsv (42 commits, full list in
+item1-commits.txt); for each consecutive (child, parent) pair, first-column id sets of
+git show <rev>:corpus/claim-ledger.tsv compared in both directions.

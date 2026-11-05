@@ -1,0 +1,44 @@
+CMD bash /fast/scratch/hyaku/kagi-r42/K42MutCounters/work/plans/c1-M1.sh
+OUT c1-M1 BASE-gate (expect 4) rc=0 last=[5]
+CMD env EXPECT_JOURNAL=/fast/scratch/hyaku/kagi-r42/K42MutCounters/scr/refuse-all.sh bash /fast/scratch/hyaku/kagi-r42/K42MutCounters/work/plans/c1-M1.sh
+OUT c1-M1 blanket-refuse (expect 0) rc=0 last=[5]
+CMD env EXPECT_JOURNAL=/fast/scratch/hyaku/kagi-r42/K42MutCounters/scr/accept-all.sh bash /fast/scratch/hyaku/kagi-r42/K42MutCounters/work/plans/c1-M1.sh
+OUT c1-M1 blanket-accept (expect 0) rc=0 last=[5]
+CMD bash /fast/scratch/hyaku/kagi-r42/K42MutCounters/work/plans/c1-M2.sh
+OUT c1-M2 BASE-gate (expect 4) rc=0 last=[5]
+CMD env EXPECT_JOURNAL=/fast/scratch/hyaku/kagi-r42/K42MutCounters/scr/refuse-all.sh bash /fast/scratch/hyaku/kagi-r42/K42MutCounters/work/plans/c1-M2.sh
+OUT c1-M2 blanket-refuse (expect 0) rc=0 last=[0]
+CMD env EXPECT_JOURNAL=/fast/scratch/hyaku/kagi-r42/K42MutCounters/scr/accept-all.sh bash /fast/scratch/hyaku/kagi-r42/K42MutCounters/work/plans/c1-M2.sh
+OUT c1-M2 blanket-accept (expect 0) rc=0 last=[5]
+CMD bash /fast/scratch/hyaku/kagi-r42/K42MutCounters/work/plans/c1-M3.sh
+OUT c1-M3 BASE-gate (expect 4) rc=0 last=[4]
+CMD env EXPECT_JOURNAL=/fast/scratch/hyaku/kagi-r42/K42MutCounters/scr/refuse-all.sh bash /fast/scratch/hyaku/kagi-r42/K42MutCounters/work/plans/c1-M3.sh
+OUT c1-M3 blanket-refuse (expect 0) rc=0 last=[0]
+CMD env EXPECT_JOURNAL=/fast/scratch/hyaku/kagi-r42/K42MutCounters/scr/accept-all.sh bash /fast/scratch/hyaku/kagi-r42/K42MutCounters/work/plans/c1-M3.sh
+OUT c1-M3 blanket-accept (expect 0) rc=0 last=[0]
+CMD bash /fast/scratch/hyaku/kagi-r42/K42MutCounters/work/plans/c1-M4.sh
+OUT c1-M4 BASE-gate (expect 4) rc=0 last=[5]
+CMD env EXPECT_JOURNAL=/fast/scratch/hyaku/kagi-r42/K42MutCounters/scr/refuse-all.sh bash /fast/scratch/hyaku/kagi-r42/K42MutCounters/work/plans/c1-M4.sh
+OUT c1-M4 blanket-refuse (expect 0) rc=0 last=[0]
+CMD env EXPECT_JOURNAL=/fast/scratch/hyaku/kagi-r42/K42MutCounters/scr/accept-all.sh bash /fast/scratch/hyaku/kagi-r42/K42MutCounters/work/plans/c1-M4.sh
+OUT c1-M4 blanket-accept (expect 0) rc=0 last=[5]
+CMD bash /fast/scratch/hyaku/kagi-r42/K42MutCounters/work/plans/c1-M5.sh
+OUT c1-M5 BASE-gate (expect 4) rc=0 last=[4]
+CMD env EXPECT_JOURNAL=/fast/scratch/hyaku/kagi-r42/K42MutCounters/scr/refuse-all.sh bash /fast/scratch/hyaku/kagi-r42/K42MutCounters/work/plans/c1-M5.sh
+OUT c1-M5 blanket-refuse (expect 0) rc=0 last=[0]
+CMD env EXPECT_JOURNAL=/fast/scratch/hyaku/kagi-r42/K42MutCounters/scr/accept-all.sh bash /fast/scratch/hyaku/kagi-r42/K42MutCounters/work/plans/c1-M5.sh
+OUT c1-M5 blanket-accept (expect 0) rc=0 last=[0]
+CMD bash /fast/scratch/hyaku/kagi-r42/K42MutCounters/work/plans/c2-M1.sh
+OUT c2-M1 BASE (expect 0) rc=0 last=[1]
+CMD bash /fast/scratch/hyaku/kagi-r42/K42MutCounters/work/plans/c2-M2.sh
+OUT c2-M2 BASE (expect 0) rc=0 last=[1]
+CMD bash /fast/scratch/hyaku/kagi-r42/K42MutCounters/work/plans/c2-M3.sh
+OUT c2-M3 BASE (expect 0) rc=0 last=[0]
+CMD env EXPECT_JOURNAL=/fast/scratch/hyaku/kagi-r42/K42MutCounters/scr/refuse-token.sh bash /fast/scratch/hyaku/kagi-r42/K42MutCounters/work/plans/c1-M3.sh
+OUT c1-M3 vs token-refusing gate rc=0 last=[1]
+CMD env EXPECT_JOURNAL=/fast/scratch/hyaku/kagi-r42/K42MutCounters/scr/refuse-token.sh bash /fast/scratch/hyaku/kagi-r42/K42MutCounters/work/plans/round-42-c1.sh
+OUT pristine c1 vs token-refusing gate rc=0 last=[0]
+CMD (cd /fast/scratch/hyaku/kagi-r42/K42MutCounters/der/base && bash plans/round-41-c2.sh | tail -1)
+OUT derivation-D=[1]
+CMD (cd /fast/scratch/hyaku/kagi-r42/K42MutCounters/rside/clone && bash plans/round-41-controls.sh)
+OUT rside-receipt=[3]

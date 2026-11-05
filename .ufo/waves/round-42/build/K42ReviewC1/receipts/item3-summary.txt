@@ -1,0 +1,11 @@
+== harness baseline: committed counter with its own real gate (expect N=4, matches c1-base.txt) ==
+N=4 rc=0 stderr_last=
+== fakeA: DELETED-only journal-blind gate ==
+N=1 rc=0 stderr_last=
+== fakeB: five tokens, exit 1 always ==
+N=0 rc=0 stderr_last=
+== fakeC: answer-key id-matching gate (accepts P0, refuses F1-F5) ==
+N=5 rc=0 stderr_last=
+== fakeA+: strongest possible journal-blind gate (DELETED + NOT_LITERAL) ==
+N=2 rc=0 stderr_last=
+== committed BASE receipts at 98dd4de ==

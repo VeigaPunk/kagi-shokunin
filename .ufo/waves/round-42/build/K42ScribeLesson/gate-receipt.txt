@@ -1,0 +1,63 @@
+# K42ScribeLesson — S094 live re-open receipt (2026-11-05)
+
+Seat: K42ScribeLesson (scribe). Read-only against the lane; the fetch ran from the seat's own scratch
+(`/fast/scratch/hyaku/kagi-r42/K42ScribeLesson/gate/`), which is deleted at yield. No lane file was
+written except this deliverable directory.
+
+## Fetch command
+
+    curl -fsSL --compressed -A 'kagi-shokunin-round42/1.0 (documentation verification)' \
+      -o "$S/gate/CORPUS-live.md" \
+      -w 'http_status=%{http_code}\neffective_url=%{url_effective}\nsize_download=%{size_download}\n' \
+      'https://raw.githubusercontent.com/VeigaPunk/shokunin/f47ad6ba8d306f8125597401cb2ce45c1297a593/CORPUS.md'
+
+exit code: 0
+
+## curl -w summary
+
+    http_status=200
+    effective_url=https://raw.githubusercontent.com/VeigaPunk/shokunin/f47ad6ba8d306f8125597401cb2ce45c1297a593/CORPUS.md
+    size_download=5073
+
+## Decoded body
+
+    bytes(decoded)=11296
+    88556402940e7a0f1dbbed3abef9e00c87a90db6f80eaed03269e371f50050b8  $S/gate/CORPUS-live.md
+
+(`sha256sum` of the decoded body; the committed fetch row S094 in `corpus/source-fetches.tsv` carries the
+same digest in column 10 and the byte count 11296 in column 11.)
+
+## Located quote
+
+Declared quote (the committed fetch row's column 13): `Only \`status\`, \`recheck\` and \`used-by\` change in place`
+
+    grep -b -o -F 'Only `status`, `recheck` and `used-by` change in place' "$S/gate/CORPUS-live.md"
+    6172:Only `status`, `recheck` and `used-by` change in place
+    rc=0
+
+    grep -c -F 'Only `status`, `recheck` and `used-by` change in place' "$S/gate/CORPUS-live.md"
+    1
+    rc=0
+
+Whitespace token count of the quote: 8 (≤ 25).
+
+Rule line, verbatim from the served body (line 116):
+
+    2. **Append-only.** Only `status`, `recheck` and `used-by` change in place, and each change
+       is logged old→new in the round lesson. A correction is a new row whose `teaches` opens
+
+Derived clause present in the S094 teaches cell but absent from the served body:
+
+    grep -c -F 'an in-place anchor rewrite violates this rule' "$S/gate/CORPUS-live.md"
+    0
+    rc=0
+
+(M40-1 / QM42 stand for that cell; the located quote above is the committed fetch row's declared quote.)
+
+## cmp against the committed capture
+
+    cmp "$S/gate/CORPUS-live.md" /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-39/capture/S094.body
+    rc=0 -> IDENTICAL (no output)
+
+    sha256sum /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-39/capture/S094.body
+    88556402940e7a0f1dbbed3abef9e00c87a90db6f80eaed03269e371f50050b8

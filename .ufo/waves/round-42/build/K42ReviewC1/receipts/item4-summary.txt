@@ -1,0 +1,11 @@
+== item4 kill-rule attack: faithful DELETED rule (gate-deleted.sh = BASE gate + 6-line DELETED loop) ==
+-- (a) round-41 landing check: base 5142b52, cand 209147c, round-41 journal; expect CLEAN (changed=6 journaled=6)
+rc=0 | EXPECT_JOURNAL: CLEAN (changed=6 journaled=6) | refuse_lines=0 
+-- (b) P0: base 6cc8850, cand 6f1588c, round-40 journal; expect rc 0
+rc=0 | EXPECT_JOURNAL: CLEAN (changed=6 journaled=6) | refuse_lines=0 
+-- (c) sanity: gate-deleted on F5 (P0 minus R17-02) must refuse DELETED R17-02
+rc=1 | EXPECT_JOURNAL: REFUSED (violations=1) | refuse_lines=2 EXPECT_JOURNAL: REFUSE DELETED R17-02;EXPECT_JOURNAL: REFUSED (violations=1);
+-- control: ORIGINAL BASE gate (no DELETED rule) on the same three cases
+rc=0 | EXPECT_JOURNAL: CLEAN (changed=6 journaled=6) | refuse_lines=0 
+rc=0 | EXPECT_JOURNAL: CLEAN (changed=6 journaled=6) | refuse_lines=0 
+rc=0 | EXPECT_JOURNAL: CLEAN (changed=6 journaled=6) | refuse_lines=0 

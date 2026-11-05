@@ -1,0 +1,8 @@
+# reference C2 runner (archive of 19025d9, counter copied from lane), refc2 sandbox
+$ bash refc2/plans/round-41-controls.sh
+CONTROL c1-blanket-refuse N=0
+CONTROL c1-blanket-accept N=0
+CONTROL c1-no-gate N=0
+CONTROL c2-decoy-superseded N=2
+C2 BASE N=1
+receipt tail: 1 ; D: 1 => counter N 1 (emulated: candidate commit not created)

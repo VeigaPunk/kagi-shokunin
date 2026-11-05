@@ -1,0 +1,6 @@
+== fixture ledger identity (journal-blind ceiling proof) ==
+f1/f3 fixture ledger and f2 fixture ledger regenerated per plans/round-42-c1.sh source
+f1-ledger == f3-ledger (byte-identical): a journal-blind gate cannot earn both the UNJOURNALED and the NOT_LITERAL token for the same bytes
+f2-ledger == P0 ledger (byte-identical): a journal-blind gate that refuses F2 refuses P0 and reads N=0
+92:write_ledger("f2-ledger.tsv", p0)
+98:write_ledger("f3-ledger.tsv", edit_row(p0, "R13-01", 2, "^[0-9]+$"))

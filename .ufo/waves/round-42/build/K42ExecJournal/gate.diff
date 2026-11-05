@@ -1,0 +1,62 @@
+diff --git i/corpus/expect-journal.sh w/corpus/expect-journal.sh
+index 9929653..a4031fd 100755
+--- i/corpus/expect-journal.sh
++++ w/corpus/expect-journal.sh
+@@ -20,6 +20,9 @@
+ #                              . [ ] ( ) * + ? { } | ^ $ must be backslash-escaped
+ #   R4 WARN ORPHAN <ID>        journal entry for a row that did not change: warning only, never refuses
+ #   MISSING_ROW <ID>           journal id absent from the candidate ledger (refusal)
++#   DELETED <ID>               base-ledger id absent from the candidate ledger (refusal;
++#                              unconditional - plans/round-42.md C1: there is no journal
++#                              form for a deletion in this round)
+ #
+ # Output (stdout): one `EXPECT_JOURNAL: WARN ORPHAN <ID>` line per warning, one
+ # `EXPECT_JOURNAL: REFUSE <CLASS> <ID>` line per violation, then the final line
+@@ -62,8 +65,9 @@ if [ "$selftest" -eq 1 ]; then
+   git -C "$TOP" show "$P0_PIN:corpus/claim-ledger.tsv" > "$FX/p0.tsv" 2>/dev/null || selffail p0-pin-unreadable
+   git -C "$TOP" show "$P0_PIN:$JPIN" > "$FX/p0-journal.json" 2>/dev/null || selffail journal-pin-unreadable
+ 
+-  # Build P0, F1..F4 (exactly the frozen constructions of plans/round-41.md C1) and two
+-  # synthetic cases (literal anchored expect with \( escapes; orphan journal entry warns).
++  # Build P0, F1..F5 (the frozen constructions of plans/round-41.md C1 and plans/round-42.md
++  # C1) and two synthetic cases (literal anchored expect with \( escapes; orphan journal
++  # entry warns).
+   python3 - "$FX" <<'PY' || selffail fixture-build
+ import copy, json, os, sys
+ fx = sys.argv[1]
+@@ -125,6 +129,12 @@ rebound = ("echo 'ROW_IDENTITY: scorecard-rounds count=54 "
+            "sha256=52e7ba8d9b4de4a3aa7543b7f0370361dd17c2ae18b98c0c318618917dfe50c7'")
+ write_ledger("f4-ledger.tsv", edit_row(p0, "R24-06", 1, rebound))
+ write_journal("f4-journals", journal)
++# F5 (plans/round-42.md C1): the P0 ledger with row R17-02 deleted, journal unchanged.
++f5 = [line for line in p0 if line.split("\t")[0] != "R17-02"]
++if len(f5) != len(p0) - 1:
++    sys.exit(2)
++write_ledger("f5-ledger.tsv", f5)
++write_journal("f5-journals", journal)
+ # Literal case: changed expect with \( escapes is fully literal anchored -> accepted.
+ write_ledger("lit-base.tsv", ["LIT-01\tcowsay hello\t^plain$\t0\t5\tnote"])
+ write_ledger("lit-ledger.tsv", ["LIT-01\tcowsay hello\t^2 \\(two\\) items$\t0\t5\tnote"])
+@@ -195,6 +205,9 @@ run("literal", "lit-ledger.tsv", "lit-journals", 0, base="lit-base.tsv", forbid_
+ run("orphan", "orp-ledger.tsv", "orp-journals", 0, base="orp-base.tsv",
+     need_lines=("EXPECT_JOURNAL: WARN ORPHAN ORP-01",), forbid_refuse=True,
+     want_final="EXPECT_JOURNAL: CLEAN (changed=0 journaled=0)")
++# 8 F5 refused with its frozen token (deleted base row, plans/round-42.md C1).
++run("f5", "f5-ledger.tsv", "f5-journals", 1,
++    need_lines=("EXPECT_JOURNAL: REFUSE DELETED R17-02",))
+ 
+ print("EXPECT_JOURNAL_SELFTEST: PASS (cases=%d)" % n)
+ sys.exit(0)
+@@ -293,6 +306,12 @@ changed_set = set(changed_ids)
+ refuses = set()
+ warns = set()
+ journaled = 0
++# plans/round-42.md C1: a base-ledger id absent from the candidate ledger is a deletion,
++# refused unconditionally (no journal form for a deletion in this round; a future
++# retirement form is a new contract version, never a loosened migration).
++for rid in base_order:
++    if rid not in cand_rows:
++        refuses.add(("DELETED", rid))
+ for rid in changed_ids:
+     cmd_b, exp_b = base_rows[rid]
+     cmd_c, exp_c = cand_rows[rid]

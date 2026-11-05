@@ -1,0 +1,5 @@
+# tamper attack on reference C2 runner: lane copy of plans/round-41-c2.sh replaced by echo 1
+$ bash refc2/plans/round-41-controls.sh   (after tamper)
+tampered-lane receipt tail: 1 (= D 1 => N 1)
+frozen 5142b52 counter over archive 19025d9 (D): 1
+# defect: the runner copies the lane counter; A1 froze only the derivation D

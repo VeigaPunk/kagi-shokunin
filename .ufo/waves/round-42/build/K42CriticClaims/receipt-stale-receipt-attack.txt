@@ -1,0 +1,8 @@
+# stale-receipt attack: do-nothing runner (exit 0) in a clone of 98dd4de
+$ printf '#!/usr/bin/env bash\nexit 0\n' > plans/round-41-controls.sh && (cd stale && bash plans/round-41-controls.sh; echo runner-rc=$?)
+runner-rc=0
+$ tail -1 stale/.ufo/waves/round-41/controls/c2-base-19025d9.txt
+1
+$ committed D: tail -1 work/.ufo/waves/round-42/controls/c2-derivation-D.txt
+1
+counter-logic N (R==D && D==1) = 1  [defect: stale committed receipt read]

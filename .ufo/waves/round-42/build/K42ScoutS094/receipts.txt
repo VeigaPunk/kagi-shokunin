@@ -1,0 +1,43 @@
+# K42ScoutS094 — S094 live re-open receipts (2026-11-05)
+
+## fetch command
+curl -fsSL --compressed -A 'kagi-shokunin-round23/1.0 (documentation verification)' -D CORPUS-live.headers -o CORPUS-live.md -w '...' https://raw.githubusercontent.com/VeigaPunk/shokunin/f47ad6ba8d306f8125597401cb2ce45c1297a593/CORPUS.md
+exit code: 0
+
+## curl -w summary
+http_status=200
+effective_url=https://raw.githubusercontent.com/VeigaPunk/shokunin/f47ad6ba8d306f8125597401cb2ce45c1297a593/CORPUS.md
+size_download=5073
+content_type=text/plain; charset=utf-8
+num_redirects=0
+
+## decoded body
+bytes(decoded)=11296
+88556402940e7a0f1dbbed3abef9e00c87a90db6f80eaed03269e371f50050b8  /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-42/build/K42ScoutS094/CORPUS-live.md
+
+## grep -c -F (declared TSV quote) : 'Only `status`, `recheck` and `used-by` change in place'
+1
+rc=0
+
+## grep -b -o -F (same quote)
+6172:Only `status`, `recheck` and `used-by` change in place
+rc=0
+
+## grep -c -F (rule line quote) : '**Append-only.** Only `status`, `recheck` and `used-by` change in place'
+1
+rc=0
+
+## grep -b -o -F (rule line quote)
+6155:**Append-only.** Only `status`, `recheck` and `used-by` change in place
+rc=0
+
+## grep -n -F 'Append-only'
+116:2. **Append-only.** Only `status`, `recheck` and `used-by` change in place, and each change
+
+## rule line 116-117 (verbatim)
+2. **Append-only.** Only `status`, `recheck` and `used-by` change in place, and each change
+   is logged old→new in the round lesson. A correction is a new row whose `teaches` opens
+
+## cmp against committed capture .ufo/waves/round-39/capture/S094.body
+cmp rc=0 -> IDENTICAL
+88556402940e7a0f1dbbed3abef9e00c87a90db6f80eaed03269e371f50050b8  /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-39/capture/S094.body

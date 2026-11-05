@@ -1,0 +1,12 @@
+== mutant-run: sabotage copy, BASE line runs the worktree counter (old behaviour) ==
+cwd: /fast/scratch/hyaku/kagi-r42/K42ExecRunner/work
+command: bash plans/round-41-controls-mutant.sh
+exit code: 0
+--- mutant stdout ---
+CONTROL c1-blanket-refuse N=0
+CONTROL c1-blanket-accept N=0
+CONTROL c1-no-gate N=0
+CONTROL c2-decoy-superseded N=2
+C2 BASE N=3
+--- tail -1 .ufo/waves/round-41/controls/c2-base-19025d9.txt (overwritten by mutant) ---
+3

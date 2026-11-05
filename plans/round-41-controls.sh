@@ -36,5 +36,10 @@ open(os.path.join(s, "rtv1-decoy.py"), "w", encoding="utf-8").write("".join(out)
 PY
 RTV1="$S/rtv1-decoy.py" bash plans/round-41-c2.sh > "$OUT/c2-control-decoy.txt" 2>&1
 echo "CONTROL c2-decoy-superseded N=$(tail -1 "$OUT/c2-control-decoy.txt")"
-bash plans/round-41-c2.sh > "$OUT/c2-base-19025d9.txt" 2>&1
+# C2 BASE: derived from the pinned revision 19025d9 in a git archive extraction, with the frozen
+# counter copied in from predeclaration 5142b52 (amendment A1) -- never from the worktree.
+mkdir -p -- "$S/base/plans" || exit 2
+git archive 19025d97e5013bac2f45d6b9e61bfbafc84c3c8d | tar -x -f - -C "$S/base" || exit 2
+git show 5142b52:plans/round-41-c2.sh > "$S/base/plans/round-41-c2.sh" || exit 2
+( cd "$S/base" && bash plans/round-41-c2.sh ) > "$OUT/c2-base-19025d9.txt" 2>&1
 echo "C2 BASE N=$(tail -1 "$OUT/c2-base-19025d9.txt")"

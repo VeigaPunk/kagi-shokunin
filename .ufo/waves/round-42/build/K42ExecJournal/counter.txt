@@ -1,0 +1,28 @@
+$ cd /fast/scratch/hyaku/kagi-r42/K42ExecJournal/work && EXPECT_JOURNAL=/fast/scratch/hyaku/kagi-r42/K42ExecJournal/work/corpus/expect-journal.sh bash plans/round-42-c1.sh
+5
+exit=0
+$ bash /fast/scratch/hyaku/kagi-r42/K42ExecJournal/work/corpus/expect-journal.sh --base-ledger $PF/base-ledger.tsv --ledger $PF/<f>-ledger.tsv --journals $PF/<f>-journals   (fixtures per plans/round-42-c1.sh recipe)
+== p0 ==
+EXPECT_JOURNAL: CLEAN (changed=6 journaled=6)
+exit=0
+== f1 ==
+EXPECT_JOURNAL: REFUSE NOT_LITERAL R13-01
+EXPECT_JOURNAL: REFUSE UNJOURNALED R13-01
+EXPECT_JOURNAL: REFUSED (violations=2)
+exit=1
+== f2 ==
+EXPECT_JOURNAL: REFUSE OLD_MISMATCH R21-02
+EXPECT_JOURNAL: REFUSED (violations=1)
+exit=1
+== f3 ==
+EXPECT_JOURNAL: REFUSE NOT_LITERAL R13-01
+EXPECT_JOURNAL: REFUSED (violations=1)
+exit=1
+== f4 ==
+EXPECT_JOURNAL: REFUSE COMMAND_MISMATCH R24-06
+EXPECT_JOURNAL: REFUSED (violations=1)
+exit=1
+== f5 ==
+EXPECT_JOURNAL: REFUSE DELETED R17-02
+EXPECT_JOURNAL: REFUSED (violations=1)
+exit=1

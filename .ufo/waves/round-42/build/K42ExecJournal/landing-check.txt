@@ -1,0 +1,4 @@
+$ git -C /fast/scratch/hyaku/kagi-r42/K42ExecJournal/work show 5142b52:corpus/claim-ledger.tsv > /fast/scratch/hyaku/kagi-r42/K42ExecJournal/base.tsv
+$ bash /fast/scratch/hyaku/kagi-r42/K42ExecJournal/work/corpus/expect-journal.sh --base-ledger /fast/scratch/hyaku/kagi-r42/K42ExecJournal/base.tsv --ledger /fast/scratch/hyaku/kagi-r42/K42ExecJournal/work/corpus/claim-ledger.tsv --journals /fast/scratch/hyaku/kagi-r42/K42ExecJournal/j41   (journals dir holds only .ufo/waves/round-41/expectation-migrations.json)
+EXPECT_JOURNAL: CLEAN (changed=6 journaled=6)
+exit=0

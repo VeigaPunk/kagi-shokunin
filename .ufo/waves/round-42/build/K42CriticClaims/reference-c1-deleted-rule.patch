@@ -1,0 +1,16 @@
+diff --git i/corpus/expect-journal.sh w/corpus/expect-journal.sh
+index 9929653..414e21c 100755
+--- i/corpus/expect-journal.sh
++++ w/corpus/expect-journal.sh
+@@ -317,6 +317,11 @@ for rid in entries_by_id:
+     elif rid not in changed_set:
+         warns.add(("ORPHAN", rid))
+ 
++# Reference (critic seat, sandbox only): an id of the base ledger absent from the candidate is refused.
++for rid in base_order:
++    if rid not in cand_rows:
++        refuses.add(("DELETED", rid))
++
+ for _cls, rid in sorted(warns):
+     print("EXPECT_JOURNAL: WARN ORPHAN %s" % rid)
+ for cls, rid in sorted(refuses):

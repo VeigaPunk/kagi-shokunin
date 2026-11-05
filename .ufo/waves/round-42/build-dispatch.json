@@ -1,0 +1,187 @@
+{
+  "schema": "ufo-swarm-wave-dispatch-v1",
+  "wave": "kagi-r42-build",
+  "policy": {
+    "source": "config",
+    "maxLanes": 256,
+    "minLanes": 8,
+    "waveMinLanes": 8,
+    "waveMaxLanes": 16,
+    "declaredMaxLanes": null,
+    "hardCeiling": 256,
+    "rampBatchSize": 5,
+    "rampIntervalMs": 700,
+    "globalRunnerCeiling": 1056
+  },
+  "counts": {
+    "spawn": 9,
+    "resume": 0,
+    "total": 9
+  },
+  "registry": {
+    "schema": "ufo-swarm-registry-v1",
+    "path": ".ufo/waves/round-42/build/swarm-registry.json",
+    "reportDir": ".ufo/waves/round-42/build",
+    "members": {
+      "K42ExecJournal": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": null,
+        "axes": [
+          "calibration",
+          "freshness"
+        ],
+        "milestone": "C1 deletion rule and C2 runner fix implemented as deliverables with receipts; pre-freeze attacks on both claims recorded; frontier and lesson drafts ready; every surviving defect named"
+      },
+      "K42ExecRunner": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": null,
+        "axes": [
+          "calibration",
+          "freshness"
+        ],
+        "milestone": "C1 deletion rule and C2 runner fix implemented as deliverables with receipts; pre-freeze attacks on both claims recorded; frontier and lesson drafts ready; every surviving defect named"
+      },
+      "K42ScoutS094": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scout",
+        "item": null,
+        "axes": [
+          "calibration",
+          "freshness"
+        ],
+        "milestone": "C1 deletion rule and C2 runner fix implemented as deliverables with receipts; pre-freeze attacks on both claims recorded; frontier and lesson drafts ready; every surviving defect named"
+      },
+      "K42ScribeLesson": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scribe",
+        "item": null,
+        "axes": [
+          "calibration",
+          "freshness"
+        ],
+        "milestone": "C1 deletion rule and C2 runner fix implemented as deliverables with receipts; pre-freeze attacks on both claims recorded; frontier and lesson drafts ready; every surviving defect named"
+      },
+      "K42ConnOverlap": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "connector",
+        "item": null,
+        "axes": [
+          "calibration",
+          "freshness"
+        ],
+        "milestone": "C1 deletion rule and C2 runner fix implemented as deliverables with receipts; pre-freeze attacks on both claims recorded; frontier and lesson drafts ready; every surviving defect named"
+      },
+      "K42ReviewC1": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "calibration",
+          "freshness"
+        ],
+        "milestone": "C1 deletion rule and C2 runner fix implemented as deliverables with receipts; pre-freeze attacks on both claims recorded; frontier and lesson drafts ready; every surviving defect named"
+      },
+      "K42ReviewC2": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "calibration",
+          "freshness"
+        ],
+        "milestone": "C1 deletion rule and C2 runner fix implemented as deliverables with receipts; pre-freeze attacks on both claims recorded; frontier and lesson drafts ready; every surviving defect named"
+      },
+      "K42CriticClaims": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "critic",
+        "item": null,
+        "axes": [
+          "calibration",
+          "freshness"
+        ],
+        "milestone": "C1 deletion rule and C2 runner fix implemented as deliverables with receipts; pre-freeze attacks on both claims recorded; frontier and lesson drafts ready; every surviving defect named"
+      },
+      "K42MutCounters": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "mutation-tester",
+        "item": null,
+        "axes": [
+          "calibration",
+          "freshness"
+        ],
+        "milestone": "C1 deletion rule and C2 runner fix implemented as deliverables with receipts; pre-freeze attacks on both claims recorded; frontier and lesson drafts ready; every surviving defect named"
+      }
+    }
+  },
+  "compaction": {
+    "applied": false,
+    "mechanism": null,
+    "reason": null,
+    "savedBytes": 0,
+    "payloadBytesBefore": 0,
+    "payloadBytesAfter": 0
+  },
+  "taskCall": {
+    "context": "kagi round 42 (attempt 1): ONE v1 build/attack wave, 9 seats. Lane absolute path /home/vgpnk/Projects/shokunin/kagi-shokunin, branch master.\nClaim BASE e8265c0d90b01fcce0447d2f70615b0592ed145f. Predeclaration 98dd4de (frozen plan, counters, BASE controls). Amendment A1 fdbb83d (frozen C2 counter taken from 5142b52). Round-41 journal: .ufo/waves/round-41/expectation-migrations.json. Round-40 journal: .ufo/waves/round-40/expectation-migrations.json.\n\nFROZEN PLAN: /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-42.md. Read it in full first. Its predicates, counter names, refusal tokens, targets, kill rules and controls are frozen; do not reinterpret them.\nCounters (frozen): plans/round-42-c1.sh (target 5; BASE 4; blanket-refuse 0; blanket-accept 0) and plans/round-42-c2.sh (target 1; BASE 0; derivation D 1). Controls runner (frozen BASE receipts): plans/round-42-controls.sh.\n\nRULES FOR EVERY SEAT\n- You are a leaf: no delegation, no sub-swarm. Never call the ask tool. Never message agent://all.\n- Never edit the lane tree. Work in your own sandbox: S=$HYAKU_SCRATCH/kagi-r42/<seat-name> (HYAKU_SCRATCH defaults to /fast/scratch/hyaku; mkdir -p; pass the path explicitly; never rely on TMPDIR; files over 50 MB never go to /tmp). Clone with: git clone --shared /home/vgpnk/Projects/shokunin/kagi-shokunin \"$S/work\" && git -C \"$S/work\" checkout --detach 98dd4de. Verify git -C \"$S/work\" rev-parse --show-toplevel equals \"$S/work\" before any write. Every git call names -C explicitly.\n- Never run git add/commit/stash/checkout/switch/reset/pull/push or any mutating jj command anywhere in the lane. Never commit in your sandbox with a throwaway identity. Never write to the fleet root, sibling lanes, MANIFEST.json, .ufo/state, .ufo/watchdog.log, templates/, scripts/, .scratch/, or host settings (no sysctl, no services, no pacman -S/-Sy/-Syu/-U/-R).\n- Delete your scratch dir before you yield: trap 'rm -rf -- \"$S\"' EXIT. Copy receipts you need into your deliverable directory first.\n- Deliverables go ONLY under /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-42/build/<your-seat-name>/ (absolute). Every `Report:` trailer path is relative to /home/vgpnk/Projects/shokunin/kagi-shokunin — write it at /home/vgpnk/Projects/shokunin/kagi-shokunin/<that path>.\n- Seat paths are absolute. A relative path lands in the FLEET repo; never write there.\n- Only the L1 applies changes to the lane. Your deliverable is a file set; the L1 copies, commits and measures.\n- Tooling authorization (operator, 2026-10-19): you and every seat may install or upgrade tools that help the task — read /home/vgpnk/.omp/agent/RULES.md first (official channels, update-safety gate; record tool/version/channel/reason in your yield). pacman guard (orchestrator ruling 2026-10-20): all pacman transactions are PAUSED host-wide — install via uv tool, npx, or an official binary in ~/.local/bin, or report an L0 need; never -Sy, -Syu, -U, -R, downgrade, or restart a host service.\n- Honesty: an unrun check has not passed. Report exact commands, exit codes and the last output line of each receipt.\n- Do not run the lane's full claim-ledger verify or self-counts (host-heavy, >300 s). Run only the scripts your item names.\n",
+    "tasks": [
+      {
+        "name": "K42ExecJournal",
+        "agent": "executor",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Assignment\nImplement the DELETED rule in the expect-journal gate (plans/round-42.md §C1).\n1. S=$HYAKU_SCRATCH/kagi-r42/K42ExecJournal; clone and checkout 98dd4de detached (see RULES). Read plans/round-42.md §C1 and the gate header.\n2. In $S/work/corpus/expect-journal.sh normal mode: for every id in base_order that is NOT in cand_rows, add (\"DELETED\", rid) to refuses. Print as `EXPECT_JOURNAL: REFUSE DELETED <ID>` via the existing refuses loop. Keep every other rule byte-identical in behaviour (UNJOURNALED, OLD_MISMATCH, COMMAND_MISMATCH, NEW_MISMATCH, NOT_LITERAL, MISSING_ROW, WARN ORPHAN, exit codes 0/1/2). Add DELETED to the header class list.\n3. In the selftest python block add case 8: fixture f5 = P0 ledger with the row whose id is R17-02 removed, P0 journal unchanged; expect rc 1 and the exact line `EXPECT_JOURNAL: REFUSE DELETED R17-02`. Update the final count to cases=8 (the existing seven cases stay).\n4. Receipts (write to /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-42/build/K42ExecJournal/ = /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-42/build/K42ExecJournal/):\n   a. selftest.txt: `bash $S/work/corpus/expect-journal.sh --selftest` → must print EXPECT_JOURNAL_SELFTEST: PASS (cases=8), exit 0. Record exit.\n   b. counter.txt: `cd $S/work && EXPECT_JOURNAL=$S/work/corpus/expect-journal.sh bash plans/round-42-c1.sh` → must print 5 (only valid when the sandbox HEAD contains plans/round-42-c1.sh; it does at 98dd4de). Record the value and the F1..F5 outcomes (rerun the gate on each fixture only if you can do it without editing the counter).\n   c. landing-check.txt: base = `git -C $S/work show 5142b52:corpus/claim-ledger.tsv > $S/base.tsv`; candidate = $S/work/corpus/claim-ledger.tsv; journals = a scratch dir holding only a copy of .ufo/waves/round-41/expectation-migrations.json. Run `bash $S/work/corpus/expect-journal.sh --base-ledger $S/base.tsv --ledger $S/work/corpus/claim-ledger.tsv --journals <dir>` → must print EXPECT_JOURNAL: CLEAN (changed=6 journaled=6), exit 0.\n   d. history-check.txt: for the round-40 journal likewise: base 6cc8850 vs P0 6f1588c ledgers, journal .ufo/waves/round-40/expectation-migrations.json → CLEAN (changed=6 journaled=6) exit 0.\n5. Deliverables: copy the final gate to /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-42/build/K42ExecJournal/expect-journal.sh; `git -C $S/work diff > /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-42/build/K42ExecJournal/gate.diff`; `sha256sum /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-42/build/K42ExecJournal/expect-journal.sh > /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-42/build/K42ExecJournal/gate-sha256.txt`.\n6. Yield: list each receipt's last line and exit code, the gate sha256, and any rule you could not keep byte-identical (with the reason). Remove $S on exit.\n\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\nJudged on: calibration, freshness\nMilestone: C1 deletion rule and C2 runner fix implemented as deliverables with receipts; pre-freeze attacks on both claims recorded; frontier and lesson drafts ready; every surviving defect named\n\nReport: write your scoped findings to .ufo/waves/round-42/build/K42ExecJournal.md"
+      },
+      {
+        "name": "K42ExecRunner",
+        "agent": "executor",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Assignment\nFix the controls runner so its C2 BASE receipt is derived from the pinned revision, not the worktree (plans/round-42.md §C2, amendment A1).\nDefect to fix: plans/round-41-controls.sh writes .ufo/waves/round-41/controls/c2-base-19025d9.txt by running `bash plans/round-41-c2.sh` in the worktree; at e8265c0 that reads 3 while the committed receipt reads 1 (receipt value 1; worktree value 3).\n1. S=$HYAKU_SCRATCH/kagi-r42/K42ExecRunner; clone and checkout 98dd4de (or fdbb83d if you need A1: `git -C $S/work checkout --detach fdbb83d`). Read plans/round-42.md §C2 and plans/round-42-c2.sh.\n2. Patch $S/work/plans/round-41-controls.sh: the C2 BASE line must be produced by: extracting 19025d9 (`git archive 19025d9 | tar -x` into a scratch subdir of $S), writing the frozen counter from 5142b52 (`git show 5142b52:plans/round-41-c2.sh`) into that extraction's plans/, running it there (cwd = extraction), and writing its output into $OUT/c2-base-19025d9.txt. Keep the C1 control lines and the c2-derivation-D line unchanged. The runner must not read the lane worktree or the candidate's plans/round-41-c2.sh for the BASE line. Keep the runner's `cd \"$(dirname \"$0\")/..\"` pattern and the scratch root ${HYAKU_SCRATCH:-/fast/scratch/hyaku}/kagi-r42/...\n3. Receipts in /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-42/build/K42ExecRunner/ = /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-42/build/K42ExecRunner/:\n   a. patched.sh (the patched runner) and patch.diff (`git -C $S/work diff`).\n   b. fixed-run.txt: in $S/work (sandbox worktree, uncommitted patch in place), run `bash plans/round-41-controls.sh` and then `tail -1 .ufo/waves/round-41/controls/c2-base-19025d9.txt` → must print 1 (the worktree now reads 3; the receipt must not follow the worktree). Record the exit code.\n   c. mutant-run.txt: create a sabotage copy where the BASE line runs `bash plans/round-41-c2.sh` in the worktree (the old behaviour), run it in the sandbox → must print 3. This proves the counter can see the defect.\n   d. derivation.txt: the value D from your extraction (must be 1).\n4. Yield: values of (b), (c), (d) with exit codes and the gate's sha256 of patched.sh. Note in your yield that the committed counter (plans/round-42-c2.sh) runs the runner in a clone of the candidate COMMIT; the L1 will run that after landing, so you do not run it. Remove $S on exit.\n\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\nJudged on: calibration, freshness\nMilestone: C1 deletion rule and C2 runner fix implemented as deliverables with receipts; pre-freeze attacks on both claims recorded; frontier and lesson drafts ready; every surviving defect named\n\nReport: write your scoped findings to .ufo/waves/round-42/build/K42ExecRunner.md"
+      },
+      {
+        "name": "K42ScoutS094",
+        "agent": "scout",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Assignment\nRe-open the registry source S094 this round and locate the append-only rule (plans/round-42.md §C1 sourced claim; CORPUS.md §SOURCES.md rule 2). Read-only except your deliverable directory.\n1. Row S094 in corpus/source-fetches.tsv (lane) gives the fetch URL and the body sha256 captured on 2026-11-05. Read that row (column names: the header line).\n2. Live re-open (today): `curl -fsSL --compressed <url> -o /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-42/build/K42ScoutS094/CORPUS-live.md` (use the URL from the row; the final URL if redirected). Record HTTP status, byte count and sha256. Compare to the row's sha: `cmp` against the committed capture if one exists in .ufo/waves/round-39/ or .ufo/waves/round-40/capture/ (search with find); report match or drift.\n3. Locate the rule text: find the line for \"Rules\" item 2 (\"Append-only\") in the body; quote at most 25 words verbatim; confirm with `grep -c -F` on the body (must be 1) and record the byte offset (`grep -b -o -F`). Quote must include the words that say only status, recheck and used-by change in place.\n4. Write /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-42/build/K42ScoutS094/notes.md (absolute: /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-42/build/K42ScoutS094/notes.md) with: URL, final URL, HTTP status, access date 2026-11-05, byte count, sha256, match verdict, the quote, grep count, byte offset, and one sentence stating whether the rule forbids deleting a registry row (it forbids in-place change of anything but status/recheck/used-by).\n5. Yield the notes' key values. Do not edit SOURCES.md or any registry row.\n\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: calibration, freshness\nMilestone: C1 deletion rule and C2 runner fix implemented as deliverables with receipts; pre-freeze attacks on both claims recorded; frontier and lesson drafts ready; every surviving defect named\n\nReport: write your scoped findings to .ufo/waves/round-42/build/K42ScoutS094.md"
+      },
+      {
+        "name": "K42ScribeLesson",
+        "agent": "scribe",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Assignment\nDraft the round-42 lesson, SCORECARD block, LOG entry and two QUALITY rows as text files for the L1 to integrate. Prose only; no lane edits.\nMeasured values you may use (all measured at the claim BASE e8265c0; do not invent others): C1 BASE 4 (target 5); blanket-refuse 0; blanket-accept 0; C2 BASE 0 (target 1); derivation D 1; worktree reading of the round-41 runner 3 (committed receipt 1); SOURCES census rows 98 (A 94, B 2, C 2, queued 1, mined 93, rejected 4), census `kagi ok`; ledger rows 86; base ledger 6cc8850 has 86 ids, P0 6f1588c 86, tip 86, no id removed across them; verify BASE red set FAIL R11-08, R22-03, R24-15, R25-02, R36-03; POLICY R29-01, R29-02, R38-03.\nAnything measured later by the L1 must appear as `<<FILL: name>>`; the L1 replaces every FILL before commit (QM7 forbids placeholders in committed files).\nFiles to write (absolute, under /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-42/build/K42ScribeLesson/):\n  lesson-draft.md — sections in order: `## Claims` (C1 and C2 with the frozen predicate sentence copied verbatim from plans/round-42.md; BASE readings; target; kill rules; ceilings), `## Gate` (the sourced claim S094: URL, access date 2026-11-05, ≤25-word located quote, FILL for the re-open verdict), `## Mistakes` as a table with columns id · class · evidence pointer · captured-by · fix. Include M41-4 (controls runner wrote a worktree reading into a committed BASE receipt: receipt 1, worktree 3; evidence .ufo/waves/round-42/controls/c2-worktree-at-base.txt and c2-base.txt; captured-by none; fix = C2 of this round, which shows the fix able to fail by the red reading 0) and M41-5 (the round-41 plan sentence 'accepts F1–F4 by construction' is false for F4 under the old gate's policy allowlist; captured-by none; fix = erratum in this lesson, round-41 plan not rewritten), `## Frontier` (what advanced; no frontier-to-core move; Rows added none; touched none), `## Routed` (the list in plans/round-42.md §Routed, verbatim item names), `## considerthese` (the latest file considerthese/2026-10-26.md: proposals 1 and 3 unimplemented; reason no separable slot), `## Assimilation` (none this round, reason).\n  scorecard-block.md — the `## Round 42 — pre-move` table (six axes at 9, evidence pointers to the BASE receipts) and the `## Round 42 — post-move` table with two rows (calibration for C1, freshness for C2), each `Before → after` column carrying the measured values only as FILL.\n  log-entry.md — one `## Round 42 (2026-11-05)` entry naming the predeclaration 98dd4de, amendment A1 fdbb83d, and FILLs for the candidate commit and results.\n  quality-rows.md — two rows in the QUALITY.md criterion table format: QM44 (a ledger row removed from the candidate without a journal form is refused; cites this lesson's M41-x and the round-41 spot-check item 4) and QM45 (a committed receipt is re-derived from the revision it names by a committed runner; cites M41-4 and the round-41 spot-check item 6). Each with a weak-signal cell and the lesson pointer.\nYield: the four file paths and a one-line status each. Keep prose tight.\n\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: calibration, freshness\nMilestone: C1 deletion rule and C2 runner fix implemented as deliverables with receipts; pre-freeze attacks on both claims recorded; frontier and lesson drafts ready; every surviving defect named\n\nReport: write your scoped findings to .ufo/waves/round-42/build/K42ScribeLesson.md"
+      },
+      {
+        "name": "K42ConnOverlap",
+        "agent": "connector",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Assignment\nSibling overlap scan, read-only. Across /home/vgpnk/Projects/shokunin/*-shokunin (exclude kagi-shokunin), search for: expect-journal, expectation-migrations, claim-ledger.tsv row deletion, `DELETED`, controls.sh with a C2 BASE line, c2-base-19025d9, rendered-text-v1, and the word 'journal gate'. Use the grep tool with the sibling paths; never write into any sibling.\nWrite /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-42/build/K42ConnOverlap/ConnOverlap.md (absolute: /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-42/build/K42ConnOverlap/ConnOverlap.md): for each hit, path:line, the owning lane, and a verdict (overlap | adjacent | none). Name explicitly whether any sibling implements a ledger-deletion refusal or a receipt re-derivation. Count hits per term.\nYield the verdict table summary (counts per verdict) and the file path.\n\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: calibration, freshness\nMilestone: C1 deletion rule and C2 runner fix implemented as deliverables with receipts; pre-freeze attacks on both claims recorded; frontier and lesson drafts ready; every surviving defect named\n\nReport: write your scoped findings to .ufo/waves/round-42/build/K42ConnOverlap.md"
+      },
+      {
+        "name": "K42ReviewC1",
+        "agent": "reviewer",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Assignment\nAttack claim C1 BEFORE any candidate exists (plans/round-42.md §C1). Do not edit the lane.\n1. Premise: no base-ledger id was ever removed. In a sandbox clone run `git -C $S/work log --format=%H -- corpus/claim-ledger.tsv` and for consecutive commits compare the first-column id sets; list every commit where an id disappeared (and whether it was re-added). Record the full result, not a sample.\n2. Premise: F5 row R17-02 is in base 6cc8850 and in no journal (`.ufo/waves/round-40/expectation-migrations.json`, `.ufo/waves/round-41/expectation-migrations.json` at 209147c). Verify.\n3. Attack the frozen counter plans/round-42-c1.sh: can a gate that is not a real journal gate reach N=5 with the blanket controls at 0? Try three cheap fake gates (refuse only when the token line contains DELETED; print the five tokens and exit 1 always; accept P0 and refuse F1–F5 by id matching) and report what each reads and whether the controls catch it.\n4. Attack the kill rule: does a faithful DELETED rule break the round-41 landing check (use 209147c ledgers) or P0? Simulate by a scratch copy of the current gate plus a 6-line DELETED loop; report the results.\n5. Attack the axis fit: is \"refuse an unjournaled deletion\" a calibration move (discrimination of the gate's self-description) or coverage of the ledger? Give a verdict with reasons.\nWrite /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-42/build/K42ReviewC1/attacks.md (absolute: /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-42/build/K42ReviewC1/attacks.md) with one numbered attack per item: claim, evidence command and its output, verdict DEFECT or NOT-DEFECT. Receipts next to it.\nYield the verdict list in 10 lines or fewer.\n\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: calibration, freshness\nMilestone: C1 deletion rule and C2 runner fix implemented as deliverables with receipts; pre-freeze attacks on both claims recorded; frontier and lesson drafts ready; every surviving defect named\n\nReport: write your scoped findings to .ufo/waves/round-42/build/K42ReviewC1.md"
+      },
+      {
+        "name": "K42ReviewC2",
+        "agent": "reviewer",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Assignment\nAttack claim C2 BEFORE any candidate exists (plans/round-42.md §C2, amendment A1). Do not edit the lane.\n1. Confirm the defect at e8265c0: in a sandbox clone at e8265c0 run `bash plans/round-41-controls.sh` and read the C2 BASE line of .ufo/waves/round-41/controls/c2-base-19025d9.txt; compare with the committed receipt (git show e8265c0:.ufo/waves/round-41/controls/c2-base-19025d9.txt). Record both values.\n2. Attack plans/round-42-c2.sh: check whether a candidate can reach N=1 without fixing the runner. Try: (a) runner that writes the constant 1; (b) runner that copies the receipt from git show 19025d9 (tree does not contain the receipt, so must fail); (c) runner that runs the counter in the worktree but then rewrites the line to 1 by arithmetic. For each, state whether the counter returns 1 and whether the plan names it as a ceiling.\n3. Check the derivation in 19025d9: does `git archive 19025d9` contain corpus/rendered-text-v1.py, corpus/SOURCES.md and corpus/source-fetches.tsv? Does the frozen counter (5142b52) run there and print 1, from the extraction's own cwd and without the lane's files? Verify with a scratch extraction.\n4. Check that the counter's clone step (git clone --shared + checkout of the candidate) does not write into the lane (`git -C /home/vgpnk/Projects/shokunin/kagi-shokunin status --porcelain` before and after a dry run of the counter in a scratch copy of the lane's scripts).\n5. Attack axis fit: is 'the runner derives its receipt from the pinned revision' a freshness move (drift detection of a pinned artifact) or only a fix? Give a verdict with reasons.\nWrite /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-42/build/K42ReviewC2/attacks.md (absolute: /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-42/build/K42ReviewC2/attacks.md) with one numbered attack per item: claim, command and output, verdict DEFECT or NOT-DEFECT.\nYield the verdict list in 10 lines or fewer.\n\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: calibration, freshness\nMilestone: C1 deletion rule and C2 runner fix implemented as deliverables with receipts; pre-freeze attacks on both claims recorded; frontier and lesson drafts ready; every surviving defect named\n\nReport: write your scoped findings to .ufo/waves/round-42/build/K42ReviewC2.md"
+      },
+      {
+        "name": "K42CriticClaims",
+        "agent": "critic",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Assignment\nFalsify both claims and their controls BEFORE candidate scoring (plans/round-42.md). Do not edit the lane.\n1. Read plans/round-42.md, plans/round-42-c1.sh, plans/round-42-c2.sh, plans/round-42-controls.sh, the amendment A1 text, and the receipts under .ufo/waves/round-42/controls/.\n2. For each claim check: (a) the target is not reachable by do-nothing (BASE readings 4 and 0 vs targets 5 and 1); (b) the no-work control reads what the plan says when re-run from a clean clone of 98dd4de (run the controls runner in your sandbox, not in the lane); (c) the kill rules are testable with the named commands; (d) causal separability (C1 touches corpus/expect-journal.sh only; C2 touches plans/round-41-controls.sh only); (e) no universal clause in the claim text that the counter does not enumerate; (f) the declared ceilings are honest.\n3. Check the amendment A1 claim in the plan: that D is unchanged and the BASE receipts re-measure identically; re-run the derivation from 5142b52's counter yourself.\n4. Check the frontier obligations: the sourced claim names S094; the census command is recorded; the mistake M41-4 is mined with a fix that can fail (the red reading 0).\n5. Search the plan for a sentence that a reader can read as a claim the counters do not measure.\nWrite /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-42/build/K42CriticClaims/critic.md (absolute: /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-42/build/K42CriticClaims/critic.md): numbered findings, each DEFECT or NOT-DEFECT with the evidence command and its output.\nYield the verdict list in 12 lines or fewer.\n\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: calibration, freshness\nMilestone: C1 deletion rule and C2 runner fix implemented as deliverables with receipts; pre-freeze attacks on both claims recorded; frontier and lesson drafts ready; every surviving defect named\n\nReport: write your scoped findings to .ufo/waves/round-42/build/K42CriticClaims.md"
+      },
+      {
+        "name": "K42MutCounters",
+        "agent": "mutation-tester",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Assignment\nMutation-test the two frozen counters BEFORE candidate scoring: do the controls kill broken counters? Do not run anything against the lane tree except read-only git.\n1. S=$HYAKU_SCRATCH/kagi-r42/K42MutCounters; clone and checkout 98dd4de detached.\n2. Build mutants of plans/round-42-c1.sh (copy to $S/mut/c1-M<n>.sh, each as a full script with cwd repo-relative handled: place the copy at $S/work/plans/ so `cd \"$(dirname \"$0\")/..\"` resolves to $S/work): M1 always print 5; M2 print 4 when F5 is refused and 5 otherwise; M3 drop the P0 gate (never print 0 for a refused P0); M4 count F1..F4 only but print 5; M5 count any refusal (rc 1) as hit. For each mutant record: the value on the BASE gate (run with the real gate at 98dd4de: expect 4 for the correct counter), the blanket-refuse and blanket-accept values (expect 0 and 0), and whether the BASE control (4) or the blanket controls (0, 0) kill it (killed = any control differs from its expected value).\n3. Mutants of plans/round-42-c2.sh (copy into $S/work/plans/c2-M<n>.sh, the same cwd rule): M1 print 1 always; M2 skip D and use the worktree receipt only; M3 compare the receipt to 1 only, without derivation. For each record the value at the claim BASE (the committed round-41 runner writes 3, so the correct counter reads 0) and whether a control kills it. Expected finding (state it honestly if it occurs): M1 survives any control that does not know the runner's source — name it as the plan's ceiling.\n4. Write /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-42/build/K42MutCounters/mutants.md (absolute: /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-42/build/K42MutCounters/mutants.md) with a table: mutant · value · controls · killed (yes/no) · survivor reason. Put the raw outputs under /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-42/build/K42MutCounters/receipts/.\n5. Remove $S on exit. Yield the table in 15 lines or fewer.\n\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: calibration, freshness\nMilestone: C1 deletion rule and C2 runner fix implemented as deliverables with receipts; pre-freeze attacks on both claims recorded; frontier and lesson drafts ready; every surviving defect named\n\nReport: write your scoped findings to .ufo/waves/round-42/build/K42MutCounters.md"
+      }
+    ]
+  },
+  "resumeSends": [],
+  "note": "Issue exactly one batched task call with taskCall ({context, tasks}); never split a wave into multiple task calls (one-swarm-per-wave). Then one hub send per resumeSends entry: hub send --to <entry.resume> --message <entry.message> (entry.name is bookkeeping, not a hub field)."
+}

@@ -1,0 +1,11 @@
+# reference C1 (DELETED rule) in refc1 sandbox
+$ EXPECT_JOURNAL=<refc1>/corpus/expect-journal.sh bash refc1/plans/round-42-c1.sh
+5
+$ bash refc1/corpus/expect-journal.sh --base-ledger base5142.tsv --ledger refc1/corpus/claim-ledger.tsv --journals j41 | tail -1
+EXPECT_JOURNAL: CLEAN (changed=6 journaled=6)
+$ bash refc1/corpus/expect-journal.sh --selftest
+EXPECT_JOURNAL_SELFTEST: PASS (cases=7)
+$ F5-like: base=work ledger, candidate=ledger minus R17-02, round-41 journal
+EXPECT_JOURNAL: REFUSE DELETED R17-02
+EXPECT_JOURNAL: REFUSED (violations=1)  rc=1
+# caveat: the gate's refusal set equals the frozen F5 token; not tested against a non-R17-02 deletion

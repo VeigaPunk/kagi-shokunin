@@ -1,0 +1,15 @@
+# K39CriticClaims — prefreeze gate re-run at predeclaration 1909e3876341cc90246516886def37a7c9ea92f9
+# Date: 2026-11-05. Command (from lane kagi-shokunin, TMPDIR/HYAKU_SCRATCH pointed at seat scratch):
+#   bash corpus/prefreeze-control.sh run --base 1909e3876341cc90246516886def37a7c9ea92f9 --controls plans/round-39.controls.tsv
+# Output (verbatim):
+OK c1_nowork expect=0 measured=0
+OK c1_positive_three expect=3 measured=3
+OK c2_nowork expect=0 measured=0
+OK c2_positive_three expect=3 measured=3
+PREFREEZE: CLEAN (controls=4 mismatch=0)
+rc=0
+# Verdict: plan claim "PREFREEZE: CLEAN (controls=4 mismatch=0)" REPRODUCED.
+# BASE0 structural check: all 8 instrument/counter/controls files absent at 06144518
+# (git cat-file -e per path -> ABSENT for plans/round-39-c1.sh, plans/round-39-c2.sh,
+#  plans/round-39-controls.sh, plans/round-39.controls.tsv, corpus/anchor-pins.sh,
+#  corpus/anchor-pins.tsv, corpus/claims-declared.sh, corpus/claims-declared.tsv).

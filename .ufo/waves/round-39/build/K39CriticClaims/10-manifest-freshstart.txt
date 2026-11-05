@@ -1,0 +1,29 @@
+# K39CriticClaims — fresh-start check vs /home/vgpnk/Projects/shokunin/MANIFEST.json
+# Date: 2026-11-05. MANIFEST.json structure: dict(version, repo, protocol, roster, minting_rule,
+# rounds=[1337 entries]). Kagi closure entries (lane == kagi):
+#   round 36: lanes {"kagi":"ok"}, admitted=false, verdict="rejected-honest-stop"
+#   round 37: lanes {"kagi":"ok"}, admitted=true,  verdict="admitted"
+#   round 38: lanes {"kagi":"ok"}, admitted=false, verdict="rejected-honest-stop"
+# Last three kagi closures: (36, rejected-honest-stop, False), (37, admitted, True),
+#                           (38, rejected-honest-stop, False).
+# Verdict-class census over all 1337 entries: admitted=673, rejected-honest-stop=316,
+#   rejected-harmed=53, ADMIT=9, admitted-capability-only=1, admitted-bounded-coverage=1,
+#   failed-marker=1, other=284.
+#
+# Cited pointer check:
+#   grep -c "1321" MANIFEST.json -> 0   (the id "1321" appears NOWHERE in the file)
+#   "1328" occurs only inside a sha256 substring (…86401328d31186d87ca)
+#   The real kagi closures are entries with round ids 36, 37, 38 (lane_round 36/37/38).
+#
+# Falsified prose (plans/round-39.md line 18; corpus/lessons/round-39.md line 7):
+#   "round 36, 37 and 38 closed `ok`" — only the lanes field says ok; the verdict field of the
+#     same entries says rejected-honest-stop for 36 and 38 (round-38-verifier-spotcheck.md:
+#     "Admission: not admitted").
+#   "no rejected closure in the last three" — FALSE under the lane's own semantics:
+#     plans/round-37.md names round 36 among "the rejected closures and spot-checks of the last
+#     three rejected rounds", i.e. the lane itself counts a rejected-honest-stop closure as
+#     rejected. Two of the last three kagi closures carry a rejected-* verdict.
+#   "(MANIFEST.json rounds 1321, 1328 and the round-36 entry)" — broken pointer: neither id
+#     exists in MANIFEST.json; the actual entries are rounds 36, 37, 38.
+# Substantive mitigation: the plan DID read round-38-verifier-spotcheck.md and dispositioned
+# R38-D1..D6; the falsified sentences are the closure-record summary, not the routed work.

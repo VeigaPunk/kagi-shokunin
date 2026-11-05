@@ -1,0 +1,18 @@
+# K39CriticClaims — C1 gate: ceiling behaviour and forgery discrimination
+# Date: 2026-11-05. All trees are seat-scratch copies of the candidate extraction.
+#
+# (a) Named ceiling QM40 — pin rewritten together with its row:
+#   S034 anchor v2.2.0 -> v2.2.1 in SOURCES.md AND anchor-pins.tsv pin set to
+#   sha256("Entry titled v2.2.1, tag link /releases/tag/v2.2.1, updated 2026-10-15T18:50:14Z; feed fetched 2026-10-21")
+#   = 2a02ad9155f92777146cb039c87dccb3e1276eab208f23f65e69e5eb787cfb56
+#   -> ANCHOR_PINS: CLEAN (pins=3), rc=0. Ceiling CONFIRMED (coordinated rewrite passes the gate).
+#
+# (b) Single-sided tamper (row rewritten, pin left at BASE value):
+#   -> DRIFT S034 / ANCHOR_PINS: DRIFT (pins=3 drift=1), rc=1. Detection path CONFIRMED.
+#
+# (c) Forgery discrimination — forged gate that always prints CLEAN:
+#   candidate copy with corpus/anchor-pins.sh replaced by `echo "ANCHOR_PINS: CLEAN (pins=3)"; exit 0`
+#   -> bash plans/round-39-c1.sh prints 0 (not 3). The counter does not credit a forged detector.
+#
+# (d) Do-nothing: instruments absent at BASE (structural, git cat-file -e) -> counter reads 0;
+#     c1_nowork/c2_nowork measured 0 at the predeclaration (01-prefreeze-gate.txt).

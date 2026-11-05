@@ -1,0 +1,14 @@
+C2 spot observations (bash .../corpus/claims-declared.sh --root /tmp/c2t, clean baseline CLEAN (claims=2) rc0)
+  A  tag plus duplicate inline extra [C1] in same row:    CLEAN rc0 (duplicate-tag-count blind inside the row)
+  B  second separate row tagged [C1] in section:          MISMATCH tagged-rows-7 rc1 DETECTED (reason count visibly off — awk counting glitch, still nonzero)
+  C  axis cell modified calibration-extra:                MISMATCH scorecard-axis-calibration-extra-not-calibration rc1 DETECTED
+  D  tag downcased [c1]:                                  MISMATCH tagged-rows-0 rc1 DETECTED
+  E  tag spaced [ C1 ]:                                   MISMATCH tagged-rows-0 rc1 DETECTED
+  F  axis cell padded '|  freshness  |':                  CLEAN rc0 (cosmetic-tolerant)
+  G  cosmetic middle-column whitespace:                   CLEAN rc0
+  H  Round section renamed to 'post-move (fixture) - ammended': CLEAN rc0 (section heading matched by PREFIX, extra trailing text tolerated)
+  I  Round sections reordered (38 above 39):              CLEAN rc0 (section selection robust to order)
+  J  heading '## C2 — fresh:' (non-axis):                 MISMATCH plan-heading-not-calibration rc1 DETECTED
+  K  duplicate plan heading appended to file:             CLEAN rc0 (grep -q only tests existence, not uniqueness)
+  L  [C1] tagged row added to a Round 38 section:         CLEAN rc0 (correct — scoped to declared round)
+Counter-level missing-manifest row (claim C2 dropped): prints 3 rc0 (counter prints its frozen integer even when the manifest is corrupt — the positive control's CLEAN gate on the root manifest is only the ROOT tree's, not the fixture's)

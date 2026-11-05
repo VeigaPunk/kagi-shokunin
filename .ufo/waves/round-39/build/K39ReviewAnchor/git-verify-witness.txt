@@ -1,0 +1,11 @@
+# git rev-parse --verify witness (empty bare repo /tmp/revchk/b, git 2.56.0)
+# NON-PEELED full-40-hex unknown object:
+9999999999999999999999999999999999999999
+rc=0
+# PEELED ^{commit} same object:
+rc=1
+# NON-PEELED 39-hex overflow:
+06014518d3b3745e7fdf82d4207b4a3b5532a7a7
+rc=0
+# PEELED 39-hex:
+rc=1

@@ -1,0 +1,36 @@
+base                       rc=0 out=[CLAIMS_DECLARED: CLEAN (claims=2)]
+a1_dup_manifest            rc=0 out=[CLAIMS_DECLARED: CLEAN (claims=3)]
+a1b_dup_conflict           rc=1 out=[MISMATCH 39 C2 plan-heading-not-depth || CLAIMS_DECLARED: MISMATCH (claims=3 mismatch=1)]
+a2_fence_heading           rc=0 out=[CLAIMS_DECLARED: CLEAN (claims=2)]
+a2b_comment_heading        rc=0 out=[CLAIMS_DECLARED: CLEAN (claims=2)]
+a2c_spacing                rc=1 out=[MISMATCH 39 C2 plan-heading-not-calibration || CLAIMS_DECLARED: MISMATCH (claims=2 mismatch=1)]
+a3_missing_row             rc=1 out=[MISMATCH 39 C1 tagged-rows-0 || CLAIMS_DECLARED: MISMATCH (claims=2 mismatch=1)]
+a4_dup_tag                 rc=1 out=[MISMATCH 39 C1 tagged-rows-0 || MISMATCH 39 C2 tagged-rows-2 || CLAIMS_DECLARED: MISMATCH (claims=2 mismatch=2)]
+a4b_cross_section_tag      rc=0 out=[CLAIMS_DECLARED: CLEAN (claims=2)]
+a5_wrong_section           rc=1 out=[MISMATCH 39 C2 tagged-rows-0 || CLAIMS_DECLARED: MISMATCH (claims=2 mismatch=1)]
+a6_axis_relevance          rc=0 out=[CLAIMS_DECLARED: CLEAN (claims=2)]
+a6b_heading_only           rc=1 out=[MISMATCH 39 C2 plan-heading-not-calibration || CLAIMS_DECLARED: MISMATCH (claims=2 mismatch=1)]
+a7_suffix_after_colon      rc=0 out=[CLAIMS_DECLARED: CLEAN (claims=2)]
+a8_padded_first_cell       rc=0 out=[CLAIMS_DECLARED: CLEAN (claims=2)]
+a9_double_space_heading    rc=1 out=[MISMATCH 39 C1 tagged-rows-0 || MISMATCH 39 C2 tagged-rows-0 || CLAIMS_DECLARED: MISMATCH (claims=2 mismatch=2)]
+a10_trailing_after_colon   rc=0 out=[CLAIMS_DECLARED: CLEAN (claims=2)]
+base_again                 rc=0 out=[CLAIMS_DECLARED: CLEAN (claims=2)]
+
+== ASSESSMENT ==
+a1_dup_manifest            rc=0 want=0  PASS-THROUGH-AS-EXPECTED  // red: duplicate identical manifest row NOT caught; claims counter inflated
+a1b_dup_conflict           rc=1 want=1  DETECT-AS-EXPECTED  // duplicate manifest row with conflicting axis caught
+a2_fence_heading           rc=0 want=1  !! DEFECT: undetected  // heading inside code fence caught
+a2b_comment_heading        rc=0 want=1  !! DEFECT: undetected  // heading inside HTML comment caught
+a2c_spacing                rc=1 want=1  DETECT-AS-EXPECTED  // double-space heading caught
+a3_missing_row             rc=1 want=1  DETECT-AS-EXPECTED  // missing tagged row caught
+a4_dup_tag                 rc=1 want=1  DETECT-AS-EXPECTED  // duplicate tags within section caught
+a4b_cross_section_tag      rc=0 want=1  !! DEFECT: undetected  // tag counted across sections caught
+a5_wrong_section           rc=1 want=1  DETECT-AS-EXPECTED  // tagged row in wrong section caught
+a6_axis_relevance          rc=0 want=1  !! DEFECT: undetected  // consistent wrong-axis relabel caught
+a6b_heading_only           rc=1 want=1  DETECT-AS-EXPECTED  // heading-only relabel caught
+a7_suffix_after_colon      rc=0 want=0  PASS-THROUGH-AS-EXPECTED  // suffix after heading colon over-matches
+a8_padded_first_cell       rc=0 want=1  !! DEFECT: undetected  // padded first cell not trimmed -> mismatch
+a9_double_space_heading    rc=1 want=1  DETECT-AS-EXPECTED  // double-space Round heading caught
+a10_trailing_after_colon   rc=0 want=0  PASS-THROUGH-AS-EXPECTED  // infix match accepts altered heading text
+base_again                 rc=0 want=0  PASS-THROUGH-AS-EXPECTED  // baseline determinism
+ANOMALIES-PRESENT

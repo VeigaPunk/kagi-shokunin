@@ -1,0 +1,13 @@
+# K39CriticClaims — S094 provenance chain
+# Date: 2026-11-05.
+sha256(.ufo/waves/round-39/capture/S094.body) = 88556402940e7a0f1dbbed3abef9e00c87a90db6f80eaed03269e371f50050b8
+corpus/source-fetches.tsv S094 body digest                   = 88556402940e7a0f1dbbed3abef9e00c87a90db6f80eaed03269e371f50050b8  MATCH
+bytes = 11296 == fetch-row size 11296  MATCH
+git -C /home/vgpnk/Projects/shokunin show f47ad6ba8d306f8125597401cb2ce45c1297a593:CORPUS.md | sha256sum
+  = 88556402940e7a0f1dbbed3abef9e00c87a90db6f80eaed03269e371f50050b8  MATCH (capture == fleet blob at the pinned revision)
+S094.body line 116 = "2. **Append-only.** Only `status`, `recheck` and `used-by` change in place, and each change"
+Fleet live CORPUS.md line 116 (fleet HEAD c96786d5) reads the identical sentence.
+SOURCES.md S094 anchor cell cites "SOURCES.md Rules item 2, line 116, revision f47ad6ba…" — consistent.
+Lesson §Gate ADMIT S094 quote "Only `status`, `recheck` and `used-by` change in place" — located, verbatim.
+# Note: live GitHub raw fetch of the pinned URL not re-performed (network check optional);
+# local fleet-blob equality pins the same bytes the receipt claims were fetched.

@@ -1,0 +1,12 @@
+--- /fast/scratch/hyaku/kagi-r39/K39MutInstruments/cand/corpus/claims-declared.sh	2026-11-05 08:09:16.000000000 -0300
++++ /fast/scratch/hyaku/kagi-r39/K39MutInstruments/mut-C2-M3/corpus/claims-declared.sh	2026-11-05 08:48:48.125790949 -0300
+@@ -62,9 +62,5 @@
+   echo "CLAIMS_DECLARED: SETUP no-rows"
+   exit 2
+ fi
+-if [ "$bad" -gt 0 ]; then
+-  echo "CLAIMS_DECLARED: MISMATCH (claims=$n mismatch=$bad)"
+-  exit 1
+-fi
+ echo "CLAIMS_DECLARED: CLEAN (claims=$n)"
+ exit 0

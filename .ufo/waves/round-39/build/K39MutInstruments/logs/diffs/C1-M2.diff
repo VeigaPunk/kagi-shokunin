@@ -1,0 +1,11 @@
+--- /fast/scratch/hyaku/kagi-r39/K39MutInstruments/cand/corpus/anchor-pins.sh	2026-11-05 08:09:16.000000000 -0300
++++ /fast/scratch/hyaku/kagi-r39/K39MutInstruments/mut-C1-M2/corpus/anchor-pins.sh	2026-11-05 08:43:13.909372935 -0300
+@@ -27,7 +27,7 @@
+ bad=0
+ while IFS=$'\t' read -r id want; do
+   case $id in
+-    ''|'#'*|id) continue ;;
++    ''|'#'*|id|S035) continue ;;
+   esac
+   n=$((n + 1))
+   anchor=$(awk -F'|' -v id="$id" '

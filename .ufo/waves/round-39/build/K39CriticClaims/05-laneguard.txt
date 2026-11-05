@@ -1,0 +1,12 @@
+# K39CriticClaims — laneguard usage correction (M39-2 / R38-EG-1) probes
+# Date: 2026-11-05. Fixture: seat-scratch git repo (toplevel asserted == fixture dir before commit).
+# Implemented form (line 101 requires first arg after `run` to be `--`):
+bash corpus/laneguard.sh run -- <fixture> -- true
+  -> LANE_GUARD: CLEAN lane=<fixture> rc=0        (probe rc=0)
+# Old documented form:
+bash corpus/laneguard.sh run <fixture> -- true
+  -> usage: laneguard.sh run -- LANE [--] CMD...   (probe rc=2)
+# Header (lines 10-14) and usage lines 101/114 all read `run -- LANE [--] CMD`.
+bash corpus/laneguard.sh --selftest
+  -> LANE_GUARD_SELFTEST: detected=3 mutants=3 clean=ok   rc=0
+# LOG claim "selftest remains detected=3 mutants=3 clean=ok": HELD. M39-2 fix verified both forms.

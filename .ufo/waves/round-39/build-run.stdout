@@ -1,0 +1,203 @@
+{
+  "schema": "ufo-swarm-wave-dispatch-v1",
+  "wave": "kagi-r39-build",
+  "policy": {
+    "source": "config",
+    "maxLanes": 256,
+    "minLanes": 8,
+    "waveMinLanes": 8,
+    "waveMaxLanes": 16,
+    "declaredMaxLanes": null,
+    "hardCeiling": 256,
+    "rampBatchSize": 5,
+    "rampIntervalMs": 700,
+    "globalRunnerCeiling": 1056
+  },
+  "counts": {
+    "spawn": 10,
+    "resume": 0,
+    "total": 10
+  },
+  "registry": {
+    "schema": "ufo-swarm-registry-v1",
+    "path": ".ufo/waves/round-39/build/swarm-registry.json",
+    "reportDir": ".ufo/waves/round-39/build",
+    "members": {
+      "K39ExecAnchor": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": null,
+        "axes": [
+          "freshness",
+          "calibration"
+        ],
+        "milestone": "Frozen C1 and C2 reproduced or falsified; domain drift triage; every surviving defect recorded"
+      },
+      "K39ExecDeclared": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": null,
+        "axes": [
+          "freshness",
+          "calibration"
+        ],
+        "milestone": "Frozen C1 and C2 reproduced or falsified; domain drift triage; every surviving defect recorded"
+      },
+      "K39ExecSources": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": null,
+        "axes": [
+          "freshness",
+          "calibration"
+        ],
+        "milestone": "Frozen C1 and C2 reproduced or falsified; domain drift triage; every surviving defect recorded"
+      },
+      "K39ScribeTrial": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scribe",
+        "item": null,
+        "axes": [
+          "freshness",
+          "calibration"
+        ],
+        "milestone": "Frozen C1 and C2 reproduced or falsified; domain drift triage; every surviving defect recorded"
+      },
+      "K39ScoutFired": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scout",
+        "item": null,
+        "axes": [
+          "freshness",
+          "calibration"
+        ],
+        "milestone": "Frozen C1 and C2 reproduced or falsified; domain drift triage; every surviving defect recorded"
+      },
+      "K39ConnOverlap": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "connector",
+        "item": null,
+        "axes": [
+          "freshness",
+          "calibration"
+        ],
+        "milestone": "Frozen C1 and C2 reproduced or falsified; domain drift triage; every surviving defect recorded"
+      },
+      "K39ReviewAnchor": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "freshness",
+          "calibration"
+        ],
+        "milestone": "Frozen C1 and C2 reproduced or falsified; domain drift triage; every surviving defect recorded"
+      },
+      "K39ReviewDeclared": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "freshness",
+          "calibration"
+        ],
+        "milestone": "Frozen C1 and C2 reproduced or falsified; domain drift triage; every surviving defect recorded"
+      },
+      "K39CriticClaims": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "critic",
+        "item": null,
+        "axes": [
+          "freshness",
+          "calibration"
+        ],
+        "milestone": "Frozen C1 and C2 reproduced or falsified; domain drift triage; every surviving defect recorded"
+      },
+      "K39MutInstruments": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "mutation-tester",
+        "item": null,
+        "axes": [
+          "freshness",
+          "calibration"
+        ],
+        "milestone": "Frozen C1 and C2 reproduced or falsified; domain drift triage; every surviving defect recorded"
+      }
+    }
+  },
+  "compaction": {
+    "applied": false,
+    "mechanism": null,
+    "reason": null,
+    "savedBytes": 0,
+    "payloadBytesBefore": 0,
+    "payloadBytesAfter": 0
+  },
+  "taskCall": {
+    "context": "kagi round 39 one v1 build/attack wave. Candidate 6742fdef0e261dd06a38a0fb0b66b1bc027d1bee; BASE 06144518d3b3745e7fdf82d4207b4a3b5532a7a7; predeclaration 1909e3876341cc90246516886def37a7c9ea92f9; frozen plan 7c11e769cd7c2450cf46faabcd3b43fca993f388. Lane absolute /home/vgpnk/Projects/shokunin/kagi-shokunin; branch master. Read plans/round-39.md in full. C1 freshness counter bash plans/round-39-c1.sh target3 BASE0; C2 calibration counter bash plans/round-39-c2.sh target3 BASE0. Do not reinterpret targets. L1 owns planner. You are a leaf; no delegation, commits, pushes, git/jj mutation outside your own verified fixture repo. Never modify production lane/fleet/sibling/source trees. Only write your report and durable receipts under /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-39/build/<your-seat>/. Every Report: trailer is relative to /home/vgpnk/Projects/shokunin/kagi-shokunin; write it at /home/vgpnk/Projects/shokunin/kagi-shokunin/<that path>. Extract candidate using git archive into /fast/scratch/hyaku/kagi-r39/<your-seat>/; one clone/extraction only; delete scratch before yielding after preserving receipts. Git fixtures verify git -C DIR rev-parse --show-toplevel equals DIR before any commit; every git call explicitly -C. Read /home/vgpnk/.omp/agent/RULES.md first; tool installs authorized official channels, record tool/version/channel/reason. All pacman transactions paused; never host sysctl/service mutations. R25-02 FAIL, R29-01/R29-02/R38-03 POLICY and verifier-owned SD6 history remain unchanged. Run only checks explicitly required in your slice; no build/lint/formatters. Return concise evidence and defects, not an admission verdict.",
+    "tasks": [
+      {
+        "name": "K39ExecAnchor",
+        "agent": "executor",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Assignment\nRe-execute C1 counter and clean anchor gate at candidate; independently recompute three pins and show each M1-M3 differs only by intended anchor change. Save outputs and rc.\nWrite report and receipts only under /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-39/build/K39ExecAnchor/. Scratch /fast/scratch/hyaku/kagi-r39/K39ExecAnchor/; cleanup before yielding.\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\nJudged on: freshness, calibration\nMilestone: Frozen C1 and C2 reproduced or falsified; domain drift triage; every surviving defect recorded\n\nReport: write your scoped findings to .ufo/waves/round-39/build/K39ExecAnchor.md"
+      },
+      {
+        "name": "K39ExecDeclared",
+        "agent": "executor",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Assignment\nRe-execute C2 counter and actual claims-declared gate at candidate. Check clean fixture and each X1-X3, stdout/rc. Identify whether counts measure calibration or merely instrument operability.\nWrite report and receipts only under /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-39/build/K39ExecDeclared/. Scratch /fast/scratch/hyaku/kagi-r39/K39ExecDeclared/; cleanup before yielding.\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\nJudged on: freshness, calibration\nMilestone: Frozen C1 and C2 reproduced or falsified; domain drift triage; every surviving defect recorded\n\nReport: write your scoped findings to .ufo/waves/round-39/build/K39ExecDeclared.md"
+      },
+      {
+        "name": "K39ExecSources",
+        "agent": "executor",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Assignment\nReopen S094 immutable URL from SOURCES.md using curl in scratch; compare captured bytes and locate quoted rule. Run fleet and lane sources census. Return findings and raw outputs.\nWrite report and receipts only under /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-39/build/K39ExecSources/. Scratch /fast/scratch/hyaku/kagi-r39/K39ExecSources/; cleanup before yielding.\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\nJudged on: freshness, calibration\nMilestone: Frozen C1 and C2 reproduced or falsified; domain drift triage; every surviving defect recorded\n\nReport: write your scoped findings to .ufo/waves/round-39/build/K39ExecSources.md"
+      },
+      {
+        "name": "K39ScribeTrial",
+        "agent": "scribe",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Assignment\nRead domain knowledge entries mentioning Vault, OpenBao and Python; compare their version-bound statements with S089-S093. Produce a bounded real-domain drift triage with paths and quoted statements; do not edit production files. Also audit round39 prose counts for unsupported claims.\nWrite report and receipts only under /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-39/build/K39ScribeTrial/. Scratch /fast/scratch/hyaku/kagi-r39/K39ScribeTrial/; cleanup before yielding.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness, calibration\nMilestone: Frozen C1 and C2 reproduced or falsified; domain drift triage; every surviving defect recorded\n\nReport: write your scoped findings to .ufo/waves/round-39/build/K39ScribeTrial.md"
+      },
+      {
+        "name": "K39ScoutFired",
+        "agent": "scout",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Assignment\nRead release-clock.py and release-clocks.tsv; independently explain 15 fired clocks and R37-V2 derivation dependence. Identify a concrete next domain recheck and inspect round39 plan statements for incorrect provenance or history.\nWrite report and receipts only under /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-39/build/K39ScoutFired/. Scratch /fast/scratch/hyaku/kagi-r39/K39ScoutFired/; cleanup before yielding.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness, calibration\nMilestone: Frozen C1 and C2 reproduced or falsified; domain drift triage; every surviving defect recorded\n\nReport: write your scoped findings to .ufo/waves/round-39/build/K39ScoutFired.md"
+      },
+      {
+        "name": "K39ConnOverlap",
+        "agent": "connector",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Assignment\nRead-only sibling overlap scan for anchor-cell pins and frozen claim-axis versus SCORECARD checks. Return owners, paths and relevant differences. Do not absorb or change sibling material.\nWrite report and receipts only under /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-39/build/K39ConnOverlap/. Scratch /fast/scratch/hyaku/kagi-r39/K39ConnOverlap/; cleanup before yielding.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness, calibration\nMilestone: Frozen C1 and C2 reproduced or falsified; domain drift triage; every surviving defect recorded\n\nReport: write your scoped findings to .ufo/waves/round-39/build/K39ConnOverlap.md"
+      },
+      {
+        "name": "K39ReviewAnchor",
+        "agent": "reviewer",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Assignment\nAttack C1 anchor gate and frozen counter in scratch. Try duplicate rows, missing pins, truncated pin set, whitespace, extra columns and pin+row co-rewrite. Assess frozen predicate and claimed freshness gain; cite executable witnesses.\nWrite report and receipts only under /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-39/build/K39ReviewAnchor/. Scratch /fast/scratch/hyaku/kagi-r39/K39ReviewAnchor/; cleanup before yielding.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness, calibration\nMilestone: Frozen C1 and C2 reproduced or falsified; domain drift triage; every surviving defect recorded\n\nReport: write your scoped findings to .ufo/waves/round-39/build/K39ReviewAnchor.md"
+      },
+      {
+        "name": "K39ReviewDeclared",
+        "agent": "reviewer",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Assignment\nAttack C2 declared-axis gate in scratch. Test duplicate manifest rows, fake plan heading inside code fences/comments, missing tagged rows, duplicate tags, wrong section, and axis relevance. Assess whether declared calibration is actually measured.\nWrite report and receipts only under /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-39/build/K39ReviewDeclared/. Scratch /fast/scratch/hyaku/kagi-r39/K39ReviewDeclared/; cleanup before yielding.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness, calibration\nMilestone: Frozen C1 and C2 reproduced or falsified; domain drift triage; every surviving defect recorded\n\nReport: write your scoped findings to .ufo/waves/round-39/build/K39ReviewDeclared.md"
+      },
+      {
+        "name": "K39CriticClaims",
+        "agent": "critic",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Assignment\nFalsify claims and prose as declared in plans/round-39.md. Compare SCORECARD/lesson/LOG with executed receipts and current state. Check prefreeze controls, base hash, claim-axis fit, causal separation, do-nothing/forgery discrimination. Report every unsupported assertion.\nWrite report and receipts only under /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-39/build/K39CriticClaims/. Scratch /fast/scratch/hyaku/kagi-r39/K39CriticClaims/; cleanup before yielding.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness, calibration\nMilestone: Frozen C1 and C2 reproduced or falsified; domain drift triage; every surviving defect recorded\n\nReport: write your scoped findings to .ufo/waves/round-39/build/K39CriticClaims.md"
+      },
+      {
+        "name": "K39MutInstruments",
+        "agent": "mutation-tester",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Assignment\nMutation-test C1 and C2 instruments and counters using scratch copies. Drop digest comparison, skip a pin, return CLEAN always, weaken axis check, ignore section binding. Run frozen counters and record surviving mutants; no production edits.\nWrite report and receipts only under /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-39/build/K39MutInstruments/. Scratch /fast/scratch/hyaku/kagi-r39/K39MutInstruments/; cleanup before yielding.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness, calibration\nMilestone: Frozen C1 and C2 reproduced or falsified; domain drift triage; every surviving defect recorded\n\nReport: write your scoped findings to .ufo/waves/round-39/build/K39MutInstruments.md"
+      }
+    ]
+  },
+  "resumeSends": [],
+  "note": "Issue exactly one batched task call with taskCall ({context, tasks}); never split a wave into multiple task calls (one-swarm-per-wave). Then one hub send per resumeSends entry: hub send --to <entry.resume> --message <entry.message> (entry.name is bookkeeping, not a hub field)."
+}

@@ -1,0 +1,27 @@
+# K39CriticClaims — cross-check of sibling seat receipts vs my independent runs
+# Date: 2026-11-05. Seats present in .ufo/waves/round-39/build/ at check time:
+# K39ExecDeclared, K39ConnOverlap, K39ReviewDeclared.
+#
+# K39ExecDeclared: counter-at-candidate 3; gate-at-candidate CLEAN (claims=2);
+#   nowork-at-candidate 0; manual-fixture-ladder X1/X2/X3 each MISMATCH with the exact reasons
+#   (scorecard-axis-operability-not-calibration / plan-heading-not-calibration / tagged-rows-0),
+#   P1-round38-row-not-gated CLEAN, P2-consistent-relabel CLEAN;
+#   sha256-instruments-candidate matches the committed instrument bytes.
+#   -> No contradiction with my runs; P2 corroborates the declared ceiling (a consistent
+#      pre-data relabel reads CLEAN; the gate does not judge axis fit).
+#
+# K39ConnOverlap: c1/c2 counters 3 at both lane and extraction; gates CLEAN; census rows=94;
+#   freeze-stability: the 8 frozen instrument/control files unchanged 1909e38..candidate;
+#   plans/round-39.md unchanged 7c11e76..candidate; BASE instrument absence via git.
+#   worktree-state: HEAD=6742fdef, tracked-dirty-count=0. -> Matches my measurements exactly.
+#
+# K39ReviewDeclared: c1-counter 3, c2-counter 3 (sha 4dfc1f42… matches the committed counter);
+#   axis probes k1/k2/k6 (padding, tag position) CLEAN — the gate is whitespace/position
+#   tolerant on non-semantic variants; k3/k4/k5/k7 MISMATCH — case, typo, wrong-cell catches;
+#   lane-copy-attack (relabel plan+scorecard together) -> MISMATCH both claims.
+#   -> No contradiction; the k-probes bound the gate's sensitivity beyond the frozen X1-X3.
+#
+# Swarm registry: .ufo/waves/round-39/build/swarm-registry.json present; build-spec.json names
+# exactly the 10 planned seats (K39ExecAnchor, K39ExecDeclared, K39ExecSources, K39ScribeTrial,
+# K39ScoutFired, K39ConnOverlap, K39ReviewAnchor, K39ReviewDeclared, K39CriticClaims,
+# K39MutInstruments) — matches plans/round-39.md §Wave.

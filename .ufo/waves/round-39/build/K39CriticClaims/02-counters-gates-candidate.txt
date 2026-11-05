@@ -1,0 +1,12 @@
+# K39CriticClaims — frozen counters and gates at candidate 6742fdef0e261dd06a38a0fb0b66b1bc027d1bee
+# Date: 2026-11-05. Lane tracked tree == candidate (git status clean except .ufo untracked;
+# corpus/anchor-pins.sh sha equal to candidate extraction).
+bash plans/round-39-c1.sh            -> 3   rc=0   (target 3: MET)
+bash plans/round-39-c2.sh            -> 3   rc=0   (target 3: MET)
+bash corpus/anchor-pins.sh --root .  -> ANCHOR_PINS: CLEAN (pins=3)      rc=0
+bash corpus/claims-declared.sh --root . -> CLAIMS_DECLARED: CLEAN (claims=2) rc=0
+bash corpus/sources-census.sh        -> SOURCES_CENSUS: CLEAN (rows=94 A=90 B=2 C=2 queued=1 mined=90 rejected=3 entries_sourced=14 legacy=21 captures=94 inrow=16 inrow_only=0 inrow_nonreproducing=12) rc=0
+bash plans/round-37-c2.sh            -> 0   rc=0   (lesson claim "still reads 0": HELD)
+python3 -I -B corpus/release-clock.py -> RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=15 derived=15) rc=0
+# Kill rules checked: all print exactly the frozen strings; sources-census CLEAN at landing.
+# Counter scratch was redirected to the seat scratch dir via HYAKU_SCRATCH.

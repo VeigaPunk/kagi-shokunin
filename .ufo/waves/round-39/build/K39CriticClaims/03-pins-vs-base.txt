@@ -1,0 +1,11 @@
+# K39CriticClaims — pin provenance: anchor-pins.tsv vs claim-BASE registry cells
+# Date: 2026-11-05. Cells extracted from git show 06144518d3b3745e7fdf82d4207b4a3b5532a7a7:corpus/SOURCES.md
+# (awk -F'|', id=$2 trimmed, anchor=$7 trimmed), sha256 over the trimmed cell:
+S034 cell=[Entry titled v2.2.0, tag link /releases/tag/v2.2.0, updated 2026-10-15T18:50:14Z; feed fetched 2026-10-21]
+S034 sha=5e10a867bd3954bd1d771d4f1efc96197edd8dceee66f43933095db96d443811  == pin  MATCH
+S035 cell=[Entry titled v2.7.1, tag link /releases/tag/v2.7.1, updated 2026-10-01T18:32:18Z; feed fetched 2026-10-21]
+S035 sha=0ddd47c09377c066d75f6912e643246e742853c9746d73953e7482551683d33a  == pin  MATCH
+S039 cell=[Python 3.15.1 item, pubDate Wed, 21 Oct 2026 09:59:50 +0000; fetched 2026-10-21]
+S039 sha=772e58b25951bca52d8e5ac195906a8b7411be224bb8f02634cf71167fef4230  == pin  MATCH
+# git diff 0614451..6742fdef -- corpus/SOURCES.md: no +/- lines for rows S034/S035/S039
+# -> anchor cells unchanged BASE -> candidate. Kill rule "any change to anchor cells" not triggered.

@@ -1,0 +1,27 @@
+Anchor-pin v1 battery (bash /fast/scratch/hyaku/kagi-r39/K39ReviewAnchor/corpus/anchor-pins.sh --root /tmp/c1t) [clean baseline first: CLEAN (pins=3) rc0]
+  1  S034 duplicate row after original, corrupt anchor v0.0.0 : CLEAN (pins=3) rc0 FALSE-CLEAN
+  1b S034 duplicate row BEFORE original (v0.0.0 first):          DRIFT S034 row-missing rc1 DETECTED (but for the wrong reason, not duplicate detection)
+  2  S034 anchor leading whitespace from column start:           DRIFT S034 rc1 DETECTED
+  2b S034 tab-indented full row:                                 CLEAN (pins=3) rc0 FALSE-CLEAN
+  3  extra pipe column before anchor:                            DRIFT S034 rc1 DETECTED
+  4  extra trailing cells after anchor:                          CLEAN (pins=3) rc0 FALSE-CLEAN
+  4b empty column inserted before anchor:                        DRIFT S034 row-missing rc1 DETECTED (reason text wrong again)
+  4c nonempty extra column before anchor:                        DRIFT S034 rc1 DETECTED
+  5  column collapsed (one pipe removed):                        DRIFT S034 rc1 DETECTED
+  6  all three rows rewritten AND pins co-rewritten (pin+row):   CLEAN (pins=3) rc0 FALSE-CLEAN (the promised ceiling QM40, confirmed)
+  7  pin corrupted (1 char):                                     DRIFT S034 rc1 DETECTED
+  8  pin truncated (79 hex):                                     DRIFT S034 rc1 DETECTED
+  9  one pin row entirely REMOVED:                               CLEAN (pins=2) rc0 FALSE-CLEAN [count-mode false-clean — gate does not enforce pins=3]
+ 10  missing pin BUT anchor drifted too:                         CLEAN (pins=2) rc0 FALSE-CLEAN (masked)
+ 11  two-row co-rewrite (my own awk index off by one):           DRIFT S035 S039 rc1 (artifact of my scripting; superseded by attack 6)
+ 12  attack 6 re-run at the counter level (root co-rewritten):    counter prints 0 rc0 FALSE-CLEAN
+ 13  pin file WITHOUT trailing newline:                          CLEAN (pins=2) rc0 FALSE-CLEAN (last pin lost)
+ 14  pin row with trailing whitespace after hash:                DRIFT S034 rc1 DETECTED
+ 15  CRLF pins:                                                  DRIFT all-three rc1 DETECTED
+ 16  extra pin row S000 (empty-string sha):                      DRIFT S000 row-missing rc1 DETECTED
+ 17  double space INSIDE the anchor cell:                        DRIFT S034 rc1 DETECTED
+ 18  cell padded left/right inside pipe whitespace:              DRIFT S034 rc1 DETECTED
+ 18b leading trim-space only:                                    DRIFT S034 rc1 DETECTED
+Zero pins (header only):                                         ANCHOR_PINS: SETUP no-pins rc2 (SETUP, not DRIFT)
+Missing pin file:                                                SETUP missing-input rc2
+Missing SOURCES.md:                                              SETUP missing-input rc2

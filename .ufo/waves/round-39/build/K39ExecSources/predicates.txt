@@ -1,0 +1,12 @@
+# corpus/anchor-pins.sh header (candidate 6742fdef), frozen predicate sentence
+# Frozen predicate (the same sentence appears in plans/round-39.md and the counter):
+#   ANCHOR_PINS: CLEAN (pins=N) -- for every row of corpus/anchor-pins.tsv, the anchor cell
+#   (SOURCES.md column 6, whitespace-trimmed) of the registry row with that id has the sha256
+#   the pin records; any other value, or no such row, prints `DRIFT <id>` and the run exits 1.
+
+# corpus/claims-declared.sh header (candidate 6742fdef), frozen predicate sentence
+# Frozen predicate (the same sentence appears in plans/round-39.md and the counter):
+#   CLAIMS_DECLARED: CLEAN (claims=N) -- for every row `round<TAB>claim<TAB>axis` of
+#   corpus/claims-declared.tsv: (a) plans/round-<round>.md carries the heading
+#   `## <claim> — <axis>:`; (b) SCORECARD.md's `## Round <round> — post-move` section holds
+#   exactly one table row tagged `[<claim>]`, and that row's first cell equals <axis>.

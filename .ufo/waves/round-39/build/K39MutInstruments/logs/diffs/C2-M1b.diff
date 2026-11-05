@@ -1,0 +1,11 @@
+--- /fast/scratch/hyaku/kagi-r39/K39MutInstruments/cand/corpus/claims-declared.sh	2026-11-05 08:09:16.000000000 -0300
++++ /fast/scratch/hyaku/kagi-r39/K39MutInstruments/mut-C2-M1b/corpus/claims-declared.sh	2026-11-05 08:48:48.122386832 -0300
+@@ -53,7 +53,7 @@
+     bad=$((bad + 1))
+     continue
+   fi
+-  if [ "$tagged" != "$axis" ]; then
++  if [[ "$tagged" != *"$axis"* ]]; then
+     echo "MISMATCH $round $claim scorecard-axis-$tagged-not-$axis"
+     bad=$((bad + 1))
+   fi

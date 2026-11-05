@@ -1,0 +1,26 @@
+# K39CriticClaims — self-description sweep, BASE vs candidate HEAD
+# Date: 2026-11-05. bash corpus/self-description-sweep.sh (unchanged file, not in BASE..CAND diff).
+#
+# BASE 06144518 (bytes extracted via git archive into a lone scratch dir):
+#   SELF_DESCRIPTION: MISMATCH n=3 (SD1=0 SD2=0 SD3=0 SD4=0 SD5=0 SD6=3 SD7=0 SD8=0 SD9=0) rc=1
+#   UNRESOLVED rows: round-30-verifier-spotcheck.md:41, round-32-verifier-spotcheck.md:54 (local),
+#                    round-33-verifier-spotcheck.md:90 (shorthand)
+#   -> plan claim "MISMATCH n=3 (SD6=3), all three rows inside verifier-owned spot-check files":
+#      REPRODUCED under the same (extraction/lone) layout the plan's measurement used.
+#
+# HEAD 6742fdef (real lane tree, fleet layout):
+#   SELF_DESCRIPTION: MISMATCH n=9 (SD1=0 SD2=0 SD3=0 SD4=0 SD5=3 SD6=6 SD7=0 SD8=0 SD9=0) rc=1
+#   MISMATCH SD5 SCORECARD.md:14 red id 'R25-02' is absent from the latest calibration row (SCORECARD.md:1490)
+#   MISMATCH SD5 SCORECARD.md:14 red id 'R29-01' is absent from the latest calibration row (SCORECARD.md:1490)
+#   MISMATCH SD5 SCORECARD.md:14 red id 'R29-02' is absent from the latest calibration row (SCORECARD.md:1490)
+#   MISMATCH SD6 SCORECARD.md:1493 .ufo/waves/round-39/expectation-migrations.json (ufo)
+#   MISMATCH SD6 corpus/lessons/round-30-verifier-spotcheck.md:41 corpus/README.md:64/65/67 (local)
+#   MISMATCH SD6 corpus/lessons/round-32-verifier-spotcheck.md:54 corpus/README.md:64/65/67 (local)
+#   MISMATCH SD6 corpus/lessons/round-33-verifier-spotcheck.md:90 knowledge/corpus/knowledge/ (shorthand)
+#   MISMATCH SD6 corpus/lessons/round-34-verifier-spotcheck.md:84 /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/SOURCES.md (sibling)
+#   MISMATCH SD6 corpus/lessons/round-35-verifier-spotcheck.md:78 /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/SOURCES.md (sibling)
+#
+# Candidate regresses the lane's self-description count 3 -> 9. None of the 6 new hits is
+# recorded in the round-39 lesson/LOG/SCORECARD. Attribution of the two new sibling rows is
+# layout-sensitive: in the lone BASE extraction they print FLEET-ABSENT (not UNRESOLVED, not
+# counted); see 07-citations-diff.txt and 08-fleet-layout-base.txt for the layout-controlled run.

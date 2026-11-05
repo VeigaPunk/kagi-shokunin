@@ -1,0 +1,14 @@
+--- /fast/scratch/hyaku/kagi-r39/K39MutInstruments/cand/corpus/claims-declared.sh	2026-11-05 08:09:16.000000000 -0300
++++ /fast/scratch/hyaku/kagi-r39/K39MutInstruments/mut-C2-M2/corpus/claims-declared.sh	2026-11-05 08:48:48.124386838 -0300
+@@ -42,9 +42,8 @@
+     bad=$((bad + 1))
+     continue
+   fi
+-  tagged=$(awk -v round="$round" -v tag="[$claim]" '
+-    /^## Round / { insec = index($0, "## Round " round " — post-move") == 1; next }
+-    insec && /^\|/ && index($0, tag) > 0 {
++  tagged=$(awk -v tag="[$claim]" '
++    /^\|/ && index($0, tag) > 0 {
+       first = $0; sub(/^\| */, "", first); sub(/ *\|.*$/, "", first); print first
+     }' "$root/SCORECARD.md")
+   rows=$(printf '%s\n' "$tagged" | grep -c . || true)

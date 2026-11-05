@@ -1,0 +1,32 @@
+# K39CriticClaims — census receipts vs plan/lesson prose
+# Date: 2026-11-05.
+#
+# Plan §Frontier step: "Receipts: /fast/scratch/hyaku/kagi-r39/l1/census/start-fleet.txt,
+# start-lane.txt (copied to the wave dir)."
+#   ACTUAL: .ufo/waves/round-39/census/ is EMPTY (ls). The two receipts exist only in the
+#   ephemeral scratch dir /fast/scratch/hyaku/kagi-r39/l1/census/ (start-lane.txt 161 bytes,
+#   start-fleet.txt 1616 bytes). "Copied to the wave dir" is FALSE as of the candidate.
+#
+# start-lane.txt (verbatim): SOURCES_CENSUS: CLEAN (rows=93 A=89 B=2 C=2 queued=1 mined=89
+#   rejected=3 entries_sourced=14 legacy=21 captures=93 inrow=16 inrow_only=0
+#   inrow_nonreproducing=12)  — matches lesson/SCORECARD "before rows=93". HELD.
+#
+# start-fleet.txt: 19 W04 duplicate-URL warnings (S019,S020,S021,S022,S023,S025,S026,S032,S039,
+#   S040,S041,S045,S050,S051,S069,S070,S089,S090,S091), ending "kagi ok …/corpus/SOURCES.md".
+# Lesson §Census Before claims "(one W04 duplicate-URL warning, S091)". FALSIFIED: the receipt
+# shows 19 W04 warnings (the same receipt the lesson cites).
+#
+# Lesson §Census After: "see §Census result at the landing revision (filled from the measured
+# commands in the round report)" — no §Census result section exists in the lesson, and no round
+# report exists in .ufo/waves/round-39/ as of the candidate (dangling forward reference).
+#
+# Candidate-state census (my run): SOURCES_CENSUS: CLEAN (rows=94 A=90 B=2 C=2 queued=1 mined=90
+#   rejected=3 entries_sourced=14 legacy=21 captures=94 inrow=16 inrow_only=0
+#   inrow_nonreproducing=12) — matches SCORECARD "93 -> 94, entries_sourced stays 14". HELD.
+#
+# Migration gap: ledger rows R21-02, R31-02, R33-02, R34-03 pin the rows=93 census regex;
+# the candidate tree reads rows=94. SCORECARD coverage Evidence says these rows are
+# "(migrated, .ufo/waves/round-39/expectation-migrations.json)" — that file does not exist in
+# the candidate. Round-38 precedent: .ufo/waves/round-38/expectation-migrations.json was
+# committed WITH the round-38 candidate (git log: b944735) and updated at close (88374f9).
+# Until the migration lands, all four census rows are stale (expected rows=93 vs observed 94).

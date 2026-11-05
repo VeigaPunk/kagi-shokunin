@@ -1,0 +1,19 @@
+# K39CriticClaims — claim-ledger citations: BASE bytes vs HEAD bytes
+# Date: 2026-11-05. bash corpus/claim-ledger.sh citations; UNRESOLVED lines only.
+#
+# BASE bytes (lone extraction layout): 3 UNRESOLVED
+UNRESOLVED corpus/lessons/round-30-verifier-spotcheck.md:41 corpus/README.md:64/65/67 (local)
+UNRESOLVED corpus/lessons/round-32-verifier-spotcheck.md:54 corpus/README.md:64/65/67 (local)
+UNRESOLVED corpus/lessons/round-33-verifier-spotcheck.md:90 knowledge/corpus/knowledge/ (shorthand)
+#
+# HEAD bytes (lane, fleet layout): 6 UNRESOLVED
+UNRESOLVED SCORECARD.md:1493 .ufo/waves/round-39/expectation-migrations.json (ufo)
+UNRESOLVED corpus/lessons/round-30-verifier-spotcheck.md:41 corpus/README.md:64/65/67 (local)
+UNRESOLVED corpus/lessons/round-32-verifier-spotcheck.md:54 corpus/README.md:64/65/67 (local)
+UNRESOLVED corpus/lessons/round-33-verifier-spotcheck.md:90 knowledge/corpus/knowledge/ (shorthand)
+UNRESOLVED corpus/lessons/round-34-verifier-spotcheck.md:84 /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/SOURCES.md (sibling)
+UNRESOLVED corpus/lessons/round-35-verifier-spotcheck.md:78 /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/SOURCES.md (sibling)
+#
+# The SCORECARD.md:1493 hit is candidate-introduced (cites the missing expectation-migrations.json).
+# The round-34/35 sibling hits differ between my two runs in BOTH bytes and layout; the
+# layout-controlled BASE run (08-fleet-layout-base.txt) isolates the variable.

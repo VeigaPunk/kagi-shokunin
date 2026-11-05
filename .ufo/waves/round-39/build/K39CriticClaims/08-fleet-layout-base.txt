@@ -1,0 +1,34 @@
+# K39CriticClaims — sweep baseline is layout-dependent (measurement-provenance finding)
+# Date: 2026-11-05.
+#
+# Same BASE bytes (git archive 06144518), same unchanged sweep script:
+#   lone extraction (/fast/scratch/.../base):          SELF_DESCRIPTION: MISMATCH n=3   (SD6=3)
+#   fleet-shaped sim dir (MANIFEST.json beside tree):  SELF_DESCRIPTION: MISMATCH n=100 (SD6=100)
+#
+# Mechanism (corpus/claim-ledger.sh header + selftest case cite-lone-sibling-absent):
+# in a lone clone, fleet `.ufo/...` and `*-shokunin/...` citations print FLEET-ABSENT and are
+# NOT counted; under a fleet layout they are resolved and the stale ones count as UNRESOLVED.
+# The sim's 100 is an UPPER-BOUND artifact (the sim parent lacks the real fleet .ufo tree, so
+# even currently-resolving .ufo reports count as UNRESOLVED there); it is not a faithful
+# BASE-at-lane-location reading.
+#
+# Attribution triage of the HEAD lane reading (n=9):
+#   candidate-introduced: 3 x SD5 (round-39 calibration row drops the lane-status reds
+#     R25-02/R29-01/R29-02 that the round-38 calibration row carried) + 1 x SD6
+#     (SCORECARD.md:1493 cites the missing .ufo/waves/round-39/expectation-migrations.json).
+#   layout-exposed, not candidate-introduced: 2 x SD6 sibling rows (round-34:84, round-35:78).
+#     Their citing lines, the gate script, and the cited target
+#     /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/SOURCES.md are byte-identical /
+#     unchanged / existent across BASE and HEAD, so the flip from not-counted to UNRESOLVED
+#     between the plan's BASE measurement and the candidate's current state is a change of
+#     measurement layout, not of those bytes. [INFERENCE: under a faithful fleet-layout BASE
+#     reading these two rows would already have been UNRESOLVED; a faithful fleet-layout BASE
+#     measurement was not reachable without mutating the lane, so the counterfactual is
+#     mechanism-argued, not directly run.]
+#   unchanged across both: the 3 verifier-owned SD6 rows (round-30/32/33) that the plan
+#     declares "not lane-owned, not claimed" — consistent at BASE and HEAD.
+#
+# Consequence: the plan's sentence "bash corpus/self-description-sweep.sh reads MISMATCH n=3"
+# is an extraction-layout value and does not reproduce at the lane's real location for the
+# same bytes; the layout used is not disclosed in the plan. The 3 -> 9 comparison in any
+# round-39 close must be layout-controlled or the delta mis-attributes 2 rows to the candidate.

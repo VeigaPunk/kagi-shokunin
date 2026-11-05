@@ -1,0 +1,11 @@
+--- /fast/scratch/hyaku/kagi-r39/K39MutInstruments/cand/corpus/anchor-pins.sh	2026-11-05 08:09:16.000000000 -0300
++++ /fast/scratch/hyaku/kagi-r39/K39MutInstruments/mut-C1-M1/corpus/anchor-pins.sh	2026-11-05 08:43:13.889372874 -0300
+@@ -39,7 +39,7 @@
+     continue
+   fi
+   got=$(printf '%s' "$anchor" | sha256sum | cut -d' ' -f1)
+-  if [ "$got" != "$want" ]; then
++  if [ -n "" ]; then
+     echo "DRIFT $id"
+     bad=$((bad + 1))
+   fi

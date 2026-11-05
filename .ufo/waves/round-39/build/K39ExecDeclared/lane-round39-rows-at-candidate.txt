@@ -1,0 +1,24 @@
+## corpus/claims-declared.tsv (candidate 6742fdef)
+round	claim	axis
+39	C1	freshness
+39	C2	calibration
+
+## plans/round-39.md claim headings (candidate)
+40:## C1 — freshness: anchor-pin gate detects in-place rewrites of superseded feed anchors, 0 → 3
+77:## C2 — calibration: declared-axis conformance gate detects relabels, 0 → 3
+
+## SCORECARD.md '## Round 39 — post-move' section (candidate)
+## Round 39 — post-move (claims C1 freshness, C2 calibration)
+
+Measured commands and receipts: `.ufo/waves/round-39/`. The frozen predicates, counters, kill rules and targets are `plans/round-39.md` §C1/§C2 and are not amended after data. Scores stay 9 → 9: a claim move adds no new score; the capability rows record what the instruments do.
+
+| Axis | Before → after | What moved | Evidence |
+|---|---|---|---|
+| freshness | 9 → 9 | [C1] Anchor-pin gate `corpus/anchor-pins.sh` binds the anchor cells of the three superseded feed rows (S034, S035, S039) to committed sha256 pins; the frozen counter `plans/round-39-c1.sh` reads 0 → 3 (the three in-place anchor rewrites M1–M3 each reported DRIFT). Capability row `anchor-pin drift detection`. | `plans/round-39-c1.sh`; `corpus/anchor-pins.sh`; `corpus/anchor-pins.tsv`; `corpus/lessons/round-39.md` §Gate, §Claims |
+| calibration | 9 → 9 | [C2] Declared-axis gate `corpus/claims-declared.sh` compares each round-39 claim's plan heading and its tagged SCORECARD row with the frozen manifest `corpus/claims-declared.tsv`; the frozen counter `plans/round-39-c2.sh` reads 0 → 3 (planted relabels X1–X3 each reported MISMATCH). Capability row `declared-axis conformance`. Round 38 is not in the manifest: its untagged row is a named, unclaimed history gap. | `plans/round-39-c2.sh`; `corpus/claims-declared.sh`; `corpus/claims-declared.tsv`; `corpus/lessons/round-39.md` §Mistakes M39-1 |
+| operability | 9 → 9 | The guard's usage text now matches the form it accepts (`run -- LANE [--] CMD`, R38-EG-1; M39-2). No new scheduler; the two new gates run on demand. | `corpus/laneguard.sh`; `corpus/lessons/round-39.md` §Mistakes M39-2 |
+| depth | 9 → 9 | No mechanism change. | `plans/round-39.md` |
+| coverage | 9 → 9 | Registry 93 → 94: one own-work row S094 (`CORPUS.md` rule 2), no new entry, no frontier-to-core move; `entries_sourced` stays 14. | `R21-02`, `R31-02`, `R33-02`, `R34-03` (migrated, `.ufo/waves/round-39/expectation-migrations.json`) |
+| adjacency | 9 → 9 | No sibling surface is claimed or absorbed; the connector sweep is in `.ufo/waves/round-39/build/`. | `R17-02`; `corpus/lessons/round-39.md` |
+
+Measured revision, exact exits and receipts are in the round report; no unrun result is stated here.

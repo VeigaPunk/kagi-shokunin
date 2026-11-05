@@ -1,0 +1,10 @@
+--- /fast/scratch/hyaku/kagi-r39/K39MutInstruments/cand/plans/round-39-c2.sh	2026-11-05 08:09:16.000000000 -0300
++++ /fast/scratch/hyaku/kagi-r39/K39MutInstruments/mut-C2-CT1/plans/round-39-c2.sh	2026-11-05 08:51:05.041799171 -0300
+@@ -71,7 +71,6 @@
+ x2() { sed -i 's/^## C2 — calibration: fixture claim two/## C2 — operability: fixture claim two/' "$1/plans/round-39.md"; }
+ x3() { sed -i 's/^| freshness | 9 → 9 | \[C1\] fixture move one/| freshness | 9 → 9 | fixture move one/' "$1/SCORECARD.md"; }
+ mutant X1 x1
+-mutant X2 x2
+ mutant X3 x3
+ echo "$detected"
+ exit 0

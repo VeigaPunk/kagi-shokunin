@@ -1,0 +1,18 @@
+# round-36 pre-freeze controls — independent reproduction (seat ExecControls, 2026-11-04)
+# Source bytes: `git archive` extraction of kagi-shokunin cb8cb659e84240a8db12e4f7b4a0def5068baf7e
+#   (plans/round-36-c1.sh sha256 206cbcc53c31fad848fa8312ce0a7625a718a8211b2d4d6384021f4a0dbd086d,
+#    plans/round-36-c2.sh sha256 ac010f163c03313ef97251c1cce7aacfb7d01f99d65fdad313bbd8e4284c01c6,
+#    observe-live.json  sha256 3f611eec30d4a48f4f389bb1a630551d77110d92fb97eee954eeb6f7c8558727).
+# Expected = the committed receipt bytes at cb8cb65 (.ufo/waves/round-36/controls/<control>.out/.err),
+#   compared byte-wise with cmp (obs-*.out vs *.out including the trailing `rc=N` line, obs-*.err vs *.err).
+# <LF> = one newline byte; <empty> = zero bytes / absent stream.
+# `proves` = failure direction demonstrated, measured by the mutant battery in report.md §4.
+control	expected (committed receipt)	observed_stdout	observed_rc	observed_stderr	verdict	proves
+nowork-c1	stdout=4<LF>rc=0<LF> stderr=<empty>	4	0	<empty>	MATCH	non-vacuous BASE: counter prints the declared 4 on the untouched tree, never 0 (fail-closed on a do-nothing round)
+nowork-c2	stdout=15<LF>rc=0<LF> stderr=<empty>	15	0	<empty>	MATCH	non-vacuous BASE: drift 15 is measured from committed bytes against the committed receipt
+forge-stale-c1	stdout=4<LF>rc=0<LF> stderr=<empty>	4	0	<empty>	MATCH	live-value equality, direction-agnostic: 71 vs live 70 is still stale=1 (under-declaration-only mutant caught: 3 != 4)
+forge-sd5-early-c1	stdout=4<LF>rc=0<LF> stderr=<empty>	4	0	<empty>	MATCH	none beyond nowork at BASE — plant target (round-34 calibration row, line 1357) already names all three red ids, so the plant cannot change any id-presence reading (degenerate control; report.md §5)
+setup-c1-missing-c1	stdout=<empty> rc=2<LF> stderr=C1 SETUP: sweep verdict missing<LF>	<empty>	2	C1 SETUP: sweep verdict missing	MATCH	fail-closed SETUP: missing reading exits 2 with no integer (SETUP-as-zero mutant caught: prints 1 rc=0)
+forge-c2-version-c2	stdout=16<LF>rc=0<LF> stderr=<empty>	16	0	<empty>	MATCH	equality, not ordering: a row ABOVE its receipt value counts as drift (ordering mutant caught: 15 != 16)
+forge-c2-empty-c2	stdout=20<LF>rc=0<LF> stderr=<empty>	20	0	<empty>	MATCH	fail-closed population: absent records count as drift, never agreement (fail-open mutant caught: 0 != 20); also pins the feed-row population at 20
+setup-c2-missing-c2	stdout=<empty> rc=2<LF> stderr=C2 SETUP: receipt missing<LF>	<empty>	2	C2 SETUP: receipt missing	MATCH	fail-closed SETUP: missing receipt exits 2 with no integer (SETUP-as-zero mutant caught: prints 0 rc=0)

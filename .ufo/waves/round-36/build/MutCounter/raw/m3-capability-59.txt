@@ -1,0 +1,14 @@
+# M3 — capability cell set back to 59 (`--selftest` 59 cases, live gate prints 70)
+# mutated SCORECARD.md sha256 948a8d68d83090317b2e213fdce44143cf669be884a6a8cdffb107bad0bf6f4c
+=== C1 (plans/round-36-c1.sh) ===
+1
+rc=0
+=== SELF_COUNTS component (python3 corpus/self-counts.py, cwd = m3) ===
+STALE SA-CAP-CENSUS-SELFTEST SCORECARD.md:701 claimed=59 live=70
+SELF_COUNTS: POLICY (claims=63 stale=1 unlocated=0 ambiguous=0 policy=2 setup=0)
+rc=2
+# stale moved 0 -> 1. The gate's own exit is 2 on the candidate too (policy=2 inherited
+# reds), so c1 reads the `stale=` field, not the exit code.
+=== restore ===
+RESTORED_SHA=c208d15ff75ff2633917d34e93ffde2dc2e77777192a15b901223484be9ff362 (== golden)
+# restored c1 re-run on the restored m2 tree (same bytes as m3 after restore): 0 rc=0

@@ -1,0 +1,16 @@
+# M2 — "R29-02 (POLICY)" deleted from the round-36 post-move calibration row
+# mutated SCORECARD.md sha256 df7538661fca62911702a5ff9ed4417b40d4feed375b476dc14781bfcb41c7de
+# row after mutation (SCORECARD.md:1401):
+#   | calibration | 9 → 9 | C1: this row names the three operator-routed reds with their state — R25-02 (FAIL) and R29-01 (POLICY) — and the capabilities row carries ...
+=== C1 (plans/round-36-c1.sh) ===
+1
+rc=0
+=== SWEEP component (bash corpus/self-description-sweep.sh, cwd = m2) ===
+SELF_DESCRIPTION: MISMATCH n=85 (SD1=0 SD2=0 SD3=0 SD4=0 SD5=1 SD6=84 SD7=0 SD8=0 SD9=0)
+rc=1
+# SD5 moved 0 -> 1; SD6=84 is a scratch-extraction artifact (see report §3), outside C1's population.
+=== restore ===
+RESTORED_SHA=c208d15ff75ff2633917d34e93ffde2dc2e77777192a15b901223484be9ff362 (== golden)
+=== C1 after restore ===
+0
+rc=0

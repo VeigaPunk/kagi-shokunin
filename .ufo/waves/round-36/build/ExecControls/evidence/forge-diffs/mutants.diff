@@ -1,0 +1,104 @@
+--- /fast/scratch/hyaku/kagi-r36/ExecControls/base/corpus/self-description-sweep.sh	2026-11-04 20:54:00.000000000 -0300
++++ /fast/scratch/hyaku/kagi-r36/ExecControls/m1-base/corpus/self-description-sweep.sh	2026-11-04 21:16:29.291812503 -0300
+@@ -381,7 +381,7 @@
+ status_text=$(sed -n "${status_line}p" "$score")
+ reds=$(printf '%s\n' "$status_text" | grep -oE '\([^()]*\)' | tr -d '()' | grep -oE 'R[0-9]+-[0-9]+' | sort -u)
+ [ -n "$reds" ] || reds=$(printf '%s\n' "$status_text" | grep -oE 'R[0-9]+-[0-9]+' | sort -u)
+-round_line=$(grep -nE '^## Round' "$score" | tail -n 1 | cut -d: -f1)
++round_line=$(grep -nE '^## Round' "$score" | tail -n 2 | head -n 1 | cut -d: -f1)
+ [ -n "$round_line" ] || die "no '## Round' section in SCORECARD.md"
+ round_end=$(awk -v s="$round_line" 'NR > s && /^## / { print NR; exit }' "$score")
+ [ -n "$round_end" ] || round_end=$(( $(wc -l < "$score") + 1 ))
+--- /fast/scratch/hyaku/kagi-r36/ExecControls/base/corpus/self-description-sweep.sh	2026-11-04 20:54:00.000000000 -0300
++++ /fast/scratch/hyaku/kagi-r36/ExecControls/m1-sd5/corpus/self-description-sweep.sh	2026-11-04 21:16:29.297812521 -0300
+@@ -381,7 +381,7 @@
+ status_text=$(sed -n "${status_line}p" "$score")
+ reds=$(printf '%s\n' "$status_text" | grep -oE '\([^()]*\)' | tr -d '()' | grep -oE 'R[0-9]+-[0-9]+' | sort -u)
+ [ -n "$reds" ] || reds=$(printf '%s\n' "$status_text" | grep -oE 'R[0-9]+-[0-9]+' | sort -u)
+-round_line=$(grep -nE '^## Round' "$score" | tail -n 1 | cut -d: -f1)
++round_line=$(grep -nE '^## Round' "$score" | tail -n 2 | head -n 1 | cut -d: -f1)
+ [ -n "$round_line" ] || die "no '## Round' section in SCORECARD.md"
+ round_end=$(awk -v s="$round_line" 'NR > s && /^## / { print NR; exit }' "$score")
+ [ -n "$round_end" ] || round_end=$(( $(wc -l < "$score") + 1 ))
+--- /fast/scratch/hyaku/kagi-r36/ExecControls/base/corpus/self-counts.py	2026-11-04 20:54:00.000000000 -0300
++++ /fast/scratch/hyaku/kagi-r36/ExecControls/m2-base/corpus/self-counts.py	2026-11-04 21:16:29.308812554 -0300
+@@ -354,8 +354,8 @@
+                     fail("SETUP", f"{claim.ident}: extract did not match ledger:{source} last line")
+                 value = integer(match.group(1), f"{claim.ident} extract")
+                 label = "live"
+-            status = "OK" if claimed == value else "STALE"
+-            counts["stale"] += claimed != value
++            status = "OK" if claimed <= value else "STALE"
++            counts["stale"] += claimed < value
+             print(f"{status} {claim.ident} {claim.doc}:{number} claimed={claimed} {label}={value}")
+         except GateError as exc:
+             errors[exc.kind] += 1
+--- /fast/scratch/hyaku/kagi-r36/ExecControls/base/corpus/self-counts.py	2026-11-04 20:54:00.000000000 -0300
++++ /fast/scratch/hyaku/kagi-r36/ExecControls/m2-stale/corpus/self-counts.py	2026-11-04 21:16:29.317033785 -0300
+@@ -354,8 +354,8 @@
+                     fail("SETUP", f"{claim.ident}: extract did not match ledger:{source} last line")
+                 value = integer(match.group(1), f"{claim.ident} extract")
+                 label = "live"
+-            status = "OK" if claimed == value else "STALE"
+-            counts["stale"] += claimed != value
++            status = "OK" if claimed <= value else "STALE"
++            counts["stale"] += claimed < value
+             print(f"{status} {claim.ident} {claim.doc}:{number} claimed={claimed} {label}={value}")
+         except GateError as exc:
+             errors[exc.kind] += 1
+--- /fast/scratch/hyaku/kagi-r36/ExecControls/base/plans/round-36-c2.sh	2026-11-04 20:54:00.000000000 -0300
++++ /fast/scratch/hyaku/kagi-r36/ExecControls/m3/plans/round-36-c2.sh	2026-11-04 21:16:29.325477093 -0300
+@@ -31,9 +31,13 @@
+ bad = 0
+ for row in rows:
+     record = records.get(row["id"])
++    rv = record.get("parsed_version") if record is not None else None
++    older = (rv is not None
++             and [int(x) for x in row["observed_version"].split(".")]
++                 < [int(x) for x in rv.split(".")])
+     if (record is None
+-            or record.get("parsed_version") != row["observed_version"]
+-            or record.get("verdict") != row["verdict"]):
++            or record.get("verdict") != row["verdict"]
++            or older):
+         bad += 1
+ print(bad)
+ PY
+--- /fast/scratch/hyaku/kagi-r36/ExecControls/base/plans/round-36-c2.sh	2026-11-04 20:54:00.000000000 -0300
++++ /fast/scratch/hyaku/kagi-r36/ExecControls/m4/plans/round-36-c2.sh	2026-11-04 21:16:29.331812621 -0300
+@@ -31,8 +31,9 @@
+ bad = 0
+ for row in rows:
+     record = records.get(row["id"])
+-    if (record is None
+-            or record.get("parsed_version") != row["observed_version"]
++    if record is None:
++        continue
++    if (record.get("parsed_version") != row["observed_version"]
+             or record.get("verdict") != row["verdict"]):
+         bad += 1
+ print(bad)
+--- /fast/scratch/hyaku/kagi-r36/ExecControls/base/plans/round-36-c1.sh	2026-11-04 20:54:00.000000000 -0300
++++ /fast/scratch/hyaku/kagi-r36/ExecControls/m5/plans/round-36-c1.sh	2026-11-04 21:16:29.337812639 -0300
+@@ -16,7 +16,7 @@
+ case $last in
+   "SELF_DESCRIPTION: CLEAN n=0") sd5=0 ;;
+   *"SELF_DESCRIPTION: MISMATCH"*) sd5=$(printf '%s\n' "$last" | sed -n 's/.*SD5=\([0-9][0-9]*\).*/\1/p') ;;
+-  *) echo "C1 SETUP: sweep verdict missing" >&2; exit 2 ;;
++  *) sd5=0 ;;
+ esac
+ stale=$(python3 corpus/self-counts.py 2>/dev/null \
+   | sed -n 's/^SELF_COUNTS:.*stale=\([0-9][0-9]*\).*/\1/p' | tail -1)
+--- /fast/scratch/hyaku/kagi-r36/ExecControls/base/plans/round-36-c2.sh	2026-11-04 20:54:00.000000000 -0300
++++ /fast/scratch/hyaku/kagi-r36/ExecControls/m6/plans/round-36-c2.sh	2026-11-04 21:16:29.435812929 -0300
+@@ -13,8 +13,8 @@
+ cd "$root" || exit 2
+ rec=.ufo/waves/round-36/controls/observe-live.json
+ if [ ! -s "$rec" ]; then
+-  echo "C2 SETUP: receipt missing" >&2
+-  exit 2
++  echo 0
++  exit 0
+ fi
+ python3 - "$rec" <<'PY'
+ import csv, json, sys

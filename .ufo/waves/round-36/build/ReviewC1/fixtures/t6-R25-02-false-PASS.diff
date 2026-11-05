@@ -1,0 +1,11 @@
+--- /fast/scratch/hyaku/kagi-r36/ReviewC1/candidate/SCORECARD.md	2026-11-04 21:37:45.279116202 -0300
++++ /fast/scratch/hyaku/kagi-r36/ReviewC1/t6/SCORECARD.md	2026-11-04 21:40:36.042800899 -0300
+@@ -1399,7 +1399,7 @@
+ 
+ | Axis | Before → after | What moved | Evidence |
+ |---|---|---|---|
+-| calibration | 4 → 0 | The round-36 calibration row names the routed reds R25-02 (FAIL), R29-01 (POLICY) and R29-02 (POLICY) with their state; they remain operator-routed, not cleared. The SCORECARD capability row's present-tense selftest count takes the live `R21-03` value, 59 → 70, with 59 retained as the historical record beside the row. | `bash plans/round-36-c1.sh` → 0; `corpus/self-counts.tsv` row `SA-CAP-CENSUS-SELFTEST`; ledger `R21-03` |
++| calibration | 4 → 0 | The round-36 calibration row names the routed reds R25-02 (PASS), R29-01 (POLICY) and R29-02 (POLICY) with their state; they remain operator-routed, not cleared. The SCORECARD capability row's present-tense selftest count takes the live `R21-03` value, 59 → 70, with 59 retained as the historical record beside the row. | `bash plans/round-36-c1.sh` → 0; `corpus/self-counts.tsv` row `SA-CAP-CENSUS-SELFTEST`; ledger `R21-03` |
+ | freshness | 15 → 0 | The fifteen drifting `clock=feed` rows take the receipt's observed version/date/verdict with a note naming the receipt; `corpus/release-clock.py` default receipt repointed to the round-36 receipt (`DEFAULT_RECEIPT_SHA256`, `receipt_path`); round-26 receipt retained as history. | `bash plans/round-36-c2.sh` → 0; `.ufo/waves/round-36/controls/observe-live.json` |
+ | operability | 9 → 9 | Verify mode re-pinned to the round-36 default receipt; no scheduler or gate change. | `bash corpus/release-clock.py` |
+ | coverage | 9 → 9 | No row append, entry admission or frontier-to-core claim. | `plans/round-36.md` |

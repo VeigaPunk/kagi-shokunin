@@ -1,0 +1,9 @@
+id	mutation	expected	observed	rc	verdict
+P0	unmutated candidate (cb8cb65 + F1-F4 + receipt re-dating of all 30 rows)	c1=0, c2=0, release-clock CLEAN	c1=0, c2=0, release-clock CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=15 derived=15)	0	pass (positive control)
+B0	no fix (pristine cb8cb659e84240a8db12e4f7b4a0def5068baf7e extraction)	c1=4, c2=15	c1=4, c2=15	0	BASE reproduced
+F3L	literal F3: only the 15 drifting clock=feed rows re-dated, the other 15 rows keep observed_at 2026-10-21	c2=0 and `python3 corpus/release-clock.py` CLEAN	c2=0, but release-clock FAILED with 15 RECEIPT-MISMATCH (S005 S006 S007 S008 S009 S010 S011 S017 S018 S019 S020 S029 S030 S031 S032)	1	spec defect (C2 operability kill rule unmet)
+M1	S014 observed_version 2.7.2->2.7.1 and verdict fired->not-fired (row self-consistent, contradicts the receipt)	c2=1	c2=1; release-clock also FAILED RECEIPT-MISMATCH S014	0	killed
+M2	"R29-02 (POLICY)" deleted from the round-36 post-move calibration row	c1=1	c1=1 (SD5 0->1; sweep line SD5=1)	0	killed
+M3	capability cell `--selftest` 70 cases -> 59	c1=1	c1=1 (stale 0->1; STALE SA-CAP-CENSUS-SELFTEST SCORECARD.md:701 claimed=59 live=70)	0	killed
+M4	receipt moved aside (.ufo/waves/round-36/controls/observe-live.json -> observe-live.moved)	c2 exit 2 "C2 SETUP: receipt missing"	c2 exit 2 "C2 SETUP: receipt missing", no integer	2	killed (fail-closed)
+M5	`lane-status:` line deleted from SCORECARD.md	record what the sweep does; must be fail-closed	sweep "SELF_DESCRIPTION: SETUP no lane-status line in SCORECARD.md" rc2; c1 exit 2 "C1 SETUP: sweep verdict missing", no integer	2	killed (fail-closed)

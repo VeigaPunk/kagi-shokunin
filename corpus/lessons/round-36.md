@@ -89,4 +89,18 @@ before it claims anything about self-description again.
 
 ## Landed measurement and handoff
 
-PENDING-FILL
+Measured at committed `00bbe667aead4096268785e80f5b7464bb511573` (tree `229f37e11ed703935a4e1947dce1c667ff9b4d19`) from a clean `git archive` extraction: `bash plans/round-36-c1.sh` = **0**, `bash plans/round-36-c2.sh` = **0**, `bash plans/round-36-c3.sh` = `RELEASE_CLOCK: CLEAN (on_release=30 bound=30 unbound=0 observed=30 fired=15 derived=15)`, all rc0. Instrument sha256 at that revision: `206cbcc53c31fad848fa8312ce0a7625a718a8211b2d4d6384021f4a0dbd086d` (C1) and `ac010f163c03313ef97251c1cce7aacfb7d01f99d65fdad313bbd8e4284c01c6` (C2), identical to the frozen bytes at `cb8cb65`. Receipts: `.ufo/waves/round-36/final/landing-measurement.tsv`, `c1-at-landing.txt`, `c2-at-landing.txt`, `c3-at-landing.txt`.
+
+Gate state at the landing tree: `sources-census.sh` `CLEAN rows=88 A=84 B=2 C=2 queued=1 mined=84 rejected=3 entries_sourced=14 legacy=21 captures=88`; `self-counts.py` `POLICY (claims=63 stale=0 unlocated=0 ambiguous=0 policy=2 setup=0)`; `cells` `POLICY (cells=270 row_pointed=198 stamp_pointed=129 policy=2)` with only `R25-02` FAIL and `R29-01`/`R29-02` POLICY; `verify` `POLICY (claims=82 policy=2 stamped=112)` plus the pre-existing `R11-08` citation FAIL; `citations` `BROKEN (cites=2349 docs=97 unresolved=5 …)` — the five non-owned SD6 citations, unchanged from BASE.
+
+Wave: one v1 wave, 13 seats (executor 3, scribe 2, scout 2, connector 1, reviewer 2, critic 1, mutation-tester 1, sentinel 1; 5 attack seats = 38 %), all 13 settled, no dead seat. Twelve delivered work product. `CriticClaims` settled with a 110-character output ("I'll start by reading the required files.") and wrote no file: it produced no critique and none of its questions are answered here. The canonical planner seat stayed with the L1; no `planner` was dispatched.
+
+## C1 disposition — measured, admission withheld
+
+C1 reaches its frozen target with its frozen kill rules intact, and a dispatched reviewer nevertheless **REJECTs** it as an instrument, so the lane withholds admission rather than manufacturing it from the counter.
+
+`ReviewC1` (`.ufo/waves/round-36/build/ReviewC1/review.md`) ran four shortcuts against the candidate and measured: deleting the `lane-status:` id list **and** the armed self-counts row together reads **0** on a tree whose SCORECARD still asserts the stale count (`shortcutAB`); dropping `R25-02` from the `lane-status:` list reads **0** while `cells` still prints `FAIL R25-02` (`t5`); writing a false state (`R25-02 (PASS)`) reads **0** (`t6`); and a `POLICY`-refused binding (`PV-FEEDTOKEN-SELFTEST`, declared 9, live 4) is never compared, while the counter reads `stale` from a producer that exits 2 (`t7`). SD5 checks token presence, never state, and never consults `cells`, so its reference set is self-declared. Its conditions for a re-claim, routed to the next round: bind the red reference to the live `cells` FAIL/POLICY set; compare states, not tokens; treat an empty red list as `SETUP`, not 0; fail closed on a non-zero `self-counts.py` exit and count `POLICY`-refused bindings as unverified; measure SD6 in one fixed layout (lane tree 5 vs archive 3) or drop it from the kill rule.
+
+The candidate's own content is correct and independently re-derivable — `bash corpus/claim-ledger.sh cells` at BASE names exactly `R25-02` FAIL, `R29-01` and `R29-02` POLICY, and ledger `R21-03` prints `SOURCES_CENSUS_SELFTEST: PASS (70 cases)` — but correctness of the row is not what the counter establishes, and this round does not change the rule after data.
+
+C2 is admitted on `ReviewC2`'s conditions (`.ufo/waves/round-36/build/ReviewC2/review.md`): the round-26 receipt is superseded, not rewritten (`sha256sum` `13b8540c…`, pinned by `R25-04`), and the whole table is re-dated to the observation, which is the version `ReviewC2` admitted rather than the literal plan §Fix it rejected.

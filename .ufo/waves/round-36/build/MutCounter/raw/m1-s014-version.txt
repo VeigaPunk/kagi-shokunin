@@ -1,0 +1,15 @@
+# M1 — S014 observed_version 2.7.2 -> 2.7.1, verdict fired -> not-fired (row self-consistent,
+# note reworded to match: "observes v2.7.1, level with the anchor, so the clock has not FIRED")
+# mutated release-clocks.tsv sha256 f254884aed36c00610c60f3c1a958d632db1c98dcc7c26dfb52ecfe9054b5569
+=== C2 ===
+1
+rc=0
+=== VERIFY (python3 corpus/release-clock.py) ===
+RECEIPT-MISMATCH S014
+RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=29 fired=14 derived=14)
+rc=1
+=== restore ===
+RESTORED_SHA=1a550a7a4e5e2715930305329744ba9d3dfa45c031b9ff42850901da893387de (== golden)
+=== C2 after restore ===
+0
+rc=0

@@ -1,0 +1,17 @@
+# Pristine candidate components (tree candC / cand — identical SCORECARD.md)
+# SCORECARD.md sha256 c208d15ff75ff2633917d34e93ffde2dc2e77777192a15b901223484be9ff362
+=== SWEEP (bash corpus/self-description-sweep.sh, cwd = candC) ===
+SELF_DESCRIPTION: MISMATCH n=84 (SD1=0 SD2=0 SD3=0 SD4=0 SD5=0 SD6=84 SD7=0 SD8=0 SD9=0)
+rc=1
+# SD6=84 is an artifact of the git-archive extraction (the `.ufo/reports/<round>/<lane>.md`
+# citations resolve as UNRESOLVED outside the fleet checkout; the lane checkout reads SD6=3).
+# SD6 is outside C1's population and c1 does not read it. SD5=0 is the reading c1 uses.
+=== SELF_COUNTS (python3 corpus/self-counts.py, cwd = candC) ===
+OK SA-CAP-CENSUS-SELFTEST SCORECARD.md:701 claimed=70 live=70
+SELF_COUNTS: POLICY (claims=63 stale=0 unlocated=0 ambiguous=0 policy=2 setup=0)
+rc=2
+# stale=0; exit 2 is the gate's inherited policy=2, present on the candidate too.
+=== INCIDENTAL: F2 only, F1 not yet applied (tree cand before the F1 append) ===
+c1 = 3 rc=0
+# stale=0 (F2 fixed the capability count) and SD5=3 (F1 absent) -> 3. Decomposition check:
+# the counter is additive and each population moves its own unit (see M2, M3).

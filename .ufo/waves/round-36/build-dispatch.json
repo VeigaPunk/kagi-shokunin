@@ -1,0 +1,251 @@
+{
+  "schema": "ufo-swarm-wave-dispatch-v1",
+  "wave": "kagi-r36-build",
+  "policy": {
+    "source": "config",
+    "maxLanes": 256,
+    "minLanes": 8,
+    "waveMinLanes": 8,
+    "waveMaxLanes": 16,
+    "declaredMaxLanes": null,
+    "hardCeiling": 256,
+    "rampBatchSize": 5,
+    "rampIntervalMs": 700,
+    "globalRunnerCeiling": 1056
+  },
+  "counts": {
+    "spawn": 13,
+    "resume": 0,
+    "total": 13
+  },
+  "registry": {
+    "schema": "ufo-swarm-registry-v1",
+    "path": ".ufo/waves/round-36/build/swarm-registry.json",
+    "reportDir": ".ufo/waves/round-36/build",
+    "members": {
+      "ExecBase": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": null,
+        "axes": [
+          "calibration",
+          "freshness"
+        ],
+        "milestone": "C1 self-assessment mismatches 4->0 and C2 feed-clock drift 15->0, both measured over committed bytes with executed no-work and forgery controls"
+      },
+      "ExecControls": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": null,
+        "axes": [
+          "calibration",
+          "freshness"
+        ],
+        "milestone": "C1 self-assessment mismatches 4->0 and C2 feed-clock drift 15->0, both measured over committed bytes with executed no-work and forgery controls"
+      },
+      "ExecRehearsal": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": null,
+        "axes": [
+          "calibration",
+          "freshness"
+        ],
+        "milestone": "C1 self-assessment mismatches 4->0 and C2 feed-clock drift 15->0, both measured over committed bytes with executed no-work and forgery controls"
+      },
+      "ScribeGate": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scribe",
+        "item": null,
+        "axes": [
+          "calibration",
+          "freshness"
+        ],
+        "milestone": "C1 self-assessment mismatches 4->0 and C2 feed-clock drift 15->0, both measured over committed bytes with executed no-work and forgery controls"
+      },
+      "ScribeLesson": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scribe",
+        "item": null,
+        "axes": [
+          "calibration",
+          "freshness"
+        ],
+        "milestone": "C1 self-assessment mismatches 4->0 and C2 feed-clock drift 15->0, both measured over committed bytes with executed no-work and forgery controls"
+      },
+      "ScoutSweep": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scout",
+        "item": null,
+        "axes": [
+          "calibration",
+          "freshness"
+        ],
+        "milestone": "C1 self-assessment mismatches 4->0 and C2 feed-clock drift 15->0, both measured over committed bytes with executed no-work and forgery controls"
+      },
+      "ScoutClock": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scout",
+        "item": null,
+        "axes": [
+          "calibration",
+          "freshness"
+        ],
+        "milestone": "C1 self-assessment mismatches 4->0 and C2 feed-clock drift 15->0, both measured over committed bytes with executed no-work and forgery controls"
+      },
+      "ConnScope": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "connector",
+        "item": null,
+        "axes": [
+          "calibration",
+          "freshness"
+        ],
+        "milestone": "C1 self-assessment mismatches 4->0 and C2 feed-clock drift 15->0, both measured over committed bytes with executed no-work and forgery controls"
+      },
+      "ReviewC1": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "calibration",
+          "freshness"
+        ],
+        "milestone": "C1 self-assessment mismatches 4->0 and C2 feed-clock drift 15->0, both measured over committed bytes with executed no-work and forgery controls"
+      },
+      "ReviewC2": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "calibration",
+          "freshness"
+        ],
+        "milestone": "C1 self-assessment mismatches 4->0 and C2 feed-clock drift 15->0, both measured over committed bytes with executed no-work and forgery controls"
+      },
+      "CriticClaims": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "critic",
+        "item": null,
+        "axes": [
+          "calibration",
+          "freshness"
+        ],
+        "milestone": "C1 self-assessment mismatches 4->0 and C2 feed-clock drift 15->0, both measured over committed bytes with executed no-work and forgery controls"
+      },
+      "MutCounter": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "mutation-tester",
+        "item": null,
+        "axes": [
+          "calibration",
+          "freshness"
+        ],
+        "milestone": "C1 self-assessment mismatches 4->0 and C2 feed-clock drift 15->0, both measured over committed bytes with executed no-work and forgery controls"
+      },
+      "SentinelBound": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "sentinel",
+        "item": null,
+        "axes": [
+          "calibration",
+          "freshness"
+        ],
+        "milestone": "C1 self-assessment mismatches 4->0 and C2 feed-clock drift 15->0, both measured over committed bytes with executed no-work and forgery controls"
+      }
+    }
+  },
+  "compaction": {
+    "applied": false,
+    "mechanism": null,
+    "reason": null,
+    "savedBytes": 0,
+    "payloadBytesBefore": 0,
+    "payloadBytesAfter": 0
+  },
+  "taskCall": {
+    "context": "kagi round 36 (attempt 2). Lane repo /home/vgpnk/Projects/shokunin/kagi-shokunin. Read FIRST: /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-36.md (frozen claims), /home/vgpnk/Projects/shokunin/kagi-shokunin/AGENTS.md, /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/QUALITY.md.\nTwo frozen claims, both measured over committed bytes. C1 calibration = `bash plans/round-36-c1.sh` (SD5 red-id omissions + stale self-count declarations), BASE 4, target 0. C2 freshness = `bash plans/round-36-c2.sh` (clock=feed rows disagreeing with the committed live receipt /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-36/controls/observe-live.json, sha256 3f611eec30d4a48f4f389bb1a630551d77110d92fb97eee954eeb6f7c8558727), BASE 15, target 0.\nFrozen instrument bytes: commit cb8cb659e84240a8db12e4f7b4a0def5068baf7e (pushed). Frozen plan: 09f27e2e16c26484b2675aa2a2b1e2ca4d3d1d8d. The `LANE_ROOT=` prefix in plans/round-36.controls.tsv is inert: the frozen scripts resolve their own root from their own location.\nTHE CANDIDATE (the L1's fix; the same bytes the L1 will land): F1 SCORECARD.md gains a `## Round 36 — pre-move` table and a `## Round 36 — post-move` table whose calibration row names R25-02 (FAIL), R29-01 and R29-02 (POLICY) with their state; F2 the capabilities row `source registry + census gate` changes `--selftest` 59 cases to 70 cases, keeping 59 as the round-21 record; F3 the 15 drifting clock=feed rows in corpus/release-clocks.tsv take the receipt's observed_version, observed_at (2026-11-04) and verdict, with a note naming the receipt, anchored_version untouched; F4 corpus/release-clock.py DEFAULT_RECEIPT_SHA256 -> 3f611eec30d4a48f4f389bb1a630551d77110d92fb97eee954eeb6f7c8558727 and its receipt_path default -> .ufo/waves/round-36/controls/observe-live.json (argparse help text follows). Nothing else changes.\nL1 is KagiR36a2 — sole integration owner and sole writer of lane production files. You MUST NOT edit, move or delete any existing file in the lane repo (SCORECARD.md, LOG.md, SKILL.md, PROVINCE.md, corpus/*, plans/* are all read-only to you). Deliver ONLY new files under /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-36/build/<YourSeatName>/.\nEvery `Report:` trailer path is relative to /home/vgpnk/Projects/shokunin/kagi-shokunin — write it at /home/vgpnk/Projects/shokunin/kagi-shokunin/<that path>.\nScratch: exactly /fast/scratch/hyaku/kagi-r36/<YourSeatName>/ — mkdir -p, put every extraction/clone/fixture there, and `rm -rf` it before you yield (copy receipts into your build dir first). /tmp only for files under 50 MB; no script you write may hardcode /tmp. Run `bash /home/vgpnk/Projects/shokunin/scripts/hyaku/disk-guard.sh status` before a heavy pass.\nGit is read-only for you: every call explicit `git -C <abs path>`; no commit/push/checkout/switch/reset/stash/clean; never write in the fleet repo /home/vgpnk/Projects/shokunin (report only), never touch a sibling lane, .ufo/state, .ufo/watchdog.log, MANIFEST.json, or the fleet root's templates/ and scripts/. A fixture repo is `D=$(mktemp -d)` under your scratch root, `git -C \"$D\" init -q`, and you verify `git -C \"$D\" rev-parse --show-toplevel` equals $D before any commit.\nNo task/delegation, no swarm, no agent://all, no ask tool: you are a leaf.\nTooling authorization (operator, 2026-10-19): you may install or upgrade tools that help the task — read /home/vgpnk/.omp/agent/RULES.md first (official channels, update-safety gate; record tool/version/channel/reason in your report). pacman guard (orchestrator ruling 2026-10-20): ALL pacman transactions are PAUSED host-wide — install via `uv tool`/`npx`/an official binary in ~/.local/bin; never -Sy/-Syu/-U/-R, never a partial upgrade.\nReturn a short structured final message: verdict, numbers, rc, file paths, sha256. Honesty: an unrun check has not passed; state every dead end.",
+    "tasks": [
+      {
+        "name": "ExecBase",
+        "agent": "executor",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Assignment\nMeasure BASE from the frozen committed bytes only. Extract: `git -C /home/vgpnk/Projects/shokunin/kagi-shokunin archive cb8cb659e84240a8db12e4f7b4a0def5068baf7e | tar -x -C /fast/scratch/hyaku/kagi-r36/ExecBase/base`. In that extraction run and record stdout, stderr, rc, and the script's sha256: (a) `bash plans/round-36-c1.sh` — expect exactly `4`, rc0; (b) `bash plans/round-36-c2.sh` — expect exactly `15`, rc0; (c) `bash corpus/self-description-sweep.sh` — record its last line verbatim plus every `MISMATCH SD5` line; (d) `python3 corpus/self-counts.py` — record its `SELF_COUNTS:` line and, from the instrument's own per-claim output, which claim id is stale and its declared vs live value. Record sha256 of plans/round-36-c1.sh, plans/round-36-c2.sh and corpus/self-counts.tsv inside the extraction, and prove the extraction is the committed tree (`git -C /home/vgpnk/Projects/shokunin/kagi-shokunin rev-parse cb8cb65`). If any value differs from 4/15, say so loudly with the raw bytes; do not adjust anything.\n# Output\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-36/build/ExecBase/ (base.tsv one row per measurement: id, command, stdout, stderr, rc, sha256; report.md with the verdict). Exact scratch /fast/scratch/hyaku/kagi-r36/ExecBase/. No lane edits.\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\nJudged on: calibration, freshness\nMilestone: C1 self-assessment mismatches 4->0 and C2 feed-clock drift 15->0, both measured over committed bytes with executed no-work and forgery controls\n\nReport: write your scoped findings to .ufo/waves/round-36/build/ExecBase.md"
+      },
+      {
+        "name": "ExecControls",
+        "agent": "executor",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Assignment\nRe-derive the eight committed pre-freeze controls from the frozen bytes and compare them with the receipts committed at cb8cb65 in /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-36/controls/. The committed receipts read: nowork-c1.out `4` rc0; nowork-c2.out `15` rc0; forge-stale-c1.out `4` rc0 (SCORECARD capability number forged to 71 -> stale stays 1); forge-sd5-early-c1.out `4` rc0 (reds planted in an EARLIER round row only -> SD5 stays 3); setup-c1-missing-c1.out empty + stderr `C1 SETUP: sweep verdict missing` rc2; forge-c2-version-c2.out `16` rc0 (one SOPS row set above its receipt value -> 15+1, equality not ordering); forge-c2-empty-c2.out `20` rc0 (receipt with an empty observations list -> every feed row counts); setup-c2-missing-c2.out empty + stderr `C2 SETUP: receipt missing` rc2.\nRebuild each forgery in your own extraction of cb8cb65 under scratch, run the frozen counter, and write a reproduction table (control, expected, observed stdout, observed rc, observed stderr, MATCH|DIVERGES). A control that cannot fail is a defect: say so. Also state, per control, which failure direction it proves (fail-open, wrong-population, ordering, fail-closed).\n# Output\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-36/build/ExecControls/ (reproduction.tsv, report.md). Exact scratch /fast/scratch/hyaku/kagi-r36/ExecControls/. No lane edits.\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\nJudged on: calibration, freshness\nMilestone: C1 self-assessment mismatches 4->0 and C2 feed-clock drift 15->0, both measured over committed bytes with executed no-work and forgery controls\n\nReport: write your scoped findings to .ufo/waves/round-36/build/ExecControls.md"
+      },
+      {
+        "name": "ExecRehearsal",
+        "agent": "executor",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Assignment\nRehearse the candidate in scratch, do not touch the lane. Extract cb8cb65 to scratch, apply F1-F4 exactly as specified in the shared context (F3: only the 15 drifting rows — S012,S013,S014,S015,S016,S021,S022,S023,S024,S025,S026,S027,S028,S040,S041 — take observed_version/observed_at/verdict from the receipt, anchored_version and the `derived:` prefix of a derived note preserved; F4: DEFAULT_RECEIPT_SHA256 and receipt_path default). Then run and retain raw output+rc: `bash plans/round-36-c1.sh` (target `0`), `bash plans/round-36-c2.sh` (target `0`), `python3 corpus/release-clock.py` (target `RELEASE_CLOCK: CLEAN`, note the on_release/bound/observed/fired/derived counts), `bash corpus/self-description-sweep.sh --selftest`, `python3 corpus/self-counts.py --selftest`, `python3 corpus/release-clock.py --selftest`. If any evaluate class fires (REGRESSED, DERIVATION, INCONSISTENT, RECEIPT-MISMATCH, NOT OBSERVED, BADFEED), name the exact row and class from the raw output. Also report whether F3 needs a note change to stay `derived:`-consistent, and what `fired=` and `derived=` become.\n# Output\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-36/build/ExecRehearsal/ (candidate.patch — a unified diff of the four files, receipts/*.txt raw outputs, report.md). Exact scratch /fast/scratch/hyaku/kagi-r36/ExecRehearsal/, removed on exit. No lane edits.\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\nJudged on: calibration, freshness\nMilestone: C1 self-assessment mismatches 4->0 and C2 feed-clock drift 15->0, both measured over committed bytes with executed no-work and forgery controls\n\nReport: write your scoped findings to .ufo/waves/round-36/build/ExecRehearsal.md"
+      },
+      {
+        "name": "ScribeGate",
+        "agent": "scribe",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Assignment\nOpen this round's cited sources yourself — no inherited quote counts. Read the registry rows S034, S035, S040, S041 in /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/SOURCES.md (record each row's URL and current recheck cell), then fetch each URL with `curl -sS --max-time 60 -A 'kagi-shokunin-round36/1.0'` into your scratch dir (public pages only, no auth, no credentials). For each id produce a Gate block line set: URL, access date 2026-11-04, a LOCATED quote of at most 25 words that establishes the release identity the row's clock observed (Vault 2.2.1, OpenBao 2.7.2, Python 3.15.2), the release date if the feed states it, the sha256 of the fetched body, and whether the quote is present at that anchor. Where a URL no longer carries the quote, say `absent` with what the page now serves — never paraphrase into a quote.\n# Output\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-36/build/ScribeGate/ (gate.md: one section per S-id with the fields above; fetch-sha256.tsv: id, url, http_status, bytes, sha256; report.md). Exact scratch /fast/scratch/hyaku/kagi-r36/ScribeGate/. No lane edits, no registry edits.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: calibration, freshness\nMilestone: C1 self-assessment mismatches 4->0 and C2 feed-clock drift 15->0, both measured over committed bytes with executed no-work and forgery controls\n\nReport: write your scoped findings to .ufo/waves/round-36/build/ScribeGate.md"
+      },
+      {
+        "name": "ScribeLesson",
+        "agent": "scribe",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Assignment\nDraft the round-36 lesson body, /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/lessons/round-36.md, following the shape of /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/lessons/round-35.md (read it first: heading block with frozen BASE/plan commits, then the round's sections). Required content: (1) `## Claims` — C1 and C2 as frozen in plans/round-36.md with counter, kill rules, controls; (2) `## Mistakes` — a table with M36-1..M36-3: (a) the round-35 calibration row omitted the reds its own lane-status contract requires, so a self-declared red set was invisible to the sweep; (b) SCORECARD.md's capability-table count sat outside every self-count check for fifteen rounds, so a stale count survived every \"self-description\" round; (c) an earlier attempt of this same round modified the frozen counters after the freeze commit (adding a LANE_ROOT override) and left it uncommitted — the repair was discarded, not committed, and the committed bytes were re-proved by re-execution. Each row: class, evidence pointer (path:line or commit), captured-by (the criterion that should have caught it, or `none`), fix. (3) `## Migrations` — the 15 clock rows old->new value and the receipt repoint old->new, plus the SOURCES recheck-cell date changes S034/S035/S040/S041 old->new. (4) `## Gate` — leave the heading with a `TODO: filled from the fetch receipts` line; the L1 pastes the located quotes. (5) `## Next` — one paragraph. Do not claim any result you did not observe; mark unknowns as unknown.\n# Output\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-36/build/ScribeLesson/ (round-36.md draft, report.md). Exact scratch /fast/scratch/hyaku/kagi-r36/ScribeLesson/. No lane edits.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: calibration, freshness\nMilestone: C1 self-assessment mismatches 4->0 and C2 feed-clock drift 15->0, both measured over committed bytes with executed no-work and forgery controls\n\nReport: write your scoped findings to .ufo/waves/round-36/build/ScribeLesson.md"
+      },
+      {
+        "name": "ScoutSweep",
+        "agent": "scout",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Assignment\nReconnaissance of the C1 reading, with exact line references. In /home/vgpnk/Projects/shokunin/kagi-shokunin: (1) corpus/self-description-sweep.sh — quote the SD5 block and state exactly which section it reads (`grep -nE '^## Round' | tail -n 1`, its calibration row, and how the red set is extracted from the `lane-status:` line); state what happens if the last `## Round` section has no calibration row. (2) corpus/self-counts.py — quote the claim-row parser, the extract/compare path, and how the armed row `SA-CAP-CENSUS-SELFTEST` in corpus/self-counts.tsv reads SCORECARD.md and ledger R21-03; state the exact regex it applies and what a second number later in the same table cell would do. (3) State the minimal edit set on SCORECARD.md that makes SD5=0 and stale=0 without touching the five non-owned SD6 citation files, and prove by reading the code that a `## Round 36 — post-move` calibration row naming the three reds is what SD5 reads. (4) Report what `bash corpus/claim-ledger.sh cells` requires of a new round-36 section (heading shape, pointer resolution) and exactly which paths must be re-pinned in corpus/stamps.tsv after SCORECARD.md, corpus/release-clocks.tsv, corpus/release-clock.py and corpus/SOURCES.md change — including how `stamp` treats a partial path list.\n# Output\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-36/build/ScoutSweep/ (recon.md with path:line refs and quoted code; report.md). Exact scratch /fast/scratch/hyaku/kagi-r36/ScoutSweep/. Read-only on the lane.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: calibration, freshness\nMilestone: C1 self-assessment mismatches 4->0 and C2 feed-clock drift 15->0, both measured over committed bytes with executed no-work and forgery controls\n\nReport: write your scoped findings to .ufo/waves/round-36/build/ScoutSweep.md"
+      },
+      {
+        "name": "ScoutClock",
+        "agent": "scout",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Assignment\nReconnaissance of the C2 reading and the F3/F4 edit. In /home/vgpnk/Projects/shokunin/kagi-shokunin: (1) Read corpus/release-clock.py and quote the constraints that a table row must satisfy to pass `evaluate`: `receipt_matches` fields, the `is_derived` note-prefix rule, `derived_anchor_bound`, `is_regression` against `feed_floors`, and the fired/not-fired consistency rule. (2) Read the receipt /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-36/controls/observe-live.json and build the exact per-row proposal for the 15 drifting rows (id, old observed_version/verdict, new observed_version/observed_at/verdict, and the note text that keeps the row valid). (3) Name every row where the new value would trip REGRESSED / DERIVATION / INCONSISTENT and why, or state that none does with the anchor/floor arithmetic that shows it. (4) State exactly what `receipt_path` and `DEFAULT_RECEIPT_SHA256` must become and which other call sites or selftest cases reference the round-26 receipt (grep for round-26 in the repo and in corpus/*.sh, corpus/*.py, SKILL.md, PROVINCE.md, SCORECARD.md) — a stale citation of the old default receipt is a finding.\n# Output\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-36/build/ScoutClock/ (recon.md, proposal.tsv, report.md). Exact scratch /fast/scratch/hyaku/kagi-r36/ScoutClock/. Read-only on the lane.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: calibration, freshness\nMilestone: C1 self-assessment mismatches 4->0 and C2 feed-clock drift 15->0, both measured over committed bytes with executed no-work and forgery controls\n\nReport: write your scoped findings to .ufo/waves/round-36/build/ScoutClock.md"
+      },
+      {
+        "name": "ConnScope",
+        "agent": "connector",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Assignment\nSibling-overlap scan. Across every sibling lane repo under /home/vgpnk/Projects/shokunin/*-shokunin (enumerate them; ~20 lanes), search for (a) the four cited feed URLs (github.com/hashicorp/vault/releases.atom, github.com/openbao/openbao/releases.atom, python.org/downloads/feed.rss, github.com/getsops/sops/releases.atom), (b) a release-clock / observation-receipt mechanism, (c) the self-assessment-population class (a document count bound to a live gate output). Report per lane: hits with path:line, or `none`. State whether kagi's claim on this ground is sole or contested, and whether any sibling already absorbs it. Read-only everywhere; never write in a sibling repo.\n# Output\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-36/build/ConnScope/ (ConnOverlap.md: table lane x surface, verdict sole|contested with evidence; report.md). Exact scratch /fast/scratch/hyaku/kagi-r36/ConnScope/.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: calibration, freshness\nMilestone: C1 self-assessment mismatches 4->0 and C2 feed-clock drift 15->0, both measured over committed bytes with executed no-work and forgery controls\n\nReport: write your scoped findings to .ufo/waves/round-36/build/ConnScope.md"
+      },
+      {
+        "name": "ReviewC1",
+        "agent": "reviewer",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Assignment\nAttack C1 (calibration) adversarially. Questions you must answer with evidence: (1) Is `SD5 + stale` the calibration population the axis means, or a proxy that a do-nothing round could satisfy — e.g. by deleting the `lane-status:` red list, deleting the SCORECARD capability row, or removing the armed self-counts row? Test each such shortcut in scratch and report the counter's reading. (2) Does adding a `## Round 36 — post-move` calibration row that names the three reds genuinely change what the lane asserts, or is it a self-fulfilling edit (SD5 reads the last `## Round` section, so the fix is the section that is read)? State precisely why this is or is not circular, and what an independent reader could re-derive. (3) Is the F2 change (59 -> 70) a measured correction against a live gate output, or an assertion? Re-run the ledger R21-03 command and quote its output. (4) Does C1 stay causally separable from C2 (can C1 be verified with C2 unlanded)? Verdict: ADMIT / REJECT / ADMIT-WITH-CONDITIONS, with the exact counter reading you observed at BASE and at your own scratch candidate.\n# Output\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-36/build/ReviewC1/ (review.md with the four answers and every raw command output; report.md). Exact scratch /fast/scratch/hyaku/kagi-r36/ReviewC1/. No lane edits.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: calibration, freshness\nMilestone: C1 self-assessment mismatches 4->0 and C2 feed-clock drift 15->0, both measured over committed bytes with executed no-work and forgery controls\n\nReport: write your scoped findings to .ufo/waves/round-36/build/ReviewC1.md"
+      },
+      {
+        "name": "ReviewC2",
+        "agent": "reviewer",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Assignment\nAttack C2 (freshness) adversarially. Questions you must answer with evidence: (1) The frozen kill rule forbids rewriting or deleting a historical receipt rather than superseding it. Does repointing `DEFAULT_RECEIPT_SHA256` + `receipt_path` to the round-36 receipt satisfy that, and is the round-26 receipt left intact and still citable? Show `git -C /home/vgpnk/Projects/shokunin/kagi-shokunin log --oneline -1 -- .ufo/waves/round-26/observe-2.json` and its sha256. (2) Is the round-36 receipt trustworthy evidence — was it produced by the gate's `--observe` path rather than hand-edited? Check its structure against what `load_receipt_bundle` accepts and look for hand-editing signatures (record count vs bound rows, per-record sha256 shape, monotonic timestamps). (3) Apply F3+F4 in scratch yourself and confirm the counter reaches 0 AND `python3 corpus/release-clock.py` prints CLEAN; if either fails, name the row and class. (4) Does F3 keep the table's own semantics (anchored_version untouched, `derived:` notes still bound to their feed anchor cell)? Verdict: ADMIT / REJECT / ADMIT-WITH-CONDITIONS with the raw readings.\n# Output\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-36/build/ReviewC2/ (review.md with raw outputs, report.md). Exact scratch /fast/scratch/hyaku/kagi-r36/ReviewC2/. No lane edits.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: calibration, freshness\nMilestone: C1 self-assessment mismatches 4->0 and C2 feed-clock drift 15->0, both measured over committed bytes with executed no-work and forgery controls\n\nReport: write your scoped findings to .ufo/waves/round-36/build/ReviewC2.md"
+      },
+      {
+        "name": "CriticClaims",
+        "agent": "critic",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Assignment\nFalsify the claim design itself, not the implementation. For each of C1 and C2 decide whether the frozen predicate can be met WITHOUT the claimed work, and construct the cheapest such control in scratch: (a) C1 — can a round reach 0 by editing only bytes that SD5 reads, without making the lane's self-assessment match observed repo state? Is a round-36 calibration row naming the reds a genuine calibration move or bookkeeping that any round could write? (b) C2 — can a round reach 0 by pinning a receipt that merely restates the table (a self-agreeing receipt), and is the round-36 receipt independent of the table it checks? Name the property that makes it independent or say it does not hold. (c) §9 sizing — is each after-state one value the closure can re-derive with one command over committed bytes? Is any target stated with a universal clause? (d) Do the frozen kill rules fire on the candidate? Verdict per claim: the claim is falsifiable / the claim is not falsifiable, with the control you ran.\n# Output\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-36/build/CriticClaims/ (critique.md, controls/*.txt raw outputs, report.md). Exact scratch /fast/scratch/hyaku/kagi-r36/CriticClaims/. No lane edits.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: calibration, freshness\nMilestone: C1 self-assessment mismatches 4->0 and C2 feed-clock drift 15->0, both measured over committed bytes with executed no-work and forgery controls\n\nReport: write your scoped findings to .ufo/waves/round-36/build/CriticClaims.md"
+      },
+      {
+        "name": "MutCounter",
+        "agent": "mutation-tester",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Assignment\nMutation-test the two counters on your own scratch candidate tree (extract cb8cb65, apply F1-F4). Positive control first: unmutated candidate -> c1 `0`, c2 `0`, `python3 corpus/release-clock.py` CLEAN. Then, one mutation at a time, with the unmutated tree restored between runs, run the counter and record the reading: M1 row S014 observed_version 2.7.2 -> 2.7.1 with verdict `not-fired` (internally consistent, disagrees with the receipt) -> c2 must be 1; M2 delete `R29-02` from the round-36 calibration row -> c1 must be 1; M3 set the capability cell back to 59 -> c1 must be 1; M4 move the receipt aside -> c2 must exit 2 with `C2 SETUP: receipt missing`; M5 delete the `lane-status:` line from SCORECARD.md -> record exactly what the sweep does (die/exit2 or a count) and whether that is fail-closed. Report each mutation as surviving (counter unchanged) or killed (counter moved), with raw output and rc.\n# Output\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-36/build/MutCounter/ (mutations.tsv: id, mutation, expected, observed, rc, verdict; raw/*.txt; report.md). Exact scratch /fast/scratch/hyaku/kagi-r36/MutCounter/, removed on exit. No lane edits.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: calibration, freshness\nMilestone: C1 self-assessment mismatches 4->0 and C2 feed-clock drift 15->0, both measured over committed bytes with executed no-work and forgery controls\n\nReport: write your scoped findings to .ufo/waves/round-36/build/MutCounter.md"
+      },
+      {
+        "name": "SentinelBound",
+        "agent": "sentinel",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Assignment\nSecurity and credential-shape review of everything this round would push. Check: (1) the receipt /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-36/controls/observe-live.json and every note string in corpus/release-clocks.tsv carry no credential material, no host-private path, no user name, no token — grep for `op://`, `sk-`, `ghp_`, `/home/`, `@`, and any 32+ char high-entropy token; report hits with path:line. (2) The feed fetches the round relies on were unauthenticated public reads: confirm from the receipt records (http_status 200, public https URLs, no auth header) and from corpus/release-clock.py's request path that no credential is ever attached. (3) The four cited SOURCES rows and the notes expose nothing that the lane's refusal boundary (PROVINCE.md §Refusals) forbids — quote the refusal lines you rely on. (4) The candidate edits (F1-F4) introduce no execution surface: no new command is added to corpus/claim-ledger.tsv, no shell metacharacter, no absolute path in a committed command. Verdict: CLEAR / BLOCK with the exact lines that must change.\n# Output\nWrite only /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-36/build/SentinelBound/ (review.md with the greps and their raw output, report.md). Exact scratch /fast/scratch/hyaku/kagi-r36/SentinelBound/. No lane edits.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: calibration, freshness\nMilestone: C1 self-assessment mismatches 4->0 and C2 feed-clock drift 15->0, both measured over committed bytes with executed no-work and forgery controls\n\nReport: write your scoped findings to .ufo/waves/round-36/build/SentinelBound.md"
+      }
+    ]
+  },
+  "resumeSends": [],
+  "note": "Issue exactly one batched task call with taskCall ({context, tasks}); never split a wave into multiple task calls (one-swarm-per-wave). Then one hub send per resumeSends entry: hub send --to <entry.resume> --message <entry.message> (entry.name is bookkeeping, not a hub field)."
+}

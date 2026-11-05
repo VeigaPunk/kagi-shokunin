@@ -1,0 +1,29 @@
+--- base/corpus/release-clock.py	2026-11-04 20:54:00.000000000 -0300
++++ /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/release-clock.py	2026-11-04 21:08:03.718479814 -0300
+@@ -25,7 +25,7 @@
+     "id", "clock", "feed_source_id", "feed_url", "anchored_version",
+     "observed_version", "observed_at", "verdict", "note",
+ )
+-DEFAULT_RECEIPT_SHA256 = "13b8540c78b9de07bc184894583a368472fd1f2f04a898220bf7c29d2648a169"
++DEFAULT_RECEIPT_SHA256 = "3f611eec30d4a48f4f389bb1a630551d77110d92fb97eee954eeb6f7c8558727"
+ SOURCE_ID_RE = re.compile(r"S[0-9]{3}")
+ QUOTE_RE = re.compile(r"“([^”]+)”|(?<!\\)\"([^\"\n]+)\"")
+ USER_AGENT = "kagi-shokunin-round25/1.0 (documentation verification)"
+@@ -544,7 +544,7 @@
+ 
+ def receipt_path(root, selected):
+     if selected is None:
+-        return root / ".ufo" / "waves" / "round-26" / "observe-2.json"
++        return root / ".ufo" / "waves" / "round-36" / "controls" / "observe-live.json"
+     path = Path(selected)
+     return path if path.is_absolute() else root / path
+ 
+@@ -2102,7 +2102,7 @@
+     parser.add_argument("--root", metavar="DIR", help="repository root (defaults to this script's checkout)")
+     parser.add_argument("--selftest", action="store_true", help="run synthetic, offline cases")
+     parser.add_argument("--observe", metavar="OUT.json", help="fetch currently bound clocks and write a receipt")
+-    parser.add_argument("--receipt", metavar="FILE", help="retained observation receipt (default is the round-26 rearmed receipt)")
++    parser.add_argument("--receipt", metavar="FILE", help="retained observation receipt (default is the round-36 rearmed receipt)")
+     parser.add_argument("--receipt-sha", metavar="SHA256", help="required digest for an explicit --receipt")
+     args = parser.parse_args(argv)
+     if args.selftest:

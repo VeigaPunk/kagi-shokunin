@@ -1,0 +1,18 @@
+# F3-as-literally-specified (15 drifting feed rows only) — C2 operability check
+# tree: /fast/scratch/hyaku/kagi-r36/MutCounter/cand (F1+F2+F3(15 rows)+F4, quote rows and
+# non-drifting feed rows left at observed_at 2026-10-21)
+=== C1 (F2 applied, F1 NOT yet applied in this run — see report finding F3-literal) ===
+3
+rc=0
+=== C2 ===
+0
+rc=0
+=== VERIFY ===
+RECEIPT-MISMATCH S029
+RECEIPT-MISMATCH S030
+RECEIPT-MISMATCH S031
+RECEIPT-MISMATCH S032
+RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=15 fired=15 derived=10)
+rc=1
+# full mismatch list (15 rows) from the same tree, captured separately:
+# S005 S006 S007 S008 S009 S010 S011 S017 S018 S019 S020 S029 S030 S031 S032

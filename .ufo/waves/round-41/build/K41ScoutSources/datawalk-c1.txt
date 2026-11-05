@@ -1,0 +1,163 @@
+K41ScoutSources — C1 data-walk (read-only, git show only)
+Round 41 (kagi, attempt 1). Lane /home/vgpnk/Projects/shokunin/kagi-shokunin (branch master).
+Predeclaration commit 5142b52. Nothing in the lane was written or mutated.
+
+Revisions walked (both via 'git -C <lane> show <rev>:<path>'; no checkout, no worktree):
+  BASE = 6cc8850dfc5757927699e5a53a876f47c8df21aa  (round-40 claim BASE)
+  P0   = 6f1588cc0ebd5cbbd4e983fbd71c1e419d225ce0  (round-40 landed state = C1 positive control)
+  ledger = corpus/claim-ledger.tsv ; journal = .ufo/waves/round-40/expectation-migrations.json
+
+Scripts (scratch, not in the lane):
+  /fast/scratch/hyaku/kagi-r41/K41ScoutSources/datawalk.py    (first pass; interior defined as the whole expect string)
+  /fast/scratch/hyaku/kagi-r41/K41ScoutSources/datawalk2.py   (refined; interior = expect minus a leading '^' and a trailing '$')
+  $S/debt-split.txt (anchored vs unanchored split)
+  $S/r2-check.txt   (journal R2 binding check)
+
+==============================================================================
+(a) LEDGER DEBT: ids whose expect (column 3) at P0 contains an UNESCAPED regex
+    metacharacter in its interior
+==============================================================================
+ledger=corpus/claim-ledger.tsv  BASE=6cc8850 rows=86  P0=6f1588c rows=86
+
+(a) P0 rows whose expect has >=1 UNESCAPED regex metacharacter in its interior
+    interior = expect minus a leading '^' and a trailing '$'
+------------------------------------------------------------------------------
+COUNT = 8
+  R11-01	metachars: [@31, ]@35, [@36, ]@40, *@41, [@51, ]@55, [@56, ]@60, *@61, [@71, ]@75, +@76, [@81, ]@85, [@86, ]@90, *@91
+      expect=^SURFACE_CENSUS: CLEAN \(assets=[1-9][0-9]* runtime=[1-9][0-9]* scanned=[0-9]+ ok=[1-9][0-9]*
+  R11-02	metachars: [@35, ]@39, [@40, ]@44, *@45, [@52, ]@56, +@57
+      expect=^SURFACE_CENSUS_VERBS: CLEAN \(pass=[1-9][0-9]* skip=[0-9]+\)
+  R11-04	metachars: [@26, ]@30, [@31, ]@35, *@36, [@46, ]@50, [@51, ]@55, *@56
+      expect=^DRIFT_PINS: CLEAN \(files=[1-9][0-9]* symbols=[1-9][0-9]*\)
+  R11-06	metachars: [@32, ]@36, [@37, ]@41, *@42
+      expect=^TRANSCRIPT_SCAN: HITS=2 \(cells=[1-9][0-9]*
+  R11-08	metachars: [@29, ]@33, [@34, ]@38, *@39, [@46, ]@50, [@51, ]@55, *@56
+      expect=^CITATION_GATE: CLEAN \(cites=[1-9][0-9]* docs=[1-9][0-9]* unresolved=0 ephemeral=0
+  R12-01	metachars: [@29, ]@33, [@34, ]@38, *@39, [@47, ]@51, [@52, ]@56, *@57, [@64, ]@68, [@69, ]@73, *@74, [@86, ]@90, [@91, ]@95, *@96
+      expect=^OP_REF_PROBE: CLEAN \(checks=[1-9][0-9]* oprun=[1-9][0-9]* refs=[1-9][0-9]* divergent=[1-9][0-9]*
+  R13-03	metachars: [@26, ]@30, +@31, [@45, ]@49, +@50, [@66, ]@70, +@71, [@106, ]@110, +@111, [@126, ]@130, +@131, [@178, ]@182, +@183, [@193, ]@197, +@198, [@213, ]@217, +@218
+      expect=^CELL_AUDIT: CLEAN \(cells=[0-9]+ row_pointed=[0-9]+ stamp_pointed=[0-9]+ uncited=0 missing_ids=0 rows_run=[0-9]+ row_deferred=[0-9]+ row_failures=0 stale_pointers=0 self_skipped=[0-9]+ orphans=[0-9]+ host_skipped=[0-9]+\)$
+  R31-01	metachars: [@27, ]@31, +@32, [@46, ]@50, +@51, [@67, ]@71, +@72
+      expect=^CELL_AUDIT: POLICY \(cells=[0-9]+ row_pointed=[0-9]+ stamp_pointed=[0-9]+ policy=2\)$
+
+(a2) R3 projection over ALL P0 rows (anchored ^...$ AND no unescaped interior metachar)
+------------------------------------------------------------------------------
+R3-SATISFYING rows = 71 / 86
+R3-UNSATISFYING rows = 15
+  R11-01	not ^...$ anchored ; unescaped interior metachar: [@31, ]@35, [@36, ]@40, *@41, [@51, ]@55, [@56, ]@60, *@61, [@71, ]@75, +@76, [@81, ]@85, [@86, ]@90, *@91
+  R11-02	not ^...$ anchored ; unescaped interior metachar: [@35, ]@39, [@40, ]@44, *@45, [@52, ]@56, +@57
+  R11-03	not ^...$ anchored
+  R11-04	not ^...$ anchored ; unescaped interior metachar: [@26, ]@30, [@31, ]@35, *@36, [@46, ]@50, [@51, ]@55, *@56
+  R11-05	not ^...$ anchored
+  R11-06	not ^...$ anchored ; unescaped interior metachar: [@32, ]@36, [@37, ]@41, *@42
+  R11-07	not ^...$ anchored
+  R11-08	not ^...$ anchored ; unescaped interior metachar: [@29, ]@33, [@34, ]@38, *@39, [@46, ]@50, [@51, ]@55, *@56
+  R11-09	not ^...$ anchored
+  R12-01	not ^...$ anchored ; unescaped interior metachar: [@29, ]@33, [@34, ]@38, *@39, [@47, ]@51, [@52, ]@56, *@57, [@64, ]@68, [@69, ]@73, *@74, [@86, ]@90, [@91, ]@95, *@96
+  R12-02	not ^...$ anchored
+  R14-01	not ^...$ anchored
+  R13-03	unescaped interior metachar: [@26, ]@30, +@31, [@45, ]@49, +@50, [@66, ]@70, +@71, [@106, ]@110, +@111, [@126, ]@130, +@131, [@178, ]@182, +@183, [@193, ]@197, +@198, [@213, ]@217, +@218
+  R25-04	not ^...$ anchored
+  R31-01	unescaped interior metachar: [@27, ]@31, +@32, [@46, ]@50, +@51, [@67, ]@71, +@72
+
+(b) ids present in BASE(6cc8850) but ABSENT at P0(6f1588c)
+------------------------------------------------------------------------------
+COUNT = 0  -> (none)
+ids present at P0 but absent at BASE: COUNT = 0 -> (none)
+
+(c) changed ids BASE->P0 (command col2 or expect col3) vs round-40 journal ids
+------------------------------------------------------------------------------
+changed ids (id-level) = 6  field-level changes = 6
+  R13-01	expect	old=^50$	new=^54$
+  R21-02	expect	old=^SOURCES_CENSUS: CLEAN \(rows=93 A=89 B=2 C=2 queued=1 mined=89 rejected=3 entries_sourced=14 legacy=21 captures=93 inrow=16 inrow_only=0 inrow_nonreproducing=12\)$	new=^SOURCES_CENSUS: CLEAN \(rows=96 A=92 B=2 C=2 queued=1 mined=92 rejected=3 entries_sourced=14 legacy=21 captures=96 inrow=16 inrow_only=0 inrow_nonreproducing=12\)$
+  R24-06	expect	old=^ROW_IDENTITY: scorecard-rounds count=50 sha256=0cbb2da2e745aa7a1dd9dd13cb489392c2cdc67df4a111dd05e0839e03ee3e10$	new=^ROW_IDENTITY: scorecard-rounds count=54 sha256=52e7ba8d9b4de4a3aa7543b7f0370361dd17c2ae18b98c0c318618917dfe50c7$
+  R31-02	expect	old=^SOURCES_CENSUS: CLEAN \(rows=93 A=89 B=2 C=2 queued=1 mined=89 rejected=3 entries_sourced=14 legacy=21 captures=93 inrow=16 inrow_only=0 inrow_nonreproducing=12\)$	new=^SOURCES_CENSUS: CLEAN \(rows=96 A=92 B=2 C=2 queued=1 mined=92 rejected=3 entries_sourced=14 legacy=21 captures=96 inrow=16 inrow_only=0 inrow_nonreproducing=12\)$
+  R33-02	expect	old=^SOURCES_CENSUS: CLEAN \(rows=93 A=89 B=2 C=2 queued=1 mined=89 rejected=3 entries_sourced=14 legacy=21 captures=93 inrow=16 inrow_only=0 inrow_nonreproducing=12\)$	new=^SOURCES_CENSUS: CLEAN \(rows=96 A=92 B=2 C=2 queued=1 mined=92 rejected=3 entries_sourced=14 legacy=21 captures=96 inrow=16 inrow_only=0 inrow_nonreproducing=12\)$
+  R34-03	expect	old=^SOURCES_CENSUS: CLEAN \(rows=93 A=89 B=2 C=2 queued=1 mined=89 rejected=3 entries_sourced=14 legacy=21 captures=93 inrow=16 inrow_only=0 inrow_nonreproducing=12\)$	new=^SOURCES_CENSUS: CLEAN \(rows=96 A=92 B=2 C=2 queued=1 mined=92 rejected=3 entries_sourced=14 legacy=21 captures=96 inrow=16 inrow_only=0 inrow_nonreproducing=12\)$
+round-40 journal ids = 6: ['R13-01', 'R21-02', 'R24-06', 'R31-02', 'R33-02', 'R34-03']
+changed == journal ? True   changed-not-journaled=[]   journaled-not-changed=[]
+
+(d) R3 projection on the changed ids at P0 (what the C1 gate would judge)
+------------------------------------------------------------------------------
+  R13-01	R3-SATISFYING	^54$
+  R21-02	R3-SATISFYING	^SOURCES_CENSUS: CLEAN \(rows=96 A=92 B=2 C=2 queued=1 mined=92 rejected=3 entries_sourced=14 legacy=21 captures=96 inrow=16 inrow_only=0 inrow_nonreproducing=12\)$
+  R24-06	R3-SATISFYING	^ROW_IDENTITY: scorecard-rounds count=54 sha256=52e7ba8d9b4de4a3aa7543b7f0370361dd17c2ae18b98c0c318618917dfe50c7$
+  R31-02	R3-SATISFYING	^SOURCES_CENSUS: CLEAN \(rows=96 A=92 B=2 C=2 queued=1 mined=92 rejected=3 entries_sourced=14 legacy=21 captures=96 inrow=16 inrow_only=0 inrow_nonreproducing=12\)$
+  R33-02	R3-SATISFYING	^SOURCES_CENSUS: CLEAN \(rows=96 A=92 B=2 C=2 queued=1 mined=92 rejected=3 entries_sourced=14 legacy=21 captures=96 inrow=16 inrow_only=0 inrow_nonreproducing=12\)$
+  R34-03	R3-SATISFYING	^SOURCES_CENSUS: CLEAN \(rows=96 A=92 B=2 C=2 queued=1 mined=92 rejected=3 entries_sourced=14 legacy=21 captures=96 inrow=16 inrow_only=0 inrow_nonreproducing=12\)$
+
+(e) R3 projection on the six round-40 migration ids at P0
+------------------------------------------------------------------------------
+  R13-01	R3-SATISFYING	^54$
+  R21-02	R3-SATISFYING	^SOURCES_CENSUS: CLEAN \(rows=96 A=92 B=2 C=2 queued=1 mined=92 rejected=3 entries_sourced=14 legacy=21 captures=96 inrow=16 inrow_only=0 inrow_nonreproducing=12\)$
+  R24-06	R3-SATISFYING	^ROW_IDENTITY: scorecard-rounds count=54 sha256=52e7ba8d9b4de4a3aa7543b7f0370361dd17c2ae18b98c0c318618917dfe50c7$
+  R31-02	R3-SATISFYING	^SOURCES_CENSUS: CLEAN \(rows=96 A=92 B=2 C=2 queued=1 mined=92 rejected=3 entries_sourced=14 legacy=21 captures=96 inrow=16 inrow_only=0 inrow_nonreproducing=12\)$
+  R33-02	R3-SATISFYING	^SOURCES_CENSUS: CLEAN \(rows=96 A=92 B=2 C=2 queued=1 mined=92 rejected=3 entries_sourced=14 legacy=21 captures=96 inrow=16 inrow_only=0 inrow_nonreproducing=12\)$
+  R34-03	R3-SATISFYING	^SOURCES_CENSUS: CLEAN \(rows=96 A=92 B=2 C=2 queued=1 mined=92 rejected=3 entries_sourced=14 legacy=21 captures=96 inrow=16 inrow_only=0 inrow_nonreproducing=12\)$
+
+(f) R3 projection on the six migration ids' NEW_EXPECT as written in the journal
+------------------------------------------------------------------------------
+  R13-01	R3-SATISFYING	^54$
+  R21-02	R3-SATISFYING	^SOURCES_CENSUS: CLEAN \(rows=96 A=92 B=2 C=2 queued=1 mined=92 rejected=3 entries_sourced=14 legacy=21 captures=96 inrow=16 inrow_only=0 inrow_nonreproducing=12\)$
+  R24-06	R3-SATISFYING	^ROW_IDENTITY: scorecard-rounds count=54 sha256=52e7ba8d9b4de4a3aa7543b7f0370361dd17c2ae18b98c0c318618917dfe50c7$
+  R31-02	R3-SATISFYING	^SOURCES_CENSUS: CLEAN \(rows=96 A=92 B=2 C=2 queued=1 mined=92 rejected=3 entries_sourced=14 legacy=21 captures=96 inrow=16 inrow_only=0 inrow_nonreproducing=12\)$
+  R33-02	R3-SATISFYING	^SOURCES_CENSUS: CLEAN \(rows=96 A=92 B=2 C=2 queued=1 mined=92 rejected=3 entries_sourced=14 legacy=21 captures=96 inrow=16 inrow_only=0 inrow_nonreproducing=12\)$
+  R34-03	R3-SATISFYING	^SOURCES_CENSUS: CLEAN \(rows=96 A=92 B=2 C=2 queued=1 mined=92 rejected=3 entries_sourced=14 legacy=21 captures=96 inrow=16 inrow_only=0 inrow_nonreproducing=12\)$
+
+==============================================================================
+(a-extra) ANCHORED vs UNANCHORED SPLIT of the (a) list
+==============================================================================
+ANCHORED rows (^...$) with unescaped interior metachar = 2
+  R13-03: [@26, ]@30, +@31, [@45, ]@49, +@50, [@66, ]@70, +@71, [@106, ]@110, +@111, [@126, ]@130, +@131, [@178, ]@182, +@183, [@193, ]@197, +@198, [@213, ]@217, +@218
+  R31-01: [@27, ]@31, +@32, [@46, ]@50, +@51, [@67, ]@71, +@72
+UNANCHORED rows with unescaped metachar (whole expect minus leading ^) = 6
+  R11-01: [@31, ]@35, [@36, ]@40, *@41, [@51, ]@55, [@56, ]@60, *@61, [@71, ]@75, +@76, [@81, ]@85, [@86, ]@90, *@91
+  R11-02: [@35, ]@39, [@40, ]@44, *@45, [@52, ]@56, +@57
+  R11-04: [@26, ]@30, [@31, ]@35, *@36, [@46, ]@50, [@51, ]@55, *@56
+  R11-06: [@32, ]@36, [@37, ]@41, *@42
+  R11-08: [@29, ]@33, [@34, ]@38, *@39, [@46, ]@50, [@51, ]@55, *@56
+  R12-01: [@29, ]@33, [@34, ]@38, *@39, [@47, ]@51, [@52, ]@56, *@57, [@64, ]@68, [@69, ]@73, *@74, [@86, ]@90, [@91, ]@95, *@96
+TOTAL (union) = 8
+
+==============================================================================
+(a-extra) R2 BINDING CHECK of the six round-40 migrations (base expect/command
+    vs journal; candidate expect/command vs journal)
+==============================================================================
+R2 binding check for each round-40 migration (base expect / base command vs journal; candidate expect/command vs journal)
+------------------------------------------------------------------------------
+R13-01
+  R2 OLD_MISMATCH  ok (journal.old_expect == BASE expect)   : True
+  R2 COMMAND_MISMATCH ok (journal.command == CAND command) : True
+  R2 NEW_MISMATCH  ok (journal.new_expect == CAND expect) : True
+  R1 changed (base expect != cand expect)                  : True
+  base command == cand command                            : True
+R21-02
+  R2 OLD_MISMATCH  ok (journal.old_expect == BASE expect)   : True
+  R2 COMMAND_MISMATCH ok (journal.command == CAND command) : True
+  R2 NEW_MISMATCH  ok (journal.new_expect == CAND expect) : True
+  R1 changed (base expect != cand expect)                  : True
+  base command == cand command                            : True
+R24-06
+  R2 OLD_MISMATCH  ok (journal.old_expect == BASE expect)   : True
+  R2 COMMAND_MISMATCH ok (journal.command == CAND command) : True
+  R2 NEW_MISMATCH  ok (journal.new_expect == CAND expect) : True
+  R1 changed (base expect != cand expect)                  : True
+  base command == cand command                            : True
+R31-02
+  R2 OLD_MISMATCH  ok (journal.old_expect == BASE expect)   : True
+  R2 COMMAND_MISMATCH ok (journal.command == CAND command) : True
+  R2 NEW_MISMATCH  ok (journal.new_expect == CAND expect) : True
+  R1 changed (base expect != cand expect)                  : True
+  base command == cand command                            : True
+R33-02
+  R2 OLD_MISMATCH  ok (journal.old_expect == BASE expect)   : True
+  R2 COMMAND_MISMATCH ok (journal.command == CAND command) : True
+  R2 NEW_MISMATCH  ok (journal.new_expect == CAND expect) : True
+  R1 changed (base expect != cand expect)                  : True
+  base command == cand command                            : True
+R34-03
+  R2 OLD_MISMATCH  ok (journal.old_expect == BASE expect)   : True
+  R2 COMMAND_MISMATCH ok (journal.command == CAND command) : True
+  R2 NEW_MISMATCH  ok (journal.new_expect == CAND expect) : True
+  R1 changed (base expect != cand expect)                  : True
+  base command == cand command                            : True

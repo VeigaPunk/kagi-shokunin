@@ -1,0 +1,7 @@
+round-41 C2 counter readings (plans/round-41-c2.sh, RTV1 default = corpus/rendered-text-v1.py)
+candidate (sandbox work tree, paragraph lines 45-48):  rc=0  N=3  stderr=''
+5142b52 original normalizer (RTV1 override):                    rc=0  N=1  stderr=''
+sub-terms (candidate, reproduced with the counter predicates):
+  (a) cited=['S095', 'S096', 'S097'] superseded=['S006', 'S007', 'S012', 'S013', 'S014', 'S016', 'S027', 'S028', 'S034', 'S035', 'S036', 'S039', 'S040', 'S041', 'S047', 'S049'] hits=[]
+  (b) quote lines=1; S095 row col10=ef2d8abe698b74bbee5259f02599f9b6bf023733d47bb4c7003ac1277bf469b1; S095.body matched=['.ufo/waves/round-40/capture/S095.body']; locate rc=0 out='RENDERED_TEXT_V1_LOCATE: count=1'
+  (c) selftest rc=0; stdout='case tags-to-space: ok\ncase script-removed: ok\ncase style-removed-case-multiline: ok\ncase script-close-must-match: ok\ncase comment-plain: ok\ncase comment-gt: ok\ncase escaped-tag-survives: ok\ncase numeric-entity: ok\ncase nbsp-entity-collapses: ok\ncase nbsp-raw-collapses: ok\ncase ideographic-space-collapses: ok\ncase ascii-runs-collapse: ok\ncase trim-both-ends: ok\ncase zero-width-space-kept: ok\ncase empty-angle-kept: ok\ncase script-shortest-match: ok\ncase script-word-boundary: ok\ncase script-malformed-opener: ok\ncase script-hyphen-prefix: ok\ncase script-attributed-closer: ok\ncase strict-utf8: ok\ncase quote-collapse-only: ok\nRENDERED_TEXT_V1_SELFTEST: PASS (cases=22)'

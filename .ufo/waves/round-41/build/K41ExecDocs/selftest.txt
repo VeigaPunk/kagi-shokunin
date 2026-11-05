@@ -1,0 +1,27 @@
+$ python3 corpus/rendered-text-v1.py --selftest
+exit=0
+--- stdout ---
+case tags-to-space: ok
+case script-removed: ok
+case style-removed-case-multiline: ok
+case script-close-must-match: ok
+case comment-plain: ok
+case comment-gt: ok
+case escaped-tag-survives: ok
+case numeric-entity: ok
+case nbsp-entity-collapses: ok
+case nbsp-raw-collapses: ok
+case ideographic-space-collapses: ok
+case ascii-runs-collapse: ok
+case trim-both-ends: ok
+case zero-width-space-kept: ok
+case empty-angle-kept: ok
+case script-shortest-match: ok
+case script-word-boundary: ok
+case script-malformed-opener: ok
+case script-hyphen-prefix: ok
+case script-attributed-closer: ok
+case strict-utf8: ok
+case quote-collapse-only: ok
+RENDERED_TEXT_V1_SELFTEST: PASS (cases=22)
+--- stderr ---

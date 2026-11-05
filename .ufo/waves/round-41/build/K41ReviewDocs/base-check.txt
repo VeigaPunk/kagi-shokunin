@@ -1,0 +1,117 @@
+Base-state check for C2 — seat K41ReviewDocs
+Factual claims of corpus/rendered-text-v1.py step 5 (docstring lines 36-39) and the
+Sources paragraph (line 45-46), each against the predeclaration commit 5142b52.
+
+--------------------------------------------------------------------------------
+Claim S5-1 (line 36-37): step 5 collapses "every run of Unicode whitespace --
+Python re '\\s' on a str pattern, i.e. the characters str.isspace() accepts"
+  Status: SUPPORTED BY A BOUND CAPTURE.
+  Capture: .ufo/waves/round-40/capture/S095.body (committed at 5142b52; sha256
+  ef2d8abe698b74bbee5259f02599f9b6bf023733d47bb4c7003ac1277bf469b1, equal to
+  column 10 of the S095 row in corpus/source-fetches.tsv at 5142b52).
+  Quote (verbatim, frozen): "Matches Unicode whitespace characters (as defined by"
+  -- raw offset 75897; measured this seat:
+  RENDERED_TEXT_V1_LOCATE: count=1, exit 0.
+  The same body, after the declared normalization, also carries the full S040-era
+  sentence "For Unicode (str) patterns: Matches Unicode whitespace characters (as
+  defined by str.isspace() )." at count=1 (measured exit 0), which names
+  str.isspace() explicitly. Note M40-14: the registry row's verbatim quote stops
+  before str.isspace() (inside an <a> tag); the full clause locating is measured
+  THIS SEAT, not bound in any registry cell.
+  Runtime (lane python3 3.14.8, unicodedata 16.0.0): str-pattern \s accepts
+  chr(0x3000), chr(0x00A0), chr(0x001C): measured True/True/True.
+
+Claim S5-2 (line 38): "includes U+00A0 NO-BREAK SPACE"
+  Status: SUPPORTED BY A BOUND CAPTURE only through str.isspace() as a class
+  definition, NOT as a named literal.
+  - Derivation with python3 this seat (do not rely on the page for the code points):
+    unicodedata.category(chr(0x00A0)) == 'Zs'; chr(0x00A0).isspace() == True.
+  - The S095 body names the class of examples ("non-breaking spaces mandated by
+    typography rules in many languages", normalized count=1) but contains ZERO
+    literal U+00A0 (0xC2 0xA0) bytes and no "U+00A0" token: measured
+    b.count(b"\xc2\xa0") == 0. The U+00A0 claim is a lane derivation under the
+    class, so it is grounded ONLY through the class sentence of S095 plus the
+    runtime; any paragraph sentence that asserts the specific code point as if it
+    came from the page is unsupported. S097's str.isspace() definition sentence is
+    the gate for this class ("A character is whitespace if in the Unicode character
+    database (see unicodedata), either its general category is Zs ... or its
+    bidirectional class is one of WS, B, or S"); the derivation route for U+00A0 is
+    cat-Zs, so S097 (admitted this round) is the correct source, not S095.
+
+Claim S5-3 (line 38): "includes ... U+3000"
+  Status: UNSUPPORTED BY THE CITED PAGE; supported by lane python3 only.
+  - python3 this seat: unicodedata.category(chr(0x3000)) == 'Zs';
+    chr(0x3000).isspace() == True. unidata_version 16.0.0.
+  - S095 body tokens: b.count(b"U+3000") == 0; b"\u3000" literal count == 0; the
+    "ideograph*"/"3000" tokens count 0. Measured this seat and confirmed by the
+    round-40 scribe trial draft (.ufo/waves/round-40/build/K40ScribeLesson/draft-trial.md:
+    "the served body carries no 'U+3000' and no 'ideographic' token").
+  - The plan's disposition is correct: the U+3000 derivation (unicodedata.category
+    Zs) must live in the round-lesson Gate, NOT be asserted from S095. The same
+    derivation reads equally against S097's Zs clause once S097 is in the registry.
+  - Registry fact: no row currently carries the U+3000 derivation; any candidate
+    sentence that keeps U+3000 inside the description of the CITED PAGE's content
+    is unsupported even after S097 lands, unless the sentence is rewritten as a
+    lane derivation of the S097 membership definition.
+
+Claim S5-4 (lines 39-40): "ASCII-only whitespace is NOT v1: it fails to reproduce
+3 of the 10 round-23 normalized digests (S022, S023, S024; round-24 lesson Gate,
+rejected source row for the WHATWG ASCII class)"
+  Status: two sub-claims with different grounding.
+  S5-4a (the 7-of-10 measurement): SUPPORTED ONLY BY UNBOUND WORKSPACE ROWS.
+  The ASCII reading reproduces 7 of 10 round-23 digests and fails S022, S023 and
+  S024: this number is measured in .ufo/waves/round-23/falsify/CritDigestDomain.md
+  line 122 ("ASCII [ \t\n\r\f\v]+ ... 7/10. Fails S022, S023, S024: after unescape
+  they contain U+00A0 x2, x2, x3") and restated in corpus/lessons/round-24.md
+  (S030 reject cell). Neither file is a bound capture: no round-23 body is
+  committed in the tree (git ls-tree 5142b52 --name-only carries no
+  */capture/S0{17..26}.body), so the digests cannot be re-measured from committed
+  bytes. The 10 declared digests themselves are bound: committed
+  corpus/source-fetches.tsv columns carry
+  S022 06d2508c959bf329..., S023 0e62e05612eaa7dd..., S024 7c5a19e23f5f857b...,
+  and .ufo/waves/round-24/normalizer-replay.json shows declared = replayed 10/10
+  under the Unicode reading (fetched "2026-10-21, declared profile").
+  No committed artifact re-derives the ASCII 7-of-10 from committed bodies: it is
+  seat-work evidence, not a bound capture.
+  S5-4b (S022-S024 are the rows the digests belong to): the assignment warns these
+  are the Vault JWT rows. Verified titles at 5142b52 corpus/SOURCES.md:
+    S022 "Vault JWT-role audience qualifier" (JWT roles/audience, superseded S012)
+    S023 "Vault lease/KV scoped locator" (leases, superseded S013)
+    S024 "KV v2 API" (KV v2 retained versions, quote "max_versions (int: 0)...")
+  None of the three rows teaches anything about whitespace. The docstring's
+  parenthetical "(S022, S023, S024; round-24 lesson Gate ...)" is correct ONLY as
+  "the rows whose digests distinguish the two classes", NOT as "the rows that
+  ground the whitespace class". A candidate paragraph that cites S022-S024 for the
+  class would be citing the wrong subject; the class grounds are S095/S097.
+
+Claim S5-5 (Sources paragraph, lines 45-46): "Sources (opened round 24, see
+corpus/SOURCES.md): Python `re` \\s for str patterns and Python `html.unescape`."
+  Status: PARTIAL / STALE AT BASE.
+  - No S### id is cited (the frozen C2 no-work reading (a)=0 is exactly this).
+  - The teaching named for re is real and bound (S095), but the round-24 row that
+    the text implies ("opened round 24") is S027, which is superseded twice
+    (S040 then S095). The claim "opened round 24" is a fact about the rows, true
+    but the pointer no longer names current rows.
+  - html.unescape grounds in S096 (current, bound, quote locates
+    count=1, raw offset 13521: "This function uses the rules defined by the HTML 5
+    standard"); the BASE paragraph names it without an id.
+  - Everything the candidate adds (S095/S096/S097 ids, the frozen quote) is
+    measured against these bindings in this seat's attack file.
+
+--------------------------------------------------------------------------------
+Code-point membership table measured this seat (python3, unidata 16.0.0):
+  U+0020 Zs  isspace=True   U+001C Cc/bidi-B isspace=True
+  U+001D Cc/bidi-B isspace=True   U+001E Cc/bidi-B isspace=True
+  U+001F Cc/bidi-S isspace=True   U+00A0 Zs isspace=True
+  U+2000..U+200A all Zs isspace=True   U+200B ZWSP isspace-FALSE
+  U+205F Zs isspace=True   U+3000 Zs isspace=True   U+FEFF isspace=False
+  U+180E (Mongolian vowel separator) isspace=False
+These memberships are lane-runtime facts, not page-text facts.
+
+Commands (all read-only; scratch S=/fast/scratch/hyaku/kagi-r41/K41ReviewDocs):
+  git clone --shared <lane> "$S/work"; git -C "$S/work" checkout --detach 5142b52
+  git -C "$S/work" rev-parse --show-toplevel   == "$S/work" (verified)
+  python3 "$S/work/corpus/rendered-text-v1.py" locate <S095.body> "Matches Unicode whitespace characters (as defined by"
+    -> RENDERED_TEXT_V1_LOCATE: count=1, exit 0
+  python3 - ... unicodedata / isspace checks (outputs above)
+  wc -c, sha256sum, grep-counts over S095/S096 bodies, git show at 5142b52/19025d9/6f1588c

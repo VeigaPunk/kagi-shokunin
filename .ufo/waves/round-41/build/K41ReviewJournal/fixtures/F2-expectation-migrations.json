@@ -1,0 +1,56 @@
+{
+ "round": 40,
+ "measured_at": "candidate tree (C1 measured revision, recorded in the round report)",
+ "kind": "round-38-style measured rebinding of ledger expectations to the committed tree",
+ "population": "C1 frozen debt set only: R13-01, R21-02, R24-06, R31-02, R33-02, R34-03",
+ "migrations": [
+  {
+   "id": "R13-01",
+   "command": "grep -c '^## Round ' SCORECARD.md",
+   "old_expect": "^50$",
+   "new_expect": "^54$",
+   "reason": "the round-39 pre/post pair (landed at 6cc8850) and the round-40 pre/post pair (this round) take the heading count 50 -> 54"
+  },
+  {
+   "id": "R21-02",
+   "command": "bash corpus/sources-census.sh",
+   "old_expect": "^SOURCES_CENSUS: CLEAN \\(rows=96 A=92 B=2 C=2 queued=1 mined=92 rejected=3 entries_sourced=14 legacy=21 captures=96 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+   "new_expect": "^SOURCES_CENSUS: CLEAN \\(rows=96 A=92 B=2 C=2 queued=1 mined=92 rejected=3 entries_sourced=14 legacy=21 captures=96 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+   "reason": "S095 and S096 appended (tier A, mined) with two capture rows; rows 94 -> 96, A 90 -> 92, mined 90 -> 92, captures 94 -> 96"
+  },
+  {
+   "id": "R24-06",
+   "command": "bash corpus/row-identity.sh scorecard-rounds",
+   "old_expect": "^ROW_IDENTITY: scorecard-rounds count=50 sha256=0cbb2da2e745aa7a1dd9dd13cb489392c2cdc67df4a111dd05e0839e03ee3e10$",
+   "new_expect": "^ROW_IDENTITY: scorecard-rounds count=54 sha256=52e7ba8d9b4de4a3aa7543b7f0370361dd17c2ae18b98c0c318618917dfe50c7$",
+   "reason": "membership migration: count 50 -> 54 (round-39 and round-40 heading pairs retained); identity re-measured at the landing tree"
+  },
+  {
+   "id": "R31-02",
+   "command": "bash corpus/sources-census.sh",
+   "old_expect": "^SOURCES_CENSUS: CLEAN \\(rows=93 A=89 B=2 C=2 queued=1 mined=89 rejected=3 entries_sourced=14 legacy=21 captures=93 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+   "new_expect": "^SOURCES_CENSUS: CLEAN \\(rows=96 A=92 B=2 C=2 queued=1 mined=92 rejected=3 entries_sourced=14 legacy=21 captures=96 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+   "reason": "same census summary as R21-02; live expectation only"
+  },
+  {
+   "id": "R33-02",
+   "command": "bash corpus/sources-census.sh",
+   "old_expect": "^SOURCES_CENSUS: CLEAN \\(rows=93 A=89 B=2 C=2 queued=1 mined=89 rejected=3 entries_sourced=14 legacy=21 captures=93 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+   "new_expect": "^SOURCES_CENSUS: CLEAN \\(rows=96 A=92 B=2 C=2 queued=1 mined=92 rejected=3 entries_sourced=14 legacy=21 captures=96 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+   "reason": "same census summary as R21-02; live expectation only"
+  },
+  {
+   "id": "R34-03",
+   "command": "bash corpus/sources-census.sh",
+   "old_expect": "^SOURCES_CENSUS: CLEAN \\(rows=93 A=89 B=2 C=2 queued=1 mined=89 rejected=3 entries_sourced=14 legacy=21 captures=93 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+   "new_expect": "^SOURCES_CENSUS: CLEAN \\(rows=96 A=92 B=2 C=2 queued=1 mined=92 rejected=3 entries_sourced=14 legacy=21 captures=96 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+   "reason": "same census summary as R21-02; live expectation only; the frozen round-34 C3 target stays unchanged and NOT ADMITTED"
+  }
+ ],
+ "outside_population_untouched": [
+  "R25-02 (FAIL, operator-owned self-count policy binding)",
+  "R29-01, R29-02 (POLICY, operator-owned PYTHON_SCRIPT_RE registration)",
+  "R38-03 (POLICY, operator-owned)",
+  "R11-08, R22-03, R24-15, R36-03 (inherited FAIL rows outside the frozen set)"
+ ]
+}

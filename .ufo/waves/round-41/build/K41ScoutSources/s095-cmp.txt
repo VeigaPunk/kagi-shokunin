@@ -1,0 +1,182 @@
+K41ScoutSources — S095 / S096 live re-open vs round-40 committed captures
+Round 41 (kagi, attempt 1), lane /home/vgpnk/Projects/shokunin/kagi-shokunin
+Plan: plans/round-41.md (predeclaration commit 5142b52)
+
+Scratch: /fast/scratch/hyaku/kagi-r41/K41ScoutSources
+All commands below were executed from that scratch dir unless noted.
+Lane was NOT written to (no git mutation, no corpus edit, no SOURCES.md edit).
+
+================================================================================
+1. S095 — live re-open
+================================================================================
+command:
+  curl -fsSL --compressed https://docs.python.org/3/library/re.html -o "$S/S095-live.body"
+exit: 0
+
+sha256sum / bytes (live):
+  ef2d8abe698b74bbee5259f02599f9b6bf023733d47bb4c7003ac1277bf469b1  S095-live.body
+  wc -c S095-live.body  ->  257722
+
+sha256sum / bytes (round-40 committed capture .ufo/waves/round-40/capture/S095.body):
+  ef2d8abe698b74bbee5259f02599f9b6bf023733d47bb4c7003ac1277bf469b1
+  wc -c -> 257722
+
+cmp:
+  command:
+    cmp S095-live.body /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-40/capture/S095.body
+  exit: 0  (no output)
+  VERDICT: IDENTICAL — byte-for-byte. No differing byte offsets exist
+  (cmp reports the first differing offset when files differ; it reported none).
+
+<title> line (live body):
+  <title>re — Regular expression operations &#8212; Python 3.15.2 documentation</title>
+
+HTTP:
+  curl -sSL --compressed -o /dev/null -w ... https://docs.python.org/3/library/re.html
+    final_url=https://docs.python.org/3/library/re.html http=200 redirects=0
+  curl -sS --compressed -o /dev/null -w 'first_hop_http=%{http_code}' ...
+    first_hop_http=200 effective=https://docs.python.org/3/library/re.html
+
+Frozen-quote locate (live body, reads only the named file, writes nothing):
+  command:
+    python3 /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/rendered-text-v1.py \
+      locate $S/S095-live.body 'Matches Unicode whitespace characters (as defined by'
+  output: RENDERED_TEXT_V1_LOCATE: count=1
+  exit: 0
+
+Same locate against the ROUND-40 COMMITTED capture body (so the C2 (b) binding is
+shown on the committed bytes, not only on the live re-download):
+  command:
+    python3 corpus/rendered-text-v1.py locate .ufo/waves/round-40/capture/S095.body \
+      'Matches Unicode whitespace characters (as defined by'
+  output: RENDERED_TEXT_V1_LOCATE: count=1
+  exit: 0
+
+Raw byte offset of the quote (byte search, not normalized):
+  live body : 75897
+  round-40 capture : 75897
+  (matches the S095 fetch-row location cell "backslash-s-unicode-whitespace-raw-byte-offset-75897"
+   and the S095 registry row's "raw body offset 75897")
+
+digest (rendered-text-v1, committed capture):
+  RENDERED_TEXT_V1: raw_sha256=ef2d8abe698b74bbee5259f02599f9b6bf023733d47bb4c7003ac1277bf469b1 \
+    bytes=257722 normalized_sha256=dc9e4eba75965de6f08c8163635d758e923c94d13dee170a7380673a1c39e1c9 \
+    normalized_bytes=69356
+
+C2 binding cross-check (the S095 fetch row's column-10 sha256 vs this body):
+  corpus/source-fetches.tsv S095 row, column 10 =
+    ef2d8abe698b74bbee5259f02599f9b6bf023733d47bb4c7003ac1277bf469b1
+  sha256sum of the capture body = ef2d8abe698b74bbee5259f02599f9b6bf023733d47bb4c7003ac1277bf469b1
+  -> EQUAL. The C2 (b) binding precondition holds on the committed bytes.
+
+================================================================================
+2. S096 — live re-open (same way, against round-40 capture S096.body)
+================================================================================
+command:
+  curl -fsSL --compressed https://docs.python.org/3/library/html.html -o "$S/S096-live.body"
+exit: 0
+
+sha256sum / bytes (live):
+  570d72c3910b313e905246e75b3238522d6c26194ffd33c1f4112c4f0d3fbab5  S096-live.body
+  wc -c S096-live.body  ->  20100
+
+sha256sum / bytes (round-40 capture .ufo/waves/round-40/capture/S096.body):
+  570d72c3910b313e905246e75b3238522d6c26194ffd33c1f4112c4f0d3fbab5
+  wc -c -> 20100
+
+cmp:
+  cmp S096-live.body /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-40/capture/S096.body
+  exit: 0  (no output)
+  VERDICT: IDENTICAL — byte-for-byte. No differing byte offsets exist.
+
+<title> line (live body):
+  <title>html — HyperText Markup Language support &#8212; Python 3.15.2 documentation</title>
+
+HTTP:
+  final_url=https://docs.python.org/3/library/html.html http=200 redirects=0
+  first_hop_http=200
+
+Frozen-quote locate (live body):
+  command:
+    python3 corpus/rendered-text-v1.py locate "$S/S096-live.body" \
+      'This function uses the rules defined by the HTML 5 standard'
+  output: RENDERED_TEXT_V1_LOCATE: count=1
+  exit: 0
+
+Same locate against the round-40 committed capture:
+  command:
+    python3 corpus/rendered-text-v1.py locate .ufo/waves/round-40/capture/S096.body \
+      'This function uses the rules defined by the HTML 5 standard'
+  output: RENDERED_TEXT_V1_LOCATE: count=1
+  exit: 0
+
+Raw byte offset of the quote:
+  live body : 13521
+  round-40 capture : 13521
+  (matches the S096 fetch-row location cell "html5-unescape-rules-raw-byte-offset-13521")
+
+digest (rendered-text-v1, committed capture):
+  RENDERED_TEXT_V1: raw_sha256=570d72c3910b313e905246e75b3238522d6c26194ffd33c1f4112c4f0d3fbab5 \
+    bytes=20100 normalized_sha256=da6d2f57b5f29b9b43016218f3a6fe4eb331779539d1b3b290ae47705b89d68d \
+    normalized_bytes=2395
+
+================================================================================
+3. Supplementary live opens (scout seat, plan §Shape: S095, S097, S098)
+================================================================================
+S097 (Python 3.15.2 stdtypes — the str.isspace() definition; candidate S097 URL):
+  curl -fsSL --compressed https://docs.python.org/3/library/stdtypes.html -o "$S/S097-live.body"
+  exit: 0
+  sha256 e2992e17d9b8f15f09b2971e356d06c5e0f1572fefa6ce733eb6d7d48466e2b3
+  bytes 815447
+  title: <title>Built-in Types &#8212; Python 3.15.2 documentation</title>
+  HTTP: first_hop_http=301, final_url=https://docs.python.org/3/builtins/stdtypes.html, http=200
+        (NOTE: /3/library/stdtypes.html 301-redirects to /3/builtins/stdtypes.html;
+         a fetch row must record url AND final_url, and http_status 200 for the final hop)
+  digest: raw_sha256=e2992e17...  normalized_sha256=1a84e37d72a3ca5ea93a089dbc861eba281bb1adfff26732bd8c1715ccdc2f3e
+          normalized_bytes=197526
+  locate 'Return True if there are only whitespace characters in the string and there is at least one character, False otherwise.'
+    -> RENDERED_TEXT_V1_LOCATE: count=1, exit 0
+  locate 'A character is whitespace if in the Unicode character database'
+    -> count=1, exit 0
+  locate 'IDEOGRAPHIC SPACE'  -> count=1, exit 0
+  raw byte offset of 'IDEOGRAPHIC SPACE' = 296299
+  The literal U+3000 bytes (e3 80 80) are NOT present in the served stdtypes body;
+  the page shows the escape form '\u3000' inside the doctest and the word
+  'IDEOGRAPHIC SPACE' as the comment. Raw-byte search for the literal U+3000
+  sequence returns False on both the stdtypes and the re page. This is the same
+  M40-5/U+3000 fact the plan records: the U+3000 example is NOT a raw-literal
+  quote on the served 3.15.2 pages, so it must not be asserted from S095.
+  The stdtypes page DOES carry the class definition itself:
+    'A character is whitespace if in the Unicode character database ..., either its
+     general category is Zs ("Separator, space"), or its bidirectional class is one
+     of WS, B, or S.'  (raw offset of 'its general category is' = 296702)
+
+S098 (Unicode UTS #18 — the REJECTED candidate):
+  curl -fsSL --compressed https://www.unicode.org/reports/tr18/ -o "$S/S098-live.body"
+  exit: 0
+  sha256 68e34b8ba02dac859bfabac7f8d1ecbd08fbc9ec00aa003f239fe3ca7198c70d
+  bytes 199607
+  title: <title>UTS #18: Unicode Regular Expressions</title>
+  HTTP: final_url=https://www.unicode.org/reports/tr18/ http=200 redirects=0
+  digest: normalized_sha256=53fa58d5effac070fc27ca2d7d7d6eedb4a7fba3293852f4a3c1088d7425d10e
+          normalized_bytes=110079
+  locate 'White_Space' -> count=4, exit 0
+  locate '\p{White_Space}' -> count=0, exit 1
+  locate 'Unicode Regular Expressions' -> count=2, exit 0
+  locate 'UTS #18' -> count=1, exit 0
+  Raw byte offset of 'White_Space' = 45641. The literal string '\p{White_Space}'
+  does NOT occur in the served body (raw find = -1); the page renders the
+  property name 'White_Space' as a table cell (Examples of Properties) rather
+  than the escape form. So a registry row for UTS #18 could not carry a
+  raw-literal '\p{White_Space}' quote from this body.
+
+S098 reject corroboration (independent probe, read-only, no lane write):
+  python3 probe over all code points, comparing str.isspace() against the 25
+  UTS #18 White_Space code points:
+    python 3.14.8, unicodedata 16.0.0
+    count diff = 4
+    isspace-True but not White_Space: 0x1c 0x1d 0x1e 0x1f
+    White_Space but not isspace: (none)
+  This reproduces the plan's stated reject reason for S098: str.isspace() accepts
+  U+001C-U+001F, which White_Space does not, so UTS #18 cannot ground the
+  normalizer's class.

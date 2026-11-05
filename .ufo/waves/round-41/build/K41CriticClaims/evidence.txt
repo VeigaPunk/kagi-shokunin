@@ -1,0 +1,131 @@
+# K41CriticClaims — evidence transcript (commands + observed outputs)
+
+Host guard honored: every git call used `-C` or absolute paths; cwd param = fleet root; all writes
+under S=/fast/scratch/hyaku/kagi-r41/K41CriticClaims and the seat deliverable dir. No lane mutation.
+
+== 1. Sandbox setup ==
+$ S=/fast/scratch/hyaku/kagi-r41/K41CriticClaims; mkdir -p "$S"
+$ git clone --shared /home/vgpnk/Projects/shokunin/kagi-shokunin "$S/work" && git -C "$S/work" checkout --detach 5142b52
+→ exit 0
+$ git -C "$S/work" rev-parse --show-toplevel
+→ /fast/scratch/hyaku/kagi-r41/K41CriticClaims/work   (== $S/work ✓ asserted before any write)
+(Note: an earlier setup attempt embedded `trap 'rm -rf -- "$S"' EXIT`; the supervised wrapper fired
+the trap at process end and deleted the fresh clone. Recreated without a trap; manual cleanup at end.)
+
+== 2. No-work readings at predeclaration (BASE 19025d9 == worktree; verified below) ==
+$ (cd "$S/work" && bash plans/round-41-c1.sh); echo rc=$?
+→ 0
+→ rc=0                                  [C1 no-work N=0 reproduced; gate file absent at BASE]
+$ (cd "$S/work" && bash plans/round-41-c2.sh); echo rc=$?
+→ 1
+→ rc=0                                  [C2 no-work N=1 reproduced: a=0 b=0 c=1]
+$ (cd "$S/work" && python3 corpus/rendered-text-v1.py --selftest >/dev/null 2>&1; echo rc=$?)
+→ selftest rc=0
+$ (cd "$S/work" && python3 corpus/rendered-text-v1.py --selftest 2>&1 | tail -3)
+→ case strict-utf8: ok
+→ case quote-collapse-only: ok
+→ RENDERED_TEXT_V1_SELFTEST: PASS (cases=22)     [kill floor "below 22": BASE sits exactly at 22]
+
+== 3. Lane state pin ==
+$ git -C <lane> rev-parse HEAD
+→ 5142b522fb905a237cb01aaa582b8e4543496bdd            [== predeclaration]
+$ git -C <lane> diff --stat 19025d9 -- corpus/rendered-text-v1.py corpus/SOURCES.md corpus/source-fetches.tsv
+→ (empty output — worktree C2 inputs byte-identical to BASE)
+$ find <lane>/.ufo/waves -path '*/capture/S095.body' -type f
+→ <lane>/.ufo/waves/round-40/capture/S095.body
+→ <lane>/.ufo/waves/round-41/build/K41ScoutSources/capture/S095.body
+
+== 4. P0 fairness audit (plain python over git-show bytes; gate NOT run) ==
+$ git -C <lane> show 6f1588cc0ebd5cbbd4e983fbd71c1e419d225ce0:corpus/claim-ledger.tsv > $S/ev/p0.tsv
+$ git -C <lane> show 6cc8850dfc5757927699e5a53a876f47c8df21aa:corpus/claim-ledger.tsv > $S/ev/base.tsv
+$ git -C <lane> show 6f1588c:.ufo/waves/round-40/expectation-migrations.json > $S/ev/p0-journal.json
+$ git -C <lane> show 5142b52:.ufo/waves/round-40/expectation-migrations.json > $S/ev/p0-journal-at-predecl.json
+$ cmp -s p0-journal.json p0-journal-at-predecl.json && echo identical
+→ P0 journal identical at 6f1588c and 5142b52
+$ diff base.tsv p0.tsv | grep '^[<>]' | cut -f1 | sort | uniq -c
+→   1 < R13-01 / 1 > R13-01 / 1 < R21-02 / 1 > R21-02 / 1 < R24-06 / 1 > R24-06 /
+    1 < R31-02 / 1 > R31-02 / 1 < R33-02 / 1 > R33-02 / 1 < R34-03 / 1 > R34-03   [exactly six lines]
+python audit output (abridged):
+  rows: base=86 p0=86 idsets_equal=True   (+18 comment/header lines both files)
+  changed rows (command or expect differ): ['R13-01','R21-02','R24-06','R31-02','R33-02','R34-03']
+  added: [] removed: []
+  commands base==p0 for all six; exit/timeout equal for all six; note differs for five (prose only)
+  journal entries: 6 ids=['R13-01','R21-02','R24-06','R31-02','R33-02','R34-03']
+  P0 total R1/R2/R3 violations vs 6cc8850: 0
+  literals: R13-01 ^50$→^54$; R21-02/R31-02/R33-02/R34-03 SOURCES_CENSUS rows=93→96 literals;
+  R24-06 ROW_IDENTITY count=50 sha=0cbb2da2…→count=54 sha=52e7ba8d… — r3(new)=OK, r3(old)=OK ×12
+  journal extra keys: reason / population / kind / measured_at / outside_population_untouched
+
+== 5. Changed expects across ALL committed journals (git show at 5142b52; R3 audit) ==
+Files extracted (all present): round-23, round-24, round-25, round-26, round-27, round-28,
+round-28/candidate-expectation-migrations.json, round-34/assimilation, round-35, round-37,
+round-38, round-40. Recursive harvest of expect-shaped strings (contains '^'…'$' or '[0-9]'):
+  round-23: ^70$→^79$, ^25$→^27$, ^43$→^45$ — OK
+  round-24: ^79$→^83$ OK; ^27$→^29$ OK; ^121→^140 cases OK; SOURCES_CENSUS 26→31 OK;
+    ^59$→^70$ cases OK; ^45$→^61$ OK; REVISION_AUDIT added=16→20 OK; literal CELL_AUDIT
+    cells=6…orphans=0 → +host_skipped=0 OK; 16 added ROW_IDENTITY/selftest literals OK;
+    *** R13-03 old+new CELL_AUDIT patterns with cells=[0-9]+ … host_skipped=[0-9]+:
+        r3 = bare:[ bare:] bare:+ ×21 → R3 WOULD REFUSE ***
+  round-25: *** R11-08 old[2]=new[2]= '^CITATION_GATE: CLEAN \(cites=[1-9][0-9]* docs=[1-9][0-9]*
+        unresolved=0 ephemeral=0' : r3 = no-$, bare:[ ] * ×10 → R3 WOULD REFUSE ***;
+    ^83$→^88$ OK; ^29$→^31$ OK; ^151→^170 OK; SOURCES_CENSUS 32→38 OK; ^61$→^65$ OK;
+    REVISION_AUDIT 20→25 OK; ROW_IDENTITY stamps/scorecard/ledger-ids/revision-added OK;
+    SELF_COUNTS/RELEASE_CLOCK literals OK
+    (excluded: [6] command cells `grep -cE '^R[0-9]+-[0-9]+' …` — commands, R3 does not govern)
+  round-26/27/28/28-candidate/37: zero expect-shaped strings
+  round-34-assimilation: ^109$→^111$, ^42$→^43$, SOURCES_CENSUS 82→88 ×3, ^76$→^79$,
+    REVISION_AUDIT 46→48, PREFREEZE_SELFTEST ^11→^12 — all OK
+  round-35: ^111$→^112$, ^43$→^44$, REVISION_AUDIT 48→49, ROW_IDENTITY stamps/scorecard/
+    revision-added, PREFREEZE_SELFTEST ^12→^25 — all OK
+  round-38: SOURCES_CENSUS 91→93 ×4, ^82$→^86$, ^112$→^122$, ROW_IDENTITY ×3, ^46$→^50$ — all OK
+    (excluded: observed_at_candidate prose quoting the grep command)
+  round-40: the six P0 migrations — all OK
+Summary: 2 refused entries named (round-24 R13-03 new; round-25 R11-08 new[2]); every other changed
+expect literal and R3-clean.
+
+== 6. Degenerate paragraph (item d) — measured with the FROZEN counter ==
+$ git -C <lane> show 19025d9:corpus/rendered-text-v1.py > $S/ev/rtv1-base.py
+(replaced only the Sources paragraph with one line:)
+  Sources (degenerate falsification probe): S095 S097. Frozen quote: "Matches Unicode whitespace characters (as defined by
+$ (cd <lane> && RTV1="$S/ev/degenerate.py" bash plans/round-41-c2.sh; echo rc=$?)
+→ 3
+→ counter rc=0
+Term breakdown (mirror logic, cwd=lane):
+  superseded set includes S006,S007,S012,S013,S014,S016,S027,S028,… — S095 NOT superseded → (a)=1 by name-drop
+  row_sha col10 = ef2d8abe698b74bbee5259f02599f9b6bf023733d47bb4c7003ac1277bf469b1
+  body .ufo/waves/round-40/capture/S095.body sha256 matches; locate rc=0 → (b)=1 (quote substring + independent binding)
+  degenerate --selftest rc=0 PASS → (c)=1
+A paragraph asserting no grounding prose reads 3 on the frozen predicate.
+
+== 7. C1/C2 separability (item e) — empirical ==
+$ a=$(bash plans/round-41-c1.sh)                      # gate absent, C2 files present   → [0] rc=0
+$ b=$(EXPECT_JOURNAL=$S/accept-all.sh bash plans/round-41-c1.sh)   # stub gate, C2 files present → [0] rc=0
+$ mv corpus/rendered-text-v1.py corpus/SOURCES.md corpus/source-fetches.tsv $S/ev/c2-hidden/
+$ c=$(bash plans/round-41-c1.sh)                      # gate absent, C2 files away      → [0] rc=0
+$ d=$(EXPECT_JOURNAL=$S/accept-all.sh bash plans/round-41-c1.sh)   # stub gate, C2 files away    → [0] rc=0
+(moved back afterwards)
+→ with C2 files present: no-gate output=[0] rc=0 ; accept-all output=[0] rc=0
+→ with C2 files moved away: no-gate output=[0] rc=0 ; accept-all output=[0] rc=0
+→ SEPARABLE: C1 outputs identical with and without C2 files
+Read-set enumeration (from script sources): C1 = {expect-journal gate, claim-ledger.tsv@6cc8850,
+claim-ledger.tsv@6f1588c, expectation-migrations.json@6f1588c, scratch fixtures}; C2 =
+{rendered-text-v1.py ($RTV1 + hard-coded lane copy for locate), SOURCES.md, source-fetches.tsv,
+.ufo/waves/**/capture/S095.body}. Intersection = ∅.
+
+== 8. Existing-verify premise (static; verify NOT run — once-per-seat budget preserved) ==
+corpus/claim-ledger.sh:26-28 (header contract): "verify runs each command under a timeout and passes
+it only when BOTH hold: the exit code equals the expected one AND the expected ERE matches the LAST
+non-empty output line." Hence F1/F3's `^[0-9]+$` matches "54", F2/F4 leave output/exit matching → the
+existing gate accepts all four forgeries; substituted for expect-journal.sh it would also read N=0
+(indistinguishable from no-work). The plan assigns this measurement to the reviewer seat.
+
+== 9. Controls script defect evidence (item a/f) ==
+plans/round-41-controls.sh: the C2 BASE control is `bash plans/round-41-c2.sh > "$OUT/c2-base-19025d9.txt"`
+— run in the lane working tree, no commit pin (contrast the decoy fixture: `git show 19025d9:…` bytes;
+and the C1 counter: BASE/P0 pinned via git show). At the plan-prescribed post-landing run it will
+measure the candidate (N=3) into a receipt labeled BASE (expected 1).
+Kill-rule scoping: the same script prints `C2 BASE N=` (expected 1) and `c2-decoy` (allowed ≤2) —
+so C1's "any control reads above 0" cannot include these lines; settled by §C2's own "No-work
+control at BASE 19025d9: N = 1".
+
+Tooling installs: none (no pacman, no uv, no binaries; RULES.md channels unused).

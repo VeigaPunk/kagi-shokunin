@@ -1,0 +1,15 @@
+# K41ScribeRegistry sandbox validation receipts (kagi round 41)
+
+Sandbox: /fast/scratch/hyaku/kagi-r41/K41ScribeRegistry/work (git clone --shared ... ; checkout --detach 5142b52 ; rev-parse --show-toplevel asserted = /fast/scratch/hyaku/kagi-r41/K41ScribeRegistry/work)
+
+=== command: grep -c '^## Round ' SCORECARD.md (cwd=$S/work) ===
+56
+exit=0
+
+=== command: bash corpus/row-identity.sh scorecard-rounds (cwd=$S/work) ===
+ROW_IDENTITY: scorecard-rounds count=56 sha256=230992d31dbbc54f30ff0b1e530ba4816355f20bab167bcda85aadd3dc8c77ab
+exit=0
+
+=== baseline at 5142b52 (pristine) for comparison ===
+grep -c '^## Round ' SCORECARD.md  -> 54
+ROW_IDENTITY: scorecard-rounds count=54 sha256=52e7ba8d9b4de4a3aa7543b7f0370361dd17c2ae18b98c0c318618917dfe50c7

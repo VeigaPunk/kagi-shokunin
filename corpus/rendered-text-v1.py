@@ -42,8 +42,10 @@ Definition (applied in exactly this order to the decoded HTTP body bytes):
   6. trim        strip leading/trailing whitespace (the same Unicode class).
   7. encode      UTF-8; the normalized digest is sha256 of these bytes.
 
-Sources (opened round 24, see corpus/SOURCES.md): Python `re` \\s for str
-patterns and Python `html.unescape`.
+Sources (re-grounded round 41, see corpus/SOURCES.md): S095, Python 3.15.2 `re` documentation,
+str-pattern whitespace: "Matches Unicode whitespace characters (as defined by" (step 5 class,
+whose membership is str.isspace()); S096, Python 3.15.2 `html.unescape` documentation (HTML 5
+rules, step 4); S097, Python 3.15.2 `str.isspace()` definition (the character class of step 5).
 
 Usage:
   python3 corpus/rendered-text-v1.py digest FILE

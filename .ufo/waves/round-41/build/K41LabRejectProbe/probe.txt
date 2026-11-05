@@ -1,0 +1,21 @@
+probe_date_utc: 2026-11-05T15:20:07+00:00
+python_version: 3.14.8
+unidata_version: 16.0.0
+proplist_path: /fast/scratch/hyaku/kagi-r41/K41LabRejectProbe/PropList.txt
+proplist_sha256: f438f532e8737bb8a2702126cdf9c4af5e357c58c7acf9d9eb2fc7c1a1d955d6
+proplist_version_line: # PropList-18.0.0.txt
+proplist_date_line: # Date: 2026-08-07, 16:20:14 GMT
+A_size: 29
+B_size: 25
+whitespace_range_lines_parsed: 11
+A_minus_B_count: 4
+A_minus_B_members: U+001C U+001D U+001E U+001F
+B_minus_A_count: 0
+B_minus_A_members: (none)
+U+001C: isspace=True White_Space=False in_A_minus_B=True
+U+001D: isspace=True White_Space=False in_A_minus_B=True
+U+001E: isspace=True White_Space=False in_A_minus_B=True
+U+001F: isspace=True White_Space=False in_A_minus_B=True
+version_note: python unidata_version=16.0.0 differs from PropList version=18.0.0. A reflects the Unicode version bundled in CPython's unicodedata; B reflects the fetched latest UCD PropList. White_Space has not contained U+001C..U+001F in the fetched latest version, and those four are in A; their membership in A-B is therefore produced by str.isspace's own definition and does not depend on the version difference.
+probe_set_all_in_A_minus_B: True
+VERDICT: H0 holds (A_minus_B_count=4, U+001C..U+001F all in A-B)

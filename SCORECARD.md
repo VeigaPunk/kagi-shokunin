@@ -1527,3 +1527,38 @@ Measured commands and receipts: `.ufo/waves/round-40/`. The frozen predicates, c
 **Round-40 verdicts (L1 reading, for the operator's ruling):** C1 not admitted (causal separability fails, M40-5); C2 verified as declared, with the forgery ceiling disclosed (M40-7); C3 verified on its frozen predicate, with the stub ceiling disclosed (M40-9). Under AXES.md a round is admitted only when every claim verifies and is causally separable, so the round is not admitted. No axis is harmed: all six stay 9 → 9.
 
 Measured revision, exact exits and receipts are in the round report; no unrun result is stated here.
+
+## Round 41 — pre-move (repo HEAD 5142b52, round-40 close)
+
+Claim BASE `19025d97e5013bac2f45d6b9e61bfbafc84c3c8d`; predeclaration `5142b52` (frozen plan `plans/round-41.md`, counters `plans/round-41-c1.sh` and `plans/round-41-c2.sh`, controls `plans/round-41-controls.sh`, measured BASE receipts `.ufo/waves/round-41/controls/`). Round-40 landed state (the positive control P0 of C1): `6f1588cc0ebd5cbbd4e983fbd71c1e419d225ce0`. Every axis stood at 9 at the round-40 close; this table is the reference line the two claims are measured against.
+
+- **C1 calibration — BASE 0.** `bash plans/round-41-c1.sh` reads 0 at `5142b52`: no gate file exists (`git ls-tree 5142b52 corpus/expect-journal.sh` is empty). Controls `c1-control-{refuse-all,accept-all,no-gate}.txt` read 0, 0, 0. Target 4.
+- **C2 freshness — BASE 1.** `.ufo/waves/round-41/controls/c2-base-19025d9.txt` reads 1 (a = 0, b = 0, c = 1). The decoy control `c2-control-decoy.txt` reads 2. Target 3.
+
+| Axis | Score | Evidence pointer | Last change |
+|---|---|---|---|
+| depth | 9 | Unchanged from round 29: the release-clock extraction contract and the feed-token agreement invariant. Row `R29-01`. | round 29 |
+| coverage | 9 | 96 registry rows at BASE, census CLEAN (row `R21-02`). The two rows this round appends are on already-held normalizer ground. | round 40 |
+| operability | 9 | Nine gate mode-sets with verdicts and selftests; no committed journal gate at BASE (`corpus/expect-journal.sh` absent from `5142b52`). | round 40 |
+| freshness | 9 | Unchanged as a score. Measured BASE gap: `plans/round-41-c2.sh` reads 1; the `rendered-text-v1.py` Sources paragraph cites no `S###` id and carries no bound quote (round-40 spot-check §5, §7.5). | round 40 |
+| calibration | 9 | Unchanged as a score. Measured BASE gap: the counter reads 0 and cannot tell a migration from a loosening (M40-6, M40-16). | round 40 |
+| adjacency | 9 | Unchanged: ownership partition gate green (row `R17-02`). | round 35 |
+
+## Round 41 — post-move (claims C1 calibration, C2 freshness)
+
+Measured commands and receipts: `.ufo/waves/round-41/`. The frozen predicates, counters, kill rules and targets are `plans/round-41.md` and were not amended after data. Scores stay 9 → 9: a claim move adds no new score; the rows record what moved.
+
+| Axis | Before → after | What moved | Evidence |
+|---|---|---|---|
+| calibration | 9 → 9 | [C1] `bash plans/round-41-c1.sh` 0 → 4 at the candidate: `corpus/expect-journal.sh` refuses the four frozen forgeries F1–F4 with their frozen tokens (`UNJOURNALED R13-01`, `OLD_MISMATCH R21-02`, `NOT_LITERAL R13-01`, `COMMAND_MISMATCH R24-06`) and accepts the round-40 positive control P0 (`EXPECT_JOURNAL: CLEAN (changed=6 journaled=6)`). Blanket-refuse and blanket-accept controls read 0. The six round-40 debt rows are migrated to the committed tree at landing (`.ufo/waves/round-41/expectation-migrations.json`). Ceilings: the gate does not re-run commands and does not judge reason text; a row deletion is outside the frozen classes (routed to round 42). Lane-status reds `R25-02`, `R29-01`, `R29-02` stay named in this row, as in rounds 39 and 40. | `plans/round-41-c1.sh`; `corpus/expect-journal.sh`; `.ufo/waves/round-41/controls/`; `corpus/lessons/round-41.md` §Claims |
+| freshness | 9 → 9 | [C2] `bash plans/round-41-c2.sh` 1 → 3 at the candidate: the `rendered-text-v1.py` Sources paragraph cites S095, S096 and S097 (none superseded), carries the frozen quote on one line, and S095's capture body binds to its fetch row (sha `ef2d8abe…`, locate exit 0); `--selftest` PASS (cases=22). S097 admitted (`str.isspace()` whitespace definition, opened 2026-11-05); S098 rejected (UTS #18 `\s` = White_Space excludes U+001C–U+001F). Ceiling: the counter certifies citation shape, one quote and a body binding, not sentence-level grounding (reviewer attack TA4/TA6 green by design). | `plans/round-41-c2.sh`; `corpus/rendered-text-v1.py`; `corpus/SOURCES.md` rows S097, S098; `corpus/source-fetches.tsv`; `.ufo/waves/round-41/capture/` |
+| depth | 9 → 9 | No mechanism claim. | `plans/round-41.md` |
+| coverage | 9 → 9 | Registry 96 → 98 (S097 mined, S098 rejected) on already-held normalizer ground; `entries_sourced` stays 14. | `R21-02` (migrated) |
+| operability | 9 → 9 | The C1 gate carries a committed `--selftest` (cases=7). Nothing schedules it. | `corpus/expect-journal.sh --selftest` |
+| adjacency | 9 → 9 | No sibling surface claimed or absorbed; connector sweep in `.ufo/waves/round-41/build/K41ConnOverlap.md`. | `R17-02` |
+
+**Round-41 verdicts (L1 reading, for the operator's ruling):** C1 and C2 measured at their frozen targets (4 and 3) with the controls at their predicted readings. Admission is reserved to the non-author closure (`corpus/lessons/round-41.md` §Claims, §Routed). No axis is harmed: all six stay 9 → 9.
+
+## Erratum to the Round 40 post-move block (appended; the filed bytes are not rewritten)
+
+The round-40 post-move section (line 1516 at the round-40 close) states: "The frozen predicates, counters, kill rules and targets are `plans/round-40.md` and are not amended after data." That sentence is contradicted by round 40's own lesson, which records **M40-3**: the C3 counter's verdict grep doubled `_SELFTEST`, so it read `0` at one candidate measurement, was repaired to read `2`, and that pre-repair reading is kept in `.ufo/waves/round-40/build/candidate-fast-gates.txt`. The correction is this appended erratum, not a rewrite of the filed bytes (routed by `corpus/lessons/round-40-verifier-spotcheck.md` §7 item 3).

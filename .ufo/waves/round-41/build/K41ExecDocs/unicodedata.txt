@@ -1,0 +1,6 @@
+$ python3 -c "import unicodedata; print(unicodedata.category('\u3000')); print('\u3000'.isspace()); print('\x1c'.isspace()); print(unicodedata.unidata_version)"
+exit=0
+Zs
+True
+True
+16.0.0

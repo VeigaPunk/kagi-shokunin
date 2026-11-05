@@ -1,0 +1,73 @@
+K41ScribeRegistry - live opens, receipts (kagi round 41, seat ScribeRegistry)
+Lane: /home/vgpnk/Projects/shokunin/kagi-shokunin, branch master.
+Date of every open: 2026-11-05.
+Both sources were opened by THIS seat (CORPUS.md rule 1: a registry row is a claim, written
+only after opening the source in the round that writes the row). No row was copied from a
+sibling seat's draft.
+
+=====================================================================
+S097  https://docs.python.org/3/library/stdtypes.html
+=====================================================================
+command   : curl -fsSL --compressed <url> -o S097.body
+exit code : 0
+http      : 200
+final_url : https://docs.python.org/3/builtins/stdtypes.html  (1 redirect; registered URL is the library path)
+title     : <title>Built-in Types &#8212; Python 3.15.2 documentation</title>
+raw sha256: e2992e17d9b8f15f09b2971e356d06c5e0f1572fefa6ce733eb6d7d48466e2b3
+bytes     : 815447
+capture   : .ufo/waves/round-41/capture/S097.body  (lane path) and build/K41ScribeRegistry/capture/S097.body
+
+Re-fetch under the declared request profile
+`curl -fsSL --compressed -A 'kagi-shokunin-round23/1.0 (documentation verification)' <url>`
+produced a byte-identical body (sha256 e2992e17...e2b3, 815447 bytes; cmp exit 0).
+
+Located quote (verbatim, 22 words, rendered-text-v1 normalized body):
+  either its general category is Zs (“Separator, space”), or its bidirectional class is one of WS , B , or S .
+command   : python3 corpus/rendered-text-v1.py locate .ufo/waves/round-41/capture/S097.body '<quote>'
+output    : RENDERED_TEXT_V1_LOCATE: count=1
+exit code : 0
+raw body byte offset of the same sentence: 296695 ("either its general category is")
+rendered-text-v1 normalized byte offset of the quote: 71263
+
+=====================================================================
+S098  https://www.unicode.org/reports/tr18/
+=====================================================================
+command   : curl -fsSL --compressed <url> -o S098.body
+exit code : 0
+http      : 200
+final_url : https://www.unicode.org/reports/tr18/  (0 redirects)
+title     : <title>UTS #18: Unicode Regular Expressions</title>
+raw sha256: 68e34b8ba02dac859bfabac7f8d1ecbd08fbc9ec00aa003f239fe3ca7198c70d
+bytes     : 199607
+capture   : .ufo/waves/round-41/capture/S098.body  (lane path) and build/K41ScribeRegistry/capture/S098.body
+
+Re-fetch under the declared request profile
+`curl -fsSL --compressed -A 'kagi-shokunin-round23/1.0 (documentation verification)' <url>`
+produced a byte-identical body (sha256 68e34b8b...8c70d, 199607 bytes; cmp exit 0).
+
+Located quote (verbatim, 10 words, rendered-text-v1 normalized body):
+  space (\s) \p{Whitespace} See PropList for the definition of Whitespace.
+command   : python3 corpus/rendered-text-v1.py locate .ufo/waves/round-41/capture/S098.body '<quote>'
+output    : RENDERED_TEXT_V1_LOCATE: count=1
+exit code : 0
+raw body byte offset of the entry: 160860 ("space</a> (\s)")
+rendered-text-v1 normalized byte offset of the quote: 90651
+
+=====================================================================
+Collision guard (run BEFORE drafting, from the lane path)
+=====================================================================
+command   : grep -oE '^ {0,3}\|[[:space:]]*S[0-9]{3,}' corpus/SOURCES.md | grep -oE 'S[0-9]+' | sort | uniq -d
+output    : (empty - no duplicate registry ids)
+command   : grep -c 'S097\|S098' corpus/SOURCES.md
+output    : 0
+exit code : 1   (grep -c prints 0 and exits 1 when there is no match; 0 occurrences of S097/S098)
+
+=====================================================================
+Rejection evidence for S098 (the flip condition), measured
+=====================================================================
+Python str.isspace() accepts U+001C, U+001D, U+001E, U+001F; the Unicode White_Space
+property (the set UTS #18 Annex C binds to \s) omits all four.
+command   : python3 -c "import unicodedata; print([hex(c) for c in range(0x110000) if chr(c).isspace() and c not in (0x09,0x0a,0x0b,0x0c,0x0d,0x20,0x85,0xa0,0x1680,0x2000,0x2001,0x2002,0x2003,0x2004,0x2005,0x2006,0x2007,0x2008,0x2009,0x200a,0x2028,0x2029,0x202f,0x205f,0x3000)])"
+output    : ['0x1c', '0x1d', '0x1e', '0x1f']
+exit code : 0
+For each of the four: unicodedata.category = Cc, unicodedata.bidirectional = B, B, B, S.

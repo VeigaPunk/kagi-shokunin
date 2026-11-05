@@ -1,0 +1,16 @@
+C1 BASELINE rc=0 reading=4 target=4
+C1 MUTANT r4_downgrade rc=0 reading=4 verdict=survived gen=WARN ORPHAN -> REFUSE ORPHAN
+C1 MUTANT refuse_exit0 rc=0 reading=4 verdict=survived gen=exit 1 -> exit 0
+C1 MUTANT clean_on_violation rc=0 reading=4 verdict=survived gen=final REFUSED -> CLEAN
+C1 MUTANT non_json_accept rc=0 reading=4 verdict=survived gen=*.json glob -> *
+MUTANTS C1: killed=0 survived=4 total=4
+C1 NOT-GENERATED: drop_R1(comment UNJOURNALED emit) drop_R2_OLD(comment OLD_MISMATCH emit) drop_R2_CMD(comment COMMAND_MISMATCH emit) drop_R2_NEW(comment NEW_MISMATCH emit) drop_R3(comment NOT_LITERAL emit) first_violation_only(first-refuse guard in emitter fn) unknown_id_ignore(skip journal ids absent from candidate rows)
+C2 BASELINE rc=0 reading=3 target=3 file=/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/rendered-text-v1.py
+C2 MUTANT drop_S095 rc=0 reading=3 verdict=survived gen=drop id S095
+C2 MUTANT drop_S096 rc=0 reading=3 verdict=survived gen=drop id S096
+C2 MUTANT drop_S097 rc=0 reading=3 verdict=survived gen=drop id S097
+C2 MUTANT cite_S027 rc=0 reading=2 verdict=killed gen=cite S027 via S095
+C2 MUTANT split_quote rc=0 reading=2 verdict=killed gen=newline inside quote
+C2 MUTANT drop_quote rc=0 reading=2 verdict=killed gen=quote removed
+C2 MUTANT syntax_break rc=0 reading=2 verdict=killed gen=module-level syntax break (selftest path dead)
+MUTANTS C2: killed=4 survived=3 total=7

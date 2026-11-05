@@ -1,0 +1,56 @@
+{
+  "round": 41,
+  "measured_at": "landing tree: corpus/SOURCES.md with S097/S098 rows, corpus/lessons/round-41.md, SCORECARD.md with the round-41 pre and post heading pair (56 round headings); measured 2026-11-05 at the round-41 candidate, before the landing commit",
+  "kind": "round-38-style measured rebinding of ledger expectations to the committed tree",
+  "population": "round-41 landing debt set: the six round-40 migrated rows R13-01, R21-02, R24-06, R31-02, R33-02, R34-03; old_expect equals the value at the predeclaration tree 5142b52 (the landing gate base)",
+  "migrations": [
+    {
+      "id": "R13-01",
+      "command": "grep -c '^## Round ' SCORECARD.md",
+      "old_expect": "^54$",
+      "new_expect": "^56$",
+      "reason": "the round-41 pre-move and post-move headings take the SCORECARD round-heading count 54 -> 56 (measured: grep -c '^## Round ' SCORECARD.md -> 56)"
+    },
+    {
+      "id": "R24-06",
+      "command": "bash corpus/row-identity.sh scorecard-rounds",
+      "old_expect": "^ROW_IDENTITY: scorecard-rounds count=54 sha256=52e7ba8d9b4de4a3aa7543b7f0370361dd17c2ae18b98c0c318618917dfe50c7$",
+      "new_expect": "^ROW_IDENTITY: scorecard-rounds count=56 sha256=33f1893f1fabe500324920f586f82907449f1de4c4b2d56ac74c09c436d375bd$",
+      "reason": "membership migration: count 54 -> 56 (round-41 pre and post heading pair retained); identity measured at the landing tree (sha256 33f1893f1fabe500324920f586f82907449f1de4c4b2d56ac74c09c436d375bd, rc 0)"
+    },
+    {
+      "id": "R21-02",
+      "command": "bash corpus/sources-census.sh",
+      "old_expect": "^SOURCES_CENSUS: CLEAN \\(rows=96 A=92 B=2 C=2 queued=1 mined=92 rejected=3 entries_sourced=14 legacy=21 captures=96 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+      "new_expect": "^SOURCES_CENSUS: CLEAN \\(rows=98 A=94 B=2 C=2 queued=1 mined=93 rejected=4 entries_sourced=14 legacy=21 captures=98 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+      "reason": "S097 (tier A, mined) and S098 (tier A, rejected) appended with two capture rows; rows 96 -> 98, A 92 -> 94, mined 92 -> 93, rejected 3 -> 4, captures 96 -> 98; entries_sourced and legacy unchanged"
+    },
+    {
+      "id": "R31-02",
+      "command": "bash corpus/sources-census.sh",
+      "old_expect": "^SOURCES_CENSUS: CLEAN \\(rows=96 A=92 B=2 C=2 queued=1 mined=92 rejected=3 entries_sourced=14 legacy=21 captures=96 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+      "new_expect": "^SOURCES_CENSUS: CLEAN \\(rows=98 A=94 B=2 C=2 queued=1 mined=93 rejected=4 entries_sourced=14 legacy=21 captures=98 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+      "reason": "same census summary as R21-02; live expectation only"
+    },
+    {
+      "id": "R33-02",
+      "command": "bash corpus/sources-census.sh",
+      "old_expect": "^SOURCES_CENSUS: CLEAN \\(rows=96 A=92 B=2 C=2 queued=1 mined=92 rejected=3 entries_sourced=14 legacy=21 captures=96 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+      "new_expect": "^SOURCES_CENSUS: CLEAN \\(rows=98 A=94 B=2 C=2 queued=1 mined=93 rejected=4 entries_sourced=14 legacy=21 captures=98 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+      "reason": "same census summary as R21-02; live expectation only"
+    },
+    {
+      "id": "R34-03",
+      "command": "bash corpus/sources-census.sh",
+      "old_expect": "^SOURCES_CENSUS: CLEAN \\(rows=96 A=92 B=2 C=2 queued=1 mined=92 rejected=3 entries_sourced=14 legacy=21 captures=96 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+      "new_expect": "^SOURCES_CENSUS: CLEAN \\(rows=98 A=94 B=2 C=2 queued=1 mined=93 rejected=4 entries_sourced=14 legacy=21 captures=98 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+      "reason": "same census summary as R21-02; live expectation only; the frozen round-34 C3 target stays unchanged and NOT ADMITTED"
+    }
+  ],
+  "outside_population_untouched": [
+    "R25-02 (FAIL, operator-owned self-count policy binding)",
+    "R29-01, R29-02 (POLICY, operator-owned PYTHON_SCRIPT_RE registration)",
+    "R38-03 (POLICY, operator-owned)",
+    "R11-08, R22-03, R24-15, R36-03 (inherited FAIL rows outside the frozen set)"
+  ]
+}

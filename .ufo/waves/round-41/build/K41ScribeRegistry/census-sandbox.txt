@@ -1,0 +1,26 @@
+# K41ScribeRegistry sandbox validation receipts (kagi round 41)
+
+Sandbox: /fast/scratch/hyaku/kagi-r41/K41ScribeRegistry/verify
+Clone: git clone --shared /home/vgpnk/Projects/shokunin/kagi-shokunin $S/verify
+Checkout: git -C $S/verify checkout --detach 5142b52
+Asserted: git -C $S/verify rev-parse --show-toplevel = /fast/scratch/hyaku/kagi-r41/K41ScribeRegistry/verify
+HEAD: 5142b522fb905a237cb01aaa582b8e4543496bdd
+
+Applied in the sandbox (nothing written in the lane tree except the capture bodies and this seat's deliverables):
+  corpus/SOURCES.md            : the S097 and S098 rows from build/K41ScribeRegistry/rows.md, appended after the S096 row
+  corpus/source-fetches.tsv    : the two rows from build/K41ScribeRegistry/fetch-rows.tsv
+  .ufo/waves/round-41/capture/ : S097.body and S098.body
+  corpus/lessons/round-41.md   : the REAL K41ScribeLesson draft (build/K41ScribeLesson/lesson-round-41.md), copied verbatim
+  SCORECARD.md                 : a STAND-IN round-41 pre-move/post-move heading pair (K41ScribeLesson owns the real headings; its draft file carries an H1 '# SCORECARD - round 41 pre-move ...' and no '## Round ' heading of its own)
+
+=== command: bash corpus/sources-census.sh (cwd=$S/verify) ===
+SOURCES_CENSUS: CLEAN (rows=98 A=94 B=2 C=2 queued=1 mined=93 rejected=4 entries_sourced=14 legacy=21 captures=98 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+exit=0
+
+=== baseline for comparison: bash corpus/sources-census.sh on the pristine 5142b52 tree ===
+SOURCES_CENSUS: CLEAN (rows=96 A=92 B=2 C=2 queued=1 mined=92 rejected=3 entries_sourced=14 legacy=21 captures=96 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+exit=0
+
+=== cross-check: bash plans/round-41-c2.sh (cwd=$S/verify, with the K41ExecDocs Sources paragraph and these rows) ===
+3
+exit=0

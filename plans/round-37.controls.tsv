@@ -1,0 +1,8 @@
+# round-37 pre-freeze controls (frozen in plans/round-37.md; committed before the freeze)
+# id	expect	command
+c2_nowork	3	bash "$BASE/plans/round-37-controls.sh" nowork
+c2_forge_superseded_g1	3	bash "$BASE/plans/round-37-controls.sh" g1
+c2_forge_wrong_url_g2	3	bash "$BASE/plans/round-37-controls.sh" g2
+c2_forge_knowledge_g3	3	bash "$BASE/plans/round-37-controls.sh" g3
+c2_positive_partial	2	bash "$BASE/plans/round-37-controls.sh" partial
+c2_positive_full	0	bash "$BASE/plans/round-37-controls.sh" full

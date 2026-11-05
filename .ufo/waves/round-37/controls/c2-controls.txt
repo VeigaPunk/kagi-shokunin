@@ -1,0 +1,17 @@
+== no-work (HEAD 911ab519b6b07694c3cb9f7d9a7c56e142ad957c) ==
+nowork rc=0 out=[3] err=[]
+== forgery G1: superseded vault anchor v2.2.0 under vault URL ==
+forge-g1-superseded rc=0 out=[3] err=[]
+== forgery G2: current openbao version under the WRONG (vault) URL ==
+forge-g2-wrong-url rc=0 out=[3] err=[]
+== forgery G3: current vault version stated in knowledge/ (not registry) ==
+forge-g3-knowledge rc=0 out=[3] err=[]
+== positive partial: vault row only (must count 2) ==
+positive-partial-vault rc=0 out=[2] err=[]
+== positive full: all three current rows (must count 0) ==
+positive-full rc=0 out=[0] err=[]
+== setup: receipt removed (must exit 2, no integer) ==
+setup-receipt-missing rc=2 out=[] err=[C2 SETUP: receipt missing or sha mismatch]
+== setup: receipt tampered (sha mismatch, must exit 2) ==
+setup-receipt-tampered rc=2 out=[] err=[C2 SETUP: receipt missing or sha mismatch]
+LANE-GUARD: tracked tree and master unchanged

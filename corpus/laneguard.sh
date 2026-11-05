@@ -8,7 +8,7 @@
 #   control must pass (CLEAN, exit 0) for the selftest to count any detection.
 #
 # usage:
-#   laneguard.sh run LANE -- CMD [ARG...]   snapshot LANE (HEAD, staged and unstaged
+#   laneguard.sh run -- LANE [--] CMD [ARG...]   snapshot LANE (HEAD, staged and unstaged
 #                                           diff, untracked files), run CMD with cwd=LANE,
 #                                           re-snapshot; any difference -> VIOLATION exit 1.
 #                                           Otherwise CLEAN and CMD's exit status.
@@ -98,7 +98,7 @@ selftest() {
 case ${1:-} in
   run)
     shift
-    [ "${1:-}" = "--" ] || { echo "usage: laneguard.sh run LANE -- CMD..." >&2; exit 2; }
+    [ "${1:-}" = "--" ] || { echo "usage: laneguard.sh run -- LANE [--] CMD..." >&2; exit 2; }
     shift
     lane=${1:?lane}
     shift
@@ -111,7 +111,7 @@ case ${1:-} in
     selftest "$mutate"
     ;;
   *)
-    echo "usage: laneguard.sh run LANE -- CMD... | --selftest [--no-mutate]" >&2
+    echo "usage: laneguard.sh run -- LANE [--] CMD... | --selftest [--no-mutate]" >&2
     exit 2
     ;;
 esac

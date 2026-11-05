@@ -1466,3 +1466,31 @@ Measured commands and receipts: `.ufo/waves/round-38/` (`controls/`, `capture/`)
 | adjacency | 9 → 9 | No sibling surface is claimed or absorbed; the release tag pages are the same vendor surfaces the feed rows already hold. Connector sweep: see the round-38 lesson's Wave settlement. | `R17-02`; `corpus/lessons/round-38.md` |
 
 Measured revision, exact exits and receipts are in the round report; no unrun result is stated here.
+
+## Round 39 — pre-move (repo HEAD 0614451, round-38 close)
+
+Claim BASE `06144518d3b3745e7fdf82d4207b4a3b5532a7a7`; predeclaration `1909e3876341cc90246516886def37a7c9ea92f9` (instruments, pins, frozen counters, controls, declared-axis manifest); frozen plan alone at `7c11e769cd7c2450cf46faabcd3b43fca993f388` (`plans/round-39.md`). Every axis stood at 9 at the round-38 close, so this table is the reference line the round's two claims are measured against; no value in it is a round-39 measurement.
+
+| Axis | Score | Evidence pointer | Last change |
+|---|---|---|---|
+| depth | 9 | Unchanged from round 29: the release-clock extraction contract, the feed-token agreement invariant and the refusal bounds. Row `R29-01`. | round 29 |
+| coverage | 9 | 93 registry rows at BASE, census CLEAN (row `R21-02`). | round 38 |
+| operability | 9 | Unchanged: nine gate mode-sets with verdicts and selftests, plus two round-38 gates run on demand; nothing schedules any gate. | round 38 |
+| freshness | 9 | Unchanged as a score. Measured BASE gap: the round-37 counter `bash plans/round-37-c2.sh` cannot see an in-place rewrite of a superseded feed anchor (S034, S035, S039): no committed gate pins those cells (`plans/round-39.md` §C1; R37-V4). | round 38 |
+| calibration | 9 | Unchanged as a score. Measured BASE gap: no committed gate compares a claim's frozen axis with the SCORECARD row that reports it; round 38's C2 relabel passed unseen (R38-D1; `plans/round-39.md` §C2). | round 38 |
+| adjacency | 9 | Unchanged: ownership partition gate green (row `R17-02`). | round 35 |
+
+## Round 39 — post-move (claims C1 freshness, C2 calibration)
+
+Measured commands and receipts: `.ufo/waves/round-39/`. The frozen predicates, counters, kill rules and targets are `plans/round-39.md` §C1/§C2 and are not amended after data. Scores stay 9 → 9: a claim move adds no new score; the capability rows record what the instruments do.
+
+| Axis | Before → after | What moved | Evidence |
+|---|---|---|---|
+| freshness | 9 → 9 | [C1] Anchor-pin gate `corpus/anchor-pins.sh` binds the anchor cells of the three superseded feed rows (S034, S035, S039) to committed sha256 pins; the frozen counter `plans/round-39-c1.sh` reads 0 → 3 (the three in-place anchor rewrites M1–M3 each reported DRIFT). Capability row `anchor-pin drift detection`. | `plans/round-39-c1.sh`; `corpus/anchor-pins.sh`; `corpus/anchor-pins.tsv`; `corpus/lessons/round-39.md` §Gate, §Claims |
+| calibration | 9 → 9 | [C2] Declared-axis gate `corpus/claims-declared.sh` compares each round-39 claim's plan heading and its tagged SCORECARD row with the frozen manifest `corpus/claims-declared.tsv`; the frozen counter `plans/round-39-c2.sh` reads 0 → 3 (planted relabels X1–X3 each reported MISMATCH). Capability row `declared-axis conformance`. Round 38 is not in the manifest: its untagged row is a named, unclaimed history gap. | `plans/round-39-c2.sh`; `corpus/claims-declared.sh`; `corpus/claims-declared.tsv`; `corpus/lessons/round-39.md` §Mistakes M39-1 |
+| operability | 9 → 9 | The guard's usage text now matches the form it accepts (`run -- LANE [--] CMD`, R38-EG-1; M39-2). No new scheduler; the two new gates run on demand. | `corpus/laneguard.sh`; `corpus/lessons/round-39.md` §Mistakes M39-2 |
+| depth | 9 → 9 | No mechanism change. | `plans/round-39.md` |
+| coverage | 9 → 9 | Registry 93 → 94: one own-work row S094 (`CORPUS.md` rule 2), no new entry, no frontier-to-core move; `entries_sourced` stays 14. | `R21-02`, `R31-02`, `R33-02`, `R34-03` (migrated, `.ufo/waves/round-39/expectation-migrations.json`) |
+| adjacency | 9 → 9 | No sibling surface is claimed or absorbed; the connector sweep is in `.ufo/waves/round-39/build/`. | `R17-02`; `corpus/lessons/round-39.md` |
+
+Measured revision, exact exits and receipts are in the round report; no unrun result is stated here.

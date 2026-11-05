@@ -1741,3 +1741,11 @@ Frozen BASE `655e620`; plan `4767b04` (alone, QM29); plan corrections 1/2 `2d46e
 - Wave `build` (10 seats, one v1 wave; `.ufo/waves/round-38/build-results.json`): all settled, none dead. C1 and C2 reproduce on their frozen predicates (K38ExecQuote, K38ExecGuard, K38MutInstruments, K38CriticClaims). C2 is recorded as an operability move, not calibration (K38CriticClaims F8). The critic's falsified or overstated sentences (F1, F3, F4, F5, F6, F7, F8, F9, F11, F14, F15) are corrected in the lesson, SCORECARD and LOG; F10 recorded.
 - Ledger: `R12-03`, `R24-05`, `R24-14` migrated (the round's own stamp and id growth); `R13-01`, `R24-06` migrated (inherited red from the round-37 headings, 48 at `a916f4a`). `R38-03` is POLICY (operator-owned script allowlist, same class as R29-01/R29-02), routed by L0 question; `R38-01` pins the same count.
 - Routed to round 39: frozen-counter amendments from the wave's red witnesses (body symlink and out-of-root confinement; superscript-digit traceback; duplicate ids; surviving quote mutants M2, M3, M5, M6 and guard mutant G3; the guard's `run` usage line and its `git diff` index refresh); R37-V4.
+
+## Round 39 (2026-11-05) — anchor pins and declared-axis conformance
+
+- Predeclaration landed `1909e3876341cc90246516886def37a7c9ea92f9`; plan alone landed `7c11e769cd7c2450cf46faabcd3b43fca993f388`. Controls reproduced `PREFREEZE: CLEAN (controls=4 mismatch=0)`.
+- C1 freshness: `bash plans/round-39-c1.sh` reads 0 without the instrument and 3 with it; actual registry `bash corpus/anchor-pins.sh --root .` is CLEAN pins=3. C2 calibration: `bash plans/round-39-c2.sh` reads 0 without the instrument and 3 with it; actual round-39 tagged SCORECARD and plan agree (`CLAIMS_DECLARED: CLEAN (claims=2)`). These are bounded instrument results, not outside admission decisions.
+- S094 and its immutable HTTP capture record the registry's append-only rule; `corpus/lessons/round-39.md` holds the located quote, mistakes, ceilings and routed debts. QM40/QM41 capture the lessons.
+- Laneguard usage text corrected to implemented `run -- LANE [--] CMD`; selftest remains detected=3 mutants=3 clean=ok. No implementation or historical predicate changed.
+- Round-38 declared-axis relabel remains not verified as declared; no retrospective admission is claimed. R25-02 FAIL and R29-01/R29-02/R38-03 POLICY remain operator-owned.

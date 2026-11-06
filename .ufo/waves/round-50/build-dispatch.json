@@ -1,0 +1,235 @@
+{
+  "schema": "ufo-swarm-wave-dispatch-v1",
+  "wave": "kagi-r50-build",
+  "policy": {
+    "source": "config",
+    "maxLanes": 256,
+    "minLanes": 8,
+    "waveMinLanes": 8,
+    "waveMaxLanes": 16,
+    "declaredMaxLanes": null,
+    "hardCeiling": 256,
+    "rampBatchSize": 5,
+    "rampIntervalMs": 700,
+    "globalRunnerCeiling": 1056
+  },
+  "counts": {
+    "spawn": 12,
+    "resume": 0,
+    "total": 12
+  },
+  "registry": {
+    "schema": "ufo-swarm-registry-v1",
+    "path": ".ufo/waves/round-50/build/swarm-registry.json",
+    "reportDir": ".ufo/waves/round-50/build",
+    "members": {
+      "R50ExecTrial": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": null,
+        "axes": [
+          "operability",
+          "calibration"
+        ],
+        "milestone": "C1 SIGKILL-safe OpenBao trial (pdeathsig) + sources; C2 ten ledger expects re-bound with causes; counter/claim/trial attacks; lesson drafts"
+      },
+      "R50ExecLedger": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": null,
+        "axes": [
+          "operability",
+          "calibration"
+        ],
+        "milestone": "C1 SIGKILL-safe OpenBao trial (pdeathsig) + sources; C2 ten ledger expects re-bound with causes; counter/claim/trial attacks; lesson drafts"
+      },
+      "R50ExecCitations": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": null,
+        "axes": [
+          "operability",
+          "calibration"
+        ],
+        "milestone": "C1 SIGKILL-safe OpenBao trial (pdeathsig) + sources; C2 ten ledger expects re-bound with causes; counter/claim/trial attacks; lesson drafts"
+      },
+      "R50ScoutSources": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scout",
+        "item": null,
+        "axes": [
+          "operability",
+          "calibration"
+        ],
+        "milestone": "C1 SIGKILL-safe OpenBao trial (pdeathsig) + sources; C2 ten ledger expects re-bound with causes; counter/claim/trial attacks; lesson drafts"
+      },
+      "R50ScribeLesson": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scribe",
+        "item": null,
+        "axes": [
+          "operability",
+          "calibration"
+        ],
+        "milestone": "C1 SIGKILL-safe OpenBao trial (pdeathsig) + sources; C2 ten ledger expects re-bound with causes; counter/claim/trial attacks; lesson drafts"
+      },
+      "R50Connector": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "connector",
+        "item": null,
+        "axes": [
+          "operability",
+          "calibration"
+        ],
+        "milestone": "C1 SIGKILL-safe OpenBao trial (pdeathsig) + sources; C2 ten ledger expects re-bound with causes; counter/claim/trial attacks; lesson drafts"
+      },
+      "R50ReviewerPlan": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "operability",
+          "calibration"
+        ],
+        "milestone": "C1 SIGKILL-safe OpenBao trial (pdeathsig) + sources; C2 ten ledger expects re-bound with causes; counter/claim/trial attacks; lesson drafts"
+      },
+      "R50ReviewerTrial": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "operability",
+          "calibration"
+        ],
+        "milestone": "C1 SIGKILL-safe OpenBao trial (pdeathsig) + sources; C2 ten ledger expects re-bound with causes; counter/claim/trial attacks; lesson drafts"
+      },
+      "R50CriticClaims": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "critic",
+        "item": null,
+        "axes": [
+          "operability",
+          "calibration"
+        ],
+        "milestone": "C1 SIGKILL-safe OpenBao trial (pdeathsig) + sources; C2 ten ledger expects re-bound with causes; counter/claim/trial attacks; lesson drafts"
+      },
+      "R50CriticCeiling": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "critic",
+        "item": null,
+        "axes": [
+          "operability",
+          "calibration"
+        ],
+        "milestone": "C1 SIGKILL-safe OpenBao trial (pdeathsig) + sources; C2 ten ledger expects re-bound with causes; counter/claim/trial attacks; lesson drafts"
+      },
+      "R50MutCounters": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "mutation-tester",
+        "item": null,
+        "axes": [
+          "operability",
+          "calibration"
+        ],
+        "milestone": "C1 SIGKILL-safe OpenBao trial (pdeathsig) + sources; C2 ten ledger expects re-bound with causes; counter/claim/trial attacks; lesson drafts"
+      },
+      "R50Sentinel": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "sentinel",
+        "item": null,
+        "axes": [
+          "operability",
+          "calibration"
+        ],
+        "milestone": "C1 SIGKILL-safe OpenBao trial (pdeathsig) + sources; C2 ten ledger expects re-bound with causes; counter/claim/trial attacks; lesson drafts"
+      }
+    }
+  },
+  "compaction": {
+    "applied": false,
+    "mechanism": null,
+    "reason": null,
+    "savedBytes": 0,
+    "payloadBytesBefore": 0,
+    "payloadBytesAfter": 0
+  },
+  "taskCall": {
+    "context": "kagi round 50 (attempt 1): ONE v1 build wave, 12 seats (run-15 band 8-16). Lane absolute path /home/vgpnk/Projects/shokunin/kagi-shokunin, branch master. Lane domain: secrets & vault ops.\nBASE 565c43a874b59cd216f4a55c8742db48fa854f16. Predeclaration 7d3b2c01b375d5459abd7da79bb4063b7d728fc7: frozen plan /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-50.md; counters /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-50-c1.sh (C1 operability: the OpenBao trial /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/openbao-token-trial.sh leaves no `bao server -dev` alive after its shell is SIGKILLed — fix = start the server under `setpriv --pdeathsig KILL`; reference fixture /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-50/controls/fixtures/openbao-token-trial.ref.sh; BASE 0, target 3 kill points) and /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-50-c2.sh (C2 calibration: ten drifted claim-ledger rows R13-01 R21-02 R22-03 R24-05 R24-06 R24-15 R31-02 R33-02 R34-03 R38-01 of /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/claim-ledger.tsv read FAIL at BASE; expects are migrated to measured values with a journaled cause; BASE 10, target 0); pre-freeze controls /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-50-controls.sh, receipt /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-50/controls/controls-prefreeze.txt; BASE receipts /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-50/controls/ (verify-base.txt, c2-base-live.txt). The instruments are FROZEN: never edit them; findings against them are routed, not applied.\nEvery `Report:` trailer path is relative to /home/vgpnk/Projects/shokunin/kagi-shokunin - write it at /home/vgpnk/Projects/shokunin/kagi-shokunin/<that path>. Absolute paths only for every read, write and edit.\nScratch: every clone, archive, fixture and work tree lives under $HYAKU_SCRATCH/kagi-r50/<seat-name>/ with HYAKU_SCRATCH defaulting to /fast/scratch/hyaku; create it with mkdir -p and pass it explicitly (TMPDIR, --work). Use shell `trap 'rm -rf -- \"$S\"' EXIT`. Copy receipts into your report dir before exit. /tmp only for files under 50 MB. Never set HOME for your own shell persistently: pass HOME=... per command.\nWrite scope: ONLY /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-50/build/<your-seat-name>* (files or dirs) and your scratch dir. Never edit corpus/, plans/, SCORECARD.md, LOG.md, SHONEN.md, SKILL.md, PROVINCE.md, README.md, QUALITY, SOURCES.md or any registry row, MANIFEST.json, the fleet root templates/ or scripts/, .ufo/state, .ufo/watchdog.log, or any sibling repo. Read-only everywhere else.\nGit discipline: never run git add, commit, stash, checkout, switch, reset, pull, push, or any mutating jj command, in the lane or the fleet. Read-only git (log, show, diff, rev-parse, cat-file, ls-tree, archive to a scratch dir) is fine. A fixture repo is created as D=$(mktemp -d \"$S/fx.XXXXXX\") && git -C \"$D\" init -q (or git clone -q --shared /home/vgpnk/Projects/shokunin/kagi-shokunin \"$D\") and you assert `git -C \"$D\" rev-parse --show-toplevel` equals \"$D\" before any commit; never pass an empty or unchecked variable to git -C.\nRefusal boundary (kagi, binding): every OpenBao server you start is a throwaway `bao server -dev` bound to 127.0.0.1 with a random root token kept only in scratch, killed before you yield; never print, copy, commit or paste any token value, root token, password, private key, plaintext of a real secret, cookie or vault field; never read ~/.config/sops, ~/.ssh or any real key file; never contact 1Password, op, the-janitor, a vault or any account; never write an op:// reference path into any artifact; web reads of public pages only, no form posts, no writes to any remote.\nHost: never mutate host sysctls, services, users, packages or kernel settings. pacman is PAUSED host-wide: never run pacman -Sy, -Syu, -S for a new package, -U, -R or a downgrade. Tooling authorization (operator, 2026-10-19): you may install or upgrade a tool that helps your item, read /home/vgpnk/.omp/agent/RULES.md first (official channels, update-safety gate); record tool, version, channel and reason in your yield. Never replace ~/.local/bin/bao (the counters pin its sha256). Kill every bao process you start (never `pkill bao` blindly: kill only your own PIDs; if a run of yours is SIGKILLed, find its server by your own nonce/scratch path and kill it).\nHonesty: an unrun check has not passed. Report exact commands, exit codes and the last output line of each receipt. Never fabricate a fetch, a quote or a verdict. A fetch that fails is recorded as failed with its error text.\nOutput: write your findings to your report file, then yield with a concise summary (at most 15 lines) whose LAST line is exactly `SEAT-STATUS: complete` or `SEAT-STATUS: partial <what is missing>` (plain text, not inside JSON or a code block).\nDo not run the lane's full `claim-ledger.sh verify` (341 s, host-heavy) unless your item names it. Several OpenBao trials may run at once on this host: each picks a random free 127.0.0.1 port; never bind a fixed port.\nNever message agent://all; message only your own seats by id if a peer must be told something.",
+    "tasks": [
+      {
+        "name": "R50ExecTrial",
+        "agent": "executor",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\n# Target\nC1 candidate trial: apply the frozen reference change (/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-50/controls/fixtures/openbao-token-trial.ref.sh vs /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/openbao-token-trial.sh) as the candidate, in scratch. Output dir /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-50/build/R50ExecTrial/.\n# Change\n1. S=$HYAKU_SCRATCH/kagi-r50/R50ExecTrial; mkdir -p \"$S\"; trap 'rm -rf -- \"$S\"' EXIT. Build tree: `git -C /home/vgpnk/Projects/shokunin/kagi-shokunin archive 565c43a874b59cd216f4a55c8742db48fa854f16 | tar -x -C $S/tree` (mkdir first) and copy the reference to $S/tree/corpus/openbao-token-trial.sh.\n2. Run `bash /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-50-c1.sh --tree $S/tree` THREE times (flake check; each ~3 min) and `bash /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-49-c1.sh --tree $S/tree` once; record every full output line and rc.\n3. Run the trial standalone twice (`bash $S/tree/corpus/openbao-token-trial.sh --work $S/w`): record output, rc, wall time, and `ps -eo pid,ppid,args | grep '[b]ao server'` filtered to your scratch path afterwards (must be empty).\n4. Manual SIGKILL demo: start the trial in background, wait until its server exists, `kill -9` the trial shell, sleep 3, show whether the server PID is alive (reference must show gone). Repeat with the BASE trial (expect alive; then kill it yourself).\n5. shellcheck the reference (install shellcheck from the official GitHub release binary into ~/.local/bin if missing, per RULES.md); justify or list any warning (do not edit the frozen fixture; propose a diff if needed).\n6. Save receipts.txt, shellcheck.txt and report /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-50/build/R50ExecTrial.md.\n# Acceptance\nThree C1 counter runs each print `C1_ORPHAN_SAFE: value=3`; round-49 counter prints value=5; the SIGKILL demo contrasts reference vs BASE; no leftover bao process of yours.\n\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\nJudged on: operability, calibration\nMilestone: C1 SIGKILL-safe OpenBao trial (pdeathsig) + sources; C2 ten ledger expects re-bound with causes; counter/claim/trial attacks; lesson drafts\n\nReport: write your scoped findings to .ufo/waves/round-50/build/R50ExecTrial.md"
+      },
+      {
+        "name": "R50ExecLedger",
+        "agent": "executor",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\n# Target\nC2 causes: for each of the ten drifted ledger rows (R13-01 R21-02 R22-03 R24-05 R24-06 R24-15 R31-02 R33-02 R34-03 R38-01 in /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/claim-ledger.tsv), find WHY its expect stopped matching. Output /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-50/build/R50ExecLedger.md and /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-50/build/R50ExecLedger/.\n# Change\n1. S=$HYAKU_SCRATCH/kagi-r50/R50ExecLedger; clone --shared the lane into scratch (read-only use; checkout older revisions only inside your clone).\n2. For each row: run its command (field 2) at BASE 565c43a874b59cd216f4a55c8742db48fa854f16; find the last lane commit at which the stated expect (field 3) still matched (walk `git log --format=%H` of master backwards, checking out each round's final commit in your clone; stop at the first match) and the first commit after it that broke it. Name the content change between them that moved the value (e.g. which SOURCES rows, lesson files, SCORECARD headings, stamps rows, quote-manifest rows were added) and whether it is legitimate population growth or a regression (a lost row, a broken file, a weakened check).\n3. R38-01 (`bash plans/round-38-c1.sh`, expect ^5$, live 8): explain exactly which located quotes made 5 become 8 and whether the row's note (round-38 frozen target 5) means the expect should stay a target rather than a live population — give a recommendation with reasons.\n4. For each row draft a one-paragraph journal `reason` (commit range + content that moved + 'growth' or 'regression') in the form of /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-49/expectation-migrations.json, into /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-50/build/R50ExecLedger/reasons.json (id, command, old_expect, observed_last_line_at_BASE, first_broken_commit, cause, kind, reason).\n5. Note that the candidate will add this round's lesson, two SOURCES rows, one SCORECARD round heading and stamp rows: predict, per row, which values will move at the candidate and by how much.\n# Acceptance\nreasons.json carries ten entries each with a named first-broken commit and cause, plus the R38-01 recommendation; every claim backed by a pasted command + output.\n\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\nJudged on: operability, calibration\nMilestone: C1 SIGKILL-safe OpenBao trial (pdeathsig) + sources; C2 ten ledger expects re-bound with causes; counter/claim/trial attacks; lesson drafts\n\nReport: write your scoped findings to .ufo/waves/round-50/build/R50ExecLedger.md"
+      },
+      {
+        "name": "R50ExecCitations",
+        "agent": "executor",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\n# Target\nNon-claim: R11-08 (`bash corpus/claim-ledger.sh citations`) at BASE 565c43a874b59cd216f4a55c8742db48fa854f16 reads in a lone clone `CITATION_GATE: BROKEN (cites=3529 docs=125 unresolved=3 ephemeral=0 labeled=32)` rc 1. Output /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-50/build/R50ExecCitations.md and /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-50/build/R50ExecCitations/.\n# Change\n1. In a scratch clone --shared, run `bash corpus/claim-ledger.sh citations` and list the three UNRESOLVED lines (file:line token). Also run it in the in-place fleet layout read-only: `cd /home/vgpnk/Projects/shokunin/kagi-shokunin && bash corpus/claim-ledger.sh citations` (it only reads) and record its last line and rc.\n2. For each unresolved citation decide: a typo'd path to correct (name the real path, show it exists at BASE), or a dead citation that must be labelled on its own line with one of the gate's markers (scratch|ephemeral|relocat|formerly|no longer|removed|renamed|historical). Only lesson files of round >= 45 or living docs may be edited by the L1 (older lessons are append-only); for older lessons propose an erratum line instead.\n3. Write the exact proposed patch (unified diff against BASE) to /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-50/build/R50ExecCitations/proposed.patch, apply it in your clone and re-run citations: record the new last line and rc in both layouts you can reproduce.\n# Acceptance\nThree citations each classified with evidence; proposed.patch applied in scratch reaches unresolved=0 (paste the line), or a stated reason why not.\n\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\nJudged on: operability, calibration\nMilestone: C1 SIGKILL-safe OpenBao trial (pdeathsig) + sources; C2 ten ledger expects re-bound with causes; counter/claim/trial attacks; lesson drafts\n\nReport: write your scoped findings to .ufo/waves/round-50/build/R50ExecCitations.md"
+      },
+      {
+        "name": "R50ScoutSources",
+        "agent": "scout",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\n# Target\nFrontier sources for C1: the Linux parent-death signal. Output /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-50/build/R50ScoutSources.md and captures under /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-50/build/R50ScoutSources/.\n# Change\n1. Open (curl -sSL, record HTTP status, byte count, sha256 of the body) https://man7.org/linux/man-pages/man2/PR_SET_PDEATHSIG.2const.html (if 404, https://man7.org/linux/man-pages/man2/prctl.2.html) and https://man7.org/linux/man-pages/man1/setpriv.1.html. Save bodies under /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-50/build/R50ScoutSources/.\n2. Locate, in each, one ≤25-word quote (count with `printf '%s' \"<quote>\" | wc -w`) that teaches: (a) the signal is delivered when the parent (thread) terminates; (b) the setting is cleared on fork for the child / preserved over execve except set-user-ID cases; (c) setpriv's --pdeathsig option. Show each quote locates in the tag-stripped text (grep -c of a distinctive substring, count 1). Record the page's man-pages version/date footer.\n3. Read /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/SOURCES.md (header + last 5 rows) and /home/vgpnk/Projects/shokunin/CORPUS.md section 'SOURCES.md — where a shokunin learns'; draft TWO registry rows S106 (prctl/PR_SET_PDEATHSIG) and S107 (setpriv(1)) in exactly the lane's 11-column schema (id | source | kind | tier | scope | anchor | teaches | status | opened | recheck | used-by), status mined, opened 2026-11-06, recheck on-release, used-by `corpus/openbao-token-trial.sh, corpus/lessons/round-50.md`, no literal or escaped `|` in any cell, each with the fetch sha256. Check the URLs are not already in SOURCES.md (grep).\n4. Also check https://github.com/openbao/openbao/releases (public page or `gh api repos/openbao/openbao/releases --jq '.[0:3][]|.tag_name+\" \"+.published_at'`) and report whether a release newer than v2.7.2 exists (freshness note only).\n# Acceptance\nTwo drafted rows with located quotes, word counts, sha256s and HTTP statuses; newest OpenBao release tag stated with its date.\n\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability, calibration\nMilestone: C1 SIGKILL-safe OpenBao trial (pdeathsig) + sources; C2 ten ledger expects re-bound with causes; counter/claim/trial attacks; lesson drafts\n\nReport: write your scoped findings to .ufo/waves/round-50/build/R50ScoutSources.md"
+      },
+      {
+        "name": "R50ScribeLesson",
+        "agent": "scribe",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\n# Target\nDraft the round-50 lesson sections `## Mistakes` and `## Errata` for /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/lessons/round-50.md (draft only, into /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-50/build/R50ScribeLesson.md).\n# Change\n1. Read /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/lessons/round-49-verifier-spotcheck.md §5 (defects D1-D5) and /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/lessons/round-49.md (§Mistakes, §Errata, §Landing addendum), and the lane's lesson format in /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/lessons/round-48.md and round-49.md.\n2. Mine at least two mistakes, each as a table row `| id | class | evidence pointer | captured-by | fix |` in the round-49 table form: M50-1 the round-49 report stated 13 candidate ledger FAILs where `final/verify-candidate.txt` holds 12 (verify the count yourself: `grep -c '^FAIL' /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-49/final/verify-candidate.txt`); M50-2 the orphaned dev servers (an EXIT trap is not a SIGKILL guard; captured-by: none at round 49; fix: C1 of this round + its K1-F1 control showing the routed process-group wording alone fails). Name for each fix how it was shown able to fail (point at the control keys K1-0/K1-F1 in /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-50-controls.sh).\n3. Draft an `## Errata` entry for the round-49 report count (the filed report is never rewritten; the erratum lives in the lesson) and one for closure D5 (the OpenBao binary pin verified checksums/asset digests but not .gpgsig/.sigstore.json — draft the ceiling sentence to add wherever the pin is cited; list those places with grep -n over /home/vgpnk/Projects/shokunin/kagi-shokunin excluding .ufo/).\n4. Keep every count stated with the command that produced it.\n# Acceptance\nDraft text with two mistake rows and two errata, every count backed by a pasted command + output.\n\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability, calibration\nMilestone: C1 SIGKILL-safe OpenBao trial (pdeathsig) + sources; C2 ten ledger expects re-bound with causes; counter/claim/trial attacks; lesson drafts\n\nReport: write your scoped findings to .ufo/waves/round-50/build/R50ScribeLesson.md"
+      },
+      {
+        "name": "R50Connector",
+        "agent": "connector",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\n# Target\nSibling-overlap scan for round 50 themes. Output /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-50/build/R50Connector.md.\n# Change\n1. Search sibling lanes (read-only; /home/vgpnk/Projects/shokunin/*-shokunin, excluding kagi) for: (a) orphaned/leftover child processes, SIGKILL-surviving servers, `pdeathsig`, `setsid`, process-group cleanup, `trap ... EXIT` limits; (b) claim-ledger / expectation drift on population counts and how other lanes migrate or avoid revision-bound expects. Use grep -rIl with -e patterns over each lane's corpus/ and plans/.\n2. For each hit: lane, path:line, one-line summary, and whether it should be cross-linked from kagi (adjacency) or is a pattern kagi could adopt (name it). Do not edit any sibling.\n3. State explicitly if no sibling holds parent-death-signal ground.\n# Acceptance\nA hit table with path:line pointers (or the empty-result commands pasted).\n\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability, calibration\nMilestone: C1 SIGKILL-safe OpenBao trial (pdeathsig) + sources; C2 ten ledger expects re-bound with causes; counter/claim/trial attacks; lesson drafts\n\nReport: write your scoped findings to .ufo/waves/round-50/build/R50Connector.md"
+      },
+      {
+        "name": "R50ReviewerPlan",
+        "agent": "reviewer",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\n# Target\nReview the frozen round-50 instruments for false-green and false-red paths: /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-50.md, /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-50-c1.sh, /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-50-c2.sh, /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-50-controls.sh, fixtures /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-50/controls/fixtures/, receipt /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-50/controls/controls-prefreeze.txt. Output /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-50/build/R50ReviewerPlan.md.\n# Change\n1. Word-by-word: is each plan predicate the same condition the counter computes (C1: kill points, capture rule, OBSERVED, POSITIVE, starttime identity, 5 s wait, SETUP paths; C2: ten ids, verify subset, claims=10, G1-G6)?\n2. Find inputs that reach target without the claimed work or miss it with correct work: e.g. C1 — a trial whose server forks a grandchild server, PID reuse, a trial that exits by itself before K3, zombie handling, /proc/<pid>/task/*/children availability, a server that ignores SIGKILL (impossible) vs one in uninterruptible sleep; C2 — expects that discriminate under +1 perturbation but are still loose (alternations like `^(67|99)$`, `^6.$`), a journal with duplicate entries, a row with tabs in the note, verify's handling of a subset claims file.\n3. Demonstrate each finding with at most 3 fixture trees in $HYAKU_SCRATCH/kagi-r50/R50ReviewerPlan/ by running the frozen counter.\n4. Label each R50RP-<n>: false-green / false-red / cosmetic + proposed killing control (routed, not applied).\n# Acceptance\nEach finding has a reproducing command and output, or a statement that the path was tried and held.\n\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability, calibration\nMilestone: C1 SIGKILL-safe OpenBao trial (pdeathsig) + sources; C2 ten ledger expects re-bound with causes; counter/claim/trial attacks; lesson drafts\n\nReport: write your scoped findings to .ufo/waves/round-50/build/R50ReviewerPlan.md"
+      },
+      {
+        "name": "R50ReviewerTrial",
+        "agent": "reviewer",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\n# Target\nReview the C1 change itself (reference /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-50/controls/fixtures/openbao-token-trial.ref.sh vs BASE /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/openbao-token-trial.sh). Output /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-50/build/R50ReviewerTrial.md.\n# Change\n1. Read prctl(2) PR_SET_PDEATHSIG semantics (man7.org, public) and setpriv(1); check: is the signal tied to the parent THREAD; is it preserved across setpriv's execve of bao; what about the round-49 counter's shim chain (`bao` on PATH is a bash shim that `exec`s the real binary — does pdeathsig survive two execs?); the race if the trial dies between fork and prctl; behaviour when bao is not found by setpriv (exit code, does the trial still report SETUP?).\n2. Empirically test the shim-chain question: run `bash /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-49-c1.sh --tree <tree with reference trial>` in scratch while you SIGKILL nothing — then separately run the reference trial under a PATH whose first `bao` is a bash shim that execs ~/.local/bin/bao, SIGKILL the trial shell after the server starts, and show the server dies.\n3. Check the diff touches only header comments, the setup checks and the launch line (no test logic or grammar change).\n4. Verdict per question with evidence; any defect named R50RT-<n>.\n# Acceptance\nEach of the questions in step 1 answered with a source quote or an executed demonstration.\n\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability, calibration\nMilestone: C1 SIGKILL-safe OpenBao trial (pdeathsig) + sources; C2 ten ledger expects re-bound with causes; counter/claim/trial attacks; lesson drafts\n\nReport: write your scoped findings to .ufo/waves/round-50/build/R50ReviewerTrial.md"
+      },
+      {
+        "name": "R50CriticClaims",
+        "agent": "critic",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\n# Target\nAttack both round-50 claims as declared in /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-50.md. Output /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-50/build/R50CriticClaims.md.\n# Change\n1. C1: is 'no orphan after SIGKILL' an operability gain or hygiene the axis does not score? Does the do-nothing control truly read 0 (check /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-50/controls/controls-prefreeze.txt)? Could a weaker change (setsid, nohup, a watchdog subshell) reach 3? Does the change harm the round-49 C1 (POSITIVE leg) or portability (non-Linux, setpriv missing)?\n2. C2: is migrating ten population expects a calibration gain or re-scoring an existing rule on new inputs (plan §9: 'Re-scoring a rule the lane already holds on new inputs ... is quality work')? Argue both sides with evidence from /home/vgpnk/Projects/shokunin/kagi-shokunin/AXES.md (/home/vgpnk/Projects/shokunin/AXES.md) and the round-49 closure (which admitted R12-03/R14-01 migrations, /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/lessons/round-49-verifier-spotcheck.md). Is the target reachable by a do-nothing control (K2-0) or by forgery (K2-F1..F7)? Is excluding R11-08 and R25-02 a narrowing?\n3. Causal separability and 'no axis harmed' — name any axis the round could harm (e.g. the ledger treadmill: the next round re-opens these rows).\n4. For each attack: verdict 'holds' / 'weakened' / 'falsified' with the evidence.\n# Acceptance\nEach claim gets at least three attacks with verdicts and evidence pointers.\n\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability, calibration\nMilestone: C1 SIGKILL-safe OpenBao trial (pdeathsig) + sources; C2 ten ledger expects re-bound with causes; counter/claim/trial attacks; lesson drafts\n\nReport: write your scoped findings to .ufo/waves/round-50/build/R50CriticClaims.md"
+      },
+      {
+        "name": "R50CriticCeiling",
+        "agent": "critic",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\n# Target\nForge against C2's G5/G6 guards and C1's capture rule. Output /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-50/build/R50CriticCeiling.md and fixtures under /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-50/build/R50CriticCeiling/.\n# Change\n1. Build (in $HYAKU_SCRATCH/kagi-r50/R50CriticCeiling/, clone --shared of /home/vgpnk/Projects/shokunin/kagi-shokunin at 565c43a874b59cd216f4a55c8742db48fa854f16, fixture commits per the context's git rules) up to four forged candidates that try to read C2 value=0 without honest expects: e.g. alternation `^(67|0)$`, an expect with a lazy middle `^SOURCES_CENSUS: CLEAN \\(rows=105 .*\\)$`, journal entries with a placeholder reason, expects that match only because the command's output is constant. Use the reference migrator /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-50/controls/fixtures/migrate.py as a starting point (copy it; never edit the fixture). Run `bash /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-50-c2.sh --tree <fixture>` on each.\n2. For C1, try one forged trial that reaches 3 without pdeathsig (e.g. a background watchdog subshell that polls its parent), run `bash /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-50-c1.sh --tree <tree>`; state whether that is a legitimate alternative fix or a false green.\n3. Report each forgery: counter line, whether it passed, and whether that pass is a false green (a named ceiling to record) or legitimate.\n# Acceptance\nEach forgery has the counter's output line and a false-green / legitimate / refused verdict.\n\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability, calibration\nMilestone: C1 SIGKILL-safe OpenBao trial (pdeathsig) + sources; C2 ten ledger expects re-bound with causes; counter/claim/trial attacks; lesson drafts\n\nReport: write your scoped findings to .ufo/waves/round-50/build/R50CriticCeiling.md"
+      },
+      {
+        "name": "R50MutCounters",
+        "agent": "mutation-tester",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\n# Target\nMutation-test the frozen counters /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-50-c1.sh and /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-50-c2.sh against the controls in /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-50-controls.sh. Output /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-50/build/R50MutCounters.md.\n# Change\n1. Copy both counters into $HYAKU_SCRATCH/kagi-r50/R50MutCounters/ (never edit the lane copies) together with plans/round-49-c1.sh (C1's POSITIVE leg calls it from the counter's own directory).\n2. C2 mutants (cheap first): drop each of G1..G6 in turn; flip `[[ $pert =~ $new ]] && setup` polarity; count only FAIL (not POLICY); accept a missing CLAIM_LEDGER line. For each mutant, run the one or two controls that should kill it (build fixtures with /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-50/controls/fixtures/migrate.py modes: wildcard, repoint, nojournal, boundary, digitclass, producer, half) and record killed/survived.\n3. C1 mutants: drop POSITIVE; drop OBSERVED; drop the starttime check; shorten the 5 s wait to 0; count survivors only among descendants (not nonce). Kill with fixtures /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-50/controls/fixtures/openbao-token-trial.*.sh on an archive of 565c43a874b59cd216f4a55c8742db48fa854f16. C1 runs are slow (~3-6 min): run at most 4 C1 mutants.\n4. Table: mutant, killing control, killed/survived, command, output line. Survivors are routed findings.\n# Acceptance\nA mutant table with at least 8 mutants run, each with its control result.\n\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability, calibration\nMilestone: C1 SIGKILL-safe OpenBao trial (pdeathsig) + sources; C2 ten ledger expects re-bound with causes; counter/claim/trial attacks; lesson drafts\n\nReport: write your scoped findings to .ufo/waves/round-50/build/R50MutCounters.md"
+      },
+      {
+        "name": "R50Sentinel",
+        "agent": "sentinel",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\n# Target\nSecret-safety review of the round-50 instruments and the C1 change. Output /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-50/build/R50Sentinel.md.\n# Change\n1. /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-50-c1.sh reads /proc/<pid>/environ and /proc/<pid>/cmdline of every process on the host to find its nonce: confirm (by reading the code and by running it once on a BASE archive tree with the reference trial) that it never prints, stores or copies environ or cmdline contents (only `grep -l` paths and pid:starttime), and that its receipts carry no token shape. Also check whether the trial's root token `r49-…` reaches the server's argv (it does at BASE: `-dev-root-token-id=`) — is that visible to other host users via /proc/<pid>/cmdline, and does the counter's capture expose it anywhere? Propose (route) a fix if so (e.g. env var instead of argv) with the OpenBao docs page that documents the alternative.\n2. Grep every file under /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-50/ and /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-50* for token shapes `(^|[^A-Za-z0-9])(s|b|r)\\.[A-Za-z0-9]{20,}`, `r49-[0-9a-f]{24}`, `password=[0-9a-f]{32}`, `AGE-SECRET-KEY-1`, `op://` and report counts.\n3. Check the reference trial's NOSECRET behaviour under the round-49 counter (`bash /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-49-c1.sh --tree <tree>` -> nosecret=1).\n# Acceptance\nEach check has its command and output; any exposure is named S50-<n> with severity and a routed fix.\n\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability, calibration\nMilestone: C1 SIGKILL-safe OpenBao trial (pdeathsig) + sources; C2 ten ledger expects re-bound with causes; counter/claim/trial attacks; lesson drafts\n\nReport: write your scoped findings to .ufo/waves/round-50/build/R50Sentinel.md"
+      }
+    ]
+  },
+  "resumeSends": [],
+  "note": "Issue exactly one batched task call with taskCall ({context, tasks}); never split a wave into multiple task calls (one-swarm-per-wave). Then one hub send per resumeSends entry: hub send --to <entry.resume> --message <entry.message> (entry.name is bookkeeping, not a hub field)."
+}

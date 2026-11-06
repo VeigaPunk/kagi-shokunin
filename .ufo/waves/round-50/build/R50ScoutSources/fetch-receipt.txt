@@ -1,0 +1,95 @@
+# R50ScoutSources — fetch receipt
+# Seat: R50ScoutSources. Round 50 (kagi, attempt 1). BASE 565c43a874b59cd216f4a55c8742db48fa854f16.
+# All fetches: curl -sSL, public read-only pages. No form posts, no writes to any remote.
+# Date: 2026-11-06. Host: linux 7.2.11-arch1-1.
+
+## URL 1
+url:        https://man7.org/linux/man-pages/man2/PR_SET_PDEATHSIG.2const.html
+method:     curl -sSL -o PR_SET_PDEATHSIG.2const.html -w '%{http_code}' <url>
+http:       200
+bytes:      10684
+sha256:     5e72367effe41fab8ca6a0969ed39c201c98a7495c9cbc94b574b4949144fc82
+body file:  PR_SET_PDEATHSIG.2const.html
+text files: PR_SET_PDEATHSIG.2const.txt (tag-stripped, line-wrapped), PR_SET_PDEATHSIG.2const.flat.txt (whitespace-collapsed, used for grep -c)
+footer:     "Linux man-pages 6.19 2026-02-08 PR_SET_PDEATHSIG (2const)"
+colophon:   "This page was obtained from the tarball man-pages-6.19.tar.gz ... on 2026-09-09"; "HTML rendering created 2026-09-09"
+
+## URL 2 (fallback page, also fetched for completeness)
+url:        https://man7.org/linux/man-pages/man2/prctl.2.html
+method:     curl -sSL -o prctl.2.html -w '%{http_code}' <url>
+http:       200
+bytes:      26266
+sha256:     ef698f6c5aab0224e9bf238ea1820160797c15d0adcee8b37fcaac7297866810
+body file:  prctl.2.html
+text files: prctl.2.txt, prctl.2.flat.txt
+footer:     "Linux man-pages 6.19 2026-02-08 prctl (2)"
+note:       prctl(2) itself only lists PR_SET_PDEATHSIG as a constant and points at
+            PR_SET_PDEATHSIG(2const); the semantic text lives on URL 1.
+
+## URL 3
+url:        https://man7.org/linux/man-pages/man1/setpriv.1.html
+method:     curl -sSL -o setpriv.1.html -w '%{http_code}' <url>
+http:       200
+bytes:      20601
+sha256:     3bc0de9949a754b35811837d59d76ee1b4934f1747ab835702a7d017437770fd
+body file:  setpriv.1.html
+text files: setpriv.1.txt, setpriv.1.flat.txt
+footer:     "util-linux 2.43.devel-1062-f... 2026-08-03 SETPRIV (1)"
+colophon:   "This page was obtained from the project's upstream Git repository ... on 2026-08-04.
+             (At that time, the date of the most recent commit that was found in the repository was
+             2026-08-03.)"; "HTML rendering created 2026-09-09"
+
+## OpenBao release freshness
+cmd:        gh api repos/openbao/openbao/releases --jq '.[0:3][]|.tag_name+" "+.published_at'
+exit:       0
+stdout:
+  v2.7.2 2026-10-26T20:24:37Z
+  v2.6.5 2026-10-26T20:23:12Z
+  v2.7.1 2026-10-01T14:03:19Z
+cmd:        gh api 'repos/openbao/openbao/tags?per_page=10' --jq '.[].name'
+exit:       0
+stdout:     v2.7.2 v2.7.1 v2.7.0 v2.7.0-beta20260909 v2.6.5 v2.6.4 v2.6.3 v2.6.2 v2.6.1 v2.6.0
+cmd:        gh api repos/openbao/openbao/releases --jq '.[0] | .tag_name+" | "+.published_at+" | "+.name'
+exit:       0
+stdout:     v2.7.2 | 2026-10-26T20:24:37Z | v2.7.2
+verdict:    NO release newer than v2.7.2 exists. v2.7.2 (published 2026-10-26T20:24:37Z) is the
+            newest release and the newest tag; v2.7.1 is older. The registry already anchors
+            v2.7.2 (corpus/SOURCES.md S090, S093).
+
+## Local host cross-check (read-only)
+cmd:        setpriv --version          -> setpriv from util-linux 2.42.4
+cmd:        setpriv --help | grep -i pdeathsig
+            -> " --pdeathsig keep|clear|<signame>"
+cmd:        command -v setpriv         -> /usr/bin/setpriv
+note:       the host binary is util-linux 2.42.4, one release older than the man page's
+            2.43.devel; the --pdeathsig option exists in both.
+
+## Word counts (printf '%s' "<quote>" | wc -w)
+qa  "The parent-death signal is sent upon subsequent termination of the parent thread and also upon termination of each subreaper process"   -> 20
+qb1 "The parent-death signal setting is cleared for the child of a fork(2)."                                                                          -> 12
+qb2 "It is also (since Linux 2.4.36 / 2.6.23) cleared when executing a set-user-ID or set-group-ID binary"                                      -> 16
+qb3 "otherwise, this value is preserved across execve(2)."                                                                                          -> 7
+qc1 "Keep, clear or set the parent death signal. Some LSMs, most notably SELinux and AppArmor, clear the signal when the process' credentials change."  -> 23
+qc2 "Using --pdeathsig keep will restore the parent death signal after changing credentials to remedy that situation."                             -> 16
+
+## grep -c locators (tag-stripped text, whitespace-collapsed file) — all must be 1
+grep -c -F "The parent-death signal is sent upon subsequent termination of the parent thread" PR_SET_PDEATHSIG.2const.flat.txt   -> 1
+grep -c -F "The parent-death signal setting is cleared for the child of a fork(2)" PR_SET_PDEATHSIG.2const.flat.txt                   -> 1
+grep -c -F "It is also (since Linux 2.4.36 / 2.6.23) cleared when executing a set-user-ID or set-group-ID binary" PR_SET_PDEATHSIG.2const.flat.txt -> 1
+grep -c -F "otherwise, this value is preserved across execve(2)." PR_SET_PDEATHSIG.2const.flat.txt                                     -> 1
+grep -c -F "Keep, clear or set the parent death signal." setpriv.1.flat.txt                                                                       -> 1
+grep -c -F "Using --pdeathsig keep will restore the parent death signal" setpriv.1.flat.txt                                                        -> 1
+grep -c -F "PR_SET_PDEATHSIG(2const)" prctl.2.flat.txt                                                                                          -> 4 (expected: it is a see-also/list page)
+
+## Registry facts (read-only)
+grep -cE '^\|[[:space:]]*S[0-9]{3,}[[:space:]]*\|' corpus/SOURCES.md   -> 105 rows (max id S105)
+grep -c 'man7.org'   corpus/SOURCES.md -> 0   (URL not already registered)
+grep -c 'setpriv'   corpus/SOURCES.md -> 0
+grep -c 'pdeathsig'  corpus/SOURCES.md -> 0
+grep -c 'prctl'      corpus/SOURCES.md -> 0
+git rev-parse HEAD  -> 7d3b2c01b375d5459abd7da79bb4063b7d728fc7 (predeclaration commit; worktree carries
+                       the round-50 edits, incl. corpus/openbao-token-trial.sh modified)
+
+## Row shape check on the two drafted rows
+awk -F'|' -> NF=13 for both (11 columns)
+literal or escaped "|" inside any cell: 0

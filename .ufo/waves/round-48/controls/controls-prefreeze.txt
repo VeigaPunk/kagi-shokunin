@@ -1,0 +1,19 @@
+$ bash plans/round-48-controls.sh 76da518fcc3029e738648bd6fd4ba5571df01c1c   # 2026-11-06T20:16:04Z
+CONTROL K1-0-do-nothing expect=0 observed=0 MATCH
+CONTROL K1-P-reference expect=5 observed=5 MATCH
+CONTROL K1-F1-constant-holds expect=0 observed=0 MATCH
+CONTROL K1-F2-path-bypass expect=0 observed=0 MATCH
+CONTROL K1-F3-no-entry-section expect=0 observed=0 MATCH
+CONTROL K1-F4-silent-producer expect=SETUP observed=SETUP MATCH
+CONTROL K1-F5-weak-T5 expect=4 observed=4 MATCH
+CONTROL K1-F6-wrong-version-entry expect=0 observed=0 MATCH
+CONTROL K1-F7-unpinned-binary expect=SETUP observed=SETUP MATCH
+CONTROL K1-F8-secret-printed expect=0 observed=0 MATCH
+CONTROL K2-0-do-nothing expect=3 observed=3 MATCH
+CONTROL K2-P-reference expect=0 observed=0 MATCH
+CONTROL K2-F1-delete-pairs expect=3 observed=3 MATCH
+CONTROL K2-F2-readings-outside-section expect=3 observed=3 MATCH
+CONTROL K2-F3-partial expect=2 observed=2 MATCH
+CONTROL K2-F4-wrong-number expect=1 observed=1 MATCH
+CONTROLS: ALL-MATCH (match=16 mismatch=0)
+rc=0

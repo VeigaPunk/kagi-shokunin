@@ -95,3 +95,7 @@ Target: value 11 at the candidate.
 - S040/S041 ISO recheck `2026-11-05` is overdue at BASE; both are re-opened this round and their recheck
   cell moves to a cadence (old→new logged in the lesson).
 - Frontier step: census before/after; one mistake mined; the sourced claims above.
+
+## Erratum E48-1 (appended round 49; text from `corpus/lessons/round-48.md` §Errata, verbatim except its closing "Not yet appended …" sentence, which this append discharges; the lines above are unchanged)
+
+- **E48-1 (round-47 C2 counter header, predicate prose only — `plans/round-47-c2.sh:4,9` and `plans/round-47.md:60`).** Read "the eleven rows with no successor row" as "the eleven fired rows (S012–S016, S021–S026), four of which have a successor row (S022 supersedes S012, S023 supersedes S013, S025 supersedes S014, S026 supersedes S016)". No predicate, target, control or value of round 47 changes: the counter's `F` set and its per-row checks are unchanged, and all eleven rows' own quotes were located (round-47 closure §2). What the sentence overstates is distinctness of *teaching*, not the count — round 47's own caveat (6 URLs / 7 quotes).

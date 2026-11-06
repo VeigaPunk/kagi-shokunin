@@ -1849,3 +1849,14 @@ Frozen BASE `655e620`; plan `4767b04` (alone, QM29); plan corrections 1/2 `2d46e
 - C1 candidate: `corpus/sops-age-trial.sh` (seat K48ExecTrial hardening of the frozen reference fixture); entry `## Measured (round 48 …)` appended; capability row; `PROVINCE.md` core bullet. C2 candidate: one current-readings line in `SCORECARD.md` §Capabilities; `SKILL.md` claims-declared selftest `8 cases` → `12 cases`.
 - Curation: S103/S104 (release identities, tier A); QM59, QM60; mistakes M48-1..M48-3 and erratum E48-1 in `corpus/lessons/round-48.md`.
 - Round 48 verdict (L1 reading, for the operator's ruling): see `.ufo/waves/round-48/final/measured-at-candidate.txt`. No axis is re-scored: all six stay 9 → 9.
+
+## Round 49 (2026-11-06) — the lane executes the OpenBao token and lease mechanics its entry documents (C1, operability, capability acquisition); the lane's stated self-counts agree with the observed repo state (C2, calibration)
+
+- Predeclaration `082bfb3f6baa2407df2a23c0489043495b4dce4d` (frozen plan `plans/round-49.md`; counters `plans/round-49-c1.sh`, `plans/round-49-c2.sh`; pre-freeze controls `plans/round-49-controls.sh`, 19 MATCH incl. eight C1 and seven C2 forgery/fail-closed controls; BASE receipts `.ufo/waves/round-49/controls/`). No amendment.
+- Tool installed (official GitHub release tarball into `~/.local/bin`; pacman paused): OpenBao v2.7.2 `bao` (tarball sha256 matches `checksums.txt` and the asset digest; gpg/sigstore signatures not verified). Receipt `.ufo/waves/round-49/controls/tool-install.txt`.
+- BASE readings: C1 `value=0 absent=1`; C2 `value=6` (3 STALE stamp counts, 3 SETUP declaration counts behind `claim-ledger.sh docs` BROKEN since round 45).
+- Wave: one v1 build wave of 13 seats (executor 3, scribe 2, scout 1, connector 1, reviewer 2, critic 2, mutation-tester 1, sentinel 1; attack share 5/13 = 38 %); `.ufo/waves/round-49/build/`.
+- End-to-end domain trial: `bash corpus/openbao-token-trial.sh` on this host against a throwaway `bao server -dev` → `OPENBAO_TRIAL: HOLDS holds=5 broken=0 error=0 bao=v2.7.2`; T5's lease revocation contrasted against a long-lived token (K49ReviewerTrial).
+- C1 candidate: `corpus/openbao-token-trial.sh`; entry `## Measured (round 49 …)` appended; capability row; `PROVINCE.md` core bullet. C2 candidate: ISO entry `Reverify: R21-02` + stamp; README/SKILL/PROVINCE stated counts; ledger R12-03/R14-01 migrations with journal `.ufo/waves/round-49/expectation-migrations.json`; terminal restamp.
+- Curation: S105 (OpenBao PKI API docs, tier A); S016 re-opened (content identical); QM61; mistakes M49-1..M49-3, errata E49-1 in `corpus/lessons/round-49.md`; E48-1 appended to `plans/round-47.md`.
+- Round 49 verdict (L1 reading, for the operator's ruling): see `.ufo/waves/round-49/final/measured-at-candidate.txt`. No axis is re-scored: all six stay 9 → 9.

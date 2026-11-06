@@ -1,0 +1,22 @@
+{
+ "round": 49,
+ "measured_at": "round-49 C2 candidate tree (scratch clone of kagi-shokunin at BASE 89afe91878f10805921d3caa67d28d21b33226da + this patch), 2026-11-06; the BASE read of the same commands is the C2 counter receipt (value=6) and the frozen C2 counter run at BASE",
+ "kind": "measured rebinding of two ledger expectations (self-counts STALE/SETUP 6 -> 0)",
+ "population": "R12-03 and R14-01 only (the two rows whose expect the patch changes; every other row is byte-identical to BASE)",
+ "migrations": [
+  {
+   "id": "R12-03",
+   "command": "grep -c '[^[:space:]]' corpus/stamps.tsv",
+   "old_expect": "^122$",
+   "new_expect": "^124$",
+   "reason": "stamp membership: the live count was already 123 at BASE (the round-42 lesson pin corpus/lessons/round-42.md joined the set at 0cb7814 without migrating this row, so the stated ^122$ was stale before this round), and this patch adds the round-45 ISO entry pin corpus/knowledge/iso-11770-3-edition-status.md -> 124. Measured: `grep -c '[^[:space:]]' corpus/stamps.tsv` prints 124, rc 0, on the candidate commit; 123 at BASE."
+  },
+  {
+   "id": "R14-01",
+   "command": "bash corpus/claim-ledger.sh docs",
+   "old_expect": "^DOC_AUDIT: CLEAN \\(entries=35 row_linked=32 by_hand=3 undeclared=0 missing_ids=0 unpinned=0",
+   "new_expect": "^DOC_AUDIT: CLEAN \\(entries=36 row_linked=33 by_hand=3 undeclared=0 missing_ids=0 unpinned=0 duplicate_reasons=0\\)$",
+   "reason": "knowledge-entry declarations: the round-45 ISO/IEC 11770-3 entry landed at 072bb0b without a Reverify line and without a stamp row, so `docs` measured entries=36 row_linked=32 by_hand=3 undeclared=1 unpinned=1 and exited 1 at BASE (BROKEN). The patch declares `Reverify: R21-02` and pins the entry -> entries=36 row_linked=33 by_hand=3 undeclared=0 missing_ids=0 unpinned=0. New expect is fully literal and anchored (expect-journal R3); the old prefix form is replaced by the complete final line."
+  }
+ ]
+}

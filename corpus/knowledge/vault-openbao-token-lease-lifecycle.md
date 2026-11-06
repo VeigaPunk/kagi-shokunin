@@ -174,3 +174,95 @@ earlier capture. Associated-lease revocation is a continuation of the same
 TTL sentence after the dash, not a separate following sentence. **No lease
 does not imply no deletion or guaranteed retention.** No Vault or OpenBao
 runtime, account or token operation was performed for these corrections.
+
+## Measured (round 49 — OpenBao 2.7.2 dev server, 127.0.0.1, throwaway tokens)
+
+Measured 2026-11-06 on this host by executing the round-49 trial
+`corpus/openbao-token-trial.sh --work <scratch dir>`; its five tests and its
+`TRIAL T<n> HOLDS|BROKEN|ERROR …` / `OPENBAO_TRIAL: …` lines are those frozen in
+the reference fixture
+`.ufo/waves/round-49/controls/fixtures/openbao-token-trial.ref.sh`. One
+throwaway `bao server -dev` was started on 127.0.0.1 at a random free port, with
+in-memory storage and a random root token kept only in the scratch tree and
+deleted with it; every caller `BAO_*`/`VAULT_*` variable was unset, `HOME`
+pointed into that tree, and no real vault, account, credential or Kubernetes API
+was touched. The binary is the official OpenBao 2.7.2 linux_amd64 release
+(`~/.local/bin/bao`, sha256 `9c5f3628…b788`; receipt
+`.ufo/waves/round-49/controls/tool-install.txt` — `checksums.txt` and the GitHub
+asset digests match, the `.gpgsig` and `.sigstore.json` assets were **not**
+verified). The trial printed one `TRIAL T<n> HOLDS …` line per test and ended
+`OPENBAO_TRIAL: HOLDS holds=5 broken=0 error=0 bao=v2.7.2` (rc 0; L1 run of the candidate script, 2026-11-06; counter receipts `.ufo/waves/round-49/final/`).
+
+Supersession note (append-only entry): the `Scope:` sentence at `:9` ("vendor
+documentation only; nothing was deployed or probed") and the first sentence of
+§How kagi uses this (`:76`, "kagi runs neither product") describe the entry
+before round 49. For the five OpenBao token mechanisms below they are
+superseded: a throwaway dev server was started (not deployed) and these token
+and lease behaviours were probed on it. Vault is still not run — no Vault token,
+lease or KV mechanism is measured here, and nothing below is Vault/OpenBao
+parity. The `[INFERENCE from S015 + S016]` reading under §OpenBao tokens
+(`:58-60`) stays an inference: the trial runs no Kubernetes cluster and calls no
+TokenReview API, so it cannot measure what a Kubernetes-side revocation does to
+an already-issued token. What the trial establishes is one host, one release,
+dev mode: a single `bao server -dev` with in-memory storage, HTTP on 127.0.0.1,
+no storage backend, no seal or unseal operation, no HA, no TLS and no policy
+model beyond the `default` policy and the two trial policies (`child-maker`,
+`pki-issue`). A dev server is not a production configuration; none of this is
+evidence about a deployed or production Vault/OpenBao, and `verified-at:
+2026-10-19` remains the date the documentation was read, not the date of these
+runs.
+
+- T1 non-root TTL: with OpenBao 2.7.2, a non-root token was created with `bao token create -policy=default -ttl=2s` and looked up once immediately and once after a 4 s sleep; observed `TRIAL T1 HOLDS ttl=2s alive-before=1 alive-after-4s=0` — detail fields: `ttl=2s`, the answer before the TTL and the answer after it — measures S016 §Token Time-To-Live, "Every non-root token has a time-to-live" and "After the current TTL is up, the token will no longer function".
+- T2 explicit max TTL cap: with OpenBao 2.7.2, a token was created with `-ttl=60s -explicit-max-ttl=5s`, `bao token renew -increment=3600` was requested with it, and it was looked up again after a 7 s sleep; observed `TRIAL T2 HOLDS renew-increment=3600 granted=5 alive-after-7s=0` — detail fields: the granted `lease_duration` against the requested 3600 s and the answer after the cap — measures S016 §Token Time-To-Live as this entry reads it ("an explicit max TTL is a hard cap").
+- T3 batch token: with OpenBao 2.7.2, a batch token was created (`bao token create -type=batch -ttl=60s`), asked to renew itself, and then revoked by the root token; observed `TRIAL T3 HOLDS renew-ok=0 revoke-ok=0 alive-after=1` — detail fields: renew-ok, revoke-ok and whether the batch token still answers a lookup — measures S016 §Token type comparison, "Batch tokens: not renewable and not manually revocable".
+- T4 orphan login token: with OpenBao 2.7.2, userpass was enabled, a token holding a `child-maker` policy created a child token and logged in through userpass, and the parent token was then revoked; observed `TRIAL T4 HOLDS login-orphan=true child-alive-after-parent-revoke=0 login-alive=1` — detail fields: the login token's `orphan` value, the child's answer after the parent's revocation and the login token's answer — measures S016 §Token hierarchies and orphan tokens: logging in "with any other (non-token) auth method" yields an orphan token, so parent-tree revocation does not reach it.
+- T5 lease revoked with its token: with OpenBao 2.7.2, a PKI mount issued a certificate with `generate_lease=true` (lease TTL 10 m) under a token created with `-ttl=3s`, and the lease was looked up before and 5 s after issuance; observed `TRIAL T5 HOLDS lease-ttl=10m token-ttl=3s lease-before=1 lease-after-5s=0` — detail fields: the lease's answer before and after the token's TTL — measures S016 §Token Time-To-Live, "it, and its associated leases, are revoked".
+
+Review narrowings (seat K49ReviewerTrial, `.ufo/waves/round-49/build/K49ReviewerTrial.md`;
+probe scripts in `.ufo/waves/round-49/build/K49ReviewerTrial/`): T1's refusal is a lookup exit
+status whose server text reads `permission denied`, not "expired" — expiry is attributed by
+isolation (only elapsed time changes; a ttl=60s token in the same server stays alive through the
+same window). T2's granted value is the renew response's `auth.lease_duration`; the same renewal
+without `-explicit-max-ttl` is granted 3600. T3's refusals carry the server's own reasons, `batch
+tokens cannot be renewed` and `batch tokens cannot be revoked` (revocation tried as root). T4's
+`orphan=true` is specific to the userpass route: a child created through `auth/token/create` by the
+same caller reads `orphan=false`. T5 was contrasted: the same issuance under a 30 m token keeps its
+lease alive 5 s later, while the lease's own TTL (599 s at issue) rules out self-expiry — the
+issuing token's lapse is the only differentiator. The `generate_lease` role parameter T5 relies on
+is documented by S105 (OpenBao PKI API docs, opened 2026-11-06, cited by
+`corpus/lessons/round-49.md`).
+
+Each test has a designated falsifier shim in `plans/round-49-c1.sh` (SH1
+token-lookup-always-succeeds, SH2 create-drops-explicit-max-ttl, SH3
+create-drops-batch-type, SH4 userpass-login-returns-a-child-token, SH5
+create-drops-ttl) that flips it to BROKEN; a HOLDS row excludes that falsifier
+under these conditions, it is not a proof of the mechanism in general.
+
+Re-run: `bash corpus/openbao-token-trial.sh --work <dir>` (starts and kills its
+own throwaway dev server, throws the server state and tokens away on exit;
+needs `bao` and `python3` on `PATH`).
+
+**Does not establish:**
+
+- One host, one release, dev mode: everything above is OpenBao 2.7.2 from the
+  official linux_amd64 release on this host, against one `bao server -dev` with
+  in-memory storage. A dev server is not a production configuration — no storage
+  backend, no seal or unseal operation, no HA, no TLS, no policy model beyond
+  the trial policies — and another release or a production cluster may behave
+  differently.
+- No Vault: no Vault binary or server was run, so no Vault token, lease or KV
+  mechanism is measured and no Vault/OpenBao parity is established.
+- No Kubernetes: no cluster and no TokenReview call; the `[INFERENCE]` at `:58`
+  stays an inference.
+- No real secret or account: the only credentials are the random dev root token
+  and a random userpass password, both created in scratch and deleted with it;
+  the trial prints neither the root token, a created token value nor the
+  password.
+- Mechanism scope: the five sentences listed, at token TTLs of 2–60 s and observation windows of 4–7 s; periodic
+  tokens, the 32-day system default max TTL, mount tuning beyond the PKI mount's
+  `max-lease-ttl=1h`, and auth-method max TTLs are not exercised, and PKI is the
+  only lease-issuing engine used (no database, transit or other engine).
+- A trial that detects its designated shims is a ceiling: T1..T5 passing
+  excludes the five named falsifiers under these conditions; it does not
+  establish that no other implementation or configuration could satisfy the
+  entry's sentences for a different reason.

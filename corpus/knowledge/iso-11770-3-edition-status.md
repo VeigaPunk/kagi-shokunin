@@ -2,6 +2,8 @@ source: S100 — https://webstore.iec.ch/en/publication/62160 (IEC record of ISO
 verified-at: 2026-11-05
 recheck: 180d — `curl -fsSL -A 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36' 'https://www.iso.org/standard/60237.html' | grep -c 'Withdrawal of International Standard'` -> 1 (ran 2026-11-05)
 ground: round 45 C2 (coverage) — the ISO/IEC 11770-3 mechanism standard, its edition and supersession status; the lane's corpus held no entry on it at BASE 0d0192f (`grep -l 11770 corpus/knowledge/*.md` was empty)
+Reverify: R21-02
+(R21-02 is the sources-census row: it re-verifies the citation chain only — every id on `source:` resolves to a `mined` row of `corpus/SOURCES.md` whose `used-by` lists this entry. It does not re-open the IEC/ISO catalogue pages or re-measure any edition status; `recheck:` is the content clock. There is no round-45 ledger row: the round-31/33/34 entries' rows `R31-02`, `R33-02` and `R34-03` run the identical census command with the identical snapshot, so this entry uses the canonical row.)
 
 # ISO/IEC 11770-3: the 2015 edition is withdrawn and the 2021 edition is the one in force
 

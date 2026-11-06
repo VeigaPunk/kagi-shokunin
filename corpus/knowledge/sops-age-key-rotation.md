@@ -110,3 +110,50 @@ threshold without its actual configuration. The footer commit is a docs
 repository revision, not a measured SOPS release/runtime version.
 Reviews: `kagi-shokunin/.ufo/waves/round-22/build/Source10.md` and
 `kagi-shokunin/.ufo/waves/round-22/build/Source11.md`. No SOPS execution occurred.
+
+## Measured (round 48 — sops 3.13.3, age-keygen v1.3.2, synthetic identities in scratch)
+
+Measured 2026-11-06 on this host by executing the round-48 trial
+`corpus/sops-age-trial.sh` (hardened by seat K48ExecTrial from the frozen
+reference fixture `.ufo/waves/round-48/controls/fixtures/ref-sops-age-trial.sh`;
+the five test bodies, tokens and output grammar are unchanged). Two throwaway
+`age-keygen` identities were generated inside a scratch tree and deleted with
+it, over two synthetic values (`k1`, `k2`); `HOME`, `XDG_*` and `TMPDIR` pointed
+into that tree and every caller `SOPS_*` variable was unset. Versions read from
+the tools: `sops 3.13.3` and `age-keygen` `v1.3.2` (release identities S103,
+S104; binaries checked against the release checksums, round-48 receipt
+`.ufo/waves/round-48/controls/tool-install.txt`). The trial printed one
+`TRIAL T<n> HOLDS …` line per test and ended
+`SOPS_AGE_TRIAL: HOLDS holds=5 broken=0 error=0 sops=3.13.3 age-keygen=v1.3.2`
+at exit 0. Each test has a designated falsifier shim in `plans/round-48-c1.sh`
+(SH1..SH5) that flips it to BROKEN; a HOLDS row excludes that falsifier, it is
+not a proof of the mechanism in general.
+
+Supersession note (append-only entry): the `Scope:` sentence above ("Nothing
+here was executed on this host; every mechanism is documented, not measured"),
+the round-22 Clarification's "No SOPS execution occurred" and the §Does not
+establish bullet "any measured SOPS version on this host" describe the entry
+before round 48; for the five mechanisms below they are superseded by this
+section. `verified-at: 2026-10-19` remains the date the documentation was read;
+the documentation itself was re-opened 2026-11-06 (S009/S010/S011 live bodies
+byte-identical to the round-21 captures, footer still 2026-05-15 / 9b7b84e;
+`.ufo/waves/round-48/build/K48ScoutSources/located-quotes.txt`).
+
+- T1 updatekeys-add: with sops 3.13.3, a file was encrypted to recipient A through a `path_regex` creation rule, B was then added to that rule, and `sops updatekeys -y f.yaml` ran with A's identity; observed `updatekeys-rc=0 added-recipient-decrypts=yes values-unchanged=yes mac-unchanged=yes` — B decrypts to the same plaintext while both `k1:`/`k2:` value ciphertext lines and the `mac:` line hash identically before and after. This measures S011 §`updatekeys` command and §`rotate` command ("Use `updatekeys` if you want to add a key without rotating the data key"), and the *recipient* row of §Three different objects: the access set changes, the data key and the encrypted values do not.
+- T2 rotate: with sops 3.13.3, `sops rotate -i f.yaml` ran with A's identity on the same encrypted file; observed `rotate-rc=0 both-values-reencrypted=yes plaintext-unchanged=yes` — both value ciphertext lines changed, and A still decrypts to the byte-identical plaintext. This measures the re-encryption half of S011 §`rotate` command ("generates a new data encryption key and reencrypt all values"). The trial's observable cannot by itself tell a new data key from the old key re-used with fresh nonces; the new-key half was measured separately by unwrapping the data key and hashing it (never printing it): its sha256 prefix moved `5b56e5aa39a9ce05` → `fd34d55b876c63d5` across `rotate` and stayed `5b56e5aa39a9ce05` across `updatekeys` (seat K48ReviewerTrial, `.ufo/waves/round-48/build/K48ReviewerTrial-dek-probe.sh`). The per-recipient `enc` wrap blocks change on every save even when the data key does not, so they are not a fingerprint of the data key.
+- T3 updatekeys-rm: with sops 3.13.3, a file encrypted to A and B was copied aside, B was removed from the creation rule, and `sops updatekeys -y` ran; observed `removed-recipient-on-synced-file=refused removed-recipient-on-old-copy=decrypts values-unchanged=yes` — B is refused on the synced file, B still decrypts the pre-removal copy, and the removal left the value ciphertexts unchanged. This measures S011 §Direct Editing and step 1 of §Rotating secrets after a key in a key group has been compromised, and it resolves the [INFERENCE] under §Does not establish: a copy encrypted before the removal (as before a rotation) stays decryptable by the removed recipient, so removal is an access-set change on the file it is run against, not a history purge.
+- T4 rules-only: with sops 3.13.3, B was added to the creation rule with no `updatekeys` run; observed `rules-edit-only=refused file-unchanged=yes after-updatekeys=decrypts` — B is refused, the encrypted file's sha256 is unchanged by the rule edit, and B decrypts only after `updatekeys`. This measures the [INFERENCE] under §Recipients vs identities (age) — "Editing creation rules alone therefore leaves existing files' access unchanged until `updatekeys`" — which is now executed rather than inferred.
+- T5 group-threshold: with sops 3.13.3, `sops encrypt` ran under a creation rule carrying two key groups (one age recipient each) and no explicit threshold; observed `groups=2 shamir_threshold=2 single-group=refused both-groups=decrypts` — the encrypted metadata records `shamir_threshold: 2`, A alone and B alone are refused, A plus B decrypts. This measures S010 §Key groups, "By default, the threshold is set to the number of key groups", and its decision consequence: a second group adds a required fragment only because the default threshold follows the group count.
+- Refusal, measured: with the same two-group rule, sops 3.13.3 rejects an explicit lower threshold — `sops encrypt --shamir-secret-sharing-threshold 1` exits 1, writes no output, and prints `Could not generate data key: [could not split data key into parts for Shamir: threshold must be at least 2]` (the same invocation without the flag succeeds and records `shamir_threshold: 2`). A threshold of 1 over two groups is not a reachable configuration here, which is why T5's falsifier collapses the groups instead of lowering the threshold.
+
+- Narrowing, measured (seat K48CriticCeiling, `.ufo/waves/round-48/build/K48CriticCeiling.md` §2, not part of the trial): (B1) on a two-group file (threshold 2), `updatekeys` after removing a group from the creation rule exits 128 ("only 1 part(s) were successfully recovered … at least 2 groups have to be successful") when only the remaining group's identity is present, and leaves the file untouched — the removed key keeps access; it succeeds only with the old access set present, after which `shamir_threshold` reads 1. So §Compromise order step 1 on a key-group file needs the old threshold's identities on the syncing host. (B2) when the edited creation rule no longer matches the file's path, `updatekeys` exits 1 ("no matching creation rules found") and the file is unchanged; T4's reading holds only for a rule that still matches. (B3) a one-character edit of the `mac:` payload makes `sops decrypt` exit 51 ("Cannot decrypt MAC: … message authentication failed"): a hand edit of the encrypted file is rejected at decrypt time. (B4) `rotate -i --add-age B --rm-age A` re-encrypts the values and moves access from A to B in one call, matching the round-22 Clarification.
+
+Re-run: `bash corpus/sops-age-trial.sh --work <dir>` (throws every identity, plaintext and encrypted file away on exit; needs `sops` and `age-keygen` on `PATH`).
+
+**Does not establish:**
+
+- One host, one version pair: everything above is `sops 3.13.3` with `age-keygen` `v1.3.2` on this host; another SOPS release may implement `updatekeys`, `rotate`, key groups or `--shamir-secret-sharing-threshold` differently, and nothing was run on another platform.
+- Synthetic identities and synthetic values only: x25519 identities generated in scratch over two literal test strings; the SSH-recipient path (S009's ssh-rsa/ssh-ed25519 note), passphrase-protected identities and the documented identity-lookup order are not exercised — every decrypt in the trial sets `SOPS_AGE_KEY_FILE` explicitly, so "each identity will be tried in sequence" is untested.
+- No KMS, PGP, age-plugin or Vault/OpenBao backend, and no account, `op` or vault contact: the cloud-KMS and HashiCorp Vault paths S011 mentions remain unmeasured.
+- No history and no shared custody: the "old copy" of T3 is a local file copy in the same scratch directory, so this measures that a pre-removal copy stays decryptable — not a git history purge, a backup tier, a CI cache or a remote readers' copy.
+- A trial that detects its designated shims is a ceiling: T1..T5 passing excludes the five named falsifiers under these conditions; it does not establish that no other implementation or configuration could satisfy the entry's sentences for a different reason.

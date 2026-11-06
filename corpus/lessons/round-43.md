@@ -1,3 +1,5 @@
+source: S094 (CORPUS.md §SOURCES.md rule 2, own-work; the registry row `corpus/SOURCES.md` S094 carries the anchor and the fetch provenance); the instruments' committed bytes are the evidence for the rest
+
 # Round 43 — instrument hardening (C1 calibration: six-forgery journal-gate counter; C2 freshness: committed controls-replay gate; C3 operability: gate selftests off /tmp)
 
 Frozen plan: `plans/round-43.md`. Predeclaration `a9180250955ad44530b565fa5b131b540c849199` (plan, counters `plans/round-43-c{1,2,3}.sh`, controls runner `plans/round-43-controls.sh`, BASE receipts under `.ufo/waves/round-43/controls/`). Amendment A1 `dd6ccb92bf04a061e9f1e66913d15f097397b1b3`. Amendment A2 `f2b4ec761b2fa40ecc621cd6fcbfa3e54788cff9`. Candidate `542885ed1514fd01d4e949caa5fab58eb000fffc`. Claim BASE `5f3566c4cfe65a74da4d201d74d28b403929807b`.

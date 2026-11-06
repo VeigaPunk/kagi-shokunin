@@ -1698,3 +1698,20 @@ Candidate: the round-46 landing commit (recorded in the report; this section is 
 | coverage | 9 → 9 | No claim. Coverage map rows added for two held entries (round-45 closure routed 1); no new ground. | `corpus/README.md` |
 | depth | 9 → 9 | No claim. | `plans/round-46.md` |
 | adjacency | 9 → 9 | No claim. Connector sweep: see the wave's connector report. | `.ufo/waves/round-46/build/K46Connector.md` |
+
+## Errata (append-only; a correction never overwrites the line it corrects)
+
+- **E47-1 — round-46 operability row (`SCORECARD.md:1695`).** The row says the declared-claim gate's own `--selftest` went "(8 → 11 cases)" and cites "`corpus/claims-declared.sh` cases 9–11". Against the committed bytes the correct reading is **(8 → 12 cases)**, cases **9–12**: `git show f4a33d3d:corpus/claims-declared.sh | grep -n 'cases" -eq'` → `122: … [ "$cases" -eq 12 ]` (BASE `f5977284` line 102 `-eq 8`); case 12 (`same-claim-second-axis`, reviewer K46RP-02) is at lines 118–121. No score changes; line 1695 keeps its text. Receipt `.ufo/waves/round-47/build/K47ScribeLesson/case-count-check.txt`; lesson `corpus/lessons/round-47.md` M47-1.
+
+## Round 47 — post-move (claims C1 calibration, C2 freshness)
+
+Candidate: the round-47 candidate commit (recorded in the report; this section is written before the candidate's hash is known and names the content it measures). Claim BASE `252ef1cac9f41d84639c0d1f211d0e0911196112`; predeclaration `b020d978bac91284a431710148ebb7a7950eaab8` (frozen plan `plans/round-47.md`, counters `plans/round-47-c1.sh`, `plans/round-47-c2.sh`, pre-freeze controls `plans/round-47-controls.py`, 17 MATCH). Measured receipts: `.ufo/waves/round-47/final/`.
+
+| Axis | Before → after | What moved | Evidence |
+|---|---|---|---|
+| calibration | 9 → 9 | [C1] `bash plans/round-47-c1.sh <candidate>` 0 → 3 (target 3): the lane-local census `bash corpus/sources-census.sh` reads CLEAN (BASE FAILED, 3 findings): `source:` lines in `corpus/lessons/round-43.md` (S094) and `round-44.md` (S099), and an S099 fetch-provenance row bound to the fleet blob `75dd2612:.ufo/prompts/kagi-round-44.md` (capture `.ufo/waves/round-47/capture/S099.body`); registry intact, `used-by` not narrowed. Also: SCORECARD erratum E47-1 above. Critic ruling recorded: weakened as calibration (registry self-description, not a score cell). The three operator-routed reds R25-02, R29-01, R29-02 stay red (untouched this round). | `plans/round-47-c1.sh`; `.ufo/waves/round-47/controls/c1-base.txt` (value 0); `corpus/lessons/round-47.md` §Claims |
+| freshness | 9 → 9 | [C2] `bash plans/round-47-c2.sh <candidate>` 0 → 11 (target 11): the teaching quotes of the eleven fired Vault/OpenBao clock rows S012–S016, S021–S026 located in live captures of 2026-11-06 (`corpus/fired-reverify.tsv`, 11 × `teaching-holds`); release-clock gate CLEAN, clocks not re-armed. Also: S040/S041 overdue recheck `2026-11-05` → `90d` after a live re-open. | `plans/round-47-c2.sh`; `corpus/fired-reverify.tsv`; `.ufo/waves/round-47/build/K47ExecC2/teaching-notes.md` |
+| coverage | 9 → 9 | No claim. | `plans/round-47.md` |
+| depth | 9 → 9 | No claim. | `plans/round-47.md` |
+| operability | 9 → 9 | No claim. QM58 (counters run BASE-pinned instruments) added from M47-3. | `corpus/QUALITY.md` QM58 |
+| adjacency | 9 → 9 | No claim. Connector: no sibling registry row teaches Vault/OpenBao; no sibling census tooling. | `.ufo/waves/round-47/build/K47Connector.md` |

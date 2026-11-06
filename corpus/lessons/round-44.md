@@ -1,3 +1,5 @@
+source: S099 (fleet round-44 prompt §6 item 9 "Claim sizing", own-work, fleet commit 75dd26121698f10cf111120f6cbcd2b2125598f1, sha256 e62e259c8fd3b9d73833865c456786e72ec387a0b20630c15138b4506971b80c, 97077 bytes, re-fetched live 2026-11-06, capture `.ufo/waves/round-47/capture/S099.body`); the counters' committed bytes are the evidence for the rest
+
 # Round 44 — instrument hardening: a counter-mutation battery (C1 calibration), a committed replay-run receipt (C2 operability), a receipt-corrections register (C3 freshness)
 
 Frozen plan: `plans/round-44.md`, predeclaration `ae9e9eb319826a7ded0a47ba2d043c44aa1c3bae` (counters `plans/round-44-c{1,2,3}.sh`, controls runner `plans/round-44-controls.sh`, prefreeze controls `plans/round-44.controls.tsv`, BASE receipts under `.ufo/waves/round-44/controls/`).

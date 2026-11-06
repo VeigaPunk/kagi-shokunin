@@ -1747,3 +1747,16 @@ Candidate: the round-49 candidate commit (recorded in the report; this section i
 | depth | 9 → 9 | No claim. The entry's OpenBao token rows are now measured with review narrowings (K49ReviewerTrial: T5 long-token contrast; T1 refusal text). | `corpus/knowledge/vault-openbao-token-lease-lifecycle.md` §Measured (round 49) |
 | freshness | 9 → 9 | No claim. S016 re-opened live 2026-11-06: rendered-text digest equals the 2026-10-21 capture's; body identical to the round-47 capture. | `corpus/lessons/round-49.md` §Gate |
 | adjacency | 9 → 9 | No claim. Connector: no sibling lane holds OpenBao/Vault token ground. | `.ufo/waves/round-49/build/K49Connector.md` |
+
+## Round 50 — post-move (claims C1 operability, C2 calibration)
+
+Candidate: C1 at `9e4dcbcc8666b22aa871037138826693fa0ba4fa`; C2 at the round-50 C2 commit (recorded in the report and in `.ufo/waves/round-50/final/c2-candidate.txt`, which names the revision it measures). Claim BASE `565c43a874b59cd216f4a55c8742db48fa854f16`; predeclaration `7d3b2c01b375d5459abd7da79bb4063b7d728fc7` (frozen plan `plans/round-50.md`, counters `plans/round-50-c1.sh`, `plans/round-50-c2.sh`, pre-freeze controls `plans/round-50-controls.sh`, 15 MATCH). No amendment. Measured receipts: `.ufo/waves/round-50/final/`.
+
+| Axis | Before → after | What moved | Evidence |
+|---|---|---|---|
+| operability | 9 → 9 | [C1] `bash plans/round-50-c1.sh 9e4dcbcc8666b22aa871037138826693fa0ba4fa` 0 → 3 (target 3; `C1_ORPHAN_SAFE: value=3 positive=1 reaped=0`, survivors 0 at K1, K2 and K3): `corpus/openbao-token-trial.sh` starts its dev server under `setpriv --pdeathsig KILL` (S106, S107), so a SIGKILLed trial shell no longer leaves a `bao server -dev` alive (round-49 closure D4); the round-49 counter still reads 5 on the candidate (POSITIVE). Named ceilings: Linux only; a parent dying between fork and prctl; a double-forked, environment-stripped server is invisible to the counter. | `plans/round-50-c1.sh`; `.ufo/waves/round-50/final/c1-base.txt`, `c1-candidate.txt` |
+| calibration | 9 → 9 | [C2] `bash plans/round-50-c2.sh <C2 commit>`, BASE 10, target 0; measured value in `.ufo/waves/round-50/final/c2-candidate.txt`. Ten population expects (SCORECARD headings R13-01/R24-06, census R21-02/R31-02/R33-02/R34-03, revision-audit additions R22-03/R24-15, stamp identity R24-05, round-38 located quotes R38-01) migrated old→new with a journal whose reasons name the commits that grew each population (`.ufo/waves/round-50/expectation-migrations.json`); the four operator-routed rows R25-02, R29-01, R29-02, R38-03 are byte-identical. Named ceiling: revision-bound populations. | `plans/round-50-c2.sh`; `.ufo/waves/round-50/final/c2-base.txt`, `c2-candidate.txt` |
+| coverage | 9 → 9 | No claim. Registry 105 → 107 (S106 PR_SET_PDEATHSIG(2const), S107 setpriv(1); tier A, used by the trial and the round-50 lesson). | `corpus/SOURCES.md` S106, S107 |
+| depth | 9 → 9 | No claim. | — |
+| freshness | 9 → 9 | No claim. S106/S107 opened live 2026-11-06 and re-fetched byte-identical by the L1. | `corpus/lessons/round-50.md` §Gate |
+| adjacency | 9 → 9 | No claim. The attempt-1 connector seat left no output; no sibling-overlap scan this round. | `.ufo/waves/round-50/build-results.json` |

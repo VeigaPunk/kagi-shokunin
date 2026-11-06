@@ -1860,3 +1860,14 @@ Frozen BASE `655e620`; plan `4767b04` (alone, QM29); plan corrections 1/2 `2d46e
 - C1 candidate: `corpus/openbao-token-trial.sh`; entry `## Measured (round 49 …)` appended; capability row; `PROVINCE.md` core bullet. C2 candidate: ISO entry `Reverify: R21-02` + stamp; README/SKILL/PROVINCE stated counts; ledger R12-03/R14-01 migrations with journal `.ufo/waves/round-49/expectation-migrations.json`; terminal restamp.
 - Curation: S105 (OpenBao PKI API docs, tier A); S016 re-opened (content identical); QM61; mistakes M49-1..M49-3, errata E49-1 in `corpus/lessons/round-49.md`; E48-1 appended to `plans/round-47.md`.
 - Round 49 verdict (L1 reading, for the operator's ruling): see `.ufo/waves/round-49/final/measured-at-candidate.txt`. No axis is re-scored: all six stay 9 → 9.
+
+## Round 50 (2026-11-06) — the OpenBao trial survives a SIGKILLed shell without leaving its dev server behind (C1, operability); the claim ledger agrees with the observed repo state on ten drifted rows (C2, calibration)
+
+- Predeclaration `7d3b2c01b375d5459abd7da79bb4063b7d728fc7` (frozen plan `plans/round-50.md`; counters `plans/round-50-c1.sh`, `plans/round-50-c2.sh`; pre-freeze controls `plans/round-50-controls.sh`, 15 MATCH incl. four C1 and seven C2 forgery/fail-closed controls; BASE receipts `.ufo/waves/round-50/controls/`). No amendment.
+- Attempt 1 (L1 KagiR50) froze the plan, dispatched one v1 build wave of 12 seats and died before landing; the orchestrator kernel restarted mid-wave and 10 of 12 seats left no file (`build-results.json` outputs null; M50-3). Attempt 2 (L1 KagiR50a2) re-verified and landed the inherited C1 change, S106/S107 rows and captures (re-fetched live, byte-identical).
+- Motivating evidence C1: `.ufo/waves/round-49/final/orphan-servers.txt` (8 re-parented `bao server -dev` after the round-49 wave; closure D4). BASE reading `C1_ORPHAN_SAFE: value=0`.
+- Motivating evidence C2: `.ufo/waves/round-50/controls/verify-base.txt` — 10 population expects FAIL `verdict-not-final` (stated 56/98/49/122/5 against live 67/105/61/124/8). BASE reading `C2_LEDGER_DRIFT: value=10`.
+- C1 candidate `9e4dcbcc8666b22aa871037138826693fa0ba4fa`: `corpus/openbao-token-trial.sh` launches the dev server under `setpriv --pdeathsig KILL` and refuses without setpriv. `bash plans/round-50-c1.sh 9e4dcbcc…` → `value=3` (receipt `.ufo/waves/round-50/final/c1-candidate.txt`).
+- C2 candidate: ten ledger expects migrated with journal `.ufo/waves/round-50/expectation-migrations.json` (commit-walk reasons), ledger restamped; receipt `.ufo/waves/round-50/final/c2-candidate.txt`.
+- Curation: S106/S107 (tier A); prctl(2) rejected (cross-reference only); QM62; M50-1..M50-3 and E50-1 in `corpus/lessons/round-50.md`; `PROVINCE.md` round-49 bullet states the gpg/sigstore ceiling (closure D5).
+- No axis is re-scored: all six stay 9 → 9 (L1 reading, for the operator's ruling).

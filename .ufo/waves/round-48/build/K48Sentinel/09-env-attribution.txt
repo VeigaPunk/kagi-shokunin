@@ -1,0 +1,10 @@
+# env-var attribution matrix (reference fixture at 52991e5, pinned binaries)
+none                              -> SOPS_AGE_TRIAL: HOLDS holds=5 broken=0 error=0 sops=3.13.3 age-keygen=v1.3.2
+SOPS_CONFIG=<file>                -> SOPS_AGE_TRIAL: BROKEN holds=2 broken=3 error=0 sops=3.13.3 age-keygen=v1.3.2
+SOPS_ENABLE_LOCAL_KEYSERVICE=false -> SETUP holds=0 broken=0 error=5 (see 07)
+SOPS_AGE_KEY_CMD=<script>         -> HOLDS 5 (unset works)
+SOPS_AGE_KEY_FILE=<decoy>         -> SOPS_AGE_TRIAL: HOLDS holds=5 broken=0 error=0 sops=3.13.3 age-keygen=v1.3.2
+SOPS_KEYSERVICE=<path>            -> HOLDS 5
+SOPS_DECRYPTION_ORDER=age         -> HOLDS 5
+SOPS_GPG_EXEC=<script>            -> HOLDS 5
+SOPS_EDITOR=<script>              -> HOLDS 5

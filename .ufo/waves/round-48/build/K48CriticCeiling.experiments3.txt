@@ -1,0 +1,51 @@
+=== E7: key groups [A],[B] t=2; config -> [A]; updatekeys with the NEW set only (A) ===
+-- updatekeys --yes, SOPS_AGE_KEY_FILE=a.key:
+2026/11/06 17:21:48 Syncing keys for file /fast/scratch/hyaku/kagi-r48/K48CriticCeiling/e7/f.yaml
+The following changes will be made to the file's groups:
++++ shamir_threshold: 1
+--- shamir_threshold: 2
+Group 1
+    age1wuxptths46s95qqd8ycwzy7d5ygyhppxg54057mh5yrsfpf5jczssey7m7
+Group 2
+--- age1czfhczk3dapj3f87clcq3mr77kc68eeq8rdmnmwpl3fu5j44qqfqeaex9g
+Failed to get the data key required to decrypt the SOPS file.
+
+Group 0: SUCCESS
+
+Group 1: FAILED
+
+Recovery failed because the file was encrypted with a Shamir threshold of
+2, but only 1 part(s) were successfully recovered, one for each successful
+key group. In order for SOPS to recover the file, at least 2 groups have to
+be successful. In order for a group to be successful, decryption has to
+succeed with any of the keys in that key group.
+rc=128
+-- threshold after: 2
+-- A+B still decrypt (compromised key retains access):
+rc=0
+
+=== E8: same file class; updatekeys with the OLD set (A+B) ===
+-- updatekeys --yes, SOPS_AGE_KEY_FILE=ab.key:
+Group 2
+--- age1a2kx3afpc0y3l5cx6kskjugawwsq7sx07xeq40n5z9qj46hl43vs3edcax
+2026/11/06 17:21:48 File /fast/scratch/hyaku/kagi-r48/K48CriticCeiling/e8/f.yaml synced with new keys
+rc=0
+-- threshold after: 1
+-- values unchanged by updatekeys: yes
+-- A alone decrypts after: 
+rc=0
+-- B alone refused after: 
+rc=128
+
+=== E9: replacement [A],[B] -> [A],[C]; updatekeys with new-only (A+C) vs all three (A+B+C) ===
+-- new-only A+C:
+Recovery failed because the file was encrypted with a Shamir threshold of
+rc=128
+-- all three A+B+C:
+--- age1xdpz5pdtfrjvuaenngvx2tc7d96sggzktr07u32tx2d0jdmnt4vq292gnh
+2026/11/06 17:21:48 File /fast/scratch/hyaku/kagi-r48/K48CriticCeiling/e9/f.yaml synced with new keys
+rc=0
+-- B refused after: 
+rc=128
+-- A+C decrypts after: 
+rc=0

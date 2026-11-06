@@ -1,0 +1,17 @@
+# fetch-log.tsv — K48ScoutSources, round 48, seat K48ScoutSources
+# Five public web reads (no form posts, no writes to any remote). Fetched 2026-11-06.
+# Command per row: curl -sSL --compressed -A 'Mozilla/5.0' -o <out> -w '%{http_code}' <url>
+# sha256 is over the decoded (--compressed) response body as saved; bytes is the body length.
+# The three getsops.io rows reproduce the committed corpus/source-fetches.tsv capture digests
+# byte-for-byte (S009/S010/S011 raw sha256 + byte count), so the docs pages are unchanged.
+#
+# date-utc	http	bytes	sha256	url	local-body
+2026-11-06T20:20:01Z	200	29301	a840727ea1a8faa05e547f59766f608cbff81b28a66d1507a614d18d25b50b76	https://getsops.io/docs/usage/identities/age/	bodies/age-identities.html
+2026-11-06T20:20:03Z	200	36366	fed6b2e145246ebcd2de4d8133945a8cb744331a20f5ef509980b77ef112192e	https://getsops.io/docs/usage/identities/key-groups/	bodies/key-groups.html
+2026-11-06T20:20:06Z	200	33153	d0ab8b201f1a6d5f5751e1f261f904822492c530bdcdc5a4db9a8e178c2e180c	https://getsops.io/docs/usage/key-management/	bodies/key-management.html
+2026-11-06T20:20:06Z	200	177580	52d588dc1d68733699af82dd37bac3ce0bb5539dddf2a39fbfea5fb1e3b15026	https://github.com/getsops/sops/releases/tag/v3.13.3	bodies/sops-v3.13.3.html
+2026-11-06T20:20:08Z	200	154312	3c0ebda1384bf1f70c8daf47d18d864541bfa062c1a0fc11fc2f677f4ae79a9b	https://github.com/FiloSottile/age/releases/tag/v1.3.2	bodies/age-v1.3.2.html
+
+# Supplementary asset listings (read-only, same clock minute; NOT one of the five rows above)
+2026-11-06T20:21:52Z	200	88705	6a432824014da8cd9a764b52707b0edda1a7896c3caf21bf3598aaec1709edfa	https://github.com/getsops/sops/releases/expanded_assets/v3.13.3	bodies/assets-getsops-sops-v3.13.3.html
+2026-11-06T20:21:52Z	200	76869	35b8ed1e90e05199e316500c823e9c3a6e9142f789cc54f297b0f9afbe3dfcb4	https://github.com/FiloSottile/age/releases/expanded_assets/v1.3.2	bodies/assets-FiloSottile-age-v1.3.2.html

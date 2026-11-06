@@ -1,0 +1,139 @@
+CMD: bash -n /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-48/build/K48ExecTrial/sops-age-trial.sh
+RC: 0
+LAST: 
+
+CMD: shellcheck -S style /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-48/build/K48ExecTrial/sops-age-trial.sh
+RC: 0
+LAST: 
+
+CMD: env -i HOME=/fast/scratch/hyaku/kagi-r48/K48ExecTrial/h PATH=/home/vgpnk/.local/bin:/usr/bin:/bin TMPDIR=/fast/scratch/hyaku/kagi-r48/K48ExecTrial bash /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-48/build/K48ExecTrial/sops-age-trial.sh --work /fast/scratch/hyaku/kagi-r48/K48ExecTrial
+RC: 0
+LAST: SOPS_AGE_TRIAL: HOLDS holds=5 broken=0 error=0 sops=3.13.3 age-keygen=v1.3.2
+
+CMD: env -i HOME=/fast/scratch/hyaku/kagi-r48/K48ExecTrial/h PATH=/usr/bin:/bin TMPDIR=/fast/scratch/hyaku/kagi-r48/K48ExecTrial bash /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-48/build/K48ExecTrial/sops-age-trial.sh --work /fast/scratch/hyaku/kagi-r48/K48ExecTrial (no sops)
+RC: 2
+LAST: SOPS_AGE_TRIAL: SETUP holds=0 broken=0 error=0 reason=sops-not-on-PATH
+
+CMD: env -i ... SOPS_CONFIG=/fast/scratch/hyaku/kagi-r48/K48ExecTrial/hostile/sops.yaml bash /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-48/build/K48ExecTrial/sops-age-trial.sh --work /fast/scratch/hyaku/kagi-r48/K48ExecTrial
+RC: 0
+LAST: SOPS_AGE_TRIAL: HOLDS holds=5 broken=0 error=0 sops=3.13.3 age-keygen=v1.3.2
+
+CMD: env -i ... SOPS_ENABLE_LOCAL_KEYSERVICE=false bash /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-48/build/K48ExecTrial/sops-age-trial.sh --work /fast/scratch/hyaku/kagi-r48/K48ExecTrial
+RC: 0
+LAST: SOPS_AGE_TRIAL: HOLDS holds=5 broken=0 error=0 sops=3.13.3 age-keygen=v1.3.2
+
+CMD: bash /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-48-c1.sh --tree /fast/scratch/hyaku/kagi-r48/K48ExecTrial/tree (hardened)
+RC: 0
+LAST: C1_SOPS_AGE_TRIAL: value=5 discriminating=5 pins=1 setup_ok=1 nosecret=1 real_rc=0 none_rc=2 T1:real=HOLDS,shim=BROKEN,entry=1,ok=1 T2:real=HOLDS,shim=BROKEN,entry=1,ok=1 T3:real=HOLDS,shim=BROKEN,entry=1,ok=1 T4:real=HOLDS,shim=BROKEN,entry=1,ok=1 T5:real=HOLDS,shim=BROKEN,entry=1,ok=1
+
+CMD: bash /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-48-c1.sh --tree /fast/scratch/hyaku/kagi-r48/K48ExecTrial/reftree (frozen fixture)
+RC: 0
+LAST: C1_SOPS_AGE_TRIAL: value=5 discriminating=5 pins=1 setup_ok=1 nosecret=1 real_rc=0 none_rc=2 T1:real=HOLDS,shim=BROKEN,entry=1,ok=1 T2:real=HOLDS,shim=BROKEN,entry=1,ok=1 T3:real=HOLDS,shim=BROKEN,entry=1,ok=1 T4:real=HOLDS,shim=BROKEN,entry=1,ok=1 T5:real=HOLDS,shim=BROKEN,entry=1,ok=1
+
+CMD: env -i ... bash /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-48/build/K48ExecTrial/sops-age-trial.sh --work /fast/scratch/hyaku/kagi-r48/K48ExecTrial/does-not-exist
+RC: 2
+LAST: SOPS_AGE_TRIAL: SETUP holds=0 broken=0 error=0 reason=work-parent-missing
+
+CMD: env -i ... bash /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-48/build/K48ExecTrial/sops-age-trial.sh --work /fast/scratch/hyaku/kagi-r48/K48ExecTrial/afile (file)
+RC: 2
+LAST: SOPS_AGE_TRIAL: SETUP holds=0 broken=0 error=0 reason=work-parent-missing
+
+CMD: env -i HOME=/fast/scratch/hyaku/kagi-r48/K48ExecTrial/h PATH=/home/vgpnk/.local/bin:/usr/bin:/bin TMPDIR=/fast/scratch/hyaku/kagi-r48/K48ExecTrial bash /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-48/build/K48ExecTrial/sops-age-trial.sh --work /fast/scratch/hyaku/kagi-r48/K48ExecTrial
+RC: 0
+LAST: SOPS_AGE_TRIAL: HOLDS holds=5 broken=0 error=0 sops=3.13.3 age-keygen=v1.3.2
+
+CMD: env -i HOME=/fast/scratch/hyaku/kagi-r48/K48ExecTrial/h PATH=/usr/bin:/bin TMPDIR=/fast/scratch/hyaku/kagi-r48/K48ExecTrial bash /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-48/build/K48ExecTrial/sops-age-trial.sh --work /fast/scratch/hyaku/kagi-r48/K48ExecTrial (no sops)
+RC: 2
+LAST: SOPS_AGE_TRIAL: SETUP holds=0 broken=0 error=0 reason=sops-not-on-PATH
+
+CMD: env -i ... SOPS_CONFIG=/fast/scratch/hyaku/kagi-r48/K48ExecTrial/hostile/sops.yaml bash /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-48/build/K48ExecTrial/sops-age-trial.sh --work /fast/scratch/hyaku/kagi-r48/K48ExecTrial
+RC: 0
+LAST: SOPS_AGE_TRIAL: HOLDS holds=5 broken=0 error=0 sops=3.13.3 age-keygen=v1.3.2
+
+CMD: env -i ... SOPS_ENABLE_LOCAL_KEYSERVICE=false bash /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-48/build/K48ExecTrial/sops-age-trial.sh --work /fast/scratch/hyaku/kagi-r48/K48ExecTrial
+RC: 0
+LAST: SOPS_AGE_TRIAL: HOLDS holds=5 broken=0 error=0 sops=3.13.3 age-keygen=v1.3.2
+
+CMD: bash /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-48-c1.sh --tree /fast/scratch/hyaku/kagi-r48/K48ExecTrial/tree (hardened)
+RC: 0
+LAST: C1_SOPS_AGE_TRIAL: value=5 discriminating=5 pins=1 setup_ok=1 nosecret=1 real_rc=0 none_rc=2 T1:real=HOLDS,shim=BROKEN,entry=1,ok=1 T2:real=HOLDS,shim=BROKEN,entry=1,ok=1 T3:real=HOLDS,shim=BROKEN,entry=1,ok=1 T4:real=HOLDS,shim=BROKEN,entry=1,ok=1 T5:real=HOLDS,shim=BROKEN,entry=1,ok=1
+
+CMD: bash /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-48-c1.sh --tree /fast/scratch/hyaku/kagi-r48/K48ExecTrial/reftree (frozen fixture)
+RC: 0
+LAST: C1_SOPS_AGE_TRIAL: value=5 discriminating=5 pins=1 setup_ok=1 nosecret=1 real_rc=0 none_rc=2 T1:real=HOLDS,shim=BROKEN,entry=1,ok=1 T2:real=HOLDS,shim=BROKEN,entry=1,ok=1 T3:real=HOLDS,shim=BROKEN,entry=1,ok=1 T4:real=HOLDS,shim=BROKEN,entry=1,ok=1 T5:real=HOLDS,shim=BROKEN,entry=1,ok=1
+
+===== FULL STDOUT: direct run =====
+TRIAL T1 HOLDS updatekeys-rc=0 added-recipient-decrypts=yes values-unchanged=yes mac-unchanged=yes
+TRIAL T2 HOLDS rotate-rc=0 both-values-reencrypted=yes plaintext-unchanged=yes
+TRIAL T3 HOLDS removed-recipient-on-synced-file=refused removed-recipient-on-old-copy=decrypts values-unchanged=yes
+TRIAL T4 HOLDS rules-edit-only=refused file-unchanged=yes after-updatekeys=decrypts
+TRIAL T5 HOLDS groups=2 shamir_threshold=2 single-group=refused both-groups=decrypts
+SOPS_AGE_TRIAL: HOLDS holds=5 broken=0 error=0 sops=3.13.3 age-keygen=v1.3.2
+===== FULL STDOUT: no-sops run =====
+SOPS_AGE_TRIAL: SETUP holds=0 broken=0 error=0 reason=sops-not-on-PATH
+===== FULL STDOUT: SOPS_CONFIG hostile run =====
+TRIAL T1 HOLDS updatekeys-rc=0 added-recipient-decrypts=yes values-unchanged=yes mac-unchanged=yes
+TRIAL T2 HOLDS rotate-rc=0 both-values-reencrypted=yes plaintext-unchanged=yes
+TRIAL T3 HOLDS removed-recipient-on-synced-file=refused removed-recipient-on-old-copy=decrypts values-unchanged=yes
+TRIAL T4 HOLDS rules-edit-only=refused file-unchanged=yes after-updatekeys=decrypts
+TRIAL T5 HOLDS groups=2 shamir_threshold=2 single-group=refused both-groups=decrypts
+SOPS_AGE_TRIAL: HOLDS holds=5 broken=0 error=0 sops=3.13.3 age-keygen=v1.3.2
+===== FULL STDOUT: SOPS_ENABLE_LOCAL_KEYSERVICE=false run =====
+TRIAL T1 HOLDS updatekeys-rc=0 added-recipient-decrypts=yes values-unchanged=yes mac-unchanged=yes
+TRIAL T2 HOLDS rotate-rc=0 both-values-reencrypted=yes plaintext-unchanged=yes
+TRIAL T3 HOLDS removed-recipient-on-synced-file=refused removed-recipient-on-old-copy=decrypts values-unchanged=yes
+TRIAL T4 HOLDS rules-edit-only=refused file-unchanged=yes after-updatekeys=decrypts
+TRIAL T5 HOLDS groups=2 shamir_threshold=2 single-group=refused both-groups=decrypts
+SOPS_AGE_TRIAL: HOLDS holds=5 broken=0 error=0 sops=3.13.3 age-keygen=v1.3.2
+===== FULL STDOUT: counter (hardened tree) =====
+C1_SOPS_AGE_TRIAL: value=5 discriminating=5 pins=1 setup_ok=1 nosecret=1 real_rc=0 none_rc=2 T1:real=HOLDS,shim=BROKEN,entry=1,ok=1 T2:real=HOLDS,shim=BROKEN,entry=1,ok=1 T3:real=HOLDS,shim=BROKEN,entry=1,ok=1 T4:real=HOLDS,shim=BROKEN,entry=1,ok=1 T5:real=HOLDS,shim=BROKEN,entry=1,ok=1
+===== FULL STDOUT: counter (frozen fixture tree) =====
+C1_SOPS_AGE_TRIAL: value=5 discriminating=5 pins=1 setup_ok=1 nosecret=1 real_rc=0 none_rc=2 T1:real=HOLDS,shim=BROKEN,entry=1,ok=1 T2:real=HOLDS,shim=BROKEN,entry=1,ok=1 T3:real=HOLDS,shim=BROKEN,entry=1,ok=1 T4:real=HOLDS,shim=BROKEN,entry=1,ok=1 T5:real=HOLDS,shim=BROKEN,entry=1,ok=1
+===== STDERR (all runs; empty means none) =====
+===== SCRATCH RESIDUE after runs =====
+CMD: diff -u /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-48/controls/fixtures/ref-sops-age-trial.sh /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-48/build/K48ExecTrial/sops-age-trial.sh > /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-48/build/K48ExecTrial/diff-vs-ref.patch
+RC: 1
+LAST: +  "$holds" "$sops_ver" "$age_ver"; exit 0
+
+===== POST-MEASUREMENT RE-CHECKS on the saved final bytes =====
+CMD: bash -n /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-48/build/K48ExecTrial/sops-age-trial.sh
+RC: 0
+LAST: 
+
+CMD: shellcheck -S style /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-48/build/K48ExecTrial/sops-age-trial.sh
+RC: 0
+LAST: 
+
+09f304ecaaeba7a43626e1de433bba003daf38bd410a4a15d3e9334cb276da37  /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-48/build/K48ExecTrial/sops-age-trial.sh
+236 /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-48/build/K48ExecTrial/sops-age-trial.sh
+12120 /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-48/build/K48ExecTrial/sops-age-trial.sh
+===== SECRET-SHAPED SCAN over the saved deliverables + seat report =====
+grep -Rc AGE-SECRET-KEY[-]1 :  (bracket form = identical match; keeps the literal out of this artifact)
+/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-48/build/K48ExecTrial/diff-vs-ref.patch:0
+/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-48/build/K48ExecTrial/note.md:0
+/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-48/build/K48ExecTrial/receipts.txt:1
+/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-48/build/K48ExecTrial/sops-age-trial.sh:0
+/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-48/build/K48ExecTrial.md:1
+grep -REc AGE-SECRET-KEY[-]1[0-9A-Z]{58} :  (bracket form = identical match)
+/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-48/build/K48ExecTrial/diff-vs-ref.patch:0
+/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-48/build/K48ExecTrial/note.md:0
+/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-48/build/K48ExecTrial/receipts.txt:0
+/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-48/build/K48ExecTrial/sops-age-trial.sh:0
+/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-48/build/K48ExecTrial.md:0
+(no match)
+===== DELIVERABLE LISTING =====
+-rw-r--r-- 1 vgpnk vgpnk 4624 Nov  6 17:24 /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-48/build/K48ExecTrial.md
+
+/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-48/build/K48ExecTrial:
+total 40
+drwxr-xr-x 1 vgpnk vgpnk   106 Nov  6 17:24 .
+drwxr-xr-x 1 vgpnk vgpnk   818 Nov  6 17:24 ..
+-rw-r--r-- 1 vgpnk vgpnk  9040 Nov  6 17:23 diff-vs-ref.patch
+-rw-r--r-- 1 vgpnk vgpnk  1874 Nov  6 17:24 note.md
+-rw-r--r-- 1 vgpnk vgpnk 10418 Nov  6 17:24 receipts.txt
+-rwxr-xr-x 1 vgpnk vgpnk 12120 Nov  6 17:22 sops-age-trial.sh
+===== FINAL SECRET-SHAPED SCAN (post-edit; bracket-form patterns) =====
+files scanned: sops-age-trial.sh, diff-vs-ref.patch, note.md, receipts.txt, K48ExecTrial.md
+NOTE: the earlier K48ExecTrial.md:1 count was the report quoting this scan command; the pattern is now written in bracket form in every artifact, so no file carries the literal prefix.
+literal-prefix pattern in bracket form -> no match in any saved file (rc=1)
+full-identity ERE in bracket form -> no match in any saved file (rc=1)

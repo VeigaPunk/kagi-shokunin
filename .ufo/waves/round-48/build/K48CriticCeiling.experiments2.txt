@@ -1,0 +1,54 @@
+=== E5: key-group REPLACEMENT (group2: B -> C) then updatekeys ===
+-- updatekeys --yes with A+C identities:
+2026/11/06 17:21:31 Syncing keys for file /fast/scratch/hyaku/kagi-r48/K48CriticCeiling/e5/f.yaml
+The following changes will be made to the file's groups:
+shamir_threshold: 2
+Group 1
+    age1seua3azcxfnrgafthrvvekjfr254qky5d4dh80uagv6mdq4kwe3qagp3r8
+Group 2
++++ age13ut35gddx98w2t2jegnl3ghuzkx4e2ueel87p9lp9whh4ms07yfsue6na6
+--- age1x5htyrwv2896x0c3r438tgmen7e5un33k8lkyymhd0de6csc7yjst3sruj
+Failed to get the data key required to decrypt the SOPS file.
+
+Group 0: SUCCESS
+
+Group 1: FAILED
+  age1x5htyrwv2896x0c3r438tgmen7e5un33k8lkyymhd0de6csc7yjst3sruj: FAILED
+    - | failed to create reader for decrypting sops data key with
+      | age: no identity matched any of the recipients. Did not find
+      | keys in locations 'SOPS_AGE_SSH_PRIVATE_KEY_FILE',
+      | 'SOPS_AGE_SSH_PRIVATE_KEY_CMD',
+      | '/fast/scratch/hyaku/kagi-r48/K48CriticCeiling/home/.ssh/id_ed25519',
+      | '/fast/scratch/hyaku/kagi-r48/K48CriticCeiling/home/.ssh/id_rsa',
+      | 'SOPS_AGE_KEY', and 'SOPS_AGE_KEY_CMD'.
+
+Recovery failed because the file was encrypted with a Shamir threshold of
+2, but only 1 part(s) were successfully recovered, one for each successful
+key group. In order for SOPS to recover the file, at least 2 groups have to
+be successful. In order for a group to be successful, decryption has to
+succeed with any of the keys in that key group.
+rc=128
+-- threshold after:
+    shamir_threshold: 2
+-- k-lines unchanged by updatekeys (data key kept): yes
+-- decrypt with A+C:
+rc=128
+-- decrypt with B (removed) + C:
+rc=128
+-- decrypt with A+C after would-be rotate:
+
+=== E6: can rotate rescue the failed group removal? (E3 state, config [A], identities A+B) ===
+cp: 'a.key' and './a.key' are the same file
+cp: 'b.key' and './b.key' are the same file
+-- updatekeys first:
+--- age1nu65ft06yekevcn424hr5aaqhkhgtquzuayjhqmlmattqyajf9ysjnz4yh
+2026/11/06 17:21:31 File /fast/scratch/hyaku/kagi-r48/K48CriticCeiling/e6/f.yaml synced with new keys
+rc=0
+-- file unchanged? threshold:
+    shamir_threshold: 1
+-- now rotate -i with A+B identities:
+rc=0
+-- threshold/group keys after rotate:
+    shamir_threshold: 1
+-- decrypt A+B after rotate:
+rc=0

@@ -1,0 +1,7 @@
+# reference trial alone: .ufo/waves/round-48/controls/fixtures/ (12,028 bytes)
+$ gitleaks detect --no-git -s .ufo/waves/round-48/controls/fixtures -v
+5:25PM INF scanned ~12028 bytes (12.03 KB) in 111ms
+5:25PM INF no leaks found
+rc=0 (no leaks found)
+$ grep -nE AGE-SECRET-KEY-1[0-9A-Z]{58} ref-sops-age-trial.sh
+no output, rc=1

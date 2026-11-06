@@ -1,0 +1,3 @@
+# detector calibration: a synthetic full-shaped canary must trip both detectors
+grep -rnE 'AGE-SECRET-KEY-1[0-9A-Z]{58}' canary/ -> match, rc=0
+gitleaks detect --no-git -s canary/ -v -> RuleID: age-secret-key, rc=1

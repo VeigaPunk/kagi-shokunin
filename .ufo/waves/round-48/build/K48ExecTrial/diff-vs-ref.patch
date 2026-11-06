@@ -1,0 +1,180 @@
+--- /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-48/controls/fixtures/ref-sops-age-trial.sh	2026-11-06 17:08:10.747749527 -0300
++++ /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-48/build/K48ExecTrial/sops-age-trial.sh	2026-11-06 17:22:35.523127398 -0300
+@@ -3,9 +3,9 @@
+ # corpus/knowledge/sops-age-key-rotation.md documents, against the `sops` and `age-keygen`
+ # found on PATH, with throwaway identities and synthetic plaintext in a scratch directory.
+ #
+-# Refusal bounds: never reads ~/.config/sops, ~/.ssh, any SOPS_AGE_* variable of the caller,
+-# any vault, `op`, or a real secret. HOME/XDG are scratch; every identity is generated here and
+-# deleted on exit; no private key, plaintext or ciphertext is printed.
++# Refusal bounds: never reads ~/.config/sops, ~/.ssh, any SOPS_* variable of the caller,
++# any vault, `op`, or a real secret. HOME/XDG/TMPDIR are scratch; every identity is generated
++# here and deleted on exit; no private key, plaintext or ciphertext is printed.
+ #
+ # Tests (each runs in its own subdirectory; identities A and B):
+ #   T1 updatekeys-add   S011 §rotate: "Use updatekeys if you want to add a key without rotating
+@@ -28,51 +28,109 @@
+ #   SOPS_AGE_TRIAL: HOLDS|BROKEN|SETUP holds=<n> broken=<n> error=<n> sops=<ver> age-keygen=<ver>
+ # Exit 0 all HOLDS, 1 any BROKEN (no ERROR), 2 SETUP (tool missing, scratch failure, any ERROR).
+ set -u
++set -o pipefail
++umask 077
++export LC_ALL=C
++
++usage() {
++  cat <<'EOF'
++usage: sops-age-trial.sh [--work DIR]
++
++Runs five SOPS/age access and rotation tests (T1 updatekeys-add, T2 rotate,
++T3 updatekeys-rm, T4 rules-only, T5 group-threshold) with throwaway age
++identities and synthetic plaintext. All scratch state (identities, HOME,
++XDG, TMPDIR, encrypted fixtures) lives under a fresh mktemp directory below
++DIR and is removed on exit.
++
++Options:
++  --work DIR   existing parent directory for the scratch directory
++               (default: $TMPDIR, else /tmp)
++  -h, --help   print this help and exit 0
++
++Output: one `TRIAL T<n> HOLDS|BROKEN|ERROR <detail>` line per test, then
++  SOPS_AGE_TRIAL: HOLDS|BROKEN|SETUP holds=<n> broken=<n> error=<n> sops=<ver> age-keygen=<ver>
++Exit: 0 all HOLDS, 1 any BROKEN (no ERROR), 2 SETUP (missing tool, scratch
++      failure, any ERROR). No private key, plaintext or ciphertext is printed.
++EOF
++}
++
++die_usage() {
++  printf 'usage: %s [--work DIR]\n' "$0" >&2
++  exit 2
++}
+ 
+ WORK_PARENT=""
+ while [ $# -gt 0 ]; do
+   case "$1" in
+-    --work) WORK_PARENT="${2:-}"; shift 2 ;;
+-    -h|--help) sed -n '2,34p' "$0"; exit 0 ;;
+-    *) echo "usage: $0 [--work DIR]" >&2; exit 2 ;;
++    --work)
++      if [ $# -lt 2 ] || [ -z "${2:-}" ]; then die_usage; fi
++      WORK_PARENT=$2; shift 2 ;;
++    --work=*)
++      WORK_PARENT=${1#--work=}
++      if [ -z "$WORK_PARENT" ]; then die_usage; fi
++      shift ;;
++    -h|--help) usage; exit 0 ;;
++    *) die_usage ;;
+   esac
+ done
+ 
+-setup_fail() { echo "SOPS_AGE_TRIAL: SETUP holds=0 broken=0 error=0 reason=$1"; exit 2; }
++setup_fail() {
++  printf 'SOPS_AGE_TRIAL: SETUP holds=0 broken=0 error=0 reason=%s\n' "$1"
++  exit 2
++}
+ 
+ command -v sops >/dev/null 2>&1 || setup_fail "sops-not-on-PATH"
+ command -v age-keygen >/dev/null 2>&1 || setup_fail "age-keygen-not-on-PATH"
+ 
+-parent="${WORK_PARENT:-${TMPDIR:-/tmp}}"
++parent=${WORK_PARENT:-${TMPDIR:-/tmp}}
++[ -n "$parent" ] || setup_fail "work-parent-missing"
++parent=$(cd -- "$parent" 2>/dev/null && pwd -P) || setup_fail "work-parent-missing"
++case "$parent" in /*) ;; *) setup_fail "work-parent-missing" ;; esac
+ [ -d "$parent" ] || setup_fail "work-parent-missing"
+ W=$(mktemp -d "$parent/sops-age-trial.XXXXXX") || setup_fail "mktemp"
+ case "$W" in "$parent"/sops-age-trial.*) ;; *) setup_fail "mktemp-path" ;; esac
++[ -d "$W" ] || setup_fail "mktemp-path"
++chmod 700 "$W" || setup_fail "mktemp-mode"
+ trap 'rm -rf -- "$W"' EXIT
++trap 'printf "SOPS_AGE_TRIAL: SETUP holds=0 broken=0 error=0 reason=interrupted\n"; exit 2' INT HUP TERM
+ 
+-unset SOPS_AGE_KEY SOPS_AGE_KEY_FILE SOPS_AGE_KEY_CMD SOPS_AGE_SSH_PRIVATE_KEY_FILE \
++# Scrub every SOPS_* variable the caller may carry (prefix sweep plus the documented names).
++sops_vars=$(compgen -v | grep -E '^SOPS_' || true)
++while IFS= read -r v; do
++  [ -n "$v" ] && unset "$v"
++done <<< "$sops_vars"
++unset SOPS_CONFIG SOPS_AGE_KEY SOPS_AGE_KEY_FILE SOPS_AGE_KEY_CMD SOPS_AGE_SSH_PRIVATE_KEY_FILE \
+       SOPS_AGE_SSH_PRIVATE_KEY_CMD SOPS_AGE_RECIPIENTS SOPS_PGP_FP SOPS_KMS_ARN SOPS_GCP_KMS_IDS \
+-      SOPS_AZURE_KEYVAULT_URLS SOPS_VAULT_URIS SOPS_HC_VAULT_URIS
+-export HOME="$W/home" XDG_CONFIG_HOME="$W/home/.config" SOPS_DISABLE_VERSION_CHECK=1
+-mkdir -p "$HOME" || setup_fail "home"
++      SOPS_AZURE_KEYVAULT_URLS SOPS_VAULT_URIS SOPS_HC_VAULT_URIS 2>/dev/null || true
+ 
++export HOME="$W/home" XDG_CONFIG_HOME="$W/home/.config" XDG_CACHE_HOME="$W/home/.cache"
++export TMPDIR="$W/tmp" SOPS_DISABLE_VERSION_CHECK=1
++mkdir -p -- "$HOME" "$TMPDIR" || setup_fail "home"
++
+ sops_ver=$(sops --version --disable-version-check 2>/dev/null | awk 'NR==1{print $2}')
+ age_ver=$(age-keygen --version 2>/dev/null | awk 'NR==1{print $1}')
+ [ -n "$sops_ver" ] || setup_fail "sops-version-unreadable"
++[ -n "$age_ver" ] || setup_fail "age-keygen-version-unreadable"
+ 
+-cd "$W" || setup_fail "cd"
++cd -- "$W" || setup_fail "cd"
+ age-keygen -o "$W/a.key" >/dev/null 2>&1 || setup_fail "keygen-a"
+ age-keygen -o "$W/b.key" >/dev/null 2>&1 || setup_fail "keygen-b"
+-cat "$W/a.key" "$W/b.key" > "$W/ab.key"
+-A=$(age-keygen -y "$W/a.key") || setup_fail "pub-a"
+-B=$(age-keygen -y "$W/b.key") || setup_fail "pub-b"
++[ -s "$W/a.key" ] && [ -s "$W/b.key" ] || setup_fail "keygen-empty"
++cat -- "$W/a.key" "$W/b.key" > "$W/ab.key" || setup_fail "keygen-ab"
++A=$(age-keygen -y "$W/a.key" 2>/dev/null) || setup_fail "pub-a"
++B=$(age-keygen -y "$W/b.key" 2>/dev/null) || setup_fail "pub-b"
++case "$A" in age1*) ;; *) setup_fail "pub-shape-a" ;; esac
++case "$B" in age1*) ;; *) setup_fail "pub-shape-b" ;; esac
+ case "$A$B" in *AGE-SECRET-KEY*) setup_fail "pub-shape" ;; esac
+ 
+-printf 'k1: synthetic-trial-value-one\nk2: synthetic-trial-value-two\n' > "$W/plain.yaml"
++printf 'k1: synthetic-trial-value-one\nk2: synthetic-trial-value-two\n' > "$W/plain.yaml" \
++  || setup_fail "plaintext"
+ PLAIN_SHA=$(sha256sum < "$W/plain.yaml" | cut -d' ' -f1)
++[ -n "$PLAIN_SHA" ] || setup_fail "plaintext-sha"
+ 
+ holds=0; broken=0; errors=0
+ report() { # id verdict detail
+-  echo "TRIAL $1 $2 $3"
++  printf 'TRIAL %s %s %s\n' "$1" "$2" "$3"
+   case "$2" in HOLDS) holds=$((holds+1)) ;; BROKEN) broken=$((broken+1)) ;; *) errors=$((errors+1)) ;; esac
+ }
+ vals() { grep -E '^k[12]: ' "$1" | sha256sum | cut -d' ' -f1; }
+@@ -84,6 +142,7 @@
+   local d="$1"; shift; local IFS=,
+   printf 'creation_rules:\n  - path_regex: f\\.yaml$\n    age: "%s"\n' "$*" > "$d/.sops.yaml"; }
+ enc() { # dir recipients-csv
++  # shellcheck disable=SC2094 # reads $W/plain.yaml, writes ./f.yaml: distinct files
+   ( cd "$1" && sops encrypt --age "$2" --filename-override f.yaml "$W/plain.yaml" > f.yaml ) 2>/dev/null \
+     && grep -q '^k1: ENC\[' "$1/f.yaml"; }
+ 
+@@ -119,7 +178,7 @@
+ # T3 — updatekeys removal revokes the synced file only; the data key is kept
+ d="$W/t3"; mkdir -p "$d"
+ if ! enc "$d" "$A,$B"; then report T3 ERROR "encrypt-failed"; else
+-  cp "$d/f.yaml" "$d/old.yaml"; v0=$(vals "$d/f.yaml")
++  cp -- "$d/f.yaml" "$d/old.yaml"; v0=$(vals "$d/f.yaml")
+   dec "$W/b.key" "$d/old.yaml"; pre=$?
+   rules "$d" "$A"
+   ( cd "$d" && SOPS_AGE_KEY_FILE="$W/a.key" sops updatekeys -y f.yaml ) >/dev/null 2>&1; urc=$?
+@@ -152,6 +211,7 @@
+ # T5 — with key groups the default threshold is the number of groups
+ d="$W/t5"; mkdir -p "$d"
+ printf 'creation_rules:\n  - path_regex: f\\.yaml$\n    key_groups:\n      - age: ["%s"]\n      - age: ["%s"]\n' "$A" "$B" > "$d/.sops.yaml"
++# shellcheck disable=SC2094 # reads $W/plain.yaml, writes ./f.yaml: distinct files
+ if ! ( cd "$d" && sops encrypt --filename-override f.yaml "$W/plain.yaml" > f.yaml ) 2>/dev/null \
+    || ! grep -q '^k1: ENC\[' "$d/f.yaml"; then report T5 ERROR "encrypt-failed"; else
+   thr=$(grep -E '^[[:space:]]+shamir_threshold: ' "$d/f.yaml" | awk '{print $2}')
+@@ -166,8 +226,11 @@
+ fi
+ 
+ if [ $errors -gt 0 ]; then
+-  echo "SOPS_AGE_TRIAL: SETUP holds=$holds broken=$broken error=$errors sops=$sops_ver age-keygen=$age_ver"; exit 2
++  printf 'SOPS_AGE_TRIAL: SETUP holds=%s broken=%s error=%s sops=%s age-keygen=%s\n' \
++    "$holds" "$broken" "$errors" "$sops_ver" "$age_ver"; exit 2
+ elif [ $broken -gt 0 ]; then
+-  echo "SOPS_AGE_TRIAL: BROKEN holds=$holds broken=$broken error=0 sops=$sops_ver age-keygen=$age_ver"; exit 1
++  printf 'SOPS_AGE_TRIAL: BROKEN holds=%s broken=%s error=0 sops=%s age-keygen=%s\n' \
++    "$holds" "$broken" "$sops_ver" "$age_ver"; exit 1
+ fi
+-echo "SOPS_AGE_TRIAL: HOLDS holds=$holds broken=0 error=0 sops=$sops_ver age-keygen=$age_ver"; exit 0
++printf 'SOPS_AGE_TRIAL: HOLDS holds=%s broken=0 error=0 sops=%s age-keygen=%s\n' \
++  "$holds" "$sops_ver" "$age_ver"; exit 0

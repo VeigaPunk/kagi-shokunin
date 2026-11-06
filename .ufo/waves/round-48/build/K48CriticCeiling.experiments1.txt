@@ -1,0 +1,133 @@
+=== sops rotate --help (flags) ===
+NAME:
+   sops rotate - generate a new data encryption key and reencrypt all values with the new key
+
+USAGE:
+   sops rotate [command options] file
+
+OPTIONS:
+   --in-place, -i                write output back to the same file instead of stdout
+   --output value                Save the output after decryption to the file specified
+   --input-type value            currently json, yaml, dotenv, ini and binary are supported. If not set, sops will use the file's extension to determine the type
+   --output-type value           currently json, yaml, dotenv, ini and binary are supported. If not set, sops will use the input file's extension to determine the output format
+   --encryption-context value    comma separated list of KMS encryption context key:value pairs
+   --add-gcp-kms value           add the provided comma-separated list of GCP KMS key resource IDs to the list of master keys on the given file
+   --rm-gcp-kms value            remove the provided comma-separated list of GCP KMS key resource IDs from the list of master keys on the given file
+   --add-hckms value             add the provided comma-separated list of HuaweiCloud KMS key IDs (format: region:key-uuid) to the list of master keys on the given file
+   --rm-hckms value              remove the provided comma-separated list of HuaweiCloud KMS key IDs (format: region:key-uuid) from the list of master keys on the given file
+   --add-azure-kv value          add the provided comma-separated list of Azure Key Vault key URLs to the list of master keys on the given file
+   --rm-azure-kv value           remove the provided comma-separated list of Azure Key Vault key URLs from the list of master keys on the given file
+   --add-kms value               add the provided comma-separated list of KMS ARNs to the list of master keys on the given file
+   --rm-kms value                remove the provided comma-separated list of KMS ARNs from the list of master keys on the given file
+   --add-hc-vault-transit value  add the provided comma-separated list of Vault's URI key to the list of master keys on the given file ( eg. https://vault.example.org:8200/v1/transit/keys/dev)
+   --rm-hc-vault-transit value   remove the provided comma-separated list of Vault's URI key from the list of master keys on the given file ( eg. https://vault.example.org:8200/v1/transit/keys/dev)
+   --add-age value               add the provided comma-separated list of age recipients fingerprints to the list of master keys on the given file
+   --rm-age value                remove the provided comma-separated list of age recipients from the list of master keys on the given file
+   --add-pgp value               add the provided comma-separated list of PGP fingerprints to the list of master keys on the given file
+   --rm-pgp value                remove the provided comma-separated list of PGP fingerprints from the list of master keys on the given file
+   --filename-override value     Use this filename instead of the provided argument for loading configuration, and for determining input type and output type
+   --decryption-order value      comma separated list of decryption key types [$SOPS_DECRYPTION_ORDER]
+   --enable-local-keyservice     use local key service [$SOPS_ENABLE_LOCAL_KEYSERVICE]
+   --keyservice value            Specify the key services to use in addition to the local one. Can be specified more than once. Syntax: protocol://address. Example: tcp://myserver.com:5000 [$SOPS_KEYSERVICE]
+   
+=== sops updatekeys --help (flags) ===
+NAME:
+   sops updatekeys - update the keys of SOPS files using the config file
+
+USAGE:
+   sops updatekeys [command options] file
+
+OPTIONS:
+   --yes, -y                  pre-approve all changes and run non-interactively
+   --input-type value         currently ini, json, yaml, dotenv and binary are supported. If not set, sops will use the file's extension to determine the type
+   --enable-local-keyservice  use local key service [$SOPS_ENABLE_LOCAL_KEYSERVICE]
+   --keyservice value         Specify the key services to use in addition to the local one. Can be specified more than once. Syntax: protocol://address. Example: tcp://myserver.com:5000 [$SOPS_KEYSERVICE]
+   
+
+=== E1: updatekeys when the creation rule no longer matches ===
+-- baseline decrypt rc:
+rc=0
+-- sops updatekeys --yes f.yaml (no rule matches f.yaml):
+2026/11/06 17:21:12 Syncing keys for file /fast/scratch/hyaku/kagi-r48/K48CriticCeiling/e1/f.yaml
+error loading config: no matching creation rules found
+rc=1
+-- file still decrypts with A after refused updatekeys:
+rc=0
+
+=== E2: decrypt a file whose MAC line was edited ===
+-- baseline decrypt:
+k1: synthetic-one
+k2: synthetic-two
+rc=0
+-- mac line before/after edit (sha256 of the mac line):
+052e2f3b72cb62f2be582e0933007d7394d40ccb04f8fd5757a9ae945da71588
+76a1a52c9d20d5bca8dd61e03fd8bea9c7764495299e0e6c2dfe1e4df0a95b54
+-- decrypt f_bad.yaml:
+Cannot decrypt MAC: Could not decrypt with AES_GCM: cipher: message authentication failed
+rc=51
+
+=== E3: key groups, then remove a whole group and updatekeys ===
+-- threshold and group count in the encrypted file:
+    lastmodified: "2026-11-06T20:21:13Z"
+    shamir_threshold: 2
+    version: 3.13.3
+-- A alone:
+rc=128
+-- A+B:
+rc=0
+-- config now names ONE group (A), then updatekeys:
+2026/11/06 17:21:13 Syncing keys for file /fast/scratch/hyaku/kagi-r48/K48CriticCeiling/e3/f.yaml
+The following changes will be made to the file's groups:
++++ shamir_threshold: 1
+--- shamir_threshold: 2
+Group 1
+    age1ye0rrzfpwddvpz24a40vxt8nf08dr0np9jn9fgmvjgp0h4c5z39s6el9jf
+Group 2
+--- age1unmuuslwvfnjul9x4udv4jru8r9p00lcn94wrup7g70n7fg0pqdqu4et5x
+Failed to get the data key required to decrypt the SOPS file.
+
+Group 0: SUCCESS
+
+Group 1: FAILED
+  age1unmuuslwvfnjul9x4udv4jru8r9p00lcn94wrup7g70n7fg0pqdqu4et5x: FAILED
+    - | failed to create reader for decrypting sops data key with
+      | age: identity did not match any of the recipients: incorrect
+      | identity for recipient block. Did not find keys in locations
+      | 'SOPS_AGE_SSH_PRIVATE_KEY_FILE',
+      | 'SOPS_AGE_SSH_PRIVATE_KEY_CMD',
+      | '/fast/scratch/hyaku/kagi-r48/K48CriticCeiling/home/.ssh/id_ed25519',
+      | '/fast/scratch/hyaku/kagi-r48/K48CriticCeiling/home/.ssh/id_rsa',
+      | 'SOPS_AGE_KEY', and 'SOPS_AGE_KEY_CMD'.
+
+Recovery failed because the file was encrypted with a Shamir threshold of
+2, but only 1 part(s) were successfully recovered, one for each successful
+key group. In order for SOPS to recover the file, at least 2 groups have to
+be successful. In order for a group to be successful, decryption has to
+succeed with any of the keys in that key group.
+rc=128
+-- file after updatekeys (threshold line, value lines):
+    lastmodified: "2026-11-06T20:21:13Z"
+    shamir_threshold: 2
+    version: 3.13.3
+k1: ENC[AES256_GCM,data:Qt+gt11WQszMgc2X
+k2: ENC[AES256_GCM,data:bRXgFvYBqxZkfbEG
+-- A alone after updatekeys:
+rc=128
+-- B alone after updatekeys:
+rc=128
+-- did updatekeys re-encrypt values? compare k-lines with a fresh encryption-side snapshot:
+c5b820fbab3f83e4df3db1852cdd1520e6b68e1e2e2cb55715c150064e0dc85b
+
+=== E4: rotate with --add-age and --rm-age together ===
+-- k-lines before rotate:
+f2d8da0ce89f93c2869ee3a270d8486b00772d723d26d5a06e01cd35f8269109
+-- sops rotate -i --add-age B --rm-age A f.yaml:
+rc=0
+-- k-lines after rotate:
+94617658842fee3a42ed206effc5e42671a72b898f8d99157f3ccb5094dcb841
+-- decrypt with B:
+k1: synthetic-one
+k2: synthetic-two
+rc=0
+-- decrypt with A:
+rc=128

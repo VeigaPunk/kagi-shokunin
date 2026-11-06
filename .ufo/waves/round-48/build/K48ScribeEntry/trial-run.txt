@@ -1,0 +1,112 @@
+# K48ScribeEntry — trial receipts (round 48)
+
+Host: linux 7.2.11-arch1-1, x64. Date: 2026-11-06.
+Binaries: /home/vgpnk/.local/bin/sops, /home/vgpnk/.local/bin/age-keygen (not installed or replaced by this seat).
+  sha256 e5bec3346a873ae91d871550f3e698c1aad962aff462a080e40f25fde17fef6b  sops
+  sha256 0a0009db842259d6717f7eeb30acb6b90d2a2eb924c6acd0a0db0ca1f1537899  age-keygen
+Both hashes equal the values pinned in the assignment (no reinstall, no PATH write).
+
+Trial script identity (frozen fixture, hash matches controls/instrument-sha256.txt):
+  sha256 fa281506e343064b8786b59b9626f5ebb9f6d1ce193a3f408b68673db3bdf81c
+    .ufo/waves/round-48/controls/fixtures/ref-sops-age-trial.sh
+
+Scratch: /fast/scratch/hyaku/kagi-r48/K48ScribeEntry (removed on exit; no private key, plaintext or
+ciphertext copied into this receipt).
+
+## 1. Reference trial run
+
+Command:
+  S=/fast/scratch/hyaku/kagi-r48/K48ScribeEntry
+  env -i HOME="$S/h" PATH=$HOME/.local/bin:/usr/bin:/bin TMPDIR="$S" \
+    bash /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-48/controls/fixtures/ref-sops-age-trial.sh \
+    --work "$S"
+
+stdout+stderr (complete), then exit code:
+  TRIAL T1 HOLDS updatekeys-rc=0 added-recipient-decrypts=yes values-unchanged=yes mac-unchanged=yes
+  TRIAL T2 HOLDS rotate-rc=0 both-values-reencrypted=yes plaintext-unchanged=yes
+  TRIAL T3 HOLDS removed-recipient-on-synced-file=refused removed-recipient-on-old-copy=decrypts values-unchanged=yes
+  TRIAL T4 HOLDS rules-edit-only=refused file-unchanged=yes after-updatekeys=decrypts
+  TRIAL T5 HOLDS groups=2 shamir_threshold=2 single-group=refused both-groups=decrypts
+  SOPS_AGE_TRIAL: HOLDS holds=5 broken=0 error=0 sops=3.13.3 age-keygen=v1.3.2
+  RC=0
+
+Last line: SOPS_AGE_TRIAL: HOLDS holds=5 broken=0 error=0 sops=3.13.3 age-keygen=v1.3.2
+
+Note on provenance: `corpus/sops-age-trial.sh` did not exist in the lane working tree when this
+receipt was taken (`ls corpus/sops-age-trial.sh` → no such file), so the run above used the frozen
+fixture the counter itself pins. The measured section names the corpus path for re-runs; the
+behaviour claims in it trace to this output and to §1b below.
+
+## 1b. The candidate that will land at corpus/sops-age-trial.sh
+
+Artifact (owned by K48ExecTrial, read-only here):
+  .ufo/waves/round-48/build/K48ExecTrial/sops-age-trial.sh
+  sha256 09f304ecaaeba7a43626e1de433bba003daf38bd410a4a15d3e9334cb276da37
+  size 12120 bytes, mtime 2026-11-06 17:22
+  Revision history as reported by K48ExecTrial: an earlier draft (sha256 2147fe9c…) was run once
+  here and produced the identical output block; the final artifact above adds `SOPS_CONFIG` to the
+  explicit unset list and two shellcheck SC2094 annotations. The run recorded below is against
+  09f304ec. The candidate differs from the frozen fixture in argument parsing, an environment
+  sweep, scratch confinement, umask/pipefail hardening and a `usage()` block; the diff leaves the
+  five test bodies' report vocabulary untouched.
+
+Command:
+  env -i HOME="$S/h5" PATH=/home/vgpnk/.local/bin:/usr/bin:/bin TMPDIR="$S" \
+    bash .ufo/waves/round-48/build/K48ExecTrial/sops-age-trial.sh --work "$S"
+
+Output (complete), then exit code:
+  TRIAL T1 HOLDS updatekeys-rc=0 added-recipient-decrypts=yes values-unchanged=yes mac-unchanged=yes
+  TRIAL T2 HOLDS rotate-rc=0 both-values-reencrypted=yes plaintext-unchanged=yes
+  TRIAL T3 HOLDS removed-recipient-on-synced-file=refused removed-recipient-on-old-copy=decrypts values-unchanged=yes
+  TRIAL T4 HOLDS rules-edit-only=refused file-unchanged=yes after-updatekeys=decrypts
+  TRIAL T5 HOLDS groups=2 shamir_threshold=2 single-group=refused both-groups=decrypts
+  SOPS_AGE_TRIAL: HOLDS holds=5 broken=0 error=0 sops=3.13.3 age-keygen=v1.3.2
+  RC=0
+
+Byte-identical to the §1 output (`diff` of the two captured blocks: no difference).
+
+Operational note (measured, not a script defect): a first attempt passed
+`PATH="$HOME/.local/bin:/usr/bin:/bin"` and the candidate answered
+  SOPS_AGE_TRIAL: SETUP holds=0 broken=0 error=0 reason=sops-not-on-PATH
+  RC=2
+i.e. `HOME` was not the real `/home/vgpnk` in that transient shell, so the derived PATH held no
+`sops`. Running with an absolute PATH resolved it. Recorded because the SETUP path itself then
+behaved correctly (rc 2, no TRIAL HOLDS line).
+
+
+## 2. Shamir threshold refusal (independent probe, own scratch subdir)
+
+Setup: fresh scratch HOME ($S/mine/home), two throwaway age-keygen identities, creation rule with
+two key_groups (one age recipient each), plaintext `k1: synthetic-threshold-probe`.
+
+Control (no flag):
+  ( cd "$M" && "$BIN/sops" encrypt --filename-override f.yaml "$M/plain.yaml" > "$M/f-default.yaml" )
+  control_rc=0
+  encrypted metadata line: `    shamir_threshold: 2`
+
+Probe:
+  ( cd "$M" && "$BIN/sops" encrypt --shamir-secret-sharing-threshold 1 --filename-override f.yaml \
+      "$M/plain.yaml" > "$M/f-thr1.yaml" )
+  probe_rc=1
+  stderr: Could not generate data key: [could not split data key into parts for Shamir: threshold must be at least 2]
+  probe_out_bytes=0
+
+Last line: probe_out_bytes=0 (the refusal writes no file).
+
+## 3. Version strings
+
+  sops --version --disable-version-check   → sops 3.13.3
+  age-keygen --version                     → v1.3.2
+
+## 4. Entry-check shape applied to the draft (counter awk condition, draft file only)
+
+Condition replicated from plans/round-48-c1.sh entry_line(): inside a section whose heading matches
+`^## Measured \(round 48`, a line whose first characters are `- T<n> ` and which contains
+`sops 3.13.3`.
+
+Result on `.ufo/waves/round-48/build/K48ScribeEntry/measured-section.md`:
+  entry_check T1=1 T2=1 T3=1 T4=1 T5=1
+Heading first bytes: `## Measured (round 48 — sops 3.13.3, age-keygen v1.3.2, synthetic identities in scratch)`
+Secret-shape scan over all four drafts — an age secret-key prefix, an age recipient address, or an
+OpenSSH/RSA/age private-key block header, the three patterns written as character classes so this
+receipt does not carry the literal prefixes: no hits.

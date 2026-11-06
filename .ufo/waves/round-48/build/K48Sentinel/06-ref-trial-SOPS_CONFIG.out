@@ -1,0 +1,6 @@
+TRIAL T1 BROKEN updatekeys-rc=0 added-recipient-rc=1 values-unchanged=yes mac-unchanged=yes
+TRIAL T2 HOLDS rotate-rc=0 both-values-reencrypted=yes plaintext-unchanged=yes
+TRIAL T3 HOLDS removed-recipient-on-synced-file=refused removed-recipient-on-old-copy=decrypts values-unchanged=yes
+TRIAL T4 BROKEN rules-edit-only-rc=1 file-unchanged=yes updatekeys-rc=0 after-rc=1
+TRIAL T5 BROKEN shamir_threshold=absent a-only-rc=1 b-only-rc=1 both-rc=1
+SOPS_AGE_TRIAL: BROKEN holds=2 broken=3 error=0 sops=3.13.3 age-keygen=v1.3.2

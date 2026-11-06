@@ -1,0 +1,106 @@
+== counter at predeclaration 52991e5 (expect value=3)
+$ (cd /fast/scratch/hyaku/kagi-r48/K48ExecC2/run && bash /fast/scratch/hyaku/kagi-r48/K48ExecC2/repo/plans/round-48-c2.sh 52991e5da64cbacaa724b28b407cf5765fd21b41)
+C2_CAPABILITY_READINGS: value=3 keys=10 rev=52991e5da64cbacaa724b28b407cf5765fd21b41
+  K01 MATCH stated=[FEED_TOKEN_AGREE: AGREE (shapes=12 disagreements=0)] executed=[FEED_TOKEN_AGREE: AGREE (shapes=12 disagreements=0)]
+  K02 DIFF stated=[QUOTE_LOCATE: CLEAN located=5 rows=5] executed=[QUOTE_LOCATE: CLEAN located=8 rows=8]
+  K03 MATCH stated=[LANE_GUARD_SELFTEST: detected=3 mutants=3 clean=ok] executed=[LANE_GUARD_SELFTEST: detected=3 mutants=3 clean=ok]
+  K04 MATCH stated=[detected=0] executed=[LANE_GUARD_SELFTEST: detected=0 mutants=3 clean=ok]
+  K05 MATCH stated=[ANCHOR_PINS: CLEAN (pins=4)] executed=[ANCHOR_PINS: CLEAN (pins=4)]
+  K06 MATCH stated=[3] executed=[3]
+  K07 DIFF stated=[CLAIMS_DECLARED: CLEAN (claims=2)] executed=[CLAIMS_DECLARED: CLEAN (claims=21)]
+  K08 MATCH stated=[3] executed=[3]
+  K09 MATCH stated=[ANCHOR_PINS_SELFTEST: PASS (8 cases)] executed=[ANCHOR_PINS_SELFTEST: PASS (8 cases)]
+  K10 DIFF stated=[CLAIMS_DECLARED_SELFTEST: PASS (8 cases)] executed=[CLAIMS_DECLARED_SELFTEST: PASS (12 cases)]
+rc=0
+
+== counter at fixture d7517aa (expect value=0)
+$ (cd /fast/scratch/hyaku/kagi-r48/K48ExecC2/run && bash /fast/scratch/hyaku/kagi-r48/K48ExecC2/repo/plans/round-48-c2.sh d7517aa191cfca034bb0884e800199e7644184f4)
+C2_CAPABILITY_READINGS: value=0 keys=10 rev=d7517aa191cfca034bb0884e800199e7644184f4
+  K01 MATCH stated=[FEED_TOKEN_AGREE: AGREE (shapes=12 disagreements=0)] executed=[FEED_TOKEN_AGREE: AGREE (shapes=12 disagreements=0)]
+  K02 MATCH stated=[QUOTE_LOCATE: CLEAN located=8 rows=8] executed=[QUOTE_LOCATE: CLEAN located=8 rows=8]
+  K03 MATCH stated=[LANE_GUARD_SELFTEST: detected=3 mutants=3 clean=ok] executed=[LANE_GUARD_SELFTEST: detected=3 mutants=3 clean=ok]
+  K04 MATCH stated=[detected=0] executed=[LANE_GUARD_SELFTEST: detected=0 mutants=3 clean=ok]
+  K05 MATCH stated=[ANCHOR_PINS: CLEAN (pins=4)] executed=[ANCHOR_PINS: CLEAN (pins=4)]
+  K06 MATCH stated=[3] executed=[3]
+  K07 MATCH stated=[CLAIMS_DECLARED: CLEAN (claims=23)] executed=[CLAIMS_DECLARED: CLEAN (claims=23)]
+  K08 MATCH stated=[3] executed=[3]
+  K09 MATCH stated=[ANCHOR_PINS_SELFTEST: PASS (8 cases)] executed=[ANCHOR_PINS_SELFTEST: PASS (8 cases)]
+  K10 MATCH stated=[CLAIMS_DECLARED_SELFTEST: PASS (12 cases)] executed=[CLAIMS_DECLARED_SELFTEST: PASS (12 cases)]
+rc=0
+
+== attack A1: readings line deleted (commit 12e9a7c)
+$ (cd /fast/scratch/hyaku/kagi-r48/K48ExecC2/run && bash /fast/scratch/hyaku/kagi-r48/K48ExecC2/attack/plans/round-48-c2.sh 12e9a7c2cc00887290a03f50df0bbdef8f3587c1)
+C2_CAPABILITY_READINGS: value=3 keys=10 rev=12e9a7c2cc00887290a03f50df0bbdef8f3587c1
+  K01 MATCH stated=[FEED_TOKEN_AGREE: AGREE (shapes=12 disagreements=0)] executed=[FEED_TOKEN_AGREE: AGREE (shapes=12 disagreements=0)]
+  K02 DIFF stated=[QUOTE_LOCATE: CLEAN located=5 rows=5] executed=[QUOTE_LOCATE: CLEAN located=8 rows=8]
+  K03 MATCH stated=[LANE_GUARD_SELFTEST: detected=3 mutants=3 clean=ok] executed=[LANE_GUARD_SELFTEST: detected=3 mutants=3 clean=ok]
+  K04 MATCH stated=[detected=0] executed=[LANE_GUARD_SELFTEST: detected=0 mutants=3 clean=ok]
+  K05 MATCH stated=[ANCHOR_PINS: CLEAN (pins=4)] executed=[ANCHOR_PINS: CLEAN (pins=4)]
+  K06 MATCH stated=[3] executed=[3]
+  K07 DIFF stated=[CLAIMS_DECLARED: CLEAN (claims=2)] executed=[CLAIMS_DECLARED: CLEAN (claims=23)]
+  K08 MATCH stated=[3] executed=[3]
+  K09 MATCH stated=[ANCHOR_PINS_SELFTEST: PASS (8 cases)] executed=[ANCHOR_PINS_SELFTEST: PASS (8 cases)]
+  K10 DIFF stated=[CLAIMS_DECLARED_SELFTEST: PASS (8 cases)] executed=[CLAIMS_DECLARED_SELFTEST: PASS (12 cases)]
+rc=0
+
+== attack A2: stated located=9 forged (commit aaaed8a)
+$ (cd /fast/scratch/hyaku/kagi-r48/K48ExecC2/run && bash /fast/scratch/hyaku/kagi-r48/K48ExecC2/attack2/plans/round-48-c2.sh aaaed8a6640ca1a8de42ca5cb008d0a9449de412)
+C2_CAPABILITY_READINGS: value=1 keys=10 rev=aaaed8a6640ca1a8de42ca5cb008d0a9449de412
+  K01 MATCH stated=[FEED_TOKEN_AGREE: AGREE (shapes=12 disagreements=0)] executed=[FEED_TOKEN_AGREE: AGREE (shapes=12 disagreements=0)]
+  K02 DIFF stated=[QUOTE_LOCATE: CLEAN located=9 rows=9] executed=[QUOTE_LOCATE: CLEAN located=8 rows=8]
+  K03 MATCH stated=[LANE_GUARD_SELFTEST: detected=3 mutants=3 clean=ok] executed=[LANE_GUARD_SELFTEST: detected=3 mutants=3 clean=ok]
+  K04 MATCH stated=[detected=0] executed=[LANE_GUARD_SELFTEST: detected=0 mutants=3 clean=ok]
+  K05 MATCH stated=[ANCHOR_PINS: CLEAN (pins=4)] executed=[ANCHOR_PINS: CLEAN (pins=4)]
+  K06 MATCH stated=[3] executed=[3]
+  K07 MATCH stated=[CLAIMS_DECLARED: CLEAN (claims=23)] executed=[CLAIMS_DECLARED: CLEAN (claims=23)]
+  K08 MATCH stated=[3] executed=[3]
+  K09 MATCH stated=[ANCHOR_PINS_SELFTEST: PASS (8 cases)] executed=[ANCHOR_PINS_SELFTEST: PASS (8 cases)]
+  K10 MATCH stated=[CLAIMS_DECLARED_SELFTEST: PASS (12 cases)] executed=[CLAIMS_DECLARED_SELFTEST: PASS (12 cases)]
+rc=0
+
+== attack A3: round-48 post-move section deleted (commit 3fe30fa)
+$ (cd /fast/scratch/hyaku/kagi-r48/K48ExecC2/run && bash /fast/scratch/hyaku/kagi-r48/K48ExecC2/attack3/plans/round-48-c2.sh 3fe30fa21e7227a6005a7882056b50256dcd701b)
+C2_CAPABILITY_READINGS: value=1 keys=10 rev=3fe30fa21e7227a6005a7882056b50256dcd701b
+  K01 MATCH stated=[FEED_TOKEN_AGREE: AGREE (shapes=12 disagreements=0)] executed=[FEED_TOKEN_AGREE: AGREE (shapes=12 disagreements=0)]
+  K02 MATCH stated=[QUOTE_LOCATE: CLEAN located=8 rows=8] executed=[QUOTE_LOCATE: CLEAN located=8 rows=8]
+  K03 MATCH stated=[LANE_GUARD_SELFTEST: detected=3 mutants=3 clean=ok] executed=[LANE_GUARD_SELFTEST: detected=3 mutants=3 clean=ok]
+  K04 MATCH stated=[detected=0] executed=[LANE_GUARD_SELFTEST: detected=0 mutants=3 clean=ok]
+  K05 MATCH stated=[ANCHOR_PINS: CLEAN (pins=4)] executed=[ANCHOR_PINS: CLEAN (pins=4)]
+  K06 MATCH stated=[3] executed=[3]
+  K07 DIFF stated=[CLAIMS_DECLARED: CLEAN (claims=23)] executed=[CLAIMS_DECLARED: MISMATCH (claims=23 mismatch=2)]
+  K08 MATCH stated=[3] executed=[3]
+  K09 MATCH stated=[ANCHOR_PINS_SELFTEST: PASS (8 cases)] executed=[ANCHOR_PINS_SELFTEST: PASS (8 cases)]
+  K10 MATCH stated=[CLAIMS_DECLARED_SELFTEST: PASS (12 cases)] executed=[CLAIMS_DECLARED_SELFTEST: PASS (12 cases)]
+rc=0
+
+== attack A3 direct: claims-declared at 3fe30fa
+$ (cd /fast/scratch/hyaku/kagi-r48/K48ExecC2/attack3 && bash corpus/claims-declared.sh --root .)
+MISMATCH 48 C1 section-missing
+MISMATCH 48 C2 section-missing
+CLAIMS_DECLARED: MISMATCH (claims=23 mismatch=2)
+rc=1
+
+== quote-locate at fixture tree
+$ (cd /fast/scratch/hyaku/kagi-r48/K48ExecC2/repo && python3 -I -B corpus/quote-locate.py)
+QUOTE_LOCATE: CLEAN located=8 rows=8
+rc=0
+
+== claims-declared --root . at fixture tree
+$ (cd /fast/scratch/hyaku/kagi-r48/K48ExecC2/repo && bash corpus/claims-declared.sh --root .)
+CLAIMS_DECLARED: CLEAN (claims=23)
+rc=0
+
+== claims-declared --selftest at fixture tree
+$ (cd /fast/scratch/hyaku/kagi-r48/K48ExecC2/repo && bash corpus/claims-declared.sh --selftest)
+CLAIMS_DECLARED_SELFTEST: PASS (12 cases)
+rc=0
+
+== identity
+lane: /home/vgpnk/Projects/shokunin/kagi-shokunin (read-only)
+scratch clone toplevel: /fast/scratch/hyaku/kagi-r48/K48ExecC2/repo
+predeclaration: 52991e5da64cbacaa724b28b407cf5765fd21b41
+fixture commit: d7517aa191cfca034bb0884e800199e7644184f4  tree: fc3705939dfb06e14e303aa71625674cb8b4ea10
+lane plans/round-48-c2.sh sha256: 15f7a0c3a6050a575365cec3bb5b586da7a396e1a1dde45ed3154b98e59a4fce
+clone plans/round-48-c2.sh sha256: 15f7a0c3a6050a575365cec3bb5b586da7a396e1a1dde45ed3154b98e59a4fce
+sops: sops 3.13.3 (latest)  sha256 e5bec3346a873ae91d871550f3e698c1aad962aff462a080e40f25fde17fef6b
+age-keygen: v1.3.2  sha256 0a0009db842259d6717f7eeb30acb6b90d2a2eb924c6acd0a0db0ca1f1537899

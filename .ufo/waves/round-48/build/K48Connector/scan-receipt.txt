@@ -1,0 +1,109 @@
+### CMD: ls -d /home/vgpnk/Projects/shokunin/*-shokunin | wc -l
+21
+### EXIT: 0
+
+### CMD: for d in ./*-shokunin; do [ "$d" = "./kagi-shokunin" ] && continue; printf '%-24s %s %s %s %s %s %s %s\n' "${d#./}" "$(grep -rIow 'sops' "$d/PROVINCE.md" "$d/SKILL.md" "$d/corpus/SOURCES.md" "$d/corpus/knowledge" 2>/dev/null | wc -l)" "$(grep -rIo 'age-keygen' "$d/PROVINCE.md" "$d/SKILL.md" "$d/corpus/SOURCES.md" "$d/corpus/knowledge" 2>/dev/null | wc -l)" "$(grep -rIoE 'getsops' "$d/PROVINCE.md" "$d/SKILL.md" "$d/corpus/SOURCES.md" "$d/corpus/knowledge" 2>/dev/null | wc -l)" "$(grep -rIo 'Shamir' "$d/PROVINCE.md" "$d/SKILL.md" "$d/corpus/SOURCES.md" "$d/corpus/knowledge" 2>/dev/null | wc -l)" "$(grep -rIoE 'updatekeys|update_keys' "$d/PROVINCE.md" "$d/SKILL.md" "$d/corpus/SOURCES.md" "$d/corpus/knowledge" 2>/dev/null | wc -l)" "$(grep -rIoE 'falsifier[- ]shim' "$d/PROVINCE.md" "$d/SKILL.md" "$d/corpus/SOURCES.md" "$d/corpus/knowledge" 2>/dev/null | wc -l)"; done
+audio-shokunin           0 0 0 0 0 0 
+chousa-shokunin          0 0 0 0 0 0 
+game-dev-2d-shokunin     0 0 0 0 0 0 
+game-dev-3d-shokunin     0 0 0 0 0 0 
+kaidoku-shokunin         0 0 0 0 0 0 
+kake-shokunin            0 0 0 0 0 0 
+kama-shokunin            0 0 0 0 0 0 
+kasegi-shokunin          0 0 0 0 0 0 
+kengaku-shokunin         0 0 0 0 0 0 
+kotoba-shokunin          0 0 0 0 0 0 
+kotodama-shokunin        0 0 0 1 0 0 
+kumitate-shokunin        0 0 0 0 0 0 
+lore-shokunin            0 0 0 0 0 0 
+mado-shokunin            0 0 0 0 0 0 
+mori-shokunin            0 0 0 0 0 0 
+revenger-shokunin        0 0 0 0 0 0 
+souji-shokunin           0 0 0 0 0 0 
+tabi-shokunin            0 0 0 0 0 0 
+tameshi-shokunin         0 0 0 0 0 0 
+tsukuroi-shokunin        0 0 0 0 0 0 
+### EXIT: 0
+
+### CMD: for d in ./*-shokunin; do [ "$d" = "./kagi-shokunin" ] && continue; n=$(grep -rIw --exclude-dir=.git --exclude-dir=.ufo 'sops' "$d" 2>/dev/null | wc -l); a=$(grep -rIw --exclude-dir=.git --exclude-dir=.ufo 'age-keygen' "$d" 2>/dev/null | wc -l); [ "$n" -gt 0 -o "$a" -gt 0 ] && echo "$d sops=$n age-keygen=$a"; done
+./kotodama-shokunin sops=9 age-keygen=0
+./souji-shokunin sops=6 age-keygen=0
+### EXIT: 1
+
+### CMD: for d in ./*-shokunin; do [ "$d" = "./kagi-shokunin" ] && continue; f="$d/SCORECARD.md"; [ -f "$f" ] || continue; echo "${d#./} cap_pairs=$(awk '/^## /{insec=($0=="## Capabilities"); next} insec' "$f" | grep -c '⇒')"; done
+audio-shokunin cap_pairs=0
+chousa-shokunin cap_pairs=0
+game-dev-2d-shokunin cap_pairs=0
+game-dev-3d-shokunin cap_pairs=0
+kaidoku-shokunin cap_pairs=0
+kake-shokunin cap_pairs=0
+kama-shokunin cap_pairs=0
+kasegi-shokunin cap_pairs=0
+kengaku-shokunin cap_pairs=0
+kotoba-shokunin cap_pairs=0
+kotodama-shokunin cap_pairs=0
+kumitate-shokunin cap_pairs=0
+lore-shokunin cap_pairs=0
+mado-shokunin cap_pairs=0
+mori-shokunin cap_pairs=0
+revenger-shokunin cap_pairs=0
+souji-shokunin cap_pairs=0
+tabi-shokunin cap_pairs=0
+tameshi-shokunin cap_pairs=0
+tsukuroi-shokunin cap_pairs=0
+### EXIT: 0
+
+### CMD: grep -rIoE '`[^`]+` ⇒ `[^`]*`' --include='SCORECARD.md' --include='PROVINCE.md' --include='SKILL.md' ./*-shokunin/*.* 2>/dev/null | grep -v 'kagi-shokunin' | wc -l
+6
+### EXIT: 0
+
+### CMD: grep -rIoE '`[^`]+` ⇒ `[^`]*`' --include='SCORECARD.md' kagi-shokunin/SCORECARD.md | wc -l
+29
+### EXIT: 0
+
+### CMD: for d in ./*-shokunin; do [ "$d" = "./kagi-shokunin" ] && continue; n=$(grep -rIoE 'age1[a-z0-9]' "$d/PROVINCE.md" "$d/SKILL.md" "$d/corpus/SOURCES.md" "$d/corpus/knowledge" 2>/dev/null | wc -l); [ "$n" -gt 0 ] && echo "${d#./} age1=$n :: $(grep -rIoE 'age1[a-z0-9]' "$d/PROVINCE.md" "$d/SKILL.md" "$d/corpus/SOURCES.md" "$d/corpus/knowledge" 2>/dev/null | head -2)"; done
+kengaku-shokunin age1=1 :: ./kengaku-shokunin/corpus/knowledge/webarena-task-spec-audit.md:age10
+### EXIT: 1
+
+### CMD: for d in ./*-shokunin; do [ "$d" = "./kagi-shokunin" ] && continue; s(){ grep -rIciE "$1" "$d/PROVINCE.md" "$d/SKILL.md" "$d/corpus/SOURCES.md" "$d/corpus/knowledge" 2>/dev/null | awk -F: '{t+=$2} END{print t+0}'; }; printf '%-24s shim=%s falsifier=%s capabilit=%s evptr=%s\n' "${d#./}" "$(s shim)" "$(s falsifier)" "$(s capabilit)" "$(grep -rIciE 'evidence pointer' "$d/PROVINCE.md" "$d/SKILL.md" "$d/corpus/SOURCES.md" "$d/corpus/knowledge" 2>/dev/null | awk -F: '{t+=$2} END{print t+0}')"; done
+audio-shokunin           shim=0 falsifier=0 capabilit=0 evptr=0
+chousa-shokunin          shim=39 falsifier=12 capabilit=15 evptr=4
+game-dev-2d-shokunin     shim=0 falsifier=0 capabilit=3 evptr=0
+game-dev-3d-shokunin     shim=1 falsifier=1 capabilit=98 evptr=1
+kaidoku-shokunin         shim=70 falsifier=0 capabilit=241 evptr=3
+kake-shokunin            shim=2 falsifier=8 capabilit=37 evptr=4
+kama-shokunin            shim=4 falsifier=1 capabilit=56 evptr=1
+kasegi-shokunin          shim=0 falsifier=3 capabilit=21 evptr=3
+kengaku-shokunin         shim=107 falsifier=60 capabilit=59 evptr=0
+kotoba-shokunin          shim=3 falsifier=8 capabilit=48 evptr=0
+kotodama-shokunin        shim=35 falsifier=3 capabilit=25 evptr=11
+kumitate-shokunin        shim=31 falsifier=1 capabilit=25 evptr=2
+lore-shokunin            shim=0 falsifier=6 capabilit=7 evptr=2
+mado-shokunin            shim=4 falsifier=0 capabilit=40 evptr=1
+mori-shokunin            shim=4 falsifier=13 capabilit=36 evptr=1
+revenger-shokunin        shim=2 falsifier=1 capabilit=83 evptr=0
+souji-shokunin           shim=5 falsifier=1 capabilit=8 evptr=5
+tabi-shokunin            shim=3 falsifier=75 capabilit=95 evptr=2
+tameshi-shokunin         shim=0 falsifier=13 capabilit=27 evptr=0
+tsukuroi-shokunin        shim=4 falsifier=43 capabilit=160 evptr=30
+### EXIT: 0
+
+### CMD: grep -rIw --exclude-dir=.git --exclude-dir=.ufo 'sops|age-keygen|getsops' templates scripts .ufo/gates 2>/dev/null | wc -l
+0
+### EXIT: 0
+
+### CMD: sed -n '57,64p' AXES.md; sed -n '24,27p' templates/round-prompt.md
+## Capabilities — the repertoire table
+
+The six axes measure the quality of what the skill knows; they do not measure
+what the shokunin can now *do*. `SCORECARD.md` therefore carries a separate
+`capabilities:` table — name → what it can now do (one line) → evidence
+pointer (command or path) → first-working round. Rows enter only through a
+round that demonstrates the capability running; a capability without a passing
+demonstration in the round report is pre-claiming and does not enter the table.
+6. A claim may be a **capability acquisition** (AXES.md section *Capabilities*): the
+   new capability runs, its output verifies, and its row enters the SCORECARD
+   capabilities table in the same round.
+7. Saturated or wrong-fit axes may be retired or split — record the reason in
+### EXIT: 0
+

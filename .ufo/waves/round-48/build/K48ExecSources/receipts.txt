@@ -1,0 +1,45 @@
+# K48ExecSources receipts — registry plumbing S103/S104 (round 48, seat K48ExecSources)
+# host date: 2026-11-06T20:21:49Z
+
+## 0. frozen base extracted into scratch
+cmd: S=/fast/scratch/hyaku/kagi-r48/K48ExecSources; mkdir -p "$S/tree"; git -C /home/vgpnk/Projects/shokunin/kagi-shokunin archive 52991e5da64cbacaa724b28b407cf5765fd21b41 | tar -x -C "$S/tree"
+rc=0 ; tree root entries: AGENTS.md LOG.md PROVINCE.md README.md SCORECARD.md SHONEN.md SKILL.md considerthese corpus plans 
+
+## 1. fetches (curl -sSL --compressed -A 'Mozilla/5.0')
+id=S103 url=https://github.com/getsops/sops/releases/tag/v3.13.3 http=200 fetched=2026-11-06 bytes=177586 sha256=8dbbadc01a2a4f4402073fdd38570181c352f8798e9db5ff3547e329c5981ba1
+id=S104 url=https://github.com/FiloSottile/age/releases/tag/v1.3.2 http=200 fetched=2026-11-06 bytes=154312 sha256=652f8c81e8f4db3b62574a6d3e55b3117e63c310ea959b63647965c5ee20bc09
+final url (curl %{url_effective}): S103=https://github.com/getsops/sops/releases/tag/v3.13.3 S104=https://github.com/FiloSottile/age/releases/tag/v1.3.2 (no redirect)
+
+## 2. rendered-text-v1 digests (corpus/rendered-text-v1.py digest)
+S103 -> RENDERED_TEXT_V1: raw_sha256=8dbbadc01a2a4f4402073fdd38570181c352f8798e9db5ff3547e329c5981ba1 bytes=177586 normalized_sha256=9ea60ad68e5c90e3c94c03d4138a53e204cdcc051459ef0c105de6928c31ef53 normalized_bytes=7688
+S104 -> RENDERED_TEXT_V1: raw_sha256=652f8c81e8f4db3b62574a6d3e55b3117e63c310ea959b63647965c5ee20bc09 bytes=154312 normalized_sha256=d9d15f4659bfc367b413ca5678dea8744a33c1b049ad6a47e442fa9253f9364b normalized_bytes=3512
+locate S103: RENDERED_TEXT_V1_LOCATE: count=1
+locate S104: RENDERED_TEXT_V1_LOCATE: count=1
+
+## 3. row-identity digests (sha256 of printf 'ID\tmined\tURL\n')
+printf S103	mined	https://github.com/getsops/sops/releases/tag/v3.13.3\n | sha256sum -> db9eea5d4dfa82c068f46570a6285fa7b345fb30dd2924e576dba9f9a601a8e2  -
+printf S104	mined	https://github.com/FiloSottile/age/releases/tag/v1.3.2\n | sha256sum -> da9d408cfc2d97263bcf07b8b3ff430c5ecdd1cf5db56a9e5857e3f3835f023c  -
+
+## 4. lane census (from the scratch tree root)
+cmd: (cd /fast/scratch/hyaku/kagi-r48/K48ExecSources/tree && bash corpus/sources-census.sh)
+SOURCES_CENSUS: CLEAN (rows=104 A=100 B=2 C=2 queued=1 mined=99 rejected=4 entries_sourced=15 legacy=21 captures=104 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+last line: SOURCES_CENSUS: CLEAN (rows=104 A=100 B=2 C=2 queued=1 mined=99 rejected=4 entries_sourced=15 legacy=21 captures=104 inrow=16 inrow_only=0 inrow_nonreproducing=12)   rc=0
+
+## 5. fleet validator
+cmd: /home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --file /fast/scratch/hyaku/kagi-r48/K48ExecSources/tree/corpus/SOURCES.md
+lines: 20 (all W04 duplicate-url warnings on pre-existing rows, then the ok line)
+warnings on S103/S104: 0
+last line: file	ok	/fast/scratch/hyaku/kagi-r48/K48ExecSources/tree/corpus/SOURCES.md   rc=0
+
+## 6. installed binaries the rows pin
+sops: sops 3.13.3 (latest)  sha256 e5bec3346a873ae91d871550f3e698c1aad962aff462a080e40f25fde17fef6b
+age-keygen: v1.3.2  sha256 0a0009db842259d6717f7eeb30acb6b90d2a2eb924c6acd0a0db0ca1f1537899
+
+## 7. artifact checksums
+c10e3918e0c0573debfc3b177708ed993238c81d460644185adfa896689b70ba  /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-48/build/K48ExecSources/rows.md
+36449085548c8c1f974571a1ac8ab7beb39566aec345fd8fee3f677d63f54d90  /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-48/build/K48ExecSources/fetch-rows.tsv
+a517e6bb28872fafee0dd1ddfca0607d2b5cb275e9f26261effb20b473949e95  /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-48/build/K48ExecSources/source-line.txt
+8dbbadc01a2a4f4402073fdd38570181c352f8798e9db5ff3547e329c5981ba1  /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-48/build/K48ExecSources/S103.body
+652f8c81e8f4db3b62574a6d3e55b3117e63c310ea959b63647965c5ee20bc09  /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-48/build/K48ExecSources/S104.body
+
+## 8. no secret material: bodies are public GitHub release HTML; grep for age secret keys / tokens in saved artifacts -> 0

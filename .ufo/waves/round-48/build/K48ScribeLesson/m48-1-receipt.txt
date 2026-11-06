@@ -1,0 +1,21 @@
+## executed readings (from .ufo/waves/round-48/controls/c2-base.txt at 76da518fcc3029e738648bd6fd4ba5571df01c1c)
+  K02 executed=[QUOTE_LOCATE: CLEAN located=8 rows=8]
+  K07 executed=[CLAIMS_DECLARED: CLEAN (claims=21)]
+  K10 executed=[CLAIMS_DECLARED_SELFTEST: PASS (12 cases)]
+
+## base section (unchanged) — stated == the last pair in ## Capabilities
+  K02 stated=[QUOTE_LOCATE: CLEAN located=5 rows=5]
+  K07 stated=[CLAIMS_DECLARED: CLEAN (claims=2)]
+  K10 stated=[CLAIMS_DECLARED_SELFTEST: PASS (8 cases)]
+
+## K2-F4 mutation: a current line stating claims=22 for K07’s exact command
+  K07 stated=[CLAIMS_DECLARED: CLEAN (claims=22)] -> DIFF vs executed (counter value 1, control K2-F4)
+
+## reference fix: the same line with the executed number
+  K07 stated=[CLAIMS_DECLARED: CLEAN (claims=21)] -> MATCH
+
+## spelling trap: a current line that says python3 for K01
+  K01 stated (cap-spelling)=[FEED_TOKEN_AGREE: AGREE (shapes=12 disagreements=0)]
+  K01 stated (cap-base,    )=[FEED_TOKEN_AGREE: AGREE (shapes=12 disagreements=0)]
+  -> the renamed pair is invisible to K01; the old pair still supplies the reading
+rc=0

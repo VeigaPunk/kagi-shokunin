@@ -1,0 +1,17 @@
+# independent provenance re-derivation (K48Sentinel, 2026-11-06T20:23:48Z)
+sops checksums.txt line:
+e5bec3346a873ae91d871550f3e698c1aad962aff462a080e40f25fde17fef6b  sops-v3.13.3.linux.amd64
+downloaded sops-v3.13.3.linux.amd64 sha256: e5bec3346a873ae91d871550f3e698c1aad962aff462a080e40f25fde17fef6b
+installed ~/.local/bin/sops sha256:        e5bec3346a873ae91d871550f3e698c1aad962aff462a080e40f25fde17fef6b
+sha256sum -c (checksums.txt vs downloaded): /fast/scratch/hyaku/kagi-r48/K48Sentinel/sops-v3.13.3.linux.amd64: OK
+cmp downloaded vs installed sops: IDENTICAL
+age tarball sha256:  cbe24006683f8eb669266162894b9a522a1af52f2665fbc63a4bb032ed26ac10
+extracted age-keygen sha256: 0a0009db842259d6717f7eeb30acb6b90d2a2eb924c6acd0a0db0ca1f1537899
+installed age-keygen sha256: 0a0009db842259d6717f7eeb30acb6b90d2a2eb924c6acd0a0db0ca1f1537899
+extracted age sha256:        eb7dd1b518f0a307c99cd97782623c5321da049154b04acd2d98d21aa7bc9b2c
+installed age sha256:        eb7dd1b518f0a307c99cd97782623c5321da049154b04acd2d98d21aa7bc9b2c
+cmp extracted vs installed age-keygen: IDENTICAL
+cmp extracted vs installed age:        IDENTICAL
+gh api asset digest sops: sha256:e5bec3346a873ae91d871550f3e698c1aad962aff462a080e40f25fde17fef6b
+gh api asset digest age:  sha256:cbe24006683f8eb669266162894b9a522a1af52f2665fbc63a4bb032ed26ac10
+versions: sops 3.13.3 | v1.3.2 | v1.3.2

@@ -1,0 +1,50 @@
+# round-48 measurements at candidate 877558299cbac333013672827b974be4e5ea6bf4 (BASE 76da518fcc3029e738648bd6fd4ba5571df01c1c, predeclaration 164f0ea5ed8b76a671f9b076158d1d8022881813, A1 52991e5d) — 2026-11-06T20:35:59Z, L1 KagiR48
+$ bash plans/round-48-c1.sh 877558299cbac333013672827b974be4e5ea6bf4
+C1_SOPS_AGE_TRIAL: value=5 discriminating=5 pins=1 setup_ok=1 nosecret=1 real_rc=0 none_rc=2 T1:real=HOLDS,shim=BROKEN,entry=1,ok=1 T2:real=HOLDS,shim=BROKEN,entry=1,ok=1 T3:real=HOLDS,shim=BROKEN,entry=1,ok=1 T4:real=HOLDS,shim=BROKEN,entry=1,ok=1 T5:real=HOLDS,shim=BROKEN,entry=1,ok=1
+rc=0
+$ bash plans/round-48-c2.sh 877558299cbac333013672827b974be4e5ea6bf4
+C2_CAPABILITY_READINGS: value=0 keys=10 rev=877558299cbac333013672827b974be4e5ea6bf4
+  K01 MATCH stated=[FEED_TOKEN_AGREE: AGREE (shapes=12 disagreements=0)] executed=[FEED_TOKEN_AGREE: AGREE (shapes=12 disagreements=0)]
+  K02 MATCH stated=[QUOTE_LOCATE: CLEAN located=8 rows=8] executed=[QUOTE_LOCATE: CLEAN located=8 rows=8]
+  K03 MATCH stated=[LANE_GUARD_SELFTEST: detected=3 mutants=3 clean=ok] executed=[LANE_GUARD_SELFTEST: detected=3 mutants=3 clean=ok]
+  K04 MATCH stated=[detected=0] executed=[LANE_GUARD_SELFTEST: detected=0 mutants=3 clean=ok]
+  K05 MATCH stated=[ANCHOR_PINS: CLEAN (pins=4)] executed=[ANCHOR_PINS: CLEAN (pins=4)]
+  K06 MATCH stated=[3] executed=[3]
+  K07 MATCH stated=[CLAIMS_DECLARED: CLEAN (claims=23)] executed=[CLAIMS_DECLARED: CLEAN (claims=23)]
+  K08 MATCH stated=[3] executed=[3]
+  K09 MATCH stated=[ANCHOR_PINS_SELFTEST: PASS (8 cases)] executed=[ANCHOR_PINS_SELFTEST: PASS (8 cases)]
+  K10 MATCH stated=[CLAIMS_DECLARED_SELFTEST: PASS (12 cases)] executed=[CLAIMS_DECLARED_SELFTEST: PASS (12 cases)]
+rc=0
+# instruments byte-identical predeclaration -> candidate (counters/controls/fixtures)
+$ git diff --stat 164f0ea5ed8b76a671f9b076158d1d8022881813 877558299cbac333013672827b974be4e5ea6bf4 -- plans/round-48-c1.sh plans/round-48-c2.sh plans/round-48-controls.sh .ufo/waves/round-48/controls
+(empty = identical) rc=0
+# kill rules
+$ git diff 76da518fcc3029e738648bd6fd4ba5571df01c1c 877558299cbac333013672827b974be4e5ea6bf4 -- corpus/knowledge/sops-age-key-rotation.md | grep -c '^-[^-]'   # C1: no removed line
+0
+$ git grep -nE 'AGE-SECRET-KEY-1[0-9A-Z]{58}' 877558299cbac333013672827b974be4e5ea6bf4 | wc -l   # C1 (A1): key-shaped strings at candidate
+0
+$ git diff --name-status 76da518fcc3029e738648bd6fd4ba5571df01c1c 877558299cbac333013672827b974be4e5ea6bf4 -- 'corpus/*.sh' 'corpus/*.py' plans/round-39-c1.sh plans/round-39-c2.sh   # C2: BASE gates (A = new C1 artifact, not a BASE gate)
+A	corpus/sops-age-trial.sh
+$ git diff 76da518fcc3029e738648bd6fd4ba5571df01c1c 877558299cbac333013672827b974be4e5ea6bf4 -- corpus/claims-declared.tsv corpus/quote-bodies.tsv | grep -c '^-[^-]'   # C2: no removed row
+0
+$ git diff 76da518fcc3029e738648bd6fd4ba5571df01c1c 877558299cbac333013672827b974be4e5ea6bf4 -- SCORECARD.md LOG.md corpus/QUALITY.md corpus/SOURCES.md corpus/source-fetches.tsv | grep -c '^-[^-]'   # append-only files
+0
+# lane gates at the candidate tree (lane checkout = candidate bytes)
+$ bash corpus/sources-census.sh
+SOURCES_CENSUS: CLEAN (rows=104 A=100 B=2 C=2 queued=1 mined=99 rejected=4 entries_sourced=15 legacy=21 captures=104 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+$ bash corpus/claims-declared.sh --root .
+CLAIMS_DECLARED: CLEAN (claims=23)
+$ python3 corpus/release-clock.py
+RELEASE_CLOCK: CLEAN (on_release=29 bound=29 unbound=0 observed=29 fired=13 derived=15)
+$ python3 -I -B corpus/quote-locate.py
+QUOTE_LOCATE: CLEAN located=8 rows=8
+$ bash corpus/anchor-pins.sh --root .
+ANCHOR_PINS: CLEAN (pins=4)
+$ bash corpus/sops-age-trial.sh --work <scratch>   (env -i, PATH=$HOME/.local/bin:/usr/bin:/bin)
+TRIAL T1 HOLDS updatekeys-rc=0 added-recipient-decrypts=yes values-unchanged=yes mac-unchanged=yes
+TRIAL T2 HOLDS rotate-rc=0 both-values-reencrypted=yes plaintext-unchanged=yes
+TRIAL T3 HOLDS removed-recipient-on-synced-file=refused removed-recipient-on-old-copy=decrypts values-unchanged=yes
+TRIAL T4 HOLDS rules-edit-only=refused file-unchanged=yes after-updatekeys=decrypts
+TRIAL T5 HOLDS groups=2 shamir_threshold=2 single-group=refused both-groups=decrypts
+SOPS_AGE_TRIAL: HOLDS holds=5 broken=0 error=0 sops=3.13.3 age-keygen=v1.3.2
+rc=0

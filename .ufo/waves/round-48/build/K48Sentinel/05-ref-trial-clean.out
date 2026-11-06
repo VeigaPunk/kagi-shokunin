@@ -1,0 +1,6 @@
+TRIAL T1 HOLDS updatekeys-rc=0 added-recipient-decrypts=yes values-unchanged=yes mac-unchanged=yes
+TRIAL T2 HOLDS rotate-rc=0 both-values-reencrypted=yes plaintext-unchanged=yes
+TRIAL T3 HOLDS removed-recipient-on-synced-file=refused removed-recipient-on-old-copy=decrypts values-unchanged=yes
+TRIAL T4 HOLDS rules-edit-only=refused file-unchanged=yes after-updatekeys=decrypts
+TRIAL T5 HOLDS groups=2 shamir_threshold=2 single-group=refused both-groups=decrypts
+SOPS_AGE_TRIAL: HOLDS holds=5 broken=0 error=0 sops=3.13.3 age-keygen=v1.3.2

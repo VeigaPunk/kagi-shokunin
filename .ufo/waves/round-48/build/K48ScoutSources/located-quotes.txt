@@ -1,0 +1,116 @@
+# located-quotes.txt — K48ScoutSources, round 48
+# Locator (frozen, lane's own): python3 corpus/rendered-text-v1.py locate <body> '<quote>'
+#   prints RENDERED_TEXT_V1_LOCATE: count=<n>; exit 0 if n>=1, 1 if n==0.
+# Bodies are the five fetched public pages under bodies/ (digests in fetch-log.tsv).
+#
+# --------------------------------------------------------------- S009 (age identities)
+# Registry column-quote as written in corpus/SOURCES.md row S009 (backticks are markdown
+# code marks in the row, not characters in the page):
+#   Quote: "It is also possible to use `updatekeys`, when adding or removing age recipients."
+$ python3 corpus/rendered-text-v1.py locate bodies/age-identities.html 'It is also possible to use `updatekeys`, when adding or removing age recipients.'
+RENDERED_TEXT_V1_LOCATE: count=0
+exit=1
+# The same sentence in the form the committed capture stores it (corpus/source-fetches.tsv
+# row S009, column 13 — the backticks are <code> markup, so the rendered text carries a
+# space before the comma):
+$ python3 corpus/rendered-text-v1.py locate bodies/age-identities.html 'It is also possible to use updatekeys , when adding or removing age recipients.'
+RENDERED_TEXT_V1_LOCATE: count=1
+exit=0
+# Live surrounding context (rendered): "... age1qe5... It is also possible to use updatekeys , when adding or removing age recipients. For example: $ sops updatekeys secret.enc.yaml ..."
+# VERDICT S009: quote PRESENT in the live body (capture form count=1, exit=0). The row's
+# literal backtick spelling does not locate (count=0) because the page renders <code>updatekeys</code>.
+# Last-modified footer still names the row's anchor:
+$ grep -o 'Last modified May 15, 2026[^)]*)' bodies/age-identities.html | head -1
+Last modified May 15, 2026: Add page descriptions. (9b7b84e)
+# 2026-05-15 present: YES. commit 9b7b84e297bdabc9c78e571c1e6db43dcd69454a present: YES (2 occurrences).
+# Live raw sha256 == committed capture raw sha256 for S009 (a840727e...), bytes 29301 == 29301 -> page unchanged.
+#
+# --------------------------------------------------------------- S010 (key groups)
+# Registry column-quote, row S010:
+$ python3 corpus/rendered-text-v1.py locate bodies/key-groups.html 'keys from multiple groups are required to decrypt a file.'
+RENDERED_TEXT_V1_LOCATE: count=1
+exit=0
+# S010 threshold sentence (the one the trial's T5 relies on):
+$ python3 corpus/rendered-text-v1.py locate bodies/key-groups.html 'By default, the threshold is set to the number of key groups'
+RENDERED_TEXT_V1_LOCATE: count=1
+exit=0
+# VERDICT S010: quote PRESENT (count=1, exit=0); threshold sentence PRESENT (count=1, exit=0).
+$ grep -o 'Last modified May 15, 2026[^)]*)' bodies/key-groups.html | head -1
+Last modified May 15, 2026: Add page descriptions. (9b7b84e)
+# 2026-05-15: YES. 9b7b84e...: YES. Live raw sha256 == committed capture (fed6b2e1...), bytes 36366 == 36366 -> unchanged.
+#
+# --------------------------------------------------------------- S011 (key management)
+# Registry column-quote, row S011 (backticked spelling as written in the registry):
+$ python3 corpus/rendered-text-v1.py locate bodies/key-management.html 'Use `updatekeys` if you want to add a key without rotating the data key.'
+RENDERED_TEXT_V1_LOCATE: count=0
+exit=1
+# The sentence in the form the committed capture stores it (source-fetches.tsv row S011 col 13):
+$ python3 corpus/rendered-text-v1.py locate bodies/key-management.html 'Use updatekeys if you want to add a key without rotating the data key.'
+RENDERED_TEXT_V1_LOCATE: count=1
+exit=0
+# The plain (no-backtick, no-trailing-period) spelling named in the round-48 seat brief:
+$ python3 corpus/rendered-text-v1.py locate bodies/key-management.html 'Use updatekeys if you want to add a key without rotating the data key'
+RENDERED_TEXT_V1_LOCATE: count=1
+exit=0
+# Live context: "... --kms , --pgp , --gcp-kms , --hckms and --azure-kv arguments when creating new files. Use updatekeys if you want to add a key without rotating the data key. # add a new pgp key to the file and rotate the data k..."
+# VERDICT S011: quote PRESENT (capture form count=1, exit=0); backticked registry spelling count=0 (same
+# markup reason as S009). Both spellings the brief names resolve to the same live sentence.
+$ grep -o 'Last modified May 15, 2026[^)]*)' bodies/key-management.html | head -1
+Last modified May 15, 2026: Add page descriptions. (9b7b84e)
+# 2026-05-15: YES. 9b7b84e...: YES. Live raw sha256 == committed capture (d0ab8b20...), bytes 33153 == 33153 -> unchanged.
+#
+# ============================ NEW RELEASE-IDENTITY SOURCES (candidates for S103 / S104)
+# ---------------------------------------------------------- sops v3.13.3 release tag page
+$ python3 corpus/rendered-text-v1.py locate bodies/sops-v3.13.3.html 'Release v3.13.3 · getsops/sops · GitHub'
+RENDERED_TEXT_V1_LOCATE: count=1
+exit=0
+# raw-literal form used by the S092/S093-shaped rows (byte offset 17271 in this body):
+$ python3 corpus/rendered-text-v1.py locate bodies/sops-v3.13.3.html '<title>Release v3.13.3 · getsops/sops · GitHub</title>'
+RENDERED_TEXT_V1_LOCATE: count=0
+exit=1
+#   (the raw <title>…</title> string is present byte-for-byte in the body at offset 17271, but
+#    rendered-text-v1 strips tags, so the literal form is only locatable with the raw-literal
+#    profile, the way S092/S093 are captured: source-fetches.tsv normalization = raw-literal-v1.)
+$ python3 corpus/rendered-text-v1.py locate bodies/sops-v3.13.3.html 'sops-v3.13.3.linux.amd64'
+RENDERED_TEXT_V1_LOCATE: count=2
+exit=0
+$ python3 corpus/rendered-text-v1.py locate bodies/sops-v3.13.3.html 'ghcr.io/getsops/sops:v3.13.3'
+RENDERED_TEXT_V1_LOCATE: count=3
+exit=0
+# Page title (raw bytes): <title>Release v3.13.3 · getsops/sops · GitHub</title>
+# Release datetime in the body: 2026-07-23T05:27:57Z (byte offset 131046, 1 occurrence)
+# Release marker text: "github-actions released this 23 Jul 05:27 · 51 commits to main since this release v3.13.3"
+# Binary asset named on the page: sops-v3.13.3.linux.amd64 (the asset the C1 counter pins,
+#   sha256 e5bec3346a873ae91d871550f3e698c1aad962aff462a080e40f25fde17fef6b per
+#   .ufo/waves/round-48/controls/tool-install.txt — the release page is where that pin's
+#   provenance comes from, and it names the asset but not the digest).
+#
+# ---------------------------------------------------------- age v1.3.2 release tag page
+$ python3 corpus/rendered-text-v1.py locate bodies/age-v1.3.2.html 'Release age v1.3.2 · FiloSottile/age · GitHub'
+RENDERED_TEXT_V1_LOCATE: count=1
+exit=0
+$ python3 corpus/rendered-text-v1.py locate bodies/age-v1.3.2.html '<title>Release age v1.3.2 · FiloSottile/age · GitHub</title>'
+RENDERED_TEXT_V1_LOCATE: count=0
+exit=1
+$ python3 corpus/rendered-text-v1.py locate bodies/age-v1.3.2.html 'age v1.3.2 is a minor release with a wide range of fixes and hardening improvements'
+RENDERED_TEXT_V1_LOCATE: count=1
+exit=0
+# Page title (raw bytes): <title>Release age v1.3.2 · FiloSottile/age · GitHub</title>
+# Release datetime in the body: 2026-08-29T17:55:36Z (byte offset 131352, 1 occurrence)
+# Release marker text: "FiloSottile released this 29 Aug 17:55 v1.3.2 b74dce4"
+# The age release page does NOT mention age-keygen at all (grep -c age-keygen = 0); the
+# age-keygen binary shipped in age-v1.3.2-linux-amd64.tar.gz is the pinned artifact
+# (sha256 0a0009db842259d6717f7eeb30acb6b90d2a2eb924c6acd0a0db0ca1f1537899, from
+# tool-install.txt) — the tag page pins the release identity (v1.3.2), the asset listing
+# pins the archive (age-v1.3.2-linux-amd64.tar.gz).
+#
+# ---------------------------------------------------------- installed-binary cross-check
+$ ~/.local/bin/sops --version --disable-version-check
+sops 3.13.3 (latest)
+$ ~/.local/bin/age-keygen --version
+v1.3.2
+$ sha256sum ~/.local/bin/sops ~/.local/bin/age-keygen
+e5bec3346a873ae91d871550f3e698c1aad962aff462a080e40f25fde17fef6b  /home/vgpnk/.local/bin/sops
+0a0009db842259d6717f7eeb30acb6b90d2a2eb924c6acd0a0db0ca1f1537899  /home/vgpnk/.local/bin/age-keygen
+# Both match the counter's PIN_SOPS / PIN_AGEKEYGEN in plans/round-48-c1.sh, and the
+# reported versions match the two release identities the two new rows would pin.

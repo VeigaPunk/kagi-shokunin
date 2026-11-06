@@ -1,0 +1,7 @@
+# candidate trial audit: .ufo/waves/round-48/build/K48ExecTrial/sops-age-trial.sh
+sha256 audited: 09f304ecaaeba7a43626e1de433bba003daf38bd410a4a15d3e9334cb276da37 (236 lines)
+clean env                    -> HOLDS 5 (scratch leftovers 0)
+SOPS_CONFIG=<file>           -> HOLDS 5 (scratch leftovers 0)
+SOPS_ENABLE_LOCAL_KEYSERVICE=false -> HOLDS 5 (scratch leftovers 0)
+scrub line 98: sops_vars=$(compgen -v | grep -E '^SOPS_' || true) ; explicit list line 102 includes SOPS_CONFIG
+mkdir 700 + trap EXIT rm -rf + trap INT/HUP/TERM -> SETUP/interrupted

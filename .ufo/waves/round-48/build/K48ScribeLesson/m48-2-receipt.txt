@@ -1,0 +1,14 @@
+## 1. the frozen rule's own literal (AGE-SECRET-KEY) in the instruments at the predeclaration
+  plans/round-48.md: matching-lines=2
+  plans/round-48-c1.sh: matching-lines=2
+  .ufo/waves/round-48/controls/fixtures/ref-sops-age-trial.sh: matching-lines=1
+  KILL-RULE(bare-literal) on the plan: FIRES (grep rc=0) -> C1 could never reach the candidate
+## 2. the amended ERE AGE-SECRET-KEY-1[0-9A-Z]{58} (Amendment A1)
+  fixture: line-chars=74 (16 prefix + 58 payload) key-shaped-matches=1
+  plans/round-48.md: key-shaped-matches=0
+  plans/round-48-c1.sh: key-shaped-matches=0
+  .ufo/waves/round-48/controls/fixtures/ref-sops-age-trial.sh: key-shaped-matches=0
+  whole tree at PRE: files-with-a-key-shaped-match=0
+  KILL-RULE(key-shaped) on the fixture: FIRES (grep rc=0) -> not vacuous
+  KILL-RULE(key-shaped) on the plan: passes (grep rc=1)
+rc=0

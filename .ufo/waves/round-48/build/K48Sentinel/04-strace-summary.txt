@@ -1,0 +1,30 @@
+# strace summary (run 1: decoy HOME, clean env)
+openat lines: 1615
+opens under caller HOME /home/vgpnk: 21
+     20 openat(AT_FDCWD, "/home/vgpnk/.local/bin/sops", O_RDONLY|O_CLOEXEC) = 3
+      1 openat(AT_FDCWD, "/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-48/controls/fixtures/ref-sops-age-trial.sh", O_RDONLY) = 3
+opens under decoy HOME /fast/scratch/hyaku/kagi-r48/K48Sentinel/decoyhome: 0
+keys.txt opens by path:
+     21 openat(AT_FDCWD, "/fast/scratch/hyaku/kagi-r48/K48Sentinel/work/sops-age-trial.bf6Fx6/home/.config/sops/age/keys.txt", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+/etc/sops probes:
+     20 openat(AT_FDCWD, "/etc/sops/audit.yaml", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+chdir targets (excluding signal noise):
+      6 chdir("/fast")
+      1 chdir("/fast/scratch/hyaku/kagi-r48/K48Sentinel/work8/sops-age-trial.NXBTl5")
+      2 chdir("/fast/scratch/hyaku/kagi-r48/K48Sentinel/work8/sops-age-trial.NXBTl5/t1")
+      2 chdir("/fast/scratch/hyaku/kagi-r48/K48Sentinel/work8/sops-age-trial.NXBTl5/t2")
+      2 chdir("/fast/scratch/hyaku/kagi-r48/K48Sentinel/work8/sops-age-trial.NXBTl5/t3")
+      2 chdir("/fast/scratch/hyaku/kagi-r48/K48Sentinel/work8/sops-age-trial.NXBTl5/t4")
+      1 chdir("/fast/scratch/hyaku/kagi-r48/K48Sentinel/work8/sops-age-trial.NXBTl5/t5")
+      6 chdir("hyaku")
+      6 chdir("K48Sentinel")
+      6 chdir("kagi-r48")
+      6 chdir("scratch")
+      6 chdir("sops-age-trial.NXBTl5")
+      6 chdir("work8")
+write-class opens outside trial scratch:
+      3 openat(AT_FDCWD, "/dev/null", O_RDWR) = 3
+      1 openat(AT_FDCWD, "/dev/null", O_WRONLY|O_CREAT|O_TRUNC, 0666 <unfinished ...>
+     24 openat(AT_FDCWD, "/dev/null", O_WRONLY|O_CREAT|O_TRUNC, 0666) = 3
+      1 openat(AT_FDCWD, "/dev/tty", O_RDWR|O_NONBLOCK) = -1 ENXIO (No such device or address)
+      5 openat(AT_FDCWD, "f.yaml", O_WRONLY|O_CREAT|O_TRUNC, 0666) = 3

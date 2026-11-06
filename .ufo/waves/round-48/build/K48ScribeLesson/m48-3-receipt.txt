@@ -1,0 +1,25 @@
+$ bash m48-3-successor-claim.sh  # real counter header
+F = 11 ids: S012 S013 S014 S015 S016 S021 S022 S023 S024 S025 S026
+successor edges found in SOURCES.md:
+  S022 supersedes S012
+  S023 supersedes S013
+  S025 supersedes S014
+  S026 supersedes S016
+ids in F with >=1 successor row = 4
+header sentence under test: 'no successor row'
+occurrences in round-47-c2.sh = 1
+VERDICT: FLAG (the header's claim is false for 4/11 ids)
+rc=1
+
+$ bash m48-3-successor-claim.sh corpus/SOURCES.md <scratch copy with the header corrected>
+F = 11 ids: S012 S013 S014 S015 S016 S021 S022 S023 S024 S025 S026
+successor edges found in SOURCES.md:
+  S022 supersedes S012
+  S023 supersedes S013
+  S025 supersedes S014
+  S026 supersedes S016
+ids in F with >=1 successor row = 4
+header sentence under test: 'no successor row'
+occurrences in hdr-fixed.sh = 0
+VERDICT: CLEAN
+rc=0

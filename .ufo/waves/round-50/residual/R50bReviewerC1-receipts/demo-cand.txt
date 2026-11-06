@@ -1,0 +1,8 @@
+DEMO cand: trial_shell_pid=4161468 tree=/fast/scratch/hyaku/kagi-r50/R50bReviewerC1/cand-tree
+DEMO cand: captured server pid=4162462 starttime=37600246 after_2_polls
+DEMO cand: kill -9 trial shell rc=0
+/fast/scratch/hyaku/kagi-r50/R50bReviewerC1/demo.sh: line 49: 4161468 Killed                     setsid env HOME="$D/home" PATH="/home/vgpnk/.local/bin:/usr/bin:/bin" bash "$TRIAL" --work "$D/work" > "$D/trial.log" 2>&1
+DEMO cand: SURVIVOR_CHECK verdict=dead /proc/4162462/stat gone
+--- trial.log tail ---
+DEMO cand: FINAL verdict=dead
+RC=0

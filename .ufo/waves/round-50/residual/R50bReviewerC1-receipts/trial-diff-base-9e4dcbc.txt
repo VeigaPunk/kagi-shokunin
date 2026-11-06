@@ -1,0 +1,31 @@
+diff --git a/corpus/openbao-token-trial.sh b/corpus/openbao-token-trial.sh
+index f5778b5..20abb7c 100755
+--- a/corpus/openbao-token-trial.sh
++++ b/corpus/openbao-token-trial.sh
+@@ -17,6 +17,9 @@
+ # dir (server logs live inside it); server start is retried on a fresh random
+ # 127.0.0.1 port; the readiness wait tolerates host load; `wait` targets the
+ # server PID instead of every job.
++# Round 50 (C1, operability): the dev server is started under `setpriv --pdeathsig KILL`
++# (util-linux, S107), which sets the kernel parent-death signal (prctl PR_SET_PDEATHSIG, S106) before
++# exec'ing bao, so a SIGKILLed trial shell, which runs no trap, still takes its server down.
+ set -u
+ umask 077
+ WORK=""
+@@ -28,6 +31,7 @@ while [ $# -gt 0 ]; do
+ done
+ command -v bao >/dev/null 2>&1 || { echo "OPENBAO_TRIAL: SETUP no bao on PATH"; exit 2; }
+ command -v python3 >/dev/null 2>&1 || { echo "OPENBAO_TRIAL: SETUP no python3"; exit 2; }
++command -v setpriv >/dev/null 2>&1 || { echo "OPENBAO_TRIAL: SETUP no setpriv"; exit 2; }
+ BASE="${WORK:-${TMPDIR:-/tmp}}"
+ mkdir -p "$BASE" || exit 2
+ D=$(mktemp -d "$BASE/openbao-trial.XXXXXX") || exit 2
+@@ -57,7 +61,7 @@ start_server() { # sets SRV, BAO_ADDR, BAO_TOKEN; 0 on success
+   for _ in 1 2 3; do
+     port=$(python3 -c 'import socket;s=socket.socket();s.bind(("127.0.0.1",0));print(s.getsockname()[1]);s.close()')
+     root=$(python3 -c 'import secrets;print("r49-"+secrets.token_hex(12))')
+-    bao server -dev -dev-root-token-id="$root" -dev-listen-address="127.0.0.1:$port" -dev-no-store-token >"$D/server.log" 2>&1 &
++    setpriv --pdeathsig KILL bao server -dev -dev-root-token-id="$root" -dev-listen-address="127.0.0.1:$port" -dev-no-store-token >"$D/server.log" 2>&1 &
+     SRV=$!
+     export BAO_ADDR="http://127.0.0.1:$port" BAO_TOKEN="$root"
+     ok=0

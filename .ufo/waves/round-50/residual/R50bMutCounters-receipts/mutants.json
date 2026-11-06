@@ -1,0 +1,101 @@
+[
+ {
+  "mutant": "m1-suvivors.sh",
+  "src": "p-c1.sh",
+  "old_line_n": 134,
+  "new_line_n": 134,
+  "old": "  [ \"$alive\" -eq 0 ]",
+  "new": "  [ \"$alive\" -ge 0 ]",
+  "sha_before": "fe6dc81212dac9f1d9ab52b6f34068009ad14a8d27c1f0d52eb0e33c22a5aaf6",
+  "sha_after": "f190b4fe898cc0981a9b3d0ab5fe596a9b8e0af276e2047d58321862b2b19e43",
+  "only_line_change": true
+ },
+ {
+  "mutant": "m2-positive.sh",
+  "src": "p-c1.sh",
+  "old_line_n": 150,
+  "new_line_n": 150,
+  "old": "if [ $positive -ne 1 ] || [ $setupk -ne 0 ]; then",
+  "new": "if [ $setupk -ne 0 ]; then",
+  "sha_before": "fe6dc81212dac9f1d9ab52b6f34068009ad14a8d27c1f0d52eb0e33c22a5aaf6",
+  "sha_after": "3f43581ef7eda9733dd629a8304e5b6b196b6673bb828f483f0eb84481dfc806",
+  "only_line_change": true
+ },
+ {
+  "mutant": "m3-observed.sh",
+  "src": "p-c1.sh",
+  "old_line_n": 127,
+  "new_line_n": 127,
+  "old": "  [ -n \"$c\" ] || { echo \"$k:observed=0,reached=1\"; return 2; }",
+  "new": "  [ -n \"$c\" ] || :",
+  "sha_before": "fe6dc81212dac9f1d9ab52b6f34068009ad14a8d27c1f0d52eb0e33c22a5aaf6",
+  "sha_after": "dbf9faaae2fa2ee3fe2751ced3aae99894793eb42059296ff3bc92a3913c208a",
+  "only_line_change": true
+ },
+ {
+  "mutant": "m4-wait.sh",
+  "src": "p-c1.sh",
+  "old_line_n": 128,
+  "new_line_n": 128,
+  "old": "  sleep 5",
+  "new": "  sleep 0",
+  "sha_before": "fe6dc81212dac9f1d9ab52b6f34068009ad14a8d27c1f0d52eb0e33c22a5aaf6",
+  "sha_after": "5d311ba4f7ef0eff27975fc22b4bc448091cb757b97b4ceadaee6b424ea28dd9",
+  "only_line_change": true
+ },
+ {
+  "mutant": "m5-g6.sh",
+  "src": "p-c2.sh",
+  "old_line_n": 110,
+  "new_line_n": 110,
+  "old": "  [[ $pert =~ $new ]] && setup \"G6-not-discriminating-$id\"",
+  "new": "  [[ $pert =~ $new ]] && :",
+  "sha_before": "449979bfe11a4506ce8a715f87942333df2aa78b402a9acc9969fe8b57cbb023",
+  "sha_after": "be076555a1b51281a1e4b1419e576bf5ad19a1ed9c4738d5aab8e8a9f30c267c",
+  "only_line_change": true
+ },
+ {
+  "mutant": "m6-g5.sh",
+  "src": "p-c2.sh",
+  "old_line_n": 91,
+  "new_line_n": 91,
+  "old": "  [ -f \"$C/$JOURNAL\" ] || setup \"G5-journal-missing\"",
+  "new": "  [ -f \"$C/$JOURNAL\" ] || continue",
+  "sha_before": "449979bfe11a4506ce8a715f87942333df2aa78b402a9acc9969fe8b57cbb023",
+  "sha_after": "8a3f65e4f7810f59f317f7e8ed86955ddd86960bd7066756d7d597caae3eb8bd",
+  "only_line_change": true
+ },
+ {
+  "mutant": "m6b-g5content.sh",
+  "src": "p-c2.sh",
+  "old_line_n": 101,
+  "new_line_n": 101,
+  "old": "ok = len(hits) == 1 and hits[0].get(\"old_expect\") == old and hits[0].get(\"new_expect\") == new \\",
+  "new": "ok = len(hits) == 1 and True and True \\",
+  "sha_before": "449979bfe11a4506ce8a715f87942333df2aa78b402a9acc9969fe8b57cbb023",
+  "sha_after": "649044f4d36d8091e5cf45889cb11dd598adddb663837f7bf2a1f9711b52396d",
+  "only_line_change": true
+ },
+ {
+  "mutant": "m7-g2.sh",
+  "src": "p-c2.sh",
+  "old_line_n": 82,
+  "new_line_n": 82,
+  "old": "  [ \"$(row \"$id\" \"$W/base.tsv\" | cut -f1,2,4,5)\" = \"$(row \"$id\" \"$L\" | cut -f1,2,4,5)\" ] || setup \"G2-columns-$id\"",
+  "new": "  [ \"$(row \"$id\" \"$W/base.tsv\" | cut -f1,2,4,5)\" = \"$(row \"$id\" \"$L\" | cut -f1,2,4,5)\" ] || :",
+  "sha_before": "449979bfe11a4506ce8a715f87942333df2aa78b402a9acc9969fe8b57cbb023",
+  "sha_after": "da6b19a722c13b4639cd9c5d4fc4f1389e6d8c5a0fc3891b45727c0146f49f71",
+  "only_line_change": true
+ },
+ {
+  "mutant": "m8-failonly.sh",
+  "src": "p-c2.sh",
+  "old_line_n": 124,
+  "new_line_n": 124,
+  "old": "  grep -qE \"^(FAIL|POLICY|LAYOUT-INCOMPLETE) $id( |\\$)\" \"$W/out\" && v=$(grep -E \"^(FAIL|POLICY|LAYOUT-INCOMPLETE) $id( |\\$)\" \"$W/out\" | head -1 | awk '{print $1}')",
+  "new": "  grep -qE \"^(FAIL|LAYOUT-INCOMPLETE) $id( |\\$)\" \"$W/out\" && v=$(grep -E \"^(FAIL|LAYOUT-INCOMPLETE) $id( |\\$)\" \"$W/out\" | head -1 | awk '{print $1}')",
+  "sha_before": "449979bfe11a4506ce8a715f87942333df2aa78b402a9acc9969fe8b57cbb023",
+  "sha_after": "b488ab6fafe16528b0d93678034cb39608a758d92a0ed57fa9d8c1a67e539c2b",
+  "only_line_change": true
+ }
+]

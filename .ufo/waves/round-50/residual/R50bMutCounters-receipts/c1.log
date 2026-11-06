@@ -1,0 +1,6 @@
+p-c1_t0 counter=p-c1 tree=c1-0 expected=0 got=NONE MISMATCH rc=127 :: 
+m1_t0 counter=m1-suvivors.sh tree=c1-0 expected=0 got=3 MISMATCH rc=0 :: C1_ORPHAN_SAFE: value=3 positive=1 reaped=3 K1:observed=1,captured=1,survivors=1 K2:observed=1,captured=1,survivors=1 K3:observed=1,captured=1,survivors=1
+m2_tF4 counter=m2-positive.sh tree=c1-F4 expected=SETUP got=3 MISMATCH rc=0 :: C1_ORPHAN_SAFE: value=3 positive=0 reaped=0 K1:observed=1,captured=1,survivors=0 K2:observed=1,captured=1,survivors=0 K3:observed=1,captured=1,survivors=0
+m3_tF3 counter=m3-observed.sh tree=c1-F3 expected=SETUP got=SETUP MATCH rc=2 :: C1_ORPHAN_SAFE: SETUP positive=0 observed_all=0 safe=2 reaped=0 K1:observed=0,reached=0 K2:observed=1,captured=0,survivors=0 K3:observed=1,captured=0,survivors=0 pos=[C1_OPENBAO_TRIAL: value=0 discriminating=0 pins=1 setup_ok=0]
+m4_tP counter=m4-wait.sh tree=c1-P expected=3 got=3 MATCH rc=0 :: C1_ORPHAN_SAFE: value=3 positive=1 reaped=0 K1:observed=1,captured=1,survivors=0 K2:observed=1,captured=1,survivors=0 K3:observed=1,captured=1,survivors=0
+m4_t0 counter=m4-wait.sh tree=c1-0 expected=0 got=0 MATCH rc=0 :: C1_ORPHAN_SAFE: value=0 positive=1 reaped=3 K1:observed=1,captured=1,survivors=1 K2:observed=1,captured=1,survivors=1 K3:observed=1,captured=1,survivors=1

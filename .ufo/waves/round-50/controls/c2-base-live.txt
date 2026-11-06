@@ -1,0 +1,13 @@
+# Round-50 L1 BASE live read: last non-empty output line + rc of each drifted ledger row's command,
+# run in a clean `git clone --shared` of BASE 565c43a874b59cd216f4a55c8742db48fa854f16 at
+# /fast/scratch/hyaku/kagi-r50/l1/base (lone-clone layout), 2026-11-06 ~22:05Z. Command per row = field 2 of corpus/claim-ledger.tsv.
+# The full `bash corpus/claim-ledger.sh verify` of the same clone is verify-base.txt (rc 2; 12 FAIL, 3 POLICY, 0 STALE; 341 s).
+R11-08 rc=1 CITATION_GATE: BROKEN (cites=3529 docs=125 unresolved=3 ephemeral=0 labeled=32)   [preceded by CITATION_LAYOUT: lone-clone fleet_absent=153]
+R13-01 rc=0 67
+R21-02 rc=0 SOURCES_CENSUS: CLEAN (rows=105 A=101 B=2 C=2 queued=1 mined=100 rejected=4 entries_sourced=15 legacy=21 captures=105 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+R22-03 rc=0 REVISION_AUDIT: CLEAN (stale=0 missing=0 dropped=0 added=61 invalid=0)
+R24-05 rc=0 ROW_IDENTITY: stamps count=124 sha256=c7673d14599c6ebde1a5b1f608ccc541f396fe6f24d5c00fdeee3bee35c06534
+R24-06 rc=0 ROW_IDENTITY: scorecard-rounds count=67 sha256=922413334dda7555b08b6d5905bedd855288f99e751045598a098c5dc89c511e
+R24-15 rc=0 ROW_IDENTITY: revision-added count=61 sha256=9b7e9b8c9b4bb5526fc8093ff81679db1494083dafbcc0b6d42f65eaa8604e48
+R38-01 rc=0 8
+# R31-02, R33-02, R34-03 run the same command as R21-02 (`bash corpus/sources-census.sh`) -> same line.

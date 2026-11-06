@@ -1,0 +1,13 @@
+=== S098 row at 209147c (fields)
+ S098 
+ UTS #18: Unicode Regular Expressions — https://www.unicode.org/reports/tr18/ 
+ spec 
+ A 
+ Unicode White_Space as a candidate rendered-text-v1 whitespace class 
+ Annex C: Compatibility Properties, space (\s) entry; UTS #18, fetched 2026-11-05 
+ REJECTED: as the rendered-text-v1 whitespace class, UTS #18 defines \s as the Unicode White_Space set, which excludes U+001C-U+001F that str.isspace() accepts, so it cannot ground the normalizer class; quote "space (\s) \p{Whitespace} See PropList for the definition of Whitespace."; flip: the normalizer class is redefined to White_Space. 
+ rejected 
+ 2026-11-05 
+ on-release 
+ — 
+--- tsv rows added by 209147c:

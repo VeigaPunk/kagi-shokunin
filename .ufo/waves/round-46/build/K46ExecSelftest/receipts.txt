@@ -1,0 +1,241 @@
+===== base tree: git archive 44808ced56359c98f35995178fb24a6482899263
+$ rm -rf '/fast/scratch/hyaku/kagi-r46/K46ExecSelftest/tree-base' && mkdir -p '/fast/scratch/hyaku/kagi-r46/K46ExecSelftest/tree-base' && git -C '/home/vgpnk/Projects/shokunin/kagi-shokunin' archive 44808ced56359c98f35995178fb24a6482899263 | tar -x -C '/fast/scratch/hyaku/kagi-r46/K46ExecSelftest/tree-base'
+rc=0
+last: <empty>
+--- output
+
+
+
+===== base C1 counter (pristine predeclaration tree; expect value=0 killed=0)
+$ mkdir -p '/fast/scratch/hyaku/kagi-r46/K46ExecSelftest/rec-base' && C1_TREE='/fast/scratch/hyaku/kagi-r46/K46ExecSelftest/tree-base' HYAKU_SCRATCH='/fast/scratch/hyaku/kagi-r46/K46ExecSelftest/rec-base' bash '/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-46-c1.sh'
+rc=0
+last: C1_SELFTEST_KILLS: value=0 killed=0 positive=1 equiv=1 real=1 (rc e1=0 e2=0 e3=0 e4=0 m1=0 m2=0 m3=0; selftest-rc=0 selftest-last='CLAIMS_DECLARED_SELFTEST: PASS (8 cases)'; real-rc=0 real-last='CLAIMS_DECLARED: CLEAN (claims=17)')
+--- output
+C1_SELFTEST_KILLS: value=0 killed=0 positive=1 equiv=1 real=1 (rc e1=0 e2=0 e3=0 e4=0 m1=0 m2=0 m3=0; selftest-rc=0 selftest-last='CLAIMS_DECLARED_SELFTEST: PASS (8 cases)'; real-rc=0 real-last='CLAIMS_DECLARED: CLEAN (claims=17)')
+
+
+===== base selftest (pristine; expect 8 cases)
+$ mkdir -p '/fast/scratch/hyaku/kagi-r46/K46ExecSelftest/rec-base-st' && HYAKU_SCRATCH='/fast/scratch/hyaku/kagi-r46/K46ExecSelftest/rec-base-st' bash '/fast/scratch/hyaku/kagi-r46/K46ExecSelftest/tree-base/corpus/claims-declared.sh' --selftest
+rc=0
+last: CLAIMS_DECLARED_SELFTEST: PASS (8 cases)
+--- output
+CLAIMS_DECLARED_SELFTEST: PASS (8 cases)
+
+
+===== base real tree (pristine; expect CLEAN claims=17)
+$ cd '/fast/scratch/hyaku/kagi-r46/K46ExecSelftest/tree-base' && bash corpus/claims-declared.sh
+rc=0
+last: CLAIMS_DECLARED: CLEAN (claims=17)
+--- output
+CLAIMS_DECLARED: CLEAN (claims=17)
+
+
+===== patched selftest (expect PASS 11 cases, rc 0)
+$ mkdir -p '/fast/scratch/hyaku/kagi-r46/K46ExecSelftest/rec-p-st' && HYAKU_SCRATCH='/fast/scratch/hyaku/kagi-r46/K46ExecSelftest/rec-p-st' bash '/fast/scratch/hyaku/kagi-r46/K46ExecSelftest/tree/corpus/claims-declared.sh' --selftest
+rc=0
+last: CLAIMS_DECLARED_SELFTEST: PASS (11 cases)
+--- output
+CLAIMS_DECLARED_SELFTEST: PASS (11 cases)
+
+
+===== patched C1 counter (expect value=3 killed=3 positive=1 equiv=1 real=1)
+$ mkdir -p '/fast/scratch/hyaku/kagi-r46/K46ExecSelftest/rec-p' && C1_TREE='/fast/scratch/hyaku/kagi-r46/K46ExecSelftest/tree' HYAKU_SCRATCH='/fast/scratch/hyaku/kagi-r46/K46ExecSelftest/rec-p' bash '/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-46-c1.sh'
+rc=0
+last: C1_SELFTEST_KILLS: value=3 killed=3 positive=1 equiv=1 real=1 (rc e1=0 e2=0 e3=0 e4=0 m1=1 m2=1 m3=1; selftest-rc=0 selftest-last='CLAIMS_DECLARED_SELFTEST: PASS (11 cases)'; real-rc=0 real-last='CLAIMS_DECLARED: CLEAN (claims=17)')
+--- output
+C1_SELFTEST_KILLS: value=3 killed=3 positive=1 equiv=1 real=1 (rc e1=0 e2=0 e3=0 e4=0 m1=1 m2=1 m3=1; selftest-rc=0 selftest-last='CLAIMS_DECLARED_SELFTEST: PASS (11 cases)'; real-rc=0 real-last='CLAIMS_DECLARED: CLEAN (claims=17)')
+
+
+===== patched real tree (expect CLEAN claims=17, rc 0)
+$ cd '/fast/scratch/hyaku/kagi-r46/K46ExecSelftest/tree' && bash corpus/claims-declared.sh
+rc=0
+last: CLAIMS_DECLARED: CLEAN (claims=17)
+--- output
+CLAIMS_DECLARED: CLEAN (claims=17)
+
+
+===== diff patched gate against 44808ced56359c98f35995178fb24a6482899263:corpus/claims-declared.sh (diff rc 1 = files differ)
+$ git -C '/home/vgpnk/Projects/shokunin/kagi-shokunin' show 44808ced56359c98f35995178fb24a6482899263:corpus/claims-declared.sh | diff -u - '/fast/scratch/hyaku/kagi-r46/K46ExecSelftest/tree/corpus/claims-declared.sh'
+rc=1
+last:    echo "CLAIMS_DECLARED_SELFTEST: FAIL (passed=$passed/$cases)"
+--- output
+--- -	2026-11-06 15:58:07.868592691 -0300
++++ /fast/scratch/hyaku/kagi-r46/K46ExecSelftest/tree/corpus/claims-declared.sh	2026-11-06 15:57:46.291923664 -0300
+@@ -38,6 +38,7 @@
+   trap 'rm -rf -- "$s"' EXIT
+   mkdir -p "$s/corpus" "$s/plans"
+   mfix() { # mfix: a conforming fixture lane for round 90, claims C1 freshness + C2 calibration
++    rm -f "$s/plans/round-39.md" "$s/plans/round-91.md"
+     printf 'round\tclaim\taxis\n90\tC1\tfreshness\n90\tC2\tcalibration\n' > "$s/corpus/claims-declared.tsv"
+     printf '# fixture plan\n\n## C1 — freshness: located quotes, 0 → 2\n\ntext\n\n## C2 — calibration: declared axes, 0 → 2\n\ntext\n' > "$s/plans/round-90.md"
+     cat > "$s/SCORECARD.md" <<'SC'
+@@ -68,6 +69,8 @@
+       echo "SELFTEST-FAIL $name rc=$rc out=$got" >&2
+     fi
+   }
++  # named ceiling: chk checks rc plus one token; a mutant that also prints the
++  # expected token (with spurious extra output) is not refused here.
+   # case 1: clean fixture
+   mfix
+   chk clean "$GATE_SRC" 0 'CLAIMS_DECLARED: CLEAN (claims=2)'
+@@ -99,8 +102,21 @@
+   if [ "$real_rc" = 1 ] && [ "$mut_rc" = 0 ]; then passed=$((passed + 1)); else
+     echo "SELFTEST-FAIL constant-mutant real=$real_rc mutant=$mut_rc" >&2
+   fi
+-  if [ "$passed" -eq "$cases" ] && [ "$cases" -eq 8 ]; then
+-    echo "CLAIMS_DECLARED_SELFTEST: PASS (8 cases)"
++  # case 9 (round-45 plan-to-manifest leg): a landed round whose plan heading has
++  # no manifest row reports it; the fixture is otherwise conforming.
++  mfix; printf 'round\tclaim\taxis\n90\tC1\tfreshness\n' > "$s/corpus/claims-declared.tsv"
++  chk no-manifest-row "$GATE_SRC" 1 'MISMATCH 90 C2 no-manifest-row'
++  # case 10 (round-45 plan-to-manifest leg): an in-flight round (plan headings, no
++  # post-move section) is not checked.
++  mfix; printf '# fixture plan\n\n## C1 — freshness: in-flight claim\n\ntext\n' > "$s/plans/round-91.md"
++  chk in-flight-round "$GATE_SRC" 0 'CLAIMS_DECLARED: CLEAN (claims=2)'
++  # case 11 (round-45 plan-to-manifest leg): the scope floor is inclusive -- a landed
++  # round 39 claim with no manifest row is checked and reported.
++  mfix; printf '# fixture plan\n\n## C1 — freshness: landed at the floor\n\ntext\n' > "$s/plans/round-39.md"
++  printf '\n## Round 39 — post-move (landed)\n\n| Axis | Before → after | What moved | Evidence |\n|---|---|---|---|\n| freshness | 8 → 9 | [C1] landed at the floor | R39-01 |\n' >> "$s/SCORECARD.md"
++  chk landed-floor "$GATE_SRC" 1 'MISMATCH 39 C1 no-manifest-row'
++  if [ "$passed" -eq "$cases" ] && [ "$cases" -eq 11 ]; then
++    printf 'CLAIMS_DECLARED_SELFTEST: PASS (%d cases)\n' "$cases"
+     exit 0
+   fi
+   echo "CLAIMS_DECLARED_SELFTEST: FAIL (passed=$passed/$cases)"
+
+
+===== syntax check of patched gate
+$ bash -n '/fast/scratch/hyaku/kagi-r46/K46ExecSelftest/tree/corpus/claims-declared.sh'
+rc=0
+last: <empty>
+--- output
+
+
+
+===== per-mutant selftest evidence (E1-E4 pass, M1-M3 fail)
+$ bash '/fast/scratch/hyaku/kagi-r46/K46ExecSelftest/mutrun.sh' '/fast/scratch/hyaku/kagi-r46/K46ExecSelftest'
+rc=0
+last: CLAIMS_DECLARED_SELFTEST: FAIL (passed=8/11)
+--- output
+== e1 ==
+@@ -21,7 +21,7 @@
+ #   D4 (conspiratorial relabel of all three surfaces) and the colon-suffix over-match window
+ #   remain named ceilings (QM41): the gate reads the lane's own text, not axis fitness.
+ #
+-# usage:
++# usage (equivalent mutant E1):
+ #   claims-declared.sh [--root DIR]   default DIR is the current directory; exit 0 CLEAN,
+ #                                     1 MISMATCH, 2 SETUP (missing manifest, zero rows, or an
+ #                                     axis outside the six AXES.md names)
+selftest rc=0
+CLAIMS_DECLARED_SELFTEST: PASS (11 cases)
+== e2 ==
+@@ -215,7 +215,7 @@
+   case $rname in
+     ''|*[!0-9]*) continue ;;
+   esac
+-  if [ "$((10#$rname))" -lt 39 ]; then continue; fi
++  if [ "$((10#$rname))" -le 38 ]; then continue; fi
+   if ! awk -v want="## Round $rname — post-move" 'index($0, want) == 1 { found = 1 } END { exit found ? 0 : 1 }' "$root/SCORECARD.md" 2>/dev/null; then
+     continue
+   fi
+selftest rc=0
+CLAIMS_DECLARED_SELFTEST: PASS (11 cases)
+== e3 ==
+@@ -222,7 +222,7 @@
+   while IFS=$'\t' read -r hclaim haxis; do
+     [ -n "${hclaim:-}" ] || continue
+     if [ -z "${manifest_set["$rname/$hclaim/$haxis"]:-}" ]; then
+-      echo "MISMATCH $rname $hclaim no-manifest-row"
++      echo "MISMATCH ${rname} ${hclaim} no-manifest-row"
+       bad=$((bad + 1))
+     fi
+   done <<EOF
+selftest rc=0
+CLAIMS_DECLARED_SELFTEST: PASS (11 cases)
+== e4 ==
+@@ -216,7 +216,7 @@
+     ''|*[!0-9]*) continue ;;
+   esac
+   if [ "$((10#$rname))" -lt 39 ]; then continue; fi
+-  if ! awk -v want="## Round $rname — post-move" 'index($0, want) == 1 { found = 1 } END { exit found ? 0 : 1 }' "$root/SCORECARD.md" 2>/dev/null; then
++  if ! awk -v want="## Round ${rname} — post-move" 'index($0, want) == 1 { found = 1 } END { exit found ? 0 : 1 }' "$root/SCORECARD.md" 2>/dev/null; then
+     continue
+   fi
+   while IFS=$'\t' read -r hclaim haxis; do
+selftest rc=0
+CLAIMS_DECLARED_SELFTEST: PASS (11 cases)
+== m1 ==
+@@ -222,8 +222,7 @@
+   while IFS=$'\t' read -r hclaim haxis; do
+     [ -n "${hclaim:-}" ] || continue
+     if [ -z "${manifest_set["$rname/$hclaim/$haxis"]:-}" ]; then
+-      echo "MISMATCH $rname $hclaim no-manifest-row"
+-      bad=$((bad + 1))
++      :
+     fi
+   done <<EOF
+ $(awk '
+selftest rc=1
+SELFTEST-FAIL no-manifest-row rc=0 out=CLAIMS_DECLARED: CLEAN (claims=1)
+SELFTEST-FAIL landed-floor rc=0 out=CLAIMS_DECLARED: CLEAN (claims=2)
+CLAIMS_DECLARED_SELFTEST: FAIL (passed=9/11)
+== m2 ==
+@@ -215,7 +215,7 @@
+   case $rname in
+     ''|*[!0-9]*) continue ;;
+   esac
+-  if [ "$((10#$rname))" -lt 39 ]; then continue; fi
++  if [ "$((10#$rname))" -lt 99 ]; then continue; fi
+   if ! awk -v want="## Round $rname — post-move" 'index($0, want) == 1 { found = 1 } END { exit found ? 0 : 1 }' "$root/SCORECARD.md" 2>/dev/null; then
+     continue
+   fi
+selftest rc=1
+SELFTEST-FAIL no-manifest-row rc=0 out=CLAIMS_DECLARED: CLEAN (claims=1)
+SELFTEST-FAIL landed-floor rc=0 out=CLAIMS_DECLARED: CLEAN (claims=2)
+CLAIMS_DECLARED_SELFTEST: FAIL (passed=9/11)
+== m3 ==
+@@ -216,7 +216,7 @@
+     ''|*[!0-9]*) continue ;;
+   esac
+   if [ "$((10#$rname))" -lt 39 ]; then continue; fi
+-  if ! awk -v want="## Round $rname — post-move" 'index($0, want) == 1 { found = 1 } END { exit found ? 0 : 1 }' "$root/SCORECARD.md" 2>/dev/null; then
++  if awk -v want="## Round $rname — post-move" 'index($0, want) == 1 { found = 1 } END { exit found ? 0 : 1 }' "$root/SCORECARD.md" 2>/dev/null; then
+     continue
+   fi
+   while IFS=$'\t' read -r hclaim haxis; do
+selftest rc=1
+SELFTEST-FAIL no-manifest-row rc=0 out=CLAIMS_DECLARED: CLEAN (claims=1)
+SELFTEST-FAIL in-flight-round rc=1 out=MISMATCH 91 C1 no-manifest-row
+SELFTEST-FAIL landed-floor rc=0 out=CLAIMS_DECLARED: CLEAN (claims=2)
+CLAIMS_DECLARED_SELFTEST: FAIL (passed=8/11)
+
+
+===== lane gate file untouched (git status porcelain; empty = clean)
+$ git -C '/home/vgpnk/Projects/shokunin/kagi-shokunin' status --porcelain -- corpus/claims-declared.sh
+rc=0
+last: <empty>
+--- output
+
+
+
+===== sha256 base vs patched gate
+$ git -C '/home/vgpnk/Projects/shokunin/kagi-shokunin' show 44808ced56359c98f35995178fb24a6482899263:corpus/claims-declared.sh | sha256sum; sha256sum '/fast/scratch/hyaku/kagi-r46/K46ExecSelftest/tree/corpus/claims-declared.sh'
+rc=0
+last: 8053c85a777c533554ce4509b40d893335fe6c8586f8617fd5c8d12a4e9d66a8  /fast/scratch/hyaku/kagi-r46/K46ExecSelftest/tree/corpus/claims-declared.sh
+--- output
+ec0adffea3b0103c5b67b29d73b51d0c8999f78d8927369ea0256e16b7ebe1c8  -
+8053c85a777c533554ce4509b40d893335fe6c8586f8617fd5c8d12a4e9d66a8  /fast/scratch/hyaku/kagi-r46/K46ExecSelftest/tree/corpus/claims-declared.sh
+
+
+===== selftest block bounds in base and patched gate
+$ grep -n 'if \[ "${SELFTEST:-0}" = 1 \]; then' '/fast/scratch/hyaku/kagi-r46/K46ExecSelftest/tree-base/corpus/claims-declared.sh' '/fast/scratch/hyaku/kagi-r46/K46ExecSelftest/tree/corpus/claims-declared.sh'; grep -n '^manifest=' '/fast/scratch/hyaku/kagi-r46/K46ExecSelftest/tree-base/corpus/claims-declared.sh' '/fast/scratch/hyaku/kagi-r46/K46ExecSelftest/tree/corpus/claims-declared.sh'
+rc=0
+last: /fast/scratch/hyaku/kagi-r46/K46ExecSelftest/tree/corpus/claims-declared.sh:125:manifest="$root/corpus/claims-declared.tsv"
+--- output
+/fast/scratch/hyaku/kagi-r46/K46ExecSelftest/tree-base/corpus/claims-declared.sh:36:if [ "${SELFTEST:-0}" = 1 ]; then
+/fast/scratch/hyaku/kagi-r46/K46ExecSelftest/tree/corpus/claims-declared.sh:36:if [ "${SELFTEST:-0}" = 1 ]; then
+/fast/scratch/hyaku/kagi-r46/K46ExecSelftest/tree-base/corpus/claims-declared.sh:109:manifest="$root/corpus/claims-declared.tsv"
+/fast/scratch/hyaku/kagi-r46/K46ExecSelftest/tree/corpus/claims-declared.sh:125:manifest="$root/corpus/claims-declared.tsv"
+
+

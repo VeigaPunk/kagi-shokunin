@@ -1,0 +1,9 @@
+$ grep -E "release|claims" plans/round-46-c1.sh ; grep -E "claims|claims-declared" plans/round-46-c2.sh
+0
+0
+[counts are 0 for each: C1 reads no release-clock artifact, C2 reads no claims artifact]
+$ grep -n "receipt_path\|DEFAULT_RECEIPT_SHA256\|args.receipt is None" corpus/release-clock.py
+28:DEFAULT_RECEIPT_SHA256 = "3f611eec30d4a48f4f389bb1a630551d77110d92fb97eee954eeb6f7c8558727"
+545:def receipt_path(root, selected):
+2136:            receipt_file = receipt_path(root, args.receipt)
+2138:                DEFAULT_RECEIPT_SHA256 if args.receipt is None else None

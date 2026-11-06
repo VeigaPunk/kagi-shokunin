@@ -1,0 +1,88 @@
+# Round 46 — measured at candidate 0bd88889689115141d7bfb5a98deee62a1b3b627 (BASE f5977284a8ce5bab09252be8196ee5dc18489926), 2026-11-06
+
+$ bash plans/round-46-c1.sh 0bd88889689115141d7bfb5a98deee62a1b3b627
+C1_SELFTEST_KILLS: value=3 killed=3 positive=1 equiv=1 real=1 (rc e1=0 e2=0 e3=0 e4=0 m1=1 m2=1 m3=1; selftest-rc=0 selftest-last='CLAIMS_DECLARED_SELFTEST: PASS (12 cases)'; real-rc=0 real-last='CLAIMS_DECLARED: CLEAN (claims=19)')
+rc=0
+
+$ bash plans/round-46-c2.sh 0bd88889689115141d7bfb5a98deee62a1b3b627
+C2_FRESH_CLOCKS: value=29 fresh=29 default=1 pinned=1 kept=1 (default-rc=0 default-last='RELEASE_CLOCK: CLEAN (on_release=29 bound=29 unbound=0 observed=29 fired=13 derived=15)'; pinned-rc=0 pinned-last='RELEASE_CLOCK: CLEAN (on_release=29 bound=29 unbound=0 observed=29 fired=13 derived=15)'; receipt-sha=6091c5291849b54cfd0ecd7a39b2e2e7223da3fbbbe2d9bef19e0f2eb8765fa7; missing=none)
+rc=0
+
+$ C1 kill-rule leg (reviewer K46RP-01): BASE selftest block = lines 36..108 of corpus/claims-declared.sh; diff hunks (old-side starts) = [40, 70, 102]; all inside block: True
+
+$ bash corpus/claims-declared.m1.sh --selftest   (mutant m1; identical-to-gate=False)
+CLAIMS_DECLARED_SELFTEST: FAIL (passed=9/12)
+rc=1
+fails: ['SELFTEST-FAIL no-manifest-row rc=0 out=CLAIMS_DECLARED: CLEAN (claims=1)', 'SELFTEST-FAIL landed-floor rc=0 out=CLAIMS_DECLARED: CLEAN (claims=2)', 'SELFTEST-FAIL same-claim-second-axis rc=0 out=CLAIMS_DECLARED: CLEAN (claims=2)']
+
+$ bash corpus/claims-declared.m2.sh --selftest   (mutant m2; identical-to-gate=False)
+CLAIMS_DECLARED_SELFTEST: FAIL (passed=9/12)
+rc=1
+fails: ['SELFTEST-FAIL no-manifest-row rc=0 out=CLAIMS_DECLARED: CLEAN (claims=1)', 'SELFTEST-FAIL landed-floor rc=0 out=CLAIMS_DECLARED: CLEAN (claims=2)', 'SELFTEST-FAIL same-claim-second-axis rc=0 out=CLAIMS_DECLARED: CLEAN (claims=2)']
+
+$ bash corpus/claims-declared.m3.sh --selftest   (mutant m3; identical-to-gate=False)
+CLAIMS_DECLARED_SELFTEST: FAIL (passed=8/12)
+rc=1
+fails: ['SELFTEST-FAIL no-manifest-row rc=0 out=CLAIMS_DECLARED: CLEAN (claims=1)', 'SELFTEST-FAIL in-flight-round rc=1 out=MISMATCH 91 C1 no-manifest-row', 'SELFTEST-FAIL landed-floor rc=0 out=CLAIMS_DECLARED: CLEAN (claims=2)']
+
+$ bash corpus/claims-declared.axisblind.sh --selftest   (mutant axisblind; identical-to-gate=False)
+CLAIMS_DECLARED_SELFTEST: FAIL (passed=11/12)
+rc=1
+fails: ['SELFTEST-FAIL same-claim-second-axis rc=0 out=CLAIMS_DECLARED: CLEAN (claims=2)']
+
+$ receipt legs (reviewer K46RP-04/05): sha256(observe-r46.json)=6091c5291849b54cfd0ecd7a39b2e2e7223da3fbbbe2d9bef19e0f2eb8765fa7; DEFAULT_RECEIPT_SHA256=6091c5291849b54cfd0ecd7a39b2e2e7223da3fbbbe2d9bef19e0f2eb8765fa7; equal=True; observed_at dates=['2026-11-06'] (upper bound 2026-11-06 holds: True)
+
+$ fired-row leg (critic D-6): rows whose clock/feed/anchored_version/verdict changed BASE->candidate: []; fired at BASE 15 ['S012', 'S013', 'S014', 'S015', 'S016', 'S021', 'S022', 'S023', 'S024', 'S025', 'S026', 'S027', 'S028', 'S040', 'S041']; fired at candidate 13; retired ['S040', 'S041']; added ['S098']
+
+$ git diff --stat f5977284a8ce5bab09252be8196ee5dc18489926 0bd88889689115141d7bfb5a98deee62a1b3b627 -- corpus/SOURCES.md corpus/release-clocks.tsv corpus/source-fetches.tsv
+ corpus/release-clocks.tsv | 59 +++++++++++++++++++++++------------------------
+ corpus/source-fetches.tsv |  2 +-
+ 2 files changed, 30 insertions(+), 31 deletions(-)
+rc=0
+
+$ python3 -B corpus/release-clock.py
+RELEASE_CLOCK: CLEAN (on_release=29 bound=29 unbound=0 observed=29 fired=13 derived=15)
+rc=0
+
+$ python3 -B corpus/release-clock.py --selftest
+RELEASE_CLOCK_SELFTEST: PASS (116 cases)
+rc=0
+
+$ bash plans/round-36-c3.sh
+RELEASE_CLOCK: CLEAN (on_release=29 bound=29 unbound=0 observed=29 fired=13 derived=15)
+rc=0
+
+$ bash plans/round-36-c2.sh
+0
+rc=0
+
+$ bash corpus/claims-declared.sh
+CLAIMS_DECLARED: CLEAN (claims=19)
+rc=0
+
+$ bash corpus/claims-declared.sh --selftest
+CLAIMS_DECLARED_SELFTEST: PASS (12 cases)
+rc=0
+
+$ python3 -B corpus/quote-locate.py
+QUOTE_LOCATE: CLEAN located=8 rows=8
+rc=0
+
+$ bash corpus/anchor-pins.sh
+ANCHOR_PINS: CLEAN (pins=4)
+rc=0
+
+$ python3 /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-45/build/K45ExecStampRW/stamp-drift.py .
+STAMP_DRIFT: rows=123 drift=0
+rc=0
+
+$ bash corpus/sources-census.sh 2>&1 | tail -4
+FINDING SC_USEDBY_NOCITE id=S094 path=corpus/lessons/round-43.md
+FINDING SC_USEDBY_NOCITE id=S099 path=corpus/lessons/round-44.md
+FINDING SC_FETCH id=S099 missing-provenance
+SOURCES_CENSUS: FAILED (findings=3 rows=102)
+rc=0
+
+$ /home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --root /home/vgpnk/Projects/shokunin kagi | tail -1
+kagi	ok	/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/SOURCES.md
+rc=0

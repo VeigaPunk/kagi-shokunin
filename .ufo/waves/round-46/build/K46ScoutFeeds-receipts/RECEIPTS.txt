@@ -1,0 +1,39 @@
+# K46ScoutFeeds — receipts (round 46, seat K46ScoutFeeds)
+# all commands run from scratch $HYAKU_SCRATCH/kagi-r46/K46ScoutFeeds (TMPDIR not used; no /tmp writes)
+# host: Linux 7.2.11-arch1-1 x86_64  lane: /home/vgpnk/Projects/shokunin/kagi-shokunin  BASE f5977284a8ce5bab09252be8196ee5dc18489926
+
+## 1. live feed fetches (curl -sS -L --max-time 60 -A 'kagi-r46-scout/1.0' -o <f> -w '%{http_code}')
+S033 url=https://github.com/getsops/sops/releases.atom http=200 rc=0 accessed_at=2026-11-06T19:10:51Z bytes=253037 sha256=47a224ad71435b7f5cae863bc96c01468bfed482636045fc307430983b072ff6
+S034 url=https://github.com/hashicorp/vault/releases.atom http=200 rc=0 accessed_at=2026-11-06T19:10:52Z bytes=297221 sha256=3cbfdd86d1b4530999d9ab7ed15f395f2757ce0f8a2ae835798878bbe1957fce
+S035 url=https://github.com/openbao/openbao/releases.atom http=200 rc=0 accessed_at=2026-11-06T19:10:53Z bytes=543805 sha256=a54d1a5314ca701684fe65b3e4687c0519d45164c8cd177c950ff75bfd5f2e0e
+S036 url=https://www.python.org/downloads/feed.rss http=200 rc=0 accessed_at=2026-11-06T19:10:54Z bytes=3354 sha256=9ba8856e586659ab78349c3963aa1de178636c0f08772d6196fadbaa92bcea1e
+S037 url=https://curl.se/info http=200 rc=0 accessed_at=2026-11-06T19:10:54Z bytes=353 sha256=788e97f816548cec70767ffe76502bce732f389ced27a0acfa208f9bd6c92675
+
+## 2. unicode fetch (same curl profile)
+url=https://www.unicode.org/reports/tr18/ http=200 rc=0 bytes=199607 sha256=68e34b8ba02dac859bfabac7f8d1ecbd08fbc9ec00aa003f239fe3ca7198c70d accessed_at=2026-11-06T18:51:39Z
+url=https://www.unicode.org/reports/tr18/tr18-23.html http=200 rc=0 bytes=205106 sha256=a491ffd92a046d7d73fb239c6164de2d90ee59b2ae295f0350f9e7640c701064 accessed_at=2026-11-06T18:55:05Z
+url=https://www.unicode.org/reports/tr18/proposed.html http=200 rc=0 bytes=2578 sha256=e3105dee0a66f04eafe07a2c6461580367d655554589837085b9192671c2ab29 accessed_at=2026-11-06T18:55:06Z
+url=https://www.unicode.org/Public/UCD/latest/ucd/PropList.txt http=200 rc=0 bytes=149040 sha256=f438f532e8737bb8a2702126cdf9c4af5e357c58c7acf9d9eb2fc7c1a1d955d6 accessed_at=2026-11-06T19:09:19Z
+
+## 3. gate parser re-run on the live bodies (corpus/release-clock.py imported read-only from the lane tree)
+sops -> 3.13.3
+vault -> 2.2.1
+openbao -> 2.7.2
+python -> 3.15.2
+curl -> 8.23.0
+rc=0
+
+## 4. release-clock gate, BASE tree (git archive of f5977284 into scratch)
+$ python3 -B corpus/release-clock.py
+ORPHAN S040
+ORPHAN S041
+RECEIPT-MISMATCH S040
+RECEIPT-MISMATCH S041
+UNBOUND S098
+RELEASE_CLOCK: FAILED (on_release=29 bound=28 unbound=1 observed=28 fired=13 derived=15)
+rc=1
+
+## 5. release-clock gate, working tree (candidate draft already present in the lane)
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 -B corpus/release-clock.py
+RELEASE_CLOCK: CLEAN (on_release=29 bound=29 unbound=0 observed=29 fired=13 derived=15)
+rc=0

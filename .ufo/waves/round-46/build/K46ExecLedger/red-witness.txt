@@ -1,0 +1,65 @@
+# K46ExecLedger — red witness for the M46-1 ledger row (R46-01)
+# Tree: BASE f5977284a8ce5bab09252be8196ee5dc18489926, materialized with
+#   git archive f5977284a8ce5bab09252be8196ee5dc18489926 | tar -x -C /fast/scratch/hyaku/kagi-r46/K46ExecLedger/base-pristine
+# (no .git in the archive; the lane tree was never written, never checked out, never reset)
+# Row under test: ./ledger-row.tsv (sha256 7df8de37777fb88d4848b5c561e085993540b8cfeeac942c9ba61427eae2a36c)
+
+## 0. pristine stamps baseline (so the red reading is not a stamps artefact)
+$ bash corpus/claim-ledger.sh verify --claims <empty file>
+rc=2
+claim-ledger: no claim rows in /fast/scratch/hyaku/kagi-r46/K46ExecLedger/fixture/empty.tsv (refusing to resolve ids against an empty ledger)
+# no STALE and no MISSING line was printed before that refusal: the archive's 123 stamp rows are fresh at BASE.
+# (the exit 2 is the idref guard refusing an empty ledger, not a stamp failure)
+
+## 1. the row's command at BASE, run directly
+$ timeout -k 5 120 bash -o pipefail -c 'python3 corpus/release-clock.py'
+rc=1
+ORPHAN S040
+ORPHAN S041
+RECEIPT-MISMATCH S040
+RECEIPT-MISMATCH S041
+UNBOUND S098
+RELEASE_CLOCK: FAILED (on_release=29 bound=28 unbound=1 observed=28 fired=13 derived=15)
+# last non-empty line — the line the ledger matches:
+RELEASE_CLOCK: FAILED (on_release=29 bound=28 unbound=1 observed=28 fired=13 derived=15)
+
+## 2. ledger path A — the real gate, one-row claims file (exactly how verify evaluates a row)
+$ bash corpus/claim-ledger.sh verify --claims <one-row file holding R46-01>
+rc=1
+FAIL R46-01 reason=exit-mismatch exit=1 want=0
+CLAIM_LEDGER: FAIL (claims=1 failed=1 deferred=0 stamped=123 stale=0 missing=0 unresolved_ids=1254 labeled_ids=158 host_skipped=0)
+# reading: RED at BASE. The exit leg fires first (rc 1 != want 0, claim-ledger.sh:612-614);
+# the final-line leg would also fail (`FAILED` cannot match `CLEAN`, claim-ledger.sh:616-624).
+
+## 3. ledger path B — the same row written with `-B` (why the shipped row omits it)
+$ bash corpus/claim-ledger.sh verify --claims <one-row file holding `python3 -B corpus/release-clock.py`>
+rc=2
+POLICY R46-T1 reason=python-script
+CLAIM_LEDGER: POLICY (claims=1 policy=1 stamped=123)
+# PYTHON_SCRIPT_RE (claim-ledger.sh:263) anchors `corpus/…` immediately after `python3 `,
+# so any option before the script word is refused at claim-ledger.sh:276-278. The shipped
+# command is therefore `python3 corpus/release-clock.py` (no `-B`); the run leaves no
+# __pycache__ behind (checked: `find base -name __pycache__ -o -name '*.pyc'` → empty).
+
+## 4. manual replication of the ledger's own evaluation (claim-ledger.sh:592-624), BASE
+cmd=python3 corpus/release-clock.py
+want=0  rc=1
+last=RELEASE_CLOCK: FAILED (on_release=29 bound=28 unbound=1 observed=28 fired=13 derived=15)
+verdict=FAIL reason=exit-mismatch
+REGEX=NO-MATCH                       # `[[ $last =~ $expect ]]` also fails on its own
+
+## 5. pattern satisfiability only (NOT a tree reading)
+synthetic line: RELEASE_CLOCK: CLEAN (on_release=29 bound=29 unbound=0 observed=29 fired=13 derived=16)
+SYNTH=MATCH
+# proves the ERE accepts a CLEAN line with the C2 target counts; the tree that produces one
+# is the candidate's work (C2), not this seat's.
+
+## 6. pre-existing pin probe (NOT caused by this row) — R24-05 at BASE
+$ bash corpus/claim-ledger.sh verify --claims <one-row file holding R24-05>
+rc=1
+FAIL R24-05 reason=verdict-not-final exit=0
+CLAIM_LEDGER: FAIL (claims=1 failed=1 deferred=0 stamped=123 stale=0 missing=0 unresolved_ids=1245 labeled_ids=158 host_skipped=0)
+$ bash corpus/row-identity.sh stamps
+ROW_IDENTITY: stamps count=123 sha256=47fa2d507ee9d242fe3c4c6b1e4e921de82270b7e5bc0d3bdd3368d988b6b811
+# R24-05 expects count=122 sha256=3586872e…; the live tree reads count=123 47fa2d50….
+# So the lane's ledger is already red on R24-05 at BASE, independently of R46-01.

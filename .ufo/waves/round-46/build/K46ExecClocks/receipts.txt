@@ -1,0 +1,142 @@
+# K46ExecClocks — receipts (round 46, C2 candidate draft in scratch)
+
+S=/fast/scratch/hyaku/kagi-r46/K46ExecClocks
+Tree: git archive 44808ced56359c98f35995178fb24a6482899263 -> $S/tree (predeclaration).
+BASE contrast tree: git archive f5977284a8ce5bab09252be8196ee5dc18489926 -> $S/base.
+Receipt: $S/tree/.ufo/waves/round-46/final/observe-r46.json
+sha256 = e7a2769586056b09cd6f826ec15bb776bf564ff4a1ac36617e7aadeaad207413, 10575 bytes.
+
+## Candidate changes (draft only, tree not the lane)
+
+1. corpus/release-clocks.tsv — S040 and S041 rows retired (their registry rows moved off
+   `on-release` in round 39: recheck `2026-11-05`); S098 appended as a rendered-quote clock
+   (declared capture quote, raw-literal-v1 title).
+2. corpus/release-clock.py — DEFAULT_RECEIPT_SHA256 -> e7a2769…, receipt_path default
+   round-36/controls/observe-live.json -> round-46/final/observe-r46.json, --receipt help text.
+3. .ufo/waves/round-46/final/observe-r46.json — new live observation receipt (29 records).
+   The round-36 receipt file is untouched.
+
+## Commands, exit codes, last output lines
+
+[1] BASE gate (pristine BASE extract, unedited)
+    cd $S/base && python3 -B corpus/release-clock.py --root $S/base
+    rc=1
+    last: RELEASE_CLOCK: FAILED (on_release=29 bound=28 unbound=1 observed=28 fired=13 derived=15)
+    findings: ORPHAN S040; ORPHAN S041; RECEIPT-MISMATCH S040; RECEIPT-MISMATCH S041; UNBOUND S098
+
+[2] Live observation (single --observe)
+    cd $S/tree && mkdir -p .ufo/waves/round-46/final && \
+      python3 -B corpus/release-clock.py --root $S/tree --observe .ufo/waves/round-46/final/observe-r46.json
+    rc=1            (the same run then printed the default-mode verdict, whose default receipt
+                     was still the round-36 one at that instant — 29 RECEIPT-MISMATCH lines)
+    last: RELEASE_CLOCK: FAILED (on_release=29 bound=29 unbound=0 observed=0 fired=0 derived=0)
+    observe line: RELEASE_CLOCK_OBSERVE: wrote 29 observations (failed=0 fired=13 regressed=0) to .ufo/waves/round-46/final/observe-r46.json
+
+[3] Row sync from the receipt (observed_version / observed_at date / verdict)
+    python3 -B $S/sync_rows.py $S/tree $S/tree/.ufo/waves/round-46/final/observe-r46.json
+    rc=0
+    last: synced 29 rows
+
+[4] Default gate (candidate tree)
+    python3 -B corpus/release-clock.py --root $S/tree
+    rc=0
+    last: RELEASE_CLOCK: CLEAN (on_release=29 bound=29 unbound=0 observed=29 fired=13 derived=15)
+
+[5] PINNED gate (explicit receipt + digest)
+    python3 -B corpus/release-clock.py --root $S/tree --receipt .ufo/waves/round-46/final/observe-r46.json \
+      --receipt-sha e7a2769586056b09cd6f826ec15bb776bf564ff4a1ac36617e7aadeaad207413
+    rc=0
+    last: RELEASE_CLOCK: CLEAN (on_release=29 bound=29 unbound=0 observed=29 fired=13 derived=15)
+
+[6] Gate self-test
+    python3 -B corpus/release-clock.py --selftest
+    rc=0
+    last: RELEASE_CLOCK_SELFTEST: PASS (116 cases)
+
+[7] C2 counter on the candidate tree
+    C2_TREE=$S/tree bash /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-46-c2.sh
+    rc=0
+    last: C2_FRESH_CLOCKS: value=29 fresh=29 default=1 pinned=1 kept=1
+          (default-rc=0 default-last='RELEASE_CLOCK: CLEAN (on_release=29 bound=29 unbound=0 observed=29 fired=13 derived=15)';
+           pinned-rc=0 pinned-last='RELEASE_CLOCK: CLEAN (on_release=29 bound=29 unbound=0 observed=29 fired=13 derived=15)';
+           receipt-sha=e7a2769586056b09cd6f826ec15bb776bf564ff4a1ac36617e7aadeaad207413; missing=none)
+
+[8] C2 counter at BASE (revision form, read-only archive)
+    bash plans/round-46-c2.sh f5977284a8ce5bab09252be8196ee5dc18489926
+    rc=0
+    last: C2_FRESH_CLOCKS: value=0 fresh=0 default=0 pinned=0 kept=1
+          (default-rc=1; pinned-rc=none pinned-last='no-receipt'; missing=S005..S032,S098)
+
+[9] Quote-locate gate (unchanged, candidate tree)
+    python3 -B corpus/quote-locate.py --root $S/tree
+    rc=0
+    last: QUOTE_LOCATE: CLEAN located=8 rows=8
+
+[10] Fleet census-equivalent (SOURCES.md untouched)
+    bash scripts/sources-census.sh validate --file $S/tree/corpus/SOURCES.md
+    rc=0
+    last: file<TAB>ok<TAB>…/tree/corpus/SOURCES.md   (W04 warnings only)
+
+[11] Lane census, candidate tree
+    bash $S/tree/corpus/sources-census.sh --root $S/tree
+    rc=1
+    last: SOURCES_CENSUS: FAILED (findings=3 rows=102)
+    findings: SC_USEDBY_NOCITE S094; SC_USEDBY_NOCITE S099; SC_FETCH S099 missing-provenance
+    identical at the unedited predeclaration tree (baseline-census.txt, same 3 findings), so
+    the candidate adds no finding and the gate is NOT green at BASE.
+
+[12] Doc lines naming the round-36 default (lane, read-only)
+    grep -n 'round-36' /home/vgpnk/Projects/shokunin/kagi-shokunin/SKILL.md \
+      /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/README.md
+    rc=0 (2 matches, both in SKILL.md)
+    SKILL.md:48  "replays the **pinned round-36 rearmed receipt** (the round-26 receipt is retained as history)"
+    SKILL.md:787 "default is the byte-pinned **round-36 rearmed receipt** (round-26 retained as history)"
+    corpus/README.md: no match
+    replacement text drafted in skill-lines.md (not applied)
+
+[13] Variant experiments (scratch copies quotetestA / quotetestB, never the lane)
+    bash $S/quotetestA/corpus/sources-census.sh --root $S/quotetestA   rc=1  SOURCES_CENSUS: FAILED (findings=3 rows=102)
+    bash $S/quotetestB/corpus/sources-census.sh --root $S/quotetestB   rc=1  SOURCES_CENSUS: FAILED (findings=3 rows=102)
+    python3 -B $S/quotetestA/corpus/quote-locate.py --root $S/quotetestA  rc=1
+      NOT-LOCATED S098 quote-not-in-registry-row / QUOTE_LOCATE: FAIL located=8 rows=9
+    python3 -B $S/quotetestB/corpus/quote-locate.py --root $S/quotetestB  rc=1
+      NOT-LOCATED S098 quote-not-in-registry-row / QUOTE_LOCATE: FAIL located=8 rows=9
+
+## Fired set observed this round (13, unchanged from round-36)
+S012 S013 S014 S015 S016 S021 S022 S023 S024 S025 S026 S027 S028
+(quotes S005 S006 S007 S017 S018 S019 S020 S030 S031 S032 S098 all quote-located)
+
+## UTS #18 revision investigation (S098 binding decision)
+
+Fetch: curl -fsSL https://www.unicode.org/reports/tr18/  -> 199607 bytes,
+sha256 68e34b8ba02dac859bfabac7f8d1ecbd08fbc9ec00aa003f239fe3ca7198c70d — byte-identical to
+the 2026-11-05 capture (corpus/source-fetches.tsv S098 col 10 sha / col 11 bytes).
+Header table: Version 25; Date 2025-01-16; Revision 25 (link #Modifications); title unchanged.
+
+Raw-literal candidates in the captured bytes:
+  `<a href="#Modifications">25</a>`  count 1, first offset 2464
+  `<td>Revision</td>`                count 1, first offset 2438
+  `<td>25</td>`                      count 1, first offset 1563
+  b'Revision 25' contiguous in raw bytes: False
+Rendered-text-v1 candidates (normalized body 110079 bytes, sha256 53fa58d5effac070fc27ca2d7d7d6eedb4a7fba3293852f4a3c1088d7425d10e):
+  "Revision 25" locates (2 occurrences); "Version 25" locates (1).
+
+What naming the revision in the capture row would take (measured, on scratch copies):
+  A. raw-literal `<a href="#Modifications">25</a>` (col 13 only; profile stays raw-literal-v1,
+     normalized-digest col stays "-"). Lane census: same 3 pre-existing findings, no new one.
+     quote-locate with an S098 manifest row -> NOT-LOCATED S098 quote-not-in-registry-row
+     (QUOTE_LOCATE: FAIL located=8 rows=9, rc 1): the quote must also sit in the SOURCES.md
+     S098 teaches cell — a registry edit outside this seat.
+  B. rendered-text-v1 "Revision 25" (col 13+14; col 14 must become the 64-hex normalized
+     digest 53fa58d5…). Lane census: same 3 findings; quote-locate with a manifest row ->
+     NOT-LOCATED S098 quote-not-in-registry-row (same registry dependency), and the rendered
+     quote can never satisfy quote-locate's raw-byte model (`data[offset:offset+len]`), since
+     "Revision 25" is not a raw substring.
+  Both variants: fleet validate --file rc 0 (SOURCES.md untouched).
+Decision: neither applied. The capture row is a point attestation dated 2026-11-05; rewriting
+its declared quote post-hoc is a registry-adjacent rewrite that no green gate can certify
+here (the lane census is red at BASE with unrelated S094/S099 findings, and quote-locate can
+only be satisfied by editing corpus/SOURCES.md). S098 is bound with its declared title quote
+(raw-literal-v1) and the ceiling is named: the title is revision-invariant, so this clock
+cannot detect a revision bump at the same URL; freshness for S098 rests on the 2026-11-06
+receipt record (http 200, sha256, quote-located).

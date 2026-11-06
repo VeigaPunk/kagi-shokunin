@@ -1,0 +1,290 @@
+{
+  "rev": "44808ced56359c98f35995178fb24a6482899263",
+  "rows": [
+    {
+      "mutant": "C1-1-equiv-drop",
+      "file": "plans/round-46-c1.sh",
+      "what": "EQUIV leg dropped: every equivalent mutant counts as surviving",
+      "pre_sha": "e3ec7ea0475eecaeeab4cd5220a695a80fa493231ffb5de9ad9f75834a762ddf",
+      "mutant_sha": "bf3c3bd9bbe54e296ccee98b90861b0e844112b66c8e9cadd75fb55bbd116a27",
+      "restored_sha": "e3ec7ea0475eecaeeab4cd5220a695a80fa493231ffb5de9ad9f75834a762ddf",
+      "restored_ok": true,
+      "verdict": "KILLED",
+      "killed_by": [
+        "K1-F1"
+      ],
+      "rc": 1,
+      "last": "CONTROLS: DIFF (11 controls, 1 differ)",
+      "diff_lines": [
+        "K1-F1\tc1\texpected=0\tobserved=3\trc=0\tDIFF\tforgery: selftest keyed on the mutated lines' bytes (E2-E4 killed)\tC1_SELFTEST_KILLS: value=3 killed=3 positive=1 equiv=1 real=1 (rc e1=0 e2=1 e3=1 e4=1 m1=1 m2=1 m3=1; selftest-rc=0 selftest-last='CLAIMS_DECLARED_SELFTEST: PASS (8 cases)'; real-rc=0 real-last='CLAIMS_DECLARED: CLEAN (claims=17)')"
+      ]
+    },
+    {
+      "mutant": "C1-2-real-drop",
+      "file": "plans/round-46-c1.sh",
+      "what": "REAL leg dropped: the real tree is never run",
+      "pre_sha": "e3ec7ea0475eecaeeab4cd5220a695a80fa493231ffb5de9ad9f75834a762ddf",
+      "mutant_sha": "139f12724d61f996495aeb77d8ec211b383d2c5c60bc283d076aedead1d10858",
+      "restored_sha": "e3ec7ea0475eecaeeab4cd5220a695a80fa493231ffb5de9ad9f75834a762ddf",
+      "restored_ok": true,
+      "verdict": "KILLED",
+      "killed_by": [
+        "K1-F3"
+      ],
+      "rc": 1,
+      "last": "CONTROLS: DIFF (11 controls, 1 differ)",
+      "diff_lines": [
+        "K1-F3\tc1\texpected=0\tobserved=3\trc=0\tDIFF\tforgery: positive selftest but the real tree MISMATCHes\tC1_SELFTEST_KILLS: value=3 killed=3 positive=1 equiv=1 real=1 (rc e1=0 e2=0 e3=0 e4=0 m1=1 m2=1 m3=1; selftest-rc=0 selftest-last='CLAIMS_DECLARED_SELFTEST: PASS (10 cases)'; real-rc=1 real-last='CLAIMS_DECLARED: MISMATCH (claims=16 mismatch=1)')"
+      ]
+    },
+    {
+      "mutant": "C1-3-kill-unconditional",
+      "file": "plans/round-46-c1.sh",
+      "what": "every mutant counted killed without running its exit status",
+      "pre_sha": "e3ec7ea0475eecaeeab4cd5220a695a80fa493231ffb5de9ad9f75834a762ddf",
+      "mutant_sha": "4fa50a1f137de5a0e346dbb9904d8a6f1bce1f7b5979b3f1c01e92c659551f85",
+      "restored_sha": "e3ec7ea0475eecaeeab4cd5220a695a80fa493231ffb5de9ad9f75834a762ddf",
+      "restored_ok": true,
+      "verdict": "KILLED",
+      "killed_by": [
+        "K1-0",
+        "K1-F2"
+      ],
+      "rc": 1,
+      "last": "CONTROLS: DIFF (11 controls, 2 differ)",
+      "diff_lines": [
+        "K1-0\tc1\texpected=0\tobserved=3\trc=0\tDIFF\tdo-nothing: BASE gate, 8-case selftest; every mutant survives\tC1_SELFTEST_KILLS: value=3 killed=3 positive=1 equiv=1 real=1 (rc e1=0 e2=0 e3=0 e4=0 m1=0 m2=0 m3=0; selftest-rc=0 selftest-last='CLAIMS_DECLARED_SELFTEST: PASS (8 cases)'; real-rc=0 real-last='CLAIMS_DECLARED: CLEAN (claims=17)')",
+        "K1-F2\tc1\texpected=0\tobserved=3\trc=0\tDIFF\tforgery: constant-PASS selftest (no mutant killed)\tC1_SELFTEST_KILLS: value=3 killed=3 positive=1 equiv=1 real=1 (rc e1=0 e2=0 e3=0 e4=0 m1=0 m2=0 m3=0; selftest-rc=0 selftest-last='CLAIMS_DECLARED_SELFTEST: PASS (10 cases)'; real-rc=0 real-last='CLAIMS_DECLARED: CLEAN (claims=17)')"
+      ]
+    },
+    {
+      "mutant": "C1-4-positive-drop",
+      "file": "plans/round-46-c1.sh",
+      "what": "POSITIVE leg dropped: an unproven gate counts as positive",
+      "pre_sha": "e3ec7ea0475eecaeeab4cd5220a695a80fa493231ffb5de9ad9f75834a762ddf",
+      "mutant_sha": "42a72b3723488b994507d534a8b237cdc5e45810484a82a3fd1863f50d313693",
+      "restored_sha": "e3ec7ea0475eecaeeab4cd5220a695a80fa493231ffb5de9ad9f75834a762ddf",
+      "restored_ok": true,
+      "verdict": "SURVIVED",
+      "killed_by": [],
+      "rc": 0,
+      "last": "CONTROLS: MATCH (11 controls, 0 differ)",
+      "diff_lines": []
+    },
+    {
+      "mutant": "C1-5-kill-on-setup",
+      "file": "plans/round-46-c1.sh",
+      "what": "kill keyed on rc>=2 (SETUP/crash) instead of any non-zero exit",
+      "pre_sha": "e3ec7ea0475eecaeeab4cd5220a695a80fa493231ffb5de9ad9f75834a762ddf",
+      "mutant_sha": "3e1cd67f7dc5a196d3e2889d0b56300703ea8387bfa7df624f94f2691ab56034",
+      "restored_sha": "e3ec7ea0475eecaeeab4cd5220a695a80fa493231ffb5de9ad9f75834a762ddf",
+      "restored_ok": true,
+      "verdict": "KILLED",
+      "killed_by": [
+        "K1-P"
+      ],
+      "rc": 1,
+      "last": "CONTROLS: DIFF (11 controls, 1 differ)",
+      "diff_lines": [
+        "K1-P\tc1\texpected=3\tobserved=0\trc=0\tDIFF\tpositive: reference cases 9-10 kill M1-M3, E1-E4 survive\tC1_SELFTEST_KILLS: value=0 killed=0 positive=1 equiv=1 real=1 (rc e1=0 e2=0 e3=0 e4=0 m1=1 m2=1 m3=1; selftest-rc=0 selftest-last='CLAIMS_DECLARED_SELFTEST: PASS (10 cases)'; real-rc=0 real-last='CLAIMS_DECLARED: CLEAN (claims=17)')"
+      ]
+    },
+    {
+      "mutant": "C1-6-noop-allowed",
+      "file": "plans/round-46-c1.sh",
+      "what": "no-op mutant refusal removed",
+      "pre_sha": "e3ec7ea0475eecaeeab4cd5220a695a80fa493231ffb5de9ad9f75834a762ddf",
+      "mutant_sha": "43cfdb65dd5a2e287c7a1c9ca6bbeb2d5c7225419f5dea0fe479b157392bd3ca",
+      "restored_sha": "e3ec7ea0475eecaeeab4cd5220a695a80fa493231ffb5de9ad9f75834a762ddf",
+      "restored_ok": true,
+      "verdict": "SURVIVED",
+      "killed_by": [],
+      "rc": 0,
+      "last": "CONTROLS: MATCH (11 controls, 0 differ)",
+      "diff_lines": []
+    },
+    {
+      "mutant": "C1-7-empty-pass",
+      "file": "plans/round-46-c1.sh",
+      "what": "PASS prefix check dropped: rc 0 with any last line counts as pass",
+      "pre_sha": "e3ec7ea0475eecaeeab4cd5220a695a80fa493231ffb5de9ad9f75834a762ddf",
+      "mutant_sha": "5ca9ed363091ef108a525583ab23dd4c31722e79643ead49f22a9ad3c6688a39",
+      "restored_sha": "e3ec7ea0475eecaeeab4cd5220a695a80fa493231ffb5de9ad9f75834a762ddf",
+      "restored_ok": true,
+      "verdict": "SURVIVED",
+      "killed_by": [],
+      "rc": 0,
+      "last": "CONTROLS: MATCH (11 controls, 0 differ)",
+      "diff_lines": []
+    },
+    {
+      "mutant": "C2-1-http-drop",
+      "file": "plans/round-46-c2.sh",
+      "what": "receipt records counted without http_status 200",
+      "pre_sha": "0572caae1c6ba67fc27ecf9bcab973cca70a914b7ecabd17c08c190f8283e17f",
+      "mutant_sha": "f1e47f9cd45a0b049cd3aef29d5b471a46cbe430600eb3626bb75e0676bc512d",
+      "restored_sha": "0572caae1c6ba67fc27ecf9bcab973cca70a914b7ecabd17c08c190f8283e17f",
+      "restored_ok": true,
+      "verdict": "SURVIVED",
+      "killed_by": [],
+      "rc": 0,
+      "last": "CONTROLS: MATCH (11 controls, 0 differ)",
+      "diff_lines": []
+    },
+    {
+      "mutant": "C2-2-date-floor-drop",
+      "file": "plans/round-46-c2.sh",
+      "what": "date floor 2026-11-06 removed",
+      "pre_sha": "0572caae1c6ba67fc27ecf9bcab973cca70a914b7ecabd17c08c190f8283e17f",
+      "mutant_sha": "d403304a238ccd879458b889f9cc9c5d9425d9b9114d07e11b037d03e4782b96",
+      "restored_sha": "0572caae1c6ba67fc27ecf9bcab973cca70a914b7ecabd17c08c190f8283e17f",
+      "restored_ok": true,
+      "verdict": "SURVIVED",
+      "killed_by": [],
+      "rc": 0,
+      "last": "CONTROLS: MATCH (11 controls, 0 differ)",
+      "diff_lines": []
+    },
+    {
+      "mutant": "C2-3-kept-drop",
+      "file": "plans/round-46-c2.sh",
+      "what": "KEPT leg dropped: deleted registry rows never fail the counter",
+      "pre_sha": "0572caae1c6ba67fc27ecf9bcab973cca70a914b7ecabd17c08c190f8283e17f",
+      "mutant_sha": "02ff32043129622de898927af07ad015e9da99a72895d6696bb22fff205d65d0",
+      "restored_sha": "0572caae1c6ba67fc27ecf9bcab973cca70a914b7ecabd17c08c190f8283e17f",
+      "restored_ok": true,
+      "verdict": "SURVIVED",
+      "killed_by": [],
+      "rc": 0,
+      "last": "CONTROLS: MATCH (11 controls, 0 differ)",
+      "diff_lines": []
+    },
+    {
+      "mutant": "C2-4-pinned-drop",
+      "file": "plans/round-46-c2.sh",
+      "what": "PINNED leg dropped: an unpinned/absent receipt counts as clean",
+      "pre_sha": "0572caae1c6ba67fc27ecf9bcab973cca70a914b7ecabd17c08c190f8283e17f",
+      "mutant_sha": "e69fc9620f4c5be172d4e2903334c0eed2e6de5456660dcee8b6369d07b958f5",
+      "restored_sha": "0572caae1c6ba67fc27ecf9bcab973cca70a914b7ecabd17c08c190f8283e17f",
+      "restored_ok": true,
+      "verdict": "SURVIVED",
+      "killed_by": [],
+      "rc": 0,
+      "last": "CONTROLS: MATCH (11 controls, 0 differ)",
+      "diff_lines": []
+    },
+    {
+      "mutant": "C2-5-pinned-no-sha",
+      "file": "plans/round-46-c2.sh",
+      "what": "PINNED accepted without --receipt-sha (sha gate dropped)",
+      "pre_sha": "0572caae1c6ba67fc27ecf9bcab973cca70a914b7ecabd17c08c190f8283e17f",
+      "mutant_sha": "a75d999d4985e8d2701e54a87c91b7c383f34c129a220195e61306c8bff6717b",
+      "restored_sha": "0572caae1c6ba67fc27ecf9bcab973cca70a914b7ecabd17c08c190f8283e17f",
+      "restored_ok": true,
+      "verdict": "KILLED",
+      "killed_by": [
+        "K2-P",
+        "K2-F3",
+        "K2-F4"
+      ],
+      "rc": 1,
+      "last": "CONTROLS: DIFF (11 controls, 3 differ)",
+      "diff_lines": [
+        "K2-P\tc2\texpected=29\tobserved=0\trc=0\tDIFF\tpositive: live 2026-11-06 receipt, tsv synced, default repointed\tC2_FRESH_CLOCKS: value=0 fresh=29 default=1 pinned=0 kept=1 (default-rc=0 default-last='RELEASE_CLOCK: CLEAN (on_release=29 bound=29 unbound=0 observed=29 fired=13 derived=15)'; pinned-rc=2 pinned-last='RELEASE_CLOCK: SETUP (--receipt requires --receipt-sha)'; receipt-sha=15ae4ead6d5868a5bebe68ccdb5b5fa69eeec47f94ac4e40532af670c49c1694; missing=none)",
+        "K2-F3\tc2\texpected=28\tobserved=0\trc=0\tDIFF\tforgery: fired S012 re-cadenced out of on-release (28 < target)\tC2_FRESH_CLOCKS: value=0 fresh=28 default=1 pinned=0 kept=1 (default-rc=0 default-last='RELEASE_CLOCK: CLEAN (on_release=28 bound=28 unbound=0 observed=28 fired=12 derived=15)'; pinned-rc=2 pinned-last='RELEASE_CLOCK: SETUP (--receipt requires --receipt-sha)'; receipt-sha=7ea87f3d2c9bf229d02658e96e6162155a9f9a41ce7b8bfd2799b910751878c3; missing=S012)",
+        "K2-F4\tc2\texpected=29\tobserved=0\trc=0\tDIFF\tCEILING: hand-written receipt with fake digests scores 29\tC2_FRESH_CLOCKS: value=0 fresh=29 default=1 pinned=0 kept=1 (default-rc=0 default-last='RELEASE_CLOCK: CLEAN (on_release=29 bound=29 unbound=0 observed=29 fired=13 derived=15)'; pinned-rc=2 pinned-last='RELEASE_CLOCK: SETUP (--receipt requires --receipt-sha)'; receipt-sha=b25e75b3226fe8d473f9858cb2b1666c7580ed5a4155afdfdf8887df99560617; missing=none)"
+      ]
+    },
+    {
+      "mutant": "C2-6-on29-drop-s098",
+      "file": "plans/round-46-c2.sh",
+      "what": "ON29 list loses S098",
+      "pre_sha": "0572caae1c6ba67fc27ecf9bcab973cca70a914b7ecabd17c08c190f8283e17f",
+      "mutant_sha": "1d5df50b7b604eb37b1a19ede10a022d03e03b586ef63511c2d985114d3fcf6d",
+      "restored_sha": "0572caae1c6ba67fc27ecf9bcab973cca70a914b7ecabd17c08c190f8283e17f",
+      "restored_ok": true,
+      "verdict": "KILLED",
+      "killed_by": [
+        "K2-P",
+        "K2-F3",
+        "K2-F4"
+      ],
+      "rc": 1,
+      "last": "CONTROLS: DIFF (11 controls, 3 differ)",
+      "diff_lines": [
+        "K2-P\tc2\texpected=29\tobserved=28\trc=0\tDIFF\tpositive: live 2026-11-06 receipt, tsv synced, default repointed\tC2_FRESH_CLOCKS: value=28 fresh=28 default=1 pinned=1 kept=1 (default-rc=0 default-last='RELEASE_CLOCK: CLEAN (on_release=29 bound=29 unbound=0 observed=29 fired=13 derived=15)'; pinned-rc=0 pinned-last='RELEASE_CLOCK: CLEAN (on_release=29 bound=29 unbound=0 observed=29 fired=13 derived=15)'; receipt-sha=15ae4ead6d5868a5bebe68ccdb5b5fa69eeec47f94ac4e40532af670c49c1694; missing=none)",
+        "K2-F3\tc2\texpected=28\tobserved=27\trc=0\tDIFF\tforgery: fired S012 re-cadenced out of on-release (28 < target)\tC2_FRESH_CLOCKS: value=27 fresh=27 default=1 pinned=1 kept=1 (default-rc=0 default-last='RELEASE_CLOCK: CLEAN (on_release=28 bound=28 unbound=0 observed=28 fired=12 derived=15)'; pinned-rc=0 pinned-last='RELEASE_CLOCK: CLEAN (on_release=28 bound=28 unbound=0 observed=28 fired=12 derived=15)'; receipt-sha=7ea87f3d2c9bf229d02658e96e6162155a9f9a41ce7b8bfd2799b910751878c3; missing=S012)",
+        "K2-F4\tc2\texpected=29\tobserved=28\trc=0\tDIFF\tCEILING: hand-written receipt with fake digests scores 29\tC2_FRESH_CLOCKS: value=28 fresh=28 default=1 pinned=1 kept=1 (default-rc=0 default-last='RELEASE_CLOCK: CLEAN (on_release=29 bound=29 unbound=0 observed=29 fired=13 derived=15)'; pinned-rc=0 pinned-last='RELEASE_CLOCK: CLEAN (on_release=29 bound=29 unbound=0 observed=29 fired=13 derived=15)'; receipt-sha=b25e75b3226fe8d473f9858cb2b1666c7580ed5a4155afdfdf8887df99560617; missing=none)"
+      ]
+    },
+    {
+      "mutant": "C2-7-dup-accept",
+      "file": "plans/round-46-c2.sh",
+      "what": "duplicate receipt records accepted (exactly-one dropped)",
+      "pre_sha": "0572caae1c6ba67fc27ecf9bcab973cca70a914b7ecabd17c08c190f8283e17f",
+      "mutant_sha": "4f741ee36bc5385f2cb1e3d69f3fdd24678c39e4e1a2edf1e6a55b8ac127b491",
+      "restored_sha": "0572caae1c6ba67fc27ecf9bcab973cca70a914b7ecabd17c08c190f8283e17f",
+      "restored_ok": true,
+      "verdict": "SURVIVED",
+      "killed_by": [],
+      "rc": 0,
+      "last": "CONTROLS: MATCH (11 controls, 0 differ)",
+      "diff_lines": []
+    },
+    {
+      "mutant": "C2-8-value-gate-drop-default",
+      "file": "plans/round-46-c2.sh",
+      "what": "VALUE no longer requires DEFAULT clean",
+      "pre_sha": "0572caae1c6ba67fc27ecf9bcab973cca70a914b7ecabd17c08c190f8283e17f",
+      "mutant_sha": "d20457e435762dff9ee97333f313d0f87f210054195d093e6d939072f90aaed9",
+      "restored_sha": "0572caae1c6ba67fc27ecf9bcab973cca70a914b7ecabd17c08c190f8283e17f",
+      "restored_ok": true,
+      "verdict": "SURVIVED",
+      "killed_by": [],
+      "rc": 0,
+      "last": "CONTROLS: MATCH (11 controls, 0 differ)",
+      "diff_lines": []
+    },
+    {
+      "mutant": "C2-9-pinned-always0",
+      "file": "plans/round-46-c2.sh",
+      "what": "PINNED can never be 1 (pinned leg hard-fails)",
+      "pre_sha": "0572caae1c6ba67fc27ecf9bcab973cca70a914b7ecabd17c08c190f8283e17f",
+      "mutant_sha": "bd3cf8b59b786506ef8064a7fd61b6a661ef9fba06cb7a5c2f996384469e7f84",
+      "restored_sha": "0572caae1c6ba67fc27ecf9bcab973cca70a914b7ecabd17c08c190f8283e17f",
+      "restored_ok": true,
+      "verdict": "KILLED",
+      "killed_by": [
+        "K2-P",
+        "K2-F3",
+        "K2-F4"
+      ],
+      "rc": 1,
+      "last": "CONTROLS: DIFF (11 controls, 3 differ)",
+      "diff_lines": [
+        "K2-P\tc2\texpected=29\tobserved=0\trc=0\tDIFF\tpositive: live 2026-11-06 receipt, tsv synced, default repointed\tC2_FRESH_CLOCKS: value=0 fresh=29 default=1 pinned=0 kept=1 (default-rc=0 default-last='RELEASE_CLOCK: CLEAN (on_release=29 bound=29 unbound=0 observed=29 fired=13 derived=15)'; pinned-rc=0 pinned-last='RELEASE_CLOCK: CLEAN (on_release=29 bound=29 unbound=0 observed=29 fired=13 derived=15)'; receipt-sha=15ae4ead6d5868a5bebe68ccdb5b5fa69eeec47f94ac4e40532af670c49c1694; missing=none)",
+        "K2-F3\tc2\texpected=28\tobserved=0\trc=0\tDIFF\tforgery: fired S012 re-cadenced out of on-release (28 < target)\tC2_FRESH_CLOCKS: value=0 fresh=28 default=1 pinned=0 kept=1 (default-rc=0 default-last='RELEASE_CLOCK: CLEAN (on_release=28 bound=28 unbound=0 observed=28 fired=12 derived=15)'; pinned-rc=0 pinned-last='RELEASE_CLOCK: CLEAN (on_release=28 bound=28 unbound=0 observed=28 fired=12 derived=15)'; receipt-sha=7ea87f3d2c9bf229d02658e96e6162155a9f9a41ce7b8bfd2799b910751878c3; missing=S012)",
+        "K2-F4\tc2\texpected=29\tobserved=0\trc=0\tDIFF\tCEILING: hand-written receipt with fake digests scores 29\tC2_FRESH_CLOCKS: value=0 fresh=29 default=1 pinned=0 kept=1 (default-rc=0 default-last='RELEASE_CLOCK: CLEAN (on_release=29 bound=29 unbound=0 observed=29 fired=13 derived=15)'; pinned-rc=0 pinned-last='RELEASE_CLOCK: CLEAN (on_release=29 bound=29 unbound=0 observed=29 fired=13 derived=15)'; receipt-sha=b25e75b3226fe8d473f9858cb2b1666c7580ed5a4155afdfdf8887df99560617; missing=none)"
+      ]
+    },
+    {
+      "mutant": "C2-10-parser-empty",
+      "file": "plans/round-46-c2.sh",
+      "what": "parser-empty refusal removed (empty parse accepted)",
+      "pre_sha": "0572caae1c6ba67fc27ecf9bcab973cca70a914b7ecabd17c08c190f8283e17f",
+      "mutant_sha": "50f9131077a7e43bb3075dd4764d2a6c1238cbb51fff2ef1b3c1ed2bf54698f8",
+      "restored_sha": "0572caae1c6ba67fc27ecf9bcab973cca70a914b7ecabd17c08c190f8283e17f",
+      "restored_ok": true,
+      "verdict": "SURVIVED",
+      "killed_by": [],
+      "rc": 0,
+      "last": "CONTROLS: MATCH (11 controls, 0 differ)",
+      "diff_lines": []
+    }
+  ],
+  "final_sha": {
+    "plans/round-46-c1.sh": "e3ec7ea0475eecaeeab4cd5220a695a80fa493231ffb5de9ad9f75834a762ddf",
+    "plans/round-46-c2.sh": "0572caae1c6ba67fc27ecf9bcab973cca70a914b7ecabd17c08c190f8283e17f"
+  },
+  "restored_all": true
+}

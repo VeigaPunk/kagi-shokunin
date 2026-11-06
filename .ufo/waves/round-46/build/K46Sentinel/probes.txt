@@ -1,0 +1,38 @@
+P0 default receipt/pin
+  receipt_path(root,None) = /R/.ufo/waves/round-36/controls/observe-live.json
+  DEFAULT_RECEIPT_SHA256  = 3f611eec30d4a48f4f389bb1a630551d77110d92fb97eee954eeb6f7c8558727
+P1 fetch-layer exception handling in observe_one
+  BadStatusLine        UNCAUGHT -> http.client.BadStatusLine
+  IncompleteRead       UNCAUGHT -> http.client.IncompleteRead
+  RemoteDisconnected   handled -> error='closed'
+  ConnectionResetError handled -> error='reset'
+P2 XML DTD/entity
+  internal-entity  refused -> XML DTD and entity declarations are not allowed
+  external-entity  refused -> XML DTD and entity declarations are not allowed
+P3 write_receipt
+  existing        SetupError: observation output already exists or is a symlink
+  symlink         SetupError: observation output already exists or is a symlink
+  fresh           WROTE
+  missing-parent  SetupError: cannot write observation receipt: FileNotFoundError
+  readonly-parent SetupError: cannot write observation receipt: PermissionError
+P4 valid_public_https_url
+  https://example.com/                                       True
+  https://example.com/?token=abc                             False
+  https://user:pass@example.com/                             False
+  https://127.0.0.1/                                         False
+  https://169.254.169.254/latest/meta-data/                  False
+  https://2130706433/                                        True
+  https://[::ffff:127.0.0.1]/                                False
+  https://[fd00::1]/                                         False
+  https://localhost/                                         False
+  https://example.com\@evil.com/                             False
+  https://1password.com/account/                             False
+  https://account.1password.com/                             False
+  https://www.1password.dev/brokered-access                  True
+  https://example.com/path/ghp_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa False
+  http://example.com/                                        False
+  https://example.com:8443/                                  False
+P5 2130706433 resolution + is_global
+  public_addresses -> None host resolves to a non-public address
+P6 safe_receipt_url strip
+   https://example.com

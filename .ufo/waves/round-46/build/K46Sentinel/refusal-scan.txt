@@ -1,0 +1,63 @@
+# refusal-boundary scan of round-46 artifacts
+# utc: 2026-11-06T19:02:12Z
+# scope: .ufo/waves/round-46/** + plans/round-46* (regular files)
+# files: 85 under .ufo/waves/round-46; 4 under plans/
+
+## A. literal 'op://' occurrences (context 30 chars each side)
+.ufo/waves/round-46/build/K46Sentinel.md:ken, cookie, vault field, or `op://` reference path is present in
+.ufo/waves/round-46/build/K46Sentinel.md:- the literal `op://` occurs exactly four times, i
+.ufo/waves/round-46/build/K46Sentinel.md:t rule text ("never write an `op://` reference path into any
+.ufo/waves/round-46/build/K46Sentinel.md:"). The reference-path shape `op://<vault>/<item>` matches **0**.
+.ufo/waves/round-46/build-spec.json:r any account; never write an op:// reference path into any artif
+.ufo/waves/round-46/build-spec.json:token, cookie, vault field or op:// reference path in any round-4
+.ufo/waves/round-46/build-dispatch.json:r any account; never write an op:// reference path into any artif
+.ufo/waves/round-46/build-dispatch.json:token, cookie, vault field or op:// reference path in any round-4
+
+## B. op:// reference-path shape (op://<vault>/<item>)
+matches=0
+
+## C. private keys
+(none)
+
+## D. GitHub/AWS/Slack/OpenAI token shapes
+(none)
+
+## E. JWT triple shape
+(none)
+
+## F. credential assignment shapes (field: value / field=value)
+.ufo/waves/round-46/build/K46ExecClocks/release-clock.py:1555:        "feed_url": "https://feed.example.test/releases.atom?token=TEST-SENTINEL-ONLY",
+.ufo/waves/round-46/build/K46Sentinel.md:207:- private keys, GitHub/AWS/Slack/OpenAI token shapes, JWT triples, `vault://`/`secret://`/`sops://`
+.ufo/waves/round-46/build/K46Sentinel.md:212:  `https://feed.example.test/releases.atom?token=TEST-SENTINEL-ONLY`; the same file asserts the
+
+## G. HTTP auth/cookie headers
+.ufo/waves/round-46/build/K46Sentinel.md:208:  schemes, `Authorization:`/`Cookie:`/`Set-Cookie:` headers, `op run|read|item|inject|signin`,
+
+## H. op/1Password CLI invocations or service-account env
+.ufo/waves/round-46/build/K46Sentinel.md:202:**No secret value, token, cookie, vault field, or `op://` reference path is present in the round-46
+.ufo/waves/round-46/build/K46Sentinel.md:208:  schemes, `Authorization:`/`Cookie:`/`Set-Cookie:` headers, `op run|read|item|inject|signin`,
+.ufo/waves/round-46/build/K46Sentinel.md:209:  `OP_SERVICE_ACCOUNT`: **no matches**.
+.ufo/waves/round-46/build/K46Sentinel.md:221:- the literal `op://` occurs exactly four times, in `build-spec.json` and `build-dispatch.json`,
+.ufo/waves/round-46/build/K46Sentinel.md:222:  only inside the quoted seat-prompt rule text ("never write an `op://` reference path into any
+.ufo/waves/round-46/build/K46Sentinel.md:223:  artifact"). The reference-path shape `op://<vault>/<item>` matches **0**. This is rule text, not
+
+## I. secret-scheme URLs
+.ufo/waves/round-46/build/K46Sentinel.md:207:- private keys, GitHub/AWS/Slack/OpenAI token shapes, JWT triples, `vault://`/`secret://`/`sops://`
+
+## J. receipt JSON urls carrying query or fragment
+receipts with observations scanned: 10
+urls with query/fragment/userinfo: (none)
+
+## K. 1Password account/auth-shaped hosts or paths in any URL
+.ufo/waves/round-46/build/K46ExecClocks/release-clock.py:https://www.1password.dev/account/login
+.ufo/waves/round-46/build/K46ExecClocks/release-clock.py:https://www.1password.dev/app
+
+## L. file modes under the artifact set
+      1 755 .ufo/waves/round-46/build/K46MutCounters-receipts/drive.py
+      1 755 .ufo/waves/round-46/build/K46ExecSelftest/claims-declared.sh
+      1 755 .ufo/waves/round-46/build/K46ExecClocks/release-clock.py
+      1 644 .ufo/waves/round-46/final/r36-03-red-witness.txt
+      1 644 .ufo/waves/round-46/final/observe-run.txt
+      1 644 .ufo/waves/round-46/expectation-migrations.json
+      1 644 .ufo/waves/round-46/controls/instrument-sha256.txt
+      1 644 .ufo/waves/round-46/controls/gates-base.txt

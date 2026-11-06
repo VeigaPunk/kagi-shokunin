@@ -1,0 +1,43 @@
+--- -	2026-11-06 15:57:59.088947204 -0300
++++ /fast/scratch/hyaku/kagi-r46/K46ExecSelftest/tree/corpus/claims-declared.sh	2026-11-06 15:57:46.291923664 -0300
+@@ -38,6 +38,7 @@
+   trap 'rm -rf -- "$s"' EXIT
+   mkdir -p "$s/corpus" "$s/plans"
+   mfix() { # mfix: a conforming fixture lane for round 90, claims C1 freshness + C2 calibration
++    rm -f "$s/plans/round-39.md" "$s/plans/round-91.md"
+     printf 'round\tclaim\taxis\n90\tC1\tfreshness\n90\tC2\tcalibration\n' > "$s/corpus/claims-declared.tsv"
+     printf '# fixture plan\n\n## C1 — freshness: located quotes, 0 → 2\n\ntext\n\n## C2 — calibration: declared axes, 0 → 2\n\ntext\n' > "$s/plans/round-90.md"
+     cat > "$s/SCORECARD.md" <<'SC'
+@@ -68,6 +69,8 @@
+       echo "SELFTEST-FAIL $name rc=$rc out=$got" >&2
+     fi
+   }
++  # named ceiling: chk checks rc plus one token; a mutant that also prints the
++  # expected token (with spurious extra output) is not refused here.
+   # case 1: clean fixture
+   mfix
+   chk clean "$GATE_SRC" 0 'CLAIMS_DECLARED: CLEAN (claims=2)'
+@@ -99,8 +102,21 @@
+   if [ "$real_rc" = 1 ] && [ "$mut_rc" = 0 ]; then passed=$((passed + 1)); else
+     echo "SELFTEST-FAIL constant-mutant real=$real_rc mutant=$mut_rc" >&2
+   fi
+-  if [ "$passed" -eq "$cases" ] && [ "$cases" -eq 8 ]; then
+-    echo "CLAIMS_DECLARED_SELFTEST: PASS (8 cases)"
++  # case 9 (round-45 plan-to-manifest leg): a landed round whose plan heading has
++  # no manifest row reports it; the fixture is otherwise conforming.
++  mfix; printf 'round\tclaim\taxis\n90\tC1\tfreshness\n' > "$s/corpus/claims-declared.tsv"
++  chk no-manifest-row "$GATE_SRC" 1 'MISMATCH 90 C2 no-manifest-row'
++  # case 10 (round-45 plan-to-manifest leg): an in-flight round (plan headings, no
++  # post-move section) is not checked.
++  mfix; printf '# fixture plan\n\n## C1 — freshness: in-flight claim\n\ntext\n' > "$s/plans/round-91.md"
++  chk in-flight-round "$GATE_SRC" 0 'CLAIMS_DECLARED: CLEAN (claims=2)'
++  # case 11 (round-45 plan-to-manifest leg): the scope floor is inclusive -- a landed
++  # round 39 claim with no manifest row is checked and reported.
++  mfix; printf '# fixture plan\n\n## C1 — freshness: landed at the floor\n\ntext\n' > "$s/plans/round-39.md"
++  printf '\n## Round 39 — post-move (landed)\n\n| Axis | Before → after | What moved | Evidence |\n|---|---|---|---|\n| freshness | 8 → 9 | [C1] landed at the floor | R39-01 |\n' >> "$s/SCORECARD.md"
++  chk landed-floor "$GATE_SRC" 1 'MISMATCH 39 C1 no-manifest-row'
++  if [ "$passed" -eq "$cases" ] && [ "$cases" -eq 11 ]; then
++    printf 'CLAIMS_DECLARED_SELFTEST: PASS (%d cases)\n' "$cases"
+     exit 0
+   fi
+   echo "CLAIMS_DECLARED_SELFTEST: FAIL (passed=$passed/$cases)"

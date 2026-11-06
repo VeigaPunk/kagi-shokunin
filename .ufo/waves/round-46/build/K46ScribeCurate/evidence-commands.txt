@@ -1,0 +1,42 @@
+# K46ScribeCurate — executed commands and observed output (round 46, 2026-11-06)
+
+No lane script, gate, counter or selftest was executed. No network access.
+Every command below is read-only (`git log/show/rev-parse`, `grep`, `wc`, `ls`,
+`sed`, `cat`, `comm`). cwd for all of them:
+`/home/vgpnk/Projects/shokunin/kagi-shokunin`.
+
+| # | command | rc | observed (last line / key value) |
+|---|---|---|---|
+| 1 | `git rev-parse HEAD` | 0 | `44808ced56359c98f35995178fb24a6482899263` |
+| 2 | `git log --oneline -3` | 0 | `44808ce round-46: predeclaration …` / `f597728 round-45 verifier spot-check …` / `0ece74d round-45: wave evidence …` |
+| 3 | `git log --format='%h %ad %s' --date=short -- corpus/knowledge/iso-11770-3-edition-status.md` | 0 | `072bb0b 2026-11-05 round-45: candidate (C1 claims-declared plan-manifest bijection; C2 ISO/IEC 11770-3 entry S100-S102 located; …)` |
+| 4 | `git log --format='%h %ad %s' --date=short -- corpus/knowledge/feed-token-boundaries.md` | 0 | `fc65112 2026-11-01 round-29: C1 feed-token right boundary via frozen recipe (S052) + agreement-gate bookkeeping` |
+| 5 | `grep -c 'iso-11770-3-edition-status' corpus/README.md` | 1 | `0` |
+| 6 | `grep -c 'feed-token-boundaries' corpus/README.md` | 1 | `0` |
+| 7 | `grep -n '^| S045\|^| S052\|^| S100\|^| S101\|^| S102' corpus/SOURCES.md` | 0 | `52:` S045, `59:` S052, `107:` S100, `108:` S101, `109:` S102; each tail names `corpus/knowledge/…` |
+| 8 | `cat -n .ufo/waves/round-45/final/measured-at-candidate.txt` | 0 | 36 lines; `6 $ bash plans/round-45-c1.sh LANE (pre-candidate control at tree)` then `7 $ census root form`; `35 stamp rc=2` then `36 $ stamp-drift.py <archive of 072bb0bc…>` |
+| 9 | `cat -n .ufo/waves/round-45/final/stamp-drift-at-candidate.txt` | 0 | `1 STAMP_DRIFT: rows=123 drift=0` / `2 stamp rc=0` |
+| 10 | `cat -n .ufo/waves/round-45/controls/c1-base.txt` | 0 | `C1_BIJECTION: value=0 detected=0 positive=1 real=CLEAN (rc A=0 B=0 C=1 tree=LANE; …)` |
+| 11 | `head -3 .ufo/waves/round-45/controls/claims-declared-base.txt` | 0 | `CLAIMS_DECLARED: CLEAN (claims=15)` |
+| 12 | `head -3 .ufo/waves/round-45/controls/quote-locate-base.txt` | 0 | `QUOTE_LOCATE: CLEAN located=5 rows=5` |
+| 13 | `grep -n 'LANE' plans/round-45.md` | 0 | `31:BASE measured: bash plans/round-45-c1.sh LANE → value=0 detected=0 positive=1 real=CLEAN` |
+| 14 | `grep -n 'sys.exit\|exit(\|usage\|argv' .ufo/waves/round-45/build/K45ExecStampRW/stamp-drift.py` | 0 | `24: if len(sys.argv) != 2:` / `25: print(f"usage: …")` / `27: root = Path(sys.argv[1]).resolve()` |
+| 15 | `sed -n '20,34p' .ufo/waves/round-45/build/K45ExecStampRW/stamp-drift.py` | 0 | `26: return 2` (usage), `29: if not stamps.is_file():`, `31: return 2` (missing stamps) |
+| 16 | `wc -l < corpus/stamps.tsv` | 0 | `123` |
+| 17 | `grep -c 'iso-11770' corpus/stamps.tsv` | 1 | `0` |
+| 18 | `git show 072bb0b:corpus/stamps.tsv \| grep -c 'iso-11770'` | 1 | `0` |
+| 19 | `grep -c '^corpus/knowledge/' corpus/stamps.tsv` | 0 | `35` |
+| 20 | `ls corpus/knowledge/*.md \| wc -l` | 0 | `36` |
+| 21 | `grep -l '^Reverify:' corpus/knowledge/*.md \| wc -l` | 0 | `35` |
+| 22 | `grep -c '^Reverify:' corpus/knowledge/iso-11770-3-edition-status.md` | 1 | `0` |
+| 23 | `grep -n 'corpus/README.md' corpus/stamps.tsv` | 0 | `96:corpus/README.md 833d4b39… 252 34462` |
+| 24 | `grep -n 'R14-01' corpus/claim-ledger.tsv` | 0 | `32:R14-01 bash corpus/claim-ledger.sh docs ^DOC_AUDIT: CLEAN \(entries=35 row_linked=32 by_hand=3 undeclared=0 missing_ids=0 unpinned=0 …` |
+| 25 | `grep -n 'UNDECLARED\|UNPINNED\|for f in' corpus/claim-ledger.sh` | 0 | `1129: for f in "${FILES[@]}"; do`, `1145: printf 'UNDECLARED …'`, `1197: printf 'UNPINNED …'` |
+| 26 | `grep -n 'README' corpus/self-counts.tsv` | 0 | rows `47`–`57` (index-row pins); no coverage-map row pin |
+| 27 | `grep -n 'coverage' corpus/self-counts.tsv corpus/self-description-sweep.sh` | 1 | no matching line printed |
+| 28 | `grep -n 'corpus/README.md' corpus/claims-declared.sh` | 1 | no matching line printed |
+| 29 | `grep -n 'Reverify\|unpinned\|UNPINNED\|stamps.tsv\|DOC_AUDIT' corpus/lessons/round-45.md` | 0 | `40:` E45-1 "… they are re-pinned at this round's landing through `corpus/claim-ledger.sh stamp` …" |
+
+Note on rc: `grep -c` returns 1 when the count is 0, and a pipeline's rc is the
+last stage's; the `rc` column above records the observed status of the command as
+run, and the count/value column is the observed output.

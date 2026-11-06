@@ -1,0 +1,126 @@
+# round 47 — C1 (calibration) seat K47ExecC1 — receipts
+# Host shell: /home/vgpnk/Projects/shokunin. Scratch: $HYAKU_SCRATCH/kagi-r47/K47ExecC1
+#   with HYAKU_SCRATCH=/fast/scratch/hyaku. S=/fast/scratch/hyaku/kagi-r47/K47ExecC1
+# Every entry: the command as run, its exit code, and its last output line.
+# Harness notices of the form "Ran in a temporary shell ..." are not command output.
+
+[1] candidate tree from the predeclaration
+  cmd: mkdir -p "$S/tree" && git -C /home/vgpnk/Projects/shokunin/kagi-shokunin archive b020d978bac91284a431710148ebb7a7950eaab8 | tar -x -C "$S/tree"
+  rc=0
+  last: extract-rc=0 entries=6732
+
+[2] live re-fetch of S099 (public raw URL pinned to the fleet commit)
+  cmd: date -u +%FT%TZ > S099.fetched_at
+  fetched_at: 2026-11-06T19:34:00Z
+  cmd: curl -fsSL --compressed -o S099.body -w '%{http_code} %{url_effective}\n' \
+         https://raw.githubusercontent.com/VeigaPunk/shokunin/75dd26121698f10cf111120f6cbcd2b2125598f1/.ufo/prompts/kagi-round-44.md
+  rc=0
+  out: 200 https://raw.githubusercontent.com/VeigaPunk/shokunin/75dd26121698f10cf111120f6cbcd2b2125598f1/.ufo/prompts/kagi-round-44.md
+  cmd: sha256sum S099.body ; wc -c < S099.body
+  out: e62e259c8fd3b9d73833865c456786e72ec387a0b20630c15138b4506971b80c  S099.body
+  out: 97077
+
+[3] fleet git blob comparison (the binding C1's BOUND check recomputes)
+  cmd: git -C /home/vgpnk/Projects/shokunin show 75dd26121698f10cf111120f6cbcd2b2125598f1:.ufo/prompts/kagi-round-44.md | sha256sum
+  out: e62e259c8fd3b9d73833865c456786e72ec387a0b20630c15138b4506971b80c  -
+  cmd: git -C /home/vgpnk/Projects/shokunin show 75dd26121698f10cf111120f6cbcd2b2125598f1:.ufo/prompts/kagi-round-44.md | wc -c
+  out: 97077
+  verdict: live body == fleet blob (sha256 and byte count both equal; MATCH)
+
+[4] quote location in the fetched body
+  quote: The claim is judged on the counter, kill rule and predicate declared before data. A rule
+  cmd: grep -b -n -F -- "$Q" S099.body ; rc=0
+  out: 561:52919:  - The claim is judged on the counter, kill rule and predicate declared before data. A rule
+  cmd: python3 - "$Q"   # brute offset scan of the same bytes
+  out: offset 52924 line 561 ; occurrences 1
+  reading: line 561, line-start byte 52919, quote-start byte offset 52924 — the registry anchor
+           ("§6 item 9, line 561 (byte offset 52924)") is reproduced exactly.
+
+[5] BASE census (predeclaration archive tree, no edits) — the three findings
+  cmd: (cd "$S/tree" && bash corpus/sources-census.sh)
+  rc=1
+  out: FINDING SC_USEDBY_NOCITE id=S094 path=corpus/lessons/round-43.md
+  out: FINDING SC_USEDBY_NOCITE id=S099 path=corpus/lessons/round-44.md
+  out: FINDING SC_FETCH id=S099 missing-provenance
+  last: SOURCES_CENSUS: FAILED (findings=3 rows=102)
+
+[6] S099 provenance row identity digest (column 3), method proven on S094
+  cmd: printf 'S099\tmined\t%s\n' "$URL" | sha256sum
+  out: 28481f3e91f371c9e8e3174922f4f27a204243e9ac05dba2a3fcf43c45b4bb42
+  control: printf 'S094\tmined\t<CORPUS.md URL>\n' | sha256sum
+  out: 2b8fec43b007b3c9fe0208051534708090f2ab21cb98a1d9702fe9f1f5b27ea7
+  control: awk -F'\t' '$1=="S094"{print $3}' corpus/source-fetches.tsv
+  out: 2b8fec43b007b3c9fe0208051534708090f2ab21cb98a1d9702fe9f1f5b27ea7  (method reproduced)
+
+[7] the three additions (append-only)
+  cmd: cat S099.fetch-row.tsv >> tree/corpus/source-fetches.tsv
+  rc=0 ; awk -F'\t' '$1=="S099"{print "cols="NF}' -> cols=16 ; row bytes 673
+  cmd: cp -p S099.body tree/.ufo/waves/round-47/capture/S099.body
+  out: e62e259c8fd3b9d73833865c456786e72ec387a0b20630c15138b4506971b80c  tree/.ufo/waves/round-47/capture/S099.body
+  lessons: one `source:` line + one blank line inserted as the file's first two lines of
+           corpus/lessons/round-43.md (names S094) and corpus/lessons/round-44.md (names S099);
+           exact added bytes in round-43.append.txt / round-44.append.txt.
+
+[8] C1 counter at the candidate
+  cmd: C1_TREE="$S/tree" bash /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-47-c1.sh
+  rc=0
+  last: C1_CENSUS_CALIBRATION: value=3 cleared=3 new=0 intact=1 bound=1 (census=SOURCES_CENSUS: CLEAN (rows=102 A=98 B=2 C=2 queued=1 mined=97 rejected=4 entries_sourced=15 legacy=21 captures=102 inrow=16 inrow_only=0 inrow_nonreproducing=12); why=)
+
+[9] the lane-local census on the candidate tree
+  cmd: (cd "$S/tree" && bash corpus/sources-census.sh)
+  rc=0
+  last: SOURCES_CENSUS: CLEAN (rows=102 A=98 B=2 C=2 queued=1 mined=97 rejected=4 entries_sourced=15 legacy=21 captures=102 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+
+[10] census selftest (proves every finding id still fires)
+  cmd: (cd "$S/tree" && bash corpus/sources-census.sh --selftest)
+  rc=0
+  out: case inrow-orphan-classification: ok (exit 1, SC_INROW)
+  last: SOURCES_CENSUS_SELFTEST: PASS (70 cases)
+
+[11] fleet registry validation of the candidate SOURCES.md (unmodified registry)
+  cmd: /home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --file "$S/tree/corpus/SOURCES.md"
+  rc=0
+  out: file	W04	S089 duplicate url github.com/hashicorp/vault/releases.atom across scopes
+  out: file	W04	S090 duplicate url github.com/openbao/openbao/releases.atom across scopes
+  out: file	W04	S091 duplicate url www.python.org/downloads/feed.rss across scopes
+  last: file	ok	.../tree/corpus/SOURCES.md     (W04 are warnings, pre-existing, non-blocking)
+
+[12] scope of the change: candidate vs predeclaration archive
+  cmd: diff -r --brief "$S/base" "$S/tree"
+  rc=1 (differences reported, expected)
+  out: Only in .../tree/.ufo/waves/round-47: capture
+  out: Files .../base/corpus/lessons/round-43.md and .../tree/corpus/lessons/round-43.md differ
+  out: Files .../base/corpus/lessons/round-44.md and .../tree/corpus/lessons/round-44.md differ
+  out: Files .../base/corpus/source-fetches.tsv and .../tree/corpus/source-fetches.tsv differ
+  reading: four intended paths, nothing else in the 6732-file tree.
+
+[13] frozen kill rule: no pre-existing line rewritten
+  cmd: git diff --no-index --unified=0 base/<f> tree/<f> | grep -cE '^-[^-]'
+  corpus/lessons/round-43.md  -> minus-lines=0
+  corpus/lessons/round-44.md  -> minus-lines=0
+  corpus/source-fetches.tsv   -> minus-lines=0
+  (only `+` lines: one `source:` line each lesson, one provenance row)
+
+[14] do-nothing control: BASE revision 252ef1ca through the same counter
+  cmd: bash plans/round-47-c1.sh 252ef1cac9f41d84639c0d1f211d0e0911196112
+  rc=0
+  last: C1_CENSUS_CALIBRATION: value=0 cleared=0 new=0 intact=1 bound=0 (census=SOURCES_CENSUS: FAILED (findings=3 rows=102); why=s099-rows=0)
+
+[15] partial-fix controls (each finding carries its own weight)
+  P1 base + provenance row + capture only:
+    C1_TREE="$S/F1" bash plans/round-47-c1.sh -> rc=0
+    last: C1_CENSUS_CALIBRATION: value=1 cleared=1 new=0 intact=1 bound=1 (census=SOURCES_CENSUS: FAILED (findings=2 rows=102); why=)
+  P2 base + both lesson `source:` lines only:
+    C1_TREE="$S/F2" bash plans/round-47-c1.sh -> rc=0
+    last: C1_CENSUS_CALIBRATION: value=0 cleared=2 new=0 intact=1 bound=0 (census=SOURCES_CENSUS: FAILED (findings=1 rows=102); why=s099-rows=0)
+
+[16] material round-trip: rebuild the candidate from this directory's files
+  cmd: bash .ufo/waves/round-47/build/K47ExecC1/reproduce.sh "$S/repro"   # fresh dir
+  rc=0
+  last: C1_CENSUS_CALIBRATION: value=3 cleared=3 new=0 intact=1 bound=1 (census=SOURCES_CENSUS: CLEAN (...))
+  cmd: diff -r --brief "$S/tree" "$S/repro/tree"
+  rc=0  (rebuilt tree is byte-identical to the measured tree)
+
+# ---------------------------------------------------------------------------
+# lane tree untouched: no file outside .ufo/waves/round-47/build/K47ExecC1* was written.
+# scratch removed after this receipt was copied out.

@@ -1,0 +1,9 @@
+--- pristine-c2
++++ C2-M2-invert-upper-window
+@@ -83,5 +83,5 @@
+   [[ $fat =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$ ]] || { bad="$bad $id:fetched-shape"; continue; }
+   fe=$(date -u -d "$fat" +%s 2>/dev/null) || { bad="$bad $id:fetched-parse"; continue; }
+-  [ "$fe" -ge "$FLOOR" ] && [ "$fe" -le "$ASOF" ] || { bad="$bad $id:fetched-window"; continue; }
++  [ "$fe" -ge "$FLOOR" ] && [ "$fe" -ge "$ASOF" ] || { bad="$bad $id:fetched-window"; continue; }
+   # (d)
+   case $cap in .ufo/waves/round-47/capture/*) ;; *) bad="$bad $id:capture-path"; continue ;; esac

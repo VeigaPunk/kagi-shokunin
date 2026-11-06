@@ -1,0 +1,8 @@
+--- pristine-c2
++++ C2-M16-drop-capture-sha
+@@ -88,5 +88,4 @@
+   case "/$cap/" in */../*) bad="$bad $id:capture-dotdot"; continue ;; esac
+   [ -f "$T/$cap" ] || { bad="$bad $id:capture-missing"; continue; }
+-  [ "$(sha256sum < "$T/$cap" | cut -d' ' -f1)" = "$sha" ] || { bad="$bad $id:capture-sha"; continue; }
+   [ "$(wc -c < "$T/$cap")" = "$bytes" ] || { bad="$bad $id:capture-bytes"; continue; }
+   # (e)

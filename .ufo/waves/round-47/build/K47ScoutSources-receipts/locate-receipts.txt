@@ -1,0 +1,72 @@
+# K47ScoutSources — locate / cmp / digest receipts
+# date: 2026-11-06   lane: /home/vgpnk/Projects/shokunin/kagi-shokunin   profile: curl -fsSL --compressed
+
+$ python3 /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/rendered-text-v1.py locate <S040.body> 'Matches Unicode whitespace characters (as defined by str.isspace() ).'
+RENDERED_TEXT_V1_LOCATE: count=1
+exit_code: 0
+
+$ python3 /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/rendered-text-v1.py locate <S041.body> 'This function uses the rules defined by the HTML 5 standard for both valid and invalid character references'
+RENDERED_TEXT_V1_LOCATE: count=1
+exit_code: 0
+
+$ python3 /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/rendered-text-v1.py digest <S040.body>
+RENDERED_TEXT_V1: raw_sha256=29fca9b710ae0c857165f68a8c8e62587862c979e1fe4135037a397a8cdf7cf1 bytes=257722 normalized_sha256=084c0da7290b84cf7b4c5d4009c9877602d2da44834e45265708900aec120863 normalized_bytes=69356
+exit_code: 0
+
+$ python3 /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/rendered-text-v1.py digest <S041.body>
+RENDERED_TEXT_V1: raw_sha256=388321714e199e3a93849040754819d21b7ca9b36a5c17748a7218e8f300e615 bytes=20100 normalized_sha256=dad09b924b782dd58581d087e1c1233edda151f567722d00f508727924378976 normalized_bytes=2395
+exit_code: 0
+
+$ grep -abo 'Only `status`, `recheck` and `used-by` change in place' <S094.body>
+6172:Only `status`, `recheck` and `used-by` change in place
+exit_code: 0
+$ grep -n 'Only `status`, `recheck` and `used-by` change in place' <S094.body>
+116:2. **Append-only.** Only `status`, `recheck` and `used-by` change in place, and each change
+exit_code: 0
+
+$ grep -abo 'The claim is judged on the counter, kill rule and predicate declared before data. A rule' <S099.body>
+52924:The claim is judged on the counter, kill rule and predicate declared before data. A rule
+exit_code: 0
+$ grep -n 'The claim is judged on the counter, kill rule and predicate declared before data' <S099.body>
+561:   - The claim is judged on the counter, kill rule and predicate declared before data. A rule
+exit_code: 0
+
+$ grep -abo 'Matches Unicode whitespace characters (as defined by' <S040.body>
+75897:Matches Unicode whitespace characters (as defined by
+exit_code: 0
+$ grep -abo 'This function uses the rules defined by the HTML 5 standard' <S041.body>
+13521:This function uses the rules defined by the HTML 5 standard
+exit_code: 0
+$ grep -abo '<title>re — Regular expression operations &#8212; Python 3.15.2 documentation</title>' <S040.body>
+1569:<title>re — Regular expression operations &#8212; Python 3.15.2 documentation</title>
+exit_code: 0
+$ grep -abo '<title>html — HyperText Markup Language support &#8212; Python 3.15.2 documentation</title>' <S041.body>
+1591:<title>html — HyperText Markup Language support &#8212; Python 3.15.2 documentation</title>
+exit_code: 0
+
+$ cmp <S094.body> /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-39/capture/S094.body
+exit_code: 0
+$ cmp <S099.body> <git cat-file -p 75dd2612...:.ufo/prompts/kagi-round-44.md>
+exit_code: 0
+$ cmp <S094.body> <git cat-file -p f47ad6ba...:CORPUS.md>
+exit_code: 0
+$ cmp <S040.body> /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-40/capture/S095.body
+/fast/scratch/hyaku/kagi-r47/K47ScoutSources/S040.body /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-40/capture/S095.body differ: char 257460, line 2393
+exit_code: 1
+$ cmp <S041.body> /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-40/capture/S096.body
+/fast/scratch/hyaku/kagi-r47/K47ScoutSources/S041.body /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-40/capture/S096.body differ: char 19838, line 370
+exit_code: 1
+
+$ cd /home/vgpnk/Projects/shokunin && git cat-file -p 75dd26121698f10cf111120f6cbcd2b2125598f1:.ufo/prompts/kagi-round-44.md | sha256sum
+e62e259c8fd3b9d73833865c456786e72ec387a0b20630c15138b4506971b80c  -
+exit_code: 0
+$ cd /home/vgpnk/Projects/shokunin && git cat-file -s 75dd26121698f10cf111120f6cbcd2b2125598f1:.ufo/prompts/kagi-round-44.md
+97077
+exit_code: 0
+$ cd /home/vgpnk/Projects/shokunin && git ls-tree f47ad6ba8d306f8125597401cb2ce45c1297a593 CORPUS.md
+100644 blob 882d6ca87fac60c0df1c038711c21259c873a39e	CORPUS.md
+exit_code: 0
+$ git cat-file -p f47ad6ba...:CORPUS.md | sha256sum ; git cat-file -s f47ad6ba...:CORPUS.md
+88556402940e7a0f1dbbed3abef9e00c87a90db6f80eaed03269e371f50050b8  -
+11296
+exit_code: 0

@@ -1,0 +1,9 @@
+--- pristine-c1
++++ C1-M6-accept-dup-registry-rows
+@@ -83,5 +83,5 @@
+ while IFS=$'\t' read -r id st ub; do
+   mst=$(awk -F'\t' -v i="$id" '$1==i {print $2}' "$SCR/b/meas-rows")
+-  [ "$(awk -F'\t' -v i="$id" '$1==i' "$SCR/b/meas-rows" | wc -l)" -eq 1 ] || { intact=0; why="$why row-count:$id"; continue; }
++  [ "$(awk -F'\t' -v i="$id" '$1==i' "$SCR/b/meas-rows" | wc -l)" -ge 1 ] || { intact=0; why="$why row-count:$id"; continue; }
+   [ "$mst" = "$st" ] || { intact=0; why="$why status:$id"; }
+   case $id in

@@ -1,0 +1,149 @@
+# K47Sentinel scan 2026-11-06T19:41:16Z  lane=/home/vgpnk/Projects/shokunin/kagi-shokunin  HEAD=b020d978bac91284a431710148ebb7a7950eaab8
+
+## 1 instrument freeze (sha256 -c against the pre-freeze receipt)
+plans/round-47-c1.sh: OK
+plans/round-47-c2.sh: OK
+plans/round-47-controls.py: OK
+corpus/sources-census.sh: OK
+corpus/rendered-text-v1.py: OK
+corpus/release-clock.py: OK
+
+## 2 secret-shaped values in the round-47 instruments
+grep_exit=1 (1 = no match)
+
+## 3 secret-shaped values in the build outputs (all seats), captures included
+grep_exit=1 (1 = no match)
+
+## 4 literal op:// occurrences anywhere in build (prose mentions included)
+/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-47/build/K47ScoutSources-receipts/S094.body:50:  vault ref paths (`op://…`) stay out of every corpu
+/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-47/build/K47ScoutSources-receipts/S094.body:129:6. **No credential material**, session or private U
+grep_exit=0 (1 = no match)
+
+## 5 hardcoded /tmp in the instruments (prompt §7 item 4 class)
+grep_exit=1 (1 = no match)
+
+## 6 hardcoded /tmp in build-carried tools (scripts only, not captured docs)
+grep_exit=1 (1 = no match)
+
+## 7 S099 capture credential grep (assignment-mandated pattern)
+683:runs `/home/vgpnk/Projects/shokunin/scripts/hyaku/disk-guard.sh` (gate before every spawn, sweep during the run,
+706:   lane tree. Check `disk-guard.sh status` before a heavy pass; a seat that gets ENOSPC reports
+grep_exit=0 (hits here are the substring sk- inside disk-guard.sh)
+e62e259c8fd3b9d73833865c456786e72ec387a0b20630c15138b4506971b80c  /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-47/build/K47ExecC1/S099.body
+e62e259c8fd3b9d73833865c456786e72ec387a0b20630c15138b4506971b80c  /home/vgpnk/Projects/shokunin/.ufo/prompts/kagi-round-44.md
+e62e259c8fd3b9d73833865c456786e72ec387a0b20630c15138b4506971b80c  -
+
+## 8 write targets of the counters and controls (lane-absolute or scratch-only?)
+/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-47-c1.sh:27:# Input: a revision (git archive of the lane at that revision) or C1_TREE=<dir> (fixture tree,
+/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-47-c1.sh:29:#   C1_CENSUS_CALIBRATION: value=V cleared=C new=N intact=I bound=B (census=<last line>; why=...)
+/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-47-c1.sh:38:mkdir -p -- "$SCR/t" "$SCR/b" || setup scratch
+/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-47-c1.sh:39:trap 'rm -rf -- "$SCR"' EXIT
+/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-47-c1.sh:43:  cp -a "$C1_TREE"/. "$T"/ || setup tree-copy
+/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-47-c1.sh:46:  git -C "$REPO" cat-file -e "$REV^{commit}" 2>/dev/null || setup bad-revision
+/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-47-c1.sh:49:git -C "$REPO" show "$BASE:corpus/SOURCES.md" > "$SCR/b/SOURCES.md" 2>/dev/null || setup base-registry
+/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-47-c1.sh:50:git -C "$FLEET" show "$BLOB" > "$SCR/b/blob" 2>/dev/null || setup fleet-blob
+/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-47-c1.sh:54:rows() { # rows <SOURCES.md>: id<TAB>status<TAB>used-by, contract row shape (0-3 leading spaces)
+/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-47-c1.sh:61:out=$(cd "$T" && bash corpus/sources-census.sh 2>/dev/null)
+/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-47-c1.sh:79:rows "$SCR/b/SOURCES.md" | sort > "$SCR/b/base-rows"
+/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-47-c1.sh:80:rows "$T/corpus/SOURCES.md" | sort > "$SCR/b/meas-rows"
+/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-47-c1.sh:103:n99=$(awk -F'\t' '$1=="S099"' "$FT" 2>/dev/null | wc -l)
+/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-47-c2.sh:10:#            the other two fired rows S027/S028 are re-verified through successors S040->S095
+/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-47-c2.sh:11:#            and S041->S096 and are outside F).
+/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-47-c2.sh:19:#                <= the measured revision's committer time (C2_ASOF=<epoch> for fixture trees);
+/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-47-c2.sh:25:#                `python3 corpus/rendered-text-v1.py locate <capture> <quote>` (the measured
+/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-47-c2.sh:26:#                tree's normalizer) exits 0 with `count=K`, K >= 1, and K equals quote_count;
+/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-47-c2.sh:36:# Input: a revision or C2_TREE=<dir> + C2_ASOF=<epoch>. Output: one line
+/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-47-c2.sh:37:#   C2_FIRED_REVERIFIED: value=V reverified=R gate=G (ok=<ids>; bad=<id:reason ...>)
+/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-47-c2.sh:46:mkdir -p -- "$SCR/t" "$SCR/b" || setup scratch
+/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-47-c2.sh:47:trap 'rm -rf -- "$SCR"' EXIT
+/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-47-c2.sh:53:  cp -a "$C2_TREE"/. "$T"/ || setup tree-copy
+/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-47-c2.sh:56:  git -C "$REPO" cat-file -e "$REV^{commit}" 2>/dev/null || setup bad-revision
+/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-47-c2.sh:60:git -C "$REPO" show "$BASE:corpus/source-fetches.tsv" > "$SCR/b/fetches" 2>/dev/null || setup base-fetches
+/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-47-c2.sh:64:gout=$(cd "$T" && python3 corpus/release-clock.py 2>/dev/null); grc=$?
+/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-47-c2.sh:84:  fe=$(date -u -d "$fat" +%s 2>/dev/null) || { bad="$bad $id:fetched-parse"; continue; }
+/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-47-c2.sh:97:  lout=$(cd "$T" && python3 corpus/rendered-text-v1.py locate "$T/$cap" "$mq" 2>/dev/null); lrc=$?
+/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-47-controls.py:10:          capture-times.tsv (id<TAB>fetched_at) -- the positive controls' inputs
+/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-47-controls.py:32:    with open(path, "rb") as h:
+/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-47-controls.py:43:    with open(path, "a", encoding="utf-8") as h:
+/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-47-controls.py:48:    with open(path, encoding="utf-8") as h:
+/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-47-controls.py:52:    with open(path, "w", encoding="utf-8") as h:
+/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-47-controls.py:79:        shutil.copyfile(body, os.path.join(d, "S099.body"))
+/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-47-controls.py:84:    with open(os.path.join(t, "corpus/SOURCES.md"), encoding="utf-8") as h:
+/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-47-controls.py:90:    with open(os.path.join(t, "corpus/release-clocks.tsv"), encoding="utf-8") as h:
+/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-47-controls.py:95:    with open(os.path.join(t, "corpus/source-fetches.tsv"), encoding="utf-8") as h:
+/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-47-controls.py:110:            shutil.copyfile(src, os.path.join(t, cap))
+/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-47-controls.py:118:    with open(os.path.join(t, "corpus/fired-reverify.tsv"), "w", encoding="utf-8") as h:
+/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-47-controls.py:143:    with open(os.path.join(capdir, "capture-times.tsv"), encoding="utf-8") as h:
+/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-47-controls.py:181:            with open(p, encoding="utf-8") as h:
+/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-47-controls.py:183:            with open(p, "w", encoding="utf-8") as h:
+/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-47-controls.py:187:        def k1_f4(t):  # positive tree with a census that prints nothing -> SETUP, never 0 findings
+/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-47-controls.py:189:            with open(os.path.join(t, "corpus/sources-census.sh"), "w") as h:
+/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-47-controls.py:196:            with open(p, encoding="utf-8") as h:
+/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-47-controls.py:199:            with open(p, "w", encoding="utf-8") as h:
+/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-47-controls.py:216:            with open(p, encoding="utf-8") as h:
+/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-47-controls.py:223:            with open(p, "w", encoding="utf-8") as h:
+/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-47-controls.py:236:        def k2_f7(t):  # normalizer removed -> SETUP, never located
+/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-47-controls.py:244:        shutil.rmtree(work, ignore_errors=True)
+/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-47-controls.py:246:    with open(outp, "w", encoding="utf-8") as h:
+/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-47-controls.py:252:    print(open(outp, encoding="utf-8").read())
+
+## 9 cwd-relative output risk: OUT argument of controls.py is caller-supplied
+8:usage: python3 plans/round-47-controls.py CAPDIR OUT
+11:  OUT     receipt file (absolute path)
+126:                       stderr=subprocess.STDOUT, text=True, env=env)
+141:    capdir, outp = argv
+246:    with open(outp, "w", encoding="utf-8") as h:
+252:    print(open(outp, encoding="utf-8").read())
+
+## 10 lane tracked tree untouched / scope of the untracked additions
+ M corpus/SOURCES.md
+ M corpus/lessons/round-43.md
+ M corpus/lessons/round-44.md
+ M corpus/source-fetches.tsv
+?? .ufo/waves/round-47/build-dispatch.json
+?? .ufo/waves/round-47/build-run.stderr
+?? .ufo/waves/round-47/build-spec.json
+?? .ufo/waves/round-47/build.ready
+?? .ufo/waves/round-47/build.ready.dispatched
+?? .ufo/waves/round-47/build/
+?? .ufo/waves/round-47/capture/
+?? corpus/fired-reverify.tsv
+ corpus/lessons/round-44.md | 2 ++
+ corpus/source-fetches.tsv  | 1 +
+ 4 files changed, 7 insertions(+), 2 deletions(-)
+
+## 11 captures: symlinks and sizes in the build dir
+586212	/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-47/build/K47ExecC2/capture/S024.body
+386833	/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-47/build/K47ExecC2/capture/S022.body
+386833	/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-47/build/K47ExecC2/capture/S012.body
+261663	/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-47/build/K47ExecC2/capture/S023.body
+261663	/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-47/build/K47ExecC2/capture/S013.body
+257722	/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-47/build/K47ScoutSources-receipts/S040.body
+257722	/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-47/build/K47ExecS040/receipts/re.body
+97077	/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-47/build/K47ScoutSources-receipts/S099.body
+97077	/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-47/build/K47MutCounters-receipts/cap/S099.body
+97077	/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-47/build/K47ExecC1/S099.body
+63046	/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-47/build/K47ExecC2/capture/S025.body
+63046	/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-47/build/K47ExecC2/capture/S014.body
+55824	/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-47/build/K47ExecC2/capture/S015.body
+47384	/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-47/build/K47ExecC2/capture/S026.body
+47384	/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-47/build/K47ExecC2/capture/S021.body
+47384	/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-47/build/K47ExecC2/capture/S016.body
+20100	/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-47/build/K47ScoutSources-receipts/S041.body
+20100	/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-47/build/K47ExecS040/receipts/html.body
+11296	/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-47/build/K47ScoutSources-receipts/S094.body
+
+## 12 site of the leftover scratch dir from a counter run (trap scope)
+total 8
+drwxr-xr-x 10 vgpnk vgpnk  166 Nov  6 16:40 .
+drwxr-xr-x 25 vgpnk vgpnk 4096 Nov  6 16:40 ..
+drwxr-xr-x  2 vgpnk vgpnk    6 Nov  6 16:39 K47CriticClaims
+drwxr-xr-x  4 vgpnk vgpnk  107 Nov  6 16:35 K47ExecC2
+drwxr-xr-x  7 vgpnk vgpnk   66 Nov  6 16:34 K47MutCounters
+drwxr-xr-x  2 vgpnk vgpnk   28 Nov  6 16:35 K47ReviewerLive
+drwxr-xr-x  4 vgpnk vgpnk   38 Nov  6 16:38 K47ReviewerPlan
+drwxr-xr-x  4 vgpnk vgpnk   72 Nov  6 16:34 K47ScribeLesson
+drwxr-xr-x 12 vgpnk vgpnk  186 Nov  6 16:38 K47Sentinel
+drwxr-xr-x  2 vgpnk vgpnk 4096 Nov  6 16:38 L1
+
+SCAN: done

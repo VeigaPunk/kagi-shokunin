@@ -1,0 +1,488 @@
+[
+ {
+  "id": "C1-M1-drop-new-conjunct",
+  "counter": "c1",
+  "change": "value gate no longer requires NEW = 0",
+  "diff": [
+   "--- pristine-c1",
+   "+++ C1-M1-drop-new-conjunct",
+   "@@ -119,4 +119,4 @@",
+   " ",
+   " value=0",
+   "-[ \"$intact\" -eq 1 ] && [ \"$bound\" -eq 1 ] && [ \"$new\" -eq 0 ] && value=$cleared",
+   "+[ \"$intact\" -eq 1 ] && [ \"$bound\" -eq 1 ] && value=$cleared",
+   " echo \"C1_CENSUS_CALIBRATION: value=$value cleared=$cleared new=$new intact=$intact bound=$bound (census=$last; why=${why# })\""
+  ]
+ },
+ {
+  "id": "C1-M2-no-new-scan",
+  "counter": "c1",
+  "change": "NEW is never computed (new=0)",
+  "diff": [
+   "--- pristine-c1",
+   "+++ C1-M2-no-new-scan",
+   "@@ -72,5 +72,5 @@",
+   "   printf '%s\\n' \"$out\" | grep -qxF -- \"$f\" || cleared=$((cleared + 1))",
+   " done",
+   "-new=$(printf '%s\\n' \"$out\" | grep '^FINDING ' | grep -vxF -e \"$F1\" -e \"$F2\" -e \"$F3\" | wc -l)",
+   "+new=0",
+   " ",
+   " # --- INTACT -------------------------------------------------------------------"
+  ]
+ },
+ {
+  "id": "C1-M3-drop-bound-conjunct",
+  "counter": "c1",
+  "change": "value gate no longer requires BOUND = 1",
+  "diff": [
+   "--- pristine-c1",
+   "+++ C1-M3-drop-bound-conjunct",
+   "@@ -119,4 +119,4 @@",
+   " ",
+   " value=0",
+   "-[ \"$intact\" -eq 1 ] && [ \"$bound\" -eq 1 ] && [ \"$new\" -eq 0 ] && value=$cleared",
+   "+[ \"$intact\" -eq 1 ] && [ \"$new\" -eq 0 ] && value=$cleared",
+   " echo \"C1_CENSUS_CALIBRATION: value=$value cleared=$cleared new=$new intact=$intact bound=$bound (census=$last; why=${why# })\""
+  ]
+ },
+ {
+  "id": "C1-M4-drop-intact-conjunct",
+  "counter": "c1",
+  "change": "value gate no longer requires INTACT = 1",
+  "diff": [
+   "--- pristine-c1",
+   "+++ C1-M4-drop-intact-conjunct",
+   "@@ -119,4 +119,4 @@",
+   " ",
+   " value=0",
+   "-[ \"$intact\" -eq 1 ] && [ \"$bound\" -eq 1 ] && [ \"$new\" -eq 0 ] && value=$cleared",
+   "+[ \"$bound\" -eq 1 ] && [ \"$new\" -eq 0 ] && value=$cleared",
+   " echo \"C1_CENSUS_CALIBRATION: value=$value cleared=$cleared new=$new intact=$intact bound=$bound (census=$last; why=${why# })\""
+  ]
+ },
+ {
+  "id": "C1-M5-ignore-status-cell",
+  "counter": "c1",
+  "change": "registry status comparison dropped (row presence only)",
+  "diff": [
+   "--- pristine-c1",
+   "+++ C1-M5-ignore-status-cell",
+   "@@ -84,5 +84,4 @@",
+   "   mst=$(awk -F'\\t' -v i=\"$id\" '$1==i {print $2}' \"$SCR/b/meas-rows\")",
+   "   [ \"$(awk -F'\\t' -v i=\"$id\" '$1==i' \"$SCR/b/meas-rows\" | wc -l)\" -eq 1 ] || { intact=0; why=\"$why row-count:$id\"; continue; }",
+   "-  [ \"$mst\" = \"$st\" ] || { intact=0; why=\"$why status:$id\"; }",
+   "   case $id in",
+   "     S094|S099)"
+  ]
+ },
+ {
+  "id": "C1-M6-accept-dup-registry-rows",
+  "counter": "c1",
+  "change": "duplicate registry ids accepted (exactly-one becomes at-least-one)",
+  "diff": [
+   "--- pristine-c1",
+   "+++ C1-M6-accept-dup-registry-rows",
+   "@@ -83,5 +83,5 @@",
+   " while IFS=$'\\t' read -r id st ub; do",
+   "   mst=$(awk -F'\\t' -v i=\"$id\" '$1==i {print $2}' \"$SCR/b/meas-rows\")",
+   "-  [ \"$(awk -F'\\t' -v i=\"$id\" '$1==i' \"$SCR/b/meas-rows\" | wc -l)\" -eq 1 ] || { intact=0; why=\"$why row-count:$id\"; continue; }",
+   "+  [ \"$(awk -F'\\t' -v i=\"$id\" '$1==i' \"$SCR/b/meas-rows\" | wc -l)\" -ge 1 ] || { intact=0; why=\"$why row-count:$id\"; continue; }",
+   "   [ \"$mst\" = \"$st\" ] || { intact=0; why=\"$why status:$id\"; }",
+   "   case $id in"
+  ]
+ },
+ {
+  "id": "C1-M7-drop-capture-sha",
+  "counter": "c1",
+  "change": "committed capture compared by existence only, not sha256",
+  "diff": [
+   "--- pristine-c1",
+   "+++ C1-M7-drop-capture-sha",
+   "@@ -111,9 +111,5 @@",
+   "   if [ -z \"$q\" ] || ! grep -qF -- \"$q\" \"$SCR/b/blob\"; then bound=0; why=\"$why quote\"; fi",
+   "   C=$T/.ufo/waves/round-47/capture/S099.body",
+   "-  if [ -f \"$C\" ]; then",
+   "-    [ \"$(sha256sum < \"$C\" | cut -d' ' -f1)\" = \"$bsha\" ] || { bound=0; why=\"$why capture-sha\"; }",
+   "-  else",
+   "-    bound=0; why=\"$why capture-missing\"",
+   "-  fi",
+   "+  [ -f \"$C\" ] || { bound=0; why=\"$why capture-missing\"; }",
+   " fi"
+  ]
+ },
+ {
+  "id": "C1-M8-drop-row-sha",
+  "counter": "c1",
+  "change": "S099 row column-10 sha256 check dropped (bytes still checked)",
+  "diff": [
+   "--- pristine-c1",
+   "+++ C1-M8-drop-row-sha",
+   "@@ -106,5 +106,4 @@",
+   " else",
+   "   IFS=$'\\t' read -r -a R < <(awk -F'\\t' '$1==\"S099\"' \"$FT\")",
+   "-  [ \"${R[9]:-}\" = \"$bsha\" ] || { bound=0; why=\"$why sha\"; }",
+   "   [ \"${R[10]:-}\" = \"$bbytes\" ] || { bound=0; why=\"$why bytes\"; }",
+   "   q=${R[12]:-}"
+  ]
+ },
+ {
+  "id": "C1-M9-accept-non-census-output",
+  "counter": "c1",
+  "change": "fail-closed census check removed (any output accepted)",
+  "diff": [
+   "--- pristine-c1",
+   "+++ C1-M9-accept-non-census-output",
+   "@@ -61,8 +61,5 @@",
+   " out=$(cd \"$T\" && bash corpus/sources-census.sh 2>/dev/null)",
+   " last=$(printf '%s\\n' \"$out\" | tail -n 1)",
+   "-case $last in",
+   "-  \"SOURCES_CENSUS: CLEAN \"*|\"SOURCES_CENSUS: FAILED \"*) ;;",
+   "-  *) setup \"census-output:${last:-empty}\" ;;",
+   "-esac",
+   "+:",
+   " F1='FINDING SC_USEDBY_NOCITE id=S094 path=corpus/lessons/round-43.md'",
+   " F2='FINDING SC_USEDBY_NOCITE id=S099 path=corpus/lessons/round-44.md'"
+  ]
+ },
+ {
+  "id": "C1-M10-drop-single-s099-row",
+  "counter": "c1",
+  "change": "exactly-one S099 row rule made unreachable (count never rejects)",
+  "diff": [
+   "--- pristine-c1",
+   "+++ C1-M10-drop-single-s099-row",
+   "@@ -102,5 +102,5 @@",
+   " FT=$T/corpus/source-fetches.tsv",
+   " n99=$(awk -F'\\t' '$1==\"S099\"' \"$FT\" 2>/dev/null | wc -l)",
+   "-if [ \"$n99\" -ne 1 ]; then",
+   "+if [ \"$n99\" -lt 0 ]; then",
+   "   bound=0; why=\"$why s099-rows=$n99\"",
+   " else"
+  ]
+ },
+ {
+  "id": "C1-M11-invert-cleared",
+  "counter": "c1",
+  "change": "CLEARED counts present findings instead of absent ones",
+  "diff": [
+   "--- pristine-c1",
+   "+++ C1-M11-invert-cleared",
+   "@@ -70,5 +70,5 @@",
+   " cleared=0",
+   " for f in \"$F1\" \"$F2\" \"$F3\"; do",
+   "-  printf '%s\\n' \"$out\" | grep -qxF -- \"$f\" || cleared=$((cleared + 1))",
+   "+  printf '%s\\n' \"$out\" | grep -qxF -- \"$f\" && cleared=$((cleared + 1))",
+   " done",
+   " new=$(printf '%s\\n' \"$out\" | grep '^FINDING ' | grep -vxF -e \"$F1\" -e \"$F2\" -e \"$F3\" | wc -l)"
+  ]
+ },
+ {
+  "id": "C1-M12-loose-cleared-match",
+  "counter": "c1",
+  "change": "CLEARED matched by substring instead of whole line",
+  "diff": [
+   "--- pristine-c1",
+   "+++ C1-M12-loose-cleared-match",
+   "@@ -70,5 +70,5 @@",
+   " cleared=0",
+   " for f in \"$F1\" \"$F2\" \"$F3\"; do",
+   "-  printf '%s\\n' \"$out\" | grep -qxF -- \"$f\" || cleared=$((cleared + 1))",
+   "+  printf '%s\\n' \"$out\" | grep -qF -- \"$f\" || cleared=$((cleared + 1))",
+   " done",
+   " new=$(printf '%s\\n' \"$out\" | grep '^FINDING ' | grep -vxF -e \"$F1\" -e \"$F2\" -e \"$F3\" | wc -l)"
+  ]
+ },
+ {
+  "id": "C1-M13-relax-base-102-guard",
+  "counter": "c1",
+  "change": "BASE registry row-count guard relaxed from exactly 102",
+  "diff": [
+   "--- pristine-c1",
+   "+++ C1-M13-relax-base-102-guard",
+   "@@ -80,5 +80,5 @@",
+   " rows \"$T/corpus/SOURCES.md\" | sort > \"$SCR/b/meas-rows\"",
+   " nb=$(wc -l < \"$SCR/b/base-rows\")",
+   "-[ \"$nb\" -eq 102 ] || setup \"base-rows=$nb\"",
+   "+[ \"$nb\" -ge 1 ] || setup \"base-rows=$nb\"",
+   " while IFS=$'\\t' read -r id st ub; do",
+   "   mst=$(awk -F'\\t' -v i=\"$id\" '$1==i {print $2}' \"$SCR/b/meas-rows\")"
+  ]
+ },
+ {
+  "id": "C1-M14-drop-blob-quote-check",
+  "counter": "c1",
+  "change": "S099 quote no longer required to occur in the fleet blob",
+  "diff": [
+   "--- pristine-c1",
+   "+++ C1-M14-drop-blob-quote-check",
+   "@@ -109,5 +109,4 @@",
+   "   [ \"${R[10]:-}\" = \"$bbytes\" ] || { bound=0; why=\"$why bytes\"; }",
+   "   q=${R[12]:-}",
+   "-  if [ -z \"$q\" ] || ! grep -qF -- \"$q\" \"$SCR/b/blob\"; then bound=0; why=\"$why quote\"; fi",
+   "   C=$T/.ufo/waves/round-47/capture/S099.body",
+   "   if [ -f \"$C\" ]; then"
+  ]
+ },
+ {
+  "id": "C2-M1-drop-date-window",
+  "counter": "c2",
+  "change": "fetched_at freshness window removed",
+  "diff": [
+   "--- pristine-c2",
+   "+++ C2-M1-drop-date-window",
+   "@@ -83,5 +83,4 @@",
+   "   [[ $fat =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$ ]] || { bad=\"$bad $id:fetched-shape\"; continue; }",
+   "   fe=$(date -u -d \"$fat\" +%s 2>/dev/null) || { bad=\"$bad $id:fetched-parse\"; continue; }",
+   "-  [ \"$fe\" -ge \"$FLOOR\" ] && [ \"$fe\" -le \"$ASOF\" ] || { bad=\"$bad $id:fetched-window\"; continue; }",
+   "   # (d)",
+   "   case $cap in .ufo/waves/round-47/capture/*) ;; *) bad=\"$bad $id:capture-path\"; continue ;; esac"
+  ]
+ },
+ {
+  "id": "C2-M2-invert-upper-window",
+  "counter": "c2",
+  "change": "upper bound of the freshness window inverted (-le -> -ge)",
+  "diff": [
+   "--- pristine-c2",
+   "+++ C2-M2-invert-upper-window",
+   "@@ -83,5 +83,5 @@",
+   "   [[ $fat =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$ ]] || { bad=\"$bad $id:fetched-shape\"; continue; }",
+   "   fe=$(date -u -d \"$fat\" +%s 2>/dev/null) || { bad=\"$bad $id:fetched-parse\"; continue; }",
+   "-  [ \"$fe\" -ge \"$FLOOR\" ] && [ \"$fe\" -le \"$ASOF\" ] || { bad=\"$bad $id:fetched-window\"; continue; }",
+   "+  [ \"$fe\" -ge \"$FLOOR\" ] && [ \"$fe\" -ge \"$ASOF\" ] || { bad=\"$bad $id:fetched-window\"; continue; }",
+   "   # (d)",
+   "   case $cap in .ufo/waves/round-47/capture/*) ;; *) bad=\"$bad $id:capture-path\"; continue ;; esac"
+  ]
+ },
+ {
+  "id": "C2-M3-drop-gate-conjunct",
+  "counter": "c2",
+  "change": "value no longer multiplied by the release-clock gate",
+  "diff": [
+   "--- pristine-c2",
+   "+++ C2-M3-drop-gate-conjunct",
+   "@@ -104,4 +104,4 @@",
+   " done",
+   " value=0",
+   "-[ \"$gate\" -eq 1 ] && value=$n",
+   "+value=$n",
+   " echo \"C2_FIRED_REVERIFIED: value=$value reverified=$n gate=$gate (ok=${ok# }; bad=${bad# }; gate-line=$glast)\""
+  ]
+ },
+ {
+  "id": "C2-M4-gate-rc-ignored",
+  "counter": "c2",
+  "change": "gate accepts a non-CLEAN last line and ignores exit code",
+  "diff": [
+   "--- pristine-c2",
+   "+++ C2-M4-gate-rc-ignored",
+   "@@ -65,5 +65,5 @@",
+   " glast=$(printf '%s\\n' \"$gout\" | tail -n 1)",
+   " gate=0",
+   "-[ \"$grc\" -eq 0 ] && [[ $glast == \"RELEASE_CLOCK: CLEAN\"* ]] && gate=1",
+   "+[[ $glast == *\"RELEASE_CLOCK:\"* ]] && gate=1",
+   " ",
+   " L=$T/corpus/fired-reverify.tsv"
+  ]
+ },
+ {
+  "id": "C2-M5-drop-quote-swap",
+  "counter": "c2",
+  "change": "measured column-13 quote no longer compared to the BASE quote",
+  "diff": [
+   "--- pristine-c2",
+   "+++ C2-M5-drop-quote-swap",
+   "@@ -94,5 +94,4 @@",
+   "   mq=$(awk -F'\\t' -v i=\"$id\" '$1==i {print $13}' \"$T/corpus/source-fetches.tsv\")",
+   "   [ -n \"$bq\" ] || setup \"base-quote:$id\"",
+   "-  [ \"$mq\" = \"$bq\" ] || { bad=\"$bad $id:quote-swapped\"; continue; }",
+   "   lout=$(cd \"$T\" && python3 corpus/rendered-text-v1.py locate \"$T/$cap\" \"$mq\" 2>/dev/null); lrc=$?",
+   "   k=$(printf '%s\\n' \"$lout\" | sed -n 's/.*count=\\([0-9][0-9]*\\).*/\\1/p' | head -n 1)"
+  ]
+ },
+ {
+  "id": "C2-M6-drop-quote-count",
+  "counter": "c2",
+  "change": "located count no longer required to equal quote_count",
+  "diff": [
+   "--- pristine-c2",
+   "+++ C2-M6-drop-quote-count",
+   "@@ -98,5 +98,4 @@",
+   "   k=$(printf '%s\\n' \"$lout\" | sed -n 's/.*count=\\([0-9][0-9]*\\).*/\\1/p' | head -n 1)",
+   "   [ \"$lrc\" -eq 0 ] && [ -n \"$k\" ] && [ \"$k\" -ge 1 ] || { bad=\"$bad $id:not-located\"; continue; }",
+   "-  [ \"$k\" = \"$qc\" ] || { bad=\"$bad $id:quote-count\"; continue; }",
+   "   # (f)",
+   "   [ \"$verdict\" = teaching-holds ] || { bad=\"$bad $id:verdict\"; continue; }"
+  ]
+ },
+ {
+  "id": "C2-M7-accept-zero-count",
+  "counter": "c2",
+  "change": "not-located threshold relaxed to K >= 0",
+  "diff": [
+   "--- pristine-c2",
+   "+++ C2-M7-accept-zero-count",
+   "@@ -97,5 +97,5 @@",
+   "   lout=$(cd \"$T\" && python3 corpus/rendered-text-v1.py locate \"$T/$cap\" \"$mq\" 2>/dev/null); lrc=$?",
+   "   k=$(printf '%s\\n' \"$lout\" | sed -n 's/.*count=\\([0-9][0-9]*\\).*/\\1/p' | head -n 1)",
+   "-  [ \"$lrc\" -eq 0 ] && [ -n \"$k\" ] && [ \"$k\" -ge 1 ] || { bad=\"$bad $id:not-located\"; continue; }",
+   "+  [ \"$lrc\" -eq 0 ] && [ -n \"$k\" ] && [ \"$k\" -ge 0 ] || { bad=\"$bad $id:not-located\"; continue; }",
+   "   [ \"$k\" = \"$qc\" ] || { bad=\"$bad $id:quote-count\"; continue; }",
+   "   # (f)"
+  ]
+ },
+ {
+  "id": "C2-M8-drop-verdict",
+  "counter": "c2",
+  "change": "verdict column no longer required to be teaching-holds",
+  "diff": [
+   "--- pristine-c2",
+   "+++ C2-M8-drop-verdict",
+   "@@ -100,5 +100,4 @@",
+   "   [ \"$k\" = \"$qc\" ] || { bad=\"$bad $id:quote-count\"; continue; }",
+   "   # (f)",
+   "-  [ \"$verdict\" = teaching-holds ] || { bad=\"$bad $id:verdict\"; continue; }",
+   "   ok=\"$ok $id\"; n=$((n + 1))",
+   " done"
+  ]
+ },
+ {
+  "id": "C2-M9-drop-capture-bytes",
+  "counter": "c2",
+  "change": "capture byte count no longer compared",
+  "diff": [
+   "--- pristine-c2",
+   "+++ C2-M9-drop-capture-bytes",
+   "@@ -89,5 +89,4 @@",
+   "   [ -f \"$T/$cap\" ] || { bad=\"$bad $id:capture-missing\"; continue; }",
+   "   [ \"$(sha256sum < \"$T/$cap\" | cut -d' ' -f1)\" = \"$sha\" ] || { bad=\"$bad $id:capture-sha\"; continue; }",
+   "-  [ \"$(wc -c < \"$T/$cap\")\" = \"$bytes\" ] || { bad=\"$bad $id:capture-bytes\"; continue; }",
+   "   # (e)",
+   "   bq=$(awk -F'\\t' -v i=\"$id\" '$1==i {print $13}' \"$SCR/b/fetches\")"
+  ]
+ },
+ {
+  "id": "C2-M10-drop-dotdot",
+  "counter": "c2",
+  "change": "..-traversal guard on capture_path removed",
+  "diff": [
+   "--- pristine-c2",
+   "+++ C2-M10-drop-dotdot",
+   "@@ -86,5 +86,4 @@",
+   "   # (d)",
+   "   case $cap in .ufo/waves/round-47/capture/*) ;; *) bad=\"$bad $id:capture-path\"; continue ;; esac",
+   "-  case \"/$cap/\" in */../*) bad=\"$bad $id:capture-dotdot\"; continue ;; esac",
+   "   [ -f \"$T/$cap\" ] || { bad=\"$bad $id:capture-missing\"; continue; }",
+   "   [ \"$(sha256sum < \"$T/$cap\" | cut -d' ' -f1)\" = \"$sha\" ] || { bad=\"$bad $id:capture-sha\"; continue; }"
+  ]
+ },
+ {
+  "id": "C2-M11-drop-capture-prefix",
+  "counter": "c2",
+  "change": "capture_path no longer required under .ufo/waves/round-47/capture/",
+  "diff": [
+   "--- pristine-c2",
+   "+++ C2-M11-drop-capture-prefix",
+   "@@ -85,5 +85,4 @@",
+   "   [ \"$fe\" -ge \"$FLOOR\" ] && [ \"$fe\" -le \"$ASOF\" ] || { bad=\"$bad $id:fetched-window\"; continue; }",
+   "   # (d)",
+   "-  case $cap in .ufo/waves/round-47/capture/*) ;; *) bad=\"$bad $id:capture-path\"; continue ;; esac",
+   "   case \"/$cap/\" in */../*) bad=\"$bad $id:capture-dotdot\"; continue ;; esac",
+   "   [ -f \"$T/$cap\" ] || { bad=\"$bad $id:capture-missing\"; continue; }"
+  ]
+ },
+ {
+  "id": "C2-M12-accept-dup-ledger-rows",
+  "counter": "c2",
+  "change": "exactly-one ledger row rule relaxed to at-least-one",
+  "diff": [
+   "--- pristine-c2",
+   "+++ C2-M12-accept-dup-ledger-rows",
+   "@@ -72,5 +72,5 @@",
+   "   if [ ! -f \"$L\" ]; then bad=\"$bad $id:no-ledger\"; continue; fi",
+   "   c=$(awk -F'\\t' -v i=\"$id\" '$1==i' \"$L\" | wc -l)",
+   "-  [ \"$c\" -eq 1 ] || { bad=\"$bad $id:rows=$c\"; continue; }",
+   "+  [ \"$c\" -ge 1 ] || { bad=\"$bad $id:rows=$c\"; continue; }",
+   "   IFS=$'\\t' read -r _ url rel fat cap sha bytes qc verdict < <(awk -F'\\t' -v i=\"$id\" '$1==i' \"$L\")",
+   "   # (a)"
+  ]
+ },
+ {
+  "id": "C2-M13-drop-url-check",
+  "counter": "c2",
+  "change": "ledger url no longer compared to the registry source cell",
+  "diff": [
+   "--- pristine-c2",
+   "+++ C2-M13-drop-url-check",
+   "@@ -76,5 +76,4 @@",
+   "   # (a)",
+   "   rurl=$(awk -F'|' -v i=\"$id\" '{x=$2; gsub(/[[:space:]]/,\"\",x)} x==i { if (match($3, /https?:\\/\\/[^ |]+/)) print substr($3,RSTART,RLENGTH) }' \"$T/corpus/SOURCES.md\")",
+   "-  [ -n \"$rurl\" ] && [ \"$url\" = \"$rurl\" ] || { bad=\"$bad $id:url\"; continue; }",
+   "   # (b)",
+   "   ov=$(awk -F'\\t' -v i=\"$id\" '$1==i {print $6}' \"$T/corpus/release-clocks.tsv\")"
+  ]
+ },
+ {
+  "id": "C2-M14-drop-release-check",
+  "counter": "c2",
+  "change": "observed_release no longer compared to release-clocks.tsv",
+  "diff": [
+   "--- pristine-c2",
+   "+++ C2-M14-drop-release-check",
+   "@@ -79,5 +79,4 @@",
+   "   # (b)",
+   "   ov=$(awk -F'\\t' -v i=\"$id\" '$1==i {print $6}' \"$T/corpus/release-clocks.tsv\")",
+   "-  [ -n \"$ov\" ] && [ \"$rel\" = \"$ov\" ] || { bad=\"$bad $id:release\"; continue; }",
+   "   # (c)",
+   "   [[ $fat =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$ ]] || { bad=\"$bad $id:fetched-shape\"; continue; }"
+  ]
+ },
+ {
+  "id": "C2-M15-drop-normalizer-setup",
+  "counter": "c2",
+  "change": "missing-normalizer fail-closed check removed",
+  "diff": [
+   "--- pristine-c2",
+   "+++ C2-M15-drop-normalizer-setup",
+   "@@ -59,5 +59,4 @@",
+   " fi",
+   " git -C \"$REPO\" show \"$BASE:corpus/source-fetches.tsv\" > \"$SCR/b/fetches\" 2>/dev/null || setup base-fetches",
+   "-[ -f \"$T/corpus/rendered-text-v1.py\" ] || setup missing-normalizer",
+   " [ -f \"$T/corpus/release-clock.py\" ] || setup missing-release-clock"
+  ]
+ },
+ {
+  "id": "C2-M16-drop-capture-sha",
+  "counter": "c2",
+  "change": "capture sha256 no longer compared to the ledger",
+  "diff": [
+   "--- pristine-c2",
+   "+++ C2-M16-drop-capture-sha",
+   "@@ -88,5 +88,4 @@",
+   "   case \"/$cap/\" in */../*) bad=\"$bad $id:capture-dotdot\"; continue ;; esac",
+   "   [ -f \"$T/$cap\" ] || { bad=\"$bad $id:capture-missing\"; continue; }",
+   "-  [ \"$(sha256sum < \"$T/$cap\" | cut -d' ' -f1)\" = \"$sha\" ] || { bad=\"$bad $id:capture-sha\"; continue; }",
+   "   [ \"$(wc -c < \"$T/$cap\")\" = \"$bytes\" ] || { bad=\"$bad $id:capture-bytes\"; continue; }",
+   "   # (e)"
+  ]
+ },
+ {
+  "id": "C2-X1-swap-and-count-off",
+  "counter": "c2",
+  "change": "quote-swap compare AND quote-count equality both dropped (two changes)",
+  "diff": [
+   "--- pristine-c2",
+   "+++ C2-X1-swap-and-count-off",
+   "@@ -94,9 +94,7 @@",
+   "   mq=$(awk -F'\\t' -v i=\"$id\" '$1==i {print $13}' \"$T/corpus/source-fetches.tsv\")",
+   "   [ -n \"$bq\" ] || setup \"base-quote:$id\"",
+   "-  [ \"$mq\" = \"$bq\" ] || { bad=\"$bad $id:quote-swapped\"; continue; }",
+   "   lout=$(cd \"$T\" && python3 corpus/rendered-text-v1.py locate \"$T/$cap\" \"$mq\" 2>/dev/null); lrc=$?",
+   "   k=$(printf '%s\\n' \"$lout\" | sed -n 's/.*count=\\([0-9][0-9]*\\).*/\\1/p' | head -n 1)",
+   "   [ \"$lrc\" -eq 0 ] && [ -n \"$k\" ] && [ \"$k\" -ge 1 ] || { bad=\"$bad $id:not-located\"; continue; }",
+   "-  [ \"$k\" = \"$qc\" ] || { bad=\"$bad $id:quote-count\"; continue; }",
+   "   # (f)",
+   "   [ \"$verdict\" = teaching-holds ] || { bad=\"$bad $id:verdict\"; continue; }"
+  ]
+ }
+]

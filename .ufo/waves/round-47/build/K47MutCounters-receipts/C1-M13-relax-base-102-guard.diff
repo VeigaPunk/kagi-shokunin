@@ -1,0 +1,9 @@
+--- pristine-c1
++++ C1-M13-relax-base-102-guard
+@@ -80,5 +80,5 @@
+ rows "$T/corpus/SOURCES.md" | sort > "$SCR/b/meas-rows"
+ nb=$(wc -l < "$SCR/b/base-rows")
+-[ "$nb" -eq 102 ] || setup "base-rows=$nb"
++[ "$nb" -ge 1 ] || setup "base-rows=$nb"
+ while IFS=$'\t' read -r id st ub; do
+   mst=$(awk -F'\t' -v i="$id" '$1==i {print $2}' "$SCR/b/meas-rows")

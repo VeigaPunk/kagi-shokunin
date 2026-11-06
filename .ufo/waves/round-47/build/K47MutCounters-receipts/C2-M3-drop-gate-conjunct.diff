@@ -1,0 +1,8 @@
+--- pristine-c2
++++ C2-M3-drop-gate-conjunct
+@@ -104,4 +104,4 @@
+ done
+ value=0
+-[ "$gate" -eq 1 ] && value=$n
++value=$n
+ echo "C2_FIRED_REVERIFIED: value=$value reverified=$n gate=$gate (ok=${ok# }; bad=${bad# }; gate-line=$glast)"

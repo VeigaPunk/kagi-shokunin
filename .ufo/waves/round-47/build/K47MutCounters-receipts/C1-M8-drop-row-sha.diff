@@ -1,0 +1,8 @@
+--- pristine-c1
++++ C1-M8-drop-row-sha
+@@ -106,5 +106,4 @@
+ else
+   IFS=$'\t' read -r -a R < <(awk -F'\t' '$1=="S099"' "$FT")
+-  [ "${R[9]:-}" = "$bsha" ] || { bound=0; why="$why sha"; }
+   [ "${R[10]:-}" = "$bbytes" ] || { bound=0; why="$why bytes"; }
+   q=${R[12]:-}

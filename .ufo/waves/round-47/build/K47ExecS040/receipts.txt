@@ -1,0 +1,144 @@
+RECEIPTS — K47ExecS040 (S040/S041 overdue recheck + S027/S028 successor chain)
+Date: 2026-11-06 (UTC wall clock). Lane: /home/vgpnk/Projects/shokunin/kagi-shokunin
+BASE: 252ef1cac9f41d84639c0d1f211d0e0911196112; predeclaration: b020d978bac91284a431710148ebb7a7950eaab8 (lane HEAD at run).
+Scratch root: /fast/scratch/hyaku/kagi-r47/K47ExecS040 (created with mkdir -p).
+Host toolchain: curl 8.23.0 (x86_64-pc-linux-gnu) libcurl/8.23.0 OpenSSL/3.6.5; python3 (system).
+No lane file was written; all edits were made in the scratch archive copies only.
+
+== A. scratch copies ==
+$ mkdir -p /fast/scratch/hyaku/kagi-r47/K47ExecS040
+$ git -C /home/vgpnk/Projects/shokunin/kagi-shokunin archive b020d978bac91284a431710148ebb7a7950eaab8 | tar -x -C lane-base   # rc=0
+$ cp -a lane-base/. lane-prop/       # rc=0
+$ cp -a lane-prop lane-alt/          # rc=0
+(archive copies are not git repos: `git rev-parse --show-toplevel` inside lane-prop prints
+ "fatal: not a git repository" — expected; no git mutation was run anywhere)
+sha256 of corpus/SOURCES.md: base d69364a23c5b4d25f4f61c56c6bd48c08dc523e7d744447e1f1c6f231eade0e1
+                            prop 788800492c1d8113abb6ec6c5673d27d8d1c773276ceed27424fc4f42c9a4c79
+                            alt  1caac31630480ec3d6e818d235bd52ca013fe61975439230c851e0fb3d91e2f0
+
+== B. proposal edit (scratch copy only) ==
+S040: recheck 2026-11-05 -> 90d ; S041: recheck 2026-11-05 -> 90d
+Cell-level old->new diff (status/opened/recheck/used-by cells, every registry row):
+$ diff <(awk -F'|' '/^\| S0/ {print $2 $8 $9 $10 $11}' lane-base/corpus/SOURCES.md) \
+       <(awk -F'|' '/^\| S0/ {print $2 $8 $9 $10 $11}' lane-prop/corpus/SOURCES.md)
+40,41c40,41
+<  S040  ... follows.  mined  2026-10-21  2026-11-05
+<  S041  ... documentation.  mined  2026-10-21  2026-11-05
+---
+>  S040  ... follows.  mined  2026-10-21  90d
+>  S041  ... documentation.  mined  2026-10-21  90d
+(rc=1 from diff because the two lines differ; no other row differs)
+
+== C. live fetch, 2026-11-06T19:34:32Z ==
+$ curl -fsSL --max-time 60 -A 'kagi-shokunin-round47/1.0 (documentation verification)' -o <body> -w '%{http_code} %{size_download} %{time_total}' <url>
+re   url=https://docs.python.org/3/library/re.html   http=200 bytes=257722 time_total=0.137951s
+     sha256=29fca9b710ae0c857165f68a8c8e62587862c979e1fe4135037a397a8cdf7cf1
+     title=<title>re — Regular expression operations &#8212; Python 3.15.2 documentation</title>
+html url=https://docs.python.org/3/library/html.html http=200 bytes=20100  time_total=0.133202s
+     sha256=388321714e199e3a93849040754819d21b7ca9b36a5c17748a7218e8f300e615
+     title=<title>html — HyperText Markup Language support &#8212; Python 3.15.2 documentation</title>
+bodies: receipts/re.body (257722 B), receipts/html.body (20100 B); stderr empty (receipts/*.err, 0 B).
+
+Volatility diff vs committed 2026-11-05 captures (whose sha256 equals source-fetches.tsv column 10):
+$ cmp -s re.body .ufo/waves/round-40/capture/S095.body ; echo $?   # 1 (DIFFER)
+$ diff <(tr '>' '>\n' < .ufo/waves/round-40/capture/S095.body) <(tr '>' '>\n' < re.body)
+2393c2393
+<       Last updated on Nov 05, 2026 (12:47 UTC).
+---
+>       Last updated on Nov 06, 2026 (17:47 UTC).
+$ cmp -s html.body .ufo/waves/round-40/capture/S096.body ; echo $?  # 1 (DIFFER)
+$ diff <(tr '>' '>\n' < .ufo/waves/round-40/capture/S096.body) <(tr '>' '>\n' < html.body)
+370c370
+<       Last updated on Nov 05, 2026 (12:47 UTC).
+---
+>       Last updated on Nov 06, 2026 (17:47 UTC).
+(only the footer timestamp differs; same length; rows declare decoded-http-body-volatile-v1)
+
+== D. quote location on the fresh bodies ==
+$ python3 corpus/rendered-text-v1.py locate re.body 'Matches Unicode whitespace characters (as defined by str.isspace() ).'
+RENDERED_TEXT_V1_LOCATE: count=1        rc=0      # S040 column-13 quote
+$ python3 corpus/rendered-text-v1.py locate html.body 'This function uses the rules defined by the HTML 5 standard for both valid and invalid character references'
+RENDERED_TEXT_V1_LOCATE: count=1        rc=0      # S041 column-13 quote
+$ python3 corpus/rendered-text-v1.py locate re.body '<title>re — Regular expression operations &#8212; Python 3.15.2 documentation</title>'
+RENDERED_TEXT_V1_LOCATE: count=0        rc=1      # S095 column-13 quote, raw-literal-v1 (tag-bearing -> tags removed by v1 normalizer)
+$ python3 corpus/rendered-text-v1.py locate html.body '<title>html — HyperText Markup Language support &#8212; Python 3.15.2 documentation</title>'
+RENDERED_TEXT_V1_LOCATE: count=0        rc=1      # S096 column-13 quote, raw-literal-v1 (same by-construction zero)
+$ grep -c -F '<title>re — Regular expression operations &#8212; Python 3.15.2 documentation</title>' re.body
+1
+$ grep -c -F '<title>html — HyperText Markup Language support &#8212; Python 3.15.2 documentation</title>' html.body
+1
+$ python3 corpus/rendered-text-v1.py locate re.body 're — Regular expression operations — Python 3.15.2 documentation'
+RENDERED_TEXT_V1_LOCATE: count=1        rc=0      # inner text after tag removal
+$ python3 corpus/rendered-text-v1.py locate html.body 'html — HyperText Markup Language support — Python 3.15.2 documentation'
+RENDERED_TEXT_V1_LOCATE: count=1        rc=0
+$ python3 -  # recorded raw offsets on the fresh bodies
+re.body bytes 257722 at 75897 -> 'Matches Unicode whitespace characters (as defined by <a clas' contains: True
+html.body bytes 20100 at 13521 -> 'This function uses the rules defined by the HTML 5 standard\n' contains: True
+
+== E. gate 1 — lane-local census (cwd = copy root) ==
+$ cd lane-base && bash corpus/sources-census.sh
+FINDING SC_USEDBY_NOCITE id=S094 path=corpus/lessons/round-43.md
+FINDING SC_USEDBY_NOCITE id=S099 path=corpus/lessons/round-44.md
+FINDING SC_FETCH id=S099 missing-provenance
+SOURCES_CENSUS: FAILED (findings=3 rows=102)
+rc=1
+$ cd lane-prop && bash corpus/sources-census.sh
+FINDING SC_USEDBY_NOCITE id=S094 path=corpus/lessons/round-43.md
+FINDING SC_USEDBY_NOCITE id=S099 path=corpus/lessons/round-44.md
+FINDING SC_FETCH id=S099 missing-provenance
+SOURCES_CENSUS: FAILED (findings=3 rows=102)
+rc=1
+$ diff <(grep -E '^(FINDING|SOURCES_CENSUS)' lane-base/census-base.out) <(grep -E '^(FINDING|SOURCES_CENSUS)' lane-prop/census-prop.out)
+(no output; rc=0)  -> finding sets identical; the three findings are the pre-existing C1 findings.
+
+== F. gate 2 — release clock (network; default pinned round-46 receipt) ==
+$ cd lane-base && python3 corpus/release-clock.py
+RELEASE_CLOCK: CLEAN (on_release=29 bound=29 unbound=0 observed=29 fired=13 derived=15)
+rc=0
+$ cd lane-prop && python3 corpus/release-clock.py
+RELEASE_CLOCK: CLEAN (on_release=29 bound=29 unbound=0 observed=29 fired=13 derived=15)
+rc=0
+counterfactual (lane-alt: S040/S041 recheck -> on-release):
+$ cd lane-alt && python3 corpus/release-clock.py
+UNBOUND S041
+RELEASE_CLOCK: FAILED (on_release=31 bound=29 unbound=2 observed=29 fired=13 derived=15)
+rc=1
+
+== G. gate 3 — fleet validate ==
+$ /home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --file /fast/scratch/hyaku/kagi-r47/K47ExecS040/lane-base/corpus/SOURCES.md
+... 19 W04 duplicate-url warning lines ...
+file	ok	/fast/scratch/hyaku/kagi-r47/K47ExecS040/lane-base/corpus/SOURCES.md
+rc=0
+$ /home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --file /fast/scratch/hyaku/kagi-r47/K47ExecS040/lane-prop/corpus/SOURCES.md
+... 19 W04 duplicate-url warning lines ...
+file	ok	/fast/scratch/hyaku/kagi-r47/K47ExecS040/lane-prop/corpus/SOURCES.md
+rc=0
+
+== H. supporting read — fleet overdue queue ==
+$ /home/vgpnk/Projects/shokunin/scripts/sources-census.sh overdue --file $PWD/lane-base/corpus/SOURCES.md
+file	overdue	S041 1d recheck=2026-11-05 opened=2026-10-21
+file	overdue	S040 1d recheck=2026-11-05 opened=2026-10-21
+rc=1
+$ /home/vgpnk/Projects/shokunin/scripts/sources-census.sh overdue --file $PWD/lane-prop/corpus/SOURCES.md
+file	cadence	S040 recheck=90d opened=2026-10-21
+file	cadence	S041 recheck=90d opened=2026-10-21
+rc=0
+(90d due from opened 2026-10-21 = 2027-01-19, computed with python3 datetime; today 2026-11-06)
+
+== I. successor chain measurement (BASE lane bytes) ==
+chain A: S027 <- S040 <- S095
+S027: status=mined opened=2026-10-21 recheck=on-release used-by=corpus/lessons/round-24.md supersedes=-     usedby_files_exist=True
+S040: status=mined opened=2026-10-21 recheck=2026-11-05 used-by=corpus/lessons/round-26.md supersedes=S027  usedby_files_exist=True
+S095: status=mined opened=2026-11-05 recheck=90d        used-by=corpus/lessons/round-40.md supersedes=S040  usedby_files_exist=True
+chain B: S028 <- S041 <- S096
+S028: status=mined opened=2026-10-21 recheck=on-release used-by=corpus/lessons/round-24.md supersedes=-     usedby_files_exist=True
+S041: status=mined opened=2026-10-21 recheck=2026-11-05 used-by=corpus/lessons/round-26.md supersedes=S028  usedby_files_exist=True
+S096: status=mined opened=2026-11-05 recheck=90d        used-by=corpus/lessons/round-40.md supersedes=S041  usedby_files_exist=True
+source: lines — round-24.md: "source: S001, …, S027, S028, …"; round-26.md: "source: S039, S040, S041";
+round-40.md: "source: S095 (…); S096 (…); …". Clock ledger: S027/S028 rows fired (anchored 3.15.0, observed 3.15.2,
+re-observed by the round-46 receipt); S040/S041/S095/S096 have NO clock row (S040/S041 retired round 46; S095/S096 are
+90d cadence, so neither is an on-release obligation).
+
+== J. files ==
+proposal.md — the proposal; receipts/ — raw gate outputs (census-base/prop, clock-base/prop/alt, validate-base/prop,
+overdue-base/prop), fresh bodies (re.body, html.body) and empty stderr files, receipts-locate.txt (transcript of §D).

@@ -1,0 +1,9 @@
+--- pristine-c2
++++ C2-M12-accept-dup-ledger-rows
+@@ -72,5 +72,5 @@
+   if [ ! -f "$L" ]; then bad="$bad $id:no-ledger"; continue; fi
+   c=$(awk -F'\t' -v i="$id" '$1==i' "$L" | wc -l)
+-  [ "$c" -eq 1 ] || { bad="$bad $id:rows=$c"; continue; }
++  [ "$c" -ge 1 ] || { bad="$bad $id:rows=$c"; continue; }
+   IFS=$'\t' read -r _ url rel fat cap sha bytes qc verdict < <(awk -F'\t' -v i="$id" '$1==i' "$L")
+   # (a)

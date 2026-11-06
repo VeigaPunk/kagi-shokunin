@@ -1,0 +1,47 @@
+# round-47 measured at candidate 412efc7738b70600108b325925df76b976609de4 (2026-11-06T19:49:00Z)
+$ bash plans/round-47-c1.sh 412efc7738b70600108b325925df76b976609de4
+C1_CENSUS_CALIBRATION: value=3 cleared=3 new=0 intact=1 bound=1 (census=SOURCES_CENSUS: CLEAN (rows=102 A=98 B=2 C=2 queued=1 mined=97 rejected=4 entries_sourced=15 legacy=21 captures=102 inrow=16 inrow_only=0 inrow_nonreproducing=12); why=)
+C1_CENSUS_CALIBRATION: value=3 cleared=3 new=0 intact=1 bound=1 (census=SOURCES_CENSUS: CLEAN (rows=102 A=98 B=2 C=2 queued=1 mined=97 rejected=4 entries_sourced=15 legacy=21 captures=102 inrow=16 inrow_only=0 inrow_nonreproducing=12); why=)
+rc=0
+$ bash plans/round-47-c2.sh 412efc7738b70600108b325925df76b976609de4
+C2_FIRED_REVERIFIED: value=11 reverified=11 gate=1 (ok=S012 S013 S014 S015 S016 S021 S022 S023 S024 S025 S026; bad=; gate-line=RELEASE_CLOCK: CLEAN (on_release=29 bound=29 unbound=0 observed=29 fired=13 derived=15))
+C2_FIRED_REVERIFIED: value=11 reverified=11 gate=1 (ok=S012 S013 S014 S015 S016 S021 S022 S023 S024 S025 S026; bad=; gate-line=RELEASE_CLOCK: CLEAN (on_release=29 bound=29 unbound=0 observed=29 fired=13 derived=15))
+rc=0
+$ bash .ufo/waves/round-47/final/candidate-legs.sh 412efc7738b70600108b325925df76b976609de4
+LEG L1-instruments PASS :: no diff BASE..candidate; sha256 = controls/instrument-sha256.txt
+LEG L2-lessons-append-only PASS :: minus=0 plus=2
+LEG L3-clocks-unchanged PASS :: git diff --quiet rc=0
+LEG L4-registry-source-cells PASS :: 13 source cells identical
+LEG L5-ledger-header PASS :: header exact
+LEG L6-captures-regular-first-added PASS :: 12 bodies mode 100644, first added by 412efc7738b70600108b325925df76b976609de4 (2026-11-06T16:48:53-03:00)
+LEG L7-not-old-bodies PASS :: 0/11 capture blobs among 6722 BASE blobs
+LEG L8-live-legs-agree PASS :: 11/11 ledger sha256 = ReviewerLive = L1 K2-P
+LEG L8-live-legs-agree PASS :: 11/11 ledger sha256 = ReviewerLive = L1 K2-P
+rc=0
+$ bash corpus/sources-census.sh
+SOURCES_CENSUS: CLEAN (rows=102 A=98 B=2 C=2 queued=1 mined=97 rejected=4 entries_sourced=15 legacy=21 captures=102 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+rc=0
+$ python3 corpus/release-clock.py
+RELEASE_CLOCK: CLEAN (on_release=29 bound=29 unbound=0 observed=29 fired=13 derived=15)
+rc=0
+$ python3 corpus/release-clock.py --selftest
+RELEASE_CLOCK_SELFTEST: PASS (116 cases)
+rc=0
+$ bash corpus/claims-declared.sh
+CLAIMS_DECLARED: CLEAN (claims=21)
+rc=0
+$ bash corpus/claims-declared.sh --selftest
+CLAIMS_DECLARED_SELFTEST: PASS (12 cases)
+rc=0
+$ python3 corpus/quote-locate.py
+QUOTE_LOCATE: CLEAN located=8 rows=8
+rc=0
+$ bash corpus/anchor-pins.sh
+ANCHOR_PINS: CLEAN (pins=4)
+rc=0
+$ python3 .ufo/waves/round-45/build/K45ExecStampRW/stamp-drift.py .
+STAMP_DRIFT: rows=123 drift=0
+rc=0
+$ /home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --root /home/vgpnk/Projects/shokunin kagi
+kagi	ok	/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/SOURCES.md
+rc=0

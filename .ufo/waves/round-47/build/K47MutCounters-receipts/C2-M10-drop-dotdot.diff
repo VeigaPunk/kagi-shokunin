@@ -1,0 +1,8 @@
+--- pristine-c2
++++ C2-M10-drop-dotdot
+@@ -86,5 +86,4 @@
+   # (d)
+   case $cap in .ufo/waves/round-47/capture/*) ;; *) bad="$bad $id:capture-path"; continue ;; esac
+-  case "/$cap/" in */../*) bad="$bad $id:capture-dotdot"; continue ;; esac
+   [ -f "$T/$cap" ] || { bad="$bad $id:capture-missing"; continue; }
+   [ "$(sha256sum < "$T/$cap" | cut -d' ' -f1)" = "$sha" ] || { bad="$bad $id:capture-sha"; continue; }

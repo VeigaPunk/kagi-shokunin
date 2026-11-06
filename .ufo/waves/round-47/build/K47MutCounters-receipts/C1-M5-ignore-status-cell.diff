@@ -1,0 +1,8 @@
+--- pristine-c1
++++ C1-M5-ignore-status-cell
+@@ -84,5 +84,4 @@
+   mst=$(awk -F'\t' -v i="$id" '$1==i {print $2}' "$SCR/b/meas-rows")
+   [ "$(awk -F'\t' -v i="$id" '$1==i' "$SCR/b/meas-rows" | wc -l)" -eq 1 ] || { intact=0; why="$why row-count:$id"; continue; }
+-  [ "$mst" = "$st" ] || { intact=0; why="$why status:$id"; }
+   case $id in
+     S094|S099)

@@ -1,0 +1,38 @@
+# K47ScoutSources — registry / calibration corroboration receipts (read-only)
+# date: 2026-11-06   lane: /home/vgpnk/Projects/shokunin/kagi-shokunin
+
+$ grep -cE '^\| S[0-9]{3} \|' corpus/SOURCES.md   (registry row count at BASE)
+102
+exit_code: 0
+
+$ grep -c '^S099' corpus/source-fetches.tsv   (C1 finding SC_FETCH S099 missing-provenance)
+0
+exit_code: 1
+
+$ for f in corpus/lessons/round-{39,42,43,44}.md; do grep -cE '^source:' $f; done   (C1 finding SC_USEDBY_NOCITE)
+  corpus/lessons/round-39.md: 1
+  corpus/lessons/round-42.md: 1
+  corpus/lessons/round-43.md: 0
+  corpus/lessons/round-44.md: 0
+
+$ awk -F'\t' 'col13 (quote) for S040/S041/S094/S095/S096'
+  S040 col13=[Matches Unicode whitespace characters (as defined by str.isspace() ).]
+  S041 col13=[This function uses the rules defined by the HTML 5 standard for both valid and invalid character references]
+  S094 col13=[Only `status`, `recheck` and `used-by` change in place]
+  S095 col13=[<title>re — Regular expression operations &#8212; Python 3.15.2 documentation</title>]
+  S096 col13=[<title>html — HyperText Markup Language support &#8212; Python 3.15.2 documentation</title>]
+
+$ awk -F'\t' 'col10 sha256 / col11 bytes / col15 normalized_sha256 for S040/S041/S095/S096'
+  S040 col10=0724d8159158bdc1c92a212a2345ab1dc599343b8a35b0fa5682384af30c8aa5 col11=251811 col15=bbeb9d7c317cab01806f4238c293fecc424af4c95e91ad9a288f2d0d93d6f544
+  S041 col10=8a54138162e47f1bb285f07404309df8556f004ff371140bbbb38d9be70a7122 col11=20100 col15=ef8996ed93adc1b8f88a14d8c7580712f7c2060ad9e592160c92e84cf2cdb17c
+  S095 col10=ef2d8abe698b74bbee5259f02599f9b6bf023733d47bb4c7003ac1277bf469b1 col11=257722 col15=-
+  S096 col10=570d72c3910b313e905246e75b3238522d6c26194ffd33c1f4112c4f0d3fbab5 col11=20100 col15=-
+
+$ recompute row_identity_sha256 = sha256("id<TAB>status<TAB>url<LF>") for S040/S041/S094
+  S040 computed=275438136b21fb2e6247a894e6d2d509b95a5ff58acf6489f305d32c62a4fa90 stored=275438136b21fb2e6247a894e6d2d509b95a5ff58acf6489f305d32c62a4fa90 match=True
+  S041 computed=4189d9e36cafb697eb7d2b29607c66f436098f68a468896b00b8ca28d82c3291 stored=4189d9e36cafb697eb7d2b29607c66f436098f68a468896b00b8ca28d82c3291 match=True
+  S094 computed=2b8fec43b007b3c9fe0208051534708090f2ab21cb98a1d9702fe9f1f5b27ea7 stored=2b8fec43b007b3c9fe0208051534708090f2ab21cb98a1d9702fe9f1f5b27ea7 match=True
+
+$ python3 — computed row_identity_sha256 for a NEW S099 provenance row (id=S099, status=mined, registry URL)
+  mined   28481f3e91f371c9e8e3174922f4f27a204243e9ac05dba2a3fcf43c45b4bb42
+  queued  759773a261cb6a8a44e437f56738bdf1157c7af394f8b8b05a3be9914013d153

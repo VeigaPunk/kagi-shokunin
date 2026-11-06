@@ -1,0 +1,9 @@
+--- pristine-c2
++++ C2-M4-gate-rc-ignored
+@@ -65,5 +65,5 @@
+ glast=$(printf '%s\n' "$gout" | tail -n 1)
+ gate=0
+-[ "$grc" -eq 0 ] && [[ $glast == "RELEASE_CLOCK: CLEAN"* ]] && gate=1
++[[ $glast == *"RELEASE_CLOCK:"* ]] && gate=1
+ 
+ L=$T/corpus/fired-reverify.tsv

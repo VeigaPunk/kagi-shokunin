@@ -1,0 +1,8 @@
+--- pristine-c1
++++ C1-M14-drop-blob-quote-check
+@@ -109,5 +109,4 @@
+   [ "${R[10]:-}" = "$bbytes" ] || { bound=0; why="$why bytes"; }
+   q=${R[12]:-}
+-  if [ -z "$q" ] || ! grep -qF -- "$q" "$SCR/b/blob"; then bound=0; why="$why quote"; fi
+   C=$T/.ufo/waves/round-47/capture/S099.body
+   if [ -f "$C" ]; then

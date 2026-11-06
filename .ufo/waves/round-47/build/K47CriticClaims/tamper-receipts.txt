@@ -1,0 +1,67 @@
+# K47CriticClaims — tamper receipts (round 47, BASE 252ef1cac9f41d84639c0d1f211d0e0911196112)
+
+Trees built with:
+  mkdir -p $HYAKU_SCRATCH/kagi-r47/K47CriticClaims/tamper
+  git -C /home/vgpnk/Projects/shokunin/kagi-shokunin archive \
+      252ef1cac9f41d84639c0d1f211d0e0911196112 | tar -x -C <tree>
+
+## C1 — real S099 provenance row + capture, census `SC_USEDBY_NOCITE` branch neutered
+
+Tree edit (no lesson edit at all):
+  - .ufo/waves/round-47/capture/S099.body <- fleet blob
+    `git -C /home/vgpnk/Projects/shokunin show 75dd26121698f10cf111120f6cbcd2b2125598f1:.ufo/prompts/kagi-round-44.md`
+    sha256 e62e259c8fd3b9d73833865c456786e72ec387a0b20630c15138b4506971b80c, 97077 bytes, quote present
+  - corpus/source-fetches.tsv += S099 row with that sha/bytes and the §6 item 9 quote
+  - corpus/sources-census.sh: one line
+      `[[ $field =~ (^|[^A-Za-z0-9_])$id([^0-9]|$) ]] || finding SC_USEDBY_NOCITE "id=$id path=$p"`
+    replaced by
+      `[[ $field =~ (^|[^A-Za-z0-9_])$id([^0-9]|$) ]] || :`
+
+Command:
+  cd /home/vgpnk/Projects/shokunin/kagi-shokunin && C1_TREE=<tree> bash plans/round-47-c1.sh
+rc=0
+C1_CENSUS_CALIBRATION: value=3 cleared=3 new=0 intact=1 bound=1 (census=SOURCES_CENSUS: CLEAN (rows=102 A=98 B=2 C=2 queued=1 mined=97 rejected=4 entries_sourced=15 legacy=21 captures=102 inrow=16 inrow_only=0 inrow_nonreproducing=12); why=)
+
+## C2 — one 18-byte non-page body, 11 ledger rows, stub normalizer, typed times
+
+Tree edits:
+  - .ufo/waves/round-47/capture/one.body = `not a vault page\n` (18 bytes)
+  - corpus/fired-reverify.tsv: header + 11 rows, every row pointing at one.body with its real
+    sha256/bytes, fetched_at `2026-11-06T00:00:01Z`, quote_count 1, verdict `teaching-holds`
+  - corpus/rendered-text-v1.py replaced by:
+      import sys
+      print('RENDERED_TEXT_V1_LOCATE: count=1')
+      sys.exit(0)
+  - release-clock.py left untouched (gate already CLEAN at BASE)
+
+Command:
+  cd /home/vgpnk/Projects/shokunin/kagi-shokunin && C2_TREE=<tree> C2_ASOF=$(( $(date -u +%s) + 3600 )) bash plans/round-47-c2.sh
+rc=0
+C2_FIRED_REVERIFIED: value=11 reverified=11 gate=1 (ok=S012 S013 S014 S015 S016 S021 S022 S023 S024 S025 S026; bad=; gate-line=RELEASE_CLOCK: CLEAN (on_release=29 bound=29 unbound=0 observed=29 fired=13 derived=15))
+
+## Reference checks (not copies of lane receipts)
+
+  python3 corpus/release-clock.py
+rc=0
+RELEASE_CLOCK: CLEAN (on_release=29 bound=29 unbound=0 observed=29 fired=13 derived=15)
+
+  bash corpus/sources-census.sh   (BASE tree)
+rc=1
+SOURCES_CENSUS: FAILED (findings=3 rows=102)
+
+  python3 corpus/rendered-text-v1.py locate .ufo/waves/round-40/capture/S095.body "<S027 quote>"
+rc=0
+RENDERED_TEXT_V1_LOCATE: count=1
+
+  python3 corpus/rendered-text-v1.py locate .ufo/waves/round-40/capture/S096.body "<S028 quote>"
+rc=0
+RENDERED_TEXT_V1_LOCATE: count=1
+
+  curl -fsSL https://developer.hashicorp.com/vault/docs/auth/jwt -o vault-jwt.body   (2026-11-06)
+rc=0, 386833 bytes, then
+  python3 corpus/rendered-text-v1.py locate vault-jwt.body "<S012 quote>"
+rc=0
+RENDERED_TEXT_V1_LOCATE: count=1
+
+F surface counts (corpus/source-fetches.tsv, ids S012-S016,S021-S026):
+  rows=11  unique urls=6  unique url+quote=7

@@ -1,0 +1,8 @@
+--- pristine-c2
++++ C2-M13-drop-url-check
+@@ -76,5 +76,4 @@
+   # (a)
+   rurl=$(awk -F'|' -v i="$id" '{x=$2; gsub(/[[:space:]]/,"",x)} x==i { if (match($3, /https?:\/\/[^ |]+/)) print substr($3,RSTART,RLENGTH) }' "$T/corpus/SOURCES.md")
+-  [ -n "$rurl" ] && [ "$url" = "$rurl" ] || { bad="$bad $id:url"; continue; }
+   # (b)
+   ov=$(awk -F'\t' -v i="$id" '$1==i {print $6}' "$T/corpus/release-clocks.tsv")

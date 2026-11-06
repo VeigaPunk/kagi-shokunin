@@ -1,0 +1,9 @@
+--- pristine-c1
++++ C1-M10-drop-single-s099-row
+@@ -102,5 +102,5 @@
+ FT=$T/corpus/source-fetches.tsv
+ n99=$(awk -F'\t' '$1=="S099"' "$FT" 2>/dev/null | wc -l)
+-if [ "$n99" -ne 1 ]; then
++if [ "$n99" -lt 0 ]; then
+   bound=0; why="$why s099-rows=$n99"
+ else

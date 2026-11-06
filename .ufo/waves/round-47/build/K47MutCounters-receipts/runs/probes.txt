@@ -1,0 +1,42 @@
+P1-status-flip pristine=0 (want 0) valid=True reason-present=True :: C1_CENSUS_CALIBRATION: value=0 cleared=3 new=3 intact=0 bound=1 (census=SOURCES_CENSUS: FAILED (findings=3 rows=102); why=status:S014)
+  NOT-KILLED C1-M4-drop-intact-conjunct pristine=0 mutant=0
+  NOT-KILLED C1-M5-ignore-status-cell pristine=0 mutant=0
+P2-dup-registry-row pristine=0 (want 0) valid=True reason-present=True :: C1_CENSUS_CALIBRATION: value=0 cleared=3 new=1 intact=0 bound=1 (census=SOURCES_CENSUS: FAILED (findings=1 rows=103); why=row-count:S010)
+  NOT-KILLED C1-M6-accept-dup-registry-rows pristine=0 mutant=0
+P3-capture-tamper pristine=0 (want 0) valid=True reason-present=True :: C1_CENSUS_CALIBRATION: value=0 cleared=3 new=0 intact=1 bound=0 (census=SOURCES_CENSUS: CLEAN (rows=102 A=98 B=2 C=2 queued=1 mined=97 rejected=4 entries_sourced=15 legacy=21 captures=102 inrow=16 inrow_only=0 inrow_nonreproducing=12); why=capture-sha)
+  KILLED C1-M7-drop-capture-sha pristine=0 mutant=3
+P4-row-sha-wrong pristine=0 (want 0) valid=True reason-present=True :: C1_CENSUS_CALIBRATION: value=0 cleared=3 new=0 intact=1 bound=0 (census=SOURCES_CENSUS: CLEAN (rows=102 A=98 B=2 C=2 queued=1 mined=97 rejected=4 entries_sourced=15 legacy=21 captures=102 inrow=16 inrow_only=0 inrow_nonreproducing=12); why=sha)
+  KILLED C1-M8-drop-row-sha pristine=0 mutant=3
+P5-two-s099-rows pristine=0 (want 0) valid=True reason-present=True :: C1_CENSUS_CALIBRATION: value=0 cleared=3 new=1 intact=1 bound=0 (census=SOURCES_CENSUS: FAILED (findings=1 rows=102); why=s099-rows=2)
+  NOT-KILLED C1-M10-drop-single-s099-row pristine=0 mutant=0
+P6-prefixed-finding pristine=3 (want 3) valid=True reason-present=True :: C1_CENSUS_CALIBRATION: value=3 cleared=3 new=0 intact=1 bound=1 (census=SOURCES_CENSUS: FAILED (findings=0 rows=102); why=)
+  KILLED C1-M12-loose-cleared-match pristine=3 mutant=2
+P7-quote-absent-from-blob pristine=0 (want 0) valid=True reason-present=True :: C1_CENSUS_CALIBRATION: value=0 cleared=3 new=0 intact=1 bound=0 (census=SOURCES_CENSUS: CLEAN (rows=102 A=98 B=2 C=2 queued=1 mined=97 rejected=4 entries_sourced=15 legacy=21 captures=102 inrow=16 inrow_only=0 inrow_nonreproducing=12); why=quote)
+  KILLED C1-M14-drop-blob-quote-check pristine=0 mutant=3
+P1b-status-flip-silent-census pristine=0 (want 0) valid=True reason-present=True :: C1_CENSUS_CALIBRATION: value=0 cleared=3 new=0 intact=0 bound=1 (census=SOURCES_CENSUS: CLEAN (rows=102); why=status:S014)
+  KILLED C1-M4-drop-intact-conjunct pristine=0 mutant=3
+  KILLED C1-M5-ignore-status-cell pristine=0 mutant=3
+P2b-dup-registry-silent-census pristine=0 (want 0) valid=True reason-present=True :: C1_CENSUS_CALIBRATION: value=0 cleared=3 new=0 intact=0 bound=1 (census=SOURCES_CENSUS: CLEAN (rows=102); why=row-count:S010)
+  NOT-KILLED C1-M6-accept-dup-registry-rows pristine=0 mutant=0
+P5b-two-s099-rows-silent-census pristine=0 (want 0) valid=True reason-present=True :: C1_CENSUS_CALIBRATION: value=0 cleared=3 new=0 intact=1 bound=0 (census=SOURCES_CENSUS: CLEAN (rows=102); why=s099-rows=2)
+  KILLED C1-M10-drop-single-s099-row pristine=0 mutant=3
+Q1-swap-same-count pristine=10 (want 10) valid=True reason-present=True :: C2_FIRED_REVERIFIED: value=10 reverified=10 gate=1 (ok=S013 S014 S015 S016 S021 S022 S023 S024 S025 S026; bad=S012:quote-swapped; gate-line=RELEASE_CLOCK: CLEAN (on_release=29 bound=29 unbound=0 observed=29 fired=13 derived=15))
+  KILLED C2-M5-drop-quote-swap pristine=10 mutant=11
+Q2-wrong-quote-count pristine=10 (want 10) valid=True reason-present=True :: C2_FIRED_REVERIFIED: value=10 reverified=10 gate=1 (ok=S013 S014 S015 S016 S021 S022 S023 S024 S025 S026; bad=S012:quote-count; gate-line=RELEASE_CLOCK: CLEAN (on_release=29 bound=29 unbound=0 observed=29 fired=13 derived=15))
+  KILLED C2-M6-drop-quote-count pristine=10 mutant=11
+Q3-quote-absent-body pristine=10 (want 10) valid=True reason-present=True :: C2_FIRED_REVERIFIED: value=10 reverified=10 gate=1 (ok=S013 S014 S015 S016 S021 S022 S023 S024 S025 S026; bad=S012:not-located; gate-line=RELEASE_CLOCK: CLEAN (on_release=29 bound=29 unbound=0 observed=29 fired=13 derived=15))
+  NOT-KILLED C2-M7-accept-zero-count pristine=10 mutant=10
+Q4-dotdot-same-file pristine=10 (want 10) valid=True reason-present=True :: C2_FIRED_REVERIFIED: value=10 reverified=10 gate=1 (ok=S013 S014 S015 S016 S021 S022 S023 S024 S025 S026; bad=S012:capture-dotdot; gate-line=RELEASE_CLOCK: CLEAN (on_release=29 bound=29 unbound=0 observed=29 fired=13 derived=15))
+  KILLED C2-M10-drop-dotdot pristine=10 mutant=11
+Q5-capture-outside pristine=10 (want 10) valid=True reason-present=True :: C2_FIRED_REVERIFIED: value=10 reverified=10 gate=1 (ok=S013 S014 S015 S016 S021 S022 S023 S024 S025 S026; bad=S012:capture-path; gate-line=RELEASE_CLOCK: CLEAN (on_release=29 bound=29 unbound=0 observed=29 fired=13 derived=15))
+  KILLED C2-M11-drop-capture-prefix pristine=10 mutant=11
+Q6-dup-ledger-row pristine=10 (want 10) valid=True reason-present=True :: C2_FIRED_REVERIFIED: value=10 reverified=10 gate=1 (ok=S013 S014 S015 S016 S021 S022 S023 S024 S025 S026; bad=S012:rows=2; gate-line=RELEASE_CLOCK: CLEAN (on_release=29 bound=29 unbound=0 observed=29 fired=13 derived=15))
+  KILLED C2-M12-accept-dup-ledger-rows pristine=10 mutant=11
+Q7-wrong-url pristine=10 (want 10) valid=True reason-present=True :: C2_FIRED_REVERIFIED: value=10 reverified=10 gate=1 (ok=S013 S014 S015 S016 S021 S022 S023 S024 S025 S026; bad=S012:url; gate-line=RELEASE_CLOCK: CLEAN (on_release=29 bound=29 unbound=0 observed=29 fired=13 derived=15))
+  KILLED C2-M13-drop-url-check pristine=10 mutant=11
+Q8-wrong-release pristine=10 (want 10) valid=True reason-present=True :: C2_FIRED_REVERIFIED: value=10 reverified=10 gate=1 (ok=S013 S014 S015 S016 S021 S022 S023 S024 S025 S026; bad=S012:release; gate-line=RELEASE_CLOCK: CLEAN (on_release=29 bound=29 unbound=0 observed=29 fired=13 derived=15))
+  KILLED C2-M14-drop-release-check pristine=10 mutant=11
+Q9-capture-same-len pristine=10 (want 10) valid=True reason-present=True :: C2_FIRED_REVERIFIED: value=10 reverified=10 gate=1 (ok=S013 S014 S015 S016 S021 S022 S023 S024 S025 S026; bad=S012:capture-sha; gate-line=RELEASE_CLOCK: CLEAN (on_release=29 bound=29 unbound=0 observed=29 fired=13 derived=15))
+  KILLED C2-M16-drop-capture-sha pristine=10 mutant=11
+Q10-wrong-declared-bytes pristine=10 (want 10) valid=True reason-present=True :: C2_FIRED_REVERIFIED: value=10 reverified=10 gate=1 (ok=S013 S014 S015 S016 S021 S022 S023 S024 S025 S026; bad=S012:capture-bytes; gate-line=RELEASE_CLOCK: CLEAN (on_release=29 bound=29 unbound=0 observed=29 fired=13 derived=15))
+  KILLED C2-M9-drop-capture-bytes pristine=10 mutant=11

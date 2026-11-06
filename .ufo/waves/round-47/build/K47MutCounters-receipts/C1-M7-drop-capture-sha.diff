@@ -1,0 +1,13 @@
+--- pristine-c1
++++ C1-M7-drop-capture-sha
+@@ -111,9 +111,5 @@
+   if [ -z "$q" ] || ! grep -qF -- "$q" "$SCR/b/blob"; then bound=0; why="$why quote"; fi
+   C=$T/.ufo/waves/round-47/capture/S099.body
+-  if [ -f "$C" ]; then
+-    [ "$(sha256sum < "$C" | cut -d' ' -f1)" = "$bsha" ] || { bound=0; why="$why capture-sha"; }
+-  else
+-    bound=0; why="$why capture-missing"
+-  fi
++  [ -f "$C" ] || { bound=0; why="$why capture-missing"; }
+ fi
+ 

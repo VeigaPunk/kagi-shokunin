@@ -1,0 +1,81 @@
+C2 receipts — seat K47ExecC2, round 47 (BASE 252ef1cac9f41d84639c0d1f211d0e0911196112)
+Scratch: $HYAKU_SCRATCH/kagi-r47/K47ExecC2 (HYAKU_SCRATCH=/fast/scratch/hyaku)
+Date of work: 2026-11-06 (UTC). No git mutation was run in the lane or the fleet.
+
+[1] tree extract
+$ S=/fast/scratch/hyaku/kagi-r47/K47ExecC2; mkdir -p "$S/tree" "$S/cap"
+$ git -C /home/vgpnk/Projects/shokunin/kagi-shokunin archive b020d978bac91284a431710148ebb7a7950eaab8 | tar -x -C "$S/tree"
+EXTRACTED
+rc=0   (du -sh "$S/tree" -> 159M)
+
+[2] live fetches (11 ids; url = corpus/source-fetches.tsv column 4; date -u +%FT%TZ taken immediately
+    before each curl). Loop:
+    for id in S012 S013 S014 S015 S016 S021 S022 S023 S024 S025 S026; do
+      url=$(awk -F'\t' -v i="$id" '$1==i{print $4}' corpus/source-fetches.tsv)
+      ts=$(date -u +%FT%TZ)
+      code=$(curl -fsSL --compressed -o "$S/cap/$id.body" -w '%{http_code}' "$url" 2>"$S/cap/$id.err"); rc=$?
+      ... sha256sum / wc -c -> $S/fetch-log.tsv
+Output (fetch-log.tsv, verbatim rows):
+S012	2026-11-06T19:34:14Z	https://developer.hashicorp.com/vault/docs/auth/jwt	http=200	sha=0ccb802db1b1667838b2afcbd62e047079b4426bb24012299bc3691cec9912fa	bytes=386833
+S013	2026-11-06T19:34:14Z	https://developer.hashicorp.com/vault/docs/concepts/lease	http=200	sha=f4c70f9fed8dcb4fa63adf2830fb0c3aa7b87307ba5c7929e35d19e158e77972	bytes=261663
+S014	2026-11-06T19:34:14Z	https://openbao.org/docs/auth/jwt/	http=200	sha=893f33e403cabe4b61294e27b678f7088c5789342cd778abd56a8e8c27ae4be7	bytes=63046
+S015	2026-11-06T19:34:14Z	https://openbao.org/docs/auth/jwt/oidc-providers/kubernetes/	http=200	sha=7007e9e437b24fc5fa47ba2675ef0d27512e036bac2f971131568058f0803b48	bytes=55824
+S016	2026-11-06T19:34:14Z	https://openbao.org/docs/concepts/tokens/	http=200	sha=ea9bdafe74102b20b62c620b88b0e90feea12bda80fffb832fb31c77f50548ef	bytes=47384
+S021	2026-11-06T19:34:14Z	https://openbao.org/docs/concepts/tokens/	http=200	sha=ea9bdafe74102b20b62c620b88b0e90feea12bda80fffb832fb31c77f50548ef	bytes=47384
+S022	2026-11-06T19:34:14Z	https://developer.hashicorp.com/vault/docs/auth/jwt	http=200	sha=0ccb802db1b1667838b2afcbd62e047079b4426bb24012299bc3691cec9912fa	bytes=386833
+S023	2026-11-06T19:34:15Z	https://developer.hashicorp.com/vault/docs/concepts/lease	http=200	sha=f4c70f9fed8dcb4fa63adf2830fb0c3aa7b87307ba5c7929e35d19e158e77972	bytes=261663
+S024	2026-11-06T19:34:15Z	https://developer.hashicorp.com/vault/api-docs/secret/kv/kv-v2	http=200	sha=08ad557bfee03351fcfb99b7b1f447bc106a9a1e48036067c8e374668b77b3d8	bytes=586212
+S025	2026-11-06T19:34:15Z	https://openbao.org/docs/auth/jwt/	http=200	sha=893f33e403cabe4b61294e27b678f7088c5789342cd778abd56a8e8c27ae4be7	bytes=63046
+S026	2026-11-06T19:34:15Z	https://openbao.org/docs/concepts/tokens/	http=200	sha=ea9bdafe74102b20b62c620b88b0e90feea12bda80fffb832fb31c77f50548ef	bytes=47384
+rc=0; last line: S026	...	bytes=47384   (no FETCH-FAIL lines; all 11 HTTP 200)
+
+[3] quote locate (quote = corpus/source-fetches.tsv column 13, normalizer = the measured tree's)
+$ for id in ...; do q=$(awk -F'\t' -v i="$id" '$1==i{print $13}' corpus/source-fetches.tsv); \
+    out=$(python3 corpus/rendered-text-v1.py locate "$S/cap/$id.body" "$q"); rc=$?; ... done
+S012	rc=0	RENDERED_TEXT_V1_LOCATE: count=1
+S013	rc=0	RENDERED_TEXT_V1_LOCATE: count=1
+S014	rc=0	RENDERED_TEXT_V1_LOCATE: count=1
+S015	rc=0	RENDERED_TEXT_V1_LOCATE: count=1
+S016	rc=0	RENDERED_TEXT_V1_LOCATE: count=1
+S021	rc=0	RENDERED_TEXT_V1_LOCATE: count=1
+S022	rc=0	RENDERED_TEXT_V1_LOCATE: count=1
+S023	rc=0	RENDERED_TEXT_V1_LOCATE: count=1
+S024	rc=0	RENDERED_TEXT_V1_LOCATE: count=3
+S025	rc=0	RENDERED_TEXT_V1_LOCATE: count=1
+S026	rc=0	RENDERED_TEXT_V1_LOCATE: count=1
+Non-failure note: one early probe call passed a hand-retyped copy of the S021 quote and got
+RENDERED_TEXT_V1_LOCATE: count=0 (rc=1); the same body with the column-13 bytes gives count=1 (rc=0),
+so the 0 was a transcription difference in my argument, not a page change. The measured ledger uses
+only the column-13 value.
+
+[4] C2 counter (frozen plans/round-47-c2.sh; measured tree = scratch tree with corpus/fired-reverify.tsv
+    and all 11 .ufo/waves/round-47/capture/*.body in place)
+$ C2_TREE=$S/tree C2_ASOF=$(date -u +%s) bash /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-47-c2.sh
+C2_FIRED_REVERIFIED: value=11 reverified=11 gate=1 (ok=S012 S013 S014 S015 S016 S021 S022 S023 S024 S025 S026; bad=; gate-line=RELEASE_CLOCK: CLEAN (on_release=29 bound=29 unbound=0 observed=29 fired=13 derived=15))
+rc=0
+
+[5] release-clock gate inside the measured tree
+$ (cd $S/tree && python3 corpus/release-clock.py | tail -1)
+RELEASE_CLOCK: CLEAN (on_release=29 bound=29 unbound=0 observed=29 fired=13 derived=15)
+rc=0
+
+[6] copy self-check (report dir files vs ledger)
+$ cd <report>/K47ExecC2 && awk ... fired-reverify.tsv | while read id sha bytes cap; do sha256sum capture/...; wc -c; done
+S012 OK ... S026 OK  (11/11 OK, no MISMATCH)
+rc=0
+
+[7] raw-body KV-note check (see teaching-notes.md note N1)
+$ grep -io "does not issue leases" $S/cap/S013.body | head
+does not issue leases
+does not issue leases
+rc=0
+
+Not run (out of this seat's scope): the lane's full claim-ledger verify and self-counts, and any
+git add/commit/push (L1-only). No build/lint/test/formatter was run.
+
+[8] body stability probe (independent re-fetch ~110 s after [2], not used in the ledger)
+$ t=$(date -u +%FT%TZ); curl -fsSL --compressed -o recheck.body <url>; sha256sum; wc -c
+2026-11-06T19:36:05Z https://openbao.org/docs/concepts/tokens/ ea9bdafe74102b20b62c620b88b0e90feea12bda80fffb832fb31c77f50548ef 47384
+2026-11-06T19:36:05Z https://developer.hashicorp.com/vault/docs/concepts/lease f4c70f9fed8dcb4fa63adf2830fb0c3aa7b87307ba5c7929e35d19e158e77972 261663
+rc=0 — both re-fetches byte-identical to the ledger capture, so a non-author sha256 live leg
+re-run shortly after this seat closes should reproduce the ledger digests.

@@ -1,0 +1,29 @@
+# case-count verification — K47ScribeLesson, 2026-11-06T19:35:16Z
+
+$ git -C /home/vgpnk/Projects/shokunin/kagi-shokunin show f4a33d3d:corpus/claims-declared.sh | grep -n 'cases" -eq'
+122:  if [ "$passed" -eq "$cases" ] && [ "$cases" -eq 12 ]; then
+rc=0
+
+$ git -C /home/vgpnk/Projects/shokunin/kagi-shokunin show f5977284:corpus/claims-declared.sh | grep -n 'cases" -eq'
+102:  if [ "$passed" -eq "$cases" ] && [ "$cases" -eq 8 ]; then
+rc=0
+
+$ git -C /home/vgpnk/Projects/shokunin/kagi-shokunin show f4a33d3d:corpus/claims-declared.sh | sed -n '122,123p'
+  if [ "$passed" -eq "$cases" ] && [ "$cases" -eq 12 ]; then
+    printf 'CLAIMS_DECLARED_SELFTEST: PASS (%d cases)\n' "$cases"
+
+$ git -C /home/vgpnk/Projects/shokunin/kagi-shokunin show f4a33d3d:corpus/claims-declared.sh | grep -n 'case 12' -A3
+118:  # case 12 (round 46, reviewer K46RP-02): the manifest key carries the axis -- a
+119-  # claim with a second plan heading on another axis and no row for it is reported.
+120-  mfix; printf '# fixture plan\n\n## C1 — freshness: a\n\n## C1 — depth: b\n\n## C2 — calibration: c\n' > "$s/plans/round-90.md"
+121-  chk same-claim-second-axis "$GATE_SRC" 1 'MISMATCH 90 C1 no-manifest-row'
+
+$ git -C /home/vgpnk/Projects/shokunin/kagi-shokunin show 252ef1ca:corpus/claims-declared.sh | grep -n 'cases" -eq'   # round-47 BASE
+122:  if [ "$passed" -eq "$cases" ] && [ "$cases" -eq 12 ]; then
+rc=0
+
+$ grep -n 'PASS (12 cases)\|PASS (8 cases)|\|PASS (8 cases)' .ufo/waves/round-46/final/measured-at-candidate.txt .ufo/waves/round-46/controls/c1-base.txt .ufo/waves/round-46/controls/gates-base.txt
+.ufo/waves/round-46/final/measured-at-candidate.txt:4:C1_SELFTEST_KILLS: value=3 killed=3 positive=1 equiv=1 real=1 (rc e1=0 e2=0 e3=0 e4=0 m1=1 m2=1 m3=1; selftest-rc=0 selftest-last='CLAIMS_DECLARED_SELFTEST: PASS (12 
+.ufo/waves/round-46/final/measured-at-candidate.txt:64:CLAIMS_DECLARED_SELFTEST: PASS (12 cases)
+.ufo/waves/round-46/controls/c1-base.txt:2:C1_SELFTEST_KILLS: value=0 killed=0 positive=1 equiv=1 real=1 (rc e1=0 e2=0 e3=0 e4=0 m1=0 m2=0 m3=0; selftest-rc=0 selftest-last='CLAIMS_DECLARED_SELFTEST: PASS (8 cases)'; rea
+.ufo/waves/round-46/controls/gates-base.txt:15:CLAIMS_DECLARED_SELFTEST: PASS (8 cases)

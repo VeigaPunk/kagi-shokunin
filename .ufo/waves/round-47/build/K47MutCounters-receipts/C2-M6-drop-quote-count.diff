@@ -1,0 +1,8 @@
+--- pristine-c2
++++ C2-M6-drop-quote-count
+@@ -98,5 +98,4 @@
+   k=$(printf '%s\n' "$lout" | sed -n 's/.*count=\([0-9][0-9]*\).*/\1/p' | head -n 1)
+   [ "$lrc" -eq 0 ] && [ -n "$k" ] && [ "$k" -ge 1 ] || { bad="$bad $id:not-located"; continue; }
+-  [ "$k" = "$qc" ] || { bad="$bad $id:quote-count"; continue; }
+   # (f)
+   [ "$verdict" = teaching-holds ] || { bad="$bad $id:verdict"; continue; }

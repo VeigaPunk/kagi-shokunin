@@ -1,0 +1,62 @@
+# K47ScoutSources — assimilation receipt (read-only; nothing run in /home/vgpnk/Projects/shokuknow/merge/kagi)
+# date: 2026-11-06
+
+$ grep -niE 'vault|openbao|provenance|fired|re-?verif|release-clock' /home/vgpnk/Projects/shokuknow/merge/kagi/MERGE-REPORT.md
+24:| `corpus/knowledge/trufflehog-verification-lifecycle.md` | new-file | round2 | TruffleHog's verification lifecycle: caching, safety, re-verification, and what a verdict means | new file |
+exit_code: 0
+(no matching lines above = zero hits)
+
+$ grep -ciE 'vault|openbao' MERGE-REPORT.md / 'provenance' / 'fired' / 'release'
+  vault|openbao      0
+  provenance         0
+  fired              0
+  release            0
+
+$ grep -cE 'docs.python.org|vault|openbao|source-fetches|fetch provenance' /home/vgpnk/Projects/shokuknow/merge/kagi/SOURCES.append.md
+  docs.python.org      0
+  vault                0
+  openbao              0
+  source-fetches       0
+  fetch provenance     0
+
+$ grep -rliE 'vault|openbao' /home/vgpnk/Projects/shokuknow/merge/kagi/knowledge/
+/home/vgpnk/Projects/shokuknow/merge/kagi/knowledge/corpus/knowledge/oidc-federation-trust-policy.md
+exit_code: 0
+
+$ grep -rn 'Vault' /home/vgpnk/Projects/shokuknow/merge/kagi/knowledge/ (all Vault hits in the staged tree)
+/home/vgpnk/Projects/shokuknow/merge/kagi/knowledge/corpus/knowledge/oidc-federation-trust-policy.md:90:- It does not cover the **Vault-side** audience check on a JWT/OIDC login (lane
+exit_code: 0
+
+$ find /home/vgpnk/Projects/shokuknow/merge/kagi/knowledge -type f | grep -iE 'vault|openbao|lease|token'
+exit_code: 1
+
+$ MERGE-REPORT.json keyword counts (json.dumps of whole file)
+entries: 81
+  vault          0
+  openbao        0
+  hashicorp      0
+  provenance     0
+  fired          0
+  reverify       0
+  re-verify      0
+  release-clock  0
+  release_clock  0
+  lease          0
+  token          0
+  TTL            0
+
+$ grep -n '^#' /home/vgpnk/Projects/shokuknow/merge/kagi/MERGE-REPORT.md
+1:# Merge package — kagi
+11:## What gets appended to `corpus/SOURCES.md`
+15:## Knowledge files to add
+101:## Dangling citations (entry cites a row that is not in the package)
+109:## Rows no entry rests on (status forced to `queued`)
+120:## Rows whose source the lane's registry already holds
+128:## Adopt checklist
+
+$ grep -n 'oidc-federation-trust-policy\|trufflehog-verification-lifecycle\|Dangling citations\|Rows no entry rests on\|Rows whose source' /home/vgpnk/Projects/shokuknow/merge/kagi/MERGE-REPORT.md
+19:| `corpus/knowledge/oidc-federation-trust-policy.md` | new-file | round1 | OIDC workload-federation trust policy: issuer, audience, subject, and the four condition syntaxes | new file |
+24:| `corpus/knowledge/trufflehog-verification-lifecycle.md` | new-file | round2 | TruffleHog's verification lifecycle: caching, safety, re-verification, and what a verdict means | new file |
+101:## Dangling citations (entry cites a row that is not in the package)
+109:## Rows no entry rests on (status forced to `queued`)
+120:## Rows whose source the lane's registry already holds

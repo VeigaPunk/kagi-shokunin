@@ -1,0 +1,8 @@
+--- pristine-c2
++++ C2-M8-drop-verdict
+@@ -100,5 +100,4 @@
+   [ "$k" = "$qc" ] || { bad="$bad $id:quote-count"; continue; }
+   # (f)
+-  [ "$verdict" = teaching-holds ] || { bad="$bad $id:verdict"; continue; }
+   ok="$ok $id"; n=$((n + 1))
+ done

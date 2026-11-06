@@ -1,0 +1,12 @@
+--- pristine-c1
++++ C1-M9-accept-non-census-output
+@@ -61,8 +61,5 @@
+ out=$(cd "$T" && bash corpus/sources-census.sh 2>/dev/null)
+ last=$(printf '%s\n' "$out" | tail -n 1)
+-case $last in
+-  "SOURCES_CENSUS: CLEAN "*|"SOURCES_CENSUS: FAILED "*) ;;
+-  *) setup "census-output:${last:-empty}" ;;
+-esac
++:
+ F1='FINDING SC_USEDBY_NOCITE id=S094 path=corpus/lessons/round-43.md'
+ F2='FINDING SC_USEDBY_NOCITE id=S099 path=corpus/lessons/round-44.md'

@@ -1,0 +1,8 @@
+--- pristine-c1
++++ C1-M1-drop-new-conjunct
+@@ -119,4 +119,4 @@
+ 
+ value=0
+-[ "$intact" -eq 1 ] && [ "$bound" -eq 1 ] && [ "$new" -eq 0 ] && value=$cleared
++[ "$intact" -eq 1 ] && [ "$bound" -eq 1 ] && value=$cleared
+ echo "C1_CENSUS_CALIBRATION: value=$value cleared=$cleared new=$new intact=$intact bound=$bound (census=$last; why=${why# })"

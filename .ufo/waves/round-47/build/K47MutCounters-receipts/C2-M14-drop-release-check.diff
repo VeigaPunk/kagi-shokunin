@@ -1,0 +1,8 @@
+--- pristine-c2
++++ C2-M14-drop-release-check
+@@ -79,5 +79,4 @@
+   # (b)
+   ov=$(awk -F'\t' -v i="$id" '$1==i {print $6}' "$T/corpus/release-clocks.tsv")
+-  [ -n "$ov" ] && [ "$rel" = "$ov" ] || { bad="$bad $id:release"; continue; }
+   # (c)
+   [[ $fat =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$ ]] || { bad="$bad $id:fetched-shape"; continue; }

@@ -1,0 +1,9 @@
+--- pristine-c1
++++ C1-M2-no-new-scan
+@@ -72,5 +72,5 @@
+   printf '%s\n' "$out" | grep -qxF -- "$f" || cleared=$((cleared + 1))
+ done
+-new=$(printf '%s\n' "$out" | grep '^FINDING ' | grep -vxF -e "$F1" -e "$F2" -e "$F3" | wc -l)
++new=0
+ 
+ # --- INTACT -------------------------------------------------------------------

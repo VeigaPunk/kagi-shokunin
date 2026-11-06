@@ -1,0 +1,46 @@
+# K47CriticCeiling — exact commands, exit codes
+
+HYAKU_SCRATCH=/fast/scratch/hyaku
+LANE=/home/vgpnk/Projects/shokunin/kagi-shokunin
+S=$HYAKU_SCRATCH/kagi-r47/K47CriticCeiling
+BASE=252ef1cac9f41d84639c0d1f211d0e0911196112
+PRE=b020d978bac91284a431710148ebb7a7950eaab8
+
+## fixture trees (read-only extraction from the lane)
+mkdir -p $S/tree && git -C $LANE archive $PRE | tar -x -C $S/tree                       # exit 0
+mkdir -p $S/livetree && git -C $LANE archive $PRE | tar -x -C $S/livetree               # exit 0
+python3 - (import plans/round-47-controls.py; m.base_tree(dst); m.TIMES from
+        /fast/scratch/hyaku/kagi-r47/L1/capture-times.tsv; m.c2_fix(dst, .../L1))       # exit 0
+#   -> $S/k2ptree == the lane's K2-P reference fixture (L1 live captures, 2026-11-06T19:29:56Z)
+
+## old-body harvest (185 committed .html/.htm/.body candidates at BASE)
+cd $S && python3 scan.py                                                                # exit 0
+
+## live re-fetch of the six distinct registry URLs (public GET only, no writes)
+curl -sS -L --max-time 60 -A "kagi-shokunin-round47-critic/1.0" -o u<N>.body <url>       # 6x HTTP 200
+
+## scoring (frozen counter)
+C2_TREE=$S/tree     C2_ASOF=$(date -u +%s) HYAKU_SCRATCH=/fast/scratch/hyaku bash $LANE/plans/round-47-c2.sh  # exit 0, value=11
+C2_TREE=$S/livetree C2_ASOF=$(date -u +%s) HYAKU_SCRATCH=/fast/scratch/hyaku bash $LANE/plans/round-47-c2.sh  # exit 0, value=11
+C2_TREE=$S/k2ptree  C2_ASOF=$(date -u +%s) HYAKU_SCRATCH=/fast/scratch/hyaku bash $LANE/plans/round-47-c2.sh  # exit 0, value=11
+C2_TREE=$S/mdtree   C2_ASOF=$(date -u +%s) HYAKU_SCRATCH=/fast/scratch/hyaku bash $LANE/plans/round-47-c2.sh  # exit 0, value=11
+
+## amendment variants (scratch copies; REPO pinned to the lane, nothing in the lane edited)
+#   A = digest-free-of-BASE with live-receipt escape   (proposal-c2-amendment-A.sh)
+#   B = digest-equals-live-receipt, no fallback        (proposal-c2-amendment-B.sh)
+C2_TREE=$S/tree      ... bash $S/c2-amended.sh    # exit 0, value=0  (11x stale-bytes)
+C2_TREE=$S/k2ptree   ... bash $S/c2-amended.sh    # exit 0, value=11
+C2_TREE=$S/muttree   ... bash $S/c2-amended.sh    # exit 0, value=11 (1-byte mutation; A defeated)
+C2_TREE=$S/mdtree    ... bash $S/c2-amended.sh    # exit 0, value=10 (S012 stale-bytes)
+C2_TREE=$S/escapetree2 ... bash $S/c2-amended.sh  # exit 0, value=0  (receipt pre-floor)
+C2_TREE=$S/escapetree  ... bash $S/c2-amended.sh  # exit 0, value=11 (hatch code path exercised)
+C2_TREE=$S/tree      ... bash $S/c2-amendedB.sh   # exit 0, value=0  (11x unwitnessed)
+C2_TREE=$S/k2ptree   ... bash $S/c2-amendedB.sh   # exit 0, value=11
+C2_TREE=$S/escapetree ... bash $S/c2-amendedB.sh  # exit 0, value=11 (forged receipt; residual)
+
+## supporting derivations
+awk -F'\t' '$1 ~ /^S0(1[2-6]|2[1-6])$/ {print $3}' $S/tree/corpus/source-fetches.tsv   # declared shas
+comm -12 declared.txt captured.txt                                                      # overlap = 0
+find $S/tree -type f -print0 | xargs -0 sha256sum                                       # 6732 digests
+git -C $LANE log -1 --format='%h %ci' $PRE -- <body>                                    # d30c989 2026-10-21 10:50:35 -0300 (all bodies)
+python3 corpus/rendered-text-v1.py digest <old> ; ... digest <live>                     # normalized compare

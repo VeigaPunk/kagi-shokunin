@@ -1,0 +1,9 @@
+--- pristine-c2
++++ C2-M7-accept-zero-count
+@@ -97,5 +97,5 @@
+   lout=$(cd "$T" && python3 corpus/rendered-text-v1.py locate "$T/$cap" "$mq" 2>/dev/null); lrc=$?
+   k=$(printf '%s\n' "$lout" | sed -n 's/.*count=\([0-9][0-9]*\).*/\1/p' | head -n 1)
+-  [ "$lrc" -eq 0 ] && [ -n "$k" ] && [ "$k" -ge 1 ] || { bad="$bad $id:not-located"; continue; }
++  [ "$lrc" -eq 0 ] && [ -n "$k" ] && [ "$k" -ge 0 ] || { bad="$bad $id:not-located"; continue; }
+   [ "$k" = "$qc" ] || { bad="$bad $id:quote-count"; continue; }
+   # (f)

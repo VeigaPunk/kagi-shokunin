@@ -1,0 +1,8 @@
+--- pristine-c2
++++ C2-M11-drop-capture-prefix
+@@ -85,5 +85,4 @@
+   [ "$fe" -ge "$FLOOR" ] && [ "$fe" -le "$ASOF" ] || { bad="$bad $id:fetched-window"; continue; }
+   # (d)
+-  case $cap in .ufo/waves/round-47/capture/*) ;; *) bad="$bad $id:capture-path"; continue ;; esac
+   case "/$cap/" in */../*) bad="$bad $id:capture-dotdot"; continue ;; esac
+   [ -f "$T/$cap" ] || { bad="$bad $id:capture-missing"; continue; }

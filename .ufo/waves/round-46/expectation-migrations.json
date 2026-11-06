@@ -1,0 +1,15 @@
+{
+ "round": 46,
+ "measured_at": "round-46 candidate tree (lane working tree before the candidate commit), 2026-11-06; the BASE reading of the same command is .ufo/waves/round-46/final/r36-03-red-witness.txt",
+ "kind": "measured rebinding of one ledger expectation after a population change (M46-1 fix)",
+ "population": "R36-03 only (the ledger row that runs the release-clock gate's default mode through plans/round-36-c3.sh)",
+ "migrations": [
+  {
+   "id": "R36-03",
+   "command": "bash plans/round-36-c3.sh",
+   "old_expect": "^RELEASE_CLOCK: CLEAN \\(on_release=30 bound=30 unbound=0 observed=30 fired=15 derived=15\\)$",
+   "new_expect": "^RELEASE_CLOCK: CLEAN \\(on_release=29 bound=29 unbound=0 observed=29 fired=13 derived=15\\)$",
+   "reason": "S040/S041 clock rows retired (registry rows no longer on-release since round 39), S098 bound (on-release since round 41): on_release 30 -> 29, fired 15 -> 13 (the two retired rows were fired). The old expect was unreachable on every tip from 4776f71 to f5977284; measured new line at the candidate: RELEASE_CLOCK: CLEAN (on_release=29 bound=29 unbound=0 observed=29 fired=13 derived=15), rc 0"
+  }
+ ]
+}

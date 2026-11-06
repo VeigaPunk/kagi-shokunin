@@ -1,0 +1,14 @@
+$ (BASE f5977284 archive) bash plans/round-36-c3.sh
+ORPHAN S040
+ORPHAN S041
+RECEIPT-MISMATCH S040
+RECEIPT-MISMATCH S041
+UNBOUND S098
+RELEASE_CLOCK: FAILED (on_release=29 bound=28 unbound=1 observed=28 fired=13 derived=15)
+rc=1
+matches old expect: False; matches new expect: False
+
+$ (candidate working tree) bash plans/round-36-c3.sh
+RELEASE_CLOCK: CLEAN (on_release=29 bound=29 unbound=0 observed=29 fired=13 derived=15)
+rc=0
+matches new expect: True

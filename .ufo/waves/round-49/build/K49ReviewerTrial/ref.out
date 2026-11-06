@@ -1,0 +1,6 @@
+TRIAL T1 HOLDS ttl=2s alive-before=1 alive-after-4s=0
+TRIAL T2 HOLDS renew-increment=3600 granted=5 alive-after-7s=0
+TRIAL T3 HOLDS renew-ok=0 revoke-ok=0 alive-after=1
+TRIAL T4 HOLDS login-orphan=true child-alive-after-parent-revoke=0 login-alive=1
+TRIAL T5 HOLDS lease-ttl=10m token-ttl=3s lease-before=1 lease-after-5s=0
+OPENBAO_TRIAL: HOLDS holds=5 broken=0 error=0 bao=v2.7.2

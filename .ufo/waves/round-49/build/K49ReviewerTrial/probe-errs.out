@@ -1,0 +1,28 @@
+PE[expired-lookup]
+Error looking up token: Error making API request.
+
+URL: GET http://127.0.0.1:55539/v1/auth/token/lookup-self
+Code: 403. Errors:
+
+* permission denied
+PE[batch-renew-self]
+Error renewing token: Error making API request.
+
+URL: PUT http://127.0.0.1:55539/v1/auth/token/renew-self
+Code: 400. Errors:
+
+* batch tokens cannot be renewed
+PE[batch-revoke-root-byid]
+Error revoking token: Error making API request.
+
+URL: PUT http://127.0.0.1:55539/v1/auth/token/revoke
+Code: 400. Errors:
+
+* batch tokens cannot be revoked
+PE[batch-revoke-self]
+Error revoking token: Error making API request.
+
+URL: PUT http://127.0.0.1:55539/v1/auth/token/revoke-self
+Code: 400. Errors:
+
+* batch tokens cannot be revoked

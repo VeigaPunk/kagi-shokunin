@@ -1,0 +1,17 @@
+# M49-1 — docs declaration gate: round-45 ISO entry (bad) vs repaired copy (good)
+$ bash m49-1-docs-gate.sh <arc-072bb0b>
+TREE /fast/scratch/hyaku/kagi-r49/K49ScribeLesson/arc-072bb0b
+REVERIFY_LINES 0
+STAMP_ROWS 0
+DOCS_RC 1
+DOCS_LAST DOC_AUDIT: BROKEN (entries=36 row_linked=32 by_hand=3 undeclared=1 missing_ids=0 unpinned=1 duplicate_reasons=0 floor=18)
+VERDICT: FLAG (docs rc=1 reverify=0 stamp=0)
+rc=1
+$ bash m49-1-docs-gate.sh <tree-fixed>
+TREE /fast/scratch/hyaku/kagi-r49/K49ScribeLesson/tree-fixed
+REVERIFY_LINES 1
+STAMP_ROWS 1
+DOCS_RC 0
+DOCS_LAST DOC_AUDIT: CLEAN (entries=36 row_linked=33 by_hand=3 undeclared=0 missing_ids=0 unpinned=0 duplicate_reasons=0)
+VERDICT: CLEAN (entry declared, pinned, docs CLEAN)
+rc=0

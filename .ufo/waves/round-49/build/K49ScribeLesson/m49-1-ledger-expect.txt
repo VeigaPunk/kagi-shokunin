@@ -1,0 +1,13 @@
+# Routed — ledger claim row R14-01 pins the docs snapshot at entries=35 row_linked=32
+$ bash m49-1-ledger-expect.sh <tree-fixed>
+TREE /fast/scratch/hyaku/kagi-r49/K49ScribeLesson/tree-fixed
+OBSERVED DOC_AUDIT: CLEAN (entries=36 row_linked=33 by_hand=3 undeclared=0 missing_ids=0 unpinned=0 duplicate_reasons=0)
+R14-01_EXPECT ^DOC_AUDIT: CLEAN \(entries=35 row_linked=32 by_hand=3 undeclared=0 missing_ids=0 unpinned=0
+VERDICT: FLAG (R14-01 expectation does not match the observed docs line)
+rc=1
+$ bash m49-1-ledger-expect.sh <tree-fixed-ledger: R14-01 expectation moved to the observed counts>
+TREE /fast/scratch/hyaku/kagi-r49/K49ScribeLesson/tree-fixed-ledger
+OBSERVED DOC_AUDIT: CLEAN (entries=36 row_linked=33 by_hand=3 undeclared=0 missing_ids=0 unpinned=0 duplicate_reasons=0)
+R14-01_EXPECT ^DOC_AUDIT: CLEAN \(entries=36 row_linked=33 by_hand=3 undeclared=0 missing_ids=0 unpinned=0
+VERDICT: CLEAN (R14-01 expectation matches the observed docs line)
+rc=0

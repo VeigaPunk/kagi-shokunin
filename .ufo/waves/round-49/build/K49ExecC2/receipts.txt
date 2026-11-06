@@ -1,0 +1,133 @@
+# K49ExecC2 receipts — round-49 C2 candidate (self-counts 6 -> 0), 2026-11-06
+# Scratch: /fast/scratch/hyaku/kagi-r49/K49ExecC2 (HYAKU_SCRATCH=/fast/scratch/hyaku)
+# Host guard: every command below ran with cwd inside the scratch clone or the lane; no lane file was edited.
+
+## 0. clone + BASE assertion
+$ S=/fast/scratch/hyaku/kagi-r49/K49ExecC2; mkdir -p "$S"; D="$S/c"
+$ git clone -q --shared /home/vgpnk/Projects/shokunin/kagi-shokunin "$D"
+$ git -C "$D" rev-parse --show-toplevel
+/fast/scratch/hyaku/kagi-r49/K49ExecC2/c
+$ git -C "$D" checkout -q --detach 89afe91878f10805921d3caa67d28d21b33226da
+$ git -C "$D" rev-parse HEAD
+89afe91878f10805921d3caa67d28d21b33226da
+
+## 1. BASE red witnesses (before any edit)
+
+### 1a. R14-01's own command, narrowest supported mode (`--only` does not exist)
+$ grep -c -- '--only' corpus/claim-ledger.sh
+0
+# (usage block: `verify|citations|cells|docs`, `stamp`, `--selftest`; no per-row selector)
+$ bash corpus/claim-ledger.sh docs
+... (ENTRY/UNDECLARED/UNPINNED lines elided; two lines are the witness)
+UNDECLARED corpus/knowledge/iso-11770-3-edition-status.md (no Reverify line)
+UNPINNED corpus/knowledge/iso-11770-3-edition-status.md (knowledge entry is not a row in the stamps file)
+DOC_AUDIT_RATIO: row_linked=32/36 floor=18 by_hand=3 duplicate_reasons=0
+DOC_AUDIT: BROKEN (entries=36 row_linked=32 by_hand=3 undeclared=1 missing_ids=0 unpinned=1 duplicate_reasons=0 floor=18)
+docs_rc=1
+
+### 1b. R12-03's own command (stamp membership)
+$ grep -c '[^[:space:]]' corpus/stamps.tsv
+123
+# row R12-03 expects ^122$ -> red at BASE (the round-42 lesson pin joined the set at 0cb7814 without a migration)
+
+### 1c. frozen C2 counter at BASE (verbatim, exit 0)
+$ bash /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-49-c2.sh 89afe91878f10805921d3caa67d28d21b33226da
+C2_SELF_COUNTS: value=6 keys=6 lines=63 self_counts_rc=2 SC-SKILL-STAMPS=STALE PV-STAMPS=STALE RD-STAMPS=STALE RD-DOCS-ROWLINKED=SETUP RD-DOCS-BYHAND=SETUP RD-DOCS-ENTRIES=SETUP
+SELF_COUNTS: POLICY (claims=63 stale=3 unlocated=0 ambiguous=0 policy=2 setup=3)
+counter_rc=0
+
+## 2. edits in the clone (no lane file touched)
+
+corpus/knowledge/iso-11770-3-edition-status.md: +2 lines after `ground:` (line 5 `Reverify: R21-02`, line 6 the
+  sources-census parenthetical naming R21-02 and why no round-45 row exists); 65 -> 67 lines.
+corpus/README.md:67 (knowledge-entry declarations): `32 row-linked / 3 by-hand / 35 pinned` -> `33 / 3 / 36`
+  with a `round 49:` history clause (existing history parenthetical kept).
+corpus/README.md:65 (revision stamps): `122 rows (` -> `124 rows (round 49: +1 ...; live count was already 123 at BASE ...)`.
+SKILL.md:46: `(122 stamps + 86 claims` -> `(124 stamps + 86 claims`.
+PROVINCE.md:73: ``verify` (122 revision stamps + 86 claim rows;` -> `124 revision stamps`.
+corpus/claim-ledger.tsv: R12-03 expect `^122$` -> `^124$` (+ round-49 migration clause in its note);
+  R14-01 expect -> `^DOC_AUDIT: CLEAN \(entries=36 row_linked=33 by_hand=3 undeclared=0 missing_ids=0 unpinned=0 duplicate_reasons=0\)$`
+  (+ round-49 migration clause in its note). Row count unchanged: 86.
+
+## 3. restamp (safe path: every pinned path named again + the new one; stamp replaces the row set)
+$ mapfile -t P < <(cut -f1 corpus/stamps.tsv); echo "paths=${#P[@]}"
+paths=123
+$ bash corpus/claim-ledger.sh stamp "${P[@]}" corpus/knowledge/iso-11770-3-edition-status.md
+STAMPED: n=124 out=/fast/scratch/hyaku/kagi-r49/K49ExecC2/c/corpus/stamps.tsv
+$ grep -c '[^[:space:]]' corpus/stamps.tsv
+124
+
+### stamp rows changed (git diff BASE HEAD -- corpus/stamps.tsv), 4 updated + 1 added
+-corpus/claim-ledger.tsv	6e16d8a1cd48bb6d06ef58421ad0b208b6b67ec41e01fffd236102a7f9fb7514	104	49750
++corpus/claim-ledger.tsv	30a26a0d84e7fd774eace0578437f157e4898a719a48dfa497b3ee6f2dd8ba99	104	50612
+-corpus/README.md	aa8baef93cfd13864adb2dde0d464377021b586d62c594abdb511ab8add2eb08	254	35282
++corpus/README.md	1eb7d7f0c7c62f5a8132c10c64c4e86ddf3fb5f59944afde454aaff28b293feb	254	35530
+-PROVINCE.md	62864009b527775e66a95ce3039581955c42229fb3f5228a231a8f72c4821988	110	20632
++PROVINCE.md	305948f70b9c25d38b535864671863783ea2a164464ead4eb02ed5e5f0466edd	110	20632
+-SKILL.md	9d909ca109b9f75f0580b05006b0f2d7a2155bf1a1e85a4a3e59768be7778ad5	831	83627
++SKILL.md	b845f5c9464fad2ac1ca4e98e918d7cddbd99cf95d0cc1f62f08c6bc28fcfb9a	831	83627
++corpus/knowledge/iso-11770-3-edition-status.md	87378a21a7377c1887804250cf9006f6557931c2263c8c8a13081e07dba24ffe	67	4441
+
+## 4. post-fix checks in the clone
+
+$ bash corpus/claim-ledger.sh docs > docs.out 2>&1; echo "docs_rc=$?"
+docs_rc=0
+$ tail -2 docs.out
+DOC_AUDIT_RATIO: row_linked=33/36 floor=18 by_hand=3 duplicate_reasons=0
+DOC_AUDIT: CLEAN (entries=36 row_linked=33 by_hand=3 undeclared=0 missing_ids=0 unpinned=0 duplicate_reasons=0)
+
+$ bash corpus/expect-journal.sh --base-ledger "$S/base-ledger.tsv" --ledger corpus/claim-ledger.tsv --journals "$S/journals"
+EXPECT_JOURNAL: CLEAN (changed=2 journaled=2)
+journal_rc=0
+
+$ python3 corpus/self-counts.py > self-counts.out 2>&1; echo "self_counts_rc=$?"
+self_counts_rc=2
+$ grep -E '^(OK|STALE|SETUP) (SC-SKILL-STAMPS|PV-STAMPS|RD-STAMPS|RD-DOCS-ROWLINKED|RD-DOCS-BYHAND|RD-DOCS-ENTRIES) ' self-counts.out
+OK SC-SKILL-STAMPS SKILL.md:46 claimed=124 live=124
+OK PV-STAMPS PROVINCE.md:73 claimed=124 live=124
+OK RD-STAMPS corpus/README.md:65 claimed=124 live=124
+OK RD-DOCS-ROWLINKED corpus/README.md:67 claimed=33 live=33
+OK RD-DOCS-BYHAND corpus/README.md:67 claimed=3 live=3
+OK RD-DOCS-ENTRIES corpus/README.md:67 claimed=36 live=36
+$ grep -vE '^OK ' self-counts.out | tail -3
+POLICY PV-FEEDTOKEN-SHAPES ledger:R29-02 command not allowlisted
+POLICY PV-FEEDTOKEN-SELFTEST ledger:R29-01 command not allowlisted
+SELF_COUNTS: POLICY (claims=63 stale=0 unlocated=0 ambiguous=0 policy=2 setup=0)
+# rc 2 is the two frozen POLICY keys (G5 of the counter requires exactly these two); stale=0 setup=0.
+
+### row-predicate narrow checks (exit + last-line ERE, no full verify)
+$ last=$(bash corpus/claim-ledger.sh docs | tail -1); printf '%s\n' "$last" | grep -Eq '^DOC_AUDIT: CLEAN \(entries=36 row_linked=33 by_hand=3 undeclared=0 missing_ids=0 unpinned=0 duplicate_reasons=0\)$'; echo $?
+0
+$ n=$(grep -c '[^[:space:]]' corpus/stamps.tsv); echo "$n"; printf '%s\n' "$n" | grep -Eq '^124$'; echo $?
+124
+0
+
+### pointer row (the row the new declaration names) still passes its own command
+$ bash corpus/sources-census.sh
+SOURCES_CENSUS: CLEAN (rows=104 A=100 B=2 C=2 queued=1 mined=99 rejected=4 entries_sourced=15 legacy=21 captures=104 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+src_rc=0
+# NOTE: this is the command of R21-02/R31-02/R33-02/R34-03; its committed expect still says rows=98 (stale at BASE,
+# pre-existing, outside this seat's patch) -> routed, see report.
+
+## 5. commit + patch
+$ git -C "$D" -c user.name=fixture -c user.email=fixture@scratch.invalid commit -qam fixture
+$ git -C "$D" log -1 --format='%H %s'
+378c991a832ccd94e5d3477b89c40fa5059e1aca fixture
+$ git -C "$D" diff --stat 89afe91878f10805921d3caa67d28d21b33226da HEAD
+ PROVINCE.md                                    | 2 +-
+ SKILL.md                                       | 2 +-
+ corpus/README.md                               | 4 ++--
+ corpus/claim-ledger.tsv                        | 4 ++--
+ corpus/knowledge/iso-11770-3-edition-status.md | 2 ++
+ corpus/stamps.tsv                              | 9 +++++----
+ 6 files changed, 13 insertions(+), 10 deletions(-)
+$ git -C "$D" diff 89afe91878f10805921d3caa67d28d21b33226da HEAD > candidate.patch   # 113 lines, 6 files
+
+## 6. frozen C2 counter on the fixture commit (verbatim, exit 0)
+$ bash /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-49-c2.sh --tree /fast/scratch/hyaku/kagi-r49/K49ExecC2/c
+C2_SELF_COUNTS: value=0 keys=6 lines=63 self_counts_rc=2 SC-SKILL-STAMPS=OK PV-STAMPS=OK RD-STAMPS=OK RD-DOCS-ROWLINKED=OK RD-DOCS-BYHAND=OK RD-DOCS-ENTRIES=OK
+SELF_COUNTS: POLICY (claims=63 stale=0 unlocated=0 ambiguous=0 policy=2 setup=0)
+counter_tree_rc=0
+
+## 7. cleanup
+# scratch clone and journals removed by the seat's `trap 'rm -rf -- "$S"' EXIT` after the deliverables were copied.

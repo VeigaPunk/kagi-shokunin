@@ -1,0 +1,16 @@
+# M49-3 — round-48 closure D2: stated quote word counts vs wc -w
+$ python3 m49-3-quote-counts.py corpus/lessons/round-48.md
+LINE 25 stated=8 wc_w=6 MISMATCH quote='Release v3.13.3 · getsops/sops · GitHub'
+LINE 26 stated=12 wc_w=13 MISMATCH quote='v1.3.2 is a minor release with a wide range of fixes and hardening'
+QUOTES 2 MISMATCHES 2
+VERDICT: FLAG (stated count != wc -w)
+rc=1
+$ python3 m49-3-quote-counts.py <scratch copy with 8->6 and 12->13>
+LINE 25 stated=6 wc_w=6 OK quote='Release v3.13.3 · getsops/sops · GitHub'
+LINE 26 stated=13 wc_w=13 OK quote='v1.3.2 is a minor release with a wide range of fixes and hardening'
+QUOTES 2 MISMATCHES 0
+VERDICT: CLEAN (every stated count equals wc -w)
+rc=0
+$ printf %s "<S103 quote>" | wc -w ; printf %s "<S104 quote>" | wc -w
+6
+13

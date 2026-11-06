@@ -1,0 +1,62 @@
+# M49-1 — captured-by: which gate existed and why it did not run (rounds 45-48)
+## plans that execute the docs claim or self-counts
+SELFCOUNTS round-36-c1.sh
+SELFCOUNTS round-49-c2.sh
+SELFCOUNTS round-49-controls.sh
+## ledger row that should have caught it
+32:R14-01	bash corpus/claim-ledger.sh docs	^DOC_AUDIT: CLEAN \(entries=35 row_linked=32 by_hand=3 undeclared=0 missing_ids=0 unpinned=0	0	300	current declaration snapshot after adding the active corrected feature review:
+## wave receipts naming the docs gate (rounds 45-48)
+/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-46/build/K46ScribeCurate.md
+/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-46/build/K46ScribeCurate/evidence-commands.txt
+## wave receipts naming self-counts (rounds 45-48)
+## lessons 45-48 reporting a DOC_AUDIT verdict
+/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/lessons/round-45-verifier-spotcheck.md:0
+/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/lessons/round-45.md:0
+/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/lessons/round-46-verifier-spotcheck.md:0
+/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/lessons/round-46.md:0
+/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/lessons/round-47-verifier-spotcheck.md:0
+/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/lessons/round-47.md:0
+/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/lessons/round-48-verifier-spotcheck.md:0
+/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/lessons/round-48.md:0
+## round-45 verify attempt (never completed; no docs verdict)
+---
+=== optional claim-ledger verify (a) timeout 240s ===
+CMD: timeout 240 bash corpus/claim-ledger.sh verify (cwd=/fast/scratch/hyaku/kagi-r45/K45ExecStampRW/base)
+RC: 124
+LAST: FAIL R34-03 reason=exit-mismatch exit=1 want=0
+---
+=== optional claim-ledger verify (b) timeout 240s ===
+CMD: timeout 240 bash corpus/claim-ledger.sh verify (cwd=/fast/scratch/hyaku/kagi-r45/K45ExecStampRW/altered-byte)
+RC: 124
+LAST: FAIL R34-03 reason=exit-mismatch exit=1 want=0
+---
+## round-46 static diagnosis (read-only seat; not executed)
+- Commands run (all read-only; full table with rc and observed output in
+  `build/K46ScribeCurate/evidence-commands.txt`): `git rev-parse`, `git log`,
+  `git show <rev>:corpus/stamps.tsv`, `grep`, `wc`, `ls`, `sed`, `cat`, `comm`.
+- No network access; no vault/op/janitor contact; no secrets read or written.
+- No tool installed or upgraded.
+
+## Touched surfaces
+
+- Written (3 files, all inside the seat's write scope):
+  - `.ufo/waves/round-46/build/K46ScribeCurate/coverage-rows.md`
+  - `.ufo/waves/round-46/build/K46ScribeCurate/erratum-E46-1.md`
+  - `.ufo/waves/round-46/build/K46ScribeCurate/evidence-commands.txt`
+  - this report: `.ufo/waves/round-46/build/K46ScribeCurate.md`
+- Read-only: `corpus/README.md`, `corpus/SOURCES.md`, `corpus/stamps.tsv`,
+  `corpus/claim-ledger.tsv`, `corpus/claim-ledger.sh`, `corpus/self-counts.tsv`,
+  `corpus/lessons/round-45-verifier-spotcheck.md`, `corpus/lessons/round-45.md`,
+  `plans/round-45.md`, the two knowledge entries,
+  `.ufo/waves/round-45/{final,controls,build}/…`.
+- Not modified: `corpus/`, `plans/`, `SCORECARD.md`, `LOG.md`, `SHONEN.md`,
+## round-46 seat report: verify/self-counts forbidden by the seat spec
+
+- **No lane gate, counter, selftest or verify was executed.** The seat spec
+  forbids the lane's full claim-ledger verify and self-counts, and names no
+  script for this item; `plans/round-46-c1.sh` / `-c2.sh` belong to other seats.
+- Commands run (all read-only; full table with rc and observed output in
+  `build/K46ScribeCurate/evidence-commands.txt`): `git rev-parse`, `git log`,
+  `git show <rev>:corpus/stamps.tsv`, `grep`, `wc`, `ls`, `sed`, `cat`, `comm`.
+- No network access; no vault/op/janitor contact; no secrets read or written.
+- No tool installed or upgraded.

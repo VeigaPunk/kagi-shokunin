@@ -77,3 +77,7 @@ None: `/home/vgpnk/Projects/shokuknow/merge/kagi/` (read-only) stages 81 knowled
 ## considerthese
 
 Newest file `considerthese/2026-10-26.md` (no newer one); none taken. Its four proposals (`:47-66`) are operator policy (1), bookkeeping no claim needs (2, 4) or a premise round 47 found no longer reproducing (3). C2's theme — a self-description that is only as true as the last time a gate ran — is the class proposal 3 names ("nobody quotes a CLEAN result without the caveat"); QM61 is this round's form of it.
+
+## Landing addendum (appended at landing; nothing above changed)
+
+- **Orphaned dev servers (routed, hygiene).** At ~21:43Z the L1 found 8 round-49 `bao server -dev` processes (127.0.0.1 only, in-memory) re-parented after their trial shells died during the wave's mutation/forgery/review runs, and terminated them (`.ufo/waves/round-49/final/orphan-servers.txt`). The trial's cleanup is an EXIT trap, which a SIGKILLed shell never runs (K49ReviewerPlan K49RP-3). Fix routed to round 50: start the server in its own process group and kill the group from the counter and the trial; a control that SIGKILLs the trial mid-run and counts surviving servers.

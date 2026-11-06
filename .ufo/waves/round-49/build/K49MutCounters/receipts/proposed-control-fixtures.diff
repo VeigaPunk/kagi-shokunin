@@ -1,0 +1,50 @@
+=== k1-f9: report() double-prints on HOLDS
+--- /fast/scratch/hyaku/kagi-r49/K49MutCounters/lane/.ufo/waves/round-49/controls/fixtures/openbao-token-trial.ref.sh	2026-11-06 18:00:20.604444394 -0300
++++ /fast/scratch/hyaku/kagi-r49/K49MutCounters/prop/k1-f9/corpus/openbao-token-trial.sh	2026-11-06 18:12:29.481537355 -0300
+@@ -44,6 +44,7 @@
+ H=0; B=0; E=0
+ report() { # report T status detail
+   echo "TRIAL $1 $2 $3"
++  [ "$2" = HOLDS ] && echo "TRIAL $1 $2 $3"
+   case "$2" in HOLDS) H=$((H+1));; BROKEN) B=$((B+1));; *) E=$((E+1));; esac
+ }
+ tok() { # create token, print its value; extra args passed through
+
+=== k1-f10: T3 silent on failure
+--- /fast/scratch/hyaku/kagi-r49/K49MutCounters/lane/.ufo/waves/round-49/controls/fixtures/openbao-token-trial.ref.sh	2026-11-06 18:00:20.604444394 -0300
++++ /fast/scratch/hyaku/kagi-r49/K49MutCounters/prop/k1-f10/corpus/openbao-token-trial.sh	2026-11-06 18:12:29.752612879 -0300
+@@ -81,7 +81,7 @@
+   rv=0; bao token revoke "$t" >/dev/null 2>&1 && rv=1
+   a1=0; alive "$t" && a1=1
+   if [ "$rn" = 0 ] && [ "$rv" = 0 ] && [ "$a1" = 1 ]; then report T3 HOLDS "renew-ok=0 revoke-ok=0 alive-after=1"
+-  else report T3 BROKEN "renew-ok=$rn revoke-ok=$rv alive-after=$a1"; fi
++  else :; fi
+ fi
+ 
+ # T4 — a login through a non-token auth method yields an orphan token, so revoking
+
+=== k1-f12: guard exits 0
+--- /fast/scratch/hyaku/kagi-r49/K49MutCounters/lane/.ufo/waves/round-49/controls/fixtures/openbao-token-trial.ref.sh	2026-11-06 18:00:20.604444394 -0300
++++ /fast/scratch/hyaku/kagi-r49/K49MutCounters/prop/k1-f12/corpus/openbao-token-trial.sh	2026-11-06 18:22:16.476184438 -0300
+@@ -18,7 +18,7 @@
+     *) echo "usage: $0 [--work DIR]" >&2; exit 2;;
+   esac
+ done
+-command -v bao >/dev/null 2>&1 || { echo "OPENBAO_TRIAL: SETUP no bao on PATH"; exit 2; }
++command -v bao >/dev/null 2>&1 || { echo "OPENBAO_TRIAL: SETUP no bao on PATH"; exit 0; }
+ command -v python3 >/dev/null 2>&1 || { echo "OPENBAO_TRIAL: SETUP no python3"; exit 2; }
+ BASE="${WORK:-${TMPDIR:-/tmp}}"
+ mkdir -p "$BASE" || exit 2
+
+=== k2-f8: claim-id set vs BASE
+85,86d84
+< PV-FEEDTOKEN-SHAPES
+< PV-FEEDTOKEN-SELFTEST
+87a86,87
+> ZZ-PAD-1
+> ZZ-PAD-2
+
+=== k2-f9: claim-id set vs BASE
+21,22d20
+< SC-SKILL-CLAIMS
+< SC-SCOPE-ROWS

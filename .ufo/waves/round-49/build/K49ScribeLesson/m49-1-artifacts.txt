@@ -1,0 +1,13 @@
+# M49-1 — the two missing artifacts at BASE
+$ ls corpus/knowledge/*.md | wc -l
+36
+$ grep -lE "^Reverify: " corpus/knowledge/*.md | wc -l
+35
+$ grep -c "^Reverify: " corpus/knowledge/iso-11770-3-edition-status.md
+0
+$ grep -cF "corpus/knowledge/iso-11770-3-edition-status.md" corpus/stamps.tsv
+0
+$ git show 072bb0b:corpus/stamps.tsv | grep -cF "corpus/knowledge/iso-11770-3-edition-status.md"
+0
+$ grep -c "^Reverify: " corpus/knowledge/vault-openbao-token-lease-lifecycle.md   (the model entry)
+1

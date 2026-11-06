@@ -1,0 +1,26 @@
+# M49-2 — round-48 closure D1: the literal completion form
+$ python3 m49-2-seat-status.py --results <round-48 build-results.json> --reports <round-48 build>
+SEATS 13
+OUTPUT_LITERAL 4/13 K48ExecTrial K48ReviewerPlan K48CriticCeiling K48ScribeLesson
+REPORT_ENDS_LITERAL 5/13 K48ExecTrial K48Connector K48CriticClaims K48ScribeLesson K48ExecSources
+REPORTS_MISSING 0 
+VERDICT: FLAG (claim 'every report ends SEAT-STATUS: complete' is false: 5/13 reports end with the literal; 4/13 outputs contain it)
+rc=1
+$ python3 m49-2-seat-status.py --results <same> --reports <fixture: every report ends with the literal>
+SEATS 13
+OUTPUT_LITERAL 4/13 K48ExecTrial K48ReviewerPlan K48CriticCeiling K48ScribeLesson
+REPORT_ENDS_LITERAL 13/13 K48ExecTrial K48ExecC2 K48ScribeEntry K48ScoutSources K48Connector K48ReviewerPlan K48ReviewerTrial K48CriticClaims K48CriticCeiling K48MutCounters K48Sentinel K48ScribeLesson K48ExecSources
+REPORTS_MISSING 0 
+VERDICT: CLEAN (every report ends with the literal)
+rc=0
+FIXTURE /fast/scratch/hyaku/kagi-r49/K49ScribeLesson/reports-good (13 copies of the round-48 seat reports; the literal appended where absent)
+
+===== M49-2 (jq leg over the same build-results.json) =====
+$ jq ".results | length" .ufo/waves/round-48/build-results.json
+13
+$ jq "[.results[] | select((.output|tostring|contains(\"SEAT-STATUS: complete\")))] | length" …
+4
+$ jq -r ".results[].name" … | wc -l
+13
+$ total seat .md reports in .ufo/waves/round-48/build
+13

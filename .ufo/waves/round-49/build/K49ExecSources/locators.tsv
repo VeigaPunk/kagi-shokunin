@@ -1,0 +1,17 @@
+id	quote	count	rendered_offset	normalization	section	note
+S016	Every non-root token has a time-to-live	1	7363	rendered-text-v1	TokenTimeToLive	T1/T2/T5 base TTL statement
+S016	After the current TTL is up, the token will no longer function	1	7661	rendered-text-v1	TokenTimeToLive	T1 expiry stops the token
+S016	it, and its associated leases, are revoked	1	7727	rendered-text-v1	TokenTimeToLive	T1 leases revoked with the token
+S016	outside of direct operator interaction, OpenBao will never revoke a token before the returned TTL has expired	1	9574	rendered-text-v1	TheGeneralCase	T1 negative control
+S016	This value becomes a hard limit on the token's lifetime	1	9754	rendered-text-v1	ExplicitMaxTTLs	T2 explicit max TTL hard cap
+S016	logging in with any other (non- token ) auth method	1	5523	rendered-text-v1	TokenHierarchies	T4 orphan on non-token auth login
+S016	These tokens have no parent -- they are the root of their own token tree	1	5231	rendered-text-v1	TokenHierarchies	T4 orphan definition
+S016	Can be Renewable Yes No	1	12941	rendered-text-v1	TokenTypeComparison	T3 batch not renewable (row)
+S016	Manually Revocable Yes No	1	12965	rendered-text-v1	TokenTypeComparison	T3 batch not manually revocable (row)
+S016	Version: Version 2.7.x	1	838	rendered-text-v1	PageHeader	docs Version label
+S105	Release v2.7.2 · openbao/openbao · GitHub	1	0	rendered-text-v1	ReleasePageTitle	S105 version identity
+S105	github-actions released this 26 Oct 20:24	1	2198	rendered-text-v1	ReleasePageBody	S105 release line
+S105	v2.7.2 9e0a0d3	1	2305	rendered-text-v1	ReleasePageBody	S105 tag and release commit
+S106	Specifies if certificates issued/signed against this role will have OpenBao leases attached to them	1	120622	rendered-text-v1	CreateUpdateRoleParameters	T5 lease on issued certificates
+S106	Certificates can be added to the CRL by bao revoke <lease_id> when certificates are associated with leases	1	120723	rendered-text-v1	CreateUpdateRoleParameters	T5 lease-revocation coupling
+S106	Version: Version 2.7.x	1	370	rendered-text-v1	PageHeader	docs Version label

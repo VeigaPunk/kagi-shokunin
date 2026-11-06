@@ -1,0 +1,5 @@
+SOURCE: git archive 89afe91878f10805921d3caa67d28d21b33226da (BASE) — the C2 forgery (commit 770097f) changes only corpus/claim-ledger.tsv's R12-03/R14-01 command columns and adds corpus/reading-stub.sh, so the artifact state below is identical to the forgery commit's.
+CMD: bash corpus/claim-ledger.sh docs
+OUT: DOC_AUDIT: BROKEN (entries=36 row_linked=32 by_hand=3 undeclared=1 missing_ids=0 unpinned=1 duplicate_reasons=0 floor=18)
+CMD: grep -vc '^#' corpus/stamps.tsv
+OUT: 123

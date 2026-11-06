@@ -1,0 +1,21 @@
+# K49CriticClaims — C2 ledger-reds receipt
+# Fixture: /fast/scratch/hyaku/kagi-r49/K49CriticClaims/c2fix — git clone --shared of the lane,
+# detached at BASE 89afe91878f10805921d3caa67d28d21b33226da, plus the reference C2 fix
+# (iso Reverify: R21-02 + stamps row + README docs 33/3/36 + three stamp counts = live 124).
+# No lane writes; the clone's toplevel was asserted before the fixture commit.
+
+# (cd fixture && bash corpus/claim-ledger.sh docs 2>&1 | tail -1)
+DOC_AUDIT: CLEAN (entries=36 row_linked=33 by_hand=3 undeclared=0 missing_ids=0 unpinned=0 duplicate_reasons=0)
+
+# corpus/claim-ledger.tsv:32 (R14-01) expected last-line ERE — does NOT match the line above:
+^DOC_AUDIT: CLEAN \(entries=35 row_linked=32 by_hand=3 undeclared=0 missing_ids=0 unpinned=0
+
+# corpus/claim-ledger.tsv:28 (R12-03) expected last-line ERE — live `grep -c '[^[:space:]]' corpus/stamps.tsv` is 124:
+^122$
+
+# live stamp rows after the reference fix (also the C2 fixture's `n`):
+124
+
+# bash plans/round-49-c2.sh --tree <fixture>  (frozen counter; prints value=0 and the self-counts tail):
+C2_SELF_COUNTS: value=0 keys=6 lines=63 self_counts_rc=2 SC-SKILL-STAMPS=OK PV-STAMPS=OK RD-STAMPS=OK RD-DOCS-ROWLINKED=OK RD-DOCS-BYHAND=OK RD-DOCS-ENTRIES=OK
+SELF_COUNTS: POLICY (claims=63 stale=0 unlocated=0 ambiguous=0 policy=2 setup=0)

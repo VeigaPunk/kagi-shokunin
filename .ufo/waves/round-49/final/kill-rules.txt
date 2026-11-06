@@ -1,0 +1,23 @@
+# kill rules at candidate a74ae538d3426ec04c045200e18e0e3cb2540035 (2026-11-06T21:33:46Z)
+$ git diff 89afe91878f10805921d3caa67d28d21b33226da a74ae538d3426ec04c045200e18e0e3cb2540035 -- corpus/knowledge/vault-openbao-token-lease-lifecycle.md | grep -cE '^-[^-]'
+0
+$ git grep -cE 'r49-[0-9a-f]{24}' a74ae538d3426ec04c045200e18e0e3cb2540035 | wc -l
+0
+$ git grep -cE '(^|[^A-Za-z0-9])(s|b|r)\.[A-Za-z0-9]{20,}' a74ae538d3426ec04c045200e18e0e3cb2540035 -- corpus plans .ufo/waves/round-49 | wc -l
+0
+$ git diff --stat 082bfb3f6baa2407df2a23c0489043495b4dce4d a74ae538d3426ec04c045200e18e0e3cb2540035 -- plans/round-49.md plans/round-49-c1.sh plans/round-49-c2.sh plans/round-49-controls.sh .ufo/waves/round-49/controls/fixtures
+(empty = instruments unchanged)
+$ R25-02/R29-01/R29-02 rows BASE vs candidate
+R25-02 base=12be340939909f27 cand=12be340939909f27 same
+R29-01 base=bd1ee10bd53ad2de cand=bd1ee10bd53ad2de same
+R29-02 base=cfb2da38aecad20b cand=cfb2da38aecad20b same
+$ ledger row ids removed BASE..candidate
+0
+$ append-only files: removed lines BASE..candidate
+0 LOG.md
+0 corpus/QUALITY.md
+0 corpus/SOURCES.md
+0 corpus/source-fetches.tsv
+0 corpus/claims-declared.tsv
+0 SCORECARD.md
+0 plans/round-47.md

@@ -1,0 +1,93 @@
+--- /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-49/controls/fixtures/openbao-token-trial.ref.sh	2026-11-06 18:00:20.604444394 -0300
++++ /fast/scratch/hyaku/kagi-r49/K49ExecTrial/openbao-token-trial.sh	2026-11-06 18:10:31.867019874 -0300
+@@ -1,5 +1,5 @@
+ #!/usr/bin/env bash
+-# OpenBao token/lease lifecycle trial (kagi round 49 reference fixture).
++# OpenBao token/lease lifecycle trial (kagi round 49, hardened build).
+ # Executes, on a throwaway in-memory `bao server -dev` bound to 127.0.0.1, five
+ # mechanisms that corpus/knowledge/vault-openbao-token-lease-lifecycle.md documents
+ # from S016 (OpenBao docs, Version 2.7.x). Prints one line per test:
+@@ -8,7 +8,15 @@
+ #   OPENBAO_TRIAL: HOLDS|BROKEN|ERROR holds=<n> broken=<n> error=<n> bao=<version>
+ # Exit: 0 all HOLDS, 1 any BROKEN, 2 setup failure / any ERROR.
+ # No real vault, account or credential is touched; the dev root token is random,
+-# lives only in the scratch dir, and is never printed.
++# lives only in the scratch dir, and is never printed. The trial drives the `bao`
++# CLI resolved on PATH only (never the HTTP API, never an absolute bao path).
++#
++# Hardening deltas over the round-49 reference fixture (grammar and test logic
++# unchanged): EXIT/INT/TERM/HUP traps all reach the same cleanup, which kills the
++# dev server by its own PID, waits for it to disappear, then deletes the scratch
++# dir (server logs live inside it); server start is retried on a fresh random
++# 127.0.0.1 port; the readiness wait tolerates host load; `wait` targets the
++# server PID instead of every job.
+ set -u
+ umask 077
+ WORK=""
+@@ -24,22 +32,46 @@
+ mkdir -p "$BASE" || exit 2
+ D=$(mktemp -d "$BASE/openbao-trial.XXXXXX") || exit 2
+ SRV=""
+-cleanup() { [ -n "$SRV" ] && kill "$SRV" 2>/dev/null; wait 2>/dev/null; rm -rf -- "$D"; }
+-trap cleanup EXIT
+-for v in $(env | sed -n 's/^\(BAO_[A-Z_]*\)=.*/\1/p; s/^\(VAULT_[A-Z_]*\)=.*/\1/p'); do unset "$v"; done
++cleanup() {
++  if [ -n "$SRV" ]; then
++    kill "$SRV" 2>/dev/null
++    for _ in $(seq 1 50); do
++      kill -0 "$SRV" 2>/dev/null || break
++      sleep 0.1
++    done
++    kill -9 "$SRV" 2>/dev/null
++    wait "$SRV" 2>/dev/null
++    SRV=""
++  fi
++  rm -rf -- "$D"
++}
++trap 'cleanup' EXIT
++trap 'exit 130' INT
++trap 'exit 143' TERM
++trap 'exit 129' HUP
++while IFS= read -r v; do [ -n "$v" ] && unset "$v"; done < <(env | sed -n 's/^\(BAO_[A-Z_]*\)=.*/\1/p; s/^\(VAULT_[A-Z_]*\)=.*/\1/p')
+ export HOME="$D/home"; mkdir -p "$HOME"
+ VER=$(bao version 2>/dev/null | awk '{print $2; exit}')
+-PORT=$(python3 -c 'import socket;s=socket.socket();s.bind(("127.0.0.1",0));print(s.getsockname()[1]);s.close()')
+-ROOT=$(python3 -c 'import secrets;print("r49-"+secrets.token_hex(12))')
+-bao server -dev -dev-root-token-id="$ROOT" -dev-listen-address="127.0.0.1:$PORT" -dev-no-store-token >"$D/server.log" 2>&1 &
+-SRV=$!
+-export BAO_ADDR="http://127.0.0.1:$PORT" BAO_TOKEN="$ROOT"
+-ok=0
+-for _ in $(seq 1 100); do
+-  if bao status >/dev/null 2>&1; then ok=1; break; fi
+-  sleep 0.1
+-done
+-[ "$ok" = 1 ] || { echo "OPENBAO_TRIAL: SETUP dev server did not start"; exit 2; }
++start_server() { # sets SRV, BAO_ADDR, BAO_TOKEN; 0 on success
++  local port root ok
++  for _ in 1 2 3; do
++    port=$(python3 -c 'import socket;s=socket.socket();s.bind(("127.0.0.1",0));print(s.getsockname()[1]);s.close()')
++    root=$(python3 -c 'import secrets;print("r49-"+secrets.token_hex(12))')
++    bao server -dev -dev-root-token-id="$root" -dev-listen-address="127.0.0.1:$port" -dev-no-store-token >"$D/server.log" 2>&1 &
++    SRV=$!
++    export BAO_ADDR="http://127.0.0.1:$port" BAO_TOKEN="$root"
++    ok=0
++    for _ in $(seq 1 300); do
++      if bao status >/dev/null 2>&1; then ok=1; break; fi
++      kill -0 "$SRV" 2>/dev/null || break
++      sleep 0.1
++    done
++    if [ "$ok" = 1 ]; then return 0; fi
++    kill "$SRV" 2>/dev/null; wait "$SRV" 2>/dev/null; SRV=""
++  done
++  return 1
++}
++start_server || { echo "OPENBAO_TRIAL: SETUP dev server did not start"; exit 2; }
+ 
+ H=0; B=0; E=0
+ report() { # report T status detail
+@@ -128,4 +160,5 @@
+ 
+ if [ "$E" -gt 0 ]; then S=ERROR; rc=2; elif [ "$B" -gt 0 ]; then S=BROKEN; rc=1; else S=HOLDS; rc=0; fi
+ echo "OPENBAO_TRIAL: $S holds=$H broken=$B error=$E bao=$VER"
++cleanup
+ exit $rc

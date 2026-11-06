@@ -1,0 +1,16 @@
+# M49-1 — first revision where `bash corpus/claim-ledger.sh docs` reads BROKEN
+$ git -C <lane> log --format="%h %ci %s" -- corpus/knowledge/iso-11770-3-edition-status.md
+072bb0b 2026-11-05 18:11:15 -0300 round-45: candidate (C1 claims-declared plan-manifest bijection; C2 ISO/IEC 11770-3 entry S100-S102 located; SCORECARD, LOG, QUALITY QM55-56, lesson, stamps re-pinned)
+$ git -C <lane> diff --name-status 072bb0b^ 072bb0b -- corpus/knowledge/
+A	corpus/knowledge/iso-11770-3-edition-status.md
+$ git -C <lane> show -s --format="%h %ci %s" 072bb0b^ ; git -C <lane> show -s --format="%h %ci %s" 072bb0b
+c74ca51 2026-11-05 18:06:55 -0300 round-45: amendment A1 (pre-candidate: locator rc gate, no fixture marker, bash, A1-1..A1-9), BASE receipts re-run
+072bb0b 2026-11-05 18:11:15 -0300 round-45: candidate (C1 claims-declared plan-manifest bijection; C2 ISO/IEC 11770-3 entry S100-S102 located; SCORECARD, LOG, QUALITY QM55-56, lesson, stamps re-pinned)
+REV 072bb0b^  DOCS_RC 0
+  DOC_AUDIT_RATIO: row_linked=32/35 floor=18 by_hand=3 duplicate_reasons=0
+  DOC_AUDIT: CLEAN (entries=35 row_linked=32 by_hand=3 undeclared=0 missing_ids=0 unpinned=0 duplicate_reasons=0)
+REV 072bb0b  DOCS_RC 1
+  UNDECLARED corpus/knowledge/iso-11770-3-edition-status.md (no Reverify line)
+  UNPINNED corpus/knowledge/iso-11770-3-edition-status.md (knowledge entry is not a row in the stamps file)
+  DOC_AUDIT_RATIO: row_linked=32/36 floor=18 by_hand=3 duplicate_reasons=0
+  DOC_AUDIT: BROKEN (entries=36 row_linked=32 by_hand=3 undeclared=1 missing_ids=0 unpinned=1 duplicate_reasons=0 floor=18)

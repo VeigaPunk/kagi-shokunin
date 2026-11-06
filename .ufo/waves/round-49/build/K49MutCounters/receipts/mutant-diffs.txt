@@ -1,0 +1,153 @@
+=== c1-m1-drop-entry
+--- /fast/scratch/hyaku/kagi-r49/K49MutCounters/lane/plans/round-49-c1.sh	2026-11-06 17:56:49.312628746 -0300
++++ /fast/scratch/hyaku/kagi-r49/K49MutCounters/mut/c1-m1-drop-entry.sh	2026-11-06 18:10:47.488767578 -0300
+@@ -114,7 +114,7 @@
+   id="T$i"
+   run "sh$i" "$W/sh$i.out"
+   rv=$(verdict "$W/real.out" "$id"); sv=$(verdict "$W/sh$i.out" "$id"); ev=$(entry_line "$id")
+-  ok=0; [ "$rv" = HOLDS ] && [ "$sv" = BROKEN ] && [ "$ev" = 1 ] && ok=1
++  ok=0; [ "$rv" = HOLDS ] && [ "$sv" = BROKEN ] && ok=1
+   value=$((value + ok)); detail="$detail $id:real=$rv,shim=$sv,entry=$ev,ok=$ok"
+ done
+ nosecret=1
+=== c1-m2-dup-as-holds
+--- /fast/scratch/hyaku/kagi-r49/K49MutCounters/lane/plans/round-49-c1.sh	2026-11-06 17:56:49.312628746 -0300
++++ /fast/scratch/hyaku/kagi-r49/K49MutCounters/mut/c1-m2-dup-as-holds.sh	2026-11-06 18:10:47.490436180 -0300
+@@ -90,7 +90,7 @@
+ # verdict OUT ID -> HOLDS|BROKEN|ERROR|NONE|DUP
+ verdict() {
+   local n; n=$(grep -cE "^TRIAL $2 (HOLDS|BROKEN|ERROR)( |\$)" "$1")
+-  if [ "$n" -eq 0 ]; then echo NONE; elif [ "$n" -gt 1 ]; then echo DUP
++  if [ "$n" -eq 0 ]; then echo NONE; elif [ "$n" -gt 1 ]; then echo HOLDS
+   else grep -E "^TRIAL $2 (HOLDS|BROKEN|ERROR)( |\$)" "$1" | awk '{print $3}'; fi
+ }
+ 
+=== c1-m3-drop-nosecret
+--- /fast/scratch/hyaku/kagi-r49/K49MutCounters/lane/plans/round-49-c1.sh	2026-11-06 17:56:49.312628746 -0300
++++ /fast/scratch/hyaku/kagi-r49/K49MutCounters/mut/c1-m3-drop-nosecret.sh	2026-11-06 18:10:47.490493420 -0300
+@@ -121,6 +121,6 @@
+ if cat "$W"/*.out "$W"/*.out.err 2>/dev/null | grep -qE '(^|[^A-Za-z0-9])(s|b|r)\.[A-Za-z0-9]{20,}|r49-[0-9a-f]{24}|password=[0-9a-f]{32}'; then nosecret=0; fi
+ 
+ final=$value
+-[ $setup_ok -eq 1 ] && [ $nosecret -eq 1 ] && [ $pins -eq 1 ] || final=0
++[ $setup_ok -eq 1 ] && [ $pins -eq 1 ] || final=0
+ echo "C1_OPENBAO_TRIAL: value=$final discriminating=$value pins=$pins setup_ok=$setup_ok nosecret=$nosecret real_rc=$real_rc none_rc=$none_rc$detail"
+ exit 0
+=== c1-m4-swap-shim34
+--- /fast/scratch/hyaku/kagi-r49/K49MutCounters/lane/plans/round-49-c1.sh	2026-11-06 17:56:49.312628746 -0300
++++ /fast/scratch/hyaku/kagi-r49/K49MutCounters/mut/c1-m4-swap-shim34.sh	2026-11-06 18:10:47.490521650 -0300
+@@ -112,7 +112,8 @@
+ value=0; detail=""
+ for i in 1 2 3 4 5; do
+   id="T$i"
+-  run "sh$i" "$W/sh$i.out"
++  sd="sh$i"; [ "$i" = 3 ] && sd=sh4; [ "$i" = 4 ] && sd=sh3
++  run "$sd" "$W/sh$i.out"
+   rv=$(verdict "$W/real.out" "$id"); sv=$(verdict "$W/sh$i.out" "$id"); ev=$(entry_line "$id")
+   ok=0; [ "$rv" = HOLDS ] && [ "$sv" = BROKEN ] && [ "$ev" = 1 ] && ok=1
+   value=$((value + ok)); detail="$detail $id:real=$rv,shim=$sv,entry=$ev,ok=$ok"
+=== c1-m5-none-as-broken
+--- /fast/scratch/hyaku/kagi-r49/K49MutCounters/lane/plans/round-49-c1.sh	2026-11-06 17:56:49.312628746 -0300
++++ /fast/scratch/hyaku/kagi-r49/K49MutCounters/mut/c1-m5-none-as-broken.sh	2026-11-06 18:10:47.490545340 -0300
+@@ -90,7 +90,7 @@
+ # verdict OUT ID -> HOLDS|BROKEN|ERROR|NONE|DUP
+ verdict() {
+   local n; n=$(grep -cE "^TRIAL $2 (HOLDS|BROKEN|ERROR)( |\$)" "$1")
+-  if [ "$n" -eq 0 ]; then echo NONE; elif [ "$n" -gt 1 ]; then echo DUP
++  if [ "$n" -eq 0 ]; then echo BROKEN; elif [ "$n" -gt 1 ]; then echo DUP
+   else grep -E "^TRIAL $2 (HOLDS|BROKEN|ERROR)( |\$)" "$1" | awk '{print $3}'; fi
+ }
+ 
+=== c1-m6-drop-pin
+--- /fast/scratch/hyaku/kagi-r49/K49MutCounters/lane/plans/round-49-c1.sh	2026-11-06 17:56:49.312628746 -0300
++++ /fast/scratch/hyaku/kagi-r49/K49MutCounters/mut/c1-m6-drop-pin.sh	2026-11-06 18:10:47.490572100 -0300
+@@ -48,7 +48,7 @@
+ 
+ pins=0
+ [ -x "$BAO_BIN" ] || setup bao-missing
+-[ "$(sha256sum < "$BAO_BIN" | cut -d' ' -f1)" = "$PIN_BAO" ] || setup bao-pin-mismatch
++: # pin check dropped (mutant)
+ pins=1
+ for d in /usr/bin /bin; do [ -e "$d/bao" ] && setup "bao-in-$d"; done
+ 
+=== c1-m7-drop-setup-ok
+--- /fast/scratch/hyaku/kagi-r49/K49MutCounters/lane/plans/round-49-c1.sh	2026-11-06 17:56:49.312628746 -0300
++++ /fast/scratch/hyaku/kagi-r49/K49MutCounters/mut/c1-m7-drop-setup-ok.sh	2026-11-06 18:10:47.490621190 -0300
+@@ -121,6 +121,6 @@
+ if cat "$W"/*.out "$W"/*.out.err 2>/dev/null | grep -qE '(^|[^A-Za-z0-9])(s|b|r)\.[A-Za-z0-9]{20,}|r49-[0-9a-f]{24}|password=[0-9a-f]{32}'; then nosecret=0; fi
+ 
+ final=$value
+-[ $setup_ok -eq 1 ] && [ $nosecret -eq 1 ] && [ $pins -eq 1 ] || final=0
++[ $nosecret -eq 1 ] && [ $pins -eq 1 ] || final=0
+ echo "C1_OPENBAO_TRIAL: value=$final discriminating=$value pins=$pins setup_ok=$setup_ok nosecret=$nosecret real_rc=$real_rc none_rc=$none_rc$detail"
+ exit 0
+=== c2-m1-drop-G1
+--- /fast/scratch/hyaku/kagi-r49/K49MutCounters/lane/plans/round-49-c2.sh	2026-11-06 17:58:39.498791967 -0300
++++ /fast/scratch/hyaku/kagi-r49/K49MutCounters/mut/c2-m1-drop-G1.sh	2026-11-06 18:10:47.490647390 -0300
+@@ -48,11 +48,7 @@
+ C="$W/c"
+ b() { git -C "$LANE" show "$BASE:$1"; }
+ 
+-# G1
+-for f in corpus/self-counts.py corpus/claim-ledger.sh; do
+-  [ -f "$C/$f" ] || setup "G1-missing-$f"
+-  [ "$(b "$f" | sha256sum)" = "$(sha256sum < "$C/$f")" ] || setup "G1-changed-$f"
+-done
++: # G1 dropped (mutant)
+ # G2
+ for k in $KEYS; do
+   [ "$(b corpus/self-counts.tsv | grep -P "^$k\t")" = "$(grep -P "^$k\t" "$C/corpus/self-counts.tsv")" ] || setup "G2-row-$k"
+=== c2-m2-drop-G5
+--- /fast/scratch/hyaku/kagi-r49/K49MutCounters/lane/plans/round-49-c2.sh	2026-11-06 17:58:39.498791967 -0300
++++ /fast/scratch/hyaku/kagi-r49/K49MutCounters/mut/c2-m2-drop-G5.sh	2026-11-06 18:10:47.490667520 -0300
+@@ -70,9 +70,7 @@
+ (cd "$C" && timeout 600 python3 corpus/self-counts.py) > "$W/out" 2>&1
+ rc=$?
+ grep -q '^SELF_COUNTS: ' "$W/out" || setup "no-final-line(rc=$rc)"
+-# G5
+-pol=$(grep -E '^POLICY ' "$W/out" | awk '{print $2}' | sort | paste -sd, -)
+-[ "$pol" = "PV-FEEDTOKEN-SELFTEST,PV-FEEDTOKEN-SHAPES" ] || setup "G5-policy=$pol"
++: # G5 dropped (mutant)
+ # G6
+ n=$(grep -cE '^(OK|STALE|SETUP|POLICY|UNLOCATED|AMBIGUOUS|MISSING) ' "$W/out")
+ [ "$n" -ge "$MIN_LINES" ] || setup "G6-lines=$n"
+=== c2-m3-setup-as-ok
+--- /fast/scratch/hyaku/kagi-r49/K49MutCounters/lane/plans/round-49-c2.sh	2026-11-06 17:58:39.498791967 -0300
++++ /fast/scratch/hyaku/kagi-r49/K49MutCounters/mut/c2-m3-setup-as-ok.sh	2026-11-06 18:10:47.490686880 -0300
+@@ -81,7 +81,7 @@
+ for k in $KEYS; do
+   l=$(grep -E "^[A-Z]+ $k( |\$)" "$W/out" | head -1)
+   v=${l%% *}; [ -n "$l" ] || v=MISSING
+-  [ "$v" = OK ] || value=$((value+1))
++  [ "$v" = OK ] || [ "$v" = SETUP ] || value=$((value+1))
+   detail="$detail $k=$v"
+ done
+ echo "C2_SELF_COUNTS: value=$value keys=6 lines=$n self_counts_rc=$rc$detail"
+=== c2-m4-drop-G4
+--- /fast/scratch/hyaku/kagi-r49/K49MutCounters/lane/plans/round-49-c2.sh	2026-11-06 17:58:39.498791967 -0300
++++ /fast/scratch/hyaku/kagi-r49/K49MutCounters/mut/c2-m4-drop-G4.sh	2026-11-06 18:10:47.490726210 -0300
+@@ -61,11 +61,7 @@
+ for p in $(git -C "$LANE" ls-tree --name-only "$BASE" corpus/knowledge/ | grep '\.md$'); do
+   [ -f "$C/$p" ] || setup "G3-entry-gone-$p"
+ done
+-# G4
+-b corpus/stamps.tsv | grep -v '^#' | cut -f1 | sort -u > "$W/base-stamps"
+-grep -v '^#' "$C/corpus/stamps.tsv" | cut -f1 | sort -u > "$W/now-stamps"
+-missing=$(comm -23 "$W/base-stamps" "$W/now-stamps" | wc -l)
+-[ "$missing" -eq 0 ] || setup "G4-stamp-rows-removed=$missing"
++: # G4 dropped (mutant)
+ 
+ (cd "$C" && timeout 600 python3 corpus/self-counts.py) > "$W/out" 2>&1
+ rc=$?
+=== c2-m5-min-lines-0
+--- /fast/scratch/hyaku/kagi-r49/K49MutCounters/lane/plans/round-49-c2.sh	2026-11-06 17:58:39.498791967 -0300
++++ /fast/scratch/hyaku/kagi-r49/K49MutCounters/mut/c2-m5-min-lines-0.sh	2026-11-06 18:10:47.490745760 -0300
+@@ -24,7 +24,7 @@
+ set -u
+ BASE=89afe91878f10805921d3caa67d28d21b33226da
+ KEYS="SC-SKILL-STAMPS PV-STAMPS RD-STAMPS RD-DOCS-ROWLINKED RD-DOCS-BYHAND RD-DOCS-ENTRIES"
+-MIN_LINES=63
++MIN_LINES=0
+ 
+ setup() { echo "C2_SELF_COUNTS: SETUP reason=$1"; exit 2; }
+ [ $# -ge 1 ] || setup usage

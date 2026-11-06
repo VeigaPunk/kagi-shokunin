@@ -1,0 +1,18 @@
+$ bash corpus/sources-census.sh
+SOURCES_CENSUS: CLEAN (rows=104 A=100 B=2 C=2 queued=1 mined=99 rejected=4 entries_sourced=15 legacy=21 captures=104 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+rc=0
+$ bash corpus/claims-declared.sh --root .
+CLAIMS_DECLARED: CLEAN (claims=23)
+rc=0
+$ python3 -I -B corpus/quote-locate.py
+QUOTE_LOCATE: CLEAN located=8 rows=8
+rc=0
+$ bash corpus/anchor-pins.sh
+ANCHOR_PINS: CLEAN (pins=4)
+rc=0
+$ python3 corpus/release-clock.py
+RELEASE_CLOCK: CLEAN (on_release=29 bound=29 unbound=0 observed=29 fired=13 derived=15)
+rc=0
+$ bash corpus/claim-ledger.sh docs
+DOC_AUDIT: BROKEN (entries=36 row_linked=32 by_hand=3 undeclared=1 missing_ids=0 unpinned=1 duplicate_reasons=0 floor=18)
+rc=1

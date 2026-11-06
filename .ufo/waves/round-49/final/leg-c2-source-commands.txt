@@ -1,0 +1,6 @@
+# L1 leg (rule stated in K49CriticCeiling's leg header: source-row COMMAND column identical to BASE; expect changes journaled) — 2026-11-06T21:33:03Z
+$ bash .ufo/waves/round-49/final/leg-c2-source-commands.sh <git show a74ae538d3426ec04c045200e18e0e3cb2540035:corpus/claim-ledger.tsv> <dir holding .ufo/waves/round-49/expectation-migrations.json>
+LEG_C2_CMD: PASS (EXPECT_JOURNAL: CLEAN (changed=2 journaled=2))
+rc=0
+# negative: BASE ledger with R12-03/R14-01 commands repointed at a stub (the K49CriticCeiling forgery shape, commit 770097f), same journal
+LEG_C2_CMD: FAIL command-redefined:R12-03 command-redefined:R14-01 journal:[EXPECT_JOURNAL: REFUSED (violations=4)]

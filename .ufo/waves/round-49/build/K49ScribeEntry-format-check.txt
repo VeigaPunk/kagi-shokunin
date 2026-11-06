@@ -1,0 +1,20 @@
+# K49ScribeEntry format self-check — draft text only; no trial, no counter, no C1/C2 measurement
+# utc: 2026-11-06T21:14:24Z
+# file: /fast/scratch/hyaku/kagi-r49/K49ScribeEntry/section.md
+# draft sha256: 53ec46de7689678035522f3fa80cb8ee08b57fa2ee5cc7e084b92618c339240a
+$ awk 'NR==1 ...' /fast/scratch/hyaku/kagi-r49/K49ScribeEntry/section.md  # heading check
+line1: ## Measured (round 49 — OpenBao 2.7.2 dev server, 127.0.0.1, throwaway tokens)
+heading_exact: 1
+rc=0
+$ awk -v id=T1 '<plans/round-49-c1.sh entry_line replica>' /fast/scratch/hyaku/kagi-r49/K49ScribeEntry/section.md  => 1  (rc=0)
+$ awk -v id=T2 '<plans/round-49-c1.sh entry_line replica>' /fast/scratch/hyaku/kagi-r49/K49ScribeEntry/section.md  => 1  (rc=0)
+$ awk -v id=T3 '<plans/round-49-c1.sh entry_line replica>' /fast/scratch/hyaku/kagi-r49/K49ScribeEntry/section.md  => 1  (rc=0)
+$ awk -v id=T4 '<plans/round-49-c1.sh entry_line replica>' /fast/scratch/hyaku/kagi-r49/K49ScribeEntry/section.md  => 1  (rc=0)
+$ awk -v id=T5 '<plans/round-49-c1.sh entry_line replica>' /fast/scratch/hyaku/kagi-r49/K49ScribeEntry/section.md  => 1  (rc=0)
+$ grep -cE '^- T[1-5] ' /fast/scratch/hyaku/kagi-r49/K49ScribeEntry/section.md  => 5  (rc=0)
+$ grep -cE '^## ' /fast/scratch/hyaku/kagi-r49/K49ScribeEntry/section.md  => 1  (rc=0)
+$ grep -cE 'r49-[0-9a-f]{24}' /fast/scratch/hyaku/kagi-r49/K49ScribeEntry/section.md  => 0  (rc=1)
+$ grep -cE '(^|[^A-Za-z0-9])(s|b|r)\\.[A-Za-z0-9]{20,}' /fast/scratch/hyaku/kagi-r49/K49ScribeEntry/section.md  => 0  (rc=1)
+$ grep -cE 'password=[0-9a-f]{32}' /fast/scratch/hyaku/kagi-r49/K49ScribeEntry/section.md  => 0  (rc=1)
+$ grep -c '<detail from measured-at-candidate>' /fast/scratch/hyaku/kagi-r49/K49ScribeEntry/section.md  => 6  (rc=0)
+# note: rc=1 from grep -c means zero matches (expected for the three kill-rule shapes).

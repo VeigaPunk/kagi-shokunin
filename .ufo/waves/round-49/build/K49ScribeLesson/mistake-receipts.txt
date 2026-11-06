@@ -1,0 +1,191 @@
+# M49 — mistake receipts (verbatim; each check shows FLAG on the bad input and CLEAN on the good)
+
+===== M49-1 (docs declaration gate) =====
+# M49-1 — docs declaration gate: round-45 ISO entry (bad) vs repaired copy (good)
+$ bash m49-1-docs-gate.sh <arc-072bb0b>
+TREE /fast/scratch/hyaku/kagi-r49/K49ScribeLesson/arc-072bb0b
+REVERIFY_LINES 0
+STAMP_ROWS 0
+DOCS_RC 1
+DOCS_LAST DOC_AUDIT: BROKEN (entries=36 row_linked=32 by_hand=3 undeclared=1 missing_ids=0 unpinned=1 duplicate_reasons=0 floor=18)
+VERDICT: FLAG (docs rc=1 reverify=0 stamp=0)
+rc=1
+$ bash m49-1-docs-gate.sh <tree-fixed>
+TREE /fast/scratch/hyaku/kagi-r49/K49ScribeLesson/tree-fixed
+REVERIFY_LINES 1
+STAMP_ROWS 1
+DOCS_RC 0
+DOCS_LAST DOC_AUDIT: CLEAN (entries=36 row_linked=33 by_hand=3 undeclared=0 missing_ids=0 unpinned=0 duplicate_reasons=0)
+VERDICT: CLEAN (entry declared, pinned, docs CLEAN)
+rc=0
+
+===== M49-1 (first BROKEN revision) =====
+# M49-1 — first revision where `bash corpus/claim-ledger.sh docs` reads BROKEN
+$ git -C <lane> log --format="%h %ci %s" -- corpus/knowledge/iso-11770-3-edition-status.md
+072bb0b 2026-11-05 18:11:15 -0300 round-45: candidate (C1 claims-declared plan-manifest bijection; C2 ISO/IEC 11770-3 entry S100-S102 located; SCORECARD, LOG, QUALITY QM55-56, lesson, stamps re-pinned)
+$ git -C <lane> diff --name-status 072bb0b^ 072bb0b -- corpus/knowledge/
+A	corpus/knowledge/iso-11770-3-edition-status.md
+$ git -C <lane> show -s --format="%h %ci %s" 072bb0b^ ; git -C <lane> show -s --format="%h %ci %s" 072bb0b
+c74ca51 2026-11-05 18:06:55 -0300 round-45: amendment A1 (pre-candidate: locator rc gate, no fixture marker, bash, A1-1..A1-9), BASE receipts re-run
+072bb0b 2026-11-05 18:11:15 -0300 round-45: candidate (C1 claims-declared plan-manifest bijection; C2 ISO/IEC 11770-3 entry S100-S102 located; SCORECARD, LOG, QUALITY QM55-56, lesson, stamps re-pinned)
+REV 072bb0b^  DOCS_RC 0
+  DOC_AUDIT_RATIO: row_linked=32/35 floor=18 by_hand=3 duplicate_reasons=0
+  DOC_AUDIT: CLEAN (entries=35 row_linked=32 by_hand=3 undeclared=0 missing_ids=0 unpinned=0 duplicate_reasons=0)
+REV 072bb0b  DOCS_RC 1
+  UNDECLARED corpus/knowledge/iso-11770-3-edition-status.md (no Reverify line)
+  UNPINNED corpus/knowledge/iso-11770-3-edition-status.md (knowledge entry is not a row in the stamps file)
+  DOC_AUDIT_RATIO: row_linked=32/36 floor=18 by_hand=3 duplicate_reasons=0
+  DOC_AUDIT: BROKEN (entries=36 row_linked=32 by_hand=3 undeclared=1 missing_ids=0 unpinned=1 duplicate_reasons=0 floor=18)
+
+===== M49-1 (earlier tips) =====
+# M49-1 — docs state on earlier round tips (does the CLEAN->BROKEN transition start at 072bb0b?)
+REV 0d0192f  DOCS_RC 0
+  DOC_AUDIT: CLEAN (entries=35 row_linked=32 by_hand=3 undeclared=0 missing_ids=0 unpinned=0 duplicate_reasons=0)
+REV 92c394c  DOCS_RC 0
+  DOC_AUDIT: CLEAN (entries=35 row_linked=32 by_hand=3 undeclared=0 missing_ids=0 unpinned=0 duplicate_reasons=0)
+REV 0ad617a  DOCS_RC 0
+  DOC_AUDIT: CLEAN (entries=35 row_linked=32 by_hand=3 undeclared=0 missing_ids=0 unpinned=0 duplicate_reasons=0)
+REV 65f66e1  DOCS_RC 0
+  DOC_AUDIT: CLEAN (entries=35 row_linked=32 by_hand=3 undeclared=0 missing_ids=0 unpinned=0 duplicate_reasons=0)
+REV 6d6b486  DOCS_RC 0
+  DOC_AUDIT: CLEAN (entries=35 row_linked=32 by_hand=3 undeclared=0 missing_ids=0 unpinned=0 duplicate_reasons=0)
+
+===== M49-1 (captured-by) =====
+# M49-1 — captured-by: which gate existed and why it did not run (rounds 45-48)
+## plans that execute the docs claim or self-counts
+SELFCOUNTS round-36-c1.sh
+SELFCOUNTS round-49-c2.sh
+SELFCOUNTS round-49-controls.sh
+## ledger row that should have caught it
+32:R14-01	bash corpus/claim-ledger.sh docs	^DOC_AUDIT: CLEAN \(entries=35 row_linked=32 by_hand=3 undeclared=0 missing_ids=0 unpinned=0	0	300	current declaration snapshot after adding the active corrected feature review:
+## wave receipts naming the docs gate (rounds 45-48)
+/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-46/build/K46ScribeCurate.md
+/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-46/build/K46ScribeCurate/evidence-commands.txt
+## wave receipts naming self-counts (rounds 45-48)
+## lessons 45-48 reporting a DOC_AUDIT verdict
+/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/lessons/round-45-verifier-spotcheck.md:0
+/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/lessons/round-45.md:0
+/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/lessons/round-46-verifier-spotcheck.md:0
+/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/lessons/round-46.md:0
+/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/lessons/round-47-verifier-spotcheck.md:0
+/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/lessons/round-47.md:0
+/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/lessons/round-48-verifier-spotcheck.md:0
+/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/lessons/round-48.md:0
+## round-45 verify attempt (never completed; no docs verdict)
+---
+=== optional claim-ledger verify (a) timeout 240s ===
+CMD: timeout 240 bash corpus/claim-ledger.sh verify (cwd=/fast/scratch/hyaku/kagi-r45/K45ExecStampRW/base)
+RC: 124
+LAST: FAIL R34-03 reason=exit-mismatch exit=1 want=0
+---
+=== optional claim-ledger verify (b) timeout 240s ===
+CMD: timeout 240 bash corpus/claim-ledger.sh verify (cwd=/fast/scratch/hyaku/kagi-r45/K45ExecStampRW/altered-byte)
+RC: 124
+LAST: FAIL R34-03 reason=exit-mismatch exit=1 want=0
+---
+## round-46 static diagnosis (read-only seat; not executed)
+- Commands run (all read-only; full table with rc and observed output in
+  `build/K46ScribeCurate/evidence-commands.txt`): `git rev-parse`, `git log`,
+  `git show <rev>:corpus/stamps.tsv`, `grep`, `wc`, `ls`, `sed`, `cat`, `comm`.
+- No network access; no vault/op/janitor contact; no secrets read or written.
+- No tool installed or upgraded.
+
+## Touched surfaces
+
+- Written (3 files, all inside the seat's write scope):
+  - `.ufo/waves/round-46/build/K46ScribeCurate/coverage-rows.md`
+  - `.ufo/waves/round-46/build/K46ScribeCurate/erratum-E46-1.md`
+  - `.ufo/waves/round-46/build/K46ScribeCurate/evidence-commands.txt`
+  - this report: `.ufo/waves/round-46/build/K46ScribeCurate.md`
+- Read-only: `corpus/README.md`, `corpus/SOURCES.md`, `corpus/stamps.tsv`,
+  `corpus/claim-ledger.tsv`, `corpus/claim-ledger.sh`, `corpus/self-counts.tsv`,
+  `corpus/lessons/round-45-verifier-spotcheck.md`, `corpus/lessons/round-45.md`,
+  `plans/round-45.md`, the two knowledge entries,
+  `.ufo/waves/round-45/{final,controls,build}/…`.
+- Not modified: `corpus/`, `plans/`, `SCORECARD.md`, `LOG.md`, `SHONEN.md`,
+## round-46 seat report: verify/self-counts forbidden by the seat spec
+
+- **No lane gate, counter, selftest or verify was executed.** The seat spec
+  forbids the lane's full claim-ledger verify and self-counts, and names no
+  script for this item; `plans/round-46-c1.sh` / `-c2.sh` belong to other seats.
+- Commands run (all read-only; full table with rc and observed output in
+  `build/K46ScribeCurate/evidence-commands.txt`): `git rev-parse`, `git log`,
+  `git show <rev>:corpus/stamps.tsv`, `grep`, `wc`, `ls`, `sed`, `cat`, `comm`.
+- No network access; no vault/op/janitor contact; no secrets read or written.
+- No tool installed or upgraded.
+
+===== M49-1 (artifacts) =====
+# M49-1 — the two missing artifacts at BASE
+$ ls corpus/knowledge/*.md | wc -l
+36
+$ grep -lE "^Reverify: " corpus/knowledge/*.md | wc -l
+35
+$ grep -c "^Reverify: " corpus/knowledge/iso-11770-3-edition-status.md
+0
+$ grep -cF "corpus/knowledge/iso-11770-3-edition-status.md" corpus/stamps.tsv
+0
+$ git show 072bb0b:corpus/stamps.tsv | grep -cF "corpus/knowledge/iso-11770-3-edition-status.md"
+0
+$ grep -c "^Reverify: " corpus/knowledge/vault-openbao-token-lease-lifecycle.md   (the model entry)
+1
+
+===== M49-1 (routed: R14-01 expectation) =====
+# Routed — ledger claim row R14-01 pins the docs snapshot at entries=35 row_linked=32
+$ bash m49-1-ledger-expect.sh <tree-fixed>
+TREE /fast/scratch/hyaku/kagi-r49/K49ScribeLesson/tree-fixed
+OBSERVED DOC_AUDIT: CLEAN (entries=36 row_linked=33 by_hand=3 undeclared=0 missing_ids=0 unpinned=0 duplicate_reasons=0)
+R14-01_EXPECT ^DOC_AUDIT: CLEAN \(entries=35 row_linked=32 by_hand=3 undeclared=0 missing_ids=0 unpinned=0
+VERDICT: FLAG (R14-01 expectation does not match the observed docs line)
+rc=1
+$ bash m49-1-ledger-expect.sh <tree-fixed-ledger: R14-01 expectation moved to the observed counts>
+TREE /fast/scratch/hyaku/kagi-r49/K49ScribeLesson/tree-fixed-ledger
+OBSERVED DOC_AUDIT: CLEAN (entries=36 row_linked=33 by_hand=3 undeclared=0 missing_ids=0 unpinned=0 duplicate_reasons=0)
+R14-01_EXPECT ^DOC_AUDIT: CLEAN \(entries=36 row_linked=33 by_hand=3 undeclared=0 missing_ids=0 unpinned=0
+VERDICT: CLEAN (R14-01 expectation matches the observed docs line)
+rc=0
+
+===== M49-2 (seat completion form) =====
+# M49-2 — round-48 closure D1: the literal completion form
+$ python3 m49-2-seat-status.py --results <round-48 build-results.json> --reports <round-48 build>
+SEATS 13
+OUTPUT_LITERAL 4/13 K48ExecTrial K48ReviewerPlan K48CriticCeiling K48ScribeLesson
+REPORT_ENDS_LITERAL 5/13 K48ExecTrial K48Connector K48CriticClaims K48ScribeLesson K48ExecSources
+REPORTS_MISSING 0 
+VERDICT: FLAG (claim 'every report ends SEAT-STATUS: complete' is false: 5/13 reports end with the literal; 4/13 outputs contain it)
+rc=1
+$ python3 m49-2-seat-status.py --results <same> --reports <fixture: every report ends with the literal>
+SEATS 13
+OUTPUT_LITERAL 4/13 K48ExecTrial K48ReviewerPlan K48CriticCeiling K48ScribeLesson
+REPORT_ENDS_LITERAL 13/13 K48ExecTrial K48ExecC2 K48ScribeEntry K48ScoutSources K48Connector K48ReviewerPlan K48ReviewerTrial K48CriticClaims K48CriticCeiling K48MutCounters K48Sentinel K48ScribeLesson K48ExecSources
+REPORTS_MISSING 0 
+VERDICT: CLEAN (every report ends with the literal)
+rc=0
+FIXTURE /fast/scratch/hyaku/kagi-r49/K49ScribeLesson/reports-good (13 copies of the round-48 seat reports; the literal appended where absent)
+
+===== M49-2 (jq leg over the same build-results.json) =====
+$ jq ".results | length" .ufo/waves/round-48/build-results.json
+13
+$ jq "[.results[] | select((.output|tostring|contains(\"SEAT-STATUS: complete\")))] | length" …
+4
+$ jq -r ".results[].name" … | wc -l
+13
+$ total seat .md reports in .ufo/waves/round-48/build
+13
+
+===== M49-3 (quote word counts) =====
+# M49-3 — round-48 closure D2: stated quote word counts vs wc -w
+$ python3 m49-3-quote-counts.py corpus/lessons/round-48.md
+LINE 25 stated=8 wc_w=6 MISMATCH quote='Release v3.13.3 · getsops/sops · GitHub'
+LINE 26 stated=12 wc_w=13 MISMATCH quote='v1.3.2 is a minor release with a wide range of fixes and hardening'
+QUOTES 2 MISMATCHES 2
+VERDICT: FLAG (stated count != wc -w)
+rc=1
+$ python3 m49-3-quote-counts.py <scratch copy with 8->6 and 12->13>
+LINE 25 stated=6 wc_w=6 OK quote='Release v3.13.3 · getsops/sops · GitHub'
+LINE 26 stated=13 wc_w=13 OK quote='v1.3.2 is a minor release with a wide range of fixes and hardening'
+QUOTES 2 MISMATCHES 0
+VERDICT: CLEAN (every stated count equals wc -w)
+rc=0
+$ printf %s "<S103 quote>" | wc -w ; printf %s "<S104 quote>" | wc -w
+6
+13

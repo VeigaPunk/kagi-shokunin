@@ -1,0 +1,8 @@
+# Orphaned round-49 OpenBao dev servers found by the L1 at ~21:43Z (2026-11-06), while seats K49ExecTrial and K49ReviewerPlan were still running.
+# `ps -eo pid,ppid,etimes,args | grep 'bao server'` listed 8 `bao server -dev ... -dev-listen-address=127.0.0.1:<port> -dev-no-store-token` processes,
+# ppid 1020100 (re-parented; their trial shells were gone), elapsed 1299-1896 s (started ~18:13-18:23 -03, during the wave's mutation/forgery/review runs).
+# Seven carried a `-dev-root-token-id=r49-<24 hex>` argument (redacted here: the round's kill rule forbids the shape in committed files); one had no root-token argument.
+# All 8 were throwaway in-memory dev servers bound to 127.0.0.1; the L1 sent SIGTERM to the 8 PIDs; `ps ... | grep -c '[b]ao server -dev'` then read 0.
+# Cause class (K49ReviewerPlan K49RP-3): the trial's cleanup is an EXIT trap; a harness that SIGKILLs the trial shell (or kills it from a parent that does not
+# forward signals) leaves the backgrounded server running. Routed: run the server in its own process group and have the counter/leg kill the group.
+# Attribution reported afterwards by seat K49ReviewerPlan (message to the L1, not re-measured by the L1): 5 servers from K49CriticClaims, 2 from K49Sentinel, 1 (PID 4144156, started by absolute path) from K49ReviewerPlan's batch-shape probe.

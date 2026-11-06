@@ -1,0 +1,20 @@
+== pinned root (r49-<24hex> fixed by probe) ==
+  first2='r4' len=28 service_ERE=False embedded_after_space=False r49_ERE=True pw_ERE=False
+== default dev root token (from server.log, masked) ==
+  first2='s.' len=26 service_ERE=True embedded_after_space=True r49_ERE=False pw_ERE=False
+== token create -field=token -policy=default -ttl=60s (service child) ==
+  first2='s.' len=26 service_ERE=True embedded_after_space=True r49_ERE=False pw_ERE=False
+== token create -field=token -type=batch -ttl=60s ==
+  create failed
+== login -method=userpass -field=token (orphan) ==
+  first2='s.' len=26 service_ERE=True embedded_after_space=True r49_ERE=False pw_ERE=False
+== token create table row (no -field; the sh4 else-branch shape) ==
+  plain: Key                  Value
+  plain: ---                  -----
+  MATCHED-TABLE-LINE len=27 first2=' s'
+  plain: token_accessor       <MASKED>
+  plain: token_duration       1m
+  plain: token_renewable      true
+  plain: token_policies       ["default"]
+  plain: identity_policies    []
+  plain: policies             ["default"]

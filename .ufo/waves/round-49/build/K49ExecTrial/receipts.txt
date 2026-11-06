@@ -1,0 +1,98 @@
+# K49ExecTrial receipts — C1 hardened OpenBao token/lease trial
+# date: 2026-11-06T18:18:32-03:00
+# lane: /home/vgpnk/Projects/shokunin/kagi-shokunin (read-only); BASE 89afe91878f10805921d3caa67d28d21b33226da
+# token-shaped strings were scanned for in every recorded output: see §6 (none)
+
+## 0. tooling (no secret values)
+$ ~/.local/bin/bao version
+OpenBao v2.7.2 (9e0a0d3c3504a0a00b45e61355afac5e35c78379), committed 2026-10-26T20:32:27Z
+$ sha256sum ~/.local/bin/bao
+9c5f36287c673f386e1533e9c044169a248e4ee50dd54810fa766e95bd41b788  /home/vgpnk/.local/bin/bao
+$ shellcheck --version | head -2
+ShellCheck - shell script analysis tool
+version: 0.11.0
+
+## 1. fixture tree build
+$ mkdir -p $S/tree
+$ git -C <lane> archive 89afe91878f10805921d3caa67d28d21b33226da | tar -x -C $S/tree
+rc=0 (archive_rc=0)
+$ cp $S/openbao-token-trial.sh $S/tree/corpus/openbao-token-trial.sh
+$ cat <lane>/.ufo/waves/round-49/controls/fixtures/entry-measured.ref.md >> $S/tree/corpus/knowledge/vault-openbao-token-lease-lifecycle.md
+append_rc=0
+$ sha256sum $S/openbao-token-trial.sh $S/tree/corpus/openbao-token-trial.sh
+893b60ff5b95d10fc0a0137ff94caa7838eccd21a53adf62adb18618f88cfe1e  /fast/scratch/hyaku/kagi-r49/K49ExecTrial/openbao-token-trial.sh
+893b60ff5b95d10fc0a0137ff94caa7838eccd21a53adf62adb18618f88cfe1e  /fast/scratch/hyaku/kagi-r49/K49ExecTrial/tree/corpus/openbao-token-trial.sh
+
+## 2. shellcheck 0.11.0 + bash -n
+$ shellcheck openbao-token-trial.sh
+rc=0   # no output, clean
+$ bash -n openbao-token-trial.sh
+rc=0
+
+## 3. standalone runs: bash $S/openbao-token-trial.sh --work $S/w
+--- standalone run 1 ---
+cmd: bash $S/openbao-token-trial.sh --work $S/w
+rc=0
+stdout:
+  TRIAL T1 HOLDS ttl=2s alive-before=1 alive-after-4s=0
+  TRIAL T2 HOLDS renew-increment=3600 granted=5 alive-after-7s=0
+  TRIAL T3 HOLDS renew-ok=0 revoke-ok=0 alive-after=1
+  TRIAL T4 HOLDS login-orphan=true child-alive-after-parent-revoke=0 login-alive=1
+  TRIAL T5 HOLDS lease-ttl=10m token-ttl=3s lease-before=1 lease-after-5s=0
+  OPENBAO_TRIAL: HOLDS holds=5 broken=0 error=0 bao=v2.7.2
+stderr: (empty)
+--- standalone run 2 ---
+cmd: bash $S/openbao-token-trial.sh --work $S/w
+rc=0
+stdout:
+  TRIAL T1 HOLDS ttl=2s alive-before=1 alive-after-4s=0
+  TRIAL T2 HOLDS renew-increment=3600 granted=5 alive-after-7s=0
+  TRIAL T3 HOLDS renew-ok=0 revoke-ok=0 alive-after=1
+  TRIAL T4 HOLDS login-orphan=true child-alive-after-parent-revoke=0 login-alive=1
+  TRIAL T5 HOLDS lease-ttl=10m token-ttl=3s lease-before=1 lease-after-5s=0
+  OPENBAO_TRIAL: HOLDS holds=5 broken=0 error=0 bao=v2.7.2
+stderr: (empty)
+--- standalone run 3 ---
+cmd: bash $S/openbao-token-trial.sh --work $S/w
+rc=0
+stdout:
+  TRIAL T1 HOLDS ttl=2s alive-before=1 alive-after-4s=0
+  TRIAL T2 HOLDS renew-increment=3600 granted=5 alive-after-7s=0
+  TRIAL T3 HOLDS renew-ok=0 revoke-ok=0 alive-after=1
+  TRIAL T4 HOLDS login-orphan=true child-alive-after-parent-revoke=0 login-alive=1
+  TRIAL T5 HOLDS lease-ttl=10m token-ttl=3s lease-before=1 lease-after-5s=0
+  OPENBAO_TRIAL: HOLDS holds=5 broken=0 error=0 bao=v2.7.2
+stderr: (empty)
+wall (driver date +%s.%N deltas): run1 19.23s, run2 18.80s, run3 18.70s
+
+## 4. C1 counter runs: bash <lane>/plans/round-49-c1.sh --tree $S/tree
+--- counter run 1 (rc=0; wall 112s/114s/112s) ---
+C1_OPENBAO_TRIAL: value=5 discriminating=5 pins=1 setup_ok=1 nosecret=1 real_rc=0 none_rc=2 T1:real=HOLDS,shim=BROKEN,entry=1,ok=1 T2:real=HOLDS,shim=BROKEN,entry=1,ok=1 T3:real=HOLDS,shim=BROKEN,entry=1,ok=1 T4:real=HOLDS,shim=BROKEN,entry=1,ok=1 T5:real=HOLDS,shim=BROKEN,entry=1,ok=1
+--- counter run 2 (rc=0; wall 112s/114s/112s) ---
+C1_OPENBAO_TRIAL: value=5 discriminating=5 pins=1 setup_ok=1 nosecret=1 real_rc=0 none_rc=2 T1:real=HOLDS,shim=BROKEN,entry=1,ok=1 T2:real=HOLDS,shim=BROKEN,entry=1,ok=1 T3:real=HOLDS,shim=BROKEN,entry=1,ok=1 T4:real=HOLDS,shim=BROKEN,entry=1,ok=1 T5:real=HOLDS,shim=BROKEN,entry=1,ok=1
+--- counter run 3 (rc=0; wall 112s/114s/112s) ---
+C1_OPENBAO_TRIAL: value=5 discriminating=5 pins=1 setup_ok=1 nosecret=1 real_rc=0 none_rc=2 T1:real=HOLDS,shim=BROKEN,entry=1,ok=1 T2:real=HOLDS,shim=BROKEN,entry=1,ok=1 T3:real=HOLDS,shim=BROKEN,entry=1,ok=1 T4:real=HOLDS,shim=BROKEN,entry=1,ok=1 T5:real=HOLDS,shim=BROKEN,entry=1,ok=1
+
+## 5. process hygiene
+$ ps -eo pid,cmd | grep -F "$S" | grep -v grep
+(none)   # no process, bao server included, references this seat's scratch after any run
+
+$ ps -o pid,ppid,lstart,cmd -p 3226413,3338286,4036343   # every bao server still alive on the host
+    PID    PPID STARTED                  COMMAND
+3226413 1020100 Fri Nov  6 18:12:17 2026 bao server -dev -dev-root-token-id=<redacted> -dev-listen-address=127.0.0.1:37729 -dev-no-store-token
+3338286 1020100 Fri Nov  6 18:12:27 2026 bao server -dev -dev-listen-address=127.0.0.1:37171 -dev-no-store-token
+4036343 1020100 Fri Nov  6 18:14:01 2026 bao server -dev -dev-root-token-id=<redacted> -dev-listen-address=127.0.0.1:42077 -dev-no-store-token
+$ readlink /proc/<pid>/fd/2
+3226413 -> /fast/scratch/hyaku/kagi-r49/K49Sentinel/dbg.4v2NNr/server.log (deleted)
+3338286 -> /fast/scratch/hyaku/kagi-r49/K49Sentinel/dbg2.l1B421/server.log (deleted)
+4036343 -> /fast/scratch/hyaku/kagi-r49/K49CriticClaims/tokenprobe.H5oUOM/server.log
+Those three belong to K49Sentinel and K49CriticClaims scratch logs (other seats' live trials), not this seat;
+this seat's trials (3 standalone + 18 counter-invoked runs, all rc=0) each reaped their own server before exit.
+
+$ find $S -maxdepth 2 \( -name 'openbao-trial.*' -o -name server.log \)
+(none)   # trial dirs and server logs deleted by cleanup
+
+## 6. secret scan of every recorded output
+$ grep -rE '(^|[^A-Za-z0-9])(s|b|r)\.[A-Za-z0-9]{20,}|r49-[0-9a-f]{24}|password=[0-9a-f]{32}' receipts/ receipts.txt
+(no matches)
+counter reports nosecret=1 on every run (see §4); the dev root tokens seen in §5 are redacted in this file.

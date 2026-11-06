@@ -1,0 +1,10 @@
+# command: /home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --root /home/vgpnk/Projects/shokunin kagi   (2026-11-06T21:04:38Z)
+kagi	W04	S090 duplicate url github.com/openbao/openbao/releases.atom across scopes
+kagi	W04	S091 duplicate url www.python.org/downloads/feed.rss across scopes
+kagi	ok	/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/SOURCES.md
+rc=0
+# lane-local: bash corpus/sources-census.sh
+SOURCES_CENSUS: CLEAN (rows=104 A=100 B=2 C=2 queued=1 mined=99 rejected=4 entries_sourced=15 legacy=21 captures=104 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+rc=0
+# rows: grep -cE '^\|[[:space:]]*S[0-9]{3,}[[:space:]]*\|' corpus/SOURCES.md
+104

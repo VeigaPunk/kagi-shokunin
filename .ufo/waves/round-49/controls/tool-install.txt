@@ -1,0 +1,15 @@
+# OpenBao v2.7.2 install (round 49, L1 KagiR49, 2026-11-06) — official GitHub release binary into ~/.local/bin; pacman paused host-wide
+# release API: https://api.github.com/repos/openbao/openbao/releases/latest -> v2.7.2 2026-10-26T20:24:37Z
+# asset digests (API): checksums.txt sha256:d839d376448eceef3ccb5cdd44c4a0749a92a6e4aa2fdaf47255cfa949dfb77e
+#                      openbao_2.7.2_linux_amd64.tar.gz sha256:582b1f3c2fdc5afd443b2d57a225ef654de75adea609fdb66731fd582a9cbc96
+$ grep ' openbao_2.7.2_linux_amd64.tar.gz$' checksums.txt | sha256sum -c -
+openbao_2.7.2_linux_amd64.tar.gz: OK
+$ sha256sum checksums.txt openbao_2.7.2_linux_amd64.tar.gz
+d839d376448eceef3ccb5cdd44c4a0749a92a6e4aa2fdaf47255cfa949dfb77e  checksums.txt
+582b1f3c2fdc5afd443b2d57a225ef654de75adea609fdb66731fd582a9cbc96  openbao_2.7.2_linux_amd64.tar.gz
+$ tar -xzf openbao_2.7.2_linux_amd64.tar.gz bao && install -m755 bao ~/.local/bin/bao
+$ ~/.local/bin/bao version
+OpenBao v2.7.2 (9e0a0d3c3504a0a00b45e61355afac5e35c78379), committed 2026-10-26T20:32:27Z
+$ sha256sum ~/.local/bin/bao
+9c5f36287c673f386e1533e9c044169a248e4ee50dd54810fa766e95bd41b788  /home/vgpnk/.local/bin/bao
+# NOT verified: checksums.txt.gpgsig, checksums.txt.sigstore.json (no verifier run). Identity rests on checksums.txt + the API asset digests.

@@ -1,0 +1,13 @@
+# round-48 measurements at landing 7ce3fe70bd01983ae496bda1df51cdd36453df79 — 2026-11-06T20:41:25Z
+$ bash plans/round-48-c1.sh 7ce3fe70bd01983ae496bda1df51cdd36453df79
+C1_SOPS_AGE_TRIAL: value=5 discriminating=5 pins=1 setup_ok=1 nosecret=1 real_rc=0 none_rc=2 T1:real=HOLDS,shim=BROKEN,entry=1,ok=1 T2:real=HOLDS,shim=BROKEN,entry=1,ok=1 T3:real=HOLDS,shim=BROKEN,entry=1,ok=1 T4:real=HOLDS,shim=BROKEN,entry=1,ok=1 T5:real=HOLDS,shim=BROKEN,entry=1,ok=1
+rc=0
+$ bash plans/round-48-c2.sh 7ce3fe70bd01983ae496bda1df51cdd36453df79
+C2_CAPABILITY_READINGS: value=0 keys=10 rev=7ce3fe70bd01983ae496bda1df51cdd36453df79
+rc=0
+$ bash .ufo/waves/round-48/final/candidate-legs.sh 7ce3fe70bd01983ae496bda1df51cdd36453df79
+LEGS: PASS rev=7ce3fe70bd01983ae496bda1df51cdd36453df79
+rc=0
+$ git diff --stat 877558299cbac333013672827b974be4e5ea6bf4 7ce3fe70bd01983ae496bda1df51cdd36453df79 -- . ':!.ufo' ':!corpus/stamps.tsv'
+ SCORECARD.md | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)

@@ -1,0 +1,78 @@
+{
+ "round": 50,
+ "measured_at": "round-50 content commit 6963a3502ffadffbc1e08da8ca66d5c4254c3c7b, clean git clone --shared, each row command run from the clone root, 2026-11-06; BASE read is controls/verify-base.txt and final/c2-base.txt (value=10)",
+ "kind": "measured rebinding of ten population expectations (C2_LEDGER_DRIFT 10 -> target 0)",
+ "population": "R13-01 R21-02 R22-03 R24-05 R24-06 R24-15 R31-02 R33-02 R34-03 R38-01 only; R25-02 R29-01 R29-02 R38-03 byte-identical",
+ "migrations": [
+  {
+   "id": "R13-01",
+   "command": "grep -c '^## Round ' SCORECARD.md",
+   "old_expect": "^56$",
+   "new_expect": "^68$",
+   "reason": "SCORECARD round headings 56 -> 68: expect last set at 209147c (round 41, 56 headings); rounds 42-49 added 11 headings in 6d6b486, 65f66e1 (2 each), c70bfb0, 92c394c, 072bb0b, 0bd8888, 412efc7, 8775582, a74ae53 (67 at BASE 565c43a); round 50 adds `## Round 50 — post-move` (6963a35). Growth only."
+  },
+  {
+   "id": "R21-02",
+   "command": "bash corpus/sources-census.sh",
+   "old_expect": "^SOURCES_CENSUS: CLEAN \\(rows=98 A=94 B=2 C=2 queued=1 mined=93 rejected=4 entries_sourced=14 legacy=21 captures=98 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+   "new_expect": "^SOURCES_CENSUS: CLEAN \\(rows=107 A=103 B=2 C=2 queued=1 mined=102 rejected=4 entries_sourced=15 legacy=21 captures=107 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+   "reason": "registry rows 98 -> 107: the expect was last set at 209147c (round 41) when the census read CLEAN rows=98 entries_sourced=14; 0ad617a (round 44) added S099, 072bb0b (round 45) S100-S102, 8775582 (round 48) S103-S104, a74ae53 (round 49) S105 (105 at BASE 565c43a), and round 50 adds S106/S107 (6963a35); A, mined and captures grew with the rows. The census read FAILED at 65f66e1, 0ad617a and 072bb0b (rounds 43-45) and CLEAN again from 412efc7 (round 47), where entries_sourced first reads 15 (one more sourced knowledge entry than at 209147c). B/C/queued/rejected/legacy/inrow unchanged. Growth only, no row lost. Walk: `git archive <c> | tar -x` then `bash corpus/sources-census.sh` per commit touching corpus/SOURCES.md or corpus/knowledge in 209147c..565c43a."
+  },
+  {
+   "id": "R22-03",
+   "command": "python3 corpus/revision-audit.py --history c2cab35bc92e57e39e5489bac3386db078345b3f",
+   "old_expect": "^REVISION_AUDIT: CLEAN \\(stale=0 missing=0 dropped=0 added=49 invalid=0\\)$",
+   "new_expect": "^REVISION_AUDIT: CLEAN \\(stale=0 missing=0 dropped=0 added=61 invalid=0\\)$",
+   "reason": "revision-audit additions against c2cab35 membership 49 -> 61: expect last set at f8413db (round 35, added=49); b944735 (round 38 quote gate: +10 stamped paths), 6d6b486 (round 42: + corpus/lessons/round-42.md), a74ae53 (round 49: + corpus/knowledge/iso-11770-3-edition-status.md). Round 50 adds no stamped path; stale=0 after the round-50 restamp. Growth only."
+  },
+  {
+   "id": "R24-05",
+   "command": "bash corpus/row-identity.sh stamps",
+   "old_expect": "^ROW_IDENTITY: stamps count=122 sha256=3586872e6cb0db978433fe248a08a5e3d36e260b9a2c4e9f7a6e4cb4e5378192$",
+   "new_expect": "^ROW_IDENTITY: stamps count=124 sha256=c7673d14599c6ebde1a5b1f608ccc541f396fe6f24d5c00fdeee3bee35c06534$",
+   "reason": "stamp-path identity count 122 -> 124: expect last set at 88374f9 (round 38, 122 rows); 6d6b486 (round 42) pinned corpus/lessons/round-42.md, a74ae53 (round 49) pinned the round-45 ISO entry. Membership unchanged in round 50 (restamp of content only; the identity hashes the sorted path column, not the digests)."
+  },
+  {
+   "id": "R24-06",
+   "command": "bash corpus/row-identity.sh scorecard-rounds",
+   "old_expect": "^ROW_IDENTITY: scorecard-rounds count=56 sha256=33f1893f1fabe500324920f586f82907449f1de4c4b2d56ac74c09c436d375bd$",
+   "new_expect": "^ROW_IDENTITY: scorecard-rounds count=68 sha256=7a6a21953d7d641ca2a2416eac36324b777fd4493f972ec530341dc7ff08c40e$",
+   "reason": "heading identity for R13-01: count 56 -> 68 by the same commits (209147c..565c43a: rounds 42-49 headings, 67; 6963a35: round-50 heading); every round-41 heading line retained, so the digest moves only by additions."
+  },
+  {
+   "id": "R24-15",
+   "command": "bash corpus/row-identity.sh revision-added",
+   "old_expect": "^ROW_IDENTITY: revision-added count=49 sha256=5bc6507a8807280c5dc352e561e65b8beefdd71deeb30c67db0234238fe86412$",
+   "new_expect": "^ROW_IDENTITY: revision-added count=61 sha256=9b7e9b8c9b4bb5526fc8093ff81679db1494083dafbcc0b6d42f65eaa8604e48$",
+   "reason": "identity for R22-03: revision-added membership count 49 -> 61 by b944735 (+10), 6d6b486 (+1), a74ae53 (+1); no original path dropped, digest moves only by these additions."
+  },
+  {
+   "id": "R31-02",
+   "command": "bash corpus/sources-census.sh",
+   "old_expect": "^SOURCES_CENSUS: CLEAN \\(rows=98 A=94 B=2 C=2 queued=1 mined=93 rejected=4 entries_sourced=14 legacy=21 captures=98 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+   "new_expect": "^SOURCES_CENSUS: CLEAN \\(rows=107 A=103 B=2 C=2 queued=1 mined=102 rejected=4 entries_sourced=15 legacy=21 captures=107 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+   "reason": "registry rows 98 -> 107: the expect was last set at 209147c (round 41) when the census read CLEAN rows=98 entries_sourced=14; 0ad617a (round 44) added S099, 072bb0b (round 45) S100-S102, 8775582 (round 48) S103-S104, a74ae53 (round 49) S105 (105 at BASE 565c43a), and round 50 adds S106/S107 (6963a35); A, mined and captures grew with the rows. The census read FAILED at 65f66e1, 0ad617a and 072bb0b (rounds 43-45) and CLEAN again from 412efc7 (round 47), where entries_sourced first reads 15 (one more sourced knowledge entry than at 209147c). B/C/queued/rejected/legacy/inrow unchanged. Growth only, no row lost. Walk: `git archive <c> | tar -x` then `bash corpus/sources-census.sh` per commit touching corpus/SOURCES.md or corpus/knowledge in 209147c..565c43a."
+  },
+  {
+   "id": "R33-02",
+   "command": "bash corpus/sources-census.sh",
+   "old_expect": "^SOURCES_CENSUS: CLEAN \\(rows=98 A=94 B=2 C=2 queued=1 mined=93 rejected=4 entries_sourced=14 legacy=21 captures=98 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+   "new_expect": "^SOURCES_CENSUS: CLEAN \\(rows=107 A=103 B=2 C=2 queued=1 mined=102 rejected=4 entries_sourced=15 legacy=21 captures=107 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+   "reason": "registry rows 98 -> 107: the expect was last set at 209147c (round 41) when the census read CLEAN rows=98 entries_sourced=14; 0ad617a (round 44) added S099, 072bb0b (round 45) S100-S102, 8775582 (round 48) S103-S104, a74ae53 (round 49) S105 (105 at BASE 565c43a), and round 50 adds S106/S107 (6963a35); A, mined and captures grew with the rows. The census read FAILED at 65f66e1, 0ad617a and 072bb0b (rounds 43-45) and CLEAN again from 412efc7 (round 47), where entries_sourced first reads 15 (one more sourced knowledge entry than at 209147c). B/C/queued/rejected/legacy/inrow unchanged. Growth only, no row lost. Walk: `git archive <c> | tar -x` then `bash corpus/sources-census.sh` per commit touching corpus/SOURCES.md or corpus/knowledge in 209147c..565c43a."
+  },
+  {
+   "id": "R34-03",
+   "command": "bash corpus/sources-census.sh",
+   "old_expect": "^SOURCES_CENSUS: CLEAN \\(rows=98 A=94 B=2 C=2 queued=1 mined=93 rejected=4 entries_sourced=14 legacy=21 captures=98 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+   "new_expect": "^SOURCES_CENSUS: CLEAN \\(rows=107 A=103 B=2 C=2 queued=1 mined=102 rejected=4 entries_sourced=15 legacy=21 captures=107 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+   "reason": "registry rows 98 -> 107: the expect was last set at 209147c (round 41) when the census read CLEAN rows=98 entries_sourced=14; 0ad617a (round 44) added S099, 072bb0b (round 45) S100-S102, 8775582 (round 48) S103-S104, a74ae53 (round 49) S105 (105 at BASE 565c43a), and round 50 adds S106/S107 (6963a35); A, mined and captures grew with the rows. The census read FAILED at 65f66e1, 0ad617a and 072bb0b (rounds 43-45) and CLEAN again from 412efc7 (round 47), where entries_sourced first reads 15 (one more sourced knowledge entry than at 209147c). B/C/queued/rejected/legacy/inrow unchanged. Growth only, no row lost. Walk: `git archive <c> | tar -x` then `bash corpus/sources-census.sh` per commit touching corpus/SOURCES.md or corpus/knowledge in 209147c..565c43a."
+  },
+  {
+   "id": "R38-01",
+   "command": "bash plans/round-38-c1.sh",
+   "old_expect": "^5$",
+   "new_expect": "^8$",
+   "reason": "round-38 located-quote count 5 -> 8: expect set at b944735 (round 38, S089-S093 quotes); 072bb0b (round 45) added three quote-manifest rows to corpus/quote-bodies.tsv, each located by corpus/quote-locate.py. Growth only."
+  }
+ ]
+}

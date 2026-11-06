@@ -119,3 +119,14 @@ Target: value 0 at the candidate.
   corrected in place as a current-tense line; S098 (`rejected`, `on-release`) and the counter
   amendments of round-47 routed 1 are answered in this plan's counters only where named above
   (BASE-pinned binaries, fail-closed producers); the rest stays routed.
+
+## Amendment A1 (pre-candidate, before any seat ran; no predicate, counter, control or target changes)
+
+The C1 kill rule "if any committed file at the candidate contains `AGE-SECRET-KEY`" fires on the frozen
+instruments themselves: this plan, `plans/round-48-c1.sh` and the reference trial name the literal as a
+pattern (predeclaration `164f0ea5`, `grep -c AGE-SECRET-KEY` → plan 2, counter 2, fixture 1). Read the
+rule as: "if any file committed at the candidate contains a key-shaped string, i.e. a match of the ERE
+`AGE-SECRET-KEY-1[0-9A-Z]{58}` (a full Bech32 age identity)". At the predeclaration the whole lane tree
+has 0 matches (`grep -rnE 'AGE-SECRET-KEY-1[0-9A-Z]{58}' . --exclude-dir=.git` → no output). The
+counter's NOSECRET conjunct is unchanged (it reads run output, where the bare prefix never appears
+legitimately). Recorded as mistake class "kill rule matches its own instrument" in the round lesson.

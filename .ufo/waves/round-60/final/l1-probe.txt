@@ -28,3 +28,9 @@ T4 login after destroy: http=400 err=invalid role or secret ID
 T5 login from 127.0.0.1 with 10/8 bound: http=400 err=source address "127.0.0.1" unauthorized by CIDR restrictions on the role: %!w(<nil>)
 T5 login with 127/32 bound: http=200 has_token=true
 PROBE-DONE
+
+== A4 re-measurement (L1, 2026-11-07): frozen T1 reachable unamended
+create role with token_bound_cidrs=127.0.0.1/32 -> 204; bind_secret_id reads true
+role_id-only login -> 400 err=missing secret_id
+POST role {"bind_secret_id":false} -> 204; bind_secret_id reads false
+role_id-only login -> 200 has_token=true

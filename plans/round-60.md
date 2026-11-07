@@ -253,3 +253,21 @@ measured form and the setup steps become part of the trial's contract:
 
 The probe printed no secret value: it reports lengths and verdicts only. The probe
 script itself lives in scratch and is not citable evidence; the transcript is.
+
+### A4 — 2026-11-07, before any candidate reading (supersedes A3 item 4 only)
+
+The sentinel seat measured, and the L1 re-measured independently, that the **frozen T1
+text is reachable unamended**: create the role with `token_bound_cidrs=127.0.0.1/32`
+(`bind_secret_id` left at its default `true`) → a role_id-only login is refused 400
+`missing secret_id`; then `POST auth/approle/role/<r> {"bind_secret_id":false}` on the
+same role returns 204 (the `token_bound_cidrs` constraint satisfies the server's "at
+least one constraint" check) → the same role_id-only body returns 200 with a token.
+Receipts: `.ufo/waves/round-60/build/R60SentinelTrial/probe-groundtruth.txt` (the
+sentinel's probe5/probe6) and the L1's re-measurement in
+`.ufo/waves/round-60/final/l1-probe.txt` §A4.
+
+A3 item 4 is therefore withdrawn: T1 keeps its frozen observable (bind=true refused,
+bind=false accepted on the same role) and its prerequisite is a role-level constraint
+(`token_bound_cidrs`) that keeps T1's fields disjoint from T5's
+`secret_id_bound_cidrs` (kill rule K4). A3 items 1, 2, 3 and 5 stand. No predicate,
+target, POP, item or kill rule changes.

@@ -1,6 +1,6 @@
 # OpenBao audit devices: the API enable path needs a config flag, the default device HMACs with a per-instance salt, and log_raw discloses the client token in cleartext
 
-source: S115 (https://openbao.org/docs/audit/, §Enabling and disabling audit devices, the options table, §Blocked audit devices; OpenBao docs Version 2.7.x, opened 2026-11-07); S116 (https://openbao.org/docs/commands/audit/, §Examples and the disable warning; Version 2.7.x, opened 2026-11-07)
+source: S115 (https://openbao.org/docs/audit/, §Enabling and disabling audit devices, the options table, §Blocked audit devices; OpenBao docs Version 2.7.x, opened 2026-11-07); S116 (https://openbao.org/docs/commands/audit/, §Examples and the disable warning; Version 2.7.x, opened 2026-11-07); S117 (https://openbao.org/docs/api/system/audit-hash/, §Calculate hash and Sample response; Version 2.7.x, opened 2026-11-07)
 verified-at: 2026-11-07 (both pages fetched as decoded bodies and read as rendered text; the five behaviours below executed against OpenBao 2.7.2 and independently probed by a second seat)
 recheck: on-release — on an OpenBao release, re-open S115 §Enabling and disabling audit devices and the options table, compare the docs Version label to 2.7.x, and re-run `bash corpus/openbao-audit-trial.sh --work <scratch dir>` against the new binary
 Reverify: R21-02
@@ -40,7 +40,7 @@ host with a curl-level probe.
 | # | Documented behaviour | Measured on 2.7.2 (round 57) | Where the docs stand |
 |---|---|---|---|
 | T1 | "Audit devices must be enabled by a root user using `bao audit enable` or using the audit stanza." (S115) | On a default `bao server -dev`, `bao audit enable file file_path=<scratch>` exits 2 with `cannot enable audit device via API; use declarative, config-based audit device management instead`. With `unsafe_allow_api_audit_creation = true` in the server config the same command exits 0 and `bao audit list` shows `file/`; a second `-path=file2 ... log_raw=true` device is also accepted. | The CLI example (S116 §Examples) and the S115 enable sentence do not name the config flag; the API path is not available by default. |
-| T2 | "Most strings contained within requests and responses are hashed with a salt using HMAC-SHA256." (S115) | `bao write -format=json sys/audit-hash/file input=<nonce>` returns `hmac-sha256:<64 hex>`; the same input returns the same hash, a different input a different one; the KV write's audit record carries that same hash at least twice (request and response echo) and the nonce plaintext zero times; `sha256(<nonce>)` does not equal the logged hash, so it is a salted HMAC and not a bare digest. | Consistent. |
+| T2 | "Most strings contained within requests and responses are hashed with a salt using HMAC-SHA256." (S115); the literal `hmac-sha256:` response form is S117 `§Sample response` | `bao write -format=json sys/audit-hash/file input=<nonce>` returns `hmac-sha256:<64 hex>`; the same input returns the same hash, a different input a different one; the KV write's audit record carries that same hash at least twice (request and response echo) and the nonce plaintext zero times; `sha256(<nonce>)` does not equal the logged hash, so it is a salted HMAC and not a bare digest. | Consistent: S115 states the salted-HMAC rule; S117 documents the literal `hmac-sha256:` form the trial reads back. |
 | T3 | "log_raw (bool: false) - If enabled, logs the security sensitive information without hashing, in the raw format." (S115) | The `log_raw=true` device's log contains the value in plaintext (7 occurrences for one write/read pair across the run) and the client token in cleartext (17 occurrences); the default device's log contains neither (0 and 0). | Consistent, and narrower than the practical fact: the cleartext token is not just "information", it is the credential itself. |
 | T4 | "even if you re-enable the audit device at the same path, as a new salt will be created for hashing." (S116) | With API creation enabled, `bao audit disable file/` exits 0, the re-enable exits 0, and `sys/audit-hash/file` of the same input returns a different HMAC after the cycle. A config-managed device is a different case: `bao audit disable file/` on route (B) exits 2 with `cannot disable configuration-managed audit device`; the labrat measured the same salt rotation via config removal plus SIGHUP. | Consistent for the API path; the config-managed path has no API disable. |
 | T5 | Non-audited paths list: `sys/init sys/seal-status sys/seal sys/unseal sys/leader sys/health sys/storage/raft/bootstrap sys/storage/raft/join` (S115) | `bao status` (sys/seal-status) adds no audit entry (`"path":"sys/seal-status"` count 0) while a KV read in the same window adds entries (`"path":"secret/data/t5"` count 4) and the log grows. | Consistent. |
@@ -51,6 +51,11 @@ Provenance of the measured bytes: the trial was measured at
 same verdicts but placed the audit-hash input and the token-pattern on `grep`/`bao` argv, which this entry's
 "no value on any argv" sentence would have made false; the fix moves both to stdin and the verdicts were
 re-measured (`TRIAL T1..T5 HOLDS`, `OPENBAO_AUDIT_TRIAL: HOLDS holds=5 broken=0 error=0 bao=v2.7.2`).
+
+T2 precision (critic C2): the KV write's own response body carries no value hash; the two occurrences of
+the hash in the audit log are the request record and the response record's echo of that request. A later
+read's response record carries the value hash under `response.data.data.v` / `data.data.value` — the trial
+counts occurrences in the log, not fields of a CLI response.
 
 Operational notes measured beside the tests (same runs): `bao audit list` with no device prints
 `No audit devices are enabled.` and exits 2 (rc 2 is not an error here); every successful enable
@@ -76,3 +81,4 @@ write to a new key audits as operation `create`, later writes as `update`.
 - A `log_raw=true` device whose log does not contain the value in plaintext.
 - A re-enable at the same path that keeps the previous HMAC for the same input.
 - An entry for `sys/seal-status` in a default (non-`log_raw`) audit log.
+- T5 nuance: `bao status` also queries `sys/leader` (also non-audited), and `sys/ha-status` is audited and not on the list; the trial asserts the seal-status entry count and the log growth, not a strict no-request window.

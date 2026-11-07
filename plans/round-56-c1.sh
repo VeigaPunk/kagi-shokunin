@@ -15,7 +15,7 @@
 #     (r1) PRESENT(c);
 #     (r2) the measured corpus/recheck-captures.tsv has exactly one data row whose
 #          url column equals c's URL; no two data rows share a body_path or a
-#          sha256; every row's fetched cell is an ISO date and http_status a 2xx;
+#          sha256; every row's fetched cell is a calendar-valid ISO date and http_status a 2xx;
 #          that row's id names exactly one registry row (outside ``` fences)
 #          whose cells number 11, status `mined`, and whose source cell contains
 #          c's URL as a whitespace-delimited token;
@@ -87,7 +87,7 @@ git -C "$REPO" show "$BASE:corpus/rendered-text-v1.py" > "$SCR/b/rendered-text-v
 # status is required to be 0 and its last non-empty line must be the CLEAN
 # summary with clocks=10 match=10; the --selftest run must exit 0 with last line
 # `RECHECK_REPLAY_SELFTEST: PASS (20 cases)`.
-GATE_SHA256_PIN=5165da2a6fced02fce82c92fc898553db9a6d3d702d9fc6d1ca3ba185e77b14f
+GATE_SHA256_PIN=b6959d6c7afb9380c043cbd40530e6a70ee8da2bf79f1ea9d0669706f50bb5a3
 GATE_OUT=$SCR/gate.out; SELF_OUT=$SCR/self.out
 HAVE_GATE=0; SELF_OK=1; GATE_RC=1
 GATE_REL=corpus/recheck-replay.py
@@ -121,7 +121,7 @@ else
 fi
 cd "$SCR" || setup cd
 python3 -I -B - "$T" "$SCR/b/rendered-text-v1.py" "$GATE_OUT" "$HAVE_GATE" "$SELF_OK" "$GATE_RC" "$GATE_SHA" <<'PY'
-import hashlib, re, subprocess, sys
+import datetime, hashlib, re, subprocess, sys
 from pathlib import Path
 T, NORM, GATE_OUT, HAVE_GATE, SELF_OK = Path(sys.argv[1]), sys.argv[2], sys.argv[3], int(sys.argv[4]), int(sys.argv[5])
 GATE_RC, GATE_SHA = int(sys.argv[6]), sys.argv[7]
@@ -183,7 +183,7 @@ def registry():
 
 def manifest():
     """Return (rows, malformed) — a data row whose column count differs from the
-    header, or whose fetched/http_status cells are not a capture's, or that
+    header, or whose fetched cell is not a calendar-valid ISO date or whose http_status is not a 2xx, or that
     shares a body_path or sha256 with another row, invalidates the whole
     manifest (fail-closed), matching the gate's manifest refusals."""
     txt = read("corpus/recheck-captures.tsv")
@@ -204,7 +204,12 @@ def manifest():
         if len(cols) != 7:
             return None, True
         r = dict(zip(hdr, cols))
-        if not re.match(r"^[0-9]{4}-[0-9]{2}-[0-9]{2}$", r["fetched"]) or not re.match(r"^2[0-9]{2}$", r["http_status"]):
+        if (not re.match(r"^[0-9]{4}-[0-9]{2}-[0-9]{2}$", r["fetched"])
+                or not re.match(r"^2[0-9]{2}$", r["http_status"])):
+            return None, True
+        try:
+            datetime.date.fromisoformat(r["fetched"])
+        except ValueError:
             return None, True
         for key, seen in ((r["body_path"], seen_path), (r["sha256"], seen_sha)):
             if key in seen:

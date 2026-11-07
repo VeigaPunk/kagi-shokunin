@@ -43,7 +43,7 @@ report() { # id expect line
 check() { report "$1" "$2" "$(bash "$C1" --tree "$SCR/$3" 2>&1)"; }
 check_rev() { report "$1" "$2" "$(bash "$C1" "$3" 2>&1)"; }
 ENTRY=corpus/knowledge/betterleaks-detection-vs-validation.md
-# instrument identity for the receipt (epoch-E): the bytes this run measured
+# instrument identity for the receipt (epoch-F): the bytes this run measured
 for f in plans/round-56.md plans/round-56-c1.sh plans/round-56-controls.sh corpus/recheck-replay.py corpus/recheck-captures.tsv corpus/rendered-text-v1.py; do
   echo "INSTRUMENT $(sha256sum "$REPO/$f" | cut -d' ' -f1) $f"
 done
@@ -109,6 +109,16 @@ p=sys.argv[1]+"/corpus/knowledge/betterleaks-detection-vs-validation.md"; s=open
 t=re.sub(r"(->\s*)1(?!\d)", r"\g<1>1.0", s, count=1)
 assert t!=s; open(p,"w",encoding="utf-8").write(t)' "$SCR/f11b"
 check K1-F11b-restated-Ndot FAIL f11b
+# F28 manifest fetched cell calendar-invalid (2026-13-40) must fail closed (epoch-F, R56MutCounter-2 m31)
+mk_ref f28; py 'import sys
+p=sys.argv[1]+"/corpus/recheck-captures.tsv"; s=open(p,encoding="utf-8").read().splitlines(); out=[]
+for l in s:
+    c=l.split("\t")
+    if c and c[0]=="S054":
+        c[3]="2026-13-40"; l="\t".join(c)
+    out.append(l)
+open(p,"w").write("\n".join(out)+"\n")' "$SCR/f28"
+check K1-F28-fetched-calendar 0 f28
 # F12 one added uncaptured clock -> gate DRIFT -> every r5 fails (population guard)
 mk_ref f12; py 'import sys
 p=sys.argv[1]+"/corpus/knowledge/prefreeze-controls.md"; s=open(p,encoding="utf-8").read()
@@ -173,13 +183,13 @@ check K1-F13-not-capture-path 0 f13
 # F14 fifo entry in knowledge dir — gate must not block, counter must read 0/FAIL fast
 mk_ref f14; mkfifo "$SCR/f14/corpus/knowledge/zzz-fifo.md"
 check K1-F14-fifo-entry 0 f14
-# F15 two manifest rows sharing one body_path (bijection)
+# F15 two manifest rows sharing one body_path (bijection; epoch-F: S113's capture lives under round-55 — R56ReviewCounter I1)
 mk_ref f15; py 'import sys
 p=sys.argv[1]+"/corpus/recheck-captures.tsv"; s=open(p,encoding="utf-8").read().splitlines(); out=[]
 for l in s:
     c=l.split("\t")
     if c and c[0]=="S114":
-        c[2]=".ufo/waves/round-56/capture/S113.body"; l="\t".join(c)
+        c[2]=".ufo/waves/round-55/capture/S113.body"; l="\t".join(c)
     out.append(l)
 open(p,"w").write("\n".join(out)+"\n")' "$SCR/f15"
 check K1-F15-shared-body-path 0 f15

@@ -37,6 +37,7 @@ that the live page still says it (the live run of the command is the freshness c
 hand-written capture with a consistent manifest row would MATCH; capture provenance is the
 fetch receipt beside the body, re-fetched by a non-author.
 """
+import datetime
 import hashlib
 import os
 import re
@@ -155,9 +156,14 @@ def manifest(root):
         rid = dict(zip(HEADER, cols))
         if cols[1] in rows:
             return None, "manifest-duplicate-url:%s" % cols[1]
-        # fetched must be an ISO date and http_status a 2xx — a capture records
-        # a successful fetch, not a placeholder
+        # fetched must be a real ISO calendar date (shape AND calendar-valid —
+        # 2026-13-40 is not a date; epoch-F, R56MutCounter-2 m31) and http_status
+        # a 2xx — a capture records a successful fetch, not a placeholder
         if not re.match(r"^[0-9]{4}-[0-9]{2}-[0-9]{2}$", rid["fetched"]):
+            return None, "manifest-fetched:%s" % cols[0]
+        try:
+            datetime.date.fromisoformat(rid["fetched"])
+        except ValueError:
             return None, "manifest-fetched:%s" % cols[0]
         if not re.match(r"^2[0-9]{2}$", rid["http_status"]):
             return None, "manifest-http:%s" % cols[0]

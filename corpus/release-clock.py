@@ -25,7 +25,7 @@ HEADER = (
     "id", "clock", "feed_source_id", "feed_url", "anchored_version",
     "observed_version", "observed_at", "verdict", "note",
 )
-DEFAULT_RECEIPT_SHA256 = "6091c5291849b54cfd0ecd7a39b2e2e7223da3fbbbe2d9bef19e0f2eb8765fa7"
+DEFAULT_RECEIPT_SHA256 = "f927b4318dee90ad3e2a8e2f899fcd2e37c43e833e7c3c3705aa5b5723d37c9a"
 SOURCE_ID_RE = re.compile(r"S[0-9]{3}")
 QUOTE_RE = re.compile(r"“([^”]+)”|(?<!\\)\"([^\"\n]+)\"")
 USER_AGENT = "kagi-shokunin-round25/1.0 (documentation verification)"
@@ -544,7 +544,7 @@ def load_receipt_bundle(path, expected_sha256=None):
 
 def receipt_path(root, selected):
     if selected is None:
-        return root / ".ufo" / "waves" / "round-46" / "final" / "observe-r46.json"
+        return root / ".ufo" / "waves" / "round-53" / "final" / "observe-r53.json"
     path = Path(selected)
     return path if path.is_absolute() else root / path
 
@@ -2102,7 +2102,7 @@ def main(argv=None):
     parser.add_argument("--root", metavar="DIR", help="repository root (defaults to this script's checkout)")
     parser.add_argument("--selftest", action="store_true", help="run synthetic, offline cases")
     parser.add_argument("--observe", metavar="OUT.json", help="fetch currently bound clocks and write a receipt")
-    parser.add_argument("--receipt", metavar="FILE", help="retained observation receipt (default is the round-46 observe-r46 receipt; the round-36 and round-26 receipts stay citable with --receipt/--receipt-sha)")
+    parser.add_argument("--receipt", metavar="FILE", help="retained observation receipt (default is the round-53 observe-r53 receipt; the round-46, round-36 and round-26 receipts stay citable with --receipt/--receipt-sha)")
     parser.add_argument("--receipt-sha", metavar="SHA256", help="required digest for an explicit --receipt")
     args = parser.parse_args(argv)
     if args.selftest:

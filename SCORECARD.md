@@ -1798,3 +1798,16 @@ Candidate: the round-52 landing commit (recorded in the report). `.ufo/waves/rou
 | adjacency | 9 → 9 | No claim. | `.ufo/waves/round-52/build/R52ConnectorSiblings.md` |
 
 - **E52-1 — round-51 depth row (`SCORECARD.md:1783` at the round-52 candidate; `:1778` at BASE).** The row says rewrap keeps the original creation path "unlike the rewrap API page's sample response". The sample never states its input token's creation path, and a helper-made token keeps `sys/wrapping/wrap` through rewrap on OpenBao 2.7.2 (C2 probe), so the sample is consistent with the binary; only the KV-path half of the row stands. Recorded here, append-only; the C2 counter's lexical pattern does not see this row (plan §C2 named ceiling).
+
+## Round 53 — post-move (claims C1 freshness, C2 calibration)
+
+Candidate: the round-53 landing commit (recorded in the report). `.ufo/waves/round-53/final/c1-candidate-tree.txt` / `c2-candidate-tree.txt` hold the readings of the candidate tree taken before that commit; the revision-bound readings of the landed commit follow in the round's receipts commit, named in the report (round-52 closure D1). Claim BASE `c1953d4afc19a5a336a58685c00ab5260bcfea1c`; predeclaration `39460f8676954f135d15fa99b43cd882360b3eee` (frozen plan `plans/round-53.md`, counters `plans/round-53-c1.sh`, `plans/round-53-c2.sh`, pre-freeze controls `plans/round-53-controls.sh`, 22 MATCH in `.ufo/waves/round-53/controls/controls-prefreeze.txt`).
+
+| Axis | Before → after | What moved | Evidence |
+|---|---|---|---|
+| freshness | 9 → 9 | [C1] `bash plans/round-53-c1.sh <candidate>` 0 → 2 (target 2): S103 (SOPS v3.13.3) and S104 (age v1.3.2), whose teaching states the tag is the project's current stable release, move from a `90d` cadence to `on-release` clocks bound to the S033 SOPS feed and the new S111 age feed (opened 2026-11-07); all 31 clocks observed live into the new default receipt `observe-r53.json` (no new release: both pins `not-fired`, the 13 fired rows unchanged). Ceiling: a self-consistent forged receipt scores; the live re-fetch is the non-author check. | `.ufo/waves/round-53/controls/c1-base.txt`; `.ufo/waves/round-53/final/c1-candidate-tree.txt`; `corpus/release-clocks.tsv`; `corpus/SOURCES.md` S103, S104, S111 |
+| calibration | 9 → 9 | [C2] `bash plans/round-53-c2.sh <candidate>` 5 → 0 (target 0): the five STALE self-count bindings left by the round-52 landing (stamps 124 → 125 in SKILL.md, PROVINCE.md, README.md; knowledge entries 33/36 → 34/37 row-linked/pinned in README.md) state the live numbers; the BASE checker and table run on the measured tree under a guard on the bound ledger commands, `claim-ledger.sh`, the stamp population and the entry list. | `.ufo/waves/round-53/controls/c2-base.txt`; `.ufo/waves/round-53/final/c2-candidate-tree.txt`; QM68 |
+| coverage | 9 → 9 | No claim. Registry 110 → 111 (S111 age releases Atom feed; tier A, `recheck 90d`). | `corpus/SOURCES.md` S111 |
+| depth | 9 → 9 | No claim. | — |
+| operability | 9 → 9 | No claim. | — |
+| adjacency | 9 → 9 | No claim. | — |

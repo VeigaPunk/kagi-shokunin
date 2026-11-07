@@ -1,0 +1,42 @@
+--- /fast/scratch/hyaku/kagi-r57/R57MutChecker/frozen/plans/round-57-controls.sh	2026-11-07 11:20:11.863479716 -0300
++++ /fast/scratch/hyaku/kagi-r57/R57MutChecker/frozenB/plans/round-57-controls.sh	2026-11-07 11:28:13.475199248 -0300
+@@ -82,21 +82,30 @@
+ mk_base c2base; check2 K2-BASE 0 c2base
+ mk_base stub; cat > "$SCR/stub/corpus/openbao-audit-trial.sh" <<'EOS'
+ #!/usr/bin/env bash
+-echo "TEST T1: HOLDS"
+-echo "AUDIT_TRIAL: CLEAN (tests=5 pass=5)"
++for n in 1 2 3 4 5; do echo "TRIAL T$n HOLDS stub"; done
++echo "OPENBAO_AUDIT_TRIAL: HOLDS holds=5 broken=0 error=0 bao=stub"
+ EOS
++chmod +x "$SCR/stub/corpus/openbao-audit-trial.sh"
++# A constant printer holds the real runs but cannot honour the shims: value 0.
+ check2 K2-STUB 0 stub
+ mk_base mock; cat > "$SCR/mock/corpus/openbao-audit-trial.sh" <<'EOS'
+ #!/usr/bin/env bash
+-if [ -n "${KAGI_AUDIT_SHIM:-}" ]; then
+-  echo "TEST ${KAGI_AUDIT_SHIM: -1}: BROKEN"
+-  echo "AUDIT_TRIAL: FAIL (tests=5 pass=4)"; exit 1
+-fi
+-for n in 1 2 3 4 5; do echo "TEST T$n: HOLDS"; done
+-echo "AUDIT_TRIAL: CLEAN (tests=5 pass=5)"
++v="HHHHH"
++case "${KAGI_AUDIT_SHIM:-}" in SH1) v="BHHHH";; SH2) v="HBHHH";; SH3) v="HHBHH";; SH4) v="HHHBH";; SH5) v="HHHHB";; esac
++i=1; b=0
++for c in H H H H H; do :; done
++for n in 1 2 3 4 5; do
++  c=$(printf '%s' "$v" | cut -c"$n")
++  if [ "$c" = B ]; then st=BROKEN; b=$((b+1)); else st=HOLDS; fi
++  echo "TRIAL T$n $st mock"
++done
++if [ "$b" -gt 0 ]; then echo "OPENBAO_AUDIT_TRIAL: BROKEN holds=$((5-b)) broken=$b error=0 bao=mock"; exit 1; fi
++echo "OPENBAO_AUDIT_TRIAL: HOLDS holds=5 broken=0 error=0 bao=mock"
+ EOS
+ chmod +x "$SCR/mock/corpus/openbao-audit-trial.sh"
+-check2 K2-MOCK 5 mock
++# A shape-keyed mock that honours the in-trial shim but never calls bao is rejected by
++# the no-bao and PATH-wrapper legs: value 0 (the ceiling is named in the plan).
++check2 K2-MOCK 0 mock
+ if [ -n "$REF" ]; then mk_ref ref2; check2 K2-REF 5 ref2; else echo "PENDING K2-REF (no REF tree)"; fi
+ 
+ echo "CONTROLS: match=$M mismatch=$K"

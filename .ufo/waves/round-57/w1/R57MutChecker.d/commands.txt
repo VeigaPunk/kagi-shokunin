@@ -1,0 +1,62 @@
+# R57MutChecker command log (exact commands, observed rc)
+# host: Linux 7.2.11-arch1-1, bash 5.3.20(1)-release, python 3.14.8, git 2.56.0
+# scratch root: /fast/scratch/hyaku/kagi-r57/R57MutChecker
+
+## instruments snapshot
+$ sha256sum -c out/frozen.sha256.expected  # epoch A, from HEAD 7aa1f47
+rc=0
+$ cat out/frozenB.sha256                    # epoch B, from HEAD 03cbf65
+rc=0
+
+## mutant generation
+$ python3 -I -B /fast/scratch/hyaku/kagi-r57/R57MutChecker/bin/gen_mutants.py   # out/gen3.log: generated 29 artifacts
+rc=0
+
+## epoch-A batteries (frozen controls 6796ae70, frozen c2 3de6b4de)
+$ bash /fast/scratch/hyaku/kagi-r57/R57MutChecker/bin/run_battery.sh M0   # rc=0, 11 MATCH (out/battery-M0.log; rerun wall_ms=36502)
+$ bash /fast/scratch/hyaku/kagi-r57/R57MutChecker/bin/run_battery.sh M1   # rc=1 wall=0.00s, CONTROLS: match=5 mismatch=6
+$ bash /fast/scratch/hyaku/kagi-r57/R57MutChecker/bin/run_battery.sh M2   # rc=0 wall=0.00s, CONTROLS: match=11 mismatch=0
+$ bash /fast/scratch/hyaku/kagi-r57/R57MutChecker/bin/run_battery.sh M3   # rc=1 wall=0.00s, CONTROLS: match=10 mismatch=1
+$ bash /fast/scratch/hyaku/kagi-r57/R57MutChecker/bin/run_battery.sh M4   # rc=1 wall=0.00s, CONTROLS: match=5 mismatch=6
+$ bash /fast/scratch/hyaku/kagi-r57/R57MutChecker/bin/run_battery.sh M5   # rc=0 wall=0.00s, CONTROLS: match=11 mismatch=0
+$ bash /fast/scratch/hyaku/kagi-r57/R57MutChecker/bin/run_battery.sh M6   # rc=1 wall_ms=41289, CONTROLS: match=4 mismatch=7
+$ bash /fast/scratch/hyaku/kagi-r57/R57MutChecker/bin/run_battery.sh M7   # rc=0 wall_ms=41185, CONTROLS: match=11 mismatch=0
+$ bash /fast/scratch/hyaku/kagi-r57/R57MutChecker/bin/run_battery.sh M8   # rc=0 wall_ms=42459, CONTROLS: match=11 mismatch=0
+$ bash /fast/scratch/hyaku/kagi-r57/R57MutChecker/bin/run_battery.sh M9   # rc=0 wall_ms=16664, CONTROLS: match=11 mismatch=0
+$ bash /fast/scratch/hyaku/kagi-r57/R57MutChecker/bin/run_battery.sh M10   # rc=1 wall_ms=43346, CONTROLS: match=5 mismatch=6
+$ bash /fast/scratch/hyaku/kagi-r57/R57MutChecker/bin/run_battery.sh M8b   # rc=1 wall_ms=40690, CONTROLS: match=4 mismatch=7
+$ bash /fast/scratch/hyaku/kagi-r57/R57MutChecker/bin/run_battery.sh M2S2   # rc=1 wall_ms=40893, CONTROLS: match=10 mismatch=1
+$ bash /fast/scratch/hyaku/kagi-r57/R57MutChecker/bin/run_battery.sh S2s   # rc=0 wall_ms=40489, CONTROLS: match=11 mismatch=0
+
+## epoch-B batteries (frozen battery controls 09f334cb, c2 140a8f2b; C1 section byte-identical)
+$ bash /fast/scratch/hyaku/kagi-r57/R57MutChecker/bin/run_batteryB.sh M0   # rc=0 wall_ms=62514, CONTROLS: match=11 mismatch=0
+$ bash /fast/scratch/hyaku/kagi-r57/R57MutChecker/bin/run_batteryB.sh M1   # rc=1 wall_ms=59559, CONTROLS: match=5 mismatch=6
+$ bash /fast/scratch/hyaku/kagi-r57/R57MutChecker/bin/run_batteryB.sh M2   # rc=0 wall_ms=62273, CONTROLS: match=11 mismatch=0
+$ bash /fast/scratch/hyaku/kagi-r57/R57MutChecker/bin/run_batteryB.sh M3   # rc=1 wall_ms=59704, CONTROLS: match=10 mismatch=1
+$ bash /fast/scratch/hyaku/kagi-r57/R57MutChecker/bin/run_batteryB.sh M4   # rc=1 wall_ms=61314, CONTROLS: match=5 mismatch=6
+$ bash /fast/scratch/hyaku/kagi-r57/R57MutChecker/bin/run_batteryB.sh M5   # rc=0 wall_ms=62482, CONTROLS: match=11 mismatch=0
+$ bash /fast/scratch/hyaku/kagi-r57/R57MutChecker/bin/run_batteryB.sh M6   # rc=1 wall_ms=60071, CONTROLS: match=4 mismatch=7
+$ bash /fast/scratch/hyaku/kagi-r57/R57MutChecker/bin/run_batteryB.sh M7   # rc=0 wall_ms=58647, CONTROLS: match=11 mismatch=0
+$ bash /fast/scratch/hyaku/kagi-r57/R57MutChecker/bin/run_batteryB.sh M8   # rc=0 wall_ms=57996, CONTROLS: match=11 mismatch=0
+$ bash /fast/scratch/hyaku/kagi-r57/R57MutChecker/bin/run_batteryB.sh M9   # rc=0 wall_ms=29625, CONTROLS: match=11 mismatch=0
+$ bash /fast/scratch/hyaku/kagi-r57/R57MutChecker/bin/run_batteryB.sh M10   # rc=1 wall_ms=56522, CONTROLS: match=5 mismatch=6
+$ bash /fast/scratch/hyaku/kagi-r57/R57MutChecker/bin/run_batteryB.sh M8b   # rc=1 wall_ms=53156, CONTROLS: match=4 mismatch=7
+$ bash /fast/scratch/hyaku/kagi-r57/R57MutChecker/bin/run_batteryB.sh M2S2   # rc=1 wall_ms=58885, CONTROLS: match=10 mismatch=1
+$ bash /fast/scratch/hyaku/kagi-r57/R57MutChecker/bin/run_batteryB.sh S2s   # rc=0 wall_ms=59008, CONTROLS: match=11 mismatch=0
+
+## liveness probes (direct checker runs, not the battery)
+$ bash /fast/scratch/hyaku/kagi-r57/R57MutChecker/bin/liveness_probes.sh   # rc=0; per-run rc in out/probe-*.txt
+  m2.mutant: CURRENT_CLAIMS: value=0 population=1 mismatches=0 unbound=0 cases=0 match=1 epochs=0 clocks=0 pop=0 guard=1 rc=0
+  m2.pristine: CURRENT_CLAIMS: value=FAIL population=1 mismatches=0 unbound=0 cases=0 match=1 epochs=0 clocks=0 pop=0 guard=0 rc=1
+  m5.mutant: CURRENT_CLAIMS: value=3 population=16 mismatches=3 unbound=0 cases=3 match=7 epochs=2 clocks=2 pop=2 guard=1 rc=1
+  m5.pristine: CURRENT_CLAIMS: value=7 population=16 mismatches=7 unbound=0 cases=3 match=7 epochs=2 clocks=2 pop=2 guard=1 rc=1
+  m7.mutant: CURRENT_CLAIMS: value=0 population=16 mismatches=0 unbound=0 cases=0 match=0 epochs=0 clocks=0 guard=1 rc=0
+  m7.pristine: CURRENT_CLAIMS: value=FAIL population=0 mismatches=0 unbound=0 cases=0 match=0 epochs=0 clocks=0 rc=1
+  m8.mutant: CURRENT_CLAIMS: value=3 population=14 mismatches=3 unbound=0 cases=3 match=7 epochs=2 clocks=2 pop=0 guard=1 rc=1
+  m8.pristine: CURRENT_CLAIMS: value=4 population=16 mismatches=4 unbound=0 cases=3 match=7 epochs=2 clocks=2 pop=2 guard=1 rc=1
+  m9.mutant: CURRENT_CLAIMS: value=3 population=16 mismatches=3 unbound=0 cases=3 match=7 epochs=2 clocks=2 pop=2 guard=1 rc=1
+  m9.pristine: CURRENT_CLAIMS: value=5 population=16 mismatches=5 unbound=0 cases=3 match=7 epochs=2 clocks=2 pop=2 guard=1 rc=1
+
+## matrices
+$ python3 -I -B /fast/scratch/hyaku/kagi-r57/R57MutChecker/bin/build_matrix.py   # rc=0 -> out/matrix*.tsv
+$ python3 -I -B /fast/scratch/hyaku/kagi-r57/R57MutChecker/bin/build_matrix_b.py # rc=0 -> out/matrix*B.tsv

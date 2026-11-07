@@ -1,0 +1,92 @@
+seat: R57ReviewC1 (kagi round 57, w1) — C1 falsification receipt
+claim BASE: 1cda9e7ae4767b4133e283bfbc08266d4c86362d
+lane HEAD start: 7aa1f4726e1f6bcdc8411d1a8b21828d49785173 (epoch A)
+lane HEAD end:   03cbf656943b33bf93607f607bbbeb55d500b0f9 (epoch B)
+C1 instruments (identical both epochs): plans/round-57-c1.sh 3104b06f5bfaef77745bd0e5726d4e3ac86c471ff61eef2cc298ad21fee90601 ; plans/round-57-c1-check.py 19d75337ce37259b08eaa8b960eedddac68bec70ed4eab3f55f9d621e142f72c
+plan epoch A/B: 5773c1a423d16ecabe31535afa45c022ae5de27656a5cdd4d5415428102b84c2 / b130bb83b3dd4bdb52b84aeb4c6d3459477188b66406adab429392049698c6dc
+controls epoch A/B: 6796ae7040b4956d28b9c71772c24c9ba0d4298e21e86f9f13dbff38e693ce41 / 09f334cbf727667a0212729942386d78441dbc5ea7f0c553d316bbb7c613e618
+c2 epoch A/B: 3de6b4dec570594b7ff47971156b9eb9f932a50a2261ba568b51314e906439a9 / 140a8f2b204af9a0e45e1b596d1c09c4b12f84a70bd42abd18e888d82bbaea28
+answering model observed: amr/deepseek-v4.1-flash (harness-declared)
+tools: bash 5.3.20, python3 3.14.8, git 2.56.0, sha256sum 0.8.0; no installs/updates; pacman paused
+lsp: unavailable in this seat (no lsp device); text evidence only
+
+battery: HYAKU_SCRATCH=... bash plans/round-57-controls.sh -> CONTROLS: match=11 mismatch=0 rc=0
+K1 rebuild (frozen driver --tree, frozen checker --verbose):
+  K1-BASE value=3 population=16 gate=0 guard=1 | driver rc=0 checker rc=1
+  K1-F4   value=0 population=16 gate=0 guard=1 | driver rc=0 checker rc=0
+  K1-F5   value=FAIL population=1 gate=0 guard=0 | driver rc=0 checker rc=1
+  K1-F6   value=6 population=16 gate=0 guard=1 | driver rc=0 checker rc=1
+
+forgery matrix (dir under scratch forges/, deleted):
+  A-authority-4epochs        C1_CURRENT: value=3 population=16 gate=0 guard=1 (checker=CURRENT_CLAIMS: value=3 population=16 mismatches=3 unbound=0 cases=3 match=7 epochs=2 clocks=2 pop=2 guard=1) | driver_rc=0 stmts=16
+  A2-authority-3epochs       C1_CURRENT: value=3 population=16 gate=0 guard=1 (checker=CURRENT_CLAIMS: value=3 population=16 mismatches=3 unbound=0 cases=3 match=7 epochs=2 clocks=2 pop=2 guard=1) | driver_rc=0 stmts=16
+  A3-authority-missing       C1_CURRENT: value=3 population=16 gate=0 guard=1 (checker=CURRENT_CLAIMS: value=3 population=16 mismatches=3 unbound=0 cases=3 match=7 epochs=2 clocks=2 pop=2 guard=1) | driver_rc=0 stmts=16
+  L-repaired                 C1_CURRENT: value=0 population=16 gate=0 guard=1 (checker=CURRENT_CLAIMS: value=0 population=16 mismatches=0 unbound=0 cases=3 match=7 epochs=2 clocks=2 pop=2 guard=1) | driver_rc=0 stmts=16
+  A4-landing-answerkey       C1_CURRENT: value=0 population=16 gate=0 guard=1 (checker=CURRENT_CLAIMS: value=0 population=16 mismatches=0 unbound=0 cases=3 match=7 epochs=2 clocks=2 pop=2 guard=1) | driver_rc=0 stmts=16
+  B1-delete-stale            C1_CURRENT: value=0 population=13 gate=0 guard=1 (checker=CURRENT_CLAIMS: value=0 population=13 mismatches=0 unbound=0 cases=2 match=7 epochs=0 clocks=2 pop=2 guard=1) | driver_rc=0 stmts=13
+  B2-floor8                  C1_CURRENT: value=0 population=8 gate=0 guard=1 (checker=CURRENT_CLAIMS: value=0 population=8 mismatches=0 unbound=0 cases=2 match=2 epochs=0 clocks=2 pop=2 guard=1) | driver_rc=0 stmts=8
+  B3-endash-heading          C1_CURRENT: value=2 population=11 gate=0 guard=1 (checker=CURRENT_CLAIMS: value=2 population=11 mismatches=2 unbound=0 cases=2 match=6 epochs=2 clocks=1 pop=0 guard=1) | driver_rc=0 stmts=11
+  C-class-evasion            C1_CURRENT: value=3 population=16 gate=0 guard=1 (checker=CURRENT_CLAIMS: value=3 population=16 mismatches=3 unbound=0 cases=3 match=7 epochs=2 clocks=2 pop=2 guard=1) | driver_rc=0 stmts=16
+  D0-new-false-outside       C1_CURRENT: value=3 population=16 gate=0 guard=1 (checker=CURRENT_CLAIMS: value=3 population=16 mismatches=3 unbound=0 cases=3 match=7 epochs=2 clocks=2 pop=2 guard=1) | driver_rc=0 stmts=16
+  D1-boundary-move           C1_CURRENT: value=2 population=15 gate=0 guard=1 (checker=CURRENT_CLAIMS: value=2 population=15 mismatches=2 unbound=0 cases=2 match=7 epochs=2 clocks=2 pop=2 guard=1) | driver_rc=0 stmts=15
+  D2-relocate-all            C1_CURRENT: value=0 population=9 gate=0 guard=1 (checker=CURRENT_CLAIMS: value=0 population=9 mismatches=0 unbound=0 cases=0 match=3 epochs=0 clocks=2 pop=4 guard=1) | driver_rc=0 stmts=9
+  E1-printer-gate-base       C1_CURRENT: value=3 population=16 gate=1 guard=1 (checker=CURRENT_CLAIMS: value=3 population=16 mismatches=3 unbound=0 cases=3 match=7 epochs=2 clocks=2 pop=2 guard=1) | driver_rc=0 stmts=16
+  E2-printer-gate-admit      C1_CURRENT: value=0 population=9 gate=1 guard=1 (checker=CURRENT_CLAIMS: value=0 population=9 mismatches=0 unbound=0 cases=0 match=3 epochs=0 clocks=2 pop=4 guard=1) | driver_rc=0 stmts=9
+  E3-stricter-gate           C1_CURRENT: value=FAIL population=9 gate=0 guard=0 (checker=CURRENT_CLAIMS: value=0 population=9 mismatches=0 unbound=0 cases=0 match=3 epochs=0 clocks=2 pop=4 guard=1) | driver_rc=0 stmts=9
+  F1-wrong-epoch-letter      C1_CURRENT: value=3 population=17 gate=0 guard=1 (checker=CURRENT_CLAIMS: value=3 population=17 mismatches=3 unbound=0 cases=3 match=8 epochs=2 clocks=2 pop=2 guard=1) | driver_rc=0 stmts=17
+  F2-wrong-epoch-receipt     C1_CURRENT: value=4 population=17 gate=0 guard=1 (checker=CURRENT_CLAIMS: value=4 population=17 mismatches=4 unbound=0 cases=3 match=8 epochs=2 clocks=2 pop=2 guard=1) | driver_rc=0 stmts=17
+  G-unbound-diagnostic       C1_CURRENT: value=4 population=17 gate=0 guard=1 (checker=CURRENT_CLAIMS: value=4 population=17 mismatches=4 unbound=0 cases=4 match=7 epochs=2 clocks=2 pop=2 guard=1) | driver_rc=0 stmts=17
+  H-number-anchor            C1_CURRENT: value=4 population=17 gate=0 guard=1 (checker=CURRENT_CLAIMS: value=4 population=17 mismatches=4 unbound=0 cases=4 match=7 epochs=2 clocks=2 pop=2 guard=1) | driver_rc=0 stmts=17
+  I-decoy-section            C1_CURRENT: value=2 population=15 gate=0 guard=1 (checker=CURRENT_CLAIMS: value=2 population=15 mismatches=2 unbound=0 cases=2 match=7 epochs=2 clocks=2 pop=2 guard=1) | driver_rc=0 stmts=15
+
+admitted broken shapes: A4 (printer as cases authority, 0/16), B1 (0/13), B2 (0/8),
+D2 (0/9), E1 (printer gate gate=1 guard=1 at value=3), E2 (0/9 gate=1), C/D0 (false claims uncounted), F1 (false epoch-F claim OK)
+refused: A/A2/A3 (authority-only cannot beat BASE 3), B3 (2/11, surface dark), D1 (2/15, relocation=repair),
+E3 (stricter gate -> FAIL), F2 (receipt form caught), G (unbound diagnostic false), H (1,018 read as 18), I (decoy 2/15)
+
+artifact inventory (path bytes sha256):
+  chk_fix.py 10785 9eb2daaf1adadc0fd4ccb2266c795b82cf3a122a7f39882217aaf2ef1a9ac8a6
+  controls.pre.txt 2762 707a53209936b61173b5457c18a88101ed18d3cd0d27c4f59392be26b572048c
+  forge.py 16540 cdbe527aa403eba9e321534395171fa8201207844d4aa9157c137853eca8134a
+  k1.py 2735 806a4535ec6eaedca1069fdd4d2b46331d93652767374a682d437ee9ec681e6c
+  logs/A-authority-4epochs.driver.txt 277 4188c8109ca2ee2306eb4206f7c993a40b60beb1288448d6e6b31ef384010bdc
+  logs/A-authority-4epochs.verbose.txt 1176 d035c237e6d5991bf63fc689fa50e4621c95ed77351888b15a8c664787ef24f6
+  logs/A2-authority-3epochs.driver.txt 278 6b5a4f54d5b265b12b64fb5af516de7d4f6fda13b9a645200ac5bf1b1da92cbc
+  logs/A2-authority-3epochs.verbose.txt 1176 5b451d9a1ffc4e7b4c6e026b2a6231cebafbdd9dded1058b362dde95419a9b4a
+  logs/A3-authority-missing.driver.txt 278 7fae09cd7677938e4b55f3ebe5fbe18df0b3c5ab412dfe344f5a18c154dddbaf
+  logs/A3-authority-missing.verbose.txt 1180 e01d5618eb525a4a4f760b581bc7daca097db0b39faf894f70af60d6c3d3391e
+  logs/A4-landing-answerkey.driver.txt 278 3b23b698b33c12336ca4cc597cfe1120e162575870a87a49aa77ee185aa490e0
+  logs/A4-landing-answerkey.verbose.txt 1158 43e477f0237d53184afd281574b0f768dec2186d35345fac4a5c2992196f089c
+  logs/B1-delete-stale.driver.txt 273 7979cfed4db88295cb74c397ff7713858f531b1d9671bb4fc85dd4131c4977d3
+  logs/B1-delete-stale.verbose.txt 951 4671cefcfb599e536c5ef1a9c4f315fdde4cf7cfefcccbe6862b64448c6e030e
+  logs/B2-floor8.driver.txt 265 a078145cb59c38d7330357bdb3580ee0a8df3cc0f9eb6326ab0ef0301dd9f2f1
+  logs/B2-floor8.verbose.txt 645 dbed67681601e10522be55bc63dda888085c7526e47e6ea582252b8ee184806e
+  logs/B3-endash-heading.driver.txt 275 2a33a00bc616e9a83554862199ed80a21bbba417b898f74a79cc2b498ecdbb64
+  logs/B3-endash-heading.verbose.txt 836 736ad4040aefb2b571a43b2be8eeb771b00128bc3152e698149fdf282ef721fe
+  logs/C-class-evasion.driver.txt 273 e713bce66ed71b9dfa05f0130f388f15e7ce3ea0955bd95950a00ce8990bdc25
+  logs/C-class-evasion.verbose.txt 1176 a026f2d6ee313bfee91fdab875613bcb7203c1109d1b6d2bdb89b3410e526337
+  logs/D0-new-false-outside.driver.txt 278 861fed221c204d5431b865c469463a8d27372a70e4497761c42f6c0e427e33d9
+  logs/D0-new-false-outside.verbose.txt 1176 bd4002ceb24fa7f6aaf8a9d9c0c83bfa8042b0256f37aef056f6ef0e0533b4fc
+  logs/D1-boundary-move.driver.txt 274 b83a7a30cf386857c18863a2743b96d0ea6007936f6b967d0cd20e22688ae9dc
+  logs/D1-boundary-move.verbose.txt 1094 ebe74e60d13c96991c4bf38069d1110d80f38fb08a3ae5b2787ae874c6a21215
+  logs/D2-relocate-all.driver.txt 271 ae416e1e008666a704fabfe5e8ce3acabc9fa01743242a465f4c91441160c907
+  logs/D2-relocate-all.verbose.txt 688 cee147b16eac24e5254835a73e86ac0b659498b1fb17762c767bbfd4dc972617
+  logs/E1-printer-gate-base.driver.txt 278 da51f7829978c09b0d8c2e5676bf84eff5cee474d32ba1babc448b778dc4c695
+  logs/E1-printer-gate-base.verbose.txt 1176 bd4002ceb24fa7f6aaf8a9d9c0c83bfa8042b0256f37aef056f6ef0e0533b4fc
+  logs/E2-printer-gate-admit.driver.txt 277 6a4238ef36df7d2254bd13b1956bc9221cc776904254c14ea7864c3a6ec38dd7
+  logs/E2-printer-gate-admit.verbose.txt 688 cee147b16eac24e5254835a73e86ac0b659498b1fb17762c767bbfd4dc972617
+  logs/E3-stricter-gate.driver.txt 275 41e08be8ebea89c0d56f88a3e52b85118125cb1d0122146d6b41024549ffa897
+  logs/E3-stricter-gate.verbose.txt 688 cee147b16eac24e5254835a73e86ac0b659498b1fb17762c767bbfd4dc972617
+  logs/F1-wrong-epoch-letter.driver.txt 279 57ad131d092d4e895c2b4869d8cd00365177cb1f04224429cf1a08b8911e78de
+  logs/F1-wrong-epoch-letter.verbose.txt 1243 abfdfe4d424f353c95e343852ba3e088a2e9500ce83301173e95980a6722aeda
+  logs/F2-wrong-epoch-receipt.driver.txt 280 57e49a9868c76a1e922aea597fb0a80608bd58030bba2aab2befb2883c1ecb3f
+  logs/F2-wrong-epoch-receipt.verbose.txt 1249 d5d3fbdbb32ccdd223edc08f5bac7ec6ada02c1240ddae469cdcf7236420c05d
+  logs/G-unbound-diagnostic.driver.txt 278 cf40d017b27ad44a6d361fd0e7656629f97bb862008e8fc42b7ba35deaec34e2
+  logs/G-unbound-diagnostic.verbose.txt 1255 17001c65b56dc565a4cabb0e25439075f6781bda19f8a186c23c5abbb05cf435
+  logs/H-number-anchor.driver.txt 273 558151392e123381b5eb71b5cac2cd7e5bfa632cfc0c508caf6df7271c6570eb
+  logs/H-number-anchor.verbose.txt 1255 9165b20a12a2cfa9f21079aaae4d072747fb9c2ae989a2db8f30202c3da4e11e
+  logs/I-decoy-section.driver.txt 273 854c616fc6c888b23aa121cdf331bb06760af78580b5ef99a8855c6f24589b9d
+  logs/I-decoy-section.verbose.txt 1094 7b522d0e02667875b88e3005daf35c7bdebcafc316e47fcb98615ace20701905
+  logs/L-repaired.driver.txt 268 6dd28cb84370d4e84c02bd2366bd32456a4268c6ba487759d29f71f770338db1
+  logs/L-repaired.verbose.txt 1158 43e477f0237d53184afd281574b0f768dec2186d35345fac4a5c2992196f089c
+  results.json 41070 b151bdeff1e2857e04c2032fb8a4c12abba724e5c14a7aeb76b8bd85afff63ce

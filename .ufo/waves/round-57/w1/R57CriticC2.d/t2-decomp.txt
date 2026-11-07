@@ -1,0 +1,16 @@
+cmd: bash /fast/scratch/hyaku/kagi-r57/R57CriticC2/probe6.sh (re-run)
+P6 h1-stable=1 h1-distinct=1 h1-form=hmac-sha256
+P6 h1-literal-count-in-A=7 h3-count=2 plaintext=0
+P6 path-literal seal-status=0 kv-t2=4
+P6 hmac-A=113 hmac-R=3
+P6 entries-with-h1: 7
+   type request id 7c1c96bc reqpath sys/audit-hash/file field /request/data/input
+   type response id 7c1c96bc reqpath sys/audit-hash/file field /request/data/input
+   type request id af3a7b25 reqpath sys/audit-hash/file field /request/data/input
+   type response id af3a7b25 reqpath sys/audit-hash/file field /request/data/input
+   type request id e261f9d0 reqpath secret/data/t2 field /request/data/data/v
+   type response id e261f9d0 reqpath secret/data/t2 field /request/data/data/v
+   type response id f3077463 reqpath secret/data/t2 field /response/data/data/v
+P6 h1-appears-in-response-data-of-get? see field paths above
+P6: done
+probe6-rc=0

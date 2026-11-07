@@ -1,0 +1,20 @@
+INSTRUMENT 5773c1a423d16ecabe31535afa45c022ae5de27656a5cdd4d5415428102b84c2 plans/round-57.md
+INSTRUMENT 3104b06f5bfaef77745bd0e5726d4e3ac86c471ff61eef2cc298ad21fee90601 plans/round-57-c1.sh
+INSTRUMENT 3de6b4dec570594b7ff47971156b9eb9f932a50a2261ba568b51314e906439a9 plans/round-57-c2.sh
+INSTRUMENT 6796ae7040b4956d28b9c71772c24c9ba0d4298e21e86f9f13dbff38e693ce41 plans/round-57-controls.sh
+INSTRUMENT 19d75337ce37259b08eaa8b960eedddac68bec70ed4eab3f55f9d621e142f72c plans/round-57-c1-check.py
+CONTROL K1-BASE expect=3 got=3 MATCH :: C1_CURRENT: value=3 population=16 gate=0 guard=1 (checker=CURRENT_CLAIMS: value=3 population=16 mismatches=3 unbound=0 cases=3 match=7 epochs=2 clocks=2 pop=2 guard=1)
+EXPECT K1-BASE 3 :: three stale self-descriptions at the claim BASE (18-vs-20 cases, four-vs-six epochs, Three-vs-Six epochs)
+CONTROL K1-F1 expect=2 got=2 MATCH :: C1_CURRENT: value=2 population=16 gate=0 guard=1 (checker=CURRENT_CLAIMS: value=2 population=16 mismatches=2 unbound=0 cases=3 match=7 epochs=2 clocks=2 pop=2 guard=1)
+CONTROL K1-F2 expect=2 got=2 MATCH :: C1_CURRENT: value=2 population=16 gate=0 guard=1 (checker=CURRENT_CLAIMS: value=2 population=16 mismatches=2 unbound=0 cases=3 match=7 epochs=2 clocks=2 pop=2 guard=1)
+CONTROL K1-F3 expect=2 got=2 MATCH :: C1_CURRENT: value=2 population=16 gate=0 guard=1 (checker=CURRENT_CLAIMS: value=2 population=16 mismatches=2 unbound=0 cases=3 match=7 epochs=2 clocks=2 pop=2 guard=1)
+CONTROL K1-F4 expect=0 got=0 MATCH :: C1_CURRENT: value=0 population=16 gate=0 guard=1 (checker=CURRENT_CLAIMS: value=0 population=16 mismatches=0 unbound=0 cases=3 match=7 epochs=2 clocks=2 pop=2 guard=1)
+CONTROL K1-F5 expect=FAIL got=FAIL MATCH :: C1_CURRENT: value=FAIL population=1 gate=0 guard=0 (checker=CURRENT_CLAIMS: value=0 population=1 mismatches=0 unbound=0 cases=0 match=1 epochs=0 clocks=0 pop=0 guard=1)
+CONTROL K1-F6 expect=6 got=6 MATCH :: C1_CURRENT: value=6 population=16 gate=0 guard=1 (checker=CURRENT_CLAIMS: value=6 population=16 mismatches=6 unbound=0 cases=3 match=7 epochs=2 clocks=2 pop=2 guard=1)
+CONTROL K1-F7 expect=3 got=3 MATCH :: C1_CURRENT: value=3 population=16 gate=0 guard=1 (checker=CURRENT_CLAIMS: value=3 population=16 mismatches=3 unbound=0 cases=3 match=7 epochs=2 clocks=2 pop=2 guard=1)
+PENDING K1-REF (no REF tree)
+CONTROL K2-BASE expect=0 got=0 MATCH :: C2_AUDIT_TRIAL: value=0 tests=0 pass=0 shims=0 guard=0 (absent)
+CONTROL K2-STUB expect=0 got=0 MATCH :: C2_AUDIT_TRIAL: value=0 tests=5 pass=5 shims=0 guard=1 (last=AUDIT_TRIAL: CLEAN (tests=5 pass=5))
+CONTROL K2-MOCK expect=5 got=5 MATCH :: C2_AUDIT_TRIAL: value=5 tests=5 pass=5 shims=5 guard=1 (last=AUDIT_TRIAL: CLEAN (tests=5 pass=5))
+PENDING K2-REF (no REF tree)
+CONTROLS: match=11 mismatch=0

@@ -1,0 +1,6 @@
+cmd: git -C /home/vgpnk/Projects/shokunin/kagi-shokunin show d857f34:corpus/current-claims.py | sha256sum; pin in A3 working c1.sh:
+e36472b3640728ca637d6e6c380cb33b1cd07a27dda2aa53409dec0f5bb4a98a  -
+19:#     equal GATE_SHA256_PIN, its `--root` run prints the same value and population,
+36:GATE_SHA256_PIN=e36472b3640728ca637d6e6c380cb33b1cd07a27dda2aa53409dec0f5bb4a98a
+63:  [ "$GSHA" = "$GATE_SHA256_PIN" ] && [ "$GV" = "$V" ] && [ "$GP" = "$P" ] && GATE=1
+-- landed c1.sh hash: 3104b06f5bfaef77745bd0e5726d4e3ac86c471ff61eef2cc298ad21fee90601

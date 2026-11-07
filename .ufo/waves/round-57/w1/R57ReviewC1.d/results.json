@@ -1,0 +1,763 @@
+[
+  {
+    "name": "A-authority-4epochs",
+    "note": "authority-only answer key (4 epochs)",
+    "driver_rc": 0,
+    "driver_last": "C1_CURRENT: value=3 population=16 gate=0 guard=1 (checker=CURRENT_CLAIMS: value=3 population=16 mismatches=3 unbound=0 cases=3 match=7 epochs=2 clocks=2 pop=2 guard=1)",
+    "checker_summary": "CURRENT_CLAIMS: value=3 population=16 mismatches=3 unbound=0 cases=3 match=7 epochs=2 clocks=2 pop=2 guard=1",
+    "statements": [
+      "STMT SCORECARD:3 cls=match stated=23 auth=23 via=receipt-epochF OK",
+      "STMT SCORECARD:7 cls=cases stated=18 auth=18 via=recheck-replay-selftest OK",
+      "STMT SCORECARD:7 cls=pop stated=10 auth=10 via=pop-size OK",
+      "STMT SCORECARD:7 cls=pop stated=10 auth=10 via=pop-match OK",
+      "STMT SCORECARD:7 cls=clocks stated=10 auth=10 via=manifest-data-rows OK",
+      "STMT LOG:1 cls=epochs stated=4 auth=4 via=receipt-file-count OK",
+      "STMT LOG:3 cls=match stated=16 auth=16 via=nearest-epochB OK",
+      "STMT LOG:3 cls=match stated=20 auth=20 via=nearest-epochC OK",
+      "STMT LOG:3 cls=match stated=21 auth=21 via=nearest-epochD OK",
+      "STMT LOG:3 cls=match stated=22 auth=22 via=nearest-epochE OK",
+      "STMT LOG:3 cls=match stated=23 auth=23 via=nearest-epochF OK",
+      "STMT LESSON:5 cls=match stated=23 auth=23 via=receipt-epochF OK",
+      "STMT LESSON:9 cls=cases stated=20 auth=18 via=recheck-replay-selftest MISMATCH",
+      "STMT LESSON:9 cls=cases stated=20 auth=18 via=recheck-replay-selftest MISMATCH",
+      "STMT LESSON:9 cls=epochs stated=3 auth=4 via=receipt-file-count MISMATCH",
+      "STMT LESSON:9 cls=clocks stated=10 auth=10 via=manifest-data-rows OK"
+    ],
+    "changed": {
+      "corpus/recheck-replay.py": {
+        "base": "b6959d6c7afb9380c043cbd40530e6a70ee8da2bf79f1ea9d0669706f50bb5a3",
+        "forged": "1bf1a77010c13c7deaa260df9f28fa29b6ac94c2ac559fa2d6a31d39e05106d1"
+      },
+      "plans/round-56.md": {
+        "base": "d0a8e402da2ac7a5c40eb3352a91918830253ba5502aae66442740d0c9dc025b",
+        "forged": "4460f1daaf837271c41dc1e9e57270d622c6017e70f3b35b35c7c9fab63af1e5"
+      }
+    },
+    "admitted": false,
+    "value": "3",
+    "population": 16,
+    "gate": "0",
+    "guard": "1"
+  },
+  {
+    "name": "A2-authority-3epochs",
+    "note": "authority-only answer key (3 epochs)",
+    "driver_rc": 0,
+    "driver_last": "C1_CURRENT: value=3 population=16 gate=0 guard=1 (checker=CURRENT_CLAIMS: value=3 population=16 mismatches=3 unbound=0 cases=3 match=7 epochs=2 clocks=2 pop=2 guard=1)",
+    "checker_summary": "CURRENT_CLAIMS: value=3 population=16 mismatches=3 unbound=0 cases=3 match=7 epochs=2 clocks=2 pop=2 guard=1",
+    "statements": [
+      "STMT SCORECARD:3 cls=match stated=23 auth=23 via=receipt-epochF OK",
+      "STMT SCORECARD:7 cls=cases stated=18 auth=18 via=recheck-replay-selftest OK",
+      "STMT SCORECARD:7 cls=pop stated=10 auth=10 via=pop-size OK",
+      "STMT SCORECARD:7 cls=pop stated=10 auth=10 via=pop-match OK",
+      "STMT SCORECARD:7 cls=clocks stated=10 auth=10 via=manifest-data-rows OK",
+      "STMT LOG:1 cls=epochs stated=4 auth=3 via=receipt-file-count MISMATCH",
+      "STMT LOG:3 cls=match stated=16 auth=16 via=nearest-epochB OK",
+      "STMT LOG:3 cls=match stated=20 auth=20 via=nearest-epochC OK",
+      "STMT LOG:3 cls=match stated=21 auth=21 via=nearest-epochD OK",
+      "STMT LOG:3 cls=match stated=22 auth=22 via=nearest-epochE OK",
+      "STMT LOG:3 cls=match stated=23 auth=23 via=nearest-epochF OK",
+      "STMT LESSON:5 cls=match stated=23 auth=23 via=receipt-epochF OK",
+      "STMT LESSON:9 cls=cases stated=20 auth=18 via=recheck-replay-selftest MISMATCH",
+      "STMT LESSON:9 cls=cases stated=20 auth=18 via=recheck-replay-selftest MISMATCH",
+      "STMT LESSON:9 cls=epochs stated=3 auth=3 via=receipt-file-count OK",
+      "STMT LESSON:9 cls=clocks stated=10 auth=10 via=manifest-data-rows OK"
+    ],
+    "changed": {
+      "corpus/recheck-replay.py": {
+        "base": "b6959d6c7afb9380c043cbd40530e6a70ee8da2bf79f1ea9d0669706f50bb5a3",
+        "forged": "1bf1a77010c13c7deaa260df9f28fa29b6ac94c2ac559fa2d6a31d39e05106d1"
+      },
+      "plans/round-56.md": {
+        "base": "d0a8e402da2ac7a5c40eb3352a91918830253ba5502aae66442740d0c9dc025b",
+        "forged": "65610649d39a5260eceb58ea76efb78b4f9144307d9b51e53946d9a52f19001b"
+      }
+    },
+    "admitted": false,
+    "value": "3",
+    "population": 16,
+    "gate": "0",
+    "guard": "1"
+  },
+  {
+    "name": "A3-authority-missing",
+    "note": "authority-only answer key (authority removed)",
+    "driver_rc": 0,
+    "driver_last": "C1_CURRENT: value=3 population=16 gate=0 guard=1 (checker=CURRENT_CLAIMS: value=3 population=16 mismatches=3 unbound=0 cases=3 match=7 epochs=2 clocks=2 pop=2 guard=1)",
+    "checker_summary": "CURRENT_CLAIMS: value=3 population=16 mismatches=3 unbound=0 cases=3 match=7 epochs=2 clocks=2 pop=2 guard=1",
+    "statements": [
+      "STMT SCORECARD:3 cls=match stated=23 auth=23 via=receipt-epochF OK",
+      "STMT SCORECARD:7 cls=cases stated=18 auth=20 via=recheck-replay-selftest MISMATCH",
+      "STMT SCORECARD:7 cls=pop stated=10 auth=10 via=pop-size OK",
+      "STMT SCORECARD:7 cls=pop stated=10 auth=10 via=pop-match OK",
+      "STMT SCORECARD:7 cls=clocks stated=10 auth=10 via=manifest-data-rows OK",
+      "STMT LOG:1 cls=epochs stated=4 auth=none via=receipt-file-count UNBOUND",
+      "STMT LOG:3 cls=match stated=16 auth=16 via=nearest-epochB OK",
+      "STMT LOG:3 cls=match stated=20 auth=20 via=nearest-epochC OK",
+      "STMT LOG:3 cls=match stated=21 auth=21 via=nearest-epochD OK",
+      "STMT LOG:3 cls=match stated=22 auth=22 via=nearest-epochE OK",
+      "STMT LOG:3 cls=match stated=23 auth=23 via=nearest-epochF OK",
+      "STMT LESSON:5 cls=match stated=23 auth=23 via=receipt-epochF OK",
+      "STMT LESSON:9 cls=cases stated=20 auth=20 via=recheck-replay-selftest OK",
+      "STMT LESSON:9 cls=cases stated=20 auth=20 via=recheck-replay-selftest OK",
+      "STMT LESSON:9 cls=epochs stated=3 auth=none via=receipt-file-count UNBOUND",
+      "STMT LESSON:9 cls=clocks stated=10 auth=10 via=manifest-data-rows OK"
+    ],
+    "changed": {
+      "plans/round-56.md": {
+        "base": "d0a8e402da2ac7a5c40eb3352a91918830253ba5502aae66442740d0c9dc025b",
+        "forged": "absent"
+      }
+    },
+    "admitted": false,
+    "value": "3",
+    "population": 16,
+    "gate": "0",
+    "guard": "1"
+  },
+  {
+    "name": "L-repaired",
+    "note": "landing shape: value 0 with real authorities",
+    "driver_rc": 0,
+    "driver_last": "C1_CURRENT: value=0 population=16 gate=0 guard=1 (checker=CURRENT_CLAIMS: value=0 population=16 mismatches=0 unbound=0 cases=3 match=7 epochs=2 clocks=2 pop=2 guard=1)",
+    "checker_summary": "CURRENT_CLAIMS: value=0 population=16 mismatches=0 unbound=0 cases=3 match=7 epochs=2 clocks=2 pop=2 guard=1",
+    "statements": [
+      "STMT SCORECARD:3 cls=match stated=23 auth=23 via=receipt-epochF OK",
+      "STMT SCORECARD:7 cls=cases stated=20 auth=20 via=recheck-replay-selftest OK",
+      "STMT SCORECARD:7 cls=pop stated=10 auth=10 via=pop-size OK",
+      "STMT SCORECARD:7 cls=pop stated=10 auth=10 via=pop-match OK",
+      "STMT SCORECARD:7 cls=clocks stated=10 auth=10 via=manifest-data-rows OK",
+      "STMT LOG:1 cls=epochs stated=6 auth=6 via=receipt-file-count OK",
+      "STMT LOG:3 cls=match stated=16 auth=16 via=nearest-epochB OK",
+      "STMT LOG:3 cls=match stated=20 auth=20 via=nearest-epochC OK",
+      "STMT LOG:3 cls=match stated=21 auth=21 via=nearest-epochD OK",
+      "STMT LOG:3 cls=match stated=22 auth=22 via=nearest-epochE OK",
+      "STMT LOG:3 cls=match stated=23 auth=23 via=nearest-epochF OK",
+      "STMT LESSON:5 cls=match stated=23 auth=23 via=receipt-epochF OK",
+      "STMT LESSON:9 cls=cases stated=20 auth=20 via=recheck-replay-selftest OK",
+      "STMT LESSON:9 cls=cases stated=20 auth=20 via=recheck-replay-selftest OK",
+      "STMT LESSON:9 cls=epochs stated=6 auth=6 via=receipt-file-count OK",
+      "STMT LESSON:9 cls=clocks stated=10 auth=10 via=manifest-data-rows OK"
+    ],
+    "changed": {
+      "LOG.md": {
+        "base": "dfb38c5ec4482e54685080bcb80e95a6894dceb072ed2fe4456185e234154683",
+        "forged": "57010704809bc27791a475e086208a7631236f5580c184bf4a55f2b8e619b050"
+      },
+      "SCORECARD.md": {
+        "base": "990254ae02b185050040d51fa0164862a43ac36cf53bdad2b3bc7441549e0910",
+        "forged": "4b3e1a105bbc4d8a878b8dd7dfcfea1de5fab8594be199019d72ecaa765ef19f"
+      },
+      "corpus/lessons/round-56.md": {
+        "base": "566e5dfc80093ff4bc837b1a57962dfe804dddb20b347d12e3abf18da2d709fd",
+        "forged": "b32fe56ab1655ee55959e664a1fd4ca5aa3b06b4644ecd2bc699a26ddbb94836"
+      }
+    },
+    "admitted": true,
+    "value": "0",
+    "population": 16,
+    "gate": "0",
+    "guard": "1"
+  },
+  {
+    "name": "A4-landing-answerkey",
+    "note": "answer key at the landing: gate replaced by a printer",
+    "driver_rc": 0,
+    "driver_last": "C1_CURRENT: value=0 population=16 gate=0 guard=1 (checker=CURRENT_CLAIMS: value=0 population=16 mismatches=0 unbound=0 cases=3 match=7 epochs=2 clocks=2 pop=2 guard=1)",
+    "checker_summary": "CURRENT_CLAIMS: value=0 population=16 mismatches=0 unbound=0 cases=3 match=7 epochs=2 clocks=2 pop=2 guard=1",
+    "statements": [
+      "STMT SCORECARD:3 cls=match stated=23 auth=23 via=receipt-epochF OK",
+      "STMT SCORECARD:7 cls=cases stated=20 auth=20 via=recheck-replay-selftest OK",
+      "STMT SCORECARD:7 cls=pop stated=10 auth=10 via=pop-size OK",
+      "STMT SCORECARD:7 cls=pop stated=10 auth=10 via=pop-match OK",
+      "STMT SCORECARD:7 cls=clocks stated=10 auth=10 via=manifest-data-rows OK",
+      "STMT LOG:1 cls=epochs stated=6 auth=6 via=receipt-file-count OK",
+      "STMT LOG:3 cls=match stated=16 auth=16 via=nearest-epochB OK",
+      "STMT LOG:3 cls=match stated=20 auth=20 via=nearest-epochC OK",
+      "STMT LOG:3 cls=match stated=21 auth=21 via=nearest-epochD OK",
+      "STMT LOG:3 cls=match stated=22 auth=22 via=nearest-epochE OK",
+      "STMT LOG:3 cls=match stated=23 auth=23 via=nearest-epochF OK",
+      "STMT LESSON:5 cls=match stated=23 auth=23 via=receipt-epochF OK",
+      "STMT LESSON:9 cls=cases stated=20 auth=20 via=recheck-replay-selftest OK",
+      "STMT LESSON:9 cls=cases stated=20 auth=20 via=recheck-replay-selftest OK",
+      "STMT LESSON:9 cls=epochs stated=6 auth=6 via=receipt-file-count OK",
+      "STMT LESSON:9 cls=clocks stated=10 auth=10 via=manifest-data-rows OK"
+    ],
+    "changed": {
+      "LOG.md": {
+        "base": "dfb38c5ec4482e54685080bcb80e95a6894dceb072ed2fe4456185e234154683",
+        "forged": "57010704809bc27791a475e086208a7631236f5580c184bf4a55f2b8e619b050"
+      },
+      "SCORECARD.md": {
+        "base": "990254ae02b185050040d51fa0164862a43ac36cf53bdad2b3bc7441549e0910",
+        "forged": "4b3e1a105bbc4d8a878b8dd7dfcfea1de5fab8594be199019d72ecaa765ef19f"
+      },
+      "corpus/lessons/round-56.md": {
+        "base": "566e5dfc80093ff4bc837b1a57962dfe804dddb20b347d12e3abf18da2d709fd",
+        "forged": "b32fe56ab1655ee55959e664a1fd4ca5aa3b06b4644ecd2bc699a26ddbb94836"
+      },
+      "corpus/recheck-replay.py": {
+        "base": "b6959d6c7afb9380c043cbd40530e6a70ee8da2bf79f1ea9d0669706f50bb5a3",
+        "forged": "296b03f92b020193824b1f347ce0a76c0ef52b56398cdb42fa7df179af5c1a32"
+      }
+    },
+    "admitted": true,
+    "value": "0",
+    "population": 16,
+    "gate": "0",
+    "guard": "1"
+  },
+  {
+    "name": "B1-delete-stale",
+    "note": "floor evasion: stale statements deleted",
+    "driver_rc": 0,
+    "driver_last": "C1_CURRENT: value=0 population=13 gate=0 guard=1 (checker=CURRENT_CLAIMS: value=0 population=13 mismatches=0 unbound=0 cases=2 match=7 epochs=0 clocks=2 pop=2 guard=1)",
+    "checker_summary": "CURRENT_CLAIMS: value=0 population=13 mismatches=0 unbound=0 cases=2 match=7 epochs=0 clocks=2 pop=2 guard=1",
+    "statements": [
+      "STMT SCORECARD:3 cls=match stated=23 auth=23 via=receipt-epochF OK",
+      "STMT SCORECARD:7 cls=pop stated=10 auth=10 via=pop-size OK",
+      "STMT SCORECARD:7 cls=pop stated=10 auth=10 via=pop-match OK",
+      "STMT SCORECARD:7 cls=clocks stated=10 auth=10 via=manifest-data-rows OK",
+      "STMT LOG:3 cls=match stated=16 auth=16 via=nearest-epochB OK",
+      "STMT LOG:3 cls=match stated=20 auth=20 via=nearest-epochC OK",
+      "STMT LOG:3 cls=match stated=21 auth=21 via=nearest-epochD OK",
+      "STMT LOG:3 cls=match stated=22 auth=22 via=nearest-epochE OK",
+      "STMT LOG:3 cls=match stated=23 auth=23 via=nearest-epochF OK",
+      "STMT LESSON:5 cls=match stated=23 auth=23 via=receipt-epochF OK",
+      "STMT LESSON:9 cls=cases stated=20 auth=20 via=recheck-replay-selftest OK",
+      "STMT LESSON:9 cls=cases stated=20 auth=20 via=recheck-replay-selftest OK",
+      "STMT LESSON:9 cls=clocks stated=10 auth=10 via=manifest-data-rows OK"
+    ],
+    "changed": {
+      "LOG.md": {
+        "base": "dfb38c5ec4482e54685080bcb80e95a6894dceb072ed2fe4456185e234154683",
+        "forged": "ce749d73d0f503ce0c0f25b0d76a5e6048a6c1d7167250101aa5357249262d2a"
+      },
+      "SCORECARD.md": {
+        "base": "990254ae02b185050040d51fa0164862a43ac36cf53bdad2b3bc7441549e0910",
+        "forged": "0f9b96b1d50c93a98f7e6be4bf62a2c04c236770fd63ed9380887878d97e5fd1"
+      },
+      "corpus/lessons/round-56.md": {
+        "base": "566e5dfc80093ff4bc837b1a57962dfe804dddb20b347d12e3abf18da2d709fd",
+        "forged": "ea7574a793fe8f988df3239f001ce90758f0685dd3625384d94336d17623b4d6"
+      }
+    },
+    "admitted": true,
+    "value": "0",
+    "population": 13,
+    "gate": "0",
+    "guard": "1"
+  },
+  {
+    "name": "B2-floor8",
+    "note": "floor evasion: exactly 8 statements, value 0",
+    "driver_rc": 0,
+    "driver_last": "C1_CURRENT: value=0 population=8 gate=0 guard=1 (checker=CURRENT_CLAIMS: value=0 population=8 mismatches=0 unbound=0 cases=2 match=2 epochs=0 clocks=2 pop=2 guard=1)",
+    "checker_summary": "CURRENT_CLAIMS: value=0 population=8 mismatches=0 unbound=0 cases=2 match=2 epochs=0 clocks=2 pop=2 guard=1",
+    "statements": [
+      "STMT SCORECARD:3 cls=match stated=23 auth=23 via=receipt-epochF OK",
+      "STMT SCORECARD:7 cls=pop stated=10 auth=10 via=pop-size OK",
+      "STMT SCORECARD:7 cls=pop stated=10 auth=10 via=pop-match OK",
+      "STMT SCORECARD:7 cls=clocks stated=10 auth=10 via=manifest-data-rows OK",
+      "STMT LESSON:5 cls=match stated=23 auth=23 via=receipt-epochF OK",
+      "STMT LESSON:9 cls=cases stated=20 auth=20 via=recheck-replay-selftest OK",
+      "STMT LESSON:9 cls=cases stated=20 auth=20 via=recheck-replay-selftest OK",
+      "STMT LESSON:9 cls=clocks stated=10 auth=10 via=manifest-data-rows OK"
+    ],
+    "changed": {
+      "LOG.md": {
+        "base": "dfb38c5ec4482e54685080bcb80e95a6894dceb072ed2fe4456185e234154683",
+        "forged": "c16a5aeb378d9024e327e5f4d9c47e173fadeee58882119ad3877563b8e6926e"
+      },
+      "SCORECARD.md": {
+        "base": "990254ae02b185050040d51fa0164862a43ac36cf53bdad2b3bc7441549e0910",
+        "forged": "0f9b96b1d50c93a98f7e6be4bf62a2c04c236770fd63ed9380887878d97e5fd1"
+      },
+      "corpus/lessons/round-56.md": {
+        "base": "566e5dfc80093ff4bc837b1a57962dfe804dddb20b347d12e3abf18da2d709fd",
+        "forged": "ea7574a793fe8f988df3239f001ce90758f0685dd3625384d94336d17623b4d6"
+      }
+    },
+    "admitted": true,
+    "value": "0",
+    "population": 8,
+    "gate": "0",
+    "guard": "1"
+  },
+  {
+    "name": "B3-endash-heading",
+    "note": "selection by heading bytes (en dash)",
+    "driver_rc": 0,
+    "driver_last": "C1_CURRENT: value=2 population=11 gate=0 guard=1 (checker=CURRENT_CLAIMS: value=2 population=11 mismatches=2 unbound=0 cases=2 match=6 epochs=2 clocks=1 pop=0 guard=1)",
+    "checker_summary": "CURRENT_CLAIMS: value=2 population=11 mismatches=2 unbound=0 cases=2 match=6 epochs=2 clocks=1 pop=0 guard=1",
+    "statements": [
+      "STMT LOG:1 cls=epochs stated=4 auth=6 via=receipt-file-count MISMATCH",
+      "STMT LOG:3 cls=match stated=16 auth=16 via=nearest-epochB OK",
+      "STMT LOG:3 cls=match stated=20 auth=20 via=nearest-epochC OK",
+      "STMT LOG:3 cls=match stated=21 auth=21 via=nearest-epochD OK",
+      "STMT LOG:3 cls=match stated=22 auth=22 via=nearest-epochE OK",
+      "STMT LOG:3 cls=match stated=23 auth=23 via=nearest-epochF OK",
+      "STMT LESSON:5 cls=match stated=23 auth=23 via=receipt-epochF OK",
+      "STMT LESSON:9 cls=cases stated=20 auth=20 via=recheck-replay-selftest OK",
+      "STMT LESSON:9 cls=cases stated=20 auth=20 via=recheck-replay-selftest OK",
+      "STMT LESSON:9 cls=epochs stated=3 auth=6 via=receipt-file-count MISMATCH",
+      "STMT LESSON:9 cls=clocks stated=10 auth=10 via=manifest-data-rows OK"
+    ],
+    "changed": {
+      "SCORECARD.md": {
+        "base": "990254ae02b185050040d51fa0164862a43ac36cf53bdad2b3bc7441549e0910",
+        "forged": "685d6ff3be8cded7f5926f4620185fdf92bc84532849e7d0237483ab700383a7"
+      }
+    },
+    "admitted": false,
+    "value": "2",
+    "population": 11,
+    "gate": "0",
+    "guard": "1"
+  },
+  {
+    "name": "C-class-evasion",
+    "note": "class set is closed: near-miss shapes uncounted",
+    "driver_rc": 0,
+    "driver_last": "C1_CURRENT: value=3 population=16 gate=0 guard=1 (checker=CURRENT_CLAIMS: value=3 population=16 mismatches=3 unbound=0 cases=3 match=7 epochs=2 clocks=2 pop=2 guard=1)",
+    "checker_summary": "CURRENT_CLAIMS: value=3 population=16 mismatches=3 unbound=0 cases=3 match=7 epochs=2 clocks=2 pop=2 guard=1",
+    "statements": [
+      "STMT SCORECARD:5 cls=match stated=23 auth=23 via=receipt-epochF OK",
+      "STMT SCORECARD:9 cls=cases stated=18 auth=20 via=recheck-replay-selftest MISMATCH",
+      "STMT SCORECARD:9 cls=pop stated=10 auth=10 via=pop-size OK",
+      "STMT SCORECARD:9 cls=pop stated=10 auth=10 via=pop-match OK",
+      "STMT SCORECARD:9 cls=clocks stated=10 auth=10 via=manifest-data-rows OK",
+      "STMT LOG:1 cls=epochs stated=4 auth=6 via=receipt-file-count MISMATCH",
+      "STMT LOG:3 cls=match stated=16 auth=16 via=nearest-epochB OK",
+      "STMT LOG:3 cls=match stated=20 auth=20 via=nearest-epochC OK",
+      "STMT LOG:3 cls=match stated=21 auth=21 via=nearest-epochD OK",
+      "STMT LOG:3 cls=match stated=22 auth=22 via=nearest-epochE OK",
+      "STMT LOG:3 cls=match stated=23 auth=23 via=nearest-epochF OK",
+      "STMT LESSON:5 cls=match stated=23 auth=23 via=receipt-epochF OK",
+      "STMT LESSON:9 cls=cases stated=20 auth=20 via=recheck-replay-selftest OK",
+      "STMT LESSON:9 cls=cases stated=20 auth=20 via=recheck-replay-selftest OK",
+      "STMT LESSON:9 cls=epochs stated=3 auth=6 via=receipt-file-count MISMATCH",
+      "STMT LESSON:9 cls=clocks stated=10 auth=10 via=manifest-data-rows OK"
+    ],
+    "changed": {
+      "SCORECARD.md": {
+        "base": "990254ae02b185050040d51fa0164862a43ac36cf53bdad2b3bc7441549e0910",
+        "forged": "8f00e28ca2ae02169695f30955bd22941e9a7ae0f837a68b5a9a0578c2e1a0d6"
+      }
+    },
+    "admitted": false,
+    "value": "3",
+    "population": 16,
+    "gate": "0",
+    "guard": "1"
+  },
+  {
+    "name": "D0-new-false-outside",
+    "note": "false statement outside the boundary: uncounted",
+    "driver_rc": 0,
+    "driver_last": "C1_CURRENT: value=3 population=16 gate=0 guard=1 (checker=CURRENT_CLAIMS: value=3 population=16 mismatches=3 unbound=0 cases=3 match=7 epochs=2 clocks=2 pop=2 guard=1)",
+    "checker_summary": "CURRENT_CLAIMS: value=3 population=16 mismatches=3 unbound=0 cases=3 match=7 epochs=2 clocks=2 pop=2 guard=1",
+    "statements": [
+      "STMT SCORECARD:3 cls=match stated=23 auth=23 via=receipt-epochF OK",
+      "STMT SCORECARD:7 cls=cases stated=18 auth=20 via=recheck-replay-selftest MISMATCH",
+      "STMT SCORECARD:7 cls=pop stated=10 auth=10 via=pop-size OK",
+      "STMT SCORECARD:7 cls=pop stated=10 auth=10 via=pop-match OK",
+      "STMT SCORECARD:7 cls=clocks stated=10 auth=10 via=manifest-data-rows OK",
+      "STMT LOG:1 cls=epochs stated=4 auth=6 via=receipt-file-count MISMATCH",
+      "STMT LOG:3 cls=match stated=16 auth=16 via=nearest-epochB OK",
+      "STMT LOG:3 cls=match stated=20 auth=20 via=nearest-epochC OK",
+      "STMT LOG:3 cls=match stated=21 auth=21 via=nearest-epochD OK",
+      "STMT LOG:3 cls=match stated=22 auth=22 via=nearest-epochE OK",
+      "STMT LOG:3 cls=match stated=23 auth=23 via=nearest-epochF OK",
+      "STMT LESSON:5 cls=match stated=23 auth=23 via=receipt-epochF OK",
+      "STMT LESSON:9 cls=cases stated=20 auth=20 via=recheck-replay-selftest OK",
+      "STMT LESSON:9 cls=cases stated=20 auth=20 via=recheck-replay-selftest OK",
+      "STMT LESSON:9 cls=epochs stated=3 auth=6 via=receipt-file-count MISMATCH",
+      "STMT LESSON:9 cls=clocks stated=10 auth=10 via=manifest-data-rows OK"
+    ],
+    "changed": {
+      "SCORECARD.md": {
+        "base": "990254ae02b185050040d51fa0164862a43ac36cf53bdad2b3bc7441549e0910",
+        "forged": "c532fe2b96bddaecef2569ce2e7db33f61e358d07d57cf6bf25c56120eeba41d"
+      }
+    },
+    "admitted": false,
+    "value": "3",
+    "population": 16,
+    "gate": "0",
+    "guard": "1"
+  },
+  {
+    "name": "D1-boundary-move",
+    "note": "surface misselection: one line above the heading",
+    "driver_rc": 0,
+    "driver_last": "C1_CURRENT: value=2 population=15 gate=0 guard=1 (checker=CURRENT_CLAIMS: value=2 population=15 mismatches=2 unbound=0 cases=2 match=7 epochs=2 clocks=2 pop=2 guard=1)",
+    "checker_summary": "CURRENT_CLAIMS: value=2 population=15 mismatches=2 unbound=0 cases=2 match=7 epochs=2 clocks=2 pop=2 guard=1",
+    "statements": [
+      "STMT SCORECARD:3 cls=match stated=23 auth=23 via=receipt-epochF OK",
+      "STMT SCORECARD:7 cls=pop stated=10 auth=10 via=pop-size OK",
+      "STMT SCORECARD:7 cls=pop stated=10 auth=10 via=pop-match OK",
+      "STMT SCORECARD:7 cls=clocks stated=10 auth=10 via=manifest-data-rows OK",
+      "STMT LOG:1 cls=epochs stated=4 auth=6 via=receipt-file-count MISMATCH",
+      "STMT LOG:3 cls=match stated=16 auth=16 via=nearest-epochB OK",
+      "STMT LOG:3 cls=match stated=20 auth=20 via=nearest-epochC OK",
+      "STMT LOG:3 cls=match stated=21 auth=21 via=nearest-epochD OK",
+      "STMT LOG:3 cls=match stated=22 auth=22 via=nearest-epochE OK",
+      "STMT LOG:3 cls=match stated=23 auth=23 via=nearest-epochF OK",
+      "STMT LESSON:5 cls=match stated=23 auth=23 via=receipt-epochF OK",
+      "STMT LESSON:9 cls=cases stated=20 auth=20 via=recheck-replay-selftest OK",
+      "STMT LESSON:9 cls=cases stated=20 auth=20 via=recheck-replay-selftest OK",
+      "STMT LESSON:9 cls=epochs stated=3 auth=6 via=receipt-file-count MISMATCH",
+      "STMT LESSON:9 cls=clocks stated=10 auth=10 via=manifest-data-rows OK"
+    ],
+    "changed": {
+      "SCORECARD.md": {
+        "base": "990254ae02b185050040d51fa0164862a43ac36cf53bdad2b3bc7441549e0910",
+        "forged": "b904cb9fe77fe37799ab6cac01087cc0166e05f8f312c616457688f105dd1869"
+      }
+    },
+    "admitted": false,
+    "value": "2",
+    "population": 15,
+    "gate": "0",
+    "guard": "1"
+  },
+  {
+    "name": "D2-relocate-all",
+    "note": "surface misselection: all stales relocated, value 0",
+    "driver_rc": 0,
+    "driver_last": "C1_CURRENT: value=0 population=9 gate=0 guard=1 (checker=CURRENT_CLAIMS: value=0 population=9 mismatches=0 unbound=0 cases=0 match=3 epochs=0 clocks=2 pop=4 guard=1)",
+    "checker_summary": "CURRENT_CLAIMS: value=0 population=9 mismatches=0 unbound=0 cases=0 match=3 epochs=0 clocks=2 pop=4 guard=1",
+    "statements": [
+      "STMT SCORECARD:3 cls=pop stated=10 auth=10 via=pop-size OK",
+      "STMT SCORECARD:3 cls=pop stated=10 auth=10 via=pop-match OK",
+      "STMT SCORECARD:3 cls=match stated=23 auth=23 via=receipt-epochF OK",
+      "STMT SCORECARD:3 cls=clocks stated=10 auth=10 via=manifest-data-rows OK",
+      "STMT SCORECARD:5 cls=match stated=23 auth=23 via=receipt-epochF OK",
+      "STMT SCORECARD:9 cls=pop stated=10 auth=10 via=pop-size OK",
+      "STMT SCORECARD:9 cls=pop stated=10 auth=10 via=pop-match OK",
+      "STMT SCORECARD:9 cls=clocks stated=10 auth=10 via=manifest-data-rows OK",
+      "STMT LESSON:5 cls=match stated=23 auth=23 via=receipt-epochF OK"
+    ],
+    "changed": {
+      "LOG.md": {
+        "base": "dfb38c5ec4482e54685080bcb80e95a6894dceb072ed2fe4456185e234154683",
+        "forged": "d0c521b3c799174482d6e91a8301a05bdbdabb5978a83c47f0d693a8fdb3edc5"
+      },
+      "SCORECARD.md": {
+        "base": "990254ae02b185050040d51fa0164862a43ac36cf53bdad2b3bc7441549e0910",
+        "forged": "7fdc7d0befec5b0bd590c54be0e9c6f8ce363333f546563bd83b41ec1360aff8"
+      },
+      "corpus/lessons/round-56.md": {
+        "base": "566e5dfc80093ff4bc837b1a57962dfe804dddb20b347d12e3abf18da2d709fd",
+        "forged": "ca422e8277b126aa20540089a5e185fce51dc6ae2235212644b2ccd14675829f"
+      }
+    },
+    "admitted": true,
+    "value": "0",
+    "population": 9,
+    "gate": "0",
+    "guard": "1"
+  },
+  {
+    "name": "E1-printer-gate-base",
+    "note": "guard bypass: printer gate, bytes differ",
+    "driver_rc": 0,
+    "driver_last": "C1_CURRENT: value=3 population=16 gate=1 guard=1 (checker=CURRENT_CLAIMS: value=3 population=16 mismatches=3 unbound=0 cases=3 match=7 epochs=2 clocks=2 pop=2 guard=1)",
+    "checker_summary": "CURRENT_CLAIMS: value=3 population=16 mismatches=3 unbound=0 cases=3 match=7 epochs=2 clocks=2 pop=2 guard=1",
+    "statements": [
+      "STMT SCORECARD:3 cls=match stated=23 auth=23 via=receipt-epochF OK",
+      "STMT SCORECARD:7 cls=cases stated=18 auth=20 via=recheck-replay-selftest MISMATCH",
+      "STMT SCORECARD:7 cls=pop stated=10 auth=10 via=pop-size OK",
+      "STMT SCORECARD:7 cls=pop stated=10 auth=10 via=pop-match OK",
+      "STMT SCORECARD:7 cls=clocks stated=10 auth=10 via=manifest-data-rows OK",
+      "STMT LOG:1 cls=epochs stated=4 auth=6 via=receipt-file-count MISMATCH",
+      "STMT LOG:3 cls=match stated=16 auth=16 via=nearest-epochB OK",
+      "STMT LOG:3 cls=match stated=20 auth=20 via=nearest-epochC OK",
+      "STMT LOG:3 cls=match stated=21 auth=21 via=nearest-epochD OK",
+      "STMT LOG:3 cls=match stated=22 auth=22 via=nearest-epochE OK",
+      "STMT LOG:3 cls=match stated=23 auth=23 via=nearest-epochF OK",
+      "STMT LESSON:5 cls=match stated=23 auth=23 via=receipt-epochF OK",
+      "STMT LESSON:9 cls=cases stated=20 auth=20 via=recheck-replay-selftest OK",
+      "STMT LESSON:9 cls=cases stated=20 auth=20 via=recheck-replay-selftest OK",
+      "STMT LESSON:9 cls=epochs stated=3 auth=6 via=receipt-file-count MISMATCH",
+      "STMT LESSON:9 cls=clocks stated=10 auth=10 via=manifest-data-rows OK"
+    ],
+    "changed": {
+      "corpus/current-claims.py": {
+        "base": "absent",
+        "forged": "dc6db63350995e1660886043a5ba8d8906fa6115dc5b9031a7942e5ff71696cf"
+      }
+    },
+    "admitted": false,
+    "value": "3",
+    "population": 16,
+    "gate": "1",
+    "guard": "1"
+  },
+  {
+    "name": "E2-printer-gate-admit",
+    "note": "guard bypass: full admission with a printer",
+    "driver_rc": 0,
+    "driver_last": "C1_CURRENT: value=0 population=9 gate=1 guard=1 (checker=CURRENT_CLAIMS: value=0 population=9 mismatches=0 unbound=0 cases=0 match=3 epochs=0 clocks=2 pop=4 guard=1)",
+    "checker_summary": "CURRENT_CLAIMS: value=0 population=9 mismatches=0 unbound=0 cases=0 match=3 epochs=0 clocks=2 pop=4 guard=1",
+    "statements": [
+      "STMT SCORECARD:3 cls=pop stated=10 auth=10 via=pop-size OK",
+      "STMT SCORECARD:3 cls=pop stated=10 auth=10 via=pop-match OK",
+      "STMT SCORECARD:3 cls=match stated=23 auth=23 via=receipt-epochF OK",
+      "STMT SCORECARD:3 cls=clocks stated=10 auth=10 via=manifest-data-rows OK",
+      "STMT SCORECARD:5 cls=match stated=23 auth=23 via=receipt-epochF OK",
+      "STMT SCORECARD:9 cls=pop stated=10 auth=10 via=pop-size OK",
+      "STMT SCORECARD:9 cls=pop stated=10 auth=10 via=pop-match OK",
+      "STMT SCORECARD:9 cls=clocks stated=10 auth=10 via=manifest-data-rows OK",
+      "STMT LESSON:5 cls=match stated=23 auth=23 via=receipt-epochF OK"
+    ],
+    "changed": {
+      "LOG.md": {
+        "base": "dfb38c5ec4482e54685080bcb80e95a6894dceb072ed2fe4456185e234154683",
+        "forged": "d0c521b3c799174482d6e91a8301a05bdbdabb5978a83c47f0d693a8fdb3edc5"
+      },
+      "SCORECARD.md": {
+        "base": "990254ae02b185050040d51fa0164862a43ac36cf53bdad2b3bc7441549e0910",
+        "forged": "7fdc7d0befec5b0bd590c54be0e9c6f8ce363333f546563bd83b41ec1360aff8"
+      },
+      "corpus/current-claims.py": {
+        "base": "absent",
+        "forged": "a111c96f9bfea7487bc34b663a8bed37f08504e09af41404eff667d46ab0bb9f"
+      },
+      "corpus/lessons/round-56.md": {
+        "base": "566e5dfc80093ff4bc837b1a57962dfe804dddb20b347d12e3abf18da2d709fd",
+        "forged": "ca422e8277b126aa20540089a5e185fce51dc6ae2235212644b2ccd14675829f"
+      }
+    },
+    "admitted": true,
+    "value": "0",
+    "population": 9,
+    "gate": "1",
+    "guard": "1"
+  },
+  {
+    "name": "E3-stricter-gate",
+    "note": "guard punishes extra sensitivity (kill-rule c)",
+    "driver_rc": 0,
+    "driver_last": "C1_CURRENT: value=FAIL population=9 gate=0 guard=0 (checker=CURRENT_CLAIMS: value=0 population=9 mismatches=0 unbound=0 cases=0 match=3 epochs=0 clocks=2 pop=4 guard=1)",
+    "checker_summary": "CURRENT_CLAIMS: value=0 population=9 mismatches=0 unbound=0 cases=0 match=3 epochs=0 clocks=2 pop=4 guard=1",
+    "statements": [
+      "STMT SCORECARD:3 cls=pop stated=10 auth=10 via=pop-size OK",
+      "STMT SCORECARD:3 cls=pop stated=10 auth=10 via=pop-match OK",
+      "STMT SCORECARD:3 cls=match stated=23 auth=23 via=receipt-epochF OK",
+      "STMT SCORECARD:3 cls=clocks stated=10 auth=10 via=manifest-data-rows OK",
+      "STMT SCORECARD:5 cls=match stated=23 auth=23 via=receipt-epochF OK",
+      "STMT SCORECARD:9 cls=pop stated=10 auth=10 via=pop-size OK",
+      "STMT SCORECARD:9 cls=pop stated=10 auth=10 via=pop-match OK",
+      "STMT SCORECARD:9 cls=clocks stated=10 auth=10 via=manifest-data-rows OK",
+      "STMT LESSON:5 cls=match stated=23 auth=23 via=receipt-epochF OK"
+    ],
+    "changed": {
+      "LOG.md": {
+        "base": "dfb38c5ec4482e54685080bcb80e95a6894dceb072ed2fe4456185e234154683",
+        "forged": "d0c521b3c799174482d6e91a8301a05bdbdabb5978a83c47f0d693a8fdb3edc5"
+      },
+      "SCORECARD.md": {
+        "base": "990254ae02b185050040d51fa0164862a43ac36cf53bdad2b3bc7441549e0910",
+        "forged": "7fdc7d0befec5b0bd590c54be0e9c6f8ce363333f546563bd83b41ec1360aff8"
+      },
+      "corpus/current-claims.py": {
+        "base": "absent",
+        "forged": "13ac4098d94cc3c4b6bfabc39870e92d8a3749488a4137869c15bf3a66c7455c"
+      },
+      "corpus/lessons/round-56.md": {
+        "base": "566e5dfc80093ff4bc837b1a57962dfe804dddb20b347d12e3abf18da2d709fd",
+        "forged": "ca422e8277b126aa20540089a5e185fce51dc6ae2235212644b2ccd14675829f"
+      }
+    },
+    "admitted": false,
+    "value": "FAIL",
+    "population": 9,
+    "gate": "0",
+    "guard": "0"
+  },
+  {
+    "name": "F1-wrong-epoch-letter",
+    "note": "wrong-epoch subject: nearest-letter pairing",
+    "driver_rc": 0,
+    "driver_last": "C1_CURRENT: value=3 population=17 gate=0 guard=1 (checker=CURRENT_CLAIMS: value=3 population=17 mismatches=3 unbound=0 cases=3 match=8 epochs=2 clocks=2 pop=2 guard=1)",
+    "checker_summary": "CURRENT_CLAIMS: value=3 population=17 mismatches=3 unbound=0 cases=3 match=8 epochs=2 clocks=2 pop=2 guard=1",
+    "statements": [
+      "STMT SCORECARD:3 cls=match stated=22 auth=22 via=nearest-epochE OK",
+      "STMT SCORECARD:5 cls=match stated=23 auth=23 via=receipt-epochF OK",
+      "STMT SCORECARD:9 cls=cases stated=18 auth=20 via=recheck-replay-selftest MISMATCH",
+      "STMT SCORECARD:9 cls=pop stated=10 auth=10 via=pop-size OK",
+      "STMT SCORECARD:9 cls=pop stated=10 auth=10 via=pop-match OK",
+      "STMT SCORECARD:9 cls=clocks stated=10 auth=10 via=manifest-data-rows OK",
+      "STMT LOG:1 cls=epochs stated=4 auth=6 via=receipt-file-count MISMATCH",
+      "STMT LOG:3 cls=match stated=16 auth=16 via=nearest-epochB OK",
+      "STMT LOG:3 cls=match stated=20 auth=20 via=nearest-epochC OK",
+      "STMT LOG:3 cls=match stated=21 auth=21 via=nearest-epochD OK",
+      "STMT LOG:3 cls=match stated=22 auth=22 via=nearest-epochE OK",
+      "STMT LOG:3 cls=match stated=23 auth=23 via=nearest-epochF OK",
+      "STMT LESSON:5 cls=match stated=23 auth=23 via=receipt-epochF OK",
+      "STMT LESSON:9 cls=cases stated=20 auth=20 via=recheck-replay-selftest OK",
+      "STMT LESSON:9 cls=cases stated=20 auth=20 via=recheck-replay-selftest OK",
+      "STMT LESSON:9 cls=epochs stated=3 auth=6 via=receipt-file-count MISMATCH",
+      "STMT LESSON:9 cls=clocks stated=10 auth=10 via=manifest-data-rows OK"
+    ],
+    "changed": {
+      "SCORECARD.md": {
+        "base": "990254ae02b185050040d51fa0164862a43ac36cf53bdad2b3bc7441549e0910",
+        "forged": "89b6d9cc33b4c1d4ae0e2781c488801e7a96c3fd7a92179db90c1cc806347fad"
+      }
+    },
+    "admitted": false,
+    "value": "3",
+    "population": 17,
+    "gate": "0",
+    "guard": "1"
+  },
+  {
+    "name": "F2-wrong-epoch-receipt",
+    "note": "wrong-epoch subject: receipt-path form",
+    "driver_rc": 0,
+    "driver_last": "C1_CURRENT: value=4 population=17 gate=0 guard=1 (checker=CURRENT_CLAIMS: value=4 population=17 mismatches=4 unbound=0 cases=3 match=8 epochs=2 clocks=2 pop=2 guard=1)",
+    "checker_summary": "CURRENT_CLAIMS: value=4 population=17 mismatches=4 unbound=0 cases=3 match=8 epochs=2 clocks=2 pop=2 guard=1",
+    "statements": [
+      "STMT SCORECARD:3 cls=match stated=22 auth=23 via=receipt-epochF MISMATCH",
+      "STMT SCORECARD:5 cls=match stated=23 auth=23 via=receipt-epochF OK",
+      "STMT SCORECARD:9 cls=cases stated=18 auth=20 via=recheck-replay-selftest MISMATCH",
+      "STMT SCORECARD:9 cls=pop stated=10 auth=10 via=pop-size OK",
+      "STMT SCORECARD:9 cls=pop stated=10 auth=10 via=pop-match OK",
+      "STMT SCORECARD:9 cls=clocks stated=10 auth=10 via=manifest-data-rows OK",
+      "STMT LOG:1 cls=epochs stated=4 auth=6 via=receipt-file-count MISMATCH",
+      "STMT LOG:3 cls=match stated=16 auth=16 via=nearest-epochB OK",
+      "STMT LOG:3 cls=match stated=20 auth=20 via=nearest-epochC OK",
+      "STMT LOG:3 cls=match stated=21 auth=21 via=nearest-epochD OK",
+      "STMT LOG:3 cls=match stated=22 auth=22 via=nearest-epochE OK",
+      "STMT LOG:3 cls=match stated=23 auth=23 via=nearest-epochF OK",
+      "STMT LESSON:5 cls=match stated=23 auth=23 via=receipt-epochF OK",
+      "STMT LESSON:9 cls=cases stated=20 auth=20 via=recheck-replay-selftest OK",
+      "STMT LESSON:9 cls=cases stated=20 auth=20 via=recheck-replay-selftest OK",
+      "STMT LESSON:9 cls=epochs stated=3 auth=6 via=receipt-file-count MISMATCH",
+      "STMT LESSON:9 cls=clocks stated=10 auth=10 via=manifest-data-rows OK"
+    ],
+    "changed": {
+      "SCORECARD.md": {
+        "base": "990254ae02b185050040d51fa0164862a43ac36cf53bdad2b3bc7441549e0910",
+        "forged": "92e87415b28c3be1c1ba5efb871ae8fdab241b9985f86b20b7bfff4813536603"
+      }
+    },
+    "admitted": false,
+    "value": "4",
+    "population": 17,
+    "gate": "0",
+    "guard": "1"
+  },
+  {
+    "name": "G-unbound-diagnostic",
+    "note": "unbound reported as 0 while counted in value",
+    "driver_rc": 0,
+    "driver_last": "C1_CURRENT: value=4 population=17 gate=0 guard=1 (checker=CURRENT_CLAIMS: value=4 population=17 mismatches=4 unbound=0 cases=4 match=7 epochs=2 clocks=2 pop=2 guard=1)",
+    "checker_summary": "CURRENT_CLAIMS: value=4 population=17 mismatches=4 unbound=0 cases=4 match=7 epochs=2 clocks=2 pop=2 guard=1",
+    "statements": [
+      "STMT SCORECARD:3 cls=cases stated=12 auth=none via=no-named-instrument UNBOUND",
+      "STMT SCORECARD:5 cls=match stated=23 auth=23 via=receipt-epochF OK",
+      "STMT SCORECARD:9 cls=cases stated=18 auth=20 via=recheck-replay-selftest MISMATCH",
+      "STMT SCORECARD:9 cls=pop stated=10 auth=10 via=pop-size OK",
+      "STMT SCORECARD:9 cls=pop stated=10 auth=10 via=pop-match OK",
+      "STMT SCORECARD:9 cls=clocks stated=10 auth=10 via=manifest-data-rows OK",
+      "STMT LOG:1 cls=epochs stated=4 auth=6 via=receipt-file-count MISMATCH",
+      "STMT LOG:3 cls=match stated=16 auth=16 via=nearest-epochB OK",
+      "STMT LOG:3 cls=match stated=20 auth=20 via=nearest-epochC OK",
+      "STMT LOG:3 cls=match stated=21 auth=21 via=nearest-epochD OK",
+      "STMT LOG:3 cls=match stated=22 auth=22 via=nearest-epochE OK",
+      "STMT LOG:3 cls=match stated=23 auth=23 via=nearest-epochF OK",
+      "STMT LESSON:5 cls=match stated=23 auth=23 via=receipt-epochF OK",
+      "STMT LESSON:9 cls=cases stated=20 auth=20 via=recheck-replay-selftest OK",
+      "STMT LESSON:9 cls=cases stated=20 auth=20 via=recheck-replay-selftest OK",
+      "STMT LESSON:9 cls=epochs stated=3 auth=6 via=receipt-file-count MISMATCH",
+      "STMT LESSON:9 cls=clocks stated=10 auth=10 via=manifest-data-rows OK"
+    ],
+    "changed": {
+      "SCORECARD.md": {
+        "base": "990254ae02b185050040d51fa0164862a43ac36cf53bdad2b3bc7441549e0910",
+        "forged": "ee1f023acfa0caaf3b7b62c2d34dbdacae36b37847473ec635fece7db9ac6237"
+      }
+    },
+    "admitted": false,
+    "value": "4",
+    "population": 17,
+    "gate": "0",
+    "guard": "1"
+  },
+  {
+    "name": "H-number-anchor",
+    "note": "regex anchors mid-number: 1,018 -> 18",
+    "driver_rc": 0,
+    "driver_last": "C1_CURRENT: value=4 population=17 gate=0 guard=1 (checker=CURRENT_CLAIMS: value=4 population=17 mismatches=4 unbound=0 cases=4 match=7 epochs=2 clocks=2 pop=2 guard=1)",
+    "checker_summary": "CURRENT_CLAIMS: value=4 population=17 mismatches=4 unbound=0 cases=4 match=7 epochs=2 clocks=2 pop=2 guard=1",
+    "statements": [
+      "STMT SCORECARD:3 cls=cases stated=18 auth=none via=no-named-instrument UNBOUND",
+      "STMT SCORECARD:5 cls=match stated=23 auth=23 via=receipt-epochF OK",
+      "STMT SCORECARD:9 cls=cases stated=18 auth=20 via=recheck-replay-selftest MISMATCH",
+      "STMT SCORECARD:9 cls=pop stated=10 auth=10 via=pop-size OK",
+      "STMT SCORECARD:9 cls=pop stated=10 auth=10 via=pop-match OK",
+      "STMT SCORECARD:9 cls=clocks stated=10 auth=10 via=manifest-data-rows OK",
+      "STMT LOG:1 cls=epochs stated=4 auth=6 via=receipt-file-count MISMATCH",
+      "STMT LOG:3 cls=match stated=16 auth=16 via=nearest-epochB OK",
+      "STMT LOG:3 cls=match stated=20 auth=20 via=nearest-epochC OK",
+      "STMT LOG:3 cls=match stated=21 auth=21 via=nearest-epochD OK",
+      "STMT LOG:3 cls=match stated=22 auth=22 via=nearest-epochE OK",
+      "STMT LOG:3 cls=match stated=23 auth=23 via=nearest-epochF OK",
+      "STMT LESSON:5 cls=match stated=23 auth=23 via=receipt-epochF OK",
+      "STMT LESSON:9 cls=cases stated=20 auth=20 via=recheck-replay-selftest OK",
+      "STMT LESSON:9 cls=cases stated=20 auth=20 via=recheck-replay-selftest OK",
+      "STMT LESSON:9 cls=epochs stated=3 auth=6 via=receipt-file-count MISMATCH",
+      "STMT LESSON:9 cls=clocks stated=10 auth=10 via=manifest-data-rows OK"
+    ],
+    "changed": {
+      "SCORECARD.md": {
+        "base": "990254ae02b185050040d51fa0164862a43ac36cf53bdad2b3bc7441549e0910",
+        "forged": "2597caf2a4a5f735ee99c1c577bb486453236c814f2bfb98c8fed1e1cfaa2e8c"
+      }
+    },
+    "admitted": false,
+    "value": "4",
+    "population": 17,
+    "gate": "0",
+    "guard": "1"
+  },
+  {
+    "name": "I-decoy-section",
+    "note": "decoy heading: first-match-wins shadowing",
+    "driver_rc": 0,
+    "driver_last": "C1_CURRENT: value=2 population=15 gate=0 guard=1 (checker=CURRENT_CLAIMS: value=2 population=15 mismatches=2 unbound=0 cases=2 match=7 epochs=2 clocks=2 pop=2 guard=1)",
+    "checker_summary": "CURRENT_CLAIMS: value=2 population=15 mismatches=2 unbound=0 cases=2 match=7 epochs=2 clocks=2 pop=2 guard=1",
+    "statements": [
+      "STMT SCORECARD:3 cls=pop stated=10 auth=10 via=pop-size OK",
+      "STMT SCORECARD:3 cls=pop stated=10 auth=10 via=pop-match OK",
+      "STMT SCORECARD:3 cls=match stated=23 auth=23 via=receipt-epochF OK",
+      "STMT SCORECARD:3 cls=clocks stated=10 auth=10 via=manifest-data-rows OK",
+      "STMT LOG:1 cls=epochs stated=4 auth=6 via=receipt-file-count MISMATCH",
+      "STMT LOG:3 cls=match stated=16 auth=16 via=nearest-epochB OK",
+      "STMT LOG:3 cls=match stated=20 auth=20 via=nearest-epochC OK",
+      "STMT LOG:3 cls=match stated=21 auth=21 via=nearest-epochD OK",
+      "STMT LOG:3 cls=match stated=22 auth=22 via=nearest-epochE OK",
+      "STMT LOG:3 cls=match stated=23 auth=23 via=nearest-epochF OK",
+      "STMT LESSON:5 cls=match stated=23 auth=23 via=receipt-epochF OK",
+      "STMT LESSON:9 cls=cases stated=20 auth=20 via=recheck-replay-selftest OK",
+      "STMT LESSON:9 cls=cases stated=20 auth=20 via=recheck-replay-selftest OK",
+      "STMT LESSON:9 cls=epochs stated=3 auth=6 via=receipt-file-count MISMATCH",
+      "STMT LESSON:9 cls=clocks stated=10 auth=10 via=manifest-data-rows OK"
+    ],
+    "changed": {
+      "SCORECARD.md": {
+        "base": "990254ae02b185050040d51fa0164862a43ac36cf53bdad2b3bc7441549e0910",
+        "forged": "18c13a45643bcf220c137c9414800087ad3374d6a5d80f6ac425bc6b3173537e"
+      }
+    },
+    "admitted": false,
+    "value": "2",
+    "population": 15,
+    "gate": "0",
+    "guard": "1"
+  }
+]

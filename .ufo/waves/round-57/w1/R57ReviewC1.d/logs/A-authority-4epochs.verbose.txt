@@ -1,0 +1,17 @@
+STMT SCORECARD:3 cls=match stated=23 auth=23 via=receipt-epochF OK
+STMT SCORECARD:7 cls=cases stated=18 auth=18 via=recheck-replay-selftest OK
+STMT SCORECARD:7 cls=pop stated=10 auth=10 via=pop-size OK
+STMT SCORECARD:7 cls=pop stated=10 auth=10 via=pop-match OK
+STMT SCORECARD:7 cls=clocks stated=10 auth=10 via=manifest-data-rows OK
+STMT LOG:1 cls=epochs stated=4 auth=4 via=receipt-file-count OK
+STMT LOG:3 cls=match stated=16 auth=16 via=nearest-epochB OK
+STMT LOG:3 cls=match stated=20 auth=20 via=nearest-epochC OK
+STMT LOG:3 cls=match stated=21 auth=21 via=nearest-epochD OK
+STMT LOG:3 cls=match stated=22 auth=22 via=nearest-epochE OK
+STMT LOG:3 cls=match stated=23 auth=23 via=nearest-epochF OK
+STMT LESSON:5 cls=match stated=23 auth=23 via=receipt-epochF OK
+STMT LESSON:9 cls=cases stated=20 auth=18 via=recheck-replay-selftest MISMATCH
+STMT LESSON:9 cls=cases stated=20 auth=18 via=recheck-replay-selftest MISMATCH
+STMT LESSON:9 cls=epochs stated=3 auth=4 via=receipt-file-count MISMATCH
+STMT LESSON:9 cls=clocks stated=10 auth=10 via=manifest-data-rows OK
+CURRENT_CLAIMS: value=3 population=16 mismatches=3 unbound=0 cases=3 match=7 epochs=2 clocks=2 pop=2 guard=1

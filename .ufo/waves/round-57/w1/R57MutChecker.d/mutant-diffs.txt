@@ -1,0 +1,196 @@
+######## M0 checker vs frozen
+######## M0 runner vs frozen c1.sh
+######## M1 checker vs frozen
+--- frozen/plans/round-57-c1-check.py	2026-11-07 11:20:11.835479610 -0300
++++ mut/M1/plans/round-57-c1-check.py	2026-11-07 11:21:19.778996101 -0300
+@@ -245,7 +245,7 @@
+                      "manifest-data-rows")
+ 
+     guard = 1 if population >= 8 else 0
+-    value = bad if guard else "FAIL"
++    value = 0 if guard else "FAIL"  # M1: value ignores mismatches
+     print(f"CURRENT_CLAIMS: value={value} population={population} "
+           f"mismatches={bad} unbound=0 cases={per['cases']} match={per['match']} "
+           f"epochs={per['epochs']} clocks={per['clocks']} pop={per['pop']} guard={guard}")
+######## M1 runner vs frozen c1.sh
+######## M2 checker vs frozen
+--- frozen/plans/round-57-c1-check.py	2026-11-07 11:20:11.835479610 -0300
++++ mut/M2/plans/round-57-c1-check.py	2026-11-07 11:21:19.779285481 -0300
+@@ -244,7 +244,7 @@
+                 stmt(name, i, "clocks", int(m.group(1)), clocks_auth,
+                      "manifest-data-rows")
+ 
+-    guard = 1 if population >= 8 else 0
++    guard = 1 if population >= 0 else 0  # M2: floor 8 -> 0
+     value = bad if guard else "FAIL"
+     print(f"CURRENT_CLAIMS: value={value} population={population} "
+           f"mismatches={bad} unbound=0 cases={per['cases']} match={per['match']} "
+######## M2 runner vs frozen c1.sh
+######## M3 checker vs frozen
+--- frozen/plans/round-57-c1-check.py	2026-11-07 11:20:11.835479610 -0300
++++ mut/M3/plans/round-57-c1-check.py	2026-11-07 11:21:19.779512641 -0300
+@@ -225,7 +225,7 @@
+                 if recs and len(recs) == len(ms):
+                     pairs = [(int(m.group(1)), recs[j]) for j, m in enumerate(ms)]
+                     for stated, L in pairs:
+-                        stmt(name, i, "match", stated, match_auth.get(L),
++                        stmt(name, i, "match", stated, stated,  # M3: receipt authority ignored
+                              f"receipt-epoch{L}")
+                 else:
+                     for m in ms:
+######## M3 runner vs frozen c1.sh
+######## M4 checker vs frozen
+--- frozen/plans/round-57-c1-check.py	2026-11-07 11:20:11.835479610 -0300
++++ mut/M4/plans/round-57-c1-check.py	2026-11-07 11:21:19.779699011 -0300
+@@ -239,7 +239,7 @@
+                 w = m.group(1).lower()
+                 stated = WORDNUM.get(w, int(w) if w.isdigit() else None)
+                 stmt(name, i, "epochs", stated if stated is not None else -1,
+-                     epochs_auth, "receipt-file-count")
++                     stated if stated is not None else -1, "receipt-file-count")  # M4: epoch auth = stated
+             for m in CLOCKS_RE.finditer(line):
+                 stmt(name, i, "clocks", int(m.group(1)), clocks_auth,
+                      "manifest-data-rows")
+######## M4 runner vs frozen c1.sh
+######## M5 checker vs frozen
+--- frozen/plans/round-57-c1-check.py	2026-11-07 11:20:11.835479610 -0300
++++ mut/M5/plans/round-57-c1-check.py	2026-11-07 11:21:19.779890201 -0300
+@@ -184,7 +184,7 @@
+     cases_auth = selftest_cases(root)
+     match_auth = {L: receipt_match(root, L) for L in "ABCDEF"}
+     epochs_auth = epoch_declared(root)
+-    clocks_auth = manifest_rows(root)
++    clocks_auth = 10  # M5: clocks authority hardcoded to the true value
+ 
+     population = 0
+     bad = 0
+######## M5 runner vs frozen c1.sh
+######## M6 checker vs frozen
+--- frozen/plans/round-57-c1-check.py	2026-11-07 11:20:11.835479610 -0300
++++ mut/M6/plans/round-57-c1-check.py	2026-11-07 11:21:19.780112491 -0300
+@@ -229,12 +229,8 @@
+                              f"receipt-epoch{L}")
+                 else:
+                     for m in ms:
+-                        before = line[: m.start()]
+-                        letters = LETTER_REV_RE.findall(before)
+-                        L = letters[-1] if letters else None
+                         stmt(name, i, "match", int(m.group(1)),
+-                             match_auth.get(L) if L else None,
+-                             f"nearest-epoch{L or '-'}")
++                             None, "nearest-epoch-removed")  # M6: pairing removed
+             for m in EPOCHS_RE.finditer(line):
+                 w = m.group(1).lower()
+                 stated = WORDNUM.get(w, int(w) if w.isdigit() else None)
+######## M6 runner vs frozen c1.sh
+######## M7 checker vs frozen
+--- frozen/plans/round-57-c1-check.py	2026-11-07 11:20:11.835479610 -0300
++++ mut/M7/plans/round-57-c1-check.py	2026-11-07 11:21:19.780352531 -0300
+@@ -173,9 +173,9 @@
+     lg = read(root, "LOG.md")
+     ls = read(root, "corpus/lessons/round-56.md")
+     if not sc or not lg or not ls:
+-        print("CURRENT_CLAIMS: value=FAIL population=0 mismatches=0 unbound=0 "
+-              "cases=0 match=0 epochs=0 clocks=0")
+-        return 1
++        print("CURRENT_CLAIMS: value=0 population=16 mismatches=0 unbound=0 "
++              "cases=0 match=0 epochs=0 clocks=0 guard=1")  # M7: missing surface reads clean
++        return 0
+     surfaces = [
+         ("SCORECARD", section(sc, r"^## Round 56 [—-] post-move")),
+         ("LOG", section(lg, r"^## Round 56 \(")),
+######## M7 runner vs frozen c1.sh
+######## M8 checker vs frozen
+--- frozen/plans/round-57-c1-check.py	2026-11-07 11:20:11.835479610 -0300
++++ mut/M8/plans/round-57-c1-check.py	2026-11-07 11:21:19.780572232 -0300
+@@ -215,9 +215,7 @@
+                     stmt(name, i, "cases", stated, None, "no-named-instrument")
+             pop_spans = []
+             for m in POP_RE.finditer(line):
+-                pop_spans.append((m.start(), m.end()))
+-                stmt(name, i, "pop", int(m.group(1)), clocks_auth, "pop-size")
+-                stmt(name, i, "pop", int(m.group(2)), clocks_auth, "pop-match")
++                pop_spans.append((m.start(), m.end()))  # M8: N/N MATCH not counted as pop
+             ms = [m for m in MATCH_RE.finditer(line)
+                   if not any(a <= m.start() < b for a, b in pop_spans)]
+             if ms:
+######## M8 runner vs frozen c1.sh
+######## M8b checker vs frozen
+--- frozen/plans/round-57-c1-check.py	2026-11-07 11:20:11.835479610 -0300
++++ mut/M8b/plans/round-57-c1-check.py	2026-11-07 11:21:19.780911512 -0300
+@@ -213,11 +213,7 @@
+                     stmt(name, i, "cases", stated, cases_auth, "recheck-replay-selftest")
+                 else:
+                     stmt(name, i, "cases", stated, None, "no-named-instrument")
+-            pop_spans = []
+-            for m in POP_RE.finditer(line):
+-                pop_spans.append((m.start(), m.end()))
+-                stmt(name, i, "pop", int(m.group(1)), clocks_auth, "pop-size")
+-                stmt(name, i, "pop", int(m.group(2)), clocks_auth, "pop-match")
++            pop_spans = []  # M8b: whole pop block deleted (fall-through probe)
+             ms = [m for m in MATCH_RE.finditer(line)
+                   if not any(a <= m.start() < b for a, b in pop_spans)]
+             if ms:
+######## M8b runner vs frozen c1.sh
+######## M9 checker vs frozen
+--- frozen/plans/round-57-c1-check.py	2026-11-07 11:20:11.835479610 -0300
++++ mut/M9/plans/round-57-c1-check.py	2026-11-07 11:21:19.781132092 -0300
+@@ -86,6 +86,7 @@
+ 
+ 
+ def selftest_cases(root: str) -> int | None:
++    return 20  # M9: selftest case authority hardcoded
+     gate = os.path.join(root, "corpus", "recheck-replay.py")
+     if not os.path.isfile(gate):
+         return None
+######## M9 runner vs frozen c1.sh
+######## M10 checker vs frozen
+--- frozen/plans/round-57-c1-check.py	2026-11-07 11:20:11.835479610 -0300
++++ mut/M10/plans/round-57-c1-check.py	2026-11-07 11:21:19.781335392 -0300
+@@ -245,7 +245,7 @@
+                      "manifest-data-rows")
+ 
+     guard = 1 if population >= 8 else 0
+-    value = bad if guard else "FAIL"
++    value = 0  # M10: population counted, value always 0
+     print(f"CURRENT_CLAIMS: value={value} population={population} "
+           f"mismatches={bad} unbound=0 cases={per['cases']} match={per['match']} "
+           f"epochs={per['epochs']} clocks={per['clocks']} pop={per['pop']} guard={guard}")
+######## M10 runner vs frozen c1.sh
+######## S2s runner vs frozen c1.sh
+--- frozen/plans/round-57-c1.sh	2026-11-07 11:20:11.840479629 -0300
++++ mut/S2s/plans/round-57-c1.sh	2026-11-07 11:21:19.781721232 -0300
+@@ -57,7 +57,7 @@
+ fi
+ GUARD=0; FLOOR=0
+ case "$P" in ''|*[!0-9]*) P=0;; esac
+-[ "$P" -ge 8 ] && [ "$G" = 1 ] && FLOOR=1
++[ "$P" -ge 0 ] && [ "$G" = 1 ] && FLOOR=1
+ [ "$FLOOR" = 1 ] && { [ "$GATE" = 1 ] || [ ! -f "$ROOT/corpus/current-claims.py" ]; } && GUARD=1
+ [ "$GUARD" = 1 ] && V=$V || V=FAIL
+ printf 'C1_CURRENT: value=%s population=%s gate=%s guard=%s (checker=%s)\n' \
+######## S2s checker vs frozen checker
+######## M2S2 runner vs frozen c1.sh
+--- frozen/plans/round-57-c1.sh	2026-11-07 11:20:11.840479629 -0300
++++ mut/M2S2/plans/round-57-c1.sh	2026-11-07 11:21:19.782016932 -0300
+@@ -57,7 +57,7 @@
+ fi
+ GUARD=0; FLOOR=0
+ case "$P" in ''|*[!0-9]*) P=0;; esac
+-[ "$P" -ge 8 ] && [ "$G" = 1 ] && FLOOR=1
++[ "$P" -ge 0 ] && [ "$G" = 1 ] && FLOOR=1
+ [ "$FLOOR" = 1 ] && { [ "$GATE" = 1 ] || [ ! -f "$ROOT/corpus/current-claims.py" ]; } && GUARD=1
+ [ "$GUARD" = 1 ] && V=$V || V=FAIL
+ printf 'C1_CURRENT: value=%s population=%s gate=%s guard=%s (checker=%s)\n' \
+######## M2S2 checker vs frozen checker
+--- frozen/plans/round-57-c1-check.py	2026-11-07 11:20:11.835479610 -0300
++++ mut/M2S2/plans/round-57-c1-check.py	2026-11-07 11:21:19.781920492 -0300
+@@ -244,7 +244,7 @@
+                 stmt(name, i, "clocks", int(m.group(1)), clocks_auth,
+                      "manifest-data-rows")
+ 
+-    guard = 1 if population >= 8 else 0
++    guard = 1 if population >= 0 else 0  # M2: floor 8 -> 0
+     value = bad if guard else "FAIL"
+     print(f"CURRENT_CLAIMS: value={value} population={population} "
+           f"mismatches={bad} unbound=0 cases={per['cases']} match={per['match']} "

@@ -1,0 +1,65 @@
+# R57ScoutSources -- round-57 S115/S116 fetch receipt
+# Date (host clock): 2026-11-07. Lane: /home/vgpnk/Projects/shokunin/kagi-shokunin
+# Branch: master (detached HEAD 7aa1f4726e1f6bcdc8411d1a8b21828d49785173); BASE 1cda9e7ae4767b4133e283bfbc08266d4c86362d present.
+# curl: /usr/bin/curl 8.23.0 (x86_64-pc-linux-gnu) libcurl/8.23.0 OpenSSL/3.6.5 zlib/1.3.2 brotli/1.2.0 zstd/1.5.7
+# sha256sum: GNU coreutils (sha256sum on PATH); python3 3.14.8 (text extraction only)
+# No packages installed (ALL pacman transactions PAUSED; nothing installed, nothing upgraded).
+# No response headers or cookies were captured: only the body was written to disk (-o), status/bytes via -w.
+# Browser UA used verbatim below. Default UA = whatever curl 8.23.0 sends (curl/8.23.0).
+BROWSER_UA='Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36'
+
+# --- F1: S115 browser UA
+cmd: curl -fsSL --compressed --max-time 60 -A "$BROWSER_UA" -o openbao-docs-audit.browser.html -w '%{http_code} %{size_download} %{url_effective}' https://openbao.org/docs/audit/
+http=200  wire_bytes=10378  file_bytes=41787  sha256=76339ff7dab618b5e5532bca6daf9dd8361330a43b737408304abfd1d79090c6  rc=0
+effective_url=https://openbao.org/docs/audit/  content_type=text/html; charset=utf-8
+
+# --- F2: S115 default UA
+cmd: curl -fsSL --compressed --max-time 60 -o openbao-docs-audit.default.html -w '%{http_code} %{size_download} %{url_effective}' https://openbao.org/docs/audit/
+http=200  wire_bytes=10378  file_bytes=41787  sha256=76339ff7dab618b5e5532bca6daf9dd8361330a43b737408304abfd1d79090c6  rc=0
+effective_url=https://openbao.org/docs/audit/  content_type=text/html; charset=utf-8
+NOTE: byte-identical to F1 (same sha256) -> the site does not vary the body by UA.
+
+# --- F3: S116 browser UA
+cmd: curl -fsSL --compressed --max-time 60 -A "$BROWSER_UA" -o openbao-docs-commands-audit.browser.html -w '%{http_code} %{size_download} %{url_effective}' https://openbao.org/docs/commands/audit/
+http=200  wire_bytes=6852  file_bytes=33338  sha256=3dc8873201fdb3a971eb5fb1c1cee6a804462510c962ea5df6121cad0d9905ce  rc=0
+effective_url=https://openbao.org/docs/commands/audit/  content_type=text/html; charset=utf-8
+
+# --- F4: S116 default UA
+cmd: curl -fsSL --compressed --max-time 60 -o openbao-docs-commands-audit.default.html -w '%{http_code} %{size_download} %{url_effective}' https://openbao.org/docs/commands/audit/
+http=200  wire_bytes=6852  file_bytes=33338  sha256=3dc8873201fdb3a971eb5fb1c1cee6a804462510c962ea5df6121cad0d9905ce  rc=0
+effective_url=https://openbao.org/docs/commands/audit/  content_type=text/html; charset=utf-8
+NOTE: byte-identical to F3 (same sha256) -> the site does not vary the body by UA.
+
+# --- Supporting vendor pages fetched the same way (browser UA), bodies under fetch/
+https://openbao.org/docs/api/system/audit-hash/  http=200 file_bytes=35071 sha256=bca1461ee6a1a2a3ca0658f815535878de29446b9459fe2283f3c0e62beeaca9
+https://openbao.org/docs/audit/file/             http=200 file_bytes=26216 sha256=726c323f601383968a8eec046f9c4fc810bad6e3c0d4cfbbd57eeb476d47c3af
+https://openbao.org/docs/commands/audit/enable/  http=200 file_bytes=30665 sha256=cca04ec2ce83adc4123aa55f1d4f4c300558845abd0331a3c322592f02eba3fa
+https://openbao.org/docs/commands/audit/list/    http=200 file_bytes=31968 sha256=4541db71c1ec2fc44f0a2890a65602105fe418c96bdac2dfaf12d07543b7224b
+https://openbao.org/docs/commands/audit/disable/ http=200 file_bytes=30987 sha256=5e5045b0cfb681a9aa3287d71bc06353e9cf3a01eb309a5c9149a847464949d5
+https://openbao.org/docs/commands/status/         http=200 file_bytes=32063 sha256=ea66dd4924d56dfac1ae082d276602fe2f704c3b1027a067646227b1968fc5f8
+https://openbao.org/docs/api/system/seal-status/  http=200 file_bytes=42816 sha256=8abb8603eb7d6baab47b59cb46475e2e1a54435baa9e6293500a9108802ae0e2
+https://openbao.org/docs/configuration/audit/      http=200 file_bytes=30556 sha256=23024447e1a9b008d1642bc664f0bdf130cd3249795507146fe8a621e8ab9919
+https://openbao.org/docs/api/system/audit/             http=200 file_bytes=43161 sha256=1693a4dbd493a848b337803d7f4f7c038b254b2f90032ff37474905c4fd853f0
+
+# --- byte offsets of the quoted sentences inside the saved bodies (grep -abo, first hit) ---
+openbao-docs-audit.browser.html:
+  17753  "The non-audited paths are"          (non-audited list head; list items follow in the same code block)
+  19946  "When multiple audit devices are enabled, OpenBao will attempt to send the audit"  (Enabling multiple devices)
+  20172  "OpenBao considers a request to be successful"                                        (Enabling multiple devices)
+  21573  "Currently, only two types exist"                                                     (Format)
+  22293  "Most strings contained within requests and responses are hashed with a salt using HMAC-SHA256"  (Sensitive information)
+  22423  "secrets aren't in plaintext within your audit logs"                                  (Sensitive information)
+  23259  "only strings that come from JSON"                                                    (Sensitive information warning)
+  26370  "unsafe_allow_api_audit_creation"                                                     (Enabling/Disabling audit devices Note)
+  28300  "Once an audit device is disabled, you will no longer be able to HMAC values"         (Enabling/Disabling audit devices warning)
+  28493  "as a new salt will be created for hashing"                                           (same warning)
+  29352  "if any of them fail in a non-blocking fashion"                                       (Blocked audit devices)
+  29521  "If any of the audit devices fail in a blocking fashion however"                       (Blocked audit devices)
+  30820  "hmac_accessor"                                                                        (Common configuration options)
+  30953  "log_raw"                                                                              (Common configuration options)
+openbao-docs-commands-audit.browser.html:
+  26808  "Success! Enabled the file audit device at: file/"    (Examples)
+  27665  "file/    file    n/a"                                (Examples, bao audit list output)
+  29100  "as a new salt will be created for hashing"           (Examples, warning)
+openbao-docs-api-system-audit-hash.browser.html:
+  31752  "\"hash\""       31904  "hmac-sha256"                (Sample response)

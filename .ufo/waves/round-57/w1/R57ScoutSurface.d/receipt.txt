@@ -1,0 +1,34 @@
+R57ScoutSurface receipt
+date: 2026-11-07
+lane: /home/vgpnk/Projects/shokunin/kagi-shokunin (branch master)
+seat: R57ScoutSurface  task: independent re-derivation of the C1 POP reading
+tools: python3 3.14.8 (stdlib only, -I -B), git 2.56.0, bash, coreutils sha256sum
+installs: none (no pacman/uv/npm; all tools pre-existing)
+model: MiniMax-M3.1-Flash (minimax-code/MiniMax-M3.1-Flash)
+
+== frozen instruments read (sha256, working tree at read time) ==
+19d75337ce37259b08eaa8b960eedddac68bec70ed4eab3f55f9d621e142f72c  plans/round-57-c1-check.py  (UNCHANGED across the whole seat)
+3104b06f5bfaef77745bd0e5726d4e3ac86c471ff61eef2cc298ad21fee90601  plans/round-57-c1.sh   (AMENDED mid-seat to 6fcbdec7... at 11:31)
+3de6b4dec570594b7ff47971156b9eb9f932a50a2261ba568b51314e906439a9  plans/round-57-c2.sh   (AMENDED mid-seat to 140a8f2b...)
+6796ae7040b4956d28b9c71772c24c9ba0d4298e21e86f9f13dbff38e693ce41  plans/round-57-controls.sh (AMENDED mid-seat to ef6b99fa...)
+5773c1a423d16ecabe31535afa45c022ae5de27656a5cdd4d5415428102b84c2  plans/round-57.md      (AMENDED mid-seat to b130bb83...)
+
+== authorities (measured at BASE 1cda9e7ae4767b4133e283bfbc08266d4c86362d) ==
+python3 -I -B corpus/recheck-replay.py --selftest  -> "RECHECK_REPLAY_SELFTEST: PASS (20 cases)"   rc=0
+grep -h '^CONTROLS:' .ufo/waves/round-56/controls/controls-prefreeze*.txt
+   prefreeze=12  epochB=16  epochC=20  epochD=21  epochE=22  epochF=23
+grep -o 'epoch-[A-F]' plans/round-56.md | sort -u  -> epoch-A epoch-B epoch-C epoch-D epoch-E epoch-F  (6)
+awk over corpus/recheck-captures.tsv (5 comment lines + 'id\t' header at line 6) -> 10 data rows
+   S101 S113 S114 S054 S055 S057 S067 S070 S074 S078
+ls .ufo/waves/round-56/controls/ | grep -c 'controls-prefreeze-epoch[A-F].txt'  -> 5  (B,C,D,E,F; no epoch-A receipt)
+
+== checker readings ==
+python3 -I -B plans/round-57-c1-check.py --root <BASE tree> --verbose
+  CURRENT_CLAIMS: value=3 population=16 mismatches=3 unbound=0 cases=3 match=7 epochs=2 clocks=2 pop=2 guard=1  rc=1
+bash plans/round-57-c1.sh 1cda9e7ae4767b4133e283bfbc08266d4c86362d
+  C1_CURRENT: value=3 population=16 gate=0 guard=1  rc=0
+bash plans/round-57-c1.sh HEAD
+  C1_CURRENT: value=0 population=16 gate=1 challenge=1 guard=1  rc=0
+python3 -I -B corpus/current-claims.py --root <BASE tree> -> value=3 population=16  rc=0
+python3 -I -B corpus/current-claims.py --root <HEAD tree> -> value=0 population=16  rc=0
+HYAKU_SCRATCH=... bash plans/round-57-controls.sh -> CONTROLS: match=13 mismatch=0  rc=0

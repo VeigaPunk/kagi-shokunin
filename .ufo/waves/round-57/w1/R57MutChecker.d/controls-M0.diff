@@ -1,0 +1,24 @@
+--- frozen/plans/round-57-controls.sh	2026-11-07 11:20:11.863479716 -0300
++++ bin/controls-M0.sh	2026-11-07 11:20:23.165979584 -0300
+@@ -9,7 +9,8 @@
+ # REF-dependent controls print `PENDING <id>` when no REF tree is given; they are
+ #   not counted. The pre-freeze receipt is the no-REF run.
+ set -u -o pipefail
+-REPO=$(cd "$(dirname "$0")/.." && pwd -P)
++REPO=/fast/scratch/hyaku/kagi-r57/R57MutChecker/frozen/plans
++LANE=/home/vgpnk/Projects/shokunin/kagi-shokunin
+ BASE=1cda9e7ae4767b4133e283bfbc08266d4c86362d
+ REF=${1:-}
+ [ -n "$REF" ] && REF=$(cd "$REF" && pwd -P)
+@@ -17,9 +18,9 @@
+ mkdir -p -- "$SCR" || exit 2
+ trap 'rm -rf -- "$SCR"' EXIT
+ export TMPDIR=$SCR
+-C1="$REPO/plans/round-57-c1.sh"
++C1=/fast/scratch/hyaku/kagi-r57/R57MutChecker/mut/M0/plans/round-57-c1.sh
+ C2="$REPO/plans/round-57-c2.sh"
+-mk_base() { mkdir -p "$SCR/$1" && git -C "$REPO" archive "$BASE" | tar -x -C "$SCR/$1" || { echo "mk_base $1 failed" >&2; exit 2; }; }
++mk_base() { mkdir -p "$SCR/$1" && git -C "$LANE" archive "$BASE" | tar -x -C "$SCR/$1" || { echo "mk_base $1 failed" >&2; exit 2; }; }
+ mk_ref() { mkdir -p "$SCR/$1" || exit 2
+   (cd "$REF" && git ls-files -co --exclude-standard -z | python3 -I -B -c 'import os,sys
+ d=sys.stdin.buffer.read().split(b"\0")

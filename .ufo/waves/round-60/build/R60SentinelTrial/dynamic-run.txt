@@ -1,0 +1,38 @@
+# Dynamic run of corpus/openbao-approle-trial.sh
+# reviewed bytes sha256 49ea928f28f42c7cce91459fe577a6d80023db3844229047718f483bfed0e54f (27248 B, 15:39 -03)
+# strace -f on execve + every file mutation; /proc cmdline sampler scoped to the trial tree;
+# a recording loopback listener planted at the caller's BAO_ADDR/VAULT_ADDR; hostile env exported.
+
+## trial stdout
+TRIAL T1 HOLDS aref=1 upd=1 ctok=1
+TRIAL T2 HOLDS first=1 ref2=1 fresh=1
+TRIAL T3 HOLDS imm=1 expref=1 fresh=1
+TRIAL T4 HOLDS meta=1 cust=1 revoked=1
+TRIAL T5 HOLDS deny=1 upd=1 allow=1
+OPENBAO_APPROLE_TRIAL: HOLDS holds=5 broken=0 error=0 bao=v2.7.2
+argv_monitor: samples=301 bao_seen=1203 distinct=82 listeners=2 envnames=1 child_rc=0
+
+## argv / listener / env census
+cmdline_lines=82
+listen_lines=2
+listen_nonloopback=0
+argv_secret_shapes=0
+server_env_BAO_VAULT_names:
+  pid=1938680 BAO_DEV_ROOT_TOKEN_ID 
+
+## hostile listener connections
+conn_lines=0
+
+## strace audit
+EXEC: total=167 argv_hits=0 uuid_on_argv=0
+WRITES: total=93 outside=0
+
+## selftest (no bao on PATH)
+APPROLE_SELFTEST: PASS (cases=45)
+argv_monitor: samples=22 bao_seen=29 distinct=10 listeners=0 envnames=0 child_rc=0
+selftest_conn_lines=0
+selftest_listen_lines=0
+
+## parallel stress: 8 concurrent real runs
+      8 OPENBAO_APPROLE_TRIAL: HOLDS holds=5 broken=0 error=0 bao=v2.7.2
+      8 rc=0

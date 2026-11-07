@@ -1,0 +1,56 @@
+### C1-M1-item-always-1 tree=brk-i1h
+clean-full  rc=1 C1_ROUTED: value=FAIL population=7 i1=0 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+            c1-guard: copy delta dead-digit dead 0->1 on the evaluated line: value=1 expect=2; stub value=0 fails=True
+mutant-full rc=1 C1_ROUTED: value=FAIL population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+            c1-guard: copy delta dead-digit dead 0->1 on the evaluated line: value=0 expect=1; stub value=0 fails=True
+mutant-diag rc=1 C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+selftest    rc=1 C1_CHECK_SELFTEST: FAIL (43/46 cases) failed=evaluate-guard-good-tree,i1-later-restatement-in-block,challenge-plus1-fires-with-unresolved stderr=
+
+### C1-M2-any-nonempty-file tree=brk-i2
+clean-full  rc=1 C1_ROUTED: value=1 population=7 i1=1 i2=0 i3=1 i4=1 i5=1 i6=1 i7=1 guard=1
+            c1-guard: copy delta dead-digit dead 0->1 on the evaluated line: value=2 expect=2; stub value=0 fails=True
+mutant-full rc=0 C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=1
+            c1-guard: copy delta dead-digit dead 0->1 on the evaluated line: value=1 expect=1; stub value=0 fails=True
+mutant-diag rc=1 C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+selftest    rc=1 C1_CHECK_SELFTEST: FAIL (43/46 cases) failed=i2-false-substance-32,i2-misplaced-correction-fails,i2-later-wrong-restatement stderr=
+
+### C1-M3-population-skips-i6 tree=brk-i6
+clean-full  rc=1 C1_ROUTED: value=1 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=0 i7=1 guard=1
+            c1-guard: copy delta dead-digit dead 0->1 on the evaluated line: value=2 expect=2; stub value=0 fails=True
+mutant-full rc=0 C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i7=1 guard=1
+            c1-guard: copy delta dead-digit dead 0->1 on the evaluated line: value=1 expect=1; stub value=0 fails=True
+mutant-diag rc=1 C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i7=1 guard=0
+selftest    rc=1 None stderr=KeyError: 'i6'
+
+### C1-M4a-guard-no-challenge tree=base-tree
+clean-full  rc=1 C1_ROUTED: value=FAIL population=7 i1=0 i2=0 i3=0 i4=0 i5=0 i6=0 i7=0 guard=0
+            c1-guard: challenge not injectable: no '## Round 59 — correction' block in copy
+mutant-full rc=1 C1_ROUTED: value=7 population=7 i1=0 i2=0 i3=0 i4=0 i5=0 i6=0 i7=0 guard=1
+            c1-guard: skipped (MUTANT)
+mutant-diag rc=1 C1_ROUTED: value=7 population=7 i1=0 i2=0 i3=0 i4=0 i5=0 i6=0 i7=0 guard=0
+selftest    rc=1 C1_CHECK_SELFTEST: FAIL (43/46 cases) failed=evaluate-guard-good-tree,evaluate-all-unresolved-guard-fails-closed,challenge-plus1-fires-with-unresolved stderr=
+
+### C1-M4b-stub-leg-not-run tree=fixed
+clean-full  rc=0 C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=1
+            c1-guard: copy delta dead-digit dead 0->1 on the evaluated line: value=1 expect=1; stub value=0 fails=True
+mutant-full rc=0 C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=1
+            c1-guard: copy delta dead-digit dead 0->1 on the evaluated line: value=1 expect=1; stub value=0 fails=True
+mutant-diag rc=1 C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+selftest    rc=0 C1_CHECK_SELFTEST: PASS (46 cases) stderr=
+
+### C1-M5s-failopen-selftest-count tree=nosel
+clean-full  rc=1 C1_ROUTED: value=1 population=7 i1=1 i2=0 i3=1 i4=1 i5=1 i6=1 i7=1 guard=1
+            c1-guard: copy delta dead-digit dead 0->1 on the evaluated line: value=2 expect=2; stub value=0 fails=True
+mutant-full rc=0 C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=1
+            c1-guard: copy delta dead-digit dead 0->1 on the evaluated line: value=1 expect=1; stub value=0 fails=True
+mutant-diag rc=1 C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+selftest    rc=0 C1_CHECK_SELFTEST: PASS (46 cases) stderr=
+
+### C1-M6-i6-rev-not-compared tree=brk-i6
+clean-full  rc=1 C1_ROUTED: value=1 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=0 i7=1 guard=1
+            c1-guard: copy delta dead-digit dead 0->1 on the evaluated line: value=2 expect=2; stub value=0 fails=True
+mutant-full rc=0 C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=1
+            c1-guard: copy delta dead-digit dead 0->1 on the evaluated line: value=1 expect=1; stub value=0 fails=True
+mutant-diag rc=1 C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+selftest    rc=1 C1_CHECK_SELFTEST: FAIL (45/46 cases) failed=i6-wrong-hash-stated stderr=
+

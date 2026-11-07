@@ -1,0 +1,16 @@
+# receipt: transit selftest fail-power proof (seat R60ExecTransitSelftest, kagi round 60 I7/K4, 2026-11-07; final bytes)
+# mutation: the verdict mapping's BROKEN branch rc=1 -> rc=0, applied by
+#   sed 's/then S=BROKEN; rc=1;/then S=BROKEN; rc=0;/' to a scratch copy
+# diff (clean -> mutant copy):
+#   656c656
+#   < if [ "$E" -gt 0 ]; then S=ERROR; rc=2; elif [ "$B" -gt 0 ]; then S=BROKEN; rc=1; else S=HOLDS; rc=0; fi
+#   ---
+#   > if [ "$E" -gt 0 ]; then S=ERROR; rc=2; elif [ "$B" -gt 0 ]; then S=BROKEN; rc=0; else S=HOLDS; rc=0; fi
+# command: bash /fast/scratch/hyaku/kagi-r60/R60ExecTransitSelftest/mutant/openbao-transit-trial.sh --selftest --work /fast/scratch/hyaku/kagi-r60/R60ExecTransitSelftest/mutant-work
+FINDING TRANSIT-ST-SHIM-SH1 exit=0 want=1
+FINDING TRANSIT-ST-SHIM-SH2 exit=0 want=1
+FINDING TRANSIT-ST-SHIM-SH3 exit=0 want=1
+FINDING TRANSIT-ST-SHIM-SH4 exit=0 want=1
+FINDING TRANSIT-ST-SHIM-SH5 exit=0 want=1
+TRANSIT_SELFTEST: FAIL (cases=9 failed=5)
+rc=1

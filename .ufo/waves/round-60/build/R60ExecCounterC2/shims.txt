@@ -1,0 +1,21 @@
+== per-shim falsifier evidence (K4), taken at FINAL trial bytes a228e312… ==
+
+counter-measured on the real candidate tree (see candidate.txt):
+  expected  measured
+  SH1 BHHHH  BHHHH
+  SH2 HBHHH  HBHHH
+  SH3 HHBHH  HHBHH
+  SH4 HHHBH  HHHBH
+  SH5 HHHHB  HHHHB
+  shims=5 vectors=ok/5 — each shim run was also required to exit rc 1 (a shim whose summary miscounts reads shims<5); baseline HHHHH attested on both real runs (pass=5).
+
+direct serial runs of the final lane trial bytes (KAGI_APPROLE_SHIM=SHn, each exactly its own test BROKEN, rc 1):
+
+-- SH1 --
+TRIAL T1 BROKEN aref=1 upd=1 ctok=0 aerr=missing-secret-id berr=
+TRIAL T2 HOLDS first=1 ref2=1 fresh=1
+TRIAL T3 HOLDS imm=1 expref=1 fresh=1
+TRIAL T4 HOLDS meta=1 cust=1 revoked=1
+TRIAL T5 HOLDS deny=1 upd=1 allow=1
+OPENBAO_APPROLE_TRIAL: BROKEN holds=4 broken=1 error=0 bao=v2.7.2
+rc=1

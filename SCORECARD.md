@@ -720,6 +720,7 @@ landed in the round-21 correction commit (cited in `LOG.md`):
 | OpenBao audit-device custody trial | execute five audit-device mechanics against throwaway OpenBao 2.7.2 dev servers: the documented API enable path is refused by default and accepted with `unsafe_allow_api_audit_creation`, the default device HMACs values with a per-instance salt (request/response echo, plaintext absent), a `log_raw=true` device writes the value and the client token in cleartext, disable + re-enable rotates the salt, and `sys/seal-status` is non-audited; five shims plus a no-bao and a PATH-wrapper leg | `bash plans/round-57-c2.sh <candidate>` `value=5`; `corpus/openbao-audit-trial.sh`; `corpus/knowledge/openbao-audit-device-custody.md`; S115/S116; `.ufo/waves/round-57/` | 57 |
 | OpenBao ACL-policy semantics trial | execute five ACL-policy mechanics against throwaway OpenBao 2.7.2 dev servers: deny-by-default with exact-path reach, `*` only as the last path character (sibling refused), a narrower `deny` outranking a broader allow, `+` bounded to one segment, and same-pattern capability union vs the highest-priority match across patterns; five shims, a no-bao leg and a PATH wrapper that lies on the client-side introspection (flips T5) | `bash plans/round-58-c2.sh <candidate>` `value=5`; `corpus/openbao-policy-trial.sh`; `corpus/knowledge/openbao-acl-policy-semantics.md`; S118/S119; `.ufo/waves/round-58/` | 58 |
 | OpenBao transit-engine trial | execute five transit encryption-as-a-service mechanics against throwaway OpenBao 2.7.2 dev servers: `vault:v1:` round trip with a tamper refusal, rotate advancing the version while the old ciphertext still decrypts, rewrap migrating ciphertext with no client-side plaintext, `min_decryption_version` retiring a version (and re-enabling it), and convergent determinism for equal plaintext+context vs a different context and a non-convergent key; five shims, a no-bao SETUP leg and a clean-room leg where a second dev server refuses the first server's ciphertext | `bash plans/round-59-c2.sh <candidate>` `value=5`; `corpus/openbao-transit-trial.sh`; `corpus/knowledge/openbao-transit-engine.md`; S121/S122; `.ufo/waves/round-59/build/R59ExecTrial/` | 59 |
+| OpenBao AppRole `secret_id` custody trial | execute five AppRole credential-custody mechanics against a throwaway OpenBao 2.7.2 dev server: `bind_secret_id` deciding whether `role_id` alone authenticates (refused by default, accepted after the update on a role carrying a `token_bound_cidrs` constraint), `secret_id_num_uses` bounding reuse, `secret_id_ttl` retiring an unwrapped secret, the accessor as a non-secret lookup/destroy handle, and `secret_id_bound_cidrs` pinning a login to a source range; the trial carries its own fixture-driven `--selftest` (45 cases, no `bao`, no network) | `bash corpus/openbao-approle-trial.sh` ⇒ `OPENBAO_APPROLE_TRIAL: HOLDS holds=5 broken=0 error=0 bao=v2.7.2`; `bash plans/round-60-c2.sh` ⇒ `value=5 … selftest=1 guard=1`; `--selftest` ⇒ `APPROLE_SELFTEST: PASS (cases=45)`; `corpus/knowledge/openbao-approle-secret-id-custody.md` | 60 |
 Rows enter only through demonstrated execution (`AXES.md` §Capabilities): the two round-21 capabilities entered through that round's runs; feature-bound typed credential review first worked in round 22 through R22-01/R22-02; closure disposition review first worked in round 23 through R23-02 (row added to this main table in round 24, routed D1 — it had sat only in the round-23 section). The 2026-10-16 rollout added none. The latest first-working round in this table is 40 (gate self-testing with committed expected findings, row above).
 
 Round 49 note (appended; the paragraph above keeps its round-40 sentence as history): the latest first-working rounds are now 48 (SOPS/age trial) and 49 (OpenBao token/lease lifecycle trial, entered through `bash plans/round-49-c1.sh <candidate>` reading `value=5`, receipts `.ufo/waves/round-49/final/`).
@@ -1974,3 +1975,52 @@ the two never-shipped round-58 controls ship in `plans/round-58-controls-supplem
 | coverage | 9 → 9 | No claim. Registry 120 → 122 (S121, S122; tier A, `mined`, `180d`); coverage map gains the transit-entry and round-59 rows. | `corpus/SOURCES.md`; `corpus/README.md` |
 | freshness | 9 → 9 | No claim. Both new rows take `180d` (version-scoped docs), so `RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17)`; S121's stale-capture note resolves the round-58 staging-file id collision on the row itself. | `corpus/SOURCES.md`; `.ufo/waves/round-59/final/release-clock-candidate.txt` |
 | adjacency | 9 → 9 | No claim. Connector sweep: no sibling lane holds transit-engine ground or the supplement-controls pattern; the shokuknow `merge/kagi/` package stages no transit material. The carried `ADJACENCY_SCOPE: DEFECT` (`breadth_drift=5 breadth_unverified=1`) is unchanged and named, not absorbed. | `.ufo/waves/round-59/build/R59ConnectorSiblings/sweep.md` |
+
+## Errata — round 59 controls census
+
+- Correction (round-60 plan I4, spot-check D4): supersedes SCORECARD.md:1971 — the round-59 calibration row's parenthetical control census overcounts the battery; `grep -cE '^CONTROL ' .ufo/waves/round-59/controls/controls-prefreeze.txt` reads 20 controls (4 K + 8 C1-F + 8 C2-F), superseding the row's stated 21-controls parenthetical.
+
+## Errata — round 59 gate evidence and measured commit
+
+- Correction (round-60 plan I5, spot-check D5): `supersedes the round-59 gate-evidence pointer` — the round-59 freshness row cites `.ufo/waves/round-59/final/release-clock-candidate.txt`, which was never written (`.ufo/waves/round-59/final` holds six files, none a release-clock, DOC_AUDIT or SCOPE receipt). The three readings are re-taken on the round-60 candidate and committed: `.ufo/waves/round-60/final/release-clock-candidate.txt` (`RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17)`), `.ufo/waves/round-60/final/doc-audit-candidate.txt` (`DOC_AUDIT: CLEAN (entries=41 row_linked=38 by_hand=3 undeclared=0 missing_ids=0 unpinned=0 duplicate_reasons=0)`), and `.ufo/waves/round-60/final/scope-candidate.txt` (`ADJACENCY_SCOPE: DEFECT (census=35 … stale_basis=0 … breadth_drift=5 breadth_unverified=1)`, the carried debt, unchanged and named).
+- Correction (round-60 plan I6, spot-check D6): `supersedes the round-59 measured-commit citation` — the round-59 Before → after table named `75165a07` as the measured commit while the committed receipt `.ufo/waves/round-59/final/c1-landed.txt` reads `c1-driver: measured=revision 160caf750dcf15892b78ec066e66bc605ba57a5c`; the receipt's revision is the reading's revision, and the round-59 landing commit is the commit that carries the receipts.
+
+## Round 60 — pre-move (repo HEAD `a677c78e`, round-59 spot-check tip)
+
+Claim BASE `a677c78ece8e3d3b4a43dda55254f2a7b33cc1d2`; predeclaration `cd631737`
+(frozen plan `plans/round-60.md`, §Amendments A1–A6, every amendment landed before the
+recorded candidate reading). All six axes stand at 9.
+
+| Axis | Score | Evidence pointer | Last change |
+|---|---|---|---|
+| depth | 9 | Unchanged from round 29 (`R29-01`); round 60 adds an executed AppRole custody entry, counted under operability/coverage, not re-scored here. | round 29 |
+| coverage | 9 | 122 registry rows at BASE (`grep -cE '^\|[[:space:]]*S[0-9]{3,}[[:space:]]*\|' corpus/SOURCES.md`), census `kagi ok` rc 0. | round 59 |
+| operability | 9 | Unchanged as a score; measured BASE gap: no executed AppRole mechanic (`C2_APPROLE_TRIAL: value=0 … (absent)`). | round 59 |
+| freshness | 9 | Every knowledge entry declares its re-verification (`R14-01`); the round-56 replay gate is green. | round 56 |
+| calibration | 9 | Unchanged as a score; measured BASE gap: `C1_ROUTED: value=7 population=7` — the seven round-59 spot-check routed defects (D1–D7) are unresolved at BASE and no lane gate reads any of them. | round 59 |
+| adjacency | 9 | Ownership partition gate green (`R17-02`); the carried `ADJACENCY_SCOPE: DEFECT` breadth debt is named, not absorbed. | round 58 |
+
+Declared claims: **C1 calibration** (the seven routed record defects are resolved and
+re-checkable; `C1_ROUTED` 7 → 0, population 7) and **C2 operability capability** (an
+executed OpenBao AppRole `secret_id` custody trial with its own fixture-driven
+`--selftest`; `C2_APPROLE_TRIAL` 0 → 5, S123/S124 opened this round). No retirement,
+split or stagnation waiver is claimed: capabilities entered rounds 57–59 and C2 is a
+capability acquisition by choice.
+
+## Round 60 — post-move (claims C1 calibration, C2 operability)
+
+Candidate: the round-60 landing commit (recorded in the report). Claim BASE
+`a677c78ece8e3d3b4a43dda55254f2a7b33cc1d2`; predeclaration `cd631737`; amendments
+A1–A6 (`5e1649a3`, `a177161c`, `b662e114`, `cad84270` and the instrument commits);
+counters `plans/round-60-c1.sh`, `plans/round-60-c2.sh`; checker
+`plans/round-60-c1-check.py`; controls `plans/round-60-controls.sh`, receipt
+`.ufo/waves/round-60/controls/controls-prefreeze.txt`.
+
+| Axis | Before → after | What moved | Evidence |
+|---|---|---|---|
+| calibration | 9 → 9 | [C1] `bash plans/round-60-c1.sh <candidate>` `value=FAIL` (diagnostic `value=7 population=7`, guard=0) → `C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=1` (target 0, population 7, guard=1): the seven round-59 spot-check routed defects (D1–D7) become an item set whose every compared number is derived from a named revision or the measured tree — D1 the dead-seat census against `w1-results.json` (14/0), D2 the 33-case receipt, D3 the routed-id uniqueness plus the superseded duplicate ids, D4 the 20-control receipt, D5 the three re-taken gate receipts, D6 the receipt's `measured=revision`, D7 the transit selftest plus its mutation leg. | `plans/round-60-c1.sh`; `.ufo/waves/round-60/final/c1-landed.txt`; `.ufo/waves/round-60/build/R60ExecCounterC1/selftest.txt` (`PASS (46 cases)`) |
+| operability | 9 → 9 | [C2] `bash plans/round-60-c2.sh <candidate>` `value=0 … (absent)` → `C2_APPROLE_TRIAL: value=5 tests=5 pass=5 shims=5 vectors=ok/5 selftest=1 guard=1`: capability acquisition — `corpus/openbao-approle-trial.sh` executes five AppRole custody mechanics on throwaway OpenBao 2.7.2 dev servers (T1 `bind_secret_id`; T2 `secret_id_num_uses`; T3 `secret_id_ttl`; T4 accessor lookup/destroy; T5 `secret_id_bound_cidrs`) with five shims, a no-bao leg, and its own fixture-driven `--selftest` (45 cases, no `bao`, no network) that fails with named `FINDING` ids on a mutated copy. Entry `corpus/knowledge/openbao-approle-secret-id-custody.md`; rows S123/S124. | `.ufo/waves/round-60/final/c2-landed.txt`; `.ufo/waves/round-60/build/R60ExecTrial/`; `.ufo/waves/round-60/final/l1-probe.txt` |
+| depth | 9 → 9 | No claim. The entry records the measured-vs-documented split (seven `Docs vs binary` rows, including both pages' silence on refused-login shapes) and the trial's bounds. | `corpus/knowledge/openbao-approle-secret-id-custody.md` |
+| coverage | 9 → 9 | No claim. Registry 122 → 124 (S123, S124; tier A, `mined`, `180d`); coverage map gains the AppRole-entry and round-60 rows. | `corpus/SOURCES.md`; `corpus/README.md` |
+| freshness | 9 → 9 | No claim. Both new rows take `180d` (version-scoped docs), so `RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17)`; the round-59 dead pointer is replaced by three committed receipts (I5). | `.ufo/waves/round-60/final/release-clock-candidate.txt` |
+| adjacency | 9 → 9 | No claim. Connector sweep: no sibling lane holds AppRole/`secret_id` ground or the trial+shim+counter-with-selftest pattern; the shokuknow `merge/kagi/` package stages no AppRole material. The carried `ADJACENCY_SCOPE: DEFECT` (`breadth_drift=5 breadth_unverified=1`, `stale_basis=0`) is unchanged and named. | `.ufo/waves/round-60/build/R60ConnectorSiblings/sweep.md`; `.ufo/waves/round-60/final/scope-candidate.txt` |

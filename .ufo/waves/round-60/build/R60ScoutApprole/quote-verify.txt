@@ -1,0 +1,88 @@
+QUOTE_VERIFY: rows=19
+OK  S124 | M1 bind_secret_id (default + meaning) | Create/Update AppRole > Parameters
+    quote='bind_secret_id (bool: true) - Require secret_id to be presented when logging in using this AppRole.' words=15
+    python3 corpus/rendered-text-v1.py locate .ufo/waves/round-60/capture/S124.body 'bind_secret_id (bool: true) - Require secret_id to be presented when logging in using this AppRole.'   # count=1
+    grep -c -F '<code>bind_secret_id</code> <code>(bool: true)</code> - Require' .ufo/waves/round-60/capture/S124.body   # anchor, count=1, byte=22728, line=39
+
+OK  S123 | M1 bind_secret_id (default + meaning) | Further constraints
+    quote='The bind_secret_id constraint requires secret_id to be presented at the login endpoint.' words=12
+    python3 corpus/rendered-text-v1.py locate .ufo/waves/round-60/capture/S123.body 'The bind_secret_id constraint requires secret_id to be presented at the login endpoint.'   # count=1
+    grep -c -F '<code>bind_secret_id</code> constraint requires' .ufo/waves/round-60/capture/S123.body   # anchor, count=1, byte=44813, line=119
+
+OK  S124 | M1 bind_secret_id (default + meaning) | Login with AppRole
+    quote='role_id is always required; if bind_secret_id is enabled (the default) on the AppRole, secret_id is required too.' words=17
+    python3 corpus/rendered-text-v1.py locate .ufo/waves/round-60/capture/S124.body 'role_id is always required; if bind_secret_id is enabled (the default) on the AppRole, secret_id is required too.'   # count=1
+    grep -c -F 'if <code>bind_secret_id</code> is enabled (the default) on the AppRole,' .ufo/waves/round-60/capture/S124.body   # anchor, count=1, byte=117685, line=293
+
+OK  S124 | M2 secret_id_num_uses | Create/Update AppRole > Parameters
+    quote='secret_id_num_uses (integer: 0) - Number of times any particular SecretID can be used to fetch a token' words=17
+    python3 corpus/rendered-text-v1.py locate .ufo/waves/round-60/capture/S124.body 'secret_id_num_uses (integer: 0) - Number of times any particular SecretID can be used to fetch a token'   # count=1
+    grep -c -F '<code>secret_id_num_uses</code> <code>(integer: 0)</code> - Number of times any particular SecretID' .ufo/waves/round-60/capture/S124.body   # anchor, count=1, byte=23092, line=44
+
+OK  S124 | M3 secret_id_ttl | Create/Update AppRole > Parameters
+    quote='secret_id_ttl (string: "") - Duration in either an integer number of seconds ( 3600 ) or an integer time unit ( 60m )' words=23
+    python3 corpus/rendered-text-v1.py locate .ufo/waves/round-60/capture/S124.body 'secret_id_ttl (string: "") - Duration in either an integer number of seconds ( 3600 ) or an integer time unit ( 60m )'   # count=1
+    grep -c -F '<code>secret_id_ttl</code> <code>(string: "")</code> - Duration in either an integer number of' .ufo/waves/round-60/capture/S124.body   # anchor, count=1, byte=23451, line=48
+
+OK  S124 | M4 secret-id-accessor lookup + destroy | Generate new secret ID
+    quote='the response will also contain a secret_id_accessor value which can be used to read the properties of the SecretID without divulging the SecretID itself' words=24
+    python3 corpus/rendered-text-v1.py locate .ufo/waves/round-60/capture/S124.body 'the response will also contain a secret_id_accessor value which can be used to read the properties of the SecretID without divulging the SecretID itself'   # count=1
+    grep -c -F 'the response will also contain a' .ufo/waves/round-60/capture/S124.body   # anchor, count=1, byte=55969, line=149
+
+OK  S124 | M4 secret-id-accessor lookup + destroy | Read AppRole secret ID accessor / Destroy AppRole Secret ID Accessor | grep -c -F 'Destroy an AppRole secret ID by its accessor.' .ufo/waves/round-60/capture/S124.body   # raw-literal, count=1, byte=102892, line=246
+    quote='Destroy an AppRole secret ID by its accessor.'
+    anchor_count=1 anchor_off=102892
+
+OK  S124 | M4 secret-id-accessor lookup + destroy | Read AppRole secret ID accessor (path) | grep -c -F '/auth/approle/role/:role_name/secret-id-accessor/lookup' .ufo/waves/round-60/capture/S124.body   # raw-literal, count=1, byte=91018, line=233
+    quote='/auth/approle/role/:role_name/secret-id-accessor/lookup'
+    anchor_count=1 anchor_off=91018
+
+OK  S124 | M4 secret-id-accessor lookup + destroy | Destroy AppRole Secret ID Accessor (path) | grep -c -F '/auth/approle/role/:role_name/secret-id-accessor/destroy' .ufo/waves/round-60/capture/S124.body   # raw-literal, count=1, byte=103108, line=247
+    quote='/auth/approle/role/:role_name/secret-id-accessor/destroy'
+    anchor_count=1 anchor_off=103108
+
+OK  S124 | M5 secret_id_bound_cidrs | Create/Update AppRole > Parameters
+    quote='secret_id_bound_cidrs (array: []) - Comma-separated string or list of CIDR blocks; if set, specifies blocks of IP addresses which can perform the login operation.' words=24
+    python3 corpus/rendered-text-v1.py locate .ufo/waves/round-60/capture/S124.body 'secret_id_bound_cidrs (array: []) - Comma-separated string or list of CIDR blocks; if set, specifies blocks of IP addresses which can perform the login operation.'   # count=1
+    grep -c -F '<code>secret_id_bound_cidrs</code> <code>(array: [])</code> - Comma-separated string or list of CIDR' .ufo/waves/round-60/capture/S124.body   # anchor, count=1, byte=22885, line=41
+
+OK  S123 | M5 secret_id_bound_cidrs | Further constraints
+    quote='secret_id_bound_cidrs will only allow logins coming from IP addresses belonging to configured CIDR blocks on the AppRole.' words=17
+    python3 corpus/rendered-text-v1.py locate .ufo/waves/round-60/capture/S123.body 'secret_id_bound_cidrs will only allow logins coming from IP addresses belonging to configured CIDR blocks on the AppRole.'   # count=1
+    grep -c -F '<code>secret_id_bound_cidrs</code> will only allow logins coming from IP addresses' .ufo/waves/round-60/capture/S123.body   # anchor, count=1, byte=45127, line=123
+
+OK  S124 | login request body fields | Login with AppRole > Parameters
+    quote='role_id (string: <required>) - RoleID of the AppRole.' words=8
+    python3 corpus/rendered-text-v1.py locate .ufo/waves/round-60/capture/S124.body 'role_id (string: <required>) - RoleID of the AppRole.'   # count=1
+    grep -c -F '<code>role_id</code> <code>(string: &lt;required>)</code> - RoleID of the AppRole.' .ufo/waves/round-60/capture/S124.body   # anchor, count=1, byte=118330, line=299
+
+OK  S124 | login request body fields | Login with AppRole > Parameters
+    quote='secret_id (string: <required>) - SecretID belonging to AppRole.' words=8
+    python3 corpus/rendered-text-v1.py locate .ufo/waves/round-60/capture/S124.body 'secret_id (string: <required>) - SecretID belonging to AppRole.'   # count=1
+    grep -c -F '<code>secret_id</code> <code>(string: &lt;required>)</code> - SecretID belonging to AppRole.' .ufo/waves/round-60/capture/S124.body   # anchor, count=1, byte=118431, line=300
+
+OK  S123 | login request body fields | Via the API (login example body) | grep -c -F '--data '{"role_id":"988a9df-...","secret_id":"37b74931..."}'' .ufo/waves/round-60/capture/S123.body   # raw-literal, count=1, byte=23100, line=26
+    quote='--data \'{"role_id":"988a9df-...","secret_id":"37b74931..."}\''
+    anchor_count=1 anchor_off=23100
+
+OK  S123 | refused login text / HTTP shape | User lockout (only refusal-shaped sentence on either page) | grep -c -F 'instead returning immediately\nwith a permission denied error.' .ufo/waves/round-60/capture/S123.body   # raw-literal, count=1, byte=45623, line=127
+    quote='instead returning immediately\nwith a permission denied error.'
+    anchor_count=1 anchor_off=45623
+
+OK  S124 | per-field role endpoints (trial write paths) | Read, update, or delete AppRole properties | grep -c -F '/auth/approle/role/:role_name/bind-secret-id' .ufo/waves/round-60/capture/S124.body   # raw-literal, count=1, byte=129241, line=313
+    quote='/auth/approle/role/:role_name/bind-secret-id'
+    anchor_count=1 anchor_off=129241
+
+OK  S124 | per-field role endpoints (trial write paths) | Read, update, or delete AppRole properties | grep -c -F '/auth/approle/role/:role_name/secret-id-bound-cidrs' .ufo/waves/round-60/capture/S124.body   # raw-literal, count=1, byte=129406, line=313
+    quote='/auth/approle/role/:role_name/secret-id-bound-cidrs'
+    anchor_count=1 anchor_off=129406
+
+OK  S124 | per-field role endpoints (trial write paths) | Read, update, or delete AppRole properties | grep -c -F '/auth/approle/role/:role_name/secret-id-num-uses' .ufo/waves/round-60/capture/S124.body   # raw-literal, count=1, byte=128584, line=313
+    quote='/auth/approle/role/:role_name/secret-id-num-uses'
+    anchor_count=1 anchor_off=128584
+
+OK  S124 | per-field role endpoints (trial write paths) | Read, update, or delete AppRole properties | grep -c -F '/auth/approle/role/:role_name/secret-id-ttl' .ufo/waves/round-60/capture/S124.body   # raw-literal, count=1, byte=128753, line=313
+    quote='/auth/approle/role/:role_name/secret-id-ttl'
+    anchor_count=1 anchor_off=128753
+
+QUOTE_VERIFY: failures=0

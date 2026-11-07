@@ -1,0 +1,26 @@
+# locate-receipt — S123/S124 quote location, R60ScribeRows, 2026-11-07
+# renderer: /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/rendered-text-v1.py (rendered-text-v1)
+# bodies: /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-60/capture/S123.body /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-60/capture/S124.body
+
+## capture identity
+d16f639a0b0fff901707f56ad1b916f70665e7e0675197a6a40d6473e50c0187  /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-60/capture/S123.body
+e663c1d0f956edea896db404bba7e92c7f248f74e98857a717ab063a7aae7207  /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-60/capture/S124.body
+ 78543 /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-60/capture/S123.body
+145203 /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-60/capture/S124.body
+223746 total
+
+## renderer digest
+RENDERED_TEXT_V1: raw_sha256=d16f639a0b0fff901707f56ad1b916f70665e7e0675197a6a40d6473e50c0187 bytes=78543 normalized_sha256=4230771520d9749e67efe7dd42d57e30ebfbfd105206f142227d6023003b687a normalized_bytes=12089
+RENDERED_TEXT_V1: raw_sha256=e663c1d0f956edea896db404bba7e92c7f248f74e98857a717ab063a7aae7207 bytes=145203 normalized_sha256=966641e895fb723695d66fd870f39731b43bb47b08dec2ed2601da1443f65935 normalized_bytes=21214
+
+## locate (count must be >= 1; the Gate reads count=1 for each)
+S123	SecretID is a credential that is required by default for any login	RENDERED_TEXT_V1_LOCATE: count=1
+S123	requiring a SecretID can be disabled via an AppRole's bind_secret_id parameter	RENDERED_TEXT_V1_LOCATE: count=1
+S123	secret_id_bound_cidrs will only allow logins coming from IP addresses belonging to configured CIDR blocks	RENDERED_TEXT_V1_LOCATE: count=1
+S123	Similarly to tokens, SecretIDs have properties like usage-limit, TTLs and expirations.	RENDERED_TEXT_V1_LOCATE: count=1
+S124	role_id is always required; if bind_secret_id is enabled (the default) on the AppRole, secret_id is required too.	RENDERED_TEXT_V1_LOCATE: count=1
+S124	Number of times any particular SecretID can be used to fetch a token from this AppRole	RENDERED_TEXT_V1_LOCATE: count=1
+S124	after which by default any SecretID expires	RENDERED_TEXT_V1_LOCATE: count=1
+S124	Reads out the properties of a SecretID. Method Path POST /auth/approle/role/:role_name/secret-id-accessor/lookup	RENDERED_TEXT_V1_LOCATE: count=1
+S124	Destroy an AppRole secret ID by its accessor.	RENDERED_TEXT_V1_LOCATE: count=1
+S124	specifies blocks of IP addresses which can perform the login operation	RENDERED_TEXT_V1_LOCATE: count=1

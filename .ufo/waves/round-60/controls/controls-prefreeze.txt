@@ -1,0 +1,31 @@
+# round-60 pre-freeze control battery (plans/round-60-controls.sh)
+# base=a677c78ece8e3d3b4a43dda55254f2a7b33cc1d2 ref=/home/vgpnk/Projects/shokunin/kagi-shokunin
+# scratch=/fast/scratch/hyaku/kagi-r60/R60ExecControls/battery.4190643
+# derived-shim-env=KAGI_APPROLE_SHIM
+# instrument pins (the bytes this battery measured)
+INSTRUMENT plans/round-60-c1-check.py 52d4fd5c6660e6a9235ae6cbf7e4e504c245b06cc6aa871fa83df721489fa658
+INSTRUMENT plans/round-60-c1.sh c11da5c60db536c97ef3e22c0f2d6ab0704e56b1508ce6e93a65847d0e39d599
+INSTRUMENT plans/round-60-c2.sh a6fc9825972a20e87a35cef89032365b3611bb909606bd7738e54d1a653501f2
+INSTRUMENT corpus/openbao-approle-trial.sh 49ea928f28f42c7cce91459fe577a6d80023db3844229047718f483bfed0e54f
+INSTRUMENT corpus/openbao-transit-trial.sh bb18fba0df33bf429eba67325d931ec39fab75792b0c7b09af17ef8fe8195549
+CONTROL K1-BASE expect=7 observed=7 MATCH :: C1 diagnostic (--no-challenge) on the claim BASE: all seven routed items unresolved (K2 kill rule: any lower reading voids the claim)
+CONTROL K2-BASE expect=0 observed=0 MATCH :: C2 on the claim BASE: the trial does not exist at BASE (absent line, no server work)
+CONTROL K1-REF expect=0 guard=1 observed=0 guard=1 MATCH :: synthetic fixed tree carrying all seven fixes: value=0 and the guard challenge fires
+CONTROL K2-REF expect=5 observed=5 MATCH :: tree carrying the trial: two independent HOLDS 5/5 runs, five shim vectors, selftest leg
+CONTROL C1-F1 expect=1 observed=1 MATCH :: I1 substance broken in the last statement (satisfied-looking census with wrong numbers); diagnostic leg
+CONTROL C1-F2 expect=1 observed=1 MATCH :: I2 case count wrong in the last superseding statement; diagnostic leg
+CONTROL C1-F3 expect=1 observed=1 MATCH :: I3 uniqueness broken (id R20 twice in the id column, table otherwise intact); diagnostic leg
+CONTROL C1-F4 expect=1 observed=1 MATCH :: I4 control count wrong in the last superseding statement; diagnostic leg
+CONTROL C1-F5 expect=1 observed=1 MATCH :: I5 receipt shape broken (doc-audit receipt last line does not begin with the required token); diagnostic leg
+CONTROL C1-F6 expect=FAIL-with-id observed=FAIL-with-id MATCH :: mutated verdict mapping: selftest rc=1, finding id: FINDING TRANSIT-ST-BASELINE
+CONTROL C1-F7 expect=stub-fails-challenge observed=stub-fails-challenge MATCH :: fixed tree value=0; challenge copy (I1 dead= 0->1) reads value=1; the constant-0/constant-guard-1 stub reads value=0 and cannot satisfy the challenge
+CONTROL C1-F8 expect=1 observed=1 MATCH :: the I1 correction block sits before the __DEAD__ line it corrects: the after-the-superseded-line rule must bite; diagnostic leg
+CONTROL C2-F1 expect=<5 observed=<5 MATCH :: the SH5 shim never reaches the trial, so the SH5 vector cannot flip exactly T5
+CONTROL C2-F2 expect=SETUP/rc2 observed=SETUP/rc2 MATCH :: no-bao PATH: OPENBAO_APPROLE_TRIAL: SETUP no bao on PATH
+CONTROL C2-F3 expect=<5 observed=<5 MATCH :: a trial whose --selftest mode is gone cannot satisfy the selftest conjunct (N >= 8)
+CONTROL C2-F4 expect=<5 observed=<5 MATCH :: only one empty-shim real run is allowed: the two-independent-runs conjunct refuses
+CONTROL C2-F5 expect=0 observed=0 MATCH :: a trial that prints HOLDS lines but never the required summary line cannot score
+CONTROL C2-F6 expect=<5 observed=<5 MATCH :: SH1 must flip exactly its designated test: a second flip breaks the vector
+CONTROL C2-F7 expect=SETUP/rc2 observed=SETUP/rc2 MATCH :: a bao whose sha256 is not the pinned OpenBao 2.7.2 ($HOME/.local/bin/bao replaced by a foreign binary) must read SETUP
+CONTROL C2-F8 expect=5 observed=5 MATCH :: ambient BAO_*/VAULT_* exported by the caller do not change the reference reading
+CONTROLS: match=20 mismatch=0

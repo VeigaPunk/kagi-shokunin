@@ -1,0 +1,6 @@
+$ git diff --numstat -- LOG.md corpus/lessons/round-59.md SCORECARD.md
+4	0	LOG.md
+4	0	SCORECARD.md
+2	0	corpus/lessons/round-59.md
+$ git diff -- LOG.md corpus/lessons/round-59.md SCORECARD.md | grep -c "^-[^-]"
+0

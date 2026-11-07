@@ -204,3 +204,5 @@ can be read against; nothing here is silently absorbed.
 | R29 | “two independent real runs” is not observable from output — a trial that measures once and replays reads 5 (B12) | **unnamed ceiling — must be added to the report's ceiling list** beside K2/K4. |
 | R30 | sentinel hardening notes: the counter's scratch is `${HYAKU_SCRATCH}/…/c2-counter.$$` under the default umask (logs 644), and the K3 secret scan covers captured output, not the trial's self-deleted work dir | **routed as hardening, no defect found:** `umask 077` + `mktemp -d`; the sentinel's cleanup-disabled probe covers the work dir. |
 | R31 | the C1 counter's report says `--selftest` runs 33 cases while its committed receipt reads `C1_CHECK_SELFTEST: PASS (32 cases)` | **routed as a number check:** the receipt is the evidence; whichever count the landed bytes produce must be quoted with its receipt. |
+
+- Correction (round-60 plan I2, spot-check D2): supersedes R31 — the committed receipt `.ufo/waves/round-59/build/R59ExecCounterC1/selftest.txt` reads `C1_CHECK_SELFTEST: PASS (33 cases)` on its last matching line; the routed row's smaller count is superseded.

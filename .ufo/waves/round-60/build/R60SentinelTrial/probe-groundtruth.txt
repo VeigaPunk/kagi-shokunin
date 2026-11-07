@@ -1,0 +1,112 @@
+# Independent ground-truth probe (sentinel R60SentinelTrial), bao v2.7.2 throwaway dev server, 127.0.0.1
+# shapes only; no secret value printed
+
+## probe2: default legs
+PROBE bao=v2.7.2
+PROBE enable_approle rc=0
+PROBE create_role rc=0 err=
+PROBE role_id_len=36
+PROBE login_rid_only rc=2 err=Error writing data to auth/approle/login: Error making API request.  URL: PUT http://127.0.0.1:43289/v1/auth/approle/login Code: 400. Errors:  * missi
+PROBE gen_secret_id rc=0 err=
+PROBE secret_id_len=36 accessor_len=36 gen_fields=secret_id,secret_id_accessor,secret_id_num_uses,secret_id_ttl
+PROBE login_both rc=0 err= token_present=1
+PROBE accessor_lookup rc=0 err= fields=cidr_list,creation_time,expiration_time,last_updated_time,metadata,secret_id_accessor,secret_id_num_uses,secret_id_ttl,token_bound_cidrs
+PROBE lookup_has_secret_id_key=0
+PROBE lookup_meta=num_uses=0 ttl=0
+PROBE set_bind_false rc=2 err=Error writing data to auth/approle/role/p1: Error making API request.  URL: PUT http://127.0.0.1:43289/v1/auth/approle/role/p1 Code: 500. Errors:  * 1
+PROBE login_rid_only_bindfalse rc=2 err=Error writing data to auth/approle/login: Error making API request.  URL: PUT http://127.0.0.1:43289/v1/auth/approle/login Code: 400. Errors:  * missi token_present=0
+PROBE create_p2 rc=0 err=
+PROBE login_cidr_wrong rc=2 err=Error writing data to auth/approle/login: Error making API request.  URL: PUT http://127.0.0.1:43289/v1/auth/approle/login Code: 400. Errors:  * sourc
+PROBE numuses first_rc=0 second_rc=2 second_err=Error writing data to auth/approle/login: Error making API request.  URL: PUT http://127.0.0.1:43289/v1/auth/approle/login Code: 400. Errors:  * inval
+PROBE ttl first_rc=0 after_rc=2 after_err=Error writing data to auth/approle/login: Error making API request.  URL: PUT http://127.0.0.1:43289/v1/auth/approle/login Code: 400. Errors:  * inval
+PROBE destroy_rc=2 err=Error writing data to auth/approle/role/p1/secret-id-accessor/destroy: Error making API request.  URL: PUT http://127.0.0.1:43289/v1/auth/approle/role
+PROBE login_after_destroy rc=0 err=
+PROBE done
+
+## probe3: bind_secret_id=false via k=v argv and via JSON stdin; accessor destroy
+== A: role created default, update bind_secret_id=false via k=v argv ==
+rc=2 err=Error writing data to auth/approle/role/a: Error making API request.  URL: PUT http://127.0.0.1:46271/v1/auth/approle/role/a Code: 500. Errors:  * 1 error occurred: 	* at least one constraint should be enabled on the role   
+== B: same update via JSON body on stdin ==
+rc=2 err=Error writing data to auth/approle/role/a: Error making API request.  URL: PUT http://127.0.0.1:46271/v1/auth/approle/role/a Code: 500. Errors:  * 1 error occurred: 	* at least one constraint should be enabled on the role   
+read_after rc=1 bind_secret_id=True
+login_rid_only rc=2 err=Error writing data to auth/approle/login: Error making API request.  URL: PUT http://127.0.0.1:46271/v1/auth/approle/login Code: 500. Errors:  * missing role_id  token=0
+== C: role created with bind_secret_id=false at creation ==
+create rc=2 err=Error writing data to auth/approle/role/b: Error making API request.  URL: PUT http://127.0.0.1:46271/v1/auth/approle/role/b Code: 500. Errors:  * 1 error occurred: 	* at least one constraint should be enabled on the role   
+login_rid_only rc=2 err=Error writing data to auth/approle/login: Error making API request.  URL: PUT http://127.0.0.1:46271/v1/auth/approle/login Code: 500. Errors:  * missing role_id  token=0
+== D: accessor destroy on a generated secret_id ==
+gen rc=0 err=
+sid_len=36 acc_len=36
+lookup rc=0 err=
+lookup_fields=cidr_list,creation_time,expiration_time,last_updated_time,metadata,secret_id_accessor,secret_id_num_uses,secret_id_ttl,token_bound_cidrs
+destroy rc=0 err=
+login_after_destroy rc=2 err=Error writing data to auth/approle/login: Error making API request.  URL: PUT http://127.0.0.1:46271/v1/auth/approle/login Code: 500. Errors:  * missing role_id 
+lookup_after_destroy rc=2 err=Error writing data to auth/approle/role/d/secret-id-accessor/lookup: Error making API request.  URL: PUT http://127.0.0.1:46271/v1/auth/approle/role/d/secret-id-accessor/lookup Code: 404. Errors:   
+== E: no-bao PATH and argv shapes are the trial's business; probe done ==
+
+## probe4: working bind_secret_id=false combination (with a bound-CIDR constraint)
+== E1: bind_secret_id=false + secret_id_bound_cidrs=127.0.0.1/32 ==
+create rc=0 err=
+role_id_len=36
+login_rid_only rc=0 token=1 err=
+== E2: same role, bind_secret_id=true again (the default leg) ==
+set_true rc=0 err=
+login_rid_only rc=2 token=0 err=Error writing data to auth/approle/login: Error making API request.  URL: PUT http://127.0.0.1:39039/v1/auth/approle/login Code: 400. Errors:  * missing secret_id 
+== F: destroyed secret_id error text ==
+pre_destroy rc=0 token=1
+destroy rc=0 err=
+post_destroy rc=2 token=0 err=Error writing data to auth/approle/login: Error making API request.  URL: PUT http://127.0.0.1:39039/v1/auth/approle/login Code: 400. Errors:  * invalid role or secret ID 
+== G: lookup metadata on a num_uses=1 secret_id (remaining uses) ==
+lookup rc=0 meta=num_uses=1 ttl=30 keys=cidr_list,creation_time,expiration_time,last_updated_time,metadata,secret_id_accessor,secret_id_num_uses,secret_id_ttl,token_bound_cidrs
+== H: does the lookup response ever carry a secret_id value? ==
+grep: warning: stray \ before "
+grep: warning: stray \ before "
+grep_secret_id_field=0
+== I: role read exposes bind_secret_id? ==
+role_fields=bind_secret_id,local_secret_ids,secret_id_bound_cidrs,secret_id_num_uses,secret_id_ttl,token_bound_cidrs,token_explicit_max_ttl,token_max_ttl,token_no_default_policy,token_num_uses,token_period,token_policies,token_strictly_bind_ip,token_ttl,token_type
+PROBE done
+
+## Reading note
+probe2/probe3 were written before the endpoint shapes were known; their
+"destroy" legs used an accessor read from a lookup call instead of the
+generated secret-id response, so those two lines are probe bugs, not binary
+behaviour. probe4 is authoritative for the destroy leg and for the working
+bind_secret_id=false combination. The three facts that matter:
+  F1 default role: role_id-only login -> HTTP 400 "missing secret_id".
+  F2 bind_secret_id=false ALONE -> HTTP 500 "at least one constraint should be
+     enabled on the role"; with secret_id_bound_cidrs=127.0.0.1/32 present the
+     same update succeeds and role_id-only login issues a token (rc 0).
+  F3 secret-id-accessor/lookup returns cidr_list, creation_time,
+     expiration_time, last_updated_time, metadata, secret_id_accessor,
+     secret_id_num_uses, secret_id_ttl, token_bound_cidrs and no secret_id
+     value; destroy of the accessor makes the still-valid secret_id login read
+     HTTP 400 "invalid role or secret ID".
+
+## probe5: the FROZEN T1 sequence unamended (bind_secret_id=false on the same role, a bound-CIDR constraint present)
+== FROZEN T1 SEQUENCE, unamended ==
+-- step 1: create role h with a bound-CIDR constraint, bind_secret_id left at its default (true)
+create rc=0 err=
+read bind_secret_id=True
+-- step 2: role_id-only login under bind_secret_id=true
+rc=2 token=0 err=Error writing data to auth/approle/login: Error making API request.  URL: PUT http://127.0.0.1:36479/v1/auth/approle/login Code: 400. Errors:  * missing secret_id 
+-- step 3: set bind_secret_id=false ON THE SAME ROLE h
+update rc=0 err=
+read bind_secret_id=False
+-- step 4: the same role_id-only body again
+rc=0 token=1 err=
+== A3 4(b): bind_secret_id=false with no other constraint ==
+create rc=2 err=Error writing data to auth/approle/role/i: Error making API request.  URL: PUT http://127.0.0.1:36479/v1/auth/approle/role/i Code: 500. Errors:  * 1 error occurred: 	* at least one constraint should be enabled on the rol
+== A3 4(c): bind_secret_id=false + secret_id_bound_cidrs=127.0.0.1/32 ==
+create rc=0 err=
+login rc=0 token=1 err=
+PROBE done
+
+## probe6: token_bound_cidrs as the constraint that lets bind_secret_id=false be set (avoids the T5 field)
+== token_bound_cidrs as the non-secret_id constraint ==
+create(default bind) rc=0 err=
+rid_only bind=true rc=2 token=0 err=Error writing data to auth/approle/login: Error making API request.  URL: PUT http://127.0.0.1:46187/v1/auth/approle/login Code: 400. Errors:  * missing secret_id 
+set bind=false rc=0 err=
+rid_only bind=false rc=0 token=1 err=
+== bind_secret_id=false + token_bound_cidrs at creation ==
+create rc=0 err=
+rid_only rc=0 token=1 err=
+PROBE done

@@ -1,0 +1,31 @@
+# driver-base-a677c78e.txt — C1 BASE census, both legs (A5+A6-amended instrument)
+# leg 1: python3 -I -B plans/round-60-c1-check.py --root <BASE git-archive tree> --no-challenge
+# leg 2: bash plans/round-60-c1.sh a677c78ece8e3d3b4a43dda55254f2a7b33cc1d2
+# BASE tree materialised with: git archive a677c78ece8e3d3b4a43dda55254f2a7b33cc1d2 | tar -x
+# plan amendments: §A5 (commit b662e114), §A6 (scope verdict token); instrument sha256: 52d4fd5c6660e6a9235ae6cbf7e4e504c245b06cc6aa871fa83df721489fa658 (checker); c11da5c60db536c97ef3e22c0f2d6ab0704e56b1508ce6e93a65847d0e39d599 (driver)
+
+== leg 1: diagnostic (--no-challenge) ==
+c1: i1 FAIL no '## Round 59 — correction' block after the last __DEAD__ line
+c1: i2 FAIL derived cases=33 anchor-row=found selftest-lines-after=0 last-line=missing-supersedes-or-wrong-count
+c1: i3 FAIL corpus/lessons/round-60.md missing
+c1: i4 FAIL derived controls=20 supersedes-candidates=0 last-line=missing-or-wrong-count
+c1: i5 FAIL no 'supersedes the round-59 gate-evidence pointer' line
+c1: i6 FAIL no 'supersedes the round-59 measured-commit citation' line
+c1: i7 FAIL selftest[rc=2 cases=None no-PASS-line] registry[selftest-cell='none — its own five shims and the clean-room leg' none-shims=present] mutation[mutated rc=2 finding=no]
+C1_ROUTED: value=7 population=7 i1=0 i2=0 i3=0 i4=0 i5=0 i6=0 i7=0 guard=0
+checker rc=1
+
+== leg 2: wrapper (guard-bearing) ==
+c1: i1 FAIL no '## Round 59 — correction' block after the last __DEAD__ line
+c1: i2 FAIL derived cases=33 anchor-row=found selftest-lines-after=0 last-line=missing-supersedes-or-wrong-count
+c1: i3 FAIL corpus/lessons/round-60.md missing
+c1: i4 FAIL derived controls=20 supersedes-candidates=0 last-line=missing-or-wrong-count
+c1: i5 FAIL no 'supersedes the round-59 gate-evidence pointer' line
+c1: i6 FAIL no 'supersedes the round-59 measured-commit citation' line
+c1: i7 FAIL selftest[rc=2 cases=None no-PASS-line] registry[selftest-cell='none — its own five shims and the clean-room leg' none-shims=present] mutation[mutated rc=2 finding=no]
+C1_ROUTED: value=FAIL population=7 i1=0 i2=0 i3=0 i4=0 i5=0 i6=0 i7=0 guard=0
+c1-driver: measured=revision a677c78ece8e3d3b4a43dda55254f2a7b33cc1d2 (git archive)
+c1-driver: scratch=/fast/scratch/hyaku/kagi-r60/R60ExecCounterC1/run-20261107T160119Z-3880677
+c1-driver: checker rc=1
+c1-driver: verdict value=FAIL guard=0
+wrapper rc=1

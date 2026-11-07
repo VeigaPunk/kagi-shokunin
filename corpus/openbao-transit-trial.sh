@@ -44,11 +44,32 @@
 # six leg lines):
 #   OPENBAO_TRANSIT_TRIAL: HOLDS|BROKEN|ERROR holds=<n> broken=<n> error=<n> bao=<ver>
 # Exit: 0 all six legs HOLDS, 1 any BROKEN (no ERROR), 2 SETUP (missing tool,
-# unusable work dir, any ERROR). A PATH with no `bao` prints
-# `OPENBAO_TRANSIT_TRIAL: SETUP no bao on PATH` and exits 2 with no TRIAL line.
+# unusable work dir, any ERROR, unknown KAGI_TRANSIT_SHIM). A PATH with no
+# `bao` prints `OPENBAO_TRANSIT_TRIAL: SETUP no bao on PATH` and exits 2 with
+# no TRIAL line. Any non-empty KAGI_TRANSIT_SHIM value other than SH1..SH5 is
+# SETUP (exit 2) before any tool check runs.
 # Falsifier shims (round-48/49/51/52/57/58 convention): KAGI_TRANSIT_SHIM=SH1..SH5
 # replaces exactly one test's observable evaluation, never the mechanics and
 # never the cleanroom leg, so exactly that one test reads BROKEN.
+# --selftest (kagi round 60, item I7): fixture-driven, no real `bao`, no
+# network. Runs the trial nine times against a stateful stub `bao` written
+# per case under the work dir: a python3 test double that never speaks HTTP
+# (its only socket is a loopback listener held open so the trial's `ss`
+# readiness probe sees the server pid; each `-dev` server keeps its own
+# storage under STUB_STATE/<port>/, so the clean-room leg still proves
+# cross-storage refusal). Cases, each asserting the trial's process exit
+# code and output shape:
+#   ST-BASELINE     honest stub: six legs HOLDS, holds=5 -> exit 0
+#   ST-SHIM-SH1..5  each shim flips exactly its own test -> exit 1,
+#                   summary BROKEN holds=4 broken=1 error=0
+#   ST-ERROR-EXIT   injected encrypt fault: summary ERROR -> exit 2
+#   ST-SHIM-UNKNOWN unknown KAGI_TRANSIT_SHIM -> SETUP, exit 2, no HOLDS
+#   ST-NOBAO        PATH with no `bao` -> SETUP, exit 2, no HOLDS
+# A failing case prints `FINDING TRANSIT-ST-<ID> <detail>` and the run exits
+# non-zero; a passing run ends `TRANSIT_SELFTEST: PASS (cases=N)`, exit 0.
+# The stub accepts the trial's token env without reading or printing it; no
+# secret material exists in selftest mode (every value is a random
+# in-process nonce).
 # Secret handling: no token, plaintext marker, ciphertext or context on any
 # argv or in any printed line. The dev root token reaches the server through
 # BAO_DEV_ROOT_TOKEN_ID and every client through BAO_TOKEN (env, never argv);
@@ -64,12 +85,296 @@
 set -u
 umask 077
 WORK=""
+SELFTEST=0
 while [ $# -gt 0 ]; do
   case "$1" in
-    --work) [ $# -ge 2 ] || { echo "usage: $0 [--work DIR]" >&2; exit 2; }; WORK="$2"; shift 2;;
-    *) echo "usage: $0 [--work DIR]" >&2; exit 2;;
+    --work) [ $# -ge 2 ] || { echo "usage: $0 [--selftest] [--work DIR]" >&2; exit 2; }; WORK="$2"; shift 2;;
+    --selftest) SELFTEST=1; shift;;
+    *) echo "usage: $0 [--selftest] [--work DIR]" >&2; exit 2;;
   esac
 done
+# Shim selector: bound here (before any tool check) so an unknown value is a
+# SETUP rc 2 that the selftest can prove without `bao` on PATH. SH1..SH5 each
+# flip exactly their own test below; empty behaves as unset.
+SHIM="${KAGI_TRANSIT_SHIM:-}"
+case "$SHIM" in
+  ""|SH1|SH2|SH3|SH4|SH5) ;;
+  *) echo "OPENBAO_TRANSIT_TRIAL: SETUP unknown KAGI_TRANSIT_SHIM"; exit 2;;
+esac
+# ----------------------------------------------------------------------
+# Selftest fixtures and case runner (see the --selftest header block above).
+_st_fail() { # ID DETAIL -> record a failed case
+  echo "FINDING TRANSIT-ST-$1 $2"
+  ST_FAIL=$((ST_FAIL+1))
+}
+_st_wantrc() { # ID WANT-RC -> assert the trial subprocess exit code
+  [ "$ST_RC" = "$2" ] || _st_fail "$1" "exit=$ST_RC want=$2"
+}
+_st_want() { # ID FIXED-SUBSTRING that must appear in the trial stdout
+  case "$ST_OUT" in
+    *"$2"*) : ;;
+    *) _st_fail "$1" "missing: $2" ;;
+  esac
+}
+_st_absent() { # ID FIXED-SUBSTRING that must not appear in the trial stdout
+  case "$ST_OUT" in
+    *"$2"*) _st_fail "$1" "unexpected: $2" ;;
+    *) : ;;
+  esac
+}
+_st_case() { # ID PATHMODE(stub|empty) SHIM(-|SHx) FAULT(-|name); sets ST_OUT/ST_RC
+  ST_CW="$ST_BASE/case-$1"
+  mkdir -p "$ST_CW/state" "$ST_CW/work" || { _st_fail "$1" "case dir not creatable"; ST_OUT=""; ST_RC=125; return; }
+  local pp envs=() shim fault
+  if [ "$2" = stub ]; then pp="$ST_BIN:$ST_PATH"; else pp="$ST_EMPTY"; fi
+  shim="$3"; [ "$shim" = "-" ] && shim=""
+  fault="$4"; [ "$fault" = "-" ] && fault=""
+  # Every case pins its whole fixture environment so no ambient value leaks in.
+  # timeout/bash are invoked by absolute path: env applies PATH=$pp to its own
+  # exec lookup, and timeout would otherwise resolve bash through $pp too.
+  envs+=("KAGI_TRANSIT_SHIM=$shim" "STUB_FAULT=$fault" "PATH=$pp")
+  [ "$2" = stub ] && envs+=("STUB_STATE=$ST_CW/state")
+  ST_OUT=$(env "${envs[@]}" "$ST_TIMEOUT" 120 "$ST_BASH" "$ST_SELF" --work "$ST_CW/work" 2>"$ST_CW/trial.err")
+  ST_RC=$?
+}
+transit_selftest() {
+  ST_SELF="$1"; ST_FAIL=0; ST_N=0; ST_OUT=""; ST_RC=0; ST_CW=""
+  local t root p s m
+  for t in python3 timeout ss setpriv pgrep; do
+    command -v "$t" >/dev/null 2>&1 || { echo "TRANSIT_SELFTEST: SETUP no $t"; return 2; }
+  done
+  # Seat-agnostic default: the C1 checker, controls battery and reviewers all
+  # invoke --selftest without --work, possibly concurrently; mktemp gives each
+  # run a unique subdir under this shared parent.
+  root="${WORK:-${HYAKU_SCRATCH:-/fast/scratch/hyaku}/kagi-transit-trial/selftest-work}"
+  mkdir -p "$root" 2>/dev/null || { echo "TRANSIT_SELFTEST: SETUP work dir not creatable"; return 2; }
+  ST_BASE=$(mktemp -d "$root/transit-selftest.XXXXXX") || { echo "TRANSIT_SELFTEST: SETUP work dir not writable"; return 2; }
+  ST_BIN="$ST_BASE/bin"; ST_EMPTY="$ST_BASE/empty"; ST_PATH="$PATH"
+  ST_TIMEOUT=$(command -v timeout) || { echo "TRANSIT_SELFTEST: SETUP no timeout"; return 2; }
+  ST_BASH=$(command -v bash) || { echo "TRANSIT_SELFTEST: SETUP no bash"; return 2; }
+  mkdir -p "$ST_BIN" "$ST_EMPTY" || { echo "TRANSIT_SELFTEST: SETUP fixture dirs not creatable"; return 2; }
+  trap 'rm -rf -- "$ST_BASE"' EXIT
+  cat > "$ST_BIN/bao" <<'STUB'
+#!/usr/bin/env python3
+# Stub `bao` fixture for this trial's --selftest (kagi round 60, I7).
+# A test double, NOT OpenBao: it dispatches exactly the CLI calls the trial
+# makes against per-server JSON state under $STUB_STATE/<port>/. No HTTP
+# exists anywhere in selftest mode: server mode only opens a loopback
+# listener and holds it (no accept, no client ever connects) so the trial's
+# `ss` readiness probe finds the pid; client mode is pure in-process state.
+# The trial's token env is accepted and never read or printed.
+import base64, hashlib, json, os, socket, sys, time
+
+def sdir():
+    port = os.environ.get("BAO_ADDR", "").rsplit(":", 1)[-1]
+    return os.path.join(os.environ["STUB_STATE"], port)
+
+def load():
+    try:
+        with open(os.path.join(sdir(), "state.json")) as f:
+            return json.load(f)
+    except Exception:
+        return {"keys": {}}
+
+def save(st):
+    os.makedirs(sdir(), exist_ok=True)
+    with open(os.path.join(sdir(), "state.json"), "w") as f:
+        json.dump(st, f)
+
+def fail(msg):
+    sys.stderr.write("Code: 400. Errors:\n\n* %s\n" % msg)
+    sys.exit(1)
+
+def emit(data):
+    sys.stdout.write(json.dumps({"data": data}))
+
+def parse(argv):
+    path, kvs, body = None, {}, {}
+    i = 0
+    while i < len(argv):
+        a = argv[i]
+        if a == "-":
+            try:
+                body = json.loads(sys.stdin.read() or "{}")
+            except Exception:
+                body = {}
+        elif a.startswith("-"):
+            pass
+        elif path is None:
+            path = a
+        elif "=" in a:
+            k, _, v = a.partition("=")
+            kvs[k] = v
+        i += 1
+    return path, kvs, body
+
+def serve():
+    port = None
+    for a in sys.argv:
+        if a.startswith("-dev-listen-address="):
+            port = int(a.rsplit(":", 1)[1])
+    if port is None:
+        fail("no -dev-listen-address")
+    s = socket.socket()
+    s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    s.bind(("127.0.0.1", port))
+    s.listen(1)
+    os.makedirs(os.path.join(os.environ["STUB_STATE"], str(port)), exist_ok=True)
+    while True:
+        time.sleep(3600)
+
+def main():
+    if len(sys.argv) < 2:
+        fail("no subcommand")
+    c = sys.argv[1]
+    if c == "version":
+        print("bao vStub-1 (transit-selftest fixture)")
+        return
+    if c in ("status", "secrets"):
+        return
+    if c == "server":
+        serve()
+        return
+    st = load()
+    keys = st["keys"]
+    path, kvs, body = parse(sys.argv[2:])
+    if path is None:
+        fail("no path")
+    parts = [p for p in path.strip("/").split("/") if p]
+    if len(parts) < 2 or parts[0] != "transit":
+        fail("unsupported path %s" % path)
+    if c == "read" and parts[1] == "keys" and len(parts) == 3:
+        kk = keys.get(parts[2])
+        if kk is None:
+            fail("key %s not found" % parts[2])
+        emit({"latest_version": kk["ver"], "min_decryption_version": kk["mdv"]})
+        return
+    if c != "write":
+        fail("unsupported subcommand %s" % c)
+    if parts[1] == "keys" and len(parts) == 3:
+        k = parts[2]
+        if k not in keys:
+            keys[k] = {"ver": 1, "mdv": 0,
+                       "conv": bool(kvs.get("convergent_encryption")),
+                       "map": {}}
+        save(st)
+        return
+    k = parts[2] if len(parts) > 2 else ""
+    kk = keys.get(k)
+    if parts[1] == "keys" and len(parts) == 4 and parts[3] == "rotate":
+        if kk is None:
+            fail("key %s not found" % k)
+        kk["ver"] += 1
+        save(st)
+        return
+    if parts[1] == "keys" and len(parts) == 4 and parts[3] == "config":
+        if kk is None:
+            fail("key %s not found" % k)
+        kk["mdv"] = int(kvs.get("min_decryption_version", "0"))
+        save(st)
+        return
+    if parts[1] == "encrypt":
+        if os.environ.get("STUB_FAULT") == "encrypt":
+            fail("stub fault: encrypt refused")
+        if kk is None:
+            # Real transit auto-creates a key on first encrypt; T1 relies on it.
+            kk = keys[k] = {"ver": 1, "mdv": 0, "conv": False, "map": {}}
+        pt = body.get("plaintext", "")
+        ctx = body.get("context", "")
+        if kk["conv"] and not ctx:
+            fail("context required for derived key")
+        if kk["conv"]:
+            dig = hashlib.sha256(("%s|%s|%s" % (k, ctx, pt)).encode()).digest()
+            b = base64.b64encode(dig).decode()
+        else:
+            b = base64.b64encode(os.urandom(18)).decode()
+        ct = "vault:v%d:%s" % (kk["ver"], b)
+        kk["map"][ct] = {"pt": pt, "ver": kk["ver"]}
+        save(st)
+        emit({"ciphertext": ct})
+        return
+    if parts[1] == "rewrap":
+        if kk is None:
+            fail("key %s not found" % k)
+        e = kk["map"].get(body.get("ciphertext", ""))
+        if e is None:
+            fail("message authentication failed")
+        nct = "vault:v%d:%s" % (kk["ver"], base64.b64encode(os.urandom(18)).decode())
+        kk["map"][nct] = {"pt": e["pt"], "ver": kk["ver"]}
+        save(st)
+        emit({"ciphertext": nct})
+        return
+    if parts[1] == "decrypt":
+        if kk is None:
+            fail("encryption key not found")
+        e = kk["map"].get(body.get("ciphertext", ""))
+        if e is None:
+            fail("message authentication failed")
+        if e["ver"] < kk["mdv"]:
+            fail("ciphertext version is disallowed by policy (too old)")
+        emit({"plaintext": e["pt"]})
+        return
+    fail("unsupported transit path %s" % path)
+
+main()
+STUB
+  chmod +x "$ST_BIN/bao" || { echo "TRANSIT_SELFTEST: SETUP stub not executable"; return 2; }
+
+  # ST-BASELINE: honest stub end-to-end — six legs HOLDS, exit 0.
+  _st_case BASELINE stub - -; ST_N=$((ST_N+1))
+  _st_wantrc BASELINE 0
+  _st_want BASELINE "OPENBAO_TRANSIT_TRIAL: HOLDS holds=5 broken=0 error=0 bao=vStub-1"
+  _st_want BASELINE "TRIAL T1 HOLDS"; _st_want BASELINE "TRIAL T2 HOLDS"
+  _st_want BASELINE "TRIAL T3 HOLDS"; _st_want BASELINE "TRIAL T4 HOLDS"
+  _st_want BASELINE "TRIAL T5 HOLDS"; _st_want BASELINE "TRIAL CLEANROOM HOLDS"
+  [ "$(printf '%s\n' "$ST_OUT" | grep -c '^TRIAL ')" = 6 ] || _st_fail BASELINE "TRIAL lines != 6"
+
+  # ST-SHIM-SH1..SH5: each shim resolves to exactly its own test -> exit 1.
+  for s in SH1 SH2 SH3 SH4 SH5; do
+    _st_case "SHIM-$s" stub "$s" -; ST_N=$((ST_N+1))
+    _st_wantrc "SHIM-$s" 1
+    _st_want "SHIM-$s" "OPENBAO_TRANSIT_TRIAL: BROKEN holds=4 broken=1 error=0 bao=vStub-1"
+    _st_want "SHIM-$s" "TRIAL T${s#SH} BROKEN"
+    for m in 1 2 3 4 5; do
+      [ "$m" = "${s#SH}" ] || _st_want "SHIM-$s" "TRIAL T$m HOLDS"
+    done
+    _st_want "SHIM-$s" "TRIAL CLEANROOM HOLDS"
+  done
+
+  # ST-ERROR-EXIT: injected encrypt fault -> summary ERROR, exit 2.
+  _st_case ERROR-EXIT stub - encrypt; ST_N=$((ST_N+1))
+  _st_wantrc ERROR-EXIT 2
+  _st_want ERROR-EXIT "OPENBAO_TRANSIT_TRIAL: ERROR "
+  _st_want ERROR-EXIT "TRIAL T1 ERROR "
+
+  # ST-SHIM-UNKNOWN: an unknown shim value is SETUP rc 2 (run with an empty
+  # PATH so this also proves the validation precedes every tool check).
+  _st_case SHIM-UNKNOWN empty SH9 -; ST_N=$((ST_N+1))
+  _st_wantrc SHIM-UNKNOWN 2
+  _st_want SHIM-UNKNOWN "OPENBAO_TRANSIT_TRIAL: SETUP unknown KAGI_TRANSIT_SHIM"
+  _st_absent SHIM-UNKNOWN "HOLDS"
+
+  # ST-NOBAO: a PATH with no `bao` reads SETUP rc 2, no HOLDS line.
+  _st_case NOBAO empty - -; ST_N=$((ST_N+1))
+  _st_wantrc NOBAO 2
+  _st_want NOBAO "OPENBAO_TRANSIT_TRIAL: SETUP no bao on PATH"
+  _st_absent NOBAO "HOLDS"
+
+  # Reap any stub server a crashed case left behind (each trial run kills its
+  # own server through its EXIT trap on every normal path).
+  for p in $(pgrep -f "$ST_BIN/bao server" 2>/dev/null); do kill "$p" 2>/dev/null; done
+
+  if [ "$ST_FAIL" -gt 0 ]; then
+    echo "TRANSIT_SELFTEST: FAIL (cases=$ST_N failed=$ST_FAIL)"
+    return 1
+  fi
+  echo "TRANSIT_SELFTEST: PASS (cases=$ST_N)"
+  return 0
+}
+if [ "$SELFTEST" = 1 ]; then
+  transit_selftest "$0"
+  exit $?
+fi
 command -v bao >/dev/null 2>&1 || { echo "OPENBAO_TRANSIT_TRIAL: SETUP no bao on PATH"; exit 2; }
 command -v python3 >/dev/null 2>&1 || { echo "OPENBAO_TRANSIT_TRIAL: SETUP no python3"; exit 2; }
 command -v setpriv >/dev/null 2>&1 || { echo "OPENBAO_TRANSIT_TRIAL: SETUP no setpriv"; exit 2; }
@@ -96,7 +401,6 @@ while IFS= read -r v; do [ -n "$v" ] && unset "$v"; done < <(env | sed -n 's/^\(
 export HOME="$D/home"; mkdir -p "$HOME"
 VER=$(bao version 2>/dev/null | awk '{print $2; exit}')
 [ -n "$VER" ] || { echo "OPENBAO_TRANSIT_TRIAL: SETUP bao version unreadable"; exit 2; }
-SHIM="${KAGI_TRANSIT_SHIM:-}"
 nonce() { python3 -c 'import secrets;print("r59-"+secrets.token_hex(12))'; }
 start_server() {
   local port root ok

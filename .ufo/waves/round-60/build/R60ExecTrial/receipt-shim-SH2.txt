@@ -1,0 +1,7 @@
+TRIAL T1 HOLDS aref=1 upd=1 ctok=1
+TRIAL T2 BROKEN first=1 ref2=0 fresh=1 err2=invalid-role-or-secret-id
+TRIAL T3 HOLDS imm=1 expref=1 fresh=1
+TRIAL T4 HOLDS meta=1 cust=1 revoked=1
+TRIAL T5 HOLDS deny=1 upd=1 allow=1
+OPENBAO_APPROLE_TRIAL: BROKEN holds=4 broken=1 error=0 bao=v2.7.2
+rc=1

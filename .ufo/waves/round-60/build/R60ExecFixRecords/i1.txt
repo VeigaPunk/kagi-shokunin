@@ -1,0 +1,2 @@
+$ python3 -c "import json; d=json.load(open('.ufo/waves/round-59/w1-results.json')); r=d['results'] if isinstance(d,dict) and 'results' in d else d; print('R=%d D=%d' % (len(r), sum(1 for x in r if not x.get('output')))))"
+R=14 D=0

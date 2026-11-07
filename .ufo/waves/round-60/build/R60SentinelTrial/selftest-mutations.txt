@@ -1,0 +1,14 @@
+# Selftest mutation matrix on a scratch copy of the trial
+# reviewed bytes sha256 49ea928f28f42c7cce91459fe577a6d80023db3844229047718f483bfed0e54f
+# Each mutation applied once; the copy runs --selftest under env -i with no bao on PATH.
+# KILLED = non-zero exit plus a FINDING id; SURVIVED = exit 0.
+
+control rc=0 pass_line=1 :: APPROLE_SELFTEST: PASS (cases=45)
+M1-SHIM-DOUBLE rc=1 verdict=KILLED findings=F-SHIM-MATRIX
+M2-BROKEN-RC0 rc=1 verdict=KILLED findings=F-RCFOR-BROKEN
+M3-ERROR-NOT-WINS rc=1 verdict=KILLED findings=F-RCFOR-ERROR,F-RCFOR-ERRWINS
+M4-CUSTODY-ALWAYS rc=1 verdict=KILLED findings=F-CUSTODY-KEY,F-CUSTODY-LEAK,F-CUSTODY-META
+M5-NOBAO-CHECK-REMOVED rc=1 verdict=KILLED findings=F-NOBAO-LINE
+M6-REAL-TEST-BROKEN rc=0 verdict=SURVIVED findings=-
+M7-SELFTEST-STUB rc=0 verdict=SURVIVED findings=-
+mutations done; work dir /fast/scratch/hyaku/kagi-r60/R60SentinelTrial/mut6/mut.6gew7fn_

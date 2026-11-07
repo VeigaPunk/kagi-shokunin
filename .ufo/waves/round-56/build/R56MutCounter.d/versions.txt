@@ -1,0 +1,26 @@
+coherent instrument sets tested (lane moved while I tested; every run names its set)
+A  counter 096251c9b7a7405dbae320eb4dbb3ef0a092cf5e530d2274de0b2e29509bde9a  (== predeclaration commit 42070de)
+   gate    b7782f35c0c8bbaedac5f8f06eaadbc3ce4b8997be25e10f4224724013d799e8
+   manifest df46be5c92c7b4d5a8b7ad790371b5c3240c92f46460b8cfb69e9b75b7ecc762
+   SOURCES.md (42070de)   full 41-mutant matrix, 2 baselines, 7 setup probes, followups (R4b2, printer probes)
+C  counter d2bcb79094355ef6eb7bdad406ee1ccbeaf386e920950168fc2fa2c74aeb9f44
+   gate    637c8184bd6ea8635fe582ea5641ea490033405658259c1a78c63899611aa585
+   manifest df46be5c...  SOURCES.md 299903cfb8d38760440d16ae3a5119154f14ec128619710101ca8c59af3a4edb
+   same 41 recipes re-run against a pinned snapshot (counter copied to a scratch clone so REPO=clone)
+D  counter 6b132ea1b521e698aaf4a1085e051087726c6b5ec840f60339b206abe02b269c
+   gate    2e9dfde326b29fb95f520c5d7f3a671836682b28025e4efc7887333257d4df51
+   manifest df46be5c...  SOURCES.md (working tree at 07:44)
+   baselines + the four open items + 7 setup probes + R4b2 (bounded snapshot at 07:44)
+incoherent pair observed 07:41 (not a tested version, reported as a hazard):
+   counter d2bcb790 pins gate 637c8184 while the working-tree gate was 2e9dfde3 -> reading was
+   value=0 present=10 replayed=0 gate=0 guard=1 with r5-gate on all ten clocks.
+epoch B frozen at 5d9a1571911ec38a456a40b443e19640abb9a88b (counter 6b132ea1 / gate 2e9dfde3 / manifest df46be5c)
+  = the "D" set above; all epoch-B evidence is anchored to that revision (see epochB-anchored.txt).
+lane state observed at 07:52 (after the epoch-B matrix, NOT tested by me):
+  corpus/recheck-replay.py sha256 d4392ffe831560397fa35b4e84198b6ac75d5da8505a302ef3dcf6991080b274
+  corpus/SOURCES.md sha256 fa69564f610e5192093b05ae17c9ee385aa607586cc219d0e33460985ab12936
+  (epoch-C re-freeze in flight per KagiR56a3; the three open items below are being folded in.)
+scratch note: a sibling mutation seat wrote into this seat's scratch dir at 07:46 (driver.py,
+mut-m01-*, mut-m02-*, clone/, and an overwrite of results.json in its own schema). My epoch-A
+results.json was replaced after the run; the preserved epoch-A artifact is matrix.tsv (copied to
+the seat receipt at 07:34). My runs used explicit paths and were not affected.

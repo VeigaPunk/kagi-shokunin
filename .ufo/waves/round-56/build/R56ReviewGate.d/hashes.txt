@@ -1,0 +1,31 @@
+# R56ReviewGate instrument and artefact hashes
+# lane: /home/vgpnk/Projects/shokunin/kagi-shokunin  BASE: 832ba6a53d6a76706b5c80bce2278683dea33d42
+
+## epoch-B = frozen predeclaration commit 5d9a1571911ec38a456a40b443e19640abb9a88b (worktree identical)
+2e9dfde326b29fb95f520c5d7f3a671836682b28025e4efc7887333257d4df51  corpus/recheck-replay.py
+6b132ea1b521e698aaf4a1085e051087726c6b5ec840f60339b206abe02b269c  plans/round-56-c1.sh
+63cf806134bcb115368e59809ad54957750d7433d53f6979b256f662e3ddab8f  plans/round-56-controls.sh
+033f2104ef36b76e5d9de192878fb1b619808f1c9c63b2e310d074816a3e1679  plans/round-56.md
+df46be5c92c7b4d5a8b7ad790371b5c3240c92f46460b8cfb69e9b75b7ecc762  corpus/recheck-captures.tsv
+14f6ca6ab742296f45a699548c31e6d49892f6baef36ed419c283d1a0511b8c9  corpus/rendered-text-v1.py (same bytes at BASE)
+2e9dfde326b29fb95f520c5d7f3a671836682b28025e4efc7887333257d4df51  GATE_SHA256_PIN at plans/round-56-c1.sh:79
+709cf29a03f5ba9cc1c2eacb60036a23d5836803e655f4f0c0c91fefc8145aea  .ufo/waves/round-56/controls/controls-prefreeze-epochB.txt (CONTROLS: match=16 mismatch=0)
+
+## epoch-A = commit 42070de (kept for the audit trail of what epoch B closed)
+b7782f35c0c8bbaedac5f8f06eaadbc3ce4b8997be25e10f4224724013d799e8  corpus/recheck-replay.py
+096251c9b7a7405dbae320eb4dbb3ef0a092cf5e530d2274de0b2e29509bde9a  plans/round-56-c1.sh
+633326a563c6d38e7933d0e88d3b395404f688dbef9ff8e1de7fffdbed48b094  plans/round-56-controls.sh
+106be490947ce3a5141da24c3b356cbd0679d99f  blob plans/round-56.md
+3cc3e977eef7832f048a319bfd449cd0b6ecc575160b4905720285edabd65f42  .ufo/waves/round-56/controls/controls-prefreeze.txt (12 MATCH, epoch A)
+
+## forged artefacts used only in scratch (never in the lane)
+2030fd595bee75fbb0f985238d84892d5dab7a76cb7d9de077ca3efba6dc2115  S054 body, curl -v shape (F1)  [bytes 38730]
+8770e915fa2a025c0320d47634f08f7f44eafd2e467052daab0a6e03e414bb8e  epoch-A printer gate ending "RECHECK_REPLAY: CLEANUP failed" rc 3 (F11)
+8655fd82f16c54e1b176e98831086b9d887656acdd1a7d6e7599a4f2e42f45f2  normaliser printing count=1 then exit 2 (F3)
+
+## churn observed during the review (same working tree, minutes apart)
+# counter: 096251c9 -> 0153f876 -> d2bcb790 -> 6b132ea1
+# gate:    b7782f35 -> 637c8184 -> a1b6270e -> 2e9dfde3
+# controls:633326a5 -> bb48db96 -> 63cf8061
+# plan:    d1bf8d26 (worktree) -> 033f2104
+# transient inconsistent instant: pin 637c8184 while gate was a1b6270e

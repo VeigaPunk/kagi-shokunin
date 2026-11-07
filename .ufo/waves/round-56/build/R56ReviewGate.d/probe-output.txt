@@ -1,11 +1,14 @@
+# R56ReviewGate probe output
+# REF tree built from the S1 worktree (gate 2e9dfde3, counter 6b132ea1); see hashes.txt
+# Each block: gate last line, gate rc, counter first line. Counter sha verified stable per run.
 ===== a1 =====
 RECHECK_REPLAY: CLEAN (clocks=9 match=9 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)
 gate_rc=0
-C1_REPLAY: value=FAIL present=9 replayed=9 gate=1 guard=0 (bad=absent:trufflehog-verification-lifecycle.md:verification-caching)
+C1_REPLAY: value=FAIL present=9 replayed=0 gate=0 guard=0 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r5-gate:secret-scanning-detection-vs-validation.md:README.md,absent:trufflehog-verification-lifecycle.md:verification-caching)
 ===== a2 =====
 RECHECK_REPLAY: CLEAN (clocks=9 match=9 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)
 gate_rc=0
-C1_REPLAY: value=FAIL present=9 replayed=9 gate=1 guard=0 (bad=absent:trufflehog-verification-lifecycle.md:verification-caching)
+C1_REPLAY: value=FAIL present=9 replayed=0 gate=0 guard=0 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r5-gate:secret-scanning-detection-vs-validation.md:README.md,absent:trufflehog-verification-lifecycle.md:verification-caching)
 ===== a7 =====
 RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)
 gate_rc=0
@@ -21,8 +24,38 @@ C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)
 ===== st =====
 RECHECK_REPLAY: CLEANUP failed, population truncated
 gate_rc=3
-C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)
+C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r5-gate:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)
 ===== src2 =====
 RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)
 gate_rc=0
-C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r5-gate:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)
+C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)
+
+## Section B — runs with before/after instrument-hash guard (frozen epoch-B)
+# guard = sha256 of (corpus/recheck-replay.py + plans/round-56-c1.sh) before/after each counter run
+# identity : value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)
+# a7  http_status 200->404        : value=10 present=10 replayed=10 gate=1 guard=1  stable=yes
+# a8  fetched -> not-a-date       : value=10 present=10 replayed=10 gate=1 guard=1  stable=yes
+# src normaliser count=1 then rc2 : gate "RECHECK_REPLAY: CLEAN (clocks=10 …)" rc 0
+#                                   counter value=10 present=10 replayed=10 gate=1 guard=1  stable=yes
+# sv  S054 body = curl -v trace + genuine body (bytes 38730, sha256 2030fd59…):
+#                                   gate "RECHECK_REPLAY: CLEAN (clocks=10 …)" rc 0
+#                                   counter value=10 present=10 replayed=10 gate=1 guard=1
+# a1  S057 clock's `-> 1` removed  : gate "RECHECK_REPLAY: CLEAN (clocks=9 …)" rc 0
+#                                   counter value=FAIL present=9 replayed=0 gate=0 guard=0
+# a2  S057 recheck line deleted    : gate "RECHECK_REPLAY: CLEAN (clocks=9 …)" rc 0
+#                                   counter value=FAIL present=9 replayed=0 gate=0 guard=0
+# st  (epoch-A printer gate, rc 3) : counter value=0 present=10 replayed=0 gate=0 guard=1   [fixed by the pin]
+# per S057 clock stated `-> 1.`    : counter value=FAIL present=9 replayed=9 gate=1 guard=0  [F8 lookahead]
+
+## Section C — controls, frozen bytes
+# frozen receipt controls-prefreeze-epochB.txt sha256 709cf29a03f5ba9cc1c2eacb60036a23d5836803e655f4f0c0c91fefc8145aea
+#   CONTROLS: match=16 mismatch=0
+# independent re-run, before/after hash guard differed because plans/round-56-controls.sh
+# was rewritten mid-run (bb48db96 -> 63cf8061); the run's expectations were the bb48db96 set
+# and it read: CONTROLS: match=16 mismatch=0 (all 16 CONTROL lines MATCH)
+
+## Section D — epoch-A evidence (superseded; kept for the audit trail)
+# st  : gate last line "RECHECK_REPLAY: CLEANUP failed, population truncated" rc 3
+#       counter value=10 present=10 replayed=10 gate=1 guard=1   [prefix CLEAN + rc ignored]
+# a1/a2: gate CLEAN (clocks=9 …) rc 0 ; counter FAIL present=9   [pre-population-guard]
+# a9/a10 (registry fence / URL in non-source cell): gate CLEAN ; counter value=9 bad=r2-registry

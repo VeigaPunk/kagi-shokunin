@@ -20,17 +20,16 @@ rm -rf "$S"; mkdir -p "$S/snap"
 # --- snapshot the epoch-B judge atomically (copy once, hash what we copied) ----
 cp "$LANE/plans/round-56-c1.sh" "$S/snap/counter.sh" || exit 2
 cp "$LANE/corpus/recheck-replay.py" "$S/snap/gate.py" || exit 2
+cp "$S/snap/counter.sh" "$S/snap/counterB.sh" || exit 2
 A_SHA=096251c9b7a7405dbae320eb4dbb3ef0a092cf5e530d2274de0b2e29509bde9a
 printf 'epoch A counter pin  %s\n' "$A_SHA"
 printf 'epoch B counter      %s\n' "$(sha256sum "$S/snap/counter.sh" | cut -d' ' -f1)"
 printf 'epoch B gate         %s\n' "$(sha256sum "$S/snap/gate.py" | cut -d' ' -f1)"
 printf 'epoch B gate pin     %s\n' "$(grep -m1 '^GATE_SHA256_PIN=' "$S/snap/counter.sh" | cut -d= -f2)"
-if grep -q '^GATE_SHA256_PIN=' "$S/snap/counter.sh"; then
-  [ "$(grep -m1 '^GATE_SHA256_PIN=' "$S/snap/counter.sh" | cut -d= -f2)" = \
-    "$(sha256sum "$S/snap/gate.py" | cut -d' ' -f1)" ] \
-    && echo "pin consistent with the snapshotted gate" \
-    || echo "PIN INCONSISTENT with the snapshotted gate"
-fi
+PIN=$(grep -m1 '^GATE_SHA256_PIN=' "$S/snap/counter.sh" | cut -d= -f2)
+[ "$PIN" = "$(sha256sum "$S/snap/gate.py" | cut -d' ' -f1)" ] \
+  && echo "pin consistent with the snapshotted gate" \
+  || { echo "PIN INCONSISTENT with the snapshotted gate"; exit 2; }
 bash -n "$S/snap/counter.sh" || echo "EPOCH-B COUNTER DOES NOT PARSE"
 # --- one live clone at the frozen revision (git + BASE object) ---
 git clone --quiet "$LANE" "$CLONE" || exit 2
@@ -42,7 +41,7 @@ cp "$CLONE/plans/round-56-c1.sh" "$S/snap/counterA.sh"
 
 run() {  # $1 = A|B  $2 = label  $3 = tree  $4 = 1 when the gate itself is the attack
   if [ "$1" = B ] && [ "${4:-0}" = 0 ]; then cp "$S/snap/gate.py" "$3/corpus/recheck-replay.py"; fi
-  cp "$S/snap/counter$1.sh" "$CLONE/plans/round-56-c1.sh"
+  cp "$S/snap/counter$1.sh" "$CLONE/plans/round-56-c1.sh" || { echo "no counter for epoch $1"; exit 2; }
   printf '%s %-13s ' "$1" "$2"
   bash "$CLONE/plans/round-56-c1.sh" --tree "$3" | cut -c1-150
 }

@@ -169,7 +169,9 @@ report C02-REF-positive 0 '^C1_REPLAY: value=10 present=10 replayed=10 gate=1 gu
 # ---- r1 family: the entry must still state the BASE clock ----
 
 ## C03 -- clock deleted (recheck line kept, backticked clock gone): PRESENT fails,
-##   guard drops, gate still CLEAN over its own 9-clock population.
+##   guard drops. The gate's own population shrinks to 9 MATCHing clocks, but the
+##   counter's gate verdict demands the exact CLEAN(clocks=10 match=10) shape, so
+##   the gate field reads 0 and replayed collapses to 0.
 mk C03-R1-clock-deleted
 py 'import sys,re
 p=sys.argv[1]+"/corpus/knowledge/betterleaks-detection-vs-validation.md"
@@ -177,7 +179,7 @@ s=open(p,encoding="utf-8").read()
 t=re.sub(r"(?m)^recheck:.*$","recheck: 180d — clock withdrawn this round, see the live page",s,count=1)
 assert t!=s; open(p,"w",encoding="utf-8").write(t)' "$SCR/c/C03-R1-clock-deleted"
 run_tree C03-R1-clock-deleted "$SCR/c/C03-R1-clock-deleted"
-report C03-R1-clock-deleted 0 '^C1_REPLAY: value=FAIL present=9 replayed=9 gate=1 guard=0 \(bad=absent:'
+report C03-R1-clock-deleted 0 '^C1_REPLAY: value=FAIL present=9 replayed=0 gate=0 guard=0 \(bad=absent:'
 
 ## C04 -- stated N restated 1->2 without touching the capture: PRESENT fails (BASE N
 ##   pinned), and the gate itself reports MISMATCH against its stated 2.
@@ -196,15 +198,17 @@ run_tree C05-R1-command-retexted "$SCR/c/C05-R1-command-retexted"
 report C05-R1-command-retexted 0 '^C1_REPLAY: value=FAIL present=9 replayed=0 gate=0 guard=0 \(bad=absent:'
 
 ## C06 -- clock restated as a second column-1 recheck line (byte-identical clock):
-##   PRESENT demands exactly one recheck line; the gate sees two MATCHing clocks and
-##   stays CLEAN (gate blind spot the r1 rule must cover).
+##   PRESENT demands exactly one recheck line; the gate population grows to 11
+##   MATCHing clocks, and the exact CLEAN(clocks=10 match=10) shape check makes the
+##   gate field read 0, so replayed collapses to 0.
 mk C06-R1-second-clock-line
 printf '%s\n' "recheck: 180d — \`curl -fsSL 'https://raw.githubusercontent.com/betterleaks/betterleaks/main/README.md' | grep -c 'Scans detect secrets without credential provider requests by default'\` -> 1 (restated duplicate)" >> "$SCR/c/C06-R1-second-clock-line/corpus/knowledge/betterleaks-detection-vs-validation.md"
 run_tree C06-R1-second-clock-line "$SCR/c/C06-R1-second-clock-line"
-report C06-R1-second-clock-line 0 '^C1_REPLAY: value=FAIL present=9 replayed=9 gate=1 guard=0 \(bad=absent:'
+report C06-R1-second-clock-line 0 '^C1_REPLAY: value=FAIL present=9 replayed=0 gate=0 guard=0 \(bad=absent:'
 
 ## C07 -- recheck line indented off column 1: PRESENT fails; the gate never sees the
-##   clock (column-1 rule) and stays CLEAN over 9 clocks.
+##   clock (column-1 rule) and reports CLEAN over 9 clocks, but the exact
+##   CLEAN(clocks=10 match=10) shape check makes the gate field read 0.
 mk C07-R1-recheck-indented
 py 'import sys,re
 p=sys.argv[1]+"/corpus/knowledge/betterleaks-detection-vs-validation.md"
@@ -212,7 +216,7 @@ s=open(p,encoding="utf-8").read()
 t=re.sub(r"(?m)^recheck:"," recheck:",s,count=1)
 assert t!=s; open(p,"w",encoding="utf-8").write(t)' "$SCR/c/C07-R1-recheck-indented"
 run_tree C07-R1-recheck-indented "$SCR/c/C07-R1-recheck-indented"
-report C07-R1-recheck-indented 0 '^C1_REPLAY: value=FAIL present=9 replayed=9 gate=1 guard=0 \(bad=absent:'
+report C07-R1-recheck-indented 0 '^C1_REPLAY: value=FAIL present=9 replayed=0 gate=0 guard=0 \(bad=absent:'
 
 # ---- r2 family: manifest/registry binding ----
 
@@ -277,9 +281,11 @@ open(p,"w",encoding="utf-8").write("\n".join(ls)+"\n")' "$SCR/c/C13-R2-registry-
 run_tree C13-R2-registry-status-minted "$SCR/c/C13-R2-registry-status-minted"
 report C13-R2-registry-status-minted 0 '^C1_REPLAY: value=9 present=10 replayed=9 gate=1 guard=1 \(bad=r2-registry:'
 
-## C36 -- duplicate manifest id over a fresh non-clock URL, row self-consistent: r2
-##   only demands the CLOCK's row be unique per URL and its id name one registry row;
-##   the extra row binds to no clock, so the reading must stay 10 (tolerance witness).
+## C36 -- duplicate manifest id over a fresh non-clock URL REUSING S054's body_path
+##   and sha256: the 096251c9-era counter tolerated it (value=10, tolerance
+##   witness); epoch C fail-closes the whole manifest on a shared body_path or
+##   sha256, so the reading must now be value=0 via r2-manifest-malformed (regression
+##   witness for the row-uniqueness binding).
 mk C36-R2-duplicate-id-other-url
 py 'import sys,hashlib
 tree=sys.argv[1]
@@ -292,7 +298,7 @@ s=open(p,encoding="utf-8").read()
 assert "example.invalid" not in s
 open(p,"w",encoding="utf-8").write(s+row+"\n")' "$SCR/c/C36-R2-duplicate-id-other-url"
 run_tree C36-R2-duplicate-id-other-url "$SCR/c/C36-R2-duplicate-id-other-url"
-report C36-R2-duplicate-id-other-url 0 '^C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 \(bad=none\)$'
+report C36-R2-duplicate-id-other-url 0 '^C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 \(bad=r2-manifest-malformed:'
 
 # ---- r3 family: body confinement and digest ----
 
@@ -404,8 +410,8 @@ report C38-FC-malformed-capture-body-pdf 0 '^C1_REPLAY: value=0 present=10 repla
 # ---- r5/guard family: the measured gate's own verdict ----
 
 ## C22 -- printer gate (python, prints CLEAN + PASS lines): the digest pin fires
-##   first (printer bytes != GATE_SHA256_PIN), so HAVE_GATE=0, gate reads 0 and
-##   every clock fails r5; guard holds (selftest never ran), value reads 0.
+##   first (printer bytes != GATE_SHA256_PIN), and since epoch C a present-but-
+##   unpinned gate also forces SELF_OK=0, so guard drops and the reading is FAIL.
 mk C22-R5-gate-printer-clean-only
 cat > "$SCR/c/C22-R5-gate-printer-clean-only/corpus/recheck-replay.py" <<'PRINTER'
 import sys
@@ -414,13 +420,14 @@ if sys.argv[1:2] == ["--selftest"]:
 print("RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)")
 PRINTER
 run_tree C22-R5-gate-printer-clean-only "$SCR/c/C22-R5-gate-printer-clean-only"
-report C22-R5-gate-printer-clean-only 0 '^C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 \(bad=r5-gate:'
+report C22-R5-gate-printer-clean-only 0 '^C1_REPLAY: value=FAIL present=10 replayed=0 gate=0 guard=0 \(bad=r5-gate:'
 
 ## C23 -- full gate forgery: a python printer that also fabricates the ten MATCH
 ##   lines from public knowledge (POP x manifest ids) and ends CLEAN. Against the
 ##   096251c9 draft this scored value=10 (gate stdout trusted, no identity
-##   binding); the pinned-digest repair must read it like any other gate edit:
-##   value=0, gate=0, guard=1. Kept as a regression witness for the forgery hole.
+##   binding); since the pinned-digest repair it must read like any other gate
+##   edit, and epoch C additionally drops guard (present-but-unpinned -> SELF_OK=0):
+##   value=FAIL, gate=0, guard=0. Regression witness for the forgery hole.
 mk C23-R5-gate-printer-forged-match
 cat > "$SCR/c/C23-R5-gate-printer-forged-match/corpus/recheck-replay.py" <<'PRINTER'
 import sys
@@ -443,18 +450,17 @@ for rel, ln, sid, form, n in ROWS:
 print("RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)")
 PRINTER
 run_tree C23-R5-gate-printer-forged-match "$SCR/c/C23-R5-gate-printer-forged-match"
-report C23-R5-gate-printer-forged-match 0 '^C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 \(bad=r5-gate:'
+report C23-R5-gate-printer-forged-match 0 '^C1_REPLAY: value=FAIL present=10 replayed=0 gate=0 guard=0 \(bad=r5-gate:'
 
 ## C24 -- selftest line edited (PASS -> FAILX inside the pinned gate's bytes): any
-##   byte edit breaks the digest pin before the selftest can even run, so the
-##   reading is value=0, gate=0, guard=1; the selftest verdict itself is reachable
-##   only for a digest-matching gate (vestigial as a forgery guard, kept as an
-##   environment guard).
+##   byte edit breaks the digest pin, and epoch C forces SELF_OK=0 for a present-
+##   but-unpinned gate, so guard drops: value=FAIL, gate=0, guard=0. The selftest
+##   verdict itself is reachable only for a digest-matching gate (environment guard).
 mk C24-R5-selftest-broken
 sub "$SCR/c/C24-R5-selftest-broken/corpus/recheck-replay.py" \
   "RECHECK_REPLAY_SELFTEST: PASS" "RECHECK_REPLAY_SELFTEST: FAILX"
 run_tree C24-R5-selftest-broken "$SCR/c/C24-R5-selftest-broken"
-report C24-R5-selftest-broken 0 '^C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 \(bad=r5-gate:'
+report C24-R5-selftest-broken 0 '^C1_REPLAY: value=FAIL present=10 replayed=0 gate=0 guard=0 \(bad=r5-gate:'
 
 ## C25 -- gate absent: counter reads the empty producer as not-CLEAN (r5 fails for
 ##   every clock); no selftest to fail, so guard holds and value reads 0 -- the same
@@ -504,11 +510,11 @@ run_tree C29-FC-manifest-row-malformed "$SCR/c/C29-FC-manifest-row-malformed"
 report C29-FC-manifest-row-malformed 0 '^C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 \(bad=r2-manifest-malformed:'
 
 ## C30 -- knowledge entry deleted (the ISO entry carries 3 clocks): P=7 -> guard 0 ->
-##   FAIL; the gate's own population shrinks to 7 MATCHing clocks and stays CLEAN
-##   (the gate cannot see an entry it does not have).
+##   FAIL; the gate reports CLEAN over its 7-clock population, but the exact
+##   CLEAN(clocks=10 match=10) shape check makes the gate field read 0.
 mk C30-FC-entry-absent; rm "$SCR/c/C30-FC-entry-absent/corpus/knowledge/iso-11770-3-edition-status.md"
 run_tree C30-FC-entry-absent "$SCR/c/C30-FC-entry-absent"
-report C30-FC-entry-absent 0 '^C1_REPLAY: value=FAIL present=7 replayed=7 gate=1 guard=0 \(bad=absent:'
+report C30-FC-entry-absent 0 '^C1_REPLAY: value=FAIL present=7 replayed=0 gate=0 guard=0 \(bad=absent:'
 
 ## C31 -- registry absent: every clock fails r2-registry (value 0, guard holds); the
 ##   gate refuses the tree outright (not-a-lane-tree SETUP) so gate=0.
@@ -517,15 +523,16 @@ run_tree C31-FC-registry-absent "$SCR/c/C31-FC-registry-absent"
 report C31-FC-registry-absent 0 '^C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 \(bad=r2-registry:'
 
 ## C32 -- restatement done "properly": stated N 1->2 AND the capture re-forged to
-##   carry two matches AND the manifest restated, so the gate says MATCH/CLEAN. The
-##   counter must still refuse: PRESENT pins the BASE N, guard drops, FAIL.
+##   carry two matches AND the manifest restated, so the gate MATCHes its own 9-clock
+##   population -- but the exact CLEAN(clocks=10 match=10) shape check makes the gate
+##   field read 0, and PRESENT pins the BASE N, so guard drops: FAIL, replayed=0.
 mk C32-FC-restated-with-fresh-capture
 sub "$SCR/c/C32-FC-restated-with-fresh-capture/corpus/knowledge/betterleaks-detection-vs-validation.md" \
   "provider requests by default'\` -> 1" "provider requests by default'\` -> 2"
 printf 'Scans detect secrets without credential provider requests by default\n' >> "$SCR/c/C32-FC-restated-with-fresh-capture/$BODY/S054.body"
 fixdigest "$SCR/c/C32-FC-restated-with-fresh-capture" S054
 run_tree C32-FC-restated-with-fresh-capture "$SCR/c/C32-FC-restated-with-fresh-capture"
-report C32-FC-restated-with-fresh-capture 0 '^C1_REPLAY: value=FAIL present=9 replayed=9 gate=1 guard=0 \(bad=absent:'
+report C32-FC-restated-with-fresh-capture 0 '^C1_REPLAY: value=FAIL present=9 replayed=0 gate=0 guard=0 \(bad=absent:'
 
 ## C33 -- knowledge entry replaced by a symlink: PRESENT refuses symlinked reads ->
 ##   FAIL; the repaired gate reports the symlinked entry as an UNSUPPORTED clock

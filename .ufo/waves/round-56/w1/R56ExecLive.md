@@ -32,3 +32,11 @@ Method: each clock ran as the exact stated command piped through its filter (`gr
 3. **Self-defects recorded** (in `env.txt`): my driver's `pcount` parser printed 11 for C2 (digit concatenation of `…V1…count=1` under `tr -cd '0-9\n'`); the raw receipt shows `count=1`. My `src_rc` bookkeeping column is void (init-never-cleared); fetch success is evidenced by `-w` 200 + size + sha instead. Neither affects any verdict row.
 
 Corroboration, not relied on: sibling R56ExecLive's same-day sample (`../build/R56ExecLive.md`) reports all 10 stated N reproduced, 9/10 byte-identical bodies, S074 sha distinct, gate CLEAN 10/10 + `--selftest` PASS 13 cases — consistent with every number in this report.
+
+## Epoch-B anchor (2026-11-07, added after L1's epoch-B predeclaration)
+
+This leg's evidence ports unchanged to epoch-B predeclaration `5d9a1571911ec38a456a40b443e19640abb9a88b`, verified read-only on the lane:
+- `git diff --stat 832ba6a53… 5d9a1571… -- corpus/knowledge corpus/rendered-text-v1.py` → **empty**: the 10 stated clocks, their stated N and the locate normaliser are byte-identical to BASE at epoch-B.
+- `corpus/recheck-captures.tsv` at 5d9a157: sha256 `df46be5c92c7b4d5a8b7ad790371b5c3240c92f46460b8cfb69e9b75b7ecc762` — byte-identical to the manifest file this leg checked at epoch-A HEAD `42070de7…`.
+- All 10 capture blobs at 5d9a157 (`git cat-file blob` | sha256sum) equal the sha256s bound in `live-refetch.tsv` (S101 `2e4c1524…`, S113 `d8dfe354…`, S114 `8bb88d88…`, S054 `7cf6efb5…`, S055 `f61c3993…`, S057 `221d80fa…`, S067 `4d016752…`, S070 `5c226c06…`, S074 `df32e64b…`, S078 `68266cb1…`).
+Therefore live↔stated↔capture MATCH 10/10 holds verbatim against `5d9a157…`. Epoch-B's hardened gate (`2e9dfde3…`) was not re-run here (gate execution is not this seat's leg); the hardened gate's added confinement of knowledge/registry/manifest/locate inputs does not alter the population this leg measured.

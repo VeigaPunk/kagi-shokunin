@@ -1,0 +1,74 @@
+== P: parse edges ==
+p-known-flags-fsL                  rc=0 want_rc=0 OK | RECHECK_REPLAY: CLEAN (clocks=1 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0) | stderr=-
+p-known-flag-compressed            rc=0 want_rc=0 OK | RECHECK_REPLAY: CLEAN (clocks=1 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0) | stderr=-
+p-unknown-flag-L                   rc=1 want_rc=1 OK | RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=0 no_capture=0 bad_capture=0 unsupported=1 tool=0) | stderr=-
+p-two-urls                         rc=1 want_rc=1 OK | RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=0 no_capture=0 bad_capture=0 unsupported=1 tool=0) | stderr=-
+p-pipe-in-quotes                   rc=1 want_rc=1 OK | RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=0 no_capture=0 bad_capture=0 unsupported=1 tool=0) | stderr=-
+p-spaced-url-token                 rc=0 want_rc=0 OK | RECHECK_REPLAY: CLEAN (clocks=1 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0) | stderr=-
+p-quote-in-url                     rc=0 want_rc=0 OK | RECHECK_REPLAY: CLEAN (clocks=1 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0) | stderr=-
+p-url-prefix-of-registry           rc=1 want_rc=1 OK | RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=0 no_capture=0 bad_capture=1 unsupported=0 tool=0) | stderr=-
+p-url-in-double-quotes-reg         rc=1 want_rc=1 OK | RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=0 no_capture=0 bad_capture=1 unsupported=0 tool=0) | stderr=-
+p-url-trailing-comma-reg           rc=1 want_rc=1 OK | RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=0 no_capture=0 bad_capture=1 unsupported=0 tool=0) | stderr=-
+p-grep-c-e-form                    rc=1 want_rc=1 OK | RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=0 no_capture=0 bad_capture=0 unsupported=1 tool=0) | stderr=-
+p-grep-E-form                      rc=1 want_rc=1 OK | RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=0 no_capture=0 bad_capture=0 unsupported=1 tool=0) | stderr=-
+p-no-pipe                          rc=1 want_rc=1 OK | RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=0 no_capture=0 bad_capture=0 unsupported=1 tool=0) | stderr=-
+p-max-time-eq                      rc=1 want_rc=1 OK | RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=0 no_capture=0 bad_capture=0 unsupported=1 tool=0) | stderr=-
+== B: body / capture checks ==
+b-leading-blank-then-HTTP          rc=0 want_rc=0 OK | RECHECK_REPLAY: CLEAN (clocks=1 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0) | stderr=-
+b-http-first-byte                  rc=1 want_rc=1 OK | RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=0 no_capture=0 bad_capture=1 unsupported=0 tool=0) | stderr=-
+b-http-nodigit-first-byte          rc=0 want_rc=0 OK | RECHECK_REPLAY: CLEAN (clocks=1 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0) | stderr=-
+b-set-cookie-leading-space         rc=0 want_rc=0 OK | RECHECK_REPLAY: CLEAN (clocks=1 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0) | stderr=-
+b-set-cookie-CR-only-lines         rc=0 want_rc=0 OK | RECHECK_REPLAY: CLEAN (clocks=1 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0) | stderr=-
+b-set-cookie-lf-line               rc=1 want_rc=1 OK | RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=0 no_capture=0 bad_capture=1 unsupported=0 tool=0) | stderr=-
+b-set-cookie-mixed-case            rc=1 want_rc=1 OK | RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=0 no_capture=0 bad_capture=1 unsupported=0 tool=0) | stderr=-
+b-bytes-mismatch                   rc=1 want_rc=1 OK | RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=0 no_capture=0 bad_capture=1 unsupported=0 tool=0) | stderr=-
+b-missing-body                     rc=1 want_rc=1 OK | RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=0 no_capture=0 bad_capture=1 unsupported=0 tool=0) | stderr=-
+b-dir-as-body                      rc=1 want_rc=1 OK | RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=0 no_capture=0 bad_capture=1 unsupported=0 tool=0) | stderr=-
+b-dotdot-name-allowed              rc=0 want_rc=0 OK | RECHECK_REPLAY: CLEAN (clocks=1 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0) | stderr=-
+b-dot-in-path                      rc=0 want_rc=0 OK | RECHECK_REPLAY: CLEAN (clocks=1 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0) | stderr=-
+b-abs-path                         rc=1 want_rc=1 OK | RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=0 no_capture=0 bad_capture=1 unsupported=0 tool=0) | stderr=-
+b-empty-path                       rc=1 want_rc=1 OK | RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=0 no_capture=0 bad_capture=1 unsupported=0 tool=0) | stderr=-
+b-symlink-dir-component            rc=1 want_rc=1 OK | RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=0 no_capture=0 bad_capture=1 unsupported=0 tool=0) | stderr=-
+b-symlink-final-component          rc=1 want_rc=1 OK | RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=0 no_capture=0 bad_capture=1 unsupported=0 tool=0) | stderr=-
+b-symlink-internal-target          rc=1 want_rc=1 OK | RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=0 no_capture=0 bad_capture=1 unsupported=0 tool=0) | stderr=-
+b-fifo-body                        rc=1 want_rc=1 OK | RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=0 no_capture=0 bad_capture=1 unsupported=0 tool=0) | stderr=-
+b-hardlink-body                    rc=0 want_rc=0 OK | RECHECK_REPLAY: CLEAN (clocks=1 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0) | stderr=-
+== M: manifest ==
+m-duplicate-url                    rc=2 want_rc=2 OK | RECHECK_REPLAY: SETUP manifest-duplicate-url:https://example.test/a | stderr=-
+m-columns-6                        rc=2 want_rc=2 OK | RECHECK_REPLAY: SETUP manifest-columns:S001 | stderr=-
+m-columns-8                        rc=2 want_rc=2 OK | RECHECK_REPLAY: SETUP manifest-columns:S001 | stderr=-
+m-header-drift                     rc=2 want_rc=2 OK | RECHECK_REPLAY: SETUP manifest-header | stderr=-
+m-no-header                        rc=2 want_rc=2 OK | RECHECK_REPLAY: SETUP manifest-header | stderr=-
+m-comments-blanks                  rc=0 want_rc=0 OK | RECHECK_REPLAY: CLEAN (clocks=1 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0) | stderr=-
+m-upper-sha                        rc=1 want_rc=1 OK | RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=0 no_capture=0 bad_capture=1 unsupported=0 tool=0) | stderr=-
+m-http-status-404-unchecked        rc=0 want_rc=0 OK | RECHECK_REPLAY: CLEAN (clocks=1 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0) | stderr=-
+m-id-not-registry                  rc=1 want_rc=1 OK | RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=0 no_capture=0 bad_capture=1 unsupported=0 tool=0) | stderr=-
+m-fetched-empty                    rc=0 want_rc=0 OK | RECHECK_REPLAY: CLEAN (clocks=1 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0) | stderr=-
+== R: registry checks ==
+r-2cell-row-with-url               rc=0 want_rc=0 OK | RECHECK_REPLAY: CLEAN (clocks=1 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0) | stderr=-
+r-fenced-row-accepted              rc=0 want_rc=0 OK | RECHECK_REPLAY: CLEAN (clocks=1 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0) | stderr=-
+r-dup-id-last-lacks-url            rc=1 want_rc=1 OK | RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=0 no_capture=0 bad_capture=1 unsupported=0 tool=0) | stderr=-
+r-dup-id-last-has-url              rc=0 want_rc=0 OK | RECHECK_REPLAY: CLEAN (clocks=1 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0) | stderr=-
+r-url-in-claim-cell                rc=0 want_rc=0 OK | RECHECK_REPLAY: CLEAN (clocks=1 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0) | stderr=-
+r-url-as-substring-of-token        rc=1 want_rc=1 OK | RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=0 no_capture=0 bad_capture=1 unsupported=0 tool=0) | stderr=-
+r-indented-3sp-row                 rc=0 want_rc=0 OK | RECHECK_REPLAY: CLEAN (clocks=1 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0) | stderr=-
+r-indented-4sp-row                 rc=1 want_rc=1 OK | RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=0 no_capture=0 bad_capture=1 unsupported=0 tool=0) | stderr=-
+r-missing-registry                 rc=1 want_rc=2 DIFF | RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=0 no_capture=0 bad_capture=1 unsupported=0 tool=0) | stderr=-
+== U: unsupported vs misclassification ==
+u-invalid-bre                      rc=1 want_rc=1 OK | RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=1) | stderr=-
+u-pdf-not-a-pdf                    rc=1 want_rc=1 OK | RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=1) | stderr=-
+u-locate-not-utf8                  rc=1 want_rc=1 DIFF | RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=0 no_capture=0 bad_capture=1 unsupported=0 tool=0) | stderr=-
+u-locate-mismatch                  rc=1 want_rc=1 DIFF | RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=1) | stderr=-
+== E: exit-code / setup paths ==
+e-no-clocks                        rc=2 want_rc=2 OK | RECHECK_REPLAY: SETUP no-stated-clocks | stderr=-
+e-bad-root                         rc=2 want_rc=2 OK | RECHECK_REPLAY: SETUP not-a-lane-tree:/fast/scratch/hyaku/kagi-r56/R56ReviewGate/does-not-exist | stderr=-
+e-extra-arg                        rc=2 want_rc=2 OK | RECHECK_REPLAY: SETUP usage: recheck-replay.py [--root DIR | --selftest] | stderr=-
+e-manifest-missing                 rc=2 want_rc=2 OK | RECHECK_REPLAY: SETUP manifest-header | stderr=-
+e-9match-1unsupported              rc=1 want_rc=1 OK | RECHECK_REPLAY: DRIFT (clocks=10 match=9 mismatch=0 no_capture=0 bad_capture=0 unsupported=1 tool=0) | stderr=-
+e-nonutf8-knowledge                rc=1 want_rc=1 DIFF | <no stdout> | stderr=UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 22: invalid start byt
+e-unreadable-manifest              rc=1 want_rc=1 DIFF | <no stdout> | stderr=PermissionError: [Errno 13] Permission denied: '/fast/scratch/hyaku/kagi-r56/R56ReviewGate
+e-symlinked-knowledge-dir          rc=1 want_rc=1 OK | RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=1 no_capture=0 bad_capture=0 unsupported=0 tool=0) | stderr=-
+== L: locale determinism ==
+l-dot-utf8-locale                  rc=0 want_rc=0 OK | RECHECK_REPLAY: CLEAN (clocks=1 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0) | stderr=-
+l-dot-c-locale                     rc=1 want_rc=1 OK | RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=1 no_capture=0 bad_capture=0 unsupported=0 tool=0) | stderr=-
+l-dot-c-locale-POSIX               rc=1 want_rc=1 OK | RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=1 no_capture=0 bad_capture=0 unsupported=0 tool=0) | stderr=-

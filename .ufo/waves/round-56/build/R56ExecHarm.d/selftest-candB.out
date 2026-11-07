@@ -1,0 +1,14 @@
+PASS match rc=0 want=0 token=MATCH
+PASS stale-expectation rc=1 want=1 token=MISMATCH
+PASS count-form rc=0 want=0 token=MATCH
+PASS bre-not-substring rc=0 want=0 token=MATCH
+PASS no-capture rc=1 want=1 token=NO-CAPTURE
+PASS sha-mismatch rc=1 want=1 token=BAD-CAPTURE
+PASS url-not-in-row rc=1 want=1 token=BAD-CAPTURE
+PASS escape-path rc=1 want=1 token=BAD-CAPTURE
+PASS header-bytes rc=1 want=1 token=BAD-CAPTURE
+PASS unsupported-form rc=1 want=1 token=UNSUPPORTED
+PASS extra-curl-flag rc=1 want=1 token=UNSUPPORTED
+PASS second-clock-mismatch rc=1 want=1 token=MISMATCH
+PASS symlink-component rc=1 want=1 token=symlink:
+RECHECK_REPLAY_SELFTEST: PASS (13 cases)

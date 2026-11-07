@@ -1,0 +1,104 @@
+R56MutCounter-2 — anchors, baselines, drift and restoration
+===========================================================
+Seat: R56MutCounter-2 (mutation tester), kagi round 56, wave 1
+Lane repo: /home/vgpnk/Projects/shokunin/kagi-shokunin (branch master)
+Observed answering model: amr/deepseek-v4.1-flash (runtime project context)
+
+Anchors
+-------
+BASE                832ba6a53d6a76706b5c80bce2278683dea33d42
+epoch A (assignment) 42070de7770e1558adcf6aa7a7bc59309a9654d7
+epoch B (planner IRC) 5d9a1571911ec38a456a40b443e19640abb9a88b
+
+Frozen instrument identity (git blob id from ls-tree; sha256 of the extracted bytes;
+git hash-object of the extracted file equals the blob id — verified for every row):
+
+epoch A 42070de
+  plans/round-56-c1.sh          blob 35a16e682a8a508976498727e337c40d6f1f86c1
+                                sha256 096251c9b7a7405dbae320eb4dbb3ef0a092cf5e530d2274de0b2e29509bde9a
+  corpus/recheck-replay.py      blob 821da99ce83e7b3adbea80ad9e1441d8e0fe9a79
+                                sha256 b7782f35c0c8bbaedac5f8f06eaadbc3ce4b8997be25e10f4224724013d799e8
+  corpus/recheck-captures.tsv   blob 7c85dc4da34bc79931e01906b91e4c3fda91b2c5
+                                sha256 df46be5c92c7b4d5a8b7ad790371b5c3240c92f46460b8cfb69e9b75b7ecc762
+  plans/round-56-controls.sh    blob 07d0e234fc455b01f00a665b3ac8b648ac4dc013
+                                sha256 633326a563c6d38e7933d0e88d3b395404f688dbef9ff8e1de7fffdbed48b094
+  plans/round-56.md             blob 106be490947ce3a5141da24c3b356cbd0679d99f
+
+epoch B 5d9a157
+  plans/round-56-c1.sh          blob 23111d50e357b5d3f6471289c8cde073e27b3804
+                                sha256 6b132ea1b521e698aaf4a1085e051087726c6b5ec840f60339b206abe02b269c
+                                GATE_SHA256_PIN=2e9dfde326b29fb95f520c5d7f3a671836682b28025e4efc7887333257d4df51
+  corpus/recheck-replay.py      blob 850e1ba9be3a4e2f4e669328b91f7d0de331159f
+                                sha256 2e9dfde326b29fb95f520c5d7f3a671836682b28025e4efc7887333257d4df51
+  corpus/recheck-captures.tsv   blob 7c85dc4da34bc79931e01906b91e4c3fda91b2c5
+                                sha256 df46be5c92c7b4d5a8b7ad790371b5c3240c92f46460b8cfb69e9b75b7ecc762
+  plans/round-56-controls.sh    blob fda549111119628e879471e3a04b1bc54a27a4e6
+                                sha256 63cf806134bcb115368e59809ad54957750d7433d53f6979b256f662e3ddab8f
+  plans/round-56.md             blob ec6a50df005a9f4d4ebabf3fb21b38fc7cd23f5c
+                                sha256 033f2104ef36b76e5d9de192878fb1b619808f1c9c63b2e310d074816a3e1679
+
+Tree content digests (sorted relative-path sha256 manifest, pipe sha256):
+  epoch A extraction        78b035c7c31eb5c517f370a7dc4aff3a956cb624b3ba1e82f996e49541a6f650
+  second fresh extraction   78b035c7c31eb5c517f370a7dc4aff3a956cb624b3ba1e82f996e49541a6f650 (identical)
+  epoch B extraction        6b4e95883c0389bb618cbe5387fcc9143a8ccf581c8bc6eda2fe6f7df3ee1ee8
+
+Baseline readings (pristine, no mutation)
+-----------------------------------------
+epoch A counter, epoch A tree:
+  bash clone/plans/round-56-c1.sh --tree refA
+  rc=0  C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)
+epoch B counter, epoch B tree:
+  bash clone/plans/round-56-c1-epochB.sh --tree refB
+  rc=0  C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)
+  (re-run after all 21 epoch-B mutants: identical line, rc=0)
+epoch B counter, epoch A revision 42070de (planner reproduction):
+  rc=0  C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1
+        (bad=r5-gate:<10 clocks>)  -- gate-digest
+epoch B counter, BASE 832ba6a:
+  rc=0  C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1
+        (bad=r2-manifest:<10 clocks>)
+
+Concurrent lane drift observed (not caused by this seat)
+--------------------------------------------------------
+1. At 07:22 the lane working plans/round-56-c1.sh hashed
+   096251c9b7a7405dbae320eb4dbb3ef0a092cf5e530d2274de0b2e29509bde9a (= blob 35a16e6
+   at 42070de) and the baseline read value=10.
+2. During the first mutant sweep (07:23-07:27) the same path was rewritten under the
+   running sweep: one run died with
+   "plans/round-56-c1.sh: line 80: syntax error near unexpected token `('"
+   (line text `TEST: PASS (13 cases)`), rc=2; another died with
+   "TypeError: list indices must be integers or slices, not str" at <stdin> line 121,
+   rc=1; a third emitted bad tokens `r5-cleanish` / `gate-digest` that do not exist in
+   the 42070de blob. That first sweep is discarded as INCONCLUSIVE and kept only as
+   raw-drift evidence (receipt dir out-drift/, 76K, not used for any reading below).
+3. The lane then hashed plans/round-56-c1.sh = d2bcb79094355ef6eb7bdad406ee1ccbe
+   af386e920950168fc2fa2c74aeb9f44 (pin 637c8184...) and finally landed epoch B at
+   5d9a157 (counter 6b132ea1..., gate 2e9dfde3...).
+All epoch-A readings below were re-run from an immutable git clone whose HEAD is
+42070de (clone head verified: 42070de7770e1558adcf6aa7a7bc59309a9654d7); all epoch-B
+readings were run from the files extracted from 5d9a157. This seat wrote no lane file.
+
+Scratch loss and restoration
+----------------------------
+At ~07:53 the pristine trees ref/ and refB/ under the seat scratch were absent
+(unexpected; external to this seat). They were re-extracted from the anchors
+(git archive <anchor>) and verified:
+  - every "before" sha256 used in mutant-hashes.tsv matches the fresh extraction
+    (examples: betterleaks entry 40dc9af0..., ISO entry d758ff46..., SOURCES.md
+    fa69564f..., manifest df46be5c...);
+  - the epoch-A relative content digest equals a second fresh extraction
+    (78b035c7... twice);
+  - the 21 mutant copies and all run outputs (raw-A/, raw-B/) survived and are the
+    bytes recorded here.
+Mutant copies acquired untracked corpus/__pycache__/*.pyc files during some run;
+the anchors carry none, and no checked input (entry, SOURCES.md, manifest, capture
+body, gate) is a .pyc. The hash table excludes them.
+
+Restoration evidence for the pristine trees: the pristine trees were never written
+by this seat (each mutant was a cp -a copy); after the whole epoch-B sweep the
+pristine epoch-B tree re-read value=10 and its relative content digest was unchanged
+(6b4e9588...). Scratch is disposable per tasking and is deleted before yield.
+
+Tools: none installed. python3, grep, pdftotext, git, sha256sum used as present.
+No network request was made by this seat; no header/cookie/secret material read,
+captured or printed.

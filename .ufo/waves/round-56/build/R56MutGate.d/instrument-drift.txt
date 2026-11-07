@@ -7,3 +7,14 @@ instrument hash timeline observed by R56MutGate (read-only)
 
 2026-11-07T07:40:05-03:00
 lane HEAD 42070de7770e1558adcf6aa7a7bc59309a9654d7
+
+07:43 -03  FINAL SNAPSHOT measured by this seat (all §3/§4 results keyed to these bytes):
+           gate     2e9dfde326b29fb95f520c5d7f3a671836682b28025e4efc7887333257d4df51  corpus/recheck-replay.py
+           counter  6b132ea1b521e698aaf4a1085e051087726c6b5ec840f60339b206abe02b269c  plans/round-56-c1.sh
+           controls 63cf806134bcb115368e59809ad54957750d7433d53f6979b256f662e3ddab8f  plans/round-56-controls.sh
+           plan     033f2104ef36b76e5d9de192878fb1b619808f1c9c63b2e310d074816a3e1679  plans/round-56.md
+           manifest df46be5c92c7b4d5a8b7ad790371b5c3240c92f46460b8cfb69e9b75b7ecc762  corpus/recheck-captures.tsv
+           lane HEAD 42070de7770e1558adcf6aa7a7bc59309a9654d7
+           baseline: selftest PASS (13 cases) rc0; gate --root CLEAN 10/10 rc0; lane counter value=10 guard=1 rc0.
+Earlier revision 637c8184… (gate) with counter d2bcb790… produced the same verdicts for every conjunct that
+survives either revision; its console transcript is run3-637c8184-summary.txt.

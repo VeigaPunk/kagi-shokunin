@@ -1,0 +1,19 @@
+revision 5d9a1571911ec38a456a40b443e19640abb9a88b (epoch-B predeclaration)
+  plans/round-56-c1.sh          6b132ea1b521e698aaf4a1085e051087726c6b5ec840f60339b206abe02b269c
+  corpus/recheck-replay.py      2e9dfde326b29fb95f520c5d7f3a671836682b28025e4efc7887333257d4df51
+  corpus/recheck-captures.tsv   df46be5c92c7b4d5a8b7ad790371b5c3240c92f46460b8cfb69e9b75b7ecc762
+  plans/round-56-controls.sh    63cf806134bcb115368e59809ad54957750d7433d53f6979b256f662e3ddab8f
+  plans/round-56.md             033f2104ef36b76e5d9de192878fb1b619808f1c9c63b2e310d074816a3e1679
+tree extracted with `git archive 5d9a157` into scratch; counter run from a scratch clone holding the
+same counter bytes (REPO for the BASE normaliser = clone), so no working-tree drift:
+  E-ref (unmodified 5d9a157)      value=10 present=10 replayed=10 gate=1 guard=1 (bad=none) rc=0
+  E-base (832ba6a via --tree)     value=0 present=10 replayed=0 gate=0 guard=1 rc=0
+  E-R2i (S054 404/1999-01-01)     value=10 (manifest fd3266526f683fd18dcb1b506f948ecdf45b14e6848f42fcdd1250888e3e091e)
+  E-R2j (S101 -> S113 body)       value=10 (manifest f3bcd94b60487fa53cd2a78bb453c60a95649f5e5e230cdd733d342ff0687bc5)
+  E-fifo (mkfifo knowledge)       no reading, rc=124 under timeout 20
+  full 41-recipe matrix on 5d9a157 -> matrixAB.tsv / resultsE.json
+R4b2 corrected normaliser-isolation mutant (epoch-B pair, tree /fast/.../md-R4b2):
+  body  S070.body doctored quote -> sha256 c279f654514d0a43f0c97a0e3fbbb4d2fe43357c82f2d3b5a5d85e27286c6302
+  manifest edited (bytes/sha refixed) -> sha256 70fabf3510ab9a47bd49f020132c16adf0fb564668f43241534b7e3a71d63726
+  tree normaliser faked to count=1 -> sha256 924062d3a903f1cb7d29a79dcf50dbdf27e54194e47a4ebf40ccaf9670f1db12; BASE copy 14f6ca6ab742296f45a699548c31e6d49892f6baef36ed419c283d1a0511b8c9 gives count=0
+  reading: value=9 present=10 replayed=9 gate=1 guard=1 (bad=r4-replay0:cdp-bridge-...)

@@ -1,10 +1,12 @@
-# R56Connector — Cross-Lane Synthesis, Domain Fit, and Stagnation Nudge (Round 56)
+# R56Connector — Cross-Lane Synthesis, Domain Fit, Stagnation Nudge, and Epoch-B Hardening (Round 56)
 
 **Seat:** `R56Connector` (UFO-FSD connector, leaf member; no subagents dispatched).  
 **Date of measurement:** 2026-11-07.  
 **Lane:** `/home/vgpnk/Projects/shokunin/kagi-shokunin` (branch `master`).  
 **BASE revision:** `832ba6a53d6a76706b5c80bce2278683dea33d42` (round-55 tip).  
-**Predeclaration revision:** `42070de7770e1558adcf6aa7a7bc59309a9654d7`.  
+**Predeclaration revisions:**  
+- Epoch A: `42070de7770e1558adcf6aa7a7bc59309a9654d7`  
+- Epoch B (frozen predeclaration tip): `5d9a1571911ec38a456a40b443e19640abb9a88b`  
 **Observed answering model:** `google-antigravity/gemini-3.8-flash` (observed directly from workstation runtime context; not inferred from prompt).  
 **Mandate:** Find one non-obvious move — including a compatible synthesis across the round's proposals — that improves at least one of the round's declared axes without harming another. Trace second-order effects across runtime, contract, substrate, and verification surfaces. State contradictions explicitly; never smooth them into a scalar score. Do not judge, admit, edit, integrate, ship, or invoke another runtime.
 
@@ -16,13 +18,14 @@ All measurements were taken against local repository bytes and isolated scratch 
 
 | Path | SHA256 Digest | Bytes | State / Source |
 |---|---|---|---|
-| `plans/round-56-c1.sh` (predec) | `096251c9b7a7405dbae320eb4dbb3ef0a092cf5e530d2274de0b2e29509bde9a` | 12933 B | `42070de` predeclaration |
-| `plans/round-56-c1.sh` (L1 worktree) | `55f82229ad1be84e68e4c76aa4c86bb11c1df7c494ca7b649d21c322b62d8542` | 14595 B | Working tree (L1 pre-freeze integration) |
-| `corpus/recheck-replay.py` (predec) | `b7782f35c0c8bbaedac5f8f06eaadbc3ce4b8997be25e10f4224724013d799e8` | 14716 B | `42070de` predeclaration |
-| `corpus/recheck-replay.py` (L1 worktree) | `637c8184bd6ea8635fe582ea5641ea490033405658259c1a78c63899611aa585` | 15002 B | Working tree (L1 pre-freeze integration) |
-| `corpus/recheck-captures.tsv` | `df46be5c92c7b4d5a8b7ad790371b5c3240c92f46460b8cfb69e9b75b7ecc762` | 2391 B | Committed `42070de` (10 capture rows) |
-| `plans/round-56-controls.sh` | `633326a563c6d38e7933d0e88d3b395404f688dbef9ff8e1de7fffdbed48b094` | 6341 B | Committed `42070de` (12 pre-freeze controls) |
-| `plans/round-56.md` | `d1bf8d2610ed50d46acda83e38c055e629d5e76d0b860d14665f2d223e0b8a07` | 5652 B | Committed `42070de` (frozen plan) |
+| `plans/round-56-c1.sh` (Epoch B) | `6b132ea1b521e698aaf4a1085e051087726c6b5ec840f60339b206abe02b269c` | 15746 B | `5d9a157` (Epoch B freeze) |
+| `corpus/recheck-replay.py` (Epoch B) | `2e9dfde326b29fb95f520c5d7f3a671836682b28025e4efc7887333257d4df51` | 15684 B | `5d9a157` (Epoch B freeze) |
+| `plans/round-56-controls.sh` (Epoch B) | `63cf806134bcb115368e59809ad54957750d7433d53f6979b256f662e3ddab8f` | 8795 B | `5d9a157` (16 controls, MATCH=16) |
+| `plans/round-56.md` (Epoch B) | `033f2104ef36b76e5d9de192878fb1b619808f1c9c63b2e310d074816a3e1679` | 6204 B | `5d9a157` (frozen plan) |
+| `corpus/recheck-captures.tsv` | `df46be5c92c7b4d5a8b7ad790371b5c3240c92f46460b8cfb69e9b75b7ecc762` | 2391 B | Committed `42070de` / `5d9a157` (10 capture rows) |
+| `plans/round-56-c1.sh` (Epoch A) | `096251c9b7a7405dbae320eb4dbb3ef0a092cf5e530d2274de0b2e29509bde9a` | 12933 B | `42070de` (superseded by Epoch B) |
+| `corpus/recheck-replay.py` (Epoch A) | `b7782f35c0c8bbaedac5f8f06eaadbc3ce4b8997be25e10f4224724013d799e8` | 14716 B | `42070de` (superseded by Epoch B) |
+| `plans/round-56-controls.sh` (Epoch A) | `633326a563c6d38e7933d0e88d3b395404f688dbef9ff8e1de7fffdbed48b094` | 6341 B | `42070de` (12 controls) |
 | `SCORECARD.md` | `5d7ec54f8374bf43724ff86bdf46e1a0cfbd9821becf0a5542af9fdcfe7e0616` | 246953 B | Committed `42070de` (Round 55 close) |
 | `PROVINCE.md` | `3f12f687ba58def86026d38631f1a37f89fa2ee0e607da5bb1feda1ad0eff361` | 22792 B | Pinned domain & surfaces |
 | `corpus/QUALITY.md` | `c4f35d07443796afd51debc87d0efbc20fd9c028ab68bf02e71acc261634d285` | 56770 B | Pinned quality criteria |
@@ -87,7 +90,7 @@ A systematic comparison across sibling lanes reveals four divergent architectura
 | **kama** | `tools/round44/45/46-release-recheck-audit.py`, `tools/round83-pin-rechecks.py` | Binds registry rows to upstream git commits and release tags; generates tabular TSV ledgers (`registry/pin-recheck-rows.tsv`). | **Per-Row Ledger:** Generates structured rows with explicit per-row verdicts (`PASS`, `DRIFT`, `TODO`). | Partial drift reports exact drifted count (e.g., 90/91 passed); does not collapse to 0. |
 | **mori** | `tools/mori-drift-recheck.py` | Evaluates live sweep receipts against committed baseline captures; filters vendor build churn (timestamps, asset IDs) via grammar. | **Per-ID Filtering:** Accepts `--only S###,S###` and `--from-sweep`. | Separates asset hash churn from semantic content drift. |
 | **chousa** | `tools/research-gate.sh` | Strips shell pipelines from knowledge entries; enforces strict 365d calendar cadence; forbids embedded curl commands (`NF=13` / `E09`). | **Cadence Only:** Rejects embedded shell execution entirely; cadence is the only gate. | Rechecks are calendar-driven, not executable against local captures. |
-| **kagi** | `corpus/recheck-replay.py`, `plans/round-56-c1.sh`, `quote-locate.py`, `release-clock.py` | Full offline execution of entry header pipelines (`curl \| grep`, `pdftotext \| grep`, `locate`) against raw committed captures in `recheck-captures.tsv`. | **Current Round 56 State:** Whole-corpus sweep only. No `--id` or `--clock` filter flag. | **Global Coupling (Current Defect):** A single mismatch causes `DRIFT`, which zeroes all 10 clocks under counter conjunct `r5`. |
+| **kagi** | `corpus/recheck-replay.py`, `plans/round-56-c1.sh`, `quote-locate.py`, `release-clock.py` | Full offline execution of entry header pipelines (`curl \| grep`, `pdftotext \| grep`, `locate`) against raw committed captures in `recheck-captures.tsv`. | **Epoch B State:** Whole-corpus sweep with pinned gate SHA256 digest (`2e9dfde3...`), whole-token exit matching, and symlink confinement. | **Coupling Behavior:** Global cleanliness enforced by `GUARD=1` and `target 10`. |
 
 ---
 
@@ -98,7 +101,7 @@ A systematic comparison across sibling lanes reveals four divergent architectura
   > *"Until D1 is fixed, have `release-clock.py` (or its wrapper) append a `KNOWN_DEFECT: D1` qualifier to a `CLEAN` verdict, so nobody quotes a CLEAN result without the caveat."*
 - `considerthese/2026-10-25.md` Proposal 2: **"Quoted gate output must have a receipt check."**
   > *"A tiny script that greps a round report for `GATE_NAME: VERDICT (...)` lines and fails unless a committed receipt contains the same line would close this class."*
-- *Application to Round 56:* In Round 56, `R56ReviewCounter` (F1) and `R56ReviewGate` (F2) demonstrated that `recheck-replay.py` output was accepted by raw string prefix without validating subprocess exit code `0` or pinning the gate's executable bytes. Adopting the considerthese principle of explicit defect qualification and strict receipt verification requires binding the gate's SHA256 digest and requiring an exact whole-token exit status.
+- *Application to Round 56:* In Round 56, `R56ReviewCounter` (F1) and `R56ReviewGate` (F2) demonstrated that `recheck-replay.py` output was accepted by raw string prefix without validating subprocess exit code `0` or pinning the gate's executable bytes. In response, Epoch B integrated the considerthese principle: `plans/round-56-c1.sh` now asserts `GATE_SHA256_PIN=2e9dfde326b29fb95f520c5d7f3a671836682b28025e4efc7887333257d4df51` and requires `GATE_RC == 0` with exact whole-token `RECHECK_REPLAY: CLEAN` matching.
 
 ### Lead from `shokuknow/merge/kagi/`
 - In `/home/vgpnk/Projects/shokuknow/merge/kagi/knowledge/trufflehog-cache-expiry-docs-vs-code-r39.md`, the campaign provides an in-depth analysis of TruffleHog's caching mechanics:
@@ -109,46 +112,39 @@ A systematic comparison across sibling lanes reveals four divergent architectura
 
 ---
 
-## 6. Stated Contradictions
+## 6. Stated Contradictions and Epoch-B Resolutions
 
 ### Contradiction 1: The Granular Count vs. The All-or-Nothing Scoring Cliff
 - **Contract Formulation:** `plans/round-56.md:15` states:
   > `C1_REPLAY: value = REPLAYED when GUARD = 1, else FAIL; target 10 (BASE 0). REPLAYED = number of POP clocks c with all of: (r1)... (r5)...`
   This text formally specifies `REPLAYED` as a discrete counting metric taking values $0, 1, \dots, 10$, designed to measure the number of valid replayed clocks.
-- **Implementation Mechanism:** In `plans/round-56-c1.sh:180-183`, conjunct (r5) checks whether the gate's last line begins with `RECHECK_REPLAY: CLEAN`. Because `corpus/recheck-replay.py` sweeps all knowledge entries in a single pass, it prints `RECHECK_REPLAY: DRIFT` if *any* clock fails, if an uncaptured clock is added anywhere in the repository, or if a single manifest row has a typo.
-- **The Contradiction:** If 9 clocks match perfectly and 1 clock drifts, `recheck-replay.py` ends in `DRIFT`. Consequently, (r5) fails for **all 10 clocks**. The counter outputs `replayed=0` and lists `r5-gate` for all 10 clocks (as demonstrated by `R56ExecControls` in C09, C10, C11 and `R56ReviewCounter` in F4). The metric is not a linear accumulator; it is an all-or-nothing step function ($10 \to 0$) that obscures 9 passing clocks behind a wall of false-blame diagnostics.
+- **Implementation Mechanism:** In `plans/round-56-c1.sh:180-183`, conjunct (r5) checked whether the gate's last line began with `RECHECK_REPLAY: CLEAN`. Because `corpus/recheck-replay.py` sweeps all knowledge entries in a single pass, it prints `RECHECK_REPLAY: DRIFT` if *any* clock fails, if an uncaptured clock is added anywhere in the repository, or if a single manifest row has a typo.
+- **The Contradiction:** If 9 clocks match perfectly and 1 clock drifts, `recheck-replay.py` ends in `DRIFT`. Consequently, (r5) failed for **all 10 clocks**. The counter output `replayed=0` and listed `r5-gate` for all 10 clocks (as demonstrated by `R56ExecControls` in C09, C10, C11 and `R56ReviewCounter` in F4). The metric was an all-or-nothing step function ($10 \to 0$) that obscured 9 passing clocks behind a wall of false-blame diagnostics.
+- **Epoch B Hardening:** L1's Epoch B refactor in `plans/round-56-c1.sh:255-265` now evaluates each clock's individual `MATCH` line independently, while reserving `r5-cleanish` and global failure for uncaptured additions or gate-level DRIFT.
 
 ### Contradiction 2: Claiming an "Offline Replay Gate" While Accepting an Unpinned Printer
 - **Contract Formulation:** The capability claimed is *"a lane gate that replays every stated clock offline"*.
-- **Implementation Mechanism:** In the predeclaration `42070de`, `plans/round-56-c1.sh:71` ran the measured tree's `recheck-replay.py` without checking its exit code ($?$), and evaluated (r5) purely by matching ten string regexes on stdout.
-- **The Contradiction:** As proved by `R56ReviewCounter` (F1) and `R56MutCounter` (R5b, R5c, R5g), a 1.3 KB static Python printer that reads no files and exits 1 scored `value=10 present=10 replayed=10 gate=1 guard=1`. Furthermore, pre-freeze control `K1-F5` was vacuous because it wrote a bash script that crashed Python with `SyntaxError`, passing by accident rather than testing a printer.
+- **Implementation Mechanism (Epoch A):** `plans/round-56-c1.sh:71` ran the measured tree's `recheck-replay.py` without checking its exit code ($?$), and evaluated (r5) purely by matching ten string regexes on stdout.
+- **The Contradiction:** As proved by `R56ReviewCounter` (F1) and `R56MutCounter` (R5b, R5c, R5g), a 1.3 KB static Python printer that read no files and exited 1 scored `value=10 present=10 replayed=10 gate=1 guard=1`. Furthermore, pre-freeze control `K1-F5` was vacuous because it wrote a bash script that crashed Python with `SyntaxError`, passing by accident rather than testing a printer.
+- **Epoch B Resolution:** Commit `5d9a157` directly closed this vulnerability:
+  1. `GATE_SHA256_PIN=2e9dfde326b29fb95f520c5d7f3a671836682b28025e4efc7887333257d4df51` pins the gate executable byte-identically.
+  2. `GATE_RC == 0` is required.
+  3. Pre-freeze control `K1-F5` now executes a real Python printer and expects `value=0` (`MATCH`), while `K1-F5b` (edited gate) and `K1-F5c` (symlinked gate) explicitly kill the printer vector.
 
 ---
 
-## 7. Single Non-Obvious Move: Digest-Bound Replay with Decoupled Clock Verification
+## 7. Single Non-Obvious Move: Isolated Single-Clock Verification & Rendered-Text Normalization
 
 ### The Move
-**Synthesize Kasegi's single-source isolation pattern into Kagi's replay architecture by binding the gate's executable digest in the counter, decoupling (r5) to evaluate clock-specific MATCH lines independently, and adding `--clock` / `--source` isolation to `corpus/recheck-replay.py`.**
+**Synthesize Kasegi's single-source isolation pattern into Kagi's replay architecture by providing isolated single-clock replay (`--clock <path:line>` and `--source <id>`) in `corpus/recheck-replay.py`, and routing S057 to `rendered-text-v1.py locate` in Round 57 to decouple documentation verification from vendor bundler churn.**
 
 Specifically:
-1. **Gate Digest Binding & Strict Exit Code (Closing ReviewCounter F1 & ReviewGate F2):**
-   - Bind `corpus/recheck-replay.py`'s SHA256 digest in `plans/round-56-c1.sh` (`GATE_SHA256_PIN`).
-   - Require `GATE_RC == 0` and enforce whole-token matching for `RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)`.
-   - Update control `K1-F5` to execute a genuine Python printer and assert that it fails the digest check (`gate-digest`).
-2. **Decouple Per-Clock (r5) Counting from Global Gate Status (Closing ReviewCounter F4 & ExecControls C09-C11):**
-   - In `plans/round-56-c1.sh`, define clock $c$'s (r5) satisfaction strictly by the presence of $c$'s own valid `MATCH` line:
-     `MATCH <entry>:<line> id=<id> form=<form> stated=<N> replayed=<N>`
-     emitted by the verified gate.
-   - Global gate cleanliness (`clocks=10 match=10` and `gate_clean == 1`) remains enforced by `GUARD = 1` and `target 10`.
-   - *Impact:* If 1 clock drifts, `replayed` accurately reads `9`, the counter outputs `value=FAIL present=10 replayed=9 gate=0 guard=0`, and `bad=` specifically names the single drifted clock rather than smearing `r5-gate` across all 9 healthy clocks.
-3. **Single-Clock Isolation in the Gate (Adopting Kasegi's `--source` Pattern):**
-   - Add `--clock <entry>:<lineno>` and `--source <id>` flags to `corpus/recheck-replay.py`.
-   - When passed, `recheck-replay.py` executes only the designated clock, outputting a single `MATCH`/`MISMATCH` line and exiting 0 on match. This enables sibling gates, git pre-commit hooks, and targeted pre-freeze controls to evaluate individual clocks without sweeping the entire repository.
-4. **Harden Header Refusal & Normalizer Binding (Closing ReviewGate F1 & F5):**
-   - Widen header checks in both gate and counter to `(?im)^[ \t]*(?:< )?HTTP/\d` and `(?im)^[ \t]*(?:< )?set-cookie\s*:`, preventing bypasses via `curl -v` prefixing or indented cookie lines.
-   - Assert `rc in (0, 1)` on `rendered-text-v1.py locate` subprocesses.
-5. **Frontier Route for Round 57 (S057 Normalization):**
-   - Route S057 (`trufflehog-verification-lifecycle.md:4`) to migrate from raw `grep -c` to `rendered-text-v1.py locate`, eliminating the Next.js Turbopack minified payload dependency uncovered by `R56ExecLive`.
+1. **Single-Clock Isolation in the Gate (Adopting Kasegi's `--source` Pattern):**
+   - In `kasegi-shokunin/corpus/instruments/source-recheck.py`, passing `--source ID` re-checks only that single source and exits 0 on match.
+   - Adding `--clock <entry>:<lineno>` and `--source <id>` to `corpus/recheck-replay.py` allows individual clocks to be verified independently by git pre-commit hooks, targeted triage, or sibling connectors without executing a full repository sweep.
+2. **Frontier Route for Round 57 (S057 Normalization):**
+   - As observed by `R56ExecLive` and corroborated by `shokuknow/merge/kagi/knowledge/trufflehog-cache-expiry-docs-vs-code-r39.md`, S057's target needle (`Each cache entry expires after three hours`) sits in minified Turbopack/Next.js script variables.
+   - In Round 57, migrate S057's `recheck:` command from raw `grep -c` to `rendered-text-v1.py locate /dev/stdin 'Each cache entry expires after three hours'`, bringing it into parity with S070 and rendering it immune to frontend framework packaging churn.
 
 ---
 
@@ -156,7 +152,7 @@ Specifically:
 
 ### Runtime Surface
 - **Zero Overhead:** Subprocess execution remains bounded to local filesystem reads and fast string matches. Replay of all 10 clocks completes in ~1.2 seconds.
-- **Fail-Closed Stability:** Disallows unbounded discovery; `clocks()` rejects symlinked files and directories explicitly, avoiding hangs on infinite recursion or FIFOs (`R56MutCounter` Z1).
+- **Fail-Closed Stability:** Disallows unbounded discovery; `clocks()` rejects symlinked files and directories explicitly (`corpus/recheck-replay.py:68`), avoiding hangs on infinite recursion or FIFOs (`R56MutCounter` Z1).
 
 ### Contract Surface
 - **Preserves Frozen Target:** Does not alter the claim sentence `C1_REPLAY: value = REPLAYED when GUARD = 1, else FAIL; target 10 (BASE 0)`.
@@ -168,14 +164,14 @@ Specifically:
 - **Cross-Platform Portability:** Uses only standard POSIX tools (`grep`, `python3`, `pdftotext`).
 
 ### Verification Surface
-- **Empirical Control Realism:** Pre-freeze controls in `plans/round-56-controls.sh` (specifically C09, C10, C11) now match their exact expected outcomes without needing artificial multi-clock drift compensations.
-- **Mutation Kill Rate:** Kills all surviving mutants identified by `R56ReviewCounter` (F1, F2, F3) and `R56MutCounter` (R5b, R5c, R5g, G3, R2i).
+- **Empirical Control Realism:** Pre-freeze controls in `plans/round-56-controls.sh` (16 controls in Epoch B) now pass 16/16 `MATCH`.
+- **Mutation Kill Rate:** Epoch B successfully kills all surviving mutants identified by `R56ReviewCounter` (F1, F2, F3) and `R56MutCounter` (R5b, R5c, R5g, G3, R2i).
 
 ---
 
 ## 9. Verification and Proof Commands
 
-The synthesis was verified on isolated scratch clones under `/fast/scratch/hyaku/kagi-r56/R56Connector/` using the following exact commands:
+The synthesis was verified on isolated scratch clones under `/fast/scratch/hyaku/kagi-r56/R56Connector/` using the following exact commands at Epoch B tip `5d9a157`:
 
 1. **Gate Execution on Identity Tree:**
    ```bash
@@ -193,17 +189,22 @@ The synthesis was verified on isolated scratch clones under `/fast/scratch/hyaku
    bash /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-56-c1.sh 832ba6a53d6a76706b5c80bce2278683dea33d42
    # rc=0, output: C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r2-manifest:...)
    ```
-4. **C1 Counter on Candidate Tree:**
+4. **C1 Counter on Epoch A (Verifying Gate Digest Enforcement):**
+   ```bash
+   bash /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-56-c1.sh 42070de7770e1558adcf6aa7a7bc59309a9654d7
+   # rc=0, output: C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:...)
+   ```
+5. **C1 Counter on Candidate Tree (Epoch B):**
    ```bash
    bash /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-56-c1.sh \
      --tree /home/vgpnk/Projects/shokunin/kagi-shokunin
    # rc=0, output: C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)
    ```
-5. **Pre-Freeze Controls Battery:**
+6. **Pre-Freeze Controls Battery (Epoch B):**
    ```bash
    bash /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-56-controls.sh \
      /home/vgpnk/Projects/shokunin/kagi-shokunin
-   # rc=0, output: CONTROLS: match=12 mismatch=0
+   # rc=0, output: CONTROLS: match=16 mismatch=0
    ```
 
 ---

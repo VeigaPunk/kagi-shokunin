@@ -1,0 +1,435 @@
+[
+ {
+  "id": "B-ref",
+  "first": "C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)",
+  "rc": 0
+ },
+ {
+  "id": "B-base",
+  "first": "C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r2-manifest:betterleaks-detection-vs-validation.md:README.md,r2-manifest:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r2-manifest:iso-11770-3-edition-status.md:60237.html,r2-manifest:iso-11770-3-edition-status.md:82709.html,r2-manifest:iso-11770-3-edition-status.md:85929.html,r2-manifest:nist-key-management-guidance-status.md:ipd,r2-manifest:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r2-manifest:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r2-manifest:secret-scanning-detection-vs-validation.md:README.md,r2-manifest:trufflehog-verification-lifecycle.md:verification-caching)",
+  "rc": 0
+ },
+ {
+  "id": "R1a-clock-deleted",
+  "expect": "FAIL",
+  "got": "FAIL",
+  "first": "C1_REPLAY: value=FAIL present=9 replayed=0 gate=0 guard=0 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r5-gate:secret-scanning-detection-vs-validation.md:README.md,absent:trufflehog-verification-lifecycle.md:verification-caching)",
+  "rc": 0,
+  "changed": {
+   "corpus/knowledge/trufflehog-verification-lifecycle.md": "046469a22f49db084cd39ad623999e36359be4a6a48093555614a94cd637f2b6"
+  }
+ },
+ {
+  "id": "R1b-N-restated",
+  "expect": "FAIL",
+  "got": "FAIL",
+  "first": "C1_REPLAY: value=FAIL present=9 replayed=0 gate=0 guard=0 (bad=absent:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r5-gate:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)",
+  "rc": 0,
+  "changed": {
+   "corpus/knowledge/betterleaks-detection-vs-validation.md": "4fbd339cd3d251af3b8e9760d7ae7bded9306fb8eb5f4ba111ad183137046252"
+  }
+ },
+ {
+  "id": "R1c-second-recheck-line",
+  "expect": "FAIL",
+  "got": "FAIL",
+  "first": "C1_REPLAY: value=FAIL present=9 replayed=9 gate=1 guard=0 (bad=absent:betterleaks-detection-vs-validation.md:README.md)",
+  "rc": 0,
+  "changed": {
+   "corpus/knowledge/betterleaks-detection-vs-validation.md": "29ec920bf883b720bfc3b18a7c32c7a7370dbd76da1af9cdb44aef5e35e7a291"
+  }
+ },
+ {
+  "id": "R1d-command-bytes-changed",
+  "expect": "FAIL",
+  "got": "FAIL",
+  "first": "C1_REPLAY: value=FAIL present=9 replayed=9 gate=1 guard=0 (bad=absent:betterleaks-detection-vs-validation.md:README.md)",
+  "rc": 0,
+  "changed": {
+   "corpus/knowledge/betterleaks-detection-vs-validation.md": "8efccd740525a5a608fcc1c298f1f2caab1d358b5262bf33f85e4c31a27cd044"
+  }
+ },
+ {
+  "id": "R1e-count-form-allowed",
+  "expect": "10",
+  "got": "10",
+  "first": "C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)",
+  "rc": 0,
+  "changed": {
+   "corpus/knowledge/betterleaks-detection-vs-validation.md": "71fa2b7d15595c5683bba2cc471349e709e323005fb62374f2136fb3d45cf55d"
+  }
+ },
+ {
+  "id": "R1f-N-prefix-10",
+  "expect": "FAIL",
+  "got": "FAIL",
+  "first": "C1_REPLAY: value=FAIL present=9 replayed=0 gate=0 guard=0 (bad=absent:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r5-gate:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)",
+  "rc": 0,
+  "changed": {
+   "corpus/knowledge/betterleaks-detection-vs-validation.md": "40395778f3defbe3afa2b41428b97564f5f1bd4c60459ff1f09fbe90877218b5"
+  }
+ },
+ {
+  "id": "R1g-date-prose-only",
+  "expect": "10",
+  "got": "10",
+  "first": "C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)",
+  "rc": 0,
+  "changed": {
+   "corpus/knowledge/betterleaks-detection-vs-validation.md": "acac40eeeb36436fdeed6e9c6cbafa06ce52a0a94044cd4c85b1d05716417fa8"
+  }
+ },
+ {
+  "id": "R2a-manifest-row-dropped",
+  "expect": "0",
+  "got": "0",
+  "first": "C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r2-rows0:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)",
+  "rc": 0,
+  "changed": {
+   "corpus/recheck-captures.tsv": "0c18d1b78c8ae038645945075222a43b51f75d7c2aabd1817cc4b1f078cb1c11"
+  }
+ },
+ {
+  "id": "R2b-manifest-url-duplicated",
+  "expect": "0",
+  "got": "0",
+  "first": "C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r2-rows2:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)",
+  "rc": 0,
+  "changed": {
+   "corpus/recheck-captures.tsv": "ba39ff2fd5211f2b4ad85e3a577f0bb73c74cca104100827c0bc4f163c555de0"
+  }
+ },
+ {
+  "id": "R2c-registry-row-duplicated",
+  "expect": "9",
+  "got": "9",
+  "first": "C1_REPLAY: value=9 present=10 replayed=9 gate=1 guard=1 (bad=r2-registry:secret-scanning-detection-vs-validation.md:README.md)",
+  "rc": 0,
+  "changed": {
+   "corpus/SOURCES.md": "9640c7755da4070e3902faf5169fb1cb85e12b0c975d4a2e66d0b80ab39d9322"
+  }
+ },
+ {
+  "id": "R2d-registry-status-staged",
+  "expect": "9",
+  "got": "9",
+  "first": "C1_REPLAY: value=9 present=10 replayed=9 gate=1 guard=1 (bad=r2-registry:iso-11770-3-edition-status.md:82709.html)",
+  "rc": 0,
+  "changed": {
+   "corpus/SOURCES.md": "72d9a61797472fd6094f9ad10d43c058335cf4c37b18178ae98df355bb93ca1e"
+  }
+ },
+ {
+  "id": "R2e-url-moved-out-of-source",
+  "expect": "9",
+  "got": "9",
+  "first": "C1_REPLAY: value=9 present=10 replayed=9 gate=1 guard=1 (bad=r2-registry:cdp-bridge-1password-oidc-workflow.md:custom-workflow)",
+  "rc": 0,
+  "changed": {
+   "corpus/SOURCES.md": "4656fa02978e3e3e5a23f59b5317784c0bef52126b289607cff811bfa8d3a24a"
+  }
+ },
+ {
+  "id": "R2f-registry-row-only-fenced",
+  "expect": "9",
+  "got": "9",
+  "first": "C1_REPLAY: value=9 present=10 replayed=9 gate=1 guard=1 (bad=r2-registry:nist-key-management-guidance-status.md:ipd)",
+  "rc": 0,
+  "changed": {
+   "corpus/SOURCES.md": "51939802f40f9d1ee96e9c5ec1904c9fed029017b5dfda81ac36d62f02039050"
+  }
+ },
+ {
+  "id": "R2g-manifest-header-swapped",
+  "expect": "0",
+  "got": "0",
+  "first": "C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r2-manifest:betterleaks-detection-vs-validation.md:README.md,r2-manifest:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r2-manifest:iso-11770-3-edition-status.md:60237.html,r2-manifest:iso-11770-3-edition-status.md:82709.html,r2-manifest:iso-11770-3-edition-status.md:85929.html,r2-manifest:nist-key-management-guidance-status.md:ipd,r2-manifest:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r2-manifest:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r2-manifest:secret-scanning-detection-vs-validation.md:README.md,r2-manifest:trufflehog-verification-lifecycle.md:verification-caching)",
+  "rc": 0,
+  "changed": {
+   "corpus/recheck-captures.tsv": "9360133096d80250ead57d107195bb585443426b74fc8215933d2a9011f1d1cf"
+  }
+ },
+ {
+  "id": "R2h-manifest-id-swapped",
+  "expect": "0",
+  "got": "0",
+  "first": "C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r2-registry:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)",
+  "rc": 0,
+  "changed": {
+   "corpus/recheck-captures.tsv": "f4b3af2556ac484862c1b8a9a8d72535c29f6cf91632cf887274a82fdc0489d8"
+  }
+ },
+ {
+  "id": "R2i-forged-http-status",
+  "expect": "10",
+  "got": "10",
+  "first": "C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)",
+  "rc": 0,
+  "changed": {
+   "corpus/recheck-captures.tsv": "fd3266526f683fd18dcb1b506f948ecdf45b14e6848f42fcdd1250888e3e091e"
+  }
+ },
+ {
+  "id": "R2j-crosswire-S101-to-S113",
+  "expect": "10",
+  "got": "10",
+  "first": "C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)",
+  "rc": 0,
+  "changed": {
+   "corpus/recheck-captures.tsv": "f3bcd94b60487fa53cd2a78bb453c60a95649f5e5e230cdd733d342ff0687bc5"
+  }
+ },
+ {
+  "id": "R2k-crosswire-S114-to-S113",
+  "expect": "10",
+  "got": "10",
+  "first": "C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)",
+  "rc": 0,
+  "changed": {
+   "corpus/recheck-captures.tsv": "6e6e7e8e5c76e87361408d991e00d00d565696c2fda57bc849afc705b36f9eac"
+  }
+ },
+ {
+  "id": "R3a-body-byte-appended",
+  "expect": "0",
+  "got": "0",
+  "first": "C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r3-digest:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)",
+  "rc": 0,
+  "changed": {
+   ".ufo/waves/round-56/capture/S054.body": "dd68a3394b013fb3e2ce3d17a6853e3836c09e318057b3f498f26a6f4417bd5a"
+  }
+ },
+ {
+  "id": "R3b-body-path-absolute",
+  "expect": "0",
+  "got": "0",
+  "first": "C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r3-path:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)",
+  "rc": 0,
+  "changed": {
+   "corpus/recheck-captures.tsv": "dac4ca35a9e87aa1167b3d704866d325ae9a9cf6b739a15ae480b703200b2bc4"
+  }
+ },
+ {
+  "id": "R3c-body-path-dotdot",
+  "expect": "0",
+  "got": "0",
+  "first": "C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r3-path:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)",
+  "rc": 0,
+  "changed": {
+   "corpus/recheck-captures.tsv": "16440b974ffb9be9f22509b15b1bb046d89b9f70dca9deaed3891b5a34fc721d"
+  }
+ },
+ {
+  "id": "R3d-body-symlinked",
+  "expect": "0",
+  "got": "0",
+  "first": "C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r3-file:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r5-gate:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)",
+  "rc": 0,
+  "changed": {
+   ".ufo/waves/round-56/capture/S055.body": "symlink->../../../../s055.body"
+  }
+ },
+ {
+  "id": "R3e-http-prefix-digest-fixed",
+  "expect": "0",
+  "got": "0",
+  "first": "C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r5-gate:secret-scanning-detection-vs-validation.md:README.md,r3-headers:trufflehog-verification-lifecycle.md:verification-caching)",
+  "rc": 0,
+  "changed": {
+   ".ufo/waves/round-56/capture/S057.body": "5d28e743fd923eddee75c76300b60b9d5ce31714258a8e8c542b211c3300327e",
+   "corpus/recheck-captures.tsv": "04dbd2154b9881d0ee249dbba9c386a3529e4d98ea6ca3389a24de3868a791b3"
+  }
+ },
+ {
+  "id": "R3f-midfile-setcookie",
+  "expect": "0",
+  "got": "0",
+  "first": "C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r3-headers:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r5-gate:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)",
+  "rc": 0,
+  "changed": {
+   ".ufo/waves/round-56/capture/S074.body": "f34217439caaa630ac2ed5ea9123dd54a639bc2a3e96e6830518359e8a80c9f2",
+   "corpus/recheck-captures.tsv": "51ea192e16a8f50cafea3890d0908e46b07a46997e0a4d6fc51604c6556f236b"
+  }
+ },
+ {
+  "id": "R3g-handwritten-body",
+  "expect": "10",
+  "got": "10",
+  "first": "C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)",
+  "rc": 0,
+  "changed": {
+   ".ufo/waves/round-56/capture/S054.body": "253e48238dc9b10bef7685dacc4ef9fd429804b6dee719b6fb6c4d30f72156b7",
+   "corpus/recheck-captures.tsv": "d8d9c2093cff9606ce17154dacad9c5b4142080736458fb044d347011d1474dc"
+  }
+ },
+ {
+  "id": "R4a-count-one-too-high",
+  "expect": "0",
+  "got": "0",
+  "first": "C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r4-replay2:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)",
+  "rc": 0,
+  "changed": {
+   ".ufo/waves/round-56/capture/S054.body": "047c3f17ac122a83f4ee01829917ca20c0d82d4b47eef47f88c0fed32da5b327",
+   "corpus/recheck-captures.tsv": "6893ac38b177210efe5f4082fbae11e11356db4db6bdde5e300f9cbd741407fa"
+  }
+ },
+ {
+  "id": "R4b-fake-tree-normaliser",
+  "expect": "9",
+  "got": "FAIL",
+  "first": "C1_REPLAY: value=FAIL present=9 replayed=9 gate=1 guard=0 (bad=absent:cdp-bridge-1password-oidc-workflow.md:custom-workflow)",
+  "rc": 0,
+  "changed": {
+   "corpus/knowledge/cdp-bridge-1password-oidc-workflow.md": "00cc0db76a83e47ffcb9b7a1a34cdddd809dd4db90b28be37d47ffae9d59f504",
+   ".ufo/waves/round-56/capture/S070.body": "5c226c06413854281f229aa0831f3fa7b9e63cdd3d2a4bf761f2226652a1c0dd",
+   "corpus/recheck-captures.tsv": "df46be5c92c7b4d5a8b7ad790371b5c3240c92f46460b8cfb69e9b75b7ecc762",
+   "corpus/rendered-text-v1.py": "924062d3a903f1cb7d29a79dcf50dbdf27e54194e47a4ebf40ccaf9670f1db12"
+  }
+ },
+ {
+  "id": "R4c-tree-normaliser-deleted",
+  "expect": "0",
+  "got": "0",
+  "first": "C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r5-gate:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)",
+  "rc": 0,
+  "changed": {
+   "corpus/rendered-text-v1.py": "dir"
+  }
+ },
+ {
+  "id": "R5a-clean-printer-gate",
+  "expect": "0",
+  "got": "0",
+  "first": "C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r5-gate:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)",
+  "rc": 0,
+  "changed": {
+   "corpus/recheck-replay.py": "c441d71f0edc8c2b4f5adb95faff6afbd96005300ab89c6635b392aed7aaa401"
+  }
+ },
+ {
+  "id": "R5b-full-printer-gate",
+  "expect": "10",
+  "got": "0",
+  "first": "C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r5-gate:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)",
+  "rc": 0,
+  "changed": {
+   "corpus/recheck-replay.py": "48b75d82a57b61d300105bca2909744989c468606039b39036853d723b05ce8e"
+  }
+ },
+ {
+  "id": "R5c-printer-gate-rc1",
+  "expect": "10",
+  "got": "0",
+  "first": "C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r5-gate:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)",
+  "rc": 0,
+  "changed": {
+   "corpus/recheck-replay.py": "1cc536c98fc4ef06a903fa5119b8bbbcd70f02e6a5ffd713f90ea3bbef8f557b"
+  }
+ },
+ {
+  "id": "R5d-gate-id-mutated",
+  "expect": "9",
+  "got": "0",
+  "first": "C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r5-gate:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)",
+  "rc": 0,
+  "changed": {
+   "corpus/recheck-replay.py": "43a3cd96a40798e8631ad31d873f81bb83f30632fbc766c89bd0f6fae2b6ccc4"
+  }
+ },
+ {
+  "id": "R5e-gate-form-mutated",
+  "expect": "9",
+  "got": "0",
+  "first": "C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r5-gate:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)",
+  "rc": 0,
+  "changed": {
+   "corpus/recheck-replay.py": "9d4acaf0a9c62987980ab429c2f77f857e41c2bab5267446d9ab885cbf4108a6"
+  }
+ },
+ {
+  "id": "R5f-gate-narrowed-population",
+  "expect": "9",
+  "got": "0",
+  "first": "C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r5-gate:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)",
+  "rc": 0,
+  "changed": {
+   "corpus/recheck-replay.py": "f59c9c14b416f4c953095238079bf7cea9a8011ae36f24698be90ff7e08804b7"
+  }
+ },
+ {
+  "id": "R5g-gate-symlink-outside-tree",
+  "expect": "10",
+  "got": "0",
+  "first": "C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r5-gate:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)",
+  "rc": 0,
+  "changed": {
+   "corpus/recheck-replay.py": "symlink->/fast/scratch/hyaku/kagi-r56/R56MutCounter/printer-abs.py",
+   "../printer-abs.py": "dir"
+  }
+ },
+ {
+  "id": "R5h-gate-rc1-real-source",
+  "expect": "10",
+  "got": "0",
+  "first": "C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r5-gate:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)",
+  "rc": 0,
+  "changed": {
+   "corpus/recheck-replay.py": "81e3db8c3a7e4648002450a832b660e344ce393a46299f19d0a737b28d16e0cc"
+  }
+ },
+ {
+  "id": "G1-selftest-rc1",
+  "expect": "FAIL",
+  "got": "0",
+  "first": "C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r5-gate:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)",
+  "rc": 0,
+  "changed": {
+   "corpus/recheck-replay.py": "6c6a7470640a4e99a66c65b6e708199acc830c4d274fe6493afe8181a90c5825"
+  }
+ },
+ {
+  "id": "G2-selftest-trailing-line",
+  "expect": "FAIL",
+  "got": "0",
+  "first": "C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r5-gate:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)",
+  "rc": 0,
+  "changed": {
+   "corpus/recheck-replay.py": "39a6ac6513b4bb87ec1e4d1b94d6d5277aa4c704f1524e66203f4972a5a63f11"
+  }
+ },
+ {
+  "id": "G3-selftest-gutted-passes",
+  "expect": "10",
+  "got": "0",
+  "first": "C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r5-gate:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)",
+  "rc": 0,
+  "changed": {
+   "corpus/recheck-replay.py": "68aa898cb97898ad372709a9673727ef92d6b6408ff9ce87d6b4b6a44e2e7dd4"
+  }
+ },
+ {
+  "id": "G4-gate-is-directory",
+  "expect": "FAIL",
+  "got": "0",
+  "first": "C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r5-gate:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)",
+  "rc": 0,
+  "changed": {
+   "corpus/recheck-replay.py": "dir"
+  }
+ },
+ {
+  "id": "N2-gate-absent",
+  "expect": "0",
+  "got": "0",
+  "first": "C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r5-gate:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)",
+  "rc": 0,
+  "changed": {
+   "corpus/recheck-replay.py": "dir"
+  }
+ },
+ {
+  "id": "Z1-fifo-entry",
+  "rc": 124,
+  "first": "timeout 25"
+ }
+]

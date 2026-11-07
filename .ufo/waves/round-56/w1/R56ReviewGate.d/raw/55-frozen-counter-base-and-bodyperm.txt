@@ -1,0 +1,9 @@
+# frozen counter sha256=096251c9b7a7405dbae320eb4dbb3ef0a092cf5e530d2274de0b2e29509bde9a (runner REPO-line patched only)
+## frozen counter at BASE 832ba6a
+C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r2-manifest:betterleaks-detection-vs-validation.md:README.md,r2-manifest:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r2-manifest:iso-11770-3-edition-status.md:60237.html,r2-manifest:iso-11770-3-edition-status.md:82709.html,r2-manifest:iso-11770-3-edition-status.md:85929.html,r2-manifest:nist-key-management-guidance-status.md:ipd,r2-manifest:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r2-manifest:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r2-manifest:secret-scanning-detection-vs-validation.md:README.md,r2-manifest:trufflehog-verification-lifecycle.md:verification-caching)
+rc=0
+
+## body chmod 000 (frozen gate, tree=<bp> built from ft)
+stdout_tail=MATCH corpus/knowledge/oidc-federation-trust-policy.md:3 id=S067 form=grep stated=1 replayed=1
+stderr_tail=PermissionError: [Errno 13] Permission denied: '/fast/scratch/hyaku/kagi-r56/R56ReviewGate/bp/.ufo/waves/round-56/capture/S054.body'
+rc=1

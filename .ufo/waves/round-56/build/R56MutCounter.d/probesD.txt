@@ -1,0 +1,18 @@
+version D (counter 6b132ea1 / gate 2e9dfde3), /usr/bin-symlink PATHs, snapshots in scratch:
+no-python3        C1_REPLAY: SETUP no-python3      rc=2
+no-pdftotext      C1_REPLAY: SETUP no-pdftotext    rc=2
+no-grep           C1_REPLAY: SETUP no-grep         rc=2
+bad-revision      C1_REPLAY: SETUP bad-revision    rc=2
+no-revision       C1_REPLAY: SETUP no-revision     rc=2
+tree-missing      C1_REPLAY: SETUP tree            rc=2
+scratch /proc/nope C1_REPLAY: SETUP scratch        rc=2
+no-cut   (sha256sum present, cut absent)  line 94: cut: command not found
+         C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (r5-gate x10)  rc=0   [not SETUP]
+no-tail  line 102: tail: command not found
+         C1_REPLAY: value=FAIL present=10 replayed=10 gate=1 guard=0 (bad=selftest) rc=0  [not SETUP]
+fifo     mkfifo corpus/knowledge/zzz-fifo.md -> rc=124 under `timeout 20` (counter), rc=124 (gate alone)
+D-ref    C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none) rc=0
+D-base   C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (r2-manifest x10) rc=0
+D-R2i    S054 http_status=404 fetched=1999-01-01 -> value=10 (bad=none)
+D-R2j    S101 body_path=S113.body+bytes+sha     -> value=10 (bad=none)
+D-R4b2   S070 body doctored + fake tree normaliser -> value=9 bad=r4-replay0:cdp-bridge-...

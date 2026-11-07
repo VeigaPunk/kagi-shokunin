@@ -7,6 +7,13 @@
 # observed answering model: minimax-code/MiniMax-M3.1-Flash (own session file PI_SESSION_FILE=.../R56ScoutSources-2.jsonl, model records "MiniMax-M3.1-Flash" x97 + "minimax-code/MiniMax-M3.1-Flash" x2)
 # tools: curl 8.23.0, python3 3.14.8, pdftotext 26.10.0, sha256sum 0.8.0 — all preinstalled, NO install and NO pacman transaction by this seat
 #
+# EPOCH RE-VERIFICATION: measured on epoch-A predeclaration 42070de7770e1558adcf6aa7a7bc59309a9654d7,
+# re-verified on epoch-B predeclaration 5d9a1571911ec38a456a40b443e19640abb9a88b (L1 landed it during
+# this seat's run). On epoch B the manifest corpus/recheck-captures.tsv still hashes to
+# df46be5c92c7b4d5a8b7ad790371b5c3240c92f46460b8cfb69e9b75b7ecc762 and the seven committed capture
+# bodies hash to the SAME digests listed below (S054 7cf6efb5…, S055 f61c3993…, S057 221d80fa…,
+# S067 4d016752…, S070 5c226c06…, S074 df32e64b…, S078 68266cb1…). The manifest rows are unchanged.
+#
 # verdict key: MATCH = live body sha256 == manifest row sha256 AND == committed capture sha256
 #               MISMATCH-RAW = live raw sha256 != manifest row (page is byte-volatile)
 id	http_status	live_bytes	live_sha256	manifest_sha256	committed_sha256	verdict	volatility_observed

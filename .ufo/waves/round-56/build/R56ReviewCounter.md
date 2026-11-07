@@ -23,11 +23,12 @@ BASE `832ba6a53d6a76706b5c80bce2278683dea33d42`; predeclaration/freeze commit
 matches the frozen blobs above; `git diff --stat 42070de -- <the five files>` empty, rc 0).
 Frozen predicate text: `plans/round-56.md:15`; instrument header: `plans/round-56-c1.sh:4-43`.
 
-**Revision note.** This audit applies to the five sha256s above at `42070de`. The planner seat
-(`KagiR56a3`) was observed hardening the counter (digest pin, rc check, N boundary, symlink
-gate) after this report's blocker message; if a new predeclaration commit lands, the counter
-hash changes and every reading below must be re-run against the new bytes before it is used
-as admission evidence.
+**Revision note.** The audit below is anchored to epoch A (`42070de`, counter
+`096251c9…`); the planner seat re-froze as **epoch B** at
+`5d9a1571911ec38a456a40b443e19640abb9a88b` after the blocker message from this seat, and
+`## Epoch B re-audit (5d9a157)` at the end of this report re-runs every forgery against the
+hardened bytes. Epoch-A findings F1, F2, F3, F5, F6, F7 and F8 are closed in epoch B; F4, F9,
+F10 and F11 stand as stated, with epoch-B-specific residuals E1–E6.
 
 ## Verdict in one line
 
@@ -314,5 +315,129 @@ BASE and replayed every clock on the manifest body (script run from scratch, hos
 ## Report trailer
 
 - report: `.ufo/waves/round-56/build/R56ReviewCounter.md`
-- evidence: `.ufo/waves/round-56/build/R56ReviewCounter.d/evidence.txt`
+- evidence epoch A: `.ufo/waves/round-56/build/R56ReviewCounter.d/evidence.txt`
+- evidence epoch B: `.ufo/waves/round-56/build/R56ReviewCounter.d/evidence-epochB.txt`
 - no production file edited; no git/jj mutation; no tool installed (none needed).
+
+## Epoch B re-audit (5d9a157)
+
+Anchored to `5d9a1571911ec38a456a40b443e19640abb9a88b` (HEAD at the re-audit; kill-rule
+predeclaration). Instruments:
+
+| path | sha256 at 5d9a157 |
+|---|---|
+| `plans/round-56-c1.sh` | `6b132ea1b521e698aaf4a1085e051087726c6b5ec840f60339b206abe02b269c` |
+| `corpus/recheck-replay.py` | `2e9dfde326b29fb95f520c5d7f3a671836682b28025e4efc7887333257d4df51` (= `GATE_SHA256_PIN` in the counter) |
+| `plans/round-56-controls.sh` | `63cf806134bcb115368e59809ad54957750d7433d53f6979b256f662e3ddab8f` |
+| `plans/round-56.md` | `033f2104ef36b76e5d9de192878fb1b619808f1c9c63b2e310d074816a3e1679` |
+| `corpus/recheck-captures.tsv` | `df46be5c92c7b4d5a8b7ad790371b5c3240c92f46460b8cfb69e9b75b7ecc762` (unchanged) |
+
+Every run is `bash plans/round-56-c1.sh …` from the lane; raw output in
+`R56ReviewCounter.d/evidence-epochB.txt`.
+
+| tree | reading | rc |
+|---|---|---|
+| BASE `832ba6a` | `value=0 present=10 replayed=0 gate=0 guard=1` (r2-manifest ×10) | 0 |
+| epoch-A `42070de` | `value=0 … gate=0` (r5-gate ×10 — gate digest) | 0 |
+| epoch-B `5d9a157` | `value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)` | 0 |
+| reference overlay (lane `git ls-files -co`) | `value=10 … guard=1` | 0 |
+| python printer gate (reads nothing; 10 MATCH + CLEAN + `PASS (13 cases)`) | `value=0 … gate=0` (r5-gate ×10) | 0 |
+| pinned gate + 0-case selftest | `value=0 … gate=0` (digest, not selftest) | 0 |
+| `-> 1x` restatement | `value=FAIL present=9 replayed=9 guard=0` (absent) | 0 |
+| added uncaptured clock | `value=0 … gate=0` | 0 |
+| added **captured** clock (gate `CLEAN (clocks=11 match=11 …)`) | `value=0 … gate=0` | 0 |
+| gate path symlinked to an off-tree printer | `value=0 … gate=0` | 0 |
+| 8-column manifest row | `value=0 … r2-manifest-malformed ×10` | 0 |
+| duplicate URL row | `value=0 … r2-rows2 + r5-gate` | 0 |
+| no manifest | `value=0 … r2-manifest ×10` | 0 |
+| empty tree | `value=FAIL present=0 guard=0` | 0 |
+| symlinked knowledge entry | `value=FAIL present=9 replayed=0 guard=0`; gate: `UNSUPPORTED … reason=symlinked-entry`, `DRIFT (clocks=10 match=9 … unsupported=1)` | 0 |
+| no args / bad revision / missing tree / lone copy | `SETUP no-revision` / `bad-revision` / `tree` / `base-normaliser` | 2 |
+
+Controls battery end-to-end (`bash plans/round-56-controls.sh <lane>`, REF = lane working
+tree): `CONTROLS: match=16 mismatch=0`, rc 0 — reproduces the epoch-B 16/16 receipt.
+
+Closed against epoch A: **F1** (digest pin: printer → 0), **F2** (F5 is now a real `python3`
+printer; F5b/F5c added), **F3** (`-> 1x` → `FAIL present=9`), **F5** (digest subsumes the
+selftest; exact `PASS (13 cases)`), **F6** (symlinked entry → `UNSUPPORTED`, gate DRIFT),
+**F7** (gate symlink → `GATE_SHA=SYMLINK`, 0), **F8** (manifest arity → `r2-manifest-malformed`).
+Still standing: F4 (now explicit, E3), F9, F10, F11.
+
+### E1 — MEDIUM — the frozen predicate sentence, the counter header and the code state three different GUARD conditions
+
+`plans/round-56.md:15` says: "GUARD = 1 iff all 10 clocks are PRESENT … **and the gate's
+`--selftest` exits 0 with last line `RECHECK_REPLAY_SELFTEST: PASS (13 cases)`**" — no
+condition on the gate's presence or digest. The counter header (`plans/round-56-c1.sh:38-41`)
+conditions it on the file's *presence* ("when the measured tree carries
+corpus/recheck-replay.py"). The code conditions it on the *digest match*
+(`GATE_SHA = GATE_SHA256_PIN`): `SELF_OK` is only computed inside that branch, and stays 1
+otherwise. Measured consequences:
+* BASE (no gate): code `guard=1` → `value=0`; the plan-literal sentence would require a
+  selftest that does not exist → `guard=0` → `value=FAIL`, contradicting the plan's own
+  BASE-0 target.
+* printer gate (present, unpinned): code `guard=1` → `value=0`; the header-literal sentence
+  (presence) would run the printer's selftest → `guard=0` → `value=FAIL`.
+
+The plan claims "Definitions verbatim in `plans/round-56-c1.sh`'s header", which is not the
+case for this conjunct. Admission is unaffected (all readings are misses), but for a lane
+whose protocol is text-equals-code this is a real divergence. Fix: write the same condition in
+all three places — "when the tree's `corpus/recheck-replay.py` bytes equal `GATE_SHA256_PIN`,
+its `--selftest` exits 0 with last line `RECHECK_REPLAY_SELFTEST: PASS (13 cases)`".
+
+### E2 — LOW — the F5 control comment contradicts its own expectation
+
+`plans/round-56-controls.sh` F5's comment says "…this must read FAIL (digest mismatch ->
+gate_ok=0 -> every r5 fails)"; the table line is `check K1-F5-printer-gate 0 f5` and the
+measured reading is `value=0 guard=1`. "Every r5 fails" with `guard=1` yields `0`, not `FAIL`.
+The comment's word FAIL is wrong; the expectation is right for the code.
+
+### E3 — MEDIUM (design ceiling, now explicit) — the population is hard-closed at 10 clocks
+
+An added clock that is fully captured and MATCHing produces `RECHECK_REPLAY: CLEAN
+(clocks=11 match=11 mismatch=0 …)` and the counter's exact regex requires `clocks=10`, so the
+reading is `value=0` (measured `extracap`). Any future round that legitimately grows
+`corpus/knowledge`'s stated-clock population must re-freeze the counter (POP literal, clock
+count, pin) — the reading cannot represent growth, and a correct extra clock is indistinguishable
+from a regression by the value alone. This is intended by the epoch-B predicate; it should be
+listed in the plan's named ceilings.
+
+### E4 — LOW — `sha256sum` joins the PATH trust set
+
+`GATE_SHA=$(sha256sum "$T/$GATE_REL" | cut -d' ' -f1)` resolves `sha256sum` from PATH, so the
+pin is only as good as that binary (r4 already trusts PATH `grep`/`pdftotext`/`python3`). Same
+declared host-trust ceiling; no new exposure by itself.
+
+### E5 — LOW — the gate's locate replay reads the tree's normaliser, not the pinned BASE copy
+
+The gate now confines `corpus/rendered-text-v1.py` for symlinks but does not pin its bytes,
+while the counter's r4 uses BASE's copy. A candidate editing the tree normaliser can make the
+gate's locate line wrong; r4 (BASE) then fails that clock, so the value can only fall — no
+false green observed, but the gate's own evidence for the locate form is not bound to the
+counter's.
+
+### E6 — LOW — the controls' `mk_ref` silently tolerates a partial reference tree
+
+`mk_ref` pipes `git ls-files -co --exclude-standard | tar -cf -` into `tar -x` with `set -u`
+only — no `pipefail`, no rc check. In this re-audit a concurrently moving sibling file made
+`tar` fail twice ("Cannot stat … Exiting with failure status due to previous errors") and the
+battery continued on the partial tree; because the vanished files were sibling reports the
+16/16 result is still valid, but a capture or the gate vanishing the same way would yield a
+spurious reading with no diagnostic. Add `|| exit 2` / `set -o pipefail` on the copy.
+
+### Verified good in epoch B (new)
+
+* Python 3.14.8 `-I` removes the script directory from `sys.path` (probe: a sibling module is
+  importable without `-I` and `ModuleNotFoundError` with it; `sys.path[0]` is the stdlib zip),
+  so a tree-local stdlib shadow (e.g. `corpus/subprocess.py`) cannot influence the pinned
+  gate's replay.
+* The digest pin, the `--root` rc check, the exact CLEAN summary and the exact selftest line
+  all fire together: a one-byte gate edit (control F9), a symlinked gate (F5c), a printer (F5)
+  and an edited body all read 0, not 10.
+
+## Epoch B trailer
+
+- report: `.ufo/waves/round-56/build/R56ReviewCounter.md`
+- evidence epoch A: `.ufo/waves/round-56/build/R56ReviewCounter.d/evidence.txt`
+- evidence epoch B: `.ufo/waves/round-56/build/R56ReviewCounter.d/evidence-epochB.txt`
+- epoch-B scratch `/fast/scratch/hyaku/kagi-r56/R56ReviewCounter/epochB/` deleted after this
+  report; no production file edited; no git/jj mutation; no tool installed.

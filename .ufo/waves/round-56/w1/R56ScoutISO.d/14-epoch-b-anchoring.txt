@@ -1,0 +1,43 @@
+# R56ScoutISO receipt 14 - epoch-B anchoring (5d9a1571911ec38a456a40b443e19640abb9a88b)
+# date 2026-11-07T07:47:31-03:00; all git commands run from the lane repo /home/vgpnk/Projects/shokunin/kagi-shokunin
+
+== which of my receipts depend on the lane revision, and which do not ==
+  REVISION-DEPENDENT (instrument readings) - re-run against epoch B, receipts 13 and 14:
+    the gate run, the gate --selftest, the counter, the census, the registry-row and provenance
+    readings. All re-executed below against 5d9a1571911ec38a456a40b443e19640abb9a88b / the epoch-B candidate tree.
+  REVISION-INDEPENDENT (live page measurements, 2026-11-07) - unchanged by the re-freeze:
+    every live fetch, digest, grep count and locate count in receipts 01-10. These are facts
+    about the live pages on 2026-11-07, not about a lane tree; they hold at any revision.
+
+== epoch-B instrument state, read from the commit object ==
+  5d9a1571911ec38a456a40b443e19640abb9a88b:corpus/recheck-replay.py sha256 = 2e9dfde326b29fb95f520c5d7f3a671836682b28025e4efc7887333257d4df51
+  5d9a1571911ec38a456a40b443e19640abb9a88b:plans/round-56-c1.sh GATE_SHA256_PIN = 2e9dfde326b29fb95f520c5d7f3a671836682b28025e4efc7887333257d4df51
+  => the pin and the gate bytes agree at epoch B: the pin binds the gate bytes.
+
+== the candidate = epoch-B instruments + the L1's two content edits (both uncommitted at the time of this receipt) ==
+  plans/round-56.{md,-c1.sh,-controls.sh} and corpus/recheck-replay.py: byte-identical to 5d9a1571911ec38a456a40b443e19640abb9a88b (kill-rule pathspec satisfied)
+   corpus/SOURCES.md                                      | 2 +-
+   corpus/knowledge/cdp-bridge-1password-oidc-workflow.md | 2 +-
+   2 files changed, 2 insertions(+), 2 deletions(-)
+
+== readings on that candidate tree ==
+  $ bash plans/round-56-c1.sh --tree <lane>
+      C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)
+  $ bash corpus/sources-census.sh
+      SOURCES_CENSUS: CLEAN (rows=114 A=110 B=2 C=2 queued=1 mined=109 rejected=4 entries_sourced=16 legacy=21 captures=114 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+  $ python3 corpus/recheck-replay.py
+      RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)
+  $ python3 corpus/recheck-replay.py --selftest
+      RECHECK_REPLAY_SELFTEST: PASS (13 cases)
+
+== the counter readings the L1 reported, re-verified here ==
+  5d9a1571911ec38a456a40b443e19640abb9a88b
+      C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)
+  832ba6a53d6a76706b5c80bce2278683dea33d42
+      C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r2-manifest:betterleaks-detection-vs-validation.m
+  42070de7770e1558adcf6aa7a7bc59309a9654d7
+      C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:RE
+
+  (BASE 832ba6a reads value=0 for want of the manifest - r2-manifest on all 10; epoch A 42070de
+   reads value=0 on r5-gate for all 10 - its counter carried no gate digest pin, so the gate was
+   not identity-bound. Both reproduce the L1's reported readings.)

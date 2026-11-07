@@ -131,3 +131,53 @@ the frozen revision does not read 10 under worktree bytes. An epoch-B probe
 (pin 637c8184 vs copied gate 2e9dfde3, which had changed again); those epoch-B
 readings are confounded and are not evidence either way. L1 (KagiR56a3)
 decided to re-predeclare epoch-B; epoch-A evidence above stands as the record.
+
+## Additional epoch-A reading
+
+TREE zerocase (gate prints selftest last line `RECHECK_REPLAY_SELFTEST: PASS (0 cases, 13 failed)`)
+                                 rc=0  C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)
+
+## Epoch-B re-audit (committed predeclaration 5d9a1571911ec38a456a40b443e19640abb9a88b)
+
+Anchors (git show 5d9a157:<path> | sha256sum):
+6b132ea1b521e698aaf4a1085e051087726c6b5ec840f60339b206abe02b269c  plans/round-56-c1.sh
+2e9dfde326b29fb95f520c5d7f3a671836682b28025e4efc7887333257d4df51  corpus/recheck-replay.py (= GATE_SHA256_PIN)
+df46be5c92c7b4d5a8b7ad790371b5c3240c92f46460b8cfb69e9b75b7ecc762  corpus/recheck-captures.tsv
+033f2104ef36b76e5d9de192878fb1b619808f1c9c63b2e310d074816a3e1679  plans/round-56.md
+63cf806134bcb115368e59809ad54957750d7433d53f6979b256f662e3ddab8f  plans/round-56-controls.sh
+709cf29a03f5ba9cc1c2eacb60036a23d5836803e655f4f0c0c91fefc8145aea  .ufo/waves/round-56/controls/controls-prefreeze-epochB.txt (16/16 MATCH)
+080a04836c32ced34ffcd93c1e9574d395dacf0a0ffba720ce54d134292298bd  .ufo/waves/round-56/capture/fetch-receipt.json
+
+Method: same single clone, `git fetch` then `git checkout 5d9a157`
+(root asserted); trees built with `git -C lanea archive 5d9a157 | tar -x`;
+counter run as `HYAKU_SCRATCH=<seatB> bash lanea/plans/round-56-c1.sh ...`.
+
+Readings (rc 0 for all):
+EB printer         value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate x10)
+EB symgate         value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate x10)
+EB nogate          value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate x10)
+EB nocap           value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)
+EB forge           value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)
+EB reword          value=FAIL present=9 replayed=9 gate=1 guard=0 (bad=absent:betterleaks...)
+EB twoline         value=FAIL present=9 replayed=9 gate=1 guard=0 (bad=absent:betterleaks...)
+EB urlslash        value=0 present=10 replayed=0 gate=0 guard=1 (bad=r2-rows0:...ipd + r5-gate x10)
+EB restate1x       value=FAIL present=9 replayed=9 gate=1 guard=0 (bad=absent:betterleaks...)
+EB f8              value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate x10)
+EB rev 5d9a157     value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)
+EB rev 42070de     value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate x10, gate-digest)
+EB rev 832ba6a     value=0 present=10 replayed=0 gate=0 guard=1 (bad=r2-manifest x10)
+
+Fixtures are the same definitions as the epoch-A section, rebuilt from
+`git archive 5d9a157`; the gate in every mutable tree is the pinned epoch-B gate
+(2e9dfde3) except printer/symgate/nogate, which replace or remove it.
+
+## Post-commit worktree drift (after 5d9a157, observed 07:50:08-07:50:48)
+
+git status at 5d9a157: M corpus/recheck-replay.py, M plans/round-56-c1.sh
+(plus M corpus/SOURCES.md, M corpus/knowledge/cdp-bridge-...md by other seats).
+corpus/recheck-replay.py       d4392ffe831560397fa35b4e84198b6ac75d5da8505a302ef3dcf6991080b274 (18728 B, 07:50:08)
+plans/round-56-c1.sh           5e36726d... then a3800be15e3f7b1471719351628e54fcdc837740c52bb35837654ed22b274bd7 (16909 B, 07:50:48)
+git diff --stat 5d9a157 -- those two: +93/-23.
+These are uncommitted, not reviewed. The epoch-B readings above are anchored to
+the committed blobs (counter 6b132ea1, gate 2e9dfde3 = pin). Any worktree run
+against 5d9a157 now hits a pin mismatch (value=0).

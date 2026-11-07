@@ -32,6 +32,16 @@ corpus/knowledge/nist-key-management-parts-withdrawal.md:3       S078  1  MATCH 
 #   RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)
 #   rc=0
 #
+# EPOCH RE-VERIFICATION: the gate bytes changed between epochs (epoch-A gate sha256 b7782f35…, epoch-B
+# gate sha256 2e9dfde326b29fb95f520c5d7f3a671836682b28025e4efc7887333257d4df51, which adds the
+# confinement of the knowledge/registry/manifest/locate inputs). On the epoch-B tree
+# 5d9a1571911ec38a456a40b443e19640abb9a88b the SAME ten verdicts were re-produced with the SAME
+# per-clock stated/replayed pairs and the same closing line
+#   RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)
+# rc=0. The manifest (sha256 df46be5c92c7b4d5a8b7ad790371b5c3240c92f46460b8cfb69e9b75b7ecc762) and the
+# seven committed capture bodies are byte-identical between epoch A and epoch B, so the offline replay
+# is unaffected by the gate change; the live leg is unaffected by it entirely.
+#
 # live runs (each the entry's own command, verbatim):
 #   S054  curl -fsSL 'https://raw.githubusercontent.com/trufflesecurity/trufflehog/main/README.md' | grep -c 'it can also log in to confirm if that secret is live or not'   -> 1   rc=0
 #   S055  curl -fsSL 'https://raw.githubusercontent.com/betterleaks/betterleaks/main/README.md' | grep -c 'Scans detect secrets without credential provider requests by default' -> 1   rc=0

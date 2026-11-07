@@ -1,0 +1,26 @@
+frozen gate sha256 = b7782f35c0c8bbaedac5f8f06eaadbc3ce4b8997be25e10f4224724013d799e8
+
+A-pdf-locate-constant sha256=f6eb6aaca1e3dcddd69bd5131eb781ea7e3ddb689fc7ba015f7fe34282352c78
+  selftest rc=0 last=RECHECK_REPLAY_SELFTEST: PASS (13 cases)
+  --root base         rc=0 last=RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)
+  --root liar         rc=0 last=RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)
+
+B-drop-dup-url-guard sha256=91c1e12901536ab4c1cb95e04bf9c19fc3cf625faf1fe9d33007f095e81c6dd9
+  selftest rc=0 last=RECHECK_REPLAY_SELFTEST: PASS (13 cases)
+  --root mut/m1       rc=0 last=RECHECK_REPLAY: CLEAN (clocks=1 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)
+
+C-drop-status-line-guard sha256=961a0ec7b64307ae9699bb0da5dfc9f114d53fb9fc9dedb342706eb2db361902
+  selftest rc=0 last=RECHECK_REPLAY_SELFTEST: PASS (13 cases)
+  --root mut/b2       rc=0 last=RECHECK_REPLAY: CLEAN (clocks=1 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)
+
+D-drop-bytes-guard sha256=942d9b4b86a0ace5b88f1fe5f3d604365f200a4950a54300e6d4650a7c281715
+  selftest rc=0 last=RECHECK_REPLAY_SELFTEST: PASS (13 cases)
+  --root mut/b8       rc=0 last=RECHECK_REPLAY: CLEAN (clocks=1 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)
+
+E-follow-symlinked-entries sha256=a597130f38ffbba8862fb51976b94b16ea6f11e4b9aba256345002efa6acd13f
+  selftest rc=0 last=RECHECK_REPLAY_SELFTEST: PASS (13 cases)
+  --root symentry     rc=1 last=RECHECK_REPLAY: DRIFT (clocks=11 match=10 mismatch=1 no_capture=0 bad_capture=0 unsupported=0 tool=0)
+
+F-drop-registry-check sha256=67cb08017e8057ebe6efec8085a3b01d63d6ce0e7c7bfca9a1ebdd8527d40416
+  selftest rc=1 last=RECHECK_REPLAY_SELFTEST: FAIL (1 of 13 cases)
+  --root mut/r1       rc=0 last=RECHECK_REPLAY: CLEAN (clocks=1 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)

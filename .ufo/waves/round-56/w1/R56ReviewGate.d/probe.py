@@ -3,7 +3,7 @@
 import hashlib, os, shutil, subprocess, sys, tempfile
 from pathlib import Path
 
-GATE = "/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/recheck-replay.py"
+GATE = str(Path(__file__).resolve().parent / "frozen-gate.py")
 BASE = Path("/fast/scratch/hyaku/kagi-r56/R56ReviewGate")
 HDR = ["id", "url", "body_path", "fetched", "http_status", "bytes", "sha256"]
 

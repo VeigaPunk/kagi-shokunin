@@ -61,3 +61,23 @@ bash_n_rc=0
 .ufo/waves/round-56/capture/S070.body:0
 .ufo/waves/round-56/capture/S074.body:0
 .ufo/waves/round-56/capture/S078.body:0
+
+## epoch-A counter (sha 096251c9…) printer and C32 receipts
+counter copy sha:
+sha256sum: /fast/scratch/hyaku/kagi-r56/R56Scribe/epochA-repo/plans/round-56-c1.sh: No such file or directory (os error 2)
+printer tree gate sha:
+sha256sum: /fast/scratch/hyaku/kagi-r56/R56Scribe/printer/t/corpus/recheck-replay.py: No such file or directory (os error 2)
+printer reading under epoch A:
+bash: /fast/scratch/hyaku/kagi-r56/R56Scribe/epochA-repo/plans/round-56-c1.sh: No such file or directory
+rc=127
+C32-equivalent tree reading under epoch A:
+bash: /fast/scratch/hyaku/kagi-r56/R56Scribe/epochA-repo/plans/round-56-c1.sh: No such file or directory
+rc=127
+
+## seat-proposed controls harness state
+bash_n_rc=0
+7
+
+## epoch-B canonical controls receipt
+CONTROLS: match=16 mismatch=0
+23:AssertionError: inert edit corpus/knowledge/betterleaks-detection-vs-validation.md

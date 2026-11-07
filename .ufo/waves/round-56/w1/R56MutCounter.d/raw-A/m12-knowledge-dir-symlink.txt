@@ -1,0 +1,18 @@
+rc=0
+stdout:
+C1_REPLAY: value=FAIL present=0 replayed=0 gate=1 guard=0 (bad=absent:betterleaks-detection-vs-validation.md:README.md,absent:cdp-bridge-1password-oidc-workflow.md:custom-workflow,absent:iso-11770-3-edition-status.md:60237.html,absent:iso-11770-3-edition-status.md:82709.html,absent:iso-11770-3-edition-status.md:85929.html,absent:nist-key-management-guidance-status.md:ipd,absent:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,absent:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,absent:secret-scanning-detection-vs-validation.md:README.md,absent:trufflehog-verification-lifecycle.md:verification-caching)
+
+stderr:
+
+GATE rc=0
+MATCH corpus/knowledge/betterleaks-detection-vs-validation.md:4 id=S055 form=grep stated=1 replayed=1
+MATCH corpus/knowledge/cdp-bridge-1password-oidc-workflow.md:3 id=S070 form=locate stated=1 replayed=1
+MATCH corpus/knowledge/iso-11770-3-edition-status.md:3 id=S101 form=grep stated=2 replayed=2
+MATCH corpus/knowledge/iso-11770-3-edition-status.md:3 id=S113 form=grep stated=3 replayed=3
+MATCH corpus/knowledge/iso-11770-3-edition-status.md:3 id=S114 form=grep stated=2 replayed=2
+MATCH corpus/knowledge/nist-key-management-guidance-status.md:3 id=S074 form=grep stated=1 replayed=1
+MATCH corpus/knowledge/nist-key-management-parts-withdrawal.md:3 id=S078 form=pdf stated=1 replayed=1
+MATCH corpus/knowledge/oidc-federation-trust-policy.md:3 id=S067 form=grep stated=1 replayed=1
+MATCH corpus/knowledge/secret-scanning-detection-vs-validation.md:4 id=S054 form=grep stated=1 replayed=1
+MATCH corpus/knowledge/trufflehog-verification-lifecycle.md:4 id=S057 form=grep stated=1 replayed=1
+RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)

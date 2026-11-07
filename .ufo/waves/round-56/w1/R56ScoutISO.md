@@ -1,7 +1,7 @@
 # R56ScoutISO — independent re-open of the ISO/IEC recheck rows (S101/S113/S114) and the rendered-text locate clock's source (S070/S018)
 
 **Seat:** R56ScoutISO (scout) · **Lane:** kagi, round 56 attempt 3, wave 1 · **Axis:** freshness
-**Lane tree:** `/home/vgpnk/Projects/shokunin/kagi-shokunin` @ `42070de7770e1558adcf6aa7a7bc59309a9654d7` (frozen predeclaration)
+**Lane tree:** `/home/vgpnk/Projects/shokunin/kagi-shokunin` — **epoch-B predeclaration `5d9a1571911ec38a456a40b443e19640abb9a88b`** (the lane was re-frozen mid-round; my earlier receipts 01–12 were taken against epoch A `42070de…` and are re-anchored in §6)
 **Scratch:** `/fast/scratch/hyaku/kagi-r56/R56ScoutISO/` (deleted before yield; no bodies left in the lane or under /tmp)
 **Observed answering model:** `provider=minimax-code`, `model=MiniMax-M3.1-Flash` — read from this seat's own session file (96/96 assistant records) and the launcher log line `"Configured subagent runtime model fallback chain" role=subagent:R56ScoutISO requested=["minimax-code/MiniMax-M3.1-Flash:high"]`. Not guessed from the prompt. Receipt `10-model-and-environment.txt`.
 
@@ -151,14 +151,47 @@ All hold (`06-registry-row-claims.txt`):
 
 ---
 
-## 6. Unresolved / not covered by this seat
+## 6. Epoch-B anchoring and the L1's landing edit, verified
+
+The lane was **re-frozen mid-round**: epoch-B predeclaration `5d9a1571911ec38a456a40b443e19640abb9a88b` carries the re-frozen instruments (`plans/round-56.md`, `plans/round-56-c1.sh`, `plans/round-56-controls.sh`, `corpus/recheck-replay.py`). My receipts 01–12 were taken against epoch A `42070de…`; the split is:
+
+- **Revision-independent** — every live fetch, digest, grep count and locate count in receipts 01–10. These are facts about the live pages on 2026-11-07, not about a lane tree; they hold at any revision. **No re-measurement needed.**
+- **Revision-dependent** — the instrument readings (gate run, gate selftest, counter, census, registry/provenance rows). All re-executed against epoch B and against the epoch-B candidate tree; receipts 13 and 14.
+
+**Readings on the candidate tree** (epoch-B instruments + the L1's two content edits, both still uncommitted when measured):
+
+| command | result |
+|---|---|
+| `bash plans/round-56-c1.sh --tree <lane>` | `C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)` |
+| `bash corpus/sources-census.sh` | `SOURCES_CENSUS: CLEAN (rows=114 A=110 B=2 C=2 queued=1 mined=109 rejected=4 entries_sourced=16 legacy=21 captures=114 inrow=16 inrow_only=0 inrow_nonreproducing=12)` |
+| `python3 corpus/recheck-replay.py` | `RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)` |
+| `python3 corpus/recheck-replay.py --selftest` | `RECHECK_REPLAY_SELFTEST: PASS (13 cases)` |
+
+`git diff --quiet 5d9a157 -- plans/round-56.md plans/round-56-c1.sh plans/round-56-controls.sh corpus/recheck-replay.py` → **byte-identical**, so the kill-rule pathspec holds; the candidate's only deltas against epoch B are `corpus/SOURCES.md` and `corpus/knowledge/cdp-bridge-1password-oidc-workflow.md` (one line each). The epoch-B gate bytes and the counter's pin agree: `2e9dfde326b29fb95f520c5d7f3a671836682b28025e4efc7887333257d4df51`.
+
+**The L1's reported counter readings, re-verified here:** `5d9a157` → `value=10 present=10 replayed=10 gate=1 guard=1`; BASE `832ba6a` → `value=0 … bad=r2-manifest` on all 10 (no manifest at BASE); epoch A `42070de` → `value=0 … bad=r5-gate` on all 10 (epoch A's counter carried no gate digest pin, so the gate was not identity-bound). All three reproduce.
+
+**Answer to the L1's question — the `corpus/SOURCES.md` date mirror is NOT required.** Measured, not argued:
+- The census cross-checks that bind for these ids are registry **status**, registry **URL**, and `row_identity_sha256 = sha256(id<TAB>status<TAB>url)`. None of them mentions a fetch date. S070: computed `58690583e5af268b242e61d642841a40622d3d9c0525b3e8e530dca9debfcf7e` = committed col 3; S018: computed `ddb614c5d10e69bf33707d9696a66a702dfe2dcd1891027a94ecead73479bcf2` = committed col 3.
+- The census's **date**-bearing cross-check (`corpus/inrow-pins.tsv` vs the capture row's `fetched`) binds only the historical S001–S016 rows. S018/S070/S101/S113/S114 carry no in-row `Fetch sha256:` pin.
+- The L1 is not touching `corpus/source-fetches.tsv`, so the S070 provenance row still reads `fetched=2026-11-03, normalized 20fbc423c4faea78…` — a dated point attestation that stays accurate — and `corpus/SOURCES.md`'s S070 row ("in-round capture 2026-11-03 in `corpus/source-fetches.tsv`") remains accurate **as history**. A date mirror would be a no-op for the census.
+- Empirical proof: the census run on a scratch copy with the entry file reverted to epoch A (pre-edit) returns the **identical** CLEAN line and tallies as the run with the L1's edit. The edit introduces **zero** census findings.
+
+**The L1's S113 registry-row edit (D3 closure) verified against the committed bytes:** the row now names "HTTP 403, 5448 B, sha256 `ce3cb7f2eb0efeba38faff1ded3186218ad9df51e4b22b795d0688fa2eb3893c`"; the committed `.ufo/waves/round-56/capture/rejections/S113-default-ua.body` is exactly 5448 bytes with that sha256, title `Just a moment...`, no HTTP status line and no `set-cookie:` line. My independent default-UA fetch of 82709 (receipt 05) gives the same status and length. **D3 is closed in the registry text as well as in the tree.**
+
+**Receipts:** `13-landing-verification.txt`, `14-epoch-b-anchoring.txt`.
+
+---
+
+## 7. Unresolved / not covered by this seat
 
 - I did **not** re-fetch the six non-ISO/S070 manifest rows (S054, S055, S057, S067, S074, S078) — they are outside this seat's scope; R56ExecLive's lane covers them.
 - I did **not** run `plans/round-56-c1.sh` against BASE or a candidate: the counter's own frozen predicate is a kill-rule-sensitive artefact under active edit by other seats, and running it is the L1's/integration seat's step, not a scout's live-receipt step. My scope was the live leg.
-- The **S070 digest-drift wording defect** (§3) is a finding, not a fix: this seat does not edit production files, so the `source:` line still reads "stable rendered-text-v1 sha256 `20fbc423c4faea78`" while the page produces `7127a2c1…`. Whether that is corrected in-lane or accepted as the `decoded-http-body-volatile-v1` convention is the L1's call.
+- The **S069/S070 digest-drift wording defect** (§3) is a finding, not a fix: this seat does not edit production files. The L1 has since applied the fix in the working tree (both clauses on the same `source:` line), and I verified that edit against the census and the counter (§6). Whether it is committed is the L1's call.
+- The **S018 stale digest** (2026-10-21) lives only in `corpus/source-fetches.tsv` as a dated point attestation — accurate as history, so it needs no change; the L1 has routed it.
 - The ISO pages are Cloudflare-fronted: round-55 lesson item 6 recorded 1 interstitial in 43 browser-agent fetches under parallel load. My fetches were sequential and all returned 200; I did not run a parallel burst.
 
-## 7. What I ran vs what I did not
+## 8. What I ran vs what I did not
 
 Ran (each with receipt, command, rc): 4 live fetches (browser UA) + 3×3 repeat fetches for stability + 6 default-UA fetches + 1 archive-timeout probe + `sha256sum`/`cmp`/`grep -c`/`grep -abo`/`grep -n` on live and committed bodies + `rendered-text-v1 digest` and `locate` on live, capture and stream + `recheck-replay.py` on the lane + 3 gate probes in a scratch fixture + the gate's own `--root` verdicts.
 **Not run:** the counter, the controls script, any commit, any network write, any credential-bearing endpoint.

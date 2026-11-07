@@ -14,18 +14,22 @@
 #   REPLAYED = number of POP clocks c with all of:
 #     (r1) PRESENT(c);
 #     (r2) the measured corpus/recheck-captures.tsv has exactly one data row whose
-#          url column equals c's URL; that row's id names exactly one registry row
-#          (outside ``` fences) whose cells number 11, status `mined`, and whose
-#          source cell contains c's URL as a whitespace-delimited token;
-#     (r3) the row's body_path is repo-relative, has no `..` and no symlinked
-#          component, names a regular file of the measured tree whose byte count and
-#          sha256 equal the row's bytes and sha256 columns, and the body neither
-#          begins with `HTTP/` nor has a line starting `set-cookie:` (any case);
+#          url column equals c's URL; no two data rows share a body_path or a
+#          sha256; every row's fetched cell is an ISO date and http_status a 2xx;
+#          that row's id names exactly one registry row (outside ``` fences)
+#          whose cells number 11, status `mined`, and whose source cell contains
+#          c's URL as a whitespace-delimited token;
+#     (r3) the row's body_path is repo-relative, has no `..`, no symlinked
+#          component, and lives under `.ufo/waves/<round>/<...>/capture*/`; it
+#          names a regular file of the measured tree whose byte count and
+#          sha256 equal the row's bytes and sha256 columns, and the body has no
+#          column-0 line that is an HTTP status line or a `set-cookie:` header
+#          (including `< ` trace prefixes);
 #     (r4) the counter's own replay of c's filter on that body equals c's N: grep
 #          form -> host `grep -c -e <pattern> <body>`; pdf form -> host `pdftotext
 #          -layout <body> -` piped to `grep -c -e <pattern>`; locate form -> BASE's
 #          corpus/rendered-text-v1.py (taken from BASE, not from the measured tree)
-#          `locate <body> <quote>` count;
+#          `locate <body> <quote>` count (producer rc must be 0 or 1);
 #     (r5) the measured tree's corpus/recheck-replay.py is a regular non-symlink
 #          file whose sha256 equals GATE_SHA256_PIN (the gate bytes frozen at this
 #          counter's revision), its `--root` run exits 0 with last line
@@ -34,9 +38,10 @@
 #          `MATCH <c's entry>:<L> id=<that row's id> form=<form> stated=<N>
 #          replayed=<N>` for c;
 #   GUARD = 1 iff every POP clock is PRESENT (no clock deleted or restated — the
-#     `-> N` token is right-bounded by a non-digit non-letter) and, when the
-#     measured tree carries corpus/recheck-replay.py, its `--selftest` exits 0
-#     with a last line `RECHECK_REPLAY_SELFTEST: PASS (13 cases)`.
+#     `-> N` token is right-bounded by a non-digit non-letter), no
+#     corpus/recheck-replay.py is present with non-pinned bytes, and, when the
+#     measured tree carries the pinned gate bytes, its `--selftest` exits 0 with
+#     a last line `RECHECK_REPLAY_SELFTEST: PASS (18 cases)`.
 # Fail closed: a bad revision, unreadable BASE, unusable scratch, missing python3,
 #   grep or pdftotext is SETUP (exit 2); a missing or unreadable file reads its
 #   conjunct as 0; a producer with empty output reads as not-CLEAN.
@@ -75,8 +80,8 @@ git -C "$REPO" show "$BASE:corpus/rendered-text-v1.py" > "$SCR/b/rendered-text-v
 # or any edit to the gate fails r5 for every clock. The gate's own --root exit
 # status is required to be 0 and its last non-empty line must be the CLEAN
 # summary with clocks=10 match=10; the --selftest run must exit 0 with last line
-# `RECHECK_REPLAY_SELFTEST: PASS (13 cases)`.
-GATE_SHA256_PIN=2e9dfde326b29fb95f520c5d7f3a671836682b28025e4efc7887333257d4df51
+# `RECHECK_REPLAY_SELFTEST: PASS (18 cases)`.
+GATE_SHA256_PIN=e9b7e4b7aa1e8173c4bfc2e536ce6d1ed29c4c0d6ee5f46bfa1e63d3692a62b4
 GATE_OUT=$SCR/gate.out; SELF_OUT=$SCR/self.out
 HAVE_GATE=0; SELF_OK=1; GATE_RC=1
 GATE_REL=corpus/recheck-replay.py
@@ -93,14 +98,16 @@ if [ -e "$T/$GATE_REL" ] || [ -L "$T/$GATE_REL" ]; then
   elif [ -f "$T/$GATE_REL" ]; then
     GATE_SHA=$(sha256sum "$T/$GATE_REL" | cut -d' ' -f1)
   fi
+  # a gate file that is present but not the pinned bytes can never satisfy the
+  # selftest conjunct either — SELF_OK=0 keeps GUARD honest (epoch-C, Sentinel N3)
+  SELF_OK=0
   if [ -n "$GATE_SHA" ] && [ "$GATE_SHA" = "$GATE_SHA256_PIN" ]; then
     HAVE_GATE=1
-    (cd "$SCR" && python3 -I -B "$T/$GATE_REL" --root "$T" > "$GATE_OUT" 2>&1)
+    (cd "$SCR" && timeout 600 python3 -I -B "$T/$GATE_REL" --root "$T" > "$GATE_OUT" 2>&1)
     GATE_RC=$?
-    SELF_OK=0
-    if (cd "$SCR" && python3 -I -B "$T/$GATE_REL" --selftest > "$SELF_OUT" 2>&1); then
+    if (cd "$SCR" && timeout 600 python3 -I -B "$T/$GATE_REL" --selftest > "$SELF_OUT" 2>&1); then
       last=$(grep -v '^[[:space:]]*$' "$SELF_OUT" | tail -n 1)
-      case $last in "RECHECK_REPLAY_SELFTEST: PASS (13 cases)"*) SELF_OK=1 ;; esac
+      case $last in "RECHECK_REPLAY_SELFTEST: PASS (18 cases)"*) SELF_OK=1 ;; esac
     fi
   fi
 else
@@ -150,7 +157,7 @@ def present(c):
     rl = [l for l in txt.splitlines() if l.startswith("recheck:")]
     if len(rl) != 1:
         return False
-    pat = re.escape("`" + c[1] + "`") + r"\s*->\s*(?:count=)?%d(?![0-9A-Za-z_.])" % c[5]
+    pat = re.escape("`" + c[1] + "`") + r"\s*->\s*(?:count=)?%d(?![0-9A-Za-z])" % c[5]
     return re.search(pat, rl[0]) is not None
 
 def registry():
@@ -170,13 +177,15 @@ def registry():
 
 def manifest():
     """Return (rows, malformed) — a data row whose column count differs from the
-    header invalidates the whole manifest (fail-closed), matching the gate's
-    SETUP manifest-columns refusal."""
+    header, or whose fetched/http_status cells are not a capture's, or that
+    shares a body_path or sha256 with another row, invalidates the whole
+    manifest (fail-closed), matching the gate's manifest refusals."""
     txt = read("corpus/recheck-captures.tsv")
     if txt is None:
         return None, False
     out = []
     hdr = None
+    seen_path, seen_sha = {}, {}
     for l in txt.splitlines():
         if not l.strip() or l.startswith("#"):
             continue
@@ -188,10 +197,22 @@ def manifest():
             continue
         if len(cols) != 7:
             return None, True
-        out.append(dict(zip(hdr, cols)))
+        r = dict(zip(hdr, cols))
+        if not re.match(r"^[0-9]{4}-[0-9]{2}-[0-9]{2}$", r["fetched"]) or not re.match(r"^2[0-9]{2}$", r["http_status"]):
+            return None, True
+        for key, seen in ((r["body_path"], seen_path), (r["sha256"], seen_sha)):
+            if key in seen:
+                return None, True
+            seen[key] = r["id"]
+        out.append(r)
     if hdr is None:
         return None, False
     return out, False
+
+def capture_confined(rel):
+    parts = Path(rel).parts
+    return (len(parts) >= 5 and parts[:2] == (".ufo", "waves")
+            and any(p.startswith("capture") for p in parts[2:-1]))
 
 def replay(c, body):
     form, pat, n = c[2], c[4], c[5]
@@ -206,6 +227,8 @@ def replay(c, body):
             r = subprocess.run(["grep", "-c", "-e", pat], input=t.stdout, capture_output=True, timeout=60)
             return int(r.stdout.strip() or b"-1") if r.returncode in (0, 1) else None
         r = subprocess.run([sys.executable, "-I", "-B", NORM, "locate", str(body), pat], capture_output=True, timeout=120)
+        if r.returncode not in (0, 1):
+            return None
         m = re.search(rb"RENDERED_TEXT_V1_LOCATE: count=(\d+)", r.stdout)
         return int(m.group(1)) if m else None
     except Exception:
@@ -250,6 +273,8 @@ for c in POP:
     rel = m["body_path"]
     if not rel or rel.startswith("/") or ".." in Path(rel).parts:
         bad.append("r3-path:" + tag); continue
+    if not capture_confined(rel):
+        bad.append("r3-notcapture:" + tag); continue
     cur, link = T, False
     for part in Path(rel).parts:
         cur = cur / part
@@ -259,7 +284,7 @@ for c in POP:
     data = cur.read_bytes()
     if str(len(data)) != m["bytes"] or hashlib.sha256(data).hexdigest() != m["sha256"]:
         bad.append("r3-digest:" + tag); continue
-    if data.startswith(b"HTTP/") or re.search(rb"(?im)^set-cookie:", data):
+    if re.search(rb"(?m)^(?:HTTP/\d|< HTTP/\d|< set-cookie\s*:|set-cookie\s*:)", data):
         bad.append("r3-headers:" + tag); continue
     got = replay(c, cur)
     if got != c[5]:
@@ -274,6 +299,8 @@ for c in POP:
 guard = 1 if (P == len(POP) and SELF_OK == 1) else 0
 if SELF_OK != 1:
     bad.append("selftest")
+if HAVE_GATE != 1 and GATE_SHA not in ("", "SYMLINK"):
+    bad.append("gate-digest")
 val = str(R) if guard else "FAIL"
 print("C1_REPLAY: value=%s present=%d replayed=%d gate=%d guard=%d (bad=%s)" % (val, P, R, gate_clean, guard, ",".join(bad) or "none"))
 PY

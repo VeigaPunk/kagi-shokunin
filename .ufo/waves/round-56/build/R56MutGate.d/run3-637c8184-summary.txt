@@ -1,0 +1,68 @@
+TRANSCRIPT of the first sweep (gate 637c8184…, counter 0153f876…/d2bcb790…), seat R56MutGate.
+The JSON receipt for this run was lost when the seat scratch was wiped by an outside process; these are the
+exact console lines the run emitted, pasted unedited. The second sweep (gate 2e9dfde3…) supersedes it and its
+JSON is .d/mutation-sweep.json. Kept because the instruments moved under the seat.
+
+baseline gate: RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)
+baseline selftest: RECHECK_REPLAY_SELFTEST: PASS (13 cases)
+lane counter as-is: C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)
+pin-filled counter: C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)
+pristine gate sha unchanged: 637c8184bd6ea8635fe582ea5641ea490033405658259c1a78c63899611aa585
+
+mutant                      selftest   gate--root  counter(pin=mutant)
+G01-rc-accept-only-1        FAIL(5)    DRIFT       value=FAIL replayed=0 gate=0 guard=0
+G01b-rc-accept-only-0       PASS       CLEAN       value=10
+G02-rc-fail-open            PASS       CLEAN       value=10
+G03-sha-drop                FAIL(1)    CLEAN       value=FAIL replayed=10 gate=1
+G04-bytes-drop              PASS       CLEAN       value=10
+G05-registry-url-skip       FAIL(1)    CLEAN       value=FAIL
+G06-registry-prefix         PASS       CLEAN       value=10
+G07-symlink-body-skip       FAIL(1)    CLEAN       value=FAIL
+G08-cookie-case             PASS       CLEAN       value=10
+G09-first-clock-only        FAIL(1)    CLEAN       value=FAIL replayed=0 gate=0
+G10-manifest-symlink        PASS       CLEAN       value=10
+G11-manifest-dedup-drop     PASS       CLEAN       value=10
+G12-verdict-match           FAIL(2)    CLEAN       value=FAIL
+G13-clean-always            FAIL(10)   CLEAN       value=FAIL
+G14-pdf-rc-fail-open        PASS       CLEAN       value=10
+G15-pdf-no-layout           PASS       CLEAN       value=10
+G16-locate-fail-open        PASS       CLEAN       value=10
+G17-locate-relative         PASS       DRIFT       value=0
+G18-unsupported-guess       FAIL(1)    CLEAN       value=FAIL
+G19-http1-only              PASS       CLEAN       value=10
+G20-manifest-header         PASS       CLEAN       value=10
+G21-symlink-entry-skip      PASS       CLEAN       value=10
+G22-empty-population-clean  PASS       CLEAN       value=10
+
+pin kill (counter pin=637c8184…, i.e. the lane pin, run on mutant trees):
+G02-rc-fail-open   C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:…)
+G04-bytes-drop     C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:…)
+G15-pdf-no-layout  C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:…)
+
+fixtures on that revision (pristine → mutant):
+F01-zero-count         CLEAN 1/1   → G01b DRIFT (TOOL reason=grep-rc1)
+F02-grep-rc2           DRIFT       → G02  CLEAN 1/1
+F03-sha-mismatch       DRIFT       → G03  CLEAN 1/1
+F04-bytes-mismatch     DRIFT       → G04  CLEAN 1/1
+F05-registry-other-url DRIFT       → G05  CLEAN 1/1
+F06-registry-prefix    DRIFT       → G06  CLEAN 1/1
+F07-symlink-body       DRIFT       → G07  CLEAN 1/1
+F08-cookie-capital     DRIFT       → G08  CLEAN 1/1
+F09-http2-line         DRIFT       → G19  CLEAN 1/1
+F10-second-clock-drift DRIFT 2/2   → G09  CLEAN 1/1
+F11-pdf-not-a-pdf      DRIFT       → G14  CLEAN 1/1
+F12-locate-binary      DRIFT       → G16  CLEAN 1/1
+F13-manifest-symlink   SETUP manifest-missing → G10 CLEAN 1/1   (masked by confined() after 2e9dfde3)
+F14-manifest-duplicate SETUP manifest-duplicate-url:… → G11 CLEAN 1/1
+F15-mismatch-verdict   DRIFT       → G12  CLEAN 1/1
+F15b-mismatch-clean    DRIFT       → G13  CLEAN (match=0 mismatch=1)
+F16-unsupported-quoted DRIFT       → G18  DRIFT (MISMATCH) — does not kill
+F16b-unsupported-bare-pattern DRIFT → G18 CLEAN 1/1
+F17-registry-fenced    CLEAN 1/1   (gate omits the fence conjunct)
+F18-clock-deleted      CLEAN 1/1   (deleted clock invisible)
+F19-indented-clock     CLEAN 1/1   (indented clock invisible)
+F20-entry-symlink      DRIFT (UNSUPPORTED … reason=symlinked-entry) → G21 CLEAN 1/1
+F21-two-recheck-lines  CLEAN 2/2
+F22-locate-cwd         CLEAN 1/1   → G17 DRIFT (TOOL reason=locate-output)
+F23-pdf-layout-argv    CLEAN 1/1   → G15 DRIFT (MISMATCH form=pdf stated=1 replayed=0)
+F24-empty-population   SETUP no-stated-clocks → G22 CLEAN clocks=0

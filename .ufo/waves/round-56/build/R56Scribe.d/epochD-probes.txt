@@ -1,0 +1,18 @@
+# epoch-D working-tree probes, R56Scribe 2026-11-07T10:56:30Z
+8beb24e94a08c3961f5217a3b4b98aadc46d56561fe3ec2254f13185d4cf6c9f  plans/round-56.md
+7992ee6a97c9f1cfaf627c61322ecaf6aa0c31126a65f591567d7b6f7ee2802c  plans/round-56-c1.sh
+b675baa5fad95bc663f49ca76ea13be84627db457af443f3b957144cd8ddd16c  plans/round-56-controls.sh
+e9b7e4b7aa1e8173c4bfc2e536ce6d1ed29c4c0d6ee5f46bfa1e63d3692a62b4  corpus/recheck-replay.py
+df46be5c92c7b4d5a8b7ad790371b5c3240c92f46460b8cfb69e9b75b7ecc762  corpus/recheck-captures.tsv
+388e39fa516a2fd0aa346d55e80ac875cbe68dd23540e2749b1eae80e6ef2b13  corpus/SOURCES.md
+## gate selftest (current)
+RECHECK_REPLAY_SELFTEST: PASS (18 cases)
+selftest_rc=0
+## reference
+C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)
+rc=0
+## header shape
+C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r3-headers:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)
+rc=0
+## gate on header tree
+gate_rc=1

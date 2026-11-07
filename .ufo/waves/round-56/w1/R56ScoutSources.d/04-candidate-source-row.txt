@@ -1,0 +1,116 @@
+# R56ScoutSources receipt 04 — one staged source row evaluated and drafted (NOT appended)
+# seat: R56ScoutSources-2 (w1 wave) ; date 2026-11-07 ; lane HEAD 42070de7770e1558adcf6aa7a7bc59309a9654d7
+# source of the candidate: /home/vgpnk/Projects/shokuknow/merge/kagi/SOURCES.append.md  (staged rows, lane kagi)
+# NOTHING WAS APPENDED by this seat. No production file was edited. Draft only.
+#
+# ---- selection ---------------------------------------------------------------------
+# Set difference, staged URLs vs lane registry URLs (corpus/SOURCES.md):
+#   staged unique URLs = 137 ; lane unique URLs = 94 ; staged-only (not in lane registry) = 101
+#   (computed with LC_ALL=C sort -u + comm -23; the comm 'not in sorted order' warnings on the first
+#    run were a locale artefact and were removed by the LC_ALL=C pass)
+# Filtered to kagi's secrets/vault province (PROVINCE.md: secret scanning, credential hygiene
+# evidence, credential custody) and to rows that are NEW ground for the lane, the staged-only set
+# yields ~53 candidates, e.g. the TruffleHog blog verification-semantics post, the GitLab
+# secret-detection pipeline pages, the Sakura Cloud secrets-manager manual, the dsh-secret-scan and
+# keyhog READMEs, the alibabacloud English AccessKey-rotation page, and the betterleaks docs/*.md
+# sources. One row is drafted below.
+#
+# CHOSEN CANDIDATE (staged id S187 in the staged file):
+#   url    https://trufflesecurity.com/blog/how-trufflehog-verifies-secrets
+#   why    (a) it is in the staged set and NOT in the lane registry — `grep -c 'trufflesecurity.com/blog'`
+#          corpus/SOURCES.md = 0, and `grep -rn 'how-trufflehog-verifies' corpus/knowledge/ corpus/lessons/`
+#          = 0, so the URL and the fact are new to the lane;
+#          (b) it sits squarely in kagi's province: the lane holds TruffleHog's three-valued result
+#          vocabulary (S054 README) and its caching/safety/re-verification lifecycle (S057-S060 docs),
+#          but it holds NO statement about WHICH HTTP OUTCOME establishes a live credential, nor about
+#          what a request that never reached the provider proves — `grep -in '429' corpus/SOURCES.md
+#          corpus/knowledge/*.md` returns no row-level 429 semantics. That gap is the operational
+#          heart of the round-30 core entry (a failed verification must never be recorded as proof
+#          that a credential is dead);
+#          (c) it is reachable, byte-stable, and quotable today (measured below).
+#
+# ---- live measurement (public GET, no headers stored, no cookies read/printed) --------
+# profile: curl -fsSL --compressed --max-time 60 -o <body> -w '%{http_code} %{size_download} %{url_effective} %{content_type}' <url>
+# $ curl -fsSL --compressed --max-time 60 -o body -w '...' 'https://trufflesecurity.com/blog/how-trufflehog-verifies-secrets'
+#   http=200  url_effective=https://trufflesecurity.com/blog/how-trufflehog-verifies-secrets  ct=text/html
+#   decoded bytes = 334865
+#   raw sha256   = 518fc8f149811386828df4cbb2493f7a8d22acd743023a55debe3ad593393a8a
+#   normalized (rendered-text-v1) sha256 = adc98eacba520c336b0711cc5e2b4253f8fb8297d1c7c4f639f9a6d6eab66e73
+#   normalized bytes = 8328
+# Byte-stability: 3 independent fetches -> 3 identical raw sha256 (518fc8f1...); the page is
+# byte-stable today, so it can be pinned by digest. The body was kept in seat scratch only.
+# (No response header was requested or stored; no cookie, vault material or credential was read.)
+#
+# ---- located quotes (each <= 25 words, each located by BYTE OFFSET in the decoded body) --
+# Q1  "It has no bearing on the validity of the credential"        (10 words)
+#     byte offset 220274 of the decoded body; also a second copy at offset 313682 (the page ships a
+#     pre-rendered copy plus a JSON-escaped copy of the same article).
+#     section: the paragraph under the heading "Network Errors or Invalid Credential?" (offset 219910)
+#     rendered-text-v1 locate -> count=1
+#     raw grep -c 'no bearing on the validity' on the raw body -> 2  (both copies are on one line each)
+# Q2  "both 200 and 429 status codes indicate a valid credential"   (10 words)
+#     byte offset 217858 of the decoded body (the "200" and "429" sit in <code> spans)
+#     section: the paragraph beginning "Expecting HTTP 200 OK responses for valid keys is not sufficient"
+#     rendered-text-v1 locate -> count=1 ; raw literal find -> NOT a literal substring of the raw body
+#     (the <code> tags split it), so this quote is only locatable through the lane's normalizer.
+#
+# ---- DRAFT registry row (SOURCES.md, 11 columns) — NOT WRITTEN ----------------------
+#   id      | S115        (S115 is the next free lane id: the lane registry runs S001..S114 with no
+#                          gap; the STAGED file's own id space is independent — staged S054 is the AWS
+#                          STS AssumeRoleWithWebIdentity page while lane S054 is the TruffleHog README —
+#                          so a staged id must not be reused verbatim. S115 avoids the collision.)
+#   source  | Truffle Security Blog — How TruffleHog Verifies Secrets — https://trufflesecurity.com/blog/how-trufflehog-verifies-secrets
+#   kind    | docs
+#   tier    | A
+#   scope   | which HTTP outcome establishes a live credential, and what a verification request that
+#            | never reached the provider proves about the credential
+#   anchor  | the section headed "Network Errors or Invalid Credential?" and the paragraph on rate-limited
+#            | providers; page fetched 2026-11-07 with a browser-equivalent public GET
+#   teaches | An HTTP 200 and an HTTP 429 both indicate a valid credential, while a verification request
+#            | that fails to reach the provider has no bearing on the credential's validity, so a failed
+#            | verification must never be recorded as proof that a credential is dead.
+#            | Quote (verbatim, byte offset 220274 of the decoded body): "It has no bearing on the validity
+#            | of the credential". Fetch sha256: `518fc8f149811386828df4cbb2493f7a8d22acd743023a55debe3ad593393a8a`
+#   status  | mined
+#   opened  | 2026-11-07
+#   recheck | 180d — `curl -fsSL 'https://trufflesecurity.com/blog/how-trufflehog-verifies-secrets' | grep -c 'no bearing on the validity'` -> 2
+#            | (measured 2026-11-07: the phrase occurs twice in the decoded body — the rendered article
+#            | and the JSON copy of the same article — so the raw grep counts 2, not 1. Under the lane's
+#            | rendered-text-v1 normalizer the same phrase locates once, count=1. The staged row carried
+#            | NO stated N for this clock; a landing row MUST state 2 for the grep form, or use the
+#            | locate form and state count=1. A row that stated 1 for the grep form would be a
+#            | permanently-false clock — the exact M55-2 failure class this round exists to catch.)
+#   used-by | corpus/knowledge/secret-scanning-detection-vs-validation.md  (and/or
+#            | corpus/knowledge/trufflehog-verification-lifecycle.md)
+#
+# ---- curation notes the L1 needs before any append ---------------------------------
+# (1) The STAGED row S187 names used-by `corpus/knowledge/truffle-hog-verification-semantics-r43.md`.
+#     That file DOES NOT EXIST in the lane (lane has corpus/knowledge/trufflehog-verification-lifecycle.md
+#     and corpus/knowledge/secret-scanning-detection-vs-validation.md). A staged used-by pointing at a
+#     non-existent entry would fail the census's citation handshake. The drafted row above points at
+#     the two entries that actually exist.
+# (2) The staged row S187 has no `Fetch sha256:` in-row pin and no corpus/source-fetches.tsv row for
+#     S115, so as staged it would fail SC_FETCH "missing-provenance". The drafted row carries the
+#     in-row pin; a landing must also add the matching corpus/source-fetches.tsv provenance row
+#     (16 columns) whose row-identity digest is
+#     sha256("S115\tmined\thttps://trufflesecurity.com/blog/how-trufflehog-verifies-secrets\n")
+#     = c94eb0cbafcc11616fa66c79b229966d94d12324b386b86dbd9e09c6189527f2
+#     (if the staged id S187 were used instead, the same computation gives
+#      sha256("S187\tmined\thttps://trufflesecurity.com/blog/how-trufflehog-verifies-secrets\n")
+#      = a179b8bebb43d1c2982f00daa4edf542235717640ff6a7c6a234675158345131)
+#     and whose quote field is <= 25 words, normalization rendered-text-v1, normalized digest
+#     adc98eacba520c336b0711cc5e2b4253f8fb8297d1c7c4f639f9a6d6eab66e73, location
+#     "section 'Network Errors or Invalid Credential?', byte offset 220274 of the decoded body".
+#     CAUTION: this URL is NOT a moving-ref URL (not raw.githubusercontent.com and not a /main/ path),
+#     so the provenance row's revision column may stay '-' — but the request profile must be
+#     `curl-fsSL-compressed-v1` and the representation must be `decoded-http-body-v1` (the body is
+#     byte-stable across three fetches, so it is NOT the volatile class the other trufflesecurity.com
+#     rows S058-S060 carry).
+# (3) The staged row's id S187 must NOT be taken as the lane id: the lane registry stops at S114 and
+#     the staged file's ids are a different namespace that collides with live lane ids from S052 up.
+# (4) This round's own capture set is a separate matter: the manifest corpus/recheck-captures.tsv
+#     registers a URL only when a knowledge entry's `recheck:` clock fetches it. A NEW row whose
+#     recheck clock points at the blog URL would need a matching manifest row and a committed capture
+#     body for the round-56 gate to replay it — i.e. the row cannot be landed inside the frozen
+#     manifest without a reviewed capture commit. That is an integration decision for KagiR56a3, not a
+#     curation defect.

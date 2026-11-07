@@ -1,0 +1,18 @@
+# epoch-C working-tree probes (HEAD 5d9a157 + post-commit edits), R56Scribe 2026-11-07T10:51:15Z
+033f2104ef36b76e5d9de192878fb1b619808f1c9c63b2e310d074816a3e1679  plans/round-56.md
+d4dc9ddca15c059c5e1a119343f1e1a51c845faf83a793437b97c3aaa52a77c3  plans/round-56-c1.sh
+63cf806134bcb115368e59809ad54957750d7433d53f6979b256f662e3ddab8f  plans/round-56-controls.sh
+d4392ffe831560397fa35b4e84198b6ac75d5da8505a302ef3dcf6991080b274  corpus/recheck-replay.py
+df46be5c92c7b4d5a8b7ad790371b5c3240c92f46460b8cfb69e9b75b7ecc762  corpus/recheck-captures.tsv
+299903cfb8d38760440d16ae3a5119154f14ec128619710101ca8c59af3a4edb  corpus/SOURCES.md
+d16ae5a5c7de53a8a6b0dd2311223ca9b6a77ce9efb38e84e8323807544537a4  corpus/knowledge/cdp-bridge-1password-oidc-workflow.md
+## reference
+C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)
+rc=0
+## curl-v header shape
+C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r3-headers:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)
+rc=0
+## gate on header tree
+MATCH corpus/knowledge/trufflehog-verification-lifecycle.md:4 id=S057 form=grep stated=1 replayed=1
+RECHECK_REPLAY: DRIFT (clocks=10 match=9 mismatch=0 no_capture=0 bad_capture=1 unsupported=0 tool=0)
+gate_rc=0

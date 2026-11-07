@@ -1,0 +1,51 @@
+# R56ScoutISO receipt 13 - the L1's landing edit, verified end-to-end (answer to the SOURCES.md date-mirror question)
+# date 2026-11-07T07:45:17-03:00
+# NOTE: the lane was RE-FROZEN mid-round by the L1 (counter, gate, plan, controls and the
+# cdp-bridge entry all carry working-tree edits at the time of this receipt).
+
+== A) does the L1's S069/S070 source-line edit break the census? NO - measured both ways ==
+  A1. lane working tree as it stands now (WITH the L1's edit):
+      SOURCES_CENSUS: CLEAN (rows=114 A=110 B=2 C=2 queued=1 mined=109 rejected=4 entries_sourced=16 legacy=21 captures=114 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+  A2. scratch copy of the lane corpus with the entry file reverted to HEAD (PRE-edit), same SOURCES.md + source-fetches.tsv:
+      SOURCES_CENSUS: CLEAN (rows=114 A=110 B=2 C=2 queued=1 mined=109 rejected=4 entries_sourced=16 legacy=21 captures=114 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+  => identical CLEAN lines and identical tallies before and after: the edit introduces ZERO census findings.
+
+== B) does the L1's edit break the counter (r1 PRESENT on all 10 POP clocks)? NO ==
+      C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)
+      (present=10 requires every POP clock's BASE command + N still in its entry's single recheck: line;
+       replayed=10 + gate=1 + guard=1 require the re-frozen counter's pinned-digest gate run to be CLEAN.)
+
+== C) the gate itself, re-frozen with a digest pin and a symlink-input refusal ==
+      RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)
+      RECHECK_REPLAY_SELFTEST: PASS (13 cases)
+      working-tree gate sha256 = 2e9dfde326b29fb95f520c5d7f3a671836682b28025e4efc7887333257d4df51
+      the re-frozen counter's GATE_SHA256_PIN = 2e9dfde326b29fb95f520c5d7f3a671836682b28025e4efc7887333257d4df51
+      => pin and bytes agree; the printer-gate control (F5) in the re-frozen controls script is therefore killing.
+
+== D) ANSWER to the L1's question: is the SOURCES.md date mirror required? NO ==
+  D1. The L1 is NOT touching corpus/source-fetches.tsv, so the S070 provenance row still reads
+      fetched=2026-11-03 with normalized 20fbc423c4faea78... - a dated point attestation that stays accurate.
+  D2. corpus/SOURCES.md's S070 row therefore still reads correctly as history:
+       page title "(public beta)", §"Step 2. Connect your Environment to your workflow" (period form — the staged colon form locates 0 times, corrected in-round) and §"Step 3: Use your Environment in your workflow"; campaign fetch sha256 `bd85d7332dda43d0` (fetched 2026-10-23, non-reproducing — recorded); in-round capture 2026-11-03 in `corpus/source-fetches.tsv` 
+  D3. The census cross-checks that DO bind for these ids are: registry status, registry URL, and
+      row_identity_sha256 = sha256(id<TAB>status<TAB>url). None of them mentions a fetch date:
+      S070 computed row_identity = 58690583e5af268b242e61d642841a40622d3d9c0525b3e8e530dca9debfcf7e
+      S070 committed col3          = 58690583e5af268b242e61d642841a40622d3d9c0525b3e8e530dca9debfcf7e
+  D4. The census's inrow-pins.tsv cross-check (which DOES compare a capture date) binds only the
+      historical S001-S016 rows; S018/S070/S101/S113/S114 carry no in-row Fetch sha256: pin.
+  => adding a date mirror would be a no-op for the census. The registry row's existing wording
+     ('in-round capture 2026-11-03 in corpus/source-fetches.tsv') remains accurate as history.
+
+== E) the L1's S113 registry-row edit (D3 closure) verified against the committed receipt ==
+  claimed in the row: HTTP 403, 5448 B, sha256 ce3cb7f2eb0efeba38faff1ded3186218ad9df51e4b22b795d0688fa2eb3893c
+  actual committed file:
+    /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-56/capture/rejections/S113-default-ua.body 5448 bytes
+    ce3cb7f2eb0efeba38faff1ded3186218ad9df51e4b22b795d0688fa2eb3893c  /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-56/capture/rejections/S113-default-ua.body
+    title: <title>Just a moment...</title>
+    header-byte scan: http-status-line=0 set-cookie-line=0
+    my own independent default-UA fetch of 82709 in receipt 05: HTTP 403, 5448 B, 'Just a moment...'
+    => the row's claim matches the committed bytes; D3 is closed in the registry text too.
+
+== F) the S018 registry row names no digest, so nothing there goes stale ==
+  S018 anchor cell:  Custom OIDC feature-specific status, Business-account prerequisite, beta app and supported SDK 
+  (the stale S018 digests live only in corpus/source-fetches.tsv as a dated 2026-10-21 point attestation - accurate as history.)

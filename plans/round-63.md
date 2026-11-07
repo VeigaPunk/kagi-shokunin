@@ -286,3 +286,18 @@ work (all five items I3–I7 and the selftest cases) is one file with one owner
 dispatched. Attack share 4/15 = 26.67 % on the addendum's literal list (reviewer,
 critic, mutation-tester ×2; no labrat seat exists), 5/15 = 33.33 % counting the
 sentinel. No predicate, target, POP, kill rule, fixture or item condition changes.
+
+## Amendment A2 — 2026-11-07, before any candidate reading (C2 population correction, measured)
+
+L5 (MutC2 S3, the zero-match M-A needle) is **vacuous at BASE**: measured on an extracted
+`0c07aab8` tree whose `plans/round-61-c2.sh` carries neither the literal `# BEGIN-DECIDE`
+marker nor the BASE aggregation text, `bash plans/round-62-c2.sh --tree <tree>` prints
+`C2_HARDENED: SETUP needle-ma` with exit 2 — `plans/round-62-c2.sh:279` already carries
+`[ "$ma_applied" = 1 ] || setup needle-ma`, so the mutation-tester's S3 was closed by
+round 62's Amendment A2 (its report predates that guard). A leg that already fires at BASE
+is vacuous under kill rule K1 and cannot count.
+
+**C2 population is therefore 5, target killed=5**: L1 (CM2a), L2 (CM2b), L3 (D12),
+L4 (D-6), L6 (GM5). The counter prints
+`C2_REFUSAL: killed=K population=5 guard=G (l1=… l2=… l3=… l4=… l6=… selftest=… real=…)`;
+the leg ids keep their plan names. No other predicate, target, kill rule or fixture changes.

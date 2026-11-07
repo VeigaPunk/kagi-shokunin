@@ -23,11 +23,12 @@
 # each run scored against. The script hashes itself into the receipt so a post-run
 # edit is detectable.
 #
-# FROZEN ANCHOR (scored below): epoch-E predeclaration commit dd31b7867723f89fc8f83e88cc7d98e17de26cf2
-#   (supersedes d362318; history: 42070de epoch A, 5d9a157 epoch B, 711e6393 epoch C, d362318 epoch D;
-#   E = counter tool guards sha256sum/cut/tail/timeout/git/tar -> SETUP + doc fixes, verdict semantics unchanged)
-#   -- counter plans/round-56-c1.sh sha256 d468533fbf593c4b2a3a97dc513b9feb2cff765892c126c02d7c6ef40273a954,
-#   gate corpus/recheck-replay.py sha256 5165da2a6fced02fce82c92fc898553db9a6d3d702d9fc6d1ca3ba185e77b14f
+# FROZEN ANCHOR (scored below): epoch-F predeclaration commit 9cbe9d5f803de2518d4c11c6bc6b9a585e5120ad
+#   (supersedes dd31b786; history: 42070de A, 5d9a157 B, 711e6393 C, d362318 D, dd31b786 E;
+#   F = manifest fetched calendar-validated (shape AND datetime.date.fromisoformat) in gate+counter,
+#   vacuous-control fix on their side, GATE_SHA256_PIN bump)
+#   -- counter plans/round-56-c1.sh sha256 f4c1de312e4a566dfde6c0699fb66a94c2e71e459eb97afbddb5c4073ffd2382,
+#   gate corpus/recheck-replay.py sha256 b6959d6c7afb9380c043cbd40530e6a70ee8da2bf79f1ea9d0669706f50bb5a3
 #   (= GATE_SHA256_PIN; gate also pins normaliser 14f6ca6a…, selftest "PASS (20 cases)",
 #   header refusal (?im) any-case, N boundary (?![0-9A-Za-z_.]), gate-digest token appended last
 #   for present-but-unpinned gate bytes).
@@ -322,6 +323,16 @@ assert "example.invalid" not in s
 open(p,"w",encoding="utf-8").write(s+row+"\n")' "$SCR/c/C36-R2-duplicate-id-other-url"
 run_tree C36-R2-duplicate-id-other-url "$SCR/c/C36-R2-duplicate-id-other-url"
 report C36-R2-duplicate-id-other-url 0 '^C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 \(bad=r2-manifest-malformed:'
+
+## C42 -- calendar-invalid fetched date (R56MutCounter-2 m31 regression witness,
+##   independent of their F28: different row, impossible-not-just-malformed date):
+##   S055 row's fetched set to `2026-02-30` -- matches the epoch-E shape regex but
+##   datetime.date.fromisoformat refuses it. Epoch F must fail-close the whole
+##   manifest: r2-manifest-malformed for every clock; gate SETUPs likewise.
+mk C42-R2-fetched-calendar-invalid
+mrow "$SCR/c/C42-R2-fetched-calendar-invalid" S055 3 "2026-02-30"
+run_tree C42-R2-fetched-calendar-invalid "$SCR/c/C42-R2-fetched-calendar-invalid"
+report C42-R2-fetched-calendar-invalid 0 '^C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 \(bad=r2-manifest-malformed:'
 
 # ---- r3 family: body confinement and digest ----
 

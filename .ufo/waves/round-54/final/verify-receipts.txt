@@ -1,0 +1,107 @@
+$ bash corpus/claim-ledger.sh verify   # clean clone detached at receipts commit 1cea29feaea369f13788ff6beb52fe74ba4fcf2b
+$ bash corpus/claim-ledger.sh verify   # clean clone (git clone --shared) detached at receipts commit 1cea29feaea369f13788ff6beb52fe74ba4fcf2b
+HOST-SKIP R11-01 reason=host-row-not-authorized
+HOST-SKIP R11-02 reason=host-row-not-authorized
+HOST-SKIP R11-03 reason=host-row-not-authorized
+HOST-SKIP R11-04 reason=host-row-not-authorized
+HOST-SKIP R11-06 reason=host-row-not-authorized
+FAIL R11-08 reason=exit-mismatch exit=1 want=0
+HOST-SKIP R12-01 reason=host-row-not-authorized
+HOST-SKIP R15-01 reason=host-row-not-authorized
+HOST-SKIP R13-03 reason=host-row-not-authorized
+HOST-SKIP R16-01 reason=host-row-not-authorized
+HOST-SKIP R16-03 reason=host-row-not-authorized
+HOST-SKIP R17-01 reason=host-row-not-authorized
+HOST-SKIP R18-01 reason=host-row-not-authorized
+FAIL R25-02 reason=exit-mismatch exit=2 want=0
+POLICY R29-01 reason=first-token:python
+POLICY R29-02 reason=first-token:python
+HOST-SKIP R31-01 reason=host-row-not-authorized
+FAIL R36-01 reason=verdict-not-final exit=0
+POLICY R38-03 reason=python-script
+LABELED-ID LOG.md:401 R13-99 (labelled on its line)
+LABELED-ID LOG.md:417 R12-03a (labelled on its line)
+LABELED-ID LOG.md:418 xR12-01 (labelled on its line)
+MISSING-ID LOG.md:1683 R32-1
+MISSING-ID LOG.md:1683 R32-2
+MISSING-ID LOG.md:1683 R32-3
+MISSING-ID LOG.md:1683 R32-4
+MISSING-ID LOG.md:1683 R32-5
+MISSING-ID LOG.md:1693 R33-2
+MISSING-ID LOG.md:1693 R33-3
+MISSING-ID LOG.md:1693 R33-1
+MISSING-ID LOG.md:1693 R33-4
+MISSING-ID LOG.md:1693 R33-5
+MISSING-ID LOG.md:1693 R33-6
+MISSING-ID LOG.md:1693 R33-7
+LABELED-ID SCORECARD.md:124 R13-99 (labelled on its line)
+MISSING-ID SCORECARD.md:1355 R32-2
+MISSING-ID SCORECARD.md:1455 R36-1
+MISSING-ID SCORECARD.md:1455 R36-2
+LABELED-ID SKILL.md:659 R9-99 (labelled on its line)
+LABELED-ID corpus/knowledge/claim-ledger.md:142 R13-99 (labelled on its line)
+LABELED-ID corpus/knowledge/claim-ledger.md:147 R12-03a (labelled on its line)
+LABELED-ID corpus/knowledge/claim-ledger.md:147 xR12-01 (labelled on its line)
+LABELED-ID corpus/knowledge/claim-ledger.md:258 R9-99 (labelled on its line)
+LABELED-ID corpus/knowledge/claim-ledger.md:267 R13-99 (labelled on its line)
+LABELED-ID corpus/knowledge/claim-ledger.md:267 R13-99 (labelled on its line)
+LABELED-ID corpus/knowledge/claim-ledger.md:485 R13-99 (labelled on its line)
+LABELED-ID corpus/lessons/round-13.md:22 R13-99 (labelled on its line)
+LABELED-ID corpus/lessons/round-13.md:22 R12-88 (labelled on its line)
+LABELED-ID corpus/lessons/round-13.md:102 R12-03a (labelled on its line)
+LABELED-ID corpus/lessons/round-14.md:17 R13-99 (labelled on its line)
+LABELED-ID corpus/lessons/round-14.md:118 R99-99 (labelled on its line)
+LABELED-ID corpus/lessons/round-23.md:92 R1-01 (labelled on its line)
+LABELED-ID corpus/lessons/round-23.md:166 R90-01 (labelled on its line)
+LABELED-ID corpus/lessons/round-23.md:166 R90-02 (labelled on its line)
+LABELED-ID corpus/lessons/round-32-verifier-spotcheck.md:91 R32-3 (labelled on its line)
+MISSING-ID corpus/lessons/round-32-verifier-spotcheck.md:112 R32-4
+MISSING-ID corpus/lessons/round-32-verifier-spotcheck.md:129 R32-1
+MISSING-ID corpus/lessons/round-32-verifier-spotcheck.md:132 R32-2
+MISSING-ID corpus/lessons/round-32-verifier-spotcheck.md:137 R32-3
+MISSING-ID corpus/lessons/round-32-verifier-spotcheck.md:140 R32-4
+MISSING-ID corpus/lessons/round-32-verifier-spotcheck.md:143 R32-5
+MISSING-ID corpus/lessons/round-33.md:29 R32-2
+MISSING-ID corpus/lessons/round-33.md:36 R32-3
+MISSING-ID corpus/lessons/round-33-verifier-spotcheck.md:31 R32-1
+MISSING-ID corpus/lessons/round-33-verifier-spotcheck.md:31 R32-1
+MISSING-ID corpus/lessons/round-33-verifier-spotcheck.md:133 R33-1
+MISSING-ID corpus/lessons/round-33-verifier-spotcheck.md:139 R33-2
+MISSING-ID corpus/lessons/round-33-verifier-spotcheck.md:145 R33-3
+MISSING-ID corpus/lessons/round-33-verifier-spotcheck.md:150 R33-4
+MISSING-ID corpus/lessons/round-33-verifier-spotcheck.md:157 R33-5
+MISSING-ID corpus/lessons/round-33-verifier-spotcheck.md:161 R33-6
+MISSING-ID corpus/lessons/round-33-verifier-spotcheck.md:166 R33-7
+MISSING-ID corpus/lessons/round-33-verifier-spotcheck.md:170 R32-1
+MISSING-ID corpus/lessons/round-33-verifier-spotcheck.md:171 R32-1
+LABELED-ID corpus/lessons/round-34-verifier-spotcheck.md:94 R34-1 (labelled on its line)
+MISSING-ID corpus/lessons/round-34-verifier-spotcheck.md:95 R34-2
+MISSING-ID corpus/lessons/round-34-verifier-spotcheck.md:96 R34-3
+LABELED-ID corpus/lessons/round-34-verifier-spotcheck.md:97 R34-4 (labelled on its line)
+MISSING-ID corpus/lessons/round-35-verifier-spotcheck.md:15 R35-1
+MISSING-ID corpus/lessons/round-35-verifier-spotcheck.md:49 R34-2
+MISSING-ID corpus/lessons/round-35-verifier-spotcheck.md:49 R34-3
+MISSING-ID corpus/lessons/round-35-verifier-spotcheck.md:49 R34-2
+MISSING-ID corpus/lessons/round-35-verifier-spotcheck.md:88 R35-1
+MISSING-ID corpus/lessons/round-35-verifier-spotcheck.md:88 R34-3
+LABELED-ID corpus/lessons/round-35-verifier-spotcheck.md:89 R35-2 (labelled on its line)
+MISSING-ID corpus/lessons/round-35-verifier-spotcheck.md:90 R34-4
+LABELED-ID corpus/lessons/round-35-verifier-spotcheck.md:91 R34-1 (labelled on its line)
+LABELED-ID corpus/lessons/round-35-verifier-spotcheck.md:91 R34-2 (labelled on its line)
+MISSING-ID corpus/lessons/round-36-verifier-spotcheck.md:87 R36-1
+MISSING-ID corpus/lessons/round-36-verifier-spotcheck.md:88 R36-2
+MISSING-ID corpus/lessons/round-36-verifier-spotcheck.md:89 R36-3
+MISSING-ID corpus/lessons/round-36-verifier-spotcheck.md:90 R36-4
+MISSING-ID corpus/lessons/round-36-verifier-spotcheck.md:91 R36-5
+MISSING-ID corpus/lessons/round-37.md:7 R36-1
+MISSING-ID corpus/lessons/round-37.md:7 R36-5
+MISSING-ID corpus/lessons/round-37.md:15 R36-4
+MISSING-ID corpus/lessons/round-37.md:110 R36-4
+MISSING-ID corpus/lessons/round-37.md:111 R32-4
+MISSING-ID corpus/lessons/round-38.md:74 R36-1
+MISSING-ID corpus/lessons/round-38.md:74 R36-2
+MISSING-ID corpus/lessons/round-46.md:29 R46-01
+MISSING-ID corpus/lessons/round-46-verifier-spotcheck.md:92 R46-01
+CLAIM_LEDGER: POLICY (claims=86 policy=3 stamped=125)
+rc=2
+at=2026-11-07T06:45:24Z

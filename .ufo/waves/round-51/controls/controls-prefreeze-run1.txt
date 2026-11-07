@@ -1,0 +1,15 @@
+# run 1 (c2 only, 2026-11-07 ~00:30Z, before expectation fixes; transcribed from the L1 terminal)
+K2-0 expect=3 got=3 MATCH  C2_SELF_ASSESSMENT: value=3 M=2 V=1 rev=214d8bf530a0c87c00686493f21af15396284793
+K2-P expect=0 got=1 DIFF  C2_SELF_ASSESSMENT: value=1 M=0 V=1 rev=73a37f7cf7f5360cd11a668d0258186c36f548f8
+K2-F1 expect=3 got=3 MATCH  C2_SELF_ASSESSMENT: value=3 M=2 V=1 rev=adffc832ad0b977063ea6c455a27eea7d8cb0259
+K2-F2 expect=2 got=5 DIFF  C2_SELF_ASSESSMENT: value=5 M=4 V=1 rev=6a659fbc44546474662005cc765eb60af6110b7f
+K2-F3 expect=SETUP got=SETUP MATCH  C2_SELF_ASSESSMENT: SETUP reason=g2-changed:plans/round-50.md
+K2-F4 expect=SETUP got=SETUP MATCH  C2_SELF_ASSESSMENT: SETUP reason=g1-gate-changed
+K2-F5 expect=SETUP got=SETUP MATCH  C2_SELF_ASSESSMENT: SETUP reason=g3-row-missing:47 C1 calibration
+K2-F6 expect=1 got=1 MATCH  C2_SELF_ASSESSMENT: value=1 M=0 V=1 rev=95d255aaf040cf26d8f6fb43570e46f5e134efc6
+K2-F7 expect=1 got=1 MATCH  C2_SELF_ASSESSMENT: value=1 M=0 V=1 rev=ea667881d27d0de7756f291bf54c8bb317e10154
+CONTROLS: pass=7 fail=2
+# cause: the fixture's stated reading was wrong, not the counter. claims-declared counts claims=29 on the
+# positive fixture (BASE 25 + four manifest rows), so K2-P stated `claims=27` was a DIFF for K07; F2's swapped
+# axes produce two MISMATCH lines per claim (plan heading and SCORECARD axis cell). Fixture expectations and
+# stated readings corrected (K2-P/F1 stated claims=29, F2 expect 5, F7 stated claims=30); counters unchanged.

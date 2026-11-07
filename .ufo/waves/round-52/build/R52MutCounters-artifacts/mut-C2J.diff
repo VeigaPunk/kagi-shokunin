@@ -1,0 +1,13 @@
+diff --git i/plans/round-52-c2.sh w/plans/round-52-c2.sh
+index 70991fe..6686a43 100755
+--- i/plans/round-52-c2.sh
++++ w/plans/round-52-c2.sh
+@@ -118,7 +118,7 @@ NEED2="KV-origin rewrap reads \`$OBS_KV\`"
+ while IFS= read -r -d '' f; do
+   for n in $(assertions "$T/$f"); do
+     total=$((total+1))
+-    b=$(basename "$f")
++    b=$f
+     ok=$(awk -v ptr="$b:$n" -v n1="$NEED1" -v n2="$NEED2" '
+       # mask(s): the line with every inline code span (`...`) blanked to "x", same length, so a
+       # `<!--` written inside backticks does not open an HTML comment.

@@ -1,0 +1,57 @@
+{
+ "round": 52,
+ "measured_at": "round-52 candidate working tree of the lane checkout (predeclaration 52ebb412 plus the uncommitted candidate), each command run from the lane root, 2026-11-07",
+ "kind": "measured rebinding of six population expectations moved by this round's own additions (one SCORECARD heading, one registry row, one sourced knowledge entry); not a claim",
+ "population": "R13-01 R24-06 R21-02 R31-02 R33-02 R34-03 R14-01 only",
+ "migrations": [
+  {
+   "id": "R13-01",
+   "command": "grep -c '^## Round ' SCORECARD.md",
+   "old_expect": "^69$",
+   "new_expect": "^70$",
+   "reason": "SCORECARD round headings 69 -> 70: round 52 adds `## Round 52 — post-move` (this landing). Growth only."
+  },
+  {
+   "id": "R21-02",
+   "command": "bash corpus/sources-census.sh",
+   "old_expect": "^SOURCES_CENSUS: CLEAN \\(rows=109 A=105 B=2 C=2 queued=1 mined=104 rejected=4 entries_sourced=15 legacy=21 captures=109 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+   "new_expect": "^SOURCES_CENSUS: CLEAN \\(rows=110 A=106 B=2 C=2 queued=1 mined=105 rejected=4 entries_sourced=16 legacy=21 captures=110 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+   "reason": "registry rows 109 -> 110: round 52 adds S110 (OpenBao KV v2 page), tier A mined with a capture; A, mined, captures grow by 1; entries_sourced 15 -> 16 (new entry corpus/knowledge/openbao-kv-v2-version-lifecycle.md cites S110 on its source: line); B/C/queued/rejected/legacy/inrow unchanged."
+  },
+  {
+   "id": "R24-06",
+   "command": "bash corpus/row-identity.sh scorecard-rounds",
+   "old_expect": "^ROW_IDENTITY: scorecard-rounds count=69 sha256=67cc52c041c3db9ad708299f3ec8f90ac23f92efbcfe485c089905ac19544fbd$",
+   "new_expect": "^ROW_IDENTITY: scorecard-rounds count=70 sha256=ae65636837c3906ed6ed71e13a33c1abce6babe29f98445be36befbd6144609c$",
+   "reason": "identity of the R13-01 population: the 69 BASE heading lines are retained and round 52 appends one; count and sha256 measured on the candidate tree."
+  },
+  {
+   "id": "R31-02",
+   "command": "bash corpus/sources-census.sh",
+   "old_expect": "^SOURCES_CENSUS: CLEAN \\(rows=109 A=105 B=2 C=2 queued=1 mined=104 rejected=4 entries_sourced=15 legacy=21 captures=109 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+   "new_expect": "^SOURCES_CENSUS: CLEAN \\(rows=110 A=106 B=2 C=2 queued=1 mined=105 rejected=4 entries_sourced=16 legacy=21 captures=110 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+   "reason": "registry rows 109 -> 110: round 52 adds S110 (OpenBao KV v2 page), tier A mined with a capture; A, mined, captures grow by 1; entries_sourced 15 -> 16 (new entry corpus/knowledge/openbao-kv-v2-version-lifecycle.md cites S110 on its source: line); B/C/queued/rejected/legacy/inrow unchanged. Same census command and string as R21-02."
+  },
+  {
+   "id": "R33-02",
+   "command": "bash corpus/sources-census.sh",
+   "old_expect": "^SOURCES_CENSUS: CLEAN \\(rows=109 A=105 B=2 C=2 queued=1 mined=104 rejected=4 entries_sourced=15 legacy=21 captures=109 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+   "new_expect": "^SOURCES_CENSUS: CLEAN \\(rows=110 A=106 B=2 C=2 queued=1 mined=105 rejected=4 entries_sourced=16 legacy=21 captures=110 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+   "reason": "registry rows 109 -> 110: round 52 adds S110 (OpenBao KV v2 page), tier A mined with a capture; A, mined, captures grow by 1; entries_sourced 15 -> 16 (new entry corpus/knowledge/openbao-kv-v2-version-lifecycle.md cites S110 on its source: line); B/C/queued/rejected/legacy/inrow unchanged. Same census command and string as R21-02."
+  },
+  {
+   "id": "R34-03",
+   "command": "bash corpus/sources-census.sh",
+   "old_expect": "^SOURCES_CENSUS: CLEAN \\(rows=109 A=105 B=2 C=2 queued=1 mined=104 rejected=4 entries_sourced=15 legacy=21 captures=109 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+   "new_expect": "^SOURCES_CENSUS: CLEAN \\(rows=110 A=106 B=2 C=2 queued=1 mined=105 rejected=4 entries_sourced=16 legacy=21 captures=110 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+   "reason": "registry rows 109 -> 110: round 52 adds S110 (OpenBao KV v2 page), tier A mined with a capture; A, mined, captures grow by 1; entries_sourced 15 -> 16 (new entry corpus/knowledge/openbao-kv-v2-version-lifecycle.md cites S110 on its source: line); B/C/queued/rejected/legacy/inrow unchanged. Same census command and string as R21-02."
+  },
+  {
+   "id": "R14-01",
+   "command": "bash corpus/claim-ledger.sh docs",
+   "old_expect": "^DOC_AUDIT: CLEAN \\(entries=36 row_linked=33 by_hand=3 undeclared=0 missing_ids=0 unpinned=0 duplicate_reasons=0\\)$",
+   "new_expect": "^DOC_AUDIT: CLEAN \\(entries=37 row_linked=34 by_hand=3 undeclared=0 missing_ids=0 unpinned=0 duplicate_reasons=0\\)$",
+   "reason": "knowledge entries 36 -> 37 and row-linked 33 -> 34: round 52 adds corpus/knowledge/openbao-kv-v2-version-lifecycle.md (Reverify: R21-02), stamped in corpus/stamps.tsv in the same landing; by_hand unchanged. Found by the round-52 full verify on the candidate overlay (R14-01 exit-mismatch, DOC_AUDIT unpinned=1 before the stamp)."
+  }
+ ]
+}

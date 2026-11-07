@@ -1,0 +1,11 @@
+=== K2-F3 exact: entry correction points at :29 ===
+C2_REWRAP_STATEMENTS: value=1 assertions=2 guard=1 probe=1 obs_helper=sys/wrapping/wrap obs_kv=secret/data/<path> uncorrected=[corpus/knowledge/vault-openbao-token-lease-lifecycle.md:292]
+rc=0
+=== K2-F8 exact: entry correction's two literals inside a same-line HTML comment ===
+C2_REWRAP_STATEMENTS: value=1 assertions=2 guard=1 probe=1 obs_helper=sys/wrapping/wrap obs_kv=secret/data/<path> uncorrected=[corpus/knowledge/vault-openbao-token-lease-lifecycle.md:292]
+rc=0
+=== B9 evidence: root SCORECARD.md assertion line and correction line ===
+Appendix: the rewrap page sample response is misleading.
+Correction (round 52, D1) to corpus/fixtures/cells-hermetic/SCORECARD.md:1781: helper-origin rewrap reads `sys/wrapping/wrap` and KV-origin rewrap reads `secret/data/<path>`.
+=== B10 correction line (nonexistent path, same basename) ===
+Correction (round 52, D1) to zzz/nowhere/SCORECARD.md:1781: helper-origin rewrap reads `sys/wrapping/wrap` and KV-origin rewrap reads `secret/data/<path>`.

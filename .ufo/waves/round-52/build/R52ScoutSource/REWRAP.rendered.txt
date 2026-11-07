@@ -1,0 +1,199 @@
+/sys/wrapping/rewrap | OpenBao
+Skip to main content
+OpenBao
+Blog
+Ecosystem
+Docs
+API
+Downloads
+Community
+Version 2.7.x
+Development
+Version 2.7.x
+Version 2.6.x
+Version 2.5.x
+GitHub
+Client Libraries
+Related tools
+Secret Engines
+Auth Methods
+System Backend
+Overview
+/sys/audit
+/sys/audit-hash
+/sys/auth
+/sys/capabilities
+/sys/capabilities-accessor
+/sys/capabilities-self
+/sys/config/auditing
+/sys/config/cors
+/sys/config/state
+/sys/config/ui
+control-group
+/sys/decode-token
+/sys/external-keys
+/sys/generate-recovery-token
+/sys/generate-root-token
+/sys/generate-root
+/sys/health
+/sys/host-info
+/sys/in-flight-req
+/sys/init
+/sys/internal/counters
+/sys/internal/inspect
+/sys/internal/specs/openapi
+/sys/internal/ui/mounts
+/sys/internal/ui/namespaces
+/sys/internal/ui/resultant-acl
+/sys/key-status
+/sys/ha-status
+/sys/leader
+/sys/leases
+/sys/loggers
+/sys/metrics
+/sys/mfa/validate
+/sys/monitor
+/sys/mounts
+/sys/namespaces
+/sys/plugins/reload/backend
+/sys/plugins/catalog
+/sys/policy
+/sys/policies
+/sys/policies/password
+/sys/pprof
+/sys/quotas/config
+/sys/quotas/rate-limit
+/sys/raw
+/sys/rekey
+/sys/rekey-recovery-key
+/sys/remount
+/sys/rotate
+/sys/seal
+/sys/seal-status
+/sys/step-down
+/sys/storage
+/sys/tools
+/sys/unseal
+/sys/locked-users
+/sys/version-history
+/sys/workflows
+/sys/wrapping/lookup
+/sys/wrapping/rewrap
+/sys/wrapping/unwrap
+/sys/wrapping/wrap
+System Backend
+/sys/wrapping/rewrap
+Version: Version 2.7.x
+On this page
+/sys/wrapping/rewrap
+The
+/sys/wrapping/rewrap
+endpoint can be used to rotate a wrapping token and
+refresh its TTL.
+Wrapping rewrap
+​
+This endpoint rewraps a response-wrapped token. The new token will use the same
+creation TTL as the original token and contain the same response. The old token
+will be invalidated. This can be used for long-term storage of a secret in a
+response-wrapped token when rotation is a requirement.
+Method
+Path
+POST
+/sys/wrapping/rewrap
+Parameters
+​
+token
+(string: <required>)
+– Specifies the wrapping token ID.
+Sample payload
+​
+{
+"token"
+:
+"abcd1234..."
+}
+Sample request
+​
+$ curl \
+--header "X-Vault-Token: ..." \
+--request POST \
+--data @payload.json \
+http://127.0.0.1:8200/v1/sys/wrapping/rewrap
+Sample response
+​
+{
+"request_id"
+:
+""
+,
+"lease_id"
+:
+""
+,
+"lease_duration"
+:
+0
+,
+"renewable"
+:
+false
+,
+"data"
+:
+null
+,
+"warnings"
+:
+null
+,
+"wrap_info"
+:
+{
+"token"
+:
+"3b6f1193-0707-ac17-284d-e41032e74d1f"
+,
+"ttl"
+:
+300
+,
+"creation_time"
+:
+"2016-09-28T14:22:26.486186607-04:00"
+,
+"creation_path"
+:
+"sys/wrapping/wrap"
+}
+}
+Edit this page
+Previous
+/sys/wrapping/lookup
+Next
+/sys/wrapping/unwrap
+Wrapping rewrap
+Parameters
+Sample payload
+Sample request
+Sample response
+Copyright © 2026 OpenBao a Series of LF Projects, LLC
+For web site terms of use, trademark policy and other project policies please see
+lfprojects.org
+.
+OpenBao is a
+Sandbox project
+at
+.
+Follow us on social media:
+LinkedIn
+|
+Bluesky
+|
+YouTube
+|
+Instagram
+|
+Threads
+|
+GitHub
+Sitemap

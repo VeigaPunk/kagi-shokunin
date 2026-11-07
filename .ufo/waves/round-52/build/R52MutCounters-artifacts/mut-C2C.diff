@@ -1,0 +1,13 @@
+diff --git i/plans/round-52-c2.sh w/plans/round-52-c2.sh
+index 70991fe..f582d98 100755
+--- i/plans/round-52-c2.sh
++++ w/plans/round-52-c2.sh
+@@ -110,7 +110,7 @@ while IFS= read -r -d '' f; do
+   bs=$(stat -c %s "$W/base/$f")
+   cmp -s -n "$bs" "$W/base/$f" "$T/$f" || { guard=0; gdetail="$gdetail rewritten:$f"; }
+ done < <(scoped "$W/base")
+-[ $guard -eq 1 ] || setup "guard${gdetail}"
++:
+ 
+ U=0; total=0; list=""
+ NEED1="helper-origin rewrap reads \`$OBS_HELPER\`"

@@ -1,0 +1,53 @@
+=== P1 bao-missing ===
+C2_REWRAP_STATEMENTS: SETUP reason=bao-missing
+rc=2
+=== P2 pin-mismatch ===
+C2_REWRAP_STATEMENTS: SETUP reason=bao-pin-mismatch
+rc=2
+=== P3 bad rev ===
+C2_REWRAP_STATEMENTS: SETUP reason=bad-rev
+rc=2
+=== P4 tree-missing ===
+C2_REWRAP_STATEMENTS: SETUP reason=tree-missing
+rc=2
+=== P5 no args ===
+C2_REWRAP_STATEMENTS: SETUP reason=usage
+rc=2
+=== P6 HOME unset ===
+/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-52-c2.sh: line 36: HOME: unbound variable
+rc=1
+=== P7 HOME empty ===
+C2_REWRAP_STATEMENTS: SETUP reason=bao-missing
+rc=2
+=== T1 guard byte changed in BASE region ===
+### CASE t1-guard-byte
+C2_REWRAP_STATEMENTS: SETUP reason=guard rewritten:./corpus/knowledge/vault-openbao-token-lease-lifecycle.md
+rc=2
+=== T2 guard truncated BASE file ===
+### CASE t2-guard-short
+C2_REWRAP_STATEMENTS: SETUP reason=guard rewritten:./corpus/knowledge/vault-openbao-token-lease-lifecycle.md
+rc=2
+=== T3 probe failure via broken python3 ===
+C2_REWRAP_STATEMENTS: SETUP reason=probe-failed(helper= kv=)
+rc=2
+=== T7 uppercase correction marker ===
+### CASE t7-uppercase-marker
+C2_REWRAP_STATEMENTS: value=2 assertions=2 guard=1 probe=1 obs_helper=sys/wrapping/wrap obs_kv=secret/data/<path> uncorrected=[corpus/knowledge/vault-openbao-token-lease-lifecycle.md:292 corpus/lessons/round-51.md:22]
+rc=0
+=== T8 multi-line code span containing <!-- ===
+### CASE t8-multiline-codespan
+C2_REWRAP_STATEMENTS: value=1 assertions=2 guard=1 probe=1 obs_helper=sys/wrapping/wrap obs_kv=secret/data/<path> uncorrected=[corpus/knowledge/vault-openbao-token-lease-lifecycle.md:292]
+rc=0
+=== T9 same-line code span containing <!-- (control) ===
+### CASE t9-sameline-codespan
+C2_REWRAP_STATEMENTS: value=0 assertions=2 guard=1 probe=1 obs_helper=sys/wrapping/wrap obs_kv=secret/data/<path> uncorrected=[]
+rc=0
+=== T10 unmatched backtick hides a genuine comment opener ===
+### CASE t10-stray-backtick
+C2_REWRAP_STATEMENTS: value=0 assertions=2 guard=1 probe=1 obs_helper=sys/wrapping/wrap obs_kv=secret/data/<path> uncorrected=[]
+rc=0
+=== T11 double-backtick code span containing <!-- ===
+### CASE t11-double-backtick
+C2_REWRAP_STATEMENTS: value=1 assertions=2 guard=1 probe=1 obs_helper=sys/wrapping/wrap obs_kv=secret/data/<path> uncorrected=[corpus/knowledge/vault-openbao-token-lease-lifecycle.md:292]
+rc=0
+INLINE DONE

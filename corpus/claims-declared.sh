@@ -20,6 +20,10 @@
 #       exactly after stripping one padding space per side          (padded cells rejected)
 #   D4 (conspiratorial relabel of all three surfaces) and the colon-suffix over-match window
 #   remain named ceilings (QM41): the gate reads the lane's own text, not axis fitness.
+# Round-52 amendment (M52-2, selftest case 13): a `<!--` or `-->` inside an inline code span
+#   no longer toggles the HTML-comment state, so a plan that quotes the marker in backticks keeps
+#   its later headings (plans/round-52.md:9 made the unamended gate read both round-52 claims as
+#   MISMATCH plan-heading-not-<axis>).
 #
 # usage:
 #   claims-declared.sh [--root DIR]   default DIR is the current directory; exit 0 CLEAN,
@@ -119,7 +123,11 @@ SC
   # claim with a second plan heading on another axis and no row for it is reported.
   mfix; printf '# fixture plan\n\n## C1 — freshness: a\n\n## C1 — depth: b\n\n## C2 — calibration: c\n' > "$s/plans/round-90.md"
   chk same-claim-second-axis "$GATE_SRC" 1 'MISMATCH 90 C1 no-manifest-row'
-  if [ "$passed" -eq "$cases" ] && [ "$cases" -eq 12 ]; then
+  # case 13 (round 52, M52-2): a `<!--` written inside an inline code span opens no HTML
+  # comment, so the headings after it still count (the round-52 frozen plan quotes one).
+  mfix; printf '# fixture plan\n\nnote: the counter took a `<!--` in a code span for a comment.\n\n## C1 — freshness: a\n\n## C2 — calibration: c\n' > "$s/plans/round-90.md"
+  chk codespan-comment "$GATE_SRC" 0 'CLAIMS_DECLARED: CLEAN (claims=2)'
+  if [ "$passed" -eq "$cases" ] && [ "$cases" -eq 13 ]; then
     printf 'CLAIMS_DECLARED_SELFTEST: PASS (%d cases)\n' "$cases"
     exit 0
   fi
@@ -153,8 +161,9 @@ while IFS=$'\t' read -r round claim axis || [ -n "${round:-}" ]; do
   plan="$root/plans/round-$round.md"
   if ! awk -v want="## $claim — $axis:" '
     /^[[:space:]]*(```|~~~)/ { fence = !fence; next }
-    /<!--/ { htmlc = 1 }
-    /-->/  { htmlc = 0 }
+    { l = $0; gsub(/`[^`]*`/, "", l) }
+    l ~ /<!--/ { htmlc = 1 }
+    l ~ /-->/  { htmlc = 0 }
     !fence && !htmlc && index($0, want) == 1 { found = 1 }
     END { exit found ? 0 : 1 }' "$plan" 2>/dev/null; then
     echo "MISMATCH $round $claim plan-heading-not-$axis"
@@ -232,8 +241,9 @@ for planfile in "$root"/plans/round-*.md; do
   done <<EOF
 $(awk '
     /^[[:space:]]*(```|~~~)/ { fence = !fence; next }
-    /<!--/ { htmlc = 1 }
-    /-->/  { htmlc = 0 }
+    { l = $0; gsub(/`[^`]*`/, "", l) }
+    l ~ /<!--/ { htmlc = 1 }
+    l ~ /-->/  { htmlc = 0 }
     !fence && !htmlc {
       line = $0
       if (line ~ /^## C[0-9]+ — [a-z]+:/) {

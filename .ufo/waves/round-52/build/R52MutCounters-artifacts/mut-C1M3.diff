@@ -1,0 +1,12 @@
+diff --git i/plans/round-52-c1.sh w/plans/round-52-c1.sh
+index 7d664e7..6173beb 100755
+--- i/plans/round-52-c1.sh
++++ w/plans/round-52-c1.sh
+@@ -165,6 +165,6 @@ for m in real real2; do
+ done
+ 
+ final=$value
+-[ $setup_ok -eq 1 ] && [ $nosecret -eq 1 ] && [ $noargv -eq 1 ] && [ $pins -eq 1 ] && [ $src -eq 1 ] || final=0
++[ $setup_ok -eq 1 ] && [ $nosecret -eq 1 ] && [ $noargv -eq 1 ] && [ $pins -eq 1 ] || final=0
+ echo "C1_OPENBAO_KV: value=$final discriminating=$value pins=$pins setup_ok=$setup_ok nosecret=$nosecret noargv=$noargv(${calls%,}) src=$src${srcid:+($srcid)} real_rc=$real_rc none_rc=$none_rc$detail"
+ exit 0

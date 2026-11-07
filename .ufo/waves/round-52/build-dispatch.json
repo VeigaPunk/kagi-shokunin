@@ -1,0 +1,228 @@
+{
+  "schema": "ufo-swarm-wave-dispatch-v1",
+  "wave": "kagi-r52-build",
+  "policy": {
+    "source": "config",
+    "maxLanes": 256,
+    "minLanes": 8,
+    "waveMinLanes": 8,
+    "waveMaxLanes": 16,
+    "declaredMaxLanes": null,
+    "hardCeiling": 256,
+    "rampBatchSize": 5,
+    "rampIntervalMs": 700,
+    "globalRunnerCeiling": 1056
+  },
+  "counts": {
+    "spawn": 12,
+    "resume": 0,
+    "total": 12
+  },
+  "registry": {
+    "schema": "ufo-swarm-registry-v1",
+    "path": ".ufo/waves/round-52/build/swarm-registry.json",
+    "reportDir": ".ufo/waves/round-52/build",
+    "members": {
+      "R52ScoutSource": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scout",
+        "item": null,
+        "axes": [
+          "operability",
+          "freshness"
+        ],
+        "milestone": "C1 OpenBao KV v2 version-lifecycle trial (capability, S110); C2 rewrap statements agree with the binary (D1); counter/claim attacks; harm baseline; lesson drafts"
+      },
+      "R52ConnectorSiblings": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "connector",
+        "item": null,
+        "axes": [
+          "adjacency",
+          "coverage"
+        ],
+        "milestone": "C1 OpenBao KV v2 version-lifecycle trial (capability, S110); C2 rewrap statements agree with the binary (D1); counter/claim attacks; harm baseline; lesson drafts"
+      },
+      "R52ExecTrial": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": null,
+        "axes": [
+          "operability"
+        ],
+        "milestone": "C1 OpenBao KV v2 version-lifecycle trial (capability, S110); C2 rewrap statements agree with the binary (D1); counter/claim attacks; harm baseline; lesson drafts"
+      },
+      "R52ExecHarm": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": null,
+        "axes": [
+          "calibration",
+          "freshness"
+        ],
+        "milestone": "C1 OpenBao KV v2 version-lifecycle trial (capability, S110); C2 rewrap statements agree with the binary (D1); counter/claim attacks; harm baseline; lesson drafts"
+      },
+      "R52ExecProbe": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": null,
+        "axes": [
+          "calibration"
+        ],
+        "milestone": "C1 OpenBao KV v2 version-lifecycle trial (capability, S110); C2 rewrap statements agree with the binary (D1); counter/claim attacks; harm baseline; lesson drafts"
+      },
+      "R52ScribeEntry": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scribe",
+        "item": null,
+        "axes": [
+          "depth",
+          "calibration"
+        ],
+        "milestone": "C1 OpenBao KV v2 version-lifecycle trial (capability, S110); C2 rewrap statements agree with the binary (D1); counter/claim attacks; harm baseline; lesson drafts"
+      },
+      "R52ReviewerTrial": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "operability"
+        ],
+        "milestone": "C1 OpenBao KV v2 version-lifecycle trial (capability, S110); C2 rewrap statements agree with the binary (D1); counter/claim attacks; harm baseline; lesson drafts"
+      },
+      "R52ReviewerC2": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "calibration"
+        ],
+        "milestone": "C1 OpenBao KV v2 version-lifecycle trial (capability, S110); C2 rewrap statements agree with the binary (D1); counter/claim attacks; harm baseline; lesson drafts"
+      },
+      "R52CriticC1": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "critic",
+        "item": null,
+        "axes": [
+          "operability"
+        ],
+        "milestone": "C1 OpenBao KV v2 version-lifecycle trial (capability, S110); C2 rewrap statements agree with the binary (D1); counter/claim attacks; harm baseline; lesson drafts"
+      },
+      "R52CriticC2": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "critic",
+        "item": null,
+        "axes": [
+          "calibration"
+        ],
+        "milestone": "C1 OpenBao KV v2 version-lifecycle trial (capability, S110); C2 rewrap statements agree with the binary (D1); counter/claim attacks; harm baseline; lesson drafts"
+      },
+      "R52MutCounters": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "mutation-tester",
+        "item": null,
+        "axes": [
+          "operability",
+          "calibration"
+        ],
+        "milestone": "C1 OpenBao KV v2 version-lifecycle trial (capability, S110); C2 rewrap statements agree with the binary (D1); counter/claim attacks; harm baseline; lesson drafts"
+      },
+      "R52SentinelSecrets": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "sentinel",
+        "item": null,
+        "axes": [
+          "operability"
+        ],
+        "milestone": "C1 OpenBao KV v2 version-lifecycle trial (capability, S110); C2 rewrap statements agree with the binary (D1); counter/claim attacks; harm baseline; lesson drafts"
+      }
+    }
+  },
+  "compaction": {
+    "applied": false,
+    "mechanism": null,
+    "reason": null,
+    "savedBytes": 0,
+    "payloadBytesBefore": 0,
+    "payloadBytesAfter": 0
+  },
+  "taskCall": {
+    "context": "kagi round 52 (attempt 1): ONE v1 build wave, 12 seats (run-15 band 8-16). Lane absolute path /home/vgpnk/Projects/shokunin/kagi-shokunin, branch master. Lane domain: secrets & vault ops (OpenBao/Vault, SOPS/age, 1Password CLI hygiene).\nBASE 1d984adaa4a5c66ea9f24cb95bf79ffbca16c32b. Predeclaration 52ebb412561d9601ad8658c30d1cfa0087af64d4: frozen plan /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-52.md; counters /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-52-c1.sh (C1 operability, capability acquisition: a new trial corpus/openbao-kv-versions-trial.sh executes five OpenBao KV v2 version-lifecycle mechanics from S110 https://openbao.org/docs/secrets/kv/kv-v2/ — T1 check-and-set, T2 soft delete recoverable by undelete, T3 destroy permanent, T4 max-versions drops version 1, T5 metadata delete removes every version; reference fixture /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-52/controls/fixtures/ref/corpus/openbao-kv-versions-trial.sh, reference entry /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-52/controls/fixtures/ref/corpus/knowledge/openbao-kv-v2-version-lifecycle.md) and /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-52-c2.sh (C2 calibration: the lane's committed statements about OpenBao rewrap agree with the pinned binary; BASE 2 uncorrected assertion lines, target 0, by appending truth-bound `Correction (round 52, D1)` lines; correction texts /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-52/controls/fixtures/ref/corrections/). Pre-freeze controls /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-52-controls.sh, receipt /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-52/controls/controls-prefreeze.txt. Round-51 closure (routed defects D1-D3) /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/lessons/round-51-verifier-spotcheck.md. The counters, plan, controls and fixtures are FROZEN: report weaknesses as findings, never edit them.\nEvery `Report:` trailer path is relative to /home/vgpnk/Projects/shokunin/kagi-shokunin - write it at /home/vgpnk/Projects/shokunin/kagi-shokunin/<that path>. Absolute paths only for every read, write and edit.\nScratch: every clone, archive, fixture and work tree lives under $HYAKU_SCRATCH/kagi-r52/<seat-name>/ with HYAKU_SCRATCH defaulting to /fast/scratch/hyaku; create it with mkdir -p and pass it explicitly (TMPDIR, --work). Use shell `trap 'rm -rf -- \"$S\"' EXIT`. Copy receipts into your report dir before exit. /tmp only for files under 50 MB. Never set HOME for your own shell persistently: pass HOME=... per command.\nWrite scope: ONLY /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-52/build/<your-seat-name>* (files or dirs) and your scratch dir. Never edit corpus/, plans/, SCORECARD.md, LOG.md, SHONEN.md, SKILL.md, PROVINCE.md, README.md, QUALITY, SOURCES.md or any registry row, MANIFEST.json, the fleet root templates/ or scripts/, .ufo/state, .ufo/watchdog.log, or any sibling repo. Read-only everywhere else. Write your report file EARLY (a first version after your first result, then update it): findings held only in your final message are lost if the session restarts.\nGit discipline: never run git add, commit, stash, checkout, switch, reset, pull, push, or any mutating jj command, in the lane or the fleet. Read-only git (log, show, diff, rev-parse, cat-file, ls-tree, archive to a scratch dir) is fine. A fixture repo is created as D=$(mktemp -d \"$S/fx.XXXXXX\") && git -C \"$D\" init -q (or git clone -q --shared /home/vgpnk/Projects/shokunin/kagi-shokunin \"$D\") and you assert `git -C \"$D\" rev-parse --show-toplevel` equals \"$D\" before any commit; never pass an empty or unchecked variable to git -C.\nRefusal boundary (kagi, binding): every OpenBao server you start is a throwaway `bao server -dev` bound to 127.0.0.1 with a random root token kept only in scratch or the environment, killed before you yield; never print, copy, commit or paste any token value, wrapping token, root token, password, private key, plaintext of a real secret, cookie or vault field; never read ~/.config/sops, ~/.ssh or any real key file; never contact 1Password, op, the-janitor, a vault or any account; never write an op:// reference path into any artifact; web reads of public pages only, no form posts, no writes to any remote.\nHost: never mutate host sysctls, services, users, packages, kernel settings, /boot, /etc, /usr or /var; host paths are read-only inputs; never run a binary-editing tool on a host path. pacman is PAUSED host-wide: never run pacman -Sy, -Syu, -S, -U, -R or a downgrade. Tooling authorization (operator, 2026-10-19): you may install or upgrade a tool that helps your item; read /home/vgpnk/.omp/agent/RULES.md first (official channels, update-safety gate); record tool, version, channel and reason in your yield. Never replace ~/.local/bin/bao (the counters pin its sha256). Kill every bao process you start (never `pkill bao` blindly: kill only your own PIDs).\nHonesty: an unrun check has not passed. Report exact commands, exit codes and the last output line of each receipt. Never fabricate a fetch, a quote or a verdict. A fetch that fails is recorded as failed with its error text.\nOutput: write your findings to your report file, then yield with a concise summary (at most 15 lines) whose LAST line is exactly `SEAT-STATUS: complete` or `SEAT-STATUS: partial <what is missing>` (plain text, not inside JSON or a code block).\nDo not run the lane's full `claim-ledger.sh verify` (300+ s, host-heavy) unless your item names it. Several OpenBao trials may run at once on this host: each picks a random free 127.0.0.1 port; never bind a fixed port. One C1 counter run takes about 70-120 s (eight trial runs); budget accordingly.\nNever message agent://all; message only your own seats by id if a peer must be told something.",
+    "tasks": [
+      {
+        "name": "R52ScoutSource",
+        "agent": "scout",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\n# Target\nIndependent source re-opening for C1 (S110) and C2 (rewrap page). Report /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-52/build/R52ScoutSource.md.\n# Change\n(1) Fetch https://openbao.org/docs/secrets/kv/kv-v2/ yourself (curl -sSL --compressed), record HTTP status, bytes, sha256, and compare with the L1 capture /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-52/capture/S110.body (sha256 6cfd72eca347d0df…). Locate with `python3 /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/rendered-text-v1.py locate <file> \"<quote>\"` each quote the reference entry cites (T1..T5 lines of /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-52/controls/fixtures/ref/corpus/knowledge/openbao-kv-v2-version-lifecycle.md) and report count=. (2) Open the adjacent candidate pages https://openbao.org/docs/api/secret/kv/kv-v2/, https://openbao.org/docs/commands/kv/undelete/, https://openbao.org/docs/commands/kv/destroy/, https://openbao.org/docs/commands/kv/metadata/ and say per page admit or reject as an additional registry row for C1, with a reason and a flip condition (a row is admitted only if the entry would cite a fact the S110 page lacks). (3) Fetch https://openbao.org/docs/api/system/wrapping-rewrap/ and state exactly what its sample request/response says about creation_path and whether it states the input token's creation path (round-51 closure D1). Save every body you fetched under /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-52/build/R52ScoutSource/ (pages are public docs).\n# Acceptance\nReport has a table: URL, HTTP status, bytes, sha256, quote counts, verdict with reason and flip. Every fetch is recorded, failed ones with error text.\n\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability, freshness\nMilestone: C1 OpenBao KV v2 version-lifecycle trial (capability, S110); C2 rewrap statements agree with the binary (D1); counter/claim attacks; harm baseline; lesson drafts\n\nReport: write your scoped findings to .ufo/waves/round-52/build/R52ScoutSource.md"
+      },
+      {
+        "name": "R52ConnectorSiblings",
+        "agent": "connector",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\n# Target\nSibling-overlap and assimilation scan for the round's surfaces (OpenBao KV v2 versioning; rewrap creation paths). Report /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-52/build/R52ConnectorSiblings.md.\n# Change\nSearch read-only: the sibling lane repos under /home/vgpnk/Projects/shokunin/*-shokunin (not kagi) for KV v2 / `kv undelete` / `kv destroy` / `max_versions` / `check-and-set` / `rewrap` material (grep -ril over their corpus/), and /home/vgpnk/Projects/shokuknow/merge/kagi/ for any staged theme matching KV versioning or OpenBao (read only; run no campaign tool). Read the newest file in /home/vgpnk/Projects/shokunin/kagi-shokunin/considerthese/ and list any proposal still unimplemented that fits this round's claims. Also list every lane file in /home/vgpnk/Projects/shokunin/kagi-shokunin at BASE 1d984adaa4a5c66ea9f24cb95bf79ffbca16c32b that mentions `max_versions` or KV v2 (git grep) and say whether the new entry should link it (e.g. S024 Vault row).\n# Acceptance\nReport has a table: location, match, overlap verdict (owned by kagi / sibling-owned / none), and an assimilation verdict for merge/kagi (theme or `none` with the command that found none).\n\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: adjacency, coverage\nMilestone: C1 OpenBao KV v2 version-lifecycle trial (capability, S110); C2 rewrap statements agree with the binary (D1); counter/claim attacks; harm baseline; lesson drafts\n\nReport: write your scoped findings to .ufo/waves/round-52/build/R52ConnectorSiblings.md"
+      },
+      {
+        "name": "R52ExecTrial",
+        "agent": "executor",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\n# Target\nExecute C1's reference trial and counter on this host and time them. Report /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-52/build/R52ExecTrial.md.\n# Change\nIn scratch: `git -C /home/vgpnk/Projects/shokunin/kagi-shokunin archive 52ebb412561d9601ad8658c30d1cfa0087af64d4 | tar -x -C $S/tree`, copy the three reference files in as the plan's K1-P fixture does (see /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-52-controls.sh c1_ref and add_row) and run `bash /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-52-c1.sh --tree $S/tree` twice; also run the reference trial alone three times with `--work $S/w<n>` and record per-run wall time and the summary line. After each run assert no `bao server` process you started survives (pgrep -af with your scratch path). Also run the trial with PATH lacking bao and confirm exit 2 and no HOLDS line.\n# Acceptance\nReceipts under /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-52/build/R52ExecTrial/ with exact commands, rc, last lines, timings; verdict whether value=5 reproduces.\n\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\nJudged on: operability\nMilestone: C1 OpenBao KV v2 version-lifecycle trial (capability, S110); C2 rewrap statements agree with the binary (D1); counter/claim attacks; harm baseline; lesson drafts\n\nReport: write your scoped findings to .ufo/waves/round-52/build/R52ExecTrial.md"
+      },
+      {
+        "name": "R52ExecHarm",
+        "agent": "executor",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\n# Target\nHarm baseline: the lane's full claim ledger verify at BASE. Report /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-52/build/R52ExecHarm.md.\n# Change\nClone BASE into scratch (`git clone -q --shared /home/vgpnk/Projects/shokunin/kagi-shokunin $S/base && git -C $S/base checkout -q --detach 1d984adaa4a5c66ea9f24cb95bf79ffbca16c32b` — this is a scratch clone, assert its toplevel first) and run `bash corpus/claim-ledger.sh verify` there with a generous timeout (up to 1200 s); record the FAIL and POLICY row ids, the total and the rc. Then time R11-08 and R36-01 alone if the ledger lets you select rows (read corpus/claim-ledger.sh usage first).\n# Acceptance\nReceipt files verify-base.txt (full output) and a summary table of FAIL/POLICY ids; exact commands and rc.\n\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\nJudged on: calibration, freshness\nMilestone: C1 OpenBao KV v2 version-lifecycle trial (capability, S110); C2 rewrap statements agree with the binary (D1); counter/claim attacks; harm baseline; lesson drafts\n\nReport: write your scoped findings to .ufo/waves/round-52/build/R52ExecHarm.md"
+      },
+      {
+        "name": "R52ExecProbe",
+        "agent": "executor",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\n# Target\nIndependent second method for C2's probe facts (round-51 D1). Report /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-52/build/R52ExecProbe.md.\n# Change\nUsing the pinned ~/.local/bin/bao only as the server (a throwaway dev server, root token via BAO_DEV_ROOT_TOKEN_ID env, 127.0.0.1, random port), drive the HTTP API with curl (token in a header file in scratch, never on argv): (a) POST sys/wrapping/wrap with data, then sys/wrapping/rewrap, then sys/wrapping/lookup the new token → creation_path; (b) write KV v2 secret/data/x, GET it with X-Vault-Wrap-TTL, rewrap, lookup → creation_path; (c) also lookup the ORIGINAL tokens before rewrap. Compare with what /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-52-c2.sh prints (run it once on BASE: `bash /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-52-c2.sh 1d984adaa4a5c66ea9f24cb95bf79ffbca16c32b`).\n# Acceptance\nReceipt with the four creation paths (values only, no tokens), the c2 counter line, and a verdict whether the CLI probe and the HTTP probe agree.\n\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\nJudged on: calibration\nMilestone: C1 OpenBao KV v2 version-lifecycle trial (capability, S110); C2 rewrap statements agree with the binary (D1); counter/claim attacks; harm baseline; lesson drafts\n\nReport: write your scoped findings to .ufo/waves/round-52/build/R52ExecProbe.md"
+      },
+      {
+        "name": "R52ScribeEntry",
+        "agent": "scribe",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\n# Target\nDraft the round-52 lesson Gate and Mistakes material from the reference entry and the source. Report /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-52/build/R52ScribeEntry.md.\n# Change\nRead /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-52/controls/fixtures/ref/corpus/knowledge/openbao-kv-v2-version-lifecycle.md, the S110 capture /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-52/capture/S110.body, /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/lessons/round-51.md (as the format model) and /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/lessons/round-51-verifier-spotcheck.md. Draft: (1) a `## Gate` block for S110 (URL, access date 2026-11-07, located quotes ≤25 words with `printf '%s' \"<quote>\" | wc -w` counts and rendered-text-v1 locate counts); (2) the D1 mistake row (class, evidence pointer, captured-by, fix) — do NOT write any line that pairs the word rewrap with a judgement word (does not do / misleading / is wrong / contradict): the C2 counter counts such lines; (3) any factual error you find in the reference entry text versus the page, with the page sentence.\n# Acceptance\nDraft text in the report, each quote with its two counts; list of entry errors (or `none` with what you compared).\n\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: depth, calibration\nMilestone: C1 OpenBao KV v2 version-lifecycle trial (capability, S110); C2 rewrap statements agree with the binary (D1); counter/claim attacks; harm baseline; lesson drafts\n\nReport: write your scoped findings to .ufo/waves/round-52/build/R52ScribeEntry.md"
+      },
+      {
+        "name": "R52ReviewerTrial",
+        "agent": "reviewer",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\n# Target\nCorrectness review of the reference trial /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-52/controls/fixtures/ref/corpus/openbao-kv-versions-trial.sh. Report /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-52/build/R52ReviewerTrial.md.\n# Change\nReview every test's HOLDS/BROKEN/ERROR logic, the refusal helper (non-zero exit AND server text), the parse-failure path, the server start (env token, ss pid check, retries), cleanup on INT/TERM/HUP/KILL, and that no secret ever reaches an argv, a log or stdout. Reproduce each defect you claim with a minimal run in scratch (you may copy and modify the trial in scratch).\n# Acceptance\nNumbered defects, each with severity, a reproduction receipt and the line number; or `none` per area with what was run.\n\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability\nMilestone: C1 OpenBao KV v2 version-lifecycle trial (capability, S110); C2 rewrap statements agree with the binary (D1); counter/claim attacks; harm baseline; lesson drafts\n\nReport: write your scoped findings to .ufo/waves/round-52/build/R52ReviewerTrial.md"
+      },
+      {
+        "name": "R52ReviewerC2",
+        "agent": "reviewer",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\n# Target\nCorrectness review of the frozen C2 counter /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-52-c2.sh. Report /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-52/build/R52ReviewerC2.md.\n# Change\nCheck: scope (find filters), assertion regex, correction-line recognition, HTML-comment stripping awk (multi-line comments, two comments on one line), the `<basename>:<n>` pointer match (prefix collisions like :29 vs :292, a pointer to the wrong file with the same basename), GUARD (prefix check), PROBE fail-closed. Run the counter on BASE and on a scratch fixture with the reference corrections /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-52/controls/fixtures/ref/corrections/ appended (entry.txt to corpus/knowledge/vault-openbao-token-lease-lifecycle.md, lesson.txt to corpus/lessons/round-51.md).\n# Acceptance\nNumbered findings with reproduction receipts; state whether K2-P reads 0 and K2-0 reads 2 in your runs.\n\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: calibration\nMilestone: C1 OpenBao KV v2 version-lifecycle trial (capability, S110); C2 rewrap statements agree with the binary (D1); counter/claim attacks; harm baseline; lesson drafts\n\nReport: write your scoped findings to .ufo/waves/round-52/build/R52ReviewerC2.md"
+      },
+      {
+        "name": "R52CriticC1",
+        "agent": "critic",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\n# Target\nFalsify C1: build forged trials that score value ≥ 1 on the frozen /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-52-c1.sh without executing the mechanic they claim. Report /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-52/build/R52CriticC1.md.\n# Change\nWork in a scratch fixture tree (BASE archive + reference entry + S110 row, as plans/round-52-controls.sh c1_ref/add_row; replace only the trial). Try at least five forgeries beyond the named `.mode` ceiling: argv-log reader, output-path readers, timing/order side channels, a trial that fingerprints shims by their behaviour on a junk call (e.g. a cheap `kv put -cas` probe), environment fingerprints, a trial that runs the real mechanic for only some tests. For each record the forged body (no secrets), the counter line, and whether it is a named ceiling.\n# Acceptance\nTable: forgery, value scored, is it a named ceiling, proposed counter hardening. Bodies under /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-52/build/R52CriticC1/.\n\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability\nMilestone: C1 OpenBao KV v2 version-lifecycle trial (capability, S110); C2 rewrap statements agree with the binary (D1); counter/claim attacks; harm baseline; lesson drafts\n\nReport: write your scoped findings to .ufo/waves/round-52/build/R52CriticC1.md"
+      },
+      {
+        "name": "R52CriticC2",
+        "agent": "critic",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\n# Target\nFalsify C2: make the frozen /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-52-c2.sh read 0 (or less than the true count) without a truthful correction. Report /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-52/build/R52CriticC2.md.\n# Change\nIn scratch fixtures from BASE, try: corrections stating false literals in ways that still match, splitting an assertion over two lines, Unicode look-alikes in `rewrap`, moving the assertion into an excluded path, renaming a file, a correction in a fenced code block, a correction pointing at the right line of a different same-named file, deleting files outside GUARD's set. Record each fixture edit, the counter output and whether it beats the counter; distinguish attacks that need a rewrite of a BASE line (GUARD) from append-only ones.\n# Acceptance\nTable: attack, counter value, beats it (y/n), named ceiling or new finding.\n\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: calibration\nMilestone: C1 OpenBao KV v2 version-lifecycle trial (capability, S110); C2 rewrap statements agree with the binary (D1); counter/claim attacks; harm baseline; lesson drafts\n\nReport: write your scoped findings to .ufo/waves/round-52/build/R52CriticC2.md"
+      },
+      {
+        "name": "R52MutCounters",
+        "agent": "mutation-tester",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\n# Target\nMutation-test the two frozen counters against the pre-freeze controls /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-52-controls.sh. Report /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-52/build/R52MutCounters.md.\n# Change\nCopy the lane at 52ebb412561d9601ad8658c30d1cfa0087af64d4 into scratch (git archive), then for each mutant: edit the scratch copy of plans/round-52-c1.sh or plans/round-52-c2.sh (e.g. drop NOARGV, accept any vector, drop the second real run, skip SRC status, drop HTML-comment stripping, drop the pointer digit check, drop GUARD, make PROBE optional), run the scratch controls script for the relevant half (`bash <scratch>/plans/round-52-controls.sh c1|c2`; C1 half is slow ~15 min, so prefer c2 mutants plus at most 3 c1 mutants) and record which controls kill each mutant.\n# Acceptance\nMutant table: mutation, killed by (control ids) or SURVIVED; survivors are findings with the missing control named.\n\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability, calibration\nMilestone: C1 OpenBao KV v2 version-lifecycle trial (capability, S110); C2 rewrap statements agree with the binary (D1); counter/claim attacks; harm baseline; lesson drafts\n\nReport: write your scoped findings to .ufo/waves/round-52/build/R52MutCounters.md"
+      },
+      {
+        "name": "R52SentinelSecrets",
+        "agent": "sentinel",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\n# Target\nSecret-handling audit of the new trial and the C2 probe. Report /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-52/build/R52SentinelSecrets.md.\n# Change\nAudit /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-52/controls/fixtures/ref/corpus/openbao-kv-versions-trial.sh and /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-52-c2.sh (probe) and /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-52-c1.sh (dispatcher, .argv log): is any token or value on an argv (check /proc/<pid>/cmdline of your own runs while they execute), in a log, in stdout, left in scratch after SIGKILL of the trial or counter; does the ss pid check close the round-51 S-3 port race; does /proc/<pid>/environ exposure of BAO_DEV_ROOT_TOKEN_ID matter (mode, owner). Run your own instrumented copies in scratch only; never paste a token value.\n# Acceptance\nFindings table: id, severity, exploit path, receipt, fix; explicit `none` rows for checks that pass.\n\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability\nMilestone: C1 OpenBao KV v2 version-lifecycle trial (capability, S110); C2 rewrap statements agree with the binary (D1); counter/claim attacks; harm baseline; lesson drafts\n\nReport: write your scoped findings to .ufo/waves/round-52/build/R52SentinelSecrets.md"
+      }
+    ]
+  },
+  "resumeSends": [],
+  "note": "Issue exactly one batched task call with taskCall ({context, tasks}); never split a wave into multiple task calls (one-swarm-per-wave). Then one hub send per resumeSends entry: hub send --to <entry.resume> --message <entry.message> (entry.name is bookkeeping, not a hub field)."
+}

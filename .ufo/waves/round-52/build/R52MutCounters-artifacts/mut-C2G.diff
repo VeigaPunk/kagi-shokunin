@@ -1,0 +1,13 @@
+diff --git i/plans/round-52-c2.sh w/plans/round-52-c2.sh
+index 70991fe..179585a 100755
+--- i/plans/round-52-c2.sh
++++ w/plans/round-52-c2.sh
+@@ -97,7 +97,7 @@ scoped() { # dir -> NUL-separated relative md paths
+ }
+ assertions() { # file -> line numbers of assertion lines
+   awk 'BEGIN{IGNORECASE=1}
+-    { l=$0; sub(/^- /,"",l) }
++    { l=$0 }
+     l ~ /^Correction \(round 52, D1\)/ { next }
+     tolower($0) ~ /rewrap/ && tolower($0) ~ /does not do|misleading|is wrong|contradict/ { print NR }' "$1"
+ }

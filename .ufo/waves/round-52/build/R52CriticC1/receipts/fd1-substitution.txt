@@ -1,0 +1,16 @@
+fd1 evidence for control K1-F8 and forgery F5a/F5b (measured 2026-11-06).
+
+K1-F8 body reads its stdout path inside a command substitution:
+  p=$(readlink /proc/self/fd/1)
+Inside the substitution /proc/self is the readlink process and its fd 1 is the pipe to the
+substitution, so p is a pipe name, never a path:
+  measured: pipe:[1092481494]
+The control compares "pipe:[1092481494]" to sh<i>, never matches, prints HOLDS everywhere and
+reads 0 for the wrong reason (it does not test the channel its comment names).
+
+Reading the shell's own fd 1, with stdout redirected the way the counter redirects a trial:
+  exec > <file>; p=$(readlink "/proc/$$/fd/1")
+  measured: /fast/scratch/hyaku/kagi-r52/R52CriticC1/receipts/fd1check.log
+F5a uses this and still scores 0: the log basename is random hex with no mode bit.
+F5b uses this to reach the counter's scratch root and scores 5 by ranking the sibling .mode
+files' ctimes (creation order), reading no file content.

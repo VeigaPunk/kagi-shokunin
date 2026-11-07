@@ -1,0 +1,6 @@
+cmd: curl -fsSL --compressed -o <scratch>/S110.refetch.body -w 'HTTP=%{http_code} bytes=%{size_download} url=%{url_effective}' https://openbao.org/docs/secrets/kv/kv-v2/
+HTTP=200 bytes=11443 url=https://openbao.org/docs/secrets/kv/kv-v2/
+curl_rc=0
+6cfd72eca347d0dfbcea73ad429ae5db3f01f2710cd794a473b00047e02b1587  /fast/scratch/hyaku/kagi-r52/R52ScribeEntry/S110.refetch.body
+6cfd72eca347d0dfbcea73ad429ae5db3f01f2710cd794a473b00047e02b1587  .ufo/waves/round-52/capture/S110.body
+cmp_rc=0 (0=byte-identical)

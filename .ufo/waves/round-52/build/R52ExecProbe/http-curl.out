@@ -1,0 +1,7 @@
+curl helper wrap token ok=yes
+curl helper ORIG lookup creation_path=sys/wrapping/wrap
+curl helper REWRAPPED lookup creation_path=sys/wrapping/wrap
+curl kv wrap token ok=yes
+curl kv ORIG lookup creation_path=secret/data/x
+curl kv REWRAPPED lookup creation_path=secret/data/x
+CURL-PROBE-OK

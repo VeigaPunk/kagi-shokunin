@@ -1,0 +1,56 @@
+fixture correction lengths: entry=723 lesson=580
+### CASE b1-twocomments-nospace
+C2_REWRAP_STATEMENTS: value=0 assertions=2 guard=1 probe=1 obs_helper=sys/wrapping/wrap obs_kv=secret/data/<path> uncorrected=[]
+rc=0
+### CASE b2-twocomments-space
+C2_REWRAP_STATEMENTS: value=2 assertions=2 guard=1 probe=1 obs_helper=sys/wrapping/wrap obs_kv=secret/data/<path> uncorrected=[corpus/knowledge/vault-openbao-token-lease-lifecycle.md:292 corpus/lessons/round-51.md:22]
+rc=0
+### CASE b3-multiline-comment
+C2_REWRAP_STATEMENTS: value=2 assertions=2 guard=1 probe=1 obs_helper=sys/wrapping/wrap obs_kv=secret/data/<path> uncorrected=[corpus/knowledge/vault-openbao-token-lease-lifecycle.md:292 corpus/lessons/round-51.md:22]
+rc=0
+### CASE b4-multiline-close
+C2_REWRAP_STATEMENTS: value=0 assertions=2 guard=1 probe=1 obs_helper=sys/wrapping/wrap obs_kv=secret/data/<path> uncorrected=[]
+rc=0
+### CASE b5-pointer-29
+C2_REWRAP_STATEMENTS: value=1 assertions=2 guard=1 probe=1 obs_helper=sys/wrapping/wrap obs_kv=secret/data/<path> uncorrected=[corpus/lessons/round-51.md:22]
+rc=0
+### CASE b6-pointer-220
+C2_REWRAP_STATEMENTS: value=1 assertions=2 guard=1 probe=1 obs_helper=sys/wrapping/wrap obs_kv=secret/data/<path> uncorrected=[corpus/lessons/round-51.md:22]
+rc=0
+assertion at line: 29
+### CASE b7-prefix-collision
+C2_REWRAP_STATEMENTS: value=3 assertions=3 guard=1 probe=1 obs_helper=sys/wrapping/wrap obs_kv=secret/data/<path> uncorrected=[corpus/knowledge/prefix-test.md:29 corpus/knowledge/vault-openbao-token-lease-lifecycle.md:292 corpus/lessons/round-51.md:22]
+rc=0
+### CASE b8-prefix-correct
+C2_REWRAP_STATEMENTS: value=2 assertions=3 guard=1 probe=1 obs_helper=sys/wrapping/wrap obs_kv=secret/data/<path> uncorrected=[corpus/knowledge/vault-openbao-token-lease-lifecycle.md:292 corpus/lessons/round-51.md:22]
+rc=0
+SCORECARD assertion line=1781
+### CASE b9-wrongfile-basename
+C2_REWRAP_STATEMENTS: value=2 assertions=3 guard=1 probe=1 obs_helper=sys/wrapping/wrap obs_kv=secret/data/<path> uncorrected=[corpus/knowledge/vault-openbao-token-lease-lifecycle.md:292 corpus/lessons/round-51.md:22]
+rc=0
+SCORECARD assertion line=1781
+### CASE b10-nonexistent-basename
+C2_REWRAP_STATEMENTS: value=2 assertions=3 guard=1 probe=1 obs_helper=sys/wrapping/wrap obs_kv=secret/data/<path> uncorrected=[corpus/knowledge/vault-openbao-token-lease-lifecycle.md:292 corpus/lessons/round-51.md:22]
+rc=0
+### CASE b11-comment-assertion
+C2_REWRAP_STATEMENTS: value=2 assertions=2 guard=1 probe=1 obs_helper=sys/wrapping/wrap obs_kv=secret/data/<path> uncorrected=[corpus/knowledge/vault-openbao-token-lease-lifecycle.md:292 corpus/lessons/round-51.md:22]
+rc=0
+### CASE b12-fence
+C2_REWRAP_STATEMENTS: value=0 assertions=2 guard=1 probe=1 obs_helper=sys/wrapping/wrap obs_kv=secret/data/<path> uncorrected=[]
+rc=0
+### CASE b13-pointer-in-comment
+C2_REWRAP_STATEMENTS: value=1 assertions=2 guard=1 probe=1 obs_helper=sys/wrapping/wrap obs_kv=secret/data/<path> uncorrected=[corpus/knowledge/vault-openbao-token-lease-lifecycle.md:292]
+rc=0
+### CASE b14-untracked
+C2_REWRAP_STATEMENTS: value=3 assertions=3 guard=1 probe=1 obs_helper=sys/wrapping/wrap obs_kv=secret/data/<path> uncorrected=[corpus/knowledge/vault-openbao-token-lease-lifecycle.md:292 corpus/lessons/round-51.md:22 corpus/untracked-notes.md:1]
+rc=0
+### CASE b15-guard-truncate
+C2_REWRAP_STATEMENTS: value=1 assertions=2 guard=1 probe=1 obs_helper=sys/wrapping/wrap obs_kv=secret/data/<path> uncorrected=[corpus/lessons/round-51.md:22]
+rc=0
+### CASE b16-guard-missing
+C2_REWRAP_STATEMENTS: SETUP reason=guard missing:./corpus/knowledge/vault-openbao-token-lease-lifecycle.md
+rc=2
+### CASE b17-guard-nonassertion
+C2_REWRAP_STATEMENTS: value=2 assertions=2 guard=1 probe=1 obs_helper=sys/wrapping/wrap obs_kv=secret/data/<path> uncorrected=[corpus/knowledge/vault-openbao-token-lease-lifecycle.md:292 corpus/lessons/round-51.md:22]
+rc=0
+BATTERY DONE

@@ -1,0 +1,20 @@
+diff --git i/plans/round-52-c2.sh w/plans/round-52-c2.sh
+index 70991fe..47a05d2 100755
+--- i/plans/round-52-c2.sh
++++ w/plans/round-52-c2.sh
+@@ -126,14 +126,7 @@ while IFS= read -r -d '' f; do
+         for (i=1; i<=length(s); i++) { c=substr(s,i,1)
+           if (c=="`") { inc=!inc; o=o "x" } else o=o (inc ? "x" : c) }
+         return o }
+-      { line=$0; m=mask(line); vis="" }
+-      { while (1) {
+-          if (incom) { p=index(m,"-->"); if (!p) { line=""; m=""; break }
+-                       line=substr(line,p+3); m=substr(m,p+3); incom=0 }
+-          p=index(m,"<!--"); if (!p) break
+-          vis=vis substr(line,1,p-1); line=substr(line,p+4); m=substr(m,p+4); incom=1
+-        }
+-        vis=vis line
++      { vis=$0
+         t=vis; sub(/^- /,"",t)
+         if (index(t,"Correction (round 52, D1)")==1 && index(t,ptr)>0 && index(t,n1)>0 && index(t,n2)>0) {
+           rest=substr(t, index(t,ptr)+length(ptr), 1)

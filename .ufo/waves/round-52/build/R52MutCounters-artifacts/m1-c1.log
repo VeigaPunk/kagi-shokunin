@@ -1,0 +1,21 @@
+CONTROL K1-0 expect=0 got=0 MATCH
+  C1_OPENBAO_KV: value=0 absent=1 pins=1
+CONTROL K1-P expect=5 got=5 MATCH
+  C1_OPENBAO_KV: value=5 discriminating=5 pins=1 setup_ok=1 nosecret=1 noargv=1(real=31,real2=31) src=1(S110) real_rc=0 none_rc=2 T1:real=HOLDS/HOLDS,shimvec=BHHHH,entry=1,ok=1 T2:real=HOLDS/HOLDS,shimvec=HBHHH,entry=1,ok=1 T3:real=HOLDS/HOLDS,shimvec=HHBHH,entry=1,ok=1 T4:real=HOLDS/HOLDS,shimvec=HHHBH,entry=1,ok=1 T5:real=HOLDS/HOLDS,shimvec=HHHHB,entry=1,ok=1
+CONTROL K1-F1 expect=0 got=0 MATCH
+  C1_OPENBAO_KV: value=0 discriminating=0 pins=1 setup_ok=1 nosecret=1 noargv=1(real=0,real2=0) src=1(S110) real_rc=0 none_rc=2 T1:real=HOLDS/HOLDS,shimvec=HHHHH,entry=1,ok=0 T2:real=HOLDS/HOLDS,shimvec=HHHHH,entry=1,ok=0 T3:real=HOLDS/HOLDS,shimvec=HHHHH,entry=1,ok=0 T4:real=HOLDS/HOLDS,shimvec=HHHHH,entry=1,ok=0 T5:real=HOLDS/HOLDS,shimvec=HHHHH,entry=1,ok=0
+CONTROL K1-F2 expect=0 got=5 MISMATCH
+  C1_OPENBAO_KV: value=5 discriminating=5 pins=1 setup_ok=1 nosecret=1 noargv=1(real=31,real2=31) src=1(S110) real_rc=0 none_rc=2 T1:real=HOLDS/HOLDS,shimvec=BHHHH,entry=1,ok=1 T2:real=HOLDS/HOLDS,shimvec=HBHHH,entry=1,ok=1 T3:real=HOLDS/HOLDS,shimvec=HHBHH,entry=1,ok=1 T4:real=HOLDS/HOLDS,shimvec=HHHBH,entry=1,ok=1 T5:real=HOLDS/HOLDS,shimvec=HHHHB,entry=1,ok=1
+CONTROL K1-F3 expect=5 got=5 MATCH
+  C1_OPENBAO_KV: value=5 discriminating=5 pins=1 setup_ok=1 nosecret=1 noargv=1(real=31,real2=31) src=1(S110) real_rc=0 none_rc=2 T1:real=HOLDS/HOLDS,shimvec=BHHHH,entry=1,ok=1 T2:real=HOLDS/HOLDS,shimvec=HBHHH,entry=1,ok=1 T3:real=HOLDS/HOLDS,shimvec=HHBHH,entry=1,ok=1 T4:real=HOLDS/HOLDS,shimvec=HHHBH,entry=1,ok=1 T5:real=HOLDS/HOLDS,shimvec=HHHHB,entry=1,ok=1
+CONTROL K1-F4 expect=0 got=0 MATCH
+  C1_OPENBAO_KV: value=0 discriminating=5 pins=1 setup_ok=1 nosecret=1 noargv=1(real=31,real2=31) src=0 real_rc=0 none_rc=2 T1:real=HOLDS/HOLDS,shimvec=BHHHH,entry=1,ok=1 T2:real=HOLDS/HOLDS,shimvec=HBHHH,entry=1,ok=1 T3:real=HOLDS/HOLDS,shimvec=HHBHH,entry=1,ok=1 T4:real=HOLDS/HOLDS,shimvec=HHHBH,entry=1,ok=1 T5:real=HOLDS/HOLDS,shimvec=HHHHB,entry=1,ok=1
+CONTROL K1-F5 expect=0 got=0 MATCH
+  C1_OPENBAO_KV: value=0 discriminating=0 pins=1 setup_ok=1 nosecret=1 noargv=1(real=31,real2=31) src=1(S110) real_rc=0 none_rc=2 T1:real=HOLDS/HOLDS,shimvec=BHHHH,entry=0,ok=0 T2:real=HOLDS/HOLDS,shimvec=HBHHH,entry=0,ok=0 T3:real=HOLDS/HOLDS,shimvec=HHBHH,entry=0,ok=0 T4:real=HOLDS/HOLDS,shimvec=HHHBH,entry=0,ok=0 T5:real=HOLDS/HOLDS,shimvec=HHHHB,entry=0,ok=0
+CONTROL K1-F6 expect=0 got=0 MATCH
+  C1_OPENBAO_KV: value=0 discriminating=5 pins=1 setup_ok=1 nosecret=0 noargv=1(real=31,real2=31) src=1(S110) real_rc=0 none_rc=2 T1:real=HOLDS/HOLDS,shimvec=BHHHH,entry=1,ok=1 T2:real=HOLDS/HOLDS,shimvec=HBHHH,entry=1,ok=1 T3:real=HOLDS/HOLDS,shimvec=HHBHH,entry=1,ok=1 T4:real=HOLDS/HOLDS,shimvec=HHHBH,entry=1,ok=1 T5:real=HOLDS/HOLDS,shimvec=HHHHB,entry=1,ok=1
+CONTROL K1-F7 expect=0 got=0 MATCH
+  C1_OPENBAO_KV: value=0 discriminating=5 pins=1 setup_ok=1 nosecret=1 noargv=1(real=31,real2=31) src=0 real_rc=0 none_rc=2 T1:real=HOLDS/HOLDS,shimvec=BHHHH,entry=1,ok=1 T2:real=HOLDS/HOLDS,shimvec=HBHHH,entry=1,ok=1 T3:real=HOLDS/HOLDS,shimvec=HHBHH,entry=1,ok=1 T4:real=HOLDS/HOLDS,shimvec=HHHBH,entry=1,ok=1 T5:real=HOLDS/HOLDS,shimvec=HHHHB,entry=1,ok=1
+CONTROL K1-F8 expect=0 got=0 MATCH
+  C1_OPENBAO_KV: value=0 discriminating=0 pins=1 setup_ok=1 nosecret=1 noargv=1(real=0,real2=0) src=1(S110) real_rc=0 none_rc=2 T1:real=HOLDS/HOLDS,shimvec=HHHHH,entry=1,ok=0 T2:real=HOLDS/HOLDS,shimvec=HHHHH,entry=1,ok=0 T3:real=HOLDS/HOLDS,shimvec=HHHHH,entry=1,ok=0 T4:real=HOLDS/HOLDS,shimvec=HHHHH,entry=1,ok=0 T5:real=HOLDS/HOLDS,shimvec=HHHHH,entry=1,ok=0
+CONTROLS: match=9 mismatch=1

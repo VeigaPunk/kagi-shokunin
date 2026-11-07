@@ -1,0 +1,14 @@
+diff --git i/plans/round-52-c2.sh w/plans/round-52-c2.sh
+index 70991fe..fa298f5 100755
+--- i/plans/round-52-c2.sh
++++ w/plans/round-52-c2.sh
+@@ -136,8 +136,7 @@ while IFS= read -r -d '' f; do
+         vis=vis line
+         t=vis; sub(/^- /,"",t)
+         if (index(t,"Correction (round 52, D1)")==1 && index(t,ptr)>0 && index(t,n1)>0 && index(t,n2)>0) {
+-          rest=substr(t, index(t,ptr)+length(ptr), 1)
+-          if (rest !~ /[0-9]/) found=1
++          found=1
+         }
+       }
+       END { print found?1:0 }' "$T/$f")

@@ -1,0 +1,4 @@
+cmd: diff <ref entry> <tree entry>
+entry_diff_rc=0
+cmd: diff <(grep -v '^#' ref trial) <(grep -v '^#' tree trial)
+trial_diff_rc=0

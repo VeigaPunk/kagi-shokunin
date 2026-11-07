@@ -1,0 +1,246 @@
+# R52ReviewerTrial receipts (generated 2026-11-07T02:16:07Z)
+# host: Linux 7.2.11-arch1-1 x86_64; bao: OpenBao v2.7.2 (9e0a0d3c3504a0a00b45e61355afac5e35c78379), committed 2026-10-26T20:32:27Z
+# bao sha256: 9c5f36287c673f386e1533e9c044169a248e4ee50dd54810fa766e95bd41b788 (counter pin 9c5f3628...)
+# fixture: /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-52/controls/fixtures/ref/corpus/openbao-kv-versions-trial.sh
+# fixture sha256: 3b0b0f812a978a99af85828f0382a41418712143a5e5fb9c09b5af2b348554af
+# lane copy sha256: 3b0b0f812a978a99af85828f0382a41418712143a5e5fb9c09b5af2b348554af
+# diff fixture vs lane copy: IDENTICAL
+
+## R1 baseline (unmodified fixture copy, real bao v2.7.2)
+cmd: env -i HOME=$S/base/home PATH=/home/vgpnk/.local/bin:/usr/bin:/bin TMPDIR=$S/base/tmp LANG=C timeout 180 bash $S/trial.sh --work $S/base/work   [rc=0]
+--- stdout
+TRIAL T1 HOLDS cas0-on-existing-refused=1 cas-current-accepted=1 stale-cas-refused=1
+TRIAL T2 HOLDS deleted-data-null=1 deletion-time-set=1 undelete-restores-value=1
+TRIAL T3 HOLDS after-destroy-and-undelete data-null=1 destroyed=1
+TRIAL T4 HOLDS version1-dropped=1 version2-kept=1 version3-kept=1
+TRIAL T5 HOLDS version1-gone=1 version2-gone=1 metadata-gone=1
+OPENBAO_KV_TRIAL: HOLDS holds=5 broken=0 error=0 bao=v2.7.2
+--- stderr
+
+## R2 shim matrix (one mode per run; shim logs every argv to .argv, then execs the real bao)
+### mode=arr  arr rc=2
+--- stdout
+TRIAL T1 ERROR read-failed(rc=1)
+TRIAL T2 ERROR read-failed(state=3 get=1)
+TRIAL T3 ERROR read-failed(state=3)
+TRIAL T4 BROKEN version1-dropped=0 version2-kept=0 version3-kept=0
+TRIAL T5 BROKEN version1-gone=0 version2-gone=0 metadata-gone=1
+OPENBAO_KV_TRIAL: ERROR holds=0 broken=2 error=3 bao=v2.7.2
+--- stderr (first 20 lines)
+Traceback (most recent call last):
+  File "<string>", line 4, in <module>
+    v=((d.get("data") or {}).get("data") or {}).get("v")
+        ^^^^^
+AttributeError: 'list' object has no attribute 'get'
+Traceback (most recent call last):
+  File "<string>", line 4, in <module>
+    v=((d.get("data") or {}).get("data") or {}).get("v")
+        ^^^^^
+AttributeError: 'list' object has no attribute 'get'
+Traceback (most recent call last):
+  File "<string>", line 4, in <module>
+    v=((d.get("data") or {}).get("data") or {}).get("v")
+        ^^^^^
+AttributeError: 'list' object has no attribute 'get'
+Traceback (most recent call last):
+  File "<string>", line 4, in <module>
+    v=((d.get("data") or {}).get("data") or {}).get("v")
+        ^^^^^
+AttributeError: 'list' object has no attribute 'get'
+--- argv calls=31 secret_hits=0 tracebacks=7
+--- leftover_dirs=0
+
+### mode=shape  shape rc=2
+--- stdout
+TRIAL T1 BROKEN cas0-refused=1 cas-current-rc=0 stale-refused=1 value-is-cas-write=0
+TRIAL T2 ERROR read-failed(state=3 get=0)
+TRIAL T3 ERROR read-failed(state=3)
+TRIAL T4 BROKEN version1-dropped=0 version2-kept=0 version3-kept=0
+TRIAL T5 BROKEN version1-gone=0 version2-gone=0 metadata-gone=1
+OPENBAO_KV_TRIAL: ERROR holds=0 broken=3 error=2 bao=v2.7.2
+--- stderr (first 20 lines)
+--- argv calls=31 secret_hits=0 tracebacks=0
+--- leftover_dirs=0
+
+### mode=notjson  notjson rc=2
+--- stdout
+TRIAL T1 ERROR read-failed(rc=3)
+TRIAL T2 ERROR read-failed(state=3 get=3)
+TRIAL T3 ERROR read-failed(state=3)
+TRIAL T4 ERROR unparsed-answer(v1=3 v2=3 v3=3)
+TRIAL T5 ERROR unparsed-answer
+OPENBAO_KV_TRIAL: ERROR holds=0 broken=0 error=5 bao=v2.7.2
+--- stderr (first 20 lines)
+--- argv calls=31 secret_hits=0 tracebacks=0
+--- leftover_dirs=0
+
+### mode=empty  empty rc=2
+--- stdout
+TRIAL T1 ERROR read-failed(rc=3)
+TRIAL T2 ERROR read-failed(state=3 get=3)
+TRIAL T3 ERROR read-failed(state=3)
+TRIAL T4 ERROR unparsed-answer(v1=3 v2=3 v3=3)
+TRIAL T5 ERROR unparsed-answer
+OPENBAO_KV_TRIAL: ERROR holds=0 broken=0 error=5 bao=v2.7.2
+--- stderr (first 20 lines)
+--- argv calls=31 secret_hits=0 tracebacks=0
+--- leftover_dirs=0
+
+### mode=nouref  nouref rc=1
+--- stdout
+TRIAL T1 HOLDS cas0-on-existing-refused=1 cas-current-accepted=1 stale-cas-refused=1
+TRIAL T2 BROKEN state-after-delete=[1 1 0] undelete-rc=2 value-restored=0
+TRIAL T3 HOLDS after-destroy-and-undelete data-null=1 destroyed=1
+TRIAL T4 HOLDS version1-dropped=1 version2-kept=1 version3-kept=1
+TRIAL T5 HOLDS version1-gone=1 version2-gone=1 metadata-gone=1
+OPENBAO_KV_TRIAL: BROKEN holds=4 broken=1 error=0 bao=v2.7.2
+--- stderr (first 20 lines)
+--- argv calls=31 secret_hits=0 tracebacks=0
+--- leftover_dirs=0
+
+### mode=noserver  noserver rc=2
+--- stdout
+OPENBAO_KV_TRIAL: SETUP dev server did not start
+--- stderr (first 20 lines)
+--- argv calls=4 secret_hits=0 tracebacks=0
+--- leftover_dirs=0
+
+### mode=othererr  othererr rc=1
+--- stdout
+TRIAL T1 BROKEN cas0-refused=0 cas-current-rc=2 stale-refused=0 value-is-cas-write=0
+TRIAL T2 HOLDS deleted-data-null=1 deletion-time-set=1 undelete-restores-value=1
+TRIAL T3 HOLDS after-destroy-and-undelete data-null=1 destroyed=1
+TRIAL T4 HOLDS version1-dropped=1 version2-kept=1 version3-kept=1
+TRIAL T5 HOLDS version1-gone=1 version2-gone=1 metadata-gone=1
+OPENBAO_KV_TRIAL: BROKEN holds=4 broken=1 error=0 bao=v2.7.2
+--- stderr (first 20 lines)
+--- argv calls=31 secret_hits=0 tracebacks=0
+--- leftover_dirs=0
+
+### mode=putfail  putfail rc=2
+--- stdout
+TRIAL T1 ERROR kv-put-failed
+TRIAL T2 ERROR kv-put-failed
+TRIAL T3 ERROR kv-put-failed
+TRIAL T4 ERROR kv-put-failed
+TRIAL T5 ERROR kv-put-failed
+OPENBAO_KV_TRIAL: ERROR holds=0 broken=0 error=5 bao=v2.7.2
+--- stderr (first 20 lines)
+--- argv calls=9 secret_hits=0 tracebacks=0
+--- leftover_dirs=0
+
+### mode=hang  hang rc=124
+--- stdout
+--- stderr (first 20 lines)
+--- argv calls=16 secret_hits=0 tracebacks=0
+--- leftover_dirs=0
+
+## R2b hang mode rerun with orphan scan
+hang rerun (timeout 8 around the unmodified trial):
+  rc=124
+  leftover_dirs=0 stdout_lines=0 stderr_bytes=0
+  orphan scan: no bao server whose environ names this scratch tree
+## R3 argv sample and counts (shim-arr, a real run of 31 calls)
+--- first 12 calls, US->space
+version
+server -dev -dev-listen-address=127.0.0.1:50673 -dev-no-store-token
+status
+kv put secret/t1 v=-
+kv put -cas=0 secret/t1 v=-
+kv put -cas=1 secret/t1 v=-
+kv put -cas=1 secret/t1 v=-
+kv get -format=json secret/t1
+kv put secret/t2 v=-
+kv delete secret/t2
+kv get -format=json secret/t2
+kv undelete -versions=1 secret/t2
+--- command mix
+     11 kv put
+      9 kv get
+      3 kv undelete
+      3 kv metadata
+      1 version 
+      1 status 
+      1 server -dev
+      1 kv destroy
+      1 kv delete
+--- secret-shaped hits in the 31-call argv log: 0
+
+## R4 noserver retry ports (3 attempts, fresh random port each)
+server -dev -dev-listen-address=127.0.0.1:45455 -dev-no-store-token
+server -dev -dev-listen-address=127.0.0.1:39499 -dev-no-store-token
+server -dev -dev-listen-address=127.0.0.1:53105 -dev-no-store-token
+
+## R5 signals (sigtest.sh; INT launched with SIG_DFL restored so the trial's own trap runs)
+=== SIGINT: trial=2167754 bao=2169338 work=/fast/scratch/hyaku/kagi-r52/R52ReviewerTrial/sig-INT/work/openbao-kv-trial.YENGgW
+  d 
+  d home
+  --- err file (first 4 lines) ---
+  argv clean (no nonce/token shape)
+  environ has BAO_DEV_ROOT_TOKEN_ID: 1
+  rc=130 bao_alive_after=0 leftover_dirs=0
+  stdout-lines=0 stderr-bytes=0
+  no nonce shape in trial output
+=== SIGTERM: trial=2185330 bao=2186670 work=/fast/scratch/hyaku/kagi-r52/R52ReviewerTrial/sig-TERM/work/openbao-kv-trial.xYfx9G
+  d 
+  d home
+  --- err file (first 4 lines) ---
+  argv clean (no nonce/token shape)
+  environ has BAO_DEV_ROOT_TOKEN_ID: 1
+  rc=143 bao_alive_after=0 leftover_dirs=0
+  stdout-lines=0 stderr-bytes=0
+  no nonce shape in trial output
+=== SIGHUP: trial=2204591 bao=2205925 work=/fast/scratch/hyaku/kagi-r52/R52ReviewerTrial/sig-HUP/work/openbao-kv-trial.QlQ9To
+  d 
+  d home
+  --- err file (first 4 lines) ---
+  argv clean (no nonce/token shape)
+  environ has BAO_DEV_ROOT_TOKEN_ID: 1
+  rc=129 bao_alive_after=0 leftover_dirs=0
+  stdout-lines=0 stderr-bytes=0
+  no nonce shape in trial output
+=== SIGKILL: trial=2220774 bao=2221210 work=/fast/scratch/hyaku/kagi-r52/R52ReviewerTrial/sig-KILL/work/openbao-kv-trial.wxZacl
+  d 
+  d home
+  --- err file (first 4 lines) ---
+  argv clean (no nonce/token shape)
+  environ has BAO_DEV_ROOT_TOKEN_ID: 1
+  rc=137 bao_alive_after=0 leftover_dirs=1
+  stdout-lines=0 stderr-bytes=0
+  no nonce shape in trial output
+sigtest done
+
+## R6 binary probe (entry claims vs pinned binary; throwaway dev server)
+probe: server_pid=1506587 port=45167 ss-pid-match=1
+ss line: LISTEN 0 4096 127.0.0.1:45167 0.0.0.0:* users:(("bao",pid=1506587,fd=3))
+bao status rc=0
+put rc=0
+destroy rc=0
+undelete-after-destroy rc=0 stderr_bytes=0
+delete rc=0
+undelete-after-delete rc=0
+get-after-destroy rc=0
+state data-null=1 deletion-time=0 destroyed=1
+HOME files (token store check): 
+HOME file count: 0
+server killed
+## R6b get -version=1 after destroy (contrast with the max-versions drop T4 reads)
+probe2: get -version=1 after destroy rc=0 stderr_bytes=0 json_bytes=359
+state data-null=1 deletion-time=0 destroyed=1 version=1
+server killed
+
+## R7 stubborn-server hang (trial line 87 unbounded kill+wait)
+stubborn: trial=1512795 child=1512828
+t=33s: trial_alive=1 server_calls=2 (no retry started)
+t=39s: trial_alive=1 server_calls=2 (still in wait, past the 30 s ss window)
+trial state: S do_wait
+after SIGKILL of the trial: stubborn_child_alive=0 (pdeathsig), leftover_dirs=1
+stubborn test done
+
+## R8 SIGKILL leftover content sample (scratch err/home at t=1.2 s, before the kill)
+KILL-err sample (t=1.2 s, before SIGKILL):
+workdir files:
+  err (0 B)
+err content:
+secret-shaped hits in err: 0
+home files: 0

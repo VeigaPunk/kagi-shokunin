@@ -1,0 +1,55 @@
+# C1 execution evidence (round 52; answers R52CriticC1: the counter checks printed verdicts, so this receipt shows the committed trial body issues each mechanic's subcommands against a live dev server).
+# Method: the candidate trial corpus/openbao-kv-versions-trial.sh run once under env -i with PATH=<logging dispatcher dir>:/usr/bin:/bin; the dispatcher appends each call's argv (US-joined) and execs the pinned ~/.local/bin/bao (sha256 9c5f36287c673f38…). Argv carries no secret by design (NOARGV).
+$ env -i HOME=$S/home PATH=$S/bin:/usr/bin:/bin TMPDIR=$S/tmp LANG=C bash corpus/openbao-kv-versions-trial.sh --work $S/work
+TRIAL T1 HOLDS cas0-on-existing-refused=1 cas-current-accepted=1 stale-cas-refused=1
+TRIAL T2 HOLDS deleted-data-null=1 deletion-time-set=1 undelete-restores-value=1
+TRIAL T3 HOLDS after-destroy-and-undelete data-null=1 destroyed=1
+TRIAL T4 HOLDS version1-dropped=1 version2-kept=1 version3-kept=1
+TRIAL T5 HOLDS version1-gone=1 version2-gone=1 metadata-gone=1
+OPENBAO_KV_TRIAL: HOLDS holds=5 broken=0 error=0 bao=v2.7.2
+rc=0
+# calls recorded: 31
+# token/nonce-shaped argv elements: 0
+# argv by call (US shown as space; the dev-listen port is replaced by <port>):
+     1	version
+     2	server -dev -dev-listen-address=127.0.0.1:<port> -dev-no-store-token
+     3	status
+     4	kv put secret/t1 v=-
+     5	kv put -cas=0 secret/t1 v=-
+     6	kv put -cas=1 secret/t1 v=-
+     7	kv put -cas=1 secret/t1 v=-
+     8	kv get -format=json secret/t1
+     9	kv put secret/t2 v=-
+    10	kv delete secret/t2
+    11	kv get -format=json secret/t2
+    12	kv undelete -versions=1 secret/t2
+    13	kv get -format=json secret/t2
+    14	kv put secret/t3 v=-
+    15	kv destroy -versions=1 secret/t3
+    16	kv undelete -versions=1 secret/t3
+    17	kv get -format=json secret/t3
+    18	kv metadata put -max-versions=2 secret/t4
+    19	kv put secret/t4 v=-
+    20	kv put secret/t4 v=-
+    21	kv put secret/t4 v=-
+    22	kv get -format=json -version=1 secret/t4
+    23	kv get -format=json -version=2 secret/t4
+    24	kv get -format=json -version=3 secret/t4
+    25	kv put secret/t5 v=-
+    26	kv put secret/t5 v=-
+    27	kv metadata delete secret/t5
+    28	kv undelete -versions=1,2 secret/t5
+    29	kv get -format=json -version=1 secret/t5
+    30	kv get -format=json -version=2 secret/t5
+    31	kv metadata get secret/t5
+# per-mechanic subcommand counts:
+server -dev                                   1
+kv put -cas=0                                 1
+kv put -cas=1                                 2
+kv delete secret/t2                           1
+kv undelete -versions=1 secret/t2             1
+kv destroy -versions=1 secret/t3              1
+kv metadata put -max-versions=2 secret/t4     1
+kv get -format=json -version=1 secret/t4      1
+kv metadata delete secret/t5                  1
+kv metadata get secret/t5                     1

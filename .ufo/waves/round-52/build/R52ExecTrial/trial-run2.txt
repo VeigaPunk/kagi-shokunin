@@ -1,0 +1,6 @@
+TRIAL T1 HOLDS cas0-on-existing-refused=1 cas-current-accepted=1 stale-cas-refused=1
+TRIAL T2 HOLDS deleted-data-null=1 deletion-time-set=1 undelete-restores-value=1
+TRIAL T3 HOLDS after-destroy-and-undelete data-null=1 destroyed=1
+TRIAL T4 HOLDS version1-dropped=1 version2-kept=1 version3-kept=1
+TRIAL T5 HOLDS version1-gone=1 version2-gone=1 metadata-gone=1
+OPENBAO_KV_TRIAL: HOLDS holds=5 broken=0 error=0 bao=v2.7.2

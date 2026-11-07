@@ -1,0 +1,13 @@
+diff --git i/plans/round-52-c2.sh w/plans/round-52-c2.sh
+index 70991fe..06fb299 100755
+--- i/plans/round-52-c2.sh
++++ w/plans/round-52-c2.sh
+@@ -88,7 +88,7 @@ except Exception: sys.exit(1)'; }
+ }
+ OBS_HELPER=""; OBS_KV=""
+ probe; unset BAO_ADDR BAO_TOKEN
+-[ -n "$OBS_HELPER" ] && [ -n "$OBS_KV" ] || setup "probe-failed(helper=$OBS_HELPER kv=$OBS_KV)"
++:
+ 
+ # ---- scope, assertions, corrections ----
+ scoped() { # dir -> NUL-separated relative md paths

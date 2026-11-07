@@ -1,0 +1,16 @@
+# observed output of the same script run twice (this is run 2; run 1 printed the same six observations)
+# server: throwaway bao server -dev, 127.0.0.1 random port, random root token only in env, no token or value printed
+cas0_rc=2
+cas0_stderr:
+Error writing data to secret/data/t1: Error making API request.
+
+URL: PUT http://127.0.0.1:<port>/v1/secret/data/t1
+Code: 400. Errors:
+
+* check-and-set parameter did not match the current version
+destroy_rc=0
+undelete_after_destroy_rc=0
+undelete_stderr:
+get_rc=0 data_is_none=1 destroyed=True deletion_time=''
+get_rc=0
+script_rc=0

@@ -1,0 +1,13 @@
+diff --git i/plans/round-52-c2.sh w/plans/round-52-c2.sh
+index 70991fe..b730390 100755
+--- i/plans/round-52-c2.sh
++++ w/plans/round-52-c2.sh
+@@ -92,7 +92,7 @@ probe; unset BAO_ADDR BAO_TOKEN
+ 
+ # ---- scope, assertions, corrections ----
+ scoped() { # dir -> NUL-separated relative md paths
+-  (cd "$1" && find . -type f -name '*.md' -not -path './.ufo/*' -not -path './plans/*' \
++  (cd "$1" && find . -type f -name '*.md' -not -path './.ufo/*' \
+      -not -path './considerthese/*' -not -name '*-verifier-spotcheck.md' -not -name '*aggregator*' -print0 | sort -z)
+ }
+ assertions() { # file -> line numbers of assertion lines

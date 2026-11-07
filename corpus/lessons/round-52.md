@@ -1,0 +1,64 @@
+# Round 52 — the lane executes OpenBao KV v2 version operations (C1, operability, capability); its committed statements about rewrap agree with the binary again (C2, calibration)
+
+source: S110 (https://openbao.org/docs/secrets/kv/kv-v2/, §Usage `-cas` paragraph, §Deleting and destroying data, metadata examples, opened 2026-11-07)
+
+Frozen plan: `plans/round-52.md` (predeclaration `52ebb412561d9601ad8658c30d1cfa0087af64d4`; BASE `1d984adaa4a5c66ea9f24cb95bf79ffbca16c32b`; no amendment). Counters `plans/round-52-c1.sh`, `plans/round-52-c2.sh`; pre-freeze controls `plans/round-52-controls.sh` (20 controls, all MATCH, `.ufo/waves/round-52/controls/controls-prefreeze.txt`; run 1 kept as `controls-prefreeze-run1.txt`, see M52-3). Candidate receipts `.ufo/waves/round-52/final/`. One attempt (`.ufo/watchdog.log`: one launch line for round 52).
+
+## Claims
+
+- **C1 operability (capability) — the lane executes five OpenBao KV v2 version operations, 0 → 5.** Ground the lane did not hold at BASE (`git grep -il undelete 1d984ada -- corpus` empty; S024 is Vault's `max_versions` parameter as documentation only). `corpus/openbao-kv-versions-trial.sh` drives a throwaway `bao server -dev`: T1 check-and-set, T2 soft delete reversed by `kv undelete`, T3 `kv destroy` not reversed, T4 `-max-versions=2` drops version 1, T5 `kv metadata delete` removes every version. New entry `corpus/knowledge/openbao-kv-v2-version-lifecycle.md`. The trial carries the round-51 routed fixes: no secret on any argv (S-1), no server log (S-2), the probed port must be held by the server pid (S-3), a refusal needs a non-zero exit and the server's refusal text (M51-3).
+  - Frozen predicate (verbatim, plan §C1 and counter header): `C1_OPENBAO_KV: value = number of tests T in {T1..T5} that DISCRIMINATE, when PINS = 1 and SETUP_OK = 1 and NOSECRET = 1 and NOARGV = 1 and SRC = 1, else 0; target 5 (BASE 0, trial absent).`
+- **C2 calibration — the lane's committed statements about OpenBao rewrap agree with the pinned binary, 2 → 0.** Round-51 closure D1: two lane lines judged the rewrap API page's sample response against OpenBao 2.7.2 (`corpus/knowledge/vault-openbao-token-lease-lifecycle.md:292`, `corpus/lessons/round-51.md:22`). The C2 probe reads creation path `sys/wrapping/wrap` for a rewrapped helper-made token and `secret/data/<path>` for a rewrapped KV token; the sample states no input path, so it is consistent with the binary. Change: one appended `Correction (round 52, D1)` line per file, naming the corrected line and both measured paths.
+  - Frozen predicate (verbatim): `` C2_REWRAP_STATEMENTS: value = U, the number of lane-authored assertion lines that pair `rewrap` with a judgement of the documentation or the binary and carry no truth-bound correction, when GUARD = 1 and PROBE = 1, else SETUP; target 0 (BASE 2). ``
+
+## Gate
+
+- **S110 — new, opened 2026-11-07** (capture `.ufo/waves/round-52/capture/S110.body`, first fetched by the L1 on 2026-11-07 (UTC; time not recorded) with `curl -sSL --compressed`, re-fetched at 2026-11-07T01:59:41Z with the declared request profile `curl-fsSL-compressed-v1`: byte-identical): `https://openbao.org/docs/secrets/kv/kv-v2/`, HTTP 200, decoded body sha256 `6cfd72eca347d0dfbcea73ad429ae5db3f01f2710cd794a473b00047e02b1587`, 83532 B, normalized sha256 `6bbd6c4cc131b898965fd573ac68d8307bfc84172ad59874d1188394903b31b6`; OpenBao docs Version 2.7.x. Located quotes (`python3 corpus/rendered-text-v1.py locate <capture> "<quote>"` → `count=1` each):
+  - "When deleting data the standard bao kv delete command will perform a soft delete." (14 words; the row quote; T2)
+  - "In order for a write to be successful, cas must be set to the current version of the secret." (19 words; T1)
+  - "A version's data is permanently deleted only when the key has more versions than are allowed by the max-versions setting" (20 words; T3, T4)
+  - "Permanently delete all metadata and versions for a key" (9 words; T5)
+  Admit: tier A, `mined`, `recheck 180d` (an on-release clock would need a bound release feed in the same commit, QM63), used-by the entry and this lesson.
+- **Rejected — `https://openbao.org/docs/api/secret/kv/kv-v2/`** (R52ScoutSource: HTTP 200, 127677 B, sha256 `9c1fa5b1…`): the HTTP API reference; the entry measures CLI-level mechanics already cited from S110 and cites nothing on this page. Flip: an entry or trial that states an engine-level parameter S110 lacks (`cas_required`, `delete_version_after`, the default of 10 versions).
+- **Rejected — `https://openbao.org/docs/commands/kv/undelete/`, `…/kv/destroy/`, `…/kv/metadata/`** (R52ScoutSource: HTTP 200, 33415 / 33330 / 44332 B): command reference pages; every mechanic the trial runs is stated on S110. Flip: a claim about a CLI flag's documented default or validation (for example `-max-versions (int: 0)`).
+- **Not re-registered — `https://openbao.org/docs/api/system/wrapping-rewrap/`** (R52ScoutSource: HTTP 200, 38748 B, sha256 `7173f3a6…`, the same bytes the round-51 closure opened): `creation_path` occurs once on the page, inside the sample response; no sentence states the input token's creation path. This is the evidence C2's corrections rest on; the round-51 rejection stands on its first reason (S108 states the rewrap mechanic).
+- **Discernment sample (LEARNING.md):** admit — S110 (all four quotes located `count=1` in the L1 capture and in R52ScoutSource's independent fetch). Reject — the KV v2 API page (the seat and the L1 agree: no fact the entry cites).
+- **Counting rule (E49-1):** every word count in this `## Gate` is `printf '%s' "<quote>" | wc -w`.
+- **Rows added:** 1 (S110; tier A 1). **Rows touched:** none. Registry 109 → 110.
+
+## Mistakes
+
+| id | class | evidence pointer | captured-by | fix |
+|---|---|---|---|---|
+| M52-1 | `doc-over-read` (a rejection reason and a measured note asserted that a documentation sample disagrees with the binary, while the sample never states the input the disagreement depends on) | `corpus/knowledge/vault-openbao-token-lease-lifecycle.md:292` and `corpus/lessons/round-51.md:22` at BASE `1d984ada`; non-author closure `corpus/lessons/round-51-verifier-spotcheck.md:92,104` (its probe: a helper-made token reads `sys/wrapping/wrap` before and after rewrap) | none — the round-51 L1 compared the sample with a KV-made token only, and no lane check reads judgement sentences | C2: two appended corrections bound to the probe's measured paths. **Shown able to fail:** `bash plans/round-52-c2.sh 1d984ada` → `value=2` (`.ufo/waves/round-52/final/c2-base.txt`); controls K2-F1 (literals swapped) 2, K2-F2 (in HTML comments) 2, K2-F3 (wrong line pointer) 1. QM66. |
+| M52-2 | `codespan-comment` (the declared-axis gate took a `<!--` written inside an inline code span for an HTML comment opener and stopped seeing every later plan heading) | `bash corpus/claims-declared.sh --root .` over the candidate tree with the unamended gate printed `MISMATCH 52 C1 plan-heading-not-operability`, `MISMATCH 52 C2 plan-heading-not-calibration`: the frozen `plans/round-52.md:9` quotes the marker in backticks | the lane's own landing check (QM64: land only on `CLAIMS_DECLARED: CLEAN`) | `corpus/claims-declared.sh` masks inline code spans before toggling the comment state (both awk readers); selftest case 13. **Shown able to fail:** the BASE gate plus case 13 → `SELFTEST-FAIL codespan-comment …` and `CLAIMS_DECLARED_SELFTEST: FAIL (passed=12/13)`, rc 1; the amended gate → `PASS (13 cases)` (`.ufo/waves/round-52/final/gate-m52-2.txt`). QM67. |
+| M52-3 | `codespan-comment` (same class, in this round's own C2 counter before the freeze) | pre-freeze run 1 (`.ufo/waves/round-52/controls/controls-prefreeze-run1.txt`): K2-P read 1, K2-F3 2, K2-F6 2, one above the written expectations, because `corpus/lessons/round-51.md:15` quotes `<!--` in backticks | the pre-freeze controls (written expectations) | the counter masks code spans before the freeze; control K2-F8 added; run 2: 20 MATCH. QM67. |
+| M52-4 | `printed-protocol` (a discrimination counter accepts the expected verdict vectors without evidence that any mechanic ran) | R52CriticC1 (`.ufo/waves/round-52/build/R52CriticC1.md`): F2 fingerprints the five shims by junk calls and scores 5 with no server; F5b ranks the `.mode` files by creation time and scores 5; F6 runs T1 only and scores 5; K1-F8 is vacuous (`/proc/self` inside a command substitution names the `readlink` process) | R52CriticC1 (wave attack) — the pre-freeze controls had no shim-fingerprinting forger | Not fixed this round (the counter is frozen). C1 admission rests on the frozen counter AND the kill rule (the candidate trial is the reference body outside comments) AND the execution receipt `.ufo/waves/round-52/final/c1-execution-evidence.txt` (31 calls, each mechanic's subcommand present). Routed: per-test call binding in the real runs, run dirs created in shuffled order, shims that reproduce the CLI's local errors and help text. Not counted (no fix shown able to fail). |
+
+Misroot sweep (§3): recorded in the report.
+
+## Closure defects of round 51 (spot-check `corpus/lessons/round-51-verifier-spotcheck.md:102-107`)
+
+- D1 → C2 (M52-1). Seat evidence that judged the rewrap page against the binary (`.ufo/waves/round-51/build/R51ScoutSource.md:185`) is wave evidence and is not edited; this line is its correction by reference: the page's sample is consistent with OpenBao 2.7.2 for a helper-made input. The round-51 SCORECARD depth row carries the same over-read in other words; erratum E52-1 (SCORECARD, round-52 section).
+- D2 → every receipt the round-52 candidate cites lands in or before the candidate commit (receipts first, citing text in the same commit).
+- D3 → S-1/S-2/S-3 and M51-3 fixed in the new trial (the round-51 trial is unchanged this round); the round-51 c1h hardenings H1–H3 are the C1 counter's design; R51CriticC2 N7/N8/N11/N13 and the R11-08/R36-01 timeout budget stay routed.
+
+## Routed (named, not claimed this round)
+
+1. The round-51 trial `corpus/openbao-wrap-trial.sh` still passes tokens and values on argv (S-1) and writes the root token to its server log (S-2); port the round-52 handling to it under a counter that keeps its T1..T5 discrimination.
+2. C1 counter (M52-4): bind each real run to the mechanic's subcommands, create run dirs in shuffled order, make the shims reproduce the CLI's local errors and `-h` text (R52CriticC1 F1/F1b/F2/F5b/F6); replace K1-F8 with a forger that reads `/proc/$$/fd/1`; add a control that isolates the vector check (R52MutCounters M2).
+3. Trial defects R52ReviewerTrial D1 (wrong-shape JSON reads BROKEN in T4/T5), D2 (undelete exit status unasserted in T3/T5), D3 (unbounded wait in the start retry), D4 (SIGKILL leaves a secret-free scratch dir).
+4. C2 counter (next counter of this class): path-qualified pointers (R52ReviewerC2 F1: a same-basename pointer clears a line), case-consistent marker matching (F2), symlinked BASE files that point into excluded names hide assertions (R52CriticC2 A17/A24/A26), excluded names as parking places (A11/A16/A21), deletions outside GUARD's set are silent (A10); mutation survivors A/E/G/H/I need controls (R52MutCounters); the C2 probe's port check and inherited `VAULT_TOKEN` (R52SentinelSecrets F1, F4).
+5. R51CriticC2 N7/N8/N11/N13 (the declared-axis gate trusts the SCORECARD heading as the witness that a round landed); R11-08/R36-01 timeout budget under fleet load; R25-02 FAIL and R29-01/R29-02/R38-03 POLICY stay operator-routed.
+
+## Frontier
+
+Census at round start (`.ufo/waves/round-52/controls/census-start.txt`): `kagi ok`, rc 0. Census at round end: `.ufo/waves/round-52/final/census-end.txt`. Frontier move: KV v2 version operations (check-and-set, soft delete/undelete, destroy, max-versions, metadata delete) move from a single documented Vault parameter (S024) to an executed OpenBao trial.
+
+## Assimilation
+
+None: `grep -rilE 'openbao|undelete|max_versions|rewrap' /home/vgpnk/Projects/shokuknow/merge/kagi | wc -l` prints `0` and `grep -rilwE 'kv'` over the same package prints nothing (L1, 2026-11-07); R52ConnectorSiblings' scan agrees (`.ufo/waves/round-52/build/R52ConnectorSiblings.md` §2).
+
+## considerthese
+
+Newest file `considerthese/2026-10-26.md`; none taken: its four proposals (repair-only release path, machine-readable lane status — implemented round 31 —, the backlog table and carried-over items) do not touch a KV v2 trial or a rewrap calibration (R52ConnectorSiblings §3).

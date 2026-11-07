@@ -1,0 +1,21 @@
+CONTROL K2-0 expect=2 got=2 MATCH
+  C2_REWRAP_STATEMENTS: value=2 assertions=2 guard=1 probe=1 obs_helper=sys/wrapping/wrap obs_kv=secret/data/<path> uncorrected=[corpus/knowledge/vault-openbao-token-lease-lifecycle.md:292 corpus/lessons/round-51.md:22]
+CONTROL K2-P expect=0 got=0 MATCH
+  C2_REWRAP_STATEMENTS: value=0 assertions=2 guard=1 probe=1 obs_helper=sys/wrapping/wrap obs_kv=secret/data/<path> uncorrected=[]
+CONTROL K2-F1 expect=2 got=2 MATCH
+  C2_REWRAP_STATEMENTS: value=2 assertions=2 guard=1 probe=1 obs_helper=sys/wrapping/wrap obs_kv=secret/data/<path> uncorrected=[corpus/knowledge/vault-openbao-token-lease-lifecycle.md:292 corpus/lessons/round-51.md:22]
+CONTROL K2-F2 expect=2 got=2 MATCH
+  C2_REWRAP_STATEMENTS: value=2 assertions=2 guard=1 probe=1 obs_helper=sys/wrapping/wrap obs_kv=secret/data/<path> uncorrected=[corpus/knowledge/vault-openbao-token-lease-lifecycle.md:292 corpus/lessons/round-51.md:22]
+CONTROL K2-F3 expect=1 got=1 MATCH
+  C2_REWRAP_STATEMENTS: value=1 assertions=2 guard=1 probe=1 obs_helper=sys/wrapping/wrap obs_kv=secret/data/<path> uncorrected=[corpus/knowledge/vault-openbao-token-lease-lifecycle.md:292]
+CONTROL K2-F4 expect=SETUP got=SETUP MATCH
+  C2_REWRAP_STATEMENTS: SETUP reason=guard rewritten:./corpus/knowledge/vault-openbao-token-lease-lifecycle.md
+CONTROL K2-F5 expect=2 got=2 MATCH
+  C2_REWRAP_STATEMENTS: value=2 assertions=2 guard=1 probe=1 obs_helper=sys/wrapping/wrap obs_kv=secret/data/<path> uncorrected=[corpus/knowledge/vault-openbao-token-lease-lifecycle.md:292 corpus/lessons/round-51.md:22]
+CONTROL K2-F6 expect=1 got=1 MATCH
+  C2_REWRAP_STATEMENTS: value=1 assertions=3 guard=1 probe=1 obs_helper=sys/wrapping/wrap obs_kv=secret/data/<path> uncorrected=[corpus/knowledge/sops-age-key-rotation.md:161]
+CONTROL K2-F7 expect=1 got=1 MATCH
+  C2_REWRAP_STATEMENTS: value=1 assertions=2 guard=1 probe=1 obs_helper=sys/wrapping/wrap obs_kv=secret/data/<path> uncorrected=[corpus/lessons/round-51.md:22]
+CONTROL K2-F8 expect=1 got=1 MATCH
+  C2_REWRAP_STATEMENTS: value=1 assertions=2 guard=1 probe=1 obs_helper=sys/wrapping/wrap obs_kv=secret/data/<path> uncorrected=[corpus/knowledge/vault-openbao-token-lease-lifecycle.md:292]
+CONTROLS: match=10 mismatch=0

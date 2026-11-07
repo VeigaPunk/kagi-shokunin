@@ -81,6 +81,7 @@ see `lessons/round-1.md` for the rule and its rationale.
 | Machine credential custody boundaries | `knowledge/onepassword-machine-credentials.md` | 1Password CLI process delivery, Service Account scope, Connect tokens, and Broker preview key custody (SOURCES.md S001–S007; read 2026-10-19) |
 | SOPS age recipient and data-key rotation | `knowledge/sops-age-key-rotation.md` | recipient access, multi-key recovery, data-key rotation, and compromise order (SOURCES.md S009–S011; read 2026-10-19) |
 | Vault/OpenBao auth, token, and lease lifecycle | `knowledge/vault-openbao-token-lease-lifecycle.md` | distinct authentication, token, dynamic-secret lease, and KV boundaries (SOURCES.md S012–S016; read 2026-10-19) |
+| OpenBao KV v2 version lifecycle (executed) | `knowledge/openbao-kv-v2-version-lifecycle.md` | check-and-set, soft delete/undelete, destroy, max-versions, metadata delete measured on OpenBao 2.7.2 by `openbao-kv-versions-trial.sh` (SOURCES.md S110; read 2026-11-07) |
 | Round-19 re-census lesson | `lessons/round-19-recensus.md` | re-census verdicts, historical-marking audit, and named path/substrate debt |
 | Round-6 aggregator audit | `lessons/round-6-aggregator-audit.md` | nonconformance verdict and re-executed citation/count findings |
 | Round-9 aggregator corpus verdict | `lessons/round-9-aggregator-corpus-verdict.md` | corpus literal-text, count, and gate review verdict |

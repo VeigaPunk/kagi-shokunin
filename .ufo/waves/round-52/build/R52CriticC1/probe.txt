@@ -1,0 +1,42 @@
+real|undelete|rc=1|ms=124|No versions provided, use the "-versions" flag to specify the version to undelete.
+real|put-bogus-cas|rc=1|ms=107|invalid value "notanumber" for flag -cas: strconv.ParseInt: parsing "notanumber": invalid syntax
+real|meta-bogus-maxver|rc=1|ms=107|invalid value "notanumber" for flag -max-versions: strconv.ParseInt: parsing "notanumber": invalid syntax
+real|destroy-help|rc=0|ms=103|Usage: bao kv destroy [options] KEY//  Permanently removes the specified versions' data from the key-value store. If/  no key exists at the path, no action is taken.//  To destroy version 3 of key foo://      $ bao kv de
+real|metadel-help|rc=0|ms=76|Usage: bao kv metadata delete [options] PATH//  Deletes all versions and metadata for the provided key. //      $ bao kv metadata delete -mount=secret foo//  The deprecated path-like syntax can also be used, but this sho
+real|delete-help|rc=0|ms=93|Usage: bao kv delete [options] PATH//  Deletes the data for the provided version and path in the key-value store. The/  versioned data will not be fully removed, but marked as deleted and will no/  longer be returned in 
+real|plain-put|rc=2|ms=75|Get "https://127.0.0.1:8200/v1/sys/internal/ui/mounts/secret/fp": dial tcp 127.0.0.1:8200: connect: connection refused
+sh1|undelete|rc=1|ms=90|No versions provided, use the "-versions" flag to specify the version to undelete.
+sh1|put-bogus-cas|rc=2|ms=86|Get "https://127.0.0.1:8200/v1/sys/internal/ui/mounts/secret/fp": dial tcp 127.0.0.1:8200: connect: connection refused
+sh1|meta-bogus-maxver|rc=1|ms=84|invalid value "notanumber" for flag -max-versions: strconv.ParseInt: parsing "notanumber": invalid syntax
+sh1|destroy-help|rc=0|ms=74|Usage: bao kv destroy [options] KEY//  Permanently removes the specified versions' data from the key-value store. If/  no key exists at the path, no action is taken.//  To destroy version 3 of key foo://      $ bao kv de
+sh1|metadel-help|rc=0|ms=90|Usage: bao kv metadata delete [options] PATH//  Deletes all versions and metadata for the provided key. //      $ bao kv metadata delete -mount=secret foo//  The deprecated path-like syntax can also be used, but this sho
+sh1|delete-help|rc=0|ms=83|Usage: bao kv delete [options] PATH//  Deletes the data for the provided version and path in the key-value store. The/  versioned data will not be fully removed, but marked as deleted and will no/  longer be returned in 
+sh1|plain-put|rc=2|ms=75|Get "https://127.0.0.1:8200/v1/sys/internal/ui/mounts/secret/fp": dial tcp 127.0.0.1:8200: connect: connection refused
+sh2|undelete|rc=0|ms=12|Success! Data written to: secret/fp
+sh2|put-bogus-cas|rc=1|ms=72|invalid value "notanumber" for flag -cas: strconv.ParseInt: parsing "notanumber": invalid syntax
+sh2|meta-bogus-maxver|rc=1|ms=74|invalid value "notanumber" for flag -max-versions: strconv.ParseInt: parsing "notanumber": invalid syntax
+sh2|destroy-help|rc=0|ms=77|Usage: bao kv destroy [options] KEY//  Permanently removes the specified versions' data from the key-value store. If/  no key exists at the path, no action is taken.//  To destroy version 3 of key foo://      $ bao kv de
+sh2|metadel-help|rc=0|ms=76|Usage: bao kv metadata delete [options] PATH//  Deletes all versions and metadata for the provided key. //      $ bao kv metadata delete -mount=secret foo//  The deprecated path-like syntax can also be used, but this sho
+sh2|delete-help|rc=0|ms=80|Usage: bao kv delete [options] PATH//  Deletes the data for the provided version and path in the key-value store. The/  versioned data will not be fully removed, but marked as deleted and will no/  longer be returned in 
+sh2|plain-put|rc=2|ms=74|Get "https://127.0.0.1:8200/v1/sys/internal/ui/mounts/secret/fp": dial tcp 127.0.0.1:8200: connect: connection refused
+sh3|undelete|rc=1|ms=91|No versions provided, use the "-versions" flag to specify the version to undelete.
+sh3|put-bogus-cas|rc=1|ms=79|invalid value "notanumber" for flag -cas: strconv.ParseInt: parsing "notanumber": invalid syntax
+sh3|meta-bogus-maxver|rc=1|ms=81|invalid value "notanumber" for flag -max-versions: strconv.ParseInt: parsing "notanumber": invalid syntax
+sh3|destroy-help|rc=0|ms=83|Usage: bao kv delete [options] PATH//  Deletes the data for the provided version and path in the key-value store. The/  versioned data will not be fully removed, but marked as deleted and will no/  longer be returned in 
+sh3|metadel-help|rc=0|ms=84|Usage: bao kv metadata delete [options] PATH//  Deletes all versions and metadata for the provided key. //      $ bao kv metadata delete -mount=secret foo//  The deprecated path-like syntax can also be used, but this sho
+sh3|delete-help|rc=0|ms=95|Usage: bao kv delete [options] PATH//  Deletes the data for the provided version and path in the key-value store. The/  versioned data will not be fully removed, but marked as deleted and will no/  longer be returned in 
+sh3|plain-put|rc=2|ms=82|Get "https://127.0.0.1:8200/v1/sys/internal/ui/mounts/secret/fp": dial tcp 127.0.0.1:8200: connect: connection refused
+sh4|undelete|rc=1|ms=95|No versions provided, use the "-versions" flag to specify the version to undelete.
+sh4|put-bogus-cas|rc=1|ms=85|invalid value "notanumber" for flag -cas: strconv.ParseInt: parsing "notanumber": invalid syntax
+sh4|meta-bogus-maxver|rc=2|ms=110|Get "https://127.0.0.1:8200/v1/sys/internal/ui/mounts/secret/fp": dial tcp 127.0.0.1:8200: connect: connection refused
+sh4|destroy-help|rc=0|ms=108|Usage: bao kv destroy [options] KEY//  Permanently removes the specified versions' data from the key-value store. If/  no key exists at the path, no action is taken.//  To destroy version 3 of key foo://      $ bao kv de
+sh4|metadel-help|rc=0|ms=107|Usage: bao kv metadata delete [options] PATH//  Deletes all versions and metadata for the provided key. //      $ bao kv metadata delete -mount=secret foo//  The deprecated path-like syntax can also be used, but this sho
+sh4|delete-help|rc=0|ms=93|Usage: bao kv delete [options] PATH//  Deletes the data for the provided version and path in the key-value store. The/  versioned data will not be fully removed, but marked as deleted and will no/  longer be returned in 
+sh4|plain-put|rc=2|ms=105|Get "https://127.0.0.1:8200/v1/sys/internal/ui/mounts/secret/fp": dial tcp 127.0.0.1:8200: connect: connection refused
+sh5|undelete|rc=1|ms=85|No versions provided, use the "-versions" flag to specify the version to undelete.
+sh5|put-bogus-cas|rc=1|ms=111|invalid value "notanumber" for flag -cas: strconv.ParseInt: parsing "notanumber": invalid syntax
+sh5|meta-bogus-maxver|rc=1|ms=110|invalid value "notanumber" for flag -max-versions: strconv.ParseInt: parsing "notanumber": invalid syntax
+sh5|destroy-help|rc=0|ms=99|Usage: bao kv destroy [options] KEY//  Permanently removes the specified versions' data from the key-value store. If/  no key exists at the path, no action is taken.//  To destroy version 3 of key foo://      $ bao kv de
+sh5|metadel-help|rc=0|ms=107|Usage: bao kv delete [options] PATH//  Deletes the data for the provided version and path in the key-value store. The/  versioned data will not be fully removed, but marked as deleted and will no/  longer be returned in 
+sh5|delete-help|rc=0|ms=101|Usage: bao kv delete [options] PATH//  Deletes the data for the provided version and path in the key-value store. The/  versioned data will not be fully removed, but marked as deleted and will no/  longer be returned in 
+sh5|plain-put|rc=2|ms=85|Get "https://127.0.0.1:8200/v1/sys/internal/ui/mounts/secret/fp": dial tcp 127.0.0.1:8200: connect: connection refused

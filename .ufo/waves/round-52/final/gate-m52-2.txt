@@ -1,0 +1,19 @@
+# M52-2 red witness: BASE gate (git show 1d984ada:corpus/claims-declared.sh) with selftest case 13 spliced in (count 12 -> 13), vs the amended gate
+$ bash old13.sh --selftest
+SELFTEST-FAIL codespan-comment rc=1 out=MISMATCH 90 C1 plan-heading-not-freshness
+MISMATCH 90 C2 plan-heading-not-calibration
+CLAIMS_DECLARED: MISMATCH (claims=2 mismatch=2)
+CLAIMS_DECLARED_SELFTEST: FAIL (passed=12/13)
+rc=1
+$ bash corpus/claims-declared.sh --selftest
+CLAIMS_DECLARED_SELFTEST: PASS (13 cases)
+rc=0
+# BASE gate on the candidate working tree (plans/round-52.md:9 quotes <!-- in backticks):
+$ bash <BASE gate> --root .
+MISMATCH 52 C1 plan-heading-not-operability
+MISMATCH 52 C2 plan-heading-not-calibration
+CLAIMS_DECLARED: MISMATCH (claims=31 mismatch=2)
+rc=1
+$ bash corpus/claims-declared.sh --root .
+CLAIMS_DECLARED: CLEAN (claims=31)
+rc=0

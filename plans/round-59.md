@@ -176,11 +176,76 @@ and the receipt pins the instrument hashes.
 
 ## Shape and write scope
 
-One v1 wave, 13 seats, under `scripts/hyaku/ufo-wave-policy.json` (band 8–16):
-3 executors, 2 scouts, 2 scribes, 1 reviewer, 1 critic, 1 mutation-tester, 1 sentinel,
-1 connector, 1 labrat (attack share 4/13 = 31 %). The L1 holds the canonical planner
+One v1 wave, 14 seats, under `scripts/hyaku/ufo-wave-policy.json` (band 8–16):
+4 executors, 2 scouts, 2 scribes, 1 reviewer, 1 critic, 1 mutation-tester, 1 sentinel,
+1 connector, 1 revenger (attack share 4/14 = 29 %). The L1 holds the canonical planner
 seat. Seats return findings and files; only the L1 commits, through
 `scripts/hyaku/jj-lane.sh`.
+
+### A1 — 2026-11-07, before any candidate reading
+
+The wave is 14 seats, not the 13 this section first stated: the record-repair work
+(I1–I4 corrections, the `plans/round-58-controls-supplement.sh` battery and the citation
+reading) and the three instrument seats (trial, C1 counter, C2 counter) are four disjoint
+write sets, and giving one executor two of them serialises the wave. No predicate, item,
+target, POP or kill rule changes; the attack share is 4/14 = 29 %.
+
+### A2 — 2026-11-07, before any candidate reading
+
+The trial's printed contract is fixed so the counter and the trial cannot drift apart:
+
+- after `T1..T5` the trial prints exactly one `TRIAL CLEANROOM HOLDS|BROKEN <detail>` line
+  (the second, independent dev server refusing the first server's T1 ciphertext), then
+  exactly one summary `OPENBAO_TRANSIT_TRIAL: HOLDS|BROKEN|ERROR holds=<n> broken=<n>
+  error=<n> bao=<ver>`;
+- a clean-room leg that is missing or cannot be evaluated is `TRIAL CLEANROOM BROKEN` and
+  makes the summary non-HOLDS (exit 1), never exit 0;
+- the counter requires the `TRIAL CLEANROOM HOLDS` line to be present exactly once and
+  reads its verdict, so a trial that drops the leg cannot score 5.
+
+No predicate, item, target, POP or kill rule changes.
+
+### A3 — 2026-11-07, before the recorded candidate reading
+
+The pre-freeze battery's first two runs exposed a reading the kill rule K1 did not state:
+the GUARD's +1 challenge mutates I1's own last line, so it can only fire when I1 is the
+*resolved* item under test — on any forged tree with ≥1 unresolved item the challenge produces
+no increase and the guard-bearing line reads `value=FAIL … guard=0`. K1 is therefore read as:
+each forgery control C1-F1..C1-F5 and C1-F8 is scored on the **diagnostic** leg
+(`--no-challenge`, `value = unresolved count`) and must read exactly 1; the guard's firing is
+evidenced by K1-REF (a tree with all five resolved reads `value=0 … guard=1`, i.e. the
+challenge produced exactly 0+1) and by C1-F7 (a printer stub reads `value=0` but fails the
+challenge, so its line is `FAIL`). This is the round-58 A5 reading applied to this item set;
+the predicate, the five item conditions, the target and every other kill rule are unchanged.
+The battery's run-1 and run-2 receipts stay committed as superseded evidence of the finding.
+
+### A4 — 2026-11-07, before the recorded candidate reading
+
+The pre-freeze wave (critic, reviewer, mutation seats) and this round's first batteries
+exposed four statement defects; all four are corrections of *description*, and no predicate,
+item condition, target, POP or claim changes:
+
+1. **Control composition (§Pre-freeze controls)** is the landed set, not the prose list:
+   K1-BASE, K1-BASE-GUARD, K2-BASE, K1-REF, C1-F1..C1-F8, C2-F1..C2-F8 — 20 controls.
+   C2-F1 is the *T5* shim removed (not all shims), C2-F2 is the trial's own no-bao leg,
+   C2-F6 is the two-test flip, C2-F8 runs on the reference tree. The round-58 documented
+   `C2-F4` single-run leg ships in `plans/round-58-controls-supplement.sh`, not here; this
+   battery's C2-F4 is a single-run trial measured through the counter.
+2. **The documented C1 entry command is the wrapper** `bash plans/round-59-c1.sh [rev | --tree DIR]`.
+   The bare checker needs a writable challenge parent (`C1_CHALLENGE_PARENT`, else
+   `$HYAKU_SCRATCH`/`TMPDIR`); without one it prints `value=FAIL … guard=0` even on a tree
+   whose five items hold. The BASE census is taken with `--no-challenge`, because the
+   guard-bearing line reads `value=FAIL` for both "BASE has an unresolved item" and
+   "challenge unavailable".
+3. **T5's row omits an enforced prerequisite.** `convergent_encryption: true` requires
+   `derived: true`; a key created without it is refused (HTTP 400, "convergent encryption
+   requires derivation to be enabled", measured by the critic and by the trial). The
+   shipped trial sets `derived=true`, so it exceeds its own predicate text; the predicate's
+   T5 row is read as "a convergent key (derived + convergent_encryption) with a `context`".
+   T3's "without a decrypt round trip" is a control-flow property of the trial, not an
+   output observable; the observable is the post-rewrap retirement pair.
+4. **The C2 counter's absent-trial leg exited 0** while the frozen contract is "exit 0 iff
+   value=5". The leg now exits 1; the reading (`value=0 … (absent)`) is unchanged.
 
 ## Lane status
 

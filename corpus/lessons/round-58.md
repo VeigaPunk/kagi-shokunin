@@ -106,3 +106,18 @@ Instruments: `plans/round-58-c1-check.py`, `plans/round-58-c1.sh`, `plans/round-
 The connector sweep found no sibling lane holding OpenBao/Vault ACL-policy ground; `PROVINCE.md`'s
 deliberate refusal (vault-side structure) is unchanged. The `~/.config/opencode` ownership question
 stays reported to the integrator, never ruled here.
+
+## Correction (round 59)
+
+2026-11-07 — append-only correction of the five round-58 routed record defects
+(`corpus/lessons/round-58-verifier-spotcheck.md` §7 D1–D5); no earlier line is rewritten.
+
+- Correction D1: Registry 117 → 120 at the candidate (S118, S119, S120); this supersedes the
+  earlier registry statement that read 119 → 120 — the last-occurrence rule of `plans/round-59.md`
+  I1 makes this the operative reading (claim BASE `1b13f5da` holds 117 `SOURCES.md` data rows,
+  landing `be8705f8` holds 120).
+- Correction D2: `corpus/source-fetches.tsv` added 6 rows between the round-58 claim BASE and
+  landing (the `git diff 1b13f5da be8705f8` `+S` count; rows S115–S120).
+- Correction D3: `.ufo/waves/round-58/controls/controls-prefreeze.txt` census is 20 `CONTROL ` lines total, 9 `CONTROL C1-F` and 7 `CONTROL C2-F`; `C1-F10` (printer-stub challenge) and `C2-F4` (single-run leg) were named by the round-58 plan, lesson and report but never shipped, so `plans/round-58-controls-supplement.sh` now ships both and `.ufo/waves/round-59/final/supplement-receipt.txt` records the run (`SUPPLEMENT: match=2 mismatch=0`).
+- Correction D4: `.ufo/waves/round-59/final/citation-gate-r59.txt` is this round's committed post-fix `bash corpus/claim-ledger.sh citations --docs …` reading (scope named in the file's header line) and it states unresolved=6; the reading closes the round-58 report's "fixed" claim for the release-clock receipt only — the gate is not clean, and the six unresolved references are one lane-owned malformed citation (`SCORECARD.md:1856`, the `.ufo/waves/round-56/controls/c1-base.txt`-equivalent wording carried from round 56) plus integrator-authored spot-check files this lane may not edit (the named ceiling carried from the round-58 spot-check).
+- Correction D5: stale-lane: the round-58 mission ran 2026-11-07T11:54:48-03:00 → 2026-11-07T13:36:19-03:00 = 101 whole minutes and the row reads progressing (lane commits 13:32:54 and 13:34:45 inside the window), per `corpus/lessons/round-58-verifier-spotcheck.md` §1.

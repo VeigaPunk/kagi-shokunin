@@ -1,0 +1,14 @@
+# Note: FINAL counter bytes sha256 5c71947dcafa9d88f49454f12b9ed39b7fbcefb89d7570728aae6b608c2882bd; Amendment A1 hardens the checker side only — the counter is unchanged by A1.
+$ bash plans/round-62-c1.sh 60b5b7b60b76629633110a5b4adac883193c8b2a   # BASE run (claim BASE 60b5b7b6, kagi lane)
+c1-counter: measured=revision 60b5b7b60b76629633110a5b4adac883193c8b2a (git archive)
+c1-counter: scratch=/fast/scratch/hyaku/kagi-r62/R62ExecC1Counter/run-20261107T182731Z-3353669
+c1-counter: selftest rc=0 pass=1 cases=52 (guard needs >= 57)
+c1-counter: unmodified value=0
+c1-counter: stub c1_rc=2 c1_ok=1 c2_rc=2 c2_ok=1 (runs: /fast/scratch/hyaku/kagi-r62/R62ExecC1Counter/run-20261107T182731Z-3353669/stub/run.out /fast/scratch/hyaku/kagi-r62/R62ExecC1Counter/run-20261107T182731Z-3353669/stub2/run.out)
+c1-counter: paraphrase leg=1
+C1_BYPASS: accepted=5 population=5 guard=0 (real=1 selftest=0 stub=1 paraphrase=1)
+
+real	1m40.533s
+user	1m1.666s
+sys	0m50.986s
+rc=1

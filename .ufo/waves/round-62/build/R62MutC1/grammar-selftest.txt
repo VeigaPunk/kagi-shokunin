@@ -1,0 +1,12 @@
+# instrument: plans/round-61-c1-check.py sha256 f2afd9b8f5382cdf8b8914546bb8fcb73d135854e6e546c5012fb7df63eca9c0
+# detector: C1_CHALLENGE_PARENT=<scratch> TMPDIR=<scratch> python3 -I -B <mutant>/round-61-c1-check.py --selftest
+BASELINE rc=0 :: C1_CHECK_SELFTEST: PASS (cases=75)
+GM1-I3-negator-removed rc=1 :: C1_CHECK_SELFTEST: FAIL (cases=75 failed=1 names=b3-negated-withdrawn-unresolved)
+GM2-I4-negator-removed rc=1 :: C1_CHECK_SELFTEST: FAIL (cases=75 failed=1 names=b4-no-three-unresolved)
+GM3-I5-negator-removed rc=1 :: C1_CHECK_SELFTEST: FAIL (cases=75 failed=1 names=b5-not-rewritten-unresolved)
+GM4-negator-window-zero rc=1 :: C1_CHECK_SELFTEST: FAIL (cases=75 failed=6 names=b3-negated-withdrawn-unresolved,b4-no-three-unresolved,b5-not-rewritten-unresolved,window-negator-detected,window-no-three-negated,mid-window-not-only-still-negator)
+GM5-I6-superseded-stamp-dropped rc=0 :: C1_CHECK_SELFTEST: PASS (cases=75)
+GM6-I7-pairing-dropped rc=1 :: C1_CHECK_SELFTEST: FAIL (cases=75 failed=1 names=b7-swapped-pairing-unresolved)
+GM7-is-negator-inverted rc=1 :: C1_CHECK_SELFTEST: FAIL (cases=75 failed=8 names=b3-negated-withdrawn-unresolved,b4-no-three-unresolved,b5-not-rewritten-unresolved,negator-set-membership,window-negator-detected,window-no-three-negated,mid-window-not-only-still-negator,k5-negator-needle-unique)
+GM8-I6-denial-clause-dropped rc=1 :: C1_CHECK_SELFTEST: FAIL (cases=75 failed=1 names=b6-tail-denial-unresolved)
+GM9-verdict-mapping-inverted rc=1 :: C1_CHECK_SELFTEST: FAIL (cases=75 failed=17 names=evaluate-no-challenge-good,evaluate-guard-good-tree,no-repo-good-shape-only,evaluate-all-unresolved-7,only-i1-resolves,only-i2-resolves,only-i3-resolves,only-i4-resolves,only-i5-resolves,only-i6-resolves,only-i7-resolves,i2-absent-script-unresolved-not-setup,full-p3-value0,full-p4-value0,full-p5-value0,k5-negator-removed-accepts-b3,challenge-plus1-fires-with-unresolved)

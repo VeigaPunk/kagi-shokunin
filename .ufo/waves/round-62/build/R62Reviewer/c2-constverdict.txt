@@ -1,0 +1,13 @@
+# R62Reviewer — C2 guard (c): constant-verdict counter refusal
+
+## tree: trees/constverdict = tree0 + plans/round-61-c2.sh (hardened) with its
+##   --selftest branch replaced by: echo "C2_SELFTEST: PASS (cases=99)"; exit 0
+##   (the aggregation blocks stay intact, so M-A/M-B markers still match)
+$ bash plans/round-61-c2.sh --selftest   # in the tree
+C2_SELFTEST: PASS (cases=99)   rc=0
+
+$ bash plans/round-62-c2.sh --tree trees/constverdict
+C2_HARDENED: killed=1 population=3 guard=0 (ma=0 mb=0 g=1 selftest=1 real=1)   rc=1
+
+## verdict: refused. The constant selftest also defeats the M-A/M-B mutations,
+## so refused=ma&&mb=0 and guard=0. Guard leg (c) discriminates.

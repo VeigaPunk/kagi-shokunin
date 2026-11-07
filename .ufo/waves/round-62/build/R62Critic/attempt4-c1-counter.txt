@@ -1,0 +1,22 @@
+== 1. counter on the BASE tree (do-nothing control)
+  c1-counter: selftest rc=0 pass=1 cases=1 (guard needs >= 57)
+  c1-counter: unmodified value=0
+  c1-counter: stub rc=2 verdict_absent=1 (stub run output: /fast/scratch/hyaku/kagi-r62/R62Critic/kagi-r62/R62ExecC1Counter/run-20261107T181350Z-116351/stub/run.out)
+  c1-counter: paraphrase leg=1
+  C1_BYPASS: accepted=5 population=5 guard=0 (real=1 selftest=0 stub=1 paraphrase=1)
+  rc=1
+== 2. counter on the NAMED stub tree (frozen leg c shape)
+  c1-counter: refuse: tree checker --selftest printed no C1_CHECK_SELFTEST: PASS line (rc=0) — no verdict
+  rc=2 verdict_lines=0
+== 3. counter on the CRAFTED stub tree (constant line + PASS line)
+  c1-counter: selftest rc=0 pass=1 cases=57 (guard needs >= 57)
+  c1-counter: unmodified value=0
+  c1-counter: stub rc=2 verdict_absent=1 (stub run output: /fast/scratch/hyaku/kagi-r62/R62Critic/kagi-r62/R62ExecC1Counter/run-20261107T181631Z-790076/stub/run.out)
+  c1-counter: paraphrase leg=1
+  C1_BYPASS: accepted=5 population=5 guard=1 (real=1 selftest=1 stub=1 paraphrase=1)
+  rc=1 verdict_lines=1
+== 4. the counter's own selftest
+  c1-counter: selftest tree=revision 60b5b7b60b76629633110a5b4adac883193c8b2a (git archive) scratch=/fast/scratch/hyaku/kagi-r62/R62Critic/kagi-r62/R62ExecC1Counter/run-20261107T181636Z-802404
+  C1_COUNTER_SELFTEST: PASS (6/6 checks)
+  rc=0
+DONE

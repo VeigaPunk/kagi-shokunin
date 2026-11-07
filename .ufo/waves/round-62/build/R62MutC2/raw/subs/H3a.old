@@ -1,0 +1,1 @@
+grep -qE '^SEAL_SELFTEST: PASS \(cases=[0-9]+\)' "${OUT[selftest]}" 2>/dev/null || guard_obs=0

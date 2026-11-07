@@ -2102,3 +2102,55 @@ Ceilings are named so they are not mistaken for saturations:
   reachable but not cheap.
 - **coverage** — the census declaration is untouched; the new ground is a behaviour surface,
   not a path surface.
+
+## Errata — round 61 controls count
+
+- Correction (round-62 routed D1): supersedes the round-61 controls count in §Round 61 — post-move (`SCORECARD.md:2056`, `CONTROLS: match=17 mismatch=0`). The committed receipt `.ufo/waves/round-61/controls/controls-prefreeze.txt` carries 18 `CONTROL ` lines and the line `CONTROLS: match=18 mismatch=0`, and `LOG.md:1990` reads `match=18`. The receipt is the authority; the round-61 row's number is superseded, not rewritten (QM78).
+
+## Round 62 — pre-move (repo HEAD `60b5b7b6`, round-61 spot-check tip)
+
+Claim BASE `60b5b7b60b76629633110a5b4adac883193c8b2a`; predeclaration `8e5463c7`
+(frozen plan `plans/round-62.md`). All six axes stand at 9. Saturation line 9,
+stagnation window N=3; capabilities entered rounds 57–61, so no stagnation waiver.
+
+| Axis | Score | Evidence pointer | Last change |
+|---|---|---|---|
+| depth | 9 | Unchanged from round 29 (`R29-01`); round 62 moves no domain surface. | round 29 |
+| coverage | 9 | 127 registry rows at BASE (`grep -cE '^\|[[:space:]]*S[0-9]{3,}[[:space:]]*\|' corpus/SOURCES.md`), census `kagi ok` rc 0 (`.ufo/waves/round-62/census-start.txt`). | round 61 |
+| operability | 9 | Unchanged as a score; measured BASE gap: the C2 counter's `guard` is a near-constant (a valid-sha256 stub trial reads `guard=1`) and its `--selftest` does not execute the aggregation (M-A and M-B survive) — `C2_HARDENED` 0/3 (`R62-02`). | round 61 |
+| freshness | 9 | Every knowledge entry declares its re-verification (`R14-01`); the round-56 replay gate is green. | round 56 |
+| calibration | 9 | Unchanged as a score; measured BASE gap: the five reviewer bypass trees each read `C1_ROUTED: value=0` (accepted) on the BASE checker — `C1_BYPASS` 5/5 (`R62-01`). | round 61 |
+| adjacency | 9 | Ownership partition gate green (`R17-02`); the carried `ADJACENCY_SCOPE: DEFECT` breadth debt is named, not absorbed. | round 58 |
+
+Declared claims: **C1 calibration** (the C1 checker's negation / swapped-pairing
+bypass class is closed and the seven round-61 corrections still resolve;
+`C1_BYPASS` accepted 5 → 0, population 5) and **C2 operability** (the C2 counter's
+guard and self-invocation mode can fail; `C2_HARDENED` killed 0 → 3, population 3).
+No retirement, split or stagnation waiver is claimed: capabilities entered rounds
+57–61 and both claims are instrument hardening by the round-61 close's own plan.
+
+## Round 62 — post-move (claims C1 calibration, C2 operability)
+
+Candidate: the round-62 candidate commit (recorded in the report; `.ufo/waves/round-62/final/`
+holds the candidate-revision readings). Claim BASE `60b5b7b60b76629633110a5b4adac883193c8b2a`;
+predeclaration `8e5463c7`; amendments A1 (I6's denial clause), A2 (the I4/I5 statement scope and
+the M-A/M-B needle) and A3 (C1 guard leg (e), the checker challenge), each landed before any
+candidate reading (`7b291538`).
+
+| Axis | Before → after | What moved | Evidence |
+|---|---|---|---|
+| calibration | 9 → 9 | [C1] `bash plans/round-62-c1.sh 60b5b7b6` ⇒ `C1_BYPASS: accepted=5 population=5 guard=0` rc 1 → `bash plans/round-62-c1.sh --tree .` ⇒ `C1_BYPASS: accepted=0 population=5 guard=1 (real=1 selftest=1 stub=1 paraphrase=1 chal=1)` rc 0 (target 0, population 5): the five round-61 reviewer bypass fixtures (a negation or a swapped pairing that keeps every token) are rejected by the hardened checker while the seven round-61 corrections still resolve and the three paraphrase fixtures stay resolved; the checker's own selftest carries 75 cases including the five bypass cases, the three paraphrase cases and the I6 denial clause; guard leg (e) refuses a stub that self-attests a PASS line. Named ceilings: the five fixtures are the reviewer's five (a sixth negation class is a new routed defect); a structural read proves the sentence asserts the correction, not that it is true (QM79 narrows, never closes, this); the negator window is a floor. | `plans/round-62-c1.sh`; `.ufo/waves/round-62/final/c1-base.txt`; `.ufo/waves/round-62/final/candidate.txt`; `plans/round-61-c1-check.py` (75 cases) |
+| operability | 9 → 9 | [C2] `bash plans/round-62-c2.sh 60b5b7b6` ⇒ `C2_HARDENED: killed=0 population=3 guard=0` rc 1 → `bash plans/round-62-c2.sh --tree .` ⇒ `C2_HARDENED: killed=3 population=3 guard=1 (ma=1 mb=1 g=1 selftest=1 real=1)` rc 0 (target 3, population 3): the measured counter's `--selftest` now executes its own aggregation (a constant-aggregation mutant and an unconditional-shim mutant each fail with a named `FINDING`), and its guard reads 0 on a valid-sha256 stub trial that prints no expected observable; the real trial still reads `value=5 shims=5 vectors=ok/5`. Named ceilings: two mutation classes, not a complete mutation set; one stub shape; the real leg needs `bao`; the counter still trusts the trial's printed observables. | `plans/round-62-c2.sh`; `plans/round-61-c2.sh` (21 cases); `.ufo/waves/round-62/final/c2-base.txt`; `.ufo/waves/round-62/final/candidate.txt` |
+| coverage | 9 → 9 | No claim. Registry 127 → 134 (S128–S131 tier A `mined`; S132–S134 tier C `rejected`); coverage map gains the instrument-falsifiability entry. | `corpus/SOURCES.md`; `corpus/source-fetches.tsv`; `corpus/README.md` |
+| depth | 9 → 9 | No claim. The entry `corpus/knowledge/claim-instrument-falsifiability.md` adds the bypass class, the polarity and pairing rules, the mutation-kill contract and the guard-observable rule with bounds and falsifiers. | `corpus/knowledge/claim-instrument-falsifiability.md` |
+| freshness | 9 → 9 | No claim. Four admitted rows opened live 2026-11-07 with located quotes and reproducible captures (S130/S131 re-pinned to the token-free NLM XML after the article HTML's per-request token made its digest irreproducible); three rejects carry reason and flip. | `corpus/SOURCES.md`; `.ufo/waves/round-62/capture/notes.md` |
+| adjacency | 9 → 9 | No claim. Connector sweep over 21 lanes: chousa holds lexical polarity-flip detection and kumitate a `gate-mutants.mjs` battery — adjacent, reported, not absorbed; the carried `ADJACENCY_SCOPE: DEFECT` breadth debt is named. | `.ufo/waves/round-62/build/R62Connector/sweep.md` |
+
+Named ceilings (recorded, not smoothed): the C1 predicate's I4/I5 conditions are line-scoped
+(A2) and the I6 superseded-stamp conjunct accepts any non-derived time (reviewer D-3, routed);
+the I7 pairing does not bind the fraction to its subject (reviewer D-4, routed); the negator
+window is before-only and five tokens (reviewer D-5, the plan's floor); the C1 counter's
+verdict-mode stub composition and `stub_leg` negative vector are not exercised by its selftest
+(MutC1 CM2a/CM2b, routed); the checker's I6 clause (c) has no isolating selftest case (MutC1
+GM5, routed); the C2 counter's guard leg (c) is `ma ∧ mb`, not a constant-verdict copy (critic
+D12); nothing schedules the gates.

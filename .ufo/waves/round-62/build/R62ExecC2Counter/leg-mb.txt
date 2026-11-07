@@ -1,0 +1,11 @@
+# M-B: in the candidate plans/round-61-c2.sh, replace the lines strictly
+# between the SHIMS markers with "  shims_ok=5" (markers kept, each matching
+# exactly once: open=1 close=1), then run the mutated counter's --selftest.
+# Expected: exit non-zero printing a named FINDING.
+
+$ awk needle replacement (apply_mut) then: bash <mutated> --selftest
+FINDING R61-C2-ST-shims-ok
+FINDING R61-C2-ST-shims-bad
+FINDING R61-C2-ST-shims-summary
+C2_SELFTEST: FAIL (cases=21 failed=3)
+rc=1

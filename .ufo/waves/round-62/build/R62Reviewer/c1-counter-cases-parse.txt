@@ -1,0 +1,31 @@
+# R62Reviewer — C1 counter case-count parse defect (plans/round-62-c1.sh, 16413 B, 18:08)
+
+## the code (plans/round-62-c1.sh:207-213, selftest_gate)
+  line="$(grep -E '^C1_CHECK_SELFTEST: PASS \((cases=)?[0-9]+( cases)?\)[[:space:]]*$' "$pfx.out" | tail -1)"
+  if [[ -n "$line" && "$ST_RC" -eq 0 ]]; then
+    ST_N="$(grep -oE '[0-9]+' <<<"$line" | head -1)"
+
+## why it is wrong: the line starts with C1_CHECK_SELFTEST, whose '1' is the first digit
+$ line="C1_CHECK_SELFTEST: PASS (57 cases)"; grep -oE "[0-9]+" <<<"$line" | tr "\n" " "
+1 57 
+$ ... | head -1
+1
+
+## measured on the BASE checker (prints 52 cases)
+$ bash plans/round-62-c1.sh --tree trees/tree0
+c1-counter: selftest rc=0 pass=1 cases=1 (guard needs >= 57)
+C1_BYPASS: accepted=5 population=5 guard=0 (real=1 selftest=0 stub=1 paraphrase=1)  rc=1
+
+## measured on a checker whose selftest prints (57 cases) [trees/fakehard: BASE bytes,
+## only the final print changed to a literal '(57 cases)']
+$ bash plans/round-62-c1.sh --tree trees/fakehard
+c1-counter: selftest rc=0 pass=1 cases=1 (guard needs >= 57)
+C1_BYPASS: accepted=5 population=5 guard=0 (real=1 selftest=0 stub=1 paraphrase=1)  rc=1
+
+## consequence: ST_N is always 1, so selftest=0 and guard=0 for every checker;
+## the counter's exit 0 (guard=1 and accepted=0) is unreachable. The counter's own
+## --selftest does not test the case-count parse: C1_COUNTER_SELFTEST: PASS (6/6 checks).
+
+## fix: extract the number inside the parentheses, e.g.
+#   ST_N="$(sed -n 's/.*(\(cases=\)\{0,1\}\([0-9]\{1,\}\) cases\{0,1\}).*/\2/p' <<<"$line")"
+# or: grep -oE '\([0-9]+ cases?\)' <<<"$line" | grep -oE '[0-9]+'

@@ -1,0 +1,28 @@
+# R62Reviewer — BASE checker census (plans/round-61-c1-check.py d525ee28, 67905 B)
+# tree0 = git archive HEAD (8e5463c7937dccdd97fd5a812b8091f83b708aa7)
+# command: python3 -I -B plans/round-61-c1-check.py --root trees/<id> --repo <lane> --no-challenge
+
+B3	frozen	rc=1	C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+B4	frozen	rc=1	C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+B5	frozen	rc=1	C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+B6	frozen	rc=1	C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+B7	frozen	rc=1	C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+N1	I3 never	rc=1	C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+N2	I3 hardly (not in the closed negator set)	rc=1	C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+N3	I3 denial after the token	rc=1	C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+N4	I3 negation beyond the 5-token window	rc=1	C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+N5	I4 not merely three	rc=1	C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+N6	I4 three quoted then denied	rc=1	C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+N7	I4 negator truncated at a colon	rc=1	C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+N14	I4 negation beyond the 5-token window	rc=1	C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+N8	I5 never rewritten	rc=1	C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+N9	I5 negation beyond the 5-token window	rc=1	C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+N10	I7 swapped pairing with % glued	rc=1	C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+N11	I7 subjects swapped, each fraction correctly paired	rc=1	C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+N12	I6 fabricated stamp replaces the superseded paragraph's stamp	rc=1	C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+N12b	I6 fabricated stamp added beside the four derived stamps	rc=1	C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+P6	benign: has been withdrawn	rc=1	C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+P7	benign: not only idiom before three	rc=1	C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+P8	benign: rewritten in place, at	rc=1	C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+
+ACCEPTED (value=0) on BASE: 22 -> ['B3', 'B4', 'B5', 'B6', 'B7', 'N1', 'N2', 'N3', 'N4', 'N5', 'N6', 'N7', 'N14', 'N8', 'N9', 'N10', 'N11', 'N12', 'N12b', 'P6', 'P7', 'P8']

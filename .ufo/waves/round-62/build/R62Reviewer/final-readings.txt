@@ -1,0 +1,19 @@
+# R62Reviewer — final verdict readings on the current bytes
+
+## C1 claim counter (plans/round-62-c1.sh 5c71947d, 19230 B, 18:26)
+$ bash plans/round-62-c1.sh --tree .
+c1-counter: selftest rc=0 pass=1 cases=75 (guard needs >= 57)
+c1-counter: unmodified value=0
+c1-counter: stub c1_rc=2 c1_ok=1 c2_rc=2 c2_ok=1
+c1-counter: paraphrase leg=1
+C1_BYPASS: accepted=0 population=5 guard=1 (real=1 selftest=1 stub=1 paraphrase=1)  rc=0
+
+## C2 claim counter (plans/round-62-c2.sh 59553ef4, 14818 B, 18:17)
+$ bash plans/round-62-c2.sh --tree .
+C2_HARDENED: killed=3 population=3 guard=1 (ma=1 mb=1 g=1 selftest=1 real=1)  rc=0
+
+## counter selftests
+$ bash plans/round-62-c1.sh --selftest --tree .  => C1_COUNTER_SELFTEST: PASS (7/7 checks)  rc=0
+$ bash plans/round-62-c2.sh --selftest            => C2R62_SELFTEST: PASS (cases=16)  rc=0
+$ python3 -I -B plans/round-61-c1-check.py --selftest => C1_CHECK_SELFTEST: PASS (75 cases)  rc=0
+$ bash plans/round-61-c2.sh --selftest            => C2_SELFTEST: PASS (cases=21)  rc=0

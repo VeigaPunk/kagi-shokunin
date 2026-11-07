@@ -1,0 +1,14 @@
+# Note: FINAL counter bytes sha256 5c71947dcafa9d88f49454f12b9ed39b7fbcefb89d7570728aae6b608c2882bd; measures the lane working tree at candidate integration time (hardened checker f2afd9b8…, selftest PASS (cases=75)); Amendment A1 (I6 denial clause) is the checker-side hardening for fixture B6 — the counter is unchanged by A1.
+$ bash plans/round-62-c1.sh --tree /home/vgpnk/Projects/shokunin/kagi-shokunin   # candidate run (lane working tree, hardened checker)
+c1-counter: measured=--tree /home/vgpnk/Projects/shokunin/kagi-shokunin (copied 13528 files)
+c1-counter: scratch=/fast/scratch/hyaku/kagi-r62/R62ExecC1Counter/run-20261107T182731Z-3353668
+c1-counter: selftest rc=0 pass=1 cases=75 (guard needs >= 57)
+c1-counter: unmodified value=0
+c1-counter: stub c1_rc=2 c1_ok=1 c2_rc=2 c2_ok=1 (runs: /fast/scratch/hyaku/kagi-r62/R62ExecC1Counter/run-20261107T182731Z-3353668/stub/run.out /fast/scratch/hyaku/kagi-r62/R62ExecC1Counter/run-20261107T182731Z-3353668/stub2/run.out)
+c1-counter: paraphrase leg=1
+C1_BYPASS: accepted=0 population=5 guard=1 (real=1 selftest=1 stub=1 paraphrase=1)
+
+real	1m41.717s
+user	1m1.616s
+sys	0m52.101s
+rc=0

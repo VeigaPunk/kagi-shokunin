@@ -38,8 +38,19 @@
 #   40+-char base64 share, a bare `operator seal`, `operator generate-root
 #   -init`, `operator generate-root -decode=`, and `operator rekey -init
 #   -key-shares=3 -key-threshold=2` — so a help-only stub cannot satisfy it.
-# Guard: guard=1 iff every leg below ran (each mode has a captured rc) AND the
-#   trial file's sha256 is recorded (printed as trial=<hex> in the census).
+# Guard (hardened round 62; closes the round-61 reviewer finding C2-4): the
+#   round-61 definition (guard=1 iff every leg ran AND the sha256 is recorded)
+#   was a near-constant that read guard=1 on a prints-nothing stub trial. Now
+#   guard=1 iff every leg below ran (each mode has a captured rc), the trial
+#   file's sha256 is recorded (printed as trial=<hex> in the census), AND every
+#   leg's expected observable is present in its captured stream: the trial's
+#   SEAL_SELFTEST: PASS (cases=N) line, the real runs' TRIAL/summary lines
+#   (real_ok), the no-bao SETUP line with no HOLDS (none_ok), the trial
+#   selftest leg's PASS with N >= 8 (selftest_ok), the ops argv shapes
+#   (ops_ok), the T2 progress markers (t2_ok) and the five exact shim flips
+#   (shims_ok=5). A valid-sha256 stub trial that prints no expected observable
+#   reads guard=0: the guard distinguishes "evaluated and failed" from "could
+#   not evaluate".
 # Trial interface this counter measures (corpus/openbao-seal-trial.sh): the
 #   trial is NOT on disk at the predeclaration, so this counter is coded to the
 #   plans/round-61.md section C2 contract and the round-57/58/59/60 trial
@@ -65,7 +76,11 @@
 #   self-invocation mode is a defect of its landing round): fixture-driven,
 #   no bao, no network, and it must fail with a named R61-C2-ST-<case> FINDING
 #   when its verdict parsing, summary match, expectation table or secret scan
-#   is broken (red witness). It prints C2_SELFTEST: PASS (cases=N) on success.
+#   is broken (red witness). Round-62 hardening (closes the reviewer finding
+#   C2-5): the selftest also drives the DECIDE and SHIMS aggregation blocks
+#   with positive and negative vectors, so a constant replacement of either
+#   block fails a named case instead of printing PASS. It prints
+#   C2_SELFTEST: PASS (cases=N) with N >= 17 on success.
 # Ambient BAO_*/VAULT_* of the caller cannot change the reading: every leg
 #   runs under `env -i`. (Round 60's dedicated placeholder-ambient control
 #   C2-F8 is not part of the round-61 frozen predicate or control plan; the
@@ -130,6 +145,31 @@ tlines() { grep -cE '^TRIAL T[0-9]+( |$)' "$1"; }
 holds5() { grep -q '^OPENBAO_SEAL_TRIAL: HOLDS holds=5 broken=0 error=0' "$1"; }
 broken41() { grep -q '^OPENBAO_SEAL_TRIAL: BROKEN holds=4 broken=1' "$1"; }
 declare -A EXPECT=( [sh1]=BHHHH [sh2]=HBHHH [sh3]=HHBHH [sh4]=HHHBH [sh5]=HHHHB )
+# Verdict aggregation, exposed for this counter's own selftest (round-62
+#   hardening): the two blocks below are marker-delimited, each marker occurring
+#   exactly once, so the round-62 falsifier legs can replace a block with a
+#   constant and watch --selftest fail a named case. The function header and
+#   footer lines sit outside the markers, so a constant body stays a valid
+#   function definition.
+decide() { # six leg values: pass shims none selftest ops t2w -> echoes 0|5
+# BEGIN-DECIDE
+  local v=0
+  [ "$1" = 5 ] && [ "$2" = 5 ] && [ "$3" = 1 ] \
+    && [ "$4" = 1 ] && [ "$5" = 1 ] && [ "$6" = 1 ] && v=5
+  echo "$v"
+# END-DECIDE
+}
+shim_count() { # five shim OUT files -> echoes 0..5 (exact designated flips)
+# BEGIN-SHIMS
+  local n=0
+  [ "$(vec "$1")" = "${EXPECT[sh1]}" ] && broken41 "$1" && n=$((n+1))
+  [ "$(vec "$2")" = "${EXPECT[sh2]}" ] && broken41 "$2" && n=$((n+1))
+  [ "$(vec "$3")" = "${EXPECT[sh3]}" ] && broken41 "$3" && n=$((n+1))
+  [ "$(vec "$4")" = "${EXPECT[sh4]}" ] && broken41 "$4" && n=$((n+1))
+  [ "$(vec "$5")" = "${EXPECT[sh5]}" ] && broken41 "$5" && n=$((n+1))
+  echo "$n"
+# END-SHIMS
+}
 # Secret scan (K3): named shapes only, never a value echo. hvs./hvb. root or
 #   service tokens; s.<24 alnum> batch tokens; an OTP= whose value is a 20+-char
 #   run; a nonce= whose value is a 16+-char hex/dash run; and a 43+-char
@@ -150,7 +190,7 @@ absent_line() { printf '%s: value=0 tests=5 pass=0 shims=0 vectors=0/5 selftest=
 
 # ---------------------------------------------------------------- selftest --
 if [ "${1:-}" = "--selftest" ]; then
-  SCR=${HYAKU_SCRATCH:-/fast/scratch/hyaku}/kagi-r61/R61ExecCounterC2/c2-selftest.$$
+  SCR=${HYAKU_SCRATCH:-/fast/scratch/hyaku}/kagi-r62/R62ExecC2Counter/c2-selftest.$$
   mkdir -p -- "$SCR" || { echo "$NAME: SETUP no-scratch"; exit 2; }
   trap 'rm -rf -- "$SCR"' EXIT
   export TMPDIR=$SCR
@@ -168,6 +208,25 @@ if [ "${1:-}" = "--selftest" ]; then
   s2="$SCR/sec-hit2"; printf 'share XyZ123abcD456efG789hI012jK345lmN789opQr12gXyZ\n' >"$s2"
   printf -v sep60 '%*s' 60 ''; sep60=${sep60// /-}
   s3="$SCR/sec-clean"; printf 'unseal shares=5 threshold=3 nonce: REDACTED OTP: <shape-only>\n#%s\nsha256 9c5f36287c673f386e1533e9c044169a248e4ee50dd54810fa766e95bd41b788\n%s\n' "$sep60" "${sep60//-/_}" >"$s3"
+  # Aggregation fixtures (round-62 hardening): five correct shim files, a
+  #   wrong-vector file (sh2 slot, all-HOLDS), and a right-vector file that
+  #   lacks the BROKEN summary line. dfix OUTFILE BROKENINDEX (0 = all HOLDS).
+  dfix() { local out=$1 bi=$2 j v
+    : >"$out"
+    for j in 1 2 3 4 5; do
+      v=HOLDS; [ "$j" = "$bi" ] && v=BROKEN
+      echo "TRIAL T$j $v x" >>"$out"
+    done
+    if [ "$bi" = 0 ]; then echo 'OPENBAO_SEAL_TRIAL: HOLDS holds=5 broken=0 error=0' >>"$out"
+    else echo 'OPENBAO_SEAL_TRIAL: BROKEN holds=4 broken=1 error=0' >>"$out"; fi
+  }
+  d1=$SCR/ag-sh1; dfix "$d1" 1
+  d2=$SCR/ag-sh2; dfix "$d2" 2
+  d3=$SCR/ag-sh3; dfix "$d3" 3
+  d4=$SCR/ag-sh4; dfix "$d4" 4
+  d5=$SCR/ag-sh5; dfix "$d5" 5
+  d6=$SCR/ag-bad; dfix "$d6" 0
+  { for j in 1 2 3 4 5; do v=HOLDS; [ "$j" = 2 ] && v=BROKEN; echo "TRIAL T$j $v x"; done; } >"$SCR/ag-nosum"
   c_base_const() { printf '%s' "$BASE" | grep -qE '^[0-9a-f]{40}$'; }
   c_tree_noarg() { local o r; o=$(bash "$SELF" --tree 2>&1); r=$?; [ "$r" = 1 ] && printf '%s\n' "$o" | grep -q '(bad-tree)$'; }
   c_tree_missing() { local o r; o=$(bash "$SELF" --tree "$SCR/no-such-dir" 2>&1); r=$?; [ "$r" = 1 ] && printf '%s\n' "$o" | grep -q '(bad-tree)$'; }
@@ -179,6 +238,18 @@ if [ "${1:-}" = "--selftest" ]; then
   c_secret_fires() { scan_hits "$s1" "$s2"; }
   c_secret_clean() { ! scan_hits "$s3"; }
   c_shim_detect() { [ "$(vec "$b")" = "${EXPECT[sh1]}" ] && [ "$(vec "$b")" != HHHHH ]; }
+  # Aggregation cases (round-62 hardening): positive and negative vectors for
+  #   decide and shim_count, so a constant-returning mutant fails a case.
+  c_decide_pos()     { [ "$(decide 5 5 1 1 1 1)" = 5 ]; }
+  c_decide_pass()    { [ "$(decide 4 5 1 1 1 1)" = 0 ]; }
+  c_decide_shims()   { [ "$(decide 5 4 1 1 1 1)" = 0 ]; }
+  c_decide_none()    { [ "$(decide 5 5 0 1 1 1)" = 0 ]; }
+  c_decide_selftest(){ [ "$(decide 5 5 1 0 1 1)" = 0 ]; }
+  c_decide_ops()     { [ "$(decide 5 5 1 1 0 1)" = 0 ]; }
+  c_decide_t2w()     { [ "$(decide 5 5 1 1 1 0)" = 0 ]; }
+  c_shims_ok()       { [ "$(shim_count "$d1" "$d2" "$d3" "$d4" "$d5")" = 5 ]; }
+  c_shims_bad()      { [ "$(shim_count "$d1" "$d6" "$d3" "$d4" "$d5")" = 4 ]; }
+  c_shims_summary()  { [ "$(shim_count "$d1" "$SCR/ag-nosum" "$d3" "$d4" "$d5")" = 4 ]; }
   st base-const c_base_const
   st tree-noarg c_tree_noarg
   st tree-missing c_tree_missing
@@ -190,6 +261,16 @@ if [ "${1:-}" = "--selftest" ]; then
   st secret-fires c_secret_fires
   st secret-clean c_secret_clean
   st shim-detect c_shim_detect
+  st decide-pos c_decide_pos
+  st decide-pass c_decide_pass
+  st decide-shims c_decide_shims
+  st decide-none c_decide_none
+  st decide-selftest c_decide_selftest
+  st decide-ops c_decide_ops
+  st decide-t2w c_decide_t2w
+  st shims-ok c_shims_ok
+  st shims-bad c_shims_bad
+  st shims-summary c_shims_summary
   if [ "$fail" = 0 ]; then
     echo "C2_SELFTEST: PASS (cases=$pass)"; exit 0
   fi
@@ -212,7 +293,7 @@ case "${1:-}" in
   "") REV=$BASE;;
   *) REV=$1;;
 esac
-SCR=${HYAKU_SCRATCH:-/fast/scratch/hyaku}/kagi-r61/R61ExecCounterC2/c2-counter.$$
+SCR=${HYAKU_SCRATCH:-/fast/scratch/hyaku}/kagi-r62/R62ExecC2Counter/c2-counter.$$
 mkdir -p -- "$SCR" || setup no-scratch
 trap 'rm -rf -- "$SCR"' EXIT
 export TMPDIR=$SCR
@@ -313,16 +394,11 @@ if [ "${RC[selftest]}" = 0 ] && [ "$spass" = 1 ]; then
   sn=$(grep -oE '^SEAL_SELFTEST: PASS \(cases=[0-9]+\)' "${OUT[selftest]}" | grep -oE '[0-9]+')
   [ "$sn" -ge 8 ] && selftest_ok=1
 fi
-shims_ok=0
-for n in 1 2 3 4 5; do
-  [ "$(vec "${OUT[sh$n]}")" = "${EXPECT[sh$n]}" ] && [ "${RC[sh$n]}" = 1 ] \
-    && broken41 "${OUT[sh$n]}" && shims_ok=$((shims_ok+1))
-done
+shims_ok=$(shim_count "${OUT[sh1]}" "${OUT[sh2]}" "${OUT[sh3]}" "${OUT[sh4]}" "${OUT[sh5]}")
+for n in 1 2 3 4 5; do [ "${RC[sh$n]}" = 1 ] || shims_ok=0; done
 pass=0
 [ "$real_ok" = 1 ] && pass=5
-value=0
-[ "$pass" = 5 ] && [ "$shims_ok" = 5 ] && [ "$none_ok" = 1 ] \
-  && [ "$selftest_ok" = 1 ] && [ "$ops_ok" = 1 ] && [ "$t2_ok" = 1 ] && value=5
+value=$(decide "$pass" "$shims_ok" "$none_ok" "$selftest_ok" "$ops_ok" "$t2_ok")
 stub_ok=0
 if [ "${R61_C2_NOSTUB:-}" != 1 ]; then
   # Vacuity control: a fixture trial that fakes every expected line without
@@ -377,8 +453,21 @@ legs_ran=1
 for m in real real2 none selftest sh1 sh2 sh3 sh4 sh5; do
   [ -n "${RAN[$m]+x}" ] || legs_ran=0
 done
+# Guard observables (round-62 hardening, closes C2-4): every leg must have
+#   produced its expected observable in its captured stream, not merely a
+#   captured rc. A prints-nothing stub trial with a valid sha256 reads
+#   guard=0 here instead of the round-61 near-constant 1.
+guard_obs=1
+grep -qE '^SEAL_SELFTEST: PASS \(cases=[0-9]+\)' "${OUT[selftest]}" 2>/dev/null || guard_obs=0
+[ "$real_ok" = 1 ] || guard_obs=0
+[ "$none_ok" = 1 ] || guard_obs=0
+[ "$selftest_ok" = 1 ] || guard_obs=0
+[ "$ops_ok" = 1 ] || guard_obs=0
+[ "$t2_ok" = 1 ] || guard_obs=0
+[ "$shims_ok" = 5 ] || guard_obs=0
 guard=0
-[ "$legs_ran" = 1 ] && printf '%s' "$TRIAL_SHA" | grep -qE '^[0-9a-f]{64}$' && guard=1
+[ "$legs_ran" = 1 ] && printf '%s' "$TRIAL_SHA" | grep -qE '^[0-9a-f]{64}$' \
+  && [ "$guard_obs" = 1 ] && guard=1
 V="ok"; [ "$shims_ok" = 5 ] || V=$shims_ok
 printf '%s: value=%s tests=5 pass=%s shims=%s vectors=%s/5 selftest=%s guard=%s (real=%s real2=%s none=%s ops=%s t2w=%s stubctl=%s secret=%s sh1=%s sh2=%s sh3=%s sh4=%s sh5=%s trial=%s cases=%s)\n' \
   "$NAME" "$value" "$pass" "$shims_ok" "$V" "$selftest_ok" "$guard" \

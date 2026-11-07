@@ -1,0 +1,16 @@
+counter sha: 19ea1131c50e9853ac691ecc486e196f011f1b35ae7f32fc089afcc75c1912d2
+== base | rc=1 verdict_lines=1
+  c1-counter: selftest rc=0 pass=1 cases=52 (guard needs >= 57)
+  c1-counter: unmodified value=0
+  c1-counter: stub c1_rc=2 c1_ok=1 c2_rc=2 c2_ok=1 (runs: /fast/scratch/hyaku/kagi-r62/R62Critic/kagi-r62/R62ExecC1Counter/run-20261107T182111Z-3038715/stub/run.out /fast/scratch/hyaku/kagi-r62/R62Critic/kagi-r62/R62ExecC1Counter/run-20261107T182111Z-3038715/stub2/run.out)
+  c1-counter: paraphrase leg=1
+  C1_BYPASS: accepted=5 population=5 guard=0 (real=1 selftest=0 stub=1 paraphrase=1)
+== stub-crafted | rc=1 verdict_lines=1
+  c1-counter: selftest rc=0 pass=1 cases=57 (guard needs >= 57)
+  c1-counter: unmodified value=0
+  c1-counter: stub c1_rc=2 c1_ok=1 c2_rc=2 c2_ok=1 (runs: /fast/scratch/hyaku/kagi-r62/R62Critic/kagi-r62/R62ExecC1Counter/run-20261107T182323Z-389306/stub/run.out /fast/scratch/hyaku/kagi-r62/R62Critic/kagi-r62/R62ExecC1Counter/run-20261107T182323Z-389306/stub2/run.out)
+  c1-counter: paraphrase leg=1
+  C1_BYPASS: accepted=5 population=5 guard=1 (real=1 selftest=1 stub=1 paraphrase=1)
+== stub-named | rc=2 verdict_lines=0
+  c1-counter: refuse: tree checker --selftest printed no C1_CHECK_SELFTEST: PASS line (rc=0) — no verdict
+DONE

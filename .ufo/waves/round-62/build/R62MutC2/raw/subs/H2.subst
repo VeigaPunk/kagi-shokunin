@@ -1,0 +1,11 @@
+# H-2 (the plan's M-B): replace the block strictly between the markers.
+# OLD (exact bytes):
+  local n=0
+  [ "$(vec "$1")" = "${EXPECT[sh1]}" ] && broken41 "$1" && n=$((n+1))
+  [ "$(vec "$2")" = "${EXPECT[sh2]}" ] && broken41 "$2" && n=$((n+1))
+  [ "$(vec "$3")" = "${EXPECT[sh3]}" ] && broken41 "$3" && n=$((n+1))
+  [ "$(vec "$4")" = "${EXPECT[sh4]}" ] && broken41 "$4" && n=$((n+1))
+  [ "$(vec "$5")" = "${EXPECT[sh5]}" ] && broken41 "$5" && n=$((n+1))
+  echo "$n"
+# NEW:
+  shims_ok=5

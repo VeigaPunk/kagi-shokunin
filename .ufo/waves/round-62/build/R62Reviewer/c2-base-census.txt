@@ -1,0 +1,10 @@
+# R62Reviewer — C2 BASE census (plans/round-61-c2.sh c7d9e272, 21275 B)
+# M-A: aggregation block -> value=5   M-B: shim aggregation -> unconditional increment
+# (both copies carry plans/round-57-c2.sh: REPO resolves from the script's own dir)
+
+M-A selftest: C2_SELFTEST: PASS (cases=11)  rc=0
+M-B selftest: C2_SELFTEST: PASS (cases=11)  rc=0
+stub-trial tree: C2_SEAL_TRIAL: value=0 tests=5 pass=0 shims=0 vectors=0/5 selftest=0 guard=1 (real=0 real2=0 none=0 ops=0 t2w=0 stubctl=1 secret=1 sh1=NNNNN sh2=NNNNN sh3=NNNNN sh4=NNNNN sh5=NNNNN trial=6bfee8910f3559d17096f987ae78362191e503cf07474b2dd68aa1d8d72bfae3 cases=0)  rc=1
+markers at BASE: grep -c 'BEGIN-DECIDE|END-DECIDE|BEGIN-SHIMS|END-SHIMS' plans/round-61-c2.sh => 0
+
+killed = 0 (M-A and M-B survive; G reads guard=1)

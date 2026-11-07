@@ -1,0 +1,18 @@
+# M-A / M-B reproduction on the BASE round-61 C2 counter (R62ScribeRecords, 2026-11-07)
+# tree: git -C /home/vgpnk/Projects/shokunin/kagi-shokunin archive 60b5b7b | tar -x -C <scratch>/base
+# baseline: cd base && bash plans/round-61-c2.sh --selftest
+baseline rc=0
+C2_SELFTEST: PASS (cases=11)
+
+# M-A: the value aggregation block replaced by a constant `value=5`
+#   (the block at plans/round-61-c2.sh:323-325 in the BASE bytes)
+M-A rc=0
+C2_SELFTEST: PASS (cases=11)
+
+# M-B: the shim aggregation replaced by an unconditional `shims_ok=5`
+#   (the block at plans/round-61-c2.sh:316-319 in the BASE bytes)
+M-B rc=0
+C2_SELFTEST: PASS (cases=11)
+
+# instrument sha256 (BASE bytes):
+c7d9e272877775a4b74c673680723bac252d393db6631d06fceb7ffdb98c47a6  /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-61-c2.sh

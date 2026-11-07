@@ -1,0 +1,35 @@
+# R62Reviewer — C1 counter measure-leg return-status defect (plans/round-62-c1.sh 19ea1131, 17971 B, 18:17)
+
+## the code (measure_battery, last command of the fixture loop)
+    [[ "$RUN_VAL" == "0" ]] && ACCEPTED=$((ACCEPTED + 1))
+  done
+}
+
+## why it is wrong: the for-loop's status is the last command's status; when the
+## last fixture (B7) is REJECTED -- the intended hardened outcome -- the [[ ]] is
+## false, the loop returns 1, measure_battery returns 1, and the caller runs
+##   measure_battery ... || setup_die "${AF_ERR:-measure leg failed}"
+## with AF_ERR empty.
+
+## measured on the candidate tree (hardened checker f2afd9b8, 75-case selftest)
+$ bash plans/round-62-c1.sh --tree .
+c1-counter: SETUP measure leg failed
+rc=2
+
+## bash -x trace, last iteration (B7, i=4) then the abort:
++ RUN_VAL=1
++ [[ 4 -eq 0 ]]
++ [[ -z 1 ]]
++ [[ 1 == 0 ]]
++ (( i++ ))
++ (( i < 5 ))
++ setup_die 'measure leg failed'
+rc=2
+
+## at BASE (all five accepted) the last [[ ]] is true, the loop returns 0, and the
+## verdict line prints: C1_BYPASS: accepted=5 population=5 guard=0. So the counter
+## can report the claim's FAILURE but never its SUCCESS: accepted=0 with the last
+## fixture rejected always aborts as SETUP.
+
+## fix: end measure_battery with an explicit 'return 0' (or make the increment
+## unconditional: ACCEPTED=1).

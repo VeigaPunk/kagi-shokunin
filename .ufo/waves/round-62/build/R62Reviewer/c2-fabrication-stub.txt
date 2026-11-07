@@ -1,0 +1,10 @@
+# R62Reviewer — C2 fabrication-stub attack (BASE counter c7d9e272)
+# stub: /fast/scratch/hyaku/kagi-r62/R62Reviewer/trees/fabstub/corpus/openbao-seal-trial.sh (38 lines; never starts a server,
+# never unseals, never touches a share; calls bao <op> --help to fill the ops witness
+# and prints the T2 markers)
+$ bash plans/round-61-c2.sh --tree trees/fabstub
+C2_SEAL_TRIAL: value=5 tests=5 pass=5 shims=5 vectors=ok/5 selftest=1 guard=1 (real=1 real2=1 none=1 ops=1 t2w=1 stubctl=1 secret=1 sh1=BHHHH sh2=HBHHH sh3=HHBHH sh4=HHHBH sh5=HHHHB trial=d78d3253329a4e83fc88aec3c3eba1e7f250fd2994ed4e3f319f39016a4071b7 cases=8)
+rc=0
+
+# NOTE: the first shape (bao operator seal --help) read ops=0 because the counter's
+# seal check is line-exact (grep -qxE 'operator seal( |$)'); the bare call passes.

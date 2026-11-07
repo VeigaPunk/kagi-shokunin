@@ -1,0 +1,14 @@
+# M-A: in the candidate plans/round-61-c2.sh, replace the lines strictly
+# between the DECIDE markers with "  echo 5" (markers kept, each matching
+# exactly once: open=1 close=1), then run the mutated counter's --selftest.
+# Expected: exit non-zero printing a named FINDING.
+
+$ awk needle replacement (apply_mut) then: bash <mutated> --selftest
+FINDING R61-C2-ST-decide-pass
+FINDING R61-C2-ST-decide-shims
+FINDING R61-C2-ST-decide-none
+FINDING R61-C2-ST-decide-selftest
+FINDING R61-C2-ST-decide-ops
+FINDING R61-C2-ST-decide-t2w
+C2_SELFTEST: FAIL (cases=21 failed=6)
+rc=1

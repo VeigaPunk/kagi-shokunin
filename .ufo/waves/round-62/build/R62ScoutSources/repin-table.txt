@@ -1,0 +1,36 @@
+# R62ScoutSources — RE-PIN TABLE for the L1 (2026-11-07)
+#
+# S130 and S131 must be re-pinned: their capture bodies were replaced after the
+# first pin with the token-free, byte-REPRODUCIBLE canonical XML of the same
+# records. Reason: the PMC article HTML embeds a live per-request
+# csrfmiddlewaretoken value, and its body digest is NOT reproducible
+# (2 consecutive fetches of the same URL gave 2 different digests:
+# fa5c288f63b9ab92b3e4c0240e06f74b3c8ed008b2da2e99c878055f933a1560 and
+# 0b06abf718445345e19baefe0a59090d1337fa6814360f149254780ec5cdc064).
+# The efetch XML IS reproducible: 2/2 consecutive fetches gave one digest.
+# S128/S129/S132/S133/S134 are unchanged and stay as pinned.
+
+=== S130 ===
+url        : https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pmc&id=2757457&retmode=xml
+row_digest : c65298f1b8fc798d606799916cc6e9da8b1f10de5e529d0f5e0a1e550ca6e36a   (sha256 of "S130<TAB>mined<TAB>url\n")
+raw_sha256 : cdbb417379e146a9199efa54f6322b373880aee9f76faffc624c8f94ac41fb8b
+bytes      : 189603
+norm_sha256: 5f50941440dbb802cb5a2a076b1cbe9af17cdf62f6a9b7cbfa2dedf7611cc801
+quote      : In the NegEx algorithm the scope of a trigger term is a priori restricted to a window of six tokens
+locate     : RENDERED_TEXT_V1_LOCATE: count=1
+
+=== S131 ===
+url        : https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pmc&id=5863758&retmode=xml
+row_digest : b6338e6c472745a0c0acc466906ba89ac927553afb0072d9c68390ed8264327d   (sha256 of "S131<TAB>mined<TAB>url\n")
+raw_sha256 : 80ec43266cc9bf39e6cf05fc45cb2c3ccf58ce9802d023cd820dbe999998cc38
+bytes      : 101800
+norm_sha256: 8a12b87d5143f3d097c6a22555ad86d1a0b241aca79f441a1d745223f53bb30b
+quote      : NegEx fails to correctly capture the negation status of concepts in complex sentences.
+locate     : RENDERED_TEXT_V1_LOCATE: count=1
+
+=== unchanged rows (no L1 action) ===
+S128 b0c7e0505c51c95b596060ef27babbce08e72d5aaf4557eb002c2637d2bf10cc 12023
+S129 185130082d9961cb4cb0d9527f2281e58b2e2126ee2372551193b0decd6c9e8e 30253
+S132 1c7cd57eeb20dcd72062670ee2d1ff736b8350031fd37b404bcc89f7a834704c 5590
+S133 05dbe35feafc565a4e791a27453e4ffc08efcfccdf12357d2db3c6808b47c548 171636
+S134 f5a45b48e6aa53c2b2e1815c4f0ea0cb1342ac9718dc1bd62b491a3020251b67 14498

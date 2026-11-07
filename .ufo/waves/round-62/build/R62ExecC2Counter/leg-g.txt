@@ -1,0 +1,8 @@
+# G: a tree whose trial (corpus/openbao-seal-trial.sh) is a valid-sha256
+# stub that prints nothing, read by the unmutated candidate counter.
+# stub sha256: 2817f7aeaa30cf258dacd47d8e9dacfa70d11231118dd48d32bce8bf2bd3b264
+# Expected: the counter prints guard=0 and exits 1 (BASE counter read guard=1).
+
+$ bash plans/round-61-c2.sh --tree <stub-tree>
+C2_SEAL_TRIAL: value=0 tests=5 pass=0 shims=0 vectors=0/5 selftest=0 guard=0 (real=0 real2=0 none=0 ops=0 t2w=0 stubctl=1 secret=1 sh1=NNNNN sh2=NNNNN sh3=NNNNN sh4=NNNNN sh5=NNNNN trial=2817f7aeaa30cf258dacd47d8e9dacfa70d11231118dd48d32bce8bf2bd3b264 cases=0)
+rc=1

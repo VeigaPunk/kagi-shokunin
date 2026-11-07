@@ -1,0 +1,3 @@
+guard=0
+[ "$legs_ran" = 1 ] && printf '%s' "$TRIAL_SHA" | grep -qE '^[0-9a-f]{64}$' \
+  && [ "$guard_obs" = 1 ] && guard=1

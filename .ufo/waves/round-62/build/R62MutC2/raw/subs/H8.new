@@ -1,0 +1,3 @@
+run() { # MODE SHIM -> rc in $? (mutant: skip the trial, empty outputs)
+  : > "${OUT[$1]}"; : > "${OUT[$1]}.err"; return 0
+}

@@ -1,0 +1,7 @@
+run() { # MODE SHIM -> rc in $?
+  local d=${BIN[$1]}
+  ( cd "$d" && exec env -i HOME="$d/home" PATH="$d/bin:/usr/bin:/bin" \
+      TMPDIR="$d/tmp" LANG=C KAGI_SEAL_SHIM="$2" \
+      timeout 900 bash "$TRIAL" --work "$d/work" ) \
+    > "${OUT[$1]}" 2>"${OUT[$1]}.err"
+}

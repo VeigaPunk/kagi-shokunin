@@ -1,0 +1,15 @@
+# Five frozen bypass fixtures on the BASE round-61 C1 checker (R62ScribeRecords, 2026-11-07)
+# command per fixture:
+#   python3 -I -B plans/round-61-c1-check.py --root <scratch>/<id> --repo <lane> --no-challenge
+# each replacement occurred exactly once in the measured copy (asserted before the run)
+
+B3 rc=1 C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+B4 rc=1 C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+B5 rc=1 C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+B6 rc=1 C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+B7 rc=1 C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+unmodified rc=1 C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+
+# accepted = number of fixtures whose line reads value=0 = 5 (population 5)
+# checker sha256 (BASE bytes):
+d525ee2870bc928042938ef1d04bf1fce6c2d603e17cccfc4c586563fcb89812  /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-61-c1-check.py

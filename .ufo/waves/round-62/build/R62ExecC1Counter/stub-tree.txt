@@ -1,0 +1,11 @@
+# Dedicated stub-tree run: a tree whose plans/round-61-c1-check.py is the round-61 reviewer C1-1 printer stub (one constant `C1_ROUTED: value=0 population=7 i1=1 … guard=0` line, ignores argv). The counter must refuse: no C1_BYPASS: verdict line, non-zero exit.
+$ bash plans/round-62-c1.sh --tree /fast/scratch/hyaku/kagi-r62/R62ExecC1Counter/prep/stubtree-build   # stub tree (checker replaced)
+c1-counter: refuse: tree checker --selftest printed no C1_CHECK_SELFTEST: PASS line (rc=0) — no verdict
+
+real	0m3.259s
+user	0m0.171s
+sys	0m0.757s
+rc=2
+
+--- verdict-line check:
+(the run above must print no line starting C1_BYPASS: — see output)

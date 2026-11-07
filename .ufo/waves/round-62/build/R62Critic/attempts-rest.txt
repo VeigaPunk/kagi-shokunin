@@ -1,0 +1,46 @@
+== A. line-scoped I4, base
+i4 resolved=1 occurrences=1
+  pos=228 negated=0 window=['Trend', 'verdicts', 'the', 'round', 'introduced']
+A rc=0
+== B. benign rewrites (frozen grammar, literal)
+  i3-reorder :: i3 resolved=0 occurrences=0
+  i3-colon :: i3 resolved=1 occurrences=1
+  i3-notmerely :: i3 resolved=0 occurrences=1
+  i3-p3 :: i3 resolved=1 occurrences=1
+  i4-nofewer :: i4 resolved=0 occurrences=1
+  i4-digit :: i4 resolved=0 occurrences=0
+  i4-p4 :: i4 resolved=1 occurrences=1
+  i5-notappended :: i5 resolved=0 occurrences=1
+  i5-hyphen :: i5 resolved=0 occurrences=0
+  i5-p5 :: i5 resolved=1 occurrences=1
+== C. printer-stub checker
+  stub --selftest: C1_CHECK_SELFTEST: PASS (cases=57)
+  stub --no-challenge: C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+STUB-B3 | rc=1 | C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+  STUB-B3 | rc=1 | C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+STUB-B4 | rc=1 | C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+  STUB-B4 | rc=1 | C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+STUB-B5 | rc=1 | C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+  STUB-B5 | rc=1 | C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+STUB-B6 | rc=1 | C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+  STUB-B6 | rc=1 | C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+STUB-B7 | rc=1 | C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+  STUB-B7 | rc=1 | C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+  stubcheck-B3: C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+== D. vacuity
+  double anchor count=2
+  replace-all: anchor_count=2 mode=all
+VAC-DOUBLE | rc=1 | C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+  zero-anchor replace: SETUP anchor count=0
+VAC-ZERO | rc=1 | C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+== E. C1 measure on a tree stripped of C2 files
+  stripped: ls: cannot access '/fast/scratch/hyaku/kagi-r62/R62Critic/noc2/plans/round-61-c2.sh': No such file or directory
+NOC2-B3 | rc=1 | C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+NOC2-B4 | rc=1 | C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+NOC2-B5 | rc=1 | C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+NOC2-B6 | rc=1 | C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+NOC2-B7 | rc=1 | C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+== F. C2 counter on a tree stripped of C1 files
+  stripped: ls: cannot access '/fast/scratch/hyaku/kagi-r62/R62Critic/noc1/plans/round-61-c1-check.py': No such file or directory
+  NOC1-C2 | rc=0 | C2_SEAL_TRIAL: value=5 tests=5 pass=5 shims=5 vectors=ok/5 selftest=1 guard=1 (real=1 real2=1 none=1 ops=1 t2w=1 stubctl=1 secret=1 sh1=BHHHH sh2=HBHHH sh3=HHBHH sh4=HHHBH sh5=HHHHB trial=a3bc882597ccaebca66d23d5a76cf6a6d4810822fe774f43ff2dace8cb60b535 cases=63)
+DONE

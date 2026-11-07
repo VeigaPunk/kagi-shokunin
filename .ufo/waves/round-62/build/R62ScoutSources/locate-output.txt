@@ -1,0 +1,28 @@
+# R62ScoutSources — locate receipts (corpus/rendered-text-v1.py locate), 2026-11-07
+# Every quoted string below resolves count=1 on the committed capture bytes.
+S128 | If your tests fail then the mutation is killed , if your tests pass then the mutation lived .
+    -> RENDERED_TEXT_V1_LOCATE: count=1
+S128 | The quality of your tests can be gauged from the percentage of mutations killed.
+    -> RENDERED_TEXT_V1_LOCATE: count=1
+S129 | If your tests fail then the mutant is killed . If your tests passed, the mutant survived .
+    -> RENDERED_TEXT_V1_LOCATE: count=1
+S129 | If at least one of your tests fail, we say the mutant is killed . That's what you want!
+    -> RENDERED_TEXT_V1_LOCATE: count=0
+S130 | an algorithm called ConText for determining whether clinical conditions mentioned in clinical reports are negated
+    -> RENDERED_TEXT_V1_LOCATE: count=1
+S130 | In the NegEx algorithm the scope of a trigger term is a priori restricted to a window of six tokens
+    -> RENDERED_TEXT_V1_LOCATE: count=1
+S131 | A negation detection algorithm, NegEx, applies a simplistic approach that has been shown to be powerful in clinical NLP.
+    -> RENDERED_TEXT_V1_LOCATE: count=1
+S131 | NegEx fails to correctly capture the negation status of concepts in complex sentences.
+    -> RENDERED_TEXT_V1_LOCATE: count=1
+S133 | If the test suite is able to detect the change (i.e., one of the tests fails), then the mutant is said to be killed .
+    -> RENDERED_TEXT_V1_LOCATE: count=1
+S133 | the mutation score is the number of mutants killed / total number of mutants.
+    -> RENDERED_TEXT_V1_LOCATE: count=1
+
+# reject-page probes (expected count=0)
+S132 | negation
+    -> RENDERED_TEXT_V1_LOCATE: count=0
+S134 | mutation testing
+    -> RENDERED_TEXT_V1_LOCATE: count=0

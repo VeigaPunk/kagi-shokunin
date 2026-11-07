@@ -1,0 +1,7 @@
+# grammar mutants vs the real fixtures (pristine hardened checker reads value=1 on each B fixture, value=0 on REAL)
+# command: python3 -I -B <mutant>/round-61-c1-check.py --root <fixture tree> --repo <lane> --no-challenge
+c1: i6 FAIL launch=yes distinct-stamps=4 in-derived=4 derived-set=9 superseded-stamp=none denial=none
+C1_ROUTED: value=1 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=0 i7=1 guard=0
+---
+c1: i6 HOLD launch=yes distinct-stamps=4 in-derived=4 derived-set=9 superseded-stamp=none denial=none
+C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0

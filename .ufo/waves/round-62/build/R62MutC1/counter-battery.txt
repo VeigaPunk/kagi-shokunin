@@ -1,0 +1,95 @@
+# instrument: plans/round-62-c1.sh sha256 efe676ebb0d016664705f17c181ecc3331963a4b09fb2f80403f8773170cf62f
+# D1: bash <lane>/plans/round-62-c1.sh --selftest  (lane carries plans/round-61-c1-check.py)
+# D2: bash <lane>/plans/round-62-c1.sh --tree <BASE tree 60b5b7b6>
+# D3: bash <lane>/plans/round-62-c1.sh --tree <BASE tree + hardened checker f2afd9b8>
+# D5: D3 with the paraphrase table replaced by P3 -> the B3 negation (a non-benign 'paraphrase')
+# D6: bash <lane>/plans/round-62-c1.sh --tree <passstub tree: a checker that prints PASS (cases=99) for --selftest,
+#     the constant C1_ROUTED value=0 line otherwise, and carries the NEGATORS needle without depending on it>
+===== ctrl3
+--- D1-selftest
+C1_COUNTER_SELFTEST: PASS (8/8 checks)
+D1 rc=0
+--- D2-base
+C1_BYPASS: accepted=5 population=5 guard=0 (real=1 selftest=0 stub=1 paraphrase=1 chal=0)
+D2 rc=1
+--- D3-hardened
+C1_BYPASS: accepted=0 population=5 guard=1 (real=1 selftest=1 stub=1 paraphrase=1 chal=1)
+D3 rc=0
+--- D5-hostile-para
+C1_BYPASS: accepted=0 population=5 guard=0 (real=1 selftest=1 stub=1 paraphrase=0 chal=1)
+D5 rc=1
+--- D6-passstub
+C1_BYPASS: accepted=5 population=5 guard=0 (real=1 selftest=1 stub=1 paraphrase=1 chal=0)
+===== cmut/CM1-accept-value-gt-0
+--- D1-selftest
+C1_COUNTER_SELFTEST: PASS (8/8 checks)
+D1 rc=0
+--- D2-base
+C1_BYPASS: accepted=0 population=5 guard=0 (real=1 selftest=0 stub=1 paraphrase=1 chal=0)
+D2 rc=1
+--- D3-hardened
+C1_BYPASS: accepted=5 population=5 guard=1 (real=1 selftest=1 stub=1 paraphrase=1 chal=1)
+D3 rc=1
+--- D5-hostile-para
+C1_BYPASS: accepted=5 population=5 guard=0 (real=1 selftest=1 stub=1 paraphrase=0 chal=1)
+D5 rc=1
+--- D6-passstub MISSING
+===== cmut/CM2a-stub-composition-forced-1
+--- D1-selftest
+C1_COUNTER_SELFTEST: PASS (8/8 checks)
+D1 rc=0
+--- D2-base
+C1_BYPASS: accepted=5 population=5 guard=0 (real=1 selftest=0 stub=1 paraphrase=1 chal=0)
+D2 rc=1
+--- D3-hardened
+C1_BYPASS: accepted=0 population=5 guard=1 (real=1 selftest=1 stub=1 paraphrase=1 chal=1)
+D3 rc=0
+--- D5-hostile-para
+C1_BYPASS: accepted=0 population=5 guard=0 (real=1 selftest=1 stub=1 paraphrase=0 chal=1)
+D5 rc=1
+--- D6-passstub
+C1_BYPASS: accepted=5 population=5 guard=0 (real=1 selftest=1 stub=1 paraphrase=1 chal=0)
+===== cmut/CM2b-stub-leg-always-1
+--- D1-selftest
+C1_COUNTER_SELFTEST: PASS (8/8 checks)
+D1 rc=0
+--- D2-base
+C1_BYPASS: accepted=5 population=5 guard=0 (real=1 selftest=0 stub=1 paraphrase=1 chal=0)
+D2 rc=1
+--- D3-hardened
+C1_BYPASS: accepted=0 population=5 guard=1 (real=1 selftest=1 stub=1 paraphrase=1 chal=1)
+D3 rc=0
+--- D5-hostile-para
+C1_BYPASS: accepted=0 population=5 guard=0 (real=1 selftest=1 stub=1 paraphrase=0 chal=1)
+D5 rc=1
+--- D6-passstub
+C1_BYPASS: accepted=5 population=5 guard=0 (real=1 selftest=1 stub=1 paraphrase=1 chal=0)
+===== cmut/CM3-paraphrase-leg-skip
+--- D1-selftest
+C1_COUNTER_SELFTEST: PASS (8/8 checks)
+D1 rc=0
+--- D2-base
+C1_BYPASS: accepted=5 population=5 guard=0 (real=1 selftest=0 stub=1 paraphrase=1 chal=0)
+D2 rc=1
+--- D3-hardened
+C1_BYPASS: accepted=0 population=5 guard=1 (real=1 selftest=1 stub=1 paraphrase=1 chal=1)
+D3 rc=0
+--- D5-hostile-para
+C1_BYPASS: accepted=0 population=5 guard=1 (real=1 selftest=1 stub=1 paraphrase=1 chal=1)
+D5 rc=0
+--- D6-passstub MISSING
+===== cmut/CM4-chal-composition-forced-1
+--- D1-selftest
+C1_COUNTER_SELFTEST: PASS (8/8 checks)
+D1 rc=0
+--- D2-base
+C1_BYPASS: accepted=5 population=5 guard=0 (real=1 selftest=0 stub=1 paraphrase=1 chal=1)
+D2 rc=1
+--- D3-hardened
+C1_BYPASS: accepted=0 population=5 guard=1 (real=1 selftest=1 stub=1 paraphrase=1 chal=1)
+D3 rc=0
+--- D5-hostile-para
+C1_BYPASS: accepted=0 population=5 guard=0 (real=1 selftest=1 stub=1 paraphrase=0 chal=1)
+D5 rc=1
+--- D6-passstub
+C1_BYPASS: accepted=5 population=5 guard=1 (real=1 selftest=1 stub=1 paraphrase=1 chal=1)

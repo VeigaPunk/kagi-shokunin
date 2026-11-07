@@ -1,0 +1,15 @@
+--- /fast/scratch/hyaku/kagi-r62/R62ScribeEntry/base/plans/round-61-c2.sh	2026-11-07 17:52:16.000000000 -0300
++++ /fast/scratch/hyaku/kagi-r62/R62ScribeEntry/mutA/plans/round-61-c2.sh	2026-11-07 18:07:25.113172942 -0300
+@@ -318,11 +318,7 @@
+   [ "$(vec "${OUT[sh$n]}")" = "${EXPECT[sh$n]}" ] && [ "${RC[sh$n]}" = 1 ] \
+     && broken41 "${OUT[sh$n]}" && shims_ok=$((shims_ok+1))
+ done
+-pass=0
+-[ "$real_ok" = 1 ] && pass=5
+-value=0
+-[ "$pass" = 5 ] && [ "$shims_ok" = 5 ] && [ "$none_ok" = 1 ] \
+-  && [ "$selftest_ok" = 1 ] && [ "$ops_ok" = 1 ] && [ "$t2_ok" = 1 ] && value=5
++value=5
+ stub_ok=0
+ if [ "${R61_C2_NOSTUB:-}" != 1 ]; then
+   # Vacuity control: a fixture trial that fakes every expected line without

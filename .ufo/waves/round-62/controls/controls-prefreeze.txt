@@ -1,0 +1,53 @@
+# round-62 pre-freeze control battery (plans/round-62-controls.sh)
+# SELF 93587e6d15d5c0ebb94fac3a6039235070632c45dd5c3db86ae7fbcf1107ea97
+# utc 2026-11-07T21:49:55Z
+# repo /home/vgpnk/Projects/shokunin/kagi-shokunin
+# base 60b5b7b60b76629633110a5b4adac883193c8b2a
+# candidate /home/vgpnk/Projects/shokunin/kagi-shokunin
+# scratch /fast/scratch/hyaku/kagi-r62/L1/kagi-r62/R62ExecControls/battery.736238
+PROBE c1-checker-floor ready cases=75 detail=ok
+PROBE c2-counter-floor ready cases=21 detail=ok
+PROBE c1-counter present path=plans/round-62-c1.sh
+PROBE c2-wrapper present path=plans/round-62-c2.sh
+PROBE bao present path=/home/vgpnk/.local/bin/bao sha=9c5f36287c673f386e1533e9c044169a248e4ee50dd54810fa766e95bd41b788
+PROBE base-extraction ok pin-c1check=d525ee2870bc928042938ef1d04bf1fce6c2d603e17cccfc4c586563fcb89812 pin-c2count=c7d9e272877775a4b74c673680723bac252d393db6631d06fceb7ffdb98c47a6
+INSTRUMENT plans/round-61-c1-check.py f2afd9b8f5382cdf8b8914546bb8fcb73d135854e6e546c5012fb7df63eca9c0
+INSTRUMENT plans/round-61-c2.sh 20614697f3720aa446501b3c3246748c762a025b99065a19556476d9ff3f4f29
+INSTRUMENT plans/round-62-c1.sh efe676ebb0d016664705f17c181ecc3331963a4b09fb2f80403f8773170cf62f
+INSTRUMENT plans/round-62-c2.sh b26d42207ff51168811ebd1a32bd2969ee103497662d46f175ac2dd29d1ebe9c
+INSTRUMENT corpus/openbao-seal-trial.sh a3bc882597ccaebca66d23d5a76cf6a6d4810822fe774f43ff2dace8cb60b535
+INSTRUMENT plans/round-62-bypass.tsv 16fc5ba6d8b4b32db23ee91d27d72531377a608b11aacdc35d073962bd707ad8
+INSTRUMENT plans/round-62-paraphrase.tsv de5982b716c5bf14b509bb62af9a852faa7206204ea0d7305c699a24a7fb41d1
+BAO /home/vgpnk/.local/bin/bao 9c5f36287c673f386e1533e9c044169a248e4ee50dd54810fa766e95bd41b788
+# readiness: C1-F1..F5,C1-F7 <- c1-checker-floor; C1-F6 <- c1-counter; C2-F1..F4 <- c2-counter-floor; C2-F5 <- c2-wrapper + c2-counter-floor; K1-BASE-* <- base extraction (G sub-leg needs bao)
+CONTROL K1-BASE-C1 expect=accepted=5 observed=accepted=5 verdict=match
+DETAIL K1-BASE-C1 base-census --no-challenge: B3=v0 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 B4=v0 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 B5=v0 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 B6=v0 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 B7=v0 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1
+CONTROL K1-BASE-C2 expect=killed=0 observed=killed=0 verdict=match
+DETAIL K1-BASE-C2 ma=survive mb=survive g=nofire value=0 rc=1
+CONTROL C1-B3 expect=value=1;i3=0;population=7 observed=value=1;i3=0;population=7 verdict=match
+DETAIL C1-B3 checker=/fast/scratch/hyaku/kagi-r62/L1/kagi-r62/R62ExecControls/battery.736238/cand/plans/round-61-c1-check.py rc=1 i1=1 i2=1 i3=0 i4=1 i5=1 i6=1 i7=1
+CONTROL C1-B4 expect=value=1;i4=0;population=7 observed=value=1;i4=0;population=7 verdict=match
+DETAIL C1-B4 checker=/fast/scratch/hyaku/kagi-r62/L1/kagi-r62/R62ExecControls/battery.736238/cand/plans/round-61-c1-check.py rc=1 i1=1 i2=1 i3=1 i4=0 i5=1 i6=1 i7=1
+CONTROL C1-B5 expect=value=1;i5=0;population=7 observed=value=1;i5=0;population=7 verdict=match
+DETAIL C1-B5 checker=/fast/scratch/hyaku/kagi-r62/L1/kagi-r62/R62ExecControls/battery.736238/cand/plans/round-61-c1-check.py rc=1 i1=1 i2=1 i3=1 i4=1 i5=0 i6=1 i7=1
+CONTROL C1-B6 expect=value=1;i6=0;population=7 observed=value=1;i6=0;population=7 verdict=match
+DETAIL C1-B6 checker=/fast/scratch/hyaku/kagi-r62/L1/kagi-r62/R62ExecControls/battery.736238/cand/plans/round-61-c1-check.py rc=1 i1=1 i2=1 i3=1 i4=1 i5=1 i6=0 i7=1
+CONTROL C1-B7 expect=value=1;i7=0;population=7 observed=value=1;i7=0;population=7 verdict=match
+DETAIL C1-B7 checker=/fast/scratch/hyaku/kagi-r62/L1/kagi-r62/R62ExecControls/battery.736238/cand/plans/round-61-c1-check.py rc=1 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=0
+CONTROL C1-F6 expect=noverdict;rc!=0;cleanverdict=yes observed=verdict=no;rc=2;cleanverdict=yes verdict=match
+DETAIL C1-F6 clean-line=C1_BYPASS: accepted=0 population=5 guard=1 (real=1 selftest=1 stub=1 paraphrase=1 chal=1)
+CONTROL C1-F7 expect=value=0/0/0;population=7 observed=value=0/0/0;population=7/7/7 verdict=match
+DETAIL C1-F7 paraphrase-anchor-counts:P3:1/P4:1/P5:1
+CONTROL C2-F1 expect=rc!=0;finding=named observed=rc=1;finding=named verdict=match
+DETAIL C2-F1 FINDING R61-C2-ST-decide-pass
+CONTROL C2-F2 expect=rc!=0;finding=named observed=rc=1;finding=named verdict=match
+DETAIL C2-F2 FINDING R61-C2-ST-shims-ok
+CONTROL C2-F3 expect=guard=0 observed=guard=0;value=0;rc=1 verdict=match
+DETAIL C2-F3 line=C2_SEAL_TRIAL: value=0 tests=5 pass=0 shims=0 vectors=0/5 selftest=0 guard=0 (real=0 real2=0 none=0 ops=0 t2w=0 stubctl=1 secret=1 sh1=NNNNN sh2=NNNNN sh3=NNNNN sh4=NNNNN sh5=NNNNN trial=[HEXRUN] cases=0)
+CONTROL C2-F4 expect=value=5;shims=5;vectors=ok/5 observed=value=5;shims=5;vectors=ok/5 verdict=match
+DETAIL C2-F4 real-trial rc=0 line=C2_SEAL_TRIAL: value=5 tests=5 pass=5 shims=5 vectors=ok/5 selftest=1 guard=1 (real=1 real2=1 none=1 ops=1 t2w=1 stubctl=1 secret=1 sh1=BHHHH sh2=HBHHH sh3=HHBHH sh4=HHHBH sh5=HHHHB trial=[HEXRUN] cases=63)
+CONTROL C2-F5 expect=guard=0;cleanguard=1 observed=guard=0;cleanguard=1 verdict=match
+DETAIL C2-F5 clean-line=C2_HARDENED: killed=3 population=3 guard=1 (ma=1 mb=1 g=1 selftest=1 real=1) stub-line=C2_HARDENED: killed=1 population=3 guard=0 (ma=0 mb=0 g=1 selftest=1 real=1)
+SKIPS: 0
+CONTROLS: match=14 mismatch=0
+SEAT-STATUS: complete

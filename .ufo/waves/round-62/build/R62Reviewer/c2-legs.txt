@@ -1,0 +1,25 @@
+# R62Reviewer — C2 falsifier legs on the hardened counter (plans/round-61-c2.sh 25438 B, 18:15)
+
+## M-A: BEGIN-DECIDE block -> '  echo 5'
+FINDING R61-C2-ST-decide-pass
+FINDING R61-C2-ST-decide-shims
+FINDING R61-C2-ST-decide-none
+FINDING R61-C2-ST-decide-selftest
+FINDING R61-C2-ST-decide-ops
+FINDING R61-C2-ST-decide-t2w
+C2_SELFTEST: FAIL (cases=21 failed=6)  rc=1
+
+## M-B: BEGIN-SHIMS block -> '  shims_ok=5'
+FINDING R61-C2-ST-shims-ok
+FINDING R61-C2-ST-shims-bad
+FINDING R61-C2-ST-shims-summary
+C2_SELFTEST: FAIL (cases=21 failed=3)  rc=1
+
+## unmutated
+C2_SELFTEST: PASS (cases=21)  rc=0
+
+## G: stub-trial tree (valid sha256, prints nothing)
+C2_SEAL_TRIAL: value=0 tests=5 pass=0 shims=0 vectors=0/5 selftest=0 guard=0 (real=0 real2=0 none=0 ops=0 t2w=0 stubctl=1 secret=1 sh1=NNNNN sh2=NNNNN sh3=NNNNN sh4=NNNNN sh5=NNNNN trial=6bfee8910f3559d17096f987ae78362191e503cf07474b2dd68aa1d8d72bfae3 cases=0)  rc=1
+
+## BASE comparison (round-61 counter c7d9e272): M-A/M-B PASS (cases=11);
+## stub-trial tree guard=1. killed=0 at BASE, 3 here.

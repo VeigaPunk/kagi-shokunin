@@ -1,0 +1,12 @@
+== hardened counter sha: 20614697f3720aa446501b3c3246748c762a025b99065a19556476d9ff3f4f29
+== unmutated selftest
+  rc=0 | C2_SELFTEST: PASS (cases=21)
+== M-A (BEGIN-DECIDE block -> echo 5) selftest
+  rc=1 | findings=6 | C2_SELFTEST: FAIL (cases=21 failed=6)
+== M-B (BEGIN-SHIMS block -> shims_ok=5) selftest
+  rc=1 | findings=3 | C2_SELFTEST: FAIL (cases=21 failed=3)
+== G: stub-trial tree
+  rc=1 | C2_SEAL_TRIAL: value=0 tests=5 pass=0 shims=0 vectors=0/5 selftest=0 guard=0 (real=0 real2=0 none=0 ops=0 t2w=0 stubctl=1 secret=1 sh1=NNNNN sh2=NNNNN sh3=NNNNN sh4=NNNNN sh5=NNNNN trial=fb99eae951f1adc14d1a4a9a186c21930db2786b3208c94c7d9af382bd1048e5 cases=0)
+== K4: real trial on the hardened counter
+  rc=0 | C2_SEAL_TRIAL: value=5 tests=5 pass=5 shims=5 vectors=ok/5 selftest=1 guard=1 (real=1 real2=1 none=1 ops=1 t2w=1 stubctl=1 secret=1 sh1=BHHHH sh2=HBHHH sh3=HHBHH sh4=HHHBH sh5=HHHHB trial=a3bc882597ccaebca66d23d5a76cf6a6d4810822fe774f43ff2dace8cb60b535 cases=63)
+DONE

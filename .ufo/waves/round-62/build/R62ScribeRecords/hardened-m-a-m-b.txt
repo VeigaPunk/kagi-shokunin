@@ -1,0 +1,26 @@
+# M-A / M-B against the HARDENED round-61 C2 counter (R62ScribeRecords, 2026-11-07)
+# tree: extracted 60b5b7b copy with plans/round-61-c2.sh replaced by the hardened bytes
+# instrument sha256:
+20614697f3720aa446501b3c3246748c762a025b99065a19556476d9ff3f4f29  /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-61-c2.sh
+
+# baseline (unmutated): cd hard && bash plans/round-61-c2.sh --selftest
+baseline rc=0
+C2_SELFTEST: PASS (cases=21)
+
+# M-A: the block between '# BEGIN-DECIDE' and '# END-DECIDE' replaced by '  echo 5'
+M-A rc=1
+M-A findings=6
+C2_SELFTEST: FAIL (cases=21 failed=6)
+
+# M-B: the block between '# BEGIN-SHIMS' and '# END-SHIMS' replaced by '  shims_ok=5'
+M-B rc=1
+M-B findings=3
+C2_SELFTEST: FAIL (cases=21 failed=3)
+
+# named findings (first three each):
+FINDING R61-C2-ST-decide-pass
+FINDING R61-C2-ST-decide-shims
+FINDING R61-C2-ST-decide-none
+FINDING R61-C2-ST-shims-ok
+FINDING R61-C2-ST-shims-bad
+FINDING R61-C2-ST-shims-summary

@@ -1,0 +1,8 @@
+# rev 348aa3b8ea7298aeb2f4d69db321fe827a92ae4f
+# leg: live (a) — corpus/knowledge/cdp-bridge-1password-oidc-workflow.md:3, stated -> count=1 (locate form, not grep -c)
+# command: curl -fsSL --max-time 60 -w 'HTTP=%{http_code} bytes=%{size_download}\n' -o $S/live/op-custom-workflow.body 'https://www.1password.dev/brokered-access/custom-workflow'; python3 /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/rendered-text-v1.py locate <body> 'The client authenticates using your OIDC token, workload ID, and the integration key configured by your administrator'
+HTTP=200 bytes=268454
+curl_exit=0
+RENDERED_TEXT_V1_LOCATE: count=1
+locate_exit=0
+# last line: locate_exit=0

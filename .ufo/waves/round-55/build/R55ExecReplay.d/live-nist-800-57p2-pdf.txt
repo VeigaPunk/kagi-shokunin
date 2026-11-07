@@ -1,0 +1,8 @@
+# rev 348aa3b8ea7298aeb2f4d69db321fe827a92ae4f
+# leg: live (a) — corpus/knowledge/nist-key-management-parts-withdrawal.md:3, stated -> 1 (pdftotext form, not plain grep -c)
+# command: curl -fsSL --max-time 60 -w 'HTTP=%{http_code} bytes=%{size_download}\n' -o $S/live/nist-800-57p2.pdf 'https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-57p2.pdf'; pdftotext -layout <pdf> - | grep -c 'has been withdrawn (archived)'
+HTTP=200 bytes=622785
+curl_exit=0
+1
+grep_exit=0
+# last line: grep_exit=0

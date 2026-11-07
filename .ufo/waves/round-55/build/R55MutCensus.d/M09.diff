@@ -1,0 +1,11 @@
+--- /fast/scratch/hyaku/kagi-r55/R55MutCensus/rev/corpus/sources-census.sh	2026-11-07 04:50:18.000000000 -0300
++++ /fast/scratch/hyaku/kagi-r55/R55MutCensus/mut/M09/corpus/sources-census.sh	2026-11-07 05:00:35.577122867 -0300
+@@ -163,7 +163,7 @@
+ # First `source:` line plus whitespace-led continuation lines.
+ src_field() { awk 'f && /^[[:space:]]/ {print; next} f {exit} /^source:/ {f=1; print}' "$1"; }
+ # Round 55: first `cites:` line plus whitespace-led continuation lines.
+-cites_field() { awk 'f && /^[[:space:]]/ {print; next} f {exit} /^cites:/ {f=1; print}' "$1"; }
++cites_field() { awk 'f && /^[ ]/ {print; next} f {exit} /^cites:/ {f=1; print}' "$1"; }
+ # Round 55: every registry-id-shaped token in a file, one per line, unique.
+ body_ids() { grep -oE '(^|[^A-Za-z0-9_])S[0-9]{3,}' "$1" | grep -oE 'S[0-9]+$' | sort -u; }
+ 

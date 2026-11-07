@@ -1,0 +1,24 @@
+# BASE entry vs v1_comment tree entry (measured revision 348aa3b8ea7298aeb2f4d69db321fe827a92ae4f; BASE ebe095857a734caf5efdd7bd776feb22b4e23972)
+# only the source: line, the recheck: line and one trailing HTML comment differ; the stale 2017-amendment section is unchanged
+--- /fast/scratch/hyaku/kagi-r55/R55CriticC2/base_entry.md	2026-11-07 05:01:23.754337312 -0300
++++ /fast/scratch/hyaku/kagi-r55/R55CriticC2/v1_comment/corpus/knowledge/iso-11770-3-edition-status.md	2026-11-07 04:58:38.682810270 -0300
+@@ -1,6 +1,6 @@
+-source: S100 — https://webstore.iec.ch/en/publication/62160 (IEC record of ISO/IEC 11770-3:2015/AMD1:2017); S101 — https://www.iso.org/standard/60237.html 
++source: S100 — https://webstore.iec.ch/en/publication/62160 (IEC record of ISO/IEC 11770-3:2015/AMD1:2017); S101 — https://www.iso.org/standard/60237.html 
+ verified-at: 2026-11-05
+-recheck: 180d — `curl -fsSL -A 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36' 'https://www.iso.org/stand
++recheck: 180d — `curl -fsSL -A 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36' 'https://www.iso.org/stand
+ ground: round 45 C2 (coverage) — the ISO/IEC 11770-3 mechanism standard, its edition and supersession status; the lane's corpus held no entry on it at BASE 0
+ Reverify: R21-02
+ (R21-02 is the sources-census row: it re-verifies the citation chain only — every id on `source:` resolves to a `mined` row of `corpus/SOURCES.md` whose `use
+@@ -65,3 +65,5 @@
+ - S100 — https://webstore.iec.ch/en/publication/62160 (fetched 2026-11-05)
+ - S101 — https://www.iso.org/standard/60237.html (fetched 2026-11-05, browser user agent)
+ - S102 — https://webstore.iec.ch/en/publication/71650 (fetched 2026-11-05)
++
++<!-- ISO/IEC 11770-3:2021/Amd 1:2025 [S114] -->
+diff_rc=0
+
+# v1_comment counter output
+C2_ISO_CURRENT: value=2 amd=1 recheck=1 guard=1 (bad=none)
+rc=0

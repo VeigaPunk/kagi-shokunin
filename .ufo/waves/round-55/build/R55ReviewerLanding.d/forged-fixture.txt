@@ -1,0 +1,13 @@
+# measured revision: 348aa3b8ea7298aeb2f4d69db321fe827a92ae4f
+# command: forged fixture fx-pad = candidate archive + 'cites: S024, S001' on the OpenBao entry + openbao entry appended to S001 used-by
+-- fixture edit diff (cites line and S001 used-by)
+6:cites: S024, S001 (named in the body as the Vault KV v2 row this OpenBao entry does not extend; cross-reference; recorded round 55)
+-- census on fixture
+SOURCES_CENSUS: CLEAN (rows=114 A=110 B=2 C=2 queued=1 mined=109 rejected=4 entries_sourced=16 legacy=21 captures=114 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+-- C1 counter on fixture
+C1_USEDBY_GAP: value=0 gap=0 citations=91 entries=37 guard=1 (bad=none)
+exit=0
+-- S001 registry row used-by cell in fx-pad (fixture), field 11 only:
+corpus/knowledge/onepassword-machine-credentials.md, corpus/knowledge/openbao-kv-v2-version-lifecycle.md
+-- entry prose mention of S001 in fx-pad (should be none outside the cites line):
+6:cites: S024, S001 (named in the body as the Vault KV v2 row this OpenBao entry does not extend; cross-reference; recorded round 55)

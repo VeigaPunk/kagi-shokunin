@@ -1,0 +1,49 @@
+# R55ScoutISO receipt 2 — registry quote offsets located + word counts
+# seat: R55ScoutISO   measured revision (40-hex, from git rev-parse): 348aa3b8ea7298aeb2f4d69db321fe827a92ae4f
+# lane: /home/vgpnk/Projects/shokunin/kagi-shokunin
+# scratch: /fast/scratch/hyaku/kagi-r55/R55ScoutISO
+
+$ cat corpus/quote-bodies.tsv   (rows S101, S113, S114, header shown)
+id	body_path	offset	quote
+S101	.ufo/waves/round-45/controls/capture-r45/S101.raw	45752	Withdrawal of International Standard
+S113	.ufo/waves/round-55/capture/S113.body	53493	ISO/IEC 11770-3:2021/Amd 1:2025
+S114	.ufo/waves/round-55/capture/S114.body	541	ISO/IEC 11770-3:2021/Amd 1:2025
+
+$ python3 (bytes): for each row, read body, slice at declared offset, compare with quote; list all occurrences; count words by the lane rule
+--- S101 .ufo/waves/round-45/controls/capture-r45/S101.raw len 85615 sha256 2e4c1524ec05865536f819db68c56494d97fc67cb490df4f5d4b1ca85b7b0c80
+   declared offset 45752 -> bytes: b'Withdrawal of International Standard'
+   EXACT MATCH AT DECLARED OFFSET: True
+   all occurrences: [45752, 62765]
+   word count (printf '%s' "<quote>" | wc -w): 4
+--- S113 .ufo/waves/round-55/capture/S113.body len 90604 sha256 d8dfe35408b17b02845dc0cf19f774bc6cc6b8dcbfe1636e22bb6b13dfa64357
+   declared offset 53493 -> bytes: b'ISO/IEC 11770-3:2021/Amd 1:2025'
+   EXACT MATCH AT DECLARED OFFSET: True
+   all occurrences: [53493, 53739, 69404]
+   word count (printf '%s' "<quote>" | wc -w): 3
+--- S114 .ufo/waves/round-55/capture/S114.body len 85138 sha256 8bb88d88ff21d4488cf2205d9655a7fcbdeb3601616bdf4f5767dce13c449bdf
+   declared offset 541 -> bytes: b'ISO/IEC 11770-3:2021/Amd 1:2025'
+   EXACT MATCH AT DECLARED OFFSET: True
+   all occurrences: [541, 7189, 7264, 34884, 35248, 36307, 37294, 38547, 38710, 38956, 43670, 50871, 65370]
+   word count (printf '%s' "<quote>" | wc -w): 3
+
+$ printf '%s' 'ISO/IEC 11770-3:2021/Amd 1:2025' | wc -w   -> 3  (the landed lesson/registry prose said '4 words'; wc -w counts whitespace tokens: 'ISO/IEC' '11770-3:2021/Amd' '1:2025')
+3
+4
+6
+
+$ grep -c on the committed captures (the counts the entry's recheck: line states)
+S101.raw  grep -c 'Withdrawal of International Standard' -> 2
+S113.body grep -c 'ISO/IEC 11770-3:2021/Amd 1:2025'      -> 3
+S114.body grep -c 'International Standard published'      -> 2
+
+$ python3 (bytes): which ELEMENT contains the S113 quote at 53493, and where the life-cycle section starts
+id="lifecycle" starts at byte 57926
+declared quote offset 53493 -> BEFORE the life-cycle section
+life-cycle occurrence of the quote at byte 69404
+store-box card id="cs85929" at byte 53140
+enclosing tag at 53493: <span class="visually-hidden" id="indexReference_cs85929" data-index="85929 - ISO/IEC 11770-3:2021/Amd 1:2025 - Informat
+
+=== S114 offsets of the other quoted strings (byte space) ===
+   Amendment 1: TFNS identity-based key agreement -> byte 670
+   2025-04 -> byte 35412
+   International Standard published -> byte 49075

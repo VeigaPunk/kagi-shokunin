@@ -1,0 +1,42 @@
+=== op-ref cites line ===
+2:cites: S072, S112 (§11.1–§11.2: the op release identity row and the op release clock feed (legacy entry, no source: line); recorded round 55)
+=== BASE census source-only? ===
+40:#     SC_USEDBY_NOCITE   a mined row's used-by file does not carry the row id on
+49:#     SC_ENTRY_CITE      a sourced entry whose `source:` line carries no S id, or
+229:        if [[ ! -f $ROOT/$p ]]; then finding SC_USEDBY_NOCITE "id=$id path=$p not-a-regular-file"; continue; fi
+231:        [[ $field =~ (^|[^A-Za-z0-9_])$id([^0-9]|$) ]] || finding SC_USEDBY_NOCITE "id=$id path=$p"
+345:    [[ -n $ids ]] || finding SC_ENTRY_CITE "entry=$rel no-registry-id"
+349:      if [[ ! -v ST[$id] ]]; then finding SC_ENTRY_CITE "entry=$rel id=$id not-a-registry-row"; continue; fi
+350:      if [[ ${ST[$id]} != mined ]]; then finding SC_ENTRY_CITE "entry=$rel id=$id status=${ST[$id]}"; continue; fi
+354:      [[ $listed_here -eq 1 ]] || finding SC_ENTRY_CITE "entry=$rel id=$id used-by-omits-entry"
+356:    [[ -z $ids || $supported -eq 1 ]] || finding SC_ENTRY_CITE "$rel: no tier A/B support (tier C is a lead only)"
+581:    "usedby-nocite|m_usedby_nocite||1|SC_USEDBY_NOCITE|1"
+593:    "cite-unknown|m_cite_unknown||1|SC_ENTRY_CITE|1"
+594:    "cite-not-mined|m_cite_queued||1|SC_ENTRY_CITE|1"
+=== entries with grep -c in recheck (candidate) ===
+15
+adjacency-breadth.md
+adjacency-scope.md
+betterleaks-detection-vs-validation.md
+claim-ledger.md
+drift-gate.md
+handler-on-disk-state.md
+handler-trust-boundary.md
+iso-11770-3-edition-status.md
+nist-key-management-guidance-status.md
+nist-key-management-parts-withdrawal.md
+oidc-federation-trust-policy.md
+op-ref-consumption.md
+prefreeze-controls.md
+secret-scanning-detection-vs-validation.md
+trufflehog-verification-lifecycle.md
+=== entries with locate ===
+cdp-bridge-1password-oidc-workflow.md
+claim-ledger.md
+feed-token-boundaries.md
+nist-key-management-guidance-status.md
+nist-key-management-parts-withdrawal.md
+op-ref-consumption.md
+openbao-kv-v2-version-lifecycle.md
+sops-age-key-rotation.md
+vault-openbao-token-lease-lifecycle.md

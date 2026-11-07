@@ -1,0 +1,11 @@
+=== controls lines ===
+25
+MATCH count:
+22
+=== tail ===
+CONTROL K2-F6-s101-row-edited expect=FAIL got=FAIL MATCH :: C2_ISO_CURRENT: value=FAIL amd=1 recheck=1 guard=0 (bad=guard:row-S101)
+CONTROL K2-F7-recheck-foreign-url expect=1 got=1 MATCH :: C2_ISO_CURRENT: value=1 amd=1 recheck=0 guard=1 (bad=recheck:url-or-n)
+CONTROL K2-F8-opened-date expect=1 got=1 MATCH :: C2_ISO_CURRENT: value=1 amd=0 recheck=1 guard=1 (bad=amd:a)
+CONTROL K2-F9-symlinked-capture expect=1 got=1 MATCH :: C2_ISO_CURRENT: value=1 amd=0 recheck=1 guard=1 (bad=amd:c)
+CONTROLS: match=22 mismatch=0
+exit=0

@@ -1,0 +1,67 @@
+== overlap rc=0
+   LAST: SOURCES_CENSUS: CLEAN (rows=4 A=1 B=2 C=1 queued=1 mined=2 rejected=1 entries_sourced=1 legacy=1 captures=4 inrow=0 inrow_only=0 inrow_nonreproducing=0)
+== codespan rc=1
+   FINDING SC_BODY_CITE entry=corpus/knowledge/e1.md id=S003 unrecorded
+   LAST: SOURCES_CENSUS: FAILED (findings=1 rows=4)
+== line-start rc=1
+   FINDING SC_BODY_CITE entry=corpus/knowledge/e1.md id=S003 unrecorded
+   LAST: SOURCES_CENSUS: FAILED (findings=1 rows=4)
+== punctuation rc=1
+   FINDING SC_BODY_CITE entry=corpus/knowledge/e1.md id=S003 unrecorded
+   LAST: SOURCES_CENSUS: FAILED (findings=1 rows=4)
+== id-range rc=1
+   FINDING SC_BODY_CITE entry=corpus/knowledge/e1.md id=S003 unrecorded
+   LAST: SOURCES_CENSUS: FAILED (findings=1 rows=4)
+== source-continuation rc=1
+   FINDING SC_ENTRY_CITE entry=corpus/knowledge/e1.md id=S003 status=queued
+   LAST: SOURCES_CENSUS: FAILED (findings=1 rows=4)
+== lowercase rc=0
+   LAST: SOURCES_CENSUS: CLEAN (rows=4 A=1 B=2 C=1 queued=1 mined=2 rejected=1 entries_sourced=1 legacy=1 captures=4 inrow=0 inrow_only=0 inrow_nonreproducing=0)
+== non-row-body-id rc=0
+   LAST: SOURCES_CENSUS: CLEAN (rows=4 A=1 B=2 C=1 queued=1 mined=2 rejected=1 entries_sourced=1 legacy=1 captures=4 inrow=0 inrow_only=0 inrow_nonreproducing=0)
+== nul-byte rc=0
+   LAST: SOURCES_CENSUS: CLEAN (rows=4 A=1 B=2 C=1 queued=1 mined=2 rejected=1 entries_sourced=1 legacy=1 captures=4 inrow=0 inrow_only=0 inrow_nonreproducing=0)
+== knowledge-subdir rc=0
+   LAST: SOURCES_CENSUS: CLEAN (rows=4 A=1 B=2 C=1 queued=1 mined=2 rejected=1 entries_sourced=1 legacy=1 captures=4 inrow=0 inrow_only=0 inrow_nonreproducing=0)
+== symlink-entry rc=1
+   FINDING SC_BODY_CITE entry=corpus/knowledge/link.md id=S003 unrecorded
+   LAST: SOURCES_CENSUS: FAILED (findings=1 rows=4)
+== cites-continuation rc=0
+   LAST: SOURCES_CENSUS: CLEAN (rows=4 A=1 B=2 C=1 queued=1 mined=2 rejected=1 entries_sourced=1 legacy=1 captures=4 inrow=0 inrow_only=0 inrow_nonreproducing=0)
+== cites-fenced-sample rc=1
+   FINDING SC_BODY_CITE entry=corpus/knowledge/e1.md multiple-cites-lines
+   LAST: SOURCES_CENSUS: FAILED (findings=1 rows=4)
+== cites-indented rc=1
+   FINDING SC_USEDBY_NOCITE id=S002 path=corpus/knowledge/legacy.md
+   FINDING SC_BODY_CITE entry=corpus/knowledge/legacy.md id=S002 unrecorded
+   LAST: SOURCES_CENSUS: FAILED (findings=2 rows=4)
+== cites-capital rc=1
+   FINDING SC_USEDBY_NOCITE id=S002 path=corpus/knowledge/legacy.md
+   FINDING SC_BODY_CITE entry=corpus/knowledge/legacy.md id=S002 unrecorded
+   LAST: SOURCES_CENSUS: FAILED (findings=2 rows=4)
+== cites-no-final-newline rc=0
+   LAST: SOURCES_CENSUS: CLEAN (rows=4 A=1 B=2 C=1 queued=1 mined=2 rejected=1 entries_sourced=1 legacy=1 captures=4 inrow=0 inrow_only=0 inrow_nonreproducing=0)
+== crlf-entry rc=0
+   LAST: SOURCES_CENSUS: CLEAN (rows=4 A=1 B=2 C=1 queued=1 mined=2 rejected=1 entries_sourced=1 legacy=1 captures=4 inrow=0 inrow_only=0 inrow_nonreproducing=0)
+== rejected-mention rc=0
+   LAST: SOURCES_CENSUS: CLEAN (rows=4 A=1 B=2 C=1 queued=1 mined=2 rejected=1 entries_sourced=1 legacy=1 captures=4 inrow=0 inrow_only=0 inrow_nonreproducing=0)
+== rejected-mention-no-usedby rc=1
+   FINDING SC_BODY_CITE entry=corpus/knowledge/e1.md id=S004 cites-used-by-omits-entry
+   LAST: SOURCES_CENSUS: FAILED (findings=1 rows=4)
+== legacy-cites-usedby rc=0
+   LAST: SOURCES_CENSUS: CLEAN (rows=4 A=1 B=2 C=1 queued=1 mined=2 rejected=1 entries_sourced=1 legacy=1 captures=4 inrow=0 inrow_only=0 inrow_nonreproducing=0)
+== legacy-cites-no-usedby rc=1
+   FINDING SC_BODY_CITE entry=corpus/knowledge/legacy.md id=S002 cites-used-by-omits-entry
+   LAST: SOURCES_CENSUS: FAILED (findings=1 rows=4)
+== cites-before-source rc=0
+   LAST: SOURCES_CENSUS: CLEAN (rows=4 A=1 B=2 C=1 queued=1 mined=2 rejected=1 entries_sourced=1 legacy=1 captures=4 inrow=0 inrow_only=0 inrow_nonreproducing=0)
+== lesson-knowledge rc=1
+   FINDING SC_BODY_CITE entry=corpus/knowledge/l2.md id=S003 unrecorded
+   FINDING SC_ENTRY_HEADER entry=corpus/knowledge/l2.md missing=verified-at
+   FINDING SC_ENTRY_HEADER entry=corpus/knowledge/l2.md missing=recheck
+   FINDING SC_ENTRY_CITE entry=corpus/knowledge/l2.md id=S001 used-by-omits-entry
+   LAST: SOURCES_CENSUS: FAILED (findings=4 rows=4)
+== lesson-lessons rc=0
+   LAST: SOURCES_CENSUS: CLEAN (rows=4 A=1 B=2 C=1 queued=1 mined=2 rejected=1 entries_sourced=1 legacy=1 captures=4 inrow=0 inrow_only=0 inrow_nonreproducing=0)
+== control rc=0
+   LAST: SOURCES_CENSUS: CLEAN (rows=4 A=1 B=2 C=1 queued=1 mined=2 rejected=1 entries_sourced=1 legacy=1 captures=4 inrow=0 inrow_only=0 inrow_nonreproducing=0)

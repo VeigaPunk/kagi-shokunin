@@ -1,0 +1,134 @@
+# rev 348aa3b8ea7298aeb2f4d69db321fe827a92ae4f
+# prototype run: replay.py on a `git archive 348aa3b8ea7298aeb2f4d69db321fe827a92ae4f` extraction
+# command: python3 -I -B R55ExecReplay.d/replay.py $S/candidate-348aa3b8   (cwd: scratch)
+# note: first run mapped zero registry rows (row/URL regexes written against grep
+# output prefixes, not the file); fixed ROW_LINE to `^\|\s*(S\d+)\s*\|` and
+# FIRST_URL to greedy `\S+`, then this run. No other change.
+# exit code: 0
+{
+  "summary": {
+    "commands": 10,
+    "grep_c_form_replayed": 2,
+    "matched": 2,
+    "mismatched": 0,
+    "not_replayable": 8,
+    "errors": 0
+  },
+  "rows": [
+    {
+      "entry": "corpus/knowledge/aliyun-accesskey-credential-custody.md",
+      "line": 3,
+      "command": "curl -fsSL --compressed URL",
+      "stated": null,
+      "stated_form": "",
+      "verdict": "NOT_REPLAYABLE",
+      "reason": "form: not `curl ... '<URL>' | grep -c '<P>'`"
+    },
+    {
+      "entry": "corpus/knowledge/betterleaks-detection-vs-validation.md",
+      "line": 4,
+      "command": "curl -fsSL 'https://raw.githubusercontent.com/betterleaks/betterleaks/main/README.md' | grep -c 'Scans detect secrets without credential provider requests by default'",
+      "stated": 1,
+      "stated_form": "1",
+      "url": "https://raw.githubusercontent.com/betterleaks/betterleaks/main/README.md",
+      "pattern": "Scans detect secrets without credential provider requests by default",
+      "row": "S055",
+      "verdict": "NOT_REPLAYABLE",
+      "reason": "S055 has no committed capture in corpus/quote-bodies.tsv"
+    },
+    {
+      "entry": "corpus/knowledge/cdp-bridge-1password-oidc-workflow.md",
+      "line": 3,
+      "command": "curl -fsSL --max-time 30 'https://www.1password.dev/brokered-access/custom-workflow' | python3 corpus/rendered-text-v1.py locate /dev/stdin 'The client authenticates using your OIDC token, workload ID, and the integration key configured by your administrator'",
+      "stated": 1,
+      "stated_form": "count=1",
+      "verdict": "NOT_REPLAYABLE",
+      "reason": "form: not `curl ... '<URL>' | grep -c '<P>'`"
+    },
+    {
+      "entry": "corpus/knowledge/iso-11770-3-edition-status.md",
+      "line": 3,
+      "command": "curl -fsSL -A 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36' 'https://www.iso.org/standard/60237.html' | grep -c 'Withdrawal of International Standard'",
+      "stated": 2,
+      "stated_form": "2",
+      "url": "https://www.iso.org/standard/60237.html",
+      "pattern": "Withdrawal of International Standard",
+      "row": "S101",
+      "capture_body_path": ".ufo/waves/round-45/controls/capture-r45/S101.raw",
+      "capture_replay": 2,
+      "verdict": "MATCH"
+    },
+    {
+      "entry": "corpus/knowledge/iso-11770-3-edition-status.md",
+      "line": 3,
+      "command": "curl -fsSL -A 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36' 'https://www.iso.org/standard/82709.html' | grep -c 'ISO/IEC 11770-3:2021/Amd 1:2025'",
+      "stated": 3,
+      "stated_form": "3",
+      "url": "https://www.iso.org/standard/82709.html",
+      "pattern": "ISO/IEC 11770-3:2021/Amd 1:2025",
+      "row": "S113",
+      "capture_body_path": ".ufo/waves/round-55/capture/S113.body",
+      "capture_replay": 3,
+      "verdict": "MATCH"
+    },
+    {
+      "entry": "corpus/knowledge/nist-key-management-guidance-status.md",
+      "line": 3,
+      "command": "curl -fsSL 'https://csrc.nist.gov/pubs/sp/800/133/r3/ipd' | grep -c 'public comment period is CLOSED'",
+      "stated": 1,
+      "stated_form": "1",
+      "url": "https://csrc.nist.gov/pubs/sp/800/133/r3/ipd",
+      "pattern": "public comment period is CLOSED",
+      "row": "S074",
+      "verdict": "NOT_REPLAYABLE",
+      "reason": "S074 has no committed capture in corpus/quote-bodies.tsv"
+    },
+    {
+      "entry": "corpus/knowledge/nist-key-management-parts-withdrawal.md",
+      "line": 3,
+      "command": "curl -fsSL 'https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-57p2.pdf' | pdftotext -layout - - | grep -c 'has been withdrawn (archived)'",
+      "stated": 1,
+      "stated_form": "1",
+      "verdict": "NOT_REPLAYABLE",
+      "reason": "form: not `curl ... '<URL>' | grep -c '<P>'`"
+    },
+    {
+      "entry": "corpus/knowledge/oidc-federation-trust-policy.md",
+      "line": 3,
+      "command": "curl -fsSL --max-time 30 'https://openid.net/specs/openid-connect-core-1_0.html' | grep -c 'It MUST contain the OAuth 2.0'",
+      "stated": 1,
+      "stated_form": "1",
+      "url": "https://openid.net/specs/openid-connect-core-1_0.html",
+      "pattern": "It MUST contain the OAuth 2.0",
+      "row": "S067",
+      "verdict": "NOT_REPLAYABLE",
+      "reason": "S067 has no committed capture in corpus/quote-bodies.tsv"
+    },
+    {
+      "entry": "corpus/knowledge/secret-scanning-detection-vs-validation.md",
+      "line": 4,
+      "command": "curl -fsSL 'https://raw.githubusercontent.com/trufflesecurity/trufflehog/main/README.md' | grep -c 'it can also log in to confirm if that secret is live or not'",
+      "stated": 1,
+      "stated_form": "1",
+      "url": "https://raw.githubusercontent.com/trufflesecurity/trufflehog/main/README.md",
+      "pattern": "it can also log in to confirm if that secret is live or not",
+      "row": "S054",
+      "verdict": "NOT_REPLAYABLE",
+      "reason": "S054 has no committed capture in corpus/quote-bodies.tsv"
+    },
+    {
+      "entry": "corpus/knowledge/trufflehog-verification-lifecycle.md",
+      "line": 4,
+      "command": "curl -fsSL 'https://trufflesecurity.com/docs/verification-caching' | grep -c 'Each cache entry expires after three hours'",
+      "stated": 1,
+      "stated_form": "1",
+      "url": "https://trufflesecurity.com/docs/verification-caching",
+      "pattern": "Each cache entry expires after three hours",
+      "row": "S057",
+      "verdict": "NOT_REPLAYABLE",
+      "reason": "S057 has no committed capture in corpus/quote-bodies.tsv"
+    }
+  ]
+}
+REPLAY-SUMMARY: commands=10 replayed=2 matched=2 mismatched=0 not_replayable=8 errors=0
+# last line: replay_exit=0

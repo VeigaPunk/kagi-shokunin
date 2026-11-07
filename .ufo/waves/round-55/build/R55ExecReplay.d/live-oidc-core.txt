@@ -1,0 +1,8 @@
+# rev 348aa3b8ea7298aeb2f4d69db321fe827a92ae4f
+# leg: live (a) — corpus/knowledge/oidc-federation-trust-policy.md:3, stated -> 1
+# command: curl -fsSL --max-time 60 -w 'HTTP=%{http_code} bytes=%{size_download}\n' -o $S/live/oidc-core.body 'https://openid.net/specs/openid-connect-core-1_0.html'; grep -c 'It MUST contain the OAuth 2.0' <body>
+HTTP=200 bytes=437508
+curl_exit=0
+1
+grep_exit=0
+# last line: grep_exit=0

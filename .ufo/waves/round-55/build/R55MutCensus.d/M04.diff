@@ -1,0 +1,11 @@
+--- /fast/scratch/hyaku/kagi-r55/R55MutCensus/rev/corpus/sources-census.sh	2026-11-07 04:50:18.000000000 -0300
++++ /fast/scratch/hyaku/kagi-r55/R55MutCensus/mut/M04/corpus/sources-census.sh	2026-11-07 05:00:27.091084953 -0300
+@@ -357,7 +357,7 @@
+     field=$(src_field "$f"); cfield=$(cites_field "$f")
+     for bid in $(body_ids "$f"); do
+       [[ -v ST[$bid] ]] || continue
+-      [[ $field =~ (^|[^A-Za-z0-9_])$bid([^0-9]|$) || $cfield =~ (^|[^A-Za-z0-9_])$bid([^0-9]|$) ]] || finding SC_BODY_CITE "entry=$rel id=$bid unrecorded"
++      [[ $field =~ (^|[^A-Za-z0-9_])$bid([^0-9]|$) ]] || finding SC_BODY_CITE "entry=$rel id=$bid unrecorded"
+     done
+     for bid in $(grep -oE '(^|[^A-Za-z0-9_])S[0-9]{3,}' <<<"$cfield" | grep -oE 'S[0-9]+$' | sort -u); do
+       if [[ ! -v ST[$bid] ]]; then finding SC_BODY_CITE "entry=$rel id=$bid cites-not-a-registry-row"; continue; fi

@@ -1,0 +1,14 @@
+=== selftest cases candidate ===
+2
+=== selftest function/list ===
+13:# write anywhere (the selftest writes only under its own `mktemp -d`).
+17:#   bash corpus/sources-census.sh --selftest         # prove every finding id
+120:#   --selftest: SOURCES_CENSUS_SELFTEST: PASS (N cases) exit 0 | FAIL (N cases, K failed) exit 1
+124:# The selftest builds a fixture tree under `mktemp -d` (removed by an EXIT trap),
+143:    --selftest) MODE="selftest"; shift ;;
+402:# --- selftest ------------------------------------------------------------------
+410:# SOURCES — where selftest learns
+587:inrow_row() { printf 'S001\t%s\t%s\t%s\tselftest\n' "$2" "$3" "$4" >>"$(INROW_F "$1")"; }
+603:  printf 'S017\t%s\t2026-10-19\tnon-reproducing\tselftest\n' "$(rep a 64)" >>"$(INROW_F "$1")"
+607:selftest() {
+733:  selftest) selftest ;;

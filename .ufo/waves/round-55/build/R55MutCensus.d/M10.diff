@@ -1,0 +1,11 @@
+--- /fast/scratch/hyaku/kagi-r55/R55MutCensus/rev/corpus/sources-census.sh	2026-11-07 04:50:18.000000000 -0300
++++ /fast/scratch/hyaku/kagi-r55/R55MutCensus/mut/M10/corpus/sources-census.sh	2026-11-07 05:00:35.586122907 -0300
+@@ -244,7 +244,7 @@
+         if [[ ! $p =~ $usedby_re ]]; then finding SC_USEDBY_MISSING "$id: $p not a repo corpus path"; continue; fi
+         [[ -e $ROOT/$p ]] || continue # nonexistent in-shape path: contract SC_USEDBY_MISSING above
+         if [[ ! -f $ROOT/$p ]]; then finding SC_USEDBY_NOCITE "id=$id path=$p not-a-regular-file"; continue; fi
+-        field="$(src_field "$ROOT/$p")"$'\n'"$(cites_field "$ROOT/$p")"
++        field="$(src_field "$ROOT/$p")"$' '"$(cites_field "$ROOT/$p")"
+         [[ $field =~ (^|[^A-Za-z0-9_])$id([^0-9]|$) ]] || finding SC_USEDBY_NOCITE "id=$id path=$p"
+       done
+     fi

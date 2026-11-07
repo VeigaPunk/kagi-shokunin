@@ -1,0 +1,92 @@
+# R55ScoutISO receipt 5 — freshness: is there any newer amendment / corrigendum / stage change today?
+# seat: R55ScoutISO   measured revision (40-hex, from git rev-parse): 348aa3b8ea7298aeb2f4d69db321fe827a92ae4f
+# lane: /home/vgpnk/Projects/shokunin/kagi-shokunin
+# scratch: /fast/scratch/hyaku/kagi-r55/R55ScoutISO
+
+=== A. the 2021 edition's own record (S113, live == capture) — the amendment list ===
+  Amendments list entries:
+     /standard/85929.html ISO/IEC 11770-3:2021/Amd 1:2025
+  all ISO/IEC 11770-3 references anywhere on the 2021 edition page:
+     ISO/IEC 11770-3:2015
+     ISO/IEC 11770-3:2015/Amd 1:2017
+     ISO/IEC 11770-3:2015/Cor 1:2016
+     ISO/IEC 11770-3:2021
+     ISO/IEC 11770-3:2021
+     ISO/IEC 11770-3:2021/Amd 1:2025
+     ISO/IEC 11770-3:2021/Amd 1:2025
+  -> exactly ONE amendment against the 2021 edition: Amd 1:2025. No Amd 2, no Cor.
+
+=== B. the amendment's own record (S114, live == capture) ===
+  11770-3 references: ['ISO/IEC 11770-3:2021', 'ISO/IEC 11770-3:2021/Amd 1:2025', 'ISO/IEC 11770-3:2021/Amd 1:2025 ']
+  -> no sibling/next amendment named on the amendment's own page either.
+
+=== C. the ISO/IEC JTC 1/SC 27 COMMITTEE CATALOGUE (independent primary listing of the series) ===
+$ curl -sSL --compressed -A <browser UA> https://committee.iso.org/committee/45306/x/catalogue/p/0/u/1/w/0/d/0
+HTTP: 200 text/html;charset=UTF-8  (36289 compressed -> 758803 decoded bytes)
+ISO/IEC 11770-3 documents listed (two independent fetches):
+    ISO/IEC 11770-3:1999
+    ISO/IEC 11770-3:2008
+    ISO/IEC 11770-3:2008/Cor 1:2009
+    ISO/IEC 11770-3:2015
+    ISO/IEC 11770-3:2015/Amd 1:2017
+    ISO/IEC 11770-3:2015/Cor 1:2016
+    ISO/IEC 11770-3:2021
+    ISO/IEC 11770-3:2021/Amd 1:2025
+  count (fetch 1): 8   count (fetch 2): 8  (reproducible)
+  status marks: 1999 / 2008 / 2008-Cor-1 / 2015 / 2015-Amd-1 / 2015-Cor-1 = [Withdrawn]; 2021 and 2021/Amd 1:2025 = published (check-circle, no [Withdrawn]).
+  -> the newest 11770-3 document the committee lists IS Amd 1:2025. No Amd 2, no Cor for the 2021 edition.
+
+=== D. the IEC co-publisher's record of the 2021 edition (71650), live ===
+  lifecycle versions of 11770-3:2021 (IEC): "versions":[{"reference":"ISO\/IEC 11770-3:2021","is_allowed_for_nc_only":false,"publication_date":"2021-10-22","edition":"4.0","id":"71650","status":"PUBLISHED"}]},"v3":{"main":{"reference":"ISO\/IEC 11770-3:2015\/AMD1:
+  every 11770-3 reference on the page:
+     ISO/IEC 11770-3:2021
+     ISO/IEC 11770-3:2021 | IEC
+     ISO/IEC 11770-3:2021 | IEC</title>
+    
+     ISO/IEC 11770-3:2021</span>
+    </div>
+
+     ISO/IEC 11770-3</span>        </h1>
+   
+     ISO\/IEC 11770-3:1999
+     ISO\/IEC 11770-3:2008
+     ISO\/IEC 11770-3:2015
+     ISO\/IEC 11770-3:2021
+  -> the IEC record of the 2021 edition names no amendment beyond Amd 1:2025.
+
+=== E. STAGE CHANGES: are the 90.xx codes the DOCUMENT's stage, or the page's stage legend? ===
+  stage rows and whether they carry a REACHED date:
+    10     reached-date=(none)       Proposal
+    10.99  reached-date=2021-03-05   2021-03-05 New project approved
+    40     reached-date=(none)       Enquiry
+    40.99  reached-date=2021-03-05   2021-03-05 Full report circulated: DIS approved for regi
+    50     reached-date=(none)       Approval
+    50.60  reached-date=2021-08-10   2021-08-10 Close of voting. Proof returned by secretaria
+    60     reached-date=(none)       Publication
+    60.60  reached-date=2021-10-22   2021-10-22 International Standard published
+    90     reached-date=(none)       Review
+    90.99  reached-date=(none)       Withdrawal of International Standard proposed by TC or S
+    95     reached-date=(none)       Withdrawal
+    95.99  reached-date=(none)       Withdrawal of International Standard
+  -> the 90.xx rows (under systematic review / to be revised / confirmed / withdrawal proposed) and 95.99
+     carry NO date: they are the ISO stage-legend ladder rendered on every catalogue page, not stages
+     this document has reached. The document's own reached ladder stops at 60.60 (2021-10-22).
+     => NO systematic review (90.xx), NO stage change for ISO/IEC 11770-3:2021, today.
+
+=== F. clock discrimination: WOULD the entry's S113 clock move if a new amendment appeared? ===
+  The entry's clock is: grep -c 'ISO/IEC 11770-3:2021/Amd 1:2025'  -> 3
+  Its three occurrences on the page are:
+    byte  53493  <span class="visually-hidden" id="indexReference_cs85929" data-index="85929 - I>
+    byte  53739  <span class="visually-hidden" id="itemReference_cs85929">
+    byte  69404  <a href="/standard/85929.html" class="text-success">
+  Page structure evidence (each sibling document gets its OWN card on the same page):
+    ISO/IEC 11770-3:2015/Amd 1:2017        occurrences=1
+    ISO/IEC 11770-3:2015/Cor 1:2016        occurrences=1
+  -> a NEW amendment would be rendered as a NEW card with a NEW reference string.
+     The Amd-1-SPECIFIC count would stay 3, so the entry's S113 clock would NOT move.
+     A DISCRIMINATING clock on the same page exists and is stable today:
+     live S113   grep -c 'ISO/IEC 11770-3:2021/Amd'          -> 3
+     live S113   grep -c 'class="section-head">Published' -> 2
+     live SC27   grep -c 'ISO/IEC 11770-3:2021/Amd'          -> 1
+     live SC27   11770-3 document count                       -> 8
+  (All three are 3 / 2 / 1 / 8 today and reproducible on a second fetch of SC27.)

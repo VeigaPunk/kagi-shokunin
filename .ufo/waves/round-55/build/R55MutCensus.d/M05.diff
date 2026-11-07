@@ -1,0 +1,11 @@
+--- /fast/scratch/hyaku/kagi-r55/R55MutCensus/rev/corpus/sources-census.sh	2026-11-07 04:50:18.000000000 -0300
++++ /fast/scratch/hyaku/kagi-r55/R55MutCensus/mut/M05/corpus/sources-census.sh	2026-11-07 05:00:27.101086552 -0300
+@@ -364,7 +364,7 @@
+       listed_here=0
+       IFS=',;' read -ra parts <<<"${UB[$bid]}"
+       for p in "${parts[@]}"; do [[ $(trim "$p") == "$rel" ]] && listed_here=1; done
+-      [[ $listed_here -eq 1 ]] || finding SC_BODY_CITE "entry=$rel id=$bid cites-used-by-omits-entry"
++      [[ $listed_here -ge 0 ]] || finding SC_BODY_CITE "entry=$rel id=$bid cites-used-by-omits-entry"
+     done
+     if ! grep -q '^source:' "$f"; then legacy=$((legacy + 1)); continue; fi
+     sourced=$((sourced + 1))

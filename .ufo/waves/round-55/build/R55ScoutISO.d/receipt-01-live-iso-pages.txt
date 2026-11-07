@@ -1,0 +1,44 @@
+# R55ScoutISO receipt 1 — live re-open of the three ISO catalogue records
+# seat: R55ScoutISO   measured revision (40-hex, from git rev-parse): 348aa3b8ea7298aeb2f4d69db321fe827a92ae4f
+# lane: /home/vgpnk/Projects/shokunin/kagi-shokunin
+# scratch: /fast/scratch/hyaku/kagi-r55/R55ScoutISO
+# UA (browser, from the entry's recheck: line): Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36
+# profile: curl -sSL --compressed -A <UA> -o <body> -w '%{http_code} %{content_type} %{size_download}'
+
+$ curl -sSL --compressed -A <UA> -o live-S113.body -w '%{http_code} %{content_type} %{size_download}' https://www.iso.org/standard/82709.html
+HTTP: 200 text/html;charset=UTF-8 20762
+decoded bytes on disk: 90604
+sha256: d8dfe35408b17b02845dc0cf19f774bc6cc6b8dcbfe1636e22bb6b13dfa64357
+committed capture: /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-55/capture/S113.body
+capture sha256:    d8dfe35408b17b02845dc0cf19f774bc6cc6b8dcbfe1636e22bb6b13dfa64357
+cmp live vs capture: IDENTICAL
+
+$ curl -sSL --compressed -A <UA> -o live-S114.body -w '%{http_code} %{content_type} %{size_download}' https://www.iso.org/standard/85929.html
+HTTP: 200 text/html;charset=UTF-8 19428
+decoded bytes on disk: 85138
+sha256: 8bb88d88ff21d4488cf2205d9655a7fcbdeb3601616bdf4f5767dce13c449bdf
+committed capture: /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-55/capture/S114.body
+capture sha256:    8bb88d88ff21d4488cf2205d9655a7fcbdeb3601616bdf4f5767dce13c449bdf
+cmp live vs capture: IDENTICAL
+
+$ curl -sSL --compressed -A <UA> -o live-S101.body https://www.iso.org/standard/60237.html   (first attempt, 3-way parallel burst)
+HTTP: 403 text/html; charset=UTF-8 3304
+bytes: 5661   sha256: 23cdf311f970ed105e32103128247f1838f1b8dd5943720801cefd32644cf30d
+body title: <title>Just a moment...  <- Cloudflare interstitial, not the catalogue record
+NOTE: a 3-way parallel burst drew one 403 on 60237; sequential retries are 200. A recheck run under parallel load can therefore read the interstitial.
+
+$ for i in 1..6; do curl -sS --compressed -A <UA> -o live-S101.retry$i.body -w '%{http_code}' https://www.iso.org/standard/60237.html; sha256sum; done   (sequential, 2 s apart)
+attempt1 http=200 bytes=85615 sha256=2e4c1524ec05865536f819db68c56494d97fc67cb490df4f5d4b1ca85b7b0c80   (status re-measured separately as 200 for attempts 4-6; 1-3 printed via sha only)
+attempt2 http=200 bytes=85615 sha256=2e4c1524ec05865536f819db68c56494d97fc67cb490df4f5d4b1ca85b7b0c80   (status re-measured separately as 200 for attempts 4-6; 1-3 printed via sha only)
+attempt3 http=200 bytes=85615 sha256=2e4c1524ec05865536f819db68c56494d97fc67cb490df4f5d4b1ca85b7b0c80   (status re-measured separately as 200 for attempts 4-6; 1-3 printed via sha only)
+attempt4 http=200 bytes=85615 sha256=2e4c1524ec05865536f819db68c56494d97fc67cb490df4f5d4b1ca85b7b0c80   (status re-measured separately as 200 for attempts 4-6; 1-3 printed via sha only)
+attempt5 http=200 bytes=85615 sha256=2e4c1524ec05865536f819db68c56494d97fc67cb490df4f5d4b1ca85b7b0c80   (status re-measured separately as 200 for attempts 4-6; 1-3 printed via sha only)
+attempt6 http=200 bytes=85615 sha256=2e4c1524ec05865536f819db68c56494d97fc67cb490df4f5d4b1ca85b7b0c80   (status re-measured separately as 200 for attempts 4-6; 1-3 printed via sha only)
+committed capture: /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-45/controls/capture-r45/S101.raw
+capture sha256:    2e4c1524ec05865536f819db68c56494d97fc67cb490df4f5d4b1ca85b7b0c80
+cmp live vs round-45 capture: IDENTICAL
+
+$ curl -sS --compressed (DEFAULT user agent) https://www.iso.org/standard/85929.html and .../82709.html
+default-UA 85929: defua85929 403 text/html; charset=UTF-8 3136  title: <title>Just a moment...
+default-UA 82709: defua82709 403 text/html; charset=UTF-8 3130  title: <title>Just a moment...
+-> the entry's 'the default user agent still receives HTTP 403' holds for BOTH rows today (the committed receipt covered only 85929).

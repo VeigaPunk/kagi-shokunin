@@ -1,0 +1,74 @@
+BASE=ebe095857a734caf5efdd7bd776feb22b4e23972
+CAND=348aa3b8ea7298aeb2f4d69db321fe827a92ae4f
+HEAD=348aa3b8ea7298aeb2f4d69db321fe827a92ae4f
+
+[1a] files_changed=51
+[1a] absolute_or_dotdot_paths=0 (expect 0)
+[1a] top_level_dirs_touched:
+          22 .ufo
+           1 LOG.md
+           1 PROVINCE.md
+           1 SCORECARD.md
+           1 SKILL.md
+          21 corpus
+           4 plans
+
+[1b] CRED_RE assembled from corpus/sources-census.sh (137 bytes)
+[1b] needle_families_detected=7/7
+[1b] false_positive_on_plain_url=0 (expect 0)
+[1b] added_lines_scanned=8433
+[1b] credential_shape_hits=0
+
+[1c] set-cookie|jsessionid|awsalb|__cf_bm hits in added lines:
+           1 .ufo/waves/round-55/capture/S113.headers
+           1 .ufo/waves/round-55/capture/S114.headers
+[1c] userinfo_embedded_urls=0 (expect 0)
+[1c] private_host_shapes=0 (expect 0)
+
+[2] committed capture digests (sha256, size):
+     S113 d8dfe35408b17b02845dc0cf19f774bc6cc6b8dcbfe1636e22bb6b13dfa64357 90604
+     S113 registry  d8dfe35408b17b02845dc0cf19f774bc6cc6b8dcbfe1636e22bb6b13dfa64357 90604
+     S113 meta      200 text/html;charset=UTF-8 https://www.iso.org/standard/82709.html 20762
+     S114 8bb88d88ff21d4488cf2205d9655a7fcbdeb3601616bdf4f5767dce13c449bdf 85138
+     S114 registry  8bb88d88ff21d4488cf2205d9655a7fcbdeb3601616bdf4f5767dce13c449bdf 85138
+     S114 meta      200 text/html;charset=UTF-8 https://www.iso.org/standard/85929.html 19428
+[2] capture titles:
+     S113 ISO/IEC 11770-3:2021 - Information security — Key management — Par
+     S114 ISO/IEC 11770-3:2021/Amd 1:2025 - Information security — Key managem
+[2] rejection receipts:
+     S114-refetch.meta :: 200 text/html;charset=UTF-8 19428
+     default-ua_85929.meta :: 403 text/html; charset=UTF-8
+     webstore_iec_ch_en_publication_107179.meta :: 200 text/html; charset=UTF-8 124027
+     www_iso_org_contents_data_standard_08_27_82709_detail_rss.meta :: 200 application/rss+xml;charset=UTF-8 592
+[2] Set-Cookie lines committed (file:line, cookie NAME only, value never printed):
+     S113.headers:8 cookie=__cf_bm value_len=312
+     S114.headers:8 cookie=__cf_bm value_len=313
+[2] gates consuming *.headers in the lane: census=0 claim-ledger=0
+absent
+
+[3] fleet_root_status_entries=5
+[3] entries_naming_kagi_round55_r55=0 (expect 0)
+[3] status entries:
+      M .scratch/goal-20261103-hyaku-run15.md
+      M .scratch/run15-state.json
+     ?? .scratch/run15-wrapup/misroot-cff0b4cb/
+     ?? f.txt
+     ?? trail-ids.txt
+
+[4] /tmp/ occurrences in diff=0 (expect 0)
+[4] /tmp/ in added lines=0 (expect 0)
+[4] scratch-path citations in added lines (informational):
+     1 .ufo/waves/round-55/controls/census-start.txt
+     1 plans/round-55-c1.sh
+     1 plans/round-55-c2.sh
+     1 plans/round-55-controls.sh
+
+[5] token-literal scans over added lines (expect all 0):
+     form_key["']?[[:space:]]*=[[:space:]]*["'][a-zA-Z0-9]{16,} 0
+     PHPSESSID=                                           0
+     mage-cache-sessid=                                   0
+     X-Magento-Form-Key                                   0
+     csrf[_-]?token=[A-Za-z0-9]                           0
+[5] registry/script references to the round-55 .headers artifacts (expect 0):
+     capture/S11[34].headers in tsv|sh|json|md: 0
+     any column|field named headers in corpus/*.tsv: 0

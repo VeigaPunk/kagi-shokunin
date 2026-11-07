@@ -1,0 +1,67 @@
+# R55ScoutISO receipt 3 — the entry section '## The 2021 edition carries Amendment 1:2025 (round 55)', sentence by sentence vs the bodies
+# seat: R55ScoutISO   measured revision (40-hex, from git rev-parse): 348aa3b8ea7298aeb2f4d69db321fe827a92ae4f
+# lane: /home/vgpnk/Projects/shokunin/kagi-shokunin
+# scratch: /fast/scratch/hyaku/kagi-r55/R55ScoutISO
+# bodies: capture/S113.body (sha256 d8dfe354…dfa64357), capture/S114.body (sha256 8bb88d88…3c449bdf)
+#         live == capture for both (receipt 1)
+
+=== SENTENCE 1 ===
+CLAIM: 'The newer amendment the IEC record points to [S100] is ISO/IEC 11770-3:2021/Amd 1:2025 [S114].'
+SOURCE S100 (.ufo/waves/round-45/controls/capture-r45/S100.raw):
+  byte 256615 : 'A more recent version of this publication exists:                                            <a class="text-primary hover:text-primary-dark" title="ISO/IEC 11770-3:2021/AMD1:2025"\n                            href="https://webstore'
+  VERDICT: SUPPORTED — S100 names it as 'ISO/IEC 11770-3:2021/AMD1:2025' (IEC spelling) linking to webstore.iec.ch/en/publication/107179.
+  NOTE: the two spellings differ (AMD1:2025 vs Amd 1:2025) but name the same publication; the entry cites S114 for the ISO spelling.
+
+=== SENTENCE 2 ===
+CLAIM: 'Its ISO catalogue record is titled "ISO/IEC 11770-3:2021/Amd 1:2025" [S114], with the subtitle "Amendment 1: TFNS identity-based key agreement",'
+S114 <title> element, byte 541 onwards:
+   <title> ISO/IEC 11770-3:2021/Amd 1:2025 - Information security — Key management — Part 3: Mechanisms using asymmetric techniques — Amendment 1: TFNS identity-based key agreement</title>
+
+    <!-- *** 2. Preconnect *** -->
+
+    <!-- *** 3. Synchronous JS *** -->
+    <!-- Usercentri
+  subtitle at byte 670: 'Amendment 1: TFNS identity-based key agreement'  -> VERDICT: SUPPORTED (exact string, byte 670)
+  CAUTION: the page <title> is the FULL string 'ISO/IEC 11770-3:2021/Amd 1:2025 - Information security — Key management — Part 3: … — Amendment 1: TFNS identity-based key agreement'.
+  The registry quote at byte 541 is the reference-number prefix inside <title>, not the whole title. The entry's phrasing ('is titled "ISO/IEC 11770-3:2021/Amd 1:2025"')
+  is supported by the body's own 'Reference number' block (byte 35212: 'Reference number<br/> ISO/IEC 11770-3:2021/Amd 1:2025'), which is where the string is a title.
+
+=== SENTENCE 3 ===
+CLAIM: 'the stage "International Standard published" (60.60) and a 2025-04 publication date [S114].'
+   class="entry-label">Publication date</div>&nbsp;:&nbsp;<span itemprop="releaseDate">2025-04</span>
+      </div>
+
+    <div class="" id="stageId">
+        <div class="entry-label">Stage</div> : International Standard published [<a class="page-scroll" href="#lifecycle">60.60</a>]
+      </div>
+    </li>
+  <li>
+    <div class="">
+      <div class="entry
+  VERDICT: SUPPORTED — 'Publication date : 2025-04' (itemprop=releaseDate) and 'Stage : International Standard published [ 60.60 ]' both in S114.
+
+=== SENTENCE 4 ===
+CLAIM: 'The ISO catalogue record of the 2021 edition lists the same amendment in its life cycle and still gives the 2021 edition as a published International Standard (stage 60.60) [S113].'
+  life-cycle stage of the 2021 edition (dated entries only):
+     stage 10.99 date 2021-03-05 | 2021-03-05 New project approved
+     stage 40.99 date 2021-03-05 | 2021-03-05 Full report circulated: DIS approved for registra
+     stage 50.60 date 2021-08-10 | 2021-08-10 Close of voting. Proof returned by secretariat
+     stage 60.60 date 2021-10-22 | 2021-10-22 International Standard published
+  life-cycle entries:
+      60237 ISO/IEC 11770-3:2015
+      71113 ISO/IEC 11770-3:2015/Amd 1:2017
+      71165 ISO/IEC 11770-3:2015/Cor 1:2016
+      85929 ISO/IEC 11770-3:2021/Amd 1:2025
+  Now-Published block (byte 59169, S113): '<div class="section-head">Published</div><h4>ISO/IEC 11770-3:2021</h4>' (tag-stripped: 'Now Published ISO/IEC 11770-3:2021 Stage: 60.60')
+  Amendments block (byte 69352, S113): '<div class="section-head">Published</div><h4><a href="/standard/85929.html" class="text-success">ISO/IEC 11770-3:2021/Amd 1:2025</a></h4>'
+  VERDICT: SUPPORTED — S113 life cycle lists the 2021 edition as 'Now Published … Stage: 60.60' and, under Amendments, 'Published ISO/IEC 11770-3:2021/Amd 1:2025' (byte 69404).
+
+=== SENTENCE 5 (inference, flagged) ===
+CLAIM (working tree): 'the amendment is published against the 2021 edition, so a reader holding the 2021 edition should read it with Amendment 1:2025, not the 2021 text alone.'
+  VERDICT: SUPPORTED AS AN INFERENCE, not as a quotation — the bodies state title, stage and date; they do not state applicability.
+  The working-tree entry says exactly this ('Read together (the lane's reading: the catalogue states title, stage and date, not applicability)').
+  The CANDIDATE commit 348aa3b8 wording asserted 'the text that applies is the 2021 edition together with Amendment 1:2025' without that qualifier.
+
+=== SENTENCE 6 ===
+CLAIM: 'Both records were opened 2026-11-07 with the browser user agent (the default user agent still receives HTTP 403).'
+  VERDICT: SUPPORTED — default UA re-measured today on BOTH URLs: 403 (Cloudflare 'Just a moment...' interstitial). See receipt 1.

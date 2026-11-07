@@ -1,0 +1,37 @@
+BASE_REV: ebe095857a734caf5efdd7bd776feb22b4e23972
+CAND_REV: 348aa3b8ea7298aeb2f4d69db321fe827a92ae4f
+== FAIL/POLICY/STALE id set, BASE ==
+FAIL R11-08
+FAIL R25-02
+FAIL R36-01
+POLICY R29-01
+POLICY R29-02
+POLICY R38-03
+== FAIL/POLICY/STALE id set, CAND ==
+FAIL R11-08
+FAIL R25-02
+FAIL R36-01
+POLICY R29-01
+POLICY R29-02
+POLICY R38-03
+== id-set diff (empty = identical) ==
+IDS-DIFF-EXIT:0
+== MISSING-ID counts ==
+BASE: 57
+CAND: 57
+== final CLAIM_LEDGER lines ==
+CLAIM_LEDGER: POLICY (claims=86 policy=3 stamped=125)
+CLAIM_LEDGER: POLICY (claims=86 policy=3 stamped=125)
+== HOST-SKIP id sets diff ==
+HOSTSKIP-DIFF-EXIT:0
+== full verify receipt diff (context of every changed line) ==
+--- /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-55/build/R55ExecHarm.d/verify-base-ebe095857a734caf5efdd7bd776feb22b4e23972.txt	2026-11-07 05:06:55.891786611 -0300
++++ /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-55/build/R55ExecHarm.d/verify-cand-348aa3b8ea7298aeb2f4d69db321fe827a92ae4f.txt	2026-11-07 05:07:19.643715156 -0300
+@@ -1,5 +1,5 @@
+ CMD: bash corpus/claim-ledger.sh verify
+-REV: ebe095857a734caf5efdd7bd776feb22b4e23972
++REV: 348aa3b8ea7298aeb2f4d69db321fe827a92ae4f
+ HOST-SKIP R11-01 reason=host-row-not-authorized
+ HOST-SKIP R11-02 reason=host-row-not-authorized
+ HOST-SKIP R11-03 reason=host-row-not-authorized
+FULL-DIFF-EXIT:1

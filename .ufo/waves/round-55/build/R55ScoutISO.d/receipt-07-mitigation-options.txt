@@ -1,0 +1,33 @@
+# R55ScoutISO receipt 7 — mitigation options for the 403-reads-as-0 clock gap (D6)
+# seat: R55ScoutISO   measured revision (40-hex, from git rev-parse): 348aa3b8ea7298aeb2f4d69db321fe827a92ae4f
+# lane: /home/vgpnk/Projects/shokunin/kagi-shokunin
+
+=== 1. does the counter's own command-shape regex tolerate a retry flag? ===
+  current       MATCH
+  with --retry  MATCH
+  status-guard  NO MATCH
+  => adding --retry/--retry-all-errors keeps the counter's CMD regex matching (the counter replays the
+     command's QUERY and URL, not its flags); a status-guard rewrite breaks the regex.
+
+=== 2. does curl --retry-all-errors retry a 403 at all? ===
+$ curl --retry 2 --retry-all-errors -fsSL <default UA> https://www.iso.org/standard/60237.html
+curl: (22) The requested URL returned error: 403
+curl: (22) The requested URL returned error: 403
+curl: (22) The requested URL returned error: 403
+final_http=403
+  -> curl DID retry the 403 (three '403' error lines = three attempts), but a HARD 403 still ends in exit 22.
+
+=== 3. rate of the transient 403 under parallel load (browser UA) ===
+  round A (receipt 1): 3-way parallel burst, 1 of 3 got HTTP 403; then 6 sequential retries all 200.
+  round B: 20 fetches with --retry 3 --retry-all-errors, 5-way parallel x 4 rounds -> 20x200
+  round C: 20 fetches without --retry, 5-way parallel x 4 rounds -> 20x200
+  => the 403 is INTERMITTENT and RARE (1 occurrence in 43 browser-UA fetches observed). A retry would very
+     likely absorb it, but I did NOT observe a retry converting a real 403 into a 200, so this is
+     [INFERENCE] for the transient case and NOT a measured fix.
+
+=== 4. what the clock prints today, for each shape ===
+  current shape, live body      -> 2
+  current shape, a 403 body     -> 0
+  => a challenge prints 0 where the entry states 2: a FALSE CHANGE signal, not a false 'unchanged'.
+     The clock therefore fails SAFE (it wakes the lane) rather than silently passing; the cost is a
+     false alarm, not a missed change.

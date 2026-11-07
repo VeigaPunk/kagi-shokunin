@@ -1,0 +1,58 @@
+# R55ScoutISO receipt 4 — the two rejected addresses, re-opened live
+# seat: R55ScoutISO   measured revision (40-hex, from git rev-parse): 348aa3b8ea7298aeb2f4d69db321fe827a92ae4f
+# lane: /home/vgpnk/Projects/shokunin/kagi-shokunin
+# scratch: /fast/scratch/hyaku/kagi-r55/R55ScoutISO
+
+=== REJECTION A: https://www.iso.org/contents/data/standard/08/27/82709.detail.rss ===
+$ curl -sS --compressed -A <browser UA> -o live-rss.body -w '%{http_code} %{content_type} %{size_download}' <URL>
+HTTP: 200 application/rss+xml;charset=UTF-8 592
+bytes on disk: 1371   sha256: d17018559e7eb539576647995a41a3555f71917ce8a4eec9795154f4db152475
+committed rejection receipt body: .ufo/waves/round-55/capture/rejections/www_iso_org_contents_data_standard_08_27_82709_detail_rss.body
+committed sha256: d17018559e7eb539576647995a41a3555f71917ce8a4eec9795154f4db152475
+diff live vs committed: IDENTICAL
+--- live body (item section) ---
+    <item>
+      <title><![CDATA[ISO/IEC 11770-3:2021 - Information security — Key management — Part 3: Mechanisms using asymmetric techniques]]></title>
+      <link>https://www.iso.org/cms/render/live/en/sites/isoorg/contents/data/standard/08/27/82709.html</link>
+      <guid>https://www.iso.org/cms/render/live/en/sites/isoorg/contents/data/standard/08/27/82709.html</guid>
+items in the live feed: 1
+  -> the feed still carries ONE item, about the 2021 edition only; NO item for Amd 1:2025.
+  VERDICT ON THE REJECTION: REASON HOLDS. The feed is byte-identical to the 2026-11-07 capture; it has not moved
+  and still carries no amendment item, so it cannot serve as this entry's currency clock. The stated flip
+  ('the feed gains an item per amendment or stage change') is still unmet.
+  CONSISTENCY NOTE: the amendment's OWN per-standard feed exists and DOES carry the amendment —
+    https://www.iso.org/contents/data/standard/08/59/85929.detail.rss
+    HTTP: rss85929 200 application/rss+xml;charset=UTF-8 629   bytes: 1455
+    item: 'This document reached stage 60.60 on 2025-04-28', pubDate 2025-04-28.
+    That is a per-standard feed that DOES carry the amendment — the lesson's rejection names the 82709 feed
+    (the 2021 edition's feed), which is a different address. The rejection as written (that this feed
+    cannot watch the entry) is correct; the generalisation 'a per-standard feed that does not record
+    amendments' is not a property of per-standard feeds in general, since ISO publishes one per standard id.
+
+=== REJECTION B: https://webstore.iec.ch/en/publication/107179 ===
+$ curl -sSL --compressed -A <browser UA> -o live-iec107179.body -w '%{http_code} %{content_type} %{size_download}' <URL>
+HTTP: 200 text/html; charset=UTF-8 124349
+decoded bytes on disk: 429695   sha256: ac54a1a0e0b883fb7f4946058755220a18bfd0b69a42cf4e2f4cd88a446f4a20
+committed rejection receipt body: .ufo/waves/round-55/capture/rejections/webstore_iec_ch_en_publication_107179.body
+committed bytes: 429695   committed sha256: 6a557e1d8c4eab3d0af3b75265457feb9edab272b06047247efbfed9e68cc6b9
+byte-identical? NO
+  lengths 429695 429695  differing byte positions: 18 [50117, 50118, 50119, 50120, 50121, 50122, 50123, 50124, 50125, 103095, 103096, 103097, 103098, 103099, 103100, 103101, 103102, 103103]
+   live: b'    <nav\n    x-data="initMenuMobile_6aeed888dcf91()"\n    @load.window='
+   cap : b'    <nav\n    x-data="initMenuMobile_6aeeca775e2a7()"\n    @load.window='
+   live: b'   <nav\n    x-data="initMenuMobile_6aeed888dcf91()"\n    @load.window="'
+   cap : b'   <nav\n    x-data="initMenuMobile_6aeeca775e2a7()"\n    @load.window="'
+   live: b'  <nav\n    x-data="initMenuMobile_6aeed888dcf91()"\n    @load.window="s'
+   cap : b'  <nav\n    x-data="initMenuMobile_6aeeca775e2a7()"\n    @load.window="s'
+   live: b' <nav\n    x-data="initMenuMobile_6aeed888dcf91()"\n    @load.window="se'
+   cap : b' <nav\n    x-data="initMenuMobile_6aeeca775e2a7()"\n    @load.window="se'
+  -> the ONLY differences are two Alpine.js initMenuMobile_<hash>() component identifiers (9 hex chars each),
+     i.e. per-request nonce noise, not content. Same length, same document.
+  -> the captured quote still holds live:
+   byte 187: b'ISO/IEC 11770-3:2021/AMD1:2025 | IEC"/>\n'
+    "reference":"ISO\\/IEC 11770-3:2021\\/AMD1:2025" -> "reference":"ISO\/IEC 11770-3:2021\/AMD1:2025"
+    publication_date":"2025-04-28" -> publication_date":"2025-04-28"
+    "status":"PUBLISHED" -> "status":"PUBLISHED"
+  VERDICT ON THE REJECTION: REASON HOLDS. S114 is ISO's own record of the same publication (stage 60.60, date 2025-04);
+  the IEC record is the same publication under the IEC spelling (AMD1:2025, publication_date 2025-04-28, status PUBLISHED).
+  Neither record disagrees with the other on stage or date (IEC gives the exact day 2025-04-28; ISO gives the month 2025-04).
+  So the flip condition ('the two records disagree on stage or date') is unmet, and the duplicate-ground rejection stands.

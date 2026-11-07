@@ -1,0 +1,18 @@
+--- /fast/scratch/hyaku/kagi-r55/R55MutCensus/rev/corpus/sources-census.sh	2026-11-07 04:50:18.000000000 -0300
++++ /fast/scratch/hyaku/kagi-r55/R55MutCensus/mut/M06/corpus/sources-census.sh	2026-11-07 05:00:27.108085029 -0300
+@@ -351,6 +351,7 @@
+   shopt -s nullglob
+   for f in "$kdir"/*.md; do
+     rel="corpus/knowledge/${f##*/}"
++    if ! grep -q '^source:' "$f"; then legacy=$((legacy + 1)); continue; fi
+     # round 55: every registry id the entry names is recorded on its source: or
+     # cites: line, and every cites: id is a registry row whose used-by lists it
+     [[ $(grep -c '^cites:' "$f") -le 1 ]] || finding SC_BODY_CITE "entry=$rel multiple-cites-lines"
+@@ -366,7 +367,6 @@
+       for p in "${parts[@]}"; do [[ $(trim "$p") == "$rel" ]] && listed_here=1; done
+       [[ $listed_here -eq 1 ]] || finding SC_BODY_CITE "entry=$rel id=$bid cites-used-by-omits-entry"
+     done
+-    if ! grep -q '^source:' "$f"; then legacy=$((legacy + 1)); continue; fi
+     sourced=$((sourced + 1))
+     grep -q '^verified-at:' "$f" || finding SC_ENTRY_HEADER "entry=$rel missing=verified-at"
+     grep -q '^recheck:' "$f" || finding SC_ENTRY_HEADER "entry=$rel missing=recheck"

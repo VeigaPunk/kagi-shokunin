@@ -1,0 +1,27 @@
+=== Sibling Scan Verification ===
+Fleet root: /home/vgpnk/Projects/shokunin
+Kagi BASE: ebe095857a734caf5efdd7bd776feb22b4e23972
+Kagi CANDIDATE: 348aa3b8ea7298aeb2f4d69db321fe827a92ae4f
+--- Check (a): ISO 11770 / Key Management across all sibling lanes ---
+11770 in sibling knowledge corpora: 0
+11770 in sibling SOURCES.md registries: 0
+Sibling explicit acknowledgement of kagi's key management province:
+/home/vgpnk/Projects/shokunin/tsukuroi-shokunin/corpus/knowledge/kernel-taint-r27.md:33:- Before enabling `module.sig_enforce=1` or a lockdown mode that requires signatures, the DKMS key must be trusted by the kernel, or the nvidia modules will be refused at load. Trusting it is a key-management decision for the operator; the private key is credential material and is never read (ConnSiblingOverlap: kagi's ground, route under ADJ-02).
+--- Check (b): Body citation scanning vs used-by gates ---
+Mado c3-r56-used-by.py body token scanner & pairlines check:
+167:def cite(data):
+150:def outside_fence_lines(data):
+169:    for line in outside_fence_lines(data):
+219:        for line in outside_fence_lines(d):
+Chousa research-gate.sh metadata_registry_check_source (source: line only):
+3529:metadata_registry_check_source() {
+--- Check (c): recheck: command parsing vs replay ---
+Mori journal-reach-r49.md recheck syntax:
+8:recheck: 180d — `curl -s https://www.freedesktop.org/software/systemd/man/latest/journald.conf.html | grep -c SystemMaxUse` → 5 on 2026-10-25; host rows: `journalctl --disk-usage` and `journalctl --list-boots` (neither is a message grep; both move, see Limits)
+Mori Mo49ScoutS351.md noting recheck command is unenforced:
+45:One count-c2.py detail that bears on (c): the counter's own scaffold `recheck:` line uses `curl … | grep -c SystemMaxUse` (count-c2.py:267) — that is a fixture for a counter selftest, not the entry; the counter does not check the entry's `recheck:` contents, so the "no MESSAGE grep" element is enforced by nothing mechanical. It rests on the reviewers.
+Kagi plans/round-55-c2.sh recheck replay logic:
+27:#       `curl <args> '<URL>' | grep -c '<Q>'` -> <N>
+33:#     containing Q as a byte string equals N (what `grep -c` prints on the body).
+86:CMD = re.compile(r"`curl [^`]*?'(https?://[^'\s]+)' \| grep -c '([^'`]+)'` -> (\d+)")
+=== Verification complete ===

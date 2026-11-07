@@ -1,0 +1,639 @@
+{
+ "baseline_ok": true,
+ "rows": [
+  {
+   "id": "C1-01-g1-off",
+   "verdict": "KILLED",
+   "exit": 1,
+   "mutation": {
+    "id": "C1-01-g1-off",
+    "file": "round-55-c1.sh",
+    "conjunct": "g1 base-citations-subset enforced",
+    "sha_before": "3c0b483c5842453a5a397db213c50106597d096216cd1dedcea6b936a5e9c466",
+    "sha_after": "7cfdf5512a6ff0522130226197c91267a31d2ada56f7392ae0338da209f48f0b"
+   },
+   "flipped": [
+    [
+     "K1-F1-strip",
+     "FAIL",
+     "23",
+     "MISMATCH"
+    ],
+    [
+     "K1-F6-token-rewrite",
+     "FAIL",
+     "24",
+     "MISMATCH"
+    ]
+   ],
+   "missing": [],
+   "restore": "sha_frozen=3c0b483c5842453a5a397db213c50106597d096216cd1dedcea6b936a5e9c466 sha_restored=3c0b483c5842453a5a397db213c50106597d096216cd1dedcea6b936a5e9c466",
+   "status": "RAN"
+  },
+  {
+   "id": "C1-02-g2-off",
+   "verdict": "SURVIVED",
+   "exit": 0,
+   "mutation": {
+    "id": "C1-02-g2-off",
+    "file": "round-55-c1.sh",
+    "conjunct": "g2 base-entries-subset enforced",
+    "sha_before": "3c0b483c5842453a5a397db213c50106597d096216cd1dedcea6b936a5e9c466",
+    "sha_after": "b5e785bd95c71c0c4830fae030fd742bce18a9ecf95ef5abd6bca6bddbe49371"
+   },
+   "flipped": [],
+   "missing": [],
+   "restore": "sha_frozen=3c0b483c5842453a5a397db213c50106597d096216cd1dedcea6b936a5e9c466 sha_restored=3c0b483c5842453a5a397db213c50106597d096216cd1dedcea6b936a5e9c466",
+   "status": "RAN"
+  },
+  {
+   "id": "C1-03-g3-dup-off",
+   "verdict": "SURVIVED",
+   "exit": 0,
+   "mutation": {
+    "id": "C1-03-g3-dup-off",
+    "file": "round-55-c1.sh",
+    "conjunct": "g3 duplicate-id detection",
+    "sha_before": "3c0b483c5842453a5a397db213c50106597d096216cd1dedcea6b936a5e9c466",
+    "sha_after": "f4fce1aff05aea968c52e431f44bb9c20e861e2d0eb9611f24741e94264319a7"
+   },
+   "flipped": [],
+   "missing": [],
+   "restore": "sha_frozen=3c0b483c5842453a5a397db213c50106597d096216cd1dedcea6b936a5e9c466 sha_restored=3c0b483c5842453a5a397db213c50106597d096216cd1dedcea6b936a5e9c466",
+   "status": "RAN"
+  },
+  {
+   "id": "C1-04-g3-rows-off",
+   "verdict": "SURVIVED",
+   "exit": 0,
+   "mutation": {
+    "id": "C1-04-g3-rows-off",
+    "file": "round-55-c1.sh",
+    "conjunct": "g3 base-rows-subset enforced",
+    "sha_before": "3c0b483c5842453a5a397db213c50106597d096216cd1dedcea6b936a5e9c466",
+    "sha_after": "da24d6a41a74c6d84f6191b7050dd8a478a366e8e14b661ae916acad05b0242e"
+   },
+   "flipped": [],
+   "missing": [],
+   "restore": "sha_frozen=3c0b483c5842453a5a397db213c50106597d096216cd1dedcea6b936a5e9c466 sha_restored=3c0b483c5842453a5a397db213c50106597d096216cd1dedcea6b936a5e9c466",
+   "status": "RAN"
+  },
+  {
+   "id": "C1-05-g4-off",
+   "verdict": "KILLED",
+   "exit": 1,
+   "mutation": {
+    "id": "C1-05-g4-off",
+    "file": "round-55-c1.sh",
+    "conjunct": "g4 NOCITE independent record check",
+    "sha_before": "3c0b483c5842453a5a397db213c50106597d096216cd1dedcea6b936a5e9c466",
+    "sha_after": "4f921626cbe6329e94801311d620801d2a532851da82c8c44b30fd124034fd64"
+   },
+   "flipped": [
+    [
+     "K1-F3-pad-printer",
+     "FAIL",
+     "0",
+     "MISMATCH"
+    ]
+   ],
+   "missing": [],
+   "restore": "sha_frozen=3c0b483c5842453a5a397db213c50106597d096216cd1dedcea6b936a5e9c466 sha_restored=3c0b483c5842453a5a397db213c50106597d096216cd1dedcea6b936a5e9c466",
+   "status": "RAN"
+  },
+  {
+   "id": "C1-06-g4-cites-ignored",
+   "verdict": "KILLED",
+   "exit": 1,
+   "mutation": {
+    "id": "C1-06-g4-cites-ignored",
+    "file": "round-55-c1.sh",
+    "conjunct": "g4 reads the column-1 cites: field",
+    "sha_before": "3c0b483c5842453a5a397db213c50106597d096216cd1dedcea6b936a5e9c466",
+    "sha_after": "8afd8be96dba42ac7ef20ac6cb878de1724188ebd102c6db23f8bb70ec5cfa68"
+   },
+   "flipped": [
+    [
+     "K1-REF",
+     "0",
+     "FAIL",
+     "MISMATCH"
+    ]
+   ],
+   "missing": [],
+   "restore": "sha_frozen=3c0b483c5842453a5a397db213c50106597d096216cd1dedcea6b936a5e9c466 sha_restored=3c0b483c5842453a5a397db213c50106597d096216cd1dedcea6b936a5e9c466",
+   "status": "RAN"
+  },
+  {
+   "id": "C1-07-g5-off",
+   "verdict": "KILLED",
+   "exit": 1,
+   "mutation": {
+    "id": "C1-07-g5-off",
+    "file": "round-55-c1.sh",
+    "conjunct": "g5 census CLEAN + selftest PASS",
+    "sha_before": "3c0b483c5842453a5a397db213c50106597d096216cd1dedcea6b936a5e9c466",
+    "sha_after": "a738296f0ebc419e39175e604968b1f928744f46b6a9266d4b606f4726a73105"
+   },
+   "flipped": [
+    [
+     "K1-F8-base-census",
+     "FAIL",
+     "0",
+     "MISMATCH"
+    ],
+    [
+     "K1-F9-one-record-withdrawn",
+     "FAIL",
+     "1",
+     "MISMATCH"
+    ]
+   ],
+   "missing": [],
+   "restore": "sha_frozen=3c0b483c5842453a5a397db213c50106597d096216cd1dedcea6b936a5e9c466 sha_restored=3c0b483c5842453a5a397db213c50106597d096216cd1dedcea6b936a5e9c466",
+   "status": "RAN"
+  },
+  {
+   "id": "C1-08-ubp-lessons",
+   "verdict": "KILLED",
+   "exit": 1,
+   "mutation": {
+    "id": "C1-08-ubp-lessons",
+    "file": "round-55-c1.sh",
+    "conjunct": "g4 accepts corpus/lessons used-by parts",
+    "sha_before": "3c0b483c5842453a5a397db213c50106597d096216cd1dedcea6b936a5e9c466",
+    "sha_after": "6711a45ffd8e911b4bab680c7fe6a84dd3295b34d357d34fcc4fc9e69e341580"
+   },
+   "flipped": [
+    [
+     "K1-BASE",
+     "25",
+     "FAIL",
+     "MISMATCH"
+    ],
+    [
+     "K1-REF",
+     "0",
+     "FAIL",
+     "MISMATCH"
+    ]
+   ],
+   "missing": [],
+   "restore": "sha_frozen=3c0b483c5842453a5a397db213c50106597d096216cd1dedcea6b936a5e9c466 sha_restored=3c0b483c5842453a5a397db213c50106597d096216cd1dedcea6b936a5e9c466",
+   "status": "RAN"
+  },
+  {
+   "id": "C1-09-fail-mode-off",
+   "verdict": "KILLED",
+   "exit": 1,
+   "mutation": {
+    "id": "C1-09-fail-mode-off",
+    "file": "round-55-c1.sh",
+    "conjunct": "fail-closed value (FAIL when guard=0)",
+    "sha_before": "3c0b483c5842453a5a397db213c50106597d096216cd1dedcea6b936a5e9c466",
+    "sha_after": "f0b620999de9e3b980b3e8c8760f23d8ece01355c961eb78b771487d0bec5c29"
+   },
+   "flipped": [
+    [
+     "K1-F1-strip",
+     "FAIL",
+     "23",
+     "MISMATCH"
+    ],
+    [
+     "K1-F2-pad",
+     "FAIL",
+     "25",
+     "MISMATCH"
+    ],
+    [
+     "K1-F3-pad-printer",
+     "FAIL",
+     "0",
+     "MISMATCH"
+    ],
+    [
+     "K1-F4-entry-deleted",
+     "FAIL",
+     "0",
+     "MISMATCH"
+    ],
+    [
+     "K1-F5-symlink-entry",
+     "FAIL",
+     "0",
+     "MISMATCH"
+    ],
+    [
+     "K1-F6-token-rewrite",
+     "FAIL",
+     "24",
+     "MISMATCH"
+    ],
+    [
+     "K1-F7-row-deleted",
+     "FAIL",
+     "0",
+     "MISMATCH"
+    ],
+    [
+     "K1-F8-base-census",
+     "FAIL",
+     "0",
+     "MISMATCH"
+    ],
+    [
+     "K1-F9-one-record-withdrawn",
+     "FAIL",
+     "1",
+     "MISMATCH"
+    ]
+   ],
+   "missing": [],
+   "restore": "sha_frozen=3c0b483c5842453a5a397db213c50106597d096216cd1dedcea6b936a5e9c466 sha_restored=3c0b483c5842453a5a397db213c50106597d096216cd1dedcea6b936a5e9c466",
+   "status": "RAN"
+  },
+  {
+   "id": "C1-10-g5-selftest-off",
+   "verdict": "SURVIVED",
+   "exit": 0,
+   "mutation": {
+    "id": "C1-10-g5-selftest-off",
+    "file": "round-55-c1.sh",
+    "conjunct": "g5 requires the census selftest PASS line",
+    "sha_before": "3c0b483c5842453a5a397db213c50106597d096216cd1dedcea6b936a5e9c466",
+    "sha_after": "b9aa3e96784f0e970728d4047647824e218f5b1884a7f4140e033c909e2f2fa2"
+   },
+   "flipped": [],
+   "missing": [],
+   "restore": "sha_frozen=3c0b483c5842453a5a397db213c50106597d096216cd1dedcea6b936a5e9c466 sha_restored=3c0b483c5842453a5a397db213c50106597d096216cd1dedcea6b936a5e9c466",
+   "status": "RAN"
+  },
+  {
+   "id": "C1-11-g4-islink-off",
+   "verdict": "SURVIVED",
+   "exit": 0,
+   "mutation": {
+    "id": "C1-11-g4-islink-off",
+    "file": "round-55-c1.sh",
+    "conjunct": "g4 rejects symlinked used-by file",
+    "sha_before": "3c0b483c5842453a5a397db213c50106597d096216cd1dedcea6b936a5e9c466",
+    "sha_after": "d39b09bac2b37aee21b7062195b1128a277cae3ba00968d6be48c3a510b62e1d"
+   },
+   "flipped": [],
+   "missing": [],
+   "restore": "sha_frozen=3c0b483c5842453a5a397db213c50106597d096216cd1dedcea6b936a5e9c466 sha_restored=3c0b483c5842453a5a397db213c50106597d096216cd1dedcea6b936a5e9c466",
+   "status": "RAN"
+  },
+  {
+   "id": "C1-12-entries-islink-off",
+   "verdict": "SURVIVED",
+   "exit": 0,
+   "mutation": {
+    "id": "C1-12-entries-islink-off",
+    "file": "round-55-c1.sh",
+    "conjunct": "entries exclude symlinks",
+    "sha_before": "3c0b483c5842453a5a397db213c50106597d096216cd1dedcea6b936a5e9c466",
+    "sha_after": "c97a6bdb1fd309d51124db17cd844c297d79479a169ebce7c1087dc2df27d8a7"
+   },
+   "flipped": [],
+   "missing": [],
+   "restore": "sha_frozen=3c0b483c5842453a5a397db213c50106597d096216cd1dedcea6b936a5e9c466 sha_restored=3c0b483c5842453a5a397db213c50106597d096216cd1dedcea6b936a5e9c466",
+   "status": "RAN"
+  },
+  {
+   "id": "C2-01-a-ub-off",
+   "verdict": "SURVIVED",
+   "exit": 0,
+   "mutation": {
+    "id": "C2-01-a-ub-off",
+    "file": "round-55-c2.sh",
+    "conjunct": "AMD(a) requires ENTRY in the row used-by cell",
+    "sha_before": "9696937a23fe8c3cb29c1fbe7b338372b466c64fbcb893d588b4f8e4353d2ae6",
+    "sha_after": "fbc92f9bd2c8fb7fcb9c6e1571db4d9f10bc225f27d144055d5fbf8199eb5e62"
+   },
+   "flipped": [],
+   "missing": [],
+   "restore": "sha_frozen=9696937a23fe8c3cb29c1fbe7b338372b466c64fbcb893d588b4f8e4353d2ae6 sha_restored=9696937a23fe8c3cb29c1fbe7b338372b466c64fbcb893d588b4f8e4353d2ae6",
+   "status": "RAN"
+  },
+  {
+   "id": "C2-02-a-tier-off",
+   "verdict": "SURVIVED",
+   "exit": 0,
+   "mutation": {
+    "id": "C2-02-a-tier-off",
+    "file": "round-55-c2.sh",
+    "conjunct": "AMD(a) requires tier A",
+    "sha_before": "9696937a23fe8c3cb29c1fbe7b338372b466c64fbcb893d588b4f8e4353d2ae6",
+    "sha_after": "70fd5f49ecb72382556f4d852fb61177cc89b92c1da91d612c9340864aaf3636"
+   },
+   "flipped": [],
+   "missing": [],
+   "restore": "sha_frozen=9696937a23fe8c3cb29c1fbe7b338372b466c64fbcb893d588b4f8e4353d2ae6 sha_restored=9696937a23fe8c3cb29c1fbe7b338372b466c64fbcb893d588b4f8e4353d2ae6",
+   "status": "RAN"
+  },
+  {
+   "id": "C2-03-a-opened-off",
+   "verdict": "KILLED",
+   "exit": 1,
+   "mutation": {
+    "id": "C2-03-a-opened-off",
+    "file": "round-55-c2.sh",
+    "conjunct": "AMD(a) requires opened 2026-11-07",
+    "sha_before": "9696937a23fe8c3cb29c1fbe7b338372b466c64fbcb893d588b4f8e4353d2ae6",
+    "sha_after": "375bf43a0e0f4b620e2aee6a12c673f5ac4384351c045cefb58538c73ef9d289"
+   },
+   "flipped": [
+    [
+     "K2-F8-opened-date",
+     "1",
+     "2",
+     "MISMATCH"
+    ]
+   ],
+   "missing": [],
+   "restore": "sha_frozen=9696937a23fe8c3cb29c1fbe7b338372b466c64fbcb893d588b4f8e4353d2ae6 sha_restored=9696937a23fe8c3cb29c1fbe7b338372b466c64fbcb893d588b4f8e4353d2ae6",
+   "status": "RAN"
+  },
+  {
+   "id": "C2-04-b-sha-off",
+   "verdict": "SURVIVED",
+   "exit": 0,
+   "mutation": {
+    "id": "C2-04-b-sha-off",
+    "file": "round-55-c2.sh",
+    "conjunct": "AMD(b) fetch sha256 == AMDSHA",
+    "sha_before": "9696937a23fe8c3cb29c1fbe7b338372b466c64fbcb893d588b4f8e4353d2ae6",
+    "sha_after": "9712c838ccf727396c168a339983e5840c8fd3448d6e11396616f2d91162f3ba"
+   },
+   "flipped": [],
+   "missing": [],
+   "restore": "sha_frozen=9696937a23fe8c3cb29c1fbe7b338372b466c64fbcb893d588b4f8e4353d2ae6 sha_restored=9696937a23fe8c3cb29c1fbe7b338372b466c64fbcb893d588b4f8e4353d2ae6",
+   "status": "RAN"
+  },
+  {
+   "id": "C2-05-c-offset-off",
+   "verdict": "SURVIVED",
+   "exit": 0,
+   "mutation": {
+    "id": "C2-05-c-offset-off",
+    "file": "round-55-c2.sh",
+    "conjunct": "AMD(c) quote at declared byte offset",
+    "sha_before": "9696937a23fe8c3cb29c1fbe7b338372b466c64fbcb893d588b4f8e4353d2ae6",
+    "sha_after": "dadfabab51e7f6c9c55794ecb640e389fc1e59ec94f7060d0ac48a8c637c4132"
+   },
+   "flipped": [],
+   "missing": [],
+   "restore": "sha_frozen=9696937a23fe8c3cb29c1fbe7b338372b466c64fbcb893d588b4f8e4353d2ae6 sha_restored=9696937a23fe8c3cb29c1fbe7b338372b466c64fbcb893d588b4f8e4353d2ae6",
+   "status": "RAN"
+  },
+  {
+   "id": "C2-06-c-symlink-off",
+   "verdict": "KILLED",
+   "exit": 1,
+   "mutation": {
+    "id": "C2-06-c-symlink-off",
+    "file": "round-55-c2.sh",
+    "conjunct": "AMD(c) capture path has no symlinked component",
+    "sha_before": "9696937a23fe8c3cb29c1fbe7b338372b466c64fbcb893d588b4f8e4353d2ae6",
+    "sha_after": "bbf11d577799e6f683e9042898354a95d615ae832b4d5439fc2a220966c5139c"
+   },
+   "flipped": [
+    [
+     "K2-F9-symlinked-capture",
+     "1",
+     "2",
+     "MISMATCH"
+    ]
+   ],
+   "missing": [],
+   "restore": "sha_frozen=9696937a23fe8c3cb29c1fbe7b338372b466c64fbcb893d588b4f8e4353d2ae6 sha_restored=9696937a23fe8c3cb29c1fbe7b338372b466c64fbcb893d588b4f8e4353d2ae6",
+   "status": "RAN"
+  },
+  {
+   "id": "C2-07-d-bracket-off",
+   "verdict": "KILLED",
+   "exit": 1,
+   "mutation": {
+    "id": "C2-07-d-bracket-off",
+    "file": "round-55-c2.sh",
+    "conjunct": "AMD(d) body line carries [X]",
+    "sha_before": "9696937a23fe8c3cb29c1fbe7b338372b466c64fbcb893d588b4f8e4353d2ae6",
+    "sha_after": "c9ebc3a4659dc2543685554694ce8777c4ac79ba92a9e56bfe21a72481d99ca1"
+   },
+   "flipped": [
+    [
+     "K2-F4-uncited-statement",
+     "1",
+     "2",
+     "MISMATCH"
+    ]
+   ],
+   "missing": [],
+   "restore": "sha_frozen=9696937a23fe8c3cb29c1fbe7b338372b466c64fbcb893d588b4f8e4353d2ae6 sha_restored=9696937a23fe8c3cb29c1fbe7b338372b466c64fbcb893d588b4f8e4353d2ae6",
+   "status": "RAN"
+  },
+  {
+   "id": "C2-08-d-srcids-off",
+   "verdict": "KILLED",
+   "exit": 1,
+   "mutation": {
+    "id": "C2-08-d-srcids-off",
+    "file": "round-55-c2.sh",
+    "conjunct": "AMD(d) X is a token of ENTRY source:",
+    "sha_before": "9696937a23fe8c3cb29c1fbe7b338372b466c64fbcb893d588b4f8e4353d2ae6",
+    "sha_after": "65d185e1be891b9e44e06d8ccdf075153a1bbe4e7545c13f112250dd0d5cd4e6"
+   },
+   "flipped": [
+    [
+     "K2-F5-not-on-source-line",
+     "1",
+     "2",
+     "MISMATCH"
+    ]
+   ],
+   "missing": [],
+   "restore": "sha_frozen=9696937a23fe8c3cb29c1fbe7b338372b466c64fbcb893d588b4f8e4353d2ae6 sha_restored=9696937a23fe8c3cb29c1fbe7b338372b466c64fbcb893d588b4f8e4353d2ae6",
+   "status": "RAN"
+  },
+  {
+   "id": "C2-09-count-off",
+   "verdict": "KILLED",
+   "exit": 1,
+   "mutation": {
+    "id": "C2-09-count-off",
+    "file": "round-55-c2.sh",
+    "conjunct": "RECHECK body line count equals stated N",
+    "sha_before": "9696937a23fe8c3cb29c1fbe7b338372b466c64fbcb893d588b4f8e4353d2ae6",
+    "sha_after": "b3f04766e028ca74ad0fb3350e6e3349ff9dee751bbb9770aba8b46be7505eaa"
+   },
+   "flipped": [
+    [
+     "K2-BASE",
+     "0",
+     "1",
+     "MISMATCH"
+    ],
+    [
+     "K2-F1-stale-expectation",
+     "1",
+     "2",
+     "MISMATCH"
+    ]
+   ],
+   "missing": [],
+   "restore": "sha_frozen=9696937a23fe8c3cb29c1fbe7b338372b466c64fbcb893d588b4f8e4353d2ae6 sha_restored=9696937a23fe8c3cb29c1fbe7b338372b466c64fbcb893d588b4f8e4353d2ae6",
+   "status": "RAN"
+  },
+  {
+   "id": "C2-10-n0-accepted",
+   "verdict": "KILLED",
+   "exit": 1,
+   "mutation": {
+    "id": "C2-10-n0-accepted",
+    "file": "round-55-c2.sh",
+    "conjunct": "RECHECK N >= 1",
+    "sha_before": "9696937a23fe8c3cb29c1fbe7b338372b466c64fbcb893d588b4f8e4353d2ae6",
+    "sha_after": "2bb8d505e4955b07f4daccec2230bb0f83783383a06532c6bb4589366632c994"
+   },
+   "flipped": [
+    [
+     "K2-F2-absent-quote-zero",
+     "1",
+     "2",
+     "MISMATCH"
+    ]
+   ],
+   "missing": [],
+   "restore": "sha_frozen=9696937a23fe8c3cb29c1fbe7b338372b466c64fbcb893d588b4f8e4353d2ae6 sha_restored=9696937a23fe8c3cb29c1fbe7b338372b466c64fbcb893d588b4f8e4353d2ae6",
+   "status": "RAN"
+  },
+  {
+   "id": "C2-11-srcids-off",
+   "verdict": "SURVIVED",
+   "exit": 0,
+   "mutation": {
+    "id": "C2-11-srcids-off",
+    "file": "round-55-c2.sh",
+    "conjunct": "RECHECK URL row id is on ENTRY source:",
+    "sha_before": "9696937a23fe8c3cb29c1fbe7b338372b466c64fbcb893d588b4f8e4353d2ae6",
+    "sha_after": "79d9fde6d761125ec3972213d2a879cbb66ce552ea08a2c50876b808adb6247d"
+   },
+   "flipped": [],
+   "missing": [],
+   "restore": "sha_frozen=9696937a23fe8c3cb29c1fbe7b338372b466c64fbcb893d588b4f8e4353d2ae6 sha_restored=9696937a23fe8c3cb29c1fbe7b338372b466c64fbcb893d588b4f8e4353d2ae6",
+   "status": "RAN"
+  },
+  {
+   "id": "C2-12-guard-s101-off",
+   "verdict": "KILLED",
+   "exit": 1,
+   "mutation": {
+    "id": "C2-12-guard-s101-off",
+    "file": "round-55-c2.sh",
+    "conjunct": "GUARD rows S100,S101,S102 byte-identical",
+    "sha_before": "9696937a23fe8c3cb29c1fbe7b338372b466c64fbcb893d588b4f8e4353d2ae6",
+    "sha_after": "9c1b394f39c31a01bca1844e5f2fab70abe8be80484b8967612809bdca0b008f"
+   },
+   "flipped": [
+    [
+     "K2-F6-s101-row-edited",
+     "FAIL",
+     "2",
+     "MISMATCH"
+    ]
+   ],
+   "missing": [],
+   "restore": "sha_frozen=9696937a23fe8c3cb29c1fbe7b338372b466c64fbcb893d588b4f8e4353d2ae6 sha_restored=9696937a23fe8c3cb29c1fbe7b338372b466c64fbcb893d588b4f8e4353d2ae6",
+   "status": "RAN"
+  },
+  {
+   "id": "C2-13-guard-census-off",
+   "verdict": "SURVIVED",
+   "exit": 0,
+   "mutation": {
+    "id": "C2-13-guard-census-off",
+    "file": "round-55-c2.sh",
+    "conjunct": "GUARD census CLEAN",
+    "sha_before": "9696937a23fe8c3cb29c1fbe7b338372b466c64fbcb893d588b4f8e4353d2ae6",
+    "sha_after": "94b8dbccdc28c0e0a250d1375567550e164827e9d2fd1e6f7d17ebae3f23a903"
+   },
+   "flipped": [],
+   "missing": [],
+   "restore": "sha_frozen=9696937a23fe8c3cb29c1fbe7b338372b466c64fbcb893d588b4f8e4353d2ae6 sha_restored=9696937a23fe8c3cb29c1fbe7b338372b466c64fbcb893d588b4f8e4353d2ae6",
+   "status": "RAN"
+  },
+  {
+   "id": "C2-14-recheck-capture-sha-off",
+   "verdict": "SURVIVED",
+   "exit": 0,
+   "mutation": {
+    "id": "C2-14-recheck-capture-sha-off",
+    "file": "round-55-c2.sh",
+    "conjunct": "RECHECK capture sha256 == fetch column 10",
+    "sha_before": "9696937a23fe8c3cb29c1fbe7b338372b466c64fbcb893d588b4f8e4353d2ae6",
+    "sha_after": "94a17638b7a7419327f97db1d616ff6dbe4a656301608a6366d5e61c7b3126a0"
+   },
+   "flipped": [],
+   "missing": [],
+   "restore": "sha_frozen=9696937a23fe8c3cb29c1fbe7b338372b466c64fbcb893d588b4f8e4353d2ae6 sha_restored=9696937a23fe8c3cb29c1fbe7b338372b466c64fbcb893d588b4f8e4353d2ae6",
+   "status": "RAN"
+  },
+  {
+   "id": "C2-15-recheck-lines-off",
+   "verdict": "SURVIVED",
+   "exit": 0,
+   "mutation": {
+    "id": "C2-15-recheck-lines-off",
+    "file": "round-55-c2.sh",
+    "conjunct": "RECHECK exactly one recheck: line",
+    "sha_before": "9696937a23fe8c3cb29c1fbe7b338372b466c64fbcb893d588b4f8e4353d2ae6",
+    "sha_after": "106cedecce0452143103f369d32acb6f64164e735c91eea1e5146f7baede903f"
+   },
+   "flipped": [],
+   "missing": [],
+   "restore": "sha_frozen=9696937a23fe8c3cb29c1fbe7b338372b466c64fbcb893d588b4f8e4353d2ae6 sha_restored=9696937a23fe8c3cb29c1fbe7b338372b466c64fbcb893d588b4f8e4353d2ae6",
+   "status": "RAN"
+  },
+  {
+   "id": "C2-16-guard-s101sha-off",
+   "verdict": "SURVIVED",
+   "exit": 0,
+   "mutation": {
+    "id": "C2-16-guard-s101sha-off",
+    "file": "round-55-c2.sh",
+    "conjunct": "GUARD S101 capture sha256 == S101SHA",
+    "sha_before": "9696937a23fe8c3cb29c1fbe7b338372b466c64fbcb893d588b4f8e4353d2ae6",
+    "sha_after": "f802d63c22b30e151fb1335bd3d4e8141fc03b36031c84aa641cf42e7e57fa20"
+   },
+   "flipped": [],
+   "missing": [],
+   "restore": "sha_frozen=9696937a23fe8c3cb29c1fbe7b338372b466c64fbcb893d588b4f8e4353d2ae6 sha_restored=9696937a23fe8c3cb29c1fbe7b338372b466c64fbcb893d588b4f8e4353d2ae6",
+   "status": "RAN"
+  },
+  {
+   "id": "C2-17-fail-mode-off",
+   "verdict": "KILLED",
+   "exit": 1,
+   "mutation": {
+    "id": "C2-17-fail-mode-off",
+    "file": "round-55-c2.sh",
+    "conjunct": "fail-closed value (FAIL when guard=0)",
+    "sha_before": "9696937a23fe8c3cb29c1fbe7b338372b466c64fbcb893d588b4f8e4353d2ae6",
+    "sha_after": "396b0050685b528b571f99f48cbdd99d7a8c89da09bcead8b3354a229f24e429"
+   },
+   "flipped": [
+    [
+     "K2-F6-s101-row-edited",
+     "FAIL",
+     "2",
+     "MISMATCH"
+    ]
+   ],
+   "missing": [],
+   "restore": "sha_frozen=9696937a23fe8c3cb29c1fbe7b338372b466c64fbcb893d588b4f8e4353d2ae6 sha_restored=9696937a23fe8c3cb29c1fbe7b338372b466c64fbcb893d588b4f8e4353d2ae6",
+   "status": "RAN"
+  }
+ ]
+}

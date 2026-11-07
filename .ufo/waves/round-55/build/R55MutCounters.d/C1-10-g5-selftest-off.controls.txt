@@ -1,0 +1,21 @@
+# measured revision: 348aa3b8ea7298aeb2f4d69db321fe827a92ae4f (git -C /home/vgpnk/Projects/shokunin/kagi-shokunin rev-parse 348aa3b8ea7298aeb2f4d69db321fe827a92ae4f)
+MUTANT C1-10-g5-selftest-off
+REF /fast/scratch/hyaku/kagi-r55/R55MutCounters/repo HEAD 348aa3b8ea7298aeb2f4d69db321fe827a92ae4f
+REPO /fast/scratch/hyaku/kagi-r55/R55MutCounters/fx/C1-10-g5-selftest-off
+MUTATION {"id": "C1-10-g5-selftest-off", "file": "round-55-c1.sh", "conjunct": "g5 requires the census selftest PASS line", "sha_before": "3c0b483c5842453a5a397db213c50106597d096216cd1dedcea6b936a5e9c466", "sha_after": "b9aa3e96784f0e970728d4047647824e218f5b1884a7f4140e033c909e2f2fa2"}
+RUN 2026-11-07T05:01:21-03:00
+CONTROL K1-BASE expect=25 got=25 MATCH :: C1_USEDBY_GAP: value=25 gap=25 citations=88 entries=37 guard=1 (bad=none)
+CONTROL K1-REF expect=0 got=0 MATCH :: C1_USEDBY_GAP: value=0 gap=0 citations=90 entries=37 guard=1 (bad=none)
+CONTROL K1-F1-strip expect=FAIL got=FAIL MATCH :: C1_USEDBY_GAP: value=FAIL gap=23 citations=86 entries=37 guard=0 (bad=g1:2-base-citations-gone)
+CONTROL K1-F2-pad expect=FAIL got=FAIL MATCH :: C1_USEDBY_GAP: value=FAIL gap=25 citations=88 entries=37 guard=0 (bad=g4:1-used-by-parts-without-record,g5:census-exit)
+CONTROL K1-F3-pad-printer expect=FAIL got=FAIL MATCH :: C1_USEDBY_GAP: value=FAIL gap=0 citations=90 entries=37 guard=0 (bad=g4:25-used-by-parts-without-record)
+CONTROL K1-F4-entry-deleted expect=FAIL got=FAIL MATCH :: C1_USEDBY_GAP: value=FAIL gap=0 citations=78 entries=36 guard=0 (bad=g1:12-base-citations-gone,g2:1-base-entries-gone,g4:12-used-by-parts-without-record,g5:census-exit)
+CONTROL K1-F5-symlink-entry expect=FAIL got=FAIL MATCH :: C1_USEDBY_GAP: value=FAIL gap=0 citations=88 entries=36 guard=0 (bad=g1:2-base-citations-gone,g2:1-base-entries-gone,g4:2-used-by-parts-without-record)
+CONTROL K1-F6-token-rewrite expect=FAIL got=FAIL MATCH :: C1_USEDBY_GAP: value=FAIL gap=24 citations=87 entries=37 guard=0 (bad=g1:1-base-citations-gone)
+CONTROL K1-F7-row-deleted expect=FAIL got=FAIL MATCH :: C1_USEDBY_GAP: value=FAIL gap=0 citations=89 entries=37 guard=0 (bad=g1:1-base-citations-gone,g3:1-base-rows-gone,g5:census-exit)
+CONTROL K1-F8-base-census expect=FAIL got=FAIL MATCH :: C1_USEDBY_GAP: value=FAIL gap=0 citations=90 entries=37 guard=0 (bad=g5:census-exit)
+CONTROL K1-F9-one-record-withdrawn expect=FAIL got=FAIL MATCH :: C1_USEDBY_GAP: value=FAIL gap=1 citations=90 entries=37 guard=0 (bad=g5:census-exit)
+CONTROLS: match=11 mismatch=0
+exit=0
+RESTORE sha_frozen=3c0b483c5842453a5a397db213c50106597d096216cd1dedcea6b936a5e9c466 sha_restored=3c0b483c5842453a5a397db213c50106597d096216cd1dedcea6b936a5e9c466
+DONE 2026-11-07T05:04:12-03:00

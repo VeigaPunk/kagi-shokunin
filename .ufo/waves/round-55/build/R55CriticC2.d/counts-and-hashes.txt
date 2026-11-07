@@ -1,0 +1,41 @@
+# receipts for R55CriticC2 (measured revision 348aa3b8ea7298aeb2f4d69db321fe827a92ae4f; BASE ebe095857a734caf5efdd7bd776feb22b4e23972)
+## real grep vs counter byte count on the committed captures
+grep -c [60.60]                                       S101.raw  = 2
+grep -c [60.60]                                       S113.body = 4
+grep -c [60.60]                                       S114.body = 4
+grep -c [ISO]                                         S101.raw  = 40
+grep -c [ISO]                                         S113.body = 39
+grep -c [ISO]                                         S114.body = 33
+grep -c [e]                                           S101.raw  = 735
+grep -c [e]                                           S113.body = 797
+grep -c [e]                                           S114.body = 743
+grep -c [ISO/IEC 11770-3:2021/Amd 1:2025]             S101.raw  = 0
+grep -c [ISO/IEC 11770-3:2021/Amd 1:2025]             S113.body = 3
+grep -c [ISO/IEC 11770-3:2021/Amd 1:2025]             S114.body = 13
+grep -c [Withdrawal of International Standard]        S101.raw  = 2
+grep -c [Withdrawal of International Standard]        S113.body = 2
+grep -c [Withdrawal of International Standard]        S114.body = 2
+
+## python literal-line counts (what the counter compares against)
+S101.raw {'60.60': 1, 'ISO': 40, 'e': 735, 'ISO/IEC 11770-3:2021/Amd 1:2025': 0, 'Withdrawal of International Standard': 2}
+S113.body {'60.60': 3, 'ISO': 39, 'e': 797, 'ISO/IEC 11770-3:2021/Amd 1:2025': 3, 'Withdrawal of International Standard': 2}
+S114.body {'60.60': 3, 'ISO': 33, 'e': 743, 'ISO/IEC 11770-3:2021/Amd 1:2025': 13, 'Withdrawal of International Standard': 2}
+
+## S114 publication-date occurrences (the fact predates the entry's verified-at 2026-11-05)
+3
+4
+
+## variant entry hashes
+v0_cand              94c5d5e9ada1c8eb7d8d00898881af7bd9e8529338a021558c6fdc0a6e1d987e
+v1_comment           335ceabd1522a490df52f76e0ebc97b9228e9ea0d7f87fe534bfefe0c265da20
+v1b_ground           6cdc3f06fa87fd4b2a23911a7a0dd676cedec2bced1f47a984fdf9220f64aed6
+v2_inverted          8253fce39175b3c6e4e9657e7633a50243a850c5166104a81dd376541a5d1cfb
+v3_trivial           0bc262e83de81c3cc9887d676944b3ff40a74704f11774e25e1aababf131a787
+v4_regex             9a34fe294705c208829cd787cb0f9c0978222b53304dbd7f756a0f57b65a052c
+v5_bridge            18fc7e3b9701a0290da508c48d28d38a9184c3b8f8a0126aa5b3c61e61583acf
+v8_second_recheck    73f62c96e384415d2f83d0cd392540c42cbead12d861c809dff558f3ec969ff7
+v9_indent_recheck    b9a7533ee070bc0f8959551504a9971e58d581756562e7f19f1175d550d2d268
+v14_drop_s101        009ad07203274486a64bcacd2975042b864122efb5b55965bc9dc9e15c9d127f
+v14b_reurl_s101      b5e3e97ede36e6adbb352f3cfccec51d1bbdc8047cd80944f18ab98929dbd61a
+
+## BASE entry vs v1_comment diff (only the source line, the recheck line and a trailing HTML comment differ)

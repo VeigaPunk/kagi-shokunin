@@ -1,0 +1,7 @@
+CMD: git clone -q --shared <lane> <scratch>/base && git clone -q --shared <lane> <scratch>/cand && git -C <clone> checkout -q <rev> (each), toplevel asserts via `git rev-parse --show-toplevel`
+BASE_REV: ebe095857a734caf5efdd7bd776feb22b4e23972
+CAND_REV: 348aa3b8ea7298aeb2f4d69db321fe827a92ae4f
+TOPLEVEL-BOTH-OK
+ebe095857a734caf5efdd7bd776feb22b4e23972
+348aa3b8ea7298aeb2f4d69db321fe827a92ae4f
+EXIT:0

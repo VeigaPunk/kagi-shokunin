@@ -1,0 +1,27 @@
+# candidate header lines (348aa3b8:corpus/sources-census.sh)
+  #     SC_BODY_CITE       (round 55) an entry — sourced or legacy — whose text
+  #                        names a registry id that is on neither its `source:`
+  #                        line nor its `cites:` line; or a `cites:` id that is not
+  #                        a registry row, or whose row's used-by does not list
+  #                        the entry; or more than one column-1 `cites:` line.
+  #                        `cites:` (lower case, column 1, at most one, wrapped
+  #                        continuation like `source:`) records the registry ids an
+  #                        entry names outside its support line: cross-references,
+  #                        later-section sources, and every id a legacy entry
+  #                        names. It does not make an entry sourced. Ids are
+  #                        matched as `S` + 3 or more digits not preceded by a
+  #                        letter, digit or `_` and not followed by a digit.
+  # ENTRIES. An entry is SOURCED when a line starts with `source:` (lower case,
+  # column 1); exactly one such line is allowed. Its source field is that
+  # `source:` line plus any directly following lines that start with whitespace
+  # (wrapped continuation). Entries with no column-1 `source:` line are LEGACY
+  # (the pre-registry `Source:`/`Source basis:` prose): counted as `legacy=N`.
+  # STATED BOUND: legacy entries are outside every check of this gate — header,
+  # cite, tier and the credential scan included — until they gain a column-1
+  # `source:` line; the lane's own transcript/claim gates own them. Used-by paths
+  # are matched as the exact repo-relative path `corpus/knowledge/<name>.md`.
+--- printed by -h ---
+STATED BOUND: legacy entries are outside every check of this gate — header,
+cite, tier and the credential scan included — until they gain a column-1
+`source:` line; the lane's own transcript/claim gates own them. Used-by paths
+are matched as the exact repo-relative path `corpus/knowledge/<name>.md`.

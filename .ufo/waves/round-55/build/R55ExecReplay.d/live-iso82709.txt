@@ -1,0 +1,10 @@
+# rev 348aa3b8ea7298aeb2f4d69db321fe827a92ae4f
+# leg: live (a) — corpus/knowledge/iso-11770-3-edition-status.md:3, second command, stated -> 3
+# command: curl -fsSL --max-time 60 -A 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36' -w 'HTTP=%{http_code} bytes=%{size_download}\n' -o $S/live/iso82709.body 'https://www.iso.org/standard/82709.html'; grep -c 'ISO/IEC 11770-3:2021/Amd 1:2025' <body>
+HTTP=200 bytes=90604
+curl_exit=0
+3
+grep_exit=0
+# live body sha256 (byte-identical to the round-55 capture):
+d8dfe35408b17b02845dc0cf19f774bc6cc6b8dcbfe1636e22bb6b13dfa64357  live/iso82709.body
+# last line: d8dfe35408b17b02845dc0cf19f774bc6cc6b8dcbfe1636e22bb6b13dfa64357  live/iso82709.body

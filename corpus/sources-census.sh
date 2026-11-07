@@ -52,7 +52,8 @@
 #                        `mined`, or whose used-by does not list that entry; or
 #                        whose cited ids include no tier A or B row (contract:
 #                        tier C is a lead, never sole support)
-#     SC_BODY_CITE       (round 55) an entry — sourced or legacy — whose text
+#     SC_BODY_CITE       (round 55) a knowledge entry (`corpus/knowledge/*.md`
+#                        only; lessons are not scanned) — sourced or legacy — whose text
 #                        names a registry id that is on neither its `source:`
 #                        line nor its `cites:` line; or a `cites:` id that is not
 #                        a registry row, or whose row's used-by does not list
@@ -102,9 +103,11 @@
 # `source:` line plus any directly following lines that start with whitespace
 # (wrapped continuation). Entries with no column-1 `source:` line are LEGACY
 # (the pre-registry `Source:`/`Source basis:` prose): counted as `legacy=N`.
-# STATED BOUND: legacy entries are outside every check of this gate — header,
-# cite, tier and the credential scan included — until they gain a column-1
-# `source:` line; the lane's own transcript/claim gates own them. Used-by paths
+# STATED BOUND: legacy entries are outside the header, cite, tier and
+# credential checks of this gate until they gain a column-1 `source:` line (the
+# lane's own transcript/claim gates own them); since round 55 SC_BODY_CITE does
+# reach them (every registry id a legacy entry names must be on its `cites:`
+# line). Lessons are reached only through used-by (SC_USEDBY_NOCITE). Used-by paths
 # are matched as the exact repo-relative path `corpus/knowledge/<name>.md`.
 #
 # CREDENTIAL needles (assembled from fragments below so this file never carries

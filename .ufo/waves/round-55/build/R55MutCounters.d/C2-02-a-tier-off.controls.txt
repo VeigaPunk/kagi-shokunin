@@ -1,0 +1,21 @@
+# measured revision: 348aa3b8ea7298aeb2f4d69db321fe827a92ae4f (git -C /home/vgpnk/Projects/shokunin/kagi-shokunin rev-parse 348aa3b8ea7298aeb2f4d69db321fe827a92ae4f)
+MUTANT C2-02-a-tier-off
+REF /fast/scratch/hyaku/kagi-r55/R55MutCounters/repo HEAD 348aa3b8ea7298aeb2f4d69db321fe827a92ae4f
+REPO /fast/scratch/hyaku/kagi-r55/R55MutCounters/fx/C2-02-a-tier-off
+MUTATION {"id": "C2-02-a-tier-off", "file": "round-55-c2.sh", "conjunct": "AMD(a) requires tier A", "sha_before": "9696937a23fe8c3cb29c1fbe7b338372b466c64fbcb893d588b4f8e4353d2ae6", "sha_after": "70fd5f49ecb72382556f4d852fb61177cc89b92c1da91d612c9340864aaf3636"}
+RUN 2026-11-07T05:04:10-03:00
+CONTROL K2-BASE expect=0 got=0 MATCH :: C2_ISO_CURRENT: value=0 amd=0 recheck=0 guard=1 (bad=amd:a-rows=0,recheck:S101-count-2-stated-1)
+CONTROL K2-REF expect=2 got=2 MATCH :: C2_ISO_CURRENT: value=2 amd=1 recheck=1 guard=1 (bad=none)
+CONTROL K2-F1-stale-expectation expect=1 got=1 MATCH :: C2_ISO_CURRENT: value=1 amd=1 recheck=0 guard=1 (bad=recheck:S101-count-2-stated-1)
+CONTROL K2-F2-absent-quote-zero expect=1 got=1 MATCH :: C2_ISO_CURRENT: value=1 amd=1 recheck=0 guard=1 (bad=recheck:url-or-n)
+CONTROL K2-F3-capture-tampered expect=1 got=1 MATCH :: C2_ISO_CURRENT: value=1 amd=0 recheck=1 guard=1 (bad=amd:c)
+CONTROL K2-F4-uncited-statement expect=1 got=1 MATCH :: C2_ISO_CURRENT: value=1 amd=0 recheck=1 guard=1 (bad=amd:d)
+CONTROL K2-F5-not-on-source-line expect=1 got=1 MATCH :: C2_ISO_CURRENT: value=1 amd=0 recheck=1 guard=1 (bad=amd:d)
+CONTROL K2-F6-s101-row-edited expect=FAIL got=FAIL MATCH :: C2_ISO_CURRENT: value=FAIL amd=1 recheck=1 guard=0 (bad=guard:row-S101)
+CONTROL K2-F7-recheck-foreign-url expect=1 got=1 MATCH :: C2_ISO_CURRENT: value=1 amd=1 recheck=0 guard=1 (bad=recheck:url-or-n)
+CONTROL K2-F8-opened-date expect=1 got=1 MATCH :: C2_ISO_CURRENT: value=1 amd=0 recheck=1 guard=1 (bad=amd:a)
+CONTROL K2-F9-symlinked-capture expect=1 got=1 MATCH :: C2_ISO_CURRENT: value=1 amd=0 recheck=1 guard=1 (bad=amd:c)
+CONTROLS: match=11 mismatch=0
+exit=0
+RESTORE sha_frozen=9696937a23fe8c3cb29c1fbe7b338372b466c64fbcb893d588b4f8e4353d2ae6 sha_restored=9696937a23fe8c3cb29c1fbe7b338372b466c64fbcb893d588b4f8e4353d2ae6
+DONE 2026-11-07T05:05:25-03:00

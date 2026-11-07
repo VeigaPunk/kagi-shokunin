@@ -1,0 +1,11 @@
+--- a/plans/round-61-c1-check.py
++++ b/plans/round-61-c1-check.py
+@@ -353,7 +353,7 @@
+            f"supersedes-lines-after={len(candidates)} "
+            f"last-line={'states-derived-count-and-names-mutants.md'
+                         if ok else 'missing-wrong-values-or-no-mutants.md'}")
+-    return (HOLD if ok else FAIL), det
++    return (FAIL if ok else HOLD), det
+ 
+ 
+ def _gate_registry_sections(lines: list[str]) -> list[tuple[int, int]]:

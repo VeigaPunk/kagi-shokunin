@@ -1,0 +1,10 @@
+Reading taken on plans/round-61-c2.sh sha256 c9f34d06ddc048efbeff01f66bb14e04ca17ffcc8d1358939db14c8d10907a10
+(16920 B, 17:03), before the counter's vacuity controls landed. The final-byte re-run was
+cut when the run budget expired; the diff above is the exact mutation.
+
+detector fixture-sh3-wrong-test (SH3 flips T2 -> vector HBHHH, rc1, BROKEN holds=4 broken=1):
+  pristine: C2_SEAL_TRIAL: value=0 tests=5 pass=5 shims=4 vectors=4/5 selftest=1 guard=1
+            (sh3=HBHHH)
+  mutant:   C2_SEAL_TRIAL: value=5 tests=5 pass=5 shims=5 vectors=ok/5 selftest=1 guard=1
+            (sh3=HBHHH)
+verdict: killed

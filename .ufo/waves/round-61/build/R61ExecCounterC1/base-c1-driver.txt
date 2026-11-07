@@ -1,0 +1,18 @@
+=== receipt: base-c1-driver.txt ===
+# cmd: bash plans/round-61-c1.sh c940f51689d702f1786989d56ad4663833c1452e
+# expect: C1_ROUTED: value=FAIL population=7 i1=0..i7=0 guard=0, rc 1
+# checker sha256 d525ee2870bc928042938ef1d04bf1fce6c2d603e17cccfc4c586563fcb89812
+# driver  sha256 e6c853236181d8a5bdec99e711da2376546a8bbfb2856be28a2e253710fa487f
+c1: i1 FAIL no 'supersedes R37' line after the routed R37 row
+c1: i2 FAIL selftest[rc=1 cases=None no-PASS-line] registry[selftest-cell="none of its own — it runs the trial's `-" none-own=present] mutation[mutated rc=2 finding=no]
+c1: i3 FAIL no '## Amendment A7' heading
+c1: i4 FAIL no 'supersedes the round-60 quality-trend sentence' line
+c1: i5 FAIL no 'supersedes the round-60 LOG wave line' line after it
+c1: i6 FAIL no 'supersedes the round-60 stale-lane paragraph' line
+c1: i7 FAIL no 'supersedes the round-60 attack-share arithmetic' line
+C1_ROUTED: value=FAIL population=7 i1=0 i2=0 i3=0 i4=0 i5=0 i6=0 i7=0 guard=0
+c1-driver: measured=revision c940f51689d702f1786989d56ad4663833c1452e (git archive)
+c1-driver: scratch=/fast/scratch/hyaku/kagi-r61/R61ExecCounterC1/run-20261107T171324Z-2860808
+c1-driver: checker rc=1
+c1-driver: verdict value=FAIL guard=0
+rc=1

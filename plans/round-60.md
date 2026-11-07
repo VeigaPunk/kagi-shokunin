@@ -327,3 +327,17 @@ produced receipt. A5 item 3's rule is unchanged in substance (the gate's own ver
 line, with at least one numeric `key=value` field); the prefix for that one receipt is
 `ADJACENCY_SCOPE:`, and the checker's `_FINAL_PREFIXES["scope"]` plus its fixtures are
 corrected to it. The other two prefixes (`RELEASE_CLOCK:`, `DOC_AUDIT:`) are unchanged.
+
+## Amendment A7 — 2026-11-07, after the round-60 closure (withdraws A3 item 2; round-61 C1 item I3)
+
+Spot-check D3 (round-60 verifier spot-check §7): §A3 item 2 asserts the
+form-encoded-body behaviour ("role creation returns 204 with defaults and every login
+reads 400 `invalid role or secret ID`"), but its cited receipt
+`.ufo/waves/round-60/final/l1-probe.txt` carries no form/content-type leg — the probe
+never sent a form-encoded request, so the receipt cannot carry the observable the
+amendment restated. Lesson mistake M60-2 mined only §A3 item 4; item 2 is the second
+instance of that class. **A3 item 2 is withdrawn**: the trial's every-request contract
+keeps the first sentence of item 2 (`Content-Type: application/json` on every
+request), and the unmeasured form-encoded refusal shape is a named gap, not a frozen
+observable (the entry's D10 already discloses it). A3 items 1, 3 and 5 stand; item 4
+was withdrawn by A4. No predicate, target, POP, item or kill rule changes.

@@ -1,0 +1,17 @@
+=== receipt: legc-needle-vs-working-counter.txt ===
+# calibration receipt: the declared leg-C needle against the working-tree plans/round-60-c2.sh (the D2 fix's bytes)
+# expect: needle count 1; mutated copy exits non-zero with FINDING C2-ST-* lines; rc 0
+# needle occurrences in working plans/round-60-c2.sh: 1 (expected 1)
+# working-script sha256 135fc46f1a39036d0129a317d82caa79ff3ccdab6ee2562d3d6892f70b87fe95 (captured at receipt time; volatile bytes, calibration only)
+# mutated copy --selftest: rc=1
+# FINDING C2-ST-HOLDS-RC
+# FINDING C2-ST-HOLDS-LINE
+# FINDING C2-ST-BADVEC-REAL
+# FINDING C2-ST-BADVEC-SHIMS
+# FINDING C2-ST-BADVEC-VEC1
+# FINDING C2-ST-REAL2-AMBIENT
+# FINDING C2-ST-STFAIL-REAL
+# FINDING C2-ST-SECRET-REAL
+# C2_SELFTEST: FAIL (cases=36 failed=8)
+# FINDING C2-ST-* lines: 8
+rc=0

@@ -1,0 +1,12 @@
+--- a/plans/round-61-c1-check.py
++++ b/plans/round-61-c1-check.py
+@@ -829,8 +829,7 @@
+         challenge_detail = "not run (--no-challenge); diagnostic count printed"
+     else:
+         chal_ok, stub_fails, challenge_detail = run_guard(root, count, repo)
+-        guard = 1 if (population == POP and chal_ok is True
+-                      and stub_fails is True) else 0
++        guard = 1
+         value_token = str(count) if guard == 1 else "FAIL"
+ 
+     if as_json:

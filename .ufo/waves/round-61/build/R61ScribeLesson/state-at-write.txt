@@ -1,0 +1,34 @@
+# state at 2026-11-07T17:15:05-03:00  HEAD=8595018
+
+## I1 (D1) supersedes R37
+176:- Correction (I1, spot-check D1): supersedes R37 and the §Bounds line "the wave's 16th seat (mutation-tester) produced nothing" — measured on this tree over `.ufo/waves/round-60/w1-results.json`, results=16 output=3824 (16 result records; the `R60MutCounters` record's final output is 3824 bytes, both derived from that file), and the seat delivered `.ufo/waves/round-60/build/R60MutCounters/mutants.md` (with its `raw/` directory) plus the report `.ufo/waves/round-60/w1/R60MutCounters.md`: the mutation-tester seat produced artifacts and a report.
+
+## I2 (D2) round-60-c2.sh --selftest + SKILL row
+C2_SELFTEST: PASS (cases=36)
+rc=0
+855:| AppRole custody counter (`plans/round-60-c2.sh`) | gate | `bash plans/round-60-c2.sh [revision \| --tree DIR]` | 0 `C2_APPROLE_TRIAL: value=5 …`; 1 value<5; 2 SETUP | `bash plans/round-60-c2.sh 
+
+## I3 (D3) Amendment A7 + M60-2 second instance
+331:## Amendment A7 — 2026-11-07, after the round-60 closure (withdraws A3 item 2; round-61 C1 item I3)
+177:- Correction (I3, spot-check D3): the plan §A3 item 2 asserts a form-encoded-body behaviour its cited receipt `.ufo/waves/round-60/final/l1-probe.txt` does not carry (that receipt holds no form/co
+
+## I4 (D4) quality-trend correction
+178:- Correction (I4, spot-check D4): supersedes the round-60 quality-trend sentence "The round introduced no new record defect that it did not itself route (R32–R43)" in the round-60 report's §Trend verdicts — the round introduced three new record defects it did not route: D1 (R37's false no-artifacts claim), D2 (`SKILL.md:855` registering `plans/round-60-c2.sh` as `kind: gate` with selftest `none of its own`) and D3 (§A3 item 2's receipt-free form-encoded claim).
+
+## I5 (D5) LOG correction
+1982:- Correction (round-61 C1 I5, spot-check D5): supersedes the round-60 LOG wave line above — it was rewritten in place at `818d2a82` (`git diff --numstat 14a6c07d 818d2a82 -- LOG.md` ⇒ insertions=1 deletions=1: the superseded `dead seats 1` sentence replaced by `dead seats 0`) instead of an appended correction, contrary to the append-only convention this log applies elsewhere; the superseded text is recoverable at `14a6c07d`, and this line is the correction of record.
+
+## I6 (D6) stale-lane correction
+179:- Correction (I6, spot-check D6): supersedes the round-60 stale-lane paragraph ("launch 15:09:28 −03" with commit times matching neither author nor committer stamps) — the driver line is `2026-11-07T15:03:17-03:00 launch kagi round=60` (complete `2026-11-07T16:34:37-03:00`), and the lane's committer stamps inside that window — `2026-11-07T15:06:58-03:00`, `2026-11-07T15:14:19-03:00`, `2026-11-07T15:18:26-03:00`, `2026-11-07T15:47:01-03:00` — each occur in `git log --format='%ci' a677c78e..818d2a82`: the lane was progressing, not stale.
+
+## I7 (D7) attack-share correction
+180:- Correction (I7, spot-check D7): supersedes the round-60 attack-share arithmetic "4/16 = 25 % on the addendum's literal list" — derived from the role mix of `.ufo/waves/round-60/w1-results.json` (16 results, `agent` fields): the addendum's literal attack list {reviewer, critic, mutation-tester, labrat} has three present roles (reviewer, critic, mutation-tester; no labrat seat exists) so the literal reading is 3/16 = 18.75 %, and counting the sentinel as an attack seat gives 4/16 = 25 %; the round states both readings, as R36 already did.
+
+## frozen checker
+c1: i6 HOLD launch=yes distinct-stamps=5 in-derived=4 derived-set=9
+c1: i7 HOLD derived 3/16=18.75 4/16=25 last-line=states-both-fractions-and-both-percentages
+C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+
+## frozen checker, challenge leg (no --no-challenge), 2026-11-07T17:15:18-03:00
+C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=1
+rc=0

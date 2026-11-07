@@ -1,0 +1,11 @@
+--- a/plans/round-61-c2.sh
++++ b/plans/round-61-c2.sh
+@@ -262,7 +262,7 @@
+   grep -IqP "$SECRET_PCRE" "$sf" 2>/dev/null && printf '%s\n' "$sf" >> "$SCR/.hits"
+ done < <({ printf '%s\n' "$TRIAL"; find "$SCR" -type f ! -path "$SCR/tree/*" ! -name '.hits' -size -4M; } 2>/dev/null)
+ [ -s "$SCR/.hits" ] && nosecret=0
+-[ "$nosecret" = 1 ] && [ "$value" = 5 ] || value=0
++[ "$value" = 5 ] || value=0
+ legs_ran=1
+ for m in real real2 none selftest sh1 sh2 sh3 sh4 sh5; do
+   [ -n "${RAN[$m]+x}" ] || legs_ran=0

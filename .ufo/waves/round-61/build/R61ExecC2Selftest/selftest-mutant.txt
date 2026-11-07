@@ -1,0 +1,18 @@
+== red witness: a copy of plans/round-60-c2.sh whose verdict mapping is inverted (vec maps H<->B) must fail its own --selftest with named FINDING ids ==
+
+counter plans/round-60-c2.sh sha256: 135fc46f1a39036d0129a317d82caa79ff3ccdab6ee2562d3d6892f70b87fe95
+mutation (BRE sed on a scratch copy): s/| cut -c1)/| cut -c1 | tr HB BH)/
+mutant sha256: e1f04a4f49465e84b7e846b51fa76ee986f64b5932f21c3f5da178e006530078
+mutant differs from the counter: yes-cmp-confirms-difference
+
+$ C2_ST_NOMUTANT=1 HYAKU_SCRATCH=<seat-scratch> bash <seat-scratch>/mut.sh --selftest --work <seat-scratch>/mut-work   # C2_ST_NOMUTANT=1 only stops the mutated copy re-running the witness on itself
+FINDING C2-ST-HOLDS-RC
+FINDING C2-ST-HOLDS-LINE
+FINDING C2-ST-BADVEC-REAL
+FINDING C2-ST-BADVEC-SHIMS
+FINDING C2-ST-BADVEC-VEC1
+FINDING C2-ST-REAL2-AMBIENT
+FINDING C2-ST-STFAIL-REAL
+FINDING C2-ST-SECRET-REAL
+C2_SELFTEST: FAIL (cases=28 failed=8)
+rc=1

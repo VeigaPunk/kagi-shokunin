@@ -1,0 +1,11 @@
+--- a/corpus/openbao-seal-trial.sh
++++ b/corpus/openbao-seal-trial.sh
+@@ -383,7 +383,7 @@
+   unseal_share "$S_A" "$D/u2.json" || { RV2="T2 ERROR unseal-duplicate"; return; }
+   r2=$(jget progress < "$D/u2.json" 2>/dev/null) || r2=""
+   sx=$(jget sealed < "$D/u2.json" 2>/dev/null) || sx=""
+-  [ "$sx" = "true" ] && [ "$r2" = "1" ] && dup=1
++  dup=1
+   # a second distinct share
+   unseal_share "$S_B" "$D/u3.json" || { RV2="T2 ERROR unseal-second"; return; }
+   r3=$(jget progress < "$D/u3.json" 2>/dev/null) || r3=""

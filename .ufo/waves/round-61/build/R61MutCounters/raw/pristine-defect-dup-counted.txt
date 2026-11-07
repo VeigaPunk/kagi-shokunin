@@ -1,0 +1,6 @@
+TRIAL T1 HOLDS shares=1 status=1 nopersist=1
+TRIAL T2 BROKEN p1=1 dup=0 p2=1 p3=1
+TRIAL T3 HOLDS seal=1 auth503=1 status200=1
+TRIAL T4 ERROR gr-init
+TRIAL T5 BROKEN raft405=0 mem405=1
+OPENBAO_SEAL_TRIAL: ERROR holds=2 broken=2 error=1 bao=v2.7.2

@@ -1,0 +1,22 @@
+SEAT: R61ScoutSealDocs
+COMMAND: python3 <verify_quotes.py>  (34 rows: id, body path, quote, raw anchor)
+COMMAND (per row): body.count(anchor) == 1  AND  python3 corpus/rendered-text-v1.py locate <body> <quote>  ==  'RENDERED_TEXT_V1_LOCATE: count=1'
+
+QUOTE_RESOLUTION: rows=34 mismatches=0
+
+COMMAND: python3 corpus/rendered-text-v1.py --selftest
+RENDERED_TEXT_V1_SELFTEST: PASS (cases=22)
+
+NEGATIVE CHECKS (NOT STATED claims), measured on the captured body bytes:
+  S125  not stored|never stored|stored on disk|persist                       => 0
+  S125  key-shares|key-threshold                                          => 0
+  S125  recovery-shares|recovery-threshold                                => 2
+  S125  progress|required=|complete=|seal-status                         => 0
+  S125  nonce                                                             => 0
+  S125  duplicate|repeat|already|twice                                    => 0
+  S126  \bunsupported\b|not supported|\brefused\b|\bunavailable\b|not available|not implemented|\b405\b => 0
+  S126  \binmem\b|raft storage|storage backend|file storage               => 0
+  S127  \bunsupported\b|not supported|\brefused\b|\bunavailable\b|not available|not implemented|\b405\b => 0
+  S127  \binmem\b|raft storage|storage backend|file storage               => 0
+  S127  \brequired\b|\bcomplete\b                                         => 0
+  S127  progress                                                           => 3 (all three are the English word in prose, not a status field)

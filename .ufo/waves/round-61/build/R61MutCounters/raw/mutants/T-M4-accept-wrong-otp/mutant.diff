@@ -1,0 +1,14 @@
+--- a/corpus/openbao-seal-trial.sh
++++ b/corpus/openbao-seal-trial.sh
+@@ -479,9 +479,9 @@
+     tok2=""
+     jget token < "$D/tok2.txt" >/dev/null 2>&1 \
+       && tok2=$(jget token < "$D/tok2.txt" 2>/dev/null)
+-    if [ "$drc" -ne 0 ]; then
++    if true; then
+       wrong=1
+-    elif [ -n "$tok2" ] && [ "$tok2" != "$tok" ]; then
++    elif false; then
+       printf 'X-Vault-Token: %s\n' "$tok2" > "$D/hdr-wrong"
+       code2=$(curl_code "$D/hdr-wrong" /v1/auth/token/lookup-self)
+       wrong=1

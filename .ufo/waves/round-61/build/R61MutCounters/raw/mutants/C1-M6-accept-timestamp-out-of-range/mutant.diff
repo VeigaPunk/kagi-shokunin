@@ -1,0 +1,11 @@
+--- a/plans/round-61-c1-check.py
++++ b/plans/round-61-c1-check.py
+@@ -643,7 +643,7 @@
+         derived = derive_ci_set(repo)
+     except LookupError as e:
+         return FAIL, f"committer stamps not derived: {e}"
+-    qualifying = {t for t in stamps if t in derived}
++    qualifying = stamps
+     ok = len(qualifying) >= 3
+     det = (f"launch=yes distinct-stamps={len(stamps)} in-derived={len(qualifying)} "
+            f"derived-set={len(derived)}")

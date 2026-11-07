@@ -1,0 +1,15 @@
+--- a/plans/round-61-c1-check.py
++++ b/plans/round-61-c1-check.py
+@@ -760,10 +760,10 @@
+                         ignore=shutil.ignore_patterns(".git", ".jj"))
+         if os.path.realpath(copy) == root_abs:
+             return None, None, "challenge copy resolves to the measured tree (refused)"
+-        changed, err = mutate_i5_deletions(copy)
++        changed, err = ("noop", None)
+         if err:
+             return False, False, f"challenge not injectable: {err}"
+-        expect = count + 1
++        expect = count
+         py = sys.executable or "python3"
+         argv = [py, "-I", "-B", os.path.abspath(__file__),
+                 "--root", copy, "--no-challenge"]

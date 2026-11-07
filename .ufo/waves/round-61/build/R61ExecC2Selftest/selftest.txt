@@ -1,0 +1,8 @@
+== plans/round-60-c2.sh --selftest: fixture-driven, no bao, no network (I2/QM76) ==
+
+counter plans/round-60-c2.sh sha256: 135fc46f1a39036d0129a317d82caa79ff3ccdab6ee2562d3d6892f70b87fe95
+run from the lane root with the ambient environment; fixtures live under --work/TMPDIR default ${HYAKU_SCRATCH:-/fast/scratch/hyaku}/kagi-r61/R61ExecC2Selftest/selftest and are removed on exit
+
+$ bash plans/round-60-c2.sh --selftest
+C2_SELFTEST: PASS (cases=36)
+rc=0

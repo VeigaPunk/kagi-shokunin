@@ -1,0 +1,11 @@
+--- a/plans/round-61-c1-check.py
++++ b/plans/round-61-c1-check.py
+@@ -348,7 +348,7 @@
+     last = candidates[-1]  # last statement wins
+     m = RESULTS_OUTPUT_RE.search(last)
+     ok = (m is not None and int(m.group(1)) == r_total
+-          and int(m.group(2)) == b_bytes and MUTANTS_MD in last)
++          and MUTANTS_MD in last)
+     det = (f"derived results={r_total} output={b_bytes} "
+            f"supersedes-lines-after={len(candidates)} "
+            f"last-line={'states-derived-count-and-names-mutants.md'

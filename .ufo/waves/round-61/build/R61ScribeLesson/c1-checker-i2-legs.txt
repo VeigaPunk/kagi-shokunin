@@ -1,0 +1,17 @@
+# R61ScribeLesson — C1 checker I2 legs, observed 2026-11-07T17:11:29-03:00
+
+## leg B: the SKILL row split does not honour the escaped pipe
+$ python3 -c "naive split of SKILL.md:855"
+cells 9 (header has 8)
+cell[2] = '`bash plans/round-60-c2.sh [revision \\'
+cell[4] = '0 `C2_APPROLE_TRIAL: value=5 …`; 1 value<5; 2 SETUP'
+# plans/round-61-c1-check.py:377 splits on "|" without unescaping "\|"
+377:        cells = [c.strip() for c in ln.strip().strip("|").split("|")]
+
+## leg A: the PASS regex expects (N cases); the script prints (cases=N)
+146:C2_PASS_RE = re.compile(r"C2_SELFTEST:\s*PASS\s*\(\s*(\d+)\s+cases\s*\)")
+C2_SELFTEST: PASS (cases=36)
+
+## the checker's own reading at this moment
+c1: i2 FAIL selftest[rc=0 cases=None no-PASS-line] registry[selftest-cell='0 `C2_APPROLE_TRIAL: value=5 …`; 1 value' none-own=absent] mutation[mutated rc=1 finding=yes]
+C1_ROUTED: value=1 population=7 i1=1 i2=0 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0

@@ -721,6 +721,7 @@ landed in the round-21 correction commit (cited in `LOG.md`):
 | OpenBao ACL-policy semantics trial | execute five ACL-policy mechanics against throwaway OpenBao 2.7.2 dev servers: deny-by-default with exact-path reach, `*` only as the last path character (sibling refused), a narrower `deny` outranking a broader allow, `+` bounded to one segment, and same-pattern capability union vs the highest-priority match across patterns; five shims, a no-bao leg and a PATH wrapper that lies on the client-side introspection (flips T5) | `bash plans/round-58-c2.sh <candidate>` `value=5`; `corpus/openbao-policy-trial.sh`; `corpus/knowledge/openbao-acl-policy-semantics.md`; S118/S119; `.ufo/waves/round-58/` | 58 |
 | OpenBao transit-engine trial | execute five transit encryption-as-a-service mechanics against throwaway OpenBao 2.7.2 dev servers: `vault:v1:` round trip with a tamper refusal, rotate advancing the version while the old ciphertext still decrypts, rewrap migrating ciphertext with no client-side plaintext, `min_decryption_version` retiring a version (and re-enabling it), and convergent determinism for equal plaintext+context vs a different context and a non-convergent key; five shims, a no-bao SETUP leg and a clean-room leg where a second dev server refuses the first server's ciphertext | `bash plans/round-59-c2.sh <candidate>` `value=5`; `corpus/openbao-transit-trial.sh`; `corpus/knowledge/openbao-transit-engine.md`; S121/S122; `.ufo/waves/round-59/build/R59ExecTrial/` | 59 |
 | OpenBao AppRole `secret_id` custody trial | execute five AppRole credential-custody mechanics against a throwaway OpenBao 2.7.2 dev server: `bind_secret_id` deciding whether `role_id` alone authenticates (refused by default, accepted after the update on a role carrying a `token_bound_cidrs` constraint), `secret_id_num_uses` bounding reuse, `secret_id_ttl` retiring an unwrapped secret, the accessor as a non-secret lookup/destroy handle, and `secret_id_bound_cidrs` pinning a login to a source range; the trial carries its own fixture-driven `--selftest` (45 cases, no `bao`, no network) | `bash corpus/openbao-approle-trial.sh` ⇒ `OPENBAO_APPROLE_TRIAL: HOLDS holds=5 broken=0 error=0 bao=v2.7.2`; `bash plans/round-60-c2.sh` ⇒ `value=5 … selftest=1 guard=1`; `--selftest` ⇒ `APPROLE_SELFTEST: PASS (cases=45)`; `corpus/knowledge/openbao-approle-secret-id-custody.md` | 60 |
+| OpenBao seal / unseal key-share custody trial | execute five Shamir-seal custody mechanics against throwaway OpenBao 2.7.2 servers (raft and inmem, 127.0.0.1, default config): `operator init -key-shares=5 -key-threshold=3` produces five shares and a threshold the server reports as `t=3 n=5` with no share material under the storage path; unseal needs three distinct shares (a repeated share does not advance progress); `operator seal` returns the server to sealed, an authenticated request then answers 503 while `sys/seal-status` stays readable; `operator generate-root` needs the share quorum plus an OTP the token is XORed with, and `-decode` recovers a 26-char token that authenticates; `operator rekey` answers HTTP 405 `unsupported operation` under the default config on both backends while the documented `rotate-keys` completes a full rotation — the trial carries its own fixture-driven `--selftest` (63 cases, no `bao`, no network) | `bash corpus/openbao-seal-trial.sh` ⇒ `OPENBAO_SEAL_TRIAL: HOLDS holds=5 broken=0 error=0 bao=v2.7.2`; `bash plans/round-61-c2.sh --tree .` ⇒ `C2_SEAL_TRIAL: value=5 tests=5 pass=5 shims=5 vectors=ok/5 selftest=1 guard=1 (… ops=1 t2w=1 stubctl=1 secret=1 … cases=63)`; `--selftest` ⇒ `SEAL_SELFTEST: PASS (cases=63)`; `corpus/knowledge/openbao-seal-key-custody.md` | 61 |
 Rows enter only through demonstrated execution (`AXES.md` §Capabilities): the two round-21 capabilities entered through that round's runs; feature-bound typed credential review first worked in round 22 through R22-01/R22-02; closure disposition review first worked in round 23 through R23-02 (row added to this main table in round 24, routed D1 — it had sat only in the round-23 section). The 2026-10-16 rollout added none. The latest first-working round in this table is 40 (gate self-testing with committed expected findings, row above).
 
 Round 49 note (appended; the paragraph above keeps its round-40 sentence as history): the latest first-working rounds are now 48 (SOPS/age trial) and 49 (OpenBao token/lease lifecycle trial, entered through `bash plans/round-49-c1.sh <candidate>` reading `value=5`, receipts `.ufo/waves/round-49/final/`).
@@ -2024,3 +2025,80 @@ counters `plans/round-60-c1.sh`, `plans/round-60-c2.sh`; checker
 | coverage | 9 → 9 | No claim. Registry 122 → 124 (S123, S124; tier A, `mined`, `180d`); coverage map gains the AppRole-entry and round-60 rows. | `corpus/SOURCES.md`; `corpus/README.md` |
 | freshness | 9 → 9 | No claim. Both new rows take `180d` (version-scoped docs), so `RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17)`; the round-59 dead pointer is replaced by three committed receipts (I5). | `.ufo/waves/round-60/final/release-clock-candidate.txt` |
 | adjacency | 9 → 9 | No claim. Connector sweep: no sibling lane holds AppRole/`secret_id` ground or the trial+shim+counter-with-selftest pattern; the shokuknow `merge/kagi/` package stages no AppRole material. The carried `ADJACENCY_SCOPE: DEFECT` (`breadth_drift=5 breadth_unverified=1`, `stale_basis=0`) is unchanged and named. | `.ufo/waves/round-60/build/R60ConnectorSiblings/sweep.md`; `.ufo/waves/round-60/final/scope-candidate.txt` |
+
+## Round 61 — pre-move (repo HEAD `c940f516`, round-60 spot-check tip)
+
+Claim BASE `c940f51689d702f1786989d56ad4663833c1452e`; predeclaration `85950181`
+(frozen plan `plans/round-61.md`). All six axes stand at 9. Saturation line 9,
+stagnation window N=3; capabilities entered rounds 57–60, so no stagnation waiver.
+
+| Axis | Score | Evidence pointer | Last change |
+|---|---|---|---|
+| depth | 9 | Unchanged from round 29 (`R29-01`); round 61 adds an executed seal-key entry, counted under operability/coverage, not re-scored here. | round 29 |
+| coverage | 9 | 124 registry rows at BASE (`grep -cE '^\|[[:space:]]*S[0-9]{3,}[[:space:]]*\|' corpus/SOURCES.md`), census `kagi ok` rc 0. | round 60 |
+| operability | 9 | Unchanged as a score; measured BASE gap: no executed seal/unseal key-share mechanic (`C2_SEAL_TRIAL: value=0 … (absent)`). | round 60 |
+| freshness | 9 | Every knowledge entry declares its re-verification (`R14-01`); the round-56 replay gate is green. | round 56 |
+| calibration | 9 | Unchanged as a score; measured BASE gap: `C1_ROUTED: value=7 population=7` — the seven round-60 spot-check routed defects (D1–D7) are unresolved at BASE and no lane gate reads any of them. | round 60 |
+| adjacency | 9 | Ownership partition gate green (`R17-02`); the carried `ADJACENCY_SCOPE: DEFECT` breadth debt is named, not absorbed. | round 58 |
+
+Declared claims: **C1 calibration** (the seven round-60 routed record defects are resolved and
+re-checkable; `C1_ROUTED` 7 → 0, population 7) and **C2 operability capability** (an executed
+OpenBao seal / unseal key-share custody trial with its own fixture-driven `--selftest`;
+`C2_SEAL_TRIAL` 0 → 5, S125–S127 opened this round). No retirement, split or stagnation waiver
+is claimed: capabilities entered rounds 57–60 and C2 is a capability acquisition by choice.
+
+## Round 61 — post-move (claims C1 calibration, C2 operability)
+
+Candidate: the round-61 landing commit (recorded in the report). Claim BASE
+`c940f51689d702f1786989d56ad4663833c1452e`; predeclaration `85950181`; counters
+`plans/round-61-c1.sh` + `plans/round-61-c1-check.py`, `plans/round-61-c2.sh`; controls
+`plans/round-61-controls.sh`, receipt `.ufo/waves/round-61/controls/controls-prefreeze.txt`
+(`CONTROLS: match=17 mismatch=0`).
+
+| Axis | Before → after | What moved | Evidence |
+|---|---|---|---|
+| calibration | 9 → 9 | [C1] `bash plans/round-61-c1.sh c940f51689d702f1786989d56ad4663833c1452e` ⇒ `C1_ROUTED: value=FAIL population=7 i1=0 i2=0 i3=0 i4=0 i5=0 i6=0 i7=0 guard=0` (diagnostic `value=7 population=7`), rc 1 → `bash plans/round-61-c1.sh --tree .` ⇒ `C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=1`, rc 0 (target 0, population 7): the seven round-60 spot-check routed defects (D1–D7) become an item set whose every compared number is derived from the named revision or the measured tree — D1 the R60MutCounters output byte length against `w1-results.json` (16/3824), D2 a fixture-driven `--selftest` on `plans/round-60-c2.sh` (36 cases) plus its SKILL row, D3 the `## Amendment A7` withdrawal of §A3 item 2 plus the M60-2 second instance, D4 the quality-trend correction naming D1–D3, D5 the LOG rewrite correction (`insertions=1 deletions=1`), D6 the driver launch line plus four `%ci` stamps, D7 the attack-share fractions derived from the results role mix (3/16, 4/16). Checker `--selftest` ⇒ `C1_CHECK_SELFTEST: PASS (52 cases)`; the guard fires (a `deletions=2` delta reads value+1; a constant-0 stub fails). | `plans/round-61-c1.sh`; `plans/round-61-c1-check.py`; `.ufo/waves/round-61/build/R61ExecCounterC1/`; `.ufo/waves/round-61/controls/controls-prefreeze.txt` |
+| operability | 9 → 9 | [C2] `bash plans/round-61-c2.sh c940f516…` ⇒ `C2_SEAL_TRIAL: value=0 … (absent)`, rc 1 → `bash plans/round-61-c2.sh --tree .` ⇒ `C2_SEAL_TRIAL: value=5 tests=5 pass=5 shims=5 vectors=ok/5 selftest=1 guard=1 (real=1 real2=1 none=1 ops=1 t2w=1 stubctl=1 secret=1 … cases=63)`, rc 0: capability acquisition — `corpus/openbao-seal-trial.sh` executes five Shamir-seal custody mechanics on throwaway OpenBao 2.7.2 servers (T1 init share/threshold arithmetic and non-persistence; T2 unseal threshold with the duplicate-share refusal; T3 seal and the 503 sealed-state request; T4 generate-root with the OTP decode; T5 rekey refused under the default config on raft and inmem while `rotate-keys` completes a rotation), with five shims, a no-bao leg, an argv-shape ops witness and its own fixture-driven `--selftest` (63 cases, no `bao`, no network). Entry `corpus/knowledge/openbao-seal-key-custody.md`; rows S125–S127. | `plans/round-61-c2.sh`; `corpus/openbao-seal-trial.sh`; `.ufo/waves/round-61/build/R61ExecTrial/`; `.ufo/waves/round-61/build/R61ExecCounterC2/` |
+| depth | 9 → 9 | No claim. The entry records the measured-vs-documented split, including the rekey root cause (default-off endpoint registration plus nil-callback stub, not a removed feature) and the anonymous-rekey hazard when `disable_unauthed_rekey_endpoints = false`, with bounds and falsifiers. | `corpus/knowledge/openbao-seal-key-custody.md`; `.ufo/waves/round-61/build/R61Revenger/rekey.md` |
+| coverage | 9 → 9 | No claim. Registry 124 → 127 (S125–S127; tier A, `mined`, `180d`); coverage map gains the seal-key entry and round-61 lesson rows. | `corpus/SOURCES.md`; `corpus/source-fetches.tsv`; `corpus/README.md` |
+| freshness | 9 → 9 | No claim. All three new rows take `180d`, so `RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17)`; the new entry declares its `recheck:` clock and its `Reverify:` row. | `.ufo/waves/round-61/` receipts; `corpus/claim-ledger.sh docs` |
+| adjacency | 9 → 9 | No claim. Connector sweep over 21 lanes: no sibling holds OpenBao/Vault seal, Shamir, rekey or generate-root ground (the hits are homonyms — memfd seals, "sealed envelope", SEAL acronym); the shokuknow `merge/kagi/` package stages no seal material. The carried `ADJACENCY_SCOPE: DEFECT` (`breadth_drift=5 breadth_unverified=1`, `stale_basis=0`) is unchanged and named. | `.ufo/waves/round-61/build/R61Connector/sweep.md` |
+
+Named ceilings (recorded, not smoothed): the seven C1 items are structural reads — a tree that
+negates the statement while keeping every token (`not withdrawn`, `no three`, `not rewritten in
+place`) or swaps a pairing (`3/16 = 25 %`) reads satisfied (reviewer §C1 I3–I7; QM79 is the
+next-round hardening); I6's literal `-03:00` text is unsatisfiable against `%ci`'s `-0300`, so
+the checker compares instants after offset normalisation; C2's `guard` is near-constant and the
+counter's `--selftest` does not execute the main aggregation (reviewer §C2-4/§C2-5, open
+instrument debts); the C2 counter's first ops witness accepted a `--help` stub and was
+strengthened to argv shapes in-round (QM80).
+
+## Planned (next axis-move — round 61 close)
+
+All six axes stand at 9; the lane rule is "pick the lowest-scoring axis", so the next round
+breaks the tie by measurement, as rounds 61 and 16 did:
+
+- **calibration candidate — close QM79.** Harden the C1 item grammar so a negated or
+  swapped-pairing sentence reads unresolved (a polarity test per item: the asserting verb must
+  not be preceded by a negator within the clause; the fraction and its percentage must be
+  paired by derivation), and add the reviewer's five bypass trees as controls. Falsifiable
+  target: the five bypass trees read `value=5` today and must read `value=0` with the
+  hardened checker while the seven real corrections still read 0.
+- **operability candidate — close C2-4/C2-5.** Give the C2 counter a challenge leg for
+  `guard` (a tree whose trial sha256 is valid but whose legs are incomplete must read
+  `guard=0`) and extend its `--selftest` to execute the main aggregation (mutation A: the
+  aggregation replaced by `value=5` must fail). Falsifiable target: the reviewer's two
+  surviving mutations must be killed.
+
+Ceilings are named so they are not mistaken for saturations:
+
+- **calibration** — pointer relevance remains unverifiable; a structural item cannot prove the
+  corrected sentence true, only that it asserts the correction (QM79 narrows, never closes,
+  this).
+- **operability** — nothing schedules the gates; the checklist's by-hand duties remain by-hand;
+  the seal trial is one host, one version pair, default config.
+- **depth** — the remaining OpenBao seal increments (auto-unseal, recovery keys, seal
+  migration) need a second config surface and, for auto-unseal, a KMS/HSM stand-in; they are
+  reachable but not cheap.
+- **coverage** — the census declaration is untouched; the new ground is a behaviour surface,
+  not a path surface.

@@ -1,0 +1,35 @@
+argv: bash /fast/scratch/hyaku/kagi-r61/R61MutCounters/mut/CTL-M2-hide-mismatch/mutated/plans/round-61-controls.sh
+rc: 1
+--- stdout ---
+# round-61 pre-freeze control battery (plans/round-61-controls.sh)
+# base=c940f51689d702f1786989d56ad4663833c1452e ref=/fast/scratch/hyaku/kagi-r61/R61MutCounters/mut/CTL-M2-hide-mismatch/mutated
+# scratch=/fast/scratch/hyaku/kagi-r61/R61ExecControls/battery.585548
+# derived-shim-env=KAGI_SEAL_SHIM trial-prefix=none bao=/home/vgpnk/.local/bin/bao
+# instrument pins (the bytes this battery measured)
+INSTRUMENT plans/round-61-c1-check.py MISSING
+INSTRUMENT plans/round-61-c2.sh c7d9e272877775a4b74c673680723bac252d393db6631d06fceb7ffdb98c47a6
+INSTRUMENT plans/round-60-c2.sh 135fc46f1a39036d0129a317d82caa79ff3ccdab6ee2562d3d6892f70b87fe95
+INSTRUMENT corpus/openbao-seal-trial.sh MISSING
+BAO /home/vgpnk/.local/bin/bao 9c5f36287c673f386e1533e9c044169a248e4ee50dd54810fa766e95bd41b788
+CONTROL C1-NOWORK SKIP no-checker (plans/round-61-c1-check.py is not on disk yet)
+CONTROL C2-NOWORK expect=value=0 (absent) observed=value=0 (absent) MATCH :: C2 on the claim BASE: the seal trial does not exist at BASE (absent line, no server work); command: bash plans/round-61-c2.sh --tree <BASE copy>
+CONTROL C1-F1 SKIP needs the checker and the landed round-60-c2.sh --selftest (I2 fix) to build a fully fixed tree
+CONTROL C1-F2 SKIP needs the checker and the landed round-60-c2.sh --selftest (I2 fix) to build a fully fixed tree
+CONTROL C1-F3 SKIP needs the checker and the landed round-60-c2.sh --selftest (I2 fix) to build a fully fixed tree
+CONTROL C1-F4 SKIP needs the checker and the landed round-60-c2.sh --selftest (I2 fix) to build a fully fixed tree
+CONTROL C1-F5 SKIP needs the checker and the landed round-60-c2.sh --selftest (I2 fix) to build a fully fixed tree
+CONTROL C1-F6 SKIP needs the checker and the landed round-60-c2.sh --selftest (I2 fix) to build a fully fixed tree
+CONTROL C1-F7 SKIP needs the checker and the landed round-60-c2.sh --selftest (I2 fix) to build a fully fixed tree
+CONTROL C1-STUB SKIP needs the checker and the landed round-60-c2.sh --selftest (I2 fix) to build a fully fixed tree
+CONTROL C2-SH1 SKIP needs plans/round-61-c2.sh, corpus/openbao-seal-trial.sh, and a derivable trial summary prefix
+CONTROL C2-SH2 SKIP needs plans/round-61-c2.sh, corpus/openbao-seal-trial.sh, and a derivable trial summary prefix
+CONTROL C2-SH3 SKIP needs plans/round-61-c2.sh, corpus/openbao-seal-trial.sh, and a derivable trial summary prefix
+CONTROL C2-SH4 SKIP needs plans/round-61-c2.sh, corpus/openbao-seal-trial.sh, and a derivable trial summary prefix
+CONTROL C2-SH5 SKIP needs plans/round-61-c2.sh, corpus/openbao-seal-trial.sh, and a derivable trial summary prefix
+CONTROL C2-STUB expect=value=0 observed=value=0 MATCH :: fixture trial prints the full text contract (HOLDS x5, summary, shim flips, SEAL_SELFTEST cases=8, no-bao SETUP) without calling bao; command: bash plans/round-61-c2.sh --tree <fixture copy>; a 5 means the counter trusts trial text and is vacuous
+CONTROL C2-FIXTURE-TRUTH SKIP needs plans/round-61-c2.sh and the landed corpus/openbao-seal-trial.sh
+CONTROL C2-HELPSTUB expect=value=0 observed=value=0 MATCH :: fixture trial runs each bao <op> --help against the real binary (bare-name argvs, no ops) and prints the T2 markers (unseal progress 1/3 sealed=true); command: bash plans/round-61-c2.sh --tree <helpstub copy>; a 5 means the argv-shape witness accepts help-only executions (reviewer vacuity class C2-3)
+CONTROLS: match=3 mismatch=0
+
+--- stderr ---
+

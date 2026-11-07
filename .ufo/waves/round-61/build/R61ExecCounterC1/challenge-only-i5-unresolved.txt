@@ -1,0 +1,14 @@
+=== receipt: challenge-only-i5-unresolved.txt ===
+# guard challenge with i5 resolved and i1..i4,i6,i7 unresolved
+# expect: value=6 guard=1 with 'value=7 expect=7' and 'stub value=0 fails=True'; rc 1
+# repo: fixture git repo (as above)
+c1: i1 FAIL corpus/lessons/round-60.md missing
+c1: i2 FAIL selftest[plans/round-60-c2.sh missing or symlinked] registry[SKILL.md missing] mutation[script missing or symlinked (mutation leg refused)]
+c1: i3 FAIL plans/round-60.md missing
+c1: i4 FAIL corpus/lessons/round-60.md missing
+c1: i5 HOLD derived insertions=1 deletions=1 stated=1/1 revs=both mechanism=rewritten-in-place
+c1: i6 FAIL corpus/lessons/round-60.md missing
+c1: i7 FAIL corpus/lessons/round-60.md missing
+c1-guard: copy delta deletions 1->2 on the evaluated I5 line: value=7 expect=7; stub value=0 fails=True
+C1_ROUTED: value=6 population=7 i1=0 i2=0 i3=0 i4=0 i5=1 i6=0 i7=0 guard=1
+rc=1

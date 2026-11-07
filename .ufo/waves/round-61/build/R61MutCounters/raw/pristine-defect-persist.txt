@@ -1,0 +1,6 @@
+TRIAL T1 BROKEN shares=1 status=1 nopersist=0
+TRIAL T2 HOLDS p1=1 dup=1 p2=1 p3=1
+TRIAL T3 HOLDS seal=1 auth503=1 status200=1
+TRIAL T4 ERROR decode-call
+TRIAL T5 HOLDS raft405=1 mem405=1
+OPENBAO_SEAL_TRIAL: ERROR holds=3 broken=1 error=1 bao=v2.7.2

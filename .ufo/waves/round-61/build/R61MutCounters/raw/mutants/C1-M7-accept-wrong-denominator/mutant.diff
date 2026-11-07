@@ -1,0 +1,11 @@
+--- a/plans/round-61-c1-check.py
++++ b/plans/round-61-c1-check.py
+@@ -667,7 +667,7 @@
+         n, a, b = derive_i7(root)
+     except LookupError as e:
+         return FAIL, f"role mix not derived: {e}"
+-    frac_a = re.compile(rf"(?<![0-9]){a}/{n}(?![0-9])")
++    frac_a = re.compile(rf"(?<![0-9]){a}/[0-9]+(?![0-9])")
+     frac_b = re.compile(rf"(?<![0-9]){b}/{n}(?![0-9])")
+     pa, pb = _fmt_pct(a, n), _fmt_pct(b, n)
+     pct_a = re.compile(rf"(?<![\w.]){re.escape(pa)}(?![\w.])")

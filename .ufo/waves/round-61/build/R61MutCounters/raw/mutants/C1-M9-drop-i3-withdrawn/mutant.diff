@@ -1,0 +1,12 @@
+--- a/plans/round-61-c1-check.py
++++ b/plans/round-61-c1-check.py
+@@ -548,8 +548,7 @@
+     section = "\n".join(lines[a7:sec_end])
+     a_ok = (A3_ITEM2_RE.search(section) is not None
+             and FORM_RE.search(section) is not None
+-            and L1PROBE_TOKEN in section
+-            and WITHDRAWN_RE.search(section) is not None)
++            and L1PROBE_TOKEN in section)
+     lesson = rd(root, LESSON60_REL)
+     if lesson is None:
+         return FAIL, "corpus/lessons/round-60.md missing"

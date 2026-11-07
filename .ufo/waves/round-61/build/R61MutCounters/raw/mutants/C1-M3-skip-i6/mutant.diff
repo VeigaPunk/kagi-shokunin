@@ -1,0 +1,20 @@
+--- a/plans/round-61-c1-check.py
++++ b/plans/round-61-c1-check.py
+@@ -681,7 +681,7 @@
+ 
+ 
+ ITEMS = (("i1", item1), ("i2", item2), ("i3", item3), ("i4", item4),
+-         ("i5", item5), ("i6", item6), ("i7", item7))
++         ("i5", item5), ("i7", item7))
+ 
+ 
+ # --------------------------------------------------------------------------- guard
+@@ -820,7 +820,7 @@
+     _refuse_inside_root(root)  # QM74 (I2's mutation leg and the GUARD share it)
+     res = measure(root, repo)
+     toks = {k: ("1" if s == HOLD else "0") for k, (s, _) in res.items()}
+-    population = sum(1 for s, _ in res.values() if s in (HOLD, FAIL))
++    population = POP
+     count = sum(1 for s, _ in res.values() if s == FAIL)
+ 
+     if not challenge:

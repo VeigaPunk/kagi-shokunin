@@ -1,0 +1,11 @@
+--- a/plans/round-61-c2.sh
++++ b/plans/round-61-c2.sh
+@@ -193,7 +193,7 @@
+   exit 1   # frozen contract: exit 0 iff guard=1 and value=5 (the BASE control leg)
+ fi
+ [ -x "$BAO_BIN" ] || setup bao-missing
+-[ "$(sha256sum < "$BAO_BIN" | cut -d' ' -f1)" = "$PIN_BAO" ] || setup bao-pin-mismatch
++# MUTANT: bao pin not checked
+ for d in /usr/bin /bin; do [ -e "$d/bao" ] && setup "bao-in-$d"; done
+ TRIAL_SHA=$(sha256sum < "$TRIAL" | cut -d' ' -f1)
+ 

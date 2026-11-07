@@ -1,0 +1,12 @@
+SEAT: R61ScoutSealDocs (scout, wave-1, round 61, attempt 1)
+LANE: kagi-shokunin
+CAPTURE_DIR: .ufo/waves/round-61/capture/
+ACCESS_DATE: 2026-11-07
+UA: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36
+FETCH: curl -fsSL --compressed -A "$UA" -D <sid>.rawheaders -o <sid>.body -w '%{http_code} %{url_effective} %{size_download}\n' "<url>"
+SCRATCH: /fast/scratch/hyaku/kagi-r61/R61ScoutSealDocs/ (deleted at yield)
+
+id	url	http	final_url	wire_bytes	body_bytes	sha256
+S125	https://openbao.org/docs/concepts/seal/	200	https://openbao.org/docs/concepts/seal/	11421	44279	643c78c956d8c2106f8cbbab3ffcefff43e4f90a0f06faeaad666a613063ff65
+S126	https://openbao.org/docs/commands/operator/rekey/	200	https://openbao.org/docs/commands/operator/rekey/	8434	44328	53a4574a942e4da8ac8f763af66fe07f33941f98a9ec815eda16d34329c0630a
+S127	https://openbao.org/docs/commands/operator/generate-root/	200	https://openbao.org/docs/commands/operator/generate-root/	7893	38368	4adb6eb414a8119225e2b3936b99ffb395966cea347f2964f43cedfbe26459aa

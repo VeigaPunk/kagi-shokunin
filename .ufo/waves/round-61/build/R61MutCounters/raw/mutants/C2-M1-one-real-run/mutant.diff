@@ -1,0 +1,17 @@
+--- a/plans/round-61-c2.sh
++++ b/plans/round-61-c2.sh
+@@ -276,11 +276,10 @@
+   esac
+   RC[$m]=$?; RAN[$m]=1
+ done
+-real_ok=0; [ "${RC[real]}" = 0 ] && [ "${RC[real2]}" = 0 ] \
+-  && [ "$(vec "${OUT[real]}")" = HHHHH ] && [ "$(vec "${OUT[real2]}")" = HHHHH ] \
+-  && [ "$(tlines "${OUT[real]}")" = 5 ] && [ "$(tlines "${OUT[real2]}")" = 5 ] && real_ok=1
++real_ok=0
+ for m in real real2; do
+-  holds5 "${OUT[$m]}" || real_ok=0
++  [ "${RC[$m]}" = 0 ] && [ "$(vec "${OUT[$m]}")" = HHHHH ] \
++    && [ "$(tlines "${OUT[$m]}")" = 5 ] && holds5 "${OUT[$m]}" && real_ok=1
+ done
+ ops_ok=1
+ for m in real real2; do

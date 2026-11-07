@@ -1,0 +1,14 @@
+# landed trial defect snapshot 2 (2026-11-07 ~17:1x, trial 1069 lines, sha256 e9956bd6cfebfdefc8ec305f0a766eca2813e4e39a27ea704df48ebcc27974ef)
+# repro: one real leg under env -i with the counter logging shim; rc=2
+stdout:
+TRIAL T1 HOLDS shares=1 status=1 nopersist=1
+TRIAL T2 HOLDS p1=1 dup=1 p2=1 p3=1
+TRIAL T3 HOLDS seal=1 auth503=1 status200=1
+TRIAL T4 ERROR decode-call
+TRIAL T5 HOLDS raft405=1 mem405=1
+OPENBAO_SEAL_TRIAL: ERROR holds=4 broken=0 error=1 bao=v2.7.2
+argv ops log (values redacted, in order): version; server -config=...raft...; operator init -key-shares=5 -key-threshold=3 -format=json; operator seal; operator generate-root -init -format=json; operator generate-root -decode= -otp=<26-char OTP REDACTED> -format=json; operator rekey -init -key-shares=3 -key-threshold=2; server -config=...inmem...; operator init -key-shares=1 -key-threshold=1 -format=json; operator rekey -init -key-shares=3 -key-threshold=2
+observations: -decode= carries an EMPTY value; no generate-root update/nonce-bearing invocation appears in argv at all (update chain produced no encoded token); no operator unseal argv anywhere (T2 unseal is HTTP-driven); stderr empty; T1/T2/T3/T5 all HOLDS.
+counter census:
+C2_SEAL_TRIAL: value=0 tests=5 pass=0 shims=0 vectors=0/5 selftest=1 guard=1 (real=0 real2=0 none=1 ops=0 stubctl=1 secret=1 sh1=BHHEH sh2=HBHEH sh3=HHBEH sh4=HHHEH sh5=HHHEB trial=e9956bd6cfebfdefc8ec305f0a766eca2813e4e39a27ea704df48ebcc27974ef cases=63)
+rc=1

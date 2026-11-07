@@ -1,0 +1,13 @@
+--- a/plans/round-61-controls.sh
++++ b/plans/round-61-controls.sh
+@@ -111,8 +111,8 @@
+   printf 'CONTROL %s expect=%s observed=%s %s :: %s\n' "$1" "$2" "$3" "$v" "$4"
+ }
+ 
+-report_skip() { # ID REASON  (a control that cannot run yet: mismatch, not a match)
+-  K=$((K + 1))
++report_skip() { # ID REASON
++  M=$((M + 1))
+   printf 'CONTROL %s SKIP %s\n' "$1" "$2"
+ }
+ 

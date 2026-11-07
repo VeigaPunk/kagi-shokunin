@@ -1,0 +1,11 @@
+--- a/plans/round-61-c2.sh
++++ b/plans/round-61-c2.sh
+@@ -268,7 +268,7 @@
+   [ -n "${RAN[$m]+x}" ] || legs_ran=0
+ done
+ guard=0
+-[ "$legs_ran" = 1 ] && printf '%s' "$TRIAL_SHA" | grep -qE '^[0-9a-f]{64}$' && guard=1
++guard=1
+ V="ok"; [ "$shims_ok" = 5 ] || V=$shims_ok
+ printf '%s: value=%s tests=5 pass=%s shims=%s vectors=%s/5 selftest=%s guard=%s (real=%s real2=%s none=%s secret=%s sh1=%s sh2=%s sh3=%s sh4=%s sh5=%s trial=%s cases=%s)\n' \
+   "$NAME" "$value" "$pass" "$shims_ok" "$V" "$selftest_ok" "$guard" \

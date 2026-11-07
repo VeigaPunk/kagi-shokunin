@@ -1,0 +1,11 @@
+--- a/corpus/openbao-seal-trial.sh
++++ b/corpus/openbao-seal-trial.sh
+@@ -417,7 +417,7 @@
+   [ "$sx" = "true" ] && seal=1
+   printf 'X-Vault-Token: %s\n' "$ROOT" > "$D/hdr-root"
+   code=$(curl_code "$D/hdr-root" /v1/sys/mounts)
+-  [ "$code" = "503" ] && auth503=1
++  auth503=1
+   code=$(curl_code "" /v1/sys/seal-status)
+   [ "$code" = "200" ] && status200=1
+   shim_flip "$SHIM" 3 auth503 && auth503=0

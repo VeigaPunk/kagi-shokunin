@@ -1,0 +1,10 @@
+# R61ScribeEntry — DOC_AUDIT observation after the entry landed (read-only)
+# date: 2026-11-07T16:58:35-03:00
+# command: bash corpus/claim-ledger.sh docs
+ENTRY corpus/knowledge/vault-openbao-token-lease-lifecycle.md row_linked=1 by_hand=-
+DOC_AUDIT_RATIO: row_linked=39/42 floor=21 by_hand=3 duplicate_reasons=0
+DOC_AUDIT: BROKEN (entries=42 row_linked=39 by_hand=3 undeclared=0 missing_ids=0 unpinned=1 duplicate_reasons=0 floor=21)
+
+# the entry's own line:
+UNPINNED corpus/knowledge/openbao-seal-key-custody.md (knowledge entry is not a row in the stamps file)
+ENTRY corpus/knowledge/openbao-seal-key-custody.md row_linked=1 by_hand=-

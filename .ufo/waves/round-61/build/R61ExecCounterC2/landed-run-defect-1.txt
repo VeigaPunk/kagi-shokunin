@@ -1,0 +1,9 @@
+# landed trial defect snapshot 1 (2026-11-07 ~17:02, trial 1008 lines, sha256 75e5ba0d9929d461fb85d25b3ef2dde91dfb7d6e581004eb81e7bd4a992b42ce)
+# repro: env -i HOME PATH=/usr/bin:/bin TMPDIR LANG=C bash corpus/openbao-seal-trial.sh --work <dir>
+rc=1
+stderr:
+  line 837: run_case: command not found
+  line 838: CASE_RC: unbound variable
+census line:
+C2_SEAL_TRIAL: value=0 tests=5 pass=0 shims=0 vectors=0/5 selftest=0 guard=1 (real=0 real2=0 none=0 secret=0 sh1=NNNNN sh2=NNNNN sh3=NNNNN sh4=NNNNN sh5=NNNNN trial=75e5ba0d9929d461fb85d25b3ef2dde91dfb7d6e581004eb81e7bd4a992b42ce cases=0)
+rc=1

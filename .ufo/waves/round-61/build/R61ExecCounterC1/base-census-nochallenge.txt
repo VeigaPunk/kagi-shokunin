@@ -1,0 +1,14 @@
+=== receipt: base-census-nochallenge.txt ===
+# K2 census: BASE tree (git archive of c940f51689d702f1786989d56ad4663833c1452e) --no-challenge
+# tree: /fast/scratch/hyaku/kagi-r61/R61ExecCounterC1/run-20261107T171324Z-2860808/tree
+# cmd: python3 -I -B plans/round-61-c1-check.py --root <base-tree> --repo <lane> --no-challenge
+# expect: value=7 population=7 i1=0..i7=0 guard=0, rc 1
+c1: i1 FAIL no 'supersedes R37' line after the routed R37 row
+c1: i2 FAIL selftest[rc=1 cases=None no-PASS-line] registry[selftest-cell="none of its own — it runs the trial's `-" none-own=present] mutation[mutated rc=2 finding=no]
+c1: i3 FAIL no '## Amendment A7' heading
+c1: i4 FAIL no 'supersedes the round-60 quality-trend sentence' line
+c1: i5 FAIL no 'supersedes the round-60 LOG wave line' line after it
+c1: i6 FAIL no 'supersedes the round-60 stale-lane paragraph' line
+c1: i7 FAIL no 'supersedes the round-60 attack-share arithmetic' line
+C1_ROUTED: value=7 population=7 i1=0 i2=0 i3=0 i4=0 i5=0 i6=0 i7=0 guard=0
+rc=1

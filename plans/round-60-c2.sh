@@ -55,36 +55,263 @@
 #   K5 is the selftest leg. K2 (absolute-path bao, shape-keyed output) and the
 #   independence of the two real runs are declared ceilings checked by the
 #   receipts and a non-author probe, not by this counter.
+# The counter's own --selftest (round-61 item I2, QM76): fixture-driven, no bao,
+#   no network. It builds throwaway fixture trees under --work (default: TMPDIR,
+#   else ${HYAKU_SCRATCH:-/fast/scratch/hyaku}/kagi-r61/R61ExecC2Selftest)
+#   holding a copy of this counter, a fixture plans/round-57-c2.sh pin naming a
+#   fixture bao stub, and a fixture corpus/openbao-approle-trial.sh whose canned
+#   verdicts drive this counter's real end-to-end path (scratch, env -i legs,
+#   verdict mapping, secret scan, exit contract) with no real trial. Fixture
+#   cases (each assertion prints FINDING C2-ST-<case>-<what> when it fails):
+#     absent trial -> value=0 rc 1             (C2-ST-ABSENT-*)
+#     all five legs satisfied -> value=5 rc 0  (C2-ST-HOLDS-*)
+#     broken shim vector (SH1 flips T2)        (C2-ST-BADVEC-*)
+#     missing second real run (real2 ERRORs)   (C2-ST-REAL2-*)
+#     a no-bao leg that prints HOLDS           (C2-ST-NONEHOLDS-*)
+#     a trial selftest that fails              (C2-ST-STFAIL-*)
+#     a secret-shaped fixture token in a run   (C2-ST-SECRET-*)
+#     unknown flag -> SETUP rc 2               (C2-ST-USAGE-*)
+#   Red witness: two further copies of this counter are mutated (the verdict
+#   mapping inverted via `tr HB BH` in vec; the SH1 expectation dropped via
+#   [sh1]=BHHHH -> HHHHH) and each must exit non-zero printing named
+#   FINDING C2-ST-MUT* ids (C2-ST-MUTVEC-*, C2-ST-MUTEXP-*). C2_ST_NOMUTANT=1
+#   skips that witness inside a mutated copy so the mutation does not recurse.
+#   Output: exactly one summary line C2_SELFTEST: PASS (cases=N) rc 0, or
+#   C2_SELFTEST: FAIL (cases=N failed=M) with the FINDING lines, rc 1; SETUP
+#   problems read C2_SELFTEST: SETUP <reason> rc 2. Fixtures are removed on
+#   exit; umask 077; no hardcoded /tmp.
 # Run-log names are randomized (rhex) and live outside every --work dir handed
 #   to the trial (round-51 M51-2 lesson); the trial is invoked with --work
 #   under this counter's scratch. Scratch is removed on exit; TMPDIR points
 #   into it; umask 077; no hardcoded /tmp.
-# Input: a revision, or --tree DIR (BASE a677c78ece8e3d3b4a43dda55254f2a7b33cc1d2
-#   when omitted). Output: one line
+# Input: [revision | --tree DIR], or --selftest [--work DIR] (selftest-scoped;
+#   BASE a677c78ece8e3d3b4a43dda55254f2a7b33cc1d2 when omitted). Output: one line
 #   C2_APPROLE_TRIAL: value=V tests=5 pass=P shims=K vectors=ok|K/5 selftest=S guard=G
 #   (plus a parenthetical run census: real/real2/ambient/none/secret flags and
 #   each shim's measured vector), exit 0 iff value=5; 1 otherwise; 2 SETUP.
+#   With --selftest the single output line is C2_SELFTEST: PASS|FAIL (cases=N)
+#   [failed=M] instead (exit 0 PASS / 1 FAIL / 2 SETUP); an unknown --flag is
+#   SETUP rc 2 in every mode.
 set -u
 umask 077
 REPO=$(cd "$(dirname "$0")/.." && pwd -P)
 BASE=a677c78ece8e3d3b4a43dda55254f2a7b33cc1d2
 BAO_BIN="${R60_BAO:-$HOME/.local/bin/bao}"
 setup() { echo "C2_APPROLE_TRIAL: SETUP $1"; exit 2; }
+# Arg parse first: --selftest is hermetic and must not require python3, git or
+# the real bao pin; unknown --flags are SETUP (rc 2) before anything runs.
+MODE=run; WORKDIR=""; REV=""; TREE=""
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --selftest) MODE=self; shift ;;
+    --work)
+      [ $# -ge 2 ] || { echo "C2_SELFTEST: SETUP work-flag-missing-argument"; exit 2; }
+      WORKDIR=$2; shift 2 ;;
+    --tree)
+      if [ $# -lt 2 ]; then
+        echo "C2_APPROLE_TRIAL: value=0 tests=5 pass=0 shims=0 vectors=0/5 selftest=0 guard=0 (bad-tree)"; exit 1
+      fi
+      TREE=$2; shift 2 ;;
+    --*) setup "unknown-flag $1" ;;
+    *) [ -n "$REV" ] || REV=$1; shift ;;
+  esac
+done
+if [ -z "$REV" ] && [ -z "$TREE" ]; then REV=$BASE; fi
+
+run_selftest() { # [WORKDIR] -> rc 0 PASS / 1 FAIL / 2 SETUP; hermetic: no bao, no network
+  ST_WBASE="${1:-}"
+  if [ -z "$ST_WBASE" ] && [ -n "${TMPDIR:-}" ]; then ST_WBASE=$TMPDIR; fi
+  if [ -z "$ST_WBASE" ]; then
+    ST_WBASE="${HYAKU_SCRATCH:-/fast/scratch/hyaku}/kagi-r61/R61ExecC2Selftest/selftest"
+  fi
+  mkdir -p "$ST_WBASE" 2>/dev/null || { echo "C2_SELFTEST: SETUP work dir not creatable"; return 2; }
+  ST_D=$(mktemp -d "$ST_WBASE/c2-st.XXXXXXXX") || { echo "C2_SELFTEST: SETUP work dir not writable"; return 2; }
+  trap 'rm -rf -- "$ST_D"' EXIT
+  ST_SELF=$(readlink -f "$0" 2>/dev/null || printf '%s' "$0")
+  STC=0; STF=0; CASE_RC=""; CASE_OUT=""
+  ck() { local id="$1"; shift; STC=$((STC+1)); if ! "$@"; then STF=$((STF+1)); printf 'FINDING %s\n' "$id"; fi; }
+  ok_rc()    { [ "$CASE_RC" = "$1" ]; }
+  ok_rc_ne() { [ "$CASE_RC" != "$1" ]; }
+  ok_out()   { grep -qE -- "$1" "$CASE_OUT" 2>/dev/null; }
+  ok_line()  { grep -qxE -- "$1" "$CASE_OUT" 2>/dev/null; }
+  differs()  { ! cmp -s -- "$1" "$2"; }
+  setmode()  { printf '%s\n' "$1" > "$ST_D/tree/corpus/.st-mode"; }
+  if ! mkdir -p "$ST_D/tree/plans" "$ST_D/tree/corpus" "$ST_D/tree-absent/plans" "$ST_D/bin"; then
+    echo "C2_SELFTEST: SETUP fixtures not creatable"; return 2
+  fi
+  if ! cp -- "$ST_SELF" "$ST_D/tree/plans/round-60-c2.sh"; then
+    echo "C2_SELFTEST: SETUP counter copy failed"; return 2
+  fi
+  printf '#!/bin/sh\nexit 0\n' > "$ST_D/bin/bao"
+  chmod 755 "$ST_D/bin/bao"
+  printf 'PIN_BAO=%s\n' "$(sha256sum < "$ST_D/bin/bao" | cut -d' ' -f1)" > "$ST_D/tree/plans/round-57-c2.sh"
+  cat > "$ST_D/tree/corpus/openbao-approle-trial.sh" <<'ST_TRIAL'
+#!/usr/bin/env bash
+# fixture trial for the plans/round-60-c2.sh --selftest: canned verdicts only,
+# no bao execution, no network, no real secrets. Behavior is keyed by the
+# .st-mode file next to this script, never by the caller's environment beyond
+# the counter's own env -i contract (KAGI_APPROLE_SHIM, BAO_ADDR placeholders).
+set -u
+DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)
+MODE=$(cat "$DIR/.st-mode" 2>/dev/null || printf 'HOLDS')
+MODE=${MODE:-HOLDS}
+SHIM=${KAGI_APPROLE_SHIM:-}
+IS_SELF=0
+for a in "$@"; do [ "$a" = "--selftest" ] && IS_SELF=1; done
+emit() { # BREAKIDX BREAKVERB
+  local i
+  for i in 1 2 3 4 5; do
+    if [ "$i" = "$1" ]; then printf 'TRIAL T%s %s fixture\n' "$i" "$2"
+    else printf 'TRIAL T%s HOLDS fixture\n' "$i"; fi
+  done
+  if [ "$1" = 0 ]; then printf 'OPENBAO_APPROLE_TRIAL: HOLDS holds=5 broken=0 error=0 bao=v0.0.0-fixture\n'
+  elif [ "$2" = ERROR ]; then printf 'OPENBAO_APPROLE_TRIAL: ERROR holds=4 broken=0 error=1 bao=v0.0.0-fixture\n'
+  else printf 'OPENBAO_APPROLE_TRIAL: BROKEN holds=4 broken=1 error=0 bao=v0.0.0-fixture\n'; fi
+}
+if [ "$IS_SELF" = 1 ]; then
+  if [ "$MODE" = STFAIL ]; then echo "APPROLE_SELFTEST: FAIL (cases=8 failed=1)"; exit 1; fi
+  echo "APPROLE_SELFTEST: PASS (cases=8)"
+  exit 0
+fi
+case "$SHIM" in
+  SH1) if [ "$MODE" = BADVEC ]; then emit 2 BROKEN; else emit 1 BROKEN; fi; exit 1 ;;
+  SH2) emit 2 BROKEN; exit 1 ;;
+  SH3) emit 3 BROKEN; exit 1 ;;
+  SH4) emit 4 BROKEN; exit 1 ;;
+  SH5) emit 5 BROKEN; exit 1 ;;
+esac
+if [ "$MODE" = NONEHOLDS ]; then emit 0 HOLDS; exit 0; fi
+if ! command -v bao >/dev/null 2>&1; then
+  echo "OPENBAO_APPROLE_TRIAL: SETUP no bao on PATH"
+  exit 2
+fi
+if [ "$MODE" = SECRET ]; then
+  emit 0 HOLDS
+  printf 'note fixture-only token=hvs.%s (generated by the fixture, not a secret)\n' "$(od -An -N12 -tx1 /dev/urandom | tr -d ' \n')"
+  exit 0
+fi
+if [ "$MODE" = REAL2 ]; then
+  if [ -n "${BAO_ADDR:-}" ]; then emit 0 HOLDS; exit 0; fi
+  n=$(cat "$DIR/.st-twin" 2>/dev/null || printf '0')
+  n=$((n+1))
+  printf '%s\n' "$n" > "$DIR/.st-twin"
+  if [ "$n" = 2 ]; then emit 2 ERROR; exit 1; fi
+  emit 0 HOLDS; exit 0
+fi
+if [ "$MODE" = HOLDS ] || [ "$MODE" = BADVEC ] || [ "$MODE" = STFAIL ]; then emit 0 HOLDS; exit 0; fi
+echo "OPENBAO_APPROLE_TRIAL: SETUP unknown fixture mode $MODE"
+exit 2
+ST_TRIAL
+  chmod 755 "$ST_D/tree/corpus/openbao-approle-trial.sh"
+  runcase() { # OUT TREE -> runs the fixture counter copy end to end
+    CASE_OUT=$1
+    env -u KAGI_APPROLE_SHIM LANG=C HYAKU_SCRATCH="$ST_D/scr" R60_BAO="$ST_D/bin/bao" \
+      bash "$ST_D/tree/plans/round-60-c2.sh" --tree "$2" >"$1" 2>"$1.err"
+    CASE_RC=$?
+  }
+  runself() { # OUT SCRIPT -> runs a counter copy's own --selftest (mutant red witness)
+    CASE_OUT=$1
+    env -u KAGI_APPROLE_SHIM LANG=C C2_ST_NOMUTANT=1 HYAKU_SCRATCH="$ST_D/scr" R60_BAO="$ST_D/bin/bao" \
+      bash "$2" --selftest --work "$ST_D/mw" >"$1" 2>"$1.err"
+    CASE_RC=$?
+  }
+
+  # case 1: absent trial -> value=0 rc 1 (the BASE control leg, end to end)
+  runcase "$ST_D/c-absent.out" "$ST_D/tree-absent"
+  ck C2-ST-ABSENT-RC   ok_rc 1
+  ck C2-ST-ABSENT-LINE ok_line 'C2_APPROLE_TRIAL: value=0 tests=5 pass=0 shims=0 vectors=0/5 selftest=0 guard=0 \(absent\)'
+
+  # case 2: all five legs satisfied -> value=5 rc 0 (baseline vector HHHHH)
+  setmode HOLDS
+  runcase "$ST_D/c-holds.out" "$ST_D/tree"
+  ck C2-ST-HOLDS-RC   ok_rc 0
+  ck C2-ST-HOLDS-LINE ok_line 'C2_APPROLE_TRIAL: value=5 tests=5 pass=5 shims=5 vectors=ok/5 selftest=1 guard=1 \(real=1 real2=1 ambient=1 none=1 secret=1 sh1=BHHHH sh2=HBHHH sh3=HHBHH sh4=HHHBH sh5=HHHHB\)'
+
+  # case 3: broken shim vector (SH1 flips the wrong test) -> value<5 rc 1
+  setmode BADVEC
+  runcase "$ST_D/c-badvec.out" "$ST_D/tree"
+  ck C2-ST-BADVEC-RC    ok_rc 1
+  ck C2-ST-BADVEC-VALUE ok_out 'value=0'
+  ck C2-ST-BADVEC-REAL  ok_out 'pass=5'
+  ck C2-ST-BADVEC-SHIMS ok_out 'shims=4 vectors=4/5'
+  ck C2-ST-BADVEC-VEC1  ok_out 'sh1=HBHHH'
+
+  # case 4: missing second real run (real2 errors) -> value<5 rc 1
+  setmode REAL2
+  rm -f "$ST_D/tree/corpus/.st-twin"
+  runcase "$ST_D/c-real2.out" "$ST_D/tree"
+  ck C2-ST-REAL2-RC      ok_rc 1
+  ck C2-ST-REAL2-VALUE   ok_out 'value=0'
+  ck C2-ST-REAL2-PASS    ok_out 'pass=0'
+  ck C2-ST-REAL2-REAL    ok_out 'real=0 real2=0'
+  ck C2-ST-REAL2-AMBIENT ok_out 'ambient=1'
+
+  # case 5: a no-bao leg that prints HOLDS -> value<5 rc 1
+  setmode NONEHOLDS
+  runcase "$ST_D/c-noneholds.out" "$ST_D/tree"
+  ck C2-ST-NONEHOLDS-RC    ok_rc 1
+  ck C2-ST-NONEHOLDS-VALUE ok_out 'value=0'
+  ck C2-ST-NONEHOLDS-NONE  ok_out 'none=0'
+  ck C2-ST-NONEHOLDS-REST  ok_out 'secret=1'
+
+  # case 6: a trial selftest that fails -> value<5 rc 1
+  setmode STFAIL
+  runcase "$ST_D/c-stfail.out" "$ST_D/tree"
+  ck C2-ST-STFAIL-RC    ok_rc 1
+  ck C2-ST-STFAIL-VALUE ok_out 'value=0'
+  ck C2-ST-STFAIL-SELF  ok_out 'selftest=0'
+  ck C2-ST-STFAIL-REAL  ok_out 'real=1 real2=1'
+
+  # case 7: a secret-shaped string in a captured run -> value=0 rc 1
+  setmode SECRET
+  runcase "$ST_D/c-secret.out" "$ST_D/tree"
+  ck C2-ST-SECRET-RC    ok_rc 1
+  ck C2-ST-SECRET-VALUE ok_out 'value=0'
+  ck C2-ST-SECRET-SCAN  ok_out 'secret=0'
+  ck C2-ST-SECRET-REAL  ok_out 'pass=5'
+
+  # case 8: unknown flag -> SETUP rc 2
+  CASE_OUT="$ST_D/c-usage.out"
+  env -u KAGI_APPROLE_SHIM LANG=C HYAKU_SCRATCH="$ST_D/scr" \
+    bash "$ST_D/tree/plans/round-60-c2.sh" --st-bogus >"$CASE_OUT" 2>"$CASE_OUT.err"
+  CASE_RC=$?
+  ck C2-ST-USAGE-RC   ok_rc 2
+  ck C2-ST-USAGE-LINE ok_line 'C2_APPROLE_TRIAL: SETUP unknown-flag --st-bogus'
+
+  # red witness: mutated copies of this counter must fail their own selftest
+  # with named FINDING ids (I2/C1-F7); C2_ST_NOMUTANT=1 stops the recursion.
+  mutant_case() { # ID SED-EXPR
+    local id="$1" expr="$2" m="$ST_D/mut-$1.sh" out="$ST_D/c-mut-$1.out"
+    cp -- "$ST_SELF" "$m"
+    sed "$expr" "$m" > "$m.new" && mv -- "$m.new" "$m"
+    ck "C2-ST-$id-APPLIED" differs "$ST_D/tree/plans/round-60-c2.sh" "$m"
+    runself "$out" "$m"
+    ck "C2-ST-$id-RC"      ok_rc_ne 0
+    ck "C2-ST-$id-FINDING" ok_out '^FINDING C2-ST-'
+    ck "C2-ST-$id-FAIL"    ok_out '^C2_SELFTEST: FAIL'
+  }
+  if [ "${C2_ST_NOMUTANT:-0}" != 1 ]; then
+    mutant_case MUTVEC 's/| cut -c1)/| cut -c1 | tr HB BH)/'
+    mutant_case MUTEXP 's/\[sh1\]=BHHHH/[sh1]=HHHHH/'
+  fi
+
+  if [ "$STF" -eq 0 ]; then
+    echo "C2_SELFTEST: PASS (cases=$STC)"
+    return 0
+  fi
+  echo "C2_SELFTEST: FAIL (cases=$STC failed=$STF)"
+  return 1
+}
+if [ "$MODE" = self ]; then
+  run_selftest "$WORKDIR"
+  exit $?
+fi
+if [ -n "$WORKDIR" ]; then setup work-flag-outside-selftest; fi
 command -v python3 >/dev/null 2>&1 || setup no-python3
 command -v git >/dev/null 2>&1 || setup no-git
 PIN_BAO=$(grep -cE '^PIN_BAO=[0-9a-f]{64}$' "$REPO/plans/round-57-c2.sh" 2>/dev/null)
 [ "$PIN_BAO" = 1 ] || setup bao-pin-unreadable
 PIN_BAO=$(grep -oE '^PIN_BAO=[0-9a-f]{64}$' "$REPO/plans/round-57-c2.sh" | cut -d= -f2)
-REV=""; TREE=""
-case "${1:-}" in
-  --tree)
-    if [ $# -lt 2 ]; then
-      echo "C2_APPROLE_TRIAL: value=0 tests=5 pass=0 shims=0 vectors=0/5 selftest=0 guard=0 (bad-tree)"; exit 1
-    fi
-    TREE=$2;;
-  "") REV=$BASE;;
-  *) REV=$1;;
-esac
 SCR=${HYAKU_SCRATCH:-/fast/scratch/hyaku}/kagi-r60/R60ExecCounterC2/c2-counter.$$
 mkdir -p -- "$SCR" || setup no-scratch
 trap 'rm -rf -- "$SCR"' EXIT

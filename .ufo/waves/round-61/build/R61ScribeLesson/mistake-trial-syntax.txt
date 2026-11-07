@@ -1,0 +1,11 @@
+# R61ScribeLesson — M61-5 evidence (trial selftest scaffold parse error), 2026-11-07T17:06:13-03:00
+
+## pre-fix reading, captured by R61Reviewer (build/R61Reviewer/findings.md §C2-1):
+35:corpus/openbao-seal-trial.sh: line 839: syntax error near unexpected token `}'
+
+## post-fix reading (scribe):
+$ bash -n corpus/openbao-seal-trial.sh
+rc=0
+
+## the same check that failed now passes; the trial's own selftest is the second leg
+(the scribe does not run the trial: its scratch is the trial seat own directory)

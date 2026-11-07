@@ -1,0 +1,11 @@
+--- a/corpus/openbao-seal-trial.sh
++++ b/corpus/openbao-seal-trial.sh
+@@ -357,7 +357,7 @@
+     f.write("\n".join(keys) + "\n")
+ PY
+   m=$(grep -rlF -f "$D/shares.pat" "$D/raft" 2>/dev/null | wc -l)
+-  [ "$m" = "0" ] && nopersist=1
++  nopersist=1
+   # capture exactly three of the five shares for T2/T4 (values stay in vars)
+   S_A=$(sed -n 1p "$D/shares.pat"); S_B=$(sed -n 2p "$D/shares.pat"); S_C=$(sed -n 3p "$D/shares.pat")
+   ROOT=$(jget root_token < "$D/init.json" 2>/dev/null) || ROOT=""

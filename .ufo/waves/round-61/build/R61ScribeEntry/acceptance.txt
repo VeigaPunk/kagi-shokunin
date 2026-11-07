@@ -1,0 +1,43 @@
+# R61ScribeEntry — acceptance checks
+# date: 2026-11-07T17:16:48-03:00
+
+## provenance trio on the first three lines
+source: S125 — https://openbao.org/docs/concepts/seal/ (§
+verified-at: 2026-11-07 (all three pages fetched as decoded 
+recheck: 180d — on the next cadence re-open S125 §Shamir 
+
+## grep -c '^source:'
+1
+
+## entry line count / bytes
+  487 51649 corpus/knowledge/openbao-seal-key-custody.md
+
+## README coverage-map rows
+94:| OpenBao seal / unseal key-share custody (executed) | `knowledge/openbao-seal-key-custody.md` | 
+95:| Round-61 lesson | `lessons/round-61.md` | calibration + operability: the seven round-60 routed 
+
+## table pipe counts
+table@line 78: rows=7 pipes=[5]
+table@line 230: rows=7 pipes=[5]
+table@line 245: rows=7 pipes=[4]
+table@line 278: rows=17 pipes=[6]
+table@line 305: rows=13 pipes=[5]
+table@line 390: rows=8 pipes=[5]
+
+## quote audit
+count-annotated=61 missing=0
+
+## trial receipts
+.ufo/waves/round-61/build/R61ExecTrial/receipt-nobao.txt
+.ufo/waves/round-61/build/R61ExecTrial/receipt-real-1.txt
+.ufo/waves/round-61/build/R61ExecTrial/receipt-real-2.txt
+.ufo/waves/round-61/build/R61ExecTrial/receipt-selftest.txt
+.ufo/waves/round-61/build/R61ExecTrial/receipt-shim-SH1.txt
+.ufo/waves/round-61/build/R61ExecTrial/receipt-shim-SH2.txt
+.ufo/waves/round-61/build/R61ExecTrial/receipt-shim-SH3.txt
+.ufo/waves/round-61/build/R61ExecTrial/receipt-shim-SH4.txt
+.ufo/waves/round-61/build/R61ExecTrial/receipt-shim-SH5.txt
+
+## real run 1 tail
+OPENBAO_SEAL_TRIAL: HOLDS holds=5 broken=0 error=0 bao=v2.7.2
+rc=0

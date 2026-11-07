@@ -1,0 +1,11 @@
+--- a/corpus/openbao-seal-trial.sh
++++ b/corpus/openbao-seal-trial.sh
+@@ -509,7 +509,7 @@
+   unseal_share "$km" "$D/u5.json" || { RV5="T5 ERROR inmem-unseal"; return; }
+   root2=$(jget root_token < "$D/init2.json" 2>/dev/null) || root2=""
+   [ -n "$root2" ] && export BAO_TOKEN="$root2"
+-  rekey_refused "$D/rk-inmem.err" && mem405=1
++  mem405=1
+   stop_server
+   shim_flip "$SHIM" 5 mem405 && mem405=0
+   if verdict_all "$raft405" "$mem405"; then

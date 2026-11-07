@@ -1,0 +1,25 @@
+# R61ScribeLesson — M61-3 self-caught write-scope slip, 2026-11-07T16:56:12-03:00
+
+## observed (transcript, 16:52): ls .ufo/waves/round-61/capture/
+S125.body 44279 | S125.body.txt 12328 | S126.body 44328 | S126.body.txt 5363 | S127.body 38368 | S127.body.txt 4411
+## cause: loc2/strip2 wrote path+'.txt' beside the input capture instead of into scratch
+
+## re-measured after the removal:
+$ ls -la .ufo/waves/round-61/capture/
+total 128
+drwxr-xr-x 1 vgpnk vgpnk    54 Nov  7 16:52 .
+drwxr-xr-x 1 vgpnk vgpnk   200 Nov  7 16:51 ..
+-rw-r--r-- 1 vgpnk vgpnk 44279 Nov  7 16:50 S125.body
+-rw-r--r-- 1 vgpnk vgpnk 44328 Nov  7 16:50 S126.body
+-rw-r--r-- 1 vgpnk vgpnk 38368 Nov  7 16:50 S127.body
+
+## capture bytes unchanged (sha256 of the three bodies):
+643c78c956d8c2106f8cbbab3ffcefff43e4f90a0f06faeaad666a613063ff65  .ufo/waves/round-61/capture/S125.body
+53a4574a942e4da8ac8f763af66fe07f33941f98a9ec815eda16d34329c0630a  .ufo/waves/round-61/capture/S126.body
+4adb6eb414a8119225e2b3936b99ffb395966cea347f2964f43cedfbe26459aa  .ufo/waves/round-61/capture/S127.body
+
+## fix shown able to fail: outpath.sh refuses the exact path that slipped
+REFUSED: /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-61/capture/S125.body.txt is outside /fast/scratch/hyaku/kagi-r61/R61ScribeLesson
+rc=2
+## and accepts a scratch path
+rc=0

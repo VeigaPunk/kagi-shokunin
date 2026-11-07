@@ -1,0 +1,26 @@
+# R61ScribeLesson — mistakes evidence (scribe), 2026-11-07T16:54:58-03:00
+
+## D1 (M61-1) round-60 mutation-tester record error
+$ grep -n "produced no artifacts\|produced nothing" corpus/lessons/round-60.md
+108:| R37 | the mutation-tester seat produced no artifacts and no report: the round's independent mutant battery is missing | wave `w1-results.json` | **routed**: the reviewer's 35-probe table and the
+128:- The wave's 16th seat (mutation-tester) produced nothing; the round's attack evidence is
+
+$ python3 -c "<count results and R60MutCounters output bytes>" .ufo/waves/round-60/w1-results.json
+results 16
+R60MutCounters output bytes 3824
+
+$ git ls-tree -r --name-only 818d2a82 .ufo/waves/round-60/build/R60MutCounters/ | wc -l
+15
+$ git ls-tree -r --name-only 818d2a82 .ufo/waves/round-60/build/R60MutCounters/ | head -2
+.ufo/waves/round-60/build/R60MutCounters/mutants.md
+.ufo/waves/round-60/build/R60MutCounters/raw/SHA256SUMS
+
+## D7 (M61-2) round-60 report arithmetic
+$ grep -n "4/16" /home/vgpnk/Projects/shokunin/.ufo/reports/round-60/kagi.md
+10:`ufo-swarm-wave.mjs run` rc 0, `counts spawn=16 resume=0 total=16`), attack share 4/16 =
+
+$ python3 -c "<role mix from w1-dispatch.json + result count>"
+literal-list roles present: ['critic', 'mutation-tester', 'reviewer'] => 3
+plus sentinel => 4
+results 16
+3/16 = 18.75%  4/16 = 25.00%

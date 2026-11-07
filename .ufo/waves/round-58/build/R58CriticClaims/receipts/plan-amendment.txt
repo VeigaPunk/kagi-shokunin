@@ -1,0 +1,57 @@
+R58CriticClaims — frozen-plan amendment finding (read-only)
+Predeclaration commit 0085a5f76c9dc7e977f6606324e873d25b4fc44d (`plans/round-58.md` alone)
+contains `## Amendments` / `(none)`. md5 of `git show 0085a5f:plans/round-58.md` =
+fc1b0629097ee0a2fafb0f7c4b554686.
+
+The working-tree file `plans/round-58.md` md5 = e69b5f95138eb3ed9884e6242fc516b2 and
+`git status --porcelain -- plans/round-58.md` = ` M plans/round-58.md`; `git diff` adds 23 lines:
+
+A1 — restates I2: five `INSTRUMENT` pins must equal the files' sha256, and the last
+`CONTROLS:` line must read `match=N mismatch=0` with N >= 13 (the frozen I2 says `match=13`).
+Reason given: the frozen `plans/round-57-controls.sh` declares 15 controls with a REF tree;
+the regenerated `controls-prefreeze-epochC-final.txt` reads `match=15 mismatch=0`; the
+literal-13 form would leave a correct fix unresolved.
+
+A2 — restates I3: the S117 quote test compares after collapsing whitespace runs.
+Reason: the rendered capture wraps the S117 sentence across two lines.
+
+Assessment:
+- Both are amendments to the frozen predicate's named conditions (I2 and I3), added after the
+  predeclaration commit. The round's instruction is "never amend a frozen predicate, target,
+  POP or kill rule"; the r57 precedent (freeze epoch B `03cbf656`) allowed pre-measurement
+  amendments, but this wave declares one v1 wave and the predeclaration commit says none.
+  If retained, A1/A2 must be committed as a named freeze epoch *before* any candidate reading
+  and the report must cite that commit; if not, revert them.
+- A1 is avoidable: the frozen 13-line receipt is producible by a no-REF run of the same frozen
+  `plans/round-57-controls.sh` (its own header: REF-dependent controls print PENDING and are
+  not counted; the pre-freeze receipt is the no-REF run). The old receipt already carries the
+  13 lines; only the plan-hash line is stale. No predicate change is needed.
+- A1 does not close the hand-edit path: the five pins bind instrument identity, not that the
+  control lines were produced by a run. A receipt whose plan-hash line is edited to 76e836ee...
+  passes both the frozen I2 and A1.
+- A1 + the untracked -final receipt (all five pins, match=15) makes I2 resolve on the live
+  worktree; the plan's pre-freeze no-work control must be measured on 1b13f5d (git revision),
+  not the worktree, or the BASE census reads 7 instead of 8.
+- A2 is a clarification of "occurs" for line-wrapped rendered captures; the S117 quote is split
+  by a newline in the raw body (`device's\nhash function and salt`). It is defensible as an
+  implementation rule, but it is still a change to the frozen item's test; a single-line quote
+  or a documented whitespace normalization in the C1 receipt avoids the amendment. The scribe's
+  S118/S119 quotes use `corpus/rendered-text-v1.py locate`, which normalizes; the same tool can
+  locate the S117 quote without changing the plan.
+
+recommendation: revert A1; use the no-REF 13-match receipt and a raw/normalized-locate receipt;
+revert A2 or record the whitespace rule as the checker's documented reading of "occurs". If the
+operator's process permits pre-measurement amendments, commit them as a freeze epoch and make
+the report cite it; do not leave them as an uncommitted diff that the on-disk plan shows as if
+they were part of the predeclaration.
+
+Update (12:21): A3 was added after this receipt's first draft. It restates I4 in landing/tip
+classes: (a) a landing arrow must state N=117; (b) a tip count (`tip count … = N` or
+`end … N rows`) must equal the measured tree's live count; (c) a gates.txt count must equal the
+file's `rows=` and the line must say the capture predates S117; (d) each location carries at
+least one count statement. Current on-disk md5 4c6ea63e46fb50e3200778ad2a183a25; diff +39/-1;
+A1/A2/A3 all uncommitted. A3's content is the right I4 repair (the live statements carry
+114→117 landing + 119 tip + the gates.txt 116/predates note); the form is still an amendment of
+a frozen item. The C1 checker must implement A3's four clauses and the receipt must cite the
+commit; the `--round 57` gate red reading is in live-worktree.txt.
+

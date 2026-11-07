@@ -1,0 +1,64 @@
+# quote-location receipt — kagi round 58, seat R58ScoutSources (scout)
+# verifier: the lane's own committed normalizer, corpus/rendered-text-v1.py locate
+# bodies: .ufo/waves/round-58/capture/<id>.body (decoded HTTP bodies; digests in capture/fetch-receipt.txt)
+# command shape (run from the lane root):
+#   python3 corpus/rendered-text-v1.py locate .ufo/waves/round-58/capture/<id>.body '<quote>'
+# exit 0 iff count>=1
+#
+$ python3 corpus/rendered-text-v1.py locate .ufo/waves/round-58/capture/S118.body 'Policies are deny by default'
+RENDERED_TEXT_V1_LOCATE: count=1   (exit 0)
+#   anchor: H1 «Policies» — page introduction, before the first h2   words=5
+$ python3 corpus/rendered-text-v1.py locate .ufo/waves/round-58/capture/S118.body 'so an empty policy grants no permission in the system'
+RENDERED_TEXT_V1_LOCATE: count=1   (exit 0)
+#   anchor: H1 «Policies» — same paragraph   words=10
+$ python3 corpus/rendered-text-v1.py locate .ufo/waves/round-58/capture/S118.body 'the token cannot update or delete'
+RENDERED_TEXT_V1_LOCATE: count=1   (exit 0)
+#   anchor: §Policy syntax (#policy-syntax) — read-only example   words=6
+$ python3 corpus/rendered-text-v1.py locate .ufo/waves/round-58/capture/S118.body 'It is not a regular expression and is only supported as the last character of the path'
+RENDERED_TEXT_V1_LOCATE: count=1   (exit 0)
+#   anchor: §Policy syntax (#policy-syntax) — danger box   words=17
+$ python3 corpus/rendered-text-v1.py locate .ufo/waves/round-58/capture/S118.body '"secret/bar/zip", "secret/bar/zip/zap", but not "secret/bars/zip"'
+RENDERED_TEXT_V1_LOCATE: count=1   (exit 0)
+#   anchor: §Policy syntax (#policy-syntax) — prefix-glob example   words=5
+$ python3 corpus/rendered-text-v1.py locate .ufo/waves/round-58/capture/S118.body 'This always takes precedence regardless of any other defined capabilities'
+RENDERED_TEXT_V1_LOCATE: count=1   (exit 0)
+#   anchor: §Capabilities (#capabilities) — `deny` bullet   words=10
+$ python3 corpus/rendered-text-v1.py locate .ufo/waves/round-58/capture/S118.body 'including sudo'
+RENDERED_TEXT_V1_LOCATE: count=1   (exit 0)
+#   anchor: §Capabilities (#capabilities) — `deny` bullet, same sentence   words=2
+$ python3 corpus/rendered-text-v1.py locate .ufo/waves/round-58/capture/S118.body 'a + can be used to denote any number of characters bounded within a single path segment'
+RENDERED_TEXT_V1_LOCATE: count=1   (exit 0)
+#   anchor: §Policy syntax (#policy-syntax) — `+` paragraph   words=17
+$ python3 corpus/rendered-text-v1.py locate .ufo/waves/round-58/capture/S118.body 'If the same pattern appears in multiple policies, we take the union of the capabilities'
+RENDERED_TEXT_V1_LOCATE: count=1   (exit 0)
+#   anchor: §Policy syntax (#policy-syntax) — priority warning note   words=15
+$ python3 corpus/rendered-text-v1.py locate .ufo/waves/round-58/capture/S118.body 'we take only the highest-priority match from those policies'
+RENDERED_TEXT_V1_LOCATE: count=1   (exit 0)
+#   anchor: §Policy syntax (#policy-syntax) — priority warning note   words=9
+$ python3 corpus/rendered-text-v1.py locate .ufo/waves/round-58/capture/S119.body 'The policy command groups subcommands for interacting with policies'
+RENDERED_TEXT_V1_LOCATE: count=1   (exit 0)
+#   anchor: H1 «policy» — page introduction   words=9
+$ python3 corpus/rendered-text-v1.py locate .ufo/waves/round-58/capture/S119.body 'write Uploads a named policy from a file'
+RENDERED_TEXT_V1_LOCATE: count=1   (exit 0)
+#   anchor: §Usage (#usage) — subcommand list   words=8
+$ python3 corpus/rendered-text-v1.py locate .ufo/waves/round-58/capture/S119.body 'Usage: bao policy <subcommand> [options] [args]'
+RENDERED_TEXT_V1_LOCATE: count=1   (exit 0)
+#   anchor: §Usage (#usage) — usage line   words=6
+$ python3 corpus/rendered-text-v1.py locate .ufo/waves/round-58/capture/S120.body 'The /sys/policies endpoints are used to manage ACL, RGP, and EGP policies in OpenBao.'
+RENDERED_TEXT_V1_LOCATE: count=1   (exit 0)
+#   anchor: H1 «/sys/policies» — page introduction   words=14
+$ python3 corpus/rendered-text-v1.py locate .ufo/waves/round-58/capture/S120.body 'This endpoint lists all configured ACL policies'
+RENDERED_TEXT_V1_LOCATE: count=1   (exit 0)
+#   anchor: §List ACL policies (#list-acl-policies)   words=7
+$ python3 corpus/rendered-text-v1.py locate .ufo/waves/round-58/capture/S120.body 'Once a policy is updated, it takes effect immediately to all associated users'
+RENDERED_TEXT_V1_LOCATE: count=1   (exit 0)
+#   anchor: §Create/Update/Patch ACL policy (#createupdate-acl-policy)   words=13
+$ python3 corpus/rendered-text-v1.py locate .ufo/waves/round-58/capture/S120.body 'A deleted policy set on a token acts as an empty policy'
+RENDERED_TEXT_V1_LOCATE: count=1   (exit 0)
+#   anchor: §Delete ACL policy (#delete-acl-policy)   words=12
+$ python3 corpus/rendered-text-v1.py locate .ufo/waves/round-58/capture/S121.body 'The token command groups subcommands for interacting with tokens'
+RENDERED_TEXT_V1_LOCATE: count=1   (exit 0)
+#   anchor: H1 «token» — page introduction   words=9
+$ python3 corpus/rendered-text-v1.py locate .ufo/waves/round-58/capture/S121.body 'capabilities Print capabilities of a token on a path'
+RENDERED_TEXT_V1_LOCATE: count=1   (exit 0)
+#   anchor: §Usage (#usage) — subcommand list   words=9

@@ -1,0 +1,44 @@
+R58CriticClaims — I4 registry-count evidence and the C1/C2 coupling (read-only)
+Measured data rows: `git show <rev>:corpus/SOURCES.md | grep -c '^| S[0-9]'`
+  1cda9e7 (r57 BASE)     114
+  d857f344 (r57 landing) 116
+  94d72de9 (S117 lands)  117
+  ee1a745 / 1b13f5d      117
+  1b13f5d is the r58 BASE; the round-58 worktree also reads 117 (S118/S119 not yet added).
+
+Round-57 surface statements:
+  SCORECARD.md pre-move coverage row (line 1868): `114 registry rows at the BASE, census
+    kagi ok` — true at 1cda9e7 (historical, revision-bound by the row).
+  SCORECARD.md post-move coverage row (line 1894): `Registry 114 -> 116 (S115, S116; tier A,
+    mined)` — true at the landing d857f344; stale at 94d72de9/1b13f5d (D5).
+  corpus/lessons/round-57.md section Sources (line 86): `Registry 114 -> 116 (S115, S116; ...)`
+    — same.
+  corpus/lessons/round-57.md section Sources (lines 90-91): `start (census-start.txt) kagi ok
+    rc 0, 114 rows; end kagi ok rc 0, 116 rows` — the `start` 114 is true at 1cda9e7; the `end`
+    116 is stale at the tip.
+  .ufo/waves/round-57/final/gates.txt carries `rows=116` (census-end captured before S117).
+  No lane line attributes a count to gates.txt; the fleet report's rows=117 citation is not in
+  the lane surface. The I4 gates.txt clause is vacuous at BASE and at the tip unless a line is
+  added.
+
+Ambiguity demonstrated: a naive scan for `N -> N` / `N rows` over the named surfaces also
+catches the SCORECARD score arrows (`9 -> 9`, `3 -> 0`, `0 -> 5`, `...`) and returns 15 "bad"
+counts; only the two registry statements (plus the historical start) are registry counts. The
+frozen item says "every registry-count statement" but the parenthetical names only the post-move
+row and section Sources; a verifier reading the broad wording can flag the score arrows, a
+verifier reading the parenthetical cannot. The checker must state its exact statement set.
+
+C1<>C2 coupling: the plan's C2 adds S118/S119 (the scribe entry cites S118 x7 / S119 x5; the
+scout seat opens them; both are absent from SOURCES.md today). Adding the two rows moves the
+measured count 117 -> 119. I4's condition is a function of the measured tree's count, so a C1
+statement repaired to 117 is unresolved at the final tip, and a statement repaired to 119 makes
+the round-57 post-move row state a round-58 fact (false provenance). The r57 lesson's own D5 was
+this exact class (S117 landed after the 116 statement). The plan does not pin the evaluation
+tree or the revision.
+
+Smallest safe correction: make the two r57 statements revision-qualified, e.g. `117 at
+1b13f5d (S115-S117); 119 at the round-58 tip (S118/S119)` and `114 at 1cda9e7; 116 at the r57
+landing d857f344; 117 at the r57 tip`, with the C1 checker resolving each count at the revision
+the line names. Or take the C1 reading on a pinned C1 reference commit before the S118/S119 rows
+land and name that revision in the C1 receipt; the final tip is then not the C1 tree. The
+round-57 post-move row must not silently claim 119.

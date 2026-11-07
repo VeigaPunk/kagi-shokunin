@@ -1,0 +1,21 @@
+CONTROL K1-BASE expect=FAIL got=FAIL MATCH :: C1_ROUTED: value=FAIL population=8 i1=0 i2=0 i3=0 i4=0 i5=0 i6=0 i7=0 i8=0 guard=0 :: an unresolved item set cannot clear the guard, so a do-nothing round scores FAIL
+CONTROL K2-BASE expect=0 got=0 MATCH :: C2_POLICY_TRIAL: value=0 tests=5 pass=0 shims=0 vectors=0/5 guard=0 (absent) :: the trial does not exist at BASE
+CONTROL K1-REF expect=0 got=0 MATCH :: C1_ROUTED: value=0 population=8 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 i8=1 guard=1
+CONTROL K2-REF expect=5 got=5 MATCH :: C2_POLICY_TRIAL: value=5 tests=5 pass=5 shims=5 vectors=ok/5 guard=1 (real=1 none=1 wrap=1 secret=1)
+CONTROL C1-F1 expect=1 got=1 MATCH :: I1: the round-57 correction entry removed (i1=0)
+CONTROL C1-F2 expect=1 got=1 MATCH :: I2: one INSTRUMENT pin corrupted (i2=0)
+CONTROL C1-F3 expect=1 got=1 MATCH :: I3: the S117 quote replaced by a sentence absent from the body (i3=0)
+CONTROL C1-F4 expect=FAIL got=FAIL MATCH :: I4: the tip count moved off the measured count (i4=0); the challenge cannot add +1 on an I4-broken tree (named ceiling)
+CONTROL C1-F5 expect=1 got=1 MATCH :: I5: the gate-registry row removed (i5=0)
+CONTROL C1-F6 expect=1 got=1 MATCH :: I6: --round renamed away (i6=0)
+CONTROL C1-F7 expect=1 got=1 MATCH :: I7: the pre-round-58 heading restored (i7=0)
+CONTROL C1-F8 expect=1 got=1 MATCH :: I8: a basis line without the ownership token restored (i8=0)
+CONTROL C1-F9 expect=FAIL got=FAIL MATCH :: I1's input file removed: population drops, guard cannot hold
+CONTROL C2-F1 expect=0 got=0 MATCH :: the shim vocabulary renamed away: no shim can flip its test
+CONTROL C2-F2 expect=0 got=0 MATCH :: the caps comparison removed: the wrapper lie leaves T5 HOLDS, so the wrap leg's vector check refuses
+CONTROL C2-F3 expect=0 got=0 MATCH :: the client-side introspection leg removed: the wrapper lie cannot flip T5
+CONTROL C2-F5 expect=0 got=0 MATCH :: the summary line removed: no parseable final line
+CONTROL C2-F6 expect=0 got=0 MATCH :: SH2 flips two tests: the vector comparison must refuse
+CONTROL C2-F7 expect=SETUP got=SETUP MATCH :: a bao binary that is not the pinned OpenBao 2.7.2
+CONTROL C2-F8 expect=5 got=5 MATCH :: ambient BAO_TOKEN/BAO_ADDR exported by the caller: every leg runs under env -i, readings unchanged
+CONTROLS: match=20 mismatch=0

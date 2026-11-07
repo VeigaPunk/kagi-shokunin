@@ -1,0 +1,20 @@
+command: sha256sum plans/round-58-c1-check.py plans/round-58-c1.sh   (cwd = lane root)
+date: 2026-11-07 12:28 -03 (after two full re-measurement passes)
+
+d37829c017aabe789336c853bb09604d0c30978c84914a20a2d4de185040c77f  plans/round-58-c1-check.py
+48eab526ff9bb8c10a7ed9462addafe9f035223f835c7540c0b044e958df0d15  plans/round-58-c1.sh
+
+mtime at hashing time:
+2026-11-07 12:24:11.892196023 -0300 plans/round-58-c1-check.py
+2026-11-07 12:22:23.794587420 -0300 plans/round-58-c1.sh
+
+Provenance: the checker's bytes changed on disk at 12:24:11 (42fdcf58… -> d37829c0…);
+the L1 confirms that was their review pass, which landed three instrument fixes:
+(a) the GUARD challenge scratch is TMPDIR-confined and refuses a copy that resolves
+at/inside the measured tree (verified present: run_challenge parent =
+tempfile.gettempdir(), "challenge scratch resolves inside the measured tree (refused)");
+(b) the wrapper's leg-2 copy stays outside the measured tree; (c) I6's round-56 literal
+scan excludes the module docstring, --selftest fixture bodies and .replace/.write/.remove
+fixture-plumbing arguments (verified present). This seat re-measured every leg against
+d37829c0… twice (12:25:32-12:26:35 and 12:27:47-12:28); hashes stable, all receipts pin
+the landed bytes.

@@ -1,0 +1,18 @@
+== docs
+DOC_AUDIT_RATIO: row_linked=36/39 floor=20 by_hand=3 duplicate_reasons=0
+DOC_AUDIT: CLEAN (entries=39 row_linked=36 by_hand=3 undeclared=0 missing_ids=0 unpinned=0 duplicate_reasons=0)
+== claims-declared
+CLAIMS_DECLARED: CLEAN (claims=41)
+== sources-census
+SOURCES_CENSUS: CLEAN (rows=120 A=116 B=2 C=2 queued=1 mined=115 rejected=4 entries_sourced=18 legacy=21 captures=120 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+== release-clock
+RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17)
+== scope-gate
+ADJACENCY_ASSET_ABSENT: rows=18 (asset rows: surface-census.sh owns the GONE verdict)
+ADJACENCY_SCOPE: DEFECT (census=35 owned=27 shared=8 groups=4 owners=4 unresolved=1 contested=1 escapes=0 inbound=0 foreign=0 orphans=0 stale_basis=0 basis_escape=0 own_unlisted=0 breadth_required=4 breadth_pins=4 breadth_checked=3 breadth_ok=0 breadth_missing=0 breadth_invalid=0 breadth_drift=5 breadth_exceeds=0 breadth_unverified=1)
+== self-counts
+SELF_COUNTS: POLICY (claims=63 stale=0 unlocated=0 ambiguous=0 policy=2 setup=0)
+== checklist
+CHECKLIST_RUN: BROKEN (items=16 runnable=9 by_hand=7 failed=7)
+== citations
+CITATION_GATE: BROKEN (cites=4245 docs=145 unresolved=15 ephemeral=0 labeled=23)

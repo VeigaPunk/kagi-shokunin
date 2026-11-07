@@ -1,0 +1,17 @@
+R58SentinelTrial evidence index (raw receipts; no secret values stored)
+
+argv-*.tsv        argv secret-shape samples (epoch_ms, pid, comm, class, len only; values never stored)
+receipt-counter.txt       round-58-c2.sh on the lane tree under argvwatch: value=5 ... secret=1
+receipt-k3guard.txt       counter on a trial printing a fabricated r58- nonce: value=0 ... secret=0
+receipt-abspath.txt       counter on a trial whose capability call hardcodes /home/vgpnk/.local/bin/bao: value=0 ... wrap=0
+receipt-wrap.txt          real trial under an independent lying wrapper (token capabilities -> deny): HHHHB rc1
+receipt-ambient.txt       first (pre-fix) trial under hostile BAO_/VAULT_*: T1 BROKEN, 4/5
+receipt-ambient-final.txt final trial under hostile BAO_/VAULT_*: HOLDS 5/5 rc0
+receipt-portprobe.txt     trial with the port query answered by a foreign listener: SETUP rc2
+receipt-portctl.txt       same shim, free port: HOLDS 5/5 rc0
+hp-*.tsv          honeypot connection logs (epoch_ms, peer port, request line only)
+c1-lane*.tsv      audit-hook logs of the C1 checker on the lane (open/popen events; 0 sockets)
+c1-sym*.tsv       audit-hook logs of the C1 checker on a tree with symlinked authorities (outside opens)
+marker-*.txt      markers written by forged tree scripts: env inheritance (presence flags and token length only)
+trial-sha.txt     the trial hash at review start
+INDEX.sha256      sha256 of every file in this directory

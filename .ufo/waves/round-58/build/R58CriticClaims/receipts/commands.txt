@@ -1,0 +1,41 @@
+R58CriticClaims — commands and tooling (read-only)
+No installs or updates were made; no tool versions needed recording. No network was used; all
+captures read are committed or seat-local. Scratch: /fast/scratch/hyaku/kagi-r58/R58CriticClaims
+(git archive of 1b13f5d plus copies); deleted before yield. Lane writes: only this seat's
+.ufo/waves/round-58/build/R58CriticClaims/ and .ufo/waves/round-58/w1/R58CriticClaims.md.
+
+Commands (all read-only; lane = /home/vgpnk/Projects/shokunin/kagi-shokunin):
+  git -C lane rev-parse HEAD; git log --oneline -3
+  git -C lane cat-file -t 1b13f5d...
+  git -C lane ls-tree 1b13f5d -- .ufo/waves/round-57/controls/ .ufo/waves/round-57/final/
+  git -C lane show 1b13f5d:LOG.md | grep -n -A25 -i 'round.57'
+  git -C lane show 1b13f5d:SCORECARD.md | sed -n '1861,1896p'
+  git -C lane show 1b13f5d:corpus/lessons/round-57.md | sed -n '1,60p'
+  git -C lane show 1b13f5d:corpus/current-claims.py | sed -n '1,60p;370,391p'
+  git -C lane show 1b13f5d:plans/round-57-c1-check.py | grep -n 'EPOCHS|epoch-|controls-prefreeze'
+  git -C lane show 1b13f5d:plans/round-57-controls.sh | grep -n 'REF|PENDING|usage'
+  git -C lane show 1b13f5d:corpus/SOURCES.md | grep -c '^| S[0-9]'        # 117
+  for rev in 1cda9e7 d857f344 94d72de9 ee1a745 1b13f5d; do
+    git -C lane show $rev:corpus/SOURCES.md | grep -c '^| S[0-9]'; done   # 114 116 117 117 117
+  git -C lane show 1b13f5d:corpus/SOURCES.md | awk -F'|' '/^\| S117 /{print $12}'
+  git -C lane show 1b13f5d:.ufo/waves/round-57/capture/S115.body | grep -n 'Enabling/Disabling'
+  git -C lane show 1b13f5d:.ufo/waves/round-57/capture/S117.body | grep -n -A3 'This endpoint hashes'
+  for f in plans/round-57*.{md,sh,py}; do git show 1b13f5d:$f | sha256sum; done
+  cat .ufo/waves/round-57/controls/controls-prefreeze-epochC.txt
+  cat .ufo/waves/round-57/controls/controls-prefreeze-epochC-final.txt   # untracked
+  git -C lane diff -- plans/round-58.md; git -C lane show 0085a5f:plans/round-58.md | md5sum
+  git -C lane status --porcelain
+  # scratch archive:
+  git -C lane archive 1b13f5d | tar -x -C $S/base-tree
+  cd $S/base-tree && python3 -I -B corpus/current-claims.py --selftest   # PASS 13, rc 0
+  python3 -I -B corpus/current-claims.py --round 57                     # argparse rc 2
+  cd $S/base-tree && bash corpus/scope-gate.sh                          # stale_basis=3
+  cd lane && bash corpus/scope-gate.sh                                  # stale_basis=1
+  cd $S/fix-tree && bash corpus/scope-gate.sh [--lane-root /home/vgpnk/Projects/shokunin]
+  cd $S/repoint-tree && bash corpus/scope-gate.sh --lane-root /home/vgpnk/Projects/shokunin
+  python3 $S/census.py $S/base-tree                                     # value=8
+  bash plans/round-57-controls.sh                                       # attempted in archive;
+                                                                        # fails at mk_base: no .git
+No candidate was measured; no C1 counter exists on disk yet (plans/ has only round-58-c2.sh and
+round-58.md). The C2 trial does not exist on disk yet; its counter's BASE no-work control reads
+C2_POLICY_TRIAL: value=0 ... (absent), rc 0.

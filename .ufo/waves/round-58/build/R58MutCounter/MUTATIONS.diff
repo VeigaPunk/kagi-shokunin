@@ -1,0 +1,96 @@
+### i1 (LOG.md)
+@@ -1941,5 +1941,5 @@
+ 
+ ## Round 57 correction (2026-11-07, appended in round 58) — freeze epoch C and the epoch-C receipt
+ 
+-- Round-58 closure D1: the round-57 entry above names epoch B only. Freeze **epoch C** `8d8e0588` carried the final `plans/round-57.md` (amendments A1/A2 text), `plans/round-57-c1.sh`, `plans/round-57-controls.sh` and the 13-control receipt `.ufo/waves/round-57/controls/controls-prefreeze-epochC.txt`; that receipt is regenerated over the shipped instrument bytes in round 58 as `.ufo/waves/round-57/controls/controls-prefreeze-epochC-final.txt` (`CONTROLS: match=15 mismatch=0`, the five `INSTRUMENT` pins equal to the tip's sha256), closing round-58 closure D3.
++- Round-58 closure D1: the round-57 entry above names epoch B only. Freeze **epoch C** `8d8e0588` carried the final `plans/round-57.md` (amendments A1/A2 text), `plans/round-57-c1.sh`, `plans/round-57-controls.sh` and the 13-control receipt `.ufo/waves/round-57/controls/controls-prefreeze-epochD.txt`; that receipt is regenerated over the shipped instrument bytes in round 58 as `.ufo/waves/round-57/controls/controls-prefreeze-epochD-final.txt` (`CONTROLS: match=15 mismatch=0`, the five `INSTRUMENT` pins equal to the tip's sha256), closing round-58 closure D3.
+ - Round-58 closure D2: the round-57 report's landed-changes table lists `8d8e0588` above `d857f344`; the true order is `03cbf656` → `d857f344` (landing) → `8d8e0588` (epoch C). The filed report is not rewritten; the correction lands in the round-58 report and in `corpus/lessons/round-58.md` §Routed dispositions.
+### i2 (.ufo/waves/round-57/controls/controls-prefreeze-epochC-final.txt)
+@@ -1,4 +1,4 @@
+-INSTRUMENT 76e836ee111d60b7cf60007da4b45a102f1d94393f1d83c9de1a32d7cd33b173 plans/round-57.md
++INSTRUMENT 76e836ee111d60b7cf60007da4b45a102f1d94393f1d83c9de1a32d7cd33b170 plans/round-57.md
+ INSTRUMENT 6fcbdec75af1e7ddb9ba6110b4d77a50295994bcc2f9141fbc6ab36eb653ce14 plans/round-57-c1.sh
+ INSTRUMENT 140a8f2b204af9a0e45e1b596d1c09c4b12f84a70bd42abd18e888d82bbaea28 plans/round-57-c2.sh
+ INSTRUMENT ee96476a79025e9ecc1a37fa49ca92bb65a9e9f279314291276e55446ee0cbe0 plans/round-57-controls.sh
+### i3 (corpus/lessons/round-57.md)
+@@ -44,7 +44,7 @@
+   `.ufo/waves/round-57/capture/S116.body`). Located quote (21 words): “even if you re-enable the audit device
+   at the same path, as a new salt will be created for hashing.” (§Disable warning). The §Examples block is
+   the documented `bao audit enable file file_path=…` path, which the 2.7.2 binary refuses by default (T1).
+-- **Admit S117** (round-58 closure D4) — https://openbao.org/docs/api/system/audit-hash/, opened 2026-11-07 with a browser user agent (HTTP 200, decoded body 35071 B, sha256 `bca1461ee6a1a2a3ca0658f815535878de29446b9459fe2283f3c0e62beeaca9`, `.ufo/waves/round-57/capture/S117.body`). Located quote (16 words) at §Calculate hash: “This endpoint hashes the given input data with the specified audit device's hash function and salt.”
++- **Admit S117** (round-58 closure D4) — https://openbao.org/docs/api/system/audit-hash/, opened 2026-11-07 with a browser user agent (HTTP 200, decoded body 35071 B, sha256 `bca1461ee6a1a2a3ca0658f815535878de29446b9459fe2283f3c0e62beeaca9`, `.ufo/waves/round-57/capture/S117.body`). Located quote (16 words) at §Calculate hash: “This endpoint hashes the given input data with the specified audit backend's hash function and salt.”
+   The sample response carries the literal `hmac-sha256:` prefix the T2 test reads; the row is `mined` and its `used-by` names this lesson.
+ - **Admit the knowledge entry** `corpus/knowledge/openbao-audit-device-custody.md`: every mechanism claim
+   cites S115/S116 and carries a located quote or the trial verdict; the measured table is the round's runs;
+### i4 (corpus/lessons/round-57.md)
+@@ -81,7 +81,7 @@
+ 
+ ## Sources
+ 
+-- Registry 114 → 117 (S115, S116, S117; all tier A, status `mined`, `recheck on-release` bound to the S090
++- Registry 114 → 116 (S115, S116, S117; all tier A, status `mined`, `recheck on-release` bound to the S090
+   OpenBao releases feed). Corrected in round 58 (closure D5, plan A3): S117 landed in `94d72de9`, after the
+   `.ufo/waves/round-57/final/gates.txt` capture that reads `rows=116`; the landing count is 117 and the tip count = 119 at the round-58 candidate (S118/S119 added this round).
+   No in-place cell changes to existing rows; no row deleted.
+### i5 (SKILL.md)
+@@ -835,6 +835,6 @@
+ 
+ | name | kind | entry command | verdict map | selftest | pinned values | write scope | owner |
+ |---|---|---|---|---|---|---|---|
+-| current-tense self-description gate (`corpus/current-claims.py`) | gate | `python3 -I -B corpus/current-claims.py [--root DIR] [--round N] [--verbose]`; `--round` selects the audited landing round (default: the latest `## Round N — post-move` section in `SCORECARD.md`) | 0 `CURRENT_CLAIMS: value=0 population=P … guard=1`; 1 value>0 or guard=0 (a statement disagrees with its machine authority, an item is UNBOUND, or the population is below its floor); 2 `CURRENT_CLAIMS: SETUP <reason>` | `python3 -I -B corpus/current-claims.py --selftest` prints `CURRENT_CLAIMS_SELFTEST: PASS (N cases)` | `SCORECARD.md`, `LOG.md`, `corpus/lessons/round-<N>.md`, `plans/round-<N>.md`, `.ufo/waves/round-<N>/controls/controls-prefreeze-epoch<L>.txt`, `corpus/recheck-captures.tsv` | read-only (no write scope) | kagi (round 57; `--round` added round 58) |
++| current-tense self-description gate (`corpus/current-claims.py`) | gate | `python3 -I -B corpus/current-claims.py [--root DIR] [--round N] [--verbose]`; `--round` selects the audited landing round (default: the latest `## Round N — post-move` section in `SCORECARD.md`) | 0 `CURRENT_CLAIMS: value=0 population=P … guard=1`; 1 value>0 or guard=0 (a statement disagrees with its machine authority, an item is UNBOUND, or the population is below its floor); 2 `CURRENT_CLAIMS: SETUP <reason>` | none of its own `CURRENT_CLAIMS_SELFTEST: PASS (N cases)` | `SCORECARD.md`, `LOG.md`, `corpus/lessons/round-<N>.md`, `plans/round-<N>.md`, `.ufo/waves/round-<N>/controls/controls-prefreeze-epoch<L>.txt`, `corpus/recheck-captures.tsv` | read-only (no write scope) | kagi (round 57; `--round` added round 58) |
+ 
+ Four statement classes, each bound to a machine authority read from the measured tree: `N cases` on a line naming `recheck-replay` → that gate's own `--selftest` PASS count; `N MATCH` → the named epoch receipt's `CONTROLS: match=N mismatch=0`, or the nearest preceding `A`-`F` letter with its backticked revision; `W freeze epochs` → the distinct `epoch-[A-F]` tokens of `plans/round-<N>.md`; `N clocks` and the `N/N MATCH` fraction → the data rows of `corpus/recheck-captures.tsv`. A statement whose authority cannot be resolved is UNBOUND and counts; the class set is closed (a forged authority that agrees with the statement passes), and the audited surface is the named round only.
+### i6 (corpus/current-claims.py)
+@@ -171,7 +171,7 @@
+                 "guard": 0}
+     sc = read(root, "SCORECARD.md")
+     lg = read(root, "LOG.md")
+-    ls = read(root, f"corpus/lessons/round-{rnd}.md")
++    ls = read(root, "corpus/lessons/round-56.md")
+     if not sc or not lg or not ls:
+         return {"value": "FAIL", "population": 0, "mismatches": 0, "unbound": 0,
+                 "cases": 0, "match": 0, "epochs": 0, "clocks": 0, "pop": 0,
+### i7 (corpus/lessons/round-57.md)
+@@ -36,7 +36,7 @@
+ 
+ ## Gate
+ 
+-- **Admit S115** — https://openbao.org/docs/audit/, opened 2026-11-07 with a browser user agent (HTTP 200, decoded body 41787 B, sha256 `76339ff7dab618b5e5532bca6daf9dd8361330a43b737408304abfd1d79090c6`, `.ufo/waves/round-57/capture/S115.body`). Located quote (18 words) at §Enabling/Disabling audit devices — the live heading, round-58 closure D12: “Audit devices must be enabled by a root user using bao audit enable or using the audit stanza.”
++- **Admit S115** — https://openbao.org/docs/audit/, opened 2026-11-07 with a browser user agent (HTTP 200, decoded body 41787 B, sha256 `76339ff7dab618b5e5532bca6daf9dd8361330a43b737408304abfd1d79090c6`, `.ufo/waves/round-57/capture/S115.body`). Located quote (18 words) at §Enabling and disabling audit devices — the live heading, round-58 closure D12: “Audit devices must be enabled by a root user using bao audit enable or using the audit stanza.”
+   The same page grounds the salted-HMAC sentence (15 words: “Most strings contained within requests and responses are hashed with a salt using HMAC-SHA256.”), the `log_raw` parameter row and the non-audited path list.
+   Tier A for OpenBao 2.7.x audit-device behaviour; the trial measures it.
+ - **Admit S116** — https://openbao.org/docs/commands/audit/, opened 2026-11-07 with a browser user agent
+### i8 (corpus/adjacency.tsv)
+@@ -78,7 +78,7 @@
+ # breadth	$HOME/.local/share/the-musketeer/chrome-profile	children=53	declared=1
+ 
+ 
+-$HOME/.config/opencode	integrator	unresolved	declared	SCORECARD.md:70	opencode	global opencode config is merged UNDER the lane overlay (additive, round 6); 4 of its 20 children reach this domain's handler. No fleet artifact names a single owner: kotoba owns the instruction/agent surface and the provider declaration is operator-owned (lane:kama/corpus/knowledge/cross-lane-scope.md:12-13,29), kama owns the endpoint identity, kengaku wrote a temporary provider into it and restored it byte-identical — this domain owns only credential/request hygiene on those children. Owners found by search: kotoba 24 files, kama 14, kengaku 9, kumitate 2 (kake/kasegi 0). Ruling still owed to the integrator; no fleet-ledger row currently governs this ownership question.
++$HOME/.config/opencode	integrator	unresolved	declared	SCORECARD.md:54	opencode	global opencode config is merged UNDER the lane overlay (additive, round 6); 4 of its 20 children reach this domain's handler. No fleet artifact names a single owner: kotoba owns the instruction/agent surface and the provider declaration is operator-owned (lane:kama/corpus/knowledge/cross-lane-scope.md:12-13,29), kama owns the endpoint identity, kengaku wrote a temporary provider into it and restored it byte-identical — this domain owns only credential/request hygiene on those children. Owners found by search: kotoba 24 files, kama 14, kengaku 9, kumitate 2 (kake/kasegi 0). Ruling still owed to the integrator; no fleet-ledger row currently governs this ownership question.
+ $HOME/.local/share/the-musketeer/chrome-profile	kake	contested	presence-only	lane:kake/SKILL.md:161	musketeer	kake leases the shared burner chrome machine-wide; both lanes claim it in writing (kake side: lane:kake/corpus/lessons/round-1-aggregator-audit.md:72-75), so the profile dir itself is presence-only here (mode `-`), never pinned by this domain
+ $HOME/.local/share/the-musketeer/chrome-profile/NativeMessagingHosts	kagi	writer	declared	corpus/lessons/round-8-aggregator-box3-coldrun.md:64	NativeMessagingHosts	the NMH dir + 1Password manifest are written by this domain's `cdp-bridge ensure` inside kake's leased profile; the writer lane owns the row, and kagi declares exactly these two paths and nothing else in the subtree
+ $HOME/.agents/AGENTS.md	kotoba	shared-read	declared	lane:kotoba/corpus/knowledge/alwayson-checklist-round7.md:30	AGENTS\.md	byte-pinned here; kotoba is the sole fleet claimant of the file's checklist/shape reading (read-only for both lanes)
+\ No newline at end of file
+### S1 probe (lesson S117 date)
+@@ -44,7 +44,7 @@
+   `.ufo/waves/round-57/capture/S116.body`). Located quote (21 words): “even if you re-enable the audit device
+   at the same path, as a new salt will be created for hashing.” (§Disable warning). The §Examples block is
+   the documented `bao audit enable file file_path=…` path, which the 2.7.2 binary refuses by default (T1).
+-- **Admit S117** (round-58 closure D4) — https://openbao.org/docs/api/system/audit-hash/, opened 2026-11-07 with a browser user agent (HTTP 200, decoded body 35071 B, sha256 `bca1461ee6a1a2a3ca0658f815535878de29446b9459fe2283f3c0e62beeaca9`, `.ufo/waves/round-57/capture/S117.body`). Located quote (16 words) at §Calculate hash: “This endpoint hashes the given input data with the specified audit device's hash function and salt.”
++- **Admit S117** (round-58 closure D4) — https://openbao.org/docs/api/system/audit-hash/, opened 2026-11-06 with a browser user agent (HTTP 200, decoded body 35071 B, sha256 `bca1461ee6a1a2a3ca0658f815535878de29446b9459fe2283f3c0e62beeaca9`, `.ufo/waves/round-57/capture/S117.body`). Located quote (16 words) at §Calculate hash: “This endpoint hashes the given input data with the specified audit device's hash function and salt.”
+### S2 probe (SKILL entry command)
+@@ -835,6 +835,6 @@
+ 
+ | name | kind | entry command | verdict map | selftest | pinned values | write scope | owner |
+ |---|---|---|---|---|---|---|---|
+-| current-tense self-description gate (`corpus/current-claims.py`) | gate | `python3 -I -B corpus/current-claims.py [--root DIR] [--round N] [--verbose]`; `--round` selects the audited landing round (default: the latest `## Round N — post-move` section in `SCORECARD.md`) | 0 `CURRENT_CLAIMS: value=0 population=P … guard=1`; 1 value>0 or guard=0 (a statement disagrees with its machine authority, an item is UNBOUND, or the population is below its floor); 2 `CURRENT_CLAIMS: SETUP <reason>` | `python3 -I -B corpus/current-claims.py --selftest` prints `CURRENT_CLAIMS_SELFTEST: PASS (N cases)` | `SCORECARD.md`, `LOG.md`, `corpus/lessons/round-<N>.md`, `plans/round-<N>.md`, `.ufo/waves/round-<N>/controls/controls-prefreeze-epoch<L>.txt`, `corpus/recheck-captures.tsv` | read-only (no write scope) | kagi (round 57; `--round` added round 58) |
++| current-tense self-description gate (`corpus/current-claims.py`) | gate | `python3 -I -B corpus/other-claims.py [--root DIR] [--round N] [--verbose]`; `--round` selects the audited landing round (default: the latest `## Round N — post-move` section in `SCORECARD.md`) | 0 `CURRENT_CLAIMS: value=0 population=P … guard=1`; 1 value>0 or guard=0 (a statement disagrees with its machine authority, an item is UNBOUND, or the population is below its floor); 2 `CURRENT_CLAIMS: SETUP <reason>` | `python3 -I -B corpus/current-claims.py --selftest` prints `CURRENT_CLAIMS_SELFTEST: PASS (N cases)` | `SCORECARD.md`, `LOG.md`, `corpus/lessons/round-<N>.md`, `plans/round-<N>.md`, `.ufo/waves/round-<N>/controls/controls-prefreeze-epoch<L>.txt`, `corpus/recheck-captures.tsv` | read-only (no write scope) | kagi (round 57; `--round` added round 58) |
+### S3 probe (LOG receipt path)
+@@ -1941,5 +1941,5 @@
+ 
+ ## Round 57 correction (2026-11-07, appended in round 58) — freeze epoch C and the epoch-C receipt
+ 
+-- Round-58 closure D1: the round-57 entry above names epoch B only. Freeze **epoch C** `8d8e0588` carried the final `plans/round-57.md` (amendments A1/A2 text), `plans/round-57-c1.sh`, `plans/round-57-controls.sh` and the 13-control receipt `.ufo/waves/round-57/controls/controls-prefreeze-epochC.txt`; that receipt is regenerated over the shipped instrument bytes in round 58 as `.ufo/waves/round-57/controls/controls-prefreeze-epochC-final.txt` (`CONTROLS: match=15 mismatch=0`, the five `INSTRUMENT` pins equal to the tip's sha256), closing round-58 closure D3.
++- Round-58 closure D1: the round-57 entry above names epoch B only. Freeze **epoch C** `8d8e0588` carried the final `plans/round-57.md` (amendments A1/A2 text), `plans/round-57-c1.sh`, `plans/round-57-controls.sh` and the 13-control receipt `.ufo/waves/round-57/controls/controls-prefreeze-epochC-gone.txt`; that receipt is regenerated over the shipped instrument bytes in round 58 as `.ufo/waves/round-57/controls/controls-prefreeze-epochC-gone.txt` (`CONTROLS: match=15 mismatch=0`, the five `INSTRUMENT` pins equal to the tip's sha256), closing round-58 closure D3.

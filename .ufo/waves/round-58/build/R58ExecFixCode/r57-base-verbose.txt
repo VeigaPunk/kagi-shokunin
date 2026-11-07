@@ -1,0 +1,22 @@
+# gate script: /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/current-claims.py
+# gate sha256: 6f3a532494706290b848eb625cf9dedace427e7052ea4523e5a8200c72c3fafb
+# audited root: /fast/scratch/hyaku/kagi-r58/R58ExecFixCode/base
+# command: python3 -I -B /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/current-claims.py --root /fast/scratch/hyaku/kagi-r58/R58ExecFixCode/base 
+# captured: 2026-11-07T15:13:09Z
+STMT SCORECARD:8 cls=match stated=11 auth=11 via=receipt-epochB OK
+STMT SCORECARD:12 cls=cases stated=13 auth=none via=no-named-instrument UNBOUND
+STMT SCORECARD:12 cls=match stated=23 auth=11 via=receipt-epochB MISMATCH
+STMT SCORECARD:12 cls=epochs stated=4 auth=0 via=plan-epoch-declaration MISMATCH
+STMT SCORECARD:12 cls=epochs stated=3 auth=0 via=plan-epoch-declaration MISMATCH
+STMT LOG:3 cls=match stated=11 auth=none via=nearest-epoch- UNBOUND
+STMT LOG:3 cls=match stated=11 auth=11 via=nearest-epochB OK
+STMT LOG:4 cls=cases stated=18 auth=none via=no-named-instrument UNBOUND
+STMT LOG:4 cls=epochs stated=4 auth=0 via=plan-epoch-declaration MISMATCH
+STMT LOG:4 cls=epochs stated=3 auth=0 via=plan-epoch-declaration MISMATCH
+STMT LESSON:10 cls=match stated=11 auth=none via=nearest-epoch- UNBOUND
+STMT LESSON:16 cls=cases stated=18 auth=none via=no-named-instrument UNBOUND
+STMT LESSON:16 cls=epochs stated=4 auth=0 via=plan-epoch-declaration MISMATCH
+STMT LESSON:17 cls=epochs stated=3 auth=0 via=plan-epoch-declaration MISMATCH
+STMT LESSON:22 cls=match stated=23 auth=none via=nearest-epoch- UNBOUND
+CURRENT_CLAIMS: value=13 population=15 mismatches=13 unbound=6 cases=3 match=6 epochs=6 clocks=0 pop=0 guard=1
+rc=1

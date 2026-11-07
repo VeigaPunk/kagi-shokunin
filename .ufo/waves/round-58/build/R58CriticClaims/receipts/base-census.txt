@@ -1,0 +1,61 @@
+R58CriticClaims — BASE census receipt (read-only)
+BASE 1b13f5dad921f8901f56d30c428f89614dd74d8a (round-57 verifier spot-check tip)
+Frozen plan predeclaration commit 0085a5f76c9dc7e977f6606324e873d25b4fc44d; plan bytes on disk
+differ (uncommitted A1/A2, see receipt plan-amendment.txt).
+
+Independent census script: /fast/scratch/hyaku/kagi-r58/R58CriticClaims/census.py
+Run on a `git archive 1b13f5d` tree. Output:
+
+  BASE_CENSUS_CHECK root= /fast/scratch/hyaku/kagi-r58/R58CriticClaims/base-tree
+  measured_sources_rows= 117
+  i2_receipts= [('controls-prefreeze-epochC.txt', 5, False, 'CONTROLS: match=13 mismatch=0', False, False)]
+  i4_bad= 15          # naive scan: score arrows (9 -> 9, 3 -> 0, 0 -> 5) are not registry counts
+  i8_scope_line= ADJACENCY_SCOPE: DEFECT (... stale_basis=3 ... )
+  items= {'I1': 1, 'I2': 1, 'I3': 1, 'I4': 1, 'I5': 1, 'I6': 1, 'I7': 1, 'I8': 1}
+  value= 8
+
+Per-item reading at BASE (1 = unresolved):
+
+I1 LOG.md round-57 entry (line 1935) names freeze epoch B `03cbf656...` and the epoch-B receipt;
+   no epoch C. SCORECARD.md round-57 pre-move/post-move sections (1861-1896) name epoch B and
+   "11 MATCH in ... epochB.txt"; no epoch C. `grep -i 'epoch c' SCORECARD.md` over 1861-1896 -> rc 1.
+I2 .ufo/waves/round-57/controls/controls-prefreeze-epochC.txt:
+   `INSTRUMENT b130bb83b3dd4bdb52b84aeb4c6d3459477188b66406adab429392049698c6dc plans/round-57.md`
+   BASE plans/round-57.md sha256 = 76e836ee111d60b7cf60007da4b45a102f1d94393f1d83c9de1a32d7cd33b173.
+   Last line = `CONTROLS: match=13 mismatch=0` (holds). Pin fails => item unresolved.
+   Other four pins at BASE all match (6fcbdec7, 140a8f2b, ee96476a, 19d75337).
+I3 corpus/lessons/round-57.md: `## Gate` has Admit S115/S116 and two rejects; no S117 row;
+   `source:` line names S115/S116 only. SOURCES.md S117 used-by = 
+   `corpus/knowledge/openbao-audit-device-custody.md, corpus/lessons/round-57.md` (already holds).
+   .ufo/waves/round-57/capture/S117.body present (sha256 bca1461e...), but the row+source fail.
+I4 measured SOURCES data rows = 117 (`grep -c '^| S[0-9]'`).
+   SCORECARD post-move coverage row: `Registry 114 -> 116 (S115, S116; tier A, mined)`.
+   lesson section Sources: `Registry 114 -> 116 (S115, S116; ...)` and
+   `start (census-start.txt) kagi ok rc 0, 114 rows; end kagi ok rc 0, 116 rows`.
+   Current-tense values 116 != 117 => unresolved. Historical values: 114 at r57 BASE 1cda9e7
+   (true), 116 at r57 landing d857f344 (true), 117 at 94d72de9/ee1a745/1b13f5d.
+I5 SKILL.md (832 lines at BASE): `grep -c current-claims` = 0; gate registry tables at
+   lines 695/747/783/817 carry no row for corpus/current-claims.py.
+I6 corpus/current-claims.py at BASE: argparse has --root/--verbose/--selftest only;
+   `--round 57` -> `error: unrecognized arguments` rc 2. Literal `round-56` paths in the
+   docstring and surface list (lines 10, 15, 20, 113, 129, 150).
+   Already true at BASE: `--selftest` prints `CURRENT_CLAIMS_SELFTEST: PASS (13 cases)` rc 0;
+   the EPOCHS docstring names `plans/round-56.md`, the authority the code reads.
+   The plan labels I6 "D7 + D8", but D8 is `plans/round-57-c1-check.py`: docstring lines 22-23
+   say "the number of controls-prefreeze-epoch*.txt files" while code line 133 counts distinct
+   `epoch-[A-F]` tokens in `plans/round-56.md`. No item reads that file.
+I7 lesson S115 Gate row (lines 39-41) says "(§Enabling and disabling audit devices)";
+   S115.body line 47 has `<h2 ...>Enabling/Disabling audit devices` (the live heading).
+I8 `bash corpus/scope-gate.sh` in the lane: `stale_basis=1`,
+   `SCOPE STALE-BASIS $HOME/.config/opencode basis=SCORECARD.md:54 lines=54-54 token=opencode`.
+   In a git-archive copy: stale_basis=3 (same line + two lane: basis NOT-A-FILE because the
+   sibling lanes resolve under the copy's parent). Either way != 0.
+
+Partial clauses already true at BASE (items are still unresolved, so the population is not
+vacuous, but four items are carried by one clause each):
+- I2: match=13 already holds; only the plan pin fails.
+- I3: S117 used-by already names the lesson; only the Gate row + source line fail.
+- I6: --selftest and the EPOCHS docstring already hold; only --round and the literal paths fail.
+- I8: only stale_basis fails; the gate remains DEFECT for breadth_drift=5 (exit-neutral to I8).
+
+Verdict: BASE = 8 unresolved. The claim's BASE 8 is correct; no item holds at BASE.

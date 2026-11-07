@@ -1,0 +1,47 @@
+R58CriticClaims — C2 capability baseline and T5 introspection (read-only)
+Capability baseline at BASE 1b13f5d:
+- corpus/openbao-*-trial.sh at BASE: openbao-audit-trial.sh (r57), openbao-kv-versions-trial.sh
+  (r52), openbao-token-trial.sh (r49), openbao-wrap-trial.sh (r51). No policy-semantics trial.
+- `grep -n 'policy\\|capabilit\\|deny' corpus/openbao-*-trial.sh` finds only:
+  token trial lines 128-131: `bao policy write child-maker` with
+    `path "auth/token/create" { capabilities = ["create", "update"] }`
+  token trial lines 150-153: `bao policy write pki-issue` with
+    `path "pki/issue/trial" { capabilities = ["update"] }`
+  i.e. grant-use policies, not path-matching/deny/union semantics.
+- corpus/knowledge/vault-openbao-token-lease-lifecycle.md bounds itself at line 209-210 and 251:
+  "no policy model beyond the `default` policy and the two trial policies (`child-maker`, ...)".
+- The ACL-policy entry corpus/knowledge/openbao-acl-policy-semantics.md exists in the worktree
+  (16239 B) and cites S118 x7 / S119 x5; S118/S119 rows are not yet in corpus/SOURCES.md.
+=> C2 is a capability acquisition, not a re-score of r49/51/52/57; the surface it moves is the
+   SCORECARD §Capabilities row + the knowledge entry + the S118/S119 registry rows.
+
+Commands that would show it unmoved:
+  test -e corpus/openbao-policy-trial.sh            # absent at BASE
+  bash plans/round-58-c2.sh 1b13f5d                 # C2_POLICY_TRIAL: value=0 ... (absent)
+  git grep -n 'path ".*" { capabilities' 1b13f5d -- corpus/openbao-*-trial.sh  # only 2 grants
+At the tip, a non-empty diff for corpus/openbao-policy-trial.sh and the entry is the capability;
+a SCORECARD-only diff is a re-score.
+
+T5 / client-side introspection:
+- plans/round-58-c2.sh lines 32-37: "T5 is the only test whose observable may pass through the
+  client-side `bao token capabilities` introspection; T1..T4 must be measured server-side. The
+  wrap leg's wrapper delegates everything to the real pinned binary except `bao token
+  capabilities`, which it answers with the literal `deny` and rc 0 ... a conforming trial reads
+  exactly T5 BROKEN there."
+- Lines 82-88 implement that wrapper; line 132 requires the wrap vector `HHHHB` and rc 1.
+- The frozen plan's T5 row (plans/round-58.md line 105) lists effects only: "same-pattern union:
+  read ... + update ... both work, delete stays denied; different patterns: the exact `update`
+  outranks a glob `read`, so read is denied while update works".
+- Therefore the counter forces T5 to depend on the CLI's capability output; an effects-only T5
+  cannot satisfy the frozen predicate. The leg is load-bearing (not decoration), but it makes T5
+  a client-side capability-introspection check, and the plan's own K2 ceiling is exactly "a
+  trial that shape-keys the shim vectors and introspects the PATH wrapper reads 5 without
+  measuring anything" (plan lines 124-126). The counter is necessary, not sufficient; the
+  receipts + non-author probe are the only check.
+
+Smallest safe correction: T5 prints two vectors, `effects=` (the read/update/delete outcomes) and
+`introspect=` (the `bao token capabilities` result); the wrap receipt shows effects H
+unchanged and introspect B under the lying wrapper; the capability row/lesson names the effect
+vector as the enforcement evidence and the introspection as the direct observable of S118's
+union/priority sentence. Then a shape-keyed/introspecting mock is visible in the receipt rather
+than hidden behind one HOLDS/BROKEN character.

@@ -1,0 +1,6 @@
+TRIAL T1 BROKEN empty-token-denied=0 read-allowed=0 value-roundtrip=1 update-denied=1
+TRIAL T2 HOLDS descendant=2 sibling-denied=1 exact-allowed=1 longer-name-denied=1
+TRIAL T3 HOLDS broad-allowed=1 denied-path-denied=1
+TRIAL T4 HOLDS one-segment=1 two-segments-denied=1 zero-segments-denied=1
+TRIAL T5 HOLDS union-read=1 union-update=1 union-delete-denied=1 prio-read-denied=1 prio-update=1 caps=update
+OPENBAO_POLICY_TRIAL: BROKEN holds=4 broken=1 error=0 bao=v2.7.2

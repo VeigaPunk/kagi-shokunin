@@ -1,0 +1,39 @@
+R58CriticClaims — I2 receipt trap (read-only)
+Frozen plan (commit 0085a5f, plans/round-58.md line 43): a
+`controls-prefreeze-epochC*.txt` receipt under `.ufo/waves/round-57/controls/` must have an
+`INSTRUMENT` pin for `plans/round-57.md` equal to that file's sha256 in the measured tree and
+its last `CONTROLS:` line must read `match=13 mismatch=0`.
+
+BASE bytes:
+- Old receipt `.ufo/waves/round-57/controls/controls-prefreeze-epochC.txt` (committed, blob
+  edbef943...): plan pin `b130bb83...`, last line `CONTROLS: match=13 mismatch=0`.
+  BASE `plans/round-57.md` sha256 `76e836ee111d60b7cf60007da4b45a102f1d94393f1d83c9de1a32d7cd33b173`.
+  => pin fails; the item is unresolved at BASE by one line of text.
+- Untracked `.ufo/waves/round-57/controls/controls-prefreeze-epochC-final.txt` (3611 B,
+  mtime 2026-11-07 12:02): five pins, all equal to the BASE hashes
+  (76e836ee plan, 6fcbdec7 c1.sh, 140a8f2b c2.sh, ee96476a controls.sh, 19d75337 c1-check.py),
+  last line `CONTROLS: match=15 mismatch=0`.
+  => fails frozen I2 (needs 13); passes uncommitted A1 (N>=13 + five pins).
+- Frozen `plans/round-57-controls.sh` header: "REF-dependent controls print `PENDING <id>` when
+  no REF tree is given; they are not counted. The pre-freeze receipt is the no-REF run."
+  A no-REF run over the final bytes yields the 13-line form with the correct plan pin; the
+  15-line form only exists with a REF tree (K1-REF + K2-REF).
+
+Do-nothing path (d): copy the old receipt, change only the plan-hash text to 76e836ee..., and
+the frozen I2 reads satisfied. The receipt's other four pins already match; nothing else needs
+to change. The checker cannot distinguish a hand-edited receipt from a re-run receipt because
+the no-REF receipt content is the same 13 control lines. The 15-match file is a real re-run but
+fails the frozen 13; the plan's on-disk A1 loosens the item to accept it, which is an amendment
+of a frozen predicate (see plan-amendment.txt).
+
+BASE-integrity warning: A1 + the untracked -final receipt resolve I2 (all five pins, N=15) if a
+checker scans the live worktree. The plan's pre-freeze control "C1 value=8 on the BASE tree"
+must be measured on 1b13f5d (git archive/revision), not on the live lane worktree; otherwise the
+BASE census reads 7. The frozen I2 (match=13) does not have this worktree leak.
+
+Smallest safe correction: keep the frozen I2 (13); run the frozen controls with no REF over the
+final bytes, commit that receipt (all five pins + 13), and keep the 15-match REF receipt as a
+separate post-landing battery; have the sentinel re-run the no-REF controls independently. If A1
+is retained, commit it as a named freeze epoch before any candidate reading and record that the
+five-pin equality binds instrument identity, not the run (the control lines are still hand-
+writable).

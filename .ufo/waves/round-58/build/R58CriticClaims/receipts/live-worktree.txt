@@ -1,0 +1,52 @@
+R58CriticClaims — live worktree observations (read-only, observed 2026-11-07 12:19-12:21)
+These are in-flight repairs by other seats; they are not BASE evidence and the owner of
+corpus/current-claims.py warns of transient edit states. Re-verify on a stable commit.
+
+1. SOURCES data rows = 119 (`grep -c '^| S[0-9]' corpus/SOURCES.md`); S118/S119 present.
+2. SCORECARD round-57 post-move coverage row now says:
+   `Registry 114 → 117 (S115, S116, S117; ...)` + `Corrected in round 58 (closure D5, plan A3):
+   the landing count is 117 and the tip count = 119 at the round-58 candidate (S118/S119 added
+   this round); .ufo/waves/round-57/final/gates.txt predates S117 and reads rows=116.`
+3. lesson-57 §Sources now says `Registry 114 → 117 ...` and
+   `end kagi ok rc 0, 119 rows at the round-58 candidate (117 at the round-57 landing; ...
+   gates.txt predates it at rows=116)`.
+4. `corpus/adjacency.tsv` basis repointed `SCORECARD.md:54` -> `SCORECARD.md:70` (substantive:
+   line 70 names `~/.config/opencode/opencode.json`). Live `bash corpus/scope-gate.sh`:
+   `ADJACENCY_SCOPE: DEFECT (... stale_basis=0 ...)` (still DEFECT for breadth_drift=5).
+5. `SKILL.md` gained the `current-tense self-description gate (corpus/current-claims.py)` row
+   with entry command, verdict map, `--selftest`, pinned surfaces.
+6. `corpus/current-claims.py` gained `--round N` (default: previous completed round); docstring
+   says `--round N selects the audited round`; `--selftest` now `PASS (19 cases)`.
+7. lesson-57 gained the S117 `## Gate` row with the URL, access date, 16-word located quote and
+   `sha256 bca1461e...`; the S115 heading is now `§Enabling/Disabling audit devices`; the
+   `source:` line names S117.
+8. `LOG.md` gained a `## Round 57 correction` section naming freeze epoch C and the epoch-C
+   receipt, and correcting D2's commit order.
+9. LIVE RED: `python3 -I -B corpus/current-claims.py --round 57 --verbose` (rc 1):
+   `CURRENT_CLAIMS: value=13 population=15 mismatches=13 unbound=6 cases=3 match=6 epochs=6
+    clocks=0 pop=0 guard=1`
+   Non-OK statements:
+     STMT SCORECARD:15 cls=cases stated=13 auth=none via=no-named-instrument UNBOUND
+     STMT SCORECARD:15 cls=match stated=23 auth=11 via=receipt-epochB MISMATCH
+     STMT SCORECARD:15 cls=epochs stated=4 auth=0 via=plan-epoch-declaration MISMATCH
+     STMT SCORECARD:15 cls=epochs stated=3 auth=0 via=plan-epoch-declaration MISMATCH
+     STMT LOG:3 cls=match stated=11 auth=none via=nearest-epoch- UNBOUND
+     STMT LOG:4 cls=cases stated=18 auth=none via=no-named-instrument UNBOUND
+     STMT LOG:4 cls=epochs stated=4 auth=0 via=plan-epoch-declaration MISMATCH
+     STMT LOG:4 cls=epochs stated=3 auth=0 via=plan-epoch-declaration MISMATCH
+     STMT LESSON:10 cls=match stated=11 auth=none via=nearest-epoch- UNBOUND
+     STMT LESSON:16 cls=cases stated=18 auth=none via=no-named-instrument UNBOUND
+     STMT LESSON:16 cls=epochs stated=4 auth=0 via=plan-epoch-declaration MISMATCH
+     STMT LESSON:17 cls=epochs stated=3 auth=0 via=plan-epoch-declaration MISMATCH
+     STMT LESSON:22 cls=match stated=23 auth=none via=nearest-epoch- UNBOUND
+   Reading: the gate's new `--round 57` surface includes (i) the r57 SCORECARD/lesson's
+   *quoted* round-56 numbers ("18 cases", "four/T hree freeze epochs", "23 MATCH" repair
+   history), which are historical, and (ii) the r57 SCORECARD's now-stale current-tense
+   `--selftest 13 cases` (the live gate's selftest is 19) and the pre-epoch
+   `controls-prefreeze.txt` receipt (no epoch letter -> `nearest-epoch-` UNBOUND). The
+   gate cannot bind its own selftest count because the CASES class only names
+   `recheck-replay`. This is a true stale statement (13 vs 19) plus an over-read of quoted
+   history; either way the round's own gate is red on the round it audits.
+10. `plans/round-58.md` on disk now carries A1 (I2 N>=13 + five pins), A2 (I3 whitespace),
+    A3 (I4 landing 117 / tip = live count / gates.txt 116 + predates S117); the predeclaration
+    commit 0085a5f still says `(none)`.

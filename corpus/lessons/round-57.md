@@ -1,6 +1,6 @@
 # Round 57 — the previous round's numeric self-description becomes a checked surface (C1, calibration); an OpenBao audit-device custody trial measures the enable gate, the salted HMAC, log_raw disclosure, salt rotation and non-audited paths (C2, operability, capability)
 
-source: S115 (https://openbao.org/docs/audit/); S116 (https://openbao.org/docs/commands/audit/), both opened 2026-11-07.
+source: S115 (https://openbao.org/docs/audit/); S116 (https://openbao.org/docs/commands/audit/); S117 (https://openbao.org/docs/api/system/audit-hash/), all opened 2026-11-07.
 
 Frozen plan: `plans/round-57.md` (predeclaration `7aa1f4726e1f6bcdc8411d1a8b21828d49785173`; freeze epoch B
 `03cbf656943b33bf93607f607bbbeb55d500b0f9` adds amendments A1 (observable contract) and A2 (measured enable
@@ -36,18 +36,16 @@ Instruments: `plans/round-57-c1-check.py`, `plans/round-57-c1.sh`, `plans/round-
 
 ## Gate
 
-- **Admit S115** — https://openbao.org/docs/audit/, opened 2026-11-07 with a browser user agent (HTTP 200,
-  decoded body 41787 B, sha256 `76339ff7dab618b5e5532bca6daf9dd8361330a43b737408304abfd1d79090c6`,
-  `.ufo/waves/round-57/capture/S115.body`). Located quote (18 words): “Audit devices must be enabled by a
-  root user using bao audit enable or using the audit stanza.” (§Enabling and disabling audit devices). The
-  same page grounds the salted-HMAC sentence (15 words: “Most strings contained within requests and responses
-  are hashed with a salt using HMAC-SHA256.”), the `log_raw` parameter row and the non-audited path list.
+- **Admit S115** — https://openbao.org/docs/audit/, opened 2026-11-07 with a browser user agent (HTTP 200, decoded body 41787 B, sha256 `76339ff7dab618b5e5532bca6daf9dd8361330a43b737408304abfd1d79090c6`, `.ufo/waves/round-57/capture/S115.body`). Located quote (18 words) at §Enabling/Disabling audit devices — the live heading, round-58 closure D12: “Audit devices must be enabled by a root user using bao audit enable or using the audit stanza.”
+  The same page grounds the salted-HMAC sentence (15 words: “Most strings contained within requests and responses are hashed with a salt using HMAC-SHA256.”), the `log_raw` parameter row and the non-audited path list.
   Tier A for OpenBao 2.7.x audit-device behaviour; the trial measures it.
 - **Admit S116** — https://openbao.org/docs/commands/audit/, opened 2026-11-07 with a browser user agent
   (HTTP 200, 33338 B, sha256 `3dc8873201fdb3a971eb5fb1c1cee6a804462510c962ea5df6121cad0d9905ce`,
   `.ufo/waves/round-57/capture/S116.body`). Located quote (21 words): “even if you re-enable the audit device
   at the same path, as a new salt will be created for hashing.” (§Disable warning). The §Examples block is
   the documented `bao audit enable file file_path=…` path, which the 2.7.2 binary refuses by default (T1).
+- **Admit S117** (round-58 closure D4) — https://openbao.org/docs/api/system/audit-hash/, opened 2026-11-07 with a browser user agent (HTTP 200, decoded body 35071 B, sha256 `bca1461ee6a1a2a3ca0658f815535878de29446b9459fe2283f3c0e62beeaca9`, `.ufo/waves/round-57/capture/S117.body`). Located quote (16 words) at §Calculate hash: “This endpoint hashes the given input data with the specified audit device's hash function and salt.”
+  The sample response carries the literal `hmac-sha256:` prefix the T2 test reads; the row is `mined` and its `used-by` names this lesson.
 - **Admit the knowledge entry** `corpus/knowledge/openbao-audit-device-custody.md`: every mechanism claim
   cites S115/S116 and carries a located quote or the trial verdict; the measured table is the round's runs;
   bounds and falsifiers are stated. QA1/QA2/QA3 hold (tier-A rows with anchors, release scope named, the
@@ -83,12 +81,15 @@ Instruments: `plans/round-57-c1-check.py`, `plans/round-57-c1.sh`, `plans/round-
 
 ## Sources
 
-- Registry 114 → 116 (S115, S116; both tier A, status `mined`, `recheck on-release` bound to the S090
-  OpenBao releases feed). No in-place cell changes to existing rows; no row deleted.
+- Registry 114 → 117 (S115, S116, S117; all tier A, status `mined`, `recheck on-release` bound to the S090
+  OpenBao releases feed). Corrected in round 58 (closure D5, plan A3): S117 landed in `94d72de9`, after the
+  `.ufo/waves/round-57/final/gates.txt` capture that reads `rows=116`; the landing count is 117 and the tip count = 120 at the round-58 candidate (S118/S119/S120 added this round).
+  No in-place cell changes to existing rows; no row deleted.
 - Sources opened this round: S115, S116 (the trial's two pages). Existing rows re-used: S090 (OpenBao
   releases feed, clock binding), S105 (PKI page, not re-opened), S106/S107 (setpriv/pdeathsig, unchanged).
 - Census: `scripts/sources-census.sh validate --root /home/vgpnk/Projects/shokunin kagi` — start
-  (`census-start.txt`) `kagi ok` rc 0, 114 rows; end `kagi ok` rc 0, 116 rows.
+  (`census-start.txt`) `kagi ok` rc 0, 114 rows; end `kagi ok` rc 0, 120 rows at the round-58 candidate
+  (117 at the round-57 landing; the round-57 end census ran after S117 landed; `gates.txt` predates it at `rows=116`).
 
 ## Adjacency
 

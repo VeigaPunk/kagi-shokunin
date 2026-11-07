@@ -1,0 +1,21 @@
+command: bash plans/round-58-c1.sh --tree /home/vgpnk/Projects/shokunin/kagi-shokunin   (cwd = lane root)
+date: 2026-11-07 12:27:53 -03 (tar snapshot of the working tree, 12610 files, uncommitted bytes included)
+checker bytes: plans/round-58-c1-check.py sha256 d37829c017aabe789336c853bb09604d0c30978c84914a20a2d4de185040c77f
+
+c1-driver: tree=--tree /home/vgpnk/Projects/shokunin/kagi-shokunin (copied 12610 files) scratch=/fast/scratch/hyaku/kagi-r58/R58ExecCounterC1/run-20261107T122753Z-3214649
+c1-driver: leg1 rc=1 C1_ROUTED: value=0 population=8 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 i8=1 guard=0
+c1-driver: challenge broken-copy value=1 == value+1 (1)
+c1-driver: stub stub read value=0, challenge expects 1: stub fails
+C1_ROUTED: value=0 population=8 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 i8=1 guard=1
+rc=0
+
+Reading: the claim-target reading, on the working tree (pre-commit). All eight routed
+defect items hold; the only delta of the challenge copy is the coverage-row tip count
+stated -> measured+1 (120), which flips I4 to FAIL and reads exactly value+1; the
+constant value=0 printer stub does not survive the challenge, so GUARD=1 is earned.
+History inside this wave: 12:14 value=4 (pre-A3 checker) -> 12:20 value=2 (A3 arrow
+class catching the live-tree "Registry 114 → 120" corruption — L1 M58-3, an unconfined
+challenge-scratch landing hazard, since fixed by the L1's review pass; line restored to
+117) -> 12:23 value=1 (i6=0) -> 12:26 and 12:27 value=0 after the --round rewrite of
+corpus/current-claims.py landed. The L1's landing re-measure is the authoritative
+revision-bound reading.

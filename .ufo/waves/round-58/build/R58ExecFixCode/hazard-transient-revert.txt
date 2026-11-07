@@ -1,0 +1,22 @@
+# landing-hazard evidence — transient revert observation
+# observed: during the first receipt capture, one invocation of corpus/current-claims.py printed argparse usage (old bytes, --round rejected) while adjacent invocations in the same batch ran the edited bytes; edited bytes were present before and after.
+# captured: 2026-11-07T15:14:12Z
+--- git status --porcelain (full tree):
+ M LOG.md
+ M SCORECARD.md
+ M SKILL.md
+ M corpus/adjacency.tsv
+ M corpus/current-claims.py
+ M corpus/lessons/round-57.md
+ M plans/round-58.md
+?? .ufo/waves/round-57/controls/controls-prefreeze-epochC-final.txt
+?? .ufo/waves/round-58/
+?? corpus/knowledge/openbao-acl-policy-semantics.md
+?? corpus/openbao-policy-trial.sh
+?? plans/round-58-c1-check.py
+?? plans/round-58-c1.sh
+?? plans/round-58-c2.sh
+--- current-claims.py sha256 now:
+6f3a532494706290b848eb625cf9dedace427e7052ea4523e5a8200c72c3fafb  /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/current-claims.py
+--- adjacency.tsv sha256 now:
+5b9218933e9bbcb4d614775a5677a51fd1150a8d711c45a0d635955dc703043b  /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/adjacency.tsv

@@ -1,0 +1,11 @@
+command: python3 -I -B plans/round-58-c1-check.py --selftest   (cwd = lane root)
+date: 2026-11-07 (round 58, attempt 1)
+
+C1_CHECK_SELFTEST: PASS (18 cases)
+rc=0
+
+Cases: hold-i1..hold-i8 (eight synthetic all-hold shapes), aggregate-clean-value0-pop8,
+fail-i1 (epoch-C correction section absent), fail-i2 (corrupted INSTRUMENT pin), fail-i3
+(quote absent from capture body), fail-i4 (tip count stated 4 vs measured 3), fail-i5
+(registry row without --selftest), fail-i6 (hard-coded round-56 surface literal), fail-i7
+(stale anchor heading), fail-i8 (stale_basis=1), skip-i1-value-FAIL-pop7 (LOG.md removed).

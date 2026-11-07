@@ -1,0 +1,149 @@
+
+$ # tree
+1b13f5dad921f8901f56d30c428f89614dd74d8a
+
+$ sha256sum plans/round-57.md
+76e836ee111d60b7cf60007da4b45a102f1d94393f1d83c9de1a32d7cd33b173  plans/round-57.md
+[rc=0]
+
+$ ## I1 epoch C in the round-57 durable record
+
+$ grep -n '^## Round 57' LOG.md SCORECARD.md
+LOG.md:1933:## Round 57 (2026-11-07) — the previous round's numeric self-descriptions are bound to their authorities (C1, calibration); an OpenBao audit-device custody trial measures the enable-path gate, the salted HMAC form, log_raw token disclosure, salt rotation and the non-audited paths (C2, operability, capability)
+SCORECARD.md:1861:## Round 57 — pre-move (repo HEAD `1cda9e7`, round-56 spot-check tip)
+SCORECARD.md:1880:## Round 57 — post-move (claims C1 calibration, C2 operability)
+[rc=0]
+
+$ awk 'NR>=1933 && NR<=1945' LOG.md | grep -c 'epoch C'
+0
+[rc=1]
+
+$ sed -n '1861,1905p' SCORECARD.md | grep -c 'epoch C'
+0
+[rc=1]
+
+$ ## I2 epoch-C receipt pin vs CONTROLS summary
+
+$ grep -n '^INSTRUMENT.*plans/round-57.md' .ufo/waves/round-57/controls/controls-prefreeze-epochC*.txt
+1:INSTRUMENT b130bb83b3dd4bdb52b84aeb4c6d3459477188b66406adab429392049698c6dc plans/round-57.md
+[rc=0]
+
+$ grep -c '^CONTROLS:' .ufo/waves/round-57/controls/controls-prefreeze-epochC.txt .ufo/waves/round-57/controls/controls-prefreeze-epochC-final.txt
+.ufo/waves/round-57/controls/controls-prefreeze-epochC.txt:1
+grep: .ufo/waves/round-57/controls/controls-prefreeze-epochC-final.txt: No such file or directory
+[rc=2]
+
+$ grep -n '^CONTROLS:' .ufo/waves/round-57/controls/controls-prefreeze-epochC.txt
+22:CONTROLS: match=13 mismatch=0
+[rc=0]
+
+$ ## I3 S117 gate record
+
+$ grep -c 'S117' corpus/lessons/round-57.md
+0
+[rc=1]
+
+$ sed -n '1,4p' corpus/lessons/round-57.md
+# Round 57 — the previous round's numeric self-description becomes a checked surface (C1, calibration); an OpenBao audit-device custody trial measures the enable gate, the salted HMAC, log_raw disclosure, salt rotation and non-audited paths (C2, operability, capability)
+
+source: S115 (https://openbao.org/docs/audit/); S116 (https://openbao.org/docs/commands/audit/), both opened 2026-11-07.
+
+[rc=0]
+
+$ awk -F'|' '/^\| S117 /{print $11}' corpus/SOURCES.md
+ on-release 
+[rc=0]
+
+$ ## I4 registry counts
+
+$ grep -n 'Registry 114' SCORECARD.md corpus/lessons/round-57.md
+SCORECARD.md:1894:| coverage | 9 → 9 | No claim. Registry 114 → 116 (S115, S116; tier A, mined); coverage map gains the audit-device entry. | `corpus/SOURCES.md` S115, S116; `corpus/README.md` |
+corpus/lessons/round-57.md:86:- Registry 114 → 116 (S115, S116; both tier A, status `mined`, `recheck on-release` bound to the S090
+[rc=0]
+
+$ grep -cE '^\|[[:space:]]*S[0-9]{3,}[[:space:]]*\|' corpus/SOURCES.md
+117
+[rc=0]
+
+$ grep -n '^rows=' .ufo/waves/round-57/final/gates.txt
+20:rows=116
+[rc=0]
+
+$ ## I5 SKILL gate registry row
+
+$ grep -c 'current-claims' SKILL.md
+0
+[rc=1]
+
+$ ## I6 --round and the docstring EPOCHS authority
+
+$ python3 -I -B corpus/current-claims.py --round 57 --root . ; echo rc=$?
+usage: current-claims.py [-h] [--root ROOT] [--verbose] [--selftest]
+current-claims.py: error: unrecognized arguments: --round 57
+rc=2
+[rc=0]
+
+$ grep -n 'round-56' corpus/current-claims.py | head -20
+10:  corpus/lessons/round-56.md header + `## Claims`.
+15:  MATCH   `N MATCH` -> the named `.ufo/waves/round-56/controls/controls-prefreeze-epoch<L>.txt`
+20:          plans/round-56.md.
+113:    p = os.path.join(root, ".ufo/waves/round-56/controls",
+129:    text = read(root, os.path.join("plans", "round-56.md"))
+150:    ls = read(root, "corpus/lessons/round-56.md")
+236:| freshness | 9 → 9 | [C1] `bash plans/round-56-c1.sh <candidate>` 0 → 10: the gate `corpus/recheck-replay.py` `--selftest` 20 cases; `RECHECK_REPLAY: CLEAN` only at 10/10 MATCH, 10 clocks, 8 entries; 23 MATCH in `.ufo/waves/round-56/controls/controls-prefreeze-epochF.txt`.
+244:Frozen plan: `plans/round-56.md` (epoch-F, 23 MATCH in `.ufo/waves/round-56/controls/controls-prefreeze-epochF.txt`).
+265:    ctl = os.path.join(base, ".ufo", "waves", "round-56", "controls")
+271:    with open(os.path.join(base, "corpus", "lessons", "round-56.md"), "w") as f:
+273:    with open(os.path.join(base, "plans", "round-56.md"), "w") as f:
+348:        os.remove(os.path.join(d, "plans", "round-56.md"))
+[rc=0]
+
+$ python3 -I -B corpus/current-claims.py --selftest | tail -1
+CURRENT_CLAIMS_SELFTEST: PASS (13 cases)
+[rc=0]
+
+$ ## I7 anchor label
+
+$ grep -n 'Enabling' corpus/lessons/round-57.md
+42:  root user using bao audit enable or using the audit stanza.” (§Enabling and disabling audit devices). The
+[rc=0]
+
+$ grep -c 'Enabling/Disabling audit devices' .ufo/waves/round-57/capture/S115.body
+2
+[rc=0]
+
+$ ## I8 stale basis
+
+$ bash corpus/scope-gate.sh | grep ADJACENCY_SCOPE
+ADJACENCY_SCOPE: DEFECT (census=35 owned=27 shared=8 groups=4 owners=4 unresolved=1 contested=1 escapes=0 inbound=0 foreign=0 orphans=0 stale_basis=3 basis_escape=0 own_unlisted=0 breadth_required=4 breadth_pins=4 breadth_checked=3 breadth_ok=0 breadth_missing=0 breadth_invalid=0 breadth_drift=5 breadth_exceeds=0 breadth_unverified=1)
+[rc=0]
+
+$ bash corpus/scope-gate.sh >/dev/null 2>&1; echo rc=$?
+rc=1
+[rc=0]
+
+$ ## lane census (registry provenance)
+
+$ bash corpus/sources-census.sh; echo rc=$?
+FINDING SC_USEDBY_NOCITE id=S117 path=corpus/lessons/round-57.md
+FINDING SC_FETCH id=S116 missing-provenance
+FINDING SC_FETCH id=S117 missing-provenance
+FINDING SC_FETCH id=S115 missing-provenance
+SOURCES_CENSUS: FAILED (findings=4 rows=117)
+rc=1
+[rc=0]
+
+$ ## tiers
+
+$ awk -F'|' '/^\|[[:space:]]*S[0-9][0-9][0-9]+[[:space:]]*\|/ {gsub(/[[:space:]]/,"",$5); c[$5]++} END {for (t in c) print t, c[t]}' corpus/SOURCES.md
+A 113
+B 2
+C 2
+[rc=0]
+
+$ ## C2 at BASE
+
+$ ls corpus/openbao-policy-trial.sh 2>&1; echo rc=$?
+ls: cannot access 'corpus/openbao-policy-trial.sh': No such file or directory
+rc=2
+[rc=0]

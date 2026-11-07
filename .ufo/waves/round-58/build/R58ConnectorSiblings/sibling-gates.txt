@@ -1,0 +1,190 @@
+=== kengaku-shokunin/plans/routed_open.py ===
+#!/usr/bin/env python3
+"""Routed-findings burn-down (kengaku round 41 rider, considerthese/2026-10-26.md proposal 1).
+
+One file, one row per routed finding: `corpus/routed-findings.jsonl` (override with `--file`).
+The defect ledgers (`corpus/defects*.jsonl`) are refused by name: they are pinned by
+`plans/ledger_tip.py` and the round-40 C1 mutant table, so routed findings never move them.
+
+Row (JSON object per line):
+
+  id           unique, `[A-Za-z0-9][A-Za-z0-9._-]*`; an id appears once, ever. Appending a second
+               row for an id is a defect, never an update.
+  class        short slug for the finding class
+  source       `<lesson file>:<line>` of the routing sentence, relative to the lane
+  opened_round int >= 1
+  status       one of open | closed | refused | blocked
+  close        closing evidence (commit + path:line or receipt) -- required when status=closed
+  blocker      the named blocker -- required when status=blocked or refused
+  check        optional shell command run from the lane root that exits 0 exactly when the routed
+               work is done; `--observe` compares it with `status`
+  note         optional free text
+
+Printed line (the round close quotes it):
+
+  routed_open=<n> oldest_round=<r>
+
+`n` counts rows whose status is `open` or `blocked` (a refusal is a decision, not a burn-down
+item); `r` is the smallest `opened_round` among them, or `-` when there is none. A closed row
+without closing evidence, or a blocked/refused row without a blocker, is a defect: the summary
+line is withheld and the exit is 1, so a round close cannot quote a number off a broken file.
+
+Exit: 0 clean; 1 invalid row(s), a failed `--selftest` or an `--observe` mismatch; 2 setup.
+Stdlib only.
+"""
+import argparse
+import json
+
+
+=== kasegi-shokunin/corpus/instruments/r47-routed-defects.py ===
+#!/usr/bin/env python3
+"""r47-routed-defects.py — round-47 C1 counter over committed lane evidence.
+
+WHAT IT MEASURES
+    The four lane-repo routed defects D5-D8 of the round-46 non-author closure
+    (`corpus/lessons/round-46-verifier-spotcheck.md` §7 items D1-D4 are report-side
+    and are graded in the round-47 report, not here; §8 items D5-D8 are lane bytes):
+
+    D5  unlanded drafting scaffold inside `corpus/SOURCES.md` — L1 instruction prose
+        and ```markdown fences at :113-:123 and :177-:185 with the F29 Search-log
+        bullet and both S074 Registry-changes bullets trapped inside the fences,
+        never landed as section bullets (fix: land the three bullets in their real
+        sections, delete prose and fences, append a correction to the round-46
+        lesson's misleading status sentence) — limbs L1, L2, L3.
+    D6  three false sentences still standing in the admitted F29 entry
+        `corpus/knowledge/github-repository-security-advisories.md` ("all 42 lines
+        are body prose" / "the whole capture is that body" at :11 and :89 — the
+        capture carries page chrome; "in the order the page states it" at :16 — the
+        page states the CVE request before the fix-version material; "the three
+        cases at S074.txt:40, :41 and :42" at :111-:112 — :40 forbids
+        publish-without-fix, only :41-:42 permit it) — limbs L4, L5, L6, L7 (L7 =
+        the lesson erratum naming the dropped seat findings).
+    D7  the pinned attempt-2 capture is not reproducible by any committed
+        instrument (fix chosen: re-capture with the committed `capture-source.py
+        --kind html`, register it as a superseding row S076 per CORPUS rule 2, and
+        re-anchor the entry's citations to the new capture) — limbs L8, L9.
+    D8  reject (c)'s id reservation silently voided and two pointer/precision gaps
+        (fix: `## Leads (unopened)` bullet for the repository-advisories REST API
+        page; round-47 lesson notes resolving the ZDI reservation via this round's
+        admission and correcting the S068 n=1 precedent wording) — limbs L10, L11.
+
+    Each limb is `fixed` only when the substantive evidence is present in the tree
+    under `--root`; the counter is READ-ONLY over the tree it grades: it never
+    writes into `--root`, never runs git, and never mutates the lane. Content
+    binding per QUALITY R48: absence checks pin the exact false phrases, presence
+
+
+=== kama-shokunin/tools/round42-selfdesc-reconcile.py ===
+#!/usr/bin/env python3
+"""round42-selfdesc-reconcile.py - kama round-42 C1 (calibration) counter.
+
+Question: do the lane's standing self-description surfaces - the SCORECARD head
+(banner, Planned, Retired, Saturation, Capabilities, Axes) and the files that
+describe the lane (README, PROVINCE) - match observed repository state at a
+revision?  Round 41 reconciled only the `## Axes` table; seat R41A10 itemised
+the surfaces around it that the tree contradicts (SCORECARD banner lines 6-13,
+Planned, Retired, Saturation, head Capabilities, README, PROVINCE).
+
+Terms (all derived from the tree at --tip, never typed here):
+  head      SCORECARD.md text before its first line starting `## `.
+  maxN      greatest N over SCORECARD lines matching `^## Round (\\d+)`.
+  section(X) text of the FIRST line `## X` up to the next `## ` line.
+  canon     the highest-numbered "**Capabilities - canonical list as of round N**"
+            table (names; first-working-round column).
+  vector    scores of the `## Axes` table rows (last integer of cell 2).
+  census    SOURCES registry counts at --tip: rows with status mined|queued|rejected.
+
+Facts (each failed item adds 1 to its counter):
+  r41        the round-41 head-table counter (hash/lines/run/dead/score/hollow
+             mismatches), imported unchanged: tools/round41-scorecard-reconcile.py.
+  banner     head contains `operability + calibration` and not `operability and
+             freshness`; head does not contain `adds **zero** verified completed
+             rounds`; head matches `Latest measured round: <maxN>`.
+  planned    section(Planned) has no `.ufo/round-5/continuation.md` and no
+             `freshness move`, names `### Planned (round <maxN+1>)`, and that
+             heading exists as a line in SCORECARD.md followed (next non-blank
+             line) by a numbered item.
+  retired    section(Retired) has no `Both assigned axes` and no `every model
+             endpoint is dead`, and states `<len(vector)> axes` and `<len(canon)>
+             capabilities`.
+  saturation section(Saturation) has no `8/10 on every owned axis`; states the
+             derived vector `operability 8, freshness 8, ...` in head-table order;
+             states `first-working rounds <r1, r2, ...>` from canon; states
+
+
+=== kama-shokunin/tools/pre-report-gate.py ===
+#!/usr/bin/env python3
+"""pre-report-gate.py - round-71 C1 (calibration), round-72 C1 (six arms), round-73 C1
+(six-case round-scope arm), round-74 C1-C3 wiring (arm 7 `round74-v2`): the round's
+pre-report verdict in one gate.
+
+Predicate (frozen: plans/round-71-claims.md section C1, amended by
+plans/round-72-claims.md section C1 and the plans/round-74-claims.md sections C1-C3
+wiring note; the same sentence is this gate's PREDICATE and the receipt label. Round 73
+section C1 re-points arm 5 at the six-case counter without amending that sentence;
+round 74 adds arm 7 and moves the arm count 6 -> 7):
+
+    `python3 tools/pre-report-gate.py --repo <lane> --round <N> --tip <rev>` prints one
+    `PRE_REPORT round=<N> arms=14 failed=<f> uncommitted=<u>` line and exits 0 only when
+    the five reconciled instruments (selfdesc reconciler, newest-closure counter,
+    receipt-pointer audit, worktree-landing check, round-scope counter) plus the three
+    round-74 v2 counters arm 7 composes (selfdesc canon, receipt-claim binding,
+    province host drift), the round-75 trio arm 8 composes and the round-77 and round-78 trios arms 9
+    and 10 compose, arm 11's acceptance selftest, arm 12's round-82 pair, arm 13's
+    round-83 pair and arm 14's round-86 trio compose are all green AND no path under `.ufo/waves/round-<N>/` is uncommitted; it
+    exits 1 naming every failed arm otherwise.
+
+The round-71 receipt -- `PRE_REPORT round=71 arms=5 failed=0 uncommitted=0` -- is that
+round's five-arm measurement and stays readable as one: five arms is the population round
+71 had. From round 72 on the gate printed `arms=6`; from round 74 on it printed `arms=7`
+from round 75 on it printed `arms=8`, from round 76 through round 78 it printed `arms=9`,
+from round 79 through round 80 it printed `arms=10`, from round 81 it printed `arms=11`,
+from rounds 82 through 83 it printed `arms=12`, and from round 84 through 86 it printed `arms=13`, and from round 87 on it prints `arms=14`. A five-arm line
+can only be a round-71 record, a six-arm line a round-72/73 record, a seven-arm line a
+round-74 record, an eight-arm line a round-75 record, and a nine-arm line a
+round-76/77/78 record.
+
+Arms, in fixed order, every one run with cwd = --repo:
+  1 selfdesc          tools/round42-selfdesc-reconcile.py      --repo <repo> --tip <tip>
+  2 newest-closure    tools/round69-newest-closure-counter.py  --repo <repo> --rev <tip> --since-round 63
+  3 receipt-audit     tools/round68-receipt-pointer-audit.py   --repo <repo> --rev <tip>
+
+
+=== tsukuroi-shokunin/tools/check-r75-routed-r76.py ===
+#!/usr/bin/env python3
+# round-76 C2 routed-and-drift checker (frozen by the round-76 declaration, before any repair exists).
+#
+# Closes the six routed defects the round-75 non-author closure filed for this lane's next round
+# (`corpus/lessons/round-75-verifier-spotcheck.md` section 7 items 1-6) plus the two stale journald
+# negative claims this round's host probe found (`journal-boot-plane.md` r3 `[unknown]` and
+# `degraded-triage-r4.md` "no retention policy configured anywhere"). Each item is one appended
+# record in committed bytes; the checker reads only committed text (--revision) or a fixture mirror
+# (--root) and never writes.
+#
+# Item 1  R76-S314-SUPERSEDE   a SOURCES.md row whose teaches cell opens `supersedes S314 —` and
+#         names both PROPAGATE_STOP and the graceful branch; the round-76 lesson names the row.
+# Item 2  R76-JT5-COUNT        the round-75 note carries an erratum block naming eight
+#         comma-separated items, ten labels and the split method.
+# Item 3  R76-R75-MISTAKE-COUNT the round-76 lesson names five `## Mistakes` rows plus two owed,
+#         and `corpus/lessons/round-75.md` has exactly five `- **R75-` rows.
+# Item 4  R76-R75-RECEIPT-REPOINT the round-76 lesson names both `e5f5ca9e` and `bd0acc44`, and
+#         `.ufo/waves/round-76/before/recheck-r75-at-tip.txt` carries `met=1` and `ROUTED_OK=4/4`.
+# Item 5  R76-WAVE-MARKERS     the seven carried wave markers exist in the revision.
+# Item 6  R76-QUALITY-WORDING  the round-76 lesson carries the narrowed sentence (no admitted
+#         knowledge entry left failing its own re-check).
+# Item 7  R76-JD-CONFIG-DRIFT  `journal-boot-plane.md`, `degraded-triage-r4.md` and `boot-plane.md`
+#         each carry an appended block naming the size.conf drop-in, SystemMaxUse=256M and the token.
+# Item 8  R76-QUALITY-109      `corpus/QUALITY.md` carries criterion 109 naming round-76.md and a
+#         recheck command plus cadence for negative host-state claims.
+#
+# Block rule (frozen): an item's block is the token's own line plus the 80 lines that follow it in
+# the same file. A token placed further than 80 lines above its content is a stale finding, not a
+# pass. Every token block must also carry a supersede verb (supersede/superseded/supersedes/
+# superseding, erratum, correction, corrected, replaced), except item 5 (a file-presence item) and
+# item 8 (a criterion definition, not a correction).
+#
+# Exit map: 0 every item satisfied (`ROUTED_STALE=0 ROUTED_OK=8/8`); 1 one or more stale, with a
+# finding line per item and `reason=` one of `absent`, `token`, `need`, `verb`, `rows`, `count`,
+# `markers`; 3 self-test failed. An absent file is a stale finding (rc 1), never rc 2.
+
+

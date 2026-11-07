@@ -1,23 +1,26 @@
 #!/usr/bin/env python3
 """Bind the previous round's numeric self-descriptions to their machine authorities.
 
-Usage: python3 -I -B corpus/current-claims.py [--root DIR] [--verbose]
+Usage: python3 -I -B corpus/current-claims.py [--root DIR] [--round N] [--verbose]
        python3 -I -B corpus/current-claims.py --selftest
 
-The audited surface is the PREVIOUS round's landing statements — what a non-author
-closure spot-check reads. Round 57 audits round 56:
-  SCORECARD.md `## Round 56 — post-move`; LOG.md `## Round 56 (`;
-  corpus/lessons/round-56.md header + `## Claims`.
+The audited surface is one round's landing statements — what a non-author
+closure spot-check reads. --round N selects the round; without it N defaults to
+the previous completed round: the highest `## Round <n> (` heading in LOG.md,
+or, when LOG.md names none, the highest corpus/lessons/round-<n>.md.
+Round 58 audits round 57:
+  SCORECARD.md `## Round 57 — post-move`; LOG.md `## Round 57 (`;
+  corpus/lessons/round-57.md header + `## Claims`.
 
 Four statement classes, each with an authority read from the measured root:
   CASES   `N cases` on a line naming `recheck-replay` -> the instrument's own
           `--selftest` PASS count.
-  MATCH   `N MATCH` -> the named `.ufo/waves/round-56/controls/controls-prefreeze-epoch<L>.txt`
+  MATCH   `N MATCH` -> the named `.ufo/waves/round-<N>/controls/controls-prefreeze-epoch<L>.txt`
           receipt's `CONTROLS: match=N mismatch=0`; several numbers and several
           receipts pair by order; without a receipt path each number pairs with the
           nearest preceding `A`-`F` letter followed by a backticked revision.
   EPOCHS  `W freeze epochs` -> the distinct `epoch-[A-F]` tokens declared in
-          plans/round-56.md.
+          plans/round-<N>.md (the frozen round plan, not the control receipts).
   CLOCKS  `N clocks` and the two halves of `N/N MATCH` -> the data rows of
           corpus/recheck-captures.tsv.
 A statement of a class whose authority cannot be resolved is UNBOUND and counts.
@@ -26,8 +29,8 @@ value = mismatches + unbound; final line
   CURRENT_CLAIMS: value=V population=P mismatches=M unbound=U cases=C match=K
   epochs=E clocks=Z pop=R guard=G
 Exit 0 iff guard=1 (population >= 8) and V == 0; 1 otherwise; 2 SETUP.
---selftest builds isolated synthetic roots under TMPDIR and prints
-  CURRENT_CLAIMS_SELFTEST: PASS (N cases) / FAIL.
+--selftest builds isolated synthetic round-56 and round-57 roots under TMPDIR
+and prints CURRENT_CLAIMS_SELFTEST: PASS (N cases) / FAIL.
 
 Named ceilings: an authority file forged to agree with the statement passes; the
 class set is closed; a statement's subject is resolved by the line's own text.
@@ -67,6 +70,21 @@ def read(root: str, rel: str) -> str:
             return f.read()
     except OSError:
         return ""
+
+
+def latest_round(root: str) -> int | None:
+    """The previous completed round: the highest `## Round <n> (` heading in
+    LOG.md, falling back to the highest corpus/lessons/round-<n>.md."""
+    text = read(root, "LOG.md")
+    ns = [int(m.group(1)) for m in re.finditer(r"^## Round (\d+) \(", text, re.M)]
+    if not ns:
+        try:
+            names = os.listdir(os.path.join(root, "corpus", "lessons"))
+        except OSError:
+            names = []
+        ns = [int(m.group(1)) for m in
+              (re.fullmatch(r"round-(\d+)\.md", n) for n in names) if m]
+    return max(ns) if ns else None
 
 
 def section(text: str, start_re: str) -> str:
@@ -109,8 +127,8 @@ def selftest_cases(root: str) -> int | None:
     return None
 
 
-def receipt_match(root: str, letter: str) -> int | None:
-    p = os.path.join(root, ".ufo/waves/round-56/controls",
+def receipt_match(root: str, letter: str, rnd: int) -> int | None:
+    p = os.path.join(root, ".ufo", f"waves/round-{rnd}/controls",
                      f"controls-prefreeze-epoch{letter}.txt")
     if not os.path.isfile(p):
         return None
@@ -125,8 +143,8 @@ def receipt_match(root: str, letter: str) -> int | None:
     return None
 
 
-def epoch_declared(root: str) -> int | None:
-    text = read(root, os.path.join("plans", "round-56.md"))
+def epoch_declared(root: str, rnd: int) -> int | None:
+    text = read(root, os.path.join("plans", f"round-{rnd}.md"))
     if not text:
         return None
     return len(set(re.findall(r"epoch-([A-F])\b", text)))
@@ -144,22 +162,28 @@ def manifest_rows(root: str) -> int | None:
     return n
 
 
-def measure(root: str, verbose: bool) -> dict:
+def measure(root: str, verbose: bool, rnd: int | None = None) -> dict:
+    if rnd is None:
+        rnd = latest_round(root)
+    if rnd is None:
+        return {"value": "FAIL", "population": 0, "mismatches": 0, "unbound": 0,
+                "cases": 0, "match": 0, "epochs": 0, "clocks": 0, "pop": 0,
+                "guard": 0}
     sc = read(root, "SCORECARD.md")
     lg = read(root, "LOG.md")
-    ls = read(root, "corpus/lessons/round-56.md")
+    ls = read(root, f"corpus/lessons/round-{rnd}.md")
     if not sc or not lg or not ls:
         return {"value": "FAIL", "population": 0, "mismatches": 0, "unbound": 0,
                 "cases": 0, "match": 0, "epochs": 0, "clocks": 0, "pop": 0,
                 "guard": 0}
     surfaces = [
-        ("SCORECARD", section(sc, r"^## Round 56 [—-] post-move")),
-        ("LOG", section(lg, r"^## Round 56 \(")),
+        ("SCORECARD", section(sc, rf"^## Round {rnd} [—-] post-move")),
+        ("LOG", section(lg, rf"^## Round {rnd} \(")),
         ("LESSON", lesson_surface(ls)),
     ]
     cases_auth = selftest_cases(root)
-    match_auth = {L: receipt_match(root, L) for L in "ABCDEF"}
-    epochs_auth = epoch_declared(root)
+    match_auth = {L: receipt_match(root, L, rnd) for L in "ABCDEF"}
+    epochs_auth = epoch_declared(root, rnd)
     clocks_auth = manifest_rows(root)
     per = {"cases": 0, "match": 0, "epochs": 0, "clocks": 0, "pop": 0}
     population = 0
@@ -254,23 +278,33 @@ sys.exit(0)
 """
 
 
+# The same satisfied surface, shifted to round 57: the round parameter must
+# move the audited paths, not the statement binding.
+R57_SC = CLEAN_SC.replace("## Round 56 — post-move", "## Round 57 — post-move")
+R57_LOG = CLEAN_LOG.replace("## Round 56 (", "## Round 57 (")
+R57_LESSON = (CLEAN_LESSON
+              .replace("# Round 56 — gate", "# Round 57 — gate")
+              .replace("plans/round-56.md", "plans/round-57.md")
+              .replace("round-56/controls", "round-57/controls"))
+
+
 def mkroot(base: str, sc: str = CLEAN_SC, lg: str = CLEAN_LOG,
            ls: str = CLEAN_LESSON, gate: bool = True,
            receipts: dict[str, int] | None = None,
            epochs: str = "epoch-A epoch-B epoch-C epoch-D epoch-E epoch-F",
-           manifest_rows_n: int = 10) -> str:
+           manifest_rows_n: int = 10, rnd: int = 56) -> str:
     os.makedirs(os.path.join(base, "corpus", "lessons"), exist_ok=True)
     os.makedirs(os.path.join(base, "plans"), exist_ok=True)
     os.makedirs(os.path.join(base, "corpus"), exist_ok=True)
-    ctl = os.path.join(base, ".ufo", "waves", "round-56", "controls")
+    ctl = os.path.join(base, ".ufo", "waves", f"round-{rnd}", "controls")
     os.makedirs(ctl, exist_ok=True)
     with open(os.path.join(base, "SCORECARD.md"), "w") as f:
         f.write(sc)
     with open(os.path.join(base, "LOG.md"), "w") as f:
         f.write(lg)
-    with open(os.path.join(base, "corpus", "lessons", "round-56.md"), "w") as f:
+    with open(os.path.join(base, "corpus", "lessons", f"round-{rnd}.md"), "w") as f:
         f.write(ls)
-    with open(os.path.join(base, "plans", "round-56.md"), "w") as f:
+    with open(os.path.join(base, "plans", f"round-{rnd}.md"), "w") as f:
         f.write("# plan " + epochs + "\n")
     rr = receipts if receipts is not None else {"B": 16, "C": 20, "D": 21, "E": 22, "F": 23}
     for L, n in rr.items():
@@ -361,6 +395,36 @@ def run_selftest() -> int:
         d = mkroot(os.path.join(root, "verbose"))
         ok = measure(d, True)
         case("verbose-population", ok["population"] >= FLOOR)
+
+        d = mkroot(os.path.join(root, "r57"), rnd=57, sc=R57_SC, lg=R57_LOG,
+                   ls=R57_LESSON)
+        m = measure(d, False, 57)
+        case("round57-clean", m["value"] == 0 and m["guard"] == 1
+             and m["population"] >= FLOOR)
+        m = measure(d, False, 56)
+        case("round57-not-56", m["value"] == "FAIL" and m["guard"] == 0)
+
+        # a two-round tree whose round-56 surface carries a stale statement:
+        # the default audit must derive round 57 and stay clean, while an
+        # explicit --round 56 must read the stale statement
+        d = mkroot(os.path.join(root, "default"), rnd=57, sc=R57_SC, lg=R57_LOG,
+                   ls=R57_LESSON)
+        with open(os.path.join(d, "corpus", "lessons", "round-56.md"), "w") as f:
+            f.write("# Round 56 — gate\n\nFrozen plan: `plans/round-56.md`.\n"
+                    "\n## Claims\n\n- stale.\n")
+        with open(os.path.join(d, "SCORECARD.md"), "a") as f:
+            f.write("\n## Round 56 — post-move\n\n"
+                    "| freshness | stale `--selftest` 18 cases |\n")
+        case("default-round-derives-57", latest_round(d) == 57)
+        m = measure(d, False)
+        case("default-round-audits-57", m["value"] == 0 and m["guard"] == 1)
+        m = measure(d, False, 56)
+        case("round56-surface-reads-stale",
+             m["unbound"] == 1 and m["value"] == "FAIL" and m["guard"] == 0)
+
+        d = mkroot(os.path.join(root, "fallback"), rnd=57, sc=R57_SC,
+                   lg="# LG without round headings\n", ls=R57_LESSON)
+        case("latest-falls-back-to-lesson", latest_round(d) == 57)
     finally:
         shutil.rmtree(root, ignore_errors=True)
     if failures:
@@ -374,6 +438,8 @@ def run_selftest() -> int:
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--root", default=".")
+    ap.add_argument("--round", type=int, default=None, metavar="N",
+                    help="audited round (default: the previous completed round)")
     ap.add_argument("--verbose", action="store_true")
     ap.add_argument("--selftest", action="store_true")
     args = ap.parse_args()
@@ -382,7 +448,15 @@ def main() -> int:
     root = os.path.abspath(args.root)
     if not os.path.isdir(root):
         die(f"no-root {root}")
-    m = measure(root, args.verbose)
+    rnd = args.round
+    if rnd is not None and rnd < 1:
+        die(f"--round must be >= 1, got {rnd}")
+    if rnd is None:
+        rnd = latest_round(root)
+        if rnd is None:
+            die("cannot derive the previous completed round: no `## Round <n> (` "
+                "heading in LOG.md and no corpus/lessons/round-<n>.md; pass --round N")
+    m = measure(root, args.verbose, rnd)
     emit(m)
     return 0 if (m["guard"] == 1 and m["value"] == 0) else 1
 

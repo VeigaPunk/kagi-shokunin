@@ -21,7 +21,7 @@ Motivating evidence for the round:
   devices (r57); ACL path matching, capability precedence and deny semantics are
   documented only.
 
-## Claim C1 — calibration: the round-57 routed record defects are resolved and re-checkable
+## C1 — calibration: the round-57 routed record defects are resolved and re-checkable
 
 Target axis: calibration (mismatch count between the lane's own statements/pointers
 and the observed repository state).
@@ -73,7 +73,7 @@ the spot-check); an item's condition is a structural read, not a semantic proof 
 the fixed text is true; the checker trusts the files it reads (a forged authority
 that satisfies the condition passes).
 
-## Claim C2 — operability: an executed OpenBao ACL-policy semantics trial
+## C2 — operability: an executed OpenBao ACL-policy semantics trial
 
 Target axis: operability (a new executed capability, `SCORECARD.md` §Capabilities).
 
@@ -167,4 +167,71 @@ through `scripts/hyaku/jj-lane.sh`.
 
 ## Amendments
 
-(none)
+### A1 — 2026-11-07, before any candidate reading of C1
+
+I2's required condition is restated: a `controls-prefreeze-epochC*.txt` receipt under
+`.ufo/waves/round-57/controls/` whose five `INSTRUMENT` pins (`plans/round-57.md`,
+`plans/round-57-c1.sh`, `plans/round-57-c2.sh`, `plans/round-57-controls.sh`,
+`plans/round-57-c1-check.py`) equal those files' sha256 in the measured tree, and whose
+last `CONTROLS:` line reads `match=N mismatch=0` with N >= 13.
+
+Reason: the frozen `plans/round-57-controls.sh` declares 15 controls when run with a REF
+tree (the epoch-C receipt written at `8d8e0588` counted 13); the regenerated receipt
+`.ufo/waves/round-57/controls/controls-prefreeze-epochC-final.txt` reads
+`CONTROLS: match=15 mismatch=0` over the shipped bytes, so the literal-13 form would
+leave a correct fix unresolved. The five-pin equality is the substantive check and is
+strictly stronger than the count. Target, POP, guard, kill rules and every other item are
+unchanged.
+
+### A2 — 2026-11-07, before any candidate reading of C1
+
+I3's quote test compares after collapsing whitespace runs: a quote of at most 25 words
+counts as located when its text, with every run of whitespace normalized to one space,
+occurs in the capture body with the same normalization. Reason: the rendered capture
+wraps the S117 sentence across two lines; a raw substring test would reject a quote that
+is present verbatim in the page. No other change.
+
+### A3 — 2026-11-07, before any candidate reading of C1
+
+I4's condition is restated in two count classes, because round 58 adds S118/S119 to the
+registry and a round-57 delta statement must not claim rows that round 57 did not add. In
+both locations (the SCORECARD round-57 post-move coverage row and the round-57 lesson
+§Sources): (a) a *landing* count — a `Registry L → N` arrow — must state N = 117, the row
+count the round-57 landing put in the registry (S117 landed in `94d72de9`); (b) a *tip*
+count — a `tip count … = N` form or an `end … N rows` form — must equal the measured
+tree's live data-row count; (c) any count attributed to
+`.ufo/waves/round-57/final/gates.txt` must equal that file's `rows=` value and the line
+must say the capture predates S117; (d) each location carries at least one count
+statement. Reason: the plan's original single rule ("every statement equals the measured
+count") would force the round-57 delta statement to claim 119 rows, two of which round 58
+added; the landing count and the tip count are different facts. Target, POP, guard, kill
+rules and every other item are unchanged.
+
+### A4 — 2026-11-07, before the recorded candidate reading
+
+§C1's population-census sentence ("the checker run on the BASE tree must print
+`value=8 population=8`") is read through the frozen predicate's guard semantics: the
+BASE tree yields two lines — the diagnostic leg prints `value=8 population=8` (all eight
+items evaluated and unresolved), and the guard-bearing line prints `value=FAIL … guard=0`
+because the wrong-count challenge cannot fire on a tree where I4 is already unresolved in
+every class. "BASE 8" in the claim is the diagnostic count; the citable BASE line is
+`C1_ROUTED: value=FAIL population=8 i1=0 … i8=0 guard=0` with its diagnostic companion.
+No other change.
+
+### A5 — 2026-11-07, before the recorded candidate reading
+
+The pre-freeze control set is recorded as it runs (`plans/round-58-controls.sh`), with three
+corrections the first battery exposed and the reviewer's attack predicted:
+(a) C1-F4's expectation is `FAIL`, not `1`: breaking I4 removes the wrong-count challenge's own
+target class, so the guard cannot add +1 on that tree; the item is still shown killed by
+`i4=0`, and the checker's `--selftest` carries the value-1 shape for I4.
+(b) C2-F2 and C2-F4 are the load-bearing pair for the counter's conjunction: a counter copy with
+the shim/none/wrap conjuncts deleted reads 5 on the very trees the real counter refuses
+(`C2-F6` double-flip shim, `C2-F3` introspection leg removed).
+(c) §Pre-freeze controls' "C1 value=8" is the diagnostic-leg count; the citable BASE line is
+`value=FAIL … guard=0` per A4.
+The instrument hardening the reviewer's exploits required is part of the frozen bytes this
+receipt pins: symlinked measured files read as absent, the coverage row must be unique, the S117
+date must be the row's, the gate-registry row must sit in a gate-registry section and name the
+script in its command cell, a named epoch-C receipt must exist, and item6 carries a behavioural
+`--round` probe (a planted round-57-only disagreement must move `--round 57` and not `--round 56`).

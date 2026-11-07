@@ -1,0 +1,13 @@
+command: bash plans/round-58-c1.sh --tree $SCR/positive-fixture   (synthetic all-hold root rebuilt by the landed checker's own mkroot())
+date: 2026-11-07 12:28:01 -03
+
+c1-driver: tree=--tree /fast/scratch/hyaku/kagi-r58/R58ExecCounterC1/positive-fixture (copied 17 files) scratch=/fast/scratch/hyaku/kagi-r58/R58ExecCounterC1/run-20261107T122801Z-3243885
+c1-driver: leg1 rc=1 C1_ROUTED: value=0 population=8 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 i8=1 guard=0
+c1-driver: challenge broken-copy value=1 == value+1 (1)
+c1-driver: stub stub read value=0, challenge expects 1: stub fails
+C1_ROUTED: value=0 population=8 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 i8=1 guard=1
+rc=0
+
+Positive reference (plan §Pre-freeze: "a tree carrying the fixes reads 0"): the
+end-to-end exit-0 path — guard=1 AND value=0 — is demonstrated on an isolated
+synthetic root, independent of the lane's in-flight edits.

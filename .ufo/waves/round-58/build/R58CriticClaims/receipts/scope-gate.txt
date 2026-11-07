@@ -1,0 +1,41 @@
+R58CriticClaims — I8 / scope-gate measurements (read-only)
+Commands were run from a git-archive tree of BASE and from the lane dir; the archive path is
+/fast/scratch/hyaku/kagi-r58/R58CriticClaims/{base-tree,fix-tree,repoint-tree}.
+
+(1) BASE archive, `bash corpus/scope-gate.sh`:
+    SCOPE STALE-BASIS $HOME/.config/opencode basis=SCORECARD.md:54 lines=54-54 token=opencode
+    SCOPE NOT-A-FILE $HOME/.local/share/the-musketeer/chrome-profile basis=lane:kake/SKILL.md:161
+    SCOPE NOT-A-FILE $HOME/.agents/AGENTS.md basis=lane:kotoba/corpus/knowledge/alwayson-checklist-round7.md:30
+    ADJACENCY_SCOPE: DEFECT (census=35 owned=27 shared=8 groups=4 owners=4 unresolved=1 contested=1
+      escapes=0 inbound=0 foreign=0 orphans=0 stale_basis=3 ...)
+    The two lane NOT-A-FILE lines are artifacts of the copy's parent dir, not the lane.
+
+(2) Lane dir, `bash corpus/scope-gate.sh`:
+    SCOPE STALE-BASIS $HOME/.config/opencode basis=SCORECARD.md:54 lines=54-54 token=opencode
+    ADJACENCY_SCOPE: DEFECT (... stale_basis=1 ...)
+    (The lane's siblings resolve at /home/vgpnk/Projects/shokunin.)
+
+(3) False fix: append the literal token `opencode` to the unrelated SCORECARD.md:54
+    (a round-10 pre-move depth row that says nothing about the opencode surface):
+    without --lane-root: stale_basis=2 (the two lane NOT-A-FILE)
+    with `--lane-root /home/vgpnk/Projects/shokunin`: stale_basis=0.
+    => the item's condition is a token-string pass, not a pointer repair.
+
+(4) Legitimate fix: repoint corpus/adjacency.tsv line 81 from `SCORECARD.md:54` to
+    `SCORECARD.md:65` (line 65 is a coverage row that names `~/.config/opencode` and
+    "the opencode layer"):
+    with `--lane-root /home/vgpnk/Projects/shokunin`: stale_basis=0.
+    => a substantive one-line repair exists; the checker cannot tell it from (3).
+
+(5) Environment dependence: after any fix, a copied candidate tree reads stale_basis=2
+    without `--lane-root /home/vgpnk/Projects/shokunin`; it reads 0 only with the explicit
+    lane root. The C1 counter's `--tree DIR` / git-archive evaluation must pass the lane-root
+    (or run the live lane). The frozen I8 wording names only `bash corpus/scope-gate.sh` at
+    the measured tree.
+
+(6) Residual: with stale_basis=0 the gate still reads `ADJACENCY_SCOPE: DEFECT` because
+    breadth_drift=5. I8 only requires stale_basis=0; the plan does not claim a CLEAN gate.
+    D11's other half (CHECKLIST_RUN BROKEN failed=7) is not in I1..I8.
+
+(7) The scope-gate summary's `unresolved=1 contested=1` are exit-neutral declared classes;
+    they do not block I8.

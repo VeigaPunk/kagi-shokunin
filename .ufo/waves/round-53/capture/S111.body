@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xml:lang="en-US">
+  <id>tag:github.com,2008:https://github.com/FiloSottile/age/releases</id>
+  <link type="text/html" rel="alternate" href="https://github.com/FiloSottile/age/releases"/>
+  <link type="application/atom+xml" rel="self" href="https://github.com/FiloSottile/age/releases.atom"/>
+  <title>Release notes from age</title>
+  <updated>2026-08-29T17:40:19Z</updated>
+  <entry>
+    <id>tag:github.com,2008:Repository/187403699/v1.3.2</id>
+    <updated>2026-08-29T18:12:38Z</updated>
+    <link rel="alternate" type="text/html" href="https://github.com/FiloSottile/age/releases/tag/v1.3.2"/>
+    <title>age v1.3.2</title>
+    <content type="html">&lt;p&gt;age v1.3.2 is a minor release with a wide range of fixes and hardening improvements.&lt;/p&gt;
+&lt;p&gt;Some previously-accepted inputs are now rejected: headers over 2 MiB or 1024 recipients, malformed SSH keys in recipients files, and non-UTF-8 plaintext written to a terminal (force with &lt;code&gt;-o -&lt;/code&gt;).&lt;/p&gt;
+&lt;p&gt;Pre-built binaries now cover windows/arm64 and darwin/amd64, and release archives include the compatibility plugins (age-plugin-pq, age-plugin-tag, and age-plugin-tagpq).&lt;/p&gt;</content>
+    <author>
+      <name>FiloSottile</name>
+    </author>
+    <media:thumbnail height="30" width="30" url="https://avatars.githubusercontent.com/u/1225294?s=60&amp;v=4"/>
+  </entry>
+  <entry>
+    <id>tag:github.com,2008:Repository/187403699/v1.3.1</id>
+    <updated>2026-08-29T17:55:50Z</updated>
+    <link rel="alternate" type="text/html" href="https://github.com/FiloSottile/age/releases/tag/v1.3.1"/>
+    <title>age v1.3.1</title>
+    <content type="html">&lt;p&gt;v1.3.1 is a minor release to restore version injection from downstream package build processes.&lt;/p&gt;
+&lt;p&gt;See &lt;a href=&quot;https://github.com/FiloSottile/age/releases/tag/v1.3.0&quot;&gt;the v1.3.0 release notes&lt;/a&gt; for an overview of recent additions.&lt;/p&gt;</content>
+    <author>
+      <name>FiloSottile</name>
+    </author>
+    <media:thumbnail height="30" width="30" url="https://avatars.githubusercontent.com/u/1225294?s=60&amp;v=4"/>
+  </entry>
+  <entry>
+    <id>tag:github.com,2008:Repository/187403699/v1.3.0</id>
+    <updated>2026-02-02T16:30:34Z</updated>
+    <link rel="alternate" type="text/html" href="https://github.com/FiloSottile/age/releases/tag/v1.3.0"/>
+    <title>age v1.3.0: post-quantum (and more)!</title>
+    <content type="html">&lt;p align=&quot;center&quot;&gt;&lt;a target=&quot;_blank&quot; rel=&quot;noopener noreferrer nofollow&quot; href=&quot;https://user-images.githubusercontent.com/1225294/132245842-fda4da6a-1cea-4738-a3da-2dc860861c98.png&quot;&gt;&lt;img alt=&quot;The age logo, a wireframe of St. Peters dome in Rome, with the text: age, file encryption&quot; width=&quot;600&quot; src=&quot;https://user-images.githubusercontent.com/1225294/132245842-fda4da6a-1cea-4738-a3da-2dc860861c98.png&quot; style=&quot;max-width: 100%;&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Exactly six years after &lt;a href=&quot;https://github.com/FiloSottile/age/releases/tag/v1.0.0-beta1&quot;&gt;the first age beta release&lt;/a&gt;, v1.3.0 brings post-quantum resistance to age, along with a couple long-requested features, built-in support for recipients compatible with hardware plugins, I/O API improvements, and many usability enhancements.&lt;/p&gt;
+&lt;h3&gt;Post-quantum recipients&lt;/h3&gt;
+&lt;p&gt;age now has native post-quantum recipients based on HPKE with a hybrid ML-KEM-768 KEM. The recipients start with &lt;code&gt;age1pq1...&lt;/code&gt;, and the identities start with &lt;code&gt;AGE-SECRET-KEY-PQ-1...&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;To generate a post-quantum keypair:&lt;/p&gt;
+&lt;div class=&quot;snippet-clipboard-content notranslate position-relative overflow-auto&quot; data-snippet-clipboard-copy-content=&quot;$ age-keygen -pq&quot;&gt;&lt;pre class=&quot;notranslate&quot;&gt;&lt;code&gt;$ age-keygen -pq
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;If you have your own age implementation, C2SP has &lt;a href=&quot;http://c2sp.org/age#the-mlkem768-x25519-ie-x-wing-hybrid-post-quantum-recipient-type&quot; rel=&quot;nofollow&quot;&gt;the specification&lt;/a&gt;, and CCTV has &lt;a href=&quot;https://github.com/C2SP/CCTV/tree/main/age&quot;&gt;test vectors&lt;/a&gt; for the new hybrid recipient types.&lt;/p&gt;
+&lt;p&gt;(If you are using an older age client, &lt;a href=&quot;https://github.com/FiloSottile/age/tree/main/extra/age-plugin-pq&quot;&gt;an optional plugin&lt;/a&gt; is available that provides out-of-the-box support for encryption to hybrid recipients. Hybrid identities can be converted to work with the plugin with &lt;code&gt;age-plugin-pq -identity&lt;/code&gt;.)&lt;/p&gt;
+&lt;h3&gt;New I/O APIs&lt;/h3&gt;
+&lt;p&gt;The new &lt;a href=&quot;https://filippo.io/age#DecryptReaderAt&quot; rel=&quot;nofollow&quot;&gt;DecryptReaderAt&lt;/a&gt; API implements seeking decryption, which can be used with &lt;a href=&quot;https://pkg.go.dev/archive/zip#NewReader&quot; rel=&quot;nofollow&quot;&gt;zip.NewReader&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The new &lt;a href=&quot;https://filippo.io/age#EncryptReader&quot; rel=&quot;nofollow&quot;&gt;EncryptReader&lt;/a&gt; API implements pull-based encryption by wrapping an io.Reader, as opposed to wrapping an io.Writer like &lt;a href=&quot;https://filippo.io/age#Encrypt&quot; rel=&quot;nofollow&quot;&gt;Encrypt&lt;/a&gt;.&lt;/p&gt;
+&lt;h3&gt;age-inspect&lt;/h3&gt;
+&lt;p&gt;The new &lt;a href=&quot;https://htmlpreview.github.io/?https://github.com/FiloSottile/age/blob/main/doc/age-inspect.1.html&quot; rel=&quot;nofollow&quot;&gt;age-inspect(1) tool&lt;/a&gt; presents the metadata of an age file without decrypting it.&lt;/p&gt;
+&lt;div class=&quot;snippet-clipboard-content notranslate position-relative overflow-auto&quot; data-snippet-clipboard-copy-content=&quot;hello.age is an age file, version &amp;quot;age-encryption.org/v1&amp;quot;.
+
+This file is ASCII-armored.
+
+This file is encrypted to the following recipient types:
+  - &amp;quot;mlkem768x25519&amp;quot;
+
+This file uses post-quantum encryption.
+
+Size breakdown (assuming it decrypts successfully):
+
+    Header                      1627 bytes
+    Armor overhead              1350 bytes
+    Encryption overhead           32 bytes
+    Payload                     1959 bytes
+                        -------------------
+    Total                       4968 bytes
+
+Tip: for machine-readable output, use --json.&quot;&gt;&lt;pre class=&quot;notranslate&quot;&gt;&lt;code&gt;hello.age is an age file, version &quot;age-encryption.org/v1&quot;.
+
+This file is ASCII-armored.
+
+This file is encrypted to the following recipient types:
+  - &quot;mlkem768x25519&quot;
+
+This file uses post-quantum encryption.
+
+Size breakdown (assuming it decrypts successfully):
+
+    Header                      1627 bytes
+    Armor overhead              1350 bytes
+    Encryption overhead           32 bytes
+    Payload                     1959 bytes
+                        -------------------
+    Total                       4968 bytes
+
+Tip: for machine-readable output, use --json.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;Built-in recipients compatible with hardware plugins&lt;/h3&gt;
+&lt;p&gt;age(1) now supports encrypting to &lt;code&gt;age1tag1...&lt;/code&gt; and &lt;code&gt;age1tagpq1...&lt;/code&gt; recipients, which are compatible with hardware plugins. The latest or upcoming versions of age-plugin-yubikey, age-plugin-tpm, and age-plugin-se will support producing these recipients for existing and new keys, and decrypting files encrypted to them.&lt;/p&gt;
+&lt;p&gt;The &lt;a href=&quot;https://filippo.io/age/tag&quot; rel=&quot;nofollow&quot;&gt;filippo.io/age/tag&lt;/a&gt; package provides an implementation, including a &lt;a href=&quot;https://filippo.io/age/tag#Recipient.Tag&quot; rel=&quot;nofollow&quot;&gt;Recipient.Tag&lt;/a&gt; method useful to plugin implementations.&lt;/p&gt;
+&lt;p&gt;C2SP has &lt;a href=&quot;https://c2sp.org/age#the-tagged-recipient-types&quot; rel=&quot;nofollow&quot;&gt;the specification&lt;/a&gt; for these recipient types.&lt;/p&gt;
+&lt;p&gt;(For users that are using older age clients, there are &lt;a href=&quot;https://github.com/FiloSottile/age/tree/main/extra&quot;&gt;compatiblity plugins&lt;/a&gt; that can be shipped along with the hardware plugins.)&lt;/p&gt;
+&lt;h3&gt;Non-interactive passphrase input&lt;/h3&gt;
+&lt;p&gt;We have long resisted implementing non-interactive CLI passphrase input, because most use cases are more securely and/or efficiently served by native keys or passphrase-encrypted identities. However, there are some residual use cases.&lt;/p&gt;
+&lt;p&gt;This is now available through the &lt;a href=&quot;https://htmlpreview.github.io/?https://github.com/FiloSottile/age/blob/main/doc/age-plugin-batchpass.1.html&quot; rel=&quot;nofollow&quot;&gt;batchpass plugin&lt;/a&gt;, but we invite everyone to read the warning in the man page and help text.&lt;/p&gt;
+&lt;h3&gt;Go framework for implementing plugins&lt;/h3&gt;
+&lt;p&gt;The &lt;a href=&quot;https://filippo.io/age/plugin&quot; rel=&quot;nofollow&quot;&gt;filippo.io/age/plugin&lt;/a&gt; package now provides a framework for exposing &lt;a href=&quot;https://filippo.io/age#Recipient&quot; rel=&quot;nofollow&quot;&gt;age.Recipient&lt;/a&gt; and &lt;a href=&quot;https://filippo.io/age#Identity&quot; rel=&quot;nofollow&quot;&gt;age.Identity&lt;/a&gt; implementations as standalone CLI plugins.&lt;/p&gt;
+&lt;p&gt;For example, this is the entire age-plugin-tagpq compatibility implementation:&lt;/p&gt;
+&lt;div class=&quot;highlight highlight-source-go notranslate position-relative overflow-auto&quot; data-snippet-clipboard-copy-content=&quot;package main
+
+import (
+	&amp;quot;log&amp;quot;
+	&amp;quot;os&amp;quot;
+
+	&amp;quot;filippo.io/age&amp;quot;
+	&amp;quot;filippo.io/age/plugin&amp;quot;
+	&amp;quot;filippo.io/age/tag&amp;quot;
+)
+
+func main() {
+	p, err := plugin.New(&amp;quot;tagpq&amp;quot;)
+	if err != nil {
+		log.Fatal(err)
+	}
+	p.HandleRecipient(func(b []byte) (age.Recipient, error) {
+		return tag.NewHybridRecipient(b)
+	})
+	os.Exit(p.Main())
+}&quot;&gt;&lt;pre&gt;&lt;span class=&quot;pl-k&quot;&gt;package&lt;/span&gt; main
+
+&lt;span class=&quot;pl-k&quot;&gt;import&lt;/span&gt; (
+	&lt;span class=&quot;pl-s&quot;&gt;&quot;log&quot;&lt;/span&gt;
+	&lt;span class=&quot;pl-s&quot;&gt;&quot;os&quot;&lt;/span&gt;
+
+	&lt;span class=&quot;pl-s&quot;&gt;&quot;filippo.io/age&quot;&lt;/span&gt;
+	&lt;span class=&quot;pl-s&quot;&gt;&quot;filippo.io/age/plugin&quot;&lt;/span&gt;
+	&lt;span class=&quot;pl-s&quot;&gt;&quot;filippo.io/age/tag&quot;&lt;/span&gt;
+)
+
+&lt;span class=&quot;pl-k&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;pl-s1&quot;&gt;main&lt;/span&gt;() {
+	&lt;span class=&quot;pl-s1&quot;&gt;p&lt;/span&gt;, &lt;span class=&quot;pl-s1&quot;&gt;err&lt;/span&gt; &lt;span class=&quot;pl-c1&quot;&gt;:=&lt;/span&gt; &lt;span class=&quot;pl-s1&quot;&gt;plugin&lt;/span&gt;.&lt;span class=&quot;pl-c1&quot;&gt;New&lt;/span&gt;(&lt;span class=&quot;pl-s&quot;&gt;&quot;tagpq&quot;&lt;/span&gt;)
+	&lt;span class=&quot;pl-k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;pl-s1&quot;&gt;err&lt;/span&gt; &lt;span class=&quot;pl-c1&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;pl-c1&quot;&gt;nil&lt;/span&gt; {
+		&lt;span class=&quot;pl-s1&quot;&gt;log&lt;/span&gt;.&lt;span class=&quot;pl-c1&quot;&gt;Fatal&lt;/span&gt;(&lt;span class=&quot;pl-s1&quot;&gt;err&lt;/span&gt;)
+	}
+	&lt;span class=&quot;pl-s1&quot;&gt;p&lt;/span&gt;.&lt;span class=&quot;pl-c1&quot;&gt;HandleRecipient&lt;/span&gt;(&lt;span class=&quot;pl-k&quot;&gt;func&lt;/span&gt;(&lt;span class=&quot;pl-s1&quot;&gt;b&lt;/span&gt; []&lt;span class=&quot;pl-smi&quot;&gt;byte&lt;/span&gt;) (age.&lt;span class=&quot;pl-smi&quot;&gt;Recipient&lt;/span&gt;, &lt;span class=&quot;pl-smi&quot;&gt;error&lt;/span&gt;) {
+		&lt;span class=&quot;pl-k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;pl-s1&quot;&gt;tag&lt;/span&gt;.&lt;span class=&quot;pl-c1&quot;&gt;NewHybridRecipient&lt;/span&gt;(&lt;span class=&quot;pl-s1&quot;&gt;b&lt;/span&gt;)
+	})
+	&lt;span class=&quot;pl-s1&quot;&gt;os&lt;/span&gt;.&lt;span class=&quot;pl-c1&quot;&gt;Exit&lt;/span&gt;(&lt;span class=&quot;pl-s1&quot;&gt;p&lt;/span&gt;.&lt;span class=&quot;pl-c1&quot;&gt;Main&lt;/span&gt;())
+}&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Moreover, the new &lt;a href=&quot;https://filippo.io/age/plugin#NewTerminalUI&quot; rel=&quot;nofollow&quot;&gt;plugin.NewTerminalUI&lt;/a&gt; function provides a ready-to-use terminal-based &lt;a href=&quot;https://filippo.io/age#ClientUI&quot; rel=&quot;nofollow&quot;&gt;ClientUI&lt;/a&gt; implementation for the existing plugin client API.&lt;/p&gt;
+&lt;h3&gt;Armor fixes&lt;/h3&gt;
+&lt;p&gt;The CLI now allows some leading whitespace before the armor header, as the API always did. The API and CLI now reject empty lines in armored data, as required by the spec.&lt;/p&gt;
+&lt;h3&gt;Detached headers&lt;/h3&gt;
+&lt;p&gt;The new set of APIs &lt;a href=&quot;https://filippo.io/age#ExtractHeader&quot; rel=&quot;nofollow&quot;&gt;ExtractHeader&lt;/a&gt;, &lt;a href=&quot;https://filippo.io/age#DecryptHeader&quot; rel=&quot;nofollow&quot;&gt;DecryptHeader&lt;/a&gt;, and &lt;a href=&quot;https://filippo.io/age#NewInjectedFileKeyIdentity&quot; rel=&quot;nofollow&quot;&gt;NewInjectedFileKeyIdentity&lt;/a&gt; allow working with detached age headers, where the file key is unwrapped separately from the actual file decryption. This can be useful for efficiency or to delegate unwrapping without exposing the file contents.&lt;/p&gt;
+&lt;h3&gt;Usability improvements&lt;/h3&gt;
+&lt;p&gt;The CLI will now refuse to output decrypted binary data to the terminal. (We did this before attending the &lt;a href=&quot;https://gpg.fail/&quot; rel=&quot;nofollow&quot;&gt;gpg.fail&lt;/a&gt; talk!)&lt;/p&gt;
+&lt;p&gt;Native identities are now tried first when decrypting through both the CLI and the API, since they can&#39;t require interaction. Order is otherwise preserved.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://filippo.io/age#NoIdentityMatchError&quot; rel=&quot;nofollow&quot;&gt;NoIdentityMatchError&lt;/a&gt; now exposes the stanza types of the header, unwraps to the errors returned by the &lt;a href=&quot;https://filippo.io/age#Identity.Unwrap&quot; rel=&quot;nofollow&quot;&gt;Identity.Unwrap&lt;/a&gt; method calls, and prints the underlying error if only one identity was provided.&lt;/p&gt;
+&lt;p&gt;Virtual terminal processing is now enabled on Windows terminals that don&#39;t enable it by default, so that ANSI escape sequences work as expected.&lt;/p&gt;
+&lt;p&gt;Many improved and more proactively helpful error messages.&lt;/p&gt;
+&lt;p&gt;The release artifacts now include a source tarball with vendored dependencies.&lt;/p&gt;</content>
+    <author>
+      <name>FiloSottile</name>
+    </author>
+    <media:thumbnail height="30" width="30" url="https://avatars.githubusercontent.com/u/1225294?s=60&amp;v=4"/>
+  </entry>
+  <entry>
+    <id>tag:github.com,2008:Repository/187403699/v1.2.1</id>
+    <updated>2025-12-31T15:10:08Z</updated>
+    <link rel="alternate" type="text/html" href="https://github.com/FiloSottile/age/releases/tag/v1.2.1"/>
+    <title>age v1.2.1: security fix</title>
+    <content type="html">&lt;p&gt;This release fixes a security vulnerability that could allow an attacker to execute an arbitrary binary under certain conditions.&lt;/p&gt;
+&lt;p&gt;See &lt;a title=&quot;GHSA-32gq-x56h-299c&quot; data-hovercard-type=&quot;advisory&quot; data-hovercard-url=&quot;/advisories/GHSA-32gq-x56h-299c/hovercard&quot; href=&quot;https://github.com/advisories/GHSA-32gq-x56h-299c&quot;&gt;GHSA-32gq-x56h-299c&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Plugin names may now only contain alphanumeric characters or the four special characters &lt;code&gt;+-._&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Thanks to ⬡-49016 for reporting this issue.&lt;/p&gt;</content>
+    <author>
+      <name>FiloSottile</name>
+    </author>
+    <media:thumbnail height="30" width="30" url="https://avatars.githubusercontent.com/u/1225294?s=60&amp;v=4"/>
+  </entry>
+  <entry>
+    <id>tag:github.com,2008:Repository/187403699/v1.2.0</id>
+    <updated>2025-12-31T15:12:29Z</updated>
+    <link rel="alternate" type="text/html" href="https://github.com/FiloSottile/age/releases/tag/v1.2.0"/>
+    <title>age v1.2.0</title>
+    <content type="html">&lt;p&gt;A small release to build the release binaries with a more recent Go toolchain, and to fix a couple CLI edge cases (&lt;a class=&quot;issue-link js-issue-link&quot; data-error-text=&quot;Failed to load title&quot; data-id=&quot;1559829262&quot; data-permission-text=&quot;Title is private&quot; data-url=&quot;https://github.com/FiloSottile/age/issues/491&quot; data-hovercard-type=&quot;issue&quot; data-hovercard-url=&quot;/FiloSottile/age/issues/491/hovercard&quot; href=&quot;https://github.com/FiloSottile/age/issues/491&quot;&gt;#491&lt;/a&gt;, &lt;a class=&quot;issue-link js-issue-link&quot; data-error-text=&quot;Failed to load title&quot; data-id=&quot;2207537676&quot; data-permission-text=&quot;Title is private&quot; data-url=&quot;https://github.com/FiloSottile/age/issues/555&quot; data-hovercard-type=&quot;issue&quot; data-hovercard-url=&quot;/FiloSottile/age/issues/555/hovercard&quot; href=&quot;https://github.com/FiloSottile/age/issues/555&quot;&gt;#555&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;The Go module now exposes a plugin package that provides an age plugin client. That is, Recipient and Identity implementations that invoke a plugin binary, allowing the use of age plugins in Go programs.&lt;/p&gt;
+&lt;p&gt;Finally, Recipients can now return a set of &quot;labels&quot; by implementing RecipientWithLabels. This allows replicating the special behavior of the scrypt Recipient in third-party Recipients, or applying policy useful for authenticated or post-quantum Recipients.&lt;/p&gt;
+&lt;div class=&quot;snippet-clipboard-content notranslate position-relative overflow-auto&quot; data-snippet-clipboard-copy-content=&quot;// RecipientWithLabels can be optionally implemented by a Recipient, in which
+// case Encrypt will use WrapWithLabels instead of Wrap.
+//
+// Encrypt will succeed only if the labels returned by all the recipients
+// (assuming the empty set for those that don&#39;t implement RecipientWithLabels)
+// are the same.
+//
+// This can be used to ensure a recipient is only used with other recipients
+// with equivalent properties (for example by setting a &amp;quot;postquantum&amp;quot; label) or
+// to ensure a recipient is always used alone (by returning a random label, for
+// example to preserve its authentication properties).
+type RecipientWithLabels interface {
+	WrapWithLabels(fileKey []byte) (s []*Stanza, labels []string, err error)
+}&quot;&gt;&lt;pre class=&quot;notranslate&quot;&gt;&lt;code&gt;// RecipientWithLabels can be optionally implemented by a Recipient, in which
+// case Encrypt will use WrapWithLabels instead of Wrap.
+//
+// Encrypt will succeed only if the labels returned by all the recipients
+// (assuming the empty set for those that don&#39;t implement RecipientWithLabels)
+// are the same.
+//
+// This can be used to ensure a recipient is only used with other recipients
+// with equivalent properties (for example by setting a &quot;postquantum&quot; label) or
+// to ensure a recipient is always used alone (by returning a random label, for
+// example to preserve its authentication properties).
+type RecipientWithLabels interface {
+	WrapWithLabels(fileKey []byte) (s []*Stanza, labels []string, err error)
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
+    <author>
+      <name>FiloSottile</name>
+    </author>
+    <media:thumbnail height="30" width="30" url="https://avatars.githubusercontent.com/u/1225294?s=60&amp;v=4"/>
+  </entry>
+  <entry>
+    <id>tag:github.com,2008:Repository/187403699/v1.1.1</id>
+    <updated>2022-12-26T20:40:35Z</updated>
+    <link rel="alternate" type="text/html" href="https://github.com/FiloSottile/age/releases/tag/v1.1.1"/>
+    <title>age v1.1.1</title>
+    <content type="html">&lt;p&gt;age v1.1.1 is a patch release to fix &lt;code&gt;go install filippo.io/age/...@latest&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;See &lt;a href=&quot;https://github.com/FiloSottile/age/releases/tag/v1.1.0&quot;&gt;the release notes for v1.1.0 for changes since v1.0.0&lt;/a&gt;.&lt;/p&gt;</content>
+    <author>
+      <name>FiloSottile</name>
+    </author>
+    <media:thumbnail height="30" width="30" url="https://avatars.githubusercontent.com/u/1225294?s=60&amp;v=4"/>
+  </entry>
+  <entry>
+    <id>tag:github.com,2008:Repository/187403699/v1.1.0</id>
+    <updated>2022-12-26T15:02:27Z</updated>
+    <link rel="alternate" type="text/html" href="https://github.com/FiloSottile/age/releases/tag/v1.1.0"/>
+    <title>age v1.1.0: plugin and YubiKeys support</title>
+    <content type="html">&lt;p align=&quot;center&quot;&gt;&lt;a target=&quot;_blank&quot; rel=&quot;noopener noreferrer nofollow&quot; href=&quot;https://user-images.githubusercontent.com/1225294/132245842-fda4da6a-1cea-4738-a3da-2dc860861c98.png&quot;&gt;&lt;img alt=&quot;The age logo, a wireframe of St. Peters dome in Rome, with the text: age, file encryption&quot; width=&quot;600&quot; src=&quot;https://user-images.githubusercontent.com/1225294/132245842-fda4da6a-1cea-4738-a3da-2dc860861c98.png&quot; style=&quot;max-width: 100%;&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;age is a simple, modern and secure file encryption tool, format, and Go library. It features small explicit keys, no config options, and UNIX-style composability. Learn more by reading the &lt;a href=&quot;https://github.com/FiloSottile/age/blob/main/README.md&quot;&gt;README&lt;/a&gt;, the &lt;a href=&quot;https://filippo.io/age/age.1&quot; rel=&quot;nofollow&quot;&gt;age(1) man page&lt;/a&gt;, the &lt;a href=&quot;https://pkg.go.dev/filippo.io/age&quot; rel=&quot;nofollow&quot;&gt;Go API reference&lt;/a&gt;, the &lt;a href=&quot;https://age-encryption.org/v1&quot; rel=&quot;nofollow&quot;&gt;format specification&lt;/a&gt;, or the &lt;a href=&quot;https://github.com/FiloSottile/age/compare/v1.0.0...v1.1.0&quot;&gt;full release changelog&lt;/a&gt;. Watch the repository or &lt;a href=&quot;https://abyssdomain.expert/@filippo&quot; rel=&quot;nofollow&quot;&gt;follow @filippo@abyssdomain.expert&lt;/a&gt; to be notified of new releases.&lt;/p&gt;
+&lt;p&gt;🛠️ FYI, age now has an extensive &lt;a href=&quot;https://c2sp.org/CCTV/age&quot; rel=&quot;nofollow&quot;&gt;test suite&lt;/a&gt; which all age implementations are encouraged to adopt.&lt;/p&gt;
+&lt;h2&gt;Plugin support&lt;/h2&gt;
+&lt;p&gt;The age CLI now supports plugins, such as &lt;a href=&quot;https://github.com/str4d/age-plugin-yubikey&quot;&gt;age-plugin-yubikey&lt;/a&gt; by &lt;a class=&quot;user-mention notranslate&quot; data-hovercard-type=&quot;user&quot; data-hovercard-url=&quot;/users/str4d/hovercard&quot; data-octo-click=&quot;hovercard-link-click&quot; data-octo-dimensions=&quot;link_type:self&quot; href=&quot;https://github.com/str4d&quot;&gt;@str4d&lt;/a&gt;. To try it on macOS with Homebrew:&lt;/p&gt;
+&lt;div class=&quot;snippet-clipboard-content notranslate position-relative overflow-auto&quot; data-snippet-clipboard-copy-content=&quot;$ brew upgrade age
+$ brew install age-plugin-yubikey
+$ age-plugin-yubikey # interactive setup
+$ age -r age1yubikey1qwt50d05nh5vutpdzmlg5wn80xq5negm4uj9ghv0snvdd3yysf5yw3rhl3t
+$ age -d -i age-yubikey-identity-388178f3.txt&quot;&gt;&lt;pre class=&quot;notranslate&quot;&gt;&lt;code&gt;$ brew upgrade age
+$ brew install age-plugin-yubikey
+$ age-plugin-yubikey # interactive setup
+$ age -r age1yubikey1qwt50d05nh5vutpdzmlg5wn80xq5negm4uj9ghv0snvdd3yysf5yw3rhl3t
+$ age -d -i age-yubikey-identity-388178f3.txt
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Plugins must be loaded explicitly by using their respective recipient or identity, and are not tied to a specific header stanza type. This means plugins can be used not only to support new recipient types such as PIV tokens (i.e. YubiKeys) or cloud KMS solutions, but also to produce passphrase-encrypted files that can be decrypted without plugins, to store age native private keys on secure elements, or even for agent functionality or to proxy decryption operations to remote machines.&lt;/p&gt;
+&lt;p&gt;Plugins operate over a simple textual stdin/stdout protocol (&lt;a class=&quot;issue-link js-issue-link&quot; data-error-text=&quot;Failed to load title&quot; data-id=&quot;1207318610&quot; data-permission-text=&quot;Title is private&quot; data-url=&quot;https://github.com/C2SP/C2SP/issues/5&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/C2SP/C2SP/pull/5/hovercard&quot; href=&quot;https://github.com/C2SP/C2SP/pull/5&quot;&gt;C2SP/C2SP#5&lt;/a&gt;). Developers are encouraged to &lt;a href=&quot;https://github.com/FiloSottile/age/discussions&quot;&gt;reach out&lt;/a&gt; with plugin ideas and announcements. Read more in &lt;a href=&quot;https://htmlpreview.github.io/?https://github.com/FiloSottile/age/blob/main/doc/age.1.html#Plugins&quot; rel=&quot;nofollow&quot;&gt;the relevant man page section&lt;/a&gt;.&lt;/p&gt;
+&lt;h2&gt;Breaking changes&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;If &lt;code&gt;-i&lt;/code&gt; is used, passphrase-encrypted files are now rejected.&lt;/strong&gt; Previously, a passphrase-encrypted file was auto-detected and the identity file was ignored. This could lead to unexpected behavior, such as a script blocking for user interaction, based on potentially untrusted input files. Now, &lt;code&gt;age -d&lt;/code&gt; must be invoked without &lt;code&gt;-i&lt;/code&gt; arguments to decrypt passphrase-encrypted files. A helpful error is printed otherwise. This should not break any automated system as passphrase decryption was always interactive.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Empty final chunks are now rejected.&lt;/strong&gt; If a payload was a multiple of 64KiB long, there were two valid encryptions for it: with a &quot;full&quot; last chunk encrypting 64KiB, or with an additional &quot;empty&quot; chunk encrypting 0 bytes. age, rage, and all other known implementations only ever produced the former. (Note that &lt;a href=&quot;https://htmlpreview.github.io/?https://github.com/FiloSottile/age/blob/main/doc/age.1.html#BACKWARDS-COMPATIBILITY&quot; rel=&quot;nofollow&quot;&gt;age will forever decrypt files it generated&lt;/a&gt;.) The latter is now rejected. The specification has been updated (&lt;a class=&quot;issue-link js-issue-link&quot; data-error-text=&quot;Failed to load title&quot; data-id=&quot;1249675194&quot; data-permission-text=&quot;Title is private&quot; data-url=&quot;https://github.com/C2SP/C2SP/issues/13&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/C2SP/C2SP/pull/13/hovercard&quot; href=&quot;https://github.com/C2SP/C2SP/pull/13&quot;&gt;C2SP/C2SP#13&lt;/a&gt;) and test cases are included in the test suite.&lt;/p&gt;
+&lt;h2&gt;Minor changes&lt;/h2&gt;
+&lt;p&gt;PKCS#8-encoded Ed25519 private keys (such as 1Password exports) are now supported as SSH identities.&lt;/p&gt;
+&lt;p&gt;If an armored file is pasted into the terminal, age will now attempt to wait until the end of the file before prompting for a password.&lt;/p&gt;
+&lt;p&gt;Some invalid files are now correctly rejected, in particular encrypted files with trailing data. (Yay for the test suite!)&lt;/p&gt;
+&lt;p&gt;If &lt;code&gt;/dev/tty&lt;/code&gt; is present but can&#39;t be opened, age will now fallback to trying to treat stdin as a terminal as if &lt;code&gt;/dev/tty&lt;/code&gt; wasn&#39;t present. (Thanks &lt;a class=&quot;user-mention notranslate&quot; data-hovercard-type=&quot;user&quot; data-hovercard-url=&quot;/users/brandsimon/hovercard&quot; data-octo-click=&quot;hovercard-link-click&quot; data-octo-dimensions=&quot;link_type:self&quot; href=&quot;https://github.com/brandsimon&quot;&gt;@brandsimon&lt;/a&gt;!)&lt;/p&gt;
+&lt;p&gt;Input prompts now go to the terminal, even if standard error is redirected.&lt;/p&gt;
+&lt;p&gt;Values of the new &lt;code&gt;armor.Error&lt;/code&gt; type are now returned wrapped in decryption errors when appropriate.&lt;/p&gt;
+&lt;p&gt;Windows binary releases are now signed. (Thanks &lt;a class=&quot;user-mention notranslate&quot; data-hovercard-type=&quot;user&quot; data-hovercard-url=&quot;/users/technion/hovercard&quot; data-octo-click=&quot;hovercard-link-click&quot; data-octo-dimensions=&quot;link_type:self&quot; href=&quot;https://github.com/technion&quot;&gt;@technion&lt;/a&gt;!)&lt;/p&gt;
+&lt;p&gt;Documentation and error messages were improved.&lt;/p&gt;</content>
+    <author>
+      <name>FiloSottile</name>
+    </author>
+    <media:thumbnail height="30" width="30" url="https://avatars.githubusercontent.com/u/1225294?s=60&amp;v=4"/>
+  </entry>
+  <entry>
+    <id>tag:github.com,2008:Repository/187403699/v1.1.0-rc.1</id>
+    <updated>2022-06-11T16:44:04Z</updated>
+    <link rel="alternate" type="text/html" href="https://github.com/FiloSottile/age/releases/tag/v1.1.0-rc.1"/>
+    <title>age v1.1.0-rc.1: plugin and YubiKeys support</title>
+    <content type="html">&lt;p align=&quot;center&quot;&gt;&lt;a target=&quot;_blank&quot; rel=&quot;noopener noreferrer nofollow&quot; href=&quot;https://user-images.githubusercontent.com/1225294/132245842-fda4da6a-1cea-4738-a3da-2dc860861c98.png&quot;&gt;&lt;img alt=&quot;The age logo, an wireframe of St. Peters dome in Rome, with the text: age, file encryption&quot; width=&quot;600&quot; src=&quot;https://user-images.githubusercontent.com/1225294/132245842-fda4da6a-1cea-4738-a3da-2dc860861c98.png&quot; style=&quot;max-width: 100%;&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;age is a simple, modern and secure file encryption tool, format, and Go library. It features small explicit keys, no config options, and UNIX-style composability. Learn more by reading the &lt;a href=&quot;https://github.com/FiloSottile/age/blob/main/README.md&quot;&gt;README&lt;/a&gt;, the &lt;a href=&quot;https://filippo.io/age/age.1&quot; rel=&quot;nofollow&quot;&gt;age(1) man page&lt;/a&gt;, the &lt;a href=&quot;https://pkg.go.dev/filippo.io/age&quot; rel=&quot;nofollow&quot;&gt;Go API reference&lt;/a&gt;, the &lt;a href=&quot;https://age-encryption.org/v1&quot; rel=&quot;nofollow&quot;&gt;format specification&lt;/a&gt;, or the &lt;a href=&quot;https://github.com/FiloSottile/age/compare/v1.0.0...v1.1.0-rc.1&quot;&gt;full release changelog&lt;/a&gt;. Watch the repository or &lt;a href=&quot;https://twitter.com/FiloSottile&quot; rel=&quot;nofollow&quot;&gt;follow @FiloSottile on Twitter&lt;/a&gt; to be notified of new releases.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;v1.1.0-rc.1&lt;/strong&gt; is the first release candidate of v1.1.0. Users are encourage to test the new release and especially the new features listed below. Issue or UX reports in advance of the final release are greatly appreciated.&lt;/p&gt;
+&lt;p&gt;📃 In case you missed it: a new, more polished version of &lt;a href=&quot;https://age-encryption.org/v1&quot; rel=&quot;nofollow&quot;&gt;the age format specification&lt;/a&gt; has been published.&lt;/p&gt;
+&lt;h2&gt;Plugin support&lt;/h2&gt;
+&lt;p&gt;The age CLI now supports plugins, such as &lt;a href=&quot;https://github.com/str4d/age-plugin-yubikey&quot;&gt;age-plugin-yubikey&lt;/a&gt; by &lt;a class=&quot;user-mention notranslate&quot; data-hovercard-type=&quot;user&quot; data-hovercard-url=&quot;/users/str4d/hovercard&quot; data-octo-click=&quot;hovercard-link-click&quot; data-octo-dimensions=&quot;link_type:self&quot; href=&quot;https://github.com/str4d&quot;&gt;@str4d&lt;/a&gt;. To test it on macOS with Homebrew:&lt;/p&gt;
+&lt;div class=&quot;snippet-clipboard-content notranslate position-relative overflow-auto&quot; data-snippet-clipboard-copy-content=&quot;$ brew install --HEAD age
+$ brew install age-plugin-yubikey
+$ age-plugin-yubikey # interactive setup
+$ age -r age1yubikey1qwt50d05nh5vutpdzmlg5wn80xq5negm4uj9ghv0snvdd3yysf5yw3rhl3t
+$ age -d -i age-yubikey-identity-388178f3.txt&quot;&gt;&lt;pre class=&quot;notranslate&quot;&gt;&lt;code&gt;$ brew install --HEAD age
+$ brew install age-plugin-yubikey
+$ age-plugin-yubikey # interactive setup
+$ age -r age1yubikey1qwt50d05nh5vutpdzmlg5wn80xq5negm4uj9ghv0snvdd3yysf5yw3rhl3t
+$ age -d -i age-yubikey-identity-388178f3.txt
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Plugins must be loaded explicitly by using their respective recipient or identity, and are not tied to a specific header stanza type. This means plugins can be used not only to support new recipient types such as PIV tokens (i.e. YubiKeys) or cloud KMS solutions, but also to produce passphrase-encrypted files that can be decrypted without plugins, to store age native private keys on secure elements, or even for agent functionality or to proxy decryption operations to remote machines.&lt;/p&gt;
+&lt;p&gt;Plugins operate over a simple textual stdin/stdout protocol (&lt;a class=&quot;issue-link js-issue-link&quot; data-error-text=&quot;Failed to load title&quot; data-id=&quot;1207318610&quot; data-permission-text=&quot;Title is private&quot; data-url=&quot;https://github.com/C2SP/C2SP/issues/5&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/C2SP/C2SP/pull/5/hovercard&quot; href=&quot;https://github.com/C2SP/C2SP/pull/5&quot;&gt;C2SP/C2SP#5&lt;/a&gt;). Developers are encouraged to &lt;a href=&quot;https://github.com/FiloSottile/age/discussions&quot;&gt;reach out&lt;/a&gt; with plugin ideas and announcements. Read more in &lt;a href=&quot;https://htmlpreview.github.io/?https://github.com/FiloSottile/age/blob/main/doc/age.1.html#Plugins&quot; rel=&quot;nofollow&quot;&gt;the relevant man page section&lt;/a&gt;.&lt;/p&gt;
+&lt;h2&gt;CLI breaking changes&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;If &lt;code&gt;-i&lt;/code&gt; is used, passphrase-encrypted files are now rejected.&lt;/strong&gt; Previously, a passphrase-encrypted file was auto-detected and the identity file was ignored. This could lead to unexpected behavior, such as a script blocking for user interaction, based on potentially untrusted input files. Now, &lt;code&gt;age -d&lt;/code&gt; must be invoked without &lt;code&gt;-i&lt;/code&gt; arguments to decrypt passphrase-encrypted files. A helpful error is printed otherwise. This should not break any automated system as passphrase decryption was always interactive.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Empty final chunks are now rejected.&lt;/strong&gt; If a payload was a multiple of 64KiB long, there were two valid encryptions for it: with a &quot;full&quot; last chunk encrypting 64KiB, or with an additional &quot;empty&quot; chunk encrypting 0 bytes. age, rage, and all other known implementations only ever produced the former. (Note that &lt;a href=&quot;https://htmlpreview.github.io/?https://github.com/FiloSottile/age/blob/main/doc/age.1.html#BACKWARDS-COMPATIBILITY&quot; rel=&quot;nofollow&quot;&gt;age will forever decrypt files it generated&lt;/a&gt;.) The latter is now rejected. The specification is being updated (&lt;a class=&quot;issue-link js-issue-link&quot; data-error-text=&quot;Failed to load title&quot; data-id=&quot;1249675194&quot; data-permission-text=&quot;Title is private&quot; data-url=&quot;https://github.com/C2SP/C2SP/issues/13&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/C2SP/C2SP/pull/13/hovercard&quot; href=&quot;https://github.com/C2SP/C2SP/pull/13&quot;&gt;C2SP/C2SP#13&lt;/a&gt;) and test cases will be provided.&lt;/p&gt;
+&lt;h2&gt;Minor changes&lt;/h2&gt;
+&lt;p&gt;If &lt;code&gt;/dev/tty&lt;/code&gt; is present but can&#39;t be opened, age will now fallback to trying to treat stdin as a terminal as if &lt;code&gt;/dev/tty&lt;/code&gt; wasn&#39;t present.&lt;/p&gt;
+&lt;p&gt;Windows binary releases are now signed.&lt;/p&gt;
+&lt;p&gt;Documentation and error messages were improved.&lt;/p&gt;</content>
+    <author>
+      <name>FiloSottile</name>
+    </author>
+    <media:thumbnail height="30" width="30" url="https://avatars.githubusercontent.com/u/1225294?s=60&amp;v=4"/>
+  </entry>
+  <entry>
+    <id>tag:github.com,2008:Repository/187403699/v1.0.0</id>
+    <updated>2021-09-07T17:27:12Z</updated>
+    <link rel="alternate" type="text/html" href="https://github.com/FiloSottile/age/releases/tag/v1.0.0"/>
+    <title>age v1.0.0 🏁</title>
+    <content type="html">&lt;p align=&quot;center&quot;&gt;&lt;a target=&quot;_blank&quot; rel=&quot;noopener noreferrer nofollow&quot; href=&quot;https://user-images.githubusercontent.com/1225294/132245842-fda4da6a-1cea-4738-a3da-2dc860861c98.png&quot;&gt;&lt;img alt=&quot;The age logo, an wireframe of St. Peters dome in Rome, with the text: age, file encryption&quot; width=&quot;600&quot; src=&quot;https://user-images.githubusercontent.com/1225294/132245842-fda4da6a-1cea-4738-a3da-2dc860861c98.png&quot; style=&quot;max-width: 100%;&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;age—pronounced &lt;code&gt;[aɡe̞]&lt;/code&gt;, like the Italian &lt;a href=&quot;https://translate.google.com/?sl=it&amp;amp;text=aghe&quot; rel=&quot;nofollow&quot;&gt;“aghe”&lt;/a&gt;—is a simple, modern and secure file encryption tool, format, and Go library.&lt;/p&gt;
+&lt;p&gt;It features small explicit keys, no config options, and UNIX-style composability.&lt;/p&gt;
+&lt;div class=&quot;snippet-clipboard-content notranslate position-relative overflow-auto&quot; data-snippet-clipboard-copy-content=&quot;$ age-keygen -o key.txt
+Public key: age1ql3z7hjy54pw3hyww5ayyfg7zqgvc7w3j2elw8zmrj2kg5sfn9aqmcac8p
+$ tar cvz ~/data | age -r age1ql3z7hjy54pw3hyww5ayyfg7zqgvc7w3j2elw8zmrj2kg5sfn9aqmcac8p &amp;gt; data.tar.gz.age
+$ age --decrypt -i key.txt data.tar.gz.age &amp;gt; data.tar.gz&quot;&gt;&lt;pre class=&quot;notranslate&quot;&gt;&lt;code&gt;$ age-keygen -o key.txt
+Public key: age1ql3z7hjy54pw3hyww5ayyfg7zqgvc7w3j2elw8zmrj2kg5sfn9aqmcac8p
+$ tar cvz ~/data | age -r age1ql3z7hjy54pw3hyww5ayyfg7zqgvc7w3j2elw8zmrj2kg5sfn9aqmcac8p &amp;gt; data.tar.gz.age
+$ age --decrypt -i key.txt data.tar.gz.age &amp;gt; data.tar.gz
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;v1.0.0 is the first stable release of the Go CLI and API, twenty months after the first beta.&lt;/p&gt;
+&lt;p&gt;Learn more by reading the &lt;a href=&quot;https://github.com/FiloSottile/age/blob/main/README.md&quot;&gt;README&lt;/a&gt;, the &lt;a href=&quot;https://filippo.io/age/age.1&quot; rel=&quot;nofollow&quot;&gt;age(1) man page&lt;/a&gt;, the &lt;a href=&quot;https://pkg.go.dev/filippo.io/age&quot; rel=&quot;nofollow&quot;&gt;Go API reference&lt;/a&gt;, or the &lt;a href=&quot;https://age-encryption.org/v1&quot; rel=&quot;nofollow&quot;&gt;original design document&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Watch the repository or &lt;a href=&quot;https://twitter.com/FiloSottile&quot; rel=&quot;nofollow&quot;&gt;follow @FiloSottile on Twitter&lt;/a&gt; to be notified of new releases.&lt;/p&gt;</content>
+    <author>
+      <name>FiloSottile</name>
+    </author>
+    <media:thumbnail height="30" width="30" url="https://avatars.githubusercontent.com/u/1225294?s=60&amp;v=4"/>
+  </entry>
+  <entry>
+    <id>tag:github.com,2008:Repository/187403699/v1.0.0-rc.3</id>
+    <updated>2021-09-06T16:49:22Z</updated>
+    <link rel="alternate" type="text/html" href="https://github.com/FiloSottile/age/releases/tag/v1.0.0-rc.3"/>
+    <title>Never two without three</title>
+    <content type="html">&lt;p&gt;Maybe™️ actually™️ the last v1.0.0 release candidate!&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Encrypted identity files&lt;/strong&gt; are now supported. Regular passphrase-encrypted age files can be used with &lt;code&gt;-i&lt;/code&gt;, the passphrase will be requested interactively, and the decrypted file will be read line-by-line as a standard identity file.&lt;/p&gt;
+&lt;p&gt;Passphrases can now be requested interactively from the terminal on Windows even if standard input is in use.&lt;/p&gt;
+&lt;p&gt;Errors are now tidier and all start with &lt;code&gt;age: error: &lt;/code&gt;.&lt;/p&gt;</content>
+    <author>
+      <name>FiloSottile</name>
+    </author>
+    <media:thumbnail height="30" width="30" url="https://avatars.githubusercontent.com/u/1225294?s=60&amp;v=4"/>
+  </entry>
+</feed>

@@ -137,9 +137,23 @@ instruments the claims name, and the rest is named debt.
 
 
 
-`pending results` — the L1 fills this section from
-`.ufo/waves/round-62/w1-results.json` (seat count, dead seats, role mix, attack share,
-per-seat `SEAT-STATUS`).
+## Wave
+
+`kagi-r62-w1`, 14 seats v1 (`.ufo/waves/round-62/w1-dispatch.json`; reports
+`.ufo/waves/round-62/w1/`; results `.ufo/waves/round-62/w1-results.json`): 2 scout, 4
+executor, 2 scribe, 1 reviewer, 1 critic, 2 mutation-tester, 1 connector, 1 sentinel.
+Dead seats 0 by the results file (14 of 14 records carry a non-empty final output,
+104–9618 B), with one substantive dead seat reported: `R62Sentinel` settled after a
+progress line only ("I'll start by reading the frozen predeclaration and lesson files,
+then build the instrument inventory.") and wrote no report; the L1 ran the counts-only
+credential-shape scan itself (0 hits across the round's artifacts) and the
+scratch-discipline check (the counters left 35 GB of tree copies under
+`$HYAKU_SCRATCH/kagi-r62`, removed after landing — a routed defect). Attack share:
+4/14 = 28.57 % on the addendum's literal list (reviewer, critic, mutation-tester ×2; no
+labrat seat exists — a frozen-topology probe role, not a swarm lane). Seat verdicts:
+`SEAT-STATUS: complete` on 13 reports; the reviewer's D-1..D-6, the critic's D1–D12, the
+mutation-testers' survivors (MutC1 GM5/CM2a/CM2b; MutC2 S1–S4) and the connector's sweep
+are integrated in §Mistakes and the SCORECARD ceilings.
 
 ## Bounds
 

@@ -1,0 +1,13 @@
+c1: i1 HOLD blocks=1 results=14 dead=0 names_w1-results=yes last-shape-line=match
+c1: i2 HOLD derived cases=33 anchor-row=found selftest-lines-after=1 last-line=supersedes+count
+c1: i3 HOLD routed ids distinct=12 max_occ=1 R20/R21/R22-duplicate-line=yes
+c1: i4 HOLD derived controls=20 supersedes-candidates=1 last-line=states-count
+c1: i5 HOLD paths={'release-clock': 'release-clock-candidate.txt', 'doc-audit': 'doc-audit-candidate.txt', 'scope': 'scope-candidate.txt'} problems=none
+c1: i6 HOLD derived rev=160caf750dcf15892b78ec066e66bc605ba57a5c line=names-receipt-and-states-rev
+c1: i7 HOLD selftest[rc=0 cases=9 PASS-line] registry[selftest-cell='`bash corpus/openbao-transit-trial.sh --selftest' none-shims=absent] mutation[mutated rc=1 finding=yes]
+C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=1
+c1-driver: measured=revision 14a6c07d76d03664d39651ba42eb97098d3dc6a8 (git archive)
+c1-driver: scratch=/fast/scratch/hyaku/kagi-r60/R60ExecCounterC1/run-20261107T162704Z-3217534
+c1-driver: checker rc=0
+c1-driver: verdict value=0 guard=1 (resolved and re-checkable)
+wrapper rc=0

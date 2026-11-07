@@ -1,0 +1,46 @@
+# R56ScoutISO receipt 11 — frozen-tree artefacts and the D3 default-UA receipt already in the tree
+# date 2026-11-07T07:40:17-03:00; lane HEAD = 42070de7770e1558adcf6aa7a7bc59309a9654d7 (frozen predeclaration)
+
+== the frozen tree already carries a default-UA receipt for the S113 URL (round-55 D3's ask) ==
+  100644 blob b368d2d8708a226d6ebdd4cb08ee5d4b3f86370c	.ufo/waves/round-56/capture/S054.body
+  100644 blob 04dd51de23c9540196472903b934265fffa55d9f	.ufo/waves/round-56/capture/S055.body
+  100644 blob d692ef5937b6e030ec72e7ad042a3f5133cc9d26	.ufo/waves/round-56/capture/S057.body
+  100644 blob 0772f96b3517b08b00f5cb0f48c766177619208b	.ufo/waves/round-56/capture/S067.body
+  100644 blob 1dac270d9a9e22d46613686fdd2a8f5308bed978	.ufo/waves/round-56/capture/S070.body
+  100644 blob 28e79fd0311658f3566efd865c222a58c27baec0	.ufo/waves/round-56/capture/S074.body
+  100644 blob 95c32c49193d6b52377501cb040b5e38fdb61db2	.ufo/waves/round-56/capture/S078.body
+  100644 blob 22c735bc582479dcdf17b1d056f7ecc241fbfa90	.ufo/waves/round-56/capture/fetch-receipt.json
+  100644 blob 48456b487cff636a16159ef20da5b144b43eb8db	.ufo/waves/round-56/capture/rejections/S113-default-ua.body
+
+== that receipt's bytes ==
+  /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-56/capture/rejections/S113-default-ua.body 5448 bytes
+  ce3cb7f2eb0efeba38faff1ded3186218ad9df51e4b22b795d0688fa2eb3893c  /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-56/capture/rejections/S113-default-ua.body
+  title: <title>Just a moment...</title>
+  header-byte scan: http-status-line=0 set-cookie-line=0
+
+== my own independent default-UA fetch of 82709 (receipt 05) is a DIFFERENT body ==
+  this seat's 82709 default-UA body: 5448 bytes, Cloudflare interstitial, per-request token
+  the round-55 committed default-ua_85929.body (S114 URL): 5448 bytes, sha 4898ea70e7463e403b5c139efab33184e638d269210404ca03d64ee409590e75
+  => the Cloudflare interstitial is NOT byte-reproducible; a receipt on it is a status+length observation.
+  the round-56 tree's S113-default-ua.body (ce3cb7f2…, 5448 B) is therefore a valid S113-URL default-UA receipt:
+  it was taken on 82709, which D3 asked for.
+
+== working-tree drift observed by this seat (not this seat's edit; other seats are landing) ==
+   M corpus/recheck-replay.py
+   M plans/round-56-c1.sh
+   M plans/round-56.md
+  (recorded for the record only; this seat edited no production file.)
+
+== the gate as it stands in the working tree, on this lane ==
+  MATCH corpus/knowledge/betterleaks-detection-vs-validation.md:4 id=S055 form=grep stated=1 replayed=1
+  MATCH corpus/knowledge/cdp-bridge-1password-oidc-workflow.md:3 id=S070 form=locate stated=1 replayed=1
+  MATCH corpus/knowledge/iso-11770-3-edition-status.md:3 id=S101 form=grep stated=2 replayed=2
+  MATCH corpus/knowledge/iso-11770-3-edition-status.md:3 id=S113 form=grep stated=3 replayed=3
+  MATCH corpus/knowledge/iso-11770-3-edition-status.md:3 id=S114 form=grep stated=2 replayed=2
+  MATCH corpus/knowledge/nist-key-management-guidance-status.md:3 id=S074 form=grep stated=1 replayed=1
+  MATCH corpus/knowledge/nist-key-management-parts-withdrawal.md:3 id=S078 form=pdf stated=1 replayed=1
+  MATCH corpus/knowledge/oidc-federation-trust-policy.md:3 id=S067 form=grep stated=1 replayed=1
+  MATCH corpus/knowledge/secret-scanning-detection-vs-validation.md:4 id=S054 form=grep stated=1 replayed=1
+  MATCH corpus/knowledge/trufflehog-verification-lifecycle.md:4 id=S057 form=grep stated=1 replayed=1
+  RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)
+  rc=0

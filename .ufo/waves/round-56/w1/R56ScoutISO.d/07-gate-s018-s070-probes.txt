@@ -1,0 +1,23 @@
+# R56ScoutISO receipt 07 — gate-behaviour probes on the S070/S018 registry pair (scratch fixture, not the lane)
+# date 2026-11-07T07:38:33-03:00
+# The gate binds a manifest row to the registry row of the SAME id and requires the clock's URL to
+# appear verbatim in that row (corpus/recheck-replay.py check_capture -> url-not-in-row).
+# S070's registry row carries the NO-SLASH url; S018's row carries only the SLASH url.
+# Fixture tree: /fast/scratch/hyaku/kagi-r56/R56ScoutISO/fixture (copy of corpus/{rendered-text-v1.py,SOURCES.md,recheck-replay.py} + the lane's S070 capture)
+# Nothing in the lane was modified; no git operation was performed in the lane.
+
+== probe A: manifest id=S018 with S018's own (slash) url ==
+MATCH corpus/knowledge/e.md:2 id=S018 form=locate stated=1 replayed=1
+RECHECK_REPLAY: CLEAN (clocks=1 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)
+rc=0
+
+== probe B: manifest id=S018 with the NO-SLASH url (the clock's url) ==
+BAD-CAPTURE corpus/knowledge/e.md:2 id=S018 reason=url-not-in-row:S018
+RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=0 no_capture=0 bad_capture=1 unsupported=0 tool=0)
+
+== probe C: manifest id=S070 with the SLASH url (S070's row does NOT carry the slash form) ==
+BAD-CAPTURE corpus/knowledge/e.md:2 id=S070 reason=url-not-in-row:S070
+RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=0 no_capture=0 bad_capture=1 unsupported=0 tool=0)
+
+== the lane's own manifest row (as committed) for comparison ==
+S070	https://www.1password.dev/brokered-access/custom-workflow	.ufo/waves/round-56/capture/S070.body	2026-11-07	200	268454	5c226c06413854281f229aa0831f3fa7b9e63cdd3d2a4bf761f2226652a1c0dd

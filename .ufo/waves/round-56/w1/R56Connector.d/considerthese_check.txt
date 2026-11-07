@@ -1,0 +1,32 @@
+=== test -e considerthese/BACKLOG.md ===
+NOT_FOUND rc=1
+
+=== considerthese/2026-10-26.md excerpt ===
+## Status of earlier suggestions
+
+- All five from 2026-10-25 (differential tokenizer test, gate-output receipts,
+  round-shape validation at plan freeze, `provider_events` in wave records,
+  claim sensitivity pre-flight): not acted on, which is expected under the HOLD.
+- Older carry-overs (`op` release clock on the dotenv contract, byte cases,
+  open-round age clock, `considerthese/BACKLOG.md`): unchanged. The oldest is now
+  8 days old.
+
+## Self-improvement suggestions (proposals only, not applied)
+
+1. **A repair-only release path under a HOLD.** A policy HOLD that blocks all dispatch
+   also blocks fixing a known correctness defect like D1. Propose that the operator can
+   release a narrow "repair-only" ticket: one named defect, an already-written
+   failing fixture, no new claims or sources, non-author verification. That keeps the
+   HOLD's intent while not leaving a known fail-open in a shipped instrument.
+
+2. **Machine-readable lane status.** Put the HOLD (reason, date, who can release it)
+   in one file that the tools read, such as a `STATUS` line in `SCORECARD.md`. Then
+   `release-clock.py`, the census and my daily pass can all say "lane frozen since
+   2026-10-25" instead of each reconstructing it from `LOG.md` prose.
+
+3. **Mark known-defective instrument output.** Until D1 is fixed, have
+   `release-clock.py` (or its wrapper) append a `KNOWN_DEFECT: D1` qualifier to a
+   `CLEAN` verdict, so nobody quotes a CLEAN result without the caveat.
+
+4. **Create `considerthese/BACKLOG.md`** (carried from 2026-10-24). On frozen days like
+   this one, a status table would make these files a short diff instead of a re-read.

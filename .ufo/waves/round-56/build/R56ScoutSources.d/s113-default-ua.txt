@@ -1,0 +1,23 @@
+# R56ScoutSources — S113 default-UA probe receipt (round-55 spot-check D3)
+# Purpose: D3 said the S113 row asserts 'the default user agent receives HTTP 403' but the only
+# default-UA receipt on file was taken on the S114 URL (85929.html). This probe takes it on the
+# S113 URL itself (82709.html).
+# profile: curl -sSL --max-time 60 -o <body> -w '%{http_code} %{size_download} %{content_type}' <url>
+# no -D / -i: no response header was requested or stored (QM72). No cookie was read or printed.
+url                          status bytes  content_type                 title
+https://www.iso.org/standard/82709.html   403 5448  text/html; charset=UTF-8  Just a moment...
+https://www.iso.org/standard/85929.html   403 5448  text/html; charset=UTF-8  Just a moment...
+https://www.iso.org/standard/60237.html   403 5448  text/html; charset=UTF-8  Just a moment...
+# with -f the same request returns curl rc 22 and status 403, 0 body bytes.
+# the 403 body is a Cloudflare interstitial whose bytes are NOT stable across attempts:
+#   5448 B each time, sha256 f80447da293c87ebed48b9b39411db21912b90baaf4213c4c26fbc51115f3f4e
+#   5448 B, sha256 c6708a21e52d1173a038addbd201c6dcf5f48aa9b0843e9d5ae765572c3d4352
+#   5448 B, sha256 1c158a5451a33a02f28f4e667507ffc918467996df015cc2f821f3a9eda3ca5c
+#   5448 B, sha256 f3305b66f194dbf2acae6542ae088a4d7d96619fd3151c8e357dfaa183640715 (--compressed run)
+#   committed .ufo/waves/round-56/capture/rejections/S113-default-ua.body 5448 B,
+#   sha256 ce3cb7f2eb0efeba38faff1ded3186218ad9df51e4b22b795d0688fa2eb3893c
+#   => 1902 differing bytes against my first probe: same status, same length, different bytes.
+#   No 'set-cookie:' line and no '__cf_bm' token in the committed body (grep -a -c => 0, 0).
+# VERDICT: the S113 row's parenthetical is TRUE for the S113 URL itself. D3's defect was the
+# receipt's URL, not the assertion. Fix = a receipt on 82709.html (already committed at
+# .ufo/waves/round-56/capture/rejections/S113-default-ua.body), or the narrowed sentence below.

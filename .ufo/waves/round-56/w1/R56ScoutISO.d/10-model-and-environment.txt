@@ -1,0 +1,30 @@
+# R56ScoutISO receipt 10 — observed answering model, host and tool inventory
+# date 2026-11-07T07:39:42-03:00
+
+== answering model (OBSERVED, not guessed from the prompt) ==
+  seat session file: /home/vgpnk/.omp/agent/sessions/-Projects-shokunin/2026-11-06T23-21-18-282Z_01a1b32a-a2ca-740f-b74a-a00ef115cb29/R56ScoutISO.jsonl
+  $ grep -o -E '"(provider|model)":"[^"]*"' <that file> | sort | uniq -c
+        2 "model":"minimax-code/MiniMax-M3.1-Flash"
+       96 "model":"MiniMax-M3.1-Flash"
+       96 "provider":"minimax-code"
+  -> provider=minimax-code, model=MiniMax-M3.1-Flash for all 96 assistant records of this seat.
+  launcher log (/home/vgpnk/.omp/logs/omp.2026-11-07.1589058.log line 19377):
+    'Configured subagent runtime model fallback chain' role=subagent:R56ScoutISO requested=["minimax-code/MiniMax-M3.1-Flash:high"]
+
+== host ==
+  uname: Linux 7.2.11-arch1-1 x86_64
+  date:  2026-11-07T07:39:42-03:00
+
+== tools used (all pre-installed; NO install was performed this seat) ==
+  curl:     curl 8.23.0 (x86_64-pc-linux-gnu) libcurl/8.23.0 OpenSSL/3.6.5 zlib/1.3.2 brotli/1.2.0 zstd/1.5.7 libidn2/2.3.8 libpsl/0.21.5 libssh2/1.11.1 nghttp2/1.70.0 ngtcp2/1.25.0 nghttp3/1.18.0 mit-krb5/1.22.2
+  python3:  Python 3.14.8
+  grep:     grep (GNU grep) 3.12-modified   (GNU grep; the shell's 'grep' is a pi-uu-grep builtin, but
+             the gate itself resolves grep via PATH to /usr/bin/grep — verified with shutil.which('grep'))
+  pdftotext: pdftotext version 26.10.0  (not needed by this seat's four rows; listed for completeness)
+  no pacman transaction was run: the assignment's tooling directive has all pacman transactions PAUSED.
+
+== scratch discipline ==
+  scratch root: /fast/scratch/hyaku/kagi-r56/R56ScoutISO/ (created by this seat; deleted before yield)
+  bodies live only in scratch; nothing was written under /tmp.
+  no git or jj command was run against the lane, the fleet or any sibling.
+  lane writes: only .ufo/waves/round-56/w1/R56ScoutISO.md and .ufo/waves/round-56/w1/R56ScoutISO.d/*.txt

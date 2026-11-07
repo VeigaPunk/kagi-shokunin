@@ -1,0 +1,74 @@
+# R56Sentinel scan commands (verbatim where practical), rc, counts
+# lane: /home/vgpnk/Projects/shokunin/kagi-shokunin ; HEAD 42070de ; BASE 832ba6a
+# model observed: amr/deepseek-v4.1-flash
+# counts are matches only; no secret values printed anywhere in this receipt.
+
+## 1. body prefix census (11 bodies = 7 round-56 + 1 rejections + 3 prior-round manifest rows)
+for f in .ufo/waves/round-56/capture/*.body; do head -c 16 "$f" | od -An -c; done
+  -> S054 '<p align="center', S055 '# Betterleaks\n', S057 '<!DOCTYPE html>', S067 '<!DOCTYPE HTML P',
+     S070 '<!doctype html>\n', S074 '<!DOCTYPE html>\r', S078 '%PDF-1.6\r'
+grep -c -a -E '^(HTTP/[0-9]|set-cookie:)' .ufo/waves/round-56/capture/*.body
+  -> 0 per file (7/7)
+for f in <11 bodies>; do grep -a -c -i -E '^cookie:'; grep -a -c -i 'set-cookie'; grep -a -c -E 'cf_clearance|__cf_bm|JSESSIONID|PHPSESSID|_session_id|sessionid='; done
+  -> 0, 0, 0 per file (11/11)
+grep -a -c -E 'ghp_|gho_|github_pat_|AKIA|ASIA|xox[baprs]-|sk_live_|sk_test_|AIza|-----BEGIN [-A-Z ]*PRIVATE KEY'
+  -> S054=3 (1 unique 20-char AKIA-shaped, canary demo), S055=1 (40-char ghp_-shaped test vector),
+     S057/S067/S070/S074/S078=0
+python decode of S067 eyJ* literals: unique=10, decodable JWT headers=5, algs={RS256,None}; all spec examples
+
+## 2. digest / manifest identity (all 10 manifest rows, incl. prior-round bodies)
+python3: for each row: len(data)==bytes, sha256(data)==row.sha256
+  -> 10/10 exists=1 bytes_ok=1 sha_ok=1
+
+## 3. scripts: execution surface
+grep -n -E 'shell=True|os\.system|os\.popen|eval\(|exec\(|subprocess\.(call|run|Popen)' corpus/recheck-replay.py plans/round-56-c1.sh plans/round-56-controls.sh
+  -> all hits are argv-list subprocess.run([...]) with fixed binaries (grep, pdftotext, sys.executable); no shell=True, no os.system, no eval
+grep -n -E '\.ssh|\.netrc|op read|op run|vault|keychain|/etc/|HOME|credentials|password|secret|token'
+  -> 0 host/secret reads (only "token"/"secret" in prose, URL strings and POP table)
+grep -n -E '^(import|from) ' corpus/recheck-replay.py corpus/rendered-text-v1.py
+  -> no urllib/requests/socket/http.client (gate is offline; 0 network imports)
+grep -n -E '/tmp|mktemp'
+  -> 1 hit: recheck-replay.py:288 selftest fixture string "-o /tmp/x" (asserts UNSUPPORTED; never executed)
+grep -rn -E 'bash -c|sh -c|eval ' .ufo/waves/round-56 --include='*.sh' --include='*.py'
+  -> attempt1-build/R56ExecLive.d/live.sh:22 bash -c "$2"; :28 eval "$3" (sibling live leg, scratch-only; see F6)
+
+## 4. QM72 edge trees (scratch /fast/scratch/hyaku/kagi-r56/R56Sentinel/mut/<case>)
+python3 -I -B corpus/recheck-replay.py --root <case>
+  leading-space ' Set-Cookie:'   rc=0  MATCH / RECHECK_REPLAY: CLEAN   (not refused)
+  'Set-Cookie2: a=b'             rc=0  MATCH / RECHECK_REPLAY: CLEAN   (not refused)
+  'HTTP/2 200' prefix            rc=1  BAD-CAPTURE header-bytes        (control: refused)
+  BOM + 'HTTP/2 200'             rc=0  MATCH / RECHECK_REPLAY: CLEAN   (not refused)
+
+## 5. instrument runs (assigned checks)
+python3 -I -B corpus/recheck-replay.py --selftest
+  -> rc=0  RECHECK_REPLAY_SELFTEST: PASS (13 cases)
+python3 -I -B corpus/recheck-replay.py
+  -> rc=0  RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)
+bash plans/round-56-c1.sh 42070de7770e1558adcf6aa7a7bc59309a9654d7
+  -> rc=0  C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)
+bash plans/round-56-c1.sh 832ba6a53d6a76706b5c80bce2278683dea33d42
+  -> rc=0  C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r2-manifest:... x10)
+
+## 6. clock population census (gate CLOCK_RE over column-1 recheck: lines)
+python3 re-implementation of CLOCK_RE
+  -> TOTAL clocks=10 entries=8 (iso-11770-3-edition-status.md has 3; the other 7 entries 1 each)
+  -> the 9th entry with a curl recheck line (aliyun-accesskey-credential-custody.md) has no '-> N' statement
+     and is correctly outside POP
+
+## 7. non-author live provenance spot check (public GET; headers not stored; files deleted)
+curl -fsSL --compressed --max-time 60 -o <sha8>.body -w '<id> %{http_code} %{size_download} %{content_type}\n' <url>
+  S055 https://raw.githubusercontent.com/betterleaks/betterleaks/main/README.md
+    -> 200, %{size_download}=5483 (compressed), stored body 13252 B, sha256 f61c3993fd48dfb973652b9676697f4d37404fad9f30748c2003127eb81a73b1 = manifest
+  S074 https://csrc.nist.gov/pubs/sp/800/133/r3/ipd
+    -> 200, 45351 B, title "SP 800-133 Rev. 3, ... CSRC", quote 'public comment period is CLOSED' count=1,
+       sha256 e16254f6... != manifest df32e64b...; 583/45351 differing bytes in 7 clusters, all
+       __cf_email__/data-cfemail ciphertext + 1 per-request timestamp token + 1 script nonce
+  -> 0 header/cookie bytes stored in either live file
+
+## 8. misroot review (read-only; nothing deleted)
+git -C /home/vgpnk/Projects/shokunin status --porcelain
+  -> ?? f.txt (2B 'x\n', 2026-11-07 04:40:38), ?? trail-ids.txt (1B ',', 2026-11-06 20:36:24),
+     ?? .scratch/run15-wrapup/misroot-cff0b4cb/ (2026-11-06 16:36:21)
+find . -maxdepth 4 -name '*round-56*' -not -path './kagi-shokunin/*'
+  -> only orchestrator dirs .ufo/reports/round-56, .ufo/prompts/closure/*-round-56.md
+git config core.hooksPath -> empty; .git/hooks non-sample files -> 0

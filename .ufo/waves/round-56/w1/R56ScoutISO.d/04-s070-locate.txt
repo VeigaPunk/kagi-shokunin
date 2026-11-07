@@ -1,0 +1,36 @@
+# R56ScoutISO receipt 04 — rendered-text locate clock, S070 (and the S070/S018 registry pair)
+# date 2026-11-07T07:37:22-03:00; python3 Python 3.14.8; normalizer corpus/rendered-text-v1.py @ lane 42070de7770e1558adcf6aa7a7bc59309a9654d7
+
+== the entry's stated clock, run verbatim against the LIVE page ==
+$ curl -fsSL --max-time 30 'https://www.1password.dev/brokered-access/custom-workflow' | python3 corpus/rendered-text-v1.py locate /dev/stdin 'The client authenticates using your OIDC token, workload ID, and the integration key configured by your administrator'
+RENDERED_TEXT_V1_LOCATE: count=1
+rc=0  stated count=1
+
+== same clock, offline on the committed capture .ufo/waves/round-56/capture/S070.body ==
+$ python3 corpus/rendered-text-v1.py locate .ufo/waves/round-56/capture/S070.body '<same quote>'
+RENDERED_TEXT_V1_LOCATE: count=1
+rc=0
+
+== same clock, on the live body saved to scratch ==
+$ python3 corpus/rendered-text-v1.py locate /fast/scratch/hyaku/kagi-r56/R56ScoutISO/bodies/S070.live '<same quote>'
+RENDERED_TEXT_V1_LOCATE: count=1
+rc=0
+
+== live fetch of S070: digest + bytes + status ==
+$ curl -fsSL --max-time 30 -o bodies/S070.live -w '%{http_code} %{size_download} %{url_effective}' 'https://www.1password.dev/brokered-access/custom-workflow'
+5c226c06413854281f229aa0831f3fa7b9e63cdd3d2a4bf761f2226652a1c0dd  /fast/scratch/hyaku/kagi-r56/R56ScoutISO/bodies/S070.live
+/fast/scratch/hyaku/kagi-r56/R56ScoutISO/bodies/S070.live 268454 bytes
+manifest row: S070	https://www.1password.dev/brokered-access/custom-workflow	.ufo/waves/round-56/capture/S070.body	2026-11-07	200	268454	5c226c06413854281f229aa0831f3fa7b9e63cdd3d2a4bf761f2226652a1c0dd
+cmp rc=0 live == committed capture
+
+== the S070/S018 pair: same page, two registry rows, two URL forms ==
+S018 registered URL (trailing slash) 302/301 -> S070 URL; both serve the SAME bytes today:
+S018 slash-form: code=200 redirects=1 effective=https://www.1password.dev/brokered-access/custom-workflow
+5c226c06413854281f229aa0831f3fa7b9e63cdd3d2a4bf761f2226652a1c0dd  /fast/scratch/hyaku/kagi-r56/R56ScoutISO/bodies/S018.live
+cmp rc=0 S018-slash body == S070 body (byte-identical)
+
+== rendered-text digests (live vs committed capture vs the S070 registry row's claimed digest) ==
+RENDERED_TEXT_V1: raw_sha256=5c226c06413854281f229aa0831f3fa7b9e63cdd3d2a4bf761f2226652a1c0dd bytes=268454 normalized_sha256=7127a2c103b36be3893967db17050533bdac181f0b36cdc5a8d8a5b039f9870d normalized_bytes=90617
+RENDERED_TEXT_V1: raw_sha256=5c226c06413854281f229aa0831f3fa7b9e63cdd3d2a4bf761f2226652a1c0dd bytes=268454 normalized_sha256=7127a2c103b36be3893967db17050533bdac181f0b36cdc5a8d8a5b039f9870d normalized_bytes=90617
+registry S070 row (corpus/source-fetches.tsv col 15) normalized_sha256 = 20fbc423c4faea7839316780ef28a5fad24e30982cbc9636e3f9c46c26a76271 (fetched 2026-11-03, bytes 266770)
+registry S018 row (corpus/source-fetches.tsv col 15) normalized_sha256 = d493bd815016219da8da33e18fb673aed3414155c6634a9139c7083ba7bae0fc (fetched 2026-10-21, bytes 1283173)

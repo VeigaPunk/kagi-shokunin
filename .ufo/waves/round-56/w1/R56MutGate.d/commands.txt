@@ -1,0 +1,10 @@
+# R56MutGate commands (all cwd-relative to /fast/scratch/hyaku/kagi-r56/R56MutGate, now deleted)
+git clone -q /home/vgpnk/Projects/shokunin/kagi-shokunin clone ; # HEAD 42070de7770e1558adcf6aa7a7bc59309a9654d7
+# fixture tree: corpus + capture dirs round-56/capture round-55/capture round-45/controls/capture-r45
+python3 -I -B corpus/recheck-replay.py --selftest                          # rc0 RECHECK_REPLAY_SELFTEST: PASS (13 cases)
+python3 -I -B corpus/recheck-replay.py --root trees/base                   # rc0 RECHECK_REPLAY: CLEAN (clocks=10 match=10 ...)
+HYAKU_SCRATCH=/fast/scratch/hyaku/kagi-r56/R56MutGate bash clone/plans/round-56-c1.sh --tree trees/base
+# -> rc0 C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)
+# per mutant: python3 harness.py  (writes out/results.json; one literal replacement per mutant,
+# anchor asserted unique; P tree = pristine gate+counter, M tree = mutant detector)
+# counter-side mutants: mutated copies at clone/plans/round-56-c1-<id>.sh

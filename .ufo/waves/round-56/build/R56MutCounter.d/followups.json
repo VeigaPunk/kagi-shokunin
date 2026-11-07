@@ -1,0 +1,88 @@
+{
+ "R4b2": {
+  "changed": {
+   ".ufo/waves/round-56/capture/S070.body": "c279f654514d0a43f0c97a0e3fbbb4d2fe43357c82f2d3b5a5d85e27286c6302",
+   "corpus/recheck-captures.tsv": "70fabf3510ab9a47bd49f020132c16adf0fb564668f43241534b7e3a71d63726",
+   "corpus/rendered-text-v1.py": "924062d3a903f1cb7d29a79dcf50dbdf27e54194e47a4ebf40ccaf9670f1db12"
+  },
+  "base_normaliser": "RENDERED_TEXT_V1_LOCATE: count=0",
+  "tree_normaliser": "RENDERED_TEXT_V1_LOCATE: count=1",
+  "first": "C1_REPLAY: value=9 present=10 replayed=9 gate=1 guard=1 (bad=r4-replay0:cdp-bridge-1password-oidc-workflow.md:custom-workflow)",
+  "rc": 0
+ },
+ "discrimination_probe": {
+  "ref-real-gate": {
+   "rc": 1,
+   "last": "RECHECK_REPLAY: DRIFT (clocks=10 match=9 mismatch=0 no_capture=0 bad_capture=1 unsupported=0 tool=0)",
+   "bad_capture": true
+  },
+  "R5b-full-printer": {
+   "rc": 0,
+   "last": "RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+   "bad_capture": false
+  },
+  "R5c-printer-rc1": {
+   "rc": 1,
+   "last": "RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+   "bad_capture": false
+  },
+  "R5g-symlink-printer": {
+   "rc": 0,
+   "last": "RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+   "bad_capture": false
+  },
+  "G3-gutted-selftest": {
+   "rc": 1,
+   "last": "RECHECK_REPLAY: DRIFT (clocks=10 match=9 mismatch=0 no_capture=0 bad_capture=1 unsupported=0 tool=0)",
+   "bad_capture": true
+  }
+ },
+ "R5a_mechanism": {
+  "rc": 1,
+  "stderr_tail": "SyntaxError: unmatched ')'"
+ },
+ "R5b_output_equals_real": true,
+ "manifest_body_paths_unique": true,
+ "pairs": [
+  [
+   "S101",
+   ".ufo/waves/round-45/controls/capture-r45/S101.raw"
+  ],
+  [
+   "S113",
+   ".ufo/waves/round-55/capture/S113.body"
+  ],
+  [
+   "S114",
+   ".ufo/waves/round-55/capture/S114.body"
+  ],
+  [
+   "S054",
+   ".ufo/waves/round-56/capture/S054.body"
+  ],
+  [
+   "S055",
+   ".ufo/waves/round-56/capture/S055.body"
+  ],
+  [
+   "S057",
+   ".ufo/waves/round-56/capture/S057.body"
+  ],
+  [
+   "S067",
+   ".ufo/waves/round-56/capture/S067.body"
+  ],
+  [
+   "S070",
+   ".ufo/waves/round-56/capture/S070.body"
+  ],
+  [
+   "S074",
+   ".ufo/waves/round-56/capture/S074.body"
+  ],
+  [
+   "S078",
+   ".ufo/waves/round-56/capture/S078.body"
+  ]
+ ]
+}

@@ -1,0 +1,40 @@
+# R56Sentinel hashes — measured 2026-11-07 ~07:05-07:40 -0300; lane HEAD 42070de; BASE 832ba6a
+# sha256  path                                                          | git blob at 42070de
+b7782f35c0c8bbaedac5f8f06eaadbc3ce4b8997be25e10f4224724013d799e8  corpus/recheck-replay.py           | 821da99ce83e7b3adbea80ad9e1441d8e0fe9a79
+df46be5c92c7b4d5a8b7ad790371b5c3240c92f46460b8cfb69e9b75b7ecc762  corpus/recheck-captures.tsv        | 7c85dc4da34bc79931e01906b91e4c3fda91b2c5
+096251c9b7a7405dbae320eb4dbb3ef0a092cf5e530d2274de0b2e29509bde9a  plans/round-56-c1.sh               | 35a16e682a8a508976498727e337c40d6f1f86c1
+633326a563c6d38e7933d0e88d3b395404f688dbef9ff8e1de7fffdbed48b094  plans/round-56-controls.sh          | 07d0e234fc455b01f00a665b3ac8b648ac4dc013
+d1bf8d2610ed50d46acda83e38c055e629d5e76d0b860d14665f2d223e0b8a07  plans/round-56.md                  | 106be490947ce3a5141da24c3b356cbd0679d99f
+14f6ca6ab742296f45a699548c31e6d49892f6baef36ed419c283d1a0511b8c9  corpus/rendered-text-v1.py         | 30baa6092981d2cff1581c1fbfbd43a06f05cfe1
+080a04836c32ced34ffcd93c1e9574d395dacf0a0ffba720ce54d134292298bd  .ufo/waves/round-56/capture/fetch-receipt.json | 22c735bc582479dcdf17b1d056f7ecc241fbfa90
+(git blob only)                                                    controls/controls-prefreeze.txt | 50e082c767942bea03ea2353351776fd9191b4ce
+
+# bodies (sha256 = manifest rows for the 10 manifest URLs; rejections is manifest-external)
+7cf6efb50ab892347b1fa3bee77592603b371b066b6b1659fcc2c56a62e6eff7  capture/S054.body  38524 B
+f61c3993fd48dfb973652b9676697f4d37404fad9f30748c2003127eb81a73b1  capture/S055.body  13252 B
+221d80fae1227db73c5f65ff71080d72e6e91666856a1dd8e1e2d402dfe9604b  capture/S057.body  110710 B
+4d016752a645e8a3c259baa4173b5a90cb6c82898ce868fc8444adde262a5aed  capture/S067.body  437508 B
+5c226c06413854281f229aa0831f3fa7b9e63cdd3d2a4bf761f2226652a1c0dd  capture/S070.body  268454 B
+df32e64b9cce734698974dde083feeeaa7d34eef2e6c6391c7694ea7f29c3688  capture/S074.body  45351 B
+68266cb10868a1fee83fb8bcebbee9573fc738cee9141ee94d03649bad8538d5  capture/S078.body  622785 B
+ce3cb7f2eb0efeba38faff1ded3186218ad9df51e4b22b795d0688fa2eb3893c  capture/rejections/S113-default-ua.body  5448 B (quarantined, not in manifest)
+2e4c1524ec05865536f819db68c56494d97fc67cb490df4f5d4b1ca85b7b0c80  ../round-45/controls/capture-r45/S101.raw  85615 B
+d8dfe35408b17b02845dc0cf19f774bc6cc6b8dcbfe1636e22bb6b13dfa64357  ../round-55/capture/S113.body  90604 B
+8bb88d88ff21d4488cf2205d9655a7fcbdeb3601616bdf4f5767dce13c449bdf  ../round-55/capture/S114.body  85138 B
+
+# committed blob ids for capture bodies at 42070de
+b368d2d8708a226d6ebdd4cb08ee5d4b3f86370c  S054.body
+04dd51de23c9540196472903b934265fffa55d9f  S055.body
+d692ef5937b6e030ec72e7ad042a3f5133cc9d26  S057.body
+0772f96b3517b08b00f5cb0f48c766177619208b  S067.body
+1dac270d9a9e22d46613686fdd2a8f5308bed978  S070.body
+28e79fd0311658f3566efd865c222a58c27baec0  S074.body
+95c32c49193d6b52377501cb040b5e38fdb61db2  S078.body
+48456b487cff636a16159ef20da5b144b43eb8db  rejections/S113-default-ua.body
+
+# live spot-check bodies (deleted after measurement; no headers stored)
+f61c3993fd48dfb973652b9676697f4d37404fad9f30748c2003127eb81a73b1  live/S055  200  13252 B  == manifest
+e16254f64c7f9fd3f1bf06199ef3bcf92546e97df3092b9b39d6a36087425564  live/S074  200  45351 B  583 B differ (per-request CF tokens)
+
+# observed answering model
+amr/deepseek-v4.1-flash (runtime project context)

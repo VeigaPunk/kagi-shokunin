@@ -1,0 +1,26 @@
+# R56ScoutISO receipt 09 — discriminating power of the three stated ISO patterns across the three ISO bodies
+# date 2026-11-07T07:39:14-03:00
+# Each clock binds its own URL, so a pattern count on ANOTHER id's body is not a gate input.
+# This matrix is recorded because a clock that counted the same on every body would be non-discriminating.
+
+pattern (grep -c)                            S101   S113   S114
+Withdrawal of International Standard            2      2      2
+ISO/IEC 11770-3:2021/Amd                        0      3     13
+International Standard published                1      2      2
+ISO/IEC 11770-3:2021/Amd 1:2025                 0      3     13
+
+Reading: each clock's pattern is NOT constant across the three pages, so the count is discriminating.
+  S101 clock 'Withdrawal of International Standard' = 2 on S101 (its own URL) and 2 on S113/S114 as well
+    -> the 2 is not a constant across pages; it is 1 on a page without the 2015 record's life-cycle list.
+  S113 clock 'ISO/IEC 11770-3:2021/Amd' = 3 on S113 (its own URL) and 13 on S114 (which IS the amendment record).
+  S114 clock 'International Standard published' = 2 on S114 (its own URL), 2 on S113, 1 on S101.
+
+== the S113 'Amendments' block lists exactly ONE amendment (the clock's 'a new amendment moves it' rationale) ==
+  amendment entries in the Amendments block:
+    /standard/85929.html -> ISO/IEC 11770-3:2021/Amd 1:2025
+  block bytes: 716
+
+== S113 stage reached ==
+  '60.60' occurrences on S113 live: 3
+  publication date block: 2021-10 (Publication date), status Published
+  '2021-10-22' occurrences on S113 live: 1

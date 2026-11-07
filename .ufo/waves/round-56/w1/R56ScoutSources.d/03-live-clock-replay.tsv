@@ -1,0 +1,59 @@
+# R56ScoutSources receipt 03 — the ten stated clocks, replayed LIVE (exact command forms) and OFFLINE
+# seat: R56ScoutSources-2 (w1 wave) ; date 2026-11-07 ; lane HEAD 42070de7770e1558adcf6aa7a7bc59309a9654d7
+# OFFLINE = corpus/recheck-replay.py against the committed captures (the round's own gate)
+# LIVE    = the same command, run against the network today
+# profile for the offline gate: no network at all. profile for live: curl -fsSL [--max-time N] [-A '<ua>'] '<url>' | <filter>
+# header policy: no -D / -i on any live call — response headers never requested or stored (QM72).
+#
+# knowledge entry (file:line)                    id     stated  offline   live    form
+corpus/knowledge/secret-scanning-detection-vs-validation.md:4  S054  1  MATCH  1  grep
+corpus/knowledge/betterleaks-detection-vs-validation.md:4      S055  1  MATCH  1  grep
+corpus/knowledge/trufflehog-verification-lifecycle.md:4          S057  1  MATCH  1  grep
+corpus/knowledge/oidc-federation-trust-policy.md:3               S067  1  MATCH  1  grep
+corpus/knowledge/cdp-bridge-1password-oidc-workflow.md:3         S070  1  MATCH  1  locate (rendered-text-v1)
+corpus/knowledge/iso-11770-3-edition-status.md:3                 S101  2  MATCH  2  grep
+corpus/knowledge/iso-11770-3-edition-status.md:3                 S113  3  MATCH  3  grep
+corpus/knowledge/iso-11770-3-edition-status.md:3                 S114  2  MATCH  2  grep
+corpus/knowledge/nist-key-management-guidance-status.md:3        S074  1  MATCH  1  grep
+corpus/knowledge/nist-key-management-parts-withdrawal.md:3       S078  1  MATCH  1  pdf (pdftotext -layout)
+#
+# offline gate, verbatim tail:
+#   $ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/recheck-replay.py
+#   MATCH corpus/knowledge/betterleaks-detection-vs-validation.md:4 id=S055 form=grep stated=1 replayed=1
+#   MATCH corpus/knowledge/cdp-bridge-1password-oidc-workflow.md:3 id=S070 form=locate stated=1 replayed=1
+#   MATCH corpus/knowledge/iso-11770-3-edition-status.md:3 id=S101 form=grep stated=2 replayed=2
+#   MATCH corpus/knowledge/iso-11770-3-edition-status.md:3 id=S113 form=grep stated=3 replayed=3
+#   MATCH corpus/knowledge/iso-11770-3-edition-status.md:3 id=S114 form=grep stated=2 replayed=2
+#   MATCH corpus/knowledge/nist-key-management-guidance-status.md:3 id=S074 form=grep stated=1 replayed=1
+#   MATCH corpus/knowledge/nist-key-management-parts-withdrawal.md:3 id=S078 form=pdf stated=1 replayed=1
+#   MATCH corpus/knowledge/oidc-federation-trust-policy.md:3 id=S067 form=grep stated=1 replayed=1
+#   MATCH corpus/knowledge/secret-scanning-detection-vs-validation.md:4 id=S054 form=grep stated=1 replayed=1
+#   MATCH corpus/knowledge/trufflehog-verification-lifecycle.md:4 id=S057 form=grep stated=1 replayed=1
+#   RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)
+#   rc=0
+#
+# live runs (each the entry's own command, verbatim):
+#   S054  curl -fsSL 'https://raw.githubusercontent.com/trufflesecurity/trufflehog/main/README.md' | grep -c 'it can also log in to confirm if that secret is live or not'   -> 1   rc=0
+#   S055  curl -fsSL 'https://raw.githubusercontent.com/betterleaks/betterleaks/main/README.md' | grep -c 'Scans detect secrets without credential provider requests by default' -> 1   rc=0
+#   S057  curl -fsSL 'https://trufflesecurity.com/docs/verification-caching' | grep -c 'Each cache entry expires after three hours' -> 1   rc=0
+#   S067  curl -fsSL --max-time 30 'https://openid.net/specs/openid-connect-core-1_0.html' | grep -c 'It MUST contain the OAuth 2.0' -> 1   rc=0
+#   S070  curl -fsSL --max-time 30 'https://www.1password.dev/brokered-access/custom-workflow' | python3 corpus/rendered-text-v1.py locate /dev/stdin 'The client authenticates using your OIDC token, workload ID, and the integration key configured by your administrator'
+#         -> RENDERED_TEXT_V1_LOCATE: count=1   rc=0
+#   S074  curl -fsSL 'https://csrc.nist.gov/pubs/sp/800/133/r3/ipd' | grep -c 'public comment period is CLOSED' -> 1   rc=0
+#   S078  curl -fsSL 'https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-57p2.pdf' | pdftotext -layout - - | grep -c 'has been withdrawn (archived)' -> 1   rc=0
+#   S101  curl -fsSL -A '<browser UA>' 'https://www.iso.org/standard/60237.html' | grep -c 'Withdrawal of International Standard' -> 2   rc=0
+#   S113  curl -fsSL -A '<browser UA>' 'https://www.iso.org/standard/82709.html' | grep -c 'ISO/IEC 11770-3:2021/Amd' -> 3   rc=0
+#   S114  curl -fsSL -A '<browser UA>' 'https://www.iso.org/standard/85929.html' | grep -c 'International Standard published' -> 2   rc=0
+#
+# S113 live-run stability (the one clock whose host is rate-limited): 19 browser-UA runs of the S113
+# clock on 2026-11-07 -> 18 runs returned 3, ONE run returned curl rc=22 (HTTP 403) and grep 0.
+# That single 403 is a Cloudflare interstitial on the URL, not a content change: the same URL with the
+# browser UA is byte-stable at sha256 d8dfe35408b17b02845dc0cf19f774bc6cc6b8dcbfe1636e22bb6b13dfa64357
+# whenever it returns 200. The stated clock is TRUE, but on this host it is occasionally interrupted
+# by a 403 — a run-to-run flake of the live leg that the OFFLINE replay (the round's actual subject) does
+# not have. Recorded as an observation, not as a defect in the claim.
+#
+# S101 and S114 live clock stability: 5 consecutive browser-UA runs each, all returned the stated N
+# (S101 -> 2 x5, S114 -> 2 x5). S113: 12 consecutive runs all -> 3 (plus the 6-run batch above).
+#
+# CONCLUSION: 10/10 stated clocks are true LIVE today AND true OFFLINE on the committed captures.

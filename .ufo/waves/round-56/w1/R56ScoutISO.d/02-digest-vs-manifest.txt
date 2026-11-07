@@ -1,0 +1,23 @@
+# R56ScoutISO receipt 02 — live digest vs corpus/recheck-captures.tsv rows, and vs the committed capture bytes
+# date 2026-11-07T07:37:09-03:00; lane tree @ 42070de7770e1558adcf6aa7a7bc59309a9654d7 (frozen predeclaration)
+
+== manifest rows as committed (corpus/recheck-captures.tsv) ==
+S101	https://www.iso.org/standard/60237.html	.ufo/waves/round-45/controls/capture-r45/S101.raw	2026-11-05	200	85615	2e4c1524ec05865536f819db68c56494d97fc67cb490df4f5d4b1ca85b7b0c80
+S113	https://www.iso.org/standard/82709.html	.ufo/waves/round-55/capture/S113.body	2026-11-07	200	90604	d8dfe35408b17b02845dc0cf19f774bc6cc6b8dcbfe1636e22bb6b13dfa64357
+S114	https://www.iso.org/standard/85929.html	.ufo/waves/round-55/capture/S114.body	2026-11-07	200	85138	8bb88d88ff21d4488cf2205d9655a7fcbdeb3601616bdf4f5767dce13c449bdf
+
+== live sha256 vs manifest sha256 ==
+S101 manifest_sha=2e4c1524ec05865536f819db68c56494d97fc67cb490df4f5d4b1ca85b7b0c80 live_sha=2e4c1524ec05865536f819db68c56494d97fc67cb490df4f5d4b1ca85b7b0c80 manifest_bytes=85615 live_bytes=85615 verdict=MATCH
+S113 manifest_sha=d8dfe35408b17b02845dc0cf19f774bc6cc6b8dcbfe1636e22bb6b13dfa64357 live_sha=d8dfe35408b17b02845dc0cf19f774bc6cc6b8dcbfe1636e22bb6b13dfa64357 manifest_bytes=90604 live_bytes=90604 verdict=MATCH
+S114 manifest_sha=8bb88d88ff21d4488cf2205d9655a7fcbdeb3601616bdf4f5767dce13c449bdf live_sha=8bb88d88ff21d4488cf2205d9655a7fcbdeb3601616bdf4f5767dce13c449bdf manifest_bytes=85138 live_bytes=85138 verdict=MATCH
+
+== live body vs the committed capture body, byte-for-byte (cmp) ==
+S101 cmp rc=0 identical
+S113 cmp rc=0 identical
+S114 cmp rc=0 identical
+
+== header-byte scan of the four live bodies (QM72 gate: no HTTP status line, no set-cookie: line) ==
+S101 http-status-line=0 set-cookie-line=0
+S113 http-status-line=0 set-cookie-line=0
+S114 http-status-line=0 set-cookie-line=0
+S070 http-status-line=0 set-cookie-line=0

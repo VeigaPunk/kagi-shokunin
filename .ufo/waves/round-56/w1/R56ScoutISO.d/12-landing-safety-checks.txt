@@ -1,0 +1,54 @@
+# R56ScoutISO receipt 12 - landing-safety checks for the S070 source-line edit (post-F1)
+# date 2026-11-07T07:42:07-03:00
+
+== 1) no gate parses a knowledge entry's source-line digest text ==
+  grep -rl 'rendered-text-v1 sha256' corpus/ -> knowledge entries only (no .sh/.py):
+    /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/knowledge/oidc-federation-trust-policy.md
+    /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/knowledge/cdp-bridge-1password-oidc-workflow.md
+    /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/knowledge/nist-key-management-guidance-status.md
+    /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/knowledge/nist-key-management-parts-withdrawal.md
+  grep -rl 'page fetch sha256' corpus/ -> knowledge entries only:
+    /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/knowledge/oidc-federation-trust-policy.md
+    /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/knowledge/cdp-bridge-1password-oidc-workflow.md
+  => corpus/sources-census.sh, claim-ledger.sh and self-counts.py read the REGISTRY rows and the
+     provenance table, never an entry's prose digest. The entry-line edit is gate-safe.
+
+== 2) the census cross-check that DOES bind: the in-row 'Fetch sha256:' pin (historical S001-S016 only) ==
+  none of S018/S070/S101/S113/S114 carries an in-row pin:
+    S018: no pin
+    S070: no pin
+    S101: no pin
+    S113: no pin
+    S114: no pin
+  => no inrow-pins.tsv classification is required for these ids.
+
+== 3) if the L1 instead refreshes corpus/source-fetches.tsv's S070 row, three couplings move with it ==
+  a) row_identity_sha256 is sha256 of id<TAB>status<TAB>url; it does NOT change when digest columns change:
+    S070 computed = 58690583e5af268b242e61d642841a40622d3d9c0525b3e8e530dca9debfcf7e
+    S070 committed col3 = 58690583e5af268b242e61d642841a40622d3d9c0525b3e8e530dca9debfcf7e
+    S018 computed = ddb614c5d10e69bf33707d9696a66a702dfe2dcd1891027a94ecead73479bcf2
+    S018 committed col3 = ddb614c5d10e69bf33707d9696a66a702dfe2dcd1891027a94ecead73479bcf2
+  b) the census refuses a SECOND provenance row for one id (SC_FETCH id=... duplicate-provenance):
+     replace the S070 row in place; do not append one.
+  c) corpus/SOURCES.md's S070 row text names that capture by DATE:
+     page title "(public beta)", §"Step 2. Connect your Environment to your workflow" (period form — the staged colon form locates 0 times, corrected in-round) and §"Step 3: Use your Environment in your workflow"; campaign fetch sha256 `bd85d7332dda43d0` (fetched 2026-10-23, non-reproducing — recorded); in-round capt
+     -> if the provenance row's fetched date changes to 2026-11-07, that phrase must change too.
+
+== 4) S069 sits on the SAME source line and has drifted the SAME way (three fetches, one digest) ==
+    live  : RENDERED_TEXT_V1: raw_sha256=6b4e78533fb2da34ccd16e08a67033ab8c6642a6a69293d84b12917b8ec75df8 bytes=216522 normalized_sha256=d12a9bb380029ac05f308a76bd8d8126a113a482c1efb24047c096000cd3796a normalized_bytes=66855
+    2026-11-03 attestation (source-fetches.tsv col 8/10/11/15):
+      fetched=2026-11-03
+      raw=6179e9c1408515293f7fdf9b6445a4318e5a1289fc036fbb7559a21e3c6fa93c
+      bytes=215346
+      normalized=232239dd8ae8e792148706d72c1c13707a3a6a195046141950e10448cf003b50
+    entry source line claims: raw 6179e9c140851529 / normalized 232239dd8ae8e792, fetched 2026-11-03
+    three independent fetches of https://www.1password.dev/brokered-access under the lane's
+    curl-fsSL-compressed-v1 profile all returned raw 6b4e78533fb2da34ccd16e08a67033ab8c6642a6a69293d84b12917b8ec75df8
+    => S069's stable rendered-text-v1 sha256 232239dd8ae8e792 is stale on the SAME line, same rebuild.
+
+== 5) used-by cells: every id the entry names already lists this entry ==
+    S069 used-by includes cdp-bridge-1password-oidc-workflow.md: YES
+    S070 used-by includes cdp-bridge-1password-oidc-workflow.md: YES
+    S071 used-by includes cdp-bridge-1password-oidc-workflow.md: YES
+    S018 used-by includes cdp-bridge-1password-oidc-workflow.md: YES
+  => adding S018's digest to the entry's source line cannot break the census SC_BODY_CITE rule.

@@ -1,0 +1,63 @@
+# R56Scribe probes — 2026-11-07 (UTC 2026-11-07T10:38:40Z)
+lane HEAD: 42070de7770e1558adcf6aa7a7bc59309a9654d7
+BASE: 832ba6a53d6a76706b5c80bce2278683dea33d42
+
+## instrument sha256
+033f2104ef36b76e5d9de192878fb1b619808f1c9c63b2e310d074816a3e1679  plans/round-56.md
+d2bcb79094355ef6eb7bdad406ee1ccbeaf386e920950168fc2fa2c74aeb9f44  plans/round-56-c1.sh
+bb48db9605ede5770582178d6962a5a75acfb9d1086e1f0d3098954685958b3e  plans/round-56-controls.sh
+637c8184bd6ea8635fe582ea5641ea490033405658259c1a78c63899611aa585  corpus/recheck-replay.py
+df46be5c92c7b4d5a8b7ad790371b5c3240c92f46460b8cfb69e9b75b7ecc762  corpus/recheck-captures.tsv
+3cc3e977eef7832f048a319bfd449cd0b6ecc575160b4905720285edabd65f42  .ufo/waves/round-56/controls/controls-prefreeze.txt
+
+## gate run (lane root)
+MATCH corpus/knowledge/betterleaks-detection-vs-validation.md:4 id=S055 form=grep stated=1 replayed=1
+MATCH corpus/knowledge/cdp-bridge-1password-oidc-workflow.md:3 id=S070 form=locate stated=1 replayed=1
+MATCH corpus/knowledge/iso-11770-3-edition-status.md:3 id=S101 form=grep stated=2 replayed=2
+MATCH corpus/knowledge/iso-11770-3-edition-status.md:3 id=S113 form=grep stated=3 replayed=3
+MATCH corpus/knowledge/iso-11770-3-edition-status.md:3 id=S114 form=grep stated=2 replayed=2
+MATCH corpus/knowledge/nist-key-management-guidance-status.md:3 id=S074 form=grep stated=1 replayed=1
+MATCH corpus/knowledge/nist-key-management-parts-withdrawal.md:3 id=S078 form=pdf stated=1 replayed=1
+MATCH corpus/knowledge/oidc-federation-trust-policy.md:3 id=S067 form=grep stated=1 replayed=1
+MATCH corpus/knowledge/secret-scanning-detection-vs-validation.md:4 id=S054 form=grep stated=1 replayed=1
+MATCH corpus/knowledge/trufflehog-verification-lifecycle.md:4 id=S057 form=grep stated=1 replayed=1
+RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)
+rc=0
+
+## gate selftest
+PASS second-clock-mismatch rc=1 want=1 token=MISMATCH
+PASS symlink-component rc=1 want=1 token=symlink:
+RECHECK_REPLAY_SELFTEST: PASS (13 cases)
+selftest_rc=0
+
+## printer false-green repro (scratch tree from git archive 42070de)
+d04cae5a25bfaf457a03ddcc78c42991d53b60bb2070dd51be908e687a167a9a  /fast/scratch/hyaku/kagi-r56/R56Scribe/printer/t/corpus/recheck-replay.py
+read occurrences in printer: 0
+C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r5-gate:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)
+rc=0
+
+## C32-equivalent manual probe (restated N + fresh capture)
+4:recheck: 180d — `curl -fsSL 'https://raw.githubusercontent.com/betterleaks/betterleaks/main/README.md' | grep -c 'Scans detect secrets without credential provider requests by default'` -> 2 (ran 2026-10-23)
+C1_REPLAY: value=FAIL present=9 replayed=0 gate=0 guard=0 (bad=absent:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r5-gate:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)
+rc=0
+
+## default-UA status probe (status only; no headers stored)
+https://www.iso.org/standard/82709.html status=403 size=5448
+https://www.iso.org/standard/85929.html status=403 size=5448
+https://www.iso.org/standard/60237.html status=403 size=5448
+
+## seat-proposed controls harness syntax check
+bash_n_rc=0
+
+## frozen controls receipt traceback excerpt
+8:AssertionError: inert edit corpus/knowledge/betterleaks-detection-vs-validation.md
+9:CONTROL K1-F2-restated-N expect=FAIL got=FAIL MATCH :: C1_REPLAY: value=FAIL present=9 replayed=0 gate=0 guard=0 (bad=absent:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r5-gate:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)
+
+## capture header scan (counts only)
+.ufo/waves/round-56/capture/S054.body:0
+.ufo/waves/round-56/capture/S055.body:0
+.ufo/waves/round-56/capture/S057.body:0
+.ufo/waves/round-56/capture/S067.body:0
+.ufo/waves/round-56/capture/S070.body:0
+.ufo/waves/round-56/capture/S074.body:0
+.ufo/waves/round-56/capture/S078.body:0

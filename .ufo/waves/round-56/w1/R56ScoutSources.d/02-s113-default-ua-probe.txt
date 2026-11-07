@@ -1,0 +1,68 @@
+# R56ScoutSources receipt 02 — round-55 spot-check D3: is the S113 default-UA 403 claim true, and is the round-56 receipt right?
+# seat: R56ScoutSources-2 (w1 wave) ; date 2026-11-07 ; lane HEAD 42070de7770e1558adcf6aa7a7bc59309a9654d7
+# D3 verbatim (corpus/lessons/round-55-verifier-spotcheck.md:77):
+#   "D3 — The S113 row asserts 'the default user agent receives HTTP 403', but the only default-UA receipt
+#    is for the S114 URL (lesson §Gate discloses). Either probe S113 with the default UA and store the
+#    receipt or narrow the row text in an appended correction."
+# profile: curl -sSL --compressed --max-time 60 -o <body> -w '%{http_code} %{size_download} %{content_type}' <url>
+#   (curl default UA = curl/8.23.0; NO -A flag => default UA). No -D / -i: no response header requested or stored (QM72).
+#   No cookie, vault material or credential was read, captured or printed.
+#
+# ---- probe 1: the S113 URL itself, default UA -------------------------------------
+$ curl -sS --compressed --max-time 60 -o S113-default-ua.live.body \
+    -w 'S113-default-ua http=%{http_code} size=%{size_download} ct=%{content_type}\n' \
+    'https://www.iso.org/standard/82709.html'
+S113-default-ua http=403 size=3135 ct=text/html; charset=UTF-8
+rc=0
+sha256(S113-default-ua.live.body) = 5434df1a243f1a2260944ee4062cdb702cb58a4ad0aa9b09c7a0d0bc4e9de50e
+#
+# NOTE on the 3135 vs 5448 byte figures: with --compressed, curl's %size_download reports the bytes
+# TRANSFERRED on the wire (3135, gzip-encoded), while the file curl writes is the DECODED body (5448).
+# Re-measured: the same URL without --compressed reports size_download=5448 and writes 5448 bytes.
+# Both the committed receipt and my probe body are 5448 bytes. The byte count that matters for a
+# digest is the file's own size: 5448 == 5448.
+#
+# ---- probe 2: the same URL with the browser UA (the clock's own form) --------------
+$ curl -sS --compressed --max-time 60 -A 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36' \
+    -o S113-browser-ua.live.body -w 'S113-browser-ua http=%{http_code} size=%{size_download}\n' 'https://www.iso.org/standard/82709.html'
+S113-browser-ua http=200 size=20762
+rc=0
+sha256(S113-browser-ua.live.body) = d8dfe35408b17b02845dc0cf19f774bc6cc6b8dcbfe1636e22bb6b13dfa64357
+manifest row S113 sha256           = d8dfe35408b17b02845dc0cf19f774bc6cc6b8dcbfe1636e22bb6b13dfa64357   => IDENTICAL
+#
+# ---- probe 3: the committed round-56 receipt --------------------------------------
+.ufo/waves/round-56/capture/rejections/S113-default-ua.body
+  size   = 5448 bytes
+  sha256 = ce3cb7f2eb0efeba38faff1ded3186218ad9df51e4b22b795d0688fa2eb3893c
+  <title> = "Just a moment..."   (Cloudflare interstitial)
+  occurrences of "challenges.cloudflare.com" = 5
+  occurrences of the literal string "403"    = 0        <- see the caveat below
+  first bytes = "<!DOCTYPE html><html lang=\"en-US\">..."
+  ^set-cookie: line present? NO (grep -ci 'set-cookie' => 0)
+  starts with an HTTP/ status line? NO (head -c 5 => "<!DOC")
+  the challenged URL is INSIDE the body: at byte offset 2699 the string
+    'standard/82709.html?__cf_chl_tk=7St3rbi6HSv_Adpliy2eiZXdLTHUwCj7mrljTKFgA14-1794046940-1.'
+  => the receipt is bound to the S113 URL (82709.html), not to the S114 URL (85929.html).
+#
+# ---- probe 4: my default-UA body vs the committed receipt -------------------------
+byte length both 5448; 1900 differing bytes, all in the Cloudflare per-request fields:
+  script-src nonce, cFPWv/cH/cITimeS/cN/cRay, __cf_chl_tk / __cf_chl_f_tk / __cf_chl_rt_tk tokens, cTpl*, md, mdrd
+  i.e. the SAME interstitial template with a FRESH challenge token/ray per request.
+  NO 'set-cookie:' line and no '__cf_bm' cookie value in either body.
+#
+# ---- verdict ----------------------------------------------------------------------
+CONFIRMED, with one caveat the receipt alone cannot carry.
+# (a) The S113 registry row's parenthetical is TRUE for the S113 URL itself: with the default UA the
+#     ISO catalogue returns HTTP 403 (a Cloudflare "Just a moment..." interstitial); with the browser UA
+#     it returns HTTP 200 and the body is byte-identical to the manifest's S113 capture.
+#     D3's defect was the RECEIPT'S PROVENANCE, not the assertion — exactly as D3 itself framed it.
+# (b) The committed receipt IS a default-UA 403 for 82709.html: its embedded challenge URL names
+#     standard/82709.html (offset 2699). It is the right evidence for the right URL.
+# (c) CAVEAT: the receipt body carries NO '403' string and NO HTTP status line (it is an HTML page,
+#     not a header block), so the body ALONE cannot prove the status code 403. The status is proved by
+#     the sibling curl status line, which must be recorded next to it (as .ufo/waves/round-55/capture/
+#     rejections/default-ua_85929.meta does: one line, "403 text/html; charset=UTF-8").
+#     The round-56 rejections/ directory holds ONLY the .body — there is no .meta sibling for it.
+# (d) The 403 body is NOT byte-reproducible (per-request Cloudflare token), so it is a STATUS
+#     OBSERVATION, not a digest pin. Re-pinning a sha256 on it would be wrong; the lane's S101/S113/S114
+#     rows already carry the raw sha256 of the 200 body, which is the right thing to pin.

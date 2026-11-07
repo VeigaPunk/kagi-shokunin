@@ -1,0 +1,53 @@
+# R56ScoutISO receipt 05 — default-user-agent 403 on the ISO catalogue URLs (S113 / S114 / S101)
+# date 2026-11-07T07:37:39-03:00
+# QUESTION: does the default-UA 403 reproduce on 82709 (S113) itself? (round-55 spotcheck D3:
+#   'the S113 row asserts the default user agent receives HTTP 403, but the only default-UA receipt
+#   is for the S114 URL')
+# curl default UA = curl/8.23.0 (no -A). No -D / -i: headers NOT written to disk (QM72).
+
+$ for id,url in S101:60237 S113:82709 S114:85929; do curl -sSL --max-time 60 -o bodies/$id.defaultua -w '%{http_code} %{size_download}' https://www.iso.org/standard/$url.html; done
+S101 https://www.iso.org/standard/60237.html default-UA: 403 5448 text/html; charset=UTF-8 rc=0
+  title: <title>Just a moment...</title>
+  sha256: 45c62bb6c8a796837a80b3269fc0e53bda176e42e3df66088321de959239cdf0
+  cloudflare interstitial 'Just a moment...' present: 1
+S113 https://www.iso.org/standard/82709.html default-UA: 403 5448 text/html; charset=UTF-8 rc=0
+  title: <title>Just a moment...</title>
+  sha256: 11e732c1da3c80c5870836582c61fb3346db49ac05cd9c890309067bf54e0e2a
+  cloudflare interstitial 'Just a moment...' present: 1
+S114 https://www.iso.org/standard/85929.html default-UA: 403 5448 text/html; charset=UTF-8 rc=0
+  title: <title>Just a moment...</title>
+  sha256: 81f3b65589540f496ff79c5f9d864559e099fe9bf0e528ae8758a3c124b8f5c9
+  cloudflare interstitial 'Just a moment...' present: 1
+
+== repeat the default-UA probe on 82709 three times: is the 403 stable? ==
+  attempt 1: http=403 rc=0 bytes=5448 sha256=da4d45c5c8f75f2f975c29784fbd240f8b31925fd847eb1dc642ad857e611925
+  attempt 2: http=403 rc=0 bytes=5448 sha256=f5b3369e6d827c2f20886592a2e2804fdb5605f93919c301a326cb6bb4796964
+  attempt 3: http=403 rc=0 bytes=5448 sha256=b70217c33979111f0a467a062b629314bfedfd40862e97e12b628e7a1336fca3
+
+== the stated pattern under the default UA (why a clock run without -A would false-fire) ==
+  S101 default-UA body: grep -c 'Withdrawal of International Standard' = 0
+  S113 default-UA body: grep -c 'ISO/IEC 11770-3:2021/Amd' = 0
+  S114 default-UA body: grep -c 'International Standard published' = 0
+
+== the clock WITH -f (as stated) against the default UA ==
+0
+  (the clock's own pipe: curl rc in that pipe = 22 — curl -f refuses the 403 page; grep then prints 0) -> a false change
+
+== note: the Cloudflare interstitial body is per-request (a fresh token each fetch) ==
+  three default-UA fetches of 82709 above gave three DIFFERENT sha256 at identical 5448 bytes:
+  => the 403 receipt is a status observation, not a digest pin; the bodies are not byte-reproducible.
+
+== the round-55 committed default-UA receipt, for comparison (taken on the S114 URL) ==
+403 text/html; charset=UTF-8
+4898ea70e7463e403b5c139efab33184e638d269210404ca03d64ee409590e75  /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-55/capture/rejections/default-ua_85929.body
+/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-55/capture/rejections/default-ua_85929.body 5448 bytes
+  title: <title>Just a moment...</title>
+  'Just a moment...' present: 1
+
+== the S113 registry row's own assertion ==
+the default user agent receives HTTP 403
+== round-55 lesson text (why the receipt was taken on the S114 URL) ==
+- **S113 — new, opened 2026-11-07** (capture `.ufo/waves/round-55/capture/S113.body`, L1, request profile `curl-fsSL-compressed-v1` with the browser user agent the entry's `recheck:` line declares (the S101 row records only "with a browser user agent"); the default user agent receives HTTP 403 — receipt `capture/rejections/default-ua_85929.meta`, taken on the S114 URL; the S113 URL was not probed with the default agent): `https://www.iso.org/standard/82709.html`, HTTP 200, `text/html;charset=UTF-8`, decoded body sha256 `d8dfe35408b17b02845dc0cf19f774bc6cc6b8dcbfe1636e22bb6b13dfa64357`, 90604 B (an earlier same-day L1 fetch had the same digest; that body was not kept, and R55ScoutISO/R55R
+
+== round-55 spotcheck D3 (the routed item this receipt answers) ==
+77:- D3 — The S113 row asserts "the default user agent receives HTTP 403", but the only default-UA receipt is for the S114 URL (lesson §Gate discloses). Either probe S113 with the default UA and store the receipt or narrow the row text in an appended correction.

@@ -1,0 +1,23 @@
+# R56ScoutISO receipt 01 — live fetch of the three ISO catalogue URLs
+# seat R56ScoutISO; date 2026-11-07T07:37:04-03:00; host Linux 7.2.11-arch1-1 x86_64
+# cwd /fast/scratch/hyaku/kagi-r56/R56ScoutISO (scratch); lane /home/vgpnk/Projects/shokunin/kagi-shokunin @ 42070de7770e1558adcf6aa7a7bc59309a9654d7
+# curl: curl 8.23.0 (x86_64-pc-linux-gnu) libcurl/8.23.0 OpenSSL/3.6.5 zlib/1.3.2 brotli/1.2.0 zstd/1.5.7 libidn2/2.3.8 libpsl/0.21.5 libssh2/1.11.1 nghttp2/1.70.0 ngtcp2/1.25.0 nghttp3/1.18.0 mit-krb5/1.22.2
+# UA is the browser agent the knowledge entry's recheck: line declares:
+#   Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36
+# no -D / -i: response headers were NOT written to disk (QM72). Bodies only, in scratch.
+
+$ UA='Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36'
+$ for id,url in S101:60237 S113:82709 S114:85929; do curl -fsSL -A "$UA" --max-time 60 -o bodies/$id.live -w '$id %{http_code} %{size_download} %{url_effective} %{content_type}\n' https://www.iso.org/standard/$url.html; done
+S101 200 85615 https://www.iso.org/standard/60237.html text/html;charset=UTF-8 rc=0
+S113 200 90604 https://www.iso.org/standard/82709.html text/html;charset=UTF-8 rc=0
+S114 200 85138 https://www.iso.org/standard/85929.html text/html;charset=UTF-8 rc=0
+
+$ sha256sum bodies/S101.live bodies/S113.live bodies/S114.live
+2e4c1524ec05865536f819db68c56494d97fc67cb490df4f5d4b1ca85b7b0c80  bodies/S101.live
+d8dfe35408b17b02845dc0cf19f774bc6cc6b8dcbfe1636e22bb6b13dfa64357  bodies/S113.live
+8bb88d88ff21d4488cf2205d9655a7fcbdeb3601616bdf4f5767dce13c449bdf  bodies/S114.live
+
+$ stat -c%s bodies/*.live
+bodies/S101.live 85615
+bodies/S113.live 90604
+bodies/S114.live 85138

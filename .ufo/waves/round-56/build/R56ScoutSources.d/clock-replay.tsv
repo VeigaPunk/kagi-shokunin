@@ -1,0 +1,23 @@
+# R56ScoutSources — stated-clock replay receipt, round 56
+# Each row: the clock's own command, run LIVE on 2026-11-07 (network), and REPLAYED offline on the
+# committed capture by corpus/recheck-replay.py. stated N from the knowledge entry's recheck: line.
+# clock_id  entry  form  stated  live_result  capture_replay  live_capture_digest_equal
+clock    entry                                          form    stated live        replay          digest_equal
+S054     secret-scanning-detection-vs-validation.md:4   grep    1      1           1               yes
+S055     betterleaks-detection-vs-validation.md:4       grep    1      1           1               yes
+S057     trufflehog-verification-lifecycle.md:4         grep    1      1           1               yes
+S067     oidc-federation-trust-policy.md:3              grep    1      1           1               yes
+S070     cdp-bridge-1password-oidc-workflow.md:3        locate  1      1           1               yes
+S074     nist-key-management-guidance-status.md:3       grep    1      1           1               no-RAW-but-normalized-yes
+S078     nist-key-management-parts-withdrawal.md:3      pdf     1      1           1               yes
+S101     iso-11770-3-edition-status.md:3                grep    2      2           2               yes
+S113     iso-11770-3-edition-status.md:3                grep    3      3           3               yes
+S114     iso-11770-3-edition-status.md:3                grep    2      2           2               yes
+
+# 10 stated clocks in 8 knowledge entries, three filter forms (grep 8, pdf 1, locate 1) — the
+# population the plan states. Every clock: stated == live == offline replay.
+# Offline gate as measured by this seat (working tree):
+#   python3 corpus/recheck-replay.py  =>  RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0
+#     no_capture=0 bad_capture=0 unsupported=0 tool=0)   rc=0
+#   instrument sha256 b7782f35c0c8bbaedac5f8f06eaadbc3ce4b8997be25e10f4224724013d799e8  corpus/recheck-replay.py
+#   manifest  sha256 df46be5c92c7b4d5a8b7ad790371b5c3240c92f46460b8cfb69e9b75b7ecc762  corpus/recheck-captures.tsv

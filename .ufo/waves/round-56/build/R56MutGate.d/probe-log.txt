@@ -1,0 +1,58 @@
+R56MutGate probe log — exact commands and raw outputs (2026-11-07, all runs in scratch)
+
+1) Instrument snapshot at measurement (lane working tree)
+   $ sha256sum corpus/recheck-replay.py corpus/recheck-captures.tsv plans/round-56-c1.sh plans/round-56-controls.sh plans/round-56.md
+   637c8184bd6ea8635fe582ea5641ea490033405658259c1a78c63899611aa585  corpus/recheck-replay.py
+   df46be5c92c7b4d5a8b7ad790371b5c3240c92f46460b8cfb69e9b75b7ecc762  corpus/recheck-captures.tsv
+   d2bcb79094355ef6eb7bdad406ee1ccbeaf386e920950168fc2fa2c74aeb9f44  plans/round-56-c1.sh
+   bb48db9605ede5770582178d6962a5a75acfb9d1086e1f0d3098954685958b3e  plans/round-56-controls.sh
+   033f2104ef36b76e5d9de192878fb1b619808f1c9c63b2e310d074816a3e1679  plans/round-56.md
+
+2) Baseline (real-corpus tree copied to scratch)
+   $ python3 -I -B corpus/recheck-replay.py --selftest
+   RECHECK_REPLAY_SELFTEST: PASS (13 cases)            rc 0
+   $ python3 -I -B corpus/recheck-replay.py --root <tree>
+   RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)   rc 0
+   $ bash plans/round-56-c1.sh --tree <tree>
+   C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)                                     rc 0
+
+3) Interim counter state with the unfilled pin (07:38, counter 50194537… / 0153f876…)
+   $ bash plans/round-56-c1.sh --tree <tree>
+   C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:<all 10 entries>)
+   cause: GATE_SHA256_PIN=__GATE_SHA256__ literal -> HAVE_GATE=0 -> empty gate.out -> gate_clean=0.
+   With the pin filled with the gate's digest the same tree reads value=10 (verified in a scratch copy).
+
+4) Pin kill (i.e. every gate mutant dies on the byte pin, not on a conjunct)
+   counter copy GATE_SHA256_PIN=637c8184… run on mutant trees:
+   G02-rc-fail-open   -> C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:…)
+   G04-bytes-drop     -> C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:…)
+   G15-pdf-no-layout  -> C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:…)
+
+5) Selftest case-count coupling (gate + one benign case, sha256 e82522c0792780033bfa5d6efb3303d8d76fc051026b34b465abb056251adbc0)
+   $ python3 -I -B gate14 --selftest   -> RECHECK_REPLAY_SELFTEST: PASS (14 cases)   rc 0
+   $ python3 -I -B gate14 --root <tree>-> RECHECK_REPLAY: CLEAN (clocks=10 match=10 …)  rc 0
+   $ bash c1(pin=gate14, literal "PASS (13 cases)") --tree <tree>
+   C1_REPLAY: value=FAIL present=10 replayed=10 gate=1 guard=0 (bad=selftest)          rc 0
+   $ bash c1(pin=gate14, literal "PASS (14 cases)") --tree <tree>
+   C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)               rc 0
+
+6) G17 (locate normaliser by cwd-relative path) cwd dependence, same tree, same mutant bytes
+   $ (cd <lane>; python3 -I -B gate17.py --root <lane>)   -> RECHECK_REPLAY: CLEAN (clocks=10 match=10 …)
+   $ (cd <empty scratch>; python3 -I -B gate17.py --root <lane>) -> RECHECK_REPLAY: DRIFT (clocks=10 match=9 tool=1)
+
+7) locate form on a real body (proposed selftest case, statement 3 vs measured 2)
+   $ python3 corpus/rendered-text-v1.py locate .ufo/b.body needle
+   RENDERED_TEXT_V1_LOCATE: count=2
+   $ gate --root <tree> with `-> 3`
+   MISMATCH corpus/knowledge/e.md:2 id=S001 form=locate stated=3 replayed=2
+   RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=1 …)   rc 1
+   $ gate --root <tree> with `-> 2`
+   MATCH corpus/knowledge/e.md:2 id=S001 form=locate stated=2 replayed=2
+   RECHECK_REPLAY: CLEAN (clocks=1 match=1 …)              rc 0
+
+8) Tool failure modes used by the fixtures (measured once, from the scratch cwd)
+   $ pdftotext -layout <text file> -   -> rc 1 (Syntax Error: Couldn't find trailer dictionary)
+   $ python3 -I -B corpus/rendered-text-v1.py locate /bin/ls 'The client'
+     RENDERED_TEXT_V1: SETUP (not strict UTF-8)            rc 2 (no count line)
+   grep shim: `exit 2` on PATH reproduces "grep fails" without needing an unreadable file
+   (a chmod 000 body is unusable as a fixture: the gate's own read_bytes() aborts before grep runs).

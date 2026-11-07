@@ -1,0 +1,221 @@
+{
+  "baseline_selftest": [
+    0,
+    "RECHECK_REPLAY_SELFTEST: PASS (13 cases)"
+  ],
+  "baseline_counter": [
+    0,
+    "C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)"
+  ],
+  "results": [
+    {
+      "id": "M1-drop-set-cookie",
+      "mutation": {
+        "anchor": "    if re.match(rb\"HTTP/\\d\", data) or re.search(rb\"(?im)^set-cookie:\", data):",
+        "replacement": "    if re.match(rb\"HTTP/\\d\", data):"
+      },
+      "gate_sha256": "96c53f8f622d669c1114d410345c6eb93ebb456802e126d755183acc840c4f36",
+      "counter_sha256": "096251c9b7a7405dbae320eb4dbb3ef0a092cf5e530d2274de0b2e29509bde9a",
+      "pristine_gate_rc_on_tree": 1,
+      "pristine_gate_last": "RECHECK_REPLAY: DRIFT (clocks=10 match=9 mismatch=0 no_capture=0 bad_capture=1 unsupported=0 tool=0)",
+      "pristine_counter_value": "0",
+      "pristine_counter_line": "C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r3-headers:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)",
+      "selftest_rc": 0,
+      "selftest_last": "RECHECK_REPLAY_SELFTEST: PASS (13 cases)",
+      "mutant_counter_value": "9",
+      "mutant_counter_line": "C1_REPLAY: value=9 present=10 replayed=9 gate=1 guard=1 (bad=r3-headers:secret-scanning-detection-vs-validation.md:README.md)",
+      "mutant_counter_rc": 0,
+      "mutant_gate_clean": true
+    },
+    {
+      "id": "M2-drop-http-prefix",
+      "mutation": {
+        "anchor": "    if re.match(rb\"HTTP/\\d\", data) or re.search(rb\"(?im)^set-cookie:\", data):",
+        "replacement": "    if re.search(rb\"(?im)^set-cookie:\", data):"
+      },
+      "gate_sha256": "961a0ec7b64307ae9699bb0da5dfc9f114d53fb9fc9dedb342706eb2db361902",
+      "counter_sha256": "096251c9b7a7405dbae320eb4dbb3ef0a092cf5e530d2274de0b2e29509bde9a",
+      "pristine_gate_rc_on_tree": 1,
+      "pristine_gate_last": "RECHECK_REPLAY: DRIFT (clocks=10 match=9 mismatch=0 no_capture=0 bad_capture=1 unsupported=0 tool=0)",
+      "pristine_counter_value": "0",
+      "pristine_counter_line": "C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r3-headers:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)",
+      "selftest_rc": 0,
+      "selftest_last": "RECHECK_REPLAY_SELFTEST: PASS (13 cases)",
+      "mutant_counter_value": "9",
+      "mutant_counter_line": "C1_REPLAY: value=9 present=10 replayed=9 gate=1 guard=1 (bad=r3-headers:secret-scanning-detection-vs-validation.md:README.md)",
+      "mutant_counter_rc": 0,
+      "mutant_gate_clean": true
+    },
+    {
+      "id": "M4-skip-sha256",
+      "mutation": {
+        "anchor": "    if hashlib.sha256(data).hexdigest() != row[\"sha256\"]:",
+        "replacement": "    if False:"
+      },
+      "gate_sha256": "4d3dd7a30a1c34027db68a9a9bd30fd2c6524ef3d8451b52a8e4f85bbf4c1f20",
+      "counter_sha256": "096251c9b7a7405dbae320eb4dbb3ef0a092cf5e530d2274de0b2e29509bde9a",
+      "pristine_gate_rc_on_tree": 1,
+      "pristine_gate_last": "RECHECK_REPLAY: DRIFT (clocks=10 match=9 mismatch=0 no_capture=0 bad_capture=1 unsupported=0 tool=0)",
+      "pristine_counter_value": "0",
+      "pristine_counter_line": "C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r3-digest:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)",
+      "selftest_rc": 1,
+      "selftest_last": "RECHECK_REPLAY_SELFTEST: FAIL (1 of 13 cases)",
+      "mutant_counter_value": "FAIL",
+      "mutant_counter_line": "C1_REPLAY: value=FAIL present=10 replayed=9 gate=1 guard=0 (bad=r3-digest:secret-scanning-detection-vs-validation.md:README.md,selftest)",
+      "mutant_counter_rc": 0,
+      "mutant_gate_clean": true
+    },
+    {
+      "id": "M5-allow-dotdot",
+      "mutation": {
+        "anchor": "    if rel.startswith(\"/\") or \"..\" in Path(rel).parts or not rel:",
+        "replacement": "    if rel.startswith(\"/\") or not rel:"
+      },
+      "gate_sha256": "9b2fea503822f6c59a1fab19c80073046a70b369ab3218b23721884389010c89",
+      "counter_sha256": "096251c9b7a7405dbae320eb4dbb3ef0a092cf5e530d2274de0b2e29509bde9a",
+      "pristine_gate_rc_on_tree": 1,
+      "pristine_gate_last": "RECHECK_REPLAY: DRIFT (clocks=10 match=9 mismatch=0 no_capture=0 bad_capture=1 unsupported=0 tool=0)",
+      "pristine_counter_value": "0",
+      "pristine_counter_line": "C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r3-path:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)",
+      "selftest_rc": 0,
+      "selftest_last": "RECHECK_REPLAY_SELFTEST: PASS (13 cases)",
+      "mutant_counter_value": "9",
+      "mutant_counter_line": "C1_REPLAY: value=9 present=10 replayed=9 gate=1 guard=1 (bad=r3-path:secret-scanning-detection-vs-validation.md:README.md)",
+      "mutant_counter_rc": 0,
+      "mutant_gate_clean": true
+    },
+    {
+      "id": "M6-skip-symlink",
+      "mutation": {
+        "anchor": "        if cur.is_symlink():\n            return None, \"symlink:%s\" % rel",
+        "replacement": "        if False:\n            return None, \"symlink:%s\" % rel"
+      },
+      "gate_sha256": "8979c01bd1863ab86cc58a5cced3c478d6661c17ec8328787b90a6c5a59dc1d4",
+      "counter_sha256": "096251c9b7a7405dbae320eb4dbb3ef0a092cf5e530d2274de0b2e29509bde9a",
+      "pristine_gate_rc_on_tree": 1,
+      "pristine_gate_last": "RECHECK_REPLAY: DRIFT (clocks=10 match=9 mismatch=0 no_capture=0 bad_capture=1 unsupported=0 tool=0)",
+      "pristine_counter_value": "0",
+      "pristine_counter_line": "C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r3-file:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)",
+      "selftest_rc": 1,
+      "selftest_last": "RECHECK_REPLAY_SELFTEST: FAIL (1 of 13 cases)",
+      "mutant_counter_value": "FAIL",
+      "mutant_counter_line": "C1_REPLAY: value=FAIL present=10 replayed=9 gate=1 guard=0 (bad=r3-file:secret-scanning-detection-vs-validation.md:README.md,selftest)",
+      "mutant_counter_rc": 0,
+      "mutant_gate_clean": true
+    },
+    {
+      "id": "M7-unsupported-as-match",
+      "mutation": {
+        "anchor": "            tally[\"UNSUPPORTED\"] += 1",
+        "replacement": "            tally[\"MATCH\"] += 1"
+      },
+      "gate_sha256": "e77f33bc7f4f59730ffcc1d4890070e8de3e4d819849be859bc1195c3249e31d",
+      "counter_sha256": "096251c9b7a7405dbae320eb4dbb3ef0a092cf5e530d2274de0b2e29509bde9a",
+      "pristine_gate_rc_on_tree": 1,
+      "pristine_gate_last": "RECHECK_REPLAY: DRIFT (clocks=11 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=1 tool=0)",
+      "pristine_counter_value": "0",
+      "pristine_counter_line": "C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r5-gate:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)",
+      "selftest_rc": 1,
+      "selftest_last": "RECHECK_REPLAY_SELFTEST: FAIL (2 of 13 cases)",
+      "mutant_counter_value": "FAIL",
+      "mutant_counter_line": "C1_REPLAY: value=FAIL present=10 replayed=10 gate=1 guard=0 (bad=selftest)",
+      "mutant_counter_rc": 0,
+      "mutant_gate_clean": true
+    },
+    {
+      "id": "M8-grep-fixed-string",
+      "mutation": {
+        "anchor": "res = subprocess.run([\"grep\", \"-c\", \"-e\", arg, str(body)], capture_output=True, timeout=60)",
+        "replacement": "res = subprocess.run([\"grep\", \"-c\", \"-F\", \"-e\", arg, str(body)], capture_output=True, timeout=60)"
+      },
+      "gate_sha256": "46928910ea930930cf5acaa56c216f474cb77f9ed60da1d1f1159a2b1fc43bce",
+      "counter_sha256": "096251c9b7a7405dbae320eb4dbb3ef0a092cf5e530d2274de0b2e29509bde9a",
+      "pristine_gate_rc_on_tree": 0,
+      "pristine_gate_last": "RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+      "pristine_counter_value": "10",
+      "pristine_counter_line": "C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)",
+      "selftest_rc": 1,
+      "selftest_last": "RECHECK_REPLAY_SELFTEST: FAIL (1 of 13 cases)",
+      "mutant_counter_value": "FAIL",
+      "mutant_counter_line": "C1_REPLAY: value=FAIL present=10 replayed=0 gate=0 guard=0 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r5-gate:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching,selftest)",
+      "mutant_counter_rc": 0,
+      "mutant_gate_clean": false
+    },
+    {
+      "id": "M9-allow-duplicate-urls",
+      "mutation": {
+        "anchor": "        if cols[1] in rows:",
+        "replacement": "        if False:"
+      },
+      "gate_sha256": "2da939cb4829f6cf78807920df2a135151d82245ef2268fca76b8cabf708cec3",
+      "counter_sha256": "096251c9b7a7405dbae320eb4dbb3ef0a092cf5e530d2274de0b2e29509bde9a",
+      "pristine_gate_rc_on_tree": 2,
+      "pristine_gate_last": "RECHECK_REPLAY: SETUP manifest-duplicate-url:https://raw.githubusercontent.com/trufflesecurity/trufflehog/main/README.md",
+      "pristine_counter_value": "0",
+      "pristine_counter_line": "C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r2-rows2:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)",
+      "selftest_rc": 0,
+      "selftest_last": "RECHECK_REPLAY_SELFTEST: PASS (13 cases)",
+      "mutant_counter_value": "9",
+      "mutant_counter_line": "C1_REPLAY: value=9 present=10 replayed=9 gate=1 guard=1 (bad=r2-rows2:secret-scanning-detection-vs-validation.md:README.md)",
+      "mutant_counter_rc": 0,
+      "mutant_gate_clean": true
+    },
+    {
+      "id": "M3-any-registry-status",
+      "mutation": {
+        "anchor": "    if len(rr) != 1 or len(rr[0]) != 11 or rr[0][7] != \"mined\" or c[3] not in rr[0][1].split():",
+        "replacement": "    if len(rr) != 1 or len(rr[0]) != 11 or c[3] not in rr[0][1].split():"
+      },
+      "gate_sha256": "b7782f35c0c8bbaedac5f8f06eaadbc3ce4b8997be25e10f4224724013d799e8",
+      "counter_sha256": "0419a9d397d2f668f33a144c074eb6d748c7c664f2a7defa1dbd7f365f80943a",
+      "pristine_gate_rc_on_tree": 0,
+      "pristine_gate_last": "RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+      "pristine_counter_value": "9",
+      "pristine_counter_line": "C1_REPLAY: value=9 present=10 replayed=9 gate=1 guard=1 (bad=r2-registry:iso-11770-3-edition-status.md:60237.html)",
+      "selftest_rc": null,
+      "selftest_last": null,
+      "mutant_counter_value": "10",
+      "mutant_counter_line": "C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)",
+      "mutant_counter_rc": 0,
+      "mutant_gate_clean": true
+    },
+    {
+      "id": "M10-drop-11-cell",
+      "mutation": {
+        "anchor": "    if len(rr) != 1 or len(rr[0]) != 11 or rr[0][7] != \"mined\" or c[3] not in rr[0][1].split():",
+        "replacement": "    if len(rr) != 1 or rr[0][7] != \"mined\" or c[3] not in rr[0][1].split():"
+      },
+      "gate_sha256": "b7782f35c0c8bbaedac5f8f06eaadbc3ce4b8997be25e10f4224724013d799e8",
+      "counter_sha256": "ec815f9826b4ab68313ccde0556ce2c39cda428fc1077d8185d0309d292271d0",
+      "pristine_gate_rc_on_tree": 0,
+      "pristine_gate_last": "RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+      "pristine_counter_value": "9",
+      "pristine_counter_line": "C1_REPLAY: value=9 present=10 replayed=9 gate=1 guard=1 (bad=r2-registry:iso-11770-3-edition-status.md:60237.html)",
+      "selftest_rc": null,
+      "selftest_last": null,
+      "mutant_counter_value": "10",
+      "mutant_counter_line": "C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)",
+      "mutant_counter_rc": 0,
+      "mutant_gate_clean": true
+    },
+    {
+      "id": "M11-weaken-match-regex",
+      "mutation": {
+        "anchor": "    want = re.compile(r\"^MATCH %s:\\d+ id=%s form=%s stated=%d replayed=%d$\" % (re.escape(c[0]), re.escape(m[\"id\"]), c[2], c[5], c[5]))",
+        "replacement": "    want = re.compile(r\"^MATCH %s:\\d+ id=%s\" % (re.escape(c[0]), re.escape(m[\"id\"])))"
+      },
+      "gate_sha256": "794dea4f9319bcdae8121c8d397bb8395cbcd6eb5a13a58d2fda5c0a2ddb074c",
+      "counter_sha256": "40596e301fc61d421b7b6f1807642c06eb4e0dc431f5b25b2cc11187b9cfe016",
+      "pristine_gate_rc_on_tree": 0,
+      "pristine_gate_last": "RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+      "pristine_counter_value": "0",
+      "pristine_counter_line": "C1_REPLAY: value=0 present=10 replayed=0 gate=1 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r5-gate:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)",
+      "selftest_rc": null,
+      "selftest_last": null,
+      "mutant_counter_value": "10",
+      "mutant_counter_line": "C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)",
+      "mutant_counter_rc": 0,
+      "mutant_gate_clean": true
+    }
+  ]
+}

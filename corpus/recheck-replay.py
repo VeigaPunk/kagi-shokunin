@@ -64,9 +64,12 @@ def clocks(root):
     out = []
     kdir = root / KNOWLEDGE
     for path in sorted(kdir.glob("*.md")):
-        if path.is_symlink():
-            continue
         rel = path.relative_to(root).as_posix()
+        if path.is_symlink():
+            # a symlinked entry is outside the replayable population by contract;
+            # report it as a clock-less UNSUPPORTED row so the gate cannot go CLEAN
+            out.append((rel, 0, "<symlinked-entry>", -1))
+            continue
         for lineno, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
             if not line.startswith("recheck:"):
                 continue
@@ -201,7 +204,23 @@ def replay(root, body, flt):
         return None, "tool-timeout"
 
 
+def confined(root, rel):
+    """True iff every component of root/rel (including rel itself when it names a
+    directory or file) is free of symlinks — same rule check_capture applies to
+    body_path, extended to every input the gate reads."""
+    cur = root
+    for part in Path(rel).parts:
+        cur = cur / part
+        if cur.is_symlink():
+            return False
+    return True
+
+
 def run(root):
+    inputs = [KNOWLEDGE, REGISTRY, MANIFEST, "corpus/rendered-text-v1.py"]
+    for rel in inputs:
+        if not confined(root, rel):
+            return setup("symlinked-input:%s" % rel)
     if not (root / KNOWLEDGE).is_dir() or not (root / REGISTRY).is_file():
         return setup("not-a-lane-tree:%s" % root)
     found = clocks(root)
@@ -214,6 +233,10 @@ def run(root):
     tally = {"MATCH": 0, "MISMATCH": 0, "NO-CAPTURE": 0, "BAD-CAPTURE": 0, "UNSUPPORTED": 0, "TOOL": 0}
     for rel, lineno, cmd, stated in found:
         where = "%s:%d" % (rel, lineno)
+        if cmd == "<symlinked-entry>":
+            tally["UNSUPPORTED"] += 1
+            print("UNSUPPORTED %s reason=symlinked-entry" % where)
+            continue
         url, flt = parse(cmd)
         if url is None:
             tally["UNSUPPORTED"] += 1

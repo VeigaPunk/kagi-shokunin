@@ -1,0 +1,45 @@
+# R56Scribe epoch-B probes — 2026-11-07T10:40:45Z
+HEAD 42070de7770e1558adcf6aa7a7bc59309a9654d7; working-tree instrument sha256:
+033f2104ef36b76e5d9de192878fb1b619808f1c9c63b2e310d074816a3e1679  plans/round-56.md
+d2bcb79094355ef6eb7bdad406ee1ccbeaf386e920950168fc2fa2c74aeb9f44  plans/round-56-c1.sh
+bb48db9605ede5770582178d6962a5a75acfb9d1086e1f0d3098954685958b3e  plans/round-56-controls.sh
+637c8184bd6ea8635fe582ea5641ea490033405658259c1a78c63899611aa585  corpus/recheck-replay.py
+df46be5c92c7b4d5a8b7ad790371b5c3240c92f46460b8cfb69e9b75b7ecc762  corpus/recheck-captures.tsv
+299903cfb8d38760440d16ae3a5119154f14ec128619710101ca8c59af3a4edb  corpus/SOURCES.md
+
+## reference (archive 42070de + current gate+SOURCES)
+C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)
+rc=0
+
+## printer (12-line, 13-case selftest) — epoch B
+216b8d7341e15d735be902714d5ad0a53bbcd4289621e02c3008dd6ce0f77478  /fast/scratch/hyaku/kagi-r56/R56Scribe/eb/print/corpus/recheck-replay.py
+reads=0
+C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r5-gate:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)
+rc=0
+
+## printer 0-case selftest
+C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r5-gate:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)
+rc=0
+
+## symlinked gate to off-tree copy
+C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r5-gate:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)
+rc=0
+
+## restated N with trailing letter
+Traceback (most recent call last):
+  File "<stdin>", line 3, in <module>
+AssertionError
+C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)
+rc=0
+
+## C32-equivalent (restate N + second matching line + fixed row)
+C1_REPLAY: value=FAIL present=9 replayed=9 gate=1 guard=0 (bad=absent:betterleaks-detection-vs-validation.md:README.md)
+rc=0
+
+## extra uncaptured clock
+C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r5-gate:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)
+rc=0
+
+## curl -v header shape (r3 prefix gap)
+C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)
+rc=0

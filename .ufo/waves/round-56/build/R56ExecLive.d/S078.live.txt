@@ -1,0 +1,7 @@
+id=S078
+date_utc=2026-11-07T10:29:16Z
+command: curl -fsSL 'https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-57p2.pdf' | pdftotext -layout - - | grep -c 'has been withdrawn (archived)'
+stdout=<1>
+rc_default=0
+rc_pipefail=0
+fetch_rc=0

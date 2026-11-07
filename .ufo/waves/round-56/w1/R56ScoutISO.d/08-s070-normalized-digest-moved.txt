@@ -1,0 +1,54 @@
+# R56ScoutISO receipt 08 — the S070 page changed between 2026-11-03 and 2026-11-07 (normalized digest moved)
+# date 2026-11-07T07:38:56-03:00. This is a FRESHNESS observation, not a gate failure: the locate count still holds (1).
+
+== the entry's stated source line (corpus/knowledge/cdp-bridge-1password-oidc-workflow.md line 1) ==
+source: S069 — https://www.1password.dev/brokered-access — §"Custom Workflow (OIDC)" setup steps 1-5 (issuer URL and JWKS, claim requirements, expected audience, integration key) — page fetch sha256 `6179e9c140851529` (raw body carries per-request markup; stable rendered-text-v1 sha256 `232239dd8ae8e792`), fetched 2026-11-03; S070 — https://www.1password.dev/brokered-access/custom-workflow — page title "(public beta)", §"Step 2. Connect your Environment to your workflow" and §"Step 3: Use your Environment in your workflow" (the SDK-client triple; additional and inherited access conditions) — page fetch sha256 `a34902cc251b9d9c` (raw body carries per-request markup; stable rendered-text-v1 sha256 `20fbc423c4faea78`), fetched 2026-11-03; S071 — https://1password.com/jp/product/credential-broker — §"1Password Credential Broker マシンとAIエージェントによる実行時の認証情報アクセス" (lead paragraph) and the FAQ entries on Workload Identity Federation verification and on general availability — page fetch sha256 `a5d4a10132d672c4` (raw bytes varied across five fetches while the rendered text stayed identical; stable rendered-text-v1 sha256 `0c
+
+== the S070 registry row (corpus/SOURCES.md) — same row ==
+ page title "(public beta)", §"Step 2. Connect your Environment to your workflow" (period form — the staged colon form locates 0 times, corrected in-r
+ound) and §"Step 3: Use your Environment in your workflow"; campaign fetch sha256 `bd85d7332dda43d0` (fetched 2026-10-23, non-reproducing — recorded);
+ in-round capture 2026-11-03 in `corpus/source-fetches.tsv` 
+
+== corpus/source-fetches.tsv S070 row (point attestation, fetched 2026-11-03) ==
+  col10 raw_sha256=a34902cc251b9d9c9573ff25d7bd9a230494689a4cc9a6c99775c1f1e28eca0b
+  col11 bytes=266770
+  col14 normalization=rendered-text-v1
+  col15 normalized_sha256=20fbc423c4faea7839316780ef28a5fad24e30982cbc9636e3f9c46c26a76271
+  col16 location=§Step 3: Use your Environment in your workflow, SDK-client sentence
+
+== today's live body: four independent fetches, two request profiles, ONE digest ==
+  5c226c06413854281f229aa0831f3fa7b9e63cdd3d2a4bf761f2226652a1c0dd  bodies/S070.live
+  5c226c06413854281f229aa0831f3fa7b9e63cdd3d2a4bf761f2226652a1c0dd  bodies/S070.compressed.live
+  5c226c06413854281f229aa0831f3fa7b9e63cdd3d2a4bf761f2226652a1c0dd  bodies/S070.profile31
+  5c226c06413854281f229aa0831f3fa7b9e63cdd3d2a4bf761f2226652a1c0dd  bodies/S018.live
+  -> the page is NOT per-request-noisy today; it is a different deployment than 2026-11-03.
+
+== rendered-text-v1 digest, live vs committed manifest capture vs the 2026-11-03 attestation ==
+  live      : RENDERED_TEXT_V1: raw_sha256=5c226c06413854281f229aa0831f3fa7b9e63cdd3d2a4bf761f2226652a1c0dd bytes=268454 normalized_sha256=7127a2c103b36be3893967db17050533bdac181f0b36cdc5a8d8a5b039f9870d normalized_bytes=90617
+  manifest  : RENDERED_TEXT_V1: raw_sha256=5c226c06413854281f229aa0831f3fa7b9e63cdd3d2a4bf761f2226652a1c0dd bytes=268454 normalized_sha256=7127a2c103b36be3893967db17050533bdac181f0b36cdc5a8d8a5b039f9870d normalized_bytes=90617
+  2026-11-03 : raw_sha256=a34902cc251b9d9c9573ff25d7bd9a230494689a4cc9a6c99775c1f1e28eca0b bytes=266770 normalized_sha256=20fbc423c4faea7839316780ef28a5fad24e30982cbc9636e3f9c46c26a76271 normalized_bytes=90174
+  (2026-11-03 figures are the round-31 in-round capture, .ufo/waves/round-31/src-open/group-c-receipts.txt line 45)
+
+  raw changed: a34902cc… -> 5c226c06… ; normalized changed: 20fbc423… -> 7127a2c1… (+443 normalized bytes)
+  the entry calls 20fbc423c4faea78 the 'stable rendered-text-v1 sha256'; today the page does not produce it.
+
+== but the STATED CLOCK still holds on both bodies ==
+  manifest capture : RENDERED_TEXT_V1_LOCATE: count=1
+  live body        : RENDERED_TEXT_V1_LOCATE: count=1
+
+== what changed in the page: the deployment markers now embedded in the rendered text ==
+  buildId        6aed09f917f063f212f7ad66
+  deploymentId   68a8af9a517ab813d3b84097
+  lastModified   2026-11-03T20:48:37.001Z
+  clientVersion  0.0.4076
+  normalized_bytes 90617
+
+== S018 (the trailing-slash registry row of the same page) ==
+  col4 url=https://www.1password.dev/brokered-access/custom-workflow/
+  col5 final_url=https://www.1password.dev/brokered-access/custom-workflow
+  col8 fetched=2026-10-21
+  col11 bytes=1283173
+  col15 normalized_sha256=d493bd815016219da8da33e18fb673aed3414155c6634a9139c7083ba7bae0fc
+  -> S018 was captured 2026-10-21 at 1283173 bytes; today's body is 268454 bytes. The page was rebuilt.
+  the S018 quote is the page title; it still locates on today's body:
+    RENDERED_TEXT_V1_LOCATE: count=14

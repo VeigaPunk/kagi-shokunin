@@ -1,0 +1,71 @@
+# R56Scribe instrument readings — TWO EPOCHS (the counter and gate were hardened after the counter review)
+# generated 2026-11-07T07:39:30-03:00; lane HEAD 42070de7770e1558adcf6aa7a7bc59309a9654d7
+
+## EPOCH A — predeclaration bytes 42070de7, measured 2026-11-07T07:34-03
+# counter sha256 096251c9b7a7405dbae320eb4dbb3ef0a092cf5e530d2274de0b2e29509bde9a
+# gate sha256 b7782f35c0c8bbaedac5f8f06eaadbc3ce4b8997be25e10f4224724013d799e8
+# manifest sha256 df46be5c92c7b4d5a8b7ad790371b5c3240c92f46460b8cfb69e9b75b7ecc762
+### gate --root (epoch A)
+MATCH corpus/knowledge/betterleaks-detection-vs-validation.md:4 id=S055 form=grep stated=1 replayed=1
+MATCH corpus/knowledge/cdp-bridge-1password-oidc-workflow.md:3 id=S070 form=locate stated=1 replayed=1
+MATCH corpus/knowledge/iso-11770-3-edition-status.md:3 id=S101 form=grep stated=2 replayed=2
+MATCH corpus/knowledge/iso-11770-3-edition-status.md:3 id=S113 form=grep stated=3 replayed=3
+MATCH corpus/knowledge/iso-11770-3-edition-status.md:3 id=S114 form=grep stated=2 replayed=2
+MATCH corpus/knowledge/nist-key-management-guidance-status.md:3 id=S074 form=grep stated=1 replayed=1
+MATCH corpus/knowledge/nist-key-management-parts-withdrawal.md:3 id=S078 form=pdf stated=1 replayed=1
+MATCH corpus/knowledge/oidc-federation-trust-policy.md:3 id=S067 form=grep stated=1 replayed=1
+MATCH corpus/knowledge/secret-scanning-detection-vs-validation.md:4 id=S054 form=grep stated=1 replayed=1
+MATCH corpus/knowledge/trufflehog-verification-lifecycle.md:4 id=S057 form=grep stated=1 replayed=1
+RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)
+### selftest (epoch A)
+PASS match rc=0 want=0 token=MATCH
+PASS stale-expectation rc=1 want=1 token=MISMATCH
+PASS count-form rc=0 want=0 token=MATCH
+PASS bre-not-substring rc=0 want=0 token=MATCH
+PASS no-capture rc=1 want=1 token=NO-CAPTURE
+PASS sha-mismatch rc=1 want=1 token=BAD-CAPTURE
+PASS url-not-in-row rc=1 want=1 token=BAD-CAPTURE
+PASS escape-path rc=1 want=1 token=BAD-CAPTURE
+PASS header-bytes rc=1 want=1 token=BAD-CAPTURE
+PASS unsupported-form rc=1 want=1 token=UNSUPPORTED
+PASS extra-curl-flag rc=1 want=1 token=UNSUPPORTED
+PASS second-clock-mismatch rc=1 want=1 token=MISMATCH
+PASS symlink-component rc=1 want=1 token=symlink:
+RECHECK_REPLAY_SELFTEST: PASS (13 cases)
+### counter --tree lane (epoch A)
+C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)
+
+## EPOCH B — hardened working bytes, measured 2026-11-07T07:39-03
+# counter sha256 1e57445cabe2598cc7a500f18b9bf248b0a84b8b348d0c078e27f1bbb61442c2
+# gate sha256 637c8184bd6ea8635fe582ea5641ea490033405658259c1a78c63899611aa585
+# manifest sha256 df46be5c92c7b4d5a8b7ad790371b5c3240c92f46460b8cfb69e9b75b7ecc762 (unchanged)
+# SOURCES.md sha256 299903cfb8d38760440d16ae3a5119154f14ec128619710101ca8c59af3a4edb (S113 cell amended at 07:34:00)
+### gate --root (epoch B)
+MATCH corpus/knowledge/betterleaks-detection-vs-validation.md:4 id=S055 form=grep stated=1 replayed=1
+MATCH corpus/knowledge/cdp-bridge-1password-oidc-workflow.md:3 id=S070 form=locate stated=1 replayed=1
+MATCH corpus/knowledge/iso-11770-3-edition-status.md:3 id=S101 form=grep stated=2 replayed=2
+MATCH corpus/knowledge/iso-11770-3-edition-status.md:3 id=S113 form=grep stated=3 replayed=3
+MATCH corpus/knowledge/iso-11770-3-edition-status.md:3 id=S114 form=grep stated=2 replayed=2
+MATCH corpus/knowledge/nist-key-management-guidance-status.md:3 id=S074 form=grep stated=1 replayed=1
+MATCH corpus/knowledge/nist-key-management-parts-withdrawal.md:3 id=S078 form=pdf stated=1 replayed=1
+MATCH corpus/knowledge/oidc-federation-trust-policy.md:3 id=S067 form=grep stated=1 replayed=1
+MATCH corpus/knowledge/secret-scanning-detection-vs-validation.md:4 id=S054 form=grep stated=1 replayed=1
+MATCH corpus/knowledge/trufflehog-verification-lifecycle.md:4 id=S057 form=grep stated=1 replayed=1
+RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)
+### selftest (epoch B)
+PASS match rc=0 want=0 token=MATCH
+PASS stale-expectation rc=1 want=1 token=MISMATCH
+PASS count-form rc=0 want=0 token=MATCH
+PASS bre-not-substring rc=0 want=0 token=MATCH
+PASS no-capture rc=1 want=1 token=NO-CAPTURE
+PASS sha-mismatch rc=1 want=1 token=BAD-CAPTURE
+PASS url-not-in-row rc=1 want=1 token=BAD-CAPTURE
+PASS escape-path rc=1 want=1 token=BAD-CAPTURE
+PASS header-bytes rc=1 want=1 token=BAD-CAPTURE
+PASS unsupported-form rc=1 want=1 token=UNSUPPORTED
+PASS extra-curl-flag rc=1 want=1 token=UNSUPPORTED
+PASS second-clock-mismatch rc=1 want=1 token=MISMATCH
+PASS symlink-component rc=1 want=1 token=symlink:
+RECHECK_REPLAY_SELFTEST: PASS (13 cases)
+### counter --tree lane (epoch B)
+C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)

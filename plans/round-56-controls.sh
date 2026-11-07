@@ -63,9 +63,40 @@ p=sys.argv[1]+"/corpus/recheck-captures.tsv"; s=open(p,encoding="utf-8").read()
 t="\n".join(l for l in s.splitlines() if not l.startswith("S054\t"))+"\n"
 assert t!=s; open(p,"w",encoding="utf-8").write(t)' "$SCR/f4"
 check K1-F4-row-dropped 0 f4
-# F5 printer gate: replace recheck-replay.py by a CLEAN printer
-mk_ref f5; printf '#!/usr/bin/env bash\ncase "${1:-}" in --selftest) echo "RECHECK_REPLAY_SELFTEST: PASS (13 cases)";; *) echo "RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)";; MATCH* ) ;; esac\nexit 0\n' > "$SCR/f5/corpus/recheck-replay.py"
-check K1-F5-printer-gate FAIL f5
+# F5 printer gate: a python3 printer that reads nothing, replays nothing, prints
+# the ten MATCH lines + CLEAN + a 0-case selftest PASS. Under the pinned-digest
+# counter this must read FAIL (digest mismatch -> gate_ok=0 -> every r5 fails).
+mk_ref f5; cat > "$SCR/f5/corpus/recheck-replay.py" <<'PY'
+import sys
+if "--selftest" in sys.argv:
+    print("RECHECK_REPLAY_SELFTEST: PASS (0 cases)")
+else:
+    clocks=[("corpus/knowledge/betterleaks-detection-vs-validation.md","S055","grep",1),("corpus/knowledge/cdp-bridge-1password-oidc-workflow.md","S070","locate",1),("corpus/knowledge/iso-11770-3-edition-status.md","S101","grep",2),("corpus/knowledge/iso-11770-3-edition-status.md","S113","grep",3),("corpus/knowledge/iso-11770-3-edition-status.md","S114","grep",2),("corpus/knowledge/nist-key-management-guidance-status.md","S074","grep",1),("corpus/knowledge/nist-key-management-parts-withdrawal.md","S078","pdf",1),("corpus/knowledge/oidc-federation-trust-policy.md","S067","grep",1),("corpus/knowledge/secret-scanning-detection-vs-validation.md","S054","grep",1),("corpus/knowledge/trufflehog-verification-lifecycle.md","S057","grep",1)]
+    for e,i,f,n in clocks: print("MATCH %s:3 id=%s form=%s stated=%d replayed=%d"%(e,i,f,n,n))
+    print("RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)")
+PY
+check K1-F5-printer-gate 0 f5
+# F5b gate edited in place (one conjunct dropped) — digest mismatch fails every r5
+mk_ref f5b; py 'import sys
+p=sys.argv[1]+"/corpus/recheck-replay.py"; s=open(p,encoding="utf-8").read()
+t=s.replace("re.search(rb\"(?im)^set-cookie:\", data)","False")
+assert t!=s; open(p,"w",encoding="utf-8").write(t)' "$SCR/f5b"
+check K1-F5b-gate-edited 0 f5b
+# F5c gate path symlinked to an off-tree copy of the real gate
+mk_ref f5c; cp "$SCR/f5c/corpus/recheck-replay.py" "$SCR/realgate.py"; rm "$SCR/f5c/corpus/recheck-replay.py"; ln -s "$(python3 -c "import os;print(os.path.relpath('$SCR/realgate.py','$SCR/f5c/corpus'))")" "$SCR/f5c/corpus/recheck-replay.py"
+check K1-F5c-gate-symlink 0 f5c
+# F11 restated N with trailing letter (`-> 1x`) must not satisfy PRESENT
+mk_ref f11; py 'import sys,re
+p=sys.argv[1]+"/corpus/knowledge/betterleaks-detection-vs-validation.md"; s=open(p,encoding="utf-8").read()
+t=re.sub(r"(->\s*)1(?!\d)", r"\g<1>1x", s, count=1)
+assert t!=s; open(p,"w",encoding="utf-8").write(t)' "$SCR/f11"
+check K1-F11-restated-Nx FAIL f11
+# F12 one added uncaptured clock -> gate DRIFT -> every r5 fails (population guard)
+mk_ref f12; py 'import sys
+p=sys.argv[1]+"/corpus/knowledge/prefreeze-controls.md"; s=open(p,encoding="utf-8").read()
+s=s.replace("replay the frozen BASE controls after any gate change","`curl -fsSL https://example.invalid/x | grep -c needle` -> 1; replay the frozen BASE controls after any gate change")
+open(p,"w",encoding="utf-8").write(s)' "$SCR/f12"
+check K1-F12-extra-clock 0 f12
 # F6 symlinked capture body
 mk_ref f6; mv "$SCR/f6/.ufo/waves/round-56/capture/S055.body" "$SCR/f6/s055.body"; ln -s ../../../s055.body "$SCR/f6/.ufo/waves/round-56/capture/S055.body"
 check K1-F6-symlink-body 0 f6
@@ -90,12 +121,11 @@ s=s.replace("recheck: on-change — bash corpus/prefreeze-control.sh --selftest;
  "recheck: 90d — `curl -fsSL https://example.invalid/x | sed -n 1p | grep -c needle` -> 1; replay")
 open(p,"w",encoding="utf-8").write(s)' "$SCR/f8"
 check K1-F8-unsupported-clock 0 f8
-# F9 selftest broken (gate exits 0 run but selftest fails)
-mk_ref f9; py 'import sys
-p=sys.argv[1]+"/corpus/recheck-replay.py"; s=open(p,encoding="utf-8").read()
-t=s.replace("RECHECK_REPLAY_SELFTEST: PASS","RECHECK_REPLAY_SELFTEST: FAILX")
-assert t!=s; open(p,"w",encoding="utf-8").write(t)' "$SCR/f9"
-check K1-F9-selftest-broken FAIL f9
+# F9 gate file replaced by the pinned bytes plus one byte — digest mismatch
+# (the pin makes a selftest-only break unreachable: any byte change fails the
+# digest before selftest is consulted).
+mk_ref f9; printf ' ' >> "$SCR/f9/corpus/recheck-replay.py"
+check K1-F9-gate-byte-drift 0 f9
 # F10 entry symlink
 mk_ref f10; mv "$SCR/f10/$ENTRY" "$SCR/f10/e.md"; ln -s ../../e.md "$SCR/f10/$ENTRY"
 check K1-F10-entry-symlink FAIL f10

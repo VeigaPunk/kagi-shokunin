@@ -1,0 +1,35 @@
+# R56ScoutSources receipt 01 — digest table: live re-fetch vs corpus/recheck-captures.tsv row
+# seat: R56ScoutSources-2 (w1 wave) ; date 2026-11-07 ; lane /home/vgpnk/Projects/shokunin/kagi-shokunin
+# lane HEAD 42070de7770e1558adcf6aa7a7bc59309a9654d7 ; BASE 832ba6a53d6a76706b5c80bce2278683dea33d42
+# profile: curl -fsSL --compressed --max-time 60 -o <id>.body -w '%{http_code} %{size_download} %{url_effective} %{content_type}' <url>
+# header policy: no -D, no -i — response headers never requested or stored (QM72). No cookie read or printed.
+# bodies kept in seat scratch only (/fast/scratch/hyaku/kagi-r56/R56ScoutSources/bodies), deleted before yield.
+# observed answering model: minimax-code/MiniMax-M3.1-Flash (own session file PI_SESSION_FILE=.../R56ScoutSources-2.jsonl, model records "MiniMax-M3.1-Flash" x97 + "minimax-code/MiniMax-M3.1-Flash" x2)
+# tools: curl 8.23.0, python3 3.14.8, pdftotext 26.10.0, sha256sum 0.8.0 — all preinstalled, NO install and NO pacman transaction by this seat
+#
+# verdict key: MATCH = live body sha256 == manifest row sha256 AND == committed capture sha256
+#               MISMATCH-RAW = live raw sha256 != manifest row (page is byte-volatile)
+id	http_status	live_bytes	live_sha256	manifest_sha256	committed_sha256	verdict	volatility_observed
+S054	200	38524	7cf6efb50ab892347b1fa3bee77592603b371b066b6b1659fcc2c56a62e6eff7	7cf6efb50ab892347b1fa3bee77592603b371b066b6b1659fcc2c56a62e6eff7	7cf6efb50ab892347b1fa3bee77592603b371b066b6b1659fcc2c56a62e6eff7	MATCH	3 refetches, 0 differing digests (byte-stable)
+S055	200	13252	f61c3993fd48dfb973652b9676697f4d37404fad9f30748c2003127eb81a73b1	f61c3993fd48dfb973652b9676697f4d37404fad9f30748c2003127eb81a73b1	f61c3993fd48dfb973652b9676697f4d37404fad9f30748c2003127eb81a73b1	MATCH	3 refetches, 0 differing digests (byte-stable)
+S057	200	110710	221d80fae1227db73c5f65ff71080d72e6e91666856a1dd8e1e2d402dfe9604b	221d80fae1227db73c5f65ff71080d72e6e91666856a1dd8e1e2d402dfe9604b	221d80fae1227db73c5f65ff71080d72e6e91666856a1dd8e1e2d402dfe9604b	MATCH	3 refetches, 0 differing digests (byte-stable)
+S067	200	437508	4d016752a645e8a3c259baa4173b5a90cb6c82898ce868fc8444adde262a5aed	4d016752a645e8a3c259baa4173b5a90cb6c82898ce868fc8444adde262a5aed	4d016752a645e8a3c259baa4173b5a90cb6c82898ce868fc8444adde262a5aed	MATCH	3 refetches, 0 differing digests (byte-stable)
+S070	200	268454	5c226c06413854281f229aa0831f3fa7b9e63cdd3d2a4bf761f2226652a1c0dd	5c226c06413854281f229aa0831f3fa7b9e63cdd3d2a4bf761f2226652a1c0dd	5c226c06413854281f229aa0831f3fa7b9e63cdd3d2a4bf761f2226652a1c0dd	MATCH	3 refetches, 0 differing digests (byte-stable)
+S074	200	45351	3a4c80b3b3c53dfc974243cb4c4b7835c1c1c06bb34bb8135dd9a6f2be9854ab (attempt 1; further attempts 0ac861e4..., b6a2da80..., 4800d6e0..., fee33693..., ac806912..., 5eda6962...)	df32e64b9cce734698974dde083feeeaa7d34eef2e6c6391c7694ea7f29c3688	df32e64b9cce734698974dde083feeeaa7d34eef2e6c6391c7694ea7f29c3688	MISMATCH-RAW	6 of 6 live refetches gave 6 DIFFERENT raw sha256 at constant 45351 bytes; rendered-text-v1 normalized_sha256 955dd8665388946280b67fdcbd9e9c7cfa3d5343b54f223daf5cba40ebeb7fab is STABLE across all of them and equals corpus/source-fetches.tsv S074 nsha
+S078	200	622785	68266cb10868a1fee83fb8bcebbee9573fc738cee9141ee94d03649bad8538d5	68266cb10868a1fee83fb8bcebbee9573fc738cee9141ee94d03649bad8538d5	68266cb10868a1fee83fb8bcebbee9573fc738cee9141ee94d03649bad8538d5	MATCH	3 refetches, 0 differing digests (byte-stable)
+#
+# S074 diff anatomy (live attempt vs committed capture): 8 changed lines, at line numbers 416, 438, 655, 690.
+#   416/438/655 = Cloudflare /cdn-cgi/l/email-protection#<token> obfuscated e-mail hrefs and the
+#                  <span class="__cf_email__" data-cfemail="..."> payloads (per-request token, per-request value);
+#   690        = the __CF$cv$params challenge script (r:'<ray>', t:'<epoch-b64>').
+#   lines differing for any reason OTHER than cf-email/email-protection/__CF$cv$params/challenge-platform: 0
+#   => the differing bytes carry no page content; the S074 raw digest is a per-request token, not a content change.
+#
+# S057 / S070 raw digest moved vs the lane's OWN earlier capture rows (corpus/source-fetches.tsv, fetched 2026-11-03):
+#   S057 source-fetches raw 0beb84fec97fa0ac2cb2c8c8b1cb0e1616ea7b8485b6848da1771d109c9d44d1 (102006 B)
+#        round-56 manifest/live raw 221d80fae1227db73c5f65ff71080d72e6e91666856a1dd8e1e2d402dfe9604b (110710 B)
+#        normalized_sha256 5e697b14d10802cbb06d2c2eba91aaca206f10827360cc04206c21e8b397bc9c == lane pin, UNCHANGED
+#   S070 source-fetches raw a34902cc251b9d9c9573ff25d7bd9a230494689a4cc9a6c99775c1f1e28eca0b (266770 B)
+#        round-56 manifest/live raw 5c226c06413854281f229aa0831f3fa7b9e63cdd3d2a4bf761f2226652a1c0dd (268454 B)
+#        normalized_sha256 MOVED 20fbc423c4faea7839316780ef28a5fad24e30982cbc9636e3f9c46c26a76271 -> 7127a2c103b36be3893967db17050533bdac181f0b36cdc5a8d8a5b039f9870d
+#        => S070's PAGE TEXT changed since the 2026-11-03 capture. Its stated clock (rendered-text-v1 locate) still MATCHes (see receipt 02).

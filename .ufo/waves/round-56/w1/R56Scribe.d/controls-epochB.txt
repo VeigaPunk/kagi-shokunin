@@ -1,0 +1,111 @@
+# R56Scribe-independent rerun of plans/round-56-controls.sh on epoch-B working bytes, 2026-11-07T07:38:11-03:00
+# reference tree: /home/vgpnk/Projects/shokunin/kagi-shokunin
+# controls sha256 before: bb48db9605ede5770582178d6962a5a75acfb9d1086e1f0d3098954685958b3e
+# counter sha256 before: 0153f876e9323f83130baad3e6d21f2c15bd54c502c95b36dee2eeb99a9dd405
+# gate sha256 before: 637c8184bd6ea8635fe582ea5641ea490033405658259c1a78c63899611aa585
+CONTROL K1-BASE expect=0 got=0 MATCH :: C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r2-manifest:betterleaks-detection-vs-validation.md:README.md,r2-manifest:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r2-manifest:iso-11770-3-edition-status.md:60237.html,r2-manifest:iso-11770-3-edition-status.md:82709.html,r2-manifest:iso-11770-3-edition-status.md:85929.html,r2-manifest:nist-key-management-guidance-status.md:ipd,r2-manifest:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r2-manifest:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r2-manifest:secret-scanning-detection-vs-validation.md:README.md,r2-manifest:trufflehog-verification-lifecycle.md:verification-caching)
+tar: .ufo/waves/round-56/build-dispatch.json: Cannot stat: No such file or directory
+tar: .ufo/waves/round-56/build-spec.json: Cannot stat: No such file or directory
+tar: .ufo/waves/round-56/build.ready: Cannot stat: No such file or directory
+tar: .ufo/waves/round-56/build/swarm-registry.json: Cannot stat: No such file or directory
+tar: Exiting with failure status due to previous errors
+CONTROL K1-REF expect=10 got=10 MATCH :: C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)
+tar: .ufo/waves/round-56/build-dispatch.json: Cannot stat: No such file or directory
+tar: .ufo/waves/round-56/build-spec.json: Cannot stat: No such file or directory
+tar: .ufo/waves/round-56/build.ready: Cannot stat: No such file or directory
+tar: .ufo/waves/round-56/build/swarm-registry.json: Cannot stat: No such file or directory
+tar: Exiting with failure status due to previous errors
+CONTROL K1-F1-clock-removed expect=FAIL got=FAIL MATCH :: C1_REPLAY: value=FAIL present=9 replayed=0 gate=0 guard=0 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r5-gate:secret-scanning-detection-vs-validation.md:README.md,absent:trufflehog-verification-lifecycle.md:verification-caching)
+tar: .ufo/waves/round-56/build-dispatch.json: Cannot stat: No such file or directory
+tar: .ufo/waves/round-56/build-spec.json: Cannot stat: No such file or directory
+tar: .ufo/waves/round-56/build.ready: Cannot stat: No such file or directory
+tar: .ufo/waves/round-56/build/swarm-registry.json: Cannot stat: No such file or directory
+tar: Exiting with failure status due to previous errors
+Traceback (most recent call last):
+  File "<string>", line 4, in <module>
+    assert t!=s, "inert edit "+sys.argv[2]
+           ^^^^
+AssertionError: inert edit corpus/knowledge/betterleaks-detection-vs-validation.md
+CONTROL K1-F2-restated-N expect=FAIL got=FAIL MATCH :: C1_REPLAY: value=FAIL present=9 replayed=0 gate=0 guard=0 (bad=absent:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r5-gate:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)
+tar: .ufo/waves/round-56/build-dispatch.json: Cannot stat: No such file or directory
+tar: .ufo/waves/round-56/build-spec.json: Cannot stat: No such file or directory
+tar: .ufo/waves/round-56/build.ready: Cannot stat: No such file or directory
+tar: .ufo/waves/round-56/build/swarm-registry.json: Cannot stat: No such file or directory
+tar: Exiting with failure status due to previous errors
+CONTROL K1-F3-body-tampered expect=0 got=0 MATCH :: C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r3-digest:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)
+tar: .ufo/waves/round-56/build-dispatch.json: Cannot stat: No such file or directory
+tar: .ufo/waves/round-56/build-spec.json: Cannot stat: No such file or directory
+tar: .ufo/waves/round-56/build.ready: Cannot stat: No such file or directory
+tar: .ufo/waves/round-56/build/swarm-registry.json: Cannot stat: No such file or directory
+tar: Exiting with failure status due to previous errors
+CONTROL K1-F4-row-dropped expect=0 got=0 MATCH :: C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r2-rows0:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)
+tar: .ufo/waves/round-56/build-dispatch.json: Cannot stat: No such file or directory
+tar: .ufo/waves/round-56/build-spec.json: Cannot stat: No such file or directory
+tar: .ufo/waves/round-56/build.ready: Cannot stat: No such file or directory
+tar: .ufo/waves/round-56/build/swarm-registry.json: Cannot stat: No such file or directory
+tar: Exiting with failure status due to previous errors
+CONTROL K1-F5-printer-gate expect=FAIL got=0 MISMATCH :: C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r5-gate:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)
+tar: .ufo/waves/round-56/build-dispatch.json: Cannot stat: No such file or directory
+tar: .ufo/waves/round-56/build-spec.json: Cannot stat: No such file or directory
+tar: .ufo/waves/round-56/build.ready: Cannot stat: No such file or directory
+tar: .ufo/waves/round-56/build/swarm-registry.json: Cannot stat: No such file or directory
+tar: Exiting with failure status due to previous errors
+CONTROL K1-F5b-gate-edited expect=FAIL got=0 MISMATCH :: C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r5-gate:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)
+tar: .ufo/waves/round-56/build-dispatch.json: Cannot stat: No such file or directory
+tar: .ufo/waves/round-56/build-spec.json: Cannot stat: No such file or directory
+tar: .ufo/waves/round-56/build.ready: Cannot stat: No such file or directory
+tar: .ufo/waves/round-56/build/swarm-registry.json: Cannot stat: No such file or directory
+tar: Exiting with failure status due to previous errors
+CONTROL K1-F5c-gate-symlink expect=FAIL got=0 MISMATCH :: C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r5-gate:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)
+tar: .ufo/waves/round-56/build-dispatch.json: Cannot stat: No such file or directory
+tar: .ufo/waves/round-56/build-spec.json: Cannot stat: No such file or directory
+tar: .ufo/waves/round-56/build.ready: Cannot stat: No such file or directory
+tar: .ufo/waves/round-56/build/swarm-registry.json: Cannot stat: No such file or directory
+tar: Exiting with failure status due to previous errors
+Traceback (most recent call last):
+  File "<string>", line 4, in <module>
+    assert t!=s; open(p,"w",encoding="utf-8").write(t)
+           ^^^^
+AssertionError
+CONTROL K1-F11-restated-Nx expect=FAIL got=10 MISMATCH :: C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)
+tar: .ufo/waves/round-56/build-dispatch.json: Cannot stat: No such file or directory
+tar: .ufo/waves/round-56/build-spec.json: Cannot stat: No such file or directory
+tar: .ufo/waves/round-56/build.ready: Cannot stat: No such file or directory
+tar: .ufo/waves/round-56/build/swarm-registry.json: Cannot stat: No such file or directory
+tar: Exiting with failure status due to previous errors
+CONTROL K1-F12-extra-clock expect=0 got=0 MATCH :: C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r5-gate:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)
+tar: .ufo/waves/round-56/build-dispatch.json: Cannot stat: No such file or directory
+tar: .ufo/waves/round-56/build-spec.json: Cannot stat: No such file or directory
+tar: .ufo/waves/round-56/build.ready: Cannot stat: No such file or directory
+tar: .ufo/waves/round-56/build/swarm-registry.json: Cannot stat: No such file or directory
+tar: Exiting with failure status due to previous errors
+CONTROL K1-F6-symlink-body expect=0 got=0 MATCH :: C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r3-file:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r5-gate:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)
+tar: .ufo/waves/round-56/build-dispatch.json: Cannot stat: No such file or directory
+tar: .ufo/waves/round-56/build-spec.json: Cannot stat: No such file or directory
+tar: .ufo/waves/round-56/build.ready: Cannot stat: No such file or directory
+tar: .ufo/waves/round-56/build/swarm-registry.json: Cannot stat: No such file or directory
+tar: Exiting with failure status due to previous errors
+CONTROL K1-F7-header-bytes expect=0 got=0 MATCH :: C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r5-gate:secret-scanning-detection-vs-validation.md:README.md,r3-headers:trufflehog-verification-lifecycle.md:verification-caching)
+tar: .ufo/waves/round-56/build-dispatch.json: Cannot stat: No such file or directory
+tar: .ufo/waves/round-56/build-spec.json: Cannot stat: No such file or directory
+tar: .ufo/waves/round-56/build.ready: Cannot stat: No such file or directory
+tar: .ufo/waves/round-56/build/swarm-registry.json: Cannot stat: No such file or directory
+tar: Exiting with failure status due to previous errors
+CONTROL K1-F8-unsupported-clock expect=0 got=0 MATCH :: C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r5-gate:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)
+tar: .ufo/waves/round-56/build-dispatch.json: Cannot stat: No such file or directory
+tar: .ufo/waves/round-56/build-spec.json: Cannot stat: No such file or directory
+tar: .ufo/waves/round-56/build.ready: Cannot stat: No such file or directory
+tar: .ufo/waves/round-56/build/swarm-registry.json: Cannot stat: No such file or directory
+tar: Exiting with failure status due to previous errors
+CONTROL K1-F9-selftest-broken expect=FAIL got=0 MISMATCH :: C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r5-gate:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)
+tar: .ufo/waves/round-56/build-dispatch.json: Cannot stat: No such file or directory
+tar: .ufo/waves/round-56/build-spec.json: Cannot stat: No such file or directory
+tar: .ufo/waves/round-56/build.ready: Cannot stat: No such file or directory
+tar: .ufo/waves/round-56/build/swarm-registry.json: Cannot stat: No such file or directory
+tar: Exiting with failure status due to previous errors
+CONTROL K1-F10-entry-symlink expect=FAIL got=FAIL MATCH :: C1_REPLAY: value=FAIL present=9 replayed=0 gate=0 guard=0 (bad=absent:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r5-gate:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)
+CONTROLS: match=11 mismatch=5
+# rc=1
+# controls sha256 after: bb48db9605ede5770582178d6962a5a75acfb9d1086e1f0d3098954685958b3e
+# counter sha256 after: d2bcb79094355ef6eb7bdad406ee1ccbeaf386e920950168fc2fa2c74aeb9f44
+# gate sha256 after: 637c8184bd6ea8635fe582ea5641ea490033405658259c1a78c63899611aa585

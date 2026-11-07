@@ -1,0 +1,15 @@
+# R56ScoutSources — live reopen receipts, round 56
+# seat: R56ScoutSources ; date 2026-11-07 ; host linux 7.2.11-arch1-1
+# curl 8.23.0 ; python3 3.14.8 ; pdftotext 26.10.0
+# request profile: curl -fsSL --compressed --max-time 60 -o <body> -w '%{http_code} %{size_download} %{url_effective} %{content_type}' <url>
+# header policy: no -D, no -i; response headers never requested or stored (QM72)
+# clock-form fetches (exact forms in the knowledge entries, no --compressed) fetched separately as X_<id>.body
+
+id	http_status	decoded_bytes	sha256	note
+S054	200	38524	7cf6efb50ab892347b1fa3bee77592603b371b066b6b1659fcc2c56a62e6eff7	byte-identical to committed capture .ufo/waves/round-56/capture/S054.body
+S055	200	13252	f61c3993fd48dfb973652b9676697f4d37404fad9f30748c2003127eb81a73b1	byte-identical to committed capture S055.body
+S057	200	110710	221d80fae1227db73c5f65ff71080d72e6e91666856a1dd8e1e2d402dfe9604b	byte-identical to committed capture S057.body
+S067	200	437508	4d016752a645e8a3c259baa4173b5a90cb6c82898ce868fc8444adde262a5aed	byte-identical to committed capture S067.body
+S070	200	268454	5c226c06413854281f229aa0831f3fa7b9e63cdd3d2a4bf761f2226652a1c0dd	byte-identical to committed capture S070.body; trailing-slash spelling (S018) returns the same digest
+S074	200	45351	3a4c80b3b3c53dfc974243cb4c4b7835c1c1c06bb34bb8135dd9a6f2be9854ab	RAW sha256 DOES NOT REPRODUCE (5 live fetches, 5 distinct digests, constant 45351 B); rendered-text-v1 normalized sha256 955dd8665388946280b67fdcbd9e9c7cfa3d5343b54f223daf5cba40ebeb7fab IS stable
+S078	200	622785	68266cb10868a1fee83fb8bcebbee9573fc738cee9141ee94d03649bad8538d5	byte-identical to committed capture S078.body

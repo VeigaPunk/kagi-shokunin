@@ -1,0 +1,21 @@
+SETUP probes (all with PATH built from /usr/bin symlinks; /usr/bin/bash; HYAKU_SCRATCH=/fast/scratch/hyaku/kagi-r56/R56MutCounter):
+no-python3       C1_REPLAY: SETUP no-python3       rc=2
+no-pdftotext     C1_REPLAY: SETUP no-pdftotext     rc=2
+no-grep          C1_REPLAY: SETUP no-grep          rc=2
+bad-revision     C1_REPLAY: SETUP bad-revision     rc=2
+no-revision      C1_REPLAY: SETUP no-revision      rc=2
+tree-missing     C1_REPLAY: SETUP tree             rc=2
+scratch-unwritable (/proc/nope)  C1_REPLAY: SETUP scratch  rc=2
+gate direct on ref: rc=0, last line RECHECK_REPLAY: CLEAN (clocks=10 match=10 ...)
+--selftest on ref: rc=0, last line RECHECK_REPLAY_SELFTEST: PASS (13 cases)
+Z1-fifo-entry: mkfifo corpus/knowledge/zzz-fifo.md -> counter hangs, timeout 25 rc=124
+R4b2 base normaliser locate count=0; tree normaliser count=1; counter value=9 bad=r4-replay0:cdp-bridge...
+discrimination probe (append 1 byte to S054.body, run each tree's gate):
+  ref-real-gate      rc=1 BAD-CAPTURE=yes
+  R5b-full-printer   rc=0 BAD-CAPTURE=no
+  R5c-printer-rc1    rc=1 BAD-CAPTURE=no
+  R5g-symlink-printer rc=0 BAD-CAPTURE=no
+  G3-gutted-selftest rc=1 BAD-CAPTURE=yes
+R5a (bash CLEAN printer) under python3: rc=1 SyntaxError: unmatched ')'
+R5b printer stdout == real gate stdout: True
+real manifest: 10 rows, 10 distinct body_path, 10 distinct sha256, http_status {200}

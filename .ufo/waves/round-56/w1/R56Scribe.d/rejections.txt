@@ -1,0 +1,8 @@
+# R56Scribe rejection probes, 2026-11-07T07:34:31-03:00; no response header stored (no -D, no -i)
+# profile: curl -fsSL --compressed --max-time 60 -o <body> -w '<id> %{http_code} %{size_download} %{url_effective} %{content_type}'
+R4 url=https://openid.net/specs/openid-connect-core-1_0.txt status=200 bytes=70623 ctype=text/plain sha256=aa28dd92cb104bd5928123fd51a2e0ab1070cc4b7846b82520004b2c1bfbf25e grep_c_It_MUST_contain_the_OAuth_2.0=0
+# => cannot serve as the S067 clock's capture; duplicate ground with S067
+S113-default-ua url=https://www.iso.org/standard/82709.html status=403 bytes=5448 ctype=text/html_charset=UTF-8 sha256=064c8a4e4a69058379939aa3684118aab572d4d8973d20624a673e2072cdee36 title=Just_a_moment...
+# set-cookie/__cf_bm occurrences in body: 0 (grep -a -c -i => exit 1, no match)
+# committed probe body .ufo/waves/round-56/capture/rejections/S113-default-ua.body sha256=ce3cb7f2eb0efeba38faff1ded3186218ad9df51e4b22b795d0688fa2eb3893c bytes=5448 (different bytes, same status/size: interstitial is unstable)
+# scout receipt records 403 on 82709, 85929, 60237 (all 5448 B, title Just a moment...): .ufo/waves/round-56/build/R56ScoutSources.d/s113-default-ua.txt

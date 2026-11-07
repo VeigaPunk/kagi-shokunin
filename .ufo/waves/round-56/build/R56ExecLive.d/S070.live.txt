@@ -1,0 +1,7 @@
+id=S070
+date_utc=2026-11-07T10:29:13Z
+command: curl -fsSL --max-time 30 'https://www.1password.dev/brokered-access/custom-workflow' | python3 corpus/rendered-text-v1.py locate /dev/stdin 'The client authenticates using your OIDC token, workload ID, and the integration key configured by your administrator'
+stdout=<RENDERED_TEXT_V1_LOCATE: count=1>
+rc_default=0
+rc_pipefail=0
+fetch_rc=0

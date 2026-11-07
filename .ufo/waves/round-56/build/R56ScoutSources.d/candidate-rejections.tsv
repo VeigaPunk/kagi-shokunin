@@ -1,0 +1,18 @@
+# R56ScoutSources — candidate source rejections, round 56 (frontier lesson)
+# all public GET, curl 8.23.0, no headers stored; bodies in the seat scratch, deleted at yield
+id  url  status  bytes  sha256  reason
+R1  https://www.1password.dev/brokered-access/custom-workflow/  200  268454  5c226c06413854281f229aa0831f3fa7b9e63cdd3d2a4bf761f2226652a1c0dd  same URL as S070 modulo trailing slash, byte-identical body; S070 holds runtime mechanics, S018 holds feature status
+R2  https://www.1password.dev/brokered-access/custom-workflow#step-2  200  268454  5c226c06413854281f229aa0831f3fa7b9e63cdd3d2a4bf761f2226652a1c0dd  fragment addresses no distinct document; byte-identical to the S070 capture
+R3  https://trufflesecurity.com/docs/verification-caching/  200  110710  221d80fae1227db73c5f65ff71080d72e6e91666856a1dd8e1e2d402dfe9604b  same document as S057; identical body
+R4  https://openid.net/specs/openid-connect-core-1_0.txt  200  70623  aa28dd92cb104bd5928123fd51a2e0ab1070cc4b7846b82520004b2c1bfbf25e  duplicate ground with S067 and grep -c 'It MUST contain the OAuth 2.0' = 0, so it cannot serve as the S067 clock's capture
+R5  https://raw.githubusercontent.com/betterleaks/betterleaks/v1.x/README.md  200  8202  5164be30d7c5a78989ad443b3638d5ff284f406e7da699d4b7b16fb1de5525ce  v1 branch does not carry the S055 clock sentence (grep -c = 0); S055 row already records that v1 lives on v1.x
+R6  https://raw.githubusercontent.com/trufflesecurity/trufflehog/v3/README.md  404  14  d5558cd419c8d46bdc958064cb97f963d1ea793866414c025906ec15033512ed  no such branch artifact
+R7  https://trufflesecurity.com/docs/verification  404  0  -  no such page (curl rc 22 with -f)
+R8  https://csrc.nist.gov/pubs/sp/800/133/r3/final  404  7379  -  no final SP 800-133 Rev. 3 exists; the draft row S074's ground is complete
+R9  https://csrc.nist.gov/pubs/sp/800/133  404  7375  -  no publication-family index at this path
+R10  https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-57p3.pdf  200  663635  52b9a7d321ab0f8173032869290b3b4620dd1ced57e36c42e65e7e50ff38c3a3  byte-identical to the registered S079 fetch (corpus/source-fetches.tsv:122); duplicate ground
+R11  http://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-57p2.pdf  200  622785  68266cb10868a1fee83fb8bcebbee9573fc738cee9141ee94d03649bad8538d5  same PDF artifact as S078 reached by redirect; identical digest
+# NOTE S070 vs S018: same URL, distinct scope. The census reports it as W04 duplicate-url across
+# scopes, which is the declared form of this pair (no new row). No rows appended by this seat.
+# census url_of() (scripts/sources-census.sh:600-605) strips the trailing slash, so the S018
+# spelling '.../custom-workflow/' and the S070 spelling '.../custom-workflow' are one url key.

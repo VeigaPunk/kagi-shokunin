@@ -1,0 +1,157 @@
+=== Sibling Lane Scan Evidence ===
+--- kasegi-shokunin/corpus/instruments/source-recheck.py:1-20 ---
+#!/usr/bin/env python3
+"""Recheck pinned quotes against checked-in source snapshots.
+
+Usage: python3 corpus/instruments/source-recheck.py --manifest PATH [--source ID]
+       python3 corpus/instruments/source-recheck.py --selftest
+
+Manifest paths are relative to the manifest directory. This instrument reads
+only local files; a successful check verifies captured bytes, not current
+upstream availability or freshness.
+
+Round-30 Q9 enforcement (C1 B1/B2):
+- B1: every record's `path` stem must equal its `id`
+  (reason=stem-mismatch, exit 1).
+- B2: a quote whose normalized text occurs more than once passes only when
+  its declared `anchor` line verifies (anchor=N-ok); a missing, out-of-range,
+  or broken anchor fails with reason=occurrence-not-unique /
+  reason=anchor-out-of-range / reason=anchor-broken (exit 1).
+"""
+import argparse
+import hashlib
+
+--- kasegi-shokunin/corpus/instruments/recheck-audit.py:1-25 ---
+#!/usr/bin/env python3
+"""Audit every `recheck:` line in a lane's corpus/knowledge entries.
+
+Round-25 instrument of record for the depth:verifiability claim. It answers one
+question per entry: is the entry's own recheck line an executable,
+cwd-independent command that actually re-derives something for THAT entry?
+
+Frozen predicate (the claim's counter; .ufo/waves/round-25/claims.json C1). A line
+PASSES when all three limbs hold:
+
+  (a) parse      `bash -n -c "<command>"` exits 0 — the line is one shell command,
+                 not prose with a trailing parenthetical.
+  (b) cwd        running the command from the lane root and from a foreign cwd
+                 (`--foreign`, default `/`) yields the same exit status AND the
+                 same sha256 over the combined stdout+stderr bytes.
+  (c) paths      the command names at least one lane-relative `corpus/...` path or
+                 a `~/Projects/...` base test, and every `corpus/...` path it
+                 names exists under the audited root.
+
+The frozen three limbs are reported unchanged. A mutation-tester showed they are
+satisfiable by degenerate lines (`cd <lane> && true`, `cd <lane> && test -e
+<the entry's own file>`, `--selftest`, a missing line), so four STRICT limbs are
+reported beside them and never replace them — the claim's counter keeps the
+meaning it had when it was frozen, and the strict set is what a do-nothing control
+cannot reach:
+
+--- kake-shokunin/scripts/source_recheck.py:1-25 ---
+#!/usr/bin/env python3
+"""Round-36 C1 source re-check audit (`scripts/source_recheck.py`).
+
+Re-checks a recorded fetch: for every check in a manifest it reads the recorded
+body and reports whether the quoted text is still there.  The tool is offline by
+construction: it reads only the manifest and the body files the manifest names.
+No network, no writes, no subprocesses, no environment reads.  Python standard
+library only.
+
+Stated input caps (round-38 repair of bullet (g)): a manifest larger than 64 MiB
+is refused as an unreadable manifest (one input_invalid); a body file larger than
+16 MiB is an input fault for that check (one check_invalid, no other finding for
+it, and the check is not counted as evaluated).  Neither is ever read into memory,
+so a hostile input cannot turn into a MemoryError with no report.
+
+Usage:
+    python3 scripts/source_recheck.py --manifest PATH
+
+One JSON report on stdout:
+    {"version": 1, "verdict": V, "checksEvaluated": N, "findings": [F, ...]}
+where each finding is {"check": <check id or null>, "reason": R, "target": <URL
+or null>}.  Exit 0 when the verdict is `clean`, 1 when it is `failed-policy`, 2
+when it is `could-not-evaluate`, 64 on a usage error.
+
+Contract (SCORECARD.md, round 36, "Round 36 -- declared claims", C1 contract):
+
+--- kotodama-shokunin/tools/check-gate-captures.py:1-25 ---
+#!/usr/bin/env python3
+"""Check that each Gate-table row names the capture file its sha256 refers to.
+
+Round 97 closure routed defect 3 (`corpus/lessons/round-97-verifier-spotcheck.md`
+§5 item 3): Gate-table hash column did not name the capture file each hash
+refers to (S993's hash is the PDF's while the quote is counted in the .txt).
+This checker makes that row shape checkable.
+
+What it reads
+  * Only the `## Gate` section of the lesson: from the `## Gate` heading up
+    to (not including) the next `## ` heading.
+  * Only markdown table rows (`| ... |`) in that section. A row is in scope
+    when its first cell matches `S\\d+` (after trimming markup) and some cell
+    carries a sha256 token (full 64-hex, or the round-97 truncated
+    16-hex + ellipsis legacy form). Separator rows (`|---|`) are skipped.
+
+Hash resolution
+  * A full 64-hex token is compared exactly against the named file's sha256.
+  * A truncated 16-hex legacy token is compared as a prefix: the file passes
+    iff its sha256 starts with the token; otherwise it is a mismatch. Legacy
+    round-97 rows are normally reported CAPTURE-MISSING before any hash
+    comparison (they have no capture-file column).
+
+Capture file
+  * The header column named `capture file` (case-insensitive, whitespace-
+
+--- tsukuroi-shokunin/tools/check-recheck-commands.py:1-25 ---
+#!/usr/bin/env python3
+"""Read-only recheck-procedure gate (rounds 17-18).
+
+Round 17's steer withholds package, boot-image and service action. A knowledge
+entry's `recheck:` line is a procedure a later agent is invited to follow, so
+a forbidden binary there re-authorizes the action the steer withheld: the L1
+seat ran `pacman -Q ...` after reading
+corpus/knowledge/initramfs-v42-sysroot-recovery.md:3. This gate reads the
+named files at an immutable revision and, in the LAST `recheck:` line (later
+lines supersede earlier pointer ones, per the journal-boot-plane convention),
+reports every forbidden binary a backticked command actually invokes.
+
+Pointer procedures (round 18; round-17 closure defect 6, aur-risk-plane.md:347
+"§7's ... probe set"): a named section pointer in that line (`§7`, `§7's`,
+`§§1–5`, `§4.2`, `Appendix`, `Appendix A`) is resolved to its heading in the
+same file (headings inside fenced blocks are not headings; a section runs to
+the next heading of the same or a higher level, so subsections and dotted
+descendants such as `## 0.1` stay inside §0). The commands the section declares
+(backtick span, fenced block line, or `procedure:` line) are inspected like
+the line's own, and a forbidden one is RECHECK-FORBIDDEN-INVOCATION at the
+command's line. A pointer that names no heading is RECHECK-POINTER-UNRESOLVED.
+Pointers inside a backtick span or right after a `*.md` name (another file's
+section) are not followed, and resolution is one level deep.
+
+An appended `## R17-RECHECK — steer-safe procedure` or
+
+--- kengaku-shokunin/plans/round80_c1_located_replay.py:1-25 ---
+#!/usr/bin/env python3
+"""R80-C1 counter — the six `executed-unlocated` members become located, reproducible replays.
+
+Universe (derived, never listed): the members whose row in
+`plans/grader-population-ledger.json` carries `status == "executed-unlocated"` at the frozen base
+revision `BASE_REV` (read from git, never from the worktree, so flipping rows cannot shrink it).
+
+A located member has exactly one tracked receipt `corpus/evidence/round80/<member>-probe.txt`:
+  subject   first line matches `^# tb2 <member> grader probe`
+  stamp     MEMBER, SOURCE_RECEIPT (tracked, sha256 = SOURCE_SHA), TOOL (the frozen table's
+            instrument, tracked, sha256 = TOOL_SHA at the measured tip), LANE_TIP (reachable from
+            the measured tip), WORKTREE clean, COMMAND (names the tool), EXIT 0, MINTED_BY
+  block     between OBSERVATIONS_BEGIN/OBSERVATIONS_END; every line is a frozen observation form
+            (`CASE `, `case=`, `cases=`, `MISMATCH `, `OBSERVED-U `, `VECTOR `, `PREDICATE R<n>-C<m>`)
+  replay    the block equals the frozen instrument's stdout at the measured tree (REV excluded)
+  ledger    the member's row is `executed` with this receipt, `subject=tb2-header`, the receipt's own
+            observation form as `verdict`, and `round=80`
+plus: the round-79 population gate exits 0 with `executed=24 unlocated=0` (worktree mode).
+
+Historical divergence (the historical receipt's observation lines differ from the block) is reported
+and must be noted in the receipt as `HISTORICAL-DIVERGENCE <n> ...`; it is not a defect, because the
+tip's instrument may have been corrected after the historical round.
+
+Frozen before data on 2026-11-04 (L1 KengakuR80); see plans/round-80-claims.md §R80-C1.
+

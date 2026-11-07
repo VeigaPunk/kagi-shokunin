@@ -1,0 +1,947 @@
+{
+ "baseline": {
+  "measured_at": "2026-11-07T07:43:18-03:00",
+  "lane_revision": "42070de7770e1558adcf6aa7a7bc59309a9654d7",
+  "gate_sha256": "2e9dfde326b29fb95f520c5d7f3a671836682b28025e4efc7887333257d4df51",
+  "c1_sha256": "6b132ea1b521e698aaf4a1085e051087726c6b5ec840f60339b206abe02b269c",
+  "controls_sha256": "63cf806134bcb115368e59809ad54957750d7433d53f6979b256f662e3ddab8f",
+  "manifest_sha256": "df46be5c92c7b4d5a8b7ad790371b5c3240c92f46460b8cfb69e9b75b7ecc762",
+  "plan_sha256": "033f2104ef36b76e5d9de192878fb1b619808f1c9c63b2e310d074816a3e1679",
+  "selftest": {
+   "rc": 0,
+   "last": "RECHECK_REPLAY_SELFTEST: PASS (13 cases)"
+  },
+  "gate_root": {
+   "rc": 0,
+   "last": "RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)"
+  },
+  "counter_lane_asis": {
+   "rc": 0,
+   "line": "C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)"
+  },
+  "counter_pin_pristine": {
+   "rc": 0,
+   "line": "C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)"
+  },
+  "counter_pin_pristine_sha256": "cc9a8995fc56938a921aafa8a4e59dd50cd70e68dad61b203312e39ba8725f7e"
+ },
+ "mutants": {
+  "G01-rc-accept-only-1": {
+   "conjunct": "grep rc: accept only 1 (real match rc 0 becomes TOOL)",
+   "old": "            res = subprocess.run([\"grep\", \"-c\", \"-e\", arg, str(body)], capture_output=True, timeout=60)\n            if res.returncode not in (0, 1):\n                return None, \"grep-rc%d\" % res.returncode",
+   "new": "            res = subprocess.run([\"grep\", \"-c\", \"-e\", arg, str(body)], capture_output=True, timeout=60)\n            if res.returncode != 1:\n                return None, \"grep-rc%d\" % res.returncode",
+   "gate_sha256_mutated": "8dcb998c2f5fdb0a51f190dc89c65a3b1505327547202963e69820d67633e264",
+   "selftest": {
+    "rc": 1,
+    "last": "RECHECK_REPLAY_SELFTEST: FAIL (5 of 13 cases)"
+   },
+   "gate_root": {
+    "rc": 1,
+    "last": "RECHECK_REPLAY: DRIFT (clocks=10 match=2 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=8)",
+    "detail": [
+     "TOOL corpus/knowledge/betterleaks-detection-vs-validation.md:4 id=S055 reason=grep-rc0",
+     "TOOL corpus/knowledge/iso-11770-3-edition-status.md:3 id=S101 reason=grep-rc0",
+     "TOOL corpus/knowledge/iso-11770-3-edition-status.md:3 id=S113 reason=grep-rc0",
+     "TOOL corpus/knowledge/iso-11770-3-edition-status.md:3 id=S114 reason=grep-rc0"
+    ]
+   },
+   "counter_pin_mutant": {
+    "rc": 0,
+    "line": "C1_REPLAY: value=FAIL present=10 replayed=0 gate=0 guard=0 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r5-gate:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching,selftest)",
+    "sha256": "ff8c2c5fd37083b97adabe7803419d179bc2c50b7dec38f9f167adb786a1e1a9"
+   }
+  },
+  "G01b-rc-accept-only-0": {
+   "conjunct": "grep rc: accept only 0 (a legitimate zero count rc 1 becomes TOOL)",
+   "old": "            res = subprocess.run([\"grep\", \"-c\", \"-e\", arg, str(body)], capture_output=True, timeout=60)\n            if res.returncode not in (0, 1):\n                return None, \"grep-rc%d\" % res.returncode",
+   "new": "            res = subprocess.run([\"grep\", \"-c\", \"-e\", arg, str(body)], capture_output=True, timeout=60)\n            if res.returncode != 0:\n                return None, \"grep-rc%d\" % res.returncode",
+   "gate_sha256_mutated": "8ac556c8baea9477d6c833dca4c505f6a1700c8510163ce75168eaf1e6f677b5",
+   "selftest": {
+    "rc": 0,
+    "last": "RECHECK_REPLAY_SELFTEST: PASS (13 cases)"
+   },
+   "gate_root": {
+    "rc": 0,
+    "last": "RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+    "detail": []
+   },
+   "counter_pin_mutant": {
+    "rc": 0,
+    "line": "C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)",
+    "sha256": "9ed60e7384c0436b6097f30384f532b3d1d6dce21cccdb8816db024a41a87cbe"
+   }
+  },
+  "G02-rc-fail-open": {
+   "conjunct": "grep rc error (>=2) reads as count 0",
+   "old": "            res = subprocess.run([\"grep\", \"-c\", \"-e\", arg, str(body)], capture_output=True, timeout=60)\n            if res.returncode not in (0, 1):\n                return None, \"grep-rc%d\" % res.returncode",
+   "new": "            res = subprocess.run([\"grep\", \"-c\", \"-e\", arg, str(body)], capture_output=True, timeout=60)\n            if res.returncode not in (0, 1):\n                return 0, None",
+   "gate_sha256_mutated": "81255b0f432c260a7de502163060e24b99a82abe0a02866ae9d3f65b3fa8cad5",
+   "selftest": {
+    "rc": 0,
+    "last": "RECHECK_REPLAY_SELFTEST: PASS (13 cases)"
+   },
+   "gate_root": {
+    "rc": 0,
+    "last": "RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+    "detail": []
+   },
+   "counter_pin_mutant": {
+    "rc": 0,
+    "line": "C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)",
+    "sha256": "5ae2460361d3d4e3fc60595f257dd9f909d047967c55f55c64d215e071522ce7"
+   }
+  },
+  "G03-sha-drop": {
+   "conjunct": "capture sha256 check removed",
+   "old": "    if hashlib.sha256(data).hexdigest() != row[\"sha256\"]:",
+   "new": "    if False:",
+   "gate_sha256_mutated": "c8470f9c48ffa505a516358467aab828ac9570c074faee8fb8992f822101f3a8",
+   "selftest": {
+    "rc": 1,
+    "last": "RECHECK_REPLAY_SELFTEST: FAIL (1 of 13 cases)"
+   },
+   "gate_root": {
+    "rc": 0,
+    "last": "RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+    "detail": []
+   },
+   "counter_pin_mutant": {
+    "rc": 0,
+    "line": "C1_REPLAY: value=FAIL present=10 replayed=10 gate=1 guard=0 (bad=selftest)",
+    "sha256": "2fcbead79d6b9b170e6da573b06dad9eac1ced9799a7c285c33b4d05a23eef0a"
+   }
+  },
+  "G04-bytes-drop": {
+   "conjunct": "capture byte-count check removed",
+   "old": "    if str(len(data)) != row[\"bytes\"]:",
+   "new": "    if False:",
+   "gate_sha256_mutated": "52a98617e7676f773083476854ed9e1d440c2cf250ba2938ab05d3a12a49a572",
+   "selftest": {
+    "rc": 0,
+    "last": "RECHECK_REPLAY_SELFTEST: PASS (13 cases)"
+   },
+   "gate_root": {
+    "rc": 0,
+    "last": "RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+    "detail": []
+   },
+   "counter_pin_mutant": {
+    "rc": 0,
+    "line": "C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)",
+    "sha256": "a23e89cd301e71faa22b5b73b31130c082237439900fd552761688510cee5f90"
+   }
+  },
+  "G05-registry-url-skip": {
+   "conjunct": "registry url membership check removed",
+   "old": "    if not re.search(r\"(?<![^\\s(<])\" + re.escape(row[\"url\"]) + r\"(?=[\\s|>)]|$)\", reg):",
+   "new": "    if False:",
+   "gate_sha256_mutated": "bd6cc26e7e7e428e853342967c94bd8251f453b88e2e4b3fdbec64048a4fb1f8",
+   "selftest": {
+    "rc": 1,
+    "last": "RECHECK_REPLAY_SELFTEST: FAIL (1 of 13 cases)"
+   },
+   "gate_root": {
+    "rc": 0,
+    "last": "RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+    "detail": []
+   },
+   "counter_pin_mutant": {
+    "rc": 0,
+    "line": "C1_REPLAY: value=FAIL present=10 replayed=10 gate=1 guard=0 (bad=selftest)",
+    "sha256": "97dc57c63ff185cb53348f25b565a4b856532d50abc0f9750e4cd535635f9898"
+   }
+  },
+  "G06-registry-prefix": {
+   "conjunct": "registry url matched as a substring, not a whitespace-delimited token",
+   "old": "    if not re.search(r\"(?<![^\\s(<])\" + re.escape(row[\"url\"]) + r\"(?=[\\s|>)]|$)\", reg):",
+   "new": "    if not re.search(re.escape(row[\"url\"]), reg):",
+   "gate_sha256_mutated": "c8046468dc083f7a27c200e2e023fd360acfb68cd793922a53f62577aa4062b0",
+   "selftest": {
+    "rc": 0,
+    "last": "RECHECK_REPLAY_SELFTEST: PASS (13 cases)"
+   },
+   "gate_root": {
+    "rc": 0,
+    "last": "RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+    "detail": []
+   },
+   "counter_pin_mutant": {
+    "rc": 0,
+    "line": "C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)",
+    "sha256": "3b4933e01f08c8c3899cd6cbcbdcf55d17deab606352f5d4c090f9e65e29d677"
+   }
+  },
+  "G07-symlink-body-skip": {
+   "conjunct": "symlinked capture component refusal removed",
+   "old": "        if cur.is_symlink():\n            return None, \"symlink:%s\" % rel",
+   "new": "        if False:\n            return None, \"symlink:%s\" % rel",
+   "gate_sha256_mutated": "e71d1617e540e134b6670bf1ba7eb40e06d37cb2e69899199a7605bceec3ba8b",
+   "selftest": {
+    "rc": 1,
+    "last": "RECHECK_REPLAY_SELFTEST: FAIL (1 of 13 cases)"
+   },
+   "gate_root": {
+    "rc": 0,
+    "last": "RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+    "detail": []
+   },
+   "counter_pin_mutant": {
+    "rc": 0,
+    "line": "C1_REPLAY: value=FAIL present=10 replayed=10 gate=1 guard=0 (bad=selftest)",
+    "sha256": "e1f834a90e6c7d36986b377298838f211b419840196caf3119c3ab54f9eb08ec"
+   }
+  },
+  "G08-cookie-case": {
+   "conjunct": "set-cookie refusal made case-sensitive",
+   "old": "re.search(rb\"(?im)^set-cookie:\", data)",
+   "new": "re.search(rb\"(?m)^set-cookie:\", data)",
+   "gate_sha256_mutated": "417e91744dd518331b26a60ecd38a5ba770e6fdb2245fa06b8e01778f4057157",
+   "selftest": {
+    "rc": 0,
+    "last": "RECHECK_REPLAY_SELFTEST: PASS (13 cases)"
+   },
+   "gate_root": {
+    "rc": 0,
+    "last": "RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+    "detail": []
+   },
+   "counter_pin_mutant": {
+    "rc": 0,
+    "line": "C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)",
+    "sha256": "c82d083f301b9101d5bb64a9a55ead23bb7fd47ec832924f4dde90184c472409"
+   }
+  },
+  "G09-first-clock-only": {
+   "conjunct": "only the first clock per recheck line replayed",
+   "old": "            for m in CLOCK_RE.finditer(line):\n                out.append((rel, lineno, m.group(1), int(m.group(2))))",
+   "new": "            m = CLOCK_RE.search(line)\n            if m:\n                out.append((rel, lineno, m.group(1), int(m.group(2))))",
+   "gate_sha256_mutated": "4b7bae57227830acdf5ffe9d02d9b2e060b739641e5b1c54732d4409b9f0d3f8",
+   "selftest": {
+    "rc": 1,
+    "last": "RECHECK_REPLAY_SELFTEST: FAIL (1 of 13 cases)"
+   },
+   "gate_root": {
+    "rc": 0,
+    "last": "RECHECK_REPLAY: CLEAN (clocks=8 match=8 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+    "detail": []
+   },
+   "counter_pin_mutant": {
+    "rc": 0,
+    "line": "C1_REPLAY: value=FAIL present=10 replayed=0 gate=0 guard=0 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r5-gate:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching,selftest)",
+    "sha256": "18dc8be19b9a8e2e3fbed5d86f09569b0877c9dd5f0552311b37e5d98059eba3"
+   }
+  },
+  "G10-manifest-symlink": {
+   "conjunct": "symlinked manifest accepted (manifest())",
+   "old": "    if not path.is_file() or path.is_symlink():",
+   "new": "    if not path.is_file():",
+   "gate_sha256_mutated": "54172e15fd339434db9b580ddc726928ead6bbac93b78a522df37b81bc62add6",
+   "selftest": {
+    "rc": 0,
+    "last": "RECHECK_REPLAY_SELFTEST: PASS (13 cases)"
+   },
+   "gate_root": {
+    "rc": 0,
+    "last": "RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+    "detail": []
+   },
+   "counter_pin_mutant": {
+    "rc": 0,
+    "line": "C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)",
+    "sha256": "d3fe30f0ff59682408befdf09643f75548b08e9827742243ad67eb584acf972e"
+   }
+  },
+  "G11-manifest-dedup-drop": {
+   "conjunct": "duplicate manifest url no longer refused",
+   "old": "        if cols[1] in rows:\n            return None, \"manifest-duplicate-url:%s\" % cols[1]",
+   "new": "        if False:\n            return None, \"manifest-duplicate-url:%s\" % cols[1]",
+   "gate_sha256_mutated": "1324fe3918c8c6033e8dd9ceb20fe335bafb23e9214f4e19da81c22483ac70d8",
+   "selftest": {
+    "rc": 0,
+    "last": "RECHECK_REPLAY_SELFTEST: PASS (13 cases)"
+   },
+   "gate_root": {
+    "rc": 0,
+    "last": "RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+    "detail": []
+   },
+   "counter_pin_mutant": {
+    "rc": 0,
+    "line": "C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)",
+    "sha256": "a22600cc1560cd8f5cf61e47308a1f482718b5fc42b99b406220edce250c2d8a"
+   }
+  },
+  "G12-verdict-match": {
+   "conjunct": "MISMATCH verdict printed as MATCH",
+   "old": "        verdict = \"MATCH\" if got == stated else \"MISMATCH\"",
+   "new": "        verdict = \"MATCH\"",
+   "gate_sha256_mutated": "137bc35d44be12f92d24237b83780ef7fdaa15eabfafd3bb9451cbcfa472c36d",
+   "selftest": {
+    "rc": 1,
+    "last": "RECHECK_REPLAY_SELFTEST: FAIL (2 of 13 cases)"
+   },
+   "gate_root": {
+    "rc": 0,
+    "last": "RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+    "detail": []
+   },
+   "counter_pin_mutant": {
+    "rc": 0,
+    "line": "C1_REPLAY: value=FAIL present=10 replayed=10 gate=1 guard=0 (bad=selftest)",
+    "sha256": "2fb7eb37a118e25651cffe8c0dd9fe56a85c515951c65f8c891c1a85b1eddc89"
+   }
+  },
+  "G13-clean-always": {
+   "conjunct": "CLEAN summary printed regardless of tallies",
+   "old": "    if tally[\"MATCH\"] == total:",
+   "new": "    if True:",
+   "gate_sha256_mutated": "4982e392640c6542da59bd72bedc718276c7e86bbaa88914ad85b5bff6e177c8",
+   "selftest": {
+    "rc": 1,
+    "last": "RECHECK_REPLAY_SELFTEST: FAIL (10 of 13 cases)"
+   },
+   "gate_root": {
+    "rc": 0,
+    "last": "RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+    "detail": []
+   },
+   "counter_pin_mutant": {
+    "rc": 0,
+    "line": "C1_REPLAY: value=FAIL present=10 replayed=10 gate=1 guard=0 (bad=selftest)",
+    "sha256": "7e7c455c8c05437db2150a5629c791127028c2fc16085bca0b52bd3fbf242172"
+   }
+  },
+  "G14-pdf-rc-fail-open": {
+   "conjunct": "pdftotext error reads as count 0",
+   "old": "            if txt.returncode != 0:\n                return None, \"pdftotext-rc%d\" % txt.returncode",
+   "new": "            if txt.returncode != 0:\n                return 0, None",
+   "gate_sha256_mutated": "111ced877780f6937a11f2b8b9a59e54094fd8fd1468416f5aec3d47aa4da8ee",
+   "selftest": {
+    "rc": 0,
+    "last": "RECHECK_REPLAY_SELFTEST: PASS (13 cases)"
+   },
+   "gate_root": {
+    "rc": 0,
+    "last": "RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+    "detail": []
+   },
+   "counter_pin_mutant": {
+    "rc": 0,
+    "line": "C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)",
+    "sha256": "aa34e7b64043838c11fad82429e1b8184cfcaf063b164a774fb763cebb41d095"
+   }
+  },
+  "G15-pdf-no-layout": {
+   "conjunct": "pdftotext runs without -layout",
+   "old": "[\"pdftotext\", \"-layout\", str(body), \"-\"]",
+   "new": "[\"pdftotext\", str(body), \"-\"]",
+   "gate_sha256_mutated": "24192c8460dea3f88af37f26fb838d6afb6a0e3ad1e70d87bb99abca69cc587a",
+   "selftest": {
+    "rc": 0,
+    "last": "RECHECK_REPLAY_SELFTEST: PASS (13 cases)"
+   },
+   "gate_root": {
+    "rc": 0,
+    "last": "RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+    "detail": []
+   },
+   "counter_pin_mutant": {
+    "rc": 0,
+    "line": "C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)",
+    "sha256": "37944e8953b82d81e0e55affb9eee53524314adb6bc4a9da59b71546301595d8"
+   }
+  },
+  "G16-locate-fail-open": {
+   "conjunct": "missing locate output reads as count 0",
+   "old": "        if not m:\n            return None, \"locate-output\"",
+   "new": "        if not m:\n            return 0, None",
+   "gate_sha256_mutated": "d9e3b59f0dbbf0e773f2f84ac92ae289946fb1423ca92a573688127a89dfca49",
+   "selftest": {
+    "rc": 0,
+    "last": "RECHECK_REPLAY_SELFTEST: PASS (13 cases)"
+   },
+   "gate_root": {
+    "rc": 0,
+    "last": "RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+    "detail": []
+   },
+   "counter_pin_mutant": {
+    "rc": 0,
+    "line": "C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)",
+    "sha256": "651e87989e0de14ddb39a4dba0636a4e76733a500bdbf615715dd132aa2e7b29"
+   }
+  },
+  "G17-locate-relative": {
+   "conjunct": "locate runs the tree normaliser by cwd-relative path",
+   "old": "str(root / \"corpus/rendered-text-v1.py\")",
+   "new": "\"corpus/rendered-text-v1.py\"",
+   "gate_sha256_mutated": "69ba6f35d7634b87cf65bb4e6028413efec89a213000a8618d70df7c5a275452",
+   "selftest": {
+    "rc": 0,
+    "last": "RECHECK_REPLAY_SELFTEST: PASS (13 cases)"
+   },
+   "gate_root": {
+    "rc": 1,
+    "last": "RECHECK_REPLAY: DRIFT (clocks=10 match=9 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=1)",
+    "detail": [
+     "TOOL corpus/knowledge/cdp-bridge-1password-oidc-workflow.md:3 id=S070 reason=locate-output"
+    ]
+   },
+   "counter_pin_mutant": {
+    "rc": 0,
+    "line": "C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r5-gate:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)",
+    "sha256": "1cded1d188e3b313370533432177273c6d9a1aadba06d4f9ed26f23bcf5193e6"
+   }
+  },
+  "G18-unsupported-guess": {
+   "conjunct": "unknown filter form guessed as grep on the last token",
+   "old": "    return None, \"filter-form\"",
+   "new": "    return url, (\"grep\", rest[0][-1])",
+   "gate_sha256_mutated": "449bef0087da71bcd5762c22f6d760fac877c30f7da13ffd5b1a7c6f1055ab88",
+   "selftest": {
+    "rc": 1,
+    "last": "RECHECK_REPLAY_SELFTEST: FAIL (1 of 13 cases)"
+   },
+   "gate_root": {
+    "rc": 0,
+    "last": "RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+    "detail": []
+   },
+   "counter_pin_mutant": {
+    "rc": 0,
+    "line": "C1_REPLAY: value=FAIL present=10 replayed=10 gate=1 guard=0 (bad=selftest)",
+    "sha256": "a7d7d749f02d49cf2f43e10f716ccbc055b94ff68a540375fe6dbc10ee7caaf9"
+   }
+  },
+  "G19-http1-only": {
+   "conjunct": "status-line refusal narrowed to HTTP/1.x",
+   "old": "re.match(rb\"HTTP/\\d\", data)",
+   "new": "re.match(rb\"HTTP/1\\.[01] \", data)",
+   "gate_sha256_mutated": "49d4aa96e94cecb954a111275e4fd90664e753ec1ed030b53cdb686c34e11383",
+   "selftest": {
+    "rc": 0,
+    "last": "RECHECK_REPLAY_SELFTEST: PASS (13 cases)"
+   },
+   "gate_root": {
+    "rc": 0,
+    "last": "RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+    "detail": []
+   },
+   "counter_pin_mutant": {
+    "rc": 0,
+    "line": "C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)",
+    "sha256": "53c3574a6538f6d095b25e3b61bae43526338387aeb45d6e7894683307719bbf"
+   }
+  },
+  "G20-manifest-header": {
+   "conjunct": "manifest header equality check removed",
+   "old": "            if cols != HEADER:",
+   "new": "            if False:",
+   "gate_sha256_mutated": "23f40141bc1b692f79a1e829bf7c0c0fe4eb610ba47fbbafb523f4cd0600edbd",
+   "selftest": {
+    "rc": 0,
+    "last": "RECHECK_REPLAY_SELFTEST: PASS (13 cases)"
+   },
+   "gate_root": {
+    "rc": 0,
+    "last": "RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+    "detail": []
+   },
+   "counter_pin_mutant": {
+    "rc": 0,
+    "line": "C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)",
+    "sha256": "dafcb471344fa9b4ad7dbe4b66a4cda2887c212228333000232acfa56f0109e4"
+   }
+  },
+  "G21-symlink-entry-skip": {
+   "conjunct": "symlinked knowledge entry silently skipped instead of reported",
+   "old": "            out.append((rel, 0, \"<symlinked-entry>\", -1))\n            continue",
+   "new": "            continue",
+   "gate_sha256_mutated": "cccca837cfb657f64d523a100252e58a010bb3551cbaa375f607a464f832eb36",
+   "selftest": {
+    "rc": 0,
+    "last": "RECHECK_REPLAY_SELFTEST: PASS (13 cases)"
+   },
+   "gate_root": {
+    "rc": 0,
+    "last": "RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+    "detail": []
+   },
+   "counter_pin_mutant": {
+    "rc": 0,
+    "line": "C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)",
+    "sha256": "4e2df598b54fa8bcd0bd3e73ff6468447530b34a14568faa4e3e15c75e0efa39"
+   }
+  },
+  "G22-empty-population-clean": {
+   "conjunct": "empty stated-clock population reads CLEAN instead of SETUP",
+   "old": "    if not found:\n        return setup(\"no-stated-clocks\")",
+   "new": "    if False:\n        return setup(\"no-stated-clocks\")",
+   "gate_sha256_mutated": "e132df5c051100671f827c0c54752f965162f409acf5984c78ac8a61f21010c6",
+   "selftest": {
+    "rc": 0,
+    "last": "RECHECK_REPLAY_SELFTEST: PASS (13 cases)"
+   },
+   "gate_root": {
+    "rc": 0,
+    "last": "RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+    "detail": []
+   },
+   "counter_pin_mutant": {
+    "rc": 0,
+    "line": "C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)",
+    "sha256": "f92f68a8802dfdcd2ff3fa272f3130532f39ba62f3228ddd8c8484dc89557c8d"
+   }
+  },
+  "G23-confined-symlink-ok": {
+   "conjunct": "confined() preflight no longer refuses a symlinked input",
+   "old": "        if cur.is_symlink():\n            return False",
+   "new": "        if False:\n            return False",
+   "gate_sha256_mutated": "b9d8657b99e48570e54fe09bb162c72a10d14370e510ede8a5081519b709887b",
+   "selftest": {
+    "rc": 0,
+    "last": "RECHECK_REPLAY_SELFTEST: PASS (13 cases)"
+   },
+   "gate_root": {
+    "rc": 0,
+    "last": "RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+    "detail": []
+   },
+   "counter_pin_mutant": {
+    "rc": 0,
+    "line": "C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)",
+    "sha256": "72b84fca332f7c5db31805655b7f4117f3444e00c8f7e7900d2721ae8a3c1e5e"
+   }
+  }
+ },
+ "pin_kill": {
+  "G02-rc-fail-open": {
+   "rc": 0,
+   "line": "C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r5-gate:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)"
+  },
+  "G04-bytes-drop": {
+   "rc": 0,
+   "line": "C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r5-gate:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)"
+  },
+  "G23-confined-symlink-ok": {
+   "rc": 0,
+   "line": "C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r5-gate:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)"
+  }
+ },
+ "fixtures": {
+  "F01-zero-count": {
+   "runs": {
+    "pristine": {
+     "rc": 0,
+     "last": "RECHECK_REPLAY: CLEAN (clocks=1 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+     "detail": []
+    },
+    "G01b-rc-accept-only-0": {
+     "rc": 1,
+     "last": "RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=1)",
+     "detail": [
+      "TOOL corpus/knowledge/e.md:2 id=S001 reason=grep-rc1"
+     ]
+    }
+   }
+  },
+  "F02-grep-rc2": {
+   "runs": {
+    "pristine": {
+     "rc": 1,
+     "last": "RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=1)",
+     "detail": [
+      "TOOL corpus/knowledge/e.md:2 id=S001 reason=grep-rc2"
+     ]
+    },
+    "G02-rc-fail-open": {
+     "rc": 0,
+     "last": "RECHECK_REPLAY: CLEAN (clocks=1 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+     "detail": []
+    }
+   }
+  },
+  "F03-sha-mismatch": {
+   "runs": {
+    "pristine": {
+     "rc": 1,
+     "last": "RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=0 no_capture=0 bad_capture=1 unsupported=0 tool=0)",
+     "detail": [
+      "BAD-CAPTURE corpus/knowledge/e.md:2 id=S001 reason=sha256:.ufo/b.body"
+     ]
+    },
+    "G03-sha-drop": {
+     "rc": 0,
+     "last": "RECHECK_REPLAY: CLEAN (clocks=1 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+     "detail": []
+    }
+   }
+  },
+  "F04-bytes-mismatch": {
+   "runs": {
+    "pristine": {
+     "rc": 1,
+     "last": "RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=0 no_capture=0 bad_capture=1 unsupported=0 tool=0)",
+     "detail": [
+      "BAD-CAPTURE corpus/knowledge/e.md:2 id=S001 reason=bytes:.ufo/b.body"
+     ]
+    },
+    "G04-bytes-drop": {
+     "rc": 0,
+     "last": "RECHECK_REPLAY: CLEAN (clocks=1 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+     "detail": []
+    }
+   }
+  },
+  "F05-registry-other-url": {
+   "runs": {
+    "pristine": {
+     "rc": 1,
+     "last": "RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=0 no_capture=0 bad_capture=1 unsupported=0 tool=0)",
+     "detail": [
+      "BAD-CAPTURE corpus/knowledge/e.md:2 id=S001 reason=url-not-in-row:S001"
+     ]
+    },
+    "G05-registry-url-skip": {
+     "rc": 0,
+     "last": "RECHECK_REPLAY: CLEAN (clocks=1 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+     "detail": []
+    }
+   }
+  },
+  "F06-registry-prefix": {
+   "runs": {
+    "pristine": {
+     "rc": 1,
+     "last": "RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=0 no_capture=0 bad_capture=1 unsupported=0 tool=0)",
+     "detail": [
+      "BAD-CAPTURE corpus/knowledge/e.md:2 id=S001 reason=url-not-in-row:S001"
+     ]
+    },
+    "G06-registry-prefix": {
+     "rc": 0,
+     "last": "RECHECK_REPLAY: CLEAN (clocks=1 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+     "detail": []
+    }
+   }
+  },
+  "F07-symlink-body": {
+   "runs": {
+    "pristine": {
+     "rc": 1,
+     "last": "RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=0 no_capture=0 bad_capture=1 unsupported=0 tool=0)",
+     "detail": [
+      "BAD-CAPTURE corpus/knowledge/e.md:2 id=S001 reason=symlink:lnk/b.body"
+     ]
+    },
+    "G07-symlink-body-skip": {
+     "rc": 0,
+     "last": "RECHECK_REPLAY: CLEAN (clocks=1 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+     "detail": []
+    }
+   }
+  },
+  "F08-cookie-capital": {
+   "runs": {
+    "pristine": {
+     "rc": 1,
+     "last": "RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=0 no_capture=0 bad_capture=1 unsupported=0 tool=0)",
+     "detail": [
+      "BAD-CAPTURE corpus/knowledge/e.md:2 id=S001 reason=header-bytes:.ufo/b.body"
+     ]
+    },
+    "G08-cookie-case": {
+     "rc": 0,
+     "last": "RECHECK_REPLAY: CLEAN (clocks=1 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+     "detail": []
+    }
+   }
+  },
+  "F09-http2-line": {
+   "runs": {
+    "pristine": {
+     "rc": 1,
+     "last": "RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=0 no_capture=0 bad_capture=1 unsupported=0 tool=0)",
+     "detail": [
+      "BAD-CAPTURE corpus/knowledge/e.md:2 id=S001 reason=header-bytes:.ufo/b.body"
+     ]
+    },
+    "G19-http1-only": {
+     "rc": 0,
+     "last": "RECHECK_REPLAY: CLEAN (clocks=1 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+     "detail": []
+    }
+   }
+  },
+  "F10-second-clock-drift": {
+   "runs": {
+    "pristine": {
+     "rc": 1,
+     "last": "RECHECK_REPLAY: DRIFT (clocks=2 match=1 mismatch=1 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+     "detail": [
+      "MISMATCH corpus/knowledge/e.md:2 id=S001 form=grep stated=9 replayed=1"
+     ]
+    },
+    "G09-first-clock-only": {
+     "rc": 0,
+     "last": "RECHECK_REPLAY: CLEAN (clocks=1 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+     "detail": []
+    }
+   }
+  },
+  "F11-pdf-not-a-pdf": {
+   "runs": {
+    "pristine": {
+     "rc": 1,
+     "last": "RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=1)",
+     "detail": [
+      "TOOL corpus/knowledge/e.md:2 id=S001 reason=pdftotext-rc1"
+     ]
+    },
+    "G14-pdf-rc-fail-open": {
+     "rc": 0,
+     "last": "RECHECK_REPLAY: CLEAN (clocks=1 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+     "detail": []
+    }
+   }
+  },
+  "F12-locate-binary": {
+   "runs": {
+    "pristine": {
+     "rc": 1,
+     "last": "RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=1)",
+     "detail": [
+      "TOOL corpus/knowledge/e.md:2 id=S001 reason=locate-output"
+     ]
+    },
+    "G16-locate-fail-open": {
+     "rc": 0,
+     "last": "RECHECK_REPLAY: CLEAN (clocks=1 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+     "detail": []
+    }
+   }
+  },
+  "F13-manifest-symlink": {
+   "runs": {
+    "pristine": {
+     "rc": 2,
+     "last": "RECHECK_REPLAY: SETUP symlinked-input:corpus/recheck-captures.tsv",
+     "detail": []
+    },
+    "G10-manifest-symlink": {
+     "rc": 2,
+     "last": "RECHECK_REPLAY: SETUP symlinked-input:corpus/recheck-captures.tsv",
+     "detail": []
+    }
+   }
+  },
+  "F14-manifest-duplicate": {
+   "runs": {
+    "pristine": {
+     "rc": 2,
+     "last": "RECHECK_REPLAY: SETUP manifest-duplicate-url:https://example.test/a",
+     "detail": []
+    },
+    "G11-manifest-dedup-drop": {
+     "rc": 0,
+     "last": "RECHECK_REPLAY: CLEAN (clocks=1 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+     "detail": []
+    }
+   }
+  },
+  "F15-mismatch-verdict": {
+   "runs": {
+    "pristine": {
+     "rc": 1,
+     "last": "RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=1 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+     "detail": [
+      "MISMATCH corpus/knowledge/e.md:2 id=S001 form=grep stated=1 replayed=2"
+     ]
+    },
+    "G12-verdict-match": {
+     "rc": 0,
+     "last": "RECHECK_REPLAY: CLEAN (clocks=1 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+     "detail": []
+    }
+   }
+  },
+  "F15b-mismatch-clean": {
+   "runs": {
+    "pristine": {
+     "rc": 1,
+     "last": "RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=1 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+     "detail": [
+      "MISMATCH corpus/knowledge/e.md:2 id=S001 form=grep stated=1 replayed=2"
+     ]
+    },
+    "G13-clean-always": {
+     "rc": 0,
+     "last": "RECHECK_REPLAY: CLEAN (clocks=1 match=0 mismatch=1 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+     "detail": [
+      "MISMATCH corpus/knowledge/e.md:2 id=S001 form=grep stated=1 replayed=2"
+     ]
+    }
+   }
+  },
+  "F16-unsupported-quoted": {
+   "runs": {
+    "pristine": {
+     "rc": 1,
+     "last": "RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=0 no_capture=0 bad_capture=0 unsupported=1 tool=0)",
+     "detail": [
+      "UNSUPPORTED corpus/knowledge/e.md:2 reason=filter-form"
+     ]
+    },
+    "G18-unsupported-guess": {
+     "rc": 1,
+     "last": "RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=1 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+     "detail": [
+      "MISMATCH corpus/knowledge/e.md:2 id=S001 form=grep stated=2 replayed=0"
+     ]
+    }
+   }
+  },
+  "F16b-unsupported-bare-pattern": {
+   "runs": {
+    "pristine": {
+     "rc": 1,
+     "last": "RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=0 no_capture=0 bad_capture=0 unsupported=1 tool=0)",
+     "detail": [
+      "UNSUPPORTED corpus/knowledge/e.md:2 reason=filter-form"
+     ]
+    },
+    "G18-unsupported-guess": {
+     "rc": 0,
+     "last": "RECHECK_REPLAY: CLEAN (clocks=1 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+     "detail": []
+    }
+   }
+  },
+  "F17-registry-fenced": {
+   "runs": {
+    "pristine": {
+     "rc": 0,
+     "last": "RECHECK_REPLAY: CLEAN (clocks=1 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+     "detail": []
+    }
+   }
+  },
+  "F18-clock-deleted": {
+   "runs": {
+    "pristine": {
+     "rc": 0,
+     "last": "RECHECK_REPLAY: CLEAN (clocks=1 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+     "detail": []
+    }
+   }
+  },
+  "F19-indented-clock": {
+   "runs": {
+    "pristine": {
+     "rc": 0,
+     "last": "RECHECK_REPLAY: CLEAN (clocks=1 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+     "detail": []
+    }
+   }
+  },
+  "F20-entry-symlink": {
+   "runs": {
+    "pristine": {
+     "rc": 1,
+     "last": "RECHECK_REPLAY: DRIFT (clocks=2 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=1 tool=0)",
+     "detail": [
+      "UNSUPPORTED corpus/knowledge/z.md:0 reason=symlinked-entry"
+     ]
+    },
+    "G21-symlink-entry-skip": {
+     "rc": 0,
+     "last": "RECHECK_REPLAY: CLEAN (clocks=1 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+     "detail": []
+    }
+   }
+  },
+  "F21-two-recheck-lines": {
+   "runs": {
+    "pristine": {
+     "rc": 0,
+     "last": "RECHECK_REPLAY: CLEAN (clocks=2 match=2 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+     "detail": []
+    }
+   }
+  },
+  "F22-locate-cwd": {
+   "runs": {
+    "pristine": {
+     "rc": 0,
+     "last": "RECHECK_REPLAY: CLEAN (clocks=1 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+     "detail": []
+    },
+    "G17-locate-relative": {
+     "rc": 1,
+     "last": "RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=1)",
+     "detail": [
+      "TOOL corpus/knowledge/e.md:2 id=S001 reason=locate-output"
+     ]
+    }
+   }
+  },
+  "F23-pdf-layout-argv": {
+   "runs": {
+    "pristine": {
+     "rc": 0,
+     "last": "RECHECK_REPLAY: CLEAN (clocks=1 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+     "detail": []
+    },
+    "G15-pdf-no-layout": {
+     "rc": 1,
+     "last": "RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=1 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+     "detail": [
+      "MISMATCH corpus/knowledge/e.md:2 id=S001 form=pdf stated=1 replayed=0"
+     ]
+    }
+   }
+  },
+  "F24-empty-population": {
+   "runs": {
+    "pristine": {
+     "rc": 2,
+     "last": "RECHECK_REPLAY: SETUP no-stated-clocks",
+     "detail": []
+    },
+    "G22-empty-population-clean": {
+     "rc": 0,
+     "last": "RECHECK_REPLAY: CLEAN (clocks=0 match=0 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+     "detail": []
+    }
+   }
+  },
+  "F25-registry-symlink": {
+   "runs": {
+    "pristine": {
+     "rc": 2,
+     "last": "RECHECK_REPLAY: SETUP symlinked-input:corpus/SOURCES.md",
+     "detail": []
+    },
+    "G23-confined-symlink-ok": {
+     "rc": 0,
+     "last": "RECHECK_REPLAY: CLEAN (clocks=1 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+     "detail": []
+    }
+   }
+  },
+  "F26-normalizer-symlink": {
+   "runs": {
+    "pristine": {
+     "rc": 2,
+     "last": "RECHECK_REPLAY: SETUP symlinked-input:corpus/rendered-text-v1.py",
+     "detail": []
+    },
+    "G23-confined-symlink-ok": {
+     "rc": 0,
+     "last": "RECHECK_REPLAY: CLEAN (clocks=1 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)",
+     "detail": []
+    }
+   }
+  }
+ }
+}

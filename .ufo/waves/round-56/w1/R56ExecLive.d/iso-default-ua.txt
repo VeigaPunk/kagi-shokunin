@@ -1,0 +1,10 @@
+# R56ExecLive-2 ISO default-UA probes — 2026-11-07T10:38:42Z
+# Command per probe: curl -sS --max-time 60 -o <id>.body -w '%{http_code} %{size_download}\n' <url>
+# (no -A: curl default UA; no -f so the status is captured; no headers stored; bodies ~5448 B block pages kept in scratch only)
+S101  https://www.iso.org/standard/60237.html  status=403 size_download=5448 curl_rc=0
+S113  https://www.iso.org/standard/82709.html  status=403 size_download=5448 curl_rc=0
+S114  https://www.iso.org/standard/85929.html  status=403 size_download=5448 curl_rc=0
+# Reading: all three iso.org catalogue URLs 403 the curl default UA and 200 the stated Chrome/124.0 browser UA
+# (browser-UA rows in live-refetch.tsv). This independently covers BOTH the S113 URL and the S114 URL with fresh
+# same-day receipts, closing the round-56 mistake-mining gap (D3: the S113 row's only 403 receipt had been taken
+# on the S114 URL). Identical 5448-byte block page size suggests one shared challenge page.

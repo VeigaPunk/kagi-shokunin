@@ -1,0 +1,29 @@
+# R56ScoutISO receipt 00 — SUMMARY (index of the seat's receipts)
+# seat R56ScoutISO; date 2026-11-07T07:40:46-03:00; lane /home/vgpnk/Projects/shokunin/kagi-shokunin @ 42070de7770e1558adcf6aa7a7bc59309a9654d7
+# model: minimax-code/MiniMax-M3.1-Flash (observed in this seat's own session file; see 10)
+
+01-iso-live-fetch.txt              4 live fetches: HTTP status, bytes, url_effective, content_type, sha256, rc
+02-digest-vs-manifest.txt          live sha256/bytes vs corpus/recheck-captures.tsv rows; cmp vs committed captures; header-byte scan
+03-live-grep-counts.txt            live grep -c for the three stated patterns; matching lines; byte offsets; 3x stability
+04-s070-locate.txt                 rendered-text locate on live stream / live body / committed capture; S070+S018 URL-pair behaviour
+05-default-ua-403.txt              default-UA 403 on S101/S113/S114; 3x on 82709; false-fire mechanism; round-55 D3 text
+06-registry-row-claims.txt         S101/S113/S114/S070/S018 registry-row claims re-checked against the live bodies
+07-gate-s018-s070-probes.txt       gate id<->URL binding probes A/B/C in a scratch fixture (no lane writes)
+08-s070-normalized-digest-moved.txt  S070 page rebuilt between 2026-11-03 and 2026-11-07 (normalized digest moved); clock still holds
+09-pattern-discriminating-power.txt  cross-presence matrix of the three patterns; the S113 Amendments block
+10-model-and-environment.txt        observed answering model, host, tool inventory, scratch discipline
+11-frozen-tree-and-d3-receipt.txt   frozen-tree artefacts; the committed S113-URL default-UA receipt; gate run on the lane
+
+== headline numbers ==
+S101 'Withdrawal of International Standard' stated 2 -> live 2   MATCH
+S113 'ISO/IEC 11770-3:2021/Amd'             stated 3 -> live 3   MATCH
+S114 'International Standard published'     stated 2 -> live 2   MATCH
+S070 rendered-text locate                   stated 1 -> live 1   MATCH
+default UA on 82709 (S113): HTTP 403, 5448 B, 'Just a moment...' -> REPRODUCES; the frozen tree already
+  carries .ufo/waves/round-56/capture/rejections/S113-default-ua.body (5448 B, sha ce3cb7f2...) on the S113 URL
+S070 rendered-text normalized digest: 20fbc423c4faea78 (2026-11-03) -> 7127a2c103b36be3 (2026-11-07): MOVED
+12-landing-safety-checks.txt         gate-safety of the S070 source-line edit; S069 drifted on the SAME line; provenance-row couplings
+
+== addendum (receipt 12) ==
+S069 (same source line) also drifted: normalized 232239dd8ae8e792 (2026-11-03) -> d12a9bb380029ac0 (2026-11-07),
+raw 6179e9c140851529 -> 6b4e78533fb2da34, 215346 -> 216522 B; three fetches, one digest. Same rebuild.

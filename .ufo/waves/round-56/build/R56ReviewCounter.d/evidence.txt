@@ -1,0 +1,177 @@
+# R56ReviewCounter evidence — round 56 counter audit (scratch executions, 2026-11-07)
+# lane /home/vgpnk/Projects/shokunin/kagi-shokunin ; BASE 832ba6a53d6a76706b5c80bce2278683dea33d42 ; HEAD/predeclaration 42070de7770e1558adcf6aa7a7bc59309a9654d7
+# instrument sha256: counter 096251c9b7a7405dbae320eb4dbb3ef0a092cf5e530d2274de0b2e29509bde9a
+#                    gate    b7782f35c0c8bbaedac5f8f06eaadbc3ce4b8997be25e10f4224724013d799e8
+#                    manifest df46be5c92c7b4d5a8b7ad790371b5c3240c92f46460b8cfb69e9b75b7ecc762
+#                    controls 633326a563c6d38e7933d0e88d3b395404f688dbef9ff8e1de7fffdbed48b094
+
+## forged printer gate (sha256 11a79bc2718195684469cb998b3c64cd902ab248de2aa07db03d0d722a9b306b, 1322 bytes)
+#!/usr/bin/env python3
+"""Printer gate: prints the eleven lines the counter wants, replays nothing."""
+import sys
+
+LINES = [
+    "MATCH corpus/knowledge/betterleaks-detection-vs-validation.md:4 id=S055 form=grep stated=1 replayed=1",
+    "MATCH corpus/knowledge/cdp-bridge-1password-oidc-workflow.md:3 id=S070 form=locate stated=1 replayed=1",
+    "MATCH corpus/knowledge/iso-11770-3-edition-status.md:3 id=S101 form=grep stated=2 replayed=2",
+    "MATCH corpus/knowledge/iso-11770-3-edition-status.md:3 id=S113 form=grep stated=3 replayed=3",
+    "MATCH corpus/knowledge/iso-11770-3-edition-status.md:3 id=S114 form=grep stated=2 replayed=2",
+    "MATCH corpus/knowledge/nist-key-management-guidance-status.md:3 id=S074 form=grep stated=1 replayed=1",
+    "MATCH corpus/knowledge/nist-key-management-parts-withdrawal.md:3 id=S078 form=pdf stated=1 replayed=1",
+    "MATCH corpus/knowledge/oidc-federation-trust-policy.md:3 id=S067 form=grep stated=1 replayed=1",
+    "MATCH corpus/knowledge/secret-scanning-detection-vs-validation.md:4 id=S054 form=grep stated=1 replayed=1",
+    "MATCH corpus/knowledge/trufflehog-verification-lifecycle.md:4 id=S057 form=grep stated=1 replayed=1",
+]
+
+if "--selftest" in sys.argv:
+    print("RECHECK_REPLAY_SELFTEST: PASS (13 cases)")
+    raise SystemExit(0)
+
+for line in LINES:
+    print(line)
+print("RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)")
+print("gate did not open a single capture; this is a printer", file=sys.stderr)
+raise SystemExit(0)
+
+## f5bash gate bytes (sha256 578805c698cc4ccf6d99c872cdfad05938a65dcb6435185995d5bad3479e5dff) — F5 construction from plans/round-56-controls.sh
+#!/usr/bin/env bash
+case "${1:-}" in --selftest) echo "RECHECK_REPLAY_SELFTEST: PASS (13 cases)";; *) echo "RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)";; MATCH* ) ;; esac
+exit 0
+
+## selfstub: insertion into the real gate (sha256 36726257e8fac3a0c01293ce4235bbf1fc17bdd7ebc1c23f8c6c7eeae921a5c7)
+251:def selftest():
+252-    cases = []
+253-    body_txt = b"alpha\nThe needle line\nthe needle again\nomega\n"
+254-
+--
+321:def selftest():
+
+## nx: exact recheck line after edit (-> 1x)
+recheck: 180d — `curl -fsSL 'https://raw.githubusercontent.com/betterleaks/betterleaks/main/README.md' | grep -c 'Scans detect secrets without credential provider requests by default'` -> 1x (ran 2026-10-23)
+
+## extra: exact recheck line after edit (added uncaptured clock)
+recheck: on-change — `curl -fsSL https://example.invalid/x | grep -c needle` -> 1; bash corpus/prefreeze-control.sh --selftest; replay the
+
+## runs
+=== BASE ===
+$ bash plans/round-56-c1.sh 832ba6a53d6a76706b5c80bce2278683dea33d42
+C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r2-manifest:betterleaks-detection-vs-validation.md:README.md,r2-manifest:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r2-manifest:iso-11770-3-edition-status.md:60237.html,r2-manifest:iso-11770-3-edition-status.md:82709.html,r2-manifest:iso-11770-3-edition-status.md:85929.html,r2-manifest:nist-key-management-guidance-status.md:ipd,r2-manifest:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r2-manifest:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r2-manifest:secret-scanning-detection-vs-validation.md:README.md,r2-manifest:trufflehog-verification-lifecycle.md:verification-caching)
+rc=0
+
+=== frozen commit 42070de ===
+$ bash plans/round-56-c1.sh 42070de7770e1558adcf6aa7a7bc59309a9654d7
+C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)
+rc=0
+
+=== ref ===
+$ bash plans/round-56-c1.sh --tree /fast/scratch/hyaku/kagi-r56/R56ReviewCounter/ref
+C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)
+rc=0
+
+=== printer ===
+$ bash plans/round-56-c1.sh --tree /fast/scratch/hyaku/kagi-r56/R56ReviewCounter/printer
+C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)
+rc=0
+
+=== printer_rc1 ===
+$ bash plans/round-56-c1.sh --tree /fast/scratch/hyaku/kagi-r56/R56ReviewCounter/printer_rc1
+C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)
+rc=0
+
+=== printercrash ===
+$ bash plans/round-56-c1.sh --tree /fast/scratch/hyaku/kagi-r56/R56ReviewCounter/printercrash
+C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)
+rc=0
+
+=== selfstub ===
+$ bash plans/round-56-c1.sh --tree /fast/scratch/hyaku/kagi-r56/R56ReviewCounter/selfstub
+C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)
+rc=0
+
+=== symgate ===
+$ bash plans/round-56-c1.sh --tree /fast/scratch/hyaku/kagi-r56/R56ReviewCounter/symgate
+C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)
+rc=0
+
+=== nx ===
+$ bash plans/round-56-c1.sh --tree /fast/scratch/hyaku/kagi-r56/R56ReviewCounter/nx
+C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)
+rc=0
+
+=== extra ===
+$ bash plans/round-56-c1.sh --tree /fast/scratch/hyaku/kagi-r56/R56ReviewCounter/extra
+C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r5-gate:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)
+rc=0
+
+=== nomani ===
+$ bash plans/round-56-c1.sh --tree /fast/scratch/hyaku/kagi-r56/R56ReviewCounter/nomani
+C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r2-manifest:betterleaks-detection-vs-validation.md:README.md,r2-manifest:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r2-manifest:iso-11770-3-edition-status.md:60237.html,r2-manifest:iso-11770-3-edition-status.md:82709.html,r2-manifest:iso-11770-3-edition-status.md:85929.html,r2-manifest:nist-key-management-guidance-status.md:ipd,r2-manifest:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r2-manifest:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r2-manifest:secret-scanning-detection-vs-validation.md:README.md,r2-manifest:trufflehog-verification-lifecycle.md:verification-caching)
+rc=0
+
+=== noknow ===
+$ bash plans/round-56-c1.sh --tree /fast/scratch/hyaku/kagi-r56/R56ReviewCounter/noknow
+C1_REPLAY: value=FAIL present=0 replayed=0 gate=0 guard=0 (bad=absent:betterleaks-detection-vs-validation.md:README.md,absent:cdp-bridge-1password-oidc-workflow.md:custom-workflow,absent:iso-11770-3-edition-status.md:60237.html,absent:iso-11770-3-edition-status.md:82709.html,absent:iso-11770-3-edition-status.md:85929.html,absent:nist-key-management-guidance-status.md:ipd,absent:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,absent:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,absent:secret-scanning-detection-vs-validation.md:README.md,absent:trufflehog-verification-lifecycle.md:verification-caching)
+rc=0
+
+=== dup ===
+$ bash plans/round-56-c1.sh --tree /fast/scratch/hyaku/kagi-r56/R56ReviewCounter/dup
+C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r2-rows2:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)
+rc=0
+
+=== m8 ===
+$ bash plans/round-56-c1.sh --tree /fast/scratch/hyaku/kagi-r56/R56ReviewCounter/m8
+C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r2-rows0:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)
+rc=0
+
+=== empty ===
+$ bash plans/round-56-c1.sh --tree /fast/scratch/hyaku/kagi-r56/R56ReviewCounter/empty
+C1_REPLAY: value=FAIL present=0 replayed=0 gate=0 guard=0 (bad=absent:betterleaks-detection-vs-validation.md:README.md,absent:cdp-bridge-1password-oidc-workflow.md:custom-workflow,absent:iso-11770-3-edition-status.md:60237.html,absent:iso-11770-3-edition-status.md:82709.html,absent:iso-11770-3-edition-status.md:85929.html,absent:nist-key-management-guidance-status.md:ipd,absent:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,absent:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,absent:secret-scanning-detection-vs-validation.md:README.md,absent:trufflehog-verification-lifecycle.md:verification-caching)
+rc=0
+
+=== SETUP shapes ===
+$ bash plans/round-56-c1.sh 
+C1_REPLAY: SETUP no-revision
+rc=2
+
+$ bash plans/round-56-c1.sh deadbeefdeadbeefdeadbeefdeadbeefdeadbeef
+C1_REPLAY: SETUP bad-revision
+rc=2
+
+$ bash plans/round-56-c1.sh --tree /fast/scratch/hyaku/kagi-r56/R56ReviewCounter/nosuch
+C1_REPLAY: SETUP tree
+rc=2
+
+$ bash notree/plans/round-56-c1.sh --tree ref
+C1_REPLAY: SETUP base-normaliser
+rc=2
+
+=== gate direct: real gate on ref ===
+MATCH corpus/knowledge/betterleaks-detection-vs-validation.md:4 id=S055 form=grep stated=1 replayed=1
+MATCH corpus/knowledge/cdp-bridge-1password-oidc-workflow.md:3 id=S070 form=locate stated=1 replayed=1
+MATCH corpus/knowledge/iso-11770-3-edition-status.md:3 id=S101 form=grep stated=2 replayed=2
+MATCH corpus/knowledge/iso-11770-3-edition-status.md:3 id=S113 form=grep stated=3 replayed=3
+MATCH corpus/knowledge/iso-11770-3-edition-status.md:3 id=S114 form=grep stated=2 replayed=2
+MATCH corpus/knowledge/nist-key-management-guidance-status.md:3 id=S074 form=grep stated=1 replayed=1
+MATCH corpus/knowledge/nist-key-management-parts-withdrawal.md:3 id=S078 form=pdf stated=1 replayed=1
+MATCH corpus/knowledge/oidc-federation-trust-policy.md:3 id=S067 form=grep stated=1 replayed=1
+MATCH corpus/knowledge/secret-scanning-detection-vs-validation.md:4 id=S054 form=grep stated=1 replayed=1
+MATCH corpus/knowledge/trufflehog-verification-lifecycle.md:4 id=S057 form=grep stated=1 replayed=1
+RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)
+rc=0
+=== gate direct: real gate --selftest tail ===
+PASS second-clock-mismatch rc=1 want=1 token=MISMATCH
+PASS symlink-component rc=1 want=1 token=symlink:
+RECHECK_REPLAY_SELFTEST: PASS (13 cases)
+rc=0
+=== gate direct: symlinked knowledge entry (silent skip) ===
+MATCH corpus/knowledge/secret-scanning-detection-vs-validation.md:4 id=S054 form=grep stated=1 replayed=1
+RECHECK_REPLAY: CLEAN (clocks=9 match=9 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)
+=== gate direct: F5 bash as python3 ===
+  File "/fast/scratch/hyaku/kagi-r56/R56ReviewCounter/scratch/../f5bash/corpus/recheck-replay.py", line 2
+    case "${1:-}" in --selftest) echo "RECHECK_REPLAY_SELFTEST: PASS (13 cases)";; *) echo "RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)";; MATCH* ) ;; esac
+                               ^
+SyntaxError: unmatched ')'
+rc=1
+=== gate direct: printer_rc1 rc split ===
+selftest_rc=0
+root_rc=1

@@ -1,0 +1,33 @@
+# R56ScoutISO receipt 06 — registry-row claims re-checked against the live bodies
+# date 2026-11-07T07:37:52-03:00; rows read from corpus/SOURCES.md @ lane 42070de7770e1558adcf6aa7a7bc59309a9654d7
+
+== S101 row claims: quote 'Withdrawal of International Standard' at byte offset 45752; stage 95.99; withdrawn ==
+  observed offsets: 45752:Withdrawal of International Standard 62765:Withdrawal of International Standard 
+  observed status/stage block:
+    'publicationStatus">\n      <div class="entry-label">Status</div>&nbsp;:&nbsp;<span>Withdrawn</span>\n      </div>\n    <div class="" id="publicationDate">\n      <div class="entry-label">Publication date</div>&nbsp;:&nbsp;<span itemprop="releaseDate">2015-08</span>\n      </div>\n\n    <div class="" id="stageId">\n        <div class="entry-label">Stage</div> : Withdrawal of International Standard [<a class="page-scroll" href="#lifecycle">95.99</a>]\n      </div>\n    </li>\n  <li>\n    <div class="">\n      <div class="entry-label">Edition</div>&nbsp;:&nbsp;3</div>\n '
+
+== S113 row claims: quote 'ISO/IEC 11770-3:2021/Amd 1:2025' at byte offset 53493; published, stage 60.60 ==
+  observed offsets of 'ISO/IEC 11770-3:2021/Amd 1:2025': 53493:ISO/IEC 11770-3:2021/Amd 1:2025 53739:ISO/IEC 11770-3:2021/Amd 1:2025 69404:ISO/IEC 11770-3:2021/Amd 1:2025 
+    'publicationStatus">\n      <div class="entry-label">Status</div>&nbsp;:&nbsp;<span>Published</span>\n      </div>\n    <div class="" id="publicationDate">\n      <div class="entry-label">Publication date</div>&nbsp;:&nbsp;<span itemprop="releaseDate">2021-10</span>\n      </div>\n\n    <div class="" id="stageId">\n        <div class="entry-label">Stage</div> : International Standard published [<a class="page-scroll" href="#lifecycle">60.60</a>]\n      </div>\n    </li>\n  <li>\n    <div class="">\n      <div class="entry-label">Edition</div>&nbsp;:&nbsp;4</div>\n    <'
+
+== S114 row claims: quote at byte offset 541; subtitle 'TFNS identity-based key agreement'; published 2025-04; stage 60.60 ==
+  observed offsets of 'ISO/IEC 11770-3:2021/Amd 1:2025': 541:ISO/IEC 11770-3:2021/Amd 1:2025 7189:ISO/IEC 11770-3:2021/Amd 1:2025 7264:ISO/IEC 11770-3:2021/Amd 1:2025 
+    'publicationStatus">\n      <div class="entry-label">Status</div>&nbsp;:&nbsp;<span>Published</span>\n      </div>\n    <div class="" id="publicationDate">\n      <div class="entry-label">Publication date</div>&nbsp;:&nbsp;<span itemprop="releaseDate">2025-04</span>\n      </div>\n\n    <div class="" id="stageId">\n        <div class="entry-label">Stage</div> : International Standard published [<a class="page-scroll" href="#lifecycle">60.60</a>]\n      </div>\n    </li>\n  <li>\n    <div class="">\n      <div class="entry-label">Edition</div>&nbsp;:&nbsp;4</div>\n    <'
+    title: '<title> ISO/IEC 11770-3:2021/Amd 1:2025 - Information security — Key management — Part 3: Mechanisms using asymmetric techniques — Amendment 1: TFNS identity-based key agreement</title>'
+
+== S070 row claims (corpus/SOURCES.md): title '(public beta)'; 'Step 2. Connect your Environment to your workflow' (period form); 'Step 3: Use your Environment in your workflow' (colon form) ==
+  title: <title>Use 1Password Credential Broker to access secrets in custom workflows at runtime (public beta) - 1Password Developer</title>
+  Step 2 period form count = 3
+  Step 2 colon  form count = 0
+  Step 3 colon  form count = 3
+
+== S018 row claims: 'only JavaScript SDK supported'; 'Business-account prerequisite'; 'beta desktop app'; title (public beta) ==
+  'only supported in the 1Password JavaScript SDK at this time': 2
+  '1Password Business account': 2
+  'beta release of the 1Password desktop app': 2
+  title (public beta): 5
+
+== archive snapshot claim on the S101 row ('the archive snapshot timed out at 30 s and is not cited') ==
+curl: (28) Connection timed out after 30001 milliseconds
+  web.archive.org code=000 bytes=0
+  curl rc=28 (timeout at 30 s) -> the S101 row archive claim reproduces today

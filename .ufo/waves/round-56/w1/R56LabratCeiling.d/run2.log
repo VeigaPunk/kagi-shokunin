@@ -1,0 +1,39 @@
+### phase1: trees from git archive of predeclaration 42070de7770e1558adcf6aa7a7bc59309a9654d7
+7cf6efb50ab892347b1fa3bee77592603b371b066b6b1659fcc2c56a62e6eff7  /fast/scratch/hyaku/kagi-r56/R56LabratCeiling/base/.ufo/waves/round-56/capture/S054.body
+### P0 baseline (untouched tree)
+C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)
+P0-counter-rc=0
+P0-gate-rc=0
+MATCH corpus/knowledge/trufflehog-verification-lifecycle.md:4 id=S057 form=grep stated=1 replayed=1
+RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)
+### P1 probe A: synthetic S054 body, phrase once, manifest bytes+sha256 updated, fetched/http_status set to garbage, fetch-receipt.json deleted
+P1 body bytes=255 sha256=493dd16b4a79143072f96c99c9e984ebfd3f4ca4b6974ea7f19f8826d009dbc4
+P1 receipt rm rc=0
+1
+C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)
+P1-counter-rc=0
+P1-gate-rc=0
+9:MATCH corpus/knowledge/secret-scanning-detection-vs-validation.md:4 id=S054 form=grep stated=1 replayed=1
+RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)
+### P2 probe B: S054 body with phrase ZERO times, manifest bytes+sha256 FORGED to match
+P2/P3 body bytes=66 sha256=d0cc5265a8b8d2dc769805de1699997cce9361f3591798addbe797b2f65bb248
+C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r4-replay0:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)
+P2-counter-rc=0
+P2-gate-rc=1
+9:MISMATCH corpus/knowledge/secret-scanning-detection-vs-validation.md:4 id=S054 form=grep stated=1 replayed=0
+RECHECK_REPLAY: DRIFT (clocks=10 match=9 mismatch=1 no_capture=0 bad_capture=0 unsupported=0 tool=0)
+### P3 probe B-unforged: same zero-phrase body, ORIGINAL manifest row (no forgery)
+C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r3-digest:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)
+P3-counter-rc=0
+P3-gate-rc=1
+9:BAD-CAPTURE corpus/knowledge/secret-scanning-detection-vs-validation.md:4 id=S054 reason=bytes:.ufo/waves/round-56/capture/S054.body
+RECHECK_REPLAY: DRIFT (clocks=10 match=9 mismatch=0 no_capture=0 bad_capture=1 unsupported=0 tool=0)
+### field consultation grep on the two instruments (lane, read-only)
+/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-56-c1.sh:153:            if hdr != ["id", "url", "body_path", "fetched", "http_status", "bytes", "sha256"]:
+/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/recheck-replay.py:23:  id<TAB>url<TAB>body_path<TAB>fetched<TAB>http_status<TAB>bytes<TAB>sha256
+/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/recheck-replay.py:38:fetch receipt beside the body, re-fetched by a non-author.
+/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/recheck-replay.py:52:HEADER = ["id", "url", "body_path", "fetched", "http_status", "bytes", "sha256"]
+grep-rc=0 (1 = no non-header consultation)
+/home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-56-c1.sh:0
+/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/recheck-replay.py:0
+done

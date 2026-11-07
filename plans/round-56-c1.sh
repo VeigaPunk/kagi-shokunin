@@ -26,12 +26,17 @@
 #          -layout <body> -` piped to `grep -c -e <pattern>`; locate form -> BASE's
 #          corpus/rendered-text-v1.py (taken from BASE, not from the measured tree)
 #          `locate <body> <quote>` count;
-#     (r5) the measured tree's `python3 -I -B corpus/recheck-replay.py --root <tree>`
-#          prints a line `MATCH <c's entry>:<L> id=<that row's id> form=<form>
-#          stated=<N> replayed=<N>` and its last line starts `RECHECK_REPLAY: CLEAN`.
-#   GUARD = 1 iff every POP clock is PRESENT (no clock deleted or restated) and, when
-#     the measured tree carries corpus/recheck-replay.py, its `--selftest` exits 0
-#     with a last line starting `RECHECK_REPLAY_SELFTEST: PASS`.
+#     (r5) the measured tree's corpus/recheck-replay.py is a regular non-symlink
+#          file whose sha256 equals GATE_SHA256_PIN (the gate bytes frozen at this
+#          counter's revision), its `--root` run exits 0 with last line
+#          `RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0
+#          bad_capture=0 unsupported=0 tool=0)`, and it prints a line
+#          `MATCH <c's entry>:<L> id=<that row's id> form=<form> stated=<N>
+#          replayed=<N>` for c;
+#   GUARD = 1 iff every POP clock is PRESENT (no clock deleted or restated — the
+#     `-> N` token is right-bounded by a non-digit non-letter) and, when the
+#     measured tree carries corpus/recheck-replay.py, its `--selftest` exits 0
+#     with a last line `RECHECK_REPLAY_SELFTEST: PASS (13 cases)`.
 # Fail closed: a bad revision, unreadable BASE, unusable scratch, missing python3,
 #   grep or pdftotext is SETUP (exit 2); a missing or unreadable file reads its
 #   conjunct as 0; a producer with empty output reads as not-CLEAN.
@@ -64,24 +69,49 @@ else
 fi
 git -C "$REPO" show "$BASE:corpus/rendered-text-v1.py" > "$SCR/b/rendered-text-v1.py" 2>/dev/null || setup base-normaliser
 [ -s "$SCR/b/rendered-text-v1.py" ] || setup base-normaliser-empty
+# Gate identity: the measured tree's corpus/recheck-replay.py must be a regular
+# non-symlink file whose sha256 equals the pinned digest below (the gate bytes
+# frozen at this counter's revision). A printer, a symlink to an off-tree file,
+# or any edit to the gate fails r5 for every clock. The gate's own --root exit
+# status is required to be 0 and its last non-empty line must be the CLEAN
+# summary with clocks=10 match=10; the --selftest run must exit 0 with last line
+# `RECHECK_REPLAY_SELFTEST: PASS (13 cases)`.
+GATE_SHA256_PIN=2e9dfde326b29fb95f520c5d7f3a671836682b28025e4efc7887333257d4df51
 GATE_OUT=$SCR/gate.out; SELF_OUT=$SCR/self.out
-HAVE_GATE=0; SELF_OK=1
-if [ -e "$T/corpus/recheck-replay.py" ]; then
-  HAVE_GATE=1
-  (cd "$SCR" && python3 -I -B "$T/corpus/recheck-replay.py" --root "$T" > "$GATE_OUT" 2>&1)
-  SELF_OK=0
-  if (cd "$SCR" && python3 -I -B "$T/corpus/recheck-replay.py" --selftest > "$SELF_OUT" 2>&1); then
-    last=$(grep -v '^[[:space:]]*$' "$SELF_OUT" | tail -n 1)
-    case $last in "RECHECK_REPLAY_SELFTEST: PASS"*) SELF_OK=1 ;; esac
+HAVE_GATE=0; SELF_OK=1; GATE_RC=1
+GATE_REL=corpus/recheck-replay.py
+GATE_SHA=""
+if [ -e "$T/$GATE_REL" ] || [ -L "$T/$GATE_REL" ]; then
+  _cur=$T; _link=0
+  IFS='/' read -ra _parts <<< "$GATE_REL"
+  for _p in "${_parts[@]}"; do
+    _cur="$_cur/$_p"
+    [ -L "$_cur" ] && _link=1
+  done
+  if [ "$_link" = 1 ]; then
+    GATE_SHA="SYMLINK"
+  elif [ -f "$T/$GATE_REL" ]; then
+    GATE_SHA=$(sha256sum "$T/$GATE_REL" | cut -d' ' -f1)
+  fi
+  if [ -n "$GATE_SHA" ] && [ "$GATE_SHA" = "$GATE_SHA256_PIN" ]; then
+    HAVE_GATE=1
+    (cd "$SCR" && python3 -I -B "$T/$GATE_REL" --root "$T" > "$GATE_OUT" 2>&1)
+    GATE_RC=$?
+    SELF_OK=0
+    if (cd "$SCR" && python3 -I -B "$T/$GATE_REL" --selftest > "$SELF_OUT" 2>&1); then
+      last=$(grep -v '^[[:space:]]*$' "$SELF_OUT" | tail -n 1)
+      case $last in "RECHECK_REPLAY_SELFTEST: PASS (13 cases)"*) SELF_OK=1 ;; esac
+    fi
   fi
 else
   : > "$GATE_OUT"
 fi
 cd "$SCR" || setup cd
-python3 -I -B - "$T" "$SCR/b/rendered-text-v1.py" "$GATE_OUT" "$HAVE_GATE" "$SELF_OK" <<'PY'
+python3 -I -B - "$T" "$SCR/b/rendered-text-v1.py" "$GATE_OUT" "$HAVE_GATE" "$SELF_OK" "$GATE_RC" "$GATE_SHA" <<'PY'
 import hashlib, re, subprocess, sys
 from pathlib import Path
 T, NORM, GATE_OUT, HAVE_GATE, SELF_OK = Path(sys.argv[1]), sys.argv[2], sys.argv[3], int(sys.argv[4]), int(sys.argv[5])
+GATE_RC, GATE_SHA = int(sys.argv[6]), sys.argv[7]
 UA = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
 K = "corpus/knowledge/"
 # (entry, command text as backticked at BASE, form, URL, pattern, N)
@@ -120,7 +150,7 @@ def present(c):
     rl = [l for l in txt.splitlines() if l.startswith("recheck:")]
     if len(rl) != 1:
         return False
-    pat = re.escape("`" + c[1] + "`") + r"\s*->\s*(?:count=)?%d(?!\d)" % c[5]
+    pat = re.escape("`" + c[1] + "`") + r"\s*->\s*(?:count=)?%d(?![0-9A-Za-z_.])" % c[5]
     return re.search(pat, rl[0]) is not None
 
 def registry():
@@ -139,9 +169,12 @@ def registry():
     return rows
 
 def manifest():
+    """Return (rows, malformed) — a data row whose column count differs from the
+    header invalidates the whole manifest (fail-closed), matching the gate's
+    SETUP manifest-columns refusal."""
     txt = read("corpus/recheck-captures.tsv")
     if txt is None:
-        return None
+        return None, False
     out = []
     hdr = None
     for l in txt.splitlines():
@@ -151,11 +184,14 @@ def manifest():
         if hdr is None:
             hdr = cols
             if hdr != ["id", "url", "body_path", "fetched", "http_status", "bytes", "sha256"]:
-                return None
+                return None, False
             continue
-        if len(cols) == 7:
-            out.append(dict(zip(hdr, cols)))
-    return out
+        if len(cols) != 7:
+            return None, True
+        out.append(dict(zip(hdr, cols)))
+    if hdr is None:
+        return None, False
+    return out, False
 
 def replay(c, body):
     form, pat, n = c[2], c[4], c[5]
@@ -180,9 +216,21 @@ try:
     gate_lines = [l for l in open(GATE_OUT, encoding="utf-8", errors="replace").read().splitlines() if l.strip()]
 except Exception:
     pass
-gate_clean = 1 if gate_lines and gate_lines[-1].startswith("RECHECK_REPLAY: CLEAN") else 0
+# gate verdict requires: pinned digest matched (HAVE_GATE), --root rc 0, last
+# non-empty line is the CLEAN summary with clocks=10 match=10 and every other
+# tally 0, and the 10 MATCH lines cover exactly the POP clocks.
+# r5 preconditions evaluated once: the measured tree's gate must be the pinned
+# digest (HAVE_GATE), its --root run must exit 0, and its last non-empty line
+# must be the CLEAN summary with clocks=10 match=10 and every other tally 0.
+gate_clean = 0
+if HAVE_GATE == 1 and GATE_RC == 0 and gate_lines:
+    last = gate_lines[-1]
+    m = re.match(r"^RECHECK_REPLAY: CLEAN \(clocks=(\d+) match=(\d+) mismatch=(\d+) no_capture=(\d+) bad_capture=(\d+) unsupported=(\d+) tool=(\d+)\)$", last)
+    if m and m.groups() == ("10", "10", "0", "0", "0", "0", "0"):
+        gate_clean = 1
+gate_ok = gate_clean  # pinned digest + rc0 + CLEAN(10/10/0…0); r5 needs this AND the per-clock MATCH line
 reg = registry()
-man = manifest()
+man, man_malformed = manifest()
 P = R = 0
 for c in POP:
     tag = "%s:%s" % (c[0].rsplit("/", 1)[1], c[3].rsplit("/", 1)[1] or c[3])
@@ -191,7 +239,7 @@ for c in POP:
         continue
     P += 1
     if man is None:
-        bad.append("r2-manifest:" + tag); continue
+        bad.append("r2-manifest%s:" % ("-malformed" if man_malformed else "") + tag); continue
     rows = [m for m in man if m["url"] == c[3]]
     if len(rows) != 1:
         bad.append("r2-rows%d:%s" % (len(rows), tag)); continue
@@ -217,9 +265,12 @@ for c in POP:
     if got != c[5]:
         bad.append("r4-replay%s:%s" % (got, tag)); continue
     want = re.compile(r"^MATCH %s:\d+ id=%s form=%s stated=%d replayed=%d$" % (re.escape(c[0]), re.escape(m["id"]), c[2], c[5], c[5]))
-    if not (gate_clean and any(want.match(l) for l in gate_lines)):
-        bad.append("r5-gate:" + tag); continue
+    if not (gate_ok and any(want.match(l) for l in gate_lines)):
+        bad.append("r5-gate:%s" % tag); continue
     R += 1
+# r5 is per-clock but shares the whole-gate verdict: a gate that reads nothing,
+# a drifted gate, an extra uncaptured clock, or non-pinned gate bytes all leave
+# gate_ok=0 and every POP clock fails r5.
 guard = 1 if (P == len(POP) and SELF_OK == 1) else 0
 if SELF_OK != 1:
     bad.append("selftest")

@@ -1,0 +1,43 @@
+# R56ScoutISO receipt 03 — live grep -c for the three stated patterns (browser UA)
+# date 2026-11-07T07:37:16-03:00; grep is grep (GNU grep) 3.12-modified
+# clock form: curl -fsSL -A '<browser UA>' '<url>' | grep -c '<BRE>'
+
+## S101  url=https://www.iso.org/standard/60237.html  pattern='Withdrawal of International Standard'  stated=2
+$ grep -c -e 'Withdrawal of International Standard' bodies/S101.live
+live_count=2 stated=2 verdict=MATCH
+  line 751:        <div class="entry-label">Stage</div> : Withdrawal of International Standard [<a class="page-scroll" href="#lifecycle">95.99</a>]
+  line 1071:                                Withdrawal of International Standard</div>
+  byte offsets:
+    45752:Withdrawal of International Standard
+    62765:Withdrawal of International Standard
+
+## S113  url=https://www.iso.org/standard/82709.html  pattern='ISO/IEC 11770-3:2021/Amd'  stated=3
+$ grep -c -e 'ISO/IEC 11770-3:2021/Amd' bodies/S113.live
+live_count=3 stated=3 verdict=MATCH
+  line 917:  <span class="visually-hidden" id="indexReference_cs85929" data-index="85929 - ISO/IEC 11770-3:2021/Amd 1:2025 - Information security — Key man
+  line 918:    <span class="visually-hidden" id="itemReference_cs85929">ISO/IEC 11770-3:2021/Amd 1:2025</span>
+  line 1224:                        <h4><a href="/standard/85929.html" class="text-success">ISO/IEC 11770-3:2021/Amd 1:2025</a></h4>
+  byte offsets:
+    53493:ISO/IEC 11770-3:2021/Amd
+    53739:ISO/IEC 11770-3:2021/Amd
+    69404:ISO/IEC 11770-3:2021/Amd
+
+## S114  url=https://www.iso.org/standard/85929.html  pattern='International Standard published'  stated=2
+$ grep -c -e 'International Standard published' bodies/S114.live
+live_count=2 stated=2 verdict=MATCH
+  line 848:        <div class="entry-label">Stage</div> : International Standard published [<a class="page-scroll" href="#lifecycle">60.60</a>]
+  line 1072:                                International Standard published</div>
+  byte offsets:
+    49075:International Standard published
+    60840:International Standard published
+
+## stability of the counts across independent live fetches (same URL fetched 3x, browser UA)
+  2e4c1524ec05865536f819db68c56494d97fc67cb490df4f5d4b1ca85b7b0c80  bodies/S101.r1
+  2e4c1524ec05865536f819db68c56494d97fc67cb490df4f5d4b1ca85b7b0c80  bodies/S101.r2
+  2e4c1524ec05865536f819db68c56494d97fc67cb490df4f5d4b1ca85b7b0c80  bodies/S101.r3
+  d8dfe35408b17b02845dc0cf19f774bc6cc6b8dcbfe1636e22bb6b13dfa64357  bodies/S113.r1
+  d8dfe35408b17b02845dc0cf19f774bc6cc6b8dcbfe1636e22bb6b13dfa64357  bodies/S113.r2
+  d8dfe35408b17b02845dc0cf19f774bc6cc6b8dcbfe1636e22bb6b13dfa64357  bodies/S113.r3
+  8bb88d88ff21d4488cf2205d9655a7fcbdeb3601616bdf4f5767dce13c449bdf  bodies/S114.r1
+  8bb88d88ff21d4488cf2205d9655a7fcbdeb3601616bdf4f5767dce13c449bdf  bodies/S114.r2
+  8bb88d88ff21d4488cf2205d9655a7fcbdeb3601616bdf4f5767dce13c449bdf  bodies/S114.r3

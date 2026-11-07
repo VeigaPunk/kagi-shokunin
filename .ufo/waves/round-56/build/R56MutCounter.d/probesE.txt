@@ -1,0 +1,17 @@
+version E (dd31b786: counter d468533f / gate 5165da2a / controls 01060f25 / plan 212e2dd7)
+SETUP probes, each with a /usr/bin-symlink PATH missing exactly one tool, HYAKU_SCRATCH in scratch:
+no-python3     C1_REPLAY: SETUP no-python3
+no-pdftotext   C1_REPLAY: SETUP no-pdftotext
+no-grep        C1_REPLAY: SETUP no-grep
+no-sha256sum   C1_REPLAY: SETUP no-sha256sum
+no-cut         C1_REPLAY: SETUP no-cut
+no-tail        C1_REPLAY: SETUP no-tail
+no-timeout     C1_REPLAY: SETUP no-timeout
+no-git         C1_REPLAY: SETUP no-git
+no-tar         C1_REPLAY: SETUP no-tar
+scratch /proc/nope   C1_REPLAY: SETUP scratch      (rc 2, measured without a pipeline in earlier epochs)
+bad-revision   C1_REPLAY: SETUP bad-revision
+no-revision    C1_REPLAY: SETUP no-revision
+tree-missing   C1_REPLAY: SETUP tree
+epoch-E readings: E-ref 10 guard=1; E-base 0 guard=1; 59 recipes (41 A/B + 8 case/boundary + 10 conjunct)
+  -> 56 killed, 3 by-design survivors (R1e count= form, R1g date-prose, R3g hand-written body), 0 hangs.

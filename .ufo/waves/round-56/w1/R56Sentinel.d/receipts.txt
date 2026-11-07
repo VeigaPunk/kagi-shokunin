@@ -58,3 +58,10 @@ CREDENTIAL QUICK FACTS (untouched capture bytes):
   S067 spec placeholders bytes 304422/131608/149224/421885 + WWW-Authenticate doc text 197485
   Set-Cookie lines in 10 manifest bodies + rejection (case-insensitive): 0; HTTP/ starts: 0; Authorization/Cookie header lines: 0; vault/op:// /item-id strings: 0 in S070
   fetch-receipt.json: one JSON, 7 rows, keys id,url,final_url,http_status,curl_rc,body_path,decoded_bytes,sha256; no header field; template without -D/-i/-H
+
+CANDIDATE LANDING bcf07e7daf797e5ad2c6bf64306738199a333f64 (landed 08:10:26, after epoch E):
+  git diff dd31b786 bcf07e7d -- plans/round-56.md plans/round-56-c1.sh plans/round-56-controls.sh corpus/recheck-replay.py corpus/recheck-captures.tsv corpus/rendered-text-v1.py .ufo/waves/round-56/capture/  => empty
+  frozen blobs in candidate == epoch E: gate 79fb022b/5165da2a, counter cc27f350/d468533f, controls 7bd6e725/01060f25, plan a4303acf/212e2dd7, manifest 7c85dc4d/df46be5c, normaliser 30baa609/14f6ca6a
+  counter bcf07e7d  rc0 value=10 present=10 replayed=10 gate=1 guard=1 (bad=none); strace 0 connects / 0 strict "/tmp/"
+  counter BASE 832ba6a on candidate  rc0 value=0 present=10 replayed=0 gate=0 guard=1
+  landing diff secret scan: only dummy fixtures (Set-Cookie: x=1 / k=v / y=2) in reviewer/control text; no real credentials; no new production files outside reports/build receipts/landing docs

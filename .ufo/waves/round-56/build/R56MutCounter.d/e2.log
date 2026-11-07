@@ -1,0 +1,10 @@
+C1-body-not-capture        expect=0    got=0      rc=0 C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1
+C2-fetched-not-iso         expect=0    got=0      rc=0 C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1
+C3-status-not-2xx          expect=0    got=0      rc=0 C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1
+C4-shared-sha              expect=0    got=0      rc=0 C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1
+C5-normalizer-modified     expect=FAIL got=FAIL   rc=0 C1_REPLAY: value=FAIL present=10 replayed=0 gate=0 guard=0
+C6-normalizer-deleted      expect=FAIL got=FAIL   rc=0 C1_REPLAY: value=FAIL present=10 replayed=0 gate=0 guard=0
+C7-trace-prefix-header     expect=0    got=0      rc=0 C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1
+C8-fifo-entry              expect=0    got=0      rc=0 C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1
+C9-knowledge-dir-symlink   expect=FAIL got=FAIL   rc=0 C1_REPLAY: value=FAIL present=0 replayed=0 gate=0 guard=0
+C10-N-boundary-1x          expect=FAIL got=FAIL   rc=0 C1_REPLAY: value=FAIL present=9 replayed=9 gate=1 guard=0

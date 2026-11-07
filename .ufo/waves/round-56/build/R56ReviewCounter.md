@@ -26,15 +26,15 @@ Frozen predicate text: `plans/round-56.md:15`; instrument header: `plans/round-5
 **Revision note.** The audit below is anchored to epoch A (`42070de`, counter
 `096251c9…`); the planner seat re-froze as **epoch B** at
 `5d9a1571911ec38a456a40b443e19640abb9a88b`, **epoch C** at
-`711e6393e68658f396918c07de253e5a5c74d1b4`, and **epoch D** at
-`d36231871c864c930d3e7e33f9c5345b30ab4f98`, after blocker messages from this seat. Each
-re-audit re-runs every forgery against the hardened bytes: `## Epoch B re-audit (5d9a157)`,
-`## Epoch C re-audit (711e6393)` and `## Epoch D re-audit (d362318)` at the end of this report.
-Epoch-A findings F1, F2, F3, F5, F6, F7 and F8 are closed in epoch B; epoch-B residuals E1, E2,
-E5 and E6 in epoch C; epoch-C items G1 and G2 in epoch D. F4/E3 (population hard-closed at
-10), F9 (rc 0 on FAIL), F10 (relocatability) and F11 (PATH trust) stand, plus epoch-D H1 (the
-frozen predicate still says `PASS (18 cases)` where the instrument requires 20) and H2 (the
-gate alone reads `-> 1.0` as `-> 1`).
+`711e6393e68658f396918c07de253e5a5c74d1b4`, **epoch D** at
+`d36231871c864c930d3e7e33f9c5345b30ab4f98`, and **epoch E** at
+`dd31b7867723f89fc8f83e88cc7d98e17de26cf2`, after blocker messages from this seat. Each
+re-audit re-runs every forgery against the hardened bytes: the four `## Epoch … re-audit`
+sections at the end of this report. Epoch-A findings F1, F2, F3, F5, F6, F7 and F8 are closed
+in epoch B; epoch-B residuals E1, E2, E5 and E6 in epoch C; epoch-C items G1 and G2 in epoch D;
+epoch-D H1 in epoch E. F4/E3 (population hard-closed at 10), F9 (rc 0 on FAIL), F10
+(relocatability), F11 (PATH trust), H2 (the gate alone reads `-> 1.0` as `-> 1`) and epoch-E
+I1 (control F15 does not exercise the bijection) stand.
 
 ## Verdict in one line
 
@@ -617,3 +617,99 @@ Fix (optional): give `CLOCK_RE` the same right boundary so the gate's population
 - C1 on an unchanged `d362318` tree: **`value=10 present=10 replayed=10 gate=1 guard=1`, rc 0**.
   The admission harness must read that token (rc is 0 even on FAIL), the candidate must not add
   a stated knowledge clock (E3), and it must not edit the gate or the normaliser (pins).
+
+## Epoch E re-audit (dd31b786)
+
+Anchored to `dd31b7867723f89fc8f83e88cc7d98e17de26cf2` (HEAD; epoch-E kill-rule
+predeclaration). Instruments:
+
+| path | sha256 at dd31b786 |
+|---|---|
+| `plans/round-56-c1.sh` | `d468533fbf593c4b2a3a97dc513b9feb2cff765892c126c02d7c6ef40273a954` |
+| `corpus/recheck-replay.py` | `5165da2a6fced02fce82c92fc898553db9a6d3d702d9fc6d1ca3ba185e77b14f` (= `GATE_SHA256_PIN`, unchanged from D) |
+| `plans/round-56-controls.sh` | `01060f254b2ecfdb23f341a5cf0937aec32243230560809403ed67ea38b196e7` |
+| `plans/round-56.md` | `212e2dd7ae71e3f056111e1a2c59d33151a3c51fee9f932bf2209ad2cb3d805d` |
+| `corpus/recheck-captures.tsv` | `df46be5c92c7b4d5a8b7ad790371b5c3240c92f46460b8cfb69e9b75b7ecc762` |
+| `corpus/rendered-text-v1.py` | `14f6ca6ab742296f45a699548c31e6d49892f6baef36ed419c283d1a0511b8c9` (= `NORMALIZER_SHA256_PIN`) |
+
+Raw output: `R56ReviewCounter.d/evidence-epochE.txt`.
+
+| tree / forgery | reading | rc |
+|---|---|---|
+| BASE `832ba6a` | `value=0 present=10 replayed=0 gate=0 guard=1` | 0 |
+| `42070de` / `5d9a157` / `711e6393` | `value=FAIL … guard=0 (…selftest,gate-digest)` | 0 |
+| epoch-D `d362318` | `value=10 … guard=1` (disclosed: E did not change the gate) | 0 |
+| epoch-E `dd31b786` | `value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)` | 0 |
+| reference overlay | `value=10 … guard=1` | 0 |
+| printer gate | `value=FAIL … guard=0` | 0 |
+| `-> 1x` / `-> 1.0` / `-> 1_0` | `value=FAIL present=9 replayed=9 guard=0` each | 0 |
+| added uncaptured / added captured clock | `value=0 … guard=1` each | 0 |
+| gate symlink / gate FIFO | `value=FAIL … guard=0` | 0 |
+| 8-column / `fetched=2026-11-7` / `http_status=404` / shared actual body_path / duplicate URL | `value=0 … r2-manifest-malformed ×10` | 0 |
+| body_path outside `capture*` | `value=0 … r3-notcapture:…` | 0 |
+| `set-cookie:` / `Set-Cookie:` / `Http/2 302` / `< Set-Cookie:` / `< HTTP/1.1` at column 0 | `value=0 … r3-headers:…` each | 0 |
+| normaliser edited / symlinked entry / empty tree | `value=FAIL … guard=0` | 0 |
+| no manifest / SETUP shapes | `value=0` / `SETUP …` | 0 / 2 |
+| restricted PATH, all tools present (control) | `value=10 … guard=1` | 0 |
+| restricted PATH minus `sha256sum` / `cut` / `tail` / `timeout` / `git` / `tar` | `SETUP no-sha256sum` / `no-cut` / `no-tail` / `no-timeout` / `no-git` / `no-tar` | 2 each |
+
+Controls end-to-end (`bash plans/round-56-controls.sh <lane>`, REF = lane): six `INSTRUMENT`
+lines, `CONTROLS: match=22 mismatch=0`, rc 0, 0 tar errors. Gate `--selftest: PASS (20 cases)`.
+
+Closed against epoch D: **H1** (`plans/round-56.md:15` and the counter header/code now both say
+`PASS (20 cases)`; the plan's Landing sentence agrees). The six tool guards are real: each
+missing tool yields `SETUP …` rc 2 and no value line, and a restricted PATH carrying all six
+still reads 10. `d362318` reading 10 under the epoch-E counter is consistent with the
+disclosure (the gate bytes and pin are unchanged; E is guard/doc hardening, not verdict
+tightening).
+
+### I1 — MEDIUM — control `K1-F15-shared-body-path` does not exercise the manifest bijection
+
+`plans/round-56-controls.sh` F15 re-points S114's `body_path` at
+`.ufo/waves/round-56/capture/S113.body`, but S113's capture lives in **round-55**
+(`.ufo/waves/round-55/capture/S113.body`); round-56 carries only
+S054/S055/S057/S067/S070/S074/S078. The named target does not exist, so no two rows share a
+path and the counter stops at the missing file. The receipt proves it: the only non-r5 badge in
+that control is `r3-file:iso-11770-3-edition-status.md:85929.html`, with no
+`r2-manifest-malformed` anywhere — a shared-path collision would badge malformed for every
+clock. Corrected construction (S114 → the existing `.ufo/waves/round-55/capture/S113.body`):
+
+```
+$ bash plans/round-56-c1.sh --tree f15fix
+C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r2-manifest-malformed:<all ten>)
+rc=0
+$ python3 -I -B f15fix/corpus/recheck-replay.py --root f15fix | tail -1
+RECHECK_REPLAY: SETUP manifest-shared-body_path:S113+S114
+```
+
+So the bijection *check* is real in both instruments; only the control that claims to witness it
+is vacuous — the same class as epoch-A's F5 (a control passing for the wrong reason). The 22/22
+receipt therefore has 21 controls testing what they name.
+Fix: point F15 at `.ufo/waves/round-55/capture/S113.body` (or share S055→S054, both in
+round-56). This changes `plans/round-56-controls.sh`, so it needs a new predeclaration commit
+(epoch F) but no counter/gate/normaliser hash changes.
+
+### I2 — LOW — cosmetic: the manifest conditions are owned by r3 in the plan, r2 in the counter
+
+`plans/round-56.md:15` folds the manifest arity/`fetched`/2xx/bijection conditions into its r3
+sentence; the counter header (`plans/round-56-c1.sh:17-22`) folds them into r2; the code badges
+them `r2-manifest-malformed`. The conditions are identical and enforced by both instruments; only
+the conjunct label differs, so no reading changes — noted because this lane treats the predicate
+text as the contract.
+
+### H2 (carried) — the gate alone still reads `-> 1.0` as `-> 1`
+
+Re-measured on epoch E: `python3 -I -B nxdot/corpus/recheck-replay.py --root nxdot` ⇒
+`RECHECK_REPLAY: CLEAN (clocks=10 match=10 …)`, while the counter's r1 boundary refuses
+(`value=FAIL present=9`). The new `K1-F11b-restated-Ndot` control witnesses the counter side
+only. Counter dominates; optional to give `CLOCK_RE` the same right boundary.
+
+### Epoch E trailer
+
+- report: `.ufo/waves/round-56/build/R56ReviewCounter.md`
+- evidence A–E: `R56ReviewCounter.d/evidence{,-epochB,-epochC,-epochD,-epochE}.txt`
+- epoch-E scratch `/fast/scratch/hyaku/kagi-r56/R56ReviewCounter/epochE/` deleted after this
+  report; no production file edited; no git/jj mutation; no tool installed.
+- C1 on an unchanged `dd31b786` tree: **`value=10 present=10 replayed=10 gate=1 guard=1`, rc 0**;
+  the admission harness must read that token, the candidate must not add a stated knowledge
+  clock (E3), and it must not edit the gate or the normaliser (pins).

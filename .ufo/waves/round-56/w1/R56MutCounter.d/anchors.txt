@@ -131,3 +131,32 @@ Epoch-D baselines (pristine):
   D counter / BASE 832ba6a   : rc=0  value=0 present=10 replayed=0 gate=0 guard=1 (r2-manifest x10)
 These reproduce the planner's epoch-D readings (d362318->10; 711e6393/5d9a157/42070de->FAIL;
 BASE->0). The planner's 21/21 epoch-D controls receipt was not re-run by this seat.
+
+Epoch E (current anchor, supersedes D; verdict semantics unchanged)
+-------------------------------------------------------------------
+commit                dd31b7867723f89fc8f83e88cc7d98e17de26cf2
+  plans/round-56-c1.sh        blob cc27f3501404030eb2a92f464a0431597fe02c27
+                              sha256 d468533fbf593c4b2a3a97dc513b9feb2cff765892c126c02d7c6ef40273a954
+                              GATE_SHA256_PIN=5165da2a6fced02fce82c92fc898553db9a6d3d702d9fc6d1ca3ba185e77b14f (unchanged)
+  corpus/recheck-replay.py    blob 79fb022b06e406291e0a8a884cbf97d7a23a4b87
+                              sha256 5165da2a6fced02fce82c92fc898553db9a6d3d702d9fc6d1ca3ba185e77b14f (unchanged from D)
+  corpus/recheck-captures.tsv blob 7c85dc4da34bc79931e01906b91e4c3fda91b2c5
+                              sha256 df46be5c92c7b4d5a8b7ad790371b5c3240c92f46460b8cfb69e9b75b7ecc762
+  plans/round-56-controls.sh   blob 7bd6e72572603fc6f0ee54b4acc1d2dce8e6f81c
+                              sha256 01060f254b2ecfdb23f341a5cf0937aec32243230560809403ed67ea38b196e7
+  plans/round-56.md           blob a4303acfef8962cc37d8fb04c481ca59b2c784bd
+                              sha256 212e2dd7ae71e3f056111e1a2c59d33151a3c51fee9f932bf2209ad2cb3d805d
+D->E counter delta is only the tool guards (sha256sum/cut/tail/timeout/git/tar -> SETUP);
+gate bytes, gate pin, normalizer pin and manifest are unchanged.
+Tree content digest (sorted relative-path sha256 manifest): 9647e73e5a73c6f528bf6dc0e620d72eeb4ced758c1ca1e9eef9606064f65532
+  identical from two independent `git archive dd31b786` extractions.
+
+Epoch-E baselines (pristine):
+  E counter / E tree dd31b786 : rc=0  value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)
+  E counter / D tree d362318  : rc=0  value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)   (as disclosed)
+  E counter / C tree 711e6393 : rc=0  value=FAIL present=10 replayed=0 gate=0 guard=0 (r5-gate x10, selftest, gate-digest)
+  E counter / BASE 832ba6a    : rc=0  value=0 present=10 replayed=0 gate=0 guard=1 (r2-manifest x10)
+Epoch-E mutant sweep (29 shapes) is verdict-identical to the epoch-D sweep: every
+value/present/replayed/gate/guard tuple matches (programmatic diff of
+results-epochD.tsv vs results-epochE.tsv printed zero deltas). The planner's 22/22
+epoch-E controls receipt was not re-run by this seat.

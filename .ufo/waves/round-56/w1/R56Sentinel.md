@@ -108,6 +108,13 @@ G. `fetch-receipt.json` 3218 B: keys `date,author,command_template,header_policy
 
 H. `plans/round-56.md` / `recheck-captures.tsv` / `source-fetches.tsv` (S057/S070/S074 rows) / epoch-E controls receipt: URLs, dates, statuses, sizes, sha256 hex, commit id, ids; credential-pattern hits 0.
 
+## Candidate landing verification (`bcf07e7d`)
+
+The C1 landing commit `bcf07e7daf797e5ad2c6bf64306738199a333f64` ("round-56: C1 freshness — stated-clock offline replay capability …") landed after epoch E. Verified:
+- `git diff dd31b786 bcf07e7d -- <kill paths> <captures>` is empty; the six frozen blobs in the candidate equal epoch E exactly (gate `79fb022b/5165da2a`, counter `cc27f350/d468533f`, controls `7bd6e725/01060f25`, plan `a4303acf/212e2dd7`, manifest `7c85dc4d/df46be5c`, normaliser `30baa609/14f6ca6a`).
+- Counter on `bcf07e7d`: rc 0 `value=10 present=10 replayed=10 gate=1 guard=1`; strace 0 `connect`, 0 strict `"/tmp/` opens. BASE on the candidate: `value=0 … guard=1`.
+- Landing diff secret scan (`git diff dd31b786 bcf07e7d`): the only `Set-Cookie`/`HTTP` hits are dummy fixtures in reviewer/control text (`Set-Cookie: x=1`, `k=v`, `y=2`); no real credentials, no new production files outside reports/build receipts/landing docs.
+
 ## Limits
 - Capture provenance is the receipt's self-report; no live re-fetch by this seat.
 - Anchor `dd31b786` verified for the six frozen paths; landing edits remain candidate content.

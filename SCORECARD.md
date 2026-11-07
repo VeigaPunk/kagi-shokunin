@@ -1843,7 +1843,7 @@ Candidate: the round-55 landing commit (recorded in the report). `.ufo/waves/rou
 
 ## Round 56 — post-move (claim C1 freshness)
 
-Candidate: the round-56 landing commit (recorded in the report). Claim BASE `832ba6a53d6a76706b5c80bce2278683dea33d42`; predeclaration: epoch-E `dd31b7867723f89fc8f83e88cc7d98e17de26cf2` (epoch-D `d362318` also reads 10 under E — E adds tool guards/doc/controls hardening, verdict semantics unchanged) (frozen plan `plans/round-56.md`, counter `plans/round-56-c1.sh`, gate `corpus/recheck-replay.py`, manifest `corpus/recheck-captures.tsv`, pre-freeze controls `plans/round-56-controls.sh`, 22 MATCH in `.ufo/waves/round-56/controls/controls-prefreeze-epochE.txt`; epochs A `42070de`, B `5d9a157`, C `711e6393` and D `d362318` superseded by wave-found instrument holes and declaration nits — M56-3).
+Candidate: the round-56 landing commit (recorded in the report). Claim BASE `832ba6a53d6a76706b5c80bce2278683dea33d42`; predeclaration: epoch-F `9cbe9d5f803de2518d4c11c6bc6b9a585e5120ad` (epoch-E `dd31b786` and interim candidate `bcf07e7` read FAIL under F — gate bytes changed for the date fix) (frozen plan `plans/round-56.md`, counter `plans/round-56-c1.sh`, gate `corpus/recheck-replay.py`, manifest `corpus/recheck-captures.tsv`, pre-freeze controls `plans/round-56-controls.sh`, 23 MATCH in `.ufo/waves/round-56/controls/controls-prefreeze-epochF.txt`; epochs A `42070de`, B `5d9a157`, C `711e6393`, D `d362318` and E `dd31b786` superseded by wave-found instrument holes and declaration nits — M56-3).
 
 | Axis | Before → after | What moved | Evidence |
 |---|---|---|---|

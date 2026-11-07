@@ -1,0 +1,6 @@
+# R36-01 (`bash plans/round-36-c1.sh`, ledger timeout 300 s, expect ^0$) read FAIL reason=timeout in verify-candidate.txt.
+# L1 re-run, no timeout, git archive of each revision into scratch, run serially, 2026-11-06 ~20:44-21:02 -03:
+# BASE 565c43a874b59cd216f4a55c8742db48fa854f16: rc=0 t=753s last line 0
+# C2 candidate e4abab1d23b731c0c042be9bc50b19c9f9313dcb: rc=0 t=351s last line 0
+# uptime at end: load average 38.60, 43.51, 44.27
+# Reading: the value matches the expect at both revisions; the FAIL is the 300 s timeout under fleet load, and BASE itself takes longer than 300 s here. Not a content regression.

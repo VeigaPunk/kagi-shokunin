@@ -208,3 +208,48 @@ Seats return findings and files; only the L1 commits, through `scripts/hyaku/jj-
 The wave is 15 seats because five disjoint write sets exist (trial, C1 checker, C2
 counter, record repairs I1–I6, transit selftest I7), and giving one executor two of them
 serialises the wave. No predicate, item, target, POP or kill rule changes.
+
+### A2 — 2026-11-07, before any candidate reading
+
+The wave is 16 seats, the band maximum, not the 15 this file's §Shape first stated:
+six disjoint executable write sets exist (trial, C1 checker, C2 counter, record
+repairs I1/I2/I4, transit selftest I7, the pre-freeze controls battery), and the
+controls battery cannot be written by the same seat that writes the instruments it
+scores. Composition: 6 executors, 2 scouts, 2 scribes, 1 reviewer, 1 critic,
+1 mutation-tester, 1 sentinel, 1 connector, 1 revenger; attack share 6/16 = 37 %
+(4/16 = 25 % on the addendum's literal reviewer/critic/mutation-tester/labrat list).
+No predicate, item, target, POP or kill rule changes.
+
+### A3 — 2026-11-07, before any candidate reading (L1 feasibility probe)
+
+An L1 probe on a throwaway OpenBao 2.7.2 dev server (receipt
+`.ufo/waves/round-60/final/l1-probe.txt`) measured four setup facts and one test
+observable that the §C2 POP did not state. Nothing in the predicate, the target, the
+five-test population or any kill rule changes; T1's observables are restated to the
+measured form and the setup steps become part of the trial's contract:
+
+1. **AppRole is not mounted on a dev server.** `POST /v1/sys/auth/approle
+   {"type":"approle"}` returns 204; without it every `/v1/auth/approle/*` call is
+   404 `no handler for route "auth/approle/login"`. The trial mounts it as step 0.
+2. **Every request carries `Content-Type: application/json`.** A form-encoded body
+   parses as empty: role creation returns 204 with defaults and every login reads
+   400 `invalid role or secret ID`.
+3. **`POST /v1/auth/approle/role/<r>/secret-id` carries a JSON body** (`{}` is
+   enough); a body-less POST does not generate a usable secret_id.
+4. **T1 restated (measured).** `bind_secret_id=false` alone is refused with 500
+   `at least one constraint should be enabled on the role`. T1 is therefore three
+   observables: (a) a default role refuses a role_id-only login with 400 `missing
+   secret_id`; (b) creating a role with `bind_secret_id=false` and no other
+   constraint is refused with that 500 text; (c) creating a role with
+   `bind_secret_id=false` plus `secret_id_bound_cidrs=127.0.0.1/32` makes a
+   role_id-only login return 200 with a token — the secret half is optional only
+   when another constraint binds the credential.
+5. **Measured refusal texts** the trial may quote: T2/T3/T4 `invalid role or secret
+   ID`; T5 `source address "127.0.0.1" unauthorized by CIDR restrictions on the
+   role: %!w(<nil>)`; T4's lookup response keys are `cidr_list`, `creation_time`,
+   `expiration_time`, `last_updated_time`, `metadata`, `secret_id_accessor`,
+   `secret_id_num_uses`, `secret_id_ttl`, `token_bound_cidrs` and carry no
+   `secret_id` key.
+
+The probe printed no secret value: it reports lengths and verdicts only. The probe
+script itself lives in scratch and is not citable evidence; the transcript is.

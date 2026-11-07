@@ -1,0 +1,30 @@
+# L1 pre-freeze feasibility probe for round-60 C2 (KagiR60), 2026-11-07T15:14:04-03:00
+# bao: OpenBao v2.7.2 (9e0a0d3c3504a0a00b45e61355afac5e35c78379), committed 2026-10-26T20:32:27Z
+# script: /fast/scratch/hyaku/kagi-r60/KagiR60-probe/probe.sh (scratch, deleted at round end; the transcript below is the receipt)
+
+== mount approle
+mount http=204 body=
+== T1 bind_secret_id
+role create=204 role_id_len=36
+T1 login role_id only (bind=true): http=400 err=missing secret_id
+T1 secret_id_len=36
+T1 login role+secret (bind=true): http=200 has_token=true
+T1 login role_id only (bind=false): http=400 has_token=false
+== T2 secret_id_num_uses=1
+T2 first login: http=200 has_token=true
+T2 second login: http=400 err=invalid role or secret ID
+T2 fresh login: http=200 has_token=true
+== T3 secret_id_ttl=1s
+T3 immediate login: http=200 has_token=true
+T3 expired login: http=400 err=invalid role or secret ID
+T3 fresh login: http=200 has_token=true
+== T4 accessor custody
+T4 sid_len=36 acc_len=36
+T4 lookup http=200 keys=cidr_list,creation_time,expiration_time,last_updated_time,metadata,secret_id_accessor,secret_id_num_uses,secret_id_ttl,token_bound_cidrs
+T4 lookup leaks secret_id=false
+T4 destroy http=204
+T4 login after destroy: http=400 err=invalid role or secret ID
+== T5 secret_id_bound_cidrs
+T5 login from 127.0.0.1 with 10/8 bound: http=400 err=source address "127.0.0.1" unauthorized by CIDR restrictions on the role: %!w(<nil>)
+T5 login with 127/32 bound: http=200 has_token=true
+PROBE-DONE

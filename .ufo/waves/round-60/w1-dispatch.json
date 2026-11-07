@@ -1,0 +1,290 @@
+{
+  "schema": "ufo-swarm-wave-dispatch-v1",
+  "wave": "kagi-r60-w1",
+  "policy": {
+    "source": "config",
+    "maxLanes": 256,
+    "minLanes": 8,
+    "waveMinLanes": 8,
+    "waveMaxLanes": 16,
+    "declaredMaxLanes": null,
+    "hardCeiling": 256,
+    "rampBatchSize": 5,
+    "rampIntervalMs": 700,
+    "globalRunnerCeiling": 1056
+  },
+  "counts": {
+    "spawn": 16,
+    "resume": 0,
+    "total": 16
+  },
+  "registry": {
+    "schema": "ufo-swarm-registry-v1",
+    "path": ".ufo/waves/round-60/w1/swarm-registry.json",
+    "reportDir": ".ufo/waves/round-60/w1",
+    "members": {
+      "R60ScoutApprole": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scout",
+        "item": null,
+        "axes": [
+          "freshness",
+          "coverage"
+        ],
+        "milestone": "C1 C1_ROUTED 7->0 (seven round-59 routed record defects resolved and re-checkable); C2 C2_APPROLE_TRIAL 0->5 (executed OpenBao AppRole secret_id custody trial with its own --selftest); attack seats falsify both"
+      },
+      "R60ScoutRouted": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scout",
+        "item": null,
+        "axes": [
+          "calibration"
+        ],
+        "milestone": "C1 C1_ROUTED 7->0 (seven round-59 routed record defects resolved and re-checkable); C2 C2_APPROLE_TRIAL 0->5 (executed OpenBao AppRole secret_id custody trial with its own --selftest); attack seats falsify both"
+      },
+      "R60ExecTrial": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": null,
+        "axes": [
+          "operability"
+        ],
+        "milestone": "C1 C1_ROUTED 7->0 (seven round-59 routed record defects resolved and re-checkable); C2 C2_APPROLE_TRIAL 0->5 (executed OpenBao AppRole secret_id custody trial with its own --selftest); attack seats falsify both"
+      },
+      "R60ExecCounterC1": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": null,
+        "axes": [
+          "calibration"
+        ],
+        "milestone": "C1 C1_ROUTED 7->0 (seven round-59 routed record defects resolved and re-checkable); C2 C2_APPROLE_TRIAL 0->5 (executed OpenBao AppRole secret_id custody trial with its own --selftest); attack seats falsify both"
+      },
+      "R60ExecCounterC2": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": null,
+        "axes": [
+          "operability"
+        ],
+        "milestone": "C1 C1_ROUTED 7->0 (seven round-59 routed record defects resolved and re-checkable); C2 C2_APPROLE_TRIAL 0->5 (executed OpenBao AppRole secret_id custody trial with its own --selftest); attack seats falsify both"
+      },
+      "R60ExecFixRecords": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": null,
+        "axes": [
+          "calibration"
+        ],
+        "milestone": "C1 C1_ROUTED 7->0 (seven round-59 routed record defects resolved and re-checkable); C2 C2_APPROLE_TRIAL 0->5 (executed OpenBao AppRole secret_id custody trial with its own --selftest); attack seats falsify both"
+      },
+      "R60ExecTransitSelftest": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": null,
+        "axes": [
+          "operability"
+        ],
+        "milestone": "C1 C1_ROUTED 7->0 (seven round-59 routed record defects resolved and re-checkable); C2 C2_APPROLE_TRIAL 0->5 (executed OpenBao AppRole secret_id custody trial with its own --selftest); attack seats falsify both"
+      },
+      "R60ScribeEntry": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scribe",
+        "item": null,
+        "axes": [
+          "coverage",
+          "depth"
+        ],
+        "milestone": "C1 C1_ROUTED 7->0 (seven round-59 routed record defects resolved and re-checkable); C2 C2_APPROLE_TRIAL 0->5 (executed OpenBao AppRole secret_id custody trial with its own --selftest); attack seats falsify both"
+      },
+      "R60ScribeRows": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scribe",
+        "item": null,
+        "axes": [
+          "coverage"
+        ],
+        "milestone": "C1 C1_ROUTED 7->0 (seven round-59 routed record defects resolved and re-checkable); C2 C2_APPROLE_TRIAL 0->5 (executed OpenBao AppRole secret_id custody trial with its own --selftest); attack seats falsify both"
+      },
+      "R60ExecControls": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": null,
+        "axes": [
+          "calibration",
+          "operability"
+        ],
+        "milestone": "C1 C1_ROUTED 7->0 (seven round-59 routed record defects resolved and re-checkable); C2 C2_APPROLE_TRIAL 0->5 (executed OpenBao AppRole secret_id custody trial with its own --selftest); attack seats falsify both"
+      },
+      "R60ReviewerC1": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "calibration"
+        ],
+        "milestone": "C1 C1_ROUTED 7->0 (seven round-59 routed record defects resolved and re-checkable); C2 C2_APPROLE_TRIAL 0->5 (executed OpenBao AppRole secret_id custody trial with its own --selftest); attack seats falsify both"
+      },
+      "R60CriticClaims": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "critic",
+        "item": null,
+        "axes": [
+          "calibration"
+        ],
+        "milestone": "C1 C1_ROUTED 7->0 (seven round-59 routed record defects resolved and re-checkable); C2 C2_APPROLE_TRIAL 0->5 (executed OpenBao AppRole secret_id custody trial with its own --selftest); attack seats falsify both"
+      },
+      "R60MutCounters": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "mutation-tester",
+        "item": null,
+        "axes": [
+          "calibration",
+          "operability"
+        ],
+        "milestone": "C1 C1_ROUTED 7->0 (seven round-59 routed record defects resolved and re-checkable); C2 C2_APPROLE_TRIAL 0->5 (executed OpenBao AppRole secret_id custody trial with its own --selftest); attack seats falsify both"
+      },
+      "R60SentinelTrial": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "sentinel",
+        "item": null,
+        "axes": [
+          "operability",
+          "calibration"
+        ],
+        "milestone": "C1 C1_ROUTED 7->0 (seven round-59 routed record defects resolved and re-checkable); C2 C2_APPROLE_TRIAL 0->5 (executed OpenBao AppRole secret_id custody trial with its own --selftest); attack seats falsify both"
+      },
+      "R60ConnectorSiblings": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "connector",
+        "item": null,
+        "axes": [
+          "adjacency",
+          "coverage"
+        ],
+        "milestone": "C1 C1_ROUTED 7->0 (seven round-59 routed record defects resolved and re-checkable); C2 C2_APPROLE_TRIAL 0->5 (executed OpenBao AppRole secret_id custody trial with its own --selftest); attack seats falsify both"
+      },
+      "R60RevContext": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "revenger",
+        "item": null,
+        "axes": [
+          "calibration",
+          "adjacency"
+        ],
+        "milestone": "C1 C1_ROUTED 7->0 (seven round-59 routed record defects resolved and re-checkable); C2 C2_APPROLE_TRIAL 0->5 (executed OpenBao AppRole secret_id custody trial with its own --selftest); attack seats falsify both"
+      }
+    }
+  },
+  "compaction": {
+    "applied": false,
+    "mechanism": null,
+    "reason": null,
+    "savedBytes": 0,
+    "payloadBytesBefore": 0,
+    "payloadBytesAfter": 0
+  },
+  "taskCall": {
+    "context": "kagi round 60 attempt 1. ONE v1 wave, 16 seats (run-15 band 8-16; plan §A2). L1 KagiR60 holds the canonical planner seat and is the sole integration owner and committer.\nLane repo: /home/vgpnk/Projects/shokunin/kagi-shokunin (branch master). Claim BASE a677c78ece8e3d3b4a43dda55254f2a7b33cc1d2. FROZEN predeclaration: /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-60.md (commit cd631737; §A1/A2 amend only the seat count) — read it, plus /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/lessons/round-59-verifier-spotcheck.md, before you work. Never amend a frozen predicate, target, POP, kill rule or item condition; report a defect instead.\nWrite scope: /home/vgpnk/Projects/shokunin/kagi-shokunin plus your own scratch. Never write, commit, push or run a mutating git/jj command in the fleet repo, a sibling lane, or the lane's jj/git index; never run `git add/commit/stash/push` or any mutating `jj` anywhere. Seats return findings and files; only the L1 commits (scripts/hyaku/jj-lane.sh).\nFile ownership is disjoint: write ONLY the paths your item names. Receipts go under /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-60/build/<your-seat-name>/. Every `Report:` trailer path a wave template prints is relative to /home/vgpnk/Projects/shokunin/kagi-shokunin — write it at /home/vgpnk/Projects/shokunin/kagi-shokunin/<that path>. Never write citable evidence under /tmp.\nScratch: every clone, work tree, fixture or dev-server dir lives under ${HYAKU_SCRATCH:-/fast/scratch/hyaku}/kagi-r60/<seat-name>/ (mkdir -p; pass it explicitly; delete it before you yield). /tmp is only for files under 50 MB and never for citable evidence.\nTooling authorization (operator, 2026-10-19): you may install or upgrade tools that help the task; read /home/vgpnk/.omp/agent/RULES.md first (official channels only, update-safety gate, record tool/version/channel/reason in your report). pacman guard (orchestrator ruling 2026-10-20): ALL pacman transactions are PAUSED host-wide — install via uv tool / npx / an official binary in ~/.local/bin, or file an L0 question. Never -Sy/-Syu/-U/-R, never downgrade, never restart a host service. Never mutate host sysctls.\nSecret discipline: no secret value, token, cookie, session id, `secret_id` value, vault/item/field name in any artifact or printed line. Fetch receipts remove Set-Cookie/Cookie values before they are written (QUALITY QM72).\nAbsolute paths only: your tools start at the fleet root (/home/vgpnk/Projects/shokunin), not the lane.\nOpenBao binary for trials: /home/vgpnk/.local/bin/bao (v2.7.2, sha256 9c5f36287c673f386e1533e9c044169a248e4ee50dd54810fa766e95bd41b788). Throwaway `bao server -dev` only, bound to 127.0.0.1, started under `setpriv --pdeathsig KILL`.\nHost paths outside your scratch (/boot, /etc, /usr, /var, /efi, other users' homes) are read-only inputs: copy into scratch before working on a file, and never run a binary-editing tool with a host path as input or output.",
+    "tasks": [
+      {
+        "name": "R60ScoutApprole",
+        "agent": "scout",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\n# Target\nOpen the two AppRole documentation sources this round declares, live, and produce the located-quote evidence the registry rows and the lesson Gate need. Non-goals: no edit to corpus/SOURCES.md (the L1 appends), no trial design, no other lane file.\n\n# Change\nFetch, with a desktop browser user agent, and keep the decoded body of:\n- S123 https://openbao.org/docs/auth/approle/  -> /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-60/capture/S123.body\n- S124 https://openbao.org/docs/api/auth/approle/ -> .../capture/S124.body\nRecord for each: HTTP status, final URL, byte count, sha256 of the decoded body, fetch command, access date and the user agent string. Remove any Set-Cookie/Cookie value before writing anything.\nThen write /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-60/capture/notes.md with one section per source and, for each of these five mechanics, a located quote of at most 25 words with its section heading and a byte offset or line number in the captured body that resolves with `grep -c` or `python3`:\n1 bind_secret_id (default and meaning), 2 secret_id_num_uses, 3 secret_id_ttl, 4 secret-id-accessor lookup and destroy, 5 secret_id_bound_cidrs.\nAlso record the documented request body field names for `auth/approle/login` and the exact documented text/HTTP shape of a refused login. Mark anything the page does not state as `NOT STATED`; never infer a mechanic.\n\n# Acceptance\nBoth bodies exist under .ufo/waves/round-60/capture/, the sha256 in notes.md equals `sha256sum` of the body, and every quoted phrase resolves verbatim in its body (show the resolving command per quote). End with `SEAT-STATUS: complete` or `SEAT-STATUS: partial <reason>`.\n\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness, coverage\nMilestone: C1 C1_ROUTED 7->0 (seven round-59 routed record defects resolved and re-checkable); C2 C2_APPROLE_TRIAL 0->5 (executed OpenBao AppRole secret_id custody trial with its own --selftest); attack seats falsify both\n\nReport: write your scoped findings to .ufo/waves/round-60/w1/R60ScoutApprole.md"
+      },
+      {
+        "name": "R60ScoutRouted",
+        "agent": "scout",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\n# Target\nIndependently re-derive every number `plans/round-60.md` §C1 compares for items I1–I7 from the lane repository at BASE a677c78e, and report any number the plan states wrongly. Non-goals: no lane file edits, no fixes (the L1 lands them), no counter code.\n\n# Change\nWork read-only. For each item run the derivation yourself and record the command, the raw output and the value:\nI1 `grep -n '__DEAD__' LOG.md`; the result count and the empty-output count of `.ufo/waves/round-59/w1-results.json`.\nI2 the last `C1_CHECK_SELFTEST: PASS (N cases)` line of `.ufo/waves/round-59/build/R59ExecCounterC1/selftest.txt`; the text of `R31` in `corpus/lessons/round-59.md`.\nI3 the duplicate id count in the `## Routed dispositions` table of `corpus/lessons/round-59.md` (derive it with `awk`, not by eye).\nI4 `grep -cE '^CONTROL ' .ufo/waves/round-59/controls/controls-prefreeze.txt`; the `(21 controls` text in `SCORECARD.md`.\nI5 every path the round-59 SCORECARD block cites under `.ufo/waves/round-59/final/`, and which of them exist.\nI6 the `c1-driver: measured=revision` hash in `.ufo/waves/round-59/final/c1-landed.txt`; the commit the round-59 Before → after table names.\nI7 `grep -n 'openbao-transit-trial.sh' SKILL.md` and the selftest cell of that row; `bash corpus/openbao-transit-trial.sh --selftest` (record only whether it exists/its rc — do not treat a failure as a defect of the plan).\nAlso report whether `plans/round-60.md` states the correct BASE commit and whether each item's required condition is stated so a checker can read it from bytes alone (name any ambiguity with the exact sentence).\n\n# Acceptance\nWrite `.ufo/waves/round-60/build/R60ScoutRouted/rederive.md`: one row per item (plan's number, re-derived number, command, agree/disagree), then a `## Ambiguities` section. End with `SEAT-STATUS: complete` or `SEAT-STATUS: partial <reason>`.\n\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: calibration\nMilestone: C1 C1_ROUTED 7->0 (seven round-59 routed record defects resolved and re-checkable); C2 C2_APPROLE_TRIAL 0->5 (executed OpenBao AppRole secret_id custody trial with its own --selftest); attack seats falsify both\n\nReport: write your scoped findings to .ufo/waves/round-60/w1/R60ScoutRouted.md"
+      },
+      {
+        "name": "R60ExecTrial",
+        "agent": "executor",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\n# Target\nWrite and prove `corpus/openbao-approle-trial.sh` in the lane: the executed OpenBao AppRole `secret_id` custody trial `plans/round-60.md` §C2 declares. You own that one file plus your build receipts.\n\n# Change\nRead `plans/round-60.md` §C2 (frozen) and `.ufo/waves/round-60/capture/` if the scout has landed captures (do not wait; the docs are public). Implement:\n- `bash corpus/openbao-approle-trial.sh [--work DIR] [--selftest]` starts ONE throwaway `bao server -dev` on 127.0.0.1 under `setpriv --pdeathsig KILL`, resolves `bao` through PATH only (never an absolute path), and runs T1–T5 from the frozen POP:\n  T1 bind_secret_id: role_id alone is refused with the default `bind_secret_id=true`, and the same login body is accepted after `bind_secret_id=false` on the same role;\n  T2 `secret_id_num_uses=1`: first login succeeds, a second login with the same secret_id is refused with a named error, a freshly generated secret_id logs in;\n  T3 `secret_id_ttl=1s`: a fresh secret_id logs in immediately, the same one is refused at least 3 s later with a named error, a newly generated one logs in;\n  T4 accessor custody: `auth/approle/role/<r>/secret-id-accessor/lookup` returns metadata (use count / TTL) and no secret_id value, and `secret-id-accessor/destroy` invalidates a still-valid unused secret_id so login with it is refused;\n  T5 `secret_id_bound_cidrs`: with `10.0.0.0/8` the 127.0.0.1 login is refused with a source-address error, with `127.0.0.1/32` the same login succeeds.\n- Prints `TRIAL T<n> HOLDS|BROKEN|ERROR <detail>` for T1..T5 each exactly once, then one summary `OPENBAO_APPROLE_TRIAL: HOLDS|BROKEN|ERROR holds=<n> broken=<n> error=<n> bao=<ver>`; exit 0 all HOLDS, 1 any BROKEN and no ERROR, 2 SETUP. A PATH with no `bao` prints `SETUP no bao on PATH`, exits 2 and prints no HOLDS line.\n- `KAGI_APPROLE_SHIM=SH1..SH5` replaces exactly one test's observable evaluation so exactly that test reads BROKEN.\n- `--selftest` is fixture-driven: no `bao`, no network; at least 8 cases over isolated fixtures asserting process exit codes and stable finding ids (`FINDING <id>` on failure), printing `APPROLE_SELFTEST: PASS (cases=N)` on success. It must be able to fail: prove it on a mutated copy of the script whose shim resolution or verdict mapping is broken.\n- Never print a token, a secret_id value or a request body; compare in-process only. `--work DIR` confines every file it writes. No hardcoded /tmp.\nThen run and keep raw outputs: two independent real runs, SH1..SH5, the no-bao PATH run, the `--selftest` pass, and the mutated-copy selftest failure.\n\n# Acceptance\n`corpus/openbao-approle-trial.sh` exists and is invoked with `bash`; receipts under `.ufo/waves/round-60/build/R60ExecTrial/` named `receipt-ref-real.txt`, `receipt-ref-real2.txt`, `receipt-shim-SH1.txt`..`-SH5.txt`, `receipt-none.txt`, `receipt-selftest.txt`, `receipt-selftest-mutant.txt`; a `notes.md` naming the exact commands, the observed error texts for each refusal, and every deviation from the frozen POP (a deviation is a finding for the L1, never a silent reinterpretation). End with `SEAT-STATUS: complete` or `SEAT-STATUS: partial <...>`.\n\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\nJudged on: operability\nMilestone: C1 C1_ROUTED 7->0 (seven round-59 routed record defects resolved and re-checkable); C2 C2_APPROLE_TRIAL 0->5 (executed OpenBao AppRole secret_id custody trial with its own --selftest); attack seats falsify both\n\nReport: write your scoped findings to .ufo/waves/round-60/w1/R60ExecTrial.md"
+      },
+      {
+        "name": "R60ExecCounterC1",
+        "agent": "executor",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\n# Target\nWrite `plans/round-60-c1-check.py` and `plans/round-60-c1.sh` in the lane: the C1 instrument `plans/round-60.md` §C1 freezes. You own those two files plus your build receipts.\n\n# Change\nImplement exactly the frozen predicate and the seven item conditions of §C1 (I1–I7). Requirements:\n- `python3 -I -B plans/round-60-c1-check.py --root <tree> [--repo <lane>] [--no-challenge] [--json]` prints `C1_ROUTED: value=V population=7 i1=.. i7=.. guard=G`; exit 0 iff guard=1 and V==0, 1 otherwise, 2 SETUP. `--no-challenge` prints the diagnostic leg only (value = unresolved count, guard=0).\n- Every compared number is derived from the measured tree or from a named revision via `git show`; no constant in the checker restates a fact the tree asserts. Missing/empty SETUP inputs fail closed (never a silent 0).\n- I7 executes `bash <tree>/corpus/openbao-transit-trial.sh --selftest` with a short timeout and reads the exit code plus the `TRANSIT_SELFTEST: PASS (cases=N)` line; a missing script or a failing selftest is an unresolved item, never SETUP.\n- The guard copes with a tree that has unresolved items (a challenge that cannot fire reports `guard=0`, never a crash). Use a fresh `mkdtemp` parent honouring `C1_CHALLENGE_PARENT`, `HYAKU_SCRATCH`, `TMPDIR` in that order; no hardcoded /tmp.\n- `--selftest` builds its own fixtures in a temp dir and covers at least 20 cases: the all-resolved tree reads 0 guard=1, the all-unresolved tree reads 7, each of the seven items resolving alone, a satisfied-text-but-false-substance fixture, an after-the-wrong-line fixture, a missing receipt, a malformed receipt, an absent I7 script, and the challenge +1 firing. Print `C1_CHECK_SELFTEST: PASS (N cases)`.\n- `plans/round-60-c1.sh [revision | --tree DIR]` materialises the tree (`git archive` of the revision, or the given dir) into scratch, runs the checker, prints the driver lines and the verdict line, and exits with the checker's code.\n- The BASE census must be measured: run it on a677c78e with `--no-challenge` and again with the wrapper, and keep both outputs.\n\n# Acceptance\nBoth files exist under `plans/`; receipts under `.ufo/waves/round-60/build/R60ExecCounterC1/` named `driver-base-<rev>.txt`, `selftest.txt`, and `checker-notes.md` listing each item's derivation command. The BASE diagnostic reads `value=7 population=7`. End with `SEAT-STATUS: complete` or `SEAT-STATUS: partial <...>`.\n\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\nJudged on: calibration\nMilestone: C1 C1_ROUTED 7->0 (seven round-59 routed record defects resolved and re-checkable); C2 C2_APPROLE_TRIAL 0->5 (executed OpenBao AppRole secret_id custody trial with its own --selftest); attack seats falsify both\n\nReport: write your scoped findings to .ufo/waves/round-60/w1/R60ExecCounterC1.md"
+      },
+      {
+        "name": "R60ExecCounterC2",
+        "agent": "executor",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\n# Target\nWrite `plans/round-60-c2.sh` in the lane: the counter that measures `plans/round-60.md` §C2's frozen predicate. You own that one file plus your build receipts.\n\n# Change\nThe counter takes `[revision]` or `--tree DIR` (BASE a677c78e when omitted), materialises the tree into scratch (`git archive`), and reads `corpus/openbao-approle-trial.sh` from it. It prints `C2_APPROLE_TRIAL: value=V tests=5 pass=P shims=K vectors=ok/5 selftest=S guard=G`; exit 0 iff value=5, 1 otherwise, 2 SETUP.\nConjuncts (each must be observed, not assumed):\n- two independent real runs, each `OPENBAO_APPROLE_TRIAL: HOLDS holds=5 broken=0 error=0`;\n- exactly five `TRIAL T<N>` lines per run, and each shim run SH1..SH5 flips exactly its designated test (baseline HHHHH; SH1 -> BHHHH, SH2 -> HBHHH, SH3 -> HHBHH, SH4 -> HHHBH, SH5 -> HHHHB), read from the per-test verdicts;\n- the no-bao PATH leg exits 2, prints `SETUP` and no HOLDS line;\n- the trial's own `--selftest` exits 0 and prints `APPROLE_SELFTEST: PASS (cases=N)` with N >= 8;\n- an absent trial reads `value=0 … (absent)` and exits 1 (not 0);\n- a secret scan of every captured receipt finds no `hvs.`/`hvb.` token and no printed secret_id value;\n- the ambient `BAO_*`/`VAULT_*` variables of the caller do not change the reading (run one leg with them exported).\nHonour `HYAKU_SCRATCH`/`TMPDIR`; no hardcoded /tmp; `umask 077`; remove scratch on exit.\n\n# Acceptance\n`plans/round-60-c2.sh` exists; receipts under `.ufo/waves/round-60/build/R60ExecCounterC2/` named `base-absent.txt`, `candidate.txt`, `none.txt`, `ambient.txt`, plus the per-shim lines in one `shims.txt`. End with `SEAT-STATUS: complete` or `SEAT-STATUS: partial <...>`.\n\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\nJudged on: operability\nMilestone: C1 C1_ROUTED 7->0 (seven round-59 routed record defects resolved and re-checkable); C2 C2_APPROLE_TRIAL 0->5 (executed OpenBao AppRole secret_id custody trial with its own --selftest); attack seats falsify both\n\nReport: write your scoped findings to .ufo/waves/round-60/w1/R60ExecCounterC2.md"
+      },
+      {
+        "name": "R60ExecFixRecords",
+        "agent": "executor",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\n# Target\nLand three of the round's record repairs as append-only corrections. You own exactly: `LOG.md`, `corpus/lessons/round-59.md`, and the I4 correction line appended to `SCORECARD.md`. Do not touch any other file, and never rewrite the line you correct.\n\n# Change\nRead `plans/round-60.md` §C1 items I1, I2, I4 (frozen) and `corpus/lessons/round-59-verifier-spotcheck.md` §7 (D1, D2, D4).\n1. I1 — after the last line of `LOG.md` containing `__DEAD__`, append a block whose first line is exactly `## Round 59 — correction` (em dash) and which states, on one line matching `results=<R> dead=<D>`, R = the number of results in `.ufo/waves/round-59/w1-results.json` and D = how many of them carry an empty or absent final output (derive both with one `python3 -c`), names that JSON path, and says the superseded line is not rewritten.\n2. I2 — append to `corpus/lessons/round-59.md` a correction block that names `supersedes R31`, names `C1_CHECK_SELFTEST`, and states the case count the receipt `.ufo/waves/round-59/build/R59ExecCounterC1/selftest.txt` actually reads (derive it; do not copy from the spot-check prose).\n3. I4 — append one line to `SCORECARD.md` matching `supersedes SCORECARD.md:1971` that states `<N> controls` with N = `grep -cE '^CONTROL ' .ufo/waves/round-59/controls/controls-prefreeze.txt`, quotes that command, and names the superseded `(21 controls` text. Put it in an errata-style block at the end of the file, not inside a table.\nDo NOT land I3 (the round-60 lesson is the L1's), I5 or I6 (they cite receipts the L1 produces). Derive every number yourself and paste the command with it. Append-only: `git diff` on each file must show additions only.\n\n# Acceptance\nEach correction exists with the tokens the plan's item condition reads; receipts under `.ufo/waves/round-60/build/R60ExecFixRecords/` named `i1.txt`, `i2.txt`, `i4.txt` holding the derivation command and its output, and `diff.txt` showing additions-only (`git diff --numstat` per file). End with `SEAT-STATUS: complete` or `SEAT-STATUS: partial <...>`.\n\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\nJudged on: calibration\nMilestone: C1 C1_ROUTED 7->0 (seven round-59 routed record defects resolved and re-checkable); C2 C2_APPROLE_TRIAL 0->5 (executed OpenBao AppRole secret_id custody trial with its own --selftest); attack seats falsify both\n\nReport: write your scoped findings to .ufo/waves/round-60/w1/R60ExecFixRecords.md"
+      },
+      {
+        "name": "R60ExecTransitSelftest",
+        "agent": "executor",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\n# Target\nClose the Gate-standard gap the round-59 spot-check routed as D7: give `corpus/openbao-transit-trial.sh` a real `--selftest`, and re-register the row. You own exactly those two files: `corpus/openbao-transit-trial.sh` and the transit row of the gate registry in `SKILL.md`.\n\n# Change\nRead `plans/round-60.md` §C1 item I7 and `SKILL.md`'s gate-registry row for `corpus/openbao-transit-trial.sh` (currently `selftest` = `none — its own five shims and the clean-room leg are the falsifiers`).\n1. Add `--selftest` to the trial: fixture-driven, no `bao`, no network, at least 6 cases over isolated fixtures, each asserting a process exit code and a stable finding id (`FINDING <id>` on failure), printing `TRANSIT_SELFTEST: PASS (cases=N)` with N >= 6 and exiting 0; any failing case exits non-zero with its finding id. Cover at minimum: the shim selector (each SH1..SH5 resolves to exactly its own test id; an unknown value is a SETUP rc 2), the verdict/exit mapping (holds=5 -> 0, one broken -> 1, an ERROR -> 2), and the no-bao PATH leg (rc 2, `SETUP`, no HOLDS line).\n2. Prove the selftest can fail: on a copy in scratch with the verdict mapping broken (or the shim resolver mapping two shims to one test) it must exit non-zero and print a named finding id; keep the receipt.\n3. Update the SKILL.md registry row's `selftest` cell to name the new `--selftest` (keep the row's other cells and the six-shim/clean-room facts), and keep the 11-cell table shape intact.\n4. Re-run the real transit trial once (`bash corpus/openbao-transit-trial.sh`) and confirm the five tests still read HOLDS after your edit; keep the receipt.\n\n# Acceptance\n`bash corpus/openbao-transit-trial.sh --selftest` prints `TRANSIT_SELFTEST: PASS (cases=N)` with N >= 6 and exits 0; the SKILL.md row names `--selftest`; receipts under `.ufo/waves/round-60/build/R60ExecTransitSelftest/` named `selftest.txt`, `selftest-mutant.txt`, `trial-still-holds.txt`, `notes.md`. End with `SEAT-STATUS: complete` or `SEAT-STATUS: partial <...>`.\n\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\nJudged on: operability\nMilestone: C1 C1_ROUTED 7->0 (seven round-59 routed record defects resolved and re-checkable); C2 C2_APPROLE_TRIAL 0->5 (executed OpenBao AppRole secret_id custody trial with its own --selftest); attack seats falsify both\n\nReport: write your scoped findings to .ufo/waves/round-60/w1/R60ExecTransitSelftest.md"
+      },
+      {
+        "name": "R60ScribeEntry",
+        "agent": "scribe",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\n# Target\nDraft the knowledge entry for the AppRole custody trial: `openbao-approle-secret-id-custody.md`. Deliver it at `.ufo/waves/round-60/build/R60ScribeEntry/openbao-approle-secret-id-custody.md` (the L1 lands it after the trial's receipts exist); do not write the corpus path itself.\n\n# Change\nRead `plans/round-60.md` §C2, `corpus/openbao-approle-trial.sh` if it exists, the trial receipts under `.ufo/waves/round-60/build/R60ExecTrial/`, the scout's captures and `notes.md` under `.ufo/waves/round-60/capture/`, and one existing entry of the same shape (`corpus/knowledge/openbao-transit-engine.md`).\nThe entry must carry: a title line; a `source:` line naming S123 (https://openbao.org/docs/auth/approle/) and S124 (https://openbao.org/docs/api/auth/approle/), both opened this round; a `reverify:` line naming the live page and its recheck cadence in the same form peer entries use; a §Mechanics section with one line per T1–T5 whose numbers and verdicts come from the receipts, never from the docs, and an explicit `documented, not measured` marker where no receipt exists; a §Custody section stating which half is the secret, what bounds its reuse, and how a non-secret accessor revokes it; a §Docs-vs-binary section recording every place the page is narrower than the measured behaviour; a §Bounds section (one binary, one host, one dev server, the deliberate `bind_secret_id=false` leg, proxy/CIDR interactions unmeasured); and a §Falsifiers list of concrete observations that would break each measured line.\nQuotes are at most 25 words each with a located capture reference. Never state a mechanic as measured unless a receipt line shows it.\n\n# Acceptance\nThe draft exists, carries the `source:` and `reverify:` lines, marks every unmeasured statement, and a `notes.md` beside it names which receipt line backs each §Mechanics row. End with `SEAT-STATUS: complete` or `SEAT-STATUS: partial <...>`.\n\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage, depth\nMilestone: C1 C1_ROUTED 7->0 (seven round-59 routed record defects resolved and re-checkable); C2 C2_APPROLE_TRIAL 0->5 (executed OpenBao AppRole secret_id custody trial with its own --selftest); attack seats falsify both\n\nReport: write your scoped findings to .ufo/waves/round-60/w1/R60ScribeEntry.md"
+      },
+      {
+        "name": "R60ScribeRows",
+        "agent": "scribe",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\n# Target\nDraft the two `corpus/SOURCES.md` registry rows (S123, S124), their `corpus/source-fetches.tsv` rows, and the round lesson's `## Gate` block. Deliver all three as text under `.ufo/waves/round-60/build/R60ScribeRows/`; do not edit `corpus/SOURCES.md`, `corpus/source-fetches.tsv` or any lesson yourself.\n\n# Change\nFollow `CORPUS.md` § SOURCES.md contract v1 and the existing rows S121/S122 as the shape model:\n- `registry-rows.md`: two rows, exactly 11 cells, no literal or escaped `|` inside a cell, `kind=docs`, `tier=A`, the scope being the AppRole `secret_id` custody mechanics, an `anchor` naming the sections plus the docs version and access date, `status=mined`, `opened=2026-11-07`, `recheck=180d` (version-scoped docs), `used-by=corpus/knowledge/openbao-approle-secret-id-custody.md`.\n- `fetch-rows.tsv`: two tab-separated rows in the schema of the last S121/S122 lines of `corpus/source-fetches.tsv`, using the byte counts, sha256 values and the first located quote from `.ufo/waves/round-60/capture/`.\n- `gate.md`: the lesson's `## Gate` block — per new row the URL, the access date, the ≤25-word located quote, admit/reject with the reason, plus the two rejections this round records (the docs page's unstated mechanics, and any page the scout found that anchors no tested mechanic), each with its flip condition.\nDerive every number from the captures (`sha256sum`, `wc -c`), never from the plan text.\n\n# Acceptance\nThe three files exist and parse: each registry row splits into exactly 11 cells with `awk -F'|'`, each fetch row has the same field count as S121's row. End with `SEAT-STATUS: complete` or `SEAT-STATUS: partial <...>`.\n\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: C1 C1_ROUTED 7->0 (seven round-59 routed record defects resolved and re-checkable); C2 C2_APPROLE_TRIAL 0->5 (executed OpenBao AppRole secret_id custody trial with its own --selftest); attack seats falsify both\n\nReport: write your scoped findings to .ufo/waves/round-60/w1/R60ScribeRows.md"
+      },
+      {
+        "name": "R60ExecControls",
+        "agent": "executor",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\n# Target\nWrite `plans/round-60-controls.sh`: the pre-freeze control battery `plans/round-60.md` §Pre-freeze controls declares. You own that one file plus your build receipts. You do not own the instruments it scores.\n\n# Change\nEach control is one shell function that prints `CONTROL <id> expect=<x> observed=<y>` and is scored by exact string equality; the runner ends with `CONTROLS: match=N mismatch=M` and exits 0 iff M=0, 1 otherwise, 2 SETUP. Pin the instrument hashes (`sha256sum` of `plans/round-60-c1-check.py`, `plans/round-60-c1.sh`, `plans/round-60-c2.sh`, `corpus/openbao-approle-trial.sh`, `corpus/openbao-transit-trial.sh`) in a `INSTRUMENT <path> <sha>` line per file.\nControls (see the plan's list): K1-BASE (C1 on a677c78e diagnostic = 7), K2-BASE (C2 on a677c78e = 0), K1-REF (a tree carrying all seven fixes = 0 guard 1 — build it by applying the landed corrections to a scratch copy), C1-F1..C1-F5 (each breaks one item's substance while keeping satisfied-looking text; diagnostic must read exactly 1), C1-F6 (a transit selftest whose verdict mapping is mutated must exit non-zero with a finding id), C1-F7 (a printer stub that always prints `value=0 … guard=1` must fail the guard challenge leg), C1-F8 (a correction placed before the line it corrects must not resolve the item), C2-F1..C2-F8 (T5 shim removed; no-bao PATH; `--selftest` removed; single-run; HOLDS lines without a summary; SH1 flipping two tests; a bao binary with a foreign sha256; ambient BAO_*/VAULT_*).\nEvery control works on copies in scratch and removes them; no hardcoded /tmp; honour `HYAKU_SCRATCH`/`TMPDIR`. Run the battery now and keep the output; if an instrument is not on disk yet, mark that control `NORESULT` and say so in the receipt (the L1 re-runs the battery after the instruments land).\n\n# Acceptance\n`plans/round-60-controls.sh` exists; a receipt at `.ufo/waves/round-60/build/R60ExecControls/battery.txt` (plus `notes.md` listing which controls ran, which were NORESULT and why). End with `SEAT-STATUS: complete` or `SEAT-STATUS: partial <...>`.\n\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\nJudged on: calibration, operability\nMilestone: C1 C1_ROUTED 7->0 (seven round-59 routed record defects resolved and re-checkable); C2 C2_APPROLE_TRIAL 0->5 (executed OpenBao AppRole secret_id custody trial with its own --selftest); attack seats falsify both\n\nReport: write your scoped findings to .ufo/waves/round-60/w1/R60ExecControls.md"
+      },
+      {
+        "name": "R60ReviewerC1",
+        "agent": "reviewer",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\n# Target\nAttack the C1 item set and its checker: find a way to satisfy the plan's seven item conditions without fixing the defect, or a way the checker reads 0 on a tree that is still wrong. Read-only on the lane; work on copies in scratch.\n\n# Change\nRead `plans/round-60.md` §C1, `corpus/lessons/round-59-verifier-spotcheck.md` §7, then `plans/round-60-c1-check.py` and the landed corrections in `LOG.md`, `corpus/lessons/round-59.md`, `SCORECARD.md`, once they exist.\nProbe at least: a token-satisfying sentence that states the wrong fact (can you pass the item while the number is wrong?); the after-the-superseded-line rule for each of I1, I2, I4, I6; a correction appended twice; a receipt edited to agree with a false statement; I5 with three files whose last lines carry the token but whose scope is narrower than the claim; I7 with a `--selftest` that prints PASS without asserting anything (does it exit non-zero on a broken copy?); a `population=7` line with an item silently skipped; the guard challenge on a tree with two unresolved items.\nFor each finding give the exact command and the observed reading. Do not fix anything.\n\n# Acceptance\nWrite `.ufo/waves/round-60/build/R60ReviewerC1/findings.md`: one row per probe (probe, command, observed, expected, verdict PASS/FAIL of the instrument, severity). End with `SEAT-STATUS: complete` or `SEAT-STATUS: partial <...>`.\n\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: calibration\nMilestone: C1 C1_ROUTED 7->0 (seven round-59 routed record defects resolved and re-checkable); C2 C2_APPROLE_TRIAL 0->5 (executed OpenBao AppRole secret_id custody trial with its own --selftest); attack seats falsify both\n\nReport: write your scoped findings to .ufo/waves/round-60/w1/R60ReviewerC1.md"
+      },
+      {
+        "name": "R60CriticClaims",
+        "agent": "critic",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\n# Target\nFalsify the round's claim sizing and freeze: show that a target is reachable by do-nothing, that a predicate is ambiguous, that a claim is not causally separable, or that a control cannot fail. Read-only.\n\n# Change\nRead `plans/round-60.md` in full, `AXES.md`'s claim rules, the round-59 spot-check, `SCORECARD.md`'s planned/round-59 blocks, and the latest two lessons. Judge:\n- C1: is `value=7` really the BASE reading (re-derive at least three items yourself)? Does any item pass on a do-nothing tree? Is any item a wording check the same person could satisfy without the substance? Does the checker's guard have a path where it cannot fire and the harness still prints guard=1?\n- C2: is a 5-test trial reachable in one round by one seat, and is it genuinely absent at BASE (`git cat-file -e a677c78e:corpus/openbao-approle-trial.sh`)? Does any of the five tests overlap an existing capability (token/lease r49, wrapping r51, KV v2 r52, audit r57, ACL r58, transit r59) so closely that the claim is a re-score rather than a new surface? Is `--selftest` inside the value a real conjunct or a free pass?\n- Claim hygiene: two claims on distinct axes, causally separable, no universal clause, no narrowing after landing; the admission rule (every claim verifies, no axis harmed); the attack-share arithmetic (16 seats).\nName every ambiguity with the exact sentence and propose the smallest repair the L1 can land before the candidate reading.\n\n# Acceptance\nWrite `.ufo/waves/round-60/build/R60CriticClaims/attack.md` with sections C1, C2, Hygiene; each item a verdict (holds / defect / ambiguity) with the command behind it and a severity. End with `SEAT-STATUS: complete` or `SEAT-STATUS: partial <...>`.\n\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: calibration\nMilestone: C1 C1_ROUTED 7->0 (seven round-59 routed record defects resolved and re-checkable); C2 C2_APPROLE_TRIAL 0->5 (executed OpenBao AppRole secret_id custody trial with its own --selftest); attack seats falsify both\n\nReport: write your scoped findings to .ufo/waves/round-60/w1/R60CriticClaims.md"
+      },
+      {
+        "name": "R60MutCounters",
+        "agent": "mutation-tester",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\n# Target\nMutation-test the round's instruments: find a false green the C1 checker or the C2 counter accepts. Work on copies in scratch; never edit the lane's instruments.\n\n# Change\nOnce `plans/round-60-c1-check.py`, `plans/round-60-c1.sh`, `plans/round-60-c2.sh` and `corpus/openbao-approle-trial.sh` exist, mutate copies and record which mutants survive:\n- checker: an item that always returns 1; an item that returns 1 on any non-empty file; a `population=7` that skips an item; a guard that reports guard=1 without running the challenge; a `git show` fallback that reads the working tree instead of the revision.\n- counter: accept any shim vector; accept a single run as two; accept a missing `--selftest`; accept a summary line with `error=1`; score a no-bao PATH; accept a receipt with a secret-shaped string.\n- trial: a shim that flips two tests; a verdict mapping that maps BROKEN to 0; a `--selftest` that prints PASS without assertions.\nFor each mutant give the file, the exact edit, the reading on the mutated tree and on a clean copy, and whether the instrument caught it (killed) or not (survived). A survivor is a routed defect with a proposed kill.\n\n# Acceptance\nWrite `.ufo/waves/round-60/build/R60MutCounters/mutants.md`: one row per mutant (id, file, edit, clean reading, mutated reading, killed/survived) and a count line `MUTANTS: total=N killed=K survived=S`. Scratch removed before you yield. End with `SEAT-STATUS: complete` or `SEAT-STATUS: partial <...>`.\n\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: calibration, operability\nMilestone: C1 C1_ROUTED 7->0 (seven round-59 routed record defects resolved and re-checkable); C2 C2_APPROLE_TRIAL 0->5 (executed OpenBao AppRole secret_id custody trial with its own --selftest); attack seats falsify both\n\nReport: write your scoped findings to .ufo/waves/round-60/w1/R60MutCounters.md"
+      },
+      {
+        "name": "R60SentinelTrial",
+        "agent": "sentinel",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\n# Target\nSecurity review of the AppRole trial and this round's receipts: secret discipline, process-argument exposure, dev-server bounds, and cleanup. Read-only; work on copies if you must run anything.\n\n# Change\nRead `plans/round-60.md` §C2, `corpus/openbao-approle-trial.sh`, and every receipt under `.ufo/waves/round-60/build/` once they exist. Check at least:\n1. No `secret_id`, token, role's `secret_id` value or request body reaches `argv` (visible in `/proc/*/cmdline`) — the trial must pass bodies on stdin or a 0600 file, and print only verdicts.\n2. No token-shaped string (`hvs.`, `hvb.`, `BAO_DEV_ROOT_TOKEN_ID` value) in any receipt or artifact; grep the whole round tree and report exact hits.\n3. The dev server binds 127.0.0.1 only, runs under `setpriv --pdeathsig KILL`, and cannot inherit the caller's `BAO_*`/`VAULT_*` environment into the measurement.\n4. `--work` confinement and `umask`: nothing the trial writes escapes the work dir; no world-readable file carries a secret.\n5. The trial's `--selftest` cannot be made to pass while a real test is broken (spot-check the assertion shape).\n6. The `bind_secret_id=false` leg is created only on the throwaway server and is documented as unsafe configuration.\nReport each check as PASS/FAIL with the command, plus any hardening the L1 should route.\n\n# Acceptance\nWrite `.ufo/waves/round-60/build/R60SentinelTrial/review.md` with a numbered check list (verdict, command, evidence) and a `SECRET-SCAN: hits=N` line from your own sweep. End with `SEAT-STATUS: complete` or `SEAT-STATUS: partial <...>`.\n\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability, calibration\nMilestone: C1 C1_ROUTED 7->0 (seven round-59 routed record defects resolved and re-checkable); C2 C2_APPROLE_TRIAL 0->5 (executed OpenBao AppRole secret_id custody trial with its own --selftest); attack seats falsify both\n\nReport: write your scoped findings to .ufo/waves/round-60/w1/R60SentinelTrial.md"
+      },
+      {
+        "name": "R60ConnectorSiblings",
+        "agent": "connector",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\n# Target\nSibling-overlap scan: does another lane own AppRole / `secret_id` ground, or the trial+shim+counter-with-selftest pattern, or the seven routed-defect repair convention? Read-only across sibling repos.\n\n# Change\nSearch the sibling lane repos under /home/vgpnk/Projects/shokunin (read-only; never write there) and the shokuknow package at /home/vgpnk/Projects/shokuknow/merge/kagi/ for: `approle`, `secret_id`, `bind_secret_id`, `secret-id-accessor`, `secret_id_bound_cidrs`; the `--selftest` + shim-vector pattern (`SH1`, `KAGI_.*_SHIM`); and the `C1_ROUTED` routed-record idiom.\nFor each hit name the lane, the path, what it does and whether kagi's claim is contested, shared or unique. Separate: (a) ground a sibling holds that kagi should report rather than absorb, (b) material in kagi's own merge package this round should or should not assimilate (the round says `Assimilation: none` — say whether that is defensible), (c) patterns kagi should copy from a sibling with the path.\n\n# Acceptance\nWrite `.ufo/waves/round-60/build/R60ConnectorSiblings/sweep.md` with the exact `grep` commands and hit counts per lane, then the three sections above. End with `SEAT-STATUS: complete` or `SEAT-STATUS: partial <...>`.\n\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: adjacency, coverage\nMilestone: C1 C1_ROUTED 7->0 (seven round-59 routed record defects resolved and re-checkable); C2 C2_APPROLE_TRIAL 0->5 (executed OpenBao AppRole secret_id custody trial with its own --selftest); attack seats falsify both\n\nReport: write your scoped findings to .ufo/waves/round-60/w1/R60ConnectorSiblings.md"
+      },
+      {
+        "name": "R60RevContext",
+        "agent": "revenger",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\n# Target\nReconstruct the original intent behind the seven round-59 routed defects and check that the planned repairs satisfy the intent — not merely the plan's token. Read-only.\n\n# Change\nRead `corpus/lessons/round-59-verifier-spotcheck.md` §7 (D1–D7), the round-59 report on the fleet repo (`/home/vgpnk/Projects/shokunin/.ufo/reports/round-59/kagi.md`), `LOG.md`'s round-59 entry, `.ufo/waves/round-59/w1-results.json` and `.ufo/waves/round-59/final/`.\nFor each of D1–D7 reconstruct: what the round-59 author was trying to record, what the artifact actually says, and what a correct repair must state. Then, against the landed corrections (once the ExecFixRecords seat has written them), judge each repair: does it restore the missing fact, or only the token the plan's item condition reads? Name any repair that would pass the checker but leave a reader misled, with the line and the reading it produces.\nAlso reconstruct the r59 \"measured commit\" intent: which revision the Before → after table was describing and whether the receipt's `measured=revision` is the right correction.\n\n# Acceptance\nWrite `.ufo/waves/round-60/build/R60RevContext/intent.md`: one row per defect (intent, actual, correct repair, judged repair, verdict) plus a `## Mislleading-but-passing` list (may be empty, then say so with the sweep you ran). End with `SEAT-STATUS: complete` or `SEAT-STATUS: partial <...>`.\n\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: calibration, adjacency\nMilestone: C1 C1_ROUTED 7->0 (seven round-59 routed record defects resolved and re-checkable); C2 C2_APPROLE_TRIAL 0->5 (executed OpenBao AppRole secret_id custody trial with its own --selftest); attack seats falsify both\n\nReport: write your scoped findings to .ufo/waves/round-60/w1/R60RevContext.md"
+      }
+    ]
+  },
+  "resumeSends": [],
+  "note": "Issue exactly one batched task call with taskCall ({context, tasks}); never split a wave into multiple task calls (one-swarm-per-wave). Then one hub send per resumeSends entry: hub send --to <entry.resume> --message <entry.message> (entry.name is bookkeeping, not a hub field)."
+}

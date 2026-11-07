@@ -1,0 +1,21 @@
+CONTROL K2-0 expect=5 got=5 MATCH
+  C2_SELF_COUNTS: value=5 (bad=STALE:SC-SKILL-STAMPS STALE:PV-STAMPS STALE:RD-STAMPS STALE:RD-DOCS-ROWLINKED STALE:RD-DOCS-ENTRIES; summary=SELF_COUNTS: POLICY (claims=63 stale=5 unlocated=0 ambiguous=0 policy=2 setup=0))
+CONTROL K2-P expect=0 got=0 MATCH
+  C2_SELF_COUNTS: value=0 (bad=; summary=SELF_COUNTS: POLICY (claims=63 stale=0 unlocated=0 ambiguous=0 policy=2 setup=0))
+CONTROL K2-F1 expect=4 got=4 MATCH
+  C2_SELF_COUNTS: value=4 (bad=STALE:PV-STAMPS STALE:RD-STAMPS STALE:RD-DOCS-ROWLINKED STALE:RD-DOCS-ENTRIES; summary=SELF_COUNTS: POLICY (claims=63 stale=4 unlocated=0 ambiguous=0 policy=2 setup=0))
+CONTROL K2-F2 expect=SETUP got=SETUP MATCH
+  C2_SELF_COUNTS: SETUP guard:g1:R12-03:command
+CONTROL K2-F3 expect=5 got=5 MATCH
+  C2_SELF_COUNTS: value=5 (bad=STALE:SC-SKILL-STAMPS STALE:PV-STAMPS STALE:RD-STAMPS STALE:RD-DOCS-ROWLINKED STALE:RD-DOCS-ENTRIES; summary=SELF_COUNTS: POLICY (claims=63 stale=5 unlocated=0 ambiguous=0 policy=2 setup=0))
+CONTROL K2-F4 expect=SETUP got=SETUP MATCH
+  C2_SELF_COUNTS: SETUP guard:g3
+CONTROL K2-F5 expect=7 got=0 MISMATCH
+  C2_SELF_COUNTS: value=0 (bad=UNLOCATED:SC-SKILL-STAMPS UNLOCATED:SC-SKILL-CLAIMS UNLOCATED:PV-STAMPS UNLOCATED:RD-STAMPS UNLOCATED:RD-DOCS-ROWLINKED UNLOCATED:RD-DOCS-BYHAND UNLOCATED:RD-DOCS-ENTRIES; summary=SELF_COUNTS: POLICY (claims=63 stale=0 unlocated=7 ambiguous=0 policy=2 setup=0))
+CONTROL K2-C1ONLY expect=5 got=5 MATCH
+  C2_SELF_COUNTS: value=5 (bad=STALE:SC-SKILL-STAMPS STALE:PV-STAMPS STALE:RD-STAMPS STALE:RD-DOCS-ROWLINKED STALE:RD-DOCS-ENTRIES; summary=SELF_COUNTS: POLICY (claims=63 stale=5 unlocated=0 ambiguous=0 policy=2 setup=0))
+CONTROL K12-C1 expect=2 got=2 MATCH
+  C1_CURRENCY_CLOCKS: value=2 watched=2 gate=1 guard=1 (ok=S103 S104; bad=; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))
+CONTROL K12-C2 expect=0 got=0 MATCH
+  C2_SELF_COUNTS: value=0 (bad=; summary=SELF_COUNTS: POLICY (claims=63 stale=0 unlocated=0 ambiguous=0 policy=2 setup=0))
+CONTROLS: match=9 mismatch=1

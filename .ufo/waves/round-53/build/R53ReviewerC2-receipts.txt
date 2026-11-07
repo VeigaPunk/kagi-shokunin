@@ -1,0 +1,66 @@
+# R53ReviewerC2 receipts — exact observed outputs (round 53, C2 review)
+# Lane /home/vgpnk/Projects/shokunin/kagi-shokunin; BASE c1953d4a; CAND 36d0a86a.
+# Scratch: /fast/scratch/hyaku/kagi-r53/R53ReviewerC2 (HYAKU_SCRATCH passed per command).
+
+## counter on revisions
+$ bash plans/round-53-c2.sh c1953d4afc19a5a336a58685c00ab5260bcfea1c
+C2_SELF_COUNTS: value=5 (bad=STALE:SC-SKILL-STAMPS STALE:PV-STAMPS STALE:RD-STAMPS STALE:RD-DOCS-ROWLINKED STALE:RD-DOCS-ENTRIES; summary=SELF_COUNTS: POLICY (claims=63 stale=5 unlocated=0 ambiguous=0 policy=2 setup=0))
+exit=0 wall=86.9s
+
+$ bash plans/round-53-c2.sh 36d0a86a7539890eb079d893c9a58e37e84d953d
+C2_SELF_COUNTS: value=0 (bad=; summary=SELF_COUNTS: POLICY (claims=63 stale=0 unlocated=0 ambiguous=0 policy=2 setup=0))
+exit=0 wall=86.9s
+
+## BASE checker over the CAND tree (64 lines, see R53ReviewerC2-checker-cand.txt)
+$ python3 <BASE self-counts.py> --root <CAND tree> --table <BASE self-counts.tsv>
+SELF_COUNTS: POLICY (claims=63 stale=0 unlocated=0 ambiguous=0 policy=2 setup=0)
+exit=2 wall=96.8s
+61 OK + 2 POLICY + 1 summary = 63 claims.
+
+## live quantities on the CAND tree
+$ bash corpus/claim-ledger.sh docs
+DOC_AUDIT: CLEAN (entries=37 row_linked=34 by_hand=3 undeclared=0 missing_ids=0 unpinned=0 duplicate_reasons=0)
+exit=0
+$ grep -c '[^[:space:]]' corpus/stamps.tsv
+125
+$ grep -cE '^R[0-9]+-[0-9]+' corpus/claim-ledger.tsv
+86
+$ python3 corpus/release-clock.py
+RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17)
+exit=0
+$ python3 corpus/release-clock.py --selftest
+RELEASE_CLOCK_SELFTEST: PASS (116 cases)
+exit=0
+
+## --tree guard variants (each exit 2)
+[g1-command] C2_SELF_COUNTS: SETUP guard:g1:R12-03:command
+[g1-duplicate-row] C2_SELF_COUNTS: SETUP guard:g1:R12-03:rows=2
+[g1-expect] C2_SELF_COUNTS: SETUP guard:g1:R12-02:expect
+[g1-missing-row] C2_SELF_COUNTS: SETUP guard:g1:R12-03:rows=0
+[g2-script] C2_SELF_COUNTS: SETUP guard:g2
+[g3-stamp-pruned] C2_SELF_COUNTS: SETUP guard:g3
+[g4-entry-added] C2_SELF_COUNTS: SETUP guard:g4
+[no-revision] C2_SELF_COUNTS: SETUP no-revision
+[bad-revision deadbeef...] C2_SELF_COUNTS: SETUP bad-revision
+[missing-tree /nonexistent-xyz] C2_SELF_COUNTS: SETUP tree
+
+## post-checker parsing (python3 shim in PATH, minimal tree that passes g1-g4)
+[empty] exit=2 C2_SELF_COUNTS: SETUP empty-output
+[nosummary] exit=2 C2_SELF_COUNTS: SETUP summary:hello
+[twosummary] exit=2 C2_SELF_COUNTS: SETUP summary-count
+[tailafter] exit=2 C2_SELF_COUNTS: SETUP summary:tail
+[mismatch] exit=2 C2_SELF_COUNTS: SETUP summary-mismatch:m=1
+[claims62] exit=2 C2_SELF_COUNTS: SETUP claims=62
+[wrongpol] exit=2 C2_SELF_COUNTS: SETUP guard:g5:PV-FEEDTOKEN-SELFTEST PV-OTHER
+[value1] exit=0 C2_SELF_COUNTS: value=1 (bad=STALE:SC-SKILL-STAMPS; summary=SELF_COUNTS: POLICY (claims=63 stale=1 unlocated=0 ambiguous=0 policy=2 setup=0))
+
+## forged full trees
+# tree's corpus/self-counts.py -> stub "SELF_COUNTS: CLEAN (claims=1 stale=0)";
+# tree's corpus/self-counts.tsv -> one row
+exit=2 C2_SELF_COUNTS: SETUP setup=2      (wall 105.1s; claims=63 gate and full-tuple regex passed => BASE table + BASE checker)
+# "[host]" appended to R12-03's note column
+exit=2 C2_SELF_COUNTS: SETUP guard:g5:PV-FEEDTOKEN-SELFTEST PV-FEEDTOKEN-SHAPES PV-STAMPS RD-STAMPS SC-SKILL-STAMPS   (wall 51.5s)
+
+## scratch hygiene
+$ ls -d $HYAKU_SCRATCH/kagi-r53/c2.* | wc -l
+0

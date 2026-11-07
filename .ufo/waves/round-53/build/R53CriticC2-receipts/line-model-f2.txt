@@ -1,0 +1,10 @@
+== grep -n '^| Re-run a claim' fx-f2/SKILL.md
+46:| Re-run a claim this corpus makes / 
+== sed -n '46p' (physical line, cat -v, first 160)
+| Re-run a claim this corpus makes / name the revision you read / cite an artifact / audit a score | `bash corpus/claim-ledger.sh verify` ^M| Re-run a claim thi
+== sed -n '47p' (what the checker NAMES, first 120)
+| Check a number the corpus states about itself | `python3 corpus/self-counts.py` (each row of `corpus/self-counts.tsv` 
+== python splitlines 46/47
+832
+46 '| Re-run a claim this corpus makes / name the revision you read / cite an artifact / audit a score | `bash cor'
+47 '| Re-run a claim this corpus makes (125 stamps + 86 claims, observed live 2026-11-07) (124 stamps + 86 claims '

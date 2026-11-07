@@ -1,0 +1,5 @@
+APPLIED C1M14 /fast/scratch/hyaku/kagi-r53/R53MutCounters/mut/C1M14/plans/round-53-c1.sh
+  before=010d3803e2abe9b9d23859f0ef8ec6cd7f15df5749aedf6283a7330105972400
+  after =0eb197bb00be99fe572794da14fcaecafa91626b0531c68e3b157c06365d744b
+  old   =  [ "$c" -eq 1 ] || { bad="$bad $id:clock-rows=$c"; continue; }
+  new   =  [ "$c" -ge 1 ] || { bad="$bad $id:clock-rows=$c"; continue; }

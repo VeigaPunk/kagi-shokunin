@@ -1,0 +1,62 @@
+# Grep Receipts for R53ConnectorSiblings
+Generated: 2026-11-07
+Lane: /home/vgpnk/Projects/shokunin/kagi-shokunin
+BASE: c1953d4afc19a5a336a58685c00ab5260bcfea1c
+CANDIDATE: 36d0a86a7539890eb079d893c9a58e37e84d953d
+
+=== 1. Sibling Repos Grep ===
+Command:
+python3 -c "
+import glob, os, subprocess
+siblings = [d for d in glob.glob('/home/vgpnk/Projects/shokunin/*-shokunin') if not d.endswith('/kagi-shokunin')]
+patterns = ['FiloSottile/age/releases.atom', 'getsops/sops/releases.atom', 'release-clock', 'on-release', 'self-counts']
+for pat in patterns:
+    for sib in sorted(siblings):
+        corpus = os.path.join(sib, 'corpus')
+        if os.path.exists(corpus):
+            res = subprocess.run(['grep', '-ril', pat, corpus], capture_output=True, text=True)
+            if res.stdout.strip():
+                print(f'{pat} in {os.path.basename(sib)}: {len(res.stdout.strip().splitlines())} files')
+"
+Results:
+FiloSottile/age/releases.atom: 0 hits across 20 siblings
+getsops/sops/releases.atom: 0 hits across 20 siblings
+release-clock: 0 hits across 20 siblings
+on-release: matched across 20 siblings as standard source recheck cadence keyword in SOURCES.md
+self-counts: 3 matches in kotoba-shokunin:
+  kotoba-shokunin/corpus/knowledge/erratum-absorption-round62.md:16
+  kotoba-shokunin/corpus/lessons/round-62.md:43
+  kotoba-shokunin/corpus/QUALITY.md:4
+  (All 3 explicitly cite kagi as external method provenance).
+
+=== 2. Shokuknow Merge Kagi Grep ===
+Command:
+grep -riE '\b(sops|release[- ]feed|releases\.atom|release-clock|FiloSottile)\b' /home/vgpnk/Projects/shokuknow/merge/kagi
+Exit code: 1
+Hits: 0
+
+Command:
+grep -riwn 'age' /home/vgpnk/Projects/shokuknow/merge/kagi
+Exit code: 0
+Hits: 2
+  betterleaks-rule-set-shape-r38.md: 25:`age.go` at 730 B [S146].
+  trufflehog-cache-purpose-and-limits-r44.md: 28:three-hour figure as the single bound on a cached verdict's age.
+Zero hits for age encryption tool release feeds or pins.
+
+=== 3. Currency-on-Cadence Rows in Candidate SOURCES.md ===
+Command:
+git -C /home/vgpnk/Projects/shokunin/kagi-shokunin show 36d0a86a7539890eb079d893c9a58e37e84d953d:corpus/SOURCES.md | grep -iE '\| (S[0-9]+) \|.*\|.*\|.*\|.*\|.*\|.*(current|newest|latest).*\|.*\| *[0-9]+d *\|'
+Exit code: 0
+Hits:
+S033 | 90d  | phrase: "The newest stable SOPS release is v3.13.3"
+S034 | 90d  | phrase: "Newest stable Vault is v2.2.0"
+S035 | 90d  | phrase: "Newest stable OpenBao is v2.7.1"
+S036 | 90d  | phrase: "Newest stable CPython is 3.15.0"
+S037 | 90d  | phrase: "The latest official curl release is 8.23.0 (2026-10-14)"
+S039 | 90d  | phrase: "newest stable semantic version in this fetched feed is 3.15.1"
+S075 | 180d | phrase: "Rev. 2 of June 2020 is the current final key-generation guidance and supersedes Rev. 1"
+S082 | 365d | phrase: "Rev. 2 of March 2019 is the newest final on this page"
+S089 | 90d  | phrase: "the newest stable Vault release in the feed fetched 2026-11-05 is v2.2.1"
+S090 | 90d  | phrase: "the newest stable OpenBao server release in the feed fetched 2026-11-05 is v2.7.2"
+S091 | 90d  | phrase: "the newest stable CPython in the feed fetched 2026-11-05 is 3.15.2"
+S111 | 90d  | phrase: "The newest stable age release is v1.3.2"

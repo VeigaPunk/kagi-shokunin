@@ -1,0 +1,25 @@
+CONTROL K1-0 expect=0 got=0 MATCH
+  C1_CURRENCY_CLOCKS: value=0 watched=0 gate=1 guard=1 (ok=; bad=S103:recheck=90d S104:recheck=90d; gate-line=RELEASE_CLOCK: CLEAN (on_release=29 bound=29 unbound=0 observed=29 fired=13 derived=15))
+CONTROL K1-P expect=2 got=2 MATCH
+  C1_CURRENCY_CLOCKS: value=2 watched=2 gate=1 guard=1 (ok=S103 S104; bad=; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))
+CONTROL K1-F1 expect=0 got=0 MATCH
+  C1_CURRENCY_CLOCKS: value=0 watched=0 gate=0 guard=1 (ok=; bad=S103:clock-rows=0 S104:clock-rows=0; gate-line=RELEASE_CLOCK: FAILED (on_release=31 bound=29 unbound=2 observed=29 fired=13 derived=15))
+CONTROL K1-F2 expect=0 got=0 MATCH
+  C1_CURRENCY_CLOCKS: value=0 watched=0 gate=0 guard=0 (ok=; bad=S103:receipt-unnamed S104:receipt-unnamed; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))
+CONTROL K1-F3 expect=0 got=0 MATCH
+  C1_CURRENCY_CLOCKS: value=0 watched=0 gate=0 guard=1 (ok=; bad=S103:receipt-records=0 S104:receipt-records=0; gate-line=RELEASE_CLOCK: FAILED (on_release=31 bound=31 unbound=0 observed=0 fired=0 derived=0))
+CONTROL K1-F4 expect=0 got=1 MISMATCH
+  C1_CURRENCY_CLOCKS: value=1 watched=1 gate=0 guard=1 (ok=S103; bad=S104:anchored; gate-line=RELEASE_CLOCK: FAILED (on_release=31 bound=31 unbound=0 observed=30 fired=13 derived=16))
+CONTROL K1-F5 expect=1 got=1 MATCH
+  C1_CURRENCY_CLOCKS: value=1 watched=1 gate=1 guard=1 (ok=S103; bad=S104:feed-status; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))
+CONTROL K1-F6 expect=0 got=1 MISMATCH
+  C1_CURRENCY_CLOCKS: value=1 watched=1 gate=0 guard=1 (ok=S103; bad=S104:recheck=90d; gate-line=RELEASE_CLOCK: FAILED (on_release=30 bound=30 unbound=0 observed=30 fired=13 derived=16))
+CONTROL K1-F7 expect=0 got=1 MISMATCH
+  C1_CURRENCY_CLOCKS: value=1 watched=1 gate=0 guard=1 (ok=S103; bad=S104:feed-url; gate-line=RELEASE_CLOCK: FAILED (on_release=31 bound=31 unbound=0 observed=30 fired=13 derived=16))
+CONTROL K1-F8 expect=1 got=1 MATCH
+  C1_CURRENCY_CLOCKS: value=1 watched=1 gate=1 guard=1 (ok=S103; bad=S104:receipt-time-window; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))
+CONTROL K1-F9 expect=1 got=1 MATCH
+  C1_CURRENCY_CLOCKS: value=1 watched=1 gate=1 guard=1 (ok=S103; bad=S104:url-swapped; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))
+CONTROL K1-C2ONLY expect=0 got=0 MATCH
+  C1_CURRENCY_CLOCKS: value=0 watched=0 gate=1 guard=1 (ok=; bad=S103:recheck=90d S104:recheck=90d; gate-line=RELEASE_CLOCK: CLEAN (on_release=29 bound=29 unbound=0 observed=29 fired=13 derived=15))
+CONTROLS: match=9 mismatch=3

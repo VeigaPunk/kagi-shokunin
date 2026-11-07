@@ -1,0 +1,24 @@
+=== fx5-symlink-dir
+counter: C1_CURRENCY_CLOCKS: value=2 watched=2 gate=1 guard=1 (ok=S103 S104; bad=; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))
+counter-rc: 0
+gate:    RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17)
+gate-rc: 0
+
+=== fx5b-extract
+counter: C1_CURRENCY_CLOCKS: value=2 watched=2 gate=1 guard=1 (ok=S103 S104; bad=; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))
+counter-rc: 0
+gate:    RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17)
+gate-rc: 0
+
+=== fx6-feed-onrelease
+counter: C1_CURRENCY_CLOCKS: value=0 watched=1 gate=0 guard=1 (ok=S103; bad=S104:feed-recheck; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=31 unbound=1 observed=30 fired=13 derived=16))
+counter-rc: 0
+gate:    RELEASE_CLOCK: FAILED (on_release=32 bound=31 unbound=1 observed=30 fired=13 derived=16)
+gate-rc: 0
+
+=== fx7-lookalike-feed
+counter: C1_CURRENCY_CLOCKS: value=1 watched=1 gate=1 guard=1 (ok=S103; bad=S104:feed-url; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))
+counter-rc: 0
+gate:    RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17)
+gate-rc: 0
+

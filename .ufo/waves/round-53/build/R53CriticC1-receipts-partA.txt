@@ -1,0 +1,24 @@
+=== fx1-invented-receipt
+counter: C1_CURRENCY_CLOCKS: value=2 watched=2 gate=1 guard=1 (ok=S103 S104; bad=; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))
+counter-rc: 0
+gate:    RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17)
+gate-rc: 0
+
+=== fx2-reused-record
+counter: C1_CURRENCY_CLOCKS: value=2 watched=2 gate=1 guard=1 (ok=S103 S104; bad=; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))
+counter-rc: 0
+gate:    RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17)
+gate-rc: 0
+
+=== fx3-relocated-receipt
+counter: C1_CURRENCY_CLOCKS: value=2 watched=2 gate=1 guard=1 (ok=S103 S104; bad=; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))
+counter-rc: 0
+gate:    RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17)
+gate-rc: 0
+
+=== fx4-symlink-file
+counter: C1_CURRENCY_CLOCKS: value=0 watched=0 gate=1 guard=1 (ok=; bad=S103:receipt-missing S104:receipt-missing; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))
+counter-rc: 0
+gate:    RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17)
+gate-rc: 0
+

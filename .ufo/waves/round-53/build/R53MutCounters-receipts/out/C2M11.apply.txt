@@ -1,0 +1,5 @@
+APPLIED C2M11 /fast/scratch/hyaku/kagi-r53/R53MutCounters/mut/C2M11/plans/round-53-c2.sh
+  before=6be495ba78638ff73e23f0c6688841a6aa3f424aad70c1107f61ba8cbba3dffb
+  after =b67152b5931addf49a6365978582a9db77ca36fc0040b568fdcfc8925ce9a665
+  old   =out=$(cd "$T" && timeout 900 python3 "$SCR/b/self-counts.py" --root "$T" --table "$SCR/b/self-counts.tsv" 2>&1)
+  new   =out=$(cd "$T" && timeout 900 python3 "$SCR/b/self-counts.py" --root "$T" --table "$T/corpus/self-counts.tsv" 2>&1)

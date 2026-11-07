@@ -1,0 +1,19 @@
+=== candidate 36d0a86a (revision mode)
+C1_CURRENCY_CLOCKS: value=2 watched=2 gate=1 guard=1 (ok=S103 S104; bad=; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))
+counter-rc: 0
+
+=== BASE c1953d4a (revision mode)
+C1_CURRENCY_CLOCKS: value=0 watched=0 gate=1 guard=1 (ok=; bad=S103:recheck=90d S104:recheck=90d; gate-line=RELEASE_CLOCK: CLEAN (on_release=29 bound=29 unbound=0 observed=29 fired=13 derived=15))
+counter-rc: 0
+
+=== sibling quote-locate.py on fx13-no-capture
+NOT-LOCATED S111 body-missing
+QUOTE_LOCATE: FAIL located=8 rows=9
+
+=== sibling sources-census.sh on fx12-fenced-row
+SOURCES_CENSUS: CLEAN (rows=111 A=107 B=2 C=2 queued=1 mined=106 rejected=4 entries_sourced=16 legacy=21 captures=111 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+
+=== fixture-repo revision rejected (counter reads only lane revisions)
+fx commit 3ac060dd8ce459ca353adecb0b4e5686ccb6a4f2 ct=1799107200
+C1_CURRENCY_CLOCKS: SETUP bad-revision
+counter-rc: 2

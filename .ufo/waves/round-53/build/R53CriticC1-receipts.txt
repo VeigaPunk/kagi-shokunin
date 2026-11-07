@@ -1,0 +1,161 @@
+# R53CriticC1 C1 forgery receipts — measured 2026-11-07 (parts A/B 04:05:5x, C/D1/D2 04:07–04:08 Z)
+# every counter run below: C1_ASOF=$(date +%s) taken at the start of its part shell (1794024xxx-1794024511)
+# counter: bash plans/round-53-c1.sh --tree <fixture>   |   gate: python3 corpus/release-clock.py in the fixture tree
+
+=== fx1-invented-receipt
+counter: C1_CURRENCY_CLOCKS: value=2 watched=2 gate=1 guard=1 (ok=S103 S104; bad=; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))
+counter-rc: 0
+gate:    RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17)
+gate-rc: 0
+
+=== fx2-reused-record
+counter: C1_CURRENCY_CLOCKS: value=2 watched=2 gate=1 guard=1 (ok=S103 S104; bad=; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))
+counter-rc: 0
+gate:    RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17)
+gate-rc: 0
+
+=== fx3-relocated-receipt
+counter: C1_CURRENCY_CLOCKS: value=2 watched=2 gate=1 guard=1 (ok=S103 S104; bad=; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))
+counter-rc: 0
+gate:    RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17)
+gate-rc: 0
+
+=== fx4-symlink-file
+counter: C1_CURRENCY_CLOCKS: value=0 watched=0 gate=1 guard=1 (ok=; bad=S103:receipt-missing S104:receipt-missing; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))
+counter-rc: 0
+gate:    RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17)
+gate-rc: 0
+
+=== fx5-symlink-dir
+counter: C1_CURRENCY_CLOCKS: value=2 watched=2 gate=1 guard=1 (ok=S103 S104; bad=; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))
+counter-rc: 0
+gate:    RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17)
+gate-rc: 0
+
+=== fx5b-extract
+counter: C1_CURRENCY_CLOCKS: value=2 watched=2 gate=1 guard=1 (ok=S103 S104; bad=; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))
+counter-rc: 0
+gate:    RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17)
+gate-rc: 0
+
+=== fx6-feed-onrelease
+counter: C1_CURRENCY_CLOCKS: value=0 watched=1 gate=0 guard=1 (ok=S103; bad=S104:feed-recheck; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=31 unbound=1 observed=30 fired=13 derived=16))
+counter-rc: 0
+gate:    RELEASE_CLOCK: FAILED (on_release=32 bound=31 unbound=1 observed=30 fired=13 derived=16)
+gate-rc: 0
+
+=== fx7-lookalike-feed
+counter: C1_CURRENCY_CLOCKS: value=1 watched=1 gate=1 guard=1 (ok=S103; bad=S104:feed-url; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))
+counter-rc: 0
+gate:    RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17)
+gate-rc: 0
+
+=== fx8a-empty-note
+counter: C1_CURRENCY_CLOCKS: value=0 watched=2 gate=0 guard=1 (ok=S103 S104; bad=; gate-line=RELEASE_CLOCK: FAILED (on_release=31 bound=31 unbound=0 observed=30 fired=13 derived=16))
+counter-rc: 0
+gate:    RELEASE_CLOCK: FAILED (on_release=31 bound=31 unbound=0 observed=30 fired=13 derived=16)
+gate-rc: 0
+
+=== fx8b-extra-tab
+counter: C1_CURRENCY_CLOCKS: value=0 watched=1 gate=0 guard=1 (ok=S103; bad=S104:clock-fields; gate-line=RELEASE_CLOCK: FAILED (on_release=31 bound=31 unbound=0 observed=30 fired=13 derived=16))
+counter-rc: 0
+gate:    RELEASE_CLOCK: FAILED (on_release=31 bound=31 unbound=0 observed=30 fired=13 derived=16)
+gate-rc: 0
+
+=== fx9-future-receipt
+counter: C1_CURRENCY_CLOCKS: value=1 watched=1 gate=1 guard=1 (ok=S103; bad=S104:receipt-time-window; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))
+counter-rc: 0
+gate:    RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17)
+gate-rc: 0
+counter C1_ASOF=1900000000: C1_CURRENCY_CLOCKS: value=2 watched=2 gate=1 guard=1 (ok=S103 S104; bad=; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))
+counter-rc: 0
+
+=== fx10-dup-receipt-record
+counter: C1_CURRENCY_CLOCKS: value=0 watched=1 gate=0 guard=1 (ok=S103; bad=S104:receipt-records=2; gate-line=RELEASE_CLOCK: FAILED (on_release=31 bound=31 unbound=0 observed=30 fired=13 derived=16))
+counter-rc: 0
+gate:    RELEASE_CLOCK: FAILED (on_release=31 bound=31 unbound=0 observed=30 fired=13 derived=16)
+gate-rc: 0
+
+=== fx11-dup-clock-row
+counter: C1_CURRENCY_CLOCKS: value=0 watched=1 gate=0 guard=1 (ok=S103; bad=S104:clock-rows=2; gate-line=RELEASE_CLOCK: FAILED (on_release=31 bound=30 unbound=0 observed=30 fired=13 derived=16))
+counter-rc: 0
+gate:    RELEASE_CLOCK: FAILED (on_release=31 bound=30 unbound=0 observed=30 fired=13 derived=16)
+gate-rc: 0
+
+=== fx12-fenced-row
+counter: C1_CURRENCY_CLOCKS: value=2 watched=2 gate=1 guard=1 (ok=S103 S104; bad=; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))
+counter-rc: 0
+gate:    RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17)
+gate-rc: 0
+
+=== fx13-no-capture
+counter: C1_CURRENCY_CLOCKS: value=2 watched=2 gate=1 guard=1 (ok=S103 S104; bad=; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))
+counter-rc: 0
+gate:    RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17)
+gate-rc: 0
+
+=== fx14-renamed-receipt
+counter: C1_CURRENCY_CLOCKS: value=2 watched=2 gate=1 guard=1 (ok=S103 S104; bad=; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))
+counter-rc: 0
+gate:    RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17)
+gate-rc: 0
+
+=== candidate 36d0a86a (revision mode)
+C1_CURRENCY_CLOCKS: value=2 watched=2 gate=1 guard=1 (ok=S103 S104; bad=; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))
+counter-rc: 0
+
+=== BASE c1953d4a (revision mode)
+C1_CURRENCY_CLOCKS: value=0 watched=0 gate=1 guard=1 (ok=; bad=S103:recheck=90d S104:recheck=90d; gate-line=RELEASE_CLOCK: CLEAN (on_release=29 bound=29 unbound=0 observed=29 fired=13 derived=15))
+counter-rc: 0
+
+=== sibling quote-locate.py on fx13-no-capture
+NOT-LOCATED S111 body-missing
+QUOTE_LOCATE: FAIL located=8 rows=9
+
+=== sibling sources-census.sh on fx12-fenced-row
+SOURCES_CENSUS: CLEAN (rows=111 A=107 B=2 C=2 queued=1 mined=106 rejected=4 entries_sourced=16 legacy=21 captures=111 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+
+=== fixture-repo revision rejected (counter reads only lane revisions)
+fx commit 3ac060dd8ce459ca353adecb0b4e5686ccb6a4f2 ct=1799107200
+C1_CURRENCY_CLOCKS: SETUP bad-revision
+counter-rc: 2
+
+# ---- rebuild check: fixtures regenerated by build2.py reproduce byte-identical receipts
+# (fx5b receipt digest 700a4cc9840c0879…, fx14 = candidate receipt f927b4318dee90ad…)
+# and the same counter lines as parts C/D1 (ASOF=$(date +) at the part start)
+=== fx5b-extract
+counter: C1_CURRENCY_CLOCKS: value=2 watched=2 gate=1 guard=1 (ok=S103 S104; bad=; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))
+counter-rc: 0
+gate:    RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17)
+gate-rc: 0
+
+=== fx12-fenced-row
+counter: C1_CURRENCY_CLOCKS: value=2 watched=2 gate=1 guard=1 (ok=S103 S104; bad=; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))
+counter-rc: 0
+gate:    RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17)
+gate-rc: 0
+
+=== fx13-no-capture
+counter: C1_CURRENCY_CLOCKS: value=2 watched=2 gate=1 guard=1 (ok=S103 S104; bad=; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))
+counter-rc: 0
+gate:    RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17)
+gate-rc: 0
+
+=== fx10-dup-receipt-record
+counter: C1_CURRENCY_CLOCKS: value=0 watched=1 gate=0 guard=1 (ok=S103; bad=S104:receipt-records=2; gate-line=RELEASE_CLOCK: FAILED (on_release=31 bound=31 unbound=0 observed=30 fired=13 derived=16))
+counter-rc: 0
+gate:    RELEASE_CLOCK: FAILED (on_release=31 bound=31 unbound=0 observed=30 fired=13 derived=16)
+gate-rc: 0
+
+=== fx11-dup-clock-row
+counter: C1_CURRENCY_CLOCKS: value=0 watched=1 gate=0 guard=1 (ok=S103; bad=S104:clock-rows=2; gate-line=RELEASE_CLOCK: FAILED (on_release=31 bound=30 unbound=0 observed=30 fired=13 derived=16))
+counter-rc: 0
+gate:    RELEASE_CLOCK: FAILED (on_release=31 bound=30 unbound=0 observed=30 fired=13 derived=16)
+gate-rc: 0
+
+=== fx14-renamed-receipt
+counter: C1_CURRENCY_CLOCKS: value=2 watched=2 gate=1 guard=1 (ok=S103 S104; bad=; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))
+counter-rc: 0
+gate:    RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17)
+gate-rc: 0
+

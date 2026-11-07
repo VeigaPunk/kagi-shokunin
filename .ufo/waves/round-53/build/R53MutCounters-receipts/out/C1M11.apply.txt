@@ -1,0 +1,5 @@
+APPLIED C1M11 /fast/scratch/hyaku/kagi-r53/R53MutCounters/mut/C1M11/plans/round-53-c1.sh
+  before=010d3803e2abe9b9d23859f0ef8ec6cd7f15df5749aedf6283a7330105972400
+  after =a1389d191145026f56c802a2cd67b99ce2052074f89bcee4162538ef14f9508e
+  old   =if o.get("verdict") != "not-fired": print("receipt-verdict"); sys.exit()
+  new   =if False and o.get("verdict") != "not-fired": print("receipt-verdict"); sys.exit()

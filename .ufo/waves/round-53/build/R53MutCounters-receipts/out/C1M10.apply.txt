@@ -1,0 +1,5 @@
+APPLIED C1M10 /fast/scratch/hyaku/kagi-r53/R53MutCounters/mut/C1M10/plans/round-53-c1.sh
+  before=010d3803e2abe9b9d23859f0ef8ec6cd7f15df5749aedf6283a7330105972400
+  after =67d0ec98a25bccfaef493e399865c1083cac7588ef1c0b7a4e59b22be21b53c9
+  old   =if o.get("http_status") != 200: print("receipt-status"); sys.exit()
+  new   =if False and o.get("http_status") != 200: print("receipt-status"); sys.exit()

@@ -1,0 +1,63 @@
+# R53SentinelScope evidence — collected 2026-11-07 (host clock -0300)
+
+BASE c1953d4afc19a5a336a58685c00ab5260bcfea1c -> CANDIDATE 36d0a86a7539890eb079d893c9a58e37e84d953d
+
+## scope: 38 changed paths
+25 lane files (LOG.md, PROVINCE.md, SCORECARD.md, SKILL.md, corpus/QUALITY.md, corpus/README.md,
+corpus/SOURCES.md, corpus/claim-ledger.tsv, corpus/claims-declared.tsv, corpus/lessons/round-53.md,
+corpus/quote-bodies.tsv, corpus/release-clock.py, corpus/release-clocks.tsv,
+corpus/source-fetches.tsv, corpus/stamps.tsv, plans/round-53.md, plans/round-53-c1.sh,
+plans/round-53-c2.sh, plans/round-53-controls.sh, .ufo/waves/round-53/capture/S111.body,
+.ufo/waves/round-53/expectation-migrations.json, .ufo/waves/round-53/final/{c1,c2}-candidate-tree.txt,
+.ufo/waves/round-53/final/observe-r53.json, .ufo/waves/round-53/final/verify-candidate-tree*.txt,
+.ufo/waves/round-53/controls/{c1-base,c2-base,census-start,controls-prefreeze,controls-prefreeze-run1}.txt)
++ 13 control-fixture copies under .ufo/waves/round-53/controls/fixtures/ref/c1/.
+
+## live fetch receipts (plain GET of public pages)
+age releases.atom  HTTP 200, 40379 bytes
+sha256 32517112c2ecb63ce97dfbbdf9c47569678738fda984da524b2cd38129d8f21d  (live)
+sha256 32517112c2ecb63ce97dfbbdf9c47569678738fda984da524b2cd38129d8f21d  (.ufo/waves/round-53/capture/S111.body)
+cmp live vs committed: IDENTICAL
+age v1.3.2 tag page HTTP 200, 153073 bytes; datetime="2026-08-29T17:55:36Z"
+
+## observe-r53.json
+sha256 f927b4318dee90ad3e2a8e2f899fcd2e37c43e833e7c3c3705aa5b5723d37c9a
+31 observations; keys clock,http_status,id,located,observed_at,parsed_version,sha256,url,verdict
+verdicts fired=13 quote-located=11 not-fired=7; all URLs https, no query strings or credentials
+S104 row sha256 = 32517112... (equals the committed S111.body digest)
+
+## pattern sweep over the 38 changed paths
+hvs.<token>                 0
+s.<token>                   0
+AGE-SECRET-KEY-[A-Z0-9]     2   (.ufo/waves/round-53/capture/S111.body + its fixture copy;
+                                doc placeholder "AGE-SECRET-KEY-PQ-1..." only, no key body)
+-----BEGIN ...              0
+op://                       16  (SKILL.md only; 16 at BASE too; 9 bare "op://", 7 "op://...";
+                                no vault/item/field triple)
+ghp_/gho_/github_pat_       0
+xox[baprs]-                 0
+AKIA[0-9A-Z]{16}            0
+JWT (eyJ...eyJ)             0
+sk-...                      0
+ssh-rsa/ed25519 AAAA        0
+unseal/root_token/VAULT_TOKEN 0
+bearer <tokenish>           0
+set-cookie/cookie:/_gh_sess/sessionid 3 (code prose: release-clock.py:155, SKILL.md:86, fixture copy)
+literal /tmp/               0
+high-entropy (>=44 chars, H>4.2) 145 -> all URLs, in-lane paths, commit slugs, public age1 recipients
+
+## quote-bodies anchors (byte offsets)
+9/9 rows verify: body[offset:offset+len(quote)] == quote. S111 offset 725 ->
+"<title>age v1.3.2</title>" in .ufo/waves/round-53/capture/S111.body (first_true_offset 725).
+
+## host paths outside the lane
+corpus/lessons/round-53.md:53              /home/vgpnk/Projects/shokuknow/merge/kagi   (exists; convention of rounds 48-52)
+corpus/SOURCES.md:140                      /home/vgpnk/Projects/shokunin/.tower/worktrees/kaika/fleet-ledger (MISSING; blamed to 064d4b6, pre-existing)
+controls/fixtures/ref/c1/corpus/SOURCES.md:140  same as above (fixture copy)
+.ufo/waves/round-53/controls/census-start.txt:20 in-lane path (benign)
+
+## scratch discipline
+plans/round-53-c1.sh:46 ${HYAKU_SCRATCH:-/fast/scratch/hyaku}/kagi-r53/c1.$$  trap :48
+plans/round-53-c2.sh:38 same shape, trap :40
+plans/round-53-controls.sh:13 SCR, :15 mktemp -d "$SCR/controls.XXXXXX", :16 trap
+literal /tmp in the four round-53 plan files: 0

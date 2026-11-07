@@ -1,0 +1,5 @@
+APPLIED C2M05 /fast/scratch/hyaku/kagi-r53/R53MutCounters/mut/C2M05/plans/round-53-c2.sh
+  before=6be495ba78638ff73e23f0c6688841a6aa3f424aad70c1107f61ba8cbba3dffb
+  after =feccbb5360a22bf0d7aab19b854ecc81207171dee0f711c33f3e98d4b2d6be72
+  old   =cmp -s <(cut -f1 "$T/corpus/stamps.tsv" | sort) <(cut -f1 "$SCR/b/stamps.tsv" | sort) || setup guard:g3
+  new   =:  # g3 dropped

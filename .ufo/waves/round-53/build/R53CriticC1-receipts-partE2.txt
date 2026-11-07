@@ -1,0 +1,18 @@
+=== fx10-dup-receipt-record
+counter: C1_CURRENCY_CLOCKS: value=0 watched=1 gate=0 guard=1 (ok=S103; bad=S104:receipt-records=2; gate-line=RELEASE_CLOCK: FAILED (on_release=31 bound=31 unbound=0 observed=30 fired=13 derived=16))
+counter-rc: 0
+gate:    RELEASE_CLOCK: FAILED (on_release=31 bound=31 unbound=0 observed=30 fired=13 derived=16)
+gate-rc: 0
+
+=== fx11-dup-clock-row
+counter: C1_CURRENCY_CLOCKS: value=0 watched=1 gate=0 guard=1 (ok=S103; bad=S104:clock-rows=2; gate-line=RELEASE_CLOCK: FAILED (on_release=31 bound=30 unbound=0 observed=30 fired=13 derived=16))
+counter-rc: 0
+gate:    RELEASE_CLOCK: FAILED (on_release=31 bound=30 unbound=0 observed=30 fired=13 derived=16)
+gate-rc: 0
+
+=== fx14-renamed-receipt
+counter: C1_CURRENCY_CLOCKS: value=2 watched=2 gate=1 guard=1 (ok=S103 S104; bad=; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))
+counter-rc: 0
+gate:    RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17)
+gate-rc: 0
+

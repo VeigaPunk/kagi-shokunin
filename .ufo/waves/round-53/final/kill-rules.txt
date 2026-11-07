@@ -1,0 +1,10 @@
+# round-53 kill rules at candidate 36d0a86a7539890eb079d893c9a58e37e84d953d
+$ git diff --stat 39460f8676954f135d15fa99b43cd882360b3eee 36d0a86a7539890eb079d893c9a58e37e84d953d -- plans/round-53.md plans/round-53-c1.sh plans/round-53-c2.sh plans/round-53-controls.sh .ufo/waves/round-53/controls | wc -l
+0
+cmp corpus/release-clocks.tsv ref: same
+cmp corpus/release-clock.py ref: same
+cmp .ufo/waves/round-53/final/observe-r53.json ref: same
+$ git diff --stat c1953d4afc19a5a336a58685c00ab5260bcfea1c 36d0a86a7539890eb079d893c9a58e37e84d953d -- corpus/self-counts.py corpus/self-counts.tsv corpus/claim-ledger.sh | wc -l
+0
+$ git diff --numstat c1953d4afc19a5a336a58685c00ab5260bcfea1c 36d0a86a7539890eb079d893c9a58e37e84d953d -- corpus/release-clock.py
+3	3	corpus/release-clock.py

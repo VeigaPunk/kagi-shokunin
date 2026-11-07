@@ -1,0 +1,223 @@
+{
+  "schema": "ufo-swarm-wave-dispatch-v1",
+  "wave": "kagi-r56-build",
+  "policy": {
+    "source": "config",
+    "maxLanes": 256,
+    "minLanes": 8,
+    "waveMinLanes": 8,
+    "waveMaxLanes": 16,
+    "declaredMaxLanes": null,
+    "hardCeiling": 256,
+    "rampBatchSize": 5,
+    "rampIntervalMs": 700,
+    "globalRunnerCeiling": 1056
+  },
+  "counts": {
+    "spawn": 12,
+    "resume": 0,
+    "total": 12
+  },
+  "registry": {
+    "schema": "ufo-swarm-registry-v1",
+    "path": ".ufo/waves/round-56/build/swarm-registry.json",
+    "reportDir": ".ufo/waves/round-56/build",
+    "members": {
+      "R56ExecControls": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": null,
+        "axes": [
+          "freshness"
+        ],
+        "milestone": "Acquire lane-wide stated-clock offline replay capability; prefreeze control and mutation attacks; domain live rechecks and frontier"
+      },
+      "R56ExecLive": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": null,
+        "axes": [
+          "freshness"
+        ],
+        "milestone": "Acquire lane-wide stated-clock offline replay capability; prefreeze control and mutation attacks; domain live rechecks and frontier"
+      },
+      "R56ExecHarm": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": null,
+        "axes": [
+          "freshness"
+        ],
+        "milestone": "Acquire lane-wide stated-clock offline replay capability; prefreeze control and mutation attacks; domain live rechecks and frontier"
+      },
+      "R56ScoutSources": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scout",
+        "item": null,
+        "axes": [
+          "freshness"
+        ],
+        "milestone": "Acquire lane-wide stated-clock offline replay capability; prefreeze control and mutation attacks; domain live rechecks and frontier"
+      },
+      "R56Connector": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "connector",
+        "item": null,
+        "axes": [
+          "freshness"
+        ],
+        "milestone": "Acquire lane-wide stated-clock offline replay capability; prefreeze control and mutation attacks; domain live rechecks and frontier"
+      },
+      "R56Scribe": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scribe",
+        "item": null,
+        "axes": [
+          "freshness"
+        ],
+        "milestone": "Acquire lane-wide stated-clock offline replay capability; prefreeze control and mutation attacks; domain live rechecks and frontier"
+      },
+      "R56ReviewGate": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "freshness"
+        ],
+        "milestone": "Acquire lane-wide stated-clock offline replay capability; prefreeze control and mutation attacks; domain live rechecks and frontier"
+      },
+      "R56ReviewCounter": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "freshness"
+        ],
+        "milestone": "Acquire lane-wide stated-clock offline replay capability; prefreeze control and mutation attacks; domain live rechecks and frontier"
+      },
+      "R56Critic": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "critic",
+        "item": null,
+        "axes": [
+          "freshness"
+        ],
+        "milestone": "Acquire lane-wide stated-clock offline replay capability; prefreeze control and mutation attacks; domain live rechecks and frontier"
+      },
+      "R56MutGate": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "mutation-tester",
+        "item": null,
+        "axes": [
+          "freshness"
+        ],
+        "milestone": "Acquire lane-wide stated-clock offline replay capability; prefreeze control and mutation attacks; domain live rechecks and frontier"
+      },
+      "R56MutCounter": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "mutation-tester",
+        "item": null,
+        "axes": [
+          "freshness"
+        ],
+        "milestone": "Acquire lane-wide stated-clock offline replay capability; prefreeze control and mutation attacks; domain live rechecks and frontier"
+      },
+      "R56Sentinel": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "sentinel",
+        "item": null,
+        "axes": [
+          "freshness"
+        ],
+        "milestone": "Acquire lane-wide stated-clock offline replay capability; prefreeze control and mutation attacks; domain live rechecks and frontier"
+      }
+    }
+  },
+  "compaction": {
+    "applied": false,
+    "mechanism": null,
+    "reason": null,
+    "savedBytes": 0,
+    "payloadBytesBefore": 0,
+    "payloadBytesAfter": 0
+  },
+  "taskCall": {
+    "context": "kagi round 56 attempt 1. One v1 12-seat wave. L1 KagiR56 holds planner seat and integration. Lane /home/vgpnk/Projects/shokunin/kagi-shokunin, BASE 832ba6a53d6a76706b5c80bce2278683dea33d42, branch master. PROPOSED, NOT FROZEN YET: ONE capability claim on freshness, C1_REPLAY value=REPLAYED when GUARD=1 else FAIL, target 10 BASE 0. Counter plans/round-56-c1.sh. Gate corpus/recheck-replay.py and manifest corpus/recheck-captures.tsv in working tree; captures .ufo/waves/round-56/capture/. No candidate scored for admission yet; L1 is running prerequisite controls before freeze. Prior round routed lane-wide offline recheck replay; this round implements it (three filter forms, 10 stated clocks in 8 entries). No C2 claim: other support-id work waits.\nYou may run assigned checks. DO NOT EDIT PRODUCTION FILES; write only your report and receipt files at /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-56/build/<seat>.md and <seat>.d/. All Report trailer paths relative to /home/vgpnk/Projects/shokunin/kagi-shokunin. Never task/delegate. Never git/jj mutation in lane, fleet or siblings. Scratch /fast/scratch/hyaku/kagi-r56/<seat>/, one live clone only, check fixture root before any fixture git writes; delete scratch before yield. No /tmp large trees. No host sysctl/boot/auth/network credential mutation. Refusal boundary: never read/capture/print secrets, cookies, vault material; public documentation GETs only, do not save response headers containing cookies. Tools may be installed only after reading /home/vgpnk/.omp/agent/RULES.md; record tool/version/channel/reason; all pacman transactions PAUSED. Read lane PROVINCE and QUALITY as relevant. Every finding must name exact bytes/revision or SHA256, command, rc, ids. Unrun is not passed. Draft counter may be changed before freeze in response to your findings; report exact instrument hashes. Send time-sensitive blockers only to agent://KagiR56. Reports must state your observed answering model if available, not guess from prompt.\n",
+    "tasks": [
+      {
+        "name": "R56ExecControls",
+        "agent": "executor",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\nBuild prefreeze executable controls for plans/round-56-c1.sh. Write proposed controls script under your report .d/controls.sh (not plans). It must accept --tree reference; create isolated scratch copies and execute counter public --tree path. Test BASE/no-work 0; positive reference 10; missing/printer gate; deleted/restated clock; wrong count; wrong digest; no manifest; missing/duplicate manifest row; URL swap; symlink capture; changed normaliser; SETUP/empty producer; missing/malformed captures. Expected outcomes fixed before each run; report match/mismatch and counter stdout/rc. Freeze has NOT occurred: propose repairs. Do not commit. L1 can integrate script. At least 20 genuine controls, but no padding.\nReport: /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-56/build/R56ExecControls.md\nScratch: /fast/scratch/hyaku/kagi-r56/R56ExecControls/\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\nJudged on: freshness\nMilestone: Acquire lane-wide stated-clock offline replay capability; prefreeze control and mutation attacks; domain live rechecks and frontier\n\nReport: write your scoped findings to .ufo/waves/round-56/build/R56ExecControls.md"
+      },
+      {
+        "name": "R56ExecLive",
+        "agent": "executor",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\nIndependently run the 10 exact live recheck commands from knowledge entry recheck lines, only public documentation GET. Capture outputs/status/counts, do not save response headers/cookies. Compare to committed captures. Check pdftotext/locate transforms. Give each statement's live vs offline truth with URL, date and <=25-word located quote. Report 0/10 mismatches or exact ones. This is the end-to-end real domain task independent replay.\nReport: /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-56/build/R56ExecLive.md\nScratch: /fast/scratch/hyaku/kagi-r56/R56ExecLive/\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\nJudged on: freshness\nMilestone: Acquire lane-wide stated-clock offline replay capability; prefreeze control and mutation attacks; domain live rechecks and frontier\n\nReport: write your scoped findings to .ufo/waves/round-56/build/R56ExecLive.md"
+      },
+      {
+        "name": "R56ExecHarm",
+        "agent": "executor",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\nEstablish BASE vs current candidate harm evidence on separate sandbox snapshots; no lane writes. Run sources census, quote-locate, claims-declared, new replay/selftest, stamps comparison and inspect claim ledger changes. Full ledger verify only in clone with time bounded; distinguish inherited timeout/policy from change. Report current files unstamped from L1 edits (do not patch). Prior six FAIL/POLICY ids R11-08,R25-02,R36-01,R29-01,R29-02,R38-03 preserve. Check existing source-fetches, SOURCES rows unchanged.\nReport: /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-56/build/R56ExecHarm.md\nScratch: /fast/scratch/hyaku/kagi-r56/R56ExecHarm/\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\nJudged on: freshness\nMilestone: Acquire lane-wide stated-clock offline replay capability; prefreeze control and mutation attacks; domain live rechecks and frontier\n\nReport: write your scoped findings to .ufo/waves/round-56/build/R56ExecHarm.md"
+      },
+      {
+        "name": "R56ScoutSources",
+        "agent": "scout",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\nIndependently reopen at least S054/S055/S057/S067/S070/S074/S078 public URLs, locate recheck quote/expectation, identify source rejections for frontier lesson. S070 and S018 same URL distinct scope; do not append rows. Draft corrections for S113 default-UA assertion D3: probe default curl UA with no headers saved, record status; suggest narrow sentence. No edits to SOURCES. Note dynamic body hashes honestly.\nReport: /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-56/build/R56ScoutSources.md\nScratch: /fast/scratch/hyaku/kagi-r56/R56ScoutSources/\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness\nMilestone: Acquire lane-wide stated-clock offline replay capability; prefreeze control and mutation attacks; domain live rechecks and frontier\n\nReport: write your scoped findings to .ufo/waves/round-56/build/R56ScoutSources.md"
+      },
+      {
+        "name": "R56Connector",
+        "agent": "connector",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\nRead sibling only where relevant, find existing offline clock/replay/capture path patterns and overlap; judge freshness capability vs generic tooling domain fit. Check stagnation nudge (last capability round52, completed53-55; axes9 saturation9 N3). Mine newest considerthese proposal or matching shokuknow theme as a lead only; never edit those. Produce exact recommendation and source pointer; do not absorb unrelated scope.\nReport: /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-56/build/R56Connector.md\nScratch: /fast/scratch/hyaku/kagi-r56/R56Connector/\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness\nMilestone: Acquire lane-wide stated-clock offline replay capability; prefreeze control and mutation attacks; domain live rechecks and frontier\n\nReport: write your scoped findings to .ufo/waves/round-56/build/R56Connector.md"
+      },
+      {
+        "name": "R56Scribe",
+        "agent": "scribe",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\nDraft round56 lesson in report .d/lesson.md with proposed ONE claim, source Gate all7 URLs accessdate and <=25-word located quote (inspect captured bodies; PDF use pdftotext), admit/reject discernment sample, mistakes M55-2 and closure D1-D5 disposition. Draft only, no production edits. Include new capability replay clock bounds and instructions. Need no new source ids; existing rows reopened. Check row opened/status/recheck/used-by changes that should be logged. Do not invent evidence.\nReport: /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-56/build/R56Scribe.md\nScratch: /fast/scratch/hyaku/kagi-r56/R56Scribe/\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness\nMilestone: Acquire lane-wide stated-clock offline replay capability; prefreeze control and mutation attacks; domain live rechecks and frontier\n\nReport: write your scoped findings to .ufo/waves/round-56/build/R56Scribe.md"
+      },
+      {
+        "name": "R56ReviewGate",
+        "agent": "reviewer",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\nAdversarial correctness review gate corpus/recheck-replay.py: command parsing, grep BRE/locale, PDF subprocess rc, locate rc, non-empty producer, manifest confinement/status/date, symlinked components, fence/comment handling, malformed command omission, added/deleted clocks. Reproduce minimal public-path false-green(s) in scratch, report exact rc/findings and surgical proposed fixes. Not frozen: tell L1 what must change before freeze.\nReport: /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-56/build/R56ReviewGate.md\nScratch: /fast/scratch/hyaku/kagi-r56/R56ReviewGate/\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness\nMilestone: Acquire lane-wide stated-clock offline replay capability; prefreeze control and mutation attacks; domain live rechecks and frontier\n\nReport: write your scoped findings to .ufo/waves/round-56/build/R56ReviewGate.md"
+      },
+      {
+        "name": "R56ReviewCounter",
+        "agent": "reviewer",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\nAudit proposed counter plans/round-56-c1.sh for predicate/code equivalence, actual production return code, false-green printer gate, symlinks/metadata setup, no-work and strict population semantics. Scratch execute forgeries; give exact value/rc, reasons, source locations. Identify hidden reads/counter selftest limitation; report fixes required before freeze. Do not edit production.\nReport: /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-56/build/R56ReviewCounter.md\nScratch: /fast/scratch/hyaku/kagi-r56/R56ReviewCounter/\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness\nMilestone: Acquire lane-wide stated-clock offline replay capability; prefreeze control and mutation attacks; domain live rechecks and frontier\n\nReport: write your scoped findings to .ufo/waves/round-56/build/R56ReviewCounter.md"
+      },
+      {
+        "name": "R56Critic",
+        "agent": "critic",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\nTry to falsify substantive C1 freshness capability: does ten true captured counts genuinely add detection vs BASE? Find easiest skip-work control that attains10, including forged captures/printer gate/deleted clocks. Require positive controls. Test public counter and gate on scratch; decide admission blockers vs disclosed ceilings; boundary cookies/public docs. Do not modify working files.\nReport: /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-56/build/R56Critic.md\nScratch: /fast/scratch/hyaku/kagi-r56/R56Critic/\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness\nMilestone: Acquire lane-wide stated-clock offline replay capability; prefreeze control and mutation attacks; domain live rechecks and frontier\n\nReport: write your scoped findings to .ufo/waves/round-56/build/R56Critic.md"
+      },
+      {
+        "name": "R56MutGate",
+        "agent": "mutation-tester",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\nMutation-test current gate with concrete single-conjunct mutants and built-in --selftest. Avoid production writes: copy gate + fixtures scratch. Which critical mutants survive (rc check, capture digest, registry url, symlink, multiple clocks, PDF/locate forms, PRESENT-like omissions)? Provide failing controls to kill survivors and exact source hash. At least 12 meaningful mutants. Propose selftest cases, not production edits.\nReport: /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-56/build/R56MutGate.md\nScratch: /fast/scratch/hyaku/kagi-r56/R56MutGate/\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness\nMilestone: Acquire lane-wide stated-clock offline replay capability; prefreeze control and mutation attacks; domain live rechecks and frontier\n\nReport: write your scoped findings to .ufo/waves/round-56/build/R56MutGate.md"
+      },
+      {
+        "name": "R56MutCounter",
+        "agent": "mutation-tester",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\nMutation-test proposed C1 counter against no-work/positive and your adversarial controls via --tree. Vary independently r1-r5 and guard, gate invocation rc, selftest rc+lastline, no normaliser isolation. Find missing killing inputs BEFORE freeze. Exact sha256, mutant recipes, observed verdicts and proposed control script snippets. No production edits.\nReport: /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-56/build/R56MutCounter.md\nScratch: /fast/scratch/hyaku/kagi-r56/R56MutCounter/\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness\nMilestone: Acquire lane-wide stated-clock offline replay capability; prefreeze control and mutation attacks; domain live rechecks and frontier\n\nReport: write your scoped findings to .ufo/waves/round-56/build/R56MutCounter.md"
+      },
+      {
+        "name": "R56Sentinel",
+        "agent": "sentinel",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\nSafety/scope scan all new round56 captures and script: public GET only; bodies no cookie/session/credential response material; scripts no host/secret reads, no shell execution of docs, no path escapes, no hardcoded /tmp trees. Check D2 QM72 precommit header scrub: gate refuses HTTP headers/Set-Cookie but capture step curl -o saves none. Report exact scanning commands/counts (never secret values), quarantine any suspect. Review main repo misroot attributed to our wave only, do not delete.\nReport: /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-56/build/R56Sentinel.md\nScratch: /fast/scratch/hyaku/kagi-r56/R56Sentinel/\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness\nMilestone: Acquire lane-wide stated-clock offline replay capability; prefreeze control and mutation attacks; domain live rechecks and frontier\n\nReport: write your scoped findings to .ufo/waves/round-56/build/R56Sentinel.md"
+      }
+    ]
+  },
+  "resumeSends": [],
+  "note": "Issue exactly one batched task call with taskCall ({context, tasks}); never split a wave into multiple task calls (one-swarm-per-wave). Then one hub send per resumeSends entry: hub send --to <entry.resume> --message <entry.message> (entry.name is bookkeeping, not a hub field)."
+}

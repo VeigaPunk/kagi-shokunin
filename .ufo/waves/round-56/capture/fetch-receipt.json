@@ -1,0 +1,78 @@
+{
+  "date": "2026-11-07",
+  "author": "KagiR56",
+  "command_template": "curl -fsSL --compressed --max-time 60 -o <id>.body -w \"<id> %{http_code} %{size_download} %{url_effective} %{content_type}\\n\" <url>",
+  "header_policy": "No -D or -i; response headers not stored (QM72).",
+  "observed_rows": [
+    {
+      "id": "S054",
+      "url": "https://raw.githubusercontent.com/trufflesecurity/trufflehog/main/README.md",
+      "final_url": "https://raw.githubusercontent.com/trufflesecurity/trufflehog/main/README.md",
+      "http_status": 200,
+      "curl_rc": 0,
+      "body_path": ".ufo/waves/round-56/capture/S054.body",
+      "decoded_bytes": 38524,
+      "sha256": "7cf6efb50ab892347b1fa3bee77592603b371b066b6b1659fcc2c56a62e6eff7"
+    },
+    {
+      "id": "S055",
+      "url": "https://raw.githubusercontent.com/betterleaks/betterleaks/main/README.md",
+      "final_url": "https://raw.githubusercontent.com/betterleaks/betterleaks/main/README.md",
+      "http_status": 200,
+      "curl_rc": 0,
+      "body_path": ".ufo/waves/round-56/capture/S055.body",
+      "decoded_bytes": 13252,
+      "sha256": "f61c3993fd48dfb973652b9676697f4d37404fad9f30748c2003127eb81a73b1"
+    },
+    {
+      "id": "S057",
+      "url": "https://trufflesecurity.com/docs/verification-caching",
+      "final_url": "https://trufflesecurity.com/docs/verification-caching",
+      "http_status": 200,
+      "curl_rc": 0,
+      "body_path": ".ufo/waves/round-56/capture/S057.body",
+      "decoded_bytes": 110710,
+      "sha256": "221d80fae1227db73c5f65ff71080d72e6e91666856a1dd8e1e2d402dfe9604b"
+    },
+    {
+      "id": "S067",
+      "url": "https://openid.net/specs/openid-connect-core-1_0.html",
+      "final_url": "https://openid.net/specs/openid-connect-core-1_0.html",
+      "http_status": 200,
+      "curl_rc": 0,
+      "body_path": ".ufo/waves/round-56/capture/S067.body",
+      "decoded_bytes": 437508,
+      "sha256": "4d016752a645e8a3c259baa4173b5a90cb6c82898ce868fc8444adde262a5aed"
+    },
+    {
+      "id": "S070",
+      "url": "https://www.1password.dev/brokered-access/custom-workflow",
+      "final_url": "https://www.1password.dev/brokered-access/custom-workflow",
+      "http_status": 200,
+      "curl_rc": 0,
+      "body_path": ".ufo/waves/round-56/capture/S070.body",
+      "decoded_bytes": 268454,
+      "sha256": "5c226c06413854281f229aa0831f3fa7b9e63cdd3d2a4bf761f2226652a1c0dd"
+    },
+    {
+      "id": "S074",
+      "url": "https://csrc.nist.gov/pubs/sp/800/133/r3/ipd",
+      "final_url": "https://csrc.nist.gov/pubs/sp/800/133/r3/ipd",
+      "http_status": 200,
+      "curl_rc": 0,
+      "body_path": ".ufo/waves/round-56/capture/S074.body",
+      "decoded_bytes": 45351,
+      "sha256": "df32e64b9cce734698974dde083feeeaa7d34eef2e6c6391c7694ea7f29c3688"
+    },
+    {
+      "id": "S078",
+      "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-57p2.pdf",
+      "final_url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-57p2.pdf",
+      "http_status": 200,
+      "curl_rc": 0,
+      "body_path": ".ufo/waves/round-56/capture/S078.body",
+      "decoded_bytes": 622785,
+      "sha256": "68266cb10868a1fee83fb8bcebbee9573fc738cee9141ee94d03649bad8538d5"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+# Round 56 plan (frozen at the predeclaration commit)
+
+Lane kagi, round 56, attempt 3 (attempts 1-2 died before the wave dispatched; the lane's working-tree outputs of attempt 1 — `corpus/recheck-replay.py`, `corpus/recheck-captures.tsv`, `plans/round-56-c1.sh`, and the seven captures under `.ufo/waves/round-56/capture/` — are inherited and re-verified by this round's controls, named here per the prompt's inherited-state clause). BASE `832ba6a53d6a76706b5c80bce2278683dea33d42` (round-55 tip). One claim on one axis; the L1 holds the protocol planner seat.
+
+## Axes
+
+All six axes stand at 9 (SCORECARD round 55). The stagnation nudge: the last capability entered in round 52; completed rounds since are 53, 54 and 55 — the N = 3 window has now elapsed, so the nudge FIRES: at least one claim must work the lowest-scoring non-retired axis, a six-way tie at 9. C1 works freshness (a lane-owned axis) as a **capability acquisition** under AXES.md §Capabilities: the lane acquires lane-wide stated-clock offline replay — every knowledge entry's `recheck:` statement is re-verified true against a committed body capture without network, so a stale expectation is distinguishable from a real change on the day it is read.
+
+## C1 — freshness: stated-clock offline replay capability
+
+Motivating evidence: `corpus/lessons/round-55-verifier-spotcheck.md` D1 routed this exact class ("lane-wide offline recheck replay"); `corpus/lessons/round-55.md` M55-2 is the instance — the round-45 ISO entry's `recheck:` clock stated `-> 1` against a body that gives 2 since round 45, so the clock reported a change on every run and a real change was indistinguishable from the standing false fire. Round-55 routed item 2 measured the population: 10 stated clocks across 8 knowledge entries in three filter forms (grep -c, pdftotext|grep -c, rendered-text locate). BASE reading `value=0` (`bash plans/round-56-c1.sh 832ba6a…` ⇒ `value=0 present=10 replayed=0 gate=0 guard=1`, exit 0).
+
+Landing: `corpus/recheck-replay.py` — a lane gate that replays every stated `curl … -> N` clock of `corpus/knowledge/*.md` against the committed body capture registered for that URL in `corpus/recheck-captures.tsv` (body bytes only, sha256-bound, registry-row-bound, symlink-confinement checked; QM72 header-bytes refusal), printing MATCH/MISMATCH/NO-CAPTURE/BAD-CAPTURE/UNSUPPORTED/TOOL per clock and `RECHECK_REPLAY: CLEAN` only when every clock MATCHes, with a `--selftest` of 13 cases. `corpus/recheck-captures.tsv` registers 10 URLs: S101/S113/S114 reuse their committed round-45/55 captures; S054/S055/S057/S067/S070/S074/S078 get new captures `.ufo/waves/round-56/capture/*.body` fetched 2026-11-07 by public GET (receipt `capture/fetch-receipt.json`, no response headers kept). `plans/round-56-c1.sh` is the frozen counter. Capability row enters SCORECARD §Capabilities in the landing commit.
+
+Frozen predicate: `C1_REPLAY: value = REPLAYED when GUARD = 1, else FAIL; target 10 (BASE 0).` REPLAYED counts the 10 POP clocks for which (r1) the entry still states the BASE command with the BASE N on its single column-1 `recheck:` line, (r2) the manifest has exactly one data row for the URL whose id names exactly one 11-cell `mined` registry row containing the URL, (r3) the body is a confined regular file whose bytes and sha256 equal the row and which carries no HTTP status line or `set-cookie:` line, (r4) the counter's own replay of the stated filter equals the stated N, and (r5) the measured tree's own `recheck-replay.py` prints the MATCH line for that clock and ends `RECHECK_REPLAY: CLEAN`. GUARD = 1 iff all 10 clocks are PRESENT and the measured tree's gate `--selftest` exits 0 with last line `RECHECK_REPLAY_SELFTEST: PASS`. Definitions verbatim in `plans/round-56-c1.sh`'s header.
+
+Kill rules: the counter, this plan and the controls script are unchanged between the predeclaration and the candidate (`git diff --quiet <predeclaration> <candidate> -- plans/round-56.md plans/round-56-c1.sh plans/round-56-controls.sh`); a reading other than `value=10 … guard=1` at the candidate is a miss, reported as such, never re-scoped.
+
+Named ceilings: committed bytes only — a hand-written capture with a self-consistent manifest row scores; capture provenance is the fetch receipt plus a non-author live re-fetch. A true but non-discriminating pattern scores. The live run of each command remains the check of currency on the day.
+
+## Causal separability
+
+One claim only; no second claim shares its surface. The frontier step (SOURCES.md curation, mistake mining) is inside §2b and adds no claim slot.
+
+## Pre-freeze controls
+
+`plans/round-56-controls.sh <reference tree>` runs the no-work BASE reading, the reference reading, and forgery/fail-closed controls (deleted clock, restated N, forged capture digest, printer-gate substitution, manifest row dropped, symlinked capture, header bytes in a body, unsupported form surviving as MATCH, selftest broken) with expectations fixed in the script before the run. Receipt: `.ufo/waves/round-56/controls/controls-prefreeze.txt`.
+
+## Frontier step
+
+Census before/after with `scripts/sources-census.sh validate --root /home/vgpnk/Projects/shokunin kagi` (start receipt `.ufo/waves/round-56/controls/census-start.txt`, rc 0, 19 W04 warnings); the sourced element is the seven URLs opened for the capture set (S054/S055/S057/S067/S070/S074/S078, receipts `capture/fetch-receipt.json`) plus S101/S113/S114 already committed; one mistake mined into `corpus/lessons/round-56.md` `## Mistakes` (round-55 spotcheck D3 — the S113 row asserts a default-UA 403 whose only receipt was taken on the S114 URL).

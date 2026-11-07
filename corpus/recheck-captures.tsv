@@ -1,0 +1,16 @@
+# recheck-captures.tsv — committed body capture per recheck URL (round 56, corpus/recheck-replay.py)
+# One row per URL a knowledge entry's `recheck:` clock fetches. Body bytes only (curl -o; no
+# response headers are stored — QM72); bytes and sha256 are of the stored body. fetched is the
+# capture date; http_status the final status curl reported. url equals the clock's URL
+# byte-for-byte and appears in the id's registry row. Replacing a capture is a reviewed commit.
+id	url	body_path	fetched	http_status	bytes	sha256
+S101	https://www.iso.org/standard/60237.html	.ufo/waves/round-45/controls/capture-r45/S101.raw	2026-11-05	200	85615	2e4c1524ec05865536f819db68c56494d97fc67cb490df4f5d4b1ca85b7b0c80
+S113	https://www.iso.org/standard/82709.html	.ufo/waves/round-55/capture/S113.body	2026-11-07	200	90604	d8dfe35408b17b02845dc0cf19f774bc6cc6b8dcbfe1636e22bb6b13dfa64357
+S114	https://www.iso.org/standard/85929.html	.ufo/waves/round-55/capture/S114.body	2026-11-07	200	85138	8bb88d88ff21d4488cf2205d9655a7fcbdeb3601616bdf4f5767dce13c449bdf
+S054	https://raw.githubusercontent.com/trufflesecurity/trufflehog/main/README.md	.ufo/waves/round-56/capture/S054.body	2026-11-07	200	38524	7cf6efb50ab892347b1fa3bee77592603b371b066b6b1659fcc2c56a62e6eff7
+S055	https://raw.githubusercontent.com/betterleaks/betterleaks/main/README.md	.ufo/waves/round-56/capture/S055.body	2026-11-07	200	13252	f61c3993fd48dfb973652b9676697f4d37404fad9f30748c2003127eb81a73b1
+S057	https://trufflesecurity.com/docs/verification-caching	.ufo/waves/round-56/capture/S057.body	2026-11-07	200	110710	221d80fae1227db73c5f65ff71080d72e6e91666856a1dd8e1e2d402dfe9604b
+S067	https://openid.net/specs/openid-connect-core-1_0.html	.ufo/waves/round-56/capture/S067.body	2026-11-07	200	437508	4d016752a645e8a3c259baa4173b5a90cb6c82898ce868fc8444adde262a5aed
+S070	https://www.1password.dev/brokered-access/custom-workflow	.ufo/waves/round-56/capture/S070.body	2026-11-07	200	268454	5c226c06413854281f229aa0831f3fa7b9e63cdd3d2a4bf761f2226652a1c0dd
+S074	https://csrc.nist.gov/pubs/sp/800/133/r3/ipd	.ufo/waves/round-56/capture/S074.body	2026-11-07	200	45351	df32e64b9cce734698974dde083feeeaa7d34eef2e6c6391c7694ea7f29c3688
+S078	https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-57p2.pdf	.ufo/waves/round-56/capture/S078.body	2026-11-07	200	622785	68266cb10868a1fee83fb8bcebbee9573fc738cee9141ee94d03649bad8538d5

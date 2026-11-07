@@ -1,0 +1,11 @@
+--- /fast/scratch/hyaku/kagi-r51/R51MutCounters/lane/plans/round-51-c1.sh	2026-11-06 21:32:35.823154521 -0300
++++ /fast/scratch/hyaku/kagi-r51/R51MutCounters/mut/C1-M3/work/plans/round-51-c1.sh	2026-11-06 21:34:57.554591000 -0300
+@@ -103,7 +103,7 @@
+ 
+ declare -A BIN OUT
+ for m in real none sh1 sh2 sh3 sh4 sh5; do
+-  d="$W/$(rhex)"; mkdir -p "$d/bin" "$d/home" "$d/tmp" "$d/work"
++  d="$W/bin-$m"; mkdir -p "$d/bin" "$d/home" "$d/tmp" "$d/work"
+   if [ "$m" != none ]; then
+     printf '%s\n' "$DISPATCH" > "$d/bin/bao"; chmod 755 "$d/bin/bao"
+     printf '%s\n' "$m" > "$d/bin/.mode"; printf '%s\n' "$BAO_BIN" > "$d/bin/.real"

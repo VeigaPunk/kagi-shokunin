@@ -1,0 +1,31 @@
+# R51ScoutSource locate receipts — corpus/rendered-text-v1.py locate <body> <quote>; words = printf '%s' q | wc -w
+# S108 body = .ufo/waves/round-51/capture/S108.body (L1 capture; sha256 a555301e…f9cc32ed55 37186 B)
+
+## S108 quotes (sources-row.md + reference-trial test comments)
+rc=0 words=13  RENDERED_TEXT_V1_LOCATE: count=1 :: only a single party can ever unwrap the token and see what's inside
+rc=0 words=9   RENDERED_TEXT_V1_LOCATE: count=1 :: only a single party can ever unwrap the token
+rc=0 words=6   RENDERED_TEXT_V1_LOCATE: count=1 :: is separate from the wrapped secret
+rc=0 words=4   RENDERED_TEXT_V1_LOCATE: count=1 :: This path is unauthenticated
+rc=0 words=11  RENDERED_TEXT_V1_LOCATE: count=1 :: This immediately tells you if the token has already been unwrapped
+rc=1 words=9   RENDERED_TEXT_V1_LOCATE: count=0 :: migrat[es] the wrapped data to a new response-wrapping token
+rc=0 words=9   RENDERED_TEXT_V1_LOCATE: count=1 :: migrating the wrapped data to a new response-wrapping token
+rc=0 words=14  RENDERED_TEXT_V1_LOCATE: count=1 :: the data contained inside was read and then put into a new response-wrapping token
+rc=0 words=7   RENDERED_TEXT_V1_LOCATE: count=1 :: the path starts with cubbyhole or sys/wrapping/wrap
+rc=0 words=7   RENDERED_TEXT_V1_LOCATE: count=1 :: validate that the creation path matches expectations
+rc=0 words=1   RENDERED_TEXT_V1_LOCATE: count=2 :: sys/wrapping/wrap
+rc=1 words=1   RENDERED_TEXT_V1_LOCATE: count=0 :: creation_path
+
+## API page quotes (my own fetches under scratch /fast/scratch/hyaku/kagi-r51/R51ScoutSource)
+lookup.html   rc=0 words=10  RENDERED_TEXT_V1_LOCATE: count=1 :: This endpoint looks up wrapping properties for the given token
+lookup.html   rc=0 words=1   RENDERED_TEXT_V1_LOCATE: count=1 :: creation_path
+lookup.html   rc=0 words=1   RENDERED_TEXT_V1_LOCATE: count=1 :: creation_time
+lookup.html   rc=0 words=1   RENDERED_TEXT_V1_LOCATE: count=1 :: creation_ttl
+lookup.html   rc=0 words=5   RENDERED_TEXT_V1_LOCATE: count=1 :: Specifies the wrapping token ID
+rewrap.html   rc=0 words=6   RENDERED_TEXT_V1_LOCATE: count=1 :: The old token will be invalidated
+rewrap.html   rc=0 words=18  RENDERED_TEXT_V1_LOCATE: count=1 :: The new token will use the same creation TTL as the original token and contain the same response
+rewrap.html   rc=0 words=6   RENDERED_TEXT_V1_LOCATE: count=1 :: This endpoint rewraps a response-wrapped token
+unwrap.html   rc=0 words=11  RENDERED_TEXT_V1_LOCATE: count=1 :: This endpoint returns the original response inside the given wrapping token
+unwrap.html   rc=0 words=9   RENDERED_TEXT_V1_LOCATE: count=2 :: Do not use the wrapping token in both locations
+unwrap.html   rc=0 words=11  RENDERED_TEXT_V1_LOCATE: count=1 :: Or you can use token to unwrap without authentication in OpenBao
+wrap.html     rc=0 words=11  RENDERED_TEXT_V1_LOCATE: count=1 :: This endpoint wraps the given user-supplied data inside a response-wrapped token
+wrap.html     rc=0 words=1   RENDERED_TEXT_V1_LOCATE: count=8 :: sys/wrapping/wrap

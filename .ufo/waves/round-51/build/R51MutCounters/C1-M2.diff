@@ -1,0 +1,11 @@
+--- /fast/scratch/hyaku/kagi-r51/R51MutCounters/lane/plans/round-51-c1.sh	2026-11-06 21:32:35.823154521 -0300
++++ /fast/scratch/hyaku/kagi-r51/R51MutCounters/mut/C1-M2/work/plans/round-51-c1.sh	2026-11-06 21:34:57.549590986 -0300
+@@ -124,7 +124,7 @@
+ }
+ 
+ declare -A RC
+-for m in $(printf '%s\n' real none sh1 sh2 sh3 sh4 sh5 | shuf); do run "$m"; RC[$m]=$?; done
++for m in real none sh1 sh2 sh3 sh4 sh5; do run "$m"; RC[$m]=$?; done
+ real_rc=${RC[real]}; none_rc=${RC[none]}
+ grep -q '^OPENBAO_WRAP_TRIAL: ' "${OUT[real]}" || setup "real-run-no-final-line(rc=$real_rc)"
+ setup_ok=0

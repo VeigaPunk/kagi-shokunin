@@ -1,0 +1,6 @@
+TRIAL T1 HOLDS first-unwrap-returns-value=1 second-unwrap-refused=1
+TRIAL T2 HOLDS wrap-ttl=2s unwrap-after-4s-refused=1 secret-still-readable=1
+TRIAL T3 HOLDS lookup-path=secret/data/t3 unwrap-after-lookup=1 lookup-after-unwrap-refused=1
+TRIAL T4 HOLDS new-token-differs=1 old-token-refused=1 new-token-returns-value=1
+TRIAL T5 HOLDS original-path=secret/data/t5 rewrapped-path=sys/wrapping/wrap
+OPENBAO_WRAP_TRIAL: HOLDS holds=5 broken=0 error=0 bao=v2.7.2

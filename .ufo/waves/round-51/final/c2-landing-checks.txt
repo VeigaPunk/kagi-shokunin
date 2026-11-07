@@ -1,0 +1,15 @@
+$ git diff 214d8bf530a0c87c00686493f21af15396284793 -- SCORECARD.md | grep -E "^-[^-]"
+-lane-status: open — as-of:2026-11-04 — dispatch unblocked; 3 operator-routed reds (R25-02,R29-01,R29-02) stay red
+$ git diff 214d8bf5 -- SCORECARD.md | grep -c "^+.*<!--"
+0
+$ git diff 214d8bf5 -- SCORECARD.md | grep -c "^-## "
+0
+$ grep -c "R25-02,R29-01,R29-02" SCORECARD.md (R31-06)
+1
+$ git diff 214d8bf5 -- corpus/claims-declared.tsv | grep -E "^[-+][^-+]"
++50	C1	operability
++50	C2	calibration
++51	C1	operability
++51	C2	calibration
+$ git diff --stat 214d8bf5 -- plans/round-[0-4]*.md plans/round-50.md
+(empty = unchanged)

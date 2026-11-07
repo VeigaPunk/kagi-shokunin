@@ -1,0 +1,12 @@
+TRUTH K07-executed-at-BASE = [CLAIMS_DECLARED: MISMATCH (claims=25 mismatch=2)]
+FIX g1a-gate-sha want[SETUP reason=g1-gate-changed] got[C2_SELF_ASSESSMENT: SETUP reason=g1-gate-changed] -> PASS
+FIX g1b-r48-sha want[SETUP reason=g1-r48-changed] got[C2_SELF_ASSESSMENT: SETUP reason=g1-r48-changed] -> PASS
+FIX g2-plan-byte want[SETUP reason=g2-changed:plans/round-50.md] got[C2_SELF_ASSESSMENT: SETUP reason=g2-changed:plans/round-50.md] -> PASS
+FIX g3-base-row want[SETUP reason=g3-row-missing:47] got[C2_SELF_ASSESSMENT: SETUP reason=g3-row-missing:47 C1 calibration] -> PASS
+FIX g4a-claims-verdict want[SETUP reason=g4-claims-declared(rc=2)] got[C2_SELF_ASSESSMENT: SETUP reason=g4-claims-declared(rc=2)] -> PASS
+FIX g4b-r48-verdict want[SETUP reason=g4-r48(rc=2)] got[C2_SELF_ASSESSMENT: SETUP reason=g4-r48(rc=2)] -> PASS
+FIX vzero-truth want[value=2 M=2 V=0] got[C2_SELF_ASSESSMENT: value=2 M=2 V=0 rev=ff3bc68f28a0faf6867677ab69afabedfae5df78] -> PASS
+FIX vzero-lie want[value=3 M=2 V=1] got[C2_SELF_ASSESSMENT: value=3 M=2 V=1 rev=0dc82ef25004e489ab7a022ecc619b71df745c15] -> PASS
+FIX wc-drift want[SETUP reason=g1-r48-working-copy] got[C2_SELF_ASSESSMENT: SETUP reason=g1-r48-working-copy] -> PASS
+DRIVER-DONE
+rc=0

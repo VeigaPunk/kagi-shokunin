@@ -1,0 +1,8 @@
+# R51ScoutSource registry census on the working tree (read-only gate)
+$ bash corpus/sources-census.sh
+FINDING SC_USEDBY_MISSING path=corpus/lessons/round-51.md
+SOURCES_CENSUS: FAILED (findings=1 rows=108)
+EXIT=1
+
+# used-by existence scan (verbatim awk from corpus/sources-census.sh)
+missing: corpus/lessons/round-51.md

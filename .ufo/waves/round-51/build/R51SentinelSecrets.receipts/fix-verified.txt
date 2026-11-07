@@ -1,0 +1,20 @@
+## F. argv-free replacement mechanisms, verified against OpenBao 2.7.2 dev server
+server: 127.0.0.1 random port, random root token in env only; no value printed
+order: put -> wrap -> lookup(stdin) -> rewrap(stdin) -> unwrap(new, env) -> old refused
+kv_put_stdin_v=-_rc=0
+kv_put_stdin_roundtrip=1
+wrap_token_obtained=1
+lookup_stdin_token_creation_path=secret/data/o
+rewrap_stdin_token_new_token=1
+rewrap_new_value_via_env_unwrap_ok=1
+old_token_refused=1
+unwrap_env_token_no_argv_value_ok=1
+sys_wrapping_wrap_stdin_value_ok=1
+caution: stdin must be newline-free; token=- with trailing newline -> rc=2 'wrapping token is not valid or does not exist'
+
+## G. default dev token (no -dev-root-token-id) — parse from 600 log, then redact
+default_token_parsed=1 prefix=s.
+auth_with_parsed_token_rc=0
+log_token_lines_after_redaction=0
+token_still_valid_after_redaction=1
+log_mode=600

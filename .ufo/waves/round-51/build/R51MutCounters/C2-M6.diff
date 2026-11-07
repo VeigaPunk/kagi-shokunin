@@ -1,0 +1,11 @@
+--- /fast/scratch/hyaku/kagi-r51/R51MutCounters/lane/plans/round-51-c2.sh	2026-11-06 21:32:35.823154521 -0300
++++ /fast/scratch/hyaku/kagi-r51/R51MutCounters/mut/C2-M6/work/plans/round-51-c2.sh	2026-11-06 21:34:57.605591146 -0300
+@@ -30,7 +30,7 @@
+ REV=$(git -C "$LANE" rev-parse --verify -q "$1^{commit}") || setup bad-rev
+ git -C "$LANE" cat-file -e "$BASE^{commit}" 2>/dev/null || setup base-missing
+ mkdir -p "$W/t" "$W/b"
+-git -C "$LANE" archive "$REV" | tar -x -C "$W/t" || setup archive
++git -C "$LANE" archive "$BASE" | tar -x -C "$W/t" || setup archive
+ git -C "$LANE" archive "$BASE" | tar -x -C "$W/b" || setup archive-base
+ 
+ # g1

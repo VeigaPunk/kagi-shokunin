@@ -1,0 +1,20 @@
+== precondition evidence at BASE 214d8bf530a0c87c00686493f21af15396284793
+$ git show 214d8bf530a0c87c00686493f21af15396284793:SCORECARD.md | grep -c '^## Round 50 — post-move'
+1
+$ git show 214d8bf530a0c87c00686493f21af15396284793:plans/round-50.md | grep -cE '^## C[0-9]+ — (operability|calibration):'
+2
+$ git show 214d8bf530a0c87c00686493f21af15396284793:corpus/claims-declared.tsv | grep -c '^50'
+0
+$ git show 214d8bf530a0c87c00686493f21af15396284793:SCORECARD.md | grep -cE '\[C[12]\]' inside round-50 section
+2
+
+== fix leg 1: BASE tree + the two round-50 manifest rows only
+$ bash corpus/claims-declared.sh --root /fast/scratch/hyaku/kagi-r51/R51ScribeEntry/t
+CLAIMS_DECLARED: CLEAN (claims=27)
+rc=0
+
+== fix leg 2 (able to fail): remove the C2 row again
+$ bash corpus/claims-declared.sh --root /fast/scratch/hyaku/kagi-r51/R51ScribeEntry/t
+MISMATCH 50 C2 no-manifest-row
+CLAIMS_DECLARED: MISMATCH (claims=26 mismatch=1)
+rc=1

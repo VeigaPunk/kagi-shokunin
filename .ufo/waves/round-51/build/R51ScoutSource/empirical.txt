@@ -1,0 +1,37 @@
+# R51ScoutSource empirical receipts — throwaway OpenBao dev server (127.0.0.1, random port)
+# bao: v2.7.2  sha256(bin)=9c5f36287c673f386e1533e9c044169a248e4ee50dd54810fa766e95bd41b788
+# no token / nonce / secret value is printed below; only paths and booleans
+# root token: random secrets.token_hex(16), in-memory server only, killed + scratch removed
+
+## run 1 — T1/T3/T4/T5 mechanics
+bao=v2.7.2
+T3 unauth_lookup_creation_path=[secret/data/t5] matches_expected=1
+T3 lookup_http_status_unauth=
+T3 unwrap_after_lookup_value_matches=1
+T5 rewrap_creation_path=[sys/wrapping/wrap] equals_sys_wrapping_wrap=1
+T4 tokens_differ=1 old_still_usable=0 new_value_matches=1
+T1 first_unwrap_rc=0
+T1 second_unwrap_rc=2
+
+## run 2 — raw HTTP: is sys/wrapping/lookup really unauthenticated?
+== raw POST /v1/sys/wrapping/lookup with NO X-Vault-Token header:
+http_status=200
+data_creation_path= secret/data/t3
+errors_present= False
+== same lookup with a WRONG token header (should still work => unauthenticated):
+http_status_wrong_token=200
+data_creation_path= secret/data/t3
+== unwrap with NO header (raw) to test whether the token itself authorizes:
+unwrap_no_header_status=403
+
+## run 3 — rewrap vs wrap creation_path (doc/behaviour divergence)
+A fresh wrap token lookup path = [secret/data/t4]
+rewrap RESPONSE wrap_info.creation_path = [secret/data/t4]
+lookup of REWRAPPED token path = [secret/data/t4]
+unwrapped value matches = 1
+lookup of sys/wrapping/wrap token path = [sys/wrapping/wrap]
+
+## run 4 — T2: wrap TTL separate from the secret (2s wrap TTL, unwrap after 4s)
+wrap token obtained (ttl 2s): yes
+unwrap_after_4s_rc=2 (nonzero => refused)
+secret_still_readable=1

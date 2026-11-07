@@ -1,0 +1,11 @@
+--- /fast/scratch/hyaku/kagi-r51/R51MutCounters/lane/plans/round-51-c1.sh	2026-11-06 21:32:35.823154521 -0300
++++ /fast/scratch/hyaku/kagi-r51/R51MutCounters/mut/C1-M5/work/plans/round-51-c1.sh	2026-11-06 21:34:57.564591029 -0300
+@@ -143,7 +143,7 @@
+ for i in 1 2 3 4 5; do
+   id="T$i"
+   rv=$(verdict "${OUT[real]}" "$id"); sv=$(verdict "${OUT[sh$i]}" "$id"); ev=$(entry_line "$id")
+-  ok=0; [ "$rv" = HOLDS ] && [ "$sv" = BROKEN ] && [ "$ev" = 1 ] && ok=1
++  ok=0; [ "$rv" = HOLDS ] && [ "$sv" = BROKEN ] && ok=1
+   value=$((value + ok)); detail="$detail $id:real=$rv,shim=$sv,entry=$ev,ok=$ok"
+ done
+ nosecret=1

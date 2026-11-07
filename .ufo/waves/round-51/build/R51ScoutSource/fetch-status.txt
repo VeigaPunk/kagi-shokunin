@@ -1,0 +1,37 @@
+# R51ScoutSource fetch receipts — 2026-11-07 (curl -fsSL --compressed -w '%{http_code} %{url_effective}')
+# profile: curl-fsSL-compressed-v1
+
+https://openbao.org/docs/concepts/response-wrapping/ | rc=0 | status_final='200 https://openbao.org/docs/concepts/response-wrapping/' | raw_sha256=a555301e8f61a407130515449309b05c4e2c7a936f8f1bdf1921e2f9cc32ed55 | bytes=37186
+https://openbao.org/docs/api/system/wrapping-lookup/ | rc=0 | status_final='200 https://openbao.org/docs/api/system/wrapping-lookup/' | raw_sha256=baa2501c8c9956cc5f4d519db5815126107147513b69d1e4e495b8de72b05586 | bytes=38444
+https://openbao.org/docs/api/system/wrapping-unwrap/ | rc=0 | status_final='200 https://openbao.org/docs/api/system/wrapping-unwrap/' | raw_sha256=daa3028f5efc452e4c53e088446a35224a4b91b18069f4e513ead73ac5161dd0 | bytes=38589
+https://openbao.org/docs/api/system/wrapping-rewrap/ | rc=0 | status_final='200 https://openbao.org/docs/api/system/wrapping-rewrap/' | raw_sha256=7173f3a6b1bcf004e7cd2888b46874911b2573c577e0e9d944a7bafef42a3ee9 | bytes=38748
+https://openbao.org/docs/api/system/wrapping-wrap/ | rc=0 | status_final='200 https://openbao.org/docs/api/system/wrapping-wrap/' | raw_sha256=ae606220e9d2780c6bf36968e6b43f3ccc803eab6e0080a0ad4c345bf76d7f6c | bytes=38865
+https://openbao.org/api-docs/system/wrapping-lookup/ | rc=0 | status_final='200 https://openbao.org/api-docs/system/wrapping-lookup/' | raw_sha256=5ad4f149756bd73b8e6cd800ed7d85f4a7a7b2fc7f910464b7fee7a65e7c58ab | bytes=364
+https://openbao.org/api-docs/system/wrapping-unwrap/ | rc=0 | status_final='200 https://openbao.org/api-docs/system/wrapping-unwrap/' | raw_sha256=c53dd6f12eec36cc8fe3761edf220cb1094975457898927374b1371a12b1abd3 | bytes=364
+https://openbao.org/api-docs/system/wrapping-rewrap/ | rc=0 | status_final='200 https://openbao.org/api-docs/system/wrapping-rewrap/' | raw_sha256=44da72f6a13a26532bc793052817382f1287f169ca94bdb1005e69408539847f | bytes=364
+https://openbao.org/api-docs/system/wrapping-wrap/ | rc=0 | status_final='200 https://openbao.org/api-docs/system/wrapping-wrap/' | raw_sha256=4037ec7b96f2f1f732b18d245c51511a86e1208c1ffdd5296e4dacc15e8078d5 | bytes=358
+
+# L1 capture comparison
+capture S108.body sha256=a555301e8f61a407130515449309b05c4e2c7a936f8f1bdf1921e2f9cc32ed55 bytes=37186
+declared in brief: sha256 a555301e8f61a407130515449309b05c4e2c7a936f8f1bdf1921e2f9cc32ed55 37186 B
+
+# last-modified
+https://openbao.org/docs/concepts/response-wrapping/     last-modified: Fri, 06 Nov 2026 09:06:37 GMT
+https://openbao.org/docs/api/system/wrapping-lookup/     last-modified: Fri, 06 Nov 2026 09:07:02 GMT
+https://openbao.org/docs/api/system/wrapping-unwrap/     last-modified: Fri, 06 Nov 2026 09:07:02 GMT
+https://openbao.org/docs/api/system/wrapping-rewrap/     last-modified: Fri, 06 Nov 2026 09:06:37 GMT
+https://openbao.org/docs/api/system/wrapping-wrap/       last-modified: Fri, 06 Nov 2026 09:06:37 GMT
+
+# redirect behaviour of /api-docs/ (num_redirects must be 0: meta-refresh, not HTTP redirect)
+https://openbao.org/api-docs/system/wrapping-lookup/ -> code=200 redirects=0 final=https://openbao.org/api-docs/system/wrapping-lookup/
+https://openbao.org/docs/api/system/wrapping-lookup/ -> code=200 redirects=0 final=https://openbao.org/docs/api/system/wrapping-lookup/
+
+# declared request profile re-fetch (with the corpus user agent) — must be byte-identical
+status=200 final=https://openbao.org/docs/concepts/response-wrapping/
+sha256=a555301e8f61a407130515449309b05c4e2c7a936f8f1bdf1921e2f9cc32ed55 bytes=37186
+cmp vs no-UA fetch: IDENTICAL
+docs-version-2.7.x occurrences: 1
+
+# note: last-modified for wrapping-lookup was observed as both 09:06:37 and 09:07:02 GMT
+# across two HEAD requests; the decoded body sha256 is identical either way, so the
+# served content is stable and only the Pages build timestamp varies.

@@ -1,0 +1,11 @@
+--- /fast/scratch/hyaku/kagi-r51/R51MutCounters/lane/plans/round-51-c2.sh	2026-11-06 21:32:35.823154521 -0300
++++ /fast/scratch/hyaku/kagi-r51/R51MutCounters/mut/C2-M3/work/plans/round-51-c2.sh	2026-11-06 21:34:57.590591103 -0300
+@@ -52,7 +52,7 @@
+ cd_rc=$?
+ last=$(grep -v '^$' "$W/cd.out" | tail -n 1)
+ printf '%s' "$last" | grep -qE '^CLAIMS_DECLARED: (CLEAN \(claims=[0-9]+\)|MISMATCH \(claims=[0-9]+ mismatch=[0-9]+\))$' || setup "g4-claims-declared(rc=$cd_rc)"
+-M=$(grep -c '^MISMATCH ' "$W/cd.out")
++M=$(grep -c 'MISMATCH' "$W/cd.out")
+ 
+ # V: the frozen round-48 counter, run from this lane's working copy (pinned to the BASE bytes)
+ [ "$(sha256sum < "$LANE/plans/round-48-c2.sh" | cut -d' ' -f1)" = "$PIN_R48" ] || setup g1-r48-working-copy

@@ -1,0 +1,10 @@
+--- /fast/scratch/hyaku/kagi-r51/R51MutCounters/lane/plans/round-51-c2.sh	2026-11-06 21:32:35.823154521 -0300
++++ /fast/scratch/hyaku/kagi-r51/R51MutCounters/mut/C2-M5/work/plans/round-51-c2.sh	2026-11-06 21:34:57.600591131 -0300
+@@ -34,7 +34,6 @@
+ git -C "$LANE" archive "$BASE" | tar -x -C "$W/b" || setup archive-base
+ 
+ # g1
+-[ "$(sha256sum < "$W/t/corpus/claims-declared.sh" 2>/dev/null | cut -d' ' -f1)" = "$PIN_GATE" ] || setup g1-gate-changed
+ [ "$(sha256sum < "$W/t/plans/round-48-c2.sh" 2>/dev/null | cut -d' ' -f1)" = "$PIN_R48" ] || setup g1-r48-changed
+ # g2
+ for f in "$W"/b/plans/round-*.md; do

@@ -1,0 +1,10 @@
+--- /fast/scratch/hyaku/kagi-r51/R51MutCounters/lane/plans/round-51-c1.sh	2026-11-06 21:32:35.823154521 -0300
++++ /fast/scratch/hyaku/kagi-r51/R51MutCounters/mut/C1-M7/work/plans/round-51-c1.sh	2026-11-06 21:34:57.573591054 -0300
+@@ -150,6 +150,6 @@
+ if cat "$W"/out.* 2>/dev/null | grep -qE '(^|[^A-Za-z0-9])(s|b|r|hvs)\.[A-Za-z0-9]{20,}|r51-[0-9a-f]{24}'; then nosecret=0; fi
+ 
+ final=$value
+-[ $setup_ok -eq 1 ] && [ $nosecret -eq 1 ] && [ $pins -eq 1 ] && [ $src -eq 1 ] || final=0
++[ $nosecret -eq 1 ] && [ $pins -eq 1 ] && [ $src -eq 1 ] || final=0
+ echo "C1_OPENBAO_WRAP: value=$final discriminating=$value pins=$pins setup_ok=$setup_ok nosecret=$nosecret src=$src${srcid:+($srcid)} real_rc=$real_rc none_rc=$none_rc$detail"
+ exit 0

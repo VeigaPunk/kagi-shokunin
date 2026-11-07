@@ -1873,3 +1873,13 @@ Frozen BASE `655e620`; plan `4767b04` (alone, QM29); plan corrections 1/2 `2d46e
 - Residual attack call (4 seats: R50bReviewerC1, R50bCriticC2, R50bMutCounters, R50bReviewerLesson; `.ufo/waves/round-50/residual/`): C1 and C2 not falsified; lesson corrections R50bRL-1..4 applied.
 - Curation: S106/S107 (tier A); prctl(2) rejected (cross-reference only); QM62; M50-1..M50-3 and E50-1 in `corpus/lessons/round-50.md`; `PROVINCE.md` round-49 bullet states the gpg/sigstore ceiling (closure D5).
 - No axis is re-scored: all six stay 9 → 9 (L1 reading, for the operator's ruling).
+
+## Round 51 (2026-11-07) — the lane executes OpenBao response wrapping (C1, operability, capability); the declared-claim manifest and the capabilities readings agree with the repo (C2, calibration)
+
+- Predeclaration `4ad8ab7cd5bf8949d125ac96ccef45e69dabc567` (frozen plan `plans/round-51.md`; counters `plans/round-51-c1.sh`, `plans/round-51-c2.sh`; pre-freeze controls `plans/round-51-controls.sh`, 20 MATCH incl. nine C1 and seven C2 forgery/fail-closed controls; census start `kagi ok`).
+- Motivating evidence C1: no corpus file named `sys/wrapping` at BASE; S108 opened 2026-11-07 (capture `.ufo/waves/round-51/capture/S108.body`). BASE reading `C1_OPENBAO_WRAP: value=0 absent=1`.
+- Motivating evidence C2: `bash corpus/claims-declared.sh --root .` at BASE → `MISMATCH 50 C1 no-manifest-row`, `MISMATCH 50 C2 no-manifest-row`; §Capabilities K07 stated `CLEAN (claims=23)`. BASE reading `C2_SELF_ASSESSMENT: value=3 M=2 V=1`.
+- Build wave `kagi-r51-build`, 12 seats (`.ufo/waves/round-51/build/`): trial measured 5 on fixtures and SIGKILL-safe (R51ExecTrial); S108 re-opened byte-identical, four API pages judged, rewrap creation-path divergence measured (R51ScoutSource); C1 counter leak found (R51CriticC1 FA → M51-2, successor `plans/round-51-c1h.sh`); C2 heading/comment ceilings found (R51CriticC2); refusal conflation (R51ReviewerTrial → M51-3, routed); round-50 D4 explained (R51ExecD4).
+- Candidate: `corpus/openbao-wrap-trial.sh` (the reference trial; two comment lines differ), S108/S109 rows and fetch rows, entry §Measured (round 51), manifest rows `50 C1/C2`, `51 C1/C2`, §Capabilities row + round-51 readings line, `lane-status:` line with four routed reds, PROVINCE core bullet, QM64/QM65, lesson `corpus/lessons/round-51.md`; ledger population expectations migrated with journal `.ufo/waves/round-51/expectation-migrations.json`.
+- Measurements and harm check: `.ufo/waves/round-51/final/` (see the report).
+- No axis is re-scored: all six stay 9 → 9 (L1 reading, for the operator's ruling).

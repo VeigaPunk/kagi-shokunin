@@ -1,0 +1,7 @@
+$ curl -fsSL --compressed -A 'kagi-shokunin-round23/1.0 (documentation verification)' -o live.body -w '%{http_code} %{url_effective}\n' https://openbao.org/docs/concepts/response-wrapping/
+curl_rc=0 http=200 https://openbao.org/docs/concepts/response-wrapping/
+capture .ufo/waves/round-51/capture/S108.body: a555301e8f61a407130515449309b05c4e2c7a936f8f1bdf1921e2f9cc32ed55 37186 bytes
+live    fetch: a555301e8f61a407130515449309b05c4e2c7a936f8f1bdf1921e2f9cc32ed55 37186 bytes
+cmp=identical
+-- rendered digest of live body
+RENDERED_TEXT_V1: raw_sha256=a555301e8f61a407130515449309b05c4e2c7a936f8f1bdf1921e2f9cc32ed55 bytes=37186 normalized_sha256=133496495ea72d2ac1fa7e1a8f04661beb2aa0df5e6b16e917f9e93432f4868a normalized_bytes=10424

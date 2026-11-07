@@ -1,0 +1,23 @@
+== Gate reject candidates, fetched 2026-11-07T00:35Z with the declared request_profile
+
+R1 https://openbao.org/docs/api/system/wrapping-unwrap/  (OpenBao API reference, same product)
+  http=200 https://openbao.org/docs/api/system/wrapping-unwrap/ rc=0
+  sha256=daa3028f5efc452e4c53e088446a35224a4b91b18069f4e513ead73ac5161dd0 bytes=38589
+  RENDERED_TEXT_V1: raw_sha256=daa3028f5efc452e4c53e088446a35224a4b91b18069f4e513ead73ac5161dd0 bytes=38589 normalized_sha256=e0b231a8f3c0a616bc8bb36b1c6021eef01930346c8c3efdf81f71737a9bdf54 normalized_bytes=3553
+  located quote:
+$ python3 corpus/rendered-text-v1.py locate <body> "this will cause the wrapping token to be revoked but the value to be unable to be looked up"
+RENDERED_TEXT_V1_LOCATE: count=1
+  words=19
+
+R2 https://developer.hashicorp.com/vault/docs/concepts/response-wrapping  (HashiCorp Vault analogue)
+  http=200 https://developer.hashicorp.com/vault/docs/concepts/response-wrapping rc=0
+  sha256=20e1b27938cf781b99e2dc41df81b14e9294167b074e9e0643f06c6c908b4e2d bytes=279035
+  RENDERED_TEXT_V1: raw_sha256=20e1b27938cf781b99e2dc41df81b14e9294167b074e9e0643f06c6c908b4e2d bytes=279035 normalized_sha256=1b6ceee951d8d28e0ed4ea830d870b18ccdfa6a727848bdb218385303cceb489 normalized_bytes=12625
+$ python3 corpus/rendered-text-v1.py locate <body> "Response wrapping is a feature that lets OpenBao take the response"
+RENDERED_TEXT_V1_LOCATE: count=0
+  rc=1
+$ python3 corpus/rendered-text-v1.py locate <body> "Response wrapping is a feature that lets Vault take the response"
+RENDERED_TEXT_V1_LOCATE: count=0
+  rc=1
+  (Vault version label in page chrome, first 400 chars of normalized text:)
+    Response Wrapping | Vault | HashiCorp Developer HashiConf 2025 Don't miss the live stream of HashiConf Day 2 happening now View live stream Products HashiCorp Cloud Platform Get started in minutes with our cloud products Learn more Infrastructure Lifecycle Management Terraform Manage infrastructure as code Packer Build machine images Nomad Orchestrate workloads Waypoint Standardize application pat

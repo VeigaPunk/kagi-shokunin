@@ -1,0 +1,42 @@
+== S108 quote locations (corpus/rendered-text-v1.py locate, capture /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-51/capture/S108.body)
+$ python3 corpus/rendered-text-v1.py locate capture/S108.body "only a single party can ever unwrap the token and see what's inside"
+RENDERED_TEXT_V1_LOCATE: count=1
+  rc=0 words=13
+$ python3 corpus/rendered-text-v1.py locate capture/S108.body "the response-wrapping token has a lifetime that is separate from the wrapped secret"
+RENDERED_TEXT_V1_LOCATE: count=1
+  rc=0 words=13
+$ python3 corpus/rendered-text-v1.py locate capture/S108.body "This path is unauthenticated and available to response-wrapping tokens themselves"
+RENDERED_TEXT_V1_LOCATE: count=1
+  rc=0 words=10
+$ python3 corpus/rendered-text-v1.py locate capture/S108.body "Allows migrating the wrapped data to a new response-wrapping token"
+RENDERED_TEXT_V1_LOCATE: count=1
+  rc=0 words=10
+$ python3 corpus/rendered-text-v1.py locate capture/S108.body "This immediately tells you if the token has already been unwrapped or is expired"
+RENDERED_TEXT_V1_LOCATE: count=1
+  rc=0 words=14
+$ python3 corpus/rendered-text-v1.py locate capture/S108.body "it is possible that the data contained inside was read and then put into a new response-wrapping token"
+RENDERED_TEXT_V1_LOCATE: count=1
+  rc=0 words=18
+$ python3 corpus/rendered-text-v1.py locate capture/S108.body "exact matches on the path are best there"
+RENDERED_TEXT_V1_LOCATE: count=1
+  rc=0 words=8
+$ python3 corpus/rendered-text-v1.py locate capture/S108.body "likely with the assistance of OpenBao's audit logs to see if the token really was unwrapped"
+RENDERED_TEXT_V1_LOCATE: count=1
+  rc=0 words=16
+$ python3 corpus/rendered-text-v1.py locate capture/S108.body "policies can control minimum/maximum wrapping TTLs"
+RENDERED_TEXT_V1_LOCATE: count=1
+  rc=0 words=6
+
+== section windows in the normalized text (rendered-text-v1 normalize_text, char offsets)
+heading offsets (first occurrence after the page nav): {'Overview': 914, 'Response-Wrapping tokens': 3360, 'Response-Wrapping token operations': 5123, 'Response-Wrapping token creation': 6705, 'Response-Wrapping token validation': 7835}
+
+== c1 counter entry_line matcher over the drafted section (plans/round-51-c1.sh:134-143 awk, verbatim)
+  T1 entry_line=1
+  T2 entry_line=1
+  T3 entry_line=1
+  T4 entry_line=1
+  T5 entry_line=1
+== negative control: same matcher on the BASE entry (no round-51 section)
+  T1 entry_line=0
+== forbidden nonce shape (r51-<24 hex>) in the drafts
+  none: rc=1

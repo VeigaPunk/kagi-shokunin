@@ -1,0 +1,13 @@
+$ diff <(grep -v "^#" .ufo/waves/round-51/controls/fixtures/ref/corpus/openbao-wrap-trial.sh) <(grep -v "^#" corpus/openbao-wrap-trial.sh); echo rc=$?
+rc=0
+$ diff ref candidate (full)
+159c159
+< # T4 — rewrap "migrat[es] the wrapped data to a new response-wrapping token": the new
+---
+> # T4 — rewrap "Allows migrating the wrapped data to a new response-wrapping token": the new
+181c181
+< # client expects (S108 §Response-Wrapping token validation).
+---
+> # client expects (S108 §Response-Wrapping token validation; the exact literal: S109 §Wrapping wrap).
+$ sha256sum of frozen instruments vs predeclaration receipt
+instruments identical to predeclaration receipt

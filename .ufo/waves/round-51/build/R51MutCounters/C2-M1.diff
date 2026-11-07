@@ -1,0 +1,15 @@
+--- /fast/scratch/hyaku/kagi-r51/R51MutCounters/lane/plans/round-51-c2.sh	2026-11-06 21:32:35.823154521 -0300
++++ /fast/scratch/hyaku/kagi-r51/R51MutCounters/mut/C2-M1/work/plans/round-51-c2.sh	2026-11-06 21:34:57.582591080 -0300
+@@ -36,11 +36,7 @@
+ # g1
+ [ "$(sha256sum < "$W/t/corpus/claims-declared.sh" 2>/dev/null | cut -d' ' -f1)" = "$PIN_GATE" ] || setup g1-gate-changed
+ [ "$(sha256sum < "$W/t/plans/round-48-c2.sh" 2>/dev/null | cut -d' ' -f1)" = "$PIN_R48" ] || setup g1-r48-changed
+-# g2
+-for f in "$W"/b/plans/round-*.md; do
+-  n=${f#"$W/b/"}
+-  cmp -s "$f" "$W/t/$n" || setup "g2-changed:$n"
+-done
++# g2 (mutant: guard removed)
+ # g3
+ grep -vE '^(#|round	|$)' "$W/b/corpus/claims-declared.tsv" > "$W/base-rows" || setup g3-base-empty
+ while IFS= read -r row; do

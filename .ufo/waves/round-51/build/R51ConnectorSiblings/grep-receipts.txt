@@ -1,0 +1,110 @@
+R51ConnectorSiblings — search receipts (read-only scan, kagi round 51 wave 1)
+Base of the lane read: 4ad8ab7cd5bf8949d125ac96ccef45e69dabc567 (predeclaration); ticket BASE 214d8bf5.
+No writes outside .ufo/waves/round-51/build/R51ConnectorSiblings*; no git/jj mutation; no bao started; no network.
+
+INVENTORY (files searched per sibling lane, corpus/ only)
+  audio      49569   chousa     2264   game-dev-2d 54480   game-dev-3d 121039
+  kaidoku     4021   kake        280   kama          243   kasegi         677
+  kengaku     1951   kotoba      207   kotodama      559   kumitate       247
+  lore        1859   mado        270   mori          661   revenger       724
+  souji        190   tabi       3829   tameshi       234   tsukuroi       292
+  total      243596 files under the 20 sibling corpus/ dirs
+  SKILL.md / PROVINCE.md: 38 files (audio and game-dev-2d ship PROVINCE.md only).
+  kimi-shokunin has neither corpus/ nor SKILL.md nor PROVINCE.md (skills/, commands/,
+  README.md, templates/ searched directly). kumitate-shokinin/ (spelling variant) holds
+  only the empty nested path kumitate-shokinin/kumitate-shokunin/.ufo — no files.
+
+TERM 1 — response wrapping / sys/wrapping / wrapping token / cubbyhole
+  #1 harness grep tool: pattern='response[- ]wrapping|sys/wrapping|wrapping token|cubbyhole|wrap[_-]?token|bao server|vault server|server -dev|claims-declared|claims_declared|declared-claim gate|claims\.tsv'
+     path = the 20 sibling corpus/ dirs, case=false
+     RESULT: 1 matching file, 1 line — kotoba-shokunin/corpus/knowledge/checklist-execution-round16.md:163,
+     which is the identifier `unwrap_tokens` (false positive: "unwrap_tokens" contains "wrap_token").
+  #2 harness grep tool: pattern='response[- ]wrapping|sys/wrapping|wrapping token|cubbyhole|wrap[_-]?token'
+     path = the 20 sibling corpus/ dirs, case=false
+     RESULT: the same single false positive; no true hit.
+  #3 harness grep tool: pattern='response[- ]wrapping|sys/wrapping|wrapping token|cubbyhole|wrap[_-]?token|bao server|vault server|server -dev|claims-declared|claims_declared|declared-claims|claims\.tsv|PATH[- ]blind|PATH shim|falsifier'
+     path = 38 explicit SKILL.md/PROVINCE.md files, case=false
+     RESULT: no wrapping/vault/claims-declared line; only `falsifier` / `PATH shim` lines (term 4).
+  #4 harness grep tool: pattern='response[- ]wrapping|sys/wrapping|wrapping token|cubbyhole|wrap[_-]?token|openbao|OpenBao|\bbao\b|Vault server|vault server|claims-declared'
+     path = /home/vgpnk/Projects/shokuknow/merge/kagi/  (read only; nothing executed there)
+     RESULT: no matches.
+  #5 harness grep tool: same terms + 'OpenBao|HashiCorp Vault' over
+     kimi-shokunin/{skills,commands,README.md,templates}
+     RESULT: no matches.
+  #6 wide first-pass harness grep (22 lane roots, incl. .ufo), terms as #1 plus claims.tsv:
+     582 matching files reported; only the first page was inspected (the tool pages 20 files at
+     a time). Visible on that page: the kotoba `unwrap_tokens` false positive and one
+     `cubbyhole` line outside corpus/, kaidoku-shokunin/.ufo/waves/round-78/l1/sources/
+     gnupg-manual.html:3338 ("three cubbyholes", GnuPG trust-model prose). This run is NOT
+     claimed exhaustive; the exhaustive scope for this seat is #1-#5.
+
+TERM 2 — OpenBao or Vault trials (bao server -dev / vault server -dev)
+  #7 harness grep tool: pattern='bao server|vault server|server -dev', path = 20 corpus dirs, case=false
+     RESULT: no matches.
+  #8 harness grep tool: pattern='BAO_ADDR|VAULT_ADDR|VAULT_TOKEN|dev-root-token-id|-dev-root-token|\bbao\b|openbao',
+     path = 20 corpus dirs, case=false
+     RESULT: 3 matching files, all false positives — "Bao" as an author surname:
+       chousa-shokunin/corpus/captures/4132ec1b265e60624523251f.txt:629 (Keqin Bao)
+       chousa-shokunin/corpus/captures/78761b633aee2289e5874ce9.txt:2100 (Keqin Bao)
+       kasegi-shokunin/corpus/source-snapshots/round-75/S110.txt:1437 (Tiffany Bao)
+  #9 harness grep tool: pattern='\bOpenBao\b|\bopenbao\b|\bVault\b (server|dev|token|policy)|vault (server|dev)|\bHashiCorp\b',
+     path = 20 corpus dirs, case=false
+     RESULT: 3 files, all mentions, no trial:
+       kasegi-shokunin/corpus/source-snapshots/round-24/S011.txt:380 ("HashiCorp", alphabetical index word)
+       kumitate-shokunin/corpus/SOURCES.md:183, :188 (HashiCorp Terraform rows; match is the developer.hashicorp.com URL)
+       revenger-shokunin/corpus/snapshots/claude-red-offensive-reporting.md:257 ("Centralize secrets in HashiCorp Vault")
+
+TERM 3 — a declared-claim manifest gate like kagi's corpus/claims-declared.sh
+  #10 harness grep tool: pattern='claims-declared|claims_declared|declared[-_]claim|claims\.tsv', path = 20 corpus dirs
+      RESULT: no literal hit (only the kotoba `wrap_token` false positive under a wider pattern).
+  #11 glob: /home/vgpnk/Projects/shokunin/*/claims-declared*; */corpus/claims-declared*; */scripts/claims-declared*;
+      kimi-shokunin/**/claims-declared*  -> "No files found".
+  #12 harness grep tool: pattern='claims file|claims\.tsv|claim table|declared table|manifest gate|declared-claim|declared claim',
+      path = 14 lane corpus/ dirs -> 413 matching files reported; first page inspected only. The two
+      implementations cited in the report (kasegi corpus/instruments/freeze-check.py, chousa
+      tools/claims-audit.py) were found by direct path reads, not by this scan's first page.
+
+TERM 4 — shim / falsifier PATH-blindness techniques
+  #13 harness grep tool: pattern='PATH[- ]blind|path[- ]blindness|PATH shim|shim (dir|PATH)|PATH=.*shim|falsifier',
+      path = 16 lane corpus/ dirs -> 397 matching files reported; first page inspected only. The
+      PATH-blindness technique itself is chousa's (report rows 18-25), all verified by read.
+  #14 harness grep tool: pattern='PATH-resolved|PATH resolution|pinned absolute|absolute-path pin|provenance pin',
+      path = 15 lane corpus/ dirs -> 66 matching files reported; first page inspected only; the
+      substantive technique rows are chousa's.
+
+OWNERSHIP DECLARATIONS naming kagi
+  #15 harness grep tool: pattern='kagi|secret|vault|credential', path = the 38 explicit SKILL.md/PROVINCE.md
+      files, case=false -> 30 matching files reported, first 20 inspected.
+  #16 harness grep tool: pattern='\bkagi\b', same 38 files, case=false -> 586 matching lines reported
+      (first 567 shown). Every routing line quoted in the report is one of the shown matches.
+
+VERIFIED-BY-READ line checks (sed -n ranges, no interpretation)
+  kasegi PROVINCE:44-50   kengaku PROVINCE:26-30,433-437   souji PROVINCE:34-38,87-91,117-120
+  tsukuroi PROVINCE:18-30 kama SKILL:26-31, kama PROVINCE:41-43
+  chousa QUALITY:360-368,440-453 (lines 442 "54. **A claim text's general clause…", 444, 365)
+  revenger …/claude-red-offensive-reporting.md:257   kasegi …/round-24/S011.txt:380
+  kagi corpus/claims-declared.sh:1-45,95-215 (predicate header; awk heading test at 154-160)
+
+COUNTER-READ (read-only; the counters were NOT executed — this seat is read-only and they
+start bao)
+  cat -n plans/round-51-c1.sh | sed -n '63,76p;100,180p'
+  sed -n '1,80p;80,143p' plans/round-51-controls.sh
+  cat .ufo/waves/round-51/controls/controls-prefreeze.txt
+  cat plans/round-51-c2.sh
+  Key C1 lines: run() 114-118 (no cd; --work "$d/work"); OUT[$m]="$W/out.$m" 111;
+  shuffled run loop 127; ENTRY 133-139; value loop 142-148 (verdict+entry_line); nosecret 150;
+  final 152-154. src read 70-78 (before the runs). K1-F1..F9 and K2-0..K2-F7 all MATCH,
+  CONTROLS: pass=20 fail=0; K1-F5 (.mode reader) expect=5 got=5.
+
+PATHCHECK (path arithmetic of F8, verified on this host without running the counter)
+  S=$(mktemp -d /fast/scratch/hyaku/kagi-r51/R51ConnectorSiblings/pathcheck.XXXXXX)
+  mkdir -p "$S/tree/corpus"
+  d="$S/$(od -An -N8 -tx1 /dev/urandom | tr -d ' \n')"; mkdir -p "$d/bin" "$d/home" "$d/tmp" "$d/work"
+  work="$d/work"; echo "$(dirname "$(dirname "$work")")"        -> $S
+  test -d "$(dirname "$(dirname "$work")")/tree"                -> 1   (DERIVED-TREE-EXISTS=1)
+  printf 'probe\n' >> "$(dirname "$(dirname "$work")")/tree/corpus/x.md"  -> WRITE-INTO-DERIVED-TREE=ok
+  scratch removed with rm -rf; no bao, no counter, no lane write.
+  This exercises only the path shape (`$W/<rhex>/work` beside `$W/tree`), not the counters.
+
+No other receipt exists: this seat ran no command that produced an artifact. All evidence is
+path:line in the report and re-derivable by the invocations above.

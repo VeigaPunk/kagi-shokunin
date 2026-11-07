@@ -1,0 +1,14 @@
+--- /fast/scratch/hyaku/kagi-r51/R51MutCounters/lane/plans/round-51-c2.sh	2026-11-06 21:32:35.823154521 -0300
++++ /fast/scratch/hyaku/kagi-r51/R51MutCounters/mut/C2-M2/work/plans/round-51-c2.sh	2026-11-06 21:34:57.586591091 -0300
+@@ -42,10 +42,7 @@
+   cmp -s "$f" "$W/t/$n" || setup "g2-changed:$n"
+ done
+ # g3
+-grep -vE '^(#|round	|$)' "$W/b/corpus/claims-declared.tsv" > "$W/base-rows" || setup g3-base-empty
+-while IFS= read -r row; do
+-  grep -qxF -- "$row" "$W/t/corpus/claims-declared.tsv" || setup "g3-row-missing:$(printf '%s' "$row" | tr '\t' ' ')"
+-done < "$W/base-rows"
++# g3 (mutant: guard removed)
+ 
+ # M
+ ( cd "$W/t" && timeout 300 bash corpus/claims-declared.sh --root . ) > "$W/cd.out" 2> "$W/cd.err"

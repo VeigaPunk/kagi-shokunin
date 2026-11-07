@@ -1,0 +1,11 @@
+--- /fast/scratch/hyaku/kagi-r51/R51MutCounters/lane/plans/round-51-c2.sh	2026-11-06 21:32:35.823154521 -0300
++++ /fast/scratch/hyaku/kagi-r51/R51MutCounters/mut/C2-M4/work/plans/round-51-c2.sh	2026-11-06 21:34:57.595591117 -0300
+@@ -58,7 +58,7 @@
+ [ "$(sha256sum < "$LANE/plans/round-48-c2.sh" | cut -d' ' -f1)" = "$PIN_R48" ] || setup g1-r48-working-copy
+ timeout 900 bash "$LANE/plans/round-48-c2.sh" "$REV" > "$W/r48.out" 2> "$W/r48.err"
+ r48_rc=$?
+-V=$(sed -nE 's/^C2_CAPABILITY_READINGS: value=([0-9]+) .*/\1/p' "$W/r48.out" | head -n 1)
++V=0
+ printf '%s' "$V" | grep -qxE '[0-9]+' || setup "g4-r48(rc=$r48_rc)"
+ printf '%s' "$M" | grep -qxE '[0-9]+' || setup g4-m
+ 

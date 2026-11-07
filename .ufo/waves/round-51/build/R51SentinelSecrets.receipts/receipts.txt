@@ -1,0 +1,37 @@
+# receipts: R51SentinelSecrets round 51 (regenerated 2026-11-06T21:41:30-03:00)
+
+## A. reference trial run + post-run scratch grep
+cmd: HOME=/fast/scratch/hyaku/kagi-r51/R51SentinelSecrets/home bash <fixture>/corpus/openbao-wrap-trial.sh --work <scratch>/receipts/work
+exit=0 elapsed=7s
+stdout:
+TRIAL T1 HOLDS first-unwrap-returns-value=1 second-unwrap-refused=1
+TRIAL T2 HOLDS wrap-ttl=2s unwrap-after-4s-refused=1 secret-still-readable=1
+TRIAL T3 HOLDS lookup-path=secret/data/t3 unwrap-after-lookup=1 lookup-after-unwrap-refused=1
+TRIAL T4 HOLDS new-token-differs=1 old-token-refused=1 new-token-returns-value=1
+TRIAL T5 HOLDS original-path=secret/data/t5 rewrapped-path=sys/wrapping/wrap
+OPENBAO_WRAP_TRIAL: HOLDS holds=5 broken=0 error=0 bao=v2.7.2
+stderr_bytes=0
+token_shape_stdout=0 wrapping_shape_stdout=0
+files_left_in_work_after_exit=0 dirs_left=0
+grep_r51_in_work_after_exit=0
+grep_wrapping_in_work_after_exit=0
+
+## B. signal matrix (trap cleanup)
+sig=TERM exit=143 server_alive=0 leftover_entries=0 last_out=TRIAL T1 HOLDS first-unwrap-returns-value=1 seco
+sig=INT exit=130 server_alive=0 leftover_entries=0 last_out=TRIAL T1 HOLDS first-unwrap-returns-value=1 seco
+sig=HUP exit=129 server_alive=0 leftover_entries=0 last_out=TRIAL T1 HOLDS first-unwrap-returns-value=1 seco
+
+## C. SIGKILL mid-run: pdeathsig + scratch leftover
+pre_kill_server_pid_present=1 log_token_lines=1
+after_sigkill_server_alive=0 leftover_dirs=1 leftover_files=1
+leftover_server_log_mode=600 leftover_log_token_lines=1
+
+## D. bind scope (ss shows loopback-only; non-loopback refused)
+  LISTEN 0      4096       127.0.0.1:40835      0.0.0.0:*    users:(("bao",pid=1688453,fd=3))
+  LISTEN 0      4096       127.0.0.1:40836      0.0.0.0:*    users:(("bao",pid=1688453,fd=6))
+  connect 192.168.0.253:40835 = ConnectionRefusedError
+  connect 172.17.0.1:40835 = ConnectionRefusedError
+  connect 127.0.0.1:40835 = OPENED
+
+## E. caller BAO_*/VAULT_* env isolation (shim inventory)
+see shim3.log / canary2.log; canary run rc=0, env_bao_names=0 at version+server invocations, canary_bao_token=0

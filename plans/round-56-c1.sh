@@ -58,6 +58,12 @@ setup() { echo "C1_REPLAY: SETUP $1"; exit 2; }
 command -v python3 >/dev/null 2>&1 || setup no-python3
 command -v grep >/dev/null 2>&1 || setup no-grep
 command -v pdftotext >/dev/null 2>&1 || setup no-pdftotext
+command -v sha256sum >/dev/null 2>&1 || setup no-sha256sum
+command -v cut >/dev/null 2>&1 || setup no-cut
+command -v tail >/dev/null 2>&1 || setup no-tail
+command -v timeout >/dev/null 2>&1 || setup no-timeout
+command -v git >/dev/null 2>&1 || setup no-git
+command -v tar >/dev/null 2>&1 || setup no-tar
 SCR=${HYAKU_SCRATCH:-/fast/scratch/hyaku}/kagi-r56/c1.$$
 mkdir -p -- "$SCR/t" "$SCR/b" "$SCR/tmp" || setup scratch
 trap 'rm -rf -- "$SCR"' EXIT

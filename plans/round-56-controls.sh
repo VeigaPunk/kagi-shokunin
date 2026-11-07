@@ -43,7 +43,7 @@ report() { # id expect line
 check() { report "$1" "$2" "$(bash "$C1" --tree "$SCR/$3" 2>&1)"; }
 check_rev() { report "$1" "$2" "$(bash "$C1" "$3" 2>&1)"; }
 ENTRY=corpus/knowledge/betterleaks-detection-vs-validation.md
-# instrument identity for the receipt (epoch-D): the bytes this run measured
+# instrument identity for the receipt (epoch-E): the bytes this run measured
 for f in plans/round-56.md plans/round-56-c1.sh plans/round-56-controls.sh corpus/recheck-replay.py corpus/recheck-captures.tsv corpus/rendered-text-v1.py; do
   echo "INSTRUMENT $(sha256sum "$REPO/$f" | cut -d' ' -f1) $f"
 done
@@ -103,6 +103,12 @@ p=sys.argv[1]+"/corpus/knowledge/betterleaks-detection-vs-validation.md"; s=open
 t=re.sub(r"(->\s*)1(?!\d)", r"\g<1>1x", s, count=1)
 assert t!=s; open(p,"w",encoding="utf-8").write(t)' "$SCR/f11"
 check K1-F11-restated-Nx FAIL f11
+# F11b restated N with trailing dot (`-> 1.0`) must not satisfy PRESENT (epoch-E boundary)
+mk_ref f11b; py 'import sys,re
+p=sys.argv[1]+"/corpus/knowledge/betterleaks-detection-vs-validation.md"; s=open(p,encoding="utf-8").read()
+t=re.sub(r"(->\s*)1(?!\d)", r"\g<1>1.0", s, count=1)
+assert t!=s; open(p,"w",encoding="utf-8").write(t)' "$SCR/f11b"
+check K1-F11b-restated-Ndot FAIL f11b
 # F12 one added uncaptured clock -> gate DRIFT -> every r5 fails (population guard)
 mk_ref f12; py 'import sys
 p=sys.argv[1]+"/corpus/knowledge/prefreeze-controls.md"; s=open(p,encoding="utf-8").read()

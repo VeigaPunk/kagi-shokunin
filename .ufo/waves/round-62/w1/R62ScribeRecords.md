@@ -40,7 +40,7 @@ no mutating git/jj command, no `LOG.md`/`SCORECARD.md`/`corpus/SOURCES.md` edit.
   `plans/round-61-c2.sh` `20614697…` ⇒ `C2_SELFTEST: PASS (cases=21)`;
   `plans/round-62-c1.sh` `5c71947d…` ⇒ `C1_COUNTER_SELFTEST: PASS (7/7 checks)`;
   `plans/round-62-c2.sh` `59553ef4…` ⇒ `C2R62_SELFTEST: PASS (cases=16)`;
-  `plans/round-62-controls.sh` `f2965f12…` ⇒ `CONTROLS_SELFTEST: PASS (cases=14)`;
+  `plans/round-62-controls.sh` `93587e6d…` ⇒ `CONTROLS_SELFTEST: PASS (cases=14)`;
   `corpus/openbao-seal-trial.sh` `a3bc8825…` ⇒ `SEAL_SELFTEST: PASS (cases=63)`.
 - BASE census re-measured by this seat over an extracted `60b5b7b` tree: the five bypass
   fixtures B3–B7 each read `C1_ROUTED: value=0 population=7 i1=1 … i7=1 guard=0`, and the

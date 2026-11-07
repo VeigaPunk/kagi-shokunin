@@ -1,0 +1,29 @@
+# round-62 candidate-revision readings (kagi)
+# measured revision: the candidate tree, extracted with `git archive` from the hash below
+# (the round-62 candidate commit; the landing commit that carries this receipt is its child)
+candidate=c840739635faea015142de6df49892895bb6ae08
+# C1 on the candidate: bash plans/round-62-c1.sh c840739635faea015142de6df49892895bb6ae08 (rc 0)
+C1_BYPASS: accepted=0 population=5 guard=1 (real=1 selftest=1 stub=1 paraphrase=1 chal=1)
+# C2 on the candidate: bash plans/round-62-c2.sh c840739635faea015142de6df49892895bb6ae08 (rc 0)
+C2_HARDENED: killed=3 population=3 guard=1 (ma=1 mb=1 g=1 selftest=1 real=1)
+# instrument pins at the measured revision (D-6: the claim counters are pinned, not only the
+# measured ones; a stub claim counter cannot be substituted without changing these bytes)
+sha256 efe676ebb0d016664705f17c181ecc3331963a4b09fb2f80403f8773170cf62f plans/round-62-c1.sh
+sha256 b26d42207ff51168811ebd1a32bd2969ee103497662d46f175ac2dd29d1ebe9c plans/round-62-c2.sh
+sha256 f2afd9b8f5382cdf8b8914546bb8fcb73d135854e6e546c5012fb7df63eca9c0 plans/round-61-c1-check.py
+sha256 20614697f3720aa446501b3c3246748c762a025b99065a19556476d9ff3f4f29 plans/round-61-c2.sh
+sha256 93587e6d15d5c0ebb94fac3a6039235070632c45dd5c3db86ae7fbcf1107ea97 plans/round-62-controls.sh
+sha256 16fc5ba6d8b4b32db23ee91d27d72531377a608b11aacdc35d073962bd707ad8 plans/round-62-bypass.tsv
+sha256 de5982b716c5bf14b509bb62af9a852faa7206204ea0d7305c699a24a7fb41d1 plans/round-62-paraphrase.tsv
+# BASE readings with the same counter bytes (before -> after):
+#   bash plans/round-62-c1.sh 60b5b7b60b76629633110a5b4adac883193c8b2a
+#     C1_BYPASS: accepted=5 population=5 guard=0 (real=1 selftest=0 stub=1 paraphrase=1 chal=0)  rc 1
+#     (receipt .ufo/waves/round-62/final/c1-base.txt)
+#   bash plans/round-62-c2.sh 60b5b7b60b76629633110a5b4adac883193c8b2a
+#     C2_HARDENED: killed=0 population=3 guard=0 (ma=0 mb=0 g=0 selftest=0 real=1)  rc 1
+#     (receipt .ufo/waves/round-62/final/c2-base.txt)
+# pre-freeze controls: bash plans/round-62-controls.sh . => CONTROLS: match=14 mismatch=0
+#   (receipt .ufo/waves/round-62/controls/controls-prefreeze.txt)
+# ancillary gates on the candidate: RELEASE_CLOCK CLEAN, DOC_AUDIT CLEAN, CLAIMS_DECLARED
+#   reads MISMATCH 62 C1/C2 no-manifest-row until the closure session writes the MANIFEST row
+#   (receipts .ufo/waves/round-62/final/{release-clock,doc-audit,claims-declared}.txt)

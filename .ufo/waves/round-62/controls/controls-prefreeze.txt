@@ -1,10 +1,10 @@
 # round-62 pre-freeze control battery (plans/round-62-controls.sh)
 # SELF 93587e6d15d5c0ebb94fac3a6039235070632c45dd5c3db86ae7fbcf1107ea97
-# utc 2026-11-07T21:49:55Z
+# utc 2026-11-07T22:00:35Z
 # repo /home/vgpnk/Projects/shokunin/kagi-shokunin
 # base 60b5b7b60b76629633110a5b4adac883193c8b2a
 # candidate /home/vgpnk/Projects/shokunin/kagi-shokunin
-# scratch /fast/scratch/hyaku/kagi-r62/L1/kagi-r62/R62ExecControls/battery.736238
+# scratch /fast/scratch/hyaku/kagi-r62/R62ExecControls/battery.1610069
 PROBE c1-checker-floor ready cases=75 detail=ok
 PROBE c2-counter-floor ready cases=21 detail=ok
 PROBE c1-counter present path=plans/round-62-c1.sh
@@ -25,15 +25,15 @@ DETAIL K1-BASE-C1 base-census --no-challenge: B3=v0 i1=1 i2=1 i3=1 i4=1 i5=1 i6=
 CONTROL K1-BASE-C2 expect=killed=0 observed=killed=0 verdict=match
 DETAIL K1-BASE-C2 ma=survive mb=survive g=nofire value=0 rc=1
 CONTROL C1-B3 expect=value=1;i3=0;population=7 observed=value=1;i3=0;population=7 verdict=match
-DETAIL C1-B3 checker=/fast/scratch/hyaku/kagi-r62/L1/kagi-r62/R62ExecControls/battery.736238/cand/plans/round-61-c1-check.py rc=1 i1=1 i2=1 i3=0 i4=1 i5=1 i6=1 i7=1
+DETAIL C1-B3 checker=/fast/scratch/hyaku/kagi-r62/R62ExecControls/battery.1610069/cand/plans/round-61-c1-check.py rc=1 i1=1 i2=1 i3=0 i4=1 i5=1 i6=1 i7=1
 CONTROL C1-B4 expect=value=1;i4=0;population=7 observed=value=1;i4=0;population=7 verdict=match
-DETAIL C1-B4 checker=/fast/scratch/hyaku/kagi-r62/L1/kagi-r62/R62ExecControls/battery.736238/cand/plans/round-61-c1-check.py rc=1 i1=1 i2=1 i3=1 i4=0 i5=1 i6=1 i7=1
+DETAIL C1-B4 checker=/fast/scratch/hyaku/kagi-r62/R62ExecControls/battery.1610069/cand/plans/round-61-c1-check.py rc=1 i1=1 i2=1 i3=1 i4=0 i5=1 i6=1 i7=1
 CONTROL C1-B5 expect=value=1;i5=0;population=7 observed=value=1;i5=0;population=7 verdict=match
-DETAIL C1-B5 checker=/fast/scratch/hyaku/kagi-r62/L1/kagi-r62/R62ExecControls/battery.736238/cand/plans/round-61-c1-check.py rc=1 i1=1 i2=1 i3=1 i4=1 i5=0 i6=1 i7=1
+DETAIL C1-B5 checker=/fast/scratch/hyaku/kagi-r62/R62ExecControls/battery.1610069/cand/plans/round-61-c1-check.py rc=1 i1=1 i2=1 i3=1 i4=1 i5=0 i6=1 i7=1
 CONTROL C1-B6 expect=value=1;i6=0;population=7 observed=value=1;i6=0;population=7 verdict=match
-DETAIL C1-B6 checker=/fast/scratch/hyaku/kagi-r62/L1/kagi-r62/R62ExecControls/battery.736238/cand/plans/round-61-c1-check.py rc=1 i1=1 i2=1 i3=1 i4=1 i5=1 i6=0 i7=1
+DETAIL C1-B6 checker=/fast/scratch/hyaku/kagi-r62/R62ExecControls/battery.1610069/cand/plans/round-61-c1-check.py rc=1 i1=1 i2=1 i3=1 i4=1 i5=1 i6=0 i7=1
 CONTROL C1-B7 expect=value=1;i7=0;population=7 observed=value=1;i7=0;population=7 verdict=match
-DETAIL C1-B7 checker=/fast/scratch/hyaku/kagi-r62/L1/kagi-r62/R62ExecControls/battery.736238/cand/plans/round-61-c1-check.py rc=1 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=0
+DETAIL C1-B7 checker=/fast/scratch/hyaku/kagi-r62/R62ExecControls/battery.1610069/cand/plans/round-61-c1-check.py rc=1 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=0
 CONTROL C1-F6 expect=noverdict;rc!=0;cleanverdict=yes observed=verdict=no;rc=2;cleanverdict=yes verdict=match
 DETAIL C1-F6 clean-line=C1_BYPASS: accepted=0 population=5 guard=1 (real=1 selftest=1 stub=1 paraphrase=1 chal=1)
 CONTROL C1-F7 expect=value=0/0/0;population=7 observed=value=0/0/0;population=7/7/7 verdict=match

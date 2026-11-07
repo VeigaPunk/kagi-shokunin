@@ -266,6 +266,12 @@ stub_leg() { # $1=stub-tree-dir $2=run-dir: run the measure leg on a stub tree;
   [[ "$SL_RC" -ne 0 ]] || SL_OK=0
 }
 
+stub_calc() { # $1=stub_c1 $2=stub_c2 -> sets STUB (the guard's stub leg);
+  # the composition the round-63 C2 claim's CM2a mutant targets.
+  stub_c1="$1"; stub_c2="$2"
+  stub=0; [[ $stub_c1 -eq 1 && $stub_c2 -eq 1 ]] && stub=1
+}
+
 measure_battery() { # $1=tree $2=out-prefix: the measure leg (gate + 5 fixtures).
   # Refusal (gate) prints a c1-counter: line and exits non-zero with NO
   # C1_BYPASS: line; measurement defects return 1 with AF_ERR set. On success
@@ -321,7 +327,7 @@ if [[ "$MODE" == "verdict" ]]; then
   make_stub_tree2 "$TREE" "$STUB2_TREE" || setup_die "$AF_ERR"
   stub_leg "$STUB2_TREE" "$WORK/stub2" || setup_die "cannot create stub2 run dir"
   stub2_rc=$SL_RC; stub_c2=$SL_OK
-  stub=0; [[ $stub_c1 -eq 1 && $stub_c2 -eq 1 ]] && stub=1
+  stub_calc "$stub_c1" "$stub_c2"
 
   # guard leg d: benign paraphrases still read value=0
   para=1
@@ -404,18 +410,32 @@ if [[ "$MODE" == "selftest" ]]; then
   # must make the SHIPPED checker's own selftest fail with a named FAIL line.
   # (The measured tree at BASE carries the unhardened checker, so this check
   # uses the counter's own tree, whose checker is the one the round ships.)
-  NEG_OLD='NEGATORS = frozenset(("not", "no", "never", "neither", "nor", "without", "none"))'
-  NEG_NEW='NEGATORS = frozenset(())'
+  # The negator set's CONTENTS change across rounds (round-63 widens it);
+  # empty whatever single `NEGATORS = frozenset(...)` assignment the shipped
+  # checker carries — the needle is the assignment's shape, not its members.
   mkdir -p "$WORK/st8.chal-tree/plans" || FAILED+=("checker-challenge-dir")
   cp "$LANE/$CHECKER_REL" "$WORK/st8.chal-tree/plans/round-61-c1-check.py" \
     || FAILED+=("checker-challenge-copy")
-  if python3 - "$WORK/st8.chal-tree/plans/round-61-c1-check.py" "$NEG_OLD" "$NEG_NEW" <<'PY'
+  if python3 - "$WORK/st8.chal-tree/plans/round-61-c1-check.py" <<'PY'
 import sys
-p, old, new = sys.argv[1], sys.argv[2], sys.argv[3]
-t = open(p, encoding="utf-8").read()
-if t.count(old) != 1:
+p = sys.argv[1]
+lines = open(p, encoding="utf-8").read().splitlines(keepends=True)
+starts = [i for i, ln in enumerate(lines) if ln.startswith("NEGATORS = frozenset")]
+if len(starts) != 1:
     sys.exit(1)
-open(p, "w", encoding="utf-8").write(t.replace(old, new))
+i = starts[0]
+# consume lines until the frozenset(...) call's parens balance
+depth = 0
+j = i
+while True:
+    depth += lines[j].count("(") - lines[j].count(")")
+    if depth <= 0:
+        break
+    j += 1
+    if j >= len(lines):
+        sys.exit(1)
+lines[i:j + 1] = ["NEGATORS = frozenset(())\n"]
+open(p, "w", encoding="utf-8").write("".join(lines))
 PY
   then
     ( cd "$WORK/st8.chal-tree" && timeout 900 python3 -I -B "plans/round-61-c1-check.py" --selftest ) >"$WORK/st8.chal.out" 2>&1
@@ -425,13 +445,26 @@ PY
   else
     FAILED+=("checker-challenge-needle")
   fi
+  # check 9 (round-63 CM2a): the stub composition must read 0 when either
+  # stub leg fails — a composition forced to 1 unconditionally dies here.
+  stub_calc 0 1; c9a=$stub
+  stub_calc 1 0; c9b=$stub
+  stub_calc 1 1; c9c=$stub
+  [[ $c9a -eq 0 && $c9b -eq 0 && $c9c -eq 1 ]] || FAILED+=("stub-composition")
+  # check 10 (round-63 CM2b): stub_leg on the UNMODIFIED (good) tree must read
+  # SL_OK=0 — the measure leg succeeds there, so a stub_leg forced to
+  # SL_OK=1 unconditionally dies here.
+  stub_leg "$TREE" "$WORK/st.good" || true
+  [[ "${SL_OK:-1}" -eq 0 ]] || FAILED+=("stub-leg-negative-vector")
   n=${#FAILED[@]}
+  TOTAL=15
   echo "c1-counter: selftest tree=$TREE_DESC scratch=$WORK"
   if [[ $n -eq 0 ]]; then
-    echo "C1_COUNTER_SELFTEST: PASS (8/8 checks)"
+    echo "C1_COUNTER_SELFTEST: PASS ($TOTAL/$TOTAL checks)"
     exit 0
   fi
-  echo "C1_COUNTER_SELFTEST: FAIL ($((8 - n))/8 checks) failed=$(IFS=,; echo "${FAILED[*]}")"
+  for f in "${FAILED[@]}"; do echo "FINDING R62-C1-ST-$f"; done
+  echo "C1_COUNTER_SELFTEST: FAIL ($((TOTAL - n))/$TOTAL checks) failed=$(IFS=,; echo "${FAILED[*]}")"
   exit 1
 fi
 

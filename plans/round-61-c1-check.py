@@ -115,9 +115,32 @@ disagree precisely):
     none, and any token ending `n't`; the bigram `not only` immediately before
     the match is an idiom, not a negator. The window is a floor, not a parser
     (plan §C1 named ceiling).
+  - Round-63 hardening (plans/round-63.md §C1). The polarity test is now a
+    sentence-scoped asserted-position test shared by I3/I4/I5: a token is
+    asserted iff (i) no effective negator sits between the nearest `.` or `;`
+    before it and the token (window capped at 24 tokens; `:` no longer
+    truncates), (ii) no denial predicate sits between the token and the
+    nearest `.` or `;` after it (capped at 24 tokens), (iii) no listed idiom
+    (`not only`, `not merely`, `not just`, `no fewer than`, `no less than`)
+    immediately precedes it — an idiom's head negator does not count — and
+    (iv) no negator before it is followed by `but` before the token
+    (contrastive rescue). Double-quoted spans that END before the token are
+    masked first (the superseded quotation is not the correction's assertion).
+    I3 accepts `A3 item 2` or `item 2 of A3` in the 12-token anchor window;
+    I4 accepts `three` or the digit `3` (word-boundary); I5 accepts
+    `rewritten in place` or `rewritten in-place`. I6 additionally requires
+    the correction line's quoted superseded span's `HH:MM:SS` set to equal
+    exactly the stamp derived from `{fleet}/.ufo/reports/round-60/kagi.md`
+    §Stale-lane (`launch HH:MM:SS`; `--fleet`, default the fleet root); a
+    missing or unreadable report is SETUP (exit 2), never a silent pass. I7
+    binds each derived fraction/percentage pair to its subject: `3/16 =
+    18.75 %` within 8 tokens after `literal reading`, `4/16 = 25 %` within 8
+    tokens after `sentinel` (quoted spans masked). The window and the lists
+    are closed lists and a floor (plan §C1 named ceiling).
 
 Usage:
     python3 -I -B plans/round-61-c1-check.py --root <tree> [--repo <lane>]
+                                             [--fleet <dir>]
                                              [--no-challenge] [--json] [--verbose]
                                              [--selftest] [--work DIR]
 Output: one `c1:` evidence line per item, then
@@ -145,6 +168,11 @@ LESSON60_REL = "corpus/lessons/round-60.md"
 SKILL_REL = "SKILL.md"
 RESULTS60_REL = ".ufo/waves/round-60/w1-results.json"
 C2_SCRIPT_REL = "plans/round-60-c2.sh"
+
+FLEET_REPORT_REL = ".ufo/reports/round-60/kagi.md"
+DEFAULT_FLEET = "/home/vgpnk/Projects/shokunin"
+STALE_LANE_LABEL_RE = re.compile(r"stale-lane", re.IGNORECASE)
+LAUNCH_HMS_RE = re.compile(r"launch\s+(\d{2}:\d{2}:\d{2})")
 
 POP = 7
 SELFTEST_TIMEOUT = 90
@@ -179,12 +207,13 @@ SECOND_INSTANCE_RE = re.compile(r"second\s+instance")
 QUALITY_TREND_RE = re.compile(r"supersedes\s+the\s+round-60\s+quality-trend\s+sentence")
 NO_NEW_RECORD_DEFECT_RE = re.compile(r"no\s+new\s+record\s+defect")
 THREE_RE = re.compile(r"\bthree\b")
+COUNT3_RE = re.compile(r"(?<![A-Za-z0-9_'])3(?![A-Za-z0-9_'])")
 
 WAVE_LINE_RE = re.compile(r"^-\s+Wave\s+.*kagi-r60-w1")
 SUPERSEDES_LOG_WAVE_RE = re.compile(
     r"supersedes\s+the\s+round-60\s+LOG\s+wave\s+line")
 NUMSTAT_SHAPE_RE = re.compile(r"insertions=(\d+)\s+deletions=(\d+)")
-REWITTEN_IN_PLACE_RE = re.compile(r"rewritten\s+in\s+place")
+REWITTEN_IN_PLACE_RE = re.compile(r"rewritten\s+in(?:\s+|-)place")
 REV_A = "14a6c07d"  # the pre-rewrite parent the plan names
 REV_B = "818d2a82"  # the rewriting tip the plan names
 REV_RANGE_BASE = "a677c78e"  # the range base the plan names
@@ -201,16 +230,31 @@ ATTACK_SHARE_RE = re.compile(
 ROLE_SET = ("reviewer", "critic", "mutation-tester", "labrat")
 SENTINEL_ROLE = "sentinel"
 
-# ---- round-62 QM79 hardened grammar (plans/round-62.md §C1 + Amendment A1) ----
-NEGATORS = frozenset(("not", "no", "never", "neither", "nor", "without", "none"))
+# ---- round-63 hardened grammar (plans/round-63.md §C1) ----
+# Negators (case-insensitive, word-boundary). `no longer` is covered by the
+# `no` token; `n't` is the suffix rule below.
+NEGATORS = frozenset(("not", "no", "never", "neither", "nor", "without",
+                      "none", "hardly", "barely", "scarcely", "rarely",
+                      "seldom"))
 NT_SUFFIX = "n't"
 TOKEN_RE = re.compile(r"[A-Za-z0-9_']+")
-BOUNDARY_CHARS = (".", ";", ":")  # the negator-window truncation set
-NEG_WINDOW = 5    # the plan's 5-token negator window (a floor, not a parser)
-ANCHOR_WINDOW = 12  # I3's 12-token `A3 item 2` anchor window
+SENTENCE_CHARS = (".", ";")  # polarity window boundaries (`:` dropped, r63)
+NEG_WINDOW = 24   # the plan's 24-token polarity window (a floor, not a parser)
+ANCHOR_WINDOW = 12  # I3's anchor window (`A3 item 2` / `item 2 of A3`)
+SUBJECT_WINDOW = 8   # I7's 8-token subject->pair binding window
 TIME_SCAN_RE = re.compile(r"(?<![0-9])(\d{2}):(\d{2}):(\d{2})(?![0-9])")
+QUOTE_SPAN_RE = re.compile(r'"[^"]*"')
 I6_DENY_PHRASES = ("times are correct", "times are right", "is correct",
                    "are correct")  # Amendment A1 clause (d), case-insensitive
+# Denial predicates (post-token, case-insensitive token sequences).
+DENY_SINGLE = frozenset(("denies", "denied", "deny", "refutes", "refuted",
+                         "refute", "untrue"))
+DENY_PHRASES = (("is", "false"), ("are", "false"), ("not", "true"),
+                ("not", "the", "case"), ("no", "such"))
+# Idioms (immediately before the token, not a negator): the listed phrase's
+# head negator does not count when the idiom occupies the token tail.
+IDIOMS = (("not", "only"), ("not", "merely"), ("not", "just"),
+          ("no", "fewer", "than"), ("no", "less", "than"))
 
 _SYMLINK_REFUSAL_RELS = (LOG_REL, LESSON60_REL, PLAN60_REL, SKILL_REL,
                          RESULTS60_REL)
@@ -351,49 +395,136 @@ def derive_ci_set(repo: str) -> set[str]:
     return stamps
 
 
-# --------------------------------------------------------------------------- QM79 grammar
+def derive_fleet_stamp(fleet: str) -> str:
+    """The superseded record's launch stamp `HH:MM:SS`, derived from the fleet
+    report `{fleet}/.ufo/reports/round-60/kagi.md` §Stale-lane line
+    (`launch HH:MM:SS`; the paragraph runs to the next blank line). A missing,
+    unreadable or stamp-less report raises SetupError — SETUP (exit 2), never
+    a silent pass (plan §C1 I6, §Bounds)."""
+    path = os.path.join(fleet, *FLEET_REPORT_REL.split("/"))
+    try:
+        with open(path, encoding="utf-8", errors="surrogateescape") as f:
+            lines = f.read().splitlines()
+    except OSError as e:
+        raise SetupError(f"fleet report {FLEET_REPORT_REL} unreadable: {e}")
+    for i, ln in enumerate(lines):
+        if not STALE_LANE_LABEL_RE.search(ln):
+            continue
+        para = [ln]
+        for nxt in lines[i + 1:]:
+            if not nxt.strip():
+                break
+            para.append(nxt)
+        m = LAUNCH_HMS_RE.search("\n".join(para))
+        if m and _valid_hms(m.group(1)):
+            return m.group(1)
+        break
+    raise SetupError(f"fleet report {FLEET_REPORT_REL} has no "
+                     "§Stale-lane 'launch HH:MM:SS' stamp")
+
+
+# --------------------------------------------------------------------------- round-63 grammar
 def _is_negator(tok: str) -> bool:
     t = tok.lower()
     return t in NEGATORS or t.endswith(NT_SUFFIX)
 
 
+def _mask_quotes(text: str, before: int) -> str:
+    """Blank every double-quoted span that ENDS at or before `before` (the
+    superseded quotation is not the correction's own assertion). Positions are
+    preserved so match offsets stay valid."""
+    chars = list(text)
+    for m in QUOTE_SPAN_RE.finditer(text):
+        if m.end() <= before:
+            for i in range(m.start(), m.end()):
+                chars[i] = " "
+    return "".join(chars)
+
+
 def _negated_before(text: str, start: int, window: int = NEG_WINDOW) -> bool:
-    """True iff a negator sits in the `window` tokens before position `start`,
-    the window truncated at the nearest `.`, `;` or `:`; the bigram `not only`
-    immediately before the match is an idiom, not a negator (plan §C1)."""
+    """True iff an effective negator sits in the `window` tokens before
+    position `start`, the window bounded by the nearest `.` or `;` (round-63:
+    `:` no longer truncates) and capped at `window` tokens. A negator does not
+    count when (iii) it is the head of a listed idiom occupying the token tail
+    immediately before the match, or (iv) a `but` token sits between it and
+    the match (contrastive `not X but Y` asserts Y). Quote spans ending
+    before `start` are masked first (idempotent when `text` is already
+    masked, as _asserted passes it)."""
+    text = _mask_quotes(text, start)
     cut = 0
-    for ch in BOUNDARY_CHARS:
+    for ch in SENTENCE_CHARS:
         p = text.rfind(ch, 0, start)
         if p >= cut:
             cut = p + 1
     low = [m.group(0).lower() for m in TOKEN_RE.finditer(text, cut, start)]
     low = low[-window:]
+    rescued = set()
+    for idi in IDIOMS:
+        k = len(idi)
+        if len(low) >= k and tuple(low[-k:]) == idi:
+            rescued.add(len(low) - k)  # the idiom's head negator index
     for i, t in enumerate(low):
         if not _is_negator(t):
             continue
-        if (t == "not" and i + 2 == len(low) and low[i + 1] == "only"):
-            continue  # `not only` immediately before the match
+        if i in rescued:
+            continue
+        if "but" in low[i + 1:]:
+            continue  # contrastive: `not … but <token>` asserts the token
         return True
     return False
+
+
+def _denied_after(mt: str, end: int,
+                  window: int = NEG_WINDOW) -> bool:
+    """True iff a denial predicate sits between position `end` and the nearest
+    `.` or `;` after it, capped at `window` tokens. `mt` is the quote-masked
+    text (the mask is applied once, in _asserted)."""
+    cut = len(mt)
+    for ch in SENTENCE_CHARS:
+        p = mt.find(ch, end)
+        if 0 <= p < cut:
+            cut = p
+    post = [m.group(0).lower()
+            for m in TOKEN_RE.finditer(mt, end, cut)][:window]
+    if any(t in DENY_SINGLE for t in post):
+        return True
+    for k in range(len(post)):
+        for ph in DENY_PHRASES:
+            if tuple(post[k:k + len(ph)]) == ph:
+                return True
+    return False
+
+
+def _asserted(text: str, start: int, end: int) -> bool:
+    """The round-63 asserted-position test: double-quoted spans that END
+    before the token are masked once, then no effective pre-token negator
+    and no post-token denial predicate."""
+    mt = _mask_quotes(text, start)
+    return not _negated_before(mt, start) and not _denied_after(mt, end)
 
 
 def _seq_in_window(text: str, start: int, seq: tuple[str, ...],
                    window: int = ANCHOR_WINDOW) -> bool:
     """The lowercased token sequence `seq` occurs inside the `window` tokens
-    before position `start` (I3's 12-token `A3 item 2` anchor window)."""
+    before position `start` (I3's anchor window)."""
     toks = [m.group(0).lower()
             for m in TOKEN_RE.finditer(text, 0, start)][-window:]
     n = len(seq)
     return any(toks[i:i + n] == list(seq) for i in range(len(toks) - n + 1))
 
 
+A3_ITEM2_SEQS = (("a3", "item", "2"), ("item", "2", "of", "a3"))
+
+
 def _asserted_withdrawn(section: str) -> bool:
     """An occurrence of `withdrawn` whose 12-token window before it contains
-    `A3 item 2` and whose truncated 5-token window before it carries no negator
-    (plan §C1 I3; the token is tested in the asserting position, QM79)."""
+    `A3 item 2` or `item 2 of A3` and whose polarity test passes (plan §C1
+    I3; the token is tested in the asserting position)."""
     for m in WITHDRAWN_RE.finditer(section):
-        if (_seq_in_window(section, m.start(), ("a3", "item", "2"))
-                and not _negated_before(section, m.start())):
+        if not _asserted(section, m.start(), m.end()):
+            continue
+        if any(_seq_in_window(section, m.start(), seq)
+               for seq in A3_ITEM2_SEQS):
             return True
     return False
 
@@ -422,7 +553,7 @@ def _pair_re(frac: str, pct: str) -> re.Pattern:
 
 
 # --------------------------------------------------------------------------- items
-def item1(root: str, repo: str | None) -> tuple[str, str]:
+def item1(root: str, repo: str | None, fleet: str | None) -> tuple[str, str]:
     lesson = rd(root, LESSON60_REL)
     if lesson is None:
         return FAIL, "corpus/lessons/round-60.md missing"
@@ -566,7 +697,7 @@ def _c2_mutation_leg(script: str, text: str) -> tuple[bool, str]:
         shutil.rmtree(tmp, ignore_errors=True)
 
 
-def item2(root: str, repo: str | None) -> tuple[str, str]:
+def item2(root: str, repo: str | None, fleet: str | None) -> tuple[str, str]:
     script = os.path.join(root, *C2_SCRIPT_REL.split("/"))
     # leg A: the measured script's own --selftest (isolated fixtures per its
     # contract: no bao, no network; the checker only observes it)
@@ -614,7 +745,7 @@ def item2(root: str, repo: str | None) -> tuple[str, str]:
     return (HOLD if (a_ok and b_ok and c_ok) else FAIL), det
 
 
-def item3(root: str, repo: str | None) -> tuple[str, str]:
+def item3(root: str, repo: str | None, fleet: str | None) -> tuple[str, str]:
     plan = rd(root, PLAN60_REL)
     if plan is None:
         return FAIL, "plans/round-60.md missing"
@@ -659,7 +790,7 @@ def item3(root: str, repo: str | None) -> tuple[str, str]:
     return (HOLD if (a_ok and b_ok) else FAIL), det
 
 
-def item4(root: str, repo: str | None) -> tuple[str, str]:
+def item4(root: str, repo: str | None, fleet: str | None) -> tuple[str, str]:
     lesson = rd(root, LESSON60_REL)
     if lesson is None:
         return FAIL, "corpus/lessons/round-60.md missing"
@@ -668,8 +799,10 @@ def item4(root: str, repo: str | None) -> tuple[str, str]:
     if not candidates:
         return FAIL, "no 'supersedes the round-60 quality-trend sentence' line"
     last = candidates[-1]  # last occurrence wins
-    three_ok = any(not _negated_before(last, m.start())
-                   for m in THREE_RE.finditer(last))
+    count_tokens = list(THREE_RE.finditer(last)) + list(
+        COUNT3_RE.finditer(last))
+    three_ok = any(_asserted(last, m.start(), m.end())
+                   for m in count_tokens)
     ok = (NO_NEW_RECORD_DEFECT_RE.search(last) is not None
           and all(re.search(rf"\bD{n}\b", last) for n in (1, 2, 3))
           and three_ok)
@@ -679,7 +812,7 @@ def item4(root: str, repo: str | None) -> tuple[str, str]:
     return (HOLD if ok else FAIL), det
 
 
-def item5(root: str, repo: str | None) -> tuple[str, str]:
+def item5(root: str, repo: str | None, fleet: str | None) -> tuple[str, str]:
     log = rd(root, LOG_REL)
     if log is None:
         return FAIL, "LOG.md missing"
@@ -697,33 +830,34 @@ def item5(root: str, repo: str | None) -> tuple[str, str]:
     last = candidates[-1]  # last statement wins
     m = NUMSTAT_SHAPE_RE.search(last)
     m_rp = REWITTEN_IN_PLACE_RE.search(last)
-    neg_free = m_rp is not None and not _negated_before(last, m_rp.start())
+    asserted = (m_rp is not None
+                and _asserted(last, m_rp.start(), m_rp.end()))
     structural = (m is not None
                   and REV_A in last and REV_B in last
                   and m_rp is not None)
     if repo is None:
-        ok = structural and neg_free
+        ok = structural and asserted
         det = (f"mode=shape-only repo-not-given stated="
                f"{'insertions/deletions-digits' if m is not None else 'missing'} "
                f"revs={'both' if REV_A in last and REV_B in last else 'missing'} "
                f"mechanism={'rewritten-in-place' if m_rp is not None else 'missing'} "
-               f"negator={'absent' if neg_free else 'present'}")
+               f"polarity={'asserted' if asserted else 'not-asserted'}")
         return (HOLD if ok else FAIL), det
     try:
         ins, dels = derive_numstat(repo)
     except LookupError as e:
         return FAIL, f"numstat not derived: {e}"
-    ok = (structural and neg_free
+    ok = (structural and asserted
           and int(m.group(1)) == ins and int(m.group(2)) == dels)
     det = (f"derived insertions={ins} deletions={dels} "
            f"stated={m.group(1) + '/' + m.group(2) if m is not None else 'none'} "
            f"revs={'both' if REV_A in last and REV_B in last else 'missing'} "
            f"mechanism={'rewritten-in-place' if m_rp is not None else 'missing'} "
-           f"negator={'absent' if neg_free else 'present'}")
+           f"polarity={'asserted' if asserted else 'not-asserted'}")
     return (HOLD if ok else FAIL), det
 
 
-def item6(root: str, repo: str | None) -> tuple[str, str]:
+def item6(root: str, repo: str | None, fleet: str | None) -> tuple[str, str]:
     lesson = rd(root, LESSON60_REL)
     if lesson is None:
         return FAIL, "corpus/lessons/round-60.md missing"
@@ -739,11 +873,22 @@ def item6(root: str, repo: str | None) -> tuple[str, str]:
     stamps = set(TS_RE.findall(last))
     stamps.discard("2026-11-07T15:03:17-03:00")  # the launch stamp is not a commit
     denied = sorted(p for p in I6_DENY_PHRASES if p in last.lower())
+    # round-63: the quoted superseded span's HH:MM:SS set must equal exactly
+    # the stamp derived from the fleet report's §Stale-lane launch line.
+    fleet_dir = fleet if fleet is not None else DEFAULT_FLEET
+    fleet_stamp = derive_fleet_stamp(fleet_dir)  # SetupError -> exit 2
+    quoted = {t.group(0) for m in QUOTE_SPAN_RE.finditer(last)
+              for t in TIME_SCAN_RE.finditer(m.group(0))
+              if _valid_hms(t.group(0))}
+    superseded_ok = quoted == {fleet_stamp}
     if repo is None:
         superseded = _qualifying_times(last, launch_time, frozenset())
-        ok = len(stamps) >= 3 and bool(superseded) and not denied
+        ok = len(stamps) >= 3 and bool(superseded) and not denied \
+            and superseded_ok
         det = (f"mode=shape-only repo-not-given launch=yes distinct-stamps="
                f"{len(stamps)} superseded-stamp={'yes' if superseded else 'no'} "
+               f"quoted-stamp={','.join(sorted(quoted)) or 'none'} "
+               f"fleet-stamp={fleet_stamp} "
                f"denial={'none' if not denied else '|'.join(denied)}")
         return (HOLD if ok else FAIL), det
     try:
@@ -753,10 +898,12 @@ def item6(root: str, repo: str | None) -> tuple[str, str]:
     qualifying = {t for t in stamps if t in derived}
     superseded = _qualifying_times(last, launch_time,
                                    frozenset(t[11:19] for t in derived))
-    ok = len(qualifying) >= 3 and bool(superseded) and not denied
+    ok = len(qualifying) >= 3 and not denied and superseded_ok
     det = (f"launch=yes distinct-stamps={len(stamps)} in-derived={len(qualifying)} "
            f"derived-set={len(derived)} superseded-stamp="
            f"{','.join(sorted(superseded)) if superseded else 'none'} "
+           f"quoted-stamp={','.join(sorted(quoted)) or 'none'} "
+           f"fleet-stamp={fleet_stamp} "
            f"denial={'none' if not denied else '|'.join(denied)}")
     return (HOLD if ok else FAIL), det
 
@@ -765,7 +912,25 @@ def _fmt_pct(part: int, total: int) -> str:
     return f"{100.0 * part / total:.10g}"
 
 
-def item7(root: str, repo: str | None) -> tuple[str, str]:
+LITERAL_READING_RE = re.compile(r"literal\s+reading", re.IGNORECASE)
+SENTINEL_RE = re.compile(r"sentinel", re.IGNORECASE)
+
+
+def _pair_bound_to_subject(masked: str, subj_re: re.Pattern,
+                           pair: re.Pattern) -> bool:
+    """True iff `pair` occurs within SUBJECT_WINDOW tokens after some
+    occurrence of `subj_re` in the (quote-masked) line."""
+    for sm in subj_re.finditer(masked):
+        pm = pair.search(masked, sm.end())
+        if pm is None:
+            continue
+        between = TOKEN_RE.findall(masked, sm.end(), pm.start())
+        if len(between) <= SUBJECT_WINDOW:
+            return True
+    return False
+
+
+def item7(root: str, repo: str | None, fleet: str | None) -> tuple[str, str]:
     lesson = rd(root, LESSON60_REL)
     if lesson is None:
         return FAIL, "corpus/lessons/round-60.md missing"
@@ -780,15 +945,19 @@ def item7(root: str, repo: str | None) -> tuple[str, str]:
         return FAIL, f"role mix not derived: {e}"
     frac_a, frac_b = f"{a}/{n}", f"{b}/{n}"
     pa, pb = _fmt_pct(a, n), _fmt_pct(b, n)
-    # the pairing is tested in the asserting position: the quoted superseded
-    # arithmetic ("4/16 = 25 % on the addendum's literal list") is the forgery
-    # of record, not the correction's own claim (QM79)
+    # the pairing AND its subject binding are tested in the asserting
+    # position: the quoted superseded arithmetic ("4/16 = 25 % on the
+    # addendum's literal list") is the forgery of record, not the
+    # correction's own claim (QM79); round-63 binds each pair to its
+    # subject within SUBJECT_WINDOW tokens.
     asserted = re.sub(r'"[^"]*"', " ", last)
-    ok = (_pair_re(frac_a, pa).search(asserted) is not None
-          and _pair_re(frac_b, pb).search(asserted) is not None)
+    ok = (_pair_bound_to_subject(asserted, LITERAL_READING_RE,
+                                 _pair_re(frac_a, pa))
+          and _pair_bound_to_subject(asserted, SENTINEL_RE,
+                                     _pair_re(frac_b, pb)))
     det = (f"derived {a}/{n}={pa} {b}/{n}={pb} "
-           f"last-line={'both-fraction-percentage-pairs-present' if ok
-                        else 'pair-missing-or-swapped'}")
+           f"last-line={'both-pairs-bound-to-subjects' if ok
+                        else 'pair-missing-swapped-or-unbound'}")
     return (HOLD if ok else FAIL), det
 
 
@@ -853,7 +1022,7 @@ def run_value(argv: list[str], timeout: int = 900):
     return parse_value(r.stdout)
 
 
-def run_guard(root: str, count: int, repo: str | None):
+def run_guard(root: str, count: int, repo: str | None, fleet: str | None):
     """Legs 2+3 of the frozen GUARD. Returns (challenge_ok, stub_fails, detail);
     challenge_ok/stub_fails None means the leg could not run (GUARD stays 0)."""
     root_abs = os.path.realpath(root)
@@ -881,6 +1050,7 @@ def run_guard(root: str, count: int, repo: str | None):
                 "--root", copy, "--no-challenge"]
         if repo is not None:
             argv += ["--repo", repo]
+        argv += ["--fleet", fleet if fleet is not None else DEFAULT_FLEET]
         v2 = run_value(argv)
         stub = os.path.join(tmp, "stub.py")
         with open(stub, "w", encoding="utf-8") as f:
@@ -899,11 +1069,14 @@ def run_guard(root: str, count: int, repo: str | None):
 
 
 # --------------------------------------------------------------------------- evaluate
-def measure(root: str, repo: str | None) -> dict:
+def measure(root: str, repo: str | None,
+            fleet: str | None = None) -> dict:
     out = {}
     for key, fn in ITEMS:
         try:
-            s, d = fn(root, repo)
+            s, d = fn(root, repo, fleet)
+        except SetupError:
+            raise  # SETUP (exit 2), never a silent item FAIL
         except Exception as e:  # fail closed: an item that cannot be read is not a hold
             s, d = FAIL, f"item raised {type(e).__name__}: {e}"
         out[key] = (s, d)
@@ -924,13 +1097,15 @@ def _refuse_inside_root(root: str) -> None:
                          f"measured root {root_abs} (refused, QM74)")
 
 
-def evaluate(root: str, repo: str | None = None, verbose: bool = False,
-             challenge: bool = True, as_json: bool = False) -> int:
+def evaluate(root: str, repo: str | None = None, fleet: str | None = None,
+             verbose: bool = False, challenge: bool = True,
+             as_json: bool = False) -> int:
     _refuse_symlinks(root)  # refuse to measure symlinked statements/derivations
     if repo is not None and shutil.which("git") is None:
         raise SetupError("git not found on PATH (--repo derivations unavailable)")
     _refuse_inside_root(root)  # QM74 (I2's mutation leg and the GUARD share it)
-    res = measure(root, repo)
+    fleet_dir = fleet if fleet is not None else DEFAULT_FLEET
+    res = measure(root, repo, fleet_dir)
     toks = {k: ("1" if s == HOLD else "0") for k, (s, _) in res.items()}
     population = sum(1 for s, _ in res.values() if s in (HOLD, FAIL))
     count = sum(1 for s, _ in res.values() if s == FAIL)
@@ -940,7 +1115,8 @@ def evaluate(root: str, repo: str | None = None, verbose: bool = False,
         value_token = str(count)
         challenge_detail = "not run (--no-challenge); diagnostic count printed"
     else:
-        chal_ok, stub_fails, challenge_detail = run_guard(root, count, repo)
+        chal_ok, stub_fails, challenge_detail = run_guard(root, count, repo,
+                                                        fleet_dir)
         guard = 1 if (population == POP and chal_ok is True
                       and stub_fails is True) else 0
         value_token = str(count) if guard == 1 else "FAIL"
@@ -950,6 +1126,7 @@ def evaluate(root: str, repo: str | None = None, verbose: bool = False,
             "instrument": "plans/round-61-c1-check.py",
             "root": root,
             "repo": repo,
+            "fleet": fleet_dir,
             "value": value_token, "value_diagnostic": count,
             "population": population,
             "items": {k: (1 if s == HOLD else 0) for k, (s, _) in res.items()},
@@ -1128,6 +1305,21 @@ def mk_tree(base: str, only: str | None = None) -> str:
         w(base, rel, _FIXTURE_TEXTS[rel])
     return base
 
+FLEET_REPORT = (
+    "# fleet report (fixture)\n\n"
+    "## Round 60\n\n"
+    "Stale-lane: the round is `progressing`, not stale — launch 15:09:28 -03, "
+    "lane commits at 15:10 and 16:33, all inside the mission window.\n"
+)
+
+
+def mk_fleet(base: str) -> str:
+    """A scratch fleet root carrying the round-60 report the I6 derivation
+    reads (`{fleet}/.ufo/reports/round-60/kagi.md` §Stale-lane)."""
+    os.makedirs(base, exist_ok=True)
+    w(base, FLEET_REPORT_REL, FLEET_REPORT)
+    return base
+
 
 def build_fixture_repo(path: str) -> str:
     """A scratch git repo whose tags are LITERALLY named a677c78e / 14a6c07d /
@@ -1228,6 +1420,9 @@ def _run_selftest(work: str | None = None) -> int:
     try:
         good = mk_tree(os.path.join(top, "good"))
         repo = build_fixture_repo(os.path.join(top, "repo"))
+        fleet = mk_fleet(os.path.join(top, "fleet"))
+        case("fleet-stamp-derived",
+             derive_fleet_stamp(fleet) == "15:09:28")
 
         # -- unit: derivations --
         case("derive-results-16-3-4", derive_i7(good) == (16, 3, 4))
@@ -1273,38 +1468,38 @@ def _run_selftest(work: str | None = None) -> int:
              row_bad is not None and NONE_OWN_LITERAL in row_bad[0])
 
         # -- items on the all-resolved fixture --
-        res = measure(good, repo)
+        res = measure(good, repo, fleet)
         case("aggregate-good-all-hold",
              all(s == HOLD for s, _ in res.values()) and len(res) == POP)
 
         # -- evaluate legs --
-        rc, out = quiet_evaluate(good, repo=repo, challenge=False)
+        rc, out = quiet_evaluate(good, repo=repo, challenge=False, fleet=fleet)
         case("evaluate-no-challenge-good",
              rc == 1 and "value=0" in out and "guard=0" in out
              and "population=7" in out and "i7=1" in out)
-        rc, out = quiet_evaluate(good, repo=repo, verbose=True, challenge=True)
+        rc, out = quiet_evaluate(good, repo=repo, verbose=True, challenge=True, fleet=fleet)
         case("evaluate-guard-good-tree",
              rc == 0 and "value=0" in out and "guard=1" in out
              and "expect=1" in out and "fails=True" in out
              and "deletions 1->2" in out)
 
         # -- the shape-only fallback (no --repo) --
-        rc, out = quiet_evaluate(good, repo=None, challenge=False)
+        rc, out = quiet_evaluate(good, repo=None, challenge=False, fleet=fleet)
         case("no-repo-good-shape-only",
              rc == 1 and "value=0" in out and "population=7" in out
              and "i5=1" in out and "i6=1" in out
              and "mode=shape-only repo-not-given" in out)
-        rc, out = quiet_evaluate(good, repo=None, challenge=True)
+        rc, out = quiet_evaluate(good, repo=None, challenge=True, fleet=fleet)
         case("no-repo-guard-cannot-fire",
              rc == 1 and "value=FAIL" in out and "guard=0" in out)
 
         empty = os.path.join(top, "empty")
         os.makedirs(empty, exist_ok=True)
-        rc, out = quiet_evaluate(empty, repo=repo, challenge=False)
+        rc, out = quiet_evaluate(empty, repo=repo, challenge=False, fleet=fleet)
         case("evaluate-all-unresolved-7",
              rc == 1 and "value=7" in out and "population=7" in out
              and "guard=0" in out and all(f"i{k}=0" in out for k in range(1, 8)))
-        rc, out = quiet_evaluate(empty, repo=repo, challenge=True)
+        rc, out = quiet_evaluate(empty, repo=repo, challenge=True, fleet=fleet)
         case("evaluate-all-unresolved-guard-fails-closed",
              rc == 1 and "value=FAIL" in out and "guard=0" in out)
 
@@ -1325,7 +1520,7 @@ def _run_selftest(work: str | None = None) -> int:
         for k in range(1, 8):
             key = f"i{k}"
             tree = mk_tree(os.path.join(top, f"only-{key}"), only=key)
-            rc, out = quiet_evaluate(tree, repo=repo, challenge=False)
+            rc, out = quiet_evaluate(tree, repo=repo, challenge=False, fleet=fleet)
             want_v, resolved = ONLY_EXPECT[key]
             case(f"only-{key}-resolves",
                  rc == 1 and f"value={want_v}" in out
@@ -1336,22 +1531,22 @@ def _run_selftest(work: str | None = None) -> int:
         bad = mk_tree(os.path.join(top, "bad-i1-bytes"))
         w(bad, LESSON60_REL, LESSON60_GOOD.replace("results=16 output=3824",
                                                    "results=16 output=3823"))
-        case("i1-wrong-bytes", item1(bad, repo)[0] == FAIL)
+        case("i1-wrong-bytes", item1(bad, repo, fleet)[0] == FAIL)
         bad = mk_tree(os.path.join(top, "bad-i1-nomutants"))
         w(bad, LESSON60_REL,
           LESSON60_GOOD.replace("build/R60MutCounters/mutants.md",
                                 "build/R60MutCounters/raw/"))
-        case("i1-no-mutants-md", item1(bad, repo)[0] == FAIL)
+        case("i1-no-mutants-md", item1(bad, repo, fleet)[0] == FAIL)
         bad = mk_tree(os.path.join(top, "bad-i1-restated"))
         w(bad, LESSON60_REL,
           LESSON60_GOOD + "- Correction (I1, restated): supersedes R37 — "
           "results=16 output=3823 (a later wrong restatement in the same "
           "correction section).\n")
-        case("i1-later-restatement-wins", item1(bad, repo)[0] == FAIL)
+        case("i1-later-restatement-wins", item1(bad, repo, fleet)[0] == FAIL)
         bad = mk_tree(os.path.join(top, "bad-i1-decoy"))
         w(bad, LESSON60_REL,
           "# an early line mentioning R37 in prose\n" + LESSON60_GOOD)
-        case("i1-decoy-mention-no-relocate", item1(bad, repo)[0] == HOLD)
+        case("i1-decoy-mention-no-relocate", item1(bad, repo, fleet)[0] == HOLD)
         bad_log = ("# Round 60 — lesson\n\n"
                    "- Correction (I1): supersedes R37 — results=16 output=3824, "
                    "mutants.md.\n\n"
@@ -1359,7 +1554,7 @@ def _run_selftest(work: str | None = None) -> int:
                    "| R37 | the mutation-tester seat produced nothing | routed |\n")
         bad = mk_tree(os.path.join(top, "bad-i1-order"))
         w(bad, LESSON60_REL, bad_log)
-        case("i1-correction-before-row", item1(bad, repo)[0] == FAIL)
+        case("i1-correction-before-row", item1(bad, repo, fleet)[0] == FAIL)
 
         # -- forgery / fail-closed fixtures: I2 --
         # drop two assertions -> PASS (cases=4), below the N >= 6 floor
@@ -1367,17 +1562,17 @@ def _run_selftest(work: str | None = None) -> int:
         w(bad, C2_SCRIPT_REL,
           C2_GOOD.replace('ck verdict-none "$(verdict out T9)" "NONE"\n', '')
                  .replace('ck tlines-count', '# dropped: ck tlines-count'))
-        case("i2-selftest-cases-below-6", item2(bad, repo)[0] == FAIL)
+        case("i2-selftest-cases-below-6", item2(bad, repo, fleet)[0] == FAIL)
         bad = mk_tree(os.path.join(top, "bad-i2-exit1"), only="i2")
         w(bad, C2_SCRIPT_REL,
           C2_GOOD.replace('echo "C2_SELFTEST: PASS (cases=$cases)"\nexit 0\n',
                           'echo "C2_SELFTEST: PASS (cases=$cases)"\nexit 1\n'))
-        case("i2-selftest-exit1", item2(bad, repo)[0] == FAIL)
+        case("i2-selftest-exit1", item2(bad, repo, fleet)[0] == FAIL)
         bad = mk_tree(os.path.join(top, "bad-i2-noneedle"), only="i2")
         w(bad, C2_SCRIPT_REL,
           C2_GOOD.replace('verdict "$1" "T$i" | cut -c1)"',
                           'verdict "$1" "T$i" | awk \'{print substr($0,1,1)}\')"'))
-        case("i2-no-needle-fails-closed", item2(bad, repo)[0] == FAIL)
+        case("i2-no-needle-fails-closed", item2(bad, repo, fleet)[0] == FAIL)
         # the two vec assertions swapped for neutral ones: leg A still PASSes 6
         # cases, but the inverted copy is UNDETECTED -> leg C must fail closed
         bad = mk_tree(os.path.join(top, "bad-i2-undetected"), only="i2")
@@ -1388,13 +1583,13 @@ def _run_selftest(work: str | None = None) -> int:
                           ' = "BBBBB" ] && echo detect || echo miss)" "detect"\n',
                           'ck neutral-b "$( [ 1 -eq 1 ] && echo ok || echo no)"'
                           ' "ok"\n'))
-        case("i2-mutation-undetected", item2(bad, repo)[0] == FAIL)
+        case("i2-mutation-undetected", item2(bad, repo, fleet)[0] == FAIL)
         bad = mk_tree(os.path.join(top, "bad-i2-registry"), only="i2")
         w(bad, SKILL_REL, bad_skill)
-        case("i2-registry-none-own", item2(bad, repo)[0] == FAIL)
+        case("i2-registry-none-own", item2(bad, repo, fleet)[0] == FAIL)
         bad = mk_tree(os.path.join(top, "bad-i2-absent"), only="i2")
         os.remove(os.path.join(bad, *C2_SCRIPT_REL.split("/")))
-        rc, out = quiet_evaluate(bad, repo=repo, challenge=False)
+        rc, out = quiet_evaluate(bad, repo=repo, challenge=False, fleet=fleet)
         # the absent script leaves i2 UNRESOLVED (population stays 7) — never SETUP
         case("i2-absent-script-unresolved-not-setup",
              rc == 1 and "value=7" in out and "population=7" in out
@@ -1406,44 +1601,44 @@ def _run_selftest(work: str | None = None) -> int:
           PLAN60_GOOD.replace("## Amendment A7", "## Amendment A0-marker")
                      .replace("### A3 — feasibility probe",
                               "## Amendment A7 — misplaced\n\n### A3 — feasibility probe"))
-        case("i3-a7-before-a6", item3(bad, repo)[0] == FAIL)
+        case("i3-a7-before-a6", item3(bad, repo, fleet)[0] == FAIL)
         bad = mk_tree(os.path.join(top, "bad-i3-nowithdrawn"))
         w(bad, PLAN60_REL,
           PLAN60_GOOD.replace("**A3 item 2 is "
                               "withdrawn**", "**A3 item 2 is narrowed**"))
-        case("i3-a7-withdraws-nothing", item3(bad, repo)[0] == FAIL)
+        case("i3-a7-withdraws-nothing", item3(bad, repo, fleet)[0] == FAIL)
         bad = mk_tree(os.path.join(top, "bad-i3-lesson"))
         w(bad, LESSON60_REL,
           LESSON60_GOOD.replace("§A3 "
                                 "item 2 is the second instance of the same mistake class",
                                 "§A3 item 2 is a fresh mistake"))
-        case("i3-lesson-second-instance-missing", item3(bad, repo)[0] == FAIL)
+        case("i3-lesson-second-instance-missing", item3(bad, repo, fleet)[0] == FAIL)
 
         # -- forgery / fail-closed fixtures: I4 --
         bad = mk_tree(os.path.join(top, "bad-i4-nod3"))
         w(bad, LESSON60_REL,
           LESSON60_GOOD.replace("and D3 (the "
                                 "receipt-free form-encoded claim)", ""))
-        case("i4-missing-d3", item4(bad, repo)[0] == FAIL)
+        case("i4-missing-d3", item4(bad, repo, fleet)[0] == FAIL)
         bad = mk_tree(os.path.join(top, "bad-i4-four"))
         w(bad, LESSON60_REL,
           LESSON60_GOOD.replace("introduced three new "
                                 "record defects", "introduced four new record defects"))
-        case("i4-wrong-count", item4(bad, repo)[0] == FAIL)
+        case("i4-wrong-count", item4(bad, repo, fleet)[0] == FAIL)
 
         # -- forgery / fail-closed fixtures: I5 --
         bad = mk_tree(os.path.join(top, "bad-i5-dels2"))
         w(bad, LOG_REL, LOG_GOOD.replace("insertions=1 deletions=1",
                                          "insertions=1 deletions=2"))
-        case("i5-stated-dels-vs-derived", item5(bad, repo)[0] == FAIL)
+        case("i5-stated-dels-vs-derived", item5(bad, repo, fleet)[0] == FAIL)
         bad = mk_tree(os.path.join(top, "bad-i5-mechanism"))
         w(bad, LOG_REL, LOG_GOOD.replace("rewritten in place", "appended twice"))
-        case("i5-mechanism-missing", item5(bad, repo)[0] == FAIL)
+        case("i5-mechanism-missing", item5(bad, repo, fleet)[0] == FAIL)
         bad = mk_tree(os.path.join(top, "bad-i5-same-shape-no-repo"))
         w(bad, LOG_REL, LOG_GOOD.replace("insertions=1 deletions=1",
                                          "insertions=7 deletions=9"))
-        case("i5-shape-only-without-repo", item5(bad, None)[0] == HOLD)
-        case("i5-shape-derived-with-repo", item5(bad, repo)[0] == FAIL)
+        case("i5-shape-only-without-repo", item5(bad, None, fleet)[0] == HOLD)
+        case("i5-shape-derived-with-repo", item5(bad, repo, fleet)[0] == FAIL)
 
         # -- forgery / fail-closed fixtures: I6 --
         # one stamp swapped for an invented one AND one real stamp removed:
@@ -1453,46 +1648,46 @@ def _run_selftest(work: str | None = None) -> int:
           LESSON60_GOOD.replace("2026-11-07T15:18:26-03:00",
                                 "2026-11-07T09:99:99-03:00")
                        .replace("`2026-11-07T15:47:01-03:00` ", ""))
-        case("i6-foreign-timestamp", item6(bad, repo)[0] == FAIL)
+        case("i6-foreign-timestamp", item6(bad, repo, fleet)[0] == FAIL)
         bad = mk_tree(os.path.join(top, "bad-i6-two"))
         w(bad, LESSON60_REL,
           LESSON60_GOOD.replace("`2026-11-07T15:18:26-03:00`, "
                                 "`2026-11-07T15:47:01-03:00` ", ""))
-        case("i6-only-two-stamps", item6(bad, repo)[0] == FAIL)
+        case("i6-only-two-stamps", item6(bad, repo, fleet)[0] == FAIL)
 
         # -- forgery / fail-closed fixtures: I7 --
         bad = mk_tree(os.path.join(top, "bad-i7-pct"))
         w(bad, LESSON60_REL, LESSON60_GOOD.replace("3/16 = 18.75 %",
                                                    "3/16 = 19 %"))
-        case("i7-wrong-pct", item7(bad, repo)[0] == FAIL)
+        case("i7-wrong-pct", item7(bad, repo, fleet)[0] == FAIL)
         bad = mk_tree(os.path.join(top, "bad-i7-frac"))
         w(bad, LESSON60_REL, LESSON60_GOOD.replace("gives 4/16 = 25 %",
                                                    "gives 5/16 = 25 %"))
-        case("i7-wrong-fraction", item7(bad, repo)[0] == FAIL)
+        case("i7-wrong-fraction", item7(bad, repo, fleet)[0] == FAIL)
 
         # -- round-62 QM79 bypass fixtures (plans/round-62.md §C1): B3..B7 --
         bad = mk_tree(os.path.join(top, "b3"))
         w(bad, PLAN60_REL,
           PLAN60_GOOD.replace("**A3 item 2 is withdrawn**",
                               "**A3 item 2 is not withdrawn**"))
-        case("b3-negated-withdrawn-unresolved", item3(bad, repo)[0] == FAIL)
+        case("b3-negated-withdrawn-unresolved", item3(bad, repo, fleet)[0] == FAIL)
         bad = mk_tree(os.path.join(top, "b4"))
         w(bad, LESSON60_REL,
           LESSON60_GOOD.replace(
               "the round introduced three new record defects it did not route",
               "the round introduced no three new record defects it did not "
               "route"))
-        case("b4-no-three-unresolved", item4(bad, repo)[0] == FAIL)
+        case("b4-no-three-unresolved", item4(bad, repo, fleet)[0] == FAIL)
         bad = mk_tree(os.path.join(top, "b5"))
         w(bad, LOG_REL,
           LOG_GOOD.replace("it was rewritten in place at",
                            "it was not rewritten in place at"))
-        case("b5-not-rewritten-unresolved", item5(bad, repo)[0] == FAIL)
+        case("b5-not-rewritten-unresolved", item5(bad, repo, fleet)[0] == FAIL)
         bad = mk_tree(os.path.join(top, "b6"))
         w(bad, LESSON60_REL,
           LESSON60_GOOD.replace("the lane was progressing, not stale.",
                                 "the paragraph's times are correct."))
-        case("b6-tail-denial-unresolved", item6(bad, repo)[0] == FAIL)
+        case("b6-tail-denial-unresolved", item6(bad, repo, fleet)[0] == FAIL)
         bad = mk_tree(os.path.join(top, "b7"))
         w(bad, LESSON60_REL,
           LESSON60_GOOD.replace(
@@ -1500,7 +1695,7 @@ def _run_selftest(work: str | None = None) -> int:
               "sentinel as an attack seat gives 4/16 = 25 %",
               "so the literal reading is 3/16 = 25 %, and counting the "
               "sentinel as an attack seat gives 4/16 = 18.75 %"))
-        case("b7-swapped-pairing-unresolved", item7(bad, repo)[0] == FAIL)
+        case("b7-swapped-pairing-unresolved", item7(bad, repo, fleet)[0] == FAIL)
         # the reviewer's whole-line variant: the correction defends the forged
         # paragraph and quotes no superseded stamp (Amendment A1 rationale)
         m_i6line = re.search(r"- Correction \(I6,[^\n]*", LESSON60_GOOD)
@@ -1510,28 +1705,28 @@ def _run_selftest(work: str | None = None) -> int:
             "- Correction (I6, spot-check D6): supersedes the round-60 "
             "stale-lane paragraph — the paragraph's times are correct."))
         case("b6-wholeline-no-superseded-stamp-unresolved",
-             m_i6line is not None and item6(bad, repo)[0] == FAIL)
+             m_i6line is not None and item6(bad, repo, fleet)[0] == FAIL)
         # benign I6: the correction keeps its conclusion and reads resolved
-        case("i6-benign-conclusion-resolved", item6(good, repo)[0] == HOLD)
+        case("i6-benign-conclusion-resolved", item6(good, repo, fleet)[0] == HOLD)
 
         # -- QM79 paraphrase fixtures: P3..P5 keep the assertion --
         bad = mk_tree(os.path.join(top, "p3"))
         w(bad, PLAN60_REL,
           PLAN60_GOOD.replace("**A3 item 2 is withdrawn**",
                               "**A3 item 2 is hereby withdrawn**"))
-        case("p3-hereby-resolved", item3(bad, repo)[0] == HOLD)
+        case("p3-hereby-resolved", item3(bad, repo, fleet)[0] == HOLD)
         bad = mk_tree(os.path.join(top, "p4"))
         w(bad, LESSON60_REL,
           LESSON60_GOOD.replace(
               "the round introduced three new record defects it did not route",
               "this round did introduce three new record defects it did not "
               "route"))
-        case("p4-did-introduce-resolved", item4(bad, repo)[0] == HOLD)
+        case("p4-did-introduce-resolved", item4(bad, repo, fleet)[0] == HOLD)
         bad = mk_tree(os.path.join(top, "p5"))
         w(bad, LOG_REL,
           LOG_GOOD.replace("it was rewritten in place at",
                            "it was rewritten in place, at"))
-        case("p5-comma-resolved", item5(bad, repo)[0] == HOLD)
+        case("p5-comma-resolved", item5(bad, repo, fleet)[0] == HOLD)
         for pid, (rel, old, new) in (
                 ("p3", (PLAN60_REL, "**A3 item 2 is withdrawn**",
                        "**A3 item 2 is hereby withdrawn**")),
@@ -1544,10 +1739,122 @@ def _run_selftest(work: str | None = None) -> int:
                         "it was rewritten in place, at"))):
             tree = mk_tree(os.path.join(top, f"full-{pid}"))
             w(tree, rel, _FIXTURE_TEXTS[rel].replace(old, new))
-            rc, out = quiet_evaluate(tree, repo=repo, challenge=False)
+            rc, out = quiet_evaluate(tree, repo=repo, challenge=False, fleet=fleet)
             case(f"full-{pid}-value0",
                  rc == 1 and "value=0" in out and "guard=0" in out
                  and "population=7" in out)
+
+        # -- round-63 frozen forgery fixtures F1..F10 (plans/round-63.md §C1):
+        # each must read UNRESOLVED on its copy --
+        for fid, rel, old, new, item in (
+            ("f1", PLAN60_REL, "**A3 item 2 is withdrawn**",
+             "**A3 item 2 is hardly withdrawn**", item3),
+            ("f2", PLAN60_REL, "**A3 item 2 is withdrawn**",
+             "**A3 item 2 is withdrawn — the record denies it**", item3),
+            ("f3", PLAN60_REL, "**A3 item 2 is withdrawn**",
+             "**A3 item 2 is not, as the earlier draft asserted, withdrawn**",
+             item3),
+            ("f4", LESSON60_REL,
+             "the round introduced three new record defects it did not route",
+             'the round introduced "three new record defects it did not '
+             'route", a claim the record refutes', item4),
+            ("f5", LESSON60_REL,
+             "the round introduced three new record defects it did not route",
+             "the round did not introduce: three new record defects it did "
+             "not route", item4),
+            ("f6", LESSON60_REL,
+             "the round introduced three new record defects it did not route",
+             "the round did not introduce, as the earlier claim had it, three "
+             "new record defects it did not route", item4),
+            ("f7", LOG_REL, "it was rewritten in place at",
+             "it was not, contrary to the earlier record's claim, rewritten "
+             "in place at", item5),
+            ("f8", LESSON60_REL,
+             "so the literal reading is 3/16 = 18.75 %, and counting the "
+             "sentinel as an attack seat gives 4/16 = 25 %",
+             "so the literal reading is 4/16 = 25 %, and counting the "
+             "sentinel as an attack seat gives 3/16 = 18.75 %", item7),
+            ("f9", LESSON60_REL, "launch 15:09:28 −03",
+             "launch 16:59:59 −03", item6),
+            ("f10", LESSON60_REL, "launch 15:09:28 −03",
+             "launch 15:09:28 −03 (also seen at 16:59:59 −03)", item6)):
+            tree = mk_tree(os.path.join(top, f"fx-{fid}"))
+            w(tree, rel, _FIXTURE_TEXTS[rel].replace(old, new))
+            rc, out = quiet_evaluate(tree, repo=repo, challenge=False,
+                                     fleet=fleet)
+            case(f"{fid}-forgery-unresolved",
+                 rc == 1 and item(tree, repo, fleet)[0] == FAIL)
+
+        # -- round-63 frozen benign fixtures P1..P6 (plans/round-63.md §C1):
+        # each must read RESOLVED on its copy --
+        for pid, rel, old, new, item in (
+            ("p1", PLAN60_REL, "**A3 item 2 is withdrawn**",
+             "**Item 2 of A3 is withdrawn**", item3),
+            ("p2", PLAN60_REL, "**A3 item 2 is withdrawn**",
+             "**A3 item 2 is not merely withdrawn**", item3),
+            ("p3b", LESSON60_REL,
+             "the round introduced three new record defects it did not route",
+             "the round introduced no fewer than three new record defects it "
+             "did not route", item4),
+            ("p4b", LESSON60_REL,
+             "the round introduced three new record defects it did not route",
+             "the round introduced 3 new record defects it did not route",
+             item4),
+            ("p5b", LOG_REL, "it was rewritten in place at",
+             "it was not appended but rewritten in place at", item5),
+            ("p6", LOG_REL, "it was rewritten in place at",
+             "it was rewritten in-place at", item5)):
+            tree = mk_tree(os.path.join(top, f"fx-{pid}"))
+            w(tree, rel, _FIXTURE_TEXTS[rel].replace(old, new))
+            case(f"{pid}-benign-resolved", item(tree, repo, fleet)[0] == HOLD)
+
+        # -- I6 superseded-stamp conjunct isolation (GM5 witness): the launch
+        # line, the >=3 derived committer stamps and the denial exclusion all
+        # hold; only the quoted superseded span's stamp is wrong --
+        bad = mk_tree(os.path.join(top, "i6-stamp-conjunct"))
+        w(bad, LESSON60_REL,
+          LESSON60_GOOD.replace('"launch 15:09:28 −03"',
+                                '"launch 15:09:29 −03"'))
+        case("i6-superseded-stamp-conjunct-isolated",
+             item6(bad, repo, fleet)[0] == FAIL)
+        # and the fleet report itself missing is SETUP, never a silent pass
+        raised = False
+        try:
+            quiet_evaluate(good, repo=repo, challenge=False,
+                           fleet=os.path.join(top, "no-such-fleet"))
+        except SetupError:
+            raised = True
+        case("i6-missing-fleet-report-is-setup", raised)
+
+        # -- round-63 grammar unit cases: the new negators, the post-token
+        # denial predicates, the idiom/contrastive rescues and the quote mask
+        # --
+        case("negator-round63-membership",
+             all(_is_negator(t) for t in ("hardly", "barely", "scarcely",
+                                          "rarely", "seldom", "Hardly"))
+             and _negated_before("A3 item 2 is hardly withdrawn",
+                                 "A3 item 2 is hardly withdrawn".index(
+                                     "withdrawn")))
+        line = "A3 item 2 is withdrawn — the record denies it"
+        st = line.index("withdrawn")
+        case("denial-after-token-detected",
+             _asserted(line, st, st + len("withdrawn")) is False)
+        line = "the round introduced three new record defects it did not route"
+        st = line.index("three")
+        case("post-token-not-route-not-denial",
+             _asserted(line, st, st + 5) is True)
+        line = "A3 item 2 is not merely withdrawn"
+        st = line.index("withdrawn")
+        case("not-merely-idiom-rescues",
+             _asserted(line, st, st + len("withdrawn")) is True)
+        line = "it was not appended but rewritten in place at"
+        st = line.index("rewritten")
+        case("contrastive-but-rescues",
+             _asserted(line, st, st + len("rewritten in place")) is True)
+        line = 'the record says "A3 item 2 is not withdrawn" — A3 item 2 is withdrawn'
+        st = line.rindex("withdrawn")
+        case("quoted-span-masked",
+             _asserted(line, st, st + len("withdrawn")) is True)
 
         # -- unit: the QM79 negator grammar --
         case("negator-set-membership",
@@ -1576,6 +1883,15 @@ def _run_selftest(work: str | None = None) -> int:
         line = "not only a, then withdrawn"
         case("mid-window-not-only-still-negator",
              _negated_before(line, line.index("withdrawn")))
+        # round-63 window bound: a negator 6..24 tokens before the token still
+        # negates (kills a 24->5 narrowing); one 25+ tokens before does not
+        # (kills a 24->48 widening)
+        near = "not " + " ".join(f"w{i}" for i in range(9)) + " withdrawn"
+        case("window-negator-at-10-tokens",
+             _negated_before(near, near.index("withdrawn")))
+        far = "not " + " ".join(f"w{i}" for i in range(30)) + " withdrawn"
+        case("window-negator-at-31-tokens-ignored",
+             _negated_before(far, far.index("withdrawn")) is False)
         rx = _pair_re("3/16", "18.75")
         case("pair-regex-whitespace-tolerant",
              all(rx.search(s) for s in ("is 3/16 = 18.75 %,", "3/16=18.75%",
@@ -1606,14 +1922,15 @@ def _run_selftest(work: str | None = None) -> int:
         b3tree = os.path.join(top, "b3")
         r = subprocess.run(
             [sys.executable or "python3", "-I", "-B", mut_path,
-             "--root", b3tree, "--repo", repo, "--no-challenge"],
+             "--root", b3tree, "--repo", repo, "--fleet", fleet,
+             "--no-challenge"],
             capture_output=True, text=True, timeout=300)
         case("k5-negator-removed-accepts-b3",
              r.returncode == 1 and "value=0" in r.stdout and "i3=1" in r.stdout)
 
         # -- challenge +1 firing on a tree with unresolved items --
         only5 = mk_tree(os.path.join(top, "only-i5-challenge"), only="i5")
-        rc, out = quiet_evaluate(only5, repo=repo, verbose=True, challenge=True)
+        rc, out = quiet_evaluate(only5, repo=repo, verbose=True, challenge=True, fleet=fleet)
         case("challenge-plus1-fires-with-unresolved",
              rc == 1 and "value=6" in out and "guard=1" in out
              and "expect=7" in out and "value=7" in out)
@@ -1622,7 +1939,7 @@ def _run_selftest(work: str | None = None) -> int:
         os.environ["C1_CHALLENGE_PARENT"] = os.path.join(good, "inside")
         raised = False
         try:
-            quiet_evaluate(good, repo=repo, challenge=True)
+            quiet_evaluate(good, repo=repo, challenge=True, fleet=fleet)
         except SetupError:
             raised = True
         case("qm74-refusal-inside-root", raised)
@@ -1643,7 +1960,7 @@ def _run_selftest(work: str | None = None) -> int:
         os.symlink(outside, os.path.join(sym_tree, *LOG_REL.split("/")))
         raised = False
         try:
-            quiet_evaluate(sym_tree, repo=repo, challenge=True)
+            quiet_evaluate(sym_tree, repo=repo, challenge=True, fleet=fleet)
         except SetupError:
             raised = True
         with open(outside, encoding="utf-8") as f:
@@ -1683,6 +2000,9 @@ def main() -> int:
                     help="lane repository used for the named-revision derivations "
                          "(I5: git diff --numstat 14a6c07d 818d2a82 -- LOG.md; "
                          "I6: git log --format=%%ci a677c78e..818d2a82)")
+    ap.add_argument("--fleet", default=DEFAULT_FLEET,
+                    help="fleet root the I6 derivation reads "
+                         "(.ufo/reports/round-60/kagi.md §Stale-lane)")
     ap.add_argument("--no-challenge", action="store_true",
                     help="diagnostic leg: print the unresolved count with guard=0")
     ap.add_argument("--json", action="store_true", help="one JSON object on stdout")
@@ -1699,7 +2019,8 @@ def main() -> int:
         print(f"C1_ROUTED: SETUP no measured tree at {root}")
         return 2
     try:
-        return evaluate(root, repo=args.repo, verbose=args.verbose,
+        return evaluate(root, repo=args.repo, fleet=args.fleet,
+                        verbose=args.verbose,
                         challenge=not args.no_challenge, as_json=args.json)
     except SetupError as e:
         print(f"C1_ROUTED: SETUP {e}")

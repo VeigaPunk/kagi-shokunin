@@ -2156,3 +2156,37 @@ verdict-mode stub composition and `stub_leg` negative vector are not exercised b
 (MutC1 CM2a/CM2b, routed); the checker's I6 clause (c) has no isolating selftest case (MutC1
 GM5, routed); the C2 counter's guard leg (c) is `ma ∧ mb`, not a constant-verdict copy (critic
 D12); nothing schedules the gates.
+
+## Round 63 — post-move (claims C1 calibration, C2 operability)
+
+Candidate: the round-63 candidate commit (recorded in the report; `.ufo/waves/round-63/final/`
+holds the candidate-revision readings). Claim BASE `0c07aab8df64b673a54a5113aebd7f34b622adbc`
+(round-62 verifier spot-check tip); predeclaration `12c9e4284d6de52ba61fcc656165cd24e8b74480`;
+amendments A1 (wave shape), A2 (C2 population 6→5, L5 vacuous at BASE), A3 (C1 guard leg (f)
+checker challenge; C1-2/3/4 restatements; C2 leg mechanics), each landed before any candidate
+reading.
+
+| Axis | Before → after | What moved | Evidence |
+|---|---|---|---|
+| calibration | 9 → 9 | [C1] `bash plans/round-63-c1.sh 0c07aab8` ⇒ `C1_RESIDUAL: accepted=10 rejected=6 population=10/6 guard=0` rc 1 → candidate ⇒ `C1_RESIDUAL: accepted=0 rejected=0 population=10/6 guard=1 (real=1 selftest=1 prior=1 para=1 stub=1 chal=1)` rc 0 (target 0/0, population 10/6): the ten reviewer forgery fixtures rejected, six benign rewrites stay resolved, seven round-61 corrections still resolve, guard leg (f) refuses an emptied-negator checker. Named ceiling: guard leg (f) distinguishes a grammar from a string lookup only through the negator-set needle — a lookup-table checker carrying a literal empty set passes leg (f) but is not the hardened grammar; the count floor `cases>=91` is a count, not a class-coverage proof (M63-6). | `plans/round-63-c1.sh`; `.ufo/waves/round-63/final/c1-residual.txt`; checker `--selftest` `PASS (cases=102)` |
+| operability | 9 → 9 | [C2] BASE `killed=0` over the five non-vacuous legs → candidate `C2_REFUSAL: killed=5 population=5 guard=1` rc 0: leg L1 kills CM2a, L2 kills CM2b, L3/L4 read mismatch on the battery's two stub controls, L6 kills the I6-conjunct drop. Named ceiling: the C2 instrument hangs in its nested controls-battery leg at integration time (the battery re-runs both counters, including C2 itself — unbounded recursion); the candidate verdict was reproduced leg-by-leg from the seats' scratches but not by one budget-bounded end-to-end run, so the number 5 carries this caveat and the honest-stop alternative (M63-LEN) is on record in `claim-falsification.tsv`. | `plans/round-63-c2.sh`; `.ufo/waves/round-63/build/R63ExecC2Counter/`, `.ufo/waves/round-63/build/R63MutC2/mutants.md` |
+| coverage | 9 → 9 | No claim. Registry 134 → 143 (S135–S144 except S136; six `mined` S135/S137/S139/S140/S141/S143; three `rejected` S138/S142/S144); `corpus/source-fetches.tsv` +9; entry `corpus/knowledge/negation-scope-grammar.md` (S135+S137) extends the polarity/scope ground. | `corpus/SOURCES.md`; `corpus/source-fetches.tsv` |
+| depth | 9 → 9 | No claim. `negation-scope-grammar.md` carries the pseudo-trigger/termination-term/idiom ground with `source:` trio S135+S137+S130. | `corpus/knowledge/negation-scope-grammar.md` |
+| freshness | 9 → 9 | No claim. Ten pages opened live 2026-11-07 (S135–S144; S136 opened but unregistered: 0-byte challenge body). | `.ufo/waves/round-63/capture/notes.md` |
+| adjacency | 9 → 9 | No claim. Connector swept 21 lanes; breadth debt unchanged, carried not absorbed. | `.ufo/waves/round-63/build/R63Connector/sweep.md` |
+
+No axis is re-scored: all six stay 9 → 9 (L1 reading, for the operator's ruling). No
+stagnation waiver, retirement or split.
+
+## Round 63 — planned
+
+From the round-63 lesson's mined mistakes (M63-1–M63-9) and the C1/C2 ceilings:
+1. **Calibration** — close M63-6: add a held-out fixture not in the committed TSVs to the
+   C1 guard, so a fixture-lookup checker cannot reach `accepted=0` on the held-out set;
+   re-run the `R63Critic` lookup-table checker against the new guard.
+2. **Operability** — fix the C2 nested-battery recursion: the run-64 C2 counter (or the
+   controls battery's delegation) gets an explicit recursion bound/environment flag so one
+   `bash plans/round-63-c2.sh --tree .` terminates inside its own `timeout 2400` budgets, and
+   the leg-by-leg reproduction is replaced by a single end-to-end candidate line.
+3. **Freshness** — re-verify the S143 BioC endpoint (volatile digest) and the S138/S144
+   flips; if the BioC XML shape changed, supersede S143 per CORPUS.md rule 2.

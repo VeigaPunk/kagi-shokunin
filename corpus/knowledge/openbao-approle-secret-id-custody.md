@@ -4,6 +4,7 @@ source: S123 (https://openbao.org/docs/auth/approle/, §Credentials/Constraints 
 verified-at: 2026-11-07 (both pages fetched as decoded bodies and read as rendered text; every quoted page sentence below is located by `python3 corpus/rendered-text-v1.py locate <capture> QUOTE` against the round-60 capture, with the locate count stated; the five T-mechanics were executed against OpenBao 2.7.2 by `corpus/openbao-approle-trial.sh`, whose receipt lines are the only behavioural evidence in §Mechanics)
 recheck: 180d — on the next cadence re-open S123 §Credentials/Constraints and §User lockout and S124 §Create/Update AppRole / §Generate new secret ID / §Read AppRole secret ID accessor, compare the docs `Version` label to 2.7.x, and re-run `bash corpus/openbao-approle-trial.sh --work <scratch dir>` against the then-current binary (the lane has no bound on-release clock for these pages; S090 is a 90d feed row)
 Reverify: R21-02
+cites: S090 (named in the recheck line as the lane's 90d release-feed row for the OpenBao server release identity; cross-reference, not this entry's support; recorded round 63)
 (R21-02 is the sources-census row: it re-verifies the citation chain only — every id on `source:` resolves to a `mined` row of `corpus/SOURCES.md` whose `used-by` lists this entry. It does not re-open the page or run OpenBao; `recheck:` is the content clock, the executed trial named there is the behaviour check.)
 
 Scope: OpenBao 2.7.2 only, the AppRole auth method at its default `approle/` mount, one role per

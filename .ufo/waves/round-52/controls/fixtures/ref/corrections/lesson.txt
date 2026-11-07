@@ -1,0 +1,2 @@
+
+Correction (round 52, D1) to round-51.md:22 (round-51 closure D1, `corpus/lessons/round-51-verifier-spotcheck.md:104`): on OpenBao 2.7.2 a helper-origin rewrap reads `sys/wrapping/wrap` and a KV-origin rewrap reads `secret/data/<path>` (measured by `plans/round-52-c2.sh`'s probe). The rewrap page's sample omits its input's creation path, so it is consistent with the binary; the rejection reason that the binary disagrees with the sample is withdrawn. The rejection itself stands on its first reason (S108 already states the rewrap mechanic) and its flip condition is unchanged.

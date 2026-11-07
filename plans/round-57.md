@@ -58,19 +58,26 @@ frozen checker's value/population. Do-nothing control: BASE reads 3 (target 0).
 
 Frozen predicate (verbatim; the same sentence is in the counter header):
 
-    C2_AUDIT_TRIAL: value = PASS when the trial's real run is `AUDIT_TRIAL: CLEAN
-    (tests=5 pass=5)` and each of the five falsifier shims flips exactly one test
-    to BROKEN (`AUDIT_TRIAL: FAIL ... pass=4`), else 0; target 5 (BASE 0).
+    C2_AUDIT_TRIAL: value = PASS when the trial's real run is HOLDS 5/5 twice,
+    each of the five falsifier shims flips exactly its designated test (SH1->T1,
+    SH2->T2, SH3->T3, SH4->T4, SH5->T5), a PATH with no `bao` reads SETUP rc2 with
+    no HOLDS, and a client-side wrapper whose `bao audit list` prints nothing flips
+    T1; else 0. Target 5 (BASE 0).
 
-POP (round-57), all against a throwaway `bao server -dev` on 127.0.0.1 with the
-random root token kept only in scratch, no secret on any argv, no server log:
-- T1 `bao audit enable file file_path=<scratch>` then `bao audit list` names `file/`;
-- T2 a KV write's audit entry exists for request and response, carries the
-  default `hmac-sha256:` value form, and the written plaintext does not occur;
-- T3 a second device with `log_raw=true` records the same value in raw form while
-  the default device still HMACs it;
-- T4 `bao audit disable file/` then re-enable at the same path creates a new salt:
-  the same value's HMAC after re-enable differs from before;
+POP (round-57), all against throwaway `bao server -dev` instances on 127.0.0.1
+with the random root token kept only in scratch, no secret on any argv, no server
+log (amended at A2 after the labrat's measured default-refusal):
+- T1 enable path: `bao audit enable file file_path=<scratch>` is REFUSED on a
+  default dev server (rc!=0, `cannot enable audit device via API`) and ACCEPTED on
+  a dev server whose config sets `unsafe_allow_api_audit_creation = true`;
+  `bao audit list` then names `file/` and a second `-path=file2 ... log_raw=true`;
+- T2 a KV write's audit entries carry the default `hmac-sha256:` value form for
+  request and response (the same hash twice), the hash is stable for one input and
+  input-distinct, and the written plaintext does not occur in that log;
+- T3 the `log_raw=true` device records the value in plaintext AND the client token
+  in cleartext (count only), while the default device's log carries neither;
+- T4 `bao audit disable file/` then re-enable at the same path rotates the salt:
+  the same input's HMAC differs from before;
 - T5 the documented non-audited `sys/seal-status` path (`bao status`) leaves no
   audit entry while a KV read in the same window does.
 
@@ -94,11 +101,13 @@ and the non-author probe are the check.
 
 ## Pre-freeze controls (executed before this commit, receipt under the wave dir)
 
-`bash plans/round-57-controls.sh` → 11 MATCH, 0 MISMATCH:
+`bash plans/round-57-controls.sh` (epoch B) → 11 MATCH, 0 MISMATCH:
 K1-BASE 3, K1-F1 2, K1-F2 2, K1-F3 2, K1-F4 0, K1-F5 FAIL (population 1), K1-F6 6,
-K1-F7 3, K2-BASE 0, K2-STUB 0, K2-MOCK 5. `K1-REF`/`K2-REF` are pending until the
-landing tree exists; the post-landing run re-executes the battery with REF and is
-committed with the receipts.
+K1-F7 3, K2-BASE 0, K2-STUB 0, K2-MOCK 0. Epoch A's receipt
+(`controls-prefreeze.txt`) bound the first C2 contract; epoch B
+(`controls-prefreeze-epochB.txt`) binds A1+A2. `K1-REF`/`K2-REF` are pending until
+the landing tree exists; the post-landing run re-executes the battery with REF and
+is committed with the receipts.
 
 ## Axes
 
@@ -125,3 +134,23 @@ the host table; no model is passed.
   is measured against one binary (OpenBao 2.7.2) on one host; the dev server's
   in-memory storage is not a deployment; `log_raw` output is judged by shape inside
   the trial, never committed.
+
+## Amendments (pre-candidate; no target or kill rule changed)
+
+- **A1 (2026-11-07, before the trial existed and before any candidate measurement).**
+  The C2 observable contract follows the lane's round-48/49/51/52 trial convention
+  (`TRIAL T<n> HOLDS|BROKEN|ERROR` + one summary line `OPENBAO_AUDIT_TRIAL:
+  HOLDS|BROKEN|ERROR holds=N broken=N error=N bao=<ver>`, exit 0/1/2) instead of the
+  first `AUDIT_TRIAL: CLEAN (tests=5 pass=5)` sketch. The counter gains three legs:
+  the real tree run twice, a PATH with no `bao` (SETUP rc2), and a client-side
+  wrapper whose `bao audit list` prints nothing (T1 must flip). `K2-STUB` and
+  `K2-MOCK` expectations move to 0 (both false-green shapes are now rejected).
+- **A2 (same day, after the labrat's independent probe).** OpenBao 2.7.2 refuses
+  `bao audit enable`/`disable` on a default dev server ("cannot enable audit device
+  via API; use declarative, config-based audit device management instead"); the
+  documented CLI path is reachable only with `unsafe_allow_api_audit_creation =
+  true` in the server config, so T1 measures both sides. T3 additionally asserts
+  the `log_raw` device's cleartext client token (the labrat measured 62-84 token
+  occurrences on its runs; this trial counts them, never prints them). T4 measures
+  the documented new-salt behaviour through disable+re-enable on the flagged server
+  rather than across two instances.

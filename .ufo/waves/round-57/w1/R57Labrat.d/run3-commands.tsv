@@ -1,0 +1,13 @@
+audit-list-declarative	0	bao audit list -detailed
+kv-put-v1	0	printf %s NONCE | bao kv put -mount=secret probe value=-
+kv-put-v2	0	printf %s NONCE | bao kv put -mount=secret probe value=-
+kv-get-v1	0	bao kv get -mount=secret probe
+hup-remove	0	kill -HUP $SPID (file stanza removed); bao audit list -detailed
+hup-readd	0	kill -HUP $SPID (file stanza re-added); bao audit list -detailed
+kv-put-v3	0	printf %s NONCE | bao kv put -mount=secret probe value=-
+kv-put-v4	0	printf %s NONCE | bao kv put -mount=secret probe value=-
+kv-get-v2	0	bao kv get -mount=secret probe
+kv-put-other	0	printf %s NONCE2 | bao kv put -mount=secret probe value=-
+audit-list-final	0	bao audit list -detailed
+audit-disable-declarative	2	bao audit disable file/
+audit-list-post-disable	0	bao audit list -detailed

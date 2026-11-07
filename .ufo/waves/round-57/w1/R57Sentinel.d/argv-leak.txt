@@ -1,0 +1,41 @@
+H-3 — production trial puts secrets on child-process argv
+
+file: corpus/openbao-audit-trial.sh
+sha256: 3e8bcc4c3993980ca41f7781f2fb8f2b8ca19b9a4257b08b70ac79d8e61487fb  (9930 B, mtime 11:15:43)
+
+claim in the file, lines 29-33:
+  # Secret handling: no token or value on any argv; the dev root token reaches the
+  # server through BAO_DEV_ROOT_TOKEN_ID and the client through BAO_TOKEN; every KV
+  # value is written as `v=-` on stdin; ... values are random `r57-` nonces and no
+  # nonce or token is ever printed.
+
+violation 1 — the KV value on bao's argv
+  115: hashof() { # DEVICE VALUE -> hash on stdout; rc 3 when the answer does not parse
+  117:   out=$(bao write -format=json "sys/audit-hash/$1" input="$2" 2>"$D/err") || return 1
+  callers: T2 (h1=$(hashof file "$n2") ...) and T4 (h1=$(hashof file "$n4"))
+  -> argv of the `bao` child: write -format=json sys/audit-hash/file input=r57-<24 hex>
+
+violation 2 — the dev root token on grep's argv
+  122: count_plain() { grep -cF -- "$2" "$1" 2>/dev/null || true; }
+  168: raw_tok=$(count_plain "$RLOG" "$BAO_TOKEN")
+  169: def_tok=$(count_plain "$ALOG" "$BAO_TOKEN")
+  -> argv of the `grep` child: -cF -- <root token> <log path>
+  (the nonce also reaches grep argv at 160: plain=$(count_plain "$ALOG" "$n2"))
+
+exposure window: each invocation; readable by same-user processes via /proc/<pid>/cmdline.
+not covered by the amended counter's guard (plans/round-57-c2.sh), which greps the trial's
+output logs for `r57-[0-9a-f]{24}`, `hvs|hvb\.`, `s\.[A-Za-z0-9]{20,}` — not argv.
+
+remediation:
+  count_plain() { printf '%s' "$2" | grep -cF -f - "$1"; }
+  printf '{"input":"%s"}' "$2" | bao write -format=json sys/audit-hash/file -
+  (and assert with a probe that no cmdline line containing the token exists during the run)
+
+RESOLUTION — verified 11:27 by this seat
+  corpus/openbao-audit-trial.sh sha 3e8bcc4c... -> 7e64519466bfd7baf51f66d4bc71da09f30845d41d0fb10f36fcf24eec5b0bd3 (10,922 B, mtime 11:25:22)
+  118: out=$(printf '{"input":"%s"}' "$2" | bao write -format=json "sys/audit-hash/$1" - 2>"$D/err") ...
+  123: count_plain() { [ -n "$2" ] || { echo 0; return 0; }
+       printf '%s\n' "$2" | grep -cF -f - -- "$1" 2>/dev/null || true; }
+  re-scan: no `input=` on any argv; no nonce/token as a grep argument; kv put still `v=-` on stdin.
+  the landed entry's sentence (corpus/knowledge/openbao-audit-device-custody.md:33-34) is now true
+  of the current trial (it was false when written at 11:22 against 3e8bcc4c...).

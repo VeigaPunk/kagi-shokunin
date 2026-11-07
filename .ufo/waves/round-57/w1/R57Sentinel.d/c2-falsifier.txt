@@ -1,0 +1,17 @@
+F2 — C2 counter accepts a shim-agnostic, mechanics-free trial
+tree: BASE extract, corpus/openbao-audit-trial.sh =
+  #!/usr/bin/env bash
+  if [ -n "${KAGI_AUDIT_SHIM:-}" ]; then
+    echo "AUDIT_TRIAL: FAIL shim=$KAGI_AUDIT_SHIM pass=4"
+    exit 1
+  fi
+  echo "AUDIT_TRIAL: CLEAN (tests=5 pass=5)"
+  exit 0
+
+command: bash plans/round-57-c2.sh --tree <tree>
+rc=0
+C2_AUDIT_TRIAL: value=5 tests=5 pass=5 shims=5 guard=1 (last=AUDIT_TRIAL: CLEAN (tests=5 pass=5))
+
+the script performs no mechanics, prints no T1..T5 line, and ignores which shim is set.
+control same command on the pristine BASE extract:
+C2_AUDIT_TRIAL: value=0 tests=0 pass=0 shims=0 guard=0 (absent)

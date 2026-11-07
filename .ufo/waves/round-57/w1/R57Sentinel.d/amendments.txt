@@ -1,0 +1,80 @@
+H-1/H-2 — post-freeze in-place amendments of frozen files (evidence)
+
+freeze commit 7aa1f4726e1f6bcdc8411d1a8b21828d49785173  2026-11-07T11:10:19-03:00
+claim BASE     1cda9e7ae4767b4133e283bfbc08266d4c86362d
+
+sha256 at freeze (from .ufo/waves/round-57/controls/controls-prefreeze.txt) vs now:
+  plans/round-57.md            5773c1a423d16ecabe31535afa45c022ae5de27656a5cdd4d5415428102b84c2
+                            -> b130bb83b3dd4bdb52b84aeb4c6d3459477188b66406adab429392049698c6dc   mtime 11:18:45
+  plans/round-57-c1.sh         3104b06f5bfaef77745bd0e5726d4e3ac86c471ff61eef2cc298ad21fee90601
+                            -> unchanged
+  plans/round-57-c2.sh         3de6b4dec570594b7ff47971156b9eb9f932a50a2261ba568b51314e906439a9
+                            -> 140a8f2b204af9a0e45e1b596d1c09c4b12f84a70bd42abd18e888d82bbaea28   mtime 11:16:29
+  plans/round-57-controls.sh   6796ae7040b4956d28b9c71772c24c9ba0d4298e21e86f9f13dbff38e693ce41
+                            -> 09f334cbf727667a0212729942386d78441dbc5ea7f0c553d316bbb7c613e618   mtime 11:19:02
+  plans/round-57-c1-check.py   19d75337ce37259b08eaa8b960eedddac68bec70ed4eab3f55f9d621e142f72c
+                            -> unchanged
+
+git status --porcelain -- plans/ :
+  M plans/round-57-c2.sh
+  M plans/round-57.md
+  M plans/round-57-controls.sh
+
+related mtimes:
+  11:15:43  corpus/openbao-audit-trial.sh (9930 B, 3e8bcc4c3993980ca41f7781f2fb8f2b8ca19b9a4257b08b70ac79d8e61487fb)
+  11:16:55  .ufo/waves/round-57/w1/R57ExecTrial.d/openbao-audit-trial.sh (8369 B, b7082309545deb557470b3b112ea38eff8a7df219a7276bef04b73ea5f3c0312)
+  11:19:00  .ufo/waves/round-57/controls/controls-prefreeze-epochB.txt (untracked, 2762 B)
+
+contradictions inside the amended plan:
+  plans/round-57.md:102  "## Pre-freeze controls (executed before this commit, receipt under the wave dir)"
+  plans/round-57.md:104  "(epoch B) -> 11 MATCH, 0 MISMATCH"      <- epoch B run at 11:19, after the commit
+  plans/round-57.md:113  "A1 (2026-11-07, before the trial existed and before any candidate measurement)."
+                                                             <- trial mtime 11:15:43 precedes c2.sh mtime 11:16:29
+  plans/round-57.md:121  "A2 (same day, after the labrat's independent probe)"   <- concedes post-measurement
+  R57Labrat.md           records the frozen hashes unchanged at probe time (plan 5773c1a4, c2 3de6b4de, controls 6796ae70)
+
+predicate rewrite (git diff -- plans/round-57.md), removed:
+  C2_AUDIT_TRIAL: value = PASS when the trial's real run is `AUDIT_TRIAL: CLEAN (tests=5 pass=5)` ...
+added:
+  C2_AUDIT_TRIAL: value = PASS when the trial's real run is HOLDS 5/5 twice, each of the five
+  falsifier shims flips exactly its designated test (SH1->T1 ... SH5->T5), a PATH with no `bao`
+  reads SETUP rc2 with no HOLDS, and a client-side wrapper whose `bao audit list` prints nothing
+  flips T1; else 0. Target 5 (BASE 0).
+
+controls rewrite (git diff -- plans/round-57-controls.sh):
+  K2-STUB fixture: TEST T1: HOLDS + AUDIT_TRIAL: CLEAN -> TRIAL T1..T5 HOLDS + OPENBAO_AUDIT_TRIAL: HOLDS
+  K2-MOCK fixture: shim-honouring TEST form            -> shim-vector TRIAL form
+  check2 K2-MOCK 5 mock                                 -> check2 K2-MOCK 0 mock
+
+counter rewrite additions in plans/round-57-c2.sh:
+  PIN_BAO=9c5f36287c673f386e1533e9c044169a248e4ee50dd54810fa766e95bd41b788
+  env -i launch, per-run dirs, vector parser (TRIAL T<n>), no-bao leg, PATH-wrapper leg,
+  log-dir secret guard, scratch under ${HYAKU_SCRATCH:-/fast/scratch/hyaku}
+
+demonstrated vocabulary mismatch (trial in the predeclared form):
+  tree: BASE extract + corpus/openbao-audit-trial.sh printing
+        TEST T<n>: HOLDS (n=1..5) and AUDIT_TRIAL: CLEAN (tests=5 pass=5), rc 0
+  command: bash plans/round-57-c2.sh --tree <tree>
+  C2_AUDIT_TRIAL: value=0 tests=5 pass=0 shims=0 vectors=0/5 guard=1 (real=0 none=0 wrap=0 secret=1)
+  rc=1
+
+demonstrated receipt invalidation (committed K2-MOCK fixture, expect=5 in controls-prefreeze.txt):
+  C2_AUDIT_TRIAL: value=0 tests=5 pass=0 shims=0 vectors=0/5 guard=1 (real=0 none=0 wrap=0 secret=1)
+  rc=1
+  epoch-B receipt line: CONTROL K2-MOCK expect=0 got=0 MATCH :: ... (value=0 ... real=1 none=0 wrap=0)
+
+EPOCH B COMMIT (verified 11:26)
+  03cbf656943b33bf93607f607bbbeb55d500b0f9  2026-11-07T11:20:45-03:00
+  "round-57: freeze epoch B - C2 counter adopts the lane TRIAL convention (A1) and the measured
+   default-refusal/flag enable path (A2); plan predicate and 11-control battery re-run"
+  stat: controls/controls-prefreeze-epochB.txt + plans/round-57-c2.sh + plans/round-57-controls.sh
+        + plans/round-57.md  (4 files, +180/-62)
+  working-tree hashes after the commit equal the commit's; git diff -- plans/ is empty.
+  no `plans/round-57-c2.sh` run on the C2 candidate exists (the only C2_AUDIT_TRIAL lines in the
+  wave are the two control receipts and seat quotations), so no candidate score precedes epoch B;
+  the executor's first receipts (11:16:55 draft, 11:19 re-run) do precede it.
+  calibration: severity Critical -> High; "unfalsifiable as published" withdrawn; the A1 provenance
+  sentence and the in-place amendment of frozen files remain the recorded defect.
+
+L1 DISPOSITION (11:26): declined revert to 7aa1f47; epoch B recorded as the final predicate freeze
+and the round-56 D8 process-defect class; no further epoch after candidate measurement.

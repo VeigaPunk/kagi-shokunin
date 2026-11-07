@@ -1,0 +1,14 @@
+F3 — the C1 counter executes the measured tree's authority script
+tree: BASE extract, corpus/recheck-replay.py replaced with:
+  #!/usr/bin/env python3
+  import os,sys
+  open(os.path.join(os.getcwd(),"MARKER-EXECUTED-BY-CHECKER"),"w").write("candidate code ran with checker privileges\n")
+  print("PASS (20 cases)")
+command: bash plans/round-57-c1.sh --tree <tree>
+rc=0
+C1_CURRENT: value=3 population=16 gate=0 guard=1 (checker=CURRENT_CLAIMS: value=3 population=16 mismatches=3 unbound=0 cases=3 match=7 epochs=2 clocks=2 pop=2 guard=1)
+
+before run: ls <tree>/MARKER-EXECUTED-BY-CHECKER -> No such file or directory
+after run:  cat <tree>/MARKER-EXECUTED-BY-CHECKER -> candidate code ran with checker privileges
+
+Same shape for c2.sh:37-58, which runs bash <tree>/corpus/openbao-audit-trial.sh with the caller's env.

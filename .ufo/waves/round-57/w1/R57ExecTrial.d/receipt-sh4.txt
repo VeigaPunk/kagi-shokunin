@@ -1,0 +1,14 @@
+$ KAGI_AUDIT_SHIM=SH4 bash .ufo/waves/round-57/w1/R57ExecTrial.d/openbao-audit-trial.sh --work /fast/scratch/hyaku/kagi-r57/R57ExecTrial/work-sh4
+cwd: /home/vgpnk/Projects/shokunin/kagi-shokunin
+rc=1
+--- stdout ---
+TEST T1: HOLDS
+TEST T2: HOLDS
+TEST T3: HOLDS
+TEST T4: BROKEN
+TEST T5: HOLDS
+AUDIT_TRIAL: FAIL (tests=5 pass=4)
+--- stderr ---
+(empty)
+--- verdict-vector ---
+TEST T1: HOLDS TEST T2: HOLDS TEST T3: HOLDS TEST T4: BROKEN TEST T5: HOLDS 

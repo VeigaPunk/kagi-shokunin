@@ -1,0 +1,14 @@
+$ env KAGI_AUDIT_SHIM=SH5 bash corpus/openbao-audit-trial.sh --work /fast/scratch/hyaku/kagi-r57/R57ExecTrial/ref-sh5
+cwd: /home/vgpnk/Projects/shokunin/kagi-shokunin
+rc=1
+--- stdout ---
+TRIAL T1 HOLDS default-enable-refused=1 flagged-enable=1 devices-listed=2
+TRIAL T2 HOLDS hmac-form=1 stable=1 input-distinct=1 log-plaintext=0 request-response-hash-lines=7
+TRIAL T3 HOLDS raw-value-plaintext=7 raw-token-cleartext=17 default-value=0 default-token=0
+TRIAL T5 BROKEN seal-status-entries=1 kv-entries=4 log-grew=4
+TRIAL T4 HOLDS disable-rc=0 reenable-rc=0 same-input-same-hash=0
+OPENBAO_AUDIT_TRIAL: BROKEN holds=4 broken=1 error=0 bao=v2.7.2
+--- stderr ---
+(empty)
+--- verdict-vector ---
+HHHBH OPENBAO_AUDIT_TRIAL: BROKEN holds=4 broken=1 error=0 bao=v2.7.2

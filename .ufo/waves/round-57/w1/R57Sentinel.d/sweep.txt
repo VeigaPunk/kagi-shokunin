@@ -1,0 +1,57 @@
+C-15/C-18 — secret-shape sweep, whole round-57 surface, snapshot 11:26
+
+command: grep -nE 'op://|hvs\.|hvb\.|BAO_|s\.[A-Za-z0-9]{20,}|ghp_|xox[bap]-' <73 files>
+scope: plans/round-57.{md,c1.sh,c2.sh,controls.sh,c1-check.py}, corpus/current-claims.py,
+       corpus/openbao-audit-trial.sh, every file under .ufo/waves/round-57/
+result: 68 matching lines, 113 matches, 0 credential material
+classes: BAO_ 88, op:// 10, ghp_ 10, hvs. 3, hvb. 2, s.<20+> 0
+
+files with >=1 matching line (line counts; all others 0):
+18 corpus/openbao-audit-trial.sh
+ 6 plans/round-57-c2.sh
+ 3 plans/round-57-controls.sh
+ 1 plans/round-57.md
+ 1 .ufo/waves/round-57/w1-spec.json
+ 1 .ufo/waves/round-57/w1-dispatch.json
+ 1 .ufo/waves/round-57/w1/R57Connector.md
+ 1 .ufo/waves/round-57/w1/R57ExecTrial.md
+ 2 .ufo/waves/round-57/w1/R57ExecTrial.d/openbao-audit-trial.sh
+ 2 .ufo/waves/round-57/w1/R57ExecTrial.d/receipt-ref-real.txt
+ 2 .ufo/waves/round-57/w1/R57ExecTrial.d/receipt-ref-real2.txt
+ 2 .ufo/waves/round-57/w1/R57ExecTrial.d/receipt-ref-none.txt
+ 1 .ufo/waves/round-57/w1/R57Labrat.md
+ 1 .ufo/waves/round-57/w1/R57Labrat.d/probe.sh
+ 1 .ufo/waves/round-57/w1/R57Labrat.d/probe2.sh
+ 1 .ufo/waves/round-57/w1/R57Labrat.d/probe3.sh
+ 1 .ufo/waves/round-57/w1/R57Labrat.d/probe4.sh
+ 2 .ufo/waves/round-57/w1/R57Labrat.d/probe4.py
+ 1 .ufo/waves/round-57/w1/R57ScribeLesson.d/round-57.md
+12 .ufo/waves/round-57/w1/R57Sentinel.md
+ 3 .ufo/waves/round-57/w1/R57Sentinel.d/argv-leak.txt
+ 3 .ufo/waves/round-57/w1/R57Sentinel.d/sweep.txt
+ 1 .ufo/waves/round-57/w1/R57Sentinel.d/amendments.txt
+ 1 .ufo/waves/round-57/w1/R57Sentinel.d/index.txt
+
+attribution:
+  op:// and ghp_  -> seat prompt (w1-spec.json, w1-dispatch.json) and this seat's own files only
+  hvs. / hvb.     -> prose denial-class mentions only (R57Labrat.md leak-check, lesson draft,
+                     this seat's report/receipts)
+  BAO_            -> substring of the identifier OPENBAO_AUDIT_TRIAL in every case
+  s.<20+>         -> no occurrence anywhere
+
+header/cookie shapes:
+  grep -rniE 'authorization:|set-cookie|cookie:|www-authenticate|x-vault' .ufo/waves/round-57
+  -> 0 matches in captures/drafts/receipts (matches only in this seat's own files, which quote
+     the pattern). Captures present: R57ScribeEntry.d/capture/{audit,commands_audit}.browser.html
+     (41,787 / 33,338 B, both begin '<!doctype html>'), R57ScribeLesson.d/capture/*.body (4).
+
+post-snapshot additions (L1 landing, 11:21-11:22), swept separately:
+  corpus/knowledge/openbao-audit-device-custody.md  7699 B  3 hits (BAO_DEV_ROOT_TOKEN_ID,
+    BAO_TOKEN prose at lines 33-34; OPENBAO_AUDIT_TRIAL at line 36)  0 header shapes  0 values
+  .ufo/waves/round-57/capture/S115.body            41787 B  0 hits  0 header shapes
+  .ufo/waves/round-57/capture/S116.body            33338 B  0 hits  0 header shapes
+  .ufo/waves/round-57/capture/fetch-receipt.txt      196 B  0 hits
+    content: "S115 http=200 bytes=41787 sha256=76339ff7...; S116 http=200 bytes=33338 sha256=3dc88732..."
+    -> bodies only, no response headers, no token
+note: the landed entry repeats the "no secret on any argv" invariant that H-3 shows is false
+      for corpus/openbao-audit-trial.sh (lines 33-34 of the entry).

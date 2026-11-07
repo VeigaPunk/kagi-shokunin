@@ -1,0 +1,16 @@
+audit-list-before	2	bao audit list
+enable-default	0	bao audit enable file file_path=$W2/audit-default.log
+audit-list-default	0	bao audit list -detailed
+kv-put-v1	0	printf %s NONCE | bao kv put -mount=secret probe value=-
+kv-put-v2	0	printf %s NONCE | bao kv put -mount=secret probe value=-
+kv-get-v1	0	bao kv get -mount=secret probe
+enable-file2-raw	0	bao audit enable -path=file2 file log_raw=true file_path=$W2/audit-raw.log
+kv-put-v3	0	printf %s NONCE | bao kv put -mount=secret probe value=-
+kv-get-v2	0	bao kv get -mount=secret probe
+audit-disable-file	0	bao audit disable file/
+reenable-file	0	bao audit enable file file_path=$W2/audit-after.log
+kv-put-v4	0	printf %s NONCE | bao kv put -mount=secret probe value=-
+kv-put-v5	0	printf %s NONCE | bao kv put -mount=secret probe value=-
+kv-get-v3	0	bao kv get -mount=secret probe
+kv-put-other	0	printf %s NONCE2 | bao kv put -mount=secret probe value=-
+audit-list-after	0	bao audit list -detailed

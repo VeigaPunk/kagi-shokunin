@@ -1,0 +1,18 @@
+F1 — unbound field is a constant
+tree: BASE extract, removed .ufo/waves/round-56/controls/controls-prefreeze-epochF.txt and plans/round-56.md
+command: python3 -I -B plans/round-57-c1-check.py --root <tree> --verbose
+rc=1
+
+STMT SCORECARD:3 cls=match stated=23 auth=none via=receipt-epochF UNBOUND
+STMT LOG:1 cls=epochs stated=4 auth=none via=receipt-file-count UNBOUND
+STMT LOG:3 cls=match stated=23 auth=none via=nearest-epochF UNBOUND
+STMT LESSON:5 cls=match stated=23 auth=none via=receipt-epochF UNBOUND
+STMT LESSON:9 cls=epochs stated=3 auth=none via=receipt-file-count UNBOUND
+CURRENT_CLAIMS: value=6 population=16 mismatches=6 unbound=0 cases=3 match=7 epochs=2 clocks=2 pop=2 guard=1
+
+same tree, planned gate:
+command: python3 -I -B corpus/current-claims.py --root <tree>
+CURRENT_CLAIMS: value=6 population=16 mismatches=6 unbound=5 cases=3 match=7 epochs=2 clocks=2 pop=2 guard=1
+rc=1
+
+5 UNBOUND statements; the frozen checker prints unbound=0 (c1-check.py:250).

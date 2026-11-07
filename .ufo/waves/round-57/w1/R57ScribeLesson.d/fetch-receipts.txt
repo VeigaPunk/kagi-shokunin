@@ -1,0 +1,37 @@
+R57ScribeLesson fetch receipts — 2026-11-07 -0300
+Tool: curl 8.23.0 (system /usr/bin/curl). Bodies only; no response headers, cookies or credentials stored.
+Command shape: curl -fsSL --compressed --max-time 60 [-A <UA>] -o <name>.body <url>
+Default UA = curl/8.23.0; browser UA = Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36.
+
+S115  https://openbao.org/docs/audit/
+  default UA: HTTP 200, transfer 10378 B, decoded body 41787 B, sha256 76339ff7dab618b5e5532bca6daf9dd8361330a43b737408304abfd1d79090c6
+  browser UA: HTTP 200, transfer 10378 B, decoded body 41787 B, sha256 76339ff7dab618b5e5532bca6daf9dd8361330a43b737408304abfd1d79090c6
+  cmp of the two bodies: identical
+  copy: capture/S115.body
+
+S116  https://openbao.org/docs/commands/audit/
+  default UA: HTTP 200, transfer 6852 B, decoded body 33338 B, sha256 3dc8873201fdb3a971eb5fb1c1cee6a804462510c962ea5df6121cad0d9905ce
+  browser UA: HTTP 200, transfer 6852 B, decoded body 33338 B, sha256 3dc8873201fdb3a971eb5fb1c1cee6a804462510c962ea5df6121cad0d9905ce
+  cmp of the two bodies: identical
+  copy: capture/S116.body
+
+REJECT  https://developer.hashicorp.com/vault/docs/audit
+  default UA: HTTP 200, decoded body 293262 B, sha256 62123b2a69d3ab83d73ae231bb336b62205cfd19d9f3bb39a0f3b6aefacf02e1
+  copy: capture/reject-vault-audit.body
+  reason: HashiCorp Vault docs, not the measured OpenBao 2.7.2 binary's documentation; exempted list differs (sys/step-down, sys/rekey/* vs OpenBao raft bootstrap/join); no salt sentence, no log_raw row.
+
+NOT-A-ROW  https://openbao.org/docs/api/system/audit/
+  default UA: HTTP 200, decoded body 43161 B, sha256 1693a4dbd493a848b337803d7f4f7c038b254b2f90032ff37474905c4fd853f0
+  copy: capture/openbao-api-audit.body
+  reason: duplicates the S115 new-salt warning and passes device options through; adds no HMAC mechanism or non-audited list; the trial drives the CLI (S116), not the HTTP API.
+
+Quote locates on the stored bodies (corpus/rendered-text-v1.py locate, count=1 each):
+  S115 "Most strings contained within requests and responses are hashed with a salt using HMAC-SHA256." (14 words)
+  S115 "If enabled, logs the security sensitive information without hashing, in the raw format." (13 words)
+  S115 "If enabled, enables the hashing of token accessor." (8 words)
+  S115 "The non-audited paths are: sys/init sys/seal-status sys/seal sys/unseal sys/leader sys/health sys/storage/raft/bootstrap sys/storage/raft/join" (12 words)
+  S115 "Once an audit device is disabled, you will no longer be able to HMAC values for comparison with entries in the audit logs. This is true even if you re-enable the audit device at the same path, as a new salt will be created for hashing." (39 words; cited in the Gate only, not a row)
+  S115 "When an audit device is disabled, it will stop receiving logs immediately. The existing logs that it did store are untouched." (21 words; Gate only)
+  S116 "Success! Enabled the file audit device at: file/" (8 words)
+  S116 "This is true even if you re-enable the audit device at the same path, as a new salt will be created for hashing." (23 words)
+  REJECT "Vault does not audit requests and responses for the following API endpoints: sys/init sys/seal-status sys/seal sys/step-down sys/unseal sys/leader sys/health" (19 words; heading §Exempted API endpoints)

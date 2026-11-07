@@ -1,0 +1,9 @@
+cmd: bash probe7.sh
+=== M2: wrap-detecting zero-mechanics mock ===
+C2_AUDIT_TRIAL: value=5 tests=5 pass=5 shims=5 vectors=5/5 guard=1 (real=1 none=1 wrap=1 secret=1)
+counter-rc=0
+=== M1: absolute-path-ignorant zero-mechanics mock (no wrap detection) ===
+C2_AUDIT_TRIAL: value=0 tests=5 pass=5 shims=5 vectors=5/5 guard=1 (real=1 none=1 wrap=0 secret=1)
+counter-rc=1
+PROBE7: done
+probe7-rc=0

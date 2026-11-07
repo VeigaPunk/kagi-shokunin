@@ -1,0 +1,93 @@
+R57ScribeEntry — execution receipt
+date: 2026-11-07 -0300
+cwd: /home/vgpnk/Projects/shokunin (host guard); all paths absolute
+lane: /home/vgpnk/Projects/shokunin/kagi-shokunin, master
+seat open HEAD: 7aa1f47 (round-57 predeclaration)
+seat close HEAD: 03cbf65 (round-57 freeze epoch B, by the L1)
+scratch: /fast/scratch/hyaku/kagi-r57/R57ScribeEntry/ (deleted at close)
+
+1. Mandatory inputs (read, rc 0)
+   /home/vgpnk/.omp/agent/RULES.md
+   kagi-shokunin/plans/round-57.md
+   kagi-shokunin/plans/round-57-c1-check.py
+   kagi-shokunin/plans/round-57-c1.sh
+   kagi-shokunin/plans/round-57-c2.sh
+   kagi-shokunin/plans/round-57-controls.sh
+   Re-read after HEAD moved: plans/round-57.md:60-120 and plans/round-57-c2.sh (epoch B, A1/A2).
+
+2. Page fetch, bodies only, no headers saved
+   UA_BROWSER='Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36'
+   curl -sS -L --compressed --max-time 60 -A "$UA_BROWSER" -o audit.browser.html https://openbao.org/docs/audit/
+     rc0 status=200 wire_bytes=10378
+   curl -sS -L --compressed --max-time 60 -A "$UA_BROWSER" -o commands_audit.browser.html https://openbao.org/docs/commands/audit/
+     rc0 status=200 wire_bytes=6852
+   curl -sS -L --compressed --max-time 60 -o audit.default.html https://openbao.org/docs/audit/
+     rc0 status=200 wire_bytes=10378
+   curl -sS -L --compressed --max-time 60 -o commands_audit.default.html https://openbao.org/docs/commands/audit/
+     rc0 status=200 wire_bytes=6852
+   sha256sum (decoded bodies):
+     76339ff7dab618b5e5532bca6daf9dd8361330a43b737408304abfd1d79090c6  audit.browser.html
+     76339ff7dab618b5e5532bca6daf9dd8361330a43b737408304abfd1d79090c6  audit.default.html
+     3dc8873201fdb3a971eb5fb1c1cee6a804462510c962ea5df6121cad0d9905ce  commands_audit.browser.html
+     3dc8873201fdb3a971eb5fb1c1cee6a804462510c962ea5df6121cad0d9905ce  commands_audit.default.html
+   decoded sizes: 41787 B (S115), 33338 B (S116); UA variants byte-identical per page.
+   copies in .d/capture/ have the same hashes.
+
+3. Normalizer / locator
+   python3 -I -B corpus/rendered-text-v1.py digest audit.browser.html
+     RENDERED_TEXT_V1: raw_sha256=76339ff7... bytes=41787 normalized_bytes=9986
+   python3 -I -B corpus/rendered-text-v1.py digest commands_audit.browser.html
+     RENDERED_TEXT_V1: raw_sha256=3dc88732... bytes=33338 normalized_bytes=2152
+   python3 -I -B corpus/rendered-text-v1.py --selftest
+     RENDERED_TEXT_V1_SELFTEST: PASS (cases=22) rc0
+   Quote audit of the draft: 51 distinct quoted phrases, each located on the named
+   page with `locate`; 51/51 count>=1, 0 missing. Evidence quotes count=1 on the
+   Quote/locate lines; the short phrases "every interaction" and "Version 2.7.x"
+   recur (2 and 3) and are not used as evidence.
+
+4. Forbidden-material scan of the draft (rc 0)
+   grep -nE 'hvs\.|s\.[A-Za-z0-9]{20,}|secret/data|vault:v[0-9]|hmac-sha256:[0-9a-f]{6,}|[0-9a-f]{64}'
+   -> only the page/script sha256 constants in provenance lines; no token, no HMAC,
+      no nonce, no vault ref path.
+
+5. Landed trial evidence, read (not rerun by this seat)
+   executor receipts (sha256 at read):
+     690c62a5... receipt-ref-real.txt      rc0  HHHHH  OPENBAO_AUDIT_TRIAL: HOLDS holds=5 broken=0 error=0 bao=v2.7.2
+     ecfa9fd1... receipt-ref-real2.txt     rc0  HHHHH  same summary
+     12b5763e... receipt-ref-sh1.txt       rc1  BHHHH  BROKEN holds=4 broken=1
+     969d1c2a... receipt-ref-sh2.txt       rc1  HBHHH
+     ae205940... receipt-ref-sh3.txt       rc1  HHBHH
+     d6c3023e... receipt-ref-sh4.txt       rc1  HHHBH (label order; receipt prints T5 before T4)
+     ba05d42c... receipt-ref-sh5.txt       rc1  HHHHB
+     167ea3f8... receipt-ref-wrap.txt      rc1  BHHHH  T1 listed=0/0
+     bd8c2f97... receipt-ref-none.txt      rc2  OPENBAO_AUDIT_TRIAL: SETUP no bao on PATH
+   executor report .ufo/waves/round-57/w1/R57ExecTrial.md read: records the 2.7.2
+   refusal "400: cannot enable audit device via API; use declarative, config-based
+   audit device management instead" and the sibling argv-token note (F7).
+   corpus/openbao-audit-trial.sh sha256 at receipt time (11:21-11:22):
+     41fd8096d53c6584f362cdcbc62c90ff3426738b03753b1765aba6e89ce7b343
+   corpus/openbao-audit-trial.sh sha256 at close (11:26):
+     7e64519466bfd7baf51f66d4bc71da09f30845d41d0fb10f36fcf24eec5b0bd3
+   plans/round-57-c2.sh sha256 at close:
+     140a8f2b204af9a0e45e1b596d1c09c4b12f84a70bd42abd18e888d82bbaea28
+   The entry does not claim a counter reading; the L1's post-landing run is that authority.
+
+6. Preserved evidence
+   .d/precondition-bare-dev-receipt.txt
+     4136b779a2d3a3d10db834909f4d99fe3b8d585d7c453d89dd38e87ed39de901
+     copied 11:18 from .ufo/waves/round-57/w1/R57ExecTrial.d/receipt-real.txt
+     (mtime 11:17:22, 457 B) before the executor's rerun.
+
+7. Deliverable hashes
+   .d/corpus/knowledge/openbao-audit-device-custody.md
+     bb2ad8c106ddf2e56f9ddef622494a4134af9f127e0285421a2d76abfbad36f3  22086 B
+   .d/capture/audit.browser.html          76339ff7dab618b5e5532bca6daf9dd8361330a43b737408304abfd1d79090c6
+   .d/capture/commands_audit.browser.html 3dc8873201fdb3a971eb5fb1c1cee6a804462510c962ea5df6121cad0d9905ce
+   .ufo/waves/round-57/w1/R57ScribeEntry.md written 11:27 -0300 (this report)
+
+8. Writes and cleanup
+   Wrote only under .ufo/waves/round-57/w1/R57ScribeEntry.md and .d/; no corpus/,
+   plans/, LOG.md, SCORECARD.md, SOURCES.md or other tracked file; no git/jj mutation.
+   Scratch /fast/scratch/hyaku/kagi-r57/R57ScribeEntry/ deleted after the report
+   (rm -rf; verified absent).
+   No installs; pacman untouched; bao 2.7.2 was preexisting.

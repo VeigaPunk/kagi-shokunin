@@ -1,0 +1,1141 @@
+{
+ "after": {
+  "bad_lines": 0,
+  "entries": 20,
+  "entry_rows": [
+   {
+    "api_path": "sys/audit/test",
+    "i": 0,
+    "operation": "update",
+    "type": "request",
+    "value_fields": []
+   },
+   {
+    "api_path": "sys/audit/file",
+    "i": 1,
+    "operation": "update",
+    "type": "response",
+    "value_fields": []
+   },
+   {
+    "api_path": "sys/internal/ui/mounts/secret",
+    "i": 2,
+    "operation": "read",
+    "type": "request",
+    "value_fields": []
+   },
+   {
+    "api_path": "sys/internal/ui/mounts/secret",
+    "i": 3,
+    "operation": "read",
+    "type": "response",
+    "value_fields": []
+   },
+   {
+    "api_path": "secret/data/probe",
+    "i": 4,
+    "operation": "update",
+    "type": "request",
+    "value_fields": [
+     {
+      "digest": "2a84f3cdf9b1ad50",
+      "hexlen": 64,
+      "json_ptr": "request.data.data.value",
+      "prefix": "hmac-sha256:"
+     }
+    ]
+   },
+   {
+    "api_path": "secret/data/probe",
+    "i": 5,
+    "operation": "update",
+    "type": "response",
+    "value_fields": [
+     {
+      "digest": "2a84f3cdf9b1ad50",
+      "hexlen": 64,
+      "json_ptr": "request.data.data.value",
+      "prefix": "hmac-sha256:"
+     }
+    ]
+   },
+   {
+    "api_path": "sys/internal/ui/mounts/secret",
+    "i": 6,
+    "operation": "read",
+    "type": "request",
+    "value_fields": []
+   },
+   {
+    "api_path": "sys/internal/ui/mounts/secret",
+    "i": 7,
+    "operation": "read",
+    "type": "response",
+    "value_fields": []
+   },
+   {
+    "api_path": "secret/data/probe",
+    "i": 8,
+    "operation": "update",
+    "type": "request",
+    "value_fields": [
+     {
+      "digest": "2a84f3cdf9b1ad50",
+      "hexlen": 64,
+      "json_ptr": "request.data.data.value",
+      "prefix": "hmac-sha256:"
+     }
+    ]
+   },
+   {
+    "api_path": "secret/data/probe",
+    "i": 9,
+    "operation": "update",
+    "type": "response",
+    "value_fields": [
+     {
+      "digest": "2a84f3cdf9b1ad50",
+      "hexlen": 64,
+      "json_ptr": "request.data.data.value",
+      "prefix": "hmac-sha256:"
+     }
+    ]
+   },
+   {
+    "api_path": "sys/internal/ui/mounts/secret",
+    "i": 10,
+    "operation": "read",
+    "type": "request",
+    "value_fields": []
+   },
+   {
+    "api_path": "sys/internal/ui/mounts/secret",
+    "i": 11,
+    "operation": "read",
+    "type": "response",
+    "value_fields": []
+   },
+   {
+    "api_path": "secret/data/probe",
+    "i": 12,
+    "operation": "read",
+    "type": "request",
+    "value_fields": []
+   },
+   {
+    "api_path": "secret/data/probe",
+    "i": 13,
+    "operation": "read",
+    "type": "response",
+    "value_fields": [
+     {
+      "digest": "2a84f3cdf9b1ad50",
+      "hexlen": 64,
+      "json_ptr": "response.data.data.value",
+      "prefix": "hmac-sha256:"
+     }
+    ]
+   },
+   {
+    "api_path": "sys/internal/ui/mounts/secret",
+    "i": 14,
+    "operation": "read",
+    "type": "request",
+    "value_fields": []
+   },
+   {
+    "api_path": "sys/internal/ui/mounts/secret",
+    "i": 15,
+    "operation": "read",
+    "type": "response",
+    "value_fields": []
+   },
+   {
+    "api_path": "secret/data/probe",
+    "i": 16,
+    "operation": "update",
+    "type": "request",
+    "value_fields": [
+     {
+      "digest": "a39805c505dbf45c",
+      "hexlen": 64,
+      "json_ptr": "request.data.data.value",
+      "prefix": "hmac-sha256:"
+     }
+    ]
+   },
+   {
+    "api_path": "secret/data/probe",
+    "i": 17,
+    "operation": "update",
+    "type": "response",
+    "value_fields": [
+     {
+      "digest": "a39805c505dbf45c",
+      "hexlen": 64,
+      "json_ptr": "request.data.data.value",
+      "prefix": "hmac-sha256:"
+     }
+    ]
+   },
+   {
+    "api_path": "sys/audit",
+    "i": 18,
+    "operation": "read",
+    "type": "request",
+    "value_fields": []
+   },
+   {
+    "api_path": "sys/audit",
+    "i": 19,
+    "operation": "read",
+    "type": "response",
+    "value_fields": []
+   }
+  ],
+  "file": "audit-after.log",
+  "hmac_field_paths": [
+   "auth.accessor",
+   "auth.client_token",
+   "request.client_token",
+   "request.client_token_accessor",
+   "request.data.data.value",
+   "request.data.description",
+   "request.data.options.file_path",
+   "request.data.type",
+   "response.data.accessor",
+   "response.data.data.value",
+   "response.data.deletion_time",
+   "response.data.deprecation_status",
+   "response.data.description",
+   "response.data.file/.description",
+   "response.data.file/.options.file_path",
+   "response.data.file/.path",
+   "response.data.file/.type",
+   "response.data.file2/.description",
+   "response.data.file2/.options.file_path",
+   "response.data.file2/.options.log_raw",
+   "response.data.file2/.path",
+   "response.data.file2/.type",
+   "response.data.metadata.deletion_time",
+   "response.data.options.version",
+   "response.data.path",
+   "response.data.plugin_version",
+   "response.data.running_plugin_version",
+   "response.data.running_sha256",
+   "response.data.type",
+   "response.data.uuid"
+  ],
+  "label": "after",
+  "nonce_count": 0,
+  "nonce_hits": [],
+  "present": true,
+  "token_plaintext_hits": 0,
+  "types": {
+   "request": 10,
+   "response": 10
+  },
+  "value_rows": [
+   {
+    "digest": "2a84f3cdf9b1ad50",
+    "entry": 4,
+    "hexlen": 64,
+    "json_ptr": "request.data.data.value",
+    "prefix": "hmac-sha256:",
+    "type": "request"
+   },
+   {
+    "digest": "2a84f3cdf9b1ad50",
+    "entry": 5,
+    "hexlen": 64,
+    "json_ptr": "request.data.data.value",
+    "prefix": "hmac-sha256:",
+    "type": "response"
+   },
+   {
+    "digest": "2a84f3cdf9b1ad50",
+    "entry": 8,
+    "hexlen": 64,
+    "json_ptr": "request.data.data.value",
+    "prefix": "hmac-sha256:",
+    "type": "request"
+   },
+   {
+    "digest": "2a84f3cdf9b1ad50",
+    "entry": 9,
+    "hexlen": 64,
+    "json_ptr": "request.data.data.value",
+    "prefix": "hmac-sha256:",
+    "type": "response"
+   },
+   {
+    "digest": "2a84f3cdf9b1ad50",
+    "entry": 13,
+    "hexlen": 64,
+    "json_ptr": "response.data.data.value",
+    "prefix": "hmac-sha256:",
+    "type": "response"
+   },
+   {
+    "digest": "a39805c505dbf45c",
+    "entry": 16,
+    "hexlen": 64,
+    "json_ptr": "request.data.data.value",
+    "prefix": "hmac-sha256:",
+    "type": "request"
+   },
+   {
+    "digest": "a39805c505dbf45c",
+    "entry": 17,
+    "hexlen": 64,
+    "json_ptr": "request.data.data.value",
+    "prefix": "hmac-sha256:",
+    "type": "response"
+   }
+  ]
+ },
+ "checks": {
+  "after_entries": 20,
+  "after_nonce_plaintext_count": 0,
+  "after_req_digests_in_order": [
+   "2a84f3cdf9b1ad50",
+   "2a84f3cdf9b1ad50",
+   "a39805c505dbf45c"
+  ],
+  "after_req_prefixes": [
+   "hmac-sha256:"
+  ],
+  "after_req_unique_digests": 2,
+  "default_entries": 27,
+  "default_hmac_value_req_count": 3,
+  "default_hmac_value_resp_count": 2,
+  "default_nonce_plaintext_count": 0,
+  "default_req_digest": "9026895605d48a51",
+  "default_req_hexlens": [
+   64
+  ],
+  "default_req_prefixes": [
+   "hmac-sha256:"
+  ],
+  "default_req_resp_digest_equal": true,
+  "default_req_unique_digests": 1,
+  "default_resp_unique_digests": 1,
+  "default_token_plaintext_count": 0,
+  "default_types": {
+   "request": 14,
+   "response": 13
+  },
+  "nonce1_digest": "e150553b6cd7a490",
+  "nonce2_digest": "b230a0ace4b89e1f",
+  "raw_entries": 32,
+  "raw_nonce_field_prefixes": [
+   "plain-nonce"
+  ],
+  "raw_nonce_plaintext_count": 10,
+  "raw_token_plaintext_count": 62,
+  "salt_rotated": true,
+  "value_dependence_after": true,
+  "value_space_bits": 160,
+  "within_salt_after_deterministic": true,
+  "within_salt_before_deterministic": true
+ },
+ "default": {
+  "bad_lines": 0,
+  "entries": 27,
+  "entry_rows": [
+   {
+    "api_path": "sys/audit/test",
+    "i": 0,
+    "operation": "update",
+    "type": "request",
+    "value_fields": []
+   },
+   {
+    "api_path": "sys/audit/file",
+    "i": 1,
+    "operation": "update",
+    "type": "response",
+    "value_fields": []
+   },
+   {
+    "api_path": "sys/audit",
+    "i": 2,
+    "operation": "read",
+    "type": "request",
+    "value_fields": []
+   },
+   {
+    "api_path": "sys/audit",
+    "i": 3,
+    "operation": "read",
+    "type": "response",
+    "value_fields": []
+   },
+   {
+    "api_path": "sys/internal/ui/mounts/secret",
+    "i": 4,
+    "operation": "read",
+    "type": "request",
+    "value_fields": []
+   },
+   {
+    "api_path": "sys/internal/ui/mounts/secret",
+    "i": 5,
+    "operation": "read",
+    "type": "response",
+    "value_fields": []
+   },
+   {
+    "api_path": "secret/data/probe",
+    "i": 6,
+    "operation": "create",
+    "type": "request",
+    "value_fields": [
+     {
+      "digest": "9026895605d48a51",
+      "hexlen": 64,
+      "json_ptr": "request.data.data.value",
+      "prefix": "hmac-sha256:"
+     }
+    ]
+   },
+   {
+    "api_path": "secret/data/probe",
+    "i": 7,
+    "operation": "create",
+    "type": "response",
+    "value_fields": [
+     {
+      "digest": "9026895605d48a51",
+      "hexlen": 64,
+      "json_ptr": "request.data.data.value",
+      "prefix": "hmac-sha256:"
+     }
+    ]
+   },
+   {
+    "api_path": "sys/internal/ui/mounts/secret",
+    "i": 8,
+    "operation": "read",
+    "type": "request",
+    "value_fields": []
+   },
+   {
+    "api_path": "sys/internal/ui/mounts/secret",
+    "i": 9,
+    "operation": "read",
+    "type": "response",
+    "value_fields": []
+   },
+   {
+    "api_path": "secret/data/probe",
+    "i": 10,
+    "operation": "update",
+    "type": "request",
+    "value_fields": [
+     {
+      "digest": "9026895605d48a51",
+      "hexlen": 64,
+      "json_ptr": "request.data.data.value",
+      "prefix": "hmac-sha256:"
+     }
+    ]
+   },
+   {
+    "api_path": "secret/data/probe",
+    "i": 11,
+    "operation": "update",
+    "type": "response",
+    "value_fields": [
+     {
+      "digest": "9026895605d48a51",
+      "hexlen": 64,
+      "json_ptr": "request.data.data.value",
+      "prefix": "hmac-sha256:"
+     }
+    ]
+   },
+   {
+    "api_path": "sys/internal/ui/mounts/secret",
+    "i": 12,
+    "operation": "read",
+    "type": "request",
+    "value_fields": []
+   },
+   {
+    "api_path": "sys/internal/ui/mounts/secret",
+    "i": 13,
+    "operation": "read",
+    "type": "response",
+    "value_fields": []
+   },
+   {
+    "api_path": "secret/data/probe",
+    "i": 14,
+    "operation": "read",
+    "type": "request",
+    "value_fields": []
+   },
+   {
+    "api_path": "secret/data/probe",
+    "i": 15,
+    "operation": "read",
+    "type": "response",
+    "value_fields": [
+     {
+      "digest": "9026895605d48a51",
+      "hexlen": 64,
+      "json_ptr": "response.data.data.value",
+      "prefix": "hmac-sha256:"
+     }
+    ]
+   },
+   {
+    "api_path": "sys/audit/file2",
+    "i": 16,
+    "operation": "update",
+    "type": "request",
+    "value_fields": []
+   },
+   {
+    "api_path": "sys/audit/file2",
+    "i": 17,
+    "operation": "update",
+    "type": "response",
+    "value_fields": []
+   },
+   {
+    "api_path": "sys/internal/ui/mounts/secret",
+    "i": 18,
+    "operation": "read",
+    "type": "request",
+    "value_fields": []
+   },
+   {
+    "api_path": "sys/internal/ui/mounts/secret",
+    "i": 19,
+    "operation": "read",
+    "type": "response",
+    "value_fields": []
+   },
+   {
+    "api_path": "secret/data/probe",
+    "i": 20,
+    "operation": "update",
+    "type": "request",
+    "value_fields": [
+     {
+      "digest": "9026895605d48a51",
+      "hexlen": 64,
+      "json_ptr": "request.data.data.value",
+      "prefix": "hmac-sha256:"
+     }
+    ]
+   },
+   {
+    "api_path": "secret/data/probe",
+    "i": 21,
+    "operation": "update",
+    "type": "response",
+    "value_fields": [
+     {
+      "digest": "9026895605d48a51",
+      "hexlen": 64,
+      "json_ptr": "request.data.data.value",
+      "prefix": "hmac-sha256:"
+     }
+    ]
+   },
+   {
+    "api_path": "sys/internal/ui/mounts/secret",
+    "i": 22,
+    "operation": "read",
+    "type": "request",
+    "value_fields": []
+   },
+   {
+    "api_path": "sys/internal/ui/mounts/secret",
+    "i": 23,
+    "operation": "read",
+    "type": "response",
+    "value_fields": []
+   },
+   {
+    "api_path": "secret/data/probe",
+    "i": 24,
+    "operation": "read",
+    "type": "request",
+    "value_fields": []
+   },
+   {
+    "api_path": "secret/data/probe",
+    "i": 25,
+    "operation": "read",
+    "type": "response",
+    "value_fields": [
+     {
+      "digest": "9026895605d48a51",
+      "hexlen": 64,
+      "json_ptr": "response.data.data.value",
+      "prefix": "hmac-sha256:"
+     }
+    ]
+   },
+   {
+    "api_path": "sys/audit/file",
+    "i": 26,
+    "operation": "delete",
+    "type": "request",
+    "value_fields": []
+   }
+  ],
+  "file": "audit-default.log",
+  "hmac_field_paths": [
+   "auth.accessor",
+   "auth.client_token",
+   "request.client_token",
+   "request.client_token_accessor",
+   "request.data.data.value",
+   "request.data.description",
+   "request.data.options.file_path",
+   "request.data.options.log_raw",
+   "request.data.type",
+   "response.data.accessor",
+   "response.data.data.value",
+   "response.data.deletion_time",
+   "response.data.deprecation_status",
+   "response.data.description",
+   "response.data.file/.description",
+   "response.data.file/.options.file_path",
+   "response.data.file/.path",
+   "response.data.file/.type",
+   "response.data.metadata.deletion_time",
+   "response.data.options.version",
+   "response.data.path",
+   "response.data.plugin_version",
+   "response.data.running_plugin_version",
+   "response.data.running_sha256",
+   "response.data.type",
+   "response.data.uuid"
+  ],
+  "label": "default",
+  "nonce_count": 0,
+  "nonce_hits": [],
+  "present": true,
+  "token_plaintext_hits": 0,
+  "types": {
+   "request": 14,
+   "response": 13
+  },
+  "value_rows": [
+   {
+    "digest": "9026895605d48a51",
+    "entry": 6,
+    "hexlen": 64,
+    "json_ptr": "request.data.data.value",
+    "prefix": "hmac-sha256:",
+    "type": "request"
+   },
+   {
+    "digest": "9026895605d48a51",
+    "entry": 7,
+    "hexlen": 64,
+    "json_ptr": "request.data.data.value",
+    "prefix": "hmac-sha256:",
+    "type": "response"
+   },
+   {
+    "digest": "9026895605d48a51",
+    "entry": 10,
+    "hexlen": 64,
+    "json_ptr": "request.data.data.value",
+    "prefix": "hmac-sha256:",
+    "type": "request"
+   },
+   {
+    "digest": "9026895605d48a51",
+    "entry": 11,
+    "hexlen": 64,
+    "json_ptr": "request.data.data.value",
+    "prefix": "hmac-sha256:",
+    "type": "response"
+   },
+   {
+    "digest": "9026895605d48a51",
+    "entry": 15,
+    "hexlen": 64,
+    "json_ptr": "response.data.data.value",
+    "prefix": "hmac-sha256:",
+    "type": "response"
+   },
+   {
+    "digest": "9026895605d48a51",
+    "entry": 20,
+    "hexlen": 64,
+    "json_ptr": "request.data.data.value",
+    "prefix": "hmac-sha256:",
+    "type": "request"
+   },
+   {
+    "digest": "9026895605d48a51",
+    "entry": 21,
+    "hexlen": 64,
+    "json_ptr": "request.data.data.value",
+    "prefix": "hmac-sha256:",
+    "type": "response"
+   },
+   {
+    "digest": "9026895605d48a51",
+    "entry": 25,
+    "hexlen": 64,
+    "json_ptr": "response.data.data.value",
+    "prefix": "hmac-sha256:",
+    "type": "response"
+   }
+  ]
+ },
+ "raw": {
+  "bad_lines": 0,
+  "entries": 32,
+  "entry_rows": [
+   {
+    "api_path": "sys/audit/test",
+    "i": 0,
+    "operation": "update",
+    "type": "request",
+    "value_fields": []
+   },
+   {
+    "api_path": "sys/audit/file2",
+    "i": 1,
+    "operation": "update",
+    "type": "response",
+    "value_fields": []
+   },
+   {
+    "api_path": "sys/internal/ui/mounts/secret",
+    "i": 2,
+    "operation": "read",
+    "type": "request",
+    "value_fields": []
+   },
+   {
+    "api_path": "sys/internal/ui/mounts/secret",
+    "i": 3,
+    "operation": "read",
+    "type": "response",
+    "value_fields": []
+   },
+   {
+    "api_path": "secret/data/probe",
+    "i": 4,
+    "operation": "update",
+    "type": "request",
+    "value_fields": [
+     {
+      "digest": "e150553b6cd7a490",
+      "hexlen": 40,
+      "json_ptr": "request.data.data.value",
+      "prefix": "plain-nonce"
+     }
+    ]
+   },
+   {
+    "api_path": "secret/data/probe",
+    "i": 5,
+    "operation": "update",
+    "type": "response",
+    "value_fields": [
+     {
+      "digest": "e150553b6cd7a490",
+      "hexlen": 40,
+      "json_ptr": "request.data.data.value",
+      "prefix": "plain-nonce"
+     }
+    ]
+   },
+   {
+    "api_path": "sys/internal/ui/mounts/secret",
+    "i": 6,
+    "operation": "read",
+    "type": "request",
+    "value_fields": []
+   },
+   {
+    "api_path": "sys/internal/ui/mounts/secret",
+    "i": 7,
+    "operation": "read",
+    "type": "response",
+    "value_fields": []
+   },
+   {
+    "api_path": "secret/data/probe",
+    "i": 8,
+    "operation": "read",
+    "type": "request",
+    "value_fields": []
+   },
+   {
+    "api_path": "secret/data/probe",
+    "i": 9,
+    "operation": "read",
+    "type": "response",
+    "value_fields": [
+     {
+      "digest": "e150553b6cd7a490",
+      "hexlen": 40,
+      "json_ptr": "response.data.data.value",
+      "prefix": "plain-nonce"
+     }
+    ]
+   },
+   {
+    "api_path": "sys/audit/file",
+    "i": 10,
+    "operation": "delete",
+    "type": "request",
+    "value_fields": []
+   },
+   {
+    "api_path": "sys/audit/file",
+    "i": 11,
+    "operation": "delete",
+    "type": "response",
+    "value_fields": []
+   },
+   {
+    "api_path": "sys/audit/file",
+    "i": 12,
+    "operation": "update",
+    "type": "request",
+    "value_fields": []
+   },
+   {
+    "api_path": "sys/audit/file",
+    "i": 13,
+    "operation": "update",
+    "type": "response",
+    "value_fields": []
+   },
+   {
+    "api_path": "sys/internal/ui/mounts/secret",
+    "i": 14,
+    "operation": "read",
+    "type": "request",
+    "value_fields": []
+   },
+   {
+    "api_path": "sys/internal/ui/mounts/secret",
+    "i": 15,
+    "operation": "read",
+    "type": "response",
+    "value_fields": []
+   },
+   {
+    "api_path": "secret/data/probe",
+    "i": 16,
+    "operation": "update",
+    "type": "request",
+    "value_fields": [
+     {
+      "digest": "e150553b6cd7a490",
+      "hexlen": 40,
+      "json_ptr": "request.data.data.value",
+      "prefix": "plain-nonce"
+     }
+    ]
+   },
+   {
+    "api_path": "secret/data/probe",
+    "i": 17,
+    "operation": "update",
+    "type": "response",
+    "value_fields": [
+     {
+      "digest": "e150553b6cd7a490",
+      "hexlen": 40,
+      "json_ptr": "request.data.data.value",
+      "prefix": "plain-nonce"
+     }
+    ]
+   },
+   {
+    "api_path": "sys/internal/ui/mounts/secret",
+    "i": 18,
+    "operation": "read",
+    "type": "request",
+    "value_fields": []
+   },
+   {
+    "api_path": "sys/internal/ui/mounts/secret",
+    "i": 19,
+    "operation": "read",
+    "type": "response",
+    "value_fields": []
+   },
+   {
+    "api_path": "secret/data/probe",
+    "i": 20,
+    "operation": "update",
+    "type": "request",
+    "value_fields": [
+     {
+      "digest": "e150553b6cd7a490",
+      "hexlen": 40,
+      "json_ptr": "request.data.data.value",
+      "prefix": "plain-nonce"
+     }
+    ]
+   },
+   {
+    "api_path": "secret/data/probe",
+    "i": 21,
+    "operation": "update",
+    "type": "response",
+    "value_fields": [
+     {
+      "digest": "e150553b6cd7a490",
+      "hexlen": 40,
+      "json_ptr": "request.data.data.value",
+      "prefix": "plain-nonce"
+     }
+    ]
+   },
+   {
+    "api_path": "sys/internal/ui/mounts/secret",
+    "i": 22,
+    "operation": "read",
+    "type": "request",
+    "value_fields": []
+   },
+   {
+    "api_path": "sys/internal/ui/mounts/secret",
+    "i": 23,
+    "operation": "read",
+    "type": "response",
+    "value_fields": []
+   },
+   {
+    "api_path": "secret/data/probe",
+    "i": 24,
+    "operation": "read",
+    "type": "request",
+    "value_fields": []
+   },
+   {
+    "api_path": "secret/data/probe",
+    "i": 25,
+    "operation": "read",
+    "type": "response",
+    "value_fields": [
+     {
+      "digest": "e150553b6cd7a490",
+      "hexlen": 40,
+      "json_ptr": "response.data.data.value",
+      "prefix": "plain-nonce"
+     }
+    ]
+   },
+   {
+    "api_path": "sys/internal/ui/mounts/secret",
+    "i": 26,
+    "operation": "read",
+    "type": "request",
+    "value_fields": []
+   },
+   {
+    "api_path": "sys/internal/ui/mounts/secret",
+    "i": 27,
+    "operation": "read",
+    "type": "response",
+    "value_fields": []
+   },
+   {
+    "api_path": "secret/data/probe",
+    "i": 28,
+    "operation": "update",
+    "type": "request",
+    "value_fields": [
+     {
+      "digest": "b230a0ace4b89e1f",
+      "hexlen": 40,
+      "json_ptr": "request.data.data.value",
+      "prefix": "plain-nonce"
+     }
+    ]
+   },
+   {
+    "api_path": "secret/data/probe",
+    "i": 29,
+    "operation": "update",
+    "type": "response",
+    "value_fields": [
+     {
+      "digest": "b230a0ace4b89e1f",
+      "hexlen": 40,
+      "json_ptr": "request.data.data.value",
+      "prefix": "plain-nonce"
+     }
+    ]
+   },
+   {
+    "api_path": "sys/audit",
+    "i": 30,
+    "operation": "read",
+    "type": "request",
+    "value_fields": []
+   },
+   {
+    "api_path": "sys/audit",
+    "i": 31,
+    "operation": "read",
+    "type": "response",
+    "value_fields": []
+   }
+  ],
+  "file": "audit-raw.log",
+  "hmac_field_paths": [],
+  "label": "raw",
+  "nonce_count": 10,
+  "nonce_hits": [
+   {
+    "entry": 4,
+    "json_ptr": "request.data.data.value",
+    "len": 40
+   },
+   {
+    "entry": 5,
+    "json_ptr": "request.data.data.value",
+    "len": 40
+   },
+   {
+    "entry": 9,
+    "json_ptr": "response.data.data.value",
+    "len": 40
+   },
+   {
+    "entry": 16,
+    "json_ptr": "request.data.data.value",
+    "len": 40
+   },
+   {
+    "entry": 17,
+    "json_ptr": "request.data.data.value",
+    "len": 40
+   },
+   {
+    "entry": 20,
+    "json_ptr": "request.data.data.value",
+    "len": 40
+   },
+   {
+    "entry": 21,
+    "json_ptr": "request.data.data.value",
+    "len": 40
+   },
+   {
+    "entry": 25,
+    "json_ptr": "response.data.data.value",
+    "len": 40
+   },
+   {
+    "entry": 28,
+    "json_ptr": "request.data.data.value",
+    "len": 40
+   },
+   {
+    "entry": 29,
+    "json_ptr": "request.data.data.value",
+    "len": 40
+   }
+  ],
+  "present": true,
+  "token_plaintext_hits": 62,
+  "types": {
+   "request": 16,
+   "response": 16
+  },
+  "value_rows": [
+   {
+    "digest": "e150553b6cd7a490",
+    "entry": 4,
+    "hexlen": 40,
+    "json_ptr": "request.data.data.value",
+    "prefix": "plain-nonce",
+    "type": "request"
+   },
+   {
+    "digest": "e150553b6cd7a490",
+    "entry": 5,
+    "hexlen": 40,
+    "json_ptr": "request.data.data.value",
+    "prefix": "plain-nonce",
+    "type": "response"
+   },
+   {
+    "digest": "e150553b6cd7a490",
+    "entry": 9,
+    "hexlen": 40,
+    "json_ptr": "response.data.data.value",
+    "prefix": "plain-nonce",
+    "type": "response"
+   },
+   {
+    "digest": "e150553b6cd7a490",
+    "entry": 16,
+    "hexlen": 40,
+    "json_ptr": "request.data.data.value",
+    "prefix": "plain-nonce",
+    "type": "request"
+   },
+   {
+    "digest": "e150553b6cd7a490",
+    "entry": 17,
+    "hexlen": 40,
+    "json_ptr": "request.data.data.value",
+    "prefix": "plain-nonce",
+    "type": "response"
+   },
+   {
+    "digest": "e150553b6cd7a490",
+    "entry": 20,
+    "hexlen": 40,
+    "json_ptr": "request.data.data.value",
+    "prefix": "plain-nonce",
+    "type": "request"
+   },
+   {
+    "digest": "e150553b6cd7a490",
+    "entry": 21,
+    "hexlen": 40,
+    "json_ptr": "request.data.data.value",
+    "prefix": "plain-nonce",
+    "type": "response"
+   },
+   {
+    "digest": "e150553b6cd7a490",
+    "entry": 25,
+    "hexlen": 40,
+    "json_ptr": "response.data.data.value",
+    "prefix": "plain-nonce",
+    "type": "response"
+   },
+   {
+    "digest": "b230a0ace4b89e1f",
+    "entry": 28,
+    "hexlen": 40,
+    "json_ptr": "request.data.data.value",
+    "prefix": "plain-nonce",
+    "type": "request"
+   },
+   {
+    "digest": "b230a0ace4b89e1f",
+    "entry": 29,
+    "hexlen": 40,
+    "json_ptr": "request.data.data.value",
+    "prefix": "plain-nonce",
+    "type": "response"
+   }
+  ]
+ }
+}

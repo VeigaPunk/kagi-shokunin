@@ -1,0 +1,16 @@
+control C-04 — C1 checker file-access scope, python audit hook over runpy
+instrument: /fast/scratch/hyaku/kagi-r57/R57Sentinel/audit-open.py (deleted with scratch)
+root: BASE 1cda9e7ae4767b4133e283bfbc08266d4c86362d extract
+command: python3 -I -B audit-open.py <root> audit.log
+events: 109 open, 1 subprocess.Popen, exit 1
+
+class counts:
+  10  under the measured root
+  96  /usr/lib/python3.14/...
+   2  /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-57-c1-check.py  (LANE-CHECKER-SOURCE)
+   1  plans/round-57-c1-check.py  (relative, runpy open of the checker itself)
+
+POPEN  '/usr/bin/python3'   ← the child that runs corpus/recheck-replay.py --selftest
+
+conclusion: the checker's own data reads are confined to the measured root (PASS);
+  the child interpreter is candidate code and is not constrained (F3).

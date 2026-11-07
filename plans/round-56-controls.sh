@@ -43,7 +43,7 @@ report() { # id expect line
 check() { report "$1" "$2" "$(bash "$C1" --tree "$SCR/$3" 2>&1)"; }
 check_rev() { report "$1" "$2" "$(bash "$C1" "$3" 2>&1)"; }
 ENTRY=corpus/knowledge/betterleaks-detection-vs-validation.md
-# instrument identity for the receipt (epoch-C): the bytes this run measured
+# instrument identity for the receipt (epoch-D): the bytes this run measured
 for f in plans/round-56.md plans/round-56-c1.sh plans/round-56-controls.sh corpus/recheck-replay.py corpus/recheck-captures.tsv corpus/rendered-text-v1.py; do
   echo "INSTRUMENT $(sha256sum "$REPO/$f" | cut -d' ' -f1) $f"
 done
@@ -139,6 +139,19 @@ for l in s:
     out.append(l)
 open(mp,"w").write("\n".join(out)+"\n")' "$SCR/f7b"
 check K1-F7b-trace-headers 0 f7b
+# F7c canonical header casing: `Set-Cookie:` / `Http/2` at column 0 (any case, epoch-D)
+mk_ref f7c; py 'import sys,hashlib
+root=sys.argv[1]; p=root+"/.ufo/waves/round-56/capture/S057.body"; d=open(p,"rb").read()
+nd=b"Set-Cookie: session=abc\nHttp/2 200\n\n"+d
+open(p,"wb").write(nd)
+mp=root+"/corpus/recheck-captures.tsv"; s=open(mp).read().splitlines(); out=[]
+for l in s:
+    c=l.split("\t")
+    if c and c[0]=="S057":
+        c[5]=str(len(nd)); c[6]=hashlib.sha256(nd).hexdigest(); l="\t".join(c)
+    out.append(l)
+open(mp,"w").write("\n".join(out)+"\n")' "$SCR/f7c"
+check K1-F7c-header-case 0 f7c
 # F13 manifest body_path re-pointed at a non-capture committed file
 mk_ref f13; py 'import sys,hashlib
 root=sys.argv[1]

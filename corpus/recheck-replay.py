@@ -213,7 +213,7 @@ def check_capture(root, row, registry):
     # an HTTP status line or a set-cookie header, including `curl -v`/`curl -i`
     # trace prefixes (`< `). Column 0 only — spec bodies legitimately quote
     # indented HTTP examples (S067), and real transcripts never indent headers.
-    if re.search(rb"(?m)^(?:HTTP/\d|< HTTP/\d|< set-cookie\s*:|set-cookie\s*:)", data):
+    if re.search(rb"(?im)^(?:HTTP/\d|< HTTP/\d|< set-cookie\s*:|set-cookie\s*:)", data):
         return None, "header-bytes:%s" % rel
     return cur, None
 
@@ -384,6 +384,12 @@ def selftest():
                 b'trailer\n<< /Size 6 /Root 1 0 R >>\nstartxref\n412\n%%EOF\n')
     pcmd = "`curl -fsSL 'https://example.test/a' | pdftotext -layout - - | grep -c 'needle'` -> 1"
     cases.append(("pdf-match", pcmd, [good_row(body=mini_pdf)], {"body": mini_pdf}, 0, "MATCH"))
+    # canonical header spellings are case-insensitive (epoch-D, R56MutCounter F9):
+    # `Set-Cookie:` and `Http/2` at column 0 must be refused like lowercase
+    cap1 = b"Set-Cookie: x=1\n\nThe needle line\nthe needle again\n"
+    cases.append(("header-case-cookie", cmd, [good_row(body=cap1)], {"body": cap1}, 1, "BAD-CAPTURE"))
+    cap2 = b"Http/2 302 Found\n\nThe needle line\nthe needle again\n"
+    cases.append(("header-case-status", cmd, [good_row(body=cap2)], {"body": cap2}, 1, "BAD-CAPTURE"))
     cases.append(("unsupported-form", "`curl -fsSL 'https://example.test/a' | sed -n 1p | grep -c 'needle'` -> 2",
                   [good_row()], {}, 1, "UNSUPPORTED"))
     cases.append(("extra-curl-flag", "`curl -fsSL -o /tmp/x 'https://example.test/a' | grep -c 'needle'` -> 2",

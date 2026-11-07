@@ -38,10 +38,10 @@
 #          `MATCH <c's entry>:<L> id=<that row's id> form=<form> stated=<N>
 #          replayed=<N>` for c;
 #   GUARD = 1 iff every POP clock is PRESENT (no clock deleted or restated — the
-#     `-> N` token is right-bounded by a non-digit non-letter), no
+#     `-> N` token is right-bounded by a non-digit non-letter non-`_` non-`.`), no
 #     corpus/recheck-replay.py is present with non-pinned bytes, and, when the
 #     measured tree carries the pinned gate bytes, its `--selftest` exits 0 with
-#     a last line `RECHECK_REPLAY_SELFTEST: PASS (18 cases)`.
+#     a last line `RECHECK_REPLAY_SELFTEST: PASS (20 cases)`.
 # Fail closed: a bad revision, unreadable BASE, unusable scratch, missing python3,
 #   grep or pdftotext is SETUP (exit 2); a missing or unreadable file reads its
 #   conjunct as 0; a producer with empty output reads as not-CLEAN.
@@ -80,8 +80,8 @@ git -C "$REPO" show "$BASE:corpus/rendered-text-v1.py" > "$SCR/b/rendered-text-v
 # or any edit to the gate fails r5 for every clock. The gate's own --root exit
 # status is required to be 0 and its last non-empty line must be the CLEAN
 # summary with clocks=10 match=10; the --selftest run must exit 0 with last line
-# `RECHECK_REPLAY_SELFTEST: PASS (18 cases)`.
-GATE_SHA256_PIN=e9b7e4b7aa1e8173c4bfc2e536ce6d1ed29c4c0d6ee5f46bfa1e63d3692a62b4
+# `RECHECK_REPLAY_SELFTEST: PASS (20 cases)`.
+GATE_SHA256_PIN=5165da2a6fced02fce82c92fc898553db9a6d3d702d9fc6d1ca3ba185e77b14f
 GATE_OUT=$SCR/gate.out; SELF_OUT=$SCR/self.out
 HAVE_GATE=0; SELF_OK=1; GATE_RC=1
 GATE_REL=corpus/recheck-replay.py
@@ -99,7 +99,7 @@ if [ -e "$T/$GATE_REL" ] || [ -L "$T/$GATE_REL" ]; then
     GATE_SHA=$(sha256sum "$T/$GATE_REL" | cut -d' ' -f1)
   fi
   # a gate file that is present but not the pinned bytes can never satisfy the
-  # selftest conjunct either — SELF_OK=0 keeps GUARD honest (epoch-C, Sentinel N3)
+  # selftest conjunct either — SELF_OK=0 keeps GUARD honest (epoch-C/D, Sentinel N3)
   SELF_OK=0
   if [ -n "$GATE_SHA" ] && [ "$GATE_SHA" = "$GATE_SHA256_PIN" ]; then
     HAVE_GATE=1
@@ -107,7 +107,7 @@ if [ -e "$T/$GATE_REL" ] || [ -L "$T/$GATE_REL" ]; then
     GATE_RC=$?
     if (cd "$SCR" && timeout 600 python3 -I -B "$T/$GATE_REL" --selftest > "$SELF_OUT" 2>&1); then
       last=$(grep -v '^[[:space:]]*$' "$SELF_OUT" | tail -n 1)
-      case $last in "RECHECK_REPLAY_SELFTEST: PASS (18 cases)"*) SELF_OK=1 ;; esac
+      case $last in "RECHECK_REPLAY_SELFTEST: PASS (20 cases)"*) SELF_OK=1 ;; esac
     fi
   fi
 else
@@ -157,7 +157,7 @@ def present(c):
     rl = [l for l in txt.splitlines() if l.startswith("recheck:")]
     if len(rl) != 1:
         return False
-    pat = re.escape("`" + c[1] + "`") + r"\s*->\s*(?:count=)?%d(?![0-9A-Za-z])" % c[5]
+    pat = re.escape("`" + c[1] + "`") + r"\s*->\s*(?:count=)?%d(?![0-9A-Za-z_.])" % c[5]
     return re.search(pat, rl[0]) is not None
 
 def registry():
@@ -284,7 +284,7 @@ for c in POP:
     data = cur.read_bytes()
     if str(len(data)) != m["bytes"] or hashlib.sha256(data).hexdigest() != m["sha256"]:
         bad.append("r3-digest:" + tag); continue
-    if re.search(rb"(?m)^(?:HTTP/\d|< HTTP/\d|< set-cookie\s*:|set-cookie\s*:)", data):
+    if re.search(rb"(?im)^(?:HTTP/\d|< HTTP/\d|< set-cookie\s*:|set-cookie\s*:)", data):
         bad.append("r3-headers:" + tag); continue
     got = replay(c, cur)
     if got != c[5]:

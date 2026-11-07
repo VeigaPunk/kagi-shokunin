@@ -1,0 +1,280 @@
+<!doctype html><html lang=en dir=ltr class="docs-wrapper plugin-docs plugin-id-default docs-version-2.7.x docs-doc-page docs-doc-id-secrets/transit/index" data-has-hydrated=false><head><meta charset=UTF-8><meta name=generator content="Docusaurus v3.10.2"><title data-rh=true>Transit secrets engine | OpenBao</title><meta data-rh=true name=viewport content="width=device-width, initial-scale=1.0"/><meta data-rh=true property=og:url content=https://openbao.org/docs/secrets/transit/ /><meta data-rh=true property=og:locale content=en /><meta data-rh=true name=docusaurus_locale content=en /><meta data-rh=true name=docsearch:language content=en /><meta data-rh=true name=keywords content="openbao, secrets management, open source, linux foundation, encryption as a service, key management system, pki, transit, ssh, secret vault, database passwords"/><meta data-rh=true name=author content="OpenBao a Series of LF Projects, LLC"/><meta data-rh=true name=twitter:card content=summary_large_image /><meta data-rh=true name=docusaurus_version content=2.7.x /><meta data-rh=true name=docusaurus_tag content=docs-default-2.7.x /><meta data-rh=true name=docsearch:version content=2.7.x /><meta data-rh=true name=docsearch:docusaurus_tag content=docs-default-2.7.x /><meta data-rh=true property=og:title content="Transit secrets engine | OpenBao"/><meta data-rh=true name=description content="The transit secrets engine for OpenBao encrypts/decrypts data in-transit. It doesn't store any secrets."/><meta data-rh=true property=og:description content="The transit secrets engine for OpenBao encrypts/decrypts data in-transit. It doesn't store any secrets."/><link data-rh=true rel=icon href=/img/favicon.svg /><link data-rh=true rel=canonical href=https://openbao.org/docs/secrets/transit/ /><link data-rh=true rel=alternate href=https://openbao.org/docs/secrets/transit/ hreflang=en /><link data-rh=true rel=alternate href=https://openbao.org/docs/secrets/transit/ hreflang=x-default /><script data-rh=true type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"https://openbao.org/docs/secrets/transit/","name":"Overview","position":1}]}</script><link rel=alternate type=application/rss+xml href=/blog/rss.xml title="OpenBao RSS Feed"><link rel=alternate type=application/atom+xml href=/blog/atom.xml title="OpenBao Atom Feed"><link rel=preconnect href=https://www.google-analytics.com><link rel=preconnect href=https://www.googletagmanager.com><script async src="https://www.googletagmanager.com/gtag/js?id=GTM-MWH2V47T"></script><script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","GTM-MWH2V47T",{anonymize_ip:!0})</script><link rel=stylesheet href=/assets/css/styles.eb1080b1.css /><script src=/assets/js/runtime~main.640503f7.js defer></script><script src=/assets/js/main.3cfed04e.js defer></script></head><body><svg style="display: none;"><defs>
+<symbol id=theme-svg-external-link viewBox="0 0 24 24"><path fill=currentColor d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")),document.documentElement.setAttribute("data-theme-choice",t||"system")}(),function(){try{for(var[t,e]of new URLSearchParams(window.location.search).entries())if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id=__docusaurus><link rel=preload as=image href=/img/logo-black.svg /><link rel=preload as=image href=/img/logo-white.svg /><div role=region aria-label="Skip to main content"><a class=skipToContent_PbWu href=#__docusaurus_skipToContent_fallback>Skip to main content</a></div><nav aria-label=Main class="theme-layout-navbar navbar navbar--fixed-top"><div class=navbar__inner><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded=false class="navbar__toggle clean-btn" type=button><svg width=30 height=30 viewBox="0 0 30 30" aria-hidden=true><path stroke=currentColor stroke-linecap=round stroke-miterlimit=10 stroke-width=2 d="M4 7h22M4 15h22M4 23h22"/></svg></button><a class=navbar__brand href=/><div class=navbar__logo><img src=/img/logo-black.svg alt="OpenBao Logo" class="themedComponent_SRUY themedComponent--light_pKL4"/><img src=/img/logo-white.svg alt="OpenBao Logo" class="themedComponent_SRUY themedComponent--dark__W4s"/></div><b class="navbar__title text--truncate">OpenBao</b></a><a class="navbar__item navbar__link" href=/blog/>Blog</a><a class="navbar__item navbar__link" href=/ecosystem/>Ecosystem</a><a aria-current=page class="navbar__item navbar__link navbar__link--active" href=/docs/>Docs</a><a class="navbar__item navbar__link" href=/docs/api/>API</a><a class="navbar__item navbar__link" href=/downloads/>Downloads</a><a class="navbar__item navbar__link" href=/community/>Community</a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><div class="navbar__item dropdown dropdown--hoverable dropdown--right"><a aria-current=page class="navbar__link active" aria-haspopup=true aria-expanded=false role=button href=/docs/secrets/transit/>Version 2.7.x</a><ul class=dropdown__menu><li><a class=dropdown__link href=/docs/next/secrets/transit/>Development</a><li><a aria-current=page class="dropdown__link dropdown__link--active" href=/docs/secrets/transit/>Version 2.7.x</a><li><a class=dropdown__link href=/docs/2.6.x/secrets/transit/>Version 2.6.x</a><li><a class=dropdown__link href=/docs/2.5.x/secrets/transit/>Version 2.5.x</a></ul></div><a href=https://github.com/openbao/openbao target=_blank rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width=13.5 height=13.5 aria-label="(opens in new tab)" class=iconExternalLink_ywOY><use href=#theme-svg-external-link /></svg></a><div class="toggle_w1tl colorModeToggle_wZyH"><button class="clean-btn toggleButton_D5fu toggleButtonDisabled_Ju9k" type=button disabled title="system mode" aria-label="Switch between dark and light mode (currently system mode)"><svg viewBox="0 0 24 24" width=24 height=24 aria-hidden=true class="toggleIcon_i6hh lightToggleIcon_kMII"><path fill=currentColor d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/></svg><svg viewBox="0 0 24 24" width=24 height=24 aria-hidden=true class="toggleIcon_i6hh darkToggleIcon_x2zZ"><path fill=currentColor d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"/></svg><svg viewBox="0 0 24 24" width=24 height=24 aria-hidden=true class="toggleIcon_i6hh systemToggleIcon_MKYA"><path fill=currentColor d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"/></svg></button></div><div class=navbarSearchContainer_NFUd><div class="navbar__search searchBarContainer_RRui" dir=ltr><svg aria-hidden=true class=searchIcon_V3X2 focusable=false viewBox="0 0 16 16"><path fill=currentColor d="M6.02945 10.20327a4.17382 4.17382 0 1 1 4.17382-4.17382 4.15609 4.15609 0 0 1-4.17382 4.17382Zm9.69195 4.2199-4.8225-4.82338A5.88021 5.88021 0 0 0 12.058 6.02856 6.00467 6.00467 0 1 0 9.59979 10.8989l4.82338 4.82338a.89729.89729 0 0 0 1.29912 0 .89749.89749 0 0 0-.00087-1.29909Z"/></svg><input placeholder=Search aria-label=Search class="navbar__search-input searchInput_FUIu" value="" /><div class="loadingRing_nBd6 searchBarLoadingRing_AqCM"><div></div><div></div><div></div><div></div></div></div></div></div></div><div role=presentation class=navbar-sidebar__backdrop></div></nav><div id=__docusaurus_skipToContent_fallback class="theme-layout-main main-wrapper mainWrapper_KEAh"><div class=docsWrapper_fOdz><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_AQws" type=button></button><div class=docRoot_qp_L><aside class="theme-doc-sidebar-container docSidebarContainer_kMgn"><div class=sidebarViewport_rHGZ><div class=sidebar_MRAI><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_wajB"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class=menu__link href=/docs/what-is-openbao/><span class=linkLabel_yPoK>What is OpenBao?</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class=menu__link href=/docs/use-cases/><span class=linkLabel_yPoK>Use cases</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class=menu__link href=/docs/api/><span class=linkLabel_yPoK>HTTP API</span></a><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class=menu__list-item-collapsible><a class="categoryLink_A07R menu__link menu__link--sublist menu__link--sublist-caret" role=button aria-expanded=false href=/docs/get-started/operator-qs/><span class=categoryLinkLabel_wPnK>Getting Started</span></a></div><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class=menu__link href=/docs/install/><span class=linkLabel_yPoK>Installing OpenBao</span></a><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class=menu__list-item-collapsible><a class="categoryLink_A07R menu__link menu__link--sublist menu__link--sublist-caret" role=button aria-expanded=false href=/docs/internals/><span class=categoryLinkLabel_wPnK>Internals</span></a></div><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class=menu__list-item-collapsible><a class="categoryLink_A07R menu__link menu__link--sublist menu__link--sublist-caret" role=button aria-expanded=false href=/docs/concepts/><span class=categoryLinkLabel_wPnK>Concepts</span></a></div><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class=menu__list-item-collapsible><a class="categoryLink_A07R menu__link menu__link--sublist menu__link--sublist-caret" role=button aria-expanded=false href=/docs/guides/migration/><span class=categoryLinkLabel_wPnK>Guides</span></a></div><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class=menu__list-item-collapsible><a class="categoryLink_A07R menu__link menu__link--sublist menu__link--sublist-caret" role=button aria-expanded=false href=/docs/configuration/><span class=categoryLinkLabel_wPnK>Configuration</span></a></div><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class=menu__list-item-collapsible><a class="categoryLink_A07R menu__link menu__link--sublist menu__link--sublist-caret" role=button aria-expanded=false href=/docs/commands/><span class=categoryLinkLabel_wPnK>Commands (CLI)</span></a></div><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class=menu__list-item-collapsible><a class="categoryLink_A07R menu__link menu__link--sublist menu__link--sublist-caret" role=button aria-expanded=false href=/docs/agent-and-proxy/><span class=categoryLinkLabel_wPnK>OpenBao Agent and Proxy</span></a></div><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class=menu__list-item-collapsible><a class="categoryLink_A07R menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role=button aria-expanded=true href=/docs/secrets/><span class=categoryLinkLabel_wPnK>Secret Engines</span></a></div><ul class=menu__list><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/docs/secrets/><span class=linkLabel_yPoK>Overview</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/docs/secrets/cubbyhole/><span class=linkLabel_yPoK>Cubbyhole</span></a><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class=menu__list-item-collapsible><a class="categoryLink_A07R menu__link menu__link--sublist menu__link--sublist-caret" role=button aria-expanded=false tabindex=0 href=/docs/secrets/databases/><span class=categoryLinkLabel_wPnK>Databases</span></a></div><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class=menu__list-item-collapsible><a class="categoryLink_A07R menu__link menu__link--sublist menu__link--sublist-caret" role=button aria-expanded=false tabindex=0 href=/docs/secrets/identity/><span class=categoryLinkLabel_wPnK>Identity</span></a></div><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class=menu__list-item-collapsible><a class="categoryLink_A07R menu__link menu__link--sublist menu__link--sublist-caret" role=button aria-expanded=false tabindex=0 href=/docs/secrets/kv/><span class=categoryLinkLabel_wPnK>Key/Value</span></a></div><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/docs/secrets/kubernetes/><span class=linkLabel_yPoK>Kubernetes</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/docs/secrets/ldap/><span class=linkLabel_yPoK>LDAP</span></a><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class=menu__list-item-collapsible><a class="categoryLink_A07R menu__link menu__link--sublist menu__link--sublist-caret" role=button aria-expanded=false tabindex=0 href=/docs/secrets/pki/><span class=categoryLinkLabel_wPnK>PKI (Certificates)</span></a></div><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/docs/secrets/rabbitmq/><span class=linkLabel_yPoK>RabbitMQ</span></a><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class=menu__list-item-collapsible><a class="categoryLink_A07R menu__link menu__link--sublist menu__link--sublist-caret" role=button aria-expanded=false tabindex=0 href=/docs/secrets/ssh/><span class=categoryLinkLabel_wPnK>SSH</span></a></div><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/docs/secrets/totp/><span class=linkLabel_yPoK>TOTP</span></a><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item"><div class=menu__list-item-collapsible><a class="categoryLink_A07R menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role=button aria-expanded=true tabindex=0 href=/docs/secrets/transit/><span class=categoryLinkLabel_wPnK>Transit</span></a></div><ul class=menu__list><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link menu__link--active" aria-current=page tabindex=0 href=/docs/secrets/transit/><span class=linkLabel_yPoK>Overview</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class=menu__link tabindex=0 href=/docs/secrets/transit/key-wrapping-guide/><span class=linkLabel_yPoK>Import Key Wrapping Guide</span></a></ul></ul><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class=menu__list-item-collapsible><a class="categoryLink_A07R menu__link menu__link--sublist menu__link--sublist-caret" role=button aria-expanded=false href=/docs/auth/><span class=categoryLinkLabel_wPnK>Auth Methods</span></a></div><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class=menu__list-item-collapsible><a class="categoryLink_A07R menu__link menu__link--sublist menu__link--sublist-caret" role=button aria-expanded=false href=/docs/audit/><span class=categoryLinkLabel_wPnK>Audit Devices</span></a></div><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class=menu__list-item-collapsible><a class="categoryLink_A07R menu__link menu__link--sublist menu__link--sublist-caret" role=button aria-expanded=false href=/docs/plugins/><span class=categoryLinkLabel_wPnK>Plugins</span></a></div><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class=menu__list-item-collapsible><a class="categoryLink_A07R menu__link menu__link--sublist menu__link--sublist-caret" role=button aria-expanded=false href=/docs/platform/><span class=categoryLinkLabel_wPnK>Platforms</span></a></div><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class=menu__link href=/docs/browser-support/><span class=linkLabel_yPoK>Browser Support</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class=menu__link href=/docs/glossary/><span class=linkLabel_yPoK>Glossary</span></a></ul></nav></div></div></aside><main class=docMainContainer_pQnC><div class="container padding-top--md padding-bottom--lg"><div class=row><div class="col docItemCol_QHbu"><div class=docItemContainer_mGFe><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_TXlU" aria-label=Breadcrumbs><ul class=breadcrumbs><li class=breadcrumbs__item><a aria-label="Home page" class=breadcrumbs__link href=/><svg viewBox="0 0 24 24" class=breadcrumbHomeIcon_GokP><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill=currentColor /></svg></a><li class=breadcrumbs__item><span class=breadcrumbs__link>Secret Engines</span><li class=breadcrumbs__item><span class=breadcrumbs__link>Transit</span><li class="breadcrumbs__item breadcrumbs__item--active"><span class=breadcrumbs__link>Overview</span></ul></nav><span class="theme-doc-version-badge badge badge--secondary">Version: Version 2.7.x</span><div class="tocCollapsible_TlHs theme-doc-toc-mobile tocMobile_aaHP"><button type=button class="clean-btn tocCollapsibleButton_AEmy">On this page</button></div><div class="theme-doc-markdown markdown"><header><h1>Transit secrets engine</h1></header>
+<p>The transit secrets engine handles cryptographic functions on data in-transit.
+OpenBao doesn't store the data sent to the secrets engine. It can also be viewed
+as "cryptography as a service" or "encryption as a service". The transit secrets
+engine can also sign and verify data; generate hashes and HMACs of data; and act
+as a source of random bytes.</p>
+<p>The primary use case for <code>transit</code> is to encrypt data from applications while
+still storing that encrypted data in some primary data store. This relieves the
+burden of proper encryption/decryption from application developers and pushes
+the burden onto the operators of OpenBao.</p>
+<p>Key derivation is supported, which allows the same key to be used for multiple
+purposes by deriving a new key based on a user-supplied context value. In this
+mode, convergent encryption can optionally be supported, which allows the same
+input values to produce the same ciphertext.</p>
+<p>Datakey generation allows processes to request a high-entropy key of a given
+bit length be returned to them, encrypted with the named key. Normally this will
+also return the key in plaintext to allow for immediate use, but this can be
+disabled to accommodate auditing requirements.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Q9z1" id=working-set-management>Working set management<a href=#working-set-management class=hash-link aria-label="Direct link to Working set management" title="Direct link to Working set management" translate=no>​</a></h2>
+<p>The Transit engine supports versioning of keys. Key versions that are earlier
+than a key's specified <code>min_decryption_version</code> gets archived, and the rest of
+the key versions belong to the working set. This is a performance consideration
+to keep key loading fast, as well as a security consideration: by disallowing
+decryption of old versions of keys, found ciphertext corresponding to obsolete
+(but sensitive) data can not be decrypted by most users, but in an emergency
+the <code>min_decryption_version</code> can be moved back to allow for legitimate
+decryption.</p>
+<p>Currently this archive is stored in a single storage entry. With some storage
+backends, notably those using Raft for HA capabilities, frequent
+rotation may lead to a storage entry size for the archive that is larger than
+the storage backend can handle. For frequent rotation needs, using named keys
+that correspond to time bounds (e.g. five-minute periods floored to the closest
+multiple of five) may provide a good alternative, allowing for several keys to
+be live at once and a deterministic way to decide which key to use at any given
+time.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Q9z1" id=nist-rotation-guidance>NIST rotation guidance<a href=#nist-rotation-guidance class=hash-link aria-label="Direct link to NIST rotation guidance" title="Direct link to NIST rotation guidance" translate=no>​</a></h2>
+<p>Periodic rotation of the encryption keys is recommended, even in the absence of
+compromise. For AES-GCM keys, rotation should occur before approximately 2<sup>32</sup>
+encryptions have been performed by a key version, following the guidelines of NIST
+publication 800-38D. It is recommended that operators estimate the
+encryption rate of a key and use that to determine a frequency of rotation
+that prevents the guidance limits from being reached. For example, if one determines
+that the estimated rate is 40 million operations per day, then rotating a key every
+three months is sufficient.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Q9z1" id=key-types>Key types<a href=#key-types class=hash-link aria-label="Direct link to Key types" title="Direct link to Key types" translate=no>​</a></h2>
+<p>As of now, the transit secrets engine supports the following key types (all key
+types also generate separate HMAC keys):</p>
+<ul>
+<li class="">
+<p><code>aes128-gcm96</code>: AES-GCM with a 128-bit AES key and a 96-bit nonce; supports
+encryption, decryption, key derivation, and convergent encryption</p>
+</li>
+<li class="">
+<p><code>aes256-gcm96</code>: AES-GCM with a 256-bit AES key and a 96-bit nonce; supports
+encryption, decryption, key derivation, and convergent encryption (default)</p>
+</li>
+<li class="">
+<p><code>chacha20-poly1305</code>: ChaCha20-Poly1305 with a 256-bit key; supports
+encryption, decryption, key derivation, and convergent encryption</p>
+</li>
+<li class="">
+<p><code>ed25519</code>: Ed25519; supports signing, signature verification, and key
+derivation</p>
+</li>
+<li class="">
+<p><code>ecdsa-p256</code>: ECDSA using curve P-256; supports signing and signature
+verification</p>
+</li>
+<li class="">
+<p><code>ecdsa-p384</code>: ECDSA using curve P-384; supports signing and signature
+verification</p>
+</li>
+<li class="">
+<p><code>ecdsa-p521</code>: ECDSA using curve P-521; supports signing and signature
+verification</p>
+</li>
+<li class="">
+<p><code>rsa-2048</code>: 2048-bit RSA key; supports encryption, decryption, signing, and
+signature verification</p>
+</li>
+<li class="">
+<p><code>rsa-3072</code>: 3072-bit RSA key; supports encryption, decryption, signing, and
+signature verification</p>
+</li>
+<li class="">
+<p><code>rsa-4096</code>: 4096-bit RSA key; supports encryption, decryption, signing, and
+signature verification</p>
+</li>
+<li class="">
+<p><code>mldsa-44</code>: ML-DSA-44 key; supports signing and signature verification</p>
+</li>
+<li class="">
+<p><code>mldsa-65</code>: ML-DSA-65 key; supports signing and signature verification</p>
+</li>
+<li class="">
+<p><code>mldsa-87</code>: ML-DSA-87 key; supports signing and signature verification</p>
+</li>
+<li class="">
+<p><code>hmac</code>: HMAC; supporting HMAC generation and verification.</p>
+<div class="theme-admonition theme-admonition-warning admonition_wBnh alert alert--warning"><div class=admonitionHeading_kByF><span class=admonitionIcon_jbvL><svg viewBox="0 0 16 16"><path fill-rule=evenodd d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"/></svg></span>warning</div><div class=admonitionContent_FvSw><p><strong>Note</strong>: All key types support HMAC operations through the use of a second
+randomly generated key created key creation time or rotation. The HMAC key
+type only supports HMAC, and behaves identically to other algorithms with
+respect to the HMAC operations but supports key import. By default, the HMAC
+key type uses a 256-bit key.</div></div>
+</li>
+<li class="">
+<p><code>external-key</code>: Reference to an entry under the <a class="" href=/docs/api/system/external-keys/>external keys
+registry</a>. This is HSM- or KMS-backed
+key material and available operations are dependent on the underlying
+key type.</p>
+</li>
+</ul>
+<p>RSA operations use one of the following methods:</p>
+<ul>
+<li class="">OAEP (encrypt, decrypt), with SHA-256 hash function and MGF,</li>
+<li class="">PSS (sign, verify), with configurable hash function also used for MGF, and</li>
+<li class="">PKCS#1v1.5: (sign, verify), with configurable hash function.</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Q9z1" id=convergent-encryption>Convergent encryption<a href=#convergent-encryption class=hash-link aria-label="Direct link to Convergent encryption" title="Direct link to Convergent encryption" translate=no>​</a></h2>
+<p>Convergent encryption is a mode where the same set of plaintext+context always
+result in the same ciphertext. It does this by deriving a key using a key
+derivation function but also by deterministically deriving a nonce. Because
+these properties differ for any combination of plaintext and ciphertext over a
+keyspace the size of 2^256, the risk of nonce reuse is near zero.</p>
+<p>This has many practical uses. One common usage mode is to allow values to be stored
+encrypted in a database, but with limited lookup/query support, so that rows
+with the same value for a specific field can be returned from a query.</p>
+<p>To accommodate for any needed upgrades to the algorithm, different versions of
+convergent encryption have historically been supported:</p>
+<ul>
+<li class="">Version 1 required the client to provide their own nonce, which is highly
+flexible but if done incorrectly can be dangerous. Keys using this version
+cannot be upgraded.</li>
+<li class="">Version 2 used an algorithmic approach to deriving the parameters. However,
+the algorithm used was susceptible to offline plaintext-confirmation attacks,
+which could allow attackers to brute force decryption if the plaintext size
+was small. Keys using version 2 can be upgraded by simply performing a rotate
+operation to a new key version; existing values can then be rewrapped against
+the new key version and will use the version 3 algorithm.</li>
+<li class="">Version 3 uses a different algorithm designed to be resistant to offline
+plaintext-confirmation attacks. It is similar to AES-SIV in that it uses a
+PRF to generate the nonce from the plaintext.</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Q9z1" id=setup>Setup<a href=#setup class=hash-link aria-label="Direct link to Setup" title="Direct link to Setup" translate=no>​</a></h2>
+<p>Most secrets engines must be configured in advance before they can perform their
+functions. These steps are usually completed by an operator or configuration
+management tool.</p>
+<ol>
+<li class="">
+<p>Enable the Transit secrets engine:</p>
+<div class="language-text codeBlockContainer_e91z theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_G3Pk><pre tabindex=0 class="prism-code language-text codeBlock_H5oe thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_OQl4><div class=token-line style=color:#393A34><span class="token plain">$ bao secrets enable transit</span><br/></div><div class=token-line style=color:#393A34><span class="token plain">Success! Enabled the transit secrets engine at: transit/</span><br/></div></code></pre></div></div>
+<p>By default, the secrets engine will mount at the name of the engine. To
+enable the secrets engine at a different path, use the <code>-path</code> argument.</p>
+</li>
+<li class="">
+<p>Create a named encryption key:</p>
+<div class="language-text codeBlockContainer_e91z theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_G3Pk><pre tabindex=0 class="prism-code language-text codeBlock_H5oe thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_OQl4><div class=token-line style=color:#393A34><span class="token plain">$ bao write -f transit/keys/my-key</span><br/></div><div class=token-line style=color:#393A34><span class="token plain">Success! Data written to: transit/keys/my-key</span><br/></div></code></pre></div></div>
+<p>Usually each application has its own encryption key.</p>
+</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Q9z1" id=usage>Usage<a href=#usage class=hash-link aria-label="Direct link to Usage" title="Direct link to Usage" translate=no>​</a></h2>
+<p>After the secrets engine is configured and a user/machine has an OpenBao token with
+the proper permission, it can use this secrets engine.</p>
+<ol>
+<li class="">
+<p>Encrypt some plaintext data using the <code>/encrypt</code> endpoint with a named key:</p>
+<p><strong>NOTE:</strong> All plaintext data <strong>must be base64-encoded</strong>. The reason for this
+requirement is that OpenBao does not require that the plaintext is "text". It
+could be a binary file such as a PDF or image. The easiest safe transport
+mechanism for this data as part of a JSON payload is to base64-encode it.</p>
+<div class="language-text codeBlockContainer_e91z theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_G3Pk><pre tabindex=0 class="prism-code language-text codeBlock_H5oe thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_OQl4><div class=token-line style=color:#393A34><span class="token plain">$ bao write transit/encrypt/my-key plaintext=$(echo "my secret data" | base64)</span><br/></div><div class=token-line style=color:#393A34><span class="token plain" style=display:inline-block></span><br/></div><div class=token-line style=color:#393A34><span class="token plain">Key           Value</span><br/></div><div class=token-line style=color:#393A34><span class="token plain">---           -----</span><br/></div><div class=token-line style=color:#393A34><span class="token plain">ciphertext    vault:v1:8SDd3WHDOjf7mq69CyCqYjBXAiQQAVZRkFM13ok481zoCmHnSeDX9vyf7w==</span><br/></div></code></pre></div></div>
+<p>The returned ciphertext starts with <code>vault:v1:</code>. The first prefix (<code>vault</code>)
+identifies that it has been wrapped by OpenBao. The <code>v1</code> indicates the key
+version 1 was used to encrypt the plaintext; therefore, when you rotate
+keys, OpenBao knows which version to use for decryption. The rest is a base64
+concatenation of the initialization vector (IV) and ciphertext.</p>
+<p>Note that OpenBao does not <em>store</em> any of this data. The caller is responsible
+for storing the encrypted ciphertext. When the caller wants the plaintext,
+it must provide the ciphertext back to OpenBao to decrypt the value.</p>
+<div class="theme-admonition theme-admonition-danger admonition_wBnh alert alert--danger"><div class=admonitionHeading_kByF><span class=admonitionIcon_jbvL><svg viewBox="0 0 12 16"><path fill-rule=evenodd d="M5.05.31c.81 2.17.41 3.38-.52 4.31C3.55 5.67 1.98 6.45.9 7.98c-1.45 2.05-1.7 6.53 3.53 7.7-2.2-1.16-2.67-4.52-.3-6.61-.61 2.03.53 3.33 1.94 2.86 1.39-.47 2.3.53 2.27 1.67-.02.78-.31 1.44-1.13 1.81 3.42-.59 4.78-3.42 4.78-5.56 0-2.84-2.53-3.22-1.25-5.61-1.52.13-2.03 1.13-1.89 2.75.09 1.08-1.02 1.8-1.86 1.33-.67-.41-.66-1.19-.06-1.78C8.18 5.31 8.68 2.45 5.05.32L5.03.3l.02.01z"/></svg></span>danger</div><div class=admonitionContent_FvSw><p>OpenBao HTTP API imposes a maximum request size of 32MB to prevent a denial
+of service attack. This can be tuned per <a class="" href=/docs/configuration/listener/tcp/><code>listener</code>
+block</a> in the OpenBao server
+configuration.</div></div>
+</li>
+<li class="">
+<p>Decrypt a piece of data using the <code>/decrypt</code> endpoint with a named key:</p>
+<div class="language-text codeBlockContainer_e91z theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_G3Pk><pre tabindex=0 class="prism-code language-text codeBlock_H5oe thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_OQl4><div class=token-line style=color:#393A34><span class="token plain">$ bao write transit/decrypt/my-key ciphertext=vault:v1:8SDd3WHDOjf7mq69CyCqYjBXAiQQAVZRkFM13ok481zoCmHnSeDX9vyf7w==</span><br/></div><div class=token-line style=color:#393A34><span class="token plain" style=display:inline-block></span><br/></div><div class=token-line style=color:#393A34><span class="token plain">Key          Value</span><br/></div><div class=token-line style=color:#393A34><span class="token plain">---          -----</span><br/></div><div class=token-line style=color:#393A34><span class="token plain">plaintext    bXkgc2VjcmV0IGRhdGEK</span><br/></div></code></pre></div></div>
+<p>The resulting data is base64-encoded (see the note above for details on
+why). Decode it to get the raw plaintext:</p>
+<div class="language-text codeBlockContainer_e91z theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_G3Pk><pre tabindex=0 class="prism-code language-text codeBlock_H5oe thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_OQl4><div class=token-line style=color:#393A34><span class="token plain">$ base64 --decode &lt;&lt;&lt; "bXkgc2VjcmV0IGRhdGEK"</span><br/></div><div class=token-line style=color:#393A34><span class="token plain">my secret data</span><br/></div></code></pre></div></div>
+<p>It is also possible to script this decryption using some clever shell
+scripting in one command:</p>
+<div class="language-text codeBlockContainer_e91z theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_G3Pk><pre tabindex=0 class="prism-code language-text codeBlock_H5oe thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_OQl4><div class=token-line style=color:#393A34><span class="token plain">$ bao write -field=plaintext transit/decrypt/my-key ciphertext=... | base64 --decode</span><br/></div><div class=token-line style=color:#393A34><span class="token plain">my secret data</span><br/></div></code></pre></div></div>
+<p>Using ACLs, it is possible to restrict using the transit secrets engine such
+that trusted operators can manage the named keys, and applications can only
+encrypt or decrypt using the named keys they need access to.</p>
+</li>
+<li class="">
+<p>Rotate the underlying encryption key. This will generate a new encryption key
+and add it to the keyring for the named key:</p>
+<div class="language-text codeBlockContainer_e91z theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_G3Pk><pre tabindex=0 class="prism-code language-text codeBlock_H5oe thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_OQl4><div class=token-line style=color:#393A34><span class="token plain">$ bao write -f transit/keys/my-key/rotate</span><br/></div><div class=token-line style=color:#393A34><span class="token plain">Success! Data written to: transit/keys/my-key/rotate</span><br/></div></code></pre></div></div>
+<p>Future encryptions will use this new key. Old data can still be decrypted
+due to the use of a key ring.</p>
+</li>
+<li class="">
+<p>Upgrade already-encrypted data to a new key. OpenBao will decrypt the value
+using the appropriate key in the keyring and then encrypted the resulting
+plaintext with the newest key in the keyring.</p>
+<div class="language-text codeBlockContainer_e91z theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_G3Pk><pre tabindex=0 class="prism-code language-text codeBlock_H5oe thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_OQl4><div class=token-line style=color:#393A34><span class="token plain">$ bao write transit/rewrap/my-key ciphertext=vault:v1:8SDd3WHDOjf7mq69CyCqYjBXAiQQAVZRkFM13ok481zoCmHnSeDX9vyf7w==</span><br/></div><div class=token-line style=color:#393A34><span class="token plain" style=display:inline-block></span><br/></div><div class=token-line style=color:#393A34><span class="token plain">Key           Value</span><br/></div><div class=token-line style=color:#393A34><span class="token plain">---           -----</span><br/></div><div class=token-line style=color:#393A34><span class="token plain">ciphertext    vault:v2:0VHTTBb2EyyNYHsa3XiXsvXOQSLKulH+NqS4eRZdtc2TwQCxqJ7PUipvqQ==</span><br/></div></code></pre></div></div>
+<p>This process <strong>does not</strong> reveal the plaintext data. As such, an OpenBao policy
+could grant almost an untrusted process the ability to "rewrap" encrypted
+data, since the process would not be able to get access to the plaintext
+data.</p>
+</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Q9z1" id=bring-your-own-key-byok>Bring your own key (BYOK)<a href=#bring-your-own-key-byok class=hash-link aria-label="Direct link to Bring your own key (BYOK)" title="Direct link to Bring your own key (BYOK)" translate=no>​</a></h2>
+<div class="theme-admonition theme-admonition-warning admonition_wBnh alert alert--warning"><div class=admonitionHeading_kByF><span class=admonitionIcon_jbvL><svg viewBox="0 0 16 16"><path fill-rule=evenodd d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"/></svg></span>warning</div><div class=admonitionContent_FvSw><p><strong>Note:</strong> Key import functionality supports cases in which there is a need to bring
+in an existing key from an HSM or other outside system. It is more secure to
+have Transit generate and manage a key within OpenBao.</div></div>
+<p>First, the wrapping key needs to be read from transit:</p>
+<div class="language-text codeBlockContainer_e91z theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_G3Pk><pre tabindex=0 class="prism-code language-text codeBlock_H5oe thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_OQl4><div class=token-line style=color:#393A34><span class="token plain">$ bao read transit/wrapping_key</span><br/></div></code></pre></div></div>
+<p>The wrapping key will be a 4096-bit RSA public key.</p>
+<p>Then the wrapping key is used to create the ciphertext input for the <code>import</code> endpoint,
+as described below. In the below, the target key refers to the key being imported.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Q9z1" id=hsm>HSM<a href=#hsm class=hash-link aria-label="Direct link to HSM" title="Direct link to HSM" translate=no>​</a></h3>
+<p>If the key is being imported from an HSM that supports PKCS#11, there are
+two possible scenarios:</p>
+<ul>
+<li class="">
+<p>If the HSM supports the CKM_RSA_AES_KEY_WRAP mechanism, that can be used to wrap the
+target key using the wrapping key.</p>
+</li>
+<li class="">
+<p>Otherwise, two mechanisms can be combined to wrap the target key. First, a 256-bit AES key should
+be generated and then used to wrap the target key using the CKM_AES_KEY_WRAP_KWP mechanism.
+Then the AES key should be wrapped under the wrapping key using the CKM_RSA_PKCS_OAEP mechanism
+using MGF1 and either SHA-1, SHA-224, SHA-256, SHA-384, or SHA-512.</p>
+</li>
+</ul>
+<p>The ciphertext is constructed by appending the wrapped target key to the wrapped AES key.</p>
+<p>The ciphertext bytes should be base64-encoded.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Q9z1" id=manual-process>Manual process<a href=#manual-process class=hash-link aria-label="Direct link to Manual process" title="Direct link to Manual process" translate=no>​</a></h3>
+<p>If the target key is not stored in an HSM or KMS, the following steps can be used to construct
+the ciphertext for the input of the <code>import</code> endpoint:</p>
+<ul>
+<li class="">
+<p>Generate an ephemeral 256-bit AES key.</p>
+</li>
+<li class="">
+<p>Wrap the target key using the ephemeral AES key with AES-KWP.</p>
+<div class="theme-admonition theme-admonition-warning admonition_wBnh alert alert--warning"><div class=admonitionHeading_kByF><span class=admonitionIcon_jbvL><svg viewBox="0 0 16 16"><path fill-rule=evenodd d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"/></svg></span>warning</div><div class=admonitionContent_FvSw><p>Note: When wrapping a symmetric key (such as an AES or ChaCha20 key), wrap the
+raw bytes of the key. For instance, with an AES 128-bit key, this'll be a byte
+array 16 characters in length that will directly be wrapped without base64 or
+other encodings.<p>When wrapping an asymmetric key (such as a RSA or ECDSA key), wrap the
+<strong>PKCS8</strong> encoded format of this key, in raw DER/binary form. Do not apply PEM
+encoding to this blob prior to encryption and do not base64 encode it.</div></div>
+</li>
+<li class="">
+<p>Wrap the AES key under the OpenBao wrapping key using RSAES-OAEP with MGF1 and
+either SHA-1, SHA-224, SHA-256, SHA-384, or SHA-512.</p>
+</li>
+<li class="">
+<p>Delete the ephemeral AES key.</p>
+</li>
+<li class="">
+<p>Append the wrapped target key to the wrapped AES key.</p>
+</li>
+<li class="">
+<p>Base64 encode the result.</p>
+</li>
+</ul>
+<p>For more details about wrapping the key for import into transit, see the
+<a class="" href=/docs/secrets/transit/key-wrapping-guide/>key wrapping guide</a>.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Q9z1" id=api>API<a href=#api class=hash-link aria-label="Direct link to API" title="Direct link to API" translate=no>​</a></h2>
+<p>The Transit secrets engine has a full HTTP API. Please see the
+<a class="" href=/docs/api/secret/transit/>Transit secrets engine API</a> for more
+details.</div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_Ux_x"><a href=https://github.com/openbao/openbao/blob/release/2.7.x/website/content/docs/secrets/transit/index.mdx target=_blank rel="noopener noreferrer" class=theme-edit-this-page><svg fill=currentColor height=20 width=20 viewBox="0 0 40 40" class=iconEdit_AstY aria-hidden=true><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"/></g></svg>Edit this page</a></div><div class="col lastUpdated_iH3B"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href=/docs/secrets/totp/><div class=pagination-nav__sublabel>Previous</div><div class=pagination-nav__label>TOTP</div></a><a class="pagination-nav__link pagination-nav__link--next" href=/docs/secrets/transit/key-wrapping-guide/><div class=pagination-nav__sublabel>Next</div><div class=pagination-nav__label>Import Key Wrapping Guide</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_a7mw thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href=#working-set-management class="table-of-contents__link toc-highlight">Working set management</a><li><a href=#nist-rotation-guidance class="table-of-contents__link toc-highlight">NIST rotation guidance</a><li><a href=#key-types class="table-of-contents__link toc-highlight">Key types</a><li><a href=#convergent-encryption class="table-of-contents__link toc-highlight">Convergent encryption</a><li><a href=#setup class="table-of-contents__link toc-highlight">Setup</a><li><a href=#usage class="table-of-contents__link toc-highlight">Usage</a><li><a href=#bring-your-own-key-byok class="table-of-contents__link toc-highlight">Bring your own key (BYOK)</a><ul><li><a href=#hsm class="table-of-contents__link toc-highlight">HSM</a><li><a href=#manual-process class="table-of-contents__link toc-highlight">Manual process</a></ul><li><a href=#api class="table-of-contents__link toc-highlight">API</a></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer"><div class="container container-fluid"><div class="footer__bottom text--center"><div class=footer__copyright>Copyright © 2026 OpenBao a Series of LF Projects, LLC <br> For web site terms of use, trademark policy and other project policies please see <a href=https://lfprojects.org>lfprojects.org</a>. <br>  OpenBao is a <a href=https://openssf.org/projects/openbao/>Sandbox project</a> at <a href=https://openssf.org/><img src=/img/openssf-logo.svg alt="OpenSSF Logo" width=90px></a>. <br><br>Follow us on social media:<br> <a href=https://linkedin.com/company/openbao target=_blank>LinkedIn</a> | <a href=https://bsky.app/profile/openbao-official.bsky.social target=_blank>Bluesky</a> | <a href=https://www.youtube.com/@OpenBao target=_blank>YouTube</a> | <a href=https://www.instagram.com/openbao.official/ target=_blank>Instagram</a> | <a href=https://www.threads.com/@openbao.official target=_blank>Threads</a> | <a href=https://github.com/openbao/openbao target=_blank>GitHub</a> <br><br><a href=/sitemap.xml>Sitemap</a></div></div></div></footer></div></body>

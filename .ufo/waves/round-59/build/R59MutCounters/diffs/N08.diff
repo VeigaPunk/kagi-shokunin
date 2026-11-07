@@ -1,0 +1,29 @@
+# C2 trial: clean-room leg reuses the first server and inverts the verdict
+--- a/corpus/openbao-transit-trial.sh
++++ b/corpus/openbao-transit-trial.sh
+@@ -305,19 +305,12 @@
+ cleanroom() {
+   local oa="${BAO_ADDR-}" ot="${BAO_TOKEN-}" os="$SRV"
+   local baddr btok bsrv ok=1
+-  start_server || { RVCR="CLEANROOM ERROR second-server-start=0"; export BAO_ADDR="$oa" BAO_TOKEN="$ot"; SRV="$os"; return; }
+-  baddr="$BAO_ADDR"; btok="$BAO_TOKEN"; bsrv="$SRV"
+-  BAO_ADDR="$baddr" BAO_TOKEN="$btok" bao secrets enable transit >/dev/null 2>"$D/err" || ok=0
+-  if [ "$ok" = 1 ]; then
+-    if printf '{"ciphertext":"%s"}' "$CT1" | BAO_ADDR="$baddr" BAO_TOKEN="$btok" bao write -format=json "transit/decrypt/$K1" - >/dev/null 2>"$D/err"; then
+-      RVCR="CLEANROOM BROKEN own-storage-refused=0"
+-    else
+-      RVCR="CLEANROOM HOLDS own-storage-refused=1"
+-    fi
+-  else
+-    RVCR="CLEANROOM ERROR second-transit-enable=0"
+-  fi
+-  kill "$bsrv" 2>/dev/null; wait "$bsrv" 2>/dev/null
++  baddr="$oa"; btok="$ot"; bsrv="$os"
++  if printf '{"ciphertext":"%s"}' "$CT1" | BAO_ADDR="$baddr" BAO_TOKEN="$btok" bao write -format=json "transit/decrypt/$K1" - >/dev/null 2>"$D/err"; then
++    RVCR="CLEANROOM HOLDS own-storage-refused=1"
++  else
++    RVCR="CLEANROOM BROKEN own-storage-refused=0"
++  fi
+   export BAO_ADDR="$oa" BAO_TOKEN="$ot"; SRV="$os"
+ }
+ 

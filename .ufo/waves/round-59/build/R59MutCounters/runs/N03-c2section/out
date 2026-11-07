@@ -1,0 +1,13 @@
+# instrument pins (the receipt records the bytes this battery measured)
+INSTRUMENT plans/round-59-c1-check.py 6844c1d46545ca0f1bd9819128830717249480dadf0a7038bcc37ffba10a7743
+INSTRUMENT plans/round-59-c1.sh 73a2fc68693a37ec62fcff80b2d46c33e76c86570d10f0c92cc8a1c21e56f2e3
+INSTRUMENT plans/round-59-c2.sh 33fbd0341b997481b8c8145861a0a47677c2dcfca9f44a56f8f8a5ddf2197c01
+INSTRUMENT corpus/openbao-transit-trial.sh e11e98f6cfc924131a52713fa496481e80efb89ffcdb9b6bc47b3234d8cc3e01
+INSTRUMENT plans/round-59-controls.sh 5f6c576f06fc6b475bfc51991e8abd75e4c85a8eeb736a19c30e264daaddfd89
+CONTROL K1-BASE expect=5 got=5 MATCH :: C1 diagnostic on the claim BASE: five items unresolved
+CONTROL K1-BASE-GUARD expect=FAIL got=FAIL MATCH :: C1 guard leg on the claim BASE: the challenge cannot fire, value=FAIL
+CONTROL K2-BASE expect=0 got=0 MATCH :: C2 on the claim BASE: the trial does not exist
+CONTROL C2-F1 expect=<5 got=0 MATCH :: the T5 shim removed: the SH5 leg cannot flip its designated test
+CONTROL C2-F2 expect=SETUP got= MISMATCH :: a PATH with no bao reads SETUP with no HOLDS line (K1)
+CONTROL C2-F3 expect=<5 got=0 MATCH :: a trial without the clean-room line cannot score 5 (plan A2)
+CONTROL C2-F4 expect=<5 got=0 MATCH :: a single-run trial: the two-independent-runs conjunct refuses

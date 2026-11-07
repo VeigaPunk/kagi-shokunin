@@ -1,0 +1,18 @@
+# instrument pins (the receipt records the bytes this battery measured)
+INSTRUMENT plans/round-59-c1-check.py 6844c1d46545ca0f1bd9819128830717249480dadf0a7038bcc37ffba10a7743
+INSTRUMENT plans/round-59-c1.sh 73a2fc68693a37ec62fcff80b2d46c33e76c86570d10f0c92cc8a1c21e56f2e3
+INSTRUMENT plans/round-59-c2.sh 443ab38a68e330c1698cb81251a12ef03aab16e4fc72be5bd218b3d8c217b18c
+INSTRUMENT corpus/openbao-transit-trial.sh edeb5662dd6bfba21f32d5669dc74bddc2c14f4e3603f8c41e7f3b7b1e5751cd
+INSTRUMENT plans/round-59-controls.sh ABSENT
+CONTROL K1-BASE expect=5 got=5 MATCH :: C1 diagnostic on the claim BASE: five items unresolved
+CONTROL K1-BASE-GUARD expect=FAIL got=FAIL MATCH :: C1 guard leg on the claim BASE: the challenge cannot fire, value=FAIL
+CONTROL K2-BASE expect=0 got=0 MATCH :: C2 on the claim BASE: the trial does not exist
+CONTROL C2-F1 expect=<5 got=0 MATCH :: the T5 shim removed: the SH5 leg cannot flip its designated test
+CONTROL C2-F2 expect=SETUP got= MISMATCH :: a PATH with no bao reads SETUP with no HOLDS line (K1)
+CONTROL C2-F3 expect=<5 got=0 MATCH :: a trial without the clean-room line cannot score 5 (plan A2)
+CONTROL C2-F4 expect=<5 got=0 MATCH :: a single-run trial: the two-independent-runs conjunct refuses
+CONTROL C2-F5 expect=0 got=0 MATCH :: a fabricated all-HOLDS transcript cannot satisfy the five shim vectors
+CONTROL C2-F6 expect=<5 got=0 MATCH :: a shim that flips two tests cannot satisfy the exactly-one vector
+CONTROL C2-F7 expect=SETUP got=SETUP MATCH :: a wrong-sha256 bao is SETUP
+CONTROL C2-F8 expect=5 got=5 MATCH :: ambient BAO_*/VAULT_* exported by the caller does not change a reading
+CONTROLS: match=10 mismatch=1

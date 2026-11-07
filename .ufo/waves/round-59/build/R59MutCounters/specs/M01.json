@@ -1,0 +1,11 @@
+{
+ "id": "M01",
+ "note": "C1: == flipped to != in item1's count comparison",
+ "edits": [
+  {
+   "file": "plans/round-59-c1-check.py",
+   "old": "    ok = (int(m.group(1)), int(m.group(2))) == (n_base, n_land)\n",
+   "new": "    ok = (int(m.group(1)), int(m.group(2))) != (n_base, n_land)\n"
+  }
+ ]
+}

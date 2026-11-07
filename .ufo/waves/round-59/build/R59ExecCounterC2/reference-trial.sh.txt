@@ -1,0 +1,180 @@
+#!/usr/bin/env bash
+# REFERENCE FIXTURE -- NOT A LANE FILE (seat R59ExecCounterC2, scratch only).
+# Contract-conforming stand-in for corpus/openbao-transit-trial.sh, used to
+# validate plans/round-59-c2.sh while the wave's real trial is not on disk.
+# Coded to the locked round-59 contract (plans/round-59.md sec C2 + A2):
+# prints TRIAL T1..T5 then TRIAL CLEANROOM (each exactly once) and one
+# OPENBAO_TRANSIT_TRIAL: HOLDS|BROKEN|ERROR holds=<n> broken=<n> error=<n> bao=<ver>
+# summary (holds counts T1..T5 only; broken/error count all six leg lines).
+# Exit 0 only all six HOLDS; 1 any BROKEN and no ERROR; 2 SETUP/any ERROR.
+# Shims KAGI_TRANSIT_SHIM=SH1..SH5 rewrite exactly one observed boolean.
+# Secrets: r59-+24-hex nonces never printed; values via stdin field=-; root
+# token only via BAO_DEV_ROOT_TOKEN_ID; ambient BAO_*/VAULT_* scrubbed.
+set -u
+umask 077
+WORK=""
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --work) WORK=${2:?work}; shift 2;;
+    *) shift;;
+  esac
+done
+command -v bao >/dev/null 2>&1 || { echo "OPENBAO_TRANSIT_TRIAL: SETUP no bao on PATH"; exit 2; }
+command -v python3 >/dev/null 2>&1 || { echo "OPENBAO_TRANSIT_TRIAL: SETUP no python3"; exit 2; }
+command -v setpriv >/dev/null 2>&1 || { echo "OPENBAO_TRANSIT_TRIAL: SETUP no setpriv"; exit 2; }
+command -v ss >/dev/null 2>&1 || { echo "OPENBAO_TRANSIT_TRIAL: SETUP no ss"; exit 2; }
+BASE="${WORK:-${TMPDIR:-/tmp}}"
+mkdir -p "$BASE" || exit 2
+D=$(mktemp -d "$BASE/openbao-transit-trial.XXXXXX") || exit 2
+SRV1=""; SRV2=""
+cleanup() {
+  [ -n "$SRV1" ] && kill "$SRV1" 2>/dev/null
+  [ -n "$SRV2" ] && kill "$SRV2" 2>/dev/null
+  return 0
+}
+trap 'cleanup' EXIT
+trap 'exit 130' INT
+trap 'exit 143' TERM
+trap 'exit 129' HUP
+while IFS= read -r v; do [ -n "$v" ] && unset "$v"; done < <(env | sed -n 's/^\(BAO_[A-Z_]*\)=.*/\1/p; s/^\(VAULT_[A-Z_]*\)=.*/\1/p')
+export HOME="$D/home"; mkdir -p "$HOME"
+SHIM="${KAGI_TRANSIT_SHIM:-}"
+freeport() { python3 -c 'import socket;s=socket.socket();s.bind(("127.0.0.1",0));print(s.getsockname()[1]);s.close()'; }
+nonce() { python3 -c 'import secrets;print("r59-"+secrets.token_hex(12))'; }
+field() { python3 -c "import json,sys;print(json.load(sys.stdin)['data']['$1'])"; }
+start_server() { # PORT TOKEN -> rc 0 ready; sets SRV / BAO_ADDR / BAO_TOKEN
+  setpriv --pdeathsig KILL env BAO_DEV_ROOT_TOKEN_ID="$2" \
+    bao server -dev -dev-listen-address="127.0.0.1:$1" >/dev/null 2>&1 &
+  SRV=$!
+  BAO_ADDR="http://127.0.0.1:$1"; BAO_TOKEN="$2"
+  export BAO_ADDR BAO_TOKEN
+  for _ in $(seq 1 100); do bao status >/dev/null 2>&1 && return 0; sleep 0.2; done
+  return 1
+}
+stop_server() { [ -n "${SRV:-}" ] && kill "$SRV" 2>/dev/null; wait "${SRV:-}" 2>/dev/null; SRV=""; return 0; }
+dec() { bao write "transit/decrypt/$1" "ciphertext=$2" -format=json >/dev/null 2>&1; }
+enc() { # KEY CTX_B64 -> ciphertext on stdout
+  if [ -n "$2" ]; then
+    printf '%s' "$PTB64" | bao write "transit/encrypt/$1" plaintext=- context="$2" -format=json 2>/dev/null | field ciphertext
+  else
+    printf '%s' "$PTB64" | bao write "transit/encrypt/$1" plaintext=- -format=json 2>/dev/null | field ciphertext
+  fi
+}
+tamper() { # CT -> one base64 body char flipped
+  printf '%s' "$1" | python3 -c '
+import sys
+c = sys.stdin.read().strip()
+p = len("vault:v1:")
+b = list(c[p:])
+b[3] = "A" if b[3] != "A" else "B"
+sys.stdout.write(c[:p] + "".join(b))'
+}
+declare -A LEG
+report() { LEG[$1]=$2; echo "TRIAL $1 $2 $3"; }
+
+# --- server 1: carries T1..T5 ---
+P1=$(freeport)
+R1=$(nonce)
+start_server "$P1" "$R1" || { echo "OPENBAO_TRANSIT_TRIAL: SETUP first dev server did not start"; exit 2; }
+bao secrets enable transit >/dev/null 2>&1
+bao write -f transit/keys/k1 >/dev/null 2>&1
+VER=$(bao version 2>/dev/null | awk '{print $2; exit}')
+
+# T1 -- round trip and tamper refusal.
+N1=$(nonce); PTB64=$(printf '%s' "$N1" | base64 | tr -d '\n')
+CT=$(enc k1 "")
+case "$CT" in vault:v1:*) pfx=1;; *) pfx=0;; esac
+case "$CT" in *"$N1"*) cln=0;; *) cln=1;; esac
+RT=$(bao write transit/decrypt/k1 "ciphertext=$CT" -format=json 2>/dev/null | field plaintext | base64 -d 2>/dev/null)
+[ "$RT" = "$N1" ] && rt=1 || rt=0
+TAMP=$(tamper "$CT")
+dec k1 "$TAMP" && tmp=0 || tmp=1
+[ "$SHIM" = SH1 ] && rt=0
+if [ "$pfx" = 1 ] && [ "$cln" = 1 ] && [ "$rt" = 1 ] && [ "$tmp" = 1 ]; then
+  report T1 HOLDS roundtrip-prefix-noplain-tamper-refused
+else
+  report T1 BROKEN roundtrip-prefix-noplain-tamper-refused
+fi
+
+# T2 -- rotate advances the key version; the older ciphertext still decrypts.
+bao write -f transit/keys/k1/rotate >/dev/null 2>&1
+CT2=$(enc k1 "")
+case "$CT2" in vault:v2:*) v2=1;; *) v2=0;; esac
+dec k1 "$CT" && old=1 || old=0
+[ "$SHIM" = SH2 ] && old=0
+if [ "$v2" = 1 ] && [ "$old" = 1 ]; then
+  report T2 HOLDS rotate-v2-old-still-decrypts
+else
+  report T2 BROKEN rotate-v2-old-still-decrypts
+fi
+
+# T3 -- rewrap migrates to the newest version without a decrypt round trip.
+RW=$(bao write transit/rewrap/k1 "ciphertext=$CT" -format=json 2>/dev/null | field ciphertext)
+case "$RW" in vault:v2:*) rw2=1;; *) rw2=0;; esac
+dec k1 "$RW" && rwd=1 || rwd=0
+bao write transit/keys/k1/config min_decryption_version=2 >/dev/null 2>&1
+dec k1 "$RW" && rwm=1 || rwm=0
+dec k1 "$CT" && orv=1 || orv=0
+bao write transit/keys/k1/config min_decryption_version=0 >/dev/null 2>&1
+[ "$SHIM" = SH3 ] && rw2=0
+if [ "$rw2" = 1 ] && [ "$rwd" = 1 ] && [ "$rwm" = 1 ] && [ "$orv" = 0 ]; then
+  report T3 HOLDS rewrap-v2-decrypts-mdv2-original-refused
+else
+  report T3 BROKEN rewrap-v2-decrypts-mdv2-original-refused
+fi
+
+# T4 -- min_decryption_version is the retirement control.
+bao write transit/keys/k1/config min_decryption_version=2 >/dev/null 2>&1
+if dec k1 "$CT"; then ref=0; else ref=1; fi
+bao write transit/keys/k1/config min_decryption_version=1 >/dev/null 2>&1
+dec k1 "$CT" && back=1 || back=0
+[ "$SHIM" = SH4 ] && ref=0
+if [ "$ref" = 1 ] && [ "$back" = 1 ]; then
+  report T4 HOLDS mdv2-refuses-v1-mdv1-restores
+else
+  report T4 BROKEN mdv2-refuses-v1-mdv1-restores
+fi
+
+# T5 -- convergent encryption: deterministic for equal plaintext+context only.
+bao write transit/keys/k2 derived=true convergent_encryption=true >/dev/null 2>&1
+XA=$(printf 'ctxA' | base64 | tr -d '\n'); XB=$(printf 'ctxB' | base64 | tr -d '\n')
+C1=$(enc k2 "$XA"); C1b=$(enc k2 "$XA"); CX=$(enc k2 "$XB")
+[ "$C1" = "$C1b" ] && eq=1 || eq=0
+[ "$C1" != "$CX" ] && neq=1 || neq=0
+CA=$(enc k1 ""); CB=$(enc k1 "")
+[ "$CA" != "$CB" ] && nc=1 || nc=0
+[ "$SHIM" = SH5 ] && eq=0
+if [ "$eq" = 1 ] && [ "$neq" = 1 ] && [ "$nc" = 1 ]; then
+  report T5 HOLDS convergent-equal-ctx-diff-ctx-nonconv-random
+else
+  report T5 BROKEN convergent-equal-ctx-diff-ctx-nonconv-random
+fi
+
+# CLEANROOM -- a second independent dev server refuses server 1's T1 ciphertext.
+P2=$(freeport)
+R2=$(nonce)
+if start_server "$P2" "$R2"; then
+  bao secrets enable transit >/dev/null 2>&1
+  bao write -f transit/keys/k1 >/dev/null 2>&1
+  if dec k1 "$CT"; then
+    report CLEANROOM BROKEN second-server-refused-t1-ciphertext
+  else
+    report CLEANROOM HOLDS second-server-refused-t1-ciphertext
+  fi
+  stop_server
+else
+  report CLEANROOM ERROR second-server-refused-t1-ciphertext
+fi
+stop_server
+
+h=0; b=0; e=0
+for l in T1 T2 T3 T4 T5; do
+  case "${LEG[$l]}" in HOLDS) h=$((h+1));; BROKEN) b=$((b+1));; *) e=$((e+1));; esac
+done
+for l in CLEANROOM; do
+  case "${LEG[$l]}" in HOLDS) :;; BROKEN) b=$((b+1));; *) e=$((e+1));; esac
+done
+if [ "$e" -gt 0 ]; then S=ERROR; rc=2; elif [ "$b" -gt 0 ]; then S=BROKEN; rc=1; else S=HOLDS; rc=0; fi
+echo "OPENBAO_TRANSIT_TRIAL: $S holds=$h broken=$b error=$e bao=$VER"
+cleanup
+exit $rc

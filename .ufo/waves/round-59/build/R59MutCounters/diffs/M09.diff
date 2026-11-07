@@ -1,0 +1,12 @@
+# C1: internal printer-stub leg hardcoded to fail the stub
+--- a/plans/round-59-c1-check.py
++++ b/plans/round-59-c1-check.py
+@@ -390,7 +390,7 @@
+                     'i1=1 i2=1 i3=1 i4=1 i5=1 guard=0")\n')
+         sv = run_value([py, "-I", "-B", stub, "--root", copy, "--no-challenge"])
+         chal_ok = isinstance(v2, int) and v2 == expect
+-        stub_fails = not (isinstance(sv, int) and sv == expect)
++        stub_fails = True
+         detail = (f"copy delta arrow {changed}: value={v2} expect={expect}; "
+                   f"stub value={sv} fails={stub_fails}")
+         return chal_ok, stub_fails, detail

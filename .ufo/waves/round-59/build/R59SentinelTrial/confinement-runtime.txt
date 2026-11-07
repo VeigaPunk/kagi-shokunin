@@ -1,0 +1,18 @@
+trial_shell_pid=3548955
+/fast/scratch/hyaku/kagi-r59/R59SentinelTrial/run/leg4d/probe.sh: line 12: /proc/3549027/cmdline: No such file or directory
+server_pid=3550953 server_ppid=3548955 trial_pid=3548955
+listeners held by this server pid only:
+LISTEN 0      4096       127.0.0.1:43395 0.0.0.0:* users:(("bao",pid=3550953,fd=3))
+SIGKILL 3548955
+/fast/scratch/hyaku/kagi-r59/R59SentinelTrial/run/leg4d/probe.sh: line 23: 3548955 Killed                     env -i HOME="$S/home" PATH="/fast/scratch/hyaku/kagi-r59/R59SentinelTrial/run/probe-bin:/usr/bin:/bin" TMPDIR="$S/tmp" LANG=C bash "$TRIAL" --work "$UNIQ" > "$S/out.txt" 2> "$S/err.txt"
+ORPHAN=no 3550953 gone
+pgrep -af 'bao server' (host-wide; other seats run their own trials):
+3530880 bao server -dev -dev-listen-address=127.0.0.1:57273 -dev-no-store-token
+3538878 bao server -dev -dev-listen-address=127.0.0.1:46013 -dev-no-store-token
+3551318 bao server -dev -dev-listen-address=127.0.0.1:57505 -dev-no-store-token
+attribution of any listed server (ppid -> parent cmdline):
+  3530880 ppid=3528443 parent=bash /fast/scratch/hyaku/kagi-r59/R59ReviewerCounters/ref/corpus/openbao-transit-trial.sh --work /fast/scratch
+  3538878 ppid=3537354 parent=bash /fast/scratch/hyaku/kagi-r59/R59ReviewerCounters/ref/corpus/openbao-transit-trial.sh --work /fast/scratch
+  3551318 ppid=3550319 parent=bash /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/openbao-transit-trial.sh --work /fast/scratch/hyaku/ka
+  3556783 ppid=3528443 parent=bash /fast/scratch/hyaku/kagi-r59/R59ReviewerCounters/ref/corpus/openbao-transit-trial.sh --work /fast/scratch
+work dir files after kill:

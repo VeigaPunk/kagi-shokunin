@@ -1,0 +1,11 @@
+{
+ "id": "N04",
+ "note": "C2: real2 leg dropped (a single real run is accepted)",
+ "edits": [
+  {
+   "file": "plans/round-59-c2.sh",
+   "old": "real_ok=0; [ \"${RC[real]}\" = 0 ] && [ \"${RC[real2]}\" = 0 ] \\\n  && [ \"$(vec \"${OUT[real]}\")\" = HHHHH ] && [ \"$(vec \"${OUT[real2]}\")\" = HHHHH ] && real_ok=1\ngrep -q '^OPENBAO_TRANSIT_TRIAL: HOLDS holds=5 broken=0 error=0' \"${OUT[real]}\" || real_ok=0\ngrep -q '^OPENBAO_TRANSIT_TRIAL: HOLDS holds=5 broken=0 error=0' \"${OUT[real2]}\" || real_ok=0\n",
+   "new": "real_ok=0; [ \"${RC[real]}\" = 0 ] \\\n  && [ \"$(vec \"${OUT[real]}\")\" = HHHHH ] && real_ok=1\ngrep -q '^OPENBAO_TRANSIT_TRIAL: HOLDS holds=5 broken=0 error=0' \"${OUT[real]}\" || real_ok=0\n"
+  }
+ ]
+}

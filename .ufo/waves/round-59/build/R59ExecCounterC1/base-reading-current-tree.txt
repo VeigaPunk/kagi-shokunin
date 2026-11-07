@@ -1,0 +1,12 @@
+# receipt: C1 diagnostic (--no-challenge) on the lane working tree
+# captured: 2026-11-07T17:13:34Z | checker sha256 6844c1d46545ca0f1bd9819128830717249480dadf0a7038bcc37ffba10a7743
+# note: corpus/lessons/round-58.md already carries the record-repair seat's UNCOMMITTED working-tree edits at capture time
+# acceptance-time capture (pre-drift, same checker logic) printed: C1_ROUTED: value=5 population=5 i1=0 i2=0 i3=0 i4=0 i5=0 guard=0 (rc=1)
+# cmd: python3 -I -B plans/round-59-c1-check.py --root <lane> --no-challenge
+c1: i1 HOLD registry lesson=117->120 derived base(1b13f5da)=117 land(be8705f8)=120
+c1: i2 HOLD fetches lesson first-int-after-name=6 derived diff(+S lines)=6
+c1: i3 FAIL controls lesson ints=[3, 58, 20] derived total=20 c1F=9 c2F=7 supplement=ok receipt_end=None
+c1: i4 FAIL citation gate-U=None lesson-U=None
+c1: i5 FAIL stale-lane derived minutes=101 (2026-11-07T11:54:48-03:00 → 2026-11-07T13:36:19-03:00) lesson_line=missing
+C1_ROUTED: value=3 population=5 i1=1 i2=1 i3=0 i4=0 i5=0 guard=0
+rc=1

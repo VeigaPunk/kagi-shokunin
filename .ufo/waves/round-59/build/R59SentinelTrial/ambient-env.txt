@@ -1,0 +1,38 @@
+# R59SentinelTrial — ambient environment control (BAO_*/VAULT_* exported by the caller)
+# date: 2026-11-07
+
+## counter: every leg runs under env -i (source)
+52:# Ambient BAO_*/VAULT_* cannot reach the trial: each leg runs under `env -i`.
+117:  env -i HOME="$d/home" PATH="$d/bin:/usr/bin:/bin" TMPDIR="$d/tmp" LANG=C \
+legs_with_env_i=2
+
+## trial: all BAO_*/VAULT_* scrubbed before any bao call (source)
+95:while IFS= read -r v; do [ -n "$v" ] && unset "$v"; done < <(env | sed -n 's/^\(BAO_[A-Z_]*\)=.*/\1/p; s/^\(VAULT_[A-Z_]*\)=.*/\1/p')
+96-export HOME="$D/home"; mkdir -p "$HOME"
+97-VER=$(bao version 2>/dev/null | awk '{print $2; exit}')
+
+## counter run with hostile ambient env (BAO_TOKEN/BAO_ADDR/VAULT_TOKEN/VAULT_ADDR exported by the caller)
+$ BAO_TOKEN=<bogus> BAO_ADDR=http://127.0.0.1:9 VAULT_TOKEN=<bogus> VAULT_ADDR=http://127.0.0.1:9 HYAKU_SCRATCH=<scratch> bash plans/round-59-c2.sh --tree <copied tree>
+C2_TRANSIT_TRIAL: value=5 tests=5 pass=5 shims=5 vectors=ok/5 guard=1 (real=1 none=1 cleanroom=1 secret=1)
+counter_rc=0
+
+## direct trial run with the same hostile ambient env, compared with the env -i clean run
+$ BAO_TOKEN=<bogus> BAO_ADDR=http://127.0.0.1:9 VAULT_TOKEN=<bogus> VAULT_ADDR=http://127.0.0.1:9 BAO_DEV_ROOT_TOKEN_ID=<bogus> bash corpus/openbao-transit-trial.sh --work <scratch>
+trial_rc=0
+## output:
+TRIAL T1 HOLDS roundtrip=1 prefix-v1=1 no-pt-in-ct=1 tamper-refused=1
+TRIAL T2 HOLDS fresh-v2=1 latest=2 old-v1-decrypts=1 new-v2-decrypts=1
+TRIAL T3 HOLDS rewrapped-v2=1 changed=1 rewrapped-decrypts=1 rewrapped-decrypts-after-min2=1 old-v1-refused-after-min2=1
+TRIAL T4 HOLDS pre-v1=1 min-after-raise=2 v1-refused-named-error=1 min-after-lower=1 v1-re-enabled=1
+TRIAL T5 HOLDS equal-ctx-byte-identical=1 diff-ctx-differs=1 nonconv-plain-differs=1
+TRIAL CLEANROOM HOLDS own-storage-refused=1
+OPENBAO_TRANSIT_TRIAL: HOLDS holds=5 broken=0 error=0 bao=v2.7.2
+
+cmp with clean env -i run (leg1): IDENTICAL
+work dir leftovers: 0
+
+## final counter revision (plans/round-59-c2.sh sha256) under hostile ambient env
+454a4177dcb6ae2dedd367b9409358b45a25fbac0692b5c3c05510d1ac6c525c  plans/round-59-c2.sh
+$ BAO_TOKEN=<bogus> BAO_ADDR=http://127.0.0.1:9 VAULT_TOKEN=<bogus> VAULT_ADDR=http://127.0.0.1:9 HYAKU_SCRATCH=<scratch> bash plans/round-59-c2.sh --tree <tree with corpus/openbao-transit-trial.sh e11e98f6>
+C2_TRANSIT_TRIAL: value=5 tests=5 pass=5 shims=5 vectors=ok/5 guard=1 (real=1 none=1 cleanroom=1 secret=1)
+counter_rc=0

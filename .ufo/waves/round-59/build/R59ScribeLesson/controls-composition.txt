@@ -1,0 +1,29 @@
+# controls composition (static read of plans/round-59-controls.sh, 2026-11-07T14:06:14-03:00)
+$ grep -c "^report " plans/round-59-controls.sh
+13
+$ grep -o "^report [A-Za-z0-9-]*" plans/round-59-controls.sh
+report K1-BASE
+report K1-BASE-GUARD
+report K2-BASE
+report K1-REF
+report C1-F7
+report C2-F1
+report C2-F2
+report C2-F3
+report C2-F4
+report C2-F5
+report C2-F6
+report C2-F7
+report C2-F8
+# controls composition (static read, 2026-11-07T14:06:17-03:00)
+report K1- -> 3
+report K2- -> 1
+report C1-F -> 8
+report C2-F -> 8
+ids:
+C1-F1 C1-F2 C1-F3 C1-F4 C1-F5 C1-F6 C1-F7 C1-F8 C2-F1 C2-F2 C2-F3 C2-F4 C2-F5 C2-F6 C2-F7 C2-F8 K1-BASE K1-REF K2-BASE 
+total unique: 19
+# controls composition after the 14:16 revision (2026-11-07T14:18:59-03:00)
+file sha256: 0d8647a0b6cce42a287e6f3faf074a0524b8b1c10273045a401790d9abb7fa96
+C1-F1 C1-F2 C1-F3 C1-F4 C1-F5 C1-F6 C1-F7 C1-F7b C1-F8 C2-F1 C2-F2 C2-F3 C2-F4 C2-F5 C2-F6 C2-F7 C2-F8 K1-BASE K1-BASE-GUARD K1-REF K2-BASE 
+unique ids: 21

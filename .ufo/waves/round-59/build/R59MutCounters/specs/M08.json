@@ -1,0 +1,11 @@
+{
+ "id": "M08",
+ "note": "C1: I3(a) verifies only the total control count",
+ "edits": [
+  {
+   "file": "plans/round-59-c1-check.py",
+   "old": "    a_ok = line is not None and all(n in lesson_ints for n in (total, c1, c2))\n",
+   "new": "    a_ok = line is not None and all(n in lesson_ints for n in (total,))\n"
+  }
+ ]
+}

@@ -1,0 +1,19 @@
+# instrument pins (the receipt records the bytes this battery measured)
+INSTRUMENT plans/round-59-c1-check.py 3459c1ce39cf17fd1e30a4280e1fdd479d410c53e882fd9145b09465078ee73c
+INSTRUMENT plans/round-59-c1.sh 73a2fc68693a37ec62fcff80b2d46c33e76c86570d10f0c92cc8a1c21e56f2e3
+INSTRUMENT plans/round-59-c2.sh 454a4177dcb6ae2dedd367b9409358b45a25fbac0692b5c3c05510d1ac6c525c
+INSTRUMENT corpus/openbao-transit-trial.sh e11e98f6cfc924131a52713fa496481e80efb89ffcdb9b6bc47b3234d8cc3e01
+INSTRUMENT plans/round-59-controls.sh b3b49291bdd3c7e1787ea55a47b0ee1e8d91f102ba0ecdff14d805ff2416fcf6
+CONTROL K1-BASE expect=5 got=4 MISMATCH :: C1 diagnostic on the claim BASE: five items unresolved
+CONTROL K1-BASE-GUARD expect=FAIL got=FAIL MATCH :: C1 guard leg on the claim BASE: the challenge cannot fire, value=FAIL
+CONTROL K2-BASE expect=0 got=0 MATCH :: C2 on the claim BASE: the trial does not exist
+CONTROL K1-REF expect=0 got=FAIL MISMATCH :: synthetic fixed tree: five items resolved, guard=1
+CONTROL C1-F1 expect=1 got=0 MISMATCH :: I1 substance broken in the last statement (read on the diagnostic leg: the +1 challenge cannot fire while I1 is unresolved)
+CONTROL C1-F2 expect=1 got=2 MISMATCH :: I2 delta wrong in the last statement
+CONTROL C1-F3 expect=1 got=2 MISMATCH :: I3(a) total wrong in the last statement
+CONTROL C1-F4 expect=1 got=2 MISMATCH :: I4 count disagrees with the receipt file
+CONTROL C1-F5 expect=1 got=2 MISMATCH :: I5 minutes wrong in the last statement
+CONTROL C1-F6 expect=FAIL got=FAIL MATCH :: the measured lesson is absent: the population floor fails closed
+CONTROL C1-F7 expect=FAIL got=FAIL MATCH :: the guard fails closed when its challenge scratch cannot be created
+CONTROL C1-F8 expect=1 got=0 MISMATCH :: a wrong statement appended AFTER the right one is the operative one (diagnostic leg)
+CONTROLS: match=4 mismatch=8

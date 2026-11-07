@@ -1,0 +1,15 @@
+### P6 N03 secret scan removed (hvs. on stderr, fast trial)
+--- pristine
+C2_TRANSIT_TRIAL: value=0 tests=5 pass=5 shims=5 vectors=ok/5 guard=1 (real=1 none=1 cleanroom=1 secret=0)
+--- N03
+C2_TRANSIT_TRIAL: value=5 tests=5 pass=5 shims=5 vectors=ok/5 guard=1 (real=1 none=1 cleanroom=1 secret=1)
+### P7 N04 single real run (forced order real,real2,none,sh1..sh5)
+--- pristine
+C2_TRANSIT_TRIAL: value=0 tests=5 pass=0 shims=5 vectors=ok/5 guard=1 (real=0 none=1 cleanroom=0 secret=1)
+--- N04
+C2_TRANSIT_TRIAL: value=0 tests=5 pass=5 shims=5 vectors=ok/5 guard=1 (real=1 none=1 cleanroom=0 secret=1)
+### P8 N05 no-bao leg faked (fast trial)
+--- pristine
+C2_TRANSIT_TRIAL: value=0 tests=5 pass=5 shims=5 vectors=ok/5 guard=1 (real=1 none=0 cleanroom=1 secret=1)
+--- N05
+C2_TRANSIT_TRIAL: value=5 tests=5 pass=5 shims=5 vectors=ok/5 guard=1 (real=1 none=1 cleanroom=1 secret=1)

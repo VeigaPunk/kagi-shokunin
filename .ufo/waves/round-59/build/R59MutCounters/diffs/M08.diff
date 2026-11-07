@@ -1,0 +1,12 @@
+# C1: I3(a) verifies only the total control count
+--- a/plans/round-59-c1-check.py
++++ b/plans/round-59-c1-check.py
+@@ -259,7 +259,7 @@
+     line = last_line(rd(root, LESSON_REL), lambda ln: "controls-prefreeze.txt" in ln)
+     total, c1, c2 = derive_control_counts(root)
+     lesson_ints = [int(x) for x in re.findall(r"\d+", line)] if line else []
+-    a_ok = line is not None and all(n in lesson_ints for n in (total, c1, c2))
++    a_ok = line is not None and all(n in lesson_ints for n in (total,))
+     supp = rd(root, SUPPLEMENT_REL)
+     b_script = supp is not None and "C1-F10" in supp and "C2-F4" in supp
+     rec_last = last_nonempty_line(rd(root, SUPP_RECEIPT_REL))

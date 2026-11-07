@@ -1,0 +1,11 @@
+# receipt: C1 guard-bearing (verbose) on the lane working tree
+# captured: 2026-11-07T17:13:34Z
+# cmd: python3 -I -B plans/round-59-c1-check.py --root <lane> --verbose
+c1: i1 HOLD registry lesson=117->120 derived base(1b13f5da)=117 land(be8705f8)=120
+c1: i2 HOLD fetches lesson first-int-after-name=6 derived diff(+S lines)=6
+c1: i3 FAIL controls lesson ints=[3, 58, 20] derived total=20 c1F=9 c2F=7 supplement=ok receipt_end=None
+c1: i4 FAIL citation gate-U=None lesson-U=None
+c1: i5 FAIL stale-lane derived minutes=101 (2026-11-07T11:54:48-03:00 → 2026-11-07T13:36:19-03:00) lesson_line=missing
+c1-guard: copy delta arrow 120->121: value=4 expect=4; stub value=0 fails=True
+C1_ROUTED: value=3 population=5 i1=1 i2=1 i3=0 i4=0 i5=0 guard=1
+rc=1

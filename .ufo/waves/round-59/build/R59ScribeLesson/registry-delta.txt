@@ -1,0 +1,9 @@
+# registry delta receipt 2026-11-07T14:04:54-03:00
+$ grep -cE "^\|[[:space:]]*S[0-9]{3,}[[:space:]]*\|" corpus/SOURCES.md
+122
+$ git show 5fa6e658:corpus/SOURCES.md | grep -cE ...
+120
+$ git diff 5fa6e658 -- corpus/source-fetches.tsv | grep -c "^+S"
+2
+$ grep -c "^| S12[12] " corpus/SOURCES.md
+2

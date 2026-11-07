@@ -1,0 +1,10 @@
+# receipt: C1-F5-shape probe — fixed tree + a LATER wrong stale-lane line (96 min, progressing) reads exactly 1 with i5=0 (I5 selects the last stale-lane line by subject, then compares; catches the round-58 M58-2 number-drift class)
+# captured: 2026-11-07T17:13:52Z
+# cmd: python3 -I -B plans/round-59-c1-check.py --root <scratch>/ref-build/f5probe --repo <lane> --no-challenge
+c1: i1 HOLD registry lesson=117->120 derived base(1b13f5da)=117 land(be8705f8)=120
+c1: i2 HOLD fetches lesson first-int-after-name=6 derived diff(+S lines)=6
+c1: i3 HOLD controls lesson ints=[3, 58, 20, 9, 1, 7, 2, 58] derived total=20 c1F=9 c2F=7 supplement=ok receipt_end=SUPPLEMENT: match=2 mismatch=0
+c1: i4 HOLD citation gate-U=15 lesson-U=15
+c1: i5 FAIL stale-lane derived minutes=101 (2026-11-07T11:54:48-03:00 → 2026-11-07T13:36:19-03:00) lesson_line=wrong-or-incomplete
+C1_ROUTED: value=1 population=5 i1=1 i2=1 i3=1 i4=1 i5=0 guard=0
+rc=1

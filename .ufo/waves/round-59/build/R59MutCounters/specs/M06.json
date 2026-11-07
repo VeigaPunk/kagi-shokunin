@@ -1,0 +1,11 @@
+{
+ "id": "M06",
+ "note": "C1: challenge copies the measured tree in place (QM74 lost)",
+ "edits": [
+  {
+   "file": "plans/round-59-c1-check.py",
+   "old": "        copy = os.path.join(tmp, \"tree\")\n        shutil.copytree(root, copy, symlinks=True,\n                        ignore=shutil.ignore_patterns(\".git\", \".jj\"))\n        if os.path.realpath(copy) == root_abs:\n            return None, None, \"challenge copy resolves to the measured tree (refused)\"\n",
+   "new": "        copy = root\n        if os.path.realpath(copy) == root_abs and False:\n            return None, None, \"challenge copy resolves to the measured tree (refused)\"\n"
+  }
+ ]
+}

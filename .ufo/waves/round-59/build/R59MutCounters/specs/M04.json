@@ -1,0 +1,11 @@
+{
+ "id": "M04",
+ "note": "C1: last_line() returns the first match (last-occurrence rule lost)",
+ "edits": [
+  {
+   "file": "plans/round-59-c1-check.py",
+   "old": "def last_line(text: str | None, pred) -> str | None:\n    hit = None\n    for ln in (text.splitlines() if text else []):\n        if pred(ln):\n            hit = ln\n    return hit\n",
+   "new": "def last_line(text: str | None, pred) -> str | None:\n    for ln in (text.splitlines() if text else []):\n        if pred(ln):\n            return ln\n    return None\n"
+  }
+ ]
+}

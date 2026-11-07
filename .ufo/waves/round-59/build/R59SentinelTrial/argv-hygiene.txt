@@ -1,0 +1,70 @@
+# R59SentinelTrial — argv hygiene (no token/plaintext on any argv)
+# date: 2026-11-07; trial sha256 e11e98f6cfc924131a52713fa496481e80efb89ffcdb9b6bc47b3234d8cc3e01
+
+## static: every data-bearing bao call uses the stdin form (`-`)
+57:# and sent inside a JSON request body on stdin (`bao write <path> -`); the
+153:  ct=$(mkbody "$PB64" "${2:-}" | bao write -format=json "transit/encrypt/$1" - 2>"$D/err" | jfield ciphertext) || return 1
+158:  printf '{"ciphertext":"%s"}' "$1" | bao write -format=json "transit/decrypt/$2" - 2>"$D/err"
+161:  printf '{"ciphertext":"%s"}' "$1" | bao write -format=json "transit/rewrap/$2" - 2>"$D/err"
+163:kcreate() { bao write -f "transit/keys/$1" >/dev/null 2>"$D/err"; }
+164:convcreate() { bao write "transit/keys/$1" derived=true convergent_encryption=true >/dev/null 2>"$D/err"; }
+165:rot() { bao write -f "transit/keys/$1/rotate" >/dev/null 2>"$D/err"; }
+166:kcfg() { bao write "transit/keys/$1/config" "min_decryption_version=$2" >/dev/null 2>"$D/err"; }
+312:    if printf '{"ciphertext":"%s"}' "$CT1" | BAO_ADDR="$baddr" BAO_TOKEN="$btok" bao write -format=json "transit/decrypt/$K1" - >/dev/null 2>"$D/err"; then
+
+## static: no curl and no `-d <value>` (the only -d hits are mktemp -d / base64 -d)
+79:D=$(mktemp -d "$BASE/openbao-transit-trial.XXXXXX") || { echo "OPENBAO_TRANSIT_TRIAL: SETUP work dir not writable"; exit 2; }
+200:      dpt=$(printf '%s' "$d64" | base64 -d 2>/dev/null)
+
+## static: no plaintext=/ciphertext=/context=/token= as a command argument
+
+## static: token reaches only env (shell assignments, never an argv entry)
+106:    BAO_DEV_ROOT_TOKEN_ID="$root" setpriv --pdeathsig KILL bao server -dev \
+116:      export BAO_ADDR="http://127.0.0.1:$port" BAO_TOKEN="$root"
+308:  start_server || { RVCR="CLEANROOM ERROR second-server-start=0"; export BAO_ADDR="$oa" BAO_TOKEN="$ot"; SRV="$os"; return; }
+310:  BAO_ADDR="$baddr" BAO_TOKEN="$btok" bao secrets enable transit >/dev/null 2>"$D/err" || ok=0
+312:    if printf '{"ciphertext":"%s"}' "$CT1" | BAO_ADDR="$baddr" BAO_TOKEN="$btok" bao write -format=json "transit/decrypt/$K1" - >/dev/null 2>"$D/err"; then
+321:  export BAO_ADDR="$oa" BAO_TOKEN="$ot"; SRV="$os"
+
+## dynamic: strace -f -e trace=execve of a full real run (env -i)
+execve_lines=3103
+argv_entries_with_r59_nonce=0
+argv_entries_with_plaintext_eq=0
+argv_entries_with_ciphertext_eq=0
+argv_entries_with_context_eq=0
+argv_entries_with_hv_token=0
+
+## dynamic: PATH-first delegating wrapper log (42 bao invocations)
+wrapper_lines=42
+wrapper_secret_shape_hits=0
+
+## distinct argv shapes observed (data writes all end in `[-]` = stdin)
+      3 [write][-format=json][transit/encrypt/r59-t5c][-]
+      3 [write][-format=json][transit/decrypt/r59-t3][-]
+      3 [write][-format=json][transit/decrypt/r59-t1][-]
+      2 [write][-format=json][transit/encrypt/r59-t5p][-]
+      2 [write][-format=json][transit/encrypt/r59-t2][-]
+      2 [write][-format=json][transit/decrypt/r59-t4][-]
+      2 [write][-format=json][transit/decrypt/r59-t2][-]
+      2 [status]
+      2 [secrets][enable][transit]
+      2 [read][-format=json][transit/keys/r59-t4]
+      1 [write][transit/keys/r59-t5c][derived=true][convergent_encryption=true]
+      1 [write][transit/keys/r59-t4/config][min_decryption_version=2]
+      1 [write][transit/keys/r59-t4/config][min_decryption_version=1]
+      1 [write][transit/keys/r59-t3/config][min_decryption_version=2]
+      1 [write][-format=json][transit/rewrap/r59-t3][-]
+      1 [write][-format=json][transit/encrypt/r59-t4][-]
+      1 [write][-format=json][transit/encrypt/r59-t3][-]
+      1 [write][-format=json][transit/encrypt/r59-t1][-]
+      1 [write][-f][transit/keys/r59-t5p]
+      1 [write][-f][transit/keys/r59-t4]
+      1 [write][-f][transit/keys/r59-t4/rotate]
+      1 [write][-f][transit/keys/r59-t3]
+      1 [write][-f][transit/keys/r59-t3/rotate]
+      1 [write][-f][transit/keys/r59-t2]
+      1 [write][-f][transit/keys/r59-t2/rotate]
+      1 [version]
+      1 [server][-dev][-dev-listen-address=127.0.0.1:40339][-dev-no-store-token]
+      1 [server][-dev][-dev-listen-address=127.0.0.1:34429][-dev-no-store-token]
+      1 [read][-format=json][transit/keys/r59-t2]

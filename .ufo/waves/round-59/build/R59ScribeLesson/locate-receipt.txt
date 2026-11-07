@@ -1,0 +1,27 @@
+$ python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S121.body "The returned ciphertext starts with vault:v1:"
+RENDERED_TEXT_V1_LOCATE: count=1
+
+$ python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S121.body "This process does not reveal the plaintext data."
+RENDERED_TEXT_V1_LOCATE: count=1
+
+$ python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S121.body "Convergent encryption is a mode where the same set of plaintext+context always result in the same ciphertext."
+RENDERED_TEXT_V1_LOCATE: count=1
+
+$ python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S121.body "Future encryptions will use this new key."
+RENDERED_TEXT_V1_LOCATE: count=1
+
+$ python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S121.body "min_decryption_version can be moved back to allow for legitimate decryption"
+RENDERED_TEXT_V1_LOCATE: count=1
+
+$ python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S122.body "Specifies the minimum version of ciphertext allowed to be decrypted."
+RENDERED_TEXT_V1_LOCATE: count=1
+
+$ python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S122.body "To upgrade ciphertext to be encrypted with the latest version of the key, use the rewrap endpoint."
+RENDERED_TEXT_V1_LOCATE: count=1
+
+$ python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S122.body "This endpoint rotates the version of the named key."
+RENDERED_TEXT_V1_LOCATE: count=1
+
+$ python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S122.body "If enabled, the key will support convergent encryption, where the same plaintext creates the same ciphertext"
+RENDERED_TEXT_V1_LOCATE: count=1
+

@@ -1,0 +1,11 @@
+{
+ "id": "M07",
+ "note": "C1: an absent input line returns SKIP (population can shrink)",
+ "edits": [
+  {
+   "file": "plans/round-59-c1-check.py",
+   "old": "    if line is None:\n        return FAIL, \"no 'Registry N → M at the candidate' line in the lesson\"\n",
+   "new": "    if line is None:\n        return SKIP, \"no 'Registry N → M at the candidate' line in the lesson\"\n"
+  }
+ ]
+}

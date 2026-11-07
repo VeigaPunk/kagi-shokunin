@@ -1,0 +1,11 @@
+{
+ "id": "M05",
+ "note": "C1: I1 missing line defaults to the derived (target) pair",
+ "edits": [
+  {
+   "file": "plans/round-59-c1-check.py",
+   "old": "    if line is None:\n        return FAIL, \"no 'Registry N → M at the candidate' line in the lesson\"\n    m = REGISTRY_LINE_RE.search(line)\n    n_base, n_land = derive_registry_counts(ctx)\n",
+   "new": "    n_base, n_land = derive_registry_counts(ctx)\n    if line is None:\n        return HOLD, \"registry line absent; defaulted to the derived pair\"\n    m = REGISTRY_LINE_RE.search(line)\n"
+  }
+ ]
+}

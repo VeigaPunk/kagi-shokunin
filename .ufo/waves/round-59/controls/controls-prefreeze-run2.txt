@@ -1,0 +1,17 @@
+# instrument pins (the receipt records the bytes this battery measured)
+INSTRUMENT plans/round-59-c1-check.py e6c079f6939041d9ee0ff3bae923d43b089f9c573cd112f48b88dcc58a92335f
+INSTRUMENT plans/round-59-c1.sh 73a2fc68693a37ec62fcff80b2d46c33e76c86570d10f0c92cc8a1c21e56f2e3
+INSTRUMENT plans/round-59-c2.sh 9bc3da958b665cd7359cd1697890d1126936ba30185234ef6f9fa6199e331f8d
+INSTRUMENT corpus/openbao-transit-trial.sh e11e98f6cfc924131a52713fa496481e80efb89ffcdb9b6bc47b3234d8cc3e01
+INSTRUMENT plans/round-59-controls.sh c06050fdb930ac2cba4a676f80b78bd06466c853ebdcbae2d58573da7d16bf56
+CONTROL K1-BASE expect=5 got=5 MATCH :: C1 diagnostic on the claim BASE: five items unresolved
+CONTROL K1-BASE-GUARD expect=FAIL got=FAIL MATCH :: C1 guard leg on the claim BASE: the challenge cannot fire, value=FAIL
+CONTROL K2-BASE expect=0 got=0 MATCH :: C2 on the claim BASE: the trial does not exist
+CONTROL K1-REF expect=0 got=0 MATCH :: synthetic fixed tree: five items resolved, guard=1
+CONTROL C1-F1 expect=1 got=FAIL MISMATCH :: I1 substance broken in the last statement
+CONTROL C1-F2 expect=1 got=1 MATCH :: I2 delta wrong in the last statement
+CONTROL C1-F3 expect=1 got=1 MATCH :: I3(a) total wrong in the last statement
+CONTROL C1-F4 expect=1 got=1 MATCH :: I4 count disagrees with the receipt file
+CONTROL C1-F5 expect=1 got=0 MISMATCH :: I5 minutes wrong in the last statement
+plans/round-59-controls.sh: line 133: syntax error near unexpected token `('
+plans/round-59-controls.sh: line 133: `fixed_tree c1f8 >/dev/null; append c1f8 '- Correction D1 (late, wrong): Registry 114 → 120 at the candidate.'; report C1-F8 1 "$(c1diag c1f8)" "a wrong statement appended AFTER the right one is the operative one (diagnostic leg)"'

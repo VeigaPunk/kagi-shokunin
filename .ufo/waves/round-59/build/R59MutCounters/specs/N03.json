@@ -1,0 +1,11 @@
+{
+ "id": "N03",
+ "note": "C2: secret scan removed",
+ "edits": [
+  {
+   "file": "plans/round-59-c2.sh",
+   "old": "nosecret=1\nif cat \"$SCR\"/log/* 2>/dev/null | grep -qE 'r59-[0-9a-f]{24}|(^|[^A-Za-z0-9])(hvs|hvb)\\.'; then nosecret=0; fi\n",
+   "new": "nosecret=1\n"
+  }
+ ]
+}

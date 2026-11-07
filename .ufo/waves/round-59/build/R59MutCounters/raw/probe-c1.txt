@@ -1,0 +1,42 @@
+### P1 M05: the I1 statement line deleted from an otherwise-fixed tree
+--- pristine (--no-challenge)
+c1: i1 FAIL no 'Registry N → M at the candidate' line in the lesson
+c1: i2 HOLD fetches lesson first-int-after-name=6 derived diff(+S lines)=6
+c1: i3 HOLD controls lesson ints=[3, 58, 20, 9, 1, 7, 2, 1] derived total=20 c1F=9 c2F=7 supplement=ok receipt_end=SUPPLEMENT: match=2 mismatch=0
+c1: i4 HOLD citation gate-U=0 lesson-U=0
+c1: i5 HOLD stale-lane derived minutes=101 (2026-11-07T11:54:48-03:00 → 2026-11-07T13:36:19-03:00) lesson_line=found
+C1_ROUTED: value=1 population=5 i1=0 i2=1 i3=1 i4=1 i5=1 guard=0
+--- M05 (--no-challenge)
+c1: i1 HOLD registry line absent; defaulted to the derived pair
+c1: i2 HOLD fetches lesson first-int-after-name=6 derived diff(+S lines)=6
+c1: i3 HOLD controls lesson ints=[3, 58, 20, 9, 1, 7, 2, 1] derived total=20 c1F=9 c2F=7 supplement=ok receipt_end=SUPPLEMENT: match=2 mismatch=0
+c1: i4 HOLD citation gate-U=0 lesson-U=0
+c1: i5 HOLD stale-lane derived minutes=101 (2026-11-07T11:54:48-03:00 → 2026-11-07T13:36:19-03:00) lesson_line=found
+C1_ROUTED: value=0 population=5 i1=1 i2=1 i3=1 i4=1 i5=1 guard=0
+### P2 M06: the challenge copy resolves at the measured tree
+--- pristine (guard-bearing)
+c1: i5 HOLD stale-lane derived minutes=101 (2026-11-07T11:54:48-03:00 → 2026-11-07T13:36:19-03:00) lesson_line=found
+C1_ROUTED: value=0 population=5 i1=1 i2=1 i3=1 i4=1 i5=1 guard=1
+fixture lesson sha256 before=9665e1533dc1ff042fa48fc0866e38a43f3d24558c0ab3bf65bf7d38e2a984eb after=9665e1533dc1ff042fa48fc0866e38a43f3d24558c0ab3bf65bf7d38e2a984eb UNCHANGED
+--- M06 (guard-bearing)
+c1: i5 HOLD stale-lane derived minutes=101 (2026-11-07T11:54:48-03:00 → 2026-11-07T13:36:19-03:00) lesson_line=found
+C1_ROUTED: value=0 population=5 i1=1 i2=1 i3=1 i4=1 i5=1 guard=1
+fixture lesson sha256 before=9665e1533dc1ff042fa48fc0866e38a43f3d24558c0ab3bf65bf7d38e2a984eb after=b501aef12fc71ea279acfd1b64089e9b24d7028367975c044a01c105c785f821 MUTATED
+115:- Correction D1: Registry 117 → 120 at the candidate (S118, S119, S120); this supersedes the
+141:- Correction D1: Registry 117 → 121 at the candidate (S118, S119, S120).
+### P3 M07: an absent input line returns SKIP (population shrinks)
+--- pristine (guard-bearing)
+c1: i5 FAIL stale-lane derived minutes=101 (2026-11-07T11:54:48-03:00 → 2026-11-07T13:36:19-03:00) lesson_line=missing
+C1_ROUTED: value=FAIL population=5 i1=0 i2=0 i3=0 i4=0 i5=0 guard=0
+--- M07 (guard-bearing)
+c1: i5 FAIL stale-lane derived minutes=101 (2026-11-07T11:54:48-03:00 → 2026-11-07T13:36:19-03:00) lesson_line=missing
+C1_ROUTED: value=FAIL population=4 i1=x i2=0 i3=0 i4=0 i5=0 guard=0
+### P4 M08: the D3 statement states the wrong C1/C2 subcounts
+--- pristine (--no-challenge)
+c1: i4 HOLD citation gate-U=0 lesson-U=0
+c1: i5 HOLD stale-lane derived minutes=101 (2026-11-07T11:54:48-03:00 → 2026-11-07T13:36:19-03:00) lesson_line=found
+C1_ROUTED: value=1 population=5 i1=1 i2=1 i3=0 i4=1 i5=1 guard=0
+--- M08 (--no-challenge)
+c1: i4 HOLD citation gate-U=0 lesson-U=0
+c1: i5 HOLD stale-lane derived minutes=101 (2026-11-07T11:54:48-03:00 → 2026-11-07T13:36:19-03:00) lesson_line=found
+C1_ROUTED: value=0 population=5 i1=1 i2=1 i3=1 i4=1 i5=1 guard=0

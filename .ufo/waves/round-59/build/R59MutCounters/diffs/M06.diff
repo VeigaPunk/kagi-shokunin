@@ -1,0 +1,16 @@
+# C1: challenge copies the measured tree in place (QM74 lost)
+--- a/plans/round-59-c1-check.py
++++ b/plans/round-59-c1-check.py
+@@ -371,10 +371,8 @@
+     except OSError as e:
+         return None, None, f"challenge scratch unavailable: {e}"
+     try:
+-        copy = os.path.join(tmp, "tree")
+-        shutil.copytree(root, copy, symlinks=True,
+-                        ignore=shutil.ignore_patterns(".git", ".jj"))
+-        if os.path.realpath(copy) == root_abs:
++        copy = root
++        if os.path.realpath(copy) == root_abs and False:
+             return None, None, "challenge copy resolves to the measured tree (refused)"
+         changed, err = mutate_last_registry_arrow(copy)
+         if err:

@@ -1,0 +1,246 @@
+# raw locate outputs — R59ScoutSources, round 59
+# each command was run from the lane root /home/vgpnk/Projects/shokunin/kagi-shokunin
+# against THIS seat's own capture under .ufo/waves/round-59/capture/
+# verifier: corpus/rendered-text-v1.py locate <body> '<quote>'  (exit 0 iff count >= 1)
+# the 'quote:' line under each command repeats the quoted argument verbatim
+# ---------------------------------------------------------------------------------------
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S121.body "The returned ciphertext starts with vault:v1:"
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: The returned ciphertext starts with vault:v1:
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S121.body "The v1 indicates the key version 1 was used to encrypt the plaintext"
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: The v1 indicates the key version 1 was used to encrypt the plaintext
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S121.body "The first prefix ( vault ) identifies that it has been wrapped by OpenBao."
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: The first prefix ( vault ) identifies that it has been wrapped by OpenBao.
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S121.body "This will generate a new encryption key and add it to the keyring for the named key"
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: This will generate a new encryption key and add it to the keyring for the named key
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S121.body "Future encryptions will use this new key."
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: Future encryptions will use this new key.
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S121.body "Old data can still be decrypted due to the use of a key ring."
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: Old data can still be decrypted due to the use of a key ring.
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S121.body "This process does not reveal the plaintext data."
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: This process does not reveal the plaintext data.
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S122.body "This endpoint rotates the version of the named key."
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: This endpoint rotates the version of the named key.
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S122.body "To upgrade ciphertext to be encrypted with the latest version of the key, use the rewrap endpoint."
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: To upgrade ciphertext to be encrypted with the latest version of the key, use the rewrap endpoint.
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S121.body "Convergent encryption is a mode where the same set of plaintext+context always result in the same ciphertext."
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: Convergent encryption is a mode where the same set of plaintext+context always result in the same ciphertext.
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S122.body "If enabled, the key will support convergent encryption, where the same plaintext creates the same ciphertext."
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: If enabled, the key will support convergent encryption, where the same plaintext creates the same ciphertext.
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S122.body "This requires derived to be set to true"
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: This requires derived to be set to true
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S122.body "context (string: \"\") \u2013 Specifies the base64 encoded context for key derivation. This is required if key derivation is enabled for this key."
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: context (string: "") – Specifies the base64 encoded context for key derivation. This is required if key derivation is enabled for this key.
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S121.body "in an emergency the min_decryption_version can be moved back to allow for legitimate decryption."
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: in an emergency the min_decryption_version can be moved back to allow for legitimate decryption.
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S122.body "Specifies the minimum version of ciphertext allowed to be decrypted."
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: Specifies the minimum version of ciphertext allowed to be decrypted.
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S121.body "Key versions that are earlier than a key's specified min_decryption_version gets archived, and the rest of the key versions belong to the working set."
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: Key versions that are earlier than a key's specified min_decryption_version gets archived, and the rest of the key versions belong to the working set.
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S122.body "This endpoint rewraps the provided ciphertext using the latest version of the named key."
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: This endpoint rewraps the provided ciphertext using the latest version of the named key.
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S122.body "Because this never returns plaintext, it is possible to delegate this functionality to untrusted users or scripts."
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: Because this never returns plaintext, it is possible to delegate this functionality to untrusted users or scripts.
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S121.body "All plaintext data must be base64-encoded"
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: All plaintext data must be base64-encoded
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S121.body "OpenBao does not store any of this data."
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: OpenBao does not store any of this data.
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S121.body "The rest is a base64 concatenation of the initialization vector (IV) and ciphertext."
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: The rest is a base64 concatenation of the initialization vector (IV) and ciphertext.
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S122.body "Must be 0 (which will use the latest version) or a value greater or equal to min_decryption_version"
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: Must be 0 (which will use the latest version) or a value greater or equal to min_decryption_version
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S122.body "This is not allowed to be set when either min_encryption_version or min_decryption_version is set to zero."
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: This is not allowed to be set when either min_encryption_version or min_decryption_version is set to zero.
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S122.body "External keys do not support auto-rotation, exporting, convergent encryption, or context-derived keys."
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: External keys do not support auto-rotation, exporting, convergent encryption, or context-derived keys.
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S122.body "Be warned that some failures (such as failure to decrypt) could be indicative of a security breach"
+RENDERED_TEXT_V1_LOCATE: count=2   [rc=0]
+quote: Be warned that some failures (such as failure to decrypt) could be indicative of a security breach
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S122.body "As a result, when the same context and nonce are supplied, the same ciphertext is generated."
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: As a result, when the same context and nonce are supplied, the same ciphertext is generated.
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S121.body "Keys using version 2 can be upgraded by simply performing a rotate operation to a new key version"
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: Keys using version 2 can be upgraded by simply performing a rotate operation to a new key version
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S121.body "Key derivation is supported, which allows the same key to be used for multiple purposes by deriving a new key"
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: Key derivation is supported, which allows the same key to be used for multiple purposes by deriving a new key
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S122.body "This is only supported when using a key with key derivation enabled and will require all requests to carry both a context and 96-bit (12-byte)"
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: This is only supported when using a key with key derivation enabled and will require all requests to carry both a context and 96-bit (12-byte)
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S121.body "In this mode, convergent encryption can optionally be supported, which allows the same input values to produce the same ciphertext."
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: In this mode, convergent encryption can optionally be supported, which allows the same input values to produce the same ciphertext.
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S122.body "The values set here cannot be changed after key creation."
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: The values set here cannot be changed after key creation.
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S122.body "When enabled, each encryption(/decryption/rewrap/datakey) operation will derive a nonce value rather than randomly generate it."
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: When enabled, each encryption(/decryption/rewrap/datakey) operation will derive a nonce value rather than randomly generate it.
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S122.body "This endpoint decrypts the provided ciphertext using the named key."
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: This endpoint decrypts the provided ciphertext using the named key.
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S121.body "OpenBao will decrypt the value using the appropriate key in the keyring and then encrypted the resulting plaintext with the newest key in the keyring."
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: OpenBao will decrypt the value using the appropriate key in the keyring and then encrypted the resulting plaintext with the newest key in the keyring.
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S122.body "It is very important when using this mode that you ensure that all nonces are unique for a given context."
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: It is very important when using this mode that you ensure that all nonces are unique for a given context.
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S122.body "This endpoint rotates the version of the named key. After rotation, new plaintext requests will be encrypted with the new version of the key."
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: This endpoint rotates the version of the named key. After rotation, new plaintext requests will be encrypted with the new version of the key.
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S122.body "This parameter will only be used when a key is expected to be created."
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: This parameter will only be used when a key is expected to be created.
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S122.body "If enabled, all encrypt/decrypt requests to this named key must provide a context which is used for key derivation."
+RENDERED_TEXT_V1_LOCATE: count=2   [rc=0]
+quote: If enabled, all encrypt/decrypt requests to this named key must provide a context which is used for key derivation.
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S122.body "Adjusting this as part of a key rotation policy can prevent old copies of ciphertext from being decrypted, should they fall into the wrong hands."
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: Adjusting this as part of a key rotation policy can prevent old copies of ciphertext from being decrypted, should they fall into the wrong hands.
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S122.body "This is only supported with keys that support encryption and decryption operations."
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: This is only supported with keys that support encryption and decryption operations.
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S122.body "{ \"data\" : { \"ciphertext\" : \"vault:v2:abcdefgh\" } }"
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: { "data" : { "ciphertext" : "vault:v2:abcdefgh" } }
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S122.body "All versions before this version will be permanently deleted."
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: All versions before this version will be permanently deleted.
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S122.body "This value can at most be equal to the lesser of min_decryption_version and min_encryption_version"
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: This value can at most be equal to the lesser of min_decryption_version and min_encryption_version
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S121.body "Enable the Transit secrets engine: $ bao secrets enable transit"
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: Enable the Transit secrets engine: $ bao secrets enable transit
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S121.body "Create a named encryption key: $ bao write -f transit/keys/my-key"
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: Create a named encryption key: $ bao write -f transit/keys/my-key
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S121.body "The resulting data is base64-encoded"
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: The resulting data is base64-encoded
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S122.body "Method Path POST /transit/encrypt/:name"
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: Method Path POST /transit/encrypt/:name
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S122.body "Method Path POST /transit/decrypt/:name"
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: Method Path POST /transit/decrypt/:name
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S122.body "Method Path POST /transit/rewrap/:name"
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: Method Path POST /transit/rewrap/:name
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S122.body "Method Path POST /transit/keys/:name/rotate"
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: Method Path POST /transit/keys/:name/rotate
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S122.body "Method Path POST /transit/keys/:name/config"
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: Method Path POST /transit/keys/:name/config
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S122.body "Method Path POST /transit/keys/:name/trim"
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: Method Path POST /transit/keys/:name/trim
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S122.body "For imported keys, rotation is only supported if the allow_rotation field was set to true on import."
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: For imported keys, rotation is only supported if the allow_rotation field was set to true on import.
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S121.body "OpenBao HTTP API imposes a maximum request size of 32MB to prevent a denial of service attack."
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: OpenBao HTTP API imposes a maximum request size of 32MB to prevent a denial of service attack.
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S122.body "The following operations will not work on the :name 'd key until the key is restored:"
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: The following operations will not work on the :name 'd key until the key is restored:
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S122.body "This endpoint allows tuning configuration values for a given key."
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: This endpoint allows tuning configuration values for a given key.
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S122.body "This endpoint creates a new named encryption key of the specified type."
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: This endpoint creates a new named encryption key of the specified type.
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S121.body "Version 1 required the client to provide their own nonce, which is highly flexible but if done incorrectly can be dangerous."
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: Version 1 required the client to provide their own nonce, which is highly flexible but if done incorrectly can be dangerous.
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S122.body "For algorithms with a configurable key size, the rotated key will use the same key size as the previous version."
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: For algorithms with a configurable key size, the rotated key will use the same key size as the previous version.
+
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && python3 corpus/rendered-text-v1.py locate .ufo/waves/round-59/capture/S121.body "Periodic rotation of the encryption keys is recommended, even in the absence of compromise."
+RENDERED_TEXT_V1_LOCATE: count=1   [rc=0]
+quote: Periodic rotation of the encryption keys is recommended, even in the absence of compromise.

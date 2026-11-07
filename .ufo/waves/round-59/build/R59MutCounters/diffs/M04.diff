@@ -1,0 +1,17 @@
+# C1: last_line() returns the first match (last-occurrence rule lost)
+--- a/plans/round-59-c1-check.py
++++ b/plans/round-59-c1-check.py
+@@ -135,11 +135,10 @@
+ 
+ 
+ def last_line(text: str | None, pred) -> str | None:
+-    hit = None
+     for ln in (text.splitlines() if text else []):
+         if pred(ln):
+-            hit = ln
+-    return hit
++            return ln
++    return None
+ 
+ 
+ def last_nonempty_line(text: str | None) -> str | None:

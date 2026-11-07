@@ -1,0 +1,16 @@
+# C2: real2 leg dropped (a single real run is accepted)
+--- a/plans/round-59-c2.sh
++++ b/plans/round-59-c2.sh
+@@ -128,10 +128,9 @@
+   esac
+   RC[$m]=$?
+ done
+-real_ok=0; [ "${RC[real]}" = 0 ] && [ "${RC[real2]}" = 0 ] \
+-  && [ "$(vec "${OUT[real]}")" = HHHHH ] && [ "$(vec "${OUT[real2]}")" = HHHHH ] && real_ok=1
++real_ok=0; [ "${RC[real]}" = 0 ] \
++  && [ "$(vec "${OUT[real]}")" = HHHHH ] && real_ok=1
+ grep -q '^OPENBAO_TRANSIT_TRIAL: HOLDS holds=5 broken=0 error=0' "${OUT[real]}" || real_ok=0
+-grep -q '^OPENBAO_TRANSIT_TRIAL: HOLDS holds=5 broken=0 error=0' "${OUT[real2]}" || real_ok=0
+ clean_ok=1
+ for m in real real2; do
+   [ "$(verdict "${OUT[$m]}" CLEANROOM)" = HOLDS ] || clean_ok=0

@@ -1,0 +1,28 @@
+# R59SentinelTrial — fetch-receipt cookie check (QM72)
+# date: 2026-11-07
+
+## grep -inE "^(set-)?cookie:" .ufo/waves/round-59/capture/*.headers
+exit=1
+
+## removal note present in each headers file
+/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-59/capture/S121.headers:1
+/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-59/capture/S122.headers:1
+
+## server-issued correlation ids replaced with placeholders
+/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-59/capture/S121.headers:15:x-github-request-id: <value removed (QM72): server-issued per-request correlation id>
+/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-59/capture/S121.headers:26:x-fastly-request-id: <value removed (QM72): server-issued per-request correlation id>
+/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-59/capture/S121.headers:29:# QM72 removal note (one line): every set-cookie:/cookie: header line was removed before this file was written (Set-Cookie/Cookie lines removed: 0; none were present in this response); the server-issued per-request correlation ids (x-github-request-id, x-fastly-request-id) were replaced by a placeholder (lines replaced: 2).
+/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-59/capture/S122.headers:15:x-github-request-id: <value removed (QM72): server-issued per-request correlation id>
+/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-59/capture/S122.headers:26:x-fastly-request-id: <value removed (QM72): server-issued per-request correlation id>
+/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-59/capture/S122.headers:29:# QM72 removal note (one line): every set-cookie:/cookie: header line was removed before this file was written (Set-Cookie/Cookie lines removed: 0; none were present in this response); the server-issued per-request correlation ids (x-github-request-id, x-fastly-request-id) were replaced by a placeholder (lines replaced: 2).
+
+## any cookie-shaped token left (cf_bm/session/cookie=)
+exit=1
+
+## body integrity (bytes, sha256, headers content-length)
+S121.body bytes=48604
+d8879a2a4d784cd734bc32b3b60a0d1180a9373bff2e9b7d76a3bb7bce7b0a19  /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-59/capture/S121.body
+content-length: 48604
+S122.body bytes=267984
+ad1a47d369be288c7091836fd1ebadc1534f33fb17780b9d7810d2ff808b657e  /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-59/capture/S122.body
+content-length: 267984

@@ -1,0 +1,11 @@
+{
+ "id": "N06",
+ "note": "C2: value hardcoded 5 once the trial exists",
+ "edits": [
+  {
+   "file": "plans/round-59-c2.sh",
+   "old": "pass=0\n[ \"$real_ok\" = 1 ] && pass=5\nvalue=0\n[ \"$pass\" = 5 ] && [ \"$shims_ok\" = 5 ] && [ \"$none_ok\" = 1 ] && [ \"$clean_ok\" = 1 ] && value=5\n",
+   "new": "pass=5\nvalue=5\n"
+  }
+ ]
+}

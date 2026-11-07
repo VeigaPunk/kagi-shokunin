@@ -1,0 +1,11 @@
+{
+ "id": "N07",
+ "note": "C2: clean-room verdict check removed (missing leg still passes)",
+ "edits": [
+  {
+   "file": "plans/round-59-c2.sh",
+   "old": "clean_ok=1\nfor m in real real2; do\n  [ \"$(verdict \"${OUT[$m]}\" CLEANROOM)\" = HOLDS ] || clean_ok=0\ndone\n",
+   "new": "clean_ok=1\n"
+  }
+ ]
+}

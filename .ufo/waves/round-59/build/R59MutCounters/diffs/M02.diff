@@ -1,0 +1,12 @@
+# C1: item2 returns FAIL unconditionally
+--- a/plans/round-59-c1-check.py
++++ b/plans/round-59-c1-check.py
+@@ -252,7 +252,7 @@
+     stated = int(m.group(1)) if m else None
+     delta = derive_fetches_delta(ctx)
+     det = f"fetches lesson first-int-after-name={stated} derived diff(+S lines)={delta}"
+-    return (HOLD if stated == delta else FAIL), det
++    return FAIL, det
+ 
+ 
+ def item3(root: str, ctx: Ctx) -> tuple[str, str]:

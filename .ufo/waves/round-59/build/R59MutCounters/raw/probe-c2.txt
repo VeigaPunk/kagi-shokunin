@@ -1,0 +1,32 @@
+### P5 N02: pass counts printed T-lines
+--- pristine
+C2_TRANSIT_TRIAL: value=0 tests=5 pass=0 shims=0 vectors=0/5 guard=1 (real=0 none=0 cleanroom=1 secret=1)
+--- N02
+C2_TRANSIT_TRIAL: value=0 tests=5 pass=5 shims=0 vectors=0/5 guard=1 (real=0 none=0 cleanroom=1 secret=1)
+### P6 N03: secret scan removed
+--- pristine
+C2_TRANSIT_TRIAL: value=0 tests=5 pass=5 shims=5 vectors=ok/5 guard=1 (real=1 none=1 cleanroom=1 secret=0)
+--- N03
+C2_TRANSIT_TRIAL: value=0 tests=5 pass=0 shims=2 vectors=2/5 guard=1 (real=0 none=0 cleanroom=0 secret=1)
+### P7 N04: single real run accepted (shuf order forced real,real2,...)
+--- pristine
+--- N04
+cp: cannot stat '/fast/scratch/hyaku/kagi-r59/R59MutCounters/baseref/plans/round-57-c2.sh': No such file or directory
+cp: cannot stat '/fast/scratch/hyaku/kagi-r59/R59MutCounters/baseref/plans/round-59-c2.sh': No such file or directory
+### P8 N05: no-bao leg dropped (a trial that fakes the none leg still scores)
+--- pristine
+--- N05
+cp: cannot stat '/fast/scratch/hyaku/kagi-r59/R59MutCounters/baseref/plans/round-57-c2.sh': No such file or directory
+cp: cannot stat '/fast/scratch/hyaku/kagi-r59/R59MutCounters/baseref/plans/round-59-c2.sh': No such file or directory
+### P9 N08: the clean-room leg reuses the first server
+--- pristine trial server starts:
+TRIAL CLEANROOM HOLDS own-storage-refused=1
+OPENBAO_TRANSIT_TRIAL: HOLDS holds=5 broken=0 error=0 bao=v2.7.2
+2
+--- N08 trial server starts:
+TRIAL CLEANROOM HOLDS own-storage-refused=1
+OPENBAO_TRANSIT_TRIAL: HOLDS holds=5 broken=0 error=0 bao=v2.7.2
+1
+--- pristine counter on the N08 trial (a same-server leg still scores):
+C2_TRANSIT_TRIAL: value=5 tests=5 pass=5 shims=5 vectors=ok/5 guard=1 (real=1 none=1 cleanroom=1 secret=1)
+PROBE-RC=0

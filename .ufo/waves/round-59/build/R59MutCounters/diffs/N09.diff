@@ -1,0 +1,11 @@
+# C2: value fixed at 0 (do-nothing counter)
+--- a/plans/round-59-c2.sh
++++ b/plans/round-59-c2.sh
+@@ -145,7 +145,6 @@
+ pass=0
+ [ "$real_ok" = 1 ] && pass=5
+ value=0
+-[ "$pass" = 5 ] && [ "$shims_ok" = 5 ] && [ "$none_ok" = 1 ] && [ "$clean_ok" = 1 ] && value=5
+ nosecret=1
+ if cat "$SCR"/log/* 2>/dev/null | grep -qE 'r59-[0-9a-f]{24}|(^|[^A-Za-z0-9])(hvs|hvb)\.'; then nosecret=0; fi
+ [ "$nosecret" = 1 ] && [ "$value" = 5 ] || value=0

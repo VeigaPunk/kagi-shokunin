@@ -1,0 +1,11 @@
+{
+ "id": "N01",
+ "note": "C2: shim-vector comparison removed (any vector with rc=1 counts)",
+ "edits": [
+  {
+   "file": "plans/round-59-c2.sh",
+   "old": "  [ \"$(vec \"${OUT[sh$n]}\")\" = \"${EXPECT[sh$n]}\" ] && [ \"${RC[sh$n]}\" = 1 ] && shims_ok=$((shims_ok+1))\n",
+   "new": "  [ \"${RC[sh$n]}\" = 1 ] && shims_ok=$((shims_ok+1))\n"
+  }
+ ]
+}

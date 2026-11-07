@@ -1,0 +1,16 @@
+# C1: I1 missing line defaults to the derived (target) pair
+--- a/plans/round-59-c1-check.py
++++ b/plans/round-59-c1-check.py
+@@ -234,10 +234,10 @@
+ # --------------------------------------------------------------------------- items
+ def item1(root: str, ctx: Ctx) -> tuple[str, str]:
+     line = last_line(rd(root, LESSON_REL), lambda ln: REGISTRY_LINE_RE.search(ln))
++    n_base, n_land = derive_registry_counts(ctx)
+     if line is None:
+-        return FAIL, "no 'Registry N → M at the candidate' line in the lesson"
++        return HOLD, "registry line absent; defaulted to the derived pair"
+     m = REGISTRY_LINE_RE.search(line)
+-    n_base, n_land = derive_registry_counts(ctx)
+     det = (f"registry lesson={m.group(1)}->{m.group(2)} "
+            f"derived base({short(ctx.base_rev)})={n_base} land({short(ctx.land_rev)})={n_land}")
+     ok = (int(m.group(1)), int(m.group(2))) == (n_base, n_land)

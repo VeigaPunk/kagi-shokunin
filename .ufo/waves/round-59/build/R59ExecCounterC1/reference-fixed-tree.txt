@@ -1,0 +1,11 @@
+# receipt: positive reference — a tree carrying the five fixes reads 0 with guard=1 (scratch tree from the BASE archive + corrections + supplement/receipt fixtures; NOT the lane tree)
+# captured: 2026-11-07T17:13:44Z
+# cmd: python3 -I -B plans/round-59-c1-check.py --root <scratch>/ref-build/fixed/tree --repo <lane> --verbose
+c1: i1 HOLD registry lesson=117->120 derived base(1b13f5da)=117 land(be8705f8)=120
+c1: i2 HOLD fetches lesson first-int-after-name=6 derived diff(+S lines)=6
+c1: i3 HOLD controls lesson ints=[3, 58, 20, 9, 1, 7, 2, 58] derived total=20 c1F=9 c2F=7 supplement=ok receipt_end=SUPPLEMENT: match=2 mismatch=0
+c1: i4 HOLD citation gate-U=15 lesson-U=15
+c1: i5 HOLD stale-lane derived minutes=101 (2026-11-07T11:54:48-03:00 → 2026-11-07T13:36:19-03:00) lesson_line=stated
+c1-guard: copy delta arrow 120->121: value=1 expect=1; stub value=0 fails=True
+C1_ROUTED: value=0 population=5 i1=1 i2=1 i3=1 i4=1 i5=1 guard=1
+rc=0

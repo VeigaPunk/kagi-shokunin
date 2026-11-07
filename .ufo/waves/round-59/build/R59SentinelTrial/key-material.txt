@@ -1,0 +1,43 @@
+# R59SentinelTrial — key-material / on-disk secret check
+# date: 2026-11-07
+
+## static: the trial calls no key-export/import or operator endpoint
+none
+
+## static: every key read is metadata-only (latest_version / min_decryption_version)
+167:keyint() { # KEY FIELD -> integer value on stdout; rc 3 on failure
+168:  bao read -format=json "transit/keys/$1" 2>/dev/null | jfield "$2"
+223:  lv=$(keyint "$K2" latest_version) || { RV2="T2 ERROR key-read-rc=1"; return; }
+267:  min2=$(keyint "$K4" min_decryption_version) || { RV4="T4 ERROR key-read-rc=1"; return; }
+273:  min1=$(keyint "$K4" min_decryption_version) || { RV4="T4 ERROR key-read2-rc=1"; return; }
+
+## probe: the trial copy with ONLY the EXIT cleanup trap disabled, so $D survives
+91c91
+< trap 'cleanup' EXIT
+---
+> # [audit probe] cleanup trap disabled so $D can be inspected
+
+## preserved $D (mode, owner):
+700 vgpnk /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/run/leg7/work/openbao-transit-trial.hz92kf
+600 vgpnk /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/run/leg7/work/openbao-transit-trial.hz92kf/err
+700 vgpnk /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/run/leg7/work/openbao-transit-trial.hz92kf/home
+
+## preserved $D file inventory:
+178 /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/run/leg7/work/openbao-transit-trial.hz92kf/err
+
+## preserved $D content (only the last CLI error text):
+Error writing data to transit/decrypt/r59-t1: Error making API request.
+
+URL: PUT http://127.0.0.1:48067/v1/transit/decrypt/r59-t1
+Code: 400. Errors:
+
+* encryption key not found
+
+## secret/key-material scan of $D and the trial HOME:
+scan_hits=0
+
+## no key/token filenames:
+end
+
+## receipts content class (executor receipts + my runs): no ciphertext value, no key material
+/home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-59/build/R59ExecTrial/notes.md

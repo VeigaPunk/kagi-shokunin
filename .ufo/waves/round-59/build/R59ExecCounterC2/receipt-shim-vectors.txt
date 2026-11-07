@@ -1,0 +1,43 @@
+# R59ExecCounterC2 receipt: direct shim-vector runs of the reference trial
+# each: env -i PATH=<dir-with-pinned-bao> KAGI_TRANSIT_SHIM=SHn bash corpus/openbao-transit-trial.sh --work <dir>
+# rc=1 expected (any BROKEN, no ERROR)
+--- SH1 (rc=1) ---
+TRIAL T1 BROKEN roundtrip-prefix-noplain-tamper-refused
+TRIAL T2 HOLDS rotate-v2-old-still-decrypts
+TRIAL T3 HOLDS rewrap-v2-decrypts-mdv2-original-refused
+TRIAL T4 HOLDS mdv2-refuses-v1-mdv1-restores
+TRIAL T5 HOLDS convergent-equal-ctx-diff-ctx-nonconv-random
+TRIAL CLEANROOM HOLDS second-server-refused-t1-ciphertext
+OPENBAO_TRANSIT_TRIAL: BROKEN holds=4 broken=1 error=0 bao=v2.7.2
+--- SH2 (rc=1) ---
+TRIAL T1 HOLDS roundtrip-prefix-noplain-tamper-refused
+TRIAL T2 BROKEN rotate-v2-old-still-decrypts
+TRIAL T3 HOLDS rewrap-v2-decrypts-mdv2-original-refused
+TRIAL T4 HOLDS mdv2-refuses-v1-mdv1-restores
+TRIAL T5 HOLDS convergent-equal-ctx-diff-ctx-nonconv-random
+TRIAL CLEANROOM HOLDS second-server-refused-t1-ciphertext
+OPENBAO_TRANSIT_TRIAL: BROKEN holds=4 broken=1 error=0 bao=v2.7.2
+--- SH3 (rc=1) ---
+TRIAL T1 HOLDS roundtrip-prefix-noplain-tamper-refused
+TRIAL T2 HOLDS rotate-v2-old-still-decrypts
+TRIAL T3 BROKEN rewrap-v2-decrypts-mdv2-original-refused
+TRIAL T4 HOLDS mdv2-refuses-v1-mdv1-restores
+TRIAL T5 HOLDS convergent-equal-ctx-diff-ctx-nonconv-random
+TRIAL CLEANROOM HOLDS second-server-refused-t1-ciphertext
+OPENBAO_TRANSIT_TRIAL: BROKEN holds=4 broken=1 error=0 bao=v2.7.2
+--- SH4 (rc=1) ---
+TRIAL T1 HOLDS roundtrip-prefix-noplain-tamper-refused
+TRIAL T2 HOLDS rotate-v2-old-still-decrypts
+TRIAL T3 HOLDS rewrap-v2-decrypts-mdv2-original-refused
+TRIAL T4 BROKEN mdv2-refuses-v1-mdv1-restores
+TRIAL T5 HOLDS convergent-equal-ctx-diff-ctx-nonconv-random
+TRIAL CLEANROOM HOLDS second-server-refused-t1-ciphertext
+OPENBAO_TRANSIT_TRIAL: BROKEN holds=4 broken=1 error=0 bao=v2.7.2
+--- SH5 (rc=1) ---
+TRIAL T1 HOLDS roundtrip-prefix-noplain-tamper-refused
+TRIAL T2 HOLDS rotate-v2-old-still-decrypts
+TRIAL T3 HOLDS rewrap-v2-decrypts-mdv2-original-refused
+TRIAL T4 HOLDS mdv2-refuses-v1-mdv1-restores
+TRIAL T5 BROKEN convergent-equal-ctx-diff-ctx-nonconv-random
+TRIAL CLEANROOM HOLDS second-server-refused-t1-ciphertext
+OPENBAO_TRANSIT_TRIAL: BROKEN holds=4 broken=1 error=0 bao=v2.7.2

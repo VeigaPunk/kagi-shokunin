@@ -1,0 +1,603 @@
+SETUP server pid=64280 port=36679 version=v2.7.2
+--- phase A: enable transit, key creation
+=== enable-transit
+CMD bao secrets enable transit
+RC 0
+OUTBEGIN
+Success! Enabled the transit secrets engine at: transit/
+OUTEND
+ERRBEGIN
+
+ERREND
+=== key-conv-noderived
+CMD bao write transit/keys/conv convergent_encryption=true
+RC 2
+OUTBEGIN
+
+OUTEND
+ERRBEGIN
+Error writing data to transit/keys/conv: Error making API request.
+
+URL: PUT http://127.0.0.1:36679/v1/transit/keys/conv
+Code: 400. Errors:
+
+* convergent encryption requires derivation to be enabled
+ERREND
+=== read-key-conv-noderived
+CMD bao read transit/keys/conv
+RC 2
+OUTBEGIN
+
+OUTEND
+ERRBEGIN
+No value found at transit/keys/conv
+ERREND
+=== key-conv-derived
+CMD bao write transit/keys/convd derived=true convergent_encryption=true
+RC 0
+OUTBEGIN
+Key                              Value
+---                              -----
+allow_plaintext_backup           false
+auto_rotate_period               0s
+convergent_encryption            true
+convergent_encryption_version    -1
+deletion_allowed                 false
+derived                          true
+exportable                       false
+imported_key                     false
+kdf                              hkdf_sha256
+keys                             map[1:1794070671]
+latest_version                   1
+min_available_version            0
+min_decryption_version           1
+min_encryption_version           0
+name                             convd
+soft_deleted                     false
+supports_decryption              true
+supports_derivation              true
+supports_encryption              true
+supports_signing                 false
+type                             aes256-gcm96
+OUTEND
+ERRBEGIN
+
+ERREND
+=== key-plain
+CMD bao write -f transit/keys/plain
+RC 0
+OUTBEGIN
+Key                       Value
+---                       -----
+allow_plaintext_backup    false
+auto_rotate_period        0s
+deletion_allowed          false
+derived                   false
+exportable                false
+imported_key              false
+keys                      map[1:1794070671]
+latest_version            1
+min_available_version     0
+min_decryption_version    1
+min_encryption_version    0
+name                      plain
+soft_deleted              false
+supports_decryption       true
+supports_derivation       true
+supports_encryption       true
+supports_signing          false
+type                      aes256-gcm96
+OUTEND
+ERRBEGIN
+
+ERREND
+=== key-derived-plain
+CMD bao write transit/keys/dv derived=true
+RC 0
+OUTBEGIN
+Key                       Value
+---                       -----
+allow_plaintext_backup    false
+auto_rotate_period        0s
+convergent_encryption     false
+deletion_allowed          false
+derived                   true
+exportable                false
+imported_key              false
+kdf                       hkdf_sha256
+keys                      map[1:1794070671]
+latest_version            1
+min_available_version     0
+min_decryption_version    1
+min_encryption_version    0
+name                      dv
+soft_deleted              false
+supports_decryption       true
+supports_derivation       true
+supports_encryption       true
+supports_signing          false
+type                      aes256-gcm96
+OUTEND
+ERRBEGIN
+
+ERREND
+--- phase B: encryption and convergence sanity
+=== enc-convd-a1
+CMD bao write transit/encrypt/convd plaintext=cjU5LXByb2JlLXBsYWludGV4dA== context=cjU5LWNvbnRleHQtYWxwaGE=
+RC 0
+OUTBEGIN
+Key            Value
+---            -----
+ciphertext     vault:v1:LATFCkajXFSJOjx5EDcZI1zp0kuNSG21MWsofoRRZd+zY39nZ/mHvw+Q3ruJsp8=
+key_version    1
+OUTEND
+ERRBEGIN
+
+ERREND
+=== enc-convd-a2
+CMD bao write transit/encrypt/convd plaintext=cjU5LXByb2JlLXBsYWludGV4dA== context=cjU5LWNvbnRleHQtYWxwaGE=
+RC 0
+OUTBEGIN
+Key            Value
+---            -----
+ciphertext     vault:v1:LATFCkajXFSJOjx5EDcZI1zp0kuNSG21MWsofoRRZd+zY39nZ/mHvw+Q3ruJsp8=
+key_version    1
+OUTEND
+ERRBEGIN
+
+ERREND
+=== enc-convd-b
+CMD bao write transit/encrypt/convd plaintext=cjU5LXByb2JlLXBsYWludGV4dA== context=cjU5LWNvbnRleHQtYmV0YQ==
+RC 0
+OUTBEGIN
+Key            Value
+---            -----
+ciphertext     vault:v1:pDnVI5uVv/Et8iirKiF/MvPIeGt0xBO4we1s7qocV1sbv2pTIxOHJvG1o3Iegtg=
+key_version    1
+OUTEND
+ERRBEGIN
+
+ERREND
+FACT convergent-same-context-identical=yes
+FACT convergent-diff-context-different=yes
+FACT prefix-ct1=vault:v1 prefix-ct3=vault:v1
+--- phase C: leg (a) rewrap without context
+=== L_a-rewrap-no-context
+CMD bao write transit/rewrap/convd ciphertext=vault:v1:LATFCkajXFSJOjx5EDcZI1zp0kuNSG21MWsofoRRZd+zY39nZ/mHvw+Q3ruJsp8=
+RC 2
+OUTBEGIN
+
+OUTEND
+ERRBEGIN
+Error writing data to transit/rewrap/convd: Error making API request.
+
+URL: PUT http://127.0.0.1:36679/v1/transit/rewrap/convd
+Code: 400. Errors:
+
+* missing 'context' for key derivation; the key was created using a derived key, which means additional, per-request information must be included in order to perform operations with the key
+ERREND
+--- phase D: leg (b) rewrap with wrong context
+=== L_b-rewrap-wrong-context
+CMD bao write transit/rewrap/convd ciphertext=vault:v1:LATFCkajXFSJOjx5EDcZI1zp0kuNSG21MWsofoRRZd+zY39nZ/mHvw+Q3ruJsp8= context=cjU5LWNvbnRleHQtYmV0YQ==
+RC 2
+OUTBEGIN
+
+OUTEND
+ERRBEGIN
+Error writing data to transit/rewrap/convd: Error making API request.
+
+URL: PUT http://127.0.0.1:36679/v1/transit/rewrap/convd
+Code: 400. Errors:
+
+* cipher: message authentication failed
+ERREND
+--- phase E: leg (c) rewrap with right context
+=== L_c-rewrap-right-context
+CMD bao write transit/rewrap/convd ciphertext=vault:v1:LATFCkajXFSJOjx5EDcZI1zp0kuNSG21MWsofoRRZd+zY39nZ/mHvw+Q3ruJsp8= context=cjU5LWNvbnRleHQtYWxwaGE=
+RC 0
+OUTBEGIN
+Key            Value
+---            -----
+ciphertext     vault:v1:LATFCkajXFSJOjx5EDcZI1zp0kuNSG21MWsofoRRZd+zY39nZ/mHvw+Q3ruJsp8=
+key_version    1
+OUTEND
+ERRBEGIN
+
+ERREND
+=== L_c-decrypt-rewrapped
+CMD bao write transit/decrypt/convd ciphertext=vault:v1:LATFCkajXFSJOjx5EDcZI1zp0kuNSG21MWsofoRRZd+zY39nZ/mHvw+Q3ruJsp8= context=cjU5LWNvbnRleHQtYWxwaGE=
+RC 0
+OUTBEGIN
+Key          Value
+---          -----
+plaintext    cjU5LXByb2JlLXBsYWludGV4dA==
+OUTEND
+ERRBEGIN
+
+ERREND
+--- phase F: rotate, leg (d0) migrate v1 -> v2
+=== rotate
+CMD bao write -f transit/keys/convd/rotate
+RC 0
+OUTBEGIN
+Key                              Value
+---                              -----
+allow_plaintext_backup           false
+auto_rotate_period               0s
+convergent_encryption            true
+convergent_encryption_version    -1
+deletion_allowed                 false
+derived                          true
+exportable                       false
+imported_key                     false
+kdf                              hkdf_sha256
+keys                             map[1:1794070671 2:1794070672]
+latest_version                   2
+min_available_version            0
+min_decryption_version           1
+min_encryption_version           0
+name                             convd
+soft_deleted                     false
+supports_decryption              true
+supports_derivation              true
+supports_encryption              true
+supports_signing                 false
+type                             aes256-gcm96
+OUTEND
+ERRBEGIN
+
+ERREND
+=== read-key-after-rotate
+CMD bao read transit/keys/convd
+RC 0
+OUTBEGIN
+Key                              Value
+---                              -----
+allow_plaintext_backup           false
+auto_rotate_period               0s
+convergent_encryption            true
+convergent_encryption_version    -1
+deletion_allowed                 false
+derived                          true
+exportable                       false
+imported_key                     false
+kdf                              hkdf_sha256
+keys                             map[1:1794070671 2:1794070672]
+latest_version                   2
+min_available_version            0
+min_decryption_version           1
+min_encryption_version           0
+name                             convd
+soft_deleted                     false
+supports_decryption              true
+supports_derivation              true
+supports_encryption              true
+supports_signing                 false
+type                             aes256-gcm96
+OUTEND
+ERRBEGIN
+
+ERREND
+=== enc-after-rotate
+CMD bao write transit/encrypt/convd plaintext=cjU5LXByb2JlLXBsYWludGV4dA== context=cjU5LWNvbnRleHQtYWxwaGE=
+RC 0
+OUTBEGIN
+Key            Value
+---            -----
+ciphertext     vault:v2:y20ZgFrz4elnLC01FdSQlBSx4ds0lFpA6mjTgU12Aks/VQh7eERIyMZAe0w/obU=
+key_version    2
+OUTEND
+ERRBEGIN
+
+ERREND
+=== L_d0-rewrap-v1-after-rotate
+CMD bao write transit/rewrap/convd ciphertext=vault:v1:LATFCkajXFSJOjx5EDcZI1zp0kuNSG21MWsofoRRZd+zY39nZ/mHvw+Q3ruJsp8= context=cjU5LWNvbnRleHQtYWxwaGE=
+RC 0
+OUTBEGIN
+Key            Value
+---            -----
+ciphertext     vault:v2:y20ZgFrz4elnLC01FdSQlBSx4ds0lFpA6mjTgU12Aks/VQh7eERIyMZAe0w/obU=
+key_version    2
+OUTEND
+ERRBEGIN
+
+ERREND
+=== L_d0-decrypt-migrated
+CMD bao write transit/decrypt/convd ciphertext=vault:v2:y20ZgFrz4elnLC01FdSQlBSx4ds0lFpA6mjTgU12Aks/VQh7eERIyMZAe0w/obU= context=cjU5LWNvbnRleHQtYWxwaGE=
+RC 0
+OUTBEGIN
+Key          Value
+---          -----
+plaintext    cjU5LXByb2JlLXBsYWludGV4dA==
+OUTEND
+ERRBEGIN
+
+ERREND
+--- phase G: raise min_decryption_version, leg (d)
+=== set-mdv-2
+CMD bao write transit/keys/convd/config min_decryption_version=2
+RC 0
+OUTBEGIN
+Key                              Value
+---                              -----
+allow_plaintext_backup           false
+auto_rotate_period               0s
+convergent_encryption            true
+convergent_encryption_version    -1
+deletion_allowed                 false
+derived                          true
+exportable                       false
+imported_key                     false
+kdf                              hkdf_sha256
+keys                             map[2:1794070672]
+latest_version                   2
+min_available_version            0
+min_decryption_version           2
+min_encryption_version           0
+name                             convd
+soft_deleted                     false
+supports_decryption              true
+supports_derivation              true
+supports_encryption              true
+supports_signing                 false
+type                             aes256-gcm96
+OUTEND
+ERRBEGIN
+
+ERREND
+=== read-key-mdv2
+CMD bao read transit/keys/convd
+RC 0
+OUTBEGIN
+Key                              Value
+---                              -----
+allow_plaintext_backup           false
+auto_rotate_period               0s
+convergent_encryption            true
+convergent_encryption_version    -1
+deletion_allowed                 false
+derived                          true
+exportable                       false
+imported_key                     false
+kdf                              hkdf_sha256
+keys                             map[2:1794070672]
+latest_version                   2
+min_available_version            0
+min_decryption_version           2
+min_encryption_version           0
+name                             convd
+soft_deleted                     false
+supports_decryption              true
+supports_derivation              true
+supports_encryption              true
+supports_signing                 false
+type                             aes256-gcm96
+OUTEND
+ERRBEGIN
+
+ERREND
+=== L_d1-rewrap-excluded-v1
+CMD bao write transit/rewrap/convd ciphertext=vault:v1:LATFCkajXFSJOjx5EDcZI1zp0kuNSG21MWsofoRRZd+zY39nZ/mHvw+Q3ruJsp8= context=cjU5LWNvbnRleHQtYWxwaGE=
+RC 2
+OUTBEGIN
+
+OUTEND
+ERRBEGIN
+Error writing data to transit/rewrap/convd: Error making API request.
+
+URL: PUT http://127.0.0.1:36679/v1/transit/rewrap/convd
+Code: 400. Errors:
+
+* ciphertext or signature version is disallowed by policy (too old)
+ERREND
+=== L_d2-rewrap-v2-allowed
+CMD bao write transit/rewrap/convd ciphertext=vault:v2:y20ZgFrz4elnLC01FdSQlBSx4ds0lFpA6mjTgU12Aks/VQh7eERIyMZAe0w/obU= context=cjU5LWNvbnRleHQtYWxwaGE=
+RC 0
+OUTBEGIN
+Key            Value
+---            -----
+ciphertext     vault:v2:y20ZgFrz4elnLC01FdSQlBSx4ds0lFpA6mjTgU12Aks/VQh7eERIyMZAe0w/obU=
+key_version    2
+OUTEND
+ERRBEGIN
+
+ERREND
+=== L_d2b-rewrap-excluded-v1-wrong-context
+CMD bao write transit/rewrap/convd ciphertext=vault:v1:LATFCkajXFSJOjx5EDcZI1zp0kuNSG21MWsofoRRZd+zY39nZ/mHvw+Q3ruJsp8= context=cjU5LWNvbnRleHQtYmV0YQ==
+RC 2
+OUTBEGIN
+
+OUTEND
+ERRBEGIN
+Error writing data to transit/rewrap/convd: Error making API request.
+
+URL: PUT http://127.0.0.1:36679/v1/transit/rewrap/convd
+Code: 400. Errors:
+
+* ciphertext or signature version is disallowed by policy (too old)
+ERREND
+=== L_d2c-rewrap-excluded-v1-no-context
+CMD bao write transit/rewrap/convd ciphertext=vault:v1:LATFCkajXFSJOjx5EDcZI1zp0kuNSG21MWsofoRRZd+zY39nZ/mHvw+Q3ruJsp8=
+RC 2
+OUTBEGIN
+
+OUTEND
+ERRBEGIN
+Error writing data to transit/rewrap/convd: Error making API request.
+
+URL: PUT http://127.0.0.1:36679/v1/transit/rewrap/convd
+Code: 400. Errors:
+
+* ciphertext or signature version is disallowed by policy (too old)
+ERREND
+=== L_d3-decrypt-excluded-v1
+CMD bao write transit/decrypt/convd ciphertext=vault:v1:LATFCkajXFSJOjx5EDcZI1zp0kuNSG21MWsofoRRZd+zY39nZ/mHvw+Q3ruJsp8= context=cjU5LWNvbnRleHQtYWxwaGE=
+RC 2
+OUTBEGIN
+
+OUTEND
+ERRBEGIN
+Error writing data to transit/decrypt/convd: Error making API request.
+
+URL: PUT http://127.0.0.1:36679/v1/transit/decrypt/convd
+Code: 400. Errors:
+
+* ciphertext or signature version is disallowed by policy (too old)
+ERREND
+=== lower-mdv-1
+CMD bao write transit/keys/convd/config min_decryption_version=1
+RC 0
+OUTBEGIN
+Key                              Value
+---                              -----
+allow_plaintext_backup           false
+auto_rotate_period               0s
+convergent_encryption            true
+convergent_encryption_version    -1
+deletion_allowed                 false
+derived                          true
+exportable                       false
+imported_key                     false
+kdf                              hkdf_sha256
+keys                             map[1:1794070671 2:1794070672]
+latest_version                   2
+min_available_version            0
+min_decryption_version           1
+min_encryption_version           0
+name                             convd
+soft_deleted                     false
+supports_decryption              true
+supports_derivation              true
+supports_encryption              true
+supports_signing                 false
+type                             aes256-gcm96
+OUTEND
+ERRBEGIN
+
+ERREND
+=== L_d4-decrypt-v1-after-lower
+CMD bao write transit/decrypt/convd ciphertext=vault:v1:LATFCkajXFSJOjx5EDcZI1zp0kuNSG21MWsofoRRZd+zY39nZ/mHvw+Q3ruJsp8= context=cjU5LWNvbnRleHQtYWxwaGE=
+RC 0
+OUTBEGIN
+Key          Value
+---          -----
+plaintext    cjU5LXByb2JlLXBsYWludGV4dA==
+OUTEND
+ERRBEGIN
+
+ERREND
+--- phase H: isolation - plain and derived-non-convergent keys
+=== enc-plain
+CMD bao write transit/encrypt/plain plaintext=cjU5LXByb2JlLXBsYWludGV4dA==
+RC 0
+OUTBEGIN
+Key            Value
+---            -----
+ciphertext     vault:v1:TBytKzVfquYBkUERskbI20EPXKSWbC3sqR38LubGLEt4Dn0m7jboKTTu36g7oas=
+key_version    1
+OUTEND
+ERRBEGIN
+
+ERREND
+=== L_e-rewrap-plain-no-context
+CMD bao write transit/rewrap/plain ciphertext=vault:v1:TBytKzVfquYBkUERskbI20EPXKSWbC3sqR38LubGLEt4Dn0m7jboKTTu36g7oas=
+RC 0
+OUTBEGIN
+Key            Value
+---            -----
+ciphertext     vault:v1:qAK3kynqeWUGNRBGm35kwFs2QiZ5X5JqwWoOPodBvIpic6nXv8a+JJvQq0aB3X0=
+key_version    1
+OUTEND
+ERRBEGIN
+
+ERREND
+=== L_e2-rewrap-plain-with-context
+CMD bao write transit/rewrap/plain ciphertext=vault:v1:TBytKzVfquYBkUERskbI20EPXKSWbC3sqR38LubGLEt4Dn0m7jboKTTu36g7oas= context=cjU5LWNvbnRleHQtYWxwaGE=
+RC 0
+OUTBEGIN
+Key            Value
+---            -----
+ciphertext     vault:v1:x9hpS7BrKv7q7Ij2eFwnkNdnv3S9EHWy7Y1H5rMfVSOb2xXDBaSlaKZu9zidQ4A=
+key_version    1
+OUTEND
+ERRBEGIN
+
+ERREND
+=== enc-derived-plain
+CMD bao write transit/encrypt/dv plaintext=cjU5LXByb2JlLXBsYWludGV4dA== context=cjU5LWNvbnRleHQtYWxwaGE=
+RC 0
+OUTBEGIN
+Key            Value
+---            -----
+ciphertext     vault:v1:lR+qoIDKSaLUL4SCTKGYP0k97BeNBFEZekk3F3UOEmgX99+mW69Zhav7xQ3mK10=
+key_version    1
+OUTEND
+ERRBEGIN
+
+ERREND
+=== L_f-rewrap-derived-no-context
+CMD bao write transit/rewrap/dv ciphertext=vault:v1:lR+qoIDKSaLUL4SCTKGYP0k97BeNBFEZekk3F3UOEmgX99+mW69Zhav7xQ3mK10=
+RC 2
+OUTBEGIN
+
+OUTEND
+ERRBEGIN
+Error writing data to transit/rewrap/dv: Error making API request.
+
+URL: PUT http://127.0.0.1:36679/v1/transit/rewrap/dv
+Code: 400. Errors:
+
+* missing 'context' for key derivation; the key was created using a derived key, which means additional, per-request information must be included in order to perform operations with the key
+ERREND
+=== L_f2-rewrap-derived-right-context
+CMD bao write transit/rewrap/dv ciphertext=vault:v1:lR+qoIDKSaLUL4SCTKGYP0k97BeNBFEZekk3F3UOEmgX99+mW69Zhav7xQ3mK10= context=cjU5LWNvbnRleHQtYWxwaGE=
+RC 0
+OUTBEGIN
+Key            Value
+---            -----
+ciphertext     vault:v1:APh86nK8+B+qJl6jTtIzL701vSMDBCWxCAxw1jREAFtwAIW+/iRvGjJKW90mCZo=
+key_version    1
+OUTEND
+ERRBEGIN
+
+ERREND
+=== L_f3-decrypt-derived-wrong-context
+CMD bao write transit/decrypt/dv ciphertext=vault:v1:lR+qoIDKSaLUL4SCTKGYP0k97BeNBFEZekk3F3UOEmgX99+mW69Zhav7xQ3mK10= context=cjU5LWNvbnRleHQtYmV0YQ==
+RC 2
+OUTBEGIN
+
+OUTEND
+ERRBEGIN
+Error writing data to transit/decrypt/dv: Error making API request.
+
+URL: PUT http://127.0.0.1:36679/v1/transit/decrypt/dv
+Code: 400. Errors:
+
+* cipher: message authentication failed
+ERREND
+--- phase I: rotation-version interaction for convergent key
+=== L_g-rewrap-v1-again
+CMD bao write transit/rewrap/convd ciphertext=vault:v1:LATFCkajXFSJOjx5EDcZI1zp0kuNSG21MWsofoRRZd+zY39nZ/mHvw+Q3ruJsp8= context=cjU5LWNvbnRleHQtYWxwaGE=
+RC 0
+OUTBEGIN
+Key            Value
+---            -----
+ciphertext     vault:v2:y20ZgFrz4elnLC01FdSQlBSx4ds0lFpA6mjTgU12Aks/VQh7eERIyMZAe0w/obU=
+key_version    2
+OUTEND
+ERRBEGIN
+
+ERREND
+FACT rewrap-deterministic-after-rotate=yes
+SUMMARY
+leg_a rc=2 prefix=none
+leg_b rc=2 prefix=none
+leg_c rc=0 prefix=vault:v1
+leg_d0 rc=0 prefix=vault:v2
+leg_d1 rc=2 prefix=none
+leg_d2 rc=0 prefix=vault:v2
+leg_e rc=0 prefix=vault:v1
+leg_f rc=2 prefix=none
+leg_f2 rc=0 prefix=vault:v1
+leg_g rc=0 prefix=vault:v2
+DONE

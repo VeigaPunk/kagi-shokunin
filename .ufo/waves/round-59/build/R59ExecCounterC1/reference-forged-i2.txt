@@ -1,0 +1,11 @@
+# receipt: forgery probe — same tree with the D2 correction stating 7 instead of the derived 6 reads exactly 1 (K1 shape)
+# captured: 2026-11-07T17:13:47Z
+# cmd: python3 -I -B plans/round-59-c1-check.py --root <scratch>/ref-build/forged/tree --repo <lane> --verbose
+c1: i1 HOLD registry lesson=117->120 derived base(1b13f5da)=117 land(be8705f8)=120
+c1: i2 FAIL fetches lesson first-int-after-name=7 derived diff(+S lines)=6
+c1: i3 HOLD controls lesson ints=[3, 58, 20, 9, 1, 7, 2, 58] derived total=20 c1F=9 c2F=7 supplement=ok receipt_end=SUPPLEMENT: match=2 mismatch=0
+c1: i4 HOLD citation gate-U=15 lesson-U=15
+c1: i5 HOLD stale-lane derived minutes=101 (2026-11-07T11:54:48-03:00 → 2026-11-07T13:36:19-03:00) lesson_line=stated
+c1-guard: copy delta arrow 120->121: value=2 expect=2; stub value=0 fails=True
+C1_ROUTED: value=1 population=5 i1=1 i2=0 i3=1 i4=1 i5=1 guard=1
+rc=1

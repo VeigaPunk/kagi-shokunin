@@ -1,0 +1,11 @@
+{
+ "id": "M09",
+ "note": "C1: internal printer-stub leg hardcoded to fail the stub",
+ "edits": [
+  {
+   "file": "plans/round-59-c1-check.py",
+   "old": "        stub_fails = not (isinstance(sv, int) and sv == expect)\n",
+   "new": "        stub_fails = True\n"
+  }
+ ]
+}

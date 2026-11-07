@@ -1,0 +1,27 @@
+# reject probe — one row opened and checked by this seat, 2026-11-07
+UA: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36
+
+## https://openbao.org/docs/commands/transit/ (the transit CLI page)
+status=200 bytes=30020 sha256=beacc41e63e7ecf92a9651e8aed75169f0c3ffb53af1be1a2c0c6466a23f2424
+rendered-text-v1 chars: 1675
+keyword counts over the rendered text (grep -o -i | wc -l):
+  encrypt = 1
+  decrypt = 0
+  rotate = 0
+  rewrap = 0
+  min_decryption_version = 0
+  convergent_encryption = 0
+  vault:v = 0
+rendered body verbatim (whole page after nav):
+transit | OpenBao Skip to main content OpenBao Blog Ecosystem Docs API Downloads Community Version 2.7.x Development Version 2.7.x Version 2.6.x Version 2.5.x GitHub What is OpenBao? Use cases HTTP API Getting Started Installing OpenBao Internals Concepts Guides Configuration Commands (CLI) Overview agent audit auth debug delete kv lease list login monitor namespace operator patch path-help pki plugin policy print proxy read secrets server ssh status token transit Overview import unwrap version version-history write Token helpers OpenBao Agent and Proxy Secret Engines Auth Methods Audit Devices Plugins Platforms Browser Support Glossary Commands (CLI) transit Overview Version: Version 2.7.x On this page transit The transit command groups subcommands for interacting with OpenBao's Transit Secrets Engine . Syntax ​ Option flags for a given subcommand are provided after the subcommand, but before the arguments. Examples ​ To import keys into a mount via the Transit BYOK mechanism, use the bao transit import <path> <key> or bao transit import-version <path> <key> commands: $ bao transit import transit/keys/test-key @test-key type=rsa-2048 Retrieving transit wrapping key. Wrapping s
+
+## https://openbao.org/docs/concepts/seal/ (seal/unseal page)
+status=200 bytes=44279 sha256=643c78c956d8c2106f8cbbab3ffcefff43e4f90a0f06faeaad666a613063ff65
+keyword counts over the rendered text:
+  transit = 0
+  rewrap = 0
+  min_decryption_version = 0
+
+## https://www.hashicorp.com/en/blog/transit-secrets-engine-encryption-as-a-service (vendor blog mirror)
+status=429 bytes=24737
+note: HTTP 429 rate-limited body; no mechanism text could be checked, so this candidate is NOT used as the reject.

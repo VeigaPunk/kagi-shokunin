@@ -1,0 +1,28 @@
+# instrument pins (the receipt records the bytes this battery measured)
+INSTRUMENT plans/round-59-c1-check.py 6844c1d46545ca0f1bd9819128830717249480dadf0a7038bcc37ffba10a7743
+INSTRUMENT plans/round-59-c1.sh 73a2fc68693a37ec62fcff80b2d46c33e76c86570d10f0c92cc8a1c21e56f2e3
+INSTRUMENT plans/round-59-c2.sh 454a4177dcb6ae2dedd367b9409358b45a25fbac0692b5c3c05510d1ac6c525c
+INSTRUMENT corpus/openbao-transit-trial.sh e11e98f6cfc924131a52713fa496481e80efb89ffcdb9b6bc47b3234d8cc3e01
+INSTRUMENT plans/round-59-controls.sh b3b49291bdd3c7e1787ea55a47b0ee1e8d91f102ba0ecdff14d805ff2416fcf6
+CONTROL K1-BASE expect=5 got=5 MATCH :: C1 diagnostic on the claim BASE: five items unresolved
+CONTROL K1-BASE-GUARD expect=FAIL got=FAIL MATCH :: C1 guard leg on the claim BASE: the challenge cannot fire, value=FAIL
+CONTROL K2-BASE expect=0 got=0 MATCH :: C2 on the claim BASE: the trial does not exist
+CONTROL K1-REF expect=0 got=0 MATCH :: synthetic fixed tree: five items resolved, guard=1
+CONTROL C1-F1 expect=1 got=1 MATCH :: I1 substance broken in the last statement (read on the diagnostic leg: the +1 challenge cannot fire while I1 is unresolved)
+CONTROL C1-F2 expect=1 got=1 MATCH :: I2 delta wrong in the last statement
+CONTROL C1-F3 expect=1 got=1 MATCH :: I3(a) total wrong in the last statement
+CONTROL C1-F4 expect=1 got=1 MATCH :: I4 count disagrees with the receipt file
+CONTROL C1-F5 expect=1 got=1 MATCH :: I5 minutes wrong in the last statement
+CONTROL C1-F6 expect=FAIL got=FAIL MATCH :: the measured lesson is absent: the population floor fails closed
+CONTROL C1-F7 expect=FAIL got=FAIL MATCH :: the guard fails closed when its challenge scratch cannot be created
+CONTROL C1-F8 expect=1 got=1 MATCH :: a wrong statement appended AFTER the right one is the operative one (diagnostic leg)
+CONTROL C2-F1 expect=<5 got=0 MATCH :: the T5 shim removed: the SH5 leg cannot flip its designated test
+CONTROL C2-F2 expect=SETUP/rc2 got=SETUP/rc2 MATCH :: a PATH with no bao reads the prefixed SETUP line, no HOLDS, and exits 2 (K1)
+CONTROL C2-F3 expect=<5 got=0 MATCH :: a trial without the clean-room line cannot score 5 (plan A2)
+CONTROL C2-F4 expect=<5 got=0 MATCH :: a single-run trial: the two-independent-runs conjunct refuses
+CONTROL C2-F5 expect=0 got=0 MATCH :: a fabricated all-HOLDS transcript cannot satisfy the five shim vectors
+CONTROL C2-F6 expect=<5 got=0 MATCH :: a shim that flips two tests cannot satisfy the exactly-one vector
+CONTROL C2-F7 expect=SETUP got=SETUP MATCH :: a wrong-sha256 bao is SETUP
+CONTROL C2-F8 expect=5 got=5 MATCH :: ambient BAO_*/VAULT_* exported by the caller does not change a reading
+CONTROLS: match=20 mismatch=0
+RC=0

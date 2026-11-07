@@ -1,0 +1,37 @@
+# R59ExecCounterC2 receipt: fail-closed legs (all must read value<5 or SETUP/guard)
+
+## forge A: trial with the CLEANROOM leg removed (control C2-F3 analog)
+cmd: bash plans/round-59-c2.sh --tree forge-cleanroom/tree   rc=1
+C2_TRANSIT_TRIAL: value=0 tests=5 pass=0 shims=0 vectors=0/5 guard=1 (real=0 none=1 cleanroom=0 secret=1)
+
+## forge B: trial printing T-lines but no summary line (C2-F5 analog)
+cmd: bash plans/round-59-c2.sh --tree forge-nosummary   rc=1
+C2_TRANSIT_TRIAL: value=0 tests=5 pass=0 shims=5 vectors=ok/5 guard=1 (real=0 none=1 cleanroom=1 secret=1)
+
+## forge C: SH1 shim flips T1 AND T2 (C2-F6 analog; vector must not be BHHHH)
+cmd: bash plans/round-59-c2.sh --tree forge-2flip   rc=1
+C2_TRANSIT_TRIAL: value=0 tests=5 pass=5 shims=4 vectors=4/5 guard=1 (real=1 none=1 cleanroom=1 secret=1)
+
+## SETUP: R59_BAO points at a missing binary
+cmd: R59_BAO=/nonexistent/bao bash plans/round-59-c2.sh --tree candidate   rc=2
+C2_TRANSIT_TRIAL: SETUP bao-missing
+
+## SETUP: R59_BAO points at an executable with the wrong sha256
+cmd: R59_BAO=<scratch>/fakebao bash plans/round-59-c2.sh --tree candidate   rc=2
+C2_TRANSIT_TRIAL: SETUP bao-pin-mismatch
+
+## guard: unresolvable revision
+cmd: bash plans/round-59-c2.sh nosuchrevision   rc=1
+C2_TRANSIT_TRIAL: value=0 tests=5 pass=0 shims=0 vectors=0/5 guard=0 (bad-revision)
+
+## guard: unreadable --tree
+cmd: bash plans/round-59-c2.sh --tree /nonexistent/dir   rc=1
+C2_TRANSIT_TRIAL: value=0 tests=5 pass=0 shims=0 vectors=0/5 guard=0 (bad-tree)
+
+## guard: --tree with no argument
+cmd: bash plans/round-59-c2.sh --tree   rc=1
+C2_TRANSIT_TRIAL: value=0 tests=5 pass=0 shims=0 vectors=0/5 guard=0 (bad-tree)
+
+## ambient hostile env (C2-F8 analog): BAO_ADDR/BAO_TOKEN/VAULT_* exported by caller
+cmd: env BAO_ADDR=http://127.0.0.1:1 BAO_TOKEN=<ambient-token-shaped-value> BAO_SEALTYPE=shamiras VAULT_ADDR=http://127.0.0.1:1 VAULT_TOKEN=<ambient-token-shaped-value> bash plans/round-59-c2.sh --tree candidate   rc=0
+C2_TRANSIT_TRIAL: value=5 tests=5 pass=5 shims=5 vectors=ok/5 guard=1 (real=1 none=1 cleanroom=1 secret=1)

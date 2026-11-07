@@ -1,0 +1,110 @@
+# R59SentinelTrial — scratch confinement
+# date: 2026-11-07
+
+## trial: write-mode file syscalls, full real run under strace (cwd = lane root)
+write_mode_opens_under_lane=0
+write_mode_opens_under_work=37
+write targets outside --work (dir summary):
+     53 /dev/null
+      1 /dev/tty
+
+## trial: copied-tree manifest before/after a run (trial cwd = the tree, --work outside it)
+TREE-MANIFEST-UNCHANGED=yes
+files_newer_than_stamp=0
+
+## counter: the measured --tree is read-only
+COUNTER-TREE-MANIFEST-UNCHANGED=yes
+
+## counter: its own writes are under ${HYAKU_SCRATCH} and its SCR is removed by trap
+80:SCR=${HYAKU_SCRATCH:-/fast/scratch/hyaku}/kagi-r59/R59ExecCounterC2/c2-counter.$$
+82:trap 'rm -rf -- "$SCR"' EXIT
+left under the overridden scratch root after 3 counter runs:
+d /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59
+d /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2
+d /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2/c2-counter.4124407
+d /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2/c2-counter.4124407/log
+f /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2/c2-counter.4124407/log/99d9d7e622ed5503
+f /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2/c2-counter.4124407/log/99d9d7e622ed5503.err
+f /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2/c2-counter.4124407/log/369c9557ea416907
+f /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2/c2-counter.4124407/log/369c9557ea416907.err
+d /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2/c2-counter.4124407/83aaefcefe606a96
+d /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2/c2-counter.4124407/83aaefcefe606a96/bin
+l /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2/c2-counter.4124407/83aaefcefe606a96/bin/bao
+d /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2/c2-counter.4124407/83aaefcefe606a96/home
+d /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2/c2-counter.4124407/83aaefcefe606a96/tmp
+d /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2/c2-counter.4124407/83aaefcefe606a96/work
+d /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2/c2-counter.4124407/83aaefcefe606a96/work/openbao-transit-trial.H2wNxm
+d /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2/c2-counter.4124407/83aaefcefe606a96/work/openbao-transit-trial.H2wNxm/home
+f /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2/c2-counter.4124407/83aaefcefe606a96/work/openbao-transit-trial.H2wNxm/err
+d /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2/c2-counter.4124407/711c0e5760919a66
+d /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2/c2-counter.4124407/711c0e5760919a66/bin
+l /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2/c2-counter.4124407/711c0e5760919a66/bin/bao
+d /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2/c2-counter.4124407/711c0e5760919a66/home
+d /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2/c2-counter.4124407/711c0e5760919a66/tmp
+d /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2/c2-counter.4124407/711c0e5760919a66/work
+d /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2/c2-counter.4124407/e6e8bf811b784a5b
+d /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2/c2-counter.4124407/e6e8bf811b784a5b/bin
+d /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2/c2-counter.4124407/e6e8bf811b784a5b/home
+d /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2/c2-counter.4124407/e6e8bf811b784a5b/tmp
+d /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2/c2-counter.4124407/e6e8bf811b784a5b/work
+d /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2/c2-counter.4124407/7f10dafef5ea8d20
+d /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2/c2-counter.4124407/7f10dafef5ea8d20/bin
+l /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2/c2-counter.4124407/7f10dafef5ea8d20/bin/bao
+d /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2/c2-counter.4124407/7f10dafef5ea8d20/home
+d /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2/c2-counter.4124407/7f10dafef5ea8d20/tmp
+d /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2/c2-counter.4124407/7f10dafef5ea8d20/work
+d /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2/c2-counter.4124407/0bcca35266e5b969
+d /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2/c2-counter.4124407/0bcca35266e5b969/bin
+l /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2/c2-counter.4124407/0bcca35266e5b969/bin/bao
+d /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2/c2-counter.4124407/0bcca35266e5b969/home
+d /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2/c2-counter.4124407/0bcca35266e5b969/tmp
+d /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2/c2-counter.4124407/0bcca35266e5b969/work
+d /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2/c2-counter.4124407/081e26ee4a6c97bf
+d /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2/c2-counter.4124407/081e26ee4a6c97bf/bin
+l /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2/c2-counter.4124407/081e26ee4a6c97bf/bin/bao
+d /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2/c2-counter.4124407/081e26ee4a6c97bf/home
+d /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2/c2-counter.4124407/081e26ee4a6c97bf/tmp
+d /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2/c2-counter.4124407/081e26ee4a6c97bf/work
+d /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2/c2-counter.4124407/55fee0b22d91da0a
+d /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2/c2-counter.4124407/55fee0b22d91da0a/bin
+l /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2/c2-counter.4124407/55fee0b22d91da0a/bin/bao
+d /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2/c2-counter.4124407/55fee0b22d91da0a/home
+d /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2/c2-counter.4124407/55fee0b22d91da0a/tmp
+d /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2/c2-counter.4124407/55fee0b22d91da0a/work
+d /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2/c2-counter.4124407/84aadf94c5124fed
+d /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2/c2-counter.4124407/84aadf94c5124fed/bin
+l /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2/c2-counter.4124407/84aadf94c5124fed/bin/bao
+d /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2/c2-counter.4124407/84aadf94c5124fed/home
+d /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2/c2-counter.4124407/84aadf94c5124fed/tmp
+d /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2/c2-counter.4124407/84aadf94c5124fed/work
+
+## trial default work dir when --work is omitted (never inside a measured tree)
+77:BASE="${WORK:-${HYAKU_SCRATCH:-/fast/scratch/hyaku}/kagi-r59/R59ExecTrial/trial-work}"
+
+## lane git status at audit time (concurrent wave writes present; see audit.md note)
+ M SCORECARD.md
+ M SKILL.md
+ M corpus/README.md
+ M corpus/SOURCES.md
+ M corpus/claims-declared.tsv
+ M corpus/lessons/round-58.md
+ M corpus/source-fetches.tsv
+ M corpus/stamps.tsv
+ M plans/round-59.md
+?? .ufo/waves/round-59/
+?? corpus/knowledge/openbao-transit-engine.md
+?? corpus/openbao-transit-trial.sh
+?? plans/round-58-controls-supplement.sh
+?? plans/round-59-c1-check.py
+?? plans/round-59-c1.sh
+?? plans/round-59-c2.sh
+?? plans/round-59-controls.sh
+
+## post-run check (after the final counter run exited)
+left under the overridden scratch root: 2 entries
+d /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59
+d /fast/scratch/hyaku/kagi-r59/R59SentinelTrial/shim/kagi-r59/R59ExecCounterC2
+
+## counter umask / scratch-path mode (defense-in-depth observation)
+80:SCR=${HYAKU_SCRATCH:-/fast/scratch/hyaku}/kagi-r59/R59ExecCounterC2/c2-counter.$$
+observed during a live run: SCR=755, log=755, log files=644 (no secret is printed by the trial; the trial itself sets umask 077)

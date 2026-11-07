@@ -1,0 +1,13 @@
+# R59ExecCounterC2 receipt: clean-room leg
+# (a) reference trial CLEANROOM line in two independent real runs:
+TRIAL CLEANROOM HOLDS second-server-refused-t1-ciphertext
+TRIAL CLEANROOM HOLDS second-server-refused-t1-ciphertext
+
+# (b) independent non-trial cross-server probe on the pinned bao binary
+#     (two separate bao server -dev, own ports + own in-memory storage;
+#      server B must refuse server A's T1 ciphertext):
+# independent clean-room probe, bao v2.7.2
+# server A 127.0.0.1:20513  server B 127.0.0.1:21984 (separate bao server -dev, own in-memory storage)
+# A ciphertext prefix: vault:v1:...
+CR-B-no-key: REFUSED (Error writing data to transit/decrypt/k1: Error making API request.  URL: PUT http://127.0.0.1:21984/v1/transit/decrypt/)
+CR-B-fresh-same-name-key: REFUSED (Error writing data to transit/decrypt/k1: Error making API request.  URL: PUT http://127.0.0.1:21984/v1/transit/decrypt/)

@@ -1,0 +1,12 @@
+# C1: guard hardcoded 1 (challenge/stub legs no longer gate the value)
+--- a/plans/round-59-c1-check.py
++++ b/plans/round-59-c1-check.py
+@@ -430,7 +430,7 @@
+         challenge_detail = f"not run: skipped items {','.join(skipped)}"
+     else:
+         chal_ok, stub_fails, challenge_detail = run_guard(root, count, ctx)
+-        guard = 1 if (population == POP and chal_ok is True and stub_fails is True) else 0
++        guard = 1
+         value_token = str(count) if guard == 1 else "FAIL"
+ 
+     if as_json:

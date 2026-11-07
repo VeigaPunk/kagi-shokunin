@@ -1,0 +1,49 @@
+# R59SentinelTrial — final secret-shape scan (all round-59 artifacts + instruments)
+# date: 2026-11-07T14:18:06-03:00
+
+round59_files=104
+trial_sha256=e11e98f6cfc924131a52713fa496481e80efb89ffcdb9b6bc47b3234d8cc3e01
+counter_sha256=454a4177dcb6ae2dedd367b9409358b45a25fbac0692b5c3c05510d1ac6c525c
+controls_sha256=0d8647a0b6cce42a287e6f3faf074a0524b8b1c10273045a401790d9abb7fa96
+HEAD=af7b665
+
+## grep -rlaE 'hv[sb]\.[A-Za-z0-9_-]{16,}' <scope>
+match_files=0
+
+## grep -rlaE 'r59-[0-9a-f]{24}' <scope>
+.ufo/waves/round-59/build/R59ReviewerCounters/mkc2.sh
+match_files=1
+
+## grep -rlaE '-----BEGIN ([A-Z0-9 ]+ )?PRIVATE KEY-----' <scope>
+match_files=0
+
+## grep -rlaE '(BAO|VAULT)_(TOKEN|DEV_ROOT_TOKEN_ID)[=:][[:space:]]*[A-Za-z0-9._/-]{12,}' <scope>
+match_files=0
+
+## grep -rlaE 'X-Vault-Token:[[:space:]]*[A-Za-z0-9._-]{8,}' <scope>
+match_files=0
+
+## X-Vault-Token placeholders in captured/receipt bodies (expected literal "...")
+     94 X-Vault-Token: ...
+      1 X-Vault-Token: ...` from the page's curl examples — no value.
+
+## header-style cookie lines under round-59 (expect none)
+no match (grep exit 1)
+
+## dev-root-token-shaped string in any receipt
+hits=1
+
+## fixed non-secret fixture markers (declared non-secret by the revenger probe)
+.ufo/waves/round-59/build/R59LabratContext/probe.md
+.ufo/waves/round-59/build/R59LabratContext/probe.sh
+.ufo/waves/round-59/build/R59SentinelTrial/audit.md
+
+## audit/report self-scan (no secret shapes expected)
+self_scan_hits=0
+
+## note on the single r59-hex match
+The only match is `.ufo/waves/round-59/build/R59ReviewerCounters/mkc2.sh` line 31: the reviewer seat
+injects a DELIBERATE mutation fixture into a mutant stub under its own scratch — a sequential 24-hex
+placeholder (the hex digits 0-9a-f in order), labelled "# A7: an r59- + 24-hex nonce in output (secret
+scan must bite)". It is not a captured dev-root token and not the trial per-run marker (which is random);
+the counter K3 scan is supposed to reject it. No real token/marker shape occurs anywhere in the tree.

@@ -1,0 +1,12 @@
+# C1: an absent input line returns SKIP (population can shrink)
+--- a/plans/round-59-c1-check.py
++++ b/plans/round-59-c1-check.py
+@@ -235,7 +235,7 @@
+ def item1(root: str, ctx: Ctx) -> tuple[str, str]:
+     line = last_line(rd(root, LESSON_REL), lambda ln: REGISTRY_LINE_RE.search(ln))
+     if line is None:
+-        return FAIL, "no 'Registry N → M at the candidate' line in the lesson"
++        return SKIP, "no 'Registry N → M at the candidate' line in the lesson"
+     m = REGISTRY_LINE_RE.search(line)
+     n_base, n_land = derive_registry_counts(ctx)
+     det = (f"registry lesson={m.group(1)}->{m.group(2)} "

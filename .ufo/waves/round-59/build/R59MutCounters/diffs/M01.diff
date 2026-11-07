@@ -1,0 +1,12 @@
+# C1: == flipped to != in item1's count comparison
+--- a/plans/round-59-c1-check.py
++++ b/plans/round-59-c1-check.py
+@@ -240,7 +240,7 @@
+     n_base, n_land = derive_registry_counts(ctx)
+     det = (f"registry lesson={m.group(1)}->{m.group(2)} "
+            f"derived base({short(ctx.base_rev)})={n_base} land({short(ctx.land_rev)})={n_land}")
+-    ok = (int(m.group(1)), int(m.group(2))) == (n_base, n_land)
++    ok = (int(m.group(1)), int(m.group(2))) != (n_base, n_land)
+     return (HOLD if ok else FAIL), det
+ 
+ 

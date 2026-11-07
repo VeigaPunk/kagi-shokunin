@@ -301,3 +301,50 @@ is vacuous under kill rule K1 and cannot count.
 L4 (D-6), L6 (GM5). The counter prints
 `C2_REFUSAL: killed=K population=5 guard=G (l1=… l2=… l3=… l4=… l6=… selftest=… real=…)`;
 the leg ids keep their plan names. No other predicate, target, kill rule or fixture changes.
+
+## Amendment A3 — 2026-11-07, before the candidate reading (attack-seat findings, C1 guard and C2 leg mechanics)
+
+`R63Critic` (C1-1/C1-5/C1-2/C1-3/C1-4, C2-1/C2-3/C2-6/C2-7/C2-8) and `R63ScoutPreState`
+(the `--fleet` probe) measured these before any candidate reading. Each item strengthens an
+instrument or restates an already-implemented condition; none narrows a target.
+
+1. **C1 guard leg (f) — the checker challenge (closes C1-1/C1-5).** A copy of the measured
+   tree's `plans/round-61-c1-check.py` with its negator set emptied (`NEGATORS = frozenset(())`)
+   must fail its own `--selftest` with a named `C1_CHECK_SELFTEST: FAIL` line and a non-zero
+   exit. A fixture-lookup checker that prints a constant PASS line has no negator set to
+   empty; the needle matches 0 times and the leg reads 0 (SETUP is not a pass). GUARD gains
+   leg (f); the verdict line gains `chal=…`.
+2. **C1-2 — the checker invocation.** The counter passes `--fleet <dir>` only when the
+   measured tree's checker lists it in `--help`; the BASE checker does not, so the BASE
+   no-work control is measured with the BASE checker's own supported interface (its I6 then
+   reads the round-62 qualifying-time form and F9/F10 are accepted, which is the BASE
+   reading the claim needs).
+3. **C1-3 — I6 keeps the round-62 A1 denial clause** (`I6_DENY_PHRASES`: `times are
+   correct`, `times are right`, `is correct`, `are correct`). B6 is rejected by that clause;
+   the plan's I6 text above named only the launch line, the derived stamps and the quoted
+   superseded span. Guard leg (c) already requires B3..B7 rejected, so the clause is part of
+   the frozen guard, not a new condition.
+4. **C1-4 — I4/I5 keep the round-62 line scope:** the LAST line matching the item's
+   supersedes phrase (the whole-file reading is not the item's condition; round-62 A2).
+5. **C2 population is 5** (A2 stands): L1, L2, L3, L4, L6. The seat prompt's "population 6"
+   and the milestone's "killed 0->6" are stale wording, corrected here and in the report.
+6. **C2 leg mechanics (C2-3/C2-6/C2-7).** L1's needle is derived from the candidate tree's
+   own `plans/round-62-c1.sh`: the exact line `stub=0; [[ $stub_c1 -eq 1 && $stub_c2 -eq 1 ]]
+   && stub=1` when present, else the `stub_calc` body's `[[` line; L2's needle is the
+   `stub_leg` body's closing `}` (a line `SL_OK=1` appended before it). L6's needle is the
+   BASE line `ok = len(qualifying) >= 3 and bool(superseded) and not denied`. A leg fires on
+   a non-zero exit **and** a line matching `^FINDING` or `failed=` (the C1 counter's selftest
+   prints `failed=`), not on a source-pin grep.
+7. **C2-8 — scratch root.** Both round-63 counters write under
+   `${HYAKU_SCRATCH:-/fast/scratch/hyaku}/kagi-r63/<seat>/`, never a round-62 path.
+8. **B-3 — declared couplings.** C1's I2 reads `plans/round-60-c2.sh` (a pre-existing item's
+   evidence this round does not change); C2's L1/L2 read the C1 counter's file. Verification
+   stays separable: C1's claim needs no C2 leg, and C2's legs run on the BASE checker
+   (`C1_CHECK_SELFTEST: PASS (cases=75)`), so neither claim verifies through the other's
+   hardening.
+9. **Named ceilings (recorded, not smoothed):** C2-4/C2-5 — L3/L4's BASE reading is "the
+   control is absent", and the control compares the stub's verdict line to the independently
+   expected BASE line, not the counter's refusal logic (a stub printing the expected line is
+   indistinguishable by output); C1-6 — only the double-quoted span is the superseded stamp
+   (the whole-line set also carries the complete time and four backticked stamps); C1-7 —
+   C1's I2 depends on `plans/round-60-c2.sh`; B-2 — the dispatch carries 15 seats (A1).

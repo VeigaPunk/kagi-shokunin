@@ -317,3 +317,13 @@ Instrument changes land as `plans/round-60-c1-check.py` (items 1, 2, 3, 4, 5, 6)
 `plans/round-60-controls.sh` (C1-F1/F6/F7 fixtures restated to the amended conditions;
 K1-REF's fixed-tree sentence must be one line, not a wrapped bullet). The candidate
 reading is taken only after the battery reads `CONTROLS: match=N mismatch=0`.
+
+### A6 — 2026-11-07, before the recorded candidate reading (I5's scope token)
+
+The scope gate's own verdict token is `ADJACENCY_SCOPE:` — its last line reads
+`ADJACENCY_SCOPE: DEFECT (census=35 … stale_basis=0 …)` — so I5's requirement that the
+scope receipt's last line begin with `SCOPE` would have failed on a real, correctly
+produced receipt. A5 item 3's rule is unchanged in substance (the gate's own verdict
+line, with at least one numeric `key=value` field); the prefix for that one receipt is
+`ADJACENCY_SCOPE:`, and the checker's `_FINAL_PREFIXES["scope"]` plus its fixtures are
+corrected to it. The other two prefixes (`RELEASE_CLOCK:`, `DOC_AUDIT:`) are unchanged.

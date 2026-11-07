@@ -23,7 +23,8 @@ Motivating evidence (round-56 verifier spot-check, non-author:
 Frozen predicate (verbatim; the same sentence is in the counter header):
 
     C1_CURRENT: value = MISMATCH+UNBOUND over POP when GUARD = 1, else FAIL;
-    target 0 (BASE 3), population floor 8.
+    target 0 (BASE 3), frozen census POP=16 cases=3 match=7 epochs=2 clocks=2
+    pop=2; GUARD adds the gate's pinned bytes and a forged-tree challenge (A3).
 
 POP (round-57): every statement of the four declared classes inside the audited
 surface — `SCORECARD.md` `## Round 56 — post-move`, `LOG.md` `## Round 56 (`, and
@@ -154,3 +155,16 @@ the host table; no model is passed.
   occurrences on its runs; this trial counts them, never prints them). T4 measures
   the documented new-salt behaviour through disable+re-enable on the flagged server
   rather than across two instances.
+
+- **A3 (same day, after the C1 reviewer's false-green attack; before the binding candidate
+  measurement).** The first guard (population >= 8) admitted a delete-the-evidence shape: deleting the
+  three stale phrases read `value=0` with population 13, and deleting historical MATCH tokens read 0 at
+  population 8 (reviewer K1-F8). The guard now requires the exact frozen census
+  (`population=16 cases=3 match=7 epochs=2 clocks=2 pop=2`), the gate's bytes at `GATE_SHA256_PIN`
+  (`e36472b3640728ca637d6e6c380cb33b1cd07a27dda2aa53409dec0f5bb4a98a`), the gate's own reading equal to
+  the checker's, and a forged-tree challenge (SCORECARD `20 cases` -> 19 must read exactly value+1; a
+  printer stub fails). The counter now exits 1 unless `value=0` (SETUP 2). Controls K1-F8 (deleted
+  statements -> FAIL) and K1-F9 (printer gate -> FAIL) were added; the battery re-ran 13 MATCH, 0
+  MISMATCH (`.ufo/waves/round-57/controls/controls-prefreeze-epochC.txt`). The C1 target, POP classes and
+  kill rules are unchanged; the `corpus/lessons/round-56.md` repair missed by epoch B's path list is
+  committed here.

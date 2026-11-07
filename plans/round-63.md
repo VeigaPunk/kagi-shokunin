@@ -275,3 +275,14 @@ integration owner and committer.
 - The fixture tables are frozen here; a seat that finds a fixture vacuous reports it,
   never edits it.
 - The I6 derivation reads the fleet report; a lane that cannot read it reads SETUP.
+
+## Amendment A1 — 2026-11-07, before the wave dispatch (wave shape only)
+
+The §Wave line names 16 seats; the validated wave (`kagi-r63-w1`,
+`.ufo/waves/round-63/w1-dispatch.json`) carries **15 seats**: 2 scout, 5 executor,
+2 scribe, 1 reviewer, 1 critic, 2 mutation-tester, 1 connector, 1 sentinel. The checker
+work (all five items I3–I7 and the selftest cases) is one file with one owner
+(`R63ExecC1Grammar`), so the sixth executor seat the earlier line implied is not
+dispatched. Attack share 4/15 = 26.67 % on the addendum's literal list (reviewer,
+critic, mutation-tester ×2; no labrat seat exists), 5/15 = 33.33 % counting the
+sentinel. No predicate, target, POP, kill rule, fixture or item condition changes.

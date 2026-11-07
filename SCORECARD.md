@@ -1811,3 +1811,16 @@ Candidate: the round-53 landing commit (recorded in the report). `.ufo/waves/rou
 | depth | 9 → 9 | No claim. | — |
 | operability | 9 → 9 | No claim. | — |
 | adjacency | 9 → 9 | No claim. | — |
+
+## Round 54 — post-move (claim C1 freshness)
+
+Candidate: the round-54 landing commit (recorded in the report). `.ufo/waves/round-54/final/c1-candidate-tree.txt` holds the reading of the candidate tree taken before that commit; the revision-bound reading of the landed commit follows in the round's receipts commit, named in the report (round-52 closure D1). Claim BASE `1a0f43a9220bb0e995462c2aef745ac0124c3317`; predeclaration `27aa53fd40b0b385b3cf2ffeea49977f9e0ff690` (frozen plan `plans/round-54.md`, counter `plans/round-54-c1.sh`, pre-freeze controls `plans/round-54-controls.sh`, 16 MATCH in `.ufo/waves/round-54/controls/controls-prefreeze.txt`).
+
+| Axis | Before → after | What moved | Evidence |
+|---|---|---|---|
+| freshness | 9 → 9 | [C1] `bash plans/round-54-c1.sh <candidate>` 0 → 2 (target 2): the op-ref entry's `recheck: on-release of op` (`op-ref-consumption.md:371,397`) is watched — S072 `180d` → `on-release`, clock bound to the new S112 1Password Releases feed (opened 2026-11-07) under the declared title prefix `1Password CLI`, observed live 2.42.0 in the new default receipt `observe-r54.json` (32 clocks, 0 failures), so the clock fired — and the fired release is measured: op 2.42.0 (signature-verified vendor binary, run from scratch) passes the six-class dotenv byte contract (`OP_DOTENV_BYTES: CLEAN (checks=6 failed=0)`), entry §11.2. Ceiling: a self-consistent forged receipt and a hand-written op receipt score; the live re-fetch and an independent op 2.42.0 run are the non-author checks. The installed CLI stays 2.41.1 (ledger `R21-01`). | `.ufo/waves/round-54/controls/c1-base.txt`; `.ufo/waves/round-54/final/c1-candidate-tree.txt`; `.ufo/waves/round-54/final/op-dotenv-bytes-2.42.0.txt`; `corpus/release-clocks.tsv`; `corpus/SOURCES.md` S072, S112 |
+| calibration | 9 → 9 | No claim. Measured at BASE for a separable mismatch: `self-counts.py` `stale=0`; the lane-owned unresolved citations behind R11-08 sit in non-owned spot-checks (plan §Axes). The receipt and selftest-count statements this landing moves (`SKILL.md:48`, `SKILL.md:787`, `PROVINCE.md:75`) were updated in the same commit (QM68). | `plans/round-54.md` §Axes |
+| coverage | 9 → 9 | No claim. Registry 111 → 112 (S112 1Password CLI releases RSS feed; tier A, `recheck 90d`). | `corpus/SOURCES.md` S112 |
+| depth | 9 → 9 | No claim. Entry §11.2 adds a fourth measured op release (2.40.0, 2.41.0, 2.41.1, 2.42.0); no new byte class. | `corpus/knowledge/op-ref-consumption.md` §11.2 |
+| operability | 9 → 9 | No claim. The release-clock gate reads a vendor RSS feed with multi-word product titles under a per-feed declared prefix (selftest 116 → 121 cases); counted under C1, not booked twice. | `corpus/release-clock.py` `FEED_TITLE_PREFIXES` |
+| adjacency | 9 → 9 | No claim. | — |

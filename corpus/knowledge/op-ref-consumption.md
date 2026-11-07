@@ -396,6 +396,20 @@ Six classes, unchanged from §11 — ids and the bytes the child receives for `K
 
 **Falsifier.** Any `DOTENV_BYTES_CASE … status=FAIL`, or a `DRIFT`/`SETUP` verdict, from `bash corpus/op-ref-probe.sh --dotenv-bytes` on a newer op release falsifies the corresponding class for that release; `recheck: on-release of op`.
 
+### 11.2 Re-measure on op 2.42.0, the release the S072 clock observes (round 54)
+
+The `recheck: on-release of op` lines above had no clock until round 54: S072 now carries an `on-release` recheck bound to the S112 1Password Releases RSS feed (`corpus/release-clocks.tsv`, anchored `2.41.1`), and the round-54 receipt `.ufo/waves/round-54/final/observe-r54.json` observed the newest stable item `2.42.0` (2026-11-07), so the clock fired. This subsection is the re-measure that firing asks for; §11 and §11.1 stay as written.
+
+Binary measured: op `2.42.0` (`op --version`), the official Linux amd64 archive `https://cache.agilebits.com/dist/1P/op2/pkg/v2.42.0/op_linux_amd64_v2.42.0.zip`, its detached signature verified against the 1Password code-signing key `3FEF9748469ADBE15DA7CA80AC2D62742012EA22`, unpacked into round scratch and passed to the probe as `OP_REF_OP_BIN`. The installed CLI stayed `/usr/bin/op` `2.41.1` (host package upgrades are paused); nothing was installed. Receipt: `.ufo/waves/round-54/final/op-dotenv-bytes-2.42.0.txt` (archive and binary sha256, signing-key fingerprint, the probe's sha256, the command, its output and exit).
+
+Command: `OP_REF_OP_BIN=<verified 2.42.0 binary> bash corpus/op-ref-probe.sh --dotenv-bytes` → six `DOTENV_BYTES_CASE id=<id> status=PASS` lines, then `OP_DOTENV_BYTES: CLEAN (checks=6 failed=0)`, exit 0 — measured 2026-11-07 on 2.42.0. The six classes and their child bytes are the §11.1 list, unchanged; this round asserts no byte change on 2.42.0.
+
+**Sourced.** `corpus/SOURCES.md` **S112** — the 1Password CLI releases feed, `https://releases.1password.com/developers/cli/index.xml`, opened 2026-11-07; its newest item reads `<title>1Password CLI 2.42.0</title>`. It establishes the release identity the clock observed, not anything about bytes.
+
+**Does not establish.** Representation fidelity for these six classes on op `2.42.0` only, from a verified vendor binary that is not the installed CLI: no ref-resolved value, no item read, no vault or account fact, no handler behaviour (`the-janitor` is absent from this host). The ledger row `R21-01` still runs the installed `op`, so it measures 2.41.1 until the host package moves. A later release is unmeasured until the S072 clock fires again.
+
+**Falsifier.** Any `DOTENV_BYTES_CASE … status=FAIL`, or a `DRIFT`/`SETUP` verdict, from the command above on a newer op release falsifies the corresponding class for that release; `recheck: on-release of op` (clock: S072 → S112).
+
 ## Erratum (round 22 — comparator history)
 
 The §10 “21 cases” comparator sentence is an intermediate historical count,

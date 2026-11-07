@@ -1,0 +1,78 @@
+{
+ "round": 54,
+ "measured_at": "round-54 candidate tree (the lane working copy at predeclaration 27aa53fd plus the candidate edits), each command run from the tree root, 2026-11-07",
+ "kind": "measured rebinding of population expectations moved by this round's own additions (one SCORECARD heading, one registry row, one quote-body row, one on-release clock row, five selftest cases, the default receipt); not a claim",
+ "population": "R13-01 R21-02 R24-06 R25-03 R31-02 R33-02 R34-03 R36-02 R36-03 R38-01 only",
+ "migrations": [
+  {
+   "id": "R13-01",
+   "command": "grep -c '^## Round ' SCORECARD.md",
+   "old_expect": "^71$",
+   "new_expect": "^72$",
+   "reason": "SCORECARD round headings 71 -> 72: round 54 adds `## Round 54 \u2014 post-move` (this landing). Growth only."
+  },
+  {
+   "id": "R21-02",
+   "command": "bash corpus/sources-census.sh",
+   "old_expect": "^SOURCES_CENSUS: CLEAN \\(rows=111 A=107 B=2 C=2 queued=1 mined=106 rejected=4 entries_sourced=16 legacy=21 captures=111 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+   "new_expect": "^SOURCES_CENSUS: CLEAN \\(rows=112 A=108 B=2 C=2 queued=1 mined=107 rejected=4 entries_sourced=16 legacy=21 captures=112 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+   "reason": "registry rows 111 -> 112: round 54 adds S112 (1Password CLI releases RSS feed), tier A mined with a capture; A, mined, captures grow by 1; S072 changes only its recheck cell (180d -> on-release); B/C/queued/rejected/legacy/inrow/entries_sourced unchanged."
+  },
+  {
+   "id": "R24-06",
+   "command": "bash corpus/row-identity.sh scorecard-rounds",
+   "old_expect": "^ROW_IDENTITY: scorecard-rounds count=71 sha256=385e89bc74aeac79a57f424a4675c64f1edf008b412bf2434fc445fb0c9fb172$",
+   "new_expect": "^ROW_IDENTITY: scorecard-rounds count=72 sha256=358ac0823e567988b0c73642684c09aa3c5f94940a76c3d0f6038171c60eab75$",
+   "reason": "scorecard-rounds membership 71 -> 72: the `## Round 54 \u2014 post-move` heading (this landing) joins the member list; the sha256 is over the new member list."
+  },
+  {
+   "id": "R25-03",
+   "command": "python3 corpus/release-clock.py --selftest",
+   "old_expect": "^RELEASE_CLOCK_SELFTEST: PASS \\(116 cases\\)$",
+   "new_expect": "^RELEASE_CLOCK_SELFTEST: PASS \\(121 cases\\)$",
+   "reason": "release-clock selftest 116 -> 121 cases: round 54 C1 adds five cases for the per-feed declared title prefix (declared prefix, anchored and space-delimited prefix, undeclared feed keeps the one-word rule, a declared prefix does not widen a python feed, no prefix declared for an undeclared feed). No case removed."
+  },
+  {
+   "id": "R31-02",
+   "command": "bash corpus/sources-census.sh",
+   "old_expect": "^SOURCES_CENSUS: CLEAN \\(rows=111 A=107 B=2 C=2 queued=1 mined=106 rejected=4 entries_sourced=16 legacy=21 captures=111 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+   "new_expect": "^SOURCES_CENSUS: CLEAN \\(rows=112 A=108 B=2 C=2 queued=1 mined=107 rejected=4 entries_sourced=16 legacy=21 captures=112 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+   "reason": "registry rows 111 -> 112: round 54 adds S112 (1Password CLI releases RSS feed), tier A mined with a capture; A, mined, captures grow by 1; S072 changes only its recheck cell (180d -> on-release); B/C/queued/rejected/legacy/inrow/entries_sourced unchanged."
+  },
+  {
+   "id": "R33-02",
+   "command": "bash corpus/sources-census.sh",
+   "old_expect": "^SOURCES_CENSUS: CLEAN \\(rows=111 A=107 B=2 C=2 queued=1 mined=106 rejected=4 entries_sourced=16 legacy=21 captures=111 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+   "new_expect": "^SOURCES_CENSUS: CLEAN \\(rows=112 A=108 B=2 C=2 queued=1 mined=107 rejected=4 entries_sourced=16 legacy=21 captures=112 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+   "reason": "registry rows 111 -> 112: round 54 adds S112 (1Password CLI releases RSS feed), tier A mined with a capture; A, mined, captures grow by 1; S072 changes only its recheck cell (180d -> on-release); B/C/queued/rejected/legacy/inrow/entries_sourced unchanged."
+  },
+  {
+   "id": "R34-03",
+   "command": "bash corpus/sources-census.sh",
+   "old_expect": "^SOURCES_CENSUS: CLEAN \\(rows=111 A=107 B=2 C=2 queued=1 mined=106 rejected=4 entries_sourced=16 legacy=21 captures=111 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+   "new_expect": "^SOURCES_CENSUS: CLEAN \\(rows=112 A=108 B=2 C=2 queued=1 mined=107 rejected=4 entries_sourced=16 legacy=21 captures=112 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+   "reason": "registry rows 111 -> 112: round 54 adds S112 (1Password CLI releases RSS feed), tier A mined with a capture; A, mined, captures grow by 1; S072 changes only its recheck cell (180d -> on-release); B/C/queued/rejected/legacy/inrow/entries_sourced unchanged."
+  },
+  {
+   "id": "R36-02",
+   "command": "bash plans/round-36-c2.sh",
+   "old_expect": "^2$",
+   "new_expect": "^3$",
+   "reason": "the round-36 counter compares feed clock rows with the historical 2026-11-04 receipt observe-live.json and counts a row that receipt does not carry as drift: S072 is a new feed row (round 54 C1) observed only in observe-r54.json, so the historical comparison reads 3 (S072, S103, S104). The 29 older rows still agree with that receipt."
+  },
+  {
+   "id": "R36-03",
+   "command": "bash plans/round-36-c3.sh",
+   "old_expect": "^RELEASE_CLOCK: CLEAN \\(on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17\\)$",
+   "new_expect": "^RELEASE_CLOCK: CLEAN \\(on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17\\)$",
+   "reason": "default-receipt verdict line: round 54 moves the default receipt to observe-r54.json (32 clocks); on_release/bound/observed 31 -> 32 (S072), fired 13 -> 14 (S072 observed 2.42.0 over anchor 2.41.1), derived 17 unchanged."
+  },
+  {
+   "id": "R38-01",
+   "command": "bash plans/round-38-c1.sh",
+   "old_expect": "^9$",
+   "new_expect": "^10$",
+   "reason": "located quote-body rows 9 -> 10: round 54 adds the S112 quote-body row (`<title>1Password CLI 2.42.0</title>`, offset 37215 in .ufo/waves/round-54/capture/S112.body). Growth only."
+  }
+ ]
+}

@@ -25,7 +25,7 @@ HEADER = (
     "id", "clock", "feed_source_id", "feed_url", "anchored_version",
     "observed_version", "observed_at", "verdict", "note",
 )
-DEFAULT_RECEIPT_SHA256 = "f927b4318dee90ad3e2a8e2f899fcd2e37c43e833e7c3c3705aa5b5723d37c9a"
+DEFAULT_RECEIPT_SHA256 = "9513690e3b58ad2198038df888ccb12537553d12ba4f141f9a9d8d0121ce98af"
 SOURCE_ID_RE = re.compile(r"S[0-9]{3}")
 QUOTE_RE = re.compile(r"“([^”]+)”|(?<!\\)\"([^\"\n]+)\"")
 USER_AGENT = "kagi-shokunin-round25/1.0 (documentation verification)"
@@ -544,7 +544,7 @@ def load_receipt_bundle(path, expected_sha256=None):
 
 def receipt_path(root, selected):
     if selected is None:
-        return root / ".ufo" / "waves" / "round-53" / "final" / "observe-r53.json"
+        return root / ".ufo" / "waves" / "round-54" / "final" / "observe-r54.json"
     path = Path(selected)
     return path if path.is_absolute() else root / path
 
@@ -790,6 +790,22 @@ STABLE_TITLE_RE = re.compile(r"^(?:[A-Za-z]+ )?v?([0-9]+\.[0-9]+\.[0-9]+)(?![A-Z
 STABLE_TAG_HREF_RE = re.compile(r"/releases/tag/v?([0-9]+\.[0-9]+\.[0-9]+)(?![A-Za-z0-9+-]|\.[0-9])")
 TEXT_VERSION_RE = re.compile(r"^Version:[ \t]*v?([0-9]+\.[0-9]+\.[0-9]+)(?![A-Za-z0-9+-]|\.[0-9])", re.MULTILINE)
 
+# Round 54 C1 (S112): a vendor feed whose item titles carry a multi-word product
+# name ("1Password CLI 2.42.0") is read only under a prefix declared here for that
+# exact feed URL. The default title rule keeps its single optional word, so an
+# undeclared feed is unchanged (S036's "Python install manager 26.4.1" item is
+# still never a CPython release); under a declared prefix ONLY titles that are
+# exactly `<prefix> [v]X.Y.Z` (nothing after the version: a prerelease or a
+# "beta" word refuses) count, and `/releases/tag/` links still count.
+FEED_TITLE_PREFIXES = {
+    "https://releases.1password.com/developers/cli/index.xml": "1Password CLI",
+}
+
+
+def prefixed_title_re(title_prefix):
+    return re.compile(r"^" + re.escape(title_prefix)
+                      + r" v?([0-9]+\.[0-9]+\.[0-9]+)$")
+
 
 def newest_stable(tokens):
     """Newest stable X.Y.Z, after every candidate token passes canonicality."""
@@ -798,14 +814,15 @@ def newest_stable(tokens):
     return max(tokens, key=version_order)
 
 
-def parse_latest_version(body):
+def parse_latest_version(body, title_prefix=None):
     """Newest STABLE release in a feed: the newest canonical X.Y.Z over every entry.
 
     Entry order is not trusted (GitHub Atom orders by update time and mixes
     module tags such as `sdk/v0.26.0` and prereleases such as `v2.2.0-rc1`);
     only a title that is exactly `[Word ]vX.Y.Z` or a `/releases/tag/vX.Y.Z`
     link counts. A plain-text release file (curl.se/info) is read from its
-    `Version: X.Y.Z` line.
+    `Version: X.Y.Z` line. With a declared `title_prefix` (FEED_TITLE_PREFIXES)
+    a title counts only when it is exactly `<prefix> [v]X.Y.Z`.
     """
     if not isinstance(body, bytes) or len(body) > MAX_BODY_BYTES:
         raise ValueError("feed body is invalid or too large")
@@ -831,13 +848,14 @@ def parse_latest_version(body):
         raise ValueError("feed has too many entries")
     if not entries:
         raise ValueError("feed has no entry/item")
+    title_re = STABLE_TITLE_RE if title_prefix is None else prefixed_title_re(title_prefix)
     stable = []
     for entry in entries:
         for child in list(entry):
             tag = child.tag.rsplit("}", 1)[-1].lower()
             match = None
             if tag == "title" and child.text:
-                match = STABLE_TITLE_RE.match(child.text.strip())
+                match = title_re.match(child.text.strip())
             elif tag == "link":
                 href = child.attrib.get("href") or (child.text or "")
                 match = STABLE_TAG_HREF_RE.search(href.strip())
@@ -877,7 +895,7 @@ def observe_one(source, values, normalizer, opener=None, resolver=None, capture=
         if error:
             raise ValueError(error)
         if clock == "feed":
-            parsed_version = parse_latest_version(body)
+            parsed_version = parse_latest_version(body, FEED_TITLE_PREFIXES.get(url))
             receipt["parsed_version"] = parsed_version
             # the row's anchor and its previously recorded observation are both
             # floors: a fired 3.15.0 row that recorded 3.15.1 must not silently
@@ -1383,6 +1401,40 @@ def selftest():
             got = "ValueError: %s" % exc
         if got != wanted:
             failures.append("version parser %s: %r != %r" % (label, got, wanted))
+    # round 54 C1 (S112): declared multi-word product prefix, scoped to its feed
+    op_rss = (b"<rss><channel><title>1Password CLI - 1Password Releases</title>"
+              b"<item><title>1Password CLI 2.41.1</title>"
+              b"<link>https://releases.1password.com/developers/cli/2.41.1/</link></item>"
+              b"<item><title>1Password CLI 2.42.0</title>"
+              b"<link>https://releases.1password.com/developers/cli/2.42.0/</link></item>"
+              b"<item><title>1Password CLI 2.43.0-beta.01</title></item>"
+              b"<item><title>1Password Connect 9.9.9</title></item>"
+              b"<item><title>1Password CLI 2.44.0 beta</title></item>"
+              b"</channel></rss>")
+    op_prefix = FEED_TITLE_PREFIXES["https://releases.1password.com/developers/cli/index.xml"]
+    for label, feed_body, prefix, wanted in (
+            ("declared product prefix", op_rss, op_prefix, "2.42.0"),
+            ("declared prefix is anchored and space-delimited",
+             b"<rss><channel><item><title>1Password CLI2 3.0.0</title></item>"
+             b"<item><title>My 1Password CLI 5.0.0</title></item>"
+             b"<item><title>1Password CLI 2.42.0</title></item></channel></rss>",
+             op_prefix, "2.42.0"),
+            ("undeclared feed keeps the one-word rule", op_rss, None,
+             "ValueError: feed has no stable X.Y.Z release entry"),
+            ("declared prefix does not widen a python feed",
+             b"<rss><channel><item><title>Python install manager 26.4.1</title></item>"
+             b"<item><title>Python 3.15.0</title></item></channel></rss>", "Python",
+             "3.15.0")):
+        cases += 1
+        try:
+            got = parse_latest_version(feed_body, prefix)
+        except ValueError as exc:
+            got = "ValueError: %s" % exc
+        if got != wanted:
+            failures.append("version parser %s: %r != %r" % (label, got, wanted))
+    cases += 1
+    if FEED_TITLE_PREFIXES.get("https://github.com/getsops/sops/releases.atom") is not None:
+        failures.append("title prefix declared for an undeclared feed")
     for label, feed_body in (
             ("no stable entry", atom % entry(b"v3.0.0-beta1", b"v3.0.0-beta1")),
             ("text without Version line", b"Date: 2026-10-14\n")):
@@ -2102,7 +2154,7 @@ def main(argv=None):
     parser.add_argument("--root", metavar="DIR", help="repository root (defaults to this script's checkout)")
     parser.add_argument("--selftest", action="store_true", help="run synthetic, offline cases")
     parser.add_argument("--observe", metavar="OUT.json", help="fetch currently bound clocks and write a receipt")
-    parser.add_argument("--receipt", metavar="FILE", help="retained observation receipt (default is the round-53 observe-r53 receipt; the round-46, round-36 and round-26 receipts stay citable with --receipt/--receipt-sha)")
+    parser.add_argument("--receipt", metavar="FILE", help="retained observation receipt (default is the round-54 observe-r54 receipt; the round-53, round-46, round-36 and round-26 receipts stay citable with --receipt/--receipt-sha)")
     parser.add_argument("--receipt-sha", metavar="SHA256", help="required digest for an explicit --receipt")
     args = parser.parse_args(argv)
     if args.selftest:

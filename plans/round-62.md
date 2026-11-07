@@ -259,3 +259,63 @@ Seat list (name → role → work):
   entry row, not a new path surface.
 - **adjacency** — the carried `ADJACENCY_SCOPE: DEFECT` breadth debt is named, not
   absorbed; the connector sweep reports, never absorbs.
+
+## Amendment A1 — 2026-11-07, before any candidate reading (I6's denial clause)
+
+**Defect.** The frozen §C1 fixture B6 (a tail-only substitution on `corpus/lessons/round-60.md:179`)
+keeps every token the frozen I6 clause (c) tests: the line still quotes the superseded
+paragraph's stamp (`15:09:28`) and the driver-complete time (`16:34:37`), so a plan-faithful
+hardened checker reads B6 `value=0` (accepted), the target 0 is unreachable as written, and
+kill rule K2 cannot fire for B6. Evidence: `R62ExecC1Counter` re-derived this from the frozen
+text before any candidate reading (message to the L1, 2026-11-07); `R62ExecC1Grammar`
+independently re-derived the same conflict.
+
+**Correction — strengthens the item; it can only turn an accepted forgery into a rejected one,
+never the reverse.** I6's hardened condition gains clause (d): **the correction line does not
+assert that the superseded paragraph is correct** — the line carries none of `times are correct`,
+`times are right`, `is correct`, `are correct` (case-insensitive). The real line carries none of
+these; B6's tail (`the paragraph's times are correct.`) is exactly the denial the clause refuses.
+
+**Unchanged:** the predicate, target 0, POP 5, the five fixtures B3–B7 (anchors and replacements
+as frozen) and the kill rules. No candidate reading has been taken; the BASE census
+(`accepted=5 population=5`) is unaffected. The I6 selftest must carry both the B6 tail-only
+denial and the reviewer's whole-line variant (no superseded stamp) as cases.
+
+## Amendment A2 — 2026-11-07, before any candidate reading (statement scope; the M-A/M-B needle)
+
+**Defect 1 (critic D1/D2).** The frozen I4/I5 conditions ("`three` / `rewritten in place` occurs
+with no negator in its 5-token window before it") name no line, and a whole-file reading resolves
+on unrelated occurrences (`corpus/lessons/round-60.md` carries four `three` occurrences; `rewritten
+in place` occurs in five `.ufo/waves/` fixtures). **Clarification (the round-61 checker's own
+selection rule, restated):** the statement under test for I3–I7 is the LAST line matching the
+item's supersedes phrase (last occurrence wins), exactly as `plans/round-61-c1-check.py` selects
+it; a whole-file reading is not the item's condition. No predicate, target, POP or fixture changes.
+
+**Defect 2 (critic D4).** The frozen M-A/M-B legs are defined by the `# BEGIN-DECIDE` /
+`# BEGIN-SHIMS` markers, which occur 0 times at BASE; the plan's §C2 census ("M-A copy ⇒
+`C2_SELFTEST: PASS (cases=11)`") was taken with the reviewer's BASE-text mutation, so the label
+named two different mutations. **Clarification:** the leg is "the measured counter's value
+aggregation (M-A) or shim aggregation (M-B) replaced by a constant", and the counter locates the
+aggregation by the marker block when the measured counter carries it, and by the BASE aggregation
+text when it does not:
+
+| leg | marker needle (hardened counter) | BASE-text needle (`plans/round-61-c2.sh` at BASE) |
+|---|---|---|
+| M-A | the lines between `# BEGIN-DECIDE` and `# END-DECIDE` → `  echo 5` | `value=0` + the `[ "$pass" = 5 ] … value=5` block → `value=5` |
+| M-B | the lines between `# BEGIN-SHIMS` and `# END-SHIMS` → `  shims_ok=5` | `    && broken41 "${OUT[sh$n]}" && shims_ok=$((shims_ok+1))` → `    ; shims_ok=$((shims_ok+1))` |
+
+Each needle must match exactly once (0 or >1 fails closed). The BASE leg therefore applies the
+reviewer's mutation and reads `killed=0` for the measured reason (the mutant survives), not for a
+needle-absence reason. No target, population or kill rule changes.
+
+## Amendment A3 — 2026-11-07, before any candidate reading (C1 guard leg (e): the checker challenge)
+
+**Defect (critic D5).** Guard leg (c) refuses a printer stub only by its selftest output; a stub
+that prints a constant `C1_ROUTED: value=0 …` line and a `C1_CHECK_SELFTEST: PASS (cases=57)` line
+passes it. **Correction (strengthens the guard; it can only turn guard=1 into guard=0):** guard
+leg (e) — a copy of the measured checker whose negator set is emptied
+(`NEGATORS = frozenset(("not", "no", "never", "neither", "nor", "without", "none"))` →
+`NEGATORS = frozenset(())`, exactly one occurrence) must make `--selftest` exit non-zero with a
+named `FAIL` line. A checker that does not carry the needle cannot pass the leg. The candidate
+checker fails 7 named cases under the emptied set; a stub fails to apply the needle and reads
+guard=0. No predicate, target, POP, fixture or other kill rule changes.

@@ -3,6 +3,7 @@
 source: S110 (https://openbao.org/docs/secrets/kv/kv-v2/, §Usage → §Writing/Reading arbitrary data (the `-cas` paragraph), §Deleting and destroying data, the metadata examples; OpenBao docs Version 2.7.x, opened 2026-11-07)
 verified-at: 2026-11-07 (S110 fetched and read as rendered text; the five mechanics below executed against OpenBao 2.7.2)
 recheck: on-release — on an OpenBao release, re-open S110 §Deleting and destroying data and the `-cas` paragraph, compare the docs "Version" label to 2.7.x, and re-run `bash corpus/openbao-kv-versions-trial.sh --work <scratch dir>` against the new binary
+cites: S024 (named in the body as the Vault KV v2 row this OpenBao entry does not extend; cross-reference; recorded round 55)
 Reverify: R21-02
 (R21-02 is the sources-census row: it re-verifies the citation chain only — every id on `source:` resolves to a `mined` row of `corpus/SOURCES.md` whose `used-by` lists this entry. It does not re-open the page or run OpenBao; `recheck:` is the content clock, the trial is the behaviour check.)
 

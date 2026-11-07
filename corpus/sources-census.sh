@@ -38,7 +38,8 @@
 #                        `../` paths fail even when they exist
 #   cross-file (this gate):
 #     SC_USEDBY_NOCITE   a mined row's used-by file does not carry the row id on
-#                        its `source:` line (or the path is not a regular file)
+#                        its `source:` line or its `cites:` line (round 55)
+#                        (or the path is not a regular file)
 #     SC_MINED_UNUSED    a mined row with used-by `—`, `-` or empty
 #     SC_REJECT_SHAPE    a rejected row whose teaches does not start with
 #                        `REJECTED:` or lacks `flip:`
@@ -51,6 +52,18 @@
 #                        `mined`, or whose used-by does not list that entry; or
 #                        whose cited ids include no tier A or B row (contract:
 #                        tier C is a lead, never sole support)
+#     SC_BODY_CITE       (round 55) an entry — sourced or legacy — whose text
+#                        names a registry id that is on neither its `source:`
+#                        line nor its `cites:` line; or a `cites:` id that is not
+#                        a registry row, or whose row's used-by does not list
+#                        the entry; or more than one column-1 `cites:` line.
+#                        `cites:` (lower case, column 1, at most one, wrapped
+#                        continuation like `source:`) records the registry ids an
+#                        entry names outside its support line: cross-references,
+#                        later-section sources, and every id a legacy entry
+#                        names. It does not make an entry sourced. Ids are
+#                        matched as `S` + 3 or more digits not preceded by a
+#                        letter, digit or `_` and not followed by a digit.
 #     SC_CREDENTIAL      credential-shaped text in SOURCES.md or a sourced entry;
 #                        prints `file:line` only, never the matched bytes
 #     SC_FETCH           fetch provenance (round 23, routed D7): every registry
@@ -149,6 +162,10 @@ finding() { printf 'FINDING %s %s\n' "$1" "$2"; FINDINGS=$((FINDINGS + 1)); }
 
 # First `source:` line plus whitespace-led continuation lines.
 src_field() { awk 'f && /^[[:space:]]/ {print; next} f {exit} /^source:/ {f=1; print}' "$1"; }
+# Round 55: first `cites:` line plus whitespace-led continuation lines.
+cites_field() { awk 'f && /^[[:space:]]/ {print; next} f {exit} /^cites:/ {f=1; print}' "$1"; }
+# Round 55: every registry-id-shaped token in a file, one per line, unique.
+body_ids() { grep -oE '(^|[^A-Za-z0-9_])S[0-9]{3,}' "$1" | grep -oE 'S[0-9]+$' | sort -u; }
 
 trim() { local s=$1; s=${s#"${s%%[![:space:]]*}"}; s=${s%"${s##*[![:space:]]}"}; printf '%s' "$s"; }
 
@@ -227,7 +244,7 @@ verify() {
         if [[ ! $p =~ $usedby_re ]]; then finding SC_USEDBY_MISSING "$id: $p not a repo corpus path"; continue; fi
         [[ -e $ROOT/$p ]] || continue # nonexistent in-shape path: contract SC_USEDBY_MISSING above
         if [[ ! -f $ROOT/$p ]]; then finding SC_USEDBY_NOCITE "id=$id path=$p not-a-regular-file"; continue; fi
-        field=$(src_field "$ROOT/$p")
+        field="$(src_field "$ROOT/$p")"$'\n'"$(cites_field "$ROOT/$p")"
         [[ $field =~ (^|[^A-Za-z0-9_])$id([^0-9]|$) ]] || finding SC_USEDBY_NOCITE "id=$id path=$p"
       done
     fi
@@ -330,10 +347,25 @@ verify() {
 
   cred_scan "$src" "corpus/SOURCES.md"
 
-  local f rel sourced=0 legacy=0 ids listed_here nsrc supported
+  local f rel sourced=0 legacy=0 ids listed_here nsrc supported cfield bid
   shopt -s nullglob
   for f in "$kdir"/*.md; do
     rel="corpus/knowledge/${f##*/}"
+    # round 55: every registry id the entry names is recorded on its source: or
+    # cites: line, and every cites: id is a registry row whose used-by lists it
+    [[ $(grep -c '^cites:' "$f") -le 1 ]] || finding SC_BODY_CITE "entry=$rel multiple-cites-lines"
+    field=$(src_field "$f"); cfield=$(cites_field "$f")
+    for bid in $(body_ids "$f"); do
+      [[ -v ST[$bid] ]] || continue
+      [[ $field =~ (^|[^A-Za-z0-9_])$bid([^0-9]|$) || $cfield =~ (^|[^A-Za-z0-9_])$bid([^0-9]|$) ]] || finding SC_BODY_CITE "entry=$rel id=$bid unrecorded"
+    done
+    for bid in $(grep -oE '(^|[^A-Za-z0-9_])S[0-9]{3,}' <<<"$cfield" | grep -oE 'S[0-9]+$' | sort -u); do
+      if [[ ! -v ST[$bid] ]]; then finding SC_BODY_CITE "entry=$rel id=$bid cites-not-a-registry-row"; continue; fi
+      listed_here=0
+      IFS=',;' read -ra parts <<<"${UB[$bid]}"
+      for p in "${parts[@]}"; do [[ $(trim "$p") == "$rel" ]] && listed_here=1; done
+      [[ $listed_here -eq 1 ]] || finding SC_BODY_CITE "entry=$rel id=$bid cites-used-by-omits-entry"
+    done
     if ! grep -q '^source:' "$f"; then legacy=$((legacy + 1)); continue; fi
     sourced=$((sourced + 1))
     grep -q '^verified-at:' "$f" || finding SC_ENTRY_HEADER "entry=$rel missing=verified-at"
@@ -520,6 +552,25 @@ m_cite_tier_c() {
   sed -i "/^| S004 /a $ROW5C" "$(SRC_F "$1")"
   printf '# entry two\nsource: S005 (https://example.invalid/five, thread 5, 2026-04-04)\nverified-at: 2026-10-19\nrecheck: 90d\n' >"$1/corpus/knowledge/e2.md"
 }
+# round 55: body citations and the `cites:` line (SC_BODY_CITE, NOCITE via cites:)
+LEGACY_F() { printf '%s/corpus/knowledge/legacy.md' "$1"; }
+m_body_unrecorded() { printf '\nThe forum lead S003 says so.\n' >>"$(E1_F "$1")"; }
+m_body_legacy() { printf '\nSee row S002.\n' >>"$(LEGACY_F "$1")"; }
+m_body_cites_ok() {
+  printf '\nThe forum lead S003 says so.\ncites: S003\n' >>"$(E1_F "$1")"
+  sed -i '/^| S003 /s#| — |$#| corpus/knowledge/e1.md |#' "$(SRC_F "$1")"
+}
+m_body_cites_omits() { printf '\nThe forum lead S003 says so.\ncites: S003\n' >>"$(E1_F "$1")"; }
+m_body_cites_unknown() { printf '\ncites: S099\n' >>"$(E1_F "$1")"; }
+m_body_cites_two() {
+  m_body_cites_ok "$1"
+  printf 'cites: S003\n' >>"$(E1_F "$1")"
+}
+m_body_usedby_via_cites() {
+  printf '\nSee row S002.\ncites: S002\n' >>"$(LEGACY_F "$1")"
+  sed -i '/^| S002 /s#| corpus/knowledge/e1.md |$#| corpus/knowledge/e1.md, corpus/knowledge/legacy.md |#' "$(SRC_F "$1")"
+}
+m_body_digit_suffix() { printf '\nSection S0031 and xS003 are not ids.\n' >>"$(E1_F "$1")"; }
 m_cred_src() { NEEDLE=$(needle "$2"); printf -- '- note %s\n' "$NEEDLE" >>"$(SRC_F "$1")"; }
 m_cred_entry() { NEEDLE=$(needle 2); printf 'body %s\n' "$NEEDLE" >>"$(E1_F "$1")"; }
 m_cred_legacy() { NEEDLE=$(needle 3); printf 'body %s\n' "$NEEDLE" >>"$1/corpus/knowledge/legacy.md"; }
@@ -593,8 +644,16 @@ selftest() {
     "cite-unknown|m_cite_unknown||1|SC_ENTRY_CITE|1"
     "cite-not-mined|m_cite_queued||1|SC_ENTRY_CITE|1"
     "cite-usedby-omits|m_cite_usedby||1|SC_ENTRY_CITE|1"
-    "cite-no-id|m_cite_noid||1|SC_ENTRY_CITE|3"
+    "cite-no-id|m_cite_noid||1|SC_ENTRY_CITE|5"
     "cite-tier-c-sole|m_cite_tier_c||1|SC_ENTRY_CITE|2"
+    "body-cite-unrecorded|m_body_unrecorded||1|SC_BODY_CITE|1"
+    "body-cite-legacy|m_body_legacy||1|SC_BODY_CITE|1"
+    "body-cites-control|m_body_cites_ok||0|CLEAN|0"
+    "body-cites-usedby-omits|m_body_cites_omits||1|SC_BODY_CITE|1"
+    "body-cites-not-a-row|m_body_cites_unknown||1|SC_BODY_CITE|1"
+    "body-cites-two-lines|m_body_cites_two||1|SC_BODY_CITE|1"
+    "usedby-via-cites-control|m_body_usedby_via_cites||0|CLEAN|0"
+    "body-digit-suffix-control|m_body_digit_suffix||0|CLEAN|0"
     "cred-scheme|m_cred_src|0|1|SC_CREDENTIAL|1"
     "cred-pem|m_cred_src|1|1|SC_CREDENTIAL|1"
     "cred-gh|m_cred_src|2|1|SC_CREDENTIAL|1"

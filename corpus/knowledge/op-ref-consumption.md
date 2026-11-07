@@ -1,4 +1,5 @@
 # `op.env` consumption — two parsers, one file (round 12, depth axis-move)
+cites: S072, S112 (§11.1–§11.2: the op release identity row and the op release clock feed (legacy entry, no source: line); recorded round 55)
 
 Source basis: read-only inspection 2026-09-28 of `~/.local/bin/the-janitor`
 (`ENV_FILE` L7, `cmd_refs` L228–236, `cmd_run` L237–249, `need_op` L58),

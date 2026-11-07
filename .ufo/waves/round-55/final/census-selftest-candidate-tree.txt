@@ -1,0 +1,12 @@
+# 2026-11-07T04:47:45-03:00 bash corpus/sources-census.sh --selftest (candidate tree)
+case inrow-normalized-control: ok (exit 0, CLEAN_INROW)
+case inrow-nonreproducing-counted: ok (exit 0, CLEAN_NONREP)
+case inrow-verdict-lie: ok (exit 1, SC_INROW)
+case inrow-digest-mismatch: ok (exit 1, SC_INROW)
+case inrow-capture-date: ok (exit 1, SC_INROW)
+case inrow-duplicate: ok (exit 1, SC_INROW)
+case inrow-capture-missing: ok (exit 1, SC_INROW)
+case inrow-not-historical: ok (exit 1, SC_INROW)
+case inrow-orphan-classification: ok (exit 1, SC_INROW)
+SOURCES_CENSUS_SELFTEST: PASS (78 cases)
+exit=0

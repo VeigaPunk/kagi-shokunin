@@ -1,0 +1,64 @@
+{
+ "round": 55,
+ "measured_at": "round-55 candidate tree (the lane working copy at predeclaration f2b986fa plus the candidate edits), each command run from the tree root, 2026-11-07",
+ "kind": "measured rebinding of population expectations moved by this round's own additions (one SCORECARD heading, two registry rows, two quote-body rows, eight census selftest cases); not a claim",
+ "population": "R13-01 R21-02 R21-03 R24-06 R31-02 R33-02 R34-03 R38-01 only",
+ "migrations": [
+  {
+   "id": "R13-01",
+   "command": "grep -c '^## Round ' SCORECARD.md",
+   "old_expect": "^72$",
+   "new_expect": "^73$",
+   "reason": "SCORECARD round headings 72 -> 73: round 55 adds `## Round 55 — post-move (claims C1 calibration, C2 freshness)` (this landing). Growth only."
+  },
+  {
+   "id": "R21-02",
+   "command": "bash corpus/sources-census.sh",
+   "old_expect": "^SOURCES_CENSUS: CLEAN \\(rows=112 A=108 B=2 C=2 queued=1 mined=107 rejected=4 entries_sourced=16 legacy=21 captures=112 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+   "new_expect": "^SOURCES_CENSUS: CLEAN \\(rows=114 A=110 B=2 C=2 queued=1 mined=109 rejected=4 entries_sourced=16 legacy=21 captures=114 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+   "reason": "registry rows 112 -> 114: round 55 adds S113 and S114 (ISO catalogue records of ISO/IEC 11770-3:2021 and its Amd 1:2025), tier A mined with captures; A, mined, captures grow by 2; twenty rows change only their used-by cells (C1); B/C/queued/rejected/legacy/inrow/entries_sourced unchanged."
+  },
+  {
+   "id": "R21-03",
+   "command": "bash corpus/sources-census.sh --selftest",
+   "old_expect": "^SOURCES_CENSUS_SELFTEST: PASS \\(70 cases\\)$",
+   "new_expect": "^SOURCES_CENSUS_SELFTEST: PASS \\(78 cases\\)$",
+   "reason": "census selftest 70 -> 78 cases: round 55 adds eight SC_BODY_CITE / `cites:` cases (five failing, three positive controls) for C1; the `cite-no-id` case expectation moves 3 -> 5 findings inside the selftest (its fixture recheck line names S001/S002 once the source line is stripped)."
+  },
+  {
+   "id": "R24-06",
+   "command": "bash corpus/row-identity.sh scorecard-rounds",
+   "old_expect": "^ROW_IDENTITY: scorecard-rounds count=72 sha256=358ac0823e567988b0c73642684c09aa3c5f94940a76c3d0f6038171c60eab75$",
+   "new_expect": "^ROW_IDENTITY: scorecard-rounds count=73 sha256=eea94d35e6c9223cedcd1e9106916174d3b0fb2ba3ae4ed648148a01acc02576$",
+   "reason": "identity of the SCORECARD round-heading list 72 -> 73: the 72 earlier heading lines retained, plus the round-55 post-move heading; digest recomputed by `bash corpus/row-identity.sh scorecard-rounds` on the candidate tree."
+  },
+  {
+   "id": "R31-02",
+   "command": "bash corpus/sources-census.sh",
+   "old_expect": "^SOURCES_CENSUS: CLEAN \\(rows=112 A=108 B=2 C=2 queued=1 mined=107 rejected=4 entries_sourced=16 legacy=21 captures=112 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+   "new_expect": "^SOURCES_CENSUS: CLEAN \\(rows=114 A=110 B=2 C=2 queued=1 mined=109 rejected=4 entries_sourced=16 legacy=21 captures=114 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+   "reason": "registry rows 112 -> 114: round 55 adds S113 and S114 (ISO catalogue records of ISO/IEC 11770-3:2021 and its Amd 1:2025), tier A mined with captures; A, mined, captures grow by 2; twenty rows change only their used-by cells (C1); B/C/queued/rejected/legacy/inrow/entries_sourced unchanged."
+  },
+  {
+   "id": "R33-02",
+   "command": "bash corpus/sources-census.sh",
+   "old_expect": "^SOURCES_CENSUS: CLEAN \\(rows=112 A=108 B=2 C=2 queued=1 mined=107 rejected=4 entries_sourced=16 legacy=21 captures=112 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+   "new_expect": "^SOURCES_CENSUS: CLEAN \\(rows=114 A=110 B=2 C=2 queued=1 mined=109 rejected=4 entries_sourced=16 legacy=21 captures=114 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+   "reason": "registry rows 112 -> 114: round 55 adds S113 and S114 (ISO catalogue records of ISO/IEC 11770-3:2021 and its Amd 1:2025), tier A mined with captures; A, mined, captures grow by 2; twenty rows change only their used-by cells (C1); B/C/queued/rejected/legacy/inrow/entries_sourced unchanged."
+  },
+  {
+   "id": "R34-03",
+   "command": "bash corpus/sources-census.sh",
+   "old_expect": "^SOURCES_CENSUS: CLEAN \\(rows=112 A=108 B=2 C=2 queued=1 mined=107 rejected=4 entries_sourced=16 legacy=21 captures=112 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+   "new_expect": "^SOURCES_CENSUS: CLEAN \\(rows=114 A=110 B=2 C=2 queued=1 mined=109 rejected=4 entries_sourced=16 legacy=21 captures=114 inrow=16 inrow_only=0 inrow_nonreproducing=12\\)$",
+   "reason": "registry rows 112 -> 114: round 55 adds S113 and S114 (ISO catalogue records of ISO/IEC 11770-3:2021 and its Amd 1:2025), tier A mined with captures; A, mined, captures grow by 2; twenty rows change only their used-by cells (C1); B/C/queued/rejected/legacy/inrow/entries_sourced unchanged."
+  },
+  {
+   "id": "R38-01",
+   "command": "bash plans/round-38-c1.sh",
+   "old_expect": "^10$",
+   "new_expect": "^12$",
+   "reason": "located quote-body rows 10 -> 12: round 55 adds S113 and S114 quote-body rows (C2), both located at their declared offsets in committed captures."
+  }
+ ]
+}

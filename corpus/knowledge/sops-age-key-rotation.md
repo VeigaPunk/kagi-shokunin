@@ -3,6 +3,7 @@
 source: S009 (https://getsops.io/docs/usage/identities/age/, §Encrypting using age, last modified 2026-05-15 commit 9b7b84e); S010 (https://getsops.io/docs/usage/identities/key-groups/, §Key groups, last modified 2026-05-15 commit 9b7b84e); S011 (https://getsops.io/docs/usage/key-management/, §updatekeys command, §rotate command, §Direct Editing, §Rotating secrets after a key in a key group has been compromised, last modified 2026-05-15 commit 9b7b84e)
 verified-at: 2026-10-19 (the three rendered getsops.io pages above, read in full; the raw upstream README.rst was also opened and is not cited — it now carries no usage text, only a pointer to getsops.io)
 recheck: on-release — on a SOPS release or a change to the pages' "Last modified" footer (9b7b84e), re-open S011 §updatekeys/§rotate/§compromise order, S010 §Key groups threshold default, S009 identity lookup
+cites: S103, S104 (the release identities of the measured sops and age-keygen binaries named in the body; recorded round 55)
 Reverify: R21-02
 (R21-02 is the sources-census row: it re-verifies the citation chain only — every id on `source:` resolves to a `mined` row of `corpus/SOURCES.md` whose `used-by` lists this entry. It does not re-open the pages, run SOPS or re-measure any behaviour; `recheck:` is the content clock.)
 

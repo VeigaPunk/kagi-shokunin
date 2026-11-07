@@ -1,6 +1,7 @@
 source: S073 — https://csrc.nist.gov/pubs/sp/800/57/pt1/r5/final — Date Published, Supersedes and Document History — rendered-text-v1 sha256 `950ae8a8ad88da31`, fetched 2026-11-04; S074 — https://csrc.nist.gov/pubs/sp/800/133/r3/ipd — subtitle "(Initial Public Draft)", Date Published, Comments Due, Planning Note (06/30/2026) and Document History — rendered-text-v1 sha256 `955dd86653889462`, fetched 2026-11-04; S075 — https://csrc.nist.gov/pubs/sp/800/133/r2/final — Date Published, Supersedes and Document History — rendered-text-v1 sha256 `bb1cce593095f6c1`, fetched 2026-11-04
 verified-at: 2026-11-04 — all three pages re-opened this round (HTTP 200, no redirect); raw bodies are non-reproducing at constant size (three independent fetches produced three different raw sha256 per page, at 47203, 45351 and 42741 bytes for the Rev. 5, Rev. 3 and Rev. 2 pages respectively), so identity here is the rendered-text-v1 normalized sha256 — captures .ufo/waves/round-33/build/nist-captures.tsv
 recheck: 90d — `curl -fsSL 'https://csrc.nist.gov/pubs/sp/800/133/r3/ipd' | grep -c 'public comment period is CLOSED'` -> 1 (ran 2026-11-04)
+cites: S049 (the SP 800-57 Part 1 Rev. 6 draft row the status table cites inline; recorded round 55)
 ground: NIST key-management draft status — distinguish final guidance from initial public drafts before adopting controls
 Reverify: R33-02
 

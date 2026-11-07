@@ -2,6 +2,7 @@
 source: S053 — https://raw.githubusercontent.com/gitleaks/gitleaks/master/README.md — README intro paragraph and §"Configuration" rule fields — repo HEAD commit `b58d3f102cf3a2c84cb7f923d05c25c9b1aed84b`, fetched 2026-10-23; S054 — https://raw.githubusercontent.com/trufflesecurity/trufflehog/main/README.md — §"Validation ✅" and §"1: Scan a repo for only verified secrets" — repo HEAD commit `d6ea4a52e3f4705989210e60e9f0da0deafe84bf`, fetched 2026-10-23
 verified-at: 2026-11-03 — sources re-opened in-round by the lane's fetch profile (receipts .ufo/waves/round-30/final/c3/src-open/); campaign dates 2026-10-23 are not evidence here
 recheck: 180d — `curl -fsSL 'https://raw.githubusercontent.com/trufflesecurity/trufflehog/main/README.md' | grep -c 'it can also log in to confirm if that secret is live or not'` -> 1 (ran 2026-10-23)
+cites: S048, S055, S056 (named in the body as neighbouring scanner rows; cross-references, not this entry's support; recorded round 55)
 ground: Secret scanning: detection versus verification — the frontier item the lane holds only as a prose-absent lead on Gitleaks/Betterleaks and TruffleHog
 Reverify: R21-02
 

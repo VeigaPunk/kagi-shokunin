@@ -24,3 +24,19 @@ scratch note: a sibling mutation seat wrote into this seat's scratch dir at 07:4
 mut-m01-*, mut-m02-*, clone/, and an overwrite of results.json in its own schema). My epoch-A
 results.json was replaced after the run; the preserved epoch-A artifact is matrix.tsv (copied to
 the seat receipt at 07:34). My runs used explicit paths and were not affected.
+epoch C frozen at 711e6393e68658f396918c07de253e5a5c74d1b4 (counter 7992ee6a / gate e9b7e4b7 /
+  manifest df46be5c / controls b675baa5 / plan 8beb24e9 / normaliser pin 14f6ca6a)
+  tree = `git archive 711e6393`; counter snapshot in a fresh --shared clone; 51 recipes + 2 baselines
+  = 53 runs (resultsC711.json, matrixABC.tsv). Positive 10; BASE 0; all previously open items closed
+  (R2i/R2j/R2k 10->0, R5b/c/g 10->FAIL, C8 fifo 0 no hang, C1-C10 new-surface all killed) EXCEPT F9.
+F9: epoch-C gate line 216 / counter line 287 use (?m) where epoch B used (?im) -> Set-Cookie:/SET-COOKIE:
+  and lowercase http/ accepted. R3f (identical mutant bytes in all epochs) reads 0/0/10 (A/B/C).
+  working-tree gate 5165da2a (with (?im)) refuses the same tree: BAD-CAPTURE header-bytes + DRIFT;
+  working-tree counter 842c014f still pinned e9b7e4b7 at 08:03 (pin bump pending, pair incoherent).
+epoch D frozen at d36231871c864c930d3e7e33f9c5345b30ab4f98 (counter 82acbb20 / gate 5165da2a /
+  manifest df46be5c / GATE pin 5165da2a / NORMALIZER pin 14f6ca6a / selftest PASS (20 cases))
+  tree = `git archive d362318`; counter snapshot in a --shared clone; 59 recipe runs + 2 baselines
+  = 61 runs (resultsD.json for the 41 A/B recipes + 8 case/boundary probes, resultsD2.json for the 10
+  epoch-C conjunct recipes, matrixABCD.tsv combined). Positive 10; BASE 0; 56 killed; 3 by-design
+  survivors (R1e, R1g, R3g); F9 closed (R3f 10->0; Set-Cookie/SET-COOKIE/http-lower/< Set-Cookie -> 0);
+  N boundary 1./1.0/1_0 -> FAIL.

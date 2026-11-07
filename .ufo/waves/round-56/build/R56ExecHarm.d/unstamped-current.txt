@@ -1,0 +1,19 @@
+# R56ExecHarm — unstamped current files (observed 2026-11-07 ~08:12 -03, lane HEAD d36231871c864c930d3e7e33f9c5345b30ab4f98)
+
+Command: while IFS=$'\t' read -r path sha lines bytes; do cur=$(sha256sum "$L/$path" | cut -d' ' -f1); [ "$cur" = "$sha" ] || echo ...; done < corpus/stamps.tsv
+Result: 125 stamped rows; 119 match; 6 changed-and-unstamped (uncommitted worktree edits, `git status --porcelain` = ` M` for all six):
+
+path	stamped_sha256	live_sha256	at_d362318_sha256
+corpus/knowledge/cdp-bridge-1password-oidc-workflow.md	bf6052bcc70bc682c89a07c673ad5ca247cbff65c9c8143f442004b9324c1476	d16ae5a5c7de53a8a6b0dd2311223ca9b6a77ce9efb38e84e8323807544537a4	bf6052bcc70bc682c89a07c673ad5ca247cbff65c9c8143f442004b9324c1476
+corpus/source-fetches.tsv	3ec6135d2a9db7c1b06606ba30482d16204d3ecf2c61de7c55cd7554db0f766f	e40274c9d802348a1c361dfe5477124a0bb31fd31f45db07b2729f881ea535a3	3ec6135d2a9db7c1b06606ba30482d16204d3ecf2c61de7c55cd7554db0f766f
+corpus/SOURCES.md	fa69564f610e5192093b05ae17c9ee385aa607586cc219d0e33460985ab12936	388e39fa516a2fd0aa346d55e80ac875cbe68dd23540e2749b1eae80e6ef2b13	fa69564f610e5192093b05ae17c9ee385aa607586cc219d0e33460985ab12936
+LOG.md	45ea4a71552bb4d8401ef36c5b3cf3cde2d37a4052744c76eefcc41298b54de2	5380115372749a3f4f9be8c91e13a697bcb43954361fa5da845b0b8a69ba5472	45ea4a71552bb4d8401ef36c5b3cf3cde2d37a4052744c76eefcc41298b54de2
+SCORECARD.md	5d7ec54f8374bf43724ff86bdf46e1a0cfbd9821becf0a5542af9fdcfe7e0616	afaa687297f629efe2675f7c7e86eca2df76210ad729c72c0b996e5f6711d7dd	5d7ec54f8374bf43724ff86bdf46e1a0cfbd9821becf0a5542af9fdcfe7e0616
+SKILL.md	e6a74ade354c5bb69f3bfafdc20a5e06c18f6a0dec501f3239216df63ca33bd2	f0be6dd652aea4f22ebc2f4fb4413ecc6eef62f47020ca5772c0f1a2a624ed27	e6a74ade354c5bb69f3bfafdc20a5e06c18f6a0dec501f3239216df63ca33bd2
+
+Additionally: the round-56 instrument set committed at d362318 is absent from corpus/stamps.tsv (0 of 125 rows match round-56|recheck):
+corpus/recheck-replay.py, corpus/recheck-captures.tsv, plans/round-56.md, plans/round-56-c1.sh, plans/round-56-controls.sh,
+7 captures under .ufo/waves/round-56/capture/ (S054,S055,S057,S067,S070,S074,S078 .body), capture/fetch-receipt.json,
+capture/rejections/S113-default-ua.body, controls receipts census-start.txt, controls-prefreeze{,-epochB,-epochC,-epochD}.txt.
+
+Not patched by this seat, per assignment.

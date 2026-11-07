@@ -1,0 +1,32 @@
+# epoch-C battery
+epoch-C gate sha256: e9b7e4b7aa1e8173c4bfc2e536ce6d1ed29c4c0d6ee5f46bfa1e63d3692a62b4
+epoch-C counter sha256: 7992ee6a97c9f1cfaf627c61322ecaf6aa0c31126a65f591567d7b6f7ee2802c
+
+F1 mutantA selftest rc=1 last=RECHECK_REPLAY_SELFTEST: FAIL (1 of 18 cases)
+   failing lines: ['FAIL locate-match rc=1 want=0 token=MATCH']
+
+F5 c-stub gate rc=2 last=RECHECK_REPLAY: SETUP normalizer-digest
+F5 c-stub counter C1_REPLAY: value=FAIL present=10 replayed=0 gate=0 guard=0 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r4-replay0:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-editi
+
+F3 c-symentry gate rc=1 last=RECHECK_REPLAY: DRIFT (clocks=11 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=1 tool=0)
+F4 c-klink gate rc=2 last=RECHECK_REPLAY: SETUP symlinked-input:corpus/knowledge
+
+F7 c-reg2 gate rc=0 RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)
+   counter C1_REPLAY: value=9 present=10 replayed=9 gate=1 guard=1 (bad=r2-registry:secret-scanning-detection-vs-validation.md:README.md)
+F7 c-fence gate rc=0 RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)
+   counter C1_REPLAY: value=9 present=10 replayed=9 gate=1 guard=1 (bad=r2-registry:secret-scanning-detection-vs-validation.md:README.md)
+
+F6 c-e5 gate (1, '<no stdout>', ["UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 22: invalid start byte"])
+F6 c-perm gate (1, '<no stdout>', ["PermissionError: [Errno 13] Permission denied: '/fast/scratch/hyaku/kagi-r56/R56ReviewGate/c-perm/corpus/recheck-captures.tsv'"])
+
+F9 c-404 gate rc=2 RECHECK_REPLAY: SETUP manifest-http:S054
+   counter C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r2-manifest-malformed:betterleaks-detection-vs-validation.md:README.md,r2-manifest-malformed:cdp-bridge-1password-oidc-
+F9 c-emptyfetched gate rc=2 RECHECK_REPLAY: SETUP manifest-fetched:S054
+   counter C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r2-manifest-malformed:betterleaks-detection-vs-validation.md:README.md,r2-manifest-malformed:cdp-bridge-1password-oidc-
+
+F8 c-hdr-leadinglf gate (2, '<no stdout>')
+F8 c-hdr-spacecookie gate (2, '<no stdout>')
+F8 c-hdr-crcookie gate (2, '<no stdout>')
+
+F12 LC_ALL=C.UTF-8  rc=2 -
+F12 LC_ALL=C        rc=2 -

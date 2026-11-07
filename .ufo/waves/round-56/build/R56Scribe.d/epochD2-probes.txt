@@ -1,0 +1,17 @@
+# epoch-D landed probes (d362318), R56Scribe 2026-11-07T11:03:58Z
+4d837eb2d467064efedb9e25173c5bde82830e88c31754d7af1ac253c87b8b74  plans/round-56.md
+82acbb2056aac6055a79f223a0e0abbb2cb24f11f01ca5ed12a230c8338bdc6a  plans/round-56-c1.sh
+9445a1ec208f2b8dad55da2694f4b7ebd2554e3ecd4196f15c5d5da4958882ce  plans/round-56-controls.sh
+5165da2a6fced02fce82c92fc898553db9a6d3d702d9fc6d1ca3ba185e77b14f  corpus/recheck-replay.py
+df46be5c92c7b4d5a8b7ad790371b5c3240c92f46460b8cfb69e9b75b7ecc762  corpus/recheck-captures.tsv
+## gate selftest
+RECHECK_REPLAY_SELFTEST: PASS (20 cases)
+selftest_rc=0
+## reference
+C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)
+rc=0
+## header shape with capital Set-Cookie
+C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r3-headers:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching)
+rc=0
+## gate on header tree
+gate_rc=1

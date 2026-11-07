@@ -88,3 +88,13 @@ Frozen counter: `value=FAIL present=9 replayed=9 gate=1 guard=0
 `frozen-counter-runner.sh` = the same bytes with exactly one line changed:
 `REPO=$(cd "$(dirname "$0")/.." && pwd -P)` → `REPO=<lane>` so the script can run
 outside the lane. No measurement logic differs.
+
+## Epoch-C fixtures (after commit 711e6393)
+`ct` = `git -C <lane> archive 711e6393 corpus .ufo/waves/round-45/controls/capture-r45 .ufo/waves/round-55/capture .ufo/waves/round-56/capture | tar -x -C <S>/ct`;
+`ct/corpus/recheck-replay.py` = e9b7e4b7…; `ct` → 10 MATCH + CLEAN rc0.
+`epochC-battery.py` builds, from `ct`: `c-mutA` (dead pdf+locate branches), `c-stub` (stub
+normalizer + unique S070 body), `c-symentry`, `c-klink`, `c-reg2`, `c-fence`, `c-e5`
+(non-UTF-8 entry), `c-perm` (manifest chmod 000), `c-404`, `c-emptyfetched`, and runs
+the epoch-C counter on the trees that need it. `epochC-minimal.py` builds the header and
+locale fixtures (`x.body` under `.ufo/waves/round-56/capture/`) and the pdf-only mutant.
+`c-poison` = `ct` + an 8-column unused row (raw/62).

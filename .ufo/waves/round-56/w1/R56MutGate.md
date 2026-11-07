@@ -1,7 +1,7 @@
 # R56MutGate — mutation probe of the frozen replay gate and C1 counter
 
 Seat: R56MutGate (mutation-tester). Lane `kagi-shokunin`, branch `master`.
-**Epoch B (current instruments) is anchored to `5d9a1571911ec38a456a40b443e19640abb9a88b` — see the addendum at the end; that is the binding result.** The first part records the original probe of the epoch-A pre-freeze instruments at `42070de7770e1558adcf6aa7a7bc59309a9654d7`, kept as history.
+**Epoch E (current instruments) is anchored to `dd31b7867723f89fc8f83e88cc7d98e17de26cf2` — see the epoch-E addendum at the end; that is the binding result.** The epoch-D (`d362318`), epoch-C (`711e6393`), epoch-B (`5d9a157`) and epoch-A (`42070de`) results are kept as history.
 Tested revision (epoch A): `42070de7770e1558adcf6aa7a7bc59309a9654d7`, BASE `832ba6a53d6a76706b5c80bce2278683dea33d42`.
 Answering model: `amr/deepseek-v4.1-flash` (as stated by the runtime project context; not independently observed).
 No network, no production-file edits, no git/jj mutation in the lane. Scratch `/fast/scratch/hyaku/kagi-r56/R56MutGate/` (one clone + fixture trees), deleted after the probe.
@@ -136,10 +136,148 @@ Byte identity for the epoch-B hostile trees (same constructions as epoch A unles
 
 Epoch-B verdict summary: **3 survivors (M3, M10, M14) plus one latent (M11)** out of 14 mutants. The gate digest pin is the dominant epoch-B detector: every gate-byte mutation (M1–M9, M12, M13) is killed by it before any conjunct check, so on epoch B the counter's gate-side mutation surface is effectively zero for a candidate. The remaining live surface is the counter's own conjuncts: registry status (M3), registry arity (M10) and the gate-pin condition itself (M14). The 13-case gate selftest still does not cover input confinement (M12) or symlinked-entry reporting (M13); both are killed only by the counter's duplicated checks.
 
+## Epoch C addendum — re-frozen instruments at `711e6393e68658f396918c07de253e5a5c74d1b4`
+
+Supplier note: epoch C supersedes epoch B (L1 predeclaration, `round-56: predeclaration epoch C`). Everything in this section is anchored to that revision; it is the binding result.
+
+| artifact | sha256 at `711e6393` |
+|---|---|
+| `corpus/recheck-replay.py` | `e9b7e4b7aa1e8173c4bfc2e536ce6d1ed29c4c0d6ee5f46bfa1e63d3692a62b4` |
+| `plans/round-56-c1.sh` | `7992ee6a97c9f1cfaf627c61322ecaf6aa0c31126a65f591567d7b6f7ee2802c` |
+| `plans/round-56-controls.sh` | `b675baa5fad95bc663f49ca76ea13be84627db457af443f3b957144cd8ddd16c` |
+| `plans/round-56.md` | `8beb24e94a08c3961f5217a3b4b98aadc46d56561fe3ec2254f13185d4cf6c9f` |
+| `corpus/recheck-captures.tsv` | `df46be5c92c7b4d5a8b7ad790371b5c3240c92f46460b8cfb69e9b75b7ecc762` |
+| `corpus/rendered-text-v1.py` | `14f6ca6ab742296f45a699548c31e6d49892f6baef36ed419c283d1a0511b8c9` |
+| harness | `harness-eC.py` `d27da7a7b5b7bee39d2072e5e2c2473273f3dbb174d72956ada696ef9e58336f` |
+
+Baseline at `711e6393` on a fixture tree extracted from the commit: gate `--selftest` rc 0 `PASS (18 cases)`; gate `--root` rc 0 `CLEAN (clocks=10 match=10 … 0)`; counter rc 0 `C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)`.
+
+Epoch-C surface added since B: `capture_confined(body_path)` into `.ufo/waves/*/…/capture*/`; column-0 header refusal incl. `< ` trace prefixes; manifest `fetched`-ISO / `http_status`-2xx / body_path+sha256 bijection; `NORMALIZER_SHA256_PIN=14f6ca6a…`; locate producer rc ∈ {0,1}; non-regular knowledge entries reported as clock-less UNSUPPORTED; 18-case selftest. The counter repeats capture confinement (r3-notcapture), manifest ISO/2xx/bijection (`r2-manifest-malformed`), the 18-case selftest string and keeps the gate digest pin.
+
+Same method and readings (P / M / M′ as defined above); selftest is staged in a pristine tree with the mutant at `corpus/recheck-replay.py` because the epoch-C selftest loads the local normaliser.
+
+| id | mutation at `711e6393` | selftest | P counter | M counter (pin) | M′ (pin bypassed) | verdict |
+|---|---|---|---|---|---|---|
+| M1 | gate drop set-cookie alternatives from header regex (`HTTP/\d`, `< HTTP/\d` kept) | PASS 18 | 0 (DRIFT bad_capture=1) | FAIL (gate=0) | 9 `r3-headers:secret-scanning…` | killed (pin; counter r3) |
+| M2 | gate drop HTTP alternatives (set-cookie kept) | PASS 18 | 0 | FAIL | 9 `r3-headers:…` | killed (pin; counter r3) |
+| M4 | gate sha256 verify → `if False` | FAIL 1/18 | 0 | FAIL | FAIL `r3-digest…,selftest` | killed (pin, selftest, counter) |
+| M5 | gate drop `..` path reject | PASS 18 | 0 | FAIL | 9 `r3-path:…` | killed (pin; counter r3) |
+| M6 | gate symlink check → `if False` | FAIL 1/18 | 0 | FAIL | FAIL `r3-file…,selftest` | killed (pin, selftest, counter) |
+| M7 | gate `UNSUPPORTED` tally → `MATCH` (url-less form) | FAIL 2/18 | 0 | FAIL | FAIL guard 0 | killed (pin, selftest) |
+| M8 | gate `grep -e` → `grep -F -e` | FAIL 1/18 | 10 (tree BRE-true) | FAIL | FAIL gate=0 | killed (pin; selftest discriminates) |
+| M9 | gate drop duplicate-URL check | PASS 18 | 0 (SETUP manifest-duplicate-url) | FAIL | 0 `r2-manifest-malformed` | killed (pin; duplicate rows also hit the new bijection: mutant gate itself SETUP `manifest-shared-body_path:S054+S054`; counter r2) |
+| M12 | gate drop `confined()` over the four inputs | PASS 18 | 0 (SETUP `symlinked-input:corpus/SOURCES.md`) | FAIL | 0 (gate=1, every clock `r2-registry`: counter's own `read()` confinement) | killed (pin; counter). Selftest still does not cover input confinement |
+| M13 | gate drop the symlinked-entry UNSUPPORTED row | PASS 18 | FAIL (present=9) | FAIL | FAIL (present=9; CLEAN needs clocks=10) | killed (counter present/guard). Selftest does not cover |
+| M15 | gate drop `capture_confined` | PASS 18 | 0 (DRIFT body-not-capture) | FAIL | 9 `r3-notcapture:…` | killed (pin; counter; controls F13). Selftest's `not-capture-path` case passes because its fixture body does not exist at the non-capture path, so body-missing fires instead |
+| M16 | gate drop the normaliser pin | PASS 18 (staging tree carries pinned normaliser) | FAIL (SETUP normalizer-digest) | FAIL | FAIL `r4-replay0:cdp-bridge…,selftest` | killed (pin; counter replays with the BASE normaliser, so a count-forging stub is caught) |
+| M17 | gate drop manifest fetched/ISO + 2xx checks | PASS 18 | 0 (SETUP manifest-fetched:S054) | FAIL | 0 `r2-manifest-malformed` | killed (pin; counter). No selftest case |
+| M18 | gate drop manifest body_path/sha bijection | PASS 18 | 0 (SETUP manifest-shared-body_path:S054+S999) | FAIL | 0 `r2-manifest-malformed` | killed (pin; counter; controls F15). No selftest case |
+| M3 | counter drop registry status `mined` | n/a (pinned gate, PASS 18) | 9 `r2-registry:iso-11770-3-edition-status.md:60237.html` | `value=10 (bad=none)` | 9 | **SURVIVED** |
+| M10 | counter drop 11-cell arity | n/a | 9 `r2-registry:…60237.html` | `value=10 (bad=none)` | 9 | **SURVIVED** |
+| M11 | counter weaken MATCH regex to `^MATCH %s:\d+ id=%s` | n/a | FAIL (truncated stub gate fails pin+selftest) | FAIL | 0 (pristine regex) | **latent**: M11 + pin-bypass combined reads `10 present=10 replayed=10 gate=1 guard=1 (bad=none)`; unreachable while the pin holds, under-checked if it is relaxed |
+| M14 | counter drop the pin condition (`if true`) | n/a | FAIL (full-MATCH stub gate is unpinned) | `value=10 (bad=none)` | 10 | **SURVIVED** |
+
+Hostile-tree byte identity (epoch C; only the rows that differ from epoch B are listed): S054 set-cookie body 38540 B `6a3e9f9f…`; HTTP/ body 38536 B `71df0cc7…`; stale-digest body 38524 B `65e260c7…` (manifest left `7cf6efb5…`); S067 `65d51d51…`; S070 quote-broken body `c2bdd2ecf283…` (manifest `10290bd559b8…`, real locate count 0); manifest digests `9a291178…` (M5), `ba39ff2f…` (M9), `c11e46ae…` (M15), `1c42bb41…` (M17), `231cc880…` (M18); SOURCES `9a8fb793…` (M3 status `drafted`), `7862b032…` (M10 10 cells), symlinked (M12); knowledge entry symlink (M13). Stub gates: truncated-MATCH `2833f9802258bfe5a44ead96c780bd39a97bb23327cd644f6fce22d0424f8778` (M11), exact full-MATCH + `PASS (18 cases)` `3c2e4b40cddaf95bf4fae8c82c20b5a84b61675e6ba1a8b1c596425eb803173d` (M14).
+
+### Epoch-C kill proposals
+
+1. **M3** — control on REF with S101 status cell `drafted`, expect `9` (epoch-C reads 9, M3 reads 10).
+2. **M10** — control with S101 row truncated to 10 cells, expect `9` (epoch-C reads 9, M10 reads 10).
+3. **M14** — control with the tree gate replaced by the full-MATCH stub that also prints `RECHECK_REPLAY_SELFTEST: PASS (18 cases)` (`3c2e4b40…`), expectation **`FAIL`**; epoch-C reads FAIL (unpinned gate ⇒ SELF_OK=0), M14 reads `10`. Epoch-C's K1-F5/F5b/F5c do **not** cover this: F5's printer prints a 0-case selftest PASS, so F5 fails even with the pin dropped; only a stub that fabricates both the ten MATCH lines and the exact 18-case selftest string isolates the pin.
+4. **M11 (latent)** — no control can reach it while the pin holds; if the pin is relaxed, add the truncated-MATCH stub `2833f980…` (combined M11+pin-bypass reads 10).
+5. Not survivors, but controls F13/F15 cover M15/M18 only at the counter level; add for completeness: **F16** normaliser-stub tree (body quote removed, `c2bdd2ec…`) expect `FAIL` — no epoch-C control exercises `NORMALIZER_SHA256_PIN`; **F17** manifest `fetched` non-ISO expect `0` — no control exercises the ISO/2xx cells.
+
+Epoch-C verdict summary: **3 survivors (M3, M10, M14) plus one latent (M11)** out of 18 mutants. The gate digest pin again kills every gate-byte mutation before any conjunct check, so a candidate's gate-side mutation surface is zero; the live counter surface is registry status, registry arity and the pin condition itself. The 18-case selftest now adds locate/pdf/trace-header cases, but still does not cover input confinement, capture confinement (its fixture is a nonexistent file), normaliser pinning, or the manifest ISO/2xx/bijection cells — each of those is caught only by the counter's duplicated conjuncts. Duplicate-URL rejection is now redundant with the bijection: dropping it alone makes the gate SETUP `manifest-shared-body_path`.
+
+## Epoch D addendum — re-frozen instruments at `d36231871c864c930d3e7e33f9c5345b30ab4f98`
+
+Epoch D supersedes epoch C (R56MutCounter F9 + R56ReviewCounter G1/G2). Everything in this section is anchored to that revision; it is the binding result.
+
+| artifact | sha256 at `d3623187` |
+|---|---|
+| `corpus/recheck-replay.py` | `5165da2a6fced02fce82c92fc898553db9a6d3d702d9fc6d1ca3ba185e77b14f` |
+| `plans/round-56-c1.sh` | `82acbb2056aac6055a79f223a0e0abbb2cb24f11f01ca5ed12a230c8338bdc6a` |
+| `plans/round-56-controls.sh` | `9445a1ec208f2b8dad55da2694f4b7ebd2554e3ecd4196f15c5d5da4958882ce` |
+| `plans/round-56.md` | `4d837eb2d467064efedb9e25173c5bde82830e88c31754d7af1ac253c87b8b74` |
+| `corpus/rendered-text-v1.py` | `14f6ca6ab742296f45a699548c31e6d49892f6baef36ed419c283d1a0511b8c9` |
+| harness | `harness-eD.py` `0ec8f3e8d426f946bda56262efae1d98e98bfb6158459105e4098398e163e8f8` |
+
+Baseline at `d3623187`: gate `--selftest` rc 0 `PASS (20 cases)`; gate `--root` rc 0 `CLEAN (clocks=10 match=10 … 0)`; counter rc 0 `C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)`.
+
+Changes since C: header refusal is case-insensitive (`(?im)` in gate and counter); the N boundary is `(?![0-9A-Za-z_.])`; selftest has 20 cases (adds single-signal `Set-Cookie:` and `Http/2` column-0 bodies — so M1/M2 are no longer selftest-blind); controls 21 MATCH. Same method and P/M/M′ readings.
+
+| id | mutation at `d3623187` | selftest | P counter | M counter (pin) | M′ (pin bypassed) | verdict |
+|---|---|---|---|---|---|---|
+| M1 | gate drop set-cookie alternatives (case-insensitive regex) | **FAIL 1/20** (`header-case-cookie`) | 0 (DRIFT bad_capture=1) | FAIL (gate=0) | FAIL `r3-headers…,selftest` | killed (selftest now catches the single-signal case; pin; counter r3) |
+| M2 | gate drop HTTP alternatives | **FAIL 1/20** (`header-case-status`) | 0 | FAIL | FAIL `r3-headers…,selftest` | killed (selftest; pin; counter r3) |
+| M4 | gate sha256 verify → `if False` | FAIL 1/20 | 0 | FAIL | FAIL `r3-digest…,selftest` | killed (pin, selftest, counter) |
+| M5 | gate drop `..` path reject | PASS 20 | 0 | FAIL | 9 `r3-path:…` | killed (pin; counter r3) |
+| M6 | gate symlink check → `if False` | FAIL 1/20 | 0 | FAIL | FAIL `r3-file…,selftest` | killed (pin, selftest, counter) |
+| M7 | gate `UNSUPPORTED` tally → `MATCH` (url-less form) | FAIL 2/20 | 0 | FAIL | FAIL guard 0 | killed (pin, selftest) |
+| M8 | gate `grep -e` → `grep -F -e` | FAIL 1/20 | 10 (tree BRE-true) | FAIL | FAIL gate=0 | killed (selftest; pin) |
+| M9 | gate drop duplicate-URL check | PASS 20 | 0 (SETUP manifest-duplicate-url) | FAIL | 0 `r2-manifest-malformed` | killed (pin; bijection: mutant gate itself SETUP `manifest-shared-body_path:S054+S054`; counter r2) |
+| M12 | gate drop `confined()` over the four inputs | PASS 20 | 0 (SETUP `symlinked-input:corpus/SOURCES.md`) | FAIL | 0 (every clock `r2-registry`) | killed (pin; counter read() confinement). Selftest still does not cover input confinement |
+| M13 | gate drop the symlinked-entry UNSUPPORTED row | PASS 20 | FAIL (present=9) | FAIL | FAIL (present=9) | killed (counter present/guard). Selftest does not cover |
+| M15 | gate drop `capture_confined` | PASS 20 | 0 (DRIFT body-not-capture) | FAIL | 9 `r3-notcapture:…` | killed (pin; counter; controls F13). Selftest `not-capture-path` fixture body is absent at that path, so body-missing fires instead |
+| M16 | gate drop the normaliser pin | PASS 20 | FAIL (SETUP normalizer-digest) | FAIL | FAIL `r4-replay0:cdp-bridge…,selftest` | killed (pin; counter replays with the BASE normaliser) |
+| M17 | gate drop manifest fetched/ISO + 2xx checks | PASS 20 | 0 (SETUP manifest-fetched:S054) | FAIL | 0 `r2-manifest-malformed` | killed (pin; counter). No selftest case |
+| M18 | gate drop manifest body_path/sha bijection | PASS 20 | 0 (SETUP manifest-shared-body_path:S054+S999) | FAIL | 0 `r2-manifest-malformed` | killed (pin; counter; controls F15). No selftest case |
+| M3 | counter drop registry status `mined` | n/a | 9 `r2-registry:iso-11770-3-edition-status.md:60237.html` | `value=10 (bad=none)` | 9 | **SURVIVED** |
+| M10 | counter drop 11-cell arity | n/a | 9 `r2-registry:…60237.html` | `value=10 (bad=none)` | 9 | **SURVIVED** |
+| M11 | counter weaken MATCH regex to `^MATCH %s:\d+ id=%s` | n/a | FAIL (truncated stub gate unpinned) | FAIL | 0 (pristine regex) | **latent**: M11 + pin-bypass combined reads `10 … (bad=none)`; unreachable while the pin holds |
+| M14 | counter drop the pin condition (`if true`) | n/a | FAIL (stub gate unpinned) | `value=10 (bad=none)` | 10 | **SURVIVED** |
+| M19 | counter weaken N boundary to `(?![0-9A-Za-z])` | n/a | FAIL `present=9 replayed=9 gate=1 guard=0 (bad=absent:betterleaks…README.md)` | `value=10 (bad=none)` | FAIL | **SURVIVED** |
+
+M19 hostile tree: the betterleaks `recheck:` line restated as `… \` -> 1.0 (ran 2026-10-23)` (command text unchanged). The gate reads `stated=1` and stays CLEAN; the pristine counter's `(?![0-9A-Za-z_.])` refuses the statement (absent), the mutant accepts it and replays 1 == 1, scoring 10. This is exactly the G2 class the epoch-D boundary was written for — it is closed in the instrument but not covered by any selftest case or control, so a future edit can reopen it silently.
+
+### Epoch-D kill proposals
+
+1. **M3** — control on REF with S101 status cell `drafted`, expect `9` (epoch-D counter 9, M3 10).
+2. **M10** — control with S101 row truncated to 10 cells, expect `9` (epoch-D 9, M10 10).
+3. **M14** — control with the tree gate replaced by the full-MATCH stub that also prints `RECHECK_REPLAY_SELFTEST: PASS (20 cases)` (`1bc2406c…`), expectation **`FAIL`**; epoch-D reads FAIL, M14 reads 10. K1-F5/F5b/F5c still do not cover it (F5's printer prints a 0-case selftest PASS).
+4. **M19** — control with the betterleaks clock restated `-> 1.0` (command unchanged), expectation **`FAIL`** (pristine `present=9 … (bad=absent:…)`; M19 reads 10). Equivalently a 21st/22nd selftest case asserting `-> 1.0` is not a statement.
+5. **M11 (latent)** — no control reaches it while the pin holds; with pin bypassed it reads 10 (truncated stub `df84639efc2e9113…`).
+6. Not survivors but uncovered instrument cells: **F16** normaliser-stub tree (`c2bdd2ec…`) expect FAIL (no control exercises `NORMALIZER_SHA256_PIN`); **F17** manifest `fetched` non-ISO expect `0` (no control exercises the ISO/2xx cells).
+
+Epoch-D verdict summary: **4 survivors (M3, M10, M14, M19) plus one latent (M11)** out of 19 mutants. The gate digest pin still kills every gate-byte mutation before any conjunct check, so a candidate's gate-side mutation surface is zero. Epoch D closed the case-insensitivity hole: M1 and M2 now fail the 20-case selftest through the new single-signal fixtures (the epoch-C double-signed-fixture weakness is gone). The remaining live counter surface is registry status, registry arity, the pin condition and now the N boundary; the N boundary and the manifest ISO/2xx/bijection cells still have no selftest or control coverage.
+
+## Epoch E addendum — re-frozen instruments at `dd31b7867723f89fc8f83e88cc7d98e17de26cf2`
+
+Epoch E is the current predeclaration (supersedes `d362318`). It adds counter tool guards, fixes the plan's selftest token (18→20) and adds control F11b (`-> 1.0` boundary); verdict semantics are unchanged by design. All evidence below is anchored to `dd31b786`.
+
+| artifact | sha256 at `dd31b786` |
+|---|---|
+| `corpus/recheck-replay.py` | `5165da2a6fced02fce82c92fc898553db9a6d3d702d9fc6d1ca3ba185e77b14f` (unchanged from D) |
+| `plans/round-56-c1.sh` | `d468533fbf593c4b2a3a97dc513b9feb2cff765892c126c02d7c6ef40273a954` |
+| `plans/round-56-controls.sh` | `01060f254b2ecfdb23f341a5cf0937aec32243230560809403ed67ea38b196e7` |
+| `plans/round-56.md` | `212e2dd7ae71e3f056111e1a2c59d33151a3c51fee9f932bf2209ad2cb3d805d` |
+| `corpus/rendered-text-v1.py` | `14f6ca6ab742296f45a699548c31e6d49892f6baef36ed419c283d1a0511b8c9` (unchanged) |
+| harness | `harness-eE.py` `56d10691aa5a4aa0288e6721ded743f514c9f91d85d76af572d4dacf66448e5d` |
+
+Baseline at `dd31b786`: gate `--selftest` rc 0 `PASS (20 cases)`; gate `--root` rc 0 `CLEAN (clocks=10 match=10 … 0)`; counter rc 0 `C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)`.
+
+The full 19-mutant sweep was re-run against the epoch-E counter (the gate bytes are identical, so every anchor is unchanged). **All 19 P/M/M′ readings are identical to the epoch-D table above**, with two verdict-relevant differences:
+
+| changed item | epoch-D | epoch-E |
+|---|---|---|
+| M19 (counter N boundary weakened to `(?![0-9A-Za-z])`) | survivor: pristine `FAIL present=9 … (bad=absent:betterleaks…)`, mutant `10` | **killed by control F11b**: the new control builds the same `-> 1.0` restatement and expects `FAIL`; epoch-E reads FAIL, M19 reads 10 → control MISMATCH |
+| counter tool guards (`sha256sum`/`cut`/`tail`/`timeout`/`git`/`tar` → SETUP) | n/a | no verdict change on this host (all tools present); untested by mutation here — a dropped guard is only observable on a host missing the tool, which is outside an offline committed-bytes probe |
+
+Gate-side mutants M1–M18 remain killed exactly as in epoch D (all die at the pin; M1/M2/M4/M6/M7/M8 also fail the 20-case selftest; the M′ diagnostics hit `r3-headers`, `r3-path`, `r3-file`, `r3-notcapture`, `r2-registry`, `r2-manifest-malformed`, `r4-replay0`, present/guard as tabulated). M11 remains latent: M11 + pin-bypass combined reads `10 present=10 replayed=10 gate=1 guard=1 (bad=none)` at `dd31b786` (truncated stub `df84639efc2e9113…`).
+
+### Epoch-E survivors and kills
+
+- **SURVIVED: M3** (registry status `mined`), **M10** (11-cell arity), **M14** (gate pin condition). Proposed controls unchanged from epoch D: S101 status `drafted` expect `9`; S101 row truncated to 10 cells expect `9`; full-MATCH stub + `PASS (20 cases)` (`1bc2406c…`) expect `FAIL`.
+- **M19** is now covered by F11b; no further control is needed, but a selftest case for `-> 1.0` would put the boundary in the gate's own detector rather than only in the shell control.
+- **M11 latent**: no control reaches it while the pin holds; if the pin is relaxed, the truncated stub `df84639e…` kills it.
+- Still uncovered by any selftest case: input confinement, symlinked-entry row, capture confinement (its fixture body is absent at the non-capture path), normaliser pin, manifest ISO/2xx and bijection. Counter r2/r3/r4 catch all of them today; the gate 20-case selftest does not.
+
+Epoch-E verdict summary: **3 survivors (M3, M10, M14) plus one latent (M11)** out of 19 mutants; M19 moved from survivor to control-killed. The gate pin still makes the candidate's gate-side mutation surface zero, and the remaining live counter surface is registry status, registry arity and the pin condition.
+
 ## State and restoration
 
-- Production bytes were not modified by this seat. The tested blobs equal `git cat-file HEAD:` at `42070de` (hashes above).
-- Lane state: during the epoch-A probe the working tree was mid-landing of epoch B (that is why the epoch-A blobs and the working tree diverged). At epoch-B probe time `HEAD=5d9a157…`; afterwards the floating working tree carried candidate edits again (`corpus/recheck-replay.py` `d4392ffe831560397fa35b4e84198b6ac75d5da8505a302ef3dcf6991080b274`, `plans/round-56-c1.sh` `d4dc9ddca15c059c5e1a119343f1e1a51c845faf83a793437b97c3aaa52a77c3`, `plans/round-56-controls.sh` `aa2479fffff247ce28445f33008c945eb75d7542c42cddd5cedeefbc5aa8bf98`, `corpus/SOURCES.md` `299903cf…`). None of this is this seat's work; results bind to the two named revisions and the `5d9a157` blobs hashed in the addendum.
-- Scratch `/fast/scratch/hyaku/kagi-r56/R56MutGate/` (epoch A: clone, 22 fixture trees, logs) and `/fast/scratch/hyaku/kagi-r56/R56MutGate-eB/` (epoch B: clone at `5d9a157`, 28 fixture trees, logs) were deleted after writing this report and `R56MutGate.d/`; receipts kept at `.ufo/waves/round-56/w1/R56MutGate.d/results.json`, `results-epochB.json`, `harness.py`, `harness-eB.py`, `commands.txt`.
-- Epoch-B production bytes were not modified by this seat; the tested blobs are the `5d9a157` blobs hashed above. The lane working tree may keep moving under the wave; results here bind to the two named revisions only.
+- Production bytes were not modified by this seat. In each epoch the tested blobs equal that revision's committed blobs (`git cat-file blob <rev>:<path>` hashes above: `42070de`, `5d9a157`, `711e6393`).
+- Lane state: the working tree moved under this seat between epochs (the wave was landing the next predeclaration each time); at epoch-C probe time `HEAD=711e6393…`, epoch-D probe time `HEAD=d3623187…`, epoch-E probe time `HEAD=dd31b786…`. None of the working-tree edits are this seat's work; results bind only to the five named revisions and their committed blobs.
+- Scratch `R56MutGate/` (A), `-eB/`, `-eC/`, `-eD/` and `-eE/` (E: clone at `dd31b786`, 38 fixture trees, logs) were deleted after writing this report and `R56MutGate.d/`; receipts kept at `.ufo/waves/round-56/w1/R56MutGate.d/results.json`, `results-epochB.json`, `results-epochC.json`, `results-epochD.json`, `results-epochE.json`, `harness*.py`, `commands.txt`.
+- Epoch-E production bytes were not modified by this seat; the tested blobs are the `dd31b786` blobs hashed in the epoch-E addendum. `HEAD` at epoch-E probe time was `dd31b786`.
 - Unrun: the live re-fetch leg (outside this seat; no network was used). Mutant verdicts are offline readings of committed bytes only.

@@ -181,3 +181,92 @@ git diff --stat 5d9a157 -- those two: +93/-23.
 These are uncommitted, not reviewed. The epoch-B readings above are anchored to
 the committed blobs (counter 6b132ea1, gate 2e9dfde3 = pin). Any worktree run
 against 5d9a157 now hits a pin mismatch (value=0).
+
+## Epoch-C re-audit (committed predeclaration 711e6393e68658f396918c07de253e5a5c74d1b4)
+
+Anchors (git show 711e6393:<path> | sha256sum):
+7992ee6a97c9f1cfaf627c61322ecaf6aa0c31126a65f591567d7b6f7ee2802c  plans/round-56-c1.sh
+e9b7e4b7aa1e8173c4bfc2e536ce6d1ed29c4c0d6ee5f46bfa1e63d3692a62b4  corpus/recheck-replay.py (= GATE_SHA256_PIN)
+df46be5c92c7b4d5a8b7ad790371b5c3240c92f46460b8cfb69e9b75b7ecc762  corpus/recheck-captures.tsv
+8beb24e94a08c3961f5217a3b4b98aadc46d56561fe3ec2254f13185d4cf6c9f  plans/round-56.md
+b675baa5fad95bc663f49ca76ea13be84627db457af443f3b957144cd8ddd16c  plans/round-56-controls.sh
+523aaa60946a1322441a22c820daf9cc84c9d7924aa1eaa8b4b338dcf5e8b6b2  .ufo/waves/round-56/controls/controls-prefreeze-epochC.txt (20/20 MATCH, 0 tar errors)
+
+Method: clone fetched + `git checkout 711e6393` (root asserted); trees from
+`git -C lanea archive 711e6393 | tar -x`; counter run from the clone.
+
+Readings (rc 0 for all):
+EC printer      value=FAIL present=10 replayed=0 gate=0 guard=0 (r5-gate x10 + selftest + gate-digest)
+EC symgate      value=FAIL present=10 replayed=0 gate=0 guard=0 (r5-gate x10 + selftest)
+EC nogate       value=0 present=10 replayed=0 gate=0 guard=1 (r5-gate x10)
+EC nocap        value=0 present=10 replayed=0 gate=0 guard=1 (r2-manifest-malformed x10)
+EC oneoff       value=0 present=10 replayed=0 gate=0 guard=1 (r3-notcapture:...ipd + r5-gate x10)
+EC dupbody      value=0 present=10 replayed=0 gate=0 guard=1 (r2-manifest-malformed x10, bijection)
+EC forge        value=10 present=10 replayed=10 gate=1 guard=1 (hand-written capture in capture dir, valid metadata)
+EC reword       value=FAIL present=9 replayed=9 gate=1 guard=0
+EC twoline      value=FAIL present=9 replayed=9 gate=1 guard=0
+EC urlslash     value=0 present=10 replayed=0 gate=0 guard=1 (r2-rows0:...ipd + r5-gate x10)
+EC restate1x    value=FAIL present=9 replayed=9 gate=1 guard=0
+EC f8           value=0 present=10 replayed=0 gate=0 guard=1 (r5-gate x10)
+EC badmeta      value=0 present=10 replayed=0 gate=0 guard=1 (r2-manifest-malformed x10, fetched not-a-date)
+EC status999    value=0 present=10 replayed=0 gate=0 guard=1 (r2-manifest-malformed x10)
+EC rev 711e6393 value=10 present=10 replayed=10 gate=1 guard=1
+EC rev 5d9a157  value=FAIL present=10 replayed=0 gate=0 guard=0 (old pin)
+EC rev 42070de  value=FAIL present=10 replayed=0 gate=0 guard=0 (old pin)
+EC rev 832ba6a  value=0 present=10 replayed=0 gate=0 guard=1 (r2-manifest x10)
+
+## Epoch-D re-audit (committed predeclaration d36231871c864c930d3e7e33f9c5345b30ab4f98)
+
+Anchors (git show d3623187:<path> | sha256sum):
+82acbb2056aac6055a79f223a0e0abbb2cb24f11f01ca5ed12a230c8338bdc6a  plans/round-56-c1.sh
+5165da2a6fced02fce82c92fc898553db9a6d3d702d9fc6d1ca3ba185e77b14f  corpus/recheck-replay.py (= GATE_SHA256_PIN)
+4d837eb2d467064efedb9e25173c5bde82830e88c31754d7af1ac253c87b8b74  plans/round-56.md
+9445a1ec208f2b8dad55da2694f4b7ebd2554e3ecd4196f15c5d5da4958882ce  plans/round-56-controls.sh
+cc27bd96f13b22843993a4e0154f6b280766c69f2540d5433136ea360c19f6c9  .ufo/waves/round-56/controls/controls-prefreeze-epochD.txt (21/21 MATCH, 0 tar errors)
+
+Readings (rc 0 for all):
+ED hdrset (S074 body prefixed Set-Cookie: x=1 CRLF, manifest re-bound)
+                value=0 present=10 replayed=0 gate=0 guard=1 (r3-headers:...ipd + r5-gate x10); gate alone DRIFT match=9 bad_capture=1
+ED hdrhttp (S074 body prefixed Http/2 200 CRLF with capital H, re-bound)
+                value=0 present=10 replayed=0 gate=0 guard=1 (r3-headers:...ipd + r5-gate x10)
+ED n10 (`-> 1.0`)   value=FAIL present=9 replayed=9 gate=1 guard=0
+ED n1_0 (`-> 1_0`)  value=FAIL present=9 replayed=9 gate=1 guard=0
+ED printer          value=FAIL present=10 replayed=0 gate=0 guard=0 (r5-gate x10 + selftest + gate-digest)
+ED symgate          value=FAIL present=10 replayed=0 gate=0 guard=0 (r5-gate x10 + selftest)
+ED nogate           value=0 present=10 replayed=0 gate=0 guard=1
+ED nocap            value=0 present=10 replayed=0 gate=0 guard=1 (r2-manifest-malformed x10)
+ED oneoff           value=0 present=10 replayed=0 gate=0 guard=1 (r3-notcapture:...ipd + r5-gate x10)
+ED dupbody          value=0 present=10 replayed=0 gate=0 guard=1 (r2-manifest-malformed x10)
+ED forge            value=10 present=10 replayed=10 gate=1 guard=1 (hand-written in-capture body, valid metadata)
+ED reword           value=FAIL present=9 replayed=9 gate=1 guard=0
+ED twoline          value=FAIL present=9 replayed=9 gate=1 guard=0
+ED urlslash         value=0 present=10 replayed=0 gate=0 guard=1 (r2-rows0:...ipd + r5-gate x10)
+ED f8               value=0 present=10 replayed=0 gate=0 guard=1 (r5-gate x10)
+ED rev d3623187     value=10 present=10 replayed=10 gate=1 guard=1
+ED rev 711e6393     value=FAIL present=10 replayed=0 gate=0 guard=0 (old pin)
+ED rev 832ba6a      value=0 present=10 replayed=0 gate=0 guard=1 (r2-manifest x10)
+
+## Epoch-E re-audit (committed predeclaration dd31b7867723f89fc8f83e88cc7d98e17de26cf2)
+
+Anchors (git show dd31b786:<path> | sha256sum):
+d468533fbf593c4b2a3a97dc513b9feb2cff765892c126c02d7c6ef40273a954  plans/round-56-c1.sh
+5165da2a6fced02fce82c92fc898553db9a6d3d702d9fc6d1ca3ba185e77b14f  corpus/recheck-replay.py (= pin, unchanged from D)
+212e2dd7ae71e3f056111e1a2c59d33151a3c51fee9f932bf2209ad2cb3d805d  plans/round-56.md (PASS (20 cases))
+01060f254b2ecfdb23f341a5cf0937aec32243230560809403ed67ea38b196e7  plans/round-56-controls.sh
+b4ab59c5498272a7fe97d28f72bc06a1de66f06f2ef86783bbd09c8211fc711e  .ufo/waves/round-56/controls/controls-prefreeze-epochE.txt (22/22 MATCH, 0 tar errors)
+
+Readings (rc 0 unless stated):
+EE printer          value=FAIL present=10 replayed=0 gate=0 guard=0 (r5-gate x10 + selftest + gate-digest)
+EE nogate           value=0 present=10 replayed=0 gate=0 guard=1
+EE nocap            value=0 present=10 replayed=0 gate=0 guard=1 (r2-manifest-malformed x10)
+EE forge            value=10 present=10 replayed=10 gate=1 guard=1
+EE reword           value=FAIL present=9 replayed=9 gate=1 guard=0
+EE f8               value=0 present=10 replayed=0 gate=0 guard=1 (r5-gate x10)
+EE rev dd31b786     value=10 present=10 replayed=10 gate=1 guard=1
+EE rev d362318      value=10 present=10 replayed=10 gate=1 guard=1 (disclosed; E not verdict-tightening)
+EE rev 832ba6a      value=0 present=10 replayed=0 gate=0 guard=1 (r2-manifest x10)
+
+Tool-guard tests (PATH farm with one binary removed, /bin/bash invocation):
+PATH without timeout   -> "C1_REPLAY: SETUP no-timeout"    rc=2
+PATH without sha256sum -> "C1_REPLAY: SETUP no-sha256sum"  rc=2
+normal PATH control    -> value=10 present=10 replayed=10 gate=1 guard=1 rc=0

@@ -3,68 +3,59 @@
 Seat R56MutCounter (mutation tester, leaf; no subagent dispatch, no task tool).
 Lane `/home/vgpnk/Projects/shokunin/kagi-shokunin`, BASE `832ba6a53d6a76706b5c80bce2278683dea33d42`.
 Observed answering model: `amr/deepseek-v4.1-flash` (declared by the session's project-context
-block; not inferred from this prompt).
+block, not inferred from this prompt).
 
-The lane re-froze while I tested, so every reading below names its epoch. All epoch-B evidence is
-anchored to `5d9a1571911ec38a456a40b443e19640abb9a88b`.
+The lane re-froze three times while I tested; every reading names its epoch, and the audit is
+anchored to the latest predeclaration, **epoch D = `d36231871c864c930d3e7e33f9c5345b30ab4f98`**.
 
-| epoch | counter `plans/round-56-c1.sh` | gate `corpus/recheck-replay.py` | manifest |
+| epoch | counter `plans/round-56-c1.sh` | gate `corpus/recheck-replay.py` | notes |
 |---|---|---|---|
-| A = `42070de` | `096251c9b7a7405dbae320eb4dbb3ef0a092cf5e530d2274de0b2e29509bde9a` | `b7782f35c0c8bbaedac5f8f06eaadbc3ce4b8997be25e10f4224724013d799e8` | `df46be5c92c7b4d5a8b7ad790371b5c3240c92f46460b8cfb69e9b75b7ecc762` |
-| B = `5d9a157` | `6b132ea1b521e698aaf4a1085e051087726c6b5ec840f60339b206abe02b269c` | `2e9dfde326b29fb95f520c5d7f3a671836682b28025e4efc7887333257d4df51` | same `df46be5c…` |
+| A `42070de` | `096251c9b7a7405dbae320eb4dbb3ef0a092cf5e530d2274de0b2e29509bde9a` | `b7782f35c0c8bbaedac5f8f06eaadbc3ce4b8997be25e10f4224724013d799e8` | controls `633326a5…`, plan `d1bf8d26…` |
+| B `5d9a157` | `6b132ea1b521e698aaf4a1085e051087726c6b5ec840f60339b206abe02b269c` | `2e9dfde326b29fb95f520c5d7f3a671836682b28025e4efc7887333257d4df51` | controls `63cf8061…`, plan `033f2104…` |
+| C `711e6393` | `7992ee6a97c9f1cfaf627c61322ecaf6aa0c31126a65f591567d7b6f7ee2802c` | `e9b7e4b7aa1e8173c4bfc2e536ce6d1ed29c4c0d6ee5f46bfa1e63d3692a62b4` | controls `b675baa5…`, plan `8beb24e9…` |
+| **D `d362318`** | `82acbb2056aac6055a79f223a0e0abbb2cb24f11f01ca5ed12a230c8338bdc6a` | `5165da2a6fced02fce82c92fc898553db9a6d3d702d9fc6d1ca3ba185e77b14f` | `GATE_SHA256_PIN=5165da2a…`, `NORMALIZER_SHA256_PIN=14f6ca6a…`, selftest `PASS (20 cases)` |
 
-Epoch-A controls `633326a563c6d38e7933d0e88d3b395404f688dbef9ff8e1de7fffdbed48b094`, plan
-`d1bf8d2610ed50d46acda83e38c055e629d5e76d0b860d14665f2d223e0b8a07`. Epoch-B controls
-`63cf806134bcb115368e59809ad54957750d7433d53f6979b256f662e3ddab8f`, plan
-`033f2104ef36b76e5d9de192878fb1b619808f1c9c63b2e310d074816a3e1679`, SOURCES.md
-`299903cfb8d38760440d16ae3a5119154f14ec128619710101ca8c59af3a4edb`.
-
-At 07:52 (after the epoch-B matrix, not tested by me) the lane gate was
-`d4392ffe831560397fa35b4e84198b6ac75d5da8505a302ef3dcf6991080b274` and SOURCES.md
-`fa69564f610e5192093b05ae17c9ee385aa607586cc219d0e33460985ab12936`, and at 07:53 the counter was
-`be4af051425a764d66c91da1506bd77bab7cf24c9b33e5880c14072533d97fd5` with
-`corpus/knowledge/cdp-bridge-1password-oidc-workflow.md` also modified — the epoch-C re-freeze
-KagiR56a3 announced.
-
-No production file was edited. All mutation ran on copies under
+All four epochs share manifest `df46be5c92c7b4d5a8b7ad790371b5c3240c92f46460b8cfb69e9b75b7ecc762`.
+No production file was edited; every mutation ran on copies under
 `/fast/scratch/hyaku/kagi-r56/R56MutCounter/`.
 
 ## 0. Verdict
 
-On epoch B the counter is **sound relative to its frozen r1–r5 predicate**: 41 recipes, each
-varying one conjunct, and every one either reduced the reading or zeroed it; the detector
-separates no-work (`832ba6a` ⇒ `value=0`) from positive (`5d9a157` ⇒ `value=10`), and all seven
-SETUP paths exit 2. The epoch-A printer-gate and vacuous-selftest holes are closed by the
-`GATE_SHA256_PIN` digest, the `--root` rc requirement, the exact `CLEAN (clocks=10 match=10 …)`
-summary and the literal `PASS (13 cases)` selftest line (§5).
+**No open finding against epoch D.** Every defect I raised in epochs A/B/C is closed, and each
+closure is demonstrated by the identical recipe that used to survive it:
 
-Three defects are outside what r1–r5 as frozen require, and they still read 10 on `5d9a157`:
+| finding | raised at | proof at D |
+|---|---|---|
+| F1 printer/symlinked/unpinned gate read 10 | A | R5b/R5c/R5g now **FAIL** (`guard=0`, unpinned gate), pin enforced |
+| F2 vacuous `--selftest` read 10 | A | G3 now **FAIL**; literal `PASS (20 cases)` |
+| F3 `http_status`/`fetched` unconstrained | A/B | R2i **0**, C2 (`2026-11-7`) **0**, C3 (`302`) **0** |
+| F4 cross-wired captures (S101/S114→S113 page) | A/B | R2j/R2k **0**, C4 (shared sha) **0**, C1 (out-of-capture path) **0** |
+| F5 FIFO entry hung gate and counter | A/B | C8 **0** in ~2 s; gate prints `UNSUPPORTED … reason=non-regular-entry` |
+| F6 control-quality (bash printer control, inert edits, cascade coupling) | A | controls rewritten; residual note in §6 |
+| F7 `sha256sum`/`cut`/`tail` outside the SETUP guards | B | **still open as a declaration nit** (§6.7); readings stay fail-closed |
+| F9 header refusal lost case-insensitivity | C | R3f **0**; five case probes all **0** (§5) |
 
-- **F3** r2 ignores the manifest's `http_status` and `fetched` cells (a 404-dated row scores).
-- **F4** nothing binds a row's `body_path` to its URL beyond the digest, so S101 (and S114) can be
-  "replayed" against the S113 page while the pinned gate itself prints `MATCH … id=S101`.
-- **F5** a FIFO at `corpus/knowledge/*.md` hangs both gate and counter (rc 124), because
-  `clocks()` reads every `*.md` without a regular-file test and the counter bounds no gate run.
+Epoch D baselines: `d362318` ⇒ `value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)`, rc 0;
+BASE `832ba6a` ⇒ `value=0 present=10 replayed=0 gate=0 guard=1`, rc 0; gate `--selftest` ⇒
+`RECHECK_REPLAY_SELFTEST: PASS (20 cases)`, rc 0.
 
-Plus one declaration gap (**F7**: `sha256sum`/`cut`/`tail` are new undeclared tool dependencies;
-their absence yields 0/FAIL with rc 0 instead of SETUP) and one governance note (**F8**: the pin
-couples counter and gate, but the kill-rule pathspec omits the gate).
-
-KagiR56a3 has confirmed in-channel that F3, F4 and F5 are being folded into the epoch-C re-freeze.
+The only readings at 10 are the named-ceiling and predicate-allowed cases: R3g (hand-written
+self-consistent capture), R1e (`-> count=N`), R1g (date/prose edit).
 
 ## 1. Method
 
-Reference tree = `tar -cf - corpus .ufo/waves/round-45/controls/capture-r45
-.ufo/waves/round-55/capture .ufo/waves/round-56/capture` (216 files, 6.3 MB). Every mutant is
-`cp -a <ref> <mutant>` plus exactly one recipe from `mutate.py`
-(sha256 `4a5a780b45c101aa76c609baf7007cda3b12d3c16003f8111b1542f80b082d11`), applied with
-`assert t != s` on every edit so an inert recipe fails loudly.
+Reference trees: `tar -cf - corpus .ufo/waves/round-45/controls/capture-r45
+.ufo/waves/round-55/capture .ufo/waves/round-56/capture` from the working tree (epoch A) and
+`git archive <rev>` for B/C/D, so there is no drift. Every mutant is `cp -a <ref> <mutant>` plus one
+recipe from `mutate.py` (sha256
+`4a5a780b45c101aa76c609baf7007cda3b12d3c16003f8111b1542f80b082d11`), with `assert t != s` on every
+edit; recipes whose anchor changed between epochs fail loudly (`RECIPE-ERROR`, seen once for the
+R5d/e/f print anchors, which were then re-derived).
 
-Epoch A was run against the lane's own counter (which resolved `REPO` to the lane). Because the
-lane's counter changed four times between 07:34 and 07:46, epoch B was run against a **pinned
-snapshot**: `git clone --shared --no-checkout` of the lane into scratch (read-only on the lane),
-the counter copied to `<clone>/plans/round-56-c1.sh`, so `REPO`, `BASE:corpus/rendered-text-v1.py`
-and `GATE_SHA256_PIN` are frozen to the bytes under test. Invocation, one per tree:
+Because the lane's counter changed repeatedly mid-wave, epochs B/C/D were run against **pinned
+snapshots**: a `git clone --shared --no-checkout` of the lane in scratch (read-only on the lane) with
+the epoch's counter copied to `<clone>/plans/round-56-c1.sh`, so `REPO`,
+`BASE:corpus/rendered-text-v1.py` and the two SHA256 pins are frozen to the bytes under test:
 
 ```
 cd /fast/scratch/hyaku/kagi-r56/R56MutCounter
@@ -73,285 +64,189 @@ HYAKU_SCRATCH=/fast/scratch/hyaku/kagi-r56/R56MutCounter \
 ```
 
 `HYAKU_SCRATCH` was redirected into my own scratch so the counter's `$SCR` never collided with a
-sibling's `c1.*`. Every non-SETUP run exited **0** (43/43 in epoch A, 44/44 in epoch B): the
-`C1_REPLAY:` line is the only verdict channel; rc 0 is not a pass.
+sibling's `c1.*`. Every non-SETUP run exited **0** (43 A, 44 B, 53 C, 61 D): the `C1_REPLAY:` line is
+the only verdict channel; rc 0 is not a pass.
 
 ## 2. Baselines
 
 | epoch | tree | reading | rc |
 |---|---|---|---|
-| A | landing working tree | `C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)` | 0 |
-| A | `832ba6a` via `--tree` | `value=0 present=10 replayed=0 gate=0 guard=1 (bad=r2-manifest:…×10)` | 0 |
-| A | `832ba6a` via revision arg | identical to the previous line | 0 |
-| A | gate direct on the tree | 10 `MATCH` lines + `RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)` | 0 |
-| A | gate `--selftest` | `RECHECK_REPLAY_SELFTEST: PASS (13 cases)` | 0 |
-| B | tree from `git archive 5d9a157` | `value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)` | 0 |
-| B | `832ba6a` via `--tree` | `value=0 present=10 replayed=0 gate=0 guard=1` | 0 |
+| A | landing working tree / `832ba6a` | `value=10 … guard=1 (bad=none)` / `value=0 … gate=0 guard=1` | 0 |
+| A | gate direct / `--selftest` | `CLEAN (clocks=10 match=10 … tool=0)` / `PASS (13 cases)` | 0 |
+| B | `git archive 5d9a157` / `832ba6a` | `value=10 …` / `value=0 …` | 0 |
+| C | `git archive 711e6393` / `832ba6a` | `value=10 …` / `value=0 …`; gate `PASS (18 cases)` | 0 |
+| D | `git archive d362318` / `832ba6a` | `value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)` / `value=0 present=10 replayed=0 gate=0 guard=1` | 0 |
 
 The positive run binds these ten ids: S055, S070, S101, S113, S114, S074, S078, S067, S054, S057.
 
-## 3. Matrix — 41 recipes, readings in both epochs
+## 3. Matrix — 59 recipes, readings per epoch
 
-`A` = epoch A reading, `B` = epoch B reading. Full 64-hex digests of every mutated file are in
-`R56MutCounter.d/matrixAB.tsv` (and `matrix.tsv` = epoch A, `resultsE.json` = epoch B). Digests are
-given in full in §4/§5 for every finding; a † marks rows whose mutated-file digest differs between
-epochs because the recipe edits bytes of the epoch's own gate (or embeds the mutant tree path).
+Full 64-hex digests of every mutated file are in `R56MutCounter.d/matrixABCD.tsv` (per-epoch JSON:
+`resultsC711.json`, `resultsE.json`, `resultsD.json`, `resultsD2.json`); findings carry their digests
+inline.
 
-| id | recipe (one edit) | A | B | verdict |
-|---|---|---|---|---|
-| R1a | delete trufflehog `recheck:` line body → `recheck: 180d — on-change — …` | FAIL | FAIL | killed (r1 absent) |
-| R1b | betterleaks `-> 1` → `-> 2` | FAIL | FAIL | killed (r1 absent) |
-| R1c | append a second `recheck:` line to betterleaks | FAIL | FAIL | killed (not one recheck line) |
-| R1d | betterleaks command URL `'…'` → `"…"` | FAIL | FAIL | killed (command bytes pinned) |
-| R1e | betterleaks `-> 1` → `-> count=1` | 10 | 10 | allowed form (predicate r1) |
-| R1f | betterleaks `-> 1` → `-> 10` | FAIL | FAIL | killed (`(?!…)` + gate MISMATCH) |
-| R1g | betterleaks `(ran 2026-10-23)` → `(ran 2026-11-06)` | 10 | 10 | prose only (correct) |
-| R2a | delete manifest S054 row | 0 | 0 | killed (r2-rows0 + gate DRIFT) |
-| R2b | duplicate manifest S054 row | 0 | 0 | killed (r2-rows2; gate SETUP) |
-| R2c | duplicate registry S054 row (outside fences) | 9 | 9 | killed by counter only (gate CLEAN) |
-| R2d | registry S113 status `mined` → `staged` | 9 | 9 | killed by counter only |
-| R2e | registry S070 URL moved source → teaches cell | 9 | 9 | killed by counter only |
-| R2f | registry S074 row only inside a ``` fence | 9 | 9 | killed by counter only |
-| R2g | manifest header `bytes\tsha256` → `sha256\tbytes` | 0 | 0 | killed (header) |
-| R2h | manifest S054 `id` → `S055` | 0 | 0 | killed (r2-registry) |
-| **R2i** | manifest S054 `http_status=404`, `fetched=1999-01-01` | **10** | **10** | **survived — F3** |
-| **R2j** | manifest S101 `body_path` → round-55 `S113.body` + its bytes/sha | **10** | **10** | **survived — F4** |
-| **R2k** | manifest S114 `body_path` → round-55 `S113.body` + its bytes/sha | **10** | **10** | **survived — F4** |
-| R3a | append `x` to S054.body | 0 | 0 | killed (r3-digest) |
-| R3b | manifest S054 `body_path` → absolute path † | 0 | 0 | killed (r3-path) |
-| R3c | manifest S054 `body_path` → `../../S054.body` | 0 | 0 | killed (r3-path) |
-| R3d | S055.body moved to tree root, capture entry symlinked | 0 | 0 | killed (r3-file) |
-| R3e | S057.body prefixed `HTTP/2 200\r\nset-cookie: x=1\r\n\r\n`, manifest refixed | 0 | 0 | killed (r3-headers) |
-| R3f | `\nSet-Cookie: y=2\n` mid S074.body, manifest refixed | 0 | 0 | killed (r3-headers) |
-| **R3g** | S054.body → one line carrying the pattern once, manifest refixed | **10** | **10** | **survived — named ceiling** |
-| R4a | one extra pattern line in S054.body, manifest refixed | 0 | 0 | killed (r4-replay2) |
-| R4b | *flawed recipe* (quote edited in the CDP **entry**) | FAIL | FAIL | superseded by R4b2 |
-| R4b2 | S070 body doctored + tree normaliser faked, manifest refixed (§7) | 9 | 9 | killed (`r4-replay0`), gate CLEAN |
-| R4c | delete tree `corpus/rendered-text-v1.py` | 0 | 0 | killed (gate TOOL / pin) |
-| R5a | gate → bash `CLEAN` printer (epoch-A controls' F5) | FAIL | 0 | killed (A: python SyntaxError; B: pin) |
-| **R5b** | gate → Python printer: ten exact `MATCH` lines + `CLEAN` + `PASS (13 cases)`, rc 0 † | **10** | 0 | epoch-A hole, closed by pin |
-| **R5c** | same printer, run path `sys.exit(1)` † | **10** | 0 | epoch-A hole (rc ignored), closed by pin |
-| R5d | real gate print patched: betterleaks `id=S055`→`S999` † | 9 | 0 | A killed by r5 id; B by pin |
-| R5e | real gate print patched: cdp `form=locate`→`grep` † | 9 | 0 | A killed by r5 form; B by pin |
-| R5f | real gate `clocks()` skips `betterleaks*` † | 9 | 0 | A killed by per-clock MATCH; B by pin |
-| **R5g** | gate → absolute symlink to the printer outside the tree | **10** | 0 | epoch-A hole (gate file unconfined), closed by pin |
-| R5h | real gate `main`: `return rc if rc else 1` † | FAIL | 0 | A killed by selftest; B by pin |
-| G1 | selftest prints `PASS (13 cases)` then `return 1` † | FAIL | 0 | A killed (selftest rc); B by pin |
-| G2 | selftest prints `PASS (13 cases)` then a noise line † | FAIL | 0 | A killed (last line); B by pin |
-| **G3** | `selftest()` gutted to `print("…PASS (0 cases)"); return 0` † | **10** | 0 | epoch-A hole, closed by pin+literal |
-| G4 | gate replaced by a directory | FAIL | 0 | A killed; B by pin |
-| N2 | gate file deleted, tree otherwise intact | 0 | 0 | predicate-consistent (guard 1, value 0) |
-| Z1 | `mkfifo corpus/knowledge/zzz-fifo.md` | TIMEOUT | TIMEOUT | **no reading — F5** |
+| id | recipe (one edit) | A | B | C | D | verdict |
+|---|---|---|---|---|---|---|
+| R1a | delete trufflehog `recheck:` line body | FAIL | FAIL | FAIL | FAIL | killed |
+| R1b | betterleaks `-> 1` → `-> 2` | FAIL | FAIL | FAIL | FAIL | killed |
+| R1c | append a second `recheck:` line to betterleaks | FAIL | FAIL | FAIL | FAIL | killed |
+| R1d | betterleaks command URL `'…'` → `"…"` | FAIL | FAIL | FAIL | FAIL | killed |
+| R1e | betterleaks `-> 1` → `-> count=1` | 10 | 10 | 10 | 10 | allowed form |
+| R1f | betterleaks `-> 1` → `-> 10` | FAIL | FAIL | FAIL | FAIL | killed |
+| R1g | betterleaks `(ran 2026-10-23)` → `(ran 2026-11-06)` | 10 | 10 | 10 | 10 | prose only |
+| R2a | delete manifest S054 row | 0 | 0 | 0 | 0 | killed |
+| R2b | duplicate manifest S054 row | 0 | 0 | 0 | 0 | killed |
+| R2c | duplicate registry S054 row (outside fences) | 9 | 9 | 9 | 9 | counter-only kill |
+| R2d | registry S113 status `mined` → `staged` | 9 | 9 | 9 | 9 | counter-only kill |
+| R2e | registry S070 URL moved source → teaches cell | 9 | 9 | 9 | 9 | counter-only kill |
+| R2f | registry S074 row only inside a ``` fence | 9 | 9 | 9 | 9 | counter-only kill |
+| R2g | manifest header `bytes\tsha256` → `sha256\tbytes` | 0 | 0 | 0 | 0 | killed |
+| R2h | manifest S054 `id` → `S055` | 0 | 0 | 0 | 0 | killed |
+| R2i | S054 `http_status=404`, `fetched=1999-01-01` | **10** | **10** | 0 | 0 | closed at C |
+| R2j | S101 `body_path` → round-55 `S113.body` + its bytes/sha | **10** | **10** | 0 | 0 | closed at C |
+| R2k | S114 `body_path` → round-55 `S113.body` + its bytes/sha | **10** | **10** | 0 | 0 | closed at C |
+| R3a | append `x` to S054.body | 0 | 0 | 0 | 0 | killed |
+| R3b | S054 `body_path` → absolute path | 0 | 0 | 0 | 0 | killed |
+| R3c | S054 `body_path` → `../../S054.body` | 0 | 0 | 0 | 0 | killed |
+| R3d | S055.body moved to root, capture entry symlinked | 0 | 0 | 0 | 0 | killed |
+| R3e | S057.body prefixed `HTTP/2 200\r\nset-cookie: x=1\r\n\r\n`, manifest refixed | 0 | 0 | 0 | 0 | killed |
+| R3f | `\nSet-Cookie: y=2\n` mid S074.body, manifest refixed | 0 | 0 | **10** | 0 | closed at D (F9) |
+| R3g | S054.body → one line carrying the pattern once, manifest refixed | 10 | 10 | 10 | 10 | named ceiling |
+| R4a | one extra pattern line in S054.body, manifest refixed | 0 | 0 | 0 | 0 | killed |
+| R4b | *flawed recipe* (quote edited in the CDP entry) | FAIL | FAIL | FAIL | FAIL | superseded by R4b2 |
+| R4c | delete tree `corpus/rendered-text-v1.py` | 0 | 0 | FAIL | FAIL | killed (normalizer pin) |
+| R5a | gate → bash `CLEAN` printer (epoch-A control F5) | FAIL | 0 | FAIL | FAIL | killed |
+| R5b | gate → Python printer: ten exact `MATCH` lines + `CLEAN` + `PASS`, rc 0 | **10** | 0 | FAIL | FAIL | closed at B/C |
+| R5c | same printer, run path `sys.exit(1)` | **10** | 0 | FAIL | FAIL | closed at B/C |
+| R5d | real gate print patched: betterleaks `id=S055`→`S999` | 9 | 0 | FAIL | FAIL | killed |
+| R5e | real gate print patched: cdp `form=locate`→`grep` | 9 | 0 | FAIL | FAIL | killed |
+| R5f | real gate `clocks()` skips `betterleaks*` | 9 | 0 | FAIL | FAIL | killed |
+| R5g | gate → absolute symlink to the printer outside the tree | **10** | 0 | FAIL | FAIL | closed at B/C |
+| R5h | real gate `main`: `return rc if rc else 1` | FAIL | 0 | FAIL | FAIL | killed |
+| G1 | selftest prints `PASS` then `return 1` | FAIL | 0 | FAIL | FAIL | killed |
+| G2 | selftest prints `PASS` then a noise line | FAIL | 0 | FAIL | FAIL | killed |
+| G3 | `selftest()` gutted to `print("…PASS (0 cases)"); return 0` | **10** | 0 | FAIL | FAIL | closed at B/C |
+| G4 | gate replaced by a directory | FAIL | 0 | FAIL | FAIL | killed |
+| N2 | gate file deleted, tree otherwise intact | 0 | 0 | 0 | 0 | BASE shape |
+| C1 | body copied to `corpus/S054copy.body`, row points there (valid bytes/sha) | – | – | 0 | 0 | killed (not-capture) |
+| C2 | S054 `fetched=2026-11-7` | – | – | 0 | 0 | killed |
+| C3 | S054 `http_status=302` | – | – | 0 | 0 | killed |
+| C4 | S101 points at a byte-identical copy of S054.body (shared sha) | – | – | 0 | 0 | killed |
+| C5 | tree normaliser + `# mutant` comment | – | – | FAIL | FAIL | killed |
+| C6 | tree normaliser deleted | – | – | FAIL | FAIL | killed |
+| C7 | `< HTTP/2 200` trace prefix at column 0 in S057.body | – | – | 0 | 0 | killed |
+| C8 | `mkfifo corpus/knowledge/zzz-fifo.md` | – | TIMEOUT | 0 | 0 | killed, no hang |
+| C9 | `corpus/knowledge` replaced by a symlink | – | – | FAIL | FAIL | killed |
+| C10 | betterleaks `-> 1` → `-> 1x` | – | – | FAIL | FAIL | killed |
+| D1 | `Set-Cookie: x=1` at column 0 (S057 body refixed) | – | – | 10 | 0 | F9 probe, closed at D |
+| D2 | `SET-COOKIE: x=1` at column 0 | – | – | 10 | 0 | F9 probe |
+| D3 | `set-cookie: x=1` at column 0 | – | – | 0 | 0 | control |
+| D4 | `http/2 302 Found` at column 0 (S074 body refixed) | – | – | 10 | 0 | F9 probe |
+| D5 | `< Set-Cookie: x=1` at column 0 | – | – | – | 0 | trace-prefix case |
+| D6 | betterleaks `-> 1.` | – | – | – | FAIL | boundary `(?![0-9A-Za-z_.])` |
+| D7 | betterleaks `-> 1.0` | – | – | – | FAIL | boundary |
+| D8 | betterleaks `-> 1_0` | – | – | – | FAIL | boundary |
 
-Epoch-B divergences from epoch A are all explained by the pin: any tree whose
-`corpus/recheck-replay.py` differs from `2e9dfde3…` gets `HAVE_GATE=0 ⇒ gate_ok=0 ⇒ r5` fails on
-all ten clocks (reading 0, guard still 1 because all ten clocks are PRESENT). That is why
-R5b/R5c/R5g/G3 fall from 10 to 0 in epoch B.
+Epoch D totals: 59 recipe runs + 2 baselines = 61 counter runs; 56 killed, 3 by-design survivors, 0
+inconclusive, 0 hangs. Epoch-D boundary probes R3f/D6/D7/D8 read `present=9 replayed=9 gate=1
+guard=0` — the counter's PRESENT refuses the restatement while the gate stays CLEAN, so the kill does
+not depend on the DRIFT cascade.
 
-## 4. Open findings (with exact recipes on `5d9a157`)
+## 4. F9 (closed at D) — the one regression this audit found
 
-### F3 — r2 ignores `http_status` and `fetched` (medium)
+Epoch C rewrote the r3 header refusal and dropped `(?i)`: gate line 216 and counter line 287 both
+used `rb"(?m)^(?:HTTP/\d|< HTTP/\d|< set-cookie\s*:|set-cookie\s*:)"`, where epoch B had
+`re.search(rb"(?im)^set-cookie:", data)`. On `711e6393` the canonical spellings passed:
 
-Recipe: `corpus/recheck-captures.tsv`, S054 row, column 4 → `404`, column 3 → `1999-01-01`.
-Mutant manifest sha256 `fd3266526f683fd18dcb1b506f948ecdf45b14e6848f42fcdd1250888e3e091e`.
-Reading: `C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)` (rc 0), on both
-epochs. The pinned gate also prints `MATCH … id=S054 form=grep stated=1 replayed=1`, because it
-never reads those two cells either.
+| inserted line at column 0 | C reading | D reading |
+|---|---|---|
+| `set-cookie: x=1` | 0 | 0 |
+| `Set-Cookie: x=1` (manifest `9b12b75d7627c1652386eda7d9936ba514bcdd879b1a8bb2e876ebe44594afe8`, S057.body `21cddee3d9b2bd9d3f5b5a621f3d2b2c67d7c32843d7e299675267d32aa7a05c`) | **10** | 0 |
+| `SET-COOKIE: x=1` | **10** | 0 |
+| `http/2 302 Found` (manifest `74db40edf770fe270bd76f1b5471191da8df284ed7aafcfd62fb838a61b973b1`, S074.body `4a278f2876f9955feb2046b90cdd1b8df716f0fa1e57210ceeb7e7f7d136b912`) | **10** | 0 |
+| R3f standard recipe (body `f34217439caaa630ac2ed5ea9123dd54a639bc2a3e96e6830518359e8a80c9f2`, manifest `51ea192e16a8f50cafea3890d0908e46b07a46997e0a4d6fc51604c6556f236b`) | **10** | 0 |
 
-Real data is uniform: all ten rows have `http_status = 200`; `fetched ∈ {2026-11-05, 2026-11-07}`
-(measured over `corpus/recheck-captures.tsv` at `df46be5c…`). Note S101's row is `2026-11-05` and
-S113/S114 are `2026-11-07`, so an `== 200` binding holds for all ten; if the lane ever records a
-non-200 capture deliberately, bind `status is 3-digit` + `fetched parses as an ISO date` instead.
+Gate-level proof on the identical mutant tree: `711e6393` gate `e9b7e4b7` → `RECHECK_REPLAY: CLEAN`;
+`d362318` gate `5165da2a` → `BAD-CAPTURE corpus/knowledge/nist-key-management-guidance-status.md:3
+id=S074 reason=header-bytes:.ufo/waves/round-56/capture/S074.body` + `DRIFT (clocks=10 match=9 …
+bad_capture=1)`. Epoch D also adds the `Set-Cookie:`/`Http/2` column-0 cases to the 20-case selftest
+and the `(?![0-9A-Za-z_.])` N boundary (D6/D7/D8).
 
-Proposed r2 addition: "…and the row's `http_status` cell is `200` and its `fetched` cell is an
-ISO-8601 date not in the future." Control (expectations).
+Receipt: `R56MutCounter.d/F9-header-case.txt`.
 
-```bash
-# F17 forged fetch status/date: r2 must not accept a row recorded as a 404 fetch
-mk_ref f17; py 'import sys
-p=sys.argv[1]+"/corpus/recheck-captures.tsv"; lines=open(p).read().splitlines(); out=[]
-for l in lines:
-    c=l.split("\t")
-    if c and c[0]=="S054": c[4]="404"; c[3]="1999-01-01"; l="\t".join(c)
-    out.append(l)
-open(p,"w").write("\n".join(out)+"\n")' "$SCR/f17"
-check K1-F17-forged-fetch-status 9 f17      # 10 today; 9 after the r2 addition
-```
+## 5. By-design survivors at D
 
-### F4 — no row↔URL binding beyond the digest (medium)
+- R3g: a one-line hand-written body carrying the stated pattern once with a self-consistent manifest
+  row (body `253e48238dc9b10bef7685dacc4ef9fd429804b6dee719b6fb6c4d30f72156b7`, manifest
+  `d8d9c2093cff9606ce17154dacad9c5b4142080736458fb044d347011d1474dc`) reads **10**. This is the
+  plan's named ceiling verbatim; only the fetch receipt plus a non-author live re-fetch can close it.
+- R1e (`-> count=N`) and R1g (date/prose) read 10 in every epoch — predicate-allowed, correctly not
+  killed.
 
-Recipe: `corpus/recheck-captures.tsv`, S101 row → `body_path=.ufo/waves/round-55/capture/S113.body`,
-`bytes=90604`, `sha256=d8dfe35408b17b02845dc0cf19f774bc6cc6b8dcbfe1636e22bb6b13dfa64357` (the
-82709 page, not the 60237 page the S101 clock cites). Mutant manifest sha256
-`f3bcd94b60487fa53cd2a78bb453c60a95649f5e5e230cdd733d342ff0687bc5`.
-Reading: `value=10 … (bad=none)`, and the gate prints
-`MATCH corpus/knowledge/iso-11770-3-edition-status.md:3 id=S101 form=grep stated=2 replayed=2`
-followed by `RECHECK_REPLAY: CLEAN`. The string `Withdrawal of International Standard` occurs
-twice on the S113 page as well (`grep -c` measured 2 on `S101.raw`, `S113.body`, `S114.body`), so
-the count matches by coincidence of content, not of provenance. R2k is the same trick for S114
-(`International Standard published` occurs twice on `S113.body`); mutant manifest
-`6e6e7e8e5c76e87361408d991e00d00d565696c2fda57bc849afc705b36f9eac`.
+## 6. Residual notes (not defects against the frozen predicate)
 
-Real manifest is a bijection: 10 rows, 10 distinct `body_path`, 10 distinct `sha256`.
+1. **r4 normaliser isolation is real and twice-enforced.** R4b2 (A and B) doctored the S070 body
+   (BASE normaliser count **0**), faked the *tree* normaliser to `count=1` and refixed the manifest
+   (body `c279f654514d0a43f0c97a0e3fbbb4d2fe43357c82f2d3b5a5d85e27286c6302`, manifest
+   `70fabf3510ab9a47bd49f020132c16adf0fb564668f43241534b7e3a71d63726`, fake normaliser
+   `924062d3a903f1cb7d29a79dcf50dbdf27e54194e47a4ebf40ccaf9670f1db12`): the gate went CLEAN while
+   the counter read `value=9 … bad=r4-replay0:cdp-bridge-1password-oidc-workflow.md:custom-workflow`.
+   From C on, `NORMALIZER_SHA256_PIN=14f6ca6a…` refuses any changed normaliser before replay
+   (C5/C6 → FAIL). Keep both.
+2. **Counter stricter than the gate on r2**: duplicate registry row, `staged` status, URL outside the
+   source cell and a fenced-only row each read **9** while the gate says CLEAN. The gate's
+   `registry_rows` keeps the last row per id, has no fence handling, no cell count and no status
+   check — latent if r2 is ever loosened to the gate's rules.
+3. **F7 (declaration nit, still open)**: epoch B/C/D use `sha256sum`, `cut` and `tail` outside the
+   three `command -v` guards. With `cut` absent: `line 94: cut: command not found` → `value=0 …
+   gate=0` (`r5-gate` ×10), rc 0; with `tail` absent: `value=FAIL … (bad=selftest)`, rc 0 —
+   fail-closed in value, not labelled SETUP. Fix: `command -v sha256sum cut tail`. All seven declared
+   paths exit 2 in every epoch (16 probe runs: seven twice plus `cut`-absent and `tail`-absent).
+4. **F6 (control quality)**: the epoch-A control F5 wrote a **bash** printer that the counter runs
+   with `python3` (rejected with `SyntaxError: unmatched ')'`, i.e. not by the MATCH-line rule);
+   epoch-A F2 had two inert edits; epoch-A F3/F4/F6/F7/F8 read 0 only via the gate-DRIFT cascade.
+   The B/C/D controls replace the printer with Python, add gate-edit/gate-symlink/byte-drift cases
+   and (per KagiR56a3) pipefail + hash lines; the cascade coupling in F3/F4 remains worth stating
+   (if r5 ever becomes non-blocking those rows read 9, not 0). Epoch-D controls report 21/21 MATCH
+   (KagiR56a3); I did not re-run that script.
+5. **Governance**: `GATE_SHA256_PIN` couples counter and gate, while the kill rule names only
+   `plans/round-56.md plans/round-56-c1.sh plans/round-56-controls.sh`. I observed the coupling
+   twice — counter `d2bcb790…` pinning `637c8184…` while the gate was `2e9dfde3…` (reading
+   `value=0`, `r5-gate` ×10), and counter `842c014f…` pinning `e9b7e4b7…` while the gate was
+   `5165da2a…`. `d362318` is coherent (`82acbb20…` pins `5165da2a…`); any future gate edit must bump
+   the pin in the same commit, and adding the gate to the kill-rule pathspec makes that explicit.
 
-Proposed r2 addition: "no two manifest rows share a `body_path` or a `sha256`." Control:
+## 7. Restoration / no-production-edit evidence
 
-```bash
-# F18 cross-wired capture: two rows pointing at one body must not both replay
-mk_ref f18; py 'import sys
-p=sys.argv[1]+"/corpus/recheck-captures.tsv"; lines=open(p).read().splitlines(); out=[]
-for l in lines:
-    c=l.split("\t")
-    if c and c[0]=="S101":
-        c[2]=".ufo/waves/round-55/capture/S113.body"; c[5]="90604"
-        c[6]="d8dfe35408b17b02845dc0cf19f774bc6cc6b8dcbfe1636e22bb6b13dfa64357"; l="\t".join(c)
-    out.append(l)
-open(p,"w").write("\n".join(out)+"\n")' "$SCR/f18"
-check K1-F18-crosswire-capture 9 f18         # 10 today; 9 after the r2 addition
-```
+- Committed bytes equal what I tested at every epoch: `git show 42070de:<path>` (counter `096251c9…`,
+  gate `b7782f35…`, manifest `df46be5c…`, controls `633326a5…`, plan `d1bf8d26…`), `git show
+  5d9a157:<path>` (counter `6b132ea1…`, gate `2e9dfde3…`), `git show 711e6393:<path>` (counter
+  `7992ee6a…`, gate `e9b7e4b7…`), `git show d362318:<path>` (counter `82acbb20…`, gate `5165da2a…`,
+  manifest `df46be5c…`). Epoch-A instrument hashes were identical at 07:22 and 07:34, and all 22
+  instrument inputs (SOURCES.md, manifest, gate, normaliser, the 8 entries, S101.raw,
+  S113/S114/S054/S055/S057/S067/S070/S074/S078) compared byte-for-byte between lane and tested tree.
+- Lane access was read-only throughout (`rev-parse`, `log`, `status`, `show`, `archive`, `clone`); no
+  git/jj mutation in the lane or a sibling; no write to `~/.local/bin` or any PATH dir; no tool
+  installed; no network call (the gate and counter replay committed bytes only — no `curl` ran).
+- Scratch collision, recorded because it destroyed an artifact: a sibling mutation seat wrote into my
+  seat path at 07:46 (`driver.py`, `mut-m01…m32`, `clone/`, `ref*/snap*`, several hundred MB each),
+  overwrote my scratch `results.json` with its own schema and removed some of my mutant trees. My runs
+  used explicit paths and were unaffected; the preserved epoch-A artifact is
+  `R56MutCounter.d/matrix.tsv` (copied at 07:34). I deleted only my own artifacts and left the
+  sibling's live files in place.
+- Seat receipt: `.ufo/waves/round-56/build/R56MutCounter.d/` — `matrixABCD.tsv`, `matrixABC.tsv`,
+  `matrixAB.tsv`, `matrix.tsv`, `resultsC.json`, `resultsC711.json`, `resultsE.json`,
+  `resultsD.json`, `resultsD2.json`, `mutate.py`, `followups.py/.json`, `F9-header-case.txt`,
+  `gate-A.py`, `gate-C.py`, `gate-D.py`, `gate-E-d362318.py`, `gate-W-f9fix.py`,
+  `counter-D.sh`, `counter-E-d362318.sh`, `versions.txt`, `epochB-anchored.txt`, `probes.txt`,
+  `probesD.txt`, `hashes.txt`.
 
-### F5 — FIFO in `corpus/knowledge/` hangs gate and counter (medium, availability)
+## 8. Unrun / not passed
 
-Recipe: `mkfifo corpus/knowledge/zzz-fifo.md` on the `5d9a157` tree. Reading: none —
-`timeout 20 bash <counter> --tree <tree>` returns **124**; the gate alone also hangs
-(`python3 -I -B corpus/recheck-replay.py --root <tree>` blocked until killed). Cause:
-`clocks()` iterates `sorted(kdir.glob("*.md"))`, skips symlinks only, then
-`path.read_text(...)`; the counter puts no timeout on the gate invocation (the only `timeout=`
-arguments are inside `replay()`). Epoch A behaves identically.
-
-Proposed gate edit in `clocks()`, after the symlink branch: `if not path.is_file(): continue`;
-proposed counter hardening: run the gate under `timeout 300` and treat a timeout as not-CLEAN.
-Control (must itself be bounded, or the control script hangs):
-
-```bash
-# F19 FIFO entry: not a file, so not a clock; must not hang and must not zero the claim
-mk_ref f19; mkfifo "$SCR/f19/corpus/knowledge/zzz-fifo.md"
-timeout 60 bash "$C1" --tree "$SCR/f19" > "$SCR/f19.out" 2>&1 || true
-check K1-F19-fifo-entry 10 f19               # today: no reading (rc 124); 10 after the gate edit
-```
-
-### F7 — undeclared tool dependencies do not fail closed as SETUP (low)
-
-Epoch B added `sha256sum` and `cut` (gate pin) and still uses `tail` (selftest line) outside the
-`command -v` guards, which cover only `python3`, `grep`, `pdftotext`. With a PATH that has the
-guarded three but not `cut`:
-
-`line 94: cut: command not found` → `C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1`
-(`r5-gate` ×10), rc 0 — the pin silently never matched. Without `tail`:
-`C1_REPLAY: value=FAIL present=10 replayed=10 gate=1 guard=0 (bad=selftest)`, rc 0. Both fail
-closed in *value*, but the header's contract says a missing tool is SETUP (exit 2). The genuine
-SETUP paths still hold: no-python3, no-pdftotext, no-grep, bad-revision, no-revision,
-missing-tree, and `HYAKU_SCRATCH=/proc/nope` → `SETUP scratch`, all rc 2 (probes in
-`R56MutCounter.d/probes.txt` for epoch A and `probesD.txt` for epoch B).
-
-Proposed: add `command -v sha256sum cut tail` to the setup block (or use `sha256sum` via python3).
-
-## 5. Closed during this wave (documented so the mechanism is not lost)
-
-- **F1 (epoch A, medium) — r5 counted a gate that never replayed.** Evidence at `42070de`:
-  R5b (Python printer printing the ten real `MATCH` lines + `CLEAN`, rc 0; printer sha256
-  `48b75d82a57b61d300105bca2909744989c468606039b39036853d723b05ce8e`) read **10**, and its stdout
-  was byte-identical to the real gate's; R5c (`… 1cc536c98fc4ef06a903fa5119b8bbbcd70f02e6a5ffd713f90ea3bbef8f557b`)
-  printed the same and exited 1 and still read **10** (gate rc was ignored); R5g (gate as an
-  absolute symlink to that printer) read **10**. A discrimination probe I ran by appending one byte
-  to `S054.body` showed `ref-real-gate rc=1 BAD-CAPTURE=yes`, `R5b rc=0 BAD-CAPTURE=no`,
-  `R5c rc=1 BAD-CAPTURE=no`, `R5g rc=0 BAD-CAPTURE=no`.
-  Epoch B closes it structurally: `GATE_SHA256_PIN=2e9dfde3…`, the gate must be a regular
-  non-symlink file of that digest, its `--root` run must exit 0, and its last line must match
-  `^RECHECK_REPLAY: CLEAN \(clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0\)$`.
-  R5b/R5c/R5g now read 0.
-- **F2 (epoch A, medium) — GUARD accepted a vacuous selftest.** G3 (gutted `selftest()` printing
-  `RECHECK_REPLAY_SELFTEST: PASS (0 cases)`, sha256
-  `f2e16726e97005205667eb7d8051687834b274c9aee794f4bd85c6653174c337`) read **10** at `42070de`
-  because the check was the prefix `"RECHECK_REPLAY_SELFTEST: PASS"*`. Epoch B pins the literal
-  `PASS (13 cases)`, so G3 reads 0 (digest) and a same-digest vacuity is impossible without a
-  counter edit.
-- **F6 (control quality, partially closed).** The epoch-A controls' F5 wrote a **bash** printer that
-  the counter runs with `python3`, so it was rejected with `SyntaxError: unmatched ')'` rather than
-  by the MATCH-line rule (mechanism probed directly). Epoch-B controls replace it with a Python
-  printer, add F5b (one-conjunct gate edit) and F5c (symlinked gate), and F9 now deletes the
-  selftest case by byte drift — all exercise the pin. Two further epoch-A recipe defects remain
-  worth fixing: F2's first `sub` raises `inert edit …` (swallowed by `|| true`) so only the third
-  regex actually restates the N; and F3/F4/F6/F7/F8 read **0** through the gate-DRIFT cascade
-  rather than through the labelled conjunct (their `bad=` lists show `r3-digest`/`r2-rows0`/… for
-  the mutated clock plus `r5-gate` for all ten), so their `expect=0` silently assumes the cascade.
-
-## 6. By-design survivors (named ceiling, not a defect)
-
-- R3g: `S054.body` replaced by one line carrying the stated pattern once, with a self-consistent
-  manifest row (body sha256 `253e48238dc9b10bef7685dacc4ef9fd429804b6dee719b6fb6c4d30f72156b7`,
-  manifest `d8d9c2093cff9606ce17154dacad9c5b4142080736458fb044d347011d1474dc`), reads **10** on both
-  epochs. This is the plan's named ceiling verbatim; only a receipt plus a non-author live
-  re-fetch can close it.
-- R1e (`-> count=N`) and R1g (date/prose) read 10: predicate-allowed, correctly not killed.
-- N2 (gate absent) reads `value=0 … guard=1`: the documented BASE shape, not a scoring path.
-
-## 7. Held strengths (do not weaken these in the re-freeze)
-
-- **r4 normaliser isolation works and is load-bearing.** R4b2 doctors the S070 body (its BASE
-  normaliser count is **0**) and fakes the *tree* normaliser to `count=1`, with the manifest
-  refixed (body `c279f654514d0a43f0c97a0e3fbbb4d2fe43357c82f2d3b5a5d85e27286c6302`, manifest
-  `70fabf3510ab9a47bd49f020132c16adf0fb564668f43241534b7e3a71d63726`, faked tree normaliser
-  `924062d3a903f1cb7d29a79dcf50dbdf27e54194e47a4ebf40ccaf9670f1db12`, BASE normaliser
-  `14f6ca6ab742296f45a699548c31e6d49892f6baef36ed419c283d1a0511b8c9`). The gate goes CLEAN, the
-  counter reads `value=9 … bad=r4-replay0:cdp-bridge-1password-oidc-workflow.md:custom-workflow` in
-  both epochs. Keeping r4 on the BASE copy is what makes the gate's tree normaliser irrelevant.
-- **r1 is pinned tightly**: command bytes (R1d), N restatement (R1b/R1f), one-recheck-line (R1c),
-  clock deletion (R1a) all kill, while prose and the sanctioned `count=` form do not.
-- **r3 is killed on its whole declared surface**: digest (R3a), absolute and `..` paths
-  (R3b/R3c), symlink component (R3d), HTTP status prefix (R3e) and mid-file `Set-Cookie` (R3f);
-  the last two carried self-consistent bytes/sha, so the header clause itself did the work.
-- **The counter is stricter than the gate on r2**: duplicate registry row, `staged` status, URL
-  outside the source cell and a fenced-only row each read **9** while the gate still says CLEAN.
-  The gate's `registry_rows` keeps the last row per id, has no fence handling, no cell count and
-  no status check — latent weaknesses if r2 is ever loosened to the gate's rules.
-- **BASE stays the documented shape**: `value=0 … gate=0 guard=1` on `832ba6a` in both epochs (an
-  intermediate working-tree version at 07:37 tied `guard` to the gate digest and returned
-  `guard=0` there; epoch B ties only r5 to the digest, so the BASE reading survives).
-
-## 8. Governance note (F8)
-
-`GATE_SHA256_PIN` couples the counter to the gate bytes, but the plan's kill rule names only
-`plans/round-56.md plans/round-56-c1.sh plans/round-56-controls.sh`. I observed the consequences
-live: at 07:41 counter `d2bcb790…` pinned `637c8184…` while the working-tree gate was already
-`2e9dfde3…`, and that pair reads `value=0 … gate=0 guard=1` with `r5-gate` on all ten clocks.
-KagiR56a3 states the candidate must carry the same gate bytes; the epoch-B predeclaration
-(`5d9a157`) is coherent. For epoch C, add `corpus/recheck-replay.py` to the kill-rule pathspec (or
-state that a gate edit requires a re-predeclaration with a bumped pin), so the coupling is explicit
-rather than implicit in a constant.
-
-## 9. Restoration / no-production-edit evidence
-
-- Lane instruments before (07:22) and after (07:34) the epoch-A matrix were identical:
-  counter `096251c9…`, gate `b7782f35…`, manifest `df46be5c…`; `git show 42070de:<path>` equals the
-  working-tree bytes for plan, counter, controls, gate, manifest, `S054.body`, `S078.body`.
-- For epoch B, `git show 5d9a157:<path>` yielded counter `6b132ea1…`, gate `2e9dfde3…`, manifest
-  `df46be5c…`, controls `63cf8061…`, plan `033f2104…` — the bytes I tested (the snapshot clone holds
-  the counter, `R56MutCounter.d/counter-D.sh`).
-- All 22 instrument inputs (SOURCES.md, manifest, gate, normaliser, the 8 entries, S101.raw,
-  S113/S114/S054/S055/S057/S067/S070/S074/S078) were compared byte-for-byte between lane and the
-  tested tree: identical at the epoch-A snapshot.
-- Every mutation lived under `/fast/scratch/hyaku/kagi-r56/R56MutCounter/{m,mb,mbE,md-*,mb-*,t5d9,…}`;
-  the lane was only read (`rev-parse`, `log`, `status`, `show`, `archive`, `clone`). No git/jj
-  mutation in the lane or a sibling; no write to `~/.local/bin` or any PATH dir; no tool installed;
-  no network call (the gate and counter replay committed bytes only — no `curl` ran).
-- Scratch is deleted after this report; a sibling mutation seat had written into my seat path at
-  07:46 (`driver.py`, `mut-m01-*`, `mut-m02-*`, `clone/`) and overwrote my scratch `results.json`
-  with its own schema. My runs used explicit paths and were unaffected; the preserved epoch-A
-  artifact is `R56MutCounter.d/matrix.tsv` (copied at 07:34), and I left the sibling's files in
-  place rather than delete live work.
-- Seat receipt: `.ufo/waves/round-56/build/R56MutCounter.d/` — `matrixAB.tsv`, `matrix.tsv`,
-  `matrixC.tsv`, `resultsC.json`, `resultsE.json`, `mutate.py`, `followups.py`,
-  `followups.json`, `versions.txt`, `epochB-anchored.txt`, `probes.txt`, `probesD.txt`,
-  `hashes.txt`, `gate-A.py`, `gate-C.py`, `gate-D.py`, `counter-D.sh`.
-
-## 10. Unrun / not passed
-
-Every assigned axis was executed at least once: no-work, positive, r1, r2, r3, r4, r5, guard, gate
-invocation rc, selftest rc and last line, normaliser isolation, and the SETUP paths (16 setup runs
-across the two epochs: the seven declared paths twice, plus `cut`-absent and `tail`-absent).
-
-Not tested, stated so it is not mistaken for passed: live re-fetch currency on the
-day (network, another seat), the honesty of `capture/fetch-receipt.json` (neither instrument reads
-it), the epoch-C bytes (`d4392ffe…` gate observed at 07:52) which landed after my matrix, and any
-future re-freeze in which the three open findings are folded in.
+Every assigned axis was executed in at least one epoch and re-verified at D: no-work, positive, r1,
+r2, r3, r4, r5, guard, gate invocation rc, selftest rc and last line, normaliser isolation, the SETUP
+paths, and (C onward) capture confinement, fetched/2xx, body_path/sha bijection, normaliser pin,
+trace prefixes, non-regular entries, symlinked knowledge, the N right-boundary and the header-case
+class. Not tested, stated so it is not mistaken for passed: live re-fetch currency on the day
+(network, another seat), the honesty of `capture/fetch-receipt.json` (neither instrument reads it),
+and the epoch-D controls script itself (KagiR56a3 reports 21/21 MATCH; I did not re-run it).

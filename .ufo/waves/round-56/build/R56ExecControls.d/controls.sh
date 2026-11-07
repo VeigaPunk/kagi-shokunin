@@ -23,6 +23,15 @@
 # each run scored against. The script hashes itself into the receipt so a post-run
 # edit is detectable.
 #
+# FROZEN ANCHOR (scored below): epoch-E predeclaration commit dd31b7867723f89fc8f83e88cc7d98e17de26cf2
+#   (supersedes d362318; history: 42070de epoch A, 5d9a157 epoch B, 711e6393 epoch C, d362318 epoch D;
+#   E = counter tool guards sha256sum/cut/tail/timeout/git/tar -> SETUP + doc fixes, verdict semantics unchanged)
+#   -- counter plans/round-56-c1.sh sha256 d468533fbf593c4b2a3a97dc513b9feb2cff765892c126c02d7c6ef40273a954,
+#   gate corpus/recheck-replay.py sha256 5165da2a6fced02fce82c92fc898553db9a6d3d702d9fc6d1ca3ba185e77b14f
+#   (= GATE_SHA256_PIN; gate also pins normaliser 14f6ca6a…, selftest "PASS (20 cases)",
+#   header refusal (?im) any-case, N boundary (?![0-9A-Za-z_.]), gate-digest token appended last
+#   for present-but-unpinned gate bytes).
+#
 # Each control copies the reference snapshot once into an isolated scratch tree,
 # applies exactly one mutation, runs the public counter
 #   HYAKU_SCRATCH=<run> bash plans/round-56-c1.sh --tree <copy>
@@ -189,6 +198,18 @@ sub "$SCR/c/C04-R1-N-restated/corpus/knowledge/betterleaks-detection-vs-validati
 run_tree C04-R1-N-restated "$SCR/c/C04-R1-N-restated"
 report C04-R1-N-restated 0 '^C1_REPLAY: value=FAIL present=9 replayed=0 gate=0 guard=0 \(bad=absent:'
 
+## C41 -- N-boundary underscore encoding (R56ReviewCounter G2 regression witness):
+##   stated N restated to `-> 1_0`. Epoch C's `(?![0-9A-Za-z])` boundary READ this
+##   as a stated 1 (underscore passed the boundary) and scored; epoch D's
+##   `(?![0-9A-Za-z_.])` must fail PRESENT -> absent -> FAIL. The gate's own
+##   CLOCK_RE still parses stated=1 and MATCHes the capture, so the gate stays
+##   CLEAN(clocks=10 match=10) and the nine present clocks replay.
+mk C41-R1-N-boundary-underscore
+sub "$SCR/c/C41-R1-N-boundary-underscore/corpus/knowledge/betterleaks-detection-vs-validation.md" \
+  "provider requests by default'\` -> 1 (ran 2026-10-23)" "provider requests by default'\` -> 1_0 (ran 2026-10-23)"
+run_tree C41-R1-N-boundary-underscore "$SCR/c/C41-R1-N-boundary-underscore"
+report C41-R1-N-boundary-underscore 0 '^C1_REPLAY: value=FAIL present=9 replayed=9 gate=1 guard=0 \(bad=absent:'
+
 ## C05 -- command text retexted inside the backticks (-fsSL -> -fsSLX): PRESENT fails;
 ##   the gate cannot parse the mutated clock -> UNSUPPORTED -> DRIFT.
 mk C05-R1-command-retexted
@@ -236,8 +257,10 @@ assert len(ls)>0; open(p,"w",encoding="utf-8").write("\n".join(ls)+"\n")' "$SCR/
 run_tree C09-R2-row-missing "$SCR/c/C09-R2-row-missing"
 report C09-R2-row-missing 0 '^C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 \(bad=r5-gate:'
 
-## C10 -- byte-identical duplicate manifest row: the URL-uniqueness rule voids the
-##   whole manifest (counter reads 0, gate SETUPs).
+## C10 -- byte-identical duplicate manifest row: epoch C's manifest bijection on
+##   body_path+sha256 fail-closes the whole manifest (the duplicate row reuses both),
+##   so the reading is r2-manifest-malformed for every clock; gate SETUPs on the
+##   duplicate URL as before.
 mk C10-R2-row-duplicate
 py 'import sys
 p=sys.argv[1]+"/corpus/recheck-captures.tsv"
@@ -245,7 +268,7 @@ ls=open(p,encoding="utf-8").read().splitlines()
 row=[l for l in ls if l.startswith("S054\t")]; assert len(row)==1
 open(p,"w",encoding="utf-8").write("\n".join(ls)+"\n"+row[0]+"\n")' "$SCR/c/C10-R2-row-duplicate"
 run_tree C10-R2-row-duplicate "$SCR/c/C10-R2-row-duplicate"
-report C10-R2-row-duplicate 0 '^C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 \(bad=r5-gate:'
+report C10-R2-row-duplicate 0 '^C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 \(bad=r2-manifest-malformed:'
 
 ## C11 -- URL swap: the S054/S055 rows exchange urls. Both URLs stay unique, so the
 ##   manifest parses; both clocks fail r2-registry (the id's registry row no longer
@@ -336,6 +359,18 @@ fixdigest "$SCR/c/C17-R3-header-bytes-digest-fixed" S057
 run_tree C17-R3-header-bytes-digest-fixed "$SCR/c/C17-R3-header-bytes-digest-fixed"
 report C17-R3-header-bytes-digest-fixed 0 '^C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 \(bad=r5-gate:'
 
+## C40 -- canonical-case header smuggling (R56MutCounter F9 / ReviewCounter G1
+##   regression witness): S057.body prepended with `HTTP/2 200` and CAPITALISED
+##   `Set-Cookie:` with the manifest restated, so only the case rule is exercised.
+##   Epoch C's `(?m)`-only regex PASSED this (the hole); epoch D's `(?im)` must
+##   refuse it: r3-headers on the trufflehog clock, gate BAD-CAPTURE -> DRIFT.
+mk C40-R3-header-case-canonical
+{ printf 'HTTP/2 200\r\nSet-Cookie: k=v\r\n\r\n'; cat "$SCR/c/C40-R3-header-case-canonical/$BODY/S057.body"; } > "$SCR/c/C40-R3-header-case-canonical/h.body"
+mv "$SCR/c/C40-R3-header-case-canonical/h.body" "$SCR/c/C40-R3-header-case-canonical/$BODY/S057.body"
+fixdigest "$SCR/c/C40-R3-header-case-canonical" S057
+run_tree C40-R3-header-case-canonical "$SCR/c/C40-R3-header-case-canonical"
+report C40-R3-header-case-canonical 0 '^C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 \(bad=r5-gate:'
+
 ## C18 -- body file deleted, manifest row intact: r3-file (body-missing); gate
 ##   BAD-CAPTURE body-missing.
 mk C18-R3-body-absent; rm "$SCR/c/C18-R3-body-absent/$BODY/S070.body"
@@ -380,13 +415,14 @@ run_tree C19-R4-body-filter-drained "$SCR/c/C19-R4-body-filter-drained"
 report C19-R4-body-filter-drained 0 '^C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 \(bad=r5-gate:'
 
 ## C20 -- changed normaliser: the measured tree's rendered-text-v1.py is replaced by
-##   a lying stub (count=7). The counter must judge the locate clock with BASE's
-##   normaliser (r4 passes) but the measured gate replays with the tree's own copy,
-##   so the gate reports MISMATCH and r5 fails for that clock only. Guard holds.
+##   a lying stub (count=7). The counter judges the locate clock with BASE's
+##   normaliser (r4 passes) but the frozen epoch-C gate pins the normaliser bytes
+##   AND its selftest exercises the tree's own copy, so the gate refuses and the
+##   selftest conjunct fails: guard drops, value=FAIL, every clock fails r5.
 mk C20-R4-normaliser-lying-stub
 printf 'import sys\nsys.stdout.write("RENDERED_TEXT_V1_LOCATE: count=7\\n")\n' > "$SCR/c/C20-R4-normaliser-lying-stub/corpus/rendered-text-v1.py"
 run_tree C20-R4-normaliser-lying-stub "$SCR/c/C20-R4-normaliser-lying-stub"
-report C20-R4-normaliser-lying-stub 0 '^C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 \(bad=r5-gate:'
+report C20-R4-normaliser-lying-stub 0 '^C1_REPLAY: value=FAIL present=10 replayed=0 gate=0 guard=0 \(bad=r5-gate:'
 
 ## C21 -- unsupported filter form restated as a second clock line: PRESENT fails
 ##   (two recheck lines) and the gate hits UNSUPPORTED -> DRIFT.
@@ -510,11 +546,13 @@ run_tree C29-FC-manifest-row-malformed "$SCR/c/C29-FC-manifest-row-malformed"
 report C29-FC-manifest-row-malformed 0 '^C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 \(bad=r2-manifest-malformed:'
 
 ## C30 -- knowledge entry deleted (the ISO entry carries 3 clocks): P=7 -> guard 0 ->
-##   FAIL; the gate reports CLEAN over its 7-clock population, but the exact
-##   CLEAN(clocks=10 match=10) shape check makes the gate field read 0.
+##   FAIL; the gate reports CLEAN over its 7-clock population, so the exact
+##   CLEAN(clocks=10 match=10) shape check makes the gate field read 0, and the
+##   five PRESENT clocks processed before the ISO entry fail r5 first: the bad list
+##   opens with r5-gate, not absent.
 mk C30-FC-entry-absent; rm "$SCR/c/C30-FC-entry-absent/corpus/knowledge/iso-11770-3-edition-status.md"
 run_tree C30-FC-entry-absent "$SCR/c/C30-FC-entry-absent"
-report C30-FC-entry-absent 0 '^C1_REPLAY: value=FAIL present=7 replayed=0 gate=0 guard=0 \(bad=absent:'
+report C30-FC-entry-absent 0 '^C1_REPLAY: value=FAIL present=7 replayed=0 gate=0 guard=0 \(bad=r5-gate:'
 
 ## C31 -- registry absent: every clock fails r2-registry (value 0, guard holds); the
 ##   gate refuses the tree outright (not-a-lane-tree SETUP) so gate=0.

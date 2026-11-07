@@ -1,0 +1,18 @@
+F9 -- epoch-C r3 header refusal lost case-insensitivity (regression vs epoch A/B)
+committed epoch-C bytes 711e6393:
+  gate  e9b7e4b7aa1e8173c4bfc2e536ce6d1ed29c4c0d6ee5f46bfa1e63d3692a62b4  line 216
+  counter 7992ee6a97c9f1cfaf627c61322ecaf6aa0c31126a65f591567d7b6f7ee2802c  line 287
+  both: re.search(rb"(?m)^(?:HTTP/\d|< HTTP/\d|< set-cookie\s*:|set-cookie\s*:)", data)
+epoch B was: re.match(rb"HTTP/\d", data) or re.search(rb"(?im)^set-cookie:", data)
+readings on a tree from `git archive 711e6393` (manifest refixed each time):
+  set-cookie: x=1  (lowercase, column 0)   value=0   (refused)
+  Set-Cookie: x=1  (canonical)             value=10  (accepted)  manifest 9b12b75d..., S057.body 21cddee3...
+  SET-COOKIE: x=1                          value=10  (accepted)
+  http/2 302 Found (lowercase status only) value=10  (accepted)  manifest 74db40ed..., S074.body 4a278f28...
+  R3f recipe (`\nSet-Cookie: y=2\n` mid S074.body, manifest refixed): value=10 on 711e6393,
+      value=0 on 5d9a157 and on 42070de (same mutant bytes: body f3421743..., manifest 51ea192e...)
+gate-level regression proof on the identical mutant tree:
+  711e6393 gate e9b7e4b7  -> RECHECK_REPLAY: CLEAN (clocks=10 match=10 ...)
+  working-tree gate 5165da2a (with (?im) restored) -> BAD-CAPTURE corpus/knowledge/nist-key-management-guidance-status.md:3 id=S074 reason=header-bytes:.ufo/waves/round-56/capture/S074.body ; RECHECK_REPLAY: DRIFT (clocks=10 match=9 bad_capture=1)
+  the same `(?im)` change is present in the working-tree counter at line 287; the working-tree
+  counter was still pinning e9b7e4b7 at 08:03 (pin bump pending), so the pair must be re-frozen together.

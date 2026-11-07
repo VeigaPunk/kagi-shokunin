@@ -1,46 +1,60 @@
 R56Sentinel raw receipts — round 56 w1 (safety/scope scan)
 Times -03:00, 2026-11-07. Lane /home/vgpnk/Projects/shokunin/kagi-shokunin. No lane writes by this seat.
-ANCHOR: epoch-B predeclaration 5d9a1571911ec38a456a40b443e19640abb9a88b (landed 07:44:40); epoch-A superseded 42070de7770e1558adcf6aa7a7bc59309a9654d7; BASE 832ba6a53d6a76706b5c80bce2278683dea33d42.
+ANCHOR: epoch-E predeclaration dd31b7867723f89fc8f83e88cc7d98e17de26cf2 (landed 08:08). Superseded: D d3623187, C 711e6393, B 5d9a157, A 42070de. BASE 832ba6a53d6a76706b5c80bce2278683dea33d42.
 
-EPOCH-B FROZEN BYTES (git rev-parse 5d9a157:<path> / git show 5d9a157:<path> | sha256sum; worktree clean for these at 07:47:34):
-  850e1ba9be3a4e2f4e669328b91f7d0de331159f  corpus/recheck-replay.py  sha256 2e9dfde326b29fb95f520c5d7f3a671836682b28025e4efc7887333257d4df51  15684 B
+FROZEN BYTES AT dd31b786 (git rev-parse dd31b786:<path> / git show dd31b786:<path> | sha256sum; worktree clean for these at 08:09):
+  79fb022b06e406291e0a8a884cbf97d7a23a4b87  corpus/recheck-replay.py  sha256 5165da2a6fced02fce82c92fc898553db9a6d3d702d9fc6d1ca3ba185e77b14f  21543 B (unchanged from D)
   7c85dc4da34bc79931e01906b91e4c3fda91b2c5  corpus/recheck-captures.tsv  sha256 df46be5c92c7b4d5a8b7ad790371b5c3240c92f46460b8cfb69e9b75b7ecc762  2391 B
-  ec6a50df005a9f4d4ebabf3fb21b38fc7cd23f5c  plans/round-56.md  sha256 033f2104ef36b76e5d9de192878fb1b619808f1c9c63b2e310d074816a3e1679  6204 B
-  23111d50e357b5d3f6471289c8cde073e27b3804  plans/round-56-c1.sh  sha256 6b132ea1b521e698aaf4a1085e051087726c6b5ec840f60339b206abe02b269c  15746 B  GATE_SHA256_PIN=2e9dfde3…
-  fda549111119628e879471e3a04b1bc54a27a4e6  plans/round-56-controls.sh  sha256 63cf806134bcb115368e59809ad54957750d7433d53f6979b256f662e3ddab8f  8795 B  14 check lines
-Capture bodies (byte+sha equal manifest rows, 10/10; no HTTP/ start; 0 set-cookie lines): unchanged from epoch A.
+  30baa6092981d2cff1581c1fbfbd43a06f05cfe1  corpus/rendered-text-v1.py  sha256 14f6ca6ab742296f45a699548c31e6d49892f6baef36ed419c283d1a0511b8c9  (== NORMALIZER_SHA256_PIN; == BASE)
+  a4303acfef8962cc37d8fb04c481ca59b2c784bd  plans/round-56.md  sha256 212e2dd7ae71e3f056111e1a2c59d33151a3c51fee9f932bf2209ad2cb3d805d  7558 B
+  cc27f3501404030eb2a92f464a0431597fe02c27  plans/round-56-c1.sh  sha256 d468533fbf593c4b2a3a97dc513b9feb2cff765892c126c02d7c6ef40273a954  17499 B  GATE_SHA256_PIN=5165da2a… PASS (20 cases) + tool guards
+  7bd6e72572603fc6f0ee54b4acc1d2dce8e6f81c  plans/round-56-controls.sh  sha256 01060f254b2ecfdb23f341a5cf0937aec32243230560809403ed67ea38b196e7  12241 B  set -u -o pipefail; 22 checks incl F11b
+Capture bodies (byte+sha equal manifest rows 10/10; no HTTP/ start; 0 case-insensitive set-cookie lines): unchanged across A–E.
   S101 85615 2e4c1524…0c80 | S113 90604 d8dfe354…4357 | S114 85138 8bb88d88…9bdf | S054 38524 7cf6efb5…eff7
   S055 13252 f61c3993…73b1 | S057 110710 221d80fa…604b | S067 437508 4d016752…aed | S070 268454 5c226c06…c0dd
   S074 45351 df32e64b…3688 | S078 622785 68266cb1…38d5
-Rejection: S113-default-ua.body 5448 sha256 ce3cb7f2eb0efeba38faff1ded3186218ad9df51e4b22b795d0688fa2eb3893c (CF challenge tokens at 401/2404/2614/2710/2886/5148; no HTTP/ start, no set-cookie, no clearance cookie)
-New sidecar (untracked 07:46): S113-default-ua.meta 29 B sha256 7aaecbcd46924c5ced8453aa9e186aa25ba138a4b752489be9a636c0fc700cc8, content `403 text/html; charset=UTF-8` (matches round-55 meta convention; no headers/cookies)
+Rejection S113-default-ua.body 5448 sha256 ce3cb7f2eb0efeba38faff1ded3186218ad9df51e4b22b795d0688fa2eb3893c; sidecar .meta 29 B sha256 7aaecbcd… `403 text/html; charset=UTF-8`.
 
-WORKING TREE AT SNAPSHOT: frozen five clean vs 5d9a157. corpus/SOURCES.md dirty (frontier S113 edit): worktree blob 70e0223 / sha256 299903cf…; committed blob 6a25a13 / fa69564f… (same in 42070de). Landing-step only.
-
-CONTROLS RECEIPT: .ufo/waves/round-56/controls/controls-prefreeze-epochB.txt 16375 B sha256 709cf29a03f5ba9cc1c2eacb60036a23d5836803e655f4f0c0c91fefc8145aea; 16 CONTROL lines, 16 MATCH; credential-pattern hits 0.
-  N1: repeated `tar: .ufo/waves/round-56/build-{dispatch.json,spec.json,ready,swarm-registry.json}: Cannot stat` (tracked-but-deleted when mk_ref ran); all C1 inputs copied, 16/16 MATCH; not fail-closed on tar errors.
-  N2: K1-F2 receipt prints `AssertionError: inert edit corpus/knowledge/betterleaks-detection-vs-validation.md` from a superseded `sub`; the following py regex block performs the restatement (control read present=9 absent).
+CONTROLS EPOCH-E RECEIPT: .ufo/waves/round-56/controls/controls-prefreeze-epochE.txt 14983 B sha256 b4ab59c5498272a7fe97d28f72bc06a1de66f06f2ef86783bbd09c8211fc711e; 22 CONTROL / 22 MATCH; 0 `tar: Cannot stat`; 0 credential-pattern hits.
+  INSTRUMENT lines: plan 212e2dd7…, counter d468533f…, controls 01060f25…, gate 5165da2a…, manifest df46be5c…, normaliser 14f6ca6a… (all == frozen sha)
+  N2 residual: one `AssertionError: inert edit` line from superseded F2 subs (effective regex edit follows).
 
 ANCHORED RUNS (committed bytes; scratch trees):
-  gate --selftest (5d9a157 archive)            rc 0  PASS (13 cases)
-  gate --root (5d9a157 archive)                rc 0  CLEAN (clocks=10 match=10 mismatch=0 …0)
-  counter 5d9a157                              rc 0  value=10 present=10 replayed=10 gate=1 guard=1 (bad=none); strace 0 connects / 0 strict "/tmp/ / writes only $SCR+/dev/null
-  counter 832ba6a (BASE)                       rc 0  value=0 present=10 replayed=0 gate=0 guard=1 (r2-manifest)
-  counter 42070de (epoch A)                    rc 0  value=0 present=10 replayed=0 gate=0 guard=1 (r5-gate; N3: guard=1 while the carried gate's selftest never runs)
-Confinement probes on `git archive 5d9a157` copies (strace -y openat,execve; outside=references to probe's out-of-tree target):
-  p1 knowledge entry symlink   rc 1 DRIFT clocks=11 unsupported=1 outside 0
-  p2 knowledge dir symlink     rc 2 SETUP symlinked-input:corpus/knowledge outside 0
-  p3 SOURCES.md symlink        rc 2 SETUP symlinked-input:corpus/SOURCES.md outside 0
-  p4 rendered-text-v1 symlink  rc 2 SETUP symlinked-input:corpus/rendered-text-v1.py outside 0 (no exec)
-  p5 manifest symlink          rc 2 SETUP symlinked-input:corpus/recheck-captures.tsv outside 0
+  gate --selftest (dd31b786)  rc 0  RECHECK_REPLAY_SELFTEST: PASS (20 cases)
+  gate --root (dd31b786)      rc 0  CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)
+  counter dd31b786            rc 0  value=10 present=10 replayed=10 gate=1 guard=1 (bad=none); strace 0 connects / 0 strict "/tmp/" / writes only $SCR+/dev/null
+  counter d3623187            rc 0  value=10 … guard=1  (E is guard/doc hardening, verdict unchanged — disclosed)
+  counter 711e6393            rc 0  value=FAIL … guard=0
+  counter 5d9a157/42070de     rc 0  value=FAIL … guard=0 (42070de bad=…,selftest,gate-digest)
+  counter 832ba6a (BASE)      rc 0  value=0 present=10 replayed=0 gate=0 guard=1 (r2-manifest)
+TOOL GUARDS (E):
+  env -i PATH=/nonexistent /bin/bash plans/round-56-c1.sh …  => C1_REPLAY: SETUP no-python3, rc 2
+  PATH=<scratch bin with python3 grep pdftotext sha256sum tail timeout git tar dirname mkdir rm sed cat, no cut>  => SETUP no-cut, rc 2
+  No partial reading on missing tools.
+BOUNDARY WITNESSES (E, crafted trees restating betterleaks -> 1 to -> 1.0 / -> 1_0):
+  -> 1.0  => value=FAIL present=9 replayed=9 gate=1 guard=0 (bad=absent:betterleaks-detection-vs-validation.md:README.md)
+  -> 1_0  => value=FAIL present=9 replayed=9 gate=1 guard=0 (bad=absent:…README.md)
+  (control F11b covers 1.0; this seat adds the 1_0 witness.)
 
-EPOCH-A RUNS (frozen 42070de bytes, for the record):
-  gate --selftest rc 0 PASS (13 cases); --root rc 0 CLEAN clocks=10; counter 42070de rc 0 value=10 p=10 r=10 gate=1 guard=1
-  strace: 0 strict /tmp, 0 connect, no lane writes; off-tree opens only /etc runtime + git config
-  A→B transition: gate 821da99c/b7782f35 14716 → 850e1ba9/2e9dfde3 15684; counter 35a16e6/096251c9 12933 → 23111d50/6b132ea1 15746; controls 07d0e234/633326a5 6341 → fda54911/63cf8061 8795; plan 106be490/d1bf8d26 5652 → ec6a50df/033f2104 6204
+N5 REPRODUCTION (epoch-C header case-sensitivity; dummy value; D/E gate unchanged):
+  crafted S057 with `Set-Cookie: sid=dummy` column 0 + manifest bytes/sha fixed: C gate CLEAN, D/E gate DRIFT/BAD-CAPTURE.
+  crafted `http/2 200` column 0: C CLEAN, D/E DRIFT. Indented `  HTTP/1.1 200 OK` (S067 shape): CLEAN in all (tolerance preserved).
+N6: C present regex `1(?![0-9A-Za-z])` matches `-> 1.0`/`-> 1_0`; D/E `1(?![0-9A-Za-z_.])` rejects; E adds F11b control.
 
-CREDENTIAL QUICK FACTS (unchanged, epoch A capture bytes):
+CONFINEMENT PROBES (re-verified; D→E gate bytes unchanged): entry symlink DRIFT unsupported=1; knowledge-dir/SOURCES/normaliser/manifest symlinks SETUP symlinked-input rc2; body_path=corpus/SOURCES.md (bytes/sha fixed) BAD-CAPTURE body-not-capture; fifo entry UNSUPPORTED non-regular-entry 1 s; 0 outside reads/execs in all.
+Normaliser pinned 14f6ca6a…; gate checks confinement → existence → sha256 before locate; locate rc ∉ {0,1} → TOOL locate-rcN.
+
+RE-FREEZE CHAIN (L1-confirmed; W1):
+  A 42070de: gate b7782f35 14716, counter 096251c9 12933, controls 633326a5 6341, plan d1bf8d26 5652
+  B 5d9a157: gate 2e9dfde3 15684, counter 6b132ea1 15746, controls 63cf8061 8795, plan 033f2104 6204 (16 MATCH)
+  C 711e6393: gate e9b7e4b7 21038, counter 7992ee6a 17174, controls b675baa5 11255, plan 8beb24e9 7124 (20 MATCH)
+  D d3623187: gate 5165da2a 21543, counter 82acbb20 17195, controls 9445a1ec 11856, plan 4d837eb2 7558 (21 MATCH)
+  E dd31b786: gate 5165da2a 21543, counter d468533f 17499, controls 01060f25 12241, plan 212e2dd7 7558 (22 MATCH)
+  B→C regression caught pre-commit: broadened header rule refused S067's indented spec examples -> fixed to column-0 refusal + tolerance case.
+  N1 masking evidence (pre-C): 2 present + 2 deleted tracked files -> outer tar rc 0, silent omission; pipefail rc 2; C fixes with pipefail + presence filter + INSTRUMENT re-hash.
+
+CREDENTIAL QUICK FACTS (untouched capture bytes):
   S054 AKIAYVP4…IFXG bytes 7005/8133/8167 (upstream trufflehog doc example, test_keys); S055 ghp_aB3d…zA5 byte 8039 (upstream betterleaks doc example, // betterleaks:allow)
   S067 spec placeholders bytes 304422/131608/149224/421885 + WWW-Authenticate doc text 197485
-  Set-Cookie lines in 10 manifest bodies + rejection: 0; HTTP/ starts: 0; Authorization/Cookie header lines: 0; vault/op:// /item-id strings: 0 in S070
+  Set-Cookie lines in 10 manifest bodies + rejection (case-insensitive): 0; HTTP/ starts: 0; Authorization/Cookie header lines: 0; vault/op:// /item-id strings: 0 in S070
   fetch-receipt.json: one JSON, 7 rows, keys id,url,final_url,http_status,curl_rc,body_path,decoded_bytes,sha256; no header field; template without -D/-i/-H

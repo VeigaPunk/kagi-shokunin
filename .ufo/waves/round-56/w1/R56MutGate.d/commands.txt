@@ -19,3 +19,36 @@ HYAKU_SCRATCH=$PWD bash clone/plans/round-56-c1.sh --tree trees/base
 python3 harness-eB.py   # 14 mutants; pin-bypass diagnostic counter for M' readings
 # M11+nopin combined diagnostic: clone/plans/round-56-c1-M11nopin-DIAG.sh on work/M11-weaken-match-regex-M
 # -> value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)
+
+# ---- epoch C (711e6393e68658f396918c07de253e5a5c74d1b4) ----
+git clone -q lane clone && git -C clone checkout 711e6393e68658f396918c07de253e5a5c74d1b4
+git -C clone archive 711e6393 corpus .ufo/waves/round-56/capture .ufo/waves/round-55/capture .ufo/waves/round-45/controls/capture-r45 | tar -x -C trees/base
+python3 -I -B trees/base/corpus/recheck-replay.py --selftest        # rc0 PASS (18 cases)
+python3 -I -B trees/base/corpus/recheck-replay.py --root trees/base # rc0 CLEAN (clocks=10 match=10 ...)
+HYAKU_SCRATCH=$PWD bash clone/plans/round-56-c1.sh --tree trees/base
+# -> rc0 C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)
+python3 harness-eC.py   # 18 mutants; selftest staged in a pristine tree; pin-bypass diagnostic for M'
+# combined M11+nopin: clone/plans/round-56-c1-M11nopin-DIAG.sh on work/M11-weaken-match-regex-M
+# -> value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)
+
+# ---- epoch D (d36231871c864c930d3e7e33f9c5345b30ab4f98) ----
+git clone -q lane clone && git -C clone checkout d36231871c864c930d3e7e33f9c5345b30ab4f98
+git -C clone archive d3623187 corpus .ufo/waves/round-56/capture .ufo/waves/round-55/capture .ufo/waves/round-45/controls/capture-r45 | tar -x -C trees/base
+python3 -I -B trees/base/corpus/recheck-replay.py --selftest        # rc0 PASS (20 cases)
+python3 -I -B trees/base/corpus/recheck-replay.py --root trees/base # rc0 CLEAN (clocks=10 match=10 ...)
+HYAKU_SCRATCH=$PWD bash clone/plans/round-56-c1.sh --tree trees/base
+# -> rc0 C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)
+python3 harness-eD.py   # 19 mutants incl. M19 (N-boundary), pin-bypass diagnostic for M'
+# combined M11+nopin: clone/plans/round-56-c1-M11nopin-DIAG.sh on work/M11-weaken-match-regex-M
+# -> value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)
+
+# ---- epoch E (dd31b7867723f89fc8f83e88cc7d98e17de26cf2) ----
+git clone -q lane clone && git -C clone checkout dd31b7867723f89fc8f83e88cc7d98e17de26cf2
+git -C clone archive dd31b786 corpus .ufo/waves/round-56/capture .ufo/waves/round-55/capture .ufo/waves/round-45/controls/capture-r45 | tar -x -C trees/base
+python3 -I -B trees/base/corpus/recheck-replay.py --selftest        # rc0 PASS (20 cases)
+python3 -I -B trees/base/corpus/recheck-replay.py --root trees/base # rc0 CLEAN (clocks=10 match=10 ...)
+HYAKU_SCRATCH=$PWD bash clone/plans/round-56-c1.sh --tree trees/base
+# -> rc0 C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)
+python3 harness-eE.py   # same 19 mutants as epoch D against counter d468533f; readings identical
+# M11+nopin combined: clone/plans/round-56-c1-M11nopin-DIAG.sh on work/M11-weaken-match-regex-M
+# -> value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)

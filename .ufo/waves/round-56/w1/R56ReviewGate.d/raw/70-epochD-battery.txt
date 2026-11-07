@@ -1,0 +1,41 @@
+# epoch-D battery
+epoch-D gate sha256: 5165da2a6fced02fce82c92fc898553db9a6d3d702d9fc6d1ca3ba185e77b14f
+epoch-D counter sha256: 82acbb2056aac6055a79f223a0e0abbb2cb24f11f01ca5ed12a230c8338bdc6a
+
+F1 pdf-only-dead selftest rc=0 last=RECHECK_REPLAY_SELFTEST: PASS (20 cases) fails=[]
+F1 pdf+locate-dead selftest rc=1 last=RECHECK_REPLAY_SELFTEST: FAIL (1 of 20 cases) fails=['FAIL locate-match rc=1 want=0 token=MATCH']
+
+F8 d-hdr-kanonical-setcookie  D=(1, 'RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=0 no_capture=0 bad_capture=1 unsupported=0 tool=0)')
+                              C=(0, 'RECHECK_REPLAY: CLEAN (clocks=1 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)')
+F8 d-hdr-kanonical-http2      D=(1, 'RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=0 no_capture=0 bad_capture=1 unsupported=0 tool=0)')
+                              C=(0, 'RECHECK_REPLAY: CLEAN (clocks=1 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)')
+F8 d-hdr-trace-upper          D=(1, 'RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=0 no_capture=0 bad_capture=1 unsupported=0 tool=0)')
+                              C=(0, 'RECHECK_REPLAY: CLEAN (clocks=1 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)')
+F8 d-hdr-spacecookie          D=(0, 'RECHECK_REPLAY: CLEAN (clocks=1 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)')
+                              C=(0, 'RECHECK_REPLAY: CLEAN (clocks=1 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)')
+F8 d-hdr-crcookie             D=(0, 'RECHECK_REPLAY: CLEAN (clocks=1 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)')
+                              C=(0, 'RECHECK_REPLAY: CLEAN (clocks=1 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)')
+
+F5 d-stub gate (2, 'RECHECK_REPLAY: SETUP normalizer-digest')
+F5 d-stub counter (0, 'C1_REPLAY: value=FAIL present=10 replayed=0 gate=0 guard=0 (bad=r5-gate:betterleaks-detection-vs-validation.md:README.md,r5-gate:cdp-bridge-1password-oidc-workflow.md:custom-workflow,r5-gate:iso-11770-3-edition-status.md:60237.html,r5-gate:iso-11770-3-edition-status.md:82709.html,r5-gate:iso-11770-3-edition-status.md:85929.html,r5-gate:nist-key-management-guidance-status.md:ipd,r5-gate:nist-key-management-parts-withdrawal.md:nistspecialpublication800-57p2.pdf,r5-gate:oidc-federation-trust-policy.md:openid-connect-core-1_0.html,r5-gate:secret-scanning-detection-vs-validation.md:README.md,r5-gate:trufflehog-verification-lifecycle.md:verification-caching,selftest)')
+
+F3 d-symentry (1, 'RECHECK_REPLAY: DRIFT (clocks=11 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=1 tool=0)')
+F4 d-klink (2, 'RECHECK_REPLAY: SETUP symlinked-input:corpus/knowledge')
+
+F6 d-e5 (1, '<no stdout>', "UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 22: invalid start byte")
+F6 d-perm (1, '<no stdout>', "PermissionError: [Errno 13] Permission denied: '/fast/scratch/hyaku/kagi-r56/R56ReviewGate/d-perm/co")
+
+F7 d-reg2   gate=(0, 'RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)')
+            counter=C1_REPLAY: value=9 present=10 replayed=9 gate=1 guard=1 (bad=r2-registry:secret-scanning-detection-vs-validation.md:README.md)
+F7 d-fence  gate=(0, 'RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)')
+            counter=C1_REPLAY: value=9 present=10 replayed=9 gate=1 guard=1 (bad=r2-registry:secret-scanning-detection-vs-validation.md:README.md)
+
+F9 d-404          gate=(2, 'RECHECK_REPLAY: SETUP manifest-http:S054')
+                  counter=C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r2-manifest-malformed:betterleaks-detection-vs-validation.md:README.md,r2-manifest-malfor
+F9 d-emptyfetched gate=(2, 'RECHECK_REPLAY: SETUP manifest-fetched:S054')
+                  counter=C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r2-manifest-malformed:betterleaks-detection-vs-validation.md:README.md,r2-manifest-malfor
+
+F10 d-poison (2, 'RECHECK_REPLAY: SETUP manifest-columns:S999')
+
+F12 LC_ALL=C.UTF-8  (0, 'RECHECK_REPLAY: CLEAN (clocks=1 match=1 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)')
+F12 LC_ALL=C        (1, 'RECHECK_REPLAY: DRIFT (clocks=1 match=0 mismatch=1 no_capture=0 bad_capture=0 unsupported=0 tool=0)')

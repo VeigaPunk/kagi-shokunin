@@ -25,10 +25,16 @@ Frozen predicate text: `plans/round-56.md:15`; instrument header: `plans/round-5
 
 **Revision note.** The audit below is anchored to epoch A (`42070de`, counter
 `096251c9…`); the planner seat re-froze as **epoch B** at
-`5d9a1571911ec38a456a40b443e19640abb9a88b` after the blocker message from this seat, and
-`## Epoch B re-audit (5d9a157)` at the end of this report re-runs every forgery against the
-hardened bytes. Epoch-A findings F1, F2, F3, F5, F6, F7 and F8 are closed in epoch B; F4, F9,
-F10 and F11 stand as stated, with epoch-B-specific residuals E1–E6.
+`5d9a1571911ec38a456a40b443e19640abb9a88b`, **epoch C** at
+`711e6393e68658f396918c07de253e5a5c74d1b4`, and **epoch D** at
+`d36231871c864c930d3e7e33f9c5345b30ab4f98`, after blocker messages from this seat. Each
+re-audit re-runs every forgery against the hardened bytes: `## Epoch B re-audit (5d9a157)`,
+`## Epoch C re-audit (711e6393)` and `## Epoch D re-audit (d362318)` at the end of this report.
+Epoch-A findings F1, F2, F3, F5, F6, F7 and F8 are closed in epoch B; epoch-B residuals E1, E2,
+E5 and E6 in epoch C; epoch-C items G1 and G2 in epoch D. F4/E3 (population hard-closed at
+10), F9 (rc 0 on FAIL), F10 (relocatability) and F11 (PATH trust) stand, plus epoch-D H1 (the
+frozen predicate still says `PASS (18 cases)` where the instrument requires 20) and H2 (the
+gate alone reads `-> 1.0` as `-> 1`).
 
 ## Verdict in one line
 
@@ -441,3 +447,173 @@ spurious reading with no diagnostic. Add `|| exit 2` / `set -o pipefail` on the 
 - evidence epoch B: `.ufo/waves/round-56/build/R56ReviewCounter.d/evidence-epochB.txt`
 - epoch-B scratch `/fast/scratch/hyaku/kagi-r56/R56ReviewCounter/epochB/` deleted after this
   report; no production file edited; no git/jj mutation; no tool installed.
+
+## Epoch C re-audit (711e6393)
+
+Anchored to `711e6393e68658f396918c07de253e5a5c74d1b4` (HEAD; epoch-C kill-rule
+predeclaration). Instruments:
+
+| path | sha256 at 711e6393 |
+|---|---|
+| `plans/round-56-c1.sh` | `7992ee6a97c9f1cfaf627c61322ecaf6aa0c31126a65f591567d7b6f7ee2802c` |
+| `corpus/recheck-replay.py` | `e9b7e4b7aa1e8173c4bfc2e536ce6d1ed29c4c0d6ee5f46bfa1e63d3692a62b4` (= `GATE_SHA256_PIN`) |
+| `plans/round-56-controls.sh` | `b675baa5fad95bc663f49ca76ea13be84627db457af443f3b957144cd8ddd16c` |
+| `plans/round-56.md` | `8beb24e94a08c3961f5217a3b4b98aadc46d56561fe3ec2254f13185d4cf6c9f` |
+| `corpus/recheck-captures.tsv` | `df46be5c92c7b4d5a8b7ad790371b5c3240c92f46460b8cfb69e9b75b7ecc762` |
+| `corpus/rendered-text-v1.py` | `14f6ca6ab742296f45a699548c31e6d49892f6baef36ed419c283d1a0511b8c9` (= `NORMALIZER_SHA256_PIN`, and equal to BASE's copy) |
+
+Raw output: `R56ReviewCounter.d/evidence-epochC.txt`.
+
+| tree / forgery | reading | rc |
+|---|---|---|
+| BASE `832ba6a` | `value=0 present=10 replayed=0 gate=0 guard=1` | 0 |
+| epoch-A `42070de` | `value=FAIL … guard=0 (…selftest,gate-digest)` | 0 |
+| epoch-B `5d9a157` | `value=FAIL … guard=0 (…selftest,gate-digest)` | 0 |
+| epoch-C `711e6393` | `value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)` | 0 |
+| reference overlay | `value=10 … guard=1` | 0 |
+| printer gate (pinned-selftest text, reads nothing) | `value=FAIL … guard=0 (…selftest,gate-digest)` | 0 |
+| pinned gate + 0-case selftest | `value=FAIL … guard=0 (…selftest,gate-digest)` | 0 |
+| `-> 1x` restatement | `value=FAIL present=9 replayed=9 guard=0` | 0 |
+| `-> 1.0` restatement | **`value=10 … guard=1`** | 0 |
+| added uncaptured clock | `value=0 … guard=1` | 0 |
+| added captured clock (gate `CLEAN (clocks=11 match=11 …)`) | `value=0 … guard=1` | 0 |
+| gate path symlink | `value=FAIL … guard=0 (…selftest)` | 0 |
+| gate path FIFO | `value=FAIL … guard=0 (…selftest)`; returns, no block | 0 |
+| 8-column manifest row | `value=0 … r2-manifest-malformed ×10` | 0 |
+| `fetched=2026-11-7` | `value=0 … r2-manifest-malformed ×10` | 0 |
+| `http_status=404` | `value=0 … r2-manifest-malformed ×10` | 0 |
+| two rows sharing body_path+sha256 | `value=0 … r2-manifest-malformed ×10` | 0 |
+| duplicate URL row | `value=0 … r2-manifest-malformed ×10` | 0 |
+| body_path `corpus/S054.body` (not `capture*`) | `value=0 … r3-notcapture:…` | 0 |
+| `set-cookie: x=1` at column 0 | `value=0 … r3-headers:…`; gate `BAD-CAPTURE` | 0 |
+| **`Set-Cookie: session=abc` at column 0** | **`value=10 … guard=1`; gate `CLEAN (clocks=10 match=10 …)`** | 0 |
+| `< HTTP/1.1 200 OK` at column 0 | `value=0 … r3-headers:…`; gate `BAD-CAPTURE` | 0 |
+| normaliser bytes edited (comment appended) | `value=FAIL … guard=0 (…selftest)` (gate `SETUP normalizer-digest`) | 0 |
+| symlinked knowledge entry | `value=FAIL present=9 guard=0` | 0 |
+| no manifest / empty tree / SETUP shapes | `value=0` / `value=FAIL present=0` / `SETUP …` | 0/0/2 |
+
+Controls battery end-to-end (`bash plans/round-56-controls.sh <lane>`, REF = lane): six
+`INSTRUMENT <sha256> <path>` lines including the normaliser pin, `CONTROLS: match=20
+mismatch=0`, rc 0, **0 tar errors**. Gate `--selftest`: `PASS (18 cases)`.
+
+Closed against epoch B: **E1** (a present-but-unpinned gate now sets `SELF_OK=0`, so the
+printer reads `FAIL guard=0` — plan:15, header and code now state the same condition),
+**E2** (F5/F5b/F5c/F9 expect FAIL and read FAIL), **E5** (normaliser pinned; an edited
+normaliser reads FAIL), **E6** (controls `set -o pipefail`, race-tolerant `mk_ref`, INSTRUMENT
+lines; 0 tar errors). F9 (counter rc 0 on FAIL), F10 (BASE normaliser read from the script's
+repo) and F11 (PATH-trusted `grep`/`pdftotext`/`python3`, now also `sha256sum`) stand.
+
+### G1 — MEDIUM — the QM72 header refusal is case-sensitive; `Set-Cookie:` at column 0 scores 10
+
+Both the gate (`corpus/recheck-replay.py`, `re.search(rb"(?m)^(?:HTTP/\d|< HTTP/\d|…|set-cookie\s*:)", data)`) and the counter's r3 use `(?m)` without `(?i)`. Measured: a body prefixed
+with `Set-Cookie: session=abc\n` (bytes+sha updated in the manifest) gives
+`C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)` and the gate itself
+prints `RECHECK_REPLAY: CLEAN (clocks=10 match=10 …)`, while the lowercase form is refused
+(`value=0 … r3-headers:…`, gate `BAD-CAPTURE`). The gate's own docstring names the capitalised
+form — "carries a `Set-Cookie:` header line is refused (QM72)" (`corpus/recheck-replay.py:26-27`)
+— so code and docstring disagree; the epoch-B predicate said "(any case)" and the epoch-C plan
+text dropped that qualifier. HTTP header names are case-insensitive (RFC 9110 §5.1), so a
+server's real `Set-Cookie:` output is exactly the casing that now passes. Realistic coverage is
+partial (a `curl -i` transcript still starts with an `HTTP/` status line, which is refused), but
+a header block without the status line — or a header line lifted into a body — is no longer
+refused as documented.
+Fix: add `(?i)` to the `set-cookie` alternatives (the column-0 anchor already keeps S067's
+indented examples safe), in both the gate and the counter's r3, and restore "(any case)" to the
+plan sentence.
+
+### G2 — LOW — `-> 1.0` satisfies PRESENT and scores 10
+
+The boundary `%d(?![0-9A-Za-z])` (counter `present()`) and the plan's "right-bounded by a
+non-digit non-letter" both accept `-> 1.0`, because `.` is neither a digit nor a letter; the
+gate's `CLOCK_RE` then reads N = 1 and MATCHes. Measured: `value=10 present=10 replayed=10
+gate=1 guard=1` with the betterleaks clock restated as ``… -> 1.0 (ran 2026-10-23)``. The code
+matches the epoch-C text, so this is a wording looseness rather than a code/predicate
+divergence; the epoch-B code's `(?![0-9A-Za-z_.])` would have refused it. A restated N that is
+still numerically stale cannot gain (r4 still compares counts), so the impact is limited to
+malformed restatements reading as PRESENT.
+Fix: "followed by `-> N` where N is not followed by a digit, letter, `_` or `.`" in the plan
+and `(?![0-9A-Za-z_.])` in the code.
+
+### Epoch C trailer
+
+- report: `.ufo/waves/round-56/build/R56ReviewCounter.md`
+- evidence A/B/C: `R56ReviewCounter.d/evidence{,-epochB,-epochC}.txt`
+- epoch-C scratch `/fast/scratch/hyaku/kagi-r56/R56ReviewCounter/epochC/` deleted after this
+  report; no production file edited; no git/jj mutation; no tool installed.
+- The C1 reading on an unchanged `711e6393` tree is **`value=10 present=10 replayed=10
+  gate=1 guard=1`, rc 0**; the candidate must not add a stated knowledge clock (E3), must not
+  edit the gate/normaliser (pin), and the reading is the printed value, not the exit code (F9).
+
+## Epoch D re-audit (d362318)
+
+Anchored to `d36231871c864c930d3e7e33f9c5345b30ab4f98` (HEAD; epoch-D kill-rule
+predeclaration). Instruments:
+
+| path | sha256 at d362318 |
+|---|---|
+| `plans/round-56-c1.sh` | `82acbb2056aac6055a79f223a0e0abbb2cb24f11f01ca5ed12a230c8338bdc6a` |
+| `corpus/recheck-replay.py` | `5165da2a6fced02fce82c92fc898553db9a6d3d702d9fc6d1ca3ba185e77b14f` (= `GATE_SHA256_PIN`) |
+| `plans/round-56-controls.sh` | `9445a1ec208f2b8dad55da2694f4b7ebd2554e3ecd4196f15c5d5da4958882ce` |
+| `plans/round-56.md` | `4d837eb2d467064efedb9e25173c5bde82830e88c31754d7af1ac253c87b8b74` |
+| `corpus/recheck-captures.tsv` | `df46be5c92c7b4d5a8b7ad790371b5c3240c92f46460b8cfb69e9b75b7ecc762` |
+| `corpus/rendered-text-v1.py` | `14f6ca6ab742296f45a699548c31e6d49892f6baef36ed419c283d1a0511b8c9` (= `NORMALIZER_SHA256_PIN`) |
+
+Raw output: `R56ReviewCounter.d/evidence-epochD.txt`.
+
+| tree / forgery | reading | rc |
+|---|---|---|
+| BASE `832ba6a` | `value=0 present=10 replayed=0 gate=0 guard=1` | 0 |
+| `42070de` / `5d9a157` / `711e6393` | `value=FAIL … guard=0 (…selftest,gate-digest)` | 0 |
+| epoch-D `d362318` | `value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)` | 0 |
+| reference overlay | `value=10 … guard=1` | 0 |
+| printer gate (pinned-selftest text, reads nothing) | `value=FAIL … guard=0` | 0 |
+| `-> 1x` / `-> 1.0` / `-> 1_0` restatements | `value=FAIL present=9 replayed=9 guard=0` each | 0 |
+| added uncaptured clock / added captured clock (`clocks=11`) | `value=0 … guard=1` each | 0 |
+| gate symlink / gate FIFO | `value=FAIL … guard=0 (…selftest)` | 0 |
+| 8-column / `fetched=2026-11-7` / `http_status=404` / shared body_path+sha / duplicate URL | `value=0 … r2-manifest-malformed ×10` | 0 |
+| body_path `corpus/S054.body` | `value=0 … r3-notcapture:…` | 0 |
+| `set-cookie:` / `Set-Cookie:` / `Http/2 302` / `< Set-Cookie:` / `< HTTP/1.1` at column 0 | `value=0 … r3-headers:…` each (gate: `DRIFT … bad_capture=1`) | 0 |
+| normaliser edited / symlinked entry / empty tree | `value=FAIL … guard=0` | 0 |
+| no manifest / SETUP shapes | `value=0` / `SETUP …` | 0 / 2 |
+
+Controls end-to-end (`bash plans/round-56-controls.sh <lane>`, REF = lane): six `INSTRUMENT`
+lines including the normaliser pin, `CONTROLS: match=21 mismatch=0`, rc 0, 0 tar errors. Gate
+`--selftest`: `PASS (20 cases)`.
+
+Closed against epoch C: **G1** (all four canonical casings/prefixes now refused by gate and
+counter; the gate's selftest adds `header-case-cookie` and `header-case-status`), **G2**
+(`-> 1.0` and `-> 1_0` fail PRESENT). All epoch-A/B residuals remain closed; F9, F10, F11 and
+E3 (population hard-closed at 10) stand.
+
+### H1 — MEDIUM — the frozen predicate still says `PASS (18 cases)`; the instrument requires 20
+
+`plans/round-56.md:15` ends "…its `--selftest` exits 0 with last line `RECHECK_REPLAY_SELFTEST:
+PASS (18 cases)`. Definitions verbatim in `plans/round-56-c1.sh`'s header." The counter header
+(`:44`, `:83`) and the code (`:110`) require **`PASS (20 cases)`**, and the same plan's Landing
+sentence (`plans/round-56.md:13`) says "a `--selftest` of 20 cases". So the frozen predicate
+contradicts both the instrument and its own landing text, and the "verbatim" claim is false for
+this token. No reading impact (the code is authoritative and the unchanged tree reads 10), but
+a closure that checks the predicate text would look for an 18-case line the instrument can
+never emit.
+Fix: one-line plan amendment (line 15: 18 → 20). That touches `plans/round-56.md`, which is in
+the kill-rule pathspec, so it needs a new predeclaration commit (epoch E) — no instrument hash
+changes, since the counter/gate/controls/normaliser are unaffected.
+
+### H2 — LOW — the gate alone still reads `-> 1.0` as `-> 1` (counter refuses, gate says CLEAN)
+
+The gate's `CLOCK_RE` (`corpus/recheck-replay.py:53`) captures the digit prefix, so a clock
+restated as ``… -> 1.0 (ran …)`` yields `RECHECK_REPLAY: CLEAN (clocks=10 match=10 …)` from the
+gate on its own, while the counter's r1 boundary (`(?![0-9A-Za-z_.])`) refuses it and the
+reading is `value=FAIL present=9`. The counter dominates, so no false green; the asymmetry is
+that the landing artifact's own replay does not apply the boundary its predicate states.
+Fix (optional): give `CLOCK_RE` the same right boundary so the gate's population matches r1's.
+
+### Epoch D trailer
+
+- report: `.ufo/waves/round-56/build/R56ReviewCounter.md`
+- evidence A/B/C/D: `R56ReviewCounter.d/evidence{,-epochB,-epochC,-epochD}.txt`
+- epoch-D scratch `/fast/scratch/hyaku/kagi-r56/R56ReviewCounter/epochD/` deleted after this
+  report; no production file edited; no git/jj mutation; no tool installed.
+- C1 on an unchanged `d362318` tree: **`value=10 present=10 replayed=10 gate=1 guard=1`, rc 0**.
+  The admission harness must read that token (rc is 0 even on FAIL), the candidate must not add
+  a stated knowledge clock (E3), and it must not edit the gate or the normaliser (pins).

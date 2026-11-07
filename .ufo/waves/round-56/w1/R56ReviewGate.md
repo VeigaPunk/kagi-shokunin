@@ -17,7 +17,9 @@ The seat spec named the predeclaration commit `42070de…` and said the gate was
 | manifest `corpus/recheck-captures.tsv` | `df46be5c92c7b4d5a8b7ad790371b5c3240c92f46460b8cfb69e9b75b7ecc762` | same |
 | `corpus/SOURCES.md` | `fa69564f610e5192093b05ae17c9ee385aa607586cc219d0e33460985ab12936` | same at the commit; worktree edit after |
 
-An uncommitted draft existed 07:35:34–07:41 (gate `637c8184…`, counter `d2bcb790…`, pinning that draft); it was never committed and no finding is anchored to it. **After epoch B, a third uncommitted draft appeared while this report was being written** (observed 07:50–07:52, HEAD still `5d9a157`): gate `d4392ffe831560397fa35b4e84198b6ac75d5da8505a302ef3dcf6991080b274` (15 selftest cases, adds `not-capture-path` and `trace-headers`; still **0** pdf/locate cases), counter `be4af051…` (`GATE_SHA256_PIN=d4392ffe…`), plan `46d05217…`, controls `57a18b4a…`. It is not reviewed in depth here; it does not close F1, F5, F6, F7, F8, F9, F10, F11 or F12 by inspection, and it shows the epoch churn is not a one-off. My snapshots `epochB-gate-2e9dfde3.py` / `epochB-counter-6b132ea1.sh` are byte-identical to `git show 5d9a157:…`.
+Three re-freezes landed during this review: **epoch C `711e6393e68658f396918c07de253e5a5c74d1b4`** (gate `e9b7e4b7…`, counter `7992ee6a…` pin `e9b7e4b7…`, plan `8beb24e9…`, controls `b675baa5…`) and **epoch D `d36231871c864c930d3e7e33f9c5345b30ab4f98`** (gate `5165da2a6fced02fce82c92fc898553db9a6d3d702d9fc6d1ca3ba185e77b14f`, counter `82acbb2056aac6055a79f223a0e0abbb2cb24f11f01ca5ed12a230c8338bdc6a` pin `5165da2a…`, plan `4d837eb2…`, controls `9445a1ec…`), which supersedes C and is the current target. D's stated reason is a C regression: C's column-0 header refusal used `(?m)` and lost case-insensitivity, so canonical `Set-Cookie:` / `Http/2` passed; D restores `(?im)`, adds two column-0 cases (20-case selftest), tightens the `-> N` right boundary to `(?![0-9A-Za-z_.])`, and its controls receipt has 21 MATCH. **I missed the C regression in my C audit** — I probed lowercase `set-cookie` plus CR/space shapes, and C's own `header-bytes` case used lowercase, so the blind spot was shared; D's added cases close it (`raw/70`). Manifest unchanged `df46be5c…`; the worktree is clean against `d3623187` for all five instruments (`git status --porcelain` empty). Intermediate uncommitted drafts (gates `637c8184…`, `d4392ffe…`) were folded into C; no finding is anchored to them.
+
+**Epoch E `dd31b7867723f89fc8f83e88cc7d98e17de26cf2` is now THE predeclaration** (supersedes D; observed after D's audit): gate **unchanged** `5165da2a…`, manifest **unchanged** `df46be5c…`, normalizer **unchanged** `14f6ca6a…`; counter `d468533fbf593c4b2a3a97dc513b9feb2cff765892c126c02d7c6ef40273a954` (tool guards `sha256sum`/`cut`/`tail`/`timeout`/`git`/`tar` → SETUP), plan `212e2dd7…` (selftest token now `20 cases`; previously `18`), controls `01060f25…` (22/22 MATCH, 6 INSTRUMENT sha lines, 0 `tar:` errors). Readings I took: `dd31b786` → `value=10 guard=1`; `d362318` → `value=10` (E is guard/doc hardening, not verdict tightening); BASE → `value=0 guard=1` (`raw/73`). Because the gate and manifest bytes are identical to D, every gate finding in §1.0 carries to E unchanged; E only moves the counter's guards and the plan's token.
 
 Readings I took (commands in `R56ReviewGate.d/raw/`):
 
@@ -29,11 +31,40 @@ Readings I took (commands in `R56ReviewGate.d/raw/`):
 | epoch-B counter rev `42070de` | `value=0 … gate=0 guard=1 (bad=r5-gate ×10)` rc0 — the gate pin, by design |
 | epoch-B counter `--tree <lane>` (worktree) | `value=10 … gate=1 guard=1 (bad=none)` rc0 (`raw/36`) |
 | epoch-A gate on the lane tree | 10 MATCH + `CLEAN` rc0 |
+| epoch-C counter rev `711e6393` | `value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)` rc0 (`raw/63`) |
+| epoch-C counter rev `5d9a157` / `42070de` | `value=FAIL present=10 replayed=0 gate=0 guard=0` rc0 (old/unpinned gate) (`raw/63`) |
+| epoch-C counter rev `832ba6a` (BASE) | `value=0 present=10 replayed=0 gate=0 guard=1` rc0 (`raw/63`) |
+| epoch-C gate | 18/18 selftest PASS; 10 MATCH + `CLEAN` on its own tree (`raw/60`) |
+| epoch-D counter rev `d3623187` | `value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)` rc0 (`raw/71`) |
+| epoch-D counter rev `711e6393` / `5d9a157` / `42070de` | `value=FAIL … gate=0 guard=0` rc0 (old pins) (`raw/71`) |
+| epoch-D counter rev BASE `832ba6a` | `value=0 … gate=0 guard=1` rc0 (`raw/71`) |
+| epoch-D gate | 20/20 selftest PASS; 10 MATCH + `CLEAN` (`raw/70`) |
+| epoch-E counter rev `dd31b786` | `value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)` rc0 (`raw/73`) |
+| epoch-E counter rev `d362318` | `value=10 … gate=1 guard=1 (bad=none)` rc0 — E is guard/doc hardening (`raw/73`) |
+| epoch-E counter rev BASE `832ba6a` | `value=0 … gate=0 guard=1` rc0 (`raw/73`) |
+
+## 1.0 Epoch-E status of these findings (gate bytes identical to D; measured on `d3623187`, carried to `dd31b786`; `raw/70-73`)
+
+The gate and manifest are byte-identical between D and E, so the D measurements below are E measurements. Counter-only differences are marked.
+
+| finding | status in epoch E (current) | evidence |
+|---|---|---|
+| F1 | **partially closed.** A dead `pdf`+`locate` branch fails the selftest (`FAIL locate-match rc=1 want=0 token=MATCH`, 1 of 20), but a **pdf-only** dead branch still passes **20/20**: `pdf-match`'s expected count is 1, so `return 1` is indistinguishable. | `raw/70` |
+| F2 | **partially closed.** The epoch-E receipt carries six `INSTRUMENT` sha256 lines, **0** `tar:` errors and 22 MATCH / 0 MISMATCH; the plan's selftest token is now `20 cases` (was 18). But `plans/round-56.md:27` **still cites the epoch-A receipt** `.ufo/waves/round-56/controls/controls-prefreeze.txt`, not the epoch-D/E file. | receipt audit |
+| F3, F4 | **closed.** Symlinked entry → `UNSUPPORTED reason=symlinked-entry` + DRIFT; symlinked `corpus/knowledge` → `SETUP symlinked-input:corpus/knowledge` rc2. | `raw/70` |
+| F5 | **closed.** `SETUP normalizer-digest` rc2 on a stub helper; the counter reads `value=FAIL … guard=0` on the same tree. | `raw/70` |
+| F6 | **open.** Non-UTF-8 entry and unreadable manifest still raise `UnicodeDecodeError`/`PermissionError`, rc1, no `RECHECK_REPLAY:` line. | `raw/70` |
+| F7 | **open.** 2-cell and fenced S054 rows: gate `CLEAN (clocks=10 …)` rc0, counter `value=9 … bad=r2-registry` (`gate=1`). | `raw/70` |
+| F8 | **partially closed.** D refuses canonical `Set-Cookie:` at column 0, `Http/2 200`, and `< Set-Cookie:` (C accepted all three — the C regression); a leading-space ` set-cookie:` and a CR-only `\rSet-Cookie:` are still `CLEAN` in D. | `raw/70` (C vs D) |
+| F9 | **closed.** `http_status=404` → `SETUP manifest-http:S054`; empty `fetched` → `SETUP manifest-fetched:S054`; counter 0 with `r2-manifest-malformed`. | `raw/70` |
+| F10 | **open.** One 8-column row for an unused URL → `SETUP manifest-columns:S999` rc2, no per-clock lines. | `raw/70` |
+| F11 | **partially closed.** +7 cases since B (20 total incl. locate/pdf/trace/not-capture-path/Set-Cookie/Http-2); `pdf-match` non-discriminating (F1); the substring `want_tok` assertion is unchanged by inspection. | `raw/70` |
+| F12 | **open.** Same fixture: `LC_ALL=C.UTF-8` → `CLEAN` rc0; `LC_ALL=C` → `MISMATCH`/`DRIFT` rc1. | `raw/70` |
 
 ## 1. Findings
 
 ### F1 — HIGH (gate artifact) / MEDIUM (the C1 number): the 13-case selftest proves nothing about two of the three accepted filter forms, and a gate whose `pdf`+`locate` branches are dead prints `CLEAN` and earns `value=10`
-- **applies:** epoch A (measured); epoch B structurally identical (the sha pin blocks *this* mutant, not the gap).
+- **applies:** epoch A (measured); epoch B structurally identical (the sha pin blocks *this* mutant, not the gap); epoch C closes the locate half only, and epoch D inherits that (pdf-only dead branch PASSes 20/20; `raw/70`).
 - **where:** A `corpus/recheck-replay.py:184-196` (pdf/locate replay), `:273-312` (13 cases, every one `grep`); B `:187-203`, `:300-340`.
 - **repro:**
   ```
@@ -116,6 +147,7 @@ Readings I took (commands in `R56ReviewGate.d/raw/`):
 - **where:** A `:174`; B `:174` (`re.match(rb"HTTP/\d", data) or re.search(rb"(?im)^set-cookie:", data)`).
 - **observed (frozen gate, `raw/50`):** accepted as MATCH — a body starting `\nHTTP/2 200\r\n…` (`b-leading-blank-then-HTTP`), a body starting `HTTP/ x` (`b-http-nodigit-first-byte`), a line ` set-cookie: a=b` with a leading space (`b-set-cookie-leading-space`), and CR-only lines `\rSet-Cookie: a=b` (`b-set-cookie-CR-only-lines`). Refused as `BAD-CAPTURE` — `HTTP/2 200` at byte 0 (`b-http-first-byte`) and LF-anchored `set-cookie:`/`SeT-CoOkIe:` (`b-set-cookie-lf-line`, `b-set-cookie-mixed-case`).
 - **expected:** literal docstring wording ("begins with an HTTP status line", "a line starting `set-cookie:`") makes these conforming; the plan's r3 and the counter use the same shapes (`startswith(b"HTTP/")` + the same regex). Practical exposure is a hand-edited body (a `curl -i` body always begins with the status line), which is inside the named ceiling.
+- **epoch-C regression, epoch-D fix (`raw/70`):** epoch C's column-0 regex was `(?m)` with no `i`, so the canonical `Set-Cookie:` and `Http/2` lines — and a `< Set-Cookie:` trace — were accepted (`CLEAN`) while my lowercase probes passed; C's own `header-bytes` case used lowercase, so its selftest shared the blind spot. My C audit tested lowercase plus CR/space shapes and **missed** the case-insensitivity regression. Epoch D restores `(?im)` and adds column-0 `Set-Cookie:`/`Http/2` cases; D refuses all three (`BAD-CAPTURE`). The leading-space and CR-only shapes remain accepted in D (`CLEAN`).
 
 ### F9 — LOW (A and B): `http_status` and `fetched` are carried but never validated
 - **where:** A `:124-147`; the counter's r2/r3 never read those columns.
@@ -144,7 +176,17 @@ Readings I took (commands in `R56ReviewGate.d/raw/`):
 - **repro/observed:** one fixture, body bytes `a\xc3\xa9c\n`, pattern `a.c`, stated 1: `LC_ALL=C.UTF-8` → `MATCH` rc0; `LC_ALL=C` (and `POSIX`,`LANG=C`) → `MISMATCH` rc1 (`raw/50` `l-dot-*`). Same tree and bytes, different verdict.
 - **expected:** an offline replay of a committed tree should be a function of the committed bytes. None of the 10 current patterns crosses a multibyte character with `.` (their dots match literal periods), so today's reading is unaffected; the gate should pin the locale (or say it does not).
 
-## 2. Does the 13-case selftest cover these classes?
+### F13 — LOW (gate, A-E): the gate's clock grammar accepts `-> 1.0` and `-> 1_0` as `-> 1` and prints `CLEAN`; the counter's right boundary refuses them
+- **where:** gate `CLOCK_RE` `:53` (A/B) / `:53` (D/E): `` `(curl [^`]*)`\s*->\s*(?:count=)?(\d+) `` — the `(\d+)` has no right boundary; the counter's `present()` uses `(?![0-9A-Za-z_.])`.
+- **repro:** `<e-boundarydot>`/`<e-boundaryunderscore>` = epoch-E tree with the S067 clock `-> 1` changed to `-> 1.0` / `-> 1_0`.
+  ```
+  python3 -I -B <E-gate> --root <e-boundarydot>     # raw/72: CLEAN rc0, "MATCH … id=S067 … stated=1 replayed=1"
+  bash plans/round-56-c1.sh --tree <e-boundarydot>  # raw/72: value=FAIL present=9 … guard=0 (bad=absent:oidc-…)
+  ```
+- **observed:** the gate parses `1` out of `1.0`/`1_0`, reports `stated=1`, MATCHes, and ends `CLEAN`; the counter's `present()` refuses the same line (`present=9`, `guard=0`, `value=FAIL`).
+- **expected:** the plan's POP is `-> N` / `-> count=N`, so `-> 1.0` is not a clock; the gate should print `UNSUPPORTED` (or no claim of a clock) rather than MATCH. The counter is fail-closed, so C1 cannot be inflated this way — but a malformed statement can sit in the tree under a gate `CLEAN`. Route with F1 as a gate-grammar item.
+
+## 2. Does the selftest cover these classes? (A: 13 cases; D/E: 20)
 
 `--selftest` on the frozen bytes: `RECHECK_REPLAY_SELFTEST: PASS (13 cases)` rc0 (12 `cases` + 1 standalone symlink case; A `:252-318`). Coverage against the classes above:
 
@@ -157,7 +199,7 @@ Readings I took (commands in `R56ReviewGate.d/raw/`):
 | registry URL token | yes | case 7 |
 | header bytes | **partially** — body carries both a status line and `set-cookie:`; not isolating | F11, mutant C |
 | UNSUPPORTED (`sed` stage, unknown curl flag) | yes | cases 10–11 |
-| pdf form (`pdftotext`), locate form | **no (0 cases each)** | F1, mutant A |
+| pdf form (`pdftotext`), locate form | **no at A/B (0 cases); locate at D/E, pdf only weakly (count 1)** | F1, `raw/70` |
 | TOOL class | **no** | F1/F5 |
 | SETUP paths (`not-a-lane-tree`, `no-stated-clocks`, manifest header/columns/duplicate, usage) | **no** | F6/F10 |
 | manifest bytes column, body-missing, dir/FIFO, duplicate URL | **no** | F10/F11, mutants B/D |
@@ -189,6 +231,6 @@ So: **refuted** that the selftest covers the classes found here. It is honest ab
 
 ## 5. Receipts
 
-`R56ReviewGate.d/` (44 files, `sha256sums.txt` over all): `frozen-gate.py` (`b7782f35…`), `frozen-counter.sh` (`096251c9…`), `frozen-counter-runner.sh` (same bytes, one `REPO=` line changed so it can run outside the lane; sha `a11c4750…`), `epochB-gate-2e9dfde3.py`, `epochB-counter-6b132ea1.sh`, `probe.py`, `sweep.py`, `locate-probe.py`, `fixtures.md` (exact fixture construction), `mutants/A…G`, `raw/10-drift.txt`, `raw/20-36`, `raw/40-41`, `raw/50-55`, `raw/57` (stub-helper vs real-helper counter contrast), `raw/53` (frozen symentry/klink/reg2/fence/liar), `raw/54` (frozen poison), `raw/55` (frozen counter at BASE; body `chmod 000`).
+`R56ReviewGate.d/` (60 files, `sha256sums.txt` over all): `frozen-gate.py` (`b7782f35…`), `frozen-counter.sh` (`096251c9…`), `frozen-counter-runner.sh` (same bytes, one `REPO=` line changed so it can run outside the lane; sha `a11c4750…`), `epochB-gate-2e9dfde3.py`, `epochB-counter-6b132ea1.sh`, `probe.py`, `sweep.py`, `locate-probe.py`, `fixtures.md` (exact fixture construction), `mutants/A…G`, `raw/10-drift.txt`, `raw/20-36`, `raw/40-41`, `raw/50-55`, `raw/57` (stub-helper vs real-helper counter contrast), `raw/60` (epoch-C battery), `raw/61` (epoch-C header/locale/pdf-mutant), `raw/62` (epoch-C arity abort), `raw/63` (epoch-C counter revisions), `raw/70` (epoch-D battery incl C-vs-D header contrast), `raw/71` (epoch-D counter revisions), `raw/72` (epoch-E `-> 1.0`/`1_0` boundary), `raw/73` (epoch-E counter revisions), `raw/53` (frozen symentry/klink/reg2/fence/liar), `raw/54` (frozen poison), `raw/55` (frozen counter at BASE; body `chmod 000`); `epochC-battery.py`, `epochC-minimal.py`, `epochD-battery.py`.
 
 Scratch `/fast/scratch/hyaku/kagi-r56/R56ReviewGate/` was deleted before yield (it was also lost once mid-review and rebuilt from `git archive 42070de`; `fixtures.md` documents the rebuild).

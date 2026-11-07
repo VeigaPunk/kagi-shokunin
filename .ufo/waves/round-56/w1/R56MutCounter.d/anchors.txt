@@ -102,3 +102,32 @@ pristine epoch-B tree re-read value=10 and its relative content digest was uncha
 Tools: none installed. python3, grep, pdftotext, git, sha256sum used as present.
 No network request was made by this seat; no header/cookie/secret material read,
 captured or printed.
+
+Epoch D (current anchor, supersedes B/C)
+----------------------------------------
+commit                d36231871c864c930d3e7e33f9c5345b30ab4f98
+  plans/round-56-c1.sh        blob 321c2d9efb4792b39390863e81b5aa644a288750
+                              sha256 82acbb2056aac6055a79f223a0e0abbb2cb24f11f01ca5ed12a230c8338bdc6a
+                              GATE_SHA256_PIN=5165da2a6fced02fce82c92fc898553db9a6d3d702d9fc6d1ca3ba185e77b14f
+  corpus/recheck-replay.py    blob 79fb022b06e406291e0a8a884cbf97d7a23a4b87
+                              sha256 5165da2a6fced02fce82c92fc898553db9a6d3d702d9fc6d1ca3ba185e77b14f
+                              NORMALIZER_SHA256_PIN=14f6ca6ab742296f45a699548c31e6d49892f6baef36ed419c283d1a0511b8c9
+  corpus/recheck-captures.tsv blob 7c85dc4da34bc79931e01906b91e4c3fda91b2c5
+                              sha256 df46be5c92c7b4d5a8b7ad790371b5c3240c92f46460b8cfb69e9b75b7ecc762
+  plans/round-56-controls.sh   blob 296b6e617e67068b87680f54f053c7e54c423b86
+                              sha256 9445a1ec208f2b8dad55da2694f4b7ebd2554e3ecd4196f15c5d5da4958882ce
+  plans/round-56.md           blob 9f2cfd870b3648892c5292434a3194684ed767e6
+                              sha256 4d837eb2d467064efedb9e25173c5bde82830e88c31754d7af1ac253c87b8b74
+git hash-object of each extracted file equals its blob id (verified).
+Tree content digest (sorted relative-path sha256 manifest): 97159342f9388726314438b3cb2ef512a14f44aacaed2d2a1aed313f441dd8fb
+  identical from two independent `git archive d362318` extractions; after the
+  whole 29-mutant D sweep the tree still reads value=10 and the digest is unchanged.
+
+Epoch-D baselines (pristine):
+  D counter / D tree d362318 : rc=0  value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)
+  D counter / C tree 711e6393: rc=0  value=FAIL present=10 replayed=0 gate=0 guard=0 (r5-gate x10, selftest, gate-digest)
+  D counter / B tree 5d9a157 : rc=0  value=FAIL (same)
+  D counter / A tree 42070de : rc=0  value=FAIL (same)
+  D counter / BASE 832ba6a   : rc=0  value=0 present=10 replayed=0 gate=0 guard=1 (r2-manifest x10)
+These reproduce the planner's epoch-D readings (d362318->10; 711e6393/5d9a157/42070de->FAIL;
+BASE->0). The planner's 21/21 epoch-D controls receipt was not re-run by this seat.

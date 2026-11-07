@@ -19,10 +19,12 @@ at `42070de` so the counter bytes are the pinned ones, not the working tree
   not an observation, and is recorded as such.
 
 Epoch note: mid-review L1 (KagiR56a3) re-predeclared epoch-B at
-`5d9a1571911ec38a456a40b443e19640abb9a88b` (hardened counter+gate, new plan and
-controls). §§1-10 below are the epoch-A record at `42070de`; §11 is a re-audit
-of the epoch-B instruments, anchored to `5d9a157`. The two anchor sets are
-separate and both are given.
+`5d9a1571911ec38a456a40b443e19640abb9a88b`, then epoch-C at
+`711e6393e68658f396918c07de253e5a5c74d1b4`, epoch-D at
+`d36231871c864c930d3e7e33f9c5345b30ab4f98`, then epoch-E at
+`dd31b7867723f89fc8f83e88cc7d98e17de26cf2`. §§1-10 are the epoch-A record at
+`42070de`; §§11-14 re-audit B, C, D and E against their own hashes. Each anchor
+set is stated explicitly; no epoch's numbers are reused for another.
 
 ## 0. Anchors (verified with `git show 42070de:<path> | sha256sum`)
 
@@ -444,9 +446,183 @@ against `5d9a157` (or the worktree gate against the committed pin, or vice
 versa) will read `gate=0`/`value=0` for a pin mismatch. Measure committed
 hashes, not the worktree, and re-anchor if these edits become the candidate.
 
+## 12. Epoch-C re-audit at `711e6393` (supersedes epoch-B)
+
+L1 landed epoch-C `711e6393e68658f396918c07de253e5a5c74d1b4`; all epoch-C
+evidence below is anchored there. The same single clone was fetched and checked
+out at that revision; attack trees were built with `git archive 711e6393`.
+
+| Artifact | SHA256 |
+|---|---|
+| `plans/round-56-c1.sh` | `7992ee6a97c9f1cfaf627c61322ecaf6aa0c31126a65f591567d7b6f7ee2802c` |
+| `corpus/recheck-replay.py` | `e9b7e4b7aa1e8173c4bfc2e536ce6d1ed29c4c0d6ee5f46bfa1e63d3692a62b4` (= pin) |
+| `corpus/recheck-captures.tsv` | `df46be5c92c7b4d5a8b7ad790371b5c3240c92f46460b8cfb69e9b75b7ecc762` |
+| `plans/round-56.md` | `8beb24e94a08c3961f5217a3b4b98aadc46d56561fe3ec2254f13185d4cf6c9f` |
+| `plans/round-56-controls.sh` | `b675baa5fad95bc663f49ca76ea13be84627db457af443f3b957144cd8ddd16c` |
+| `controls/controls-prefreeze-epochC.txt` | `523aaa60946a1322441a22c820daf9cc84c9d7924aa1eaa8b4b338dcf5e8b6b2` (20/20 MATCH, 0 `tar:` errors; 21 `^CONTROL` lines incl instrument-hash lines) |
+
+Baselines (all rc 0): `711e6393` → `value=10 present=10 replayed=10 gate=1
+guard=1`; `5d9a157` → `value=FAIL present=10 replayed=0 gate=0 guard=0`
+(`r5-gate` ×10 + `selftest` + `gate-digest`, old pin); `42070de` → the same
+FAIL; BASE → `value=0 present=10 replayed=0 gate=0 guard=1` (`r2-manifest` ×10).
+
+### 12.1 Holes closed by epoch-C
+
+| Attack | Observed (rc 0) |
+|---|---|
+| printer gate (10 MATCH + CLEAN) | `value=FAIL present=10 replayed=0 gate=0 guard=0`; `r5-gate` ×10 + `selftest` + `gate-digest` |
+| gate symlink to in-tree printer | `value=FAIL … gate=0 guard=0`; `r5-gate` ×10 + `selftest` |
+| one row re-pointed outside the capture namespace (`S074` → `corpus/source-fetches.tsv`) | `value=0 … gate=0 guard=1`; per-row `r3-notcapture:…ipd` + `r5-gate` ×10 |
+| five rows re-pointed at the same non-capture body, five captures deleted | `value=0 … guard=1`; `r2-manifest-malformed` ×10 |
+| five rows sharing one capture-dir body (`.ufo/waves/round-56/capture/tsv.body`) | `value=0 … guard=1`; `r2-manifest-malformed` ×10 (bijection) |
+| forged `fetched` (`not-a-date`) | `value=0 … guard=1`; `r2-manifest-malformed` ×10 |
+| forged `http_status=999` | `value=0 … guard=1`; `r2-manifest-malformed` ×10 |
+| `-> 1x` malformed N | `value=FAIL present=9 replayed=9 gate=1 guard=0`; `absent:betterleaks…` |
+
+The printer's bad list now adds `gate-digest` and `selftest` and drives
+`guard=0`, so the epoch-A/B gate-identity and body-identity holes are closed by
+construction, and the manifest is checked as a whole (capture confinement,
+ISO date, 2xx status, body_path/sha256 bijection).
+
+### 12.2 Still open in epoch-C
+
+- **F6 literal POP (MEDIUM)** — the three equivalence-class edits still fail:
+  quotes-only reword → `value=FAIL present=9`; a second `recheck:` line →
+  `value=FAIL present=9`; manifest URL trailing `/` → `value=0` (`r2-rows0` +
+  `r5-gate` ×10). All rc 0.
+- **F7 tree-wide CLEAN veto (MEDIUM)** — one extra unsupported clock in
+  `prefreeze-controls.md` → `value=0 present=10 replayed=0 gate=0 guard=1`, rc 0.
+- **F8 guard semantics (LOW)** — gate absent (`nogate`) → `value=0 guard=1`,
+  rc 0. The epoch-C plan now defines this explicitly (“no gate file is present
+  with non-pinned bytes, and, when the measured tree carries the pinned gate
+  bytes, its `--selftest` exits 0…”), so code == plan; the reading still means a
+  gate-less tree can carry `guard=1`, and the guard's name invites misreading.
+- **Declared ceiling** — a hand-written capture placed inside the capture
+  namespace with an ISO `fetched` and a 2xx status, manifest re-bound to its
+  bytes/sha → `value=10 present=10 replayed=10 gate=1 guard=1`, rc 0. Epoch-C
+  forces the path namespace and metadata but not provenance; this is the named
+  “hand-written capture” ceiling.
+- **Blunt manifest failure** — any single malformed manifest row (non-capture
+  path, duplicate body, bad date/status) yields `r2-manifest-malformed` for all
+  ten clocks, so one bad row zeroes the whole claim and per-row attribution is
+  lost (fail-closed, coarse).
+
+Epoch-C verdict: gate identity, gate rc, selftest string/count, body
+confinement, manifest metadata/bijection, and the N boundary are closed. The
+remaining holes are the literal-POP brittleness (F6), the tree-wide CLEAN veto
+(F7), the guard semantics (F8), and the explicitly named hand-written-capture
+ceiling. The candidate at `711e6393` reads 10; it must carry the pinned gate
+bytes `e9b7e4b7…` and must not edit POP text or manifest URLs.
+
+Measurement note: the lane worktree continued to move during this audit; all
+epoch-C numbers are from the committed blobs above, not the worktree. The
+epoch-B §11.3 drift hashes remain a record of the earlier window.
+
+## 13. Epoch-D re-audit at `d3623187` (supersedes epoch-C)
+
+L1 landed epoch-D `d36231871c864c930d3e7e33f9c5345b30ab4f98` to restore
+case-insensitive column-0 header refusal and tighten the N boundary. All
+epoch-D evidence below is anchored there; the same single-clone method was used
+(`git fetch`; `git checkout d3623187`; trees from `git archive d3623187`).
+
+| Artifact | SHA256 |
+|---|---|
+| `plans/round-56-c1.sh` | `82acbb2056aac6055a79f223a0e0abbb2cb24f11f01ca5ed12a230c8338bdc6a` |
+| `corpus/recheck-replay.py` | `5165da2a6fced02fce82c92fc898553db9a6d3d702d9fc6d1ca3ba185e77b14f` (= pin) |
+| `plans/round-56.md` | `4d837eb2d467064efedb9e25173c5bde82830e88c31754d7af1ac253c87b8b74` |
+| `plans/round-56-controls.sh` | `9445a1ec208f2b8dad55da2694f4b7ebd2554e3ecd4196f15c5d5da4958882ce` |
+| `controls/controls-prefreeze-epochD.txt` | `cc27bd96f13b22843993a4e0154f6b280766c69f2540d5433136ea360c19f6c9` (21/21 MATCH, 0 `tar:` errors) |
+
+Baselines (rc 0): `d3623187` → `value=10 present=10 replayed=10 gate=1 guard=1`;
+`711e6393` → `value=FAIL present=10 replayed=0 gate=0 guard=0` (`r5-gate` ×10 +
+`selftest` + `gate-digest`); BASE → `value=0 present=10 replayed=0 gate=0
+guard=1` (`r2-manifest` ×10). The epoch-D receipt carries 21 MATCH and no tar
+errors.
+
+### 13.1 Targeted regressions confirmed closed
+
+| Case | Observed (rc 0) |
+|---|---|
+| body prefixed `Set-Cookie: x=1\r\n\r\n` (canonical case), manifest re-bound | `value=0 present=10 replayed=0 gate=0 guard=1`; `r3-headers:…ipd` + `r5-gate` ×10; gate standalone `RECHECK_REPLAY: DRIFT (clocks=10 match=9 … bad_capture=1)` |
+| body prefixed `Http/2 200\r\n\r\n`, manifest re-bound | same `r3-headers` + `r5-gate` ×10 |
+| `-> 1.0` | `value=FAIL present=9 replayed=9 gate=1 guard=0` (`absent:betterleaks…`) |
+| `-> 1_0` | same `FAIL present=9` |
+
+### 13.2 Carried from epoch-C (re-run on epoch-D, unchanged)
+
+- printer gate → `value=FAIL present=10 replayed=0 gate=0 guard=0` (`r5-gate` ×10 + `selftest` + `gate-digest`).
+- symlink gate → `value=FAIL … guard=0` (`r5-gate` ×10 + `selftest`).
+- gate absent → `value=0 … guard=1`.
+- five rows re-pointed at one non-capture body with captures deleted, and five rows sharing a capture-dir body → `value=0`, `r2-manifest-malformed` ×10.
+- one row re-pointed outside the capture namespace → `value=0`, per-row `r3-notcapture:…ipd` + `r5-gate` ×10.
+- hand-written capture inside the capture dir with ISO `fetched` + 2xx and manifest re-bound → `value=10 present=10 replayed=10 gate=1 guard=1` (named ceiling).
+- reword → `FAIL present=9`; second `recheck:` line → `FAIL present=9`; manifest URL trailing `/` → `value=0` (`r2-rows0` + `r5-gate` ×10).
+- extra unsupported clock → `value=0` (`r5-gate` ×10).
+
+Epoch-D verdict: the case-insensitivity and N-boundary regressions are closed
+and the epoch-C closures hold. The remaining items are the design-level ones:
+literal-POP false negatives (F6), the tree-wide CLEAN veto (F7), the semantic
+`guard=1` without a gate (F8), the named hand-written-capture ceiling, and the
+blunt manifest failure that marks all ten clocks malformed for one bad row. The
+candidate at `d3623187` reads 10 and must keep the pinned gate bytes
+`5165da2a…`, leave POP text and manifest URLs untouched, and keep the bodies
+inside the capture namespace with ISO dates and 2xx statuses.
+
+## 14. Epoch-E re-audit at `dd31b786` (supersedes epoch-D)
+
+L1 landed epoch-E `dd31b7867723f89fc8f83e88cc7d98e17de26cf2` to add tool
+preflight guards and fix the plan's selftest token; verdict semantics are
+disclosed as unchanged. All epoch-E evidence below is anchored there; the same
+single-clone method was used (`git fetch`; `git checkout dd31b786`).
+
+| Artifact | SHA256 |
+|---|---|
+| `plans/round-56-c1.sh` | `d468533fbf593c4b2a3a97dc513b9feb2cff765892c126c02d7c6ef40273a954` |
+| `corpus/recheck-replay.py` | `5165da2a6fced02fce82c92fc898553db9a6d3d702d9fc6d1ca3ba185e77b14f` (= pin, unchanged from D) |
+| `plans/round-56.md` | `212e2dd7ae71e3f056111e1a2c59d33151a3c51fee9f932bf2209ad2cb3d805d` (selftest token `PASS (20 cases)`) |
+| `plans/round-56-controls.sh` | `01060f254b2ecfdb23f341a5cf0937aec32243230560809403ed67ea38b196e7` |
+| `controls/controls-prefreeze-epochE.txt` | `b4ab59c5498272a7fe97d28f72bc06a1de66f06f2ef86783bbd09c8211fc711e` (22/22 MATCH, 0 `tar:` errors; 23 `^CONTROL` lines incl instrument) |
+
+Baselines (rc 0): `dd31b786` → `value=10 present=10 replayed=10 gate=1 guard=1`;
+`d3623187` → `value=10 … gate=1 guard=1` (as disclosed: E does not tighten the
+verdict); BASE → `value=0 present=10 replayed=0 gate=0 guard=1` (`r2-manifest`
+×10).
+
+### 14.1 Tool preflight guards confirmed
+
+The counter preflights `python3`, `grep`, `pdftotext`, `sha256sum`, `cut`,
+`tail`, `timeout`, `git`, `tar` (`plans/round-56-c1.sh:58-66`). A PATH farm with
+one binary removed:
+
+| Case | Observed |
+|---|---|
+| `timeout` absent | `C1_REPLAY: SETUP no-timeout`, rc 2 |
+| `sha256sum` absent | `C1_REPLAY: SETUP no-sha256sum`, rc 2 |
+| normal PATH (control) | `C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1`, rc 0 |
+
+A missing tool therefore reads as SETUP (exit 2), not as a pass or a zero.
+
+### 14.2 Carried subset re-run on epoch-E (unchanged)
+
+- printer gate → `value=FAIL present=10 replayed=0 gate=0 guard=0` (`r5-gate` ×10 + `selftest` + `gate-digest`).
+- gate absent → `value=0 … guard=1`.
+- five rows re-pointed at one non-capture body with captures deleted → `value=0`, `r2-manifest-malformed` ×10.
+- hand-written capture inside the capture dir with ISO `fetched` + 2xx and manifest re-bound → `value=10 present=10 replayed=10 gate=1 guard=1` (named ceiling).
+- reword → `value=FAIL present=9`; extra unsupported clock → `value=0` (`r5-gate` ×10).
+
+Epoch-E verdict: the tool guards and the selftest-token/doc fix are correct and
+SETUP is distinguishable (rc 2). Verdict semantics are unchanged from D, as
+disclosed. The remaining items are still the design-level ones: literal-POP
+false negatives (F6), the tree-wide CLEAN veto (F7), the semantic `guard=1`
+without a gate (F8), the named hand-written-capture ceiling, and the blunt
+manifest failure that marks all ten clocks malformed for one bad row. The
+candidate at `dd31b786` reads 10 and must keep the pinned gate bytes
+`5165da2a…`, POP text, manifest URLs, and capture confinement + ISO/2xx.
+
 ## Receipts
 
 `.ufo/waves/round-56/w1/R56ReviewCounter.d/readings.txt` — anchor hashes,
 method, every command/rc/value, fixture definitions (printer gate, symlink-gate,
 nocap, forge, reword, twoline, urlslash, restate1x, f8, zerocase), the epoch-A
-record, and the epoch-B re-audit readings.
+record, the epoch-B re-audit, the epoch-C re-audit, the epoch-D re-audit, and
+the epoch-E re-audit readings.

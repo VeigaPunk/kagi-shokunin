@@ -1,0 +1,9 @@
+# epoch-E (dd31b786) -> 1.0 / 1_0 boundary probe; gate sha 5165da2a, counter sha d468533f
+## suffix .0
+gate rc=0 RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)
+gate S067: ['MATCH corpus/knowledge/oidc-federation-trust-policy.md:3 id=S067 form=grep stated=1 replayed=1']
+counter rc=0 C1_REPLAY: value=FAIL present=9 replayed=9 gate=1 guard=0 (bad=absent:oidc-federation-trust-policy.md:openid-connect-core-1_0.html)
+## suffix _0
+gate rc=0 RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)
+gate S067: ['MATCH corpus/knowledge/oidc-federation-trust-policy.md:3 id=S067 form=grep stated=1 replayed=1']
+counter rc=0 C1_REPLAY: value=FAIL present=9 replayed=9 gate=1 guard=0 (bad=absent:oidc-federation-trust-policy.md:openid-connect-core-1_0.html)

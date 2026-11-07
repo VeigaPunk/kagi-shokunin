@@ -5,8 +5,9 @@ Lane `/home/vgpnk/Projects/shokunin/kagi-shokunin`, BASE `832ba6a53d6a76706b5c80
 Observed answering model: `amr/deepseek-v4.1-flash` (declared by the session's project-context
 block, not inferred from this prompt).
 
-The lane re-froze four times while I tested. Every reading names its epoch; the audit is anchored to
-the current predeclaration, **epoch E = `dd31b7867723f89fc8f83e88cc7d98e17de26cf2`**.
+The lane re-froze five times while I tested. Every reading names its epoch; the audit is anchored to
+the current predeclaration, **epoch F = `9cbe9d5f803de2518d4c11c6bc6b9a585e5120ad`** (tip
+`c90e6709` carries the same instrument bytes).
 
 | epoch | counter `plans/round-56-c1.sh` | gate `corpus/recheck-replay.py` | controls / plan |
 |---|---|---|---|
@@ -15,18 +16,21 @@ the current predeclaration, **epoch E = `dd31b7867723f89fc8f83e88cc7d98e17de26cf
 | C `711e6393` | `7992ee6a97c9f1cfaf627c61322ecaf6aa0c31126a65f591567d7b6f7ee2802c` | `e9b7e4b7aa1e8173c4bfc2e536ce6d1ed29c4c0d6ee5f46bfa1e63d3692a62b4` | `b675baa5…` / `8beb24e9…` |
 | D `d362318` | `82acbb2056aac6055a79f223a0e0abbb2cb24f11f01ca5ed12a230c8338bdc6a` | `5165da2a6fced02fce82c92fc898553db9a6d3d702d9fc6d1ca3ba185e77b14f` | — |
 | **E `dd31b786`** | `d468533fbf593c4b2a3a97dc513b9feb2cff765892c126c02d7c6ef40273a954` | `5165da2a6fced02fce82c92fc898553db9a6d3d702d9fc6d1ca3ba185e77b14f` | `01060f25…` / `212e2dd7…` |
+| **F `9cbe9d5f`** | `f4c1de312e4a566dfde6c0699fb66a94c2e71e459eb97afbddb5c4073ffd2382` | `b6959d6c7afb9380c043cbd40530e6a70ee8da2bf79f1ea9d0669706f50bb5a3` | `GATE_SHA256_PIN=b6959d6c…`; `datetime.date.fromisoformat` on `fetched` in gate and counter |
 
-All five epochs share manifest `df46be5c92c7b4d5a8b7ad790371b5c3240c92f46460b8cfb69e9b75b7ecc762`.
-Epoch E pins `GATE_SHA256_PIN=5165da2a…`, `NORMALIZER_SHA256_PIN=14f6ca6a…`, selftest
-`PASS (20 cases)`, and guards `python3 grep pdftotext sha256sum cut tail timeout git tar`.
+All six epochs share manifest `df46be5c92c7b4d5a8b7ad790371b5c3240c92f46460b8cfb69e9b75b7ecc762`.
+Epochs E/F pin `NORMALIZER_SHA256_PIN=14f6ca6a…`, selftest `PASS (20 cases)`, and guards
+`python3 grep pdftotext sha256sum cut tail timeout git tar`; epoch E pinned gate `5165da2a…`, epoch F
+pins gate `b6959d6c…` (the `fetched` calendar check).
 No production file was edited; every mutation ran on copies under
 `/fast/scratch/hyaku/kagi-r56/R56MutCounter/`.
 
-## 0. Verdict — epoch E
+## 0. Verdict — epoch F
 
-**No open finding.** 59 recipes + 2 baselines = 61 counter runs at E: **56 killed, 3 by-design
-survivors, 0 inconclusive, 0 hangs**, with `dd31b786` ⇒ `value=10 present=10 replayed=10 gate=1
-guard=1 (bad=none)` and BASE `832ba6a` ⇒ `value=0 present=10 replayed=0 gate=0 guard=1`.
+**No open finding.** Epoch F: 61 recipes + 2 baselines = 63 counter runs — **58 killed, 3 by-design
+survivors, 0 inconclusive, 0 hangs** — with `9cbe9d5f` ⇒ `value=10 present=10 replayed=10 gate=1
+guard=1 (bad=none)` and BASE `832ba6a` ⇒ `value=0 present=10 replayed=0 gate=0 guard=1`. Epoch E was
+the same matrix less the three calendar probes (59 recipes, 56 killed) with the identical verdict.
 
 Every defect I raised was closed and each closure is proven by the identical recipe that used to
 survive it:
@@ -40,7 +44,8 @@ survive it:
 | F5 FIFO entry hung gate and counter | A/B | C8 **0** in ~2 s; gate prints `UNSUPPORTED … reason=non-regular-entry` |
 | F6 control-quality (bash printer control, inert edits, cascade coupling) | A | controls rewritten (Python printer, gate-edit/symlink/byte-drift, pipefail, hash lines); node in §5.4 |
 | F7 `sha256sum`/`cut`/`tail` outside the SETUP guards | B | **closed at E**: every guard fires (`SETUP no-<tool>`, rc 2), 13 SETUP probes in §2 |
-| F9 header refusal lost case-insensitivity | C | closed at D and held at E: R3f **0**, five case probes **0**, `1.`/`1.0`/`1_0` **FAIL** |
+| F9 header refusal lost case-insensitivity | C | closed at D and held at E/F: R3f **0**, five case probes **0**, `1.`/`1.0`/`1_0` **FAIL** |
+| F10 `fetched` accepted calendar-invalid values (`2026-13-40`) | found by R56MutCounter-2 m31 after E | **closed at F**: `F-fetched-13-40`, `F-fetched-02-30`, `F-fetched-datetime` all **0** |
 
 The only recipe readings of 10 are named-ceiling or predicate-allowed: R3g (hand-written
 self-consistent capture), R1e (`-> count=N`), R1g (date/prose edit).
@@ -67,14 +72,15 @@ HYAKU_SCRATCH=/fast/scratch/hyaku/kagi-r56/R56MutCounter \
 ```
 
 `HYAKU_SCRATCH` was redirected into my own scratch so the counter's `$SCR` never collided with a
-sibling's `c1.*`. Every non-SETUP run exited **0** (43 A, 44 B, 53 C, 61 D, 61 E): the `C1_REPLAY:`
+sibling's `c1.*`. Every non-SETUP run exited **0** (43 A, 44 B, 53 C, 61 D, 61 E, 63 F): the `C1_REPLAY:`
 line is the only verdict channel; rc 0 is not a pass.
 
-## 2. Baselines and SETUP at epoch E
+## 2. Baselines and SETUP at epochs E/F
 
 | tree | reading | rc |
 |---|---|---|
-| `git archive dd31b786` | `C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)` | 0 |
+| `git archive 9cbe9d5f` (epoch F) | `C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)` | 0 |
+| `git archive dd31b786` (epoch E) | identical line (same verdict, different pin) | 0 |
 | `832ba6a` via `--tree` | `value=0 present=10 replayed=0 gate=0 guard=1` | 0 |
 | gate direct | `RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)` | 0 |
 | gate `--selftest` | `RECHECK_REPLAY_SELFTEST: PASS (20 cases)` | 0 |
@@ -157,7 +163,15 @@ inline.
 Boundary and case probes at D/E read `present=9 replayed=9 gate=1 guard=0` — the counter's PRESENT
 refuses the restatement while the gate stays CLEAN, so those kills do not depend on the DRIFT cascade.
 
-## 4. The two regressions/gaps this audit found, and their closure
+### 3b. Epoch-F re-run (all 61 recipes on `git archive 9cbe9d5f`)
+
+The entire matrix was re-run on epoch F; every row keeps its epoch-E reading and three calendar
+probes were added (all **0**): `F-fetched-13-40` (`2026-13-40`), `F-fetched-02-30` (`2026-02-30`),
+`F-fetched-datetime` (`2026-11-07T00:00:00`, refused by the shape check). Totals: 58 killed, 3
+by-design survivors (R1e/R1g/R3g), 0 inconclusive, 0 hangs. Full per-epoch table:
+`R56MutCounter.d/matrixABCDEF.tsv`; raw run log `.d/f1.log`; JSON `.d/resultsF.json`.
+
+## 4. The three defects this audit found, and their closure
 
 **F9 (epoch C only, closed at D, held at E).** The epoch-C rewrite of the r3 header refusal dropped
 `(?i)`: gate line 216 and counter line 287 used
@@ -172,6 +186,15 @@ manifest `51ea192e16a8f50cafea3890d0908e46b07a46997e0a4d6fc51604c6556f236b`) rea
 A/B/C. Gate-level proof on the identical mutant tree: `711e6393` gate `e9b7e4b7` → `CLEAN`;
 `5165da2a` → `BAD-CAPTURE … id=S074 reason=header-bytes:.ufo/waves/round-56/capture/S074.body` +
 `DRIFT (clocks=10 match=9 bad_capture=1)`. Epochs D/E read 0 on R3f and on all five case probes.
+
+**F10 (`fetched` calendar-invalid, epochs B–E, closed at F).** The `fetched` check was a shape regex
+`^[0-9]{4}-[0-9]{2}-[0-9]{2}$`, so `2026-13-40` (month 13, day 40) and `2026-02-30` were accepted as
+"an ISO date" by both gate and counter. I did not catch this: my F3 probe used a shape-invalid value
+(`2026-11-7`), so it proved the regex existed but not that the date was real. R56MutCounter-2 (m31)
+found it after epoch E; epoch F adds `datetime.date.fromisoformat` in the gate
+(`corpus/recheck-replay.py:165`) and the counter (`plans/round-56-c1.sh:211`), and my three probes
+now read **0** (`F-fetched-13-40`, `F-fetched-02-30`, `F-fetched-datetime`). Lesson for this seat:
+a shape check is not a value check — probe the extreme value, not only a malformed one.
 
 **F7 (epochs B/C/D, closed at E).** `sha256sum`, `cut` and `tail` sat outside the `command -v`
 guards: with `cut` absent the counter printed `line 94: cut: command not found` and then
@@ -213,7 +236,9 @@ all nine tool guards plus the four argument guards exit 2 with `SETUP …` (§2)
 
 ## 6. Restoration / no-production-edit evidence
 
-- Committed bytes equal what I tested at every epoch: `git show <rev>:<path>` for `42070de`
+- Committed bytes equal what I tested at every epoch: `git show <rev>:<path>` for `9cbe9d5f` and
+  `c90e6709` (counter `f4c1de31…`, gate `b6959d6c…`, manifest `df46be5c…`, `GATE_SHA256_PIN=b6959d6c…`),
+  `42070de`
   (counter `096251c9…`, gate `b7782f35…`, manifest `df46be5c…`, controls `633326a5…`, plan
   `d1bf8d26…`), `5d9a157` (counter `6b132ea1…`, gate `2e9dfde3…`), `711e6393` (counter `7992ee6a…`,
   gate `e9b7e4b7…`), `d362318` (counter `82acbb20…`, gate `5165da2a…`), `dd31b786` (counter
@@ -230,7 +255,8 @@ all nine tool guards plus the four argument guards exit 2 with `SETUP …` (§2)
   used explicit paths and were unaffected; the preserved epoch-A artifact is
   `R56MutCounter.d/matrix.tsv` (copied at 07:34). I deleted only my own artifacts and left the
   sibling's live files in place.
-- Seat receipt: `.ufo/waves/round-56/build/R56MutCounter.d/` — `matrixABCDE.tsv`, `matrixABCD.tsv`,
+- Seat receipt: `.ufo/waves/round-56/build/R56MutCounter.d/` — `matrixABCDEF.tsv`, `matrixABCDE.tsv`,
+  `resultsF.json`, `f1.log`, `counter-G-9cbe9d5f.sh`, `gate-F-9cbe9d5f.py`, `matrixABCD.tsv`,
   `matrixABC.tsv`, `matrixAB.tsv`, `matrix.tsv`, `resultsE.json`, `resultsC711.json`, `resultsD.json`,
   `resultsD2.json`, `resultsEp.json`, `resultsEp2.json`, `mutate.py`, `followups.py/.json`,
   `F9-header-case.txt`, `gate-A.py`, `gate-C.py`, `gate-D.py`, `gate-E-d362318.py`,
@@ -246,4 +272,5 @@ paths, and (C onward) capture confinement, fetched/2xx, body_path/sha bijection,
 trace prefixes, non-regular entries, symlinked knowledge, the N right-boundary and the header-case
 class. Not tested, stated so it is not mistaken for passed: live re-fetch currency on the day
 (network, another seat), the honesty of `capture/fetch-receipt.json` (neither instrument reads it),
-and the epoch-E controls script itself (KagiR56a3 reports 22/22 MATCH; I did not re-run it).
+and the epoch-E/F controls scripts themselves (KagiR56a3 reports 22/22 and 23/23 MATCH; I did not
+re-run them).

@@ -22,7 +22,7 @@ Observed answering model: `amr/deepseek-v4.1-flash` — the harness's workstatio
   - Gate `python3 -I -B corpus/recheck-replay.py` ⇒ 10 MATCH + `RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)`, rc 0; `--selftest` ⇒ `RECHECK_REPLAY_SELFTEST: PASS (20 cases)`, rc 0 (epochs D/E; epoch C reported 18, epoch B 13).
   - Controls: epoch F canonical `.ufo/waves/round-56/controls/controls-prefreeze-epochF.txt` ⇒ `CONTROLS: match=23 mismatch=0` (E: 22/22; D: 21/21; C: 20/20).
   - Live leg: 0/10 live mismatches on 2026-11-07 (R56ExecLive; evidence verified, not re-run by this seat).
-- **Admission is not taken by this draft.** The candidate reading on `dd31b786` is not taken. Open: the uncommitted provenance edits (F1) and the mutation seats' reports. The epoch-B header-shape false green is **fixed in the landed epoch-C gate** (F2).
+- **Admission is not taken by this draft.** The candidate reading on `9cbe9d5f`/`c90e6709` is not taken. Open: the uncommitted provenance edits (F1) and the mutation seats' reports. The epoch-B header-shape false green is **fixed in the landed epoch-C gate** (F2).
 
 ## Instrument epochs (exact bytes)
 

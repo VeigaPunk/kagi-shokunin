@@ -47,3 +47,10 @@ epoch E frozen at dd31b7867723f89fc8f83e88cc7d98e17de26cf2 (counter d468533f / g
   61 runs (resultsEp.json for the 41 A/B recipes + 8 case/boundary probes, resultsEp2.json for the
   10 epoch-C conjunct recipes, matrixABCDE.tsv combined). E-ref 10; E-base 0; 56 killed; 3 by-design
   survivors (R1e, R1g, R3g); F7 closed (all nine tool guards SETUP rc 2, 13 SETUP probes).
+epoch F frozen at 9cbe9d5f803de2518d4c11c6bc6b9a585e5120ad (tip c90e6709 carries identical
+  instrument bytes): counter f4c1de31 / gate b6959d6c (pin) / manifest df46be5c / NORMALIZER pin
+  14f6ca6a / selftest PASS (20 cases) / datetime.date.fromisoformat on fetched in gate:165 and
+  counter:211. Tree = `git archive 9cbe9d5f`; counter snapshot in a --shared clone. 61 recipes +
+  2 baselines = 63 runs (resultsF.json, f1.log): 58 killed, 3 by-design survivors (R1e, R1g, R3g),
+  0 inconclusive, 0 hangs. F10 closed (fetched 2026-13-40 / 2026-02-30 / 2026-11-07T00:00:00 -> 0).
+  Note: F10 was found by R56MutCounter-2 m31; my F3 probe used the shape-invalid 2026-11-7.

@@ -123,11 +123,21 @@ The epoch-C frozen readings for every other row carried over unchanged and all M
 
 Epoch-C section above stands as the historical record for 711e6393 (run 9, 36/39 + 3 got-lines); its C17 did NOT cover canonical-case smuggling — C40 now does.
 
-## Frozen epoch-E verdict (anchor `dd31b7867723f89fc8f83e88cc7d98e17de26cf2`, current kill-rule binding) — CLEAN PASS
+## Frozen epoch-E verdict (anchor `dd31b7867723f89fc8f83e88cc7d98e17de26cf2`, superseded by epoch F) — CLEAN PASS
 
 Epoch E supersedes d362318 with guard/doc hardening only, verdict semantics unchanged and pins unchanged: counter `d468533fbf593c4b2a3a97dc513b9feb2cff765892c126c02d7c6ef40273a954`, gate/PIN `5165da2a…`, normaliser pin `14f6ca6a…`. New: the counter SETUPs (rc 2) when `sha256sum`/`cut`/`tail`/`timeout`/`git`/`tar` are missing — and `no-python3` remains the FIRST check, so C39's `SETUP no-python3` expectation carries over exactly.
 
 **Run 12 (scored, no churn): `CONTROLS: total=41 match=41 mismatch=0`, rc 0** — the on-disk receipt `controls-run.txt` is this run; counter and gate hashes re-verified identical post-run. All 41 expectations carried over from the epoch-D pass unchanged; instrument sha256 `75305a363b2814ab72f4fe752b64bd565c151a7cb444f93deee1ff95fd988e6c` (anchor header names dd31b786).
+
+## Frozen epoch-F verdict (anchor `9cbe9d5f803de2518d4c11c6bc6b9a585e5120ad`, current kill-rule binding) — CLEAN PASS
+
+Epoch F supersedes dd31b786: manifest `fetched` is now calendar-validated (shape AND `datetime.date.fromisoformat`) in gate AND counter (R56MutCounter-2 m31); their side also fixed a vacuous control (ReviewCounter I1) and bumped GATE_SHA256_PIN. Counter `f4c1de312e4a566dfde6c0699fb66a94c2e71e459eb97afbddb5c4073ffd2382`, gate/PIN `b6959d6c7afb9380c043cbd40530e6a70ee8da2bf79f1ea9d0669706f50bb5a3`, normaliser pin unchanged, tip `c90e6709` carries the freeze + receipts.
+
+**Run 13 (scored, no churn): `CONTROLS: total=42 match=42 mismatch=0`, rc 0** — the on-disk receipt `controls-run.txt` is this run; counter and gate hashes re-verified identical post-run. Suite grew to 42 with one new regression witness, MATCH:
+
+- **C42-R2-fetched-calendar-invalid** — S055 row's `fetched` set to `2026-02-30`: valid shape under the epoch-E regex (would have PASSED), refused by `fromisoformat` → `value=0 present=10 replayed=0 gate=0 guard=1 (bad=r2-manifest-malformed:…)`; independent of their F28 (different row, impossible-not-just-malformed date).
+
+All other 41 expectations carried over from epoch E unchanged. Vacuity self-check (the ReviewCounter I1 class): every mutation in this suite asserts its file change and every row's got-line is recorded per run — C14/C34/C35 (digest families), C15 (ceiling by design), C36/C10 (bijection), C40/C41/C42 (epoch-D/F witnesses) were re-checked non-vacuous against their recorded got-lines.
 
 ## Risks, blockers, recommended next steps
 

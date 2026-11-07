@@ -27,14 +27,15 @@ Frozen predicate text: `plans/round-56.md:15`; instrument header: `plans/round-5
 `096251c9…`); the planner seat re-froze as **epoch B** at
 `5d9a1571911ec38a456a40b443e19640abb9a88b`, **epoch C** at
 `711e6393e68658f396918c07de253e5a5c74d1b4`, **epoch D** at
-`d36231871c864c930d3e7e33f9c5345b30ab4f98`, and **epoch E** at
-`dd31b7867723f89fc8f83e88cc7d98e17de26cf2`, after blocker messages from this seat. Each
-re-audit re-runs every forgery against the hardened bytes: the four `## Epoch … re-audit`
-sections at the end of this report. Epoch-A findings F1, F2, F3, F5, F6, F7 and F8 are closed
-in epoch B; epoch-B residuals E1, E2, E5 and E6 in epoch C; epoch-C items G1 and G2 in epoch D;
-epoch-D H1 in epoch E. F4/E3 (population hard-closed at 10), F9 (rc 0 on FAIL), F10
-(relocatability), F11 (PATH trust), H2 (the gate alone reads `-> 1.0` as `-> 1`) and epoch-E
-I1 (control F15 does not exercise the bijection) stand.
+`d36231871c864c930d3e7e33f9c5345b30ab4f98`, **epoch E** at
+`dd31b7867723f89fc8f83e88cc7d98e17de26cf2`, and **epoch F** at
+`9cbe9d5f803de2518d4c11c6bc6b9a585e5120ad` (tip `c90e6709a57dbc2b304b5e1ba6b11b4f97fabd82`,
+instruments byte-identical), after blocker messages from this seat. Each re-audit re-runs every
+forgery against the hardened bytes: the five `## Epoch … re-audit` sections at the end of this
+report. Epoch-A findings F1, F2, F3, F5, F6, F7 and F8 are closed in epoch B; epoch-B residuals
+E1, E2, E5 and E6 in epoch C; epoch-C items G1 and G2 in epoch D; epoch-D H1 in epoch E; epoch-E
+I1 in epoch F. F4/E3 (population hard-closed at 10), F9 (rc 0 on FAIL), F10 (relocatability),
+F11 (PATH trust), H2 (the gate alone reads `-> 1.0` as `-> 1`) and epoch-F J1/J2 stand.
 
 ## Verdict in one line
 
@@ -713,3 +714,83 @@ only. Counter dominates; optional to give `CLOCK_RE` the same right boundary.
 - C1 on an unchanged `dd31b786` tree: **`value=10 present=10 replayed=10 gate=1 guard=1`, rc 0**;
   the admission harness must read that token, the candidate must not add a stated knowledge
   clock (E3), and it must not edit the gate or the normaliser (pins).
+
+## Epoch F re-audit (9cbe9d5f / tip c90e6709)
+
+Anchored to predeclaration `9cbe9d5f803de2518d4c11c6bc6b9a585e5120ad` and tip
+`c90e6709a57dbc2b304b5e1ba6b11b4f97fabd82` (HEAD). The five instrument files are byte-identical
+between the two (`git show <rev>:<file> | sha256sum` equal for each), so the tip adds receipts
+and docs only and the reading is unaffected.
+
+| path | sha256 at 9cbe9d5f = c90e6709 |
+|---|---|
+| `plans/round-56-c1.sh` | `f4c1de312e4a566dfde6c0699fb66a94c2e71e459eb97afbddb5c4073ffd2382` |
+| `corpus/recheck-replay.py` | `b6959d6c7afb9380c043cbd40530e6a70ee8da2bf79f1ea9d0669706f50bb5a3` (= `GATE_SHA256_PIN`) |
+| `plans/round-56-controls.sh` | `644cde80a7f1a05f6f3543c2b52a37c7e1dc82f40942199f4cb2b728d01b53ce` |
+| `plans/round-56.md` | `d0a8e402da2ac7a5c40eb3352a91918830253ba5502aae66442740d0c9dc025b` |
+| `corpus/recheck-captures.tsv` | `df46be5c92c7b4d5a8b7ad790371b5c3240c92f46460b8cfb69e9b75b7ecc762` |
+| `corpus/rendered-text-v1.py` | `14f6ca6ab742296f45a699548c31e6d49892f6baef36ed419c283d1a0511b8c9` (= `NORMALIZER_SHA256_PIN`) |
+
+Raw output: `R56ReviewCounter.d/evidence-epochF.txt`.
+
+| tree / forgery | reading | rc |
+|---|---|---|
+| BASE `832ba6a` | `value=0 present=10 replayed=0 gate=0 guard=1` | 0 |
+| `42070de` / `5d9a157` / `711e6393` / `d362318` / `dd31b786` / `bcf07e7` | `value=FAIL … guard=0 (…selftest,gate-digest)` each (pin moved to b6959d6c) | 0 |
+| epoch-F `9cbe9d5f` and tip `c90e6709` | `value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)` | 0 |
+| reference overlay | `value=10 … guard=1` | 0 |
+| printer gate | `value=FAIL … guard=0` | 0 |
+| `-> 1x` / `-> 1.0` / `-> 1_0` | `value=FAIL present=9 replayed=9 guard=0` each | 0 |
+| added uncaptured / added captured clock | `value=0 … guard=1` each | 0 |
+| gate symlink / gate FIFO | `value=FAIL … guard=0` | 0 |
+| 8-column / `fetched=2026-11-7` / **`fetched=2026-13-40`** / **`fetched=2026-02-30`** / `http_status=404` / shared round-55 body / duplicate URL | `value=0 … r2-manifest-malformed ×10` each | 0 |
+| body_path outside `capture*` | `value=0 … r3-notcapture:…` | 0 |
+| `set-cookie:` / `Set-Cookie:` / `Http/2 302` / `< Set-Cookie:` / `< HTTP/1.1` at column 0 | `value=0 … r3-headers:…` each | 0 |
+| normaliser edited / symlinked entry / empty tree | `value=FAIL … guard=0` | 0 |
+| no manifest / SETUP shapes | `value=0` / `SETUP …` | 0 / 2 |
+| restricted PATH, all tools / minus `sha256sum` / minus `timeout` | `value=10` / `SETUP no-sha256sum` / `SETUP no-timeout` | 0 / 2 / 2 |
+
+Controls end-to-end (`bash plans/round-56-controls.sh <lane>`, REF = lane): six `INSTRUMENT`
+lines (epoch-F hashes above), `CONTROLS: match=23 mismatch=0`, rc 0, 0 tar errors. Gate
+`--selftest: PASS (20 cases)`; gate on `badcal`: `RECHECK_REPLAY: SETUP manifest-fetched:S054`.
+
+Closed against epoch E: **I1** — `K1-F15-shared-body-path` now points S114 at the real
+`.ufo/waves/round-55/capture/S113.body`; the receipt badge is `r2-manifest-malformed` (not
+`r3-file`), and the independent witness reproduces: counter `value=0 … r2-manifest-malformed
+×10`, gate `RECHECK_REPLAY: SETUP manifest-shared-body_path:S113+S114`. The **calendar** check
+is real in both instruments (`2026-13-40` and `2026-02-30` refused; `K1-F28-fetched-calendar`
+badges `r2-manifest-malformed`; gate `SETUP manifest-fetched:S054`). The pin move makes every
+earlier tree `FAIL` (gate bytes changed), as disclosed.
+
+### J1 — LOW (cosmetic) — the predicate sentence says "ISO `fetched` date", the code enforces calendar validity
+
+`plans/round-56.md:15` still reads "carries an ISO `fetched` date and a 2xx `http_status`",
+while the counter header (`plans/round-56-c1.sh:17-19`) says "calendar-valid ISO date" and both
+instruments call `datetime.date.fromisoformat`. The plan's opening paragraph discloses the
+hardening ("calendar-validates the manifest `fetched` cell in gate and counter"), and
+`2026-13-40` is not an ISO date under any normal reading, so no reading changes — noted only
+because the predicate sentence is the contract text.
+
+### J2 — LOW — the gate's `--selftest` has no calendar-invalid case
+
+The new refusal is witnessed by control `K1-F28` and by the counter's own independent manifest
+check, but the gate's 20-case `--selftest` (pinned by digest) has no `fetched=2026-13-40` case,
+so a mutation that removes only the gate's `fromisoformat` call would not be caught by
+`--selftest` — it would be caught by the counter's duplicate check and by the digest pin on any
+candidate. Cosmetic; add a case if a further epoch is opened.
+
+### H2 (carried) — the gate alone still reads `-> 1.0` as `-> 1`
+
+`gate on nxdot` ⇒ `RECHECK_REPLAY: CLEAN (clocks=10 match=10 …)`, counter `value=FAIL
+present=9`. The counter dominates; optional to right-bound `CLOCK_RE`.
+
+### Epoch F trailer
+
+- report: `.ufo/waves/round-56/build/R56ReviewCounter.md`
+- evidence A–F: `R56ReviewCounter.d/evidence{,-epochB,-epochC,-epochD,-epochE,-epochF}.txt`
+- epoch-F scratch `/fast/scratch/hyaku/kagi-r56/R56ReviewCounter/epochF/` deleted after this
+  report; no production file edited; no git/jj mutation; no tool installed.
+- C1 on the unchanged epoch-F tree (`9cbe9d5f` and tip `c90e6709`): **`value=10 present=10
+  replayed=10 gate=1 guard=1`, rc 0**. The admission harness must read that token (rc is 0 even
+  on FAIL), the candidate must not add a stated knowledge clock (E3), and it must not edit the
+  gate or the normaliser (pins).

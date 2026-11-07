@@ -1,4 +1,4 @@
-# R56MutCounter-2 — mutation test of the round-56 C1 counter (epochs A → B → C → D → E)
+# R56MutCounter-2 — mutation test of the round-56 C1 counter (epochs A → B → C → D → E → F)
 
 Seat `R56MutCounter-2` (mutation tester, attack share ≥25%). Lane `kagi-shokunin`,
 branch `master`. Observed answering model: **amr/deepseek-v4.1-flash** (runtime project
@@ -18,20 +18,20 @@ Anchors — every reading is labelled with the anchor that produced it:
 Instrument identity (git blob from `ls-tree`; sha256 of the extracted bytes;
 `git hash-object` of the extracted file equals the blob id — verified for every row):
 
-| file | epoch A 42070de | epoch E 42070de → dd31b786 (current) |
+| file | epoch A 42070de | epoch F 42070de → 9cbe9d5f (current) |
 |---|---|---|
-| `plans/round-56-c1.sh` | blob `35a16e682a…`, sha256 `096251c9b7a7…` | blob `cc27f3501404030eb2a92f464a0431597fe02c27`, sha256 `d468533fbf593c4b2a3a97dc513b9feb2cff765892c126c02d7c6ef40273a954`, `GATE_SHA256_PIN=5165da2a…` |
-| `corpus/recheck-replay.py` | blob `821da99ce83e…`, sha256 `b7782f35c0c8…` | blob `79fb022b06e406291e0a8a884cbf97d7a23a4b87`, sha256 `5165da2a6fced02fce82c92fc898553db9a6d3d702d9fc6d1ca3ba185e77b14f`, `NORMALIZER_SHA256_PIN=14f6ca6a…` |
+| `plans/round-56-c1.sh` | blob `35a16e682a…`, sha256 `096251c9b7a7…` | blob `8a6850a5264d4e00213b7db48d1837f141b6e9e7`, sha256 `f4c1de312e4a566dfde6c0699fb66a94c2e71e459eb97afbddb5c4073ffd2382`, `GATE_SHA256_PIN=b6959d6c…` |
+| `corpus/recheck-replay.py` | blob `821da99ce83e…`, sha256 `b7782f35c0c8…` | blob `737451d8d255c7604d8a2091604788bd1f5f9979`, sha256 `b6959d6c7afb9380c043cbd40530e6a70ee8da2bf79f1ea9d0669706f50bb5a3`, `NORMALIZER_SHA256_PIN=14f6ca6a…` |
 | `corpus/recheck-captures.tsv` | blob `7c85dc4da34b…`, sha256 `df46be5c92c7…` | identical (`df46be5c92c7b4d5a8b7ad790371b5c3240c92f46460b8cfb69e9b75b7ecc762`) |
-| `plans/round-56-controls.sh` | blob `07d0e234fc45…`, sha256 `633326a563c6…` | blob `7bd6e72572603fc6f0ee54b4acc1d2dce8e6f81c`, sha256 `01060f254b2ecfdb23f341a5cf0937aec32243230560809403ed67ea38b196e7` |
-| `plans/round-56.md` | blob `106be490947c…` | blob `a4303acfef8962cc37d8fb04c481ca59b2c784bd`, sha256 `212e2dd7ae71e3f056111e1a2c59d33151a3c51fee9f932bf2209ad2cb3d805d` |
+| `plans/round-56-controls.sh` | blob `07d0e234fc45…`, sha256 `633326a563c6…` | blob `8ee46844a3fe0802941da7ce0a6b3a33d809a362`, sha256 `644cde80a7f1a05f6f3543c2b52a37c7e1dc82f40942199f4cb2b728d01b53ce` |
+| `plans/round-56.md` | blob `106be490947c…` | blob `0e90b9ec8d059e942a5b2362e2459cd8cdd3bf7b`, sha256 `d0a8e402da2ac7a5c40eb3352a91918830253ba5502aae66442740d0c9dc025b` |
 
 The normaliser `corpus/rendered-text-v1.py` hashes
-`14f6ca6ab742296f45a699548c31e6d49892f6baef36ed419c283d1a0511b8c9` (= its pin). The E
+`14f6ca6ab742296f45a699548c31e6d49892f6baef36ed419c283d1a0511b8c9` (= its pin). The F
 tree's sorted relative-path content digest is
-`9647e73e5a73c6f528bf6dc0e620d72eeb4ced758c1ca1e9eef9606064f65532`, identical from two
-independent extractions. The D tree digest was
-`97159342f9388726314438b3cb2ef512a14f44aacaed2d2a1aed313f441dd8fb`. Full A/B/C/D identity,
+`2f633fc439ecad874eaf07e3e99612b8d8916edc6bdf6d2191289b842457667e`, identical from two
+independent extractions. The E tree digest was
+`9647e73e5a73c6f528bf6dc0e620d72eeb4ced758c1ca1e9eef9606064f65532`. Full A/B/C/D identity,
 baselines, lane-drift record and restoration evidence: `R56MutCounter.d/anchors.txt`.
 
 ## Method
@@ -46,19 +46,21 @@ never written by this seat. No network request was made.
 Pristine baselines (actual lines):
 
 ```
-E counter / E tree dd31b786  : rc=0  value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)
-E counter / D tree d362318   : rc=0  value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)
-E counter / C tree 711e6393  : rc=0  value=FAIL present=10 replayed=0 gate=0 guard=0 (r5-gate ×10, selftest, gate-digest)
-E counter / BASE 832ba6a     : rc=0  value=0 present=10 replayed=0 gate=0 guard=1 (r2-manifest ×10)
+F counter / F tree 9cbe9d5f  : rc=0  value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)
+F counter / E tree dd31b786  : rc=0  value=FAIL present=10 replayed=0 gate=0 guard=0 (r5-gate ×10, selftest, gate-digest)
+F counter / BASE 832ba6a     : rc=0  value=0 present=10 replayed=0 gate=0 guard=1 (r2-manifest ×10)
 ```
 
-These reproduce the planner's epoch-E readings (`dd31b786→10`; `d362318→10`, disclosed as
-guard/doc hardening only; `BASE→0`) and the epoch-C/D fail-closed reading on the old-pin
-tree (`711e6393→FAIL`). All 29 mutant shapes were re-run under epoch E and the
-`value/present/replayed/gate/guard` tuples are **identical** to the epoch-D column below
-(programmatic diff of `results-epochD.tsv` vs `results-epochE.tsv`: zero deltas). The
-planner's 22/22 epoch-E controls receipt was **not re-run by this seat** (not my scope);
-nothing below depends on it.
+These reproduce the planner's epoch-F readings (`9cbe9d5f→10`; `dd31b786→FAIL` because the
+gate bytes/pin changed; `BASE→0`). All 29 shapes were re-run under epoch E and the
+`value/present/replayed/gate/guard` tuples are **identical** to the epoch-D column
+(programmatic diff of `results-epochD.tsv` vs `results-epochE.tsv`: zero deltas). Under
+epoch F the **13 verdict-bearing shapes** were re-run (`m02, m05, m06, m08, m09, m15, m16,
+m21, m24, m29, m30, m31, m32`; `results-epochF.tsv`, `raw-F/`): m31 flips 10→0, every other
+F reading equals its E/D tuple. The remaining 16 shapes were not re-run at F; their D/E
+readings are carried and their failure reasons (r2/r3/r5/PRESENT) do not traverse the
+fetched-calendar parse that F adds, while the F pin matches every mutant tree by
+construction. The planner's 23/23 epoch-F controls receipt was **not re-run by this seat**.
 
 ### Lane drift and scratch loss (observed, not caused by this seat)
 
@@ -72,13 +74,13 @@ from `git archive <anchor>` (B/C/D). Separately, at ~07:53 the pristine `ref/`/`
 were absent from seat scratch; both were re-extracted from the anchors and verified against
 the exact hashes used in the tables (`anchors.txt`).
 
-## Mutant table — 29 shapes, readings at A / B / C / D (D column == E, verified)
+## Mutant table — 29 shapes, readings at A / B / C / D (D == E verified; F targeted)
 
 Legend: `10` = `value=10 present=10 replayed=10 gate=1 guard=1`; `0` = `value=0`;
 `FAIL` = `value=FAIL`; `(g0)` = gate=0; `P8` = present=8. Full lines: `raw-A/`,
-`raw-B/`, `raw-C/`, `raw-D/`, `raw-E/`.
+`raw-B/`, `raw-C/`, `raw-D/`, `raw-E/`, `raw-F/`.
 
-| # | shape / setup | A 42070de | B 5d9a157 | C 711e6393 | D d362318 = E dd31b786 | D/E verdict | proposed control |
+| # | shape / setup | A 42070de | B 5d9a157 | C 711e6393 | D d362318 = E|F | D/E verdict | proposed control |
 |---|---|---|---|---|---|---|---|
 | m01 | manifest URL cells swapped S054↔S057 (entries untouched) | 0 (g0) | 0 (g0) | 0 (g0) | 0 (g0) | killed (r2-registry + gate BAD-CAPTURE) | existing F4 family |
 | m02 | S054 `body_path` → secret-scanning **entry** (bytes/sha real; grep count 1) | 10 | 10 | 0 (g0) | 0 (g0) | killed by `r3-notcapture` | C F13-not-capture-path |
@@ -107,7 +109,7 @@ Legend: `10` = `value=10 present=10 replayed=10 gate=1 guard=1`; `0` = `value=0`
 | m25 | S054 body copied to `corpus/hand.body`, row repointed | — | — | 0 (g0) | 0 (g0) | killed by `r3-notcapture` | C F13-not-capture-path |
 | m29 | betterleaks `-> 1` → `-> 1.0` | — | — | 10 | FAIL (P9) | **fixed in D, holds in E** (boundary `(?![0-9A-Za-z_.])`) | F27 (implemented) |
 | m30 | betterleaks `-> 1` → `-> 1.5` | — | — | 10 | FAIL (P9) | **fixed in D, holds in E** | F27 (implemented) |
-| m31 | S054 row `fetched=2026-13-40` (impossible date) | — | — | 10 | **10** | **SURVIVES D — violates r3's ISO-date text** | **F28-fetched-calendar** |
+| m31 | S054 row `fetched=2026-13-40` (impossible date) | — | — | 10 | 0 at F (10 at D/E) | **fixed in F** — `r2-manifest-malformed` after `date.fromisoformat` | **F28-fetched-calendar** (implemented) |
 | m32 | S054 body prefixed `Set-Cookie: sid=x` at column 0 | — | — | 10 | 0 (g0) | **fixed in D, holds in E** (`(?im)` header refusal) | F29 (implemented) |
 
 `—` = not run at that anchor (shape added later). All runs that reached the counter exited
@@ -115,39 +117,39 @@ Legend: `10` = `value=10 present=10 replayed=10 gate=1 guard=1`; `0` = `value=0`
 (definitions verbatim in the counter header, per the plan) rejects a symlinked path
 component. `m11` reads FAIL at B/C/D/E because a present-but-unpinned gate sets `SELF_OK=0`.
 
-## Surviving mutant at epoch E (= D) (value=10) — m31, impossible `fetched` date
+## Surviving mutants at epoch F — none behaviour-bearing; m31 fixed
 
-The E predicate's r3 requires the row to carry "an ISO `fetched` date and a 2xx
-`http_status`". `2026-13-40` is not a valid ISO date (month 13, day 40), yet both the
-counter and the pinned gate accept it because the check is the shape regex
-`^[0-9]{4}-[0-9]{2}-[0-9]{2}$`:
+My epoch-C/D/E surviving mutant was m31: the row's `fetched` cell accepted the
+calendar-invalid `2026-13-40` because the check was the shape regex
+`^[0-9]{4}-[0-9]{2}-[0-9]{2}$`, while r3 requires "an ISO `fetched` date". Epoch F adds
+`datetime.date.fromisoformat` in both instruments. Verified at F:
 
 ```
 S054 … .ufo/waves/round-56/capture/S054.body  2026-13-40  200  38524  7cf6efb5…
-E reading : C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)
-E gate    : RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)
+F reading : C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1
+            (bad=r2-manifest-malformed:<10 clocks>)
 ```
 
-This is not a predicate-permitted variant: r3 says ISO date and this is not one, so the
-instrument counts a clock whose manifest cell contradicts the frozen text. Proposed
-**F28-fetched-calendar**: set the S054 `fetched` cell to `2026-13-40`, update nothing else,
-expect FAIL; parse with `datetime.date.fromisoformat` (optionally also reject future dates).
-Same class: `2026-02-30`, `0000-00-00`.
+So **no behaviour-bearing surviving mutant remains from this set at epoch F**. The other
+value=10 shapes are predicate-permitted variants or the named ceiling (below). Proposed
+control **F28-fetched-calendar** is now implemented in F (and in its controls); the same
+class (`2026-02-30`, `0000-00-00`) is covered by the parser.
 
-### Fixed at D and still fixed at E (evidence, same method)
+### Fixed at D/E and still fixed at F (evidence, same method)
 
 | shape | C | D | D mechanism |
 |---|---|---|---|
 | m30 `-> 1.5` (and m29 `-> 1.0`) | 10 (C) | `FAIL present=9 replayed=9 gate=1 guard=0 (bad=absent:betterleaks…)` | `(?![0-9A-Za-z_.])`: the `.` no longer right-bounds the integer |
 | m32 `Set-Cookie:` at column 0 | 10 (C) | `0 (g0)`, `bad=…,r3-headers:secret-scanning-detection-vs-validation.md:README.md,…` | `(?im)` header refusal; D selftest adds Set-Cookie/Http-2 cases |
+| m31 `fetched=2026-13-40` | 10 (C/D/E) | `0 (g0)`, `bad=r2-manifest-malformed:<10 clocks>` at F | F parses `date.fromisoformat` in gate+counter |
 
 Both were my findings from the C sweep; the D instrument table credits `R56MutCounter F9`
 (case) and the boundary change (also `R56ReviewCounter G2`). Verified independently above:
 the D/E counter on the C tree reads FAIL (pin), on the D and E trees read 10.
 
-### Predicate-permitted / ceiling shapes that also score 10 at E
+### Predicate-permitted / ceiling shapes that also score 10 at F
 
-| shape | E reading | proposed control |
+| shape | F reading (E/D identical) | proposed control |
 |---|---|---|
 | m05 CRLF entries | 10 | **F33-crlf** (expect 10; encoding neutral) |
 | m06 duplicate registry row for the URL | 10 | **F30-dup-registry-url** (10, or 0 if uniqueness is intended) |
@@ -155,9 +157,9 @@ the D/E counter on the C tree reads FAIL (pin), on the D and E trees read 10.
 | m09 clock inside ``` fences | 10 | **F31-fenced-clock** (10, or 0 if fenced clocks are not authoritative) |
 | m15 hand-written body under `capture/`, absent from `fetch-receipt.json` | 10 | **F34-receipt-bind** (named ceiling; 0 only if revoked) |
 
-## Closed by B/C/D/E (evidence)
+## Closed by B/C/D/E/F (evidence)
 
-| shape | A | B | C | D=E | mechanism |
+| shape | A | B | C | D=E=F (except m31) | mechanism |
 |---|---|---|---|---|---|
 | self-referential body (m02/m17/m18) | 10 | 10 | 0 | 0 | `capture_confined` (C) → `r3-notcapture` |
 | real body outside `capture*/` (m25) | — | — | 0 | 0 | same |
@@ -172,8 +174,9 @@ the D/E counter on the C tree reads FAIL (pin), on the D and E trees read 10.
 
 Epoch-A false negatives m12/m19/m20 are the only cases found where a non-10 reading
 occurred while the epoch-A gate was CLEAN and the entry files themselves were regular; B
-and C/D/E close them by refusing symlinked inputs at r5. Apart from m31, no epoch-E shape
-in this set fails while satisfying the E predicate.
+and C/D/E close them by refusing symlinked inputs at r5. At epoch F no shape in this set
+fails while satisfying the F predicate, and the last behaviour-bearing survivor (m31) is
+closed.
 
 ## Gate/counter divergence (not a mutant)
 
@@ -187,10 +190,10 @@ documents the divergence.
 ## Actual outputs (verbatim; full sets in `raw-D/`, `raw-C/`, `raw-A/`, `raw-B/`)
 
 ```
-# E baseline
+# F baseline
 C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)
-# m31 (E) — surviving mutant
-C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)
+# m31 (F) — fixed
+C1_REPLAY: value=0 present=10 replayed=0 gate=0 guard=1 (bad=r2-manifest-malformed:<10 clocks>)
 # m29 / m30 (E) — fixed
 C1_REPLAY: value=FAIL present=9 replayed=9 gate=1 guard=0 (bad=absent:betterleaks-detection-vs-validation.md:README.md)
 # m32 (E) — fixed
@@ -249,7 +252,7 @@ D/E gate `5165da2a6fced02fce82c92fc898553db9a6d3d702d9fc6d1ca3ba185e77b14f`.
 
 | id | setup | expected | why |
 |---|---|---|---|
-| **F28-fetched-calendar** | row `fetched=2026-13-40` | FAIL | live surviving mutant: D's shape regex accepts an impossible ISO date |
+| F28-fetched-calendar | row `fetched=2026-13-40` | FAIL | **implemented in F** (verified: value=0) |
 | F30-dup-registry-url | duplicate registry row, same URL, new id | 10 (or 0 with a uniqueness rule) | pins the interpretation |
 | F31-fenced-clock | `recheck:` line inside ``` fences | 10 (or 0 if fenced clocks are not authoritative) | asymmetry with the registry fence rule |
 | F32-count-form | `-> count=N` | 10 | already a BASE form |
@@ -273,7 +276,8 @@ python3 -I -B <tree>/corpus/recheck-replay.py --root <tree>           # optional
 ```
 
 Counter sources: A blob `35a16e6…` (pin absent), B blob `23111d5…` (pin `2e9dfde3…`),
-C blob `3945a0f…` (pin `e9b7e4b7…`), D blob `321c2d9…` and E blob `cc27f35…` (pin `5165da2a…`). The lane
+C blob `3945a0f…` (pin `e9b7e4b7…`), D blob `321c2d9…` and E blob `cc27f35…` (pin
+`5165da2a…`), F blob `8a6850a…` (pin `b6959d6c…`). The lane
 working file is **not** an admissible instrument for any anchor (it drifted mid-run).
 
 ## Limits / unrun
@@ -281,11 +285,13 @@ working file is **not** an admissible instrument for any anchor (it drifted mid-
 * Offline only; no live re-fetch, no currency check on the day. No network request, no
   credential/header material captured or printed.
 * Not tested: `--tree` with a `.git` inside the measured tree; mutant commits (none
-  committed); C2 (none this round); the epoch-E candidate beyond the frozen `dd31b786` tree;
-  the epoch-E controls battery (planner-reported 22/22, not re-run here).
+  committed); C2 (none this round); the epoch-F candidate beyond the frozen `9cbe9d5f` tree; the epoch-F targeted re-run
+  covers 13 of 29 shapes (listed above), the other 16 carry their D/E readings unrun at F;
+  the epoch-F controls battery (planner-reported 23/23, not re-run here).
 * The first sweep is inconclusive because of the concurrent lane write and is not used as a
   reading. Shapes added after the A sweep are `—` at A (unrun, not passed).
 * Restoration: pristine trees were never written by this seat; the E tree re-read
-  `value=10` after all 29 mutants (D did too), and two independent `git archive dd31b786`
-  extractions gave the same content digest (`9647e73e…`); scratch is disposable per tasking and is
+  `value=10` after all 29 mutants, the F tree read `value=10` before the targeted re-run,
+  and two independent `git archive 9cbe9d5f` extractions gave the same content digest
+  (`2f633fc4…`); scratch is disposable per tasking and is
   deleted before yield.

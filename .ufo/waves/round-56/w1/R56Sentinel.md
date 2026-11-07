@@ -1,7 +1,7 @@
 # R56Sentinel — round 56 w1 safety/scope scan
 
 Seat: R56Sentinel. Lane `/home/vgpnk/Projects/shokunin/kagi-shokunin`, branch `master`.
-Final anchor: **epoch-E predeclaration `dd31b7867723f89fc8f83e88cc7d98e17de26cf2`** (landed 08:08). Superseded: epoch-D `d36231871c864c930d3e7e33f9c5345b30ab4f98`, C `711e6393`, B `5d9a157`, A `42070de`. BASE `832ba6a53d6a76706b5c80bce2278683dea33d42`.
+Final anchor: **epoch-F predeclaration `9cbe9d5f803de2518d4c11c6bc6b9a585e5120ad`** and tip `c90e6709a57dbc2b304b5e1ba6b11b4f97fabd82` (landed 08:13). Superseded: epoch-E `dd31b786`, D `d36231871c864c930d3e7e33f9c5345b30ab4f98`, C `711e6393`, B `5d9a157`, A `42070de`. BASE `832ba6a53d6a76706b5c80bce2278683dea33d42`.
 Scan window 2026-11-07T07:30–08:10-03:00. Answering model: harness-reported `amr/deepseek-v4.1-flash`; no self-introspection beyond that.
 Tools installed/updated: none (no pacman transaction; `/home/vgpnk/.omp/agent/RULES.md` read first).
 No production file edited, no git/jj mutation, no network fetch, no secret printed (token middles redacted).
@@ -114,6 +114,16 @@ The C1 landing commit `bcf07e7daf797e5ad2c6bf64306738199a333f64` ("round-56: C1 
 - `git diff dd31b786 bcf07e7d -- <kill paths> <captures>` is empty; the six frozen blobs in the candidate equal epoch E exactly (gate `79fb022b/5165da2a`, counter `cc27f350/d468533f`, controls `7bd6e725/01060f25`, plan `a4303acf/212e2dd7`, manifest `7c85dc4d/df46be5c`, normaliser `30baa609/14f6ca6a`).
 - Counter on `bcf07e7d`: rc 0 `value=10 present=10 replayed=10 gate=1 guard=1`; strace 0 `connect`, 0 strict `"/tmp/` opens. BASE on the candidate: `value=0 … guard=1`.
 - Landing diff secret scan (`git diff dd31b786 bcf07e7d`): the only `Set-Cookie`/`HTTP` hits are dummy fixtures in reviewer/control text (`Set-Cookie: x=1`, `k=v`, `y=2`); no real credentials, no new production files outside reports/build receipts/landing docs.
+
+## Epoch-F verification (`9cbe9d5f` / tip `c90e6709`)
+
+Epoch F (after R56ReviewCounter I1 and R56MutCounter-2 m31) supersedes epoch E; the tip `c90e6709` carries epoch F plus the receipts. Verified:
+- Frozen blobs at `9cbe9d5f` and `c90e6709` are identical; `git diff 9cbe9d5f c90e6709 -- <kill paths> <captures>` is empty. Gate `737451d8/b6959d6c` 21821 B (adds `import datetime` + `date.fromisoformat`), counter `8a6850a5/f4c1de31` 17699 B (`GATE_SHA256_PIN=b6959d6c…`, `PASS (20 cases)`, date check), controls `8ee46844/644cde80` 12751 B (23 checks), plan `0e90b9ec/d0a8e402` 7979 B; manifest `7c85dc4d/df46be5c` and normaliser `30baa609/14f6ca6a` unchanged.
+- Readings: `9cbe9d5f` rc 0 `value=10 present=10 replayed=10 gate=1 guard=1`; tip `c90e6709` also `value=10 … guard=1`; `dd31b786` and `bcf07e7d` → `value=FAIL … guard=0` (gate bytes changed); BASE → `value=0 … guard=1`. Gate selftest `PASS (20 cases)` rc 0; `--root` CLEAN(10/10); strace 0 connects / 0 strict `"/tmp/`.
+- N7 (R56ReviewCounter I1) reproduced/fixed: epoch-E F15 was vacuous (S114 pointed at a non-existent round-56 S113 capture, so an earlier check failed first). The epoch-F fixture points S114 at the real round-55 S113 body with matching bytes/sha: gate rc 2 `SETUP manifest-shared-body_path:S113+S114`, counter `value=0 … (r2-manifest-malformed)`; receipt `K1-F15-shared-body-path expect=0 got=0 MATCH`.
+- N8 (R56MutCounter-2 m31) reproduced/fixed: epoch-E accepted shape-valid but calendar-invalid `fetched` (`2026-13-40`). Epoch-F: gate rc 2 `SETUP manifest-fetched:S054`, counter `value=0 … (r2-manifest-malformed)`; receipt `K1-F28-fetched-calendar expect=0 got=0 MATCH`.
+- Controls receipt `.ufo/waves/round-56/controls/controls-prefreeze-epochF.txt` (15977 B, sha256 `15e950a8e826b09e6c7ffcfccdb393808e026cb383bba8a2697877d0fb56c703`): **23 CONTROL / 23 MATCH**, 0 `tar: Cannot stat`, 0 credential-pattern hits; six INSTRUMENT lines equal the frozen sha256 above.
+- **Sentinel self-note:** this seat did not catch I1's vacuous fixture or m31's calendar-invalid date during epoch E — the controls were read but the F15 target's existence and the date cell's calendar validity were not tested. Both are recorded for mistake mining; F closes them.
 
 ## Limits
 - Capture provenance is the receipt's self-report; no live re-fetch by this seat.

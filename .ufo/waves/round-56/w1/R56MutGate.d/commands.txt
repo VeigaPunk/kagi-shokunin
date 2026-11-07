@@ -52,3 +52,14 @@ HYAKU_SCRATCH=$PWD bash clone/plans/round-56-c1.sh --tree trees/base
 python3 harness-eE.py   # same 19 mutants as epoch D against counter d468533f; readings identical
 # M11+nopin combined: clone/plans/round-56-c1-M11nopin-DIAG.sh on work/M11-weaken-match-regex-M
 # -> value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)
+
+# ---- epoch F (9cbe9d5f803de2518d4c11c6bc6b9a585e5120ad; tip c90e6709) ----
+git clone -q lane clone && git -C clone checkout 9cbe9d5f803de2518d4c11c6bc6b9a585e5120ad
+git -C clone archive 9cbe9d5f corpus .ufo/waves/round-56/capture .ufo/waves/round-55/capture .ufo/waves/round-45/controls/capture-r45 | tar -x -C trees/base
+python3 -I -B trees/base/corpus/recheck-replay.py --selftest        # rc0 PASS (20 cases)
+python3 -I -B trees/base/corpus/recheck-replay.py --root trees/base # rc0 CLEAN (clocks=10 match=10 ...)
+HYAKU_SCRATCH=$PWD bash clone/plans/round-56-c1.sh --tree trees/base
+# -> rc0 C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)
+python3 harness-eF.py   # 20 mutants (adds M20 calendar-validity); all carried-over readings identical to epoch E
+# M11+nopin combined: clone/plans/round-56-c1-M11nopin-DIAG.sh on work/M11-weaken-match-regex-M
+# -> value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)

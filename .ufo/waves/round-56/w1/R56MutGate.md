@@ -1,7 +1,7 @@
 # R56MutGate — mutation probe of the frozen replay gate and C1 counter
 
 Seat: R56MutGate (mutation-tester). Lane `kagi-shokunin`, branch `master`.
-**Epoch E (current instruments) is anchored to `dd31b7867723f89fc8f83e88cc7d98e17de26cf2` — see the epoch-E addendum at the end; that is the binding result.** The epoch-D (`d362318`), epoch-C (`711e6393`), epoch-B (`5d9a157`) and epoch-A (`42070de`) results are kept as history.
+**Epoch F (current instruments) is anchored to `9cbe9d5f803de2518d4c11c6bc6b9a585e5120ad` (tip `c90e6709`) — see the epoch-F addendum at the end; that is the binding result.** The epoch-E (`dd31b786`), epoch-D (`d362318`), epoch-C (`711e6393`), epoch-B (`5d9a157`) and epoch-A (`42070de`) results are kept as history.
 Tested revision (epoch A): `42070de7770e1558adcf6aa7a7bc59309a9654d7`, BASE `832ba6a53d6a76706b5c80bce2278683dea33d42`.
 Answering model: `amr/deepseek-v4.1-flash` (as stated by the runtime project context; not independently observed).
 No network, no production-file edits, no git/jj mutation in the lane. Scratch `/fast/scratch/hyaku/kagi-r56/R56MutGate/` (one clone + fixture trees), deleted after the probe.
@@ -274,10 +274,44 @@ Gate-side mutants M1–M18 remain killed exactly as in epoch D (all die at the p
 
 Epoch-E verdict summary: **3 survivors (M3, M10, M14) plus one latent (M11)** out of 19 mutants; M19 moved from survivor to control-killed. The gate pin still makes the candidate's gate-side mutation surface zero, and the remaining live counter surface is registry status, registry arity and the pin condition.
 
+## Epoch F addendum — re-frozen instruments at `9cbe9d5f803de2518d4c11c6bc6b9a585e5120ad`
+
+Epoch F is the current predeclaration (supersedes `dd31b786`); tip `c90e6709` carries it. Two post-E findings are folded in: control F15 made non-vacuous (real shared-body witness) and manifest `fetched` now requires shape **and** `datetime.date.fromisoformat` (calendar validity) in both gate and counter, with new control F28. All results below are anchored to `9cbe9d5f`.
+
+| artifact | sha256 at `9cbe9d5f` |
+|---|---|
+| `corpus/recheck-replay.py` | `b6959d6c7afb9380c043cbd40530e6a70ee8da2bf79f1ea9d0669706f50bb5a3` |
+| `plans/round-56-c1.sh` | `f4c1de312e4a566dfde6c0699fb66a94c2e71e459eb97afbddb5c4073ffd2382` |
+| `plans/round-56-controls.sh` | `644cde80a7f1a05f6f3543c2b52a37c7e1dc82f40942199f4cb2b728d01b53ce` |
+| `plans/round-56.md` | `d0a8e402da2ac7a5c40eb3352a91918830253ba5502aae66442740d0c9dc025b` |
+| `corpus/rendered-text-v1.py` | `14f6ca6ab742296f45a699548c31e6d49892f6baef36ed419c283d1a0511b8c9` (unchanged) |
+| harness | `harness-eF.py` `2c4885c4100259fb95712da915e221dfb14d840c18076a2e9a6d43d5324684f7` |
+
+Baseline at `9cbe9d5f`: gate `--selftest` rc 0 `PASS (20 cases)`; gate `--root` rc 0 `CLEAN (clocks=10 match=10 … 0)`; counter rc 0 `C1_REPLAY: value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)`.
+
+The 20-mutant sweep (the epoch-E 19 plus **M20**, calendar-validity drop) was run against the epoch-F counter. **All 19 carried-over readings are identical to epoch E**; the additions/changes are:
+
+| id / item | mutation | selftest | P | M (pin) | M′ | verdict |
+|---|---|---|---|---|---|---|
+| **M20** | gate drops the `try: datetime.date.fromisoformat(rid["fetched"])` block (shape regex kept) | PASS 20 | 0 (SETUP manifest-fetched:S054) | FAIL (pin) | 0 `r2-manifest-malformed` | **killed** (pin; counter's own `fromisoformat`; control F28). Hostile tree `fetched=2026-13-40`; mutant gate itself CLEAN (`clocks=10 match=10`) |
+| M17 | gate drops fetched shape + calendar block and http 2xx block | PASS 20 | 0 (SETUP manifest-fetched) | FAIL | 0 `r2-manifest-malformed` | killed (pin; counter); hostile `fetched=not-a-date` |
+| M18 | (unchanged hostile tree) | PASS 20 | 0 (SETUP manifest-shared-body_path:S054+S999) | FAIL | 0 `r2-manifest-malformed` | killed (pin; counter; F15 is now a real witness after the epoch-F fix) |
+
+The counter-side date check cannot be discriminated by a single-conjunct mutation: with an unmutated gate, any calendar-invalid manifest makes the gate SETUP, so `gate_ok=0` masks the counter's own check; only a joint gate+counter mutant would reach it, and such a tree is already killed by the gate digest pin.
+
+### Epoch-F survivors and kills
+
+- **SURVIVED: M3** (registry status), **M10** (11-cell arity), **M14** (gate pin condition) — same evidence as epochs D/E: pristine `9`/`9`/`FAIL`, mutants `10`/`10`/`10`, all `bad=none`.
+- **M19** stays killed by control F11b (`-> 1.0`, expect FAIL); **M11** stays latent (pin masks it; M11 + pin-bypass combined reads `10 … (bad=none)` at `9cbe9d5f`).
+- Kill proposals unchanged: S101 status `drafted` expect `9`; S101 row 10 cells expect `9`; full-MATCH stub + `PASS (20 cases)` (`1bc2406c…`) expect `FAIL`. M20 is already covered by F28.
+- Gate 20-case selftest still has no case for calendar validity (M20 PASS), input confinement (M12), symlinked-entry row (M13), capture confinement (M15; fixture body absent at the non-capture path), normaliser pin (M16) or bijection/2xx (M17/M18); the counter's duplicated r2/r3/r4 checks catch each today.
+
+Epoch-F verdict summary: **3 survivors (M3, M10, M14) plus one latent (M11)** out of 20 mutants; M20 is killed by pin + counter + F28. The gate pin remains the dominant detector on the gate side; the live counter surface is unchanged: registry status, registry arity and the pin condition.
+
 ## State and restoration
 
 - Production bytes were not modified by this seat. In each epoch the tested blobs equal that revision's committed blobs (`git cat-file blob <rev>:<path>` hashes above: `42070de`, `5d9a157`, `711e6393`).
-- Lane state: the working tree moved under this seat between epochs (the wave was landing the next predeclaration each time); at epoch-C probe time `HEAD=711e6393…`, epoch-D probe time `HEAD=d3623187…`, epoch-E probe time `HEAD=dd31b786…`. None of the working-tree edits are this seat's work; results bind only to the five named revisions and their committed blobs.
-- Scratch `R56MutGate/` (A), `-eB/`, `-eC/`, `-eD/` and `-eE/` (E: clone at `dd31b786`, 38 fixture trees, logs) were deleted after writing this report and `R56MutGate.d/`; receipts kept at `.ufo/waves/round-56/w1/R56MutGate.d/results.json`, `results-epochB.json`, `results-epochC.json`, `results-epochD.json`, `results-epochE.json`, `harness*.py`, `commands.txt`.
-- Epoch-E production bytes were not modified by this seat; the tested blobs are the `dd31b786` blobs hashed in the epoch-E addendum. `HEAD` at epoch-E probe time was `dd31b786`.
+- Lane state: the working tree moved under this seat between epochs (the wave was landing the next predeclaration each time); at epoch-C probe time `HEAD=711e6393…`, epoch-D probe time `HEAD=d3623187…`, epoch-E probe time `HEAD=dd31b786…`, epoch-F probe time `HEAD=9cbe9d5f…`. None of the working-tree edits are this seat's work; results bind only to the six named revisions and their committed blobs.
+- Scratch `R56MutGate/` (A), `-eB/`, `-eC/`, `-eD/`, `-eE/` and `-eF/` (F: clone at `9cbe9d5f`, 40 fixture trees, logs) were deleted after writing this report and `R56MutGate.d/`; receipts kept at `.ufo/waves/round-56/w1/R56MutGate.d/results.json`, `results-epoch{B,C,D,E,F}.json`, `harness*.py`, `commands.txt`.
+- Epoch-F production bytes were not modified by this seat; the tested blobs are the `9cbe9d5f` blobs hashed in the epoch-F addendum. `HEAD` at epoch-F probe time was `9cbe9d5f`.
 - Unrun: the live re-fetch leg (outside this seat; no network was used). Mutant verdicts are offline readings of committed bytes only.

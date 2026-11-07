@@ -160,3 +160,38 @@ Epoch-E mutant sweep (29 shapes) is verdict-identical to the epoch-D sweep: ever
 value/present/replayed/gate/guard tuple matches (programmatic diff of
 results-epochD.tsv vs results-epochE.tsv printed zero deltas). The planner's 22/22
 epoch-E controls receipt was not re-run by this seat.
+
+Epoch F (current anchor; m31 fixed)
+-----------------------------------
+commit 9cbe9d5f803de2518d4c11c6bc6b9a585e5120ad; tip c90e6709a57dbc2b304b5e1ba6b11b4f97fabd82
+  carries the same five blobs (verified by ls-tree on both commits).
+  plans/round-56-c1.sh        blob 8a6850a5264d4e00213b7db48d1837f141b6e9e7
+                              sha256 f4c1de312e4a566dfde6c0699fb66a94c2e71e459eb97afbddb5c4073ffd2382
+                              GATE_SHA256_PIN=b6959d6c7afb9380c043cbd40530e6a70ee8da2bf79f1ea9d0669706f50bb5a3
+  corpus/recheck-replay.py    blob 737451d8d255c7604d8a2091604788bd1f5f9979
+                              sha256 b6959d6c7afb9380c043cbd40530e6a70ee8da2bf79f1ea9d0669706f50bb5a3
+                              NORMALIZER_SHA256_PIN=14f6ca6ab742296f45a699548c31e6d49892f6baef36ed419c283d1a0511b8c9
+  corpus/recheck-captures.tsv blob 7c85dc4da34bc79931e01906b91e4c3fda91b2c5
+                              sha256 df46be5c92c7b4d5a8b7ad790371b5c3240c92f46460b8cfb69e9b75b7ecc762
+  plans/round-56-controls.sh   blob 8ee46844a3fe0802941da7ce0a6b3a33d809a362
+                              sha256 644cde80a7f1a05f6f3543c2b52a37c7e1dc82f40942199f4cb2b728d01b53ce
+  plans/round-56.md           blob 0e90b9ec8d059e942a5b2362e2459cd8cdd3bf7b
+                              sha256 d0a8e402da2ac7a5c40eb3352a91918830253ba5502aae66442740d0c9dc025b
+Tree content digest (sorted relative-path sha256 manifest):
+  2f633fc439ecad874eaf07e3e99612b8d8916edc6bdf6d2191289b842457667e
+  identical from two independent `git archive 9cbe9d5f` extractions.
+
+Epoch-F baselines:
+  F counter / F tree 9cbe9d5f : rc=0 value=10 present=10 replayed=10 gate=1 guard=1 (bad=none)
+  F counter / E tree dd31b786 : rc=0 value=FAIL present=10 replayed=0 gate=0 guard=0 (r5-gate x10, selftest, gate-digest)
+  F counter / BASE 832ba6a   : rc=0 value=0 present=10 replayed=0 gate=0 guard=1 (r2-manifest x10)
+
+Epoch-F targeted mutant re-run (13 verdict-bearing shapes; outF/raw-F):
+  m02->0 (r3-notcapture), m05->10, m06->10, m08->10, m09->10, m15->10,
+  m16->9, m21->0, m24->0 (fast), m29->FAIL P=9, m30->FAIL P=9,
+  m31->0 (r2-manifest-malformed; WAS the surviving mutant at C/D/E),
+  m32->0 (r3-headers).
+  All other F readings equal the epoch-D/E tuples. Remaining value=10 shapes are
+  predicate-permitted/ceiling only: CRLF, duplicate registry URL, count= form,
+  fenced clock, hand-written capture absent from fetch-receipt.
+  The planner's 23/23 epoch-F controls receipt was not re-run by this seat.

@@ -21,10 +21,12 @@ at `42070de` so the counter bytes are the pinned ones, not the working tree
 Epoch note: mid-review L1 (KagiR56a3) re-predeclared epoch-B at
 `5d9a1571911ec38a456a40b443e19640abb9a88b`, then epoch-C at
 `711e6393e68658f396918c07de253e5a5c74d1b4`, epoch-D at
-`d36231871c864c930d3e7e33f9c5345b30ab4f98`, then epoch-E at
-`dd31b7867723f89fc8f83e88cc7d98e17de26cf2`. §§1-10 are the epoch-A record at
-`42070de`; §§11-14 re-audit B, C, D and E against their own hashes. Each anchor
-set is stated explicitly; no epoch's numbers are reused for another.
+`d36231871c864c930d3e7e33f9c5345b30ab4f98`, epoch-E at
+`dd31b7867723f89fc8f83e88cc7d98e17de26cf2`, then epoch-F at
+`9cbe9d5f803de2518d4c11c6bc6b9a585e5120ad` (tip `c90e6709`). §§1-10 are the
+epoch-A record at `42070de`; §§11-15 re-audit B, C, D, E and F against their own
+hashes. Each anchor set is stated explicitly; no epoch's numbers are reused for
+another.
 
 ## 0. Anchors (verified with `git show 42070de:<path> | sha256sum`)
 
@@ -619,10 +621,61 @@ manifest failure that marks all ten clocks malformed for one bad row. The
 candidate at `dd31b786` reads 10 and must keep the pinned gate bytes
 `5165da2a…`, POP text, manifest URLs, and capture confinement + ISO/2xx.
 
+## 15. Epoch-F re-audit at `9cbe9d5f` (supersedes epoch-E)
+
+L1 landed epoch-F `9cbe9d5f803de2518d4c11c6bc6b9a585e5120ad` (tip `c90e6709`)
+to reject calendar-invalid manifest dates and fix a vacuous control; the gate
+bytes changed. All epoch-F evidence below is anchored there; the same
+single-clone method was used.
+
+| Artifact | SHA256 |
+|---|---|
+| `plans/round-56-c1.sh` | `f4c1de312e4a566dfde6c0699fb66a94c2e71e459eb97afbddb5c4073ffd2382` |
+| `corpus/recheck-replay.py` | `b6959d6c7afb9380c043cbd40530e6a70ee8da2bf79f1ea9d0669706f50bb5a3` (= pin) |
+| `plans/round-56.md` | `d0a8e402da2ac7a5c40eb3352a91918830253ba5502aae66442740d0c9dc025b` |
+| `plans/round-56-controls.sh` | `644cde80a7f1a05f6f3543c2b52a37c7e1dc82f40942199f4cb2b728d01b53ce` |
+| `controls/controls-prefreeze-epochF.txt` | `15e950a8e826b09e6c7ffcfccdb393808e026cb383bba8a2697877d0fb56c703` (23/23 MATCH, 0 `tar:` errors; 24 `^CONTROL` lines incl instrument) |
+
+Baselines (rc 0): `9cbe9d5f` → `value=10 present=10 replayed=10 gate=1 guard=1`;
+tip `c90e6709` → the same 10; `dd31b786` → `value=FAIL present=10 replayed=0
+gate=0 guard=0` (`r5-gate` ×10 + `selftest` + `gate-digest`, gate bytes
+changed); BASE → `value=0 present=10 replayed=0 gate=0 guard=1` (`r2-manifest`
+×10).
+
+### 15.1 Calendar-invalid date closed; date truth still a ceiling
+
+| Case | Observed (rc 0) |
+|---|---|
+| `S074` `fetched=2026-13-40` (shape-valid, calendar-invalid); body/digest untouched | `value=0 present=10 replayed=0 gate=0 guard=1`; `r2-manifest-malformed` ×10 |
+| `S074` `fetched=2024-02-29` (calendar-valid, false for a 2026-11-07 capture) | `value=10 present=10 replayed=10 gate=1 guard=1`; `bad=none` |
+
+The gate and counter both call `datetime.date.fromisoformat`
+(`recheck-replay.py:165`, `round-56-c1.sh:211`), so shape-valid but
+calendar-invalid dates are refused. A calendar-valid but untruthful date still
+scores: r3 says “ISO `fetched` date”, which is a shape/calendar check, not a
+provenance check. Truth of the date remains the fetch-receipt / non-author
+re-fetch ceiling, out of band.
+
+### 15.2 Carried subset re-run on epoch-F (unchanged)
+
+- printer gate → `value=FAIL present=10 replayed=0 gate=0 guard=0` (`r5-gate` ×10 + `selftest` + `gate-digest`).
+- gate absent → `value=0 … guard=1`.
+- five rows re-pointed at one non-capture body with captures deleted → `value=0`, `r2-manifest-malformed` ×10.
+- hand-written capture inside the capture dir with ISO `fetched` + 2xx and manifest re-bound → `value=10 present=10 replayed=10 gate=1 guard=1` (named ceiling).
+- reword → `value=FAIL present=9`; extra unsupported clock → `value=0` (`r5-gate` ×10).
+
+Epoch-F verdict: the calendar-invalid-date hole and the vacuous control are
+closed; the verdict semantics otherwise match epoch-E. The remaining items are
+the design-level ones: literal-POP false negatives (F6), the tree-wide CLEAN
+veto (F7), the semantic `guard=1` without a gate (F8), the hand-written-capture
+ceiling (now with calendar-valid-but-false dates), and the blunt manifest
+failure that marks all ten clocks malformed for one bad row. The candidate at
+`9cbe9d5f`/`c90e6709` reads 10 and must keep the pinned gate bytes
+`b6959d6c…`, POP text, manifest URLs and capture confinement + ISO/2xx.
+
 ## Receipts
 
 `.ufo/waves/round-56/w1/R56ReviewCounter.d/readings.txt` — anchor hashes,
 method, every command/rc/value, fixture definitions (printer gate, symlink-gate,
 nocap, forge, reword, twoline, urlslash, restate1x, f8, zerocase), the epoch-A
-record, the epoch-B re-audit, the epoch-C re-audit, the epoch-D re-audit, and
-the epoch-E re-audit readings.
+record, and the epoch-B/C/D/E/F re-audit readings.

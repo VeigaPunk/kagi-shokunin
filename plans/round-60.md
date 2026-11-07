@@ -271,3 +271,49 @@ bind=false accepted on the same role) and its prerequisite is a role-level const
 (`token_bound_cidrs`) that keeps T1's fields disjoint from T5's
 `secret_id_bound_cidrs` (kill rule K4). A3 items 1, 2, 3 and 5 stand. No predicate,
 target, POP, item or kill rule changes.
+
+### A5 — 2026-11-07, before the recorded candidate reading (attack-seat findings)
+
+The reviewer (R60ReviewerC1), the critic (R60CriticClaims) and the sentinel
+(R60SentinelTrial) attacked the frozen item set against the landed instruments. Six
+defects are real; each amendment below makes an item **harder or correct**, never
+easier, and none touches the predicate, the target, the population (7) or a kill rule's
+meaning. The attacks' readings are kept as evidence under
+`.ufo/waves/round-60/build/R60ReviewerC1/` and `.../R60CriticClaims/`.
+
+1. **I1 — last statement inside the evaluated block wins.** The checker evaluated the
+   FIRST `results=<R> dead=<D>` line of the last correction block, so a later correction
+   appended inside the same block (a forgery that states a wrong census) was ignored:
+   control C1-F1 read `observed=0` where the plan requires `1`. I1 now evaluates the
+   LAST such line in the last block (the lane's correction convention), and the GUARD
+   mutates that same line's dead-seats token.
+2. **I2 — the anchor is the routed row, not any mention of `R31`.** A decoy line
+   containing `R31` before the real row relocated the anchor (reviewer: `i2=1` on a
+   misplaced correction). I2's anchor is the LAST line whose first table cell is the
+   routed id `R31` (a row matching `^\| *R31 *\|`), and the statement under test is the
+   LAST `C1_CHECK_SELFTEST` line after it.
+3. **I5 — a receipt must carry a numeric field.** A one-line stub (`RELEASE_CLOCK:
+   CLEAN`) satisfied the token prefix (reviewer: three stubs read `i5=1`). Each of the
+   three receipts must end with a line that carries the token prefix AND at least one
+   numeric `key=value` field (`on_release=`, `entries=`, `breadth_drift=` …), and the
+   SCORECARD line must state the three paths.
+4. **I6 — the anchor is corrected.** No line of `SCORECARD.md` at BASE contains
+   `75165a07` (critic C1.5, reviewer finding 1: the hash lives in the spot-check, the
+   plan and the fleet report only), so the item as first written was unsatisfiable
+   without planting a line that supersedes nothing. I6 now requires a line matching
+   `supersedes the round-59 measured-commit citation` that names `c1-landed.txt` and
+   states `measured=revision <40hex>` equal to the receipt's own value.
+5. **I7 — the selftest must be shown able to fail.** A six-line PASS printer read
+   `i7=1` (reviewer finding 5, violating K4). I7 now also copies the trial, applies one
+   defined mutation — the verdict mapping `then S=BROKEN; rc=1;` becomes
+   `then S=BROKEN; rc=0;` — and requires the copy's `--selftest` to exit non-zero and
+   print at least one `FINDING TRANSIT-ST-` line. A printer with no such line cannot
+   satisfy the leg (fail closed).
+6. **Checker hardening (not an item):** the checker refuses to measure a tree whose
+   `LOG.md`, lesson, `SCORECARD.md` or receipt is a symlink (reviewer: a symlinked
+   `LOG.md` let the challenge write outside the copy — QM74 class).
+
+Instrument changes land as `plans/round-60-c1-check.py` (items 1, 2, 3, 4, 5, 6) and
+`plans/round-60-controls.sh` (C1-F1/F6/F7 fixtures restated to the amended conditions;
+K1-REF's fixed-tree sentence must be one line, not a wrapped bullet). The candidate
+reading is taken only after the battery reads `CONTROLS: match=N mismatch=0`.

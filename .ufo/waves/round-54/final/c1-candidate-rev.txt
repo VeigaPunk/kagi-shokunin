@@ -1,0 +1,9 @@
+$ bash plans/round-54-c1.sh 1a0f43a9220bb0e995462c2aef745ac0124c3317   # 2026-11-07T06:16:50Z
+C1_OP_CLOCK: value=0 watched=0 measured=0 guard=1 (bad=watched:s072-recheck=180d measured:oprcpt-missing-or-symlink; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))
+rc=0
+$ bash plans/round-54-c1.sh 27aa53fd40b0b385b3cf2ffeea49977f9e0ff690   # 2026-11-07T06:16:50Z
+C1_OP_CLOCK: value=0 watched=0 measured=0 guard=1 (bad=watched:s072-recheck=180d measured:oprcpt-missing-or-symlink; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))
+rc=0
+$ bash plans/round-54-c1.sh ede4373afa07a33e24cbd35e9fd33fc2fddf2f14   # 2026-11-07T06:16:51Z
+C1_OP_CLOCK: value=2 watched=1 measured=1 guard=1 (bad=watched:OK measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))
+rc=0

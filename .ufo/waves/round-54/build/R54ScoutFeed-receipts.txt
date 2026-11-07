@@ -1,0 +1,174 @@
+# R54ScoutFeed receipts — independent live re-open of the C1 sources (S112, S072, two rejections), 2026-11-07
+# lane /home/vgpnk/Projects/shokunin/kagi-shokunin ; seat scratch /fast/scratch/hyaku/kagi-r54/R54ScoutFeed
+# UA: kagi-shokunin-round23/1.0 (documentation verification) ; all reads are plain public GETs; no op invocation
+
+=== 1. FETCH METADATA ===
+--- https://releases.1password.com/developers/cli/index.xml
+HDR HTTP/2 200
+HDR content-type: text/xml
+HDR server: AmazonS3
+HDR last-modified: Thu, 05 Nov 2026 20:36:59 GMT
+HDR permissions-policy: interest-cohort=()
+HDR x-amz-server-side-encryption: AES256
+HDR x-amz-version-id: E3ZmKsbG.pfhNbdhrMNd4z7JX.3Bk5Dp
+HDR content-encoding: gzip
+HDR referrer-policy: no-referrer-when-downgrade
+HDR x-frame-options: deny
+HDR x-content-type-options: nosniff
+HDR date: Sat, 07 Nov 2026 06:17:35 GMT
+HDR cache-control: max-age=60
+HDR etag: W/"454c2805510fcda7fd9af75c79b7156e"
+HDR vary: Accept-Encoding
+HDR x-cache: RefreshHit from cloudfront
+HDR via: 1.1 de5d3446d499bb3baa0c29bbee00df68.cloudfront.net (CloudFront)
+HDR x-amz-cf-pop: ATL58-P12
+HDR x-amz-cf-id: EH_nKFqEg3FCWgu-5Z5XwntDErqwpxHzwuyvZS1nDd0j1iZ-aCxrVQ==
+decoded_bytes=45175
+sha256=2dce505aedfb66f207701c4d96cb1c337f025cb6305817885c6c7f74665405e2
+
+--- https://app-updates.agilebits.com/product_history/CLI2
+HDR HTTP/1.1 200 OK
+HDR server: nginx
+HDR date: Sat, 07 Nov 2026 06:17:34 GMT
+HDR content-type: text/html;charset=utf-8
+HDR referrer-policy: same-origin
+HDR content-encoding: gzip
+HDR vary: Accept-Encoding
+HDR x-xss-protection: 1; mode=block
+HDR x-content-type-options: nosniff
+HDR x-frame-options: SAMEORIGIN
+HDR expires: Sat, 07 Nov 2026 06:37:34 GMT
+HDR cache-control: max-age=1200,public
+HDR transfer-encoding: chunked
+decoded_bytes=528203
+sha256=bb179199193f3dfd7cd773dd35a0dab1e5c0edbe671c3be7ceb3cda901c0e7a5
+
+--- https://releases.1password.com/developers/cli/
+decoded_bytes=96166
+sha256=0cfbd2083159445b8d2d116e396a92b73fc1e69fbb9eb803ee9e9dc0d1e49acf
+
+=== 2. BYTE-IDENTITY vs COMMITTED CAPTURES (cmp) ===
+cmp s112.body /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-54/capture/S112.body -> exit 0 (byte-identical)
+cmp cli2.body /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-54/capture/rejections/app-updates_agilebits_com_product_history_CLI2.body -> exit 0 (byte-identical)
+cmp clihtml.body /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-54/capture/rejections/releases_1password_com_developers_cli_.body -> exit 0 (byte-identical)
+
+=== 3. parse_latest_version on the LIVE bodies (imported from corpus/release-clock.py) ===
+FEED_TITLE_PREFIXES = {'https://releases.1password.com/developers/cli/index.xml': '1Password CLI'}
+s112.body: prefix=None -> REFUSED: ValueError: feed has no stable X.Y.Z release entry
+s112.body: prefix='1Password CLI' -> parsed='2.42.0'
+cli2.body: prefix=None -> REFUSED: ValueError: XML DTD and entity declarations are not allowed
+cli2.body: prefix='1Password CLI' -> REFUSED: ValueError: XML DTD and entity declarations are not allowed
+clihtml.body: prefix=None -> REFUSED: ValueError: XML DTD and entity declarations are not allowed
+clihtml.body: prefix='1Password CLI' -> REFUSED: ValueError: XML DTD and entity declarations are not allowed
+root-index.xml: prefix=None -> REFUSED: ValueError: feed has no stable X.Y.Z release entry
+root-index.xml: prefix='1Password CLI' -> parsed='2.42.0'
+dev-index.xml: prefix=None -> REFUSED: ValueError: feed has no stable X.Y.Z release entry
+dev-index.xml: prefix='1Password CLI' -> parsed='2.42.0'
+clibeta.xml: prefix=None -> REFUSED: ValueError: feed has no stable X.Y.Z release entry
+clibeta.xml: prefix='1Password CLI' -> REFUSED: ValueError: feed has no stable X.Y.Z release entry
+
+=== 4. S112 feed structure (live body) ===
+byte count of b'<title>1Password CLI 2.42.0</title>': 1
+byte offsets: [37215]
+items: 27
+2.42.0 item head:
+<item><title>1Password CLI 2.42.0</title><link>https://releases.1password.com/developers/cli/2.42.0/</link><pubDate>Wed, 04 Nov 2026 00:00:00 +0000</pubDate><guid>https://releases.1password.com/developers/cli/2.42.0/</guid>
+
+=== 5. OTHER MACHINE-READABLE ENDPOINTS PROBED (live status/type/bytes) ===
+200 text/xml 9106                        <- https://releases.1password.com/developers/cli/index.xml
+200 text/xml 5542                        <- https://releases.1password.com/developers/cli-beta/index.xml
+200 text/xml 13739                       <- https://releases.1password.com/developers/index.xml
+200 text/xml 403505                      <- https://releases.1password.com/index.xml
+200 text/xml 10821                       <- https://releases.1password.com/sitemap.xml
+404 text/html 8878                       <- https://releases.1password.com/developers/cli/atom.xml
+404 text/html 8878                       <- https://releases.1password.com/developers/cli/index.json
+404 text/html 8878                       <- https://releases.1password.com/developers/cli/releases.json
+404 text/html 8878                       <- https://releases.1password.com/developers/cli/rss.xml
+404 text/html 8878                       <- https://releases.1password.com/developers/cli/feed.xml
+404 text/html 8878                       <- https://releases.1password.com/developers/cli/index.rss
+301  0                                   <- https://releases.1password.com/developers/cli/feed
+404 text/html 8878                       <- https://releases.1password.com/api/developers/cli/releases.json
+404 text/html;charset=utf-8 46           <- https://app-updates.agilebits.com/product_history/CLI2.json
+404 text/html;charset=utf-8 45           <- https://app-updates.agilebits.com/product_history/CLI2.xml
+404 text/html;charset=utf-8 45           <- https://app-updates.agilebits.com/product_history/CLI2.rss
+404 text/html;charset=utf-8 46           <- https://app-updates.agilebits.com/product_history/CLI2.atom
+200 text/html;charset=utf-8 74323        <- https://app-updates.agilebits.com/product_history/CLI2?format=json
+404 text/html;charset=utf-8 18           <- https://app-updates.agilebits.com/product_history.json
+404 text/html;charset=utf-8 18           <- https://app-updates.agilebits.com/feed/CLI2.xml
+404 text/html;charset=utf-8 18           <- https://app-updates.agilebits.com/product_history/CLI2/feed
+404 text/html;charset=utf-8 18           <- https://app-updates.agilebits.com/api/v1/updates
+404 text/html 112                        <- https://cache.agilebits.com/dist/1P/op2/pkg/
+
+=== 6. WORD COUNTS (printf '%s' "<quote>" | wc -w) for every quote in corpus/lessons/round-54.md §Gate ===
+line 14 dquote   wc=3   <title>1Password CLI 2.42.0</title>
+line 14 backtick wc=1   .ufo/waves/round-54/capture/S112.body
+line 14 backtick wc=1   curl-fsSL-compressed-v1
+line 14 backtick wc=1   https://releases.1password.com/developers/cli/index.xml
+line 14 backtick wc=1   text/xml
+line 14 backtick wc=1   2dce505aedfb66f207701c4d96cb1c337f025cb6305817885c6c7f74665405e2
+line 14 backtick wc=1   raw-literal-v1
+line 14 backtick wc=8   printf '%s' '<title>1Password CLI 2.42.0</title>' | wc -w
+line 14 backtick wc=1   <pubDate>
+line 14 backtick wc=6   Wed, 04 Nov 2026 00:00:00 +0000
+line 14 backtick wc=1   https://releases.1password.com/developers/cli/2.42.0/
+line 14 backtick wc=5   pubDate Wed 04 Nov 2026
+line 14 backtick wc=3   1Password CLI X.Y.Z
+line 14 backtick wc=1   2.42.0
+line 14 backtick wc=7   feed has no stable X.Y.Z release entry
+line 15 backtick wc=1   https://app-updates.agilebits.com/product_history/CLI2
+line 15 backtick wc=1   text/html;charset=utf-8
+line 15 backtick wc=1   bb179199193f3dfd7cd773dd35a0dab1e5c0edbe671c3be7ceb3cda901c0e7a5
+line 15 backtick wc=1   .ufo/waves/round-54/capture/rejections/app-updates_agilebits_com_product_history_CLI2.{meta,body}
+line 15 backtick wc=8   XML DTD and entity declarations are not allowed
+line 16 backtick wc=1   https://releases.1password.com/developers/cli/
+line 16 backtick wc=1   text/html
+line 16 backtick wc=1   0cfbd2083159445b8d2d116e396a92b73fc1e69fbb9eb803ee9e9dc0d1e49acf
+line 16 backtick wc=1   .ufo/waves/round-54/capture/rejections/releases_1password_com_developers_cli_.{meta,body}
+line 17 backtick wc=1   180d
+line 17 backtick wc=1   on-release
+line 19 dquote   wc=1   <quote>
+line 19 backtick wc=2   ## Gate
+line 19 backtick wc=6   printf '%s' "<quote>" | wc -w
+stated counts in the lesson: ['3']
+
+=== 7. ANCHOR-CELL vs CAPTURE (character by character) ===
+S112 anchor cell: Item titled 1Password CLI 2.42.0, link /developers/cli/2.42.0/, item pubDate Wed, 04 Nov 2026 00:00:00 +0000; feed fetched 2026-11-07
+S072 anchor cell: §"2.41.1 (build #2410101) – released 2026-10-21" entry heading (article id v2410101), fetched 2026-11-03; in-round capture row in corpus/source-fetches.tsv
+S112 capture bytes: title='1Password CLI 2.42.0' link='https://releases.1password.com/developers/cli/2.42.0/' pubDate='Wed, 04 Nov 2026 00:00:00 +0000'
+S072 live page heading (article id v2410101, entity-unescaped): '2.41.1 (build #2410101) – released 2026-10-21'
+S072 live page 2.42.0 heading (article id v2420001): '2.42.0 (build #2420001) – released 2026-11-03'
+
+=== 8. SUPPORTING RUNS ===
+release-clock.py --selftest on candidate tree: RELEASE_CLOCK_SELFTEST: PASS (121 cases), exit 0
+corpus/quote-locate.py: QUOTE_LOCATE: CLEAN located=10 rows=10
+plans/round-54-c1.sh ede4373afa07a33e24cbd35e9fd33fc2fddf2f14 -> C1_OP_CLOCK: value=2 watched=1 measured=1 guard=1 (bad=watched:OK measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17)), exit 0
+HEAD https://cache.agilebits.com/dist/1P/op2/pkg/v2.42.0/op_linux_amd64_v2.42.0.zip -> HTTP/2 200, content-type application/zip, content-length 16233648, last-modified Wed, 04 Nov 2026 20:49:39 GMT (not downloaded, not executed)
+
+=== 9. EVERY ITEM TITLE IN THE S112 FEED (live body) ===
+  1  1Password CLI 2.22.0   Tue, 24 Oct 2023 00:00:00 +0000  https://releases.1password.com/developers/cli/2.22.0/
+  2  1Password CLI 2.23.0   Thu, 16 Nov 2023 00:00:00 +0000  https://releases.1password.com/developers/cli/2.23.0/
+  3  1Password CLI 2.24.0   Thu, 14 Dec 2023 00:00:00 +0000  https://releases.1password.com/developers/cli/2.24.0/
+  4  1Password CLI 2.25.0   Mon, 26 Feb 2024 00:00:00 +0000  https://releases.1password.com/developers/cli/2.25.0/
+  5  1Password CLI 2.25.1   Tue, 12 Mar 2024 00:00:00 +0000  https://releases.1password.com/developers/cli/2.25.1/
+  6  1Password CLI 2.26.0   Tue, 19 Mar 2024 00:00:00 +0000  https://releases.1password.com/developers/cli/2.26.0/
+  7  1Password CLI 2.26.1   Fri, 22 Mar 2024 00:00:00 +0000  https://releases.1password.com/developers/cli/2.26.1/
+  8  1Password CLI 2.27.0   Wed, 17 Apr 2024 00:00:00 +0000  https://releases.1password.com/developers/cli/2.27.0/
+  9  1Password CLI 2.28.0   Wed, 01 May 2024 00:00:00 +0000  https://releases.1password.com/developers/cli/2.28.0/
+ 10  1Password CLI 2.29.0   Tue, 21 May 2024 00:00:00 +0000  https://releases.1password.com/developers/cli/2.29.0/
+ 11  1Password CLI 2.30.0   Wed, 31 Jul 2024 00:00:00 +0000  https://releases.1password.com/developers/cli/2.30.0/
+ 12  1Password CLI 2.30.3   Thu, 07 Nov 2024 00:00:00 +0000  https://releases.1password.com/developers/cli/2.30.3/
+ 13  1Password CLI 2.31.0   Wed, 07 May 2025 00:00:00 +0000  https://releases.1password.com/developers/cli/2.31.0/
+ 14  1Password CLI 2.31.1   Wed, 28 May 2025 00:00:00 +0000  https://releases.1password.com/developers/cli/2.31.1/
+ 15  1Password CLI 2.32.0   Tue, 19 Aug 2025 00:00:00 +0000  https://releases.1password.com/developers/cli/2.32.0/
+ 16  1Password CLI 2.32.1   Thu, 05 Feb 2026 00:00:00 +0000  https://releases.1password.com/developers/cli/2.32.1/
+ 17  1Password CLI 2.33.0   Mon, 16 Mar 2026 00:00:00 +0000  https://releases.1password.com/developers/cli/2.33.0/
+ 18  1Password CLI 2.33.1   Tue, 24 Mar 2026 00:00:00 +0000  https://releases.1password.com/developers/cli/2.33.1/
+ 19  1Password CLI 2.34.0   Thu, 16 Apr 2026 00:00:00 +0000  https://releases.1password.com/developers/cli/2.34.0/
+ 20  1Password CLI 2.34.1   Tue, 09 Jun 2026 00:00:00 +0000  https://releases.1password.com/developers/cli/2.34.1/
+ 21  1Password CLI 2.35.0   Mon, 13 Jul 2026 00:00:00 +0000  https://releases.1password.com/developers/cli/2.35.0/
+ 22  1Password CLI 2.38.1   Thu, 30 Jul 2026 00:00:00 +0000  https://releases.1password.com/developers/cli/2.38.1/
+ 23  1Password CLI 2.39.0   Fri, 14 Aug 2026 00:00:00 +0000  https://releases.1password.com/developers/cli/2.39.0/
+ 24  1Password CLI 2.40.0   Thu, 01 Oct 2026 00:00:00 +0000  https://releases.1password.com/developers/cli/2.40.0/
+ 25  1Password CLI 2.41.0   Mon, 12 Oct 2026 00:00:00 +0000  https://releases.1password.com/developers/cli/2.41.0/
+ 26  1Password CLI 2.41.1   Wed, 21 Oct 2026 00:00:00 +0000  https://releases.1password.com/developers/cli/2.41.1/
+ 27  1Password CLI 2.42.0   Wed, 04 Nov 2026 00:00:00 +0000  https://releases.1password.com/developers/cli/2.42.0/

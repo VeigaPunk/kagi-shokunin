@@ -1,0 +1,76 @@
+R54ExecCounters verbatim receipts — kagi round 54, 2026-11-07
+Scratch root: /fast/scratch/hyaku/kagi-r54/R54ExecCounters
+Lane: /home/vgpnk/Projects/shokunin/kagi-shokunin
+
+=== ITEM 1: counter, three revisions ===
+$ HYAKU_SCRATCH=/fast/scratch/hyaku/kagi-r54/R54ExecCounters bash /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-54-c1.sh 1a0f43a9220bb0e995462c2aef745ac0124c3317; echo rc=$?
+C1_OP_CLOCK: value=0 watched=0 measured=0 guard=1 (bad=watched:s072-recheck=180d measured:oprcpt-missing-or-symlink; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))
+rc=0
+
+$ HYAKU_SCRATCH=/fast/scratch/hyaku/kagi-r54/R54ExecCounters bash /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-54-c1.sh 27aa53fd40b0b385b3cf2ffeea49977f9e0ff690; echo rc=$?
+C1_OP_CLOCK: value=0 watched=0 measured=0 guard=1 (bad=watched:s072-recheck=180d measured:oprcpt-missing-or-symlink; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))
+rc=0
+
+$ HYAKU_SCRATCH=/fast/scratch/hyaku/kagi-r54/R54ExecCounters bash /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-54-c1.sh ede4373afa07a33e24cbd35e9fd33fc2fddf2f14; echo rc=$?
+C1_OP_CLOCK: value=2 watched=1 measured=1 guard=1 (bad=watched:OK measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))
+rc=0
+
+=== ITEM 2: kill-rule diff ===
+$ git -C /home/vgpnk/Projects/shokunin/kagi-shokunin diff --stat 27aa53fd40b0b385b3cf2ffeea49977f9e0ff690 ede4373afa07a33e24cbd35e9fd33fc2fddf2f14 -- plans/round-54.md plans/round-54-c1.sh plans/round-54-controls.sh .ufo/waves/round-54/controls .ufo/waves/round-54/capture/S112.body && echo KILLRULE-DIFF-EMPTY-RC=0
+KILLRULE-DIFF-EMPTY-RC=0
+
+=== ITEM 2: overlay vs candidate commit (git show <rev>:<path> | diff -q - <worktree path>) ===
+IDENTICAL .ufo/waves/round-54/controls/fixtures/ref/c1/.ufo/waves/round-54/final/observe-r54.json
+IDENTICAL .ufo/waves/round-54/controls/fixtures/ref/c1/.ufo/waves/round-54/final/op-dotenv-bytes-2.42.0.txt
+IDENTICAL .ufo/waves/round-54/controls/fixtures/ref/c1/corpus/SOURCES.md
+IDENTICAL .ufo/waves/round-54/controls/fixtures/ref/c1/corpus/knowledge/op-ref-consumption.md
+IDENTICAL .ufo/waves/round-54/controls/fixtures/ref/c1/corpus/quote-bodies.tsv
+IDENTICAL .ufo/waves/round-54/controls/fixtures/ref/c1/corpus/release-clock.py
+IDENTICAL .ufo/waves/round-54/controls/fixtures/ref/c1/corpus/release-clocks.tsv
+IDENTICAL .ufo/waves/round-54/controls/fixtures/ref/c1/corpus/source-fetches.tsv
+
+=== ITEM 3: controls re-run (full verbatim) ===
+$ HYAKU_SCRATCH=/fast/scratch/hyaku/kagi-r54/R54ExecCounters bash /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-54-controls.sh; echo rc=$?
+CONTROL K1-0 expect=0 got=0 MATCH
+  C1_OP_CLOCK: value=0 watched=0 measured=0 guard=1 (bad=watched:s072-recheck=180d measured:oprcpt-missing-or-symlink; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))
+CONTROL K1-P expect=2 got=2 MATCH
+  C1_OP_CLOCK: value=2 watched=1 measured=1 guard=1 (bad=watched:OK measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))
+CONTROL K1-F1 expect=0 got=0 MATCH
+  C1_OP_CLOCK: value=0 watched=0 measured=0 guard=1 (bad=watched:clock-rows=0 measured:oprcpt-missing-or-symlink; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=31 unbound=1 observed=31 fired=13 derived=17))
+CONTROL K1-F2 expect=1 got=1 MATCH
+  C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-unnamed measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))
+CONTROL K1-F3 expect=1 got=1 MATCH
+  C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:parse-AttributeError measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))
+CONTROL K1-F4 expect=1 got=1 MATCH
+  C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:clock-anchor measured:OK; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=32 unbound=0 observed=31 fired=13 derived=17))
+CONTROL K1-F5 expect=1 got=1 MATCH
+  C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-line:op_version; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))
+CONTROL K1-F6 expect=1 got=1 MATCH
+  C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-cases; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))
+CONTROL K1-F7 expect=1 got=1 MATCH
+  C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:entry-no-11.2; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))
+CONTROL K1-F8 expect=1 got=1 MATCH
+  C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:feed-row-url measured:OK; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=32 unbound=0 observed=31 fired=13 derived=17))
+CONTROL K1-F9 expect=1 got=1 MATCH
+  C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-time-window measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))
+CONTROL K1-F10 expect=0 got=0 MATCH
+  C1_OP_CLOCK: value=0 watched=1 measured=0 guard=0 (bad=watched:OK measured:oprcpt-line:probe_sha256; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))
+CONTROL K1-F11 expect=1 got=1 MATCH
+  C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-line:gpg_validsig; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))
+CONTROL K1-F12 expect=1 got=1 MATCH
+  C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-missing-or-symlink measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))
+CONTROL K1-F13 expect=1 got=1 MATCH
+  C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:capture-sha measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))
+CONTROL K1-F14 expect=1 got=1 MATCH
+  C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-body-link measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))
+CONTROLS: match=16 mismatch=0
+rc=0
+(Wall time: 21.05 seconds)
+
+=== ITEM 4: candidate archive tree gate + selftest ===
+$ S=/fast/scratch/hyaku/kagi-r54/R54ExecCounters; T=$S/cand-tree; rm -rf "$T" && mkdir -p "$T" && git -C /home/vgpnk/Projects/shokunin/kagi-shokunin archive ede4373afa07a33e24cbd35e9fd33fc2fddf2f14 | tar -x -C "$T" && echo ARCHIVED && (cd "$T" && TMPDIR=$S python3 corpus/release-clock.py; echo GATE-rc=$?) && (cd "$T" && TMPDIR=$S python3 corpus/release-clock.py --selftest; echo SELFTEST-rc=$?)
+ARCHIVED
+RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17)
+GATE-rc=0
+RELEASE_CLOCK_SELFTEST: PASS (121 cases)
+SELFTEST-rc=0

@@ -1,0 +1,80 @@
+### M01 mutant
+P-M01 counter=round-54-c1.sh value=1 rc=0
+  C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:gate measured:OK; gate-line=RELEASE_CLOCK: FAILED (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))
+### M01 pristine
+P-M01 counter=round-54-c1.sh value=1 rc=0
+  C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:s072-recheck=180d measured:OK; gate-line=RELEASE_CLOCK: FAILED (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))
+### M02 mutant
+P-M02 counter=round-54-c1.sh value=1 rc=0
+  C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:gate measured:OK; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=32 unbound=0 observed=31 fired=13 derived=17))
+### M02 pristine
+P-M02 counter=round-54-c1.sh value=1 rc=0
+  C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:clock-anchor measured:OK; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=32 unbound=0 observed=31 fired=13 derived=17))
+### M03 mutant
+P-M03 counter=round-54-c1.sh value=2 rc=0
+  C1_OP_CLOCK: value=2 watched=1 measured=1 guard=1 (bad=watched:OK measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))
+### M03 pristine
+P-M03 counter=round-54-c1.sh value=1 rc=0
+  C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:clock-observed=v2.42.0 measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))
+### M04 mutant
+P-M04 counter=round-54-c1.sh value=1 rc=0
+  C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:gate measured:OK; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=32 unbound=0 observed=31 fired=13 derived=17))
+### M04 pristine
+P-M04 counter=round-54-c1.sh value=1 rc=0
+  C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:clock-verdict=not-fired measured:OK; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=32 unbound=0 observed=31 fired=13 derived=17))
+### M05 mutant
+P-M05 counter=round-54-c1.sh value=2 rc=0
+  C1_OP_CLOCK: value=2 watched=1 measured=1 guard=1 (bad=watched:OK measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))
+### M05 pristine
+P-M05 counter=round-54-c1.sh value=1 rc=0
+  C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:feed-url-rows measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))
+### M06 mutant
+P-M06 counter=round-54-c1.sh value=2 rc=0
+  C1_OP_CLOCK: value=2 watched=1 measured=1 guard=1 (bad=watched:OK measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))
+### M06 pristine
+P-M06 counter=round-54-c1.sh value=1 rc=0
+  C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-unnamed measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))
+### M07 mutant
+P-M07 counter=round-54-c1.sh value=1 rc=0
+  C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:gate measured:OK; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=32 unbound=0 observed=0 fired=0 derived=0))
+### M07 pristine
+P-M07 counter=round-54-c1.sh value=1 rc=0
+  C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-sha measured:OK; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=32 unbound=0 observed=0 fired=0 derived=0))
+### M11 mutant
+P-M11 counter=round-54-c1.sh value=2 rc=0
+  C1_OP_CLOCK: value=2 watched=1 measured=1 guard=1 (bad=watched:OK measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))
+### M11 pristine
+P-M11 counter=round-54-c1.sh value=1 rc=0
+  C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:parse=2.43.0 measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))
+### M12 mutant
+P-M12 counter=round-54-c1.sh value=2 rc=0
+  C1_OP_CLOCK: value=2 watched=1 measured=1 guard=1 (bad=watched:OK measured:OK; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))
+### M12 pristine
+P-M12 counter=round-54-c1.sh value=1 rc=0
+  C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:gate measured:OK; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))
+### M15 mutant
+P-M15 counter=round-54-c1.sh value=2 rc=0
+  C1_OP_CLOCK: value=2 watched=1 measured=1 guard=1 (bad=watched:OK measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))
+### M15 pristine
+P-M15 counter=round-54-c1.sh value=1 rc=0
+  C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-line:probe_sha256; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))
+### M16 mutant
+P-M16 counter=round-54-c1.sh value=2 rc=0
+  C1_OP_CLOCK: value=2 watched=1 measured=1 guard=1 (bad=watched:OK measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))
+### M16 pristine
+P-M16 counter=round-54-c1.sh value=1 rc=0
+  C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-cases; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))
+### M17 mutant
+P-M17 counter=round-54-c1.sh value=2 rc=0
+  C1_OP_CLOCK: value=2 watched=1 measured=1 guard=1 (bad=watched:OK measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))
+### M17 pristine
+P-M17 counter=round-54-c1.sh value=1 rc=0
+  C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:entry-no-11.2; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))
+### M19 mutant
+P-M19 counter=round-54-c1.sh value=2 rc=0
+  C1_OP_CLOCK: value=2 watched=1 measured=1 guard=1 (bad=watched:OK measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))
+### M19 pristine
+P-M19 counter=round-54-c1.sh value=0 rc=0
+  C1_OP_CLOCK: value=0 watched=1 measured=1 guard=0 (bad=watched:OK measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))
+restored_pm_lane:
+df3d67463c29aaa94d302b4125a70aaa6ad0228aca8f5459394333a571ba82ba  pm_lane/plans/round-54-c1.sh

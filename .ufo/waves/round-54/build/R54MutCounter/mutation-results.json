@@ -1,0 +1,2520 @@
+[
+  {
+    "bash_n_rc": 0,
+    "controls": [
+      {
+        "detail": "C1_OP_CLOCK: value=0 watched=0 measured=0 guard=1 (bad=watched:clock-rows=0 measured:oprcpt-missing-or-symlink; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "0",
+        "got": "0",
+        "id": "K1-0",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=2 watched=1 measured=1 guard=1 (bad=watched:OK measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "2",
+        "got": "2",
+        "id": "K1-P",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=0 watched=0 measured=0 guard=1 (bad=watched:clock-rows=0 measured:oprcpt-missing-or-symlink; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=31 unbound=1 observed=31 fired=13 derived=17))",
+        "expect": "0",
+        "got": "0",
+        "id": "K1-F1",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-unnamed measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F2",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:parse-AttributeError measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F3",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:clock-anchor measured:OK; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=32 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F4",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-line:op_version; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F5",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-cases; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F6",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:entry-no-11.2; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F7",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:feed-row-url measured:OK; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=32 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F8",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-time-window measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F9",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=0 watched=1 measured=0 guard=0 (bad=watched:OK measured:oprcpt-line:probe_sha256; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "0",
+        "got": "0",
+        "id": "K1-F10",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-line:gpg_validsig; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F11",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-missing-or-symlink measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F12",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:capture-sha measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F13",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-body-link measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F14",
+        "verdict": "MATCH"
+      }
+    ],
+    "elapsed_s": 87.2,
+    "id": "M01",
+    "killed": false,
+    "mismatch": [],
+    "mut_sha256": "2af13029ac31f79fea99167e6420867f7ba4962638f66c85c6dbcbd2ccceebd2",
+    "mutation": "s072 recheck conjunct dropped (S072 may keep `180d`)",
+    "mutfile": "/fast/scratch/hyaku/kagi-r54/R54MutCounter/mutants/M01.sh",
+    "n_controls": 16,
+    "raw_tail": "CONTROLS: match=16 mismatch=0",
+    "rc": 0,
+    "restore_ok": true,
+    "restored_sha256": "df3d67463c29aaa94d302b4125a70aaa6ad0228aca8f5459394333a571ba82ba",
+    "summary": "CONTROLS: match=16 mismatch=0"
+  },
+  {
+    "bash_n_rc": 0,
+    "controls": [
+      {
+        "detail": "C1_OP_CLOCK: value=0 watched=0 measured=0 guard=1 (bad=watched:s072-recheck=180d measured:oprcpt-missing-or-symlink; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "0",
+        "got": "0",
+        "id": "K1-0",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=2 watched=1 measured=1 guard=1 (bad=watched:OK measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "2",
+        "got": "2",
+        "id": "K1-P",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=0 watched=0 measured=0 guard=1 (bad=watched:clock-rows=0 measured:oprcpt-missing-or-symlink; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=31 unbound=1 observed=31 fired=13 derived=17))",
+        "expect": "0",
+        "got": "0",
+        "id": "K1-F1",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-unnamed measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F2",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:parse-AttributeError measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F3",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:clock-verdict=not-fired measured:OK; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=32 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F4",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-line:op_version; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F5",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-cases; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F6",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:entry-no-11.2; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F7",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:feed-row-url measured:OK; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=32 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F8",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-time-window measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F9",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=0 watched=1 measured=0 guard=0 (bad=watched:OK measured:oprcpt-line:probe_sha256; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "0",
+        "got": "0",
+        "id": "K1-F10",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-line:gpg_validsig; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F11",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-missing-or-symlink measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F12",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:capture-sha measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F13",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-body-link measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F14",
+        "verdict": "MATCH"
+      }
+    ],
+    "elapsed_s": 91.0,
+    "id": "M02",
+    "killed": false,
+    "mismatch": [],
+    "mut_sha256": "0c64b0f51c807fc88311ba053a9e4554e13f13a6bebb4f326c2534111da685b5",
+    "mutation": "clock anchor conjunct dropped (anchored != 2.41.1 passes)",
+    "mutfile": "/fast/scratch/hyaku/kagi-r54/R54MutCounter/mutants/M02.sh",
+    "n_controls": 16,
+    "raw_tail": "CONTROLS: match=16 mismatch=0",
+    "rc": 0,
+    "restore_ok": true,
+    "restored_sha256": "df3d67463c29aaa94d302b4125a70aaa6ad0228aca8f5459394333a571ba82ba",
+    "summary": "CONTROLS: match=16 mismatch=0"
+  },
+  {
+    "bash_n_rc": 0,
+    "controls": [
+      {
+        "detail": "C1_OP_CLOCK: value=0 watched=0 measured=0 guard=1 (bad=watched:s072-recheck=180d measured:oprcpt-missing-or-symlink; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "0",
+        "got": "0",
+        "id": "K1-0",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=2 watched=1 measured=1 guard=1 (bad=watched:OK measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "2",
+        "got": "2",
+        "id": "K1-P",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=0 watched=0 measured=0 guard=1 (bad=watched:clock-rows=0 measured:oprcpt-missing-or-symlink; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=31 unbound=1 observed=31 fired=13 derived=17))",
+        "expect": "0",
+        "got": "0",
+        "id": "K1-F1",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-unnamed measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F2",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:parse-AttributeError measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F3",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:clock-anchor measured:OK; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=32 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F4",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-line:op_version; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F5",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-cases; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F6",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:entry-no-11.2; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F7",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:feed-row-url measured:OK; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=32 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F8",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-time-window measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F9",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=0 watched=1 measured=0 guard=0 (bad=watched:OK measured:oprcpt-line:probe_sha256; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "0",
+        "got": "0",
+        "id": "K1-F10",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-line:gpg_validsig; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F11",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-missing-or-symlink measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F12",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:capture-sha measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F13",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-body-link measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F14",
+        "verdict": "MATCH"
+      }
+    ],
+    "elapsed_s": 85.1,
+    "id": "M03",
+    "killed": false,
+    "mismatch": [],
+    "mut_sha256": "122e272a2b3a303a08868188ed5de05e4c5798afcbe851ea5cef5e1c7d4b1f88",
+    "mutation": "clock observed conjunct dropped (observed != 2.42.0 passes)",
+    "mutfile": "/fast/scratch/hyaku/kagi-r54/R54MutCounter/mutants/M03.sh",
+    "n_controls": 16,
+    "raw_tail": "CONTROLS: match=16 mismatch=0",
+    "rc": 0,
+    "restore_ok": true,
+    "restored_sha256": "df3d67463c29aaa94d302b4125a70aaa6ad0228aca8f5459394333a571ba82ba",
+    "summary": "CONTROLS: match=16 mismatch=0"
+  },
+  {
+    "bash_n_rc": 0,
+    "controls": [
+      {
+        "detail": "C1_OP_CLOCK: value=0 watched=0 measured=0 guard=1 (bad=watched:s072-recheck=180d measured:oprcpt-missing-or-symlink; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "0",
+        "got": "0",
+        "id": "K1-0",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=2 watched=1 measured=1 guard=1 (bad=watched:OK measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "2",
+        "got": "2",
+        "id": "K1-P",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=0 watched=0 measured=0 guard=1 (bad=watched:clock-rows=0 measured:oprcpt-missing-or-symlink; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=31 unbound=1 observed=31 fired=13 derived=17))",
+        "expect": "0",
+        "got": "0",
+        "id": "K1-F1",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-unnamed measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F2",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:parse-AttributeError measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F3",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:clock-anchor measured:OK; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=32 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F4",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-line:op_version; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F5",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-cases; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F6",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:entry-no-11.2; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F7",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:feed-row-url measured:OK; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=32 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F8",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-time-window measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F9",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=0 watched=1 measured=0 guard=0 (bad=watched:OK measured:oprcpt-line:probe_sha256; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "0",
+        "got": "0",
+        "id": "K1-F10",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-line:gpg_validsig; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F11",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-missing-or-symlink measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F12",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:capture-sha measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F13",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-body-link measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F14",
+        "verdict": "MATCH"
+      }
+    ],
+    "elapsed_s": 90.8,
+    "id": "M04",
+    "killed": false,
+    "mismatch": [],
+    "mut_sha256": "db73b419e350e5921151ddbd8206e800bc5b39e86635c178ec443e24aa51d533",
+    "mutation": "clock verdict conjunct dropped (verdict != `fired` passes)",
+    "mutfile": "/fast/scratch/hyaku/kagi-r54/R54MutCounter/mutants/M04.sh",
+    "n_controls": 16,
+    "raw_tail": "CONTROLS: match=16 mismatch=0",
+    "rc": 0,
+    "restore_ok": true,
+    "restored_sha256": "df3d67463c29aaa94d302b4125a70aaa6ad0228aca8f5459394333a571ba82ba",
+    "summary": "CONTROLS: match=16 mismatch=0"
+  },
+  {
+    "bash_n_rc": 0,
+    "controls": [
+      {
+        "detail": "C1_OP_CLOCK: value=0 watched=0 measured=0 guard=1 (bad=watched:s072-recheck=180d measured:oprcpt-missing-or-symlink; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "0",
+        "got": "0",
+        "id": "K1-0",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=2 watched=1 measured=1 guard=1 (bad=watched:OK measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "2",
+        "got": "2",
+        "id": "K1-P",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=0 watched=0 measured=0 guard=1 (bad=watched:clock-rows=0 measured:oprcpt-missing-or-symlink; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=31 unbound=1 observed=31 fired=13 derived=17))",
+        "expect": "0",
+        "got": "0",
+        "id": "K1-F1",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-unnamed measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F2",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:parse-AttributeError measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F3",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:clock-anchor measured:OK; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=32 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F4",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-line:op_version; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F5",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-cases; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F6",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:entry-no-11.2; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F7",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:feed-row-url measured:OK; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=32 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F8",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-time-window measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F9",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=0 watched=1 measured=0 guard=0 (bad=watched:OK measured:oprcpt-line:probe_sha256; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "0",
+        "got": "0",
+        "id": "K1-F10",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-line:gpg_validsig; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F11",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-missing-or-symlink measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F12",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:capture-sha measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F13",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-body-link measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F14",
+        "verdict": "MATCH"
+      }
+    ],
+    "elapsed_s": 82.8,
+    "id": "M05",
+    "killed": false,
+    "mismatch": [],
+    "mut_sha256": "5a3ec877fb8c0bdfdfd0bd16e7daac51070b6e093821916707dee79ba98475bb",
+    "mutation": "feed-url uniqueness conjunct dropped (by_url == [fsid])",
+    "mutfile": "/fast/scratch/hyaku/kagi-r54/R54MutCounter/mutants/M05.sh",
+    "n_controls": 16,
+    "raw_tail": "CONTROLS: match=16 mismatch=0",
+    "rc": 0,
+    "restore_ok": true,
+    "restored_sha256": "df3d67463c29aaa94d302b4125a70aaa6ad0228aca8f5459394333a571ba82ba",
+    "summary": "CONTROLS: match=16 mismatch=0"
+  },
+  {
+    "bash_n_rc": 0,
+    "controls": [
+      {
+        "detail": "C1_OP_CLOCK: value=0 watched=0 measured=0 guard=1 (bad=watched:s072-recheck=180d measured:oprcpt-missing-or-symlink; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "0",
+        "got": "0",
+        "id": "K1-0",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=2 watched=1 measured=1 guard=1 (bad=watched:OK measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "2",
+        "got": "2",
+        "id": "K1-P",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=0 watched=0 measured=0 guard=1 (bad=watched:clock-rows=0 measured:oprcpt-missing-or-symlink; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=31 unbound=1 observed=31 fired=13 derived=17))",
+        "expect": "0",
+        "got": "0",
+        "id": "K1-F1",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-unnamed measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F2",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:parse-AttributeError measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F3",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:clock-anchor measured:OK; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=32 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F4",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-line:op_version; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F5",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-cases; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F6",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:entry-no-11.2; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F7",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:feed-row-url measured:OK; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=32 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F8",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-time-window measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F9",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=0 watched=1 measured=0 guard=0 (bad=watched:OK measured:oprcpt-line:probe_sha256; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "0",
+        "got": "0",
+        "id": "K1-F10",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-line:gpg_validsig; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F11",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-missing-or-symlink measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F12",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:capture-sha measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F13",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-body-link measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F14",
+        "verdict": "MATCH"
+      }
+    ],
+    "elapsed_s": 85.2,
+    "id": "M06",
+    "killed": false,
+    "mismatch": [],
+    "mut_sha256": "d17968579fb63ff1da71287420ee6faf333dde806a344dc1f8913a587a739d1f",
+    "mutation": "receipt path pin dropped (only DEFAULT_RECEIPT_SHA256 line required)",
+    "mutfile": "/fast/scratch/hyaku/kagi-r54/R54MutCounter/mutants/M06.sh",
+    "n_controls": 16,
+    "raw_tail": "CONTROLS: match=16 mismatch=0",
+    "rc": 0,
+    "restore_ok": true,
+    "restored_sha256": "df3d67463c29aaa94d302b4125a70aaa6ad0228aca8f5459394333a571ba82ba",
+    "summary": "CONTROLS: match=16 mismatch=0"
+  },
+  {
+    "bash_n_rc": 0,
+    "controls": [
+      {
+        "detail": "C1_OP_CLOCK: value=0 watched=0 measured=0 guard=1 (bad=watched:s072-recheck=180d measured:oprcpt-missing-or-symlink; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "0",
+        "got": "0",
+        "id": "K1-0",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=2 watched=1 measured=1 guard=1 (bad=watched:OK measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "2",
+        "got": "2",
+        "id": "K1-P",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=0 watched=0 measured=0 guard=1 (bad=watched:clock-rows=0 measured:oprcpt-missing-or-symlink; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=31 unbound=1 observed=31 fired=13 derived=17))",
+        "expect": "0",
+        "got": "0",
+        "id": "K1-F1",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-unnamed measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F2",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:parse-AttributeError measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F3",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:clock-anchor measured:OK; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=32 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F4",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-line:op_version; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F5",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-cases; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F6",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:entry-no-11.2; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F7",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:feed-row-url measured:OK; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=32 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F8",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-time-window measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F9",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=0 watched=1 measured=0 guard=0 (bad=watched:OK measured:oprcpt-line:probe_sha256; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "0",
+        "got": "0",
+        "id": "K1-F10",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-line:gpg_validsig; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F11",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-missing-or-symlink measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F12",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:capture-sha measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F13",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-body-link measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F14",
+        "verdict": "MATCH"
+      }
+    ],
+    "elapsed_s": 101.1,
+    "id": "M07",
+    "killed": false,
+    "mismatch": [],
+    "mut_sha256": "1f1cdf1cd0a12d7f1c22f5c56286760045a60f2d342a5df42caa7bf4bf124e2e",
+    "mutation": "receipt sha256-vs-digest check dropped",
+    "mutfile": "/fast/scratch/hyaku/kagi-r54/R54MutCounter/mutants/M07.sh",
+    "n_controls": 16,
+    "raw_tail": "CONTROLS: match=16 mismatch=0",
+    "rc": 0,
+    "restore_ok": true,
+    "restored_sha256": "df3d67463c29aaa94d302b4125a70aaa6ad0228aca8f5459394333a571ba82ba",
+    "summary": "CONTROLS: match=16 mismatch=0"
+  },
+  {
+    "bash_n_rc": 0,
+    "controls": [
+      {
+        "detail": "C1_OP_CLOCK: value=0 watched=0 measured=0 guard=1 (bad=watched:s072-recheck=180d measured:oprcpt-missing-or-symlink; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "0",
+        "got": "0",
+        "id": "K1-0",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=2 watched=1 measured=1 guard=1 (bad=watched:OK measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "2",
+        "got": "2",
+        "id": "K1-P",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=0 watched=0 measured=0 guard=1 (bad=watched:clock-rows=0 measured:oprcpt-missing-or-symlink; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=31 unbound=1 observed=31 fired=13 derived=17))",
+        "expect": "0",
+        "got": "0",
+        "id": "K1-F1",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-unnamed measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F2",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:parse-AttributeError measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F3",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:clock-anchor measured:OK; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=32 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F4",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-line:op_version; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F5",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-cases; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F6",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:entry-no-11.2; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F7",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:feed-row-url measured:OK; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=32 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F8",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-time-window measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F9",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=0 watched=1 measured=0 guard=0 (bad=watched:OK measured:oprcpt-line:probe_sha256; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "0",
+        "got": "0",
+        "id": "K1-F10",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-line:gpg_validsig; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F11",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-missing-or-symlink measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F12",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:capture-sha measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F13",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=2 watched=1 measured=1 guard=1 (bad=watched:OK measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "2",
+        "id": "K1-F14",
+        "verdict": "MISMATCH"
+      }
+    ],
+    "elapsed_s": 106.3,
+    "id": "M08",
+    "killed": true,
+    "mismatch": [
+      {
+        "detail": "C1_OP_CLOCK: value=2 watched=1 measured=1 guard=1 (bad=watched:OK measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "2",
+        "id": "K1-F14",
+        "verdict": "MISMATCH"
+      }
+    ],
+    "mut_sha256": "cddfd5879eadc98e1807c54116e1c3422f4373bcd52c314832f874c63c35573a",
+    "mutation": "receipt body link dropped (record sha256 need not equal CAPSHA)",
+    "mutfile": "/fast/scratch/hyaku/kagi-r54/R54MutCounter/mutants/M08.sh",
+    "n_controls": 16,
+    "raw_tail": "CONTROLS: match=15 mismatch=1",
+    "rc": 1,
+    "restore_ok": true,
+    "restored_sha256": "df3d67463c29aaa94d302b4125a70aaa6ad0228aca8f5459394333a571ba82ba",
+    "summary": "CONTROLS: match=15 mismatch=1"
+  },
+  {
+    "bash_n_rc": 0,
+    "controls": [
+      {
+        "detail": "C1_OP_CLOCK: value=0 watched=0 measured=0 guard=1 (bad=watched:s072-recheck=180d measured:oprcpt-missing-or-symlink; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "0",
+        "got": "0",
+        "id": "K1-0",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=2 watched=1 measured=1 guard=1 (bad=watched:OK measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "2",
+        "got": "2",
+        "id": "K1-P",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=0 watched=0 measured=0 guard=1 (bad=watched:clock-rows=0 measured:oprcpt-missing-or-symlink; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=31 unbound=1 observed=31 fired=13 derived=17))",
+        "expect": "0",
+        "got": "0",
+        "id": "K1-F1",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-unnamed measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F2",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:parse-AttributeError measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F3",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:clock-anchor measured:OK; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=32 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F4",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-line:op_version; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F5",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-cases; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F6",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:entry-no-11.2; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F7",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:feed-row-url measured:OK; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=32 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F8",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=2 watched=1 measured=1 guard=1 (bad=watched:OK measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "2",
+        "id": "K1-F9",
+        "verdict": "MISMATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=0 watched=1 measured=0 guard=0 (bad=watched:OK measured:oprcpt-line:probe_sha256; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "0",
+        "got": "0",
+        "id": "K1-F10",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-line:gpg_validsig; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F11",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-missing-or-symlink measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F12",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:capture-sha measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F13",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-body-link measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F14",
+        "verdict": "MATCH"
+      }
+    ],
+    "elapsed_s": 115.0,
+    "id": "M09",
+    "killed": true,
+    "mismatch": [
+      {
+        "detail": "C1_OP_CLOCK: value=2 watched=1 measured=1 guard=1 (bad=watched:OK measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "2",
+        "id": "K1-F9",
+        "verdict": "MISMATCH"
+      }
+    ],
+    "mut_sha256": "9af59e147e2d926e14dfa77851ac825f59ed8323adb26c8881c2d9c921e539b6",
+    "mutation": "observed_at window dropped (FLOOR <= t <= ASOF)",
+    "mutfile": "/fast/scratch/hyaku/kagi-r54/R54MutCounter/mutants/M09.sh",
+    "n_controls": 16,
+    "raw_tail": "CONTROLS: match=15 mismatch=1",
+    "rc": 1,
+    "restore_ok": true,
+    "restored_sha256": "df3d67463c29aaa94d302b4125a70aaa6ad0228aca8f5459394333a571ba82ba",
+    "summary": "CONTROLS: match=15 mismatch=1"
+  },
+  {
+    "bash_n_rc": 0,
+    "controls": [
+      {
+        "detail": "C1_OP_CLOCK: value=0 watched=0 measured=0 guard=1 (bad=watched:s072-recheck=180d measured:oprcpt-missing-or-symlink; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "0",
+        "got": "0",
+        "id": "K1-0",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=2 watched=1 measured=1 guard=1 (bad=watched:OK measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "2",
+        "got": "2",
+        "id": "K1-P",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=0 watched=0 measured=0 guard=1 (bad=watched:clock-rows=0 measured:oprcpt-missing-or-symlink; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=31 unbound=1 observed=31 fired=13 derived=17))",
+        "expect": "0",
+        "got": "0",
+        "id": "K1-F1",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-unnamed measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F2",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:parse-AttributeError measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F3",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:clock-anchor measured:OK; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=32 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F4",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-line:op_version; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F5",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-cases; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F6",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:entry-no-11.2; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F7",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:feed-row-url measured:OK; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=32 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F8",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-time-window measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F9",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=0 watched=1 measured=0 guard=0 (bad=watched:OK measured:oprcpt-line:probe_sha256; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "0",
+        "got": "0",
+        "id": "K1-F10",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-line:gpg_validsig; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F11",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=2 watched=1 measured=1 guard=1 (bad=watched:OK measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "2",
+        "id": "K1-F12",
+        "verdict": "MISMATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:capture-sha measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F13",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-body-link measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F14",
+        "verdict": "MATCH"
+      }
+    ],
+    "elapsed_s": 101.5,
+    "id": "M10",
+    "killed": true,
+    "mismatch": [
+      {
+        "detail": "C1_OP_CLOCK: value=2 watched=1 measured=1 guard=1 (bad=watched:OK measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "2",
+        "id": "K1-F12",
+        "verdict": "MISMATCH"
+      }
+    ],
+    "mut_sha256": "fa0c9fcb3f846881711bda1cc7875034faa58c271b328829e9ce4f5660bc3840",
+    "mutation": "symlink refusal dropped in plain_file()",
+    "mutfile": "/fast/scratch/hyaku/kagi-r54/R54MutCounter/mutants/M10.sh",
+    "n_controls": 16,
+    "raw_tail": "CONTROLS: match=15 mismatch=1",
+    "rc": 1,
+    "restore_ok": true,
+    "restored_sha256": "df3d67463c29aaa94d302b4125a70aaa6ad0228aca8f5459394333a571ba82ba",
+    "summary": "CONTROLS: match=15 mismatch=1"
+  },
+  {
+    "bash_n_rc": 0,
+    "controls": [
+      {
+        "detail": "C1_OP_CLOCK: value=0 watched=0 measured=0 guard=1 (bad=watched:s072-recheck=180d measured:oprcpt-missing-or-symlink; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "0",
+        "got": "0",
+        "id": "K1-0",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=2 watched=1 measured=1 guard=1 (bad=watched:OK measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "2",
+        "got": "2",
+        "id": "K1-P",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=0 watched=0 measured=0 guard=1 (bad=watched:clock-rows=0 measured:oprcpt-missing-or-symlink; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=31 unbound=1 observed=31 fired=13 derived=17))",
+        "expect": "0",
+        "got": "0",
+        "id": "K1-F1",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-unnamed measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F2",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:parse-AttributeError measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F3",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:clock-anchor measured:OK; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=32 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F4",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-line:op_version; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F5",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-cases; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F6",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:entry-no-11.2; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F7",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:feed-row-url measured:OK; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=32 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F8",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-time-window measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F9",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=0 watched=1 measured=0 guard=0 (bad=watched:OK measured:oprcpt-line:probe_sha256; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "0",
+        "got": "0",
+        "id": "K1-F10",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-line:gpg_validsig; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F11",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-missing-or-symlink measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F12",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:capture-sha measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F13",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-body-link measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F14",
+        "verdict": "MATCH"
+      }
+    ],
+    "elapsed_s": 111.2,
+    "id": "M11",
+    "killed": false,
+    "mismatch": [],
+    "mut_sha256": "7649058fe0db4ac980d36be0ae7184bb14429b5995d0216241dc6f2400390c57",
+    "mutation": "gate parse_latest_version result check dropped",
+    "mutfile": "/fast/scratch/hyaku/kagi-r54/R54MutCounter/mutants/M11.sh",
+    "n_controls": 16,
+    "raw_tail": "CONTROLS: match=16 mismatch=0",
+    "rc": 0,
+    "restore_ok": true,
+    "restored_sha256": "df3d67463c29aaa94d302b4125a70aaa6ad0228aca8f5459394333a571ba82ba",
+    "summary": "CONTROLS: match=16 mismatch=0"
+  },
+  {
+    "bash_n_rc": 0,
+    "controls": [
+      {
+        "detail": "C1_OP_CLOCK: value=0 watched=0 measured=0 guard=1 (bad=watched:s072-recheck=180d measured:oprcpt-missing-or-symlink; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "0",
+        "got": "0",
+        "id": "K1-0",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=2 watched=1 measured=1 guard=1 (bad=watched:OK measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "2",
+        "got": "2",
+        "id": "K1-P",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=0 watched=0 measured=0 guard=1 (bad=watched:clock-rows=0 measured:oprcpt-missing-or-symlink; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=31 unbound=1 observed=31 fired=13 derived=17))",
+        "expect": "0",
+        "got": "0",
+        "id": "K1-F1",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-unnamed measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F2",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:parse-AttributeError measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F3",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:clock-anchor measured:OK; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=32 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F4",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-line:op_version; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F5",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-cases; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F6",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:entry-no-11.2; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F7",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:feed-row-url measured:OK; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=32 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F8",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-time-window measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F9",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=0 watched=1 measured=0 guard=0 (bad=watched:OK measured:oprcpt-line:probe_sha256; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "0",
+        "got": "0",
+        "id": "K1-F10",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-line:gpg_validsig; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F11",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-missing-or-symlink measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F12",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:capture-sha measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F13",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-body-link measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F14",
+        "verdict": "MATCH"
+      }
+    ],
+    "elapsed_s": 110.9,
+    "id": "M12",
+    "killed": false,
+    "mismatch": [],
+    "mut_sha256": "bafcaf05929813e472620d51b8b9effe97cb05951d5ae66ff4e773bd4e30eea1",
+    "mutation": "gate CLEAN line check dropped (gate != 1 passes)",
+    "mutfile": "/fast/scratch/hyaku/kagi-r54/R54MutCounter/mutants/M12.sh",
+    "n_controls": 16,
+    "raw_tail": "CONTROLS: match=16 mismatch=0",
+    "rc": 0,
+    "restore_ok": true,
+    "restored_sha256": "df3d67463c29aaa94d302b4125a70aaa6ad0228aca8f5459394333a571ba82ba",
+    "summary": "CONTROLS: match=16 mismatch=0"
+  },
+  {
+    "bash_n_rc": 0,
+    "controls": [
+      {
+        "detail": "C1_OP_CLOCK: value=0 watched=0 measured=0 guard=1 (bad=watched:s072-recheck=180d measured:oprcpt-missing-or-symlink; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "0",
+        "got": "0",
+        "id": "K1-0",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=2 watched=1 measured=1 guard=1 (bad=watched:OK measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "2",
+        "got": "2",
+        "id": "K1-P",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=0 watched=0 measured=0 guard=1 (bad=watched:clock-rows=0 measured:oprcpt-missing-or-symlink; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=31 unbound=1 observed=31 fired=13 derived=17))",
+        "expect": "0",
+        "got": "0",
+        "id": "K1-F1",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-unnamed measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F2",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:parse-AttributeError measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F3",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:clock-anchor measured:OK; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=32 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F4",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=2 watched=1 measured=1 guard=1 (bad=watched:OK measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "2",
+        "id": "K1-F5",
+        "verdict": "MISMATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-cases; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F6",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:entry-no-11.2; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F7",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:feed-row-url measured:OK; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=32 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F8",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-time-window measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F9",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=0 watched=1 measured=0 guard=0 (bad=watched:OK measured:oprcpt-line:probe_sha256; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "0",
+        "got": "0",
+        "id": "K1-F10",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-line:gpg_validsig; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F11",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-missing-or-symlink measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F12",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:capture-sha measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F13",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-body-link measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F14",
+        "verdict": "MATCH"
+      }
+    ],
+    "elapsed_s": 153.6,
+    "id": "M13",
+    "killed": true,
+    "mismatch": [
+      {
+        "detail": "C1_OP_CLOCK: value=2 watched=1 measured=1 guard=1 (bad=watched:OK measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "2",
+        "id": "K1-F5",
+        "verdict": "MISMATCH"
+      }
+    ],
+    "mut_sha256": "9dd267090d986d20254440812eddbe071f88db94d1379fb6ceac7f210a3adbc9",
+    "mutation": "op receipt `op_version=V` line requirement dropped",
+    "mutfile": "/fast/scratch/hyaku/kagi-r54/R54MutCounter/mutants/M13.sh",
+    "n_controls": 16,
+    "raw_tail": "CONTROLS: match=15 mismatch=1",
+    "rc": 1,
+    "restore_ok": true,
+    "restored_sha256": "df3d67463c29aaa94d302b4125a70aaa6ad0228aca8f5459394333a571ba82ba",
+    "summary": "CONTROLS: match=15 mismatch=1"
+  },
+  {
+    "bash_n_rc": 0,
+    "controls": [
+      {
+        "detail": "C1_OP_CLOCK: value=0 watched=0 measured=0 guard=1 (bad=watched:s072-recheck=180d measured:oprcpt-missing-or-symlink; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "0",
+        "got": "0",
+        "id": "K1-0",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=2 watched=1 measured=1 guard=1 (bad=watched:OK measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "2",
+        "got": "2",
+        "id": "K1-P",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=0 watched=0 measured=0 guard=1 (bad=watched:clock-rows=0 measured:oprcpt-missing-or-symlink; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=31 unbound=1 observed=31 fired=13 derived=17))",
+        "expect": "0",
+        "got": "0",
+        "id": "K1-F1",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-unnamed measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F2",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:parse-AttributeError measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F3",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:clock-anchor measured:OK; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=32 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F4",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-line:op_version; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F5",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-cases; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F6",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:entry-no-11.2; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F7",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:feed-row-url measured:OK; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=32 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F8",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-time-window measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F9",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=0 watched=1 measured=0 guard=0 (bad=watched:OK measured:oprcpt-line:probe_sha256; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "0",
+        "got": "0",
+        "id": "K1-F10",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=2 watched=1 measured=1 guard=1 (bad=watched:OK measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "2",
+        "id": "K1-F11",
+        "verdict": "MISMATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-missing-or-symlink measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F12",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:capture-sha measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F13",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-body-link measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F14",
+        "verdict": "MATCH"
+      }
+    ],
+    "elapsed_s": 156.5,
+    "id": "M14",
+    "killed": true,
+    "mismatch": [
+      {
+        "detail": "C1_OP_CLOCK: value=2 watched=1 measured=1 guard=1 (bad=watched:OK measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "2",
+        "id": "K1-F11",
+        "verdict": "MISMATCH"
+      }
+    ],
+    "mut_sha256": "191d2cd88a5373e6ccf4bd55e470f9e62f8fe580b59e81704ae9313d819d7b23",
+    "mutation": "op receipt `gpg_validsig=KEY` line requirement dropped",
+    "mutfile": "/fast/scratch/hyaku/kagi-r54/R54MutCounter/mutants/M14.sh",
+    "n_controls": 16,
+    "raw_tail": "CONTROLS: match=15 mismatch=1",
+    "rc": 1,
+    "restore_ok": true,
+    "restored_sha256": "df3d67463c29aaa94d302b4125a70aaa6ad0228aca8f5459394333a571ba82ba",
+    "summary": "CONTROLS: match=15 mismatch=1"
+  },
+  {
+    "bash_n_rc": 0,
+    "controls": [
+      {
+        "detail": "C1_OP_CLOCK: value=0 watched=0 measured=0 guard=1 (bad=watched:s072-recheck=180d measured:oprcpt-missing-or-symlink; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "0",
+        "got": "0",
+        "id": "K1-0",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=2 watched=1 measured=1 guard=1 (bad=watched:OK measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "2",
+        "got": "2",
+        "id": "K1-P",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=0 watched=0 measured=0 guard=1 (bad=watched:clock-rows=0 measured:oprcpt-missing-or-symlink; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=31 unbound=1 observed=31 fired=13 derived=17))",
+        "expect": "0",
+        "got": "0",
+        "id": "K1-F1",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-unnamed measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F2",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:parse-AttributeError measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F3",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:clock-anchor measured:OK; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=32 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F4",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-line:op_version; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F5",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-cases; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F6",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:entry-no-11.2; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F7",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:feed-row-url measured:OK; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=32 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F8",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-time-window measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F9",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=0 watched=1 measured=1 guard=0 (bad=watched:OK measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "0",
+        "got": "0",
+        "id": "K1-F10",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-line:gpg_validsig; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F11",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-missing-or-symlink measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F12",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:capture-sha measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F13",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-body-link measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F14",
+        "verdict": "MATCH"
+      }
+    ],
+    "elapsed_s": 159.1,
+    "id": "M15",
+    "killed": false,
+    "mismatch": [],
+    "mut_sha256": "e35f962df2d795812e95f72e8ab192075d8eaf3ab4518b4935f37be535f0d568",
+    "mutation": "op receipt `probe_sha256=` line requirement dropped",
+    "mutfile": "/fast/scratch/hyaku/kagi-r54/R54MutCounter/mutants/M15.sh",
+    "n_controls": 16,
+    "raw_tail": "CONTROLS: match=16 mismatch=0",
+    "rc": 0,
+    "restore_ok": true,
+    "restored_sha256": "df3d67463c29aaa94d302b4125a70aaa6ad0228aca8f5459394333a571ba82ba",
+    "summary": "CONTROLS: match=16 mismatch=0"
+  },
+  {
+    "bash_n_rc": 0,
+    "controls": [
+      {
+        "detail": "C1_OP_CLOCK: value=0 watched=0 measured=0 guard=1 (bad=watched:s072-recheck=180d measured:oprcpt-missing-or-symlink; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "0",
+        "got": "0",
+        "id": "K1-0",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=2 watched=1 measured=1 guard=1 (bad=watched:OK measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "2",
+        "got": "2",
+        "id": "K1-P",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=0 watched=0 measured=0 guard=1 (bad=watched:clock-rows=0 measured:oprcpt-missing-or-symlink; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=31 unbound=1 observed=31 fired=13 derived=17))",
+        "expect": "0",
+        "got": "0",
+        "id": "K1-F1",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-unnamed measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F2",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:parse-AttributeError measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F3",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:clock-anchor measured:OK; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=32 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F4",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-line:op_version; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F5",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-failure-line; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F6",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:entry-no-11.2; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F7",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:feed-row-url measured:OK; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=32 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F8",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-time-window measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F9",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=0 watched=1 measured=0 guard=0 (bad=watched:OK measured:oprcpt-line:probe_sha256; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "0",
+        "got": "0",
+        "id": "K1-F10",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-line:gpg_validsig; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F11",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-missing-or-symlink measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F12",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:capture-sha measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F13",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-body-link measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F14",
+        "verdict": "MATCH"
+      }
+    ],
+    "elapsed_s": 152.5,
+    "id": "M16",
+    "killed": false,
+    "mismatch": [],
+    "mut_sha256": "ee94912527598da0581ac0ef5b74c1588ec1388a294916702a50241c3e639139",
+    "mutation": "exact six DOTENV_BYTES_CASE set check dropped",
+    "mutfile": "/fast/scratch/hyaku/kagi-r54/R54MutCounter/mutants/M16.sh",
+    "n_controls": 16,
+    "raw_tail": "CONTROLS: match=16 mismatch=0",
+    "rc": 0,
+    "restore_ok": true,
+    "restored_sha256": "df3d67463c29aaa94d302b4125a70aaa6ad0228aca8f5459394333a571ba82ba",
+    "summary": "CONTROLS: match=16 mismatch=0"
+  },
+  {
+    "bash_n_rc": 0,
+    "controls": [
+      {
+        "detail": "C1_OP_CLOCK: value=0 watched=0 measured=0 guard=1 (bad=watched:s072-recheck=180d measured:oprcpt-missing-or-symlink; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "0",
+        "got": "0",
+        "id": "K1-0",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=2 watched=1 measured=1 guard=1 (bad=watched:OK measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "2",
+        "got": "2",
+        "id": "K1-P",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=0 watched=0 measured=0 guard=1 (bad=watched:clock-rows=0 measured:oprcpt-missing-or-symlink; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=31 unbound=1 observed=31 fired=13 derived=17))",
+        "expect": "0",
+        "got": "0",
+        "id": "K1-F1",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-unnamed measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F2",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:parse-AttributeError measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F3",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:clock-anchor measured:OK; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=32 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F4",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-line:op_version; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F5",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-cases; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F6",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:entry-no-version; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F7",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:feed-row-url measured:OK; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=32 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F8",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-time-window measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F9",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=0 watched=1 measured=0 guard=0 (bad=watched:OK measured:oprcpt-line:probe_sha256; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "0",
+        "got": "0",
+        "id": "K1-F10",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-line:gpg_validsig; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F11",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-missing-or-symlink measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F12",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:capture-sha measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F13",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-body-link measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F14",
+        "verdict": "MATCH"
+      }
+    ],
+    "elapsed_s": 166.2,
+    "id": "M17",
+    "killed": false,
+    "mismatch": [],
+    "mut_sha256": "82ad1c5827f304f1a3373d1b9c4e82792e31d2f835c3615b51be2976114e7365",
+    "mutation": "entry `### 11.2` heading check dropped",
+    "mutfile": "/fast/scratch/hyaku/kagi-r54/R54MutCounter/mutants/M17.sh",
+    "n_controls": 16,
+    "raw_tail": "CONTROLS: match=16 mismatch=0",
+    "rc": 0,
+    "restore_ok": true,
+    "restored_sha256": "df3d67463c29aaa94d302b4125a70aaa6ad0228aca8f5459394333a571ba82ba",
+    "summary": "CONTROLS: match=16 mismatch=0"
+  },
+  {
+    "bash_n_rc": 0,
+    "controls": [
+      {
+        "detail": "C1_OP_CLOCK: value=0 watched=0 measured=0 guard=1 (bad=watched:s072-recheck=180d measured:oprcpt-missing-or-symlink; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "0",
+        "got": "0",
+        "id": "K1-0",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=2 watched=1 measured=1 guard=1 (bad=watched:OK measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "2",
+        "got": "2",
+        "id": "K1-P",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=0 watched=0 measured=0 guard=1 (bad=watched:clock-rows=0 measured:oprcpt-missing-or-symlink; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=31 unbound=1 observed=31 fired=13 derived=17))",
+        "expect": "0",
+        "got": "0",
+        "id": "K1-F1",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-unnamed measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F2",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:parse-AttributeError measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F3",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:clock-anchor measured:OK; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=32 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F4",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-line:op_version; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F5",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-cases; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F6",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:entry-no-11.2; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F7",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:feed-row-url measured:OK; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=32 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F8",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-time-window measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F9",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-line:probe_sha256; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "0",
+        "got": "1",
+        "id": "K1-F10",
+        "verdict": "MISMATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-line:gpg_validsig; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F11",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-missing-or-symlink measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F12",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:capture-sha measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F13",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-body-link measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F14",
+        "verdict": "MATCH"
+      }
+    ],
+    "elapsed_s": 158.6,
+    "id": "M18",
+    "killed": true,
+    "mismatch": [
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-line:probe_sha256; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "0",
+        "got": "1",
+        "id": "K1-F10",
+        "verdict": "MISMATCH"
+      }
+    ],
+    "mut_sha256": "d42ded3aa6ca759d16cbd08703b1527fe6898a59b2cb3c45079b3c45b2f8af2c",
+    "mutation": "GUARD probe-byte equality (cmp -s against BASE) dropped",
+    "mutfile": "/fast/scratch/hyaku/kagi-r54/R54MutCounter/mutants/M18.sh",
+    "n_controls": 16,
+    "raw_tail": "CONTROLS: match=15 mismatch=1",
+    "rc": 1,
+    "restore_ok": true,
+    "restored_sha256": "df3d67463c29aaa94d302b4125a70aaa6ad0228aca8f5459394333a571ba82ba",
+    "summary": "CONTROLS: match=15 mismatch=1"
+  },
+  {
+    "bash_n_rc": 0,
+    "controls": [
+      {
+        "detail": "C1_OP_CLOCK: value=0 watched=0 measured=0 guard=1 (bad=watched:s072-recheck=180d measured:oprcpt-missing-or-symlink; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "0",
+        "got": "0",
+        "id": "K1-0",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=2 watched=1 measured=1 guard=1 (bad=watched:OK measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "2",
+        "got": "2",
+        "id": "K1-P",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=0 watched=0 measured=0 guard=1 (bad=watched:clock-rows=0 measured:oprcpt-missing-or-symlink; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=31 unbound=1 observed=31 fired=13 derived=17))",
+        "expect": "0",
+        "got": "0",
+        "id": "K1-F1",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-unnamed measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F2",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:parse-AttributeError measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F3",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:clock-anchor measured:OK; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=32 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F4",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-line:op_version; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F5",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-cases; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F6",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:entry-no-11.2; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F7",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:feed-row-url measured:OK; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=32 unbound=0 observed=31 fired=13 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F8",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-time-window measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F9",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=0 watched=1 measured=0 guard=0 (bad=watched:OK measured:oprcpt-line:probe_sha256; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "0",
+        "got": "0",
+        "id": "K1-F10",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-line:gpg_validsig; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F11",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-missing-or-symlink measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F12",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:capture-sha measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F13",
+        "verdict": "MATCH"
+      },
+      {
+        "detail": "C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-body-link measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))",
+        "expect": "1",
+        "got": "1",
+        "id": "K1-F14",
+        "verdict": "MATCH"
+      }
+    ],
+    "elapsed_s": 155.4,
+    "id": "M19",
+    "killed": false,
+    "mismatch": [],
+    "mut_sha256": "ff9a2343812f66ba36e93a2b7f012b97a20df6a8a22cf2b2fa13aa6cf162b9b3",
+    "mutation": "GUARD selftest PASS requirement dropped (guard=1 if probe equal)",
+    "mutfile": "/fast/scratch/hyaku/kagi-r54/R54MutCounter/mutants/M19.sh",
+    "n_controls": 16,
+    "raw_tail": "CONTROLS: match=16 mismatch=0",
+    "rc": 0,
+    "restore_ok": true,
+    "restored_sha256": "df3d67463c29aaa94d302b4125a70aaa6ad0228aca8f5459394333a571ba82ba",
+    "summary": "CONTROLS: match=16 mismatch=0"
+  }
+]

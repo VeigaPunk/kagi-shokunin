@@ -1,0 +1,17 @@
+# kill rules C1/C2 at a2cb69b7b54f3af611f89ed71adc03dab0675f94
+$ git diff --stat 52ebb412 a2cb69b7b54f3af611f89ed71adc03dab0675f94 -- plans/round-52.md plans/round-52-c1.sh plans/round-52-c2.sh plans/round-52-controls.sh .ufo/waves/round-52/controls
+(empty = instruments unchanged)
+$ diff <(git show a2cb69b7b54f3af611f89ed71adc03dab0675f94:.ufo/waves/round-52/controls/fixtures/ref/corpus/openbao-kv-versions-trial.sh | grep -v '^#') <(git show a2cb69b7b54f3af611f89ed71adc03dab0675f94:corpus/openbao-kv-versions-trial.sh | grep -v '^#')
+rc=0
+$ git grep -lE 'r52-[0-9a-f]{24}' a2cb69b7b54f3af611f89ed71adc03dab0675f94 | wc -l
+0
+$ sha256sum ~/.local/bin/bao
+9c5f36287c673f386e1533e9c044169a248e4ee50dd54810fa766e95bd41b788
+$ git ls-tree -r a2cb69b7b54f3af611f89ed71adc03dab0675f94 | awk '$1=="120000"' | wc -l   # no symlinks (R52CriticC2 A17/A24)
+0
+$ git diff a2cb69b7b54f3af611f89ed71adc03dab0675f94~1 a2cb69b7b54f3af611f89ed71adc03dab0675f94 -- corpus/knowledge/vault-openbao-token-lease-lifecycle.md corpus/lessons/round-51.md | grep -c '^-[^-]'   # BASE lines removed
+0
+# note: the echoed command above says `a2cb69b7b54f3af611f89ed71adc03dab0675f94~1 a2cb69b7b54f3af611f89ed71adc03dab0675f94`; the command actually run was the BASE comparison below (same result 0):
+$ git diff 1d984ada a2cb69b7b54f3af611f89ed71adc03dab0675f94 -- corpus/knowledge/vault-openbao-token-lease-lifecycle.md corpus/lessons/round-51.md | grep -c '^-[^-]'
+0
+# round-51 C2 note: plans/round-51-c2.sh pins the BASE sha256 of corpus/claims-declared.sh (its GUARD G1), so the round-52 gate amendment (M52-2) makes it SETUP by design; its two populations are read directly above: the gate reads CLEAN (claims=31) (M=0) and the round-48 counter reads value=0 (V=0).

@@ -2,7 +2,7 @@
  "round": 52,
  "measured_at": "round-52 candidate working tree of the lane checkout (predeclaration 52ebb412 plus the uncommitted candidate), each command run from the lane root, 2026-11-07",
  "kind": "measured rebinding of six population expectations moved by this round's own additions (one SCORECARD heading, one registry row, one sourced knowledge entry); not a claim",
- "population": "R13-01 R24-06 R21-02 R31-02 R33-02 R34-03 R14-01 only",
+ "population": "R13-01 R24-06 R21-02 R31-02 R33-02 R34-03 R14-01 R12-03 R22-03 R24-05 R24-15 only",
  "migrations": [
   {
    "id": "R13-01",
@@ -52,6 +52,34 @@
    "old_expect": "^DOC_AUDIT: CLEAN \\(entries=36 row_linked=33 by_hand=3 undeclared=0 missing_ids=0 unpinned=0 duplicate_reasons=0\\)$",
    "new_expect": "^DOC_AUDIT: CLEAN \\(entries=37 row_linked=34 by_hand=3 undeclared=0 missing_ids=0 unpinned=0 duplicate_reasons=0\\)$",
    "reason": "knowledge entries 36 -> 37 and row-linked 33 -> 34: round 52 adds corpus/knowledge/openbao-kv-v2-version-lifecycle.md (Reverify: R21-02), stamped in corpus/stamps.tsv in the same landing; by_hand unchanged. Found by the round-52 full verify on the candidate overlay (R14-01 exit-mismatch, DOC_AUDIT unpinned=1 before the stamp)."
+  },
+  {
+   "id": "R12-03",
+   "command": "grep -c '[^[:space:]]' corpus/stamps.tsv",
+   "old_expect": "^124$",
+   "new_expect": "^125$",
+   "reason": "stamped paths 124 -> 125: round 52 stamps the new knowledge entry corpus/knowledge/openbao-kv-v2-version-lifecycle.md (the R14-01 DOC_AUDIT unpinned finding); the non-blank stamp line count grows by 1. Found by the full verify of the candidate (.ufo/waves/round-52/final/verify-candidate.txt)."
+  },
+  {
+   "id": "R22-03",
+   "command": "python3 corpus/revision-audit.py --history c2cab35bc92e57e39e5489bac3386db078345b3f",
+   "old_expect": "^REVISION_AUDIT: CLEAN \\(stale=0 missing=0 dropped=0 added=61 invalid=0\\)$",
+   "new_expect": "^REVISION_AUDIT: CLEAN \\(stale=0 missing=0 dropped=0 added=62 invalid=0\\)$",
+   "reason": "stamped paths 124 -> 125: round 52 stamps the new knowledge entry corpus/knowledge/openbao-kv-v2-version-lifecycle.md (the R14-01 DOC_AUDIT unpinned finding); the revision audit counts it as one added path since its pinned revision (61 -> 62); stale/missing/dropped stay 0. Found by the full verify of the candidate (.ufo/waves/round-52/final/verify-candidate.txt)."
+  },
+  {
+   "id": "R24-05",
+   "command": "bash corpus/row-identity.sh stamps",
+   "old_expect": "^ROW_IDENTITY: stamps count=124 sha256=c7673d14599c6ebde1a5b1f608ccc541f396fe6f24d5c00fdeee3bee35c06534$",
+   "new_expect": "^ROW_IDENTITY: stamps count=125 sha256=369e92e50409badaaba3efe8d09823238d865e56a606ea70ce2282226ca9387e$",
+   "reason": "stamped paths 124 -> 125: round 52 stamps the new knowledge entry corpus/knowledge/openbao-kv-v2-version-lifecycle.md (the R14-01 DOC_AUDIT unpinned finding); identity of the stamp path population, count and sha256 measured on the candidate a2cb69b7. Found by the full verify of the candidate (.ufo/waves/round-52/final/verify-candidate.txt)."
+  },
+  {
+   "id": "R24-15",
+   "command": "bash corpus/row-identity.sh revision-added",
+   "old_expect": "^ROW_IDENTITY: revision-added count=61 sha256=9b7e9b8c9b4bb5526fc8093ff81679db1494083dafbcc0b6d42f65eaa8604e48$",
+   "new_expect": "^ROW_IDENTITY: revision-added count=62 sha256=7ac31c8c2a5aa3a095d3b46b9bd2b731cae4034e0796871d3aee22516c9bfff6$",
+   "reason": "stamped paths 124 -> 125: round 52 stamps the new knowledge entry corpus/knowledge/openbao-kv-v2-version-lifecycle.md (the R14-01 DOC_AUDIT unpinned finding); identity of the revision-added population (61 -> 62), measured on the candidate a2cb69b7. Found by the full verify of the candidate (.ufo/waves/round-52/final/verify-candidate.txt)."
   }
  ]
 }

@@ -1,0 +1,16 @@
+$ bash plans/round-51-c2.sh a2cb69b7b54f3af611f89ed71adc03dab0675f94   # round-51 C2 (manifest + readings), harm check
+C2_SELF_ASSESSMENT: SETUP reason=g1-gate-changed
+rc=2
+$ bash plans/round-48-c2.sh a2cb69b7b54f3af611f89ed71adc03dab0675f94   # round-48 capability readings, harm check
+C2_CAPABILITY_READINGS: value=0 keys=10 rev=a2cb69b7b54f3af611f89ed71adc03dab0675f94
+  K01 MATCH stated=[FEED_TOKEN_AGREE: AGREE (shapes=12 disagreements=0)] executed=[FEED_TOKEN_AGREE: AGREE (shapes=12 disagreements=0)]
+  K02 MATCH stated=[QUOTE_LOCATE: CLEAN located=8 rows=8] executed=[QUOTE_LOCATE: CLEAN located=8 rows=8]
+  K03 MATCH stated=[LANE_GUARD_SELFTEST: detected=3 mutants=3 clean=ok] executed=[LANE_GUARD_SELFTEST: detected=3 mutants=3 clean=ok]
+  K04 MATCH stated=[detected=0] executed=[LANE_GUARD_SELFTEST: detected=0 mutants=3 clean=ok]
+  K05 MATCH stated=[ANCHOR_PINS: CLEAN (pins=4)] executed=[ANCHOR_PINS: CLEAN (pins=4)]
+  K06 MATCH stated=[3] executed=[3]
+  K07 MATCH stated=[CLAIMS_DECLARED: CLEAN (claims=31)] executed=[CLAIMS_DECLARED: CLEAN (claims=31)]
+  K08 MATCH stated=[3] executed=[3]
+  K09 MATCH stated=[ANCHOR_PINS_SELFTEST: PASS (8 cases)] executed=[ANCHOR_PINS_SELFTEST: PASS (8 cases)]
+  K10 MATCH stated=[CLAIMS_DECLARED_SELFTEST: PASS (13 cases)] executed=[CLAIMS_DECLARED_SELFTEST: PASS (13 cases)]
+rc=0

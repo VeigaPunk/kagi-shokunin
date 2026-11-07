@@ -1,0 +1,10 @@
+# receipts-commit tree before commit (--tree .)
+$ bash plans/round-52-c2.sh --tree .
+C2_REWRAP_STATEMENTS: value=0 assertions=2 guard=1 probe=1 obs_helper=sys/wrapping/wrap obs_kv=secret/data/<path> uncorrected=[]
+rc=0
+$ bash corpus/claims-declared.sh --root .
+CLAIMS_DECLARED: CLEAN (claims=31)
+rc=0
+$ bash corpus/claims-declared.sh --selftest
+CLAIMS_DECLARED_SELFTEST: PASS (13 cases)
+rc=0

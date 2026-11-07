@@ -1,0 +1,35 @@
+$ bash plans/round-54-controls.sh   # run 2, after the S112 anchor cell was re-derived from the capture (pubDate wording); 2026-11-07T05:59:54Z
+CONTROL K1-0 expect=0 got=0 MATCH
+  C1_OP_CLOCK: value=0 watched=0 measured=0 guard=1 (bad=watched:s072-recheck=180d measured:oprcpt-missing-or-symlink; gate-line=RELEASE_CLOCK: CLEAN (on_release=31 bound=31 unbound=0 observed=31 fired=13 derived=17))
+CONTROL K1-P expect=2 got=2 MATCH
+  C1_OP_CLOCK: value=2 watched=1 measured=1 guard=1 (bad=watched:OK measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))
+CONTROL K1-F1 expect=0 got=0 MATCH
+  C1_OP_CLOCK: value=0 watched=0 measured=0 guard=1 (bad=watched:clock-rows=0 measured:oprcpt-missing-or-symlink; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=31 unbound=1 observed=31 fired=13 derived=17))
+CONTROL K1-F2 expect=1 got=1 MATCH
+  C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-unnamed measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))
+CONTROL K1-F3 expect=1 got=1 MATCH
+  C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:parse-AttributeError measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))
+CONTROL K1-F4 expect=1 got=1 MATCH
+  C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:clock-anchor measured:OK; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=32 unbound=0 observed=31 fired=13 derived=17))
+CONTROL K1-F5 expect=1 got=1 MATCH
+  C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-line:op_version; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))
+CONTROL K1-F6 expect=1 got=1 MATCH
+  C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-cases; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))
+CONTROL K1-F7 expect=1 got=1 MATCH
+  C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:entry-no-11.2; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))
+CONTROL K1-F8 expect=1 got=1 MATCH
+  C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:feed-row-url measured:OK; gate-line=RELEASE_CLOCK: FAILED (on_release=32 bound=32 unbound=0 observed=31 fired=13 derived=17))
+CONTROL K1-F9 expect=1 got=1 MATCH
+  C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-time-window measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))
+CONTROL K1-F10 expect=0 got=0 MATCH
+  C1_OP_CLOCK: value=0 watched=1 measured=0 guard=0 (bad=watched:OK measured:oprcpt-line:probe_sha256; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))
+CONTROL K1-F11 expect=1 got=1 MATCH
+  C1_OP_CLOCK: value=1 watched=1 measured=0 guard=1 (bad=watched:OK measured:oprcpt-line:gpg_validsig; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))
+CONTROL K1-F12 expect=1 got=1 MATCH
+  C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-missing-or-symlink measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))
+CONTROL K1-F13 expect=1 got=1 MATCH
+  C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:capture-sha measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))
+CONTROL K1-F14 expect=1 got=1 MATCH
+  C1_OP_CLOCK: value=1 watched=0 measured=1 guard=1 (bad=watched:receipt-body-link measured:OK; gate-line=RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17))
+CONTROLS: match=16 mismatch=0
+rc=0

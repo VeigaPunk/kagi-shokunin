@@ -273,6 +273,21 @@ open MEDIUM:
   path for a lane; the deletion is operator-side and is named in the report, not
   performed here.
 
+### M66-14 — an entry landed undeclared and unpinned, and the gate that would say so was not run
+
+- **class**: `landing`
+- **evidence**: round 65 landed
+  `corpus/knowledge/claim-instrument-class-matrix.md` with no `Reverify:` line
+  and no `corpus/stamps.tsv` row; running `bash corpus/claim-ledger.sh docs`
+  this round read `DOC_AUDIT: BROKEN … undeclared=1 unpinned=1` naming that
+  entry. Round 65's report recorded `CLAIM_LEDGER`/`CITATION_GATE` as not run.
+- **captured-by**: QM61 ("a landing that adds or edits a knowledge entry runs
+  `docs` on its candidate tree") — the criterion existed and round 65 skipped
+  the run; this round's `docs` run is what caught it.
+- **fix**: `Reverify: R21-02` added and the entry stamped; `DOC_AUDIT: CLEAN
+  (entries=47 row_linked=44 by_hand=3 undeclared=0 missing_ids=0 unpinned=0)`
+  (receipt `.ufo/waves/round-66/final/doc-audit-candidate.txt`).
+
 ## Routed dispositions
 
 | id | what | state |

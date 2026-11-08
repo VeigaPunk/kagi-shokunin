@@ -10,6 +10,8 @@ recheck: `bash plans/round-65-c1.sh --selftest` and
 `python3 -I -B corpus/volatile-shape.py --selftest` — both exit 0; the full
 counters on the lane tree; §Bounds names what neither proves.
 
+Reverify: R21-02
+
 ## What this entry settles
 
 Three instrument defects this lane had, and the rule each became. Each was

@@ -1,0 +1,36 @@
+# R67ScribeEntry — the S166 capture, measured
+# The capture was NOT made by this seat: it already existed when this seat opened
+# its work (file mtime 2026-11-08 07:42, untracked at the time; the L1 committed it).
+#
+#   sha256sum .ufo/waves/round-67/capture/S166.body
+#   544dbb7d9afceafa8c9931d9924ca6cff2b4807274166d7ed2483342ef2cdd6a
+#   wc -c < .ufo/waves/round-67/capture/S166.body
+#   67152
+#
+# Quote location, both normalizations (RFC 9530 §1.2 sentence):
+#   python3 corpus/rendered-text-v1.py locate .ufo/waves/round-67/capture/S166.body \
+#     "Receivers can validate the digest for integrity purposes."
+#   RENDERED_TEXT_V1_LOCATE: count=1        (rc=0)
+#   grep -cF (same string, raw bytes)
+#   0                                       (the .txt body hard-wraps the sentence
+#                                            across lines 168/169, so the literal
+#                                            byte substring does not occur)
+#
+#   python3 corpus/rendered-text-v1.py digest .ufo/waves/round-67/capture/S166.body
+#   RENDERED_TEXT_V1: raw_sha256=544dbb7d…2cdd6a bytes=67152
+#     normalized_sha256=652d311657f00e1eab513b15db807d773b42294d7032e179f63d04909943436b
+#     normalized_bytes=58365
+#
+# RFC text read for the grounding (line numbers in the capture):
+#   163: 1.2.  Concept Overview
+#   168-169: "...Receivers can validate\n   the digest for integrity purposes..."
+#   284-286 (§2): "…digests that are calculated using a hashing algorithm applied
+#     to the actual message content (see Section 6.4 of [HTTP])."
+#   335-337 (§3): "…applied to the entire selected representation data (see
+#     Section 8.1 of [HTTP])."
+#   199-215 (§1.2 close): "Integrity fields are tied to the Content-Encoding and
+#     Content-Type header fields. Therefore, a given resource may have multiple
+#     different digest values when transferred with HTTP." / "Integrity fields
+#     apply to HTTP message content or HTTP representations. They do not apply to
+#     HTTP messages or fields." / "This specification does not define means for
+#     authentication, authorization, or privacy."

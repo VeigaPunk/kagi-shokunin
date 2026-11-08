@@ -1,0 +1,27 @@
+# R67ScribeEntry — capture population, measured
+# $ git -C /home/vgpnk/Projects/shokunin/kagi-shokunin log --oneline -1
+# aa8807e round-67: frozen predeclaration (plan, claims, declared-axis rows, scorecard pre-move)
+#
+# (1) BASE 076701a11a58e3eb58d996b4c76c5e18071fb179 (git archive to scratch)
+#     python3 measure.py   (classifies col 16 by the frozen shape rule)
+#   total_rows=156 path_rows=36 prose_rows=120
+#   bound=36 located=35
+#   PROBLEM ('S115', 'quote-not-located cnt=0 norm=rendered-text-v1')
+#
+# (2) lane worktree, after the L1's landing (S166 rows appended, S115 quote re-cut)
+#     bash corpus/sources-census.sh
+#   SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=121)
+#   SOURCES_CENSUS: CLEAN (rows=157 A=140 B=2 C=15 queued=3 mined=137 rejected=17 entries_sourced=27 legacy=21 captures=157 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+#   rc=0
+#
+# (3) prose rows containing "/" at the landed tree (gate's own shape rule):
+#   path_rows=36 prose=121 prose_containing_slash=18
+#   (BASE was prose=120, prose_containing_slash=17 — S166's own row is the +1)
+#
+# (4) bash corpus/claim-ledger.sh docs
+#   DOC_AUDIT: CLEAN (entries=48 row_linked=45 by_hand=3 undeclared=0 missing_ids=0 unpinned=0 duplicate_reasons=0)
+#
+# (5) python3 corpus/self-counts.py
+#   SELF_COUNTS: POLICY (claims=63 stale=2 unlocated=0 ambiguous=0 policy=2 setup=0)
+#   (the two POLICY rows are PV-FEEDTOKEN-SHAPES / PV-FEEDTOKEN-SELFTEST, ledger:R29-02 / R29-01,
+#    "command not allowlisted" — pre-existing at BASE, unrelated to this round)

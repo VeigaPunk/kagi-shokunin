@@ -1,9 +1,9 @@
 # Source capture binding — a declared capture is evidence only when its bytes hash to the row
 
 source: S166 (https://www.rfc-editor.org/rfc/rfc9530.txt, §1.2 Concept Overview, 2026-11-08); S164 (https://www.ncbi.nlm.nih.gov/research/bionlp/RESTful/pmcoa.cgi/BioC_xml/PMC2757457/unicode, §3.1.2, 2026-11-08)
-verified-at: 2026-11-08 (both opened live today; captures `.ufo/waves/round-67/capture/S166.body`, 67152 B, and `.ufo/waves/round-64/capture/` (the carrier body, 264946 B))
+verified-at: 2026-11-08 (both opened live today; captures `.ufo/waves/round-67/capture/S166.body`, 67152 B, and `.ufo/waves/round-64/capture/` (the carrier body, 264946 B); the S166 fetch receipt is `.ufo/waves/round-67/capture/S166.fetch.txt` - HTTP 200, 67152 B, refetch byte-identical)
 recheck: 180d — re-open S166 and S164 and re-hash both captures
-Reverify: R21-02
+Reverify: R21-03
 
 A registry row that names a capture is making a claim about bytes, not about a
 path. The claim holds only when the gate opens the named file and re-derives
@@ -21,15 +21,18 @@ Column 15 is the sha256 of that body after `rendered-text-v1` normalization: it
 answers "is the *text* the same?" when the carrier's markup or line wrapping
 changes between fetches and the prose does not.
 
-RFC 9530 draws the same distinction one layer up (S166, §1.2): a `Content-Digest`
-field carries a digest over the HTTP content bytes, while a `Repr-Digest` field
-carries one computed over the selected representation, which is what a recipient
-should validate when the transfer may have altered the content's form. The
-correspondence is a *structural* one — the RFC defines HTTP fields, not file
-columns — and it stops at the boundary the RFC itself states: integrity fields
-apply to content or representations, never to messages or their metadata, and
-the specification defines no authentication, authorization or privacy. A digest
-proves the bytes match the pin; it proves nothing about who served them.
+RFC 9530 draws a related two-scope distinction (S166): a `Content-Digest` field
+carries a digest over "the actual message content" (§2), while `Repr-Digest`
+carries one over "the entire selected representation data" (§3), and the RFC's
+stated reason for the second scope is manipulation or a partial representation —
+range requests, for example — not normalization. The lane's two columns are not
+those two scopes: both hash the same served body, once raw and once after
+`rendered-text-v1` normalization. The correspondence is analogical (a digest
+over named bytes versus a digest over a named transformation of them), and it
+stops where the RFC says: integrity fields apply to content or representations,
+never to messages or their metadata, and the specification defines no
+authentication, authorization or privacy. A digest proves the bytes match the
+pin; it proves nothing about who served them.
 
 ## What the read-through catches, measured
 
@@ -58,11 +61,13 @@ the re-cut is that row's column 13 in `corpus/source-fetches.tsv`.
    audit-device body); the predicate measures presence under the declared
    normalization, nothing about whether the passage supports the row's
    teaching.
-4. **Row identity is not gate-enforced.** A row whose every dependent column is
-   rerouted to another row's body — id, path, digest, size, quote — reads
-   `CLEAN`; the counter closes that class by binding the capture-path id set and
-   each id's path/digest to the BASE blob, which is a guard around the gate, not
-   a property of the gate.
+4. **Row identity is not gate-enforced for the capture columns.** A row whose
+   capture-dependent columns (path, digest, size, quote, normalization) are
+   rerouted to another row's body reads `CLEAN`: the URL and row-identity digest
+   still bind the id, but they say nothing about which body the row names. The
+   counter closes that class by binding the capture-path id set and each id's
+   path/digest to the BASE blob — a guard around the gate, not a property of
+   the gate.
 5. **`raw-literal-v1` and `rendered-text-v1` are not interchangeable.** A quote
    wrapped across two physical lines locates only after normalization: the RFC
    body is plain text, and its §1.2 sentence reads `count=0` raw and `count=1`
@@ -83,7 +88,7 @@ the re-cut is that row's column 13 in `corpus/source-fetches.tsv`.
 | F5 | set one row's column 16 to a `..` path that canonicalizes outside the tree | `capture-outside-root` |
 | F6 | replace one row's quote with a string that does not occur in its body | `quote-not-located` |
 | F7 | add a prose location with `/` in it | no `SC_CAPTURE` finding; `prose` increments |
-| F8 | reroute one bound row's columns 16/10/11/13/14/15 to a sibling row's values | the gate reads CLEAN; the round-67 counter reads the identity guard `defect` |
+| F8 | reroute one bound row's columns 16/10/11/13/14/15 to a sibling row's values | the gate reads CLEAN; the round-67 counter prints `guard-pop … changed=<id>` and `guard=0`, rc 1 |
 
 ## Reproduction
 

@@ -1,0 +1,54 @@
+# R67ScribeEntry — the landed entry's eight falsifier rows, re-run
+# Each leg = a fresh throwaway copy of the lane tree in scratch, ONE mutation,
+# then `bash corpus/sources-census.sh` (the landed gate) in that copy.
+# Anchor row: S143 (location .ufo/waves/round-63/capture/S143.body,
+# sha256 8522a79eba84604f…, 264946 B).
+#
+# LEG  CANDIDATE GATE VERDICT (landed gate)                       ENTRY'S EXPECTED
+# F1   repoint col16 -> .ufo/waves/round-64/capture/S143.body     FINDING SC_CAPTURE id=S143 capture-digest-mismatch
+#      (same 264946 B, sha256 3b8d4e15… vs the row's 8522a79e…)  SOURCES_CAPTURES: FAILED (defects=1 path_rows=36 bound=35 located=35 prose=121)
+#      -> exactly the entry's expectation (one reason, digest only)   MATCH
+# F2   truncate the body by one byte (264946 -> 264945)          FINDING SC_CAPTURE id=S143 capture-bytes-mismatch
+#                                                                    FINDING SC_CAPTURE id=S143 capture-digest-mismatch
+#                                                                    SOURCES_CAPTURES: FAILED (defects=2 …)
+#      -> both reasons, as the entry's table says                     MATCH
+# F3   delete .ufo/waves/round-63/capture/S143.body               FINDING SC_CAPTURE id=S143 capture-missing
+#                                                                    SOURCES_CAPTURES: FAILED (defects=1 …)   MATCH
+# F4   col16 -> the ABSOLUTE path of its own body                 FINDING SC_CAPTURE id=S143 capture-outside-root
+#                                                                    SOURCES_CAPTURES: FAILED (defects=1 …)   MATCH
+# F5   col16 -> ../outside/S143.body                              FINDING SC_CAPTURE id=S143 capture-outside-root
+#                                                                    SOURCES_CAPTURES: FAILED (defects=1 …)   MATCH
+# F6   col13 -> "zzc1notlocatedquotezz"                          FINDING SC_CAPTURE id=S143 quote-not-located
+#                                                                    SOURCES_CAPTURES: FAILED (defects=1 path_rows=36 bound=36 located=35 prose=121)  MATCH
+# F7   col16 -> a PROSE location that contains "/"               no SC_CAPTURE finding; prose increments
+#      ("section 4.2 of the carrier body at .ufo/waves/round-63/capture/S143.body")
+#                                                                    SOURCES_CAPTURES: CLEAN (path_rows=35 bound=35 located=35 prose=122)
+#      -> prose increments (121 -> 122), no finding                  MATCH
+#      NOTE: a slash-bearing location is only prose if it also fails the
+#      shape regex; "corpus/knowledge/claim-instrument-carrier-binding.md"
+#      IS path-shaped and was correctly read as a capture path (defect on the
+#      digest) — the entry's F7 wording ("a prose location with / in it")
+#      is right only under that reading.
+# F8   reroute a bound row's cols 16/10/11/13/14/15 to a sibling's values
+#      (S115 <- S116's values for those columns)                  landed gate: SOURCES_CAPTURES: CLEAN
+#                                                                    SOURCES_CENSUS: CLEAN (rows=157 …)
+#      -> the GATE reads CLEAN, exactly as the entry's table says      MATCH (gate half)
+#      the counter's identity guard on the same tree:
+#        c1-readthrough: guard-pop base_ids=36 missing=none extra=none changed=S115
+#        C1_READTHROUGH: bound=36 located=36 caught=6/6 guard=0
+#      -> the counter REFUSES it (guard-pop changed=S115, guard=0).
+#         The entry's table says "the round-67 counter reads the identity guard
+#         `defect`"; the counter prints "changed=S115" and guard=0 — it never
+#         prints the token "defect".  See the report, finding 2.
+#
+# BLINDNESS WITNESS (the entry's claim that the BASE gate is blind):
+#   The BASE gate (076701a) re-run against each of the six mutated copies:
+#     F1 BASE-gate: rc=0 last=[SOURCES_CENSUS: CLEAN (rows=157 …)]
+#     F2 BASE-gate: rc=0 last=[SOURCES_CENSUS: CLEAN …]
+#     F3 BASE-gate: rc=0 last=[SOURCES_CENSUS: CLEAN …]
+#     F4 BASE-gate: rc=0 last=[SOURCES_CENSUS: CLEAN …]
+#     F5 BASE-gate: rc=0 last=[SOURCES_CENSUS: CLEAN …]
+#     F6 BASE-gate: rc=0 last=[SOURCES_CENSUS: CLEAN …]
+#   -> the BASE gate reads CLEAN on all six (rc=0 each).  The blindness is real.
+#      The lane's own receipt .ufo/waves/round-67/base/blind-gate.txt witnesses
+#      exactly this on the S164-repointed copy.

@@ -1,0 +1,18 @@
+killed   V01-accepted-forced-0                        rc=1 C1_RESIDUAL_SELFTEST: FAIL (27/28 checks) failed=count-witness-zero
+survived V02-guard-callsite-forced-1                  rc=0 C1_RESIDUAL_SELFTEST: PASS (28/28 checks)
+killed   V03-stub-composition-forced-1                rc=1 C1_RESIDUAL_SELFTEST: FAIL (27/28 checks) failed=stub-composition
+killed   V04-stub-leg-always-ok                       rc=1 C1_RESIDUAL_SELFTEST: FAIL (27/28 checks) failed=stub-leg-negative-vector
+survived V05-prior-callsite-skipped                   rc=0 C1_RESIDUAL_SELFTEST: PASS (28/28 checks)
+survived V06-para-callsite-skipped                    rc=0 C1_RESIDUAL_SELFTEST: PASS (28/28 checks)
+survived V07-real-callsite-forced-1                   rc=0 C1_RESIDUAL_SELFTEST: PASS (28/28 checks)
+killed   V08-selftest-leg-forced-1                    rc=1 C1_RESIDUAL_SELFTEST: FAIL (27/28 checks) failed=selftest-leg
+killed   V09-constant-printer-defence-dropped         rc=1 C1_RESIDUAL_SELFTEST: FAIL (27/28 checks) failed=stub-refused
+killed   V10-selftest-gate-gutted                     rc=1 C1_RESIDUAL_SELFTEST: FAIL (27/28 checks) failed=stub-refused
+killed   V11-parse-value-always-0                     rc=1 C1_RESIDUAL_SELFTEST: FAIL (24/28 checks) failed=count-witness-one,real-leg-one,prior-leg-one,para-leg-one
+killed   V12-rejected-never-counted                   rc=1 C1_RESIDUAL_SELFTEST: FAIL (27/28 checks) failed=count-witness-one
+killed   V13-prior-unit-forced-1                      rc=1 C1_RESIDUAL_SELFTEST: FAIL (27/28 checks) failed=prior-leg-zero
+killed   V14-para-unit-forced-1                       rc=1 C1_RESIDUAL_SELFTEST: FAIL (27/28 checks) failed=para-leg-one
+killed   V15-real-unit-forced-1                       rc=1 C1_RESIDUAL_SELFTEST: FAIL (27/28 checks) failed=real-leg-one
+killed   V16-selftest-floor-dropped                   rc=1 C1_RESIDUAL_SELFTEST: FAIL (27/28 checks) failed=selftest-leg
+
+CENSUS: killed=12 survived=4 population=16

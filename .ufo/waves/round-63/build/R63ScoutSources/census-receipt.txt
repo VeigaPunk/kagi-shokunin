@@ -1,0 +1,34 @@
+# R63ScoutSources — lane registry census check (2026-11-07)
+# read-only: 'bash corpus/sources-census.sh verify --root <tree>' writes only stdout.
+# All trees below are scratch copies; the lane tree was never modified by this seat.
+
+== 1. REAL LANE, current working tree (before any row append):
+FINDING SC_ENTRY_CITE entry=corpus/knowledge/negation-scope-grammar.md id=S130 used-by-omits-entry
+FINDING SC_ENTRY_CITE entry=corpus/knowledge/negation-scope-grammar.md id=S135 not-a-registry-row
+FINDING SC_ENTRY_CITE entry=corpus/knowledge/negation-scope-grammar.md id=S137 not-a-registry-row
+FINDING SC_BODY_CITE entry=corpus/knowledge/openbao-approle-secret-id-custody.md id=S090 unrecorded
+FINDING SC_BODY_CITE entry=corpus/knowledge/openbao-seal-key-custody.md id=S090 unrecorded
+SOURCES_CENSUS: FAILED (findings=5 rows=134)
+
+== 2. BASE aeafc0e tree (git archive of the committed corpus):
+FINDING SC_BODY_CITE entry=corpus/knowledge/openbao-approle-secret-id-custody.md id=S090 unrecorded
+FINDING SC_BODY_CITE entry=corpus/knowledge/openbao-seal-key-custody.md id=S090 unrecorded
+SOURCES_CENSUS: FAILED (findings=2 rows=134)
+
+== 3. BASE + the 10 drafted rows + the 9 drafted fetch rows verbatim:
+FINDING SC_FETCH id=S136 missing-provenance
+FINDING SC_ENTRY_CITE entry=corpus/knowledge/negation-scope-grammar.md id=S130 used-by-omits-entry
+FINDING SC_BODY_CITE entry=corpus/knowledge/openbao-approle-secret-id-custody.md id=S090 unrecorded
+FINDING SC_BODY_CITE entry=corpus/knowledge/openbao-seal-key-custody.md id=S090 unrecorded
+SOURCES_CENSUS: FAILED (findings=4 rows=144)
+
+== 4. BASE + drafted rows, S136 dropped (no fetch row possible for a 0-byte body):
+FINDING SC_ENTRY_CITE entry=corpus/knowledge/negation-scope-grammar.md id=S130 used-by-omits-entry
+FINDING SC_BODY_CITE entry=corpus/knowledge/openbao-approle-secret-id-custody.md id=S090 unrecorded
+FINDING SC_BODY_CITE entry=corpus/knowledge/openbao-seal-key-custody.md id=S090 unrecorded
+SOURCES_CENSUS: FAILED (findings=3 rows=143)
+
+== 5. BASE + drafted rows + S136 re-pointed to its readable sibling + S130 used-by extended:
+FINDING SC_BODY_CITE entry=corpus/knowledge/openbao-approle-secret-id-custody.md id=S090 unrecorded
+FINDING SC_BODY_CITE entry=corpus/knowledge/openbao-seal-key-custody.md id=S090 unrecorded
+SOURCES_CENSUS: FAILED (findings=2 rows=144)

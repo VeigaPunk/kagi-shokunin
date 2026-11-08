@@ -1,0 +1,14 @@
+survived C01-accepted-forced-0                        rc=0 C1_RESIDUAL_SELFTEST: PASS (10/10 checks)
+survived C02-guard-forced-1                           rc=0 C1_RESIDUAL_SELFTEST: PASS (10/10 checks)
+survived C03-stub-leg-skipped                         rc=0 C1_RESIDUAL_SELFTEST: PASS (10/10 checks)
+killed   C04-stub-leg-always-ok                       rc=1 C1_RESIDUAL_SELFTEST: FAIL (9/10 checks) failed=stub-leg-negative-vector
+survived C05-prior-guard-skipped                      rc=0 C1_RESIDUAL_SELFTEST: PASS (10/10 checks)
+survived C06-para-guard-skipped                       rc=0 C1_RESIDUAL_SELFTEST: PASS (10/10 checks)
+survived C07-real-forced-1                            rc=0 C1_RESIDUAL_SELFTEST: PASS (10/10 checks)
+survived C08-selftest-leg-forced-1                    rc=0 C1_RESIDUAL_SELFTEST: PASS (10/10 checks)
+survived C09-constant-printer-defence-dropped         rc=0 C1_RESIDUAL_SELFTEST: PASS (10/10 checks)
+killed   C10-selftest-gate-gutted                     rc=1 C1_RESIDUAL_SELFTEST: FAIL (9/10 checks) failed=stub-refused
+survived C11-parse-value-always-0                     rc=0 C1_RESIDUAL_SELFTEST: PASS (10/10 checks)
+survived C12-rejected-never-counted                   rc=0 C1_RESIDUAL_SELFTEST: PASS (10/10 checks)
+
+CENSUS: killed=2 survived=10 population=12

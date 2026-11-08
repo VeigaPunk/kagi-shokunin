@@ -1,0 +1,41 @@
+# round-63 pre-freeze control battery (plans/round-63-controls.sh)
+# SELF 74ed1624ba1eee5e8e78b52af9e18ec1f8dd5ee8048c568f2b1f557f5d783abb
+# utc 2026-11-07T23:13:39Z
+# repo /fast/scratch/hyaku/kagi-r63/R63ExecControls/basetree
+# candidate /fast/scratch/hyaku/kagi-r63/R63ExecControls/basetree
+# scratch /fast/scratch/hyaku/kagi-r63/R63ExecControls/battery.2242808
+# frozen-expected c1 accepted=10 rejected=6 population=10/6 ; c2 killed=0 population=6
+INSTRUMENT plans/round-63-c1.sh MISSING
+INSTRUMENT plans/round-63-c2.sh MISSING
+INSTRUMENT plans/round-62-controls.sh 93587e6d15d5c0ebb94fac3a6039235070632c45dd5c3db86ae7fbcf1107ea97
+# readiness: C1-F8,C1-NOWORK,C1-REAL <- plans/round-63-c1.sh; C2-F6,C2-NOWORK,C2-REAL <- plans/round-63-c2.sh; PRIOR-* <- plans/round-62-controls.sh
+CONTROL C1-F8 expect=accepted=10 rejected=6 mismatch observed=absent verdict=skip
+DETAIL C1-F8 absent-instrument: plans/round-63-c1.sh (C1 claim counter)
+CONTROL C2-F6 expect=killed=0 mismatch observed=absent verdict=skip
+DETAIL C2-F6 absent-instrument: plans/round-63-c2.sh (C2 claim counter)
+CONTROL C1-NOWORK expect=accepted=10 rejected=6 population=10/6 observed=absent verdict=skip
+DETAIL C1-NOWORK absent-instrument: plans/round-63-c1.sh (C1 claim counter)
+CONTROL C2-NOWORK expect=killed=0 population=6 observed=absent verdict=skip
+DETAIL C2-NOWORK absent-instrument: plans/round-63-c2.sh (C2 claim counter)
+CONTROL C1-REAL expect=verdict-line;guard=1 observed=absent verdict=skip
+DETAIL C1-REAL absent-instrument: plans/round-63-c1.sh (C1 claim counter)
+CONTROL C2-REAL expect=verdict-line;guard=1 observed=absent verdict=skip
+DETAIL C2-REAL absent-instrument: plans/round-63-c2.sh (C2 claim counter)
+CONTROL PRIOR-K1-BASE-C1 expect=accepted=5 observed=absent verdict=skip
+CONTROL PRIOR-K1-BASE-C2 expect=killed=0 observed=absent verdict=skip
+CONTROL PRIOR-C1-B3 expect=value=1;i3=0;population=7 observed=value=3;i3=0;population=7 verdict=mismatch
+CONTROL PRIOR-C1-B4 expect=value=1;i4=0;population=7 observed=value=3;i4=0;population=7 verdict=mismatch
+CONTROL PRIOR-C1-B5 expect=value=1;i5=0;population=7 observed=value=2;i5=0;population=7 verdict=mismatch
+CONTROL PRIOR-C1-B6 expect=value=1;i6=0;population=7 observed=value=2;i6=0;population=7 verdict=mismatch
+CONTROL PRIOR-C1-B7 expect=value=1;i7=0;population=7 observed=value=3;i7=0;population=7 verdict=mismatch
+CONTROL PRIOR-C1-F6 expect=noverdict;rc!=0;cleanverdict=yes observed=verdict=no;rc=2;cleanverdict=yes verdict=match
+CONTROL PRIOR-C1-F7 expect=value=0/0/0;population=7 observed=value=2/2/2;population=7/7/7 verdict=mismatch
+CONTROL PRIOR-C2-F1 expect=rc!=0;finding=named observed=rc=1;finding=named verdict=match
+CONTROL PRIOR-C2-F2 expect=rc!=0;finding=named observed=rc=1;finding=named verdict=match
+CONTROL PRIOR-C2-F3 expect=guard=0 observed=guard=0;value=0;rc=1 verdict=match
+CONTROL PRIOR-C2-F4 expect=value=5;shims=5;vectors=ok/5 observed=value=0;shims=0;vectors=0/5 verdict=mismatch
+CONTROL PRIOR-C2-F5 expect=guard=0;cleanguard=1 observed=guard=0;cleanguard=1 verdict=match
+DETAIL PRIOR delegated=14 rc=1 prior-summary=SKIPS: 2 CONTROLS: match=5 mismatch=7 
+SKIPS: 8
+CONTROLS: match=5 mismatch=7
+SEAT-STATUS: partial mismatch-count=7 (see DETAIL lines; the L1 re-runs the full battery before the candidate reading)

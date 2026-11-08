@@ -1,0 +1,46 @@
+R63MutC1 survivor probes (detector: the checker's --no-challenge value line on a
+purpose-built fixture tree, or a direct unit call). Scratch: /fast/scratch/hyaku/kagi-r63/R63MutC1
+
+== BASE survivors (checker f2afd9b8)
+
+-- M07 i6-superseded-conjunct-dropped (I6 line without the quoted superseded stamp and
+   without the driver-complete stamp)
+   pristine rc=1 C1_ROUTED: value=1 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=0 i7=1 guard=0
+   mutant   rc=1 C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+   verdict: LIVE (mutant accepts the tree the pristine checker rejects)
+
+-- M11 i3-anchor-test-dropped (A7 bold sentence "the item is withdrawn"; the section
+   still names "A3 item 2" in prose)
+   pristine rc=1 C1_ROUTED: value=1 population=7 i1=1 i2=1 i3=0 i4=1 i5=1 i6=1 i7=1 guard=0
+   mutant   rc=1 C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+   verdict: LIVE
+
+-- M22 i1-first-row-wins (a second "| R37 |" row appended after the correction)
+   pristine rc=1 C1_ROUTED: value=1 population=7 i1=0 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+   mutant   rc=1 C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+   verdict: LIVE
+
+-- M18 qm74-refusal-dropped (challenge parent inside the measured root)
+   mutant refusal: SetupError: challenge scratch .../probe/qm74/good/inside resolves
+   at/inside the measured root .../probe/qm74/good (refused, QM74)
+   verdict: EQUIVALENT (run_guard repeats the refusal)
+
+== Candidate survivors (checker eb08094c, cases=102)
+
+-- N16 i7-subject-window-widened (pair >8 tokens after its subject:
+   "sentinel as an attack seat and also the literal list and the addendum and the
+   record gives 4/16 = 25 %")
+   pristine rc=1 C1_ROUTED: value=1 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=0 guard=0
+   mutant   rc=1 C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+   verdict: LIVE (mutant accepts an unbound pair)
+
+-- N04 asserted-mask-dropped (quoted denial after the token)
+   pristine rc=1 C1_ROUTED: value=1 population=7 i1=1 i2=1 i3=0 i4=1 i5=1 i6=1 i7=1 guard=0
+   mutant   rc=1 C1_ROUTED: value=1 population=7 i1=1 i2=1 i3=0 i4=1 i5=1 i6=1 i7=1 guard=0
+   verdict: EQUIVALENT (the mask in _asserted is redundant: _denied_after scans only
+   after the token, and _negated_before re-masks internally)
+
+-- N05 negated-before-mask-dropped (direct unit call)
+   line: the record says "A3 item 2 is not withdrawn" — A3 item 2 is withdrawn
+   pristine _negated_before=False  mutant=True
+   verdict: LIVE at unit level; equivalent through _asserted (which masks first)

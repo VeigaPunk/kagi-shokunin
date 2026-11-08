@@ -445,6 +445,14 @@ if drift == 1 and path:
         else:
             print("c1-carrier: mut-%d hex=%d refused=1 diag=%s"
                   % (i, hex_diff, ";".join(mdiag)))
+    # population invariant: one mutated copy per wrong body, no more, no less.
+    # A `paths_n = 3` constant is equivalent on every reachable tree (the loop
+    # is exactly len(WRONG_PATHS) iterations whenever drift==1) but the
+    # invariant is asserted rather than left implicit.
+    if paths_n != len(WRONG_PATHS):
+        print("c1-carrier: FINDING population paths=%d expected=%d"
+              % (paths_n, len(WRONG_PATHS)))
+        paths_n = -1
 # guard legs
 ga = 0
 if BASE_TREE:

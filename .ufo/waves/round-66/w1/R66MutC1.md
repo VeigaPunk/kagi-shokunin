@@ -2,90 +2,98 @@
 
 Seat `R66MutC1`, mutation-tester (attack seat), wave `kagi-r66-w1`, kagi round
 66 attempt 1. Read-only on the lane: no lane file was written, no git/jj
-mutation. Full ledger with every mutant, fixture contract and raw output:
+mutation. Full ledger, fixture contracts and raw outputs:
 `.ufo/waves/round-66/w1/R66MutC1/mutants.md` (receipts in the same directory).
+
+
+> **L1 — read this before the round-end reading.** Guard (a) needs
+> `--base-tree <d549ee6 extract>`: `bash plans/round-66-c1.sh --tree <candidate>`
+> alone prints `guard a=0` and rc 1. That is a missing argument, not a failed
+> claim. The measured target line uses
+> `--tree <candidate> --base-tree <BASE>`.
 
 ## Freshness — bytes measured
 
 | revision | sha256 | battery |
 |---|---|---|
-| `178a369d…` | pre-dispatch bytes | two blockers reported (`--selftest` recursion; S143 mutation a no-op → `hex=2`) |
-| `72c95923…` | pre-hardening | 32 mutants, 24 killed, 8 survivors, selftest 0/32 |
-| **`221a2cd7…`** | **final, now at `plans/round-66-c1.sh`** | **26 mutants, 23 killed, 3 equivalent survivors, selftest 6/26** |
+| `178a369d…` | pre-dispatch | two blockers reported (`--selftest` recursion; S143 mutation a no-op → `hex=2`) |
+| `72c95923…` | pre-hardening | 32 mutants, 24 killed, 8 survivors, selftest 0/32; literal `match=1` + missing-body false green found |
+| `221a2cd7…` | hardened | 26 mutants, 23 killed, 3 equivalent survivors, selftest 6/26 |
+| `bd3310b5…` | committed battery | 27 mutants, 26 killed, 1 equivalent survivor, selftest 9/27 |
+| **`6a79a96d…`** | **present lane bytes: + population invariant** | **delta measured: lane target rc0, BASE rc1, selftest 43 PASS; loop-bound mutant killed (`paths=-1`); P3 constant still equivalent** |
 
-All results below are on the final bytes (`221a2cd711003aaf5478e394bd39989f73624b83a465da1f1b83f75ed3ec172d`,
-445 lines): `--selftest` `cases=29 failed=0`; real lane run
-`C1_CARRIER: drift=1 paths=3 hex=3 match=1 guard=1` rc 0; BASE extract
-`drift=0 paths=0 hex=0 match=0 guard=0` rc 1. The amended C1 target is
-reachable and the BASE control does not reach it.
+Present bytes: `6a79a96d01ea881fbc72e66064042dbf027c6772a31d8656c2bed42210334961`
+(500+8 lines, 43 selftest cases). The 27-mutant battery ran on the committed
+`bd3310b5`; `6a79a96d` adds only the post-loop population invariant, and its
+delta is measured in the ledger §0b. Lane run (`--tree <lane> --base-tree <d549ee6
+extract>`): `C1_CARRIER: drift=1 paths=3 hex=3 match=1 guard=1` rc 0; BASE:
+`drift=0 paths=0 hex=0 match=0 guard=0` rc 1; `--selftest` `cases=43 failed=0`.
 
 ## Census
 
 ```
-MUTANTS: population=26 killed=23 survived=3  (selftest kills=6; false-green kills=11)
+MUTANTS: population=27 killed=26 survived=1  (selftest kills=9; false-green kills=11)
 ```
 
-Two detectors: the mutant's own `--selftest` (kills `W1`, `W7`, `W9`, `W10`,
-`P5`, `P6` — the hardened selftest executes `drift_of`, per-leg digest
-refusals, `mutation_leg`, and `verdict_ok`), and a 12-fixture behavioural
-matrix with the pristine contracts re-measured: the amended candidate, BASE,
-wrong-bytes, split-path, fetch-sha, fetch-prose, no-pin, two-row, missing
-wrong-file, missing mutation body, a drift=1 `--base-tree`, and a broken
-volatile gate. Kill types: false-green, missed-target, guard-false-positive,
-match-wrong, drift-wrong.
+Detectors: the mutant's own `--selftest`, and a 12-fixture behavioural matrix
+with the pristine contracts re-measured (candidate, BASE, wrong-bytes,
+split-path, fetch-sha, fetch-prose, no-pin, two-row, missing wrong-file,
+missing mutation body, drift=1 base-tree, broken volatile gate). Kill types:
+false-green, missed-target, guard-false-positive, drift-wrong, match-wrong.
 
 ## What the battery establishes on the final bytes
 
-- Constant verdict/exit mutants are killed by BASE
-  (`P1`/`P4` print the target on BASE and exit 0 vs rc 1).
+- Constant verdict/exit mutants are killed by BASE (`P1`/`P4` print the target
+  on BASE / exit 0 vs rc 1).
 - Guard-leg constants and dropped legs are killed by the leg fixtures
   (`stbase` for `ga`, `badvolgate` for `gc`, `nowrongfile` for `gd`, BASE for
   `gb`); `verdict_ok` guard/match drops are killed on the target/BASE.
 - Wrong-id mutants are killed: digest drop, pin drop, lowest-row selection,
-  fetch col10 drop, wrong-path compare, same-path drop, mutation slot
-  constant, and a missing mutation body counted as performed
-  (`W11` false-green on `missingbody`).
-- The `match=1` literal and the missing-body false green found on the previous
-  revision are **closed**: `match` is now computed from `paths_n`/`refused_n`
-  and a missing wrong body reads `hex=2 match=0` rc 1.
+  fetch col10 drop, wrong-path compare, same-path drop, mutation-slot constant,
+  missing mutation body counted as performed (`W11` false-green on
+  `missingbody`), and the prose-cell and same-bytes cases added this round kill
+  `W5`/`W8` in `--selftest`.
+- `match` is measured end-to-end: `P2` (`m = 1` in `verdict_of`) is killed by
+  three `--selftest` cases (`verdict-of-partial-refusal`, `verdict-of-paths2`,
+  `verdict-of-base`).
+- QM74 is fixed: `--selftest` builds its fixtures in the counter scratch; no
+  `selftest-*` path remains under the lane after a run (checked).
 
-## Survivors — all equivalent (fixes are optional hardening)
+## Survivor and named-equivalent call site
 
-1. **`P3-paths-constant-3`** — `paths_n=3` inside the loop is identical because
-   the loop runs exactly `len(WRONG_PATHS)` = 3 times; skipped when `drift=0`.
-   **Fix:** a `--selftest` population case asserting `len(WRONG_PATHS)==3`.
-2. **`W5-fetch-col16-search`** — `search` returns the raw cell, not the match, so
-   a prose col16 still fails the later file check (`fetchprose` stays
-   `drift=0`). **Fix:** delete the redundant `fullmatch`, or a
-   `col16-prose-refused` selftest case.
-3. **`W8-mutation-refused-constant`** — the missing-body early return bypasses
-   the `refused` line, so the constant is unreachable on every fixture.
-   **Fix:** a `mutation-leg-same-bytes-not-refused` case (same bytes ⇒ `d==1`,
-   `refused=0`) to exercise the post-copy path.
+1. **`P3-paths-constant-3` — equivalent, and still equivalent after the fix.**
+   `paths_n = 3` equals the loop count; the new invariant compares `paths_n` to
+   `len(WRONG_PATHS)` = 3, so the constant satisfies it (measured on `6a79a96d`:
+   lane target rc0, selftest PASS). The invariant closes the *loop-bound* class
+   (my `LB1`: `FINDING population paths=1 expected=3`, `paths=-1`, rc1).
+2. **`MC-callsite-match-constant` — verdict-equivalent, line-detectable.** The
+   call-site `match=1` gives identical exits wherever the target is reachable,
+   but on `missingbody` (`paths=3`, `refused=2`) pristine prints `match=0` and
+   the mutant `match=1` (both rc1, `hex=2`). Carried as equivalent for the
+   pass/fail verdict with that caveat, per the owner's note.
 
-## Shipped findings the L1 should route
+## Shipped findings status
 
-1. **QM74:** `--selftest` creates its fixtures with `tempfile.mkdtemp(...,
-   dir=root)` where `root` is the measured `TREE` (lines 266, 293) — a write
-   inside the measured tree. Use the counter's scratch root / `TMPDIR`.
-2. **Guard (a) needs `--base-tree`**, but Amendment A1's target command shows
-   only `--tree <candidate>`; without the argument the counter reads
-   `guard a=0`. Name the argument in the plan's command line or default a
-   committed BASE receipt.
-3. **A1's mutation population says `S143/S156/S157`; the counter uses
-   `S148/S156/S157`** (S143 is the carrier and cannot produce `hex=3` — the
-   exact no-op measured on `72c95923`). The code comments the substitution;
-   the plan text needs a recorded correction.
-4. `resolve_anchor` follows the highest id carrying the pin + path (measured
-   target on `tworows`) — correct for `S164`, a named ceiling for later rows.
+1. **QM74 (selftest wrote inside the measured tree) — fixed** (`selftest(root,
+   scratch)`, both fixture roots in scratch; verified no leftovers).
+2. **`--base-tree` doc** — guard (a) needs it; A1's command line shows only
+   `--tree`. Routed to the L1 by the executor; the counter keeps `guard=0`
+   without it by design.
+3. **Mutation population** — A1 says `S143/S156/S157`; the counter uses
+   `S148/S156/S157` and asserts the property (three distinct bodies ≠ pin).
+   Recorded in the counter header; the plan sentence is the L1's to correct.
+4. **`resolve_anchor` newest-row rule** — correct for `S164`, named ceiling for
+   later rows (measured target on `tworows`).
 
 ## Evidence
 
-Real lane and selftest outputs, 312 behavioural runs, 26 selftest runs, 12
-pristine baselines, survivor probes and 26 mutant shas are in
-`R66MutC1/final-*`; the earlier-revision receipts are retained unprefixed.
-Lane source untouched (`plans/round-66-c1.sh` `221a2cd7…` before and after;
-`SOURCES.md`/`source-fetches.tsv`/`volatile-shape.py` not edited by this seat).
-Scratch `/fast/scratch/hyaku/kagi-r66/R66MutC1/` deleted on exit after the copy.
+`R66MutC1/final-mutants4-behavior.json` (324 runs),
+`final-mutants4-selftest.json` (27 runs), `final-census.json`,
+`final-pristine.json` (12 baselines), `final-lane.out`,
+`final-mut4-spec.json`, `final-mutant-sha256.txt`; earlier revisions retained as
+`hardened221a-*` and the unprefixed first-battery files. Lane source untouched
+(`plans/round-66-c1.sh` `bd3310b5…` before and after; carrier files not edited
+by this seat). Scratch `/fast/scratch/hyaku/kagi-r66/R66MutC1/` deleted on exit
+after the copy.
 
 SEAT-STATUS: complete

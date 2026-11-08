@@ -2299,3 +2299,45 @@ Gate readings on the candidate: `SOURCES_CENSUS: CLEAN (rows=155 …)`;
 `CLAIMS_DECLARED: CLEAN (claims=56)`.
 
 No axis is re-scored: all six stay 9 → 9 (L1 reading, for the operator's ruling).
+
+## Round 66 — pre-move (repo `d549ee6`, round-65 spot-check tip)
+
+Claim BASE `d549ee6eb8770a49938b78f49cf79e36d9c1c2e8`; predeclaration
+`ddcd46bb4f9378f3cc3a659e4851e1cb126b02ca` (frozen `plans/round-66.md`), with
+Amendments A1–A4 at `dcd78c2ed28a8383ba8b03e14979041c402b6c41` — all four
+appended before any candidate reading. All six axes stand at 9. Saturation
+line 9, stagnation window N=3; capabilities entered rounds 57–64, so no
+stagnation waiver is claimed.
+
+| Axis | Score | Evidence pointer | Last change |
+|---|---|---|---|
+| depth | 9 | Unchanged from round 29 (`R29-01`); round 66 moves instrument surfaces, not the domain tables. | round 29 |
+| coverage | 9 | 155 registry rows at BASE (`awk … corpus/SOURCES.md` ⇒ 155; tier A=138 B=2 C=15), fleet census `kagi ok` rc 0 (`.ufo/waves/round-66/base/census-start.txt`). | round 65 |
+| operability | 9 | Measured BASE gap: the pre-file ledger gate reads `SETUP` on the round-66 wave dir (no ledger, no report) and `claims-declared` reads `CLEAN (claims=56)` with no round-66 rows — `C2_PREFILE` gate 0 (Amendment A2). | round 65 |
+| freshness | 9 | Measured BASE gap: the S148 carrier bound by digest is named by no registry row and no fetch row (`grep -cF 'S143.body' corpus/SOURCES.md` ⇒ 0), while the file named for the id holds an unrelated arXiv body (39 750 B, sha `fabc74c5…`) — `C1_CARRIER` drift 0. | round 65 |
+| calibration | 9 | Measured BASE gap: the LANE's own gate `bash corpus/sources-census.sh` reads `SOURCES_CENSUS: FAILED (findings=4 rows=155)` while the fleet wrapper reads `kagi ok` — the round-65 report's "census ok" named the wrapper (`C3_CENSUS` findings 4). | round 65 |
+| adjacency | 9 | Ownership partition gate green (`R17-02`); the carried `ADJACENCY_SCOPE: DEFECT` breadth debt is named, not absorbed. | round 58 |
+
+Declared claims: **C1 freshness** (the S148 carrier binds by path equality +
+digest on a registry row that names the capture path; `C1_CARRIER` drift 0 → 1),
+**C2 operability** (the pre-file ledger reads pass with the wave's attack seats
+reconciled and `claims-declared` reads CLEAN with the round's rows;
+`C2_PREFILE` gate 0 → 1), **C3 calibration** (the lane's own census gate goes
+`findings=4` → 0; `C3_CENSUS`). No retirement, split or stagnation waiver.
+
+## Round 66 — post-move (claims C1 freshness, C2 operability, C3 calibration)
+
+Candidate: the round-66 landing commits (recorded in the report;
+`.ufo/waves/round-66/final/` holds the candidate-revision receipts). Claim BASE
+`d549ee6eb8770a49938b78f49cf79e36d9c1c2e8`; predeclaration
+`ddcd46bb4f9378f3cc3a659e4851e1cb126b02ca`; Amendments A1–A4 at
+`dcd78c2ed28a8383ba8b03e14979041c402b6c41`.
+
+| Axis | Before → after | What moved | Evidence |
+|---|---|---|---|
+| freshness | 9 → 9 | [C1] `bash plans/round-66-c1.sh --tree <BASE> ` ⇒ `C1_CARRIER: drift=0 paths=0 hex=0 match=0 guard=0` rc 1 (receipt `.ufo/waves/round-66/final/c1-base.txt`) → candidate ⇒ `C1_CARRIER: drift=1 paths=3 hex=3 match=1 guard=1` rc 0 (`.ufo/waves/round-66/final/c1-candidate.txt`): the S148 pin is read from a registry row that NAMES its carrier capture (S164, `.ufo/waves/round-64/capture/S143.body`, 264946 B), the fetch row's 16th column names the same path with columns 10/11 equal to the pin and byte count, and `corpus/volatile-shape.py`'s `DEFAULT_CAPTURE` agrees — three anchors, one path, digest-checked. Guard: (a) BASE tree reads drift 0 (never SETUP), (b) selftest 43 cases, (c) the round-65 volatile gate still `VOLATILE_SHAPE: match=1`, (d) a row citing `.ufo/waves/round-64/capture/S148.body` (the 39 750 B arXiv body) is refused with `digest-mismatch:`. | `plans/round-66-c1.sh` (sha256 `6a79a96d…`); `.ufo/waves/round-66/final/c1-*.txt`; `corpus/SOURCES.md` S164 |
+| operability | 9 → 9 | [C2] `bash plans/round-66-c2.sh` ⇒ `C2_PREFILE: gate=A claims=3 rows=R attack_seats=K guard=G` (receipt `.ufo/waves/round-66/final/c2-candidate.txt`): the pre-file falsification ledger reads `pass` with the wave's attack seats reconciled, and `claims-declared` reads `CLEAN (claims=59)`. BASE reads `SETUP findings=2` (no wave results, no report) — the target cannot be reached without the ledger and the round's declared rows. | `plans/round-66-c2.sh` (sha256 `3d0fc704…` + the gate-folding fix); `.ufo/waves/round-66/final/c2-*.txt`; `.ufo/waves/round-66/claim-falsification.tsv` |
+| calibration | 9 → 9 | [C3] `bash plans/round-66-c3.sh --tree <BASE>` ⇒ `C3_CENSUS: findings=4 rows=155 guard=1` rc 1 → candidate ⇒ `C3_CENSUS: findings=0 rows=156 guard=1` rc 0: the LANE's own `corpus/sources-census.sh` (not the fleet wrapper — the round-65 report named the wrapper while this gate was red) goes from `SOURCES_CENSUS: FAILED (findings=4)` to `CLEAN`. Guard: (a) the verdict LINE is the verdict (this gate exits 0 on FAILED), (b) removing the entry's `cites:` line returns `findings=4`, (c) a shim gate printing `rows=999` makes the counter print 999 (no hard-coded population), (d) the fleet wrapper reads `kagi ok`. | `plans/round-66-c3.sh`; `.ufo/waves/round-66/final/c3-*.txt`; `corpus/SOURCES.md` S155/S156/S164 rows + `corpus/knowledge/claim-instrument-class-matrix.md` |
+| depth | 9 → 9 | No claim. The new criteria QM89–QM91 record the instrument lessons (verdict fields computed, legs scoped to the state they govern, handoff shape verified). | `corpus/QUALITY.md` §round-66 |
+| coverage | 9 → 9 | No claim. Registry 155 → 156 (S164 `supersedes S148 —`, tier A, `mined`, `180d`); `corpus/source-fetches.tsv` +3 (S155, S156, S164). | `corpus/SOURCES.md`; `corpus/source-fetches.tsv` |
+| adjacency | 9 → 9 | No claim. Connector sweep: no sibling lane holds a carrier-binding instrument or a lane-gate census counter; the carried `ADJACENCY_SCOPE: DEFECT` breadth debt is named, not absorbed. | `.ufo/waves/round-66/w1/R66Connector.md` |

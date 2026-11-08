@@ -242,6 +242,10 @@ def main():
         gd_cd = claims_declared(cop)
         gd = 1 if (gd_cd["verdict"] == "mismatch") else 0
 
+    # A2's `gate` is the conjunction: pre-file pass AND claims-declared CLEAN.
+    # Folding cd_ok in keeps the verdict line and the exit code in agreement
+    # (M66-11: a line reading gate=1 while the process exits 1 hides which half failed).
+    gate = 1 if (gate == 1 and cd_ok == 1) else 0
     guard = 1 if (ga and gb and gc and gd) else 0
     print("c2-prefile: guard a=%d b=%d c=%d d=%d claims-declared=%d" % (ga, gb, gc, gd, cd_ok))
     print("C2_PREFILE: gate=%d claims=%d rows=%d attack_seats=%d guard=%d"

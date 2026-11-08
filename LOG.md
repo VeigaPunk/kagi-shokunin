@@ -2043,3 +2043,61 @@ Frozen BASE `655e620`; plan `4767b04` (alone, QM29); plan corrections 1/2 `2d46e
 - Frontier: `corpus/SOURCES.md` 153 → 155 rows (S155 the ConText eutils carrier re-opened byte-identical to S135's pin, tier A `mined`; S156 the BioC REST carrier rejected as rate-limited with its flip named). Entry `corpus/knowledge/claim-instrument-class-matrix.md`; `corpus/QUALITY.md` gains QM87 (a guard leg must state a satisfiable direction) and QM88 (a capture's filename is part of its provenance). Lesson `corpus/lessons/round-65.md` carries the Gate, four mined mistakes and the C2 correction record.
 - Wave `kagi-r65-w1`, 16 seats v1 (spec `.ufo/waves/round-65/w1-spec.json`, dispatch `.ufo/waves/round-65/w1-dispatch.json`, handoff `kagi-r65-w1.ready`): 2 scout, 5 executor, 2 scribe, 1 reviewer, 1 critic, 2 mutation-tester, 1 connector, 1 sentinel, 1 revenger; attack share 4/16 = 25 % literal, 5/16 = 31.25 % counting the sentinel. **No seat spawned** — the handoff was written and never taken (`kagi-r65-w1.ready.dispatched` absent, no `w1-results.json`), so dead seats = 16 and the round's instruments were built and measured by the L1. The absence is recorded, not hidden: the pre-file falsification gate cannot read attack-seat rows it does not have.
 - No axis is re-scored: all six stay 9 → 9 (L1 reading, for the operator's ruling). No stagnation waiver, retirement or split.
+
+## Round 66 (2026-11-08) — the carrier binds by digest on a row that names it (C1, freshness); the pre-file ledger became a target no work reaches (C2, operability); the lane's own census gate goes FAILED(4) → CLEAN(0) (C3, calibration)
+
+- Claims: **C1 freshness** — `C1_CARRIER` drift 0 → 1: the S148 pin is read from
+  a registry row (S164, `supersedes S148 —`) whose anchor cell names the carrier
+  capture `.ufo/waves/round-64/capture/S143.body`, the fetch row's 16th column
+  names the same path with columns 10/11 equal to the pin and byte count, and
+  `corpus/volatile-shape.py` agrees — three anchors, one path, digest-checked.
+  **C2 operability** — `C2_PREFILE` gate 0 → 1: the pre-file falsification
+  ledger reads `pass` with the wave's attack seats reconciled and
+  `claims-declared` reads `CLEAN (claims=59)`. **C3 calibration** —
+  `C3_CENSUS` findings 4 → 0: the LANE's own `corpus/sources-census.sh` goes
+  `FAILED (findings=4 rows=155)` → `CLEAN (rows=156)`, and the round names both
+  the lane gate and the fleet wrapper.
+- Claim BASE `d549ee6eb8770a49938b78f49cf79e36d9c1c2e8` (round-65 spot-check
+  tip); predeclaration `ddcd46bb` (frozen `plans/round-66.md`), Amendments A1–A4
+  at `dcd78c2e` — every one appended before the reading it governs, each naming
+  the attack seat that forced it: A1 the undefined "header-ID digest" and the
+  self-contradictory kill rule (`R66Reviewer` F1/F2, `R66Critic` F1); A2 the
+  vacuous `C2_CLAIMS` target (`R66Critic` F6/F7); A3 the hard-coded `checks=3`
+  and the census the round named wrongly (`R66Reviewer` F3/F7); A4 the gate's
+  lowercase `pass` token and the two-surface `claims=59` requirement
+  (`R66ScoutPreState`).
+- C1: `bash plans/round-66-c1.sh --tree <d549ee6 extraction>` ⇒
+  `C1_CARRIER: drift=0 paths=0 hex=0 match=0 guard=0` rc 1; candidate ⇒
+  `C1_CARRIER: drift=1 paths=3 hex=3 match=1 guard=1` rc 0 with guard
+  `a=1 b=1 c=1 d=1`. Counter sha256 `6a79a96d…`; selftest 43 cases.
+- C2: `bash plans/round-66-c2.sh` ⇒ the pre-file gate plus `claims-declared`;
+  the counter passes `--fleet` on every invocation (a gate run without it
+  measures the default fleet — M66-10) and folds `claims-declared` into `gate`.
+  Counter `3d0fc704…` plus the gate-folding fix.
+- C3: `bash plans/round-66-c3.sh --tree <BASE>` ⇒ `C3_CENSUS: findings=4
+  rows=155 guard=1` rc 1; candidate ⇒ `C3_CENSUS: findings=0 rows=156 guard=1`
+  rc 0. Repairs: three provenance rows (S155/S156/S164), the class-matrix
+  entry's `cites:` line, the S148/S156 `used-by` cells, and the 899-byte 429
+  body committed at `.ufo/waves/round-66/capture/S156-429.body`.
+- Registry: `corpus/SOURCES.md` 155 → 156 (S164 admitted, tier A, `mined`,
+  `180d`); `corpus/source-fetches.tsv` +3 rows. Every row opened this round
+  carries its access date and located quote in the lesson's Gate.
+- Corpus: `corpus/lessons/round-66.md` (Gate, 13 mined mistakes, routed
+  dispositions, A1 corrigenda), `corpus/QUALITY.md` QM89–QM94,
+  `corpus/knowledge/claim-instrument-class-matrix.md` gains its `cites:`
+  declaration, `SKILL.md` gate-registry rows for the three counters.
+- Routed (not adopted): the borrowed-identity class — 11 of 20 round-64 capture
+  handles carry another row's pin, both census gates are blind to it (a
+  repointed location string still reads CLEAN), and `plans/round-66-c1.sh` is
+  the instrument that sees it. Round 67 builds the checked class on that
+  resolution.
+- No axis is re-scored: all six stay 9 → 9 (L1 reading, for the operator's
+  ruling). No stagnation waiver, retirement or split.
+- Wave `kagi-r66-w1`, 14 seats v1 (`.ufo/waves/round-66/w1-spec.json`,
+  `w1-dispatch.json`, handoff `kagi-r66-w1.ready` taken 06:14): 2 scout,
+  4 executor, 2 scribe, 1 reviewer, 1 critic, 2 mutation-tester, 1 connector,
+  1 sentinel; attack share 4/14 = 28.57 % literal, 5/14 = 35.71 % counting the
+  sentinel. **Dispatch defect:** the handoff's dispatch file was written as
+  `{context, tasks}` while the driver reads `d['taskCall']['tasks']`, so
+  `KeyError('taskCall')` fired every 30 s from 05:47 until the orchestrator
+  repaired it at 06:13; zero seats spawned in that window (M66-6/QM91).

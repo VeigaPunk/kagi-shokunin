@@ -5,12 +5,12 @@ per `plans/round-66.md` §C1 **as amended by Amendment A1** (the L1's
 restatement; the original "header-ID" term is gone and its K2 is withdrawn).
 
 Lane file: **`plans/round-66-c1.sh` sha256
-`bd3310b5351f028c972fd2a7d3b9475f8015696b9f07558bb95125ae2ce67440`**
+`6a79a96d01ea881fbc72e66064042dbf027c6772a31d8656c2bed42210334961`**
 (43 selftest cases). History this seat was party to:
 `72c95923…` (this seat's first version, superseded by the L1's A1 rewrite)
 → `f2e59dce…` (L1's A1 counter, 316 lines) → `221a2cd7…` (this seat's
-hardening, landed by the L1 at 06:37) → `1a738c9e…` → **`bd3310b5…`**
-(equivalent-survivor fixes + the QM74 selftest-scratch fix).
+hardening, landed by the L1 at 06:37) → `1a738c9e…` → **`bd3310b5…`** → **`6a79a96d…`** (equivalent-survivor fixes, the QM74
+selftest-scratch fix, and the mutation-population invariant).
 
 ## Behavior
 
@@ -88,6 +88,7 @@ version and are kept because R66MutC1's first battery cites them.
 | mutant | kill |
 |---|---|
 | P3 population (4th wrong path) | 2 cases: `wrong-body-population-3`, `wrong-bodies-are-distinct` |
+| P3 `paths_n = 3` constant (loop bound to one body) | runtime `FINDING population paths=1 expected=3`, `paths=-1`, rc 1 |
 | W5 `fullmatch`→`search` | `fetch-prose-refused` |
 | W8 `refused=1` constant | `mutation-leg-same-bytes-not-refused` |
 | W2 registry digest dropped | `registry-digest-refused` |
@@ -95,12 +96,18 @@ version and are kept because R66MutC1's first battery cites them.
 | aggregation ignores paths/hex | 4 cases incl. `verdict-of-hex2` |
 | `m = 1` inside `verdict_of` | `verdict-of-partial-refusal`, `verdict-of-paths2`, `verdict-of-base` |
 
+The battery's last survivor (P3 `paths_n = 3` constant) is now structurally
+refused: the loop asserts `paths_n == len(WRONG_PATHS)` and a mismatch prints
+`FINDING population paths=N expected=3` and sets `paths=-1` (measured on a
+mutant whose loop is bound to one body: `paths=-1`, rc 1).
+
 **One named equivalent survivor** (not killable and not a defect): replacing
 the *call site* with `match, exit_code = 1, verdict_ok(…, 1, guard)` is
-indistinguishable, because every input that reaches that line has
-`match == 1` by construction (the caller only runs the legs when `drift == 1`,
-and drift implies the binding refused nothing). Named so the battery does not
-re-find it as live.
+verdict-equivalent on every fixture that reaches the target, because every such
+input has `match == 1` by construction. R66MutC1 measured the one visible
+difference and this seat records it: on a `missingbody` fixture (paths=3,
+refused=2) the pristine counter prints `match=0` and the mutant `match=1`
+(both rc 1, hex=2). Carried as equivalent for pass/fail with that caveat.
 
 ## Open items for the L1
 

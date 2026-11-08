@@ -1,15 +1,11 @@
-# mutant kills — final bytes bd3310b5351f028c972fd2a7d3b9475f8015696b9f07558bb95125ae2ce67440 (scratch copies, selftest-only)
-== p3 ==
-c1-carrier: selftest cases=43 failed=2 names=wrong-body-population-3,wrong-bodies-are-distinct
-== w5 ==
-c1-carrier: selftest cases=43 failed=1 names=fetch-prose-refused
-== w8 ==
-c1-carrier: selftest cases=43 failed=1 names=mutation-leg-same-bytes-not-refused
-== w2b ==
-c1-carrier: selftest cases=43 failed=1 names=registry-digest-refused
-== w7b ==
-c1-carrier: selftest cases=43 failed=2 names=mutation-leg-writes-carrier-slot,mutation-leg-refuses-wrong-bytes
-== aggb ==
-c1-carrier: selftest cases=43 failed=4 names=verdict-of-hex2,verdict-hex2-fails,verdict-paths2-fails,verdict-hex4-fails
-== match3 ==
-c1-carrier: selftest cases=43 failed=3 names=verdict-of-partial-refusal,verdict-of-paths2,verdict-of-base
+# mutant kills — final bytes 6a79a96d01ea881fbc72e66064042dbf027c6772a31d8656c2bed42210334961
+## P3 paths population (loop bound to one body, lane tree = drift 1)
+c1-carrier: FINDING population paths=1 expected=3
+C1_CARRIER: drift=1 paths=-1 hex=1 match=0 guard=1
+## selftest kills
+w5       c1-carrier: selftest cases=43 failed=1 names=fetch-prose-refused
+w8       c1-carrier: selftest cases=43 failed=1 names=mutation-leg-same-bytes-not-refused
+w2b      c1-carrier: selftest cases=43 failed=1 names=registry-digest-refused
+w7b      c1-carrier: selftest cases=43 failed=2 names=mutation-leg-writes-carrier-slot,mutation-leg-refuses-wrong-bytes
+aggb     c1-carrier: selftest cases=43 failed=4 names=verdict-of-hex2,verdict-hex2-fails,verdict-paths2-fails,verdict-hex4-fails
+match3   c1-carrier: selftest cases=43 failed=3 names=verdict-of-partial-refusal,verdict-of-paths2,verdict-of-base

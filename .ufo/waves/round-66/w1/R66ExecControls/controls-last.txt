@@ -1,0 +1,35 @@
+# round-66 pre-freeze control battery (plans/round-66-controls.sh)
+# self 9f0c614acb1f1a7b13cd3a493733426b77acc1e59f92fe972e627c3456a0f11a
+# utc 2026-11-08T09:48:19Z
+# repo /home/vgpnk/Projects/shokunin/kagi-shokunin
+# candidate /home/vgpnk/Projects/shokunin/kagi-shokunin
+# base d549ee6eb8770a49938b78f49cf79e36d9c1c2e8
+# claims C1=plans/round-66-c1.sh(A1) C2=prefile-gate+claims-declared(A2) C3=lane-census(A3)
+INSTRUMENT plans/round-66-c1.sh 6a79a96d01ea881fbc72e66064042dbf027c6772a31d8656c2bed42210334961
+INSTRUMENT corpus/sources-census.sh e9ae2620ff4ad8e3122f8e7c04c19d16afccf03f0feec7c72edcce78bdd58252
+INSTRUMENT corpus/claims-declared.sh dae84157feb204c235b3daf0355455d22eb52a520eeb6482987ad59453c9d65d
+INSTRUMENT plans/round-64-controls.sh e37d497dc6bf56e02b26d8fec8ed24cf66d252968287302b74267ef158d8a678
+INSTRUMENT scripts/hyaku/prefile-falsification.py 1e1427dd85f7f887cca4857d2192ed92113d01792ef1d10e162df79a541b1cb3
+CONTROL C1-NOWORK expect=drift=0 observed=drift=0 match=0 rc=1 verdict=match
+DETAIL C1-NOWORK byte-identical BASE reads the frozen failing value
+CONTROL C1-FORGE expect=drift=0+digest-mismatch(S148.body) observed=drift=0 match=0 rc=1 verdict=match
+DETAIL C1-FORGE wrong-path anchor refused, digest-mismatch named: C1_CARRIER: drift=0 paths=0 hex=0 match=0 guard=0
+CONTROL C1-VALID expect=selftest=PASS;guard=1 observed=guard=1 drift=1 rc=0 verdict=match
+DETAIL C1-VALID counter reaches a guarded pass
+CONTROL C2-NOWORK expect=not-PASS;findings>=1 observed=verdict=setup findings=4 rc=2 verdict=match
+DETAIL C2-NOWORK byte-identical BASE reads the frozen failing value
+CONTROL C2-FORGE expect=FINDING claim-uncovered;rc=1 observed=claim=C1 verdict=setup rc=2 verdict=mismatch
+DETAIL C2-FORGE ledger gap not caught: FINDING report-missing [REDACTED].1349999/c2-forge-fleet/.ufo/reports/round-66/kagi.md~PREFILE-FALSIFICATION: SETUP findings=2~
+CONTROL C2-VALID expect=PASS claims=3 rows>=3 seats>=1 findings=0;CLEAN claims=59 observed=gate=setup findings=1;declared=59 verdict=mismatch
+DETAIL C2-VALID not yet reachable: FINDING wave-missing [REDACTED].ufo/waves/round-66/w1-results.json~ CLAIMS_DECLARED: CLEAN (claims=59)
+CONTROL C3-NOWORK expect=findings>=1 observed=verdict=FAILED findings=4 rows=155 verdict=match
+DETAIL C3-NOWORK byte-identical BASE reads the frozen failing value
+CONTROL C3-FORGE expect=findings>=1 after cites-removal observed=findings=8 verdict=FAILED verdict=match
+DETAIL C3-FORGE removing the cites: line turns the gate red (the repair is what makes it green)
+CONTROL C3-VALID expect=CLEAN;findings=0;line-present observed=verdict=CLEAN findings=0 rows=156 verdict=match
+DETAIL C3-VALID the lane gate reads CLEAN on the measured tree
+CONTROL PRIOR-SELFTEST expect=CONTROLS_SELFTEST: PASS observed=pass;rc=0 verdict=match
+DETAIL PRIOR-SELFTEST CONTROLS_SELFTEST: PASS (cases=36)
+SKIPS: 0
+CONTROLS: match=8 mismatch=2
+SEAT-STATUS: partial mismatch-count=2 (see DETAIL lines; the L1 re-runs the full battery after integration)

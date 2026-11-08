@@ -172,6 +172,86 @@ A1's command line shows only `--tree`. Guard (a) requires
 design. The round-end receipt passes it:
 `.ufo/waves/round-66/final/c1-candidate.txt`.
 
+### M66-10 — a new provenance row borrowed another body's normalized digest
+
+- **class**: `attribution`
+- **evidence**: `corpus/source-fetches.tsv` S155 column 15 carried
+  `4d966ff9…` — the BioC body's normalized digest — while its column 16 names
+  `.ufo/waves/round-66/capture/S155.body` (the eutils carrier), which normalizes
+  to `5f509414…` (`python3 corpus/rendered-text-v1.py digest`). The lane gate
+  checks that column's FORMAT, never its value, so it read CLEAN with the
+  mismatch in place.
+- **captured-by**: `R66ScribeRecords` item 1; no criterion bound a declared
+  normalized digest to the body its row names. New criterion QM92.
+- **fix**: S155 col15 → `5f509414…` (identical to S135's row for the same
+  body); the gate still reads CLEAN.
+
+### M66-11 — a declared quote that does not locate in the capture the row names
+
+- **class**: `vacuous`
+- **evidence**: S156's declared quote joined two JSON fields
+  (`"Rate limit exceeded. … Maximum 3 … per user"`), so `locate` read `count=0`
+  against the 899-byte body its column 16 names — while columns 10/11 are
+  correct. Swept: of 36 fetch rows whose col16 names an existing file, 34
+  locate and 2 do not (S115 pre-existing, S156 landed this round).
+- **captured-by**: `R66ScribeRecords` item 2; the census checks the quote's word
+  count only. QM92 covers the binding, QM93 the quote.
+- **fix**: S156 col13 → `Maximum 3 requests per second per user`
+  (`locate count=1`), col14 `rendered-text-v1`, col15 `5a044661…`.
+
+### M66-12 — a Gate cell stated a byte-diff that cmp does not produce
+
+- **class**: `number-drift`
+- **evidence**: §Gate's second row claimed the served 200 body "differs from the
+  pin by one byte"; three fetches across two user agents returned the body
+  **byte-identical** (`cmp` 0 bytes, sha256 `3b8d4e15…`, 264946 B). The one-byte
+  delta is the historical round-63→round-64 pair (offset 128, the service's
+  `<date>` stamp). The cell also carried prose, not a located quote.
+- **captured-by**: `R66ScribeRecords` item 3; QM6 (a number carries its command).
+- **fix**: corrigendum below; the row was withdrawn rather than repaired, and
+  the Gate's second candidate is recorded as a recheck refresh (this file's
+  §Gate, addendum).
+
+### M66-13 — a gate can be blind to the class the round exists to close
+
+- **class**: `scope`
+- **evidence**: `R66ScoutSources` repointed a fetch row's column 16 at another
+  row's body while the row still declared the pin: the lane gate read
+  `SOURCES_CENSUS: CLEAN`, the fleet wrapper read `kagi ok`, and deleting the
+  cited file entirely still read CLEAN — the gate's only capture check is the
+  location string's LENGTH. `plans/round-66-c1.sh` caught it
+  (`fetches:digest-mismatch`, drift=0). Same for the 11 round-64 handles.
+- **captured-by**: `R66ScoutSources` M4; QM89/QM90 name the counter contract,
+  not the census blind spot. New criterion QM94.
+- **fix**: routed to round 67 as a checked class built on C1's digest
+  resolution; recorded in the report's ceilings, not absorbed.
+
+## Gate addendum (frontier candidates 2 and 3, and the S165 correction)
+
+- **Candidate 2 — eutils carrier (S155's URL), recheck refresh.** Opened live
+  2026-11-08: HTTP 200, 189603 B, sha256 `cdbb4173…` = S135's pin, byte-identical.
+  No new row (a duplicate-URL row with no new lesson); S155's provenance row
+  now binds it with the correct normalized digest. Caveat, measured twice: the
+  raw eutils body splits "negated" with `<italic>` markup, so the quote locates
+  only under `rendered-text-v1`.
+- **Candidate 3 — the equivalent-mutant weak lead, refused.** SpringerLink
+  IWSC-2025 chapter: under the declared browser profile a 3038-byte
+  "Client Challenge" shell with 0 occurrences; under a plain agent the abstract
+  but two consecutive fetches differ by 116 bytes (rotating `_csrf`), and the
+  full text is paywalled. ACM DL record for the ISSTA '24 paper: HTTP 403 bot
+  wall, and the 403 body is unstable across consecutive fetches (5662 B /
+  5684 B / 5684 B, three digests from two seats) — it grounds nothing. Both
+  refusals carry their flip conditions in the report.
+- **Lead admitted-shaped, not registered:** arXiv:2404.09241 (Straubinger,
+  Degenhart, Fraser, "An Empirical Evaluation of Manually Created Equivalent
+  Mutants") — 200, both digests stable across two fetches, quotes locate
+  `count=1`. The registry holds no row on the manually-created
+  equivalent-mutant rate. It is round 67's first pick; writing a row no claim
+  cites would be row-padding.
+- **S165 cell corrected:** the served BioC body is byte-identical to the pin
+  (`cmp` 0), not one byte off; the one-byte delta belongs to the round-63→64
+  pair.
+
 ## Routed dispositions
 
 | id | what | state |

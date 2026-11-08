@@ -283,10 +283,12 @@ battery; the fixes above for the old instruments are not substitutes.
 The plan changed twice while the first battery ran: at 06:32:25 (A1–A3) and
 again by 06:34:18 (`plans/round-66.md` sha
 `6841fcde7bbf099ab49cac4b065e46b51c6fbbbc0481af1e7ce9719cda82a1d5`, 22774 B,
-adding A4). `plans/round-66-c2.sh` is now the L1's `C2_PREFILE`
-(sha `2a9101f14a4c5237787badf8b37963d841b2e5d3935c3eea245d1eef2aefe4e1`,
-11598 B) and `plans/round-66-c3.sh` the L1's `C3_CENSUS`
-(sha `a6c36b87a4ae22f95b3f8cbc7369dfba8f588a20d308fbf0a8eede3fcef85683`,
+adding A4). `plans/round-66-c2.sh` is now the L1's `C2_PREFILE` (first read at
+`2a9101f14a4c5237787badf8b37963d841b2e5d3935c3eea245d1eef2aefe4e1`, 11598 B;
+the L1 fixed the defects reported here in `add9f9991feac56a92c6062253973a585f9d5cbe7b8f1a2ddf3c4c2aed059e3c`
+and then `3d0fc704531a46b3cff4d5be056d2f7596c3f7d7c63c57d8a9615f269c6913b6`,
+10751 B — the final bytes re-tested below) and `plans/round-66-c3.sh` the L1's
+`C3_CENSUS` (sha `a6c36b87a4ae22f95b3f8cbc7369dfba8f588a20d308fbf0a8eede3fcef85683`,
 8015 B). Both replace the instruments tested above; the first battery is
 history against withdrawn claims and is retained because A2 cites its vacuity
 measurement.
@@ -323,7 +325,7 @@ stripped copy is the inherent gate-forgery ceiling; (iii) `rows` is read and
 printed, never asserted (A4 item 3 supersedes the population), so a lying gate
 may print any row count.
 
-### C2_PREFILE (A2/A4) — battery and verdicts
+### C2_PREFILE (A2/A4) — first read (2a9101f1), fix, and final re-test (3d0fc704)
 
 Fixture fleet `fix/a2-fleet`: the repaired candidate tree plus
 `.ufo/waves/round-66/{claims.json, w1-results.json, claim-falsification.tsv}`
@@ -333,59 +335,70 @@ Fixture fleet `fix/a2-fleet`: the repaired candidate tree plus
 `PREFILE-FALSIFICATION: pass claims=3 rows=9 attack_seats=3 findings=0` rc 0;
 `claims-declared` on the same tree reads `CLEAN (claims=59)` rc 0.
 
-The counter on the same `--tree`/`--fleet` reads:
-`gate-out PREFILE-FALSIFICATION: SETUP findings=2` (the default fleet's
-state), `gate=0 claims=0 rows=0 attack_seats=0 guard a=1 b=0 c=0 d=1
-claims-declared=1`, rc 1. Two surviving instrument defects:
+**First read (2a9101f1) found two blocking defects**, both since fixed by the
+L1 (`add9f9991` → `3d0fc704`):
 
-1. **`--fleet` is parsed but never passed to the gate.** `run_gate()` and all
-   three guard invocations call `prefile-falsification.py --lane kagi --round
-   66` without `--fleet`; the tool's default root is
-   `/home/vgpnk/Projects/shokunin`, so the counter always measures the default
-   fleet, never the measured tree. Measured: gate `--fleet <fixture>` ⇒ pass;
-   the same gate without `--fleet` ⇒ `SETUP findings=2`; the counter ⇒ SETUP.
-   `--tree` reaches the gate only as `cwd`, which the gate ignores.
-2. **Guard-b cannot be satisfied.** It builds `rfleet/kagi-shokunin` as an
-   empty directory (only guard-c populates its copy) and then invokes the gate
-   without `--fleet`; both guard-b and guard-c therefore read the default
-   fleet. A PASS ledger contains no `claim-uncovered`/`attack-seat-unread`
-   finding (that is what PASS means) and a SETUP run exits 2, so b=c=0 and
-   guard=0 — exit 1 even on a perfect integration.
+1. **`--fleet` was parsed but never passed to the gate.** `run_gate()` and all
+   three guard invocations called `prefile-falsification.py` without
+   `--fleet`; the default root is `/home/vgpnk/Projects/shokunin`, so the
+   counter measured the default fleet, not the measured tree (`--tree` reached
+   the gate only as `cwd`, which the gate ignores). Measured: gate `--fleet
+   <fixture>` ⇒ pass; same gate without `--fleet` ⇒ `SETUP findings=2`; the
+   counter ⇒ SETUP.
+2. **Guard-b could not be satisfied.** It built `rfleet/kagi-shokunin` empty
+   (only guard-c populated its copy) and both guards invoked the gate without
+   `--fleet`; a PASS ledger contains no `claim-uncovered`/`attack-seat-unread`
+   finding, so b=c=0 and guard=0 on a perfect integration.
 
-Input mutants, scoped versus counter reading:
+On those bytes, input mutants were invisible to the counter while the gate
+saw them: all-C3-rows-removed ⇒ gate `FINDING claim-uncovered` / `FAIL …
+findings=1`; all-`R66Critic`-rows-removed ⇒ gate `FINDING attack-seat-unread`
+/ `FAIL … findings=1`; the counter read the same `SETUP findings=2`, gate=0.
 
-| # | mutant | gate with `--fleet` | counter on the same tree |
-|---|---|---|---|
-| C2A-1 | ledger with all C3 rows removed | `FINDING claim-uncovered claim C3 has no ledger row`; `FAIL claims=3 rows=6 attack_seats=3 findings=1` rc 1 | same `SETUP findings=2`, gate=0 — mutant invisible |
-| C2A-2 | ledger with all `R66Critic` rows removed | `FINDING attack-seat-unread wave attack seat R66Critic produced no artifact this ledger reconciled`; `FAIL … findings=1` rc 1 | same `SETUP findings=2`, gate=0 — mutant invisible |
+**Final re-test on `3d0fc704` (fixed; per-run counter-hash asserted identical
+for every row).** Target fixture: `C2_PREFILE: gate=1 claims=3 rows=9
+attack_seats=3 guard=1`, rc 0, `gate-line PREFILE-FALSIFICATION: pass
+claims=3 rows=9 attack_seats=3 findings=0`. `guard a=1 b=1 c=1 d=1
+claims-declared=1`. Input mutants:
 
-Working legs: `claims-declared` is tree-scoped (59 rows ⇒ CLEAN cd_ok=1; 56
-rows ⇒ cd_ok=0); guard-a (gate selftest)=1; guard-d (claims-declared can fail
-on missing rows)=1; the lowercase `pass` trap (A4 item 1) is handled by
-`re.I` plus `status.lower()`.
+| # | mutant | expected | observed | verdict |
+|---|---|---|---|---|
+| C2F-1 | all C3 rows removed from the ledger | gate=0 (`claim-uncovered`) | `gate=0 claims=3 rows=6 … guard=1`, rc 1; gate line `FAIL findings=1` | **killed** |
+| C2F-2 | all `R66Critic` rows removed | gate=0 (`attack-seat-unread`) | `gate=0 rows=6 … guard=1`, rc 1; `FAIL findings=1` | **killed** |
+| C2F-3 | first data-row artifact → `R66Reviewer/nope.md` | gate=0 (`artifact-missing`) | `gate=0 rows=9 … guard=1`, rc 1; `FAIL findings=1` | **killed** |
+| C2F-4 | first data-row artifact → `../../escape.md` | gate=0 (`artifact-outside-wave`) | `gate=0 … guard=1`, rc 1; `FAIL findings=1` | **killed** |
+| C2F-5 | first data row verdict→`falsifies-wording`, narrowing `-` | gate=0 (`narrowing-missing`) | `gate=0 … guard=1`, rc 1; `FAIL findings=1` | **killed** |
+| C2F-6 | `C4` added to claims.json | gate=0 (claims=4, gate requires 3) | `gate=0 claims=4 rows=9 … guard=1`, rc 1; `FAIL findings=1` | **killed** |
+| C2F-7 | claims.json removed | gate=0 (SETUP, no line) | `gate=0 claims=0 rows=0 attack_seats=0 guard=0`, rc 1 | **killed** |
+| C2F-8 | duplicate first data row appended | gate=0 (`artifact-repeated`) | `gate=0 rows=10 … guard=1`, rc 1; `FAIL findings=1` | **killed** |
+| C2F-9 | `C1\tonly-two` row appended | gate=0 (`row-shape`) | `gate=0 rows=9 … guard=1`, rc 1; `FAIL findings=1` | **killed** |
+| C2F-10 | first data row verdict → `meh` | gate=0 (`verdict-token`) | `gate=0 … guard=1`, rc 1; `FAIL findings=1` | **killed** |
+| C2F-11 | round-66 rows stripped from `corpus/claims-declared.tsv` | gate=0 by the A2 conjunction (`claims-declared` CLEAN is part of `gate`) | `C2_PREFILE: gate=1 claims=3 rows=9 attack_seats=3 guard=1`, rc 1; provenance `claims-declared=0` | **SURVIVED at the verdict-line level** |
 
-Fix:
+C2F-11 root cause and fix: the counter computes the printed `gate` from the
+pre-file line only and folds `claims-declared` into the exit
+(`exit 0 iff gate and guard and cd_ok`). A2's predicate says `gate = 1 iff
+prefile PASS **AND** claims-declared CLEAN`, so the line must read
+`gate=0` here. Fold `cd_ok` into `gate` (or add a `cd=`/`claims_declared=`
+field to the verdict line) so the receipt and the exit agree; the exit code
+is already correct.
 
-```python
-def run_gate(tree):
-    ...
-    cmd = [sys.executable, "-I", "-B", GATE, "--lane", "kagi", "--round",
-           "66", "--fleet", FLEET]
-```
+The lowercase `pass` trap (A4 item 1) is handled by `re.I` +
+`status.lower()`; `claims-declared` is tree-scoped (59 ⇒ 1, 56 ⇒ 0); the
+fixed guard-b/c build and read their own fixture fleets (all four guards 1 on
+the target).
 
-and in guard-b/guard-c pass `--fleet rfleet`; populate
-`rfleet/kagi-shokunin/.ufo/waves/round-66/` in guard-b exactly as guard-c does
-(`claims.json`, `w1-results.json`, mutated ledger) plus
-`rfleet/.ufo/reports/round-66/kagi.md`. Optionally assert
-`realpath(TREE) == realpath(FLEET + "/kagi-shokunin")` so the two surfaces
-cannot diverge silently.
 
 ### Second-battery receipts
 
 `receipts/a2-prefile-scoping.txt`, `receipts/a2-a2-mut-claim.txt`,
-`receipts/a2-a2-mut-seat.txt`, `receipts/c3a3-lane-baseline.txt`,
-`receipts/c3a3-*.txt`, `receipts/c3a3-summary.json`. Lane counters were
-untouched: `plans/round-66-c2.sh` `2a9101f1…` and `plans/round-66-c3.sh`
-`a6c36b87…` at both ends of the battery.
+`receipts/a2-a2-mut-seat.txt`, `receipts/a2-fixture/*`,
+`receipts/a2fixed/*` (final 3d0fc704 battery and per-run counter sha),
+`receipts/c3a3-lane-baseline.txt`, `receipts/c3a3-*.txt`,
+`receipts/c3a3-summary.json`. Lane source was untouched: C3
+`a6c36b87…` at both ends; C2 moved from `2a9101f1…` to the L1's
+`add9f9991…`/`3d0fc704…` while the battery ran (edits by the L1, not this
+seat), and every row of the final battery asserted the same per-run counter
+sha `3d0fc704…`.
 
 

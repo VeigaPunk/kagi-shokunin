@@ -1,0 +1,196 @@
+{
+ "counter_sha256": "3d0fc704531a46b3cff4d5be056d2f7596c3f7d7c63c57d8a9615f269c6913b6",
+ "results": [
+  {
+   "tag": "baseline-target",
+   "rc": 0,
+   "verdict": "C2_PREFILE: gate=1 claims=3 rows=9 attack_seats=3 guard=1",
+   "fields": {
+    "gate": 1,
+    "claims": 3,
+    "rows": 9,
+    "seats": 3,
+    "guard": 1
+   },
+   "tree": "/fast/scratch/hyaku/kagi-r66/R66MutC2/fix/a2-fleet",
+   "counter_sha256": "3d0fc704531a46b3cff4d5be056d2f7596c3f7d7c63c57d8a9615f269c6913b6",
+   "ledger_sha": "ba8dc9f84a04d113c8118ecc516a4554ae83cbf42898e0599d537137fc3df4a2"
+  },
+  {
+   "tag": "claim-rows-removed",
+   "rc": 1,
+   "verdict": "C2_PREFILE: gate=0 claims=3 rows=6 attack_seats=3 guard=1",
+   "fields": {
+    "gate": 0,
+    "claims": 3,
+    "rows": 6,
+    "seats": 3,
+    "guard": 1
+   },
+   "tree": "/fast/scratch/hyaku/kagi-r66/R66MutC2/fix/a2new-claim-rows-removed",
+   "counter_sha256": "3d0fc704531a46b3cff4d5be056d2f7596c3f7d7c63c57d8a9615f269c6913b6",
+   "ledger_sha": "cf19b0ccafa3adc2f3f66e00acd5147efd40fb11c5451c08875e6b4c7ff9f258",
+   "expect": "gate=0 (FAIL findings=1 claim-uncovered)"
+  },
+  {
+   "tag": "seat-rows-removed",
+   "rc": 1,
+   "verdict": "C2_PREFILE: gate=0 claims=3 rows=6 attack_seats=3 guard=1",
+   "fields": {
+    "gate": 0,
+    "claims": 3,
+    "rows": 6,
+    "seats": 3,
+    "guard": 1
+   },
+   "tree": "/fast/scratch/hyaku/kagi-r66/R66MutC2/fix/a2new-seat-rows-removed",
+   "counter_sha256": "3d0fc704531a46b3cff4d5be056d2f7596c3f7d7c63c57d8a9615f269c6913b6",
+   "ledger_sha": "4b66085f0ea48ca71450e647590a94dea919af8e4276db7bb26cdb3c1bc608bc",
+   "expect": "gate=0 (FAIL attack-seat-unread)"
+  },
+  {
+   "tag": "artifact-missing",
+   "rc": 1,
+   "verdict": "C2_PREFILE: gate=0 claims=3 rows=9 attack_seats=3 guard=1",
+   "fields": {
+    "gate": 0,
+    "claims": 3,
+    "rows": 9,
+    "seats": 3,
+    "guard": 1
+   },
+   "tree": "/fast/scratch/hyaku/kagi-r66/R66MutC2/fix/a2new-artifact-missing",
+   "counter_sha256": "3d0fc704531a46b3cff4d5be056d2f7596c3f7d7c63c57d8a9615f269c6913b6",
+   "ledger_sha": "5f1703a8da1e2baf267637b0df0e68a9db596b1b2461bb79df2a1117ea6a9ca2",
+   "expect": "gate=0 (FINDING artifact-missing)"
+  },
+  {
+   "tag": "artifact-outside",
+   "rc": 1,
+   "verdict": "C2_PREFILE: gate=0 claims=3 rows=9 attack_seats=3 guard=1",
+   "fields": {
+    "gate": 0,
+    "claims": 3,
+    "rows": 9,
+    "seats": 3,
+    "guard": 1
+   },
+   "tree": "/fast/scratch/hyaku/kagi-r66/R66MutC2/fix/a2new-artifact-outside",
+   "counter_sha256": "3d0fc704531a46b3cff4d5be056d2f7596c3f7d7c63c57d8a9615f269c6913b6",
+   "ledger_sha": "aca100d8dd3c7a24fe3e2bc3c1f9551bffa7ae676d821a2badb2f6255e4d3611",
+   "expect": "gate=0 (FINDING artifact-outside-wave)"
+  },
+  {
+   "tag": "narrowing-missing",
+   "rc": 1,
+   "verdict": "C2_PREFILE: gate=0 claims=3 rows=9 attack_seats=3 guard=1",
+   "fields": {
+    "gate": 0,
+    "claims": 3,
+    "rows": 9,
+    "seats": 3,
+    "guard": 1
+   },
+   "tree": "/fast/scratch/hyaku/kagi-r66/R66MutC2/fix/a2new-narrowing-missing",
+   "counter_sha256": "3d0fc704531a46b3cff4d5be056d2f7596c3f7d7c63c57d8a9615f269c6913b6",
+   "ledger_sha": "1a3659d5399a7f3b8d1a6c2f11a9ef4f66783466b452fd643608beaba3243d9f",
+   "expect": "gate=0 (FINDING narrowing-missing)"
+  },
+  {
+   "tag": "extra-claim-C4",
+   "rc": 1,
+   "verdict": "C2_PREFILE: gate=0 claims=4 rows=9 attack_seats=3 guard=1",
+   "fields": {
+    "gate": 0,
+    "claims": 4,
+    "rows": 9,
+    "seats": 3,
+    "guard": 1
+   },
+   "tree": "/fast/scratch/hyaku/kagi-r66/R66MutC2/fix/a2new-extra-claim-C4",
+   "counter_sha256": "3d0fc704531a46b3cff4d5be056d2f7596c3f7d7c63c57d8a9615f269c6913b6",
+   "ledger_sha": "ba8dc9f84a04d113c8118ecc516a4554ae83cbf42898e0599d537137fc3df4a2",
+   "expect": "gate=0 (claims=4; gate requires claims==3)"
+  },
+  {
+   "tag": "missing-claims-json",
+   "rc": 1,
+   "verdict": "C2_PREFILE: gate=0 claims=0 rows=0 attack_seats=0 guard=0",
+   "fields": {
+    "gate": 0,
+    "claims": 0,
+    "rows": 0,
+    "seats": 0,
+    "guard": 0
+   },
+   "tree": "/fast/scratch/hyaku/kagi-r66/R66MutC2/fix/a2new-missing-claims-json",
+   "counter_sha256": "3d0fc704531a46b3cff4d5be056d2f7596c3f7d7c63c57d8a9615f269c6913b6",
+   "ledger_sha": "ba8dc9f84a04d113c8118ecc516a4554ae83cbf42898e0599d537137fc3df4a2",
+   "expect": "gate=0 (SETUP, no verdict line)"
+  },
+  {
+   "tag": "artifact-repeated",
+   "rc": 1,
+   "verdict": "C2_PREFILE: gate=0 claims=3 rows=10 attack_seats=3 guard=1",
+   "fields": {
+    "gate": 0,
+    "claims": 3,
+    "rows": 10,
+    "seats": 3,
+    "guard": 1
+   },
+   "tree": "/fast/scratch/hyaku/kagi-r66/R66MutC2/fix/a2new-artifact-repeated",
+   "counter_sha256": "3d0fc704531a46b3cff4d5be056d2f7596c3f7d7c63c57d8a9615f269c6913b6",
+   "ledger_sha": "40c9eb415893a3d99cdc5f0d63298fc88720b6d659a721984dfed6469c7c07c6",
+   "expect": "gate=0 (FINDING artifact-repeated)"
+  },
+  {
+   "tag": "row-shape",
+   "rc": 1,
+   "verdict": "C2_PREFILE: gate=0 claims=3 rows=9 attack_seats=3 guard=1",
+   "fields": {
+    "gate": 0,
+    "claims": 3,
+    "rows": 9,
+    "seats": 3,
+    "guard": 1
+   },
+   "tree": "/fast/scratch/hyaku/kagi-r66/R66MutC2/fix/a2new-row-shape",
+   "counter_sha256": "3d0fc704531a46b3cff4d5be056d2f7596c3f7d7c63c57d8a9615f269c6913b6",
+   "ledger_sha": "82f14d3b0b78e3a90cd6e7dc27696f6c56a86cfa30c75072dbb51bde4cb02efa",
+   "expect": "gate=0 (FINDING row-shape)"
+  },
+  {
+   "tag": "verdict-token",
+   "rc": 1,
+   "verdict": "C2_PREFILE: gate=0 claims=3 rows=9 attack_seats=3 guard=1",
+   "fields": {
+    "gate": 0,
+    "claims": 3,
+    "rows": 9,
+    "seats": 3,
+    "guard": 1
+   },
+   "tree": "/fast/scratch/hyaku/kagi-r66/R66MutC2/fix/a2new-verdict-token",
+   "counter_sha256": "3d0fc704531a46b3cff4d5be056d2f7596c3f7d7c63c57d8a9615f269c6913b6",
+   "ledger_sha": "b21b719cde189314c43012973d9ee68a3cba6ffb4a55814bb1e615e347623e3e",
+   "expect": "gate=0 (FINDING verdict-token)"
+  },
+  {
+   "tag": "manifest-66-rows-removed",
+   "rc": 1,
+   "verdict": "C2_PREFILE: gate=1 claims=3 rows=9 attack_seats=3 guard=1",
+   "fields": {
+    "gate": 1,
+    "claims": 3,
+    "rows": 9,
+    "seats": 3,
+    "guard": 1
+   },
+   "tree": "/fast/scratch/hyaku/kagi-r66/R66MutC2/fix/a2new-manifest-66-rows-removed",
+   "counter_sha256": "3d0fc704531a46b3cff4d5be056d2f7596c3f7d7c63c57d8a9615f269c6913b6",
+   "ledger_sha": "ba8dc9f84a04d113c8118ecc516a4554ae83cbf42898e0599d537137fc3df4a2",
+   "expect": "gate=0, claims-declared=0, guard d=0"
+  }
+ ]
+}

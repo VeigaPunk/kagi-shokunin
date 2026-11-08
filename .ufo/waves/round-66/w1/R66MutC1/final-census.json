@@ -3,7 +3,7 @@
   "mid": "G1-guard-constant-1",
   "cls": "guard-constant",
   "selftest_killed": false,
-  "selftest_line": "c1-carrier: selftest cases=29 failed=0",
+  "selftest_line": "c1-carrier: selftest cases=43 failed=0",
   "hits": [
    [
     "base",
@@ -57,7 +57,7 @@
   "mid": "G2-ga-constant-1",
   "cls": "guard-constant",
   "selftest_killed": false,
-  "selftest_line": "c1-carrier: selftest cases=29 failed=0",
+  "selftest_line": "c1-carrier: selftest cases=43 failed=0",
   "hits": [
    [
     "stbase",
@@ -71,7 +71,7 @@
   "mid": "G3-gb-constant-1",
   "cls": "guard-constant",
   "selftest_killed": false,
-  "selftest_line": "c1-carrier: selftest cases=29 failed=0",
+  "selftest_line": "c1-carrier: selftest cases=43 failed=0",
   "hits": [
    [
     "base",
@@ -105,7 +105,7 @@
   "mid": "G4-gc-constant-1",
   "cls": "guard-constant",
   "selftest_killed": false,
-  "selftest_line": "c1-carrier: selftest cases=29 failed=0",
+  "selftest_line": "c1-carrier: selftest cases=43 failed=0",
   "hits": [
    [
     "badvolgate",
@@ -119,7 +119,7 @@
   "mid": "G5-gd-constant-1",
   "cls": "guard-constant",
   "selftest_killed": false,
-  "selftest_line": "c1-carrier: selftest cases=29 failed=0",
+  "selftest_line": "c1-carrier: selftest cases=43 failed=0",
   "hits": [
    [
     "nowrongfile",
@@ -133,7 +133,7 @@
   "mid": "G6-guard-drops-ga",
   "cls": "guard-constant",
   "selftest_killed": false,
-  "selftest_line": "c1-carrier: selftest cases=29 failed=0",
+  "selftest_line": "c1-carrier: selftest cases=43 failed=0",
   "hits": [
    [
     "stbase",
@@ -147,7 +147,7 @@
   "mid": "G7-guard-drops-gd",
   "cls": "guard-constant",
   "selftest_killed": false,
-  "selftest_line": "c1-carrier: selftest cases=29 failed=0",
+  "selftest_line": "c1-carrier: selftest cases=43 failed=0",
   "hits": [
    [
     "nowrongfile",
@@ -161,7 +161,7 @@
   "mid": "G8-guard-drops-gc",
   "cls": "guard-constant",
   "selftest_killed": false,
-  "selftest_line": "c1-carrier: selftest cases=29 failed=0",
+  "selftest_line": "c1-carrier: selftest cases=43 failed=0",
   "hits": [
    [
     "badvolgate",
@@ -175,7 +175,7 @@
   "mid": "G9-guard-drops-gb",
   "cls": "guard-constant",
   "selftest_killed": false,
-  "selftest_line": "c1-carrier: selftest cases=29 failed=0",
+  "selftest_line": "c1-carrier: selftest cases=43 failed=0",
   "hits": [
    [
     "base",
@@ -206,10 +206,24 @@
   "killed": true
  },
  {
+  "mid": "MC-callsite-match-constant",
+  "cls": "constant-print",
+  "selftest_killed": false,
+  "selftest_line": "c1-carrier: selftest cases=43 failed=0",
+  "hits": [
+   [
+    "missingbody",
+    "MATCH-WRONG",
+    "C1_CARRIER: drift=1 paths=3 hex=2 match=1 guard=1"
+   ]
+  ],
+  "killed": true
+ },
+ {
   "mid": "P1-verdict-exit-constant-target",
   "cls": "constant-print",
   "selftest_killed": false,
-  "selftest_line": "c1-carrier: selftest cases=29 failed=0",
+  "selftest_line": "c1-carrier: selftest cases=43 failed=0",
   "hits": [
    [
     "base",
@@ -267,13 +281,23 @@
  {
   "mid": "P2-match-constant-1",
   "cls": "constant-print",
-  "selftest_killed": false,
-  "selftest_line": "c1-carrier: selftest cases=29 failed=0",
+  "selftest_killed": true,
+  "selftest_line": "c1-carrier: selftest cases=43 failed=3 names=verdict-of-partial-refusal,verdict-of-paths2,verdict-of-base",
   "hits": [
+   [
+    "cand",
+    "MISSED-TARGET",
+    "C1_CARRIER: drift=1 paths=3 hex=3 match=1 guard=0"
+   ],
+   [
+    "tworows",
+    "MISSED-TARGET",
+    "C1_CARRIER: drift=1 paths=3 hex=3 match=1 guard=0"
+   ],
    [
     "missingbody",
     "MATCH-WRONG",
-    "C1_CARRIER: drift=1 paths=3 hex=2 match=1 guard=1"
+    "C1_CARRIER: drift=1 paths=3 hex=2 match=1 guard=0"
    ]
   ],
   "killed": true
@@ -282,7 +306,7 @@
   "mid": "P3-paths-constant-3",
   "cls": "constant-print",
   "selftest_killed": false,
-  "selftest_line": "c1-carrier: selftest cases=29 failed=0",
+  "selftest_line": "c1-carrier: selftest cases=43 failed=0",
   "hits": [],
   "killed": false
  },
@@ -290,7 +314,7 @@
   "mid": "P4-exit-always-0",
   "cls": "constant-print",
   "selftest_killed": false,
-  "selftest_line": "c1-carrier: selftest cases=29 failed=0",
+  "selftest_line": "c1-carrier: selftest cases=43 failed=0",
   "hits": [
    [
     "base",
@@ -349,7 +373,7 @@
   "mid": "P5-verdict-drops-guard",
   "cls": "constant-print",
   "selftest_killed": true,
-  "selftest_line": "c1-carrier: selftest cases=29 failed=1 names=verdict-guard0-fails",
+  "selftest_line": "c1-carrier: selftest cases=43 failed=2 names=verdict-of-guard0,verdict-guard0-fails",
   "hits": [
    [
     "stbase",
@@ -368,7 +392,7 @@
   "mid": "P6-verdict-drops-match",
   "cls": "constant-print",
   "selftest_killed": true,
-  "selftest_line": "c1-carrier: selftest cases=29 failed=1 names=verdict-match0-fails",
+  "selftest_line": "c1-carrier: selftest cases=43 failed=2 names=verdict-of-partial-refusal,verdict-match0-fails",
   "hits": [
    [
     "cand",
@@ -387,7 +411,7 @@
   "mid": "W1-drift-digest-dropped",
   "cls": "wrong-id",
   "selftest_killed": true,
-  "selftest_line": "c1-carrier: selftest cases=29 failed=5 names=wrong-file-named,registry-digest-refused,fetches-digest-refused,volatile-digest-refused,mutation-leg-refuses-wrong-bytes",
+  "selftest_line": "c1-carrier: selftest cases=43 failed=5 names=wrong-file-named,registry-digest-refused,fetches-digest-refused,volatile-digest-refused,mutation-leg-refuses-wrong-bytes",
   "hits": [
    [
     "cand",
@@ -411,7 +435,7 @@
   "mid": "W10-mutation-slot-constant",
   "cls": "wrong-id",
   "selftest_killed": true,
-  "selftest_line": "c1-carrier: selftest cases=29 failed=2 names=mutation-leg-writes-carrier-slot,mutation-leg-refuses-wrong-bytes",
+  "selftest_line": "c1-carrier: selftest cases=43 failed=2 names=mutation-leg-writes-carrier-slot,mutation-leg-refuses-wrong-bytes",
   "hits": [
    [
     "cand",
@@ -430,7 +454,7 @@
   "mid": "W11-missing-body-passes",
   "cls": "wrong-id",
   "selftest_killed": false,
-  "selftest_line": "c1-carrier: selftest cases=29 failed=0",
+  "selftest_line": "c1-carrier: selftest cases=43 failed=0",
   "hits": [
    [
     "missingbody",
@@ -444,7 +468,7 @@
   "mid": "W2-anchor-pin-dropped",
   "cls": "wrong-id",
   "selftest_killed": false,
-  "selftest_line": "c1-carrier: selftest cases=29 failed=0",
+  "selftest_line": "c1-carrier: selftest cases=43 failed=0",
   "hits": [
    [
     "nopin164",
@@ -458,7 +482,7 @@
   "mid": "W3-anchor-lowest-row",
   "cls": "wrong-id",
   "selftest_killed": false,
-  "selftest_line": "c1-carrier: selftest cases=29 failed=0",
+  "selftest_line": "c1-carrier: selftest cases=43 failed=0",
   "hits": [
    [
     "tworows",
@@ -472,7 +496,7 @@
   "mid": "W4-fetch-col10-dropped",
   "cls": "wrong-id",
   "selftest_killed": false,
-  "selftest_line": "c1-carrier: selftest cases=29 failed=0",
+  "selftest_line": "c1-carrier: selftest cases=43 failed=0",
   "hits": [
    [
     "fetzsha",
@@ -485,16 +509,27 @@
  {
   "mid": "W5-fetch-col16-search",
   "cls": "wrong-id",
-  "selftest_killed": false,
-  "selftest_line": "c1-carrier: selftest cases=29 failed=0",
-  "hits": [],
-  "killed": false
+  "selftest_killed": true,
+  "selftest_line": "c1-carrier: selftest cases=43 failed=1 names=fetch-prose-refused",
+  "hits": [
+   [
+    "cand",
+    "MISSED-TARGET",
+    "C1_CARRIER: drift=1 paths=3 hex=3 match=1 guard=0"
+   ],
+   [
+    "tworows",
+    "MISSED-TARGET",
+    "C1_CARRIER: drift=1 paths=3 hex=3 match=1 guard=0"
+   ]
+  ],
+  "killed": true
  },
  {
   "mid": "W6-samepath-dropped",
   "cls": "wrong-id",
   "selftest_killed": false,
-  "selftest_line": "c1-carrier: selftest cases=29 failed=0",
+  "selftest_line": "c1-carrier: selftest cases=43 failed=0",
   "hits": [
    [
     "splitpaths",
@@ -508,7 +543,7 @@
   "mid": "W7-digest-wrong-compare",
   "cls": "wrong-id",
   "selftest_killed": true,
-  "selftest_line": "c1-carrier: selftest cases=29 failed=3 names=legs-all-ok-reads-one,registry-digest-refused,fetches-digest-refused",
+  "selftest_line": "c1-carrier: selftest cases=43 failed=4 names=legs-all-ok-reads-one,registry-digest-refused,fetches-digest-refused,mutation-leg-same-bytes-not-refused",
   "hits": [
    [
     "cand",
@@ -546,16 +581,27 @@
  {
   "mid": "W8-mutation-refused-constant",
   "cls": "wrong-id",
-  "selftest_killed": false,
-  "selftest_line": "c1-carrier: selftest cases=29 failed=0",
-  "hits": [],
-  "killed": false
+  "selftest_killed": true,
+  "selftest_line": "c1-carrier: selftest cases=43 failed=1 names=mutation-leg-same-bytes-not-refused",
+  "hits": [
+   [
+    "cand",
+    "MISSED-TARGET",
+    "C1_CARRIER: drift=1 paths=3 hex=3 match=1 guard=0"
+   ],
+   [
+    "tworows",
+    "MISSED-TARGET",
+    "C1_CARRIER: drift=1 paths=3 hex=3 match=1 guard=0"
+   ]
+  ],
+  "killed": true
  },
  {
   "mid": "W9-mutation-hex-constant",
   "cls": "wrong-id",
   "selftest_killed": true,
-  "selftest_line": "c1-carrier: selftest cases=29 failed=1 names=mutation-leg-hex-zero-on-pin",
+  "selftest_line": "c1-carrier: selftest cases=43 failed=2 names=mutation-leg-hex-zero-on-pin,mutation-leg-same-bytes-not-refused",
   "hits": [
    [
     "cand",

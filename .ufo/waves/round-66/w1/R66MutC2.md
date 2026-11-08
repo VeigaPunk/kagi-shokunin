@@ -147,11 +147,15 @@ withdraws the hard-coded anchor sample C3 measured.
 ## Second battery — the amended instruments (A2/A4, A3/A4)
 
 Current plan sha `6841fcde7bbf099ab49cac4b065e46b51c6fbbbc0481af1e7ce9719cda82a1d5`
-(22774 B, A4 added). Current counters: `plans/round-66-c2.sh`
-`2a9101f14a4c5237787badf8b37963d841b2e5d3935c3eea245d1eef2aefe4e1`
-(C2_PREFILE, 11598 B) and `plans/round-66-c3.sh`
+(22774 B, A4 added). Current counters: `plans/round-66-c3.sh`
 `a6c36b87a4ae22f95b3f8cbc7369dfba8f588a20d308fbf0a8eede3fcef85683`
-(C3_CENSUS, 8015 B).
+(C3_CENSUS, 8015 B) and `plans/round-66-c2.sh`, which was the L1's
+C2_PREFILE (first read at
+`2a9101f14a4c5237787badf8b37963d841b2e5d3935c3eea245d1eef2aefe4e1`, then fixed
+by the L1 to
+`add9f9991feac56a92c6062253973a585f9d5cbe7b8f1a2ddf3c4c2aed059e3c` and
+`3d0fc704531a46b3cff4d5be056d2f7596c3f7d7c63c57d8a9615f269c6913b6`, 10751 B
+— the final bytes re-tested here).
 
 **C3_CENSUS — target reachable, all 10 mutants killed.** Lane baseline:
 `C3_CENSUS: findings=0 rows=156 guard=1`, rc 0; corpus-fixture baseline
@@ -166,42 +170,54 @@ differ (coincide on the default run); a tree-owned gate that lies consistently
 on the tree and the stripped copy is the inherent gate-forgery ceiling; `rows`
 is read but not asserted (A4 item 3).
 
-**C2_PREFILE — target unreachable as landed; two surviving defects.**
+**C2_PREFILE — first read (2a9101f1) found two blocking defects; the L1 fixed
+them (add9f9991 → 3d0fc704); final re-test has one verdict-line survivor.**
 A conforming fixture fleet (repaired tree + claims/results/9-row ledger/report
 + gate copy) reads with `--fleet`: `PREFILE-FALSIFICATION: pass claims=3
 rows=9 attack_seats=3 findings=0` rc 0, and `CLAIMS_DECLARED: CLEAN
-(claims=59)`. The counter on the same `--tree`/`--fleet` reads
-`gate-out … SETUP findings=2`, `gate=0 claims=0 rows=0 attack_seats=0
-guard a=1 b=0 c=0 d=1`, rc 1.
+(claims=59)`.
 
-1. **`--fleet` never reaches the gate.** `run_gate()` and all three guard
-   invocations call `prefile-falsification.py --lane kagi --round 66` without
-   `--fleet`; the tool defaults to `/home/vgpnk/Projects/shokunin`. The
-   counter therefore measures the default fleet, not the measured tree
-   (`--tree` is only a cwd). Measured: gate with `--fleet` fixture ⇒ pass;
-   without ⇒ SETUP findings=2; counter ⇒ SETUP.
-2. **Guard-b cannot be satisfied.** It leaves `rfleet/kagi-shokunin` empty
-   (only guard-c populates its copy) and both guards invoke the gate without
-   `--fleet`; on a PASS ledger there is no `claim-uncovered` /
-   `attack-seat-unread` finding, and SETUP exits 2 — so b=c=0, guard=0, exit 1
-   on a perfect integration.
+First read on `2a9101f1`:
 
-Input mutants demonstrate the invisibility: a ledger with all C3 rows removed
-reads at the gate `FINDING claim-uncovered claim C3 has no ledger row` /
-`FAIL … findings=1` rc 1; an all-`R66Critic`-rows-removed ledger reads
-`FINDING attack-seat-unread … R66Critic …` / `FAIL … findings=1` rc 1. The
-counter reads the same `SETUP findings=2`, gate=0 for both.
+1. **`--fleet` never reached the gate.** `run_gate()` and all three guard
+   invocations called `prefile-falsification.py --lane kagi --round 66`
+   without `--fleet`; the tool defaults to `/home/vgpnk/Projects/shokunin`, so
+   the counter measured the default fleet, not the measured tree (`--tree` was
+   only a cwd). Measured: gate `--fleet` fixture ⇒ pass; without ⇒ SETUP
+   findings=2; counter ⇒ `gate=0 … guard a=1 b=0 c=0 d=1`, rc 1.
+2. **Guard-b could not be satisfied** (empty `rfleet/kagi-shokunin`, and both
+   guards queried the gate without `--fleet`): on a PASS ledger there is no
+   `claim-uncovered`/`attack-seat-unread` finding and SETUP exits 2, so b=c=0,
+   guard=0. Input mutants were invisible: all-C3-rows-removed ⇒ gate
+   `FINDING claim-uncovered` / `FAIL … findings=1`; all-`R66Critic`-rows-removed
+   ⇒ gate `FINDING attack-seat-unread` / `FAIL … findings=1`; counter read the
+   same SETUP, gate=0.
 
-Fix: add `"--fleet", FLEET` to `run_gate()`, pass `--fleet rfleet` from
-guard-b/c, populate guard-b's `rfleet/kagi-shokunin` wave dir and report as
-guard-c does, and optionally assert
-`realpath(TREE) == realpath(FLEET + "/kagi-shokunin")`. The lowercase `pass`
-trap (A4 item 1) is handled by `re.I` + `status.lower()`; the
-`claims-declared` leg is correctly tree-scoped (59 ⇒ cd_ok=1, 56 ⇒ 0).
+Final re-test on `3d0fc704` (every row asserted the same per-run counter
+sha): target fixture ⇒ `C2_PREFILE: gate=1 claims=3 rows=9 attack_seats=3
+guard=1` rc 0, `guard a=1 b=1 c=1 d=1 claims-declared=1`. Killed input
+mutants (all read `gate=0`, rc 1): C3-rows-removed (`claim-uncovered`,
+rows=6), `R66Critic`-rows-removed (`attack-seat-unread`, rows=6),
+artifact-missing, artifact-outside-wave, narrowing-missing, extra claim `C4`
+(claims=4), missing claims.json (SETUP, guard=0), duplicate ledger row
+(artifact-repeated, rows=10), malformed row (`C1\tonly-two`, row-shape),
+bogus verdict token (`meh`, verdict-token).
+
+**Survivor C2F-11 (verdict-line level).** With the round-66 rows stripped from
+`corpus/claims-declared.tsv`, the run prints `C2_PREFILE: gate=1 claims=3
+rows=9 attack_seats=3 guard=1` and exits 1; only the provenance line
+`claims-declared=0` and the exit code carry the failure. A2's predicate says
+`gate = 1 iff` prefile PASS **and** claims-declared CLEAN, so the line should
+read `gate=0`. Fix: fold `cd_ok` into `gate` and/or add a
+`claims_declared=`/`cd=` field to the verdict line so the receipt and the exit
+agree. The lowercase `pass` trap (A4 item 1) is handled by `re.I` +
+`status.lower()`; `claims-declared` is tree-scoped (59 ⇒ 1, 56 ⇒ 0); the fixed
+guard-b/c build and read their own fixture fleets (all four guards 1 on the
+target).
 
 Receipts: `R66MutC2/receipts/{a2-prefile-scoping.txt, a2-a2-mut-claim.txt,
-a2-a2-mut-seat.txt, c3a3-lane-baseline.txt, c3a3-*.txt,
-c3a3-summary.json}`. Both lane counters were byte-identical before and after
-the second battery; no lane source was written by this seat.
+a2-a2-mut-seat.txt, a2-fixture/*, a2fixed/*, c3a3-lane-baseline.txt,
+c3a3-*.txt, c3a3-summary.json}`. C3 was byte-identical throughout; C2 edits
+were the L1's (this seat wrote no lane source).
 
 

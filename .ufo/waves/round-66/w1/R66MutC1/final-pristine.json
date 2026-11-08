@@ -1,0 +1,174 @@
+{
+ "cand": {
+  "fx": "cand",
+  "rc": 0,
+  "line": "C1_CARRIER: drift=1 paths=3 hex=3 match=1 guard=1",
+  "tuple": [
+   1,
+   3,
+   3,
+   1,
+   1
+  ],
+  "selftest": "c1-carrier: selftest cases=43 failed=0",
+  "findings": []
+ },
+ "tworows": {
+  "fx": "tworows",
+  "rc": 0,
+  "line": "C1_CARRIER: drift=1 paths=3 hex=3 match=1 guard=1",
+  "tuple": [
+   1,
+   3,
+   3,
+   1,
+   1
+  ],
+  "selftest": "c1-carrier: selftest cases=43 failed=0",
+  "findings": []
+ },
+ "base": {
+  "fx": "base",
+  "rc": 1,
+  "line": "C1_CARRIER: drift=0 paths=0 hex=0 match=0 guard=0",
+  "tuple": [
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  "selftest": "c1-carrier: selftest cases=32 failed=5 names=anchor-rid,anchor-path-shape,fetch-path-shape,three-anchors-one-path,anchor-file-exists",
+  "findings": []
+ },
+ "badbytes": {
+  "fx": "badbytes",
+  "rc": 1,
+  "line": "C1_CARRIER: drift=0 paths=0 hex=0 match=0 guard=0",
+  "tuple": [
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  "selftest": "c1-carrier: selftest cases=43 failed=7 names=anchor-sha-is-pin,anchor-bytes,legs-all-ok-reads-one,registry-digest-refused,fetches-digest-refused,mutation-leg-hex-zero-on-pin,mutation-leg-same-bytes-not-refused",
+  "findings": []
+ },
+ "splitpaths": {
+  "fx": "splitpaths",
+  "rc": 1,
+  "line": "C1_CARRIER: drift=0 paths=0 hex=0 match=0 guard=0",
+  "tuple": [
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  "selftest": "c1-carrier: selftest cases=43 failed=2 names=fetch-eq-anchor,three-anchors-one-path",
+  "findings": []
+ },
+ "fetzsha": {
+  "fx": "fetzsha",
+  "rc": 1,
+  "line": "C1_CARRIER: drift=0 paths=0 hex=0 match=0 guard=0",
+  "tuple": [
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  "selftest": "c1-carrier: selftest cases=43 failed=3 names=fetch-path-shape,fetch-eq-anchor,three-anchors-one-path",
+  "findings": []
+ },
+ "fetchprose": {
+  "fx": "fetchprose",
+  "rc": 1,
+  "line": "C1_CARRIER: drift=0 paths=0 hex=0 match=0 guard=0",
+  "tuple": [
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  "selftest": "c1-carrier: selftest cases=43 failed=3 names=fetch-path-shape,fetch-eq-anchor,three-anchors-one-path",
+  "findings": []
+ },
+ "nopin164": {
+  "fx": "nopin164",
+  "rc": 1,
+  "line": "C1_CARRIER: drift=0 paths=0 hex=0 match=0 guard=0",
+  "tuple": [
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  "selftest": "c1-carrier: selftest cases=32 failed=5 names=anchor-rid,anchor-path-shape,fetch-path-shape,three-anchors-one-path,anchor-file-exists",
+  "findings": []
+ },
+ "nowrongfile": {
+  "fx": "nowrongfile",
+  "rc": 1,
+  "line": "C1_CARRIER: drift=1 paths=3 hex=2 match=0 guard=0",
+  "tuple": [
+   1,
+   3,
+   2,
+   0,
+   0
+  ],
+  "selftest": "c1-carrier: selftest cases=43 failed=0",
+  "findings": [
+   "c1-carrier: FINDING mut-0 not-refused path=.ufo/waves/round-64/capture/S148.body diag=mutation-body-absent:.ufo/waves/round-64/capture/S148.body"
+  ]
+ },
+ "missingbody": {
+  "fx": "missingbody",
+  "rc": 1,
+  "line": "C1_CARRIER: drift=1 paths=3 hex=2 match=0 guard=1",
+  "tuple": [
+   1,
+   3,
+   2,
+   0,
+   1
+  ],
+  "selftest": "c1-carrier: selftest cases=43 failed=0",
+  "findings": [
+   "c1-carrier: FINDING mut-2 not-refused path=.ufo/waves/round-64/capture/S157.body diag=mutation-body-absent:.ufo/waves/round-64/capture/S157.body"
+  ]
+ },
+ "stbase": {
+  "fx": "stbase",
+  "rc": 1,
+  "line": "C1_CARRIER: drift=1 paths=3 hex=3 match=1 guard=0",
+  "tuple": [
+   1,
+   3,
+   3,
+   1,
+   0
+  ],
+  "selftest": "c1-carrier: selftest cases=43 failed=0",
+  "findings": []
+ },
+ "badvolgate": {
+  "fx": "badvolgate",
+  "rc": 1,
+  "line": "C1_CARRIER: drift=1 paths=3 hex=3 match=1 guard=0",
+  "tuple": [
+   1,
+   3,
+   3,
+   1,
+   0
+  ],
+  "selftest": "c1-carrier: selftest cases=43 failed=0",
+  "findings": []
+ }
+}

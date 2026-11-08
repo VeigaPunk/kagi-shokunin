@@ -180,18 +180,20 @@ not that it supports the row's teaching.
 
 ## 4. Risks / observations
 
-- External mutation run (R67MutGate, against the previous bytes `46de3d8c…`, receipts
-  `.ufo/waves/round-67/w1/R67MutGate/`): **no survivor** among 7 mutants (length-only,
-  size-only, quote-nonempty, constant `bound=36/located=36`, prose-as-paths,
-  exit-0-with-SC_CAPTURE, no-containment). Load-bearing residual: the constant
-  `bound=36/located=36` printer is killed **only** by this gate's selftest (per-case
-  `SOURCES_CAPTURES` literals plus `path_rows+prose == 16-column rows` and
-  `located <= bound <= path_rows`); on the real tree the true values are 36/36 and 36,
-  so the counter's guard (a) and its six caught legs cannot separate a printer that
-  matches the true data from a measurement. That is a property of the frozen interface,
-  not of this implementation; the selftest invariants are the sole defence and were kept
-  for that reason. The bytes changed after that run only by the symlink-size fix and the
-  new case (sha256 `e7aacecd…`); a retest was requested of R67MutGate.
+- External mutation run (R67MutGate, against sha256 `e7aacecd…` — retested after the
+  symlink-size fix — receipts `.ufo/waves/round-67/w1/R67MutGate/`): **no survivor**
+  among 7 mutants (length-only, size-only, quote-nonempty, constant
+  `bound=36/located=36`, prose-as-paths, exit-0-with-SC_CAPTURE, no-containment).
+  M2 and M7 specifically re-run and killed: no regression from the `stat -Lc`
+  change, and the new `capture-symlink-intree-control` is undisturbed by every
+  mutant. Load-bearing residual: the constant `bound=36/located=36` printer is killed
+  **only** by this gate's selftest (per-case `SOURCES_CAPTURES` literals plus
+  `path_rows+prose == 16-column rows` and `located <= bound <= path_rows`); on the
+  real tree the true values are 36/36 and 36, so the counter's guard (a) and its six
+  caught legs cannot separate a printer that matches the true data from a
+  measurement. That is a property of the frozen interface, not of this
+  implementation; the selftest invariants are the sole defence and were kept for
+  that reason.
 - Revenger-named unpinned behaviours, not repaired (each either the frozen rule itself or
   a ceiling): a col-16 with trailing/leading whitespace or a stray CR is prose by the
   exact shape rule (the counter derives with the same exact shape; a whole-file CRLF tree

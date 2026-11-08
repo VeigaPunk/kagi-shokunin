@@ -1,0 +1,10 @@
+--- mutants/pristine.sh	2026-11-08 08:34:08.993988911 -0300
++++ mutants/M5-prose-as-paths.sh	2026-11-08 08:34:08.995211354 -0300
+@@ -256,7 +256,6 @@
+ cap_row() { # id sha bytes quote norm loc
+   local id=$1 sha=$2 bytes=$3 quote=$4 norm=$5 loc=$6
+   local rp size got bad=0 q
+-  if ! cap_is_shaped "$loc"; then CAP_PROSE=$((CAP_PROSE + 1)); return 0; fi
+   CAP_PATH=$((CAP_PATH + 1))
+   # absolute locations never satisfy "repo-relative", whatever they name
+   if [[ $loc == /* ]]; then

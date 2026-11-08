@@ -1,5 +1,5 @@
---- mutants2/pristine.sh	2026-11-08 07:59:44.741824584 -0300
-+++ mutants2/M7-no-containment.sh	2026-11-08 07:59:44.741394644 -0300
+--- mutants/pristine.sh	2026-11-08 08:34:08.993988911 -0300
++++ mutants/M7-no-containment.sh	2026-11-08 08:34:08.995568335 -0300
 @@ -258,14 +258,10 @@
    local rp size got bad=0 q
    if ! cap_is_shaped "$loc"; then CAP_PROSE=$((CAP_PROSE + 1)); return 0; fi

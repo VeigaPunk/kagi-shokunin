@@ -1,0 +1,10 @@
+--- mutants2/pristine.sh	2026-11-08 07:59:44.741824584 -0300
++++ mutants2/M6-exit-zero-on-capture.sh	2026-11-08 07:59:44.740649283 -0300
+@@ -524,6 +524,7 @@
+     exit 0
+   fi
+   printf 'SOURCES_CENSUS: FAILED (findings=%d rows=%d)\n' "$FINDINGS" "$rows"
++  [[ $CAP_DEFECTS -gt 0 ]] && exit 0
+   exit 1
+ }
+ 

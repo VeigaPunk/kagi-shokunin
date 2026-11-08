@@ -1,15 +1,16 @@
---- mutants2/pristine.sh	2026-11-08 07:59:44.741824584 -0300
-+++ mutants2/M2-size-only.sh	2026-11-08 07:59:44.717999399 -0300
-@@ -272,12 +272,8 @@
+--- mutants/pristine.sh	2026-11-08 08:34:08.993988911 -0300
++++ mutants/M2-size-only.sh	2026-11-08 08:34:08.994702254 -0300
+@@ -272,13 +272,9 @@
      finding SC_CAPTURE "id=$id capture-missing"; CAP_DEFECTS=$((CAP_DEFECTS + 1)); return 0
    fi
-   size=$(stat -c %s -- "$CAP_ROOT/$loc" 2>/dev/null) || size=""
+   size=$(stat -Lc %s -- "$CAP_ROOT/$loc" 2>/dev/null) || size=""
 -  got=$(sha256sum -- "$CAP_ROOT/$loc" 2>/dev/null); got=${got%% *}
    if [[ -z $size || $size != "$bytes" ]]; then
      finding SC_CAPTURE "id=$id capture-bytes-mismatch"; CAP_DEFECTS=$((CAP_DEFECTS + 1)); bad=1
--  fi
+   fi
 -  if [[ $got != "$sha" ]]; then
 -    finding SC_CAPTURE "id=$id capture-digest-mismatch"; CAP_DEFECTS=$((CAP_DEFECTS + 1)); bad=1
-   fi
+-  fi
    [[ $bad -eq 0 ]] || return 0
    CAP_BOUND=$((CAP_BOUND + 1))
+   q=$quote; q=${q//[[:space:]]/}

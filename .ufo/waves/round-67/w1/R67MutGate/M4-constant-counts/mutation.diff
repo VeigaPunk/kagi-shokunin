@@ -1,0 +1,18 @@
+--- mutants/pristine.sh	2026-11-08 08:34:08.993988911 -0300
++++ mutants/M4-constant-counts.sh	2026-11-08 08:34:08.995054294 -0300
+@@ -515,11 +515,11 @@
+ 
+   # round 67: the capture summary sits immediately before the verdict
+   if [[ $CAP_DEFECTS -eq 0 ]]; then
+-    printf 'SOURCES_CAPTURES: CLEAN (path_rows=%d bound=%d located=%d prose=%d)\n' \
+-      "$CAP_PATH" "$CAP_BOUND" "$CAP_LOCATED" "$CAP_PROSE"
++    printf 'SOURCES_CAPTURES: CLEAN (path_rows=%d bound=36 located=36 prose=%d)\n' \
++      "$CAP_PATH" "$CAP_PROSE"
+   else
+-    printf 'SOURCES_CAPTURES: FAILED (defects=%d path_rows=%d bound=%d located=%d prose=%d)\n' \
+-      "$CAP_DEFECTS" "$CAP_PATH" "$CAP_BOUND" "$CAP_LOCATED" "$CAP_PROSE"
++    printf 'SOURCES_CAPTURES: FAILED (defects=%d path_rows=%d bound=36 located=36 prose=%d)\n' \
++      "$CAP_DEFECTS" "$CAP_PATH" "$CAP_PROSE"
+   fi
+   if [[ $FINDINGS -eq 0 ]]; then
+     printf 'SOURCES_CENSUS: CLEAN (rows=%d A=%d B=%d C=%d queued=%d mined=%d rejected=%d entries_sourced=%d legacy=%d captures=%d inrow=%d inrow_only=%d inrow_nonreproducing=%d)\n' \

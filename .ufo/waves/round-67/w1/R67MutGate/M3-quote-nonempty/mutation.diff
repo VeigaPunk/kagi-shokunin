@@ -1,0 +1,11 @@
+--- mutants/pristine.sh	2026-11-08 08:34:08.993988911 -0300
++++ mutants/M3-quote-nonempty.sh	2026-11-08 08:34:08.994884444 -0300
+@@ -282,7 +282,7 @@
+   [[ $bad -eq 0 ]] || return 0
+   CAP_BOUND=$((CAP_BOUND + 1))
+   q=$quote; q=${q//[[:space:]]/}
+-  if [[ -z $q ]] || ! cap_locate "$CAP_ROOT/$loc" "$quote" "$norm"; then
++  if [[ -z $q ]]; then
+     finding SC_CAPTURE "id=$id quote-not-located"; CAP_DEFECTS=$((CAP_DEFECTS + 1)); return 0
+   fi
+   CAP_LOCATED=$((CAP_LOCATED + 1))

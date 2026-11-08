@@ -86,5 +86,6 @@ case capture-quote-garbage: FAIL (exit 0 want 1; want SC_CAPTURE findings=1; las
 case capture-prose-skip: ok (exit 0, CLEAN)
 case capture-bytes-declared: FAIL (exit 0 want 1; want SC_CAPTURE findings=1; last=SOURCES_CENSUS: CLEAN (rows=4 A=1 B=2 C=1 queued=1 mined=2 rejected=1 entries_sourced=1 legacy=1 captures=4 inrow=0 inrow_only=0 inrow_nonreproducing=0))
 case capture-symlink-escape: FAIL (exit 0 want 1; want SC_CAPTURE findings=1; last=SOURCES_CENSUS: CLEAN (rows=4 A=1 B=2 C=1 queued=1 mined=2 rejected=1 entries_sourced=1 legacy=1 captures=4 inrow=0 inrow_only=0 inrow_nonreproducing=0))
-SOURCES_CENSUS_SELFTEST: FAIL (88 cases, 8 failed)
+case capture-symlink-intree-control: ok (exit 0, CLEAN)
+SOURCES_CENSUS_SELFTEST: FAIL (89 cases, 8 failed)
 rc=1

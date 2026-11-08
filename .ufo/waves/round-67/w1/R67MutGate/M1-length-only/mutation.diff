@@ -1,0 +1,40 @@
+--- mutants/pristine.sh	2026-11-08 08:34:08.993988911 -0300
++++ mutants/M1-length-only.sh	2026-11-08 08:34:08.994510944 -0300
+@@ -255,36 +255,10 @@
+ 
+ cap_row() { # id sha bytes quote norm loc
+   local id=$1 sha=$2 bytes=$3 quote=$4 norm=$5 loc=$6
+-  local rp size got bad=0 q
+   if ! cap_is_shaped "$loc"; then CAP_PROSE=$((CAP_PROSE + 1)); return 0; fi
+   CAP_PATH=$((CAP_PATH + 1))
+-  # absolute locations never satisfy "repo-relative", whatever they name
+-  if [[ $loc == /* ]]; then
+-    finding SC_CAPTURE "id=$id capture-outside-root"; CAP_DEFECTS=$((CAP_DEFECTS + 1)); return 0
+-  fi
+-  # canonicalize (symlinks followed; missing components allowed so that a `..`
+-  # escape is classified before its target's existence matters)
+-  rp=$(realpath -m -- "$CAP_ROOT/$loc" 2>/dev/null) || rp=""
+-  if [[ -z $rp || ( $rp != "$CAP_ROOT" && $rp != "$CAP_ROOT"/* ) ]]; then
+-    finding SC_CAPTURE "id=$id capture-outside-root"; CAP_DEFECTS=$((CAP_DEFECTS + 1)); return 0
+-  fi
+-  if [[ ! -e $CAP_ROOT/$loc || ! -f $CAP_ROOT/$loc ]]; then
+-    finding SC_CAPTURE "id=$id capture-missing"; CAP_DEFECTS=$((CAP_DEFECTS + 1)); return 0
+-  fi
+-  size=$(stat -Lc %s -- "$CAP_ROOT/$loc" 2>/dev/null) || size=""
+-  got=$(sha256sum -- "$CAP_ROOT/$loc" 2>/dev/null); got=${got%% *}
+-  if [[ -z $size || $size != "$bytes" ]]; then
+-    finding SC_CAPTURE "id=$id capture-bytes-mismatch"; CAP_DEFECTS=$((CAP_DEFECTS + 1)); bad=1
+-  fi
+-  if [[ $got != "$sha" ]]; then
+-    finding SC_CAPTURE "id=$id capture-digest-mismatch"; CAP_DEFECTS=$((CAP_DEFECTS + 1)); bad=1
+-  fi
+-  [[ $bad -eq 0 ]] || return 0
++  [[ ${#loc} -ge 8 ]] || { finding SC_CAPTURE "id=$id capture-missing"; CAP_DEFECTS=$((CAP_DEFECTS + 1)); return 0; }
+   CAP_BOUND=$((CAP_BOUND + 1))
+-  q=$quote; q=${q//[[:space:]]/}
+-  if [[ -z $q ]] || ! cap_locate "$CAP_ROOT/$loc" "$quote" "$norm"; then
+-    finding SC_CAPTURE "id=$id quote-not-located"; CAP_DEFECTS=$((CAP_DEFECTS + 1)); return 0
+-  fi
+   CAP_LOCATED=$((CAP_LOCATED + 1))
+ }
+ 

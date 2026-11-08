@@ -1,0 +1,18 @@
+--- mutants2/pristine.sh	2026-11-08 07:59:44.741824584 -0300
++++ mutants2/M7-no-containment.sh	2026-11-08 07:59:44.741394644 -0300
+@@ -258,14 +258,10 @@
+   local rp size got bad=0 q
+   if ! cap_is_shaped "$loc"; then CAP_PROSE=$((CAP_PROSE + 1)); return 0; fi
+   CAP_PATH=$((CAP_PATH + 1))
+-  # absolute locations never satisfy "repo-relative", whatever they name
+-  if [[ $loc == /* ]]; then
+-    finding SC_CAPTURE "id=$id capture-outside-root"; CAP_DEFECTS=$((CAP_DEFECTS + 1)); return 0
+-  fi
+   # canonicalize (symlinks followed; missing components allowed so that a `..`
+   # escape is classified before its target's existence matters)
+   rp=$(realpath -m -- "$CAP_ROOT/$loc" 2>/dev/null) || rp=""
+-  if [[ -z $rp || ( $rp != "$CAP_ROOT" && $rp != "$CAP_ROOT"/* ) ]]; then
++  if [[ -z $rp ]]; then
+     finding SC_CAPTURE "id=$id capture-outside-root"; CAP_DEFECTS=$((CAP_DEFECTS + 1)); return 0
+   fi
+   if [[ ! -e $CAP_ROOT/$loc || ! -f $CAP_ROOT/$loc ]]; then

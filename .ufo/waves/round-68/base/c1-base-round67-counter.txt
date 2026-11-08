@@ -1,0 +1,21 @@
+c1-readthrough: tree=/fast/scratch/hyaku/kagi-r68/l1/base-d3b2a4e
+c1-readthrough: derived path_rows=36 bound=36 located=36 prose=121 malformed=0
+c1-readthrough: population base_ids=36 source=base-tree /fast/scratch/hyaku/kagi-r68/l1/base-d3b2a4e/corpus/source-fetches.tsv candidate=36
+c1-readthrough: anchor id=S143 loc=.ufo/waves/round-63/capture/S143.body target=.ufo/waves/round-64/capture/S143.body bytes=264946
+c1-readthrough: clean verdict=CLEAN rc=0 captures=SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=121)
+c1-readthrough: guard-a verdict=CLEAN rc=0 captures=SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=121) derived=path_rows=36 bound=36 located=36 prose=121 gate_fields=match adjacent=True population=36
+c1-readthrough: guard-b selftest rc=0 cases=89
+c1-readthrough: guard-c base-gate=/fast/scratch/hyaku/kagi-r68/l1/base-d3b2a4e/corpus/sources-census.sh (--base-tree)
+c1-readthrough: guard-c base-gate-on-repoint rc=1 verdict=SOURCES_CENSUS: FAILED (findings=1 rows=157)
+c1-readthrough: guard-d venue=skip tree=/fast/scratch/hyaku/kagi-r68/l1/base-d3b2a4e lane=/home/vgpnk/Projects/shokunin/kagi-shokunin
+c1-readthrough: guard-e prose_rows=121 prose_findings=none gate_prose=121 derived_prose=121
+c1-readthrough: guard-f candidate=14f6ca6ab742296f base=14f6ca6ab742296f verdict=same
+c1-readthrough: guard-pop base_ids=36 missing=none extra=none changed=none source=base-tree /fast/scratch/hyaku/kagi-r68/l1/base-d3b2a4e/corpus/source-fetches.tsv
+c1-readthrough: mut-m1 id=S143 expected=capture-digest-mismatch reasons=capture-digest-mismatch defects=1 findings=1 verdict=FAILED rc=1 captures=FAILED detail=loc=.ufo/waves/round-64/capture/S143.body
+c1-readthrough: mut-m2 id=S143 expected=capture-bytes-mismatch+capture-digest-mismatch reasons=capture-bytes-mismatch,capture-digest-mismatch defects=2 findings=2 verdict=FAILED rc=1 captures=FAILED detail=bytes=264945 (was 264946)
+c1-readthrough: mut-m3 id=S143 expected=capture-missing reasons=capture-missing defects=1 findings=1 verdict=FAILED rc=1 captures=FAILED detail=removed=.ufo/waves/round-63/capture/S143.body
+c1-readthrough: mut-m4 id=S143 expected=capture-outside-root reasons=capture-outside-root defects=1 findings=1 verdict=FAILED rc=1 captures=FAILED detail=loc=/fast/scratch/hyaku/kagi-r67/R67ExecCounterC1/run-w7zo3gl8/mut-m4/.ufo/waves/round-63/capture/S143.body
+c1-readthrough: mut-m5 id=S143 expected=capture-outside-root reasons=capture-outside-root defects=1 findings=1 verdict=FAILED rc=1 captures=FAILED detail=loc=../mut-m5-outside/S143.body
+c1-readthrough: mut-m6 id=S143 expected=quote-not-located reasons=quote-not-located defects=1 findings=1 verdict=FAILED rc=1 captures=FAILED detail=quote=zzc1notlocatedquotezz
+c1-readthrough: guard a=1 b=1 c=0 d=skip e=1 f=1 pop=1
+C1_READTHROUGH: bound=36 located=36 caught=6/6 guard=0

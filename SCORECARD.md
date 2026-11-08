@@ -2382,3 +2382,30 @@ A1–A3 appended before the readings they govern.
 | coverage | 9 → 9 | No claim. Registry 156 → 157 (S166, tier A, `mined`, `180d`); one fetch row; `corpus/source-fetches.tsv` S115 col13 re-cut. | `corpus/SOURCES.md`; `corpus/source-fetches.tsv` |
 | operability | 9 → 9 | No claim. The census gate gains a mode-free check with 10 new selftest cases (78 → 88) and two new counters; nothing schedules any gate and the by-hand duties remain by-hand. | `R21-03`; `R21-02` |
 | adjacency | 9 → 9 | No claim. Connector sweep: no sibling lane holds a capture-digest/quote census; RFC 9530 is cited by no sibling registry; the carried `ADJACENCY_SCOPE: DEFECT` breadth debt is named, not absorbed. | `.ufo/waves/round-67/w1/R67Connector.md` |
+
+## Round 68 — pre-move (repo `d3b2a4e`, round-67 spot-check tip)
+
+Claim BASE `d3b2a4e8eed710277951e430efd3d27b5983033c`; predeclaration
+`23a8e0290d8d3a6f1de16eafce40fd1a189ef636` (frozen `plans/round-68.md`,
+committed alone before any candidate work). All six axes stand at 9.
+Saturation line 9, stagnation window N=3; a capability entered round 67
+(capture read-through), so the stagnation nudge does not fire and the
+lowest-axis obligation binds. All six cells are equal, so the tie is broken by
+measurement: the round-67 non-author closure and its revenger measured three
+surviving classes in the gate round 67 had just landed.
+
+| Axis | Score | Evidence pointer | Last change |
+|---|---|---|---|
+| depth | 9 | Unchanged from round 29 (`R29-01`); round 68 moves instrument surfaces, not the domain tables. | round 29 |
+| coverage | 9 | 157 registry rows at BASE (`bash corpus/sources-census.sh` ⇒ `SOURCES_CENSUS: CLEAN (rows=157 …)`, receipt `.ufo/waves/round-68/base/census-start.txt`), fleet census `kagi ok` rc 0 (`.ufo/waves/round-68/base/fleet-wrapper.txt`). | round 67 |
+| operability | 9 | The census selftest pin in the ledger is stale on contact (ledger `R21-03` expects 88 cases; the gate prints `SOURCES_CENSUS_SELFTEST: PASS (89 cases)`, `.ufo/waves/round-68/base/selftest.txt`), and `claim-ledger.sh cells` refuses the historical `## Round 63 — planned` heading. Nothing schedules any gate. | round 67 |
+| freshness | 9 | Measured BASE gap: the census reads only pure capture-path cells. S166 — the round-67 sourced claim's own capture row — is prose, so its bytes, digest and col-15 pin are never read (`.ufo/waves/round-68/base/mut/`); a trailing space, a whole-file CRLF save and a borrowed col 15 all read `SOURCES_CENSUS: CLEAN` on the BASE gate. Base derivation: `verified=36 col15=31` (`.ufo/waves/round-68/base/base-derivation.md`). | round 67 |
+| calibration | 9 | Measured BASE gap: three record surfaces disagree with observed state — the selftest pin (above), no ledger row exists for a round-68 claim, and the cells gate cannot report (setup on a heading the audit's own contract does not cover). | round 67 |
+| adjacency | 9 | Ownership partition gate green (`R17-02`); the carried `ADJACENCY_SCOPE: DEFECT` breadth debt is named, not absorbed. | round 58 |
+
+Declared claims: **C1 freshness** (the census re-verifies every mined row that
+names a lane-tree capture — pure path or `.ufo/waves/` token — recomputes col
+15's normalized digest, and refuses the stray-byte classes;
+`C1_VERIFIED` verified 36 → 37, col15 31 → 32, caught 0/6 → 6/6) and **C2
+calibration** (the lane's record surfaces match observed state; `C2_RECORD`
+mismatches 3 → 0). No retirement, split or stagnation waiver is claimed.

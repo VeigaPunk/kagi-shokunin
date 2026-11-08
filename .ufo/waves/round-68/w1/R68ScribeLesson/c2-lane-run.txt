@@ -1,1 +1,6 @@
+# C2 counter on the live lane, run under a 3600 s wall-clock budget
+# command: bash plans/round-68-c2.sh --tree .   (cwd = lane)
+# budget: 3600 s (the harness's `timeout -k 5 3600`); the run was killed at the budget.
+# output produced by the run, verbatim:
 c2-record: tree=/home/vgpnk/Projects/shokunin/kagi-shokunin base_sha=d3b2a4e8eed7
+# (no C2_RECORD line; the process was killed at the budget)

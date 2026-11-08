@@ -413,7 +413,7 @@ precedent: round 66's closure (§Routed defect 7) was exactly this class of omis
   (`bash plans/round-68-c1.sh --tree . --base-tree <fresh git archive of d3b2a4e8>`;
   receipt `c1-lane-run.txt`; every guard printed 1: `guard a=1 b=1 c=1 d=1 e=1 defe
   defects=0`; the derivation line reads `derived verified=38 col15=33 path_rows=38
-  bound=38 located=38 prose=120 total=158 malformed=0`, anchor `S167`). **Two caveats the
+  bound=38 located=38 prose=120 total=158 malformed=0`, anchor `S167`). **Three caveats the
   lesson must carry**: (i) the number is **38/33, not the frozen 37/32** — the frozen
   figures are the *recut-only* reading (measured independently by me: `derive-recut-only.txt`
   ⇒ `verified_widened=37 col15_matching=32` on a BASE tree with only S166's col 16
@@ -439,10 +439,10 @@ precedent: round 66's closure (§Routed defect 7) was exactly this class of omis
   reading. This is the L1's M68-2 seen from the counter side, and it is a *wording*
   correction to the claim, not a failure of the instrument (the instrument's six legs all
   fire on the candidate, measured).
-- **C2 calibration** — **NOT HELD at my last read**. `plans/round-68-c2.sh --tree .` did
-  **not** print a `C2_RECORD:` line in 3300 s of wall clock (my own run, timed out three
-  times: 1800 s, 3300 s, 3500 s; receipt `c2-lane-run.txt` holds only the timeout
-  marker). The counter seat's own last recorded run
+- **C2 calibration** — **NOT HELD, and not measurable by me**. `plans/round-68-c2.sh --tree .`
+  did **not** print a `C2_RECORD:` line in any run I made (1800 s, 3300 s, 3500 s, and a
+  final run killed at a 3600 s budget that emitted only its provenance line; receipt
+  `c2-lane-run.txt`). The counter seat's own last recorded run
   (`.ufo/waves/round-68/w1/R68ExecCounterC2/c2-run.txt`) reads **`C2_RECORD: mismatches=3
   population=3 guard=0`, RC 1** — i.e. the frozen target `mismatches=0 population=3
   guard=1` was **not** met at that reading, with all three legs reported `verdict=defect`
@@ -537,7 +537,9 @@ all mutation fixtures as full copies under `work/`, receipts copied into
 ## 7. Dead ends and limits (measured, not smoothed)
 
 - **`plans/round-68-c2.sh --tree .` produced no verdict line in any run I made** (1800 s,
-  3300 s, 3500 s, and a final background run). **I measured where the wall clock goes**
+  3300 s, 3500 s, and a final run killed at a 3600 s budget — that last one emitted only its
+  provenance line `c2-record: tree=… base_sha=d3b2a4e8eed7` before the kill; receipt
+  `c2-lane-run.txt`). **I measured where the wall clock goes**
   rather than guessing: the `cells` audit alone on the live tree is **1556 s** for
   `CELL_AUDIT: POLICY (cells=576 row_pointed=286 stamp_pointed=250 policy=3)` rc 2
   (`cells-live-timing.txt`) — that one leg is inside the counter's own
@@ -589,7 +591,7 @@ all mutation fixtures as full copies under `work/`, receipts copied into
 | `derive-base.txt`, `derive2-base.txt` | first-pass derivations (same figures, earlier script) |
 | `cells-base.out` | the BASE `claim-ledger.sh cells` output: the `unrecognised round heading` die on `## Round 63 — planned` — and **no `SETUP` token anywhere** (M68-6) |
 | `c1-lane-run.txt` | `C1_VERIFIED: verified=38 col15=33 caught=6/6 guard=1`, rc 0, all guards 1 (C1's closing line) |
-| `c2-lane-run.txt` | the C2 counter's runs: only its provenance header line, then the timeout marker — no verdict line (C2's honest stop) |
+| `c2-lane-run.txt` | the C2 counter's run under a 3600 s budget: only its provenance line emitted, then killed — no verdict line (C2's honest stop) |
 | `cells-live-timing.txt` | the `cells` audit on the live tree: 1556 s, rc 2, `CELL_AUDIT: POLICY (cells=576 … policy=3)` |
 | `ledger-verify-live.txt` | partial `claim-ledger.sh verify` on the live tree: six `STALE` files, six `HOST-SKIP` rows, no `CLAIM_LEDGER:` verdict within 300 s |
 | `instruments-pinned.txt` | the sha256 of every instrument each receipt above was measured against, including the three revisions of the gate and the four of the ledger, so no count here is un-pinned (`R68Reviewer` B7's class) |

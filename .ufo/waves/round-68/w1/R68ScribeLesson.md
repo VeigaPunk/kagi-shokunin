@@ -8,11 +8,21 @@ Amendment A1 at `4251519bd6e8b5c152d70ae286e04a117a49ed4f`.
 **Scope change (L1 instruction, received mid-flight).** This seat was originally the sole
 writer of `corpus/lessons/round-68.md`. The L1 (KagiR68) reassigned that file to itself
 mid-round, to avoid a concurrent-write collision at integration. **This seat has NOT
-written `corpus/lessons/round-68.md` and has not touched it** — the file does not exist in
-the lane as of this report (`ls corpus/lessons/round-68.md` ⇒ no such file). This seat's
-deliverable is this report only: the mined mistakes, the in-place registry log and the
-closing numbers, for the L1 to fold into the lesson it is landing. Nothing here amends a
-frozen predicate, counter, kill rule, population or target.
+written `corpus/lessons/round-68.md` and has not touched it** — not before, not after the
+reassignment, and not after the L1 landed it at `ef90e98` (12902 B) while this report was
+being finalised. This seat's deliverable is this report only: the mined mistakes, the
+in-place registry log and the closing numbers. Nothing here amends a frozen predicate,
+counter, kill rule, population or target.
+
+**What the landed lesson carries, and what it does not** (so the judge can reconcile the
+two files without re-deriving anything): `ef90e98` carries `M68-1` … `M68-8` — my four
+findings arrive there as `M68-5` (S167's grounding), `M68-6` (the phantom `SETUP` / the
+phantom journal path), `M68-7` (round 67's lesson omitted its routed classes) and `M68-8`
+(the C2-L3/parser suffix disagreement), and its §Gate and §In-place registry changes
+reproduce this report's §2 and §3 pairs exactly. Two things are **only** in this report:
+`M68-9` (the guard-field selftest coverage class, measured by `R68MutGate`, sent to the L1
+after `ef90e98` landed) and the `.ufo/waves/round-68/w1/R68ScribeLesson/` receipts with
+their pinned instrument digests.
 
 **Wave facts the lesson's header needs** (measured from the wave's own artefacts, not copied
 from prose): wave `kagi-r68-w1`; **15 seats** — `.ufo/waves/round-68/w1-spec.json` `items`
@@ -37,14 +47,18 @@ below are copied into `.ufo/waves/round-68/w1/R68ScribeLesson/`.
 
 ## 1. Mined mistakes
 
-### M68-5 — the round's own frontier row cites the RFC's *liberal* branch to ground a *strict* rule
+### M68-5 — the round's own frontier row cited the RFC's *liberal* branch to ground a *strict* rule — **RE-CUT at integration (`ef90e98`); one copy of the old reasoning survives in the landed lesson's Gate row**
 
 - **class**: `scope` (a claim's cited evidence does not say what the record says it says)
-- **evidence**: `corpus/SOURCES.md` S167 `teaches` cell (live tree) reads, in the lane's own
-  words: *"Implementations MUST reject base-encoded data carrying characters outside the
-  base alphabet, **and the RFC states that adjacent CR/LF bytes ARE non-alphabet characters**
-  — so a stray CR or space in a structured cell is a defect to refuse, never a formatting
-  choice to normalise."* The cited body is
+- **evidence (the text as it stood in the working tree at my read, before `ef90e98`)**:
+  `corpus/SOURCES.md` S167 `teaches` cell read, in the lane's own words:
+
+  > Implementations MUST reject base-encoded data carrying characters outside the base
+  > alphabet, **and the RFC states that adjacent CR/LF bytes ARE non-alphabet characters**
+  > — so a stray CR or space in a structured cell is a defect to refuse, never a formatting
+  > choice to normalise.
+
+  The cited body is
   `.ufo/waves/round-68/capture/S167.body` (35491 B, sha256 `84e14418f795…`), RFC 4648 §3.3.
   The sentence the row leans on is at body lines 206–208, and it says the opposite of what
   the row uses it for:
@@ -74,7 +88,7 @@ below are copied into `.ufo/waves/round-68/w1/R68ScribeLesson/`.
   operative clause dropped ("…constitute 'non-alphabet characters'") and then asserts "A
   conforming parser accepts the field's exact form or refuses the record; it never
   normalises a malformed byte away and keeps going." The RFC says CRLF **are ignored**.
-- **captured-by**: `none` — the lane's own instruments cannot see it. The located quote
+- **captured-by**: `none` — this seat was the first to see it, and the lane's own instruments cannot. The located quote
   (`Implementations MUST reject the encoded data if it contains characters outside the base
   alphabet when interpreting base-encoded data`, `rendered-text-v1 locate` ⇒ count=1) is
   real and is the RFC's primary MUST; nothing in `corpus/sources-census.sh`, in
@@ -85,7 +99,22 @@ below are copied into `.ufo/waves/round-68/w1/R68ScribeLesson/`.
   accepts the exact form or refuses the record — never reads past the malformed byte") and
   the seat checked the RFC against that expectation and admitted it anyway on the strength
   of the alphabet MUST alone.
-- **fix**: the row's `teaches` cell must be re-cut to what §3.3 says, and the strict
+- **disposition (measured at `ef90e98`, now)**: **the cell and the entry paragraph were
+  re-cut.** The current `corpus/SOURCES.md` S167 `teaches` cell opens *"The default is
+  refusal: non-alphabet characters in base-encoded data MUST be rejected 'unless the
+  specification referring to this document explicitly states otherwise', and the liberal
+  alternative (MIME's) ignores them — in which branch 'any adjacent carriage return/line feed
+  (CRLF) characters constitute "non-alphabet characters" and are ignored' — while §12 records
+  that ignoring them opens a covert channel… the transposition from base-encoded data to a
+  TSV cell is the lane's own."* The entry's §1 paragraph (lines 77–90) now states the same
+  structure. Both are correct against the capture. The landed lesson records the class as
+  `M68-5`. **One copy of the old reasoning survives**: the same lesson's §Gate row for S167
+  still gives the reason as *"its own note states that adjacent CR/LF bytes ARE
+  non-alphabet characters — exactly the refusal the widened census now enforces for a stray
+  space/CR in a location cell"* — i.e. the Gate table asserts the very inference `M68-5` (36
+  lines below it) records as the mistake. The Gate cell's reason must be re-cut to match the
+  row it describes, or the lesson contradicts itself on the round's own gate.
+- **fix (for the record, since the tree is repaired)**: the row's `teaches` cell must be re-cut to what §3.3 says, and the strict
   argument must cite §12 (body lines 747–756) explicitly rather than borrowing the CRLF
   sentence out of the liberal branch it belongs to. The honest phrasing is the RFC's own:
   a decoder MUST reject base-encoded data carrying characters outside the base alphabet

@@ -252,6 +252,27 @@ design. The round-end receipt passes it:
   (`cmp` 0), not one byte off; the one-byte delta belongs to the round-63→64
   pair.
 
+## Sentinel dispositions
+
+`R66Sentinel` filed `credential material CLEAN` with one closed HIGH and one
+open MEDIUM:
+
+- **V-1 (HIGH, write scope) — closed in-round.** Repaired before this record;
+  the seat's receipt is in `.ufo/waves/round-66/w1/R66Sentinel.md`.
+- **V-2 (MEDIUM) — closed on the landed bytes.** `resolve_volatile` returned
+  `DEFAULT_CAPTURE` unshaped, so an absolute or traversing value would have made
+  `os.path.join(root, cap)` read outside the measured tree (and disclose only
+  its hash). `plans/round-66-c1.sh` now refuses a non-repo-relative value with
+  `DEFAULT_CAPTURE-not-repo-relative:` and carries two selftest cases for it
+  (absolute `/etc/passwd`, traversal `../../outside.body`); selftest 45 cases,
+  and the candidate reading is unchanged
+  (`C1_CARRIER: drift=1 paths=3 hex=3 match=1 guard=1`).
+- **Stray artifact, routed not fixed.** `scripts/hyaku/__pycache__/` under the
+  FLEET root (a `prefile-falsification.cpython-314.pyc`) was created inside this
+  round's window by a seat importing the gate. `scripts/` is a never-edit fleet
+  path for a lane; the deletion is operator-side and is named in the report, not
+  performed here.
+
 ## Routed dispositions
 
 | id | what | state |
@@ -259,6 +280,8 @@ design. The round-end receipt passes it:
 | D-65-2 | capture filename ≠ registry id for S148 | bound this round: C1's carrier row names the path, and the borrowed-identity class is measured (12 files carry another id's pin — routed to round 67 as a checked class, not silently adopted) |
 | D-65-3 | `CITATION_GATE` / `CLAIM_LEDGER` not re-run in round 65 | carried; this round's gate budget went to the lane census repair and the three counters |
 | D-65-5 | round-65 `claims.json` carried pre-amendment wording | fixed for round 66 by Amendment A2's scope; the round-65 file is history |
+| D-66-1 | borrowed-identity capture handles (11 of 20 round-64 files carry another row's pin; both census gates blind) | routed to round 67 as a checked class on `plans/round-66-c1.sh`'s digest resolution |
+| D-66-2 | `scripts/hyaku/__pycache__/` created in the fleet path during the wave | operator-side deletion; named in the report |
 
 ## Gate result
 

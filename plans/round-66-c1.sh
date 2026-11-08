@@ -185,7 +185,13 @@ def resolve_volatile(root):
     m = re.search(r'^DEFAULT_CAPTURE\s*=\s*"([^"]+)"', txt, re.M)
     if not m:
         return None, "no-DEFAULT_CAPTURE"
-    return m.group(1), ""
+    cap = m.group(1)
+    # V-2 (round-66 sentinel): the anchor must be a repo-relative capture path.
+    # An absolute or traversal value would make os.path.join(root, cap) read
+    # outside the measured tree, and only the hash would be disclosed.
+    if os.path.isabs(cap) or ".." in cap.split("/") or not PATH_RE.fullmatch(cap):
+        return None, "DEFAULT_CAPTURE-not-repo-relative:" + cap[:60]
+    return cap, ""
 
 
 def resolve(root):
@@ -410,6 +416,21 @@ def selftest(root, scratch):
     cases.append(("verdict-match0-fails", verdict_ok(1, 3, 3, 0, 1) == 1))
     cases.append(("verdict-match-literal-killed",
                   verdict_ok(1, 0, 0, 0, 1) == 1))
+    # V-2: an absolute or traversing DEFAULT_CAPTURE is refused, named
+    tmpc = tempfile.mkdtemp(prefix="cap-shape-", dir=root)
+    try:
+        os.makedirs(os.path.join(tmpc, "corpus"))
+        open(os.path.join(tmpc, "corpus/volatile-shape.py"), "w").write(
+            'DEFAULT_CAPTURE = "/etc/passwd"\n')
+        v, d = resolve_volatile(tmpc)
+        cases.append(("absolute-capture-refused", v is None and "not-repo-relative" in d))
+        open(os.path.join(tmpc, "corpus/volatile-shape.py"), "w").write(
+            'DEFAULT_CAPTURE = "../../outside.body"\n')
+        v, d = resolve_volatile(tmpc)
+        cases.append(("traversal-capture-refused", v is None and "not-repo-relative" in d))
+    finally:
+        shutil.rmtree(tmpc, ignore_errors=True)
+
     bad = [n for n, ok in cases if not ok]
     print("c1-carrier: selftest cases=%d failed=%d%s"
           % (len(cases), len(bad), (" names=" + ",".join(bad)) if bad else ""))

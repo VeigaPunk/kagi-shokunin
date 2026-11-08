@@ -1,5 +1,6 @@
 # Claim instrument: the class matrix and the structural-vehicle rule
 
+cites: S148, S156, S164 — the carrier row this entry's capture-path contract is read from, the rate-limited live carrier it prices, and the superseding row that names the carrier path.
 source: `corpus/SOURCES.md` S155 (ConText §3.1.2 pseudo-trigger classes — the
 bounded idiom list the polarity grammar stands on) and the lane's own executed
 counters `plans/round-65-c1.sh`, `plans/round-65-routed.sh`,

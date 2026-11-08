@@ -1,0 +1,23 @@
+# A2/A4 C2_PREFILE — gate vs counter scoping probe
+
+counter sha256: 2a9101f14a4c5237787badf8b37963d841b2e5d3935c3eea245d1eef2aefe4e1
+gate: /home/vgpnk/Projects/shokunin/scripts/hyaku/prefile-falsification.py
+fixture fleet: /fast/scratch/hyaku/kagi-r66/R66MutC2/fix/a2-fleet
+
+== gate --fleet fixture ==
+PREFILE-FALSIFICATION: pass claims=3 rows=9 attack_seats=3 findings=0
+rc=0
+
+== gate on default fleet (counter's actual call; no --fleet) ==
+FINDING wave-missing /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-66/w1-results.json
+FINDING report-missing /home/vgpnk/Projects/shokunin/.ufo/reports/round-66/kagi.md
+PREFILE-FALSIFICATION: SETUP findings=2
+rc=2
+
+== counter --tree fixture/kagi-shokunin --fleet fixture ==
+c2-prefile: gate-out PREFILE-FALSIFICATION: SETUP findings=2
+c2-prefile: gate rc=2 no-verdict-line
+c2-prefile: claims-declared CLAIMS_DECLARED: CLEAN (claims=59)
+c2-prefile: guard a=1 b=0 c=0 d=1 claims-declared=1
+C2_PREFILE: gate=0 claims=0 rows=0 attack_seats=0 guard=0
+rc=1

@@ -1,0 +1,132 @@
+{
+ "W1-drift-digest-dropped": {
+  "class": "wrong-id",
+  "find": "        if got != PIN:",
+  "replace": "        if False:"
+ },
+ "W2-anchor-pin-dropped": {
+  "class": "wrong-id",
+  "find": "        if PIN not in line:\n            continue",
+  "replace": "        if False:\n            continue"
+ },
+ "W3-anchor-lowest-row": {
+  "class": "wrong-id",
+  "find": "if best is None or int(rid[1:]) > int(best[0][1:]):",
+  "replace": "if best is None or int(rid[1:]) < int(best[0][1:]):"
+ },
+ "W4-fetch-col10-dropped": {
+  "class": "wrong-id",
+  "find": "        if cells[9].strip() != PIN:\n            return None, \"col10-not-the-pin\"",
+  "replace": "        if False:\n            return None, \"col10-not-the-pin\""
+ },
+ "W5-fetch-col16-search": {
+  "class": "wrong-id",
+  "find": "        if not PATH_RE.fullmatch(path or \"\"):",
+  "replace": "        if not PATH_RE.search(path or \"\"):"
+ },
+ "W6-samepath-dropped": {
+  "class": "wrong-id",
+  "find": "drift = 1 if (len(paths) == 3 and len(set(paths)) == 1 and not diag) else 0",
+  "replace": "drift = 1 if (len(paths) == 3 and not diag) else 0"
+ },
+ "W7-digest-wrong-compare": {
+  "class": "wrong-id",
+  "find": "        if got != PIN:",
+  "replace": "        if got != PIN_BYTES:"
+ },
+ "W8-mutation-refused-constant": {
+  "class": "wrong-id",
+  "find": "    refused = 1 if (d == 0 and any(\"digest-mismatch:\" in x for x in diag)) else 0",
+  "replace": "    refused = 1"
+ },
+ "W9-mutation-hex-constant": {
+  "class": "wrong-id",
+  "find": "    hex_diff = 1 if sha256(slot) != PIN else 0",
+  "replace": "    hex_diff = 1"
+ },
+ "W10-mutation-slot-constant": {
+  "class": "wrong-id",
+  "find": "    slot = os.path.join(dst, carrier)",
+  "replace": "    slot = os.path.join(dst, \".ufo/waves/round-64/capture/S143.body\")"
+ },
+ "W11-missing-body-passes": {
+  "class": "wrong-id",
+  "find": "    if not os.path.isfile(src):\n        return 0, 0, [\"mutation-body-absent:\" + wrong_rel]",
+  "replace": "    if not os.path.isfile(src):\n        return 1, 1, []"
+ },
+ "P1-verdict-exit-constant-target": {
+  "class": "constant-print",
+  "find": "print(\"C1_CARRIER: drift=%d paths=%d hex=%d match=%d guard=%d\"\n      % (drift, paths_n, hex_n, match, guard))\nraise SystemExit(verdict_ok(drift, paths_n, hex_n, match, guard))",
+  "replace": "print(\"C1_CARRIER: drift=1 paths=3 hex=3 match=1 guard=1\")\nraise SystemExit(0)"
+ },
+ "P2-match-constant-1": {
+  "class": "constant-print",
+  "find": "match = 1 if (paths_n == 3 and refused_n == 3) else 0",
+  "replace": "match = 1"
+ },
+ "P3-paths-constant-3": {
+  "class": "constant-print",
+  "find": "        paths_n += 1",
+  "replace": "        paths_n = 3"
+ },
+ "P4-exit-always-0": {
+  "class": "constant-print",
+  "find": "raise SystemExit(verdict_ok(drift, paths_n, hex_n, match, guard))",
+  "replace": "raise SystemExit(0)"
+ },
+ "P5-verdict-drops-guard": {
+  "class": "constant-print",
+  "find": "    return 0 if (guard == 1 and drift == 1 and paths_n == 3 and hex_n == 3",
+  "replace": "    return 0 if (drift == 1 and paths_n == 3 and hex_n == 3"
+ },
+ "P6-verdict-drops-match": {
+  "class": "constant-print",
+  "find": "    return 0 if (guard == 1 and drift == 1 and paths_n == 3 and hex_n == 3\n                 and match == 1) else 1",
+  "replace": "    return 0 if (guard == 1 and drift == 1 and paths_n == 3 and hex_n == 3) else 1"
+ },
+ "G1-guard-constant-1": {
+  "class": "guard-constant",
+  "find": "guard = 1 if (ga and gb and gc and gd) else 0",
+  "replace": "guard = 1"
+ },
+ "G2-ga-constant-1": {
+  "class": "guard-constant",
+  "find": "    ga = 1 if bd == 0 else 0",
+  "replace": "    ga = 1"
+ },
+ "G3-gb-constant-1": {
+  "class": "guard-constant",
+  "find": "gb = 1 if selftest(TREE) == 0 else 0",
+  "replace": "gb = 1"
+ },
+ "G4-gc-constant-1": {
+  "class": "guard-constant",
+  "find": "    gc = 1 if (r.returncode == 0 and \"VOLATILE_SHAPE: match=1\" in r.stdout) else 0",
+  "replace": "    gc = 1"
+ },
+ "G5-gd-constant-1": {
+  "class": "guard-constant",
+  "find": "    gd = 1 if (d == 0 and any(\"digest-mismatch:\" in x for x in mdiag)) else 0",
+  "replace": "    gd = 1"
+ },
+ "G6-guard-drops-ga": {
+  "class": "guard-constant",
+  "find": "guard = 1 if (ga and gb and gc and gd) else 0",
+  "replace": "guard = 1 if (gb and gc and gd) else 0"
+ },
+ "G7-guard-drops-gd": {
+  "class": "guard-constant",
+  "find": "guard = 1 if (ga and gb and gc and gd) else 0",
+  "replace": "guard = 1 if (ga and gb and gc) else 0"
+ },
+ "G8-guard-drops-gc": {
+  "class": "guard-constant",
+  "find": "guard = 1 if (ga and gb and gc and gd) else 0",
+  "replace": "guard = 1 if (ga and gb and gd) else 0"
+ },
+ "G9-guard-drops-gb": {
+  "class": "guard-constant",
+  "find": "guard = 1 if (ga and gb and gc and gd) else 0",
+  "replace": "guard = 1 if (ga and gc and gd) else 0"
+ }
+}

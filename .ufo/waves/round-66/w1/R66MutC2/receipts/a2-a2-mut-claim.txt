@@ -1,0 +1,12 @@
+== a2-mut-claim via gate --fleet ==
+FINDING claim-uncovered claim C3 has no ledger row
+PREFILE-FALSIFICATION: FAIL claims=3 rows=6 attack_seats=3 findings=1
+rc=1
+
+== a2-mut-claim via counter ==
+c2-prefile: gate-out PREFILE-FALSIFICATION: SETUP findings=2
+c2-prefile: gate rc=2 no-verdict-line
+c2-prefile: claims-declared CLAIMS_DECLARED: CLEAN (claims=59)
+c2-prefile: guard a=1 b=0 c=0 d=1 claims-declared=1
+C2_PREFILE: gate=0 claims=0 rows=0 attack_seats=0 guard=0
+rc=1

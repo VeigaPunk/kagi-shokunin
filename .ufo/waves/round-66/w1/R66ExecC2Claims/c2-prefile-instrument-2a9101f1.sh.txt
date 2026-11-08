@@ -1,0 +1,249 @@
+#!/usr/bin/env bash
+# plans/round-66-c2.sh — C2_PREFILE counter (kagi round 66, claim C2).
+#
+#   bash plans/round-66-c2.sh [--tree DIR] [--fleet DIR] [--scratch DIR]
+#   bash plans/round-66-c2.sh --selftest
+#
+# Frozen predicate: plans/round-66.md §C2 as amended by Amendments A2 and A4.
+#
+#   gate = 1 iff the pre-file falsification gate reads, on the measured tree,
+#     `PREFILE-FALSIFICATION: pass claims=3 rows=R attack_seats=K findings=0`
+#     (exit 0, R >= 3, K >= 1) — matched case-insensitively because the tool
+#     prints lowercase `pass` (Amendment A4 item 1) — AND
+#     `bash corpus/claims-declared.sh --root .` reads
+#     `CLAIMS_DECLARED: CLEAN (claims=59)` (exit 0).
+#
+# GUARD (1 iff all four read 1):
+#   a  the pre-file gate's own --selftest prints
+#      `PREFILE-FALSIFICATION-SELFTEST: PASS`
+#   b  a ledger with one claim's rows removed reads `FINDING claim-uncovered`
+#      and exit 1
+#   c  a ledger that omits one attack seat's artifact reads
+#      `FINDING attack-seat-unread` and exit 1
+#   d  claims-declared.sh on a tree missing round-66's rows reads `MISMATCH`
+#
+# Output: `c2-prefile:` provenance lines, then exactly one verdict line
+#   C2_PREFILE: gate=A claims=3 rows=R attack_seats=K guard=G
+# Exit 0 iff guard=1 and gate=1; 1 otherwise; 2 SETUP.
+set -u
+SELF_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+LANE=${SELF_DIR%/plans}
+TREE=$LANE
+FLEET=${LANE%/*}
+SCRATCH=""
+SELFTEST=0
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --tree) TREE=$2; shift 2;;
+    --fleet) FLEET=$2; shift 2;;
+    --scratch) SCRATCH=$2; shift 2;;
+    --selftest) SELFTEST=1; shift;;
+    *) echo "c2-prefile: SETUP unknown-arg $1" >&2; exit 2;;
+  esac
+done
+[ -d "$TREE" ] || { echo "c2-prefile: SETUP bad-tree $TREE" >&2; exit 2; }
+GATE="$FLEET/scripts/hyaku/prefile-falsification.py"
+[ -f "$GATE" ] || { echo "c2-prefile: SETUP gate-absent $GATE" >&2; exit 2; }
+command -v python3 >/dev/null 2>&1 || { echo "c2-prefile: SETUP no-python3" >&2; exit 2; }
+
+exec python3 -I -B - "$TREE" "$LANE" "$FLEET" "$GATE" "$SCRATCH" "$SELFTEST" <<'PY'
+import os
+import re
+import shutil
+import subprocess
+import sys
+import tempfile
+
+TREE, LANE, FLEET, GATE = sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4]
+SCRATCH, SELFTEST = sys.argv[5], sys.argv[6] == "1"
+REPORT = os.path.join(FLEET, ".ufo", "reports", "round-66", "kagi.md")
+WAVE = ".ufo/waves/round-66/w1-results.json"
+LEDGER = ".ufo/waves/round-66/claim-falsification.tsv"
+
+VERDICT_RE = re.compile(
+    r"^PREFILE-FALSIFICATION: (pass|FAIL) claims=(\d+) rows=(\d+) attack_seats=(\d+) findings=(\d+)$",
+    re.M | re.I)
+CD_RE = re.compile(r"^CLAIMS_DECLARED: (CLEAN|MISMATCH) \(claims=(\d+)(?: mismatch=(\d+))?\)$", re.M)
+
+
+def setup(msg):
+    print("c2-prefile: SETUP " + msg)
+    raise SystemExit(2)
+
+
+def scratch_root():
+    base = SCRATCH or (os.environ.get("HYAKU_SCRATCH") or "/fast/scratch/hyaku")
+    root = os.path.join(base, "kagi-r66", "C2Counter")
+    os.makedirs(root, exist_ok=True)
+    if os.path.realpath(root).startswith(os.path.realpath(TREE) + os.sep):
+        setup("scratch-inside-measured-tree " + root)
+    os.environ["TMPDIR"] = root
+    return root
+
+
+def run_gate(tree, extra_env=None):
+    env = dict(os.environ)
+    if extra_env:
+        env.update(extra_env)
+    cmd = [sys.executable, "-I", "-B", GATE, "--lane", "kagi", "--round", "66"]
+    r = subprocess.run(cmd, capture_output=True, text=True, cwd=tree, env=env)
+    return r.returncode, r.stdout + r.stderr
+
+
+def gate_reading(tree):
+    rc, out = run_gate(tree)
+    m = VERDICT_RE.search(out)
+    if not m:
+        return {"rc": rc, "line": None, "out": out}
+    status, claims, rows, seats, findings = m.groups()
+    return {"rc": rc, "line": m.group(0), "status": status.lower(), "claims": int(claims),
+            "rows": int(rows), "seats": int(seats), "findings": int(findings), "out": out}
+
+
+def claims_declared(tree):
+    prof = os.path.join(tree, "corpus", "claims-declared.sh")
+    if not os.path.isfile(prof):
+        return {"rc": 2, "line": None}
+    r = subprocess.run(["bash", prof, "--root", "."], capture_output=True, text=True, cwd=tree)
+    out = r.stdout + r.stderr
+    m = CD_RE.search(out)
+    return {"rc": r.returncode, "line": m.group(0) if m else None,
+            "verdict": m.group(1).lower() if m else None,
+            "claims": int(m.group(2)) if m else None}
+
+
+def selftest_gate():
+    r = subprocess.run([sys.executable, "-I", "-B", GATE, "--selftest"],
+                       capture_output=True, text=True)
+    got = (r.stdout + r.stderr)
+    return r.returncode == 0 and "PREFILE-FALSIFICATION-SELFTEST: PASS" in got
+
+
+def copy_tree(dst):
+    src = TREE
+    for rel in (".ufo", "corpus"):
+        if os.path.isdir(os.path.join(src, rel)) and not os.path.isdir(os.path.join(dst, rel)):
+            shutil.copytree(os.path.join(src, rel), os.path.join(dst, rel))
+    return dst
+
+
+def main():
+    root_scratch = scratch_root()
+    if SELFTEST:
+        ok = selftest_gate()
+        print("c2-prefile: selftest gate-selftest=%d" % int(ok))
+        raise SystemExit(0 if ok else 1)
+
+    g = gate_reading(TREE)
+    if g["line"] is None:
+        print("c2-prefile: gate-out %s" % (g["out"].strip().splitlines()[-1] if g["out"].strip() else "none"))
+        gate = 0
+        print("c2-prefile: gate rc=%d no-verdict-line" % g["rc"])
+        claims = rows = seats = 0
+    else:
+        gate = 1 if (g["rc"] == 0 and g["status"] == "pass" and g["claims"] == 3
+                     and g["rows"] >= 3 and g["seats"] >= 1 and g["findings"] == 0) else 0
+        claims, rows, seats = g["claims"], g["rows"], g["seats"]
+        print("c2-prefile: gate-line %s" % g["line"])
+
+    cd = claims_declared(TREE)
+    cd_ok = 1 if (cd.get("rc") == 0 and cd.get("verdict") == "clean" and cd.get("claims") == 59) else 0
+    print("c2-prefile: claims-declared %s" % (cd.get("line") or ("rc=%d" % cd["rc"])))
+
+    # guard (a): the gate's own selftest
+    ga = 1 if selftest_gate() else 0
+
+    # guard (b): a ledger with one claim's rows removed must read claim-uncovered
+    gb = 0
+    ledger = os.path.join(TREE, LEDGER)
+    if os.path.isfile(ledger):
+        cop = os.path.join(root_scratch, "dup-b")
+        shutil.rmtree(cop, ignore_errors=True)
+        os.makedirs(os.path.dirname(os.path.join(cop, LEDGER)), exist_ok=True)
+        os.makedirs(os.path.join(cop, "corpus"), exist_ok=True)
+        rows_txt = [r for r in open(ledger, encoding="utf-8").read().splitlines()
+                    if r.strip() and not r.startswith("#")]
+        kept = [r for r in rows_txt if not r.startswith("C3\t")]
+        open(os.path.join(cop, LEDGER), "w", encoding="utf-8").write("\n".join(kept) + "\n")
+        env = {"KAGI_C2_TREE": cop}
+        # the gate reads the fleet path; simulate by pointing it at a tree copy
+        rc, out = run_gate(TREE)
+        # instead: run the gate against a copied wave dir via --round on a scratch lane
+        # simpler and honest: use the gate's own check with a scratch lane root
+        import json
+        scratch_lane = os.path.join(root_scratch, "lane-b")
+        shutil.rmtree(scratch_lane, ignore_errors=True)
+        os.makedirs(os.path.join(scratch_lane, ".ufo", "waves", "round-66"))
+        for f in ("claims.json", "w1-results.json", "claim-falsification.tsv"):
+            src = os.path.join(TREE, ".ufo/waves/round-66", f)
+            if os.path.isfile(src):
+                shutil.copyfile(src, os.path.join(scratch_lane, ".ufo/waves/round-66", f))
+        open(os.path.join(scratch_lane, ".ufo/waves/round-66/claim-falsification.tsv"),
+             "w", encoding="utf-8").write("\n".join(kept) + "\n")
+        shutil.copyfile(REPORT, os.path.join(root_scratch, "rep-b.md"))
+        rfleet = os.path.join(root_scratch, "fleet-b")
+        os.makedirs(os.path.join(rfleet, ".ufo", "reports", "round-66"), exist_ok=True)
+        os.makedirs(os.path.join(rfleet, "scripts", "hyaku"), exist_ok=True)
+        os.makedirs(os.path.join(rfleet, "kagi-shokunin"), exist_ok=True)
+        shutil.copyfile(REPORT, os.path.join(rfleet, ".ufo/reports/round-66/kagi.md"))
+        r = subprocess.run([sys.executable, "-I", "-B", GATE, "--lane", "kagi", "--round", "66"],
+                           capture_output=True, text=True, cwd=rfleet)
+        gb = 1 if (r.returncode == 1 and "FINDING claim-uncovered" in (r.stdout + r.stderr)) else 0
+
+    # guard (c): a ledger omitting an attack seat's artifact must read attack-seat-unread
+    gc = 0
+    if os.path.isfile(ledger) and os.path.isfile(os.path.join(TREE, WAVE)):
+        import json
+        res = json.load(open(os.path.join(TREE, WAVE)))
+        attack = [r["name"] for r in res.get("results", [])
+                  if r.get("agent") in {"reviewer", "security-reviewer", "critic",
+                                        "mutation-tester", "sentinel", "connector",
+                                        "revenger", "labrat"}]
+        if attack:
+            keep_seat = attack[0]
+            rows_txt = [r for r in open(ledger, encoding="utf-8").read().splitlines()
+                        if r.strip() and not r.startswith("#")]
+            kept = [r for r in rows_txt if keep_seat not in r]
+            rfleet = os.path.join(root_scratch, "fleet-c")
+            scratch_lane = os.path.join(rfleet, "kagi-shokunin")
+            shutil.rmtree(rfleet, ignore_errors=True)
+            os.makedirs(os.path.join(scratch_lane, ".ufo", "waves", "round-66"))
+            os.makedirs(os.path.join(rfleet, ".ufo/reports/round-66"))
+            for f in ("claims.json", "w1-results.json"):
+                shutil.copyfile(os.path.join(TREE, ".ufo/waves/round-66", f),
+                                os.path.join(scratch_lane, ".ufo/waves/round-66", f))
+            open(os.path.join(scratch_lane, ".ufo/waves/round-66/claim-falsification.tsv"),
+                 "w", encoding="utf-8").write("\n".join(kept) + "\n")
+            shutil.copyfile(REPORT, os.path.join(rfleet, ".ufo/reports/round-66/kagi.md"))
+            r = subprocess.run([sys.executable, "-I", "-B", GATE, "--lane", "kagi", "--round", "66"],
+                               capture_output=True, text=True, cwd=rfleet)
+            gc = 1 if (r.returncode == 1
+                       and "FINDING attack-seat-unread" in (r.stdout + r.stderr)) else 0
+
+    # guard (d): claims-declared on a tree missing round-66's rows reads MISMATCH
+    gd = 0
+    cop = os.path.join(root_scratch, "dup-d")
+    shutil.rmtree(cop, ignore_errors=True)
+    os.makedirs(cop, exist_ok=True)
+    for rel in ("corpus/claims-declared.tsv", "corpus/claims-declared.sh", "SCORECARD.md"):
+        src = os.path.join(TREE, rel)
+        if os.path.isfile(src):
+            os.makedirs(os.path.dirname(os.path.join(cop, rel)), exist_ok=True)
+            shutil.copyfile(src, os.path.join(cop, rel))
+    cdt = os.path.join(cop, "corpus/claims-declared.tsv")
+    if os.path.isfile(cdt):
+        kept = [l for l in open(cdt, encoding="utf-8").read().splitlines() if not l.startswith("66\t")]
+        open(cdt, "w", encoding="utf-8").write("\n".join(kept) + "\n")
+        r = subprocess.run(["bash", "corpus/claims-declared.sh", "--root", "."],
+                           capture_output=True, text=True, cwd=cop)
+        gd = 1 if ("MISMATCH" in (r.stdout + r.stderr)) else 0
+
+    guard = 1 if (ga and gb and gc and gd) else 0
+    print("c2-prefile: guard a=%d b=%d c=%d d=%d claims-declared=%d" % (ga, gb, gc, gd, cd_ok))
+    print("C2_PREFILE: gate=%d claims=%d rows=%d attack_seats=%d guard=%d"
+          % (gate, claims, rows, seats, guard))
+    raise SystemExit(0 if (guard == 1 and gate == 1 and cd_ok == 1) else 1)
+
+
+main()
+PY

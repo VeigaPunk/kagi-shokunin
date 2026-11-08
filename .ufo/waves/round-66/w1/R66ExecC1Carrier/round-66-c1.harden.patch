@@ -1,0 +1,220 @@
+--- plans/round-66-c1.sh	2026-11-08 06:34:32.343419599 -0300
++++ /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-66/w1/R66ExecC1Carrier/round-66-c1.hardened.sh	2026-11-08 06:36:40.100408448 -0300
+@@ -25,6 +25,14 @@
+ #      (.ufo/waves/round-64/capture/S148.body, the arXiv body) reads drift=0
+ #      with `digest-mismatch:` naming it
+ #
++# Mutation hardening (R66MutC1 battery, applied before the reading):
++#   * every anchor's digest refusal has its own selftest case
++#     (registry / fetches / volatile fail independently);
++#   * the frozen exit aggregation is a function, `verdict_ok`, with the
++#     boundary cases (hex=2, hex=4, paths=2, drift=0, guard=0) asserted;
++#   * the mutation leg reads the RESOLVED carrier path, never a constant,
++#     and an alternate-carrier fixture proves it.
++#
+ # Output: `c1-carrier:` provenance lines, then exactly one verdict line
+ #   C1_CARRIER: drift=A paths=3 hex=3 match=1 guard=G
+ # Exit 0 iff guard=1 and drift=1; 1 otherwise; 2 SETUP.
+@@ -199,6 +207,44 @@
+     return drift, (paths[0] if paths else None), diag, rid
+ 
+ 
++def verdict_ok(drift, paths_n, hex_n, match, guard):
++    """The frozen exit predicate, factored so the aggregation can be tested.
++
++    plans/round-66.md clause 1 (Amendment A1): exit 0 iff guard=1, drift=1,
++    paths=3, hex=3. Every corner is load-bearing: a candidate that resolves
++    the carrier but mutates two paths, or resolves three paths with two
++    digests, is a failure (the plan's match/hex definitions).
++    """
++    return 0 if (guard == 1 and drift == 1 and paths_n == 3 and hex_n == 3
++                 and match == 1) else 1
++
++
++def mutation_leg(tree, carrier, wrong_rel, dst):
++    """One mutated copy: `wrong_rel`'s bytes written at the CARRIER path.
++
++    Returns (hex_diff, refused, diag). `hex_diff` is 1 iff the body now at the
++    carrier path hashes differently from the pin; `refused` is 1 iff the digest
++    binding names a mismatch for that path. The slot is the RESOLVED carrier
++    path, never a constant: on a candidate whose carrier is not the round-64
++    S143 file the mutation must follow it (K-rule: a constant slot is a no-op).
++    """
++    shutil.rmtree(dst, ignore_errors=True)
++    os.makedirs(os.path.join(dst, os.path.dirname(carrier)), exist_ok=True)
++    os.makedirs(os.path.join(dst, "corpus"), exist_ok=True)
++    for rel in ("corpus/SOURCES.md", "corpus/source-fetches.tsv",
++                "corpus/volatile-shape.py"):
++        shutil.copyfile(os.path.join(tree, rel), os.path.join(dst, rel))
++    src = os.path.join(tree, wrong_rel)
++    slot = os.path.join(dst, carrier)
++    if not os.path.isfile(src):
++        return 0, 0, ["mutation-body-absent:" + wrong_rel]
++    shutil.copyfile(src, slot)
++    hex_diff = 1 if sha256(slot) != PIN else 0
++    d, _p, diag, _r = drift_of(dst)
++    refused = 1 if (d == 0 and any("digest-mismatch:" in x for x in diag)) else 0
++    return hex_diff, refused, diag
++
++
+ def selftest(root):
+     cases = []
+     cases.append(("sources-readable", read(root, "corpus/SOURCES.md") is not None))
+@@ -241,6 +287,75 @@
+         cases.append(("pathless-row-named", any("no-row-carries" in x for x in diag2)))
+     finally:
+         shutil.rmtree(tmp, ignore_errors=True)
++    # --- per-anchor digest refusal (kills a leg-local digest drop) ----------
++    pin_body = os.path.join(root, reg or "none")
++    if os.path.isfile(pin_body):
++        fx = tempfile.mkdtemp(prefix="selftest-legs-", dir=root)
++        try:
++            cap = os.path.join(fx, ".ufo/waves/round-64/capture")
++            os.makedirs(cap)
++            os.makedirs(os.path.join(fx, "corpus"))
++            okp = os.path.join(cap, "OK.body")
++            badp = os.path.join(cap, "BAD.body")
++            shutil.copyfile(pin_body, okp)
++            with open(badp, "wb") as fh:
++                fh.write(b"not the deposit")
++            OK = ".ufo/waves/round-64/capture/OK.body"
++            BAD = ".ufo/waves/round-64/capture/BAD.body"
++            row = ("| S999 | x | spec | A | x | see `%s` (%s) | x | mined "
++                   "| 2026-11-08 | 180d | y |\n")
++            fetch = "%s\tmined\t%s\t%s\t%s\t200\tx\t2026-11-08\ty\t%s\t%d"
++            fetch += "\t-\tq\tr\ts\t%s\n"
++
++            def fixture(anchor_path, fetch_path, vol_path):
++                open(os.path.join(fx, "corpus/SOURCES.md"), "w").write(
++                    row % (anchor_path, PIN))
++                open(os.path.join(fx, "corpus/source-fetches.tsv"), "w").write(
++                    fetch % ("S999", "x", "x", "x", PIN, PIN_BYTES, fetch_path))
++                open(os.path.join(fx, "corpus/volatile-shape.py"), "w").write(
++                    'DEFAULT_CAPTURE = "%s"\n' % vol_path)
++                return drift_of(fx)
++
++            d, _p, diag, _r = fixture(OK, OK, OK)
++            cases.append(("legs-all-ok-reads-one", d == 1 and not diag))
++            d, _p, diag, _r = fixture(BAD, OK, OK)
++            cases.append(("registry-digest-refused", d == 0
++                          and any(x.startswith("registry:digest-mismatch:") for x in diag)
++                          and not any(x.startswith("fetches:digest-mismatch:") for x in diag)))
++            d, _p, diag, _r = fixture(OK, BAD, OK)
++            cases.append(("fetches-digest-refused", d == 0
++                          and any(x.startswith("fetches:digest-mismatch:") for x in diag)
++                          and not any(x.startswith("registry:digest-mismatch:") for x in diag)))
++            d, _p, diag, _r = fixture(OK, OK, BAD)
++            cases.append(("volatile-digest-refused", d == 0
++                          and any(x.startswith("volatile:digest-mismatch:") for x in diag)))
++            # the mutation leg writes at the RESOLVED carrier path (a constant
++            # slot would leave the carrier slot untouched on an alternate
++            # carrier, which is how a `slot = CANON` mutant survives).
++            dst = os.path.join(fx, "altpath-mut")
++            hd, refused, mdiag = mutation_leg(fx, BAD, OK, dst)
++            slot_file = os.path.join(dst, BAD)
++            cases.append(("mutation-leg-writes-carrier-slot",
++                          os.path.isfile(slot_file)
++                          and sha256(slot_file) == sha256(os.path.join(fx, OK))))
++            cases.append(("mutation-leg-hex-zero-on-pin", hd == 0))
++            # wrong bytes at the carrier path: refused, hex=1
++            dst = os.path.join(fx, "altpath-mut2")
++            hd, refused, mdiag = mutation_leg(fx, OK, BAD, dst)
++            cases.append(("mutation-leg-refuses-wrong-bytes",
++                          refused == 1 and hd == 1))
++        finally:
++            shutil.rmtree(fx, ignore_errors=True)
++    # --- aggregation of the frozen exit predicate ---------------------------
++    cases.append(("verdict-ok", verdict_ok(1, 3, 3, 1, 1) == 0))
++    cases.append(("verdict-hex2-fails", verdict_ok(1, 3, 2, 1, 1) == 1))
++    cases.append(("verdict-paths2-fails", verdict_ok(1, 2, 3, 1, 1) == 1))
++    cases.append(("verdict-hex4-fails", verdict_ok(1, 3, 4, 1, 1) == 1))
++    cases.append(("verdict-drift0-fails", verdict_ok(0, 3, 3, 1, 1) == 1))
++    cases.append(("verdict-guard0-fails", verdict_ok(1, 3, 3, 1, 0) == 1))
++    cases.append(("verdict-match0-fails", verdict_ok(1, 3, 3, 0, 1) == 1))
++    cases.append(("verdict-match-literal-killed",
++                  verdict_ok(1, 0, 0, 0, 1) == 1))
+     bad = [n for n, ok in cases if not ok]
+     print("c1-carrier: selftest cases=%d failed=%d%s"
+           % (len(cases), len(bad), (" names=" + ",".join(bad)) if bad else ""))
+@@ -256,29 +371,29 @@
+ for d in diag:
+     print("c1-carrier: diag %s" % d)
+ 
+-# paths / hex: three copies, each with one wrong-id body written at the carrier path.
++# paths / hex: three copies, each with one wrong-id body written at the carrier
++# path. Only a tree that RESOLVES the carrier is mutated: on a tree that does not
++# (BASE), there is no carrier slot to hold a wrong-id body and reporting 3/3/3
++# there would be the M65-1 vacuity — a do-nothing control reaching the target.
+ paths_n = 0
+ hex_n = 0
+-if path:
++refused_n = 0
++if drift == 1 and path:
+     for i, wrong in enumerate(WRONG_PATHS):
+         cop = os.path.join(root_scratch, "mut-%d" % i)
+-        shutil.rmtree(cop, ignore_errors=True)
+-        os.makedirs(os.path.join(cop, os.path.dirname(path)), exist_ok=True)
+-        os.makedirs(os.path.join(cop, "corpus"))
+-        for rel in ("corpus/SOURCES.md", "corpus/source-fetches.tsv", "corpus/volatile-shape.py"):
+-            shutil.copyfile(os.path.join(TREE, rel), os.path.join(cop, rel))
+-        src = os.path.join(TREE, wrong)
+-        h = hashlib.sha256(b"").hexdigest()
+-        if os.path.isfile(src):
+-            shutil.copyfile(src, os.path.join(cop, path))
+-            h = sha256(os.path.join(cop, path))
++        hex_diff, refused, mdiag = mutation_leg(TREE, path, wrong, cop)
+         paths_n += 1
+-        if h != PIN:
+-            hex_n += 1
+-        d, _p, mdiag, _r = drift_of(cop)
+-        if d != 0 or not any("digest-mismatch:" in x for x in mdiag):
++        hex_n += hex_diff
++        refused_n += 1 if refused else 0
++        if not refused:
+             print("c1-carrier: FINDING mut-%d not-refused path=%s diag=%s"
+                   % (i, wrong, ";".join(mdiag) or "none"))
++        else:
++            print("c1-carrier: mut-%d hex=%d refused=1 diag=%s"
++                  % (i, hex_diff, ";".join(mdiag)))
++match = 1 if (paths_n == 3 and refused_n == 3) else 0
++print("c1-carrier: mutations paths=%d hex=%d refused=%d match=%d"
++      % (paths_n, hex_n, refused_n, match))
+ 
+ # guard legs
+ ga = 0
+@@ -288,9 +403,22 @@
+     print("c1-carrier: base-tree drift=%d diag=%s" % (bd, ";".join(bdiag) or "none"))
+ gb = 1 if selftest(TREE) == 0 else 0
+ gc = 0
+-r = subprocess.run(["python3", "-I", "-B", os.path.join(LANE, "corpus/volatile-shape.py")],
+-                   capture_output=True, text=True)
+-gc = 1 if (r.returncode == 0 and "VOLATILE_SHAPE: match=1" in r.stdout) else 0
++# guard (c): the gate is measured ON THE SAME CANDIDATE (plan Amendment A1),
++# so it is read from TREE; LANE is only a fallback for a tree that does not
++# carry the gate (a --tree fixture), and then it is measured with --capture
++# pointing at the candidate's carrier path so the reading is still the
++# candidate's bytes.
++vol_gate = os.path.join(TREE, "corpus/volatile-shape.py")
++vol_cmd = ["python3", "-I", "-B", vol_gate]
++if not os.path.isfile(vol_gate):
++    vol_gate = os.path.join(LANE, "corpus/volatile-shape.py")
++    vol_cmd = ["python3", "-I", "-B", vol_gate]
++    if drift == 1 and path:
++        vol_cmd += ["--capture", os.path.join(TREE, path)]
++if os.path.isfile(vol_gate):
++    r = subprocess.run(vol_cmd, capture_output=True, text=True, timeout=300)
++    gc = 1 if (r.returncode == 0 and "VOLATILE_SHAPE: match=1" in r.stdout) else 0
++    print("c1-carrier: guard-c gate=%s rc=%d" % (vol_gate, r.returncode))
+ gd = 0
+ if path:
+     cop = os.path.join(root_scratch, "guard-d")
+@@ -311,6 +439,7 @@
+ 
+ guard = 1 if (ga and gb and gc and gd) else 0
+ print("c1-carrier: guard a=%d b=%d c=%d d=%d" % (ga, gb, gc, gd))
+-print("C1_CARRIER: drift=%d paths=%d hex=%d match=1 guard=%d" % (drift, paths_n, hex_n, guard))
+-raise SystemExit(0 if (guard == 1 and drift == 1 and paths_n == 3 and hex_n == 3) else 1)
++print("C1_CARRIER: drift=%d paths=%d hex=%d match=%d guard=%d"
++      % (drift, paths_n, hex_n, match, guard))
++raise SystemExit(verdict_ok(drift, paths_n, hex_n, match, guard))
+ PY

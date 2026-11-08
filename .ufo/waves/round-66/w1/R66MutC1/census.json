@@ -1,0 +1,290 @@
+[
+ {
+  "mid": "G1-guard-constant-1",
+  "cls": "guard-constant",
+  "selftest": "PASS",
+  "killed": true,
+  "fixture": "wrongid",
+  "observed": "C1_CARRIER: drift=0 paths=3 hex=3 match=1 guard=1",
+  "rc": 1
+ },
+ {
+  "mid": "G10-census-unknown-ignored",
+  "cls": "guard-constant",
+  "selftest": "PASS",
+  "killed": true,
+  "fixture": "fixed-badcen",
+  "observed": "C1_CARRIER: drift=1 paths=3 hex=3 match=1 guard=1",
+  "rc": 0
+ },
+ {
+  "mid": "G2-guard-a-constant-1",
+  "cls": "guard-constant",
+  "selftest": "PASS",
+  "killed": true,
+  "fixture": "base",
+  "observed": "C1_CARRIER: drift=0 paths=3 hex=3 match=1 guard=1",
+  "rc": 1
+ },
+ {
+  "mid": "G3-selftest-leg-constant-1",
+  "cls": "guard-constant",
+  "selftest": "PASS",
+  "killed": true,
+  "fixture": "stfail-fixed-clean",
+  "observed": "C1_CARRIER: drift=1 paths=3 hex=3 match=1 guard=1",
+  "rc": 0
+ },
+ {
+  "mid": "G4-volatile-leg-constant-1",
+  "cls": "guard-constant",
+  "selftest": "PASS",
+  "killed": true,
+  "fixture": "volpin-clean",
+  "observed": "C1_CARRIER: drift=1 paths=3 hex=3 match=1 guard=1",
+  "rc": 0
+ },
+ {
+  "mid": "G5-census-leg-constant-1",
+  "cls": "guard-constant",
+  "selftest": "PASS",
+  "killed": true,
+  "fixture": "fixed-badcen",
+  "observed": "C1_CARRIER: drift=1 paths=3 hex=3 match=1 guard=1",
+  "rc": 0
+ },
+ {
+  "mid": "G6-guard-drops-census",
+  "cls": "guard-constant",
+  "selftest": "PASS",
+  "killed": true,
+  "fixture": "nocen",
+  "observed": "C1_CARRIER: drift=1 paths=3 hex=3 match=1 guard=1",
+  "rc": 0
+ },
+ {
+  "mid": "G7-guard-drops-volatile",
+  "cls": "guard-constant",
+  "selftest": "PASS",
+  "killed": true,
+  "fixture": "volpin-clean",
+  "observed": "C1_CARRIER: drift=1 paths=3 hex=3 match=1 guard=1",
+  "rc": 0
+ },
+ {
+  "mid": "G8-guard-drops-selftest",
+  "cls": "guard-constant",
+  "selftest": "PASS",
+  "killed": true,
+  "fixture": "stfail-fixed-clean",
+  "observed": "C1_CARRIER: drift=1 paths=3 hex=3 match=1 guard=1",
+  "rc": 0
+ },
+ {
+  "mid": "G9-census-whitelist-emptied",
+  "cls": "guard-constant",
+  "selftest": "PASS",
+  "killed": true,
+  "fixture": "fixed-knowncen",
+  "observed": "C1_CARRIER: drift=1 paths=3 hex=3 match=1 guard=0",
+  "rc": 1
+ },
+ {
+  "mid": "K1-k2-constant-1",
+  "cls": "k2",
+  "selftest": "PASS",
+  "killed": false,
+  "fixture": "",
+  "observed": "C1_CARRIER: drift=1 paths=3 hex=3 match=1 guard=1",
+  "rc": 0
+ },
+ {
+  "mid": "K2-k2-constant-0",
+  "cls": "k2",
+  "selftest": "PASS",
+  "killed": false,
+  "fixture": "",
+  "observed": "C1_CARRIER: drift=1 paths=3 hex=3 match=1 guard=1",
+  "rc": 0
+ },
+ {
+  "mid": "P1-verdict-constant-target",
+  "cls": "constant-print",
+  "selftest": "PASS",
+  "killed": true,
+  "fixture": "wrongid",
+  "observed": "C1_CARRIER: drift=1 paths=3 hex=3 match=1 guard=1",
+  "rc": 0
+ },
+ {
+  "mid": "P2-verdict-print-constant-drift",
+  "cls": "constant-print",
+  "selftest": "PASS",
+  "killed": true,
+  "fixture": "wrongid",
+  "observed": "C1_CARRIER: drift=1 paths=3 hex=3 match=1 guard=0",
+  "rc": 1
+ },
+ {
+  "mid": "P3-exit-always-0",
+  "cls": "constant-print",
+  "selftest": "PASS",
+  "killed": true,
+  "fixture": "wrongid",
+  "observed": "C1_CARRIER: drift=0 paths=3 hex=3 match=1 guard=0",
+  "rc": 0
+ },
+ {
+  "mid": "P4-exit-drops-guard",
+  "cls": "constant-print",
+  "selftest": "PASS",
+  "killed": true,
+  "fixture": "volpin-clean",
+  "observed": "C1_CARRIER: drift=1 paths=3 hex=3 match=1 guard=0",
+  "rc": 0
+ },
+ {
+  "mid": "W1-checkpath-digest-dropped",
+  "cls": "wrong-id",
+  "selftest": "PASS",
+  "killed": true,
+  "fixture": "fixed-clean",
+  "observed": "C1_CARRIER: drift=1 paths=3 hex=3 match=0 guard=1",
+  "rc": 1
+ },
+ {
+  "mid": "W10-paths-constant-3",
+  "cls": "wrong-id",
+  "selftest": "PASS",
+  "killed": false,
+  "fixture": "",
+  "observed": "C1_CARRIER: drift=1 paths=3 hex=3 match=1 guard=1",
+  "rc": 0
+ },
+ {
+  "mid": "W11-match-constant-1",
+  "cls": "wrong-id",
+  "selftest": "PASS",
+  "killed": false,
+  "fixture": "",
+  "observed": "C1_CARRIER: drift=1 paths=3 hex=3 match=1 guard=1",
+  "rc": 0
+ },
+ {
+  "mid": "W12-drift-constant-1",
+  "cls": "wrong-id",
+  "selftest": "PASS",
+  "killed": true,
+  "fixture": "wrongid",
+  "observed": "C1_CARRIER: drift=1 paths=3 hex=3 match=1 guard=0",
+  "rc": 1
+ },
+ {
+  "mid": "W13-samepath-conjunct-dropped",
+  "cls": "wrong-id",
+  "selftest": "PASS",
+  "killed": true,
+  "fixture": "splitpaths",
+  "observed": "C1_CARRIER: drift=1 paths=3 hex=3 match=1 guard=0",
+  "rc": 1
+ },
+ {
+  "mid": "W14-registry-cell-index",
+  "cls": "wrong-id",
+  "selftest": "PASS",
+  "killed": true,
+  "fixture": "fixed-clean",
+  "observed": "C1_CARRIER: drift=0 paths=3 hex=3 match=1 guard=0",
+  "rc": 1
+ },
+ {
+  "mid": "W15-fetch-col-index",
+  "cls": "wrong-id",
+  "selftest": "PASS",
+  "killed": true,
+  "fixture": "fixed-clean",
+  "observed": "C1_CARRIER: drift=0 paths=3 hex=3 match=1 guard=0",
+  "rc": 1
+ },
+ {
+  "mid": "W17-row-pin-dropped",
+  "cls": "wrong-id",
+  "selftest": "PASS",
+  "killed": true,
+  "fixture": "nopin",
+  "observed": "C1_CARRIER: drift=1 paths=3 hex=3 match=1 guard=1",
+  "rc": 0
+ },
+ {
+  "mid": "W2-registry-digest-dropped",
+  "cls": "wrong-id",
+  "selftest": "PASS",
+  "killed": false,
+  "fixture": "",
+  "observed": "C1_CARRIER: drift=1 paths=3 hex=3 match=1 guard=1",
+  "rc": 0
+ },
+ {
+  "mid": "W3-fetch-sha-col-dropped",
+  "cls": "wrong-id",
+  "selftest": "PASS",
+  "killed": true,
+  "fixture": "fetzsha",
+  "observed": "C1_CARRIER: drift=1 paths=3 hex=3 match=1 guard=1",
+  "rc": 0
+ },
+ {
+  "mid": "W4-filename-binding",
+  "cls": "wrong-id",
+  "selftest": "PASS",
+  "killed": true,
+  "fixture": "fixed-clean",
+  "observed": "C1_CARRIER: drift=1 paths=3 hex=3 match=0 guard=1",
+  "rc": 1
+ },
+ {
+  "mid": "W5-wrong-pin",
+  "cls": "wrong-id",
+  "selftest": "PASS",
+  "killed": true,
+  "fixture": "fixed-clean",
+  "observed": "C1_CARRIER: drift=0 paths=3 hex=3 match=0 guard=0",
+  "rc": 1
+ },
+ {
+  "mid": "W6-refused-constant-1",
+  "cls": "wrong-id",
+  "selftest": "PASS",
+  "killed": false,
+  "fixture": "",
+  "observed": "C1_CARRIER: drift=1 paths=3 hex=3 match=1 guard=1",
+  "rc": 0
+ },
+ {
+  "mid": "W7-slot-constant",
+  "cls": "wrong-id",
+  "selftest": "PASS",
+  "killed": false,
+  "fixture": "",
+  "observed": "C1_CARRIER: drift=1 paths=3 hex=3 match=1 guard=1",
+  "rc": 0
+ },
+ {
+  "mid": "W8-mutation-skipped",
+  "cls": "wrong-id",
+  "selftest": "PASS",
+  "killed": true,
+  "fixture": "fixed-clean",
+  "observed": "C1_CARRIER: drift=1 paths=3 hex=3 match=0 guard=1",
+  "rc": 1
+ },
+ {
+  "mid": "W9-hex-constant-1",
+  "cls": "wrong-id",
+  "selftest": "PASS",
+  "killed": false,
+  "fixture": "",
+  "observed": "C1_CARRIER: drift=1 paths=3 hex=3 match=1 guard=1",
+  "rc": 0
+ }
+]

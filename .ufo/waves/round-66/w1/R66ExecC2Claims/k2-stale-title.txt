@@ -1,0 +1,17 @@
+c2-claims: tree=/fast/scratch/hyaku/kagi-r66/R66ExecC2Claims2/stale plan=plans/round-66.md derived=3 claims=3
+c2-claims: derive C1 axis=freshness
+c2-claims: derive C1 title=C1_CARRIER: the S148 carrier binds by digest on the registry row's own terms
+c2-claims: derive C1 target=drift=1 paths=3 hex=3 match=1 GUARD=1 (BASE drift=0)
+c2-claims: derive C2 axis=operability
+c2-claims: derive C2 title=C2_CLAIMS: the pre-file claims file matches the frozen plan + amendments
+c2-claims: derive C2 target=exact=1 claims=3 titles=3 targets=3 GUARD=1 (BASE exact=0)
+c2-claims: derive C3 axis=calibration
+c2-claims: derive C3 title=C3_SELFREF: the registry's self-reference literals resolve
+c2-claims: derive C3 target=resolved=1 checks=3 failures=0 GUARD=1 (BASE failures>=1)
+c2-claims: mismatch C2 title
+c2-claims: guard-a selftest=1 rc=0
+c2-claims: guard-b stale-mutation=1 named=C2,C3 base=derived k1-crossreading=absent
+c2-claims: guard-c prefile=0 rc=2 fleet=/home/vgpnk/Projects/shokunin
+c2-claims: guard-d claims-declared=0 rc=0 claims=56
+C2_CLAIMS: exact=0 claims=3 titles=2 targets=3 guard=0
+rc=1

@@ -1,0 +1,255 @@
+{
+ "counter_sha256": "bbf69b5168d7d239a7a84133c01e647b55d0f087fc599d58c3a623730b18f470",
+ "results": [
+  {
+   "tag": "baseline-plan-repair",
+   "rc": 1,
+   "verdict": "C3_SELFREF: resolved=0 checks=3 failures=0 guard=0",
+   "fields": {
+    "resolved": 0,
+    "checks": 3,
+    "failures": 0,
+    "guard": 0
+   },
+   "failures": [],
+   "tree": "/fast/scratch/hyaku/kagi-r66/R66MutC2/fix/cand-target"
+  },
+  {
+   "tag": "k1-base-no-repair",
+   "rc": 1,
+   "verdict": "C3_SELFREF: resolved=0 checks=1 failures=1 guard=0",
+   "fields": {
+    "resolved": 0,
+    "checks": 1,
+    "failures": 1,
+    "guard": 0
+   },
+   "failures": [
+    "designated S148 cites-no-carrier-path pin=3b8d4e159a0b"
+   ],
+   "tree": "/fast/scratch/hyaku/kagi-r66/R66MutC2/fix/cand-bare"
+  },
+  {
+   "tag": "path-missing",
+   "rc": 1,
+   "verdict": "C3_SELFREF: resolved=0 checks=3 failures=2 guard=0",
+   "fields": {
+    "resolved": 0,
+    "checks": 3,
+    "failures": 2,
+    "guard": 0
+   },
+   "failures": [
+    "registry S157 missing-path:.ufo/waves/round-64/capture/S999.body",
+    "designated S157 digest-mismatch-carrier pin=3b8d4e159a0b"
+   ],
+   "tree": "/fast/scratch/hyaku/kagi-r66/R66MutC2/fix/c3mut-path-missing",
+   "expect": "registry S157 missing-path"
+  },
+  {
+   "tag": "digest-mismatch-file",
+   "rc": 1,
+   "verdict": "C3_SELFREF: resolved=0 checks=3 failures=2 guard=0",
+   "fields": {
+    "resolved": 0,
+    "checks": 3,
+    "failures": 2,
+    "guard": 0
+   },
+   "failures": [
+    "registry S157 digest-mismatch:.ufo/waves/round-64/capture/S148.body sha=fabc74c534e4",
+    "designated S157 digest-mismatch-carrier pin=3b8d4e159a0b"
+   ],
+   "tree": "/fast/scratch/hyaku/kagi-r66/R66MutC2/fix/c3mut-digest-mismatch-file",
+   "expect": "registry S157 digest-mismatch (arXiv body)"
+  },
+  {
+   "tag": "digest-mismatch-bytes",
+   "rc": 1,
+   "verdict": "C3_SELFREF: resolved=0 checks=3 failures=4 guard=0",
+   "fields": {
+    "resolved": 0,
+    "checks": 3,
+    "failures": 4,
+    "guard": 0
+   },
+   "failures": [
+    "registry S157 digest-mismatch:.ufo/waves/round-64/capture/S143.body sha=a123bfef26bd",
+    "fetches S157 digest-mismatch:.ufo/waves/round-64/capture/S143.body sha=a123bfef26bd",
+    "volatile digest-mismatch:.ufo/waves/round-64/capture/S143.body sha=a123bfef26bd",
+    "designated S157 digest-mismatch-carrier pin=3b8d4e159a0b"
+   ],
+   "tree": "/fast/scratch/hyaku/kagi-r66/R66MutC2/fix/c3mut-digest-mismatch-bytes",
+   "expect": "registry+fetches+volatile digest-mismatch"
+  },
+  {
+   "tag": "wrong-dir",
+   "rc": 1,
+   "verdict": "C3_SELFREF: resolved=0 checks=2 failures=1 guard=0",
+   "fields": {
+    "resolved": 0,
+    "checks": 2,
+    "failures": 1,
+    "guard": 0
+   },
+   "failures": [
+    "designated S157 digest-mismatch-carrier pin=3b8d4e159a0b"
+   ],
+   "tree": "/fast/scratch/hyaku/kagi-r66/R66MutC2/fix/c3mut-wrong-dir",
+   "expect": "checks<3, resolved=0"
+  },
+  {
+   "tag": "uncited-carrier",
+   "rc": 1,
+   "verdict": "C3_SELFREF: resolved=0 checks=2 failures=1 guard=0",
+   "fields": {
+    "resolved": 0,
+    "checks": 2,
+    "failures": 1,
+    "guard": 0
+   },
+   "failures": [
+    "designated S157 cites-no-carrier-path pin=3b8d4e159a0b"
+   ],
+   "tree": "/fast/scratch/hyaku/kagi-r66/R66MutC2/fix/c3mut-uncited-carrier",
+   "expect": "checks<3, failures>=1 (K1 shape)"
+  },
+  {
+   "tag": "extra-round64-citation",
+   "rc": 1,
+   "verdict": "C3_SELFREF: resolved=0 checks=4 failures=1 guard=0",
+   "fields": {
+    "resolved": 0,
+    "checks": 4,
+    "failures": 1,
+    "guard": 0
+   },
+   "failures": [
+    "registry S157 digest-mismatch:.ufo/waves/round-64/capture/S148.body sha=fabc74c534e4"
+   ],
+   "tree": "/fast/scratch/hyaku/kagi-r66/R66MutC2/fix/c3mut-extra-round64-citation",
+   "expect": "extra citation -> checks=4, digest-mismatch, resolved=0"
+  },
+  {
+   "tag": "fetch-missing",
+   "rc": 1,
+   "verdict": "C3_SELFREF: resolved=0 checks=2 failures=0 guard=0",
+   "fields": {
+    "resolved": 0,
+    "checks": 2,
+    "failures": 0,
+    "guard": 0
+   },
+   "failures": [],
+   "tree": "/fast/scratch/hyaku/kagi-r66/R66MutC2/fix/c3mut-fetch-missing",
+   "expect": "fetches stand absent -> checks<3"
+  },
+  {
+   "tag": "fetch-path-missing",
+   "rc": 1,
+   "verdict": "C3_SELFREF: resolved=0 checks=3 failures=1 guard=0",
+   "fields": {
+    "resolved": 0,
+    "checks": 3,
+    "failures": 1,
+    "guard": 0
+   },
+   "failures": [
+    "fetches S157 missing-path:.ufo/waves/round-64/capture/NOPE.body"
+   ],
+   "tree": "/fast/scratch/hyaku/kagi-r66/R66MutC2/fix/c3mut-fetch-path-missing",
+   "expect": "fetches S157 missing-path"
+  },
+  {
+   "tag": "fetch-wrong-file",
+   "rc": 1,
+   "verdict": "C3_SELFREF: resolved=0 checks=3 failures=1 guard=0",
+   "fields": {
+    "resolved": 0,
+    "checks": 3,
+    "failures": 1,
+    "guard": 0
+   },
+   "failures": [
+    "fetches S157 digest-mismatch:.ufo/waves/round-64/capture/S148.body sha=fabc74c534e4"
+   ],
+   "tree": "/fast/scratch/hyaku/kagi-r66/R66MutC2/fix/c3mut-fetch-wrong-file",
+   "expect": "fetches S157 digest-mismatch vs col10"
+  },
+  {
+   "tag": "fetch-digest",
+   "rc": 1,
+   "verdict": "C3_SELFREF: resolved=0 checks=3 failures=2 guard=0",
+   "fields": {
+    "resolved": 0,
+    "checks": 3,
+    "failures": 2,
+    "guard": 0
+   },
+   "failures": [
+    "registry S157 pin=anchor-pins=1-vs-fetch=000000000000",
+    "fetches S157 digest-mismatch:.ufo/waves/round-64/capture/S143.body sha=3b8d4e159a0b"
+   ],
+   "tree": "/fast/scratch/hyaku/kagi-r66/R66MutC2/fix/c3mut-fetch-digest",
+   "expect": "fetches S157 digest-mismatch"
+  },
+  {
+   "tag": "volatile-wrong",
+   "rc": 1,
+   "verdict": "C3_SELFREF: resolved=0 checks=3 failures=1 guard=0",
+   "fields": {
+    "resolved": 0,
+    "checks": 3,
+    "failures": 1,
+    "guard": 0
+   },
+   "failures": [
+    "volatile digest-mismatch:.ufo/waves/round-64/capture/S148.body sha=fabc74c534e4"
+   ],
+   "tree": "/fast/scratch/hyaku/kagi-r66/R66MutC2/fix/c3mut-volatile-wrong",
+   "expect": "volatile digest-mismatch"
+  },
+  {
+   "tag": "anchor-vs-teaches-cell",
+   "rc": 1,
+   "verdict": "C3_SELFREF: resolved=0 checks=3 failures=0 guard=0",
+   "fields": {
+    "resolved": 0,
+    "checks": 3,
+    "failures": 0,
+    "guard": 0
+   },
+   "failures": [],
+   "tree": "/fast/scratch/hyaku/kagi-r66/R66MutC2/fix/c3mut-anchor-vs-teaches-cell",
+   "expect": "anchor cell uncited; a correct scan reads checks<3 or a named anchor failure"
+  },
+  {
+   "tag": "benign-uncited-row",
+   "rc": 1,
+   "verdict": "C3_SELFREF: resolved=0 checks=3 failures=0 guard=0",
+   "fields": {
+    "resolved": 0,
+    "checks": 3,
+    "failures": 0,
+    "guard": 0
+   },
+   "failures": [],
+   "tree": "/fast/scratch/hyaku/kagi-r66/R66MutC2/fix/c3mut-benign-uncited-row",
+   "expect": "unchanged (no citation)"
+  },
+  {
+   "tag": "benign-wrong-round-cite",
+   "rc": 1,
+   "verdict": "C3_SELFREF: resolved=0 checks=3 failures=0 guard=0",
+   "fields": {
+    "resolved": 0,
+    "checks": 3,
+    "failures": 0,
+    "guard": 0
+   },
+   "failures": [],
+   "tree": "/fast/scratch/hyaku/kagi-r66/R66MutC2/fix/c3mut-benign-wrong-round-cite",
+   "expect": "unchanged (round-63 not counted)"
+  }
+ ]
+}

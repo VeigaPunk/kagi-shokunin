@@ -1,0 +1,562 @@
+#!/usr/bin/env bash
+# plans/round-66-c2.sh — C2_CLAIMS counter (kagi round 66, claim C2).
+#
+#   bash plans/round-66-c2.sh [--tree DIR] [--plan REL] [--claims REL]
+#   bash plans/round-66-c2.sh --selftest
+#
+# Frozen predicate: plans/round-66.md §C2.
+#
+#   C2_CLAIMS: exact = 1 iff `bash plans/round-66-c2.sh --tree <candidate>`
+#   prints `C2_CLAIMS: exact=1 claims=3 titles=3 targets=3 guard=G` and
+#   exits 0, where exact = 1 iff every (title, target) pair in
+#   `.ufo/waves/round-66/claims.json` equals the corresponding frozen
+#   heading in `plans/round-66.md` (as amended), axis-equal, and no extra
+#   key exists.
+#
+# DERIVATION (read from the candidate tree's plan, never from claims.json):
+#   The plan writes each claim three times — a `## Ck — <axis>: <suffix>`
+#   heading, a fenced predicate whose printed line is backticked, and a K1
+#   kill rule naming the do-nothing control's value. The counter reads
+#   exactly those three:
+#     title  = "<TAG>: <suffix>"
+#     target = "<body with guard=G read as GUARD=1> (BASE <K1 literal>)"
+#   TAG and body come from the best printed line the section offers, in
+#   fidelity order and restricted to the tag the section's own label uses
+#   (so a guard printing another instrument's token is never read):
+#     1. the backticked print line (`prints `TAG: …``), joined across lines
+#        when the plan wraps it;
+#     2. the `Output line: `TAG: …`` restatement — lower fidelity because a
+#        plan may print placeholders there (round-66 §C1's says `drift=A`
+#        while its predicate prints `drift=1`);
+#     3. the section's line-anchored label — the weakest source, used only
+#        when the plan states no printed line.
+#   The K1 literal is the `<name>=<n>` token K1 says a byte-identical BASE
+#   tree reads (e.g. `drift=0`, `failures>=1`).
+#   As amended: an `## Amendment` heading naming Ck overrides that claim's
+#   tag/body from the amendment's own tier-1/tier-2 printed line, and its
+#   K1 literal if it states one (never from a bare label an amendment may
+#   merely quote). At freeze there are no amendments.
+#   `--plan REL` / `--claims REL` re-point the two surfaces (relative to
+#   --tree) so the K1 BASE reading — round-65 claims.json against
+#   plans/round-65.md + A1..A3 — is reproducible with this same counter.
+#
+# GUARD = 1 iff all four legs read 1:
+#   (a) the counter's `--selftest` exits 0 (synthetic fixtures; the live
+#       plan and claims.json are never needed for the selftest to pass);
+#   (b) a title swapped for the stale wording the plan itself names reads
+#       exact=0 with that claim id named (the counter can fail). The swap
+#       is applied to the live claims file when its population matches the
+#       derivation, else to the derivable expectation, so a broken
+#       population cannot mask the leg;
+#   (c) `prefile-falsification.py --lane kagi --round 66` reads
+#       `PREFILE-FALSIFICATION: pass` with exit 0 and no FINDING line on
+#       the fleet's own kagi-shokunin tree (the gate resolves its inputs as
+#       <fleet>/kagi-shokunin, so <fleet> is the tree's parent when the tree
+#       is named kagi-shokunin); missing claims.json there is SETUP exit 2,
+#       never a pass;
+#   (d) `corpus/claims-declared.sh` reads `CLAIMS_DECLARED: CLEAN` with
+#       claims=59 on the candidate (56 at BASE + this round's 3 rows).
+#
+# Output: `c2-claims:` provenance lines, then exactly one verdict line
+#   C2_CLAIMS: exact=A claims=N titles=N targets=N guard=G
+# Exit 0 iff guard=1 and exact=1; 1 otherwise; 2 SETUP.
+#
+# Scratch (round-66 plan §Scratch): ${HYAKU_SCRATCH:-/fast/scratch/hyaku}/
+# kagi-r66/R66ExecC2Claims/. TMPDIR is exported for children; every fixture
+# is in memory and nothing is written inside the measured tree (QM74). The
+# measured tree is only ever read.
+set -u
+
+SELF=$(readlink -f "${BASH_SOURCE[0]}")
+SELF_DIR=$(dirname "$SELF")
+LANE=${SELF_DIR%/plans}
+TREE=$LANE
+PLAN_REL=plans/round-66.md
+CLAIMS_REL=.ufo/waves/round-66/claims.json
+SELFTEST=0
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --tree) TREE=${2:-}; shift 2;;
+    --plan) PLAN_REL=${2:-}; shift 2;;
+    --claims) CLAIMS_REL=${2:-}; shift 2;;
+    --selftest) SELFTEST=1; shift;;
+    -h|--help) sed -n '2,/^set -u$/p' "$SELF" | sed '$d'; exit 0;;
+    *) echo "C2_CLAIMS: SETUP unknown-arg $1" >&2; exit 2;;
+  esac
+done
+TREE=$(readlink -f "$TREE" 2>/dev/null) || { echo "C2_CLAIMS: SETUP bad-tree" >&2; exit 2; }
+[ -d "$TREE" ] || { echo "C2_CLAIMS: SETUP bad-tree $TREE" >&2; exit 2; }
+[ -d "$LANE" ] || { echo "C2_CLAIMS: SETUP bad-lane $LANE" >&2; exit 2; }
+command -v python3 >/dev/null 2>&1 || { echo "C2_CLAIMS: SETUP no-python3" >&2; exit 2; }
+
+export TMPDIR=${TMPDIR:-${HYAKU_SCRATCH:-/fast/scratch/hyaku}/kagi-r66/R66ExecC2Claims}
+
+exec python3 -I -B - "$TREE" "$LANE" "$SELFTEST" "$SELF" "$PLAN_REL" "$CLAIMS_REL" <<'PY'
+import json
+import os
+import re
+import subprocess
+import sys
+
+tree, script, plan_rel, claims_rel = (sys.argv[1], sys.argv[4],
+                                      sys.argv[5], sys.argv[6])
+selftest = sys.argv[3] == "1"
+SCHEMA = {"axis", "title", "target"}
+VALUE = r"[A-Za-z_][A-Za-z0-9_]*(?:>=|=)\d+"
+
+
+# ---------------------------------------------------------------- helpers
+def rd(base, rel):
+    try:
+        with open(os.path.join(base, rel), encoding="utf-8",
+                  errors="replace") as f:
+            return f.read()
+    except OSError:
+        return None
+
+
+def sections(text):
+    """Split a markdown doc into (heading_line_without_##, body_text)."""
+    out = []
+    head = None
+    body = []
+    for line in text.splitlines():
+        if line.startswith("## "):
+            if head is not None:
+                out.append((head, "\n".join(body)))
+            head = line[3:].strip()
+            body = []
+        elif head is not None:
+            body.append(line)
+    if head is not None:
+        out.append((head, "\n".join(body)))
+    return out
+
+
+def norm(s):
+    s = re.sub(r"\s+", " ", s).strip()
+    return s.replace("guard=G", "GUARD=1").replace("guard=g", "GUARD=1")
+
+
+def predicate_line(body, allow_label=True):
+    """The section's printed line as (tag, body), or None.
+
+    Three sources, highest fidelity first, all restricted to the tag the
+    section's own label sentence uses (so a guard line printing another
+    instrument's token is never mistaken for this claim's output):
+      1. the backticked print line `prints `TAG: …`` (a wrapped print joins
+         across lines; an `Output line:` restatement is not read here);
+      2. the `Output line: `TAG: …`` restatement;
+      3. the section's line-anchored label `TAG: …` itself — the weakest
+         source, used only when the plan states no printed line, and never
+         for an amendment (an amendment that merely quotes a label must not
+         move the claim).
+    """
+    cands = []
+    for m in re.finditer(r"`(C\d+_[A-Z]+): ([^`]+)`", body, re.S):
+        start = body.rfind("\n", 0, m.start()) + 1
+        prefix = body[start:m.start()].strip()
+        kind = "output" if prefix.startswith("Output line:") else "print"
+        cands.append((kind, m.group(1), norm(m.group(2))))
+    label = None
+    for line in body.splitlines():
+        m = re.match(r"^(C\d+_[A-Z]+): (.+)$", line)
+        if m:
+            label = (m.group(1), norm(m.group(2)))
+            break
+    for kind in ("print", "output"):
+        for ckind, tag, text in cands:
+            if ckind == kind and (label is None or tag == label[0]):
+                return tag, text
+    if allow_label:
+        return label
+    return None
+
+
+def k1_value(body):
+    """The K1 kill rule's do-nothing value: the first `<name>=<n>` token in a
+    backticked span on the K1 line (e.g. `drift=0`, `matrix=5 population=8`,
+    `failures>=1`)."""
+    for line in body.splitlines():
+        st = line.strip()
+        if not (st.startswith("K1:") or st.startswith("- K1:")):
+            continue
+        for span in re.findall(r"`([^`]+)`", line):
+            for tok in span.split():
+                tok = tok.strip(".,;()")
+                if re.fullmatch(VALUE, tok):
+                    return tok
+    return None
+
+
+def parse_plan(text):
+    """Derive {Ck: {axis, title, target}} from the plan, as amended."""
+    claim = {}
+    amendments = []
+    for head, body in sections(text):
+        m = re.match(r"^(C\d+) — ([a-z]+): (.*)$", head)
+        if m:
+            p = predicate_line(body)
+            claim[m.group(1)] = {
+                "axis": m.group(2),
+                "suffix": m.group(3).strip(),
+                "tag": p[0] if p else None,
+                "body": p[1] if p else None,
+                "base": k1_value(body),
+            }
+            continue
+        if re.match(r"^Amendment\b", head):
+            amendments.append((head, body))
+
+    for head, body in amendments:
+        ids = re.findall(r"\bC(\d+)\b", head)
+        if not ids:
+            continue
+        cid = "C" + ids[0]
+        if cid not in claim or claim[cid]["tag"] is None:
+            continue
+        p = predicate_line(body, allow_label=False)
+        if p is not None:
+            claim[cid]["tag"], claim[cid]["body"] = p
+        b = k1_value(body)
+        if b is not None:
+            claim[cid]["base"] = b
+
+    out = {}
+    underivable = []
+    for cid in sorted(claim, key=lambda s: int(s[1:])):
+        c = claim[cid]
+        if not c["tag"] or not c["body"] or not c["base"]:
+            underivable.append(cid)
+            continue
+        out[cid] = {"axis": c["axis"],
+                    "tag": c["tag"],
+                    "title": "%s: %s" % (c["tag"], c["suffix"]),
+                    "target": "%s (BASE %s)" % (c["body"], c["base"])}
+    return out, underivable
+
+
+def as_claims(obj):
+    """claims.json may be flat {Ck: {...}} or wrapped {"claims": {...}}."""
+    if isinstance(obj, dict) and isinstance(obj.get("claims"), dict):
+        return obj["claims"]
+    return obj
+
+
+def compare(exp, obj):
+    """(exact, titles, targets, problems) for a parsed claims.json."""
+    # "no extra key exists" bounds the whole document: a wrapped file may
+    # carry the `claims` container and nothing else — a sibling top-level key
+    # (a fourth claim, a note) is an extra key, not a tolerated wrapper.
+    if (isinstance(obj, dict) and isinstance(obj.get("claims"), dict)
+            and set(obj) != {"claims"}):
+        top = sorted(set(obj) - {"claims"})
+        return 0, 0, 0, ["population extra-top-level=%s" % ",".join(top)]
+    cand = as_claims(obj)
+    if not isinstance(cand, dict):
+        return 0, 0, 0, ["claims-not-object"]
+    extra = sorted(set(cand) - set(exp))
+    missing = sorted(set(exp) - set(cand))
+    if extra or missing:
+        return 0, 0, 0, ["population extra=%s missing=%s"
+                         % (",".join(extra) or "-", ",".join(missing) or "-")]
+    problems = []
+    titles = targets = 0
+    for cid in sorted(exp, key=lambda s: int(s[1:])):
+        e = cand[cid]
+        if not isinstance(e, dict) or set(e) != SCHEMA:
+            problems.append("%s entry-shape" % cid)
+            continue
+        if e["axis"] != exp[cid]["axis"]:
+            problems.append("%s axis" % cid)
+        if e["title"] != exp[cid]["title"]:
+            problems.append("%s title" % cid)
+        else:
+            titles += 1
+        if e["target"] != exp[cid]["target"]:
+            problems.append("%s target" % cid)
+        else:
+            targets += 1
+    exact = 1 if (not problems and len(exp) == titles == targets) else 0
+    return exact, titles, targets, problems
+
+
+# ------------------------------------------------------------- fixtures
+FIXTURE_PLAN = """# fixture plan
+
+## C1 — freshness: the carrier binds by digest
+
+**Frozen predicate:**
+
+```
+C1_CARRIER: drift = 1 iff `bash plans/x-c1.sh --tree <candidate>`
+prints `C1_CARRIER: drift=1 paths=3 hex=3 match=1 guard=G` and exits 0.
+```
+
+Target drift=1 (BASE 0: no binding).
+
+**Commands:**
+```
+bash plans/x-c1.sh [--tree DIR]
+```
+Output line: `C1_CARRIER: drift=A paths=3 hex=3 match=1 guard=G`. Exit 0.
+
+**Kill rules:**
+- K1: a copy tree byte-identical to BASE reads `drift=0` (absent).
+
+## C2 — operability: the claims file matches the plan
+
+**Frozen predicate:**
+
+```
+C2_CLAIMS: exact = 1 iff `bash plans/x-c2.sh --tree <candidate>`
+prints `C2_CLAIMS: exact=1 claims=3 titles=3 targets=3 guard=G` and
+exits 0.
+```
+
+Target exact=1 (BASE 0: stale titles).
+
+**Kill rules:**
+- K1: at BASE the counter reads `exact=0` (titles diverge).
+
+## C3 — calibration: the self-references resolve
+
+**Frozen predicate:**
+
+```
+C3_SELFREF: resolved = 1 iff `bash plans/x-c3.sh --tree
+<candidate>` prints `C3_SELFREF: resolved=1 checks=3 failures=0
+guard=G` and exits 0.
+```
+
+Target resolved=1 (BASE 0: uncited).
+
+**Kill rules:**
+- K1: at BASE the counter reads `failures>=1` (uncited).
+
+## Amendments
+
+None at freeze.
+"""
+
+FIXTURE_AMENDED = FIXTURE_PLAN + """
+## Amendment A9 — fixture (C2 restated)
+
+**Frozen predicate:**
+
+```
+C2_CLAIMS: exact = 1 iff `bash plans/x-c2.sh` prints
+`C2_CLAIMS: exact=1 claims=4 titles=4 targets=4 guard=G` and exits 0.
+```
+
+Target exact=1 (BASE 2: re-frozen).
+
+- K1: at BASE the counter reads `exact=2` (re-frozen).
+"""
+
+
+def run_selftest():
+    cases = 0
+    failed = []
+
+    def case(name, cond):
+        nonlocal cases
+        cases += 1
+        if not cond:
+            failed.append(name)
+
+    exp, _ = parse_plan(FIXTURE_PLAN)
+    case("derive-three", sorted(exp) == ["C1", "C2", "C3"])
+    case("derive-axes", [exp[c]["axis"] for c in sorted(exp)]
+         == ["freshness", "operability", "calibration"])
+    case("derive-print-not-label",
+         exp.get("C1", {}).get("target") ==
+         "drift=1 paths=3 hex=3 match=1 GUARD=1 (BASE drift=0)")
+    case("derive-wrapped-print",
+         exp.get("C3", {}).get("target") ==
+         "resolved=1 checks=3 failures=0 GUARD=1 (BASE failures>=1)")
+    case("derive-k1-bases",
+         [exp[c]["target"].rsplit("(BASE ", 1)[-1].rstrip(")")
+          for c in sorted(exp)] == ["drift=0", "exact=0", "failures>=1"])
+
+    clean = {cid: {k: exp[cid][k] for k in SCHEMA} for cid in exp}
+    exact, t, tg, _ = compare(exp, clean)
+    case("clean-fixture-exact", exact == 1 and t == 3 and tg == 3)
+
+    stale = json.loads(json.dumps(clean))
+    stale["C2"]["title"] = "C2_ROUTED: routed-leg population proves the six round-64 receipts"
+    exact, _, _, probs = compare(exp, stale)
+    case("stale-title-fails",
+         exact == 0 and any(p.startswith("C2 ") for p in probs))
+
+    extra = json.loads(json.dumps(clean))
+    extra["C4"] = {"axis": "depth", "title": "x", "target": "y"}
+    case("extra-claim-fails", compare(exp, extra)[0] == 0)
+
+    shape = json.loads(json.dumps(clean))
+    shape["C1"]["note"] = "extra key"
+    case("extra-key-fails", compare(exp, shape)[0] == 0)
+
+    axis = json.loads(json.dumps(clean))
+    axis["C3"]["axis"] = "depth"
+    case("wrong-axis-fails", compare(exp, axis)[0] == 0)
+
+    wrapped = {"claims": json.loads(json.dumps(clean))}
+    case("wrapper-accepted", compare(exp, wrapped)[0] == 1)
+
+    wrapped_sib = {"claims": json.loads(json.dumps(clean)), "note": "x"}
+    w_exact, _, _, w_probs = compare(exp, wrapped_sib)
+    case("wrapper-sibling-fails",
+         w_exact == 0 and any("extra-top-level" in p for p in w_probs))
+
+    wrapped_top = {"claims": json.loads(json.dumps(clean)),
+                   "C4": {"axis": "depth", "title": "x", "target": "y"}}
+    case("wrapper-toplevel-claim-fails", compare(exp, wrapped_top)[0] == 0)
+
+    amended, _ = parse_plan(FIXTURE_AMENDED)
+    case("amendment-overrides",
+         amended.get("C2", {}).get("target") ==
+         "exact=1 claims=4 titles=4 targets=4 GUARD=1 (BASE exact=2)")
+
+    if failed:
+        print("C2_CLAIMS_SELFTEST: FAIL (cases=%d failed=%d names=%s)"
+              % (cases, len(failed), ",".join(failed)))
+        return 1
+    print("C2_CLAIMS_SELFTEST: PASS (cases=%d)" % cases)
+    return 0
+
+
+if selftest:
+    raise SystemExit(run_selftest())
+
+
+# ------------------------------------------------------------------ main
+def run(cmd, cwd):
+    try:
+        r = subprocess.run(cmd, capture_output=True, text=True,
+                           cwd=cwd, timeout=180)
+        return r.returncode, (r.stdout or "") + (r.stderr or "")
+    except Exception as e:  # timeout, missing binary, ...
+        return 2, "spawn-failure %s" % e
+
+
+plan_text = rd(tree, plan_rel)
+if plan_text is None:
+    print("C2_CLAIMS: SETUP missing-plan %s" % plan_rel, file=sys.stderr)
+    raise SystemExit(2)
+exp, underivable = parse_plan(plan_text)
+if not exp:
+    print("C2_CLAIMS: SETUP plan-derives-0-claims %s" % plan_rel, file=sys.stderr)
+    raise SystemExit(2)
+
+claims_text = rd(tree, claims_rel)
+if claims_text is None:
+    print("C2_CLAIMS: SETUP missing-claims %s" % claims_rel, file=sys.stderr)
+    raise SystemExit(2)
+try:
+    live = json.loads(claims_text)
+except ValueError:
+    print("C2_CLAIMS: SETUP bad-json %s" % claims_rel, file=sys.stderr)
+    raise SystemExit(2)
+cand = as_claims(live)
+if not isinstance(cand, dict):
+    print("C2_CLAIMS: SETUP claims-not-object %s" % claims_rel, file=sys.stderr)
+    raise SystemExit(2)
+
+exact, titles, targets, problems = compare(exp, live)
+print("c2-claims: tree=%s plan=%s derived=%d claims=%d"
+      % (tree, plan_rel, len(exp), len(cand)))
+if underivable:
+    print("c2-claims: underivable %s (no printed line + K1 literal in its "
+          "section)" % ",".join(underivable))
+for cid in sorted(exp, key=lambda s: int(s[1:])):
+    print("c2-claims: derive %s axis=%s" % (cid, exp[cid]["axis"]))
+    print("c2-claims: derive %s title=%s" % (cid, exp[cid]["title"]))
+    print("c2-claims: derive %s target=%s" % (cid, exp[cid]["target"]))
+for p in problems:
+    print("c2-claims: mismatch %s" % p)
+
+# guard (a): the selftest passes (fixtures only; independent of this tree)
+rc, out = run(["bash", script, "--selftest"], tree)
+leg_a = 1 if (rc == 0 and "C2_CLAIMS_SELFTEST: PASS" in out) else 0
+print("c2-claims: guard-a selftest=%d rc=%d" % (leg_a, rc))
+
+# guard (b): the counter can fail on a plan's stale wording. Two witnesses:
+#   (i) a title swapped for the stale wording the plan itself quotes reads
+#       exact=0 with that claim named. The mutation is applied to the live
+#       claims file when its population matches the derivation, else to the
+#       derivable expectation, so a broken population cannot mask the leg;
+#   (ii) when the tree holds the committed round-65 pair, that pair — the
+#       real pre-amendment artifact K1 names — must read exact=0 here too.
+stale = {}
+for m in re.finditer(r'C(\d)[^."]{0,30} says "([^"\n]{4,})"', plan_text):
+    stale.setdefault("C" + m.group(1), m.group(2))
+for m in re.finditer(r"C(\d)[^.\"]{0,40} target uses\s+`([^`\n]{4,})`", plan_text):
+    stale.setdefault("C" + m.group(1), m.group(2))
+if compare(exp, live)[0] == 1:
+    base_obj, base_src = live, "live"
+else:
+    base_obj = {cid: {k: exp[cid][k] for k in SCHEMA} for cid in exp}
+    base_src = "derived"
+bad = [cid for cid in stale if cid in exp]
+ok_b = []
+for cid in sorted(bad, key=lambda s: int(s[1:])):
+    mut = json.loads(json.dumps(base_obj))
+    as_claims(mut)[cid]["title"] = "%s: %s" % (exp[cid]["tag"], stale[cid])
+    m_exact, _, _, m_probs = compare(exp, mut)
+    if m_exact == 0 and any(p.startswith(cid + " ") for p in m_probs):
+        ok_b.append(cid)
+witness_i = 1 if (bad and len(ok_b) == len(bad)) else 0
+
+K1_PLAN, K1_CLAIMS = "plans/round-65.md", ".ufo/waves/round-65/claims.json"
+k1_exact = None
+if rd(tree, K1_PLAN) is not None and rd(tree, K1_CLAIMS) is not None:
+    try:
+        k1_exp, _ = parse_plan(rd(tree, K1_PLAN))
+        k1_live = json.loads(rd(tree, K1_CLAIMS))
+        k1_exact = compare(k1_exp, k1_live)[0]
+    except ValueError:
+        k1_exact = None
+witness_ii = 1 if k1_exact == 0 else (0 if k1_exact is not None else 1)
+leg_b = 1 if (witness_i and witness_ii) else 0
+print("c2-claims: guard-b stale-mutation=%d named=%s base=%s "
+      "k1-crossreading=%s"
+      % (leg_b, ",".join(ok_b) or "-", base_src,
+         "absent" if k1_exact is None else str(k1_exact)))
+
+# guard (c): the pre-file gate passes on the fleet's kagi-shokunin tree.
+fleet = os.path.dirname(tree) if os.path.basename(tree) == "kagi-shokunin" \
+    else "/home/vgpnk/Projects/shokunin"
+prefile = None
+for cand_path in (os.path.join(fleet, "scripts/hyaku/prefile-falsification.py"),
+                  "/home/vgpnk/Projects/shokunin/scripts/hyaku/prefile-falsification.py"):
+    if os.path.isfile(cand_path):
+        prefile = cand_path
+        break
+if prefile:
+    rc, out = run([sys.executable, prefile, "--lane", "kagi", "--round", "66",
+                   "--fleet", fleet], tree)
+    passed = re.search(r"PREFILE-FALSIFICATION:\s*pass\b", out, re.I) is not None
+    leg_c = 1 if (rc == 0 and passed and "FINDING " not in out) else 0
+    print("c2-claims: guard-c prefile=%d rc=%d fleet=%s" % (leg_c, rc, fleet))
+else:
+    leg_c = 0
+    print("c2-claims: guard-c prefile=0 rc=2 (script-not-found under %s)" % fleet)
+
+# guard (d): corpus/claims-declared.sh reads CLEAN with claims=59
+gate = os.path.join(tree, "corpus/claims-declared.sh")
+if os.path.isfile(gate):
+    rc, out = run(["bash", gate, "--root", tree], tree)
+    m = re.search(r"CLAIMS_DECLARED: CLEAN \(claims=(\d+)\)", out)
+    leg_d = 1 if (rc == 0 and m and int(m.group(1)) == 59) else 0
+    print("c2-claims: guard-d claims-declared=%d rc=%d claims=%s"
+          % (leg_d, rc, m.group(1) if m else "?"))
+else:
+    leg_d = 0
+    print("c2-claims: guard-d claims-declared=0 rc=2 (script-not-found)")
+
+guard = 1 if (leg_a and leg_b and leg_c and leg_d) else 0
+print("C2_CLAIMS: exact=%d claims=%d titles=%d targets=%d guard=%d"
+      % (exact, len(cand), titles, targets, guard))
+raise SystemExit(0 if (exact == 1 and guard == 1) else 1)
+PY

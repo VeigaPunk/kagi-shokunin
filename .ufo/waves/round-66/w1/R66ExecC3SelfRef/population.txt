@@ -1,0 +1,23 @@
+## population census
+BASE d549ee6eb8770a49938b78f49cf79e36d9c1c2e8 (pre-repair tree @ ddcd46b):
+- registry rows (plan awk): 155 (A=138 B=2 C=15; mined=135 queued=3 rejected=17)
+- registry anchor citations of .ufo/waves/*/capture/ paths: 22 total
+  (round-56:1, round-57:3, round-58:4, round-59:2, round-60:2, round-61:3, round-62:7);
+  of those, round-64/capture stands: 0 (the S148 row cites no path).
+- fetches col16 references to .ufo/waves/*/capture/ paths: 30 total
+  (round-55:2, round-57:3, round-58:3, round-59:2, round-60:2, round-61:3, round-62:7, round-63:8);
+  round-64/capture refs: 0.
+- S121 two-path anchor: round-59 file sha d8879a2a… == anchor pin +
+  fetch col10 (48604 B); round-58 file sha 37e706c2… is a named
+  rejected staging file (not this source). The round-64 family is not
+  affected by it.
+- S113 two-sha anchor: anchor pin ce3cb7f2… (default-UA 403 receipt)
+  and fetch col10 d8dfe354… (browser-UA body) are distinct attested
+  receipts for the same row. Not in the round-64 family.
+- S148 pin: 3b8d4e159a0b0595fc9ef95f4fce87de5ab116c858cb7da9ed742113750cba40
+  == sha256(.ufo/waves/round-64/capture/S143.body), 264946 B.
+- arXiv body: .ufo/waves/round-64/capture/S148.body sha fabc74c534… (39750 B).
+- volatile-shape: DEFAULT_CAPTURE=.ufo/waves/round-64/capture/S143.body,
+  PIN_SHA=3b8d4e15… (already landed round 65, M65-4).
+- `grep -cF 'S143.body' corpus/SOURCES.md` = 0; `grep -cF
+  'capture/S143.body' corpus/source-fetches.tsv` = 1 (S143 round-63).

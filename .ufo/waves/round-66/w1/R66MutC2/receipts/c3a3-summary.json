@@ -1,0 +1,136 @@
+{
+ "counter_sha256": "a6c36b87a4ae22f95b3f8cbc7369dfba8f588a20d308fbf0a8eede3fcef85683",
+ "results": [
+  {
+   "tag": "baseline-target",
+   "rc": 0,
+   "verdict": "C3_CENSUS: findings=0 rows=156 guard=1",
+   "fields": {
+    "findings": 0,
+    "rows": 156,
+    "guard": 1
+   },
+   "tree": "/fast/scratch/hyaku/kagi-r66/R66MutC2/fix/c3a3-base"
+  },
+  {
+   "tag": "cites-removed",
+   "rc": 1,
+   "verdict": "C3_CENSUS: findings=4 rows=156 guard=1",
+   "fields": {
+    "findings": 4,
+    "rows": 156,
+    "guard": 1
+   },
+   "tree": "/fast/scratch/hyaku/kagi-r66/R66MutC2/fix/c3a3mut-cites-removed",
+   "expect": "census findings>=1 -> exit 1"
+  },
+  {
+   "tag": "s155-provenance-removed",
+   "rc": 1,
+   "verdict": "C3_CENSUS: findings=1 rows=156 guard=1",
+   "fields": {
+    "findings": 1,
+    "rows": 156,
+    "guard": 1
+   },
+   "tree": "/fast/scratch/hyaku/kagi-r66/R66MutC2/fix/c3a3mut-s155-provenance-removed",
+   "expect": "census findings>=1 -> exit 1"
+  },
+  {
+   "tag": "stub-clean",
+   "rc": 1,
+   "verdict": "C3_CENSUS: findings=0 rows=156 guard=0",
+   "fields": {
+    "findings": 0,
+    "rows": 156,
+    "guard": 0
+   },
+   "tree": "/fast/scratch/hyaku/kagi-r66/R66MutC2/fix/c3a3mut-stub-clean",
+   "expect": "guard-b cannot see its removal -> guard 0 -> exit 1"
+  },
+  {
+   "tag": "stub-failed-2",
+   "rc": 1,
+   "verdict": "C3_CENSUS: findings=2 rows=156 guard=1",
+   "fields": {
+    "findings": 2,
+    "rows": 156,
+    "guard": 1
+   },
+   "tree": "/fast/scratch/hyaku/kagi-r66/R66MutC2/fix/c3a3mut-stub-failed-2",
+   "expect": "findings=2 -> exit 1 (exit code not trusted)"
+  },
+  {
+   "tag": "stub-failed-0",
+   "rc": 1,
+   "verdict": "C3_CENSUS: findings=0 rows=156 guard=0",
+   "fields": {
+    "findings": 0,
+    "rows": 156,
+    "guard": 0
+   },
+   "tree": "/fast/scratch/hyaku/kagi-r66/R66MutC2/fix/c3a3mut-stub-failed-0",
+   "expect": "guard-b requires a failure on the stripped copy -> guard 0"
+  },
+  {
+   "tag": "stub-no-line",
+   "rc": 1,
+   "verdict": "C3_CENSUS: findings=-1 rows=-1 guard=0",
+   "fields": {
+    "findings": null,
+    "rows": null,
+    "guard": 0
+   },
+   "tree": "/fast/scratch/hyaku/kagi-r66/R66MutC2/fix/c3a3mut-stub-no-line",
+   "expect": "no verdict line -> guard a=0, findings=-1 -> exit 1"
+  },
+  {
+   "tag": "stub-failed-3-rc0",
+   "rc": 1,
+   "verdict": "C3_CENSUS: findings=3 rows=156 guard=1",
+   "fields": {
+    "findings": 3,
+    "rows": 156,
+    "guard": 1
+   },
+   "tree": "/fast/scratch/hyaku/kagi-r66/R66MutC2/fix/c3a3mut-stub-failed-3-rc0",
+   "expect": "findings=3 despite rc=0 -> exit 1"
+  },
+  {
+   "tag": "stub-clean-rc1",
+   "rc": 1,
+   "verdict": "C3_CENSUS: findings=0 rows=156 guard=0",
+   "fields": {
+    "findings": 0,
+    "rows": 156,
+    "guard": 0
+   },
+   "tree": "/fast/scratch/hyaku/kagi-r66/R66MutC2/fix/c3a3mut-stub-clean-rc1",
+   "expect": "line read, guard-b stripped copy still CLEAN -> guard 0"
+  },
+  {
+   "tag": "stub-clean-rows999",
+   "rc": 1,
+   "verdict": "C3_CENSUS: findings=0 rows=999 guard=0",
+   "fields": {
+    "findings": 0,
+    "rows": 999,
+    "guard": 0
+   },
+   "tree": "/fast/scratch/hyaku/kagi-r66/R66MutC2/fix/c3a3mut-stub-clean-rows999",
+   "expect": "rows read from line; guard-b forgery leg -> guard 0"
+  },
+  {
+   "tag": "fake-fleet-guard-d",
+   "rc": 1,
+   "verdict": "C3_CENSUS: findings=0 rows=156 guard=0",
+   "fields": {
+    "findings": 0,
+    "rows": 156,
+    "guard": 0
+   },
+   "tree": "/fast/scratch/hyaku/kagi-r66/R66MutC2/fix/c3a3-base",
+   "expect": "guard d=0 -> guard 0"
+  }
+ ]
+}

@@ -1,0 +1,64 @@
+# round-66 pre-freeze control battery (plans/round-66-controls.sh)
+# SELF 00ea7761035f62487cf85723f9e3a8b39d2bb7c5d5c10b65e642b067dbfee77c
+# utc 2026-11-08T09:26:01Z
+# repo /home/vgpnk/Projects/shokunin/kagi-shokunin
+# candidate /home/vgpnk/Projects/shokunin/kagi-shokunin
+# scratch /fast/scratch/hyaku/kagi-r66/R66ExecControls/battery.1346367
+# base d549ee6eb8770a49938b78f49cf79e36d9c1c2e8
+# instrument-c1 /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-66-c1.sh
+# instrument-c2 /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-66-c2.sh
+# instrument-c3 /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-66-c3.sh
+INSTRUMENT plans/round-66-c1.sh 72c9592362e356d42a7744b0d8581f100f0866ac0402821114d3331ed8c5a549
+INSTRUMENT plans/round-66-c2.sh 82ed8b991f3e07c65375f964a599f153c71762d431826ea925b54b82afef1f18
+INSTRUMENT plans/round-66-c3.sh bbf69b5168d7d239a7a84133c01e647b55d0f087fc599d58c3a623730b18f470
+INSTRUMENT plans/round-64-controls.sh e37d497dc6bf56e02b26d8fec8ed24cf66d252968287302b74267ef158d8a678
+# readiness: C1-* <- plans/round-66-c1.sh; C2-* <- plans/round-66-c2.sh; C3-* <- plans/round-66-c3.sh; PRIOR-* <- plans/round-64-controls.sh
+CONTROL C1-NOWORK expect=drift<0+1 observed=drift=0 match=1 rc=1 verdict=match
+DETAIL C1-NOWORK no-work control: BASE failing value reproduced (claim moves only through candidate bytes)
+CONTROL C2-NOWORK expect=exact<0+1 observed=exact=1 rc=1 verdict=mismatch
+DETAIL C2-NOWORK target already reached or counter drifted line=C2_CLAIMS: exact=1 claims=3 titles=3 targets=3 guard=0
+CONTROL C3-NOWORK expect=failures>=1 observed=failures=1 checks=1 rc=1 verdict=match
+DETAIL C3-NOWORK no-work control: BASE failing value reproduced (claim moves only through candidate bytes)
+CONTROL C1-FORGE expect=match=0 observed=match= drift= rc=2 verdict=mismatch
+DETAIL C1-FORGE digest binding accepted the wrong-id file line=C1_CARRIER: SETUP missing mutation body S143 (.ufo/waves/round-63/capture/S143.body)
+CONTROL C2-FORGE expect=exact=0;claim=C2 observed=exact=0 rc=1 verdict=match
+DETAIL C2-FORGE forgery control: stale title refused with claim id named line=C2_CLAIMS: exact=0 claims=3 titles=2 targets=3 guard=0
+CONTROL C3-FORGE expect=failures>=1;digest-mismatch observed=failures=2 rc=1 verdict=match
+DETAIL C3-FORGE forgery control: arXiv body refused with named digest mismatch line=C3_SELFREF: resolved=0 checks=1 failures=2 guard=0
+CONTROL C1-VALID expect=selftest=0;guard=1 observed=guard=0 drift=0 rc=1 verdict=mismatch
+DETAIL C1-VALID blanket-refusal-or-no-verdict line=C1_CARRIER: drift=0 paths=3 hex=3 match=1 guard=0
+CONTROL C2-VALID expect=selftest=0;guard=1 observed=guard=0 exact=1 rc=1 verdict=mismatch
+DETAIL C2-VALID blanket-refusal-or-no-verdict line=C2_CLAIMS: exact=1 claims=3 titles=3 targets=3 guard=0
+CONTROL C3-VALID expect=selftest=0;guard=1 observed=guard=0 failures=1 rc=1 verdict=mismatch
+DETAIL C3-VALID blanket-refusal-or-no-verdict line=C3_SELFREF: resolved=0 checks=1 failures=1 guard=0
+CONTROL PRIOR-C1-F9 expect=heldout=8 observed= verdict=mismatch
+DETAIL PRIOR-C1-F9 stub-constant-line-refused line=C1_HELDOUT: heldout=0 population=8 guard=1 (real=1 selftest=1 resid=1 stub=1 vehicle=1)
+CONTROL PRIOR-C2-F7 expect=terminates=0 observed= verdict=mismatch
+DETAIL PRIOR-C2-F7 stub-constant-line-refused line=C2_REFUSAL: killed=5 population=5 guard=1 (l1=1 l2=1 l3=1 l4=1 l6=1 selftest=1 real=1 terminates=1 bound=1)
+CONTROL PRIOR-C2-BOUND expect=nontermination-bound=0 observed= verdict=mismatch
+DETAIL PRIOR-C2-BOUND bound is decorative: terminated under bound=0 line=C2_REFUSAL: SETUP needle-l6
+CONTROL PRIOR-C1-NOWORK expect=heldout=8 observed= verdict=mismatch
+DETAIL PRIOR-C1-NOWORK fixture-vacuous-or-counter-drift line=none
+CONTROL PRIOR-C2-NOWORK expect=killed=0 observed= verdict=mismatch
+DETAIL PRIOR-C2-NOWORK fixture-vacuous-or-counter-drift; counter-setup line=C2_REFUSAL: SETUP needle-l6
+CONTROL PRIOR-C1-REAL expect=verdict-line;guard=1 observed=guard=none verdict=mismatch
+DETAIL PRIOR-C1-REAL blanket-refusal-or-no-verdict line=none
+CONTROL PRIOR-C2-REAL expect=verdict-line;guard=1 observed=guard=none verdict=mismatch
+DETAIL PRIOR-C2-REAL blanket-refusal-or-no-verdict line=C2_REFUSAL: SETUP needle-l6
+CONTROL PRIOR-C1-F8 expect=accepted=10 observed= verdict=mismatch
+DETAIL PRIOR-PRIOR-C1-F8 stub-constant-line-refused line=C1_RESIDUAL: accepted=0 rejected=0 population=10/6 guard=1 (real=1 selftest=1 prior=1 para=1 stub=1 chal=1)
+CONTROL PRIOR-C2-F6 expect=killed=0 observed= verdict=mismatch
+DETAIL PRIOR-PRIOR-C2-F6 stub-constant-line-refused line=C2_REFUSAL: killed=5 population=5 guard=1 (l1=1 l2=1 l3=1 l4=1 l6=1 selftest=1 real=1)
+CONTROL PRIOR-C1-NOWORK expect=accepted=10 observed= verdict=skip
+DETAIL PRIOR-PRIOR-C1-NOWORK absent-instrument: plans/round-63-c1.sh (C1 claim counter)
+CONTROL PRIOR-C2-NOWORK expect=killed=0 observed= verdict=skip
+DETAIL PRIOR-PRIOR-C2-NOWORK absent-instrument: plans/round-63-c2.sh (C2 claim counter)
+CONTROL PRIOR-C1-REAL expect=verdict-line;guard=1 observed=absent verdict=skip
+DETAIL PRIOR-PRIOR-C1-REAL absent-instrument: plans/round-63-c1.sh (C1 claim counter)
+CONTROL PRIOR-C2-REAL expect=verdict-line;guard=1 observed=absent verdict=skip
+DETAIL PRIOR-PRIOR-C2-REAL absent-instrument: plans/round-63-c2.sh (C2 claim counter)
+DETAIL PRIOR-PRIOR delegated=6 rc=1 mode=fixture-only prior-summary=SKIPS: 4 CONTROLS: match=0 mismatch=2 
+DETAIL PRIOR delegated=13 rc=1 mode=fixture-only prior-summary=SKIPS: 4 CONTROLS: match=0 mismatch=9 
+SKIPS: 4
+CONTROLS: match=4 mismatch=14
+SEAT-STATUS: partial mismatch-count=14 (see DETAIL lines; the L1 re-runs the full battery before the candidate reading)

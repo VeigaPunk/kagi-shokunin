@@ -1,0 +1,69 @@
+# carrier-binding census - measured 2026-11-08 on kagi-shokunin master (claim BASE d549ee6)
+# every number below is printed by the command shown; no value is carried by hand
+
+== 1. registry population and the anchor-cell path rule ==
+  registry rows: 156
+  rows whose ANCHOR cell names a capture .body path: 22
+  of those, filename stem == row id: 20
+  of those, filename stem != row id: 2
+    S113 -> .ufo/waves/round-56/capture/rejections/S113-default-ua.body
+    S164 -> .ufo/waves/round-64/capture/S143.body
+
+== 2. the fetch ledger's location column ==
+  fetch rows: 156; col16 names a capture .body path: 33; col16 names prose: 123
+    S143 col10=8522a79eba84604f col11=- col16=.ufo/waves/round-63/capture/S143.body
+    S148 col10=3b8d4e159a0b0595 col11=- col16=§3.1.2 Trigger Terms, Pseudo-Trigger Terms, and Termination Terms (BioC XML body)
+    S152 col10=fabc74c534e42232 col11=- col16=the abstract line naming QAOA (title and abstract block)
+    S164 col10=3b8d4e159a0b0595 col11=- col16=.ufo/waves/round-64/capture/S143.body
+
+== 3. the wrong-id drift class over .ufo/waves/round-64/capture/ ==
+  .body files in the directory: 20
+  bytes claimed by a registry row's pin: 12; claimed by NO row: 8
+  filename stem == owning row id: 1 -> ['S149.body']
+  filename stem != owning row id (the drift class): 11
+    S143.body carries the pin of ['S148', 'S164']
+    S145.body carries the pin of ['S150']
+    S146.body carries the pin of ['S129']
+    S147.body carries the pin of ['S128']
+    S148.body carries the pin of ['S152']
+    S150.body carries the pin of ['S154']
+    S151.body carries the pin of ['S147']
+    S153.body carries the pin of ['S146']
+    S154.body carries the pin of ['S145']
+    S156.body carries the pin of ['S151']
+    S157.body carries the pin of ['S153']
+  files no registry row pins:
+    S152.body  17760 B  sha256 6e6bffb06505648f564c042b5b52e932019a3c909ddf4b704fd3979504d3ca7c
+    S155.body  3045 B  sha256 2381b66ba01ecf222c9d8c396272a3ce5bd7800db671e2208bff223ea8b17959
+    S158.body  4394 B  sha256 7d0aff9b9591c502d159c43f8da2662bdcaa8e32512ec81d5ffacc15e7736c02
+    S159.body  10231 B  sha256 49e1d0c7fb59c0b94c8f2f7a5703a8863ca1369f550d2b07c3c11d31b4a6d66b
+    S160.body  13191 B  sha256 303ba75d48f91388fc328b08839c869a4b6463c02b8f7c4667cda523729ffa76
+    S161.body  25357 B  sha256 c445a9621fb443fa955393a782d734c0df796b3ce54cef9fa283d4eeb9ebf218
+    S162.body  32988 B  sha256 25c576155c4f80907a7c455d28bb0c570b93aea25de09dd70a161e639fccfcda
+    S163.body  88534 B  sha256 68cee300e35a882723718057cbc02944bdaa281d50c06d37dbc3add99c4b6a40
+
+== 4. the two drift witnesses, side by side ==
+  .ufo/waves/round-64/capture/S143.body  264946 B  sha256 3b8d4e159a0b0595fc9ef95f4fce87de5ab116c858cb7da9ed742113750cba40
+  .ufo/waves/round-64/capture/S148.body  39750 B  sha256 fabc74c534e42232d4bbcd46a638a926b4c6250cd13113fbe5cc51c940ba9f15
+  .ufo/waves/round-64/capture/S152.body  17760 B  sha256 6e6bffb06505648f564c042b5b52e932019a3c909ddf4b704fd3979504d3ca7c
+  registry S148 pin (fetch col10): 3b8d4e159a0b0595fc9ef95f4fce87de5ab116c858cb7da9ed742113750cba40
+  registry S152 pin (fetch col10): fabc74c534e42232d4bbcd46a638a926b4c6250cd13113fbe5cc51c940ba9f15
+  => capture/S143.body carries S148's pin; capture/S148.body carries S152's pin
+
+== 5. the volatile carrier's one-byte drift ==
+  round-63/capture/S143.body sha256 8522a79eba84604f4dbb37e0b46fa7a28c80eec69d00eaf5efecceef543c7208 (264946 B)
+  round-64/capture/S143.body sha256 3b8d4e159a0b0595fc9ef95f4fce87de5ab116c858cb7da9ed742113750cba40 (264946 B)
+  cmp -l output:
+   128  67  70
+  <passage> count 182, <text> count 180
+
+== 6. the three anchors of the binding (path equality + digest match) ==
+  registry : S164 anchor cell names .ufo/waves/round-64/capture/S143.body
+  fetches  : S164 fetch row col16 = .ufo/waves/round-64/capture/S143.body, col10 = pin, col11 = 264946
+  volatile : corpus/volatile-shape.py DEFAULT_CAPTURE = .ufo/waves/round-64/capture/S143.body
+  all three resolve to ONE path whose sha256 == the pin 3b8d4e15...cba40
+
+== 7. the live re-open on 2026-11-08 ==
+  .ufo/waves/round-66/capture/S148.body  264946 B  sha256 3b8d4e159a0b0595fc9ef95f4fce87de5ab116c858cb7da9ed742113750cba40
+  .ufo/waves/round-66/capture/S155.body  189603 B  sha256 cdbb417379e146a9199efa54f6322b373880aee9f76faffc624c8f94ac41fb8b
+  round-66/capture/S148.body == the pin: True

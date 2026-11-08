@@ -1,0 +1,152 @@
+{
+ "wave": "kagi-r65-w1",
+ "axes": [
+  "calibration",
+  "operability",
+  "freshness"
+ ],
+ "milestone": "C1 matrix 5->0 (5 forgery classes rejected, 3 benign controls accepted, structural vehicle refused); C2 routed d3 0->1 (six round-64 receipts proven); C3 volatile 0->1 (BioC shape reproducible); attack seats falsify all three",
+ "reportDir": ".ufo/waves/round-65/w1",
+ "context": "kagi round 65 attempt 1. ONE v1 wave, 16 seats (run-15 band 8-16; plan \u00a7Wave). L1 KagiR65 holds the canonical planner seat and is the sole integration owner and committer.\nLane repo: /home/vgpnk/Projects/shokunin/kagi-shokunin (branch master). Claim BASE b17887f03179b61d49e3e0f10ce1a9add21829e7. FROZEN predeclaration /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-65.md (landed ab1cedc45e02958e24ada61281a6c444b9daaf0d) \u2014 read it, plus corpus/lessons/round-64.md and corpus/lessons/round-64-verifier-spotcheck.md, before you work. Never amend a frozen predicate, counter, kill rule or target.\nEvery `Report:` trailer path is relative to /home/vgpnk/Projects/shokunin/kagi-shokunin \u2014 write it at /home/vgpnk/Projects/shokunin/kagi-shokunin/<that path>.\nSCRATCH: every scratch dir is $HYAKU_SCRATCH/kagi-r65/<seat-name>/ with HYAKU_SCRATCH=/fast/scratch/hyaku. Create it with mkdir -p, pass TMPDIR explicitly, delete it on exit (trap 'rm -rf -- \"$S\"' EXIT). Receipts first copied into .ufo/waves/round-65/w1/<seat>/.\nNever edit MANIFEST.json, .ufo/state/, .ufo/watchdog.log, sibling repos, /home/vgpnk/Projects/shokuknow, /home/vgpnk/Projects/shokunin/scripts/, or /home/vgpnk/Projects/shokunin/templates/. Never commit, push, or run a mutating git/jj command anywhere. Never run two writers on one checkout.\nTooling: you may install/upgrade tools that help the task (official channels only; record tool/version/channel/reason). pacman transactions are PAUSED host-wide until the operator lifts the pause \u2014 install via uv tool/npx/official binary in ~/.local/bin, or file an L0 question. Never -Sy/-Syu/-U/-R/downgrade.\nNever print, copy, or exfiltrate a secret value, token, cookie, or vault ref path.\nRoles span the host route table: executor seats write or run code; scribe seats draft prose; scout seats recon; reviewer/critic/mutation-tester/revenger/sentinel/connector are attack. Never hardcode a model alias.",
+ "items": [
+  {
+   "name": "R65ScoutSources",
+   "role": "scout",
+   "axes": [
+    "freshness",
+    "coverage"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\nOpen the frontier sources live (BioC endpoint, ConText PMC2757457, one weak lead) and produce located-quote evidence. No edit to SOURCES.md (L1 appends), no other lane file. Write .ufo/waves/round-65/w1/R65ScoutSources/notes.md with URL, access date, <=25-word quoted words + location for each source, and your admit/reject judgment."
+  },
+  {
+   "name": "R65ScoutPreState",
+   "role": "scout",
+   "axes": [
+    "operability",
+    "calibration"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\nIndependent pre-state census at BASE b17887f: reproduce the round-63 final roster (5 files, no controls.txt), confirm corpus/volatile-shape.py absent, and confirm SOURCES census rc 0. Read-only on lane source: write only your receipts (.ufo/waves/round-65/w1/R65ScoutPreState/census.md)."
+  },
+  {
+   "name": "R65ExecC1Checker",
+   "role": "executor",
+   "axes": [
+    "calibration"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\nHarden /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-61-c1-check.py so the five forgery SHAPE CLASSES in plans/round-65-heldout.tsv read unresolved while the three benign classes read resolved, the unmodified tree reads value=0, the selftest prints PASS (cases>=111), and the round-63 residual still reads accepted=0 rejected=0. Read plans/round-65-heldout.tsv ONLY through the frozen counter's mechanism (name classes, never quote fixtures in the checker). You own that one file plus receipts."
+  },
+  {
+   "name": "R65ExecC1Counter",
+   "role": "executor",
+   "axes": [
+    "calibration",
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\nWrite /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-65-c1.sh \u2014 the C1_MATRIX counter over the sealed held-out TSV with guard legs (a)-(e) per plans/round-65.md \u00a7C1. You own that one file plus receipts (.ufo/waves/round-65/w1/R65ExecC1Counter/). MATRIX population 8, target 0, BASE 5."
+  },
+  {
+   "name": "R65ExecC2Routed",
+   "role": "executor",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\nWrite /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-65-routed.sh \u2014 the routed-leg battery whose d3 leg proves the six round-64 final receipts exist and are cited, per plans/round-65.md \u00a7C2. You own that one file plus receipts (.ufo/waves/round-65/w1/R65ExecC2Routed/)."
+  },
+  {
+   "name": "R65ExecVolatile",
+   "role": "executor",
+   "axes": [
+    "freshness",
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\nWrite /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/volatile-shape.py \u2014 the VOLATILE_SHAPE counter per plans/round-65.md \u00a7C3: fetch the BioC body, count <passage>/<text>, diff the date byte vs the S148 pin, write a receipt JSON. Honor TMPDIR/QM74. You own that one file plus receipts (.ufo/waves/round-65/w1/R65ExecVolatile/)."
+  },
+  {
+   "name": "R65ExecControls",
+   "role": "executor",
+   "axes": [
+    "operability",
+    "calibration"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\nWrite the pre-freeze control battery /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-65-controls.sh (no-work controls incl. byte-identical BASE reading matrix=5, stub controls, TOKENS-emptied vehicle mutation, d3-absent mutation, volatile body mutation). You own that one file plus receipts (.ufo/waves/round-65/w1/R65ExecControls/)."
+  },
+  {
+   "name": "R65ScribeEntry",
+   "role": "scribe",
+   "axes": [
+    "depth",
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\nDraft the round's knowledge entry corpus/knowledge/claim-instrument-class-matrix.md (class matrix + structural vehicle rule + volatile shape contract + bounds/falsifiers, citing the admitted S155 row) and the QUALITY.md append-only rows. You own those two files plus draft receipts (.ufo/waves/round-65/w1/R65ScribeEntry/)."
+  },
+  {
+   "name": "R65ScribeRecords",
+   "role": "scribe",
+   "axes": [
+    "calibration",
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\nDraft corpus/lessons/round-65.md (Gate + Mistakes sections) and the SOURCES.md row block for S155 (L1 appends). You own corpus/lessons/round-65.md plus draft receipts (.ufo/waves/round-65/w1/R65ScribeRecords/)."
+  },
+  {
+   "name": "R65Reviewer",
+   "role": "reviewer",
+   "axes": [
+    "calibration",
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\nAttack the round's instruments from the artifacts you can see: forgery classes the hardened checker still accepts, benign rewrites it rejects, guard legs that cannot fail, population vacuity. Read-only on lane source; write .ufo/waves/round-65/w1/R65Reviewer/findings.md only. Do NOT read plans/round-65-heldout.tsv; read the plan and the counters."
+  },
+  {
+   "name": "R65Critic",
+   "role": "critic",
+   "axes": [
+    "calibration",
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\nFalsify the three claims' predicates before the candidate reading: population vacuity, guard vacuity, separability, whether a do-nothing control reaches the target, stale content. Read-only on lane source; write .ufo/waves/round-65/w1/R65Critic/critique.md only. Do NOT read plans/round-65-heldout.tsv."
+  },
+  {
+   "name": "R65MutC1",
+   "role": "mutation-tester",
+   "axes": [
+    "calibration"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\nMutation-test the hardened C1 checker and plans/round-65-c1.sh (if landed); report every surviving mutant with its fix. Read-only on lane source; work on copies under your scratch; write .ufo/waves/round-65/w1/R65MutC1/mutants.md only."
+  },
+  {
+   "name": "R65MutC2",
+   "role": "mutation-tester",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\nMutation-test plans/round-65-routed.sh and corpus/volatile-shape.py (if landed): d3-absent, TOKENS-emptied, count-mismatch mutants; report survivors with fixes. Read-only on lane source; write .ufo/waves/round-65/w1/R65MutC2/mutants.md only."
+  },
+  {
+   "name": "R65Connector",
+   "role": "connector",
+   "axes": [
+    "adjacency",
+    "coverage"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\nSweep sibling lanes for class-matrix held-out sets, structural vehicle needles, volatile-endpoint shape counters, and routed-leg population receipts; name what each holds and report (do not absorb). Read-only on lane source; write .ufo/waves/round-65/w1/R65Connector/sweep.md only."
+  },
+  {
+   "name": "R65Sentinel",
+   "role": "sentinel",
+   "axes": [
+    "operability",
+    "calibration"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\nAudit the round's artifacts for credential material (never print a secret value), write-scope violations, parked secrets, and refusal-boundary respect. Read-only; write .ufo/waves/round-65/w1/R65Sentinel/audit.md only."
+  },
+  {
+   "name": "R65Revenger",
+   "role": "revenger",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n# Assignment\nReverse-engineer undocumented behavior: the stale round-63 routed-leg population mismatch (why the routed d3 leg never fires) and the BioC body volatility (which bytes move). Read the scripts, measure, write .ufo/waves/round-65/w1/R65Revenger/recursion.md only. No lane source edit."
+  }
+ ]
+}

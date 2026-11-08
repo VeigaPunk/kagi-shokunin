@@ -2262,3 +2262,40 @@ stagnation waiver, retirement or split.
 3. **Freshness** — the S143 endpoint stamps a request date into the body each day; a
    second carrier (or a declaration that the row is `decoded-http-body-volatile-v1` with
    a shape census instead of a digest) would make the re-verification reproducible.
+
+## Round 65 — pre-move (repo `b17887f`, round-64 spot-check tip)
+
+Claim BASE `b17887f03179b61d49e3e0f10ce1a9add21829e7`; predeclaration `ab1cedc4`
+(`plans/round-65.md`, Amendments A1–A3 recorded before their readings). All six axes
+stand at 9. Saturation line 9, stagnation window N=3; capabilities entered rounds
+57–64, so no stagnation waiver is claimed.
+
+| Axis | Score | Evidence pointer | Last change |
+|---|---|---|---|
+| depth | 9 | Unchanged from round 29 (`R29-01`); round 65 moves an instrument surface. | round 29 |
+| coverage | 9 | 153 registry rows at BASE (`grep -cE '^\|[[:space:]]*S[0-9]{3,}[[:space:]]*\|' corpus/SOURCES.md`), census `kagi ok` rc 0. | round 64 |
+| operability | 9 | Measured BASE gap: the round-63 routed leg's population expects six final receipts and the tree holds five (`.ufo/waves/round-65/base/routed-base.txt` ⇒ `d3=0 mismatch=1`). | round 64 |
+| freshness | 9 | Measured BASE gap: the S148 carrier's re-verification needs a refetch and a hand diff, and the live endpoint answers 429 on this host (S156). | round 64 |
+| calibration | 9 | Measured BASE gap: five fresh forgery classes are accepted and `R65-H5` exercised no item (`C1_MATRIX: matrix=5 population=8 guard=0`). | round 64 |
+| adjacency | 9 | Ownership partition gate green (`R17-02`); the carried `ADJACENCY_SCOPE: DEFECT` breadth debt is named, not absorbed. | round 58 |
+
+Declared claims: **C1 calibration** (the class matrix rejects five forgery classes and
+keeps three benign classes accepted), **C2 operability** (the routed population is
+derived and its unsatisfiable expectation corrected), **C3 freshness** (the volatile
+carrier's re-verification is reproducible). No retirement, split or stagnation waiver.
+
+## Round 65 — post-move (claims C1 calibration, C2 operability, C3 freshness)
+
+| Axis | Before → after | What moved | Evidence |
+|---|---|---|---|
+| calibration | 9 → 9 | [C1] `bash plans/round-65-c1.sh --tree <BASE>` ⇒ `C1_MATRIX: matrix=5 population=8` → candidate ⇒ `C1_MATRIX: matrix=0 population=8 guard=1 (real=1 selftest=1 resid=1 stub=1 vehicle=1)`, per fixture `H1..H5=value1 Q1..Q3=value0`, the round-63 tables still `C1_RESIDUAL: accepted=0 rejected=0`, the checker `C1_CHECK_SELFTEST: PASS (cases=111)`, and the structural lookup vehicle reading `matrix=5` (the falsifier, Amendment A3). Named ceilings: eight fixtures are eight fixtures, not a grammar proof; a checker memorising the eight strings is not detected. | `plans/round-65-c1.sh`; `.ufo/waves/round-65/final/c1-matrix.txt`; `plans/round-61-c1-check.py` |
+| operability | 9 → 9 | [C2] `bash plans/round-65-routed.sh --tree <BASE>` ⇒ `ROUTED: d1=1 d2=1 d3=0` (mismatch=1) → candidate ⇒ `ROUTED: d1=1 d2=1 d3=1` rc 0 (`mismatch=0`, five held receipts), with `--legacy` ⇒ `d3=0` so the superseded six-receipt expectation still fails. Ceiling: d3 is a presence-and-derivation claim, not a freshness claim about receipt contents. | `plans/round-65-routed.sh`; `.ufo/waves/round-65/base/routed-base.txt`; `corpus/lessons/round-65.md` §C2 correction record |
+| freshness | 9 → 9 | [C3] no artifact → `VOLATILE_SHAPE: match=1 passages=182 texts=180 date=20261108 pin_sha=3b8d4e15…` rc 0; a count mutation reads `match=0` rc 1; `--selftest` PASS (cases=7); guard `cmp -l` shows one differing byte at offset 128. Ceiling: a shape claim over counts and one stamp, not over the deposit's wording. | `corpus/volatile-shape.py`; `.ufo/waves/round-65/final/c3-*.txt`; `corpus/SOURCES.md` S155/S156 |
+| coverage | 9 → 9 | No claim. Registry 153 → 155 (S155 admitted, S156 rejected with its flip); `corpus/source-fetches.tsv` gains both captures; entry `corpus/knowledge/claim-instrument-class-matrix.md`. | `corpus/SOURCES.md`; `corpus/knowledge/claim-instrument-class-matrix.md` |
+| depth | 9 → 9 | No claim. The entry states the three instrument defects, the closed clash vocabulary and its exclusions, and five falsifiers. | `corpus/knowledge/claim-instrument-class-matrix.md` |
+| adjacency | 9 → 9 | No claim. The carried `ADJACENCY_SCOPE: DEFECT` breadth debt is named, not absorbed; no sibling holds a class-matrix instrument (connector sweep not run this round — see the report's wave section). | `bash corpus/scope-gate.sh` |
+
+Gate readings on the candidate: `SOURCES_CENSUS: CLEAN (rows=155 …)`;
+`CLAIMS_DECLARED: CLEAN (claims=56)`.
+
+No axis is re-scored: all six stay 9 → 9 (L1 reading, for the operator's ruling).

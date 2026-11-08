@@ -278,3 +278,121 @@ Counters MUST honour `TMPDIR` and accept a scratch argument (QM74).
   TSV committed alongside this plan); a seat that reads them must disclose it.
 - A counter whose fixture tree-copy cost exceeds its budget reads SETUP,
   never a pass.
+
+## Amendment A1 — 2026-11-08, before the wave's candidate scoring (C3 carrier)
+
+Measured on this host before any candidate work, twice, 20 s apart:
+
+```
+curl -A '<desktop UA>' https://www.ncbi.nlm.nih.gov/research/bionlp/RESTful/pmcoa.cgi/BioC_xml/PMC2757457/unicode
+⇒ HTTP 429 body, 899 B, sha256 037c2dbe610ab2a6516d0f0916f7ad3cdfe016739186de59e5eaecd7043d00ba
+  {"error": "Rate limit exceeded.", "detail": "Maximum 3 requests per second per user."}
+```
+
+Receipts: `.ufo/waves/round-65/capture/bioc-429-first.txt`,
+`.ufo/waves/round-65/capture/bioc-429-second.txt`. The endpoint is rate-limited
+for this host in this window, so a *live-fetch* predicate would read SETUP and
+never a verdict — the claim would be unfalsifiable by construction, which is the
+defect S148 already records in prose ("one HTTP 429 shell not committed").
+
+**Amendment (the value is unchanged; the carrier changes).** `C3_VOLATILE` is
+re-derived from the **committed capture** the S148 row pins, not from a live
+fetch:
+
+```
+C3_VOLATILE: volatile = 1 iff
+`python3 corpus/volatile-shape.py` prints exactly one line
+`VOLATILE_SHAPE: match=1 passages=182 texts=180 date=20261108 pin_sha=3b8d4e15…`
+and exits 0, where the measured body is `.ufo/waves/round-64/capture/S143.body`
+(the S148 carrier — a capture-file/registry id drift this round mines as a
+mistake), its sha256 equals the S148 pin
+3b8d4e159a0b0595fc9ef95f4fce87de5ab116c858cb7da9ed742113750cba40, and the
+`<date>` stamp is the one the pin was taken on. A live fetch stays OPTIONAL
+(`--live`): it writes a receipt and reports 429 as `rate_limited=1`, never a
+verdict and never a SETUP failure of the replay.
+```
+
+Guard legs are unchanged from §C3 ((a) byte-diff bounded to the date stamp;
+(b) a count mutation reads match=0 and exit 1; (c) the S143/S148 rows unedited
+apart from `recheck`/`used-by`; (d) sources census exit 0). The skew rule is
+re-based on the capture's own `<date>` versus the pin's: `date_skew=0` for the
+committed body; a `--live` body from a later date reports the skew and does not
+change `match`.
+
+Target unchanged: `volatile` 0 → 1. Population unchanged: one carrier, one pin.
+
+## Amendment A2 — 2026-11-08, before candidate scoring (C2 predicate re-frozen)
+
+The §C2 predicate as first written was **vacuous**: it pointed d3 at the six
+*round-64* final receipts, and those were committed by round 64 — a do-nothing
+control would read `d3=1` at BASE (§9: a target a do-nothing control cannot
+reach). Measured at BASE and committed at
+`.ufo/waves/round-65/base/census-c2.txt`:
+
+```
+.ufo/waves/round-64/final/ holds c1-heldout c2-refusal controls release-clock
+  doc-audit claims-declared (six) — so a round-64-pointed d3 is already 1
+.ufo/waves/round-63/final/ holds c1-residual c2-refusal claims-declared
+  doc-audit release-clock (five; controls.txt ABSENT)
+corpus/lessons/round-63.md §Routed dispositions row D-B expects six receipts
+  "each cited from LOG.md", `controls` among them
+```
+
+That is the QM57 defect the round-64 SCORECARD name: a leg whose expectation
+**no tree can meet**. C2 is re-frozen onto that defect.
+
+**Frozen predicate (replaces §C2):**
+
+```
+C2_POPULATION: mismatch = |cited(round-63 D-B) Δ held(.ufo/waves/round-63/final)|
+where cited is derived mechanically from the round-63 lesson's §Routed
+dispositions D-B row (the backticked stems it names as final receipts) and held
+is the set of `<stem>.txt` files carrying their label line in that directory.
+Target mismatch=0 (BASE 1: `controls` is cited and absent). The counter prints
+ROUTED: d1=1 d2=1 d3=1 with d3=1 iff (i) mismatch=0, (ii) a committed
+correction record in corpus/lessons/round-65.md names the corrected population
+and the superseded expectation, and (iii) a `--legacy` run — the six-receipt
+expectation restored — reads mismatch=1 (the correction is the only delta).
+GUARD = 1 iff (a) the counter's `--selftest` exits 0 printing
+`ROUTED_SELFTEST: PASS`; (b) on a scratch copy with `controls.txt` planted, the
+`--legacy` run reads 0 and the corrected run reads 0 (both legs live, neither is
+a constant); (c) d1/d2 read from the round-64 receipts
+(c1-heldout `vehicle=1`, c2-refusal `terminates=1 bound=1`) and their producing
+files still carry the named mechanisms.
+```
+
+Commands: `bash plans/round-65-routed.sh [--tree DIR] [--legacy] [--selftest]`.
+Exit 0 iff guard=1 and mismatch=0; 1 otherwise; 2 SETUP.
+
+## Amendment A3 — 2026-11-08, before the candidate receipt (C1 vehicle-leg direction)
+
+The §C1 guard leg (e) as first written is **logically impossible**: a lookup-table
+vehicle carries only the committed tables' strings, so on the fresh round-65
+strings it finds no hit and returns `value=0` (accept) — it cannot "read matrix=0
+on the round-65 held-out set". Stated that way the leg would have to fail every
+candidate, including a correct one. No scoring had been recorded when this was
+noticed (the only readings taken were the BASE census and the fixture-selection
+check).
+
+**Corrected leg (e), the round-64 direction, unchanged in intent:** the
+structural vehicle is the FALSIFIER, so it must read
+
+- `accepted=0 rejected=0` on the committed round-63 tables (its identity — it is
+  a faithful lookup over those tables), and
+- `matrix>=1` on the round-65 held-out set (it does not recognise the fresh
+  strings, which is exactly why a lookup cannot pass this claim).
+
+Additional round-65 leg (e2): the hardened checker's verdict on e1 must not be
+reproducible by a vehicle that additionally carries the round-65 fixture
+*anchors* only (no mechanism). If a fixture-anchor lookup reaches matrix=0, the
+held-out set is fitted and the claim is void.
+
+Also corrected in the same amendment: the FIXTURE ENUMERATION. `R65-H5` originally
+rewrote a round-60 line that **no item reads** ("The round-59 lesson reused
+`R20`…"), so it could not be a class the checker claims. It is replaced by an
+I5-class fixture on the LOG wave line ("…leaves unseen"); all five forgeries now
+exercise a mechanism the checker asserts (I6, I4, I1, I6, I5). Recorded as
+sealed-table re-cut to
+`84436425d2533b88d680ed33a0605492ce9de213086db35f8d76be0791528fbf`
+(the superseded seal `604b2298…` is retained in
+`.ufo/waves/round-65/base/census-c1.md` for audit, never cited as the seal).

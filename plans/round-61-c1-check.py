@@ -277,6 +277,58 @@ IDIOMS = (("not", "only"), ("not", "merely"), ("not", "just"),
           ("no", "fewer", "than"), ("no", "less", "than"),
           ("not", "less", "than"))
 PAREN_SPAN_RE = re.compile(r"\([^()]*\)")
+
+# --- round-65 (plans/round-65.md §C1): the sentence-level clash class ---------
+# A correction line that ASSERTS its content and then adds a concessive or
+# completeness-denying clause about that same content is not asserted. The
+# markers below are closed: each is verified absent from the four round-60
+# correction lines the items read (measured round 65), so the unmodified tree
+# keeps reading value=0. `false`/`contrary` are deliberately NOT here — they
+# occur on the real lines as objects of the correction, not as clashes.
+CLASH_TOKENS = frozenset(("though", "although", "whereas", "unseen",
+                          "silent", "silently"))
+CLASH_PHRASES = (("not", "the", "case"), ("unseen", "in"),
+                 ("finds", "it", "silent"), ("leaves", "unseen"),
+                 ("a", "fourth"), ("and", "more", "than"),
+                 ("in", "fact", "the", "opposite"))
+
+
+def _clash_after(text: str, start: int) -> bool:
+    """A clash marker between `start` and the end of the same sentence, or any
+    CLASH token elsewhere on the line outside quotes/asides. `text` must
+    already be quote/aside masked."""
+    cut = len(text)
+    for ch in SENTENCE_CHARS:
+        p = text.find(ch, start)
+        if 0 <= p < cut:
+            cut = p
+    post = [m.group(0).lower() for m in TOKEN_RE.finditer(text, start, cut)]
+    if any(t in DENY_SINGLE for t in post):
+        return True
+    if any(t in CLASH_TOKENS for t in post):
+        return True
+    for k in range(len(post)):
+        for ph in CLASH_PHRASES:
+            if tuple(post[k:k + len(ph)]) == ph:
+                return True
+    return False
+
+
+def _line_clash(text: str, start: int = 0) -> bool:
+    """Line-level wrapper: mask quotes and asides, then run the clash test from
+    `start`. Used by the items whose correction line carries an assertion the
+    token-scoped tests never reach."""
+    masked = _mask_asides(_mask_quotes(text, len(text)))
+    if _clash_after(masked, start):
+        return True
+    toks = [m.group(0).lower() for m in TOKEN_RE.finditer(masked)]
+    if any(t in CLASH_TOKENS or t in DENY_SINGLE for t in toks):
+        return True
+    for k in range(len(toks)):
+        for ph in CLASH_PHRASES:
+            if tuple(toks[k:k + len(ph)]) == ph:
+                return True
+    return False
 EMDASH_ASIDE_RE = re.compile(r"—[^—.]{0,60}?—")
 
 _SYMLINK_REFUSAL_RELS = (LOG_REL, LESSON60_REL, PLAN60_REL, SKILL_REL,
@@ -622,8 +674,10 @@ def item1(root: str, repo: str | None, fleet: str | None) -> tuple[str, str]:
         return FAIL, "no 'supersedes R37' line after the routed R37 row"
     last = candidates[-1]  # last statement wins
     m = RESULTS_OUTPUT_RE.search(last)
+    clash = _line_clash(last)
     ok = (m is not None and int(m.group(1)) == r_total
-          and int(m.group(2)) == b_bytes and MUTANTS_MD in last)
+          and int(m.group(2)) == b_bytes and MUTANTS_MD in last
+          and not clash)
     det = (f"derived results={r_total} output={b_bytes} "
            f"supersedes-lines-after={len(candidates)} "
            f"last-line={'states-derived-count-and-names-mutants.md'
@@ -850,6 +904,7 @@ def item4(root: str, repo: str | None, fleet: str | None) -> tuple[str, str]:
     count_tokens = list(THREE_RE.finditer(last)) + list(
         COUNT3_RE.finditer(last))
     three_ok = any(_asserted(last, m.start(), m.end())
+                   and not _line_clash(last, m.end())
                    for m in count_tokens)
     m_no_new = NO_NEW_RECORD_DEFECT_RE.search(last)
     ok = (m_no_new is not None
@@ -882,7 +937,8 @@ def item5(root: str, repo: str | None, fleet: str | None) -> tuple[str, str]:
     m = NUMSTAT_SHAPE_RE.search(last)
     m_rp = rp_all[0] if rp_all else None
     asserted = (m_rp is not None and len(rp_all) == 1
-                and _asserted(last, m_rp.start(), m_rp.end()))
+                and _asserted(last, m_rp.start(), m_rp.end())
+                and not _line_clash(last, m_rp.end()))
     structural = (m is not None
                   and REV_A in last and REV_B in last
                   and m_rp is not None and len(rp_all) == 1)
@@ -924,6 +980,7 @@ def item6(root: str, repo: str | None, fleet: str | None) -> tuple[str, str]:
     stamps = set(TS_RE.findall(last))
     stamps.discard("2026-11-07T15:03:17-03:00")  # the launch stamp is not a commit
     denied = sorted(p for p in I6_DENY_PHRASES if p in last.lower())
+    line_clash = _line_clash(last, mlaunch.end())
     # round-63: the quoted superseded span's HH:MM:SS set must equal exactly
     # the stamp derived from the fleet report's §Stale-lane launch line.
     fleet_dir = fleet if fleet is not None else DEFAULT_FLEET
@@ -935,7 +992,7 @@ def item6(root: str, repo: str | None, fleet: str | None) -> tuple[str, str]:
     if repo is None:
         superseded = _qualifying_times(last, launch_time, frozenset())
         ok = len(stamps) >= 3 and bool(superseded) and not denied \
-            and superseded_ok
+            and superseded_ok and not line_clash
         det = (f"mode=shape-only repo-not-given launch=yes distinct-stamps="
                f"{len(stamps)} superseded-stamp={'yes' if superseded else 'no'} "
                f"quoted-stamp={','.join(sorted(quoted)) or 'none'} "
@@ -949,7 +1006,8 @@ def item6(root: str, repo: str | None, fleet: str | None) -> tuple[str, str]:
     qualifying = {t for t in stamps if t in derived}
     superseded = _qualifying_times(last, launch_time,
                                    frozenset(t[11:19] for t in derived))
-    ok = len(qualifying) >= 3 and not denied and superseded_ok
+    ok = (len(qualifying) >= 3 and not denied and superseded_ok
+          and not line_clash)
     det = (f"launch=yes distinct-stamps={len(stamps)} in-derived={len(qualifying)} "
            f"derived-set={len(derived)} superseded-stamp="
            f"{','.join(sorted(superseded)) if superseded else 'none'} "

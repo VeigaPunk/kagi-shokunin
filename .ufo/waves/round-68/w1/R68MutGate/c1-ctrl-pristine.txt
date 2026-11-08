@@ -1,0 +1,18 @@
+c1-verified: tree=/fast/scratch/hyaku/kagi-r68/R68MutGate/ctrl
+c1-verified: derived verified=37 col15=32 path_rows=37 bound=37 located=37 prose=120 mixed=none total=157 malformed=0
+c1-verified: anchor id=S166 token=.ufo/waves/round-67/capture/S166.body pure=True
+c1-verified: clean verdict=CLEAN rc=0 captures=SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=120)
+c1-verified: guard-a verdict=CLEAN rc=0 captures=SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=120) derived=path_rows=37 bound=37 located=37 prose=120 gate_fields=match adjacent=True
+c1-verified: guard-b selftest rc=1 cases=-1
+c1-verified: guard-c base-gate=/fast/scratch/hyaku/kagi-r68/R68MutGate/base/corpus/sources-census.sh (--base-tree)
+c1-verified: guard-c base-gate-on-crlf rc=0 verdict=SOURCES_CENSUS: CLEAN (rows=157 A=140 B=2 C=15 queued=3 mined=137 rejected=17 entries_sourced=27 legacy=21 captures=157 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+c1-verified: guard-d venue=skip tree=/fast/scratch/hyaku/kagi-r68/R68MutGate/ctrl lane=/home/vgpnk/Projects/shokunin/kagi-shokunin
+c1-verified: guard-e prose_rows=120 prose_findings=none gate_prose=120 derived_prose=120
+c1-verified: mut-m1 id=S166 reasons=S166:capture-whitespace crlf=0 verdict=FAILED rc=1 captures=SOURCES_CAPTURES: FAILED (defects=1 path_rows=37 bound=36 located=36 prose=120) detail=col16+space
+c1-verified: mut-m2 id=S166 reasons=S166:capture-whitespace crlf=0 verdict=FAILED rc=1 captures=SOURCES_CAPTURES: FAILED (defects=1 path_rows=37 bound=36 located=36 prose=120) detail=col16+comma-duplicate
+c1-verified: mut-m3 id=S166 reasons=none crlf=1 verdict=FAILED rc=1 captures=SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=120) detail=crlf
+c1-verified: mut-m4 id=S166 reasons=S166:capture-digest-mismatch crlf=0 verdict=FAILED rc=1 captures=SOURCES_CAPTURES: FAILED (defects=1 path_rows=37 bound=36 located=36 prose=120) detail=col10-hexflip
+c1-verified: mut-m5 id=S166 reasons=S166:normalized-digest-mismatch crlf=0 verdict=FAILED rc=1 captures=SOURCES_CAPTURES: FAILED (defects=1 path_rows=37 bound=37 located=37 prose=120) detail=col15-hexflip
+c1-verified: mut-m6 id=S166 reasons=S166:capture-bytes-mismatch,S166:capture-digest-mismatch crlf=0 verdict=FAILED rc=1 captures=SOURCES_CAPTURES: FAILED (defects=2 path_rows=37 bound=36 located=36 prose=120) detail=body+1byte
+c1-verified: guard a=1 b=0 c=1 d=skip e=1 defe defects=0
+C1_VERIFIED: verified=37 col15=32 caught=6/6 guard=0

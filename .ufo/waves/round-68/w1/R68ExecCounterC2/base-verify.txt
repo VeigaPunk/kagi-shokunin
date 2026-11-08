@@ -1,0 +1,32 @@
+HOST-SKIP R11-01 reason=host-row-not-authorized
+HOST-SKIP R11-02 reason=host-row-not-authorized
+HOST-SKIP R11-03 reason=host-row-not-authorized
+HOST-SKIP R11-04 reason=host-row-not-authorized
+HOST-SKIP R11-06 reason=host-row-not-authorized
+FAIL R11-08 reason=timeout exit=124 tmo=300
+HOST-SKIP R12-01 reason=host-row-not-authorized
+FAIL R12-03 reason=verdict-not-final exit=0
+FAIL R13-01 reason=verdict-not-final exit=0
+FAIL R14-01 reason=verdict-not-final exit=0
+HOST-SKIP R15-01 reason=host-row-not-authorized
+HOST-SKIP R13-03 reason=host-row-not-authorized
+HOST-SKIP R16-01 reason=host-row-not-authorized
+HOST-SKIP R16-03 reason=host-row-not-authorized
+HOST-SKIP R17-01 reason=host-row-not-authorized
+HOST-SKIP R18-01 reason=host-row-not-authorized
+FAIL R21-02 reason=verdict-not-final exit=0
+FAIL R21-03 reason=verdict-not-final exit=0
+FAIL R21-04 reason=verdict-not-final exit=0
+FAIL R22-03 reason=exit-mismatch exit=2 want=0
+FAIL R24-05 reason=verdict-not-final exit=0
+FAIL R24-06 reason=verdict-not-final exit=0
+FAIL R24-14 reason=verdict-not-final exit=0
+FAIL R24-15 reason=exit-mismatch exit=2 want=0
+FAIL R25-02 reason=exit-mismatch exit=2 want=0
+POLICY R29-01 reason=first-token:python
+POLICY R29-02 reason=first-token:python
+HOST-SKIP R31-01 reason=host-row-not-authorized
+FAIL R31-02 reason=verdict-not-final exit=0
+FAIL R33-02 reason=verdict-not-final exit=0
+FAIL R34-03 reason=verdict-not-final exit=0
+RC=124

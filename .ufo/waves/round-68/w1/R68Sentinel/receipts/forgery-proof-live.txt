@@ -1,0 +1,113 @@
+R68Sentinel — the stdout-injection forgery, proved LIVE against the landed
+round-68 counter (plans/round-68-c1.sh), before and after the counter seat's
+fix.  Read-only seat; no lane file edited by this seat.
+
+=====================================================================
+THE ATTACK TREE  (lane tree + exactly two changes, nothing else)
+=====================================================================
+(1) corpus/rendered-text-v1.py replaced by a stub that answers
+    locate -> count=1 for any file, and digest -> the row's OWN col 15
+    (read out of the tree's own corpus/source-fetches.tsv).
+    Effect: the gate can NEVER detect a col-15 mismatch.
+
+(2) ONE file in corpus/knowledge/ whose NAME carries newlines and four
+    forged findings plus a forged cr-in-tsv finding.  The gate prints the
+    entry's relative path inside an SC_ENTRY_CITE finding, so the newlines
+    in the name become newlines in the gate's stdout.
+
+=====================================================================
+THE GATE'S OWN STDOUT ON THAT TREE  (real gate, unmodified)
+=====================================================================
+FINDING SC_ENTRY_CITE entry=corpus/knowledge/e
+FINDING SC_CAPTURE id=S167 capture-whitespace
+FINDING SC_CAPTURE id=S167 capture-digest-mismatch
+FINDING SC_CAPTURE id=S167 capture-bytes-mismatch
+FINDING SC_CAPTURE id=S167 normalized-digest-mismatch
+FINDING SC_FETCH cr-in-tsv
+SOURCES_CAPTURES: CLEAN (path_rows=38 bound=38 located=38 prose=120)
+SOURCES_CENSUS: FAILED (findings=1 rows=158)
+
+The gate found NOTHING about any capture.  Every SC_CAPTURE line above is
+injected.  The verdict is FAILED only because of the SC_ENTRY_CITE finding
+the injecting file itself caused.
+
+=====================================================================
+REPLAY OF THE COUNTER'S OWN leg_caught() OVER THAT STDOUT
+=====================================================================
+cap_findings parsed: [('S167','capture-whitespace'), ('S167','capture-digest-mismatch'),
+                       ('S167','capture-bytes-mismatch'), ('S167','normalized-digest-mismatch')]
+verdict (LAST)     : FAILED
+summary (LAST)     : {'state': 'CLEAN', 'fields': {'path_rows': 38, 'bound': 38,
+                                                   'located': 38, 'prose': 120}}
+
+=== would each leg count as CAUGHT? ===
+  m1 -> True    m2 -> True    m3 -> True
+  m4 -> True    m5 -> True    m6 -> True
+
+=> the pre-fix leg_caught (reason-grep only) reads all six legs as CAUGHT.
+
+=====================================================================
+THE SAME ATTACK TREE AGAINST THE LANDED COUNTER, AFTER THE FIX
+=====================================================================
+counter sha 4461be435fe755aa0382e1bd8c60bb6ea0fb3297b2fb17c9561dd2351df2d2f6
+
+c1-verified: mut-m1 id=S167 reasons=S167:capture-whitespace,S167:capture-whitespace,S167:capture-digest-mismatch,S167:capture-bytes-mismatch,S167:normalized-digest-mismatch crlf=1 verdict=FAILED rc=1 ... detail=col16+space
+c1-verified: mut-m5 id=S167 reasons=S167:capture-whitespace,S167:capture-digest-mismatch,S167:capture-bytes-mismatch,S167:normalized-digest-mismatch crlf=1 verdict=FAILED rc=1 captures=SOURCES_CAPTURES: CLEAN (path_rows=38 bound=38 located=38 prose=120) detail=col15-hexflip
+c1-verified: guard a=0 b=0 c=0 d=skip e=1 defe defects=0
+C1_VERIFIED: verified=38 col15=33 caught=0/6 guard=0
+
+=> the patched counter REFUSES the forgery: caught=0/6, guard=0.
+   Note mut-m5's captures line reads CLEAN — the gate really did miss that
+   mutation (the truthy normalizer), and the counter now sees the truth.
+
+=====================================================================
+THE FIX (in plans/round-68-c1.sh, credited "Forgery resistance (R68Sentinel)")
+=====================================================================
+def leg_caught(parsed, kind, anchor_id):
+    if not (parsed["rc"] == 1 and parsed["verdict"] == "FAILED"):
+        return False
+    if parsed["verdict_findings"] is None:
+        return False
+    if parsed["verdict_findings"] != parsed["all_findings"]:
+        return False
+    if parsed["summary"] is not None and parsed["summary"]["state"] == "FAILED":
+        if parsed["summary"]["fields"].get("defects") != len(parsed["cap_findings"]):
+            return False
+    if kind == "m3":
+        return len(parsed["crlf_findings"]) >= 1
+    reason = EXPECT_CAPTURE[kind]
+    return any(fid == anchor_id and why == reason
+               for (fid, why) in parsed["cap_findings"])
+
+The gate STILL prints the forged lines.  Only the consumer is defended.
+The gate-side one-line fix (escape the newline in the SC_ENTRY_CITE detail)
+removes the primitive at its root and is offered to R68ExecGate.
+
+=====================================================================
+THE TRUTHY-NORMALIZER PROBE AGAINST THE LANDED COUNTER (F4)
+=====================================================================
+tree = lane tree with ONLY corpus/rendered-text-v1.py stubbed:
+
+  c1-verified: derived verified=38 col15=33 path_rows=38 bound=38 located=38 prose=120 mixed=none total=158 malformed=0
+  c1-verified: guard-a verdict=CLEAN rc=0 ... gate_fields=match adjacent=True
+  c1-verified: guard-b selftest rc=1 cases=-1
+  c1-verified: guard-c base-gate-on-crlf rc=2 verdict=SOURCES_CENSUS: SETUP (rendered-text-v1.py absent beside the gate)
+  c1-verified: guard-d venue=skip
+  c1-verified: guard-e prose_rows=120 prose_findings=none gate_prose=120 derived_prose=120
+  c1-verified: mut-m5 id=S167 reasons=none crlf=0 verdict=CLEAN rc=0 captures=SOURCES_CAPTURES: CLEAN (path_rows=38 bound=38 located=38 prose=120) detail=col15-hexflip
+  c1-verified: guard a=1 b=0 c=0 d=skip e=1 defe defects=0
+  C1_VERIFIED: verified=38 col15=33 caught=5/6 guard=0
+
+CONTROL — the same tree with the trusted normalizer restored:
+
+  c1-verified: guard-b selftest rc=0 cases=98
+  c1-verified: mut-m5 id=S167 reasons=S167:normalized-digest-mismatch crlf=0 verdict=FAILED rc=1 ... detail=col15-hexflip
+  C1_VERIFIED: verified=38 col15=33 caught=6/6 guard=0
+
+=> The counter is NOT fooled by the truthy normalizer: caught drops 6/6 -> 5/6
+   and guard reads 0.  The binding mechanism is the M5 MUTATION LEG (the gate
+   reads the col-15 mutation as CLEAN, so the leg is not counted) plus
+   guard-b (the tree's own selftest breaks on the stub).  There is no
+   instrument-identity guard in the plan's frozen guard list (a)-(e); the
+   counter's locator_script() resolves to the TRUSTED normalizer (BASE_TREE,
+   else LANE), so the counter's own derivation stayed honest.

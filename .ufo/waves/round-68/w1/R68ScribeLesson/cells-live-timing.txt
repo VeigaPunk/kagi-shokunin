@@ -1,0 +1,11 @@
+# cells audit on the LIVE lane tree, timed (R68ScribeLesson, 2026-11-08)
+# command: bash corpus/claim-ledger.sh cells --root .
+# tree: /home/vgpnk/Projects/shokunin/kagi-shokunin (working tree, mid-wave)
+# elapsed: 1556 s wall
+# rc: 2
+# verdict line (tail):
+CELL_AUDIT: POLICY (cells=576 row_pointed=286 stamp_pointed=250 policy=3)
+# last rows before the verdict:
+FAIL R62-01 reason=exit-mismatch exit=1 want=0
+STALE-POINTER LOG.md sha=3e0613ac469f->b07561655474 lines=2221->2237 bytes=237254->238506
+STALE-POINTER plans/round-68-c2.sh sha=32dbd8db65b8->f9303755ad22 lines=999->1022 bytes=47817->48546

@@ -1,0 +1,22 @@
+receipt for R68ReviewerLayers. tree = git archive d3b2a4e8eed710277951e430efd3d27b5983033c extracted at /fast/scratch/hyaku/kagi-r68/R68ReviewerLayers/tree
+corpus/sources-census.sh sha256=e7aacecdfcf06ed6303f5272cd0d3bd6a20d16fdbf0f064a4c68aae940e1d10f (round-67 landed gate; the round-68 widened gate
+was not in the lane at receipt time)
+corpus/rendered-text-v1.py sha256=14f6ca6ab742296f45a699548c31e6d49892f6baef36ed419c283d1a0511b8c9 (the committed normalizer, unchanged since round 41)
+------------------------------------------------------------------------
+full verify (bash corpus/sources-census.sh verify --root .), 3 runs, BASE gate:
+  2.499s  2.449s  2.922s
+  mean=2.623s
+
+the added per-row digest pass, measured on the same bodies:
+  rows=31 (all rendered-text-v1 bound rows) total=0.69s mean=0.022s/row
+  S166 digest=0.024s (67152 B) -> projected candidate pass=0.71s for 32 rows
+  => candidate verify ~= 3.3s vs 2.6s at BASE (+27%), same gate otherwise
+
+load-variance note (same command, same extracted tree, same seat, measured minutes apart):
+  an earlier 3-run measurement of the identical command on the identical tree read
+  9.631s / 9.947s / 10.135s (mean 9.904s), and a 20-run single-body digest measurement read
+  mean 0.0992s (body 264946 B) against 0.022-0.060s/row here. The wave had 15 live seats on
+  this host; the spread is host contention, not a different tree (the gate sha256 in the
+  header is the same in both readings). Report the RATIO, not an absolute: the col-15 pass
+  costs 0.69s against a 2.62s verify (+26%) when quiet, and 1.91s against 9.90s (+19%)
+  under wave load. Both were measured by this seat; neither is a candidate-gate reading.

@@ -1,0 +1,13 @@
+c1-verified: mut-m1 id=S002 reasons=none crlf=0 verdict=CLEAN rc=0 captures=SOURCES_CAPTURES: CLEAN (path_rows=1 bound=1 located=1 prose=0) detail=col16+space
+c1-verified: mut-m2 id=S002 reasons=none crlf=0 verdict=CLEAN rc=0 captures=SOURCES_CAPTURES: CLEAN (path_rows=1 bound=1 located=1 prose=0) detail=col16+comma-duplicate
+c1-verified: mut-m3 id=S002 reasons=none crlf=0 verdict=CLEAN rc=0 captures=SOURCES_CAPTURES: CLEAN (path_rows=1 bound=1 located=1 prose=0) detail=crlf
+c1-verified: mut-m4 id=S002 reasons=none crlf=0 verdict=CLEAN rc=0 captures=SOURCES_CAPTURES: CLEAN (path_rows=1 bound=1 located=1 prose=0) detail=col10-hexflip
+c1-verified: mut-m5 id=S002 reasons=none crlf=0 verdict=CLEAN rc=0 captures=SOURCES_CAPTURES: CLEAN (path_rows=1 bound=1 located=1 prose=0) detail=col15-hexflip
+c1-verified: mut-m6 id=S002 reasons=none crlf=0 verdict=CLEAN rc=0 captures=SOURCES_CAPTURES: CLEAN (path_rows=1 bound=1 located=1 prose=0) detail=body+1byte
+c1-verified: mut-m1 id=S002 reasons=S002:capture-whitespace,S002:capture-digest-mismatch,S002:normalized-digest-mismatch,S002:capture-bytes-mismatch crlf=1 verdict=FAILED rc=1 captures=SOURCES_CAPTURES: FAILED (defects=4 path_rows=2 bound=1 located=1 prose=1) detail=col16+space
+c1-verified: mut-m2 id=S002 reasons=S002:capture-whitespace,S002:capture-digest-mismatch,S002:normalized-digest-mismatch,S002:capture-bytes-mismatch crlf=1 verdict=FAILED rc=1 captures=SOURCES_CAPTURES: FAILED (defects=4 path_rows=2 bound=1 located=1 prose=1) detail=col16+comma-duplicate
+c1-verified: mut-m3 id=S002 reasons=S002:capture-whitespace,S002:capture-digest-mismatch,S002:normalized-digest-mismatch,S002:capture-bytes-mismatch crlf=1 verdict=FAILED rc=1 captures=SOURCES_CAPTURES: FAILED (defects=4 path_rows=2 bound=1 located=1 prose=1) detail=crlf
+c1-verified: mut-m4 id=S002 reasons=S002:capture-whitespace,S002:capture-digest-mismatch,S002:normalized-digest-mismatch,S002:capture-bytes-mismatch crlf=1 verdict=FAILED rc=1 captures=SOURCES_CAPTURES: FAILED (defects=4 path_rows=2 bound=1 located=1 prose=1) detail=col10-hexflip
+c1-verified: mut-m5 id=S002 reasons=S002:capture-whitespace,S002:capture-digest-mismatch,S002:normalized-digest-mismatch,S002:capture-bytes-mismatch crlf=1 verdict=FAILED rc=1 captures=SOURCES_CAPTURES: FAILED (defects=4 path_rows=2 bound=1 located=1 prose=1) detail=col15-hexflip
+c1-verified: mut-m6 id=S002 reasons=S002:capture-whitespace,S002:capture-digest-mismatch,S002:normalized-digest-mismatch,S002:capture-bytes-mismatch crlf=1 verdict=FAILED rc=1 captures=SOURCES_CAPTURES: FAILED (defects=4 path_rows=2 bound=1 located=1 prose=1) detail=body+1byte
+C1_VERIFIED_SELFTEST: FAIL (59 cases, 1 failed) names=m1-wrong-reason

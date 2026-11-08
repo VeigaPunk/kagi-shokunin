@@ -1,0 +1,17 @@
+receipt for R68ReviewerLayers. tree = git archive d3b2a4e8eed710277951e430efd3d27b5983033c extracted at /fast/scratch/hyaku/kagi-r68/R68ReviewerLayers/tree
+corpus/sources-census.sh sha256=e7aacecdfcf06ed6303f5272cd0d3bd6a20d16fdbf0f064a4c68aae940e1d10f (round-67 landed gate; the round-68 widened gate
+was not in the lane at receipt time)
+corpus/rendered-text-v1.py sha256=14f6ca6ab742296f45a699548c31e6d49892f6baef36ed419c283d1a0511b8c9 (the committed normalizer, unchanged since round 41)
+------------------------------------------------------------------------
+standalone-word check on the real body (no gate): tag insertion and an HTML comment
+both leave the rendered-text-v1 digest byte-identical while raw bytes change.
+tag-wrap-standalone    raw=f74b4cbd289f9786a6c62a48efb2a17282943251d06a7a1b4c45b58965cf361a bytes=41794  normalized=781463acbf1493a58c0f87ec981809f6f80bd63196e8006ff274c87593a7d147 unchanged=True
+html-comment-hide      raw=becd0d1a0d432c6bba372ef273a50bae562c4ece4be628ee5e4b611c8946fd9b bytes=41821  normalized=781463acbf1493a58c0f87ec981809f6f80bd63196e8006ff274c87593a7d147 unchanged=True
+crlf-eol               raw=f3dd58b0f2f11236e80fbd2526ec760ee4efad349d041934c192acca688a080c bytes=41938  normalized=781463acbf1493a58c0f87ec981809f6f80bd63196e8006ff274c87593a7d147 unchanged=True
+trailing-blanks        raw=1f7be87d652999b557f042e4a20c5cd06dd2640a4bde65bff7896ddbaf8fcb75 bytes=41795  normalized=781463acbf1493a58c0f87ec981809f6f80bd63196e8006ff274c87593a7d147 unchanged=True
+
+old body raw=76339ff7dab618b5e5532bca6daf9dd8361330a43b737408304abfd1d79090c6 bytes=41787 normalized=781463acbf1493a58c0f87ec981809f6f80bd63196e8006ff274c87593a7d147
+
+NOTE (self-correction): the batch script's m5-tag-wrap replaced the first literal
+`the` in the body, which occurs inside a word, so it changed the rendered text and
+behaved as a control (recompute != col15). The tag-wrap above is the intended shape.

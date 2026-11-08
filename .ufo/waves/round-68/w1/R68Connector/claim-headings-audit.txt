@@ -1,0 +1,16 @@
+# Audit of claim headings against corpus/claims-declared.sh grammar
+
+$ bash corpus/claims-declared.sh --root .
+MISMATCH 68 C1 section-missing
+MISMATCH 68 C2 section-missing
+CLAIMS_DECLARED: MISMATCH (claims=63 mismatch=2)
+exit: 1
+
+$ bash corpus/claims-declared.sh --selftest
+CLAIMS_DECLARED_SELFTEST: PASS (13 cases)
+exit: 0
+
+$ awk '/^## C[0-9]+ — [a-z]+:/' plans/round-68.md
+## C1 — freshness: the census re-verifies every mined row that names a lane-tree capture
+## C2 — calibration: the round's record surfaces match the state they describe
+exit: 0

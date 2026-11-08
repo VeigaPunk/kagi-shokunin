@@ -1,6 +1,7 @@
-# BASE gate on a full copy with ONE mutation: whole TSV saved with CR at every line end (round-67 C1 sharpest class)
-# mutated corpus/source-fetches.tsv sha256 be07bb54de507d3ab27d7b1dbc00b85e884bbd725ea96bc3c6899b52345b43f5 bytes 87817
-# command: bash <copy>/corpus/sources-census.sh verify --root <copy>   (cwd=<copy>)
+# BASE gate on a hash-verified full copy with ONE mutation: whole TSV saved with CR at every line end (round-67 C1 sharpest class)
+# BASE tree TSV sha256 90dd4a2cbc006cdf0a90e42f45917eb9fba9ee7645a9299fb49e79481d38291d (== `git show d3b2a4e:corpus/source-fetches.tsv`)
+# mutated TSV sha256 be07bb54de507d3ab27d7b1dbc00b85e884bbd725ea96bc3c6899b52345b43f5 bytes 87817
+# command: bash <copy>/corpus/sources-census.sh verify --root <copy>  (cwd=<copy>)
 # rc=0
 SOURCES_CAPTURES: CLEAN (path_rows=0 bound=0 located=0 prose=157)
 SOURCES_CENSUS: CLEAN (rows=157 A=140 B=2 C=15 queued=3 mined=137 rejected=17 entries_sourced=27 legacy=21 captures=157 inrow=16 inrow_only=0 inrow_nonreproducing=12)

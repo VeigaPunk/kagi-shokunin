@@ -1,0 +1,42 @@
+OK   SOURCES.md row splits into 11 cells (NF=13): got 13
+OK   SOURCES.md row has exactly 12 '|'
+OK   id cell ($2) is S167
+OK   kind enum ($4): spec
+OK   tier enum ($5): A
+OK   status enum ($9): mined
+OK   opened ($10) is an ISO date: 2026-11-08
+OK   recheck ($11) is a valid cadence: 180d
+OK   used-by ($12) names the lane knowledge entry
+OK   no literal '|' inside cell 1
+OK   no literal '|' inside cell 2
+OK   no literal '|' inside cell 3
+OK   no literal '|' inside cell 4
+OK   no literal '|' inside cell 5
+OK   no literal '|' inside cell 6
+OK   no literal '|' inside cell 7
+OK   no literal '|' inside cell 8
+OK   no literal '|' inside cell 9
+OK   no literal '|' inside cell 10
+OK   no literal '|' inside cell 11
+OK   fetch row has 16 tab columns: got 16
+OK   fetch row id/status
+OK   fetch col 3 is the row-identity digest
+OK   fetch url + final url
+OK   fetch http status + request profile
+OK   fetch fetched date
+OK   fetch representation
+OK   fetch col 10 is the capture's raw sha256
+OK   fetch col 11 is the capture's byte count
+OK   fetch col 13 is the quote and <=25 words (18)
+OK   fetch col 14 declares the normalization
+OK   fetch col 15 is a 64-hex digest
+OK   fetch col 16 is the pure capture path (one whitespace-delimited token)
+OK   quote locates count>=1 under rendered-text-v1: count=1
+
+=== DRAFTED corpus/SOURCES.md row ===
+| S167 | RFC 4648 — The Base16, Base32, and Base64 Data Encodings — https://www.rfc-editor.org/rfc/rfc4648.txt | spec | A | record-level strictness: a field carrying structured data is accepted in its exact declared form or the record is refused; characters outside the declared alphabet are never silently normalised away, and the non-alphabet tolerance is a named implementation-error vector | §3.3 Interpretation of Non-Alphabet Characters in Encoded Data (RFC 4648, October 2006; heading at body line 190, the MUST sentence at body lines 200-204); capture `.ufo/waves/round-68/capture/S167.body` (35491 B, sha256 `84e14418f795d503be5f34bf23ce4ebaa119e9ec7c9f667d8caeb111385b178f`); opened live 2026-11-08 with a browser user agent (HTTP 200, 35491 B, same sha256, refetch byte-identical; receipt `.ufo/waves/round-68/capture/S167.fetch.txt`; quote locate count=1 under rendered-text-v1; normalized sha256 `30194c4ff628ee00171027b7d54800e1c17cfda692ced83290807eb148ef93a9`, 28542 normalized bytes) | a field with a declared alphabet is accepted in that exact form or refused, never read past: RFC 4648 §3.3 makes rejecting characters outside the base alphabet a MUST for an implementation interpreting base-encoded data, names stray CRLF as non-alphabet characters, and records that tolerating them has been used to exploit implementation errors (buffer overflow), so the lane's census refuses a location cell carrying a stray byte instead of normalising it away. Quote (verbatim): "Implementations MUST reject the encoded data if it contains characters outside the base alphabet when interpreting base-encoded data" | mined | 2026-11-08 | 180d | corpus/knowledge/source-capture-binding.md |
+
+=== DRAFTED corpus/source-fetches.tsv row (tabs shown as <TAB>) ===
+S167<TAB>mined<TAB>7b4c8e2b5a9b2ca755ccad80d44f0a42b3680c3b07d68fa7f447895b2bd0d4dd<TAB>https://www.rfc-editor.org/rfc/rfc4648.txt<TAB>https://www.rfc-editor.org/rfc/rfc4648.txt<TAB>200<TAB>curl-fsSL-compressed-v1<TAB>2026-11-08<TAB>decoded-http-body-v1<TAB>84e14418f795d503be5f34bf23ce4ebaa119e9ec7c9f667d8caeb111385b178f<TAB>35491<TAB>-<TAB>Implementations MUST reject the encoded data if it contains characters outside the base alphabet when interpreting base-encoded data<TAB>rendered-text-v1<TAB>30194c4ff628ee00171027b7d54800e1c17cfda692ced83290807eb148ef93a9<TAB>.ufo/waves/round-68/capture/S167.body
+
+FAILURES: 0

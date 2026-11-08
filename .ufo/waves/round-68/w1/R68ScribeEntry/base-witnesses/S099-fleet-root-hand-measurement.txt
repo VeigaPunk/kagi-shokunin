@@ -1,0 +1,18 @@
+witness=S099 fleet-root .ufo/prompts/ class (hand measurement, 2026-11-08)
+file=/home/vgpnk/Projects/shokunin/.ufo/prompts/kagi-round-44.md  (fleet tree — OUTSIDE the lane root /home/vgpnk/Projects/shokunin/kagi-shokunin)
+row=corpus/source-fetches.tsv S099: c10=e62e259c8fd3b9d73833865c456786e72ec387a0b20630c15138b4506971b80c c11=97077 c13='The claim is judged on the counter, kill rule and predicate declared before data. A rule' c14=raw-literal-v1 c15=-
+c16=.ufo/prompts/kagi-round-44.md §6 item 9, line 561 (byte offset 52924)
+--- locate ---
+$ ls -la /home/vgpnk/Projects/shokunin/.ufo/prompts/kagi-round-44.md
+-rw-r--r-- 1 vgpnk vgpnk 97077 Nov  5 15:35 /home/vgpnk/Projects/shokunin/.ufo/prompts/kagi-round-44.md
+$ sha256sum /home/vgpnk/Projects/shokunin/.ufo/prompts/kagi-round-44.md
+e62e259c8fd3b9d73833865c456786e72ec387a0b20630c15138b4506971b80c  /home/vgpnk/Projects/shokunin/.ufo/prompts/kagi-round-44.md
+$ wc -c < /home/vgpnk/Projects/shokunin/.ufo/prompts/kagi-round-44.md
+97077
+$ grep -nF "The claim is judged on the counter, kill rule and predicate declared before data. A rule" /home/vgpnk/Projects/shokunin/.ufo/prompts/kagi-round-44.md
+561:   - The claim is judged on the counter, kill rule and predicate declared before data. A rule
+$ python3 - <<PY  # byte offset of the declared quote
+bytes: 97077
+raw-literal count: 1
+byte offset of first occurrence: 52924
+NOTE: the row's c16 names .ufo/prompts/..., not a .ufo/waves/ token, so under the widened classification it is PROSE: never read, never flagged. No lane-rooted gate can bind it — realpath from the lane root cannot reach the fleet tree. Verified by hand, not by any committed instrument.

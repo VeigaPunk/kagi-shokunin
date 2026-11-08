@@ -1,0 +1,14 @@
+R68Revenger — C8 re-measurement on gate 690b0c2e (candidate snapshot)
+Input: S017 (a prose row) col16 = "<its prose cell>\r" (CR appended; no .ufo/waves/ token)
+Command: bash corpus/sources-census.sh verify --root .   (scratch copy of the snapshot)
+
+FINDING SC_FETCH cr-in-tsv
+SOURCES_CAPTURES: CLEAN (path_rows=38 bound=38 located=38 prose=120)
+SOURCES_CENSUS: FAILED (findings=1 rows=158)
+rc 1
+
+So the file-level CR class fails the census while the capture summary line reads
+CLEAN — the round-67 C8 shape is still reachable on the widened gate (the verdict is
+FAILED, so no pass is reachable; a consumer reading only SOURCES_CAPTURES: would
+conclude the capture class is clean). Same shape as .ufo/waves/round-67/w1/R67Revenger.md
+§3 C8.

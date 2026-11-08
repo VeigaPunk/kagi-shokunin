@@ -1,0 +1,22 @@
+# Audit of IDs cited in plans/round-68.md and claim ledger status
+
+## Claim Ledger IDs
+[PRESENT_IN_LEDGER] R21-03     Census selftest pin (expecting 88 at BASE; migrated to measured in R68)
+[PRESENT_IN_LEDGER] R68-01     C1_VERIFIED predicate (minted by this round in corpus/claim-ledger.tsv)
+[PRESENT_IN_LEDGER] R68-02     C2_RECORD predicate (minted by this round in corpus/claim-ledger.tsv)
+[PRESENT_IN_LEDGER] R11-01     Surface census clean (existing row in corpus/claim-ledger.tsv)
+[PRESENT_IN_LEDGER] R17-02     Adjacency breadth pins count (existing row in corpus/claim-ledger.tsv)
+
+## Source IDs
+[VALID_SOURCE] S099       SOURCES.md=True source-fetches.tsv=True -- Fleet round-44 prompt, §6 item 9; location in fleet root (.ufo/prompts/kagi-round-44.md), prose
+[VALID_SOURCE] S113       SOURCES.md=True source-fetches.tsv=True -- ISO/IEC 11770-3:2021; catalogue record, used in revenger whitespace bypass
+[VALID_SOURCE] S156       SOURCES.md=True source-fetches.tsv=True -- Historical capture row, last capture-path-shaped row in BASE file order
+[VALID_SOURCE] S164       SOURCES.md=True source-fetches.tsv=True -- ConText / BioC Unicode; normalization carrier
+[VALID_SOURCE] S166       SOURCES.md=True source-fetches.tsv=True -- RFC 9530 §1.2; admitted round 67, col 16 recut to pure path round 68
+[VALID_SOURCE] S167       SOURCES.md=True source-fetches.tsv=True -- RFC 4648 §3.3; frontier source admitted round 68
+
+## Mistake IDs
+[VALID_MISTAKE] M67-1      Plan cited receipts existing only in scratch (closed in round 67)
+[VALID_MISTAKE] M67-4      Counter oracle supplied by subject (closed in round 67)
+[VALID_MISTAKE] M67-5      Stale counter readings on amended text (closed in round 67)
+[VALID_MISTAKE] M68-1      capture-token rule must distinguish in-lane .ufo/waves/ from fleet-root S099

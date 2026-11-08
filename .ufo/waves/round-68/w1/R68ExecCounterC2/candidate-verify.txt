@@ -1,0 +1,38 @@
+STALE corpus/claim-ledger.sh sha=ec915f604ba6->7fbf455b4806 lines=1807->1817 bytes=117770->118510
+STALE corpus/knowledge/source-capture-binding.md sha=a3578ac3db88->e6420da9d2a2 lines=99->262 bytes=6396->17598
+STALE corpus/source-fetches.tsv sha=90dd4a2cbc00->c14bcd885df2 lines=200->201 bytes=87617->88133
+STALE corpus/sources-census.sh sha=e7aacecdfcf0->ccbe14c65b2e lines=966->1067 bytes=58661->64475
+STALE corpus/SOURCES.md sha=9590e7e73ec8->688fbab47149 lines=319->320 bytes=148307->149789
+STALE SCORECARD.md sha=eefcaa102eab->8b7c2957c9e0 lines=2384->2411 bytes=328133->330890
+HOST-SKIP R11-01 reason=host-row-not-authorized
+HOST-SKIP R11-02 reason=host-row-not-authorized
+HOST-SKIP R11-03 reason=host-row-not-authorized
+HOST-SKIP R11-04 reason=host-row-not-authorized
+HOST-SKIP R11-06 reason=host-row-not-authorized
+FAIL R11-08 reason=timeout exit=124 tmo=300
+HOST-SKIP R12-01 reason=host-row-not-authorized
+FAIL R12-03 reason=verdict-not-final exit=0
+FAIL R13-01 reason=verdict-not-final exit=0
+FAIL R14-01 reason=verdict-not-final exit=0
+HOST-SKIP R15-01 reason=host-row-not-authorized
+HOST-SKIP R13-03 reason=host-row-not-authorized
+HOST-SKIP R16-01 reason=host-row-not-authorized
+HOST-SKIP R16-03 reason=host-row-not-authorized
+HOST-SKIP R17-01 reason=host-row-not-authorized
+HOST-SKIP R18-01 reason=host-row-not-authorized
+FAIL R21-02 reason=verdict-not-final exit=0
+FAIL R21-03 reason=exit-mismatch exit=1 want=0
+FAIL R22-03 reason=exit-mismatch exit=1 want=0
+FAIL R24-05 reason=verdict-not-final exit=0
+FAIL R24-06 reason=verdict-not-final exit=0
+FAIL R24-15 reason=exit-mismatch exit=2 want=0
+FAIL R25-02 reason=exit-mismatch exit=2 want=0
+POLICY R29-01 reason=first-token:python
+POLICY R29-02 reason=first-token:python
+HOST-SKIP R31-01 reason=host-row-not-authorized
+FAIL R31-02 reason=verdict-not-final exit=0
+FAIL R33-02 reason=verdict-not-final exit=0
+FAIL R34-03 reason=verdict-not-final exit=0
+FAIL R36-01 reason=timeout exit=124 tmo=300
+claim-ledger: malformed claims row (fields=1)
+RC=2

@@ -301,7 +301,7 @@ docs=39 unresolved=0 ephemeral=0 labeled=13)`.
 bash corpus/claim-ledger.sh verify      # stamps + claims + claim ids → CLAIM_LEDGER: CLEAN (claims=N … stamped=M …; N and M are ledger rows R21-04 and R12-03 and move every round; round-13-close output read claims=17 stamped=33 ids=17 cited=17 labeled_ids=13 orphans=0)
 bash corpus/claim-ledger.sh citations   # citation durability → CITATION_GATE: CLEAN (…) in the fleet layout; round-13-close output read cites=700 docs=43 unresolved=0 ephemeral=0 labeled=13
 bash corpus/claim-ledger.sh cells       # scorecard audit    → CELL_AUDIT: CLEAN (…); round-13-close output read cells=60 row_pointed=25 stamp_pointed=41 uncited=0 missing_ids=0 rows_run=14 row_failures=0 stale_pointers=0 self_skipped=3 orphans=0
-bash corpus/claim-ledger.sh --selftest  # 170 scratch cases   → SELFTEST: PASS (170 cases); 72 at round-13 close
+bash corpus/claim-ledger.sh --selftest  # 175 scratch cases   → SELFTEST: PASS (175 cases); 72 at round-13 close
 bash corpus/claim-ledger.sh stamp corpus/claim-ledger.sh …    # re-pin (reviewed commit)
 ```
 

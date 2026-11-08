@@ -1,0 +1,46 @@
+=== H1 a knowledge FILENAME carrying forged SOURCES_CAPTURES:/SOURCES_CENSUS: lines ===
+gate rc=1
+--- every stdout line that starts with SOURCES_CAPTURES: or SOURCES_CENSUS: ---
+   SOURCES_CAPTURES: CLEAN (path_rows=999 bound=999 located=999 prose=0)
+   SOURCES_CENSUS: CLEAN (rows=999).md id=S001 used-by-omits-entry
+   SOURCES_CAPTURES: CLEAN (path_rows=38 bound=38 located=38 prose=120)
+   SOURCES_CENSUS: FAILED (findings=1 rows=158)
+
+The counter's parser (plans/round-67-c1.sh parse_gate_run) takes
+the LAST SOURCES_CAPTURES: line and the LAST SOURCES_CENSUS:
+line, so a line injected EARLIER is overwritten by the gate's
+own.  The gate's own lines are printed last, so the parse is
+safe in that direction.  A filename injecting a line AFTER the
+gate's own would need the gate to print the injected text
+last, which it does not.
+
+=== H1b the location cell flows into the finding detail ===
+gate rc=1
+   FINDING SC_CAPTURE id=S100 capture-missing
+
+=== H2 re-pointing a BOUND capture's col 16 at a path that names no .ufo/waves/ token ===
+The widened rule makes prose = 'names no .ufo/waves/ token',
+never read.  A row so re-pointed is no longer in the gate's
+population at all: its capture is not bound, and nothing says so.
+  non-waves repo path    -> 'corpus/knowledge/source-capture-binding.md'
+     rc=0  SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=121)
+           SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+  tilde form             -> '~/.ufo/waves/round-45/controls/capture-r45/S100.raw'
+     rc=1  SOURCES_CAPTURES: FAILED (defects=1 path_rows=38 bound=37 located=37 prose=120)
+           SOURCES_CENSUS: FAILED (findings=1 rows=158)
+           FINDING SC_CAPTURE id=S100 capture-token
+  double-slash form      -> '//.ufo/waves/round-45/controls/capture-r45/S100.raw'
+     rc=1  SOURCES_CAPTURES: FAILED (defects=1 path_rows=38 bound=37 located=37 prose=120)
+           SOURCES_CENSUS: FAILED (findings=1 rows=158)
+           FINDING SC_CAPTURE id=S100 capture-outside-root
+  prose                  -> 'Introduction'
+     rc=0  SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=121)
+           SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+
+=== H3 can a repo-controlled cell make the reason line name a DIFFERENT id? ===
+gate rc=1 (the id cell set to S999, an id not in the registry)
+
+The gate prints the id FROM THE ROW, so the id in the finding is
+the row's own id; a row cannot forge another row's id through
+its own cells.  A duplicate row (two rows, one id) is caught by
+the pre-existing SC_FETCH duplicate-provenance class.

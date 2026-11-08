@@ -1,0 +1,17 @@
+receipt for R68ReviewerLayers. tree = git archive d3b2a4e8eed710277951e430efd3d27b5983033c extracted at /fast/scratch/hyaku/kagi-r68/R68ReviewerLayers/tree
+corpus/sources-census.sh sha256=e7aacecdfcf06ed6303f5272cd0d3bd6a20d16fdbf0f064a4c68aae940e1d10f (round-67 landed gate; the round-68 widened gate
+was not in the lane at receipt time)
+corpus/rendered-text-v1.py sha256=14f6ca6ab742296f45a699548c31e6d49892f6baef36ed419c283d1a0511b8c9 (the committed normalizer, unchanged since round 41)
+------------------------------------------------------------------------
+input: S155.col15 replaced with S164's normalized digest (R67Revenger C3's exact input;
+QM92's borrowed-digest class). S155 body is untouched and its raw col10 still binds.
+S155 body=.ufo/waves/round-66/capture/S155.body
+S155 recompute        =5f50941440dbb802cb5a2a076b1cbe9af17cdf62f6a9b7cbfa2dedf7611cc801
+S155 standing col15   =5f50941440dbb802cb5a2a076b1cbe9af17cdf62f6a9b7cbfa2dedf7611cc801  (equal to recompute: True)
+S155 borrowed col15   =4d966ff9535cdbd8faa00ad925f60e2fb38892bdb07cd48bb587c9da8aac72d5
+
+round-67 landed gate on the borrowed tree: rc=0
+  SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=121)
+  SOURCES_CENSUS: CLEAN (rows=157 A=140 B=2 C=15 queued=3 mined=137 rejected=17 entries_sourced=27 legacy=21 captures=157 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+
+candidate normalized-digest-mismatch would fire: True

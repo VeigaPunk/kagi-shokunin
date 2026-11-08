@@ -1,0 +1,45 @@
+# R68ScoutSource receipts — C1 population derivation, measured independently
+# (the counter script plans/round-68-c1.sh is another seat's file; this is an
+#  independent row-by-row recount against the plan's frozen population rule,
+#  used only to check what the S167 landing does to the frozen counts.)
+
+## population rule (plans/round-68.md C1)
+  verified -- col16 is a repo-relative capture path, OR col16 contains a
+             whitespace-delimited token that is a repo-relative .ufo/waves/
+             capture path; and that token names a file inside the measured tree
+             whose raw sha256 == col10, whose byte count == col11, and whose
+             col13 quote locates count>=1 under col14's normalization.
+  col15    -- of the verified rows with normalization rendered-text-v1, those
+             whose recomputed normalized digest == col15.
+
+## BASE tree (git archive d3b2a4e8eed710277951e430efd3d27b5983033c)
+$ python3 derive.py base-tree corpus/rendered-text-v1.py
+verified=37 col15=32 prose=120
+verified_ids=S100,S101,S102,S113,S114,S115,S116,S117,S118,S119,S120,S121,S122,S123,S124,S125,S126,S127,S128,S129,S130,S131,S132,S133,S134,S135,S137,S138,S140,S141,S142,S143,S144,S164,S155,S156,S166
+
+## BASE gate's own verdict on the BASE tree (base gate, blind)
+$ bash corpus/sources-census.sh verify --root .   # in base-tree
+  SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=121)
+  SOURCES_CENSUS: CLEAN (rows=157 A=140 B=2 C=15 queued=3 mined=137 rejected=17 entries_sourced=27 legacy=21 captures=157 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+
+## candidate tree (working tree of the lane, S167 landed as a pure path)
+$ python3 derive.py <lane> corpus/rendered-text-v1.py
+verified=38 col15=33 prose=120
+verified_ids=S100,S101,S102,S113,S114,S115,S116,S117,S118,S119,S120,S121,S122,S123,S124,S125,S126,S127,S128,S129,S130,S131,S132,S133,S134,S135,S137,S138,S140,S141,S142,S143,S144,S164,S155,S156,S166,S167
+
+## candidate gate's own verdict on the working tree
+$ bash corpus/sources-census.sh verify --root .   # in the lane
+  SOURCES_CAPTURES: CLEAN (path_rows=38 bound=38 located=38 prose=120)
+  SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+
+## cell-shape census (which col16 cells are pure paths vs token-bearing prose)
+  BASE:      pure=36  token=1 (S166)  prose=120
+  CANDIDATE: pure=38  token=0          prose=120
+  (the +2 on pure at candidate = S166 re-cut to a pure path + the new S167 row;
+   the +1 on token at BASE = S166's pre-re-cut prose cell naming its capture path)
+
+## the derived anchor (plan: LAST capture-path-shaped row in file order that binds)
+  BASE anchor      = S156 (line 199, status rejected) -- S164 is line 197, S166 line 200 is prose
+  CANDIDATE anchor = S167 (line 201, status mined) -- S166 is line 200
+  (the plan's parenthetical names S166 at candidate / S164 at BASE; the rule as
+   written derives S167 at candidate and S156 at BASE)

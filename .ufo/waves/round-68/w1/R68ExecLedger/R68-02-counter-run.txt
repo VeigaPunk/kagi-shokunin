@@ -1,0 +1,15 @@
+# `bash plans/round-68-c2.sh --tree .` was launched from this seat at 2026-11-08 ~10:50 and
+# cancelled: the counter's owner (R68ExecCounterC2) was already running its own copy
+# (python3 … /fast/scratch/hyaku/kagi-r68/R68ExecCounterC2/base-tree, started ~10:20), and the
+# counter script was being edited at the same moment. Running two copies would double the
+# verify+verify+cells load (cells alone is ~15 min here).
+#
+# What this seat measured instead, for the same claim:
+#   - R68-01 executed end to end: C1_VERIFIED: verified=38 col15=33 caught=6/6 guard=1 (EXIT 0),
+#     and the ledger row passes its own machinery (claims=2 failed=0 over R21-03+R68-01).
+#   - C2 leg L2's claims-declared reading: CLAIMS_DECLARED: CLEAN (claims=63) EXIT 0.
+#   - C2 leg L1's journal: EXPECT_JOURNAL: CLEAN (changed=5 journaled=5) EXIT 0.
+#   - C2 leg L3's cells: CELL_AUDIT: POLICY (cells=576 row_pointed=286 stamp_pointed=247 policy=3)
+#     EXIT 2 — a verdict, no SETUP (receipt L3-cells-after.txt).
+# The counter's own final line is its owner's reading; ledger row R68-02 is pinned to the frozen
+# target ^C2_RECORD: mismatches=0 population=3 guard=1$.

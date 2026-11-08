@@ -1,0 +1,4 @@
+COMMAND: bash corpus/expect-journal.sh --base-ledger <BASE:corpus/claim-ledger.tsv> --ledger <candidate:corpus/claim-ledger.tsv> --journals <candidate:.ufo/waves/round-68/journals>
+ledger sha256: ad5c719736542a2cd4038c8af4c4516cd06483d9f5d453655f5d1717b6437e9c  journal sha256: 70ca8245a8c3e0be52be8cc1cccb4f3de883c64f440a76159cb3a3c7c465ce48
+EXPECT_JOURNAL: CLEAN (changed=5 journaled=5)
+rc=0

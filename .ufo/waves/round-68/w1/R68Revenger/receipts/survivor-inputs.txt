@@ -1,0 +1,86 @@
+R68Revenger — exact bytes of every class that did not close on gate 690b0c2e
+(TSV c14bcd88, SOURCES.md 688fbab4, normalizer 14f6ca6a, BASE d3b2a4e8)
+Notation: \x20 space, \r CR, \t tab. Each line is the col-16 cell after mutation.
+
+SURVIVED (candidate gate prints SOURCES_CENSUS: CLEAN, rc 0):
+
+S1  in-tree symlinked directory alias, S113.col16 (was ".ufo/waves/round-55/capture/S113.body")
+    ".ufo/wv/round-55/capture/S113.body"      with .ufo/wv -> waves (in-tree symlink)
+    BASE: CLEAN path_rows=38 bound=38 located=38 prose=120 (bound: the row is read)
+    CAND: CLEAN path_rows=37 bound=37 located=37 prose=121 (prose: the row is NOT read)
+    cause: the class decision is lexical; the token ".ufo/waves/" is absent, so the cell
+    is frozen `prose` even though realpath resolves it to the bound body.
+
+S2  case variant of the waves directory, S113.col16
+    ".UFO/waves/round-55/capture/S113.body"
+    BASE: FAILED (defects=1, capture-missing) -- a case-sensitive fs cannot open it
+    CAND: CLEAN path_rows=37 prose=121
+    cause: same lexical test. On a case-insensitive mount (workstation-class ceiling,
+    not tested here) the same cell binds the same body with no token.
+
+S3  all-whitespace cell (no waves token), S167.col16 and S113.col16
+    "\x20\x20\x20\x20\x20\x20\x20\x20"
+    BASE: CLEAN path_rows=37 prose=121
+    CAND: CLEAN path_rows=37 prose=121
+    legal by the frozen classification sentence (names no .ufo/waves/ token) -- the row
+    stops declaring a capture at all and the gate has nothing to bind. No escaping
+    input can be refused here without changing the frozen rule.
+
+S4  shaped non-waves path, S167.col16
+    "corpus/quote-bodies.tsv"   (exists, shaped, no waves token)
+    BASE: FAILED (defects=2, capture-bytes-mismatch + capture-digest-mismatch) -- read
+    CAND: CLEAN path_rows=37 prose=121 -- not read
+    cause: the population is waves-scoped by construction (plan §C1 + classification
+    sentence). A capture declared outside .ufo/waves/ is prose and unverified. Legal
+    by the frozen sentence; a real narrowing against round-67's shaped-path gate.
+
+S5  in-tree hardlink to an out-of-tree body (C2 of round 67), S167.col16
+    ".ufo/waves/round-68/capture/R68Rev-hard.body" (nlink=2 to the same inode)
+    BASE: CLEAN 38/38/38 CAND: CLEAN 38/38/38
+    durability ceiling unchanged: a write through the out-of-tree name changes the
+    attested bytes after the census.
+
+S6  one-token quote (C5 of round 67), S167.col13 = "the"
+    BASE: CLEAN CAND: CLEAN (quote locates 90x in S167's body; located stays 38)
+    evidentiary-strength ceiling unchanged.
+
+S7  normalizer that forwards digest and lies about locate (C4 of round 67)
+    corpus/rendered-text-v1.py replaced by a wrapper: argv digest -> exec the saved
+    .real copy; argv locate -> "RENDERED_TEXT_V1_LOCATE: count=1"
+    BASE: CLEAN CAND: CLEAN (38/38/38, no finding)
+    the in-tree instrument still decides `located`; only its *digest* answer is now
+    independently recomputed (see CLOSED C9 below).
+
+OVER-CAPTURE (candidate fails a cell the frozen one-sentence rule calls prose):
+
+O1  prose row cell carrying a doubled-slash token, S017.col16
+    "see //example.org/x for details"
+    BASE: CLEAN CAND: FAILED (defects=1) FINDING SC_CAPTURE id=S017 capture-token
+    the frozen classification sentence: no .ufo/waves/ token -> prose, legal. The frozen
+    reason set: a "//" form -> capture-token. The gate implements the reason set.
+O2  prose row cell carrying a tilde token, S017.col16
+    "home ~/notes/x"
+    BASE: CLEAN CAND: FAILED (defects=1) FINDING SC_CAPTURE id=S017 capture-token
+No row in the current registry trips O1/O2 (clean run has 0 findings); the cost is a
+future prose cell that quotes a URL or a home path.
+
+CLOSED (candidate gate FAILED with the frozen reason; BASE gate CLEAN):
+C1-C6 see the report table. Exact cells:
+    "<loc>\x20"                       -> capture-whitespace        (S167, S113)
+    "\x20<loc>"                       -> capture-whitespace        (S167, S113)
+    ".ufo/waves/round-68/ capture/S167.body"
+                                      -> capture-token             (S167)
+    ".ufo/waves/round-55/capture/ /S113.body"
+                                      -> capture-token             (S113)
+    "<loc>\r"                         -> SC_FETCH cr-in-tsv + capture-whitespace (S167, S113)
+    "<loc>,<loc>"                     -> capture-whitespace        (S167, S113)
+    "//etc/passwd"                    -> capture-token             (S167, S113)
+    "~/S113.body"                     -> capture-token             (S167, S113)
+    "<loc with \r inside the cell>"    -> capture-token + cr-in-tsv (S113)
+    whole source-fetches.tsv LF->CRLF  -> SC_FETCH cr-in-tsv + 38x capture-whitespace,
+                                          path_rows=38 (BASE: path_rows=0)
+    col15 <- S017's digest            -> normalized-digest-mismatch (S167; BASE CLEAN)
+    "see capture <loc> for details"   -> capture-token             (S167)
+    "§1.2 Concept Overview; capture .ufo/waves/round-67/capture/S166.body"
+                                      -> capture-token             (S166; BASE CLEAN)
+    "<tree-absolute>/<loc>"           -> capture-outside-root      (S167; both gates)

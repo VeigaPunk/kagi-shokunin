@@ -1,0 +1,42 @@
+=== A. self-consistent normalizer stub (count=1 for locate; digest = the row's own col 15) ===
+LANE gate rc=0
+SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=120)
+SOURCES_CENSUS: CLEAN (rows=157 A=140 B=2 C=15 queued=3 mined=137 rejected=17 entries_sourced=27 legacy=21 captures=157 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+
+REF widened (contains) rc=0
+SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=120)
+SOURCES_CENSUS: CLEAN (findings=0 rows=0)
+
+=== A2. same stub + a quote that is absent from the body ===
+LANE gate rc=0
+SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=120)
+SOURCES_CENSUS: CLEAN (rows=157 A=140 B=2 C=15 queued=3 mined=137 rejected=17 entries_sourced=27 legacy=21 captures=157 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+
+REF widened (contains) rc=0
+SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=120)
+SOURCES_CENSUS: CLEAN (findings=0 rows=0)
+
+=== B. PATH shim: python3 answers every locate with count=1 ===
+LANE gate rc=2 (PATH=/fast/scratch/hyaku/kagi-r68/R68Sentinel/forge/bin-python3 first)
+SOURCES_CENSUS: SETUP (rendered-text-v1 locate failed (rc=126))
+
+=== C. PATH shim: `bash` fakes a clean gate run for the counter ===
+counter rc=126
+
+stderr: env: ‘bash’: Argument list too long
+
+=== D. env var sweep on the round-67 counter ===
+env HYAKU_SCRATCH=/fast/scratch/hyaku/kagi-r68/R68Sentinel -> rc=1 verdict=C1_READTHROUGH: bound=37 located=37 caught=6/6 guard=0
+env C1_KEEP_SCRATCH=1 -> rc=1 verdict=C1_READTHROUGH: bound=37 located=37 caught=6/6 guard=0
+env SOURCES_CAPTURES=CLEAN (path_rows=37 bound=37 located=37  -> rc=1 verdict=C1_READTHROUGH: bound=37 located=37 caught=6/6 guard=0
+env SOURCES_CENSUS=CLEAN (rows=157) -> rc=1 verdict=C1_READTHROUGH: bound=37 located=37 caught=6/6 guard=0
+env GUARD=1 -> rc=1 verdict=C1_READTHROUGH: bound=37 located=37 caught=6/6 guard=0
+env C1_VERIFIED=verified=37 col15=32 caught=6/6 guard=1 -> rc=1 verdict=C1_READTHROUGH: bound=37 located=37 caught=6/6 guard=0
+=== E. a knowledge filename carrying a stray 'SOURCES_CAPTURES: CLEAN (...)' line ===
+LANE gate rc=1
+FINDING SC_ENTRY_CITE entry=corpus/knowledge/evil
+SOURCES_CAPTURES: CLEAN (path_rows=999 bound=999 located=999 prose=0).md id=S001 used-by-omits-entry
+SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=120)
+SOURCES_CENSUS: FAILED (findings=1 rows=157)
+
+stdout lines starting with SOURCES_CAPTURES: -> ['SOURCES_CAPTURES: CLEAN (path_rows=999 bound=999 located=999 prose=0).md id=S001 used-by-omits-entry', 'SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=120)']

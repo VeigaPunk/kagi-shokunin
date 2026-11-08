@@ -1,0 +1,28 @@
+BASE anchor (LAST capture-path-shaped row that binds):
+  line 199 id=S156 col16=.ufo/waves/round-66/capture/S156-429.body
+CANDIDATE anchor: line 200 id=S166 col16=.ufo/waves/round-67/capture/S166.body
+
+BASE gate on the BASE tree, per frozen leg (anchor id=S156):
+  M1 col16 trailing space      rc=0 expected=capture-whitespace           SURVIVED
+      SOURCES_CENSUS: CLEAN (rows=157 A=140 B=2 C=15 queued=3 mined=137 rejected=17 entries_sourced=27 legacy=21 captures=157 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+      SOURCES_CAPTURES: CLEAN (path_rows=35 bound=35 located=35 prose=122)
+  M2 col16 comma-joined        rc=0 expected=capture-whitespace           SURVIVED
+      SOURCES_CENSUS: CLEAN (rows=157 A=140 B=2 C=15 queued=3 mined=137 rejected=17 entries_sourced=27 legacy=21 captures=157 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+      SOURCES_CAPTURES: CLEAN (path_rows=35 bound=35 located=35 prose=122)
+  M3 whole TSV CRLF            rc=0 expected=SC_FETCH cr-in-tsv           SURVIVED
+      SOURCES_CENSUS: CLEAN (rows=157 A=140 B=2 C=15 queued=3 mined=137 rejected=17 entries_sourced=27 legacy=21 captures=157 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+      SOURCES_CAPTURES: CLEAN (path_rows=0 bound=0 located=0 prose=157)
+  M4 col10 hex digit           rc=1 expected=capture-digest-mismatch      CAUGHT
+      SOURCES_CENSUS: FAILED (findings=1 rows=157)
+      SOURCES_CAPTURES: FAILED (defects=1 path_rows=36 bound=35 located=35 prose=121)
+      FINDING SC_CAPTURE id=S156 capture-digest-mismatch
+  M5 col15 borrowed digest     rc=0 expected=normalized-digest-mismatch   SURVIVED
+      SOURCES_CENSUS: CLEAN (rows=157 A=140 B=2 C=15 queued=3 mined=137 rejected=17 entries_sourced=27 legacy=21 captures=157 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+      SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=121)
+  M6 body +1 byte              rc=1 expected=capture-bytes-mismatch       CAUGHT
+      SOURCES_CENSUS: FAILED (findings=2 rows=157)
+      SOURCES_CAPTURES: FAILED (defects=2 path_rows=36 bound=35 located=35 prose=121)
+      FINDING SC_CAPTURE id=S156 capture-bytes-mismatch
+      FINDING SC_CAPTURE id=S156 capture-digest-mismatch
+
+BASE caught = 2/6 (the plan's motivating evidence claims 0/6)

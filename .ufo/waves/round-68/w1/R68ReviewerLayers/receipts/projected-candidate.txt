@@ -1,0 +1,16 @@
+receipt for R68ReviewerLayers. projected candidate registry reading.
+tree2 = git archive d3b2a4e8eed710277951e430efd3d27b5983033c extracted, then
+corpus/SOURCES.md (sha256 2c364fde3c13b09b04828a368936545353cd9870313e0b663a33c708886b9a48)
+and corpus/source-fetches.tsv (sha256 c14bcd885df2ae446df4d49dde93c9c89ac5f2ec65629a84d77fe9987f7469af)
+and .ufo/waves/round-68/capture/ copied from the lane working tree at 2026-11-08 ~09:24-09:29
+(READ-ONLY copy; the lane was not modified). normalizer = BASE-pinned tree/corpus/rendered-text-v1.py.
+------------------------------------------------------------------------
+shaped rows: BASE 36 -> candidate 38
+added: S166 .ufo/waves/round-67/capture/S166.body
+       S167 .ufo/waves/round-68/capture/S167.body (new row, new capture, 35491 B, sha 84e14418f795d503be5f34bf23ce4ebaa119e9ec7c9f667d8caeb111385b178f)
+removed: none   changed: none
+
+PROJECTED: verified=38 col15=33 path_rows=38 bound=38 located=38 prose=120  problems=none
+frozen plan line: C1_VERIFIED: verified=37 col15=32 caught=6/6 guard=1
+delta: the plan counted S166 as the only +1; the frontier row S167 is also a shaped capture
+row, so both populations move by 2. Kill rule bounds (verified>=37, col15>=32) are still met.

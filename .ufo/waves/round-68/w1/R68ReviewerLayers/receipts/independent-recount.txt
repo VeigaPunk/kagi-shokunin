@@ -1,0 +1,28 @@
+receipt for R68ReviewerLayers. tree = git archive d3b2a4e8eed710277951e430efd3d27b5983033c extracted at /fast/scratch/hyaku/kagi-r68/R68ReviewerLayers/tree
+corpus/sources-census.sh sha256=e7aacecdfcf06ed6303f5272cd0d3bd6a20d16fdbf0f064a4c68aae940e1d10f (round-67 landed gate; the round-68 widened gate
+was not in the lane at receipt time)
+corpus/rendered-text-v1.py sha256=14f6ca6ab742296f45a699548c31e6d49892f6baef36ed419c283d1a0511b8c9 (the committed normalizer, unchanged since round 41)
+------------------------------------------------------------------------
+command: this seat's own python (independent of the gate's shell) over
+/fast/scratch/hyaku/kagi-r68/R68ReviewerLayers/tree/corpus/source-fetches.tsv; per row: col16 needs '/' and the shaped
+regex; bound = file exists, raw sha256 == col10, size == col11.
+
+path_rows=36 bound=36 prose=121
+rendered_text_rows_among_bound=31  col15_equal_to_recompute=31
+
+gate's own line on the same tree: path_rows=36 bound=36 located=36 prose=121
+=> independent recount agrees; BASE col15 = 31, the plan's declared BASE value.
+
+S166 (the +1 that moves 31 -> 32):
+  body sha256=544dbb7d9afceafa8c9931d9924ca6cff2b4807274166d7ed2483342ef2cdd6a bytes=67152
+  recomputed normalized=652d311657f00e1eab513b15db807d773b42294d7032e179f63d04909943436b
+  round-67 lesson declares col15=652d311657f00e1eab513b15db807d773b42294d7032e179f63d04909943436b
+  => equal: the +1 is arithmetically forced by the bytes, not asserted.
+
+located, recomputed independently (this seat's code; second pass):
+  for each bound row: rendered-text-v1 -> python3 rendered-text-v1.py locate FILE QUOTE, count>=1;
+  raw-literal-v1 -> literal substring of the body. No row failed.
+  path_rows=36 bound=36 located=36 prose=121 not_located=none
+  => all four counts of `SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=121)`
+     are reproduced by an instrument that is not the gate; guard (a)'s cross-check has an
+     independent witness on this tree.

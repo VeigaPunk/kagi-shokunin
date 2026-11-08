@@ -1,0 +1,41 @@
+# Instruments pinned for every R68ScribeLesson measurement (2026-11-08)
+
+Every receipt in this directory was produced against the bytes named here. Where a file
+changed during the wave, the sha256 at the time of the measurement is given; the wave moved
+several of them (see the report's §4).
+
+## The lane working tree (what `--tree .` measured)
+
+| file | sha256 | lines | bytes |
+|---|---|---|---|
+| `corpus/sources-census.sh` | `690b0c2ec2a469fee0424f56ccc35b52168d391e225cfa1142b183e4b02ea5c6` | 1100 | 68151 (at the C1 run); later reads at `84725a7e…`, `b93f0614…` |
+| `corpus/claim-ledger.sh` | `b0d84db605557b288f1f29c7fe4c0d0709d704aaf29c6fcdf16335e519042cdb` | 1864 | 122099 (at the cells-timing run); `1f4bf1e7…` and `ca923b0d…` earlier |
+| `corpus/source-fetches.tsv` | `c14bcd885df2ae44…` | 201 | 88133 |
+| `corpus/SOURCES.md` | `688fbab4714988ea…` | 320 | 149789 |
+| `corpus/knowledge/source-capture-binding.md` | `ae8cd6492ac50d9b…` | 338 | 22845 (at the M68-5 read) |
+| `corpus/rendered-text-v1.py` | `14f6ca6ab742296f45a699548c31e6d49892f6baef36ed419c283d1a0511b8c9` | — | unchanged all round |
+
+## The BASE tree (what `--base-tree` measured)
+
+- extracted with `git archive d3b2a4e8eed710277951e430efd3d27b5983033c` into
+  `/fast/scratch/hyaku/kagi-r68/R68ScribeLesson/base` (and `…/base-extract` for the
+  `--base-tree` argument to `plans/round-68-c1.sh`);
+- `corpus/source-fetches.tsv` there hashes `90dd4a2cbc006cdf…` — the **committed** blob, not
+  the L1's polluted extraction (`aa6fa318…`), whose readings are in `derive3-l1polluted.txt`
+  and are labelled as such;
+- `corpus/sources-census.sh` there is `e7aacecdfcf06ed6303f5272cd0d3bd6a20d16fdbf0f064a4c68aae940e1d10f`
+  (the round-67 landed gate);
+- `corpus/rendered-text-v1.py` there is `14f6ca6a…`, identical to the lane's.
+
+## What each receipt's instrument was
+
+| receipt | instrument |
+|---|---|
+| `derive3-base-clean.txt`, `derive3-l1polluted.txt`, `derive-recut-only.txt`, `derive-live-tree.txt`, `derive-base.txt`, `derive2-*.txt` | my own stdlib-only derivation (`work/derive*.py`, deleted with the scratch dir): `sha256sum` via `hashlib`, byte counts via `len`, quotes via the tree's own `corpus/rendered-text-v1.py locate` |
+| `cells-base.out` | BASE `corpus/claim-ledger.sh` (`ec915f604ba6dce3…`) `cells` |
+| `cells-live-timing.txt` | lane `corpus/claim-ledger.sh` `b0d84db6…` `cells --root .` |
+| `c1-lane-run.txt` | `plans/round-68-c1.sh` (as landed at the run) + lane gate `690b0c2e…` + BASE gate `e7aacecd…` |
+| `c2-lane-run.txt` | `plans/round-68-c2.sh` (`f9303755ad22…` at read time); produced no verdict line |
+| `ledger-verify-live.txt` | lane `corpus/claim-ledger.sh` `1f4bf1e7…` `verify` (partial, timed out at 300 s) |
+
+No network call, no `op`, no sibling lane, no fleet write was used to produce any of these.

@@ -2181,3 +2181,57 @@ Frozen BASE `655e620`; plan `4767b04` (alone, QM29); plan corrections 1/2 `2d46e
   mutation is prose under the strict shape regex). Both are in
   `corpus/lessons/round-67.md` §Mistakes with the rule that should have caught
   them.
+
+## round 68 — 2026-11-08 (C1 freshness, C2 calibration)
+
+Claim BASE `d3b2a4e8eed710277951e430efd3d27b5983033c`; frozen predeclaration
+`23a8e0290d8d3a6f1de16eafce40fd1a189ef636` (`plans/round-68.md` + `claims.json`),
+Amendment A1 `4251519bd6e8b5c152d70ae286e04a117a49ed4f`. Wave `kagi-r68-w1`,
+15 seats, one v1 wave (run-15 band 8-16; attack 4/15 by the frozen attack list).
+
+- **C1 freshness (capability widening).** The census gate now reads every mined
+  row that names a lane-tree capture — a pure path OR a cell carrying exactly one
+  `.ufo/waves/` token — recomputes col 15's normalized digest for bound rendered
+  rows, and refuses four stray-byte classes the BASE gate reads CLEAN on
+  (`capture-whitespace`, `capture-token`, `normalized-digest-mismatch`,
+  `SC_FETCH cr-in-tsv`). S166's col-16 cell is re-cut to its pure path (round 67's
+  own sourced-claim row was prose, so nothing read it). Readings:
+  BASE `verified=36 col15=31`; recut-only tree `verified=37 col15=32`
+  (`.ufo/waves/round-68/final/l1-derivation-recut-only.txt`); final candidate
+  `verified=38 col15=33` with the round's own S167 row as the second +1
+  (Amendment A1.2, independently reproduced by R68ReviewerLayers).
+- **C2 calibration (record repair).** Ledger `R21-03`'s selftest pin migrated to
+  the measured count with a journaled old→new pair; `R68-01`/`R68-02` minted for
+  this round's claims; `claim-ledger.sh cells` stops SETUPing on the historical
+  `## Round 63 — planned` heading while still failing a scored section with a
+  missing axis (and dying on a score table hidden under an unscored heading).
+- **Sourced claim.** S167 = RFC 4648 §3.3 (non-alphabet characters): "Implementations
+  MUST reject the encoded data if it contains characters outside the base alphabet…",
+  opened live 2026-11-08, capture `.ufo/waves/round-68/capture/S167.body`
+  (35491 B, sha256 `84e14418…`), quote locate count=1 under rendered-text-v1.
+  Grounds C1's record-level refusal rule (the RFC's own note: adjacent CR/LF bytes
+  are non-alphabet characters).
+- **Registry touches (contract v1 rule 2, old→new).** S166 col 16 prose → pure
+  path; S167 row added (tier A, `mined`, `180d`); used-by gains this entry on
+  S099, S113, S115, S143. All pairs are in `corpus/lessons/round-68.md` §Gate.
+- **Gate readings at the candidate** (final): `SOURCES_CAPTURES: CLEAN
+  (path_rows=38 bound=38 located=38 prose=120)`; `SOURCES_CENSUS: CLEAN
+  (rows=158 …)`; `SOURCES_CENSUS_SELFTEST: PASS (98 cases)`; fleet wrapper `kagi ok`;
+  `C1_VERIFIED: verified=38 col15=33 caught=6/6 guard=1` (selftest
+  `C1_VERIFIED_SELFTEST: PASS (59 cases)`); `C2_RECORD_SELFTEST: PASS (7 cases)`;
+  `SELF_COUNTS: POLICY (claims=63 stale=0 …)`; `CLAIMS_DECLARED: CLEAN (claims=63)`;
+  `EXPECT_JOURNAL: CLEAN (changed=5 journaled=5)`; `bash corpus/claim-ledger.sh cells`
+  ⇒ `CELL_AUDIT: POLICY (cells=576 …)` exit 2 — a verdict where the BASE tree dies
+  with exit 2 on the historical planned heading — with its UNCITED/row-failure
+  counts routed, not smoothed.
+- **Mistakes mined** (eight, `corpus/lessons/round-68.md`): M68-1 frozen population
+  predates the round's own frontier row; M68-2 anchor rule vs the counter's
+  implemented rule; M68-3 the shared BASE control tree was mutated mid-round (S164
+  col 16 gained a trailing space; receipts now pin a TSV digest); M68-4 a gate
+  finding could be forged by a file name carrying a newline; M68-5 the S167 row
+  first cited the RFC's liberal branch to ground a strict rule (re-cut to the
+  default branch plus §12); M68-6 a plan named a "SETUP" verdict the ledger gate
+  never prints; M68-7 round 67's lesson never recorded the classes its closure
+  routed; M68-8 the C2 L3 leg and the landed cells parser disagreed on a suffix
+  shape. Plus one freeze-sequence gap: the col-15 BASE figure (31) was receipted
+  seven minutes after the freeze.

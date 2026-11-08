@@ -1,0 +1,90 @@
+=== 1. re-pointing S166's col 16 away from its capture ===
+Each mutation is applied to a copy of the CANDIDATE tree; the
+round-67 gate (LANE) and the reference widened gate are both run.
+
+repoint-to-corpus-path  -> col16 = 'corpus/knowledge/source-capture-binding.md'
+   LANE gate      rc=1  SOURCES_CAPTURES: FAILED (defects=2 path_rows=37 bound=36 located=36 prose=120)
+                  SOURCES_CENSUS: FAILED (findings=2 rows=157)
+   REF contains   rc=0  SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=121)
+                  SOURCES_CENSUS: CLEAN (findings=0 rows=0)
+   REF prefix     rc=0  SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=121)
+                  SOURCES_CENSUS: CLEAN (findings=0 rows=0)
+
+repoint-to-tilde-form  -> col16 = '~/S166.body'
+   LANE gate      rc=0  SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=121)
+                  SOURCES_CENSUS: CLEAN (rows=157 A=140 B=2 C=15 queued=3 mined=137 rejected=17 entries_sourced=27 legacy=21 captures=157 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+   REF contains   rc=0  SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=121)
+                  SOURCES_CENSUS: CLEAN (findings=0 rows=0)
+   REF prefix     rc=0  SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=121)
+                  SOURCES_CENSUS: CLEAN (findings=0 rows=0)
+
+repoint-to-double-slash  -> col16 = '//etc/passwd'
+   LANE gate      rc=0  SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=121)
+                  SOURCES_CENSUS: CLEAN (rows=157 A=140 B=2 C=15 queued=3 mined=137 rejected=17 entries_sourced=27 legacy=21 captures=157 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+   REF contains   rc=0  SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=121)
+                  SOURCES_CENSUS: CLEAN (findings=0 rows=0)
+   REF prefix     rc=0  SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=121)
+                  SOURCES_CENSUS: CLEAN (findings=0 rows=0)
+
+repoint-to-dot-slash  -> col16 = './.ufo/waves/round-67/capture/S166.body'
+   LANE gate      rc=0  SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=120)
+                  SOURCES_CENSUS: CLEAN (rows=157 A=140 B=2 C=15 queued=3 mined=137 rejected=17 entries_sourced=27 legacy=21 captures=157 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+   REF contains   rc=0  SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=120)
+                  SOURCES_CENSUS: CLEAN (findings=0 rows=0)
+   REF prefix     rc=0  SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=121)
+                  SOURCES_CENSUS: CLEAN (findings=0 rows=0)
+
+repoint-to-double-slash-inside  -> col16 = '.ufo//waves/round-67/capture/S166.body'
+   LANE gate      rc=0  SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=120)
+                  SOURCES_CENSUS: CLEAN (rows=157 A=140 B=2 C=15 queued=3 mined=137 rejected=17 entries_sourced=27 legacy=21 captures=157 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+   REF contains   rc=0  SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=121)
+                  SOURCES_CENSUS: CLEAN (findings=0 rows=0)
+   REF prefix     rc=0  SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=121)
+                  SOURCES_CENSUS: CLEAN (findings=0 rows=0)
+
+repoint-to-dotdot-inside  -> col16 = '.ufo/waves/round-67/capture/../capture/S166.body'
+   LANE gate      rc=0  SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=120)
+                  SOURCES_CENSUS: CLEAN (rows=157 A=140 B=2 C=15 queued=3 mined=137 rejected=17 entries_sourced=27 legacy=21 captures=157 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+   REF contains   rc=0  SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=120)
+                  SOURCES_CENSUS: CLEAN (findings=0 rows=0)
+   REF prefix     rc=0  SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=120)
+                  SOURCES_CENSUS: CLEAN (findings=0 rows=0)
+
+repoint-to-sibling-waves-body  -> col16 = '.ufo/waves/round-63/capture/S135.body'
+   LANE gate      rc=1  SOURCES_CAPTURES: FAILED (defects=2 path_rows=37 bound=36 located=36 prose=120)
+                  SOURCES_CENSUS: FAILED (findings=2 rows=157)
+   REF contains   rc=1  SOURCES_CAPTURES: FAILED (defects=2 path_rows=37 bound=36 located=36 prose=120)
+                  SOURCES_CENSUS: FAILED (findings=2 rows=0)
+   REF prefix     rc=1  SOURCES_CAPTURES: FAILED (defects=2 path_rows=37 bound=36 located=36 prose=120)
+                  SOURCES_CENSUS: FAILED (findings=2 rows=0)
+
+=== 2. the gate's population vs the counter's `verified` ===
+gate population (frozen classification rule) = rows whose cell
+  names a .ufo/waves/ whitespace-delimited token
+counter `verified` (plan C1) = rows whose col 16 IS a repo-relative
+  capture path OR contains a .ufo/waves/ token, that bind
+
+gate population rows     : 37
+counter `verified` rows  : 37
+in the counter's population but NOT the gate's: []
+(empty on this tree: every path-shaped row is a .ufo/waves/ row,
+ so the two agree HERE -- but they are different rules and they
+ diverge the moment a row's col 16 is path-shaped and not a
+ .ufo/waves/ path.)
+
+=== 3. the plan's own reason set forces the CONTAINS reading ===
+plans/round-68.md reason set: `capture-token` (a non-pure cell
+naming a .ufo/waves/ file: a mixed-prose cell, a `~/` or `//` form,
+or a token that does not resolve in-lane).
+
+  '~/.ufo/waves/round-67/capture/S166.body'      contains=True  prefix=False
+  '//etc/passwd'                                 contains=False prefix=False
+  '~/S166.body'                                  contains=False prefix=False
+  './.ufo/waves/round-67/capture/S166.body'      contains=True  prefix=False
+  '.ufo//waves/round-67/capture/S166.body'       contains=False prefix=False
+
+A `~/`-form and a `//`-form that name a .ufo/waves/ file are
+named by the plan's `capture-token` reason, so the gate MUST use
+the CONTAINS reading (a token CONTAINING .ufo/waves/), not a
+prefix test.  Under a prefix reading the `~/` and `//` forms are
+prose and never read -- the fail-open the widened gate must not have.

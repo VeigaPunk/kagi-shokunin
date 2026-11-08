@@ -1,0 +1,27 @@
+leg M1: rc=1 caught=1 expect=capture-whitespace
+  captures: SOURCES_CAPTURES: FAILED (defects=1 path_rows=38 bound=37 located=37 prose=120)
+  census: SOURCES_CENSUS: FAILED (findings=1 rows=158)
+   FINDING SC_CAPTURE id=S167 capture-whitespace
+leg M2: rc=1 caught=1 expect=capture-whitespace
+  captures: SOURCES_CAPTURES: FAILED (defects=1 path_rows=38 bound=37 located=37 prose=120)
+  census: SOURCES_CENSUS: FAILED (findings=1 rows=158)
+   FINDING SC_CAPTURE id=S167 capture-whitespace
+leg M3: rc=1 caught=1 expect=cr-in-tsv
+  captures: SOURCES_CAPTURES: FAILED (defects=38 path_rows=38 bound=0 located=0 prose=120)
+  census: SOURCES_CENSUS: FAILED (findings=39 rows=158)
+   FINDING SC_FETCH cr-in-tsv
+   FINDING SC_CAPTURE id=S167 capture-whitespace
+leg M4: rc=1 caught=1 expect=capture-digest-mismatch
+  captures: SOURCES_CAPTURES: FAILED (defects=1 path_rows=38 bound=37 located=37 prose=120)
+  census: SOURCES_CENSUS: FAILED (findings=1 rows=158)
+   FINDING SC_CAPTURE id=S167 capture-digest-mismatch
+leg M5: rc=1 caught=1 expect=normalized-digest-mismatch
+  captures: SOURCES_CAPTURES: FAILED (defects=1 path_rows=38 bound=38 located=38 prose=120)
+  census: SOURCES_CENSUS: FAILED (findings=1 rows=158)
+   FINDING SC_CAPTURE id=S167 normalized-digest-mismatch
+leg M6: rc=1 caught=1 expect=capture-bytes-mismatch
+  captures: SOURCES_CAPTURES: FAILED (defects=2 path_rows=38 bound=37 located=37 prose=120)
+  census: SOURCES_CENSUS: FAILED (findings=2 rows=158)
+   FINDING SC_CAPTURE id=S167 capture-bytes-mismatch
+   FINDING SC_CAPTURE id=S167 capture-digest-mismatch
+LEGS S167: caught=6/6

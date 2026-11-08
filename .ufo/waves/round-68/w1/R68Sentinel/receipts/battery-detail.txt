@@ -1,0 +1,531 @@
+=== control-unmodified ===
+construction: unmodified
+--- LANE gate (rc=0) ---
+SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=120)
+SOURCES_CENSUS: CLEAN (rows=157 A=140 B=2 C=15 queued=3 mined=137 rejected=17 entries_sourced=27 legacy=21 captures=157 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+
+--- REF contains (rc=0) ---
+SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=120)
+SOURCES_CENSUS: CLEAN (findings=0 rows=0)
+
+--- REF prefix (rc=0) ---
+SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=120)
+SOURCES_CENSUS: CLEAN (findings=0 rows=0)
+
+
+=== symlink-chain-out-of-tree ===
+construction: S166.body -> hop2 -> hop -> <scratch>/outside/S166.body (same bytes)
+--- LANE gate (rc=1) ---
+FINDING SC_CAPTURE id=S166 capture-outside-root
+SOURCES_CAPTURES: FAILED (defects=1 path_rows=37 bound=36 located=36 prose=120)
+SOURCES_CENSUS: FAILED (findings=1 rows=157)
+
+--- REF contains (rc=1) ---
+FINDING SC_CAPTURE id=S166 capture-outside-root
+SOURCES_CAPTURES: FAILED (defects=1 path_rows=37 bound=36 located=36 prose=120)
+SOURCES_CENSUS: FAILED (findings=1 rows=0)
+
+--- REF prefix (rc=1) ---
+FINDING SC_CAPTURE id=S166 capture-outside-root
+SOURCES_CAPTURES: FAILED (defects=1 path_rows=37 bound=36 located=36 prose=120)
+SOURCES_CENSUS: FAILED (findings=1 rows=0)
+
+
+=== hardlink-out-of-tree ===
+construction: S166-hard.body hardlinked to <scratch>/outside/S166-hard.body (nlink=2)
+--- LANE gate (rc=0) ---
+SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=120)
+SOURCES_CENSUS: CLEAN (rows=157 A=140 B=2 C=15 queued=3 mined=137 rejected=17 entries_sourced=27 legacy=21 captures=157 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+
+--- REF contains (rc=0) ---
+SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=120)
+SOURCES_CENSUS: CLEAN (findings=0 rows=0)
+
+--- REF prefix (rc=0) ---
+SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=120)
+SOURCES_CENSUS: CLEAN (findings=0 rows=0)
+
+
+=== directory-named-like-capture ===
+construction: S166.body replaced by a DIRECTORY
+--- LANE gate (rc=1) ---
+FINDING SC_CAPTURE id=S166 capture-missing
+SOURCES_CAPTURES: FAILED (defects=1 path_rows=37 bound=36 located=36 prose=120)
+SOURCES_CENSUS: FAILED (findings=1 rows=157)
+
+--- REF contains (rc=1) ---
+FINDING SC_CAPTURE id=S166 capture-missing
+SOURCES_CAPTURES: FAILED (defects=1 path_rows=37 bound=36 located=36 prose=120)
+SOURCES_CENSUS: FAILED (findings=1 rows=0)
+
+--- REF prefix (rc=1) ---
+FINDING SC_CAPTURE id=S166 capture-missing
+SOURCES_CAPTURES: FAILED (defects=1 path_rows=37 bound=36 located=36 prose=120)
+SOURCES_CENSUS: FAILED (findings=1 rows=0)
+
+
+=== trailing-nul-byte-in-col16 ===
+construction: col16 = path + 0x00
+--- LANE gate (rc=0) ---
+SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=120)
+SOURCES_CENSUS: CLEAN (rows=157 A=140 B=2 C=15 queued=3 mined=137 rejected=17 entries_sourced=27 legacy=21 captures=157 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+
+--- REF contains (rc=1) ---
+
+--- REF prefix (rc=1) ---
+
+
+=== token-realpath-escapes ===
+construction: col16 = .ufo/waves/round-67/capture/S166-esc.body -> <scratch>/outside
+--- LANE gate (rc=1) ---
+FINDING SC_CAPTURE id=S166 capture-outside-root
+SOURCES_CAPTURES: FAILED (defects=1 path_rows=37 bound=36 located=36 prose=120)
+SOURCES_CENSUS: FAILED (findings=1 rows=157)
+
+--- REF contains (rc=1) ---
+FINDING SC_CAPTURE id=S166 capture-outside-root
+SOURCES_CAPTURES: FAILED (defects=1 path_rows=37 bound=36 located=36 prose=120)
+SOURCES_CENSUS: FAILED (findings=1 rows=0)
+
+--- REF prefix (rc=1) ---
+FINDING SC_CAPTURE id=S166 capture-outside-root
+SOURCES_CAPTURES: FAILED (defects=1 path_rows=37 bound=36 located=36 prose=120)
+SOURCES_CENSUS: FAILED (findings=1 rows=0)
+
+
+=== tsv-nul-byte ===
+construction: NUL appended to the S166 row
+--- LANE gate (rc=0) ---
+SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=120)
+SOURCES_CENSUS: CLEAN (rows=157 A=140 B=2 C=15 queued=3 mined=137 rejected=17 entries_sourced=27 legacy=21 captures=157 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+
+--- REF contains (rc=1) ---
+
+--- REF prefix (rc=1) ---
+
+
+=== tsv-cr-in-quote-only ===
+construction: CR inside col 13 only
+--- LANE gate (rc=0) ---
+SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=120)
+SOURCES_CENSUS: CLEAN (rows=157 A=140 B=2 C=15 queued=3 mined=137 rejected=17 entries_sourced=27 legacy=21 captures=157 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+
+--- REF contains (rc=1) ---
+FINDING SC_FETCH cr-in-tsv
+SOURCES_CAPTURES: FAILED (defects=1 path_rows=37 bound=37 located=37 prose=120)
+SOURCES_CENSUS: FAILED (findings=1 rows=0)
+
+--- REF prefix (rc=1) ---
+FINDING SC_FETCH cr-in-tsv
+SOURCES_CAPTURES: FAILED (defects=1 path_rows=37 bound=37 located=37 prose=120)
+SOURCES_CENSUS: FAILED (findings=1 rows=0)
+
+
+=== col15-dash-under-rendered-text-v1 ===
+construction: col15 = '-' with col14 = rendered-text-v1
+--- LANE gate (rc=1) ---
+FINDING SC_FETCH id=S166 normalized-digest
+SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=120)
+SOURCES_CENSUS: FAILED (findings=1 rows=157)
+
+--- REF contains (rc=1) ---
+FINDING SC_CAPTURE id=S166 normalized-digest-mismatch
+SOURCES_CAPTURES: FAILED (defects=1 path_rows=37 bound=37 located=37 prose=120)
+SOURCES_CENSUS: FAILED (findings=1 rows=0)
+
+--- REF prefix (rc=1) ---
+FINDING SC_CAPTURE id=S166 normalized-digest-mismatch
+SOURCES_CAPTURES: FAILED (defects=1 path_rows=37 bound=37 located=37 prose=120)
+SOURCES_CENSUS: FAILED (findings=1 rows=0)
+
+
+=== id-cell-emptied ===
+construction: col1 (id) emptied
+--- LANE gate (rc=1) ---
+FINDING SC_FETCH id=mined not-a-registry-row
+FINDING SC_FETCH id=S166 missing-provenance
+SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=121)
+SOURCES_CENSUS: FAILED (findings=2 rows=157)
+
+--- REF contains (rc=0) ---
+SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=120)
+SOURCES_CENSUS: CLEAN (findings=0 rows=0)
+
+--- REF prefix (rc=0) ---
+SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=120)
+SOURCES_CENSUS: CLEAN (findings=0 rows=0)
+
+
+=== id-cell-shifted ===
+construction: an extra tab before the id cell (17 fields)
+--- LANE gate (rc=1) ---
+FINDING SC_FETCH line=200 nf=17
+FINDING SC_FETCH id=S166 missing-provenance
+SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=120)
+SOURCES_CENSUS: FAILED (findings=2 rows=157)
+
+--- REF contains (rc=0) ---
+SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=120)
+SOURCES_CENSUS: CLEAN (findings=0 rows=0)
+
+--- REF prefix (rc=0) ---
+SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=120)
+SOURCES_CENSUS: CLEAN (findings=0 rows=0)
+
+
+=== duplicate-row ===
+construction: S166 row duplicated
+--- LANE gate (rc=1) ---
+FINDING SC_FETCH id=S166 duplicate-provenance
+SOURCES_CAPTURES: CLEAN (path_rows=38 bound=38 located=38 prose=120)
+SOURCES_CENSUS: FAILED (findings=1 rows=157)
+
+--- REF contains (rc=0) ---
+SOURCES_CAPTURES: CLEAN (path_rows=38 bound=38 located=38 prose=120)
+SOURCES_CENSUS: CLEAN (findings=0 rows=0)
+
+--- REF prefix (rc=0) ---
+SOURCES_CAPTURES: CLEAN (path_rows=38 bound=38 located=38 prose=120)
+SOURCES_CENSUS: CLEAN (findings=0 rows=0)
+
+
+=== m1-col16-trailing-space ===
+construction: col16 = path + 0x20
+--- LANE gate (rc=0) ---
+SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=121)
+SOURCES_CENSUS: CLEAN (rows=157 A=140 B=2 C=15 queued=3 mined=137 rejected=17 entries_sourced=27 legacy=21 captures=157 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+
+--- REF contains (rc=1) ---
+FINDING SC_CAPTURE id=S166 capture-whitespace
+SOURCES_CAPTURES: FAILED (defects=1 path_rows=36 bound=36 located=36 prose=120)
+SOURCES_CENSUS: FAILED (findings=1 rows=0)
+
+--- REF prefix (rc=1) ---
+FINDING SC_CAPTURE id=S166 capture-whitespace
+SOURCES_CAPTURES: FAILED (defects=1 path_rows=36 bound=36 located=36 prose=120)
+SOURCES_CENSUS: FAILED (findings=1 rows=0)
+
+
+=== m2-col16-comma-joined ===
+construction: col16 = path + ',' + path
+--- LANE gate (rc=0) ---
+SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=121)
+SOURCES_CENSUS: CLEAN (rows=157 A=140 B=2 C=15 queued=3 mined=137 rejected=17 entries_sourced=27 legacy=21 captures=157 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+
+--- REF contains (rc=1) ---
+FINDING SC_CAPTURE id=S166 capture-missing
+SOURCES_CAPTURES: FAILED (defects=1 path_rows=37 bound=36 located=36 prose=120)
+SOURCES_CENSUS: FAILED (findings=1 rows=0)
+
+--- REF prefix (rc=1) ---
+FINDING SC_CAPTURE id=S166 capture-missing
+SOURCES_CAPTURES: FAILED (defects=1 path_rows=37 bound=36 located=36 prose=120)
+SOURCES_CENSUS: FAILED (findings=1 rows=0)
+
+
+=== m3-whole-tsv-crlf ===
+construction: whole TSV saved LF->CRLF
+--- LANE gate (rc=0) ---
+SOURCES_CAPTURES: CLEAN (path_rows=0 bound=0 located=0 prose=157)
+SOURCES_CENSUS: CLEAN (rows=157 A=140 B=2 C=15 queued=3 mined=137 rejected=17 entries_sourced=27 legacy=21 captures=157 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+
+--- REF contains (rc=1) ---
+FINDING SC_FETCH cr-in-tsv
+FINDING SC_CAPTURE id=S100 capture-whitespace
+FINDING SC_CAPTURE id=S101 capture-whitespace
+FINDING SC_CAPTURE id=S102 capture-whitespace
+FINDING SC_CAPTURE id=S113 capture-whitespace
+FINDING SC_CAPTURE id=S114 capture-whitespace
+FINDING SC_CAPTURE id=S115 capture-whitespace
+FINDING SC_CAPTURE id=S116 capture-whitespace
+FINDING SC_CAPTURE id=S117 capture-whitespace
+FINDING SC_CAPTURE id=S118 capture-whitespace
+FINDING SC_CAPTURE id=S119 capture-whitespace
+FINDING SC_CAPTURE id=S120 capture-whitespace
+FINDING SC_CAPTURE id=S121 capture-whitespace
+FINDING SC_CAPTURE id=S122 capture-whitespace
+FINDING SC_CAPTURE id=S123 capture-whitespace
+FINDING SC_CAPTURE id=S124 capture-whitespace
+FINDING SC_CAPTURE id=S125 capture-whitespace
+FINDING SC_CAPTURE id=S126 capture-whitespace
+FINDING SC_CAPTURE id=S127 capture-whitespace
+FINDING SC_CAPTURE id=S128 capture-whitespace
+FINDING SC_CAPTURE id=S129 capture-whitespace
+FINDING SC_CAPTURE id=S130 capture-whitespace
+FINDING SC_CAPTURE id=S131 capture-whitespace
+FINDING SC_CAPTURE id=S132 capture-whitespace
+FINDING SC_CAPTURE id=S133 capture-whitespace
+FINDING SC_CAPTURE id=S134 capture-whitespace
+FINDING SC_CAPTURE id=S135 capture-whitespace
+FINDING SC_CAPTURE id=S137 capture-whitespace
+FINDING SC_CAPTURE id=S138 capture-whitespace
+FINDING SC_CAPTURE id=S140 capture-whitespace
+FINDING SC_CAPTURE id=S141 capture-whitespace
+FINDING SC_CAPTURE id=S142 capture-whitespace
+FINDING SC_CAPTURE id=S143 capture-whitespace
+FINDING SC_CAPTURE id=S144 capture-whitespace
+FINDING SC_CAPTURE id=S164 capture-whitespace
+FINDING SC_CAPTURE id=S155 capture-whitespace
+FINDING SC_CAPTURE id=S156 capture-whitespace
+FINDING SC_CAPTURE id=S166 capture-whitespace
+SOURCES_CAPTURES: FAILED (defects=38 path_rows=0 bound=0 located=0 prose=120)
+SOURCES_CENSUS: FAILED (findings=38 rows=0)
+
+--- REF prefix (rc=1) ---
+FINDING SC_FETCH cr-in-tsv
+FINDING SC_CAPTURE id=S100 capture-whitespace
+FINDING SC_CAPTURE id=S101 capture-whitespace
+FINDING SC_CAPTURE id=S102 capture-whitespace
+FINDING SC_CAPTURE id=S113 capture-whitespace
+FINDING SC_CAPTURE id=S114 capture-whitespace
+FINDING SC_CAPTURE id=S115 capture-whitespace
+FINDING SC_CAPTURE id=S116 capture-whitespace
+FINDING SC_CAPTURE id=S117 capture-whitespace
+FINDING SC_CAPTURE id=S118 capture-whitespace
+FINDING SC_CAPTURE id=S119 capture-whitespace
+FINDING SC_CAPTURE id=S120 capture-whitespace
+FINDING SC_CAPTURE id=S121 capture-whitespace
+FINDING SC_CAPTURE id=S122 capture-whitespace
+FINDING SC_CAPTURE id=S123 capture-whitespace
+FINDING SC_CAPTURE id=S124 capture-whitespace
+FINDING SC_CAPTURE id=S125 capture-whitespace
+FINDING SC_CAPTURE id=S126 capture-whitespace
+FINDING SC_CAPTURE id=S127 capture-whitespace
+FINDING SC_CAPTURE id=S128 capture-whitespace
+FINDING SC_CAPTURE id=S129 capture-whitespace
+FINDING SC_CAPTURE id=S130 capture-whitespace
+FINDING SC_CAPTURE id=S131 capture-whitespace
+FINDING SC_CAPTURE id=S132 capture-whitespace
+FINDING SC_CAPTURE id=S133 capture-whitespace
+FINDING SC_CAPTURE id=S134 capture-whitespace
+FINDING SC_CAPTURE id=S135 capture-whitespace
+FINDING SC_CAPTURE id=S137 capture-whitespace
+FINDING SC_CAPTURE id=S138 capture-whitespace
+FINDING SC_CAPTURE id=S140 capture-whitespace
+FINDING SC_CAPTURE id=S141 capture-whitespace
+FINDING SC_CAPTURE id=S142 capture-whitespace
+FINDING SC_CAPTURE id=S143 capture-whitespace
+FINDING SC_CAPTURE id=S144 capture-whitespace
+FINDING SC_CAPTURE id=S164 capture-whitespace
+FINDING SC_CAPTURE id=S155 capture-whitespace
+FINDING SC_CAPTURE id=S156 capture-whitespace
+FINDING SC_CAPTURE id=S166 capture-whitespace
+SOURCES_CAPTURES: FAILED (defects=38 path_rows=0 bound=0 located=0 prose=120)
+SOURCES_CENSUS: FAILED (findings=38 rows=0)
+
+
+=== m4-col10-hex-digit ===
+construction: col10 first hex digit replaced
+--- LANE gate (rc=1) ---
+FINDING SC_CAPTURE id=S166 capture-digest-mismatch
+SOURCES_CAPTURES: FAILED (defects=1 path_rows=37 bound=36 located=36 prose=120)
+SOURCES_CENSUS: FAILED (findings=1 rows=157)
+
+--- REF contains (rc=1) ---
+FINDING SC_CAPTURE id=S166 capture-digest-mismatch
+SOURCES_CAPTURES: FAILED (defects=1 path_rows=37 bound=36 located=36 prose=120)
+SOURCES_CENSUS: FAILED (findings=1 rows=0)
+
+--- REF prefix (rc=1) ---
+FINDING SC_CAPTURE id=S166 capture-digest-mismatch
+SOURCES_CAPTURES: FAILED (defects=1 path_rows=37 bound=36 located=36 prose=120)
+SOURCES_CENSUS: FAILED (findings=1 rows=0)
+
+
+=== m5-col15-borrowed ===
+construction: col15 replaced with aaaa...aaaa
+--- LANE gate (rc=0) ---
+SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=120)
+SOURCES_CENSUS: CLEAN (rows=157 A=140 B=2 C=15 queued=3 mined=137 rejected=17 entries_sourced=27 legacy=21 captures=157 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+
+--- REF contains (rc=1) ---
+FINDING SC_CAPTURE id=S166 normalized-digest-mismatch
+SOURCES_CAPTURES: FAILED (defects=1 path_rows=37 bound=37 located=37 prose=120)
+SOURCES_CENSUS: FAILED (findings=1 rows=0)
+
+--- REF prefix (rc=1) ---
+FINDING SC_CAPTURE id=S166 normalized-digest-mismatch
+SOURCES_CAPTURES: FAILED (defects=1 path_rows=37 bound=37 located=37 prose=120)
+SOURCES_CENSUS: FAILED (findings=1 rows=0)
+
+
+=== m6-body-extra-byte ===
+construction: S166.body + 1 byte
+--- LANE gate (rc=1) ---
+FINDING SC_CAPTURE id=S166 capture-bytes-mismatch
+FINDING SC_CAPTURE id=S166 capture-digest-mismatch
+SOURCES_CAPTURES: FAILED (defects=2 path_rows=37 bound=36 located=36 prose=120)
+SOURCES_CENSUS: FAILED (findings=2 rows=157)
+
+--- REF contains (rc=1) ---
+FINDING SC_CAPTURE id=S166 capture-bytes-mismatch
+FINDING SC_CAPTURE id=S166 capture-digest-mismatch
+SOURCES_CAPTURES: FAILED (defects=2 path_rows=37 bound=36 located=36 prose=120)
+SOURCES_CENSUS: FAILED (findings=2 rows=0)
+
+--- REF prefix (rc=1) ---
+FINDING SC_CAPTURE id=S166 capture-bytes-mismatch
+FINDING SC_CAPTURE id=S166 capture-digest-mismatch
+SOURCES_CAPTURES: FAILED (defects=2 path_rows=37 bound=36 located=36 prose=120)
+SOURCES_CENSUS: FAILED (findings=2 rows=0)
+
+
+=== normalizer-stub ===
+construction: corpus/rendered-text-v1.py replaced by a truthy stub
+--- LANE gate (rc=0) ---
+SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=120)
+SOURCES_CENSUS: CLEAN (rows=157 A=140 B=2 C=15 queued=3 mined=137 rejected=17 entries_sourced=27 legacy=21 captures=157 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+
+--- REF contains (rc=1) ---
+FINDING SC_CAPTURE id=S115 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S116 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S117 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S118 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S119 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S120 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S121 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S122 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S123 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S124 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S125 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S126 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S127 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S128 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S129 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S130 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S131 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S132 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S133 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S134 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S135 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S137 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S138 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S140 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S141 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S142 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S143 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S144 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S164 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S155 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S156 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S166 normalized-digest-mismatch
+SOURCES_CAPTURES: FAILED (defects=32 path_rows=37 bound=37 located=37 prose=120)
+SOURCES_CENSUS: FAILED (findings=32 rows=0)
+
+--- REF prefix (rc=1) ---
+FINDING SC_CAPTURE id=S115 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S116 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S117 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S118 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S119 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S120 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S121 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S122 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S123 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S124 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S125 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S126 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S127 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S128 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S129 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S130 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S131 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S132 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S133 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S134 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S135 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S137 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S138 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S140 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S141 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S142 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S143 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S144 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S164 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S155 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S156 normalized-digest-mismatch
+FINDING SC_CAPTURE id=S166 normalized-digest-mismatch
+SOURCES_CAPTURES: FAILED (defects=32 path_rows=37 bound=37 located=37 prose=120)
+SOURCES_CENSUS: FAILED (findings=32 rows=0)
+
+
+=== col16-mixed-prose-names-path ===
+construction: col16 = mixed prose naming the .ufo/waves/ path
+--- LANE gate (rc=0) ---
+SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=121)
+SOURCES_CENSUS: CLEAN (rows=157 A=140 B=2 C=15 queued=3 mined=137 rejected=17 entries_sourced=27 legacy=21 captures=157 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+
+--- REF contains (rc=1) ---
+FINDING SC_CAPTURE id=S166 capture-token
+SOURCES_CAPTURES: FAILED (defects=1 path_rows=36 bound=36 located=36 prose=120)
+SOURCES_CENSUS: FAILED (findings=1 rows=0)
+
+--- REF prefix (rc=1) ---
+FINDING SC_CAPTURE id=S166 capture-token
+SOURCES_CAPTURES: FAILED (defects=1 path_rows=36 bound=36 located=36 prose=120)
+SOURCES_CENSUS: FAILED (findings=1 rows=0)
+
+
+=== col16-tilde-form ===
+construction: col16 = ~/<path>
+--- LANE gate (rc=0) ---
+SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=121)
+SOURCES_CENSUS: CLEAN (rows=157 A=140 B=2 C=15 queued=3 mined=137 rejected=17 entries_sourced=27 legacy=21 captures=157 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+
+--- REF contains (rc=1) ---
+FINDING SC_CAPTURE id=S166 capture-missing
+SOURCES_CAPTURES: FAILED (defects=1 path_rows=37 bound=36 located=36 prose=120)
+SOURCES_CENSUS: FAILED (findings=1 rows=0)
+
+--- REF prefix (rc=0) ---
+SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=121)
+SOURCES_CENSUS: CLEAN (findings=0 rows=0)
+
+
+=== col16-double-slash-form ===
+construction: col16 = //<path>
+--- LANE gate (rc=0) ---
+SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=121)
+SOURCES_CENSUS: CLEAN (rows=157 A=140 B=2 C=15 queued=3 mined=137 rejected=17 entries_sourced=27 legacy=21 captures=157 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+
+--- REF contains (rc=1) ---
+FINDING SC_CAPTURE id=S166 capture-outside-root
+SOURCES_CAPTURES: FAILED (defects=1 path_rows=37 bound=36 located=36 prose=120)
+SOURCES_CENSUS: FAILED (findings=1 rows=0)
+
+--- REF prefix (rc=0) ---
+SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=121)
+SOURCES_CENSUS: CLEAN (findings=0 rows=0)
+
+
+=== col16-prose-no-waves-token ===
+construction: col16 = 'Introduction' (no .ufo/waves/ token)
+--- LANE gate (rc=0) ---
+SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=121)
+SOURCES_CENSUS: CLEAN (rows=157 A=140 B=2 C=15 queued=3 mined=137 rejected=17 entries_sourced=27 legacy=21 captures=157 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+
+--- REF contains (rc=0) ---
+SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=121)
+SOURCES_CENSUS: CLEAN (findings=0 rows=0)
+
+--- REF prefix (rc=0) ---
+SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=121)
+SOURCES_CENSUS: CLEAN (findings=0 rows=0)
+
+
+=== col16-dotdot-prefix ===
+construction: col16 = ../<path>
+--- LANE gate (rc=1) ---
+FINDING SC_CAPTURE id=S166 capture-outside-root
+SOURCES_CAPTURES: FAILED (defects=1 path_rows=37 bound=36 located=36 prose=120)
+SOURCES_CENSUS: FAILED (findings=1 rows=157)
+
+--- REF contains (rc=1) ---
+FINDING SC_CAPTURE id=S166 capture-outside-root
+SOURCES_CAPTURES: FAILED (defects=1 path_rows=37 bound=36 located=36 prose=120)
+SOURCES_CENSUS: FAILED (findings=1 rows=0)
+
+--- REF prefix (rc=0) ---
+SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=121)
+SOURCES_CENSUS: CLEAN (findings=0 rows=0)
+

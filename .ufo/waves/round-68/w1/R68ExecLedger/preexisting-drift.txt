@@ -1,0 +1,46 @@
+pre-existing drifted expectations measured 2026-11-08 on the round-68 candidate tree
+(not migrated this round: their final value is moved by work landing later — L1 ruling)
+
+R21-02 exit=0 want=0
+  expect  : ^SOURCES_CENSUS: CLEAN \(rows=114 A=110 B=2 C=2 queued=1 mined=109 rejected=4 entries_sourced=16 legacy=21 captures=114 inrow=16 inrow_only=0 inrow_nonreproduci
+  measured: SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproduci
+
+R31-02 exit=0 want=0
+  expect  : ^SOURCES_CENSUS: CLEAN \(rows=114 A=110 B=2 C=2 queued=1 mined=109 rejected=4 entries_sourced=16 legacy=21 captures=114 inrow=16 inrow_only=0 inrow_nonreproduci
+  measured: SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproduci
+
+R33-02 exit=0 want=0
+  expect  : ^SOURCES_CENSUS: CLEAN \(rows=114 A=110 B=2 C=2 queued=1 mined=109 rejected=4 entries_sourced=16 legacy=21 captures=114 inrow=16 inrow_only=0 inrow_nonreproduci
+  measured: SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproduci
+
+R34-03 exit=0 want=0
+  expect  : ^SOURCES_CENSUS: CLEAN \(rows=114 A=110 B=2 C=2 queued=1 mined=109 rejected=4 entries_sourced=16 legacy=21 captures=114 inrow=16 inrow_only=0 inrow_nonreproduci
+  measured: SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproduci
+
+R14-01 exit=0 want=0
+  expect  : ^DOC_AUDIT: CLEAN \(entries=38 row_linked=35 by_hand=3 undeclared=0 missing_ids=0 unpinned=0 duplicate_reasons=0\)$
+  measured: DOC_AUDIT: CLEAN (entries=48 row_linked=45 by_hand=3 undeclared=0 missing_ids=0 unpinned=0 duplicate_reasons=0)
+
+R12-03 exit=0 want=0
+  expect  : ^125$
+  measured: 164
+
+R24-05 exit=0 want=0
+  expect  : ^ROW_IDENTITY: stamps count=125 sha256=369e92e50409badaaba3efe8d09823238d865e56a606ea70ce2282226ca9387e$
+  measured: ROW_IDENTITY: stamps count=164 sha256=cefa14d3bc8c80fb329a9d2d71c4d164fa62fd1b804a20bbda48cb3cc4705ede
+
+R13-01 exit=0 want=0
+  expect  : ^73$
+  measured: 98
+
+R24-06 exit=0 want=0
+  expect  : ^ROW_IDENTITY: scorecard-rounds count=73 sha256=eea94d35e6c9223cedcd1e9106916174d3b0fb2ba3ae4ed648148a01acc02576$
+  measured: ROW_IDENTITY: scorecard-rounds count=98 sha256=82240326a76cdc0fa922dcc986faa422adf69cd939f5114c0d89744f4702d172
+
+R22-03 exit=1 want=0
+  expect  : ^REVISION_AUDIT: CLEAN \(stale=0 missing=0 dropped=0 added=62 invalid=0\)$
+  measured: REVISION_AUDIT: DRIFT (stale=5 missing=0 dropped=0 added=101 invalid=0)
+
+R24-15 exit=2 want=0
+  expect  : ^ROW_IDENTITY: revision-added count=62 sha256=7ac31c8c2a5aa3a095d3b46b9bd2b731cae4034e0796871d3aee22516c9bfff6$
+  measured: ROW_IDENTITY: SETUP (revision-audit --history failed)

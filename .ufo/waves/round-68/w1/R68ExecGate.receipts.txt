@@ -1,0 +1,8 @@
+=== selftest ===
+case capture-token-tilde: ok (exit 1, SC_CAPTURE)
+case capture-token-slashslash: ok (exit 1, SC_CAPTURE)
+case capture-normalized-mismatch: ok (exit 1, SC_CAPTURE)
+case fetch-cr-in-tsv: ok (exit 1, SC_FETCH)
+SOURCES_CENSUS_SELFTEST: PASS (98 cases)
+=== verify lane ===
+SOURCES_CAPTURES: CLEAN (path_rows=38 bound=38 located=38 prose=120)

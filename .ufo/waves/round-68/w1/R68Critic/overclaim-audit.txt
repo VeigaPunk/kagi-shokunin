@@ -1,0 +1,11 @@
+OVERCLAIM AUDIT (as of pre-candidate; surfaces not yet edited by executors)
+Plan sentences asserting a number:
+P-1 plans/round-68.md:38-39 "Lane gate selftest is 89 cases, but row R21-03 expects 88" — names command (gate --selftest reproduces 89; ledger row shows 88). OK.
+P-2 plans/round-68.md:153 L1 table row "expects ... 88 while the gate prints 89 (SOURCES_CENSUS_SELFTEST: PASS (89 cases))" — names the gate line. OK.
+P-3 plans/round-68.md:176 "claims.json mint (CLAIMS_DECLARED: CLEAN (claims=63) at candidate)" — names the command and the number; candidate value is 63 only after landing R68 rows; at freeze (BASE) the live run reads claims=61. Freeze-time mismatch would read as overclaim if quoted verbatim after landing without re-run. Flagged.
+P-4 entry source-capture-binding.md:39-45 "36 capture-path rows at BASE, every one bound, six mutation classes caught... BASE gate reads CLEAN on all six (receipt .ufo/waves/round-67/base/blind-gate.txt)" — cites a receipt, not the measuring command. A naive reader accepts it as evidence; receipt exists per revenger §2. Borderline: names receipt not command.
+P-5 entry :56-57 "120 rows name a section... 17 contain /" — no command. Naive reader reads as measured.
+P-6 entry :60 "the token a occurs 580 times in the audit-device body" — no command.
+P-7 entry :73 "reads count=0 raw and count=1 rendered" — no command besides the row text.
+P-8 entry :96-98 Reproduction block quotes verified counts as literals next to the commands (comment column, not stdout). A naive copy-paste grader cannot distinguish.
+Freeze: plan predates any candidate commit; git log BASE..master shows only 23a8e02. No post-reading change.

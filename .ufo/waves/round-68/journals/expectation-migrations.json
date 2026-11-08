@@ -1,0 +1,34 @@
+{
+ "migrations": [
+  {
+   "id": "R11-09",
+   "command": "bash corpus/claim-ledger.sh --selftest",
+   "old_expect": "^SELFTEST: PASS \\(170 cases\\)",
+   "new_expect": "^SELFTEST: PASS \\(175 cases\\)$"
+  },
+  {
+   "id": "R18-03",
+   "command": "bash corpus/claim-ledger.sh --selftest",
+   "old_expect": "^SELFTEST: PASS \\(170 cases\\)$",
+   "new_expect": "^SELFTEST: PASS \\(175 cases\\)$"
+  },
+  {
+   "id": "R21-03",
+   "command": "bash corpus/sources-census.sh --selftest",
+   "old_expect": "^SOURCES_CENSUS_SELFTEST: PASS \\(88 cases\\)$",
+   "new_expect": "^SOURCES_CENSUS_SELFTEST: PASS \\(98 cases\\)$"
+  },
+  {
+   "id": "R21-04",
+   "command": "grep -cE '^R[0-9]+-[0-9]+' corpus/claim-ledger.tsv",
+   "old_expect": "^87$",
+   "new_expect": "^101$"
+  },
+  {
+   "id": "R24-14",
+   "command": "bash corpus/row-identity.sh ledger-ids",
+   "old_expect": "^ROW_IDENTITY: ledger-ids count=86 sha256=3728b4c4b62b1e418a4a407ec10d8a9e118094fef48befd7c570c8b56c6fcce0$",
+   "new_expect": "^ROW_IDENTITY: ledger-ids count=101 sha256=13167dd77e5a06382b73d5ae618129925434f1fbb46c3ae34cbe557c17f8fb0d$"
+  }
+ ]
+}

@@ -1,0 +1,10 @@
+# R68ScoutSource receipts — the S167 citation in the lane knowledge entry
+$ grep -n 'S167' corpus/knowledge/source-capture-binding.md
+3:source: S166 (https://www.rfc-editor.org/rfc/rfc9530.txt, §1.2 Concept Overview, 2026-11-08); S164 (https://www.ncbi.nlm.nih.gov/research/bionlp/RESTful/pmcoa.cgi/BioC_xml/PMC2757457/unicode, §3.1.2, 2026-11-08); S167 (https://www.rfc-editor.org/rfc/rfc4648.txt, §3.3 Interpretation of Non-Alphabet Characters in Encoded Data, 2026-11-08)
+5:verified-at: 2026-11-08 (all three opened live today; captures `.ufo/waves/round-67/capture/S166.body`, 67152 B, `.ufo/waves/round-64/capture/S143.body` (the carrier body, 264946 B) and `.ufo/waves/round-68/capture/S167.body`, 35491 B; the S166 fetch receipt is `.ufo/waves/round-67/capture/S166.fetch.txt` - HTTP 200, 67152 B, refetch byte-identical)
+6:recheck: 180d — re-open S166, S164 and S167 and re-hash all three captures
+60:(recut to the pure path by this round) and S167 (this round's new row).
+77:This is the same discipline S167 grounds in the standards record (RFC 4648
+84:rule is the same rule over one field, and S167's capture is the committed
+141:| `capture-whitespace` | the anchor's column 16 with one trailing space (0x20) appended | `FINDING SC_CAPTURE id=S167 capture-whitespace` |
+142:| `capture-token` | the anchor's column 16 rewritten to a mixed-prose cell that still names a lane capture (`§1.2 Concept Overview; capture .ufo/waves/round-68/capture/S167.body`) | `FINDING SC_CAPTURE id=S167 capture-token` |

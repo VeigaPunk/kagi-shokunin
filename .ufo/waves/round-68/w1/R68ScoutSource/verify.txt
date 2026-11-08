@@ -1,0 +1,36 @@
+# R68ScoutSource receipts — S167 (RFC 4648) capture verification
+# all commands run from the lane root; lane = /home/vgpnk/Projects/shokunin/kagi-shokunin
+
+## 1. capture bytes
+$ sha256sum .ufo/waves/round-68/capture/S167.body
+84e14418f795d503be5f34bf23ce4ebaa119e9ec7c9f667d8caeb111385b178f  S167.body
+$ wc -c < .ufo/waves/round-68/capture/S167.body
+35491
+$ wc -l < .ufo/waves/round-68/capture/S167.body
+1011
+
+## 2. normalized digest (rendered-text-v1)
+$ python3 corpus/rendered-text-v1.py digest .ufo/waves/round-68/capture/S167.body
+RENDERED_TEXT_V1: raw_sha256=84e14418f795d503be5f34bf23ce4ebaa119e9ec7c9f667d8caeb111385b178f bytes=35491 normalized_sha256=30194c4ff628ee00171027b7d54800e1c17cfda692ced83290807eb148ef93a9 normalized_bytes=28542
+
+## 3. quote locate
+$ python3 corpus/rendered-text-v1.py locate .ufo/waves/round-68/capture/S167.body "$Q"
+RENDERED_TEXT_V1_LOCATE: count=1
+rc=0
+quote_words=18
+
+## 4. quote under raw-literal-v1 (control: NOT the declared normalization)
+raw_count= 0
+
+## 5. section and line numbers in the captured body
+$ grep -n '^3\.3\.' S167.body
+190:3.3.  Interpretation of Non-Alphabet Characters in Encoded Data
+$ grep -n 'Implementations MUST reject' S167.body
+200:   Implementations MUST reject the encoded data if it contains
+$ grep -n 'be liberal in what you' S167.body
+205:   simply be ignored when interpreting data ("be liberal in what you
+$ grep -n 'non-alphabet characters" and' S167.body
+207:   line feed (CRLF) characters constitute "non-alphabet characters" and
+$ grep -n 'buffer overflow attacks' S167.body
+198:   buffer overflow attacks.
+750:   not to introduce vulnerabilities to buffer overflow attacks, or other

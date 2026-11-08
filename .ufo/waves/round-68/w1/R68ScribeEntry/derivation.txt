@@ -1,0 +1,12 @@
+witness=R68ScribeEntry independent C1 population derivation on the candidate tree (2026-11-08)
+tree=/home/vgpnk/Projects/shokunin/kagi-shokunin (working tree, S166 recut + S167 row present)
+method=own python (row by row over corpus/source-fetches.tsv): shaped(col16) rows -> file exists+regular, raw sha256==col10, size==col11, col13 locates under col14 (rendered via the tree's corpus/rendered-text-v1.py, raw-literal by bytes); then for rendered-text-v1 rows, the recomputed normalized digest == col15
+--- output ---
+verified: 37
+rendered col15 match: 32
+non-rendered among verified: ['S100', 'S101', 'S102', 'S113', 'S114']  (col14=raw-literal-v1, col15='-')
+--- the gate's own line on the same tree ---
+SOURCES_CAPTURES: CLEAN (path_rows=38 bound=38 located=38 prose=120)
+SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+--- the classification one-liner quoted in the entry ---
+pure path:38 prose:120 defect: prose-with-slash:17

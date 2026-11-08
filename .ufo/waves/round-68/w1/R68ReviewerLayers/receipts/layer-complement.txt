@@ -1,0 +1,96 @@
+receipt for R68ReviewerLayers. tree = git archive d3b2a4e8eed710277951e430efd3d27b5983033c extracted at /fast/scratch/hyaku/kagi-r68/R68ReviewerLayers/tree
+corpus/sources-census.sh sha256=e7aacecdfcf06ed6303f5272cd0d3bd6a20d16fdbf0f064a4c68aae940e1d10f (round-67 landed gate; the round-68 widened gate
+was not in the lane at receipt time)
+corpus/rendered-text-v1.py sha256=14f6ca6ab742296f45a699548c31e6d49892f6baef36ed419c283d1a0511b8c9 (the committed normalizer, unchanged since round 41)
+------------------------------------------------------------------------
+anchor: S115 (first capture-path-shaped rendered-text-v1 row in file order that binds)
+body: .ufo/waves/round-57/capture/S115.body
+old raw_sha256=76339ff7dab618b5e5532bca6daf9dd8361330a43b737408304abfd1d79090c6
+old bytes=41787
+old col15=781463acbf1493a58c0f87ec981809f6f80bd63196e8006ff274c87593a7d147   recompute=781463acbf1493a58c0f87ec981809f6f80bd63196e8006ff274c87593a7d147  match=True
+
+Base gate on the unmodified tree:
+  rc=0
+  SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=121)
+  SOURCES_CENSUS: CLEAN (rows=157 A=140 B=2 C=15 queued=3 mined=137 rejected=17 entries_sourced=27 legacy=21 captures=157 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+
+expected candidate check (frozen interface 1): `normalized-digest-mismatch` =
+col 15 differs from rendered-text-v1.py digest of the bound file. Its only input is
+the recompute below, so it is simulated exactly here.
+
+== m1-trailing-spaces
+  new raw=1f7be87d652999b557f042e4a20c5cd06dd2640a4bde65bff7896ddbaf8fcb75  new bytes=41795
+  new normalized=781463acbf1493a58c0f87ec981809f6f80bd63196e8006ff274c87593a7d147  normalized_form_unchanged=True
+  LEG A (row untouched: col10/11/15 old) rc=1
+    FINDING SC_CAPTURE id=S115 capture-bytes-mismatch
+    FINDING SC_CAPTURE id=S115 capture-digest-mismatch
+    SOURCES_CAPTURES: FAILED (defects=2 path_rows=36 bound=35 located=35 prose=121)
+    SOURCES_CENSUS: FAILED (findings=2 rows=157)
+  LEG B (col10/11 -> new, col15 -> OLD) rc=0
+    SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=121)
+    SOURCES_CENSUS: CLEAN (rows=157 A=140 B=2 C=15 queued=3 mined=137 rejected=17 entries_sourced=27 legacy=21 captures=157 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+  candidate normalized-digest-mismatch would fire: False
+
+== m2-crlf-eol
+  new raw=f3dd58b0f2f11236e80fbd2526ec760ee4efad349d041934c192acca688a080c  new bytes=41938
+  new normalized=781463acbf1493a58c0f87ec981809f6f80bd63196e8006ff274c87593a7d147  normalized_form_unchanged=True
+  LEG A (row untouched: col10/11/15 old) rc=1
+    FINDING SC_CAPTURE id=S115 capture-bytes-mismatch
+    FINDING SC_CAPTURE id=S115 capture-digest-mismatch
+    SOURCES_CAPTURES: FAILED (defects=2 path_rows=36 bound=35 located=35 prose=121)
+    SOURCES_CENSUS: FAILED (findings=2 rows=157)
+  LEG B (col10/11 -> new, col15 -> OLD) rc=0
+    SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=121)
+    SOURCES_CENSUS: CLEAN (rows=157 A=140 B=2 C=15 queued=3 mined=137 rejected=17 entries_sourced=27 legacy=21 captures=157 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+  candidate normalized-digest-mismatch would fire: False
+
+== m3-space-runs
+  new raw=3288821758df99443abe214e0f1f32cd53a3e24b81aa7da135e2dcf927041a7a  new bytes=50550
+  new normalized=781463acbf1493a58c0f87ec981809f6f80bd63196e8006ff274c87593a7d147  normalized_form_unchanged=True
+  LEG A (row untouched: col10/11/15 old) rc=1
+    FINDING SC_CAPTURE id=S115 capture-bytes-mismatch
+    FINDING SC_CAPTURE id=S115 capture-digest-mismatch
+    SOURCES_CAPTURES: FAILED (defects=2 path_rows=36 bound=35 located=35 prose=121)
+    SOURCES_CENSUS: FAILED (findings=2 rows=157)
+  LEG B (col10/11 -> new, col15 -> OLD) rc=0
+    SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=121)
+    SOURCES_CENSUS: CLEAN (rows=157 A=140 B=2 C=15 queued=3 mined=137 rejected=17 entries_sourced=27 legacy=21 captures=157 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+  candidate normalized-digest-mismatch would fire: False
+
+== m4-tab-swap
+  new raw=74591281593f36cc7667ffd4ddc7ab2666625a01e2e4da25c065be7f3618aec2  new bytes=41787
+  new normalized=781463acbf1493a58c0f87ec981809f6f80bd63196e8006ff274c87593a7d147  normalized_form_unchanged=True
+  LEG A (row untouched: col10/11/15 old) rc=1
+    FINDING SC_CAPTURE id=S115 capture-digest-mismatch
+    SOURCES_CAPTURES: FAILED (defects=1 path_rows=36 bound=35 located=35 prose=121)
+    SOURCES_CENSUS: FAILED (findings=1 rows=157)
+  LEG B (col10/11 -> new, col15 -> OLD) rc=0
+    SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=121)
+    SOURCES_CENSUS: CLEAN (rows=157 A=140 B=2 C=15 queued=3 mined=137 rejected=17 entries_sourced=27 legacy=21 captures=157 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+  candidate normalized-digest-mismatch would fire: False
+
+== m7-html-comment-hide
+  new raw=becd0d1a0d432c6bba372ef273a50bae562c4ece4be628ee5e4b611c8946fd9b  new bytes=41821
+  new normalized=781463acbf1493a58c0f87ec981809f6f80bd63196e8006ff274c87593a7d147  normalized_form_unchanged=True
+  LEG A (row untouched: col10/11/15 old) rc=1
+    FINDING SC_CAPTURE id=S115 capture-bytes-mismatch
+    FINDING SC_CAPTURE id=S115 capture-digest-mismatch
+    SOURCES_CAPTURES: FAILED (defects=2 path_rows=36 bound=35 located=35 prose=121)
+    SOURCES_CENSUS: FAILED (findings=2 rows=157)
+  LEG B (col10/11 -> new, col15 -> OLD) rc=0
+    SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=121)
+    SOURCES_CENSUS: CLEAN (rows=157 A=140 B=2 C=15 queued=3 mined=137 rejected=17 entries_sourced=27 legacy=21 captures=157 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+  candidate normalized-digest-mismatch would fire: False
+
+== m6-word-added
+  new raw=a0edb34e8e532ea5552217c449dca8c299df2e1a10f5aac09d2a126b5b778983  new bytes=41812
+  new normalized=fe87f27e6a784900415376e68baa335d44e21f9133da5a738194fc8da600535e  normalized_form_unchanged=False
+  LEG A (row untouched: col10/11/15 old) rc=1
+    FINDING SC_CAPTURE id=S115 capture-bytes-mismatch
+    FINDING SC_CAPTURE id=S115 capture-digest-mismatch
+    SOURCES_CAPTURES: FAILED (defects=2 path_rows=36 bound=35 located=35 prose=121)
+    SOURCES_CENSUS: FAILED (findings=2 rows=157)
+  LEG B (col10/11 -> new, col15 -> OLD) rc=0
+    SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=121)
+    SOURCES_CENSUS: CLEAN (rows=157 A=140 B=2 C=15 queued=3 mined=137 rejected=17 entries_sourced=27 legacy=21 captures=157 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+  candidate normalized-digest-mismatch would fire: True

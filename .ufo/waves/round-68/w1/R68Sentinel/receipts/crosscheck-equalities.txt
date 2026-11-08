@@ -1,0 +1,18 @@
+R68Sentinel — the two cross-checks the counter must carry, verified on the
+landed gate's own output (corpus/sources-census.sh, byte-state 84725a7e…).
+
+Tree: a private copy of the lane worktree with col 10 of the anchor row zeroed,
+so the gate FAILS and its verdict line carries findings=N.
+
+FINDING lines printed: 1 | verdict says findings= 1     EQUAL? True
+SC_CAPTURE lines: 1      | summary defects= 1            EQUAL? True
+
+The gate's finding() increments its counter once per printed line:
+  finding() { printf 'FINDING %s %s\n' "$1" "$2"; FINDINGS=$((FINDINGS + 1)); }
+
+So SOURCES_CENSUS: FAILED (findings=K …) always equals the number of FINDING
+lines, and SOURCES_CAPTURES: FAILED (defects=N …) always equals the number of
+FINDING SC_CAPTURE lines.  Both equalities break the moment a line is injected
+by a tree-controlled filename (see injection.txt and parse_probe.py): the
+injected line raises the LINE count above the gate's own counter without
+raising the counter.

@@ -86,6 +86,16 @@
 #              claim ids it rests on"); 20 of 48 cells had no resolving pointer
 #              when it landed. ZERO checked cells is a setup error (exit 2),
 #              never a clean run.
+#              Round 68 (C2 L3, tightened by the wave critic and amended by the
+#              L1 ruling): a heading `## Round <N> — planned`, with at most one
+#              parenthetical suffix carrying no `|`/`)` (`— planned (next)`), is
+#              a NON-SCORED intent list and is skipped. Two boundaries hold: a
+#              heading outside that shape is still an unrecognised round heading,
+#              and a `|` table line between the planned heading and the next
+#              heading is a LOUD setup error — a scored section cannot be renamed
+#              `planned` to escape the six-axis check or the pointer audit. A
+#              scored `pre-move|post-move` section still fails closed when an
+#              axis is missing.
 #
 # Verdicts  stamps:   OK (silent) | STALE | MISSING | NOT-A-FILE
 #           claims:   OK (silent) | FAIL(reason) | POLICY(reason) | HOST-SKIP | DEFER
@@ -942,6 +952,17 @@ SECTION_RE='^ {0,3}##[[:blank:]]+'
 ROUND_RE='^ {0,3}##[[:blank:]]*[Rr][Oo][Uu][Nn][Dd]([[:blank:]]|$)'
 # Only this exact filed Round 20 attempt is blocked and excluded from scoring.
 BLOCKED_ATTEMPT_RE='^## Round 20 — interactive attempt; blocked, not completed \(2026-10-15\)$'
+# Round 68 (plans/round-68.md C2 L3; tightened per the wave critic, then amended
+# by the L1 ruling to keep historical scorecard headings as records): a heading
+# `## Round <N> — planned` — optionally with ONE parenthetical suffix that holds
+# no `|` and no `)` (e.g. `— planned (next)`) — is a non-scored intent list and
+# is skipped. Two boundaries carry the critic's rename-hide bypass: a heading
+# outside that shape (`… — planned claims table`) is still an unrecognised round
+# heading, and ANY `|` table line between the skipped heading and the next
+# heading is a LOUD setup error, so a scored section can never be renamed
+# `planned` to escape the six-axis check or the pointer audit. A scored
+# `— pre-move|post-move` section still fails closed on a missing axis.
+PLANNED_SECTION_RE='^## Round [0-9]+ — planned( \([^|)]*\))?$'
 CL_CELLS=0 CL_ROWS=0 CL_STAMPS=0 CL_UNCITED=0
 CL_STALE=0 CL_ROWS_RUN=0
 CEL_IDS=(); CEL_PATHS=()
@@ -963,7 +984,7 @@ section_check() { # SECTION-HEADING
 }
 
 cells() {
-  local l lineno content rest f1 tok d in_docs=0 in_set=0 has_row has_stamp sec_head=""
+  local l lineno content rest f1 tok d in_docs=0 in_set=0 in_scored=0 in_planned=0 has_row has_stamp sec_head=""
   local -a F=()
   CL_CELLS=0 CL_ROWS=0 CL_STAMPS=0 CL_UNCITED=0
   CEL_IDS=(); CEL_PATHS=(); SEC_SEEN=()
@@ -980,20 +1001,29 @@ cells() {
       # CommonMark H2 headings allow up to three leading spaces and a blank
       # separator after ##. Round-like titles are still checked when bare or
       # separated from ## by a tab, so malformed score sections cannot vanish.
-      [[ $in_set -eq 1 ]] && section_check "$sec_head"
-      SEC_SEEN=()
+      # only a SCORED section owes the six axes
+      [[ $in_set -eq 1 && $in_scored -eq 1 ]] && section_check "$sec_head"
+      SEC_SEEN=(); in_planned=0
       if [[ $content =~ $ROUND_RE ]]; then
         if [[ $content =~ $SEC_RE ]]; then
-          in_set=1; sec_head=$content
+          in_set=1; in_scored=1; sec_head=$content
         elif [[ $content =~ $BLOCKED_ATTEMPT_RE ]]; then
-          in_set=0; sec_head=""
+          in_set=0; in_scored=0; sec_head=""
+        elif [[ $content =~ $PLANNED_SECTION_RE ]]; then
+          # exact unscored heading: skipped, and it must carry no table (below)
+          in_set=0; in_scored=0; in_planned=1; sec_head=$content
         else
           die "unrecognised round heading in $SCORECARD: '$content' (expected '## Round <N> — pre-move|post-move')"
         fi
       else
-        in_set=0; sec_head=""
+        in_set=0; in_scored=0; sec_head=""
       fi
       continue
+    fi
+    # a table between `## Round <N> — planned` and the next heading is the
+    # rename-hide bypass: die rather than silently skipping or scoring it
+    if [[ $in_planned -eq 1 && $content == '|'* ]]; then
+      die "score table under an unscored planned heading in $SCORECARD: '$content' (a '## Round <N> — planned' section must carry no table; name it pre-move|post-move to score it)"
     fi
     [[ $in_set -eq 1 && $content == '|'* ]] || continue
     rest=${content#|}; rest=${rest%|}
@@ -1030,7 +1060,7 @@ cells() {
       CL_UNCITED=$((CL_UNCITED + 1))
     fi
   done < <(grep -nE '.' "$SCORECARD" || true)
-  [[ $in_set -eq 1 ]] && section_check "$sec_head"
+  [[ $in_set -eq 1 && $in_scored -eq 1 ]] && section_check "$sec_head"
   [[ $CL_CELLS -gt 0 ]] ||
     die "no scored cells found in $SCORECARD (refusing to report coverage over a scorecard with no round tables)"
   # Non-vacuity: if NO cell cites a claim row, the strongest tooth (a re-run of
@@ -1410,6 +1440,49 @@ if [[ ${SELFTEST:-0} -eq 1 ]]; then
   round_pair "$R/sc-uppercase-round.md" '## ROUND 23 — post-move' 'NO-POINTER'
   round_pair "$R/sc-lowercase-round.md" '## round 23 — post-move' 'NO-POINTER'
   round_pair "$R/sc-pre-movement.md" '## Round 23 — pre-movement' 'NO-POINTER'
+  # round 68 (C2 L3): the planned-heading tolerance, five directions. An exact
+  # `## Round <N> — planned` heading is skipped; so is one parenthetical suffix
+  # with no `|` inside (`— planned (next)`); a table hidden under either dies
+  # (the rename-hide bypass); a suffix outside that shape is not the heading and
+  # still dies; and a scored section missing an axis still dies.
+  {
+    printf '## Round 22 — pre-move\n\n| Axis | Score | Evidence |\n|---|---|---|\n'
+    for ax in depth coverage operability freshness calibration adjacency; do
+      printf '| %s | 7 | `R1-01` |\n' "$ax"
+    done
+    printf '\n## Round 63 — planned\n\n1. **Calibration** — close the held-out gap.\n2. **Operability** — bound the nested battery.\n'
+  } >"$R/sc-planned-skip.md"
+  {
+    printf '## Round 63 — planned\n\n1. **Calibration** — close the held-out gap.\n'
+    printf '\n## Round 22 — pre-move\n\n| Axis | Score | Evidence |\n|---|---|---|\n'
+    for ax in depth coverage operability freshness calibration; do
+      printf '| %s | 7 | `R1-01` |\n' "$ax"
+    done
+  } >"$R/sc-planned-scored-five.md"
+  {
+    printf '## Round 22 — pre-move\n\n| Axis | Score | Evidence |\n|---|---|---|\n'
+    for ax in depth coverage operability freshness calibration adjacency; do
+      printf '| %s | 7 | `R1-01` |\n' "$ax"
+    done
+    printf '\n## Round 63 — planned\n\n| Axis | Score | Evidence |\n|---|---|---|\n'
+    for ax in depth coverage operability freshness calibration adjacency; do
+      printf '| %s | 9 |  |\n' "$ax"
+    done
+  } >"$R/sc-planned-rename-hide.md"
+  {
+    printf '## Round 22 — pre-move\n\n| Axis | Score | Evidence |\n|---|---|---|\n'
+    for ax in depth coverage operability freshness calibration adjacency; do
+      printf '| %s | 7 | `R1-01` |\n' "$ax"
+    done
+    printf '\n## Round 63 — planned claims table\n\n1. **Calibration** — a suffix without the parenthetical shape is not the heading.\n'
+  } >"$R/sc-planned-suffix.md"
+  {
+    printf '## Round 22 — pre-move\n\n| Axis | Score | Evidence |\n|---|---|---|\n'
+    for ax in depth coverage operability freshness calibration adjacency; do
+      printf '| %s | 7 | `R1-01` |\n' "$ax"
+    done
+    printf '\n## Round 64 — planned (next)\n\n1. **Calibration** — a parenthetical heading with no table is skipped.\n'
+  } >"$R/sc-planned-paren.md"
   printf 'c1\tgrep -c EXPECTED corpus/ok.txt\t^1$\t3\t5\tselftest\n' >"$R/claims-exit.tsv"
   printf 'c1\tbash corpus/sleep.sh\tDONE\t0\t1\tselftest\n' >"$R/claims-timeout.tsv"
   printf 'c1\tbash corpus/ok.txt; true\tEXPECTED\t0\t5\tselftest\n' >"$R/claims-meta.tsv"
@@ -1688,6 +1761,13 @@ if [[ ${SELFTEST:-0} -eq 1 ]]; then
   tcase cells-uppercase-round-refused 2 'unrecognised round heading' "$0" cells --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-uppercase-round.md" --docs "$R/sc-uppercase-round.md"
   tcase cells-lowercase-round-refused 2 'unrecognised round heading' "$0" cells --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-lowercase-round.md" --docs "$R/sc-lowercase-round.md"
   tcase cells-pre-movement-refused 2 'unrecognised round heading' "$0" cells --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-pre-movement.md" --docs "$R/sc-pre-movement.md"
+  # round 68 (C2 L3): planned sections are skipped; a scored section missing an
+  # axis fails closed whether or not a planned heading precedes it.
+  tcase_last cells-planned-section-skipped 0 'CELL_AUDIT: CLEAN (cells=6 row_pointed=6 stamp_pointed=0 uncited=0 missing_ids=0 rows_run=1 row_deferred=0 row_failures=0 stale_pointers=0 self_skipped=0 orphans=0 host_skipped=0)' "$0" cells --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-planned-skip.md" --docs "$R/sc-planned-skip.md"
+  tcase cells-planned-scored-five-refused 2 'all six axes' "$0" cells --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-planned-scored-five.md" --docs "$R/sc-planned-scored-five.md"
+  tcase cells-planned-rename-hide-refused 2 'score table under an unscored planned heading' "$0" cells --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-planned-rename-hide.md" --docs "$R/sc-planned-rename-hide.md"
+  tcase cells-planned-suffix-refused 2 'unrecognised round heading' "$0" cells --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-planned-suffix.md" --docs "$R/sc-planned-suffix.md"
+  tcase_last cells-planned-paren-skipped 0 'CELL_AUDIT: CLEAN (cells=6 row_pointed=6 stamp_pointed=0 uncited=0 missing_ids=0 rows_run=1 row_deferred=0 row_failures=0 stale_pointers=0 self_skipped=0 orphans=0 host_skipped=0)' "$0" cells --root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps.tsv" --scorecard "$R/sc-planned-paren.md" --docs "$R/sc-planned-paren.md"
   # --- round 14: knowledge-entry declarations ---------------------------------
   DA=(--root "$R" --claims "$R/claims-r.tsv" --stamps "$R/stamps-entries.tsv")
   tcase_last docs-clean       0 'DOC_AUDIT: CLEAN (entries=2 row_linked=2 by_hand=0 undeclared=0 missing_ids=0 unpinned=0 duplicate_reasons=0)' "$0" docs "${DA[@]}" entries-ok

@@ -97,6 +97,8 @@
 #                        file does not restate it. A provenance digest
 #                        is a point attestation, not a drift pin.
 #     SC_INROW           historical in-row pin classification (round 24, above)
+#                        cr-in-tsv            (round 68, file-level) a CR byte anywhere in
+#                                                corpus/source-fetches.tsv
 #     SC_CAPTURE         (round 67) a fetch row whose location is capture-path-
 #                        shaped does not read through to its declared body:
 #                          capture-outside-root  absolute location, or a
@@ -109,6 +111,14 @@
 #                          quote-not-located     col 13 does not locate under
 #                                                col 14 normalization on a row
 #                                                whose bytes otherwise bind
+#                          capture-whitespace   a location cell that trims to a `.ufo/waves/` path
+#                                                but carries stray edge whitespace/CR, or is a
+#                                                comma-joined list of such paths (round 68)
+#                          capture-token        a non-pure cell naming a `.ufo/waves/` file:
+#                                                mixed prose, a `~/` or `//` form, or a token that
+#                                                does not resolve in-lane (round 68)
+#                          normalized-digest-mismatch  col 15 differs from the recomputed
+#                                                rendered-text-v1 digest of the bound file (round 68)
 #                        printed as `FINDING SC_CAPTURE id=<S-id> <reason>`.
 #                        One finding per defect class: a body truncated by one
 #                        byte fails both the byte and the digest check, so it
@@ -132,25 +142,44 @@
 # token prefixes, age secret keys, and Vault/OpenBao service/batch/recovery
 # tokens.
 #
-# CAPTURE READ-THROUGH (round 67, C1; QUALITY.md QM92-QM94). A location is
-# CAPTURE-PATH-SHAPED when column 16 contains `/` and is either repo-relative
-# (`^[A-Za-z0-9._][A-Za-z0-9._/-]*$`) or absolute (`^/` plus that shape; always
-# a violation). Every capture-shaped row is READ: the path must canonicalize
-# (realpath, symlinks followed) inside the lane root and name a regular file
-# whose raw sha256 equals col 10 and whose byte count equals col 11; a row
-# bound by those checks must locate its col-13 quote under the col-14
-# normalization (rendered-text-v1 via `python3 corpus/rendered-text-v1.py
-# locate FILE QUOTE`; raw-literal-v1 by literal substring; count >= 1). Prose
-# locations (anything else, including words that match the path shape without
-# a `/`) are counted and never read. Immediately before every verdict the gate
-# prints
+# CAPTURE READ-THROUGH (round 67, C1; widened round 68, C1; QUALITY.md QM92-QM96).
+# A location is CAPTURE-PATH-SHAPED when column 16 contains `/` and is either
+# repo-relative (`^[A-Za-z0-9._][A-Za-z0-9._/-]*$`) or absolute (`^/` plus that
+# shape; always a violation). Every capture-shaped row is READ: the path must
+# canonicalize (realpath, symlinks followed) inside the lane root and name a
+# regular file whose raw sha256 equals col 10 and whose byte count equals
+# col 11; a row bound by those checks must locate its col-13 quote under the
+# col-14 normalization (rendered-text-v1 via `python3 corpus/rendered-text-v1.py
+# locate FILE QUOTE`; raw-literal-v1 by literal substring; count >= 1), and —
+# for rendered-text-v1 — carry the recomputed normalized digest in col 15
+# (`rendered-text-v1.py digest FILE`; a normalizer that exits non-zero or prints
+# no digest is a SETUP, never a silent pass).
+#
+# CLASSIFICATION (round 68; monotone). A col-16 cell is:
+#   path   — its entire content is one capture path (repo-relative or absolute,
+#            in the pure CAPTURE-PATH-SHAPED form, including `./` and doubled-slash
+#            spellings that canonicalize inside the root); the row is read & bound.
+#   prose  — it names NO `.ufo/waves/` whitespace-delimited token and carries no
+#            `~/` or `//` expansion form (frozen meaning, e.g. S099's fleet-root
+#            `.ufo/prompts/…` prose); counted, never read, never flagged.
+#   defect — every other shape that names a `.ufo/waves/` path or expansion form:
+#            capture-whitespace (the cell trims to a `.ufo/waves/` path but carries
+#            stray edge whitespace/CR, or is a comma-joined list of such paths) or
+#            capture-token (a mixed-prose cell, a `~/` or `//` form, or a token that
+#            does not resolve in-lane). Defect rows count as path rows, not prose.
+#            A pure path to a missing or outside-root file keeps its specific
+#            binding reasons (capture-missing, capture-outside-root): the
+#            classification judges the cell's form, the binding its target.
+# A CR byte anywhere in corpus/source-fetches.tsv is a file-level finding
+# `FINDING SC_FETCH cr-in-tsv`; a whole-file CRLF therefore fails on two levels.
+# Immediately before every verdict the gate prints
 #   SOURCES_CAPTURES: CLEAN (path_rows=N bound=N located=N prose=N)
 # or, when any SC_CAPTURE finding exists,
 #   SOURCES_CAPTURES: FAILED (defects=N path_rows=N bound=N located=N prose=N)
-# and the verdict is FAILED (exit 1). `bound` counts capture-shaped rows that
-# exist inside the root with matching digest and byte count; `located` counts
-# bound rows whose quote locates. Rows whose col-16 value is not 16-column
-# well-formed are outside the summary (the SC_FETCH shape check owns them).
+# and the verdict is FAILED (exit 1). `bound` counts rows that exist inside the
+# root with matching raw digest and byte count; `located` counts bound rows whose
+# quote locates. Rows whose col-16 value is not 16-column well-formed are outside
+# the summary (the SC_FETCH shape check owns them).
 # CEILING: the binding is to the bytes the row names, not to the origin URL.
 # A body rewritten together with its row — file bytes replaced and col 10,
 # col 11 and col 13 updated coherently — still passes. There is no network and
@@ -173,6 +202,9 @@
 # SC_CAPTURE reason (digest, bytes, missing, outside-root via absolute, outside-
 # root via `..`, outside-root via symlink, quote-not-located), a bound control,
 # a prose-skip control and a declared-bytes control.
+# Round 68 adds one case per new reason (capture-whitespace: space, CR, comma-
+# joined; capture-token: mixed prose, `~/`, `//`; normalized-digest-mismatch)
+# with a pure-`.ufo/waves/` control, plus a file-level `SC_FETCH cr-in-tsv` case.
 # Expectations are literals in the case table, not recomputed from the gate's
 # own logic.
 set -uo pipefail
@@ -206,7 +238,16 @@ CRED_RE+='|''AGE-SEC''RET-KEY-'
 CRED_RE+='|''hv''[sbr]\.[A-Za-z0-9_-]{24,}'
 
 FINDINGS=0
-finding() { printf 'FINDING %s %s\n' "$1" "$2"; FINDINGS=$((FINDINGS + 1)); }
+# round 68 (R68Sentinel F3): a file name is repo-controlled data and may carry
+# CR/LF; escape control bytes in the detail so no finding line can be forged by
+# a path name (a consumer that parses this stdout must never see an injected
+# FINDING line).
+finding() {
+  local d=${2//$'\n'/\\n}
+  d=${d//$'\r'/\\r}
+  printf 'FINDING %s %s\n' "$1" "$d"
+  FINDINGS=$((FINDINGS + 1))
+}
 
 # First `source:` line plus whitespace-led continuation lines.
 src_field() { awk 'f && /^[[:space:]]/ {print; next} f {exit} /^source:/ {f=1; print}' "$1"; }
@@ -222,7 +263,7 @@ cred_scan() { # file relpath
   while IFS= read -r n; do finding SC_CREDENTIAL "$2:$n"; done < <(grep -nE -- "$CRED_RE" "$1" | cut -d: -f1)
 }
 
-# --- capture read-through (round 67, C1; header "CAPTURE READ-THROUGH") -----
+# --- capture read-through (round 67 C1; widened round 68 C1) ----------------
 # Counters are per verify() call; CAP_ROOT and CAP_NORM are set there.
 CAP_PATH=0 CAP_BOUND=0 CAP_LOCATED=0 CAP_PROSE=0 CAP_DEFECTS=0
 CAP_ROOT=""
@@ -253,10 +294,86 @@ cap_locate() { # file quote norm → 0 when the quote locates at least once
   esac
 }
 
-cap_row() { # id sha bytes quote norm loc
-  local id=$1 sha=$2 bytes=$3 quote=$4 norm=$5 loc=$6
-  local rp size got bad=0 q
-  if ! cap_is_shaped "$loc"; then CAP_PROSE=$((CAP_PROSE + 1)); return 0; fi
+# cap_normalized_digest file → prints normalized_sha256; failure-closed (never silent pass)
+cap_normalized_digest() { # file
+  local file=$1 out rc got
+  [[ -n $CAP_NORM && -f $CAP_NORM ]] || setup "rendered-text-v1.py absent"
+  out=$(python3 "$CAP_NORM" digest "$file" 2>/dev/null); rc=$?
+  [[ $rc -eq 0 ]] || setup "rendered-text-v1 digest failed (rc=$rc)"
+  [[ $out == 'RENDERED_TEXT_V1:'* ]] || setup "rendered-text-v1 digest output unexpected"
+  got=$(printf '%s\n' "$out" | sed -n 's/.*normalized_sha256=\([0-9a-f]\{64\}\).*/\1/p')
+  [[ $got =~ ^[0-9a-f]{64}$ ]] || setup "rendered-text-v1 digest unparsable"
+  printf '%s' "$got"
+}
+
+# Round 68 classification (monotone, one sentence): a col16 cell is legal iff
+# it names no `.ufo/waves/` token (prose) or is exactly one such path with no
+# other content (path); every other shape naming one is a defect.
+# cap_cell_class loc → `path`, `prose`, `whitespace`, `token`
+# Round 68 classification (monotone, one sentence): a col16 cell is legal iff
+# it names no `.ufo/waves/` token (prose) or is exactly one such path with no
+# other content (path); every other shape naming one is a defect.
+# READING of the frozen prose: "a cell naming a `.ufo/waves/` path is legal only
+# when that path is the cell's entire content" — the token test governs every
+# cell, including pure-shaped ones. So a pure-shaped cell that names no
+# `.ufo/waves/` token (e.g. fixture `captures/c1.body`) is prose, counted
+# never read, unless it carries `~/`/`//` expansion semantics. The hasbad
+# scan therefore runs on every cell, not only non-pure ones.
+# cap_cell_class loc → `path`, `prose`, `whitespace`, `token`
+cap_cell_class() { # loc
+  local loc=$1 t tok norm haspath=0 hasbad=0
+  for tok in $loc; do
+    # round 68 (R68Reviewer B4): a lexical `.ufo/waves/` match alone lets a
+    # spelling change (`.ufo//waves/…`, `.ufo/./waves/…`) drop a bound row out of
+    # the population as "prose", which is the round-67 C1 escape hatch in a new
+    # dress. Normalise the separators for the CLASS decision only; the binding
+    # still resolves the cell as written.
+    norm=$tok
+    while [[ $norm == *"//"* ]]; do norm=${norm//\/\//\/}; done
+    while [[ $norm == *"/./"* ]]; do norm=${norm//\/.\//\/}; done
+    case $norm in *".ufo/waves/"*) haspath=1 ;; esac
+    case $tok in "~"/*|"//"*) hasbad=1 ;; esac
+  done
+  # `//` prefix naming a waves path is token-class (round 68 spec); without a
+  # waves token it is prose. This must run before the generic absolute rule.
+  if [[ $loc == //"*" ]]; then
+    if [[ $haspath -eq 1 ]]; then printf 'token'; return 0; fi
+    printf 'prose'; return 0
+  fi
+  # absolute and `../` escapes name no `.ufo/waves/` token but must not silently
+  # become prose: they are path population with an outside-root binding verdict
+  if [[ $loc == /[!/]* ]]; then printf 'path'; return 0; fi
+  if [[ $loc == "../"* ]]; then printf 'path'; return 0; fi
+  if [[ $haspath -eq 0 && $hasbad -eq 0 ]]; then printf 'prose'; return 0; fi
+
+  if cap_is_shaped "$loc"; then printf 'path'; return 0; fi
+  t=$(trim "$loc")
+  if [[ -n $t ]] && cap_is_shaped "$t" && [[ $loc != "$t" ]]; then
+    printf 'whitespace'; return 0
+  fi
+  # trailing CR: path+CR trims away but the raw cell is not shaped
+  if [[ $loc == *$'\r' ]]; then
+    t=${loc%$'\r'}
+    if [[ -n $t ]] && cap_is_shaped "$t"; then printf 'whitespace'; return 0; fi
+  fi
+  # comma-joined capture paths: one token, multiple paths, no whitespace
+  t=$(trim "$loc")
+  if [[ $t == *,*".ufo/waves/"* && $t != *" "* ]]; then printf 'whitespace'; return 0; fi
+
+  printf 'token'
+}
+
+cap_row() { # id sha bytes quote norm nsha loc
+  local id=$1 sha=$2 bytes=$3 quote=$4 norm=$5 nsha=$6 loc=$7
+  local class rp size got bad=0 q normgot tok
+  class=$(cap_cell_class "$loc")
+  case $class in
+    prose) CAP_PROSE=$((CAP_PROSE + 1)); return 0 ;;
+    whitespace)
+      finding SC_CAPTURE "id=$id capture-whitespace"; CAP_DEFECTS=$((CAP_DEFECTS + 1)); CAP_PATH=$((CAP_PATH + 1)); return 0 ;;
+    token)
+      finding SC_CAPTURE "id=$id capture-token"; CAP_DEFECTS=$((CAP_DEFECTS + 1)); CAP_PATH=$((CAP_PATH + 1)); return 0 ;;
+  esac
   CAP_PATH=$((CAP_PATH + 1))
   # absolute locations never satisfy "repo-relative", whatever they name
   if [[ $loc == /* ]]; then
@@ -281,6 +398,15 @@ cap_row() { # id sha bytes quote norm loc
   fi
   [[ $bad -eq 0 ]] || return 0
   CAP_BOUND=$((CAP_BOUND + 1))
+  # round 68: recompute col 15 for rendered rows; inside the bound branch so the
+  # reason never piggybacks on a bytes/digest failure (leg-stable), before the
+  # quote check (independent findings otherwise)
+  if [[ $norm == rendered-text-v1 ]]; then
+    normgot=$(cap_normalized_digest "$CAP_ROOT/$loc")
+    if [[ $normgot != "$nsha" ]]; then
+      finding SC_CAPTURE "id=$id normalized-digest-mismatch"; CAP_DEFECTS=$((CAP_DEFECTS + 1))
+    fi
+  fi
   q=$quote; q=${q//[[:space:]]/}
   if [[ -z $q ]] || ! cap_locate "$CAP_ROOT/$loc" "$quote" "$norm"; then
     finding SC_CAPTURE "id=$id quote-not-located"; CAP_DEFECTS=$((CAP_DEFECTS + 1)); return 0
@@ -388,14 +514,19 @@ verify() {
       printf "%s\037%s\037%s\n", i, url, d
     }' "$src")
   if [[ -f $fetchf ]]; then
+    # round 68 (file-level): a CR byte anywhere disengages capture binding
+    if grep -q $'\r' -- "$fetchf" 2>/dev/null; then finding SC_FETCH "cr-in-tsv"; fi
     out=$(awk -F'\t' 'length($0)>0 && $0 !~ /^#/ && NF!=16 {print "line=" NR " nf=" NF}' "$fetchf")
     while IFS= read -r line; do [[ -n $line ]] && finding SC_FETCH "$line"; done <<<"$out"
     while IFS=$'\t' read -r fid fstatus frow furl ffinal fhttp fprof ffet frep fsha fbytes frev fquote fnorm fnsha floc; do
       [[ -n ${fid:-} ]] || continue
       FSEEN[$fid]=$(( ${FSEEN[$fid]:-0} + 1 ))
       FRAW[$fid]=$fsha; FNORM[$fid]=$fnsha; FFET[$fid]=$ffet
-      # round 67: read the bytes and the quote this row declares (SC_CAPTURE)
-      cap_row "$fid" "$fsha" "$fbytes" "$fquote" "$fnorm" "$floc"
+      # round 67/68: read the bytes, the quote and the normalized digest the row declares
+      # CR is retained for classification (capture-whitespace); binding strips it
+      # only after cap_row has ruled on the raw cell — the file-level cr-in-tsv
+      # finding already fires, so stripping is a binding convenience, not a pass
+      cap_row "$fid" "$fsha" "$fbytes" "$fquote" "$fnorm" "$fnsha" "$floc"
       [[ -v FURL[$fid] ]] || { finding SC_FETCH "id=$fid not-a-registry-row"; continue; }
       [[ ${ST[$fid]:-} == "$fstatus" ]] || finding SC_FETCH "id=$fid status=$fstatus registry=${ST[$fid]:-absent}"
       [[ ${FURL[$fid]} == "$furl" ]] || finding SC_FETCH "id=$fid url-mismatch"
@@ -739,12 +870,18 @@ m_inrow_orphan() { inrow_row "$1" "$(rep a 64)" 2026-10-19 reproduces-raw; }
 # provenance row at a real capture file; each then breaks one predicate. The
 # capture body is fixed here so the declared quote, size and digest are facts
 # of the fixture, not of the gate's own logic.
+# Round 68: the lane-documented capture population is a `.ufo/waves/` path
+# (the frozen token test makes `captures/c1.body` prose — verified live:
+# only `.ufo/waves/` cells bind). The fixture therefore lives at
+# `.ufo/waves/round-00/capture/c1.body` to keep the 10 round-67 capture
+# cases meaningfully exercised under the widened classifier.
 CAP_QUOTE='Audit devices must be enabled by a root user.'
+CAP_BODY='.ufo/waves/round-00/capture/c1.body'
 cap_fixture() { # dir [location]
-  local d=$1 loc=${2:-captures/c1.body} body sha n normsha
-  mkdir -p "$d/captures" || return 1
-  printf 'The quick capture body.\nAudit devices must be enabled by a root user.\nEnd.\n' >"$d/captures/c1.body"
-  body="$d/captures/c1.body"
+  local d=$1 loc=${2:-$CAP_BODY} body sha n normsha
+  mkdir -p "$d/.ufo/waves/round-00/capture" || return 1
+  printf 'The quick capture body.\nAudit devices must be enabled by a root user.\nEnd.\n' >"$d/.ufo/waves/round-00/capture/c1.body"
+  body="$d/.ufo/waves/round-00/capture/c1.body"
   sha=$(sha256sum -- "$body"); sha=${sha%% *}
   n=$(stat -c %s -- "$body")
   normsha=$(python3 "$SCRIPT_DIR/rendered-text-v1.py" digest "$body" | sed -n 's/.*normalized_sha256=\([0-9a-f]\{64\}\).*/\1/p')
@@ -761,14 +898,14 @@ m_capture_repoint() {
   # same-size sibling body, different bytes: digest-only, and the quote is
   # garbage too — an unbound row must NOT also report quote-not-located
   cap_fixture "$1"
-  cp -- "$1/captures/c1.body" "$1/captures/other.body"
-  sed -i 's/Audit/audit/' "$1/captures/other.body"
+  cp -- "$1/.ufo/waves/round-00/capture/c1.body" "$1/.ufo/waves/round-00/capture/other.body"
+  sed -i 's/Audit/audit/' "$1/.ufo/waves/round-00/capture/other.body"
   fetch_edit "$1" S001 13 'this sentence locates in no body at all'
-  fetch_edit "$1" S001 16 captures/other.body
+  fetch_edit "$1" S001 16 .ufo/waves/round-00/capture/other.body
 }
-m_capture_missing() { cap_fixture "$1" captures/absent.body; }
-m_capture_truncate() { cap_fixture "$1"; truncate -s -1 -- "$1/captures/c1.body"; }
-m_capture_absolute() { cap_fixture "$1" "$1/captures/c1.body"; }
+m_capture_missing() { cap_fixture "$1" .ufo/waves/round-00/capture/absent.body; }
+m_capture_truncate() { cap_fixture "$1"; truncate -s -1 -- "$1/.ufo/waves/round-00/capture/c1.body"; }
+m_capture_absolute() { cap_fixture "$1" "$1/.ufo/waves/round-00/capture/c1.body"; }
 m_capture_dotdot() {
   cap_fixture "$1"
   printf 'outside body\n' >"$1/../c1-outside.body"
@@ -780,16 +917,28 @@ m_capture_bytes_declared() { cap_fixture "$1"; fetch_edit "$1" S001 11 999999; }
 m_capture_symlink() {
   cap_fixture "$1"
   printf 'outside body\n' >"$1/../c1-link-target.body"
-  ln -s ../../c1-link-target.body "$1/captures/link.body"
-  fetch_edit "$1" S001 16 captures/link.body
+  ln -s ../../../../../c1-link-target.body "$1/.ufo/waves/round-00/capture/link.body"
+  fetch_edit "$1" S001 16 .ufo/waves/round-00/capture/link.body
 }
 m_capture_symlink_intree() {
   # an in-tree symlink resolves to an in-tree regular file: size and digest
   # measure the resolved object (stat -L), so the row binds
   cap_fixture "$1"
-  ln -s c1.body "$1/captures/alias.body"
-  fetch_edit "$1" S001 16 captures/alias.body
+  ln -s c1.body "$1/.ufo/waves/round-00/capture/alias.body"
+  fetch_edit "$1" S001 16 .ufo/waves/round-00/capture/alias.body
 }
+# --- round 68: widened classification + digest recompute -----------------------
+# Each mutation below is measured against the migrated
+# `.ufo/waves/round-00/capture/c1.body` binding, one reason each per leg.
+m_capture_waves_control() { cap_fixture "$1"; }
+m_capture_ws_space() { cap_fixture "$1" "$CAP_BODY "; }
+m_capture_ws_cr() { cap_fixture "$1"; fetch_edit "$1" S001 16 "$CAP_BODY"$'\r'; }
+m_capture_ws_comma() { cap_fixture "$1" "$CAP_BODY,$CAP_BODY"; }
+m_capture_tok_mixed() { cap_fixture "$1" "§1.2 capture $CAP_BODY"; }
+m_capture_tok_tilde() { cap_fixture "$1" "~/.ufo/waves/round-00/capture/c1.body"; }
+m_capture_tok_slashslash() { cap_fixture "$1" "//.ufo/waves/round-00/capture/c1.body"; }
+m_capture_norm_borrowed() { cap_fixture "$1"; fetch_edit "$1" S001 15 "$(rep 7 64)"; }
+m_fetch_cr() { printf '\r' >>"$(FETCH_F "$1")"; }
 
 selftest() {
   ST_DIR=$(mktemp -d) || setup "mktemp failed"
@@ -889,6 +1038,15 @@ selftest() {
     "capture-bytes-declared|m_capture_bytes_declared||1|SC_CAPTURE|1|SOURCES_CAPTURES: FAILED (defects=1 path_rows=1 bound=0 located=0 prose=3)|capture-bytes-mismatch"
     "capture-symlink-escape|m_capture_symlink||1|SC_CAPTURE|1|SOURCES_CAPTURES: FAILED (defects=1 path_rows=1 bound=0 located=0 prose=3)|capture-outside-root"
     "capture-symlink-intree-control|m_capture_symlink_intree||0|CLEAN|0|SOURCES_CAPTURES: CLEAN (path_rows=1 bound=1 located=1 prose=3)"
+    "capture-waves-control|m_capture_waves_control||0|CLEAN|0|SOURCES_CAPTURES: CLEAN (path_rows=1 bound=1 located=1 prose=3)"
+    "capture-whitespace-space|m_capture_ws_space||1|SC_CAPTURE|1|SOURCES_CAPTURES: FAILED (defects=1 path_rows=1 bound=0 located=0 prose=3)|capture-whitespace"
+    "capture-whitespace-cr|m_capture_ws_cr||1|SC_CAPTURE|2|SOURCES_CAPTURES: FAILED (defects=1 path_rows=1 bound=0 located=0 prose=3)|capture-whitespace"
+    "capture-whitespace-comma|m_capture_ws_comma||1|SC_CAPTURE|1|SOURCES_CAPTURES: FAILED (defects=1 path_rows=1 bound=0 located=0 prose=3)|capture-whitespace"
+    "capture-token-mixed-prose|m_capture_tok_mixed||1|SC_CAPTURE|1|SOURCES_CAPTURES: FAILED (defects=1 path_rows=1 bound=0 located=0 prose=3)|capture-token"
+    "capture-token-tilde|m_capture_tok_tilde||1|SC_CAPTURE|1|SOURCES_CAPTURES: FAILED (defects=1 path_rows=1 bound=0 located=0 prose=3)|capture-token"
+    "capture-token-slashslash|m_capture_tok_slashslash||1|SC_CAPTURE|1|SOURCES_CAPTURES: FAILED (defects=1 path_rows=1 bound=0 located=0 prose=3)|capture-token"
+    "capture-normalized-mismatch|m_capture_norm_borrowed||1|SC_CAPTURE|1|SOURCES_CAPTURES: FAILED (defects=1 path_rows=1 bound=1 located=1 prose=3)|normalized-digest-mismatch"
+    "fetch-cr-in-tsv|m_fetch_cr||1|SC_FETCH|2|SOURCES_CAPTURES: CLEAN (path_rows=0 bound=0 located=0 prose=4)|"
   )
   local spec name fn arg xe xid xn xcap xreason d out rc last ok cases=0 failed=0
   for spec in "${CASES[@]}"; do

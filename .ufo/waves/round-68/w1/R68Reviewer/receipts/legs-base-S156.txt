@@ -1,0 +1,22 @@
+leg M1: rc=0 caught=0 expect=capture-whitespace
+  captures: SOURCES_CAPTURES: CLEAN (path_rows=35 bound=35 located=35 prose=122)
+  census: SOURCES_CENSUS: CLEAN (rows=157 A=140 B=2 C=15 queued=3 mined=137 rejected=17 entries_sourced=27 legacy=21 captures=157 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+leg M2: rc=0 caught=0 expect=capture-whitespace
+  captures: SOURCES_CAPTURES: CLEAN (path_rows=35 bound=35 located=35 prose=122)
+  census: SOURCES_CENSUS: CLEAN (rows=157 A=140 B=2 C=15 queued=3 mined=137 rejected=17 entries_sourced=27 legacy=21 captures=157 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+leg M3: rc=0 caught=0 expect=cr-in-tsv
+  captures: SOURCES_CAPTURES: CLEAN (path_rows=0 bound=0 located=0 prose=157)
+  census: SOURCES_CENSUS: CLEAN (rows=157 A=140 B=2 C=15 queued=3 mined=137 rejected=17 entries_sourced=27 legacy=21 captures=157 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+leg M4: rc=1 caught=1 expect=capture-digest-mismatch
+  captures: SOURCES_CAPTURES: FAILED (defects=1 path_rows=36 bound=35 located=35 prose=121)
+  census: SOURCES_CENSUS: FAILED (findings=1 rows=157)
+   FINDING SC_CAPTURE id=S156 capture-digest-mismatch
+leg M5: rc=0 caught=0 expect=normalized-digest-mismatch
+  captures: SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=121)
+  census: SOURCES_CENSUS: CLEAN (rows=157 A=140 B=2 C=15 queued=3 mined=137 rejected=17 entries_sourced=27 legacy=21 captures=157 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+leg M6: rc=1 caught=1 expect=capture-bytes-mismatch
+  captures: SOURCES_CAPTURES: FAILED (defects=2 path_rows=36 bound=35 located=35 prose=121)
+  census: SOURCES_CENSUS: FAILED (findings=2 rows=157)
+   FINDING SC_CAPTURE id=S156 capture-bytes-mismatch
+   FINDING SC_CAPTURE id=S156 capture-digest-mismatch
+LEGS S156: caught=2/6

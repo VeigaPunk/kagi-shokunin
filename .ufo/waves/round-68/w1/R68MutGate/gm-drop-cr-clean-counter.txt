@@ -1,0 +1,50 @@
+c1-verified: tree=/fast/scratch/hyaku/kagi-r68/R68MutGate/gm/drop-cr-clean
+c1-verified: derived verified=38 col15=1 path_rows=38 bound=38 located=38 prose=120 mixed=none total=158 malformed=0
+c1-verified: derived-defect S115 normalized-digest-mismatch
+c1-verified: derived-defect S116 normalized-digest-mismatch
+c1-verified: derived-defect S117 normalized-digest-mismatch
+c1-verified: derived-defect S118 normalized-digest-mismatch
+c1-verified: derived-defect S119 normalized-digest-mismatch
+c1-verified: derived-defect S120 normalized-digest-mismatch
+c1-verified: derived-defect S121 normalized-digest-mismatch
+c1-verified: derived-defect S122 normalized-digest-mismatch
+c1-verified: derived-defect S123 normalized-digest-mismatch
+c1-verified: derived-defect S124 normalized-digest-mismatch
+c1-verified: derived-defect S125 normalized-digest-mismatch
+c1-verified: derived-defect S126 normalized-digest-mismatch
+c1-verified: derived-defect S127 normalized-digest-mismatch
+c1-verified: derived-defect S128 normalized-digest-mismatch
+c1-verified: derived-defect S129 normalized-digest-mismatch
+c1-verified: derived-defect S130 normalized-digest-mismatch
+c1-verified: derived-defect S131 normalized-digest-mismatch
+c1-verified: derived-defect S132 normalized-digest-mismatch
+c1-verified: derived-defect S133 normalized-digest-mismatch
+c1-verified: derived-defect S134 normalized-digest-mismatch
+c1-verified: derived-defect S135 normalized-digest-mismatch
+c1-verified: derived-defect S137 normalized-digest-mismatch
+c1-verified: derived-defect S138 normalized-digest-mismatch
+c1-verified: derived-defect S140 normalized-digest-mismatch
+c1-verified: derived-defect S141 normalized-digest-mismatch
+c1-verified: derived-defect S142 normalized-digest-mismatch
+c1-verified: derived-defect S143 normalized-digest-mismatch
+c1-verified: derived-defect S144 normalized-digest-mismatch
+c1-verified: derived-defect S164 normalized-digest-mismatch
+c1-verified: derived-defect S155 normalized-digest-mismatch
+c1-verified: derived-defect S156 normalized-digest-mismatch
+c1-verified: derived-defect S167 normalized-digest-mismatch
+c1-verified: anchor id=S167 token=.ufo/waves/round-68/capture/S167.body pure=True
+c1-verified: clean verdict=CLEAN rc=0 captures=SOURCES_CAPTURES: CLEAN (path_rows=38 bound=38 located=38 prose=120)
+c1-verified: guard-a verdict=CLEAN rc=0 captures=SOURCES_CAPTURES: CLEAN (path_rows=38 bound=38 located=38 prose=120) derived=path_rows=38 bound=38 located=38 prose=120 gate_fields=match adjacent=True
+c1-verified: guard-b selftest rc=0 cases=97
+c1-verified: guard-c base-gate=lane-history git-show d3b2a4e8eed710277951e430efd3d27b5983033c (siblings staged)
+c1-verified: guard-c base-gate-on-crlf rc=2 verdict=SOURCES_CENSUS: SETUP (rendered-text-v1.py absent beside the gate)
+c1-verified: guard-d venue=skip tree=/fast/scratch/hyaku/kagi-r68/R68MutGate/gm/drop-cr-clean lane=/home/vgpnk/Projects/shokunin/kagi-shokunin
+c1-verified: guard-e prose_rows=120 prose_findings=none gate_prose=120 derived_prose=120
+c1-verified: mut-m1 id=S167 reasons=S167:capture-whitespace crlf=0 verdict=FAILED rc=1 captures=SOURCES_CAPTURES: FAILED (defects=1 path_rows=38 bound=37 located=37 prose=120) detail=col16+space
+c1-verified: mut-m2 id=S167 reasons=S167:capture-whitespace crlf=0 verdict=FAILED rc=1 captures=SOURCES_CAPTURES: FAILED (defects=1 path_rows=38 bound=37 located=37 prose=120) detail=col16+comma-duplicate
+c1-verified: mut-m3 id=S167 reasons=S100:capture-whitespace,S101:capture-whitespace,S102:capture-whitespace,S113:capture-whitespace,S114:capture-whitespace,S115:capture-whitespace,S116:capture-whitespace,S117:capture-whitespace,S118:capture-whitespace,S119:capture-whitespace,S120:capture-whitespace,S121:capture-whitespace,S122:capture-whitespace,S123:capture-whitespace,S124:capture-whitespace,S125:capture-whitespace,S126:capture-whitespace,S127:capture-whitespace,S128:capture-whitespace,S129:capture-whitespace,S130:capture-whitespace,S131:capture-whitespace,S132:capture-whitespace,S133:capture-whitespace,S134:capture-whitespace,S135:capture-whitespace,S137:capture-whitespace,S138:capture-whitespace,S140:capture-whitespace,S141:capture-whitespace,S142:capture-whitespace,S143:capture-whitespace,S144:capture-whitespace,S164:capture-whitespace,S155:capture-whitespace,S156:capture-whitespace,S166:capture-whitespace,S167:capture-whitespace crlf=0 verdict=FAILED rc=1 captures=SOURCES_CAPTURES: FAILED (defects=38 path_rows=38 bound=0 located=0 prose=120) detail=crlf
+c1-verified: mut-m4 id=S167 reasons=S167:capture-digest-mismatch crlf=0 verdict=FAILED rc=1 captures=SOURCES_CAPTURES: FAILED (defects=1 path_rows=38 bound=37 located=37 prose=120) detail=col10-hexflip
+c1-verified: mut-m5 id=S167 reasons=S167:normalized-digest-mismatch crlf=0 verdict=FAILED rc=1 captures=SOURCES_CAPTURES: FAILED (defects=1 path_rows=38 bound=38 located=38 prose=120) detail=col15-hexflip
+c1-verified: mut-m6 id=S167 reasons=S167:capture-bytes-mismatch,S167:capture-digest-mismatch crlf=0 verdict=FAILED rc=1 captures=SOURCES_CAPTURES: FAILED (defects=2 path_rows=38 bound=37 located=37 prose=120) detail=body+1byte
+c1-verified: guard a=1 b=1 c=0 d=skip e=1 defe defects=32
+C1_VERIFIED: verified=38 col15=1 caught=5/6 guard=0

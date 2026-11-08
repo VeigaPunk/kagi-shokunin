@@ -1,0 +1,1221 @@
+{
+ "snapshot": {
+  "gate_sha256": "690b0c2ec2a469fee0424f56ccc35b52168d391e225cfa1142b183e4b02ea5c6",
+  "tsv_sha256": "c14bcd885df2ae446df4d49dde93c9c89ac5f2ec65629a84d77fe9987f7469af",
+  "sources_md_sha256": "688fbab4714988ea26e6dd5a3096b66ed767791b658d09ca1750cea8bef38ef1",
+  "normalizer_sha256": "14f6ca6ab742296f45a699548c31e6d49892f6baef36ed419c283d1a0511b8c9",
+  "base_sha": "d3b2a4e8eed710277951e430efd3d27b5983033c"
+ },
+ "anchor": "S167",
+ "token_anchor": "S167",
+ "donor": "S017",
+ "prose_row": "S017",
+ "independent_counts": {
+  "path": 38,
+  "prose": 120,
+  "whitespace": 0,
+  "token": 0
+ },
+ "results": [
+  {
+   "case": "c1-trail-space",
+   "side": "base",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=121)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": "SC_CAPTURE capture-whitespace",
+   "met": false,
+   "note": "+0x20"
+  },
+  {
+   "case": "c1-trail-space",
+   "side": "cand",
+   "rc": 1,
+   "captures": "SOURCES_CAPTURES: FAILED (defects=1 path_rows=38 bound=37 located=37 prose=120)",
+   "census": "SOURCES_CENSUS: FAILED (findings=1 rows=158)",
+   "findings": [
+    "FINDING SC_CAPTURE id=S167 capture-whitespace"
+   ],
+   "expect": "SC_CAPTURE capture-whitespace",
+   "met": true,
+   "note": "+0x20"
+  },
+  {
+   "case": "c1-lead-space",
+   "side": "base",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=121)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": "SC_CAPTURE capture-whitespace",
+   "met": false,
+   "note": "leading 0x20"
+  },
+  {
+   "case": "c1-lead-space",
+   "side": "cand",
+   "rc": 1,
+   "captures": "SOURCES_CAPTURES: FAILED (defects=1 path_rows=38 bound=37 located=37 prose=120)",
+   "census": "SOURCES_CENSUS: FAILED (findings=1 rows=158)",
+   "findings": [
+    "FINDING SC_CAPTURE id=S167 capture-whitespace"
+   ],
+   "expect": "SC_CAPTURE capture-whitespace",
+   "met": true,
+   "note": "leading 0x20"
+  },
+  {
+   "case": "c1-interior-space",
+   "side": "base",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=121)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": "SC_CAPTURE capture-whitespace",
+   "met": false,
+   "note": "interior 0x20"
+  },
+  {
+   "case": "c1-interior-space",
+   "side": "cand",
+   "rc": 1,
+   "captures": "SOURCES_CAPTURES: FAILED (defects=1 path_rows=38 bound=37 located=37 prose=120)",
+   "census": "SOURCES_CENSUS: FAILED (findings=1 rows=158)",
+   "findings": [
+    "FINDING SC_CAPTURE id=S167 capture-token"
+   ],
+   "expect": "SC_CAPTURE capture-whitespace",
+   "met": false,
+   "note": "interior 0x20"
+  },
+  {
+   "case": "c1-eight-spaces",
+   "side": "base",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=121)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": [
+    "any:capture-whitespace|capture-token",
+    "FAILED"
+   ],
+   "met": false,
+   "note": "eight spaces"
+  },
+  {
+   "case": "c1-eight-spaces",
+   "side": "cand",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=121)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": [
+    "any:capture-whitespace|capture-token",
+    "FAILED"
+   ],
+   "met": false,
+   "note": "eight spaces"
+  },
+  {
+   "case": "c1-trailing-cr",
+   "side": "base",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=121)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": [
+    "FAILED",
+    "any:capture-whitespace|cr-in-tsv"
+   ],
+   "met": false,
+   "note": "+CR"
+  },
+  {
+   "case": "c1-trailing-cr",
+   "side": "cand",
+   "rc": 1,
+   "captures": "SOURCES_CAPTURES: FAILED (defects=1 path_rows=38 bound=37 located=37 prose=120)",
+   "census": "SOURCES_CENSUS: FAILED (findings=2 rows=158)",
+   "findings": [
+    "FINDING SC_FETCH cr-in-tsv",
+    "FINDING SC_CAPTURE id=S167 capture-whitespace"
+   ],
+   "expect": [
+    "FAILED",
+    "any:capture-whitespace|cr-in-tsv"
+   ],
+   "met": true,
+   "note": "+CR"
+  },
+  {
+   "case": "c1-comma-dup",
+   "side": "base",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=121)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": "SC_CAPTURE capture-whitespace",
+   "met": false,
+   "note": "comma+dup"
+  },
+  {
+   "case": "c1-comma-dup",
+   "side": "cand",
+   "rc": 1,
+   "captures": "SOURCES_CAPTURES: FAILED (defects=1 path_rows=38 bound=37 located=37 prose=120)",
+   "census": "SOURCES_CENSUS: FAILED (findings=1 rows=158)",
+   "findings": [
+    "FINDING SC_CAPTURE id=S167 capture-whitespace"
+   ],
+   "expect": "SC_CAPTURE capture-whitespace",
+   "met": true,
+   "note": "comma+dup"
+  },
+  {
+   "case": "c1-slashslash",
+   "side": "base",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=121)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": "SC_CAPTURE capture-token",
+   "met": false,
+   "note": "//etc/passwd"
+  },
+  {
+   "case": "c1-slashslash",
+   "side": "cand",
+   "rc": 1,
+   "captures": "SOURCES_CAPTURES: FAILED (defects=1 path_rows=38 bound=37 located=37 prose=120)",
+   "census": "SOURCES_CENSUS: FAILED (findings=1 rows=158)",
+   "findings": [
+    "FINDING SC_CAPTURE id=S167 capture-token"
+   ],
+   "expect": "SC_CAPTURE capture-token",
+   "met": true,
+   "note": "//etc/passwd"
+  },
+  {
+   "case": "c1-tilde",
+   "side": "base",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=121)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": "SC_CAPTURE capture-token",
+   "met": false,
+   "note": "~/S113.body"
+  },
+  {
+   "case": "c1-tilde",
+   "side": "cand",
+   "rc": 1,
+   "captures": "SOURCES_CAPTURES: FAILED (defects=1 path_rows=38 bound=37 located=37 prose=120)",
+   "census": "SOURCES_CENSUS: FAILED (findings=1 rows=158)",
+   "findings": [
+    "FINDING SC_CAPTURE id=S167 capture-token"
+   ],
+   "expect": "SC_CAPTURE capture-token",
+   "met": true,
+   "note": "~/S113.body"
+  },
+  {
+   "case": "c2-crlf-whole",
+   "side": "base",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=0 bound=0 located=0 prose=158)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": [
+    "SC_FETCH cr-in-tsv",
+    "FAILED"
+   ],
+   "met": false,
+   "note": "whole-file CRLF"
+  },
+  {
+   "case": "c2-crlf-whole",
+   "side": "cand",
+   "rc": 1,
+   "captures": "SOURCES_CAPTURES: FAILED (defects=38 path_rows=38 bound=0 located=0 prose=120)",
+   "census": "SOURCES_CENSUS: FAILED (findings=39 rows=158)",
+   "findings": [
+    "FINDING SC_FETCH cr-in-tsv",
+    "FINDING SC_CAPTURE id=S100 capture-whitespace",
+    "FINDING SC_CAPTURE id=S101 capture-whitespace",
+    "FINDING SC_CAPTURE id=S102 capture-whitespace",
+    "FINDING SC_CAPTURE id=S113 capture-whitespace",
+    "FINDING SC_CAPTURE id=S114 capture-whitespace",
+    "FINDING SC_CAPTURE id=S115 capture-whitespace",
+    "FINDING SC_CAPTURE id=S116 capture-whitespace",
+    "FINDING SC_CAPTURE id=S117 capture-whitespace",
+    "FINDING SC_CAPTURE id=S118 capture-whitespace",
+    "FINDING SC_CAPTURE id=S119 capture-whitespace",
+    "FINDING SC_CAPTURE id=S120 capture-whitespace",
+    "FINDING SC_CAPTURE id=S121 capture-whitespace",
+    "FINDING SC_CAPTURE id=S122 capture-whitespace",
+    "FINDING SC_CAPTURE id=S123 capture-whitespace",
+    "FINDING SC_CAPTURE id=S124 capture-whitespace",
+    "FINDING SC_CAPTURE id=S125 capture-whitespace",
+    "FINDING SC_CAPTURE id=S126 capture-whitespace",
+    "FINDING SC_CAPTURE id=S127 capture-whitespace",
+    "FINDING SC_CAPTURE id=S128 capture-whitespace",
+    "FINDING SC_CAPTURE id=S129 capture-whitespace",
+    "FINDING SC_CAPTURE id=S130 capture-whitespace",
+    "FINDING SC_CAPTURE id=S131 capture-whitespace",
+    "FINDING SC_CAPTURE id=S132 capture-whitespace",
+    "FINDING SC_CAPTURE id=S133 capture-whitespace",
+    "FINDING SC_CAPTURE id=S134 capture-whitespace",
+    "FINDING SC_CAPTURE id=S135 capture-whitespace",
+    "FINDING SC_CAPTURE id=S137 capture-whitespace",
+    "FINDING SC_CAPTURE id=S138 capture-whitespace",
+    "FINDING SC_CAPTURE id=S140 capture-whitespace",
+    "FINDING SC_CAPTURE id=S141 capture-whitespace",
+    "FINDING SC_CAPTURE id=S142 capture-whitespace",
+    "FINDING SC_CAPTURE id=S143 capture-whitespace",
+    "FINDING SC_CAPTURE id=S144 capture-whitespace",
+    "FINDING SC_CAPTURE id=S164 capture-whitespace",
+    "FINDING SC_CAPTURE id=S155 capture-whitespace",
+    "FINDING SC_CAPTURE id=S156 capture-whitespace",
+    "FINDING SC_CAPTURE id=S166 capture-whitespace",
+    "FINDING SC_CAPTURE id=S167 capture-whitespace"
+   ],
+   "expect": [
+    "SC_FETCH cr-in-tsv",
+    "FAILED"
+   ],
+   "met": true,
+   "note": "whole-file CRLF"
+  },
+  {
+   "case": "c3-borrow15",
+   "side": "base",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=38 bound=38 located=38 prose=120)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": "SC_CAPTURE normalized-digest-mismatch",
+   "met": false,
+   "note": "col15<-S017"
+  },
+  {
+   "case": "c3-borrow15",
+   "side": "cand",
+   "rc": 1,
+   "captures": "SOURCES_CAPTURES: FAILED (defects=1 path_rows=38 bound=38 located=38 prose=120)",
+   "census": "SOURCES_CENSUS: FAILED (findings=1 rows=158)",
+   "findings": [
+    "FINDING SC_CAPTURE id=S167 normalized-digest-mismatch"
+   ],
+   "expect": "SC_CAPTURE normalized-digest-mismatch",
+   "met": true,
+   "note": "col15<-S017"
+  },
+  {
+   "case": "c0-mixed-prose",
+   "side": "base",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=121)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": "SC_CAPTURE capture-token",
+   "met": false,
+   "note": "mixed prose"
+  },
+  {
+   "case": "c0-mixed-prose",
+   "side": "cand",
+   "rc": 1,
+   "captures": "SOURCES_CAPTURES: FAILED (defects=1 path_rows=38 bound=37 located=37 prose=120)",
+   "census": "SOURCES_CENSUS: FAILED (findings=1 rows=158)",
+   "findings": [
+    "FINDING SC_CAPTURE id=S167 capture-token"
+   ],
+   "expect": "SC_CAPTURE capture-token",
+   "met": true,
+   "note": "mixed prose"
+  },
+  {
+   "case": "c0-pure-control",
+   "side": "base",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=38 bound=38 located=38 prose=120)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": "CLEAN",
+   "met": true,
+   "note": "unmodified"
+  },
+  {
+   "case": "c0-pure-control",
+   "side": "cand",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=38 bound=38 located=38 prose=120)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": "CLEAN",
+   "met": true,
+   "note": "unmodified"
+  },
+  {
+   "case": "c0-s166-prerecut",
+   "side": "base",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=121)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": "SC_CAPTURE capture-token",
+   "met": false,
+   "note": "S166 pre-recut mixed bytes"
+  },
+  {
+   "case": "c0-s166-prerecut",
+   "side": "cand",
+   "rc": 1,
+   "captures": "SOURCES_CAPTURES: FAILED (defects=1 path_rows=38 bound=37 located=37 prose=120)",
+   "census": "SOURCES_CENSUS: FAILED (findings=1 rows=158)",
+   "findings": [
+    "FINDING SC_CAPTURE id=S166 capture-token"
+   ],
+   "expect": "SC_CAPTURE capture-token",
+   "met": true,
+   "note": "S166 pre-recut mixed bytes"
+  },
+  {
+   "case": "c1-cell-cr-interior",
+   "side": "base",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=121)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": [
+    "any:capture-whitespace|capture-token",
+    "FAILED"
+   ],
+   "met": false,
+   "note": "CR inside the cell"
+  },
+  {
+   "case": "c1-cell-cr-interior",
+   "side": "cand",
+   "rc": 1,
+   "captures": "SOURCES_CAPTURES: FAILED (defects=1 path_rows=38 bound=37 located=37 prose=120)",
+   "census": "SOURCES_CENSUS: FAILED (findings=2 rows=158)",
+   "findings": [
+    "FINDING SC_FETCH cr-in-tsv",
+    "FINDING SC_CAPTURE id=S113 capture-token"
+   ],
+   "expect": [
+    "any:capture-whitespace|capture-token",
+    "FAILED"
+   ],
+   "met": true,
+   "note": "CR inside the cell"
+  },
+  {
+   "case": "reg-dot-prefix",
+   "side": "base",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=38 bound=38 located=38 prose=120)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": "CLEAN",
+   "met": true,
+   "note": "./"
+  },
+  {
+   "case": "reg-dot-prefix",
+   "side": "cand",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=38 bound=38 located=38 prose=120)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": "CLEAN",
+   "met": true,
+   "note": "./"
+  },
+  {
+   "case": "reg-double-slash",
+   "side": "base",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=38 bound=38 located=38 prose=120)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": "CLEAN",
+   "met": true,
+   "note": ".ufo//"
+  },
+  {
+   "case": "reg-double-slash",
+   "side": "cand",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=38 bound=38 located=38 prose=120)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": "CLEAN",
+   "met": true,
+   "note": ".ufo//"
+  },
+  {
+   "case": "reg-inner-dot",
+   "side": "base",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=38 bound=38 located=38 prose=120)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": "CLEAN",
+   "met": true,
+   "note": "/./"
+  },
+  {
+   "case": "reg-inner-dot",
+   "side": "cand",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=38 bound=38 located=38 prose=120)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": "CLEAN",
+   "met": true,
+   "note": "/./"
+  },
+  {
+   "case": "reg-inner-dotdot",
+   "side": "base",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=38 bound=38 located=38 prose=120)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": "CLEAN",
+   "met": true,
+   "note": "/../capture/"
+  },
+  {
+   "case": "reg-inner-dotdot",
+   "side": "cand",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=38 bound=38 located=38 prose=120)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": "CLEAN",
+   "met": true,
+   "note": "/../capture/"
+  },
+  {
+   "case": "reg-symlink-intree",
+   "side": "base",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=38 bound=38 located=38 prose=120)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": "CLEAN",
+   "met": true,
+   "note": "in-tree symlink"
+  },
+  {
+   "case": "reg-symlink-intree",
+   "side": "cand",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=38 bound=38 located=38 prose=120)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": "CLEAN",
+   "met": true,
+   "note": "in-tree symlink"
+  },
+  {
+   "case": "reg-absolute",
+   "side": "base",
+   "rc": 1,
+   "captures": "SOURCES_CAPTURES: FAILED (defects=1 path_rows=38 bound=37 located=37 prose=120)",
+   "census": "SOURCES_CENSUS: FAILED (findings=1 rows=158)",
+   "findings": [
+    "FINDING SC_CAPTURE id=S167 capture-outside-root"
+   ],
+   "expect": "SC_CAPTURE capture-outside-root",
+   "met": true,
+   "note": "absolute in-tree path"
+  },
+  {
+   "case": "reg-absolute",
+   "side": "cand",
+   "rc": 1,
+   "captures": "SOURCES_CAPTURES: FAILED (defects=1 path_rows=38 bound=37 located=37 prose=120)",
+   "census": "SOURCES_CENSUS: FAILED (findings=1 rows=158)",
+   "findings": [
+    "FINDING SC_CAPTURE id=S167 capture-outside-root"
+   ],
+   "expect": "SC_CAPTURE capture-outside-root",
+   "met": true,
+   "note": "absolute in-tree path"
+  },
+  {
+   "case": "reg-shaped-nonwaves",
+   "side": "base",
+   "rc": 1,
+   "captures": "SOURCES_CAPTURES: FAILED (defects=2 path_rows=38 bound=37 located=37 prose=120)",
+   "census": "SOURCES_CENSUS: FAILED (findings=2 rows=158)",
+   "findings": [
+    "FINDING SC_CAPTURE id=S167 capture-bytes-mismatch",
+    "FINDING SC_CAPTURE id=S167 capture-digest-mismatch"
+   ],
+   "expect": [
+    "CLEAN",
+    "SOURCES_CAPTURES: CLEAN (path_rows="
+   ],
+   "met": false,
+   "note": "shaped non-waves cell"
+  },
+  {
+   "case": "reg-shaped-nonwaves",
+   "side": "cand",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=121)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": [
+    "CLEAN",
+    "SOURCES_CAPTURES: CLEAN (path_rows="
+   ],
+   "met": true,
+   "note": "shaped non-waves cell"
+  },
+  {
+   "case": "m1-anchor-space",
+   "side": "base",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=121)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": "SC_CAPTURE capture-whitespace",
+   "met": false,
+   "note": "M1"
+  },
+  {
+   "case": "m1-anchor-space",
+   "side": "cand",
+   "rc": 1,
+   "captures": "SOURCES_CAPTURES: FAILED (defects=1 path_rows=38 bound=37 located=37 prose=120)",
+   "census": "SOURCES_CENSUS: FAILED (findings=1 rows=158)",
+   "findings": [
+    "FINDING SC_CAPTURE id=S167 capture-whitespace"
+   ],
+   "expect": "SC_CAPTURE capture-whitespace",
+   "met": true,
+   "note": "M1"
+  },
+  {
+   "case": "m2-anchor-dup",
+   "side": "base",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=121)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": "SC_CAPTURE capture-whitespace",
+   "met": false,
+   "note": "M2"
+  },
+  {
+   "case": "m2-anchor-dup",
+   "side": "cand",
+   "rc": 1,
+   "captures": "SOURCES_CAPTURES: FAILED (defects=1 path_rows=38 bound=37 located=37 prose=120)",
+   "census": "SOURCES_CENSUS: FAILED (findings=1 rows=158)",
+   "findings": [
+    "FINDING SC_CAPTURE id=S167 capture-whitespace"
+   ],
+   "expect": "SC_CAPTURE capture-whitespace",
+   "met": true,
+   "note": "M2"
+  },
+  {
+   "case": "m4-anchor-sha",
+   "side": "base",
+   "rc": 1,
+   "captures": "SOURCES_CAPTURES: FAILED (defects=1 path_rows=38 bound=37 located=37 prose=120)",
+   "census": "SOURCES_CENSUS: FAILED (findings=1 rows=158)",
+   "findings": [
+    "FINDING SC_CAPTURE id=S167 capture-digest-mismatch"
+   ],
+   "expect": "SC_CAPTURE capture-digest-mismatch",
+   "met": true,
+   "note": "M4"
+  },
+  {
+   "case": "m4-anchor-sha",
+   "side": "cand",
+   "rc": 1,
+   "captures": "SOURCES_CAPTURES: FAILED (defects=1 path_rows=38 bound=37 located=37 prose=120)",
+   "census": "SOURCES_CENSUS: FAILED (findings=1 rows=158)",
+   "findings": [
+    "FINDING SC_CAPTURE id=S167 capture-digest-mismatch"
+   ],
+   "expect": "SC_CAPTURE capture-digest-mismatch",
+   "met": true,
+   "note": "M4"
+  },
+  {
+   "case": "m5-anchor-col15",
+   "side": "base",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=38 bound=38 located=38 prose=120)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": "SC_CAPTURE normalized-digest-mismatch",
+   "met": false,
+   "note": "M5"
+  },
+  {
+   "case": "m5-anchor-col15",
+   "side": "cand",
+   "rc": 1,
+   "captures": "SOURCES_CAPTURES: FAILED (defects=1 path_rows=38 bound=38 located=38 prose=120)",
+   "census": "SOURCES_CENSUS: FAILED (findings=1 rows=158)",
+   "findings": [
+    "FINDING SC_CAPTURE id=S167 normalized-digest-mismatch"
+   ],
+   "expect": "SC_CAPTURE normalized-digest-mismatch",
+   "met": true,
+   "note": "M5"
+  },
+  {
+   "case": "m6-anchor-body",
+   "side": "base",
+   "rc": 1,
+   "captures": "SOURCES_CAPTURES: FAILED (defects=2 path_rows=38 bound=37 located=37 prose=120)",
+   "census": "SOURCES_CENSUS: FAILED (findings=2 rows=158)",
+   "findings": [
+    "FINDING SC_CAPTURE id=S167 capture-bytes-mismatch",
+    "FINDING SC_CAPTURE id=S167 capture-digest-mismatch"
+   ],
+   "expect": "SC_CAPTURE capture-bytes-mismatch",
+   "met": true,
+   "note": "M6"
+  },
+  {
+   "case": "m6-anchor-body",
+   "side": "cand",
+   "rc": 1,
+   "captures": "SOURCES_CAPTURES: FAILED (defects=2 path_rows=38 bound=37 located=37 prose=120)",
+   "census": "SOURCES_CENSUS: FAILED (findings=2 rows=158)",
+   "findings": [
+    "FINDING SC_CAPTURE id=S167 capture-bytes-mismatch",
+    "FINDING SC_CAPTURE id=S167 capture-digest-mismatch"
+   ],
+   "expect": "SC_CAPTURE capture-bytes-mismatch",
+   "met": true,
+   "note": "M6"
+  },
+  {
+   "case": "s113-trail-space",
+   "side": "base",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=121)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": "SC_CAPTURE capture-whitespace",
+   "met": false,
+   "note": "S113 +0x20"
+  },
+  {
+   "case": "s113-trail-space",
+   "side": "cand",
+   "rc": 1,
+   "captures": "SOURCES_CAPTURES: FAILED (defects=1 path_rows=38 bound=37 located=37 prose=120)",
+   "census": "SOURCES_CENSUS: FAILED (findings=1 rows=158)",
+   "findings": [
+    "FINDING SC_CAPTURE id=S113 capture-whitespace"
+   ],
+   "expect": "SC_CAPTURE capture-whitespace",
+   "met": true,
+   "note": "S113 +0x20"
+  },
+  {
+   "case": "s113-lead-space",
+   "side": "base",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=121)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": "SC_CAPTURE capture-whitespace",
+   "met": false,
+   "note": "S113 lead"
+  },
+  {
+   "case": "s113-lead-space",
+   "side": "cand",
+   "rc": 1,
+   "captures": "SOURCES_CAPTURES: FAILED (defects=1 path_rows=38 bound=37 located=37 prose=120)",
+   "census": "SOURCES_CENSUS: FAILED (findings=1 rows=158)",
+   "findings": [
+    "FINDING SC_CAPTURE id=S113 capture-whitespace"
+   ],
+   "expect": "SC_CAPTURE capture-whitespace",
+   "met": true,
+   "note": "S113 lead"
+  },
+  {
+   "case": "s113-interior",
+   "side": "base",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=121)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": "any:capture-whitespace|capture-token",
+   "met": false,
+   "note": "S113 interior"
+  },
+  {
+   "case": "s113-interior",
+   "side": "cand",
+   "rc": 1,
+   "captures": "SOURCES_CAPTURES: FAILED (defects=1 path_rows=38 bound=37 located=37 prose=120)",
+   "census": "SOURCES_CENSUS: FAILED (findings=1 rows=158)",
+   "findings": [
+    "FINDING SC_CAPTURE id=S113 capture-token"
+   ],
+   "expect": "any:capture-whitespace|capture-token",
+   "met": true,
+   "note": "S113 interior"
+  },
+  {
+   "case": "s113-eight-spaces",
+   "side": "base",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=121)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": [
+    "any:capture-whitespace|capture-token",
+    "FAILED"
+   ],
+   "met": false,
+   "note": "S113 8 spaces"
+  },
+  {
+   "case": "s113-eight-spaces",
+   "side": "cand",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=121)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": [
+    "any:capture-whitespace|capture-token",
+    "FAILED"
+   ],
+   "met": false,
+   "note": "S113 8 spaces"
+  },
+  {
+   "case": "s113-trail-cr",
+   "side": "base",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=121)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": [
+    "FAILED",
+    "any:capture-whitespace|cr-in-tsv"
+   ],
+   "met": false,
+   "note": "S113 +CR"
+  },
+  {
+   "case": "s113-trail-cr",
+   "side": "cand",
+   "rc": 1,
+   "captures": "SOURCES_CAPTURES: FAILED (defects=1 path_rows=38 bound=37 located=37 prose=120)",
+   "census": "SOURCES_CENSUS: FAILED (findings=2 rows=158)",
+   "findings": [
+    "FINDING SC_FETCH cr-in-tsv",
+    "FINDING SC_CAPTURE id=S113 capture-whitespace"
+   ],
+   "expect": [
+    "FAILED",
+    "any:capture-whitespace|cr-in-tsv"
+   ],
+   "met": true,
+   "note": "S113 +CR"
+  },
+  {
+   "case": "s113-comma",
+   "side": "base",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=121)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": "SC_CAPTURE capture-whitespace",
+   "met": false,
+   "note": "S113 comma"
+  },
+  {
+   "case": "s113-comma",
+   "side": "cand",
+   "rc": 1,
+   "captures": "SOURCES_CAPTURES: FAILED (defects=1 path_rows=38 bound=37 located=37 prose=120)",
+   "census": "SOURCES_CENSUS: FAILED (findings=1 rows=158)",
+   "findings": [
+    "FINDING SC_CAPTURE id=S113 capture-whitespace"
+   ],
+   "expect": "SC_CAPTURE capture-whitespace",
+   "met": true,
+   "note": "S113 comma"
+  },
+  {
+   "case": "s113-slashslash",
+   "side": "base",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=121)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": "SC_CAPTURE capture-token",
+   "met": false,
+   "note": "S113 //"
+  },
+  {
+   "case": "s113-slashslash",
+   "side": "cand",
+   "rc": 1,
+   "captures": "SOURCES_CAPTURES: FAILED (defects=1 path_rows=38 bound=37 located=37 prose=120)",
+   "census": "SOURCES_CENSUS: FAILED (findings=1 rows=158)",
+   "findings": [
+    "FINDING SC_CAPTURE id=S113 capture-token"
+   ],
+   "expect": "SC_CAPTURE capture-token",
+   "met": true,
+   "note": "S113 //"
+  },
+  {
+   "case": "s113-tilde",
+   "side": "base",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=121)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": "SC_CAPTURE capture-token",
+   "met": false,
+   "note": "S113 ~/"
+  },
+  {
+   "case": "s113-tilde",
+   "side": "cand",
+   "rc": 1,
+   "captures": "SOURCES_CAPTURES: FAILED (defects=1 path_rows=38 bound=37 located=37 prose=120)",
+   "census": "SOURCES_CENSUS: FAILED (findings=1 rows=158)",
+   "findings": [
+    "FINDING SC_CAPTURE id=S113 capture-token"
+   ],
+   "expect": "SC_CAPTURE capture-token",
+   "met": true,
+   "note": "S113 ~/"
+  },
+  {
+   "case": "spell-double-slash",
+   "side": "base",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=38 bound=38 located=38 prose=120)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": null,
+   "met": null,
+   "note": "S113 .ufo//waves/..."
+  },
+  {
+   "case": "spell-double-slash",
+   "side": "cand",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=38 bound=38 located=38 prose=120)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": null,
+   "met": null,
+   "note": "S113 .ufo//waves/..."
+  },
+  {
+   "case": "spell-dot-dir",
+   "side": "base",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=38 bound=38 located=38 prose=120)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": null,
+   "met": null,
+   "note": "S113 .ufo/./waves/..."
+  },
+  {
+   "case": "spell-dot-dir",
+   "side": "cand",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=38 bound=38 located=38 prose=120)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": null,
+   "met": null,
+   "note": "S113 .ufo/./waves/..."
+  },
+  {
+   "case": "spell-symlink-dir",
+   "side": "base",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=38 bound=38 located=38 prose=120)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": null,
+   "met": null,
+   "note": "S113 via .ufo/wv symlink dir"
+  },
+  {
+   "case": "spell-symlink-dir",
+   "side": "cand",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=121)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": null,
+   "met": null,
+   "note": "S113 via .ufo/wv symlink dir"
+  },
+  {
+   "case": "spell-uppercase",
+   "side": "base",
+   "rc": 1,
+   "captures": "SOURCES_CAPTURES: FAILED (defects=1 path_rows=38 bound=37 located=37 prose=120)",
+   "census": "SOURCES_CENSUS: FAILED (findings=1 rows=158)",
+   "findings": [
+    "FINDING SC_CAPTURE id=S113 capture-missing"
+   ],
+   "expect": null,
+   "met": null,
+   "note": "S113 .UFO/waves/..."
+  },
+  {
+   "case": "spell-uppercase",
+   "side": "cand",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=121)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": null,
+   "met": null,
+   "note": "S113 .UFO/waves/..."
+  },
+  {
+   "case": "over-doubleslash-prose",
+   "side": "base",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=38 bound=38 located=38 prose=120)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": null,
+   "met": null,
+   "note": "prose cell containing // token"
+  },
+  {
+   "case": "over-doubleslash-prose",
+   "side": "cand",
+   "rc": 1,
+   "captures": "SOURCES_CAPTURES: FAILED (defects=1 path_rows=39 bound=38 located=38 prose=119)",
+   "census": "SOURCES_CENSUS: FAILED (findings=1 rows=158)",
+   "findings": [
+    "FINDING SC_CAPTURE id=S017 capture-token"
+   ],
+   "expect": null,
+   "met": null,
+   "note": "prose cell containing // token"
+  },
+  {
+   "case": "over-tilde-prose",
+   "side": "base",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=38 bound=38 located=38 prose=120)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": null,
+   "met": null,
+   "note": "prose cell containing ~/ token"
+  },
+  {
+   "case": "over-tilde-prose",
+   "side": "cand",
+   "rc": 1,
+   "captures": "SOURCES_CAPTURES: FAILED (defects=1 path_rows=39 bound=38 located=38 prose=119)",
+   "census": "SOURCES_CENSUS: FAILED (findings=1 rows=158)",
+   "findings": [
+    "FINDING SC_CAPTURE id=S017 capture-token"
+   ],
+   "expect": null,
+   "met": null,
+   "note": "prose cell containing ~/ token"
+  },
+  {
+   "case": "prose-ufo-prompts",
+   "side": "base",
+   "rc": 1,
+   "captures": "SOURCES_CAPTURES: FAILED (defects=1 path_rows=39 bound=38 located=38 prose=119)",
+   "census": "SOURCES_CENSUS: FAILED (findings=1 rows=158)",
+   "findings": [
+    "FINDING SC_CAPTURE id=S017 capture-outside-root"
+   ],
+   "expect": null,
+   "met": null,
+   "note": "fleet-root prompts path (S099 shape)"
+  },
+  {
+   "case": "prose-ufo-prompts",
+   "side": "cand",
+   "rc": 1,
+   "captures": "SOURCES_CAPTURES: FAILED (defects=1 path_rows=39 bound=38 located=38 prose=119)",
+   "census": "SOURCES_CENSUS: FAILED (findings=1 rows=158)",
+   "findings": [
+    "FINDING SC_CAPTURE id=S017 capture-outside-root"
+   ],
+   "expect": null,
+   "met": null,
+   "note": "fleet-root prompts path (S099 shape)"
+  },
+  {
+   "case": "ceil-multilink",
+   "side": "base",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=38 bound=38 located=38 prose=120)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": null,
+   "met": null,
+   "note": "hardlink"
+  },
+  {
+   "case": "ceil-multilink",
+   "side": "cand",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=38 bound=38 located=38 prose=120)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": null,
+   "met": null,
+   "note": "hardlink"
+  },
+  {
+   "case": "ceil-norm-tamper-naive",
+   "side": "base",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=38 bound=38 located=38 prose=120)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": null,
+   "met": null,
+   "note": "in-tree normalizer lies on digest+locate"
+  },
+  {
+   "case": "ceil-norm-tamper-naive",
+   "side": "cand",
+   "rc": 1,
+   "captures": "SOURCES_CAPTURES: FAILED (defects=33 path_rows=38 bound=38 located=38 prose=120)",
+   "census": "SOURCES_CENSUS: FAILED (findings=33 rows=158)",
+   "findings": [
+    "FINDING SC_CAPTURE id=S115 normalized-digest-mismatch",
+    "FINDING SC_CAPTURE id=S116 normalized-digest-mismatch",
+    "FINDING SC_CAPTURE id=S117 normalized-digest-mismatch",
+    "FINDING SC_CAPTURE id=S118 normalized-digest-mismatch",
+    "FINDING SC_CAPTURE id=S119 normalized-digest-mismatch",
+    "FINDING SC_CAPTURE id=S120 normalized-digest-mismatch",
+    "FINDING SC_CAPTURE id=S121 normalized-digest-mismatch",
+    "FINDING SC_CAPTURE id=S122 normalized-digest-mismatch",
+    "FINDING SC_CAPTURE id=S123 normalized-digest-mismatch",
+    "FINDING SC_CAPTURE id=S124 normalized-digest-mismatch",
+    "FINDING SC_CAPTURE id=S125 normalized-digest-mismatch",
+    "FINDING SC_CAPTURE id=S126 normalized-digest-mismatch",
+    "FINDING SC_CAPTURE id=S127 normalized-digest-mismatch",
+    "FINDING SC_CAPTURE id=S128 normalized-digest-mismatch",
+    "FINDING SC_CAPTURE id=S129 normalized-digest-mismatch",
+    "FINDING SC_CAPTURE id=S130 normalized-digest-mismatch",
+    "FINDING SC_CAPTURE id=S131 normalized-digest-mismatch",
+    "FINDING SC_CAPTURE id=S132 normalized-digest-mismatch",
+    "FINDING SC_CAPTURE id=S133 normalized-digest-mismatch",
+    "FINDING SC_CAPTURE id=S134 normalized-digest-mismatch",
+    "FINDING SC_CAPTURE id=S135 normalized-digest-mismatch",
+    "FINDING SC_CAPTURE id=S137 normalized-digest-mismatch",
+    "FINDING SC_CAPTURE id=S138 normalized-digest-mismatch",
+    "FINDING SC_CAPTURE id=S140 normalized-digest-mismatch",
+    "FINDING SC_CAPTURE id=S141 normalized-digest-mismatch",
+    "FINDING SC_CAPTURE id=S142 normalized-digest-mismatch",
+    "FINDING SC_CAPTURE id=S143 normalized-digest-mismatch",
+    "FINDING SC_CAPTURE id=S144 normalized-digest-mismatch",
+    "FINDING SC_CAPTURE id=S164 normalized-digest-mismatch",
+    "FINDING SC_CAPTURE id=S155 normalized-digest-mismatch",
+    "FINDING SC_CAPTURE id=S156 normalized-digest-mismatch",
+    "FINDING SC_CAPTURE id=S166 normalized-digest-mismatch",
+    "FINDING SC_CAPTURE id=S167 normalized-digest-mismatch"
+   ],
+   "expect": null,
+   "met": null,
+   "note": "in-tree normalizer lies on digest+locate"
+  },
+  {
+   "case": "ceil-norm-tamper-smart",
+   "side": "base",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=38 bound=38 located=38 prose=120)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": null,
+   "met": null,
+   "note": "in-tree normalizer forwards digest, lies on locate"
+  },
+  {
+   "case": "ceil-norm-tamper-smart",
+   "side": "cand",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=38 bound=38 located=38 prose=120)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": null,
+   "met": null,
+   "note": "in-tree normalizer forwards digest, lies on locate"
+  },
+  {
+   "case": "ceil-short-quote",
+   "side": "base",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=38 bound=38 located=38 prose=120)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": null,
+   "met": null,
+   "note": "one-token quote"
+  },
+  {
+   "case": "ceil-short-quote",
+   "side": "cand",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=38 bound=38 located=38 prose=120)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": null,
+   "met": null,
+   "note": "one-token quote"
+  },
+  {
+   "case": "s099-exact-prose",
+   "side": "base",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=38 bound=38 located=38 prose=120)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": null,
+   "met": null,
+   "note": "S099 exact cell shape"
+  },
+  {
+   "case": "s099-exact-prose",
+   "side": "cand",
+   "rc": 0,
+   "captures": "SOURCES_CAPTURES: CLEAN (path_rows=38 bound=38 located=38 prose=120)",
+   "census": "SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)",
+   "findings": [],
+   "expect": null,
+   "met": null,
+   "note": "S099 exact cell shape"
+  }
+ ]
+}

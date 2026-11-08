@@ -1,0 +1,27 @@
+# BASE motivating evidence, claim BASE 264917aa, measured 2026-11-08T19:49:38-03:00
+$ git show 264917aa:SCORECARD.md | grep -nF 'C2_RECORD: mismatches=0'
+2425:| calibration | 9 → 9 | [C2] `bash plans/round-68-c2.sh --tree .` ⇒ `C2_RECORD: mismatches=0 population=3 guard=1` rc 0 (three record surfaces: the census-selftest pin migrates 88 → 98 with a journaled pair, t
+$ git show 264917aa:SCORECARD.md | grep -nF 'QM97'
+2426:| depth | 9 → 9 | No claim. `corpus/knowledge/source-capture-binding.md` gains the widened population, the monotone classification rule, the col-15 recompute and its bounds; QM97–QM99 enter the bar. | `corpus/kn
+$ git show 264917aa:corpus/lessons/round-68.md | grep -nF 'mismatches 3'
+18:  `C2_RECORD` mismatches 3 → 0 (selftest pin, missing ledger rows, cells SETUP).
+$ git show 264917aa:LOG.md | grep -nF '59 cases'
+2221:  `C1_VERIFIED_SELFTEST: PASS (59 cases)`); `C2_RECORD_SELFTEST: PASS (7 cases)`;
+$ git show 264917aa:.ufo/waves/round-68/base/base-derivation.md | grep -nF 'caught=0/6'
+33:  (`C1_READTHROUGH: bound=36 located=36 caught=0/6 guard=0`, rc 1): the
+60:`caught=0/6` with `verified=36 col15=31` there — a target the BASE state cannot
+$ git show 264917aa:corpus/QUALITY.md | grep -oE '^\| *QM[0-9]+' | tail -1
+| QM96
+$ git log --all --oneline -- .ufo/waves/round-68/final/c1-base.txt | wc -l
+0
+$ sed -n 13p w1/R68ExecCounterC1/selftest.txt
+C1_VERIFIED_SELFTEST: PASS (56 cases)
+$ grep C1_VERIFIED: w1/R68ExecCounterC1/base-run.txt
+19:C1_VERIFIED: verified=36 col15=31 caught=0/6 guard=0
+$ grep -n R68-02 corpus/claim-ledger.tsv
+119:R68-02	bash plans/round-68-c2.sh	^C2_RECORD: mismatches=0 population=3 guard=1$	0	3600	round 68 C2 (calibration): the frozen predicate of plans/round-68.md §C2 is `C2_RECORD: mismatches=0 population=3 guard=1`. L1 migrates the R21-03 census-selftest pin to the measured case count with a journal pair; L2 mints this row and R68-01 from the plan; L3 teaches the cells audit to skip a non-scored `## Round N - planned` heading while a scored section missing an axis still fails closed. BASE d3b2a4e8 reads mismatches=3 guard=1. Timeout 900 -> 3600: the counter re-runs the ledger verify twice (BASE and candidate) and the cells audit, whose measured wall time on this tree exceeds the leg3 900 s budget.
+$ ls .ufo/waves/round-68/w1-results.json
+fatal: path '.ufo/waves/round-68/w1-results.json' does not exist in '264917aa'
+absent
+$ ls corpus/knowledge | wc -l
+48

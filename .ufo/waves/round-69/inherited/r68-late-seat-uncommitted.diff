@@ -1,0 +1,66 @@
+diff --git i/.ufo/waves/round-68/w1/R68ExecCounterC2/c2-candidate.txt w/.ufo/waves/round-68/w1/R68ExecCounterC2/c2-candidate.txt
+index 5cb2260..1c9b830 100644
+--- i/.ufo/waves/round-68/w1/R68ExecCounterC2/c2-candidate.txt
++++ w/.ufo/waves/round-68/w1/R68ExecCounterC2/c2-candidate.txt
+@@ -1 +1,7 @@
+ c2-record: tree=/home/vgpnk/Projects/shokunin/kagi-shokunin base_sha=d3b2a4e8eed7
++c2-record: guard ((a)=1 (b)=0 cand-last='' (c)=1)
++LEG L1 verdict=ok pinned=98 measured=98 base_gate_sha=e7aacecdfcf0 base=89 probe=sensitive journal-pair=old!=new journal=R21-03 journal=CLEAN
++LEG L2 verdict=ok rows=R68-01,R68-02 c1-executed rc=0 c2-executed=self(this-run) claims-declared=CLEAN
++LEG L3 verdict=ok cells-verdict=POLICY rc=2 wall=1190s rest=(cells=576 row_pointed=286 stamp_pointed=250 policy=3) planned-table=rc2 suffixed-planned=rc2 scored-missing-axis=fails rc=2
++C2_RECORD: mismatches=0 population=3 guard=1
++RC:0
+diff --git i/plans/round-68-c2.sh w/plans/round-68-c2.sh
+index 54635fe..83d0dad 100755
+--- i/plans/round-68-c2.sh
++++ w/plans/round-68-c2.sh
+@@ -650,6 +650,13 @@ def guard(tree, base_dir):
+     # Both runs are cached: verify is the most expensive ledger mode.
+     brc, bout, berr = pf("base_verify")
+     cand_rc, cand_out, cand_err = pf("cand_verify")
++    # A timed-out verify (empty stdout, rc 124) is never a pass: guard (b)
++    # reads 0 and names the timeout. The ledger row's timeout must exceed the
++    # measured wall (see the round-68 seat report).
++    if not (cand_out or "").strip():
++        detail.append("(b)=0 verify-no-output base_rc=%s cand_rc=%s" % (brc, cand_rc))
++        b = 0
++        cand_last = ""
+     base_ids = finding_ids(bout)
+     cand_ids = finding_ids(cand_out)
+ 
+@@ -685,8 +692,10 @@ def guard(tree, base_dir):
+ 
+     new_ids = [fid for fid in sorted(cand_ids)
+                if fid not in base_ids and not pre_existing(fid)]
+-    cand_last = last_nonempty(cand_out)
+-    if new_ids:
++    cand_last = last_nonempty(cand_out) if (cand_out or "").strip() else ""
++    if not (cand_out or "").strip():
++        pass
++    elif new_ids:
+         detail.append("(b)=0 new-finding-ids=%d first=%r" % (len(new_ids), new_ids[0]))
+         b = 0
+     elif "CLAIM_LEDGER: CLEAN" in (cand_out or ""):
+@@ -740,9 +749,9 @@ def guard(tree, base_dir):
+     (fx2 / "stamps.tsv").write_text(
+         "corpus/fx-ok.sh\t2e0bc9b4aa7b944976a5a05b45a13b76aabde9349602846538a8eee5f9d2eae\t2\t33\n")
+     import hashlib
+-    b = (fx2 / "corpus" / "fx-ok.sh").read_bytes()
++    _fxb = (fx2 / "corpus" / "fx-ok.sh").read_bytes()   # NOT `b`: b is guard(b)'s flag
+     (fx2 / "stamps.tsv").write_text("corpus/fx-ok.sh\t%s\t%s\t%s\n" % (
+-        hashlib.sha256(b).hexdigest(), len(b.splitlines()), len(b)))
++        hashlib.sha256(_fxb).hexdigest(), len(_fxb.splitlines()), len(_fxb)))
+     n2rc, n2out, n2err = run_cmd(
+         ["bash", str(script), "cells", "--root", str(fx2),
+          "--claims", str(fx2 / "claims.tsv"), "--stamps", str(fx2 / "stamps.tsv"),
+@@ -956,8 +965,8 @@ def prefetch(tree, base_dir):
+     jobs = {
+         "cells": lambda: cells_run(tree, timeout=3000),
+         "census": lambda: census_verify(tree, timeout=600),
+-        "base_verify": lambda: ledger_verify(base_dir, timeout=3000),
+-        "cand_verify": lambda: ledger_verify(tree, timeout=3000),
++        "base_verify": lambda: ledger_verify(base_dir, timeout=7200),
++        "cand_verify": lambda: ledger_verify(tree, timeout=7200),
+     }
+     ex = cf.ThreadPoolExecutor(max_workers=4)
+     for k, fn in jobs.items():

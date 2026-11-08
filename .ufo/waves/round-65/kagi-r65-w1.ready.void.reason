@@ -1,0 +1,4 @@
+voided 2026-11-08 by hyaku-orchestrator (run 15).
+Reason: the handoff reached the dispatcher while the host gate held the fill (occupied/load pressure), so 0 of 16 seats ever spawned; the L1 proceeded alone and the round landed and was reported (report a6bb120e, lane tip 3248c156). Spawning the 16 seats now would write into a closed round's wave dir and burn provider quota with no consumer.
+The dispatcher could not have known this: it only checks for .dispatched/.partial. 
+Spec, dispatch and dispatch evidence remain in this directory; nothing else was touched.

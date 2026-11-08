@@ -225,3 +225,42 @@ col16 is legal iff it names exactly one `.ufo/waves/` token (e.g. S166's
 `§1.2 … capture .ufo/waves/round-67/capture/S166.body` before the re-cut;
 after the re-cut a mixed-prose `.ufo/waves/` cell is a defect by
 construction).
+
+## Amendment A1 — anchor derivation and the target's teeth (recorded before any counter reading)
+
+Recorded 2026-11-08, before `plans/round-68-c1.sh` existed on disk and before
+any seat scored anything. It resolves two under-specifications in §C1; it
+changes no axis, no reason set, no guard, no leg and no kill rule.
+
+**A1.1 — the anchor is the derivation, not the parenthetical.** §C1's
+parenthetical "(S166 at the candidate, S164 at BASE)" was a guess about file
+order. Measured: the LAST capture-path-shaped row in file order is `S156` at
+BASE (the TSV is not in id order) and, once the round's own S167 fetch row
+lands at the file's end, `S167` at the candidate. The derivation decides; the
+counter must print the anchor id it selected and its same-size/different-digest
+target, and no leg may name a literal id.
+
+**A1.2 — the target's teeth.** The frozen numbers `verified=37 col15=32` are
+the reading of a tree carrying ONLY the S166 recut; the L1 measured exactly
+that at `.ufo/waves/round-68/final/l1-derivation-recut-only.txt` before the
+S167 fetch row existed. The round's own S167 row is a landing, not a target
+change: it adds one binding row to each population, so the final candidate
+reading is 38/33 with zero defect rows. The claim therefore carries three
+teeth, all derived, none literal:
+
+1. `defects = 0` over the WHOLE fetch population — one unbinding row anywhere
+   fails the claim (this is stronger than a count, and it is the tooth a
+   count cannot give);
+2. `caught = 6/6` — the six frozen mutations each read their expected reason;
+3. `guard = 1` — the five frozen legs, including the BASE-blindness witness.
+
+A do-nothing tree cannot reach it: at BASE the same derivation reads
+`verified=36 col15=31` with the same zero defects, and the six legs read
+`caught=0/6`, so the claim's delta is the gate's capability, not the tree's
+state. The report states BASE, the recut-only reading, and the final candidate
+reading separately, and pins the final line in ledger row `R68-01`.
+
+**A1.3 — what A1 is not.** It does not relax the six legs, the reason
+vocabulary, the classification rule, the guards, or the two axes; it does not
+retro-fit a number after data (no counter had run); and it does not license a
+literal in the counter.

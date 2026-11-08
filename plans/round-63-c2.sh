@@ -195,7 +195,7 @@ leg_fires $? "$WORK/l2.out" && l2=1
 # l3/l4: the battery's two stub controls must read mismatch (one battery run). A tree
 #   without the round-63 battery has no such control: both legs read 0 (BASE reading).
 if [ -f "$TREE/plans/round-63-controls.sh" ]; then
-  bash "$TREE/plans/round-63-controls.sh" "$TREE" >"$WORK/battery.out" 2>&1
+  R63_CONTROLS_FIXTURE_ONLY="${R63_CONTROLS_FIXTURE_ONLY:-}" bash "$TREE/plans/round-63-controls.sh" "$TREE" >"$WORK/battery.out" 2>&1
   brc=$?
   [ "$brc" = 2 ] && setup_die battery-setup
   grep -qE '^CONTROL C2-F6 .*verdict=mismatch' "$WORK/battery.out" && l3=1

@@ -1,0 +1,32 @@
+achieved. This last point is particularly important as it is linked to the decision
+of when to stop the testing process, i.e., Step 8 (Section 5.8).
+5.3.1. Identifying Equivalent Mutants
+Detecting equivalent mutants is a well-known undecidable problem [28]. This
+means that it is unrealistic to form an automated technique that will identify all
+the equivalent mutants. The best we can do is to form heuristics that can remove
+most of these mutants. One such effective heuristic relies on compiler optimisation techniques [37, 152]. The idea is that code optimisations transform the
+syntactically different versions (mutants) to the optimised version. Therefore,
+semantically equivalent mutants are transformed to the same optimised version.
+This approach is called Trivial Compiler Optimization (TCE) and works by
+declaring equivalences only for the mutants that their compiled object code is
+identical to the compiled object code of the original program. Empirical results
+suggest TCE is surprisingly effective, being able to identify at least 30% of all
+the equivalent mutants.
+Other techniques that aim at identifying equivalent mutants are of Kintis
+and Malevris [153–155] who observed that equivalent mutants have specific dataflow patterns which form data-flow anomalies. Thus, by using static data-flow
+analysis we can eliminate a large portion of equivalent mutants. This category
+of techniques include the use of program verification techniques, such as Value
+Analysis and Weakest Precondition calculus. Program verification is used to
+detect mutants that are unreachable or mutants that cannot be infected [144,
+145].
+A different attempt to solve the same problem is based on identifying killable mutants.
+
+This has been attempted using (static) symbolic execution
+
+[149, 156]. Such attempts aim at executing mutants symbolically in order to
+identify whether these can be killable with symbolic input data. Other approaches leverage software clones to tackle this issue [157]. Since software clones
+behave similarly, their (non-)equivalent mutants tend to be the same. Therefore, likely killable mutants can be identified by projecting the mutants of one
+
+29
+
+

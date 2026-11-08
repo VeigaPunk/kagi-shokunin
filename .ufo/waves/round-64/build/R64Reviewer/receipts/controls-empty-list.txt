@@ -1,0 +1,15 @@
+# round-64 pre-freeze control battery (plans/round-64-controls.sh)
+# SELF 1913e54fdbb78527227b0913e0ddfc329c0991dbe23b5b28c2b5eea4f43bf36b
+# utc 2026-11-08T05:25:28Z
+# repo /fast/scratch/hyaku/kagi-r64/R64Reviewer
+# candidate /fast/scratch/hyaku/kagi-r64/R64Reviewer/trees/ATK-c2-bound
+# scratch /fast/scratch/hyaku/kagi-r64/R64ExecControls/battery.2536622
+# instrument-c1 /fast/scratch/hyaku/kagi-r64/R64Reviewer/trees/ATK-c2-bound/plans/round-64-c1.sh
+# instrument-c2 /fast/scratch/hyaku/kagi-r64/R64Reviewer/trees/ATK-c2-bound/plans/round-64-c2.sh
+INSTRUMENT plans/round-64-c1.sh 40db9d4f04bf11689cd703a8bfc6e3652c085008986b2c9f75500b21a924adfa
+INSTRUMENT plans/round-64-c2.sh e05ea6301aaed1997eb9e513c38be2d328d759a26e19137436475de312c1d695
+INSTRUMENT plans/round-63-controls.sh f0aa230764a8e8949fc3b80ac1a579f5ef2c79d3a8ad2d1e69a9516e45d49569
+# readiness: C1-F9,C1-NOWORK,C1-REAL <- plans/round-64-c1.sh; C2-F7,C2-BOUND,C2-NOWORK,C2-REAL <- plans/round-64-c2.sh; PRIOR-* <- plans/round-63-controls.sh
+SKIPS: 0
+CONTROLS: match=0 mismatch=0
+SEAT-STATUS: complete

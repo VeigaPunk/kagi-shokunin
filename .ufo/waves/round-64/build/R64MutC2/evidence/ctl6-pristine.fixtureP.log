@@ -1,0 +1,32 @@
+# round-64 pre-freeze control battery (plans/round-64-controls.sh)
+# SELF e37d497dc6bf56e02b26d8fec8ed24cf66d252968287302b74267ef158d8a678
+# utc 2026-11-08T06:34:25Z
+# repo /fast/scratch/hyaku/kagi-r64/R64MutC2/pristine
+# candidate /fast/scratch/hyaku/kagi-r64/R64MutC2/fx/P
+# scratch /fast/scratch/hyaku/kagi-r64/R64MutC2/kagi-r64/R64ExecControls/battery.1947594
+# instrument-c1 /fast/scratch/hyaku/kagi-r64/R64MutC2/fx/P/plans/round-64-c1.sh
+# instrument-c2 /fast/scratch/hyaku/kagi-r64/R64MutC2/fx/P/plans/round-64-c2.sh
+INSTRUMENT plans/round-64-c1.sh 40db9d4f04bf11689cd703a8bfc6e3652c085008986b2c9f75500b21a924adfa
+INSTRUMENT plans/round-64-c2.sh 42405cd2a0e1c93199df2dfaca198518d67251cdf5481e801acc38a4bdf632a7
+INSTRUMENT plans/round-63-controls.sh ff5bfddc3a7933b48b06fa55eb3abb2c7cd043a5474e0ed8921494c03772eee4
+# readiness: C1-F9,C1-NOWORK,C1-REAL <- plans/round-64-c1.sh; C2-F7,C2-BOUND,C2-NOWORK,C2-REAL <- plans/round-64-c2.sh; PRIOR-* <- plans/round-63-controls.sh
+CONTROL C1-F9 expect=heldout=8 mismatch observed=heldout=0 population=8 verdict=mismatch
+DETAIL C1-F9 stub-constant-line-refused line=C1_HELDOUT: heldout=0 population=8 guard=1 (real=1 selftest=1 resid=1 stub=1 vehicle=1)
+CONTROL C2-F7 expect=terminates=0 mismatch observed=terminates=1 killed=5 population=5 verdict=mismatch
+DETAIL C2-F7 stub-constant-line-refused line=C2_REFUSAL: killed=5 population=5 guard=1 (l1=1 l2=1 l3=1 l4=1 l6=1 selftest=1 real=1 terminates=1 bound=1)
+CONTROL C2-BOUND expect=nontermination-bound=0 mismatch-if-terminates observed=verdict-line;terminates=0;rc=0 verdict=mismatch
+DETAIL C2-BOUND bound is decorative: terminated under bound=0 line=C2_REFUSAL: killed=0 population=5 guard=1 (l1=0 l2=0 l3=0 l4=0 l6=0 selftest=1 real=1 terminates=0 bound=1)
+CONTROL C1-NOWORK expect=heldout=8 population=8 observed=heldout=8 population=8 rc=0 verdict=match
+DETAIL C1-NOWORK no-work control: BASE census reproduced
+CONTROL C2-NOWORK expect=killed=0 population=5 terminates=0 observed=killed=0 population=5 terminates=0 rc=0 verdict=match
+DETAIL C2-NOWORK no-work control: BASE census reproduced (bounded run reports non-termination)
+CONTROL C1-REAL expect=verdict-line;guard=1 observed=guard=1 heldout=8 rc=0 verdict=match
+DETAIL C1-REAL positive control: guard evaluates to 1
+CONTROL C2-REAL expect=verdict-line;guard=1 observed=guard=1 killed=0 rc=0 verdict=match
+DETAIL C2-REAL positive control: guard evaluates to 1
+CONTROL PRIOR-C1-F8 expect=accepted=10 observed=accepted=0 verdict=mismatch
+DETAIL PRIOR delegated=1 rc=1 mode=fixture-only prior-summary=CONTROLS: match=0 mismatch=1 
+SKIPS: 0
+CONTROLS: match=4 mismatch=4
+SEAT-STATUS: partial mismatch-count=4 (see DETAIL lines; the L1 re-runs the full battery before the candidate reading)
+rc=1

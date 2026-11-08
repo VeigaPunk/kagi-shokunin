@@ -1,0 +1,168 @@
+<!doctype html><html lang=en dir=ltr class="docs-wrapper plugin-docs plugin-id-community docs-version-current docs-doc-page docs-doc-id-contributing/code-organization" data-has-hydrated=false><head><meta charset=UTF-8><meta name=generator content="Docusaurus v3.10.2"><title data-rh=true>Code organization | OpenBao</title><meta data-rh=true name=viewport content="width=device-width, initial-scale=1.0"/><meta data-rh=true property=og:url content=https://openbao.org/community/contributing/code-organization/ /><meta data-rh=true property=og:locale content=en /><meta data-rh=true name=docusaurus_locale content=en /><meta data-rh=true name=docsearch:language content=en /><meta data-rh=true name=keywords content="openbao, secrets management, open source, linux foundation, encryption as a service, key management system, pki, transit, ssh, secret vault, database passwords"/><meta data-rh=true name=author content="OpenBao a Series of LF Projects, LLC"/><meta data-rh=true name=twitter:card content=summary_large_image /><meta data-rh=true name=docusaurus_version content=current /><meta data-rh=true name=docusaurus_tag content=docs-community-current /><meta data-rh=true name=docsearch:version content=current /><meta data-rh=true name=docsearch:docusaurus_tag content=docs-community-current /><meta data-rh=true property=og:title content="Code organization | OpenBao"/><meta data-rh=true name=description content=Documentation /><meta data-rh=true property=og:description content=Documentation /><link data-rh=true rel=icon href=/img/favicon.svg /><link data-rh=true rel=canonical href=https://openbao.org/community/contributing/code-organization/ /><link data-rh=true rel=alternate href=https://openbao.org/community/contributing/code-organization/ hreflang=en /><link data-rh=true rel=alternate href=https://openbao.org/community/contributing/code-organization/ hreflang=x-default /><script data-rh=true type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"https://openbao.org/community/contributing/code-organization","name":"Code organization","position":1}]}</script><link rel=alternate type=application/rss+xml href=/blog/rss.xml title="OpenBao RSS Feed"><link rel=alternate type=application/atom+xml href=/blog/atom.xml title="OpenBao Atom Feed"><link rel=preconnect href=https://www.google-analytics.com><link rel=preconnect href=https://www.googletagmanager.com><script async src="https://www.googletagmanager.com/gtag/js?id=GTM-MWH2V47T"></script><script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","GTM-MWH2V47T",{anonymize_ip:!0})</script><link rel=stylesheet href=/assets/css/styles.eb1080b1.css /><script src=/assets/js/runtime~main.640503f7.js defer></script><script src=/assets/js/main.3cfed04e.js defer></script></head><body><svg style="display: none;"><defs>
+<symbol id=theme-svg-external-link viewBox="0 0 24 24"><path fill=currentColor d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")),document.documentElement.setAttribute("data-theme-choice",t||"system")}(),function(){try{for(var[t,e]of new URLSearchParams(window.location.search).entries())if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id=__docusaurus><link rel=preload as=image href=/img/logo-black.svg /><link rel=preload as=image href=/img/logo-white.svg /><div role=region aria-label="Skip to main content"><a class=skipToContent_PbWu href=#__docusaurus_skipToContent_fallback>Skip to main content</a></div><nav aria-label=Main class="theme-layout-navbar navbar navbar--fixed-top"><div class=navbar__inner><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded=false class="navbar__toggle clean-btn" type=button><svg width=30 height=30 viewBox="0 0 30 30" aria-hidden=true><path stroke=currentColor stroke-linecap=round stroke-miterlimit=10 stroke-width=2 d="M4 7h22M4 15h22M4 23h22"/></svg></button><a class=navbar__brand href=/><div class=navbar__logo><img src=/img/logo-black.svg alt="OpenBao Logo" class="themedComponent_SRUY themedComponent--light_pKL4"/><img src=/img/logo-white.svg alt="OpenBao Logo" class="themedComponent_SRUY themedComponent--dark__W4s"/></div><b class="navbar__title text--truncate">OpenBao</b></a><a class="navbar__item navbar__link" href=/blog/>Blog</a><a class="navbar__item navbar__link" href=/ecosystem/>Ecosystem</a><a class="navbar__item navbar__link" href=/docs/>Docs</a><a class="navbar__item navbar__link" href=/docs/api/>API</a><a class="navbar__item navbar__link" href=/downloads/>Downloads</a><a aria-current=page class="navbar__item navbar__link navbar__link--active" href=/community/>Community</a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><a href=https://github.com/openbao/openbao target=_blank rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width=13.5 height=13.5 aria-label="(opens in new tab)" class=iconExternalLink_ywOY><use href=#theme-svg-external-link /></svg></a><div class="toggle_w1tl colorModeToggle_wZyH"><button class="clean-btn toggleButton_D5fu toggleButtonDisabled_Ju9k" type=button disabled title="system mode" aria-label="Switch between dark and light mode (currently system mode)"><svg viewBox="0 0 24 24" width=24 height=24 aria-hidden=true class="toggleIcon_i6hh lightToggleIcon_kMII"><path fill=currentColor d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/></svg><svg viewBox="0 0 24 24" width=24 height=24 aria-hidden=true class="toggleIcon_i6hh darkToggleIcon_x2zZ"><path fill=currentColor d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"/></svg><svg viewBox="0 0 24 24" width=24 height=24 aria-hidden=true class="toggleIcon_i6hh systemToggleIcon_MKYA"><path fill=currentColor d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"/></svg></button></div><div class=navbarSearchContainer_NFUd><div class="navbar__search searchBarContainer_RRui" dir=ltr><svg aria-hidden=true class=searchIcon_V3X2 focusable=false viewBox="0 0 16 16"><path fill=currentColor d="M6.02945 10.20327a4.17382 4.17382 0 1 1 4.17382-4.17382 4.15609 4.15609 0 0 1-4.17382 4.17382Zm9.69195 4.2199-4.8225-4.82338A5.88021 5.88021 0 0 0 12.058 6.02856 6.00467 6.00467 0 1 0 9.59979 10.8989l4.82338 4.82338a.89729.89729 0 0 0 1.29912 0 .89749.89749 0 0 0-.00087-1.29909Z"/></svg><input placeholder=Search aria-label=Search class="navbar__search-input searchInput_FUIu" value="" /><div class="loadingRing_nBd6 searchBarLoadingRing_AqCM"><div></div><div></div><div></div><div></div></div></div></div></div></div><div role=presentation class=navbar-sidebar__backdrop></div></nav><div id=__docusaurus_skipToContent_fallback class="theme-layout-main main-wrapper mainWrapper_KEAh"><div class=docsWrapper_fOdz><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_AQws" type=button></button><div class=docRoot_qp_L><aside class="theme-doc-sidebar-container docSidebarContainer_kMgn"><div class=sidebarViewport_rHGZ><div class=sidebar_MRAI><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_wajB"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class=menu__link href=/community/><span class=linkLabel_yPoK>Overview</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a href=https://github.com/openbao/openbao/discussions target=_blank rel="noopener noreferrer" class="menu__link menuExternalLink_dsr7"><span class=linkLabel_yPoK>GitHub Discussions</span><svg width=13.5 height=13.5 aria-label="(opens in new tab)" class=iconExternalLink_ywOY><use href=#theme-svg-external-link /></svg></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a href=https://linuxfoundation.zulipchat.com/ target=_blank rel="noopener noreferrer" class="menu__link menuExternalLink_dsr7"><span class=linkLabel_yPoK>Zulip Chat Server</span><svg width=13.5 height=13.5 aria-label="(opens in new tab)" class=iconExternalLink_ywOY><use href=#theme-svg-external-link /></svg></a><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class=menu__list-item-collapsible><a class="categoryLink_A07R menu__link menu__link--sublist menu__link--sublist-caret" role=button aria-expanded=false href=/community/release-notes/><span class=categoryLinkLabel_wPnK>Release Notes</span></a></div><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class=menu__list-item-collapsible><a class="categoryLink_A07R menu__link menu__link--sublist menu__link--sublist-caret" role=button aria-expanded=false href=/community/deprecation/><span class=categoryLinkLabel_wPnK>Deprecation Notices</span></a></div><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class=menu__link href=/community/known-issues/><span class=linkLabel_yPoK>Known issues</span></a><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class=menu__list-item-collapsible><a class="categoryLink_A07R menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role=button aria-expanded=true href=/community/contributing/><span class=categoryLinkLabel_wPnK>Contributing</span></a></div><ul class=menu__list><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/community/contributing/><span class=linkLabel_yPoK>Contributing</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link menu__link--active" aria-current=page tabindex=0 href=/community/contributing/code-organization/><span class=linkLabel_yPoK>Code organization</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/community/contributing/packaging/><span class=linkLabel_yPoK>Packaging guide</span></a></ul><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class=menu__list-item-collapsible><a class="categoryLink_A07R menu__link menu__link--sublist menu__link--sublist-caret" role=button aria-expanded=false href=/community/policies/><span class=categoryLinkLabel_wPnK>Policies</span></a></div><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class=menu__list-item-collapsible><a class="categoryLink_A07R menu__link menu__link--sublist menu__link--sublist-caret" role=button aria-expanded=false href=/community/rfcs/><span class=categoryLinkLabel_wPnK>RFCs</span></a></div><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a href=https://github.com/openbao/openbao/blob/main/CHARTER.md target=_blank rel="noopener noreferrer" class="menu__link menuExternalLink_dsr7"><span class=linkLabel_yPoK>Charter</span><svg width=13.5 height=13.5 aria-label="(opens in new tab)" class=iconExternalLink_ywOY><use href=#theme-svg-external-link /></svg></a></ul></nav></div></div></aside><main class=docMainContainer_pQnC><div class="container padding-top--md padding-bottom--lg"><div class=row><div class="col docItemCol_QHbu"><div class=docItemContainer_mGFe><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_TXlU" aria-label=Breadcrumbs><ul class=breadcrumbs><li class=breadcrumbs__item><a aria-label="Home page" class=breadcrumbs__link href=/><svg viewBox="0 0 24 24" class=breadcrumbHomeIcon_GokP><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill=currentColor /></svg></a><li class=breadcrumbs__item><span class=breadcrumbs__link>Contributing</span><li class="breadcrumbs__item breadcrumbs__item--active"><span class=breadcrumbs__link>Code organization</span></ul></nav><div class="tocCollapsible_TlHs theme-doc-toc-mobile tocMobile_aaHP"><button type=button class="clean-btn tocCollapsibleButton_AEmy">On this page</button></div><div class="theme-doc-markdown markdown"><header><h1>Code organization</h1></header>
+<p>OpenBao repository is organized into five main modules:</p>
+<ul>
+<li class="">An API client (<a href=https://github.com/openbao/openbao/tree/main/api target=_blank rel="noopener noreferrer" class="">in <code>api/</code></a>)
+for interacting with OpenBao instances,</li>
+<li class="">A collection of useful helper modules
+(<a href=https://github.com/openbao/openbao/tree/main/sdk/ target=_blank rel="noopener noreferrer" class="">in <code>sdk/</code></a>),</li>
+<li class="">The Web UI, built with Ember
+(<a href=https://github.com/openbao/openbao/tree/main/ui/ target=_blank rel="noopener noreferrer" class="">in <code>ui/</code></a>),</li>
+<li class="">The API and documentation website (<a href=https://github.com/openbao/openbao/tree/main/website/ target=_blank rel="noopener noreferrer" class="">in <code>website/</code></a>), and</li>
+<li class="">The cli and server code, <a href=https://github.com/openbao/openbao/tree/main/ target=_blank rel="noopener noreferrer" class="">everywhere else</a>.</li>
+</ul>
+<p>Of these, <code>api/</code> and <code>sdk/</code> are separate Go modules meant to be importable
+into other applications. The Go module in the root of the project is for
+the server and is not meant to be externally importable.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Q9z1" id=api>API<a href=#api class=hash-link aria-label="Direct link to API" title="Direct link to API" translate=no>​</a></h2>
+<p>The included API is a bespoke API client written in Go. Because this is
+expected to be stable, we need to carefully consider whether a change will be
+breaking to consumers of the library. Some key files are:</p>
+<ul>
+<li class=""><a href=https://github.com/openbao/openbao/blob/main/api/client.go target=_blank rel="noopener noreferrer" class=""><code>api/client.go</code></a> is
+the main entry point of the client.</li>
+<li class=""><a href=https://github.com/openbao/openbao/blob/main/api/logical.go target=_blank rel="noopener noreferrer" class=""><code>api/logical.go</code></a> has
+backend-agnostic utilities for speaking OpenBao API semantics.</li>
+<li class=""><a href=https://github.com/openbao/openbao/blob/main/api/secret.go target=_blank rel="noopener noreferrer" class=""><code>api/secret.go</code></a> has
+structured response parsing.</li>
+<li class=""><a href=https://github.com/openbao/openbao/tree/main/api/auth target=_blank rel="noopener noreferrer" class=""><code>api/auth</code></a> has various
+specialized authentication plugin helpers.</li>
+<li class=""><a href="https://github.com/search?q=repo%3Aopenbao%2Fopenbao%20api%2Fsys&type=code" target=_blank rel="noopener noreferrer" class=""><code>api/sys_*.go</code></a>,
+<a href="https://github.com/search?q=repo%3Aopenbao%2Fopenbao%20api%2Fkv&type=code" target=_blank rel="noopener noreferrer" class=""><code>api/kv*.go</code></a>,
+<a href=https://github.com/openbao/openbao/blob/main/api/auth.go target=_blank rel="noopener noreferrer" class=""><code>api/auth.go</code></a>, and
+<a href=https://github.com/openbao/openbao/blob/main/api/ssh.go target=_blank rel="noopener noreferrer" class=""><code>api/ssh.go</code></a> have
+backend-specific calls for various portions of the API space (such as
+<a class="" href=/docs/api/system/><code>sys/</code></a>, authenticating to OpenBao, or the
+<a class="" href=/docs/secrets/ssh/><code>ssh</code> plugin</a>).</li>
+</ul>
+<p>Upstream also includes <a href=https://github.com/openbao/openbao/issues/41 target=_blank rel="noopener noreferrer" class="">OpenAPI-based client libraries</a>
+that haven't yet been forked; if maintainers are interested in helping to
+support these libraries, let us know!</p>
+<h2 class="anchor anchorTargetStickyNavbar_Q9z1" id=sdk>SDK<a href=#sdk class=hash-link aria-label="Direct link to SDK" title="Direct link to SDK" translate=no>​</a></h2>
+<p>The SDK module exists to share externally usable, independent modules with
+people outside of OpenBao. These may be things useful in conjunction with
+OpenBao (e.g., <a href=https://github.com/openbao/openbao/tree/main/sdk/plugin target=_blank rel="noopener noreferrer" class=""><code>sdk/plugin</code></a>
+for building auth and secret plugins), they might be testing libraries
+(such as <a href=https://github.com/openbao/openbao/tree/main/sdk/helper/testcluster target=_blank rel="noopener noreferrer" class=""><code>sdk/helper/testcluster</code></a>
+for testing plugins or external projects that rely on OpenBao from Go tests),
+or they might be standalone libraries provided to the community (such as
+<a href=https://github.com/openbao/openbao/tree/main/sdk/helper/shamir target=_blank rel="noopener noreferrer" class=""><code>sdk/helper/shamir/</code></a>.</p>
+<p>Each of these packages are different and serve a different goal; some commonly
+used packages are:</p>
+<ul>
+<li class=""><a href=https://github.com/openbao/openbao/tree/main/sdk/framework target=_blank rel="noopener noreferrer" class=""><code>sdk/framework/</code></a>
+contains various HTTP helpers such as typing and parsing for request parameters.</li>
+<li class=""><a href=https://github.com/openbao/openbao/tree/main/sdk/logical target=_blank rel="noopener noreferrer" class=""><code>sdk/logical/</code></a>
+contains the type definitions for core and plugin interoperability, including
+requests, responses, and the underlying storage model.</li>
+<li class=""><a href=https://github.com/openbao/openbao/tree/main/sdk/plugin target=_blank rel="noopener noreferrer" class=""><code>sdk/plugin/</code></a>
+contains the GRPC bindings for external auth and secret plugins.</li>
+<li class=""><a href=https://github.com/openbao/openbao/tree/main/sdk/database target=_blank rel="noopener noreferrer" class=""><code>sdk/database/</code></a>
+contains the same bindings but for external database plugins.</li>
+<li class=""><a href=https://github.com/openbao/openbao/tree/main/sdk/physical target=_blank rel="noopener noreferrer" class=""><code>sdk/physical/</code></a>
+contains the interface definition of a storage backend, including
+implementations of the File and InMemory non-production backends.</li>
+<li class=""><a href=https://github.com/openbao/openbao/tree/main/sdk/helper target=_blank rel="noopener noreferrer" class=""><code>sdk/helper/</code></a>
+contains many external libraries. Some highlights are:<!-- -->
+<ul>
+<li class=""><a href=https://github.com/openbao/openbao/tree/main/sdk/helper/shamir target=_blank rel="noopener noreferrer" class=""><code>sdk/helper/shamir/</code></a>
+implements Shamir's secret sharing and has been moved for external
+consumption.</li>
+<li class=""><a href=https://github.com/openbao/openbao/tree/main/sdk/helper/certutil target=_blank rel="noopener noreferrer" class=""><code>sdk/helper/certutil/</code></a>
+has leaf and CA certificate creation code used by the PKI engine and
+the database secrets engine.</li>
+<li class=""><a href=https://github.com/openbao/openbao/tree/main/sdk/helper/ocsp target=_blank rel="noopener noreferrer" class=""><code>sdk/helper/ocsp/</code></a>
+contains an OCSP client utilized by the cert auth method, originally
+forked from Snowflake.</li>
+</ul>
+</li>
+</ul>
+<p>Note that the SDK has a loose breakage policy: while we aim to minimize
+disruption, the SDK firstly serves OpenBao's server and thus will be updated
+as requirements here change. As such, the SDK is versioned with a 0 major
+version to indicate this potential lack of compatibility.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Q9z1" id=ui>UI<a href=#ui class=hash-link aria-label="Direct link to UI" title="Direct link to UI" translate=no>​</a></h2>
+<p>The Web UI is built with Ember.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Q9z1" id=website>Website<a href=#website class=hash-link aria-label="Direct link to Website" title="Direct link to Website" translate=no>​</a></h2>
+<p>The website is built <a href=https://docusaurus.io/ target=_blank rel="noopener noreferrer" class="">with Docusaurus</a> and includes
+two main sections:</p>
+<ul>
+<li class=""><a class="" href=/docs/api/><code>api-docs</code></a> a hand-maintained API reference to all endpoints
+in OpenBao.</li>
+<li class=""><a class="" href=/docs/><code>docs</code></a>, for everything else, including information about
+<a class="" href=/docs/secrets/>various</a> <a class="" href=/docs/auth/>plugins</a>, this
+<a class="" href=/community/contributing/>contributing guide</a>, and <a class="" href=/community/policies/>various</a>
+<a class="" href=/community/rfcs/>decisions</a> made by the TSC and the OpenBao community.</li>
+</ul>
+<p>To add a new page, create the <code>.mdx</code> file in the appropriate subfolder within
+<a href=https://github.com/openbao/openbao/tree/main/website/content/ target=_blank rel="noopener noreferrer" class=""><code>website/content</code></a>
+and then add the page to the sidebar (if the page is under <code>docs/</code>, then to
+<a href=https://github.com/openbao/openbao/tree/main/website/sidebars.ts target=_blank rel="noopener noreferrer" class=""><code>website/sidebars.ts</code></a>
+else if the page is under <code>community/</code>, then to
+<a href=https://github.com/openbao/openbao/tree/main/website/sidebarsCommunity.ts target=_blank rel="noopener noreferrer" class=""><code>website/sidebarsCommunity.ts</code></a>).</p>
+<h2 class="anchor anchorTargetStickyNavbar_Q9z1" id=openbao-cli-server-and-plugins>OpenBao CLI, server, and plugins<a href=#openbao-cli-server-and-plugins class=hash-link aria-label="Direct link to OpenBao CLI, server, and plugins" title="Direct link to OpenBao CLI, server, and plugins" translate=no>​</a></h2>
+<p>The remaining code is for the OpenBao CLI, server, and a few built-in plugins.</p>
+<p>At a high level, these directories are:</p>
+<ul>
+<li class=""><a href=https://github.com/openbao/openbao/tree/main/internal/audit/ target=_blank rel="noopener noreferrer" class=""><code>internal/audit/</code></a> contains
+interface definitions for auditing requests and responses.</li>
+<li class=""><a href=https://github.com/openbao/openbao/tree/main/internal/builtin/ target=_blank rel="noopener noreferrer" class=""><code>internal/builtin/</code></a> contains
+the builtin plugins:<!-- -->
+<ul>
+<li class=""><a href=https://github.com/openbao/openbao/tree/main/internal/builtin/audit target=_blank rel="noopener noreferrer" class=""><code>internal/builtin/audit/</code></a>
+contains the built-in audit backends such as <a class="" href=/docs/audit/file/>file</a> or
+<a class="" href=/docs/audit/syslog/>syslog</a>.</li>
+<li class=""><a href=https://github.com/openbao/openbao/tree/main/internal/builtin/credential target=_blank rel="noopener noreferrer" class=""><code>internal/builtin/credential/</code></a>
+contains the built-in authentication plugins such as
+<a class="" href=/docs/auth/approle/>AppRole</a> or <a class="" href=/docs/auth/cert/>cert</a>.</li>
+<li class=""><a href=https://github.com/openbao/openbao/tree/main/internal/builtin/logical target=_blank rel="noopener noreferrer" class=""><code>internal/builtin/logical/</code></a>
+contains the built-in secret engines such as
+<a class="" href=/docs/secrets/pki/>PKI</a> or <a class="" href=/docs/secrets/kv/>kv</a>.</li>
+<li class=""><a href=https://github.com/openbao/openbao/tree/main/internal/builtin/plugin target=_blank rel="noopener noreferrer" class=""><code>internal/builtin/plugin/</code></a>
+contains a source-agnostic plugin wrapper (either using the builtin
+plugin or handling the GRPC connection to an external plugin).</li>
+</ul>
+</li>
+<li class=""><a href=https://github.com/openbao/openbao/tree/main/internal/command/ target=_blank rel="noopener noreferrer" class=""><code>internal/command/</code></a> contains
+the CLI interface definitions: each command is in a separate file connected
+through <a href=https://github.com/openbao/openbao/blob/main/internal/command/commands.go target=_blank rel="noopener noreferrer" class=""><code>internal/command/commands.go</code></a>.
+Many plugins reuse the same generic <code>read</code>, <code>write</code>, <code>list</code>, ... commands,
+but a few (like K/V or PKI) have plugin-specific commands. This also
+includes Agent, Proxy, and Server configuration parsing and startup code,
+though much of the functionality for the latter is elsewhere.</li>
+<li class=""><a href=https://github.com/openbao/openbao/tree/main/internal/helper/ target=_blank rel="noopener noreferrer" class=""><code>internal/helper/</code></a> includes
+various internal libraries useful only in the context of OpenBao.</li>
+<li class=""><a href=https://github.com/openbao/openbao/tree/main/internal/http/ target=_blank rel="noopener noreferrer" class=""><code>internal/http/</code></a> contains
+the main server code <a href=https://github.com/openbao/openbao/blob/42e77de61c145aa768ada9c1883f570e76e8708e/http/handler.go#L130-L132 target=_blank rel="noopener noreferrer" class="">creating</a>
+the <a href=https://pkg.go.dev/net/http#ServeMux target=_blank rel="noopener noreferrer" class="">http.ServeMux</a>.</li>
+<li class=""><a href=https://github.com/openbao/openbao/tree/main/internal/physical/ target=_blank rel="noopener noreferrer" class=""><code>internal/physical/</code></a>
+contains production quality physical storage backend implementations.
+This currently only includes Raft.</li>
+<li class=""><a href=https://github.com/openbao/openbao/tree/main/internal/plugins/database/ target=_blank rel="noopener noreferrer" class=""><code>internal/plugins/database/</code></a>
+contains the plugins for the database secrets engine to support creating
+short-lived dynamic credentials for these database types.</li>
+<li class=""><a href=https://github.com/openbao/openbao/tree/main/internal/serviceregistration/ target=_blank rel="noopener noreferrer" class=""><code>internal/serviceregistration/</code></a>
+contains helpers for supporting service registration against various
+providers. This is only utilized by OpenBao Server.</li>
+<li class=""><a href=https://github.com/openbao/openbao/tree/main/internal/vault/ target=_blank rel="noopener noreferrer" class=""><code>internal/vault/</code></a>
+contains the <a href=https://github.com/openbao/openbao/blob/main/internal/vault/core.go target=_blank rel="noopener noreferrer" class="">Core</a>
+of the server: this implements
+<a href=https://github.com/openbao/openbao/blob/main/internal/vault/barrier.go target=_blank rel="noopener noreferrer" class="">barrier encryption</a>,
+<a href=https://github.com/openbao/openbao/blob/main/internal/vault/identity_store.go target=_blank rel="noopener noreferrer" class="">identity storage</a>,
+<a href=https://github.com/openbao/openbao/blob/main/internal/vault/token_store.go target=_blank rel="noopener noreferrer" class="">token storage</a>,
+and many <code>sys/</code> endpoint implementations.</li>
+</ul>
+<p>Key dependencies of the server code are:</p>
+<ul>
+<li class=""><a href=https://github.com/hashicorp/go-secure-stdlib target=_blank rel="noopener noreferrer" class=""><code>go-secure-stdlib</code></a> which
+is a collection of shared parsing and configuration utility libraries used
+by many plugins and the Core.</li>
+<li class=""><a href=https://github.com/openbao/go-kms-wrapping target=_blank rel="noopener noreferrer" class=""><code>go-kms-wrapping</code></a> which
+implements auto-unseal for various providers (such as Transit or GCP).</li>
+<li class=""><a href=https://github.com/hashicorp/raft target=_blank rel="noopener noreferrer" class=""><code>raft</code></a> which implements the core Raft
+storage backend.</li>
+<li class=""><a href=https://github.com/openbao/openbao-template target=_blank rel="noopener noreferrer" class=""><code>openbao-template</code></a> which
+implements templating for OpenBao Agent.</li>
+</ul></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_Ux_x"><a href=https://github.com/openbao/openbao/tree/main/website/content/community/contributing/code-organization.mdx target=_blank rel="noopener noreferrer" class=theme-edit-this-page><svg fill=currentColor height=20 width=20 viewBox="0 0 40 40" class=iconEdit_AstY aria-hidden=true><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"/></g></svg>Edit this page</a></div><div class="col lastUpdated_iH3B"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href=/community/contributing/><div class=pagination-nav__sublabel>Previous</div><div class=pagination-nav__label>Contributing</div></a><a class="pagination-nav__link pagination-nav__link--next" href=/community/contributing/packaging/><div class=pagination-nav__sublabel>Next</div><div class=pagination-nav__label>Packaging guide</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_a7mw thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href=#api class="table-of-contents__link toc-highlight">API</a><li><a href=#sdk class="table-of-contents__link toc-highlight">SDK</a><li><a href=#ui class="table-of-contents__link toc-highlight">UI</a><li><a href=#website class="table-of-contents__link toc-highlight">Website</a><li><a href=#openbao-cli-server-and-plugins class="table-of-contents__link toc-highlight">OpenBao CLI, server, and plugins</a></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer"><div class="container container-fluid"><div class="footer__bottom text--center"><div class=footer__copyright>Copyright © 2026 OpenBao a Series of LF Projects, LLC <br> For web site terms of use, trademark policy and other project policies please see <a href=https://lfprojects.org>lfprojects.org</a>. <br>  OpenBao is a <a href=https://openssf.org/projects/openbao/>Sandbox project</a> at <a href=https://openssf.org/><img src=/img/openssf-logo.svg alt="OpenSSF Logo" width=90px></a>. <br><br>Follow us on social media:<br> <a href=https://linkedin.com/company/openbao target=_blank>LinkedIn</a> | <a href=https://bsky.app/profile/openbao-official.bsky.social target=_blank>Bluesky</a> | <a href=https://www.youtube.com/@OpenBao target=_blank>YouTube</a> | <a href=https://www.instagram.com/openbao.official/ target=_blank>Instagram</a> | <a href=https://www.threads.com/@openbao.official target=_blank>Threads</a> | <a href=https://github.com/openbao/openbao target=_blank>GitHub</a> <br><br><a href=/sitemap.xml>Sitemap</a></div></div></div></footer></div></body>

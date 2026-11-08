@@ -1,0 +1,28 @@
+obtained outputs. Patrick et al. [213] use pseudo-oracles to test stochastic software. Rutherford et al. [214] use discrete-event simulations (executable specifications) to define assertions and sanity checks that model how “reasonable”
+are the test execution results (distribution topology, communication failure, and
+timing) of distributed systems.
+Observing and comparing the program outputs often requires a test driver
+that it is program specific and, thus, researchers usually approximate program
+outputs by observing a subset of it, usually defined by the test assertions (and
+program crashes). Alternative techniques involve the use of stubs, oracle data,
+log messages and internal program states that will be detailed later on, in Section 5.9. Mateo et al. [128] proposed flexible weak mutation, an approach for
+system level mutation testing that considers mutants as killed when they result
+in corrupted object states. Object states are checked after the execution of every method call. Wu et al. [104] record execution paths and determine whether
+mutants cause any deviations from the original program’s ones (execution of
+different paths).
+Computing the mutation score requires the removal of equivalent mutants.
+As already discussed in Section 5.3, identifying equivalent mutants is a manual
+task that is partially addressed through static heuristics. Since the problem is
+important, there are some attempts to approximate the mutation score using
+dynamic heuristics. The idea is that mutants that are not killed by the tests
+but are capable of causing differences on the program state are likely to be
+killable [215]. This idea was initially introduced by Grun et al. [215] and, later,
+studied by the works of Schuler and colleagues [216–218]. Overall, these studies
+examined several heuristics that measure different types of impact (breaking
+program invariants, changed return values, altered control-flow and data-flow)
+and showed that measuring whether mutants cause deviations on the program
+execution forms the best option.
+The use of mutants’ impact provides opportunities to define mutant selection and classification strategies. Schwarz et al. [219] defined a mutant selection
+strategy by selecting a small set of mutants with high impact and diverge lo40
+
+

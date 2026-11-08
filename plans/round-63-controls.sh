@@ -60,6 +60,16 @@
 # inside a measured tree (the PRIOR battery is invoked on a private snapshot copy).
 # Every line captured from an instrument is redacted to shape before it reaches the
 # receipt (QM72), mirroring the round-62 battery's redaction.
+#
+# Recursion bound (round-64 C2, plans/round-64.md section C2): R63_CONTROLS_FIXTURE_ONLY.
+#   Unset/0: the full battery (unchanged behaviour).
+#   Set to 1: fixture/confinement-only mode. probe_counters is skipped (the
+#     unmutated counter probe is the leg that re-enters a counter), so C1-NOWORK,
+#     C2-NOWORK, C1-REAL and C2-REAL record `skip`; the PRIOR delegation to
+#     round-62-controls.sh is skipped (it runs counters of its own); the C1-F8 and
+#     C2-F6 stub controls still run, because each builds its own stub counter.
+#     The battery never invokes round-63-c1.sh, round-63-c2.sh or any other counter
+#     in this mode.
 set -u -o pipefail
 REPO=$(cd "$(dirname "$0")/.." && pwd -P)
 SELFPATH=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)/$(basename "${BASH_SOURCE[0]}")
@@ -558,14 +568,29 @@ main() {
   done
   emit "# readiness: C1-F8,C1-NOWORK,C1-REAL <- $C1CTR_REL; C2-F6,C2-NOWORK,C2-REAL <- $C2CTR_REL; PRIOR-* <- $PRIOR_REL"
 
-  probe_counters   # one unmutated run per counter, shared by NOWORK and REAL
-  ctrl_c1_f8
-  ctrl_c2_f6
-  ctrl_c1_nowork
-  ctrl_c2_nowork
-  ctrl_c1_real
-  ctrl_c2_real
-  ctrl_prior
+  if [ "${R63_CONTROLS_FIXTURE_ONLY:-0}" = 1 ]; then
+    # Round-64 C2 recursion bound: fixture/confinement-only mode. probe_counters
+    # is the leg that re-enters a counter, so it is skipped; the C1-F8/C2-F6 stub
+    # controls build their own stub counters and still run. NOWORK/REAL depend on
+    # the probe and record skip; PRIOR delegates to the round-62 battery and is
+    # skipped.
+    emit "# fixture-only: probe_counters and PRIOR delegation skipped (R63_CONTROLS_FIXTURE_ONLY=1)"
+    ctrl_c1_f8
+    ctrl_c2_f6
+    ctrl_c1_nowork
+    ctrl_c2_nowork
+    ctrl_c1_real
+    ctrl_c2_real
+  else
+    probe_counters   # one unmutated run per counter, shared by NOWORK and REAL
+    ctrl_c1_f8
+    ctrl_c2_f6
+    ctrl_c1_nowork
+    ctrl_c2_nowork
+    ctrl_c1_real
+    ctrl_c2_real
+    ctrl_prior
+  fi
 
   emit "SKIPS: $S"
   emit "CONTROLS: match=$M mismatch=$K"

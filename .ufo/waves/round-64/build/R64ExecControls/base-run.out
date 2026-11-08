@@ -1,0 +1,31 @@
+# round-64 pre-freeze control battery (plans/round-64-controls.sh)
+# SELF e37d497dc6bf56e02b26d8fec8ed24cf66d252968287302b74267ef158d8a678
+# utc 2026-11-08T07:11:43Z
+# repo /home/vgpnk/Projects/shokunin/kagi-shokunin
+# candidate /fast/scratch/hyaku/kagi-r64/R64ExecControls/basetree
+# scratch /fast/scratch/hyaku/kagi-r64/R64ExecControls/battery.1828011
+# instrument-c1 /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-64-c1.sh
+# instrument-c2 /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-64-c2.sh
+INSTRUMENT plans/round-64-c1.sh MISSING
+INSTRUMENT plans/round-64-c2.sh MISSING
+INSTRUMENT plans/round-63-controls.sh cb8134ad1ce486d9e5fe6f4397bf3af4ae8fa034c15e565cc1439e90d4b2cb87
+# readiness: C1-F9,C1-NOWORK,C1-REAL <- plans/round-64-c1.sh; C2-F7,C2-BOUND,C2-NOWORK,C2-REAL <- plans/round-64-c2.sh; PRIOR-* <- plans/round-63-controls.sh
+CONTROL C1-F9 expect=heldout=8 mismatch observed=heldout=0 population=8 verdict=mismatch
+DETAIL C1-F9 stub-constant-line-refused line=C1_HELDOUT: heldout=0 population=8 guard=1 (real=1 selftest=1 resid=1 stub=1 vehicle=1)
+CONTROL C2-F7 expect=terminates=0 mismatch observed=terminates=1 killed=5 population=5 verdict=mismatch
+DETAIL C2-F7 stub-constant-line-refused line=C2_REFUSAL: killed=5 population=5 guard=1 (l1=1 l2=1 l3=1 l4=1 l6=1 selftest=1 real=1 terminates=1 bound=1)
+CONTROL C2-BOUND expect=nontermination-bound=0 mismatch-if-terminates observed=no-verdict-line;rc=124;timeout=240s verdict=match
+DETAIL C2-BOUND refutation: no verdict line under bound=0 inside timeout 240s
+CONTROL C1-NOWORK expect=heldout=8 population=8 observed=heldout=8 population=8 rc=1 verdict=match
+DETAIL C1-NOWORK no-work control: BASE census reproduced
+CONTROL C2-NOWORK expect=killed=0 population=5 terminates=0 observed=no-verdict-line;rc=124 verdict=match
+DETAIL C2-NOWORK no-work control: BASE reading is non-termination (frozen §C2 census: rc=124, 7-byte receipt)
+CONTROL C1-REAL expect=verdict-line;guard=1 observed=guard=0 heldout=8 rc=1 verdict=mismatch
+DETAIL C1-REAL blanket-refusal-or-no-verdict line=C1_HELDOUT: heldout=8 population=8 guard=0 (real=1 selftest=0 resid=1 stub=1 vehicle=1)
+CONTROL C2-REAL expect=verdict-line;guard=1 observed=guard=none killed= rc=124 verdict=mismatch
+DETAIL C2-REAL blanket-refusal-or-no-verdict line=none
+CONTROL PRIOR-SELFTEST expect=CONTROLS_SELFTEST: PASS observed=pass;mode=selftest;rc=0 verdict=match
+DETAIL PRIOR-SELFTEST CONTROLS_SELFTEST: PASS (cases=25)
+SKIPS: 0
+CONTROLS: match=4 mismatch=4
+SEAT-STATUS: partial mismatch-count=4 (see DETAIL lines; the L1 re-runs the full battery before the candidate reading)

@@ -1,0 +1,34 @@
+criteria [32]. Thus, previous research has shown that strong mutation probably
+subsumes weak mutation [75], all dataflow criteria [47, 55], logical criteria [76],
+branch and statement criteria [52]. These studies suggest that a small set of
+mutant operators can often result in a set of test cases that is as strong as the
+ones resulting from other criteria.
+
+5. The Regular Code-based Mutation Testing Process
+This section details the code-based mutation testing advances. We categorise
+and present the surveyed advances according to the stages of the mutation
+testing process that they apply to. But before we begin the presentation we
+have to answer the following question: what is the mutation testing process?
+Figure 3 presents a detailed view of the modern mutation testing process. This
+process forms an extension of the one proposed by Offutt and Untch [26]. The
+extension is based on the latest advances in the area. The important point
+here is that the process keeps the steps that are inherently manual outside the
+main loop of the testing process (steps in bold). The remaining steps can be
+sufficiently automated (although manual analysis may still be necessary).
+Overall, the process goes as follows: First, we select a set of mutants that
+we want to apply (Step 1, detailed in Section 5.1) and instantiate them by
+forming actual executable programs (Step 2, detailed in Section 5.2). Next, we
+need to remove some problematic mutants, such as equivalent, i.e., mutants that
+are semantically equivalent to the original program despite being syntactically
+different, and redundant mutants, i.e., mutants that are semantically different
+to the original program but are subsumed by others, (Step 3, detailed in Section
+5.3).
+Once we form our set of mutants we can generate our mutation-based test
+suite, execute it against our mutants and determine a score. In this step, we
+design (either manually or automatically) test cases that have the potential to
+kill our mutants (Step 4, detailed in Section 5.4) and execute them with all
+the mutants (Step 5, detailed in Section 5.5) to determine how well they scored
+
+17
+
+

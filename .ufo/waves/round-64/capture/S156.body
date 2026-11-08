@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>FAQ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+
+    <link href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+          rel="stylesheet"
+          integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+          crossorigin="anonymous"
+    >
+
+    <link href="/css/pit.css" rel="stylesheet">
+    <link href="/css/rouge-code-highlighting-theme.css" rel="stylesheet">
+
+    <link rel="shortcut icon" href="/images/favicon.png">
+
+  <body>
+
+    <!-- Navbar
+    ================================================== -->
+    <nav class="navbar navbar-dark bg-dark navbar-expand-sm fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">Pitest</a>
+            <button class="navbar-toggler"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target=".navbar-collapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/quickstart/">Quickstart</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/faq/">FAQ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/downloads">Downloads</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/links">Links</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://blog.pitest.org">Blog</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+<div class="row pitdoc">
+<div class="col-md-12">
+
+<section>
+    <div class="improve">
+        <a href="https://github.com/hcoles/pitest-site/edit/gh-pages/pages/faq.markdown">
+            <i class="far fa-edit"></i>&nbsp;Improve this page</a>
+    </div>
+    <h1 id="faq">FAQ</h1>
+
+<h2 id="what-does-pit-stand-for">What does PIT stand for?</h2>
+
+<p>PIT began life as a spike to run JUnit tests in parallel, using separate classloaders
+to isolate static state. Once this was working it turned out to be a much less interesting problem
+than mutation testing which initially needed a lot of the same plumbing.</p>
+
+<p>So PIT originally stood for Parallel Isolated Test. Now it stands for PIT.</p>
+
+<h2 id="what-are-the-requirements-for-running-pit">What are the requirements for running PIT?</h2>
+
+<p>Since release 1.4.0 PIT requires Java 8 or above, earlier releases require Java 5. Either JUnit or TestNG must be on the classpath.</p>
+
+<p>JUnit 4.6 or above is supported (note JUnit 3 tests can be run using JUnit 4 so JUnit 3 tests are supported).
+JUnit 5 is not supported out of the box, but a plugin can be found <a href="https://github.com/pitest/pitest-junit5-plugin">here</a></p>
+
+<p>TestNG support in PIT is quite new. PIT is built and tested against TestNG 6.1.1, it may work with earlier and later versions but this has not yet been tested.</p>
+
+<h2 id="pit-is-taking-forever-to-run">PIT is taking forever to run</h2>
+
+<p>Mutation testing is a computationally expensive process and can take quite some time depending
+on the size of your codebase and the quality and speed of your test suite. PIT is fast compared
+to other mutation testing systems, but that can still mean that things will take a while.</p>
+
+<p>You may be able to speed things up by</p>
+
+<ul>
+  <li>Using the <a href="https://docs.arcmutate.com/docs/accelerator.html">Arcmutate accelerator plugin</a></li>
+  <li>Using more threads. The optimum number will vary, but will generally be between 1 and the number of CPUs on your machine.</li>
+  <li>Limit the number of mutations per class. This will give you a less complete picture however.</li>
+  <li>Use filters to target only those packages or classes that are currently of interest</li>
+</ul>
+
+<p>One thing to watch out for that can slow PIT down are tests on the classpath that are not
+normally run. Some teams have very slow exhaustive tests or performance tests that are not run by their build scripts.</p>
+
+<p>As PIT examines the entire classpath it will try to run these so may not even start running
+mutations for several hours. These tests can be excluded using the <strong>excludedClasses</strong> option.</p>
+
+<p>The most effective way to use mutation testing is usually to limit analysis to the code that you are changing. This strategy is <a href="https://blog.pitest.org/dont-let-your-code-dry">discussed in a blog post</a>.</p>
+
+<p>Tooling is available to <a href="https://www.arcmutate.com">integrate pitest into pull requests</a>.</p>
+
+<h2 id="pit-found-no-classes-to-mutate--no-tests-to-run-what-am-i-doing-wrong">PIT found no classes to mutate / no tests to run. What am I doing wrong?</h2>
+
+<p>This is most likely down to one of three issues</p>
+
+<ul>
+  <li>Incorrect classpath</li>
+  <li>Incorrect filters</li>
+  <li>Incorrect mutable code path</li>
+</ul>
+
+<p>Make sure that your code and tests are properly referenced on the classpath, and check that
+the filters are not excluding your code. If you have supplied a specific mutable code path, make sure it is correct.</p>
+
+<p>Note that PIT is a bytecode mutator - it does not compile your code but instead modifies
+the byte code in memory. Your code must be on the classpath - PIT only requires the location
+of your source code in order to generate a human-readable report.</p>
+
+<h2 id="my-tests-normally-run-green-but-pit-says-the-suite-isnt-green">My tests normally run green but PIT says the suite isn’t green</h2>
+
+<p>Most commonly this is because either :</p>
+
+<ul>
+  <li>PIT is picking up tests that are not included/are excluded in the normal test config</li>
+  <li>Some tests rely on an environment variable or other property set in the test config, but not set in the Pitest config</li>
+  <li>Tests or code under test use reflection without filtering synthetic fields</li>
+  <li>The tests have a hidden order dependency that is not revealed during the normal test run</li>
+</ul>
+
+<p>If you are using an unusual or custom JUnit runner this can also sometimes cause problems. To make things fast PIT does some tricky stuff to split your tests into small independent units. This works well with most JUnit runners but if you encounter one where it doesn’t please post to the user group.</p>
+
+<h2 id="will-pit-work-with-my-mocking-framework">Will PIT work with my mocking framework?</h2>
+
+<p>PIT is tested against the major mocking frameworks as part of its build.</p>
+
+<p>PIT is currently the only mutation testing system known to work with all of JMock, EasyMock, Mockito, PowerMock, and JMockit.</p>
+
+<p>If your mocking framework of choice is not listed above the chances are still good that PIT will work with it. If it doesn’t let us know and we’ll look at getting that fixed.</p>
+
+<h2 id="my-code-has-really-poor-test-coverage-will-mutation-testing-take-forever">My code has really poor test coverage, will mutation testing take forever?</h2>
+
+<p>No. Due to the way PIT picks which tests to run, there is little or no execution
+time cost for mutations on lines that have no test coverage.</p>
+
+<h2 id="how-does-pit-choose-which-tests-to-run">How does PIT choose which tests to run?</h2>
+
+<p>PIT chooses and prioritises tests based on three factors</p>
+
+<ul>
+  <li>Line coverage</li>
+  <li>Test execution speed</li>
+  <li>Test naming convention</li>
+</ul>
+
+<p>Per test case line coverage information is first gathered and all tests that do not exercise
+the mutated line of code are discarded. The remaining tests are then ordered by
+increasing execution time - test cases that belong to a class that is identified
+as a unit test for the mutated class are however weighted above other tests.</p>
+
+<p>A class is considered to be the unit test for a particular class if it matches the standard JUnit naming convention of FooTest or TestFoo.</p>
+
+<p>Unlike earlier systems, PIT does <strong>not</strong> require that your tests follow this naming convention in order for it to work. Test names are
+used only as part of a heuristic to optimise run order.</p>
+
+<h2 id="im-seeing-a-lot-of-timeouts-whats-going-on">I’m seeing a lot of timeouts, what’s going on?</h2>
+
+<p>Timeouts when running mutation tests are caused by one of two things</p>
+
+<ul>
+  <li>A mutation that causes an infinite loop</li>
+  <li>PIT thinking an infinite loop has occurred, but being wrong</li>
+</ul>
+
+<p>In order to detect infinite loops PIT measures the normal execution time of each test
+without any mutations present. When the test is run in the presence of a mutation
+PIT checks that the test doesn’t run for any longer than</p>
+
+<p>normal time * x + y</p>
+
+<p>Unfortunately, the real world is more complex than this.</p>
+
+<p>Test times can vary due to the order in which the tests are run. The first test in a class may have
+an execution time much higher than the others as the JVM will need to load the classes
+required for that test. This can be particularly pronounced in code that uses XML binding
+frameworks such as JAXB where classloading may take several seconds.</p>
+
+<p>When PIT runs the tests against a mutation the order of the tests will be different. Tests that
+previously took milliseconds may now take seconds as they now carry the overhead of classloading. 
+PIT may therefore incorrectly flag the mutation as causing an infinite loop.</p>
+
+<p>A fix for this issue may be developed in a future version of PIT. In the meantime
+if you encounter a large number of timeouts, try increasing y in the equations above
+to a large value with <strong>–timeoutConst</strong> (<strong>timeoutConstant</strong> in maven).</p>
+
+<h2 id="im-using-openjdk-7-and-keep-getting-javalangverify-errors">I’m using OpenJDK 7 and keep getting java.lang.Verify errors</h2>
+
+<p>Java 7 introduced stricter requirements for verifying stack frames, which caused issues in
+earlier versions of PIT. It is believed that there were all resolved in 0.29.</p>
+
+<p>If you see a verify error, please raise a defect. The issue can be worked around
+by passing -XX:-UseSplitVerifier to the child JVM processes that PIT launches using the <strong>jvmArgs</strong> option.</p>
+
+<h2 id="how-does-pit-compare-to-mutation-testing-system-x">How does PIT compare to mutation testing system X</h2>
+
+<p>See <a href="/java_mutation_testing_systems">mutation testing systems compared</a></p>
+
+<h2 id="i-have-mutations-that-are-not-killed-but-should-be">I have mutations that are not killed but should be</h2>
+
+<p>Are the mutations in finally blocks? Do you seem to have two or more identical mutations, some killed and some not?</p>
+
+<p>If so this is due to the way in which the Java compiler handles finally blocks. Basically, the compiler creates
+a copy of the contents of the finally block for each possible exit point. PIT creates separate mutations for each of
+the copied blocks. Most test suites are only able to kill one of these mutations.</p>
+
+<p>As of 0.28 PIT contains experimental support for detecting inlined code that is now active by default.</p>
+
+<h2 id="mutations-in-static-initializers-and-enums">Mutations in static initializers and enums</h2>
+
+<p>Static initializers and other code that is only run once per JVM (such as code in enum constructors) cause a bit of a problem with two of the strategies Pitest uses to make mutation testing usable fast.</p>
+
+<h3 id="coverage-targeting">Coverage targeting</h3>
+
+<p>Pitest will only run tests that execute the line of code where a mutation is placed. Unfortunately, the only test to execute a static initializer will be the first test to run that causes that class to load.</p>
+
+<h3 id="mutant-insertion">Mutant insertion</h3>
+
+<p>Pitest inserts mutants into a jvm by re-writing the class after it has loaded. This is orders of magnitude faster than starting a new jvm or creating a new classloader, but code in static initializer blocks is not re-run so the mutants have no effect.</p>
+
+<h3 id="mitigation">Mitigation</h3>
+
+<p>Pitest tries to avoid mutating static initializer code. It will not create mutants in</p>
+
+<ul>
+  <li>static initializers</li>
+  <li>private methods called only from static initializers</li>
+</ul>
+
+<p>You will however encounter other scenarios that this simple filtering will miss.</p>
+
+<h2 id="can-i-activate-more-mutators-without-relisting-all-the-default-ones">Can I activate more mutators without relisting all the default ones?</h2>
+
+<p>Yes. You can specify both individual mutators and groups of them using the same syntax.</p>
+
+<p>Three groups are currently defined</p>
+
+<ul>
+  <li>DEFAULTS</li>
+  <li>STRONGER</li>
+  <li>ALL</li>
+</ul>
+
+<p>To use the defaults, plus some others</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>DEFAULTS, EXPERIMENTAL_MEMBER_VARIABLE
+</code></pre></div></div>
+
+<p>by the command line</p>
+
+<p>or</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;mutators&gt;</span>
+  <span class="nt">&lt;mutator&gt;</span>DEFAULTS<span class="nt">&lt;/mutator&gt;</span>
+  <span class="nt">&lt;mutator&gt;</span>EXPERIMENTAL_MEMBER_VARIABLE<span class="nt">&lt;/mutator&gt;</span>
+<span class="nt">&lt;/mutators&gt;</span>
+</code></pre></div></div>
+
+<p>in your pom.xml</p>
+
+<p>Using the <code class="language-plaintext highlighter-rouge">ALL</code> option is strongly discouraged.</p>
+
+<h2 id="is-it-random">Is it random?</h2>
+
+<p>No.</p>
+
+<p>Given the same input Pitest will always generate the same mutants, and (with a couple of caveats) will always produce the same results.</p>
+
+<p>Pitest works hard to be fully deterministic, but two factors might cause the results to differ slightly between two runs with the same input.</p>
+
+<h3 id="timeouts">Timeouts</h3>
+
+<p>Mutants causing infinite loops are detected by comparing the time taken to run a test without the mutant to the time taken when the mutant is present.
+Both these measurements can be affected by external factors (other processes on the machine etc), so a mutant may be detected as timed out on one run,
+but killed or surviving on another.</p>
+
+<h3 id="static-initializers">Static initializers</h3>
+
+<p>As discussed above static initialization code causes some problems for mutation testing, in certain circumstances, it can also result in small differences between
+runs, especially if timeouts occur as these require starting a new jvm.</p>
+
+<h2 id="i-have-a-problem-where-can-i-get-help">I have a problem, where can I get help?</h2>
+
+<p>Try asking a question at</p>
+
+<p><a href="http://groups.google.com/group/pitusers">http://groups.google.com/group/pitusers</a></p>
+
+<h2 id="could-i-accidentally-release-mutated-code-if-i-use-pit">Could I accidentally release mutated code if I use PIT?</h2>
+
+<p>No. The mutations that PIT generates are held in memory and never written to disk,
+except if explicitly enabled using the <code class="language-plaintext highlighter-rouge">EXPORT</code> feature. But even then they are
+only dumped inside the report directory and should not be released accidentally.</p>
+
+<h2 id="where-are-snapshot-releases-uploaded-to">Where are snapshot releases uploaded to?</h2>
+
+<p><a href="https://oss.sonatype.org/content/repositories/snapshots/org/pitest/">https://oss.sonatype.org/content/repositories/snapshots/org/pitest/</a></p>
+
+<h2 id="how-do-i-use-pit-with-gradle">How do I use PIT with Gradle?</h2>
+
+<p>See <a href="http://gradle-pitest-plugin.solidsoft.info/">PIT Gradle plugin</a></p>
+
+<h2 id="is-there-any-ide-integration">Is there any IDE integration?</h2>
+
+<p>Phil Glover maintains an Eclipse plugin. <a href="https://github.com/philglover/pitclipse">Pitclipse</a></p>
+
+<p>Michal Jedynak maintains an IntelliJ plugin. <a href="http://plugins.intellij.net/plugin/?idea&amp;pluginId=7119">PIT intellij plugin</a></p>
+
+<p>It is also possible to launch PIT from most other IDEs as a Java application.</p>
+
+<h2 id="how-can-i-combine-all-the-reports-for-a-project-with-multiple-modules-into-a-single-report">How can I combine all the reports for a project with multiple modules into a single report?</h2>
+
+<p>See <a href="/aggregating_tests_across_modules">Test Aggregation Across Modules</a></p>
+
+<h2 id="can-i-see-the-source-code-of-the-mutants">Can I see the source code of the mutants?</h2>
+
+<p>Pitest mutates bytecode. It does not produce mutated source code, so is not able to display it. In theory, it is possible to
+generate source code from the mutated bytecode using a decompiler, but in practice, the results are poor for anything other than
+very simplistic code.</p>
+
+<h2 id="pitest-mutates-bytecode-does-that-mean-it-works-with-all-jvm-languages">Pitest mutates bytecode, does that mean it works with all JVM languages?</h2>
+
+<p>Sort of yes, but mainly no.</p>
+
+<p>Although Pitest can mutate the bytecode of other languages, the results are not generally useful. Unless Pitest explicitly supports the language, the mutations it generates
+will include many ‘junk’ mutations - mutants that do not correspond to a source file a programmer might produce.</p>
+
+<p>Currently supported languages are</p>
+
+<ul>
+  <li>Java</li>
+  <li>Kotlin (via the <a href="https://docs.arcmutate.com/docs/kotlin.html">Arcmutate kotlin plugin</a>)</li>
+</ul>
+
+<h2 id="id-like-to-help-out-what-can-i-do">I’d like to help out, what can I do?</h2>
+
+<p>See <a href="/how_to_help">how to help</a></p>
+
+
+</section>
+</div>
+</div>
+</div>
+
+
+    <!-- Footer
+    ================================================== -->
+    <footer class="footer">
+      <div class="container">
+        <p>The content of this website is licensed under a <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons License</a></p>
+
+        <ul class="footer-links">
+          <li><a href="/privacy">privacy information</a></li>
+          <li class="muted">≈</li>
+          <li><a href="/about">about</a></li>
+          <li class="muted">≈</li>
+          <li><a href="/how_to_help">help</a></li>
+          <li class="muted">≈</li>
+          <li><a rel="me" href="https://mastodon.me.uk/@hjc">mastodon</a></li>
+        </ul>
+      </div>
+    </footer>
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous">
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous">
+    </script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+            crossorigin="anonymous">
+    </script>
+
+    <!-- Analytics
+    ================================================== -->
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-21734044-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+<script type="text/javascript">
+  window.___gcfg = {lang: 'en-GB'};
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+
+
+  
+
+</body></html>

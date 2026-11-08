@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html class="client-nojs vector-feature-language-in-header-enabled vector-feature-language-in-main-menu-disabled vector-feature-language-in-main-page-header-disabled vector-feature-page-tools-pinned-disabled vector-feature-toc-pinned-clientpref-1 vector-feature-main-menu-pinned-disabled vector-feature-limited-width-clientpref-1 vector-feature-limited-width-content-enabled vector-feature-custom-font-size-clientpref-1 vector-feature-appearance-pinned-clientpref-1 skin-theme-clientpref-day vector-sticky-header-enabled vector-toc-available skin-thumbsize-clientpref-standard skin-underline-clientpref-browser" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Mutation testing - Wikipedia</title>
+<script>(function(){var className="client-js vector-feature-language-in-header-enabled vector-feature-language-in-main-menu-disabled vector-feature-language-in-main-page-header-disabled vector-feature-page-tools-pinned-disabled vector-feature-toc-pinned-clientpref-1 vector-feature-main-menu-pinned-disabled vector-feature-limited-width-clientpref-1 vector-feature-limited-width-content-enabled vector-feature-custom-font-size-clientpref-1 vector-feature-appearance-pinned-clientpref-1 skin-theme-clientpref-day vector-sticky-header-enabled vector-toc-available skin-thumbsize-clientpref-standard skin-underline-clientpref-browser";var cookie=document.cookie.match(/(?:^|; )enwikimwclientpreferences=([^;]+)/);if(cookie){cookie[1].split('%2C').forEach(function(pref){className=className.replace(new RegExp('(^| )'+pref.replace(/-clientpref-\w+$|[^\w-]+/g,'')+'-clientpref-\\w+( |$)'),'$1'+pref+'$2');});}document.documentElement.className=className;}());RLCONF={"wgBreakFrames":false,"wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgRequestId":"5a44a7ff-065b-49b4-b4ec-14083b06056b","wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Mutation_testing","wgTitle":"Mutation testing","wgCurRevisionId":1373580212,"wgRevisionId":1373580212,"wgArticleId":2362840,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Articles with short description","Short description matches Wikidata","Webarchive template wayback links","Software testing"],"wgPageViewLanguage":"en","wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgRelevantPageName":"Mutation_testing","wgRelevantArticleId":2362840,"wgTempUserName":null,"wgIsProbablyEditable":true,"wgRelevantPageIsProbablyEditable":true,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgNoticeProject":"wikipedia","wgFlaggedRevsParams":{"tags":{"status":{"levels":1}},"namespaces":[0,4]},"wgConfirmEditCaptchaNeededForGenericEdit":"hcaptcha","wgConfirmEditForceShowCaptcha":false,"wgConfirmEditHCaptchaSiteKey":"5d0c670e-a5f4-4258-ad16-1f42792c9c62","wgMediaViewerOnClick":true,"wgMediaViewerEnabledByDefault":true,"wgMediaViewerDesktopVue":false,"wgPopupsFlags":0,"wgVisualEditor":{"pageLanguageCode":"en","pageLanguageDir":"ltr","pageVariantFallbacks":"en"},"wgWMESchemaEditAttemptStepOversample":false,"wgWMEPageLength":20000,"wgParsoidHtmlVersion":"2.8.0","parsermigration-parsoid":true,"wgPageAssessments":{"Computing":{"class":"C","importance":"Low"},"Project-independent assessment":{"class":"C","importance":""}},"wgTestKitchenUserExperiments":{"overrides":[],"enrolled":[],"assigned":[],"subject_ids":[]},"wgEditSubmitButtonLabelPublish":true,"wgVisualEditorPageIsDisambiguation":false,"wgULSPosition":"interlanguage","wgULSisCompactLinksEnabled":false,"wgULSContentLanguageSelectorEnabled":true,"wgULSLanguageSelectorV2Enabled":true,"wgWikibaseItemId":"Q4308623","wgCheckUserClientHintsHeadersJsApi":["brands","architecture","bitness","fullVersionList","mobile","model","platform","platformVersion"],"wgCheckUserClientHintsInEditRequest":true,"wgPersonalDashboardMenuVisible":false};
+RLSTATE={"ext.globalCssJs.user.styles":"ready","site.styles":"ready","user.styles":"ready","ext.globalCssJs.user":"ready","user":"ready","user.options":"loading","ext.pygments":"ready","ext.cite.parsoid.styles":"ready","ext.cite.styles":"ready","ext.wikimediamessages.styles":"ready","skins.vector.search.codex.styles":"ready","skins.vector.styles":"ready","skins.vector.icons":"ready","jquery.makeCollapsible.styles":"ready","ext.visualEditor.desktopArticleTarget.noscript":"ready","ext.uls.interlanguage":"ready","wikibase.client.init":"ready","ext.readingLists.bookmark.icons":"ready","ext.readingLists.bookmark.styles":"ready"};RLPAGEMODULES=["ext.pygments.view","ext.cite.ux-enhancements","site","mediawiki.page.ready","jquery.makeCollapsible","mediawiki.toc","skins.vector.js","ext.centralNotice.geoIP","ext.centralNotice.startUp","ext.gadget.ReferenceTooltips","ext.gadget.switcher","ext.urlShortener.toolbar","ext.centralauth.centralautologin","ext.testKitchen","ext.wikimediaCustomizations.donorAccountCreation","mmv.bootstrap","ext.popups","ext.visualEditor.desktopArticleTarget.init","ext.echo.centralauth","ext.eventLogging","ext.wikimediaEvents","ext.navigationTiming","ext.uls.interface","ext.cx.eventlogging.campaigns","ext.cx.uls.quick.actions","wikibase.client.vector-2022","wikibase.databox.fromWikidata","ext.checkUser.clientHints","ext.readerExperiments/preferredSources","ext.readingLists.bookmark.anonymous"];</script>
+<script>(RLQ=window.RLQ||[]).push(function(){mw.loader.impl(function(){return["user.options@12s5i",function($,jQuery,require,module){mw.user.tokens.set({"patrolToken":"+\\","watchToken":"+\\","csrfToken":"+\\"});mw.user.options.set({"usecodemirror":1});
+}];});});</script>
+<link rel="stylesheet" href="/w/load.php?lang=en&amp;modules=ext.cite.parsoid.styles%7Cext.cite.styles%7Cext.pygments%7Cext.readingLists.bookmark.icons%2Cstyles%7Cext.uls.interlanguage%7Cext.visualEditor.desktopArticleTarget.noscript%7Cext.wikimediamessages.styles%7Cjquery.makeCollapsible.styles%7Cskins.vector.icons%2Cstyles%7Cskins.vector.search.codex.styles%7Cwikibase.client.init&amp;only=styles&amp;skin=vector-2022">
+<script async="" src="/w/load.php?lang=en&amp;modules=startup&amp;only=scripts&amp;raw=1&amp;skin=vector-2022"></script>
+<meta name="ResourceLoaderDynamicStyles" content="">
+<link rel="stylesheet" href="/w/load.php?lang=en&amp;modules=site.styles&amp;only=styles&amp;skin=vector-2022">
+<meta name="generator" content="MediaWiki 1.48.0-wmf.3">
+<meta name="referrer" content="origin">
+<meta name="referrer" content="origin-when-cross-origin">
+<meta name="robots" content="max-image-preview:standard">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=1120">
+<meta property="og:title" content="Mutation testing - Wikipedia">
+<meta property="og:type" content="website">
+<link rel="discord:component-embed" type="application/json" href="https://en.wikipedia.org/w/rest.php/discord/v0-internal/discord-preview?title=Mutation+testing&amp;db=enwiki&amp;lang=en">
+<link rel="alternate" type="application/x-wiki" title="Edit this page" href="/w/index.php?title=Mutation_testing&amp;action=edit">
+<link rel="apple-touch-icon" href="/static/apple-touch/wikipedia.png">
+<link rel="icon" href="/static/favicon/wikipedia.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/w/rest.php/v1/search" title="Wikipedia (en)">
+<link rel="EditURI" type="application/rsd+xml" href="//en.wikipedia.org/w/api.php?action=rsd">
+<link rel="canonical" href="https://en.wikipedia.org/wiki/Mutation_testing">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/deed.en">
+<link rel="alternate" type="application/atom+xml" title="Wikipedia Atom feed" href="/w/index.php?title=Special:RecentChanges&amp;feed=atom">
+<link rel="dns-prefetch" href="//meta.wikimedia.org" />
+<link rel="dns-prefetch" href="auth.wikimedia.org">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt action-view skin-vector-2022 ns-0 ns-subject mw-editable page-Mutation_testing rootpage-Mutation_testing skin--responsive skin-vector skin-vector-search-vue">
+<div id="mw-aria-live-region" class="mw-aria-live-region" aria-live="polite"></div><a class="mw-jump-link" href="#bodyContent">Jump to content</a>
+<div class="vector-header-container">
+	<header class="vector-header mw-header no-font-mode-scale">
+		<div class="vector-header-start">
+			<nav class="vector-main-menu-landmark" aria-label="Site">
+				
+<div id="vector-main-menu-dropdown" class="vector-dropdown vector-main-menu-dropdown vector-button-flush-left vector-button-flush-right"  title="Main menu" >
+	<input type="checkbox" id="vector-main-menu-dropdown-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-main-menu-dropdown" class="vector-dropdown-checkbox "  aria-label="Main menu"   >
+	<label id="vector-main-menu-dropdown-label" for="vector-main-menu-dropdown-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only " aria-hidden="true"  ><span class="vector-icon mw-ui-icon-menu mw-ui-icon-wikimedia-menu cdx-button__icon"></span>
+
+<span class="vector-dropdown-label-text">Main menu</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+				<div id="vector-main-menu-unpinned-container" class="vector-unpinned-container">
+		
+<div id="vector-main-menu" class="vector-main-menu vector-pinnable-element">
+	<div
+	class="vector-pinnable-header vector-main-menu-pinnable-header vector-pinnable-header-unpinned"
+	data-feature-name="main-menu-pinned"
+	data-pinnable-element-id="vector-main-menu"
+	data-pinned-container-id="vector-main-menu-pinned-container"
+	data-unpinned-container-id="vector-main-menu-unpinned-container"
+>
+	<div class="vector-pinnable-header-label">Main menu</div>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-pin-button" data-event-name="pinnable-header.vector-main-menu.pin" aria-label="Move Main menu to sidebar">move to sidebar</button>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-unpin-button" data-event-name="pinnable-header.vector-main-menu.unpin" aria-label="Hide Main menu">hide</button>
+</div>
+
+	
+<div id="p-navigation" class="vector-menu mw-portlet mw-portlet-navigation"  >
+	<div class="vector-menu-heading">
+		Navigation
+	</div>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="n-mainpage-description" class="mw-list-item"><a href="/wiki/Main_Page" title="Visit the main page [z]" accesskey="z"><span>Main page</span></a></li><li id="n-contents" class="mw-list-item"><a href="/wiki/Wikipedia:Contents" title="Guides to browsing Wikipedia"><span>Contents</span></a></li><li id="n-currentevents" class="mw-list-item"><a href="/wiki/Portal:Current_events" title="Articles related to current events"><span>Current events</span></a></li><li id="n-randompage" class="mw-list-item"><a href="/wiki/Special:Random" title="Visit a randomly selected article [x]" accesskey="x"><span>Random article</span></a></li><li id="n-aboutsite" class="mw-list-item"><a href="/wiki/Wikipedia:About" title="Learn about Wikipedia and how it works"><span>About Wikipedia</span></a></li><li id="n-contactpage" class="mw-list-item"><a href="//en.wikipedia.org/wiki/Wikipedia:Contact_us" title="How to contact Wikipedia"><span>Contact us</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+	
+<div id="p-interaction" class="vector-menu mw-portlet mw-portlet-interaction"  >
+	<div class="vector-menu-heading">
+		Contribute
+	</div>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="n-help" class="mw-list-item"><a href="/wiki/Help:Contents" title="Guidance on how to use and edit Wikipedia"><span>Help</span></a></li><li id="n-introduction" class="mw-list-item"><a href="/wiki/Help:Introduction" title="Learn how to edit Wikipedia"><span>Learn to edit</span></a></li><li id="n-portal" class="mw-list-item"><a href="/wiki/Wikipedia:Community_portal" title="The hub for editors"><span>Community portal</span></a></li><li id="n-recentchanges" class="mw-list-item"><a href="/wiki/Special:RecentChanges" title="A list of recent changes to Wikipedia [r]" accesskey="r"><span>Recent changes</span></a></li><li id="n-upload" class="mw-list-item"><a href="/wiki/Wikipedia:File_upload_wizard" title="Add images or other media for use on Wikipedia"><span>Upload file</span></a></li><li id="n-specialpages" class="mw-list-item"><a href="/wiki/Special:SpecialPages" title="A list of all special pages [q]" accesskey="q"><span>Special pages</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+</div>
+
+				</div>
+
+	</div>
+</div>
+
+		</nav>
+			
+<a href="/wiki/Main_Page" class="mw-logo">
+	<img class="mw-logo-icon" src="/static/images/icons/enwiki-25.svg" alt="" aria-hidden="true" height="50" width="50">
+	<span class="mw-logo-container skin-invert">
+		<img class="mw-logo-wordmark" alt="Wikipedia" src="/static/images/mobile/copyright/wikipedia-wordmark-en-25.svg" style="width: 8.75em; height: 1.375em;">
+		<img class="mw-logo-tagline" alt="The Free Encyclopedia" src="/static/images/mobile/copyright/wikipedia-tagline-en-25.svg" width="140" height="11" style="width: 8.75em; height: 0.6875em;">
+	</span>
+</a>
+
+		</div>
+		<div class="vector-header-end">
+			
+<div id="p-search" role="search" class="vector-search-box-vue  vector-search-box-collapses vector-search-box-show-thumbnail vector-search-box-auto-expand-width vector-search-box">
+	<a href="/wiki/Special:Search" class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only search-toggle" title="Search Wikipedia [f]" accesskey="f"><span class="vector-icon mw-ui-icon-search mw-ui-icon-wikimedia-search cdx-button__icon"></span>
+
+<span>Search</span>
+	</a>
+	<div class="vector-typeahead-search-container">
+		<div class="cdx-typeahead-search cdx-typeahead-search--show-thumbnail cdx-typeahead-search--auto-expand-width">
+			<form action="/w/index.php" id="searchform" class="cdx-search-input cdx-search-input--has-end-button">
+				<div id="simpleSearch" class="cdx-search-input__input-wrapper"  data-search-loc="header-moved">
+					<div class="cdx-text-input cdx-text-input--has-start-icon">
+						<input
+							class="cdx-text-input__input mw-searchInput" autocomplete="off"
+							 type="search" name="search" placeholder="Search Wikipedia" aria-label="Search Wikipedia" autocapitalize="none" spellcheck="false" title="Search Wikipedia [f]" accesskey="f" id="searchInput"
+							>
+						<span class="cdx-text-input__icon cdx-text-input__start-icon"></span>
+					</div>
+					<input type="hidden" name="title" value="Special:Search">
+				</div>
+				<button class="cdx-button cdx-search-input__end-button">Search</button>
+			</form>
+		</div>
+	</div>
+</div>
+
+			<nav class="vector-user-links vector-user-links-wide" aria-label="Personal tools">
+	<div class="vector-user-links-main">
+	
+<div id="p-vector-user-menu-preferences" class="vector-menu mw-portlet emptyPortlet"  >
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			
+		</ul>
+		
+	</div>
+</div>
+
+	
+<div id="p-vector-user-menu-userpage" class="vector-menu mw-portlet emptyPortlet"  >
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			
+		</ul>
+		
+	</div>
+</div>
+
+	<nav class="vector-appearance-landmark" aria-label="Appearance">
+		
+<div id="vector-appearance-dropdown" class="vector-dropdown "  title="Change the appearance of the page&#039;s font size, width, and color" >
+	<input type="checkbox" id="vector-appearance-dropdown-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-appearance-dropdown" class="vector-dropdown-checkbox "  aria-label="Appearance"   >
+	<label id="vector-appearance-dropdown-label" for="vector-appearance-dropdown-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only " aria-hidden="true"  ><span class="vector-icon mw-ui-icon-appearance mw-ui-icon-wikimedia-appearance cdx-button__icon"></span>
+
+<span class="vector-dropdown-label-text">Appearance</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+			<div id="vector-appearance-unpinned-container" class="vector-unpinned-container">
+				
+			</div>
+		
+	</div>
+</div>
+
+	</nav>
+	
+<div id="p-vector-user-menu-notifications" class="vector-menu mw-portlet emptyPortlet"  >
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			
+		</ul>
+		
+	</div>
+</div>
+
+	
+<div id="p-vector-user-menu-overflow" class="vector-menu mw-portlet"  >
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			<li id="pt-sitesupport-2" class="mw-list-item vector-menu-item--collapsible"><a data-mw-interface  href="https://donate.wikimedia.org/?wmf_source=donate&amp;wmf_medium=sidebar&amp;wmf_campaign=en.wikipedia.org&amp;uselang=en" data-mw-donate-attempt="top_link" class=""><span>Donate</span></a>
+</li>
+<li id="pt-createaccount-2" class="mw-list-item vector-menu-item--collapsible"><a data-mw-interface  href="/w/index.php?title=Special:CreateAccount&amp;returnto=Mutation+testing" title="You are encouraged to create an account and log in; however, it is not mandatory" class=""><span>Create account</span></a>
+</li>
+<li id="pt-login-2" class="mw-list-item vector-menu-item--collapsible"><a data-mw-interface  href="/w/index.php?title=Special:UserLogin&amp;returnto=Mutation+testing" title="You&#039;re encouraged to log in; however, it&#039;s not mandatory. [o]" accesskey="o" class=""><span>Log in</span></a>
+</li>
+
+			
+		</ul>
+		
+	</div>
+</div>
+
+	</div>
+	
+<div id="vector-user-links-dropdown" class="vector-dropdown vector-user-menu vector-button-flush-right vector-user-menu-logged-out vector-user-links-dropdown--collapsible"  title="Log in and more options" >
+	<input type="checkbox" id="vector-user-links-dropdown-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-user-links-dropdown" class="vector-dropdown-checkbox "  aria-label="Personal tools"   >
+	<label id="vector-user-links-dropdown-label" for="vector-user-links-dropdown-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only " aria-hidden="true"  ><span class="vector-icon mw-ui-icon-userAvatar mw-ui-icon-wikimedia-userAvatar cdx-button__icon"></span>
+
+<span class="vector-dropdown-label-text">Personal tools</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+		
+<div id="p-personal" class="vector-menu mw-portlet mw-portlet-personal"  title="User menu" >
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			<li id="pt-sitesupport" class="mw-list-item vector-menu-item--collapsible"><a data-mw-interface  href="https://donate.wikimedia.org/?wmf_source=donate&amp;wmf_medium=sidebar&amp;wmf_campaign=en.wikipedia.org&amp;uselang=en" data-mw-donate-attempt="top_link" class=""><span class="vector-icon mw-ui-icon-heart mw-ui-icon-wikimedia-heart cdx-button__icon"></span>
+
+<span>Donate</span></a>
+</li>
+<li id="pt-createaccount" class="mw-list-item vector-menu-item--collapsible"><a data-mw-interface  href="/w/index.php?title=Special:CreateAccount&amp;returnto=Mutation+testing" title="You are encouraged to create an account and log in; however, it is not mandatory" class=""><span class="vector-icon mw-ui-icon-userAvatar mw-ui-icon-wikimedia-userAvatar cdx-button__icon"></span>
+
+<span>Create account</span></a>
+</li>
+<li id="pt-login" class="mw-list-item vector-menu-item--collapsible"><a data-mw-interface  href="/w/index.php?title=Special:UserLogin&amp;returnto=Mutation+testing" title="You&#039;re encouraged to log in; however, it&#039;s not mandatory. [o]" accesskey="o" class=""><span class="vector-icon mw-ui-icon-logIn mw-ui-icon-wikimedia-logIn cdx-button__icon"></span>
+
+<span>Log in</span></a>
+</li>
+
+			
+		</ul>
+		
+	</div>
+</div>
+
+	
+	</div>
+</div>
+
+</nav>
+
+		</div>
+	</header>
+</div>
+<div class="mw-page-container">
+	<div class="mw-page-container-inner">
+		<div class="vector-sitenotice-container">
+			<div id="siteNotice"><!-- CentralNotice --></div>
+		</div>
+		<div class="vector-column-start">
+			<div class="vector-main-menu-container">
+		<div id="mw-navigation">
+			<nav id="mw-panel" class="vector-main-menu-landmark" aria-label="Site">
+				<div id="vector-main-menu-pinned-container" class="vector-pinned-container">
+				
+				</div>
+		</nav>
+		</div>
+	</div>
+	<div class="vector-sticky-pinned-container">
+				<nav id="mw-panel-toc" aria-label="Contents" data-event-name="ui.sidebar-toc" class="mw-table-of-contents-container vector-toc-landmark">
+					<div id="vector-toc-pinned-container" class="vector-pinned-container">
+					<div id="vector-toc" class="vector-toc vector-pinnable-element">
+	<div
+	class="vector-pinnable-header vector-toc-pinnable-header vector-pinnable-header-pinned"
+	data-feature-name="toc-pinned"
+	data-pinnable-element-id="vector-toc"
+	data-pinned-container-id="vector-toc-pinned-container"
+	data-unpinned-container-id="vector-toc-unpinned-container"
+>
+	<h2 class="vector-pinnable-header-label">Contents</h2>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-pin-button" data-event-name="pinnable-header.vector-toc.pin" aria-label="Move Contents to sidebar">move to sidebar</button>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-unpin-button" data-event-name="pinnable-header.vector-toc.unpin" aria-label="Hide Contents">hide</button>
+</div>
+
+
+	<ul class="vector-toc-contents" id="mw-panel-toc-list">
+		<li id="toc-mw-content-text"
+			class="vector-toc-list-item vector-toc-level-1">
+			<a href="#" class="vector-toc-link">
+				<div class="vector-toc-text">(Top)</div>
+			</a>
+		</li>
+		<li id="toc-Introduction"
+		class="vector-toc-list-item vector-toc-level-1 vector-toc-list-item-expanded">
+		<a class="vector-toc-link" href="#Introduction">
+			<div class="vector-toc-text">
+				<span class="vector-toc-numb">1</span>
+				<span>Introduction</span>
+			</div>
+		</a>
+		
+		<ul id="toc-Introduction-sublist" class="vector-toc-list">
+		</ul>
+	</li>
+	<li id="toc-Overview"
+		class="vector-toc-list-item vector-toc-level-1 vector-toc-list-item-expanded">
+		<a class="vector-toc-link" href="#Overview">
+			<div class="vector-toc-text">
+				<span class="vector-toc-numb">2</span>
+				<span>Overview</span>
+			</div>
+		</a>
+		
+		<ul id="toc-Overview-sublist" class="vector-toc-list">
+		</ul>
+	</li>
+	<li id="toc-Goals"
+		class="vector-toc-list-item vector-toc-level-1 vector-toc-list-item-expanded">
+		<a class="vector-toc-link" href="#Goals">
+			<div class="vector-toc-text">
+				<span class="vector-toc-numb">3</span>
+				<span>Goals</span>
+			</div>
+		</a>
+		
+		<ul id="toc-Goals-sublist" class="vector-toc-list">
+		</ul>
+	</li>
+	<li id="toc-History"
+		class="vector-toc-list-item vector-toc-level-1 vector-toc-list-item-expanded">
+		<a class="vector-toc-link" href="#History">
+			<div class="vector-toc-text">
+				<span class="vector-toc-numb">4</span>
+				<span>History</span>
+			</div>
+		</a>
+		
+		<ul id="toc-History-sublist" class="vector-toc-list">
+		</ul>
+	</li>
+	<li id="toc-Mutation_testing_overview"
+		class="vector-toc-list-item vector-toc-level-1 vector-toc-list-item-expanded">
+		<a class="vector-toc-link" href="#Mutation_testing_overview">
+			<div class="vector-toc-text">
+				<span class="vector-toc-numb">5</span>
+				<span>Mutation testing overview</span>
+			</div>
+		</a>
+		
+		<ul id="toc-Mutation_testing_overview-sublist" class="vector-toc-list">
+		</ul>
+	</li>
+	<li id="toc-Mutation_operators"
+		class="vector-toc-list-item vector-toc-level-1 vector-toc-list-item-expanded">
+		<a class="vector-toc-link" href="#Mutation_operators">
+			<div class="vector-toc-text">
+				<span class="vector-toc-numb">6</span>
+				<span>Mutation operators</span>
+			</div>
+		</a>
+		
+			<button aria-controls="toc-Mutation_operators-sublist" class="cdx-button cdx-button--weight-quiet cdx-button--icon-only vector-toc-toggle">
+				<span class="vector-icon mw-ui-icon-wikimedia-expand"></span>
+				<span>Toggle Mutation operators subsection</span>
+			</button>
+		
+		<ul id="toc-Mutation_operators-sublist" class="vector-toc-list">
+			<li id="toc-Types_of_mutation_operators"
+			class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#Types_of_mutation_operators">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">6.1</span>
+					<span>Types of mutation operators</span>
+				</div>
+			</a>
+			
+			<ul id="toc-Types_of_mutation_operators-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+	</ul>
+	</li>
+	<li id="toc-Types_of_mutation_testing"
+		class="vector-toc-list-item vector-toc-level-1 vector-toc-list-item-expanded">
+		<a class="vector-toc-link" href="#Types_of_mutation_testing">
+			<div class="vector-toc-text">
+				<span class="vector-toc-numb">7</span>
+				<span>Types of mutation testing</span>
+			</div>
+		</a>
+		
+			<button aria-controls="toc-Types_of_mutation_testing-sublist" class="cdx-button cdx-button--weight-quiet cdx-button--icon-only vector-toc-toggle">
+				<span class="vector-icon mw-ui-icon-wikimedia-expand"></span>
+				<span>Toggle Types of mutation testing subsection</span>
+			</button>
+		
+		<ul id="toc-Types_of_mutation_testing-sublist" class="vector-toc-list">
+			<li id="toc-Statement_mutation"
+			class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#Statement_mutation">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">7.1</span>
+					<span>Statement mutation</span>
+				</div>
+			</a>
+			
+			<ul id="toc-Statement_mutation-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-Value_mutation"
+			class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#Value_mutation">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">7.2</span>
+					<span>Value mutation</span>
+				</div>
+			</a>
+			
+			<ul id="toc-Value_mutation-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-Decision_mutation"
+			class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#Decision_mutation">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">7.3</span>
+					<span>Decision mutation</span>
+				</div>
+			</a>
+			
+			<ul id="toc-Decision_mutation-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+	</ul>
+	</li>
+	<li id="toc-See_also"
+		class="vector-toc-list-item vector-toc-level-1 vector-toc-list-item-expanded">
+		<a class="vector-toc-link" href="#See_also">
+			<div class="vector-toc-text">
+				<span class="vector-toc-numb">8</span>
+				<span>See also</span>
+			</div>
+		</a>
+		
+		<ul id="toc-See_also-sublist" class="vector-toc-list">
+		</ul>
+	</li>
+	<li id="toc-References"
+		class="vector-toc-list-item vector-toc-level-1 vector-toc-list-item-expanded">
+		<a class="vector-toc-link" href="#References">
+			<div class="vector-toc-text">
+				<span class="vector-toc-numb">9</span>
+				<span>References</span>
+			</div>
+		</a>
+		
+		<ul id="toc-References-sublist" class="vector-toc-list">
+		</ul>
+	</li>
+</ul>
+</div>
+
+					</div>
+		</nav>
+			</div>
+		</div>
+		<div class="mw-content-container">
+			<main id="content" class="mw-body">
+				<header class="mw-body-header vector-page-titlebar no-font-mode-scale">
+					<nav aria-label="Contents" class="vector-toc-landmark">
+						
+<div id="vector-page-titlebar-toc" class="vector-dropdown vector-page-titlebar-toc vector-button-flush-left"  title="Table of Contents" >
+	<input type="checkbox" id="vector-page-titlebar-toc-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-page-titlebar-toc" class="vector-dropdown-checkbox "  aria-label="Toggle the table of contents"   >
+	<label id="vector-page-titlebar-toc-label" for="vector-page-titlebar-toc-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only " aria-hidden="true"  ><span class="vector-icon mw-ui-icon-listBullet mw-ui-icon-wikimedia-listBullet cdx-button__icon"></span>
+
+<span class="vector-dropdown-label-text">Toggle the table of contents</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+							<div id="vector-page-titlebar-toc-unpinned-container" class="vector-unpinned-container">
+			</div>
+		
+	</div>
+</div>
+
+					</nav>
+					<h1 id="firstHeading" class="firstHeading mw-first-heading"><span lang="en" dir="ltr"><span class="mw-page-title-main">Mutation testing</span></span></h1>
+			
+<div id="p-lang-btn" class="vector-dropdown mw-portlet mw-portlet-lang"  >
+	<input type="checkbox" id="p-lang-btn-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-p-lang-btn" class="vector-dropdown-checkbox mw-interlanguage-selector"  aria-label="11 languages" aria-description="Go to an article in another language. Available in 11 languages"  >
+	<label id="p-lang-btn-label" for="p-lang-btn-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--action-progressive mw-portlet-lang-heading-11" aria-hidden="true"  ><span class="vector-icon mw-ui-icon-language-progressive mw-ui-icon-wikimedia-language-progressive cdx-button__icon"></span>
+
+<span class="vector-dropdown-label-text">11 languages</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+		<div class="vector-menu-content">
+			
+			<ul class="vector-menu-content-list">
+				
+				<li class="interlanguage-link interwiki-ar mw-list-item"><a href="https://ar.wikipedia.org/wiki/%D8%A7%D8%AE%D8%AA%D8%A8%D8%A7%D8%B1_%D8%A7%D9%84%D8%B7%D9%81%D8%B1%D8%A9" title="اختبار الطفرة – Arabic" lang="ar" hreflang="ar" data-title="اختبار الطفرة" data-language-autonym="العربية" data-language-local-name="Arabic" class="interlanguage-link-target"><span>العربية</span></a></li><li class="interlanguage-link interwiki-bs mw-list-item"><a href="https://bs.wikipedia.org/wiki/Analiza_mutacija" title="Analiza mutacija – Bosnian" lang="bs" hreflang="bs" data-title="Analiza mutacija" data-language-autonym="Bosanski" data-language-local-name="Bosnian" class="interlanguage-link-target"><span>Bosanski</span></a></li><li class="interlanguage-link interwiki-es mw-list-item"><a href="https://es.wikipedia.org/wiki/Prueba_de_mutaci%C3%B3n" title="Prueba de mutación – Spanish" lang="es" hreflang="es" data-title="Prueba de mutación" data-language-autonym="Español" data-language-local-name="Spanish" class="interlanguage-link-target"><span>Español</span></a></li><li class="interlanguage-link interwiki-et mw-list-item"><a href="https://et.wikipedia.org/wiki/Mutatsioonitestimine" title="Mutatsioonitestimine – Estonian" lang="et" hreflang="et" data-title="Mutatsioonitestimine" data-language-autonym="Eesti" data-language-local-name="Estonian" class="interlanguage-link-target"><span>Eesti</span></a></li><li class="interlanguage-link interwiki-fr mw-list-item"><a href="https://fr.wikipedia.org/wiki/Test_de_mutation" title="Test de mutation – French" lang="fr" hreflang="fr" data-title="Test de mutation" data-language-autonym="Français" data-language-local-name="French" class="interlanguage-link-target"><span>Français</span></a></li><li class="interlanguage-link interwiki-ja mw-list-item"><a href="https://ja.wikipedia.org/wiki/%E3%83%9F%E3%83%A5%E3%83%BC%E3%83%86%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E8%A7%A3%E6%9E%90" title="ミューテーション解析 – Japanese" lang="ja" hreflang="ja" data-title="ミューテーション解析" data-language-autonym="日本語" data-language-local-name="Japanese" class="interlanguage-link-target"><span>日本語</span></a></li><li class="interlanguage-link interwiki-kaa mw-list-item"><a href="https://kaa.wikipedia.org/wiki/Mutaciyal%C4%B1q_testlew" title="Mutaciyalıq testlew – Kara-Kalpak" lang="kaa" hreflang="kaa" data-title="Mutaciyalıq testlew" data-language-autonym="Qaraqalpaqsha" data-language-local-name="Kara-Kalpak" class="interlanguage-link-target"><span>Qaraqalpaqsha</span></a></li><li class="interlanguage-link interwiki-pl mw-list-item"><a href="https://pl.wikipedia.org/wiki/Testowanie_mutacyjne" title="Testowanie mutacyjne – Polish" lang="pl" hreflang="pl" data-title="Testowanie mutacyjne" data-language-autonym="Polski" data-language-local-name="Polish" class="interlanguage-link-target"><span>Polski</span></a></li><li class="interlanguage-link interwiki-pt mw-list-item"><a href="https://pt.wikipedia.org/wiki/Teste_de_muta%C3%A7%C3%A3o" title="Teste de mutação – Portuguese" lang="pt" hreflang="pt" data-title="Teste de mutação" data-language-autonym="Português" data-language-local-name="Portuguese" class="interlanguage-link-target"><span>Português</span></a></li><li class="interlanguage-link interwiki-ru mw-list-item"><a href="https://ru.wikipedia.org/wiki/%D0%9C%D1%83%D1%82%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D0%BE%D0%B5_%D1%82%D0%B5%D1%81%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5" title="Мутационное тестирование – Russian" lang="ru" hreflang="ru" data-title="Мутационное тестирование" data-language-autonym="Русский" data-language-local-name="Russian" class="interlanguage-link-target"><span>Русский</span></a></li><li class="interlanguage-link interwiki-uk mw-list-item"><a href="https://uk.wikipedia.org/wiki/%D0%9C%D1%83%D1%82%D0%B0%D1%86%D1%96%D0%B9%D0%BD%D0%B5_%D1%82%D0%B5%D1%81%D1%82%D1%83%D0%B2%D0%B0%D0%BD%D0%BD%D1%8F" title="Мутаційне тестування – Ukrainian" lang="uk" hreflang="uk" data-title="Мутаційне тестування" data-language-autonym="Українська" data-language-local-name="Ukrainian" class="interlanguage-link-target"><span>Українська</span></a></li>
+			</ul>
+			<div class="after-portlet after-portlet-lang"><span class="wb-langlinks-edit wb-langlinks-link"><a href="https://www.wikidata.org/wiki/Special:EntityPage/Q4308623#sitelinks-wikipedia" title="Edit interlanguage links" class="wbc-editpage">Edit links</a></span></div>
+		</div>
+
+	</div>
+</div>
+</header>
+				<div class="vector-page-toolbar">
+					<div class="vector-page-toolbar-container">
+						<div id="left-navigation">
+							<nav aria-label="Namespaces">
+								
+<div id="p-associated-pages" class="vector-menu vector-menu-tabs mw-portlet mw-portlet-associated-pages"  >
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			<li id="ca-nstab-main" class="selected mw-list-item vector-tab-noicon"><a data-mw-interface  href="/wiki/Mutation_testing" title="View the content page [c]" accesskey="c" class=""><span>Article</span></a>
+</li>
+<li id="ca-talk" class="mw-list-item vector-tab-noicon"><a data-mw-interface  href="/wiki/Talk:Mutation_testing" rel="discussion" title="Discuss improvements to the content page [t]" accesskey="t" class=""><span>Talk</span></a>
+</li>
+
+			
+		</ul>
+		
+	</div>
+</div>
+
+								
+<div id="vector-variants-dropdown" class="vector-dropdown emptyPortlet"  >
+	<input type="checkbox" id="vector-variants-dropdown-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-variants-dropdown" class="vector-dropdown-checkbox " aria-label="Change language variant"    >
+	<label id="vector-variants-dropdown-label" for="vector-variants-dropdown-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet" aria-hidden="true"  ><span class="vector-dropdown-label-text">English</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+					
+<div id="p-variants" class="vector-menu mw-portlet mw-portlet-variants emptyPortlet"  >
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			
+		</ul>
+		
+	</div>
+</div>
+
+				
+	</div>
+</div>
+
+							</nav>
+						</div>
+						<div id="right-navigation" class="vector-collapsible">
+							<nav aria-label="Views">
+			    
+<div id="p-views" class="vector-menu vector-menu-tabs mw-portlet mw-portlet-views"  >
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			<li id="ca-view" class="selected mw-list-item vector-menu-item--collapsible vector-tab-noicon"><a data-mw-interface  href="/wiki/Mutation_testing" class=""><span>Read</span></a>
+</li>
+<li id="ca-edit" class="mw-list-item vector-menu-item--collapsible vector-tab-noicon"><a data-mw-interface  href="/w/index.php?title=Mutation_testing&amp;action=edit" title="Edit the source code of this page [e]" accesskey="e" class=""><span>Edit</span></a>
+</li>
+<li id="ca-history" class="mw-list-item vector-menu-item--collapsible vector-tab-noicon"><a data-mw-interface  href="/w/index.php?title=Mutation_testing&amp;action=history" title="Past revisions of this page [h]" accesskey="h" class=""><span>View history</span></a>
+</li>
+<li id="ca-bookmark" class="mw-list-item vector-menu-item--collapsible"><a href="#" class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only reading-lists-bookmark" id="" title="Add this page to your saved items"><span class="vector-icon mw-ui-icon-bookmarkOutline mw-ui-icon-wikimedia-bookmarkOutline cdx-button__icon"></span>
+
+<span>Save</span>
+</a>
+</li>
+
+			
+		</ul>
+		
+	</div>
+</div>
+
+			</nav>
+
+							<nav class="vector-page-tools-landmark" aria-label="Page tools">
+								
+<div id="vector-page-tools-dropdown" class="vector-dropdown vector-page-tools-dropdown"  >
+	<input type="checkbox" id="vector-page-tools-dropdown-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-page-tools-dropdown" class="vector-dropdown-checkbox "  aria-label="Tools"   >
+	<label id="vector-page-tools-dropdown-label" for="vector-page-tools-dropdown-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only " aria-hidden="true"  ><span class="vector-icon mw-ui-icon-verticalEllipsis mw-ui-icon-wikimedia-verticalEllipsis cdx-button__icon"></span>
+
+<span class="vector-dropdown-label-text">Tools</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+									<div id="vector-page-tools-unpinned-container" class="vector-unpinned-container">
+						
+<div id="vector-page-tools" class="vector-page-tools vector-pinnable-element">
+	<div
+	class="vector-pinnable-header vector-page-tools-pinnable-header vector-pinnable-header-unpinned"
+	data-feature-name="page-tools-pinned"
+	data-pinnable-element-id="vector-page-tools"
+	data-pinned-container-id="vector-page-tools-pinned-container"
+	data-unpinned-container-id="vector-page-tools-unpinned-container"
+>
+	<div class="vector-pinnable-header-label">Tools</div>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-pin-button" data-event-name="pinnable-header.vector-page-tools.pin" aria-label="Move Tools to sidebar">move to sidebar</button>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-unpin-button" data-event-name="pinnable-header.vector-page-tools.unpin" aria-label="Hide Tools">hide</button>
+</div>
+
+	
+<div id="p-cactions" class="vector-menu mw-portlet mw-portlet-cactions emptyPortlet vector-has-collapsible-items"  >
+	<div class="vector-menu-heading">
+		Actions
+	</div>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			<li id="ca-view-more" class="selected mw-list-item vector-menu-item--collapsible"><a data-mw-interface  href="/wiki/Mutation_testing" class=""><span class="vector-icon mw-ui-icon-eye mw-ui-icon-wikimedia-eye cdx-button__icon"></span>
+
+<span>Read</span></a>
+</li>
+<li id="ca-edit-more" class="mw-list-item vector-menu-item--collapsible"><a data-mw-interface  href="/w/index.php?title=Mutation_testing&amp;action=edit" title="Edit the source code of this page [e]" accesskey="e" class=""><span class="vector-icon mw-ui-icon-edit mw-ui-icon-wikimedia-edit cdx-button__icon"></span>
+
+<span>Edit</span></a>
+</li>
+<li id="ca-history-more" class="mw-list-item vector-menu-item--collapsible"><a data-mw-interface  href="/w/index.php?title=Mutation_testing&amp;action=history" title="Past revisions of this page [h]" accesskey="h" class=""><span class="vector-icon mw-ui-icon-history mw-ui-icon-wikimedia-history cdx-button__icon"></span>
+
+<span>View history</span></a>
+</li>
+<li id="ca-bookmark-more" class="mw-list-item vector-menu-item--collapsible"><a data-mw-interface  href="#" class="reading-lists-bookmark" title="Add this page to your saved items"><span class="vector-icon mw-ui-icon-bookmarkOutline mw-ui-icon-wikimedia-bookmarkOutline cdx-button__icon"></span>
+
+<span>Save</span></a>
+</li>
+
+			
+		</ul>
+		
+	</div>
+</div>
+
+<div id="p-tb" class="vector-menu mw-portlet mw-portlet-tb"  >
+	<div class="vector-menu-heading">
+		General
+	</div>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="t-whatlinkshere" class="mw-list-item"><a href="/wiki/Special:WhatLinksHere/Mutation_testing" title="List of all English Wikipedia pages containing links to this page [j]" accesskey="j"><span>What links here</span></a></li><li id="t-recentchangeslinked" class="mw-list-item"><a href="/wiki/Special:RecentChangesLinked/Mutation_testing" rel="nofollow" title="Recent changes in pages linked from this page [k]" accesskey="k"><span>Related changes</span></a></li><li id="t-upload" class="mw-list-item"><a href="//en.wikipedia.org/wiki/Wikipedia:File_Upload_Wizard" title="Upload files [u]" accesskey="u"><span>Upload file</span></a></li><li id="t-permalink" class="mw-list-item"><a href="/w/index.php?title=Mutation_testing&amp;oldid=1373580212" title="Permanent link to this revision of this page"><span>Permanent link</span></a></li><li id="t-info" class="mw-list-item"><a href="/w/index.php?title=Mutation_testing&amp;action=info" title="More information about this page"><span>Page information</span></a></li><li id="t-cite" class="mw-list-item"><a href="/w/index.php?title=Special:CiteThisPage&amp;page=Mutation_testing&amp;id=1373580212&amp;wpFormIdentifier=titleform" title="Information on how to cite this page"><span>Cite this page</span></a></li><li id="t-urlshortener" class="mw-list-item"><a href="/w/index.php?title=Special:UrlShortener&amp;url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FMutation_testing"><span>Get shortened URL</span></a></li><li id="parsermigration-switch-to-legacy" class="mw-list-item"><a href="/w/index.php?title=Mutation_testing&amp;useparsoid=0"><span>Switch to legacy parser</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+<div id="p-coll-print_export" class="vector-menu mw-portlet mw-portlet-coll-print_export"  >
+	<div class="vector-menu-heading">
+		Print/export
+	</div>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="coll-download-as-rl" class="mw-list-item"><a href="/w/index.php?title=Special:DownloadAsPdf&amp;page=Mutation_testing&amp;action=show-download-screen" title="Download this page as a PDF file"><span>Download as PDF</span></a></li><li id="t-print" class="mw-list-item"><a href="javascript:print();" rel="alternate" title="Printable version of this page [p]" accesskey="p"><span>Printable version</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+<div id="p-wikibase-otherprojects" class="vector-menu mw-portlet mw-portlet-wikibase-otherprojects"  >
+	<div class="vector-menu-heading">
+		In other projects
+	</div>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="t-wikibase" class="wb-otherproject-link wb-otherproject-wikibase-dataitem mw-list-item"><a href="https://www.wikidata.org/wiki/Special:EntityPage/Q4308623" title="Structured data on this page hosted by Wikidata [g]" accesskey="g"><span>Wikidata item</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+</div>
+
+									</div>
+				
+	</div>
+</div>
+
+							</nav>
+						</div>
+					</div>
+				</div>
+				<div class="vector-column-end no-font-mode-scale">
+					<div class="vector-sticky-pinned-container">
+						<nav class="vector-page-tools-landmark" aria-label="Page tools">
+							<div id="vector-page-tools-pinned-container" class="vector-pinned-container">
+				
+							</div>
+		</nav>
+						<nav class="vector-appearance-landmark" aria-label="Appearance">
+							<div id="vector-appearance-pinned-container" class="vector-pinned-container">
+				<div id="vector-appearance" class="vector-appearance vector-pinnable-element">
+	<div
+	class="vector-pinnable-header vector-appearance-pinnable-header vector-pinnable-header-pinned"
+	data-feature-name="appearance-pinned"
+	data-pinnable-element-id="vector-appearance"
+	data-pinned-container-id="vector-appearance-pinned-container"
+	data-unpinned-container-id="vector-appearance-unpinned-container"
+>
+	<div class="vector-pinnable-header-label">Appearance</div>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-pin-button" data-event-name="pinnable-header.vector-appearance.pin" aria-label="Move Appearance to sidebar">move to sidebar</button>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-unpin-button" data-event-name="pinnable-header.vector-appearance.unpin" aria-label="Hide Appearance">hide</button>
+</div>
+
+
+</div>
+
+							</div>
+		</nav>
+					</div>
+				</div>
+				<div id="bodyContent" class="vector-body" aria-labelledby="firstHeading" data-mw-ve-target-container>
+					<div class="vector-body-before-content">
+							<div class="mw-indicators">
+		</div>
+
+						<div id="siteSub" class="noprint">From Wikipedia, the free encyclopedia</div>
+						<div id="contentSub"><div id="mw-content-subtitle"></div></div>
+						
+					</div>
+					
+					<div id="mw-content-text" class="mw-body-content"><div class="mw-content-ltr mw-parser-output" lang="en" dir="ltr" data-mw-parsoid-version="0.25.0.0-alpha1" data-mw-html-version="2.8.0"><section data-mw-section-id="0" id="mwAQ"><div class="shortdescription nomobile noexcerpt noprint searchaux" style="display:none" about="#mwt1" typeof="mw:Transclusion" id="mwAg" data-mw='{"parts":[{"template":{"target":{"wt":"Short description","href":"./Template:Short_description"},"params":{"1":{"wt":"Method of software testing"}},"i":0}}]}'>Method of software testing</div><span class="mw-empty-elt" about="#mwt1"><link rel="mw:PageProp/Category" href="./Category:Articles_with_short_description"/><link rel="mw:PageProp/Category" href="./Category:Short_description_matches_Wikidata"/></span>
+<span class="mw-empty-elt" about="#mwt2" typeof="mw:Transclusion" id="mwAw" data-mw='{"parts":[{"template":{"target":{"wt":"redirect","href":"./Template:Redirect"},"params":{"1":{"wt":"Mutation analysis"},"2":{"wt":"the biological term"},"3":{"wt":"Gene mutation analysis"}},"i":0}}]}'><style data-mw-deduplicate="TemplateStyles:r1368532237" typeof="mw:Extension/templatestyles" about="#mwt3" data-mw='{"name":"templatestyles","attrs":{"src":"Module:Hatnote/styles.css"},"body":{"extsrc":""}}'>.mw-parser-output .hatnote{font-style:italic}.mw-parser-output div.hatnote{padding-left:1.6em;margin-bottom:0.5em}.mw-parser-output .hatnote i{font-style:normal}.mw-parser-output .hatnote+.mw-empty-elt+.hatnote{margin-top:-0.5em}@media print{body.ns-0 .mw-parser-output .hatnote{display:none!important}}</style></span><div role="note" class="hatnote navigation-not-searchable" about="#mwt2" id="mwBA">"Mutation analysis" redirects here. For the biological term, see <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Gene_mutation_analysis" title="Gene mutation analysis" class="mw-redirect">Gene mutation analysis</a>.</div>
+
+<p id="mwBQ"><b id="mwBg">Mutation testing</b> (or <i id="mwBw">mutation analysis</i> or <i id="mwCA">program mutation</i>) is used to design new <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Software_testing" title="Software testing" id="mwCQ">software tests</a> and evaluate the quality of existing software tests.  Mutation testing involves making small changes to the program being tested.<sup about="#mwt4" class="mw-ref reference" id="cite_ref-DLS1978_1-0" rel="dc:references" typeof="mw:Extension/ref" data-mw='{"name":"ref","attrs":{"name":"DLS1978"}}'><a href="#cite_note-DLS1978-1" id="mwCg"><span class="mw-reflink-text" id="mwCw"><span class="cite-bracket" id="mwDA">[</span>1<span class="cite-bracket" id="mwDQ">]</span></span></a></sup> Each changed version is called a <i id="mwDg">mutant</i>. A test detects, and therefore rejects, a mutant upon test failure –– failure indicating that the test successfully discerned that the behaviour of the mutant differs from the behaviour of the original code. Rejection is called <i id="mwDw">killing</i> the mutant. The value of a <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Test_suite" title="Test suite" id="mwEA">test suite</a> is measured by the percentage of mutants that it kills. The test suite can then be improved by adding new tests designed to kill additional mutants.<sup about="#mwt7" class="mw-ref reference" id="cite_ref-2" rel="dc:references" typeof="mw:Extension/ref" data-mw='{"name":"ref","attrs":{},"body":{"id":"mw-reference-text-cite_note-2"}}'><a href="#cite_note-2" id="mwEQ"><span class="mw-reflink-text" id="mwEg"><span class="cite-bracket" id="mwEw">[</span>2<span class="cite-bracket" id="mwFA">]</span></span></a></sup></p>
+
+<p id="mwFQ">Mutant creation is done using well-defined <i id="mwFg">mutation operators</i> that either mimic typical programming errors (such as using the wrong operator or variable name) or force the creation of valuable tests (such as dividing each expression by zero).</p>
+
+<p id="mwFw">Mutation testing is a form of <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/White-box_testing" title="White-box testing" id="mwGA">white-box testing</a>.<sup about="#mwt10" class="mw-ref reference" id="cite_ref-3" rel="dc:references" typeof="mw:Extension/ref" data-mw='{"name":"ref","attrs":{},"body":{"id":"mw-reference-text-cite_note-3"}}'><a href="#cite_note-3" id="mwGQ"><span class="mw-reflink-text" id="mwGg"><span class="cite-bracket" id="mwGw">[</span>3<span class="cite-bracket" id="mwHA">]</span></span></a></sup><sup about="#mwt13" class="mw-ref reference" id="cite_ref-4" rel="dc:references" typeof="mw:Extension/ref" data-mw='{"name":"ref","attrs":{},"body":{"id":"mw-reference-text-cite_note-4"}}'><a href="#cite_note-4" id="mwHQ"><span class="mw-reflink-text" id="mwHg"><span class="cite-bracket" id="mwHw">[</span>4<span class="cite-bracket" id="mwIA">]</span></span></a></sup> Its purpose is to help the tester develop effective <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Regression_tests" title="Regression tests" class="mw-redirect" id="mwIQ">regression tests</a> by locating weaknesses in the test data used to test the program and discovering sections of the tested program's code that are seldom or never accessed during <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Execution_(computers)" title="Execution (computers)" class="mw-redirect" id="mwIg">execution</a>.</p>
+
+<meta property="mw:PageProp/toc" id="mwIw" data-mw='{"autoGenerated":true}'/></section><section data-mw-section-id="1" id="mwJA" aria-labelledby="Introduction"><div class="mw-heading mw-heading2"><h2 id="Introduction">Introduction</h2><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Mutation_testing&amp;action=edit&amp;section=1" title="Edit section: Introduction"><span>edit</span></a><span class="mw-editsection-bracket">]</span></span></div>
+<p id="mwJQ">Most of this article is about "program mutation", in which the program is modified. A more general definition of <i id="mwJg">mutation analysis</i> is using well-defined rules defined on syntactic structures to make systematic changes to software artifacts.<sup about="#mwt14" class="mw-ref reference" id="cite_ref-AmmannOffutt2008_5-0" rel="dc:references" typeof="mw:Extension/ref" data-mw='{"name":"ref","attrs":{"name":"AmmannOffutt2008"},"body":{"id":"mw-reference-text-cite_note-AmmannOffutt2008-5"}}'><a href="#cite_note-AmmannOffutt2008-5" id="mwJw"><span class="mw-reflink-text" id="mwKA"><span class="cite-bracket" id="mwKQ">[</span>5<span class="cite-bracket" id="mwKg">]</span></span></a></sup> Mutation analysis has been applied to other problems, but is usually applied to testing. So <i id="mwKw">mutation testing</i> is defined as using mutation analysis to design new software tests or to evaluate existing software tests.<sup about="#mwt15" class="mw-ref reference" id="cite_ref-AmmannOffutt2008_5-1" rel="dc:references" typeof="mw:Extension/ref" data-mw='{"name":"ref","attrs":{"name":"AmmannOffutt2008"}}'><a href="#cite_note-AmmannOffutt2008-5" id="mwLA"><span class="mw-reflink-text" id="mwLQ"><span class="cite-bracket" id="mwLg">[</span>5<span class="cite-bracket" id="mwLw">]</span></span></a></sup> Thus, mutation analysis and testing can be applied to design models, specifications, databases, tests, XML, and other types of software artifacts, although program mutation is the most common.<sup about="#mwt18" class="mw-ref reference" id="cite_ref-6" rel="dc:references" typeof="mw:Extension/ref" data-mw='{"name":"ref","attrs":{},"body":{"id":"mw-reference-text-cite_note-6"}}'><a href="#cite_note-6" id="mwMA"><span class="mw-reflink-text" id="mwMQ"><span class="cite-bracket" id="mwMg">[</span>6<span class="cite-bracket" id="mwMw">]</span></span></a></sup></p>
+
+</section><section data-mw-section-id="2" id="mwNA" aria-labelledby="Overview"><div class="mw-heading mw-heading2"><h2 id="Overview">Overview</h2><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Mutation_testing&amp;action=edit&amp;section=2" title="Edit section: Overview"><span>edit</span></a><span class="mw-editsection-bracket">]</span></span></div>
+<p id="mwNQ">Tests can be created to verify the correctness of the implementation of a given <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Software_system" title="Software system" id="mwNg">software system</a>, but the creation of tests still poses the question of whether the tests are correct and sufficiently cover the requirements associated with the implementation.<sup about="#mwt21" class="mw-ref reference" id="cite_ref-7" rel="dc:references" typeof="mw:Extension/ref" data-mw='{"name":"ref","attrs":{},"body":{"id":"mw-reference-text-cite_note-7"}}'><a href="#cite_note-7" id="mwNw"><span class="mw-reflink-text" id="mwOA"><span class="cite-bracket" id="mwOQ">[</span>7<span class="cite-bracket" id="mwOg">]</span></span></a></sup> (This technological problem is itself an instance of a deeper philosophical problem named "<a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Quis_custodiet_ipsos_custodes%3F" title="Quis custodiet ipsos custodes?" id="mwOw">Quis custodiet ipsos custodes?</a>" ["Who will guard the guards?"].)</p>
+
+<p id="mwPA">The idea behind mutation testing is that the program being tested works as intended, so if a mutant is introduced and functionality changes this means a bug is introduced, which the tests should then find. In this way, the tests are tested. If a mutant is not detected by the test suite, this typically indicates that the test suite is unable to locate the faults represented by the mutant, but it can also indicate that the mutation introduces no faults. That is, the mutation is a valid change, one that either produces a desired result or one that does not affect functionality. One (common) way a mutant can be valid is that the code that has been changed is "dead code" that is never executed.</p>
+
+<p id="mwPQ">For mutation testing to function at scale, a large number of mutants are usually introduced, leading to the compilation and execution of an extremely large number of copies of the program. This problem of the expense of mutation testing had reduced its practical use as a method of software testing. However, the increased use of <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Object-oriented_programming_language" title="Object-oriented programming language" class="mw-redirect" id="mwPg">object-oriented programming languages</a> and <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Unit_testing" title="Unit testing" id="mwPw">unit testing</a> frameworks has led to the creation of mutation testing tools that test individual portions of an application.</p>
+
+</section><section data-mw-section-id="3" id="mwQA" aria-labelledby="Goals"><div class="mw-heading mw-heading2"><h2 id="Goals">Goals</h2><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Mutation_testing&amp;action=edit&amp;section=3" title="Edit section: Goals"><span>edit</span></a><span class="mw-editsection-bracket">]</span></span></div>
+
+<p id="mwQQ">The goals of mutation testing are multiple:</p>
+<ul id="mwQg"><li id="mwQw">identify weakly tested pieces of code (those for which mutants are not killed)<sup about="#mwt22" class="mw-ref reference" id="cite_ref-DLS1978_1-1" rel="dc:references" typeof="mw:Extension/ref" data-mw='{"name":"ref","attrs":{"name":"DLS1978"}}'><a href="#cite_note-DLS1978-1" id="mwRA"><span class="mw-reflink-text" id="mwRQ"><span class="cite-bracket" id="mwRg">[</span>1<span class="cite-bracket" id="mwRw">]</span></span></a></sup></li>
+<li id="mwSA">identify weak tests (those that never kill mutants)<sup about="#mwt23" class="mw-ref reference" id="cite_ref-Smith2008_8-0" rel="dc:references" typeof="mw:Extension/ref" data-mw='{"name":"ref","attrs":{"name":"Smith2008"}}'><a href="#cite_note-Smith2008-8" id="mwSQ"><span class="mw-reflink-text" id="mwSg"><span class="cite-bracket" id="mwSw">[</span>8<span class="cite-bracket" id="mwTA">]</span></span></a></sup></li>
+<li id="mwTQ">compute the mutation score,<sup about="#mwt24" class="mw-ref reference" id="cite_ref-AmmannOffutt2008_5-2" rel="dc:references" typeof="mw:Extension/ref" data-mw='{"name":"ref","attrs":{"name":"AmmannOffutt2008"}}'><a href="#cite_note-AmmannOffutt2008-5" id="mwTg"><span class="mw-reflink-text" id="mwTw"><span class="cite-bracket" id="mwUA">[</span>5<span class="cite-bracket" id="mwUQ">]</span></span></a></sup> the mutation score is the number of mutants killed / total number of mutants.</li>
+<li id="mwUg">learn about error propagation and state infection in the program</li></ul>
+
+</section><section data-mw-section-id="4" id="mwUw" aria-labelledby="History"><div class="mw-heading mw-heading2"><h2 id="History">History</h2><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Mutation_testing&amp;action=edit&amp;section=4" title="Edit section: History"><span>edit</span></a><span class="mw-editsection-bracket">]</span></span></div>
+<p id="mwVA">Mutation testing was originally proposed by Richard Lipton as a student in 1971,<sup about="#mwt26" class="mw-ref reference" id="cite_ref-mutation2000_9-0" rel="dc:references" typeof="mw:Extension/ref" data-mw='{"name":"ref","attrs":{"name":"mutation2000"},"body":{"id":"mw-reference-text-cite_note-mutation2000-9"}}'><a href="#cite_note-mutation2000-9" id="mwVQ"><span class="mw-reflink-text" id="mwVg"><span class="cite-bracket" id="mwVw">[</span>9<span class="cite-bracket" id="mwWA">]</span></span></a></sup> and first developed and published by DeMillo, Lipton and Sayward.<sup about="#mwt27" class="mw-ref reference" id="cite_ref-DLS1978_1-2" rel="dc:references" typeof="mw:Extension/ref" data-mw='{"name":"ref","attrs":{"name":"DLS1978"},"body":{"id":"mw-reference-text-cite_note-DLS1978-1"}}'><a href="#cite_note-DLS1978-1" id="mwWQ"><span class="mw-reflink-text" id="mwWg"><span class="cite-bracket" id="mwWw">[</span>1<span class="cite-bracket" id="mwXA">]</span></span></a></sup> The first implementation of a mutation testing tool was by Timothy Budd as part of his <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/PhD" title="PhD" class="mw-redirect" id="mwXQ">PhD</a> work (titled <i id="mwXg">Mutation Analysis</i>) in 1980 from <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Yale_University" title="Yale University" id="mwXw">Yale University</a>.<sup about="#mwt28" class="mw-ref reference" id="cite_ref-Budd1980_10-0" rel="dc:references" typeof="mw:Extension/ref" data-mw='{"name":"ref","attrs":{"name":"Budd1980"},"body":{"id":"mw-reference-text-cite_note-Budd1980-10"}}'><a href="#cite_note-Budd1980-10" id="mwYA"><span class="mw-reflink-text" id="mwYQ"><span class="cite-bracket" id="mwYg">[</span>10<span class="cite-bracket" id="mwYw">]</span></span></a></sup></p>
+
+<p id="mwZA">Recently, with the availability of massive computing power, there has been a resurgence of mutation analysis within the computer science community, and work has been done to define methods of applying mutation testing to <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Object_oriented_programming_language" title="Object oriented programming language" class="mw-redirect" id="mwZQ">object oriented programming languages</a> and non-procedural languages such as <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/XML" title="XML" id="mwZg">XML</a>, <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Symbolic_Model_Verification" title="Symbolic Model Verification" class="mw-redirect" id="mwZw">SMV</a>, and <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Finite-state_machine" title="Finite-state machine" id="mwaA">finite-state machines</a>.</p>
+
+<p id="mwaQ">In 2004, a company called Certess Inc. (now part of <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Synopsys" title="Synopsys" id="mwag">Synopsys</a>) extended many of the principles into the hardware verification domain. Whereas mutation analysis only expects to detect a difference in the output produced, Certess extends this by verifying that a checker in the testbench will actually detect the difference. This extension means that all three stages of verification, namely: activation, propagation, and detection are evaluated. They called this functional qualification.</p>
+
+<p id="mwaw"><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Fuzzing" title="Fuzzing" id="mwbA">Fuzzing</a> can be considered to be a special case of mutation testing. In fuzzing, the messages or data exchanged inside communication interfaces (both inside and between software instances) are mutated to catch failures or differences in processing the data. <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Codenomicon" title="Codenomicon" class="mw-redirect" id="mwbQ">Codenomicon</a><sup about="#mwt29" class="mw-ref reference" id="cite_ref-11" rel="dc:references" typeof="mw:Extension/ref" data-mw='{"name":"ref","attrs":{},"body":{"id":"mw-reference-text-cite_note-11"}}'><a href="#cite_note-11" id="mwbg"><span class="mw-reflink-text" id="mwbw"><span class="cite-bracket" id="mwcA">[</span>11<span class="cite-bracket" id="mwcQ">]</span></span></a></sup> (2001) and <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Mu_Dynamics" title="Mu Dynamics" class="mw-redirect" id="mwcg">Mu Dynamics</a> (2005) evolved fuzzing concepts to a fully stateful mutation testing platform, complete with monitors for thoroughly exercising protocol implementations.</p>
+
+</section><section data-mw-section-id="5" id="mwcw" aria-labelledby="Mutation_testing_overview"><div class="mw-heading mw-heading2"><h2 id="Mutation_testing_overview">Mutation testing overview</h2><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Mutation_testing&amp;action=edit&amp;section=5" title="Edit section: Mutation testing overview"><span>edit</span></a><span class="mw-editsection-bracket">]</span></span></div>
+<p id="mwdA">Mutation testing is based on two hypotheses. The first is the <i id="mwdQ">competent programmer</i> hypothesis. This hypothesis states that competent programmers write programs that are close to being correct.<sup about="#mwt30" class="mw-ref reference" id="cite_ref-DLS1978_1-3" rel="dc:references" typeof="mw:Extension/ref" data-mw='{"name":"ref","attrs":{"name":"DLS1978"}}'><a href="#cite_note-DLS1978-1" id="mwdg"><span class="mw-reflink-text" id="mwdw"><span class="cite-bracket" id="mweA">[</span>1<span class="cite-bracket" id="mweQ">]</span></span></a></sup> "Close" is intended to be based on behavior, not syntax. The second hypothesis is called the <i id="mweg">coupling effect</i>. The coupling effect asserts that simple faults can cascade or <i id="mwew">couple</i> to form other emergent faults.<sup about="#mwt31" class="mw-ref reference" id="cite_ref-Offut1992_12-0" rel="dc:references" typeof="mw:Extension/ref" data-mw='{"name":"ref","attrs":{"name":"Offut1992"},"body":{"id":"mw-reference-text-cite_note-Offut1992-12"}}'><a href="#cite_note-Offut1992-12" id="mwfA"><span class="mw-reflink-text" id="mwfQ"><span class="cite-bracket" id="mwfg">[</span>12<span class="cite-bracket" id="mwfw">]</span></span></a></sup><sup about="#mwt32" class="mw-ref reference" id="cite_ref-ABDLS1979_13-0" rel="dc:references" typeof="mw:Extension/ref" data-mw='{"name":"ref","attrs":{"name":"ABDLS1979"},"body":{"id":"mw-reference-text-cite_note-ABDLS1979-13"}}'><a href="#cite_note-ABDLS1979-13" id="mwgA"><span class="mw-reflink-text" id="mwgQ"><span class="cite-bracket" id="mwgg">[</span>13<span class="cite-bracket" id="mwgw">]</span></span></a></sup></p>
+
+<p id="mwhA">Subtle and important faults are also revealed by higher-order mutants, which further support the coupling effect.<sup about="#mwt33" class="mw-ref reference" id="cite_ref-JH2008_14-0" rel="dc:references" typeof="mw:Extension/ref" data-mw='{"name":"ref","attrs":{"name":"JH2008"},"body":{"id":"mw-reference-text-cite_note-JH2008-14"}}'><a href="#cite_note-JH2008-14" id="mwhQ"><span class="mw-reflink-text" id="mwhg"><span class="cite-bracket" id="mwhw">[</span>14<span class="cite-bracket" id="mwiA">]</span></span></a></sup><sup about="#mwt34" class="mw-ref reference" id="cite_ref-Umar2008_15-0" rel="dc:references" typeof="mw:Extension/ref" data-mw='{"name":"ref","attrs":{"name":"Umar2008"},"body":{"id":"mw-reference-text-cite_note-Umar2008-15"}}'><a href="#cite_note-Umar2008-15" id="mwiQ"><span class="mw-reflink-text" id="mwig"><span class="cite-bracket" id="mwiw">[</span>15<span class="cite-bracket" id="mwjA">]</span></span></a></sup><sup about="#mwt35" class="mw-ref reference" id="cite_ref-Smith2008_8-1" rel="dc:references" typeof="mw:Extension/ref" data-mw='{"name":"ref","attrs":{"name":"Smith2008"},"body":{"id":"mw-reference-text-cite_note-Smith2008-8"}}'><a href="#cite_note-Smith2008-8" id="mwjQ"><span class="mw-reflink-text" id="mwjg"><span class="cite-bracket" id="mwjw">[</span>8<span class="cite-bracket" id="mwkA">]</span></span></a></sup><sup about="#mwt36" class="mw-ref reference" id="cite_ref-PP2009_16-0" rel="dc:references" typeof="mw:Extension/ref" data-mw='{"name":"ref","attrs":{"name":"PP2009"},"body":{"id":"mw-reference-text-cite_note-PP2009-16"}}'><a href="#cite_note-PP2009-16" id="mwkQ"><span class="mw-reflink-text" id="mwkg"><span class="cite-bracket" id="mwkw">[</span>16<span class="cite-bracket" id="mwlA">]</span></span></a></sup><sup about="#mwt37" class="mw-ref reference" id="cite_ref-Anderson2011_17-0" rel="dc:references" typeof="mw:Extension/ref" data-mw='{"name":"ref","attrs":{"name":"Anderson2011"},"body":{"id":"mw-reference-text-cite_note-Anderson2011-17"}}'><a href="#cite_note-Anderson2011-17" id="mwlQ"><span class="mw-reflink-text" id="mwlg"><span class="cite-bracket" id="mwlw">[</span>17<span class="cite-bracket" id="mwmA">]</span></span></a></sup> Higher-order mutants are enabled by creating mutants with more than one mutation.</p>
+
+<p id="mwmQ">Mutation testing is done by selecting a set of mutation operators and then applying them to the source program one at a time for each applicable piece of the source code. The result of applying one mutation operator to the program is called a <i id="mwmg">mutant</i>. If the test suite is able to detect the change (i.e., one of the tests fails), then the mutant is said to be <i id="mwmw">killed</i>.</p>
+
+<p id="mwnA">For example, consider the following C++ code fragment:</p>
+<div class="mw-highlight mw-highlight-lang-cpp mw-content-ltr" dir="ltr" typeof="mw:Extension/syntaxhighlight" about="#mwt38" id="mwnQ" data-mw='{"name":"syntaxhighlight","attrs":{"lang":"cpp"},"body":{"extsrc":"\nif (a &amp;&amp; b) {\n    c = 1;\n} else {\n    c = 0;\n}\n"}}'><pre id="mwng"><span id="mwnw"></span><span class="k" id="mwoA">if</span><span class="w" id="mwoQ"> </span><span class="p" id="mwog">(</span><span class="n" id="mwow">a</span><span class="w" id="mwpA"> </span><span class="o" id="mwpQ">&amp;&amp;</span><span class="w" id="mwpg"> </span><span class="n" id="mwpw">b</span><span class="p" id="mwqA">)</span><span class="w" id="mwqQ"> </span><span class="p" id="mwqg">{</span>
+<span class="w" id="mwqw">    </span><span class="n" id="mwrA">c</span><span class="w" id="mwrQ"> </span><span class="o" id="mwrg">=</span><span class="w" id="mwrw"> </span><span class="mi" id="mwsA">1</span><span class="p" id="mwsQ">;</span>
+<span class="p" id="mwsg">}</span><span class="w" id="mwsw"> </span><span class="k" id="mwtA">else</span><span class="w" id="mwtQ"> </span><span class="p" id="mwtg">{</span>
+<span class="w" id="mwtw">    </span><span class="n" id="mwuA">c</span><span class="w" id="mwuQ"> </span><span class="o" id="mwug">=</span><span class="w" id="mwuw"> </span><span class="mi" id="mwvA">0</span><span class="p" id="mwvQ">;</span>
+<span class="p" id="mwvg">}</span>
+</pre></div>
+
+<p id="mwvw">The condition mutation operator would replace <code id="mwwA">&amp;&amp;</code> with <code id="mwwQ">||</code> and produce the following mutant:</p>
+<div class="mw-highlight mw-highlight-lang-cpp mw-content-ltr" dir="ltr" typeof="mw:Extension/syntaxhighlight" about="#mwt39" id="mwwg" data-mw='{"name":"syntaxhighlight","attrs":{"lang":"cpp"},"body":{"extsrc":"\nif (a || b) {\n    c = 1;\n} else {\n    c = 0;\n}\n"}}'><pre id="mwww"><span id="mwxA"></span><span class="k" id="mwxQ">if</span><span class="w" id="mwxg"> </span><span class="p" id="mwxw">(</span><span class="n" id="mwyA">a</span><span class="w" id="mwyQ"> </span><span class="o" id="mwyg">||</span><span class="w" id="mwyw"> </span><span class="n" id="mwzA">b</span><span class="p" id="mwzQ">)</span><span class="w" id="mwzg"> </span><span class="p" id="mwzw">{</span>
+<span class="w" id="mw0A">    </span><span class="n" id="mw0Q">c</span><span class="w" id="mw0g"> </span><span class="o" id="mw0w">=</span><span class="w" id="mw1A"> </span><span class="mi" id="mw1Q">1</span><span class="p" id="mw1g">;</span>
+<span class="p" id="mw1w">}</span><span class="w" id="mw2A"> </span><span class="k" id="mw2Q">else</span><span class="w" id="mw2g"> </span><span class="p" id="mw2w">{</span>
+<span class="w" id="mw3A">    </span><span class="n" id="mw3Q">c</span><span class="w" id="mw3g"> </span><span class="o" id="mw3w">=</span><span class="w" id="mw4A"> </span><span class="mi" id="mw4Q">0</span><span class="p" id="mw4g">;</span>
+<span class="p" id="mw4w">}</span>
+</pre></div>
+
+<p id="mw5A">Now, for the test to kill this mutant, the following three conditions should be met:</p>
+<ol id="mw5Q"><li id="mw5g">A test must <i id="mw5w">reach</i> the mutated statement.</li>
+<li id="mw6A">Test input data should <i id="mw6Q">infect</i> the program state by causing different program states for the mutant and the original program. For example, a test with <code id="mw6g">a = 1</code> and <code id="mw6w">b = 0</code> would do this.</li>
+<li id="mw7A">The incorrect program state (the value of 'c') must <i id="mw7Q">propagate</i> to the program's output and be checked by the test.</li></ol>
+
+<p id="mw7g">These conditions are collectively called the <i id="mw7w">RIP model</i>.<sup about="#mwt40" class="mw-ref reference" id="cite_ref-mutation2000_9-1" rel="dc:references" typeof="mw:Extension/ref" data-mw='{"name":"ref","attrs":{"name":"mutation2000"}}'><a href="#cite_note-mutation2000-9" id="mw8A"><span class="mw-reflink-text" id="mw8Q"><span class="cite-bracket" id="mw8g">[</span>9<span class="cite-bracket" id="mw8w">]</span></span></a></sup></p>
+
+<p id="mw9A"><i id="mw9Q">Weak mutation testing</i> (or <i id="mw9g">weak mutation coverage</i>) requires that only the first and second conditions are satisfied. <i id="mw9w">Strong mutation testing</i> requires that all three conditions are satisfied. Strong mutation is more powerful, since it ensures that the test suite can really catch the problems. Weak mutation is closely related to <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Code_coverage" title="Code coverage" id="mw-A">code coverage</a> methods. It requires much less computing power to ensure that the test suite satisfies weak mutation testing than strong mutation testing.</p>
+
+<p id="mw-Q">However, there are cases where it is not possible to find a test case that could kill this mutant. The resulting program is behaviorally equivalent to the original one. Such mutants are called <i id="mw-g">equivalent mutants</i>.</p>
+
+<p id="mw-w">Equivalent mutants detection is one of the biggest obstacles to practical usage of mutation testing. The effort needed to check if mutants are equivalent or not can be very high, even for small programs.<sup about="#mwt41" class="mw-ref reference" id="cite_ref-18" rel="dc:references" typeof="mw:Extension/ref" data-mw='{"name":"ref","attrs":{},"body":{"id":"mw-reference-text-cite_note-18"}}'><a href="#cite_note-18" id="mw_A"><span class="mw-reflink-text" id="mw_Q"><span class="cite-bracket" id="mw_g">[</span>18<span class="cite-bracket" id="mw_w">]</span></span></a></sup> A 2014 systematic literature review of a wide range of approaches to overcome the Equivalent Mutant Problem<sup about="#mwt42" class="mw-ref reference" id="cite_ref-19" rel="dc:references" typeof="mw:Extension/ref" data-mw='{"name":"ref","attrs":{},"body":{"id":"mw-reference-text-cite_note-19"}}'><a href="#cite_note-19" id="mwAQA"><span class="mw-reflink-text" id="mwAQE"><span class="cite-bracket" id="mwAQI">[</span>19<span class="cite-bracket" id="mwAQM">]</span></span></a></sup> identified 17 relevant techniques (in 22 articles) and three categories of techniques: detecting (DEM); suggesting (SEM); and avoiding equivalent mutant generation (AEMG). The experiment indicated that Higher Order Mutation in general and JudyDiffOp strategy in particular provide a promising approach to the Equivalent Mutant Problem.</p>
+
+<p id="mwAQQ">In addition to equivalent mutants, there are <i id="mwAQU">subsumed mutants</i> which are mutants that exist in the same source code location as another mutant, and are said to be "subsumed" by the other mutant. Subsumed mutants are not visible to a mutation testing tool, and do not contribute to coverage metrics. For example, let's say you have two mutants, A and B, that both change a line of code in the same way. Mutant A is tested first, and the result is that the code is not working correctly. Mutant B is then tested, and the result is the same as with mutant A. In this case, Mutant B is considered to be subsumed by Mutant A, since the result of testing Mutant B is the same as the result of testing Mutant A. Therefore, Mutant B does not need to be tested, as the result will be the same as Mutant A.</p>
+
+</section><section data-mw-section-id="6" id="mwAQY" aria-labelledby="Mutation_operators"><div class="mw-heading mw-heading2"><h2 id="Mutation_operators">Mutation operators</h2><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Mutation_testing&amp;action=edit&amp;section=6" title="Edit section: Mutation operators"><span>edit</span></a><span class="mw-editsection-bracket">]</span></span></div>
+<p id="mwAQc">To make syntactic changes to a program, a mutation operator serves as a guideline that substitutes portions of the source code. Given that mutations depend on these operators, scholars have created a collection of mutation operators to accommodate different programming languages, like Java. The effectiveness of these mutation operators plays a pivotal role in mutation testing.<sup about="#mwt45" class="mw-ref reference" id="cite_ref-:1_20-0" rel="dc:references" typeof="mw:Extension/ref" data-mw='{"name":"ref","attrs":{"name":":1"},"body":{"id":"mw-reference-text-cite_note-:1-20"}}'><a href="#cite_note-:1-20" id="mwAQg"><span class="mw-reflink-text" id="mwAQk"><span class="cite-bracket" id="mwAQo">[</span>20<span class="cite-bracket" id="mwAQs">]</span></span></a></sup></p>
+
+<p id="mwAQw">Many mutation operators have been explored by researchers. Here are some examples of mutation operators for imperative languages:</p>
+
+<ul id="mwAQ0"><li id="mwAQ4">Statement deletion</li>
+<li id="mwAQ8">Statement duplication or insertion, e.g. <code id="mwARA">goto fail;</code><sup about="#mwt46" class="mw-ref reference" id="cite_ref-21" rel="dc:references" typeof="mw:Extension/ref" data-mw='{"name":"ref","attrs":{},"body":{"id":"mw-reference-text-cite_note-21"}}'><a href="#cite_note-21" id="mwARE"><span class="mw-reflink-text" id="mwARI"><span class="cite-bracket" id="mwARM">[</span>21<span class="cite-bracket" id="mwARQ">]</span></span></a></sup></li>
+<li id="mwARU">Replacement of Boolean subexpressions with <i id="mwARY">true</i> and <i id="mwARc">false</i></li>
+<li id="mwARg">Replacement of some arithmetic operations with others, e.g. <code id="mwARk">+</code> with <code id="mwARo">*</code>, <code id="mwARs">-</code> with <code id="mwARw">/</code></li>
+<li id="mwAR0">Replacement of some Boolean relations with others, e.g. <code id="mwAR4">></code> with <code id="mwAR8">>=</code>, <code id="mwASA">==</code> and <code id="mwASE">&lt;=</code></li>
+<li id="mwASI">Replacement of variables with others from the same scope (variable types must be compatible)</li>
+<li id="mwASM">Remove method body.<sup about="#mwt49" class="mw-ref reference" id="cite_ref-22" rel="dc:references" typeof="mw:Extension/ref" data-mw='{"name":"ref","attrs":{},"body":{"id":"mw-reference-text-cite_note-22"}}'><a href="#cite_note-22" id="mwASQ"><span class="mw-reflink-text" id="mwASU"><span class="cite-bracket" id="mwASY">[</span>22<span class="cite-bracket" id="mwASc">]</span></span></a></sup></li></ul>
+
+<p id="mwASg">These mutation operators are also called traditional mutation operators.
+There are also mutation operators for object-oriented languages,<sup about="#mwt51" class="mw-ref reference" id="cite_ref-23" rel="dc:references" typeof="mw:Extension/ref" data-mw='{"name":"ref","attrs":{},"body":{"id":"mw-reference-text-cite_note-23"}}'><a href="#cite_note-23" id="mwASk"><span class="mw-reflink-text" id="mwASo"><span class="cite-bracket" id="mwASs">[</span>23<span class="cite-bracket" id="mwASw">]</span></span></a></sup> for concurrent constructions,<sup about="#mwt52" class="mw-ref reference" id="cite_ref-24" rel="dc:references" typeof="mw:Extension/ref" data-mw='{"name":"ref","attrs":{},"body":{"id":"mw-reference-text-cite_note-24"}}'><a href="#cite_note-24" id="mwAS0"><span class="mw-reflink-text" id="mwAS4"><span class="cite-bracket" id="mwAS8">[</span>24<span class="cite-bracket" id="mwATA">]</span></span></a></sup> complex objects like containers,<sup about="#mwt53" class="mw-ref reference" id="cite_ref-25" rel="dc:references" typeof="mw:Extension/ref" data-mw='{"name":"ref","attrs":{},"body":{"id":"mw-reference-text-cite_note-25"}}'><a href="#cite_note-25" id="mwATE"><span class="mw-reflink-text" id="mwATI"><span class="cite-bracket" id="mwATM">[</span>25<span class="cite-bracket" id="mwATQ">]</span></span></a></sup> etc.</p>
+
+<section data-mw-section-id="7" id="mwATU" aria-labelledby="Types_of_mutation_operators"><div class="mw-heading mw-heading3"><h3 id="Types_of_mutation_operators">Types of mutation operators</h3><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Mutation_testing&amp;action=edit&amp;section=7" title="Edit section: Types of mutation operators"><span>edit</span></a><span class="mw-editsection-bracket">]</span></span></div>
+<p id="mwATY">Operators for containers are called <i id="mwATc">class-level</i> mutation operators. Operators at the class level alter the program's structure by adding, removing, or changing the expressions being examined. Specific operators have been established for each category of changes.<sup about="#mwt54" class="mw-ref reference" id="cite_ref-:1_20-1" rel="dc:references" typeof="mw:Extension/ref" data-mw='{"name":"ref","attrs":{"name":":1"}}'><a href="#cite_note-:1-20" id="mwATg"><span class="mw-reflink-text" id="mwATk"><span class="cite-bracket" id="mwATo">[</span>20<span class="cite-bracket" id="mwATs">]</span></span></a></sup> For example, the muJava tool offers various class-level mutation operators such as Access Modifier Change, Type Cast Operator Insertion, and Type Cast Operator Deletion. Mutation operators have also been developed to perform security vulnerability testing of programs.<sup about="#mwt55" class="mw-ref reference" id="cite_ref-26" rel="dc:references" typeof="mw:Extension/ref" data-mw='{"name":"ref","attrs":{},"body":{"id":"mw-reference-text-cite_note-26"}}'><a href="#cite_note-26" id="mwATw"><span class="mw-reflink-text" id="mwAT0"><span class="cite-bracket" id="mwAT4">[</span>26<span class="cite-bracket" id="mwAT8">]</span></span></a></sup></p>
+
+<p id="mwAUA">Apart from the <i id="mwAUE">class-level</i> operators, MuJava also includes <i id="mwAUI">method-level</i> mutation operators, referred to as traditional operators. These traditional operators are designed based on features commonly found in procedural languages. They carry out changes to statements by adding, substituting, or removing primitive operators. These operators fall into six categories: <i id="mwAUM">Arithmetic operators</i>, <i id="mwAUQ">Relational operator</i>s, <i id="mwAUU">Conditional operators</i>, <i id="mwAUY">Shift operators</i>, <i id="mwAUc">Logical operators</i> and <i id="mwAUg">Assignment operators</i>.<sup about="#mwt56" class="mw-ref reference" id="cite_ref-:1_20-2" rel="dc:references" typeof="mw:Extension/ref" data-mw='{"name":"ref","attrs":{"name":":1"}}'><a href="#cite_note-:1-20" id="mwAUk"><span class="mw-reflink-text" id="mwAUo"><span class="cite-bracket" id="mwAUs">[</span>20<span class="cite-bracket" id="mwAUw">]</span></span></a></sup></p>
+
+</section></section><section data-mw-section-id="8" id="mwAU0" aria-labelledby="Types_of_mutation_testing"><div class="mw-heading mw-heading2"><h2 id="Types_of_mutation_testing">Types of mutation testing</h2><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Mutation_testing&amp;action=edit&amp;section=8" title="Edit section: Types of mutation testing"><span>edit</span></a><span class="mw-editsection-bracket">]</span></span></div>
+<p id="mwAU4">There are three types of mutation testing;</p>
+
+<section data-mw-section-id="9" id="mwAU8" aria-labelledby="Statement_mutation"><div class="mw-heading mw-heading3"><h3 id="Statement_mutation">Statement mutation</h3><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Mutation_testing&amp;action=edit&amp;section=9" title="Edit section: Statement mutation"><span>edit</span></a><span class="mw-editsection-bracket">]</span></span></div>
+<p id="mwAVA">Statement mutation is a process where a block of code is intentionally modified by either deleting or copying certain statements. Moreover, it allows for the reordering of statements within the code block to generate various sequences. This technique is crucial in software testing as it helps identify potential weaknesses or errors in the code. By deliberately making changes to the code and observing how it behaves, developers can uncover hidden bugs or flaws that might go unnoticed during regular testing.<sup about="#mwt59" class="mw-ref reference" id="cite_ref-27" rel="dc:references" typeof="mw:Extension/ref" data-mw='{"name":"ref","attrs":{},"body":{"id":"mw-reference-text-cite_note-27"}}'><a href="#cite_note-27" id="mwAVE"><span class="mw-reflink-text" id="mwAVI"><span class="cite-bracket" id="mwAVM">[</span>27<span class="cite-bracket" id="mwAVQ">]</span></span></a></sup> Statement mutation is like a diagnostic tool that provides insights into the code's robustness and resilience, helping programmers improve the overall quality and reliability of their software.</p>
+
+<p id="mwAVU">For example, in the code snippet below, entire 'else' section is removed:</p>
+
+<div class="mw-highlight mw-highlight-lang-cpp mw-content-ltr" dir="ltr" typeof="mw:Extension/syntaxhighlight" about="#mwt60" id="mwAVY" data-mw='{"name":"syntaxhighlight","attrs":{"lang":"cpp"},"body":{"extsrc":"\nfunction checkCredentials(username, password) {\n  if (username === \"admin\" &amp;&amp; password === \"password\") {\n    return true;\n  } \n}\n"}}'><pre id="mwAVc"><span id="mwAVg"></span><span class="n" id="mwAVk">function</span><span class="w" id="mwAVo"> </span><span class="nf" id="mwAVs">checkCredentials</span><span class="p" id="mwAVw">(</span><span class="n" id="mwAV0">username</span><span class="p" id="mwAV4">,</span><span class="w" id="mwAV8"> </span><span class="n" id="mwAWA">password</span><span class="p" id="mwAWE">)</span><span class="w" id="mwAWI"> </span><span class="p" id="mwAWM">{</span>
+<span class="w" id="mwAWQ">  </span><span class="k" id="mwAWU">if</span><span class="w" id="mwAWY"> </span><span class="p" id="mwAWc">(</span><span class="n" id="mwAWg">username</span><span class="w" id="mwAWk"> </span><span class="o" id="mwAWo">===</span><span class="w" id="mwAWs"> </span><span class="s" id="mwAWw">"admin"</span><span class="w" id="mwAW0"> </span><span class="o" id="mwAW4">&amp;&amp;</span><span class="w" id="mwAW8"> </span><span class="n" id="mwAXA">password</span><span class="w" id="mwAXE"> </span><span class="o" id="mwAXI">===</span><span class="w" id="mwAXM"> </span><span class="s" id="mwAXQ">"password"</span><span class="p" id="mwAXU">)</span><span class="w" id="mwAXY"> </span><span class="p" id="mwAXc">{</span>
+<span class="w" id="mwAXg">    </span><span class="k" id="mwAXk">return</span><span class="w" id="mwAXo"> </span><span class="nb" id="mwAXs">true</span><span class="p" id="mwAXw">;</span>
+<span class="w" id="mwAX0">  </span><span class="p" id="mwAX4">}</span><span class="w" id="mwAX8"> </span>
+<span class="p" id="mwAYA">}</span>
+</pre></div>
+
+</section><section data-mw-section-id="10" id="mwAYE" aria-labelledby="Value_mutation"><div class="mw-heading mw-heading3"><h3 id="Value_mutation">Value mutation</h3><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Mutation_testing&amp;action=edit&amp;section=10" title="Edit section: Value mutation"><span>edit</span></a><span class="mw-editsection-bracket">]</span></span></div>
+<p id="mwAYI">Value mutation occurs when modifications are made to parameter or constant values within the code. This typically involves adjusting the values by adding or subtracting 1, but it can also involve making more substantial changes to the values. The specific alterations made during value mutation include two main scenarios:</p>
+
+<p id="mwAYM">Firstly, there's the transformation from a small value to a higher value. This entails replacing a small value in the code with a larger one. The purpose of this change is to assess how the code responds when it encounters larger inputs. It helps ensure that the code can accurately and efficiently process these larger values without encountering errors or unexpected issues.</p>
+
+<p id="mwAYQ">Conversely, the second scenario involves changing a higher value to a smaller one. In this case, we replace a higher value within the code with a smaller value. This test aims to evaluate how the code handles smaller inputs. Ensuring that the code performs correctly with smaller values is essential to prevent unforeseen problems or errors when dealing with such input data.</p>
+
+<p id="mwAYU">For example:</p>
+
+<div class="mw-highlight mw-highlight-lang-cpp mw-content-ltr" dir="ltr" typeof="mw:Extension/syntaxhighlight" about="#mwt61" id="mwAYY" data-mw='{"name":"syntaxhighlight","attrs":{"lang":"cpp"},"body":{"extsrc":"\n// Original code\nfunction multiplyByTwo(value) {\n  return value * 2;\n}\n\n// Value mutation: Small value to higher value\nfunction multiplyByTwoMutation1(value) {\n  return value * 10;\n}\n\n// Value mutation: Higher value to small value\nfunction multiplyByTwoMutation2(value) {\n  return value / 10;\n}\n"}}'><pre id="mwAYc"><span id="mwAYg"></span><span class="c1" id="mwAYk">// Original code</span>
+<span class="n" id="mwAYo">function</span><span class="w" id="mwAYs"> </span><span class="nf" id="mwAYw">multiplyByTwo</span><span class="p" id="mwAY0">(</span><span class="n" id="mwAY4">value</span><span class="p" id="mwAY8">)</span><span class="w" id="mwAZA"> </span><span class="p" id="mwAZE">{</span>
+<span class="w" id="mwAZI">  </span><span class="k" id="mwAZM">return</span><span class="w" id="mwAZQ"> </span><span class="n" id="mwAZU">value</span><span class="w" id="mwAZY"> </span><span class="o" id="mwAZc">*</span><span class="w" id="mwAZg"> </span><span class="mi" id="mwAZk">2</span><span class="p" id="mwAZo">;</span>
+<span class="p" id="mwAZs">}</span>
+
+<span class="c1" id="mwAZw">// Value mutation: Small value to higher value</span>
+<span class="n" id="mwAZ0">function</span><span class="w" id="mwAZ4"> </span><span class="nf" id="mwAZ8">multiplyByTwoMutation1</span><span class="p" id="mwAaA">(</span><span class="n" id="mwAaE">value</span><span class="p" id="mwAaI">)</span><span class="w" id="mwAaM"> </span><span class="p" id="mwAaQ">{</span>
+<span class="w" id="mwAaU">  </span><span class="k" id="mwAaY">return</span><span class="w" id="mwAac"> </span><span class="n" id="mwAag">value</span><span class="w" id="mwAak"> </span><span class="o" id="mwAao">*</span><span class="w" id="mwAas"> </span><span class="mi" id="mwAaw">10</span><span class="p" id="mwAa0">;</span>
+<span class="p" id="mwAa4">}</span>
+
+<span class="c1" id="mwAa8">// Value mutation: Higher value to small value</span>
+<span class="n" id="mwAbA">function</span><span class="w" id="mwAbE"> </span><span class="nf" id="mwAbI">multiplyByTwoMutation2</span><span class="p" id="mwAbM">(</span><span class="n" id="mwAbQ">value</span><span class="p" id="mwAbU">)</span><span class="w" id="mwAbY"> </span><span class="p" id="mwAbc">{</span>
+<span class="w" id="mwAbg">  </span><span class="k" id="mwAbk">return</span><span class="w" id="mwAbo"> </span><span class="n" id="mwAbs">value</span><span class="w" id="mwAbw"> </span><span class="o" id="mwAb0">/</span><span class="w" id="mwAb4"> </span><span class="mi" id="mwAb8">10</span><span class="p" id="mwAcA">;</span>
+<span class="p" id="mwAcE">}</span>
+</pre></div>
+ 
+</section><section data-mw-section-id="11" id="mwAcI" aria-labelledby="Decision_mutation"><div class="mw-heading mw-heading3"><h3 id="Decision_mutation">Decision mutation</h3><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Mutation_testing&amp;action=edit&amp;section=11" title="Edit section: Decision mutation"><span>edit</span></a><span class="mw-editsection-bracket">]</span></span></div>
+<p id="mwAcM">Decision mutation testing centers on the identification of design errors within the code, with a particular emphasis on detecting flaws or weaknesses in the program's decision-making logic. This method involves deliberately altering arithmetic and logical operators to expose potential issues. By manipulating these operators, developers can systematically evaluate how the code responds to different decision scenarios. This process helps ensure that the program's decision-making pathways are robust and accurate, preventing costly errors that could arise from faulty logic. Decision mutation testing serves as a valuable tool in software development, enabling developers to enhance the reliability and effectiveness of their decision-making code segments.</p>
+
+<p id="mwAcQ">For example:</p>
+
+<div class="mw-highlight mw-highlight-lang-cpp mw-content-ltr" dir="ltr" typeof="mw:Extension/syntaxhighlight" about="#mwt62" id="mwAcU" data-mw='{"name":"syntaxhighlight","attrs":{"lang":"cpp"},"body":{"extsrc":"\n// Original code\nfunction isPositive(number) {\n  return number > 0;\n}\n\n// Decision mutation: Changing the comparison operator\nfunction isPositiveMutation1(number) {\n  return number >= 0;\n}\n\n// Decision mutation: Negating the result\nfunction isPositiveMutation2(number) {\n  return !(number > 0);\n}\n"}}'><pre id="mwAcY"><span id="mwAcc"></span><span class="c1" id="mwAcg">// Original code</span>
+<span class="n" id="mwAck">function</span><span class="w" id="mwAco"> </span><span class="nf" id="mwAcs">isPositive</span><span class="p" id="mwAcw">(</span><span class="n" id="mwAc0">number</span><span class="p" id="mwAc4">)</span><span class="w" id="mwAc8"> </span><span class="p" id="mwAdA">{</span>
+<span class="w" id="mwAdE">  </span><span class="k" id="mwAdI">return</span><span class="w" id="mwAdM"> </span><span class="n" id="mwAdQ">number</span><span class="w" id="mwAdU"> </span><span class="o" id="mwAdY">></span><span class="w" id="mwAdc"> </span><span class="mi" id="mwAdg">0</span><span class="p" id="mwAdk">;</span>
+<span class="p" id="mwAdo">}</span>
+
+<span class="c1" id="mwAds">// Decision mutation: Changing the comparison operator</span>
+<span class="n" id="mwAdw">function</span><span class="w" id="mwAd0"> </span><span class="nf" id="mwAd4">isPositiveMutation1</span><span class="p" id="mwAd8">(</span><span class="n" id="mwAeA">number</span><span class="p" id="mwAeE">)</span><span class="w" id="mwAeI"> </span><span class="p" id="mwAeM">{</span>
+<span class="w" id="mwAeQ">  </span><span class="k" id="mwAeU">return</span><span class="w" id="mwAeY"> </span><span class="n" id="mwAec">number</span><span class="w" id="mwAeg"> </span><span class="o" id="mwAek">>=</span><span class="w" id="mwAeo"> </span><span class="mi" id="mwAes">0</span><span class="p" id="mwAew">;</span>
+<span class="p" id="mwAe0">}</span>
+
+<span class="c1" id="mwAe4">// Decision mutation: Negating the result</span>
+<span class="n" id="mwAe8">function</span><span class="w" id="mwAfA"> </span><span class="nf" id="mwAfE">isPositiveMutation2</span><span class="p" id="mwAfI">(</span><span class="n" id="mwAfM">number</span><span class="p" id="mwAfQ">)</span><span class="w" id="mwAfU"> </span><span class="p" id="mwAfY">{</span>
+<span class="w" id="mwAfc">  </span><span class="k" id="mwAfg">return</span><span class="w" id="mwAfk"> </span><span class="o" id="mwAfo">!</span><span class="p" id="mwAfs">(</span><span class="n" id="mwAfw">number</span><span class="w" id="mwAf0"> </span><span class="o" id="mwAf4">></span><span class="w" id="mwAf8"> </span><span class="mi" id="mwAgA">0</span><span class="p" id="mwAgE">);</span>
+<span class="p" id="mwAgI">}</span>
+</pre></div>
+
+</section></section><section data-mw-section-id="12" id="mwAgM" aria-labelledby="See_also"><div class="mw-heading mw-heading2"><h2 id="See_also">See also</h2><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Mutation_testing&amp;action=edit&amp;section=12" title="Edit section: See also"><span>edit</span></a><span class="mw-editsection-bracket">]</span></span></div>
+
+<ul id="mwAgQ"><li id="mwAgU"><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Bebugging" title="Bebugging" id="mwAgY">Bebugging</a> (or fault seeding)</li>
+<li id="mwAgc"><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Sanity_testing" title="Sanity testing" class="mw-redirect" id="mwAgg">Sanity testing</a></li>
+<li id="mwAgk"><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Fault_injection" title="Fault injection" id="mwAgo">Fault injection</a></li></ul>
+
+</section><section data-mw-section-id="13" id="mwAgs" aria-labelledby="References"><div class="mw-heading mw-heading2"><h2 id="References">References</h2><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Mutation_testing&amp;action=edit&amp;section=13" title="Edit section: References"><span>edit</span></a><span class="mw-editsection-bracket">]</span></span></div>
+<span class="mw-empty-elt" about="#mwt63" typeof="mw:Transclusion" id="mwAgw" data-mw='{"parts":[{"template":{"target":{"wt":"reflist","href":"./Template:Reflist"},"params":{},"i":0}}]}'><style data-mw-deduplicate="TemplateStyles:r1327269900" typeof="mw:Extension/templatestyles" about="#mwt64" data-mw='{"name":"templatestyles","attrs":{"src":"Reflist/styles.css"}}'>.mw-parser-output .reflist-columns-2{column-width:30em}.mw-parser-output .reflist-columns-3{column-width:25em}body.skin-vector-2022 .mw-parser-output .reflist-columns-2{column-width:27em}body.skin-vector-2022 .mw-parser-output .reflist-columns-3{column-width:22.5em}.mw-parser-output .references[data-mw-group=upper-alpha]{list-style-type:upper-alpha}.mw-parser-output .references[data-mw-group=upper-roman]{list-style-type:upper-roman}.mw-parser-output .references[data-mw-group=lower-alpha]{list-style-type:lower-alpha}.mw-parser-output .references[data-mw-group=lower-greek]{list-style-type:lower-greek}.mw-parser-output .references[data-mw-group=lower-roman]{list-style-type:lower-roman}.mw-parser-output div.reflist-liststyle-upper-alpha .references{list-style-type:upper-alpha}.mw-parser-output div.reflist-liststyle-upper-roman .references{list-style-type:upper-roman}.mw-parser-output div.reflist-liststyle-lower-alpha .references{list-style-type:lower-alpha}.mw-parser-output div.reflist-liststyle-lower-greek .references{list-style-type:lower-greek}.mw-parser-output div.reflist-liststyle-lower-roman .references{list-style-type:lower-roman}</style></span><div about="#mwt63" id="mwAg0">
+<div class="mw-references-wrap mw-references-columns" typeof="mw:Extension/references" about="#mwt65" id="mwAg4" data-mw='{"name":"references","attrs":{"group":"","responsive":"1"},"body":{"extsrc":""}}'><ol class="mw-references references" id="mwAg8"><li about="#cite_note-DLS1978-1" id="cite_note-DLS1978-1" data-mw-footnote-number="1"><span rel="mw:referencedBy" class="mw-cite-backlink" id="mwAhA"><a href="#cite_ref-DLS1978_1-0" id="mwAhE"><span class="mw-linkback-text" id="mwAhI">1</span></a> <a href="#cite_ref-DLS1978_1-1" id="mwAhM"><span class="mw-linkback-text" id="mwAhQ">2</span></a> <a href="#cite_ref-DLS1978_1-2" id="mwAhU"><span class="mw-linkback-text" id="mwAhY">3</span></a> <a href="#cite_ref-DLS1978_1-3" id="mwAhc"><span class="mw-linkback-text" id="mwAhg">4</span></a></span> <span id="mw-reference-text-cite_note-DLS1978-1" class="mw-reference-text reference-text">Richard A. DeMillo, Richard J. Lipton, and Fred G. Sayward. Hints on test data selection: Help for the practicing programmer. IEEE Computer, 11(4):34-41. April 1978.</span></li>
+<li about="#cite_note-2" id="cite_note-2" data-mw-footnote-number="2"><span class="mw-cite-backlink" id="mwAhk"><a href="#cite_ref-2" rel="mw:referencedBy" id="mwAho"><span class="mw-linkback-text" id="mwAhs">↑</span></a></span> <span id="mw-reference-text-cite_note-2" class="mw-reference-text reference-text"><style data-mw-deduplicate="TemplateStyles:r1333433106" typeof="mw:Extension/templatestyles mw:Transclusion" about="#mwt5" id="mwAhw" data-mw='{"name":"templatestyles","attrs":{"src":"Module:Citation/CS1/styles.css"},"body":{"extsrc":""},"parts":[{"template":{"target":{"wt":"cite journal ","href":"./Template:Cite_journal"},"params":{"last1":{"wt":"Danglot"},"first1":{"wt":"Benjamin"},"last2":{"wt":"Vera-Pérez"},"first2":{"wt":"Oscar Luis"},"last3":{"wt":"Baudry"},"first3":{"wt":"Benoit"},"last4":{"wt":"Monperrus"},"first4":{"wt":"Martin"},"title":{"wt":"Automatic test improvement with DSpot: a study with ten mature open-source projects"},"journal":{"wt":"Empirical Software Engineering"},"date":{"wt":"2019"},"volume":{"wt":"24"},"issue":{"wt":"4"},"pages":{"wt":"2603–2635"},"url":{"wt":"https://link.springer.com/article/10.1007/s10664-019-09692-y"},"access-date":{"wt":"2026-08-08"},"doi":{"wt":"10.1007/s10664-019-09692-y"},"issn":{"wt":"1573-7616"},"arxiv":{"wt":"1811.08330"}},"i":0}}]}'>.mw-parser-output cite.citation{font-style:inherit;word-wrap:break-word}.mw-parser-output .citation q{quotes:"\"""\"""'""'"}.mw-parser-output .citation:target{background-color:rgba(0,127,255,0.133)}.mw-parser-output .id-lock-free.id-lock-free a{background:url("//upload.wikimedia.org/wikipedia/commons/6/65/Lock-green.svg")right 0.1em center/9px no-repeat}.mw-parser-output .id-lock-limited.id-lock-limited a,.mw-parser-output .id-lock-registration.id-lock-registration a{background:url("//upload.wikimedia.org/wikipedia/commons/d/d6/Lock-gray-alt-2.svg")right 0.1em center/9px no-repeat}.mw-parser-output .id-lock-subscription.id-lock-subscription a{background:url("//upload.wikimedia.org/wikipedia/commons/a/aa/Lock-red-alt-2.svg")right 0.1em center/9px no-repeat}.mw-parser-output .cs1-ws-icon a{background:url("//upload.wikimedia.org/wikipedia/commons/4/4c/Wikisource-logo.svg")right 0.1em center/12px no-repeat}body:not(.skin-timeless):not(.skin-minerva) .mw-parser-output .id-lock-free a,body:not(.skin-timeless):not(.skin-minerva) .mw-parser-output .id-lock-limited a,body:not(.skin-timeless):not(.skin-minerva) .mw-parser-output .id-lock-registration a,body:not(.skin-timeless):not(.skin-minerva) .mw-parser-output .id-lock-subscription a,body:not(.skin-timeless):not(.skin-minerva) .mw-parser-output .cs1-ws-icon a{background-size:contain;padding:0 1em 0 0}.mw-parser-output .cs1-code{color:inherit;background:inherit;border:none;padding:inherit}.mw-parser-output .cs1-hidden-error{display:none;color:var(--color-error,#bf3c2c)}.mw-parser-output .cs1-visible-error{color:var(--color-error,#bf3c2c)}.mw-parser-output .cs1-maint{display:none;color:#085;margin-left:0.3em}.mw-parser-output .cs1-kern-left{padding-left:0.2em}.mw-parser-output .cs1-kern-right{padding-right:0.2em}.mw-parser-output .citation .mw-selflink{font-weight:inherit}@media screen{.mw-parser-output .cs1-format{font-size:95%}html.skin-theme-clientpref-night .mw-parser-output .cs1-maint{color:#18911f}}@media screen and (prefers-color-scheme:dark){html.skin-theme-clientpref-os .mw-parser-output .cs1-maint{color:#18911f}}</style><cite id="CITEREFDanglotVera-PérezBaudryMonperrus2019" class="citation journal cs1" about="#mwt5">Danglot, Benjamin; Vera-Pérez, Oscar Luis; Baudry, Benoit; Monperrus, Martin (2019). <a rel="mw:ExtLink nofollow" href="https://link.springer.com/article/10.1007/s10664-019-09692-y" class="external text" id="mwAh0">"Automatic test improvement with DSpot: a study with ten mature open-source projects"</a>. <i id="mwAh4">Empirical Software Engineering</i>. <b id="mwAh8">24</b> (4): <span class="nowrap" id="mwAiA">2603–</span>2635. <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/ArXiv_(identifier)" title="ArXiv (identifier)" class="mw-redirect" id="mwAiE">arXiv</a>:<span class="id-lock-free" title="Freely accessible" id="mwAiI"><a rel="mw:ExtLink nofollow" href="https://arxiv.org/abs/1811.08330" class="external text" id="mwAiM">1811.08330</a></span>. <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Doi_(identifier)" title="Doi (identifier)" class="mw-redirect" id="mwAiQ">doi</a>:<a rel="mw:ExtLink nofollow" href="https://doi.org/10.1007%2Fs10664-019-09692-y" class="external text" id="mwAiU">10.1007/s10664-019-09692-y</a>. <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/ISSN_(identifier)" title="ISSN (identifier)" class="mw-redirect" id="mwAiY">ISSN</a><span typeof="mw:Entity" id="mwAic"> </span><a rel="mw:ExtLink nofollow" href="https://search.worldcat.org/issn/1573-7616" class="external text" id="mwAig">1573-7616</a><span class="reference-accessdate" id="mwAik">. Retrieved <span class="nowrap" id="mwAio">2026-08-08</span></span>.</cite><span title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=article&amp;rft.jtitle=Empirical+Software+Engineering&amp;rft.atitle=Automatic+test+improvement+with+DSpot%3A+a+study+with+ten+mature+open-source+projects&amp;rft.volume=24&amp;rft.issue=4&amp;rft.pages=2603-2635&amp;rft.date=2019&amp;rft_id=info%3Aarxiv%2F1811.08330&amp;rft.issn=1573-7616&amp;rft_id=info%3Adoi%2F10.1007%2Fs10664-019-09692-y&amp;rft.aulast=Danglot&amp;rft.aufirst=Benjamin&amp;rft.au=Vera-P%C3%A9rez%2C+Oscar+Luis&amp;rft.au=Baudry%2C+Benoit&amp;rft.au=Monperrus%2C+Martin&amp;rft_id=https%3A%2F%2Flink.springer.com%2Farticle%2F10.1007%2Fs10664-019-09692-y&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AMutation+testing" class="Z3988" about="#mwt5" id="mwAis"></span></span></li>
+<li about="#cite_note-3" id="cite_note-3" data-mw-footnote-number="3"><span class="mw-cite-backlink" id="mwAiw"><a href="#cite_ref-3" rel="mw:referencedBy" id="mwAi0"><span class="mw-linkback-text" id="mwAi4">↑</span></a></span> <span id="mw-reference-text-cite_note-3" class="mw-reference-text reference-text"><link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r1333433106" about="#mwt8" typeof="mw:Extension/templatestyles mw:Transclusion" id="mwAi8" data-mw='{"name":"templatestyles","attrs":{"src":"Module:Citation/CS1/styles.css"},"body":{"extsrc":""},"parts":[{"template":{"target":{"wt":"Citation","href":"./Template:Citation"},"params":{"last":{"wt":"Ostrand"},"first":{"wt":"Thomas"},"title":{"wt":"White-Box Testing"},"date":{"wt":"2002"},"url":{"wt":"https://onlinelibrary.wiley.com/doi/abs/10.1002/0471028959.sof378"},"encyclopedia":{"wt":"Encyclopedia of Software Engineering"},"publisher":{"wt":"American Cancer Society"},"language":{"wt":"en"},"doi":{"wt":"10.1002/0471028959.sof378"},"isbn":{"wt":"978-0-471-02895-6"},"access-date":{"wt":"2021-03-16"},"url-access":{"wt":"subscription"}},"i":0}}]}'/><cite id="CITEREFOstrand2002" class="citation cs2" about="#mwt8">Ostrand, Thomas (2002), <span class="id-lock-subscription" title="Paid subscription required" id="mwAjA"><a rel="mw:ExtLink nofollow" href="https://onlinelibrary.wiley.com/doi/abs/10.1002/0471028959.sof378" class="external text" id="mwAjE">"White-Box Testing"</a></span>, <i id="mwAjI">Encyclopedia of Software Engineering</i>, American Cancer Society, <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Doi_(identifier)" title="Doi (identifier)" class="mw-redirect" id="mwAjM">doi</a>:<a rel="mw:ExtLink nofollow" href="https://doi.org/10.1002%2F0471028959.sof378" class="external text" id="mwAjQ">10.1002/0471028959.sof378</a>, <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/ISBN_(identifier)" title="ISBN (identifier)" class="mw-redirect" id="mwAjU">ISBN</a><span typeof="mw:Entity" id="mwAjY"> </span><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Special:BookSources/978-0-471-02895-6" title="Special:BookSources/978-0-471-02895-6" id="mwAjc"><bdi id="mwAjg">978-0-471-02895-6</bdi></a><span class="reference-accessdate" id="mwAjk">, retrieved <span class="nowrap" id="mwAjo">2021-03-16</span></span></cite><span title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=bookitem&amp;rft.atitle=White-Box+Testing&amp;rft.btitle=Encyclopedia+of+Software+Engineering&amp;rft.pub=American+Cancer+Society&amp;rft.date=2002&amp;rft_id=info%3Adoi%2F10.1002%2F0471028959.sof378&amp;rft.isbn=978-0-471-02895-6&amp;rft.aulast=Ostrand&amp;rft.aufirst=Thomas&amp;rft_id=https%3A%2F%2Fonlinelibrary.wiley.com%2Fdoi%2Fabs%2F10.1002%2F0471028959.sof378&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AMutation+testing" class="Z3988" about="#mwt8" id="mwAjs"></span></span></li>
+<li about="#cite_note-4" id="cite_note-4" data-mw-footnote-number="4"><span class="mw-cite-backlink" id="mwAjw"><a href="#cite_ref-4" rel="mw:referencedBy" id="mwAj0"><span class="mw-linkback-text" id="mwAj4">↑</span></a></span> <span id="mw-reference-text-cite_note-4" class="mw-reference-text reference-text"><link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r1333433106" about="#mwt11" typeof="mw:Extension/templatestyles mw:Transclusion" id="mwAj8" data-mw='{"name":"templatestyles","attrs":{"src":"Module:Citation/CS1/styles.css"},"body":{"extsrc":""},"parts":[{"template":{"target":{"wt":"Cite book","href":"./Template:Cite_book"},"params":{"last":{"wt":"Misra"},"first":{"wt":"S."},"title":{"wt":"CCECE 2003 - Canadian Conference on Electrical and Computer Engineering. Toward a Caring and Humane Technology (Cat. No.03CH37436)"},"chapter":{"wt":"Evaluating four white-box test coverage methodologies"},"date":{"wt":"2003"},"location":{"wt":"Montreal, Que., Canada"},"publisher":{"wt":"IEEE"},"volume":{"wt":"3"},"pages":{"wt":"1739–1742"},"doi":{"wt":"10.1109/CCECE.2003.1226246"},"isbn":{"wt":"978-0-7803-7781-3"},"s2cid":{"wt":"62549502"}},"i":0}}]}'/><cite id="CITEREFMisra2003" class="citation book cs1" about="#mwt11">Misra, S. (2003). "Evaluating four white-box test coverage methodologies". <i id="mwAkA">CCECE 2003 - Canadian Conference on Electrical and Computer Engineering. Toward a Caring and Humane Technology (Cat. No.03CH37436)</i>. Vol.<span typeof="mw:Entity" id="mwAkE"> </span>3. Montreal, Que., Canada: IEEE. pp.<span typeof="mw:Entity" id="mwAkI"> </span><span class="nowrap" id="mwAkM">1739–</span>1742. <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Doi_(identifier)" title="Doi (identifier)" class="mw-redirect" id="mwAkQ">doi</a>:<a rel="mw:ExtLink nofollow" href="https://doi.org/10.1109%2FCCECE.2003.1226246" class="external text" id="mwAkU">10.1109/CCECE.2003.1226246</a>. <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/ISBN_(identifier)" title="ISBN (identifier)" class="mw-redirect" id="mwAkY">ISBN</a><span typeof="mw:Entity" id="mwAkc"> </span><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Special:BookSources/978-0-7803-7781-3" title="Special:BookSources/978-0-7803-7781-3" id="mwAkg"><bdi id="mwAkk">978-0-7803-7781-3</bdi></a>. <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/S2CID_(identifier)" title="S2CID (identifier)" class="mw-redirect" id="mwAko">S2CID</a><span typeof="mw:Entity" id="mwAks"> </span><a rel="mw:ExtLink nofollow" href="https://api.semanticscholar.org/CorpusID:62549502" class="external text" id="mwAkw">62549502</a>.</cite><span title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=bookitem&amp;rft.atitle=Evaluating+four+white-box+test+coverage+methodologies&amp;rft.btitle=CCECE+2003+-+Canadian+Conference+on+Electrical+and+Computer+Engineering.+Toward+a+Caring+and+Humane+Technology+%28Cat.+No.03CH37436%29&amp;rft.place=Montreal%2C+Que.%2C+Canada&amp;rft.pages=1739-1742&amp;rft.pub=IEEE&amp;rft.date=2003&amp;rft_id=https%3A%2F%2Fapi.semanticscholar.org%2FCorpusID%3A62549502%23id-name%3DS2CID&amp;rft_id=info%3Adoi%2F10.1109%2FCCECE.2003.1226246&amp;rft.isbn=978-0-7803-7781-3&amp;rft.aulast=Misra&amp;rft.aufirst=S.&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AMutation+testing" class="Z3988" about="#mwt11" id="mwAk0"></span></span></li>
+<li about="#cite_note-AmmannOffutt2008-5" id="cite_note-AmmannOffutt2008-5" data-mw-footnote-number="5"><span rel="mw:referencedBy" class="mw-cite-backlink" id="mwAk4"><a href="#cite_ref-AmmannOffutt2008_5-0" id="mwAk8"><span class="mw-linkback-text" id="mwAlA">1</span></a> <a href="#cite_ref-AmmannOffutt2008_5-1" id="mwAlE"><span class="mw-linkback-text" id="mwAlI">2</span></a> <a href="#cite_ref-AmmannOffutt2008_5-2" id="mwAlM"><span class="mw-linkback-text" id="mwAlQ">3</span></a></span> <span id="mw-reference-text-cite_note-AmmannOffutt2008-5" class="mw-reference-text reference-text">Paul Ammann and Jeff Offutt. Introduction to Software Testing. Cambridge University Press, 2008.</span></li>
+<li about="#cite_note-6" id="cite_note-6" data-mw-footnote-number="6"><span class="mw-cite-backlink" id="mwAlU"><a href="#cite_ref-6" rel="mw:referencedBy" id="mwAlY"><span class="mw-linkback-text" id="mwAlc">↑</span></a></span> <span id="mw-reference-text-cite_note-6" class="mw-reference-text reference-text"><link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r1333433106" about="#mwt16" typeof="mw:Extension/templatestyles mw:Transclusion" id="mwAlg" data-mw='{"name":"templatestyles","attrs":{"src":"Module:Citation/CS1/styles.css"},"body":{"extsrc":""},"parts":[{"template":{"target":{"wt":"cite journal ","href":"./Template:Cite_journal"},"params":{"first1":{"wt":"Yue"},"last1":{"wt":"Jia"},"first2":{"wt":"Mark"},"last2":{"wt":"Harman"},"title":{"wt":"An Analysis and Survey of the Development of Mutation Testing"},"journal":{"wt":"IEEE Transactions on Software Engineering"},"authorlink2":{"wt":"Mark Harman (computer scientist)"},"date":{"wt":"September 2009"},"volume":{"wt":"37"},"issue":{"wt":"5"},"pages":{"wt":"649–678"},"doi":{"wt":"10.1109/TSE.2010.62"},"s2cid":{"wt":"6853229"},"url":{"wt":"https://pdfs.semanticscholar.org/3277/8a2eb4c74cd437e922ac1eb6a1477dfcb925.pdf"},"archive-url":{"wt":"https://web.archive.org/web/20171204061252/https://pdfs.semanticscholar.org/3277/8a2eb4c74cd437e922ac1eb6a1477dfcb925.pdf"},"url-status":{"wt":"dead"},"archive-date":{"wt":"2017-12-04"}},"i":0}}]}'/><cite id="CITEREFJiaHarman2009" class="citation journal cs1" about="#mwt16">Jia, Yue; <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Mark_Harman_(computer_scientist)" title="Mark Harman (computer scientist)" id="mwAlk">Harman, Mark</a> (September 2009). <a rel="mw:ExtLink nofollow" href="https://web.archive.org/web/20171204061252/https://pdfs.semanticscholar.org/3277/8a2eb4c74cd437e922ac1eb6a1477dfcb925.pdf" class="external text" id="mwAlo">"An Analysis and Survey of the Development of Mutation Testing"</a> <span class="cs1-format" id="mwAls">(PDF)</span>. <i id="mwAlw">IEEE Transactions on Software Engineering</i>. <b id="mwAl0">37</b> (5): <span class="nowrap" id="mwAl4">649–</span>678. <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Doi_(identifier)" title="Doi (identifier)" class="mw-redirect" id="mwAl8">doi</a>:<a rel="mw:ExtLink nofollow" href="https://doi.org/10.1109%2FTSE.2010.62" class="external text" id="mwAmA">10.1109/TSE.2010.62</a>. <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/S2CID_(identifier)" title="S2CID (identifier)" class="mw-redirect" id="mwAmE">S2CID</a><span typeof="mw:Entity" id="mwAmI"> </span><a rel="mw:ExtLink nofollow" href="https://api.semanticscholar.org/CorpusID:6853229" class="external text" id="mwAmM">6853229</a>. Archived from <a rel="mw:ExtLink nofollow" href="https://pdfs.semanticscholar.org/3277/8a2eb4c74cd437e922ac1eb6a1477dfcb925.pdf" class="external text" id="mwAmQ">the original</a> <span class="cs1-format" id="mwAmU">(PDF)</span> on 2017-12-04.</cite><span title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=article&amp;rft.jtitle=IEEE+Transactions+on+Software+Engineering&amp;rft.atitle=An+Analysis+and+Survey+of+the+Development+of+Mutation+Testing&amp;rft.volume=37&amp;rft.issue=5&amp;rft.pages=649-678&amp;rft.date=2009-09&amp;rft_id=info%3Adoi%2F10.1109%2FTSE.2010.62&amp;rft_id=https%3A%2F%2Fapi.semanticscholar.org%2FCorpusID%3A6853229%23id-name%3DS2CID&amp;rft.aulast=Jia&amp;rft.aufirst=Yue&amp;rft.au=Harman%2C+Mark&amp;rft_id=https%3A%2F%2Fpdfs.semanticscholar.org%2F3277%2F8a2eb4c74cd437e922ac1eb6a1477dfcb925.pdf&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AMutation+testing" class="Z3988" about="#mwt16" id="mwAmY"></span></span></li>
+<li about="#cite_note-7" id="cite_note-7" data-mw-footnote-number="7"><span class="mw-cite-backlink" id="mwAmc"><a href="#cite_ref-7" rel="mw:referencedBy" id="mwAmg"><span class="mw-linkback-text" id="mwAmk">↑</span></a></span> <span id="mw-reference-text-cite_note-7" class="mw-reference-text reference-text"><link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r1333433106" about="#mwt19" typeof="mw:Extension/templatestyles mw:Transclusion" id="mwAmo" data-mw='{"name":"templatestyles","attrs":{"src":"Module:Citation/CS1/styles.css"},"body":{"extsrc":""},"parts":[{"template":{"target":{"wt":"cite book ","href":"./Template:Cite_book"},"params":{"first1":{"wt":"Aristides"},"last1":{"wt":"Dasso"},"first2":{"wt":"Ana"},"last2":{"wt":"Funes"},"title":{"wt":"Verification, Validation and Testing in Software Engineering"},"publisher":{"wt":"Idea Group Inc"},"year":{"wt":"2007"},"isbn":{"wt":"978-1591408512"}},"i":0}}]}'/><cite id="CITEREFDassoFunes2007" class="citation book cs1" about="#mwt19">Dasso, Aristides; Funes, Ana (2007). <i id="mwAms">Verification, Validation and Testing in Software Engineering</i>. Idea Group Inc. <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/ISBN_(identifier)" title="ISBN (identifier)" class="mw-redirect" id="mwAmw">ISBN</a><span typeof="mw:Entity" id="mwAm0"> </span><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Special:BookSources/978-1591408512" title="Special:BookSources/978-1591408512" id="mwAm4"><bdi id="mwAm8">978-1591408512</bdi></a>.</cite><span title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=book&amp;rft.btitle=Verification%2C+Validation+and+Testing+in+Software+Engineering&amp;rft.pub=Idea+Group+Inc&amp;rft.date=2007&amp;rft.isbn=978-1591408512&amp;rft.aulast=Dasso&amp;rft.aufirst=Aristides&amp;rft.au=Funes%2C+Ana&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AMutation+testing" class="Z3988" about="#mwt19" id="mwAnA"></span></span></li>
+<li about="#cite_note-Smith2008-8" id="cite_note-Smith2008-8" data-mw-footnote-number="8"><span rel="mw:referencedBy" class="mw-cite-backlink" id="mwAnE"><a href="#cite_ref-Smith2008_8-0" id="mwAnI"><span class="mw-linkback-text" id="mwAnM">1</span></a> <a href="#cite_ref-Smith2008_8-1" id="mwAnQ"><span class="mw-linkback-text" id="mwAnU">2</span></a></span> <span id="mw-reference-text-cite_note-Smith2008-8" class="mw-reference-text reference-text">Smith B., "On Guiding Augmentation of an Automated Test Suite via Mutation Analysis," 2008</span></li>
+<li about="#cite_note-mutation2000-9" id="cite_note-mutation2000-9" data-mw-footnote-number="9"><span rel="mw:referencedBy" class="mw-cite-backlink" id="mwAnY"><a href="#cite_ref-mutation2000_9-0" id="mwAnc"><span class="mw-linkback-text" id="mwAng">1</span></a> <a href="#cite_ref-mutation2000_9-1" id="mwAnk"><span class="mw-linkback-text" id="mwAno">2</span></a></span> <span id="mw-reference-text-cite_note-mutation2000-9" class="mw-reference-text reference-text"><a rel="mw:ExtLink nofollow" href="http://cs.gmu.edu/~offutt/rsrch/papers/mut00.pdf" class="external text" id="mwAns">Mutation 2000: Uniting the Orthogonal</a> <a rel="mw:ExtLink nofollow" href="https://web.archive.org/web/20110928184359/http://cs.gmu.edu/~offutt/rsrch/papers/mut00.pdf" about="#mwt25" typeof="mw:Transclusion" class="external text" id="mwAnw" data-mw='{"parts":[{"template":{"target":{"wt":"Webarchive","href":"./Template:Webarchive"},"params":{"url":{"wt":"https://web.archive.org/web/20110928184359/http://cs.gmu.edu/~offutt/rsrch/papers/mut00.pdf"},"date":{"wt":"2011-09-28"}},"i":0}}]}'>Archived</a><span about="#mwt25" id="mwAn0"> 2011-09-28 at the </span><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Wayback_Machine" title="Wayback Machine" about="#mwt25" id="mwAn4">Wayback Machine</a><link rel="mw:PageProp/Category" href="./Category:Webarchive_template_wayback_links" about="#mwt25" id="mwAn8"/> by <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Jeff_Offutt" title="Jeff Offutt" id="mwAoA">A. Jefferson Offutt</a> and Roland H. Untch.</span></li>
+<li about="#cite_note-Budd1980-10" id="cite_note-Budd1980-10" data-mw-footnote-number="10"><span class="mw-cite-backlink" id="mwAoE"><a href="#cite_ref-Budd1980_10-0" rel="mw:referencedBy" id="mwAoI"><span class="mw-linkback-text" id="mwAoM">↑</span></a></span> <span id="mw-reference-text-cite_note-Budd1980-10" class="mw-reference-text reference-text">Tim A. Budd, Mutation Analysis of Program Test Data. PhD thesis, Yale University New Haven CT, 1980.</span></li>
+<li about="#cite_note-11" id="cite_note-11" data-mw-footnote-number="11"><span class="mw-cite-backlink" id="mwAoQ"><a href="#cite_ref-11" rel="mw:referencedBy" id="mwAoU"><span class="mw-linkback-text" id="mwAoY">↑</span></a></span> <span id="mw-reference-text-cite_note-11" class="mw-reference-text reference-text"><a rel="mw:ExtLink nofollow" href="http://www.codenomicon.com/resources/publications.shtml" class="external text" id="mwAoc">Kaksonen, Rauli. A Functional Method for Assessing Protocol Implementation Security (Licentiate thesis). Espoo. 2001.</a></span></li>
+<li about="#cite_note-Offut1992-12" id="cite_note-Offut1992-12" data-mw-footnote-number="12"><span class="mw-cite-backlink" id="mwAog"><a href="#cite_ref-Offut1992_12-0" rel="mw:referencedBy" id="mwAok"><span class="mw-linkback-text" id="mwAoo">↑</span></a></span> <span id="mw-reference-text-cite_note-Offut1992-12" class="mw-reference-text reference-text">A. Jefferson Offutt. 1992. Investigations of the software testing coupling effect. ACM Trans. Softw. Eng. Methodol. 1, 1 (January 1992), 5-20.</span></li>
+<li about="#cite_note-ABDLS1979-13" id="cite_note-ABDLS1979-13" data-mw-footnote-number="13"><span class="mw-cite-backlink" id="mwAos"><a href="#cite_ref-ABDLS1979_13-0" rel="mw:referencedBy" id="mwAow"><span class="mw-linkback-text" id="mwAo0">↑</span></a></span> <span id="mw-reference-text-cite_note-ABDLS1979-13" class="mw-reference-text reference-text">A. T. Acree, T. A. Budd, R. A. DeMillo, R. J. Lipton, and F. G. Sayward, "Mutation Analysis," Georgia Institute of Technology, Atlanta, Georgia, Technique Report GIT-ICS-79/08, 1979.</span></li>
+<li about="#cite_note-JH2008-14" id="cite_note-JH2008-14" data-mw-footnote-number="14"><span class="mw-cite-backlink" id="mwAo4"><a href="#cite_ref-JH2008_14-0" rel="mw:referencedBy" id="mwAo8"><span class="mw-linkback-text" id="mwApA">↑</span></a></span> <span id="mw-reference-text-cite_note-JH2008-14" class="mw-reference-text reference-text">Yue Jia; Harman, M., "Constructing Subtle Faults Using Higher Order Mutation Testing," Source Code Analysis and Manipulation, 2008 Eighth IEEE International Working Conference on, vol., no., pp.249,258, 28-29 Sept. 2008</span></li>
+<li about="#cite_note-Umar2008-15" id="cite_note-Umar2008-15" data-mw-footnote-number="15"><span class="mw-cite-backlink" id="mwApE"><a href="#cite_ref-Umar2008_15-0" rel="mw:referencedBy" id="mwApI"><span class="mw-linkback-text" id="mwApM">↑</span></a></span> <span id="mw-reference-text-cite_note-Umar2008-15" class="mw-reference-text reference-text">Maryam Umar, "An Evaluation of Mutation Operators For Equivalent Mutants," MS Thesis, 2006</span></li>
+<li about="#cite_note-PP2009-16" id="cite_note-PP2009-16" data-mw-footnote-number="16"><span class="mw-cite-backlink" id="mwApQ"><a href="#cite_ref-PP2009_16-0" rel="mw:referencedBy" id="mwApU"><span class="mw-linkback-text" id="mwApY">↑</span></a></span> <span id="mw-reference-text-cite_note-PP2009-16" class="mw-reference-text reference-text">Polo M. and Piattini M., "Mutation Testing: practical aspects and cost analysis," University of Castilla-La Mancha (Spain), Presentation, 2009</span></li>
+<li about="#cite_note-Anderson2011-17" id="cite_note-Anderson2011-17" data-mw-footnote-number="17"><span class="mw-cite-backlink" id="mwApc"><a href="#cite_ref-Anderson2011_17-0" rel="mw:referencedBy" id="mwApg"><span class="mw-linkback-text" id="mwApk">↑</span></a></span> <span id="mw-reference-text-cite_note-Anderson2011-17" class="mw-reference-text reference-text">Anderson S., "Mutation Testing", the  University of Edinburgh, School of Informatics, Presentation, 2011</span></li>
+<li about="#cite_note-18" id="cite_note-18" data-mw-footnote-number="18"><span class="mw-cite-backlink" id="mwApo"><a href="#cite_ref-18" rel="mw:referencedBy" id="mwAps"><span class="mw-linkback-text" id="mwApw">↑</span></a></span> <span id="mw-reference-text-cite_note-18" class="mw-reference-text reference-text">P. G. Frankl, S. N. Weiss, and C. Hu. All-uses versus mutation testing: An experimental comparison of effectiveness. <i id="mwAp0">Journal of Systems and Software</i>, 38:235–253, 1997.</span></li>
+<li about="#cite_note-19" id="cite_note-19" data-mw-footnote-number="19"><span class="mw-cite-backlink" id="mwAp4"><a href="#cite_ref-19" rel="mw:referencedBy" id="mwAp8"><span class="mw-linkback-text" id="mwAqA">↑</span></a></span> <span id="mw-reference-text-cite_note-19" class="mw-reference-text reference-text"><a rel="mw:ExtLink nofollow" href="http://madeyski.e-informatyka.pl/download/Madeyski13TSE.pdf" class="external text" id="mwAqE">Overcoming the Equivalent Mutant Problem: A Systematic Literature Review and a Comparative Experiment of Second Order Mutation</a> by L. Madeyski, W. Orzeszyna, R. Torkar, M. Józala. <i id="mwAqI">IEEE Transactions on Software Engineering</i></span></li>
+<li about="#cite_note-:1-20" id="cite_note-:1-20" data-mw-footnote-number="20"><span rel="mw:referencedBy" class="mw-cite-backlink" id="mwAqM"><a href="#cite_ref-:1_20-0" id="mwAqQ"><span class="mw-linkback-text" id="mwAqU">1</span></a> <a href="#cite_ref-:1_20-1" id="mwAqY"><span class="mw-linkback-text" id="mwAqc">2</span></a> <a href="#cite_ref-:1_20-2" id="mwAqg"><span class="mw-linkback-text" id="mwAqk">3</span></a></span> <span id="mw-reference-text-cite_note-:1-20" class="mw-reference-text reference-text"><link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r1333433106" about="#mwt43" typeof="mw:Extension/templatestyles mw:Transclusion" id="mwAqo" data-mw='{"name":"templatestyles","attrs":{"src":"Module:Citation/CS1/styles.css"},"body":{"extsrc":""},"parts":[{"template":{"target":{"wt":"Cite book ","href":"./Template:Cite_book"},"params":{"last1":{"wt":"Hamimoune"},"first1":{"wt":"Soukaina"},"last2":{"wt":"Falah"},"first2":{"wt":"Bouchaib"},"title":{"wt":"2016 International Conference on Engineering &amp; MIS (ICEMIS)"},"chapter":{"wt":"Mutation testing techniques: A comparative study"},"date":{"wt":"24 September 2016"},"pages":{"wt":"1–9"},"doi":{"wt":"10.1109/ICEMIS.2016.7745368"},"isbn":{"wt":"978-1-5090-5579-1"},"s2cid":{"wt":"24301702"},"language":{"wt":"en-US"}},"i":0}}]}'/><cite id="CITEREFHamimouneFalah2016" class="citation book cs1" about="#mwt43">Hamimoune, Soukaina; Falah, Bouchaib (24 September 2016). "Mutation testing techniques: A comparative study". <i id="mwAqs">2016 International Conference on Engineering &amp; MIS (ICEMIS)</i>. pp.<span typeof="mw:Entity" id="mwAqw"> </span><span class="nowrap" id="mwAq0">1–</span>9. <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Doi_(identifier)" title="Doi (identifier)" class="mw-redirect" id="mwAq4">doi</a>:<a rel="mw:ExtLink nofollow" href="https://doi.org/10.1109%2FICEMIS.2016.7745368" class="external text" id="mwAq8">10.1109/ICEMIS.2016.7745368</a>. <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/ISBN_(identifier)" title="ISBN (identifier)" class="mw-redirect" id="mwArA">ISBN</a><span typeof="mw:Entity" id="mwArE"> </span><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Special:BookSources/978-1-5090-5579-1" title="Special:BookSources/978-1-5090-5579-1" id="mwArI"><bdi id="mwArM">978-1-5090-5579-1</bdi></a>. <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/S2CID_(identifier)" title="S2CID (identifier)" class="mw-redirect" id="mwArQ">S2CID</a><span typeof="mw:Entity" id="mwArU"> </span><a rel="mw:ExtLink nofollow" href="https://api.semanticscholar.org/CorpusID:24301702" class="external text" id="mwArY">24301702</a>.</cite><span title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=bookitem&amp;rft.atitle=Mutation+testing+techniques%3A+A+comparative+study&amp;rft.btitle=2016+International+Conference+on+Engineering+%26+MIS+%28ICEMIS%29&amp;rft.pages=1-9&amp;rft.date=2016-09-24&amp;rft_id=https%3A%2F%2Fapi.semanticscholar.org%2FCorpusID%3A24301702%23id-name%3DS2CID&amp;rft_id=info%3Adoi%2F10.1109%2FICEMIS.2016.7745368&amp;rft.isbn=978-1-5090-5579-1&amp;rft.aulast=Hamimoune&amp;rft.aufirst=Soukaina&amp;rft.au=Falah%2C+Bouchaib&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AMutation+testing" class="Z3988" about="#mwt43" id="mwArc"></span></span></li>
+<li about="#cite_note-21" id="cite_note-21" data-mw-footnote-number="21"><span class="mw-cite-backlink" id="mwArg"><a href="#cite_ref-21" rel="mw:referencedBy" id="mwArk"><span class="mw-linkback-text" id="mwAro">↑</span></a></span> <span id="mw-reference-text-cite_note-21" class="mw-reference-text reference-text"><a rel="mw:ExtLink nofollow" href="https://www.imperialviolet.org/2014/02/22/applebug.html" class="external text" id="mwArs">Apple's SSL/TLS bug</a> by Adam Langley.</span></li>
+<li about="#cite_note-22" id="cite_note-22" data-mw-footnote-number="22"><span class="mw-cite-backlink" id="mwArw"><a href="#cite_ref-22" rel="mw:referencedBy" id="mwAr0"><span class="mw-linkback-text" id="mwAr4">↑</span></a></span> <span id="mw-reference-text-cite_note-22" class="mw-reference-text reference-text"><link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r1333433106" about="#mwt47" typeof="mw:Extension/templatestyles mw:Transclusion" id="mwAr8" data-mw='{"name":"templatestyles","attrs":{"src":"Module:Citation/CS1/styles.css"},"body":{"extsrc":""},"parts":[{"template":{"target":{"wt":"Cite book ","href":"./Template:Cite_book"},"params":{"last1":{"wt":"Niedermayr"},"first1":{"wt":"Rainer"},"title":{"wt":"Proceedings of the International Workshop on Continuous Software Evolution and Delivery"},"last2":{"wt":"Juergens"},"first2":{"wt":"Elmar"},"last3":{"wt":"Wagner"},"first3":{"wt":"Stefan"},"date":{"wt":"2016-05-14"},"publisher":{"wt":"Association for Computing Machinery"},"isbn":{"wt":"978-1-4503-4157-8"},"series":{"wt":"CSED &apos;16"},"location":{"wt":"Austin, Texas"},"pages":{"wt":"23–29"},"chapter":{"wt":"Will my tests tell me if I break this code?"},"doi":{"wt":"10.1145/2896941.2896944"},"chapter-url":{"wt":"https://doi.org/10.1145/2896941.2896944"},"arxiv":{"wt":"1611.07163"},"s2cid":{"wt":"9213147"}},"i":0}}]}'/><cite id="CITEREFNiedermayrJuergensWagner2016" class="citation book cs1" about="#mwt47">Niedermayr, Rainer; Juergens, Elmar; Wagner, Stefan (2016-05-14). <a rel="mw:ExtLink nofollow" href="https://doi.org/10.1145/2896941.2896944" class="external text" id="mwAsA">"Will my tests tell me if I break this code?"</a>. <i id="mwAsE">Proceedings of the International Workshop on Continuous Software Evolution and Delivery</i>. CSED '16. Austin, Texas: Association for Computing Machinery. pp.<span typeof="mw:Entity" id="mwAsI"> </span><span class="nowrap" id="mwAsM">23–</span>29. <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/ArXiv_(identifier)" title="ArXiv (identifier)" class="mw-redirect" id="mwAsQ">arXiv</a>:<span class="id-lock-free" title="Freely accessible" id="mwAsU"><a rel="mw:ExtLink nofollow" href="https://arxiv.org/abs/1611.07163" class="external text" id="mwAsY">1611.07163</a></span>. <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Doi_(identifier)" title="Doi (identifier)" class="mw-redirect" id="mwAsc">doi</a>:<a rel="mw:ExtLink nofollow" href="https://doi.org/10.1145%2F2896941.2896944" class="external text" id="mwAsg">10.1145/2896941.2896944</a>. <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/ISBN_(identifier)" title="ISBN (identifier)" class="mw-redirect" id="mwAsk">ISBN</a><span typeof="mw:Entity" id="mwAso"> </span><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Special:BookSources/978-1-4503-4157-8" title="Special:BookSources/978-1-4503-4157-8" id="mwAss"><bdi id="mwAsw">978-1-4503-4157-8</bdi></a>. <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/S2CID_(identifier)" title="S2CID (identifier)" class="mw-redirect" id="mwAs0">S2CID</a><span typeof="mw:Entity" id="mwAs4"> </span><a rel="mw:ExtLink nofollow" href="https://api.semanticscholar.org/CorpusID:9213147" class="external text" id="mwAs8">9213147</a>.</cite><span title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=bookitem&amp;rft.atitle=Will+my+tests+tell+me+if+I+break+this+code%3F&amp;rft.btitle=Proceedings+of+the+International+Workshop+on+Continuous+Software+Evolution+and+Delivery&amp;rft.place=Austin%2C+Texas&amp;rft.series=CSED+%2716&amp;rft.pages=23-29&amp;rft.pub=Association+for+Computing+Machinery&amp;rft.date=2016-05-14&amp;rft_id=info%3Aarxiv%2F1611.07163&amp;rft_id=https%3A%2F%2Fapi.semanticscholar.org%2FCorpusID%3A9213147%23id-name%3DS2CID&amp;rft_id=info%3Adoi%2F10.1145%2F2896941.2896944&amp;rft.isbn=978-1-4503-4157-8&amp;rft.aulast=Niedermayr&amp;rft.aufirst=Rainer&amp;rft.au=Juergens%2C+Elmar&amp;rft.au=Wagner%2C+Stefan&amp;rft_id=https%3A%2F%2Fdoi.org%2F10.1145%2F2896941.2896944&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AMutation+testing" class="Z3988" about="#mwt47" id="mwAtA"></span></span></li>
+<li about="#cite_note-23" id="cite_note-23" data-mw-footnote-number="23"><span class="mw-cite-backlink" id="mwAtE"><a href="#cite_ref-23" rel="mw:referencedBy" id="mwAtI"><span class="mw-linkback-text" id="mwAtM">↑</span></a></span> <span id="mw-reference-text-cite_note-23" class="mw-reference-text reference-text"><a rel="mw:ExtLink nofollow" href="http://www.cs.gmu.edu/~offutt/rsrch/papers/mujava.pdf" class="external text" id="mwAtQ">MuJava: An Automated Class Mutation System</a> <a rel="mw:ExtLink nofollow" href="https://web.archive.org/web/20120311010113/http://www.cs.gmu.edu/~offutt/rsrch/papers/mujava.pdf" about="#mwt50" typeof="mw:Transclusion" class="external text" id="mwAtU" data-mw='{"parts":[{"template":{"target":{"wt":"Webarchive","href":"./Template:Webarchive"},"params":{"url":{"wt":"https://web.archive.org/web/20120311010113/http://www.cs.gmu.edu/~offutt/rsrch/papers/mujava.pdf"},"date":{"wt":"2012-03-11"}},"i":0}}]}'>Archived</a><span about="#mwt50" id="mwAtY"> 2012-03-11 at the </span><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Wayback_Machine" title="Wayback Machine" about="#mwt50" id="mwAtc">Wayback Machine</a><link rel="mw:PageProp/Category" href="./Category:Webarchive_template_wayback_links" about="#mwt50" id="mwAtg"/> by Yu-Seung Ma, <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Jeff_Offutt" title="Jeff Offutt" id="mwAtk">Jeff Offutt</a> and Yong Rae Kwo.</span></li>
+<li about="#cite_note-24" id="cite_note-24" data-mw-footnote-number="24"><span class="mw-cite-backlink" id="mwAto"><a href="#cite_ref-24" rel="mw:referencedBy" id="mwAts"><span class="mw-linkback-text" id="mwAtw">↑</span></a></span> <span id="mw-reference-text-cite_note-24" class="mw-reference-text reference-text"><a rel="mw:ExtLink nofollow" href="http://www.irisa.fr/manifestations/2006/Mutation2006/papers/14_Final_version.pdf" class="external text" id="mwAt0">Mutation Operators for Concurrent Java (J2SE 5.0)</a> by Jeremy S. Bradbury, James R. Cordy, Juergen Dingel.</span></li>
+<li about="#cite_note-25" id="cite_note-25" data-mw-footnote-number="25"><span class="mw-cite-backlink" id="mwAt4"><a href="#cite_ref-25" rel="mw:referencedBy" id="mwAt8"><span class="mw-linkback-text" id="mwAuA">↑</span></a></span> <span id="mw-reference-text-cite_note-25" class="mw-reference-text reference-text"><a rel="mw:ExtLink nofollow" href="http://www.cs.colostate.edu/~bieman/Pubs/AlexanderBiemanGhoshJiISSRE02.pdf" class="external text" id="mwAuE">Mutation of Java Objects</a> by Roger T. Alexander, James M. Bieman, Sudipto Ghosh, Bixia Ji.</span></li>
+<li about="#cite_note-26" id="cite_note-26" data-mw-footnote-number="26"><span class="mw-cite-backlink" id="mwAuI"><a href="#cite_ref-26" rel="mw:referencedBy" id="mwAuM"><span class="mw-linkback-text" id="mwAuQ">↑</span></a></span> <span id="mw-reference-text-cite_note-26" class="mw-reference-text reference-text"><a rel="mw:ExtLink nofollow" href="http://qspace.library.queensu.ca/handle/1974/1359" class="external text" id="mwAuU">Mutation-based Testing of Buffer Overflows, SQL Injections, and Format String Bugs</a> by H. Shahriar and M. Zulkernine.</span></li>
+<li about="#cite_note-27" id="cite_note-27" data-mw-footnote-number="27"><span class="mw-cite-backlink" id="mwAuY"><a href="#cite_ref-27" rel="mw:referencedBy" id="mwAuc"><span class="mw-linkback-text" id="mwAug">↑</span></a></span> <span id="mw-reference-text-cite_note-27" class="mw-reference-text reference-text"><link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r1333433106" about="#mwt57" typeof="mw:Extension/templatestyles mw:Transclusion" id="mwAuk" data-mw='{"name":"templatestyles","attrs":{"src":"Module:Citation/CS1/styles.css"},"body":{"extsrc":""},"parts":[{"template":{"target":{"wt":"Cite book ","href":"./Template:Cite_book"},"params":{"last1":{"wt":"Deng"},"first1":{"wt":"Lin"},"last2":{"wt":"Offutt"},"first2":{"wt":"Jeff"},"last3":{"wt":"Li"},"first3":{"wt":"Nan"},"title":{"wt":"2013 IEEE Sixth International Conference on Software Testing, Verification and Validation"},"chapter":{"wt":"Empirical Evaluation of the Statement Deletion Mutation Operator"},"date":{"wt":"22 March 2013"},"pages":{"wt":"84–93"},"language":{"wt":"en-US"},"doi":{"wt":"10.1109/ICST.2013.20"},"isbn":{"wt":"978-0-7695-4968-2"},"s2cid":{"wt":"12866713"},"issn":{"wt":"2159-4848"}},"i":0}}]}'/><cite id="CITEREFDengOffuttLi2013" class="citation book cs1" about="#mwt57">Deng, Lin; Offutt, Jeff; Li, Nan (22 March 2013). "Empirical Evaluation of the Statement Deletion Mutation Operator". <i id="mwAuo">2013 IEEE Sixth International Conference on Software Testing, Verification and Validation</i>. pp.<span typeof="mw:Entity" id="mwAus"> </span><span class="nowrap" id="mwAuw">84–</span>93. <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Doi_(identifier)" title="Doi (identifier)" class="mw-redirect" id="mwAu0">doi</a>:<a rel="mw:ExtLink nofollow" href="https://doi.org/10.1109%2FICST.2013.20" class="external text" id="mwAu4">10.1109/ICST.2013.20</a>. <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/ISBN_(identifier)" title="ISBN (identifier)" class="mw-redirect" id="mwAu8">ISBN</a><span typeof="mw:Entity" id="mwAvA"> </span><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Special:BookSources/978-0-7695-4968-2" title="Special:BookSources/978-0-7695-4968-2" id="mwAvE"><bdi id="mwAvI">978-0-7695-4968-2</bdi></a>. <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/ISSN_(identifier)" title="ISSN (identifier)" class="mw-redirect" id="mwAvM">ISSN</a><span typeof="mw:Entity" id="mwAvQ"> </span><a rel="mw:ExtLink nofollow" href="https://search.worldcat.org/issn/2159-4848" class="external text" id="mwAvU">2159-4848</a>. <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/S2CID_(identifier)" title="S2CID (identifier)" class="mw-redirect" id="mwAvY">S2CID</a><span typeof="mw:Entity" id="mwAvc"> </span><a rel="mw:ExtLink nofollow" href="https://api.semanticscholar.org/CorpusID:12866713" class="external text" id="mwAvg">12866713</a>.</cite><span title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=bookitem&amp;rft.atitle=Empirical+Evaluation+of+the+Statement+Deletion+Mutation+Operator&amp;rft.btitle=2013+IEEE+Sixth+International+Conference+on+Software+Testing%2C+Verification+and+Validation&amp;rft.pages=84-93&amp;rft.date=2013-03-22&amp;rft_id=info%3Adoi%2F10.1109%2FICST.2013.20&amp;rft_id=https%3A%2F%2Fapi.semanticscholar.org%2FCorpusID%3A12866713%23id-name%3DS2CID&amp;rft.issn=2159-4848&amp;rft.isbn=978-0-7695-4968-2&amp;rft.aulast=Deng&amp;rft.aufirst=Lin&amp;rft.au=Offutt%2C+Jeff&amp;rft.au=Li%2C+Nan&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AMutation+testing" class="Z3988" about="#mwt57" id="mwAvk"></span></span></li>
+</ol></div></div>
+
+<div class="navbox-styles" about="#mwt66" typeof="mw:Transclusion" id="mwAvo" data-mw='{"parts":[{"template":{"target":{"wt":"Software testing","href":"./Template:Software_testing"},"params":{},"i":0}}]}'><style data-mw-deduplicate="TemplateStyles:r1374427404" typeof="mw:Extension/templatestyles" about="#mwt67" data-mw='{"name":"templatestyles","attrs":{"src":"Hlist/styles.css"},"body":{"extsrc":""}}'>.mw-parser-output .hlist dl,.mw-parser-output .hlist ol,.mw-parser-output .hlist ul{margin:0;padding:0}.mw-parser-output .hlist dd,.mw-parser-output .hlist dt,.mw-parser-output .hlist li{margin:0;display:inline}.mw-parser-output .hlist.inline,.mw-parser-output .hlist.inline dl,.mw-parser-output .hlist.inline ol,.mw-parser-output .hlist.inline ul,.mw-parser-output .hlist dl dl,.mw-parser-output .hlist dl ol,.mw-parser-output .hlist dl ul,.mw-parser-output .hlist ol dl,.mw-parser-output .hlist ol ol,.mw-parser-output .hlist ol ul,.mw-parser-output .hlist ul dl,.mw-parser-output .hlist ul ol,.mw-parser-output .hlist ul ul{display:inline}.mw-parser-output .hlist .mw-empty-li{display:none}.mw-parser-output .hlist dt::after{content:": "}.mw-parser-output .hlist dd::after,.mw-parser-output .hlist li::after{content:"\a0 · ";font-weight:bold}.mw-parser-output .hlist dd:last-child::after,.mw-parser-output .hlist dt:last-child::after,.mw-parser-output .hlist li:last-child::after{content:none}.mw-parser-output .hlist dd dd:first-child::before,.mw-parser-output .hlist dd dt:first-child::before,.mw-parser-output .hlist dd li:first-child::before,.mw-parser-output .hlist dt dd:first-child::before,.mw-parser-output .hlist dt dt:first-child::before,.mw-parser-output .hlist dt li:first-child::before,.mw-parser-output .hlist li dd:first-child::before,.mw-parser-output .hlist li dt:first-child::before,.mw-parser-output .hlist li li:first-child::before{content:" (";font-weight:normal}.mw-parser-output .hlist dd dd:last-child::after,.mw-parser-output .hlist dd dt:last-child::after,.mw-parser-output .hlist dd li:last-child::after,.mw-parser-output .hlist dt dd:last-child::after,.mw-parser-output .hlist dt dt:last-child::after,.mw-parser-output .hlist dt li:last-child::after,.mw-parser-output .hlist li dd:last-child::after,.mw-parser-output .hlist li dt:last-child::after,.mw-parser-output .hlist li li:last-child::after{content:")";font-weight:normal}.mw-parser-output .hlist ol{counter-reset:listitem}.mw-parser-output .hlist ol>li{counter-increment:listitem}.mw-parser-output .hlist ol>li::before{content:" "counter(listitem)"\a0 "}.mw-parser-output .hlist dd ol>li:first-child::before,.mw-parser-output .hlist dt ol>li:first-child::before,.mw-parser-output .hlist li ol>li:first-child::before{content:" ("counter(listitem)"\a0 "}</style><style data-mw-deduplicate="TemplateStyles:r1377086236" typeof="mw:Extension/templatestyles" about="#mwt68" data-mw='{"name":"templatestyles","attrs":{"src":"Module:Navbox/styles.css"},"body":{"extsrc":""}}'>.mw-parser-output .navbox{box-sizing:border-box;border:1px solid #a2a9b1;width:100%;clear:both;font-size:88%;text-align:center;padding:1px;margin:1em auto 0}.mw-parser-output .navbox .navbox{margin-top:0}.mw-parser-output .navbox+.navbox-styles+.navbox,.mw-parser-output .navbox+span.mw-empty-elt+.navbox-styles+.navbox{margin-top:-1px}.mw-parser-output .navbox-inner,.mw-parser-output .navbox-subgroup{width:100%}.mw-parser-output .navbox-group,.mw-parser-output .navbox-title,.mw-parser-output .navbox-abovebelow{padding:0.25em 1em;line-height:1.5em;text-align:center}.mw-parser-output .navbox-group{white-space:nowrap;text-align:right}.mw-parser-output .navbox,.mw-parser-output .navbox-subgroup{background-color:#fdfdfd;color:inherit}.mw-parser-output .navbox-list{line-height:1.5em;border-color:#fdfdfd}.mw-parser-output .navbox-list-with-group{text-align:left;border-left-width:2px;border-left-style:solid}.mw-parser-output tr+tr>.navbox-abovebelow,.mw-parser-output tr+tr>.navbox-group,.mw-parser-output tr+tr>.navbox-image,.mw-parser-output tr+tr>.navbox-list{border-top:2px solid #fdfdfd}.mw-parser-output .navbox-title{background-color:#ccf;color:inherit}.mw-parser-output .navbox-abovebelow,.mw-parser-output .navbox-group,.mw-parser-output .navbox-subgroup .navbox-title{background-color:#ddf;color:inherit}.mw-parser-output .navbox-subgroup .navbox-group,.mw-parser-output .navbox-subgroup .navbox-abovebelow{background-color:#e6e6ff;color:inherit}.mw-parser-output .navbox-even{background-color:#f7f7f7;color:inherit}.mw-parser-output .navbox-odd{background-color:transparent;color:inherit}.mw-parser-output .navbox .hlist td dl,.mw-parser-output .navbox .hlist td ol,.mw-parser-output .navbox .hlist td ul,.mw-parser-output .navbox td.hlist dl,.mw-parser-output .navbox td.hlist ol,.mw-parser-output .navbox td.hlist ul{padding:0.125em 0}.mw-parser-output .navbox .navbar{display:block;font-size:100%}.mw-parser-output .navbox-title .navbar{float:left;text-align:left;margin-right:0.5em}body.skin--responsive .mw-parser-output .navbox-image img{max-width:none!important}@media print{body.ns-0 .mw-parser-output .navbox{display:none!important}}</style></div><div role="navigation" class="navbox" aria-labelledby="Software_testing1779" style="padding:3px" about="#mwt66" id="mwAvs"><table class="nowraplinks hlist mw-collapsible autocollapse navbox-inner" style="border-spacing:0;background:transparent;color:inherit"><tbody><tr><th scope="col" class="navbox-title" colspan="2"><link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r1374427404" about="#mwt69" typeof="mw:Extension/templatestyles" data-mw='{"name":"templatestyles","attrs":{"src":"Hlist/styles.css"},"body":{"extsrc":""}}'/><style data-mw-deduplicate="TemplateStyles:r1239400231" typeof="mw:Extension/templatestyles" about="#mwt70" data-mw='{"name":"templatestyles","attrs":{"src":"Module:Navbar/styles.css"},"body":{"extsrc":""}}'>.mw-parser-output .navbar{display:inline;font-size:88%;font-weight:normal}.mw-parser-output .navbar-collapse{float:left;text-align:left}.mw-parser-output .navbar-boxtext{word-spacing:0}.mw-parser-output .navbar ul{display:inline-block;white-space:nowrap;line-height:inherit}.mw-parser-output .navbar-brackets::before{margin-right:-0.125em;content:"[ "}.mw-parser-output .navbar-brackets::after{margin-left:-0.125em;content:" ]"}.mw-parser-output .navbar li{word-spacing:-0.125em}.mw-parser-output .navbar a>span,.mw-parser-output .navbar a>abbr{text-decoration:inherit}.mw-parser-output .navbar-mini abbr{font-variant:small-caps;border-bottom:none;text-decoration:none;cursor:inherit}.mw-parser-output .navbar-ct-full{font-size:114%;margin:0 7em}.mw-parser-output .navbar-ct-mini{font-size:114%;margin:0 4em}html.skin-theme-clientpref-night .mw-parser-output .navbar li a abbr{color:var(--color-base)!important}@media(prefers-color-scheme:dark){html.skin-theme-clientpref-os .mw-parser-output .navbar li a abbr{color:var(--color-base)!important}}@media print{.mw-parser-output .navbar{display:none!important}}</style><div class="navbar plainlinks hlist navbar-mini"><ul><li class="nv-view"><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Template:Software_testing" title="Template:Software testing"><abbr title="View this template">v</abbr></a></li><li class="nv-talk"><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Template_talk:Software_testing" title="Template talk:Software testing"><abbr title="Discuss this template">t</abbr></a></li><li class="nv-edit"><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Special:EditPage/Template:Software_testing" title="Special:EditPage/Template:Software testing"><abbr title="Edit this template">e</abbr></a></li></ul></div><div id="Software_testing1779" style="font-size:114%;margin:0 4em"><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Software_testing" title="Software testing">Software testing</a></div></th></tr><tr><th scope="row" class="navbox-group" style="width:1%">Test levels</th><td class="navbox-list-with-group navbox-list navbox-odd" style="width:100%;padding:0"><div style="padding:0 0.25em">
+<ul><li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Acceptance_testing" title="Acceptance testing">Acceptance testing</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/System_integration_testing" title="System integration testing">System integration testing</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/System_testing" title="System testing">System testing</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Integration_testing" title="Integration testing">Integration testing</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Unit_testing" title="Unit testing">Unit testing</a></li></ul>
+</div></td></tr><tr><th scope="row" class="navbox-group" style="width:1%">Test types,<br/>techniques,<br/><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Software_testing_tactics" title="Software testing tactics">tactics</a></th><td class="navbox-list-with-group navbox-list navbox-odd" style="width:100%;padding:0"><div style="padding:0 0.25em"></div><table class="nowraplinks navbox-subgroup" style="border-spacing:0"><tbody><tr><td colspan="2" class="navbox-list navbox-even" style="width:100%;padding:0"><div style="padding:0 0.25em">
+<ul><li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/A/B_testing" title="A/B testing">A/B testing</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Benchmark_(computing)" title="Benchmark (computing)">Benchmark</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Compatibility_testing" title="Compatibility testing">Compatibility testing</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Concolic_testing" title="Concolic testing">Concolic testing</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Concurrent_testing" title="Concurrent testing">Concurrent testing</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Conformance_testing" title="Conformance testing">Conformance testing</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Continuous_testing" title="Continuous testing">Continuous testing</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Destructive_testing" title="Destructive testing">Destructive testing</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Development_testing" title="Development testing">Development testing</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Differential_testing" title="Differential testing">Differential testing</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Dynamic_program_analysis" title="Dynamic program analysis">Dynamic program analysis</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Installation_testing" title="Installation testing">Installation testing</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Negative_testing" title="Negative testing">Negative testing</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Random_testing" title="Random testing">Random testing</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Regression_testing" title="Regression testing">Regression testing</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Security_testing" title="Security testing">Security testing</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Smoke_testing_(software)" title="Smoke testing (software)">Smoke testing (software)</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Software_performance_testing" title="Software performance testing">Software performance testing</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Stress_testing_(software)" title="Stress testing (software)">Stress testing</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Symbolic_execution" title="Symbolic execution">Symbolic execution</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Test_automation" title="Test automation">Test automation</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Usability_testing" title="Usability testing">Usability testing</a></li></ul>
+</div></td></tr><tr><th scope="row" class="navbox-group" style="width:1%">[x]-box<br/>style</th><td class="navbox-list-with-group navbox-list navbox-odd" style="width:100%;padding:0"><div style="padding:0 0.25em">
+<ul><li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Black-box_testing" title="Black-box testing">Black-box testing</a>
+<ul><li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/All-pairs_testing" title="All-pairs testing">All-pairs testing</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Exploratory_testing" title="Exploratory testing">Exploratory testing</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Fuzz_testing" title="Fuzz testing" class="mw-redirect">Fuzz testing</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Model-based_testing" title="Model-based testing">Model-based testing</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Scenario_testing" title="Scenario testing">Scenario testing</a></li></ul></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Grey-box_testing" title="Grey-box testing" class="mw-redirect">Grey-box testing</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/White-box_testing" title="White-box testing">White-box testing</a>
+<ul><li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/API_testing" title="API testing">API testing</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Mutation_testing" class="mw-selflink selflink">Mutation testing</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Static_testing" title="Static testing" class="mw-redirect">Static testing</a></li></ul></li></ul>
+</div></td></tr></tbody></table><div></div></td></tr><tr><th scope="row" class="navbox-group" style="width:1%">See also</th><td class="navbox-list-with-group navbox-list navbox-even" style="width:100%;padding:0"><div style="padding:0 0.25em">
+<ul><li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Graphical_user_interface_testing" title="Graphical user interface testing">Graphical user interface testing</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Manual_testing" title="Manual testing">Manual testing</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Orthogonal_array_testing" title="Orthogonal array testing">Orthogonal array testing</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Pair_testing" title="Pair testing">Pair testing</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Soak_testing" title="Soak testing">Soak testing</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Software_reliability_testing" title="Software reliability testing">Software reliability testing</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Stress_testing" title="Stress testing">Stress testing</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Web_testing" title="Web testing">Web testing</a></li></ul>
+</div></td></tr></tbody></table></div>
+
+<link rel="mw:PageProp/Category" href="./Category:Software_testing" id="mwAvw"/></section>
+<!-- 
+NewPP limit report
+Parsed by mw‐web.eqiad.main‐58cf6dbc6c‐bnlwt
+Cached time: 20261108014248
+Cache expiry: 2592000
+Cache expiry source: Module:Citation/CS1 (os.date(%Y))
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc, use‐parsoid]
+CPU time usage: 0.369 seconds
+Real time usage: 0.416 seconds
+Preprocessor visited node count: 658/1000000
+Revision size: 23200/2097152 bytes
+Post‐expand include size: 36061/2097152 bytes
+Template argument size: 426/2097152 bytes
+Highest expansion depth: 8/100
+Expensive parser function count: 3/500
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 28644/5000000 bytes
+Lua time usage: 0.071/10.000 seconds
+Lua memory usage: 6138856/52428800 bytes
+Number of Wikibase entities loaded: 0/500
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%  242.465      1 -total
+ 15.19%   36.835      2 Template:Cite_journal
+ 15.15%   36.741      1 Template:Short_description
+  8.72%   21.151      2 Template:Pagetype
+  6.99%   16.957      5 Template:Cite_book
+  6.94%   16.836      1 Template:Software_testing
+  6.73%   16.322      2 Template:Navbox
+  3.96%    9.603      3 Template:Main_other
+  3.61%    8.761      1 Template:Redirect
+  3.53%    8.554      1 Template:SDcat
+-->
+
+<!-- Render ID b3a62605-db15-11f1-a376-b3f552d0e320 -->
+
+<!-- Saved in parser cache with key enwiki:parsoid-pcache:2362840:|#|:idhash:useParsoid=1 and timestamp 20261108014248 and revision id 1373580212. Rendering was triggered because: page_view
+ -->
+
+<!-- Parsoid 0.25.0.0-alpha1 -->
+</div><!--
+Post‐processing cache key enwiki:postproc‐parsoid‐pcache:2362840:|#|:idhash:injectTOC=0!postproc=1!skin=vector‐2022!useParsoid=1!visibleLinks=single, generated at 20261108014248
+--><noscript><img src="https://en.wikipedia.org/wiki/Special:CentralAutoLogin/start?useformat=desktop&amp;type=1x1&amp;usesul3=1" alt="" width="1" height="1" style="border: none; position: absolute;"></noscript>
+<div class="printfooter" data-nosnippet="">Retrieved from "<a dir="ltr" href="https://en.wikipedia.org/w/index.php?title=Mutation_testing&amp;oldid=1373580212">https://en.wikipedia.org/w/index.php?title=Mutation_testing&amp;oldid=1373580212</a>"</div></div>
+					<div id="catlinks" class="catlinks" data-mw-interface=""><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/wiki/Help:Category" title="Help:Category">Category</a>: <ul><li><a href="/wiki/Category:Software_testing" title="Category:Software testing">Software testing</a></li></ul></div><div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul><li><a href="/wiki/Category:Articles_with_short_description" title="Category:Articles with short description">Articles with short description</a></li><li><a href="/wiki/Category:Short_description_matches_Wikidata" title="Category:Short description matches Wikidata">Short description matches Wikidata</a></li><li><a href="/wiki/Category:Webarchive_template_wayback_links" title="Category:Webarchive template wayback links">Webarchive template wayback links</a></li></ul></div></div>
+				</div>
+			</main>
+			
+		</div>
+		<div class="mw-footer-container">
+			<footer id="footer" class="mw-footer" >
+				<ul id="footer-info" class="mw-portlet mw-portlet-footer-info">
+	<li id="footer-info-lastmod"> This page was last edited on 6 September 2026, at 19:05<span class="anonymous-show">&#160;(UTC)</span>.</li>
+	<li id="footer-info-renderedwith">Page was rendered with <a href="https://www.mediawiki.org/wiki/Special:MyLanguage/Parsoid" class="extiw" title="mw:Special:MyLanguage/Parsoid">Parsoid</a>.</li>
+	<li id="footer-info-copyright">Text is available under the <a href="/wiki/Wikipedia:Text_of_the_Creative_Commons_Attribution-ShareAlike_4.0_International_License" title="Wikipedia:Text of the Creative Commons Attribution-ShareAlike 4.0 International License">Creative Commons Attribution-ShareAlike 4.0 License</a>;
+additional terms may apply. By using this site, you agree to the <a href="https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Terms_of_Use" class="extiw" title="foundation:Special:MyLanguage/Policy:Terms of Use">Terms of Use</a> and <a href="https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Privacy_policy" class="extiw" title="foundation:Special:MyLanguage/Policy:Privacy policy">Privacy Policy</a>. Wikipedia® is a registered trademark of the <a rel="nofollow" class="external text" href="https://wikimediafoundation.org/">Wikimedia Foundation, Inc.</a>, a non-profit organization.</li>
+</ul>
+
+				<ul id="footer-places" class="mw-portlet mw-portlet-footer-places">
+	<li id="footer-places-privacy"><a href="https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Privacy_policy">Privacy policy</a></li>
+	<li id="footer-places-about"><a href="/wiki/Wikipedia:About">About Wikipedia</a></li>
+	<li id="footer-places-disclaimers"><a href="/wiki/Wikipedia:General_disclaimer">Disclaimers</a></li>
+	<li id="footer-places-contact"><a href="//en.wikipedia.org/wiki/Wikipedia:Contact_us">Contact Wikipedia</a></li>
+	<li id="footer-places-legal-safety-contacts"><a href="https://foundation.wikimedia.org/wiki/Special:MyLanguage/Legal:Wikimedia_Foundation_Legal_and_Safety_Contact_Information">Legal &amp; safety contacts</a></li>
+	<li id="footer-places-wm-codeofconduct"><a href="https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Universal_Code_of_Conduct">Code of Conduct</a></li>
+	<li id="footer-places-developers"><a href="https://developer.wikimedia.org">Developers</a></li>
+	<li id="footer-places-statslink"><a href="https://stats.wikimedia.org/#/en.wikipedia.org">Statistics</a></li>
+	<li id="footer-places-cookiestatement"><a href="https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Cookie_statement">Cookie statement</a></li>
+	<li id="footer-places-mobileview"><a href="//en.wikipedia.org/w/index.php?title=Mutation_testing&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+</ul>
+
+				<ul id="footer-icons" class="mw-portlet mw-portlet-footer-icons noprint">
+	<li id="footer-copyrightico"><a href="https://www.wikimedia.org/" class="cdx-button cdx-button--fake-button cdx-button--size-large cdx-button--fake-button--enabled"><picture><source media="(min-width: 500px)" srcset="/static/images/footer/wikimedia-button.svg" width="84" height="29"><img src="/static/images/footer/wikimedia.svg" width="25" height="25" alt="Wikimedia Foundation" lang="en" loading="lazy"></picture></a></li>
+	<li id="footer-poweredbyico"><a href="https://www.mediawiki.org/" class="cdx-button cdx-button--fake-button cdx-button--size-large cdx-button--fake-button--enabled"><picture><source media="(min-width: 500px)" srcset="/w/resources/assets/poweredby_mediawiki.svg" width="88" height="31"><img src="/w/resources/assets/mediawiki_compact.svg" alt="Powered by MediaWiki" lang="en" width="25" height="25" loading="lazy"></picture></a></li>
+</ul>
+
+			</footer>
+		</div>
+	</div> 
+</div> 
+<div class="vector-header-container vector-sticky-header-container no-font-mode-scale">
+	<div id="vector-sticky-header" class="vector-sticky-header">
+		<div class="vector-sticky-header-start">
+			<div class="vector-sticky-header-icon-start vector-button-flush-left" aria-hidden="true">
+				<button class="cdx-button cdx-button--weight-quiet cdx-button--icon-only vector-sticky-header-search-toggle" tabindex="-1" data-event-name="ui.vector-sticky-search-form.icon"><span class="vector-icon mw-ui-icon-search mw-ui-icon-wikimedia-search cdx-button__icon"></span>
+
+<span>Search</span>
+			</button>
+		</div>
+			
+		<div role="search" class="vector-search-box-vue  vector-search-box-show-thumbnail vector-search-box">
+			<div class="vector-typeahead-search-container">
+				<div class="cdx-typeahead-search cdx-typeahead-search--show-thumbnail">
+					<form action="/w/index.php" id="vector-sticky-search-form" class="cdx-search-input cdx-search-input--has-end-button">
+						<div  class="cdx-search-input__input-wrapper"  data-search-loc="header-moved">
+							<div class="cdx-text-input cdx-text-input--has-start-icon">
+								<input
+									class="cdx-text-input__input mw-searchInput" autocomplete="off"
+									
+									type="search" name="search" placeholder="Search Wikipedia">
+								<span class="cdx-text-input__icon cdx-text-input__start-icon"></span>
+							</div>
+							<input type="hidden" name="title" value="Special:Search">
+						</div>
+						<button class="cdx-button cdx-search-input__end-button">Search</button>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="vector-sticky-header-context-bar">
+				<nav aria-label="Contents" class="vector-toc-landmark">
+						
+					<div id="vector-sticky-header-toc" class="vector-dropdown mw-portlet mw-portlet-sticky-header-toc vector-sticky-header-toc vector-button-flush-left"  >
+						<input type="checkbox" id="vector-sticky-header-toc-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-sticky-header-toc" class="vector-dropdown-checkbox "  aria-label="Toggle the table of contents"   >
+						<label id="vector-sticky-header-toc-label" for="vector-sticky-header-toc-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only " aria-hidden="true"  ><span class="vector-icon mw-ui-icon-listBullet mw-ui-icon-wikimedia-listBullet cdx-button__icon"></span>
+
+<span class="vector-dropdown-label-text">Toggle the table of contents</span>
+						</label>
+						<div class="vector-dropdown-content">
+					
+						<div id="vector-sticky-header-toc-unpinned-container" class="vector-unpinned-container">
+						</div>
+					
+						</div>
+					</div>
+			</nav>
+				<div class="vector-sticky-header-context-bar-primary" aria-hidden="true" ><span lang="en" dir="ltr"><span class="mw-page-title-main">Mutation testing</span></span></div>
+			</div>
+		</div>
+		<div class="vector-sticky-header-end" aria-hidden="true">
+			<div class="vector-sticky-header-icons">
+				<a href="#" class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only" id="ca-talk-sticky-header" tabindex="-1" data-event-name="talk-sticky-header"><span class="vector-icon mw-ui-icon-speechBubbles mw-ui-icon-wikimedia-speechBubbles cdx-button__icon"></span>
+
+<span></span>
+			</a>
+			<a href="#" class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only" id="ca-subject-sticky-header" tabindex="-1" data-event-name="subject-sticky-header"><span class="vector-icon mw-ui-icon-article mw-ui-icon-wikimedia-article cdx-button__icon"></span>
+
+<span></span>
+			</a>
+			<a href="#" class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only" id="ca-history-sticky-header" tabindex="-1" data-event-name="history-sticky-header"><span class="vector-icon mw-ui-icon-wikimedia-history mw-ui-icon-wikimedia-wikimedia-history cdx-button__icon"></span>
+
+<span></span>
+			</a>
+			<a href="#" class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only mw-watchlink" id="ca-watchstar-sticky-header" tabindex="-1" data-event-name="watch-sticky-header"><span class="vector-icon mw-ui-icon-wikimedia-star mw-ui-icon-wikimedia-wikimedia-star cdx-button__icon"></span>
+
+<span></span>
+			</a>
+			<a href="#" class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only" id="ca-edit-sticky-header" tabindex="-1" data-event-name="wikitext-edit-sticky-header"><span class="vector-icon mw-ui-icon-wikimedia-wikiText mw-ui-icon-wikimedia-wikimedia-wikiText cdx-button__icon"></span>
+
+<span></span>
+			</a>
+			<a href="#" class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only" id="ca-ve-edit-sticky-header" tabindex="-1" data-event-name="ve-edit-sticky-header"><span class="vector-icon mw-ui-icon-wikimedia-edit mw-ui-icon-wikimedia-wikimedia-edit cdx-button__icon"></span>
+
+<span></span>
+			</a>
+			<a href="#" class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only" id="ca-viewsource-sticky-header" tabindex="-1" data-event-name="ve-edit-protected-sticky-header"><span class="vector-icon mw-ui-icon-wikimedia-editLock mw-ui-icon-wikimedia-wikimedia-editLock cdx-button__icon"></span>
+
+<span></span>
+			</a>
+		</div>
+			<div class="vector-sticky-header-buttons">
+				<button class="cdx-button cdx-button--weight-quiet mw-interlanguage-selector" id="p-lang-btn-sticky-header" tabindex="-1" data-event-name="ui.dropdown-p-lang-btn-sticky-header"><span class="vector-icon mw-ui-icon-wikimedia-language mw-ui-icon-wikimedia-wikimedia-language cdx-button__icon"></span>
+
+<span>11 languages</span>
+			</button>
+			<a href="#" class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--action-progressive" id="ca-addsection-sticky-header" tabindex="-1" data-event-name="addsection-sticky-header"><span class="vector-icon mw-ui-icon-speechBubbleAdd-progressive mw-ui-icon-wikimedia-speechBubbleAdd-progressive cdx-button__icon"></span>
+
+<span>Add topic</span>
+			</a>
+		</div>
+			<div class="vector-sticky-header-icon-end">
+				<div class="vector-user-links">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="mw-portlet mw-portlet-dock-bottom emptyPortlet" id="p-dock-bottom">
+	<ul>
+		
+	</ul>
+</div>
+<script>(RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgHostname":"mw-web.eqiad.main-58cf6dbc6c-frd75","wgBackendResponseTime":107,"wgPageParseReport":{"limitreport":{"cputime":"0.369","walltime":"0.416","ppvisitednodes":{"value":658,"limit":1000000},"revisionsize":{"value":23200,"limit":2097152},"postexpandincludesize":{"value":36061,"limit":2097152},"templateargumentsize":{"value":426,"limit":2097152},"expansiondepth":{"value":8,"limit":100},"expensivefunctioncount":{"value":3,"limit":500},"unstrip-depth":{"value":0,"limit":20},"unstrip-size":{"value":28644,"limit":5000000},"entityaccesscount":{"value":0,"limit":500},"timingprofile":["100.00%  242.465      1 -total"," 15.19%   36.835      2 Template:Cite_journal"," 15.15%   36.741      1 Template:Short_description","  8.72%   21.151      2 Template:Pagetype","  6.99%   16.957      5 Template:Cite_book","  6.94%   16.836      1 Template:Software_testing","  6.73%   16.322      2 Template:Navbox","  3.96%    9.603      3 Template:Main_other","  3.61%    8.761      1 Template:Redirect","  3.53%    8.554      1 Template:SDcat"]},"scribunto":{"limitreport-timeusage":{"value":"0.071","limit":"10.000"},"limitreport-memusage":{"value":6138856,"limit":52428800}},"cachereport":{"origin":"mw-web.eqiad.main-58cf6dbc6c-bnlwt","timestamp":"20261108014248","ttl":2592000,"transientcontent":false,"expiry-source":"Module:Citation/CS1 (os.date(%Y))"}}});});</script>
+<script type="application/ld+json">{"@context":"https:\/\/schema.org","@type":"Article","name":"Mutation testing","url":"https:\/\/en.wikipedia.org\/wiki\/Mutation_testing","sameAs":"http:\/\/www.wikidata.org\/entity\/Q4308623","mainEntity":"http:\/\/www.wikidata.org\/entity\/Q4308623","author":{"@type":"Organization","name":"Contributors to Wikimedia projects"},"publisher":{"@type":"Organization","name":"Wikimedia Foundation, Inc.","logo":{"@type":"ImageObject","url":"https:\/\/www.wikimedia.org\/static\/images\/wmf-hor-googpub.png"}},"datePublished":"2005-08-02T17:25:16Z","dateModified":"2026-09-06T19:05:04Z","headline":"method of software testing"}</script>
+</body>
+</html>

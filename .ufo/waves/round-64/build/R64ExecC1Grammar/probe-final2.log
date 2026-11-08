@@ -1,0 +1,19 @@
+## checker
+07bdc614f502d53287a3e5f3f0a7414e4831b0ab0b0863775c1c5d600079333c  /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-61-c1-check.py
+2154 /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-61-c1-check.py
+## selftest
+C1_CHECK_SELFTEST: PASS (cases=111)
+rc=0
+## base (unmodified slim copy)
+C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+## forgery classes (expect value=1)
+denial-after-pair | C1_ROUTED: value=1 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=0 guard=0
+duplicate-pair-unbound | C1_ROUTED: value=1 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=0 guard=0
+negated-subject | C1_ROUTED: value=1 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=0 guard=0
+quoted-claim-denied | C1_ROUTED: value=1 population=7 i1=1 i2=1 i3=1 i4=0 i5=1 i6=1 i7=1 guard=0
+duplicated-mechanism | C1_ROUTED: value=1 population=7 i1=1 i2=1 i3=1 i4=1 i5=0 i6=1 i7=1 guard=0
+## benign classes (expect value=0)
+parenthetical | C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+emdash-aside | C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+idiom-not-less-than | C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0
+blocker-window-bounded | C1_ROUTED: value=0 population=7 i1=1 i2=1 i3=1 i4=1 i5=1 i6=1 i7=1 guard=0

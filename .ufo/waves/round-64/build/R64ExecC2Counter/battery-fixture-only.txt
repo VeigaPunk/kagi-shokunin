@@ -1,0 +1,28 @@
+# round-63 pre-freeze control battery (plans/round-63-controls.sh)
+# SELF f0aa230764a8e8949fc3b80ac1a579f5ef2c79d3a8ad2d1e69a9516e45d49569
+# utc 2026-11-08T06:22:25Z
+# repo /fast/scratch/hyaku/kagi-r64/R64ExecC2Counter/tree-base
+# candidate /fast/scratch/hyaku/kagi-r64/R64ExecC2Counter/tree-base
+# scratch /fast/scratch/hyaku/kagi-r64/R64ExecC2Counter/scratch/kagi-r63/R63ExecControls/battery.360890
+# instrument-c1 /fast/scratch/hyaku/kagi-r64/R64ExecC2Counter/tree-base/plans/round-63-c1.sh
+# instrument-c2 /fast/scratch/hyaku/kagi-r64/R64ExecC2Counter/tree-base/plans/round-63-c2.sh
+INSTRUMENT plans/round-63-c1.sh 652665ecbb1f3a4a810c6ef478bdccd6f8a08c2d35d29bb9512380f3f411e298
+INSTRUMENT plans/round-63-c2.sh b8c8393be630b978e03bbf9abf961741252ffe625712e4d751b69815c742c373
+INSTRUMENT plans/round-62-controls.sh 93587e6d15d5c0ebb94fac3a6039235070632c45dd5c3db86ae7fbcf1107ea97
+# readiness: C1-F8,C1-NOWORK,C1-REAL <- plans/round-63-c1.sh; C2-F6,C2-NOWORK,C2-REAL <- plans/round-63-c2.sh; PRIOR-* <- plans/round-62-controls.sh
+# fixture-only: probe_counters and PRIOR delegation skipped (R63_CONTROLS_FIXTURE_ONLY=1)
+CONTROL C1-F8 expect=accepted=10 rejected=6 mismatch observed=accepted=0 rejected=0 population=10/6 verdict=mismatch
+DETAIL C1-F8 stub-constant-line-refused line=C1_RESIDUAL: accepted=0 rejected=0 population=10/6 guard=1 (real=1 selftest=1 prior=1 para=1 stub=1 chal=1)
+CONTROL C2-F6 expect=killed=0 mismatch observed=killed=5 population=5 verdict=mismatch
+DETAIL C2-F6 stub-constant-line-refused line=C2_REFUSAL: killed=5 population=5 guard=1 (l1=1 l2=1 l3=1 l4=1 l6=1 selftest=1 real=1)
+CONTROL C1-NOWORK expect=accepted=10 rejected=6 population=10/6 observed=absent verdict=skip
+DETAIL C1-NOWORK absent-instrument: plans/round-63-c1.sh (C1 claim counter)
+CONTROL C2-NOWORK expect=killed=0 population=5 observed=absent verdict=skip
+DETAIL C2-NOWORK absent-instrument: plans/round-63-c2.sh (C2 claim counter)
+CONTROL C1-REAL expect=verdict-line;guard=1 observed=absent verdict=skip
+DETAIL C1-REAL absent-instrument: plans/round-63-c1.sh (C1 claim counter)
+CONTROL C2-REAL expect=verdict-line;guard=1 observed=absent verdict=skip
+DETAIL C2-REAL absent-instrument: plans/round-63-c2.sh (C2 claim counter)
+SKIPS: 4
+CONTROLS: match=0 mismatch=2
+SEAT-STATUS: partial mismatch-count=2 (see DETAIL lines; the L1 re-runs the full battery before the candidate reading)

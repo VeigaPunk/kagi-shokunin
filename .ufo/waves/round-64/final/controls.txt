@@ -1,0 +1,43 @@
+# round-64 pre-freeze control battery (plans/round-64-controls.sh)
+# SELF e37d497dc6bf56e02b26d8fec8ed24cf66d252968287302b74267ef158d8a678
+# utc 2026-11-08T07:25:45Z
+# repo /home/vgpnk/Projects/shokunin/kagi-shokunin
+# candidate /home/vgpnk/Projects/shokunin/kagi-shokunin
+# scratch /fast/scratch/hyaku/kagi-r64/R64ExecControls/battery.2391560
+# instrument-c1 /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-64-c1.sh
+# instrument-c2 /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-64-c2.sh
+INSTRUMENT plans/round-64-c1.sh e03a4d69f7f13e5e4a731082bac4684f5014f105237e81834489ccdd62368484
+INSTRUMENT plans/round-64-c2.sh e2d8171f4da7b5501906d643c98fe6f822b46baf266f19f2fe81ca5bb7f37e4b
+INSTRUMENT plans/round-63-controls.sh f0aa230764a8e8949fc3b80ac1a579f5ef2c79d3a8ad2d1e69a9516e45d49569
+# readiness: C1-F9,C1-NOWORK,C1-REAL <- plans/round-64-c1.sh; C2-F7,C2-BOUND,C2-NOWORK,C2-REAL <- plans/round-64-c2.sh; PRIOR-* <- plans/round-63-controls.sh
+CONTROL C1-F9 expect=heldout=8 mismatch observed=heldout=0 population=8 verdict=mismatch
+DETAIL C1-F9 stub-constant-line-refused line=C1_HELDOUT: heldout=0 population=8 guard=1 (real=1 selftest=1 resid=1 stub=1 vehicle=1)
+CONTROL C2-F7 expect=terminates=0 mismatch observed=terminates=1 killed=5 population=5 verdict=mismatch
+DETAIL C2-F7 stub-constant-line-refused line=C2_REFUSAL: killed=5 population=5 guard=1 (l1=1 l2=1 l3=1 l4=1 l6=1 selftest=1 real=1 terminates=1 bound=1)
+CONTROL C2-BOUND expect=nontermination-bound=0 mismatch-if-terminates observed=no-verdict-line;rc=124;timeout=240s verdict=match
+DETAIL C2-BOUND refutation: no verdict line under bound=0 inside timeout 240s
+CONTROL C1-NOWORK expect=heldout=8 population=8 observed=heldout=0 population=8 rc=0 verdict=mismatch
+DETAIL C1-NOWORK fixture-vacuous-or-counter-drift line=C1_HELDOUT: heldout=0 population=8 guard=1 (real=1 selftest=1 resid=1 stub=1 vehicle=1)
+CONTROL C2-NOWORK expect=killed=0 population=5 terminates=0 observed=killed=5 population=5 terminates=1 rc=0 verdict=mismatch
+DETAIL C2-NOWORK fixture-vacuous-or-counter-drift line=C2_REFUSAL: killed=5 population=5 guard=1 (l1=1 l2=1 l3=1 l4=1 l6=1 selftest=1 real=1 terminates=1 bound=1)
+CONTROL C1-REAL expect=verdict-line;guard=1 observed=guard=1 heldout=0 rc=0 verdict=match
+DETAIL C1-REAL positive control: guard evaluates to 1
+CONTROL C2-REAL expect=verdict-line;guard=1 observed=guard=1 killed=5 rc=0 verdict=match
+DETAIL C2-REAL positive control: guard evaluates to 1
+CONTROL PRIOR-C1-F8 expect=accepted=10 observed= verdict=mismatch
+DETAIL PRIOR-C1-F8 stub-constant-line-refused line=C1_RESIDUAL: accepted=0 rejected=0 population=10/6 guard=1 (real=1 selftest=1 prior=1 para=1 stub=1 chal=1)
+CONTROL PRIOR-C2-F6 expect=killed=0 observed= verdict=mismatch
+DETAIL PRIOR-C2-F6 stub-constant-line-refused line=C2_REFUSAL: killed=5 population=5 guard=1 (l1=1 l2=1 l3=1 l4=1 l6=1 selftest=1 real=1)
+CONTROL PRIOR-C1-NOWORK expect=accepted=10 observed= verdict=skip
+DETAIL PRIOR-C1-NOWORK absent-instrument: plans/round-63-c1.sh (C1 claim counter)
+CONTROL PRIOR-C2-NOWORK expect=killed=0 observed= verdict=skip
+DETAIL PRIOR-C2-NOWORK absent-instrument: plans/round-63-c2.sh (C2 claim counter)
+CONTROL PRIOR-C1-REAL expect=verdict-line;guard=1 observed=absent verdict=skip
+DETAIL PRIOR-C1-REAL absent-instrument: plans/round-63-c1.sh (C1 claim counter)
+CONTROL PRIOR-C2-REAL expect=verdict-line;guard=1 observed=absent verdict=skip
+DETAIL PRIOR-C2-REAL absent-instrument: plans/round-63-c2.sh (C2 claim counter)
+DETAIL PRIOR delegated=6 rc=1 mode=fixture-only prior-summary=SKIPS: 4 CONTROLS: match=0 mismatch=2 
+SKIPS: 4
+CONTROLS: match=3 mismatch=6
+SEAT-STATUS: partial mismatch-count=6 (see DETAIL lines; the L1 re-runs the full battery before the candidate reading)
+rc=1

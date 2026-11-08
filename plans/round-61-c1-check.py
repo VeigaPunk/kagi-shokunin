@@ -137,6 +137,26 @@ disagree precisely):
     18.75 %` within 8 tokens after `literal reading`, `4/16 = 25 %` within 8
     tokens after `sentinel` (quoted spans masked). The window and the lists
     are closed lists and a floor (plan §C1 named ceiling).
+  - Round-64 hardening (plans/round-64.md §C1 as amended). The grammar gains
+    the six shape-class rules (each named here as the class it closes, never
+    quoting a fixture): (1) I7 every pair occurrence must itself be in the
+    asserting position — no denial predicate between the pair's end and the
+    next `.`/`;` (a benign pair followed by a sentence-level denial); (2) I7
+    every occurrence of a derived fraction/percentage pair must be bound to
+    a subject within `SUBJECT_WINDOW` tokens of it (a duplicate pair appended
+    elsewhere is a defect); (3) a subject preceded within 5 tokens by
+    `different`/`other`/`no`/`not` does not bind its pair (a negated
+    subject); (4) well-formed parentheticals `( … )` and em-dash asides
+    `— … —` are masked along with the quoted spans before the binding and
+    the token count, so a clarification between subject and pair does not
+    break the binding and a negator inside such an aside does not count (the
+    appositive/parenthetical class); (5) I4's `no new record defect` match
+    must be asserted, so a quoted claim followed by a denial leaves the item
+    unresolved; (6) I5 requires exactly ONE `rewritten in place` occurrence,
+    asserted (a duplicated mechanism clause is a defect). The idiom list
+    gains `not less than`. Every list and window remains a closed floor; a
+    fresh lookup table carrying one entry per fixture would still pass every
+    item, which is the plan's named ceiling, not a grammar proof.
 
 Usage:
     python3 -I -B plans/round-61-c1-check.py --root <tree> [--repo <lane>]
@@ -254,7 +274,10 @@ DENY_PHRASES = (("is", "false"), ("are", "false"), ("not", "true"),
 # Idioms (immediately before the token, not a negator): the listed phrase's
 # head negator does not count when the idiom occupies the token tail.
 IDIOMS = (("not", "only"), ("not", "merely"), ("not", "just"),
-          ("no", "fewer", "than"), ("no", "less", "than"))
+          ("no", "fewer", "than"), ("no", "less", "than"),
+          ("not", "less", "than"))
+PAREN_SPAN_RE = re.compile(r"\([^()]*\)")
+EMDASH_ASIDE_RE = re.compile(r"—[^—.]{0,60}?—")
 
 _SYMLINK_REFUSAL_RELS = (LOG_REL, LESSON60_REL, PLAN60_REL, SKILL_REL,
                          RESULTS60_REL)
@@ -439,6 +462,31 @@ def _mask_quotes(text: str, before: int) -> str:
             for i in range(m.start(), m.end()):
                 chars[i] = " "
     return "".join(chars)
+
+
+def _mask_asides(text: str) -> str:
+    """Blank well-formed parentheticals `( … )` and em-dash asides
+    `— … —` (round-64 benign parenthetical / appositive class), preserving
+    positions so offsets stay valid. Quote masking stays separate; this
+    helper is for the I7 binding window."""
+    chars = list(text)
+    for rx in (PAREN_SPAN_RE, EMDASH_ASIDE_RE):
+        for m in rx.finditer(text):
+            for i in range(m.start(), m.end()):
+                chars[i] = " "
+    return "".join(chars)
+
+
+SUBJECT_BLOCKERS = frozenset(("different", "other", "no", "not"))
+
+
+def _subject_blocked(masked: str, subj_start: int) -> bool:
+    """A subject preceded within 5 tokens by `different`/`other`/`no`/`not`
+    does not bind its pair (round-64 negated-subject class; the 5-token
+    window covers "a different seat than the sentinel")."""
+    toks = [m.group(0).lower()
+            for m in TOKEN_RE.finditer(masked, 0, subj_start)][-5:]
+    return any(t in SUBJECT_BLOCKERS for t in toks)
 
 
 def _negated_before(text: str, start: int, window: int = NEG_WINDOW) -> bool:
@@ -803,7 +851,9 @@ def item4(root: str, repo: str | None, fleet: str | None) -> tuple[str, str]:
         COUNT3_RE.finditer(last))
     three_ok = any(_asserted(last, m.start(), m.end())
                    for m in count_tokens)
-    ok = (NO_NEW_RECORD_DEFECT_RE.search(last) is not None
+    m_no_new = NO_NEW_RECORD_DEFECT_RE.search(last)
+    ok = (m_no_new is not None
+          and _asserted(last, m_no_new.start(), m_no_new.end())
           and all(re.search(rf"\bD{n}\b", last) for n in (1, 2, 3))
           and three_ok)
     det = (f"candidates={len(candidates)} "
@@ -828,13 +878,14 @@ def item5(root: str, repo: str | None, fleet: str | None) -> tuple[str, str]:
     if not candidates:
         return FAIL, "no 'supersedes the round-60 LOG wave line' line after it"
     last = candidates[-1]  # last statement wins
+    rp_all = list(REWITTEN_IN_PLACE_RE.finditer(last))
     m = NUMSTAT_SHAPE_RE.search(last)
-    m_rp = REWITTEN_IN_PLACE_RE.search(last)
-    asserted = (m_rp is not None
+    m_rp = rp_all[0] if rp_all else None
+    asserted = (m_rp is not None and len(rp_all) == 1
                 and _asserted(last, m_rp.start(), m_rp.end()))
     structural = (m is not None
                   and REV_A in last and REV_B in last
-                  and m_rp is not None)
+                  and m_rp is not None and len(rp_all) == 1)
     if repo is None:
         ok = structural and asserted
         det = (f"mode=shape-only repo-not-given stated="
@@ -916,18 +967,46 @@ LITERAL_READING_RE = re.compile(r"literal\s+reading", re.IGNORECASE)
 SENTINEL_RE = re.compile(r"sentinel", re.IGNORECASE)
 
 
-def _pair_bound_to_subject(masked: str, subj_re: re.Pattern,
-                           pair: re.Pattern) -> bool:
-    """True iff `pair` occurs within SUBJECT_WINDOW tokens after some
-    occurrence of `subj_re` in the (quote-masked) line."""
-    for sm in subj_re.finditer(masked):
-        pm = pair.search(masked, sm.end())
-        if pm is None:
-            continue
-        between = TOKEN_RE.findall(masked, sm.end(), pm.start())
-        if len(between) <= SUBJECT_WINDOW:
-            return True
-    return False
+def _pair_asserted(masked: str, pair: re.Pattern) -> bool:
+    """The pair match itself must be in the asserting position: no denial
+    predicate between its end and the next `.`/`;` (round-64 benign-pair
+    followed by a sentence-level denial class). `masked` is already
+    quote- and aside-masked; a missing pair fails closed."""
+    pms = list(pair.finditer(masked))
+    return bool(pms) and all(not _denied_after(masked, pm.end())
+                             for pm in pms)
+
+
+def _every_pair_own_subject(masked: str, subj_re: re.Pattern,
+                            pair: re.Pattern) -> bool:
+    """Every occurrence of the derived pair must be bound to its own
+    unblocked subject: a subject occurrence that ends at or before the pair
+    and lies within SUBJECT_WINDOW tokens of it (round-64 duplicate-pair
+    class). A blocked subject does not bind, and no pair at all fails
+    closed."""
+    subjects = [sm for sm in subj_re.finditer(masked)
+                if not _subject_blocked(masked, sm.start())]
+    pms = list(pair.finditer(masked))
+    if not subjects or not pms:
+        return False
+    for pm in pms:
+        bound = any(
+            sm.end() <= pm.start()
+            and len(TOKEN_RE.findall(masked, sm.end(), pm.start()))
+                <= SUBJECT_WINDOW
+            for sm in subjects)
+        if not bound:
+            return False
+    return True
+
+
+def _both_pairs_ok(masked: str, specs) -> bool:
+    for subj_re, pair in specs:
+        if not _every_pair_own_subject(masked, subj_re, pair):
+            return False
+        if not _pair_asserted(masked, pair):
+            return False
+    return True
 
 
 def item7(root: str, repo: str | None, fleet: str | None) -> tuple[str, str]:
@@ -951,10 +1030,11 @@ def item7(root: str, repo: str | None, fleet: str | None) -> tuple[str, str]:
     # correction's own claim (QM79); round-63 binds each pair to its
     # subject within SUBJECT_WINDOW tokens.
     asserted = re.sub(r'"[^"]*"', " ", last)
-    ok = (_pair_bound_to_subject(asserted, LITERAL_READING_RE,
-                                 _pair_re(frac_a, pa))
-          and _pair_bound_to_subject(asserted, SENTINEL_RE,
-                                     _pair_re(frac_b, pb)))
+    asserted = _mask_asides(asserted)
+    ok = _both_pairs_ok(asserted, (
+        (LITERAL_READING_RE, _pair_re(frac_a, pa)),
+        (SENTINEL_RE, _pair_re(frac_b, pb)),
+    ))
     det = (f"derived {a}/{n}={pa} {b}/{n}={pb} "
            f"last-line={'both-pairs-bound-to-subjects' if ok
                         else 'pair-missing-swapped-or-unbound'}")
@@ -1807,6 +1887,49 @@ def _run_selftest(work: str | None = None) -> int:
             tree = mk_tree(os.path.join(top, f"fx-{pid}"))
             w(tree, rel, _FIXTURE_TEXTS[rel].replace(old, new))
             case(f"{pid}-benign-resolved", item(tree, repo, fleet)[0] == HOLD)
+
+        # -- round-64 synthetic shape-class fixtures: 5 forgery + 3 benign --
+        for sid, rel, old, new, item, want in (
+            ("shape-i7-pair-denial", LESSON60_REL,
+             "so the literal reading is 3/16 = 18.75 %",
+             "so the literal reading is 3/16 = 18.75 %, which is not the case",
+             item7, FAIL),
+            ("shape-i7-duplicate-pair-unbound", LESSON60_REL,
+             "gives 4/16 = 25 %; the round states both readings.",
+             "gives 4/16 = 25 %; the round states both readings. Seen elsewhere, 3/16 = 18.75 % again.",
+             item7, FAIL),
+            ("shape-i7-subject-negated", LESSON60_REL,
+             "counting the sentinel as an attack seat gives 4/16 = 25 %",
+             "counting a different seat than the sentinel as an attack seat gives 4/16 = 25 %",
+             item7, FAIL),
+            ("shape-i7-parenthetical-benign", LESSON60_REL,
+             "so the literal reading is 3/16 = 18.75 %",
+             "so the literal reading (16 results counted, three present roles, one sentinel present, as the role mix records) is 3/16 = 18.75 %",
+             item7, HOLD),
+            ("shape-i7-emdash-aside-benign", LESSON60_REL,
+             "so the literal reading is 3/16 = 18.75 %",
+             "so the literal reading \u2014 not the other way round here please now indeed \u2014 is 3/16 = 18.75 %",
+             item7, HOLD),
+            ("shape-i7-blocker-window-bounded", LESSON60_REL,
+             "so the literal reading is 3/16 = 18.75 %",
+             "so in other work the audit board said the literal reading is 3/16 = 18.75 %",
+             item7, HOLD),
+            ("shape-i4-quoted-denial", LESSON60_REL,
+             "The round introduced no new record defect that it did not itself route",
+             "The round introduced no new record defect that it did not itself route, the record denies it",
+             item4, FAIL),
+            ("shape-i5-duplicated-mechanism", LOG_REL,
+             "it was rewritten in place at",
+             "it was rewritten in place at, and again rewritten in place at",
+             item5, FAIL),
+            ("shape-idiom-not-less-than", LESSON60_REL,
+             "the round introduced three new record defects it did not route",
+             "the round introduced not less than three new record defects it did not route",
+             item4, HOLD)):
+            tree = mk_tree(os.path.join(top, f"shape-{sid}"))
+            w(tree, rel, _FIXTURE_TEXTS[rel].replace(old, new))
+            case(f"{sid}-{'forgery' if want == FAIL else 'benign'}",
+                 item(tree, repo, fleet)[0] == want)
 
         # -- I6 superseded-stamp conjunct isolation (GM5 witness): the launch
         # line, the >=3 derived committer stamps and the denial exclusion all

@@ -1,0 +1,87 @@
+{
+ "M1": [
+  "force l1 = 1 (append `; l1=1` to the l1 leg's firing line)",
+  "plans/round-64-c2.sh:414",
+  "+6 B"
+ ],
+ "M2": [
+  "force l2 = 1 (append `; l2=1` to the l2 leg's firing line)",
+  "plans/round-64-c2.sh:415",
+  "+6 B"
+ ],
+ "M3": [
+  "force l3 = 1 after the battery block (leg no longer observed)",
+  "plans/round-64-c2.sh:334",
+  "+5 B"
+ ],
+ "M4": [
+  "force l4 = 1 after the battery block (leg no longer observed)",
+  "plans/round-64-c2.sh:334",
+  "+5 B"
+ ],
+ "M5": [
+  "force l6 = 1 after the checker-selftest branch",
+  "plans/round-64-c2.sh:399",
+  "+5 B"
+ ],
+ "M6": [
+  "force killed = 5 (`killed=$(killed_calc \u2026)` -> `killed=5`)",
+  "plans/round-64-c2.sh:446",
+  "-43 B"
+ ],
+ "M7": [
+  "force guard = 1 (`guard=$(guard_calc \u2026)` -> `guard=1`)",
+  "plans/round-64-c2.sh:445",
+  "-54 B"
+ ],
+ "M8": [
+  "force terminates = 1 unconditionally (`terminates=$(terminates_calc \u2026)` -> `terminates=1`)",
+  "plans/round-64-c2.sh:447",
+  "-47 B"
+ ],
+ "M9": [
+  "set the bound default to 0 (`${C2_RECURSION_BOUND:-1}` -> `:-0`)",
+  "plans/round-64-c2.sh:100",
+  "+0 B"
+ ],
+ "M10": [
+  "bound read only at parse time and never from the environment (`BOUND=${C2_RECURSION_BOUND:-1}` -> `BOUND=1`); the literal 'ignore a later change' mutant is equivalent because the code already caches at parse",
+  "plans/round-64-c2.sh:100",
+  "-23 B"
+ ],
+ "M11": [
+  "skip the battery delegation (`battery_run \"$TREE\" \u2026` replaced by `brc=0`)",
+  "plans/round-64-c2.sh:330",
+  "-7 B"
+ ],
+ "M12": [
+  "drop the real-trial leg (the two-attempt loop + `hardened_field` check replaced by a no-op)",
+  "plans/round-64-c2.sh:348",
+  "-228 B"
+ ],
+ "M13": [
+  "drop the `R63_CONTROLS_FIXTURE_ONLY=1` pass-through in both `battery_run` branches",
+  "plans/round-64-c2.sh:185,191",
+  "-56 B"
+ ],
+ "B1": [
+  "empty `main()`'s control list (all eight control calls, `probe_counters` \u2026 `ctrl_prior`)",
+  "plans/round-64-controls.sh:740",
+  "-152 B"
+ ],
+ "B2": [
+  "force `C2-BOUND` to report `match` unconditionally (inserted before its bound=0 invocation)",
+  "plans/round-64-controls.sh:567",
+  "+100 B"
+ ],
+ "B3": [
+  "drop the `R63_CONTROLS_FIXTURE_ONLY=1` pass-through in `ctrl_prior`'s fixture-only delegation",
+  "plans/round-64-controls.sh:431",
+  "-28 B"
+ ],
+ "M14": [
+  "drop the `g_e` conjunct from the selftest-leg composition (`[ \"$g_e\" = 1 ] || selftest_leg=0` -> no-op)",
+  "plans/round-64-c2.sh:443",
+  "+4 B"
+ ]
+}

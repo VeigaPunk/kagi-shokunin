@@ -1,0 +1,48 @@
+# R64Revenger measurements (host: this workstation, /fast NVMe, fleet load present)
+# date 2026-11-08
+
+## tree copy cost (full lane)
+command: time cp -a /home/vgpnk/Projects/shokunin/kagi-shokunin /fast/scratch/hyaku/kagi-r64/R64Revenger/fullcopy
+size: 346M / 350M on disk, 30078 files; .ufo = 229M
+real 0m2.237s
+real 0m1.832s
+real 0m2.692s
+
+## selftest floors
+bash plans/round-63-c2.sh --selftest        -> C2R63_SELFTEST: PASS (cases=13)
+bash plans/round-63-controls.sh --selftest  -> CONTROLS_SELFTEST: PASS (cases=25)
+python3 -I -B plans/round-61-c1-check.py --selftest -> C1_CHECK_SELFTEST: PASS (cases=102)
+
+## full-leg run (instrumented slim copy, legs intact)
+command: timeout 120 bash plans/round-63-c2.sh --tree <workcopy>
+rc=124; depth-full-leg.log shows only C2R63 -> C1R62 (leg l1) — never reached the L198 battery leg.
+
+## isolated-cycle run (L1/L2/L6 stubbed in the copy only, battery leg intact)
+command: timeout 90 bash plans/round-63-c2.sh --tree <work-fast>
+rc=124; depth-fast.log: 9 invocations = 3x C2R63, 3x CTL63, 3x C1R63.
+live ps snapshot at ~70 s:
+ 556344 C2R63 -> 556814 CTL63 -> 905202 timeout(2400) -> 905211 C2R63
+ -> 905647 CTL63 -> 1085290 timeout(2400) -> 1085297 C2R63
+ -> 1085742 CTL63 -> 1085944 timeout(2400) -> 1085949 C1R63
+depth = 3 nested C2 verdict invocations, 7 processes, ~70 s.
+
+## bound presence at BASE
+grep -rn 'FIXTURE_ONLY|C2_RECURSION_BOUND|RECURSION_BOUND' plans/  -> 0 hits in round-63 files;
+only plans/round-64-controls.sh (L28,318,325,468,484) and plans/round-64.md.
+plans/round-64-c2.sh does not exist at BASE.
+
+## orphan-chain survival (measured)
+Timeline: launch 02:11:05; sampler ended 02:11:25; outer `timeout 90` fired and returned rc=124,
+but the chain root reparented and kept recursing.
+Snapshot 02:13:52 (167 s after launch) -> orphan-chain.log:
+  6 nested round-63-c2.sh --tree levels, 6 round-63-controls.sh batteries,
+  20 live processes, root ppid=1487 (reparented), one new level per ~25 s.
+Reaped by this seat: kill -TERM then -9 over the unique scratch path; 0 left.
+Leaked per-level $WORK dirs (EXIT trap not run on untrapped SIGTERM):
+  6 x kagi-r63/R63ExecC2Counter/run-* (5.5 MB each on the 2.8 MB slim tree) + 1 C1 run dir; deleted.
+
+## C1R63 copy accounting (source read)
+plans/round-63-c1.sh L156-170: one up-front tar copy of the measured tree.
+L221 apply_fixture: `cp -a "$src" "$dst"` per fixture; measure_residual L374-419
+runs 16 fixtures (10 F + 6 P) + 6 guard legs -> ~17 full-tree copies per C1R63 verdict.
+At 346 MB/lane copy that is ~5.5 GB written per recursion level's C1 probe.

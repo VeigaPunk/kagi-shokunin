@@ -1,0 +1,30 @@
+Papadakis and Malevris [141] use special meta-functions to monitor the mutant
+execution and control the mutant application. Wang et al. [142] and Tokumoto
+et al. [143] use meta-functions that fork new processes. Bardin et al. [144] and
+Marcozzi et al. [145, 146] instrument the program with meta-functions that
+do not alter the program state, called labels, to record the result of mutant
+execution at the point of mutation and apply weak mutation.
+Another approach involves bytecode manipulation [9, 147]. Instead of compiling the mutants, these approaches aim at generating mutants by manipulating
+directly the bytecode. Coles et al. adopt such an approach for mutating Java
+bytecode [147]. Derezinska and Kowalski [8] and Hariri et al. [148] adopt the
+same approach for mutating the Common Intermediate Language of .NET and
+LLVM Bitcode, respectively.
+Other approaches involve the use of interpreted systems, such as the ones
+used by symbolic evaluation engines [149]. A possible realisation of this attempt
+is to harness the Java virtual machines in order to control and introduce the
+mutants [150]. Finally, Devroey et al. [151] suggested encoding all mutants as
+a product line. The mutants can then be introduced as features of the system
+under test.
+5.3. Statically Eliminating Equivalent and Redundant mutants (Step 3.)
+This step involves the identification of problematic mutants before their execution. This is a process that is typically performed statically. The idea is
+that some equivalent mutants, i.e., mutants that are semantically equivalent to
+the original program despite being syntactically different, and some redundant
+mutants, i.e., mutants that are semantically different to the original program
+but are subsumed by others, can be identified and removed prior to the costly
+test execution phase. By removing these “useless” types of mutants we gain two
+important benefits: first, we reduce the effort required to perform mutation and,
+second, we improve the accuracy of the mutation score measurement. Unfortunately, having too many “useless”mutants obscures the mutation testing score
+measurement by either overestimating or underestimating the level of coverage
+28
+
+

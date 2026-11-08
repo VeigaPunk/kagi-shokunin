@@ -2190,3 +2190,75 @@ From the round-63 lesson's mined mistakes (M63-1–M63-9) and the C1/C2 ceilings
    the leg-by-leg reproduction is replaced by a single end-to-end candidate line.
 3. **Freshness** — re-verify the S143 BioC endpoint (volatile digest) and the S138/S144
    flips; if the BioC XML shape changed, supersede S143 per CORPUS.md rule 2.
+
+## Round 64 — pre-move (repo `09cbee8`, round-63 spot-check tip)
+
+Claim BASE `09cbee831d57be7c4edfbe77bf238f46bf729047`; predeclaration
+`dff0929c0e084822b0fe32e0d164534c768f97fe` (frozen plan `plans/round-64.md`, including
+Amendment A1, which re-measured the held-out population per fixture before any candidate
+work). All six axes stand at 9. Saturation line 9, stagnation window N=3; capabilities
+entered rounds 57–63, so no stagnation waiver is claimed.
+
+| Axis | Score | Evidence pointer | Last change |
+|---|---|---|---|
+| depth | 9 | Unchanged from round 29 (`R29-01`); round 64 moves an instrument surface, not the domain tables. | round 29 |
+| coverage | 9 | 143 registry rows at BASE (`grep -cE '^\|[[:space:]]*S[0-9]{3,}[[:space:]]*\|' corpus/SOURCES.md`), census `kagi ok` rc 0 (`.ufo/waves/round-64/base/census-start.txt`). | round 63 |
+| operability | 9 | Unchanged as a score; measured BASE gap: the round-63 C2 counter does not terminate — `timeout 240 bash plans/round-63-c2.sh --tree .` ⇒ rc 124, no verdict line (`.ufo/waves/round-64/base/c2-e2e-head.txt`, 7 B). | round 63 |
+| freshness | 9 | Every knowledge entry declares its re-verification (`R14-01`); the S143 carrier is re-opened this round (one-byte date-stamp delta, shape unchanged). | round 56 |
+| calibration | 9 | Unchanged as a score; measured BASE gap: the C1 checker accepts 5 of the 5 held-out forgeries and rejects all 3 held-out benign rewrites — `heldout=8 population=8` (`.ufo/waves/round-64/base/census-a1.md`), and the A4 lookup-table vehicle reaches `accepted=0 rejected=0` on the committed tables (M63-6). | round 63 |
+| adjacency | 9 | Ownership partition gate green (`R17-02`); the carried `ADJACENCY_SCOPE: DEFECT` breadth debt is named, not absorbed. | round 58 |
+
+Declared claims: **C1 calibration** (a held-out fixture set sealed before the hardening
+defeats the lookup-table checker: `C1_HELDOUT` heldout 8 → 0 over population 8, with the
+A4 vehicle refused) and **C2 operability** (the C2 counter terminates end-to-end inside
+its own budget and prints one verdict line: `terminates` 0 → 1 with `killed=5`).
+No retirement, split or stagnation waiver is claimed.
+
+## Round 64 — post-move (claims C1 calibration, C2 operability)
+
+Candidate: the round-64 candidate commit (recorded in the report;
+`.ufo/waves/round-64/final/` holds the integration readings). Claim BASE
+`09cbee831d57be7c4edfbe77bf238f46bf729047`; predeclaration
+`dff0929c0e084822b0fe32e0d164534c768f97fe`; Amendment A1 (the held-out census re-measured
+per fixture: H = F2,F6,F8,F10,B4; Q = P6,B5,P7; seal re-cut to `b0f51e2a…`) landed before
+any candidate work.
+
+| Axis | Before → after | What moved | Evidence |
+|---|---|---|---|
+| calibration | 9 → 9 | [C1] `bash plans/round-64-c1.sh 09cbee83` ⇒ `C1_HELDOUT: heldout=8 population=8 guard=0 (real=1 selftest=0 resid=1 stub=1 vehicle=1)` rc 1 → candidate ⇒ `C1_HELDOUT: heldout=0 population=8 guard=1 (real=1 selftest=1 resid=1 stub=1 vehicle=1)` rc 0: the five held-out forgeries each read `value>=1` (F2=value1 F6=value1 F8=value1 F10=value1 B4=value1), the three benign rewrites each read `value=0` (P6 B5 P7), the unmodified copy still reads `value=0` with all seven i-bits 1, the round-63 tables still close (`C1_RESIDUAL: accepted=0 rejected=0 population=10/6 guard=1`), a printer-stub checker is refused, and the A4 lookup-table vehicle reads `heldout=5` on the sealed set while reading `accepted=0 rejected=0` on the round-63 tables (the M63-6 defect). Named ceilings: eight fixtures are eight fixtures, not a grammar proof; the vehicle leg is the only witness against a lookup table carrying one fresh entry per class; a structural read cannot prove the corrected sentence true. | `plans/round-64-c1.sh`; `.ufo/waves/round-64/final/c1-heldout.txt`, `c1-base-counter.txt`; `.ufo/waves/round-64/base/census-a1.md` |
+| operability | 9 → 9 | [C2] BASE `timeout 240 bash plans/round-63-c2.sh --tree .` ⇒ rc 124, no verdict line (7-byte receipt) → candidate `bash plans/round-64-c2.sh --tree .` ⇒ `C2_REFUSAL: killed=5 population=5 guard=1 (l1=1 l2=1 l3=1 l4=1 l6=1 selftest=1 real=1 terminates=1 bound=1)` rc 0 in 285 s, one line; `C2_RECURSION_BOUND=0 … timeout 240` ⇒ rc 124, no line. The bound is explicit and its refutation leg fires. Named ceilings: `terminates=1` is a termination claim, not a correctness claim about the number 5 (the five legs are round-63's); the bound is a flag, and a caller setting 0 gets the old behaviour; the real-trial leg is host-load sensitive (`real-attempts=` is printed). | `plans/round-64-c2.sh`; `.ufo/waves/round-64/final/c2-refusal.txt`, `c2-bound-off.txt` |
+| coverage | 9 → 9 | No claim. Registry 143 → 153 (S145–S154: S145/S146/S147 tier A, S148 `supersedes S143 —` the re-verified BioC deposit, S149–S154 rejected with reasons and flips); `corpus/source-fetches.tsv` +10; entry `corpus/knowledge/claim-instrument-heldout.md` (45 entries, row-linked, pinned). | `corpus/SOURCES.md`; `corpus/source-fetches.tsv`; `corpus/knowledge/claim-instrument-heldout.md` |
+| depth | 9 → 9 | No claim. The entry adds the held-out rule, the vehicle argument, the bound contract and their bounds/falsifiers. | `corpus/knowledge/claim-instrument-heldout.md` |
+| freshness | 9 → 9 | No claim. The S143 BioC carrier is re-opened on the current endpoint: the served body differs from the pin by exactly one byte (the service's `<date>` stamp 20261107→20261108, `cmp -l` at offset 127) while `<passage>` 182 and `<text>` 180 are unchanged — so the shape did not change and the superseding row S148 records the measurement rather than asserting the pin still holds. | `corpus/SOURCES.md` S148; `.ufo/waves/round-64/capture/notes.md` §S143 |
+| adjacency | 9 → 9 | No claim. Connector swept the sibling lanes for held-out sets, kill contracts and recursion bounds; the carried `ADJACENCY_SCOPE: DEFECT` breadth debt (`breadth_drift=5 breadth_unverified=1`) is named, not absorbed. | `.ufo/waves/round-64/build/R64Connector/sweep.md`; `bash corpus/scope-gate.sh` |
+
+Gate readings on the candidate: `SOURCES_CENSUS: CLEAN (rows=153 A=137 B=2 C=14
+queued=3 mined=134 rejected=16 …)`; `DOC_AUDIT: CLEAN (entries=45 row_linked=42 by_hand=3
+undeclared=0 missing_ids=0 unpinned=0 duplicate_reasons=0)`; `RELEASE_CLOCK: CLEAN
+(on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17)`;
+`ADJACENCY_SCOPE: DEFECT` unchanged (the carried breadth debt);
+`CITATION_GATE: BROKEN (cites=4918 docs=163 unresolved=22 ephemeral=0 labeled=24)` — all 22
+unresolved citations are pre-existing (round-34/35/43/44/51/53/54/58/59/60/62 historical
+documents), none in a round-64 document; `CLAIM_LEDGER: POLICY (claims=96 policy=5
+stamped=161)` — the five POLICY findings are pre-existing MISSING-ID readings in
+round-37/38/46 lessons.
+
+No axis is re-scored: all six stay 9 → 9 (L1 reading, for the operator's ruling). No
+stagnation waiver, retirement or split.
+
+## Round 64 — planned (next)
+
+1. **Calibration** — close the remaining C1 ceiling the plan names: the held-out set is
+   eight fixtures over five forgery and three benign shape classes; grow it to a class
+   matrix (one held-out instance per class the checker claims) and make the vehicle leg's
+   needle structural rather than a 15-string lookup, so the vehicle reduction the counter
+   documents stops being total.
+2. **Operability** — the round-63 controls receipt that leg `d3` names was never
+   committed (`ls .ufo/waves/round-63/final/` lists five receipts and no controls one; the
+   round-63 battery's receipt lives under `build/R63ExecControls/`), so `ROUTED: d3=0`. Either commit a
+   reconstructed receipt with its own provenance or correct the routed leg's population
+   to the five receipts the tree actually holds — a leg whose expectation no tree can meet
+   is a defect (QM57).
+3. **Freshness** — the S143 endpoint stamps a request date into the body each day; a
+   second carrier (or a declaration that the row is `decoded-http-body-volatile-v1` with
+   a shape census instead of a digest) would make the re-verification reproducible.

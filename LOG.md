@@ -2224,7 +2224,7 @@ Amendment A1 `4251519bd6e8b5c152d70ae286e04a117a49ed4f`. Wave `kagi-r68-w1`,
   ⇒ `CELL_AUDIT: POLICY (cells=576 …)` exit 2 — a verdict where the BASE tree dies
   with exit 2 on the historical planned heading — with its UNCITED/row-failure
   counts routed, not smoothed.
-- **Mistakes mined** (eight, `corpus/lessons/round-68.md`): M68-1 frozen population
+- **Mistakes mined** (nine, `corpus/lessons/round-68.md`): M68-1 frozen population
   predates the round's own frontier row; M68-2 anchor rule vs the counter's
   implemented rule; M68-3 the shared BASE control tree was mutated mid-round (S164
   col 16 gained a trailing space; receipts now pin a TSV digest); M68-4 a gate
@@ -2233,5 +2233,7 @@ Amendment A1 `4251519bd6e8b5c152d70ae286e04a117a49ed4f`. Wave `kagi-r68-w1`,
   default branch plus §12); M68-6 a plan named a "SETUP" verdict the ledger gate
   never prints; M68-7 round 67's lesson never recorded the classes its closure
   routed; M68-8 the C2 L3 leg and the landed cells parser disagreed on a suffix
-  shape. Plus one freeze-sequence gap: the col-15 BASE figure (31) was receipted
-  seven minutes after the freeze.
+  shape; M68-9 the counters' selftests pass mutants that break a single guard
+  field (QM89 — routed, not repaired: three fixtures per counter for round 69).
+  Plus one freeze-sequence gap: the col-15 BASE figure (31) was receipted seven
+  minutes after the freeze.

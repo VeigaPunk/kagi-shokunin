@@ -23,7 +23,7 @@ One source was opened this round, at the plan's frontier step; one row admitted.
 
 | row | URL | access date | located quote (≤25 words) | decision | reason / flip |
 |---|---|---|---|---|---|
-| S167 | https://www.rfc-editor.org/rfc/rfc4648.txt | 2026-11-08 | "Implementations MUST reject the encoded data if it contains characters outside the base alphabet when interpreting base-encoded data" (§3.3, 18 words) | admit, tier A | RFC 4648 §3.3 is the primary rule for record-level alphabet strictness, and its own note states that adjacent CR/LF bytes ARE non-alphabet characters — exactly the refusal the widened census now enforces for a stray space/CR in a location cell. Capture `.ufo/waves/round-68/capture/S167.body`, 35491 B, raw sha256 `84e14418f795d503be5f34bf23ce4ebaa119e9ec7c9f667d8caeb111385b178f`, rendered-text-v1 normalized sha256 `30194c4ff628ee00171027b7d54800e1c17cfda692ced83290807eb148ef93a9` (28542 bytes); quote locate count=1 under rendered-text-v1, raw-literal control 0. Flip: a revision that withdraws the refusal rule. |
+| S167 | https://www.rfc-editor.org/rfc/rfc4648.txt | 2026-11-08 | "Implementations MUST reject the encoded data if it contains characters outside the base alphabet when interpreting base-encoded data" (§3.3, 18 words) | admit, tier A | RFC 4648 §3.3 states the default refusal rule for base-encoded data (MUST reject characters outside the alphabet unless the referring specification says otherwise); §12 records the covert-channel cost of the liberal alternative. The lane takes the default branch for a registry cell — a choice, and the transposition from encoded fields to a TSV cell is the lane's own (M68-5). Capture `.ufo/waves/round-68/capture/S167.body`, 35491 B, raw sha256 `84e14418f795d503be5f34bf23ce4ebaa119e9ec7c9f667d8caeb111385b178f`, rendered-text-v1 normalized sha256 `30194c4ff628ee00171027b7d54800e1c17cfda692ced83290807eb148ef93a9` (28542 bytes); quote locate count=1 under rendered-text-v1, raw-literal control 0. Flip: a revision that withdraws the refusal rule. |
 
 ### In-place registry changes (contract v1 rule 2, old → new)
 
@@ -186,6 +186,31 @@ predeclaration. Related: the shared BASE extraction named in the wave context
 was later mutated by a seat (M68-3), so receipts must pin a tree digest, not a
 path — the committed derivation reads a copy whose TSV sha256 equals
 `git show d3b2a4e:corpus/source-fetches.tsv` (`90dd4a2c…`).
+
+### M68-9 — the counters' own selftests pass mutants that break a single guard field
+
+- **class**: `vacuous` (QM89: every field of a frozen verdict line needs a case
+  where that field alone is wrong)
+- **evidence**: R68MutGate §1 measured three mutants of `plans/round-68-c1.sh`,
+  each still printing `C1_VERIFIED_SELFTEST: PASS (59 cases)`: guard (b)'s
+  threshold `cases>=89` → `>=0` (survived; only an external divider caught it),
+  guard (e) removed (survived, masked by stronger checks), and the derivation
+  switched to the tree's own normalizer (survived; external divider only). The
+  case list carries m1-right…m6-right, a wrong-reason case, a wrong-id case, an
+  rc-0 case, a clean-verdict case, a SETUP case and two forgery cases — and no
+  case for guard (b)'s threshold or guard (e)'s prose check. The same class
+  exists in C2: R68MutGate §3 (k) shows `neg-scored-missing-axis` cannot kill a
+  mutant that treats any SETUP as a skip, because guard (c) refuses that fixture
+  first.
+- **captured-by**: R68ScribeLesson (QM89 read against both counters), before the
+  report; the counters' selftests were never required to cover their own
+  `guard` field.
+- **fix (routed to round 69, not claimed as done)**: three fixtures per counter —
+  a stub gate printing `PASS (0 cases)` with `verify` untouched ⇒ `guard=0`; a
+  stub gate printing one uncounted `FINDING SC_CAPTURE id=… capture-token` on a
+  prose row with a CLEAN verdict and matching counts ⇒ `guard=0`; a tree
+  differing only in `rendered-text-v1.py`'s digest ⇒ `guard=0` — and a C2
+  `neg-scored-missing-axis` rebuilt so guard (c) cannot mask L3.
 
 ## Wave-process note (not a mistake of the round's claims)
 

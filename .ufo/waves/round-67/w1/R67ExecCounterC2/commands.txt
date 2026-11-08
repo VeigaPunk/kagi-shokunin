@@ -1,0 +1,35 @@
+# receipts for R67ExecCounterC2 (run from /home/vgpnk/Projects/shokunin/kagi-shokunin)
+# hardened leg 6 (plans/round-67.md Amendment A1 item 2)
+
+# 1. counter self-test (fixture lane; 24 fixtures)
+bash plans/round-67-c2.sh --selftest --scratch /fast/scratch/hyaku/kagi-r67/R67ExecCounterC2-h6/scratch
+
+# 2. candidate lane (default --tree)
+bash plans/round-67-c2.sh
+
+# 3. do-nothing control: round-67 claim BASE 076701a11a58e3eb58d996b4c76c5e18071fb179
+git archive 076701a11a58e3eb58d996b4c76c5e18071fb179 | tar -x -C <dir>/base0767
+bash plans/round-67-c2.sh --tree <dir>/base0767
+
+# 4. scratch fixture: git archive HEAD + the lane's uncommitted record surfaces, no .git
+git archive HEAD | tar -x -C <dir>/lane-copy
+for f in SCORECARD.md SKILL.md corpus/README.md corpus/lessons/round-66.md \
+         .ufo/waves/round-66/claims.json .ufo/waves/round-66/claim-falsification.tsv \
+         .ufo/waves/round-66/final/c3-base.txt plans/round-67-c2.sh; do
+  cp "$f" "<dir>/lane-copy/$f"
+done
+bash plans/round-67-c2.sh --tree <dir>/lane-copy
+
+# 5. forged receipt, way 1: verdict line CLEAN (findings=0 rows=155)
+cp -a <dir>/lane-copy <dir>/forge-clean
+# sed the SOURCES_CENSUS line to CLEAN (findings=0 rows=155)
+bash plans/round-67-c2.sh --tree <dir>/forge-clean
+
+# 6. forged receipt, way 2: the SC_BODY_CITE S148 unrecorded finding removed
+cp -a <dir>/lane-copy <dir>/forge-missing
+# delete the FINDING SC_BODY_CITE ... id=S148 unrecorded line
+bash plans/round-67-c2.sh --tree <dir>/forge-missing
+
+# leg 6's fresh run: `git archive d549ee6eb8770a49938b78f49cf79e36d9c1c2e8`
+# extracted from the measured tree or this lane, then `bash <extract>/corpus/sources-census.sh`;
+# cached per invocation.

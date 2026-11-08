@@ -1,0 +1,12 @@
+# fleet wrapper, lane path (candidate = lane worktree):
+rc=0
+kagi	ok	/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/SOURCES.md
+
+# fleet wrapper, scratch candidate root (no shokunin.conf under it):
+rc=2
+ERROR: config not found: /fast/scratch/hyaku/kagi-r67/R67Reviewer/candroot/shokunin.conf
+ERROR: unknown lane (not a dir, not in conf or root): kagi
+
+# fleet wrapper --file on the scratch candidate registry:
+rc=0
+file	ok	/fast/scratch/hyaku/kagi-r67/R67Reviewer/trees/cand1/corpus/SOURCES.md

@@ -1,0 +1,17 @@
+# S166 capture: .ufo/waves/round-67/capture/S166.body
+$ sha256sum .ufo/waves/round-67/capture/S166.body
+544dbb7d9afceafa8c9931d9924ca6cff2b4807274166d7ed2483342ef2cdd6a  .ufo/waves/round-67/capture/S166.body
+
+$ wc -c < .ufo/waves/round-67/capture/S166.body
+67152
+
+$ python3 corpus/rendered-text-v1.py digest .ufo/waves/round-67/capture/S166.body
+RENDERED_TEXT_V1: raw_sha256=544dbb7d9afceafa8c9931d9924ca6cff2b4807274166d7ed2483342ef2cdd6a bytes=67152 normalized_sha256=652d311657f00e1eab513b15db807d773b42294d7032e179f63d04909943436b normalized_bytes=58365
+
+$ python3 corpus/rendered-text-v1.py locate .ufo/waves/round-67/capture/S166.body 'Receivers can validate the digest for integrity purposes.'
+RENDERED_TEXT_V1_LOCATE: count=1
+exit=0
+
+$ grep -c -F 'Receivers can validate the digest for integrity purposes.' .ufo/waves/round-67/capture/S166.body   # raw-literal-v1 profile
+0
+exit=1

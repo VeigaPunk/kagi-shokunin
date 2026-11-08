@@ -1,0 +1,45 @@
+scope .ufo/waves/round-*/capture/*.body  files: 96
+-- partition by PIN (the taxonomy in the committed entry) --
+    10  PIN: name is a row, ANOTHER row pins it
+     1  PIN: name not a row, a row pins it
+    64  PIN: name==an owner
+    21  PIN: pinned by NO row
+-- partition by NAME --
+     6  NAME: no row id in name, unpinned
+    75  NAME: pinned
+    15  NAME: row id, no row pins it
+
+-- round-64 detail (name, is-row?, owners, pin-class) --
+   S143.body        name=S143 is_row=True owners=['S148', 'S164'] -> PIN: name is a row, ANOTHER row pins it
+   S145.body        name=S145 is_row=True owners=['S150'] -> PIN: name is a row, ANOTHER row pins it
+   S146.body        name=S146 is_row=True owners=['S129'] -> PIN: name is a row, ANOTHER row pins it
+   S147.body        name=S147 is_row=True owners=['S128'] -> PIN: name is a row, ANOTHER row pins it
+   S148.body        name=S148 is_row=True owners=['S152'] -> PIN: name is a row, ANOTHER row pins it
+   S149.body        name=S149 is_row=True owners=['S149'] -> PIN: name==an owner
+   S150.body        name=S150 is_row=True owners=['S154'] -> PIN: name is a row, ANOTHER row pins it
+   S151.body        name=S151 is_row=True owners=['S147'] -> PIN: name is a row, ANOTHER row pins it
+   S152.body        name=S152 is_row=True owners=[] -> PIN: pinned by NO row
+   S153.body        name=S153 is_row=True owners=['S146'] -> PIN: name is a row, ANOTHER row pins it
+   S154.body        name=S154 is_row=True owners=['S145'] -> PIN: name is a row, ANOTHER row pins it
+   S155.body        name=S155 is_row=True owners=[] -> PIN: pinned by NO row
+   S156.body        name=S156 is_row=True owners=['S151'] -> PIN: name is a row, ANOTHER row pins it
+   S157.body        name=S157 is_row=False owners=['S153'] -> PIN: name not a row, a row pins it
+   S158.body        name=S158 is_row=False owners=[] -> PIN: pinned by NO row
+   S159.body        name=S159 is_row=False owners=[] -> PIN: pinned by NO row
+   S160.body        name=S160 is_row=False owners=[] -> PIN: pinned by NO row
+   S161.body        name=S161 is_row=False owners=[] -> PIN: pinned by NO row
+   S162.body        name=S162 is_row=False owners=[] -> PIN: pinned by NO row
+   S163.body        name=S163 is_row=False owners=[] -> PIN: pinned by NO row
+   round-64 totals: 20
+   name==owner=1 name-is-other-row=10 name-not-a-row-but-pinned=1 pinned-by-no-row=8
+
+-- files whose pin owner set differs from their name (multi-owner) --
+   .ufo/waves/round-62/capture/S130.body name=S130 owners=['S130', 'S135', 'S155']
+   .ufo/waves/round-63/capture/S135.body name=S135 owners=['S130', 'S135', 'S155']
+   .ufo/waves/round-64/capture/S143.body name=S143 owners=['S148', 'S164']
+   .ufo/waves/round-66/capture/S148.body name=S148 owners=['S148', 'S164']
+   .ufo/waves/round-66/capture/S155.body name=S155 owners=['S130', 'S135', 'S155']
+
+-- lane-wide: files whose NAME id is a row but a DIFFERENT row pins it --
+   name-is-a-row-and-OTHER-row-pins-it: 10
+   file carries a pin whose owner differs from any id in its name: 11

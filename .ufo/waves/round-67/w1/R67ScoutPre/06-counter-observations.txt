@@ -1,0 +1,103 @@
+R67ScoutPre — counter readings observed (in-flight, UNCOMMITTED bytes)
+======================================================================
+These are readings of `plans/round-67-c1.sh` and `plans/round-67-c2.sh` as they stood in
+the working tree during this seat. They are NOT committed bytes and were being edited
+while measured. Reported as observed, not endorsed. The counters' own selftests were
+not run to completion here.
+
+--- 1. C1 counter on the LIVE lane tree (S115 not yet re-cut) ---
+  $ bash plans/round-67-c1.sh --tree . --base-tree <BASE extraction>
+  c1-readthrough: guard a=0 b=1 c=1 d=1 e=1
+  C1_READTHROUGH: bound=36 located=35 caught=6/6 guard=0        rc=1
+  mut-absolute expected=capture-outside-root reasons=capture-outside-root verdict=FAILED rc=1
+  mut-dotdot    expected=capture-outside-root reasons=capture-outside-root verdict=FAILED rc=1
+  mut-quote     expected=quote-not-located    reasons=quote-not-located    verdict=FAILED
+  (mut-repoint / mut-truncate / mut-delete legs also ran and were caught; the
+   summary line caught=6/6 is the counter's own tally.)
+  READING: caught=6/6 already; guard=0 solely because guard (a) requires the tree
+  to read CLEAN at the frozen line
+    SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=120)
+  and the tree reads
+    SOURCES_CAPTURES: FAILED (defects=1 path_rows=36 bound=36 located=35 prose=120)
+  because S115's declared quote does not locate. See report DEFECT F-2.
+  My independent population census agrees with the counter's own bound/located
+  arithmetic exactly: bound=36, located=35, path_rows=36, prose=120.
+
+--- 2. C1 counter on a tree WITH the S115 quote re-cut ---
+  guard a=1  (flipped from 0 — guard (a) passes once the tree is CLEAN)
+  C1_READTHROUGH: bound=36 located=36 caught=6/6 guard=0        rc=1
+  READING: located=36 reached. guard stays 0 because guard (d) compares the fleet
+  wrapper's reported SOURCES.md path against TREE/corpus/SOURCES.md; my scratch tree
+  is not a lane path under the fleet root, so the comparison cannot hold in a scratch
+  invocation. This is an artifact of the scratch invocation, not a candidate defect.
+
+--- 3. C2 counter on the LIVE lane tree ---
+  $ bash plans/round-67-c2.sh --tree .
+  LEG L1 verdict=ok scorecard:2339 receipt:.ufo/waves/round-66/final/c2-candidate.txt
+       verdict="C2_PREFILE: gate=0 claims=0 rows=0 attack_seats=0 guard=0"
+       gate_out="PREFILE-FALSIFICATION: SETUP findings=1"
+  LEG L2 verdict=ok instrument cases=45 failed=0 rc=0 skill=cases=45 failed=0
+  LEG L3 verdict=ok map-row:119 cells=3 entry=present
+  LEG L4 verdict=ok row=present claim=C1 class=neutral detail_len=293 referenced=present
+  LEG L5 verdict=ok expected=C1=C1_CARRIER,C2=C2_PREFILE,C3=C3_CENSUS
+       superseded=C2_CLAIMS,C3_SELFREF
+  LEG L6 verdict=ok receipt=present header_lines=8 base=d549ee6eb877
+       gate='SOURCES_CENSUS: FAILED (findings=4 rows=155)'
+  LEG L7 verdict=ok corrigendum ids=7 pairs=7 source=git:d549ee6eb877..076701a11a58
+  c2-fidelity: tree=. population=7 mismatches=0
+  c2-fidelity: guard a=1 b=1 c=1 base_defects=7 selftest_cases=22
+  C2_FIDELITY: mismatches=0 population=7 guard=1                rc=0
+  READING: all seven legs repaired on the live tree, AND the counter's own
+  do-nothing control reads base_defects=7 — i.e. its leg set is non-vacuous, which
+  independently corroborates my own BASE measurement (7/7 legs read `defect`).
+  Note L6's repaired receipt carries the provenance header the plan asked for
+  ("reconstructed receipt ... base=d549ee6eb877") and re-derives the BASE reading
+  `SOURCES_CENSUS: FAILED (findings=4 rows=155)`.
+
+--- 4. S115 re-cut: what actually has to change ---
+  Only col13. The other pins on S115 are already correct against its own body:
+    col10 sha256 = 76339ff7dab618b5e5532bca6daf9dd8361330a43b737408304abfd1d79090c6
+    col11 bytes  = 41787
+    col15 normalized = 781463acbf1493a58c0f87ec981809f6f80bd63196e8006ff274c87593a7d147
+      (re-measured: `python3 corpus/rendered-text-v1.py digest` on the body returns
+       raw_sha256=76339ff7…090c6 bytes=41787
+       normalized_sha256=781463ac…d147 — IDENTICAL to the declared col15)
+    col14 normalization = rendered-text-v1
+    col16 location = .ufo/waves/round-57/capture/S115.body
+  The CURRENT col13 does NOT locate (count=0):
+    "Audit devices must be enabled by a root user using bao audit enable or using
+     the audit stanza."
+  Candidate quotes that DO locate (count=1) under rendered-text-v1, each <=25 words:
+    "must be enabled by a root user"            (7 words)
+    "audit stanza"                              (2 words)
+  A re-cut needs no digest change — col10/col11/col15 already bind the body
+  correctly. (This corrects my own earlier note, which said col15 would need
+  re-measuring; it does not.)
+
+--- 5. FULL PREDICATE REACHABILITY (lane-shaped scratch, S115 re-cut) ---
+  Staged a lane-shaped scratch so guard (d) can resolve:
+    $SCR/fakefleet/{scripts/sources-census.sh, shokunin.conf, kagi-shokunin/}
+  (the lane copy has S115's col13 re-cut to "must be enabled by a root user";
+   .git removed from the copy; the copy is scratch only, nothing in the lane was
+   touched). The fleet wrapper then reports
+    kagi ok /fast/scratch/.../fakefleet/kagi-shokunin/corpus/SOURCES.md
+  and the counter run against that tree:
+    $ bash plans/round-67-c1.sh --tree $SCR/fakefleet/kagi-shokunin --base-tree <BASE>
+    mut-repoint   expected=capture-digest-mismatch reasons=capture-bytes-mismatch,capture-digest-mismatch verdict=FAILED rc=1
+    mut-truncate  expected=capture-bytes-mismatch  reasons=capture-bytes-mismatch,capture-digest-mismatch verdict=FAILED rc=1
+    mut-delete    expected=capture-missing          reasons=capture-missing          verdict=FAILED rc=1
+    mut-absolute  expected=capture-outside-root     reasons=capture-outside-root    verdict=FAILED rc=1
+    mut-dotdot    expected=capture-outside-root     reasons=capture-outside-root    verdict=FAILED rc=1
+    mut-quote     expected=quote-not-located        reasons=quote-not-located       verdict=FAILED rc=1
+    c1-readthrough: guard a=1 b=1 c=1 d=1 e=1
+    C1_READTHROUGH: bound=36 located=36 caught=6/6 guard=1        rc=0
+  READING: the frozen predicate
+      C1_READTHROUGH: bound=36 located=36 caught=6/6 guard=1
+  IS REACHABLE with the in-flight bytes, once (i) S115's quote is re-cut and
+  (ii) the fleet wrapper is resolvable. This confirms my DEFECT F-2 diagnosis
+  exactly: the ONLY thing standing between the live tree and the frozen predicate
+  is S115's col13 — a row owned by L1, not by the counter or the gate.
+  It also confirms F-3's resolution: the absolute leg is caught
+  (expected=capture-outside-root) because the in-flight gate widens the shape
+  predicate to absolute paths; with the strict frozen regex that leg would not
+  be path-shaped at all and caught would be 5/6.

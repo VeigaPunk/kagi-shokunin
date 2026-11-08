@@ -1,0 +1,108 @@
+# R67Sentinel — write-scope audit (round 67)
+
+Method: `find` over the whole fleet root (`/home/vgpnk/Projects/shokunin`,
+`.git`/`.jj`/`__pycache__` excluded) selecting files with `mtime >=` the wave
+launch (`2026-11-08T07:38:09-03:00`, from `.ufo/watchdog.log`:
+`2026-11-08T07:38:09-03:00 launch kagi round=67 …`), then classifying each
+path as lane-allowed / lane-other / fleet-root / other-lane. Tool:
+`bin/writescope2.py` (seat scratch); receipt `out/writescope-final.txt`.
+
+Allowed write set for this round (per the seat context):
+`{lane}/.ufo/waves/round-67`, `{lane}/plans`, `{lane}/corpus`,
+`{lane}/SCORECARD.md`, `{lane}/SKILL.md`, `{lane}/PROVINCE.md`,
+`{lane}/LOG.md`.
+
+## Tally
+
+```
+KAGI-LANE-ALLOWED  231
+KAGI-LANE-OTHER      7
+FLEET-ROOT          19   (all other lanes' rounds / orchestrator state)
+OTHER-LANE       1025   (concurrent rounds in 19 sibling lanes)
+```
+
+The 1025 `OTHER-LANE` files are the concurrent rounds (kama r97, souji r88,
+tsukuroi r96, tameshi r95, chousa r90/91, tabi r87) writing their own lanes.
+They are not kagi writes; the fleet-wide sweep found **no kagi round-67 byte
+in any sibling lane** — every sibling hit was either that lane's own
+`round-67` (a different lane's round 67) or a `.jj` internals file.
+
+## The 7 lane-other writes — each is plan-mandated L1 work
+
+```
+.ufo/waves/round-66/claim-falsification.tsv      (modified)
+.ufo/waves/round-66/claims.json                  (modified)
+.ufo/waves/round-66/final/c3-base.txt            (new)
+.ufo/waves/round-66/w1/R66ScribeEntry.md          (new)
+.ufo/waves/round-66/w1/R66ScribeEntry/authoritative-census.txt  (new)
+.ufo/waves/round-66/w1/R67ScribeEntry/citations-gate.txt         (new)
+.ufo/waves/round-66/w1/R66ScribeEntry/ledger-verify-full.txt     (new)
+```
+
+Three of these are **explicitly named by the frozen plan** as C2 repair
+targets and are therefore the L1's (KagiR67, sole integration owner)
+obligations, not seat scope breaches:
+
+- `plans/round-67.md` §C2 leg **L4**: "`.ufo/waves/round-66/claim-falsification.tsv`
+  carries no row for the attack seat `R66Sentinel` … | add the neutral row
+  naming what it confirms" ⇒ `claim-falsification.tsv` (modified, one row
+  added, `C1 … neutral … V-1 … V-2 …`).
+- §C2 leg **L5**: "`.ufo/waves/round-66/claims.json` carries the pre-amendment
+  ids `C2_CLAIMS` / `C3_SELFREF` … | re-derive the file from the amended
+  plan" ⇒ `claims.json` (modified; `_provenance` header added, ids re-derived).
+- §C2 leg **L6**: "`.ufo/waves/round-66/final/c3-base.txt` is cited by the
+  round-66 report and exists in no commit | commit a reconstructed receipt
+  whose header names its provenance" ⇒ `c3-base.txt` (new; its first seven
+  lines ARE the provenance header — BASE revision, `git archive` command,
+  host, and an explicit "this file is a reconstruction, not the round-66
+  original").
+
+The remaining four (`R66ScribeEntry.md` + three receipts) are the
+**round-66 unfiled seat** the round-66 closure routed (spot-check §1: "`R66ScribeEntry`
+has receipts but no report"; §2b: the ledger omits it; `LOG.md:2108`:
+"13 of 14 seats filed; `R66ScribeEntry` did not"). The file is dated
+08:12–08:15 today and carries a §5 headed "Round-67 handoff", so it is a
+round-67 reconstruction of a round-66 seat report. **This is the one write
+outside the seat-allowed set that no frozen-plan leg names.** It is not a
+sibling-lane or fleet-root write — it is inside this lane, under the lane's
+own `.ufo/` — and it repairs a defect the round-66 closure explicitly routed
+to the L1. Recorded as V-3 (MEDIUM, open): it should be named in the round's
+own record, because a file whose bytes were written in round 67 sitting under
+`round-66/` will read to a later auditor as a round-66 seat's own filing.
+Attribution is not derivable from the bytes: no seat scratch holds a copy
+whose sha256 matches (`694dc357…`), and the L1's scratch tree holds only the
+three round-66 receipts, not the report.
+
+## Fleet-root writes — none is a kagi write
+
+The 19 fleet-root paths are the orchestrator's own state and other lanes'
+rounds: `.ufo/prompts/{kama-round-97,souji-round-88,closure/chousa-round-90,chousa-round-91,closure/tabi-round-87}.md`,
+`.ufo/state/{kama,souji,chousa}.report-baseline`,
+`.ufo/reports/round-{87/tabi,90/chousa,96/tsukuroi,97/kama}.md`,
+`.ufo/watchdog.log`, `.ufo/state/inline-dispatcher.log`,
+`.ufo/state/disk-guard.log`, `.scratch/run15-state.json`,
+`.scratch/closure-{tabi-r87,kama-r96}-entry.json`, and `MANIFEST.json`.
+
+`MANIFEST.json` was touched (mtime 07:40) but its **content is identical to
+HEAD** (`git diff-index --name-status HEAD -- MANIFEST.json` prints nothing):
+the orchestrator rewrote it with the same bytes. No kagi seat wrote it.
+
+One fleet-root artifact is staged and is the round-66 lane's own routed
+item, still not removed:
+
+```
+A scripts/hyaku/__pycache__/prefile-falsification.cpython-314.pyc
+```
+
+mtime 07:23:55 — **before** the kagi wave launched (07:38:09) — and named by
+round 66 as D-66-2 (operator-side; `scripts/` is not a lane write path). It
+predates this round and is carried, not created here. Recorded as V-5
+(LOW, open, operator-side).
+
+## Verdict
+
+Every kagi-lane write this round is either inside the allowed set or is a
+plan-mandated L1 repair of a defect the round-66 closure routed. One write
+outside the allowed set (the round-66 seat-report reconstruction) is not
+plan-named and is recorded as V-3. No sibling-lane write, no fleet-root
+write by a kagi seat.

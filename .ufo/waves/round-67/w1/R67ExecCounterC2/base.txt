@@ -1,0 +1,10 @@
+LEG L1 verdict=defect first-verdict="C2_PREFILE: gate=A claims=3 rows=R attack_seats=K guard=G" receipt="C2_PREFILE: gate=0 claims=0 rows=0 attack_seats=0 guard=0"
+LEG L2 verdict=defect skill-lacks-output:cases=45 failed=0 measured-cases=45
+LEG L3 verdict=defect no-map-row
+LEG L4 verdict=defect no-sentinel-row
+LEG L5 verdict=defect C2-lacks-token:C2_PREFILE
+LEG L6 verdict=defect receipt-missing
+LEG L7 verdict=defect no-corrigendum-section
+c2-fidelity: tree=/fast/scratch/hyaku/kagi-r67/R67ExecCounterC2-h6/base0767 population=7 mismatches=7
+c2-fidelity: guard a=1 b=1 c=1 base_defects=7 selftest_cases=24
+C2_FIDELITY: mismatches=7 population=7 guard=1

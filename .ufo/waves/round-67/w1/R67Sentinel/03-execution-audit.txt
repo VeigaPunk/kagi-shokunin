@@ -1,0 +1,92 @@
+# R67Sentinel — execution audit (round 67)
+
+Window: wave launch `2026-11-08T07:38:09-03:00` → report time.
+
+## 1. `op` / `op run` / `op read` / vault / account contact — NONE by a kagi seat
+
+A 5-second process-table sampler ran for the whole window
+(`bin/execwatch.sh`, 1166 samples). Every `op`-shaped process line it saw was
+the same single pid:
+
+```
+1103474  1487  Sun Nov  8 04:32:32 2026  op daemon
+```
+
+- pid 1103474's parent is pid 1487 = `/usr/lib/systemd/systemd --user`
+  (a user-session daemon, not a shell).
+- It started **04:32:32**, i.e. **3 h 05 min BEFORE** the kagi wave launched
+  at 07:38:09. It is the 1Password CLI's background daemon, resident before
+  this round existed.
+- The sampler saw no `op run`, `op read`, `op item`, `op signin`,
+  `op account`, `op whoami`, `op vault` invocation at any point.
+- The lane's janitor substrate is absent on this host
+  (`~/.config/the-janitor/`, `~/.local/state/the-janitor/` absent), so there
+  was no handler to invoke.
+- `grep -rn 'op run\|op read\|op item\|op account\|op signin\|op whoami\|OP_SERVICE_ACCOUNT'`
+  over `.ufo/waves/round-67/` and the new corpus files: **no hits**.
+- `op --version` reads `2.41.1`; `op` is at `/usr/bin/op` (system package),
+  **not** in `~/.local/bin`. No `op` install, upgrade, config write or
+  session file was created this round (`~/.config/op/` mtimes all predate
+  the window; no file under `~/.config/op` has an mtime after 07:38:09).
+
+## 2. Host sysctl mutation — NONE
+
+`find /proc/sys -newermt '2026-11-08 07:38:09'` returns many entries, but
+this is a **procfs artifact, not a mutation**: a procfs node's mtime is the
+time it was last *read*, and the sampler reads them. Demonstrated directly:
+
+```
+A mtime=2026-11-08 08:20:41  /proc/sys/vm/swappiness
+B mtime=2026-11-08 08:20:45  /proc/sys/vm/swappiness   <- advanced with no write
+C mtime=2026-11-02 12:07:17  /proc/sys/kernel/hostname <- boot time, unchanged
+```
+
+`/proc/sys/vm/swappiness`'s mtime advanced across two `stat` calls with no
+write in between; `/proc/sys/kernel/hostname` kept its boot-time mtime
+through the same interval. No `sysctl` process ever appeared in the sampler,
+and no non-procfs sysctl path was written.
+
+## 3. pacman — NONE
+
+`/var/log/pacman.log` mtime is `2026-11-05 18:54:08`, three days before this
+round; its last entry is that date's ALPM run. The sampler saw no `pacman`
+process. Per the operator directive (2026-10-19) pacman is paused host-wide,
+and this round installed nothing by any channel: no `uv tool install`, no
+`npx`, no release binary into `~/.local/bin`, no `cargo install`. Nothing was
+installed, so no install needs recording.
+
+## 4. Fleet-root and sibling-lane edits by a kagi seat — NONE
+
+- Fleet root: the 19 modified paths are the orchestrator's own state and
+  other lanes' rounds (detail in `02-write-scope-audit.txt`).
+  `MANIFEST.json`'s content is byte-identical to HEAD.
+- Sibling lanes: a fleet-wide content sweep for `round-67` / `R67Sentinel` /
+  `kagi-r67` in all 19 sibling lanes returned **no kagi round-67 byte**. Every
+  hit was that lane's own round-67 (a different lane) or a `.jj` internal.
+- `scripts/`, `MANIFEST.json`, the fleet `.ufo/state`, and the templates were
+  not written by any kagi seat. The one staged fleet artifact
+  (`scripts/hyaku/__pycache__/prefile-falsification.cpython-314.pyc`,
+  mtime 07:23:55) **predates the wave launch** and is round 66's routed
+  D-66-2 (operator-side).
+
+## 5. Network — only the declared RFC 9530 fetch
+
+One capture exists for this round: `.ufo/waves/round-67/capture/S166.body`
+(67152 B, sha256 `544dbb7d9afceafa8c9931d9924ca6cff2b4807274166d7ed2483342ef2cdd6a`),
+the RFC 9530 text (27 `rfc-editor.org` occurrences). No other `.body` or
+`.headers` file was created anywhere under the fleet root during the window.
+
+Every URL named in the round's own bytes is either the declared
+`rfc-editor.org/rfc/rfc9530[.txt]` or an already-registered row's URL
+(`openbao.org/docs/...`, `www.iso.org/standard/85929.html`,
+`datatracker.ietf.org/doc/rfc9530/`, `www.1password.dev/...`,
+`1password.com/blog/...`) carried by the registry and the census scan — no
+seat fetched a new page. **No `Set-Cookie` value, no session id, no
+credential header was captured** (the round-56 lesson's class, QM72, holds:
+the capture is the body only, no headers file exists).
+
+## Verdict
+
+No `op`/`op run`/`op read` execution, no vault or account contact, no host
+sysctl mutation, no pacman, no fleet-root or sibling-lane edit by a kagi
+seat; the only network is the declared RFC 9530 fetch. **CLEAN.**

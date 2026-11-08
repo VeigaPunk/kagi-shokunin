@@ -1,0 +1,15 @@
+# command: bash plans/round-67-c1.sh --selftest   (cwd=/home/vgpnk/Projects/shokunin/kagi-shokunin)
+# at 2026-11-08T11:09:10Z; counter sha256 67fb72e5b7518b6e3f0098c359d4ae49f5a8617b830d5ec85b11d130600062ad
+c1-readthrough: mut-repoint expected=capture-digest-mismatch reasons=none verdict=CLEAN rc=0 captures=CLEAN detail=loc=.ufo/waves/round-64/capture/S148.body
+c1-readthrough: mut-truncate expected=capture-bytes-mismatch reasons=none verdict=CLEAN rc=0 captures=CLEAN detail=bytes=10 (was 11)
+c1-readthrough: mut-delete expected=capture-missing reasons=none verdict=CLEAN rc=0 captures=CLEAN detail=removed=.ufo/fx/S164.body
+c1-readthrough: mut-absolute expected=capture-outside-root reasons=none verdict=CLEAN rc=0 captures=CLEAN detail=loc=/fast/scratch/hyaku/kagi-r67/R67ExecCounterC1/selftest-gusojjyp/const-clean-work/mut-absolute/.ufo/fx/S164.body
+c1-readthrough: mut-dotdot expected=capture-outside-root reasons=none verdict=CLEAN rc=0 captures=CLEAN detail=loc=../mut-dotdot-outside/S164.body
+c1-readthrough: mut-quote expected=quote-not-located reasons=none verdict=CLEAN rc=0 captures=CLEAN detail=quote=zzc1notlocatedquotezz
+c1-readthrough: mut-repoint expected=capture-digest-mismatch reasons=capture-digest-mismatch,capture-bytes-mismatch,capture-missing,capture-outside-root,quote-not-located verdict=FAILED rc=1 captures=FAILED detail=loc=.ufo/waves/round-64/capture/S148.body
+c1-readthrough: mut-truncate expected=capture-bytes-mismatch reasons=capture-digest-mismatch,capture-bytes-mismatch,capture-missing,capture-outside-root,quote-not-located verdict=FAILED rc=1 captures=FAILED detail=bytes=10 (was 11)
+c1-readthrough: mut-delete expected=capture-missing reasons=capture-digest-mismatch,capture-bytes-mismatch,capture-missing,capture-outside-root,quote-not-located verdict=FAILED rc=1 captures=FAILED detail=removed=.ufo/fx/S164.body
+c1-readthrough: mut-absolute expected=capture-outside-root reasons=capture-digest-mismatch,capture-bytes-mismatch,capture-missing,capture-outside-root,quote-not-located verdict=FAILED rc=1 captures=FAILED detail=loc=/fast/scratch/hyaku/kagi-r67/R67ExecCounterC1/selftest-gusojjyp/const-failed-work/mut-absolute/.ufo/fx/S164.body
+c1-readthrough: mut-dotdot expected=capture-outside-root reasons=capture-digest-mismatch,capture-bytes-mismatch,capture-missing,capture-outside-root,quote-not-located verdict=FAILED rc=1 captures=FAILED detail=loc=../mut-dotdot-outside/S164.body
+c1-readthrough: mut-quote expected=quote-not-located reasons=capture-digest-mismatch,capture-bytes-mismatch,capture-missing,capture-outside-root,quote-not-located verdict=FAILED rc=1 captures=FAILED detail=quote=zzc1notlocatedquotezz
+C1_READTHROUGH_SELFTEST: PASS (32 cases)

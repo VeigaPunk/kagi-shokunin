@@ -1,0 +1,63 @@
+R67Critic — C2 legs re-derived at BASE 076701a11a58e3eb58d996b4c76c5e18071fb179
+Lane: /home/vgpnk/Projects/shokunin/kagi-shokunin; run 2026-11-08.
+Every command below is read-only (`git show`, `git cat-file`, `git log`, one lane instrument).
+
+BASE=076701a11a58e3eb58d996b4c76c5e18071fb179
+
+--- L1 ---
+$ git show $BASE:SCORECARD.md | sed -n '2339p' | grep -o 'C2_PREFILE: gate=[A-Z] claims=[0-9] rows=[A-Z] attack_seats=[A-Z] guard=[A-Z]'
+C2_PREFILE: gate=A claims=3 rows=R attack_seats=K guard=G
+$ git show $BASE:.ufo/waves/round-66/final/c2-candidate.txt | tail -1
+C2_PREFILE: gate=0 claims=0 rows=0 attack_seats=0 guard=0
+$ git show $BASE:.ufo/waves/round-66/final/c2-candidate.txt | sed -n '4p'
+c2-prefile: gate-out PREFILE-FALSIFICATION: SETUP findings=1
+# the SCORECARD cell also says the ledger "reads `pass`"; the receipt says SETUP.
+
+--- L2 ---
+$ git show $BASE:SKILL.md | sed -n '893p' | grep -o 'cases=[0-9]* failed=[0-9]*'
+cases=14 failed=0
+$ bash plans/round-66-c1.sh --selftest 2>&1 | tail -1
+c1-carrier: selftest cases=45 failed=0
+$ grep -c 'cases.append' plans/round-66-c1.sh
+45
+
+--- L3 ---
+$ git show $BASE:corpus/README.md | grep -c carrier
+0
+$ git cat-file -e $BASE:corpus/knowledge/claim-instrument-carrier-binding.md && echo present
+present
+
+--- L4 ---
+$ git show $BASE:.ufo/waves/round-66/claim-falsification.tsv | grep -c R66Sentinel
+0
+$ git show $BASE:.ufo/waves/round-66/claim-falsification.tsv | grep -c .
+9
+# 9 rows, 5 TAB columns each; the closure requires a 10th row for R66Sentinel
+# (scripts/hyaku/prefile-falsification.py rule `attack-seat-unread`).
+
+--- L5 ---
+$ git show $BASE:.ufo/waves/round-66/claims.json | grep -c 'C2_PREFILE\|C3_CENSUS'
+0
+$ git show $BASE:.ufo/waves/round-66/claims.json | grep -c 'C2_CLAIMS\|C3_SELFREF'
+2
+# keys/titles at BASE: C2 "C2_CLAIMS: the pre-file claims file matches …",
+# C3 "C3_SELFREF: the registry's self-reference literals resolve".
+
+--- L6 ---
+$ git ls-tree -r --name-only $BASE -- .ufo/waves/round-66/final/ | grep -c c3-base
+0
+$ git log --all --oneline -- .ufo/waves/round-66/final/c3-base.txt | wc -l
+0
+$ git show $BASE:.ufo/waves/round-66/final/ 2>&1 | head -1
+fatal: path '.ufo/waves/round-66/final' exists on disk, but not in '076701a…'
+# working tree now holds an untracked reconstruction (status ??), see l6-rerun.txt.
+
+--- L7 ---
+$ git show $BASE:corpus/lessons/round-66.md | grep -c S113
+0
+$ git show $BASE:corpus/lessons/round-66.md | grep -n 'used-by'
+28:No existing row's `status`/`recheck` changed; S148's and S156's `used-by`
+# one occurrence, names two rows, no old value and no S113 → no old→new pair logged.
+
+Conclusion: all seven legs read `defect` on committed BASE bytes; none is a
+preference and none reads `ok` as a do-nothing control.

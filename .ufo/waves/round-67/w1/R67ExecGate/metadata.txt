@@ -1,0 +1,29 @@
+# R67ExecGate receipts metadata (2026-11-08T08:26:14-03:00)
+
+seat: R67ExecGate (sole writer of corpus/sources-census.sh)
+lane: kagi-shokunin branch master
+BASE: 076701a11a58e3eb58d996b4c76c5e18071fb179
+predeclaration: aa8807e443166f45485e1aada2989f646efc707c
+
+gate file: corpus/sources-census.sh
+e7aacecdfcf06ed6303f5272cd0d3bd6a20d16fdbf0f064a4c68aae940e1d10f  corpus/sources-census.sh
+966 corpus/sources-census.sh
+233	4	corpus/sources-census.sh
+
+registry file (not edited by this seat; L1 applied S115 re-cut + A3 S166 row): corpus/source-fetches.tsv
+90dd4a2cbc006cdf0a90e42f45917eb9fba9ee7645a9299fb49e79481d38291d  corpus/source-fetches.tsv
+
+selftest last line:
+SOURCES_CENSUS_SELFTEST: PASS (89 cases)
+selftest case lines: 89
+
+integrated lane gate (final bytes):
+SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=121)
+SOURCES_CENSUS: CLEAN (rows=157 A=140 B=2 C=15 queued=3 mined=137 rejected=17 entries_sourced=27 legacy=21 captures=157 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+
+integrated counter verdict (final bytes, amended counter):
+c1-readthrough: guard a=1 b=1 c=1 d=1 e=1 f=1 pop=1
+C1_READTHROUGH: bound=36 located=36 caught=6/6 guard=1
+
+pre-recut counter verdict (historical, receipt 20):
+C1_READTHROUGH: bound=36 located=35 caught=6/6 guard=0

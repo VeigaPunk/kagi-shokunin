@@ -1,0 +1,72 @@
+R67Critic — L6 counterexample: the receipt exists, the cited reading does not,
+and a false number passes the delegated check.
+
+Lane: /home/vgpnk/Projects/shokunin/kagi-shokunin; run 2026-11-08.
+
+1. The cited artifact at BASE is absent from every commit (see base-seven-defects.txt).
+   In the working tree it now exists untracked:
+   $ git status --porcelain .ufo/waves/round-66/final/c3-base.txt
+   ?? .ufo/waves/round-66/final/c3-base.txt
+   $ sha256sum .ufo/waves/round-66/final/c3-base.txt
+   8365a4e70d5ee04b7f710038bcf595f24a7cc287dd44bce5fa34fc9aa7b7ca61
+
+2. Its body carries the LANE GATE line only; the `C3_CENSUS:` line the
+   report/SCORECARD cite the path for is not present:
+   $ grep -c 'C3_CENSUS:' .ufo/waves/round-66/final/c3-base.txt
+   0
+   $ tail -1 .ufo/waves/round-66/final/c3-base.txt
+   SOURCES_CENSUS: FAILED (findings=4 rows=155)
+   (the file's header says "reconstructed receipt … command: cd <scratch> &&
+   bash corpus/sources-census.sh")
+
+3. The C3 BASE reading is re-derivable TODAY, so the honest artifact is a
+   re-run receipt, not a reconstruction:
+   $ S=${HYAKU_SCRATCH:-/fast/scratch/hyaku}/kagi-r67/R67Critic
+   $ mkdir -p "$S/base" && git archive d549ee6 | tar -x -C "$S/base"
+   $ bash plans/round-66-c3.sh --tree "$S/base" \
+       --fleet /home/vgpnk/Projects/shokunin --scratch "$S/c3scratch"
+   c3-census: line SOURCES_CENSUS: FAILED (findings=4 rows=155
+   c3-census: guard-b findings=4
+   c3-census: guard-c shim rows=999
+   c3-census: fleet kagi	ok
+   c3-census: guard a=1 b=1 c=1 d=1
+   C3_CENSUS: findings=4 rows=155 guard=1
+   exit 1
+   The body of the in-flight file matches a live run of the lane gate exactly:
+   $ cd "$S/base" && bash corpus/sources-census.sh | grep -E 'FINDING|SOURCES_CENSUS' \
+       | diff - <(grep -E 'FINDING|SOURCES_CENSUS' lane/.ufo/waves/round-66/final/c3-base.txt)
+   (no output — identical)
+
+4. Stub demonstration — a receipt with a false finding count and the right
+   header passes the delegated L6 check ("presence + provenance header"):
+   $ cp lane/.ufo/waves/round-66/final/c3-base.txt "$S/stub/c3-base-stub.txt"
+   $ sed -i 's/findings=4 rows=155/findings=0 rows=155/' "$S/stub/c3-base-stub.txt"
+   $ tail -1 "$S/stub/c3-base-stub.txt"
+   SOURCES_CENSUS: FAILED (findings=0 rows=155)
+   $ [ -f "$S/stub/c3-base-stub.txt" ] \
+     && grep -q 'reconstructed receipt' "$S/stub/c3-base-stub.txt" \
+     && grep -q 'git archive d549ee6' "$S/stub/c3-base-stub.txt" \
+     && echo 'L6-like check: ok (stub accepted)'
+   L6-like check: ok (stub accepted)
+   The receipt would then state a BASE finding count (`findings=0`) that the
+   instrument cannot have produced at d549ee6, and no leg reads it.
+
+5. Hermeticity caveat for the re-run (round-66 counter guard (d) is not
+   tree-scoped — the M66-9 class): with a scratch fleet root that holds
+   `scripts/` + a copy of the BASE extraction named `kagi-shokunin`,
+   $ bash plans/round-66-c3.sh --tree "$S/fakeroot2/kagi-shokunin" \
+       --fleet "$S/fakeroot2" --scratch "$S/c3scratch2"
+   c3-census: fleet no-line
+   c3-census: guard a=1 b=1 c=1 d=0
+   C3_CENSUS: findings=4 rows=155 guard=0
+   So `guard=1` is only reachable against the real fleet root (which reads the
+   live lane); a leg that requires `guard=1` byte-equality is not hermetic.
+   Compare `findings=` and `rows=` to the fresh run and record the fleet state.
+
+Smallest correction: L6's check must (i) `git cat-file -e <tree>:<path>`,
+(ii) require a header naming BASE d549ee6, the counter sha256, the fleet root
+and the run date, (iii) re-run the counter and require the receipt's
+`C3_CENSUS:` line to match `findings=` and `rows=` (guard noted, not required),
+and (iv) require the four FINDING ids. The frozen guard (c) already demands
+this ("each re-derives from committed bytes (a gate output …)"); the delegated
+"presence + provenance header" check does not.

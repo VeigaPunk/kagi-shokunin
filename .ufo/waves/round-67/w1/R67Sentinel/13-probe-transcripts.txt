@@ -1,0 +1,182 @@
+# R67Sentinel — probe transcripts (round 67)
+
+Every probe below ran against a scratch copy of the lane
+(`${HYAKU_SCRATCH:-/fast/scratch/hyaku}/kagi-r67/R67Sentinel/`). The lane was
+only ever read. The scratch directory was deleted after the receipts were
+copied here.
+
+## P-exec — the gate executes code from the tree it audits (V-2)
+
+Method: scratch tree = whole lane copy with `corpus/rendered-text-v1.py`
+replaced by a marker-writing program; run
+`bash <lane>/corpus/sources-census.sh verify --root <tree>`; check whether the
+marker appeared.
+
+```
+--- gate run against the planted tree ---
+SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=120)
+SOURCES_CENSUS: CLEAN (rows=156 A=139 B=2 C=15 queued=3 mined=136 rejected=17 entries_sourced=26 legacy=21 captures=156 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+--- marker? ---
+MARKER_PRESENT: the gate executed corpus/rendered-text-v1.py FROM THE AUDITED TREE
+
+--- BASE gate against the same planted tree ---
+SOURCES_CENSUS: CLEAN (rows=156 …)
+BASE_MARKER_ABSENT
+```
+
+(The BASE comparison uses `git show 076701a:corpus/sources-census.sh`; BASE
+contains zero `python3` invocations, so it cannot execute the tree's file.)
+
+## P-verdict — a lying normalizer decides the gate's verdict
+
+Method: scratch tree with every declared quote broken; a normalizer that
+reports `count=1` for every quote.
+
+```
+--- gate on a tree whose quotes are all broken, with a lying normalizer ---
+FINDING SC_CAPTURE id=S101 quote-not-located
+FINDING SC_CAPTURE id=S102 quote-not-located
+FINDING SC_CAPTURE id=S113 quote-not-located
+FINDING SC_CAPTURE id=S114 quote-not-located
+SOURCES_CAPTURES: FAILED (defects=5 path_rows=36 bound=36 located=31 prose=120)
+SOURCES_CENSUS: FAILED (findings=5 rows=156)
+
+--- same broken tree with the LANE's real normalizer (control) ---
+SOURCES_CAPTURES: FAILED (defects=36 path_rows=36 bound=36 located=0 prose=120)
+SOURCES_CENSUS: FAILED (findings=36 rows=156)
+```
+
+(The 5 remaining findings under the liar are the five `raw-literal-v1` rows,
+which the gate checks by literal substring, not through the normalizer.)
+
+## P-paths — capture-path confinement classes
+
+Method: each class installed on S164's location cell in a scratch tree.
+
+```
+### baseline (unmutated S164)
+SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=120)
+
+### P1 symlink inside the tree -> another body inside the tree
+FINDING SC_CAPTURE id=S164 capture-missing
+SOURCES_CAPTURES: FAILED (defects=1 path_rows=36 bound=35 located=35 prose=120)
+
+### P2 symlink inside the tree -> OUTSIDE the tree
+FINDING SC_CAPTURE id=S164 capture-outside-root
+SOURCES_CAPTURES: FAILED (defects=1 path_rows=36 bound=35 located=35 prose=120)
+
+### P3 hardlink to another body
+FINDING SC_CAPTURE id=S164 capture-digest-mismatch
+SOURCES_CAPTURES: FAILED (defects=2 path_rows=36 bound=35 located=35 prose=120)
+
+### P4 '..' that lands back INSIDE the tree
+SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=120)
+
+### P5 '..' that ESCAPES the tree
+FINDING SC_CAPTURE id=S164 capture-outside-root
+SOURCES_CAPTURES: FAILED (defects=1 path_rows=36 bound=35 located=35 prose=120)
+
+### P6 trailing space in the location
+SOURCES_CAPTURES: CLEAN (path_rows=35 bound=35 located=35 prose=121)
+
+### P7 doubled slash and ./ prefix
+SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=120)
+SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=120)
+```
+
+## P-liar — the realistic one-line liar does NOT reach the target
+
+A tree whose normalizer is the real one plus `count = max(n,1)`:
+
+```
+=== GATE on the tree (--root), with the tree's liar ===
+FINDING SC_CAPTURE id=S156 quote-not-located
+SOURCES_CAPTURES: FAILED (defects=31 path_rows=36 bound=36 located=5 prose=120)
+SOURCES_CENSUS: FAILED (findings=31 rows=156)
+
+=== GATE's own --selftest on the tree (SCRIPT_DIR = the tree) ===
+SOURCES_CENSUS_SELFTEST: PASS (88 cases)
+
+=== C1 COUNTER on the tree ===
+c1-readthrough: derived path_rows=36 bound=36 located=5 prose=120 malformed=0
+c1-readthrough: guard-a verdict=FAILED rc=1 … gate_fields=differ adjacent=True population=36
+C1_READTHROUGH: bound=36 located=5 caught=6/6 guard=0
+```
+
+Honest negative result, reported as such: a liar that reports `count=1` for
+*every* quote is refused by the gate, because the gate's own `--selftest`
+runs against the tree's normalizer and its `capture-quote-garbage` case
+fails. The defect in V-1 is therefore specifically the class the instruments'
+own sentinel strings exempt.
+
+## P-selective — the decisive case (V-1)
+
+Method: tree whose normalizer is the real one plus an exception that reports
+`count=1` for every quote EXCEPT two sentinels the instruments themselves
+place in the tree (the gate's selftest garbage quote and the counter's
+`zzc1notlocatedquotezz`); every rendered-text-v1 path row's quote replaced
+by a non-locating string.
+
+```
+=== GATE on the tree (--root) ===
+SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=120)
+SOURCES_CENSUS: CLEAN (rows=156 …)
+
+=== GATE's own --selftest (guard-b source) ===
+SOURCES_CENSUS_SELFTEST: PASS (88 cases)
+
+=== C1 COUNTER on the tree ===
+c1-readthrough: derived path_rows=36 bound=36 located=36 prose=120 malformed=0
+c1-readthrough: guard-a verdict=CLEAN rc=0 captures=SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=120) derived=path_rows=36 bound=36 located=36 prose=120 gate_fields=match adjacent=True population=36
+c1-readthrough: guard-b selftest rc=0 cases=88
+c1-readthrough: guard-c base-gate-on-repoint rc=0 verdict=SOURCES_CENSUS: CLEAN (rows=156 …)
+c1-readthrough: guard-e prose_rows=120 prose_findings=none gate_prose=120 derived_prose=120
+c1-readthrough: mut-m1 … expected=capture-digest-mismatch reasons=capture-digest-mismatch …
+c1-readthrough: mut-m2 … expected=capture-bytes-mismatch+capture-digest-mismatch …
+c1-readthrough: mut-m3 … expected=capture-missing …
+c1-readthrough: mut-m4 … expected=capture-outside-root …
+c1-readthrough: mut-m5 … expected=capture-outside-root …
+c1-readthrough: mut-m6 … expected=quote-not-located …
+C1_READTHROUGH: bound=36 located=36 caught=6/6 guard=1
+```
+
+The frozen target is reached on a tree whose declared quotes do not locate.
+
+## P-remedy — the one-line remediation closes the cross-check (V-1)
+
+Method: copy the counter to scratch; change only
+`script = os.path.join(tree, "corpus/rendered-text-v1.py")` →
+`os.path.join('<lane>', "corpus/rendered-text-v1.py")`; run both counters on
+the P-selective liar tree. The lane's counter was not edited.
+
+```
+=== UNPATCHED counter (tree's liar drives both sides) ===
+c1-readthrough: derived path_rows=36 bound=36 located=36 prose=120 malformed=0
+c1-readthrough: guard-a verdict=CLEAN rc=0 line=frozen derived=… located=36 … gate_fields=match adjacent=True
+C1_READTHROUGH: SETUP base-gate-unavailable git-show 076701a1…
+
+=== PATCHED counter (derivation uses the lane's own normalizer) ===
+c1-readthrough: derived path_rows=36 bound=36 located=5 prose=120 malformed=0
+c1-readthrough: guard-a verdict=CLEAN rc=0 line=frozen derived=… located=5 … gate_fields=differ adjacent=True
+C1_READTHROUGH: SETUP base-gate-unavailable git-show 076701a1…
+```
+
+With the patch the derivation reads `located=5` while the tree's gate reads
+`located=36`; the two disagree (`gate_fields=differ`), so guard (a) is a real
+check. Both runs stop at the same unrelated `SETUP base-gate-unavailable`
+(the scratch tree has no `.git`, so `git show <BASE>:…` cannot resolve); the
+guard-(a) line above is the leg under test and it reads as claimed.
+
+## P-final — the population-shrink class (V-4)
+
+```
+########## (b) trailing-space row moved out of the population ##########
+--- gate on the tree (--root) ---
+SOURCES_CAPTURES: CLEAN (path_rows=35 bound=35 located=35 prose=121)
+SOURCES_CENSUS: CLEAN (rows=156 …)
+--- counter on the tree ---
+c1-readthrough: derived path_rows=35 bound=35 located=35 prose=121 malformed=0
+C1_READTHROUGH: SETUP m1-no-same-size-different-sha-capture-target
+```
+
+The gate reads CLEAN with the row unchecked; the counter refuses.

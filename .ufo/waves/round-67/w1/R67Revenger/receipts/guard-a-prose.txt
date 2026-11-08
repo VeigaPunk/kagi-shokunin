@@ -1,0 +1,31 @@
+# Frozen guard (a)/(e) vs the landed tree (gate 46de3d8c, tsv 90dd4a2c, 157 rows)
+
+plans/round-67.md:60-70 (verbatim):
+- `guard = 1` iff (a) the unmodified candidate tree prints
+  `SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=120)`;
+  (b) `bash corpus/sources-census.sh --selftest` exits 0 with `cases >= 84`
+  and fails closed on a mutated copy; (c) the BASE gate on the repointed copy
+  prints `SOURCES_CENSUS: CLEAN` (the blindness witness: the target is not
+  reachable by doing nothing); (d) the fleet wrapper reads `kagi ok` on the
+  candidate; (e) the 120 prose-location rows produce no `SC_CAPTURE` finding.
+
+Kill rules: the target is missed if `bound < 36`, `located < 36`, `caught < 6`
+or `guard = 0`. A `SETUP` line is never a pass. A count produced by a
+constant printer (a gate that prints the CLEAN line without reading a byte)
+
+$ bash corpus/sources-census.sh verify --root .   # on the lane
+SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=121)
+SOURCES_CENSUS: CLEAN (rows=157 A=140 B=2 C=15 queued=3 mined=137 rejected=17 entries_sourced=27 legacy=21 captures=157 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+
+# Reading:
+#  - the plan compares the exact captures line with prose=120 and names "the 120
+#    prose-location rows" in guard (e);
+#  - S166's col-16 ("§1.2 Concept Overview; capture …/S166.body") is prose, so
+#    the landed 157-row tree prints prose=121;
+#  - if S166 were made capture-shaped instead, the line would read path_rows=37
+#    (measured: s166-loc-shaped in s166-live-addendum.txt).
+# Therefore no landing of an S166 provenance row can satisfy guard (a) as
+# frozen: the term prose=120 (and path_rows=36) is a 156-row property, and the
+# round's own sourced-claim row is a 157th row. The substance of guard (e)
+# still holds (the prose rows produce no SC_CAPTURE line), but its population
+# is 121, not 120.

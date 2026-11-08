@@ -1,0 +1,13 @@
+# reconstructed receipt — committed in round 67 (L1 KagiR67) after the round-66 closure found the cited path absent
+# original citation: round-66 report §Before → after, C3 BASE reading (path .ufo/waves/round-66/final/c3-base.txt)
+# measured absent from every commit: git log --all -- .ufo/waves/round-66/final/c3-base.txt prints nothing (round-66 spot-check §1.2)
+# provenance: BASE d549ee6eb8770a49938b78f49cf79e36d9c1c2e8 extracted with
+#   git archive d549ee6eb8770a49938b78f49cf79e36d9c1c2e8 | tar -x -C <scratch>
+# command: cd <scratch> && bash corpus/sources-census.sh   (the LANE gate, corpus/sources-census.sh)
+# run: 2026-11-08 on the Linux host, python3 3.14.8, bash 5.2.37(1)-release
+# this file is a reconstruction, not the round-66 original: it re-derives the same four findings from the same revision
+FINDING SC_FETCH id=S156 missing-provenance
+FINDING SC_FETCH id=S155 missing-provenance
+FINDING SC_BODY_CITE entry=corpus/knowledge/claim-instrument-class-matrix.md id=S148 unrecorded
+FINDING SC_BODY_CITE entry=corpus/knowledge/claim-instrument-class-matrix.md id=S156 unrecorded
+SOURCES_CENSUS: FAILED (findings=4 rows=155)

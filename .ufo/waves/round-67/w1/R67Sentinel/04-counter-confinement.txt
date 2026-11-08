@@ -1,0 +1,167 @@
+# R67Sentinel — counter confinement audit (round 67)
+
+Question asked of each counter: **does it write only under its scratch
+argument, and does it refuse a tree argument that escapes the lane?**
+
+Counters under test (working-tree bytes at audit time):
+
+```
+plans/round-67-c1.sh  sha256 67fb72e5b7518b6e3f0098c359d4ae49f5a8617b830d5ec85b11d130600062ad  (897 lines)
+plans/round-67-c2.sh  sha256 c80f4441a04a21ca02522afaad394f4f7f34177f11fe9f739786e6be41d13cf1  (875 lines)
+```
+
+Harness: `bin/probe-counter.sh` (scratch copy of the lane; the lane itself is
+only ever read) and `bin/probe-real-lane.sh` (the counters run against the
+lane itself, with the lane and /tmp snapshotted before and after).
+
+## T1 — writes confined to `--scratch`: YES, both counters
+
+Running each counter with `--tree <scratch copy> --scratch <dir>`:
+
+| | C1 | C2 |
+|---|---|---|
+| files created inside `--tree` | **0** | **0** |
+| files created in the lane | 0 (the 4–16 "lane new" files were concurrent seats' own reports, attributed by path) | 0 |
+| files created outside the lane (fleet) | 0 attributable | 0 attributable |
+| files created in `/tmp` | 0 attributable | 0 attributable (`/tmp/wr1..3.txt` were written by another lane's fleet wrapper; no counter byte) |
+| files left under `--scratch` | 0 (work dir removed on exit) | 0 |
+
+Both counters resolve their scratch root themselves and **refuse a scratch
+that sits inside the measured tree**:
+
+```
+$ bash plans/round-67-c1.sh --tree <tree> --scratch <tree>/inner-scratch
+C1_READTHROUGH: SETUP scratch-inside-measured-tree …/inner-scratch      (exit 2)
+$ bash plans/round-67-c2.sh --tree <tree> --scratch <tree>/inner-scratch
+C2_FIDELITY: SETUP scratch-inside-tree                                   (exit 2)
+```
+
+The C1 counter also exports `TMPDIR` to the scratch root
+(`plans/round-67-c1.sh` `scratch_root()`), so even a child's `mktemp` lands
+under the declared scratch.
+
+## T2/T3 — an escaping `--tree`: REFUSED (setup), never silently measured
+
+```
+--tree /etc                                 → C1_READTHROUGH: SETUP bad-tree /etc            (exit 2)
+                                             C2_FIDELITY: SETUP tree-lacks-corpus/SOURCES.md  (exit 2)
+--tree <lane>/../../etc                     → C1_READTHROUGH: SETUP bad-tree …/../../etc     (exit 2)
+                                             C2_FIDELITY: SETUP bad-tree …/../../etc          (exit 2)
+```
+
+A `--tree` that is a real directory but outside the lane is **measured, not
+refused** — by design: the plan's guard (c) and the counter's mutation legs
+require the counter to run against mutated *copies* of the candidate tree
+under scratch. What matters is that the copy is read-only for the counter and
+that the counter's writes stay under its scratch, both measured above.
+
+## Hardlink write-through: NONE
+
+The C1 counter clones the tree with `cp -al` semantics (hardlinks) and then
+mutates. A hardlinked mutation would write through into the source tree, so
+the counter unlinks before rewriting (`break_link()`, `plans/round-67-c1.sh`).
+Measured on the real lane, before and after a full counter run:
+
+```
+before: tsv=60fa5d10… body=3b8d4e15… size=264946
+after : tsv=60fa5d10… body=3b8d4e15… size=264946
+TSV_UNCHANGED
+CAPTURE_UNCHANGED
+```
+
+The source capture's digest and byte count are unchanged: the counter did not
+write through a hardlink into the lane.
+
+## Counter readings on the lane
+
+```
+$ bash plans/round-67-c1.sh --tree <lane> --scratch <out>
+C1_READTHROUGH: bound=36 located=36 caught=6/6 guard=1            (exit 0)
+
+$ bash plans/round-67-c2.sh --tree <lane> --scratch <out>
+C2_FIDELITY: mismatches=0 population=7 guard=1                    (exit 0)
+```
+
+Both counters printed their frozen verdict shape exactly, and both exited 0
+with zero residue.
+
+## Findings from the confinement audit
+
+**V-1 (HIGH, open) — the counter's "independent derivation" is not
+independent: it reads the normalizer FROM THE TREE IT MEASURES.**
+
+`plans/round-67-c1.sh` derives `located` itself (`locate_quote()`), but it
+resolves the normalizer as `os.path.join(tree, "corpus/rendered-text-v1.py")`
+— the copy inside the measured tree — and the tree's own gate reads the same
+file. Guard (a) then "cross-checks" the gate's four counts against the
+counter's derivation, but **both sides run the tree's code**, so the
+cross-check cannot detect a tree that ships a lying normalizer.
+
+Measured. A scratch tree with **every** rendered-text-v1 path row's quote
+replaced by a non-locating string, carrying a normalizer that reports
+`count=1` for every quote except the two sentinel strings the instruments
+themselves put in the tree:
+
+```
+GATE on the tree:      SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=120)
+                       SOURCES_CENSUS: CLEAN (rows=156 …)
+C1 COUNTER on the tree: derived path_rows=36 bound=36 located=36 prose=120
+                       guard-a verdict=CLEAN … gate_fields=match
+                       C1_READTHROUGH: bound=36 located=36 caught=6/6 guard=1
+```
+
+The frozen target is reached on a tree whose declared quotes **do not
+locate**. The control — the same broken tree with the lane's real normalizer
+— reads `SOURCES_CAPTURES: FAILED (defects=31 … located=5)` and
+`SOURCES_CENSUS: FAILED (findings=31)`. The gate's own `--selftest` also
+passes (`SOURCES_CENSUS_SELFTEST: PASS (88 cases)`), because the selftest
+fixtures resolve their normalizer from the gate's `SCRIPT_DIR`, not from the
+tree.
+
+Smallest remediation, **measured**: change one line in
+`plans/round-67-c1.sh` so the derivation uses a normalizer outside the
+measured tree (`os.path.join(LANE, "corpus/rendered-text-v1.py")` instead of
+`os.path.join(tree, …)`). On the same liar tree the derivation then reads
+`located=5`, the gate reads `located=36`, and the two **disagree** —
+`guard-a … gate_fields=differ` — so the cross-check becomes a real check
+instead of a tautology. The patched copy was run from scratch; the lane's
+counter was not edited.
+
+**V-2 (MEDIUM, open) — the census gate itself executes code taken from the
+tree it audits.**
+
+`corpus/sources-census.sh` (landed this round) resolves its normalizer as
+`CAP_NORM="$ROOT/corpus/rendered-text-v1.py"` and falls back to `SCRIPT_DIR`
+only if the tree has none — so `verify --root DIR` **executes
+`DIR/corpus/rendered-text-v1.py`**. The BASE gate ran **no** `python3` at
+all (`grep -c python3` = 0 on BASE; 3 on the landed bytes): this is a new
+execution surface introduced by this round.
+
+Measured: a scratch tree carrying a marker-writing `rendered-text-v1.py`
+makes the gate create that marker when run with `--root` against it
+(`MARKER_PRESENT`); the BASE gate against the same tree does not
+(`BASE_MARKER_ABSENT`). A tree that can write a file under the audited tree
+can therefore run arbitrary code inside the gate — and, since the gate's
+verdict is `located`, that code can decide the verdict.
+
+Smallest remediation: prefer the gate's own committed normalizer
+(`SCRIPT_DIR`) over the tree's, or verify the tree's normalizer digest
+against the lane's committed digest before executing it.
+
+**V-3 (MEDIUM, open) — the S115 re-cut leaves the lane's own capture row
+bound to a quote that does not locate under the lane's real normalizer.**
+Not a security defect in the gate (the gate caught it correctly), recorded
+here because the seat's own audit read it: the re-cut quote
+`Audit devices must be enabled by a root user using bao audit enable or using
+the audit stanza` locates `count=1` under `rendered-text-v1` in
+`.ufo/waves/round-57/capture/S115.body` — the row is now correctly bound —
+so this is closed on the landed bytes, and the C1 counter measures
+`located=36`. Recorded as an observation for the L1's record, not a defect.
+
+## Verdict
+
+Both counters confine their writes to their scratch argument, refuse a
+scratch inside the measured tree, refuse an absurd `--tree`, and leave no
+residue; no write-through into the lane. The residual risk is **read-side**,
+not write-side: both the gate and the counter's "independent" derivation
+execute a normalizer taken from the tree under measurement (V-1, V-2).

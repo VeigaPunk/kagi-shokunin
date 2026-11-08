@@ -1,0 +1,53 @@
+R67ScoutPre — item 2: population census over corpus/source-fetches.tsv (BASE)
+=========================================================================
+Method (independent re-derivation, NOT the plan's numbers):
+  rows   = data rows (non-comment, NF==16) of corpus/source-fetches.tsv
+  path-shaped = col16 contains '/' AND matches ^[A-Za-z0-9._][A-Za-z0-9._/-]*$
+  bound  = path-shaped AND repo-relative AND realpath inside the tree AND
+           regular file AND sha256(file)==col10 AND size(file)==col11
+  located = bound AND col13 locates count>=1 under col14 normalization
+           (rendered-text-v1 via corpus/rendered-text-v1.py locate FILE QUOTE;
+            raw-literal-v1 by literal substring)
+  prose  = every other row (never checked)
+
+MEASURED AT BASE (076701a11a58e3eb58d996b4c76c5e18071fb179):
+  rows_total        = 156
+  path_rows         = 36
+  prose_rows        = 120
+  bound             = 36   (0 failures: every path row resolves, digest+size match)
+  located           = 35
+  NOT locating      = 1    -> S115
+      S115  .ufo/waves/round-57/capture/S115.body  rendered-text-v1  count=0
+            declared quote: "Audit devices must be enabled by a root user using bao
+            audit enable or using the audit stanza."
+  normalizations among the 36 path rows: rendered-text-v1 = 31, raw-literal-v1 = 5
+
+  Path-row ids (36): S100 S101 S102 S113 S114 S115 S116 S117 S118 S119 S120
+  S121 S122 S123 S124 S125 S126 S127 S128 S129 S130 S131 S132 S133 S134 S135
+  S137 S138 S140 S141 S142 S143 S144 S164 S155 S156
+
+  Prose rows (120) all carry col16 that is NOT capture-path-shaped. 17 of them
+  do contain a '/' but fail the regex (e.g. "page title/H1", "H1 JWT/OIDC auth
+  method", "POST /:secret-mount-path/config parameters, max_versions"). This
+  matters: a gate that tested only "contains '/'" would mis-classify 17 prose
+  rows as path rows. The regex is load-bearing, not decorative.
+  No row's col16 is absolute and none contains "..".
+
+AGREEMENT WITH THE PLAN:
+  The plan (plans/round-67.md, Motivating evidence) states "36 rows whose
+  location column (col 16) is a repo-relative capture path; all 36 hash to their
+  declared col-10 sha256 and col-11 byte count today, and 35 of their 36 declared
+  quotes locate in the named body (S115 does not)". My re-derivation matches
+  every clause: 36 / 36 / 35 / S115. NO DISAGREEMENT on these numbers.
+rows_total: 156
+path_rows: 36
+prose_rows: 120
+bound: 36
+located: 35
+not_bound: []
+not_located: [('S115', '.ufo/waves/round-57/capture/S115.body', 'rendered-text-v1', 0, 'Audit devices must be enabled by a root user using bao audit')]
+norm_counts: {'raw-literal-v1': 5, 'rendered-text-v1': 31}
+--- PATH-ROW IDS ---
+S100,S101,S102,S113,S114,S115,S116,S117,S118,S119,S120,S121,S122,S123,S124,S125,S126,S127,S128,S129,S130,S131,S132,S133,S134,S135,S137,S138,S140,S141,S142,S143,S144,S164,S155,S156
+--- PROSE SAMPLE IDS ---
+S017,S018,S019,S020,S021,S022,S023,S024,S025,S026 (total 120)

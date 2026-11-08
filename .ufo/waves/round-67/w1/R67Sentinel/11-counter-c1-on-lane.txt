@@ -1,0 +1,18 @@
+c1-readthrough: tree=/home/vgpnk/Projects/shokunin/kagi-shokunin
+c1-readthrough: derived path_rows=36 bound=36 located=36 prose=120 malformed=0
+c1-readthrough: clean verdict=CLEAN rc=0 captures=SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=120)
+c1-readthrough: guard-a verdict=CLEAN rc=0 line=frozen derived=path_rows=36 bound=36 located=36 prose=120 gate_fields=match adjacent=True
+c1-readthrough: guard-b selftest rc=0 cases=88
+c1-readthrough: guard-c base-gate=git-show 076701a11a58e3eb58d996b4c76c5e18071fb179:corpus/sources-census.sh
+c1-readthrough: guard-c base-gate-on-repoint rc=0 verdict=SOURCES_CENSUS: CLEAN (rows=156 A=139 B=2 C=15 queued=3 mined=136 rejected=17 entries_sourced=26 legacy=21 captures=156 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+c1-readthrough: guard-d cmd=bash /home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --root /home/vgpnk/Projects/shokunin kagi
+c1-readthrough: guard-d rc=0 kagi_ok=yes measured=/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/SOURCES.md
+c1-readthrough: guard-e prose_rows=120 prose_findings=none gate_prose=120 derived_prose=120
+c1-readthrough: mut-repoint expected=capture-digest-mismatch reasons=capture-bytes-mismatch,capture-digest-mismatch verdict=FAILED rc=1 captures=FAILED detail=loc=.ufo/waves/round-64/capture/S148.body
+c1-readthrough: mut-truncate expected=capture-bytes-mismatch reasons=capture-bytes-mismatch,capture-digest-mismatch verdict=FAILED rc=1 captures=FAILED detail=bytes=264945 (was 264946)
+c1-readthrough: mut-delete expected=capture-missing reasons=capture-missing verdict=FAILED rc=1 captures=FAILED detail=removed=.ufo/waves/round-64/capture/S143.body
+c1-readthrough: mut-absolute expected=capture-outside-root reasons=capture-outside-root verdict=FAILED rc=1 captures=FAILED detail=loc=/fast/scratch/hyaku/kagi-r67/R67Sentinel/real-scratch/c1/run-vt0b2p9y/mut-absolute/.ufo/waves/round-64/capture/S143.body
+c1-readthrough: mut-dotdot expected=capture-outside-root reasons=capture-outside-root verdict=FAILED rc=1 captures=FAILED detail=loc=../mut-dotdot-outside/S143.body
+c1-readthrough: mut-quote expected=quote-not-located reasons=quote-not-located verdict=FAILED rc=1 captures=FAILED detail=quote=zzc1notlocatedquotezz
+c1-readthrough: guard a=1 b=1 c=1 d=1 e=1
+C1_READTHROUGH: bound=36 located=36 caught=6/6 guard=1

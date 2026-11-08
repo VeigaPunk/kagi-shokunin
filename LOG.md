@@ -2113,3 +2113,71 @@ Frozen BASE `655e620`; plan `4767b04` (alone, QM29); plan corrections 1/2 `2d46e
   (wave-missing)`. The predicate is proven reachable on a conforming fixture
   fleet (`gate=1 … guard=1`, ten gate-side mutants killed); this round's tree
   did not carry the file it reads. C1 and C3 verified.
+
+## Round 67 (2026-11-08) — the source census reads each declared capture's bytes and quote (C1 freshness, capability); seven record surfaces match the state they describe (C2 calibration)
+
+- Claims: **C1 freshness (capability)** — `C1_READTHROUGH` bound=36
+  located=35 → 36, caught=0/6 → 6/6: the lane's own census gate opens every
+  capture-path-shaped `corpus/source-fetches.tsv` row's declared body, compares
+  sha256 and byte count to columns 10/11, and locates the declared quote under
+  the declared normalization; six one-defect mutation classes are refused with
+  `FINDING SC_CAPTURE id=… <reason>`. **C2 calibration** — `C2_FIDELITY`
+  mismatches 7 → 0: the seven record surfaces the round-66 non-author closure
+  routed (its §6 items 1, 2, 3, 6, 7 and 8) now match observed state.
+- Claim BASE `076701a11a58e3eb58d996b4c76c5e18071fb179` (round-66 spot-check
+  tip); predeclaration `aa8807e4` (frozen `plans/round-67.md`); Amendments A1
+  (L6 content, out-of-lane routed items), A2 (reviewer's five blocking findings:
+  location shape, the narrowed C1 sentence, the `caught` map, population
+  identity, guard venue) and A3 (the sourced row's prose place in the
+  population) — each names the seat that forced it.
+- Axis rationale: all six axes at 9 = the saturation line and no capability
+  row since round 61, so the stagnation nudge fires (`AXES.md`) and the round is
+  a capability move plus the harmed-axis repair; recorded in the pre-move block.
+- Wave `kagi-r67-w1`, one v1 wave, 13 seats: scout 1, executor 4, scribe 2,
+  reviewer 1, critic 1, mutation-tester 1, sentinel 1, connector 1, revenger 1;
+  attack roles 6/13 (46 %); one connector; the L1 holds the canonical planner
+  seat. Seats reported under `.ufo/waves/round-67/w1/`.
+- C1 landing: `corpus/sources-census.sh` (sha256 `e7aacecd…`, +222/−4 lines,
+  `SC_CAPTURE` class, `SOURCES_CAPTURES:` summary, 10 new selftest cases → 88),
+  `corpus/source-fetches.tsv` S115 col13 re-cut to the 18-word quote
+  (`count=1`; with a terminal period the sentence reads `count=0`), and the new
+  normalizer-resolution rule (the gate uses its own sibling, never a copy
+  shipped inside the audited tree — sentinel V-2).
+- C2 landing: `SCORECARD.md` round-66 operability cell corrected to the honest
+  stop its receipt shows; `SKILL.md` round-66 C1 pin `cases=14` → `45` (and the
+  scorecard's `6a79a96d…`/43 → `d72f9712…`/45); `corpus/README.md` coverage-map
+  row for the round-66 carrier entry; `.ufo/waves/round-66/claim-falsification.tsv`
+  gains the `R66Sentinel` row; `.ufo/waves/round-66/claims.json` re-derived to
+  `C1_CARRIER/C2_PREFILE/C3_CENSUS` with `_provenance`; a reconstructed
+  `.ufo/waves/round-66/final/c3-base.txt` whose header names BASE, the archive
+  command and the run; `corpus/lessons/round-66.md` §Corrigendum with six
+  changed `used-by` cells and one new row (S113 named).
+- Instruments: `plans/round-67-c1.sh` (sha256 `3aed2ac6…`, 1195 lines) and
+  `plans/round-67-c2.sh` (sha256 `d4deb735…`, 1091 lines). C1's guard f binds
+  the candidate's `corpus/rendered-text-v1.py` to the committed one — the
+  sentinel's fake-normalizer exploit tree reads `caught=5/6 guard=0` rc 1.
+- Registry: S166 (RFC 9530 §1.2, tier A, `mined`, opened live 2026-11-08,
+  capture `S166.body` 67152 B, quote `count=1` under `rendered-text-v1`);
+  prose location by design (plans A3) so the frozen capture population holds.
+  New entry `corpus/knowledge/source-capture-binding.md`; criteria QM95/QM96.
+- Ledger migration: `corpus/claim-ledger.tsv` R21-03 selftest expectation
+  78 → 88 with `.ufo/waves/round-67/journals/expectation-migrations.json`
+  (`EXPECT_JOURNAL: CLEAN (changed=1 journaled=1)`).
+- Gates at the candidate: `SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36
+  located=36 prose=121)`; `SOURCES_CENSUS: CLEAN (rows=157 …)`;
+  `SOURCES_CENSUS_SELFTEST: PASS (89 cases)`; fleet
+  `scripts/sources-census.sh validate --root … kagi` ⇒ `kagi ok` rc 0;
+  `C1_READTHROUGH: bound=36 located=36 caught=6/6 guard=1` (BASE extraction
+  076701a: `bound=36 located=35 caught=0/6 guard=0`);
+  `C2_FIDELITY: mismatches=0 population=7 guard=1` (BASE: 7).
+- Routed, not absorbed: the census gate's prose escape hatch (a stray
+  space/CR in a location cell disengages the check with a CLEAN verdict; whole
+  file CRLF → `path_rows=0`), the in-tree-hardlink durability ceiling, and
+  column 15's normalized digest never being recomputed (M66-10's borrowed-digest
+  class is still gate-blind) — round 68 candidates, named in the report.
+- Mistake mined: M67-1 (a plan cited receipts that existed only in the L1's
+  scratch — the same class the round closes at L6) plus M67-2 (a frozen
+  classifier term no implementation could satisfy: the absolute-location
+  mutation is prose under the strict shape regex). Both are in
+  `corpus/lessons/round-67.md` §Mistakes with the rule that should have caught
+  them.

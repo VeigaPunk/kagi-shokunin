@@ -1,0 +1,160 @@
+R67ScoutPre — item 5: disagreements with the plan's stated BASE numbers,
+and defects found in the frozen plan
+=======================================================================
+
+A. DISAGREEMENTS WITH THE PLAN'S STATED BASE NUMBERS
+----------------------------------------------------
+A-1. The plan's motivating evidence (plans/round-67.md, "Motivating evidence")
+     states: "all 36 hash to their declared col-10 sha256 and col-11 byte count
+     today, and 35 of their 36 declared quotes locate in the named body (S115
+     does not)". My independent re-derivation: 36 path rows, 36 bound, 35
+     located, S115 the sole non-locating row. EVERY CLAUSE AGREES.
+
+A-2. The plan's C1 frozen predicate is
+       C1_READTHROUGH: bound=36 located=36 caught=6/6 guard=1
+     and guard (a) requires the clean tree to print
+       SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=120)
+     My measurement of the POPULATION at BASE is bound=36, located=35,
+     prose=120, path_rows=36. The target `located=36` is therefore NOT
+     reachable at BASE: it requires the S115 quote re-cut that the plan itself
+     lists as a landing surface ("S115's declared quote re-cut in
+     corpus/source-fetches.tsv to a locating quote", owned by L1). The plan
+     states this correctly in its evidence paragraph — the two statements are
+     consistent (evidence = today; predicate = after the round's landing
+     surface). NOT a disagreement; recorded so the executor does not read
+     "located=36" as a BASE reading.
+
+A-3. The plan says the C1 predicate's `located` counts "those rows whose
+     declared quote (col 13) locates count >= 1 in that file under the declared
+     normalization (col 14)". My census confirms 31 of the 36 path rows declare
+     rendered-text-v1 and 5 declare raw-literal-v1; all 5 raw-literal rows
+     locate by literal substring. No row declares an unknown normalization, so
+     the "fail closed on undeclared normalization" branch is untested by the
+     live population (it is exercised by the in-flight gate's fixture).
+
+A-4. NO numeric disagreement was found with the plan's C2 table. All seven
+     legs read `defect` at BASE exactly as the plan states.
+
+B. DEFECTS FOUND IN THE FROZEN PLAN
+------------------------------------
+DEFECT F-1 (calibration / attribution — a cited receipt that does not exist)
+  plans/round-67.md cites `.ufo/waves/round-67/base/blind-gate.txt` twice:
+    - "re-measured here, receipt `.ufo/waves/round-67/base/blind-gate.txt`"
+    - "Frontier step: … run at round start (receipt
+       `.ufo/waves/round-67/base/census-start.txt`)"
+  Measured: `.ufo/waves/round-67/base/` exists but is EMPTY; blind-gate.txt is
+  absent from the working tree and from every commit
+  (`git log --all -- .ufo/waves/round-67/base/blind-gate.txt` prints nothing).
+  The plan's own motivating evidence therefore rests on a receipt that was
+  never written — the same class as the L6 defect the round is closing
+  (round-66 report citing a receipt in no commit), reproduced inside the
+  round-67 plan itself. The plan is frozen and I did not amend it; the L1 must
+  land the receipt (or the report must re-derive it and say so).
+  Severity: HIGH for the report's Sources section, which will otherwise cite
+  a non-existent artifact.
+
+DEFECT F-2 (calibration — the plan's own target number contradicts its own
+            stated population, and the repair sits outside C1's landing surface)
+  The C1 predicate freezes `located=36` and guard (a) freezes the exact clean
+  line `SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=120)`.
+  Measured at BASE: located=35, because S115's declared quote does not locate
+  in its own named body. The plan's landing surface DOES list the S115 re-cut,
+  but that row is owned by L1 (`corpus/source-fetches.tsv` — L1 only), while
+  `plans/round-67-c1.sh` is owned by R67ExecCounterC1 and
+  `corpus/sources-census.sh` by R67ExecGate. So the C1 counter and the gate
+  cannot both read located=36 until L1 lands the re-cut: two of the three
+  seats cannot deliver their half of the predicate independently. A counter
+  that runs against a tree where S115 is unfixed reads
+    SOURCES_CAPTURES: FAILED (defects=1 path_rows=36 bound=36 located=35 prose=120)
+  — the correct honest reading, and a guard=(0) under a naive implementation.
+  The plan's kill rule ("the target is missed if … located < 36") therefore
+  penalises an executor whose bytes are correct. This is the round-66 M66-8
+  shape (a leg that measures state another seat owns) recurring in the
+  predicate's arithmetic.
+  Severity: HIGH — it is a coordination hazard, not a wording nit.
+
+DEFECT F-3 (vacuity — the plan's `catch=6/6` mutation battery has one leg the
+            frozen predicate cannot catch as written)
+  The frozen path-shape predicate (seat interface + plan §C1) is:
+    col16 contains '/' AND matches ^[A-Za-z0-9._][A-Za-z0-9._/-]*$
+  Measured: an ABSOLUTE location such as `/etc/passwd` does NOT match that
+  regex (the first character class excludes '/'), so under the predicate as
+  frozen an absolute location is classified PROSE and is never checked — yet
+  the plan's mutation battery lists "absolute location" among the six legs and
+  the frozen reason vocabulary includes `capture-outside-root`, which is
+  otherwise reachable only by a ".." escape.
+  I verified this empirically on a BASE extraction: with the predicate applied
+  strictly, the absolute-location leg produced
+    SOURCES_CAPTURES: FAILED (defects=1 path_rows=35 bound=35 located=34 prose=121)
+  — the absolute row was counted as PROSE (path_rows 36->35, prose 120->121),
+  and NO SC_CAPTURE finding named the absolute row. The absolute-location leg
+  is therefore uncatchable under the strict frozen predicate, and the strict
+  run also breaks guard (a)'s exact clean line (path_rows/prose would shift).
+  The in-flight executor has already solved this by WIDENING the shape test
+  to also accept an absolute path:
+      [[ $loc =~ ^/[A-Za-z0-9._][A-Za-z0-9._/-]*$ ]]
+  (corpus/sources-census.sh, cap_is_shaped, in the live working tree). With
+  that widening the absolute leg IS caught:
+      FINDING SC_CAPTURE id=S164 capture-outside-root
+      SOURCES_CAPTURES: FAILED (defects=2 path_rows=36 bound=35 located=34 prose=120)
+  and the clean tree still prints path_rows=36 prose=120, so guard (a) holds.
+  The widening is CORRECT and necessary, but it is a change to a FROZEN
+  PREDICTIVE TERM and must be recorded as such (the plan says the predicate is
+  the plan's, the counter's code and the receipt's label). If the executor
+  ships the strict predicate, caught=5/6 and the target is missed for a reason
+  that has nothing to do with the candidate's quality.
+  Severity: HIGH — this is the one place where the frozen text and the frozen
+  target are mutually unsatisfiable.
+
+DEFECT F-4 (measurement hygiene — the plan's own BASE census receipt is cited
+            by a path that cannot hold it)
+  The plan's Frontier step says the census receipt goes to
+  `.ufo/waves/round-67/base/census-start.txt`, and the same directory is
+  where the blindness witness is cited. But `scripts/sources-census.sh
+  validate --root … kagi` (the fleet wrapper the plan names for the frontier
+  step) writes TSV to stdout and does not produce a per-lane file, and the
+  lane's own gate writes nothing to disk at all. Both receipts have to be
+  captured by the seat, not produced by the tools. This is not a defect in the
+  tools, only a reminder that the two receipts are seat obligations; recorded
+  because F-1 shows they were skipped once already.
+
+DEFECT F-5 (calibration — the L1's in-flight C3 counter reading regresses
+            under the C1 landing surface, and no plan leg covers it)
+  Measured on the live tree with the in-flight SC_CAPTURE gate and S115 NOT
+  yet re-cut:
+      bash corpus/sources-census.sh        -> SOURCES_CENSUS: FAILED (findings=1 rows=156), rc=1
+      bash plans/round-66-c3.sh             -> C3_CENSUS: findings=1 rows=156 guard=1, rc=1
+  The round-66 C3 counter reads the lane gate's `findings=` field. Adding the
+  SC_CAPTURE class (plus S115's unfixed quote) changes the round-66 C3
+  counter's own reading from findings=0 to findings=1 on the round-67 tree —
+  i.e. the round-66 counter's landed receipt `.ufo/waves/round-66/final/
+  c3-candidate.txt` (C3_CENSUS: findings=0) no longer reproduces on the
+  round-67 tree. With S115 re-cut (simulated on a fresh copy), both read
+  clean again:
+      SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=120)
+      SOURCES_CENSUS: CLEAN (rows=156 …)
+      C3_CENSUS: findings=0 rows=156 guard=1, rc=0
+  So the regression is entirely a consequence of F-2's S115 re-cut being
+  pending, not of the SC_CAPTURE class. It resolves when L1 lands the re-cut.
+  Recorded so the round's report does not cite the round-66 C3 receipt as a
+  reproducing reading on the round-67 tree without re-running it.
+  Severity: MEDIUM — self-resolving, but it is a citation-freshness trap.
+
+C. WHAT I DID NOT VERIFY (stated, not assumed)
+-----------------------------------------------
+C-1. I did not run `plans/round-67-c1.sh` or `plans/round-67-c2.sh` to
+     completion: they are in-flight, uncommitted, and one invocation exceeded
+     300 s in my sandbox. Any C1/C2 verdict I report is a reading of the
+     counter's BYTES (its frozen constants, its shape predicate, its
+     selftest expectations), not an executed verdict.
+C-2. The in-flight `corpus/sources-census.sh` selftest read
+     "SOURCES_CENSUS_SELFTEST: PASS (88 cases)" on one run and
+     "FAIL (88 cases, 10 failed)" on an earlier run at the same path — the
+     file was being edited underneath me between runs. The PASS reading is the
+     later one. The plan's guard (b) requires `cases >= 84`; the in-flight
+     count is 88, satisfying it, but PROVINCE.md:78 and SKILL.md:50 still pin
+     78 and were not updated in the live tree at my measurement time. That pin
+     update is a landing-surface item the plan lists ("PROVINCE.md / SKILL.md
+     selftest-count pins updated to the measured count") and is still OPEN.
+C-3. I did not check the round-67 lesson, QUALITY.md QM additions, or the
+     falsification ledger: those are other seats' surfaces.

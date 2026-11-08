@@ -1,0 +1,58 @@
+R67ScoutPre — F-1 closure observed, and the residual gap
+==========================================================
+At 08:04 (after my message to the L1) the plan-cited receipts appeared:
+
+$ ls .ufo/waves/round-67/base/
+base-gate.txt   base66-gate.txt   blind-gate.txt   census-start.txt
+
+  blind-gate.txt   EXISTS  (the path plans/round-67.md cites twice)
+  census-start.txt EXISTS  (the path the plan's Frontier step cites)
+
+=> F-1's "the cited receipt does not exist" is RESOLVED. Both plan-cited paths are now
+present in the tree.
+
+RESIDUAL GAP — the receipt is not self-identifying, so the blindness it is cited for is
+not evidenced BY THE FILE ITSELF:
+
+  $ cat .ufo/waves/round-67/base/blind-gate.txt
+  SOURCES_CENSUS: CLEAN (rows=156 A=139 B=2 C=15 queued=3 mined=136 rejected=17
+    entries_sourced=26 legacy=21 captures=156 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+
+  $ cmp .ufo/waves/round-67/base/blind-gate.txt .ufo/waves/round-67/base/base-gate.txt
+  IDENTICAL      (both sha256 0463b839f517d75b2a12adc174d8a78f6d674ae6fc8e75de2230f6b7f857652c)
+
+  $ grep -il "repoint|S148|mutat" .ufo/waves/round-67/base/*.txt
+  .ufo/waves/round-67/base/base66-gate.txt
+  .ufo/waves/round-67/base/census-start.txt
+  (blind-gate.txt names NO mutation and NO tree)
+
+  blind-gate.txt contains one CLEAN verdict line and nothing else. It is byte-identical
+  to base-gate.txt, the receipt of the ORDINARY (unmutated) BASE tree. A reader cannot
+  tell from the file which tree produced it, and cannot tell that it was a repointed
+  copy at all.
+
+WHY THIS MATTERS (and is not pedantry): the WHOLE POINT of the blindness witness is that
+the repointed copy prints the SAME verdict as the clean tree — I measured exactly that:
+  BASE gate on the clean tree       -> SOURCES_CENSUS: CLEAN (rows=156 …)  rc=0
+  BASE gate on the repointed copy   -> SOURCES_CENSUS: CLEAN (rows=156 …)  rc=0
+  (the two verdict lines are the same string, so a verdict-only receipt cannot carry
+   the witness). The evidence that a MUTATION was applied has to be in the receipt's
+   provenance — the tree it was measured on and what was mutated — because it cannot be
+   in the verdict.
+This is the same standard the round applies to L6 in this very round: leg L6's repair is
+"commit a reconstructed receipt whose header names its provenance". blind-gate.txt is the
+round-67 analogue of a receipt with no provenance header, and it is cited by a frozen
+plan as the plan's own motivating evidence.
+
+RECOMMENDED (L1): give blind-gate.txt a header naming (i) the tree it was measured on
+(a `git archive 076701a1…` extraction), (ii) the mutation applied (S164's col16 repointed
+to .ufo/waves/round-64/capture/S148.body, with the base/after sha256 and byte count of
+the named body), and (iii) the verdict and rc. A one-line header plus the verdict line
+is enough and keeps the receipt a receipt. My receipt 03-blindness-witness.txt already
+carries the full witness (both witnesses verbatim, all six legs, and the fleet-wrapper
+reading) if the L1 wants to point at a document that is self-evidencing.
+
+Also observed: base66-gate.txt DOES carry the round-66 BASE reading
+  SOURCES_CENSUS: FAILED (findings=4 rows=155)
+with its four FINDING lines named — a correctly-provenanced receipt, and it corroborates
+the round-66 spot-check's BASE re-derivation independently.

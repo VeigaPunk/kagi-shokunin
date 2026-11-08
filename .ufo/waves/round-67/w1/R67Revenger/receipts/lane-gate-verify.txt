@@ -1,0 +1,7 @@
+$ sha256sum corpus/sources-census.sh corpus/source-fetches.tsv
+e7aacecdfcf06ed6303f5272cd0d3bd6a20d16fdbf0f064a4c68aae940e1d10f  corpus/sources-census.sh
+90dd4a2cbc006cdf0a90e42f45917eb9fba9ee7645a9299fb49e79481d38291d  corpus/source-fetches.tsv
+$ bash corpus/sources-census.sh verify --root .
+SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=121)
+SOURCES_CENSUS: CLEAN (rows=157 A=140 B=2 C=15 queued=3 mined=137 rejected=17 entries_sourced=27 legacy=21 captures=157 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+rc=0

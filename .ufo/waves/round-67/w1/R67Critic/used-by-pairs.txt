@@ -1,0 +1,45 @@
+R67Critic — the seven used-by changes, derived by per-id diff
+(corpus/SOURCES.md at d549ee6 vs the candidate tree)
+
+Derivation (python3, read-only; d1e127ac→076701a touches no SOURCES.md:
+`git diff --stat d1e127ac 076701a -- corpus/SOURCES.md` is empty, so the
+corrigendum's stated range end is harmless):
+
+  git show d549ee6eb8770a49938b78f49cf79e36d9c1c2e8:corpus/SOURCES.md
+    vs git show d1e127ac…:corpus/SOURCES.md
+  per-id comparison of the pipe-table cells
+
+Output (last column = used-by; cols [10] is the only differing cell on every
+changed row; no row was removed; one row was added):
+
+--- S113 cols [10]
+   old[10]='corpus/knowledge/iso-11770-3-edition-status.md, corpus/lessons/round-55.md'
+   new[10]='corpus/knowledge/iso-11770-3-edition-status.md, corpus/lessons/round-55.md, corpus/knowledge/claim-instrument-carrier-binding.md'
+--- S143 cols [10]
+   old[10]='corpus/lessons/round-63.md'
+   new[10]='corpus/lessons/round-63.md, corpus/knowledge/claim-instrument-carrier-binding.md'
+--- S145 cols [10]
+   old[10]='corpus/knowledge/claim-instrument-heldout.md'
+   new[10]='corpus/knowledge/claim-instrument-heldout.md, corpus/knowledge/claim-instrument-carrier-binding.md'
+--- S148 cols [10]
+   old[10]='corpus/lessons/round-64.md'
+   new[10]='corpus/lessons/round-64.md, corpus/knowledge/claim-instrument-class-matrix.md, corpus/knowledge/claim-instrument-carrier-binding.md'
+--- S152 cols [10]
+   old[10]='—'
+   new[10]='—, corpus/knowledge/claim-instrument-carrier-binding.md'
+--- S156 cols [10]
+   old[10]='corpus/lessons/round-65.md'
+   new[10]='corpus/lessons/round-65.md, corpus/knowledge/claim-instrument-class-matrix.md'
+--- S164 ROW ADDED/REMOVED
+   new row's used-by = 'corpus/knowledge/claim-instrument-class-matrix.md, corpus/lessons/round-66.md, corpus/knowledge/claim-instrument-carrier-binding.md'
+changed rows: 7
+
+Readings:
+1. Six cells changed; S164's cell appeared with the added row. The in-flight
+   corrigendum's sentence "The seven `used-by` cells changed" is therefore
+   imprecise (six changed, one appeared). The pairs themselves are correct.
+2. S152's new value begins with the placeholder `—` followed by a path: a
+   non-path token inside used-by. The corrigendum records it faithfully; the
+   cell remains a malformed record surface no C2 leg covers (see the report,
+   "smaller in-flight defects").
+3. S113 is present, satisfying the closure's "never names S113" item.

@@ -1,0 +1,56 @@
+R67Critic — population-closure evidence (round-66 closure §6 items 4 and 5 have no C2 leg)
+
+Report under test: /home/vgpnk/Projects/shokunin/.ufo/reports/round-66/kagi.md
+Lane: kagi-shokunin; run 2026-11-08.
+
+Mapping of the closure's §6 routed defects to C2 legs:
+  §6.1 SCORECARD operability row        -> L1
+  §6.2 SKILL.md round-66-c1 case pin    -> L2
+  §6.3 ledger seat + claims.json        -> L4 + L5
+  §6.4 report LOG pointers / uncited commits / "four commits"  -> NO LEG
+  §6.5 controls-battery receipt         -> NO LEG
+  §6.6 coverage map                     -> L3
+  §6.7 S113 + used-by old→new + c3-base -> L7 + L6
+  §6.8 S115 quote                       -> C1 landing surface (not C2)
+  §6.9 operator-side __pycache__        -> out of lane
+
+Both uncovered items are live at the current tip:
+
+$ grep -c '8bd920d\|d89e01d' .ufo/reports/round-66/kagi.md
+0
+$ sed -n '118,121p' .ufo/reports/round-66/kagi.md
+| `SCORECARD.md` pre/post, `claims-declared.tsv` 66/C1–C3, `LOG.md`, provenance/quote repairs | Round 66, bullets 11–13 | `f2d58687` |
+| `plans/round-66-c1.sh` V-2 guard + 2 cases; lesson sentinel dispositions | Round 66, bullet 14 | `567f50c3` |
+| `corpus/knowledge/claim-instrument-carrier-binding.md`, … | Round 66, bullets 15–16 | `967afd49` |
+| `.ufo/waves/round-66/**` … | Round 66, wave bullet | across the four commits |
+
+$ awk '/^## Round 66 \(2026-11-08\)/{f=1;next} /^## /{f=0} f&&/^[-*] /{c++} END{print c+0}' kagi-shokunin/LOG.md
+10
+# pointers to bullets 11–16 do not resolve; the two commits 8bd920d/d89e01d
+# are uncited (closure §1.3 = §6.4).
+
+$ grep -h 'CONTROLS:' kagi-shokunin/.ufo/waves/round-66/w1/R66ExecControls/*.txt
+CONTROLS: match=8 mismatch=2
+CONTROLS: match=8 mismatch=1
+$ sed -n '309p' .ufo/reports/round-66/kagi.md
+  re-ran the battery after integration.
+# no committed post-integration battery run with match=8 mismatch=0 (closure §6.5).
+
+Why no lane leg can cover them: the report is a fleet-root file; the lane has
+no round-66 report of its own.
+$ ls kagi-shokunin/.ufo/reports/
+round-20
+$ ls kagi-shokunin/.ufo/reports/round-66
+ls: cannot access '…/.ufo/reports/round-66': No such file or directory
+
+Consequence: `C2_FIDELITY: mismatches=0 population=7` can read while the
+round-66 report still misstates its LOG pointers and its controls battery.
+The C2 title ("the lane's record surfaces match the state they describe") is
+therefore wider than the population; either the sentence is narrowed or the
+two items are named as routed to the operator.
+
+Additionally (not closure-named, same class): the lane's own self-count pins are
+stale at BASE — see self-counts.txt. Those are not a leg gap against the frozen
+population; they must be named as unabsorbed, and the round's own landing
+(one new knowledge entry + its stamp) will move `corpus/claim-ledger.sh docs`
+counts again, so pins set before that landing will be stale at integration.

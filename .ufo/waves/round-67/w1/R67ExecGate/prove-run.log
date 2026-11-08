@@ -1,0 +1,10 @@
+case candidate-clean: ok (SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=120))
+case repoint-integrity: ok exit=1 theline=SOURCES_CAPTURES: FAILED (defects=2 path_rows=36 bound=35 located=35 prose=120)
+case truncate-by-1: ok exit=1 theline=SOURCES_CAPTURES: FAILED (defects=2 path_rows=36 bound=35 located=35 prose=120)
+case delete-body: ok exit=1 theline=SOURCES_CAPTURES: FAILED (defects=1 path_rows=36 bound=35 located=35 prose=120)
+case absolute-location: ok exit=1 theline=SOURCES_CAPTURES: FAILED (defects=1 path_rows=36 bound=35 located=35 prose=120)
+case dotdot-location: ok exit=1 theline=SOURCES_CAPTURES: FAILED (defects=1 path_rows=36 bound=35 located=35 prose=120)
+case quote-not-located: ok exit=1 theline=SOURCES_CAPTURES: FAILED (defects=1 path_rows=36 bound=36 located=35 prose=120)
+case prose-skip: ok exit=0 theline=SOURCES_CAPTURES: CLEAN (path_rows=35 bound=35 located=35 prose=121)
+case base-gate-blind-to-repoint: ok (CLEAN)
+case lane-unmodified: exit=0 SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=120) | 

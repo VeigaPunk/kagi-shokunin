@@ -1,0 +1,106 @@
+# verify() check order of the tested gate (e7aacecdfcf06ed6303f5272cd0d3bd6a20d16fdbf0f064a4c68aae940e1d10f)
+# line: check (verify() spans 295-529; the selftest follows)
+  147:#   SOURCES_CAPTURES: CLEAN (path_rows=N bound=N located=N prose=N)
+  149:#   SOURCES_CAPTURES: FAILED (defects=N path_rows=N bound=N located=N prose=N)
+  183:SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd) || setup "cannot resolve script directory"
+  192:    --root) [[ $# -ge 2 ]] || setup "--root needs a directory"; ROOT="$2"; shift 2 ;;
+  194:    *) setup "unknown argument: $1" ;;
+  222:  while IFS= read -r n; do finding SC_CREDENTIAL "$2:$n"; done < <(grep -nE -- "$CRED_RE" "$1" | cut -d: -f1)
+  229:CAP_NORM=""
+  231:cap_is_shaped() { # loc → 0 when the location is capture-path-shaped
+  238:cap_locate() { # file quote norm → 0 when the quote locates at least once
+  242:      [[ -n $CAP_NORM && -f $CAP_NORM ]] || setup "rendered-text-v1.py absent"
+  245:      [[ $rc -eq 0 ]] || setup "rendered-text-v1 locate failed (rc=$rc)"
+  246:      [[ $out == 'RENDERED_TEXT_V1_LOCATE: count='* ]] || setup "rendered-text-v1 output unexpected"
+  248:      [[ $n =~ ^[0-9]+$ ]] || setup "rendered-text-v1 count unparsable"
+  256:cap_row() { # id sha bytes quote norm loc
+  259:  if ! cap_is_shaped "$loc"; then CAP_PROSE=$((CAP_PROSE + 1)); return 0; fi
+  260:  CAP_PATH=$((CAP_PATH + 1))
+  263:    finding SC_CAPTURE "id=$id capture-outside-root"; CAP_DEFECTS=$((CAP_DEFECTS + 1)); return 0
+  267:  rp=$(realpath -m -- "$CAP_ROOT/$loc" 2>/dev/null) || rp=""
+  269:    finding SC_CAPTURE "id=$id capture-outside-root"; CAP_DEFECTS=$((CAP_DEFECTS + 1)); return 0
+  272:    finding SC_CAPTURE "id=$id capture-missing"; CAP_DEFECTS=$((CAP_DEFECTS + 1)); return 0
+  274:  size=$(stat -Lc %s -- "$CAP_ROOT/$loc" 2>/dev/null) || size=""
+  277:    finding SC_CAPTURE "id=$id capture-bytes-mismatch"; CAP_DEFECTS=$((CAP_DEFECTS + 1)); bad=1
+  280:    finding SC_CAPTURE "id=$id capture-digest-mismatch"; CAP_DEFECTS=$((CAP_DEFECTS + 1)); bad=1
+  283:  CAP_BOUND=$((CAP_BOUND + 1))
+  286:    finding SC_CAPTURE "id=$id quote-not-located"; CAP_DEFECTS=$((CAP_DEFECTS + 1)); return 0
+  288:  CAP_LOCATED=$((CAP_LOCATED + 1))
+  292:  [[ -d $ROOT ]] || setup "root is not a directory"
+  293:  ROOT=$(cd -- "$ROOT" && pwd) || setup "root is not accessible"
+  295:  [[ -f $src && -r $src ]] || setup "corpus/SOURCES.md absent or unreadable"
+  296:  [[ -d $kdir && -r $kdir && -x $kdir ]] || setup "corpus/knowledge absent or unreadable"
+  297:  command -v realpath >/dev/null 2>&1 || setup "realpath absent"
+  298:  CAP_ROOT=$(realpath -e -- "$ROOT") || setup "root does not canonicalize"
+  302:  CAP_NORM="$SCRIPT_DIR/rendered-text-v1.py"
+  303:  [[ -f $CAP_NORM ]] || setup "rendered-text-v1.py absent beside the gate"
+  309:  [[ $rc -le 1 && $rows =~ ^[0-9]+$ ]] || setup "row count failed"
+  310:  [[ $rows -gt 0 ]] || finding SC_ZERO "rows=0"
+  312:  nmal=$(cd -- "$ROOT" || exit 2; awk -F'|' '/^\|[[:space:]]*S[0-9][0-9][0-9]+[[:space:]]*\|/ && NF!=13 {n++} END{print n+0}' corpus/SOURCES.md) || setup "malformed count failed"
+  313:  out=$(awk -F'|' '/^\|[[:space:]]*S[0-9][0-9][0-9]+[[:space:]]*\|/ && NF!=13 {i=$2; gsub(/[[:space:]]/,"",i); print "line=" NR " id=" i " nf=" NF}' "$src") || setup "malformed listing failed"
+  315:  while IFS= read -r line; do [[ -n $line ]] || continue; finding SC_MALFORMED "$line"; listed=$((listed + 1)); done <<<"$out"
+  316:  [[ $listed -eq $nmal ]] || setup "malformed listing ($listed) disagrees with contract count ($nmal)"
+  318:  out=$(cd -- "$ROOT" || exit 2; awk -F'|' '/^\|[[:space:]]*S[0-9][0-9][0-9]+[[:space:]]*\|/ {t=$5; gsub(/[[:space:]]/,"",t); n[t]++} END{for(k in n) printf "%s=%d ", k, n[k]; print ""}' corpus/SOURCES.md) || setup "tier histogram failed"
+  322:  out=$(cd -- "$ROOT" || exit 2; awk -F'|' '/^\|[[:space:]]*S[0-9][0-9][0-9]+[[:space:]]*\|/ {s=$9; gsub(/[[:space:]]/,"",s); n[s]++} END{for(k in n) printf "%s=%d ", k, n[k]; print ""}' corpus/SOURCES.md) || setup "status histogram failed"
+  326:  out=$(cd -- "$ROOT" || exit 2; awk -F'|' '/^\|[[:space:]]*S[0-9][0-9][0-9]+[[:space:]]*\|/ {i=$2; gsub(/[[:space:]]/,"",i); print i}' corpus/SOURCES.md | sort | uniq -d) || setup "duplicate scan failed"
+  327:  while IFS= read -r line; do [[ -n $line ]] && finding SC_DUP "id=$line"; done <<<"$out"
+  329:  out=$(cd -- "$ROOT" || exit 2; awk -F'|' '/^\|[[:space:]]*S[0-9][0-9][0-9]+[[:space:]]*\|/ && NF==13 {i=$2;k=$4;t=$5;s=$9; gsub(/[[:space:]]/,"",i); gsub(/[[:space:]]/,"",k); gsub(/[[:space:]]/,"",t); gsub(/[[:space:]]/,"",s); if (t !~ /^[ABC]$/) print "tier", i, t; if (s !~ /^(queued|mined|rejected)$/) print "status", i, s; if (k !~ /^(spec|docs|paper|code|tool|dataset|talk|book|community|own-work)$/) print "kind", i, k; if (t=="A" && k=="community") print "tier-inflation", i}' corpus/SOURCES.md) || setup "enum scan failed"
+  333:      tier|status|kind) finding SC_ENUM "$kind id=$id value=$val" ;;
+  334:      tier-inflation) finding SC_INFLATION "id=$id" ;;
+  338:  out=$(cd -- "$ROOT" || exit 2; awk -F'|' '/^\|[[:space:]]*S[0-9][0-9][0-9]+[[:space:]]*\|/ && NF==13 {s=$9; gsub(/[[:space:]]/,"",s); if (s=="mined") {n=split($12, a, /[,;]/); for (j=1;j<=n;j++) {p=a[j]; gsub(/^[[:space:]]+|[[:space:]]+$/,"",p); if (p!="" && p!="—") print p}}}' corpus/SOURCES.md | while read -r p; do [ -e "$p" ] || echo "missing: $p"; done) || setup "used-by existence scan failed"
+  339:  while IFS= read -r line; do [[ -n $line ]] && finding SC_USEDBY_MISSING "path=${line#missing: }"; done <<<"$out"
+  344:    awk -v h="$h" '{sub(/\r$/,""); sub(/[[:space:]]+$/,"")} $0==h {f=1} END{exit !f}' "$src" || finding SC_SECTIONS "missing=$h"
+  348:  out=$(awk '{sub(/\r$/,"")} /^## /{x=$0; sub(/[[:space:]]+$/,"",x); f=(x=="## Registry"); next} f && /^[[:space:]]*\|/ && $0 !~ /^\|[[:space:]]*S[0-9][0-9][0-9]+[[:space:]]*\|/ && $0 !~ /^\|[[:space:]]*id[[:space:]]*\|/ && $0 !~ /^\|([[:space:]]*:?-+:?[[:space:]]*\|)+[[:space:]]*$/ {print NR}' "$src") || setup "registry row-shape scan failed"
+  349:  while IFS= read -r line; do [[ -n $line ]] && finding SC_MALFORMED "line=$line: row id not in contract shape"; done <<<"$out"
+  358:      [[ $t == REJECTED:* && $t == *flip:* ]] || finding SC_REJECT_SHAPE "id=$id"
+  360:      if [[ -z $u || $u == '—' || $u == '-' ]]; then finding SC_MINED_UNUSED "id=$id"; continue; fi
+  365:        if [[ ! $p =~ $usedby_re ]]; then finding SC_USEDBY_MISSING "$id: $p not a repo corpus path"; continue; fi
+  367:        if [[ ! -f $ROOT/$p ]]; then finding SC_USEDBY_NOCITE "id=$id path=$p not-a-regular-file"; continue; fi
+  369:        [[ $field =~ (^|[^A-Za-z0-9_])$id([^0-9]|$) ]] || finding SC_USEDBY_NOCITE "id=$id path=$p"
+  392:    while IFS= read -r line; do [[ -n $line ]] && finding SC_FETCH "$line"; done <<<"$out"
+  398:      cap_row "$fid" "$fsha" "$fbytes" "$fquote" "$fnorm" "$floc"
+  399:      [[ -v FURL[$fid] ]] || { finding SC_FETCH "id=$fid not-a-registry-row"; continue; }
+  400:      [[ ${ST[$fid]:-} == "$fstatus" ]] || finding SC_FETCH "id=$fid status=$fstatus registry=${ST[$fid]:-absent}"
+  401:      [[ ${FURL[$fid]} == "$furl" ]] || finding SC_FETCH "id=$fid url-mismatch"
+  403:      [[ $frow == "${line%% *}" ]] || finding SC_FETCH "id=$fid row-identity-digest-mismatch"
+  404:      [[ $ffinal =~ ^https?://[^[:space:]]+$ ]] || finding SC_FETCH "id=$fid final-url"
+  405:      [[ $fhttp =~ ^[0-9]{3}$ ]] || finding SC_FETCH "id=$fid http-status"
+  406:      [[ $fprof == curl-fsSL-compressed-v1 ]] || finding SC_FETCH "id=$fid request-profile"
+  407:      [[ $ffet =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]] || finding SC_FETCH "id=$fid fetched"
+  408:      [[ $frep == decoded-http-body-v1 || $frep == decoded-http-body-volatile-v1 ]] || finding SC_FETCH "id=$fid representation"
+  409:      [[ $fsha =~ ^[0-9a-f]{64}$ ]] || finding SC_FETCH "id=$fid digest"
+  410:      [[ $fbytes =~ ^[1-9][0-9]*$ ]] || finding SC_FETCH "id=$fid bytes"
+  412:        [[ $frev =~ ^[0-9a-f]{40}$ ]] || finding SC_FETCH "id=$fid revision"
+  415:        [[ $frev =~ ^[0-9a-f]{40}$ ]] || finding SC_FETCH "id=$fid moving-ref-revision"
+  418:      [[ -n $fquote && $words -le 25 ]] || finding SC_FETCH "id=$fid quote"
+  419:      [[ $fnorm == rendered-text-v1 || $fnorm == raw-literal-v1 ]] || finding SC_FETCH "id=$fid normalization"
+  421:        [[ $fnsha =~ ^[0-9a-f]{64}$ ]] || finding SC_FETCH "id=$fid normalized-digest"
+  423:        finding SC_FETCH "id=$fid normalized-digest-not-applicable"
+  425:      [[ ${#floc} -ge 8 ]] || finding SC_FETCH "id=$fid location"
+  426:      [[ ${FSEEN[$fid]} -le 1 ]] || finding SC_FETCH "id=$fid duplicate-provenance"
+  440:    while IFS= read -r line; do [[ -n $line ]] && finding SC_INROW "$line"; done <<<"$out"
+  444:      [[ ${IPSEEN[$iid]} -le 1 ]] || { finding SC_INROW "id=$iid duplicate-classification"; continue; }
+  445:      [[ -n ${FINROW[$iid]:-} ]] || { finding SC_INROW "id=$iid not-an-inrow-row"; continue; }
+  446:      [[ $isha == "${FINROW[$iid]}" ]] || { finding SC_INROW "id=$iid inrow-digest-mismatch"; continue; }
+  447:      [[ ${FSEEN[$iid]:-0} -ge 1 ]] || { finding SC_INROW "id=$iid capture-missing"; continue; }
+  448:      [[ $ifet == "${FFET[$iid]}" ]] || { finding SC_INROW "id=$iid capture-date"; continue; }
+  452:      [[ $iverdict == "$want_v" ]] || { finding SC_INROW "id=$iid verdict=$iverdict capture-says=$want_v"; continue; }
+  460:      [[ ${FINROW[$fid]} =~ ^[0-9a-f]{64}$ ]] || finding SC_FETCH "id=$fid inrow-digest-malformed"
+  461:      [[ ${IPSEEN[$fid]:-0} -ge 1 ]] || finding SC_INROW "id=$fid classification-missing"
+  466:      finding SC_INROW "id=$fid inrow-pin-not-historical"
+  468:    [[ ${FSEEN[$fid]:-0} -ge 1 ]] || finding SC_FETCH "id=$fid missing-provenance"
+  479:    [[ $(grep -c '^cites:' "$f") -le 1 ]] || finding SC_BODY_CITE "entry=$rel multiple-cites-lines"
+  483:      [[ $field =~ (^|[^A-Za-z0-9_])$bid([^0-9]|$) || $cfield =~ (^|[^A-Za-z0-9_])$bid([^0-9]|$) ]] || finding SC_BODY_CITE "entry=$rel id=$bid unrecorded"
+  486:      if [[ ! -v ST[$bid] ]]; then finding SC_BODY_CITE "entry=$rel id=$bid cites-not-a-registry-row"; continue; fi
+  490:      [[ $listed_here -eq 1 ]] || finding SC_BODY_CITE "entry=$rel id=$bid cites-used-by-omits-entry"
+  494:    grep -q '^verified-at:' "$f" || finding SC_ENTRY_HEADER "entry=$rel missing=verified-at"
+  495:    grep -q '^recheck:' "$f" || finding SC_ENTRY_HEADER "entry=$rel missing=recheck"
+  497:    [[ $nsrc -le 1 ]] || finding SC_ENTRY_HEADER "$rel: multiple source: lines"
+  500:    [[ -n $ids ]] || finding SC_ENTRY_CITE "entry=$rel no-registry-id"
+  504:      if [[ ! -v ST[$id] ]]; then finding SC_ENTRY_CITE "entry=$rel id=$id not-a-registry-row"; continue; fi
+  505:      if [[ ${ST[$id]} != mined ]]; then finding SC_ENTRY_CITE "entry=$rel id=$id status=${ST[$id]}"; continue; fi
+  509:      [[ $listed_here -eq 1 ]] || finding SC_ENTRY_CITE "entry=$rel id=$id used-by-omits-entry"
+  511:    [[ -z $ids || $supported -eq 1 ]] || finding SC_ENTRY_CITE "$rel: no tier A/B support (tier C is a lead only)"
+  518:    printf 'SOURCES_CAPTURES: CLEAN (path_rows=%d bound=%d located=%d prose=%d)\n' \
+  521:    printf 'SOURCES_CAPTURES: FAILED (defects=%d path_rows=%d bound=%d located=%d prose=%d)\n' \
+  524:  if [[ $FINDINGS -eq 0 ]]; then

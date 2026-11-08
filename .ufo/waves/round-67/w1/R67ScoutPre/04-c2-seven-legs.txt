@@ -1,0 +1,91 @@
+R67ScoutPre — item 4: the seven C2 legs of plans/round-67.md §C2 at BASE
+=========================================================================
+Every reading below was taken from BASE (076701a11a58e3eb58d996b4c76c5e18071fb179)
+by `git show BASE:<path>` or by running in a fresh `git archive` extraction.
+NOT from the live working tree: the L1 was landing C2 repairs concurrently, and
+reading the live tree would have measured the repair rather than the defect.
+
+L1 — SCORECARD.md:2339 states `C2_PREFILE: gate=A … attack_seats=K … reads pass`
+     while the receipt it cites reads gate=0 / SETUP findings=1
+  command: git show BASE:SCORECARD.md | grep -n "C2_PREFILE: gate="
+            git show BASE:.ufo/waves/round-66/final/c2-candidate.txt
+  reading: SCORECARD.md:2339 says
+     `C2_PREFILE: gate=A claims=3 rows=R attack_seats=K guard=G` and "the
+      pre-file falsification ledger reads `pass` with the wave's attack seats
+      reconciled"; the cited receipt says
+     `C2_PREFILE: gate=0 claims=0 rows=0 attack_seats=0 guard=0` and
+     `PREFILE-FALSIFICATION: SETUP findings=1`.
+  VERDICT: defect  (the cell's literal placeholders are still unmeasured, and
+     its narrative claim contradicts the receipt it cites)
+
+L2 — SKILL.md pins the round-66 C1 counter at cases=14; the instrument's
+     --selftest prints cases=45
+  command: git show BASE:SKILL.md | grep "c1-carrier: selftest cases="
+            bash plans/round-66-c1.sh --selftest        (in a BASE extraction)
+  reading: SKILL.md:893 pins `c1-carrier: selftest cases=14 failed=0`;
+            the instrument prints `c1-carrier: selftest cases=45 failed=0`.
+            (Verified on a CLEAN extraction: cases=45, failed=0. An earlier
+            reading of 45/2 came from a tree I had already mutated — that was my
+            own contamination, not a lane defect; re-measured clean.)
+  VERDICT: defect  (the pin is stale by 31 cases)
+
+L3 — corpus/README.md has no row for
+     corpus/knowledge/claim-instrument-carrier-binding.md
+  command: git show BASE:corpus/README.md | grep -c "claim-instrument-carrier-binding"
+            git ls-tree -r --name-only BASE | grep -c "corpus/knowledge/claim-instrument-carrier-binding.md"
+  reading: 0 rows in README; the entry EXISTS in the tree (1 path); README holds
+            12 `corpus/knowledge/` rows, so the index is not merely short one
+            row for a file that does not exist.
+  VERDICT: defect
+
+L4 — .ufo/waves/round-66/claim-falsification.tsv carries no row for R66Sentinel
+  command: git show BASE:.ufo/waves/round-66/claim-falsification.tsv | cut -f2
+            git show BASE:.ufo/waves/round-66/claim-falsification.tsv | grep -c R66Sentinel
+  reading: 9 rows; artifact column names R66Reviewer x2, R66Critic x2,
+            R66MutC1, R66ExecC2Claims, R66MutC2, R66ScoutPreState, R66Connector.
+            R66Sentinel count = 0, although R66Sentinel filed
+            .ufo/waves/round-66/w1/R66Sentinel.md.
+  VERDICT: defect
+
+L5 — .ufo/waves/round-66/claims.json carries the pre-amendment ids
+     C2_CLAIMS / C3_SELFREF while the landed counters measure
+     C2_PREFILE / C3_CENSUS
+  command: git show BASE:.ufo/waves/round-66/claims.json
+  reading: C2 title = "C2_CLAIMS: the pre-file claims file matches the frozen
+            plan + amendments"; C3 title = "C3_SELFREF: the registry's
+            self-reference literals resolve". The landed counter
+            plans/round-66-c3.sh prints `C3_CENSUS: …`, and the round-66 receipt
+            prints `C2_PREFILE: …`. Confirmed: git show BASE:plans/round-66-c3.sh
+            greps C3_CENSUS.
+  VERDICT: defect
+
+L6 — .ufo/waves/round-66/final/c3-base.txt is cited by the round-66 report and
+     exists in no commit
+  command: git ls-tree -r --name-only BASE -- .ufo/waves/round-66/final/
+            git log --all --oneline -- .ufo/waves/round-66/final/c3-base.txt
+            grep -c "c3-base" /home/vgpnk/Projects/shokunin/.ufo/reports/round-66/kagi.md
+  reading: the BASE final/ directory holds 10 files and c3-base.txt is NOT one
+            of them; `git log --all` prints nothing for that path (in no commit
+            on any ref); the round-66 fleet report cites it twice
+            (.ufo/reports/round-66/kagi.md lines 60 and 189).
+  VERDICT: defect
+  (Precision note: `git ls-tree -r --name-only BASE | grep c3-base` DOES print
+   six paths — but they are round-40/43/44 artefacts with unrelated names.
+   The L6 claim is about the specific round-66 path, which is absent. My first
+   grep was a substring match across the whole tree and would have looked like
+   a contradiction; the scoped ls-tree settles it.)
+
+L7 — the round-66 lesson logs no used-by old->new changes and never names S113
+  command: git show BASE:corpus/lessons/round-66.md | grep -c "used-by"
+            git show BASE:corpus/lessons/round-66.md | grep -c "S113"
+            git show BASE:corpus/lessons/round-66.md | wc -l
+  reading: BASE lesson = 304 lines; "used-by" appears ONCE (line 28, the prose
+            sentence "S148's and S156's `used-by` gained …") with no old->new
+            direction and no seven-pair table; "S113" appears 0 times; there is
+            no "Corrigendum — round 66" section.
+  VERDICT: defect
+
+SUMMARY: 7/7 legs read `defect` at BASE. No leg is vacuous (no leg reads `ok`
+at BASE). The plan's C2 do-nothing control (--tree BASE => mismatches=7) is
+therefore reachable as frozen, and the kill rule "a leg that reads ok on the
+BASE tree is a vacuous leg" is satisfied by all seven.

@@ -1,0 +1,10 @@
+# Independent recount of the C1 population, not using the gate's logic.
+# Rule: col-16 contains '/' and matches ^[A-Za-z0-9._][A-Za-z0-9._/-]*$; file exists and is regular;
+#       sha256 == col10; size == col11; quote locates >=1 (rendered-text-v1 via the committed
+#       normalizer, or literal substring for raw-literal-v1).
+
+# --- run 1: the class tree (TSV 60fa5d10, 156 rows)
+independent(class-tree): data_rows=156 path_rows=36 bound=36 located=36 prose=120 defects=[]
+
+# --- run 2: the live lane (TSV 90dd4a2c, 157 rows, S166 landed)
+independent(live): data_rows=157 path_rows=36 bound=36 located=36 prose=121 defects=[]

@@ -1,0 +1,12 @@
+# BASE gate = git show 076701a:corpus/sources-census.sh (sha e9ae2620ff4ad8e3)
+# t1: BASE corpus + S115 identity swap; t2: BASE corpus + absolute location; t3: BASE corpus alone (no .ufo bodies present)
+-- t1
+SOURCES_CENSUS: CLEAN (rows=156 A=139 B=2 C=15 queued=3 mined=136 rejected=17 entries_sourced=26 legacy=21 captures=156 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+rc=0
+-- t2
+SOURCES_CENSUS: CLEAN (rows=156 A=139 B=2 C=15 queued=3 mined=136 rejected=17 entries_sourced=26 legacy=21 captures=156 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+rc=0
+-- t3
+SOURCES_CENSUS: CLEAN (rows=156 A=139 B=2 C=15 queued=3 mined=136 rejected=17 entries_sourced=26 legacy=21 captures=156 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+rc=0
+# gate revision: 46de3d8c115ee121e0ae2a0fe55da34c7f821635a0f9ecb651e49f6e5498dbac (see R08 for the moving selftest reading)

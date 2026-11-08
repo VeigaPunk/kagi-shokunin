@@ -1,0 +1,33 @@
+# MID-WAVE DRIFT: R67ScribeEntry's corpus/knowledge/source-capture-binding.md landed
+# after this seat's first self-counts run. Consequences measured:
+
+# 1. corpus/knowledge/source-capture-binding.md exists but is NOT in corpus/stamps.tsv:
+-rw-r--r-- 1 vgpnk vgpnk 5925 Nov  8 08:17 corpus/knowledge/source-capture-binding.md
+0
+  -> stamp row: 0 (unpinned)
+
+$ bash corpus/claim-ledger.sh docs   # the lane's doc-audit gate
+ENTRY corpus/knowledge/vault-openbao-token-lease-lifecycle.md row_linked=1 by_hand=-
+DOC_AUDIT_RATIO: row_linked=45/48 floor=24 by_hand=3 duplicate_reasons=0
+DOC_AUDIT: BROKEN (entries=48 row_linked=45 by_hand=3 undeclared=0 missing_ids=0 unpinned=1 duplicate_reasons=0 floor=24)
+
+# 2. with the entry stamped (fixture: stamps.tsv + the entry's row), the audit goes CLEAN
+#    and the three RD-DOCS-* rows bind against README:67 = 45 / 3 / 48:
+DOC_AUDIT_RATIO: row_linked=45/48 floor=24 by_hand=3 duplicate_reasons=0
+DOC_AUDIT: CLEAN (entries=48 row_linked=45 by_hand=3 undeclared=0 missing_ids=0 unpinned=0 duplicate_reasons=0)
+STALE RD-STAMPS corpus/README.md:65 claimed=163 live=164
+OK RD-DOCS-ROWLINKED corpus/README.md:67 claimed=45 live=45
+OK RD-DOCS-BYHAND corpus/README.md:67 claimed=3 live=3
+OK RD-DOCS-ENTRIES corpus/README.md:67 claimed=48 live=48
+
+# 3. RD-STAMPS on the current tree reads 163 (OK); it becomes 164 once the entry
+#    is stamped — the L1 must re-derive that number at landing.
+
+# 4. on the CURRENT tree the three RD-DOCS-* rows read SETUP (the ledger row
+#    R14-01's command exits 1 because DOC_AUDIT is BROKEN), not STALE:
+OK RD-LEDGER-ROWS corpus/README.md:64 claimed=99 live=99
+OK RD-STAMPS corpus/README.md:65 claimed=163 live=163
+SETUP RD-DOCS-ROWLINKED ledger:R14-01 exit=1 expected=0
+SETUP RD-DOCS-BYHAND ledger:R14-01 exit=1 expected=0
+SETUP RD-DOCS-ENTRIES ledger:R14-01 exit=1 expected=0
+SELF_COUNTS: POLICY (claims=63 stale=0 unlocated=0 ambiguous=0 policy=2 setup=3)

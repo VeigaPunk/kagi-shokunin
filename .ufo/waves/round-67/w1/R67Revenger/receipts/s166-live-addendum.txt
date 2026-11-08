@@ -1,0 +1,27 @@
+# Live-lane addendum: S166 (the round's sourced claim row) declares its capture in prose.
+# live-tree = tar copy of the lane; gate e7aacecd (sha below), TSV 90dd4a2c (157 rows, prose=121).
+# A3.3 records this as an accepted, hand-verified ceiling; these six probes are the witness.
+$ s166-clean
+rc=0
+  SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=121)
+  SOURCES_CENSUS: CLEAN (rows=157 A=140 B=2 C=15 queued=3 mined=137 rejected=17 entries_sourced=27 legacy=21 captures=157 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+$ s166-body-byte
+rc=0
+  SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=121)
+  SOURCES_CENSUS: CLEAN (rows=157 A=140 B=2 C=15 queued=3 mined=137 rejected=17 entries_sourced=27 legacy=21 captures=157 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+$ s166-body-delete
+rc=0
+  SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=121)
+  SOURCES_CENSUS: CLEAN (rows=157 A=140 B=2 C=15 queued=3 mined=137 rejected=17 entries_sourced=27 legacy=21 captures=157 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+$ s166-quote-garbage
+rc=0
+  SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=121)
+  SOURCES_CENSUS: CLEAN (rows=157 A=140 B=2 C=15 queued=3 mined=137 rejected=17 entries_sourced=27 legacy=21 captures=157 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+$ s166-sha-zeros
+rc=0
+  SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=121)
+  SOURCES_CENSUS: CLEAN (rows=157 A=140 B=2 C=15 queued=3 mined=137 rejected=17 entries_sourced=27 legacy=21 captures=157 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+$ s166-loc-shaped
+rc=0
+  SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=120)
+  SOURCES_CENSUS: CLEAN (rows=157 A=140 B=2 C=15 queued=3 mined=137 rejected=17 entries_sourced=27 legacy=21 captures=157 inrow=16 inrow_only=0 inrow_nonreproducing=12)

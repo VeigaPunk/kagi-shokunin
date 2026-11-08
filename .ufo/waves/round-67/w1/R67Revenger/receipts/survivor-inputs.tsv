@@ -1,0 +1,16 @@
+case	cell	value_in_hex_escaped	note	gate_rc	gate_captures	gate_findings
+c5a-trail-space	S113.col16	.ufo/waves/round-55/capture/S113.body\x20	one trailing 0x20	0	SOURCES_CAPTURES: CLEAN (path_rows=35 bound=35 located=35 prose=121)	-
+c5c-lead-space	S113.col16	\x20.ufo/waves/round-55/capture/S113.body	one leading 0x20	0	SOURCES_CAPTURES: CLEAN (path_rows=35 bound=35 located=35 prose=121)	-
+c5d-inner-space	S113.col16	.ufo/waves/round-55/capture/S113\x20.body	one 0x20 inside the filename	0	SOURCES_CAPTURES: CLEAN (path_rows=35 bound=35 located=35 prose=121)	-
+c5e-trail-cr	S113.col16	.ufo/waves/round-55/capture/S113.body\r	one trailing 0x0d (row CRLF, file LF)	0	SOURCES_CAPTURES: CLEAN (path_rows=35 bound=35 located=35 prose=121)	-
+c5f-spaces-only	S113.col16	\x20\x20\x20\x20\x20\x20\x20\x20	eight 0x20	0	SOURCES_CAPTURES: CLEAN (path_rows=35 bound=35 located=35 prose=121)	-
+c8c-comma-two-paths	S113.col16	.ufo/waves/round-55/capture/S113.body,.ufo/waves/round-55/capture/S114.body	two paths comma-joined	0	SOURCES_CAPTURES: CLEAN (path_rows=35 bound=35 located=35 prose=121)	-
+p8-doubled-slash-absolute	S113.col16	//etc/passwd	absolute with doubled leading slash	0	SOURCES_CAPTURES: CLEAN (path_rows=35 bound=35 located=35 prose=121)	-
+p11-tilde	S113.col16	~/S113.body	tilde path	0	SOURCES_CAPTURES: CLEAN (path_rows=35 bound=35 located=35 prose=121)	-
+c3b-hard-outside	S113.col16	.ufo/waves/round-55/capture/S113-hard2.body	in-tree hardlink to an out-of-tree body	0	SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=120)	-
+c1b-sym-other-samebytes	S164.col16	.ufo/waves/round-64/capture/S143-alias.body	in-tree symlink to the same-byte body	1	SOURCES_CAPTURES: FAILED (defects=1 path_rows=36 bound=35 located=35 prose=120)	 id=S164 capture-bytes-mismatch
+p3-normsha-borrowed	S155.col15	4d966ff9535cdbd8faa00ad925f60e2fb38892bdb07cd48bb587c9da8aac72d5	another row normalized digest	0	SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=120)	-
+p4-short-quote	S115.col13	the	one-token quote	0	SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=120)	-
+p6-normalizer-tamper	S135.col13	zzz\x20phrase\x20absent\x20from\x20body\x20zzz	non-locating quote + in-tree normalizer stub	0	SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=120)	-
+c7a-raw-only-rendered	S135.col13	<italic\x20toggle="yes">negated</italic>	raw-only markup span under rendered-text-v1	1	SOURCES_CAPTURES: FAILED (defects=1 path_rows=36 bound=36 located=35 prose=120)	 id=S135 quote-not-located
+c6b-cr-tail-raw	S113.col13	ISO/IEC\x2011770-3:2021/Amd\x201:2025\r	raw-literal quote + trailing 0x0d	1	SOURCES_CAPTURES: FAILED (defects=1 path_rows=36 bound=36 located=35 prose=120)	 id=S113 quote-not-located

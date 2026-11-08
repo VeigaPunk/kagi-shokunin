@@ -1,0 +1,16 @@
+# BASE committed gate --selftest (git archive 076701a; gate sha e9ae2620ff4ad8e3...):
+SOURCES_CENSUS_SELFTEST: PASS (78 cases)
+
+# lane working-tree gate --selftest at 2026-11-08T11:10:17Z, gate sha256 46de3d8c115ee121e0ae2a0fe55da34c7f821635a0f9ecb651e49f6e5498dbac:
+case inrow-capture-missing: ok (exit 1, SC_INROW)
+case capture-bound-ok: ok (exit 0, CLEAN)
+case capture-repoint: ok (exit 1, SC_CAPTURE)
+case capture-missing: ok (exit 1, SC_CAPTURE)
+case capture-truncate-by-1: ok (exit 1, SC_CAPTURE)
+case capture-absolute-location: ok (exit 1, SC_CAPTURE)
+case capture-dotdot-location: ok (exit 1, SC_CAPTURE)
+case capture-quote-garbage: ok (exit 1, SC_CAPTURE)
+case capture-prose-skip: ok (exit 0, CLEAN)
+case capture-bytes-declared: ok (exit 1, SC_CAPTURE)
+case capture-symlink-escape: ok (exit 1, SC_CAPTURE)
+SOURCES_CENSUS_SELFTEST: PASS (88 cases)

@@ -1,0 +1,37 @@
+# R67Reviewer receipts — commands and cwd. Scratch root /fast/scratch/hyaku/kagi-r67/R67Reviewer
+# (removed at yield; receipts copied here first). No lane/fleet file was modified by this seat.
+
+# BASE bytes
+git -C /home/vgpnk/Projects/shokunin/kagi-shokunin archive 076701a corpus | tar -x -C basecommit/
+git -C /home/vgpnk/Projects/shokunin/kagi-shokunin archive 076701a corpus .ufo/waves/round-45 ... .ufo/waves/round-66 | tar -x -C basefull/
+# (full path list: corpus .ufo/waves/round-45 .ufo/waves/round-55/round-57/58/59/60/61/62/63/64/66; 37 MB)
+
+# counts (plan definitions: bound = exists+sha256(col10)+size(col11); located = col13 locates count>=1 under col14)
+python3 measure.py <tsv>                      # receipts A1/A2/A3/R05 outputs
+python3 corpus/rendered-text-v1.py locate FILE QUOTE
+
+# gate runs on fixture trees (gate sha 593504926fecea49f1 in trees/cand*; latest-revision confirmation in A2-gate-revision)
+bash trees/candN/corpus/sources-census.sh --root "$PWD/trees/candN"
+
+# BASE gate blindness (gate sha e9ae2620ff4ad8e3 from 076701a)
+bash bb/tN/corpus/sources-census.sh --root "$PWD/bb/tN"
+
+# landed counter (counter sha 67fb72e5b7518b6e…, gate sha 46de3d8c115ee121…)
+cd /home/vgpnk/Projects/shokunin/kagi-shokunin
+bash plans/round-67-c1.sh --tree .
+bash plans/round-67-c1.sh --tree /fast/scratch/hyaku/kagi-r67/R67Reviewer/basefull --base-tree /fast/scratch/hyaku/kagi-r67/R67Reviewer/basecommit --scratch /fast/scratch/hyaku/kagi-r67/R67Reviewer/basescratch
+bash plans/round-67-c1.sh --selftest
+
+# shadow-fleet identity test (scratch replicas only; SHOKUNIN_ROOT rewritten in the copied conf)
+# shadow/kagi-shokunin = current corpus + the 36 capture bodies + round-64/capture/S148.body (repoint target);
+#                       S115 cols 10,11,13,14,15,16 <- S116 (identity reroute)
+bash plans/round-67-c1.sh --tree /fast/scratch/hyaku/kagi-r67/R67Reviewer/shadow/kagi-shokunin \
+  --base-tree /fast/scratch/hyaku/kagi-r67/R67Reviewer/basecommit \
+  --scratch /fast/scratch/hyaku/kagi-r67/R67Reviewer/shadowscratch
+
+# fleet wrapper
+bash /home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --root /home/vgpnk/Projects/shokunin kagi
+bash /home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --root <scratch-root> kagi          # rc 2, no shokunin.conf
+bash /home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --file <candidate>/corpus/SOURCES.md # file ok
+
+# measure.py is the plan-definition counter used for A1/A2/A3/A4/R05 counts; run: python3 measure.py <tsv>

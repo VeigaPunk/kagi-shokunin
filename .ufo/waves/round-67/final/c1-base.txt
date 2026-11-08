@@ -1,0 +1,22 @@
+c1-readthrough: tree=/fast/scratch/hyaku/kagi-r67/l1/b2
+c1-readthrough: derived path_rows=36 bound=36 located=35 prose=120 malformed=0
+c1-readthrough: derived-defect S115 quote-not-located
+c1-readthrough: population base_ids=36 source=base-tree /fast/scratch/hyaku/kagi-r67/l1/b2/corpus/source-fetches.tsv candidate=36
+c1-readthrough: anchor id=S143 loc=.ufo/waves/round-63/capture/S143.body target=.ufo/waves/round-64/capture/S143.body bytes=264946
+c1-readthrough: clean verdict=CLEAN rc=0 captures=absent
+c1-readthrough: guard-a verdict=CLEAN rc=0 captures=absent derived=path_rows=36 bound=36 located=35 prose=120 gate_fields=differ adjacent=False population=36
+c1-readthrough: guard-b selftest rc=0 cases=78
+c1-readthrough: guard-c base-gate=/fast/scratch/hyaku/kagi-r67/l1/b2/corpus/sources-census.sh (--base-tree)
+c1-readthrough: guard-c base-gate-on-repoint rc=0 verdict=SOURCES_CENSUS: CLEAN (rows=156 A=139 B=2 C=15 queued=3 mined=136 rejected=17 entries_sourced=26 legacy=21 captures=156 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+c1-readthrough: guard-d venue=skip tree=/fast/scratch/hyaku/kagi-r67/l1/b2 lane=/home/vgpnk/Projects/shokunin/kagi-shokunin
+c1-readthrough: guard-e prose_rows=120 prose_findings=none gate_prose=absent derived_prose=120
+c1-readthrough: guard-f candidate=14f6ca6ab742296f base=14f6ca6ab742296f verdict=same
+c1-readthrough: guard-pop base_ids=36 missing=none extra=none changed=none source=base-tree /fast/scratch/hyaku/kagi-r67/l1/b2/corpus/source-fetches.tsv
+c1-readthrough: mut-m1 id=S143 expected=capture-digest-mismatch reasons=none defects=None findings=0 verdict=CLEAN rc=0 captures=absent detail=loc=.ufo/waves/round-64/capture/S143.body
+c1-readthrough: mut-m2 id=S143 expected=capture-bytes-mismatch+capture-digest-mismatch reasons=none defects=None findings=0 verdict=CLEAN rc=0 captures=absent detail=bytes=264945 (was 264946)
+c1-readthrough: mut-m3 id=S143 expected=capture-missing reasons=none defects=None findings=0 verdict=CLEAN rc=0 captures=absent detail=removed=.ufo/waves/round-63/capture/S143.body
+c1-readthrough: mut-m4 id=S143 expected=capture-outside-root reasons=none defects=None findings=0 verdict=CLEAN rc=0 captures=absent detail=loc=/fast/scratch/hyaku/kagi-r67/l1/c1base/run-h42aku6w/mut-m4/.ufo/waves/round-63/capture/S143.body
+c1-readthrough: mut-m5 id=S143 expected=capture-outside-root reasons=none defects=None findings=0 verdict=CLEAN rc=0 captures=absent detail=loc=../mut-m5-outside/S143.body
+c1-readthrough: mut-m6 id=S143 expected=quote-not-located reasons=none defects=None findings=0 verdict=CLEAN rc=0 captures=absent detail=quote=zzc1notlocatedquotezz
+c1-readthrough: guard a=0 b=0 c=1 d=skip e=0 f=1 pop=1
+C1_READTHROUGH: bound=36 located=35 caught=0/6 guard=0

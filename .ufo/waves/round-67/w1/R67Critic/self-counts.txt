@@ -1,0 +1,41 @@
+R67Critic — lane self-count pins: stale at BASE, outside C2's seven legs
+
+Lane: kagi-shokunin; BASE=076701a11a58e3eb58d996b4c76c5e18071fb179; run 2026-11-08.
+Instrument: `python3 corpus/self-counts.py` (the lane's own record-vs-state pin gate).
+
+At BASE (git archive 076701a extraction, run in scratch):
+STALE SC-SKILL-STAMPS SKILL.md:46 claimed=160 live=161
+STALE SC-SKILL-CLAIMS SKILL.md:46 claimed=96 live=99
+STALE PV-STAMPS PROVINCE.md:73 claimed=160 live=161
+STALE PV-CLAIMS PROVINCE.md:73 claimed=96 live=99
+STALE RD-LEDGER-ROWS corpus/README.md:64 claimed=96 live=99
+STALE RD-STAMPS corpus/README.md:65 claimed=160 live=161
+SELF_COUNTS: POLICY (claims=63 stale=6 unlocated=0 ambiguous=0 policy=2 setup=3)
+# setup=3 is the extraction sitting outside the fleet (three checks need the
+# fleet root); the six STALE lines are the record readings.
+
+At the lane working tree mid-wave (before the in-flight pin edits):
+STALE RD-LEDGER-ROWS corpus/README.md:64 claimed=96 live=99
+STALE RD-STAMPS corpus/README.md:65 claimed=160 live=163
+STALE RD-DOCS-ROWLINKED corpus/README.md:67 claimed=41 live=44
+STALE RD-DOCS-ENTRIES corpus/README.md:67 claimed=44 live=47
+SELF_COUNTS: POLICY (claims=63 stale=4 unlocated=0 ambiguous=0 policy=2 setup=0)
+
+The in-flight repair now sets README:64-67 to 99 / 163 / 44 row-linked / 47
+pinned and SKILL.md:46 / PROVINCE.md:73 to 163 stamps + 99 claims. Those are
+today's live numbers:
+$ bash corpus/claim-ledger.sh docs | tail -1
+DOC_AUDIT: CLEAN (entries=47 row_linked=44 by_hand=3 undeclared=0 missing_ids=0 unpinned=0 duplicate_reasons=0)
+
+But this round's landing adds `corpus/knowledge/source-capture-binding.md`
+(ScribeEntry) and its stamp/`Reverify:` line (round-66 M66-14 requires the
+declaration and the pin), which moves `entries=` and the stamp count by at
+least one each. Every pin set now will be stale at the integration commit
+unless it is re-measured after the entry and stamp land:
+  python3 corpus/self-counts.py      # expect stale=0; update pins to live
+Otherwise the round repairs six stale cells and lands two new ones — on the
+axis (calibration) the round claims to move.
+
+These pins are not among the closure's routed defects and are not in C2's
+seven legs; they are named here as unabsorbed calibration debt, not as a
+population defect against the frozen plan.

@@ -1,4 +1,5 @@
 {
+ "_provenance": "re-derived in round 67 from plans/round-66.md as amended (Amendments A1-A4 at dcd78c2e); the pre-amendment pairs C2_CLAIMS/C3_SELFREF were superseded before any candidate reading (round-66 spot-check \u00a71.9, routed defect 3). Original bytes remain in git history at ddcd46bb.",
  "C1": {
   "axis": "freshness",
   "title": "C1_CARRIER: the S148 carrier binds by digest on the registry row's own terms",
@@ -6,12 +7,12 @@
  },
  "C2": {
   "axis": "operability",
-  "title": "C2_CLAIMS: the pre-file claims file matches the frozen plan + amendments",
-  "target": "exact=1 claims=3 titles=3 targets=3 GUARD=1 (BASE exact=0)"
+  "title": "C2_PREFILE: the pre-file falsification gate reads pass with the wave's attack seats reconciled",
+  "target": "gate=1 claims=3 rows>=3 attack_seats>=1 GUARD=1 (BASE gate=0 / SETUP findings>=2)"
  },
  "C3": {
   "axis": "calibration",
-  "title": "C3_SELFREF: the registry's self-reference literals resolve",
-  "target": "resolved=1 checks=3 failures=0 GUARD=1 (BASE failures>=1)"
+  "title": "C3_CENSUS: the lane's own sources-census gate reads findings=0",
+  "target": "findings=0 GUARD=1 (BASE findings=4)"
  }
 }

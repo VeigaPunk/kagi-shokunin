@@ -1,0 +1,43 @@
+# Hit census for the S115 replacement quote (round 67 w1, R67ExecQuoteFix)
+# Search string (case-sensitive, backtick-tolerant: `bao audit enable` also matched):
+#   Audit devices must be enabled by a root user using [bao audit enable] or using the audit stanza
+# Scope: corpus/knowledge/*, corpus/quote-bodies.tsv, corpus/recheck-captures.tsv, plans/*,
+#        plus a lane-wide sweep of tracked text (SOURCES.md, lessons, .ufo receipts).
+# A hit is listed with whether the re-cut makes it CONTRADICT the row.
+
+## committed (pinned by the lane's own gates) -- 4 hits, none contradicting
+corpus/SOURCES.md:122
+  form    "Audit devices must be enabled by a root user using bao audit enable or using the audit stanza."  (terminal period)
+  role    registry row S115, prose sentence in the row's note cell + location cell "§Enabling and disabling audit devices"
+  gate    corpus/quote-locate.py cross-checks the TSV quote against THIS cell only for ids listed in
+          corpus/quote-bodies.tsv (13 ids: S089-S093 S100-S102 S111-S114). S115 is NOT listed -> no gate binds them.
+  verdict NOT A CONTRADICTION. Same sentence, terminal punctuation only. The location cell stays true:
+          the sentence sits under the live heading "Enabling/Disabling audit devices".
+
+corpus/knowledge/openbao-audit-device-custody.md:42
+  form    "Audit devices must be enabled by a root user using `bao audit enable` or using the audit stanza." (T1 evidence cell)
+  role    the trial's sourced claim
+  verdict NOT A CONTRADICTION. Backticks are a rendering of the <code> element; the tagged form was never locatable.
+
+corpus/lessons/round-57.md:39
+  form    "Located quote (18 words) ... : "…or using the audit stanza.""
+  role    round-57 lesson Gate row (round-58 closure D12 wording)
+  verdict NOT A CONTRADICTION, and the tally SURVIVES: the re-cut is still 18 words. What was false is the
+          word "Located" for the period-terminated form (count=0) -- a pre-existing record defect that round 66
+          logged as routed defect 8; this repair removes the last non-locating row it named.
+
+corpus/lessons/round-57-verifier-spotcheck.md:134
+  form    the 18-word quote with terminal period, "is at the live §Enabling/Disabling audit devices"
+  role    spot-check table
+  verdict NOT A CONTRADICTION. Section-level claim is true; punctuation only.
+
+## historical receipts under .ufo (tracked, frozen round-58 evidence) -- 3 hits, not contradictions
+.ufo/waves/round-58/build/R58MutCounter/MUTATIONS.diff:60-61
+.ufo/waves/round-58/build/R58ReviewerCounters/exploit/hostfixed/corpus/SOURCES.md:122
+.ufo/waves/round-58/build/R58ReviewerCounters/exploit/hostfixed/corpus/lessons/round-57.md:39
+.ufo/waves/round-58/build/R58ReviewerCounters/exploit/trivial-quote-lesson.md:39
+  verdict NOT A CONTRADICTION. These record what round 58 mutated/probed; they are receipts of a past state,
+          never current claims, and no gate reads them against corpus/source-fetches.tsv.
+
+## the row itself
+corpus/source-fetches.tsv:158 (S115) -- the line being re-cut.

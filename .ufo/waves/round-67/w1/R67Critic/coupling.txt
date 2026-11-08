@@ -1,0 +1,47 @@
+R67Critic — coupling analysis: does any C2 leg depend on C1's landing?
+
+Read surfaces per frozen leg:
+  L1 SCORECARD.md;  L2 SKILL.md + plans/round-66-c1.sh;  L3 corpus/README.md;
+  L4 .ufo/waves/round-66/claim-falsification.tsv;  L5 .ufo/waves/round-66/claims.json;
+  L6 .ufo/waves/round-66/final/c3-base.txt + the round-66 C3 counter on a BASE extraction;
+  L7 corpus/lessons/round-66.md + `git show d549ee6:corpus/SOURCES.md` diff.
+C1's landing surfaces: corpus/sources-census.sh, corpus/source-fetches.tsv,
+PROVINCE.md/SKILL.md selftest pins, corpus/knowledge/source-capture-binding.md.
+
+=> No C2 leg reads a C1 landing surface. No leg depends on C1's landing.
+The couplings that do exist are file- and scratch-level, not semantic:
+
+1. SKILL.md — L2 edits the round-66-c1 gate-registry row; C1's landing updates
+   the lane-census gate row's selftest pin in the same table. Two writers on one
+   file; the plan's sole-writer table names neither. One owner (L1 at
+   integration) should apply both cells; otherwise the second writer clobbers.
+   $ grep -n 'round-66-c1' SKILL.md | cut -c1-80
+   893:| C1 carrier-binding counter (`plans/round-66-c1.sh`) | gate | …
+
+2. corpus/README.md — L3 adds the carrier-binding row; R67ScribeLesson adds the
+   carrier-binding row AND a row for the round-67 entry (`knowledge/source-capture-binding.md`,
+   file not yet on disk). Same table, two writers.
+   $ ls corpus/knowledge/source-capture-binding.md
+   ls: cannot access …: No such file or directory
+   The L1 must land the row and the file in one commit; a row committed first is
+   a dangling index row (the round-66 defect in a new form). L3's check should
+   resolve the row's entry path, which also catches this.
+
+3. Scratch — L2 runs `plans/round-66-c1.sh --selftest`; that instrument's
+   scratch root is a fixed path unless `--scratch` is passed:
+   $ grep -n 'kagi-r66' plans/round-66-c1.sh
+   49:# Scratch: ${HYAKU_SCRATCH:-/fast/scratch/hyaku}/kagi-r66/C1Counter/ ; TMPDIR is
+   116:    root = os.path.join(base, "kagi-r66", "C1Counter")
+   Two concurrent runs (C2 counter + reviewer, or two C2 invocations) share it.
+   The L2 check must pass its own `--scratch "$SCRATCH/l2"`.
+
+4. L6 re-run — the round-66 C3 counter's guard (d) is not tree-scoped (the M66-9
+   class): with a scratch fleet root it prints `fleet no-line`, guard d=0,
+   `C3_CENSUS: findings=4 rows=155 guard=0`; only the real fleet root yields
+   guard=1. Any L6 check must compare `findings=`/`rows=` to the fresh run and
+   record the fleet state instead of demanding `guard=1` byte-equality.
+   (Full transcript in l6-rerun.txt §5.)
+
+Conclusion: the predicate's seven legs are independent of C1; the couplings are
+write-ownership and scratch, both fixable in the counter/L1 without touching the
+frozen predicate, counter interface, kill rules or target.

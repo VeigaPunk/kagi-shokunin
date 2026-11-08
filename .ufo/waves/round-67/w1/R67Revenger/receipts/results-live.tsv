@@ -1,0 +1,59 @@
+case	rc	captures_summary	SC_CAPTURE_reasons	other_findings
+clean	0	SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=120)	-	-
+leg1-repoint	1	SOURCES_CAPTURES: FAILED (defects=2 path_rows=36 bound=35 located=35 prose=120)	 id=S113 capture-bytes-mismatch  id=S113 capture-digest-mismatch	-
+leg2-truncate	1	SOURCES_CAPTURES: FAILED (defects=2 path_rows=36 bound=35 located=35 prose=120)	 id=S113 capture-bytes-mismatch  id=S113 capture-digest-mismatch	-
+leg3-delete	1	SOURCES_CAPTURES: FAILED (defects=1 path_rows=36 bound=35 located=35 prose=120)	 id=S113 capture-missing	-
+leg4-absolute	1	SOURCES_CAPTURES: FAILED (defects=1 path_rows=36 bound=35 located=35 prose=120)	 id=S113 capture-outside-root	-
+leg5-dotdot	1	SOURCES_CAPTURES: FAILED (defects=1 path_rows=36 bound=35 located=35 prose=120)	 id=S113 capture-outside-root	-
+leg6-quote-nonlocating	1	SOURCES_CAPTURES: FAILED (defects=1 path_rows=36 bound=36 located=35 prose=120)	 id=S135 quote-not-located	-
+c1a-sym-other-mismatch	1	SOURCES_CAPTURES: FAILED (defects=2 path_rows=36 bound=35 located=35 prose=120)	 id=S113 capture-bytes-mismatch  id=S113 capture-digest-mismatch	-
+c1b-sym-other-samebytes	0	SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=120)	-	-
+c1c-sym-chain	0	SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=120)	-	-
+c2-sym-escape	1	SOURCES_CAPTURES: FAILED (defects=1 path_rows=36 bound=35 located=35 prose=120)	 id=S113 capture-outside-root	-
+c3a-hard-other-mismatch	1	SOURCES_CAPTURES: FAILED (defects=2 path_rows=36 bound=35 located=35 prose=120)	 id=S113 capture-bytes-mismatch  id=S113 capture-digest-mismatch	-
+c3b-hard-outside	0	SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=120)	-	-
+c3b-mut-outside-write	1	SOURCES_CAPTURES: FAILED (defects=2 path_rows=36 bound=35 located=35 prose=120)	 id=S113 capture-bytes-mismatch  id=S113 capture-digest-mismatch	-
+c4a-dot-prefix	0	SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=120)	-	-
+c4b-double-slash	0	SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=120)	-	-
+c4c-inner-dot	0	SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=120)	-	-
+c4d-inner-dotdot	0	SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=120)	-	-
+c5a-trail-space	0	SOURCES_CAPTURES: CLEAN (path_rows=35 bound=35 located=35 prose=121)	-	-
+c5b-trail-tab	1	SOURCES_CAPTURES: CLEAN (path_rows=35 bound=35 located=35 prose=120)	-	 SC_FETCH line=156 nf=17  SC_FETCH id=S113 missing-provenance
+c5c-lead-space	0	SOURCES_CAPTURES: CLEAN (path_rows=35 bound=35 located=35 prose=121)	-	-
+c5d-inner-space	0	SOURCES_CAPTURES: CLEAN (path_rows=35 bound=35 located=35 prose=121)	-	-
+c5e-trail-cr	0	SOURCES_CAPTURES: CLEAN (path_rows=35 bound=35 located=35 prose=121)	-	-
+c5f-spaces-only	0	SOURCES_CAPTURES: CLEAN (path_rows=35 bound=35 located=35 prose=121)	-	-
+c5g-whole-crlf	0	SOURCES_CAPTURES: CLEAN (path_rows=0 bound=0 located=0 prose=156)	-	-
+c6a-cr-tail-rendered	0	SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=120)	-	-
+c6b-cr-tail-raw	1	SOURCES_CAPTURES: FAILED (defects=1 path_rows=36 bound=36 located=35 prose=120)	 id=S113 quote-not-located	-
+c6c-cr-inner-rendered	0	SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=120)	-	-
+c6d-lf-in-quote	1	SOURCES_CAPTURES: CLEAN (path_rows=35 bound=35 located=35 prose=120)	-	 SC_FETCH line=156 nf=13  SC_FETCH line=157 nf=4  SC_FETCH id=S113 missing-provenance
+c7a-raw-only-rendered	1	SOURCES_CAPTURES: FAILED (defects=1 path_rows=36 bound=36 located=35 prose=120)	 id=S135 quote-not-located	-
+c7b-raw-only-declared-raw	0	SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=120)	-	-
+c8a-extra-col	1	SOURCES_CAPTURES: CLEAN (path_rows=35 bound=35 located=35 prose=120)	-	 SC_FETCH line=156 nf=17  SC_FETCH id=S113 missing-provenance
+c8b-extra-empty-col	1	SOURCES_CAPTURES: CLEAN (path_rows=35 bound=35 located=35 prose=120)	-	 SC_FETCH line=156 nf=17  SC_FETCH id=S113 missing-provenance
+c8c-comma-two-paths	0	SOURCES_CAPTURES: CLEAN (path_rows=35 bound=35 located=35 prose=121)	-	-
+c8d-dup-row	1	SOURCES_CAPTURES: CLEAN (path_rows=37 bound=37 located=37 prose=120)	-	 SC_FETCH id=S113 duplicate-provenance
+c8e-dup-location-other-id	1	SOURCES_CAPTURES: FAILED (defects=2 path_rows=36 bound=35 located=35 prose=120)	 id=S114 capture-bytes-mismatch  id=S114 capture-digest-mismatch	-
+c9a-leading-zero	1	SOURCES_CAPTURES: FAILED (defects=1 path_rows=36 bound=35 located=35 prose=120)	 id=S113 capture-bytes-mismatch	 SC_FETCH id=S113 bytes
+c9b-plus	1	SOURCES_CAPTURES: FAILED (defects=1 path_rows=36 bound=35 located=35 prose=120)	 id=S113 capture-bytes-mismatch	 SC_FETCH id=S113 bytes
+c9c-lead-space	1	SOURCES_CAPTURES: FAILED (defects=1 path_rows=36 bound=35 located=35 prose=120)	 id=S113 capture-bytes-mismatch	 SC_FETCH id=S113 bytes
+c9d-trail-space	1	SOURCES_CAPTURES: FAILED (defects=1 path_rows=36 bound=35 located=35 prose=120)	 id=S113 capture-bytes-mismatch	 SC_FETCH id=S113 bytes
+c9e-other-number	1	SOURCES_CAPTURES: FAILED (defects=1 path_rows=36 bound=35 located=35 prose=120)	 id=S113 capture-bytes-mismatch	-
+p1-dir-location	1	SOURCES_CAPTURES: FAILED (defects=1 path_rows=36 bound=35 located=35 prose=120)	 id=S113 capture-missing	-
+p2-sym-loop	1	SOURCES_CAPTURES: FAILED (defects=1 path_rows=36 bound=35 located=35 prose=120)	 id=S113 capture-missing	-
+p3-normsha-borrowed	0	SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=120)	-	-
+p4-short-quote	0	SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=120)	-	-
+p5-dot-location	1	SOURCES_CAPTURES: CLEAN (path_rows=35 bound=35 located=35 prose=121)	-	 SC_FETCH id=S113 location
+p6-normalizer-tamper	0	SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=120)	-	-
+p7-abs-inside-tree	1	SOURCES_CAPTURES: FAILED (defects=1 path_rows=36 bound=35 located=35 prose=120)	 id=S113 capture-outside-root	-
+p8-doubled-slash-absolute	0	SOURCES_CAPTURES: CLEAN (path_rows=35 bound=35 located=35 prose=121)	-	-
+p9-slash-dot-absolute	1	SOURCES_CAPTURES: FAILED (defects=1 path_rows=36 bound=35 located=35 prose=120)	 id=S113 capture-outside-root	-
+p10-dot-dotdot-escape	1	SOURCES_CAPTURES: FAILED (defects=1 path_rows=36 bound=35 located=35 prose=120)	 id=S113 capture-outside-root	-
+p11-tilde	0	SOURCES_CAPTURES: CLEAN (path_rows=35 bound=35 located=35 prose=121)	-	-
+leg1b-repoint-s164	1	SOURCES_CAPTURES: FAILED (defects=2 path_rows=36 bound=35 located=35 prose=120)	 id=S164 capture-bytes-mismatch  id=S164 capture-digest-mismatch	-
+p12-empty-id	1	SOURCES_CAPTURES: CLEAN (path_rows=35 bound=35 located=35 prose=121)	-	 SC_FETCH id=mined not-a-registry-row  SC_FETCH id=S113 missing-provenance
+p13-unknown-id	1	SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=120)	-	 SC_FETCH id=S999 not-a-registry-row  SC_FETCH id=S113 missing-provenance
+p14-invalid-utf8-body	1	SOURCES_CAPTURES: FAILED (defects=2 path_rows=36 bound=35 located=35 prose=120)	 id=S135 capture-bytes-mismatch  id=S135 capture-digest-mismatch	-
+p14b-utf8-coherent	2	(none)	-	-
+clean-after	0	SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=120)	-	-

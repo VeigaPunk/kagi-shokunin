@@ -302,3 +302,34 @@ open MEDIUM:
 
 One admit (S164) and one refusal (the duplicate-URL second row) at the
 frontier step. The non-author spot-check is the closure's duty.
+
+## Corrigendum — round 66 (appended in round 67)
+
+The round-66 closure (routed defect 7) found that the SOURCES contract v1
+rule 2 requirement — every in-place registry change logged old→new — was not
+met by this round's Gate section, which named two rows and no direction, and
+did not name S113 at all. Appended here so the record carries the measurement.
+Seven rows were touched between `d549ee6` (round-65 spot-check tip) and
+`076701a` (round-66 spot-check tip): six existing `used-by` cells changed and
+one row (S164) appeared, derived with
+
+```
+git show d549ee6eb8770a49938b78f49cf79e36d9c1c2e8:corpus/SOURCES.md
+  vs corpus/SOURCES.md, per-id used-by cell comparison
+```
+
+| id | used-by old → new |
+|---|---|
+| S113 | `corpus/knowledge/iso-11770-3-edition-status.md, corpus/lessons/round-55.md` → `… , corpus/knowledge/claim-instrument-carrier-binding.md` (appended) |
+| S143 | `corpus/lessons/round-63.md` → `… , corpus/knowledge/claim-instrument-carrier-binding.md` |
+| S145 | `corpus/knowledge/claim-instrument-heldout.md` → `… , corpus/knowledge/claim-instrument-carrier-binding.md` |
+| S148 | `corpus/lessons/round-64.md` → `… , corpus/knowledge/claim-instrument-class-matrix.md, corpus/knowledge/claim-instrument-carrier-binding.md` |
+| S152 | `—` → `—, corpus/knowledge/claim-instrument-carrier-binding.md` |
+| S156 | `corpus/lessons/round-65.md` → `… , corpus/knowledge/claim-instrument-class-matrix.md` |
+| S164 | (new row) → `corpus/knowledge/claim-instrument-class-matrix.md, corpus/lessons/round-66.md, corpus/knowledge/claim-instrument-carrier-binding.md` |
+
+Rule that should have caught it: CORPUS.md contract v1 rule 2 ("every
+`status` / `recheck` / `used-by` change is logged old→new in the lesson") —
+it existed and the landing did not apply it to `used-by`. No new criterion;
+the round-67 counter's leg L7 re-derives the pairs from `git show` and fails
+on a lesson that omits them.

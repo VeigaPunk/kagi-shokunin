@@ -1,0 +1,31 @@
+# used-by cell comparison, corpus/SOURCES.md
+#   git show d549ee6:corpus/SOURCES.md   (old)
+#   vs corpus/SOURCES.md                 (new; byte-identical to 076701a)
+# awk -F'|' '/^\| S[0-9][0-9][0-9]+ \|/ {print trim($2) "\t" trim($(NF-1))}'
+# (the used-by cell is the last field before the trailing pipe)
+113c113
+< S113	corpus/knowledge/iso-11770-3-edition-status.md, corpus/lessons/round-55.md
+---
+> S113	corpus/knowledge/iso-11770-3-edition-status.md, corpus/lessons/round-55.md, corpus/knowledge/claim-instrument-carrier-binding.md
+142c142
+< S143	corpus/lessons/round-63.md
+---
+> S143	corpus/lessons/round-63.md, corpus/knowledge/claim-instrument-carrier-binding.md
+144c144
+< S145	corpus/knowledge/claim-instrument-heldout.md
+---
+> S145	corpus/knowledge/claim-instrument-heldout.md, corpus/knowledge/claim-instrument-carrier-binding.md
+147c147
+< S148	corpus/lessons/round-64.md
+---
+> S148	corpus/lessons/round-64.md, corpus/knowledge/claim-instrument-class-matrix.md, corpus/knowledge/claim-instrument-carrier-binding.md
+151c151
+< S152	—
+---
+> S152	—, corpus/knowledge/claim-instrument-carrier-binding.md
+155c155,156
+< S156	corpus/lessons/round-65.md
+---
+> S156	corpus/lessons/round-65.md, corpus/knowledge/claim-instrument-class-matrix.md
+> S164	corpus/knowledge/claim-instrument-class-matrix.md, corpus/lessons/round-66.md, corpus/knowledge/claim-instrument-carrier-binding.md
+diff exit=1

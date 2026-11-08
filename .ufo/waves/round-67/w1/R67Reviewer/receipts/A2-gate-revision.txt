@@ -1,0 +1,28 @@
+# fixture gate revision (the gate copied into trees/cand*): 593504926fecea49f1390685df5623430bdd277bb01cf26c6cbb54f2c99bc57b
+# lane working-tree gate moved during review: 232fd18... -> 2bddc9c5... -> 4247468a... -> 46de3d8c115ee121e0ae2a0fe55da34c7f821635a0f9ecb651e49f6e5498dbac (R67ExecGate owns it; this seat never edited it)
+# latest-revision confirmation (copy of the lane gate over the same fixture trees):
+-- cand1 rc=0
+SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=120)
+-- cand2 rc=0
+SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=120)
+-- cand3 rc=1
+FINDING SC_CAPTURE id=S115 capture-outside-root
+SOURCES_CAPTURES: FAILED (defects=1 path_rows=36 bound=35 located=35 prose=120)
+-- cand4 rc=1
+FINDING SC_CAPTURE id=S116 capture-bytes-mismatch
+FINDING SC_CAPTURE id=S116 capture-digest-mismatch
+SOURCES_CAPTURES: FAILED (defects=2 path_rows=36 bound=35 located=35 prose=120)
+-- cand5 rc=1
+FINDING SC_CAPTURE id=S116 capture-missing
+SOURCES_CAPTURES: FAILED (defects=1 path_rows=36 bound=35 located=35 prose=120)
+-- cand6 rc=1
+FINDING SC_CAPTURE id=S116 quote-not-located
+SOURCES_CAPTURES: FAILED (defects=1 path_rows=36 bound=36 located=35 prose=120)
+-- cand7 rc=0
+SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=120)
+-- cand8 rc=1
+FINDING SC_CAPTURE id=S143 capture-digest-mismatch
+SOURCES_CAPTURES: FAILED (defects=1 path_rows=36 bound=35 located=35 prose=120)
+-- cand9 rc=1
+FINDING SC_CAPTURE id=S115 capture-outside-root
+SOURCES_CAPTURES: FAILED (defects=1 path_rows=36 bound=35 located=35 prose=120)

@@ -1,0 +1,43 @@
+R67ScoutPre — item 1: tip hash, status, census sha256, selftest case count
+=======================================================================
+lane: /home/vgpnk/Projects/shokunin/kagi-shokunin  (branch master)
+BASE (frozen claim): 076701a11a58e3eb58d996b4c76c5e18071fb179
+tip at measurement:  aa8807e443166f45485e1aada2989f646efc707c
+                     ("round-67: frozen predeclaration (plan, claims, declared-axis rows, scorecard pre-move)")
+
+git status --porcelain  (at the moment of measurement; the L1/in-flight seats
+were editing concurrently — see section 5 "freshness")
+ M .ufo/waves/round-66/claim-falsification.tsv
+ M .ufo/waves/round-66/claims.json
+ M PROVINCE.md
+ M SCORECARD.md
+ M SKILL.md
+ M corpus/QUALITY.md
+ M corpus/README.md
+ M corpus/lessons/round-66.md
+ M corpus/sources-census.sh
+?? .ufo/waves/round-66/final/c3-base.txt
+?? .ufo/waves/round-67/capture/
+?? .ufo/waves/round-67/kagi-r67-w1.ready
+?? .ufo/waves/round-67/kagi-r67-w1.ready.dispatched
+?? .ufo/waves/round-67/w1-dispatch.err
+?? .ufo/waves/round-67/w1-dispatch.json
+?? .ufo/waves/round-67/w1-spec.json
+?? .ufo/waves/round-67/w1/
+?? corpus/lessons/round-67.md
+?? plans/round-67-c1.sh
+?? plans/round-67-c2.sh
+
+sha256 corpus/sources-census.sh at BASE:
+  e9ae2620ff4ad8e3122f8e7c04c19d16afccf03f0feec7c72edcce78bdd58252
+  (identical to the tip's committed blob — BASE and tip carry the same census bytes)
+
+BASE census --selftest case count:
+  SOURCES_CENSUS_SELFTEST: PASS (78 cases)   rc=0
+  pins: SKILL.md:50 ("--selftest 78 cases"), SKILL.md:702, SKILL.md:755,
+        PROVINCE.md:78 ("--selftest proves 78 cases")  — all consistent at BASE.
+
+BASE census on the unmodified BASE tree:
+  SOURCES_CENSUS: CLEAN (rows=156 A=139 B=2 C=15 queued=3 mined=136 rejected=17
+    entries_sourced=26 legacy=21 captures=156 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+  rc=0

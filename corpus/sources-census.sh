@@ -97,6 +97,22 @@
 #                        file does not restate it. A provenance digest
 #                        is a point attestation, not a drift pin.
 #     SC_INROW           historical in-row pin classification (round 24, above)
+#     SC_CAPTURE         (round 67) a fetch row whose location is capture-path-
+#                        shaped does not read through to its declared body:
+#                          capture-outside-root  absolute location, or a
+#                                                repo-relative one whose
+#                                                canonical path (symlinks
+#                                                followed) leaves the root
+#                          capture-missing       no regular file at that path
+#                          capture-digest-mismatch  raw sha256 != col 10
+#                          capture-bytes-mismatch   size != col 11
+#                          quote-not-located     col 13 does not locate under
+#                                                col 14 normalization on a row
+#                                                whose bytes otherwise bind
+#                        printed as `FINDING SC_CAPTURE id=<S-id> <reason>`.
+#                        One finding per defect class: a body truncated by one
+#                        byte fails both the byte and the digest check, so it
+#                        prints both reasons.
 #
 # ENTRIES. An entry is SOURCED when a line starts with `source:` (lower case,
 # column 1); exactly one such line is allowed. Its source field is that
@@ -116,6 +132,31 @@
 # token prefixes, age secret keys, and Vault/OpenBao service/batch/recovery
 # tokens.
 #
+# CAPTURE READ-THROUGH (round 67, C1; QUALITY.md QM92-QM94). A location is
+# CAPTURE-PATH-SHAPED when column 16 contains `/` and is either repo-relative
+# (`^[A-Za-z0-9._][A-Za-z0-9._/-]*$`) or absolute (`^/` plus that shape; always
+# a violation). Every capture-shaped row is READ: the path must canonicalize
+# (realpath, symlinks followed) inside the lane root and name a regular file
+# whose raw sha256 equals col 10 and whose byte count equals col 11; a row
+# bound by those checks must locate its col-13 quote under the col-14
+# normalization (rendered-text-v1 via `python3 corpus/rendered-text-v1.py
+# locate FILE QUOTE`; raw-literal-v1 by literal substring; count >= 1). Prose
+# locations (anything else, including words that match the path shape without
+# a `/`) are counted and never read. Immediately before every verdict the gate
+# prints
+#   SOURCES_CAPTURES: CLEAN (path_rows=N bound=N located=N prose=N)
+# or, when any SC_CAPTURE finding exists,
+#   SOURCES_CAPTURES: FAILED (defects=N path_rows=N bound=N located=N prose=N)
+# and the verdict is FAILED (exit 1). `bound` counts capture-shaped rows that
+# exist inside the root with matching digest and byte count; `located` counts
+# bound rows whose quote locates. Rows whose col-16 value is not 16-column
+# well-formed are outside the summary (the SC_FETCH shape check owns them).
+# CEILING: the binding is to the bytes the row names, not to the origin URL.
+# A body rewritten together with its row — file bytes replaced and col 10,
+# col 11 and col 13 updated coherently — still passes. There is no network and
+# no second witness here: the gate catches a row that drifts from its declared
+# body, not a body that drifted from the page it once held.
+#
 # VERDICT (last line, always):
 #   SOURCES_CENSUS: CLEAN (rows=N A=a B=b C=c queued=q mined=m rejected=r entries_sourced=e legacy=l captures=k inrow=i inrow_only=o inrow_nonreproducing=n)  exit 0
 #   SOURCES_CENSUS: FAILED (findings=K rows=N)                                                          exit 1
@@ -126,8 +167,12 @@
 #
 # The selftest builds a fixture tree under `mktemp -d` (removed by an EXIT trap),
 # runs `verify --root` on one or more mutations per finding id (plus SETUP, a
-# clean case and two scope cases), and asserts the exit code, the finding id,
-# the findings count and — for the clean cases — the whole verdict line.
+# clean case and two scope cases), and asserts the exit code, the finding id and
+# reason, the findings count, the capture summary line and its stage relations,
+# and — for the clean cases — the whole verdict line. Round 67 adds one case per
+# SC_CAPTURE reason (digest, bytes, missing, outside-root via absolute, outside-
+# root via `..`, outside-root via symlink, quote-not-located), a bound control,
+# a prose-skip control and a declared-bytes control.
 # Expectations are literals in the case table, not recomputed from the gate's
 # own logic.
 set -uo pipefail
@@ -177,12 +222,85 @@ cred_scan() { # file relpath
   while IFS= read -r n; do finding SC_CREDENTIAL "$2:$n"; done < <(grep -nE -- "$CRED_RE" "$1" | cut -d: -f1)
 }
 
+# --- capture read-through (round 67, C1; header "CAPTURE READ-THROUGH") -----
+# Counters are per verify() call; CAP_ROOT and CAP_NORM are set there.
+CAP_PATH=0 CAP_BOUND=0 CAP_LOCATED=0 CAP_PROSE=0 CAP_DEFECTS=0
+CAP_ROOT=""
+CAP_NORM=""
+
+cap_is_shaped() { # loc → 0 when the location is capture-path-shaped
+  local loc=$1
+  [[ $loc == */* ]] || return 1
+  [[ $loc =~ ^[A-Za-z0-9._][A-Za-z0-9._/-]*$ ]] && return 0
+  [[ $loc =~ ^/[A-Za-z0-9._][A-Za-z0-9._/-]*$ ]]
+}
+
+cap_locate() { # file quote norm → 0 when the quote locates at least once
+  local file=$1 quote=$2 norm=$3 out rc n
+  case $norm in
+    rendered-text-v1)
+      [[ -n $CAP_NORM && -f $CAP_NORM ]] || setup "rendered-text-v1.py absent"
+      out=$(python3 "$CAP_NORM" locate "$file" "$quote" 2>/dev/null); rc=$?
+      [[ $rc -eq 1 ]] && return 1
+      [[ $rc -eq 0 ]] || setup "rendered-text-v1 locate failed (rc=$rc)"
+      [[ $out == 'RENDERED_TEXT_V1_LOCATE: count='* ]] || setup "rendered-text-v1 output unexpected"
+      n=${out##*count=}
+      [[ $n =~ ^[0-9]+$ ]] || setup "rendered-text-v1 count unparsable"
+      [[ $n -ge 1 ]]
+      ;;
+    raw-literal-v1) grep -qF -e "$quote" -- "$file" ;;
+    *) return 1 ;; # undeclared normalization already fails SC_FETCH; fail closed here
+  esac
+}
+
+cap_row() { # id sha bytes quote norm loc
+  local id=$1 sha=$2 bytes=$3 quote=$4 norm=$5 loc=$6
+  local rp size got bad=0 q
+  if ! cap_is_shaped "$loc"; then CAP_PROSE=$((CAP_PROSE + 1)); return 0; fi
+  CAP_PATH=$((CAP_PATH + 1))
+  # absolute locations never satisfy "repo-relative", whatever they name
+  if [[ $loc == /* ]]; then
+    finding SC_CAPTURE "id=$id capture-outside-root"; CAP_DEFECTS=$((CAP_DEFECTS + 1)); return 0
+  fi
+  # canonicalize (symlinks followed; missing components allowed so that a `..`
+  # escape is classified before its target's existence matters)
+  rp=$(realpath -m -- "$CAP_ROOT/$loc" 2>/dev/null) || rp=""
+  if [[ -z $rp || ( $rp != "$CAP_ROOT" && $rp != "$CAP_ROOT"/* ) ]]; then
+    finding SC_CAPTURE "id=$id capture-outside-root"; CAP_DEFECTS=$((CAP_DEFECTS + 1)); return 0
+  fi
+  if [[ ! -e $CAP_ROOT/$loc || ! -f $CAP_ROOT/$loc ]]; then
+    finding SC_CAPTURE "id=$id capture-missing"; CAP_DEFECTS=$((CAP_DEFECTS + 1)); return 0
+  fi
+  size=$(stat -Lc %s -- "$CAP_ROOT/$loc" 2>/dev/null) || size=""
+  got=$(sha256sum -- "$CAP_ROOT/$loc" 2>/dev/null); got=${got%% *}
+  if [[ -z $size || $size != "$bytes" ]]; then
+    finding SC_CAPTURE "id=$id capture-bytes-mismatch"; CAP_DEFECTS=$((CAP_DEFECTS + 1)); bad=1
+  fi
+  if [[ $got != "$sha" ]]; then
+    finding SC_CAPTURE "id=$id capture-digest-mismatch"; CAP_DEFECTS=$((CAP_DEFECTS + 1)); bad=1
+  fi
+  [[ $bad -eq 0 ]] || return 0
+  CAP_BOUND=$((CAP_BOUND + 1))
+  q=$quote; q=${q//[[:space:]]/}
+  if [[ -z $q ]] || ! cap_locate "$CAP_ROOT/$loc" "$quote" "$norm"; then
+    finding SC_CAPTURE "id=$id quote-not-located"; CAP_DEFECTS=$((CAP_DEFECTS + 1)); return 0
+  fi
+  CAP_LOCATED=$((CAP_LOCATED + 1))
+}
+
 verify() {
   [[ -d $ROOT ]] || setup "root is not a directory"
   ROOT=$(cd -- "$ROOT" && pwd) || setup "root is not accessible"
   local src="$ROOT/corpus/SOURCES.md" kdir="$ROOT/corpus/knowledge"
   [[ -f $src && -r $src ]] || setup "corpus/SOURCES.md absent or unreadable"
   [[ -d $kdir && -r $kdir && -x $kdir ]] || setup "corpus/knowledge absent or unreadable"
+  command -v realpath >/dev/null 2>&1 || setup "realpath absent"
+  CAP_ROOT=$(realpath -e -- "$ROOT") || setup "root does not canonicalize"
+  # round 67 (R67Sentinel V-2): the normalizer is the gate's own sibling, never
+  # a copy shipped inside the tree being audited - a tree that carries a
+  # truthy normalizer must not be able to move the quote verdict.
+  CAP_NORM="$SCRIPT_DIR/rendered-text-v1.py"
+  [[ -f $CAP_NORM ]] || setup "rendered-text-v1.py absent beside the gate"
 
   local rows rc nmal out line w k a b c q m r
   # ---- contract v1 §Census, verbatim, run from the lane root ----
@@ -276,6 +394,8 @@ verify() {
       [[ -n ${fid:-} ]] || continue
       FSEEN[$fid]=$(( ${FSEEN[$fid]:-0} + 1 ))
       FRAW[$fid]=$fsha; FNORM[$fid]=$fnsha; FFET[$fid]=$ffet
+      # round 67: read the bytes and the quote this row declares (SC_CAPTURE)
+      cap_row "$fid" "$fsha" "$fbytes" "$fquote" "$fnorm" "$floc"
       [[ -v FURL[$fid] ]] || { finding SC_FETCH "id=$fid not-a-registry-row"; continue; }
       [[ ${ST[$fid]:-} == "$fstatus" ]] || finding SC_FETCH "id=$fid status=$fstatus registry=${ST[$fid]:-absent}"
       [[ ${FURL[$fid]} == "$furl" ]] || finding SC_FETCH "id=$fid url-mismatch"
@@ -393,6 +513,14 @@ verify() {
   done
   shopt -u nullglob
 
+  # round 67: the capture summary sits immediately before the verdict
+  if [[ $CAP_DEFECTS -eq 0 ]]; then
+    printf 'SOURCES_CAPTURES: CLEAN (path_rows=%d bound=%d located=%d prose=%d)\n' \
+      "$CAP_PATH" "$CAP_BOUND" "$CAP_LOCATED" "$CAP_PROSE"
+  else
+    printf 'SOURCES_CAPTURES: FAILED (defects=%d path_rows=%d bound=%d located=%d prose=%d)\n' \
+      "$CAP_DEFECTS" "$CAP_PATH" "$CAP_BOUND" "$CAP_LOCATED" "$CAP_PROSE"
+  fi
   if [[ $FINDINGS -eq 0 ]]; then
     printf 'SOURCES_CENSUS: CLEAN (rows=%d A=%d B=%d C=%d queued=%d mined=%d rejected=%d entries_sourced=%d legacy=%d captures=%d inrow=%d inrow_only=%d inrow_nonreproducing=%d)\n' \
       "$rows" "$a" "$b" "$c" "$q" "$m" "$r" "$sourced" "$legacy" "$n_capt" "$n_inrow" "$n_inrow_only" "$n_nonrep"
@@ -606,6 +734,62 @@ m_inrow_not_historical() {
   printf 'S017\t%s\t2026-10-19\tnon-reproducing\tselftest\n' "$(rep a 64)" >>"$(INROW_F "$1")"
 }
 m_inrow_orphan() { inrow_row "$1" "$(rep a 64)" 2026-10-19 reproduces-raw; }
+# --- round 67: capture read-through (SC_CAPTURE, SOURCES_CAPTURES) -----------
+# The base fixture's four locations are prose. These mutations repoint S001's
+# provenance row at a real capture file; each then breaks one predicate. The
+# capture body is fixed here so the declared quote, size and digest are facts
+# of the fixture, not of the gate's own logic.
+CAP_QUOTE='Audit devices must be enabled by a root user.'
+cap_fixture() { # dir [location]
+  local d=$1 loc=${2:-captures/c1.body} body sha n normsha
+  mkdir -p "$d/captures" || return 1
+  printf 'The quick capture body.\nAudit devices must be enabled by a root user.\nEnd.\n' >"$d/captures/c1.body"
+  body="$d/captures/c1.body"
+  sha=$(sha256sum -- "$body"); sha=${sha%% *}
+  n=$(stat -c %s -- "$body")
+  normsha=$(python3 "$SCRIPT_DIR/rendered-text-v1.py" digest "$body" | sed -n 's/.*normalized_sha256=\([0-9a-f]\{64\}\).*/\1/p')
+  [[ -n $normsha ]] || return 1
+  fetch_edit "$d" S001 10 "$sha"
+  fetch_edit "$d" S001 11 "$n"
+  fetch_edit "$d" S001 13 "$CAP_QUOTE"
+  fetch_edit "$d" S001 14 rendered-text-v1
+  fetch_edit "$d" S001 15 "$normsha"
+  fetch_edit "$d" S001 16 "$loc"
+}
+m_capture_ok() { cap_fixture "$1"; }
+m_capture_repoint() {
+  # same-size sibling body, different bytes: digest-only, and the quote is
+  # garbage too — an unbound row must NOT also report quote-not-located
+  cap_fixture "$1"
+  cp -- "$1/captures/c1.body" "$1/captures/other.body"
+  sed -i 's/Audit/audit/' "$1/captures/other.body"
+  fetch_edit "$1" S001 13 'this sentence locates in no body at all'
+  fetch_edit "$1" S001 16 captures/other.body
+}
+m_capture_missing() { cap_fixture "$1" captures/absent.body; }
+m_capture_truncate() { cap_fixture "$1"; truncate -s -1 -- "$1/captures/c1.body"; }
+m_capture_absolute() { cap_fixture "$1" "$1/captures/c1.body"; }
+m_capture_dotdot() {
+  cap_fixture "$1"
+  printf 'outside body\n' >"$1/../c1-outside.body"
+  fetch_edit "$1" S001 16 ../c1-outside.body
+}
+m_capture_quote() { cap_fixture "$1"; fetch_edit "$1" S001 13 'this sentence locates in no body at all'; }
+m_capture_prose() { cap_fixture "$1" 'page title/H1'; }
+m_capture_bytes_declared() { cap_fixture "$1"; fetch_edit "$1" S001 11 999999; }
+m_capture_symlink() {
+  cap_fixture "$1"
+  printf 'outside body\n' >"$1/../c1-link-target.body"
+  ln -s ../../c1-link-target.body "$1/captures/link.body"
+  fetch_edit "$1" S001 16 captures/link.body
+}
+m_capture_symlink_intree() {
+  # an in-tree symlink resolves to an in-tree regular file: size and digest
+  # measure the resolved object (stat -L), so the row binds
+  cap_fixture "$1"
+  ln -s c1.body "$1/captures/alias.body"
+  fetch_edit "$1" S001 16 captures/alias.body
+}
 
 selftest() {
   ST_DIR=$(mktemp -d) || setup "mktemp failed"
@@ -694,10 +878,21 @@ selftest() {
     "inrow-capture-missing|m_inrow_capture_missing||1|SC_INROW|1"
     "inrow-not-historical|m_inrow_not_historical||1|SC_INROW|3"
     "inrow-orphan-classification|m_inrow_orphan||1|SC_INROW|1"
+    "capture-bound-ok|m_capture_ok||0|CLEAN|0|SOURCES_CAPTURES: CLEAN (path_rows=1 bound=1 located=1 prose=3)"
+    "capture-repoint|m_capture_repoint||1|SC_CAPTURE|1|SOURCES_CAPTURES: FAILED (defects=1 path_rows=1 bound=0 located=0 prose=3)|capture-digest-mismatch"
+    "capture-missing|m_capture_missing||1|SC_CAPTURE|1|SOURCES_CAPTURES: FAILED (defects=1 path_rows=1 bound=0 located=0 prose=3)|capture-missing"
+    "capture-truncate-by-1|m_capture_truncate||1|SC_CAPTURE|2|SOURCES_CAPTURES: FAILED (defects=2 path_rows=1 bound=0 located=0 prose=3)|capture-bytes-mismatch,capture-digest-mismatch"
+    "capture-absolute-location|m_capture_absolute||1|SC_CAPTURE|1|SOURCES_CAPTURES: FAILED (defects=1 path_rows=1 bound=0 located=0 prose=3)|capture-outside-root"
+    "capture-dotdot-location|m_capture_dotdot||1|SC_CAPTURE|1|SOURCES_CAPTURES: FAILED (defects=1 path_rows=1 bound=0 located=0 prose=3)|capture-outside-root"
+    "capture-quote-garbage|m_capture_quote||1|SC_CAPTURE|1|SOURCES_CAPTURES: FAILED (defects=1 path_rows=1 bound=1 located=0 prose=3)|quote-not-located"
+    "capture-prose-skip|m_capture_prose||0|CLEAN|0|SOURCES_CAPTURES: CLEAN (path_rows=0 bound=0 located=0 prose=4)"
+    "capture-bytes-declared|m_capture_bytes_declared||1|SC_CAPTURE|1|SOURCES_CAPTURES: FAILED (defects=1 path_rows=1 bound=0 located=0 prose=3)|capture-bytes-mismatch"
+    "capture-symlink-escape|m_capture_symlink||1|SC_CAPTURE|1|SOURCES_CAPTURES: FAILED (defects=1 path_rows=1 bound=0 located=0 prose=3)|capture-outside-root"
+    "capture-symlink-intree-control|m_capture_symlink_intree||0|CLEAN|0|SOURCES_CAPTURES: CLEAN (path_rows=1 bound=1 located=1 prose=3)"
   )
-  local spec name fn arg xe xid xn d out rc last ok cases=0 failed=0
+  local spec name fn arg xe xid xn xcap xreason d out rc last ok cases=0 failed=0
   for spec in "${CASES[@]}"; do
-    IFS='|' read -r name fn arg xe xid xn <<<"$spec"
+    IFS='|' read -r name fn arg xe xid xn xcap xreason <<<"$spec"
     cases=$((cases + 1)); ok=1
     d="$ST_DIR/case-$name"
     cp -R -- "$ST_DIR/base" "$d" || setup "fixture copy failed"
@@ -719,6 +914,40 @@ selftest() {
         grep -q "^FINDING $xid " <<<"$out" || ok=0
         [[ $last == "SOURCES_CENSUS: FAILED (findings=$xn rows="*')' ]] || ok=0 ;;
     esac
+    if [[ -n $xreason ]]; then
+      local -a RREASONS=()
+      local rr
+      IFS=',' read -ra RREASONS <<<"$xreason"
+      for rr in "${RREASONS[@]}"; do
+        grep -qE "^FINDING $xid id=[^ ]+ $rr\$" <<<"$out" || ok=0
+      done
+    fi
+    # round 67: the capture summary is the line before the verdict, its counts
+    # agree with the fixture and with the SC_CAPTURE findings, and stage
+    # relations hold (located ≦ bound ≦ path_rows)
+    if [[ $rc -ne 2 ]]; then
+      local -a OUTL=()
+      mapfile -t OUTL <<<"$out"
+      local cap_sum cap_n cap_def=0 cap_path cap_bound cap_located cap_prose data_rows
+      cap_sum=${OUTL[${#OUTL[@]}-2]}
+      cap_n=$(grep -c '^FINDING SC_CAPTURE ' <<<"$out")
+      if [[ $cap_sum =~ ^SOURCES_CAPTURES:\ CLEAN\ \(path_rows=([0-9]+)\ bound=([0-9]+)\ located=([0-9]+)\ prose=([0-9]+)\)$ ]]; then
+        cap_path=${BASH_REMATCH[1]}; cap_bound=${BASH_REMATCH[2]}; cap_located=${BASH_REMATCH[3]}; cap_prose=${BASH_REMATCH[4]}
+      elif [[ $cap_sum =~ ^SOURCES_CAPTURES:\ FAILED\ \(defects=([0-9]+)\ path_rows=([0-9]+)\ bound=([0-9]+)\ located=([0-9]+)\ prose=([0-9]+)\)$ ]]; then
+        cap_def=${BASH_REMATCH[1]}; cap_path=${BASH_REMATCH[2]}; cap_bound=${BASH_REMATCH[3]}; cap_located=${BASH_REMATCH[4]}; cap_prose=${BASH_REMATCH[5]}
+      else
+        ok=0; cap_path=0; cap_prose=0; cap_bound=0; cap_located=0
+      fi
+      if [[ -f $(FETCH_F "$d") ]]; then
+        data_rows=$(awk -F'\t' 'length($0)>0 && $0 !~ /^#/ && NF==16 {n++} END{print n+0}' "$(FETCH_F "$d")")
+      else
+        data_rows=0
+      fi
+      [[ $((cap_path + cap_prose)) -eq $data_rows ]] || ok=0
+      [[ $cap_located -le $cap_bound && $cap_bound -le $cap_path ]] || ok=0
+      [[ $cap_def -eq $cap_n ]] || ok=0
+    fi
+    if [[ -n $xcap ]] && ! grep -qF -- "$xcap" <<<"$out"; then ok=0; fi
     if [[ -n $NEEDLE ]] && grep -qF -- "$NEEDLE" <<<"$out"; then ok=0; fi
     if [[ $ok -eq 1 ]]; then
       printf 'case %s: ok (exit %s, %s)\n' "$name" "$rc" "$xid"

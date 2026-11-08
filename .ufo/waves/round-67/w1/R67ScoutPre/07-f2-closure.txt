@@ -1,0 +1,51 @@
+R67ScoutPre — F-2 closure observed (the L1 landed the S115 re-cut)
+===================================================================
+Observed at the live tree shortly after my report was written.
+
+$ git diff -- corpus/source-fetches.tsv
+-S115 … "Audit devices must be enabled by a root user using bao audit enable or
+        using the audit stanza."   rendered-text-v1  781463ac…d147  .ufo/waves/round-57/capture/S115.body
++S115 … "Audit devices must be enabled by a root user using bao audit enable or
+        using the audit stanza"    rendered-text-v1  781463ac…d147  .ufo/waves/round-57/capture/S115.body
+
+THE ONLY CHANGE IS THE TRAILING PERIOD on col13. Confirmed field by field:
+  col10 sha256 76339ff7dab618b5e5532bca6daf9dd8361330a43b737408304abfd1d79090c6  UNCHANGED
+  col11 bytes  41787                                                              UNCHANGED
+  col14 rendered-text-v1                                                           UNCHANGED
+  col15 normalized 781463acbf1493a58c0f87ec981809f6f80bd63196e8006ff274c87593a7d147 UNCHANGED
+  col16 .ufo/waves/round-57/capture/S115.body                                     UNCHANGED
+  col13 quote  18 words, <= 25                                                   CHANGED (period dropped)
+
+This matches my report's analysis exactly: only col13 needed to change, and no digest
+re-pin was needed (col10/col11/col15 already bound S115's body correctly — I had
+re-measured col15 as 781463ac…d147, identical to the declared value).
+
+Why the trailing period mattered: the body's normalized text carries the sentence
+without a final period at that position, so the period-terminated form located
+count=0 and the bare form locates count=1:
+  $ python3 corpus/rendered-text-v1.py locate .ufo/waves/round-57/capture/S115.body \
+        "Audit devices must be enabled by a root user using bao audit enable or using the audit stanza."
+  RENDERED_TEXT_V1_LOCATE: count=0     (rc=1)   <- the BASE form
+  $ … "Audit devices must be enabled by a root user using bao audit enable or using the audit stanza"
+  RENDERED_TEXT_V1_LOCATE: count=1     (rc=0)   <- the re-cut form
+
+RESULT ON THE LIVE TREE after the re-cut:
+  $ bash corpus/sources-census.sh
+  SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=120)
+  SOURCES_CENSUS: CLEAN (rows=156 A=139 B=2 C=15 queued=3 mined=136 rejected=17
+    entries_sourced=26 legacy=21 captures=156 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+  rc=0
+
+The gate now prints EXACTLY the frozen guard-(a) line:
+  SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=120)
+DEFECT F-2 is therefore RESOLVED in the tree. It was a real coordination hazard (the
+counter read guard=0 on correct bytes purely because the row is L1-owned), and it
+resolved the moment the owning seat landed its landing surface — which is the
+round-66 M66-8 lesson (a leg measuring state another seat owns) landing correctly.
+
+ALSO OBSERVED (other seats, not mine): plans/round-67.md gained "Amendment A1"
+(22 lines, appended after the freeze) recording the critic's scope findings, and
+the round-66 C2 surfaces (SCORECARD, SKILL, PROVINCE, README, QUALITY,
+lessons/round-66.md, .ufo/waves/round-66/{claims.json,claim-falsification.tsv},
+.ufo/waves/round-66/final/c3-base.txt) are modified in the tree. All are other
+seats' surfaces; I read them but changed none of them.

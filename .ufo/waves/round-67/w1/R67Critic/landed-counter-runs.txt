@@ -1,0 +1,68 @@
+R67Critic — landed `plans/round-67-c2.sh` runs (lane working tree, 2026-11-08)
+
+Counter: plans/round-67-c2.sh (untracked at review time, mtime 07:59, 37663 B).
+All runs: export HYAKU_SCRATCH=<scratch>; lane cwd for the script; trees are
+materialized copies.
+
+1) BASE control — git archive 076701a extraction:
+$ bash plans/round-67-c2.sh --tree <base-extraction> --scratch <scratch>
+LEG L1 verdict=defect first-verdict="C2_PREFILE: gate=A claims=3 rows=R attack_seats=K guard=G" receipt="C2_PREFILE: gate=0 claims=0 rows=0 attack_seats=0 guard=0"
+LEG L2 verdict=defect skill-lacks-output:cases=45 failed=0 measured-cases=45
+LEG L3 verdict=defect no-map-row
+LEG L4 verdict=defect no-sentinel-row
+LEG L5 verdict=defect C2-lacks-token:C2_PREFILE
+LEG L6 verdict=defect receipt-missing
+LEG L7 verdict=defect no-corrigendum-section
+c2-fidelity: tree=…/base population=7 mismatches=7
+c2-fidelity: guard a=1 b=1 c=1 base_defects=7 selftest_cases=22
+C2_FIDELITY: mismatches=7 population=7 guard=1
+exit 1
+=> the do-nothing control holds; every leg is discriminative at BASE.
+
+2) Candidate — the lane working tree (all seven in-flight repairs present):
+$ bash plans/round-67-c2.sh --tree /home/vgpnk/Projects/shokunin/kagi-shokunin --scratch <scratch>
+LEG L1 verdict=ok scorecard:2339 receipt:.ufo/waves/round-66/final/c2-candidate.txt verdict="C2_PREFILE: gate=0 claims=0 rows=0 attack_seats=0 guard=0" gate_out="PREFILE-FALSIFICATION: SETUP findings=1"
+LEG L2 verdict=ok instrument cases=45 failed=0 rc=0 skill=cases=45 failed=0
+LEG L3 verdict=ok map-row:119 cells=3 entry=present
+LEG L4 verdict=ok row=present claim=C1 class=neutral detail_len=293 referenced=present
+LEG L5 verdict=ok expected=C1=C1_CARRIER,C2=C2_PREFILE,C3=C3_CENSUS superseded=C2_CLAIMS,C3_SELFREF
+LEG L6 verdict=ok receipt=present header_lines=8 base=d549ee6eb877 gate='SOURCES_CENSUS: FAILED (findings=4 rows=155)'
+LEG L7 verdict=ok corrigendum ids=7 pairs=7 source=git:d549ee6eb877..076701a11a58
+c2-fidelity: population=7 mismatches=0
+c2-fidelity: guard a=1 b=1 c=1 base_defects=7 selftest_cases=22
+C2_FIDELITY: mismatches=0 population=7 guard=1
+exit 0
+
+3) STUB — a copy of (2) whose receipt body is falsified, header untouched:
+$ cp <candidate tree> <stubtree>; sed -i \
+  's/^SOURCES_CENSUS: FAILED (findings=4 rows=155)$/SOURCES_CENSUS: CLEAN (findings=0)/' \
+  <stubtree>/.ufo/waves/round-66/final/c3-base.txt
+$ grep -n SOURCES_CENSUS <stubtree>/.ufo/waves/round-66/final/c3-base.txt
+13:SOURCES_CENSUS: CLEAN (findings=0)
+$ bash plans/round-67-c2.sh --tree <stubtree> --scratch <scratch>
+LEG L1 verdict=ok …
+LEG L2 verdict=ok …
+LEG L3 verdict=ok …
+LEG L4 verdict=ok …
+LEG L5 verdict=ok …
+LEG L6 verdict=ok receipt=present header_lines=8 base=d549ee6eb877 gate='SOURCES_CENSUS: CLEAN (findings=0)'
+LEG L7 verdict=ok corrigendum ids=7 pairs=7 source=fallback
+c2-fidelity: population=7 mismatches=0
+c2-fidelity: guard a=1 b=1 c=1 base_defects=7 selftest_cases=22
+C2_FIDELITY: mismatches=0 population=7 guard=1
+exit 0
+
+The round-66 BASE gate never printed CLEAN: the live re-run on d549ee6 reads
+`SOURCES_CENSUS: FAILED (findings=4 rows=155)` (see l6-rerun.txt §3). The L6 leg
+prints the false line in its own detail and passes. The predicate therefore
+reads `mismatches=0 guard=1` on a tree whose record surface is false — the
+frozen guard (c) ("each re-derives from committed bytes (a gate output …)") is
+not met for L6.
+
+Root cause in the landed leg (plans/round-67-c2.sh:328-359):
+- reads header lines only, requires the base sha, "provenance", "reconstruct";
+- requires one `^SOURCES_CENSUS: (FAILED|CLEAN)` line, never its findings/rows;
+- never reads the four `FINDING` ids, never reads a `C3_CENSUS:` line, never
+  re-runs the counter or the lane gate.
+`--selftest` fixtures are `header-sha-drift` and `gate-line-absent` — both
+absence/shape mutants; a content lie is not planted, so it survives guard (b).

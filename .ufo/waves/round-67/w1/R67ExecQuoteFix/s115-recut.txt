@@ -1,0 +1,57 @@
+# S115 quote re-cut — evidence (R67ExecQuoteFix, round 67 w1)
+# lane: /home/vgpnk/Projects/shokunin/kagi-shokunin  BASE 076701a11a58e3eb58d996b4c76c5e18071fb179
+# plan: plans/round-67.md §C1 landing surface ("S115's declared quote re-cut in corpus/source-fetches.tsv to a locating quote")
+# NOT APPLIED by this seat: the L1 applies the line. Nothing in the lane was written except this report dir.
+
+## capture file (col 16) verified
+path            .ufo/waves/round-57/capture/S115.body
+sha256          76339ff7dab618b5e5532bca6daf9dd8361330a43b737408304abfd1d79090c6   (col 10 = 76339ff7dab618b5e5532bca6daf9dd8361330a43b737408304abfd1d79090c6)
+bytes           41787   (col 11 = 41787)
+normalized      RENDERED_TEXT_V1: raw_sha256=76339ff7dab618b5e5532bca6daf9dd8361330a43b737408304abfd1d79090c6 bytes=41787 normalized_sha256=781463acbf1493a58c0f87ec981809f6f80bd63196e8006ff274c87593a7d147 normalized_bytes=9986
+                 (col 15 = 781463acbf1493a58c0f87ec981809f6f80bd63196e8006ff274c87593a7d147 -> matches)
+tracked          yes (git ls-files)
+
+## old declared quote (col 13), 18 words
+Audit devices must be enabled by a root user using bao audit enable or using the audit stanza.
+$ python3 corpus/rendered-text-v1.py locate .ufo/waves/round-57/capture/S115.body '<old>'
+RENDERED_TEXT_V1_LOCATE: count=0   (rc=1)
+
+## why it fails: the rendered body holds a tag-space before the full stop
+rendered-text-v1 step 3 replaces every tag with one SPACE, so `<code>audit stanza</code>.`
+normalizes to `audit stanza .` — the period is NOT byte-adjacent to "stanza". Codepoints
+around it: ...0x61 'a' 0x20 SPACE 0x2e '.' 0x20 SPACE 0x57 'W'... (verified by ordinal dump).
+The declared quote normalizes (steps 5-6 only) to "stanza." — hence count=0.
+
+## new declared quote (col 13), 18 words, count=1
+Audit devices must be enabled by a root user using bao audit enable or using the audit stanza
+$ python3 corpus/rendered-text-v1.py locate .ufo/waves/round-57/capture/S115.body '<new>'
+RENDERED_TEXT_V1_LOCATE: count=1   (rc=0)
+context: "When an OpenBao server is first initialized, no auditing is enabled. Audit devices
+must be enabled by a root user using bao audit enable or using the audit stanza . When
+enabling an audit device, options can be passed to it..." (under the live heading
+"Enabling/Disabling audit devices")
+
+## rejected alternative
+"…or using the audit stanza ." (period included, 18 words) also locates count=1, but it
+carries the normalizer's tag-space artifact into the declared quote verbatim. Rejected in
+favour of ending at the last whole token (the convention of the round-66 S156 re-cut,
+"Maximum 3 requests per second per user", which also ends without terminal punctuation).
+No other change considered: col 10/11/3/14/15/16 all verified correct and untouched.
+
+## line: all 16 columns, only col 13 differs
+old: S115	mined	d29af8f0b56b51bac2605cac975ec206eeb5333d27239aeb26e7f34a1179b548	https://openbao.org/docs/audit/	https://openbao.org/docs/audit/	200	curl-fsSL-compressed-v1	2026-11-07	decoded-http-body-v1	76339ff7dab618b5e5532bca6daf9dd8361330a43b737408304abfd1d79090c6	41787	-	Audit devices must be enabled by a root user using bao audit enable or using the audit stanza.	rendered-text-v1	781463acbf1493a58c0f87ec981809f6f80bd63196e8006ff274c87593a7d147	.ufo/waves/round-57/capture/S115.body
+new: S115	mined	d29af8f0b56b51bac2605cac975ec206eeb5333d27239aeb26e7f34a1179b548	https://openbao.org/docs/audit/	https://openbao.org/docs/audit/	200	curl-fsSL-compressed-v1	2026-11-07	decoded-http-body-v1	76339ff7dab618b5e5532bca6daf9dd8361330a43b737408304abfd1d79090c6	41787	-	Audit devices must be enabled by a root user using bao audit enable or using the audit stanza	rendered-text-v1	781463acbf1493a58c0f87ec981809f6f80bd63196e8006ff274c87593a7d147	.ufo/waves/round-57/capture/S115.body
+
+## sha256 of corpus/source-fetches.tsv
+before  d2f050b6bf16be382feab19dc3895c95d0646501c9a59edb0c668f0a5bfa6611   (87113 bytes)
+after   60fa5d1059ecac55bf4d60f5c6cb2a3db0ca20cd9f48845a89f859f8a80ed1da   (87112 bytes)   <- after applying the single-line diff
+
+## APPLIED (L1, after this seat's report)
+applied=18-word  (col 13 only; every other column as in the "old" line above)
+$ sha256sum corpus/source-fetches.tsv
+60fa5d1059ecac55bf4d60f5c6cb2a3db0ca20cd9f48845a89f859f8a80ed1da  corpus/source-fetches.tsv   (87112 bytes)
+$ grep -P '^S115\t' corpus/source-fetches.tsv | awk -F'\t' '{print NF}'   -> 16
+$ python3 corpus/rendered-text-v1.py locate .ufo/waves/round-57/capture/S115.body \
+    "$(grep -P '^S115\t' corpus/source-fetches.tsv | cut -f13)"
+RENDERED_TEXT_V1_LOCATE: count=1
+Landed digest == this receipt's expected "after" digest, proving no other cell moved.

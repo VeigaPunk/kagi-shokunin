@@ -1,0 +1,35 @@
+# citation gate, full doc set, real lane (fleet layout present)
+$ bash corpus/claim-ledger.sh citations
+CITATION_GATE: BROKEN (cites=5186 docs=171 unresolved=32 ephemeral=0 labeled=24)
+
+# of the 32 unresolved findings, the ones this seat introduces:
+UNRESOLVED corpus/README.md:120 corpus/knowledge/source-capture-binding.md (local)
+UNRESOLVED corpus/lessons/round-67.md:23 corpus/knowledge/source-capture-binding.md (local)
+
+# the other 30 live in files this seat did not touch (unmodified per git status):
+      6 SCORECARD.md
+      3 corpus/lessons/round-62.md
+      2 corpus/lessons/round-66-verifier-spotcheck.md
+      2 corpus/lessons/round-65-verifier-spotcheck.md
+      2 corpus/lessons/round-60.md
+      2 corpus/lessons/round-54-verifier-spotcheck.md
+      2 corpus/lessons/round-44.md
+      1 corpus/lessons/round-59-verifier-spotcheck.md
+      1 corpus/lessons/round-58.md
+      1 corpus/lessons/round-53-verifier-spotcheck.md
+      1 corpus/lessons/round-51-verifier-spotcheck.md
+      1 corpus/lessons/round-43.md
+      1 corpus/lessons/round-35-verifier-spotcheck.md
+      1 corpus/lessons/round-34-verifier-spotcheck.md
+      1 corpus/lessons/round-33-verifier-spotcheck.md
+      1 corpus/lessons/round-32-verifier-spotcheck.md
+      1 corpus/lessons/round-30-verifier-spotcheck.md
+      1 LOG.md
+
+# NOTE: a 076701a EXTRACTION reads unresolved=19 with fleet_absent=264 — that run is in a
+# lone-clone layout (no fleet root beside it), so it is NOT a like-for-like baseline
+# against the real lane's 32. The like-for-like statement is: 30 of the 32 live in files
+# this seat did not touch; the 2 that are mine both name the not-yet-written entry.
+
+# the lane's own ledger row R11-08 expects CITATION_GATE: CLEAN (unresolved=0):
+R11-08	bash corpus/claim-ledger.sh citations	^CITATION_GATE: CLEAN \(cites=[1-9][0-9]* docs=[1-9][0-9]* unresolved=0 ephemeral=0	0	300	committed docs cite durable evidenc

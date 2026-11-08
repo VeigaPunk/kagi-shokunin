@@ -1,0 +1,11 @@
+=== c3b: in-tree hardlink to an out-of-tree copy; same inode, nlink=2 ===
+in-tree   nlink=2 inode=1831868836 size=90604
+out-tree  nlink=2 inode=1831868836 size=90604
+A: no external write
+  rc = 0 | SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=120)
+  verdict: SOURCES_CENSUS: CLEAN (rows=156 A=139 B=2 C=15 queued=3 mined=136 rejected=17 entries_sourced=26 legacy=21 captures=156 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+B: 1 byte appended to the OUT-OF-TREE name (no path inside the tree touched)
+  rc = 1 | SOURCES_CAPTURES: FAILED (defects=2 path_rows=36 bound=35 located=35 prose=120)
+  verdict: SOURCES_CENSUS: FAILED (findings=2 rows=156)
+    id=S113 capture-bytes-mismatch
+    id=S113 capture-digest-mismatch

@@ -1,0 +1,59 @@
+R67ScoutPre — item 3: the blindness witness at BASE
+====================================================
+Method: git archive 076701a11a58e3eb58d996b4c76c5e18071fb179 | tar -x -C <scratch>
+(one fresh extraction per mutation; the tree is never edited in place, so no
+mutation can leak into a later reading).
+
+WITNESS A — repoint S164's col16 to .ufo/waves/round-64/capture/S148.body
+  command:  bash corpus/sources-census.sh        (cwd = the extracted copy)
+  verdict:  SOURCES_CENSUS: CLEAN (rows=156 A=139 B=2 C=15 queued=3 mined=136
+            rejected=17 entries_sourced=26 legacy=21 captures=156 inrow=16
+            inrow_only=0 inrow_nonreproducing=12)
+  rc = 0
+  => BASE DOES NOT CATCH IT. The row still declares S164's own pin
+     (3b8d4e15…cba40, 264946 B) while naming S148.body
+     (sha fabc74c5…ba9f15, 39750 B) — a wrong body, wrong digest, wrong size,
+     and the declared quote does not locate in it. BASE reads CLEAN.
+  This confirms QM94 / lesson M66-13: the lane gate's only capture test is the
+  location string's LENGTH (`[[ ${#floc} -ge 8 ]]`, corpus/sources-census.sh
+  line 305 at BASE), so a repointed row is invisible to it.
+
+WITNESS B — S115's col13 replaced by a non-locating string
+  (I replaced the quote on BOTH S115 and S164 so the leg is not confounded by
+   S115's own pre-existing non-locating quote; S164's is the clean instance.)
+  command:  bash corpus/sources-census.sh        (cwd = the extracted copy)
+  verdict:  SOURCES_CENSUS: CLEAN (rows=156 A=139 B=2 C=15 queued=3 mined=136
+            rejected=17 entries_sourced=26 legacy=21 captures=156 inrow=16
+            inrow_only=0 inrow_nonreproducing=12)
+  rc = 0
+  => BASE DOES NOT CATCH IT. The census checks only the quote's WORD COUNT
+     (<= 25) and its normalization name; it never locates the quote in the body.
+
+ANSWER: BASE catches NEITHER. Both witnesses read CLEAN, rc=0.
+
+EXTENDED: all six of the plan's mutation legs read CLEAN at BASE
+  (each on its own fresh extraction, each with the BASE census):
+    repoint            rc=0  SOURCES_CENSUS: CLEAN (...)
+    truncate-by-1      rc=0  SOURCES_CENSUS: CLEAN (...)
+    delete             rc=0  SOURCES_CENSUS: CLEAN (...)
+    absolute location  rc=0  SOURCES_CENSUS: CLEAN (...)
+    ".." location      rc=0  SOURCES_CENSUS: CLEAN (...)
+    quote -> garbage   rc=0  SOURCES_CENSUS: CLEAN (...)
+  So the round-67 target is genuinely unreachable by doing nothing: caught=0/6
+  at BASE, not a partial.
+
+FLEET WRAPPER: also blind. On the repointed copy,
+  bash /home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate \
+       --root /home/vgpnk/Projects/shokunin <copy>
+  reads W04 duplicate-url warnings only, rc=0 — no capture finding class exists
+  in the fleet wrapper at all. (This is the same gate the round-66 lesson M66-5
+  confused with the lane gate; they are different gates.)
+
+NOTE ON THE PLAN'S OWN CITATION: plans/round-67.md cites
+  `.ufo/waves/round-67/base/blind-gate.txt` as the receipt for this blindness
+  ("re-measured here, receipt `.ufo/waves/round-67/base/blind-gate.txt`").
+  That file DOES NOT EXIST: the directory `.ufo/waves/round-67/base/` exists but
+  is empty, the file is absent from the working tree, and
+  `git log --all -- .ufo/waves/round-67/base/blind-gate.txt` prints nothing.
+  The plan's own motivating evidence cites a receipt that was never written.
+  (See report section 5, DEFECT F-1. My witness above is the substitute.)

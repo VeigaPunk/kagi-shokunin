@@ -1,0 +1,26 @@
+category	lane	file_line	enforcement	relation_to_kagi
+(a) gate	revenger-shokunin	corpus/audit_source_quotes.py:85	Verifies body sha256 + length + quote presence and exact span start:end	adjacent/extends
+(a) gate	kumitate-shokunin	scripts/source-capture.mjs:34	Verifies regular file, crypto sha256, byte length for opened sources in source-captures.json	adjacent
+(a) gate	kasegi-shokunin	corpus/instruments/capture-binding-check.py:93	Rule E checks regular file, sha256 equality, byte size for source snapshots	adjacent
+(a) gate	kasegi-shokunin	corpus/instruments/source-recheck.py:85	Rechecks pinned quotes and line anchors in text snapshots	adjacent
+(a) gate	chousa-shokunin	tools/gate-records.py:40	Verifies GATE-RECORD lines against captures/<24hex>.txt (sha256 prefix + normalized quote)	adjacent
+(a) gate	kotodama-shokunin	tools/check-gate-captures.py:17	Checks lesson Gate rows name capture file under evidence dir and match sha256	adjacent
+(a) gate	kaidoku-shokunin	tools/round-41/local-source-gate.py:35	Verifies out-of-lane paths have in-lane copies with matching sha256	adjacent
+(a) gate	mori-shokunin	tools/mori-source-digest.py:35	Checks recorded sha256 in SOURCES.md against pinned copy file	adjacent
+(a) gate	kake-shokunin	scripts/capture_delta.py:1	Verifies capture tree receipts against bodies (sha256, length, headers)	adjacent
+(b) registry col	kagi-shokunin	corpus/source-fetches.tsv:35	Col 16 (location) contains repo-relative capture paths for 36 rows (prose for 120)	self (kagi C1 surface)
+(b) registry col	kumitate-shokunin	.ufo/pins/source-captures.json:23	Sidecar JSON captures[].path maps sourceId to repo-relative capture file	adjacent
+(b) registry col	kasegi-shokunin	corpus/source-snapshots/*/manifest.json	Directory manifest sources[].path maps id to filename in snapshot dir	adjacent
+(b) registry col	chousa-shokunin	corpus/evidence/round*/spans.tsv:1	Manifest column span_file maps source to capture text path with offset	adjacent
+(b) registry col	kaidoku-shokunin	corpus/evidence/local-sources.json:5	Sidecar JSON sources[].copy maps out-of-lane path to in-lane copy	adjacent
+(c) RFC 9530	kagi-shokunin	plans/round-67.md:30	Predeclaration opens S166 for RFC 9530 §1.2 with located quote	self (round 67 target)
+(c) RFC 9530	(all 20 siblings)	none:0	Zero rows citing RFC 9530, RFC 3230, RFC 5843 or digest-vs-representation in any sibling	none (collision-free)
+(d) capability	kumitate-shokunin	SCORECARD.md:1995	source-capture (round 55): binds SOURCES.md rows to capture bytes in source-captures.json	adjacent/precursor
+(d) capability	kake-shokunin	SCORECARD.md:203	Capture-to-capture drift gate (round 82): verifies capture receipts against retained bodies	adjacent
+(d) capability	kake-shokunin	SCORECARD.md:201	Quote-class ledger (round 50): classifies quotes as raw-substring vs collapsed-only	adjacent
+(d) capability	kake-shokunin	SCORECARD.md:212	Append-block quote-truth gate, article-bound (round 55)	adjacent
+(d) capability	kake-shokunin	SCORECARD.md:234	Capture-once / audit-offline re-derivation chain (round 81)	adjacent
+(d) capability	kasegi-shokunin	SCORECARD.md:307	capture-secret-scan (round 87) / capture-intake-gate (round 90)	adjacent
+(d) capability	kotodama-shokunin	SCORECARD.md:70	article paragraph locator (round 86): locates quotes in MediaWiki captures by paragraph	adjacent
+(d) capability	kaidoku-shokunin	SCORECARD.md:626	local raw-quote/heading regression audit (round 25)	adjacent
+(d) capability	kagi-shokunin	SCORECARD.md:708	located-quote gate over committed capture bodies (round 38, quote-locate.py)	self (historical C1 ancestor)

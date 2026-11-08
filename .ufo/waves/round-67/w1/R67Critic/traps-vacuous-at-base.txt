@@ -1,0 +1,43 @@
+R67Critic — naive leg implementations that read ok on BASE (vacuity traps)
+
+BASE=076701a11a58e3eb58d996b4c76c5e18071fb179
+
+L2 trap — a number-only check reads ok on BASE:
+$ git show $BASE:SKILL.md | grep -c 'cases=45'
+1
+$ git show $BASE:SKILL.md | sed -n '854p' | grep -o 'APPROLE_SELFTEST: PASS (cases=[0-9]*)'
+APPROLE_SELFTEST: PASS (cases=45)
+# `cases=45` belongs to the AppRole trial row, not the round-66-c1 row.
+# The reverse trap: `cases=14` stays legitimate in the round-62 controls row:
+$ git show $BASE:SKILL.md | grep -c 'cases=14'
+2
+$ git show $BASE:SKILL.md | sed -n '871p' | grep -o 'CONTROLS_SELFTEST: PASS (cases=[0-9]*)'
+CONTROLS_SELFTEST: PASS (cases=14)
+# Anchor must be the row beginning `| C1 carrier-binding counter (`.
+
+L5 trap — the amended plan retains the withdrawn ids and literals, so a
+whole-file containment check reads ok on the BASE claims.json:
+$ for p in C2_CLAIMS exact=1 C3_SELFREF resolved=1 checks=3 rows=155; do printf '%-12s %s\n' "$p" "$(grep -c "$p" plans/round-66.md)"; done
+C2_CLAIMS    4
+exact=1      6
+C3_SELFREF   3
+resolved=1   4
+checks=3     3
+rows=155     4
+# The oracle must be the A2 restated block (line 361: `C2_PREFILE: gate = 1 iff`)
+# and the A3 restated block (line 394: `C3_CENSUS: findings = the count …`),
+# never the whole plan text.
+
+L1 trap — the only round-66 receipt carrying `C2_PREFILE: gate=0` is the cited one:
+$ grep -l 'C2_PREFILE: gate=0' .ufo/waves/round-66/final/*.txt
+.ufo/waves/round-66/final/c2-candidate.txt
+# so the leg must parse the cell's cited path AND whitelist it to the
+# round-66 final receipts; a newly written file could otherwise satisfy it.
+
+L7 trap — `→` count is not evidence:
+$ git show $BASE:corpus/lessons/round-66.md | grep -c '→'
+10
+$ grep -c '→' corpus/lessons/round-66.md          # after the in-flight append
+20
+The BASE lesson already holds ten arrows in other prose; only a per-id diff of
+corpus/SOURCES.md d549ee6 → candidate distinguishes a logged pair from an arrow.

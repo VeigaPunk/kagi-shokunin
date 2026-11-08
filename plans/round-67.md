@@ -30,7 +30,7 @@ Motivating evidence, measured at BASE this round:
   the binding (as opposed to a path string). RFC 9530 §1.2 is opened this
   round as S166 and is the sourced claim's row.
 
-## C1 — freshness (capability): the census reads each declared capture's bytes and quote
+## C1 — freshness: the census reads each declared capture's bytes and quote (capability acquisition)
 
 Target axis: freshness (a re-verification mechanism for the registry's own
 evidence). Capability row: **capture read-through in the source census**.
@@ -140,3 +140,142 @@ kagi --round 67`.
 ## Amendments
 
 (none at freeze)
+
+## Amendment A1 — 2026-11-08, recorded after the first C2 lane reading
+
+No target, predicate, kill rule or population changes here. Three scope and
+implementation facts the wave's critic measured (`R67Critic`, item 2 and 4):
+
+1. **Out-of-lane routed items.** The round-66 closure's routed defects 4 (the
+   report's `Landed changes` LOG pointers / uncited commits) and 5 (the
+   controls-battery receipt) live in the fleet-root report
+   `.ufo/reports/round-66/kagi.md`, which no lane may write. They are **not**
+   C2 legs; they are named in this round's report as out-of-scope, which is
+   the same reading §3's write scope gives. C2's population stays the seven
+   lane-owned surfaces L1–L7.
+2. **L6 content.** Leg 6 must verify the reconstructed receipt's *content*,
+   not only its header: it requires the `C3_CENSUS:` line's `findings=` and
+   `rows=` to equal a fresh run of the lane gate on a `d549ee6` extraction and
+   the four `FINDING` ids to be present. A receipt whose verdict line says
+   `CLEAN (findings=0)` therefore reads `defect` (the round-66 gate read
+   `FAILED (findings=4)` at that revision).
+3. **Wording.** "Seven `used-by` cells changed" (round-66 corrigendum) is
+   corrected to "six changed and one row appeared"; the leg's seven ids are
+   unchanged.
+
+## Amendment A2 — 2026-11-08, from R67Reviewer's blocking findings (before the landed counter reading)
+
+The wave's reviewer measured (receipts under `.ufo/waves/round-67/w1/R67Reviewer/receipts/`)
+that three frozen terms were unreachable or underdetermined as written. The
+target, the label and the population stay exactly as frozen; this amendment
+records what the instrument must enforce. Every item is the reviewer's A-67-n
+text applied to this plan.
+
+**A2.1 — location shape (legalizes the landed gate's classifier).**
+Capture-path-shaped location = column 16 of `corpus/source-fetches.tsv` contains
+`/` and either matches `^[A-Za-z0-9._][A-Za-z0-9._/-]*$` (repo-relative) or
+matches `^/[A-Za-z0-9._][A-Za-z0-9._/-]*$` (absolute). An absolute location is
+always `capture-outside-root` and is counted in `path_rows`. Every
+capture-path-shaped row is read: a repo-relative location must resolve
+repo-relatively, realpath inside the tree, to a regular file; sha256 == col 10;
+size == col 11; a row bound by those checks must locate its col-13 quote
+`count>=1` under the col-14 normalization. A row may print more than one
+`FINDING SC_CAPTURE id=<S-id> <reason>` when more than one check fails. Prose =
+every other non-empty col-16 value (120 at BASE, 17 containing `/`), counted and
+never checked; an empty col-16 stays an SC_FETCH `location` defect. Measured
+why: under the strict form alone the absolute-location mutation is classified
+prose (`path_rows=35 prose=121`) and a perfect gate scores at most 5/6.
+
+**A2.2 — the C1 sentence, narrowed (Amendment 59).** The claim reads: *the
+census reads the bytes and the declared locator quote of every
+capture-path-shaped row (36 rows at this round).* `bound`, `located`,
+`path_rows` and `prose` cover those rows only; the 120 prose locations are
+counted and never opened; `located` means only that the declared locator occurs
+at least once under the row's declared normalization — quote length, provenance
+and evidentiary strength are not measured. Measured why: 17 slash-bearing prose
+rows name files/offsets that are never opened (S008, S099, S105), and a
+one-token quote `a` locates 580 times in S115's body yet satisfies `located`.
+The landed S115 re-cut is a real 18-word quote by choice, not by enforcement.
+
+**A2.3 — the `caught` construction (each leg, or SETUP, never a pass).**
+M1 repoint: col 16 → an in-tree capture file of the **same byte count and a
+different sha256** (fixture S143 → `.ufo/waves/round-64/capture/S143.body`, both
+264946 B); expected `capture-digest-mismatch`. M2 truncate-by-1: expected
+`capture-bytes-mismatch` **and** `capture-digest-mismatch`. M3 delete: expected
+`capture-missing`. M4 absolute: expected `capture-outside-root`. M5 `..`:
+expected `capture-outside-root`. M6 quote: col 13 → a non-empty ≤25-word string
+that does not locate; expected `quote-not-located`. `defects=N` counts `FINDING
+SC_CAPTURE` lines, not rows. A leg is `caught` only when the counter captured
+the candidate gate's own stdout for that copy and it contains `FINDING
+SC_CAPTURE id=<mutated-id> <expected reason>`; findings for other ids do not
+count and the counter may not classify the copy itself. The counter's selftest
+replays the six legs against a stub gate that prints the unmodified CLEAN
+summary for every copy; `caught` must read `0/6`. A repoint to a byte-identical
+body (S130 → S135's location, `cmp` rc 0) is not a mutation. Measured why: the
+plan's names fixed no expected reason, no id and no `defects` definition, and
+one natural repoint target is byte-identical.
+
+**A2.4 — population identity (guard).** The 36-id set and each id's col-16 and
+col-10 values are derived from `git show 076701a:corpus/source-fetches.tsv`
+(never a literal list). For `guard=1` the candidate's capture-path-shaped id set
+must be exactly that 36-id set and each id's col 16 and col 10 must be
+byte-identical to BASE (the lane holds the BASE blob; a copy without history
+falls back to the committed values, declared as such). Measured why: an
+S115→S116 reroute of every dependent column reads `CLEAN (path_rows=36
+bound=36 located=36 prose=120)` with S115's own quote still `count=0` — the
+target reached while the required repair is skipped (QM92's sibling-row copy,
+one level up).
+
+**A2.5 — guard (d) venue.** Guard (d) runs
+`scripts/sources-census.sh validate --root /home/vgpnk/Projects/shokunin kagi`
+with the candidate tree deployed at the lane path; on a copy the wrapper exits 2
+(no `shokunin.conf`) or prints `file ok` (`--file`), neither of which is `kagi
+ok`.
+
+**A2.6 — the "0 → 36" reading.** `bound=36` is a property of the BASE rows
+already (all 36 hash at BASE); the round's gate-level before/after is
+`located 35 → 36` and `caught 0/6 → 6/6`, with the BASE gate reading no capture
+bytes at all. The report and SCORECARD state both readings and never the bare
+milestone.
+
+## Amendment A3 — 2026-11-08, the sourced row's place in the population
+
+The round's sourced claim registers **S166** (RFC 9530, opened live this round)
+with a registry row and one `corpus/source-fetches.tsv` row. Its location column
+is **prose** (it names the section and the capture path in a sentence), because a
+capture-path location would add a 37th capture-path row and move the frozen
+`C1_READTHROUGH` numbers. Consequences, recorded rather than assumed:
+
+1. `path_rows`, `bound` and `located` keep their frozen values (36/36/36); the
+   capture-path id set stays exactly the BASE 36 (A2.4).
+2. `prose` rises 120 → 121. Guard (a) compares the gate's `prose` to the
+   candidate's derivation, not to a literal 120; the frozen target line
+   `C1_READTHROUGH: bound=36 located=36 caught=6/6 guard=1` is unchanged.
+3. S166's capture is therefore **not** gate-checked: its sha256, byte count and
+   the quote's location are verified by hand (capture
+   `.ufo/waves/round-67/capture/S166.body`, 67152 B,
+   `544dbb7d9afceafa8c9931d9924ca6cff2b4807274166d7ed2483342ef2cdd6a`, quote
+   `Receivers can validate the digest for integrity purposes.`,
+   `RENDERED_TEXT_V1_LOCATE: count=1`) and recorded in the lesson's Gate
+   section. A path-shaped registration would be a round-68 capability move, not a
+   change to this round's frozen target.
+
+## Amendment A4 — 2026-11-08, heading form
+
+The §C1 heading was `## C1 — freshness (capability): …`; `corpus/claims-declared.sh`
+requires `## <claim> — <axis>:` with the colon directly after the axis, so the
+parenthetical moved after the colon. Title form only — no predicate, counter,
+kill rule, guard or target text changes.
+
+## Amendment A5 — 2026-11-08, guard f (the counter's oracle)
+
+`plans/round-67-c1.sh` resolved the normalizer from the tree it measures, so a
+tree shipping a truthy normalizer moved both the gate's and the counter's
+answer together (`R67Sentinel` V-1). Guard f binds the candidate's
+`corpus/rendered-text-v1.py` to the copy at BASE (`git show <BASE>:…`, else the
+`--base-tree` copy): a differing hash reads `guard=0`. The derivation itself
+uses the BASE or lane normalizer, never the candidate's; the gate resolves its
+own sibling (`corpus/sources-census.sh`, `R67Sentinel` V-2). The exploit tree
+(every quote non-locating, stub normalizer) reads `caught=5/6 guard=0` rc 1 on
+the fixed bytes; the clean lane still reads `bound=36 located=36 caught=6/6
+guard=1`.

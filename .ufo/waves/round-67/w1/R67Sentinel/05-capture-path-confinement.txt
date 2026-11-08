@@ -1,0 +1,81 @@
+# R67Sentinel — capture-path confinement probes (round 67)
+
+The frozen C1 contract: a capture location must "resolve repo-relative,
+realpath inside the tree, regular file; sha256 == column 10; size == column
+11; declared quote column 13 must locate count>=1 under column 14
+normalization".
+
+Probe method (`bin/probe-paths.sh`): each class installed on a scratch copy's
+S164 row; the gate run with `verify --root <that copy>`; the lane never
+touched. The scratch copy carries the whole tree so the capture bodies
+resolve.
+
+| # | class | gate's verdict | caught? |
+|---|---|---|---|
+| — | baseline (unmutated S164) | `SOURCES_CAPTURES: CLEAN (path_rows=36 bound=36 located=36 prose=120)` | — |
+| P1 | symlink inside the tree → another body inside the tree | `FINDING SC_CAPTURE id=S164 capture-missing` | yes (the symlink's own relative target does not resolve, so the file is missing; the class is refused) |
+| P2 | symlink inside the tree → **outside** the tree | `FINDING SC_CAPTURE id=S164 capture-outside-root` | **yes** |
+| P3 | hardlink to another body | `FINDING SC_CAPTURE id=S164 capture-digest-mismatch` | **yes** |
+| P4 | `..` that lands back **inside** the tree (`.ufo/waves/round-64/capture/../capture/S143.body`) | `CLEAN (path_rows=36 bound=36 located=36 prose=120)` | n/a — canonicalises to a legal in-tree path and the digest matches; this is correct, not a bypass |
+| P5 | `..` that **escapes** the tree (`../kagi-shokunin/.ufo/…`) | `FINDING SC_CAPTURE id=S164 capture-outside-root` | **yes** |
+| P6 | trailing space in the location cell | `CLEAN (path_rows=35 bound=35 located=35 prose=121)` | **no — see V-4** |
+| P7 | doubled slash (`.ufo//waves/…`) and `./` prefix (`./.ufo/waves/…`) | `CLEAN (path_rows=36 bound=36 located=36 prose=120)` | n/a — both canonicalise to the same legal in-tree file; the digest still binds |
+
+The gate's containment uses `realpath -m` on `$CAP_ROOT/$loc` and requires
+the result to be under `$CAP_ROOT`, so a symlink escaping the tree, a
+traversing `..`, and an absolute location are all refused with
+`capture-outside-root` (the absolute case is refused by an explicit
+`[[ $loc == /* ]]` test before canonicalisation). Symlinks are followed, so a
+symlink whose target is inside the tree resolves to the target and is
+digest-checked — a hardlink to another body is caught by the digest
+mismatch.
+
+## V-4 (MEDIUM, open) — a one-byte edit to the location cell removes the
+## row from the checked population silently
+
+The shape predicate is `^[A-Za-z0-9._][A-Za-z0-9._/-]*$` on the location
+column. A trailing space fails it, so the row stops being capture-path-shaped
+and is counted as **prose** — which the frozen contract says is "counted as
+prose and never checked". The gate therefore reads:
+
+```
+SOURCES_CAPTURES: CLEAN (path_rows=35 bound=35 located=35 prose=121)
+SOURCES_CENSUS: CLEAN (rows=156 …)
+```
+
+The capture binding for that row is gone and the verdict is CLEAN: the row
+is no longer digest-checked, size-checked, or quote-checked. The population
+shift is visible in the summary line (`path_rows=35`, `prose=121`) but no
+finding is raised, and the exit code is 0.
+
+The counter does not miss it — the C1 counter's own derivation reads
+`path_rows=35 bound=35 located=35 prose=121` and its population guard
+refuses (`C1_READTHROUGH: SETUP m1-no-same-size-different-sha-capture-target`;
+the guard-pop leg compares the derived ids against the BASE registry's 36
+capture ids). So the class is caught by the counter but is **silent** in the
+gate.
+
+Smallest remediation: the gate should treat a location that is
+capture-*intent* but fails the shape check as a finding rather than prose —
+the frozen reason vocabulary already has a slot for it, or the shape test
+should tolerate a trailing space and let the digest check fail closed.
+Note the frozen reason set (`capture-outside-root`, `capture-missing`,
+`capture-digest-mismatch`, `capture-bytes-mismatch`, `quote-not-located`) has
+no member for "shape-invalid", so the smallest change that keeps the frozen
+vocabulary intact is to make the shape test accept the trailing space (so the
+row stays in the population and fails the digest/realpath check instead).
+
+## Note on the same class elsewhere
+
+P1's symlink was caught as `capture-missing` rather than a digest mismatch,
+because a relative symlink target inside the tree does not resolve to the
+body. This is the correct refusal for that input; the "symlink to another
+body inside the tree" class that the revenger seat is testing is the
+digest-checked path, and P3 (hardlink) demonstrates the digest check fires.
+
+## Verdict
+
+Path confinement is sound against traversal, escape-by-symlink, absolute
+locations and hardlinks. The one open class is the **silent population
+shrink** (V-4): a trailing space (or any shape-breaking byte) in the
+location cell moves a row out of the checked set with a CLEAN verdict.

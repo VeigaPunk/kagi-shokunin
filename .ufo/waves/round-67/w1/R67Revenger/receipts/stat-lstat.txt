@@ -1,0 +1,7 @@
+# Symlink size: stat without -L reports the link string length; sha256sum and
+# wc -c follow the link. corpus/sources-census.sh:274 uses `stat -c %s`.
+$ d=$(mktemp -d); printf 'abcdefghij' > "$d/t"; ln -s t "$d/link"
+$ stat -c %s "$d/link"; stat -Lc %s "$d/link"; wc -c < "$d/link"
+1
+10
+10

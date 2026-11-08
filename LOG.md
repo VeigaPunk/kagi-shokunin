@@ -2101,3 +2101,15 @@ Frozen BASE `655e620`; plan `4767b04` (alone, QM29); plan corrections 1/2 `2d46e
   `{context, tasks}` while the driver reads `d['taskCall']['tasks']`, so
   `KeyError('taskCall')` fired every 30 s from 05:47 until the orchestrator
   repaired it at 06:13; zero seats spawned in that window (M66-6/QM91).
+
+## Round 66 — correction (appended at close)
+
+- The round-66 entry above says the falsification ledger reconciles the wave's
+  attack seats. Measured at close: 13 of 14 seats filed; `R66ScribeEntry` did not
+  file a `.md` report (its three receipts and the knowledge entry it drafted are
+  landed and cited), and the dispatcher never wrote
+  `.ufo/waves/round-66/w1-results.json`, so claim **C2** (`C2_PREFILE`) is an
+  honest stop with the gate's own line `PREFILE-FALSIFICATION: SETUP findings=1
+  (wave-missing)`. The predicate is proven reachable on a conforming fixture
+  fleet (`gate=1 … guard=1`, ten gate-side mutants killed); this round's tree
+  did not carry the file it reads. C1 and C3 verified.

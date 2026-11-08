@@ -1,0 +1,9 @@
+C1	.ufo/waves/round-65/final/c1-matrix.txt	neutral	-	counter reads matrix=0 guard=1 with real=1 selftest=1 resid=1 stub=1 vehicle=1; no artifact falsifies the wording, and the vehicle leg is measured in the falsifying direction (A3)
+C1	.ufo/waves/round-65/base/c1-base-counter.txt	neutral	-	BASE reads matrix=5 population=8: the five forgery classes are the live population and the three benign classes are controls, not targets
+C1	.ufo/waves/round-65/base/census-c1.md	falsifies-wording	plans/round-65.md Amendment A3	the first census wording implied eight live fixtures; measured, only five move, so the claim sentence was amended to five forgery classes rejected plus three benign non-harm controls
+C1	.ufo/waves/round-65/final/c1-selftest.txt	neutral	-	counter selftest PASS cases=8 enforces population shape, seal and anchor uniqueness
+C2	.ufo/waves/round-65/base/routed-base.txt	falsifies-wording	plans/round-65.md Amendment A2	the first C2 predicate pointed d3 at six round-64 receipts a do-nothing control already satisfied; the wording was re-frozen onto the round-63 population mismatch
+C2	.ufo/waves/round-65/final/routed-candidate.txt	neutral	-	candidate reads d1=1 d2=1 d3=1 mismatch=0 with five held receipts; nothing falsifies the wording
+C2	.ufo/waves/round-65/final/routed-legacy.txt	neutral	-	the legacy six-receipt expectation still reads d3=0, so the correction is the only delta and the refutation leg is live
+C3	.ufo/waves/round-65/capture/bioc-429-first.txt	falsifies-wording	plans/round-65.md Amendment A1	a live-fetch predicate was unsatisfiable on this host: two 429s 20 s apart, so the carrier was moved to the committed capture before scoring
+C3	.ufo/waves/round-65/final/c3-guard-b.txt	neutral	-	a count mutation reads match=0 rc 1, so the shape claim is falsifiable and not a constant

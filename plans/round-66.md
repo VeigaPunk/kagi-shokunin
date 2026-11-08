@@ -292,3 +292,148 @@ Counters MUST honour `TMPDIR` and accept a scratch argument (QM74).
 None at freeze. Amendments to this plan are recorded below before the
 reading they govern, appended (never rewritten), with the measurement
 that forced them — same rule as round-65.
+
+## Amendment A1 — 2026-11-08, before any candidate reading (C1 restated: the undefined term goes)
+
+Measured by the round's own attack seats before any candidate reading was
+taken — `R66Reviewer` F1/F2 and `R66Critic` F1 — and by the L1:
+
+```
+grep -rn "header-ID\|header_id" plans/ corpus/   ⇒ only plans/round-66.md:53
+bash corpus/sources-census.sh                    ⇒ SOURCES_CENSUS: FAILED (findings=4 rows=155)
+git cat-file -e d549ee6:.ufo/waves/round-66/claims.json  ⇒ fatal: ... not in 'd549ee6'
+```
+
+§C1's "header-ID digest" names no mechanism that exists in this lane (no file
+derives an id from a digest; the two real mechanisms are a path-keyed read plus
+a pin comparison, and a row-identity digest over registry columns). A predicate
+whose central term has no implementation surface is M65-3 frozen in. §C1's kill
+rule K2 is also self-contradictory: the candidate repair is a *string* change
+(the three anchors name the carrier path), so a rule that defines "a path-only
+edit" as the failing control defines the candidate's own action as failure.
+
+**Restated §C1 predicate (replaces the §C1 block; the repair is unchanged):**
+
+```
+C1_CARRIER: drift = 1 iff `bash plans/round-66-c1.sh --tree <candidate>`
+prints `C1_CARRIER: drift=1 paths=3 hex=3 match=1 guard=G` and exits 0,
+where the three anchors below resolve to ONE path P whose sha256 equals
+the pin the registry row carries (path equality + digest match — the only
+mechanism this lane has):
+  registry  the capture path cited in the anchor cell of the registry row
+            that carries the S148 pin and supersedes S148;
+  fetches   the same path in that row's corpus/source-fetches.tsv 16th
+            column, with columns 10/11 equal to the pin and its byte count;
+  volatile  corpus/volatile-shape.py DEFAULT_CAPTURE.
+drift = 1 iff all three resolve to P and P's sha256 == the pin.
+paths = 3 mutated copies of the candidate tree, each holding ONE
+round-64 capture body (S143/S156/S157) at a wrong id; hex = 3 iff each
+mutated body's sha256 differs from P's; match = 1 iff every mutated copy
+prints a named digest-mismatch line and no pass.
+GUARD = 1 iff (a) on a byte-identical BASE tree the counter reads
+`drift=0` (measured on a `git archive d549ee6` extraction, receipt
+committed — never SETUP); (b) `--selftest` exits 0; (c) the round-65
+volatile-shape gate still reads `VOLATILE_SHAPE: match=1` on the
+candidate; (d) a copy whose registry anchor cites the wrong-path file
+(.ufo/waves/round-64/capture/S148.body, sha fabc74c5…) reads
+`drift=0` with `digest-mismatch:` naming that path.
+Target drift=1 (BASE 0, measured by the guard-(a) receipt).
+```
+
+Dropped from §C1's guard: the `SOURCES_CENSUS: CLEAN` leg. It is not
+separable from C3 (that leg is red at BASE and its repair is C3's claim).
+
+## Amendment A2 — 2026-11-08, before any candidate reading (C2 re-frozen: a target no work reaches)
+
+Measured before any candidate reading: §C2's `C2_CLAIMS: exact=1` reads **1 on
+the untouched working tree** — the round's `claims.json` already carries the
+frozen headings and targets, so writing it *is* the only work and a do-nothing
+control reaches the target. That is the M65-1 vacuity class, and it was written
+into this plan by the L1. Its guard legs (c)/(d) are also unsatisfiable at the
+moment of grading: the pre-file gate reads `SETUP findings=3` until the report
+exists, and `claims-declared.sh` reads `CLEAN (claims=56)` until round-66's
+rows land (measured: `c2-claims: guard-c prefile=0 rc=2`, `guard-d
+claims-declared=0 rc=0 claims=56`).
+
+**Restated §C2 predicate (replaces the §C2 block):**
+
+```
+C2_PREFILE: gate = 1 iff
+`python3 /home/vgpnk/Projects/shokunin/scripts/hyaku/prefile-falsification.py
+ --lane kagi --round 66` prints
+`PREFILE-FALSIFICATION: PASS claims=3 rows=R attack_seats=K findings=0`
+(exit 0, R >= 3, K >= 1) on the candidate tree,
+AND `bash corpus/claims-declared.sh --root .` prints
+`CLAIMS_DECLARED: CLEAN (claims=59)` (exit 0).
+Target gate=1 (BASE 0: at BASE the round-66 wave dir has no
+claim-falsification.tsv and no report — the pre-file gate reads
+`PREFILE-FALSIFICATION: SETUP findings>=2`, measured).
+GUARD = 1 iff (a) the pre-file gate's own `--selftest` prints
+`PREFILE-FALSIFICATION-SELFTEST: PASS`; (b) a ledger with one claim's rows
+removed reads `FINDING claim-uncovered` and exit 1; (c) a ledger that
+omits one attack seat's artifact reads `FINDING attack-seat-unread` and
+exit 1; (d) `claims-declared.sh` on a tree missing round-66's rows reads
+`MISMATCH` (the gate can fail).
+```
+
+This is the round-65 spot-check's routed defects 3 and 5 closed as a measured
+target: the ledger's attack-seat rows can only exist if the wave ran and the
+L1 reconciled its receipts.
+
+## Amendment A3 — 2026-11-08, before any candidate reading (C3 re-frozen on the lane's own gate)
+
+§C3 as frozen asked a counter to bind *registry anchors* to capture paths and
+hard-coded `checks=3` over a population the reviewer measured at 21+ citation
+rows (`R66Reviewer` F7), and it contradicted itself about `rows=155` once C1
+adds a row. Withdrawn in that form — a hard-coded sample presented as a census
+is the calibration defect this lane exists to kill.
+
+**Restated §C3 predicate (replaces the §C3 block):**
+
+```
+C3_CENSUS: findings = the count printed by the LANE's own gate
+`bash corpus/sources-census.sh` (corpus/sources-census.sh, not the fleet
+wrapper at scripts/sources-census.sh) in its
+`SOURCES_CENSUS: FAILED (findings=N rows=M)` / `CLEAN (...)` verdict line.
+Target findings=0 (BASE 4, measured: SC_FETCH S155/S156 missing-provenance;
+SC_BODY_CITE claim-instrument-class-matrix.md S148/S156 unrecorded).
+GUARD = 1 iff (a) the lane gate exits 0 with the verdict line present
+(this lane's gate has historically exited 0 on FAILED — the line is the
+verdict, not the exit code; the counter reads the line);
+(b) on a copy with the `cites:` line removed the counter reads
+findings>=1 (the repair is what turns it green, not a loosened gate);
+(c) `rows=` is read from the gate's own line, never hard-coded;
+(d) the fleet wrapper `scripts/sources-census.sh validate --root
+/home/vgpnk/Projects/shokunin kagi` also prints `kagi ok` — the round
+states which gate it means, closing the round-65 self-description defect
+where "census ok" was the fleet wrapper while the lane gate was red.
+```
+
+The reparability of the four findings is a fact of the tree (two claims.json-
+style provenance rows and two `cites:`/`used-by` declarations), not new scope.
+
+## Amendment A4 — 2026-11-08, before any candidate reading (three corrections a wave seat measured)
+
+Measured by `R66ScoutPreState` before the candidate reading:
+
+1. **A2's token is wrong.** `scripts/hyaku/prefile-falsification.py:231` emits
+   `PREFILE-FALSIFICATION: pass …` (lowercase) on a clean ledger and `FAIL`
+   otherwise. A2 wrote `PASS`. Read A2's literal as `pass`; the counter matches
+   case-insensitively and prints the tool's own line verbatim in its receipt.
+2. **A2's `claims=59` needs both surfaces.** Measured on tree copies: the three
+   `corpus/claims-declared.tsv` rows alone read `CLAIMS_DECLARED: MISMATCH
+   (claims=59 mismatch=3)`, each `section-missing`; rows plus a
+   `## Round 66 — post-move` SCORECARD section read `CLEAN (claims=59)`. Both
+   land in the same commit.
+3. **§C3's population-census paragraph is superseded.** Its command
+   (`grep -cF 'capture/S143.body' corpus/source-fetches.tsv` ⇒ 1) hits the
+   round-63 body (`8522a79e…`, the S143 pin), not the round-64 body that
+   carries the S148 pin (`3b8d4e15…`), which no fetch row cited before this
+   round. A basename grep is not a binding; A3's lane-gate `findings=` line is
+   the C3 measurement and this paragraph is history.
+
+Also recorded, not corrected: `corpus/source-fetches.tsv`'s round-64 family of
+rows carries anchor prose in column 16 (the round-64 seat's ledger proposed
+capture paths; the rows landed as prose). S164's column 16 names a capture path
+deliberately and visibly — that is C1's second anchor, and the row's own
+`anchor` cell names the same path. The departure is the claim, not an accident.

@@ -2341,3 +2341,27 @@ Candidate: the round-66 landing commits (recorded in the report;
 | depth | 9 → 9 | No claim. The new criteria QM89–QM91 record the instrument lessons (verdict fields computed, legs scoped to the state they govern, handoff shape verified). | `corpus/QUALITY.md` §round-66 |
 | coverage | 9 → 9 | No claim. Registry 155 → 156 (S164 `supersedes S148 —`, tier A, `mined`, `180d`); `corpus/source-fetches.tsv` +3 (S155, S156, S164). | `corpus/SOURCES.md`; `corpus/source-fetches.tsv` |
 | adjacency | 9 → 9 | No claim. Connector sweep: no sibling lane holds a carrier-binding instrument or a lane-gate census counter; the carried `ADJACENCY_SCOPE: DEFECT` breadth debt is named, not absorbed. | `.ufo/waves/round-66/w1/R66Connector.md` |
+
+## Round 67 — pre-move (repo `076701a`, round-66 spot-check tip)
+
+Claim BASE `076701a11a58e3eb58d996b4c76c5e18071fb179`; predeclaration
+`plans/round-67.md` (frozen alone at the first commit of this round). All six
+axes stand at 9. Saturation line 9, stagnation window N=3; the last capability
+row entered round 61 and rounds 64–66 entered none, so **the stagnation nudge
+fires** (`AXES.md`) and the round is a capability move (C1) plus the harmed-axis
+repair the round-66 closure routed (C2).
+
+| Axis | Score | Evidence pointer | Last change |
+|---|---|---|---|
+| depth | 9 | Unchanged from round 29 (`R29-01`); round 67 moves an instrument surface. | round 29 |
+| coverage | 9 | 156 registry rows at BASE (`bash corpus/sources-census.sh` ⇒ `SOURCES_CENSUS: CLEAN (rows=156 …)`, receipt `.ufo/waves/round-67/base/base-gate.txt`), fleet census `kagi ok` rc 0. | round 66 |
+| operability | 9 | Measured BASE gap: the lane census gate's only capture test is the location string's length (`grep -n 'floc' corpus/sources-census.sh` ⇒ `${#floc} -ge 8`), so a repointed capture reads `SOURCES_CENSUS: CLEAN` (`.ufo/waves/round-67/base/blind-gate.txt`). | round 66 |
+| freshness | 9 | Measured BASE gap: 36 fetch rows name a capture file, 0 are digest-checked by a gate, and 1 declared quote (S115) does not locate (`corpus/rendered-text-v1.py locate` ⇒ `count=0`). | round 66 |
+| calibration | 9 | Measured BASE gap: seven record mismatches from the round-66 closure §6 (L1–L7 of `plans/round-67.md` §C2), e.g. `SCORECARD.md:2339` states `gate=A … attack_seats=K` while its receipt reads `gate=0`. | round 66 |
+| adjacency | 9 | Ownership partition gate green (`R17-02`); the carried `ADJACENCY_SCOPE: DEFECT` breadth debt is named, not absorbed. | round 58 |
+
+Declared claims: **C1 freshness** (capability: the census reads each declared
+capture's bytes and its quote's location; `C1_READTHROUGH` bound 0 → 36,
+located 0 → 36, caught 0 → 6/6) and **C2 calibration** (seven record surfaces
+match observed state; `C2_FIDELITY` mismatches 7 → 0). No retirement, split or
+stagnation waiver is claimed — the nudge fires and is used.

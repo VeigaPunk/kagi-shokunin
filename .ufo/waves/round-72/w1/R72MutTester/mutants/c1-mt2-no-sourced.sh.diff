@@ -1,0 +1,19 @@
+--- mutants/round-72-c1.sh	2026-11-09 01:15:33.173710860 -0300
++++ mutants/c1-mt2-no-sourced.sh	2026-11-09 01:15:00.016571990 -0300
+@@ -165,13 +165,12 @@
+                 and rc.get("parsed_version") == anchor):
+             why.append("not-armed")
+         try:
+-            pass  # MUTANT: not-newer deleted
++            if not vtuple(anchor) > vtuple(BASE_ANCHOR[i]):
++                why.append("not-newer")
+         except Exception:
+             why.append("bad-anchor")
+         fr = reg.get(fid)
+-        if not (fr and fid not in base_reg and fr[7] == "mined" and fr[8] >= "2026-11-09"
+-                and url_of(fr[1]) == furl):
+-            why.append("unsourced")
++        pass  # MUTANT: SOURCED deleted
+         if live[i].get("parsed_version") != anchor:
+             why.append(f"live={live[i].get('parsed_version')}")
+         lr = ledger.get(i, [])

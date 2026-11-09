@@ -123,3 +123,8 @@ quoting rule is already QM55; flip: a reproduced D1 regex failure re-opens it
 | R71Scout | none | frontier leads M1 (issuer left the mount → default CRL), M2 (`permit`), M3 (issuer revocation) kept at `.ufo/waves/round-71/w1/R71Scout.md` |
 | R71ScribeSkill | none | SKILL rows, PROVINCE line, README row, SCORECARD rows landed from the drafts |
 | R71ScribeLesson | none | M71-1, M71-2, QM102 and the considerthese verdict landed from the drafts |
+
+Round 72 correction (appended; routed by the round-71 closure §5 item 2): the §Gate reason for
+rotation-primitives ("not any T6–T9 mechanic") is too strong. The page also states that
+`leaf_not_after_behavior` is maintained per issuer at `/pki/issuer/:issuer_ref` (the T6 mechanic).
+S170 §Update issuer already covers that mechanic, so the deferral stands; only the reason is corrected.

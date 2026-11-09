@@ -1,0 +1,12 @@
+check	base_lastline	base_rc	cand_lastline	cand_rc	change	class
+release-clock-selftest	RELEASE_CLOCK_SELFTEST: PASS (121 cases)	0	RELEASE_CLOCK_SELFTEST: PASS (121 cases)	0	none	identical
+sources-census	SOURCES_CENSUS: CLEAN (rows=164 ...)	0	SOURCES_CENSUS: CLEAN (rows=166 ...)	0	rows 164->166	A=146->148 mined 142->144 captures 164->166; claimed-move (S174/S175 added; verdict still CLEAN)
+sources-census-selftest	SOURCES_CENSUS_SELFTEST: PASS (98 cases)	0	SOURCES_CENSUS_SELFTEST: PASS (98 cases)	0	none	identical
+self-counts	SELF_COUNTS: POLICY (claims=63 stale=4 ...)	2	SELF_COUNTS: POLICY (claims=63 stale=0 ...)	2	stale 4->0	claimed-move C2 (4 STALE ids cleared; exit 2 POLICY retained)
+self-description-sweep	SELF_DESCRIPTION: MISMATCH n=28 (SD5=4 SD6=23 SD8=1)	1	SELF_DESCRIPTION: MISMATCH n=28 (SD5=4 SD6=23 SD8=1)	1	none	identical — pre-existing mismatch, not moved
+claims-declared	CLAIMS_DECLARED: MISMATCH (claims=67 mismatch=2)	1	CLAIMS_DECLARED: MISMATCH (claims=67 mismatch=2)	1	none	identical — carried round-69 pair, outside C2 population
+recheck-replay	RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0)	0	RECHECK_REPLAY: CLEAN (clocks=10 match=10 mismatch=0)	0	none	identical
+feed-token-agree	FEED_TOKEN_AGREE: AGREE (shapes=12 disagreements=0)	0	FEED_TOKEN_AGREE: AGREE (shapes=12 disagreements=0)	0	none	identical
+feed-token-agree-selftest	FEED_TOKEN_AGREE_SELFTEST: PASS (4 cases)	0	FEED_TOKEN_AGREE_SELFTEST: PASS (4 cases)	0	none	identical
+claim-ledger-docs	DOC_AUDIT: CLEAN (entries=51 row_linked=48)	0	DOC_AUDIT: CLEAN (entries=51 row_linked=48)	0	none	identical
+release-clock-default (offline, not in battery; diagnostic)	RELEASE_CLOCK: CLEAN (on_release=32 fired=14 derived=17)	0	RELEASE_CLOCK: CLEAN (on_release=32 fired=4 derived=17)	0	fired 14->4	claimed-move C1 (ten re-armed; 4 remaining fired are S012 S027 S028 S072)

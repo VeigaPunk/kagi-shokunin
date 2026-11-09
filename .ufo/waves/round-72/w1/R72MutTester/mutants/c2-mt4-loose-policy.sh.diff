@@ -1,0 +1,11 @@
+--- mutants/round-72-c2.sh	2026-11-09 01:14:49.937564696 -0300
++++ mutants/c2-mt4-loose-policy.sh	2026-11-09 01:15:21.115834073 -0300
+@@ -49,7 +49,7 @@
+ [[ $sum =~ $re ]] || setup "shape=0 summary '$sum'"
+ stale=${BASH_REMATCH[1]}
+ pol=$(grep '^POLICY ' "$W/out" | awk '{print $2}' | sort | tr '\n' ',')
+-[ "$pol" = "PV-FEEDTOKEN-SELFTEST,PV-FEEDTOKEN-SHAPES," ] || setup "policy ids '$pol'"
++true  # MUTANT: policy-ids deleted
+ ok=$(grep -c '^OK ' "$W/out"); st=$(grep -c '^STALE ' "$W/out")
+ [ $((ok + st)) = 61 ] || setup "ok+stale=$((ok + st)) expected 61"
+ [ "$st" = "$stale" ] || setup "STALE lines $st != summary $stale"

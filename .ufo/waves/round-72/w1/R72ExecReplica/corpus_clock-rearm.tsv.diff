@@ -1,0 +1,19 @@
+--- /tmp/base_corpus_clock-rearm.tsv	2026-11-09 01:17:42.675231531 -0300
++++ /fast/scratch/hyaku/kagi-r72/R72ExecReplica/rep/corpus/clock-rearm.tsv	2026-11-09 01:14:42.033408453 -0300
+@@ -1 +1,15 @@
+-: (new)
++# clock-rearm.tsv — round 72: one row per re-armed derived release clock (plans/round-72.md C1).
++# The row's page was re-fetched in round 72 and the id's declared fetch quote (corpus/source-fetches.tsv col 13)
++# located in that capture with `python3 corpus/rendered-text-v1.py locate`; the round-47 teaching judgment
++# (corpus/fired-reverify.tsv) is the semantic re-verification at the same release. Quote location is not semantics.
++id	url	prior_anchor	rearmed_anchor	feed_source_id	fetched_at	capture_path	sha256	bytes	quote_count	verdict
++S013	https://developer.hashicorp.com/vault/docs/concepts/lease	2.2.0	2.2.1	S174	2026-11-09T04:14:14Z	.ufo/waves/round-72/capture/S013.page.body	5c41c27ad4c7e983b1a21edb10418b231461e2b1c4a25d680df7ba38d33114da	261663	1	quote-located
++S014	https://openbao.org/docs/auth/jwt/	2.7.1	2.7.2	S175	2026-11-09T04:14:16Z	.ufo/waves/round-72/capture/S014.page.body	893f33e403cabe4b61294e27b678f7088c5789342cd778abd56a8e8c27ae4be7	63046	1	quote-located
++S015	https://openbao.org/docs/auth/jwt/oidc-providers/kubernetes/	2.7.1	2.7.2	S175	2026-11-09T04:14:19Z	.ufo/waves/round-72/capture/S015.page.body	7007e9e437b24fc5fa47ba2675ef0d27512e036bac2f971131568058f0803b48	55824	1	quote-located
++S016	https://openbao.org/docs/concepts/tokens/	2.7.1	2.7.2	S175	2026-11-09T04:14:21Z	.ufo/waves/round-72/capture/S016.page.body	ea9bdafe74102b20b62c620b88b0e90feea12bda80fffb832fb31c77f50548ef	47384	1	quote-located
++S021	https://openbao.org/docs/concepts/tokens/	2.7.1	2.7.2	S175	2026-11-09T04:14:23Z	.ufo/waves/round-72/capture/S021.page.body	ea9bdafe74102b20b62c620b88b0e90feea12bda80fffb832fb31c77f50548ef	47384	1	quote-located
++S022	https://developer.hashicorp.com/vault/docs/auth/jwt	2.2.0	2.2.1	S174	2026-11-09T04:14:25Z	.ufo/waves/round-72/capture/S022.page.body	16c44654a57bdfec346f6d997ea2547de119f325be2b1902dfeb13f8ee1443c3	386868	1	quote-located
++S023	https://developer.hashicorp.com/vault/docs/concepts/lease	2.2.0	2.2.1	S174	2026-11-09T04:14:27Z	.ufo/waves/round-72/capture/S023.page.body	5c41c27ad4c7e983b1a21edb10418b231461e2b1c4a25d680df7ba38d33114da	261663	1	quote-located
++S024	https://developer.hashicorp.com/vault/api-docs/secret/kv/kv-v2	2.2.0	2.2.1	S174	2026-11-09T04:14:29Z	.ufo/waves/round-72/capture/S024.page.body	eeeee4cbf2edea1ce26514d7fcd39231fa3975c9a2fd23e54fa6b792c2a968fb	586212	3	quote-located
++S025	https://openbao.org/docs/auth/jwt/	2.7.1	2.7.2	S175	2026-11-09T04:14:31Z	.ufo/waves/round-72/capture/S025.page.body	893f33e403cabe4b61294e27b678f7088c5789342cd778abd56a8e8c27ae4be7	63046	1	quote-located
++S026	https://openbao.org/docs/concepts/tokens/	2.7.1	2.7.2	S175	2026-11-09T04:14:33Z	.ufo/waves/round-72/capture/S026.page.body	ea9bdafe74102b20b62c620b88b0e90feea12bda80fffb832fb31c77f50548ef	47384	1	quote-located

@@ -1,0 +1,31 @@
+BASE gate:
+RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17)
+rc=0
+CAND gate:
+RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=4 derived=17)
+rc=0
+BASE R36-02:
+3
+rc=0
+CAND R36-02:
+13
+rc=0
+BASE R36-03 cmd:
+RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17)
+rc=0
+CAND R36-03 cmd:
+RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=4 derived=17)
+rc=0
+BASE census:
+SOURCES_CENSUS: CLEAN (rows=164 A=146 B=2 C=16 queued=3 mined=142 rejected=19 entries_sourced=30 legacy=21 captures=164 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+CAND census:
+SOURCES_CENSUS: CLEAN (rows=166 A=148 B=2 C=16 queued=3 mined=144 rejected=19 entries_sourced=30 legacy=21 captures=166 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+BASE self-counts:
+SELF_COUNTS: POLICY (claims=63 stale=4 unlocated=0 ambiguous=0 policy=2 setup=0)
+CAND self-counts:
+SELF_COUNTS: POLICY (claims=63 stale=0 unlocated=0 ambiguous=0 policy=2 setup=0)
+R25-04 BASE/CAND:
+13b8540c78b9de07bc184894583a368472fd1f2f04a898220bf7c29d2648a169  .ufo/waves/round-26/observe-2.json
+13b8540c78b9de07bc184894583a368472fd1f2f04a898220bf7c29d2648a169  .ufo/waves/round-26/observe-2.json
+selftest CAND:
+RELEASE_CLOCK_SELFTEST: PASS (121 cases)

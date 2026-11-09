@@ -2534,3 +2534,55 @@ trial C1 counts); it is not a separate claim.
 | freshness | 9 → 9 | No claim. S173 carries a `180d` registry recheck; the entry's `recheck:` is `on-release`. | `corpus/SOURCES.md` |
 | calibration | 9 → 9 | No claim. Manifest row `71<TAB>C1<TAB>depth` added to `corpus/claims-declared.tsv`; the round-69 MISMATCH pair is carried. | `bash corpus/claims-declared.sh` |
 | adjacency | 9 → 9 | No claim. Connector sweep: no sibling lane or registry row holds the round's PKI issuer/revocation ground; S173 adds no W04 (R71Connector CN-1…CN-6). | `.ufo/waves/round-71/w1/R71Connector.md` |
+
+## Errata — round 71 capability row (appended round 72; routed by the round-71 closure §5 item 1)
+
+The capability row "OpenBao PKI issuer and revocation-channel trial" (line 729) says "a `no_store`
+leaf is refused revocation by serial" and "Each verdict flips under its own falsifier shim" without
+the round-71 caveats. Read it with plan `plans/round-71.md` Amendments A1/A2: the counter does not
+count T9's serial-refusal conjunct (R71MutTester MT-1), and it does not bind a verdict to the
+artifact it was computed from (R71Revenger RE-1, forgery C). The entry and SKILL row already carry
+both caveats; the row itself is not rewritten (QM97).
+
+## Errata — round 71 report ledger tally (appended round 72; routed by the round-71 closure §5 item 5)
+
+The round-71 report (fleet `.ufo/reports/round-71/kagi.md`) states the falsification ledger as
+6 `falsifies-wording` and 3 `neutral`. The ledger itself
+(`awk -F'\t' '$1 !~ /^#/ && NF>0 {print $3}' .ufo/waves/round-71/claim-falsification.tsv | sort | uniq -c`)
+reads 5 `falsifies-wording` and 4 `neutral`. The ledger is right; the report sentence is wrong.
+
+## Round 72 — pre-move (repo `b2f3dd6`, round-71 spot-check tip)
+
+Claim BASE `b2f3dd661abda0ebd09b3f8ffc3f64904606d4d9`; freeze `f07aba037006d3edc45acd48e6b3e206e45cae28`
+(plan, two counters, runner and 20 executed prefreeze controls landed together, before any
+candidate byte). All six axes stand at 9, so any claim meets the lowest-axis duty; a capability
+entered at round 71, so the stagnation nudge does not fire. The prompt names the lane axes
+freshness + calibration; both claims sit on them.
+
+| Axis | Score | Evidence pointer | Last change |
+|---|---|---|---|
+| coverage | 9 | 164 registry rows at BASE (`bash corpus/sources-census.sh` ⇒ `SOURCES_CENSUS: CLEAN (rows=164 …)`); fleet census `kagi ok` rc 0, 26 W04 (`.ufo/waves/round-72/base/census-round-start.stdout.txt`). | round 70 |
+| depth | 9 | Round 71 PKI issuer/revocation trial (`plans/round-71-c1.sh` value=4). | round 71 |
+| operability | 9 | Unchanged; nothing schedules any gate. | round 67 |
+| freshness | 9 | Measured BASE gap: `python3 corpus/release-clock.py` ⇒ `fired=14` on the round-54 receipt (2026-11-07); ten of the fourteen are derived Vault/OpenBao clocks one release behind (2.2.0/2.7.1 vs observed 2.2.1/2.7.2), re-verified in round 47 but never re-armed; a live observation of 2026-11-09 reads 32 × `RECEIPT-MISMATCH` against the table (`.ufo/waves/round-72/base/observe-roundstart-against-base.json`). | round 68 |
+| calibration | 9 | Measured BASE gap: `python3 corpus/self-counts.py` ⇒ `stale=4` (SKILL.md:46, PROVINCE.md:73 say 164 stamps + 101 claims; live 181 / 102), carried by the round-71 closure §5 item 4 (`.ufo/waves/round-72/base/self-counts-base.txt`). | round 67 |
+| adjacency | 9 | Ownership partition gate green (`R17-02`). | round 58 |
+
+Declared claims: **C1 freshness** — `C1_CLOCK_REARM: value=10` (BASE 0); **C2 calibration** —
+`C2_SELF_COUNTS: value=0` (BASE 4). No retirement, split or stagnation waiver is claimed.
+
+## Round 72 — post-move (claims C1 freshness, C2 calibration)
+
+Candidate `a947a42c52dc5b64cc9be1eef98207712fca7c42` plus the round-72 integration commit
+(plan Amendment A1, S174/S175 supersession corrected to S089/S090, R36-02/R36-03 migration
+journal, default-receipt sentences, lesson, QM103, records, stamps). Wave `w1` (12 seats);
+receipts `.ufo/waves/round-72/final/`, `.ufo/waves/round-72/controls/receipts/`.
+
+| Axis | Before → after | What moved | Evidence |
+|---|---|---|---|
+| freshness | 9 → 9 | [C1] `bash plans/round-72-c1.sh <rev>` ⇒ BASE `value=0 rows_passing=0 gate=0 fresh=0 census=1` rc 1 → `C1_CLOCK_REARM: value=10 rows_passing=10 gate=1 fresh=1 census=1 live=1` rc 0. The ten derived Vault/OpenBao clocks S013–S016, S021–S026 are anchored at the observed 2.2.1 / 2.7.2 through S174/S175 (re-opened 2026-11-09), each re-arm bound to a round-72 page capture with its quote located (`corpus/clock-rearm.tsv`), and the default receipt is the live observation of 2026-11-09; `fired` 14 → 4. Wording narrowed per plan Amendment A1: S174/S175 re-open identities S089/S090 already held (CN-2); supersession, the round-47 semantic leg and the fetch itself are not counted (CR-1, CR-3, RV-2); before the re-arm a newer release was already visible as `RECEIPT-MISMATCH` (LB-1). | `plans/round-72-c1.sh`; `.ufo/waves/round-72/final/c1-candidate.txt`; `corpus/clock-rearm.tsv` |
+| calibration | 9 → 9 | [C2] `bash plans/round-72-c2.sh <rev>` ⇒ BASE `value=4` rc 1 → `C2_SELF_COUNTS: value=0 pins=1 shape=1 claims=63 policy=2 ok=61` rc 0: SKILL.md:46 and PROVINCE.md:73 state the live stamp and claim counts; the R29-01/R29-02 POLICY pair is retained. Manifest rows `72 C1 freshness` and `72 C2 calibration` added; the round-69 `claims-declared` MISMATCH pair is carried. | `plans/round-72-c2.sh`; `.ufo/waves/round-72/final/c2-candidate.txt` |
+| coverage | 9 → 9 | No claim. Registry 164 → 166 (S174, S175, re-opens; no new release identity); two new W04 across scopes (R72Connector CN-1). | `bash corpus/sources-census.sh` |
+| depth | 9 → 9 | No claim. | `plans/round-72.md` |
+| operability | 9 → 9 | No claim. Ledger rows R36-02/R36-03 migrated through `.ufo/waves/round-72/expectation-migrations.json`; nothing schedules any gate. | `corpus/claim-ledger.tsv` |
+| adjacency | 9 → 9 | No claim. Connector sweep recorded (`.ufo/waves/round-72/w1/R72Connector.md`). | `.ufo/waves/round-72/w1/R72Connector.md` |

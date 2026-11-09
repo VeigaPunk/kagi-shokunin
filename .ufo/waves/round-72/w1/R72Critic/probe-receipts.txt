@@ -1,0 +1,24 @@
+R72Critic probe receipts (verbatim last lines of counter runs; scratch trees removed)
+
+Counter: plans/round-72-c1.sh --tree DIR  (BASE = git archive b2f3dd66; cand = git archive a947a42)
+candidate (a947a42, as landed)        rc 0  C1_CLOCK_REARM: value=10 rows_passing=10 gate=1 fresh=1 census=1 live=1
+BASE do-nothing (F0 class)             rc 1  C1_CLOCK_REARM: value=0 rows_passing=0 gate=0 fresh=0 census=1 live=1
+probe B supersedes stripped from S174/S175 teaches   rc 0  C1_CLOCK_REARM: value=10 rows_passing=10 gate=1 fresh=1 census=1 live=1
+probe C feed teaches cell fabricated (v9.9.9)        rc 1  C1_CLOCK_REARM: value=0 rows_passing=10 gate=0 fresh=1 census=1 live=1
+probe E BASE + candidate SKILL/PROVINCE only         rc 1  C1_CLOCK_REARM: value=0 rows_passing=0 gate=0 fresh=0 census=1 live=1
+probe F captures + fetch rows S174/S175 removed      rc 1  C1_CLOCK_REARM: value=0 rows_passing=10 gate=1 fresh=1 census=0 live=1
+probe G anchor cell v2.2.1 -> 2.2.1 (prefix only)    rc 0  C1_CLOCK_REARM: value=10 rows_passing=10 gate=1 fresh=1 census=1 live=1
+probe H fired-reverify teaching-holds -> teaching-FAILS  rc 0  C1_CLOCK_REARM: value=10 rows_passing=10 gate=1 fresh=1 census=1 live=1
+probe I candidate with BASE SKILL.md/PROVINCE.md     rc 0  C1_CLOCK_REARM: value=10 rows_passing=10 gate=1 fresh=1 census=1 live=1
+probe M feed URLs swapped (vault<->openbao)          rc 1  C1_CLOCK_REARM: value=0 rows_passing=0 gate=0 fresh=1 census=0 live=1
+
+Counter: plans/round-72-c2.sh --tree DIR
+BASE (G0)                              rc 1  C2_SELF_COUNTS: value=4 pins=1 shape=1 claims=63 policy=2 ok=57 stale_ids=SC-SKILL-STAMPS SC-SKILL-CLAIMS PV-STAMPS PV-CLAIMS
+candidate (J / Q2 class)               rc 0  C2_SELF_COUNTS: value=0 pins=1 shape=1 claims=63 policy=2 ok=61 stale_ids=none
+probe K prune stamps.tsv/claim-ledger.tsv to prose  rc 2  C2_SELF_COUNTS: SETUP (shape=0 summary 'SELF_COUNTS: POLICY (claims=63 stale=2 unlocated=0 ambiguous=0 policy=2 setup=3)')
+
+Lane release clock (corpus/release-clock.py, default receipt)
+candidate lane tip, default gate       RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=4 derived=17)
+BASE (scratch extraction)               RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17)
+
+Ledger check: `git diff b2f3dd66 a947a42 -- corpus/claim-ledger.tsv` is empty (R36-03 row unchanged; pins fired=14).

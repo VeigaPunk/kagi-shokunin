@@ -1,0 +1,21 @@
+--- mutants/round-72-c1.sh	2026-11-09 01:15:33.173710860 -0300
++++ mutants/c1-mt7-census-runonly.sh	2026-11-09 01:15:21.115689533 -0300
+@@ -59,7 +59,7 @@
+   *) T="$W/t"; mkdir -p "$T"; git -C "$LANE" archive "$1" | tar -x -C "$T" || setup "archive $1" ;;
+ esac
+ # CENSUS
+-cmp -s "$W/base/corpus/sources-census.sh" "$T/corpus/sources-census.sh" || setup "census=0 sources-census.sh differs from BASE"
++true  # MUTANT: census byte-pin deleted
+ (cd "$T" && bash corpus/sources-census.sh) > "$W/census.out" 2>&1; crc=$?
+ [ -s "$W/census.out" ] || setup "census printed nothing"
+ census=0; [ $crc = 0 ] && grep -q '^SOURCES_CENSUS: CLEAN ' "$W/census.out" && census=1
+@@ -165,7 +165,8 @@
+                 and rc.get("parsed_version") == anchor):
+             why.append("not-armed")
+         try:
+-            pass  # MUTANT: not-newer deleted
++            if not vtuple(anchor) > vtuple(BASE_ANCHOR[i]):
++                why.append("not-newer")
+         except Exception:
+             why.append("bad-anchor")
+         fr = reg.get(fid)

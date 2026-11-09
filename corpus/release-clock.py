@@ -2154,7 +2154,7 @@ def main(argv=None):
     parser.add_argument("--root", metavar="DIR", help="repository root (defaults to this script's checkout)")
     parser.add_argument("--selftest", action="store_true", help="run synthetic, offline cases")
     parser.add_argument("--observe", metavar="OUT.json", help="fetch currently bound clocks and write a receipt")
-    parser.add_argument("--receipt", metavar="FILE", help="retained observation receipt (default is the round-54 observe-r54 receipt; the round-53, round-46, round-36 and round-26 receipts stay citable with --receipt/--receipt-sha)")
+    parser.add_argument("--receipt", metavar="FILE", help="retained observation receipt (default is the round-72 observe-r72 receipt; the round-54, round-53, round-46, round-36 and round-26 receipts stay citable with --receipt/--receipt-sha against their own revision's table)")
     parser.add_argument("--receipt-sha", metavar="SHA256", help="required digest for an explicit --receipt")
     args = parser.parse_args(argv)
     if args.selftest:

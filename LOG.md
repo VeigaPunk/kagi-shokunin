@@ -2316,3 +2316,36 @@ Correction (round 69): the line above prints `C1_VERIFIED_SELFTEST: PASS (59 cas
   (QM102 enters the bar); M71-2 S170 anchor cell short of the new entry's citations (fixed);
   M71-3 two frozen pre-move sentences false against BASE; M71-4 the freeze again named two of three
   forgery classes (repeat of M70-5); M71-5 a seat pattern-killed sibling seats' dev servers.
+
+## round 72 — 2026-11-09 (C1 freshness — re-arm ten derived Vault/OpenBao release clocks; C2 calibration — four carried self-count mismatches)
+
+- **Motivating evidence.** At BASE `b2f3dd66` the release-clock gate read `fired=14` on the
+  round-54 receipt (2026-11-07); ten of the fourteen were derived Vault/OpenBao clocks one release
+  behind (2.2.0/2.7.1 vs observed 2.2.1/2.7.2), re-verified in round 47 but never re-armed, and a
+  live observation of 2026-11-09 read 32 × `RECEIPT-MISMATCH` against the table
+  (`.ufo/waves/round-72/base/observe-roundstart-against-base.json`). Self-counts read `stale=4`
+  (SKILL.md:46, PROVINCE.md:73 said 164 stamps + 101 claims; live 181 / 102), carried by the
+  round-71 closure (`.ufo/waves/round-72/base/self-counts-base.txt`).
+- **Freeze before candidate.** Plan, counters `plans/round-72-c1.sh` / `plans/round-72-c2.sh`,
+  runner and 20 executed prefreeze controls landed together in `f07aba03`
+  (`.ufo/waves/round-72/controls/receipts/summary.txt`: 20/20 match). Forgery classes enumerated
+  before the wave, including a self-consistent fabricated future release (killed only by the
+  counter's own live observation) and a weakened shipped gate (killed only by the BASE-pinned
+  gate run).
+- **C1 (met, wording narrowed).** `bash plans/round-72-c1.sh <rev>`: BASE ⇒ `value=0` rc 1;
+  candidate `a947a42c` ⇒ `C1_CLOCK_REARM: value=10 rows_passing=10 gate=1 fresh=1 census=1 live=1`
+  rc 0. S174/S175 (feeds re-opened 2026-11-09), ten clocks re-armed, `corpus/clock-rearm.tsv` with
+  ten page captures, default receipt `.ufo/waves/round-72/final/observe-r72.json`; `fired` 14 → 4.
+  Amendment A1: S174/S175 re-open the identities S089/S090 already held (CN-2/SR-4, rows now
+  supersede S089/S090); supersession, the semantic leg and the fetch are not counted; a newer
+  release was already visible on BASE as `RECEIPT-MISMATCH` (LB-1).
+- **C2 (met).** `bash plans/round-72-c2.sh <rev>`: BASE ⇒ `value=4` rc 1; candidate ⇒ `value=0`
+  rc 0, R29-01/R29-02 POLICY pair retained; re-measured on the final revision after stamping.
+- **Integration.** R36-02 `^3$`→`^13$` and R36-03 `fired=14`→`fired=4` migrated with the journal
+  `.ufo/waves/round-72/expectation-migrations.json`; SKILL/PROVINCE/`--help` default-receipt
+  sentences name round 72; routed round-71 items 1, 2, 5 appended (SCORECARD errata, round-71
+  lesson correction); QM103; manifest rows `72 C1 freshness`, `72 C2 calibration`.
+- **Mistakes mined** (`corpus/lessons/round-72.md`): M72-1 registry URL not searched before
+  appending (QM101 existed; QM103 + `dup-supersede.sh` shown able to fail 1/3/1); M72-2 a frozen
+  pre-move sentence false against the gate (repeat of M71-3); M72-3 integration duties named but
+  missing at the candidate; M72-4 plan under-specified for a replica.

@@ -1,0 +1,136 @@
+# R72Sentinel — counter fixture transcripts, final run
+# fixtures: candidate tree a947a42c + one mutation each
+
+=== fixture: symlink ===
+ID S013 anchor=2.2.1 PASS
+ID S014 anchor=2.7.2 PASS
+ID S015 anchor=2.7.2 PASS
+ID S016 anchor=2.7.2 PASS
+ID S021 anchor=2.7.2 PASS
+ID S022 anchor=2.2.1 PASS
+ID S023 anchor=2.2.1 PASS
+ID S024 anchor=2.2.1 PASS
+ID S025 anchor=2.7.2 PASS
+ID S026 anchor=2.7.2 PASS
+C1_CLOCK_REARM: value=10 rows_passing=10 gate=1 fresh=1 census=1 live=1
+
+=== fixture: receiptsym ===
+ID S013 anchor=2.2.1 PASS
+ID S014 anchor=2.7.2 PASS
+ID S015 anchor=2.7.2 PASS
+ID S016 anchor=2.7.2 PASS
+ID S021 anchor=2.7.2 PASS
+ID S022 anchor=2.2.1 PASS
+ID S023 anchor=2.2.1 PASS
+ID S024 anchor=2.2.1 PASS
+ID S025 anchor=2.7.2 PASS
+ID S026 anchor=2.7.2 PASS
+C1_CLOCK_REARM: value=10 rows_passing=10 gate=1 fresh=1 census=1 live=1
+
+=== fixture: dirsym ===
+ID S013 anchor=2.2.1 FAIL ledger-binding
+ID S014 anchor=2.7.2 FAIL ledger-binding
+ID S015 anchor=2.7.2 FAIL ledger-binding
+ID S016 anchor=2.7.2 FAIL ledger-binding
+ID S021 anchor=2.7.2 FAIL ledger-binding
+ID S022 anchor=2.2.1 FAIL ledger-binding
+ID S023 anchor=2.2.1 FAIL ledger-binding
+ID S024 anchor=2.2.1 FAIL ledger-binding
+ID S025 anchor=2.7.2 FAIL ledger-binding
+ID S026 anchor=2.7.2 FAIL ledger-binding
+C1_CLOCK_REARM: value=0 rows_passing=0 gate=1 fresh=1 census=0 live=1
+
+=== fixture: traversal ===
+ID S013 anchor=2.2.1 FAIL ledger-binding
+ID S014 anchor=2.7.2 PASS
+ID S015 anchor=2.7.2 PASS
+ID S016 anchor=2.7.2 PASS
+ID S021 anchor=2.7.2 PASS
+ID S022 anchor=2.2.1 PASS
+ID S023 anchor=2.2.1 PASS
+ID S024 anchor=2.2.1 PASS
+ID S025 anchor=2.7.2 PASS
+ID S026 anchor=2.7.2 PASS
+C1_CLOCK_REARM: value=9 rows_passing=9 gate=1 fresh=1 census=1 live=1
+
+=== fixture: nonpublic ===
+C1_CLOCK_REARM: SETUP (live observation failed for an F id (network?)) value=0
+
+=== fixture: forge ===
+ID S013 anchor=2.2.1 PASS
+ID S014 anchor=2.7.2 FAIL live=2.2.1
+ID S015 anchor=2.7.2 FAIL live=2.2.1
+ID S016 anchor=2.7.2 FAIL live=2.2.1
+ID S021 anchor=2.7.2 FAIL live=2.2.1
+ID S022 anchor=2.2.1 PASS
+ID S023 anchor=2.2.1 PASS
+ID S024 anchor=2.2.1 PASS
+ID S025 anchor=2.7.2 FAIL live=2.2.1
+ID S026 anchor=2.7.2 FAIL live=2.2.1
+C1_CLOCK_REARM: value=4 rows_passing=4 gate=1 fresh=1 census=1 live=1
+
+=== fixture: f6forge ===
+ID S013 anchor=2.2.1 PASS
+ID S014 anchor=2.7.3 PASS
+ID S015 anchor=2.7.3 PASS
+ID S016 anchor=2.7.3 PASS
+ID S021 anchor=2.7.3 PASS
+ID S022 anchor=2.2.1 PASS
+ID S023 anchor=2.2.1 PASS
+ID S024 anchor=2.2.1 PASS
+ID S025 anchor=2.7.3 PASS
+ID S026 anchor=2.7.3 PASS
+C1_CLOCK_REARM: value=10 rows_passing=10 gate=1 fresh=1 census=1 live=1
+
+=== fixture: exec2 ===
+ID S013 anchor=2.2.1 PASS
+ID S014 anchor=2.7.2 PASS
+ID S015 anchor=2.7.2 PASS
+ID S016 anchor=2.7.2 PASS
+ID S021 anchor=2.7.2 PASS
+ID S022 anchor=2.2.1 PASS
+ID S023 anchor=2.2.1 PASS
+ID S024 anchor=2.2.1 PASS
+ID S025 anchor=2.7.2 PASS
+ID S026 anchor=2.7.2 PASS
+C1_CLOCK_REARM: value=10 rows_passing=10 gate=1 fresh=1 census=1 live=1
+
+=== fixture: fakecap ===
+ID S013 anchor=2.2.1 PASS
+ID S014 anchor=2.7.2 PASS
+ID S015 anchor=2.7.2 PASS
+ID S016 anchor=2.7.2 PASS
+ID S021 anchor=2.7.2 PASS
+ID S022 anchor=2.2.1 PASS
+ID S023 anchor=2.2.1 PASS
+ID S024 anchor=2.2.1 PASS
+ID S025 anchor=2.7.2 PASS
+ID S026 anchor=2.7.2 PASS
+C1_CLOCK_REARM: value=10 rows_passing=10 gate=1 fresh=1 census=1 live=1
+
+=== fixture: ab/A_f6_only ===
+ID S013 anchor=2.2.1 PASS
+ID S014 anchor=2.7.3 FAIL live=2.7.2
+ID S015 anchor=2.7.3 FAIL live=2.7.2
+ID S016 anchor=2.7.3 FAIL live=2.7.2
+ID S021 anchor=2.7.3 FAIL live=2.7.2
+ID S022 anchor=2.2.1 PASS
+ID S023 anchor=2.2.1 PASS
+ID S024 anchor=2.2.1 PASS
+ID S025 anchor=2.7.3 FAIL live=2.7.2
+ID S026 anchor=2.7.3 FAIL live=2.7.2
+C1_CLOCK_REARM: value=4 rows_passing=4 gate=1 fresh=1 census=1 live=1
+
+=== fixture: ab/B_f6_plus_override ===
+ID S013 anchor=2.2.1 PASS
+ID S014 anchor=2.7.3 PASS
+ID S015 anchor=2.7.3 PASS
+ID S016 anchor=2.7.3 PASS
+ID S021 anchor=2.7.3 PASS
+ID S022 anchor=2.2.1 PASS
+ID S023 anchor=2.2.1 PASS
+ID S024 anchor=2.2.1 PASS
+ID S025 anchor=2.7.3 PASS
+ID S026 anchor=2.7.3 PASS
+C1_CLOCK_REARM: value=10 rows_passing=10 gate=1 fresh=1 census=1 live=1
+

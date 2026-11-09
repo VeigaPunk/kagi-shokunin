@@ -1,0 +1,19 @@
+{
+ "C1": {
+  "axis": "freshness",
+  "kind": "release-clock re-arm, live-observed and capture-bound",
+  "title": "C1_CLOCK_REARM: number of the ten derived Vault/OpenBao release clocks fired at BASE (S013 S014 S015 S016 S021 S022 S023 S024 S025 S026) that are ARMED, VERIFIED, SOURCED and LIVE, when GATE, FRESH and CENSUS hold",
+  "counter": "bash plans/round-72-c1.sh <rev>",
+  "target": "value=10 (BASE value=0)",
+  "freeze": "f07aba037006d3edc45acd48e6b3e206e45cae28",
+  "sourced": "S174, S175"
+ },
+ "C2": {
+  "axis": "calibration",
+  "kind": "self-assessment vs observed counts",
+  "title": "C2_SELF_COUNTS: stale= count of the lane's own self-count gate with self-counts.py/.tsv byte-identical to BASE and the POLICY boundary (R29-01/R29-02) retained",
+  "counter": "bash plans/round-72-c2.sh <rev>",
+  "target": "value=0 (BASE value=4)",
+  "freeze": "f07aba037006d3edc45acd48e6b3e206e45cae28"
+ }
+}

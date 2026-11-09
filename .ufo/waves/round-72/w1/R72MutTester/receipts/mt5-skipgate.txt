@@ -1,0 +1,4 @@
+CONTROL P1-candidate counter=c1 expected_rc=0 observed_rc=0 MATCH | C1_CLOCK_REARM: value=10 rows_passing=10 gate=1 fresh=1 census=1 live=1
+CONTROL F3-stale-receipt-pin counter=c1 expected_rc=1 observed_rc=1 MATCH | C1_CLOCK_REARM: value=0 rows_passing=0 gate=0 fresh=0 census=1 live=1
+CONTROL F8-weakened-shipped-gate counter=c1 expected_rc=1 observed_rc=0 MISMATCH | C1_CLOCK_REARM: value=10 rows_passing=10 gate=1 fresh=1 census=1 live=1
+CONTROLS: 2/3 match

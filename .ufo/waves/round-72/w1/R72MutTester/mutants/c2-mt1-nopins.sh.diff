@@ -1,0 +1,12 @@
+--- mutants/round-72-c2.sh	2026-11-09 01:14:49.937564696 -0300
++++ mutants/c2-mt1-nopins.sh	2026-11-09 01:15:21.115749963 -0300
+@@ -36,8 +36,7 @@
+ [ -f "$T/corpus/self-counts.py" ] && [ -f "$T/corpus/self-counts.tsv" ] || setup "gate absent"
+ py=$(sha256sum < "$T/corpus/self-counts.py" | cut -d' ' -f1)
+ tsv=$(sha256sum < "$T/corpus/self-counts.tsv" | cut -d' ' -f1)
+-[ "$py" = "$PIN_PY" ] || setup "pins=0 self-counts.py differs from BASE"
+-[ "$tsv" = "$PIN_TSV" ] || setup "pins=0 self-counts.tsv differs from BASE"
++true  # MUTANT: PINS deleted
+ (cd "$T" && python3 corpus/self-counts.py --root "$T") > "$W/out" 2> "$W/err"
+ rc=$?
+ [ -s "$W/out" ] || setup "producer printed nothing (rc=$rc)"

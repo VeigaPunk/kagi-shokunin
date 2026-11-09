@@ -1,0 +1,12 @@
+--- mutants/round-72-c2.sh	2026-11-09 01:14:49.937564696 -0300
++++ mutants/c2-mt2b-weakshape.sh	2026-11-09 01:26:19.292451812 -0300
+@@ -46,7 +46,8 @@
+ [ "$n" = 1 ] || setup "summary lines=$n"
+ sum=$(grep '^SELF_COUNTS: ' "$W/out")
+ re='^SELF_COUNTS: POLICY \(claims=63 stale=([0-9]+) unlocated=0 ambiguous=0 policy=2 setup=0\)$'
+-[[ $sum =~ $re ]] || setup "shape=0 summary '$sum'"
++re2='^SELF_COUNTS: POLICY \(claims=[0-9]+ stale=([0-9]+) .*\)$'
++[[ $sum =~ $re2 ]] || setup "shape=0 summary '$sum'"
+ stale=${BASH_REMATCH[1]}
+ pol=$(grep '^POLICY ' "$W/out" | awk '{print $2}' | sort | tr '\n' ',')
+ [ "$pol" = "PV-FEEDTOKEN-SELFTEST,PV-FEEDTOKEN-SHAPES," ] || setup "policy ids '$pol'"

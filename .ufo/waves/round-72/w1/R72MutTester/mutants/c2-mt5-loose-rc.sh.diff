@@ -1,0 +1,11 @@
+--- mutants/round-72-c2.sh	2026-11-09 01:14:49.937564696 -0300
++++ mutants/c2-mt5-loose-rc.sh	2026-11-09 01:15:21.229692193 -0300
+@@ -41,7 +41,7 @@
+ (cd "$T" && python3 corpus/self-counts.py --root "$T") > "$W/out" 2> "$W/err"
+ rc=$?
+ [ -s "$W/out" ] || setup "producer printed nothing (rc=$rc)"
+-[ "$rc" = 2 ] || setup "gate exit $rc, expected 2 (POLICY)"
++true  # MUTANT: rc==2 deleted
+ n=$(grep -c '^SELF_COUNTS: ' "$W/out")
+ [ "$n" = 1 ] || setup "summary lines=$n"
+ sum=$(grep '^SELF_COUNTS: ' "$W/out")

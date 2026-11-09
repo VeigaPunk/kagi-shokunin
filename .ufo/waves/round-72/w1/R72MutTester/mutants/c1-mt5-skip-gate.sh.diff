@@ -1,0 +1,22 @@
+--- mutants/round-72-c1.sh	2026-11-09 01:15:33.173710860 -0300
++++ mutants/c1-mt5-skip-gate.sh	2026-11-09 01:15:00.037405918 -0300
+@@ -130,8 +130,7 @@
+     last = lambda r: (r.stdout.strip().splitlines() or [""])[-1]
+     if not a.stdout.strip() or not b.stdout.strip():
+         setup("release-clock printed nothing")
+-    gate = int(a.returncode == 0 and last(a).startswith("RELEASE_CLOCK: CLEAN ")
+-               and b.returncode == 0 and last(b).startswith("RELEASE_CLOCK: CLEAN "))
++    gate = 1  # MUTANT: GATE forced
+     receipt = {o["id"]: o for o in json.load(open(rpath, encoding="utf-8"))["observations"]}
+ fresh = 0
+ if receipt:
+@@ -165,7 +164,8 @@
+                 and rc.get("parsed_version") == anchor):
+             why.append("not-armed")
+         try:
+-            pass  # MUTANT: not-newer deleted
++            if not vtuple(anchor) > vtuple(BASE_ANCHOR[i]):
++                why.append("not-newer")
+         except Exception:
+             why.append("bad-anchor")
+         fr = reg.get(fid)

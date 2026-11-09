@@ -133,3 +133,68 @@ reaching 0 on BASE without C1. Neither claim is exploratory.
 ONE v1 wave `w1`, 8–16 seats, ≥ 25 % attack seats, ≤ 2 connectors (spec and dispatch in
 `.ufo/waves/round-72/`). Seats re-run both counters and the controls, attack the wording, re-open
 S174/S175 and the ten pages, review the integration, and replicate the re-arm independently.
+
+## Amendment A1 — wording narrowed on the wave's own evidence (after w1, before filing)
+
+The frozen predicates, counters, targets and kill rules are unchanged; the numbers are not
+re-scored. These sentences of this plan said more than the counters enforce, and are narrowed
+here (each tied to the seat artifact in `.ufo/waves/round-72/claim-falsification.tsv`):
+
+- **A1.1 Release identity (R72Connector CN-2, R72ReviewerSrc SR-4).** "two new feed rows opened
+  this round (S174 supersedes S034, S175 supersedes S035)" is true by the counter's letter but
+  overstates what the rows add: the registry already held the same identities since round 37
+  (S089 Vault v2.2.1, S090 OpenBao v2.7.2, both superseding S034/S035) and never bound them to
+  the clocks. S174/S175 are same-URL re-opens on 2026-11-09 that carry the binding; at
+  integration their `teaches` cells say `supersedes S089` / `supersedes S090`. C1 as filed: the
+  ten clocks are re-armed through rows opened this round; no new release identity is claimed.
+- **A1.2 Supersession is not counted (R72Critic CR-1).** SOURCED reads status, opened date,
+  BASE absence and URL, never the `supersedes` cell.
+- **A1.3 "Blind" pre-move sentence (R72MutLater LB-1/LB-2, R72Critic CR-2).** "for these ten rows
+  the lane cannot see Vault 2.2.2 or OpenBao 2.7.3" is false: on BASE a newer observation also
+  disagrees with the table (`RECEIPT-MISMATCH` on the next `--observe`). What the re-arm changes
+  is the verdict: a re-armed row reads `fired` again only after the table records the newer
+  observation, so `fired` once more means "newer than the last re-verified release" for these
+  ten rows (on BASE it stayed `fired` either way). No in-round fixture shows a re-armed row going
+  from `RECEIPT-MISMATCH` to `fired` through the shipped gate end to end except R72MutLater's
+  offline table-updated variant (CAND `fired=14` CLEAN), which BASE bytes reproduce for the same
+  table edit; QM24's last sentence is met in that weaker sense only.
+- **A1.4 Semantic leg (R72Critic CR-3; U1).** "each re-arm cites the round-47 semantic
+  re-verification" is prose in the table notes, not a counted leg (flipping every
+  `teaching-holds` still reads value=10). The non-author semantic check of 2026-11-09 is
+  R72ReviewerSrc SR-5: ten of ten `teaching-holds` on today's pages.
+- **A1.5 Fetch provenance (R72Reviewer RV-2) and feed vendor (RV-1).** VERIFIED counts byte
+  binding and quote containment of a committed capture; `fetched_at` is self-declared. LIVE binds
+  whatever `feed_url` the row names; that it is the vendor's feed is registry review (SR-1/SR-5:
+  both feeds re-fetched byte-identical to the committed captures).
+- **A1.6 Integration duties (R72Revenger RE-1/RE-2, R72Critic CR-4, R72ReviewerSrc SR-1).**
+  The candidate lacked the expectation-migration journal and left four default-receipt sentences
+  naming round 54; both were done at integration (`.ufo/waves/round-72/expectation-migrations.json`:
+  R36-02 `^3$`→`^13$`, R36-03 `fired=14`→`fired=4`; SKILL.md rows "Judge whether…" and "source
+  release clocks", PROVINCE.md release-clock line, `corpus/release-clock.py --help`).
+- **A1.7 Plan gaps for a replica (R72ExecReplica 2/3).** The plan did not say that the 22 non-F
+  rows need their `observed_at` refreshed for the new receipt to match, nor the census identity
+  rules for the new rows; the replica still reached value=10. Recorded as a lesson, not a number.
+- **A1.8 Legs no control proves (R72MutTester MT-1…MT-8).** Six single-leg mutants survive the
+  20 frozen controls: C1 ARMED "newer than the BASE anchor", C1 FRESH, C1 VERIFIED quote_count
+  equality (a `>= 1` weakening survives); C2 `claims=63` in the shape regex, the two POLICY ids,
+  and the gate-exit-2 check. SOURCED, LIVE and the ledger binding are each killed by one control
+  only (F7, F6, F4), and C2's pins only through the reason string. The counters still carry every
+  leg on the measured bytes, but "enforced" in this plan means present in the counter's code; for
+  these legs it does not mean shown by a control. No predicate, counter or target changes.
+- **A1.9 Instrument holes a forger could use (R72Sentinel SE-2, SE-3, SE-6).** "BASE-pinned gate"
+  pins `corpus/release-clock.py` only: the gate imports the measured tree's own
+  `corpus/rendered-text-v1.py`, so a tree that edits that file can forge LIVE (SE-2); the capture
+  containment test is lexical, so a committed symlink can redirect the sha check (SE-3); and
+  VERIFIED accepts any committed body that contains the quote, e.g. an authored quote-only file
+  (SE-6). The counters are frozen and are not repaired this round. On the measured revisions none
+  of the three is used: `corpus/rendered-text-v1.py` is byte-identical to BASE, the candidate tree
+  has 0 symlink entries, and the ten captures are whole vendor pages of 47 384–586 212 bytes (the
+  OpenBao pages byte-identical to their round-47 captures; R72ReviewerSrc re-fetched them)
+  (`.ufo/waves/round-72/final/se-ceiling-receipts.txt`). C1 as filed rests on those receipts for
+  these three legs, not on the counter alone. The repairs are routed to the next clock counter.
+- **A1.10 C2 change set (R72Connector CN-3).** The four BASE-stale numbers were set to the final
+  live counts (185 stamps / 102 claims), not the candidate's 181. Stamping the four round-72 files
+  also made a fifth binding stale that was fresh at BASE (RD-STAMPS, `corpus/README.md:65`, 181);
+  it was updated to 185 with a round-72 history clause. C2's counted population is all 61 OK/STALE
+  bindings, so the final reading covers it; the plan's "two numbers on each line" undercounts the
+  edits by one line.

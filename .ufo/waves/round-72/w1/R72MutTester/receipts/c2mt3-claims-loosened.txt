@@ -1,0 +1,4 @@
+CONTROL Q1-base-plus-c2 counter=c2 expected_rc=0 observed_rc=0 MATCH | C2_SELF_COUNTS: value=0 pins=1 shape=1 claims=63 policy=2 ok=61 stale_ids=none
+CONTROL G1-binding-dropped counter=c2 expected_rc=2 observed_rc=2 MATCH | C2_SELF_COUNTS: SETUP (pins=0 self-counts.tsv differs from BASE)
+CONTROL G4-wrong-number counter=c2 expected_rc=1 observed_rc=1 MATCH | C2_SELF_COUNTS: value=1 pins=1 shape=1 claims=63 policy=2 ok=60 stale_ids=SC-SKILL-STAMPS 
+CONTROLS: 3/3 match

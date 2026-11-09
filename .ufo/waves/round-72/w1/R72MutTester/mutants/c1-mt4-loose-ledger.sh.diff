@@ -1,0 +1,23 @@
+--- mutants/round-72-c1.sh	2026-11-09 01:15:33.173710860 -0300
++++ mutants/c1-mt4-loose-ledger.sh	2026-11-09 01:15:00.030461159 -0300
+@@ -165,7 +165,8 @@
+                 and rc.get("parsed_version") == anchor):
+             why.append("not-armed")
+         try:
+-            pass  # MUTANT: not-newer deleted
++            if not vtuple(anchor) > vtuple(BASE_ANCHOR[i]):
++                why.append("not-newer")
+         except Exception:
+             why.append("bad-anchor")
+         fr = reg.get(fid)
+@@ -185,9 +186,7 @@
+             except Exception:
+                 fat_ok = False
+             if not (rearmed == anchor and lfid == fid and lurl == url_of(reg.get(i, ["", ""])[1])
+-                    and cpath.startswith(".ufo/waves/round-72/") and cp.startswith(T + os.sep)
+-                    and os.path.isfile(cp) and sha(cp) == csha and str(os.path.getsize(cp)) == cbytes
+-                    and fat_ok and lverdict == "quote-located"):
++                    and lverdict == "quote-located"):
+                 why.append("ledger-binding")
+             else:
+                 quote = base_fetch[i][0][12]

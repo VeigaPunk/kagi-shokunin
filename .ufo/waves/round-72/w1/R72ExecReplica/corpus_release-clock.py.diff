@@ -1,0 +1,20 @@
+--- /tmp/base_corpus_release-clock.py	2026-11-09 01:17:42.679323434 -0300
++++ /fast/scratch/hyaku/kagi-r72/R72ExecReplica/rep/corpus/release-clock.py	2026-11-09 01:17:01.248098370 -0300
+@@ -25,7 +25,7 @@
+     "id", "clock", "feed_source_id", "feed_url", "anchored_version",
+     "observed_version", "observed_at", "verdict", "note",
+ )
+-DEFAULT_RECEIPT_SHA256 = "9513690e3b58ad2198038df888ccb12537553d12ba4f141f9a9d8d0121ce98af"
++DEFAULT_RECEIPT_SHA256 = "6141133a5fc00d2016d6de487070fcff1fc59c85e031c0478b199728ca832019"
+ SOURCE_ID_RE = re.compile(r"S[0-9]{3}")
+ QUOTE_RE = re.compile(r"“([^”]+)”|(?<!\\)\"([^\"\n]+)\"")
+ USER_AGENT = "kagi-shokunin-round25/1.0 (documentation verification)"
+@@ -544,7 +544,7 @@
+ 
+ def receipt_path(root, selected):
+     if selected is None:
+-        return root / ".ufo" / "waves" / "round-54" / "final" / "observe-r54.json"
++        return root / ".ufo" / "waves" / "round-72" / "final" / "observe-r72.json"
+     path = Path(selected)
+     return path if path.is_absolute() else root / path
+ 

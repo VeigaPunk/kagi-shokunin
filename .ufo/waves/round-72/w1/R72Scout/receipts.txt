@@ -1,0 +1,68 @@
+# R72Scout receipts — 2026-11-09 (all GETs: curl -fsSL --compressed, UA 'Mozilla/5.0 (X11; Linux x86_64) kagi-shokunin-round23/1.0')
+
+## 1. Release-note captures copied into this dir
+350a9d0b858423030beaf73fb412ff085604eda641ab115b41fb86617f6da5cc  release-notes-vault-v2.2.1.txt
+035bfc55f104684a3fb925da09e06e74b48cedbdbccc7fd8ff5ba931d8855d51  release-notes-openbao-v2.7.2.txt
+5995764b1315b92dffd15ff0d5cc3d46454e488687c3f26b4cc069e90f83a328  CHANGELOG-openbao-v2.7.2.md
+
+## 2. Feeds fetched independently by this seat (2026-11-09) vs the lane's committed captures
+3ead3d0f9063d2a4467080bb991b747fa29a2604e10411921090b2e7a0e6ffc  vault-releases.atom  == lane .ufo/waves/round-72/capture/S174.body (byte-identical, cmp clean)
+a54d1a5314ca701684fe65b3e4687c0519d45164c8cd177c950ff75bfd5f2e0e  openbao-releases.atom == lane .ufo/waves/round-72/capture/S175.body (byte-identical, cmp clean)
+
+## 3. Lane parser (corpus/release-clock.py from candidate a947a42c) on my independent fetches
+vault-releases.atom              -> newest stable 2.2.1
+openbao-releases.atom            -> newest stable 2.7.2
+www.python.org/downloads/feed.rss -> newest stable 3.15.2
+releases.1password.com/.../index.xml -> 2.42.0 with the declared prefix '1Password CLI';
+  REFUSED ('feed has no stable X.Y.Z release entry') without that prefix (FEED_TITLE_PREFIXES, S112)
+
+## 4. Absence sweep on the two release-note bodies (grep -icE)
+  aud              vault221=0  openbao272=0
+  bound_audiences  vault221=0  openbao272=0
+  TokenReview      vault221=0  openbao272=0
+  max_versions     vault221=0  openbao272=0
+  revoke           vault221=0  openbao272=0
+  child.token      vault221=0  openbao272=0
+  "lease" hits are all substrings of release/released/Freleases/Please (no lease-mechanic line)
+
+## 5. Taught-quote location on the round-72 captures (BASE-pinned corpus/rendered-text-v1.py locate)
+  S013  count=1   All dynamic secrets in Vault are required to have a lease.
+  S014  count=1   The jwt auth method can be used to authenticate with OpenBao using OIDC or by providing a JWT
+  S016  count=1   When a parent token is revoked, all of its child tokens -- and all of their leases -- are revoked as well.
+  S024  count=3   max_versions (int: 0) – The number of versions to keep per key.
+  (S015/S022 registry-quote cells carry backticks and locate count=0; the source-fetches col-13 quote
+   locates count=1 — pre-existing, BASE and candidate alike)
+
+## 6. Same taught quotes located on pages this seat re-fetched live 2026-11-09
+  lease   count=1  live Vault /vault/docs/concepts/lease
+  aud     count=1  live Vault /vault/docs/auth/jwt
+  tokrev  count=1  live OpenBao /docs/concepts/tokens/
+  ttl     count=1  live OpenBao /docs/concepts/tokens/
+  k8s     count=1  live OpenBao /docs/auth/jwt/oidc-providers/kubernetes/
+  maxver  count=3  live Vault /vault/api-docs/secret/kv/kv-v2
+
+## 7. Rendered-text digest equality, round-47 capture vs round-72 capture vs live re-fetch
+  S013/S023 normalized_sha256=0e62e05612eaa7ddb5145fb8d17618f37a503b20c5ee58b46ab3476d8a4e7b76 (all three identical)
+  S022     normalized_sha256=53f5230c2a24bfec346f6d997ea2547de119f325be2b1902dfeb13f8ee1443c3 (all three identical)
+  S024     normalized_sha256=7c5a19e23f5f857b790cddec058c7eace7df21390058f4a42cc7ce1cf7c3a715 (all three identical)
+  S014/S025 normalized_sha256=ca496ad8f8226d848d2fefa4b1c66d3820e32cdf5d995ee508b44521e752a403 (round-72 == live)
+  S015 normalized_sha256=2732189767e6663d9994b7d7f5d20cab6c4d5b28ede6f73c5f2cfb4707a2aab8 (round-72 == live)
+  S016/S021/S026 normalized_sha256=ed949658b434fa769b89c682160f77ad153f5c6657808706db5858506ce0d2e3 (round-72 == live)
+  OpenBao captures S014/S015/S016/S021/S025/S026 are BYTE-identical round-47 vs round-72; the Vault pages differ
+  only in a per-request nonce string (33 occurrences) and one timestamp; rendered text is unchanged.
+
+## 8. Gate measurements taken by this seat (scratch copies of the candidate tree; the lane was not modified)
+  candidate a947a42c, plans/round-36-c3.sh -> RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=4 derived=17), rc 0
+  candidate a947a42c, plans/round-36-c2.sh -> 13, rc 0   (BASE b2f3dd66 -> 3)
+  candidate tree + S089 anchor cell rewritten in place (v2.2.1 -> v2.2.0), full tree copy:
+      corpus/anchor-pins.sh  -> ANCHOR_PINS: CLEAN (pins=4), rc 0   (S089 is unpinned)
+      corpus/sources-census.sh -> SOURCES_CENSUS: CLEAN (rows=166 ...), rc 0
+      plans/round-36-c3.sh   -> RELEASE_CLOCK: CLEAN (on_release=32 ... fired=4 derived=17), rc 0
+    => the anchor-cell rewrite of the superseded S089 is invisible to every gate (QM40 population gap).
+
+## 9. Anchor-pin population, superseded release-feed rows
+  corpus/anchor-pins.tsv pins: S034 S035 S036 S039
+  BASE b2f3dd66 superseded release-feed rows: S034 S035 S036 S039  (all pinned)
+  candidate a947a42c: same four (S174/S175 then still superseded S034/S035; S089/S090 unpinned and unsuperseded)
+  working tree (integration): superseded release-feed rows S034 S035 S036 S039 S089 S090
+                              -> S089 and S090 are superseded but UNPINNED

@@ -1,0 +1,11 @@
+--- mutants/round-72-c2.sh	2026-11-09 01:14:49.937564696 -0300
++++ mutants/c2-mt3-noclaims.sh	2026-11-09 01:15:00.084250464 -0300
+@@ -45,7 +45,7 @@
+ n=$(grep -c '^SELF_COUNTS: ' "$W/out")
+ [ "$n" = 1 ] || setup "summary lines=$n"
+ sum=$(grep '^SELF_COUNTS: ' "$W/out")
+-re='^SELF_COUNTS: POLICY \(claims=63 stale=([0-9]+) unlocated=0 ambiguous=0 policy=2 setup=0\)$'
++re='^SELF_COUNTS: POLICY \(claims=[0-9]+ stale=([0-9]+) unlocated=0 ambiguous=0 policy=2 setup=0\)$'
+ [[ $sum =~ $re ]] || setup "shape=0 summary '$sum'"
+ stale=${BASH_REMATCH[1]}
+ pol=$(grep '^POLICY ' "$W/out" | awk '{print $2}' | sort | tr '\n' ',')

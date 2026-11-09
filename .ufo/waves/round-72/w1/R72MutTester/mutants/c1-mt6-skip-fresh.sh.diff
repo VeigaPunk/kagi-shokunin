@@ -1,0 +1,21 @@
+--- mutants/round-72-c1.sh	2026-11-09 01:15:33.173710860 -0300
++++ mutants/c1-mt6-skip-fresh.sh	2026-11-09 01:15:00.044204588 -0300
+@@ -140,7 +140,7 @@
+             return dt.datetime.fromisoformat(o["observed_at"].replace("Z", "+00:00"))
+         except Exception:
+             return None
+-    fresh = int(all(at(o) is not None and at(o) >= FLOOR for o in receipt.values()))
++    fresh = 1  # MUTANT: FRESH forced
+ try:
+     live = {o["id"]: o for o in json.load(open(os.path.join(W, "live.json"), encoding="utf-8"))["observations"]}
+ except Exception:
+@@ -165,7 +165,8 @@
+                 and rc.get("parsed_version") == anchor):
+             why.append("not-armed")
+         try:
+-            pass  # MUTANT: not-newer deleted
++            if not vtuple(anchor) > vtuple(BASE_ANCHOR[i]):
++                why.append("not-newer")
+         except Exception:
+             why.append("bad-anchor")
+         fr = reg.get(fid)

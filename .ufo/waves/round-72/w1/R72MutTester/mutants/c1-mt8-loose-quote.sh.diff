@@ -1,0 +1,21 @@
+--- mutants/round-72-c1.sh	2026-11-09 01:15:33.173710860 -0300
++++ mutants/c1-mt8-loose-quote.sh	2026-11-09 01:15:00.058919277 -0300
+@@ -165,7 +165,8 @@
+                 and rc.get("parsed_version") == anchor):
+             why.append("not-armed")
+         try:
+-            pass  # MUTANT: not-newer deleted
++            if not vtuple(anchor) > vtuple(BASE_ANCHOR[i]):
++                why.append("not-newer")
+         except Exception:
+             why.append("bad-anchor")
+         fr = reg.get(fid)
+@@ -194,7 +195,7 @@
+                 out = subprocess.run([sys.executable, rt, "locate", cp, quote], capture_output=True, text=True).stdout
+                 mm = re.search(r"count=(\d+)", out)
+                 n = int(mm.group(1)) if mm else -1
+-                if not (n >= 1 and str(n) == qc):
++                if not (n >= 1):
+                     why.append(f"quote-count={n}/{qc}")
+     ok = not why
+     value += ok

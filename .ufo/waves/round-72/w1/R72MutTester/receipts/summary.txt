@@ -1,0 +1,21 @@
+CONTROL F0-base counter=c1 expected_rc=1 observed_rc=1 MATCH | C1_CLOCK_REARM: value=0 rows_passing=0 gate=0 fresh=0 census=1 live=1
+CONTROL P1-candidate counter=c1 expected_rc=0 observed_rc=0 MATCH | C1_CLOCK_REARM: value=10 rows_passing=10 gate=1 fresh=1 census=1 live=1
+CONTROL F1-anchor-bump-only counter=c1 expected_rc=1 observed_rc=1 MATCH | C1_CLOCK_REARM: value=0 rows_passing=0 gate=0 fresh=0 census=1 live=1
+CONTROL F2-no-ledger counter=c1 expected_rc=1 observed_rc=1 MATCH | C1_CLOCK_REARM: value=0 rows_passing=0 gate=1 fresh=1 census=1 live=1
+CONTROL F3-stale-receipt-pin counter=c1 expected_rc=1 observed_rc=1 MATCH | C1_CLOCK_REARM: value=0 rows_passing=0 gate=0 fresh=0 census=1 live=1
+CONTROL F4-forged-capture-digest counter=c1 expected_rc=1 observed_rc=1 MATCH | C1_CLOCK_REARM: value=9 rows_passing=9 gate=1 fresh=1 census=1 live=1
+CONTROL F5-quote-absent-capture counter=c1 expected_rc=1 observed_rc=1 MATCH | C1_CLOCK_REARM: value=9 rows_passing=9 gate=1 fresh=1 census=1 live=1
+CONTROL F6-fabricated-release counter=c1 expected_rc=1 observed_rc=1 MATCH | C1_CLOCK_REARM: value=4 rows_passing=4 gate=1 fresh=1 census=1 live=1
+CONTROL F7-inplace-anchor-edit counter=c1 expected_rc=1 observed_rc=1 MATCH | C1_CLOCK_REARM: value=4 rows_passing=4 gate=1 fresh=1 census=1 live=1
+CONTROL F8-weakened-shipped-gate counter=c1 expected_rc=1 observed_rc=1 MATCH | C1_CLOCK_REARM: value=0 rows_passing=10 gate=0 fresh=1 census=1 live=1
+CONTROL F9-census-swapped counter=c1 expected_rc=2 observed_rc=2 MATCH | C1_CLOCK_REARM: SETUP (census=0 sources-census.sh differs from BASE) value=0
+CONTROL F10-receipt-deleted counter=c1 expected_rc=1 observed_rc=1 MATCH | C1_CLOCK_REARM: value=0 rows_passing=0 gate=0 fresh=0 census=1 live=1
+CONTROL G0-base counter=c2 expected_rc=1 observed_rc=1 MATCH | C2_SELF_COUNTS: value=4 pins=1 shape=1 claims=63 policy=2 ok=57 stale_ids=SC-SKILL-STAMPS SC-SKILL-CLAIMS PV-STAMPS PV-CLAIMS 
+CONTROL Q1-base-plus-c2 counter=c2 expected_rc=0 observed_rc=0 MATCH | C2_SELF_COUNTS: value=0 pins=1 shape=1 claims=63 policy=2 ok=61 stale_ids=none
+CONTROL Q2-candidate-plus-c2 counter=c2 expected_rc=0 observed_rc=0 MATCH | C2_SELF_COUNTS: value=0 pins=1 shape=1 claims=63 policy=2 ok=61 stale_ids=none
+CONTROL G1-binding-dropped counter=c2 expected_rc=2 observed_rc=2 MATCH | C2_SELF_COUNTS: SETUP (pins=0 self-counts.tsv differs from BASE)
+CONTROL G2-gate-echo counter=c2 expected_rc=2 observed_rc=2 MATCH | C2_SELF_COUNTS: SETUP (pins=0 self-counts.py differs from BASE)
+CONTROL G3-line-deleted counter=c2 expected_rc=2 observed_rc=2 MATCH | C2_SELF_COUNTS: SETUP (shape=0 summary 'SELF_COUNTS: POLICY (claims=63 stale=0 unlocated=2 ambiguous=0 policy=2 setup=0)')
+CONTROL G4-wrong-number counter=c2 expected_rc=1 observed_rc=1 MATCH | C2_SELF_COUNTS: value=1 pins=1 shape=1 claims=63 policy=2 ok=60 stale_ids=SC-SKILL-STAMPS 
+CONTROL G5-policy-boundary-moved counter=c2 expected_rc=2 observed_rc=2 MATCH | C2_SELF_COUNTS: SETUP (shape=0 summary 'SELF_COUNTS: POLICY (claims=63 stale=1 unlocated=0 ambiguous=0 policy=1 setup=0)')
+CONTROLS: 20/20 match

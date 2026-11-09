@@ -1,0 +1,50 @@
+# R72Scribe own receipts - round 72
+# all commands run from /home/vgpnk/Projects/shokunin/kagi-shokunin; scratch S=/fast/scratch/hyaku/kagi-r72/R72Scribe (removed at yield)
+
+## git log --oneline -3
+6179297 round-72: integration — Amendment A1 (A1.1-A1.10), S174/S175 supersede S089/S090, R36-02/R36-03 migration journal, default-receipt sentences, routed r71 items 1/2/5, QM103, lesson, SCORECARD/LOG/README, C2 numbers at final counts, stamps 185, wave w1 evidence + falsification ledger
+a947a42 round-72: candidate — C1 S174/S175 feed successors, ten derived clocks re-armed, clock-rearm ledger + captures, round-72 receipt pinned as default; C2 four self-count numbers
+f07aba0 round-72: freeze C1 (freshness, re-arm ten derived Vault/OpenBao clocks) and C2 (calibration, four self-count mismatches) — plan, counters, runner, 20 executed prefreeze controls
+
+## bash plans/round-72-c1.sh HEAD  (2026-11-09)
+ID S013 anchor=2.2.1 PASS
+ID S014 anchor=2.7.2 PASS
+ID S015 anchor=2.7.2 PASS
+ID S016 anchor=2.7.2 PASS
+ID S021 anchor=2.7.2 PASS
+ID S022 anchor=2.2.1 PASS
+ID S023 anchor=2.2.1 PASS
+ID S024 anchor=2.2.1 PASS
+ID S025 anchor=2.7.2 PASS
+ID S026 anchor=2.7.2 PASS
+C1_CLOCK_REARM: value=10 rows_passing=10 gate=1 fresh=1 census=1 live=1
+rc=0 wall 12.17s
+
+## bash plans/round-72-c2.sh HEAD  (2026-11-09)
+C2_SELF_COUNTS: value=0 pins=1 shape=1 claims=63 policy=2 ok=61 stale_ids=none
+rc=0 wall 19.20s
+
+## bash plans/round-72-c1.sh b2f3dd661abda0ebd09b3f8ffc3f64904606d4d9  (BASE)
+ID S016 anchor=2.7.1 FAIL not-armed,not-newer,unsourced,live=2.7.2,no-ledger
+ID S021 anchor=2.7.1 FAIL not-armed,not-newer,unsourced,live=2.7.2,no-ledger
+ID S022 anchor=2.2.0 FAIL not-armed,not-newer,unsourced,live=2.2.1,no-ledger
+ID S023 anchor=2.2.0 FAIL not-armed,not-newer,unsourced,live=2.2.1,no-ledger
+ID S024 anchor=2.2.0 FAIL not-armed,not-newer,unsourced,live=2.2.1,no-ledger
+ID S025 anchor=2.7.1 FAIL not-armed,not-newer,unsourced,live=2.7.2,no-ledger
+ID S026 anchor=2.7.1 FAIL not-armed,not-newer,unsourced,live=2.7.2,no-ledger
+C1_CLOCK_REARM: value=0 rows_passing=0 gate=0 fresh=0 census=1 live=1
+rc=0 wall 9.03s
+
+## quote location (this seat, located in .ufo/waves/round-72/capture/)
+S174 <title>v2.2.1</title>: raw-literal-v1 grep -c -F count=1, byte offset 726; rendered-text-v1 locate count=0
+S175 <title>v2.7.2</title>: raw-literal-v1 grep -c -F count=1, byte offset 729; rendered-text-v1 locate count=0
+S174 'core/policy: Fixed a cache-key collision vulnerability that could cause policy-name aliases to resolve to the immutable root policy.' -> rendered-text-v1 locate count=1; needle byte 1147 inside first <entry> span 503-4207; title v2.2.1 tag v2.2.1 updated 2026-10-23T17:34:44Z
+S175 'auth/oidc: Fix login in direct callback mode by including the namespace in the redirect URI.' -> rendered-text-v1 locate count=1; needle byte 5797 inside first <entry> span 505-30010; title v2.7.2 tag v2.7.2 updated 2026-10-26T20:24:37Z
+
+## residual-defect checks at HEAD (6179297)
+grep -oE 'through S17[45] \(supersedes S0[0-9]+' corpus/release-clocks.tsv:
+  4 through S174 (supersedes S034
+  6 through S175 (supersedes S035
+corpus/SOURCES.md S174/S175 teaches: supersedes S089 / supersedes S090
+corpus/SOURCES.md:178 Paths bullet: 'Observable release clocks - S033 -> S034 -> S035 -> S036 -> S037, with S038 rejected'
+git diff a947a42c 6179297 -- corpus/release-clocks.tsv -> empty (clock table untouched by integration)

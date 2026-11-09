@@ -1,0 +1,28 @@
+# verdict-class set (FAIL/POLICY/SETUP/STALE/MISSING/NOT-A-FILE id) BASE e0e9603a (archive) vs landed 5b5483a6 (archive)
+77,79c77,79
+< MISSING-ID SCORECARD.md:1370
+< MISSING-ID SCORECARD.md:1470
+< MISSING-ID SCORECARD.md:1470
+---
+> MISSING-ID SCORECARD.md:1373
+> MISSING-ID SCORECARD.md:1473
+> MISSING-ID SCORECARD.md:1473
+diff rc=1
+# counts base:      21 FAIL      58 MISSING-ID       5 POLICY 
+# counts landed:      21 FAIL      58 MISSING-ID       5 POLICY 
+# self-description sweep MISMATCH lines, line numbers of SCORECARD calibration row stripped
+24,28c24,28
+< MISMATCH SD6 SCORECARD.md:1862 .ufo/waves/round-56/controls/c1-base.txt`-equivalent (ufo)
+< MISMATCH SD6 SCORECARD.md:1981 .ufo/waves/round-59/final/release-clock-candidate.txt (ufo)
+< MISMATCH SD6 SCORECARD.md:1990 .ufo/waves/round-59/final/release-clock-candidate.txt (ufo)
+< MISMATCH SD6 SCORECARD.md:2341 .ufo/waves/round-66/w1-results.json (ufo)
+< MISMATCH SD8 SCORECARD.md:1702 range 'M44-1..M44-3' row '| M44-4 ' exceeds upper endpoint M44-3
+---
+> MISMATCH SD6 SCORECARD.md:1865 .ufo/waves/round-56/controls/c1-base.txt`-equivalent (ufo)
+> MISMATCH SD6 SCORECARD.md:1984 .ufo/waves/round-59/final/release-clock-candidate.txt (ufo)
+> MISMATCH SD6 SCORECARD.md:1993 .ufo/waves/round-59/final/release-clock-candidate.txt (ufo)
+> MISMATCH SD6 SCORECARD.md:2344 .ufo/waves/round-66/w1-results.json (ufo)
+> MISMATCH SD8 SCORECARD.md:1705 range 'M44-1..M44-3' row '| M44-4 ' exceeds upper endpoint M44-3
+diff rc=1
+# self-counts stale ids
+diff rc=0

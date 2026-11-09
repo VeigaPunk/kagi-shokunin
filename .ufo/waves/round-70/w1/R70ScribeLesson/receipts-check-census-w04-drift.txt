@@ -1,0 +1,23 @@
+# check-census-w04-drift.py receipts — R70ScribeLesson (round-70 lesson, M70-3)
+# a census-warning count stated in a report is bound to the REVISION the report names,
+# not to the round-start receipt: the census is re-run over the tree at that revision
+# (git archive -> scratch -> sources-census.sh validate) and the W04 population compared.
+
+$ python3 check-census-w04-drift.py --lane <lane> --rev <rev> --base-receipt <receipt>
+
+## A) CONTROL: the round-70 base receipt against the BASE revision it was taken at (expect CLEAN, 25 == 25)
+REV     7bd34832c94b81d4cf9bf34113c4952a7f6d9b04  (tree extracted to /fast/scratch/hyaku/kagi-r70/R70ScribeLesson/drift-base-ctl/kagi)
+  MEASURED W04 lines=25 (census rc=0, stderr bytes=0)
+RECEIPT /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-70/base/census-round-start.stdout.txt
+  BASE     W04 lines=25
+CENSUS_DRIFT: CLEAN
+rc=0
+
+## B) the same receipt against the CANDIDATE revision 0d225553 (expect FAIL: S170 adds a 26th W04 row)
+REV     0d225553c22f686df24454040102d0502eda5c42  (tree extracted to /fast/scratch/hyaku/kagi-r70/R70ScribeLesson/drift-cand-ctl/kagi)
+  MEASURED W04 lines=26 (census rc=0, stderr bytes=0)
+RECEIPT /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-70/base/census-round-start.stdout.txt
+  BASE     W04 lines=25
+  ADDED    ids=['S170']
+CENSUS_DRIFT: FAIL (base=25 rev=26 added=['S170'] removed=[])
+rc=1

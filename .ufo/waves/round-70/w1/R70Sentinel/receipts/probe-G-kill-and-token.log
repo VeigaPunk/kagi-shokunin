@@ -1,0 +1,37 @@
+===== G1: SIGKILL mid-run — does the scratch survive with secrets on disk? =====
+  killing the trial with SIGKILL (pid 2745068) — no trap can run
+  scratch dirs left under --work: 1
+  surviving scratch /fast/scratch/hyaku/kagi-r70/R70Sentinel/G/kill/work/kagi-pki-trial.huga1P:
+    file: certs.json
+    file: crl.json
+    file: crl.pem
+    file: home
+    file: server.log
+    file: t1.json
+    file: t2.json
+    file: t2.pem
+    file: t4.json
+    file: t5c.json
+    file: t5.json
+    file: tmp
+    files holding a PEM private key: 4
+    files holding the dev root token shape: 2
+    a .vault-token file present: yes
+  dev servers left: []
+  -> a SIGKILLed trial leaves its leaf private keys, its dev root token (server.log)
+     and a .vault-token file on disk, and leaves the dev server running.
+
+===== G2: does the counter remove its whole scratch tree (including the trial's) on exit? =====
+  counter scratch trees left under /fast/scratch/hyaku/kagi-r70/R70Sentinel/kagi-r70: 0
+    52:trap 'rm -rf -- "$W"' EXIT
+
+===== G3: the trial's own token claim vs the token's real locations =====
+  7:# any real vault, `op`, or a real secret. HOME/TMPDIR are scratch; the dev root token is random,
+  the token is passed on the command line:
+    76:bao server -dev -dev-root-token-id="$TOK" -dev-listen-address="127.0.0.1:$PORT" >"$S/server.log" 2>&1 &
+  and is therefore in the process argv, readable by any local user via /proc/<pid>/cmdline:
+    mount: proc /proc proc rw,nosuid,nodev,noexec,relatime 0 0
+    /proc/self/cmdline mode: -r--r--r--
+  the lane's own controls runner captured exactly that argv into a committed receipt:
+    18:      p=${e#/proc/}; p=${p%/environ}; echo "reaped $p $(tr '\0' ' ' < /proc/$p/cmdline 2>/dev/null | cut -c1-80)"; kill "$p" 2>/dev/null
+    # Note: reaped-process lines in f5.txt had the dead throwaway dev-server root token masked after the run (r70-<redacted-dead-dev-token>); nothing else edited.

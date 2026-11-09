@@ -93,3 +93,66 @@ specificity leg; the attack wave reads the landed trial for any read of the `bao
 Census before/after with stdout/stderr/rc; new rows S170 (admit, tier A) and S171 (OpenBao PKI
 overview, opened for the same mechanics — decision recorded in the lesson Gate); one mistake mined
 into `corpus/lessons/round-70.md` `## Mistakes`; considerthese: at most one proposal, or a line.
+
+## Amendment A1 — post-wave narrowing (appended 2026-11-08 after the wave's attack reports; the frozen predicate, counter, target and kill rule above are unchanged)
+
+The counter's number is unchanged (`value=5` on the landed tree, target met); the claim's
+**wording** is narrowed to what the instrument enforces, citing the wave artifacts that falsify the
+wider sentence (Amendment 59 option (i)):
+
+- **C1 as filed:** the frozen counter reads `C1_PKI_TRIAL: value=5` on the landed tree — the five
+  named verdicts T1–T5 of `corpus/openbao-pki-trial.sh` each read HOLDS with the real OpenBao 2.7.2
+  binary, flip to BROKEN under their own falsifier shim and stay HOLDS under the other four, with
+  SETUP_OK, NOSECRET, NOLEAK and SOURCED at 1. It no longer says "the lane can execute the
+  mechanics its knowledge entry documents".
+- **The count does not prove execution** (`.ufo/waves/round-70/w1/R70Revenger.md` RE-1: forgeries
+  A shim-byte map, C transport bypass, D wrong observable each reach `value=5`; the plan named only
+  A). That the landed trial does execute the mechanics through the `bao` CLI with no shim detection
+  is a **reviewed** property (R70Reviewer RV-5, R70Critic CR-14, R70Revenger RE-2), not a counted one.
+- **T5 is a disjunction at the counter** (`.ufo/waves/round-70/w1/R70MutTester.md` MT-1: a trial
+  checking only read, or only list, still reads `value=5`). The conjunction "neither readable nor
+  listed" rests on the landed trial's code.
+- **Entry sentences the counter does not read** (`.ufo/waves/round-70/w1/R70Critic.md` CR-2…CR-10:
+  the generalised title, 3630 s, the warning text, `state revoked`, the response key list, the
+  refusal text, the consequence column) are relabelled in
+  `corpus/knowledge/openbao-pki-certificate-lifecycle.md`: the title is scoped to one dev mount, each
+  Measured line separates "enforced" from "observed" (observations receipted in
+  `.ufo/waves/round-70/final/l1-probe-observations.txt`), and the consequence column cites S170/S171
+  or carries `[INFERENCE]`.
+- **Axis name** (CR-11): "coverage" names the surface moved — PKI moved from unheld ground to an
+  executed core trial — not a coverage fraction; no denominator is claimed.
+- **Pre-move sentence corrected** (`.ufo/waves/round-70/w1/R70Connector.md` CN-1): "the lane holds no
+  … source row … for the OpenBao PKI secrets engine" was false. S105 (round 49) registers the same
+  URL, with a byte-identical capture, for one role parameter (`generate_lease`). True before this
+  round: no PKI knowledge entry, no PKI trial, no PKI capability row. S170 is a second row on the
+  same URL with a different scope (fleet census W04 25 → 26, R70ReviewerSrc SR-2) — mined as M70-1.
+- **Counter comment date** (CN-5): the counter header says S170 was opened 2026-11-09 (UTC); the
+  registry and entry record the local date 2026-11-08. Comment only; no leg reads it.
+
+## C1 — coverage: declared-axis heading (Amendment A2, appended with A1)
+
+The `corpus/claims-declared.sh` contract reads a column-0 heading `## <claim> — <axis>:` per
+manifest row; the frozen §C1 heading above carries the word "Claim" before `C1` and so does not
+match. This heading restates the frozen axis only (coverage, capability acquisition); the
+predicate, counter, target and kill rule are the ones frozen above, unchanged.
+
+## Amendment A3 — sentinel and harm findings (appended at integration; frozen predicate, counter, target and kill rule unchanged)
+
+- **Substituted server** (`.ufo/waves/round-70/w1/R70Sentinel.md` SE-1): the candidate trial did not
+  check that the server answering its port was the one it started, so a squatting local process
+  could shape all five verdicts and the frozen counter would still read `value=5`. Narrowing: as in
+  A1, `value=5` is a count of shim-discriminating verdicts, not proof that OpenBao answered. The
+  landed trial now refuses an unowned port (kernel-chosen port, `ss -Hltnp` pid check), so the
+  landed bytes no longer have this hole; the counter still cannot see it.
+- **NOSECRET scope** (SE-3): the leg reads the trial's stdout/stderr only, not its scratch; C1 as
+  filed claims nothing about scratch contents. The landed trial writes scratch under `umask 077`
+  and removes it on exit; a SIGKILL residual is bounded by `setpriv --pdeathsig KILL` (SE-4).
+- **Argv token** (SE-2): the candidate passed the dev root token on the server argv; the landed
+  trial passes it by environment only (M70-6).
+- **Post-wave trial bytes**: the landed `corpus/openbao-pki-trial.sh` differs from the candidate
+  `0d225553` (and from control P1) only in the launch/hygiene block named above; the frozen counter
+  is re-run on the landed revision and that reading is the one filed. The wave's non-author review
+  (RV-5) read the candidate bytes; the hardening diff is reviewed by the closure, not by a seat.
+- **Gate harm on the candidate** (`.ufo/waves/round-70/w1/R70ExecGates.md` GX-1/GX-2): repaired at
+  integration (stamps pins; S170/S171 recheck `180d`). GX-3 (R36-01) is re-measured at BASE and
+  on the landed tree in the report.

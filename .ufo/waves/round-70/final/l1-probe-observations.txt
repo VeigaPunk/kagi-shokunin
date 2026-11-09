@@ -1,0 +1,30 @@
+--T1 internal
+['certificate', 'expiration', 'issuer_id', 'issuer_name', 'issuing_ca', 'key_id', 'key_name', 'serial_number']
+--exported
+['certificate', 'expiration', 'issuer_id', 'issuer_name', 'issuing_ca', 'key_id', 'key_name', 'private_key', 'private_key_type', 'serial_number']
+--T2 ttl 24h vs max 1h
+rc=0
+warn ['TTL "24h0m0s" is longer than permitted maxTTL "1h0m0s", so maxTTL is being used']
+3c:11:23:07:e8:26:b2:45:13:36:dc:b2:69:9b:c8:75:3a:33:25:ce
+notBefore=Nov  9 01:11:41 2026 GMT
+notAfter=Nov  9 02:12:11 2026 GMT
+--T3 disallowed
+Error writing data to pki/issue/r1: Error making API request.
+* common name evil.example not allowed by this role
+rc=2
+--T4 revoke -> crl
+{'revocation_time': 1794186731, 'revocation_time_rfc3339': '2026-11-09T01:12:11.391312527Z', 'state': 'revoked'}
+    Serial Number: 3C112307E826B2451336DCB2699BC8753A3325CE
+cert serial 3c:11:23:07:e8:26:b2:45:13:36:dc:b2:69:9b:c8:75:3a:33:25:ce
+--T4b cert read status
+1794186731
+--T5 no_store role
+s2=2a:41:24:22:d2:80:b6:85:0b:71:cc:4f:55:fc:f1:72:7e:74:07:4d
+No value found at pki/cert/2a:41:24:22:d2:80:b6:85:0b:71:cc:4f:55:fc:f1:72:7e:74:07:4d
+rc=2
+3
+--T6 sign-verbatim / key_type
+rsa True
+--T7 ca chain verify
+c.pem: OK
+probe rc=0

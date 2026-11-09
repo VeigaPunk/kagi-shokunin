@@ -1,0 +1,47 @@
+=== the tree's trial is byte-identical to the landed candidate ===
+  200efcb2850df8e729631de1772f4423ef0ac90a8bb1b9a06e4fc499bdc8023d  /fast/scratch/hyaku/kagi-r70/R70Sentinel/forged-tree2/corpus/openbao-pki-trial.sh
+  200efcb2850df8e729631de1772f4423ef0ac90a8bb1b9a06e4fc499bdc8023d  /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/openbao-pki-trial.sh
+  IDENTICAL
+
+=== the substituted server: holds 20000-29999 bound-not-listening, listens on the
+    port the trial actually selects (learned from the trial's own server.log) ===
+
+=== FROZEN counter (plans/round-70-c1.sh --tree) ===
+C1_PKI_TRIAL: value=5 discriminating=5 pins=1 setup_ok=1 nosecret=1 noleak=1 sourced=1 real_rc=0 none_rc=2 T1:real=HOLDS,shim=BROKEN,spec=1,entry=1,ok=1 T2:real=HOLDS,shim=BROKEN,spec=1,entry=1,ok=1 T3:real=HOLDS,shim=BROKEN,spec=1,entry=1,ok=1 T4:real=HOLDS,shim=BROKEN,spec=1,entry=1,ok=1 T5:real=HOLDS,shim=BROKEN,spec=1,entry=1,ok=1
+counter rc=0
+
+=== (a) the trial's OWN dev server never bound — from the trial's own server.log ===
+  Error initializing listener of type tcp: listen tcp 127.0.0.1:21365: bind: address already in use
+
+=== (b) the substituted server answered every call, each with the trial's token ===
+  requests served: 137
+  carrying a 28-char dev token: 131
+  distinct dev tokens (one per counter run): 6
+  API paths the substituted server answered:
+          6 GET /v1/pki/cert/1111222233334444555567777888899990000
+          6 GET /v1/pki/cert/AAAA1111BBBB2222CCCC3333DDDD4444EEEE5555
+          6 GET /v1/pki/cert/crl
+          6 GET /v1/pki/certs?list=true
+          6 GET /v1/sys/leader
+          6 GET /v1/sys/seal-status
+          6 POST /v1/sys/mounts/pki
+          6 POST /v1/sys/mounts/pki/tune
+          6 PUT /v1/pki/config/issuers
+          6 PUT /v1/pki/issue/t2
+         12 PUT /v1/pki/issue/t3
+          6 PUT /v1/pki/issue/t4
+          6 PUT /v1/pki/issue/t5
+          6 PUT /v1/pki/issue/t5c
+          5 PUT /v1/pki/revoke
+          6 PUT /v1/pki/roles/t2
+          6 PUT /v1/pki/roles/t3
+          6 PUT /v1/pki/roles/t4
+          6 PUT /v1/pki/roles/t5
+          6 PUT /v1/pki/roles/t5c
+          1 PUT /v1/pki/root/generate/exported
+          5 PUT /v1/pki/root/generate/internal
+
+=== (c) the counter's verdict on that tree ===
+  C1_PKI_TRIAL: value=5 discriminating=5 pins=1 setup_ok=1 nosecret=1 noleak=1 sourced=1 real_rc=0 none_rc=2 T1:real=HOLDS,shim=BROKEN,spec=1,entry=1,ok=1 T2:real=HOLDS,shim=BROKEN,spec=1,entry=1,ok=1 T3:real=HOLDS,shim=BROKEN,spec=1,entry=1,ok=1 T4:real=HOLDS,shim=BROKEN,spec=1,entry=1,ok=1 T5:real=HOLDS,shim=BROKEN,spec=1,entry=1,ok=1
+
+=== dev servers left ===

@@ -1,0 +1,33 @@
+# check-census-w04.py receipts — R70ScribeLesson (round-70 lesson, M70-2)
+# receipt: kagi-shokunin/.ufo/waves/round-69/final/census-round-end.txt (committed; 25 W04 lines on stdout)
+# report: fleet .ufo/reports/round-69/kagi.md (committed)
+
+$ python3 check-census-w04.py <report> <receipt>
+
+## A) the filed round-69 report (expect FAIL)
+RECEIPT /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-69/final/census-round-end.txt
+  MEASURED W04 lines=25 (grep -c W04 == 25)
+REPORT  /home/vgpnk/Projects/shokunin/.ufo/reports/round-69/kagi.md
+  STATED   count=2 named_ids=['S156', 'S164']
+MISMATCH W04 stated=2 measured=25
+MISMATCH tail-read named_ids=['S156', 'S164'] are the LAST 2 of 25 W04 rows (population not counted)
+CENSUS_W04: FAIL
+rc=1
+
+## B) corrected wording (expect CLEAN)
+RECEIPT /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-69/final/census-round-end.txt
+  MEASURED W04 lines=25 (grep -c W04 == 25)
+REPORT  /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-70/w1/R70ScribeLesson/controls/corrected-report-snippet.md
+  STATED   count=25 named_ids=['S019', 'S164'] range=S019..S164
+CENSUS_W04: CLEAN
+rc=0
+
+## C) count still wrong, ids relabelled (expect FAIL)
+RECEIPT /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-69/final/census-round-end.txt
+  MEASURED W04 lines=25 (grep -c W04 == 25)
+REPORT  /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-70/w1/R70ScribeLesson/controls/relabelled-report.md
+  STATED   count=2 named_ids=['S019', 'S020']
+MISMATCH W04 stated=2 measured=25
+MISMATCH named_ids=['S019', 'S020'] are not the W04 population (measured ids=S019..S164, 25 rows)
+CENSUS_W04: FAIL
+rc=1

@@ -1,0 +1,13 @@
+===== H: SIGKILL mid-run, marker-attributed =====
+  our dev server pid=2941151 (found after ~250ms)
+  killing the trial bash (pid 2941112) with SIGKILL
+  after SIGKILL + 2s:
+    our marker-carrying dev server still alive? YES-ORPHAN
+    all bao server -dev now: [2941151 ]
+    scratch dirs left: 1
+    PEM-private-key files in the surviving scratch: 0
+    dev-token-shaped files in the surviving scratch: 2
+    home/.vault-token present: yes
+    home/.vault-token holds the dev token shape: 1
+  -> cleanup for this probe:
+  dev servers after cleanup: []

@@ -1,0 +1,6 @@
+TRIAL T1 HOLDS root-internal-cert-no-private-key
+TRIAL T2 HOLDS ttl-clamped-to-max-ttl-3630s
+TRIAL T3 HOLDS outside-refused-inside-issued
+TRIAL T4 HOLDS revoked-serial-on-crl
+TRIAL T5 HOLDS no-store-unreadable-unlisted-control-stored
+OPENBAO_PKI_TRIAL: HOLDS holds=5 broken=0 error=0

@@ -2262,3 +2262,25 @@ Correction (round 69): the line above prints `C1_VERIFIED_SELFTEST: PASS (59 cas
   and M69-10 (frozen legs never run against the existing gate before the freeze).
 - **Ledger.** `R68-01` 38/33 → 40/35 and `R68-02` repoint, both journaled; `R69-01`
   pins the measured L1–L11 subset only.
+
+## round 70 — 2026-11-08 (C1 coverage — capability acquisition: OpenBao PKI certificate lifecycle, executed)
+
+- **Freeze before candidate.** Plan, counter `plans/round-70-c1.sh` and eight executed prefreeze
+  controls (BASE no-work, positive reference, echo / shim-sniff / no-teeth / unsourced / leaking /
+  secret-printing forgeries) landed together in `430cee23`; every control matched its expected
+  verdict (`.ufo/waves/round-70/controls/receipts/`).
+- **C1 (met, wording narrowed).** `bash plans/round-70-c1.sh <rev>`: BASE `7bd34832` ⇒
+  `value=0 absent=1` rc 1; candidate `0d225553` ⇒ `C1_PKI_TRIAL: value=5 … nosecret=1 noleak=1
+  sourced=1` rc 0. New trial `corpus/openbao-pki-trial.sh` (T1 internal root key not returned,
+  T2 max_ttl clamp, T3 allowed_domains refusal, T4 revoked serial on the CRL, T5 no_store not found
+  by serial), entry `corpus/knowledge/openbao-pki-certificate-lifecycle.md`. Wave attacks narrowed
+  the wording (plan Amendment A1): the count does not prove execution (R70Revenger RE-1), T5 is a
+  disjunction at the counter (R70MutTester MT-1), unenforced entry details relabelled (R70Critic).
+- **Measured domain fact.** OpenBao 2.7.2 clamps a `ttl` above the role `max_ttl` with a warning
+  and exit 0; S170's "Cannot be greater than the role's max_ttl value" is not a refusal.
+- **Frontier.** S170 (OpenBao PKI API) and S171 (PKI overview) admitted tier A; S172 (Vault PKI
+  API) rejected for OpenBao scope with flip. S170 duplicates S105's URL (M70-1). Census `kagi ok`
+  rc 0 at start (25 W04, stdout) and end (26 W04).
+- **Mistakes mined** (`corpus/lessons/round-70.md`): M70-1 registry URL not searched before
+  append; M70-2/M70-3 the round-69 report's two routed miscounts; M70-4 revision binding of a
+  warning count; M70-5 the freeze named one forgery ceiling of three. QM101 enters the bar.

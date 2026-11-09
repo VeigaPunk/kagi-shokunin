@@ -1,0 +1,25 @@
+# check-report-counts.py receipts — R70ScribeLesson (round-70 lesson, M70-1)
+# ledger: kagi-shokunin/.ufo/waves/round-69/claim-falsification.tsv (committed; 6 falsifies-wording / 2 falsifies-number / 5 neutral / 13 rows)
+# report: fleet .ufo/reports/round-69/kagi.md (committed)
+
+$ python3 check-report-counts.py <report> <ledger>
+
+## A) the filed round-69 report (expect FAIL)
+LEDGER /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-69/claim-falsification.tsv
+  MEASURED rows=13 falsifies-wording=6 falsifies-number=2 neutral=5
+REPORT /home/vgpnk/Projects/shokunin/.ufo/reports/round-69/kagi.md
+  STATED   rows=13 falsifies-wording=8 falsifies-number=2 neutral=None
+  IMPLIED   unstated-classes=3 (measured neutral=5)
+MISMATCH falsifies-wording stated=8 measured=6
+MISMATCH implied-neutral=3 measured-neutral=5
+REPORT_COUNTS: FAIL (2 mismatch(es))
+rc=1
+
+## B) corrected wording (expect CLEAN)
+LEDGER /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-69/claim-falsification.tsv
+  MEASURED rows=13 falsifies-wording=6 falsifies-number=2 neutral=5
+REPORT /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-70/w1/R70ScribeLesson/controls/corrected-report-snippet.md
+  STATED   rows=13 falsifies-wording=6 falsifies-number=2 neutral=None
+  IMPLIED   unstated-classes=5 (measured neutral=5)
+REPORT_COUNTS: CLEAN
+rc=0

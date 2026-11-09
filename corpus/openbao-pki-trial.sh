@@ -4,9 +4,15 @@
 # PATH, on a throwaway `bao server -dev` bound to 127.0.0.1 with in-memory storage.
 #
 # Refusal bounds: never reads ~/.vault-token, ~/.bao*, any VAULT_*/BAO_* variable of the caller,
-# any real vault, `op`, or a real secret. HOME/TMPDIR are scratch; the dev root token is random,
-# lives only in scratch and is never printed; no private key, certificate body or CRL body is
-# printed. The dev server is killed on every exit path (EXIT/INT/TERM/HUP) and the scratch removed.
+# any real vault, `op`, or a real secret. HOME/TMPDIR are scratch (umask 077); the dev root token
+# is random, never on any argv (server: BAO_DEV_ROOT_TOKEN_ID; client: BAO_TOKEN), never stored
+# (-dev-no-store-token) and never printed; the server's own output goes to /dev/null. No private
+# key, certificate body or CRL body is printed. The dev server runs under
+# `setpriv --pdeathsig KILL` (it dies with the trial, SIGKILL included), the port is taken from
+# the kernel and then checked to be held by that server's own pid (a process squatting the port
+# is refused, never trusted), and the server is killed and the scratch removed on every trappable
+# exit path (EXIT/INT/TERM/HUP). Hardening added at round-70 integration after R70Sentinel
+# SE-1/SE-2/SE-4; pattern reused from corpus/openbao-kv-versions-trial.sh.
 #
 # Tests (source S170 = OpenBao PKI secrets-engine API docs; S171 = PKI engine overview):
 #   T1 root-internal   S170 §Generate key: "if internal the private key will not be returned and
@@ -53,6 +59,9 @@ command -v bao >/dev/null 2>&1 || setup bao-missing
 command -v openssl >/dev/null 2>&1 || setup openssl-missing
 command -v python3 >/dev/null 2>&1 || setup python3-missing
 BV=$(bao version 2>/dev/null | awk '{print $2}'); OV=$(openssl version 2>/dev/null | awk '{print $2}')
+command -v setpriv >/dev/null 2>&1 || setup setpriv-missing
+command -v ss >/dev/null 2>&1 || setup ss-missing
+umask 077
 
 # Scrub every caller VAULT_*/BAO_* variable.
 for v in $(env | sed -n 's/^\(\(VAULT\|BAO\)_[A-Za-z0-9_]*\)=.*/\1/p'); do unset "$v"; done
@@ -66,18 +75,29 @@ trap cleanup EXIT
 trap 'exit 130' INT TERM HUP
 export HOME="$S/home" TMPDIR="$S/tmp"; mkdir -p "$HOME" "$TMPDIR"
 
-PORT=""
-for _ in $(seq 1 40); do
-  p=$((20000 + $(od -An -N2 -tu2 /dev/urandom | tr -d ' ') % 10000))
-  (exec 3<>"/dev/tcp/127.0.0.1/$p") 2>/dev/null || { PORT=$p; break; }
-done
-[ -n "$PORT" ] || setup no-free-port
-TOK="r70-$(od -An -N12 -tx1 /dev/urandom | tr -d ' \n')"
-bao server -dev -dev-root-token-id="$TOK" -dev-listen-address="127.0.0.1:$PORT" >"$S/server.log" 2>&1 &
-SP=$!
-export BAO_ADDR="http://127.0.0.1:$PORT" BAO_TOKEN="$TOK"
-up=0; for _ in $(seq 1 60); do bao status >/dev/null 2>&1 && { up=1; break; }; sleep 0.25; done
-[ $up = 1 ] || setup dev-server-not-ready
+start_server() { # sets SP, BAO_ADDR, BAO_TOKEN; 0 on success
+  local port tok ok
+  for _ in 1 2 3; do
+    port=$(python3 -c 'import socket;s=socket.socket();s.bind(("127.0.0.1",0));print(s.getsockname()[1]);s.close()') || return 1
+    tok="r70-$(od -An -N12 -tx1 /dev/urandom | tr -d ' \n')"
+    BAO_DEV_ROOT_TOKEN_ID="$tok" setpriv --pdeathsig KILL bao server -dev -dev-listen-address="127.0.0.1:$port" -dev-no-store-token >/dev/null 2>&1 &
+    SP=$!
+    ok=0
+    for _ in $(seq 1 300); do
+      kill -0 "$SP" 2>/dev/null || break
+      if ss -Hltnp "sport = :$port" 2>/dev/null | grep -q "pid=$SP,"; then ok=1; break; fi
+      sleep 0.1
+    done
+    if [ "$ok" = 1 ]; then
+      export BAO_ADDR="http://127.0.0.1:$port" BAO_TOKEN="$tok"
+      for _ in $(seq 1 100); do bao status >/dev/null 2>&1 && return 0; sleep 0.1; done
+    fi
+    kill "$SP" 2>/dev/null; wait "$SP" 2>/dev/null; SP=""
+    unset BAO_ADDR BAO_TOKEN
+  done
+  return 1
+}
+start_server || setup dev-server-not-ready
 
 q() { bao "$@" >/dev/null 2>&1; }
 jget() { python3 -c 'import json,sys

@@ -1,0 +1,39 @@
+# Round-70 lesson draft — the two routed counts, measured by the seat
+# (R70ScribeLesson; all commands run from the lane root)
+
+== V1: falsifies-wording row count in .ufo/waves/round-69/claim-falsification.tsv ==
+$ awk -F'\t' '$1 !~ /^#/ && NF>0 {print $3}' .ufo/waves/round-69/claim-falsification.tsv | sort | uniq -c
+      2 falsifies-number
+      6 falsifies-wording
+      5 neutral
+
+$ awk -F'\t' '$1 !~ /^#/ && NF>0 && $3=="falsifies-wording"' .ufo/waves/round-69/claim-falsification.tsv | wc -l
+6
+
+$ git show 7bd34832c94b81d4cf9bf34113c4952a7f6d9b04:.ufo/waves/round-69/claim-falsification.tsv | awk -F'\t' '$1 !~ /^#/ && NF>0 {print $3}' | sort | uniq -c   # the committed bytes at BASE
+      2 falsifies-number
+      6 falsifies-wording
+      5 neutral
+
+== the filed report sentence (fleet repo, .ufo/reports/round-69/kagi.md:65) ==
+65:  R69Connector) read; eight `falsifies-wording` rows all point to the honest stop in `plans/round-69.md`;
+
+== V2: W04 census-warning lines in the round-69 round-END receipt ==
+$ grep -c 'W04' .ufo/waves/round-69/final/census-round-end.txt
+25
+
+$ grep -n 'W04' .ufo/waves/round-69/final/census-round-end.txt | tail -3   # the last two rows are S156, S164
+24:kagi	W04	S155 duplicate url eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pmc&id=2757457&retmode=xml across scopes
+25:kagi	W04	S156 duplicate url www.ncbi.nlm.nih.gov/research/bionlp/RESTful/pmcoa.cgi/BioC_xml/PMC2757457/unicode across scopes
+26:kagi	W04	S164 duplicate url www.ncbi.nlm.nih.gov/research/bionlp/RESTful/pmcoa.cgi/BioC_xml/PMC2757457/unicode across scopes
+
+== the filed report sentence (fleet repo, .ufo/reports/round-69/kagi.md:97) ==
+97:  → `kagi ok`, exit 0 (two pre-existing W04 warnings on S156/S164) (`.ufo/waves/round-69/final/census-round-end.txt`).
+
+== V3: where the W04 lines go (this round, round-70 base receipt) ==
+$ grep -c 'W04' .ufo/waves/round-70/base/census-round-start.stdout.txt
+25
+$ wc -c .ufo/waves/round-70/base/census-round-start.stderr.txt
+0 /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-70/base/census-round-start.stderr.txt
+$ cat .ufo/waves/round-70/base/census-round-start.rc
+rc=0

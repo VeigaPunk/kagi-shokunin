@@ -1,0 +1,42 @@
+############ PROBE A — success path ############
+rc=0
+secret_ere_hits=0
+--- stdout ---
+TRIAL T1 HOLDS certificate-returned no-private_key
+TRIAL T2 HOLDS requested=86400s lifetime=3630s max=3600s
+TRIAL T3 HOLDS outside-cn-refused inside-cn-issued
+TRIAL T4 HOLDS serial-on-crl
+TRIAL T5 HOLDS no_store-cert-unreadable-unlisted stored-control-readable
+OPENBAO_PKI_TRIAL: HOLDS holds=5 broken=0 error=0 bao=v2.7.2 openssl=3.6.5
+--- stderr ---
+work dir left behind: []
+TMPDIR leftovers: []
+/tmp leftovers: []
+
+############ PROBE B — SH1 exported-root shim (response carries private_key) ############
+rc=1
+poller observations (dedup):
+  observed: /fast/scratch/hyaku/kagi-r70/R70Sentinel/B/work/kagi-pki-trial.vlBQfC/t1.json size=0 pem_lines=0 key_field=0
+  observed: /fast/scratch/hyaku/kagi-r70/R70Sentinel/B/work/kagi-pki-trial.vlBQfC/t1.json size=4923 pem_lines=1 key_field=1
+secret_ere_hits=0
+--- stdout ---
+TRIAL T1 BROKEN private_key-returned
+TRIAL T2 HOLDS requested=86400s lifetime=3630s max=3600s
+TRIAL T3 HOLDS outside-cn-refused inside-cn-issued
+TRIAL T4 HOLDS serial-on-crl
+TRIAL T5 HOLDS no_store-cert-unreadable-unlisted stored-control-readable
+OPENBAO_PKI_TRIAL: BROKEN holds=4 broken=1 error=0 bao=v2.7.2 openssl=3.6.5
+--- stderr ---
+occurrences of the literal field name in stdout: 1 (the KEY ITSELF is not printed)
+work dir left behind (scratch removed?): []
+
+############ PROBE C — injected failure: PATH shim whose 'secrets enable' fails and leaks the live dev token ############
+rc=2
+secret_ere_hits=0
+--- stdout ---
+OPENBAO_PKI_TRIAL: SETUP holds=0 broken=0 error=0 bao=v2.7.2 openssl=3.6.5
+--- stderr ---
+SETUP pki-enable
+canary in stdout=0 stderr=0
+work dir left behind: []
+live dev servers now: []

@@ -1,0 +1,223 @@
+{
+ "schema": "ufo-swarm-wave-dispatch-v1",
+ "wave": "kagi-r70-w1",
+ "policy": {
+  "source": "config",
+  "maxLanes": 256,
+  "minLanes": 8,
+  "waveMinLanes": 8,
+  "waveMaxLanes": 16,
+  "declaredMaxLanes": null,
+  "hardCeiling": 256,
+  "rampBatchSize": 5,
+  "rampIntervalMs": 700,
+  "globalRunnerCeiling": 1056
+ },
+ "counts": {
+  "spawn": 12,
+  "resume": 0,
+  "total": 12
+ },
+ "registry": {
+  "schema": "ufo-swarm-registry-v1",
+  "path": ".ufo/waves/round-70/w1/swarm-registry.json",
+  "reportDir": ".ufo/waves/round-70/w1",
+  "members": {
+   "R70Reviewer": {
+    "kind": "spawn",
+    "agentId": null,
+    "role": "reviewer",
+    "item": null,
+    "axes": [
+     "coverage"
+    ],
+    "milestone": "round 70: C1 coverage capability — OpenBao PKI certificate lifecycle trial; 12 seats, attack 4 (2 reviewer, critic, mutation-tester) plus sentinel/revenger/connector adversaries"
+   },
+   "R70ReviewerSrc": {
+    "kind": "spawn",
+    "agentId": null,
+    "role": "reviewer",
+    "item": null,
+    "axes": [
+     "coverage"
+    ],
+    "milestone": "round 70: C1 coverage capability — OpenBao PKI certificate lifecycle trial; 12 seats, attack 4 (2 reviewer, critic, mutation-tester) plus sentinel/revenger/connector adversaries"
+   },
+   "R70Critic": {
+    "kind": "spawn",
+    "agentId": null,
+    "role": "critic",
+    "item": null,
+    "axes": [
+     "coverage"
+    ],
+    "milestone": "round 70: C1 coverage capability — OpenBao PKI certificate lifecycle trial; 12 seats, attack 4 (2 reviewer, critic, mutation-tester) plus sentinel/revenger/connector adversaries"
+   },
+   "R70MutTester": {
+    "kind": "spawn",
+    "agentId": null,
+    "role": "mutation-tester",
+    "item": null,
+    "axes": [
+     "coverage"
+    ],
+    "milestone": "round 70: C1 coverage capability — OpenBao PKI certificate lifecycle trial; 12 seats, attack 4 (2 reviewer, critic, mutation-tester) plus sentinel/revenger/connector adversaries"
+   },
+   "R70Sentinel": {
+    "kind": "spawn",
+    "agentId": null,
+    "role": "sentinel",
+    "item": null,
+    "axes": [
+     "coverage"
+    ],
+    "milestone": "round 70: C1 coverage capability — OpenBao PKI certificate lifecycle trial; 12 seats, attack 4 (2 reviewer, critic, mutation-tester) plus sentinel/revenger/connector adversaries"
+   },
+   "R70Revenger": {
+    "kind": "spawn",
+    "agentId": null,
+    "role": "revenger",
+    "item": null,
+    "axes": [
+     "coverage"
+    ],
+    "milestone": "round 70: C1 coverage capability — OpenBao PKI certificate lifecycle trial; 12 seats, attack 4 (2 reviewer, critic, mutation-tester) plus sentinel/revenger/connector adversaries"
+   },
+   "R70ExecReplica": {
+    "kind": "spawn",
+    "agentId": null,
+    "role": "executor",
+    "item": null,
+    "axes": [
+     "coverage"
+    ],
+    "milestone": "round 70: C1 coverage capability — OpenBao PKI certificate lifecycle trial; 12 seats, attack 4 (2 reviewer, critic, mutation-tester) plus sentinel/revenger/connector adversaries"
+   },
+   "R70ExecGates": {
+    "kind": "spawn",
+    "agentId": null,
+    "role": "executor",
+    "item": null,
+    "axes": [
+     "coverage"
+    ],
+    "milestone": "round 70: C1 coverage capability — OpenBao PKI certificate lifecycle trial; 12 seats, attack 4 (2 reviewer, critic, mutation-tester) plus sentinel/revenger/connector adversaries"
+   },
+   "R70Scout": {
+    "kind": "spawn",
+    "agentId": null,
+    "role": "scout",
+    "item": null,
+    "axes": [
+     "coverage"
+    ],
+    "milestone": "round 70: C1 coverage capability — OpenBao PKI certificate lifecycle trial; 12 seats, attack 4 (2 reviewer, critic, mutation-tester) plus sentinel/revenger/connector adversaries"
+   },
+   "R70Connector": {
+    "kind": "spawn",
+    "agentId": null,
+    "role": "connector",
+    "item": null,
+    "axes": [
+     "coverage"
+    ],
+    "milestone": "round 70: C1 coverage capability — OpenBao PKI certificate lifecycle trial; 12 seats, attack 4 (2 reviewer, critic, mutation-tester) plus sentinel/revenger/connector adversaries"
+   },
+   "R70ScribeLesson": {
+    "kind": "spawn",
+    "agentId": null,
+    "role": "scribe",
+    "item": null,
+    "axes": [
+     "coverage"
+    ],
+    "milestone": "round 70: C1 coverage capability — OpenBao PKI certificate lifecycle trial; 12 seats, attack 4 (2 reviewer, critic, mutation-tester) plus sentinel/revenger/connector adversaries"
+   },
+   "R70ScribeSkill": {
+    "kind": "spawn",
+    "agentId": null,
+    "role": "scribe",
+    "item": null,
+    "axes": [
+     "coverage"
+    ],
+    "milestone": "round 70: C1 coverage capability — OpenBao PKI certificate lifecycle trial; 12 seats, attack 4 (2 reviewer, critic, mutation-tester) plus sentinel/revenger/connector adversaries"
+   }
+  }
+ },
+ "compaction": {
+  "applied": false,
+  "mechanism": null,
+  "reason": null,
+  "savedBytes": 0,
+  "payloadBytesBefore": 0,
+  "payloadBytesAfter": 0
+ },
+ "taskCall": {
+  "context": "kagi round 70 attempt 1, ONE v1 wave kagi-r70-w1, 12 seats (run-15 band 8-16; attack 4/12 = 33%: 2 reviewer, critic, mutation-tester; plus sentinel, revenger and 1 connector as section-8 adversaries). L1 = KagiR70 (integration owner; holds the planner seat).\nLANE: /home/vgpnk/Projects/shokunin/kagi-shokunin (branch master, jj-colocated). Claim BASE 7bd34832c94b81d4cf9bf34113c4952a7f6d9b04. Frozen predeclaration plans/round-70.md + counter plans/round-70-c1.sh + 8 executed prefreeze controls landed 430cee23eeb81ecf663015851e66332bf16f2a74 (counter sha256 8412b665ff181265794cd94db4a28f11ef1878d0fe9a77fbff954020fd7192ed). Candidate landed 0d225553c22f686df24454040102d0502eda5c42: corpus/openbao-pki-trial.sh (bytes identical to the P1 positive control), corpus/knowledge/openbao-pki-certificate-lifecycle.md, corpus/SOURCES.md rows S170 (mined), S171 (mined), S172 (rejected), corpus/source-fetches.tsv rows, captures .ufo/waves/round-70/capture/.\nONE CLAIM: C1 coverage (capability acquisition) — `C1_PKI_TRIAL: value = number of tests T in {T1..T5} that DISCRIMINATE, when PINS = 1 and SETUP_OK = 1 and NOSECRET = 1 and NOLEAK = 1 and SOURCED = 1, else 0; target 5 (BASE 0).` Counting command: `bash plans/round-70-c1.sh <rev>` (run from /home/vgpnk/Projects/shokunin/kagi-shokunin). The plan and counter are FROZEN: never edit, amend or reinterpret them; attack them.\nREAD FIRST: /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-70.md; /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-70-c1.sh; /home/vgpnk/Projects/shokunin/kagi-shokunin/plans/round-70-controls.sh and /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-70/controls/receipts/; /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/openbao-pki-trial.sh; /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/knowledge/openbao-pki-certificate-lifecycle.md; /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/QUALITY.md (the lane's bar).\nWRITE SCOPE: you write ONLY your own report file and files under your own dir /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-70/w1/<YourSeatName>/ — nothing else in the lane, nothing in the fleet repo (/home/vgpnk/Projects/shokunin outside the lane), no sibling lane, never ~/.omp. Every `Report:` trailer path is relative to /home/vgpnk/Projects/shokunin/kagi-shokunin — write it at /home/vgpnk/Projects/shokunin/kagi-shokunin/<that path>. Use absolute paths for every read and write: your tools start at the fleet root.\nNEVER commit, push, or run any mutating git or jj command in the lane or the fleet repo (no add/commit/stash/checkout/reset/pull/push; jj only read-only with --ignore-working-copy). Read-only git (log, show, diff, archive, ls-files, rev-parse) is fine. A fixture repo, if you need one: D=$(mktemp -d \"$S/fx.XXXXXX\") && git -C \"$D\" init -q, and assert `git -C \"$D\" rev-parse --show-toplevel` equals \"$D\" before any mutating git call; never pass an empty or unchecked variable to git -C.\nSCRATCH: S=/fast/scratch/hyaku/kagi-r70/<YourSeatName>; mkdir -p \"$S\"; pass it explicitly (TMPDIR=$S, --work $S); /tmp only for files under 50 MB; `trap 'rm -rf -- \"$S\"' EXIT` in shell; copy receipts you cite into /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-70/w1/<YourSeatName>/ first. A /tmp or scratch path is never citable evidence.\nPROCESS HYGIENE: every `bao server -dev` you start must be killed before you yield (the trial and counter do this themselves; if you start one by hand, trap-kill it). Never spawn CPU burners or load generators. Never mutate host sysctls, /boot, systemd units or anything outside your scratch and wave dir. The frozen counter takes ~6-7 minutes per run (7 trial runs) — run it with a generous timeout and do not run more than 2 counter runs concurrently.\nTOOLING: Tooling authorization (operator, 2026-10-19): you may install or upgrade tools that help the task — read /home/vgpnk/.omp/agent/RULES.md first (official channels, update-safety gate; record tool/version/channel/reason in your report). pacman guard: ALL pacman transactions are PAUSED host-wide — install via uv tool / npx / an official binary in ~/.local/bin, or report the need; never -Sy, -Syu, -U, -R, downgrade or restart a host service.\nREFUSAL BOUNDARY (kagi): never read or print a real secret, vault, `op` item, ~/.vault-token, ~/.ssh or credential file; only throwaway dev servers and synthetic names under r70.test. Never print a private key, a dev root token or a token-shaped string in your report.\nNO SUBAGENTS: you are a leaf; never call task.\nOUTPUT CONTRACT: your report file starts with `Author: <YourSeatName> (<role>)`. Attack seats (reviewer, critic, mutation-tester, sentinel, revenger, connector) end the report with one line per finding: `FINDING <id> <falsifies-wording|falsifies-number|neutral> <one-line note>` (plain text, not inside a code block), and every seat ends with exactly one line `SEAT-STATUS: complete|partial|blocked <reason>`. Your final chat answer repeats the FINDING and SEAT-STATUS lines verbatim.",
+  "tasks": [
+   {
+    "name": "R70Reviewer",
+    "agent": "reviewer",
+    "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nReview the C1 freeze and measurement end to end. Your dir: /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-70/w1/R70Reviewer/ ; your report: /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-70/w1/R70Reviewer.md ; scratch S=/fast/scratch/hyaku/kagi-r70/R70Reviewer.\n1. Confirm the predicate sentence in plans/round-70.md §C1 is byte-identical to the counter header's predicate and that the code implements each conjunct (PINS, DISCRIMINATE incl. specificity, SETUP_OK, NOSECRET, NOLEAK, SOURCED, exit codes). Cite counter line numbers.\n2. Confirm commit order: freeze 430cee23eeb81ecf663015851e66332bf16f2a74 is an ancestor of candidate 0d225553c22f686df24454040102d0502eda5c42; the freeze commit adds no corpus/openbao-pki-trial.sh, entry or S170 row (git show --stat).\n3. Re-run the frozen counter yourself on 0d225553c22f686df24454040102d0502eda5c42: `cd /home/vgpnk/Projects/shokunin/kagi-shokunin && bash plans/round-70-c1.sh 0d225553c22f686df24454040102d0502eda5c42` and on the BASE 7bd34832c94b81d4cf9bf34113c4952a7f6d9b04; save both outputs + rc to your dir. Compare with /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-70/final/c1-candidate.txt if it exists.\n4. Check each control receipt in /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-70/controls/receipts/ against the expected verdicts in the runner header; rerun at least F1 and F2 (`bash plans/round-70-c1.sh --tree /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-70/controls/f1`).\n5. Read corpus/openbao-pki-trial.sh for any read of the `bao` binary's bytes (the named ceiling) or any path that bypasses the CLI (curl to the API) in a way that would dodge a shim.\nFindings: FINDING lines (ids RV-1..).\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: round 70: C1 coverage capability — OpenBao PKI certificate lifecycle trial; 12 seats, attack 4 (2 reviewer, critic, mutation-tester) plus sentinel/revenger/connector adversaries\n\nReport: write your scoped findings to .ufo/waves/round-70/w1/R70Reviewer.md"
+   },
+   {
+    "name": "R70ReviewerSrc",
+    "agent": "reviewer",
+    "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nNon-author source spot-check of the round's registry delta. Your dir: /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-70/w1/R70ReviewerSrc/ ; your report: /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-70/w1/R70ReviewerSrc.md ; scratch S=/fast/scratch/hyaku/kagi-r70/R70ReviewerSrc.\nRe-open live (curl -fsSL --compressed with a browser user agent, into your scratch): S170 https://openbao.org/docs/api/secret/pki/ , S171 https://openbao.org/docs/secrets/pki/ , S172 https://developer.hashicorp.com/vault/api-docs/secret/pki . For each: HTTP status, byte count, sha256 vs the committed capture /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-70/capture/S17x.body and the corpus/source-fetches.tsv row; locate the row's quote with `python3 /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/rendered-text-v1.py locate <body> '<quote>'` (count ≥1, quote ≤25 words); check the registry row (corpus/SOURCES.md) for 11 cells, status/used-by consistency, tier. Judge each gate decision: S170 admit, S171 admit, S172 reject (Vault page refused as evidence for OpenBao behaviour) — agree/disagree with reasons. Also verify each of the entry's five `## Measured` statements is supported by S170/S171 text OR marked as measured-only (e.g. the clamp vs 'Cannot be greater'). Run `bash /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/sources-census.sh` and `/home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --root /home/vgpnk/Projects/shokunin kagi` (stdout, stderr, rc separately) and save receipts. FINDING ids SR-1..\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: round 70: C1 coverage capability — OpenBao PKI certificate lifecycle trial; 12 seats, attack 4 (2 reviewer, critic, mutation-tester) plus sentinel/revenger/connector adversaries\n\nReport: write your scoped findings to .ufo/waves/round-70/w1/R70ReviewerSrc.md"
+   },
+   {
+    "name": "R70Critic",
+    "agent": "critic",
+    "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nFalsify C1's WORDING against what the frozen instrument enforces (Amendment 59: the killing artifact must be found before the report, by you). Your dir: /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-70/w1/R70Critic/ ; your report: /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-70/w1/R70Critic.md ; scratch S=/fast/scratch/hyaku/kagi-r70/R70Critic.\nThe claim says the lane \"can execute the OpenBao PKI certificate-lifecycle mechanics its knowledge entry documents\". Enumerate every factual sentence in corpus/knowledge/openbao-pki-certificate-lifecycle.md (title, Why table, Measured T1-T5, Does-not-establish) and classify each: (a) enforced by the trial+counter (a shim would flip it), (b) stated but not enforced (e.g. the exact 3630 s, the warning text, `state revoked`, '30 s backdate', exit 0 on the clamp), (c) unsupported. Run the trial yourself once: `bash /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/openbao-pki-trial.sh --work $S` and record its output. For each (b)/(c) sentence state whether the claim wording over-reaches the instrument (falsifies-wording) or is honestly scoped (neutral), and propose the narrowest honest wording. Also attack: is 'coverage' the right axis name for the surface (frontier→core new operation class)? Does the BASE control F0 make the do-nothing comparison meaningful? FINDING ids CR-1..\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: round 70: C1 coverage capability — OpenBao PKI certificate lifecycle trial; 12 seats, attack 4 (2 reviewer, critic, mutation-tester) plus sentinel/revenger/connector adversaries\n\nReport: write your scoped findings to .ufo/waves/round-70/w1/R70Critic.md"
+   },
+   {
+    "name": "R70MutTester",
+    "agent": "mutation-tester",
+    "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nMutation-test the frozen C1 instrument through the trial. Your dir: /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-70/w1/R70MutTester/ ; your report: /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-70/w1/R70MutTester.md ; scratch S=/fast/scratch/hyaku/kagi-r70/R70MutTester.\nBuild at least 8 mutants of /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/openbao-pki-trial.sh, each in its own fixture tree $S/m<k>/ containing corpus/openbao-pki-trial.sh (mutated), corpus/knowledge/openbao-pki-certificate-lifecycle.md and corpus/SOURCES.md copied from the lane. Suggested classes: drop the private_key check (T1 always HOLDS); widen the T2 bound to 100000 s; T3 checks only the inside CN; T4 greps the serial without ':'-stripping / compares lower-case; T4 reads revocation_time from the revoke response instead of the CRL; T5 drops the list check; T5 drops the read check; trial prints the root token on stderr; trial never kills the server on the success path; trial exits 0 on ERROR. Predict each mutant's counter verdict BEFORE running, then run `cd /home/vgpnk/Projects/shokunin/kagi-shokunin && bash plans/round-70-c1.sh --tree $S/m<k>` (max 2 concurrently) and record killed (value<5) / survived. Save a table mutants.tsv (id, class, diff summary, predicted, observed value line, killed). A surviving mutant that weakens a stated property is a FINDING falsifies-wording. FINDING ids MT-1..\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: round 70: C1 coverage capability — OpenBao PKI certificate lifecycle trial; 12 seats, attack 4 (2 reviewer, critic, mutation-tester) plus sentinel/revenger/connector adversaries\n\nReport: write your scoped findings to .ufo/waves/round-70/w1/R70MutTester.md"
+   },
+   {
+    "name": "R70Sentinel",
+    "agent": "sentinel",
+    "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nSecurity and hygiene audit of corpus/openbao-pki-trial.sh and the counter. Your dir: /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-70/w1/R70Sentinel/ ; your report: /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-70/w1/R70Sentinel.md ; scratch S=/fast/scratch/hyaku/kagi-r70/R70Sentinel.\nCheck by execution, not reading alone: (1) no private key, root token or token-shaped string reaches stdout/stderr on the success path, on an injected failure path (e.g. PATH with a bao shim that fails `secrets enable`), and under the SH1 exported-root shim (the response then carries a private_key — confirm it is never printed and its scratch file is removed); (2) SIGTERM and SIGINT delivered mid-run (after the server is up) leave no `bao server` child alive and no scratch dir (check by a unique env marker you set, e.g. scan /proc/*/environ for it); (3) no hardcoded /tmp, honours --work and TMPDIR; (4) VAULT_*/BAO_* caller variables are scrubbed (set BAO_ADDR to a bogus value and BAO_TOKEN to a fake value and confirm the trial still talks only to its own server); (5) the port probe cannot attach to another process's server. Save every receipt. FINDING ids SE-1..\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: round 70: C1 coverage capability — OpenBao PKI certificate lifecycle trial; 12 seats, attack 4 (2 reviewer, critic, mutation-tester) plus sentinel/revenger/connector adversaries\n\nReport: write your scoped findings to .ufo/waves/round-70/w1/R70Sentinel.md"
+   },
+   {
+    "name": "R70Revenger",
+    "agent": "revenger",
+    "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nReverse-engineer the frozen counter's blind spots and try to beat it (the plan names one ceiling: a trial reading the shim bytes). Your dir: /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-70/w1/R70Revenger/ ; your report: /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-70/w1/R70Revenger.md ; scratch S=/fast/scratch/hyaku/kagi-r70/R70Revenger.\nBuild, in fixture trees under $S (lane entry + SOURCES copied), up to 4 forgeries that try to reach `C1_PKI_TRIAL: value=5` WITHOUT executing the PKI mechanics honestly, e.g.: (a) read `$(command -v bao)` bytes and map each shim body to the one test it targets; (b) detect shims by argv echo or timing; (c) use curl to the API for the asserting calls so shims cannot reach them, plus a sniff; (d) anything else you find in plans/round-70-c1.sh. Run `cd /home/vgpnk/Projects/shokunin/kagi-shokunin && bash plans/round-70-c1.sh --tree <fixture>` on each (max 2 concurrently). Report which forgeries reach value=5 (that is a surviving forgery: name it precisely) and which are caught and by which leg. Then read the landed corpus/openbao-pki-trial.sh and state whether it does any of these (it must not). FINDING ids RE-1..\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: round 70: C1 coverage capability — OpenBao PKI certificate lifecycle trial; 12 seats, attack 4 (2 reviewer, critic, mutation-tester) plus sentinel/revenger/connector adversaries\n\nReport: write your scoped findings to .ufo/waves/round-70/w1/R70Revenger.md"
+   },
+   {
+    "name": "R70ExecReplica",
+    "agent": "executor",
+    "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nHeld-out replication: write an INDEPENDENT trial from the source docs, without opening /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/openbao-pki-trial.sh or the controls/p1 copy (do not read them; you may read the plan, the counter and the entry). Your dir: /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-70/w1/R70ExecReplica/ ; your report: /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-70/w1/R70ExecReplica.md ; scratch S=/fast/scratch/hyaku/kagi-r70/R70ExecReplica.\nRead S170 (https://openbao.org/docs/api/secret/pki/) and implement T1-T5 exactly as the frozen counter's contract requires (output lines `TRIAL T<n> HOLDS|BROKEN|ERROR <detail>`, final `OPENBAO_PKI_TRIAL: ...`, `--work DIR`, exit 0/1/2, exit 2 with no HOLDS line when bao is absent, every engine call through the `bao` CLI on PATH, never print secrets, kill the dev server on every exit path). Put it at /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-70/w1/R70ExecReplica/fixture/corpus/openbao-pki-trial.sh with the lane's entry and SOURCES.md copied beside it, then run `cd /home/vgpnk/Projects/shokunin/kagi-shokunin && bash plans/round-70-c1.sh --tree /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-70/w1/R70ExecReplica/fixture` and save the output. Report whether an independent implementation reaches value=5 (generality of the instrument) and every place the contract was ambiguous to you. FINDING ids RX-1.. (neutral unless the counter rejects a correct implementation or accepts a wrong one).\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\nJudged on: coverage\nMilestone: round 70: C1 coverage capability — OpenBao PKI certificate lifecycle trial; 12 seats, attack 4 (2 reviewer, critic, mutation-tester) plus sentinel/revenger/connector adversaries\n\nReport: write your scoped findings to .ufo/waves/round-70/w1/R70ExecReplica.md"
+   },
+   {
+    "name": "R70ExecGates",
+    "agent": "executor",
+    "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nHarm check: run the lane's own gates on the candidate and on BASE and diff. Your dir: /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-70/w1/R70ExecGates/ ; your report: /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-70/w1/R70ExecGates.md ; scratch S=/fast/scratch/hyaku/kagi-r70/R70ExecGates.\nExtract both trees with `git -C /home/vgpnk/Projects/shokunin/kagi-shokunin archive <rev> | tar -x -C <dir>` into $S/base (7bd34832c94b81d4cf9bf34113c4952a7f6d9b04) and $S/cand (0d225553c22f686df24454040102d0502eda5c42). In each tree run (stdout, stderr and rc captured separately, run from inside the tree): `bash corpus/sources-census.sh`; `bash corpus/scope-gate.sh` (read its usage first; run its default/verify mode); `bash corpus/claim-ledger.sh verify` (expect POLICY rc 2 at BASE — compare id lists: any id failing in cand that did not fail at BASE is harm); `bash corpus/self-description-sweep.sh` if it has a non-mutating mode; and the fleet wrapper once on the live lane: `/home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --root /home/vgpnk/Projects/shokunin kagi`. Never run a gate mode that writes into the lane. Produce harm.tsv: gate, base result, cand result, new failures. FINDING ids GX-1.. (falsifies-number only if a gate regresses).\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\nJudged on: coverage\nMilestone: round 70: C1 coverage capability — OpenBao PKI certificate lifecycle trial; 12 seats, attack 4 (2 reviewer, critic, mutation-tester) plus sentinel/revenger/connector adversaries\n\nReport: write your scoped findings to .ufo/waves/round-70/w1/R70ExecGates.md"
+   },
+   {
+    "name": "R70Scout",
+    "agent": "scout",
+    "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nFrontier reconnaissance for the OpenBao PKI engine beyond the five tested mechanics. Your dir: /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-70/w1/R70Scout/ ; your report: /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-70/w1/R70Scout.md ; scratch S=/fast/scratch/hyaku/kagi-r70/R70Scout.\nOpen the OpenBao PKI docs (https://openbao.org/docs/api/secret/pki/, https://openbao.org/docs/secrets/pki/ and the linked considerations/rotation pages) and list 6-10 mechanics the round did NOT measure that matter for credential custody (e.g. leaf_not_after_behavior, intermediate CA + set-signed chain, issuer rotation, auto-tidy/tidy safety buffer, OCSP, delta CRLs, ACME, CEL roles, BYOC revocation, key_usage/ext_key_usage). For each: doc URL + section anchor, a ≤25-word located quote, why it matters for custody, and whether a throwaway dev-server test could measure it (yes/no + the falsifier shim that would flip it). Write frontier.md in your dir. Do not write registry rows. FINDING ids SC-1.. (neutral).\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: round 70: C1 coverage capability — OpenBao PKI certificate lifecycle trial; 12 seats, attack 4 (2 reviewer, critic, mutation-tester) plus sentinel/revenger/connector adversaries\n\nReport: write your scoped findings to .ufo/waves/round-70/w1/R70Scout.md"
+   },
+   {
+    "name": "R70Connector",
+    "agent": "connector",
+    "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nSibling-overlap scan for the new PKI ground (read-only). Your dir: /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-70/w1/R70Connector/ ; your report: /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-70/w1/R70Connector.md ; scratch S=/fast/scratch/hyaku/kagi-r70/R70Connector.\nSearch every /home/vgpnk/Projects/shokunin/*-shokunin lane's PROVINCE.md, SKILL.md, corpus/README.md and corpus/knowledge/ for PKI, X.509, certificate issuance, CRL, OCSP, ACME, cert-manager, step-ca, Let's Encrypt, TLS certificate rotation (use grep; never write). Classify each hit: duplicate of kagi's new entry, complement (another lane's surface, e.g. TLS on a web server), or contested ownership. Also check whether any sibling SOURCES.md registers the OpenBao PKI pages (S170/S171 URLs). Report a table (lane, path:line, term, class) and the adjacency verdict for kagi's PROVINCE. FINDING ids CN-1..\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: round 70: C1 coverage capability — OpenBao PKI certificate lifecycle trial; 12 seats, attack 4 (2 reviewer, critic, mutation-tester) plus sentinel/revenger/connector adversaries\n\nReport: write your scoped findings to .ufo/waves/round-70/w1/R70Connector.md"
+   },
+   {
+    "name": "R70ScribeLesson",
+    "agent": "scribe",
+    "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nDraft the round-70 lesson's `## Mistakes` section from the lane's own record (you draft; the L1 integrates). Your dir: /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-70/w1/R70ScribeLesson/ ; your report: /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-70/w1/R70ScribeLesson.md ; scratch S=/fast/scratch/hyaku/kagi-r70/R70ScribeLesson.\nSources: /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/lessons/round-69-verifier-spotcheck.md §5 items 1-2 (the report said 'eight falsifies-wording rows' — /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-69/claim-falsification.tsv has six; the report said 'two pre-existing W04 warnings' — the census prints 25 W04 lines, and this round measured they go to STDOUT: /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-70/base/census-round-start.stdout.txt has 25, the .stderr.txt is empty). Verify both counts yourself with commands (paste command + output). Write mistakes-draft.md with one entry per mistake in the lane format: class · evidence pointer (path:line) · captured-by (the criterion or rule that should have caught it, or `none`) · fix — and for each fix a way to show it able to fail (a command whose output would differ on the wrong statement). Also draft one QUALITY.md criterion candidate (text only) that binds report counts to a command over committed bytes. FINDING ids SL-1.. (neutral).\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: round 70: C1 coverage capability — OpenBao PKI certificate lifecycle trial; 12 seats, attack 4 (2 reviewer, critic, mutation-tester) plus sentinel/revenger/connector adversaries\n\nReport: write your scoped findings to .ufo/waves/round-70/w1/R70ScribeLesson.md"
+   },
+   {
+    "name": "R70ScribeSkill",
+    "agent": "scribe",
+    "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nDraft the lane-facing text for the new capability (you draft; the L1 integrates). Your dir: /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-70/w1/R70ScribeSkill/ ; your report: /home/vgpnk/Projects/shokunin/kagi-shokunin/.ufo/waves/round-70/w1/R70ScribeSkill.md ; scratch S=/fast/scratch/hyaku/kagi-r70/R70ScribeSkill.\nRead /home/vgpnk/Projects/shokunin/kagi-shokunin/SKILL.md (the decision tables and how the round-48/49/57 trials are described), /home/vgpnk/Projects/shokunin/kagi-shokunin/PROVINCE.md (the 'Core, round 49/57 ... executed' lines) and /home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/README.md (## Frontier / coverage map). Draft in skill-draft.md: (1) one PROVINCE.md 'Core, round 70 — OpenBao PKI certificate lifecycle, executed' line in the same style (trial path, binary pin, what T1-T5 measure, no real CA touched); (2) 3-5 decision-table rows for SKILL.md's vault-ops section on PKI custody (internal vs exported CA key, max_ttl clamp-not-refuse, allowed_domains vs allow_any_name, no_store vs revocability) citing the entry path; (3) one corpus/README.md coverage-map line; (4) one SCORECARD capabilities-table row (name | what it can now do | evidence pointer | first-working round 70). Every sentence must be supported by the entry's Measured section; mark anything else [INFERENCE]. FINDING ids SS-1.. (neutral).\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: round 70: C1 coverage capability — OpenBao PKI certificate lifecycle trial; 12 seats, attack 4 (2 reviewer, critic, mutation-tester) plus sentinel/revenger/connector adversaries\n\nReport: write your scoped findings to .ufo/waves/round-70/w1/R70ScribeSkill.md"
+   }
+  ]
+ },
+ "resumeSends": [],
+ "note": "Issue exactly one batched task call with taskCall ({context, tasks}); never split a wave into multiple task calls (one-swarm-per-wave). Then one hub send per resumeSends entry: hub send --to <entry.resume> --message <entry.message> (entry.name is bookkeeping, not a hub field)."
+}

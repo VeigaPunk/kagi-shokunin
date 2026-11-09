@@ -1,0 +1,37 @@
+===== RV1: the dev root token IS in the live dev server's argv (masked) =====
+  argv of pid 3433794 (token MASKED):
+    bao server -dev -dev-root-token-id=<DEV-TOKEN-MASKED> -dev-listen-address=127.0.0.1:24726 
+  the argv carries a 28-char token field: 1
+  /proc/<pid>/cmdline mode: -r--r--r--   /proc mount: rw,nosuid,nodev,noexec,relatime
+  (the trial's own claim, for comparison):
+    8:# lives only in scratch and is never printed; no private key, certificate body or CRL body is
+
+===== RV2: the trial's scratch really holds PEM private keys and the dev token (live capture) =====
+  trial rc=0
+  files in the trial scratch:
+    certs.json
+    crl.json
+    crl.pem
+    home
+    server.log
+    t1.json
+    t2.json
+    t2.pem
+    t4.json
+    t5c.json
+    t5.json
+    tmp
+  files holding a PEM private key:
+    /fast/scratch/hyaku/kagi-r70/R70Sentinel/work/kagi-pki-trial.uP3TBM/t2.json
+    /fast/scratch/hyaku/kagi-r70/R70Sentinel/work/kagi-pki-trial.uP3TBM/t4.json
+    /fast/scratch/hyaku/kagi-r70/R70Sentinel/work/kagi-pki-trial.uP3TBM/t5.json
+    /fast/scratch/hyaku/kagi-r70/R70Sentinel/work/kagi-pki-trial.uP3TBM/t5c.json
+  files holding the dev-token shape:
+    /fast/scratch/hyaku/kagi-r70/R70Sentinel/work/kagi-pki-trial.uP3TBM/home/.vault-token
+    /fast/scratch/hyaku/kagi-r70/R70Sentinel/work/kagi-pki-trial.uP3TBM/server.log
+  (the dev token itself is masked below)
+    Root Token: <DEV-TOKEN-MASKED>
+
+===== RV3: N concurrent trial runs, natural port choice =====
+  6 concurrent runs: HOLDS(5)=6 SETUP=0 other=0 ; dev servers left=[] scratch dirs left=0
+  12 concurrent runs: HOLDS(5)=12 SETUP=0 other=0 ; dev servers left=[] scratch dirs left=0

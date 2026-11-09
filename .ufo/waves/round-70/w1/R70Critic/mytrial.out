@@ -1,0 +1,6 @@
+TRIAL T1 HOLDS certificate-returned no-private_key
+TRIAL T2 HOLDS requested=86400s lifetime=3630s max=3600s
+TRIAL T3 HOLDS outside-cn-refused inside-cn-issued
+TRIAL T4 HOLDS serial-on-crl
+TRIAL T5 HOLDS no_store-cert-unreadable-unlisted stored-control-readable
+OPENBAO_PKI_TRIAL: HOLDS holds=5 broken=0 error=0 bao=v2.7.2 openssl=3.6.5

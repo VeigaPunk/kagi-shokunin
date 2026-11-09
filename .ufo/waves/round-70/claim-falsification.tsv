@@ -1,0 +1,12 @@
+# claim	artifact	verdict	narrowing	note
+# verdict: falsifies-wording | falsifies-number | neutral ; one row per attack-seat artifact (Amendment 59)
+C1	w1/R70Reviewer.md	neutral	-	RV-1..RV-5: predicate identical, freeze precedes candidate, value=5 and BASE value=0 reproduced, controls match, trial reads no bao bytes
+C1	w1/R70ReviewerSrc.md	neutral	-	SR-1 resolved (lesson exists); SR-2 (seat-marked falsifies-number) concerns the census W04 count 25->26, not the C1 value; filed as M70-4
+C1	w1/R70Critic.md	falsifies-wording	plans/round-70.md	CR-1..CR-11: wording over-reached the instrument; narrowed in Amendment A1 and the entry relabelled enforced/observed
+C1	w1/R70MutTester.md	falsifies-wording	plans/round-70.md	MT-1: T5 conjunction is a disjunction at the counter (M6/M7 survive); Amendment A1
+C1	w1/R70Revenger.md	falsifies-wording	plans/round-70.md	RE-1: forgeries A/C/D reach value=5; count does not prove execution; Amendment A1 + M70-5
+C1	w1/R70Sentinel.md	falsifies-wording	plans/round-70.md	SE-1 (seat-marked falsifies-number) substituted server still reads value=5; SE-2/SE-3; narrowed in Amendment A3, trial launch hardened (M70-6)
+C1	w1/R70Connector.md	falsifies-wording	plans/round-70.md	CN-1: pre-move sentence "no source row" false (S105); corrected in Amendment A1 + lesson Gate correction + M70-1
+C1	w1/R70ExecGates.md	falsifies-number	-	GX-1/GX-2 gate harm on the candidate (docs unpinned, release-clock unbound) repaired at integration; GX-3 R36-01 re-measured in the report; not the C1 value
+C1	w1/R70ExecReplica.md	neutral	-	independent from-source trial reads value=5; counter does not reject a correct implementation
+C1	final/c1-landed.txt	neutral	-	the L1 reading of the frozen counter on the landed revision

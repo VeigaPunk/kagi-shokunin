@@ -1,0 +1,7 @@
+gate	base_result	cand_result	new_failures
+sources-census.sh	rc=0 SOURCES_CENSUS CLEAN (rows=160)	rc=0 SOURCES_CENSUS CLEAN (rows=163)	none
+scope-gate.sh	rc=1 ADJACENCY_SCOPE DEFECT (unresolved=1 contested=1 stale_basis=2 breadth_drift=5)	rc=1 ADJACENCY_SCOPE DEFECT (unresolved=1 contested=1 stale_basis=2 breadth_drift=5)	none (outputs identical)
+claim-ledger.sh verify	rc=2 CLAIM_LEDGER POLICY (claims=102 policy=5 stamped=173) FAILS=21 (BASE run)	rc=2 CLAIM_LEDGER POLICY (claims=102 policy=5 stamped=173) FAILS=21 (cand run)	R14-01 verdict-not-final->exit-mismatch (docs audit BROKEN: unpinned entry); R36-01 verdict-not-final->timeout(124@300s; rerun reads 8 vs expect ^0$ and rc0); R36-03 absent at BASE->FAIL exit-mismatch exit=1 (UNBOUND S170/S171, on_release=34 bound=32); +2 STALE lines (source-fetches.tsv, SOURCES.md) new in cand
+claim-ledger.sh docs	rc=0 DOC_AUDIT CLEAN (entries=49 row_linked=46 unpinned=0)	rc=1 DOC_AUDIT BROKEN (entries=50 row_linked=47 unpinned=1)	UNPINNED corpus/knowledge/openbao-pki-certificate-lifecycle.md (new entry without stamps row)
+self-description-sweep.sh	rc=1 MISMATCH n=28 (SD6=23)	rc=1 MISMATCH n=29 (SD6=24)	MISMATCH SD6 corpus/knowledge/openbao-pki-certificate-lifecycle.md:11 corpus/lessons/round-70.md (local) — new line from the landed entry
+fleet scripts/sources-census.sh validate --root /home/vgpnk/Projects/shokunin kagi (live lane, post-candidate)	ok: kagi corpus/SOURCES.md (25 W04 duplicate-url warnings incl. S170)	previous W04 count for the lane was 25; no new failure class

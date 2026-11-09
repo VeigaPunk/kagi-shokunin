@@ -1,0 +1,7 @@
+PROBE F1.permit YES issue_rc=0 leaf_expiration=2109546188 issuer_expiration=1796778188 leaf_exceeds_issuer=yes err=
+PROBE F1.truncate YES issue_rc=0 leaf_expiration=1796778188 issuer_expiration=1796778188 leaf_exceeds_issuer=no err=
+PROBE F1.err YES issue_rc=2 leaf_expiration= issuer_expiration=1796778188 leaf_exceeds_issuer=no err=Error writing data to pki/issuer/2d35c607-da00-b376-d114-6fd3ddd0bc03/issue/long: Error making API r
+PROBE F9 YES cel-role-create http=200 cel-issue(POST /pki/cel/issue/celrole) http=200 issue_data_keys=certificate,expiration,issuing_ca,not_before,private_key,private_key_type,serial_number
+PROBE F9b YES cel-issue-ttl-10h http=200 (program requires ttl<4h)
+PROBE F16 YES sign-verbatim ca_csr_http=200 basicConstraints= errors=None
+PROBE F12 YES generate_lease lease_id_present=yes 

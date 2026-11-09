@@ -1,0 +1,34 @@
+# R70Connector receipt: openbao PKI URL registration fleet-wide + same-URL rows in kagi
+# date: 2026-11-09T00:58:28Z
+
+## command A: grep -rnE "openbao\.org/(docs/(api/secret|secrets)/pki|api-docs/secret/pki)" --include=*.md --include=*.tsv over the fleet, excluding kagi and .git/.jj/.ufo/node_modules
+sibling hits above: 0
+
+## command B: rows in kagi corpus/SOURCES.md carrying the pki API URL
+112:| S105 | PKI secrets engine (API) — https://openbao.org/docs/api/secret/pki/ | docs | A | OpenBao PKI role parameter `generate_lease`:
+170:| S170 | OpenBao PKI secrets engine (API) — https://openbao.org/docs/api/secret/pki/ | docs | A | OpenBao 2.7.x PKI engine API: intern
+
+## command C: rows in kagi corpus/SOURCES.md carrying the pki overview URL
+171:| S171 | OpenBao PKI secrets engine (overview) — https://openbao.org/docs/secrets/pki/ | docs | A | OpenBao PKI engine design rational
+
+## command D: byte identity of round-49 S105 capture and round-70 S170 capture
+9fa7693967f32958aff9c96faf5835afa4d72894727a8d63c324e9145e5c1123  kagi-shokunin/.ufo/waves/round-49/capture/S105.body
+9fa7693967f32958aff9c96faf5835afa4d72894727a8d63c324e9145e5c1123  kagi-shokunin/.ufo/waves/round-70/capture/S170.body
+620683 kagi-shokunin/.ufo/waves/round-49/capture/S105.body
+620683 kagi-shokunin/.ufo/waves/round-70/capture/S170.body
+cmp: IDENTICAL
+
+## command E: S105 / S170 registry cells (id, url, teach-scope, opened, used-by)
+S105 :: status=mined :: used-by=corpus/lessons/round-49.md, corpus/knowledge/vault-openbao-token-lease-lifecycle.md
+S170 :: status=mined :: used-by=corpus/knowledge/openbao-pki-certificate-lifecycle.md
+S171 :: status=mined :: used-by=corpus/knowledge/openbao-pki-certificate-lifecycle.md
+## command F: PKI callsites already executed by the round-49 token trial
+146:if bao secrets enable pki >/dev/null 2>&1 \
+147:  && bao secrets tune -max-lease-ttl=1h pki >/dev/null 2>&1 \
+148:  && bao write -field=certificate pki/root/generate/internal common_name=trial.invalid ttl=1h >/dev/null 2>&1 \
+149:  && bao write pki/roles/trial allowed_domains=trial.invalid allow_subdomains=true generate_lease=true max_ttl=30m >/dev/null 2>&1; then
+150:  bao policy write pki-issue - >/dev/null 2>&1 <<'POL'
+151:path "pki/issue/trial" { capabilities = ["update"] }
+153:  t=$(bao token create -field=token -policy=pki-issue -ttl=3s 2>/dev/null)
+154:  lid=""; [ -n "$t" ] && lid=$(BAO_TOKEN="$t" bao write -format=json pki/issue/trial common_name=a.trial.invalid ttl=10m 2>/dev/null | python3 -c 'import json,sys;print(json.load(sys.stdin)["lease
+163:else report T5 ERROR "pki-setup-failed"; fi

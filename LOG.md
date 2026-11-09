@@ -2283,4 +2283,6 @@ Correction (round 69): the line above prints `C1_VERIFIED_SELFTEST: PASS (59 cas
   rc 0 at start (25 W04, stdout) and end (26 W04).
 - **Mistakes mined** (`corpus/lessons/round-70.md`): M70-1 registry URL not searched before
   append; M70-2/M70-3 the round-69 report's two routed miscounts; M70-4 revision binding of a
-  warning count; M70-5 the freeze named one forgery ceiling of three. QM101 enters the bar.
+  warning count; M70-5 the freeze named one forgery ceiling of three; M70-6 the trial did not
+  reuse the lane's hardened dev-server launch (fixed at integration); M70-7 the first harm diff
+  missed eight STALE stamp lines (re-pinned in `17a89648`). QM101 enters the bar.

@@ -25,7 +25,7 @@ HEADER = (
     "id", "clock", "feed_source_id", "feed_url", "anchored_version",
     "observed_version", "observed_at", "verdict", "note",
 )
-DEFAULT_RECEIPT_SHA256 = "9513690e3b58ad2198038df888ccb12537553d12ba4f141f9a9d8d0121ce98af"
+DEFAULT_RECEIPT_SHA256 = "022e82991652bf0f044e62625bc08ba10067cd61189a4ca9a7c409046366c2f9"
 SOURCE_ID_RE = re.compile(r"S[0-9]{3}")
 QUOTE_RE = re.compile(r"“([^”]+)”|(?<!\\)\"([^\"\n]+)\"")
 USER_AGENT = "kagi-shokunin-round25/1.0 (documentation verification)"
@@ -544,7 +544,7 @@ def load_receipt_bundle(path, expected_sha256=None):
 
 def receipt_path(root, selected):
     if selected is None:
-        return root / ".ufo" / "waves" / "round-54" / "final" / "observe-r54.json"
+        return root / ".ufo" / "waves" / "round-72" / "final" / "observe-r72.json"
     path = Path(selected)
     return path if path.is_absolute() else root / path
 

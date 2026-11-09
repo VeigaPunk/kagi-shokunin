@@ -1,1 +1,39 @@
 # cmd: bash corpus/claim-ledger.sh verify (2026-11-08T21:16:44-03:00)
+HOST-SKIP R11-01 reason=host-row-not-authorized
+HOST-SKIP R11-02 reason=host-row-not-authorized
+HOST-SKIP R11-03 reason=host-row-not-authorized
+HOST-SKIP R11-04 reason=host-row-not-authorized
+HOST-SKIP R11-06 reason=host-row-not-authorized
+FAIL R11-08 reason=exit-mismatch exit=1 want=0
+HOST-SKIP R12-01 reason=host-row-not-authorized
+FAIL R12-03 reason=verdict-not-final exit=0
+FAIL R13-01 reason=verdict-not-final exit=0
+FAIL R14-01 reason=verdict-not-final exit=0
+HOST-SKIP R15-01 reason=host-row-not-authorized
+HOST-SKIP R13-03 reason=host-row-not-authorized
+HOST-SKIP R16-01 reason=host-row-not-authorized
+HOST-SKIP R16-03 reason=host-row-not-authorized
+HOST-SKIP R17-01 reason=host-row-not-authorized
+HOST-SKIP R18-01 reason=host-row-not-authorized
+FAIL R21-02 reason=verdict-not-final exit=0
+FAIL R22-03 reason=verdict-not-final exit=0
+FAIL R24-05 reason=verdict-not-final exit=0
+FAIL R24-06 reason=verdict-not-final exit=0
+FAIL R24-15 reason=verdict-not-final exit=0
+FAIL R25-02 reason=exit-mismatch exit=2 want=0
+POLICY R29-01 reason=first-token:python
+POLICY R29-02 reason=first-token:python
+HOST-SKIP R31-01 reason=host-row-not-authorized
+FAIL R31-02 reason=verdict-not-final exit=0
+FAIL R33-02 reason=verdict-not-final exit=0
+FAIL R34-03 reason=verdict-not-final exit=0
+FAIL R36-01 reason=verdict-not-final exit=0
+POLICY R38-03 reason=python-script
+POLICY R57-01 reason=python-script
+FAIL R58-01 reason=exit-mismatch exit=1 want=0
+FAIL R62-01 reason=exit-mismatch exit=1 want=0
+FAIL R62-02 reason=exit-mismatch exit=1 want=0
+POLICY R62-04 reason=python-script
+FAIL R62-06 reason=verdict-not-final exit=0
+CLAIM_LEDGER: POLICY (claims=102 policy=5 stamped=173)
+rc=2

@@ -1,0 +1,38 @@
+## hh1 .ufo/reports/round-18/tabi.md:45  ".ufo/waves/round-18/final/binding-at-{checkpoint,delivered}.json"
+$ git -C tabi-shokunin ls-tree -r --name-only HEAD -- .ufo/waves/round-18/final/
+.ufo/waves/round-18/final/binding-at-checkpoint.json
+.ufo/waves/round-18/final/binding-at-delivered.json
+.ufo/waves/round-18/final/harm-at-checkpoint.json
+.ufo/waves/round-18/final/misroot-sweep.json
+.ufo/waves/round-18/final/wave-summary.json
+VERDICT: NOT DEAD - brace set, both alternatives exist; v1 regex truncated at the "{"
+
+## hh2 .ufo/reports/round-20/kama.md:67  ".ufo/waves/round-20/final/AuditCase07.md"
+$ git -C kama-shokunin log --all --oneline -- .ufo/waves/round-20/final/AuditCase07.md   # empty
+$ git -C souji-shokunin log --all --oneline -- .ufo/waves/round-20/final/AuditCase07.md
+192057e6 
+b7b606b1 round-20: repair acceptance schema and retain red receipts
+e9502c64 
+$ ls -d .ufo/waves/round-20/final   # fleet root
+ls: cannot access '.ufo/waves/round-20/final': No such file or directory
+VERDICT: FOREIGN - resolves in souji-shokunin; the report itself calls it an untracked fleet-root stray about souji-seat-audit
+
+## hh3 .ufo/reports/round-34/kagi.md:20  ".ufo/waves/round-34/final/c1-*-final-producer.txt"
+$ git -C kagi-shokunin ls-tree -r --name-only HEAD -- .ufo/waves/round-34/final/ | grep final-producer
+.ufo/waves/round-34/final/c1-base-final-producer.txt
+.ufo/waves/round-34/final/c1-tip-final-producer.txt
+VERDICT: NOT DEAD - glob resolves to both producer files; v1 regex truncated at the "*"
+
+## hh4 .ufo/reports/round-67/kagi.md:57  ".ufo/waves/round-67/final/c1-*.txt"
+$ git -C kagi-shokunin ls-tree -r --name-only HEAD -- .ufo/waves/round-67/final/ | grep "c1-"
+.ufo/waves/round-67/final/c1-base.txt
+.ufo/waves/round-67/final/c1-candidate.txt
+VERDICT: NOT DEAD - glob resolves (c1-base.txt, c1-candidate.txt)
+
+## hh5 .ufo/reports/round-68/kagi.md:106  ".ufo/waves/round-68/final/c1-base.txt"
+$ git -C kagi-shokunin log --all --oneline -- .ufo/waves/round-68/final/c1-base.txt   # empty
+$ git -C kagi-shokunin ls-tree -r --name-only HEAD -- .ufo/waves/round-68/final/
+.ufo/waves/round-68/final/c1-candidate.txt
+.ufo/waves/round-68/final/c2-candidate.txt
+.ufo/waves/round-68/final/l1-derivation-recut-only.txt
+VERDICT: DEAD - cited path exists in no commit and in no lane tree (the spot-check D6 / plan L6)

@@ -1,0 +1,50 @@
+c2-teeth: tree=/fast/scratch/hyaku/kagi-r69/R69ExecCounterC2/base-extract base=/fast/scratch/hyaku/kagi-r69/R69ExecCounterC2/base-extract
+  | c1-selftest tree=/fast/scratch/hyaku/kagi-r69/R69ExecCounterC2/base-extract rc=0 cases=59 last='C1_VERIFIED_SELFTEST: PASS (59 cases)'
+LEG subfloor tree=cand a=0 b=0 c=1 subfloor=0
+  |   a (36, 31, 6, 1, 0) want=False got=True MISS
+  |   a (37, 32, 6, 1, 0) want=True got=True ok
+  |   a (38, 33, 6, 1, 0) want=True got=True ok
+  |   a (38, 33, 5, 1, 0) want=False got=False ok
+  |   a (38, 33, 6, 0, 0) want=False got=False ok
+  |   a (38, 33, 6, 1, 1) want=False got=False ok
+  | b tree_cases=59(rc=0) base_cases=59(rc=0) need tree=base+1
+  | c base_predicate_accepts_36_31_6_1_0=1 (loaded)
+  | verify-reduced: FAIL R68-02 reason=exit-mismatch exit=2 want=0
+  | verify-reduced: CLAIM_LEDGER: FAIL (claims=1 failed=1 deferred=0 stamped=168 stale=0 missing=0 unresolved_ids=1660 labeled_ids=173 host_skipped=0)
+  | verify-true: POLICY R68-02 reason=first-token:true
+  | verify-true: CLAIM_LEDGER: POLICY (claims=1 policy=1 stamped=168)
+LEG ledger tree=cand a=0 b=0 c=0 d=1 ledger=0
+  | a verify-reduced rc=1 last='CLAIM_LEDGER: FAIL (claims=1 failed=1 deferred=0 stamped=168 stale=0 missing=0 unresolved_ids=1660 labeled_ids=173 host_skipped=0)'
+  | b verify-true rc=2 fail-line=False last='CLAIM_LEDGER: POLICY (claims=1 policy=1 stamped=168)'
+  | c expect-journal rc=2 last='expect-journal: setup error: journals dir not readable: /fast/scratch/hyaku/kagi-r69/R69ExecCounterC2/base-extract/.ufo/waves/round-69/journals'
+  | d row-identity rc=0 last='ROW_IDENTITY: ledger-ids count=101 sha256=13167dd77e5a06382b73d5ae618129925434f1fbb46c3ae34cbe557c17f8fb0d' pinned='^ROW_IDENTITY: ledger-ids count=101 sha256=13167dd77e5a06382b73d5ae618129925434f1fbb46c3ae34cbe557c17f8fb0d$'
+LEG subfloor tree=base a=0 b=0 c=1 subfloor=0
+  |   a (36, 31, 6, 1, 0) want=False got=True MISS
+  |   a (37, 32, 6, 1, 0) want=True got=True ok
+  |   a (38, 33, 6, 1, 0) want=True got=True ok
+  |   a (38, 33, 5, 1, 0) want=False got=False ok
+  |   a (38, 33, 6, 0, 0) want=False got=False ok
+  |   a (38, 33, 6, 1, 1) want=False got=False ok
+  | b tree_cases=59(rc=0) base_cases=59(rc=0) need tree=base+1
+  | c base_predicate_accepts_36_31_6_1_0=1 (loaded)
+  | verify-reduced: FAIL R68-02 reason=exit-mismatch exit=2 want=0
+  | verify-reduced: CLAIM_LEDGER: FAIL (claims=1 failed=1 deferred=0 stamped=168 stale=0 missing=0 unresolved_ids=1660 labeled_ids=173 host_skipped=0)
+  | verify-true: POLICY R68-02 reason=first-token:true
+  | verify-true: CLAIM_LEDGER: POLICY (claims=1 policy=1 stamped=168)
+LEG ledger tree=base a=0 b=0 c=0 d=1 ledger=0
+  | a verify-reduced rc=1 last='CLAIM_LEDGER: FAIL (claims=1 failed=1 deferred=0 stamped=168 stale=0 missing=0 unresolved_ids=1660 labeled_ids=173 host_skipped=0)'
+  | b verify-true rc=2 fail-line=False last='CLAIM_LEDGER: POLICY (claims=1 policy=1 stamped=168)'
+  | c expect-journal rc=2 last='expect-journal: setup error: journals dir not readable: /fast/scratch/hyaku/kagi-r69/R69ExecCounterC2/base-extract/.ufo/waves/round-69/journals'
+  | d row-identity rc=0 last='ROW_IDENTITY: ledger-ids count=101 sha256=13167dd77e5a06382b73d5ae618129925434f1fbb46c3ae34cbe557c17f8fb0d' pinned='^ROW_IDENTITY: ledger-ids count=101 sha256=13167dd77e5a06382b73d5ae618129925434f1fbb46c3ae34cbe557c17f8fb0d$'
+  | c1-selftest tree=/fast/scratch/hyaku/kagi-r69/R69ExecCounterC2/run.CsCjIr/mutant-comment rc=0 cases=59 last='C1_VERIFIED_SELFTEST: PASS (59 cases)'
+LEG subfloor tree=comment-mutant subfloor=0
+  |   a (36, 31, 6, 1, 0) want=False got=True MISS
+  |   a (37, 32, 6, 1, 0) want=True got=True ok
+  |   a (38, 33, 6, 1, 0) want=True got=True ok
+  |   a (38, 33, 5, 1, 0) want=False got=False ok
+  |   a (38, 33, 6, 0, 0) want=False got=False ok
+  |   a (38, 33, 6, 1, 1) want=False got=False ok
+  | b tree_cases=59(rc=0) base_cases=59(rc=0) need tree=base+1
+  | c base_predicate_accepts_36_31_6_1_0=1 (loaded)
+GUARD a=0 (measured reads subfloor=1 ledger=1) b=1 (BASE reads subfloor=0 ledger=0) c=1 (comment-only mutant subfloor=0) d=1 (selftest cases=20)
+C2_TEETH: subfloor=0 ledger=0 guard=0

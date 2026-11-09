@@ -59,3 +59,4 @@ No-work control for the C1 target: the round-67 counter on the BASE tree reads
 compares to the round-67 literals), and the round-68 counter must read
 `caught=0/6` with `verified=36 col15=31` there — a target the BASE state cannot
 reach by doing nothing.
+Correction (round 69): the bullet above misquotes `c1-base-round67-counter.txt` as `caught=0/6`; that receipt reads `C1_READTHROUGH: bound=36 located=36 caught=6/6 guard=0` (`.ufo/waves/round-68/base/c1-base-round67-counter.txt:21`). The round-68 BASE counter reads `caught=0/6` (`C1_VERIFIED: verified=36 col15=31 caught=0/6 guard=0`, `.ufo/waves/round-68/w1/R68ExecCounterC1/base-run.txt:19`).

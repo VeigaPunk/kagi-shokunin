@@ -1,0 +1,114 @@
+# lane adjacency sweep — supersession practice, 2026-11-08, seat R69ScoutSource
+# all commands run from the lane root /home/vgpnk/Projects/shokunin/kagi-shokunin
+
+## (a) registry row search: append-only / Merkle / consistency proof / supersede
+$ grep -niE "append.only|merkle|consistency proof" corpus/SOURCES.md
+101:| S094 | CORPUS.md — https://raw.githubusercontent.com/VeigaPunk/shokunin/f47ad6ba8d306f8125597401cb2ce45c1297a593/CORPUS.md | own-work | A | registry append-only discipline: which cells may cha
+  -> counts: merkle=0  consistency-proof=0  append-only=1
+
+## (b) knowledge search: supersede
+$ grep -n "supersed" corpus/knowledge/*.md | head -40
+corpus/knowledge/cdp-bridge-1password-oidc-workflow.md:1:source: S069 — https://www.1password.dev/brokered-access — §"Custom Workflow (OIDC)" setup steps 1-5 (issuer URL and JWKS, claim
+corpus/knowledge/claim-instrument-carrier-binding.md:3:cites: S164, S143, S145, S113 — the row that supersedes S148 and names the carrier capture path; the row whose own id the carrier fil
+corpus/knowledge/claim-instrument-carrier-binding.md:115:to the superseded row:
+corpus/knowledge/claim-instrument-carrier-binding.md:119:* `S164` ("supersedes S148 … carrier capture named") adds the missing
+corpus/knowledge/claim-instrument-class-matrix.md:3:cites: S148, S156, S164 — the carrier row this entry's capture-path contract is read from, the rate-limited live carrier it prices, and 
+corpus/knowledge/claim-instrument-heldout.md:92:| H | F8 | quoted denial — a denial inside a quotation of the superseded text | `value=0` (accepted) | `value=1` (rejected) |
+corpus/knowledge/feature-bound-credential-review.md:11:readers must not operate from their superseded merged rows. This replaces
+corpus/knowledge/negation-scope-grammar.md:58:before any of the four conditions is evaluated: a quotation of the superseded text is not
+corpus/knowledge/negation-scope-grammar.md:160:- **I6 reads one fleet path.** The superseded-stamp derivation reads
+corpus/knowledge/nist-key-management-guidance-status.md:64:4. **Rev. 5 supersedes Rev. 4 of 01/28/2016, and Rev. 2 supersedes Rev. 1 of
+corpus/knowledge/nist-key-management-parts-withdrawal.md:23:| SP 800-57 Part 2 (August 2005) | Document History "08/25/05: SP 800-57 Part 2 (Final)"; "Withdrawn on May 23, 2019"; "Superseded
+corpus/knowledge/onepassword-machine-credentials.md:40:This correction supersedes item 4's unqualified feature status and the
+corpus/knowledge/op-ref-consumption.md:375:superseded: the selftest now proves 36 cases (ledger `R12-02`, re-pinned this
+corpus/knowledge/op-ref-consumption.md:418:also supersedes that §10 count, not just §9. Run the current selftest and
+corpus/knowledge/op-ref-consumption.md:428:The §11 note's “§9 is left as written” is superseded: §9's reproduction
+corpus/knowledge/prefreeze-controls.md:108:implementation. Last-integer extraction and ignored exit status are superseded
+corpus/knowledge/sops-age-key-rotation.md:99:- §Key groups and the threshold, last bullet: "independent custodians" is superseded by "independent key groups". S010 describes key groups and 
+corpus/knowledge/sops-age-key-rotation.md:137:before round 48; for the five mechanisms below they are superseded by this
+corpus/knowledge/surface-census.md:296:"16 published hashes" phrase are superseded by the actual committed TSVs;
+corpus/knowledge/vault-openbao-token-lease-lifecycle.md:201:superseded: a throwaway dev server was started (not deployed) and these token
+  -> knowledge/*.md supersed line count: 20
+
+## (c) the class the sources bind: sweep for a stated supersession RULE
+$ grep -rn "append-only" corpus/QUALITY.md corpus/*.md corpus/knowledge/*.md
+corpus/QUALITY.md:8:Criteria are append-only: a criterion is superseded by a new row that names
+corpus/QUALITY.md:208:| QM40 | An anchor cell of a superseded release-feed registry row (an append-only row, `CORPUS.md` §SOURCES.md rule 2) is bound to a committed sha256 pin, and any in-place rewri
+corpus/QUALITY.md:8:Criteria are append-only: a criterion is superseded by a new row that names
+corpus/QUALITY.md:208:| QM40 | An anchor cell of a superseded release-feed registry row (an append-only row, `CORPUS.md` §SOURCES.md rule 2) is bound to a committed sha256 pin, and any in-place rewri
+corpus/SOURCES.md:101:| S094 | CORPUS.md — https://raw.githubusercontent.com/VeigaPunk/shokunin/f47ad6ba8d306f8125597401cb2ce45c1297a593/CORPUS.md | own-work | A | registry append-only discipline: w
+corpus/knowledge/claim-instrument-class-matrix.md:74:of the correction ("R37's false no-artifacts claim"; "contrary to the append-only
+corpus/knowledge/claim-ledger.md:503:append-only old/new migration evidence belongs in the round lesson and
+corpus/knowledge/sops-age-key-rotation.md:133:Supersession note (append-only entry): the `Scope:` sentence above ("Nothing
+corpus/knowledge/vault-openbao-token-lease-lifecycle.md:197:Supersession note (append-only entry): the `Scope:` sentence at `:9` ("vendor
+
+## (d) protocol-level rule (fleet root, read-only input — NOT a lane file)
+$ sed -n "116,119p" /home/vgpnk/Projects/shokunin/CORPUS.md
+2. **Append-only.** Only `status`, `recheck` and `used-by` change in place, and each change
+   is logged old→new in the round lesson. A correction is a new row whose `teaches` opens
+   `supersedes S0NN —`.
+3. **No second method.** Claim admission stays in `corpus/QUALITY.md`; the research method
+$ sed -n "366,367p" /home/vgpnk/Projects/shokunin/PROTOCOL.md
+- **A falsified claim in an append-only file gets a named correction entry in the lane's next
+  round** — appended, never rewritten; it stays on the routed-defect queue until it lands.
+
+## (e) is the practice a RULE or only PRACTISED? counts
+  lessons with a 'Correction (round NN)' block: 7
+    corpus/lessons/round-51.md
+    corpus/lessons/round-52-verifier-spotcheck.md
+    corpus/lessons/round-52.md
+    corpus/lessons/round-58.md
+    corpus/lessons/round-59.md
+    corpus/lessons/round-60.md
+    corpus/lessons/round-68.md
+  lessons with a '## Correction (round NN)' heading: 3
+    corpus/lessons/round-58.md
+    corpus/lessons/round-60.md
+    corpus/lessons/round-68.md
+  knowledge entries with a 'Supersession note (append-only entry)' block: 2
+    corpus/knowledge/sops-age-key-rotation.md
+    corpus/knowledge/vault-openbao-token-lease-lifecycle.md
+  QUALITY criteria that name a Correction (round NN) block: 0   <-- 0
+  QUALITY criteria naming 'supersed': 7
+  corpus/README.md coverage-map rows naming supersession/append-only: 0   <-- 0
+  corpus/knowledge/ entries matching record*/supersess*: 0   <-- 0 (record-supersession.md does not exist at BASE or HEAD)
+
+## (f) the corpus's own SOURCES.md Rules reference (the lane's registry rule) — fleet CORPUS.md line 116
+2. **Append-only.** Only `status`, `recheck` and `used-by` change in place, and each change
+   is logged old→new in the round lesson. A correction is a new row whose `teaches` opens
+   `supersedes S0NN —`.
+
+## (g) registry row S094 — the lane's only existing 'append-only' registry row
+| S094 | CORPUS.md — https://raw.githubusercontent.com/VeigaPunk/shokunin/f47ad6ba8d306f8125597401cb2ce45c1297a593/CORPUS.md | own-work | A | registry append-only discipline: which cells may change in place | SOURCES.md Rules item 2, line 116, revision f47ad6ba8d306f8125597401cb2ce45c1297a593 | Only status, recheck and used-by change in place; an in-place anchor rewrite violates this rule | mined | 2026-11-05 | 90d | corpus/lessons/round-39.md, corpus/lessons/round-42.md, corpus/lessons/round-43.md |
+
+## (h) census state at BASE/HEAD for the two candidate rows
+  registry rows (NF=13):  158 13
+  ids S168/S169 present: registry=0  fetches=0  -> both 0, ids free
+  corpus/knowledge/*.md count at HEAD: 48
+  corpus/knowledge/*.md count at BASE 264917aa: 48
+
+## (i) QUALITY criteria that mention 'supersed' (measured, with ids)
+  line 99  QM17
+     Supplements QM13: a review Gate records each admitted, rejected, superseded/demoted or withdrawn candidate with its decision and basis; an aggregate count or "excluded 0" does not stand in for the rejected candidates.
+  line 208  QM40
+     An anchor cell of a superseded release-feed registry row (an append-only row, `CORPUS.md` §SOURCES.md rule 2) is bound to a committed sha256 pin, and any in-place rewrite of that cell is reported by a committed gate with a red witness (a planted rewrite it reports as DRIFT, and an unmutated tree it passes as CLEAN). A pin rewrit
+  line 233  QM50
+     A supersession or disposition path that a counter or register cites resolves to a **blob** at the named candidate revision (`git cat-file -t` = `blob`), with its path written from the tree, not from memory. An existence check that accepts a directory, and a cell split on an unescaped pipe, are not a check.
+  line 276  QM78
+     A correction that supersedes a record line states the measured values it substitutes and the command that derived each one; a correction whose numbers are copied from a plan, a report or an earlier correction is a second record defect, not a repair. The superseded text stays and the correction points at it.
+  line 278  QM80
+     An instrument's operation witness requires the argv **shapes** a real run produces (`server -config=`, `operator init -key-shares=…`, `operator unseal` with a share, a bare `operator seal`, `operator generate-root -init`/`-decode=`), not bare command names: a stub that runs `bao <op> --help` logs every name and satisfies a name-
+  line 291  QM83
+     A polarity item tests the token in the asserting position over the sentence scope, with a closed negator/denial/idiom list declared where the check lives: a negator between the nearest `.` or `;` before the token and the token, a denial predicate between the token and the nearest boundary after it, an idiom immediately before it
+
+## (j) QM78 — the closest existing lane-side statement of the record-supersession rule
+ A correction that supersedes a record line states the measured values it substitutes and the command that 
+derived each one; a correction whose numbers are copied from a plan, a report or an earlier correction is a 
+second record defect, not a repair. The superseded text stays and the correction points at it. 
+ a `supersedes …` line whose numbers no command in the round re-derives; a correction that restates the 
+report's own figure 
+ `corpus/lessons/round-61.md` §Mistakes M61-1/M61-2 and the L1 corrections; the seven round-60 corrections 
+each name their derivation (`corpus/lessons/round-60.md:176-180`, `LOG.md:1982`) 
+
+## (k) fleet census W04 count at this seat's measurement time
+  W04 lines: 25 (historical duplicate-URL warnings, unchanged by this seat)

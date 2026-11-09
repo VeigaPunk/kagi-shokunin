@@ -1,0 +1,7 @@
+# selftest.txt — the census gate's own proof, unchanged by this seat (I did not touch the gate)
+$ bash corpus/sources-census.sh --selftest
+case capture-normalized-mismatch: ok (exit 1, SC_CAPTURE)
+case fetch-cr-in-tsv: ok (exit 1, SC_FETCH)
+SOURCES_CENSUS_SELFTEST: PASS (98 cases)
+EXIT=0
+# 98 cases == R21-03's pin '^SOURCES_CENSUS_SELFTEST: PASS \(98 cases\)$', so the ledger row holds.

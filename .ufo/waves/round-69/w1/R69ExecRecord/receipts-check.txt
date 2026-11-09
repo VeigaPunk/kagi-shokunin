@@ -1,0 +1,17 @@
+R69ExecRecord receipts-check — each cited receipt verified to exist; line parsed verbatim
+
+.ufo/waves/round-68/w1/R68ScribeLesson/c2-lane-run.txt:6 exists=True sha256=acc85cec9b8403310a38a1ec42d4358a94c471fa490e905bde1f0837568e0d95
+  line: '# (no C2_RECORD line; the process was killed at the budget)'
+.ufo/waves/round-68/w1/R68Sentinel/receipts/base-legs.txt:28 exists=True sha256=90b3b3f8394bc033bd8b4a34db548fba650f24d40dd9eb36229e67ccb97c3490
+  line: "BASE caught = 2/6 (the plan's motivating evidence claims 0/6)"
+.ufo/waves/round-68/w1/R68Sentinel/receipts/base-legs.txt:19 exists=True sha256=90b3b3f8394bc033bd8b4a34db548fba650f24d40dd9eb36229e67ccb97c3490
+  line: '  M5 col15 borrowed digest     rc=0 expected=normalized-digest-mismatch   SURVIVED'
+.ufo/waves/round-68/w1/R68ExecCounterC1/selftest.txt:13 exists=True sha256=d26defffc3b62b6ad8783f88ec1da52a3dc8e7b65180870b6803ad596329891e
+  line: 'C1_VERIFIED_SELFTEST: PASS (56 cases)'
+.ufo/waves/round-68/w1/R68ExecCounterC1/base-run.txt:19 exists=True sha256=a5e173d3c8d78973fa2fcfb0847a7954d7fd47c374247c3fff7b00e01bb27ac0
+  line: 'C1_VERIFIED: verified=36 col15=31 caught=0/6 guard=0'
+.ufo/waves/round-68/base/c1-base-round67-counter.txt:21 exists=True sha256=f689a8207f0cc8aced2685142028db7ba63194317ca3d3b2b6b47745f123f9df
+  line: 'C1_READTHROUGH: bound=36 located=36 caught=6/6 guard=0'
+
+DISCREPANCY: seat spec item 3 cites base-legs.txt:19 for caught=2/6; line 19 is the M5 col15 line, the caught=2/6 line is :28. Freshness row cites :28 (actual). Spec/plan/spotcheck :19 is off-by-9; value 2/6 verified at :28.
+QUALITY: grep corpus/lessons/round-68.md corpus/QUALITY.md => 0 rows; tail is QM96. No ids QM97+; set with round-68 source column is empty. Bar NOT landed at read time.

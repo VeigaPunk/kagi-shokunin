@@ -1,0 +1,15 @@
+Scratch trees: git -C <lane> archive 264917aa8fc9e71b6595d0d5166c4b615120fb8b (base) and archive HEAD=6a93ca6 (cur), read-only.
+a     : single row R24-14 (cmd: bash corpus/row-identity.sh ledger-ids), unrestamped, default docs; cd <tree>; bash corpus/claim-ledger.sh verify
+a2    : single row R11-03 (host-tagged), restamped in scratch stamps.tsv, default docs
+a3    : as a2, wrong expect (^SELFTEST: PASS \(999 cases\)\), restamped
+a2-docs: as a2 with --docs <QUALITY.md>
+b     : single row R24-14 with command replaced by `true`
+c     : single synthetic row X1 bash corpus/drift-pins.sh (untagged host)
+f1    : single row R11-10 (grep -cv '^#' corpus/state-shape.tsv, expect ^22$), restamped, --docs <empty file>
+f2    : as f1, expect ^9999$
+f3    : as f1, command `true`
+f4    : as f1, NOT restamped
+p1/p2 : single rows R29-01 / R29-02 (python -I -B ...), restamped, --docs <empty>
+full-base / full-cur : full `bash corpus/claim-ledger.sh verify` on BASE and HEAD trees (845 s each, run concurrently)
+Also (in transcript, not separate files): `bash corpus/row-identity.sh ledger-ids` on cur = count=101 sha256=13167dd7...; on f1 = count=1 sha256=7c42bb82...;
+`bash corpus/expect-journal.sh --base-ledger <base> --ledger <cur> --journals <copy of lane journal>` = EXPECT_JOURNAL: CLEAN (changed=0 journaled=0) exit 0 (WARN ORPHAN R21-04, R24-14, R68-02).

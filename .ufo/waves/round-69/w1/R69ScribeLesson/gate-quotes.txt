@@ -1,0 +1,49 @@
+# R69ScribeLesson — gate quotes receipt (round 69, attempt 2)
+# access date: 2026-11-08
+# fetch: curl -sS -L -A 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36'
+# locate: python3 corpus/rendered-text-v1.py locate .ufo/waves/round-69/capture/<ID>.body '<quote>'
+# my own fetch (scratch) and the registry seat's committed capture agree byte-for-byte.
+
+== S168 ==
+url: https://www.rfc-editor.org/rfc/rfc9162.txt
+http_status: 200 (curl -w '%{http_code}' on my own fetch)
+bytes: 128266
+sha256: a0e432ce7580c99fcc8faf0cf3f6191f9ce6b4864f949158e020d4ecb295081f
+scratch_copy_sha256: a0e432ce7580c99fcc8faf0cf3f6191f9ce6b4864f949158e020d4ecb295081f
+raw_grep_count_append-only: 7
+raw_grep_count_consistency_proof: 20
+
+== S169 ==
+url: https://en.wikipedia.org/wiki/Merkle_tree
+http_status: 200 (curl -w '%{http_code}' on my own fetch)
+bytes: 209875
+sha256: ad8de3b95bd73e8bb93ac1bb37fb17f0c050e53660a1f5619dba1136bd36a27c
+scratch_copy_sha256: ad8de3b95bd73e8bb93ac1bb37fb17f0c050e53660a1f5619dba1136bd36a27c
+raw_grep_count_append-only: 0
+raw_grep_count_consistency_proof: 0
+
+--- S168 locate (2 candidate quotes, each <= 25 words) ---
+RENDERED_TEXT_V1_LOCATE: count=1
+RENDERED_TEXT_V1_LOCATE: count=1
+
+--- S169 locate (2 candidate quotes, each <= 25 words) ---
+RENDERED_TEXT_V1_LOCATE: count=1
+RENDERED_TEXT_V1_LOCATE: count=1
+
+--- word counts (whitespace split of the quote string itself) ---
+10 words => Merkle consistency proofs prove the append-only property of the tree.
+16 words => prove that any particular instance of the log is a superset of any particular previous instance
+17 words => In cryptography and computer science , a hash tree or Merkle tree is a tree in which
+8 words => A Merkle tree is a hierarchical hash verification
+
+--- S169 rendered-text term census (why the row is rejected) ---
+'consistency proof' occurrences in rendered text: 0
+'append-only' occurrences in rendered text: 0
+'RFC 9162' occurrences in rendered text: 0
+'certificate transparency' occurrences in rendered text: 3
+
+--- chosen gate quotes (lesson Gate rows) ---
+S168 quote (10 words): RENDERED_TEXT_V1_LOCATE: count=1
+S169 quote (24 words): RENDERED_TEXT_V1_LOCATE: count=1
+--- S169 chosen quote: lowercase/quoted-form check of the 'In cryptography' lead (space-before-comma form) ---
+RENDERED_TEXT_V1_LOCATE: count=1

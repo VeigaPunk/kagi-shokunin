@@ -1,0 +1,24 @@
+# R69ScribeLesson — expansion count receipt (round 69, attempt 2)
+# derivation: files under corpus/knowledge/ in the measured tree MINUS the same count in a BASE extraction.
+# BASE = 264917aa8fc9e71b6595d0d5166c4b615120fb8b
+
+--- BASE extraction (git archive 264917aa | tar -x -C <scratch>/base) ---
+$ ls /fast/scratch/hyaku/kagi-r69/R69ScribeLesson/base/corpus/knowledge | wc -l
+48
+$ git ls-tree -r --name-only 264917aa corpus/knowledge/ | wc -l
+48
+
+--- measured tree (worktree) ---
+$ ls corpus/knowledge | wc -l
+48
+$ git ls-tree -r --name-only HEAD corpus/knowledge/ | wc -l
+48
+
+--- derived ---
+base=48 candidate=48 new_knowledge_entries=0
+
+--- the round's new knowledge entry ---
+corpus/knowledge/record-supersession.md: ABSENT (not landed at the time of measurement)
+
+--- git status of corpus/knowledge/ (untracked new entries) ---
+(empty = no new knowledge entry in the worktree yet)

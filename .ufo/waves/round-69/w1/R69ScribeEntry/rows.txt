@@ -1,0 +1,22 @@
+# rows.txt — the two registry rows and two fetch rows this seat landed (round 69, attempt 2, wave kagi-r69-w1)
+# byte-exact as landed in the working tree; read-only verification for the L1 (no commit by this seat)
+
+## corpus/SOURCES.md line 168 (S168)
+| S168 | RFC 9162 — Certificate Transparency, Merkle log consistency proofs — https://www.rfc-editor.org/rfc/rfc9162.txt | spec | A | record supersession: a log's later state must be an append-only extension of its earlier state, and a consistency proof between the two tree heads is what proves that extension | §2.1.4 Merkle Consistency Proofs, body line 475 (the append-only property and the proof owed for it); §2.1 Merkle Trees and §2.1.1 Definition of the Merkle Tree define the tree the proof is over. Capture `.ufo/waves/round-69/capture/S168.body` (128266 B, sha256 `a0e432ce7580c99fcc8faf0cf3f6191f9ce6b4864f949158e020d4ecb295081f`); opened live 2026-11-08 with a browser user agent (HTTP 200, 128266 B, same sha256; refetch byte-identical; quote locate count=1 under rendered-text-v1; normalized sha256 `03802e0b592da2cf7f9e3f6e26c92b98a85791310fc752be2f1f1c1da505fbf5`, 88723 normalized bytes) | Quote (verbatim): “Merkle consistency proofs prove the append-only property of the tree.” (raw byte offset 19819, body line 475; 10 words). Derivation (paraphrase, outside the quote): a log's later tree state extends its earlier state and the earlier entries stay checkable, because a consistency proof over two tree heads is what proves the extension; the transposition from certificate logs to lane records is the lane's own. | mined | 2026-11-08 | 180d | corpus/knowledge/record-supersession.md |
+
+## corpus/SOURCES.md line 169 (S169)
+| S169 | Wikipedia — Merkle tree — https://en.wikipedia.org/wiki/Merkle_tree | docs | C | record supersession: a tertiary summary of the Merkle-tree data structure, opened for the append-only property and the consistency-proof obligation and stating neither | the lead definition paragraph, page revision oldid=1383668961 (last edited 2026-11-04). Capture `.ufo/waves/round-69/capture/S169.body` (209875 B, sha256 `ad8de3b95bd73e8bb93ac1bb37fb17f0c050e53660a1f5619dba1136bd36a27c`); opened live 2026-11-08 with a browser user agent (HTTP 200, 209875 B, same sha256; refetch byte-identical; quote locate count=1 under rendered-text-v1; normalized sha256 `b3c065eb8b12abc368ef9bc236edc31057fdcfe1e29df03715f10bc2815f4cbc`, 17020 normalized bytes) | REJECTED: a tertiary summary with no normative mechanism and no consistency-proof obligation for the supersession rule — measured on the rendered text, “append-only” 0, “consistency proof” 0, “MUST” 0 — so it cannot ground that rule; flip: cite the RFC it summarizes (S168), whose §2.1.4 states the append-only property and the consistency proof owed for it. Quote: “a hash tree or Merkle tree is a tree in which every "leaf" node is labelled with the cryptographic hash of a data block” (24 words, locate count=1). | rejected | 2026-11-08 | 180d | corpus/lessons/round-69.md |
+
+## corpus/source-fetches.tsv line 202 (S168)
+S168	mined	d42ef2a76a40e5ec41783e12f5ded7a6c4bab6dd846fb8c2cb376f5b6cff7a89	https://www.rfc-editor.org/rfc/rfc9162.txt	https://www.rfc-editor.org/rfc/rfc9162.txt	200	curl-fsSL-compressed-v1	2026-11-08	decoded-http-body-v1	a0e432ce7580c99fcc8faf0cf3f6191f9ce6b4864f949158e020d4ecb295081f	128266	-	Merkle consistency proofs prove the append-only property of the tree.	rendered-text-v1	03802e0b592da2cf7f9e3f6e26c92b98a85791310fc752be2f1f1c1da505fbf5	.ufo/waves/round-69/capture/S168.body
+
+## corpus/source-fetches.tsv line 203 (S169)
+S169	rejected	446484c65b386bae58a30840e3023c0e809bece32d1b6d4b2bacdc4f6bea870f	https://en.wikipedia.org/wiki/Merkle_tree	https://en.wikipedia.org/wiki/Merkle_tree	200	curl-fsSL-compressed-v1	2026-11-08	decoded-http-body-v1	ad8de3b95bd73e8bb93ac1bb37fb17f0c050e53660a1f5619dba1136bd36a27c	209875	-	a hash tree or Merkle tree is a tree in which every "leaf" node is labelled with the cryptographic hash of a data block	rendered-text-v1	b3c065eb8b12abc368ef9bc236edc31057fdcfe1e29df03715f10bc2815f4cbc	.ufo/waves/round-69/capture/S169.body
+
+## derived checks
+# registry rows: 2 rows, NF=13 each (11 columns), id order append-only S167 -> S168 -> S169
+# fetch rows: S168 NF=16 S169 NF=16 
+# no literal | inside any registry cell: 13
+# no TAB or CR in either new registry row: 0 (0 = clean)
+# no CR in corpus/source-fetches.tsv at all: 0 (0 = clean)
+# registry quote (S168) == fetch col13: 1 / Merkle consistency proofs prove the append-only property of the tree.

@@ -1,0 +1,55 @@
+# locate + raw-grep matrix — RFC 9162 (S168) and Wikipedia Merkle tree (S169)
+# lane normalizer: python3 corpus/rendered-text-v1.py locate <copy> '<quote>'
+# raw grep: grep -c -F '<quote>' <copy>   (byte-exact, no wrap tolerance)
+# generated 2026-11-08 by seat R69ScoutSource; bodies are the receipts copies
+
+## RFC 9162 — append-only property occurrences by section
+  160:   certificates by providing append-only logs of issued certificates.
+  207:   The append-only property of each log is achieved using Merkle Trees,
+  475:   Merkle consistency proofs prove the append-only property of the tree.
+  777:   A log is a single, append-only Merkle Tree of submitted certificate
+  2081:   *  the append-only property
+  2602:   Violation of the append-only property or the STH issuance rate limit
+  2609:   of the log, proving violation of the append-only property.
+  (section of each line: 160 & 207 -> 1. Introduction; 475 -> 2.1.4. Merkle Consistency Proofs; 777 -> 4. Log Format and Operation; 2081 -> 8.3. Auditing; 2602 & 2609 -> 11.3. Misbehaving Logs)
+  NOTE: 2.1/2.1.1 (lines 310-363) contain ZERO 'append' hits — measured: sed -n '310,363p' | grep -ci append => 0
+
+## RFC 9162 — locate under rendered-text-v1 vs raw byte-exact grep
+  words=10  rawgrep=1   RENDERED_TEXT_V1_LOCATE: count=1         | Merkle consistency proofs prove the append-only property of the tree.
+  words=14  rawgrep=0   RENDERED_TEXT_V1_LOCATE: count=1         | any particular instance of the log is a superset of any particular previous instance
+  words=19  rawgrep=0   RENDERED_TEXT_V1_LOCATE: count=1         | Note that this is a general mechanism that could be used for transparently logging any form of binary data
+  words=11  rawgrep=1   RENDERED_TEXT_V1_LOCATE: count=1         | The append-only property of each log is achieved using Merkle Trees
+  words=14  rawgrep=0   RENDERED_TEXT_V1_LOCATE: count=0         | A log is a single, append-only Merkle Tree of submitted certificate and precertificate entries.
+  words=10  rawgrep=0   RENDERED_TEXT_V1_LOCATE: count=0         | the first m inputs D[0:m] are equal in both trees
+  words=11  rawgrep=1   RENDERED_TEXT_V1_LOCATE: count=1         | Violation of the append-only property or the STH issuance rate limit
+  words=11  rawgrep=0   RENDERED_TEXT_V1_LOCATE: count=1         | there are four properties of log behavior that should be checked
+
+## RFC 9162 — raw byte-exact fragments of the wrapped §1 sentences
+  rawgrep=1 | Note that this is a general mechanism that
+  rawgrep=1 | could be used for transparently logging any form of binary data
+  rawgrep=1 | any particular instance
+  rawgrep=1 | of the log is a superset of any particular previous instance
+
+## RFC 9162 — raw byte-exact single-line fragments inside the swallowed region (lines 536-953)
+  rawgrep=1 | first m inputs D[0:m] are equal in both trees
+  rawgrep=1 | A log is a single, append-only Merkle Tree of submitted certificate
+  rawgrep=1 | previously advertised hash MTH(D[0:m]) of the first m leaves
+
+## Wikipedia Merkle tree — locate under rendered-text-v1 vs raw byte-exact grep
+  words=8   rawgrep=0   RENDERED_TEXT_V1_LOCATE: count=1         | One simple fix is defined in Certificate Transparency
+  words=4   rawgrep=0   RENDERED_TEXT_V1_LOCATE: count=1         | the Certificate Transparency framework
+  words=13  rawgrep=0   RENDERED_TEXT_V1_LOCATE: count=1         | A Merkle tree is therefore an efficient example of a cryptographic commitment scheme
+  words=16  rawgrep=0   RENDERED_TEXT_V1_LOCATE: count=1         | A hash tree allows efficient and secure verification of the contents of a large data structure
+  (raw grep is 0 for the CT sentences because the article wraps 'Certificate Transparency' in an <a> tag; the quote still locates under rendered-text-v1)
+
+## Wikipedia — absence sweep over the rendered body (case-insensitive)
+  append-only            count=0
+  append                 count=0
+  consistency            count=0
+  consistency proof      count=0
+  superset               count=0
+  proof                  count=2
+  MUST                   count=0
+  SHOULD                 count=0
+  RFC                    count=1
+  Certificate Transparency count=3

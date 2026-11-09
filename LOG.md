@@ -2237,3 +2237,28 @@ Amendment A1 `4251519bd6e8b5c152d70ae286e04a117a49ed4f`. Wave `kagi-r68-w1`,
   field (QM89 — routed, not repaired: three fixtures per counter for round 69).
   Plus one freeze-sequence gap: the col-15 BASE figure (31) was receipted seven
   minutes after the freeze.
+Correction (round 69): the line above prints `C1_VERIFIED_SELFTEST: PASS (59 cases)` while the round's committed receipt `.ufo/waves/round-68/w1/R68ExecCounterC1/selftest.txt:13` reads `C1_VERIFIED_SELFTEST: PASS (56 cases)`; the record and the receipt disagree, and neither alone is the measured fact. Re-running the committed round-68 counter blob (identical at `264917aa`) prints `PASS (59 cases)` (`.ufo/waves/round-69/w1/R69ScribeLesson/base-c1-selftest-rerun.txt`, last line), so the 56-case receipt was produced by earlier bytes than the ones it sits beside (lesson M69-5); the landed instrument's count is 59 and the receipt's is 56.
+
+## round 69 — 2026-11-08 (C1 calibration, C2 operability; both missed — honest stop)
+
+- **Attempts.** Attempt 1 died on a provider 429 before dispatch; attempt 2 froze
+  nothing new, dispatched `kagi-r69-w1` (16 seats) and died with the orchestrator
+  session (SIGTERM); the driver finalized the wave with `output: null` for every
+  seat. Attempt 3 integrated the seats' report files and uncommitted tree edits;
+  w1 was not re-dispatched.
+- **C1 calibration (missed).** `C1_RECORD: mismatches=1 population=13 guard=0`
+  (BASE 13). Landed repairs: SCORECARD round-68 rows (L1/L2/L10), round-68 lesson
+  Correction block (L3), LOG Correction (L4), base-derivation correction (L5), dead
+  citation erratum (L6), claims.json `superseded_by` (L7), `predicate_ok` floors +
+  `predicate-subfloor` case (L8), `R68-02` journaled repoint (L9), QM97–QM100 (L11),
+  expansion line (L13). L12 fails on the lost settlement.
+- **C2 operability (missed).** `C2_TEETH: subfloor=0 ledger=0 guard=0`; three frozen
+  legs unmet or unsatisfiable on the production gate (lesson M69-6/7/10).
+- **Frontier.** S168 (RFC 9162 §2.1.4) admitted; S169 (Wikipedia) rejected with
+  flip; entry `corpus/knowledge/record-supersession.md`. Census `kagi ok` exit 0 at
+  start and end.
+- **Mistakes mined** (ten, `corpus/lessons/round-69.md`): M69-1…M69-10; new at
+  integration: M69-9 (settlement leg bound to a file name the driver does not write)
+  and M69-10 (frozen legs never run against the existing gate before the freeze).
+- **Ledger.** `R68-01` 38/33 → 40/35 and `R68-02` repoint, both journaled; `R69-01`
+  pins the measured L1–L11 subset only.

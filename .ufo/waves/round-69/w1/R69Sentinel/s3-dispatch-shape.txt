@@ -1,0 +1,34 @@
+# R69Sentinel — dispatch-shape verification receipt
+# commands run from the lane root; no production file written by this seat.
+
+$ python3 -c 'json.load(...)' on .ufo/waves/round-69/w1-spec.json, w1-dispatch.json, w1/swarm-registry.json
+dispatch top-level keys      : ['compaction', 'counts', 'note', 'policy', 'registry', 'resumeSends', 'schema', 'taskCall', 'wave']
+taskCall keys                : ['context', 'tasks']
+taskCall['tasks'] len        : 16
+task item key sets (unique)  : [('agent', 'name', 'task')]
+every item has name/agent/task: True
+task names == registry members: True
+task names == spec item names: True
+'model' fields in spec       : none
+'model' fields in dispatch   : none
+'model' fields in registry   : none
+spec milestone               : round 69 attempt 2 record repair: 13 routed defects and two falsified instruments; 16 seats, attack 4 (2 reviewer, critic, mutation-tester) plus sentinel/revenger/connector adversaries
+roles in dispatch             : {'reviewer', 'sentinel', 'revenger', 'critic', 'connector', 'scribe', 'mutation-tester', 'scout', 'executor'}
+
+$ grep -cF on the literal verdict strings (plan L12 / D12 quarantine)
+C1_RECORD:       spec_lines=0 dispatch_lines=0 registry_lines=0
+C2_TEETH:        spec_lines=0 dispatch_lines=0 registry_lines=0
+mismatches=0     spec_lines=0 dispatch_lines=0 registry_lines=0
+(placeholders used instead: C1_RECORD<colon> / mismatches=<0> — the plan's own notation rule)
+
+$ grep -oF on the placeholder forms (measured, for the L1)
+C1_RECORD<colon>       spec=7 dispatch=7
+C2_TEETH<colon>        spec=5 dispatch=5
+mismatches=<0>         spec=8 dispatch=8
+population=13          spec=6 dispatch=6
+guard=1                spec=7 dispatch=7
+subfloor=1             spec=4 dispatch=4
+ledger=1               spec=4 dispatch=4
+
+$ for f in .ufo/waves/round-69/w1-spec.json .ufo/waves/round-69/w1-dispatch.json .ufo/waves/round-69/w1/swarm-registry.json; do grep -n 'model' $f; done
+(no output = no model key anywhere in the wave metadata)

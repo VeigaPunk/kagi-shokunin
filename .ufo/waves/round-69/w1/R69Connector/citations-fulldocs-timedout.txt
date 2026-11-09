@@ -1,0 +1,11 @@
+# R69Connector, round 69 w1. Full default docs set, killed at the budget.
+# Transcribed from this seat's own job console (the run was NOT redirected to a
+# file; these are the lines the job delivered on completion). No verdict claimed.
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin
+$ timeout 240 bash corpus/claim-ledger.sh citations 2>&1 | tail -2
+LABELED SKILL.md:298 local:// (session URI, labelled on its line)
+LABELED SKILL.md:638 local://x (session URI, labelled on its line)
+lane_RC=124        # PIPESTATUS[0] = timeout killed it at 240 s, still on SKILL.md
+# Consequence: the 49-doc CITATION_GATE reading is NOT measured by this seat;
+# only the doc-scoped reading (cit-spotcheck-lesson-base.txt, RC=1,
+# unresolved=4) is a receipt.

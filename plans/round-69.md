@@ -220,3 +220,33 @@ connector (sibling overlap), 1 reviewer, 1 critic, 1 mutation-tester, 1
 sentinel, 1 revenger — attack 5/15 = 33.3%. The planner seat is the L1's.
 One writer per file; no seat commits; all scratch under
 `$HYAKU_SCRATCH/kagi-r69/<seat>/`.
+
+## Honest stop (attempt 3)
+
+Appended at integration by the attempt-3 L1 (`KagiR69a3`). Nothing above this
+heading is amended: predicates, populations, kill rules and targets stand as
+frozen at `adb6972`. Both claims are filed as **missed** on their frozen
+counters; no target is narrowed after data (§9). This section is the narrowing
+pointer the pre-file falsification ledger cites for every `falsifies-wording`
+row: the deliverable is the honest stop, not a re-worded claim.
+
+- **C1** — landed tree: `C1_RECORD: mismatches=1 population=13 guard=0` (rc 1);
+  BASE extraction: `mismatches=13`, every leg printing its mismatch. Eleven
+  record-surface legs (L1–L11) and L13 pass; L12 fails because the wave
+  settlement lost every seat output when the orchestrator was killed (the
+  driver's `kagi-r69-w1-results.json` holds `output: null` × 16; the plan's
+  `w1-results.json` does not exist). The L1 does not synthesise the driver's
+  artifact. Kill rule `mismatches > 0` fires → **missed**. Attack findings that
+  falsify the wording of individual legs (R69Reviewer F-1…F-7, R69Critic
+  F-C1-1/-3/-4/-5/-6, R69MutTester M3: L11 counts ids without falsifier text) are
+  recorded, not repaired by re-wording: they are routed to the next round's
+  counter.
+- **C2** — landed tree: `C2_TEETH: subfloor=0 ledger=0 guard=0` (rc 1); BASE
+  reads `subfloor=0 ledger=0`. subfloor (b) is unmet (59 → 62 cases, not +1);
+  ledger (a)/(b) are unsatisfiable on the production gate as frozen (the `true`
+  negative is refused by the policy allowlist with rc 2; a one-row ledger is
+  not CLEAN on the unscoped docs set). **Missed.** The repair the claim was
+  about — `predicate_ok` comparing both frozen floors — landed and is measured
+  by C1 leg L8; `R69-02` was not minted.
+- Ledger: `R69-01` pins only the measured L1–L11 subset
+  (`C1_RECORD_LEGS: legs=1,…,11 ok=11`), never the missed full target.

@@ -1,0 +1,52 @@
+# r68-01-population-move.txt — a routed defect this seat's landing causes, measured both ways
+# (not a defect in the landed rows; R68-01 is another seat's file and is left untouched)
+# Every number below was produced by the command shown. B was measured on a scratch copy under
+# ${HYAKU_SCRATCH}/kagi-r69/R69ScribeEntry/norows (now deleted); that copy differs from A in
+# exactly one way — the two registry rows and two fetch rows this seat landed are removed.
+
+## A. counter on the round-69 working tree WITH S168/S169 landed (terminal reading, census green)
+$ cd kagi-shokunin && bash plans/round-68-c1.sh
+c1-verified: derived verified=40 col15=35 path_rows=40 bound=40 located=40 prose=120 mixed=none total=160 malformed=0
+c1-verified: anchor id=S169 token=.ufo/waves/round-69/capture/S169.body pure=True
+C1_VERIFIED: verified=40 col15=35 caught=6/6 guard=1
+EXIT=0
+# The counter itself is healthy: guard=1, caught=6/6, defects=0, exit 0. The only thing wrong
+# against ledger row R68-01 is the pair of numbers — the row expects verified=38 col15=33 and
+# the tree now prints 40/35. (While the peer knowledge entry was still absent the same run read
+# guard=0 / EXIT=1; that was the census dependency recorded in census.txt, not the count move.)
+
+## B. same counter on a copy with EXACTLY my two registry rows and two fetch rows removed
+$ (copy of corpus/ plans/ .ufo/ + .git; the S168/S169 lines deleted) && bash plans/round-68-c1.sh
+c1-verified: derived verified=38 col15=33 path_rows=38 bound=38 located=38 prose=120 mixed=none total=158 malformed=0
+
+## C. BASE extraction
+$ git archive 264917aa | tar -x -C base && cd base && bash corpus/sources-census.sh
+SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+
+## D. ledger row as committed (read-only inspection; NOT edited by this seat)
+$ grep '^R68-01<TAB>' corpus/claim-ledger.tsv | cut -f1-3
+R68-01	bash plans/round-68-c1.sh	^C1_VERIFIED: verified=38 col15=33 caught=6/6 guard=1$
+
+## E. reading
+# A vs B: verified 40 -> 38, col15 35 -> 33, path_rows 40 -> 38, total 160 -> 158.
+# The delta is exactly the two mined capture-path rows this seat landed: plans/round-68-c1.sh
+# derives `verified`/`col15` by counting fetch rows whose col 16 is a pure capture path and
+# binds (digest + bytes + quote). R68-01's frozen expect pins 38/33, so it is green at BASE (C)
+# and red on the round-69 tree by construction.
+#
+# Remedy shape (R69ExecLedger re-measured independently and declined the edit as outside its
+# assigned seat; Main relayed the defect to the L1, KagiR69a2):
+#   old_expect: ^C1_VERIFIED: verified=38 col15=33 caught=6/6 guard=1$
+#   new_expect: ^C1_VERIFIED: verified=40 col15=35 caught=6/6 guard=1$
+#   journal:    .ufo/waves/round-69/journals/expectation-migrations.json
+#   motive:     registry population 158 -> 160 (S168/S169 mined in round 69), so the round-68
+#               counter's derived verified and col15 each move by 2
+# Per QM60 the row's note also needs the revision the 38/33 holds at.
+#
+# NOT edited by this seat: corpus/claim-ledger.tsv is not in this seat's write scope.
+
+## F. Pre-existing BASE reds, measured so nobody chases them (NOT caused by this landing)
+$ grep -n 'rows=114' corpus/claim-ledger.tsv | cut -f1
+R21-02  R31-02  R33-02  R34-03
+# Each pins `SOURCES_CENSUS: CLEAN (rows=114 A=110 ...)` while BASE already prints rows=158 (C).
+# Red before this round's population move; inherited, unrelated to S168/S169.

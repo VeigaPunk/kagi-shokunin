@@ -1,0 +1,42 @@
+# R69Sentinel — receipt-citation audit of the round-69 lane-file edits
+# every citation checked: does the path exist, and does the cited value appear on the cited line?
+
+## Scope: lane files edited this round (git status at audit time)
+ M .ufo/waves/round-68/base/base-derivation.md
+ M .ufo/waves/round-68/claims.json
+ M LOG.md
+ M SCORECARD.md
+ M corpus/QUALITY.md
+ M corpus/SOURCES.md
+ M corpus/claim-ledger.tsv
+ M corpus/claims-declared.tsv
+ M corpus/lessons/round-68.md
+ M corpus/source-fetches.tsv
+ M plans/round-68-c1.sh
+ M plans/round-68.md
+
+--- also edited/created by wave seats (untracked) ---
+?? .ufo/waves/round-69/capture/
+?? .ufo/waves/round-69/journals/
+?? corpus/knowledge/record-supersession.md
+?? corpus/lessons/round-69.md
+?? plans/round-69-c1.sh
+?? plans/round-69-c2.sh
+
+## A. path:line citations inside the CHANGED lines of those files
+$ python3 (git diff -U0 | new lines) -> regex 'path:NN' -> open file, read line NN
+  OK     .ufo/waves/round-68/w1/R68Sentinel/receipts/base-legs.txt:28  -> BASE caught = 2/6 (the plan's motivating evidence claims 0/6)
+  OK     .ufo/waves/round-68/w1/R68ScribeLesson/c2-lane-run.txt:6  -> # (no C2_RECORD line; the process was killed at the budget)
+  OK     .ufo/waves/round-68/w1/R68ExecCounterC1/selftest.txt:13  -> C1_VERIFIED_SELFTEST: PASS (56 cases)
+  OK     .ufo/waves/round-68/w1/R68ScribeLesson/c2-lane-run.txt:6  -> # (no C2_RECORD line; the process was killed at the budget)
+  OK     .ufo/waves/round-68/base/c1-base-round67-counter.txt:21  -> C1_READTHROUGH: bound=36 located=36 caught=6/6 guard=0
+  OK     .ufo/waves/round-68/w1/R68ExecCounterC1/base-run.txt:19  -> C1_VERIFIED: verified=36 col15=31 caught=0/6 guard=0
+  OK     .ufo/waves/round-68/w1/R68ScribeLesson/c2-lane-run.txt:6  -> # (no C2_RECORD line; the process was killed at the budget)
+  OK     .ufo/waves/round-68/w1/R68Sentinel/receipts/base-legs.txt:28  -> BASE caught = 2/6 (the plan's motivating evidence claims 0/6)
+  OK     .ufo/waves/round-68/w1/R68ExecCounterC1/selftest.txt:13  -> C1_VERIFIED_SELFTEST: PASS (56 cases)
+  OK     .ufo/waves/round-68/base/c1-base-round67-counter.txt:21  -> C1_READTHROUGH: bound=36 located=36 caught=6/6 guard=0
+  OK     .ufo/waves/round-68/w1/R68ExecCounterC1/base-run.txt:19  -> C1_VERIFIED: verified=36 col15=31 caught=0/6 guard=0
+  OK     .ufo/waves/round-68/w1/R68ScribeLesson/c2-lane-run.txt:6  -> # (no C2_RECORD line; the process was killed at the budget)
+
+## B. bare path citations inside the CHANGED lines (no line number) that do not exist
+$ python3 -> regex '(corpus|plans|.ufo)/...\.(txt|md|json|tsv|sh)' -> test -e

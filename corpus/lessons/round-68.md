@@ -224,3 +224,12 @@ gained the exact-planned-heading skip *plus* the table-under-a-planned-heading
 die; the second historical heading (`## Round 64 — planned (next)`) was handled
 by allowing one parenthetical on a planned heading rather than rewriting a
 historical record.
+
+## Correction (round 69)
+
+The sentence "`C2_RECORD` mismatches 3 → 0 (selftest pin, missing ledger rows,
+cells SETUP)" (the round-68 C2 bullet) is superseded: no aggregate `C2_RECORD`
+line was produced on the landed bytes, so the round-68 C2 claim is `unprovable`.
+The receipt is
+`.ufo/waves/round-68/w1/R68ScribeLesson/c2-lane-run.txt:6`, which reads verbatim
+"# (no C2_RECORD line; the process was killed at the budget)".

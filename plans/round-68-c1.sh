@@ -7,6 +7,16 @@
 # Frozen predicate: plans/round-68.md §C1 (never amend or reinterpret a
 # predicate, counter, kill rule, population or target; this file enforces it).
 #
+# Amendment (round 69, post-closure repair — dated, not a silent edit):
+#   Defect D8 (corpus/lessons/round-68-verifier-spotcheck.md §7 item 8):
+#   predicate_ok ignored the frozen population floors (verified >= 37,
+#   col15 >= 32) from plans/round-68.md §C1 kill rules.
+#   Old body: guard == 1 and caught == 6 and defects == 0
+#   New body: guard == 1 and caught == 6 and defects == 0
+#             and verified >= 37 and col15 >= 32
+#   The round-68 C1 reading (verified=38 col15=33) still passes the
+#   new body, so the landed claim is unaffected.
+#
 #   C1_VERIFIED: verified=<n> col15=<n> caught=<k>/6 guard=<0|1>
 #
 # verified  corpus/source-fetches.tsv rows whose col 16 IS a repo-relative
@@ -751,7 +761,8 @@ def guard_e(clean, derived):
 
 
 def predicate_ok(verified, col15, caught, guard, defects):
-    return (guard == 1 and caught == 6 and defects == 0)
+    return (guard == 1 and caught == 6 and defects == 0
+            and verified >= 37 and col15 >= 32)
 
 
 def verdict_line(verified, col15, caught, guard):
@@ -1099,6 +1110,9 @@ def selftest(root):
         case("predicate-caught5", not predicate_ok(37, 32, 5, 1, 0))
         case("predicate-guard0", not predicate_ok(37, 32, 6, 0, 0))
         case("predicate-defect", not predicate_ok(37, 32, 6, 1, 1))
+        case("predicate-subfloor", not predicate_ok(36, 31, 6, 1, 0))
+        case("predicate-floor-edge", predicate_ok(37, 32, 6, 1, 0))
+        case("predicate-floor-col15", not predicate_ok(38, 31, 6, 1, 0))
         case("verdict-line", verdict_line(37, 32, 6, 1) ==
              "C1_VERIFIED: verified=37 col15=32 caught=6/6 guard=1")
         case("verdict-line-zero", verdict_line(36, 31, 0, 0) ==

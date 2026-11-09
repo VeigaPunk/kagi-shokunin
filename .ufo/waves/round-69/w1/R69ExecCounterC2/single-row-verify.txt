@@ -1,0 +1,11 @@
+# single-row-verify.txt — (a) leg: scratch of the BASE extraction, corpus/claim-ledger.tsv reduced to comments + the R68-02 row, stamp row re-pinned in scratch
+# command: (cd <scratch> && bash corpus/claim-ledger.sh verify); MISSING-ID / LABELED-ID lines elided here (count shown)
+## real R68-02 row: bash plans/round-68-c2.sh (BASE)
+FAIL R68-02 reason=exit-mismatch exit=2 want=0
+CLAIM_LEDGER: FAIL (claims=1 failed=1 deferred=0 stamped=168 stale=0 missing=0 unresolved_ids=1660 labeled_ids=173 host_skipped=0)
+rc=1
+MISSING-ID lines: 1660
+## control R68-02 row: grep -c ^R68-02 corpus/claim-ledger.tsv expect ^1$ (passing row; isolates unresolved_ids)
+CLAIM_LEDGER: FAIL (claims=1 failed=0 deferred=0 stamped=168 stale=0 missing=0 unresolved_ids=1660 labeled_ids=173 host_skipped=0)
+rc=1
+MISSING-ID lines: 1660

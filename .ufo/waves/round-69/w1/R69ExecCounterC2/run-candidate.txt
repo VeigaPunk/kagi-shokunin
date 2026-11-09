@@ -1,0 +1,61 @@
+c2-teeth: tree=/home/vgpnk/Projects/shokunin/kagi-shokunin base=/fast/scratch/hyaku/kagi-r69/R69ExecCounterC2/base-extract
+  | c1-selftest tree=/home/vgpnk/Projects/shokunin/kagi-shokunin rc=0 cases=62 last='C1_VERIFIED_SELFTEST: PASS (62 cases)'
+  | c1-selftest tree=/fast/scratch/hyaku/kagi-r69/R69ExecCounterC2/base-extract rc=0 cases=59 last='C1_VERIFIED_SELFTEST: PASS (59 cases)'
+LEG subfloor tree=cand a=1 b=0 c=1 subfloor=0
+  |   a (36, 31, 6, 1, 0) want=False got=False ok
+  |   a (37, 32, 6, 1, 0) want=True got=True ok
+  |   a (38, 33, 6, 1, 0) want=True got=True ok
+  |   a (38, 33, 5, 1, 0) want=False got=False ok
+  |   a (38, 33, 6, 0, 0) want=False got=False ok
+  |   a (38, 33, 6, 1, 1) want=False got=False ok
+  | b tree_cases=62(rc=0) base_cases=59(rc=0) need tree=base+1
+  | c base_predicate_accepts_36_31_6_1_0=1 (loaded)
+  | verify-reduced: STALE corpus/lessons/round-68.md sha=88463e109346->e8af5c1558e0 lines=226->235 bytes=14681->15108
+  | verify-reduced: STALE LOG.md sha=5d0a01683137->5bca3e3f807c lines=2239->2240 bytes=238658->238892
+  | verify-reduced: STALE plans/round-68-c1.sh sha=d353cf36683f->c8407f29c012 lines=1135->1149 bytes=49300->50118
+  | verify-reduced: STALE plans/round-68.md sha=e4f89c8ba08a->f76462da2b45 lines=266->318 bytes=16012->19184
+  | verify-reduced: STALE SCORECARD.md sha=9763f9138ddb->3c54df0cd4e0 lines=2429->2429 bytes=334303->334593
+  | verify-reduced: FAIL R68-02 reason=exit-mismatch exit=127 want=0
+  | verify-reduced: CLAIM_LEDGER: FAIL (claims=1 failed=1 deferred=0 stamped=168 stale=5 missing=0 unresolved_ids=1661 labeled_ids=172 host_skipped=0)
+  | verify-true: STALE corpus/lessons/round-68.md sha=88463e109346->e8af5c1558e0 lines=226->235 bytes=14681->15108
+  | verify-true: STALE LOG.md sha=5d0a01683137->5bca3e3f807c lines=2239->2240 bytes=238658->238892
+  | verify-true: STALE plans/round-68-c1.sh sha=d353cf36683f->c8407f29c012 lines=1135->1149 bytes=49300->50118
+  | verify-true: STALE plans/round-68.md sha=e4f89c8ba08a->f76462da2b45 lines=266->318 bytes=16012->19184
+  | verify-true: STALE SCORECARD.md sha=9763f9138ddb->3c54df0cd4e0 lines=2429->2429 bytes=334303->334593
+  | verify-true: POLICY R68-02 reason=first-token:true
+  | verify-true: CLAIM_LEDGER: POLICY (claims=1 policy=1 stamped=168)
+LEG ledger tree=cand a=0 b=0 c=1 d=1 ledger=0
+  | a verify-reduced rc=1 last='CLAIM_LEDGER: FAIL (claims=1 failed=1 deferred=0 stamped=168 stale=5 missing=0 unresolved_ids=1661 labeled_ids=172 host_skipped=0)'
+  | b verify-true rc=2 fail-line=False last='CLAIM_LEDGER: POLICY (claims=1 policy=1 stamped=168)'
+  | c expect-journal rc=0 last='EXPECT_JOURNAL: CLEAN (changed=3 journaled=3)'
+  | d row-identity rc=0 last='ROW_IDENTITY: ledger-ids count=103 sha256=4d15db51f0f8151558813173d5b4c5a928429d815d2216ee378931d1abdecc60' pinned='^ROW_IDENTITY: ledger-ids count=103 sha256=4d15db51f0f8151558813173d5b4c5a928429d815d2216ee378931d1abdecc60$'
+LEG subfloor tree=base a=0 b=0 c=1 subfloor=0
+  |   a (36, 31, 6, 1, 0) want=False got=True MISS
+  |   a (37, 32, 6, 1, 0) want=True got=True ok
+  |   a (38, 33, 6, 1, 0) want=True got=True ok
+  |   a (38, 33, 5, 1, 0) want=False got=False ok
+  |   a (38, 33, 6, 0, 0) want=False got=False ok
+  |   a (38, 33, 6, 1, 1) want=False got=False ok
+  | b tree_cases=59(rc=0) base_cases=59(rc=0) need tree=base+1
+  | c base_predicate_accepts_36_31_6_1_0=1 (loaded)
+  | verify-reduced: FAIL R68-02 reason=exit-mismatch exit=2 want=0
+  | verify-reduced: CLAIM_LEDGER: FAIL (claims=1 failed=1 deferred=0 stamped=168 stale=0 missing=0 unresolved_ids=1660 labeled_ids=173 host_skipped=0)
+  | verify-true: POLICY R68-02 reason=first-token:true
+  | verify-true: CLAIM_LEDGER: POLICY (claims=1 policy=1 stamped=168)
+LEG ledger tree=base a=0 b=0 c=0 d=1 ledger=0
+  | a verify-reduced rc=1 last='CLAIM_LEDGER: FAIL (claims=1 failed=1 deferred=0 stamped=168 stale=0 missing=0 unresolved_ids=1660 labeled_ids=173 host_skipped=0)'
+  | b verify-true rc=2 fail-line=False last='CLAIM_LEDGER: POLICY (claims=1 policy=1 stamped=168)'
+  | c expect-journal rc=2 last='expect-journal: setup error: journals dir not readable: /fast/scratch/hyaku/kagi-r69/R69ExecCounterC2/base-extract/.ufo/waves/round-69/journals'
+  | d row-identity rc=0 last='ROW_IDENTITY: ledger-ids count=101 sha256=13167dd77e5a06382b73d5ae618129925434f1fbb46c3ae34cbe557c17f8fb0d' pinned='^ROW_IDENTITY: ledger-ids count=101 sha256=13167dd77e5a06382b73d5ae618129925434f1fbb46c3ae34cbe557c17f8fb0d$'
+  | c1-selftest tree=/fast/scratch/hyaku/kagi-r69/R69ExecCounterC2/run.W8ckWo/mutant-comment rc=0 cases=59 last='C1_VERIFIED_SELFTEST: PASS (59 cases)'
+LEG subfloor tree=comment-mutant subfloor=0
+  |   a (36, 31, 6, 1, 0) want=False got=True MISS
+  |   a (37, 32, 6, 1, 0) want=True got=True ok
+  |   a (38, 33, 6, 1, 0) want=True got=True ok
+  |   a (38, 33, 5, 1, 0) want=False got=False ok
+  |   a (38, 33, 6, 0, 0) want=False got=False ok
+  |   a (38, 33, 6, 1, 1) want=False got=False ok
+  | b tree_cases=59(rc=0) base_cases=59(rc=0) need tree=base+1
+  | c base_predicate_accepts_36_31_6_1_0=1 (loaded)
+GUARD a=0 (measured reads subfloor=1 ledger=1) b=1 (BASE reads subfloor=0 ledger=0) c=1 (comment-only mutant subfloor=0) d=1 (selftest cases=20)
+C2_TEETH: subfloor=0 ledger=0 guard=0

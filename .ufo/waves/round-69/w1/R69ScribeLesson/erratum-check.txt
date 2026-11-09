@@ -1,0 +1,33 @@
+# R69ScribeLesson — erratum check (round 69, attempt 2)
+# D6: the round-68 report (fleet-side, /home/vgpnk/Projects/shokunin/.ufo/reports/round-68/kagi.md) cites a receipt that exists in no commit.
+
+--- dead citation: .ufo/waves/round-68/final/c1-base.txt ---
+$ git log --all --oneline -- .ufo/waves/round-68/final/c1-base.txt
+commits=0
+$ git ls-tree -r --name-only 264917aa .ufo/waves/round-68/final/
+.ufo/waves/round-68/final/c1-candidate.txt
+.ufo/waves/round-68/final/c2-candidate.txt
+.ufo/waves/round-68/final/l1-derivation-recut-only.txt
+$ ls .ufo/waves/round-68/final/   (worktree)
+c1-candidate.txt
+c2-candidate.txt
+l1-derivation-recut-only.txt
+$ test -e .ufo/waves/round-68/final/c1-base.txt && echo EXISTS || echo ABSENT
+ABSENT
+
+--- corrected pointer: .ufo/waves/round-68/w1/R68ExecCounterC1/base-run.txt ---
+$ ls -la .ufo/waves/round-68/w1/R68ExecCounterC1/base-run.txt
+-rw-r--r-- 1 vgpnk vgpnk 2358 Nov  8 09:41 .ufo/waves/round-68/w1/R68ExecCounterC1/base-run.txt
+$ sed -n '19p' .ufo/waves/round-68/w1/R68ExecCounterC1/base-run.txt
+C1_VERIFIED: verified=36 col15=31 caught=0/6 guard=0
+EXISTS=yes
+
+--- the fleet report's own citation line (read-only, fleet-side) ---
+$ grep -n 'final/c1-base.txt' /home/vgpnk/Projects/shokunin/.ufo/reports/round-68/kagi.md
+106:  `.ufo/waves/round-68/final/c1-base.txt`. The BASE gate is blind on three
+
+--- receipts that DO carry the readings the dead path was cited for ---
+$ grep -n 'C1_VERIFIED' .ufo/waves/round-68/w1/R68ExecCounterC1/base-run.txt
+19:C1_VERIFIED: verified=36 col15=31 caught=0/6 guard=0
+$ grep -n 'C1_READTHROUGH' .ufo/waves/round-68/base/c1-base-round67-counter.txt
+21:C1_READTHROUGH: bound=36 located=36 caught=6/6 guard=0

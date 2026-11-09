@@ -1,0 +1,23 @@
+RFC 9162 open receipt - seat R69ScribeQuality, lane kagi-shokunin
+date: 2026-11-08 (access date named in corpus/knowledge/record-supersession.md)
+url: https://www.rfc-editor.org/rfc/rfc9162.txt
+user-agent: browser UA (curl -A with a browser user agent)
+http_status: 200
+bytes: 128266
+sha256: a0e432ce7580c99fcc8faf0cf3f6191f9ce6b4864f949158e020d4ecb295081f
+capture_path: .ufo/waves/round-69/capture/S168.body
+byte_identical_to_capture: yes (same byte count, same sha256)
+locate_count: 1
+locate_command: python3 corpus/rendered-text-v1.py locate .ufo/waves/round-69/capture/S168.body 'Merkle consistency proofs prove the append-only property of the tree.'
+locate_output: RENDERED_TEXT_V1_LOCATE: count=1 (exit 0)
+quote_words: 10 (<= 25 required)
+quote_location: body line 475, raw byte offset 19819 (RFC 9162 section 2.1.4 Merkle Consistency Proofs)
+second_quote_located: count=1 (section 1 superset statement; not findable by raw line grep - rendered-text-v1 required)
+falsifiers_F1_F6_readings:
+  F1 locate count=1 exit 0
+  F2 sha256 a0e432ce7580c99fcc8faf0cf3f6191f9ce6b4864f949158e020d4ecb295081f over 128266 bytes
+  F3 grep -c 'mismatches 3 -> 0' corpus/lessons/round-68.md = 2 ; grep -c '^## Correction (round 69)' = 1 (line 228)
+  F4 sed -n '6p' .ufo/waves/round-68/w1/R68ScribeLesson/c2-lane-run.txt = '# (no C2_RECORD line; the process was killed at the budget)'
+  F5 grep -c 'mismatches=0 population=3 guard=1' corpus/claim-ledger.tsv = 0 ; same grep over .ufo/waves/round-69/journals/expectation-migrations.json = 1
+  F6 git ls-tree -r --name-only 264917aa corpus/knowledge = 48 ; same at cd9d66f1 = 48 ; grep -c 'record-supersession.md' corpus/README.md = 2 (coverage-map row 121 + Frontier bullet 148)
+  F6 knowledge file count in the measured tree: 49 (48 at BASE)

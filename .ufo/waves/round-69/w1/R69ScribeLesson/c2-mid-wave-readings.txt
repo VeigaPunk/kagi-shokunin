@@ -1,0 +1,62 @@
+# C2 mid-wave readings, R69ScribeLesson, 2026-11-08 (command + verdict line, re-run for this receipt)
+# base: git archive 264917aa -> /fast/scratch/hyaku/kagi-r69/R69ScribeLesson/base ; cand: lane worktree copy -> /fast/scratch/hyaku/kagi-r69/R69ScribeLesson/cand
+$ bash plans/round-69-c2.sh --tree <base> --base-tree <base> --scratch <scratch-base>
+c2-teeth: tree=/fast/scratch/hyaku/kagi-r69/R69ScribeLesson/base base=/fast/scratch/hyaku/kagi-r69/R69ScribeLesson/base
+LEG subfloor tree=cand a=0 b=0 c=1 subfloor=0
+LEG ledger tree=cand a=0 b=0 c=0 d=1 ledger=0
+LEG subfloor tree=base a=0 b=0 c=1 subfloor=0
+LEG ledger tree=base a=0 b=0 c=0 d=1 ledger=0
+LEG subfloor tree=comment-mutant subfloor=0
+GUARD a=0 (measured reads subfloor=1 ledger=1) b=1 (BASE reads subfloor=0 ledger=0) c=1 (comment-only mutant subfloor=0) d=1 (selftest cases=20)
+C2_TEETH: subfloor=0 ledger=0 guard=0
+RC=1
+
+$ bash plans/round-69-c2.sh --tree <cand> --base-tree <base> --scratch <scratch-cand> --verbose
+LEG subfloor tree=cand a=1 b=0 c=1 subfloor=0
+  | b tree_cases=62(rc=0) base_cases=59(rc=0) need tree=base+1
+  | verify-reduced: STALE corpus/lessons/round-68.md sha=88463e109346->e8af5c1558e0 lines=226->235 bytes=14681->15108
+  | verify-reduced: STALE LOG.md sha=5d0a01683137->5bca3e3f807c lines=2239->2240 bytes=238658->238892
+  | verify-reduced: STALE plans/round-68-c1.sh sha=d353cf36683f->c8407f29c012 lines=1135->1149 bytes=49300->50118
+  | verify-reduced: STALE plans/round-68.md sha=e4f89c8ba08a->f76462da2b45 lines=266->318 bytes=16012->19184
+  | verify-reduced: STALE SCORECARD.md sha=9763f9138ddb->3c54df0cd4e0 lines=2429->2429 bytes=334303->334593
+  | verify-reduced: FAIL R68-02 reason=exit-mismatch exit=127 want=0
+  | verify-reduced: CLAIM_LEDGER: FAIL (claims=1 failed=1 deferred=0 stamped=168 stale=5 missing=0 unresolved_ids=1661 labeled_ids=172 host_skipped=0)
+  | verify-true: STALE corpus/lessons/round-68.md sha=88463e109346->e8af5c1558e0 lines=226->235 bytes=14681->15108
+  | verify-true: STALE LOG.md sha=5d0a01683137->5bca3e3f807c lines=2239->2240 bytes=238658->238892
+  | verify-true: STALE plans/round-68-c1.sh sha=d353cf36683f->c8407f29c012 lines=1135->1149 bytes=49300->50118
+  | verify-true: STALE plans/round-68.md sha=e4f89c8ba08a->f76462da2b45 lines=266->318 bytes=16012->19184
+  | verify-true: STALE SCORECARD.md sha=9763f9138ddb->3c54df0cd4e0 lines=2429->2429 bytes=334303->334593
+  | verify-true: POLICY R68-02 reason=first-token:true
+  | verify-true: CLAIM_LEDGER: POLICY (claims=1 policy=1 stamped=168)
+LEG ledger tree=cand a=0 b=0 c=1 d=1 ledger=0
+  | a verify-reduced rc=1 last='CLAIM_LEDGER: FAIL (claims=1 failed=1 deferred=0 stamped=168 stale=5 missing=0 unresolved_ids=1661 labeled_ids=172 host_skipped=0)'
+  | b verify-true rc=2 fail-line=False last='CLAIM_LEDGER: POLICY (claims=1 policy=1 stamped=168)'
+  | c expect-journal rc=0 last='EXPECT_JOURNAL: CLEAN (changed=3 journaled=3)'
+LEG subfloor tree=base a=0 b=0 c=1 subfloor=0
+  | b tree_cases=59(rc=0) base_cases=59(rc=0) need tree=base+1
+  | verify-reduced: FAIL R68-02 reason=exit-mismatch exit=2 want=0
+  | verify-reduced: CLAIM_LEDGER: FAIL (claims=1 failed=1 deferred=0 stamped=168 stale=0 missing=0 unresolved_ids=1660 labeled_ids=173 host_skipped=0)
+  | verify-true: POLICY R68-02 reason=first-token:true
+  | verify-true: CLAIM_LEDGER: POLICY (claims=1 policy=1 stamped=168)
+LEG ledger tree=base a=0 b=0 c=0 d=1 ledger=0
+  | a verify-reduced rc=1 last='CLAIM_LEDGER: FAIL (claims=1 failed=1 deferred=0 stamped=168 stale=0 missing=0 unresolved_ids=1660 labeled_ids=173 host_skipped=0)'
+  | b verify-true rc=2 fail-line=False last='CLAIM_LEDGER: POLICY (claims=1 policy=1 stamped=168)'
+  | c expect-journal rc=2 last='expect-journal: setup error: journals dir not readable: /fast/scratch/hyaku/kagi-r69/R69ScribeLesson/base/.ufo/waves/round-69/journals'
+LEG subfloor tree=comment-mutant subfloor=0
+  | b tree_cases=59(rc=0) base_cases=59(rc=0) need tree=base+1
+GUARD a=0 (measured reads subfloor=1 ledger=1) b=1 (BASE reads subfloor=0 ledger=0) c=1 (comment-only mutant subfloor=0) d=1 (selftest cases=20)
+C2_TEETH: subfloor=0 ledger=0 guard=0
+RC=1
+
+# one-case variant: scratch copy of the candidate with predicate-floor-edge and predicate-floor-col15 removed (predicate-subfloor kept), same counter
+$ bash plans/round-69-c2.sh --tree <cand1> --base-tree <base> --scratch <scratch-cand1> --verbose
+LEG subfloor tree=cand a=1 b=1 c=1 subfloor=1
+  | b tree_cases=60(rc=0) base_cases=59(rc=0) need tree=base+1
+LEG subfloor tree=base a=0 b=0 c=1 subfloor=0
+  | b tree_cases=59(rc=0) base_cases=59(rc=0) need tree=base+1
+LEG subfloor tree=comment-mutant subfloor=0
+  | b tree_cases=59(rc=0) base_cases=59(rc=0) need tree=base+1
+GUARD a=0 (measured reads subfloor=1 ledger=1) b=1 (BASE reads subfloor=0 ledger=0) c=1 (comment-only mutant subfloor=0) d=1 (selftest cases=20)
+C2_TEETH: subfloor=1 ledger=0 guard=0
+RC=0
+57

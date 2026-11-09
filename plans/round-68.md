@@ -264,3 +264,55 @@ reading separately, and pins the final line in ledger row `R68-01`.
 vocabulary, the classification rule, the guards, or the two axes; it does not
 retro-fit a number after data (no counter had run); and it does not license a
 literal in the counter.
+## Amendment A2 — post-closure repairs (round 69)
+
+Recorded post-closure by the round-69 record-repair seats. The round-68
+claims stay frozen; this amendment only records post-closure repairs and
+alters no earlier text of this plan.
+
+Changed surfaces (old → new):
+
+- `SCORECARD.md` §Round 68 — post-move calibration row: the fabricated
+  achieved aggregate reading → the honest stop (no aggregate `C2_RECORD`
+  line was produced on the landed bytes; `.ufo/waves/round-68/w1/R68ScribeLesson/c2-lane-run.txt:6`
+  reads the process was killed at the budget; the claim is unprovable).
+- `SCORECARD.md` §Round 68 depth row: "QM97–QM99 enter the bar" → no
+  criterion was added (the bar ends at QM96 at the measured tree; the set
+  of criteria with `corpus/lessons/round-68.md` in the source column is
+  empty, and the row now states that).
+- `SCORECARD.md` §Round 68 freshness row: `caught=0/6` alone → the BASE
+  receipt pair (`caught=0/6` at the counter anchor S166 and `caught=2/6`
+  at the frozen anchor S156, `.ufo/waves/round-68/w1/R68Sentinel/receipts/base-legs.txt:28`).
+- `corpus/lessons/round-68.md`: the C2 bullet's achieved reading →
+  an appended `Correction (round 69)` block naming the superseded
+  sentence and the honest-stop receipt (append-only; the old bytes are
+  never rewritten). [Round-69 lesson seat; recorded here as a wave surface.]
+- `LOG.md` round-68 block: `C1_VERIFIED_SELFTEST: PASS (59 cases)`
+  kept byte-identical → appended `Correction (round 69)` naming the
+  parsed 56 cases and `.ufo/waves/round-68/w1/R68ExecCounterC1/selftest.txt:13`
+  (the 59 was a mutant-era count).
+- `.ufo/waves/round-68/base/base-derivation.md`: the bullet quoting
+  `c1-base-round67-counter.txt` as `caught=0/6` kept → appended
+  `Correction (round 69)` naming the receipt's actual value
+  `caught=6/6` (`.ufo/waves/round-68/base/c1-base-round67-counter.txt:21`)
+  and the round-68 BASE counter's `caught=0/6`
+  (`.ufo/waves/round-68/w1/R68ExecCounterC1/base-run.txt:19`).
+- `.ufo/waves/round-68/claims.json`: the frozen `target` strings kept
+  byte-identical → added a top-level `superseded_by` object naming
+  Amendment A1, the final reading, the BASE `caught` pair and the
+  recut-only vs landed reason.
+- `predicate_ok` in `plans/round-68-c1.sh`: ignoring the frozen
+  population floors → comparing `verified >= 37` and `col15 >= 32`, with
+  a `predicate-subfloor` selftest case. [Round-69 predicate seat; this
+  amendment records the freeze amendment, not a silent edit.]
+- `R68-02` in `corpus/claim-ledger.tsv`: pinning an aggregate line the
+  counter never produced → repointed through a journaled migration so
+  `verify` executes the row. [Round-69 ledger seat; recorded here.]
+- `QUALITY.md`: ending at QM96 → landing the round-68 mistake criteria
+  each citing its lesson, per LEARNING.md §3. At the time the record
+  seats read the tree the bar still ended at QM96; the landing is this
+  seat's surface and is recorded here as the wave's repair, not as
+  already-landed bytes.
+
+Every correction is append-only: superseded bytes stay in the file and
+the correction names them. The round-68 claims themselves stay frozen.

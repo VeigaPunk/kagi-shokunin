@@ -1,0 +1,48 @@
+== D1 ==
+2425:| calibration | 9 → 9 | [C2] `bash plans/round-68-c2.sh --tree .` ⇒ `C2_RECORD: mismatches=0 population=3 guard=1` rc 0 (three record surfaces: the census-selftest pin migrates 88 → 98 with a journaled pair, the two round-68 ledger rows exist and execute, and `cells` returns a verdict line instead of SETUP on the historical `## Round 63 — planned` / `## Round 64 — planned (next)` headings). The cells repair keeps the scored-section six-axis check and the table-under-a-planned-heading die. | `plans/round-68-c2.sh`; `R11-09`; `.ufo/waves/round-68/journals/expectation-migrations.json`; `.ufo/waves/round-68/final/` |
+== D2 ==
+2426:| depth | 9 → 9 | No claim. `corpus/knowledge/source-capture-binding.md` gains the widened population, the monotone classification rule, the col-15 recompute and its bounds; QM97–QM99 enter the bar. | `corpus/knowledge/source-capture-binding.md`; `corpus/QUALITY.md` |
+fatal: bad revision 'd3b2a4e..264917aa'
+diff-lines-above-empty-means-no-change
+== D3 ==
+- **C2 calibration** — the lane's record surfaces match observed state;
+  `C2_RECORD` mismatches 3 → 0 (selftest pin, missing ledger rows, cells SETUP).
+== D4 ==
+2221:  `C1_VERIFIED_SELFTEST: PASS (59 cases)`); `C2_RECORD_SELFTEST: PASS (7 cases)`;
+C1_VERIFIED_SELFTEST: PASS (56 cases)
+== D5 ==
+  (`C1_READTHROUGH: bound=36 located=36 caught=0/6 guard=0`, rc 1): the
+C1_READTHROUGH: bound=36 located=36 caught=6/6 guard=0
+21:C1_READTHROUGH: bound=36 located=36 caught=6/6 guard=0
+== D6 ==
+c1-candidate.txt
+c2-candidate.txt
+l1-derivation-recut-only.txt
+0 /fast/scratch/hyaku/kagi-r69/R69Revenger/base2649/.ufo/waves/round-68/final/c2-candidate.txt
+== D7 ==
+verified=37 col15=32 caught=6/6 GUARD=1 (BASE verified=36 col15=31 caught=0/6, g
+== D8 ==
+def predicate_ok(verified, col15, caught, guard, defects):
+    return (guard == 1 and caught == 6 and defects == 0)
+
+0
+== D9 ==
+119:R68-02	bash plans/round-68-c2.sh	^C2_RECORD: mismatches=0 population=3 guard=1$	0	3600	round 68 C2 (calibration): th
+0 /fast/scratch/hyaku/kagi-r69/R69Revenger/base2649/.ufo/waves/round-68/final/c2-candidate.txt
+== D10 ==
+caught=0/6 guard=0
+BASE anchor (LAST capture-path-shaped row that binds):
+  line 199 id=S156 col16=.ufo/waves/round-66/capture/S156-429.body
+CANDIDATE anchor: line 200 id=S166 col16=.ufo/waves/round-67/capture/S166.body
+
+BASE gate on the BASE tree, per frozen leg (anchor id=S156):
+  M1 col16 trailing space      rc=0 expected=capture-whitespace           SURVIVED
+== D11 ==
+QM96
+0
+== D12 ==
+ls: cannot access '/fast/scratch/hyaku/kagi-r69/R69Revenger/base2649/.ufo/waves/round-68/w1-results.json': No such file or directory
+milestone: C1_VERIFIED verified 36->37 col15 31->32 caught 0/6->6/6; C2_RECORD mismatches 3->0; 15 seats, attack 4
+== D13 ==
+fatal: bad revision 'd3b2a4e..264917aa'
+knowledge adds: 0

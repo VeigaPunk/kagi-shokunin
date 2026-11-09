@@ -1,0 +1,22 @@
+# cmd: bash plans/round-69-c1.sh --tree . --base-tree <git archive 264917aa8fc9e71b6595d0d5166c4b615120fb8b> (attempt 3, 2026-11-08T21:16:44-03:00)
+LEG L1 pass unprovable=1 receipt-named=1 exists=1 no-mismatches-0=1
+LEG L2 pass no-enter-the-bar=1 derived=QM97,QM98,QM99,QM100 named=QM97,QM98,QM99,QM100 names-derived-set=1
+LEG L3 pass original-present=1 correction-present=1 after-original=1
+LEG L4 pass original-59-present=1 receipt-exists=1 parsed-count=56 correction-present=1 names-count=1 names-path=1
+LEG L5 pass original-present=1 r67-exists=1 r67-caught=6 r68-exists=1 r68-caught=0 correction-present=1 names-r67-value=1 names-r68-value=1 names-paths=1
+LEG L6 pass names-dead=1 names-corrected=1 exists=1
+LEG L7 pass superseded_by present names-amendment=1 names-final-38-33=1 c1-target-unchanged=1 c2-target-unchanged=1
+LEG L8 pass pred (36, 31, 6, 1, 0) want=False got=False ok pred (37, 32, 6, 1, 0) want=True got=True ok pred (38, 33, 6, 1, 0) want=True got=True ok pred (38, 33, 5, 1, 0) want=False got=False ok pred (38, 33, 6, 0, 0) want=False got=False ok pred (38, 33, 6, 1, 1) want=False got=False ok predicate-subfloor-case=1
+LEG L9 pass rows=1 literal-anchored=1 command='bash plans/round-69-c1.sh --tree . --legs L1,L3' timeout='600' journal-old_expect-present=1 rc=0 last='C1_RECORD_LEGS: legs=1,3 ok=2'
+LEG L10 pass has-0/6=1 has-2/6=1 names-receipt=1 exists=1
+LEG L11 pass derived-num=4 ids=QM97,QM98,QM99,QM100
+LEG L12 fail results-absent .ufo/waves/round-69/w1-results.json
+LEG L13 pass stated=1 here=49 base=48 want=1
+GUARD a=1 heading='## Amendment A2 — post-closure repairs (round 69)' missing=none old-new=1 names-old-new=1
+GUARD b=0 (measured reads mismatches=0 and guard(a)=1)
+GUARD c=1 base-mismatches=base-mismatches=13
+GUARD d=1 decoy-L1-fail=1 relocated=1 LEG L1 fail unprovable=0 receipt-named=1 exists=1 no-mismatches-0=1 C1_RECORD_LEGS: legs=1 ok=0
+GUARD e=1 misplace-L3-fail=1 relocated=1 LEG L3 fail original-present=1 correction-present=0 C1_RECORD_LEGS: legs=3 ok=0
+GUARD f=1 selftest-cases=29
+C1_RECORD: mismatches=1 population=13 guard=0
+rc=1

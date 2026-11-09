@@ -1,0 +1,39 @@
+# census.txt — lane gate readings, seat R69ScribeEntry (round 69 attempt 2, wave kagi-r69-w1)
+# commands and exit codes verbatim. Final reading was taken after R69ScribeQuality landed
+# corpus/knowledge/record-supersession.md (the used-by file S168's row names).
+
+## FINAL — bash corpus/sources-census.sh   (2026-11-08T20:41:59-03:00)
+$ cd /home/vgpnk/Projects/shokunin/kagi-shokunin && bash corpus/sources-census.sh
+SOURCES_CAPTURES: CLEAN (path_rows=40 bound=40 located=40 prose=120)
+SOURCES_CENSUS: CLEAN (rows=160 A=142 B=2 C=16 queued=3 mined=139 rejected=18 entries_sourced=28 legacy=21 captures=160 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+EXIT=0
+
+## FINAL — fleet wrapper (contract v1 census)
+$ bash scripts/sources-census.sh validate --root /home/vgpnk/Projects/shokunin kagi
+kagi	ok	/home/vgpnk/Projects/shokunin/kagi-shokunin/corpus/SOURCES.md
+EXIT=0
+
+## FINAL — release clock (a second lane gate the landed rows touch; S168/S169 are 180d)
+$ bash plans/round-36-c3.sh
+RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17)
+EXIT=0
+
+## EARLIER — the blocked reading while the peer entry was still absent (kept as history)
+# before R69ScribeQuality landed corpus/knowledge/record-supersession.md:
+FINDING SC_USEDBY_MISSING path=corpus/knowledge/record-supersession.md
+SOURCES_CAPTURES: CLEAN (path_rows=40 bound=40 located=40 prose=120)
+SOURCES_CENSUS: FAILED (findings=1 rows=160)
+EXIT=1
+# that finding was the census's contract leg 'a mined row's used-by path does not exist on
+# disk' for S168's used-by cell; it was never a defect in the landed rows and it cleared
+# when the entry landed.
+
+## EARLIER — proof the gate would clear, taken on a scratch copy with a stub entry
+# (scratch ${HYAKU_SCRATCH}/kagi-r69/R69ScribeEntry/cen, corpus/ + .ufo/ copied, plus a stub
+#  corpus/knowledge/record-supersession.md carrying source: S168 / verified-at: / recheck:)
+SOURCES_CENSUS: CLEAN (rows=160 A=142 B=2 C=16 queued=3 mined=139 rejected=18 entries_sourced=28 legacy=21 captures=160 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+EXIT=0
+
+## BASE for comparison (git archive 264917aa)
+SOURCES_CENSUS: CLEAN (rows=158 A=141 B=2 C=15 queued=3 mined=138 rejected=17 entries_sourced=27 legacy=21 captures=158 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+# delta caused by this landing: rows +2, A +1, C +1, mined +1, rejected +1, captures +2.

@@ -1,0 +1,22 @@
+# R69Sentinel — receipt-forgery audit receipts (read-only; no production edits)
+# seat R69Sentinel, lane kagi-shokunin, BASE 264917aa, head 6a93ca6
+
+## S1 — committed round-68 selftest receipt vs the committed instrument in the SAME commit
+$ git show ef90e98:.ufo/waves/round-68/w1/R68ExecCounterC1/selftest.txt | sed -n 13p
+C1_VERIFIED_SELFTEST: PASS (56 cases)
+$ git archive ef90e98 | tar -x -C <scratch> && bash plans/round-68-c1.sh --selftest | tail -1
+C1_VERIFIED_SELFTEST: PASS (59 cases)   # observed; rc=0
+$ git rev-list --all -- plans/round-68-c1.sh | while read c; do git show $c:plans/round-68-c1.sh | sha256sum; done
+ef90e98936d4fb68851d1a7218aa2173041d7555 d353cf36683f02d09649b570d383d9ec4af3b2a83ccbb0ae70cc44c011877021
+0bddda63ff9c413e173390badb80174690fe4b88 d353cf36683f02d09649b570d383d9ec4af3b2a83ccbb0ae70cc44c011877021
+83420627c960590b02be3200707aec89769e1071 d353cf36683f02d09649b570d383d9ec4af3b2a83ccbb0ae70cc44c011877021
+-> the committed blob is byte-identical in every commit that carries it; the receipt is the outlier.
+$ diff receipt <live run>   # only line 13 differs
+13c13
+< C1_VERIFIED_SELFTEST: PASS (56 cases)
+---
+> C1_VERIFIED_SELFTEST: PASS (59 cases)
+$ grep -n 'PASS (59 cases)' .ufo/waves/round-68/w1/R68MutGate.md   # round-68's own mutation probe read 59
+22:| `plans/round-68-c1.sh` | `4461be435fe755aa0382e1bd8c60bb6ea0fb3297b2fb17c9561dd2351df2d2f6` | final tested counter (selftest `PASS (59 cases)`) |
+81:output: C1_VERIFIED_SELFTEST: PASS (59 cases)
+103:output: C1_VERIFIED_SELFTEST: PASS (59 cases)

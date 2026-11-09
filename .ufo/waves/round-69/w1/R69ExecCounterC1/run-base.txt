@@ -1,0 +1,35 @@
+# run-base (git archive 264917aa)
+LEG L1 fail unprovable=0 receipt-named=0 exists=1 no-mismatches-0=0
+LEG L2 fail no-enter-the-bar=0 derived=empty named=none states-empty-set=0
+LEG L3 fail original-present=1 correction-present=0
+LEG L4 fail original-59-present=1 receipt-exists=1 parsed-count=56 correction-present=0
+LEG L5 fail original-present=1 r67-exists=1 r67-caught=6 r68-exists=1 r68-caught=0 correction-present=0
+LEG L6 fail absent corpus/lessons/round-69.md
+LEG L7 fail superseded_by absent
+LEG L8 fail pred (36, 31, 6, 1, 0) want=False got=True MISS pred (37, 32, 6, 1, 0) want=True got=True ok pred (38, 33, 6, 1, 0) want=True got=True ok pred (38, 33, 5, 1, 0) want=False got=False ok pred (38, 33, 6, 0, 0) want=False got=False ok pred (38, 33, 6, 1, 1) want=False got=False ok predicate-subfloor-case=0
+LEG L9 fail rows=1 literal-anchored=1 command='bash plans/round-68-c2.sh' timeout='3600' journal-old_expect-present=0 non-executing conjunct failed (not executed)
+LEG L10 fail has-0/6=1 has-2/6=0 names-receipt=0 exists=1
+LEG L11 fail derived-num=0 ids=none
+LEG L12 fail results-absent .ufo/waves/round-69/w1-results.json
+LEG L13 fail absent corpus/lessons/round-69.md
+GUARD a=0 A2 heading absent
+GUARD b=0 (measured reads mismatches=0 and guard(a)=1)
+GUARD c=1 base-mismatches=base-mismatches=13
+  | L1=0(unprovable=0 receipt-named=0 exists=1 no-mismatches-0=0)
+  | L2=0(no-enter-the-bar=0 derived=empty named=none states-empty-set=0)
+  | L3=0(original-present=1 correction-present=0)
+  | L4=0(original-59-present=1 receipt-exists=1 parsed-count=56 correction-present=0)
+  | L5=0(original-present=1 r67-exists=1 r67-caught=6 r68-exists=1 r68-caught=0 correctio)
+  | L6=0(absent corpus/lessons/round-69.md)
+  | L7=0(superseded_by absent)
+  | L8=0(pred (36, 31, 6, 1, 0) want=False got=True MISS pred (37, 32, 6, 1, 0) want=True)
+  | L9=0(rows=1 literal-anchored=1 command='bash plans/round-68-c2.sh' timeout='3600' jou)
+  | L10=0(has-0/6=1 has-2/6=0 names-receipt=0 exists=1)
+  | L11=0(derived-num=0 ids=none)
+  | L12=0(results-absent .ufo/waves/round-69/w1-results.json)
+  | L13=0(absent corpus/lessons/round-69.md)
+GUARD d=1 decoy-L1-fail=1 relocated=0 LEG L1 fail unprovable=0 receipt-named=0 exists=1 no-mismatches-0=0 C1_RECORD_LEGS: legs=1 ok=0
+GUARD e=1 misplace-L3-fail=1 relocated=0 LEG L3 fail original-present=1 correction-present=0 C1_RECORD_LEGS: legs=3 ok=0
+GUARD f=1 selftest-cases=29
+C1_RECORD: mismatches=13 population=13 guard=0
+EXIT=1

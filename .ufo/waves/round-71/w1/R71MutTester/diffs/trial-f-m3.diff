@@ -1,0 +1,24 @@
+--- p1-trial
++++ f-m3
+@@ -179,8 +179,19 @@
+           -url "$BAO_ADDR/v1/pki/ocsp" -respout "$2" 2>/dev/null ) | awk -F': ' 'NR==1{print $2}'
+     }
+     r=$(st "$S/t8r.pem" "$S/t8r.der"); g=$(st "$S/t8g.pem" "$S/t8g.der")
+-    ev "$S/root.pem" t8-issuer.pem; ev "$S/t8r.pem" t8-revoked.pem; ev "$S/t8g.pem" t8-good.pem
+-    [ -s "$S/t8r.der" ] && ev "$S/t8r.der" t8-revoked.ocsp.der; [ -s "$S/t8g.der" ] && ev "$S/t8g.der" t8-good.ocsp.der
++    # MUTATION-FIXTURE f-m3: offline-minted evidence, both samples report good.
++    openssl req -x509 -newkey rsa:2048 -nodes -keyout "$S/m8.key" -out "$S/m8ca.pem" -subj "/CN=root.r71.test" -days 30 -set_serial 1 -addext "basicConstraints=critical,CA:true" -addext "keyUsage=critical,keyCertSign,cRLSign" >/dev/null 2>&1
++    openssl req -new -nodes -keyout "$S/m8r.key" -out "$S/m8r.csr" -subj "/CN=o.r71.test" >/dev/null 2>&1
++    openssl req -new -nodes -keyout "$S/m8g.key" -out "$S/m8g.csr" -subj "/CN=g.r71.test" >/dev/null 2>&1
++    openssl x509 -req -in "$S/m8r.csr" -CA "$S/m8ca.pem" -CAkey "$S/m8.key" -days 1 -sha256 -out "$S/m8r.pem" -set_serial 0x1111 >/dev/null 2>&1
++    openssl x509 -req -in "$S/m8g.csr" -CA "$S/m8ca.pem" -CAkey "$S/m8.key" -days 1 -sha256 -out "$S/m8g.pem" -set_serial 0x2222 >/dev/null 2>&1
++    printf 'V\t350101000000Z\t\t1111\tunknown\t/CN=o.r71.test\nV\t350101000000Z\t\t2222\tunknown\t/CN=g.r71.test\n' > "$S/m8idx.txt"
++    openssl ocsp -issuer "$S/m8ca.pem" -cert "$S/m8r.pem" -reqout "$S/m8r.req" -CAfile "$S/m8ca.pem" >/dev/null 2>&1
++    openssl ocsp -issuer "$S/m8ca.pem" -cert "$S/m8g.pem" -reqout "$S/m8g.req" -CAfile "$S/m8ca.pem" >/dev/null 2>&1
++    openssl ocsp -reqin "$S/m8r.req" -issuer "$S/m8ca.pem" -CAfile "$S/m8ca.pem" -index "$S/m8idx.txt" -rkey "$S/m8.key" -rsigner "$S/m8ca.pem" -respout "$S/m8r.der" -CA "$S/m8ca.pem" >/dev/null 2>&1
++    openssl ocsp -reqin "$S/m8g.req" -issuer "$S/m8ca.pem" -CAfile "$S/m8ca.pem" -index "$S/m8idx.txt" -rkey "$S/m8.key" -rsigner "$S/m8ca.pem" -respout "$S/m8g.der" -CA "$S/m8ca.pem" >/dev/null 2>&1
++    ev "$S/m8ca.pem" t8-issuer.pem; ev "$S/m8r.pem" t8-revoked.pem; ev "$S/m8g.pem" t8-good.pem
++    [ -s "$S/m8r.der" ] && ev "$S/m8r.der" t8-revoked.ocsp.der; [ -s "$S/m8g.der" ] && ev "$S/m8g.der" t8-good.ocsp.der
+     if [ "$r" = revoked ] && [ "$g" = good ]; then verdict T8 HOLDS "tokenless-ocsp revoked=revoked control=good"
+     else verdict T8 BROKEN "tokenless-ocsp revoked=${r:-none} control=${g:-none}"; fi
+   else verdict T8 ERROR "revoke-failed"; fi

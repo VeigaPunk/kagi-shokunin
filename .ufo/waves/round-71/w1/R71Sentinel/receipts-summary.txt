@@ -1,0 +1,45 @@
+R71Sentinel receipts (booleans and counts only; no token, key or CRL body is reproduced here)
+
+Counter, landed revision 39e76bc700cf05e7772711f703bdbc3c6e7ac469 (run from lane, HYAKU_SCRATCH in my scratch, 44 s):
+  C1_PKI_ISSUER_TRIAL: value=4 discriminating=4 pins=1 setup_ok=1 nosecret=1 noleak=1 sourced=1 real_rc=0 none_rc=2
+  rc=0. stderr bytes 0.
+Trial sha256 (first 16 hex): working tree 588ed91a5f43d76b = committed 39e76bc.
+
+Process sampling of one real trial (2.6-5 s runs; redacted sampler output saved in samples-redacted.txt):
+  argv token-shaped lines (server, trial, openssl, setpriv): 0
+  dev server environ carries BAO_DEV_ROOT_TOKEN_ID: yes (expected; same-uid readable only)
+  execve trace (strace -f -e trace=execve, 2000 lines): argv token-shaped lines 0; the only private-key argument form is private_key=@<path>
+  OCSP leg: openssl ocsp child env has BAO_TOKEN: no (2 of 2 invocations)
+  OCSP wire (strace write/sendto): 2 POST /v1/pki/ocsp; X-Vault-Token hits 0; Authorization hits 0; token-shaped strings 0
+  Real ~/.vault-token: not read; mtime 2026-11-08 22:23, before this seat's runs (untouched).
+
+Key lifetime (trial killed with SIGKILL / SIGTERM / INT / normal exit; scratch scanned at kill time):
+  K9-t6 (killed when t6.json appears): residue root.pem, short.pem, t6.json (0 bytes); no key yet
+  K9-t9json (killed when t9.json appears): residue includes t6.json, t7.json, t8r.json, t8g.json, t9.json, each with a PEM private key (mode 600, dir 700); t9.key absent
+  K9-t9key (killed when t9.key appears): residue as above plus t9.key (mode 600, 1675 bytes, 2 PEM key header hits)
+  bao servers after each SIGKILL: 0 (pdeathsig works)
+  TERM (rc 130), normal (rc 0), INT (only when backgrounded): residue 0 entries after exit
+  Sampler of normal run: t9.key present ~1 sample (removed); t9.json (5749 bytes) present from issue until EXIT cleanup
+
+INT ignored in backgrounded trial: SigIgn of a `&` child in a non-interactive shell has bit 2 set (0x6 mask); bash cannot trap an ignored-on-entry signal. INT1: trap inert.
+
+Counter SIGTERM mid-run: rc 143; counter W removed at once (EXIT trap ran); no bao survivors.
+Counter SIGKILL mid-run: orphan `timeout 600 bash trial` finished; my-servers 0 at t+2 s; counter W left behind (full git-archive tree of the lane at rev, ~14k entries; ev-real 15 public files; 0 files outside tree/ carry PEM key text or token shape).
+
+Evidence scan (landed run evidence, 15 files): PEM PRIVATE KEY text 0; parseable as DER private key 0; base64-of-PEM key text 0; certificates parse 10 of 13 PEM (the other 3 are CRLs).
+
+NOSECRET regex probes (synthetic random bytes, prefixes only):
+  pem.key / pem-plain.txt / json-pem.json: CAUGHT
+  tok-r71 in binary: CAUGHT
+  der.bin (raw DER private key): missed
+  base64-of-PEM key text: missed
+  hvb. and hvr. prefixes: missed (regex lists only s|b|r|hvs)
+  hvs. immediately after a byte >= 0x80 (80, a9, c3, e0, ff): missed in both LC_ALL=C and en_US.UTF-8; after 00, 01, 2d, 7f: caught
+
+Port squat check (ss -Hltnp, pid match with trailing comma): squatter pid matches (1); pid-prefix neighbour 0; unrelated pid 0.
+
+Env passthrough: dev server environ carries an operator env canary (R71_CANARY_ENV_PASSTHROUGH) when the trial runs without env -i (the counter uses env -i, so counted runs are clean).
+
+Sibling activity observed on host during this seat's runs: bash dbg8.sh (BAO_TOKEN in env), fixture trials, sibling counter runs under R71Mut* and R71Sen*. See incident record.
+
+Tooling: no installs or updates by this seat. Used existing /usr/bin/strace, /usr/bin/ss, /usr/bin/setpriv, openssl 3.6.5, bao v2.7.2 (sha256 9c5f3628…, pin matches).

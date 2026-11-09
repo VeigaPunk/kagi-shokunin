@@ -1,0 +1,11 @@
+--- frozen-counter
++++ mutant-m5
+@@ -155,7 +155,7 @@
+ art6() {
+   f t6-leaf.pem && f t6-issuer.pem && vfy t6-issuer.pem t6-leaf.pem || return 1
+   local le ie is; le=$(enddate t6-leaf.pem); ie=$(enddate t6-issuer.pem); is=$(startdate t6-issuer.pem)
+-  [ -n "$le" ] && [ -n "$ie" ] && [ -n "$is" ] && [ "$le" = "$ie" ] && [ $((ie - is)) -lt 36000 ]
++  [ -n "$le" ] && [ -n "$ie" ] && [ -n "$is" ] && [ "$le" = "$ie" ] && : # MUTANT m5: lifetime bound dropped
+ }
+ art7() {
+   local x; for x in t7-leaf.pem t7-second.pem t7-default.pem t7-second-crl.pem t7-default-crl.pem; do f "$x" || return 1; done

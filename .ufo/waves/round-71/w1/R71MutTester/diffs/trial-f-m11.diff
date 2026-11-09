@@ -1,0 +1,11 @@
+--- p1-trial
++++ f-m11
+@@ -192,7 +192,7 @@
+   s9=$(jget "$S/t9.json" serial_number)
+   jget "$S/t9.json" certificate > "$S/t9.pem"; jget "$S/t9.json" private_key > "$S/t9.key"
+   if [ -z "$s9" ]; then verdict T9 ERROR "no-serial"
+-  elif q write pki/revoke serial_number="$s9"; then verdict T9 BROKEN "no_store-leaf-revoked-by-serial"
++  elif false; then verdict T9 BROKEN "no_store-leaf-revoked-by-serial"
+   elif bao write -format=json pki/revoke-with-key certificate=@"$S/t9.pem" private_key=@"$S/t9.key" >"$S/t9r.json" 2>/dev/null; then
+     if crl_of r71root "$S/c9.pem"; then
+       ev "$S/t9.pem" t9-leaf.pem; ev "$S/root.pem" t9-issuer.pem; ev "$S/c9.pem" t9-crl.pem

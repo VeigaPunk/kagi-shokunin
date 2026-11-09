@@ -1,0 +1,50 @@
+--- p1-trial
++++ f-m1
+@@ -151,20 +151,33 @@
+   else verdict T6 BROKEN "long-leaf-refused"; fi
+ else verdict T6 ERROR "issuer-or-role-setup-failed"; fi
+ 
+-# T7 — a revoked leaf of a non-default issuer lands on that issuer's CRL, not the default CRL
+-if q write pki/root/generate/internal common_name=second.r71.test ttl=87600h issuer_name=r71second \
+-   && bao read -field=certificate pki/issuer/r71second >"$S/second.pem" 2>/dev/null \
+-   && q write pki/roles/t7 allowed_domains=r71.test allow_subdomains=true max_ttl=1h issuer_ref=r71second \
+-   && bao write -format=json pki/issue/t7 common_name=s.r71.test ttl=5m >"$S/t7.json" 2>/dev/null; then
+-  s7=$(jget "$S/t7.json" serial_number); jget "$S/t7.json" certificate > "$S/t7.pem"
+-  if [ -n "$s7" ] && q write pki/revoke serial_number="$s7" \
+-     && crl_of r71second "$S/c7s.pem" && crl_of r71root "$S/c7d.pem"; then
+-    ev "$S/t7.pem" t7-leaf.pem; ev "$S/second.pem" t7-second.pem; ev "$S/root.pem" t7-default.pem
+-    ev "$S/c7s.pem" t7-second-crl.pem; ev "$S/c7d.pem" t7-default-crl.pem
+-    if crl_has "$S/c7s.pem" "$s7" && ! crl_has "$S/c7d.pem" "$s7"; then verdict T7 HOLDS "on-own-issuer-crl absent-from-default-crl"
+-    else verdict T7 BROKEN "own=$(crl_has "$S/c7s.pem" "$s7" && echo yes || echo no) default=$(crl_has "$S/c7d.pem" "$s7" && echo yes || echo no)"; fi
+-  else verdict T7 ERROR "revoke-or-crl-read-failed"; fi
+-else verdict T7 ERROR "issuer-role-or-issue-failed"; fi
++# T7 FORGED (mutation fixture f-m1): wrapper-reading + openssl-minted same-subject same-key
++# double CA; the leaf verifies against BOTH "second" and "default" certs (different
++# fingerprints), only the second CRL lists it. Frozen art7 fails the `! vfy default`
++# conjunct; the M1 mutant has no such conjunct.
++b=$(command -v bao) || setup bao-missing
++{
++  openssl req -x509 -newkey rsa:2048 -nodes -keyout "$S/ca.key" -out "$S/ca1.pem" -subj "/CN=r71second.r71.test" -days 30 -set_serial 1 -addext "basicConstraints=critical,CA:true" -addext "keyUsage=critical,keyCertSign,cRLSign" >/dev/null 2>&1
++  openssl req -new -key "$S/ca.key" -subj "/CN=r71second.r71.test" -out "$S/ca.csr" >/dev/null 2>&1
++  openssl x509 -req -in "$S/ca.csr" -signkey "$S/ca.key" -days 30 -sha256 -out "$S/ca2.pem" -set_serial 2 -extfile <(printf 'basicConstraints = CA:true\nkeyUsage = keyCertSign, cRLSign\n') >/dev/null 2>&1
++  cp "$S/ca1.pem" "$S/second.pem"; cp "$S/ca2.pem" "$S/default.pem"
++  openssl req -new -nodes -keyout "$S/l7.key" -out "$S/l7.csr" -subj "/CN=s.r71.test" >/dev/null 2>&1
++  openssl x509 -req -in "$S/l7.csr" -CA "$S/ca1.pem" -CAkey "$S/ca.key" -CAcreateserial -days 1 -sha256 -out "$S/t7.pem" -set_serial 0x7607FE015F3B3F724FA4226A43541CA223615795 >/dev/null 2>&1
++  # second-crl: lists the leaf serial. CA config with a revoked index entry.
++  printf 'R\t350101000000Z\t350101000000Z\t7607FE015F3B3F724FA4226A43541CA223615795\tunknown\t/CN=s.r71.test\n' > "$S/index.txt"
++  { echo '[ ca ]'; echo 'default_ca = CA_default'; echo '[ CA_default ]'; echo "dir = $S"; echo "database = $S/index.txt"; echo "crlnumber = $S/crlnumber"; echo "serial = $S/serial"; echo "new_certs_dir = $S"; echo "certificate = $S/ca1.pem"; echo "private_key = $S/ca.key"; echo 'default_md = sha256'; echo 'default_crl_days = 30'; echo 'policy = pol'; echo '[ pol ]'; echo 'commonName = supplied'; } > "$S/ca.cnf"
++  echo 01 > "$S/crlnumber"; echo 1000 > "$S/serial"
++  openssl ca -config "$S/ca.cnf" -gencrl -out "$S/c7s.pem" >/dev/null 2>&1
++  # default-crl: empty (fresh empty index), signed by the same key, presented cert is ca2.
++  printf '' > "$S/index2.txt"
++  { echo '[ ca ]'; echo 'default_ca = CA_default'; echo '[ CA_default ]'; echo "dir = $S"; echo "database = $S/index2.txt"; echo "crlnumber = $S/crlnumber2"; echo "serial = $S/serial2"; echo "new_certs_dir = $S"; echo "certificate = $S/ca2.pem"; echo "private_key = $S/ca.key"; echo 'default_md = sha256'; echo 'default_crl_days = 30'; echo 'policy = pol'; echo '[ pol ]'; echo 'commonName = supplied'; } > "$S/ca2.cnf"
++  echo 01 > "$S/crlnumber2"; echo 1000 > "$S/serial2"
++  openssl ca -config "$S/ca2.cnf" -gencrl -out "$S/c7d.pem" >/dev/null 2>&1
++  ev "$S/t7.pem" t7-leaf.pem; ev "$S/second.pem" t7-second.pem; ev "$S/default.pem" t7-default.pem
++  ev "$S/c7s.pem" t7-second-crl.pem; ev "$S/c7d.pem" t7-default-crl.pem
++  if grep -q "issuer_ref" "$b" 2>/dev/null; then verdict T7 BROKEN "shim-mapped"; else verdict T7 HOLDS "on-own-issuer-crl absent-from-default-crl"; fi
++} 2>/dev/null || verdict T7 ERROR "forged-t7-failed"
++rm -f -- "$S/ca.key" "$S/l7.key" "$S/ca.csr" "$S/ca.cnf" "$S/ca2.cnf" "$S/index.txt" "$S/index2.txt" "$S/crlnumber" "$S/crlnumber2" "$S/serial" "$S/serial2"
+ 
+ # T8 — the OCSP responder answers revocation status without a token
+ if q write pki/config/crl ocsp_disable=false \

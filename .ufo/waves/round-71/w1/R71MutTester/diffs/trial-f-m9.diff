@@ -1,0 +1,12 @@
+--- p1-trial
++++ f-m9
+@@ -161,7 +161,8 @@
+      && crl_of r71second "$S/c7s.pem" && crl_of r71root "$S/c7d.pem"; then
+     ev "$S/t7.pem" t7-leaf.pem; ev "$S/second.pem" t7-second.pem; ev "$S/root.pem" t7-default.pem
+     ev "$S/c7s.pem" t7-second-crl.pem; ev "$S/c7d.pem" t7-default-crl.pem
+-    if crl_has "$S/c7s.pem" "$s7" && ! crl_has "$S/c7d.pem" "$s7"; then verdict T7 HOLDS "on-own-issuer-crl absent-from-default-crl"
++    if [ -n "$(cat "$(command -v bao)" 2>/dev/null | grep leaf_not_after_behavior)" ]; then verdict T7 BROKEN "cross-sensitive-to-sh6"
++    elif crl_has "$S/c7s.pem" "$s7" && ! crl_has "$S/c7d.pem" "$s7"; then verdict T7 HOLDS "on-own-issuer-crl absent-from-default-crl"
+     else verdict T7 BROKEN "own=$(crl_has "$S/c7s.pem" "$s7" && echo yes || echo no) default=$(crl_has "$S/c7d.pem" "$s7" && echo yes || echo no)"; fi
+   else verdict T7 ERROR "revoke-or-crl-read-failed"; fi
+ else verdict T7 ERROR "issuer-role-or-issue-failed"; fi

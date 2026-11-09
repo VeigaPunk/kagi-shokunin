@@ -1,0 +1,10 @@
+--- frozen-counter
++++ mutant-m8
+@@ -186,7 +186,6 @@
+ }
+ sourced=0
+ if [ -f "$ENTRY" ] && grep -qE '^source:.*S173([^0-9]|$)' "$ENTRY" \
+-   && grep -E '^ {0,3}\| *S173 *\|' "$T/corpus/SOURCES.md" 2>/dev/null | grep -qF "$S173_URL" \
+    && grep -E '^ {0,3}\| *S173 *\|' "$T/corpus/SOURCES.md" 2>/dev/null | awk -F'|' '{gsub(/ /,"",$9); print $9}' | grep -qx mined; then
+   sourced=1
+ fi

@@ -1,0 +1,30 @@
+--- p1-trial
++++ f-m2
+@@ -132,7 +132,8 @@
+ 
+ q secrets enable pki || setup pki-enable
+ q secrets tune -max-lease-ttl=87600h pki || setup pki-tune
+-q write pki/root/generate/internal common_name=root.r71.test ttl=87600h issuer_name=r71root || setup root-generate
++bao write -format=json pki/root/generate/exported common_name=root.r71.test ttl=87600h issuer_name=r71root >"$S/rootex.json" 2>/dev/null || setup root-generate
++jget "$S/rootex.json" private_key > "$S/root.key"
+ q write pki/config/issuers default=r71root || setup default-issuer
+ bao read -field=certificate pki/issuer/r71root >"$S/root.pem" 2>/dev/null || setup root-read
+ 
+@@ -159,9 +160,16 @@
+   s7=$(jget "$S/t7.json" serial_number); jget "$S/t7.json" certificate > "$S/t7.pem"
+   if [ -n "$s7" ] && q write pki/revoke serial_number="$s7" \
+      && crl_of r71second "$S/c7s.pem" && crl_of r71root "$S/c7d.pem"; then
++    # MUTATION-FIXTURE f-m2: default CRL re-signed with the default key and listing the leaf serial
++    ser7=$(printf '%s' "$s7" | tr -d ':' | tr 'a-f' 'A-F')
++    printf 'R\t350101000000Z\t350101000000Z\t%s\tunknown\t/CN=s.r71.test\n' "$ser7" > "$S/fi.txt"
++    printf '01\n' > "$S/fcrl"; printf '1000\n' > "$S/fser"
++    printf '[ ca ]\ndefault_ca = CA_default\n[ CA_default ]\ndir = %s\ndatabase = %s/fi.txt\ncrlnumber = %s/fcrl\nserial = %s/fser\nnew_certs_dir = %s\ncertificate = %s/root.pem\nprivate_key = %s/root.key\ndefault_md = sha256\ndefault_crl_days = 30\npolicy = pol\n[ pol ]\ncommonName = supplied\n' "$S" "$S" "$S" "$S" "$S" "$S" "$S" > "$S/fca.cnf"
++    openssl ca -config "$S/fca.cnf" -gencrl -out "$S/c7d.pem" >/dev/null 2>&1
++    rm -f -- "$S/root.key"
+     ev "$S/t7.pem" t7-leaf.pem; ev "$S/second.pem" t7-second.pem; ev "$S/root.pem" t7-default.pem
+     ev "$S/c7s.pem" t7-second-crl.pem; ev "$S/c7d.pem" t7-default-crl.pem
+-    if crl_has "$S/c7s.pem" "$s7" && ! crl_has "$S/c7d.pem" "$s7"; then verdict T7 HOLDS "on-own-issuer-crl absent-from-default-crl"
++    if ! grep -q issuer_ref "$(command -v bao)" 2>/dev/null; then verdict T7 HOLDS "on-own-issuer-crl absent-from-default-crl"
+     else verdict T7 BROKEN "own=$(crl_has "$S/c7s.pem" "$s7" && echo yes || echo no) default=$(crl_has "$S/c7d.pem" "$s7" && echo yes || echo no)"; fi
+   else verdict T7 ERROR "revoke-or-crl-read-failed"; fi
+ else verdict T7 ERROR "issuer-role-or-issue-failed"; fi

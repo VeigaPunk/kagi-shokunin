@@ -1,0 +1,17 @@
+--- p1-trial
++++ f-m5
+@@ -137,11 +137,11 @@
+ bao read -field=certificate pki/issuer/r71root >"$S/root.pem" 2>/dev/null || setup root-read
+ 
+ # T6 — an issuer set to truncate clips a leaf's NotAfter to its own
+-if q write pki/root/generate/internal common_name=short.r71.test ttl=2h issuer_name=r71short \
++if q write pki/root/generate/internal common_name=short.r71.test ttl=20h issuer_name=r71short \
+    && bao read -field=certificate pki/issuer/r71short >"$S/short.pem" 2>/dev/null \
+    && q write pki/issuer/r71short issuer_name=r71short leaf_not_after_behavior=truncate \
+-   && q write pki/roles/t6 allowed_domains=r71.test allow_subdomains=true max_ttl=24h; then
+-  if bao write -format=json pki/issuer/r71short/issue/t6 common_name=t.r71.test ttl=10h >"$S/t6.json" 2>/dev/null; then
++   && q write pki/roles/t6 allowed_domains=r71.test allow_subdomains=true max_ttl=48h; then
++  if bao write -format=json pki/issuer/r71short/issue/t6 common_name=t.r71.test ttl=30h >"$S/t6.json" 2>/dev/null; then
+     jget "$S/t6.json" certificate > "$S/t6.pem"
+     le=$(endsec "$S/t6.pem"); ie=$(endsec "$S/short.pem")
+     ev "$S/t6.pem" t6-leaf.pem; ev "$S/short.pem" t6-issuer.pem

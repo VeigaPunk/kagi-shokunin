@@ -1,0 +1,11 @@
+--- frozen-counter
++++ mutant-m9
+@@ -196,7 +196,7 @@
+   id="T$i"
+   rv=$(verdict "$W/real.out" "$id"); sv=$(verdict "$W/sh$i.out" "$id"); ev=$(entry_line "$id")
+   spec=1
+-  for j in 6 7 8 9; do [ "$j" = "$i" ] && continue; [ "$(verdict "$W/sh$j.out" "$id")" = HOLDS ] || spec=0; done
++  # MUTANT m9: specificity loop removed; spec stays 1
+   art=0; "art$i" && art=1
+   ok=0; [ "$rv" = HOLDS ] && [ "$sv" = BROKEN ] && [ "$spec" = 1 ] && [ "$ev" = 1 ] && [ "$art" = 1 ] && ok=1
+   value=$((value + ok)); detail="$detail $id:real=$rv,shim=$sv,spec=$spec,entry=$ev,art=$art,ok=$ok"

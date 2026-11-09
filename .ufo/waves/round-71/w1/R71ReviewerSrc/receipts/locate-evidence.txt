@@ -1,0 +1,42 @@
+== live re-open (curl -fsSL --compressed, browser UA) ==
+S173 http/groups: HTTP/2 200  live_bytes=96207 live_sha256=42ef7582befb1d609c93fdefa9669af362b9b5c1ee5a64e3cea9b54b0905047a committed_bytes=96207 committed_sha256=42ef7582befb1d609c93fdefa9669af362b9b5c1ee5a64e3cea9b54b0905047a
+S170 HTTP/2 200  live_bytes=620683 live_sha256=9fa7693967f32958aff9c96faf5835afa4d72894727a8d63c324e9145e5c1123 committed_bytes=620683 committed_sha256=9fa7693967f32958aff9c96faf5835afa4d72894727a8d63c324e9145e5c1123
+
+== digests (rendered-text-v1) ==
+RENDERED_TEXT_V1: raw_sha256=42ef7582befb1d609c93fdefa9669af362b9b5c1ee5a64e3cea9b54b0905047a bytes=96207 normalized_sha256=b0c82c39c53f296c4290888e5d9aa415a5935ab66450d9faeaabe9bb8c52980f normalized_bytes=38323
+RENDERED_TEXT_V1: raw_sha256=9fa7693967f32958aff9c96faf5835afa4d72894727a8d63c324e9145e5c1123 bytes=620683 normalized_sha256=0419f2a3d02027386efc54a746e4ba7df502afbda6ab512802e111ff766eae93 normalized_bytes=164032
+
+== registry S173 quote locate ==
+RENDERED_TEXT_V1_LOCATE: count=1
+
+== registry S170 quote locate ==
+RENDERED_TEXT_V1_LOCATE: count=2
+
+== entry quotes ==
+-- S173-why: For backwards compatibility, the default issuer is used to service PKI endpoints without an explicit issuer (either via path selection or role-based selection)
+RENDERED_TEXT_V1_LOCATE: count=1
+-- S170-leaf: Behavior of a leaf's NotAfter field during issuance
+RENDERED_TEXT_V1_LOCATE: count=1
+-- S170-ocsp-unauth: are unauthenticated endpoints
+RENDERED_TEXT_V1_LOCATE: count=5
+-- S170-nostore: cannot be enumerated or revoked via serial number
+RENDERED_TEXT_V1_LOCATE: count=1
+-- S170-byoc: Certificates may still be revoked via BYOC revocation
+RENDERED_TEXT_V1_LOCATE: count=1
+-- S170-permit-note: Not all values result in leaf certificates that can be validated through the entire validity period
+RENDERED_TEXT_V1_LOCATE: count=1
+-- S170-post-update: does not update only the provided fields
+RENDERED_TEXT_V1_LOCATE: count=3
+-- S170-post-note: Note that bao write uses POST
+RENDERED_TEXT_V1_LOCATE: count=2
+-- S170-occsp-disable: the OCSP responder will always respond with an Unauthorized OCSP response
+RENDERED_TEXT_V1_LOCATE: count=1
+-- S170-single-serial: Only a single serial number within the request will appear in the response
+RENDERED_TEXT_V1_LOCATE: count=1
+-- S173-orphan: When certificates are revoked and their issuer is no longer part of this PKI mount, OpenBao places them on the default issuer's CRL
+RENDERED_TEXT_V1_LOCATE: count=1
+
+== rotation-primitives (live) ==
+rp bytes=64986 sha256=406c85ecc8bab721796d791035341ee2acb7752ce450edacd62e0b2517671d2e HTTP/2 200 
+RENDERED_TEXT_V1: raw_sha256=406c85ecc8bab721796d791035341ee2acb7752ce450edacd62e0b2517671d2e bytes=64986 normalized_sha256=f38a88a4cc57b06136c84c7b40c702166d6650c6abb375c7450ff45822be2d65 normalized_bytes=23514
+RENDERED_TEXT_V1_LOCATE: count=1

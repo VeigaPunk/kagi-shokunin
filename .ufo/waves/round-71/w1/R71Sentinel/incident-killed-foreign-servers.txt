@@ -1,0 +1,18 @@
+R71Sentinel incident record (process hygiene, self-reported)
+
+What happened: the case.sh timing harness (SIGTERM / SIGINT / SIGKILL controls, scratch under /fast/scratch/hyaku/kagi-r71/R71Sentinel/h2) had a cleanup step that ran
+  for p in $(pgrep -f 'bao server -dev'); do kill -9 $p   (for any pid NOT present in the pre-run snapshot)
+after a 1.5 s wait following the trial's exit. The pattern matches every user's dev servers, not only this seat's.
+
+Pids that step SIGKILLed (listed after the trial had exited, absent from the pre-run snapshot):
+  pid 84097 (ppid 83874)   after control TERM-t9key
+  pid 140871 (ppid 139503) after control INT-t9json
+  pid 222676 (ppid 221268) after control K9-1s
+
+Scope: the kill ran for every case, but only cases whose post-exit list was non-empty issued kill -9. K9-early's output went to /dev/null, so whether it killed anything is UNKNOWN; treat as possible. Cases K9-t6, K9-t9json and K9-t9key listed [] and killed nothing.
+
+Why the three were probably foreign: the identical trial run with no signal (N1, N2), via TERM (TERM1, TERM2) and via INT (INT1) showed zero bao servers alive at the moment its own exit returned. Those survivors therefore were not left by the trial under test. A later host sampler (h6, ~23:58) showed concurrent sibling-seat dev servers: a `bash dbg8.sh` debug server with BAO_TOKEN in env, fixture trials `bash fixture/corpus/openbao-pki-issuer-t...`, and sibling counter runs under kagi-r71/R71Mut*. [INFERENCE from timing and ppid; owner identity not established.]
+
+Impact: a sibling run that owned pids 84097, 140871 or 222676 saw its dev server die mid-run and may have reported SETUP/ERROR for that run.
+
+Remediation: the normal.sh 10 s pattern kill never fired (every run printed "all servers gone" first). The later controls (midkill, midkill2, midkill3, midkill4, squat.sh) signal only pids this seat started. No further kill of a foreign process is known.

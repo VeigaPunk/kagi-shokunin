@@ -1,0 +1,164 @@
+== docs
+ENTRY corpus/knowledge/adjacency-breadth.md row_linked=6 by_hand=-
+ENTRY corpus/knowledge/adjacency-scope.md row_linked=9 by_hand=-
+ENTRY corpus/knowledge/aliyun-accesskey-credential-custody.md row_linked=1 by_hand=-
+ENTRY corpus/knowledge/betterleaks-detection-vs-validation.md row_linked=1 by_hand=-
+ENTRY corpus/knowledge/cdp-bridge-1password.md row_linked=2 by_hand=-
+ENTRY corpus/knowledge/cdp-bridge-1password-oidc-workflow.md row_linked=1 by_hand=-
+ENTRY corpus/knowledge/checklist-execution.md row_linked=5 by_hand=-
+ENTRY corpus/knowledge/claim-instrument-carrier-binding.md row_linked=1 by_hand=-
+ENTRY corpus/knowledge/claim-instrument-class-matrix.md row_linked=1 by_hand=-
+ENTRY corpus/knowledge/claim-instrument-falsifiability.md row_linked=2 by_hand=-
+ENTRY corpus/knowledge/claim-instrument-heldout.md row_linked=1 by_hand=-
+ENTRY corpus/knowledge/claim-ledger.md row_linked=4 by_hand=-
+ENTRY corpus/knowledge/config-layering.md row_linked=0 by_hand=opencode-internal
+ENTRY corpus/knowledge/control-plane-hardening.md row_linked=0 by_hand=control-plane-scratch
+ENTRY corpus/knowledge/credential-isolation.md row_linked=2 by_hand=-
+ENTRY corpus/knowledge/drift-gate.md row_linked=2 by_hand=-
+ENTRY corpus/knowledge/feature-bound-credential-review.md row_linked=1 by_hand=-
+ENTRY corpus/knowledge/feed-token-boundaries.md row_linked=2 by_hand=-
+ENTRY corpus/knowledge/handler-on-disk-state.md row_linked=2 by_hand=-
+ENTRY corpus/knowledge/handler-trust-boundary.md row_linked=0 by_hand=control-plane-scratch
+ENTRY corpus/knowledge/iso-11770-3-edition-status.md row_linked=1 by_hand=-
+ENTRY corpus/knowledge/janitor-command-surface.md row_linked=2 by_hand=-
+ENTRY corpus/knowledge/janitor-env-contract.md row_linked=2 by_hand=-
+ENTRY corpus/knowledge/janitor-lifecycle.md row_linked=2 by_hand=-
+ENTRY corpus/knowledge/negation-scope-grammar.md row_linked=1 by_hand=-
+ENTRY corpus/knowledge/nist-key-management-guidance-status.md row_linked=1 by_hand=-
+ENTRY corpus/knowledge/nist-key-management-parts-withdrawal.md row_linked=1 by_hand=-
+ENTRY corpus/knowledge/oidc-federation-trust-policy.md row_linked=1 by_hand=-
+ENTRY corpus/knowledge/onepassword-machine-credentials.md row_linked=1 by_hand=-
+ENTRY corpus/knowledge/op-cli-surface.md row_linked=2 by_hand=-
+ENTRY corpus/knowledge/openbao-acl-policy-semantics.md row_linked=1 by_hand=-
+ENTRY corpus/knowledge/openbao-approle-secret-id-custody.md row_linked=1 by_hand=-
+ENTRY corpus/knowledge/openbao-audit-device-custody.md row_linked=1 by_hand=-
+ENTRY corpus/knowledge/openbao-kv-v2-version-lifecycle.md row_linked=1 by_hand=-
+ENTRY corpus/knowledge/openbao-pki-certificate-lifecycle.md row_linked=1 by_hand=-
+ENTRY corpus/knowledge/openbao-seal-key-custody.md row_linked=1 by_hand=-
+ENTRY corpus/knowledge/openbao-transit-engine.md row_linked=1 by_hand=-
+ENTRY corpus/knowledge/op-env-refs.md row_linked=3 by_hand=-
+ENTRY corpus/knowledge/op-ref-consumption.md row_linked=4 by_hand=-
+ENTRY corpus/knowledge/prefreeze-controls.md row_linked=1 by_hand=-
+ENTRY corpus/knowledge/record-supersession.md row_linked=1 by_hand=-
+ENTRY corpus/knowledge/secret-scanning-detection-vs-validation.md row_linked=1 by_hand=-
+ENTRY corpus/knowledge/sops-age-key-rotation.md row_linked=1 by_hand=-
+ENTRY corpus/knowledge/source-capture-binding.md row_linked=1 by_hand=-
+ENTRY corpus/knowledge/substrate-deferral.md row_linked=2 by_hand=-
+ENTRY corpus/knowledge/surface-census.md row_linked=5 by_hand=-
+ENTRY corpus/knowledge/tac-evidence-integrity.md row_linked=2 by_hand=-
+ENTRY corpus/knowledge/transcript-hygiene.md row_linked=2 by_hand=-
+ENTRY corpus/knowledge/trufflehog-verification-lifecycle.md row_linked=1 by_hand=-
+ENTRY corpus/knowledge/vault-openbao-token-lease-lifecycle.md row_linked=1 by_hand=-
+DOC_AUDIT_RATIO: row_linked=47/50 floor=25 by_hand=3 duplicate_reasons=0
+DOC_AUDIT: CLEAN (entries=50 row_linked=47 by_hand=3 undeclared=0 missing_ids=0 unpinned=0 duplicate_reasons=0)
+rc=0
+== r36c3
+RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17)
+rc=0
+== sweep
+== sweep
+MISMATCH SD5 SCORECARD.md:14 red id 'R25-02' is absent from the latest calibration row (SCORECARD.md:2488)
+MISMATCH SD5 SCORECARD.md:14 red id 'R29-01' is absent from the latest calibration row (SCORECARD.md:2488)
+MISMATCH SD5 SCORECARD.md:14 red id 'R29-02' is absent from the latest calibration row (SCORECARD.md:2488)
+MISMATCH SD5 SCORECARD.md:14 red id 'R38-03' is absent from the latest calibration row (SCORECARD.md:2488)
+MISMATCH SD6 LOG.md:2111 .ufo/waves/round-66/w1-results.json (ufo)
+MISMATCH SD6 SCORECARD.md:1862 .ufo/waves/round-56/controls/c1-base.txt`-equivalent (ufo)
+MISMATCH SD6 SCORECARD.md:1981 .ufo/waves/round-59/final/release-clock-candidate.txt (ufo)
+MISMATCH SD6 SCORECARD.md:1990 .ufo/waves/round-59/final/release-clock-candidate.txt (ufo)
+MISMATCH SD6 SCORECARD.md:2341 .ufo/waves/round-66/w1-results.json (ufo)
+MISMATCH SD6 corpus/lessons/round-30-verifier-spotcheck.md:41 corpus/README.md:64/65/67 (local)
+MISMATCH SD6 corpus/lessons/round-32-verifier-spotcheck.md:54 corpus/README.md:64/65/67 (local)
+MISMATCH SD6 corpus/lessons/round-33-verifier-spotcheck.md:90 knowledge/corpus/knowledge/ (shorthand)
+MISMATCH SD6 corpus/lessons/round-51-verifier-spotcheck.md:72 corpus/plans/.ufo (local)
+MISMATCH SD6 corpus/lessons/round-54-verifier-spotcheck.md:55 corpus/json.py (local)
+MISMATCH SD6 corpus/lessons/round-54-verifier-spotcheck.md:55 corpus/hashlib.py (local)
+MISMATCH SD6 corpus/lessons/round-58.md:122 .ufo/waves/round-56/controls/c1-base.txt`-equivalent (ufo)
+MISMATCH SD6 corpus/lessons/round-59-verifier-spotcheck.md:187 .ufo/waves/round-59/final/release-clock-candidate.txt (ufo)
+MISMATCH SD6 corpus/lessons/round-62.md:61 .ufo/waves/round-61/final/ (ufo)
+MISMATCH SD6 corpus/lessons/round-62.md:62 .ufo/waves/round-61/final/ (ufo)
+MISMATCH SD6 corpus/lessons/round-62.md:62 .ufo/waves/round-61/final/ (ufo)
+MISMATCH SD6 corpus/lessons/round-65-verifier-spotcheck.md:296 .ufo/waves/round-64/capture/S148.body`-era (ufo)
+MISMATCH SD6 corpus/lessons/round-68-verifier-spotcheck.md:58 .ufo/waves/round-68/final/c1-base.txt (ufo)
+MISMATCH SD6 corpus/lessons/round-68-verifier-spotcheck.md:346 .ufo/waves/round-68/final/c1-base.txt (ufo)
+MISMATCH SD6 corpus/lessons/round-69.md:21 .ufo/waves/round-69/w1-results.json (ufo)
+MISMATCH SD6 corpus/lessons/round-69.md:144 .ufo/waves/round-69/w1-results.json (ufo)
+MISMATCH SD6 corpus/lessons/round-69-verifier-spotcheck.md:47 .ufo/waves/round-69/w1-results.json (ufo)
+MISMATCH SD6 corpus/lessons/round-69-verifier-spotcheck.md:145 .ufo/waves/round-69/w1-results.json (ufo)
+MISMATCH SD8 SCORECARD.md:1702 range 'M44-1..M44-3' row '| M44-4 ' exceeds upper endpoint M44-3
+SELF_DESCRIPTION: MISMATCH n=28 (SD1=0 SD2=0 SD3=0 SD4=0 SD5=4 SD6=23 SD7=0 SD8=1 SD9=0)
+rc=1
+== selfcounts
+STALE SC-SKILL-STAMPS SKILL.md:46 claimed=164 live=177
+STALE SC-SKILL-CLAIMS SKILL.md:46 claimed=101 live=102
+OK SC-SCOPE-ROWS SKILL.md:35 claimed=35 live=35
+OK SC-SCOPE-SELFTEST SKILL.md:35 claimed=61 live=61
+OK SC-CENSUS-SELFTEST SKILL.md:36 claimed=16 pinned=16
+OK SC-SOURCES-SELFTEST SKILL.md:50 claimed=98 live=98
+OK SC-SELFCOUNTS-SELFTEST SKILL.md:47 claimed=48 live=48
+OK SC-CLOCK-SELFTEST SKILL.md:48 claimed=121 live=121
+OK SC-LEDGER-SELFTEST SKILL.md:250 claimed=175 live=175
+OK SC-CLOSURE-SELFTEST SKILL.md:756 claimed=14 live=14
+OK SC-RENDERED-SELFTEST SKILL.md:757 claimed=22 live=22
+OK PV-SURFACE-SELFTEST PROVINCE.md:67 claimed=16 pinned=16
+OK PV-CENSUS-ROWS PROVINCE.md:67 claimed=35 live=35
+OK PV-STATE-ROWS PROVINCE.md:67 claimed=22 live=22
+OK PV-DRIFT-FILES PROVINCE.md:68 claimed=15 live=15
+OK PV-DRIFT-SYMBOLS PROVINCE.md:68 claimed=20 live=20
+OK PV-OPREF-SELFTEST PROVINCE.md:70 claimed=36 pinned=36
+OK PV-CHECKLIST-SELFTEST PROVINCE.md:71 claimed=34 live=34
+OK PV-SCOPE-SELFTEST PROVINCE.md:72 claimed=61 live=61
+STALE PV-STAMPS PROVINCE.md:73 claimed=164 live=177
+STALE PV-CLAIMS PROVINCE.md:73 claimed=101 live=102
+OK PV-LEDGER-SELFTEST PROVINCE.md:73 claimed=175 live=175
+OK PV-SELFCOUNTS-SELFTEST PROVINCE.md:74 claimed=48 live=48
+OK PV-CLOCK-SELFTEST PROVINCE.md:75 claimed=121 live=121
+OK PV-SOURCES-SELFTEST PROVINCE.md:78 claimed=98 live=98
+OK PV-RENDERED-SELFTEST PROVINCE.md:79 claimed=22 live=22
+OK PV-CLOSURE-SELFTEST PROVINCE.md:80 claimed=14 live=14
+OK RD-CENSUS-ROWS corpus/README.md:41 claimed=35 live=35
+OK RD-STATE-ROWS corpus/README.md:42 claimed=22 live=22
+OK RD-SCOPE-SELFTEST corpus/README.md:43 claimed=61 live=61
+OK RD-LEDGER-SELFTEST corpus/README.md:63 claimed=175 live=175
+OK RD-LEDGER-ROWS corpus/README.md:64 claimed=102 live=102
+OK RD-STAMPS corpus/README.md:65 claimed=177 live=177
+OK RD-DOCS-ROWLINKED corpus/README.md:67 claimed=47 live=47
+OK RD-DOCS-BYHAND corpus/README.md:67 claimed=3 live=3
+OK RD-DOCS-ENTRIES corpus/README.md:67 claimed=50 live=50
+OK RD-OPREF-SELFTEST corpus/README.md:74 claimed=36 pinned=36
+OK RD-CHECKLIST-SELFTEST corpus/README.md:33 claimed=34 live=34
+OK KN-BREADTH-SCOPE-SELFTEST corpus/knowledge/adjacency-breadth.md:152 claimed=61 live=61
+OK KN-BREADTH-FALSIFY corpus/knowledge/adjacency-breadth.md:155 claimed=18 pinned=18
+OK KN-SCOPE-CURRENT-SELFTEST corpus/knowledge/adjacency-scope.md:16 claimed=61 live=61
+OK KN-SCOPE-CURRENT-FALSIFY corpus/knowledge/adjacency-scope.md:17 claimed=18 pinned=18
+OK KN-SCOPE-TABLE-SELFTEST corpus/knowledge/adjacency-scope.md:155 claimed=61 live=61
+OK KN-SCOPE-TABLE-FALSIFY corpus/knowledge/adjacency-scope.md:155 claimed=18 pinned=18
+OK KN-SCOPE-MUTATIONS corpus/knowledge/adjacency-scope.md:269 claimed=18 pinned=18
+OK KN-CHECKLIST-SELFTEST corpus/knowledge/checklist-execution.md:63 claimed=34 live=34
+OK KN-CHECKLIST-FALSIFY-ROWS corpus/knowledge/checklist-execution.md:173 claimed=16 live=16
+OK KN-CHECKLIST-FALSIFY-ITEMS corpus/knowledge/checklist-execution.md:179 claimed=16 live=16
+OK KN-LEDGER-REPRO-SELFTEST corpus/knowledge/claim-ledger.md:304 claimed=175 live=175
+OK KN-DRIFT-BOUND-FILES corpus/knowledge/drift-gate.md:143 claimed=15 live=15
+OK KN-OPREF-REPRO-SELFTEST corpus/knowledge/op-ref-consumption.md:277 claimed=36 pinned=36
+OK KN-OPREF-CORRECTION-SELFTEST corpus/knowledge/op-ref-consumption.md:375 claimed=36 pinned=36
+OK KN-CENSUS-DRIFT-FILES corpus/knowledge/surface-census.md:32 claimed=15 live=15
+OK KN-CENSUS-DRIFT-SYMBOLS corpus/knowledge/surface-census.md:32 claimed=20 live=20
+OK KN-BREADTH-LINES corpus/knowledge/adjacency-breadth.md:148 claimed=4 live=4
+OK KN-BREADTH-FALSIFIERS corpus/knowledge/adjacency-breadth.md:158 claimed=18 pinned=18
+OK KN-SUBSTRATE-CENSUS-SELFTEST corpus/knowledge/substrate-deferral.md:44 claimed=16 pinned=16
+OK KN-SUBSTRATE-ABSENCE-FILES corpus/knowledge/substrate-deferral.md:50 claimed=15 pinned=15
+OK KN-CHECKLIST-FALSIFY-FLOOR corpus/knowledge/checklist-execution.md:179 claimed=8 live=8
+OK KN-OPREF-FALSIFY-SELFTEST corpus/knowledge/op-ref-consumption.md:297 claimed=36 pinned=36
+POLICY PV-FEEDTOKEN-SHAPES ledger:R29-02 command not allowlisted
+POLICY PV-FEEDTOKEN-SELFTEST ledger:R29-01 command not allowlisted
+OK SA-CAP-CENSUS-SELFTEST SCORECARD.md:701 claimed=98 live=98
+SELF_COUNTS: POLICY (claims=63 stale=4 unlocated=0 ambiguous=0 policy=2 setup=0)
+rc=2
+== declared
+MISMATCH 69 C1 tagged-rows-0
+MISMATCH 69 C2 tagged-rows-0
+CLAIMS_DECLARED: MISMATCH (claims=66 mismatch=2)
+rc=1
+== census
+SOURCES_CAPTURES: CLEAN (path_rows=43 bound=43 located=43 prose=120)
+SOURCES_CENSUS: CLEAN (rows=163 A=145 B=2 C=16 queued=3 mined=141 rejected=19 entries_sourced=29 legacy=21 captures=163 inrow=16 inrow_only=0 inrow_nonreproducing=12)
+rc=0

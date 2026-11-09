@@ -1,0 +1,7 @@
+R36-01 (bash plans/round-36-c1.sh, ledger expects ^0$, tmo 300)
+BASE 7bd34832 extraction: prints 8, real 3m47.8s
+working tree (round-70 integration, pre-commit): prints 8, real 3m44.8s
+verdict: unchanged 8 -> 8; the R70ExecGates timeout (GX-3) is the ~225 s runtime meeting the 300 s row budget under sibling load, not a moved count.
+R36-03 (bash plans/round-36-c3.sh) working tree: RELEASE_CLOCK: CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17)
+claim-ledger docs working tree: DOC_AUDIT: CLEAN (entries=50 row_linked=47 by_hand=3 undeclared=0 missing_ids=0 unpinned=0 duplicate_reasons=0)
+self-counts working tree: SELF_COUNTS: POLICY (claims=63 stale=4 unlocated=0 ambiguous=0 policy=2 setup=0) — same stale ids as BASE (SC-SKILL-STAMPS, SC-SKILL-CLAIMS, PV-STAMPS, PV-CLAIMS)

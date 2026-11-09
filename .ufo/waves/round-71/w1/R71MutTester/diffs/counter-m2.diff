@@ -1,0 +1,11 @@
+--- frozen-counter
++++ mutant-m2
+@@ -163,7 +163,7 @@
+   [ "$(fpr t7-second.pem)" != "$(fpr t7-default.pem)" ] || return 1
+   crlok t7-second-crl.pem t7-second.pem && crlok t7-default-crl.pem t7-default.pem || return 1
+   local s; s=$(ser t7-leaf.pem)
+-  lists t7-second-crl.pem "$s" && ! lists t7-default-crl.pem "$s"
++  lists t7-second-crl.pem "$s"
+ }
+ art8() {
+   local x; for x in t8-issuer.pem t8-revoked.pem t8-good.pem t8-revoked.ocsp.der t8-good.ocsp.der; do f "$x" || return 1; done

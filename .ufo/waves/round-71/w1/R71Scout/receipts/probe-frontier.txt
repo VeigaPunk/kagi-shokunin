@@ -1,0 +1,50 @@
+FRONT SETUP bao=v2.7.2 openssl=3.6.5 server_pid_bound=yes
+FRONT M1 role_rc=0
+FRONT M1.issue rc=0 serial_present=yes
+FRONT M1.pre-issuer-crl-read rc=0 serial_on_gone_crl=no entries=0
+FRONT M1.pre-default-crl-read rc=0 serial_on_default_crl=no entries=0
+FRONT M1.revoke rc=0 revocation_time=1794192853
+FRONT M1.post-revoke-issuer-crl rc=0 serial_on_gone_crl=yes entries=1
+FRONT M1.post-revoke-default-crl rc=0 serial_on_default_crl=no entries=0
+FRONT M1.delete-issuer rc=0 out_has_warning=1
+FRONT M1.read-deleted-issuer rc=2
+FRONT M1.deleted-issuer-crl-read rc=1
+FRONT M1.after-delete-default-crl rc=0 serial_on_default_crl=yes entries=1
+FRONT M1.crl-rotate rc=0
+FRONT M1.after-rotate-default-crl rc=0 serial_on_default_crl=yes entries=1
+FRONT M1b.issue rc=0
+FRONT M1b.delete-issuer rc=0
+FRONT M1b.revoke-after-delete rc=0 revocation_time=1794192854
+FRONT M1b.default-crl rc=0 serial_on_default_crl=yes entries=2
+FRONT M1b.default-crl-after-rotate rc=0 serial_on_default_crl=yes entries=2
+FRONT M2.permit set-behavior rc=0
+FRONT M2.permit issue rc=0 behavior_readback=permit issuer_name_readback=r72spermit
+FRONT M2.permit notafter leaf_minus_issuer_s=28800 leaf_outlives_issuer=yes
+FRONT M2.permit verify-before-issuer-end rc=0 out=/fast/scratch/hyaku/kagi-r71/R71Scout/probe.5ex8XL/leaf-permit.pem: OK
+FRONT M2.permit verify-after-issuer-end rc=2 out=certificate has expired
+FRONT M2.truncate set-behavior rc=0
+FRONT M2.truncate issue rc=0 behavior_readback=truncate issuer_name_readback=r72struncate
+FRONT M2.truncate notafter leaf_minus_issuer_s=0 leaf_outlives_issuer=no
+FRONT M2.truncate verify-before-issuer-end rc=0 out=/fast/scratch/hyaku/kagi-r71/R71Scout/probe.5ex8XL/leaf-truncate.pem: OK
+FRONT M2.truncate verify-after-issuer-end rc=2 out=certificate has expired
+FRONT M2.err set-behavior rc=0
+FRONT M2.err issue rc=2 behavior_readback=err issuer_name_readback=r72serr
+FRONT M3.csr-generate rc=0 csr_bytes=956
+FRONT M3.sign-intermediate rc=0
+FRONT M3.set-signed rc=0
+FRONT M3.list-issuers-count=0
+FRONT M3.inter-id-from-set-signed present=yes err=
+FRONT M3.inter-readback rc=0 usage=crl-signing,issuing-certificates,ocsp-signing,read-only revocation_time=
+FRONT M3.issue-before-revoke rc=0
+FRONT M3.pre-default-crl rc=0 inter_serial_on_default=no entries=2
+FRONT M3.pre-inter-crl rc=0 inter_serial_on_own=no entries=0
+FRONT M3.revoke-issuer rc=0 out=
+FRONT M3.post-revoke-readback rc=0 usage=crl-signing,ocsp-signing,read-only revocation_time=1794192856
+FRONT M3.post-revoke-default-crl rc=0 inter_serial_on_default=yes entries=3
+FRONT M3.post-revoke-inter-crl-read rc=0 inter_serial_on_own=no entries=0
+FRONT M3.issue-after-revoke rc=2 err=Error writing data to pki/issue/r72i: Error making API request.  URL: PUT http://127.0.0.1:57139/v1/
+FRONT M3.control-self-root-revoke rc=0
+FRONT M3.control-default-crl rc=0 self_serial_on_default=no entries=3
+FRONT ART.m1-default-crl-after-delete.signed-by-default-root result=verify OK
+FRONT ART.m1-default-crl-after-rotate.signed-by-default-root result=verify OK
+FRONT ART.m3-default-crl-after-issuer-revoke.signed-by-default-root result=verify OK

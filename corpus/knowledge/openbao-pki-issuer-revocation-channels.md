@@ -31,10 +31,10 @@ is documentation (S170/S173) or the lane's own inference, marked as such.
 
 | decision | safe default | what the trial measured (T-verdict) | consequence if wrong (source) |
 |---|---|---|---|
-| issuer NotAfter policy | `truncate` on intermediates, `err` where a refusal is wanted | T6: on a `truncate` issuer a 10h leaf from a 2h issuer is issued with NotAfter equal to the issuer's | under `permit` a leaf outlives its issuer; S170: "Not all values result in leaf certificates that can be validated through the entire validity period" |
+| issuer NotAfter policy | `truncate` on intermediates, `err` where a refusal is wanted | T6: on a `truncate` issuer whose own lifetime is under 10h (2h requested), a leaf requested at `ttl=10h` is issued with NotAfter equal to the issuer's (the counter checks the dates and the <10h issuer lifetime; the requested TTLs are the trial's) | under `permit` a leaf outlives its issuer; S170: "Not all values result in leaf certificates that can be validated through the entire validity period" |
 | updating one issuer field | `bao patch`, or re-send every field | observed while building T6: `bao write pki/issuer/<ref> leaf_not_after_behavior=…` reset `issuer_name` to `""` | S170: POST "does not update only the provided fields" and "Note that bao write uses POST"; a later reference by the lost name fails (`unable to find PKI issuer for reference`, observed) |
 | which CRL a revocation lands on | relying parties fetch the CRL of the leaf's own issuer (`pki/issuer/<ref>/crl`) | T7: a revoked leaf signed by the non-default issuer (role `issuer_ref`) is on its issuer's CRL and absent from the default issuer's CRL | a client that fetches only the default CRL sees that serial as live [INFERENCE]; S173 sends revocations to the default CRL only when the issuer has left the mount |
-| OCSP responder | enabled (`ocsp_disable=false`, the documented default) | T8: token-less OCSP requests report the revoked leaf `revoked` and an unrevoked control `good`, both responses signed by the issuer | with `ocsp_disable=true` "the OCSP responder will always respond with an Unauthorized OCSP response" (S170); anyone can query status, which is the point of the channel |
+| OCSP responder | enabled (`ocsp_disable=false`, the documented default) | T8: token-less OCSP requests report the revoked leaf `revoked` and an unrevoked control `good`, both responses signed by the issuer | with `ocsp_disable=true` "the OCSP responder will always respond with an Unauthorized OCSP response" (S170); anyone can query a serial's status without a token, which is what a revocation channel is for [INFERENCE] |
 | revoking a `no_store` leaf | keep the leaf's key where the revoker can prove possession, or do not use `no_store` for revocable leaves | T9: revoke-by-serial of a `no_store` leaf is refused; `pki/revoke-with-key` with its certificate and key revokes it and the serial is on the issuer's CRL | without the key the leaf cannot be revoked at all and its TTL is the only bound [INFERENCE] |
 
 ## Measured (round 71 — OpenBao 2.7.2 dev server, 127.0.0.1, one pki mount, two roots)
@@ -49,7 +49,7 @@ under `.ufo/waves/round-71/final/`), not counter-enforced.
 - T6 notafter-truncate — OpenBao 2.7.2: enforced — the trial's verdict, flipped by shim SH6 (the issuer write loses `leaf_not_after_behavior`, so the default `err` refuses the 10h leaf), and the artifact check: the leaf verifies against the 2h issuer and its notAfter equals the issuer's. Observed: the issuer read back `leaf_not_after_behavior: err` before the write.
 - T7 nondefault-crl — OpenBao 2.7.2: enforced — the trial's verdict, flipped by shim SH7 (the role loses `issuer_ref`, so the leaf comes from the default issuer and lands on the default CRL), and the artifact check: the leaf verifies against the second issuer and not the default; the second issuer's CRL (signature verified against it) lists the serial; the default issuer's CRL (signature verified) does not.
 - T8 ocsp-unauth — OpenBao 2.7.2: enforced — the trial's verdict, flipped by shim SH8 (`pki/config/crl` gets `ocsp_disable=true`), and the artifact check: both DER responses verify against the issuer and report `revoked` for the revoked leaf and `good` for the control. The requests carried no token (the trial's `openssl ocsp` runs with `BAO_TOKEN` unset; openssl does not read it in any case).
-- T9 revoke-with-key — OpenBao 2.7.2: enforced — the trial's verdict, flipped by shim SH9 (the `revoke-with-key` call loses `private_key`), and the artifact check: the leaf verifies against the issuer and the issuer-signed CRL lists its serial. The refusal of revoke-by-serial is part of the trial's HOLDS condition, not of the artifact check.
+- T9 revoke-with-key — OpenBao 2.7.2: enforced — the trial's verdict, flipped by shim SH9 (the `revoke-with-key` call loses `private_key`), and the artifact check: the leaf verifies against the issuer and the issuer-signed CRL lists its serial. The refusal of revoke-by-serial is part of the landed trial's HOLDS condition only: no shim and no artifact leg tests it, and a trial that never attempts the serial revoke also reads `value=4` (R71MutTester MT-1, fixture f-m11).
 
 ## Does not establish
 
@@ -63,8 +63,18 @@ under `.ufo/waves/round-71/final/`), not counter-enforced.
   the request will appear in the response"), or responder behaviour for unknown serials.
 - That *any* trial passing the round-71 counter executes these mechanics through OpenBao: a
   same-uid trial can read the wrapper bytes to learn the active shim and mint look-alike
-  artifacts with local openssl (the counter's named ceiling, `plans/round-71.md`). That the landed
-  trial does execute them through the `bao` CLI rests on non-author reading of its code.
+  artifacts with local openssl (the counter's named ceiling, `plans/round-71.md`; R71Revenger
+  forgery A reaches `value=4`), can drive the server over HTTP instead of the CLI (forgery B), or
+  can compute its verdicts from config read-backs and call statuses while its artifacts are real
+  (forgery C): the counter does not bind a verdict to the artifact it checks (plan Amendment A1).
+  That the landed trial does execute them through the `bao` CLI, with verdicts taken from the
+  mechanic's own output, rests on non-author reading of its code (R71Reviewer RV-5, R71Revenger
+  RE-4).
+- That no secret leaves the trial in any encoding: the counter's NOSECRET leg is a fixed regex
+  (`PRIVATE KEY`, four token prefixes, the dev-token shape) over output and evidence; it would miss
+  a raw DER or bare base64 key (R71Sentinel SE-7, who found the landed evidence clean in every
+  encoding). Leaf private keys sit in the trial's `umask 077` scratch until its EXIT trap; a
+  SIGKILL of the trial leaves them there (SE-1).
 
 ## Falsifiers
 

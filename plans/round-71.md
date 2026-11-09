@@ -104,3 +104,53 @@ tier A — OpenBao PKI considerations; capture byte-identical to the round-70 sc
 `42ef7582…5047a`); S170 re-opened (byte-identical, sha256 `9fa76939…1123`) for the T6/T8/T9 anchors
 without a row change; one mistake mined into `corpus/lessons/round-71.md` `## Mistakes`;
 considerthese: at most one proposal, or a line.
+
+## Amendment A1 — post-wave narrowing (appended 2026-11-09 after the wave's attack reports; the frozen predicate, counter, target and kill rule above are unchanged)
+
+The counter's number is unchanged (`value=4` on the candidate, target met); the claim's
+**wording** is narrowed to what the instrument enforces, citing the wave artifacts that falsify the
+wider sentence (Amendment 59 option (i)):
+
+- **C1 as filed:** the frozen counter reads `C1_PKI_ISSUER_TRIAL: value=4` on the landed tree — the
+  four named verdicts T6–T9 of `corpus/openbao-pki-issuer-trial.sh` each read HOLDS with the real
+  OpenBao 2.7.2 binary behind a pass-through wrapper, flip to BROKEN under their own shim and stay
+  HOLDS under the other three, and the real run's public artifacts pass the counter's own openssl
+  checks, with SETUP_OK, NOSECRET (the fixed regex), NOLEAK and SOURCED at 1. The heading words
+  "executed and artifact-checked" mean exactly this; they do not mean that the counter proves the
+  verdicts were computed from the artifacts it checks.
+- **Verdict–artifact binding is not counted** (`.ufo/waves/round-71/w1/R71Revenger.md` RE-1,
+  forgery C, receipt `R71Revenger/counter-c.txt`: verdicts from config read-backs and call
+  statuses, real artifacts, `value=4`). The named ceiling above covered wrapper reads and local
+  minting (forgery A, RE-2) but not this class. That the landed trial takes each verdict from the
+  mechanic's own output (CRL listing, OCSP status, leaf dates, revoke response) is a reviewed
+  property (R71Reviewer RV-5, R71Revenger RE-4), not a counted one. Transport bypass (forgery B,
+  RE-3) is likewise outside the count.
+- **NOSECRET is the literal regex** (`.ufo/waves/round-71/w1/R71Sentinel.md` SE-7: raw DER keys,
+  bare base64, `hvb.`/`hvr.` prefixes and some byte contexts escape it). The plan's gloss "scans
+  every evidence file" means that regex over those files, not "no secret in any encoding".
+  R71Sentinel found the landed evidence clean in every encoding it tried.
+- **Pre-move sentence corrected** (`.ufo/waves/round-71/w1/R71Connector.md` CN-2): "None is
+  executed, entered or counted at BASE" is false as to "executed" — R70Scout measured all four
+  observables on OpenBao 2.7.2 and its receipts are in the BASE tree
+  (`.ufo/waves/round-70/w1/R70Scout/receipts/probe-frontier-final.txt` F3/F7/F10,
+  `probe-frontier-focused.txt` F1.*). True at BASE: no trial, no knowledge entry, no counter and no
+  S173 row for them; the scout's probe was a seat's one-off reconnaissance, not a lane instrument.
+- **Frontier-step sentence corrected** (CN-1): "S170 re-opened … without a row change" is false;
+  the candidate extends S170's `used-by` to the new entry, and integration also extends its anchor
+  cell (M71-2). Both are logged old → new in `corpus/lessons/round-71.md` §Gate.
+- **Entry wording** (R71Critic CR-1, R71ReviewerSrc SR-2): the T6 table cell now says what the
+  counter checks (date equality, issuer lifetime < 10h) and labels the 10h/2h TTLs as the trial's
+  requests; the OCSP "anyone can query" consequence is marked `[INFERENCE]`. Tokenlessness of the
+  OCSP requests (CR-2) is the trial's property, confirmed by R71Sentinel SE-2, not an artifact leg.
+- **Stamps** (SR-1, CN-6): the trial, the counter and the controls runner are pinned in
+  `corpus/stamps.tsv` at integration, as round 70 did for its trial and counter.
+
+## Amendment A2 — mutation findings (appended after WAVE-DONE; frozen predicate, counter, target and kill rule unchanged)
+
+- **T9's serial-refusal conjunct is not counted** (`.ufo/waves/round-71/w1/R71MutTester.md` MT-1:
+  fixture f-m11, a trial that never attempts revoke-by-serial, reads `value=4` on the frozen
+  counter). C1 as filed therefore does not include "a `no_store` leaf is refused revocation by
+  serial"; that refusal is a property of the landed trial's HOLDS condition, read by non-authors
+  (R71Reviewer RV-5), and the entry's T9 line and the SKILL row say so.
+- The ARTIFACT conjuncts are killed only by forged-evidence fixtures (MT-3), i.e. inside the named
+  same-uid ceiling; this is consistent with A1 and adds no wider sentence.

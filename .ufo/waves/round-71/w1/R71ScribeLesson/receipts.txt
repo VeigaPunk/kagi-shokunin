@@ -1,0 +1,27 @@
+# SWEEP-POSTWRITE on landed trial
+SWEEP-POSTWRITE: CLEAN corpus/openbao-pki-issuer-trial.sh
+rc=0
+# SWEEP-POSTWRITE on planted BASE-shaped line (scratch fixture)
+FLAG /fast/scratch/hyaku/kagi-r71/R71ScribeLesson/planted.sh
+1:q write pki/issuer/r71short leaf_not_after_behavior=truncate
+SWEEP-POSTWRITE: FLAG
+rc=1
+# SWEEP-ANCHORS S170 on landed tree
+MISSING S170 §Update issuer
+MISSING S170 §Set revocation configuration
+MISSING S170 §OCSP request
+MISSING S170 §Revoke certificate with private key
+SWEEP-ANCHORS: FLAG missing=4
+rc=1
+# SWEEP-ANCHORS S170 on scratch copy with the four missing sections appended (tree untouched)
+SWEEP-ANCHORS: CLEAN row=S170
+rc=0
+# SWEEP-ANCHORS S173 on landed tree
+SWEEP-ANCHORS: CLEAN row=S173
+rc=0
+# ceiling tokens on counter verdict lines (C1_PKI_ISSUER_TRIAL value/SETUP)
+0
+# KNOWN_DEFECT in release-clock.py
+0
+# release-clock STABLE_TITLE_RE line
+789:STABLE_TITLE_RE = re.compile(r"^(?:[A-Za-z]+ )?v?([0-9]+\.[0-9]+\.[0-9]+)(?![A-Za-z0-9+-]|\.[0-9])")

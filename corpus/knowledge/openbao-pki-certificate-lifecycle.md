@@ -61,6 +61,10 @@ Each line below says what the counter enforces; "observed" details come from the
 - Revocation of a leaf signed by a non-default issuer: T4 uses the default issuer's CRL only
   (R70Scout SC-1 observed such a leaf on its own issuer's CRL and absent from the default one —
   a frontier lead, unmeasured by this trial).
+- Round 71 note (appended; the two items above are true for this entry's trial and are not
+  rewritten): `leaf_not_after_behavior` (`truncate`), per-issuer CRL routing for a non-default
+  issuer, token-less OCSP status and revocation with a private key are executed in
+  `corpus/knowledge/openbao-pki-issuer-revocation-channels.md` by `corpus/openbao-pki-issuer-trial.sh`.
 - That *any* trial passing the round-70 counter executes these mechanics: the counter reads the
   trial's verdict words under shims and is satisfiable by forgeries that never start a server
   (R70Revenger RE-1, forgeries A/C/D). That the landed `corpus/openbao-pki-trial.sh` does execute

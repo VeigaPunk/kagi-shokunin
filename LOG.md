@@ -2286,3 +2286,33 @@ Correction (round 69): the line above prints `C1_VERIFIED_SELFTEST: PASS (59 cas
   warning count; M70-5 the freeze named one forgery ceiling of three; M70-6 the trial did not
   reuse the lane's hardened dev-server launch (fixed at integration); M70-7 the first harm diff
   missed eight STALE stamp lines (re-pinned in `17a89648`). QM101 enters the bar.
+
+## round 71 — 2026-11-08 (C1 depth — OpenBao PKI issuer and revocation channels, executed and artifact-checked)
+
+- **Freeze before candidate.** Plan, counter `plans/round-71-c1.sh`, runner and nine executed
+  prefreeze controls (BASE no-work, positive reference, echo / shim-byte-map / no-teeth /
+  unsourced / leaking / key-in-evidence / wrong-observable forgeries) landed together in
+  `11992955`; every control matched its expected verdict (`.ufo/waves/round-71/controls/receipts/`).
+  New counter legs over round 70: the real run also goes through a wrapper script, and the counter
+  re-checks the real run's public artifacts (certificates, CRLs, OCSP responses) with openssl.
+- **C1 (met, wording narrowed).** `bash plans/round-71-c1.sh <rev>`: BASE `e0e9603a` ⇒
+  `value=0 absent=1` rc 1; candidate `39e76bc7` ⇒ `C1_PKI_ISSUER_TRIAL: value=4 … art=1` rc 0. New
+  trial `corpus/openbao-pki-issuer-trial.sh` (T6 a `truncate` issuer clips a leaf to its own
+  NotAfter, T7 a revoked non-default-issuer leaf is on its own CRL and not the default's, T8
+  token-less OCSP `revoked`/`good`, T9 a `no_store` leaf refused by serial is revoked by proof of
+  possession), entry `corpus/knowledge/openbao-pki-issuer-revocation-channels.md`. Wave attacks
+  narrowed the wording (plan Amendment A1): verdict–artifact binding is not counted (R71Revenger
+  RE-1, forgery C), NOSECRET is a fixed regex (R71Sentinel SE-7), two pre-move sentences corrected
+  (R71Connector CN-1/CN-2).
+- **Measured domain fact.** `bao write pki/issuer/<ref> leaf_not_after_behavior=…` resets
+  `issuer_name` to `""` (POST overwrites; S170: "It does not update only the provided fields."),
+  after which the issuer is no longer found by name
+  (`.ufo/waves/round-71/final/l1-probe-observations.txt`).
+- **Frontier.** S173 (OpenBao PKI considerations) admitted tier A; S170 re-opened (byte-identical),
+  `used-by` and anchor cell extended. Census `kagi ok` rc 0 at start (26 W04, stdout). Frontier
+  leads for the next PKI round: `.ufo/waves/round-71/w1/R71Scout.md` (issuer left the mount →
+  default CRL, `permit`, issuer revocation).
+- **Mistakes mined** (`corpus/lessons/round-71.md`): M71-1 POST overwrite unread before the write
+  (QM102 enters the bar); M71-2 S170 anchor cell short of the new entry's citations (fixed);
+  M71-3 two frozen pre-move sentences false against BASE; M71-4 the freeze again named two of three
+  forgery classes (repeat of M70-5); M71-5 a seat pattern-killed sibling seats' dev servers.

@@ -1,0 +1,26 @@
+--- p1-trial
++++ f-m4
+@@ -179,8 +179,21 @@
+           -url "$BAO_ADDR/v1/pki/ocsp" -respout "$2" 2>/dev/null ) | awk -F': ' 'NR==1{print $2}'
+     }
+     r=$(st "$S/t8r.pem" "$S/t8r.der"); g=$(st "$S/t8g.pem" "$S/t8g.der")
+-    ev "$S/root.pem" t8-issuer.pem; ev "$S/t8r.pem" t8-revoked.pem; ev "$S/t8g.pem" t8-good.pem
+-    [ -s "$S/t8r.der" ] && ev "$S/t8r.der" t8-revoked.ocsp.der; [ -s "$S/t8g.der" ] && ev "$S/t8g.der" t8-good.ocsp.der
++    # MUTATION-FIXTURE f-m4: offline-minted evidence, correct status words but
++    # OCSP signatures by an attacker key that is NOT t8-issuer.
++    openssl req -x509 -newkey rsa:2048 -nodes -keyout "$S/m4.key" -out "$S/m4ca.pem" -subj "/CN=root.r71.test" -days 30 -set_serial 1 -addext "basicConstraints=critical,CA:true" -addext "keyUsage=critical,keyCertSign,cRLSign" >/dev/null 2>&1
++    openssl req -new -nodes -keyout "$S/m4r.key" -out "$S/m4r.csr" -subj "/CN=o.r71.test" >/dev/null 2>&1
++    openssl req -new -nodes -keyout "$S/m4g.key" -out "$S/m4g.csr" -subj "/CN=g.r71.test" >/dev/null 2>&1
++    openssl x509 -req -in "$S/m4r.csr" -CA "$S/m4ca.pem" -CAkey "$S/m4.key" -days 1 -sha256 -out "$S/m4r.pem" -set_serial 0x1111 >/dev/null 2>&1
++    openssl x509 -req -in "$S/m4g.csr" -CA "$S/m4ca.pem" -CAkey "$S/m4.key" -days 1 -sha256 -out "$S/m4g.pem" -set_serial 0x2222 >/dev/null 2>&1
++    printf 'R\t350101000000Z\t350101000000Z\t1111\tunknown\t/CN=o.r71.test\nV\t350101000000Z\t\t2222\tunknown\t/CN=g.r71.test\n' > "$S/m4idx.txt"
++    openssl req -x509 -newkey rsa:2048 -nodes -keyout "$S/m4atk.key" -out "$S/m4atk.pem" -subj "/CN=attacker.r71.test" -days 30 -set_serial 1 >/dev/null 2>&1
++    openssl ocsp -issuer "$S/m4ca.pem" -cert "$S/m4r.pem" -reqout "$S/m4r.req" -CAfile "$S/m4ca.pem" >/dev/null 2>&1
++    openssl ocsp -issuer "$S/m4ca.pem" -cert "$S/m4g.pem" -reqout "$S/m4g.req" -CAfile "$S/m4ca.pem" >/dev/null 2>&1
++    openssl ocsp -reqin "$S/m4r.req" -issuer "$S/m4ca.pem" -CAfile "$S/m4ca.pem" -index "$S/m4idx.txt" -rkey "$S/m4atk.key" -rsigner "$S/m4atk.pem" -respout "$S/m4r.der" -CA "$S/m4ca.pem" >/dev/null 2>&1
++    openssl ocsp -reqin "$S/m4g.req" -issuer "$S/m4ca.pem" -CAfile "$S/m4ca.pem" -index "$S/m4idx.txt" -rkey "$S/m4atk.key" -rsigner "$S/m4atk.pem" -respout "$S/m4g.der" -CA "$S/m4ca.pem" >/dev/null 2>&1
++    ev "$S/m4ca.pem" t8-issuer.pem; ev "$S/m4r.pem" t8-revoked.pem; ev "$S/m4g.pem" t8-good.pem
++    [ -s "$S/m4r.der" ] && ev "$S/m4r.der" t8-revoked.ocsp.der; [ -s "$S/m4g.der" ] && ev "$S/m4g.der" t8-good.ocsp.der
+     if [ "$r" = revoked ] && [ "$g" = good ]; then verdict T8 HOLDS "tokenless-ocsp revoked=revoked control=good"
+     else verdict T8 BROKEN "tokenless-ocsp revoked=${r:-none} control=${g:-none}"; fi
+   else verdict T8 ERROR "revoke-failed"; fi

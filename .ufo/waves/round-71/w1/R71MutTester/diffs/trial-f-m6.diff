@@ -1,0 +1,32 @@
+--- p1-trial
++++ f-m6
+@@ -195,7 +195,28 @@
+   elif q write pki/revoke serial_number="$s9"; then verdict T9 BROKEN "no_store-leaf-revoked-by-serial"
+   elif bao write -format=json pki/revoke-with-key certificate=@"$S/t9.pem" private_key=@"$S/t9.key" >"$S/t9r.json" 2>/dev/null; then
+     if crl_of r71root "$S/c9.pem"; then
+-      ev "$S/t9.pem" t9-leaf.pem; ev "$S/root.pem" t9-issuer.pem; ev "$S/c9.pem" t9-crl.pem
++      ev "$S/t9.pem" t9-leaf.pem; ev "$S/root.pem" t9-issuer.pem
++      # MUTATION-FIXTURE f-m6: replace the OpenBao CRL with a CRL whose signature key
++      # does NOT match t9-issuer (fresh key), issuer name copied from the root cert,
++      # listing the leaf serial. Frozen counter's crlok must fail; M6 (no crlok) passes.
++      python3 - "$S/t9.pem" "$S/root.pem" > "$EV/t9-crl.pem" <<'PYEOF'
++import sys
++from cryptography import x509
++from cryptography.x509.oid import NameOID
++from cryptography.hazmat.primitives import hashes, serialization
++from cryptography.hazmat.primitives.asymmetric import rsa
++from datetime import datetime, timedelta, timezone
++leaf = x509.load_pem_x509_certificate(open(sys.argv[1],'rb').read())
++root = x509.load_pem_x509_certificate(open(sys.argv[2],'rb').read())
++key = rsa.generate_private_key(public_exponent=65537, key_size=2048)
++now = datetime.now(timezone.utc)
++b = (x509.CertificateRevocationListBuilder().issuer_name(root.subject)
++     .last_update(now).next_update(now + timedelta(days=30))
++     .add_revoked_certificate(x509.RevokedCertificateBuilder().serial_number(leaf.serial_number).revocation_date(now).build()))
++crl = b.sign(key, hashes.SHA256())
++sys.stdout.buffer.write(crl.public_bytes(serialization.Encoding.PEM))
++PYEOF
++      ev "$S/c9.pem" t9-crl-real.pem
+       if crl_has "$S/c9.pem" "$s9"; then verdict T9 HOLDS "serial-revoke-refused pop-revoked serial-on-crl"
+       else verdict T9 BROKEN "pop-revoke-not-on-crl"; fi
+     else verdict T9 ERROR "crl-read-failed"; fi

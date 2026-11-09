@@ -1,0 +1,20 @@
+PROBE F1.permit YES issue_rc=0 leaf_expiration=1794189764 issuer_expiration=1796778163 refused=0 err=
+PROBE F1.truncate YES issue_rc=0 leaf_expiration=1794189764 issuer_expiration=1796778163 refused=0 err=
+PROBE F1.err YES issue_rc=0 leaf_expiration=1794189764 issuer_expiration=1796778163 refused=0 err=
+PROBE F2 YES sign-intermediate http=200 ca_chain_len=2
+PROBE F3 YES second_issuer default_switch_rc=0 restore_rc=0 nondefault_leaf default_crl=absent own_issuer_crl=present | default_issuer_leaf default_crl=present
+PROBE F4 YES issuer-revoke http=200 revoked=True
+PROBE F5 YES auto-tidy http=200 safety_buffer=259200 revoked_safety_buffer=259200 issuer_safety_buffer=31536000 acme_account_safety_buffer=2592000
+PROBE F6 YES crl-config http=200 delta-read http=200 delta_crl_bytes=
+PROBE F7 YES ocsp_before=good ocsp_after_revoke=revoked unauthenticated=true
+PROBE F8 YES acme-directory-no-token http=200 meta={'externalAccountRequired': False} config=default_directory_policy=sign-verbatim eab_policy=not-required enabled=True
+PROBE F8b YES acme-flow DIRECTORY status=200 keys=keyChange,meta,newAccount,newNonce,newOrder,revokeCert|NEWNONCE status=204 nonce_present=True|NEWACCOUNT status=201 location_set=True body_len=116|NEWORDER status=201|NEWORDER keys=authorizations,expires,finalize,identifiers,status identifiers=[{"type": "dns", "value": "acme-probe.r70.test"}]|AUTH url=http://127.0.0.1:24774/v1/pki/acme/authorization/1b3f199b-d97c-2687-2842-2d803434eaf7 status=pending|AUTHZ_POLL status=400|CHALLENGES types=|
+PROBE F9 YES cel-role-create http=200 cel-issue http=404 issue_data_keys=
+PROBE F10 YES revoke-with-key http=200 state=revoked
+PROBE F11 YES leaf-ext  X509v3 Key Usage: critical| Digital Signature, Key Encipherment| X509v3 Extended Key Usage: | TLS Web Server Authentication, TLS Web Client Authentication|
+PROBE F12 YES top_lease_id=True lease_lookup_entries=
+PROBE F13 YES nc-root rc=0 X509v3 Name Constraints: critical Permitted: DNS:r70.test 
+PROBE F14 YES allowed_uri_sans inside_rc=0 outside_rc=2
+PROBE F15 YES no-token: list-certs=403 read-crl=200 read-ca=200 list-roles=403
+PROBE F16 YES sign-verbatim leaf_csr_http=200 ca_csr_http=200 ca_csr_error=
+PROBE F17 YES no_store_listed=False stored_listed=True no_store_read_rc=2 stored_read_rc=0

@@ -1,0 +1,10 @@
+# claim	artifact	verdict	narrowing	note
+C1	.ufo/waves/round-71/w1/R71Reviewer.md	neutral	-	RV-1..RV-5: predicate identical, freeze precedes candidate, value=4 and BASE 0 reproduced, landed trial reads no wrapper bytes
+C1	.ufo/waves/round-71/w1/R71ReviewerSrc.md	falsifies-wording	plans/round-71.md Amendment A1 (Entry wording; Stamps)	SR-1 trial unstamped (pinned at integration); SR-2 OCSP consequence unmarked inference (marked)
+C1	.ufo/waves/round-71/w1/R71Critic.md	neutral	-	CR-1..CR-3: TTL figures and tokenlessness are trial properties; narrowed in the entry table per A1
+C1	.ufo/waves/round-71/w1/R71MutTester.md	falsifies-wording	plans/round-71.md Amendment A2	MT-1: T9 serial-refusal conjunct not counted (fixture f-m11 reads value=4)
+C1	.ufo/waves/round-71/w1/R71Revenger.md	falsifies-wording	plans/round-71.md Amendment A1 (Verdict-artifact binding)	RE-1: forgery C (unbound verdicts, real artifacts) reaches value=4; A and B covered by the named ceiling
+C1	.ufo/waves/round-71/w1/R71Sentinel.md	falsifies-wording	plans/round-71.md Amendment A1 (NOSECRET is the literal regex)	SE-7: NOSECRET regex misses raw DER/base64 keys and some token prefixes; landed evidence clean
+C1	.ufo/waves/round-71/w1/R71Connector.md	falsifies-wording	plans/round-71.md Amendment A1 (Pre-move sentence corrected; Frontier-step sentence corrected)	CN-1/CN-2: two frozen pre-move sentences false against BASE; the value is unaffected
+C1	.ufo/waves/round-71/w1/R71ExecGates.md	neutral	-	harm table: no FAIL/STALE/NOT-A-FILE change; README counts moved by the candidate repaired at integration; round-70 counter value=5
+C1	.ufo/waves/round-71/w1/R71ExecReplica.md	neutral	-	independent from-plan trial reads value=4: the counter accepts a correct implementation

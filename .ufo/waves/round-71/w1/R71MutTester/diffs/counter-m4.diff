@@ -1,0 +1,11 @@
+--- frozen-counter
++++ mutant-m4
+@@ -150,7 +150,7 @@
+ fpr() { openssl x509 -in "$E/$1" -noout -fingerprint -sha256 2>/dev/null; }
+ ocsp_is() { # der issuer leaf word -> 0 if verified response says <word> for leaf
+   local out; out=$(openssl ocsp -respin "$E/$1" -issuer "$E/$2" -VAfile "$E/$2" -cert "$E/$3" -no_nonce 2>&1) || return 1
+-  printf '%s\n' "$out" | grep -qx 'Response verify OK' && printf '%s\n' "$out" | grep -qx "$E/$3: $4"
++  printf '%s\n' "$out" | grep -qx "$E/$3: $4"
+ }
+ art6() {
+   f t6-leaf.pem && f t6-issuer.pem && vfy t6-issuer.pem t6-leaf.pem || return 1

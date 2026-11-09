@@ -1,0 +1,11 @@
+CHECK C1.id present=yes name_is_id=no
+CHECK C1.usage-at-birth usage=crl-signing,issuing-certificates,ocsp-signing,read-only leaf_not_after=err issuer_name=
+CHECK C1.issue-before-revoke rc=0 cert_returned=yes err=
+CHECK C1.pre-leaf-verifies-root-anchor rc=0 out=/fast/scratch/hyaku/kagi-r71/R71Scout/check.PovF49/pre.pem: OK
+CHECK C1.pre-leaf-issuer-is-inter same=1
+CHECK C1.revoke-issuer rc=0
+CHECK C1.usage-after-revoke usage=crl-signing,ocsp-signing,read-only revocation_time=1794192812
+CHECK C1.issue-after-revoke rc=2 err=Error writing data to pki/issue/r72i: Error making API request.  URL: PUT http://ADDR/v1/pki/issue/r72i Code: 500. Errors:  * 1 error occurred: 	* error fetching CA certificate: error while attempting to use issuer 04d0f735-a276-4f02-e51c-2c3604b8a83c: requested usage issuing-certificates for issuer [id:04d0f735-a276-4f02-e51c-2c3604b8a83c] but only had usage crl-signing,ocsp-signing,read-only   
+CHECK C1.sign-with-revoked-NOT-MEASURED reason=malformed-call-no-data-argument
+CHECK C2.permit-verify-after-issuer-end rc=2 lines=error 10 at 1 depth lookup: certificate has expired error /fast/scratch/hyaku/kagi-r71/R71Scout/check.PovF49/perm.pem: verification failed 
+CHECK C2.permit-leaf-window leaf_valid_past_issuer_end_by_s=28800 leaf_still_inside_own_window_at_issuer_end_plus_60=yes

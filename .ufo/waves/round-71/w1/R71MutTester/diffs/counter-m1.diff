@@ -1,0 +1,11 @@
+--- frozen-counter
++++ mutant-m1
+@@ -159,7 +159,7 @@
+ }
+ art7() {
+   local x; for x in t7-leaf.pem t7-second.pem t7-default.pem t7-second-crl.pem t7-default-crl.pem; do f "$x" || return 1; done
+-  vfy t7-second.pem t7-leaf.pem && ! vfy t7-default.pem t7-leaf.pem || return 1
++  vfy t7-second.pem t7-leaf.pem || return 1
+   [ "$(fpr t7-second.pem)" != "$(fpr t7-default.pem)" ] || return 1
+   crlok t7-second-crl.pem t7-second.pem && crlok t7-default-crl.pem t7-default.pem || return 1
+   local s; s=$(ser t7-leaf.pem)

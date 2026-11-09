@@ -726,7 +726,10 @@ landed in the round-21 correction commit (cited in `LOG.md`):
 | bypass-resistant record grading | grade a record repair and reject a negation or a swapped pairing that keeps every token (the five round-61 bypass trees: `not withdrawn`, `no three`, `not rewritten in place`, a denial tail, `3/16 = 25 %`), while the true corrections still resolve and benign rewording is not flagged | `bash plans/round-62-c1.sh --tree .` ⇒ `C1_BYPASS: accepted=0 population=5 guard=1 (real=1 selftest=1 stub=1 paraphrase=1 chal=1)` (ledger `R62-01`); BASE `60b5b7b6` reads `accepted=5 guard=0`; `plans/round-61-c1-check.py --selftest` ⇒ `PASS (75 cases)` (`R62-04`); `corpus/knowledge/claim-instrument-falsifiability.md` | 62 |
 | self-witnessing gate counter | a counter whose `--selftest` executes its own aggregation (a constant-aggregation mutant and an unconditional-shim mutant each fail with a named `FINDING`) and whose guard reads 0 on a valid-sha256 tree that prints no expected observable | `bash plans/round-62-c2.sh --tree .` ⇒ `C2_HARDENED: killed=3 population=3 guard=1 (ma=1 mb=1 g=1 selftest=1 real=1)` (ledger `R62-02`); BASE `60b5b7b6` reads `killed=0 guard=0`; the measured counter's `--selftest` ⇒ `C2_SELFTEST: PASS (cases=21)` (`R62-05`); `corpus/knowledge/claim-instrument-falsifiability.md` | 62 |
 | OpenBao PKI certificate-lifecycle trial | execute five PKI-engine mechanics against a throwaway OpenBao 2.7.2 dev server (127.0.0.1, random root token only in the environment, `setpriv --pdeathsig KILL`, port checked to be held by the started server, synthetic names under `r70.test`): `root/generate/internal` returns no CA private key; a 24h request on a `max_ttl=1h` role is issued clamped to ≤ 3660 s (not refused); a CN outside `allowed_domains` is refused while one inside is issued; a serial revoked by `pki/revoke` is on the mount CRL; a `no_store` leaf is not found by serial while a stored control is. Each verdict flips under its own falsifier shim and no other. The counter alone does not prove execution (R70Revenger RE-1); the landed trial's execution is non-author reviewed (RV-5) | `bash plans/round-70-c1.sh <rev>` ⇒ `C1_PKI_TRIAL: value=5 … pins=1 setup_ok=1 nosecret=1 noleak=1 sourced=1` rc 0 (BASE `7bd34832` ⇒ `value=0 absent=1`); `bash corpus/openbao-pki-trial.sh --work <scratch>` ⇒ `OPENBAO_PKI_TRIAL: HOLDS holds=5`; `corpus/knowledge/openbao-pki-certificate-lifecycle.md`; `.ufo/waves/round-70/final/` | 70 |
+| OpenBao PKI issuer and revocation-channel trial | execute four issuer and revocation-channel mechanics against a throwaway OpenBao 2.7.2 dev server (127.0.0.1, random root token only in the environment, `setpriv --pdeathsig KILL`, port checked to be held by the started server, synthetic names under `r71.test`): an issuer set to `truncate` issues a 10h leaf from a 2h issuer with the issuer's NotAfter; a revoked leaf of a non-default issuer (role `issuer_ref`) is on its own issuer's CRL and absent from the default's; token-less OCSP reports `revoked` and `good`; a `no_store` leaf is refused revocation by serial and revoked by proof of possession. Each verdict flips under its own falsifier shim and each public artifact is re-checked with openssl. The counter alone does not prove OpenBao produced the artifacts (plan §C1 named ceiling); relying-party fetching is not shown | `bash plans/round-71-c1.sh <rev>` ⇒ `C1_PKI_ISSUER_TRIAL: value=4` rc 0 at the candidate `39e76bc7` (ledger: none; receipts `.ufo/waves/round-71/final/`); `corpus/knowledge/openbao-pki-issuer-revocation-channels.md` | 71 |
 Rows enter only through demonstrated execution (`AXES.md` §Capabilities): the two round-21 capabilities entered through that round's runs; feature-bound typed credential review first worked in round 22 through R22-01/R22-02; closure disposition review first worked in round 23 through R23-02 (row added to this main table in round 24, routed D1 — it had sat only in the round-23 section). The 2026-10-16 rollout added none. The latest first-working round in this table is 62 (bypass-resistant record grading and the self-witnessing gate counter, rows above).
+
+Round 71 note (appended; the sentence above that names 62 as the latest first-working round is history and was already superseded by the round-70 row): the latest first-working round in this table is 71 (OpenBao PKI issuer and revocation-channel trial, recorded under C1 depth).
 
 Round 49 note (appended; the paragraph above keeps its round-40 sentence as history): the latest first-working rounds are now 48 (SOPS/age trial) and 49 (OpenBao token/lease lifecycle trial, entered through `bash plans/round-49-c1.sh <candidate>` reading `value=5`, receipts `.ufo/waves/round-49/final/`).
 
@@ -2487,3 +2490,47 @@ integration commit (narrowed entry wording, plan Amendments A1/A2, lesson, recor
 | freshness | 9 → 9 | No claim. S170/S171 carry `on-release` recheck clocks bound to the trial. | `corpus/SOURCES.md` |
 | calibration | 9 → 9 | No claim. The round-69 `claims-declared` MISMATCH pair is carried unchanged; round 70 adds its own manifest row and a matching heading (plan Amendment A2) and adds no mismatch. | `bash corpus/claims-declared.sh` |
 | adjacency | 9 → 9 | No claim. Connector sweep: no sibling lane holds PKI-engine ground or registers the OpenBao PKI URLs; kake's TLS is the consumer side (CN-2, CN-3). | `.ufo/waves/round-70/w1/R70Connector.md` |
+
+## Errata — round 70 post-move freshness sentence (appended round 71; routed by the round-70 closure §5 item 1)
+
+The `## Round 70 — post-move` freshness row says "S170/S171 carry `on-release` recheck clocks
+bound to the trial." That sentence is superseded, not rewritten (QM97): both rows were moved to
+`180d` at round-70 integration (GX-2), and the registry reads `180d` for each
+(`grep -E '^\| S17[01] ' corpus/SOURCES.md | awk -F'|' '{print $2,$11}'` → `S170 180d`, `S171 180d`
+at `e0e9603a`). The entry's own `recheck:` is the `on-release` clock.
+
+## Round 71 — pre-move (repo `e0e9603`, round-70 spot-check tip)
+
+Claim BASE `e0e9603a924d73d9621924cc507b50474d11dae7`; freeze `1199295573a4eb1791e965178c8643213312943d`
+(plan, counter, runner and nine executed prefreeze controls landed together, before any candidate
+byte). All six axes stand at 9, so any claim meets the lowest-axis duty; a capability entered at
+round 70, so the stagnation nudge does not fire. Depth is the axis untouched longest.
+
+| Axis | Score | Evidence pointer | Last change |
+|---|---|---|---|
+| coverage | 9 | 163 registry rows at BASE (`bash corpus/sources-census.sh` ⇒ `SOURCES_CENSUS: CLEAN (rows=163 …)`); PKI held for one default issuer only (round 70). Fleet census `kagi ok` rc 0, 26 W04 lines on stdout (`.ufo/waves/round-71/base/census-round-start.stdout.txt`). | round 70 |
+| depth | 9 | Unchanged from round 29 (`R29-01`). The round-70 PKI entry lists multi-issuer chain behaviour, `leaf_not_after_behavior`, OCSP and revocation with a private key under "Does not establish". | round 29 |
+| operability | 9 | Unchanged; nothing schedules any gate. | round 67 |
+| freshness | 9 | Unchanged (see the errata above for the round-70 sentence). | round 68 |
+| calibration | 9 | `corpus/claims-declared.sh` carries the round-69 MISMATCH pair; not claimed. | round 67 |
+| adjacency | 9 | Ownership partition gate green (`R17-02`). | round 58 |
+
+Declared claim: **C1 depth** — `C1_PKI_ISSUER_TRIAL: value=4` (BASE 0). No retirement, split or
+stagnation waiver is claimed.
+
+## Round 71 — post-move (claim C1 depth)
+
+Candidate `39e76bc700cf05e7772711f703bdbc3c6e7ac469` (trial, entry, S173) plus the round-71
+integration commit (plan Amendment A1, narrowed entry wording, stamps, S170 anchor cell, lesson,
+records). Wave `w1` (12 seats); receipts `.ufo/waves/round-71/final/`, `.ufo/waves/round-71/controls/receipts/`.
+The capability row "OpenBao PKI issuer and revocation-channel trial" is recorded under C1 (the
+trial C1 counts); it is not a separate claim.
+
+| Axis | Before → after | What moved | Evidence |
+|---|---|---|---|
+| coverage | 9 → 9 | No claim. Registry 163 → 164 (S173 admit, tier A, `mined`); S170 `used-by` and anchor cell extended (logged in the lesson Gate). | `bash corpus/sources-census.sh` |
+| depth | 9 → 9 | [C1] `bash plans/round-71-c1.sh <rev>` ⇒ BASE `value=0 absent=1` rc 1 → candidate `C1_PKI_ISSUER_TRIAL: value=4 discriminating=4 pins=1 setup_ok=1 nosecret=1 noleak=1 sourced=1` rc 0, every test `real=HOLDS,shim=BROKEN,spec=1,entry=1,art=1`. The lane's PKI ground deepens from one default issuer to issuer NotAfter policy, per-issuer CRL routing, the token-less OCSP responder and proof-of-possession revocation of a `no_store` leaf. Wording narrowed per plan Amendment A1: verdict–artifact binding is not counted (R71Revenger RE-1, forgery C); NOSECRET is a fixed regex (R71Sentinel SE-7). | `plans/round-71-c1.sh`; `.ufo/waves/round-71/final/c1-candidate.txt`; `corpus/knowledge/openbao-pki-issuer-revocation-channels.md` |
+| operability | 9 → 9 | No claim. One new runnable trial; nothing schedules it. | `corpus/openbao-pki-issuer-trial.sh` |
+| freshness | 9 → 9 | No claim. S173 carries a `180d` registry recheck; the entry's `recheck:` is `on-release`. | `corpus/SOURCES.md` |
+| calibration | 9 → 9 | No claim. Manifest row `71<TAB>C1<TAB>depth` added to `corpus/claims-declared.tsv`; the round-69 MISMATCH pair is carried. | `bash corpus/claims-declared.sh` |
+| adjacency | 9 → 9 | No claim. Connector sweep: no sibling lane or registry row holds the round's PKI issuer/revocation ground; S173 adds no W04 (R71Connector CN-1…CN-6). | `.ufo/waves/round-71/w1/R71Connector.md` |

@@ -1,0 +1,11 @@
+--- frozen-counter
++++ mutant-m6
+@@ -173,7 +173,7 @@
+ }
+ art9() {
+   local x; for x in t9-leaf.pem t9-issuer.pem t9-crl.pem; do f "$x" || return 1; done
+-  vfy t9-issuer.pem t9-leaf.pem && crlok t9-crl.pem t9-issuer.pem && lists t9-crl.pem "$(ser t9-leaf.pem)"
++  vfy t9-issuer.pem t9-leaf.pem && lists t9-crl.pem "$(ser t9-leaf.pem)"
+ }
+ 
+ ENTRY="$T/corpus/knowledge/openbao-pki-issuer-revocation-channels.md"

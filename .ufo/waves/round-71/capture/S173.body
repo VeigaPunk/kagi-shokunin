@@ -1,0 +1,658 @@
+<!doctype html><html lang=en dir=ltr class="docs-wrapper plugin-docs plugin-id-default docs-version-2.7.x docs-doc-page docs-doc-id-secrets/pki/considerations" data-has-hydrated=false><head><meta charset=UTF-8><meta name=generator content="Docusaurus v3.10.2"><title data-rh=true>PKI secrets engine - considerations | OpenBao</title><meta data-rh=true name=viewport content="width=device-width, initial-scale=1.0"/><meta data-rh=true property=og:url content=https://openbao.org/docs/secrets/pki/considerations/ /><meta data-rh=true property=og:locale content=en /><meta data-rh=true name=docusaurus_locale content=en /><meta data-rh=true name=docsearch:language content=en /><meta data-rh=true name=keywords content="openbao, secrets management, open source, linux foundation, encryption as a service, key management system, pki, transit, ssh, secret vault, database passwords"/><meta data-rh=true name=author content="OpenBao a Series of LF Projects, LLC"/><meta data-rh=true name=twitter:card content=summary_large_image /><meta data-rh=true name=docusaurus_version content=2.7.x /><meta data-rh=true name=docusaurus_tag content=docs-default-2.7.x /><meta data-rh=true name=docsearch:version content=2.7.x /><meta data-rh=true name=docsearch:docusaurus_tag content=docs-default-2.7.x /><meta data-rh=true property=og:title content="PKI secrets engine - considerations | OpenBao"/><meta data-rh=true name=description content="The PKI secrets engine for OpenBao generates TLS certificates."/><meta data-rh=true property=og:description content="The PKI secrets engine for OpenBao generates TLS certificates."/><link data-rh=true rel=icon href=/img/favicon.svg /><link data-rh=true rel=canonical href=https://openbao.org/docs/secrets/pki/considerations/ /><link data-rh=true rel=alternate href=https://openbao.org/docs/secrets/pki/considerations/ hreflang=en /><link data-rh=true rel=alternate href=https://openbao.org/docs/secrets/pki/considerations/ hreflang=x-default /><script data-rh=true type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"https://openbao.org/docs/secrets/pki/considerations","name":"Considerations","position":1}]}</script><link rel=alternate type=application/rss+xml href=/blog/rss.xml title="OpenBao RSS Feed"><link rel=alternate type=application/atom+xml href=/blog/atom.xml title="OpenBao Atom Feed"><link rel=preconnect href=https://www.google-analytics.com><link rel=preconnect href=https://www.googletagmanager.com><script async src="https://www.googletagmanager.com/gtag/js?id=GTM-MWH2V47T"></script><script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","GTM-MWH2V47T",{anonymize_ip:!0})</script><link rel=stylesheet href=/assets/css/styles.eb1080b1.css /><script src=/assets/js/runtime~main.640503f7.js defer></script><script src=/assets/js/main.3cfed04e.js defer></script></head><body><svg style="display: none;"><defs>
+<symbol id=theme-svg-external-link viewBox="0 0 24 24"><path fill=currentColor d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")),document.documentElement.setAttribute("data-theme-choice",t||"system")}(),function(){try{for(var[t,e]of new URLSearchParams(window.location.search).entries())if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id=__docusaurus><link rel=preload as=image href=/img/logo-black.svg /><link rel=preload as=image href=/img/logo-white.svg /><div role=region aria-label="Skip to main content"><a class=skipToContent_PbWu href=#__docusaurus_skipToContent_fallback>Skip to main content</a></div><nav aria-label=Main class="theme-layout-navbar navbar navbar--fixed-top"><div class=navbar__inner><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded=false class="navbar__toggle clean-btn" type=button><svg width=30 height=30 viewBox="0 0 30 30" aria-hidden=true><path stroke=currentColor stroke-linecap=round stroke-miterlimit=10 stroke-width=2 d="M4 7h22M4 15h22M4 23h22"/></svg></button><a class=navbar__brand href=/><div class=navbar__logo><img src=/img/logo-black.svg alt="OpenBao Logo" class="themedComponent_SRUY themedComponent--light_pKL4"/><img src=/img/logo-white.svg alt="OpenBao Logo" class="themedComponent_SRUY themedComponent--dark__W4s"/></div><b class="navbar__title text--truncate">OpenBao</b></a><a class="navbar__item navbar__link" href=/blog/>Blog</a><a class="navbar__item navbar__link" href=/ecosystem/>Ecosystem</a><a aria-current=page class="navbar__item navbar__link navbar__link--active" href=/docs/>Docs</a><a class="navbar__item navbar__link" href=/docs/api/>API</a><a class="navbar__item navbar__link" href=/downloads/>Downloads</a><a class="navbar__item navbar__link" href=/community/>Community</a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><div class="navbar__item dropdown dropdown--hoverable dropdown--right"><a aria-current=page class="navbar__link active" aria-haspopup=true aria-expanded=false role=button href=/docs/secrets/pki/considerations/>Version 2.7.x</a><ul class=dropdown__menu><li><a class=dropdown__link href=/docs/next/secrets/pki/considerations/>Development</a><li><a aria-current=page class="dropdown__link dropdown__link--active" href=/docs/secrets/pki/considerations/>Version 2.7.x</a><li><a class=dropdown__link href=/docs/2.6.x/secrets/pki/considerations/>Version 2.6.x</a><li><a class=dropdown__link href=/docs/2.5.x/secrets/pki/considerations/>Version 2.5.x</a></ul></div><a href=https://github.com/openbao/openbao target=_blank rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width=13.5 height=13.5 aria-label="(opens in new tab)" class=iconExternalLink_ywOY><use href=#theme-svg-external-link /></svg></a><div class="toggle_w1tl colorModeToggle_wZyH"><button class="clean-btn toggleButton_D5fu toggleButtonDisabled_Ju9k" type=button disabled title="system mode" aria-label="Switch between dark and light mode (currently system mode)"><svg viewBox="0 0 24 24" width=24 height=24 aria-hidden=true class="toggleIcon_i6hh lightToggleIcon_kMII"><path fill=currentColor d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/></svg><svg viewBox="0 0 24 24" width=24 height=24 aria-hidden=true class="toggleIcon_i6hh darkToggleIcon_x2zZ"><path fill=currentColor d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"/></svg><svg viewBox="0 0 24 24" width=24 height=24 aria-hidden=true class="toggleIcon_i6hh systemToggleIcon_MKYA"><path fill=currentColor d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"/></svg></button></div><div class=navbarSearchContainer_NFUd><div class="navbar__search searchBarContainer_RRui" dir=ltr><svg aria-hidden=true class=searchIcon_V3X2 focusable=false viewBox="0 0 16 16"><path fill=currentColor d="M6.02945 10.20327a4.17382 4.17382 0 1 1 4.17382-4.17382 4.15609 4.15609 0 0 1-4.17382 4.17382Zm9.69195 4.2199-4.8225-4.82338A5.88021 5.88021 0 0 0 12.058 6.02856 6.00467 6.00467 0 1 0 9.59979 10.8989l4.82338 4.82338a.89729.89729 0 0 0 1.29912 0 .89749.89749 0 0 0-.00087-1.29909Z"/></svg><input placeholder=Search aria-label=Search class="navbar__search-input searchInput_FUIu" value="" /><div class="loadingRing_nBd6 searchBarLoadingRing_AqCM"><div></div><div></div><div></div><div></div></div></div></div></div></div><div role=presentation class=navbar-sidebar__backdrop></div></nav><div id=__docusaurus_skipToContent_fallback class="theme-layout-main main-wrapper mainWrapper_KEAh"><div class=docsWrapper_fOdz><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_AQws" type=button></button><div class=docRoot_qp_L><aside class="theme-doc-sidebar-container docSidebarContainer_kMgn"><div class=sidebarViewport_rHGZ><div class=sidebar_MRAI><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_wajB"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class=menu__link href=/docs/what-is-openbao/><span class=linkLabel_yPoK>What is OpenBao?</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class=menu__link href=/docs/use-cases/><span class=linkLabel_yPoK>Use cases</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class=menu__link href=/docs/api/><span class=linkLabel_yPoK>HTTP API</span></a><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class=menu__list-item-collapsible><a class="categoryLink_A07R menu__link menu__link--sublist menu__link--sublist-caret" role=button aria-expanded=false href=/docs/get-started/operator-qs/><span class=categoryLinkLabel_wPnK>Getting Started</span></a></div><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class=menu__link href=/docs/install/><span class=linkLabel_yPoK>Installing OpenBao</span></a><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class=menu__list-item-collapsible><a class="categoryLink_A07R menu__link menu__link--sublist menu__link--sublist-caret" role=button aria-expanded=false href=/docs/internals/><span class=categoryLinkLabel_wPnK>Internals</span></a></div><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class=menu__list-item-collapsible><a class="categoryLink_A07R menu__link menu__link--sublist menu__link--sublist-caret" role=button aria-expanded=false href=/docs/concepts/><span class=categoryLinkLabel_wPnK>Concepts</span></a></div><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class=menu__list-item-collapsible><a class="categoryLink_A07R menu__link menu__link--sublist menu__link--sublist-caret" role=button aria-expanded=false href=/docs/guides/migration/><span class=categoryLinkLabel_wPnK>Guides</span></a></div><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class=menu__list-item-collapsible><a class="categoryLink_A07R menu__link menu__link--sublist menu__link--sublist-caret" role=button aria-expanded=false href=/docs/configuration/><span class=categoryLinkLabel_wPnK>Configuration</span></a></div><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class=menu__list-item-collapsible><a class="categoryLink_A07R menu__link menu__link--sublist menu__link--sublist-caret" role=button aria-expanded=false href=/docs/commands/><span class=categoryLinkLabel_wPnK>Commands (CLI)</span></a></div><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class=menu__list-item-collapsible><a class="categoryLink_A07R menu__link menu__link--sublist menu__link--sublist-caret" role=button aria-expanded=false href=/docs/agent-and-proxy/><span class=categoryLinkLabel_wPnK>OpenBao Agent and Proxy</span></a></div><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class=menu__list-item-collapsible><a class="categoryLink_A07R menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role=button aria-expanded=true href=/docs/secrets/><span class=categoryLinkLabel_wPnK>Secret Engines</span></a></div><ul class=menu__list><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/docs/secrets/><span class=linkLabel_yPoK>Overview</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/docs/secrets/cubbyhole/><span class=linkLabel_yPoK>Cubbyhole</span></a><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class=menu__list-item-collapsible><a class="categoryLink_A07R menu__link menu__link--sublist menu__link--sublist-caret" role=button aria-expanded=false tabindex=0 href=/docs/secrets/databases/><span class=categoryLinkLabel_wPnK>Databases</span></a></div><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class=menu__list-item-collapsible><a class="categoryLink_A07R menu__link menu__link--sublist menu__link--sublist-caret" role=button aria-expanded=false tabindex=0 href=/docs/secrets/identity/><span class=categoryLinkLabel_wPnK>Identity</span></a></div><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class=menu__list-item-collapsible><a class="categoryLink_A07R menu__link menu__link--sublist menu__link--sublist-caret" role=button aria-expanded=false tabindex=0 href=/docs/secrets/kv/><span class=categoryLinkLabel_wPnK>Key/Value</span></a></div><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/docs/secrets/kubernetes/><span class=linkLabel_yPoK>Kubernetes</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/docs/secrets/ldap/><span class=linkLabel_yPoK>LDAP</span></a><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item"><div class=menu__list-item-collapsible><a class="categoryLink_A07R menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role=button aria-expanded=true tabindex=0 href=/docs/secrets/pki/><span class=categoryLinkLabel_wPnK>PKI (Certificates)</span></a></div><ul class=menu__list><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class=menu__link tabindex=0 href=/docs/secrets/pki/><span class=linkLabel_yPoK>Overview</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class=menu__link tabindex=0 href=/docs/secrets/pki/setup/><span class=linkLabel_yPoK>Setup and Usage</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class=menu__link tabindex=0 href=/docs/secrets/pki/quick-start-root-ca/><span class=linkLabel_yPoK>Quick Start - Root CA Setup</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class=menu__link tabindex=0 href=/docs/secrets/pki/quick-start-intermediate-ca/><span class=linkLabel_yPoK>Quick Start - Intermediate CA Setup</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class=menu__link tabindex=0 href=/docs/secrets/pki/quick-start-cel/><span class=linkLabel_yPoK>Quick Start - CEL in PKI</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link menu__link--active" aria-current=page tabindex=0 href=/docs/secrets/pki/considerations/><span class=linkLabel_yPoK>Considerations</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class=menu__link tabindex=0 href=/docs/secrets/pki/troubleshooting-acme/><span class=linkLabel_yPoK>Troubleshooting ACME integration</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class=menu__link tabindex=0 href=/docs/secrets/pki/rotation-primitives/><span class=linkLabel_yPoK>Rotation Primitives</span></a></ul><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/docs/secrets/rabbitmq/><span class=linkLabel_yPoK>RabbitMQ</span></a><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class=menu__list-item-collapsible><a class="categoryLink_A07R menu__link menu__link--sublist menu__link--sublist-caret" role=button aria-expanded=false tabindex=0 href=/docs/secrets/ssh/><span class=categoryLinkLabel_wPnK>SSH</span></a></div><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/docs/secrets/totp/><span class=linkLabel_yPoK>TOTP</span></a><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class=menu__list-item-collapsible><a class="categoryLink_A07R menu__link menu__link--sublist menu__link--sublist-caret" role=button aria-expanded=false tabindex=0 href=/docs/secrets/transit/><span class=categoryLinkLabel_wPnK>Transit</span></a></div></ul><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class=menu__list-item-collapsible><a class="categoryLink_A07R menu__link menu__link--sublist menu__link--sublist-caret" role=button aria-expanded=false href=/docs/auth/><span class=categoryLinkLabel_wPnK>Auth Methods</span></a></div><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class=menu__list-item-collapsible><a class="categoryLink_A07R menu__link menu__link--sublist menu__link--sublist-caret" role=button aria-expanded=false href=/docs/audit/><span class=categoryLinkLabel_wPnK>Audit Devices</span></a></div><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class=menu__list-item-collapsible><a class="categoryLink_A07R menu__link menu__link--sublist menu__link--sublist-caret" role=button aria-expanded=false href=/docs/plugins/><span class=categoryLinkLabel_wPnK>Plugins</span></a></div><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class=menu__list-item-collapsible><a class="categoryLink_A07R menu__link menu__link--sublist menu__link--sublist-caret" role=button aria-expanded=false href=/docs/platform/><span class=categoryLinkLabel_wPnK>Platforms</span></a></div><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class=menu__link href=/docs/browser-support/><span class=linkLabel_yPoK>Browser Support</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class=menu__link href=/docs/glossary/><span class=linkLabel_yPoK>Glossary</span></a></ul></nav></div></div></aside><main class=docMainContainer_pQnC><div class="container padding-top--md padding-bottom--lg"><div class=row><div class="col docItemCol_QHbu"><div class=docItemContainer_mGFe><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_TXlU" aria-label=Breadcrumbs><ul class=breadcrumbs><li class=breadcrumbs__item><a aria-label="Home page" class=breadcrumbs__link href=/><svg viewBox="0 0 24 24" class=breadcrumbHomeIcon_GokP><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill=currentColor /></svg></a><li class=breadcrumbs__item><span class=breadcrumbs__link>Secret Engines</span><li class=breadcrumbs__item><span class=breadcrumbs__link>PKI (Certificates)</span><li class="breadcrumbs__item breadcrumbs__item--active"><span class=breadcrumbs__link>Considerations</span></ul></nav><span class="theme-doc-version-badge badge badge--secondary">Version: Version 2.7.x</span><div class="tocCollapsible_TlHs theme-doc-toc-mobile tocMobile_aaHP"><button type=button class="clean-btn tocCollapsibleButton_AEmy">On this page</button></div><div class="theme-doc-markdown markdown"><header><h1>PKI secrets engine - considerations</h1></header>
+<p>To successfully deploy this secrets engine, there are a number of important
+considerations to be aware of, as well as some preparatory steps that should be
+undertaken. You should read all of these <em>before</em> using this secrets engine or
+generating the CA to use with this secrets engine.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Q9z1" id=table-of-contents>Table of contents<a href=#table-of-contents class=hash-link aria-label="Direct link to Table of contents" title="Direct link to Table of contents" translate=no>​</a></h2>
+<ul>
+<li class=""><a href=#be-careful-with-root-cas class="">Be Careful with Root CAs</a></li>
+<li class=""><a href=#one-ca-certificate-one-secrets-engine class="">One CA Certificate, One Secrets Engine</a>
+<ul>
+<li class=""><a href=#always-configure-a-default-issuer class="">Always Configure a Default Issuer</a></li>
+</ul>
+</li>
+<li class=""><a href=#key-types-matter class="">Key Types Matter</a>
+<ul>
+<li class=""><a href=#cluster-performance-and-key-type class="">Cluster Performance and Key Types</a></li>
+</ul>
+</li>
+<li class=""><a href=#use-a-ca-hierarchy class="">Use a CA Hierarchy</a>
+<ul>
+<li class=""><a href=#cross-signed-intermediates class="">Cross-Signed Intermediates</a></li>
+</ul>
+</li>
+<li class=""><a href=#cluster-urls-are-important class="">Cluster URLs are Important</a></li>
+<li class=""><a href=#automate-rotation-with-acme class="">Automate Rotation with ACME</a>
+<ul>
+<li class=""><a href=#acme-stores-certificates class="">ACME Stores Certificates</a></li>
+<li class=""><a href=#acme-role-restrictions-require-eab class="">ACME Role Restrictions Require EAB</a></li>
+<li class=""><a href=#acme-and-the-public-internet class="">ACME and the Public Internet</a></li>
+<li class=""><a href=#acme-errors-are-in-server-logs class="">ACME Errors are in Server Logs</a></li>
+<li class=""><a href=#acme-security-considerations class="">ACME Security Considerations</a></li>
+</ul>
+</li>
+<li class=""><a href=#keep-certificate-lifetimes-short-for-crls-sake class="">Keep Certificate Lifetimes Short, For CRL's Sake</a>
+<ul>
+<li class=""><a href=#notafter-behavior-on-leaf-certificates class="">NotAfter Behavior on Leaf Certificates</a></li>
+<li class=""><a href=#cluster-performance-and-quantity-of-leaf-certificates class="">Cluster Performance and Quantity of Leaf Certificates</a></li>
+</ul>
+</li>
+<li class=""><a href=#you-must-configure-issuingcrlocsp-information-in-advance class="">You must configure issuing/CRL/OCSP information <em>in advance</em></a></li>
+<li class=""><a href=#distribution-of-crls-and-ocsp class="">Distribution of CRLs and OCSP</a></li>
+<li class=""><a href=#automate-crl-building-and-tidying class="">Automate CRL Building and Tidying</a></li>
+<li class=""><a href=#spectrum-of-revocation-support class="">Spectrum of Revocation Support</a></li>
+<li class=""><a href=#automate-leaf-certificate-renewal class="">Automate Leaf Certificate Renewal</a></li>
+<li class=""><a href=#safe-minimums class="">Safe Minimums</a></li>
+<li class=""><a href=#token-lifetimes-and-revocation class="">Token Lifetimes and Revocation</a></li>
+<li class=""><a href=#safe-usage-of-roles class="">Safe Usage of Roles</a></li>
+<li class=""><a href=#telemetry class="">Telemetry</a></li>
+<li class=""><a href=#auditing class="">Auditing</a></li>
+<li class=""><a href=#role-based-access class="">Role-Based Access</a></li>
+<li class=""><a href=#cluster-scalability class="">Cluster Scalability</a></li>
+<li class=""><a href=#pss-support class="">PSS Support</a></li>
+<li class=""><a href=#ocsp class="">OCSP</a></li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Q9z1" id=be-careful-with-root-cas>Be careful with root CAs<a href=#be-careful-with-root-cas class=hash-link aria-label="Direct link to Be careful with root CAs" title="Direct link to Be careful with root CAs" translate=no>​</a></h2>
+<p>OpenBao storage is secure, but not as secure as a piece of paper in a bank vault.
+It is, after all, networked software. If your root CA is hosted outside of
+OpenBao, don't put it in OpenBao as well; instead, issue a shorter-lived
+intermediate CA certificate and put this into OpenBao. This aligns with industry
+best practices.</p>
+<p>Since 0.4, the secrets engine supports generating self-signed root CAs and
+creating and signing CSRs for intermediate CAs. In each instance, for security
+reasons, the private key can <em>only</em> be exported at generation time, and the
+ability to do so is part of the command path (so it can be put into ACL
+policies).</p>
+<p>If you plan on using intermediate CAs with OpenBao, it is suggested that you let
+OpenBao create CSRs and do not export the private key, then sign those with your
+root CA (which may be a second mount of the <code>pki</code> secrets engine).</p>
+<h2 class="anchor anchorTargetStickyNavbar_Q9z1" id=one-ca-certificate-one-secrets-engine>One CA certificate, one secrets engine<a href=#one-ca-certificate-one-secrets-engine class=hash-link aria-label="Direct link to One CA certificate, one secrets engine" title="Direct link to One CA certificate, one secrets engine" translate=no>​</a></h2>
+<p>The PKI Secrets Engine supports multiple issuers in a single mount. However, in
+order to simplify the configuration, it is <em>strongly</em> recommended that operators
+limit a mount to a single issuer. If you want to issue certificates from
+multiple disparate CAs, mount the PKI secrets engine at multiple mount points
+with separate CA certificates in each.</p>
+<p>The rationale for separating mounts is to simplify permissions management:
+very few individuals need access to perform operations with the root, but
+many need access to create leaves. The operations on a root should generally
+be limited to issuing and revoking intermediate CAs, which is a highly
+privileged operation; it becomes much easier to audit these operations when
+they're in a separate mount than if they're mixed in with day-to-day leaf
+issuance.</p>
+<p>A common pattern is to have one mount act as your root CA and to use this CA
+only to sign intermediate CA CSRs from other PKI secrets engines.</p>
+<p>To keep old CAs active, there's two approaches to achieving rotation:</p>
+<ol>
+<li class="">Use multiple secrets engines. This allows a fresh start, preserving the
+old issuer and CRL. OpenBao ACL policy can be updated to deny new issuance
+under the old mount point and roles can be re-evaluated before being
+imported into the new mount point.</li>
+<li class="">Use multiple issuers in the same mount point. The usage of the old issuer
+can be restricted to CRL signing, and existing roles and ACL policy can be
+kept as-is. This allows cross-signing within the same mount, and consumers
+of the mount won't have to update their configuration. Once the transitional
+period for this rotation has completed and all past issued certificate have
+expired, it is encouraged to fully remove the old issuer and any unnecessary
+cross-signed issuers from the mount point.</li>
+</ol>
+<p>Another suggested use case for multiple issuers in the same mount is splitting
+issuance by TTL lifetime. For short-lived certificates, an intermediate
+stored in OpenBao will often out-perform a HSM-backed intermediate. For
+longer-lived certificates, however, it is often important to have the
+intermediate key material secured throughout the lifetime of the end-entity
+certificate. This means that two intermediates in the same mount -- one backed
+by the HSM and one backed by OpenBao -- can satisfy both use cases. Operators
+can make roles setting maximum TTLs for each issuer and consumers of the
+mount can decide which to use.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Q9z1" id=always-configure-a-default-issuer>Always configure a default issuer<a href=#always-configure-a-default-issuer class=hash-link aria-label="Direct link to Always configure a default issuer" title="Direct link to Always configure a default issuer" translate=no>​</a></h3>
+<p>For backwards compatibility, <a class="" href=/docs/api/secret/pki/#read-issuers-configuration>the default issuer</a>
+is used to service PKI endpoints without an explicit issuer (either via path
+selection or role-based selection). When certificates are revoked and their
+issuer is no longer part of this PKI mount, OpenBao places them on the default
+issuer's CRL. This means maintaining a default issuer is important for both
+backwards compatibility for issuing certificates and for ensuring revoked
+certificates land on a CRL.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Q9z1" id=key-types-matter>Key types matter<a href=#key-types-matter class=hash-link aria-label="Direct link to Key types matter" title="Direct link to Key types matter" translate=no>​</a></h2>
+<p>Certain key types have impacts on performance. Signing certificates from a RSA
+key will be slower than issuing from an ECDSA or Ed25519 key. Key generation
+(using <code>/issue/:role</code> endpoints) using RSA keys will also be slow: RSA key
+generation involves finding suitable random primes, whereas Ed25519 keys can
+be random data. As the number of bits goes up (RSA 2048 -> 4096 or ECDSA
+P-256 -> P-521), signature times also increases.</p>
+<p>This matters in both directions: not only is issuance more expensive,
+but validation of the corresponding signature (in say, TLS handshakes) will
+also be more expensive. Careful consideration of both issuer and issued key
+types can have meaningful impacts on performance of not only OpenBao, but
+systems using these certificates.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Q9z1" id=cluster-performance-and-key-type>Cluster performance and key type<a href=#cluster-performance-and-key-type class=hash-link aria-label="Direct link to Cluster performance and key type" title="Direct link to Cluster performance and key type" translate=no>​</a></h3>
+<p>The <a href=https://github.com/hashicorp/vault-benchmark target=_blank rel="noopener noreferrer" class="">benchmark-vault</a> project
+can be used to measure the performance of an OpenBao PKI instance. In general,
+some considerations to be aware of:</p>
+<ul>
+<li class="">
+<p>RSA key generation is much slower and highly variable than EC key
+generation. If performance and throughput are a necessity, consider using
+EC keys (including NIST P-curves and Ed25519) instead of RSA.</p>
+</li>
+<li class="">
+<p>Key signing requests (via <code>/pki/sign</code>) will be faster than (<code>/pki/issue</code>),
+especially for RSA keys: this removes the necessity for OpenBao to generate
+key material and can sign the key material provided by the client. This
+signing step is common between both endpoints, so key generation is pure
+overhead if the client has a sufficiently secure source of entropy.</p>
+</li>
+<li class="">
+<p>The CA's key type matters as well: using a RSA CA will result in a RSA
+signature and takes longer than a ECDSA or Ed25519 CA.</p>
+</li>
+<li class="">
+<p>Storage is an important factor: with <a class="" href=/docs/api/secret/pki/#revoke-certificate>BYOC Revocation</a>,
+using <code>no_store=true</code> still gives you the ability to revoke certificates
+and audit logs can be used to track issuance. Clusters using a remote
+storage over a slow network and using <code>no_store=false</code> will
+result in additional latency on issuance. Adding leases for every issued
+certificate compounds the problem.</p>
+<ul>
+<li class="">Storing too many certificates results in longer <code>LIST /pki/certs</code> time,
+including the time to tidy the instance. As such, for large scale
+deployments (>= 250k active certificates) it is recommended to use audit
+logs to track certificates outside of OpenBao.</li>
+</ul>
+</li>
+</ul>
+<p>As a general comparison on unspecified hardware, using <code>benchmark-vault</code> for
+<code>30s</code> on a local, single node, raft-backed OpenBao instance:</p>
+<ul>
+<li class="">
+<p>OpenBao can issue 300k certificates using EC P-256 for CA & leaf keys and
+without storage.</p>
+<ul>
+<li class="">But switching to storing these leaves drops that number to 65k, and only
+20k with leases.</li>
+</ul>
+</li>
+<li class="">
+<p>Using large, expensive RSA-4096 bit keys, OpenBao can only issue 160 leaves,
+regardless of whether or not storage or leases were used. The 95% key
+generation time is above 10s.</p>
+<ul>
+<li class="">In comparison, using P-521 keys, OpenBao can issue closer to 30k leaves
+without leases and 18k with leases.</li>
+</ul>
+</li>
+</ul>
+<p>These numbers are for example only, to represent the impact different key types
+can have on PKI cluster performance.</p>
+<p>The use of ACME adds additional latency into these numbers, both because
+certificates need to be stored and because challenge validation needs to
+be performed.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Q9z1" id=use-a-ca-hierarchy>Use a CA hierarchy<a href=#use-a-ca-hierarchy class=hash-link aria-label="Direct link to Use a CA hierarchy" title="Direct link to Use a CA hierarchy" translate=no>​</a></h2>
+<p>It is generally recommended to use a hierarchical CA setup, with a root
+certificate which issues one or more intermediates (based on usage), which
+in turn issue the leaf certificates.</p>
+<p>This allows stronger storage or policy guarantees around <a href=#be-careful-with-root-cas class="">protection of the
+root CA</a>, while letting OpenBao manage the
+intermediate CAs and issuance of leaves. Different intermediates might be
+issued for different usage, such as VPN signing, Email signing, or testing
+versus production TLS services. This helps to keep CRLs limited to specific
+purposes: for example, VPN services don't care about the revoked set of
+email signing certificates if they're using separate certificates and
+different intermediates, and thus don't need both CRL contents. Additionally,
+this allows higher risk intermediates (such as those issuing longer-lived
+email signing certificates) to have HSM-backing without impacting the
+performance of easier-to-rotate intermediates and certificates (such as
+TLS intermediates).</p>
+<p>OpenBao supports the use of both the <a class="" href=/docs/api/secret/pki/#allowed_domains><code>allowed_domains</code> parameter on
+Roles</a> and the <a class="" href=/docs/api/secret/pki/#permitted_dns_domains><code>permitted_dns_domains</code>
+parameter to set the Name Constraints extension</a>
+on root and intermediate generation. This allows for several layers of
+separation of concerns between TLS-based services.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Q9z1" id=cross-signed-intermediates>Cross-Signed intermediates<a href=#cross-signed-intermediates class=hash-link aria-label="Direct link to Cross-Signed intermediates" title="Direct link to Cross-Signed intermediates" translate=no>​</a></h3>
+<p>When cross-signing intermediates from two separate roots, two separate
+intermediate issuers will exist within the OpenBao PKI mount. In order to
+correctly serve the cross-signed chain on issuance requests, the
+<code>manual_chain</code> override is required on either or both intermediates. This
+can be constructed in the following order:</p>
+<ul>
+<li class="">this issuer (<code>self</code>)</li>
+<li class="">this root</li>
+<li class="">the other copy of this intermediate</li>
+<li class="">the other root</li>
+</ul>
+<p>All requests to this issuer for signing will now present the full cross-signed
+chain.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Q9z1" id=cluster-urls-are-important>Cluster URLs are important<a href=#cluster-urls-are-important class=hash-link aria-label="Direct link to Cluster URLs are important" title="Direct link to Cluster URLs are important" translate=no>​</a></h2>
+<p>ACME support uses the same configuration as <a class="" href=/docs/api/secret/pki/#enable_aia_url_templating>templated AIA
+URLs</a>to allow ACME
+clients to discover the URL of this cluster.</p>
+<div class="theme-admonition theme-admonition-warning admonition_wBnh alert alert--warning"><div class=admonitionHeading_kByF><span class=admonitionIcon_jbvL><svg viewBox="0 0 16 16"><path fill-rule=evenodd d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"/></svg></span>warning</div><div class=admonitionContent_FvSw><p><strong>Warning</strong>: It is important to ensure that this configuration is
+up to date and maintained correctly, always pointing to the node's cluster
+address (which may be a Load Balanced or a DNS Round-Robbin address). If this
+configuration is not set on every node, certificate issuance (via REST and/or
+via ACME) will fail.</div></div>
+<h2 class="anchor anchorTargetStickyNavbar_Q9z1" id=automate-rotation-with-acme>Automate rotation with ACME<a href=#automate-rotation-with-acme class=hash-link aria-label="Direct link to Automate rotation with ACME" title="Direct link to Automate rotation with ACME" translate=no>​</a></h2>
+<p>The PKI Engine supports the <a href=https://datatracker.ietf.org/doc/html/rfc8555 target=_blank rel="noopener noreferrer" class="">Automatic Certificate Management Environment
+(ACME)</a> protocol. This is a
+standardized way to handle validation, issuance, rotation, and revocation of
+server certificates.</p>
+<p>Many ecosystems, from web servers like Caddy, Nginx, and Apache, to
+orchestration environments like Kubernetes (via cert-manager) natively
+support issuance via the ACME protocol. For deployments without native
+support, stand-alone tools like certbot support fetching and renewing
+certificates on behalf of consumers. OpenBao's PKI Engine only includes server
+support for ACME; no client functionality has been included.</p>
+<div class="theme-admonition theme-admonition-warning admonition_wBnh alert alert--warning"><div class=admonitionHeading_kByF><span class=admonitionIcon_jbvL><svg viewBox="0 0 16 16"><path fill-rule=evenodd d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"/></svg></span>warning</div><div class=admonitionContent_FvSw><p>Note: OpenBao's PKI ACME server caps the certificate's validity at 90 days
+maximum, regardless of role and/or global limits. Shorter validity
+durations can be set via limiting the role's TTL to be under 90 days.
+Aligning with Let's Encrypt, we do not support the optional <code>NotBefore</code>
+and <code>NotAfter</code> order request parameters.</div></div>
+<h3 class="anchor anchorTargetStickyNavbar_Q9z1" id=acme-stores-certificates>ACME stores certificates<a href=#acme-stores-certificates class=hash-link aria-label="Direct link to ACME stores certificates" title="Direct link to ACME stores certificates" translate=no>​</a></h3>
+<p>Because ACME requires stored certificates in order to function, the notes
+<a href=#automate-crl-building-and-tidying class="">below about automating tidy</a> are
+especially important for the long-term health of the PKI cluster. ACME also
+introduces additional resource types (accounts, orders, authorizations, and
+challenges) that must be tidied via <a class="" href=/docs/api/secret/pki/#tidy>the <code>tidy_acme=true</code>
+option</a>. Orders, authorizations, and
+challenges are <a class="" href=/docs/api/secret/pki/#safety_buffer>cleaned up based on the
+<code>safety_buffer</code></a>
+parameter, but accounts can live longer past their last issued certificate
+by controlling the <a class="" href=/docs/api/secret/pki/#acme_account_safety_buffer><code>acme_account_safety_buffer</code>
+parameter</a>.</p>
+<p>As a consequence of the above, and like the discussions in the <a href=#cluster-scalability class="">Cluster
+Scalability</a> section, because these roles have
+<code>no_store=false</code> set, ACME can only issue certificates on the active nodes
+of PR clusters; standby nodes, if contacted, will transparently forward
+all requests to the active node.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Q9z1" id=acme-role-restrictions-require-eab>ACME role restrictions require EAB<a href=#acme-role-restrictions-require-eab class=hash-link aria-label="Direct link to ACME role restrictions require EAB" title="Direct link to ACME role restrictions require EAB" translate=no>​</a></h3>
+<p>Because ACME by default has no external authorization engine and is
+unauthenticated from an OpenBao perspective, the use of roles with ACME
+in the default configuration are of limited value as any ACME client
+can request certificates under any role by proving possession of the
+requested certificate identifiers.</p>
+<p>To solve this issue, there are two possible approaches:</p>
+<ol>
+<li class="">Use a restrictive <a class="" href=/docs/api/secret/pki/#set-acme-configuration><code>allowed_roles</code>, <code>allowed_issuers</code>, and
+<code>default_directory_policy</code> ACME
+configuration</a>
+to let only a single role and issuer be used. This prevents user
+choice, allowing some global restrictions to be placed on issuance
+and avoids requiring ACME clients to have (at initial setup) access
+to an OpenBao token other mechanism for acquiring an OpenBao EAB ACME token.</li>
+<li class="">Use a more permissive <a class="" href=/docs/api/secret/pki/#eab_policy>configuration with
+<code>eab_policy=always-required</code></a>
+to allow more roles and users to select the roles, but bind ACME clients
+to an OpenBao token which can be suitably ACL'd to particular sets of
+approved ACME directories.</li>
+</ol>
+<p>The choice of approach depends on the policies of the organization wishing
+to use ACME.</p>
+<p>Another consequence of the OpenBao unauthenticated nature of ACME requests
+are that role templating, based on entity information, cannot be used as
+there is no token and thus no entity associated with the request, even when
+EAB binding is used.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Q9z1" id=acme-and-the-public-internet>ACME and the public internet<a href=#acme-and-the-public-internet class=hash-link aria-label="Direct link to ACME and the public internet" title="Direct link to ACME and the public internet" translate=no>​</a></h3>
+<p>Using ACME is possible over the public internet; public CAs like Let's Encrypt
+offer this as a service. Similarly, organizations running internal PKI
+infrastructure might wish to issue server certificates to pieces of
+infrastructure outside of their internal network boundaries, from a publicly
+accessible OpenBao instance. By default, without enforcing a restrictive
+<code>eab_policy</code>, this results in a complicated threat model: <em>any</em> external
+client which can prove possession of a domain can issue a certificate under
+this CA, which might be considered more trusted by this organization.</p>
+<p>As such, we strongly recommend publicly facing OpenBao instances enforce that
+PKI mount operators have required a <a class="" href=/docs/api/secret/pki/#eab_policy>restrictive <code>eab_policy=always-required</code>
+configuration</a>.  System administrators of
+OpenBao instances can enforce this by <a class="" href=/docs/api/secret/pki/#acme-external-account-bindings>setting the
+<code>BAO_DISABLE_PUBLIC_ACME=true</code> environment
+variable</a>.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Q9z1" id=acme-errors-are-in-server-logs>ACME errors are in server logs<a href=#acme-errors-are-in-server-logs class=hash-link aria-label="Direct link to ACME errors are in server logs" title="Direct link to ACME errors are in server logs" translate=no>​</a></h3>
+<p>Because the ACME client is not necessarily trusted (as account registration
+may not be tied to a valid OpenBao token when EAB is not used), many error
+messages end up in the OpenBao server logs out of security necessity. When
+troubleshooting issues with clients requesting certificates, first check
+the client's logs, if any, (e.g., certbot will state the log location on
+errors), and then correlate with OpenBao server logs to identify the failure
+reason.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Q9z1" id=acme-security-considerations>ACME security considerations<a href=#acme-security-considerations class=hash-link aria-label="Direct link to ACME security considerations" title="Direct link to ACME security considerations" translate=no>​</a></h3>
+<p>ACME allows any client to use OpenBao to make some sort of external call;
+while the design of ACME attempts to minimize this scope and will prohibit
+issuance if incorrect servers are contacted, it cannot account for all
+possible remote server implementations. OpenBao's ACME server makes three
+types of requests:</p>
+<ol>
+<li class="">DNS requests for <code>_acme-challenge.&lt;domain></code>, which should be least
+invasive and most safe.</li>
+<li class="">TLS ALPN requests for the <code>acme-tls/1</code> protocol, which should be
+safely handled by the TLS before any application code is invoked.</li>
+<li class="">HTTP requests to <code>http://&lt;domain>/.well-known/acme-challenge/&lt;token></code>,
+which could be problematic based on server design; if all requests,
+regardless of path, are treated the same and assumed to be trusted,
+this could result in OpenBao being used to make (invalid) requests.
+Ideally, any such server implementations should be updated to ignore
+such ACME validation requests or to block access originating from OpenBao
+to this service.</li>
+</ol>
+<p>In all cases, no information about the response presented by the remote
+server is returned to the ACME client.</p>
+<p>When running OpenBao on multiple networks, note that OpenBao's ACME server
+places no restrictions on requesting client/destination identifier
+validations paths; a client could use a HTTP challenge to force OpenBao to
+reach out to a server on a network it could otherwise not access.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Q9z1" id=keep-certificate-lifetimes-short-for-crls-sake>Keep certificate lifetimes short, for CRL's sake<a href=#keep-certificate-lifetimes-short-for-crls-sake class=hash-link aria-label="Direct link to Keep certificate lifetimes short, for CRL's sake" title="Direct link to Keep certificate lifetimes short, for CRL's sake" translate=no>​</a></h2>
+<p>This secrets engine aligns with OpenBao's philosophy of short-lived secrets. As
+such it is not expected that CRLs will grow large; the only place a private key
+is ever returned is to the requesting client (this secrets engine does <em>not</em>
+store generated private keys, except for CA certificates). In most cases, if the
+key is lost, the certificate can simply be ignored, as it will expire shortly.</p>
+<p>If a certificate must truly be revoked, the normal OpenBao revocation function can
+be used, and any revocation action will cause the CRL to be regenerated. When
+the CRL is regenerated, any expired certificates are removed from the CRL (and
+any revoked, expired certificate are removed from secrets engine storage). This
+is an expensive operation! Due to the structure of the CRL standard, OpenBao must
+read <strong>all</strong> revoked certificates into memory in order to rebuild the CRL and
+clients must fetch the regenerated CRL.</p>
+<p>This secrets engine does not support multiple CRL endpoints with sliding date
+windows; often such mechanisms will have the transition point a few days apart,
+but this gets into the expected realm of the actual certificate validity periods
+issued from this secrets engine. A good rule of thumb for this secrets engine
+would be to simply not issue certificates with a validity period greater than
+your maximum comfortable CRL lifetime. Alternately, you can control CRL caching
+behavior on the client to ensure that checks happen more often.</p>
+<p>Often multiple endpoints are used in case a single CRL endpoint is down so that
+clients don't have to figure out what to do with a lack of response. Run OpenBao
+in HA mode, and the CRL endpoint should be available even if a particular node
+is down.</p>
+<div class="theme-admonition theme-admonition-warning admonition_wBnh alert alert--warning"><div class=admonitionHeading_kByF><span class=admonitionIcon_jbvL><svg viewBox="0 0 16 16"><path fill-rule=evenodd d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"/></svg></span>warning</div><div class=admonitionContent_FvSw><p>Note: When using multiple issuers in the same mount point,
+different issuers may have different CRLs (depending on subject and key
+material). This means that OpenBao may need to regenerate multiple CRLs.
+This is again a rationale for keeping TTLs short and avoiding revocation
+if possible.</div></div>
+<div class="theme-admonition theme-admonition-warning admonition_wBnh alert alert--warning"><div class=admonitionHeading_kByF><span class=admonitionIcon_jbvL><svg viewBox="0 0 16 16"><path fill-rule=evenodd d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"/></svg></span>warning</div><div class=admonitionContent_FvSw><p>Note: OpenBao supports two complementary revocation mechanisms: Delta CRLs,
+which allow for rebuilds of smaller, incremental additions to the last
+complete CRL, and OCSP, which allows responding to revocation status requests
+for individual certificates. When coupled with the new CRL auto-rebuild
+functionality, this means that the revoking step isn't as costly (as the CRL
+isn't always rebuilt on each revocation), outside of storage considerations.
+However, while the rebuild operation still can be expensive with lots of
+certificates, it will be done on a schedule rather than on demand.</div></div>
+<h3 class="anchor anchorTargetStickyNavbar_Q9z1" id=notafter-behavior-on-leaf-certificates>NotAfter behavior on leaf certificates<a href=#notafter-behavior-on-leaf-certificates class=hash-link aria-label="Direct link to NotAfter behavior on leaf certificates" title="Direct link to NotAfter behavior on leaf certificates" translate=no>​</a></h3>
+<p>The PKI Secrets Engine supports a <code>leaf_not_after_behavior</code> <a class="" href=/docs/api/secret/pki/#leaf_not_after_behavior>parameter on
+issuers</a>.  This allows
+modification of the issuance behavior: should OpenBao <code>err</code>, preventing issuance
+of a longer-lived leaf cert than issuer, silently <code>truncate</code> to that of the
+issuer's <code>NotAfter</code> value, or <code>permit</code> longer expirations.</p>
+<p>It is strongly suggested to use <code>err</code> or <code>truncate</code> for intermediates;
+<code>permit</code> is only useful for root certificates, as intermediate's NotAfter
+expiration are checked when validating presented chains.</p>
+<p>In combination with a cascading expiration with longer lived roots (perhaps
+on the range of 2-10 years), shorter lived intermediates (perhaps on the
+range of 6 months to 2 years), and short-lived leaf certificates (on the
+range of 30 to 90 days), and the <a class="" href=/docs/secrets/pki/rotation-primitives/>rotation strategies discussed in other
+sections</a>, this should keep the
+CRLs adequately small.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Q9z1" id=cluster-performance-and-quantity-of-leaf-certificates>Cluster performance and quantity of leaf certificates<a href=#cluster-performance-and-quantity-of-leaf-certificates class=hash-link aria-label="Direct link to Cluster performance and quantity of leaf certificates" title="Direct link to Cluster performance and quantity of leaf certificates" translate=no>​</a></h3>
+<p>As mentioned above, keeping TTLs short (or using <code>no_store=true</code>) and avoiding
+leases is important for a healthy cluster. However it is important to note
+this is a scale problem: 10-1000 long-lived, stored certificates are probably
+fine, but 50k-100k become a problem and 500k+ stored, unexpired certificates
+can negatively impact even large OpenBao clusters--even with short TTLs!</p>
+<p>However, once these certificates are expired, a <a class="" href=/docs/api/secret/pki/#tidy>tidy operation</a>
+will clean up CRLs and OpenBao cluster storage.</p>
+<p>Note that organizational risk assessments for certificate compromise might
+mean certain certificate types should always be issued with <code>no_store=false</code>;
+even short-lived broad wildcard certificates (say, <code>*.example.com</code>) might be
+important enough to have precise control over revocation. However, an internal
+service with a well-scoped certificate (say, <code>service.example.com</code>) might be
+of low enough risk to issue a 90-day TTL with <code>no_store=true</code>, preventing
+the need for revocation in the unlikely case of compromise.</p>
+<p>Having a shorter TTL decreases the likelihood of needing to revoke a cert
+(but cannot prevent it entirely) and decrease the impact of any such
+compromise.</p>
+<div class="theme-admonition theme-admonition-warning admonition_wBnh alert alert--warning"><div class=admonitionHeading_kByF><span class=admonitionIcon_jbvL><svg viewBox="0 0 16 16"><path fill-rule=evenodd d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"/></svg></span>warning</div><div class=admonitionContent_FvSw><p>Note: The PKI Secret Engine's <a class="" href=/docs/api/secret/pki/#revoke-certificate>Bring-Your-Own-Cert
+(BYOC)</a> functionality allows
+revocation of certificates not previously stored (e.g., issued via a role
+with <code>no_store=true</code>). This means that setting <code>no_store=true</code> <em>is</em> safe to
+be used globally, regardless of importance of issued certificates (and their
+likelihood for revocation).</div></div>
+<h2 class="anchor anchorTargetStickyNavbar_Q9z1" id=you-must-configure-issuingcrlocsp-information-in-advance>You must configure issuing/CRL/OCSP information <em>in advance</em><a href=#you-must-configure-issuingcrlocsp-information-in-advance class=hash-link aria-label="Direct link to you-must-configure-issuingcrlocsp-information-in-advance" title="Direct link to you-must-configure-issuingcrlocsp-information-in-advance" translate=no>​</a></h2>
+<p>This secrets engine serves CRLs from a predictable location, but it is not
+possible for the secrets engine to know where it is running. Therefore, you must
+configure desired URLs for the issuing certificate, CRL distribution points, and
+OCSP servers manually using the <code>config/urls</code> endpoint. It is supported to have
+more than one of each of these by passing in the multiple URLs as a
+comma-separated string parameter.</p>
+<div class="theme-admonition theme-admonition-warning admonition_wBnh alert alert--warning"><div class=admonitionHeading_kByF><span class=admonitionIcon_jbvL><svg viewBox="0 0 16 16"><path fill-rule=evenodd d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"/></svg></span>warning</div><div class=admonitionContent_FvSw><p>Note: When using multiple issuers in the same mount, it is suggested to use
+the per-issuer AIA fields rather than the global (<code>/config/urls</code>) variant.
+This is for correctness: these fields are used for chain building and
+automatic CRL detection in certain applications. If they point to the wrong
+issuer's information, these applications may break.</div></div>
+<h2 class="anchor anchorTargetStickyNavbar_Q9z1" id=distribution-of-crls-and-ocsp>Distribution of CRLs and OCSP<a href=#distribution-of-crls-and-ocsp class=hash-link aria-label="Direct link to Distribution of CRLs and OCSP" title="Direct link to Distribution of CRLs and OCSP" translate=no>​</a></h2>
+<p>Both CRLs and OCSP allow interrogating revocation status of certificates. Both
+of these methods include internal security and authenticity (both CRLs and
+OCSP responses are signed by the issuing CA within OpenBao). This means both are
+fine to distribute over non-secure and non-authenticated channels, such as
+HTTP.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Q9z1" id=automate-crl-building-and-tidying>Automate CRL building and tidying<a href=#automate-crl-building-and-tidying class=hash-link aria-label="Direct link to Automate CRL building and tidying" title="Direct link to Automate CRL building and tidying" translate=no>​</a></h2>
+<p>The PKI Secrets Engine supports automated CRL rebuilding (including optional
+Delta CRLs which can be built more frequently than complete CRLs) via the
+<code>/config/crl</code> endpoint. Additionally, tidying of revoked and expired
+certificates can be configured automatically via the <code>/config/auto-tidy</code>
+endpoint. Both of these should be enabled to ensure compatibility with the wider
+PKIX ecosystem and performance of the cluster.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Q9z1" id=spectrum-of-revocation-support>Spectrum of revocation support<a href=#spectrum-of-revocation-support class=hash-link aria-label="Direct link to Spectrum of revocation support" title="Direct link to Spectrum of revocation support" translate=no>​</a></h2>
+<p>The PKI secrets engine has the ability to support a spectrum of cluster sizes
+and certificate revocation quantities.</p>
+<p>For users with few revocations or who want a unified view and have the
+inter-cluster bandwidth to support it, we recommend turning on auto
+rebuilding of CRLs, cross-cluster revocation queues, and cross-cluster CRLs.
+This allows all consumers of the CRLs to have the most accurate picture of
+revocations, regardless of which cluster they talk to.</p>
+<p>If the unified CRL becomes too big for the underlying storage mechanism or
+for a single host to build, we recommend relying on OCSP instead of CRLs.
+These have much smaller storage entries, and the CRL <code>disabled</code> flag is
+independent of <code>unified_crls</code>, allowing unified OCSP to remain.</p>
+<p>However, when cross-cluster traffic becomes too high (or if CRLs are still
+necessary in addition to OCSP), we recommend sharding the CRL between
+different clusters. This has been the default behavior of OpenBao, but with
+the introduction of per-cluster, templated AIA information, the leaf
+certificate's Authority Information Access (AIA) info will point directly
+to the cluster which issued it, allowing the correct CRL for this cert to
+be identified by the application. This more correctly mimics the behavior
+of <a href=https://letsencrypt.org/2022/09/07/new-life-for-crls.html target=_blank rel="noopener noreferrer" class="">Let's Encrypt's CRL sharding</a>.</p>
+<p>This sharding behavior can also be used for OCSP, if the cross-cluster
+traffic for revocation entries becomes too high.</p>
+<p>For users who wish to manage revocation manually, using the audit logs to
+track certificate issuance would allow an external system to identify which
+certificates were issued. These can be manually tracked for revocation, and
+a <a class="" href=/docs/api/secret/pki/#combine-crls-from-the-same-issuer>custom CRL can be built</a>
+using externally tracked revocations. This would allow usage of roles set to
+<code>no_store=true</code>, so OpenBao is strictly used as an issuing authority and isn't
+storing any certificates, issued or revoked. For the highest of revocation
+volumes, this could be the best option.</p>
+<p>Notably, this last approach can either be used for the creation of externally
+stored unified or sharded CRLs. If a single external unified CRL becomes
+unreasonably large, each cluster's certificates could have AIA info point
+to an externally stored and maintained, sharded CRL. However,
+OpenBao has no mechanism to sign OCSP requests at this time.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Q9z1" id=automate-leaf-certificate-renewal>Automate leaf certificate renewal<a href=#automate-leaf-certificate-renewal class=hash-link aria-label="Direct link to Automate leaf certificate renewal" title="Direct link to Automate leaf certificate renewal" translate=no>​</a></h2>
+<p>To manage certificates for services at scale, it is best to automate the
+certificate renewal as much as possible. OpenBao Agent <a class="" href=/docs/agent-and-proxy/agent/template/#certificates>has support for
+automatically renewing requested certificates</a>
+based on the <code>validTo</code> field. Other solutions might involve using
+<a href=https://cert-manager.io/ target=_blank rel="noopener noreferrer" class="">cert-manager</a> in Kubernetes or OpenShift, backed
+by the OpenBao CA.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Q9z1" id=safe-minimums>Safe minimums<a href=#safe-minimums class=hash-link aria-label="Direct link to Safe minimums" title="Direct link to Safe minimums" translate=no>​</a></h2>
+<p>Since its inception, this secrets engine has enforced SHA256 for signature
+hashes rather than SHA1. A minimum of 2048 bits for RSA keys is also enforced.
+Software that can handle SHA256 signatures should also be able to handle
+2048-bit keys, and 1024-bit keys are considered unsafe and are disallowed in the
+Internet PKI.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Q9z1" id=token-lifetimes-and-revocation>Token lifetimes and revocation<a href=#token-lifetimes-and-revocation class=hash-link aria-label="Direct link to Token lifetimes and revocation" title="Direct link to Token lifetimes and revocation" translate=no>​</a></h2>
+<p>When a token expires, it revokes all leases associated with it. This means that
+long-lived CA certs need correspondingly long-lived tokens, something that is
+easy to forget. Root and intermediate CA certs don't have associated leases, to
+prevent unintended revocation when not using a token with a long enough
+lifetime. To revoke these certificates, use the <code>pki/revoke</code> endpoint.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Q9z1" id=safe-usage-of-roles>Safe usage of roles<a href=#safe-usage-of-roles class=hash-link aria-label="Direct link to Safe usage of roles" title="Direct link to Safe usage of roles" translate=no>​</a></h2>
+<p>The OpenBao PKI Secrets Engine supports many options to limit issuance via
+<a class="" href=/docs/api/secret/pki/#createupdate-role>Roles</a>.
+Careful consideration of construction is necessary to ensure that more
+permissions are not given than necessary. Additionally, roles should generally
+do <em>one</em> thing; multiple roles should be preferable over having too permissive
+roles that allow arbitrary issuance (e.g., <code>allow_any_name</code> should generally
+be used sparingly, if at all).</p>
+<ul>
+<li class=""><code>allow_any_name</code> should generally be set to <code>false</code>; this is the default.</li>
+<li class=""><code>allow_localhost</code> should generally be set to <code>false</code> for production
+services, unless listening on <code>localhost</code> is expected.</li>
+<li class="">Unless necessary, <code>allow_wildcard_certificates</code> should generally be set to
+<code>false</code>. This is <strong>not</strong> the default due to backwards compatibility
+concerns.<!-- -->
+<ul>
+<li class="">This is especially necessary when <code>allow_subdomains</code> or <code>allow_glob_domains</code>
+are enabled.</li>
+</ul>
+</li>
+<li class=""><code>enforce_hostnames</code> should generally be enabled for TLS services; this is
+the default.</li>
+<li class=""><code>allow_ip_sans</code> should generally be set to <code>false</code> (but defaults to <code>true</code>),
+unless IP address certificates are explicitly required.</li>
+<li class="">When using short TTLs (&lt; 30 days) or with high issuance volume, it is
+generally recommend to set <code>no_store</code> to <code>true</code> (defaults to <code>false</code>).
+This prevents revocation but allows higher throughput as OpenBao no longer
+needs to store every issued certificate.</li>
+<li class="">Do not use roles with root certificates (<code>issuer_ref</code>). Root certificates
+should generally only issue intermediates (see the section on <a href=#use-a-ca-hierarchy class="">CA hierarchy
+above</a>), which doesn't rely on roles.</li>
+<li class="">Limit <code>key_usage</code> and <code>ext_key_usage</code>; don't attempt to allow all usages
+for all purposes. Generally the default values are useful for client and
+server TLS authentication.</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Q9z1" id=telemetry>Telemetry<a href=#telemetry class=hash-link aria-label="Direct link to Telemetry" title="Direct link to Telemetry" translate=no>​</a></h2>
+<p>Beyond OpenBao's default telemetry around request processing, PKI exposes count and
+duration metrics for the issue, sign, sign-verbatim, and revoke calls. The
+metrics keys take the form <code>mount-path,operation,[failure]</code> with labels for
+namespace and role name.</p>
+<p>Note that these metrics are per-node and thus would need to be aggregated across
+nodes and clusters.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Q9z1" id=auditing>Auditing<a href=#auditing class=hash-link aria-label="Direct link to Auditing" title="Direct link to Auditing" translate=no>​</a></h2>
+<p>Because OpenBao HMACs audit string keys by default, it is necessary to tune
+PKI secrets mounts to get an accurate view of issuance that is occurring under
+this mount.</p>
+<div class="theme-admonition theme-admonition-warning admonition_wBnh alert alert--warning"><div class=admonitionHeading_kByF><span class=admonitionIcon_jbvL><svg viewBox="0 0 16 16"><path fill-rule=evenodd d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"/></svg></span>warning</div><div class=admonitionContent_FvSw><p>Note: Depending on usage of OpenBao, CRLs (and rarely, CA chains) can grow to
+be rather large. We don't recommend un-HMACing the <code>crl</code> field for this
+reason, but note that the recommendations below suggest to un-HMAC the
+<code>certificate</code> response parameter, which the CRL can be served in via
+the <code>/pki/cert/crl</code> API endpoint. Additionally, the <code>http_raw_body</code> can
+be used to return CRL both in PEM and raw binary DER form, so it is
+suggested not to un-HMAC that field to not corrupt the log format.<br/><br/>
+If this is done with only a <a class="" href=/docs/audit/syslog/>syslog</a> audit device,
+OpenBao can deny requests (with an opaque <code>500 Internal Error</code> message)
+after the action has been performed on the server, because it was
+unable to log the message.<br/><br/>
+The suggested workaround is to either leave the <code>certificate</code> and <code>crl</code>
+response fields HMACed and/or to also enable the <a class="" href=/docs/audit/file/><code>file</code></a>
+audit log type.</div></div>
+<p>Some suggested keys to un-HMAC for requests are as follows:</p>
+<ul>
+<li class=""><code>csr</code> - the requested CSR to sign,</li>
+<li class=""><code>certificate</code> - the requested self-signed certificate to re-sign or
+when importing issuers,</li>
+<li class="">Various issuance-related overriding parameters, such as:<!-- -->
+<ul>
+<li class=""><code>issuer_ref</code> - the issuer requested to sign this certificate,</li>
+<li class=""><code>common_name</code> - the requested common name,</li>
+<li class=""><code>alt_names</code> - alternative requested DNS-type SANs for this certificate,</li>
+<li class=""><code>other_sans</code> - other (non-DNS, non-Email, non-IP, non-URI) requested SANs for this certificate,</li>
+<li class=""><code>ip_sans</code> - requested IP-type SANs for this certificate,</li>
+<li class=""><code>uri_sans</code> - requested URI-type SANs for this certificate,</li>
+<li class=""><code>ttl</code> - requested expiration date of this certificate,</li>
+<li class=""><code>not_after</code> - requested expiration date of this certificate,</li>
+<li class=""><code>serial_number</code> - the subject's requested serial number,</li>
+<li class=""><code>key_type</code> - the requested key type,</li>
+<li class=""><code>private_key_format</code> - the requested key format which is also
+used for the public certificate format as well,</li>
+</ul>
+</li>
+<li class="">Various role- or issuer-related generation parameters, such as:<!-- -->
+<ul>
+<li class=""><code>ou</code> - the subject's organizational unit,</li>
+<li class=""><code>organization</code> - the subject's organization,</li>
+<li class=""><code>country</code> - the subject's country code,</li>
+<li class=""><code>locality</code> - the subject's locality,</li>
+<li class=""><code>province</code> - the subject's province,</li>
+<li class=""><code>street_address</code> - the subject's street address,</li>
+<li class=""><code>postal_code</code> - the subject's postal code,</li>
+<li class=""><code>permitted_dns_domains</code> - permitted DNS domains,</li>
+<li class=""><code>policy_identifiers</code> - the requested policy identifiers when creating a role, and</li>
+<li class=""><code>ext_key_usage_oids</code> - the extended key usage OIDs for the requested certificate.</li>
+</ul>
+</li>
+</ul>
+<p>Some suggested keys to un-HMAC for responses are as follows:</p>
+<ul>
+<li class=""><code>certificate</code> - the certificate that was issued,</li>
+<li class=""><code>issuing_ca</code> - the certificate of the CA which issued the requested
+certificate,</li>
+<li class=""><code>serial_number</code> - the serial number of the certificate that was issued,</li>
+<li class=""><code>error</code> - to show errors associated with the request, and</li>
+<li class=""><code>ca_chain</code> - optional due to noise; the full CA chain of the issuer of
+the requested certificate.</li>
+</ul>
+<div class="theme-admonition theme-admonition-warning admonition_wBnh alert alert--warning"><div class=admonitionHeading_kByF><span class=admonitionIcon_jbvL><svg viewBox="0 0 16 16"><path fill-rule=evenodd d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"/></svg></span>warning</div><div class=admonitionContent_FvSw><p>Note: These list of parameters to un-HMAC are provided as a suggestion and
+may not be exhaustive.</div></div>
+<p>The following keys are suggested <strong>NOT</strong> to un-HMAC, due to their sensitive
+nature:</p>
+<ul>
+<li class=""><code>private_key</code> - this response parameter contains the private keys
+generated by OpenBao during issuance, and</li>
+<li class=""><code>pem_bundle</code> this request parameter is only used on the issuer-import
+paths and may contain sensitive private key material.</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Q9z1" id=role-based-access>Role-Based access<a href=#role-based-access class=hash-link aria-label="Direct link to Role-Based access" title="Direct link to Role-Based access" translate=no>​</a></h2>
+<p>The following is a condensed example reference of ACLing the PKI Secrets
+Engine. These are just a suggestion; other personas and policy approaches
+may also be valid.</p>
+<p>We suggest the following personas:</p>
+<ul>
+<li class=""><em>Operator</em>;  a privileged user who manages the health of the PKI
+subsystem; manages issuers and key material.</li>
+<li class=""><em>Agent</em>; a semi-privileged user that manages roles and handles
+revocation on behalf of an operator; may also handle delegated
+issuance. This may also be called an <em>administrator</em> or <em>role
+manager</em>.</li>
+<li class=""><em>Advanced</em>; potentially a power-user or service that has access to
+additional issuance APIs.</li>
+<li class=""><em>Requester</em>; a low-level user or service that simply requests certificates.</li>
+<li class=""><em>Unauthed</em>; any arbitrary user or service that lacks an OpenBao token.</li>
+</ul>
+<p>For these personas, we suggest the following ACLs, in condensed, tabular form:</p>
+<table><thead><tr><th style=text-align:left>Path<th style=text-align:left>Operations<th style=text-align:left>Operator<th style=text-align:left>Agent<th style=text-align:left>Advanced<th style=text-align:left>Requester<th style=text-align:left>Unauthed<tbody><tr><td style=text-align:left><code>/ca(/pem)?</code><td style=text-align:left>Read<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left>Yes<tr><td style=text-align:left><code>/ca_chain</code><td style=text-align:left>Read<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left>Yes<tr><td style=text-align:left><code>/crl(/pem)?</code><td style=text-align:left>Read<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left>Yes<tr><td style=text-align:left><code>/crl/delta(/pem)?</code><td style=text-align:left>Read<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left>Yes<tr><td style=text-align:left><code>/cert/:serial(/raw(/pem)?)?</code><td style=text-align:left>Read<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left>Yes<tr><td style=text-align:left><code>/issuers</code><td style=text-align:left>List<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left>Yes<tr><td style=text-align:left><code>/issuer/:issuer_ref/(json¦der¦pem)</code><td style=text-align:left>Read<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left>Yes<tr><td style=text-align:left><code>/issuer/:issuer_ref/crl(/der¦/pem)?</code><td style=text-align:left>Read<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left>Yes<tr><td style=text-align:left><code>/issuer/:issuer_ref/crl/delta(/der¦/pem)?</code><td style=text-align:left>Read<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left>Yes<tr><td style=text-align:left><code>/ocsp/&lt;request></code><td style=text-align:left>Read<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left>Yes<tr><td style=text-align:left><code>/ocsp</code><td style=text-align:left>Write<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left>Yes<tr><td style=text-align:left><code>/certs</code><td style=text-align:left>List<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left><tr><td style=text-align:left><code>/revoke-with-key</code><td style=text-align:left>Write<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left><tr><td style=text-align:left><code>/roles</code><td style=text-align:left>List<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left><tr><td style=text-align:left><code>/roles/:role</code><td style=text-align:left>Read<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left><tr><td style=text-align:left><code>/(issue¦sign)/:role</code><td style=text-align:left>Write<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left><tr><td style=text-align:left><code>/issuer/:issuer_ref/(issue¦sign)/:role</code><td style=text-align:left>Write<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left><td style=text-align:left><tr><td style=text-align:left><code>/config/auto-tidy</code><td style=text-align:left>Read<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left><td style=text-align:left><td style=text-align:left><tr><td style=text-align:left><code>/config/ca</code><td style=text-align:left>Read<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left><td style=text-align:left><td style=text-align:left><tr><td style=text-align:left><code>/config/crl</code><td style=text-align:left>Read<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left><td style=text-align:left><td style=text-align:left><tr><td style=text-align:left><code>/config/issuers</code><td style=text-align:left>Read<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left><td style=text-align:left><td style=text-align:left><tr><td style=text-align:left><code>/crl/rotate</code><td style=text-align:left>Read<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left><td style=text-align:left><td style=text-align:left><tr><td style=text-align:left><code>/crl/rotate-delta</code><td style=text-align:left>Read<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left><td style=text-align:left><td style=text-align:left><tr><td style=text-align:left><code>/roles/:role</code><td style=text-align:left>Write<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left><td style=text-align:left><td style=text-align:left><tr><td style=text-align:left><code>/issuer/:issuer_ref</code><td style=text-align:left>Read<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left><td style=text-align:left><td style=text-align:left><tr><td style=text-align:left><code>/sign-verbatim(/:role)?</code><td style=text-align:left>Write<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left><td style=text-align:left><td style=text-align:left><tr><td style=text-align:left><code>/issuer/:issuer_ref/sign-verbatim(/:role)?</code><td style=text-align:left>Write<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left><td style=text-align:left><td style=text-align:left><tr><td style=text-align:left><code>/revoke</code><td style=text-align:left>Write<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left><td style=text-align:left><td style=text-align:left><tr><td style=text-align:left><code>/tidy</code><td style=text-align:left>Write<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left><td style=text-align:left><td style=text-align:left><tr><td style=text-align:left><code>/tidy-cancel</code><td style=text-align:left>Write<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left><td style=text-align:left><td style=text-align:left><tr><td style=text-align:left><code>/tidy-status</code><td style=text-align:left>Read<td style=text-align:left>Yes<td style=text-align:left>Yes<td style=text-align:left><td style=text-align:left><td style=text-align:left><tr><td style=text-align:left><code>/config/auto-tidy</code><td style=text-align:left>Write<td style=text-align:left>Yes<td style=text-align:left><td style=text-align:left><td style=text-align:left><td style=text-align:left><tr><td style=text-align:left><code>/config/ca</code><td style=text-align:left>Write<td style=text-align:left>Yes<td style=text-align:left><td style=text-align:left><td style=text-align:left><td style=text-align:left><tr><td style=text-align:left><code>/config/crl</code><td style=text-align:left>Write<td style=text-align:left>Yes<td style=text-align:left><td style=text-align:left><td style=text-align:left><td style=text-align:left><tr><td style=text-align:left><code>/config/issuers</code><td style=text-align:left>Write<td style=text-align:left>Yes<td style=text-align:left><td style=text-align:left><td style=text-align:left><td style=text-align:left><tr><td style=text-align:left><code>/config/keys</code><td style=text-align:left>Read, Write<td style=text-align:left>Yes<td style=text-align:left><td style=text-align:left><td style=text-align:left><td style=text-align:left><tr><td style=text-align:left><code>/config/urls</code><td style=text-align:left>Read, Write<td style=text-align:left>Yes<td style=text-align:left><td style=text-align:left><td style=text-align:left><td style=text-align:left><tr><td style=text-align:left><code>/issuer/:issuer_ref</code><td style=text-align:left>Write<td style=text-align:left>Yes<td style=text-align:left><td style=text-align:left><td style=text-align:left><td style=text-align:left><tr><td style=text-align:left><code>/issuer/:issuer_ref/revoke</code><td style=text-align:left>Write<td style=text-align:left>Yes<td style=text-align:left><td style=text-align:left><td style=text-align:left><td style=text-align:left><tr><td style=text-align:left><code>/issuer/:issuer_ref/sign-intermediate</code><td style=text-align:left>Write<td style=text-align:left>Yes<td style=text-align:left><td style=text-align:left><td style=text-align:left><td style=text-align:left><tr><td style=text-align:left><code>/issuer/issuer_ref/sign-self-issued</code><td style=text-align:left>Write<td style=text-align:left>Yes<td style=text-align:left><td style=text-align:left><td style=text-align:left><td style=text-align:left><tr><td style=text-align:left><code>/issuers/generate/+/+</code><td style=text-align:left>Write<td style=text-align:left>Yes<td style=text-align:left><td style=text-align:left><td style=text-align:left><td style=text-align:left><tr><td style=text-align:left><code>/issuers/import/+</code><td style=text-align:left>Write<td style=text-align:left>Yes<td style=text-align:left><td style=text-align:left><td style=text-align:left><td style=text-align:left><tr><td style=text-align:left><code>/intermediate/generate/+</code><td style=text-align:left>Write<td style=text-align:left>Yes<td style=text-align:left><td style=text-align:left><td style=text-align:left><td style=text-align:left><tr><td style=text-align:left><code>/intermediate/cross-sign</code><td style=text-align:left>Write<td style=text-align:left>Yes<td style=text-align:left><td style=text-align:left><td style=text-align:left><td style=text-align:left><tr><td style=text-align:left><code>/intermediate/set-signed</code><td style=text-align:left>Write<td style=text-align:left>Yes<td style=text-align:left><td style=text-align:left><td style=text-align:left><td style=text-align:left><tr><td style=text-align:left><code>/keys</code><td style=text-align:left>List<td style=text-align:left>Yes<td style=text-align:left><td style=text-align:left><td style=text-align:left><td style=text-align:left><tr><td style=text-align:left><code>/key/:key_ref</code><td style=text-align:left>Read, Write<td style=text-align:left>Yes<td style=text-align:left><td style=text-align:left><td style=text-align:left><td style=text-align:left><tr><td style=text-align:left><code>/keys/generate/+</code><td style=text-align:left>Write<td style=text-align:left>Yes<td style=text-align:left><td style=text-align:left><td style=text-align:left><td style=text-align:left><tr><td style=text-align:left><code>/keys/import</code><td style=text-align:left>Write<td style=text-align:left>Yes<td style=text-align:left><td style=text-align:left><td style=text-align:left><td style=text-align:left><tr><td style=text-align:left><code>/root/generate/+</code><td style=text-align:left>Write<td style=text-align:left>Yes<td style=text-align:left><td style=text-align:left><td style=text-align:left><td style=text-align:left><tr><td style=text-align:left><code>/root/sign-intermediate</code><td style=text-align:left>Write<td style=text-align:left>Yes<td style=text-align:left><td style=text-align:left><td style=text-align:left><td style=text-align:left><tr><td style=text-align:left><code>/root/sign-self-issued</code><td style=text-align:left>Write<td style=text-align:left>Yes<td style=text-align:left><td style=text-align:left><td style=text-align:left><td style=text-align:left><tr><td style=text-align:left><code>/root/rotate/+</code><td style=text-align:left>Write<td style=text-align:left>Yes<td style=text-align:left><td style=text-align:left><td style=text-align:left><td style=text-align:left><tr><td style=text-align:left><code>/root/replace</code><td style=text-align:left>Write<td style=text-align:left>Yes<td style=text-align:left><td style=text-align:left><td style=text-align:left><td style=text-align:left></table>
+<h2 class="anchor anchorTargetStickyNavbar_Q9z1" id=cluster-scalability>Cluster scalability<a href=#cluster-scalability class=hash-link aria-label="Direct link to Cluster scalability" title="Direct link to Cluster scalability" translate=no>​</a></h2>
+<p>Most non-introspection operations in the PKI secrets engine require a write to
+storage, and so are forwarded to the cluster's active node for execution.
+This table outlines which operations can be executed on performance standby nodes
+and thus scale horizontally across all nodes within a cluster.</p>
+<table><thead><tr><th>Path<th>Operations<tbody><tr><td>ca[/pem]<td>Read<tr><td>cert/<em>serial-number</em><td>Read<tr><td>cert/ca_chain<td>Read<tr><td>config/crl<td>Read<tr><td>certs<td>List<tr><td>ca_chain<td>Read<tr><td>crl[/pem]<td>Read<tr><td>issue<td>Update <sup>*</sup><tr><td>revoke/<em>serial-number</em><td>Read<tr><td>sign<td>Update <sup>*</sup><tr><td>sign-verbatim<td>Update <sup>*</sup></table>
+<p>* Only if the corresponding role has <code>no_store</code> set to true and <code>generate_lease</code>
+set to false. If <code>generate_lease</code> is true the lease creation will be forwarded to
+the active node; if <code>no_store</code> is false the entire request will be forwarded to
+the active node.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Q9z1" id=pss-support>PSS support<a href=#pss-support class=hash-link aria-label="Direct link to PSS support" title="Direct link to PSS support" translate=no>​</a></h2>
+<p>As of OpenBao v2.7, most places where CSRs, CRLs, or certificates are signed
+with PSS should be compatible.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Q9z1" id=ocsp>OCSP<a href=#ocsp class=hash-link aria-label="Direct link to OCSP" title="Direct link to OCSP" translate=no>​</a></h2>
+<p>Go lacks support for creating OCSP responses with the PSS signature algorithm
+or when the key type is ML-DSA. OpenBao will automatically downgrade issuers
+with PSS-based revocation signature algorithms to PKCS#1v1.5, but note that
+certain KMS devices (like HSMs and GCP) may not support this with the same
+key. As a result, the OCSP responder may fail to sign responses, returning an
+internal error. This will occur with ML-DSA typed issuing certificates as
+well.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Q9z1" id=api>API<a href=#api class=hash-link aria-label="Direct link to API" title="Direct link to API" translate=no>​</a></h2>
+<p>The PKI secrets engine has a full HTTP API. Please see the
+<a class="" href=/docs/api/secret/pki/>PKI secrets engine API</a> for more
+details.</div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_Ux_x"><a href=https://github.com/openbao/openbao/blob/release/2.7.x/website/content/docs/secrets/pki/considerations.mdx target=_blank rel="noopener noreferrer" class=theme-edit-this-page><svg fill=currentColor height=20 width=20 viewBox="0 0 40 40" class=iconEdit_AstY aria-hidden=true><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"/></g></svg>Edit this page</a></div><div class="col lastUpdated_iH3B"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href=/docs/secrets/pki/quick-start-cel/><div class=pagination-nav__sublabel>Previous</div><div class=pagination-nav__label>Quick Start - CEL in PKI</div></a><a class="pagination-nav__link pagination-nav__link--next" href=/docs/secrets/pki/troubleshooting-acme/><div class=pagination-nav__sublabel>Next</div><div class=pagination-nav__label>Troubleshooting ACME integration</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_a7mw thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href=#table-of-contents class="table-of-contents__link toc-highlight">Table of contents</a><li><a href=#be-careful-with-root-cas class="table-of-contents__link toc-highlight">Be careful with root CAs</a><li><a href=#one-ca-certificate-one-secrets-engine class="table-of-contents__link toc-highlight">One CA certificate, one secrets engine</a><ul><li><a href=#always-configure-a-default-issuer class="table-of-contents__link toc-highlight">Always configure a default issuer</a></ul><li><a href=#key-types-matter class="table-of-contents__link toc-highlight">Key types matter</a><ul><li><a href=#cluster-performance-and-key-type class="table-of-contents__link toc-highlight">Cluster performance and key type</a></ul><li><a href=#use-a-ca-hierarchy class="table-of-contents__link toc-highlight">Use a CA hierarchy</a><ul><li><a href=#cross-signed-intermediates class="table-of-contents__link toc-highlight">Cross-Signed intermediates</a></ul><li><a href=#cluster-urls-are-important class="table-of-contents__link toc-highlight">Cluster URLs are important</a><li><a href=#automate-rotation-with-acme class="table-of-contents__link toc-highlight">Automate rotation with ACME</a><ul><li><a href=#acme-stores-certificates class="table-of-contents__link toc-highlight">ACME stores certificates</a><li><a href=#acme-role-restrictions-require-eab class="table-of-contents__link toc-highlight">ACME role restrictions require EAB</a><li><a href=#acme-and-the-public-internet class="table-of-contents__link toc-highlight">ACME and the public internet</a><li><a href=#acme-errors-are-in-server-logs class="table-of-contents__link toc-highlight">ACME errors are in server logs</a><li><a href=#acme-security-considerations class="table-of-contents__link toc-highlight">ACME security considerations</a></ul><li><a href=#keep-certificate-lifetimes-short-for-crls-sake class="table-of-contents__link toc-highlight">Keep certificate lifetimes short, for CRL's sake</a><ul><li><a href=#notafter-behavior-on-leaf-certificates class="table-of-contents__link toc-highlight">NotAfter behavior on leaf certificates</a><li><a href=#cluster-performance-and-quantity-of-leaf-certificates class="table-of-contents__link toc-highlight">Cluster performance and quantity of leaf certificates</a></ul><li><a href=#you-must-configure-issuingcrlocsp-information-in-advance class="table-of-contents__link toc-highlight">You must configure issuing/CRL/OCSP information <em>in advance</em></a><li><a href=#distribution-of-crls-and-ocsp class="table-of-contents__link toc-highlight">Distribution of CRLs and OCSP</a><li><a href=#automate-crl-building-and-tidying class="table-of-contents__link toc-highlight">Automate CRL building and tidying</a><li><a href=#spectrum-of-revocation-support class="table-of-contents__link toc-highlight">Spectrum of revocation support</a><li><a href=#automate-leaf-certificate-renewal class="table-of-contents__link toc-highlight">Automate leaf certificate renewal</a><li><a href=#safe-minimums class="table-of-contents__link toc-highlight">Safe minimums</a><li><a href=#token-lifetimes-and-revocation class="table-of-contents__link toc-highlight">Token lifetimes and revocation</a><li><a href=#safe-usage-of-roles class="table-of-contents__link toc-highlight">Safe usage of roles</a><li><a href=#telemetry class="table-of-contents__link toc-highlight">Telemetry</a><li><a href=#auditing class="table-of-contents__link toc-highlight">Auditing</a><li><a href=#role-based-access class="table-of-contents__link toc-highlight">Role-Based access</a><li><a href=#cluster-scalability class="table-of-contents__link toc-highlight">Cluster scalability</a><li><a href=#pss-support class="table-of-contents__link toc-highlight">PSS support</a><li><a href=#ocsp class="table-of-contents__link toc-highlight">OCSP</a><li><a href=#api class="table-of-contents__link toc-highlight">API</a></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer"><div class="container container-fluid"><div class="footer__bottom text--center"><div class=footer__copyright>Copyright © 2026 OpenBao a Series of LF Projects, LLC <br> For web site terms of use, trademark policy and other project policies please see <a href=https://lfprojects.org>lfprojects.org</a>. <br>  OpenBao is a <a href=https://openssf.org/projects/openbao/>Sandbox project</a> at <a href=https://openssf.org/><img src=/img/openssf-logo.svg alt="OpenSSF Logo" width=90px></a>. <br><br>Follow us on social media:<br> <a href=https://linkedin.com/company/openbao target=_blank>LinkedIn</a> | <a href=https://bsky.app/profile/openbao-official.bsky.social target=_blank>Bluesky</a> | <a href=https://www.youtube.com/@OpenBao target=_blank>YouTube</a> | <a href=https://www.instagram.com/openbao.official/ target=_blank>Instagram</a> | <a href=https://www.threads.com/@openbao.official target=_blank>Threads</a> | <a href=https://github.com/openbao/openbao target=_blank>GitHub</a> <br><br><a href=/sitemap.xml>Sitemap</a></div></div></div></footer></div></body>

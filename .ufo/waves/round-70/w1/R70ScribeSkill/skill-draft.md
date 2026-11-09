@@ -197,9 +197,10 @@ act on; they are not lane text.
   36 unresolved lines are the lane's inherited set (a scratch-tree run reports far more only
   because a `git archive` extraction carries none of the untracked wave artifacts — that count is
   an artefact of the measurement, not of lane state). One exception is in the L1's hands: the
-  round-70 **SCORECARD capability row** cites `.ufo/waves/round-70/final/` as a *directory*, and
-  the citations gate reads that token as `UNRESOLVED` — the pointer must name a **file**
-  (`.ufo/waves/round-70/final/c1-candidate.txt`), not the directory.
+  round-70 **SCORECARD capability row** cites `.ufo/waves/round-70/final/` as a directory. On a
+  `git archive` extraction that lacked the tracked directory the citations gate read it as
+  `UNRESOLVED`; at HEAD the directory is tracked and no round-70 token is `UNRESOLVED`, so no
+  change is owed.
 - **The L1's working-tree edits make seven stamp rows STALE.** `bash corpus/claim-ledger.sh verify`
   on the live tree reads `STALE corpus/QUALITY.md sha=497a67ec2cdc->b823b5f2d9f3 lines=338->339
   bytes=82317->83506`, and the same for `corpus/README.md`, `corpus/source-fetches.tsv`,

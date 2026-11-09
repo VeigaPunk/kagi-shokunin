@@ -137,6 +137,20 @@ error. S105 is unchanged. Mined as M70-1.
   0 on the landed tree; R70Sentinel's squatter fixture (`R70Sentinel/fake_bao3.py`) is the
   falsifier for the pid check.
 
+- **M70-7 — the integration harm diff read only FAIL/POLICY/SETUP lines of `claim-ledger.sh
+  verify` and missed eight STALE stamp lines.** class: verification scope. evidence: the first
+  comparison (`.ufo/waves/round-70/final/claim-ledger-verify-vs-base.txt`, empty diff) filtered
+  `^(FAIL|POLICY|SETUP)`; the same landed-tree receipt
+  (`.ufo/waves/round-70/final/claim-ledger-verify-landed.txt`) carries eight `STALE` lines
+  (QUALITY.md, README.md, source-fetches.tsv, SOURCES.md, LOG.md, PROVINCE.md, SCORECARD.md,
+  SKILL.md) that BASE does not; R70ScribeSkill SS-10 named them. captured-by: SS-10 (a late seat
+  finding), not the L1's own check. fix: the eight rows re-pinned in `corpus/stamps.tsv` before the
+  receipts commit, and the harm diff now compares every verdict class
+  (`grep -E '^(FAIL|POLICY|SETUP|STALE|MISSING|NOT-A-FILE)'`, receipt
+  `.ufo/waves/round-70/final/stamps-recheck.txt`). shown able to fail: the widened grep over the
+  landed-tree receipt prints the eight STALE lines; over the re-pinned tree the stamp recompute
+  prints none.
+
 ## Wave findings — dispositions
 
 | seat | findings | disposition |
@@ -152,7 +166,7 @@ error. S105 is unchanged. Mined as M70-1.
 | R70ScribeLesson | SL-1…SL-7 neutral | M70-2…M70-4 and QM101 landed from the draft |
 | R70ExecGates | GX-1, GX-2, GX-3 falsifies-number; GX-4, GX-5 neutral | GX-1: entry, trial, counter and runner pinned in `corpus/stamps.tsv` (README count 173 → 177); `claim-ledger.sh docs` CLEAN (entries=50 row_linked=47 by_hand=3). GX-2: S170/S171 registry `recheck` `on-release` → `180d` (the same cadence as S115–S117; the entry's own `recheck:` line stays on-release) — `plans/round-36-c3.sh` CLEAN (on_release=32 bound=32). GX-3: R36-01 re-measured at BASE and on the landed tree (report). GX-4: this lesson now exists |
 | R70Sentinel | SE-1 falsifies-number; SE-2, SE-3 falsifies-wording; SE-4…SE-6 neutral | SE-1/SE-2/SE-4: trial launch hardened (M70-6). SE-3: NOSECRET reads output streams only — stated as such in the report; the trial's scratch is `umask 077` and removed on exit. SE-5: the f5 receipt masking stays disclosed (`controls/receipts/README.txt`). SE-6: a rare port collision is now retried by the kernel-chosen port + pid check |
-| R70ScribeSkill | SS-1…SS-10 neutral | SS-1/SS-2: stamps + README re-pin (above). SS-3: the SKILL/PROVINCE "164 stamps" figures are inherited staleness (self-counts stale=4 at BASE and after) — carried, not claimed. SS-4/SS-5: plan Amendment A2 + `[C1]` row; `claims-declared.sh` adds no mismatch for round 70. SS-7: placeholder capture paths replaced. SS-8: four SKILL.md decision rows landed, measured facts only |
+| R70ScribeSkill | SS-1…SS-15 neutral (final report rewritten after settlement; SS-10 = eight STALE stamps, M70-7) | SS-1/SS-2/SS-10: stamps + README re-pin (above; SS-10 is M70-7). SS-4: S170/S171 recheck `180d` (as GX-2). SS-3: the SKILL/PROVINCE "164 stamps" figures are inherited staleness (self-counts stale=4 at BASE and after) — carried, not claimed. SS-5/SS-6: plan Amendment A2 + `[C1]` row; `claims-declared.sh` adds no mismatch for round 70. SS-9: placeholder capture paths replaced. SS-13: four SKILL.md decision rows landed, measured facts only |
 
 Registry change after the candidate (logged old → new): S170 `recheck` `on-release` → `180d`;
 S171 `recheck` `on-release` → `180d` (GX-2: an `on-release` row must carry a bound clock in

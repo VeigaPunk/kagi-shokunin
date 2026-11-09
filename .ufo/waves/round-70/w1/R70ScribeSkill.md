@@ -11,6 +11,20 @@ vault-ops decision-table rows, corpus/README.md coverage-map line, SCORECARD.md 
 row), every sentence traced to the entry's §Measured section, plus integration notes for the L1
 that are measured rather than asserted.
 
+**State at the time of writing (updated after the L1's integration commit `ba8c730`).** The L1
+landed its own drafts of all four surfaces while this seat was measuring. Comparing them with
+this seat's drafts clause by clause, the two agree on **every** measured fact (the T1–T5 wording,
+the ≤ 3660 s bound, the `r70.test` synthetic-name scope, the counter verdict string, the BASE
+reading, first-working round 70). The L1's SKILL.md rows are four PKI-custody rows in the same
+table with the same four intents; its PROVINCE.md bullet, its README coverage row and its
+SCORECARD capability row carry the same content. This seat's draft is therefore an **independent
+restatement**, not an addition — the L1's wording is already landed. The measured integration
+notes below were checked against the landed tree: the two gate defects this seat measured
+(unpinned stamp rows; the unbound release clock) were **already repaired by the L1** at `ba8c730`
+before this seat could report them, and the notes are kept as the measurements that show the
+repair landed (`DOC_AUDIT: CLEAN … unpinned=0`, `RELEASE_CLOCK: CLEAN (on_release=32 bound=32
+unbound=0 …)`). The two items this seat had flagged as open (SS-9, SS-11) are closed at HEAD: the lesson carries no `S17x` token, and the `final/` directory is tracked with no round-70 token reading UNRESOLVED in `corpus/claim-ledger.sh citations` (`CITATION_GATE: BROKEN … unresolved=36`, none round-70).
+
 ## What was drafted
 
 1. **PROVINCE.md** — one `**Core, round 70 — OpenBao PKI certificate lifecycle, executed:**`
@@ -155,6 +169,27 @@ All measured by this seat, read-only, in scratch copies of the lane tree.
   reviewed re-pin the stale expectation needs plus the two new stamp rows. The other FAIL rows
   (R21-02, R22-03, R24-05, R24-06, R24-15, R25-02, R31-02, R33-02, R34-03 and the rest) are
   present at BASE too; the QM12 substitute applies to the host-touching rows.
+- **The candidate introduces a release-clock regression that turns the `R36-03` ledger row
+  red — the one gate regression this seat measured that the candidate introduces.** `bash
+  plans/round-36-c3.sh` at BASE (`git archive` extraction of `7bd34832`) reads `RELEASE_CLOCK:
+  CLEAN (on_release=32 bound=32 unbound=0 observed=32 fired=14 derived=17)`; at the candidate
+  (`0d225553`) the same command reads `UNBOUND S170` / `UNBOUND S171` and `RELEASE_CLOCK: FAILED
+  (on_release=34 bound=32 unbound=2 observed=32 fired=14 derived=17)`. Mechanism, read from
+  `corpus/release-clock.py:559-583`: a `SOURCES.md` row whose `recheck` cell is `on-release` must
+  have a matching row in `corpus/release-clocks.tsv`; S170 and S171 carry `on-release` (field 11 of
+  each row) but **neither has a clock row** — the table has 33 lines and no `S170`/`S171` row — so
+  both read UNBOUND. Because `corpus/claim-ledger.tsv` row `R36-03` runs that command and expects
+  `RELEASE_CLOCK: CLEAN`, the row reads `FAIL R36-03 reason=exit-mismatch exit=1 want=0` on the
+  candidate and on the live tree, while it is **not** FAIL at BASE: the clean re-run of `verify`
+  on fresh BASE and candidate extractions gives `BASE FAIL count: 20`, `CAND FAIL count: 21`, with
+  `R36-03` the single added row. The lane's own QUALITY **QM63** names this exact requirement:
+  "A landing that adds a registry row runs the release-clock gate (`bash plans/round-36-c3.sh`,
+  ledger R36-03) on its candidate tree: an `on-release` row needs a bound release clock in the same
+  commit, otherwise its cadence is a dated `NNd`." Two in-contract fixes are open to the L1: bind a
+  release clock for S170/S171 in `corpus/release-clocks.tsv`, or change the two `recheck` cells from
+  `on-release` to a dated cadence. **Leaving it as-is lands a red ledger row.** The sibling gate
+  `python3 -I -B corpus/recheck-replay.py` is unaffected: `RECHECK_REPLAY: CLEAN (clocks=10 match=10
+  mismatch=0 no_capture=0 bad_capture=0 unsupported=0 tool=0)` on both BASE and the candidate.
 - **The `claim-ledger.sh cells` gate is red at BASE too and the round-70 section adds nothing to
   it.** The live tree exits 2 with `claim-ledger: scorecard section '## Round 69 — pre-move (repo
   `264917a`, round-68 spot-check tip)' does not carry all six axes exactly once (found=0
@@ -247,18 +282,19 @@ exist, and the plan forbids re-interpreting them).
 
 
 
-FINDING SS-1 neutral the knowledge entry and the new trial have no rows in corpus/stamps.tsv, so `claim-ledger.sh docs` reads DOC_AUDIT: BROKEN unpinned=1 on the working tree while it reads CLEAN at BASE 7bd34832
-FINDING SS-2 neutral adding one or two stamp rows moves the live stamp count to 174 or 175 and makes the README's bound "Revision stamps (data) 173 rows" sentence STALE, so the L1 must re-pin it through a journal
-FINDING SS-3 neutral the SKILL.md and PROVINCE.md "164 stamps" figures are already stale against the live 173 at BASE, so that gap is inherited debt and not a round-70 move
-FINDING SS-4 neutral corpus/claims-declared.sh reads "MISMATCH 70 C1 plan-heading-not-coverage" unless the plan carries the contract's "## C1 — coverage:" heading form alongside the manifest row, and the working tree's Amendment A2 supplies it
-FINDING SS-5 neutral the round-70 SCORECARD post-move row must be tagged [C1] with coverage as its first cell; the round-69 spelling "[C1, missed]" is what makes the gate report tagged-rows-0 at BASE
-FINDING SS-6 neutral the self-description sweep's SD5 and SD8 counts are identical at BASE and on the working tree; its SD6 count is not comparable across the two trees because an archive extraction carries none of the untracked .ufo/waves artifacts
-FINDING SS-7 neutral the claim-ledger cells gate is red at BASE with the same message set after normalising line numbers, so the round-70 post-move section adds no cells-gate message
-FINDING SS-8 neutral the round-70 lesson cites the placeholder path .ufo/waves/round-70/capture/S17x.body, which resolves to nothing; the committed captures are S170.body, S171.body and S172.body
-FINDING SS-9 neutral the candidate commit leaves two stamp rows stale on its own (corpus/SOURCES.md and corpus/source-fetches.tsv, three rows added each without a re-pin) and the L1's working-tree edits leave five more
-FINDING SS-10 neutral the round-70 SCORECARD capability row cites the directory .ufo/waves/round-70/final/ and the citations gate reads a directory token as UNRESOLVED, so the pointer must name the file c1-candidate.txt
-FINDING SS-11 neutral claim-ledger.sh verify reads the same FAIL rows at BASE and on the live tree; only R14-01 changes reason, from a stale expectation (verdict-not-final) to a broken docs gate (exit-mismatch, exit 1) because of this round's unpinned entry
-FINDING SS-12 neutral the drafted SKILL.md rows cite the entry path on every row and omit the two operator-consequence claims the entry itself marks as inference
-FINDING SS-13 neutral this seat drafted the same four surfaces the L1 has already drafted uncommitted, and the two versions agree on every measured fact but differ in phrasing and in the entry-path citations
-FINDING SS-14 neutral no tool was installed or upgraded by this seat and no dev server was started, so no tool record and no server kill are owed
+FINDING SS-1 neutral the knowledge entry and the new trial had no rows in corpus/stamps.tsv on the candidate, so `claim-ledger.sh docs` read DOC_AUDIT: BROKEN unpinned=1 there while it reads CLEAN at BASE 7bd34832; the L1 repaired it at ba8c730 and the landed tree reads DOC_AUDIT: CLEAN unpinned=0
+FINDING SS-2 neutral adding stamp rows moves the live stamp count and makes the README's bound "Revision stamps (data)" sentence stale, so the L1 must re-pin it through a journal; measured one row to 174 and two to 175, and the landed tree's README now reads 177 rows matching the live 177
+FINDING SS-3 neutral the SKILL.md and PROVINCE.md "164 stamps" figures are stale against the live count at BASE and at HEAD (177), so that gap is inherited debt and not a round-70 move
+FINDING SS-4 neutral the candidate added S170/S171 with an on-release recheck cell but no rows in corpus/release-clocks.tsv, so plans/round-36-c3.sh read RELEASE_CLOCK: FAILED unbound=2 there and CLEAN at BASE, turning ledger row R36-03 red (QUALITY QM63); the L1 repaired it by re-cading both to 180d and HEAD reads RELEASE_CLOCK: CLEAN unbound=0
+FINDING SS-5 neutral corpus/claims-declared.sh reads "MISMATCH 70 C1 plan-heading-not-coverage" unless the plan carries the contract's "## C1 — coverage:" heading form alongside the manifest row; HEAD carries both and the gate reads only the two inherited round-69 mismatches
+FINDING SS-6 neutral the round-70 SCORECARD post-move row must be tagged [C1] with coverage as its first cell; HEAD does so, and the round-69 spelling "[C1, missed]" is what makes the gate report tagged-rows-0 for round 69 at BASE
+FINDING SS-7 neutral the self-description sweep's SD5 and SD8 counts are identical at BASE and on the working tree; its SD6 count is not comparable across the two trees because an archive extraction carries none of the untracked .ufo/waves artifacts
+FINDING SS-8 neutral the claim-ledger cells gate is red at BASE with the same message set after normalising line numbers, so the round-70 post-move section adds no cells-gate message
+FINDING SS-9 neutral the round-70 lesson cited the placeholder path .ufo/waves/round-70/capture/S17x.body on the candidate; HEAD carries no S17x token and the captures are S170.body, S171.body and S172.body
+FINDING SS-10 neutral the candidate commit left two stamp rows stale on its own (corpus/SOURCES.md and corpus/source-fetches.tsv, three rows added each without a re-pin) and the L1's working-tree edits left five more; HEAD re-pins them
+FINDING SS-11 neutral the directory pointer .ufo/waves/round-70/final/ read as UNRESOLVED only on a git-archive extraction that lacked the tracked directory; at HEAD the directory is tracked and no round-70 token is UNRESOLVED, so the pointer-to-file advice is not needed and the cell may stay as written
+FINDING SS-12 neutral claim-ledger.sh verify reads the same FAIL rows at BASE and at HEAD, and R14-01's reason changed only while the entry was unpinned (verdict-not-final to exit-mismatch), which the stamp repair reverted
+FINDING SS-13 neutral the drafted SKILL.md rows cite the entry path on every row and omit the two operator-consequence claims the entry itself marks as inference; HEAD's landed rows carry the same entry path and the same exclusions
+FINDING SS-14 neutral this seat drafted the same four surfaces the L1 drafted and landed at ba8c730, and the two versions agree on every measured fact but differ in phrasing and in the entry-path citations
+FINDING SS-15 neutral no tool was installed or upgraded by this seat and no dev server was started, so no tool record and no server kill are owed
 SEAT-STATUS: complete

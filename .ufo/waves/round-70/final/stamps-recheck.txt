@@ -1,0 +1,38 @@
+## widened verdict grep over the ba8c7305 landed-tree verify receipt (M70-7)
+$ grep -E "^(FAIL|POLICY|SETUP|STALE|MISSING |NOT-A-FILE)" claim-ledger-verify-landed.txt | cut -d" " -f1-2 | sort | uniq -c | sort -rn | head
+      1 STALE corpus/source-fetches.tsv
+      1 STALE corpus/SOURCES.md
+      1 STALE corpus/README.md
+      1 STALE corpus/QUALITY.md
+      1 STALE SKILL.md
+      1 STALE SCORECARD.md
+      1 STALE PROVINCE.md
+      1 STALE LOG.md
+      1 POLICY R62-04
+      1 POLICY R57-01
+      1 POLICY R38-03
+      1 POLICY R29-02
+      1 POLICY R29-01
+      1 FAIL R68-01
+      1 FAIL R64-01
+      1 FAIL R62-06
+      1 FAIL R62-03
+      1 FAIL R62-01
+      1 FAIL R58-01
+      1 FAIL R36-01
+      1 FAIL R34-03
+      1 FAIL R33-02
+      1 FAIL R31-02
+      1 FAIL R25-02
+      1 FAIL R24-15
+      1 FAIL R24-06
+      1 FAIL R24-05
+      1 FAIL R22-03
+      1 FAIL R21-02
+      1 FAIL R14-01
+      1 FAIL R13-01
+      1 FAIL R12-03
+      1 FAIL R11-08
+## BASE (R70ExecGates base receipt) STALE lines:
+0
+## re-pinned working tree, stamp recompute (sha256/lines/bytes per corpus/stamps.tsv row): STAMP_RECOMPUTE stale=0

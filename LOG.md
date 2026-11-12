@@ -2349,3 +2349,16 @@ Correction (round 69): the line above prints `C1_VERIFIED_SELFTEST: PASS (59 cas
   appending (QM101 existed; QM103 + `dup-supersede.sh` shown able to fail 1/3/1); M72-2 a frozen
   pre-move sentence false against the gate (repeat of M71-3); M72-3 integration duties named but
   missing at the candidate; M72-4 plan under-specified for a replica.
+
+## 2026-11-12 — Publish reviewed curation batch
+
+Published 6 original, source-linked reading candidates. Independent review covered exact note bytes, source/provenance, rights and public safety. The primary sources linked in each note motivate these additions:
+
+- `considerthese/2026-11-09-webauthn-backup-counter.md` — SHA-256 `039cefb45466ae7df50aaaae86db150edafdfcf20af09aadceb0dbb1116c517a`.
+- `considerthese/2026-11-09-hpke-authentication-limits.md` — SHA-256 `b1467622b2d4f52b1e23a5c924e1fe58f96f0503885d11f9e6d3617597de5f17`.
+- `considerthese/2026-11-10-versioned-username-comparison.md` — SHA-256 `b9749f52cfbdcd43ffe652753e654784f8b719d1e38a007590131696d68e5a9b`.
+- `considerthese/2026-11-11-response-request-binding.md` — SHA-256 `dd69058bce9204e5a5cf31e04ef716c21307f4a826b35b8ea8943c9590ef2f64`.
+- `considerthese/2026-11-11-cookie-port-boundary.md` — SHA-256 `0c6e7a2f9e4e7bb10403b62b2a90e5d4d001257447253069d9fc9da5a5b97b60`.
+- `considerthese/2026-11-11-random-readiness-nonblocking.md` — SHA-256 `dccbec7accedb43af0ec27b9eec1eb4fe17dae77b8f383cf3e2ef7426d5f3083`.
+
+Preparation-stage statements (including held/candidate or no-repository-change wording) in the preserved notes describe their original saves; this entry records subsequent publication. These remain reading candidates, not admitted knowledge. This batch performs no training, assimilation, implementation experiment or capability promotion. It includes no third-party source snapshots, private-held notes or private review records.

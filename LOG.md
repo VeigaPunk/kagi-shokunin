@@ -2362,3 +2362,10 @@ Published 6 original, source-linked reading candidates. Independent review cover
 - `considerthese/2026-11-11-random-readiness-nonblocking.md` — SHA-256 `dccbec7accedb43af0ec27b9eec1eb4fe17dae77b8f383cf3e2ef7426d5f3083`.
 
 Preparation-stage statements (including held/candidate or no-repository-change wording) in the preserved notes describe their original saves; this entry records subsequent publication. These remain reading candidates, not admitted knowledge. This batch performs no training, assimilation, implementation experiment or capability promotion. It includes no third-party source snapshots, private-held notes or private review records.
+
+
+## 2026-11-12: publish reviewed curation notes
+
+Published 1 independently reviewed original reading note(s) from the saved curation copies. The note text and source/rights boundaries are preserved exactly; any preparation-time statement such as Space hold, no repository change, or unperformed exercises describes the original note preparation. This entry records publication only, not source-code reuse, capability admission, training, or assimilation. No private receipts or source captures are included.
+
+- `considerthese/2026-11-12-workload-identity-and-revocation.md`: source `Shokunin-Kagi-Workload-Identity-and-Revocation-2026-11-12.md`; SHA-256 `9d45529c2580d3d1ff889396b97d48ef91544948a65e29f62dbb01727834c5e9`.
